@@ -62,6 +62,25 @@ public final class FileUtil {
         return new String(getContentAsBytes(file), encoding);
     }
 
+    public static void writeStringAsFile(File file, String content) throws IOException {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
+        if (content == null) {
+            throw new NullPointerException("content == null");
+        }
+
+        FileOutputStream fos = null;
+
+        try {
+            fos = new FileOutputStream(file);
+            fos.write(content.getBytes());
+        } finally {
+            close(fos);
+        }
+    }
+
     /**
      * Calls {@link #getContentAsString(java.io.File, java.lang.String)}.
      *

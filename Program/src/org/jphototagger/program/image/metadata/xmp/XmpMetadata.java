@@ -16,6 +16,7 @@ import org.jphototagger.lib.image.metadata.xmp.XmpFileReader;
 import org.jphototagger.lib.io.FileLock;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.cache.EmbeddedXmpCache;
 import org.jphototagger.program.data.Xmp;
 import org.jphototagger.program.database.metadata.Column;
 import org.jphototagger.program.database.metadata.mapping.IptcEntryXmpPathStartMapping;
@@ -115,7 +116,7 @@ public final class XmpMetadata {
      * @return          Metadata or null if the image file has no XMP metadata
      *                  or on errors while reading
      */
-    public static List<XMPPropertyInfo> getEmbeddedPropertyInfos(File imageFile) {
+    static List<XMPPropertyInfo> getEmbeddedPropertyInfos(File imageFile) {
         if ((imageFile == null) ||!imageFile.exists()) {
             return null;
         }
@@ -139,12 +140,17 @@ public final class XmpMetadata {
         return getPropertyInfosOfXmpString(getXmpAsStringOfSidecarFile(sidecarFile));
     }
 
-    private static List<XMPPropertyInfo> getPropertyInfosOfXmpString(String xmp) {
+    /**
+     * 
+     * @param xmpAsString can be null
+     * @return
+     */
+    public static List<XMPPropertyInfo> getPropertyInfosOfXmpString(String xmpAsString) {
         List<XMPPropertyInfo> propertyInfos = new ArrayList<XMPPropertyInfo>();
 
         try {
-            if ((xmp != null) && (xmp.length() > 0)) {
-                XMPMeta xmpMeta = XMPMetaFactory.parseFromString(xmp);
+            if ((xmpAsString != null) && (xmpAsString.length() > 0)) {
+                XMPMeta xmpMeta = XMPMetaFactory.parseFromString(xmpAsString);
 
                 if (xmpMeta != null) {
                     addXmpPropertyInfosTo(xmpMeta, propertyInfos);
@@ -240,7 +246,12 @@ public final class XmpMetadata {
         return null;
     }
 
-    private static String getEmbeddedXmpAsString(File imageFile) {
+    /**
+     * 
+     * @param  imageFile can be null
+     * @return           may be null
+     */
+    public static String getEmbeddedXmpAsString(File imageFile) {
         if ((imageFile == null) ||!imageFile.exists()) {
             return null;
         }
@@ -251,7 +262,7 @@ public final class XmpMetadata {
         return XmpFileReader.readFile(imageFile);
     }
 
-    private static String getXmpAsStringOfSidecarFile(File sidecarFile) throws IOException {
+    public static String getXmpAsStringOfSidecarFile(File sidecarFile) throws IOException {
         if ((sidecarFile == null) ||!sidecarFile.exists()) {
             return null;
         }
@@ -558,7 +569,7 @@ public final class XmpMetadata {
             throw new NullPointerException("imageFile == null");
         }
 
-        String xmpString = getEmbeddedXmpAsString(imageFile);
+        String xmpString = EmbeddedXmpCache.INSTANCE.getCachedXmp(imageFile);
 
         return (xmpString == null)
                ? null
