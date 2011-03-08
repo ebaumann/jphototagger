@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.SwingUtilities;
+import org.jphototagger.program.cache.CacheFileUtil;
 
 /**
  * Initializes the application.
@@ -59,6 +60,7 @@ public final class AppInit {
         checkJavaVersion();
         lock();
         showSplashScreen();
+        CacheFileUtil.ensureCacheDirectoriesExists();
         AppDatabase.init();
         SplashScreen.INSTANCE.setProgress(75);
         AbstractImageReader.install(ImageProperties.class);

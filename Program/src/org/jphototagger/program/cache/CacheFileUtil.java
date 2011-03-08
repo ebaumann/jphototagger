@@ -14,7 +14,11 @@ import org.jphototagger.program.app.AppLogger;
  *
  * @author Elmar Baumann
  */
-final class CacheFileUtil {
+final public class CacheFileUtil {
+
+    public static void ensureCacheDirectoriesExists() {
+        ExifCache.ensureCacheDiretoryExists();
+    }
 
     /**
      * Computes a MD5 hash from a fully canonicalized filename.
