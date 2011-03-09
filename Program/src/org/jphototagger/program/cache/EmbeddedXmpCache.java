@@ -170,9 +170,10 @@ public final class EmbeddedXmpCache extends DatabaseImageFilesListenerAdapter {
         return XmpMetadata.getPropertyInfosOfXmpString(xmpAsString);
     }
 
-    public void ensureCacheDiretoryExists() {
+    void ensureCacheDiretoryExists() {
         if (!CACHE_DIR.isDirectory()) {
             try {
+                LOGGER.log(Level.INFO, "Creating cache directory ''{0}''", CACHE_DIR);
                 FileUtil.ensureDirectoryExists(CACHE_DIR);
             } catch (Throwable ex) {
                 AppLogger.logSevere(EmbeddedXmpCache.class, ex);

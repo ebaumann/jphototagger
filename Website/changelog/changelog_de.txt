@@ -3,11 +3,19 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
-0.8.60 2011-03-09
+0.8.61 2011-03-09
+-----------------
+* Sollen eingebettete IPTC-Daten gelesen werden, wird gespeichert, ob eine
+  Datei kein eingebettetes IPTC enthält und aus dieser wird IPTC zukünftig
+  nicht mehr gelesen, sofern sich deren Datum der letzten Änderung nicht
+  erneuerte. Somit wird bei späterer Auswahl vermieden, dass Dateien ohne IPTC
+  zeitaufwändig nach IPTC durchsucht werden.
+
+0.8.60 2011-03-08
 -----------------
 * Das Einfügen von Vorlagen sollte wieder funktionieren
 
-0.8.59 2011-03-09
+0.8.59 2011-03-08
 -----------------
 * EXIF-Daten einmal gelesener Bilder werden für die Anzeige zwischengespeichert.
   Dies sollte die Anzeige der EXIF-Daten großer Bilddateien nach erneuter
