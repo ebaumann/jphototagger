@@ -273,8 +273,6 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
         }
 
         if (!isEditable()) {
-            assert false;
-
             return;
         }
 
@@ -296,8 +294,6 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
 
             textEntry.setText(text);
             textEntry.setDirty(true);
-        } else {
-            assert false : panelAdd;
         }
 
         checkSaveOnChanges();
@@ -313,8 +309,6 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
         }
 
         if (!isEditable()) {
-            assert false;
-
             return;
         }
 
@@ -336,8 +330,6 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
 
             textEntry.setText("");
             textEntry.setDirty(true);
-        } else {
-            assert false;
         }
 
         checkSaveOnChanges();
@@ -379,8 +371,6 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
                 } catch (Exception ex) {
                     AppLogger.logSevere(getClass(), ex);
                 }
-            } else {
-                assert false : "Unknown panel type: " + panel;
             }
         }
 
@@ -400,8 +390,6 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
         }
 
         if (!isEditable()) {
-            assert false;
-
             return;
         }
 
@@ -423,8 +411,6 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
                     Collection<?> collection = (Collection<?>) value;
 
                     for (Object o : collection) {
-                        assert o != null;
-
                         // addText() would set the dirty flag
                         p.addText(o.toString());
                     }
@@ -439,8 +425,6 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
                     p.setText(Long.toString(rating));
                     p.setDirty(true);
                 }
-            } else {
-                assert false : "Unknown panel type: " + panel;
             }
         }
 
@@ -458,8 +442,6 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
         }
 
         if (!isEditable()) {
-            assert false;
-
             return;
         }
 
