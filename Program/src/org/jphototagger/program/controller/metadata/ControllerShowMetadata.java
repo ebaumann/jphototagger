@@ -317,9 +317,9 @@ public final class ControllerShowMetadata implements DatabaseImageFilesListener,
             appPanel.getLabelMetadataFilename().setText(file.getName() + (XmpMetadata.hasImageASidecarFile(file)
                     ? ""
                     : JptBundle.INSTANCE.getString("ControllerShowMetadata.Embedded")));
+            WaitDisplay.hide();
             resizeMetadataTables(metadata);
             repaintMetadataTables(metadata);
-            WaitDisplay.hide();
         }
 
         private void resizeMetadataTables(Set<Metadata> metadata) {
