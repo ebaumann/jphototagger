@@ -15,9 +15,7 @@
       button. If the action source performed an action, the controller verifies,
       whether the action is valid and does something.
 
-      <p>
-      To do something, for re-usability, a controller invokes other classes. The
-      action code should not be implemented in the controller itself so that it
+      <p>The action code should not be implemented in the controller itself so that it
       can be used in other contexts.
 
       <h2>How to write a controller</h2>
@@ -63,53 +61,5 @@
           maybe the preferred method.
       </p>
 
-      <h2>Alternative concept: Java Action and Action / Input Maps</h2>
-
-      <p>In <strong>Java</strong>, instances implementing an action ({@link javax.swing.Action})
-          can put into the <strong>action map</strong> ({@link javax.swing.ActionMap})
-          of a component ({@link javax.swing.JComponent}).
-      </p>
-      <p>Advantage: For key events You can assign an action with the component's
-          <strong>input map</strong> ({@link javax.swing.InputMap}) and must not implement a
-          key listener. To use that action in a menu or button You have to
-          write code: Getting the component's action via the action map and
-          add it as listener to the menu or button, e.g. as parameter in their
-          constructors.
-      </p>
-      <p>The disadvantage is, You have to define <strong>unique</strong> action
-          keys for the action map. Commonly strings are used as key. I did not test that,
-          but I think, it's better to use the Action's class object. That
-          should be possible, because the key can be every object, and it avoids
-          defining the same keys for different actions.
-      </p>
-
-      <h2>Alternative concept: NetBeans platform</h2>
-
-      <p>The <a href="http://www.netbeans.org">NetBeans</a> platform has actions
-          in it's so called <strong>System Filesystem</strong>: A hierarchical
-          directory structure where the files of a directory can be every Java
-          object. The platform automatically assigns actions of special folders
-          to the main menu or the toolbar. But that shall not be the main topic
-          here: Actions &quot;know&quot; when they are enabled and get the
-          needed content with the same mechanism: The so called <strong>Lookup</strong>.
-      </p>
-
-      <p>The Lookup is itself a map with classes as key and objects of that class
-          as value. An action connects with the lookup and whenever the lookup
-          contains objects of interest or not, the action will be notified and
-          can enable (objects available) or disable (no object available) itself.
-      </p>
-
-      <p>So are two working steps cleared: When to enable und how to get the
-          content. If in NetBeans a tree item is selected, it's reprensenting
-          objects are put into the lookup, the actions, which can act with these
-          objects, are enabled and having access to the objects. Without the
-          platform You have to write code for enabling / disabling the actions
-          and code for retrieving the objects to act on.
-      </p>
-
-      <p>In a future version a lookup in <strong>JPhotoTagger</strong> maybe
-          implemented.
-      </p>
   </body>
 </html>
