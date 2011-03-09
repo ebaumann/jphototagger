@@ -5,13 +5,13 @@ import org.jphototagger.program.image.metadata.iptc.IptcEntry;
 import org.jphototagger.program.image.metadata.iptc.IptcEntryComparator;
 import org.jphototagger.program.image.metadata.iptc.IptcMetadata;
 import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.UserSettings;
 
 import java.io.File;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import org.jphototagger.program.cache.IptcIgnoreCache;
 
 /**
  * All elements are {@link IptcEntry}s of <em>one</em> image file retrieved
@@ -39,12 +39,13 @@ public final class TableModelIptc extends TableModelExt {
             throw new NullPointerException("file == null");
         }
 
-        if (!UserSettings.INSTANCE.isDisplayIptc()) {
+        if (IptcIgnoreCache.INSTANCE.isIgnore(file)) {
             return;
         }
 
         this.file = file;
         iptcEntries = IptcMetadata.getIptcEntries(file);
+        IptcIgnoreCache.INSTANCE.setIgnore(file, iptcEntries.isEmpty());
         removeAllRows();
         addRows();
     }

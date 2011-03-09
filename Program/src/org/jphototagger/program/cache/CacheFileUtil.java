@@ -20,6 +20,7 @@ final public class CacheFileUtil {
     public static void ensureCacheDirectoriesExists() {
         ExifCache.INSTANCE.ensureCacheDiretoryExists();
         EmbeddedXmpCache.INSTANCE.ensureCacheDiretoryExists();
+        IptcIgnoreCache.INSTANCE.ensureCacheDiretoryExists();
     }
 
     /**
