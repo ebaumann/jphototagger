@@ -498,8 +498,6 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
         }
 
         if (!isEditable()) {
-            assert false;
-
             return;
         }
 
@@ -516,8 +514,10 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
                 }
             } else if (value instanceof Collection<?>) {
                 @SuppressWarnings("unchecked") Collection<String> strings = (Collection<String>) value;
+                EditRepeatableTextEntryPanel repeatableTextEntry = (EditRepeatableTextEntryPanel) textEntry;
 
-                ((EditRepeatableTextEntryPanel) textEntry).setText(strings);
+                repeatableTextEntry.setText(strings);
+                repeatableTextEntry.setDirty(true);
             }
         }
     }
