@@ -3,6 +3,15 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.8.62 2011-03-10
+-----------------
+* Bugfix: Nach Hinzufügen neuer Programme können diese sofort aufgerufen werden
+  aus dem Kontextmenü der Vorschaubilder
+* Ist noch kein Programm definiert, das Bilder öffnen kann, erscheint bei
+  Doppelklick auf ein Bild oder bei Auswahl von "Öffnen" über das Kontextmenü
+  der Vorschaubilder ein Hinweis und anschließend wird der Einstellungen-Dialog
+  angezeigt, mit dem Programme zum Öffnen von Bildern definiert werden können
+
 0.8.61 2011-03-09
 -----------------
 * Sollen eingebettete IPTC-Daten gelesen werden, wird gespeichert, ob eine
