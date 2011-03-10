@@ -1,6 +1,7 @@
 package org.jphototagger.program.controller.programs;
 
 import org.jphototagger.lib.componentutil.ComponentUtil;
+import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.helper.StartPrograms;
@@ -27,12 +28,12 @@ public final class ControllerOpenFilesWithStandardApp implements ActionListener 
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        if (checkOpenAppIsDefined()) {
-            openFiles();
+        if (isOpenAppDefined(true)) {
+            openSelectedFiles();
         }
     }
 
-    private void openFiles() {
+    public static void openSelectedFiles() {
         ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
         if (!tnPanel.isFileSelected()) {
@@ -46,16 +47,18 @@ public final class ControllerOpenFilesWithStandardApp implements ActionListener 
         }
     }
 
-    private boolean checkOpenAppIsDefined() {
-        if (DatabasePrograms.INSTANCE.getDefaultImageOpenProgram() == null) {
+    public static boolean isOpenAppDefined(boolean displayDefineDialog) {
+        boolean appIsDefined = DatabasePrograms.INSTANCE.getDefaultImageOpenProgram() != null;
+
+        if (!appIsDefined && displayDefineDialog) {
+            MessageDisplayer.information(null, "ControllerOpenFilesWithStandardApp.Info.DefineOpenApp");
+
             SettingsDialog dlg = SettingsDialog.INSTANCE;
 
             dlg.selectTab(SettingsDialog.Tab.PROGRAMS);
             ComponentUtil.show(dlg);
-
-            return false;
         }
 
-        return true;
+        return appIsDefined;
     }
 }

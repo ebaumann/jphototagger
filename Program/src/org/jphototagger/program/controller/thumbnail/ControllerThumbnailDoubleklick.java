@@ -1,5 +1,6 @@
 package org.jphototagger.program.controller.thumbnail;
 
+import org.jphototagger.program.controller.programs.ControllerOpenFilesWithStandardApp;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.helper.StartPrograms;
@@ -25,15 +26,17 @@ public final class ControllerThumbnailDoubleklick {
     }
 
     public void doubleClickAtIndex(int index) {
-        openImage(index);
+        openImageAtIndex(index);
     }
 
-    private void openImage(int index) {
+    private void openImageAtIndex(int index) {
         if (panel.isIndex(index)) {
-            Program program = DatabasePrograms.INSTANCE.getDefaultImageOpenProgram();
+            if (ControllerOpenFilesWithStandardApp.isOpenAppDefined(true)) {
+                Program program = DatabasePrograms.INSTANCE.getDefaultImageOpenProgram();
 
-            if (program != null) {
-                new StartPrograms(null).startProgram(program, Arrays.asList(panel.getFile(index)));
+                if (program != null) {
+                    new StartPrograms(null).startProgram(program, Arrays.asList(panel.getFile(index)));
+                }
             }
         }
     }

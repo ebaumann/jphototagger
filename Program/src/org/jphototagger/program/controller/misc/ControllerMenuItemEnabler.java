@@ -1,8 +1,5 @@
 package org.jphototagger.program.controller.misc;
 
-import org.jphototagger.program.data.Program;
-import org.jphototagger.program.database.DatabasePrograms;
-import org.jphototagger.program.event.listener.DatabaseProgramsListener;
 import org.jphototagger.program.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.types.Content;
@@ -25,10 +22,8 @@ import javax.swing.JMenuItem;
  *
  * @author Elmar Baumann
  */
-public final class ControllerMenuItemEnabler
-        implements DatabaseProgramsListener, ThumbnailsPanelListener, PopupMenuListener {
-    private final Map<JMenuItem, List<Content>> contentsOfItemsRequiresSelImages = new HashMap<JMenuItem,
-                                                                                       List<Content>>();
+public final class ControllerMenuItemEnabler implements ThumbnailsPanelListener, PopupMenuListener {
+    private final Map<JMenuItem, List<Content>> contentsOfItemsRequiresSelImages = new HashMap<JMenuItem, List<Content>>();
     private final List<JMenuItem> itemsRequiresSelImages = new ArrayList<JMenuItem>();
 
     public ControllerMenuItemEnabler() {
@@ -38,7 +33,6 @@ public final class ControllerMenuItemEnabler
 
     private void listen() {
         GUI.getThumbnailsPanel().addThumbnailsPanelListener(this);
-        DatabasePrograms.INSTANCE.addListener(this);
         PopupMenuThumbnails.INSTANCE.addPopupMenuListener(this);
     }
 
@@ -100,12 +94,8 @@ public final class ControllerMenuItemEnabler
                     item.setEnabled(fileSelected && contentsOfItemsRequiresSelImages.get(item).contains(content));
                 }
 
-                PopupMenuThumbnails.INSTANCE.getItemOpenFilesWithStandardApp().setEnabled(fileSelected
-                        && (DatabasePrograms.INSTANCE.getDefaultImageOpenProgram() != null));
-
-                boolean hasProgram = DatabasePrograms.INSTANCE.hasProgram();
-
-                PopupMenuThumbnails.INSTANCE.getMenuPrograms().setEnabled(fileSelected && hasProgram);
+                PopupMenuThumbnails.INSTANCE.getItemOpenFilesWithStandardApp().setEnabled(fileSelected);
+                PopupMenuThumbnails.INSTANCE.getMenuPrograms().setEnabled(fileSelected);
             }
         });
     }
@@ -147,39 +137,5 @@ public final class ControllerMenuItemEnabler
     public void popupMenuCanceled(PopupMenuEvent evt) {
 
         // ignore
-    }
-
-    private void setEnabledProgramsMenu() {
-        setEnabled();
-    }
-
-    @Override
-    public void programDeleted(Program program) {
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                setEnabledProgramsMenu();
-            }
-        });
-    }
-
-    @Override
-    public void programInserted(Program program) {
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                setEnabledProgramsMenu();
-            }
-        });
-    }
-
-    @Override
-    public void programUpdated(Program program) {
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                setEnabledProgramsMenu();
-            }
-        });
     }
 }

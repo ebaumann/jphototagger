@@ -222,8 +222,6 @@ public final class PopupMenuThumbnails extends JPopupMenu implements DatabasePro
                 programOfMenuItem.put(item, program);
             }
         }
-
-        menuPrograms.setEnabled(menuPrograms.getItemCount() > 0);
     }
 
     public Action getActionOfItem(JMenuItem item) {
@@ -263,14 +261,7 @@ public final class PopupMenuThumbnails extends JPopupMenu implements DatabasePro
     private void updatePrograms(Program updatedProgram) {
         if (!updatedProgram.isAction()) {
             setOtherPrograms();
-            itemOpenFilesWithStandardApp.setEnabled(existsStandardImageOpenApp());
         }
-    }
-
-    private boolean existsStandardImageOpenApp() {
-        Program program = DatabasePrograms.INSTANCE.getDefaultImageOpenProgram();
-
-        return (program != null) && program.getFile().exists();
     }
 
     public JMenuItem getItemAddToImageCollection() {
