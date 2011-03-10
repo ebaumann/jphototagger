@@ -24,6 +24,7 @@ import javax.swing.DefaultListModel;
  */
 public final class ListModelPrograms extends DefaultListModel implements DatabaseProgramsListener {
     private static final long serialVersionUID = 1107244876982338977L;
+    private boolean listen = true;
     private Type type;
 
     public ListModelPrograms(Type type) {
@@ -53,6 +54,7 @@ public final class ListModelPrograms extends DefaultListModel implements Databas
     }
 
     private void updateProgram(Program program) throws IllegalArgumentException {
+        listen = false;
         int index = indexOf(program);
 
         if (index >= 0) {
@@ -71,10 +73,15 @@ public final class ListModelPrograms extends DefaultListModel implements Databas
                 insertElementAt(program, sequenceNumber);
             }
         }
+        listen = true;
     }
 
     @Override
     public void programDeleted(final Program program) {
+        if (!listen) {
+            return;
+        }
+
         if (isAppropriateProgramType(program)) {
             EventQueue.invokeLater(new Runnable() {
                 @Override
@@ -87,6 +94,10 @@ public final class ListModelPrograms extends DefaultListModel implements Databas
 
     @Override
     public void programInserted(final Program program) {
+        if (!listen) {
+            return;
+        }
+
         if (isAppropriateProgramType(program)) {
             EventQueue.invokeLater(new Runnable() {
                 @Override
@@ -99,6 +110,10 @@ public final class ListModelPrograms extends DefaultListModel implements Databas
 
     @Override
     public void programUpdated(final Program program) {
+        if (!listen) {
+            return;
+        }
+
         if (isAppropriateProgramType(program)) {
             EventQueue.invokeLater(new Runnable() {
                 @Override
