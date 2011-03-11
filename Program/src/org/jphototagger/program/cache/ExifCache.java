@@ -38,7 +38,7 @@ public final class ExifCache extends DatabaseImageFilesListenerAdapter {
         File cacheFile = getExifTagsCacheFile(imageFile);
 
         try {
-            LOGGER.log(Level.INFO, "Caching EXIF of image file ''{0}'' into cache file ''{1}''",
+            LOGGER.log(Level.FINEST, "Caching EXIF of image file ''{0}'' into cache file ''{1}''",
                        new Object[] { imageFile, cacheFile });
             exifTags.writeToFile(cacheFile);
         } catch (Throwable ex) {
@@ -57,7 +57,7 @@ public final class ExifCache extends DatabaseImageFilesListenerAdapter {
         }
 
         if (!containsUpToDateExifTags(imageFile)) {
-            LOGGER.log(Level.INFO, "Updating EXIF cache file of image file ''{0}''", new Object[] { imageFile });
+            LOGGER.log(Level.FINEST, "Updating EXIF cache file of image file ''{0}''", new Object[] { imageFile });
             cacheExifTags(imageFile, exifTags);
         }
     }
@@ -104,7 +104,7 @@ public final class ExifCache extends DatabaseImageFilesListenerAdapter {
         }
 
         try {
-            LOGGER.log(Level.INFO, "Reading EXIF cache file of image file ''{0}'' from cache file ''{1}''",
+            LOGGER.log(Level.FINEST, "Reading EXIF cache file of image file ''{0}'' from cache file ''{1}''",
                        new Object[] { imageFile, cacheFile });
 
             return ExifTags.readFromFile(cacheFile);
@@ -123,7 +123,7 @@ public final class ExifCache extends DatabaseImageFilesListenerAdapter {
         File cacheFile = getExifTagsCacheFile(imageFile);
 
         if (cacheFile.isFile()) {
-            LOGGER.log(Level.INFO, "Deleting EXIF cache file ''{0}'' of image file ''{1}''",
+            LOGGER.log(Level.FINEST, "Deleting EXIF cache file ''{0}'' of image file ''{1}''",
                     new Object[] { cacheFile, imageFile });
             cacheFile.delete();
         }
@@ -137,7 +137,7 @@ public final class ExifCache extends DatabaseImageFilesListenerAdapter {
             File newCacheFile = getExifTagsCacheFile(newImageFile);
 
             LOGGER.log(
-                Level.INFO,
+                Level.FINEST,
                 "Renaming EXIF cache file ''{0}'' of renamed image file ''{1}'' to cache file ''{2}'' of new image file ''{3}''",
                 new Object[] { oldCacheFile, oldImageFile, newCacheFile, newImageFile });
 
@@ -180,7 +180,7 @@ public final class ExifCache extends DatabaseImageFilesListenerAdapter {
     void ensureCacheDiretoryExists() {
         if (!CACHE_DIR.isDirectory()) {
             try {
-                LOGGER.log(Level.INFO, "Creating cache directory ''{0}''", CACHE_DIR);
+                LOGGER.log(Level.FINEST, "Creating cache directory ''{0}''", CACHE_DIR);
                 FileUtil.ensureDirectoryExists(CACHE_DIR);
             } catch (Throwable ex) {
                 AppLogger.logSevere(ExifCache.class, ex);
@@ -202,7 +202,7 @@ public final class ExifCache extends DatabaseImageFilesListenerAdapter {
 
         @Override
         public void run() {
-            LOGGER.log(Level.INFO, "Reading EXIF of image file ''{0}'' and creating EXIF cache", imageFile);
+            LOGGER.log(Level.FINEST, "Reading EXIF of image file ''{0}'' and creating EXIF cache", imageFile);
 
             ExifTags exifTags = ExifMetadata.getExifTags(imageFile);
 

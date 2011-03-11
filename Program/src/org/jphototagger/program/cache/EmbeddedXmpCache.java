@@ -104,7 +104,7 @@ public final class EmbeddedXmpCache extends DatabaseImageFilesListenerAdapter {
         }
 
         try {
-            LOGGER.log(Level.INFO, "Reading embedded XMP cache of image file ''{0}'' from cache file ''{1}''",
+            LOGGER.log(Level.FINEST, "Reading embedded XMP cache of image file ''{0}'' from cache file ''{1}''",
                        new Object[] { imageFile, cacheFile });
             return FileUtil.getContentAsString(cacheFile, "UTF-8");
         } catch (Throwable throwable) {
@@ -173,7 +173,7 @@ public final class EmbeddedXmpCache extends DatabaseImageFilesListenerAdapter {
     void ensureCacheDiretoryExists() {
         if (!CACHE_DIR.isDirectory()) {
             try {
-                LOGGER.log(Level.INFO, "Creating cache directory ''{0}''", CACHE_DIR);
+                LOGGER.log(Level.FINEST, "Creating cache directory ''{0}''", CACHE_DIR);
                 FileUtil.ensureDirectoryExists(CACHE_DIR);
             } catch (Throwable ex) {
                 AppLogger.logSevere(EmbeddedXmpCache.class, ex);
