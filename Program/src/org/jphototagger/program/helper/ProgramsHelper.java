@@ -3,6 +3,8 @@ package org.jphototagger.program.helper;
 import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.program.database.DatabasePrograms;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.view.dialogs.ProgramPropertiesDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -141,6 +143,31 @@ public final class ProgramsHelper {
         }
     }
 
+    public static Program addProgram() {
+        ProgramPropertiesDialog dlg = new ProgramPropertiesDialog(false);
+
+        dlg.setVisible(true);
+
+        if (dlg.isAccepted()) {
+            Program program = dlg.getProgram();
+
+            DatabasePrograms.INSTANCE.insert(program);
+
+            return program;
+        }
+
+        return null;
+    }
+
+    /**
+     *
+     * @param program may be null
+     */
+    public static void openSelectedFilesWidth(Program program) {
+        if (program != null) {
+            new StartPrograms(null).startProgram(program, GUI.getSelectedImageFiles());
+        }
+    }
 
     private ProgramsHelper() {}
 }

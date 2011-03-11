@@ -12,6 +12,12 @@ Changelog JPhotoTagger http://jphototagger.org/
 * Wird auf einen deaktivierten IPTC-Kartenreiter geklickt, erscheint eine
   Abfrage, ob IPTC-Metadaten angezeigt werden sollen (schneller umzustellen,
   als erst den Einstellungen-Dialog zu öffnen)
+* Ist noch kein Programm definiert, das Bilder öffnen kann, erscheint bei
+  Doppelklick auf ein Bild oder bei Auswahl von "Öffnen" über das Kontextmenü
+  der Vorschaubilder ein Hinweis und anschließend wird der Dialog zum
+  Definieren eines Programms, das Bilder öffnen kann, angezeigt und nach
+  Definition des Programms werden die ausgewählten Bilder damit geöffnet
+  (Weniger Arbeit für den Benutzer als in Version 0.8.62)
 
 0.8.62 2011-03-10
 -----------------
