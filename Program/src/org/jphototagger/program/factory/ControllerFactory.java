@@ -121,6 +121,7 @@ import org.jphototagger.program.view.popupmenus.PopupMenuMiscMetadata;
 import java.awt.EventQueue;
 
 import java.util.List;
+import org.jphototagger.program.controller.metadata.ControllerDisplayIptcUserSettings;
 
 /**
  * Erzeugt alle Controller.
@@ -287,6 +288,7 @@ public final class ControllerFactory {
         support.add(new ControllerShowMetadata());
         support.add(new ControllerIptcToXmp());
         support.add(new ControllerExifToXmp());
+        support.add(new ControllerDisplayIptcUserSettings());
     }
 
     private void addDirectoryTreeControllers() {

@@ -71,6 +71,7 @@ public final class AppPanel extends javax.swing.JPanel {
     private final List<JList> selectionLists = new ArrayList<JList>();
     private transient EditMetadataPanels editMetadtaPanels;
     private transient EditMetadataActionsPanel panelEditActions;
+    public static final transient String DISABLED_IPTC_TAB_TOOLTIP_TEXT = JptBundle.INSTANCE.getString("AppPanel.TabMetadataIptc.TooltipText.Disabled");
 
     public AppPanel() {
         initComponents();
@@ -222,13 +223,13 @@ public final class AppPanel extends javax.swing.JPanel {
     }
 
     public void setEnabledIptcTab(boolean enabled) {
-        int index = tabbedPaneMetadata.indexOfComponent(panelIptc);
+        int indexIptcTab = tabbedPaneMetadata.indexOfComponent(panelIptc);
 
-        tabbedPaneMetadata.setEnabledAt(index, enabled);
-        tabbedPaneMetadata.setToolTipTextAt(index, enabled
+        tabbedPaneMetadata.setEnabledAt(indexIptcTab, enabled);
+        tabbedPaneMetadata.setToolTipTextAt(indexIptcTab, enabled
                 ? ""
-                : JptBundle.INSTANCE.getString("AppPanel.TabMetadataIptc.TooltipText.Disabled"));
-        if (!enabled && index == tabbedPaneMetadata.getSelectedIndex()) {
+                : DISABLED_IPTC_TAB_TOOLTIP_TEXT);
+        if (!enabled && indexIptcTab == tabbedPaneMetadata.getSelectedIndex()) {
             tabbedPaneMetadata.setSelectedIndex(0);
         }
     }
@@ -301,6 +302,18 @@ public final class AppPanel extends javax.swing.JPanel {
 
     public JTabbedPane getTabbedPaneSelection() {
         return tabbedPaneSelection;
+    }
+
+    public boolean isTabMetadataIptcSelected() {
+        return tabbedPaneMetadata.getSelectedComponent() == panelIptc;
+    }
+
+    public boolean isTabMetadataExifSelected() {
+        return tabbedPaneMetadata.getSelectedComponent() == panelExif;
+    }
+
+    public boolean isTabMetadataXmpSelected() {
+        return tabbedPaneMetadata.getSelectedComponent() == tabbedPaneXmp;
     }
 
     public Component getTabMetadataIptc() {

@@ -4,30 +4,23 @@ import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.util.Settings;
 import org.jphototagger.lib.util.SettingsHints;
 import org.jphototagger.program.event.listener.AppExitListener;
-import org.jphototagger.program.event.listener.UserSettingsListener;
-import org.jphototagger.program.event.UserSettingsEvent;
-import org.jphototagger.program.model.TableModelIptc;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.frames.AppFrame;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.KeywordsPanel;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
 
 import java.awt.Component;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.EventQueue;
 
-import java.io.File;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.swing.JList;
 import javax.swing.JTree;
-import javax.swing.table.TableModel;
 
 /**
  * Reads and writes persistent important settings of {@link AppPanel} and
@@ -35,7 +28,7 @@ import javax.swing.table.TableModel;
  *
  * @author Elmar Baumann
  */
-public final class AppWindowPersistence implements ComponentListener, AppExitListener, UserSettingsListener {
+public final class AppWindowPersistence implements ComponentListener, AppExitListener {
 
     // Strings has to be equals to that in AppPanel!
     private static final String KEY_DIVIDER_LOCATION_MAIN = "AppPanel.DividerLocationMain";
@@ -68,7 +61,6 @@ public final class AppWindowPersistence implements ComponentListener, AppExitLis
         AppLifeCycle.INSTANCE.addAppExitListener(this);
         cardSelKeywordsList.addComponentListener(this);
         cardSelKeywordsTree.addComponentListener(this);
-        UserSettings.INSTANCE.addUserSettingsListener(this);
     }
 
     @Override
@@ -285,52 +277,6 @@ public final class AppWindowPersistence implements ComponentListener, AppExitLis
 
     private void write(JList list, String key) {
         UserSettings.INSTANCE.getSettings().setSelectedIndices(list, key);
-    }
-
-    @Override
-    public void applySettings(UserSettingsEvent evt) {
-        if (evt.getType().equals(UserSettingsEvent.Type.DISPLAY_IPTC)) {
-            boolean displayIptc = UserSettings.INSTANCE.isDisplayIptc();
-
-            setEnabledIptcTab(displayIptc);
-
-            if (displayIptc) {
-                displayIptc();
-            }
-        }
-    }
-
-    private void setEnabledIptcTab(final boolean displayIptc) {
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                GUI.getAppPanel().setEnabledIptcTab(displayIptc);
-            }
-        });
-    }
-
-    private void displayIptc() {
-        AppPanel appPanel = GUI.getAppPanel();
-        ThumbnailsPanel tnPanel = appPanel.getPanelThumbnails();
-
-        if (tnPanel.getSelectionCount() == 1) {
-            final TableModel model = appPanel.getTableIptc().getModel();
-
-            if (model instanceof TableModelIptc) {
-                final List<File> selFiles = GUI.getSelectedImageFiles();
-
-                if (selFiles.size() == 1) {
-                    final File file = selFiles.get(0);
-
-                    EventQueue.invokeLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            ((TableModelIptc) model).setFile(file);
-                        }
-                    });
-                }
-            }
-        }
     }
 
     @Override

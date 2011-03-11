@@ -3,6 +3,16 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.8.63 2011-03-11
+-----------------
+* Im Programmfenster rechts werden EXIF-, IPTC- und XMP-Daten nur aus den
+  Dateien gelesen und angezeigt, falls diese ausgewählt (sichtbar) sind.
+  Dies sollte das Einlesen der Metadaten nach dem Auswählen (genau) eines
+  Vorschaubilds beschleunigen.
+* Wird auf einen deaktivierten IPTC-Kartenreiter geklickt, erscheint eine
+  Abfrage, ob IPTC-Metadaten angezeigt werden sollen (schneller umzustellen,
+  als erst den Einstellungen-Dialog zu öffnen)
+
 0.8.62 2011-03-10
 -----------------
 * Bugfix: Nach Hinzufügen neuer Programme können diese sofort aufgerufen werden
