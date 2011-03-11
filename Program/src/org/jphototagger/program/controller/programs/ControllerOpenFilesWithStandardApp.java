@@ -1,13 +1,11 @@
 package org.jphototagger.program.controller.programs;
 
-import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.program.database.DatabasePrograms;
+import org.jphototagger.program.helper.ProgramsHelper;
 import org.jphototagger.program.helper.StartPrograms;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.dialogs.SettingsDialog;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
 
 import java.awt.event.ActionEvent;
@@ -28,37 +26,17 @@ public final class ControllerOpenFilesWithStandardApp implements ActionListener 
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        if (isOpenAppDefined(true)) {
-            openSelectedFiles();
-        }
+        openSelectedImages();
     }
 
-    public static void openSelectedFiles() {
-        ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
-
-        if (!tnPanel.isFileSelected()) {
-            return;
-        }
-
+    public static void openSelectedImages() {
         Program program = DatabasePrograms.INSTANCE.getDefaultImageOpenProgram();
 
-        if (program != null) {
-            new StartPrograms(null).startProgram(program, tnPanel.getSelectedFiles());
-        }
-    }
-
-    public static boolean isOpenAppDefined(boolean displayDefineDialog) {
-        boolean appIsDefined = DatabasePrograms.INSTANCE.getDefaultImageOpenProgram() != null;
-
-        if (!appIsDefined && displayDefineDialog) {
+        if (program == null) {
             MessageDisplayer.information(null, "ControllerOpenFilesWithStandardApp.Info.DefineOpenApp");
-
-            SettingsDialog dlg = SettingsDialog.INSTANCE;
-
-            dlg.selectTab(SettingsDialog.Tab.PROGRAMS);
-            ComponentUtil.show(dlg);
+            ProgramsHelper.openSelectedFilesWidth(ProgramsHelper.addProgram());
+        } else {
+            new StartPrograms(null).startProgram(program, GUI.getSelectedImageFiles());
         }
-
-        return appIsDefined;
     }
 }

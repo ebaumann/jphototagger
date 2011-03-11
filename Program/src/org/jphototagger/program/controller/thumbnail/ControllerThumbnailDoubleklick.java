@@ -1,8 +1,9 @@
 package org.jphototagger.program.controller.thumbnail;
 
-import org.jphototagger.program.controller.programs.ControllerOpenFilesWithStandardApp;
+import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.program.database.DatabasePrograms;
+import org.jphototagger.program.helper.ProgramsHelper;
 import org.jphototagger.program.helper.StartPrograms;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 
@@ -31,12 +32,15 @@ public final class ControllerThumbnailDoubleklick {
 
     private void openImageAtIndex(int index) {
         if (panel.isIndex(index)) {
-            if (ControllerOpenFilesWithStandardApp.isOpenAppDefined(true)) {
-                Program program = DatabasePrograms.INSTANCE.getDefaultImageOpenProgram();
+            Program program = DatabasePrograms.INSTANCE.getDefaultImageOpenProgram();
 
-                if (program != null) {
-                    new StartPrograms(null).startProgram(program, Arrays.asList(panel.getFile(index)));
-                }
+            if (program == null) {
+
+                // Reusing bundle string
+                MessageDisplayer.information(null, "ControllerOpenFilesWithStandardApp.Info.DefineOpenApp");
+                ProgramsHelper.openSelectedFilesWidth(ProgramsHelper.addProgram());
+            } else {
+                new StartPrograms(null).startProgram(program, Arrays.asList(panel.getFile(index)));
             }
         }
     }
