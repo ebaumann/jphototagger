@@ -5,6 +5,8 @@ Changelog JPhotoTagger http://jphototagger.org/
 
 0.8.64 2011-03-12
 -----------------
+* Der Kontextmenü-Eintrag "Öffnen mit" hat einen Unterpunkt zum Hinzufügen
+  neuer Programme
 * Dialog zum Definieren von Programmen und Aktionen hat zwei Ansichten:
   Einfache (Vorgabe) und Expertenansicht
 

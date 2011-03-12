@@ -29,7 +29,7 @@ public final class ControllerOpenFilesWithStandardApp implements ActionListener 
         openSelectedImages();
     }
 
-    public static void openSelectedImages() {
+    private void openSelectedImages() {
         Program program = DatabasePrograms.INSTANCE.getDefaultImageOpenProgram();
 
         if (program == null) {
