@@ -29,6 +29,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JPopupMenu.Separator;
+import org.jphototagger.program.controller.programs.ControllerAddProgram;
 
 /**
  * Popup menu of the thumbnails panel.
@@ -38,6 +39,7 @@ import javax.swing.JPopupMenu.Separator;
 public final class PopupMenuThumbnails extends JPopupMenu implements DatabaseProgramsListener {
     public static final PopupMenuThumbnails INSTANCE = new PopupMenuThumbnails();
     private static final long serialVersionUID = 1415777088897583494L;
+    private static final ControllerAddProgram ADD_PROGRAM_ACTION = new ControllerAddProgram();
     private final JMenu menuRefresh = new JMenu(JptBundle.INSTANCE.getString("PopupMenuThumbnails.DisplayName.MenuRefresh"));
     private final JMenu menuPrograms = new JMenu(JptBundle.INSTANCE.getString("PopupMenuThumbnails.DisplayName.MenuOtherOpenImageApps"));
     private final JMenu menuMetadata = new JMenu(JptBundle.INSTANCE.getString("PopupMenuThumbnails.DisplayName.MenuMetadata"));
@@ -222,6 +224,8 @@ public final class PopupMenuThumbnails extends JPopupMenu implements DatabasePro
                 programOfMenuItem.put(item, program);
             }
         }
+
+        menuPrograms.add(ADD_PROGRAM_ACTION);
     }
 
     public Action getActionOfItem(JMenuItem item) {
