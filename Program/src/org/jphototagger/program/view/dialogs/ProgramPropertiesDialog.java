@@ -218,26 +218,26 @@ public final class ProgramPropertiesDialog extends Dialog {
         fileChooser.setMultiSelectionEnabled(false);
 
         if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-            File f = fileChooser.getSelectedFile();
+            File choosenFile = fileChooser.getSelectedFile();
 
-            storeLastDir(f);
+            storeLastDirOfFile(choosenFile);
 
-            if (f.exists() &&!f.isDirectory()) {
-                file = f;
+            if (choosenFile.isFile()) {
+                file = choosenFile;
                 labelFile.setText(file.getAbsolutePath());
                 showFileExists(true);
                 setProgramIcon();
+                textFieldAlias.requestFocusInWindow();
             } else {
-                MessageDisplayer.error(
-                    this, "ProgramPropertiesDialog.Error.ChooseFile");
+                MessageDisplayer.error(this, "ProgramPropertiesDialog.Error.ChooseFile");
             }
         }
 
         setEnabledButtonOk();
     }
 
-    private void storeLastDir(File f) {
-        File dir = f.getParentFile();
+    private void storeLastDirOfFile(File file) {
+        File dir = file.getParentFile();
 
         if ((dir == null) ||!dir.isDirectory()) {
             return;
