@@ -3,6 +3,11 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.8.64 2011-03-12
+-----------------
+* Dialog zum Definieren von Programmen und Aktionen hat zwei Ansichten:
+  Einfache (Vorgabe) und Expertenansicht
+
 0.8.63 2011-03-11
 -----------------
 * Im Programmfenster rechts werden EXIF-, IPTC- und XMP-Daten nur aus den

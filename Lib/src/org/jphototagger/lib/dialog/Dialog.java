@@ -29,6 +29,7 @@ public class Dialog extends JDialog implements WindowListener {
     private String helpPageUrl;
     private transient Settings settings;
     private String settingsKey;
+    private boolean ignoreSizeAndLocation;
     private transient final HelpBrowser help = HelpBrowser.INSTANCE;
 
     public Dialog(Frame owner, boolean modal) {
@@ -213,8 +214,12 @@ public class Dialog extends JDialog implements WindowListener {
         this.settingsKey = settingsKey;
     }
 
+    public void setIgnoreSizeAndLocation(boolean ignore) {
+        ignoreSizeAndLocation = ignore;
+    }
+
     private void setSizeAndLocation() {
-        if (settings == null) {
+        if (ignoreSizeAndLocation || settings == null) {
             return;
         }
 
@@ -225,7 +230,7 @@ public class Dialog extends JDialog implements WindowListener {
     }
 
     protected void applySizeAndLocation() {
-        if (settings == null) {
+        if (ignoreSizeAndLocation || settings == null) {
             return;
         }
 
