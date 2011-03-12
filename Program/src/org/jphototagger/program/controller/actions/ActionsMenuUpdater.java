@@ -18,23 +18,11 @@ import javax.swing.JMenu;
  */
 public final class ActionsMenuUpdater implements DatabaseProgramsListener {
     public ActionsMenuUpdater() {
-        setMenuItemEnabled();
         listen();
     }
 
     private void listen() {
         DatabasePrograms.INSTANCE.addListener(this);
-    }
-
-    private void setMenuItemEnabled() {
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                JMenu actionMenu = PopupMenuThumbnails.INSTANCE.getMenuActions();
-
-                actionMenu.setEnabled(DatabasePrograms.INSTANCE.hasAction());
-            }
-        });
     }
 
     @Override

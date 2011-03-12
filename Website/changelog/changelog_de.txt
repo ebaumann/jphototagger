@@ -7,6 +7,8 @@ Changelog JPhotoTagger http://jphototagger.org/
 -----------------
 * Der Kontextmenü-Eintrag "Öffnen mit" hat einen Unterpunkt zum Hinzufügen
   neuer Programme
+* Der Kontextmenü-Eintrag "Aktionen" hat einen Unterpunkt zum Hinzufügen
+  neuer Aktionen
 * Dialog zum Definieren von Programmen und Aktionen hat zwei Ansichten:
   Einfache (Vorgabe) und Expertenansicht
 

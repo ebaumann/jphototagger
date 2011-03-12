@@ -16,6 +16,7 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import org.jphototagger.program.controller.actions.ControllerAddAction;
 
 /**
  *
@@ -23,6 +24,9 @@ import javax.swing.JMenuItem;
  * @author Elmar Baumann
  */
 public final class ActionsHelper {
+
+    private static final JMenuItem ADD_ACTION__MENU_ITEM = new JMenuItem(new ControllerAddAction());
+
     public static JMenu actionsAsMenu() {
         List<Program> actions = DatabasePrograms.INSTANCE.getAll(DatabasePrograms.Type.ACTION);
         JMenu menu = new JMenu(JptBundle.INSTANCE.getString("ActionsHelper.ActionMenu.DisplayName"));
@@ -30,6 +34,8 @@ public final class ActionsHelper {
         for (Program action : actions) {
             menu.add(new JMenuItem(new ActionStarter(action, action)));
         }
+
+        menu.add(ADD_ACTION__MENU_ITEM);
 
         return menu;
     }
@@ -42,6 +48,8 @@ public final class ActionsHelper {
         for (Program action : actions) {
             actionsMenu.add(new JMenuItem(new ActionStarter(action, action)));
         }
+
+        actionsMenu.add(ADD_ACTION__MENU_ITEM);
     }
 
     public static boolean existsAction(JMenu actionsMenu, Program action) {
@@ -65,8 +73,9 @@ public final class ActionsHelper {
             throw new NullPointerException("action == null");
         }
 
+        actionsMenu.remove(ADD_ACTION__MENU_ITEM);
         actionsMenu.add(new ActionStarter(action, action));
-        actionsMenu.setEnabled(true);
+        actionsMenu.add(ADD_ACTION__MENU_ITEM);
     }
 
     public static void removeAction(JMenu actionsMenu, Program action) {
@@ -82,7 +91,6 @@ public final class ActionsHelper {
 
         if (index >= 0) {
             actionsMenu.remove(index);
-            actionsMenu.setEnabled(actionsMenu.getItemCount() > 0);
         }
     }
 
