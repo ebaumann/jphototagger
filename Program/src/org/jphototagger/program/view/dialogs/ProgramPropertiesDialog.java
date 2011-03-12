@@ -12,6 +12,8 @@ import org.jphototagger.lib.image.util.IconUtil;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 import java.awt.event.KeyEvent;
 
 import java.io.File;
@@ -19,7 +21,9 @@ import java.io.File;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.JFileChooser;
+import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.LookAndFeelUtil;
+import org.jphototagger.lib.util.Settings;
 
 /**
  * Modal Dialog to change or define the properties of a program which can
@@ -31,7 +35,11 @@ public final class ProgramPropertiesDialog extends Dialog {
     private static final long serialVersionUID = 5953007101307866505L;
     private transient Program program = new Program();
     private static final String KEY_LAST_DIR = "ProgramPropertiesDialog.LastDirectory";
-    private File lastDir = new File(UserSettings.INSTANCE.getSettings().getString(KEY_LAST_DIR));
+    private static final String KEY_EXPERT_SETTINGS = "ProgramPropertiesDialog.ExpertSettings";
+    private static final String BUTTON_TEXT_TOGGLE_TO_EXPERT_SETTINGS = JptBundle.INSTANCE.getString("ProgramPropertiesDialog.ButtonText.ExpertSettings");
+    private static final String BUTTON_TEXT_TOGGLE_TO_SIMPLE_SETTINGS = JptBundle.INSTANCE.getString("ProgramPropertiesDialog.ButtonText.SimpleSettings");
+    private static final Settings SETTINGS = UserSettings.INSTANCE.getSettings();
+    private File lastDir = new File(SETTINGS.getString(KEY_LAST_DIR));
     private File file;
     private boolean accecpted = false;
     private boolean action;
@@ -41,7 +49,7 @@ public final class ProgramPropertiesDialog extends Dialog {
     private static final Color BG_COLOR_LABEL_FILE_NOT_EXISTS = Color.RED;
 
     public ProgramPropertiesDialog(boolean action) {
-        super(GUI.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
+        super(GUI.getAppFrame(), true, SETTINGS, null);
         this.action = action;
         program.setAction(action);
         initComponents();
@@ -55,7 +63,9 @@ public final class ProgramPropertiesDialog extends Dialog {
             getContentPane().remove(checkBoxInputBeforeExecute);
         }
 
+        setIgnoreSizeAndLocation(true);
         MnemonicUtil.setMnemonics((Container) this);
+        MnemonicUtil.setMnemonics(panelExpertSettings);
         listen();
     }
 
@@ -233,7 +243,7 @@ public final class ProgramPropertiesDialog extends Dialog {
             return;
         }
 
-        UserSettings.INSTANCE.getSettings().set(dir.getAbsolutePath(), KEY_LAST_DIR);
+        SETTINGS.set(dir.getAbsolutePath(), KEY_LAST_DIR);
         UserSettings.INSTANCE.writeToFile();
         lastDir = dir;
     }
@@ -284,6 +294,68 @@ public final class ProgramPropertiesDialog extends Dialog {
         help(JptBundle.INSTANCE.getString("Help.Url.Contents.ParameterSubstitution"));
     }
 
+    private void toggleExpertSettings() {
+        boolean isExpertSettings = toggleButtonExpertSettings.isSelected();
+
+        if (isExpertSettings) {
+            addExpertSettingsPanel();
+        } else {
+            removeExpertSettings();
+        }
+
+        SETTINGS.set(isExpertSettings, KEY_EXPERT_SETTINGS);
+        UserSettings.INSTANCE.writeToFile();
+        pack();
+        ComponentUtil.forceRepaint(this);
+    }
+
+    private void addExpertSettingsPanel() {
+        getContentPane().add(panelExpertSettings, getExpertSettingsConstraints());
+        toggleButtonExpertSettings.setText(BUTTON_TEXT_TOGGLE_TO_SIMPLE_SETTINGS);
+        MnemonicUtil.setMnemonics(toggleButtonExpertSettings);
+    }
+
+    private void removeExpertSettings() {
+        getContentPane().remove(panelExpertSettings);
+        toggleButtonExpertSettings.setText(BUTTON_TEXT_TOGGLE_TO_EXPERT_SETTINGS);
+        MnemonicUtil.setMnemonics(toggleButtonExpertSettings);
+    }
+
+    private GridBagConstraints getExpertSettingsConstraints() {
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.weightx = 1;
+        gbc.weighty = 1;
+        gbc.anchor = GridBagConstraints.NORTHWEST;
+        gbc.insets = new Insets(5, 5, 0, 5);
+        gbc.fill = GridBagConstraints.BOTH;
+
+        return gbc;
+    }
+
+    @Override
+    public void setVisible(boolean visible) {
+        if (visible) {
+            addExperSettingBasedOnUserSettings();
+            pack();
+            setLocationRelativeTo(null);
+        }
+
+        super.setVisible(visible);
+    }
+
+    private void addExperSettingBasedOnUserSettings() {
+        boolean isExpertSettings = SETTINGS.getBoolean(KEY_EXPERT_SETTINGS);
+
+        if (isExpertSettings) {
+            addExpertSettingsPanel();
+            toggleButtonExpertSettings.setSelected(true);
+        }
+    }
+
     /**
      * This method is called from within the constructor to
      * initialize the form.
@@ -294,15 +366,10 @@ public final class ProgramPropertiesDialog extends Dialog {
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         buttonGroupSingleFileProcessing = new javax.swing.ButtonGroup();
-        panelProgram = new javax.swing.JPanel();
-        labelFilePrompt = new javax.swing.JLabel();
-        labelErrorFileDoesNotExist = new javax.swing.JLabel();
-        buttonChooseFile = new javax.swing.JButton();
-        labelFile = new javax.swing.JLabel();
-        labelAlias = new javax.swing.JLabel();
-        textFieldAlias = new javax.swing.JTextField();
+        panelExpertSettings = new javax.swing.JPanel();
         checkBoxChangeFile = new javax.swing.JCheckBox();
         panelParameter = new javax.swing.JPanel();
         labelParametersBeforeFilename = new javax.swing.JLabel();
@@ -321,9 +388,238 @@ public final class ProgramPropertiesDialog extends Dialog {
         panelMultipleSelection = new javax.swing.JPanel();
         radioButtonSingleFileProcessingYes = new javax.swing.JRadioButton();
         radioButtonSingleFileProcessingNo = new javax.swing.JRadioButton();
+        panelProgram = new javax.swing.JPanel();
+        labelFilePrompt = new javax.swing.JLabel();
+        labelErrorFileDoesNotExist = new javax.swing.JLabel();
+        buttonChooseFile = new javax.swing.JButton();
+        labelFile = new javax.swing.JLabel();
+        labelAlias = new javax.swing.JLabel();
+        textFieldAlias = new javax.swing.JTextField();
+        toggleButtonExpertSettings = new javax.swing.JToggleButton();
         labelInfoRequiredInputs = new javax.swing.JLabel();
         buttonCancel = new javax.swing.JButton();
         buttonOk = new javax.swing.JButton();
+
+        panelExpertSettings.setName("panelExpertSettings"); // NOI18N
+        panelExpertSettings.setLayout(new java.awt.GridBagLayout());
+
+        checkBoxChangeFile.setText(JptBundle.INSTANCE.getString("ProgramPropertiesDialog.checkBoxChangeFile.text")); // NOI18N
+        checkBoxChangeFile.setToolTipText(JptBundle.INSTANCE.getString("ProgramPropertiesDialog.checkBoxChangeFile.toolTipText")); // NOI18N
+        checkBoxChangeFile.setName("checkBoxChangeFile"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        panelExpertSettings.add(checkBoxChangeFile, gridBagConstraints);
+
+        panelParameter.setBorder(javax.swing.BorderFactory.createTitledBorder(JptBundle.INSTANCE.getString("ProgramPropertiesDialog.panelParameter.border.title"))); // NOI18N
+        panelParameter.setName("panelParameter"); // NOI18N
+        panelParameter.setLayout(new java.awt.GridBagLayout());
+
+        labelParametersBeforeFilename.setLabelFor(textAreaParametersBeforeFilename);
+        labelParametersBeforeFilename.setText(JptBundle.INSTANCE.getString("ProgramPropertiesDialog.labelParametersBeforeFilename.text")); // NOI18N
+        labelParametersBeforeFilename.setName("labelParametersBeforeFilename"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        panelParameter.add(labelParametersBeforeFilename, gridBagConstraints);
+
+        scrollPaneParametersBeforeFilename.setName("scrollPaneParametersBeforeFilename"); // NOI18N
+
+        textAreaParametersBeforeFilename.setColumns(20);
+        textAreaParametersBeforeFilename.setLineWrap(true);
+        textAreaParametersBeforeFilename.setRows(1);
+        textAreaParametersBeforeFilename.setName("textAreaParametersBeforeFilename"); // NOI18N
+        scrollPaneParametersBeforeFilename.setViewportView(textAreaParametersBeforeFilename);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 0.33;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        panelParameter.add(scrollPaneParametersBeforeFilename, gridBagConstraints);
+
+        labelParametersAfterFilename.setLabelFor(textAreaParametersAfterFilename);
+        labelParametersAfterFilename.setText(JptBundle.INSTANCE.getString("ProgramPropertiesDialog.labelParametersAfterFilename.text")); // NOI18N
+        labelParametersAfterFilename.setName("labelParametersAfterFilename"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        panelParameter.add(labelParametersAfterFilename, gridBagConstraints);
+
+        scrollPaneParametersAfterFilename.setName("scrollPaneParametersAfterFilename"); // NOI18N
+
+        textAreaParametersAfterFilename.setColumns(20);
+        textAreaParametersAfterFilename.setLineWrap(true);
+        textAreaParametersAfterFilename.setRows(1);
+        textAreaParametersAfterFilename.setName("textAreaParametersAfterFilename"); // NOI18N
+        scrollPaneParametersAfterFilename.setViewportView(textAreaParametersAfterFilename);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 0.33;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        panelParameter.add(scrollPaneParametersAfterFilename, gridBagConstraints);
+
+        checkBoxUsePattern.setText(JptBundle.INSTANCE.getString("ProgramPropertiesDialog.checkBoxUsePattern.text")); // NOI18N
+        checkBoxUsePattern.setName("checkBoxUsePattern"); // NOI18N
+        checkBoxUsePattern.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxUsePatternActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        panelParameter.add(checkBoxUsePattern, gridBagConstraints);
+
+        buttonInfoUsePattern.setText(JptBundle.INSTANCE.getString("ProgramPropertiesDialog.buttonInfoUsePattern.text")); // NOI18N
+        buttonInfoUsePattern.setName("buttonInfoUsePattern"); // NOI18N
+        buttonInfoUsePattern.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonInfoUsePatternActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        panelParameter.add(buttonInfoUsePattern, gridBagConstraints);
+
+        scrollPaneUsePattern.setName("scrollPaneUsePattern"); // NOI18N
+
+        textAreaUsePattern.setColumns(20);
+        textAreaUsePattern.setLineWrap(true);
+        textAreaUsePattern.setRows(1);
+        textAreaUsePattern.setName("textAreaUsePattern"); // NOI18N
+        scrollPaneUsePattern.setViewportView(textAreaUsePattern);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 0.33;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        panelParameter.add(scrollPaneUsePattern, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        panelExpertSettings.add(panelParameter, gridBagConstraints);
+
+        panelInputBeforeExecute.setBorder(javax.swing.BorderFactory.createTitledBorder(JptBundle.INSTANCE.getString("ProgramPropertiesDialog.panelInputBeforeExecute.border.title"))); // NOI18N
+        panelInputBeforeExecute.setName("panelInputBeforeExecute"); // NOI18N
+        panelInputBeforeExecute.setLayout(new java.awt.GridBagLayout());
+
+        checkBoxInputBeforeExecute.setText(JptBundle.INSTANCE.getString("ProgramPropertiesDialog.checkBoxInputBeforeExecute.text")); // NOI18N
+        checkBoxInputBeforeExecute.setName("checkBoxInputBeforeExecute"); // NOI18N
+        checkBoxInputBeforeExecute.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxInputBeforeExecuteActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        panelInputBeforeExecute.add(checkBoxInputBeforeExecute, gridBagConstraints);
+
+        checkBoxInputBeforeExecutePerFile.setText(JptBundle.INSTANCE.getString("ProgramPropertiesDialog.checkBoxInputBeforeExecutePerFile.text")); // NOI18N
+        checkBoxInputBeforeExecutePerFile.setEnabled(false);
+        checkBoxInputBeforeExecutePerFile.setName("checkBoxInputBeforeExecutePerFile"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        panelInputBeforeExecute.add(checkBoxInputBeforeExecutePerFile, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        panelExpertSettings.add(panelInputBeforeExecute, gridBagConstraints);
+
+        panelMultipleSelection.setBorder(javax.swing.BorderFactory.createTitledBorder(JptBundle.INSTANCE.getString("ProgramPropertiesDialog.panelSingleFileProcessing.border.title"))); // NOI18N
+        panelMultipleSelection.setName("panelMultipleSelection"); // NOI18N
+        panelMultipleSelection.setLayout(new java.awt.GridBagLayout());
+
+        buttonGroupSingleFileProcessing.add(radioButtonSingleFileProcessingYes);
+        radioButtonSingleFileProcessingYes.setSelected(true);
+        radioButtonSingleFileProcessingYes.setText(JptBundle.INSTANCE.getString("ProgramPropertiesDialog.radioButtonSingleFileProcessingYes.text")); // NOI18N
+        radioButtonSingleFileProcessingYes.setName("radioButtonSingleFileProcessingYes"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        panelMultipleSelection.add(radioButtonSingleFileProcessingYes, gridBagConstraints);
+
+        buttonGroupSingleFileProcessing.add(radioButtonSingleFileProcessingNo);
+        radioButtonSingleFileProcessingNo.setText(JptBundle.INSTANCE.getString("ProgramPropertiesDialog.radioButtonSingleFileProcessingNo.text")); // NOI18N
+        radioButtonSingleFileProcessingNo.setName("radioButtonSingleFileProcessingNo"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        panelMultipleSelection.add(radioButtonSingleFileProcessingNo, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        panelExpertSettings.add(panelMultipleSelection, gridBagConstraints);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(JptBundle.INSTANCE.getString("ProgramPropertiesDialog.title")); // NOI18N
@@ -333,6 +629,7 @@ public final class ProgramPropertiesDialog extends Dialog {
                 formWindowClosing(evt);
             }
         });
+        getContentPane().setLayout(new java.awt.GridBagLayout());
 
         panelProgram.setBorder(javax.swing.BorderFactory.createTitledBorder(JptBundle.INSTANCE.getString("ProgramPropertiesDialog.panelProgram.border.title"))); // NOI18N
         panelProgram.setName("panelProgram"); // NOI18N
@@ -370,10 +667,6 @@ public final class ProgramPropertiesDialog extends Dialog {
             }
         });
 
-        checkBoxChangeFile.setText(JptBundle.INSTANCE.getString("ProgramPropertiesDialog.checkBoxChangeFile.text")); // NOI18N
-        checkBoxChangeFile.setToolTipText(JptBundle.INSTANCE.getString("ProgramPropertiesDialog.checkBoxChangeFile.toolTipText")); // NOI18N
-        checkBoxChangeFile.setName("checkBoxChangeFile"); // NOI18N
-
         javax.swing.GroupLayout panelProgramLayout = new javax.swing.GroupLayout(panelProgram);
         panelProgram.setLayout(panelProgramLayout);
         panelProgramLayout.setHorizontalGroup(
@@ -383,197 +676,70 @@ public final class ProgramPropertiesDialog extends Dialog {
                 .addGroup(panelProgramLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelProgramLayout.createSequentialGroup()
                         .addComponent(labelFilePrompt)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelErrorFileDoesNotExist, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonChooseFile))
-                    .addComponent(labelFile, javax.swing.GroupLayout.DEFAULT_SIZE, 533, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(labelErrorFileDoesNotExist, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
+                        .addGap(3, 3, 3))
                     .addGroup(panelProgramLayout.createSequentialGroup()
                         .addComponent(labelAlias)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textFieldAlias, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE))
-                    .addComponent(checkBoxChangeFile))
+                        .addComponent(textFieldAlias, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE))
+                    .addComponent(labelFile, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE))
+                .addGap(9, 9, 9)
+                .addComponent(buttonChooseFile)
                 .addContainerGap())
         );
         panelProgramLayout.setVerticalGroup(
             panelProgramLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelProgramLayout.createSequentialGroup()
-                .addGroup(panelProgramLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelFilePrompt)
-                    .addComponent(buttonChooseFile)
-                    .addComponent(labelErrorFileDoesNotExist, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelFile, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelProgramLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelAlias)
-                    .addComponent(textFieldAlias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                .addComponent(checkBoxChangeFile)
-                .addContainerGap())
-        );
-
-        panelParameter.setBorder(javax.swing.BorderFactory.createTitledBorder(JptBundle.INSTANCE.getString("ProgramPropertiesDialog.panelParameter.border.title"))); // NOI18N
-        panelParameter.setName("panelParameter"); // NOI18N
-
-        labelParametersBeforeFilename.setLabelFor(textAreaParametersBeforeFilename);
-        labelParametersBeforeFilename.setText(JptBundle.INSTANCE.getString("ProgramPropertiesDialog.labelParametersBeforeFilename.text")); // NOI18N
-        labelParametersBeforeFilename.setName("labelParametersBeforeFilename"); // NOI18N
-
-        scrollPaneParametersBeforeFilename.setName("scrollPaneParametersBeforeFilename"); // NOI18N
-
-        textAreaParametersBeforeFilename.setColumns(20);
-        textAreaParametersBeforeFilename.setLineWrap(true);
-        textAreaParametersBeforeFilename.setRows(1);
-        textAreaParametersBeforeFilename.setName("textAreaParametersBeforeFilename"); // NOI18N
-        scrollPaneParametersBeforeFilename.setViewportView(textAreaParametersBeforeFilename);
-
-        labelParametersAfterFilename.setLabelFor(textAreaParametersAfterFilename);
-        labelParametersAfterFilename.setText(JptBundle.INSTANCE.getString("ProgramPropertiesDialog.labelParametersAfterFilename.text")); // NOI18N
-        labelParametersAfterFilename.setName("labelParametersAfterFilename"); // NOI18N
-
-        scrollPaneParametersAfterFilename.setName("scrollPaneParametersAfterFilename"); // NOI18N
-
-        textAreaParametersAfterFilename.setColumns(20);
-        textAreaParametersAfterFilename.setLineWrap(true);
-        textAreaParametersAfterFilename.setRows(1);
-        textAreaParametersAfterFilename.setName("textAreaParametersAfterFilename"); // NOI18N
-        scrollPaneParametersAfterFilename.setViewportView(textAreaParametersAfterFilename);
-
-        checkBoxUsePattern.setText(JptBundle.INSTANCE.getString("ProgramPropertiesDialog.checkBoxUsePattern.text")); // NOI18N
-        checkBoxUsePattern.setName("checkBoxUsePattern"); // NOI18N
-        checkBoxUsePattern.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkBoxUsePatternActionPerformed(evt);
-            }
-        });
-
-        buttonInfoUsePattern.setText(JptBundle.INSTANCE.getString("ProgramPropertiesDialog.buttonInfoUsePattern.text")); // NOI18N
-        buttonInfoUsePattern.setName("buttonInfoUsePattern"); // NOI18N
-        buttonInfoUsePattern.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonInfoUsePatternActionPerformed(evt);
-            }
-        });
-
-        scrollPaneUsePattern.setName("scrollPaneUsePattern"); // NOI18N
-
-        textAreaUsePattern.setColumns(20);
-        textAreaUsePattern.setLineWrap(true);
-        textAreaUsePattern.setRows(1);
-        textAreaUsePattern.setName("textAreaUsePattern"); // NOI18N
-        scrollPaneUsePattern.setViewportView(textAreaUsePattern);
-
-        javax.swing.GroupLayout panelParameterLayout = new javax.swing.GroupLayout(panelParameter);
-        panelParameter.setLayout(panelParameterLayout);
-        panelParameterLayout.setHorizontalGroup(
-            panelParameterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelParameterLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelParameterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelParameterLayout.createSequentialGroup()
-                        .addComponent(checkBoxUsePattern)
+                .addGroup(panelProgramLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panelProgramLayout.createSequentialGroup()
+                        .addGroup(panelProgramLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelErrorFileDoesNotExist, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelFilePrompt))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonInfoUsePattern))
-                    .addComponent(scrollPaneParametersBeforeFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 533, Short.MAX_VALUE)
-                    .addComponent(labelParametersBeforeFilename)
-                    .addComponent(labelParametersAfterFilename)
-                    .addComponent(scrollPaneParametersAfterFilename, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 533, Short.MAX_VALUE)
-                    .addComponent(scrollPaneUsePattern, javax.swing.GroupLayout.DEFAULT_SIZE, 533, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        panelParameterLayout.setVerticalGroup(
-            panelParameterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelParameterLayout.createSequentialGroup()
-                .addComponent(labelParametersBeforeFilename)
+                        .addComponent(labelFile, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(buttonChooseFile))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneParametersBeforeFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelParametersAfterFilename)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneParametersAfterFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
-                .addGap(8, 8, 8)
-                .addGroup(panelParameterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(checkBoxUsePattern)
-                    .addComponent(buttonInfoUsePattern))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneUsePattern, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(panelProgramLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textFieldAlias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelAlias))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        panelInputBeforeExecute.setBorder(javax.swing.BorderFactory.createTitledBorder(JptBundle.INSTANCE.getString("ProgramPropertiesDialog.panelInputBeforeExecute.border.title"))); // NOI18N
-        panelInputBeforeExecute.setName("panelInputBeforeExecute"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        getContentPane().add(panelProgram, gridBagConstraints);
 
-        checkBoxInputBeforeExecute.setText(JptBundle.INSTANCE.getString("ProgramPropertiesDialog.checkBoxInputBeforeExecute.text")); // NOI18N
-        checkBoxInputBeforeExecute.setName("checkBoxInputBeforeExecute"); // NOI18N
-        checkBoxInputBeforeExecute.addActionListener(new java.awt.event.ActionListener() {
+        toggleButtonExpertSettings.setText(BUTTON_TEXT_TOGGLE_TO_EXPERT_SETTINGS);
+        toggleButtonExpertSettings.setName("toggleButtonExpertSettings"); // NOI18N
+        toggleButtonExpertSettings.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkBoxInputBeforeExecuteActionPerformed(evt);
+                toggleButtonExpertSettingsActionPerformed(evt);
             }
         });
-
-        checkBoxInputBeforeExecutePerFile.setText(JptBundle.INSTANCE.getString("ProgramPropertiesDialog.checkBoxInputBeforeExecutePerFile.text")); // NOI18N
-        checkBoxInputBeforeExecutePerFile.setEnabled(false);
-        checkBoxInputBeforeExecutePerFile.setName("checkBoxInputBeforeExecutePerFile"); // NOI18N
-
-        javax.swing.GroupLayout panelInputBeforeExecuteLayout = new javax.swing.GroupLayout(panelInputBeforeExecute);
-        panelInputBeforeExecute.setLayout(panelInputBeforeExecuteLayout);
-        panelInputBeforeExecuteLayout.setHorizontalGroup(
-            panelInputBeforeExecuteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelInputBeforeExecuteLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelInputBeforeExecuteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(checkBoxInputBeforeExecute)
-                    .addComponent(checkBoxInputBeforeExecutePerFile))
-                .addContainerGap(190, Short.MAX_VALUE))
-        );
-
-        panelInputBeforeExecuteLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {checkBoxInputBeforeExecute, checkBoxInputBeforeExecutePerFile});
-
-        panelInputBeforeExecuteLayout.setVerticalGroup(
-            panelInputBeforeExecuteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelInputBeforeExecuteLayout.createSequentialGroup()
-                .addComponent(checkBoxInputBeforeExecute)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(checkBoxInputBeforeExecutePerFile)
-                .addContainerGap(9, Short.MAX_VALUE))
-        );
-
-        panelMultipleSelection.setBorder(javax.swing.BorderFactory.createTitledBorder(JptBundle.INSTANCE.getString("ProgramPropertiesDialog.panelSingleFileProcessing.border.title"))); // NOI18N
-        panelMultipleSelection.setName("panelMultipleSelection"); // NOI18N
-
-        buttonGroupSingleFileProcessing.add(radioButtonSingleFileProcessingYes);
-        radioButtonSingleFileProcessingYes.setSelected(true);
-        radioButtonSingleFileProcessingYes.setText(JptBundle.INSTANCE.getString("ProgramPropertiesDialog.radioButtonSingleFileProcessingYes.text")); // NOI18N
-        radioButtonSingleFileProcessingYes.setName("radioButtonSingleFileProcessingYes"); // NOI18N
-
-        buttonGroupSingleFileProcessing.add(radioButtonSingleFileProcessingNo);
-        radioButtonSingleFileProcessingNo.setText(JptBundle.INSTANCE.getString("ProgramPropertiesDialog.radioButtonSingleFileProcessingNo.text")); // NOI18N
-        radioButtonSingleFileProcessingNo.setName("radioButtonSingleFileProcessingNo"); // NOI18N
-
-        javax.swing.GroupLayout panelMultipleSelectionLayout = new javax.swing.GroupLayout(panelMultipleSelection);
-        panelMultipleSelection.setLayout(panelMultipleSelectionLayout);
-        panelMultipleSelectionLayout.setHorizontalGroup(
-            panelMultipleSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelMultipleSelectionLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelMultipleSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(radioButtonSingleFileProcessingYes)
-                    .addComponent(radioButtonSingleFileProcessingNo))
-                .addContainerGap(194, Short.MAX_VALUE))
-        );
-        panelMultipleSelectionLayout.setVerticalGroup(
-            panelMultipleSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelMultipleSelectionLayout.createSequentialGroup()
-                .addComponent(radioButtonSingleFileProcessingYes)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(radioButtonSingleFileProcessingNo)
-                .addContainerGap(9, Short.MAX_VALUE))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(8, 10, 0, 0);
+        getContentPane().add(toggleButtonExpertSettings, gridBagConstraints);
 
         labelInfoRequiredInputs.setForeground(new java.awt.Color(255, 0, 0));
         labelInfoRequiredInputs.setText(JptBundle.INSTANCE.getString("ProgramPropertiesDialog.labelInfoRequiredInputs.text")); // NOI18N
         labelInfoRequiredInputs.setName("labelInfoRequiredInputs"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 10, 10, 0);
+        getContentPane().add(labelInfoRequiredInputs, gridBagConstraints);
 
         buttonCancel.setText(JptBundle.INSTANCE.getString("ProgramPropertiesDialog.buttonCancel.text")); // NOI18N
         buttonCancel.setName("buttonCancel"); // NOI18N
@@ -582,6 +748,13 @@ public final class ProgramPropertiesDialog extends Dialog {
                 buttonCancelActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 10, 0);
+        getContentPane().add(buttonCancel, gridBagConstraints);
 
         buttonOk.setText(JptBundle.INSTANCE.getString("ProgramPropertiesDialog.buttonOk.text")); // NOI18N
         buttonOk.setEnabled(false);
@@ -591,44 +764,12 @@ public final class ProgramPropertiesDialog extends Dialog {
                 buttonOkActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelInputBeforeExecute, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelParameter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelProgram, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelMultipleSelection, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(labelInfoRequiredInputs)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 281, Short.MAX_VALUE)
-                        .addComponent(buttonCancel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonOk)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panelProgram, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelParameter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelInputBeforeExecute, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8)
-                .addComponent(panelMultipleSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonOk)
-                    .addComponent(buttonCancel)
-                    .addComponent(labelInfoRequiredInputs))
-                .addContainerGap())
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 10, 10);
+        getContentPane().add(buttonOk, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -664,6 +805,10 @@ public final class ProgramPropertiesDialog extends Dialog {
     private void buttonInfoUsePatternActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonInfoUsePatternActionPerformed
         showPatternHelp();
     }//GEN-LAST:event_buttonInfoUsePatternActionPerformed
+
+    private void toggleButtonExpertSettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleButtonExpertSettingsActionPerformed
+        toggleExpertSettings();
+    }//GEN-LAST:event_toggleButtonExpertSettingsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -703,6 +848,7 @@ public final class ProgramPropertiesDialog extends Dialog {
     private javax.swing.JLabel labelInfoRequiredInputs;
     private javax.swing.JLabel labelParametersAfterFilename;
     private javax.swing.JLabel labelParametersBeforeFilename;
+    private javax.swing.JPanel panelExpertSettings;
     private javax.swing.JPanel panelInputBeforeExecute;
     private javax.swing.JPanel panelMultipleSelection;
     private javax.swing.JPanel panelParameter;
@@ -716,5 +862,6 @@ public final class ProgramPropertiesDialog extends Dialog {
     private javax.swing.JTextArea textAreaParametersBeforeFilename;
     private javax.swing.JTextArea textAreaUsePattern;
     private javax.swing.JTextField textFieldAlias;
+    private javax.swing.JToggleButton toggleButtonExpertSettings;
     // End of variables declaration//GEN-END:variables
 }
