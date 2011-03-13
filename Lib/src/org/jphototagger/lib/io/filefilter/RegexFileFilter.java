@@ -21,6 +21,14 @@ public final class RegexFileFilter implements java.io.FileFilter, Serializable {
     private static final long serialVersionUID = 5995205186843465364L;
     private List<String> acceptedPatterns = new ArrayList<String>();
 
+    public RegexFileFilter(RegexFileFilter other) {
+        if (other == null) {
+            throw new NullPointerException("other == null");
+        }
+
+        acceptedPatterns.addAll(other.acceptedPatterns);
+    }
+
     /**
      * Erzeugt einen Dateifilter.
      *
@@ -54,6 +62,14 @@ public final class RegexFileFilter implements java.io.FileFilter, Serializable {
         }
 
         acceptedPatterns.add(pattern);
+    }
+
+    public void removeAcceptPattern(String pattern) {
+        if (pattern == null) {
+            throw new NullPointerException("pattern == null");
+        }
+
+        acceptedPatterns.remove(pattern);
     }
 
     @Override
