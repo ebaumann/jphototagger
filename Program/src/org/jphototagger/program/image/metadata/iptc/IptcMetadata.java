@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.jphototagger.program.app.AppFileFilters;
 
 /**
  * IPTC metadata of an image file.
@@ -35,7 +36,7 @@ public final class IptcMetadata {
     public static List<IptcEntry> getIptcEntries(File imageFile) {
         List<IptcEntry> metadata = new ArrayList<IptcEntry>();
 
-        if ((imageFile != null) && imageFile.exists()) {
+        if ((imageFile != null) && imageFile.exists() && !AppFileFilters.INSTANCE.isUserDefinedFileType(imageFile)) {
             try {
                 AppLogger.logInfo(IptcMetadata.class, "IptcMetadata.Info.GetMetadata", imageFile);
                 LOGGER.log(Level.INFO, "Reading IPTC from image file ''{0}'', size {1} Bytes", new Object[]{imageFile, imageFile.length()});

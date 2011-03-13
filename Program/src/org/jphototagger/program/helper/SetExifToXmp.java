@@ -18,6 +18,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.jphototagger.program.app.AppFileFilters;
 
 /**
  * Sets EXIF metadata to XMP whithout time stamp check, currently only the date
@@ -112,6 +113,10 @@ public final class SetExifToXmp extends HelperThread {
     public static void set(File imgFile, boolean replaceExistingXmpData) {
         if (imgFile == null) {
             throw new NullPointerException("imgFile == null");
+        }
+
+        if (AppFileFilters.INSTANCE.isUserDefinedFileType(imgFile)) {
+            return;
         }
 
         Exif exif = ExifMetadata.getCachedExif(imgFile);

@@ -121,7 +121,7 @@ public class ImagePreviewPanel extends JPanel implements PropertyChangeListener 
     private static class ImageFileFilter implements FileFilter {
         private static final String DESCRIPTION =
             JptBundle.INSTANCE.getString("ImagePreviewPanel.ImageFileFilter.Description");
-        private static final RegexFileFilter FILE_FILTER = AppFileFilters.ACCEPTED_IMAGE_FILENAMES;
+        private static final RegexFileFilter FILE_FILTER = AppFileFilters.INSTANCE.getAllAcceptedImageFilesFilter();
         private static final ImageFileFilter INSTANCE = new ImageFileFilter();
 
         @Override

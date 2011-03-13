@@ -16,10 +16,10 @@ import javax.swing.Action;
  *
  * @author Elmar Baumann
  */
-public final class ControllerAddAction extends AbstractAction {
+public final class AddProgramAction extends AbstractAction {
     private static final long serialVersionUID = -8236351732517551399L;
 
-    public ControllerAddAction() {
+    public AddProgramAction() {
         super(JptBundle.INSTANCE.getString("ControllerAddAction.Name"));
         putValue(Action.SMALL_ICON, AppLookAndFeel.getIcon("icon_add.png"));
     }

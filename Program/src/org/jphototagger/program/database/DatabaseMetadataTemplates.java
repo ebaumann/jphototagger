@@ -39,7 +39,7 @@ import java.util.StringTokenizer;
  *
  * @author Elmar Baumann
  */
-public class DatabaseMetadataTemplates extends Database {
+public final class DatabaseMetadataTemplates extends Database {
     private static final String DELIM_REPEATABLE_STRINGS = "\t";
     public static final DatabaseMetadataTemplates INSTANCE = new DatabaseMetadataTemplates();
     private final ListenerSupport<DatabaseMetadataTemplatesListener> ls =

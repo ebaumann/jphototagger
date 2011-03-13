@@ -9,6 +9,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 
 import java.util.Date;
+import org.jphototagger.program.app.AppFileFilters;
 
 /**
  * Formatted date in the order YYYY-MM-dd.
@@ -59,7 +60,11 @@ public final class FilenameFormatDate extends FilenameFormat {
      * @param file file
      */
     private void formatDate(File file) {
-        Exif exif = ExifMetadata.getCachedExif(file);
+        Exif exif = null;
+
+        if (!AppFileFilters.INSTANCE.isUserDefinedFileType(file)) {
+            exif = ExifMetadata.getCachedExif(file);
+        }
 
         if (exif == null) {
             setFromFilesystem(file);

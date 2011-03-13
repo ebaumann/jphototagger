@@ -233,7 +233,11 @@
         </page>
         <page>
             <url>user_defined_file_filter.html</url>
-            <title>Benutzerdefinierte Dateifilter</title>
+            <title>Fenster &gt; Benutzerdefinierte Dateifilter</title>
+        </page>
+        <page>
+            <url>user_defined_file_type_edit.html</url>
+            <title>Fenster &gt; Benutzerdefinierte Dateitypen</title>
         </page>
         <page>
             <url>accelerator_keys.html</url>

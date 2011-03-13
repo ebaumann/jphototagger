@@ -33,7 +33,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
+import org.jphototagger.lib.image.util.IconUtil;
+import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.program.cache.ExifCache;
+import org.jphototagger.program.data.UserDefinedFileType;
+import org.jphototagger.program.database.DatabaseUserDefinedFileTypes;
 
 /**
  * Hilfsklasse für Thumbnails.
@@ -63,6 +68,10 @@ public final class ThumbnailUtil {
             return null;
         }
 
+        if (AppFileFilters.INSTANCE.isUserDefinedFileType(file)) {
+            return getUserDefinedThumbnail(file);
+        }
+
         ThumbnailCreator creator = UserSettings.INSTANCE.getThumbnailCreator();
         int maxLength = UserSettings.INSTANCE.getMaxThumbnailWidth();
         boolean isRawImage = FileType.isRawFile(file.getName());
@@ -70,8 +79,8 @@ public final class ThumbnailUtil {
         Image thumbnail = null;
 
         if (creator.equals(ThumbnailCreator.EXTERNAL_APP)) {    // has to be 1st.
-            thumbnail = getThumbnailFromExternalApplication(file,
-                    UserSettings.INSTANCE.getExternalThumbnailCreationCommand(), maxLength);
+            String createCommand = UserSettings.INSTANCE.getExternalThumbnailCreationCommand();
+            thumbnail = getThumbnailFromExternalApplication(file, createCommand, maxLength);
         } else if (!canCreateImage || creator.equals(ThumbnailCreator.EMBEDDED)) {
             thumbnail = ThumbnailUtil.getEmbeddedThumbnailRotated(file);
         } else if (creator.equals(ThumbnailCreator.IMAGERO)) {
@@ -79,7 +88,7 @@ public final class ThumbnailUtil {
         } else if (creator.equals(ThumbnailCreator.JAVA_IMAGE_IO)) {
             thumbnail = getThumbnailFromJavaImageIo(file, maxLength);
         } else {
-            assert false : "Not handled enum type (thumbnail create option)";
+            return null;
         }
 
         if (thumbnail == null) {
@@ -87,6 +96,20 @@ public final class ThumbnailUtil {
         }
 
         return thumbnail;
+    }
+
+    private static Image getUserDefinedThumbnail(File file) {
+        String suffix = FileUtil.getSuffix(file);
+        UserDefinedFileType fileType = DatabaseUserDefinedFileTypes.INSTANCE.findBySuffix(suffix);
+
+        if (fileType == null || !fileType.isExternalThumbnailCreator()) {
+            return IconUtil.getIconImage("/org/jphototagger/program/resource/images/user_defined_file_type.jpg");
+        } else {
+            int maxLength = UserSettings.INSTANCE.getMaxThumbnailWidth();
+            String createCommand = UserSettings.INSTANCE.getExternalThumbnailCreationCommand();
+
+            return getThumbnailFromExternalApplication(file, createCommand, maxLength);
+        }
     }
 
     /**
@@ -106,6 +129,10 @@ public final class ThumbnailUtil {
             throw new IllegalArgumentException("Invalid length: " + maxLength);
         }
 
+        if (AppFileFilters.INSTANCE.isUserDefinedFileType(file)) {
+            return null;
+        }
+
         return getScaledImageImagero(file, maxLength);
     }
 
@@ -116,6 +143,10 @@ public final class ThumbnailUtil {
 
         if (maxLength < 0) {
             throw new IllegalArgumentException("Invalid length: " + maxLength);
+        }
+
+        if (AppFileFilters.INSTANCE.isUserDefinedFileType(file)) {
+            return null;
         }
 
         AppLogger.logInfo(ThumbnailUtil.class, "ThumbnailUtil.CreateImage.Information.JavaIo", file, maxLength);
@@ -140,6 +171,10 @@ public final class ThumbnailUtil {
     public static Image getEmbeddedThumbnail(File file) {
         if (file == null) {
             throw new NullPointerException("file == null");
+        }
+
+        if (AppFileFilters.INSTANCE.isUserDefinedFileType(file)) {
+            return null;
         }
 
         return getEmbeddedThumbnailRotated(file);
@@ -237,7 +272,7 @@ public final class ThumbnailUtil {
      * @param maxLength maximum length of the image in pixel
      * @return          thumbnail or null if errors occured
      */
-    public static Image getThumbnailFromExternalApplication(File file, String command, int maxLength) {
+    private static Image getThumbnailFromExternalApplication(File file, String command, int maxLength) {
         if (file == null) {
             throw new NullPointerException("file == null");
         }

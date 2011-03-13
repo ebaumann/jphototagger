@@ -5,6 +5,7 @@ Changelog JPhotoTagger http://jphototagger.org/
 
 0.8.65 2011-03-13
 -----------------
+* "Benutzerdefinierte Dateitypen" hinzugefügt (Menü "Fenster", dort Hilfe aufrufen)
 * Bugfix: In der Zeitleiste werden alle Bilder eines Jahres/Monats angezeigt,
   die lediglich ein selbst definiertes Datum haben und kein EXIF-Datum
   (Vorher wurden keine Bilder angzeigt, für die nur das Jahr definiert war,

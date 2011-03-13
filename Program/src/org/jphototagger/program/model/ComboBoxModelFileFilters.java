@@ -9,6 +9,7 @@ import org.jphototagger.program.event.listener.DatabaseUserDefinedFileFiltersLis
 import org.jphototagger.program.UserSettings;
 
 import java.awt.EventQueue;
+import java.io.FileFilter;
 
 import javax.swing.DefaultComboBoxModel;
 
@@ -32,11 +33,18 @@ public final class ComboBoxModelFileFilters extends DefaultComboBoxModel
             return;
         }
 
-        addElement(AppFileFilters.ACCEPTED_IMAGE_FILENAMES);
-        addElement(AppFileFilters.JPEG_FILENAMES);
-        addElement(AppFileFilters.TIFF_FILENAMES);
-        addElement(AppFileFilters.RAW_FILENAMES);
-        addElement(AppFileFilters.DNG_FILENAMES);
+        addElement(AppFileFilters.INSTANCE.getAllAcceptedImageFilesFilter());
+        addElement(AppFileFilters.INSTANCE.getAcceptedJpegFilesFilter());
+        addElement(AppFileFilters.INSTANCE.getAcceptedTiffFilesFilter());
+        addElement(AppFileFilters.INSTANCE.getAcceptedRawFilesFilter());
+        addElement(AppFileFilters.INSTANCE.getAcceptedDngFilesFilter());
+
+        FileFilter userDefinedFileTypesFilter = AppFileFilters.INSTANCE.getUserDefinedFileTypesFilter();
+
+        if (userDefinedFileTypesFilter != null) {
+            addElement(userDefinedFileTypesFilter);
+        }
+
         addElement(AppFileFilters.NO_XMP);
         addElement(AppFileFilters.XMP_RATING_1_STAR);
         addElement(AppFileFilters.XMP_RATING_2_STARS);

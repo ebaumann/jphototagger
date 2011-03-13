@@ -875,6 +875,17 @@
                 <Property name="name" type="java.lang.String" value="menuItemUserDefinedFileFilter" noResource="true"/>
               </Properties>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="menuItemUserDefinedFileType">
+              <Properties>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuItemUserDefinedFileType.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                </Property>
+                <Property name="name" type="java.lang.String" value="menuItemUserDefinedFileType" noResource="true"/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JMenuItem(new EditUserDefinedFileTypesAction())"/>
+              </AuxValues>
+            </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="sep19">
               <Properties>
                 <Property name="name" type="java.lang.String" value="sep19" noResource="true"/>

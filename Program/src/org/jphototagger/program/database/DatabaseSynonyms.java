@@ -54,7 +54,7 @@ public final class DatabaseSynonyms extends Database {
                 notifySynonymOfWordRenamed(word, oldSynonym, newSynonym);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseKeywords.class, ex);
+            AppLogger.logSevere(DatabaseSynonyms.class, ex);
             count = 0;
             rollback(con);
         } finally {
@@ -92,7 +92,7 @@ public final class DatabaseSynonyms extends Database {
                 notifyWordRenamed(oldWord, newWord);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseKeywords.class, ex);
+            AppLogger.logSevere(DatabaseSynonyms.class, ex);
             count = 0;
             rollback(con);
         } finally {
@@ -130,7 +130,7 @@ public final class DatabaseSynonyms extends Database {
                 notifySynonymRenamed(oldSynonym, newSynonym);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseKeywords.class, ex);
+            AppLogger.logSevere(DatabaseSynonyms.class, ex);
             count = 0;
             rollback(con);
         } finally {
@@ -165,7 +165,7 @@ public final class DatabaseSynonyms extends Database {
                 count = rs.getLong(1);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseKeywords.class, ex);
+            AppLogger.logSevere(DatabaseSynonyms.class, ex);
             count = 0;
             rollback(con);
         } finally {
@@ -205,7 +205,7 @@ public final class DatabaseSynonyms extends Database {
                 count = rs.getLong(1);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseKeywords.class, ex);
+            AppLogger.logSevere(DatabaseSynonyms.class, ex);
             count = 0;
             rollback(con);
         } finally {
@@ -247,7 +247,7 @@ public final class DatabaseSynonyms extends Database {
                 notifySynonymInserted(word, synonym);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseKeywords.class, ex);
+            AppLogger.logSevere(DatabaseSynonyms.class, ex);
             count = 0;
             rollback(con);
         } finally {
@@ -285,7 +285,7 @@ public final class DatabaseSynonyms extends Database {
                 notifySynonymOfWordDeleted(word, synonym);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseKeywords.class, ex);
+            AppLogger.logSevere(DatabaseSynonyms.class, ex);
             count = 0;
             rollback(con);
         } finally {
@@ -324,7 +324,7 @@ public final class DatabaseSynonyms extends Database {
                 notifyWordDeleted(word);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseKeywords.class, ex);
+            AppLogger.logSevere(DatabaseSynonyms.class, ex);
             count = 0;
             rollback(con);
         } finally {
@@ -369,7 +369,7 @@ public final class DatabaseSynonyms extends Database {
                 synonyms.add(rs.getString(1));
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseKeywords.class, ex);
+            AppLogger.logSevere(DatabaseSynonyms.class, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -397,7 +397,7 @@ public final class DatabaseSynonyms extends Database {
                 words.add(rs.getString(1));
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseKeywords.class, ex);
+            AppLogger.logSevere(DatabaseSynonyms.class, ex);
             words.clear();
         } finally {
             close(rs, stmt);
@@ -458,4 +458,6 @@ public final class DatabaseSynonyms extends Database {
             listener.wordRenamed(fromName, toName);
         }
     }
+
+    private DatabaseSynonyms() {}
 }
