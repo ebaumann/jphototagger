@@ -39,7 +39,7 @@ public final class EmbeddedXmpCache extends DatabaseImageFilesListenerAdapter {
         File cacheFile = getCacheFile(imageFile);
 
         try {
-            LOGGER.log(Level.FINE, "Caching embedded XMP of image file ''{0}'' into ''{1}''", new Object[]{imageFile, cacheFile});
+            LOGGER.log(Level.FINE, "Embedded Xmp Cache: Caching embedded XMP of image file ''{0}'' into ''{1}''", new Object[]{imageFile, cacheFile});
             FileUtil.writeStringAsFile(cacheFile, xmpAsString);
         } catch (Throwable ex) {
             AppLogger.logSevere(EmbeddedXmpCache.class, ex);
@@ -57,7 +57,7 @@ public final class EmbeddedXmpCache extends DatabaseImageFilesListenerAdapter {
         }
 
         if (!containsUpToDateXmp(imageFile)) {
-            LOGGER.log(Level.FINEST, "Updating embedded XMP cache file of image file ''{0}''", new Object[] { imageFile });
+            LOGGER.log(Level.FINEST, "Embedded Xmp Cache: Updating embedded XMP cache file of image file ''{0}''", new Object[] { imageFile });
             cacheXmp(imageFile, xmpAsString);
         }
     }
@@ -104,7 +104,7 @@ public final class EmbeddedXmpCache extends DatabaseImageFilesListenerAdapter {
         }
 
         try {
-            LOGGER.log(Level.FINEST, "Reading embedded XMP cache of image file ''{0}'' from cache file ''{1}''",
+            LOGGER.log(Level.FINEST, "Embedded Xmp Cache: Reading embedded XMP cache of image file ''{0}'' from cache file ''{1}''",
                        new Object[] { imageFile, cacheFile });
             return FileUtil.getContentAsString(cacheFile, "UTF-8");
         } catch (Throwable throwable) {
@@ -122,7 +122,7 @@ public final class EmbeddedXmpCache extends DatabaseImageFilesListenerAdapter {
         File cacheFile = getCacheFile(imageFile);
 
         if (cacheFile.isFile()) {
-            LOGGER.log(Level.FINEST, "Deleting embedded XMP cache file ''{0}'' of image file ''{1}''",
+            LOGGER.log(Level.FINEST, "Embedded Xmp Cache: Deleting embedded XMP cache file ''{0}'' of image file ''{1}''",
                     new Object[] { cacheFile, imageFile });
             cacheFile.delete();
         }
@@ -138,7 +138,7 @@ public final class EmbeddedXmpCache extends DatabaseImageFilesListenerAdapter {
 
         LOGGER.log(
             Level.FINEST,
-            "Renaming embedded XMP cache file ''{0}'' of renamed image file ''{1}'' to cache file ''{2}'' of new image file ''{3}''",
+            "Embedded Xmp Cache: Renaming embedded XMP cache file ''{0}'' of renamed image file ''{1}'' to cache file ''{2}'' of new image file ''{3}''",
             new Object[] { oldCacheFile, oldImageFile, newCacheFile, newImageFile });
 
         if (newCacheFile.isFile()) {
@@ -173,7 +173,7 @@ public final class EmbeddedXmpCache extends DatabaseImageFilesListenerAdapter {
     void ensureCacheDiretoryExists() {
         if (!CACHE_DIR.isDirectory()) {
             try {
-                LOGGER.log(Level.FINEST, "Creating cache directory ''{0}''", CACHE_DIR);
+                LOGGER.log(Level.FINEST, "Embedded Xmp Cache: Creating cache directory ''{0}''", CACHE_DIR);
                 FileUtil.ensureDirectoryExists(CACHE_DIR);
             } catch (Throwable ex) {
                 AppLogger.logSevere(EmbeddedXmpCache.class, ex);
