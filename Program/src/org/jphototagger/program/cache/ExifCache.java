@@ -41,6 +41,7 @@ public final class ExifCache extends DatabaseImageFilesListenerAdapter {
             LOGGER.log(Level.FINEST, "EXIF Cache: Caching EXIF of image file ''{0}'' into cache file ''{1}''",
                        new Object[] { imageFile, cacheFile });
             exifTags.writeToFile(cacheFile);
+            FileUtil.touch(cacheFile, imageFile);
         } catch (Throwable ex) {
             AppLogger.logSevere(ExifCache.class, ex);
             cacheFile.delete();
@@ -75,7 +76,7 @@ public final class ExifCache extends DatabaseImageFilesListenerAdapter {
         long timestampImageFile = imageFile.lastModified();
         long timestampCachedFile = cacheFile.lastModified();
 
-        return timestampCachedFile >= timestampImageFile;
+        return timestampCachedFile == timestampImageFile;
     }
 
     public boolean containsExifTags(File imageFile) {
