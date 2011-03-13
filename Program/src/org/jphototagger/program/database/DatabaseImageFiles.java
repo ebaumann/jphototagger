@@ -2050,10 +2050,11 @@ public final class DatabaseImageFiles extends Database {
 
             stmt = con.prepareStatement(sql);
 
-            String dateString = getSqlDateString(year, month, day);
+            String exifDateString = getExifSqlDateString(year, month, day);
+            String xmpDateString = getXmpSqlDateString(year, month, day);
 
-            stmt.setString(1, dateString);
-            stmt.setString(2, dateString);
+            stmt.setString(1, exifDateString);
+            stmt.setString(2, xmpDateString);
             logFinest(stmt);
             rs = stmt.executeQuery();
 
@@ -2070,7 +2071,8 @@ public final class DatabaseImageFiles extends Database {
         return files;
     }
 
-    public String getSqlDateString(int year, int month, int day) {
+    // All EXIF dates considered as complete (having year and month and day)
+    private String getExifSqlDateString(int year, int month, int day) {
         StringBuilder sb = new StringBuilder(String.valueOf(year));
 
         if (month > 0) {
@@ -2088,6 +2090,38 @@ public final class DatabaseImageFiles extends Database {
         } else {
             sb.append("-%");
         }
+
+        return sb.toString();
+    }
+
+    // A XMP date can have only a year, or a year and month or year and month and day
+    // Ignoring queries: All specific months ("All Januaries" ignoring year) and all
+    // specific days ("All 15ths" igoring year and/or month)
+    private String getXmpSqlDateString(int year, int month, int day) {
+        StringBuilder sb = new StringBuilder(String.valueOf(year));
+        boolean hasMonth = month > 0;
+        boolean hasDay = day > 0;
+        boolean hasOnlyYear = !hasMonth && !hasDay;
+
+        if (hasOnlyYear) {
+            sb.append("%");
+            return sb.toString();
+        }
+
+        if (hasMonth) {
+            sb.append("-");
+            sb.append(getMonthDayPrefix(month));
+            sb.append(String.valueOf(month));
+        }
+
+        if (!hasDay) {
+            sb.append("%");
+            return sb.toString();
+        }
+
+        sb.append("-");
+        sb.append(getMonthDayPrefix(day));
+        sb.append(String.valueOf(day));
 
         return sb.toString();
     }
