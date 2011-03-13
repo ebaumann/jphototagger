@@ -101,27 +101,20 @@ public final class RegexFileFilter implements java.io.FileFilter, Serializable {
             return false;
         }
 
-        if (getClass() != obj.getClass()) {
+        if (!(obj instanceof RegexFileFilter)) {
             return false;
         }
 
-        final RegexFileFilter other = (RegexFileFilter) obj;
+        RegexFileFilter other = (RegexFileFilter) obj;
 
-        if ((this.acceptedPatterns != other.acceptedPatterns)
-                && ((this.acceptedPatterns == null) ||!this.acceptedPatterns.equals(other.acceptedPatterns))) {
-            return false;
-        }
-
-        return true;
+        return acceptedPatterns.equals(other.acceptedPatterns);
     }
 
     @Override
     public int hashCode() {
         int hash = 3;
 
-        hash = 43 * hash + ((this.acceptedPatterns != null)
-                            ? this.acceptedPatterns.hashCode()
-                            : 0);
+        hash = 43 * hash + acceptedPatterns.hashCode();
 
         return hash;
     }
