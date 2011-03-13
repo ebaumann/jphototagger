@@ -1350,4 +1350,23 @@ public final class FileUtil {
                ? null
                : files.get(0);
     }
+
+    /**
+     * Changes the last modification time of a file.
+     *
+     * @param fileToTouch   file
+     * @param referenceFile file from which the time shall be taken
+     *                      or null if the current system time shall be used
+     */
+    public static void touch(File fileToTouch, File referenceFile) {
+        if (fileToTouch == null) {
+            throw new NullPointerException("fileToTouch == null");
+        }
+
+        long reference = referenceFile == null
+                ? System.currentTimeMillis()
+                : referenceFile.lastModified();
+
+        fileToTouch.setLastModified(reference);
+    }
 }
