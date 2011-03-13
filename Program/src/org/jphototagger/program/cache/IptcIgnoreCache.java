@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.jphototagger.program.cache;
 
 import java.io.File;
@@ -37,7 +33,7 @@ public final class IptcIgnoreCache extends DatabaseImageFilesListenerAdapter {
         boolean ignore = containsUpToDateIgnoreInfo(imageFile);
         
         if (ignore) {
-            LOGGER.log(Level.FINEST, "Ignore reading IPTC from image file ''{0}''", imageFile);
+            LOGGER.log(Level.FINEST, "IPTC Ignore Cache: Ignore reading IPTC from image file ''{0}''", imageFile);
         }
 
         return ignore;
@@ -61,7 +57,7 @@ public final class IptcIgnoreCache extends DatabaseImageFilesListenerAdapter {
     private void ignore(File imageFile, File cacheFile) {
         try {
             LOGGER.log(Level.FINEST,
-                    "Ignore reading IPTC from image file ''{0}'' (Creating ''{1}'')",
+                    "IPTC Ignore Cache: Ignore reading IPTC from image file ''{0}'' (Creating ''{1}'')",
                     new Object[]{imageFile, cacheFile});
             FileUtil.writeStringAsFile(cacheFile, FILE_CONTENT);
         } catch (Throwable throwable) {
@@ -71,8 +67,8 @@ public final class IptcIgnoreCache extends DatabaseImageFilesListenerAdapter {
 
     private void unIgnore(File imageFile, File cacheFile) {
         if (cacheFile.isFile()) {
-            LOGGER.log(Level.FINEST,
-                    "Don''t ignore reading IPTC from image file ''{0}'' (Deleting ''{1}'')",
+            LOGGER.log(Level.FINEST, 
+                    "IPTC Ignore Cache: Don''t ignore reading IPTC from image file ''{0}'' (Deleting ''{1}'')",
                     new Object[]{imageFile, cacheFile});
             cacheFile.delete();
         }
@@ -97,7 +93,7 @@ public final class IptcIgnoreCache extends DatabaseImageFilesListenerAdapter {
     public void ensureCacheDiretoryExists() {
         if (!CACHE_DIR.isDirectory()) {
             try {
-                LOGGER.log(Level.FINEST, "Creating cache directory ''{0}''", CACHE_DIR);
+                LOGGER.log(Level.FINEST, "IPTC Ignore Cache: Creating cache directory ''{0}''", CACHE_DIR);
                 FileUtil.ensureDirectoryExists(CACHE_DIR);
             } catch (Throwable ex) {
                 AppLogger.logSevere(IptcIgnoreCache.class, ex);
@@ -118,7 +114,7 @@ public final class IptcIgnoreCache extends DatabaseImageFilesListenerAdapter {
             File newCacheFile = getCacheFile(newImageFile);
 
             LOGGER.log(Level.FINEST,
-                    "Renaming IPTC ignore info for image file ''{0}'' renamed to ''{1}'' from ''{2}'' into ''{3}''",
+                    "IPTC Ignore Cache: Renaming IPTC ignore info for image file ''{0}'' renamed to ''{1}'' from ''{2}'' into ''{3}''",
                     new Object[]{oldImageFile, newImageFile, oldCacheFile, newCacheFile});
 
             oldCacheFile.renameTo(newCacheFile);
