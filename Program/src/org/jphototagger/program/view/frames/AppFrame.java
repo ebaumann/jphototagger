@@ -36,6 +36,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JRadioButtonMenuItem;
 import org.jphototagger.lib.event.util.KeyEventUtil;
+import org.jphototagger.program.controller.actions.EditUserDefinedFileTypesAction;
 import org.jphototagger.program.controller.actions.ShowActionDialogAction;
 
 /**
@@ -391,6 +392,7 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemActions = new javax.swing.JMenuItem();
         menuItemSynonyms = new javax.swing.JMenuItem();
         menuItemUserDefinedFileFilter = new javax.swing.JMenuItem();
+        menuItemUserDefinedFileType = new JMenuItem(new EditUserDefinedFileTypesAction());
         sep19 = new javax.swing.JPopupMenu.Separator();
         menuItemOutputWindow = new javax.swing.JMenuItem();
         sep20 = new javax.swing.JPopupMenu.Separator();
@@ -817,6 +819,10 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemUserDefinedFileFilter.setName("menuItemUserDefinedFileFilter"); // NOI18N
         menuWindow.add(menuItemUserDefinedFileFilter);
 
+        menuItemUserDefinedFileType.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemUserDefinedFileType.text")); // NOI18N
+        menuItemUserDefinedFileType.setName("menuItemUserDefinedFileType"); // NOI18N
+        menuWindow.add(menuItemUserDefinedFileType);
+
         sep19.setName("sep19"); // NOI18N
         menuWindow.add(sep19);
 
@@ -974,6 +980,7 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemSynonyms;
     private javax.swing.JMenuItem menuItemToolIptcToXmp;
     private javax.swing.JMenuItem menuItemUserDefinedFileFilter;
+    private javax.swing.JMenuItem menuItemUserDefinedFileType;
     private javax.swing.JMenu menuSort;
     private javax.swing.JMenu menuTools;
     private javax.swing.JMenu menuView;

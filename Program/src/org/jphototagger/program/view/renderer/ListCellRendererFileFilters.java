@@ -27,7 +27,7 @@ public final class ListCellRendererFileFilters extends DefaultListCellRenderer {
         JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 
         if (value instanceof FileFilter) {
-            String displayName = AppFileFilters.getDisplaynameOf((FileFilter) value);
+            String displayName = AppFileFilters.INSTANCE.getDisplaynameOf((FileFilter) value);
 
             if (displayName != null) {
                 label.setText(displayName);

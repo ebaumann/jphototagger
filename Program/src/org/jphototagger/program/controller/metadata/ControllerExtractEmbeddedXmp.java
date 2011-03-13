@@ -37,7 +37,7 @@ public final class ControllerExtractEmbeddedXmp implements ActionListener {
         panel.setEditor(new ExtractEmbeddedXmp());
         panel.setTitle(JptBundle.INSTANCE.getString("ControllerExtractEmbeddedXmp.Panel.Title"));
         panel.setDescription(JptBundle.INSTANCE.getString("ControllerExtractEmbeddedXmp.Panel.Description"));
-        panel.setDirChooserFileFilter(AppFileFilters.ACCEPTED_IMAGE_FILENAMES);
+        panel.setDirChooserFileFilter(AppFileFilters.INSTANCE.getAllAcceptedImageFilesFilter());
         panel.setSelectDirs(true);
         dlg.setHelpPageUrl(JptBundle.INSTANCE.getString("Help.Url.ExtractEmbeddedXmp"));
         dlg.setVisible(true);

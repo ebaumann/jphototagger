@@ -18,6 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.jphototagger.program.app.AppFileFilters;
 
 /**
  * Erzeugt XMP-Daten anhand bestehender IPTC-Daten.
@@ -60,7 +61,11 @@ public final class ConvertIptcToXmp implements Runnable, Cancelable {
         for (index = 0; !cancel && (index < size); index++) {
             File imageFile = imageFiles.get(index);
             File xmpFile = XmpMetadata.suggestSidecarFile(imageFile);
-            Iptc iptc = IptcMetadata.getIptc(imageFile);
+            Iptc iptc = null;
+            
+            if (!AppFileFilters.INSTANCE.isUserDefinedFileType(imageFile)) {
+                iptc = IptcMetadata.getIptc(imageFile);
+            }
 
             if (iptc != null) {
                 Xmp xmp = null;

@@ -30,7 +30,7 @@ public final class ImageFileFilterer {
             throw new NullPointerException("directory == null");
         }
 
-        File[] filteredFiles = directory.listFiles(AppFileFilters.ACCEPTED_IMAGE_FILENAMES);
+        File[] filteredFiles = directory.listFiles(AppFileFilters.INSTANCE.getAllAcceptedImageFilesFilter());
         List<String> excludePatterns = DatabaseFileExcludePatterns.INSTANCE.getAll();
         List<File> files = new ArrayList<File>();
 
@@ -98,7 +98,7 @@ public final class ImageFileFilterer {
         }
 
         List<File> imageFiles = new ArrayList<File>();
-        RegexFileFilter filter = AppFileFilters.ACCEPTED_IMAGE_FILENAMES;
+        RegexFileFilter filter = AppFileFilters.INSTANCE.getAllAcceptedImageFilesFilter();
 
         for (File file : arbitraryFiles) {
             if (filter.accept(file)) {
@@ -120,7 +120,7 @@ public final class ImageFileFilterer {
             throw new NullPointerException("file == null");
         }
 
-        return AppFileFilters.ACCEPTED_IMAGE_FILENAMES.accept(file);
+        return AppFileFilters.INSTANCE.isAcceptedImageFile(file);
     }
 
     /**

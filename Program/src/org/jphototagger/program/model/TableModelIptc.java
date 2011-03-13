@@ -11,6 +11,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.program.cache.IptcIgnoreCache;
 
 /**
@@ -39,7 +40,7 @@ public final class TableModelIptc extends TableModelExt {
             throw new NullPointerException("file == null");
         }
 
-        if (IptcIgnoreCache.INSTANCE.isIgnore(file)) {
+        if (IptcIgnoreCache.INSTANCE.isIgnore(file) || AppFileFilters.INSTANCE.isUserDefinedFileType(file)) {
             return;
         }
 

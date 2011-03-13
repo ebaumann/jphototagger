@@ -17,6 +17,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.program.cache.ExifCache;
 
 /**
@@ -216,7 +217,11 @@ public final class ExifMetadata {
             throw new NullPointerException("imageFile == null");
         }
 
-        Exif exif = getCachedExif(imageFile);
+        Exif exif = null;
+
+        if (!AppFileFilters.INSTANCE.isUserDefinedFileType(imageFile)) {
+            exif = getCachedExif(imageFile);
+        }
 
         if ((exif == null) || (exif.getDateTimeOriginal() == null)) {
             return imageFile.lastModified();

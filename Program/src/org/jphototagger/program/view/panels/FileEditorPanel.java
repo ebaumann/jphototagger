@@ -41,7 +41,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     private List<File> selectedDirectories = new ArrayList<File>();
     private File prevSelectedDirectory = new File("");
     private FileEditor fileEditor = new FileEditor();
-    private FileFilter fileChooserFileFilter = AppFileFilters.ACCEPTED_IMAGE_FILENAMES.forFileChooser(JptBundle.INSTANCE.getString("FileEditorPanel.FileChooserFileFilter.Description"));
+    private FileFilter fileChooserFileFilter = AppFileFilters.INSTANCE.getAllAcceptedImageFilesFilter().forFileChooser(JptBundle.INSTANCE.getString("FileEditorPanel.FileChooserFileFilter.Description"));
     private transient RegexFileFilter dirChooserFileFilter = new RegexFileFilter(".*", ";");
     private String title = "";
     private volatile boolean selectDirs;

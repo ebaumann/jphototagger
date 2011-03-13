@@ -16,7 +16,7 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import org.jphototagger.program.controller.actions.ControllerAddAction;
+import org.jphototagger.program.controller.actions.AddProgramAction;
 
 /**
  *
@@ -25,7 +25,7 @@ import org.jphototagger.program.controller.actions.ControllerAddAction;
  */
 public final class ActionsHelper {
 
-    private static final JMenuItem ADD_ACTION__MENU_ITEM = new JMenuItem(new ControllerAddAction());
+    private static final JMenuItem ADD_ACTION__MENU_ITEM = new JMenuItem(new AddProgramAction());
 
     public static JMenu actionsAsMenu() {
         List<Program> actions = DatabasePrograms.INSTANCE.getAll(DatabasePrograms.Type.ACTION);
