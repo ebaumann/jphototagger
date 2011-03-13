@@ -48,6 +48,14 @@ public final class RegexFileFilter implements java.io.FileFilter, Serializable {
         }
     }
 
+    public void addAcceptPattern(String pattern) {
+        if (pattern == null) {
+            throw new NullPointerException("pattern == null");
+        }
+
+        acceptedPatterns.add(pattern);
+    }
+
     @Override
     public boolean accept(File file) {
         String pathname = file.getName();
