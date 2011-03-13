@@ -127,7 +127,7 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
     }
 
     private boolean checkValid() {
-        return checkNotEmpty() && checkUniqueSuffix();
+        return checkNotEmpty() && checkUniqueSuffix() && checkIsNotAcceptedSuffix();
     }
 
     private boolean checkNotEmpty() {
