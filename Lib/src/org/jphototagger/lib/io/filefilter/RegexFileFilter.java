@@ -56,6 +56,30 @@ public final class RegexFileFilter implements java.io.FileFilter, Serializable {
         }
     }
 
+    public void addAcceptPatternsOf(RegexFileFilter other) {
+        if (other == null) {
+            throw new NullPointerException("other == null");
+        }
+
+        if (other == this) {
+            return;
+        }
+
+        acceptedPatterns.addAll(other.acceptedPatterns);
+    }
+
+    public void removeAcceptPatternsOf(RegexFileFilter other) {
+        if (other == null) {
+            throw new NullPointerException("other == null");
+        }
+
+        if (other == this) {
+            return;
+        }
+
+        acceptedPatterns.removeAll(other.acceptedPatterns);
+    }
+
     public void addAcceptPattern(String pattern) {
         if (pattern == null) {
             throw new NullPointerException("pattern == null");
