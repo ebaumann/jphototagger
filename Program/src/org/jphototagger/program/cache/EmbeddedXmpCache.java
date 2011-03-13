@@ -41,6 +41,7 @@ public final class EmbeddedXmpCache extends DatabaseImageFilesListenerAdapter {
         try {
             LOGGER.log(Level.FINE, "Embedded Xmp Cache: Caching embedded XMP of image file ''{0}'' into ''{1}''", new Object[]{imageFile, cacheFile});
             FileUtil.writeStringAsFile(cacheFile, xmpAsString);
+            FileUtil.touch(cacheFile, imageFile);
         } catch (Throwable ex) {
             AppLogger.logSevere(EmbeddedXmpCache.class, ex);
             cacheFile.delete();
@@ -83,7 +84,7 @@ public final class EmbeddedXmpCache extends DatabaseImageFilesListenerAdapter {
         long timestampImageFile = imageFile.lastModified();
         long timestampCachedFile = cacheFile.lastModified();
 
-        return timestampCachedFile >= timestampImageFile;
+        return timestampCachedFile == timestampImageFile;
     }
 
     /**

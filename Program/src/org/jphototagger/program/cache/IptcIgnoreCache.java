@@ -60,6 +60,7 @@ public final class IptcIgnoreCache extends DatabaseImageFilesListenerAdapter {
                     "IPTC Ignore Cache: Ignore reading IPTC from image file ''{0}'' (Creating ''{1}'')",
                     new Object[]{imageFile, cacheFile});
             FileUtil.writeStringAsFile(cacheFile, FILE_CONTENT);
+            FileUtil.touch(cacheFile, imageFile);
         } catch (Throwable throwable) {
             AppLogger.logSevere(IptcIgnoreCache.class, throwable);
         }
@@ -87,7 +88,7 @@ public final class IptcIgnoreCache extends DatabaseImageFilesListenerAdapter {
         long timestampImageFile = imageFile.lastModified();
         long timestampCachedFile = cacheFile.lastModified();
 
-        return timestampCachedFile >= timestampImageFile;
+        return timestampCachedFile == timestampImageFile;
     }
 
     public void ensureCacheDiretoryExists() {
