@@ -3,6 +3,13 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.8.65 2011-03-13
+-----------------
+* Bugfix: In der Zeitleiste werden alle Bilder eines Jahres/Monats angezeigt,
+  die lediglich ein selbst definiertes Datum haben und kein EXIF-Datum
+  (Vorher wurden keine Bilder angzeigt, für die nur das Jahr definiert war,
+  jedoch nicht Monat und Tag)
+
 0.8.64 2011-03-12
 -----------------
 * Der Kontextmenü-Eintrag "Öffnen mit" hat einen Unterpunkt zum Hinzufügen
