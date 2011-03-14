@@ -999,8 +999,9 @@ public final class Settings {
      *
      * @param component component
      * @param key       key
+     * @return          true if location has been applied
      */
-    public void applyLocation(Component component, String key) {
+    public boolean applyLocation(Component component, String key) {
         if (component == null) {
             throw new NullPointerException("component == null");
         }
@@ -1018,10 +1019,13 @@ public final class Settings {
                 int locationY = Integer.parseInt(properties.getProperty(keyLocationY));
 
                 component.setLocation(new Point(locationX, locationY));
+                return true;
             } catch (Exception ex) {
                 Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+
+        return false;
     }
 
     /**
