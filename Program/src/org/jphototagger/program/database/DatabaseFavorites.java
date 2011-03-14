@@ -55,6 +55,7 @@ public final class DatabaseFavorites extends Database {
             inserted = count > 0;
 
             if (inserted) {
+                favorite.setId(findIdByFavoriteName(favorite.getName()));
                 notifyInserted(favorite);
             }
         } catch (Exception ex) {
@@ -293,6 +294,32 @@ public final class DatabaseFavorites extends Database {
         }
 
         return favorite;
+    }
+
+    private Long findIdByFavoriteName(String favoriteName) {
+        Long id = null;
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            con = getConnection();
+            stmt = con.prepareStatement("SELECT id FROM favorite_directories WHERE favorite_name = ?");
+            stmt.setString(1, favoriteName);
+            logFinest(stmt);
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                id = rs.getLong(1);
+            }
+        } catch (Exception ex) {
+            AppLogger.logSevere(DatabaseFavorites.class, ex);
+        } finally {
+            close(rs, stmt);
+            free(con);
+        }
+
+        return id;
     }
 
     public boolean exists(String favoriteName) {
