@@ -230,14 +230,22 @@ public class Dialog extends JDialog implements WindowListener {
     }
 
     protected void applySizeAndLocation() {
-        if (ignoreSizeAndLocation || settings == null) {
+        if (ignoreSizeAndLocation) {
+            return;
+        }
+
+        if (settings == null) {
+            setLocationRelativeTo(null);
             return;
         }
 
         String key = getSizeAndLocationKey();
 
         settings.applySize(this, key);
-        settings.applyLocation(this, key);
+        
+        if (!settings.applyLocation(this, key)) {
+            setLocationRelativeTo(null);
+        }
     }
 
     private String getSizeAndLocationKey() {
