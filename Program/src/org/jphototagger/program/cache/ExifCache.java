@@ -13,6 +13,7 @@ import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.program.database.DatabaseImageFiles;
 
 /**
@@ -166,7 +167,11 @@ public final class ExifCache extends DatabaseImageFilesListenerAdapter {
         if (containsUpToDateExifTags(imageFile)) {
             return getCachedExifTags(imageFile);
         } else {
-            ExifTags exifTags = ExifMetadata.getExifTags(imageFile);
+            ExifTags exifTags = null;
+
+            if (!AppFileFilters.INSTANCE.isUserDefinedFileType(imageFile)) {
+                exifTags = ExifMetadata.getExifTags(imageFile);
+            }
 
             if (exifTags == null) {
                 cacheExifTags(imageFile, new ExifTags());
@@ -205,7 +210,11 @@ public final class ExifCache extends DatabaseImageFilesListenerAdapter {
         public void run() {
             LOGGER.log(Level.FINEST, "EXIF Cache: Reading EXIF of image file ''{0}'' and creating EXIF cache", imageFile);
 
-            ExifTags exifTags = ExifMetadata.getExifTags(imageFile);
+            ExifTags exifTags = null;
+
+            if (!AppFileFilters.INSTANCE.isUserDefinedFileType(imageFile)) {
+                exifTags = ExifMetadata.getExifTags(imageFile);
+            }
 
             if (exifTags == null) {
                 INSTANCE.cacheExifTags(imageFile, new ExifTags());
