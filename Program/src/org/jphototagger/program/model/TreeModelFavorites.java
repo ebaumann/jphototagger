@@ -144,18 +144,32 @@ public final class TreeModelFavorites extends DefaultTreeModel
         }
     }
 
-    private void updateNodes(Favorite oldFavorite, Favorite newFavorite, DefaultMutableTreeNode nodeOfFavorite) {
-        oldFavorite.setDirectory(newFavorite.getDirectory());
-        oldFavorite.setName(newFavorite.getName());
-        nodeChanged(nodeOfFavorite);
+    private void updateNodes(DefaultMutableTreeNode nodeOfFavorite, Favorite newFavorite) {
         removeAllChildren(nodeOfFavorite);
+
+        Object userObject = nodeOfFavorite.getUserObject();
+
+        if (userObject instanceof Favorite) {
+            Favorite favorite = (Favorite) userObject;
+
+            favorite.setDirectory(newFavorite.getDirectory());
+            favorite.setName(newFavorite.getName());
+        }
+
         addChildren(nodeOfFavorite);
+        nodeChanged(nodeOfFavorite);
     }
 
     @SuppressWarnings("unchecked")
     private void removeAllChildren(DefaultMutableTreeNode node) {
+        List<DefaultMutableTreeNode> children = new ArrayList<DefaultMutableTreeNode>(node.getChildCount());
+
         for (Enumeration<DefaultMutableTreeNode> e = node.children(); e.hasMoreElements(); ) {
-            removeNodeFromParent(e.nextElement());    // notifies listeners
+            children.add(e.nextElement());
+        }
+
+        for (DefaultMutableTreeNode child : children) {
+            removeNodeFromParent(child);    // notifies listeners
         }
     }
 
@@ -611,7 +625,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
         DefaultMutableTreeNode nodeOfFavorite = getNode(oldFavorite);
 
         if (nodeOfFavorite != null) {
-            updateNodes(oldFavorite, updatedFavorite, nodeOfFavorite);
+            updateNodes(nodeOfFavorite, updatedFavorite);
         }
     }
 
