@@ -1,6 +1,7 @@
 package org.jphototagger.program.view.dialogs;
 
 import org.jphototagger.lib.dialog.DirectoryChooser.Option;
+import org.jphototagger.lib.util.Settings;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.database.DatabaseFavorites;
 import org.jphototagger.program.resource.GUI;
@@ -93,12 +94,12 @@ public final class FavoritePropertiesDialog extends Dialog {
 
         this.dir = dir;
         
-        String dirName = dir.getAbsolutePath();
+        String dirPathName = dir.getAbsolutePath();
 
-        labelDirectoryname.setText(dirName);
+        labelDirectoryname.setText(dirPathName);
 
         if (textFieldFavoriteName.getText().trim().isEmpty()) {
-            textFieldFavoriteName.setText(dirName);
+            textFieldFavoriteName.setText(dir.getName());
         }
     }
 
@@ -157,7 +158,10 @@ public final class FavoritePropertiesDialog extends Dialog {
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            directoryFromSettings();
+            if (dir == null || !dir.isDirectory()) {
+                directoryFromSettings();
+            }
+            setOkEnabled();
         } else {
             directoryToSettings();
         }
@@ -166,7 +170,11 @@ public final class FavoritePropertiesDialog extends Dialog {
     }
 
     private void directoryFromSettings() {
-        dir = new File(UserSettings.INSTANCE.getSettings().getString(KEY_LAST_DIRECTORY));
+        Settings settings = UserSettings.INSTANCE.getSettings();
+
+        if (settings.containsKey(KEY_LAST_DIRECTORY)) {
+            dir = new File(settings.getString(KEY_LAST_DIRECTORY));
+        }
     }
 
     private void setOkEnabled() {
