@@ -649,4 +649,40 @@ public final class TreeUtil {
             model.nodesWereRemoved(node, indices, children.toArray());
         }
     }
+
+    public static List<TreeNode> getTreeNodeChildren(TreeNode node) {
+        if (node == null) {
+            throw new NullPointerException("node == null");
+}
+
+        List<TreeNode> children = new ArrayList<TreeNode>(node.getChildCount());
+
+        for (Enumeration<?> enumeration = node.children(); enumeration.hasMoreElements(); ) {
+            Object nextElement = enumeration.nextElement();
+
+            if (nextElement instanceof TreeNode) {
+                children.add((DefaultMutableTreeNode) nextElement);
+            }
+        }
+
+        return children;
+    }
+
+    public static List<DefaultMutableTreeNode> getDefaultMutableTreeNodeChildren(TreeNode node) {
+        if (node == null) {
+            throw new NullPointerException("node == null");
+        }
+
+        List<DefaultMutableTreeNode> children = new ArrayList<DefaultMutableTreeNode>(node.getChildCount());
+
+        for (Enumeration<?> enumeration = node.children(); enumeration.hasMoreElements(); ) {
+            Object nextElement = enumeration.nextElement();
+
+            if (nextElement instanceof DefaultMutableTreeNode) {
+                children.add((DefaultMutableTreeNode) nextElement);
+            }
+        }
+
+        return children;
+    }
 }

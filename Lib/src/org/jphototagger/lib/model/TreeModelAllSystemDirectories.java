@@ -12,7 +12,6 @@ import java.io.File;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Enumeration;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -68,65 +67,65 @@ public final class TreeModelAllSystemDirectories extends DefaultTreeModel implem
             return;
         }
 
-        List<File> rootDirs = Arrays.asList(roots);
+        List<File> existingRootDirectories = Arrays.asList(roots);
 
-        for (File dir : rootDirs) {
-            DefaultMutableTreeNode rootDirNode = new TreeNodeSortedChildren(dir);
+        for (File existingRootDirectory : existingRootDirectories) {
+            DefaultMutableTreeNode rootDirectoryNode = new TreeNodeSortedChildren(existingRootDirectory);
 
-            insertNodeInto(rootDirNode, rootNode, rootNode.getChildCount());
-            addChildren(rootDirNode);
+            insertNodeInto(rootDirectoryNode, rootNode, rootNode.getChildCount());
+            addChildren(rootDirectoryNode);
         }
     }
 
     private void addChildren(DefaultMutableTreeNode parentNode) {
-        Object parentUserObject = parentNode.getUserObject();
-        File dir = (parentUserObject instanceof File)
-                   ? (File) parentUserObject
+        Object parentNodeUserObject = parentNode.getUserObject();
+        File parentDirectory = (parentNodeUserObject instanceof File)
+                   ? (File) parentNodeUserObject
                    : null;
 
-        if ((dir == null) ||!dir.isDirectory()) {
+        if ((parentDirectory == null) ||!parentDirectory.isDirectory()) {
             return;
         }
 
-        LOGGER.log(Level.FINEST, "Reading subdirectories of ''{0}''...", dir);
+        LOGGER.log(Level.FINEST, "Reading subdirectories of ''{0}''...", parentDirectory);
 
-        File[] subdirs = dir.listFiles(directoryFilter);
+        File[] existingSubdirectories = parentDirectory.listFiles(directoryFilter);
 
-        LOGGER.log(Level.FINEST, "Subdirectories of ''{0}'' have been read: {1}", new Object[] { dir,
-                StringUtil.toString(subdirs) });
+        LOGGER.log(Level.FINEST, "Subdirectories of ''{0}'' have been read: {1}", 
+                new Object[] { parentDirectory, StringUtil.toString(existingSubdirectories) });
 
-        if (subdirs == null) {
+        if (existingSubdirectories == null) {
             return;
         }
 
         int childCount = parentNode.getChildCount();
-        List<File> nodeChildDirs = new ArrayList<File>(childCount);
+        List<File> parentNodeChildDirectories = new ArrayList<File>(childCount);
 
         for (int i = 0; i < childCount; i++) {
             DefaultMutableTreeNode childNode = (DefaultMutableTreeNode) parentNode.getChildAt(i);
-            Object userObjectChild = childNode.getUserObject();
+            Object childNodeUserObject = childNode.getUserObject();
 
-            if (userObjectChild instanceof File) {
-                nodeChildDirs.add((File) userObjectChild);
+            if (childNodeUserObject instanceof File) {
+                parentNodeChildDirectories.add((File) childNodeUserObject);
             }
         }
 
-        for (int i = 0; i < subdirs.length; i++) {
-            final File subdir = subdirs[i];
+        for (int i = 0; i < existingSubdirectories.length; i++) {
+            final File existingSubdirectory = existingSubdirectories[i];
 
-            if (!nodeChildDirs.contains(subdir)) {
-                LOGGER.log(Level.FINEST, "Adding subdirectory ''{0}'' to node ''{1}''", new Object[] { subdir,
-                        parentNode });
+            if (!parentNodeChildDirectories.contains(existingSubdirectory)) {
+                LOGGER.log(Level.FINEST, "Adding subdirectory ''{0}'' to node ''{1}''",
+                           new Object[] { existingSubdirectory, parentNode });
 
-                DefaultMutableTreeNode newChild = new TreeNodeSortedChildren(subdirs[i]);
+                DefaultMutableTreeNode newChildNode = new TreeNodeSortedChildren(existingSubdirectory);
 
-                parentNode.add(newChild);
+                parentNode.add(newChildNode);
 
-                int childIndex = parentNode.getIndex(newChild);
+                int newChildIndex = parentNode.getIndex(newChildNode);
 
-                fireTreeNodesInserted(this, parentNode.getPath(), new int[] { childIndex }, new Object[] { newChild });
-                LOGGER.log(Level.FINEST, "Subdirectory ''{0}'' has been added to node ''{1}''", new Object[] { subdir,
-                        parentNode });
+                fireTreeNodesInserted(this, parentNode.getPath(), new int[] { newChildIndex }, new Object[] { newChildNode });
+                LOGGER.log(Level.FINEST, "Subdirectory ''{0}'' has been added to node ''{1}''", 
+                           new Object[] { existingSubdirectory, parentNode });
             }
         }
     }
@@ -144,19 +143,17 @@ public final class TreeModelAllSystemDirectories extends DefaultTreeModel implem
                 file = (File) userObject;
             }
 
-            if ((file != null) &&!file.exists()) {
+            if ((file != null) && !file.exists()) {
                 nodesToRemove.add(child);
             }
         }
 
         for (DefaultMutableTreeNode childNodeToRemove : nodesToRemove) {
             LOGGER.log(Level.FINEST, "Removing child node ''{0}'' from parent node ''{1}''...",
-                       new Object[] { childNodeToRemove,
-                                      parentNode });
+                       new Object[] { childNodeToRemove, parentNode });
             removeNodeFromParent(childNodeToRemove);
             LOGGER.log(Level.FINEST, "Child node ''{0}'' has been removed from parent node ''{1}''",
-                       new Object[] { childNodeToRemove,
-                                      parentNode });
+                       new Object[] { childNodeToRemove, parentNode });
         }
 
         return nodesToRemove.size();
@@ -170,24 +167,23 @@ public final class TreeModelAllSystemDirectories extends DefaultTreeModel implem
      * @return            created directory or null if not created
      */
     public File createDirectoryIn(DefaultMutableTreeNode parentNode) {
-        File parentDir = (parentNode == null)
+        File parentNodeDirectory = (parentNode == null)
                          ? null
                          : TreeFileSystemDirectories.getFile(parentNode);
 
-        if (parentDir != null) {
-            File createdDir = TreeFileSystemDirectories.createDirectoryIn(parentDir);
+        if (parentNodeDirectory != null) {
+            File createdDirectory = TreeFileSystemDirectories.createDirectoryIn(parentNodeDirectory);
 
-            if (createdDir != null) {
-                TreeNodeSortedChildren createdDirNode = new TreeNodeSortedChildren(createdDir);
+            if (createdDirectory != null) {
+                TreeNodeSortedChildren createdDirNode = new TreeNodeSortedChildren(createdDirectory);
 
                 parentNode.add(createdDirNode);
 
                 int childIndex = parentNode.getIndex(createdDirNode);
 
-                fireTreeNodesInserted(this, parentNode.getPath(), new int[] { childIndex },
-                                      new Object[] { createdDirNode });
+                fireTreeNodesInserted(this, parentNode.getPath(), new int[] { childIndex }, new Object[] { createdDirNode });
 
-                return createdDir;
+                return createdDirectory;
             }
         }
 
@@ -273,8 +269,10 @@ public final class TreeModelAllSystemDirectories extends DefaultTreeModel implem
             addChildren(node);
         }
 
-        for (Enumeration<DefaultMutableTreeNode> children = node.children(); children.hasMoreElements(); ) {
-            addChildren(children.nextElement());
+        List<DefaultMutableTreeNode> children = TreeUtil.getDefaultMutableTreeNodeChildren(node);
+        
+        for (DefaultMutableTreeNode child : children) {
+            addChildren(child);
         }
 
         LOGGER.log(Level.FINEST, "Children were added to node ''{0}'' after expanding", node);
