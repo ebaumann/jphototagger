@@ -272,8 +272,10 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
             }
         });
 
+        labelSuffix.setLabelFor(textFieldSuffix);
         labelSuffix.setText(JptBundle.INSTANCE.getString("EditUserDefinedFileTypeDialog.labelSuffix.text")); // NOI18N
 
+        labelDescription.setLabelFor(textFieldDescription);
         labelDescription.setText(JptBundle.INSTANCE.getString("EditUserDefinedFileTypeDialog.labelDescription.text")); // NOI18N
 
         checkBoxExternalThumbnailCreator.setText(JptBundle.INSTANCE.getString("EditUserDefinedFileTypeDialog.checkBoxExternalThumbnailCreator.text")); // NOI18N
