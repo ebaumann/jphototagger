@@ -55,7 +55,11 @@ public final class TerminateFactory {
 
     private void setAutocomplete() {
         if (UserSettings.INSTANCE.isAutocomplete()) {
-            ControllerFactory.INSTANCE.getController(ControllerFastSearch.class).setAutocomplete(true);
+            ControllerFastSearch controller = ControllerFactory.INSTANCE.getController(ControllerFastSearch.class);
+
+            if (controller != null) {
+                controller.setAutocomplete(true);
+            }
         }
     }
 
