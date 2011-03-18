@@ -3,6 +3,11 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.8.67 2011-03-18
+-----------------
+* Stichwörter/Listenansicht und Suchen im Programmfenster links haben ein
+  Textfeld zum Filtern (Einschränken der angezeigten Stichwörter/Suchen)
+
 0.8.66 2011-03-14
 -----------------
 * Kleinere Bugfixes

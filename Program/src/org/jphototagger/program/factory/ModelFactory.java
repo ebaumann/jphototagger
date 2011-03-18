@@ -30,7 +30,9 @@ import java.util.List;
 import javax.swing.JList;
 import javax.swing.JTree;
 import javax.swing.ListModel;
+import javax.swing.SortOrder;
 import javax.swing.tree.TreeModel;
+import org.jdesktop.swingx.JXList;
 
 /**
  * Erzeugt die Models und verbindet sie mit den GUI-Elementen.
@@ -101,7 +103,7 @@ public final class ModelFactory {
             public void run() {
                 Support.setStatusbarInfo("ModelFactory.Starting.ListModelSavedSearches");
 
-                final JList list = appPanel.getListSavedSearches();
+                final JXList list = (JXList) appPanel.getListSavedSearches();
                 final Cursor listCursor = setWaitCursor(list);
                 final ListModelSavedSearches model = new ListModelSavedSearches();
 
@@ -110,6 +112,8 @@ public final class ModelFactory {
                     @Override
                     public void run() {
                         list.setModel(model);
+                        list.setAutoCreateRowSorter(true);
+                        list.setSortOrder(SortOrder.ASCENDING);
                         AppWindowPersistence.readListSavedSearches();
                         list.setCursor(listCursor);
                         Support.setStatusbarInfo("ModelFactory.Finished.ListModelSavedSearches");
@@ -149,16 +153,18 @@ public final class ModelFactory {
             public void run() {
                 Support.setStatusbarInfo("ModelFactory.Starting.ListModelKeywords");
 
-                final JList listSelKeywords = appPanel.getListSelKeywords();
+                final JXList listSelKeywords = (JXList) appPanel.getListSelKeywords();
                 final Cursor listCursor = setWaitCursor(listSelKeywords);
-                ListModelKeywords modelKeywords = new ListModelKeywords();
+                final ListModelKeywords modelKeywords = new ListModelKeywords();
                 final ListModel sortedModel = new SortedListModel(modelKeywords);
 
                 support.add(modelKeywords);
                 EventQueue.invokeLater(new Runnable() {
                     @Override
                     public void run() {
-                        listSelKeywords.setModel(sortedModel);
+                        listSelKeywords.setModel(modelKeywords);
+                        listSelKeywords.setAutoCreateRowSorter(true);
+                        listSelKeywords.setSortOrder(SortOrder.ASCENDING);
                         appPanel.getListEditKeywords().setModel(sortedModel);
                         InputHelperDialog.INSTANCE.setModelKeywords(sortedModel);
                         AppWindowPersistence.readListSelKeywords();
