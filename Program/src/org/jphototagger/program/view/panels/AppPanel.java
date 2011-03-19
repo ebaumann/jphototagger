@@ -941,7 +941,7 @@ public final class AppPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 3, 0);
+        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
         panelSavedSearches.add(panelListSavedSearchesFilter, gridBagConstraints);
 
         scrollPaneSavedSearches.setName("scrollPaneSavedSearches"); // NOI18N
@@ -1007,7 +1007,7 @@ public final class AppPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 3, 0);
+        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
         panelImageCollections.add(panelListImageCollectionsFilter, gridBagConstraints);
 
         scrollPaneImageCollections.setName("scrollPaneImageCollections"); // NOI18N
@@ -1170,7 +1170,7 @@ public final class AppPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 3, 0);
+        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
         panelSelKeywordsList.add(panelListSelKeywordsFilter, gridBagConstraints);
 
         scrollPaneSelKeywordsList.setName("scrollPaneSelKeywordsList"); // NOI18N
@@ -1369,9 +1369,9 @@ public final class AppPanel extends javax.swing.JPanel {
         );
         panelNoMetadataLayout.setVerticalGroup(
             panelNoMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 299, Short.MAX_VALUE)
+            .addGap(0, 322, Short.MAX_VALUE)
             .addGroup(panelNoMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(scrollPaneNoMetadata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE))
+                .addComponent(scrollPaneNoMetadata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE))
         );
 
         tabbedPaneSelection.addTab(JptBundle.INSTANCE.getString("AppPanel.panelNoMetadata.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_no_metadata.png")), panelNoMetadata); // NOI18N
@@ -1406,11 +1406,11 @@ public final class AppPanel extends javax.swing.JPanel {
         panelThumbnails.setLayout(panelThumbnailsLayout);
         panelThumbnailsLayout.setHorizontalGroup(
             panelThumbnailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 325, Short.MAX_VALUE)
+            .addGap(0, 326, Short.MAX_VALUE)
         );
         panelThumbnailsLayout.setVerticalGroup(
             panelThumbnailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 466, Short.MAX_VALUE)
+            .addGap(0, 460, Short.MAX_VALUE)
         );
 
         scrollPaneThumbnails.setViewportView(panelThumbnails);
@@ -1425,9 +1425,9 @@ public final class AppPanel extends javax.swing.JPanel {
         );
         panelThumbnailsContentLayout.setVerticalGroup(
             panelThumbnailsContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 469, Short.MAX_VALUE)
+            .addGap(0, 462, Short.MAX_VALUE)
             .addGroup(panelThumbnailsContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(scrollPaneThumbnails, javax.swing.GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE))
+                .addComponent(scrollPaneThumbnails, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE))
         );
 
         splitPaneThumbnailsMetadata.setLeftComponent(panelThumbnailsContent);
@@ -1475,7 +1475,7 @@ public final class AppPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 3, 0);
+        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
         panelExif.add(panelTableExifFilter, gridBagConstraints);
 
         scrollPaneExif.setName("scrollPaneExif"); // NOI18N
@@ -1541,7 +1541,7 @@ public final class AppPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 3, 0);
+        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
         panelIptc.add(panelTableIptcFilter, gridBagConstraints);
 
         scrollPaneIptc.setName("scrollPaneIptc"); // NOI18N
@@ -1609,7 +1609,7 @@ public final class AppPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 3, 0);
+        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
         panelTableXmpTiff.add(panelTableXmpTiffFilter, gridBagConstraints);
 
         scrollPaneXmpTiff.setName("scrollPaneXmpTiff"); // NOI18N
@@ -1663,7 +1663,7 @@ public final class AppPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 3, 0);
+        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
         panelTableXmpExif.add(panelTableXmpExifFilter, gridBagConstraints);
 
         scrollPaneXmpExif.setName("scrollPaneXmpExif"); // NOI18N
@@ -1717,7 +1717,7 @@ public final class AppPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 3, 0);
+        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
         panelTableXmpDc.add(panelTableXmpDcFilter, gridBagConstraints);
 
         scrollPaneXmpDc.setName("scrollPaneXmpDc"); // NOI18N
@@ -1771,7 +1771,7 @@ public final class AppPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 3, 0);
+        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
         panelTableXmpIptc.add(panelTableXmpIptcFilter, gridBagConstraints);
 
         scrollPaneXmpIptc.setName("scrollPaneXmpIptc"); // NOI18N
@@ -1825,7 +1825,7 @@ public final class AppPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 3, 0);
+        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
         panelTableXmpPhotoshop.add(panelTableXmpPhotoshopFilter, gridBagConstraints);
 
         scrollPaneXmpPhotoshop.setName("scrollPaneXmpPhotoshop"); // NOI18N
@@ -1879,7 +1879,7 @@ public final class AppPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 3, 0);
+        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
         panelTableXmpXap.add(panelTableXmpXapFilter, gridBagConstraints);
 
         scrollPaneXmpXap.setName("scrollPaneXmpXap"); // NOI18N
@@ -1933,7 +1933,7 @@ public final class AppPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 3, 0);
+        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
         panelTableXmpLightroom.add(panelTableXmpLightroomFilter, gridBagConstraints);
 
         scrollPaneXmpLightroom.setName("scrollPaneXmpLightroom"); // NOI18N
@@ -1987,7 +1987,7 @@ public final class AppPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 3, 0);
+        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
         panelTableXmpCameraRawSettings.add(panelTableXmpCameraRawSettingsFilter, gridBagConstraints);
 
         scrollPaneXmpCameraRawSettings.setName("scrollPaneXmpCameraRawSettings"); // NOI18N
@@ -2040,7 +2040,7 @@ public final class AppPanel extends javax.swing.JPanel {
         );
         panelScrollPaneEditMetadataLayout.setVerticalGroup(
             panelScrollPaneEditMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneEditMetadata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
+            .addComponent(scrollPaneEditMetadata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout panelTabEditMetadataLayout = new javax.swing.GroupLayout(panelTabEditMetadata);
@@ -2071,7 +2071,7 @@ public final class AppPanel extends javax.swing.JPanel {
             .addGroup(panelMetadataLayout.createSequentialGroup()
                 .addComponent(labelMetadataFilename)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tabbedPaneMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE))
+                .addComponent(tabbedPaneMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE))
         );
 
         splitPaneThumbnailsMetadata.setRightComponent(panelMetadata);
@@ -2086,9 +2086,9 @@ public final class AppPanel extends javax.swing.JPanel {
         );
         panelThumbnailsMetadataLayout.setVerticalGroup(
             panelThumbnailsMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 471, Short.MAX_VALUE)
+            .addGap(0, 464, Short.MAX_VALUE)
             .addGroup(panelThumbnailsMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(splitPaneThumbnailsMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE))
+                .addComponent(splitPaneThumbnailsMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE))
         );
 
         splitPaneMain.setRightComponent(panelThumbnailsMetadata);
@@ -2132,9 +2132,9 @@ public final class AppPanel extends javax.swing.JPanel {
         panelStatusbarLayout.setHorizontalGroup(
             panelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelStatusbarLayout.createSequentialGroup()
-                .addComponent(labelThumbnailInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                .addComponent(labelThumbnailInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(labelStatusbarText, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
+                .addComponent(labelStatusbarText, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(sliderThumbnailSize, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
