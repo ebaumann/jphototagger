@@ -112,6 +112,7 @@ public final class ExifCache extends DatabaseImageFilesListenerAdapter {
             return ExifTags.readFromFile(cacheFile);
         } catch (Throwable ex) {
             AppLogger.logSevere(ExifCache.class, ex);
+            deleteCachedExifTags(imageFile);
             return ExifMetadata.getExifTags(imageFile);
         }
     }
