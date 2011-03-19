@@ -272,7 +272,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 3, 0);
+        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
         panelList.add(panelListFilter, gridBagConstraints);
 
         scrollPaneList.setName("scrollPaneList"); // NOI18N
