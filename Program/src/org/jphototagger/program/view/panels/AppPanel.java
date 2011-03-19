@@ -50,6 +50,7 @@ import org.jphototagger.program.datatransfer.TransferHandlerKeywordsList;
 import org.jphototagger.program.datatransfer.TransferHandlerKeywordsTree;
 import org.jphototagger.program.datatransfer.TransferHandlerMiscMetadataTree;
 import org.jphototagger.program.helper.ListTextFilter;
+import org.jphototagger.program.helper.TableTextFilter;
 import org.jphototagger.program.model.ListModelWait;
 import org.jphototagger.program.model.TreeModelWait;
 import org.jphototagger.program.view.renderer.ListCellRendererFileFilters;
@@ -91,6 +92,7 @@ public final class AppPanel extends javax.swing.JPanel {
         scrollPaneThumbnails.getVerticalScrollBar().setUnitIncrement(30);
         setMnemonics();
         setListFilters();
+        setTableFilters();
     }
 
     private void setMnemonics() {
@@ -105,6 +107,10 @@ public final class AppPanel extends javax.swing.JPanel {
         textFieldListSelKeywordsFilter.getDocument().addDocumentListener(new ListTextFilter((JXList) listSelKeywords));
         textFieldListSavedSearchesFilter.getDocument().addDocumentListener(new ListTextFilter((JXList) listSavedSearches));
         textFieldListImageCollectionsFilter.getDocument().addDocumentListener(new ListTextFilter((JXList) listImageCollections));
+    }
+
+    private void setTableFilters() {
+        textFieldTableXmpCameraRawSettingsFilter.getDocument().addDocumentListener(new TableTextFilter(tableXmpCameraRawSettings));
     }
 
     private void displaySearchButton() {
@@ -719,6 +725,10 @@ public final class AppPanel extends javax.swing.JPanel {
         tableXmpXap = new javax.swing.JTable();
         scrollPaneXmpLightroom = new javax.swing.JScrollPane();
         tableXmpLightroom = new javax.swing.JTable();
+        panelScrollPaneXmpCameraRawSettings = new javax.swing.JPanel();
+        panelTableXmpCameraRawSettingsFilter = new javax.swing.JPanel();
+        labelTableXmpCameraRawSettingsFilter = new javax.swing.JLabel();
+        textFieldTableXmpCameraRawSettingsFilter = new javax.swing.JTextField();
         scrollPaneXmpCameraRawSettings = new javax.swing.JScrollPane();
         tableXmpCameraRawSettings = new javax.swing.JTable();
         panelTabEditMetadata = new javax.swing.JPanel();
@@ -1521,6 +1531,41 @@ public final class AppPanel extends javax.swing.JPanel {
 
         tabbedPaneXmp.addTab(JptBundle.INSTANCE.getString("AppPanel.scrollPaneXmpLightroom.TabConstraints.tabTitle"), scrollPaneXmpLightroom); // NOI18N
 
+        panelScrollPaneXmpCameraRawSettings.setName("panelScrollPaneXmpCameraRawSettings"); // NOI18N
+        panelScrollPaneXmpCameraRawSettings.setLayout(new java.awt.GridBagLayout());
+
+        panelTableXmpCameraRawSettingsFilter.setName("panelTableXmpCameraRawSettingsFilter"); // NOI18N
+        panelTableXmpCameraRawSettingsFilter.setLayout(new java.awt.GridBagLayout());
+
+        labelTableXmpCameraRawSettingsFilter.setLabelFor(textFieldListSelKeywordsFilter);
+        labelTableXmpCameraRawSettingsFilter.setText(JptBundle.INSTANCE.getString("AppPanel.labelTableXmpCameraRawSettingsFilter.text")); // NOI18N
+        labelTableXmpCameraRawSettingsFilter.setName("labelTableXmpCameraRawSettingsFilter"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        panelTableXmpCameraRawSettingsFilter.add(labelTableXmpCameraRawSettingsFilter, gridBagConstraints);
+
+        textFieldTableXmpCameraRawSettingsFilter.setName("textFieldTableXmpCameraRawSettingsFilter"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelTableXmpCameraRawSettingsFilter.add(textFieldTableXmpCameraRawSettingsFilter, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 3, 0);
+        panelScrollPaneXmpCameraRawSettings.add(panelTableXmpCameraRawSettingsFilter, gridBagConstraints);
+
         scrollPaneXmpCameraRawSettings.setName("scrollPaneXmpCameraRawSettings"); // NOI18N
 
         tableXmpCameraRawSettings.setAutoCreateRowSorter(true);
@@ -1528,7 +1573,16 @@ public final class AppPanel extends javax.swing.JPanel {
         tableXmpCameraRawSettings.setName("tableXmpCameraRawSettings"); // NOI18N
         scrollPaneXmpCameraRawSettings.setViewportView(tableXmpCameraRawSettings);
 
-        tabbedPaneXmp.addTab(JptBundle.INSTANCE.getString("AppPanel.scrollPaneXmpCameraRawSettings.TabConstraints.tabTitle"), scrollPaneXmpCameraRawSettings); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        panelScrollPaneXmpCameraRawSettings.add(scrollPaneXmpCameraRawSettings, gridBagConstraints);
+
+        tabbedPaneXmp.addTab(JptBundle.INSTANCE.getString("AppPanel.panelScrollPaneXmpCameraRawSettings.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_xmp.png")), panelScrollPaneXmpCameraRawSettings); // NOI18N
 
         tabbedPaneMetadata.addTab(JptBundle.INSTANCE.getString("AppPanel.tabbedPaneXmp.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_xmp.png")), tabbedPaneXmp); // NOI18N
 
@@ -1719,6 +1773,7 @@ public final class AppPanel extends javax.swing.JPanel {
     private javax.swing.JLabel labelListSelKeywordsFilter;
     private javax.swing.JLabel labelMetadataFilename;
     private javax.swing.JLabel labelStatusbarText;
+    private javax.swing.JLabel labelTableXmpCameraRawSettingsFilter;
     private javax.swing.JLabel labelThumbnailInfo;
     private javax.swing.JList listImageCollections;
     private javax.swing.JList listNoMetadata;
@@ -1739,6 +1794,7 @@ public final class AppPanel extends javax.swing.JPanel {
     private javax.swing.JPanel panelNoMetadata;
     private javax.swing.JPanel panelSavedSearches;
     private javax.swing.JPanel panelScrollPaneEditMetadata;
+    private javax.swing.JPanel panelScrollPaneXmpCameraRawSettings;
     private javax.swing.JPanel panelSearch;
     private javax.swing.JPanel panelSelKeywords;
     private javax.swing.JPanel panelSelKeywordsList;
@@ -1747,6 +1803,7 @@ public final class AppPanel extends javax.swing.JPanel {
     private javax.swing.JPanel panelSelection;
     private javax.swing.JPanel panelStatusbar;
     private javax.swing.JPanel panelTabEditMetadata;
+    private javax.swing.JPanel panelTableXmpCameraRawSettingsFilter;
     private org.jphototagger.program.view.panels.ThumbnailsPanel panelThumbnails;
     private javax.swing.JPanel panelThumbnailsContent;
     private javax.swing.JPanel panelThumbnailsMetadata;
@@ -1796,6 +1853,7 @@ public final class AppPanel extends javax.swing.JPanel {
     private javax.swing.JTextField textFieldListImageCollectionsFilter;
     private javax.swing.JTextField textFieldListSavedSearchesFilter;
     private javax.swing.JTextField textFieldListSelKeywordsFilter;
+    private javax.swing.JTextField textFieldTableXmpCameraRawSettingsFilter;
     private javax.swing.JToggleButton toggleButtonExpandAllNodesSelKeywords;
     private javax.swing.JToggleButton toggleButtonExpandCollapseTreeMiscMetadata;
     private javax.swing.JToggleButton toggleButtonExpandCollapseTreeTimeline;
