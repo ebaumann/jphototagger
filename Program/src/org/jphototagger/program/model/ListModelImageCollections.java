@@ -1,5 +1,7 @@
 package org.jphototagger.program.model;
 
+import java.util.Comparator;
+import java.util.LinkedHashMap;
 import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.comparator.ComparatorStringAscending;
@@ -7,8 +9,8 @@ import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseImageCollections;
 import org.jphototagger.program.resource.JptBundle;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.DefaultListModel;
 
@@ -19,8 +21,8 @@ import javax.swing.DefaultListModel;
  * @author Elmar Baumann, Tobias Stening
  */
 public final class ListModelImageCollections extends DefaultListModel {
-    private static final List<String> SPECIAL_COLLECTIONS = new ArrayList<String>();
     private static final long serialVersionUID = -929229489709109467L;
+    private static final Map<String, Integer> SORT_ORDER_OF_SPECIAL_COLLECTION = new LinkedHashMap<String, Integer>();
 
     /**
      * Name of the image collection which contains the previous imported
@@ -44,9 +46,9 @@ public final class ListModelImageCollections extends DefaultListModel {
     static {
 
         // Order of appearance
-        SPECIAL_COLLECTIONS.add(NAME_IMAGE_COLLECTION_PREV_IMPORT);
-        SPECIAL_COLLECTIONS.add(NAME_IMAGE_COLLECTION_PICKED);
-        SPECIAL_COLLECTIONS.add(NAME_IMAGE_COLLECTION_REJECTED);
+        SORT_ORDER_OF_SPECIAL_COLLECTION.put(NAME_IMAGE_COLLECTION_PREV_IMPORT, 0);
+        SORT_ORDER_OF_SPECIAL_COLLECTION.put(NAME_IMAGE_COLLECTION_PICKED, 1);
+        SORT_ORDER_OF_SPECIAL_COLLECTION.put(NAME_IMAGE_COLLECTION_REJECTED, 2);
     }
 
     public ListModelImageCollections() {
@@ -93,13 +95,13 @@ public final class ListModelImageCollections extends DefaultListModel {
     }
 
     private void addSpecialCollections() {
-        for (String collection : SPECIAL_COLLECTIONS) {
+        for (String collection : SORT_ORDER_OF_SPECIAL_COLLECTION.keySet()) {
             addElement(collection);
         }
     }
 
     public static int getSpecialCollectionCount() {
-        return SPECIAL_COLLECTIONS.size();
+        return SORT_ORDER_OF_SPECIAL_COLLECTION.size();
     }
 
     /**
@@ -116,7 +118,7 @@ public final class ListModelImageCollections extends DefaultListModel {
             throw new NullPointerException("collectionName == null");
         }
 
-        for (String collection : SPECIAL_COLLECTIONS) {
+        for (String collection : SORT_ORDER_OF_SPECIAL_COLLECTION.keySet()) {
             if (collection.equalsIgnoreCase(collectionName)) {
                 return true;
             }
@@ -153,5 +155,43 @@ public final class ListModelImageCollections extends DefaultListModel {
         }
 
         return true;
+    }
+
+    public Comparator<String> createAscendingSortComparator() {
+        return new ImageCollectionSortAscendingComparator();
+    }
+
+    private final class ImageCollectionSortAscendingComparator implements Comparator<String> {
+
+        @Override
+        public int compare(String o1, String o2) {
+            boolean o1IsSpecialCollection = isSpecialCollection(o1);
+            boolean o2IsSpecialCollection = isSpecialCollection(o2);
+            boolean noneIsSpecialCollection = !o1IsSpecialCollection && !o2IsSpecialCollection;
+
+            if (noneIsSpecialCollection) {
+                return o1.compareToIgnoreCase(o2);
+            }
+
+            if (o1IsSpecialCollection && !o2IsSpecialCollection) {
+                return -1;
+            }
+
+            if (!o1IsSpecialCollection && o2IsSpecialCollection) {
+                return 1;
+            }
+
+            int sortOrderO1 = SORT_ORDER_OF_SPECIAL_COLLECTION.get(o1);
+            int sortOrderO2 = SORT_ORDER_OF_SPECIAL_COLLECTION.get(o2);
+
+            return sortOrderO1 > sortOrderO2
+                    ? 1
+                    : -1;
+        }
+
+        private boolean isSpecialCollection(String o) {
+            return SORT_ORDER_OF_SPECIAL_COLLECTION.containsKey(o);
+        }
+
     }
 }

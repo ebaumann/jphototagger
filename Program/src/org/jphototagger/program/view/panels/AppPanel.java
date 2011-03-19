@@ -104,6 +104,7 @@ public final class AppPanel extends javax.swing.JPanel {
     private void setListFilters() {
         textFieldListSelKeywordsFilter.getDocument().addDocumentListener(new ListTextFilter((JXList) listSelKeywords));
         textFieldListSavedSearchesFilter.getDocument().addDocumentListener(new ListTextFilter((JXList) listSavedSearches));
+        textFieldListImageCollectionsFilter.getDocument().addDocumentListener(new ListTextFilter((JXList) listImageCollections));
     }
 
     private void displaySearchButton() {
@@ -637,6 +638,9 @@ public final class AppPanel extends javax.swing.JPanel {
         listSavedSearches = new JXList();
         buttonSearchInSavedSearches = new javax.swing.JButton();
         panelImageCollections = new javax.swing.JPanel();
+        panelListImageCollectionsFilter = new javax.swing.JPanel();
+        labelListImageCollectionsFilter = new javax.swing.JLabel();
+        textFieldListImageCollectionsFilter = new javax.swing.JTextField();
         scrollPaneImageCollections = new javax.swing.JScrollPane();
         listImageCollections = new JXList();
         buttonSearchInImageCollections = new javax.swing.JButton();
@@ -920,6 +924,38 @@ public final class AppPanel extends javax.swing.JPanel {
 
         panelImageCollections.setName("panelImageCollections"); // NOI18N
         panelImageCollections.setLayout(new java.awt.GridBagLayout());
+
+        panelListImageCollectionsFilter.setName("panelListImageCollectionsFilter"); // NOI18N
+        panelListImageCollectionsFilter.setLayout(new java.awt.GridBagLayout());
+
+        labelListImageCollectionsFilter.setLabelFor(textFieldListSelKeywordsFilter);
+        labelListImageCollectionsFilter.setText(JptBundle.INSTANCE.getString("AppPanel.labelListImageCollectionsFilter.text")); // NOI18N
+        labelListImageCollectionsFilter.setName("labelListImageCollectionsFilter"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        panelListImageCollectionsFilter.add(labelListImageCollectionsFilter, gridBagConstraints);
+
+        textFieldListImageCollectionsFilter.setName("textFieldListImageCollectionsFilter"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelListImageCollectionsFilter.add(textFieldListImageCollectionsFilter, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 3, 0);
+        panelImageCollections.add(panelListImageCollectionsFilter, gridBagConstraints);
 
         scrollPaneImageCollections.setName("scrollPaneImageCollections"); // NOI18N
 
@@ -1677,6 +1713,7 @@ public final class AppPanel extends javax.swing.JPanel {
     private javax.swing.JComboBox comboBoxFileFilters;
     private javax.swing.JLabel labelError;
     private javax.swing.JLabel labelFileFilters;
+    private javax.swing.JLabel labelListImageCollectionsFilter;
     private javax.swing.JLabel labelListSavedSearchesFilter;
     private javax.swing.JLabel labelListSelKeywordsFilter;
     private javax.swing.JLabel labelMetadataFilename;
@@ -1693,6 +1730,7 @@ public final class AppPanel extends javax.swing.JPanel {
     private javax.swing.JPanel panelFavorites;
     private javax.swing.JPanel panelImageCollections;
     private javax.swing.JPanel panelIptc;
+    private javax.swing.JPanel panelListImageCollectionsFilter;
     private javax.swing.JPanel panelListSavedSearchesFilter;
     private javax.swing.JPanel panelListSelKeywordsFilter;
     private javax.swing.JPanel panelMetadata;
@@ -1754,6 +1792,7 @@ public final class AppPanel extends javax.swing.JPanel {
     private javax.swing.JTable tableXmpTiff;
     private javax.swing.JTable tableXmpXap;
     private javax.swing.JTextArea textAreaSearch;
+    private javax.swing.JTextField textFieldListImageCollectionsFilter;
     private javax.swing.JTextField textFieldListSavedSearchesFilter;
     private javax.swing.JTextField textFieldListSelKeywordsFilter;
     private javax.swing.JToggleButton toggleButtonExpandAllNodesSelKeywords;

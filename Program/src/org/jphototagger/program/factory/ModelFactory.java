@@ -33,6 +33,7 @@ import javax.swing.ListModel;
 import javax.swing.SortOrder;
 import javax.swing.tree.TreeModel;
 import org.jdesktop.swingx.JXList;
+import org.jdesktop.swingx.sort.ListSortController;
 
 /**
  * Erzeugt die Models und verbindet sie mit den GUI-Elementen.
@@ -129,7 +130,7 @@ public final class ModelFactory {
             public void run() {
                 Support.setStatusbarInfo("ModelFactory.Starting.ListModelImageCollections");
 
-                final JList list = appPanel.getListImageCollections();
+                final JXList list = (JXList) appPanel.getListImageCollections();
                 final Cursor listCursor = setWaitCursor(list);
                 final ListModelImageCollections model = new ListModelImageCollections();
 
@@ -138,6 +139,10 @@ public final class ModelFactory {
                     @Override
                     public void run() {
                         list.setModel(model);
+                        ListSortController<ListModelImageCollections> sorter = new ListSortController<ListModelImageCollections>(model);
+                        sorter.setComparator(0, model.createAscendingSortComparator());
+                        list.setRowSorter(sorter);
+                        list.setSortOrder(SortOrder.ASCENDING);
                         AppWindowPersistence.readListImageCollections();
                         list.setCursor(listCursor);
                         Support.setStatusbarInfo("ModelFactory.Finished.ListModelImageCollections");
