@@ -5,7 +5,9 @@ Changelog JPhotoTagger http://jphototagger.org/
 
 0.8.68 2011-03-19
 -----------------
-* Fotalben im Programmfenster rechts haben Textfeld zum Filtern
+* Fotoalben im Programmfenster rechts haben Textfeld zum Filtern
+* Stichwörter/Listenansicht zum Bearbeiten im Programmfenster rechts sowie im
+  Eingabehilfen-Dialog haben Textfeld zum Filtern
 
 0.8.67 2011-03-18
 -----------------

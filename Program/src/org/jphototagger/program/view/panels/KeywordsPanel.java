@@ -12,16 +12,17 @@ import java.awt.Container;
 
 import javax.swing.JList;
 import javax.swing.JTree;
+import javax.swing.SortOrder;
 import javax.swing.tree.TreeSelectionModel;
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.JXTree;
 import org.jphototagger.program.controller.actions.SearchInJxListAction;
 import org.jphototagger.program.controller.actions.SearchInJxTreeAction;
+import org.jphototagger.program.helper.ListTextFilter;
 import org.jphototagger.program.model.ListModelWait;
 import org.jphototagger.program.model.TreeModelWait;
 
 /**
- * A tree for keywords.
  *
  * @author Elmar Baumann
  */
@@ -38,6 +39,9 @@ public class KeywordsPanel extends javax.swing.JPanel {
     private void postInitComponents() {
         tree.getSelectionModel().setSelectionMode(TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION);
         MnemonicUtil.setMnemonics((Container) this);
+        textFieldListFilter.getDocument().addDocumentListener(new ListTextFilter((JXList) list));
+        ((JXList)list).setAutoCreateRowSorter(true);
+        ((JXList)list).setSortOrder(SortOrder.ASCENDING);
     }
 
     public JTree getTree() {
@@ -155,6 +159,9 @@ public class KeywordsPanel extends javax.swing.JPanel {
         buttonToggleExpandAllNodes = new javax.swing.JToggleButton();
         buttonSearchInTree = new javax.swing.JButton();
         panelList = new javax.swing.JPanel();
+        panelListFilter = new javax.swing.JPanel();
+        labelListFilter = new javax.swing.JLabel();
+        textFieldListFilter = new javax.swing.JTextField();
         scrollPaneList = new javax.swing.JScrollPane();
         list = new JXList();
         list.setTransferHandler(new TransferHandlerDragListItems(org.jphototagger.program.datatransfer.Flavor.KEYWORDS_LIST));
@@ -237,6 +244,37 @@ public class KeywordsPanel extends javax.swing.JPanel {
         panelList.setName("panelList"); // NOI18N
         panelList.setLayout(new java.awt.GridBagLayout());
 
+        panelListFilter.setName("panelListFilter"); // NOI18N
+        panelListFilter.setLayout(new java.awt.GridBagLayout());
+
+        labelListFilter.setText(JptBundle.INSTANCE.getString("KeywordsPanel.labelListFilter.text")); // NOI18N
+        labelListFilter.setName("labelListFilter"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        panelListFilter.add(labelListFilter, gridBagConstraints);
+
+        textFieldListFilter.setName("textFieldListFilter"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelListFilter.add(textFieldListFilter, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 3, 0);
+        panelList.add(panelListFilter, gridBagConstraints);
+
         scrollPaneList.setName("scrollPaneList"); // NOI18N
 
         list.setModel(ListModelWait.INSTANCE);
@@ -247,8 +285,8 @@ public class KeywordsPanel extends javax.swing.JPanel {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
@@ -264,7 +302,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         panelList.add(buttonAsTree, gridBagConstraints);
@@ -275,7 +313,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
         buttonSearchInList.setName("buttonSearchInList"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
@@ -302,12 +340,15 @@ public class KeywordsPanel extends javax.swing.JPanel {
     private javax.swing.JButton buttonSearchInList;
     private javax.swing.JButton buttonSearchInTree;
     private javax.swing.JToggleButton buttonToggleExpandAllNodes;
+    private javax.swing.JLabel labelListFilter;
     private javax.swing.JList list;
     private javax.swing.JPanel panelButtons;
     private javax.swing.JPanel panelList;
+    private javax.swing.JPanel panelListFilter;
     private javax.swing.JPanel panelTree;
     private javax.swing.JScrollPane scrollPaneList;
     private javax.swing.JScrollPane scrollPaneTree;
+    private javax.swing.JTextField textFieldListFilter;
     private javax.swing.JTree tree;
     // End of variables declaration//GEN-END:variables
 }
