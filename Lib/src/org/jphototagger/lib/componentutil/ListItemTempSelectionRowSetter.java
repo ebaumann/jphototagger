@@ -16,6 +16,7 @@ import javax.swing.event.PopupMenuListener;
 import javax.swing.JList;
 import javax.swing.JPopupMenu;
 import javax.swing.ListCellRenderer;
+import org.jdesktop.swingx.JXList;
 
 /**
  * Listens in a {@link JList} for popup triggers and sets to the list cell
@@ -73,6 +74,10 @@ public final class ListItemTempSelectionRowSetter implements MouseListener, Popu
 
     private void setRowIndex(int index) {
         ListCellRenderer renderer = list.getCellRenderer();
+
+        if (renderer instanceof JXList.DelegatingRenderer) {
+            renderer = ((JXList.DelegatingRenderer) renderer).getDelegateRenderer();
+        }
 
         if (hasMethod(renderer)) {
             try {

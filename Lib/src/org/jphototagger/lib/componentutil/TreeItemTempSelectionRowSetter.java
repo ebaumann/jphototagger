@@ -15,6 +15,7 @@ import javax.swing.event.PopupMenuListener;
 import javax.swing.JPopupMenu;
 import javax.swing.JTree;
 import javax.swing.tree.TreeCellRenderer;
+import org.jdesktop.swingx.JXTree;
 
 /**
  * Listens in a {@link JTree} for popup triggers and sets to the tree cell
@@ -73,6 +74,10 @@ public final class TreeItemTempSelectionRowSetter implements MouseListener, Popu
 
     private void setRowIndex(int index) {
         TreeCellRenderer renderer = tree.getCellRenderer();
+
+        if (renderer instanceof JXTree.DelegatingRenderer) {
+            renderer = ((JXTree.DelegatingRenderer) renderer).getDelegateRenderer();
+        }
 
         if (hasMethod(renderer)) {
             try {
