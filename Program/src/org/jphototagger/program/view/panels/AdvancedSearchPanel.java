@@ -111,6 +111,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
         removeAllColumns();
         emptyKeywordsPanel();
         textAreaCustomSqlQuery.setText("");
+        setUndirty();
     }
 
     private void emptyKeywordsPanel() {
@@ -144,10 +145,22 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
 
     public void willDispose() {
         checkChanged();
+        setUndirty();
+        setSearchName(JptBundle.INSTANCE.getString("AdvancedSearchPanel.UndefinedName"));
+    }
+
+    private void setUndirty() {
         isSavedSearch = false;
         columnRemoved = false;
         customSqlChanged = false;
-        setSearchName(JptBundle.INSTANCE.getString("AdvancedSearchPanel.UndefinedName"));
+        panelKeywordsInput.setDirty(false);
+        setSearchColumnPanelsUnchanged();
+    }
+
+    private void setSearchColumnPanelsUnchanged() {
+        for (SearchColumnPanel panel : searchColumnPanels) {
+            panel.setChanged(false);
+        }
     }
 
     @Override
@@ -431,6 +444,8 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
         if (allPanels || (selComponent == panelCustomSql)) {
             textAreaCustomSqlQuery.setText("");
         }
+
+        setUndirty();
     }
 
     private void checkChanged() {
@@ -497,14 +512,8 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
         
         if (saved) {
             setSearchName(savedSearch.getName());
-            setPanelsUnchanged();
+            setUndirty();
             isSavedSearch = true;
-        }
-    }
-
-    private void setPanelsUnchanged() {
-        for (SearchColumnPanel panel : searchColumnPanels) {
-            panel.setChanged(false);
         }
     }
 
