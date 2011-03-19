@@ -1,7 +1,6 @@
 package org.jphototagger.program.factory;
 
 import org.jphototagger.lib.model.TreeModelAllSystemDirectories;
-import org.jphototagger.lib.thirdparty.SortedListModel;
 import org.jphototagger.program.app.AppWindowPersistence;
 import org.jphototagger.program.model.ComboBoxModelFileFilters;
 import org.jphototagger.program.model.ComboBoxModelMetadataTemplates;
@@ -29,7 +28,6 @@ import java.util.List;
 
 import javax.swing.JList;
 import javax.swing.JTree;
-import javax.swing.ListModel;
 import javax.swing.SortOrder;
 import javax.swing.tree.TreeModel;
 import org.jdesktop.swingx.JXList;
@@ -159,9 +157,9 @@ public final class ModelFactory {
                 Support.setStatusbarInfo("ModelFactory.Starting.ListModelKeywords");
 
                 final JXList listSelKeywords = (JXList) appPanel.getListSelKeywords();
+                final JXList listEditKeywords = (JXList) appPanel.getListEditKeywords();
                 final Cursor listCursor = setWaitCursor(listSelKeywords);
                 final ListModelKeywords modelKeywords = new ListModelKeywords();
-                final ListModel sortedModel = new SortedListModel(modelKeywords);
 
                 support.add(modelKeywords);
                 EventQueue.invokeLater(new Runnable() {
@@ -170,8 +168,8 @@ public final class ModelFactory {
                         listSelKeywords.setModel(modelKeywords);
                         listSelKeywords.setAutoCreateRowSorter(true);
                         listSelKeywords.setSortOrder(SortOrder.ASCENDING);
-                        appPanel.getListEditKeywords().setModel(sortedModel);
-                        InputHelperDialog.INSTANCE.setModelKeywords(sortedModel);
+                        listEditKeywords.setModel(modelKeywords);
+                        InputHelperDialog.INSTANCE.setModelKeywords(modelKeywords);
                         AppWindowPersistence.readListSelKeywords();
                         listSelKeywords.setCursor(listCursor);
                         Support.setStatusbarInfo("ModelFactory.Finished.ListModelKeywords");

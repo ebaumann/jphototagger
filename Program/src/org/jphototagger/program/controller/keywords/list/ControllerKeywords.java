@@ -1,6 +1,5 @@
 package org.jphototagger.program.controller.keywords.list;
 
-import org.jphototagger.lib.thirdparty.SortedListModel;
 import org.jphototagger.program.controller.Controller;
 import org.jphototagger.program.model.ListModelKeywords;
 import org.jphototagger.program.resource.GUI;
@@ -52,10 +51,9 @@ public abstract class ControllerKeywords extends Controller {
     }
 
     protected ListModelKeywords getModel() {
-
-        // All lists have the same model
-        return (ListModelKeywords) ((SortedListModel) GUI.getAppPanel().getListEditKeywords().getModel())
-            .getUnsortedModel();
+        
+        // All keyword lists having the same model
+        return (ListModelKeywords) GUI.getAppPanel().getListEditKeywords().getModel();
     }
 
     private String getStringOfPopupMenu() {
