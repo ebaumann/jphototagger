@@ -1277,6 +1277,46 @@
 
                           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout"/>
                           <SubComponents>
+                            <Container class="javax.swing.JPanel" name="panelTableExifFilter">
+                              <Properties>
+                                <Property name="name" type="java.lang.String" value="panelTableExifFilter" noResource="true"/>
+                              </Properties>
+                              <Constraints>
+                                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                                  <GridBagConstraints gridX="0" gridY="0" gridWidth="0" gridHeight="1" fill="2" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="3" insetsRight="0" anchor="17" weightX="1.0" weightY="0.0"/>
+                                </Constraint>
+                              </Constraints>
+
+                              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout"/>
+                              <SubComponents>
+                                <Component class="javax.swing.JLabel" name="labelTableExifFilter">
+                                  <Properties>
+                                    <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                                      <ComponentRef name="textFieldListSelKeywordsFilter"/>
+                                    </Property>
+                                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.labelTableExifFilter.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                                    </Property>
+                                    <Property name="name" type="java.lang.String" value="labelTableExifFilter" noResource="true"/>
+                                  </Properties>
+                                  <Constraints>
+                                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                                      <GridBagConstraints gridX="0" gridY="0" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="17" weightX="0.0" weightY="0.0"/>
+                                    </Constraint>
+                                  </Constraints>
+                                </Component>
+                                <Component class="javax.swing.JTextField" name="textFieldTableExifFilter">
+                                  <Properties>
+                                    <Property name="name" type="java.lang.String" value="textFieldTableExifFilter" noResource="true"/>
+                                  </Properties>
+                                  <Constraints>
+                                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                                      <GridBagConstraints gridX="1" gridY="0" gridWidth="1" gridHeight="1" fill="2" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="5" insetsBottom="0" insetsRight="0" anchor="17" weightX="1.0" weightY="0.0"/>
+                                    </Constraint>
+                                  </Constraints>
+                                </Component>
+                              </SubComponents>
+                            </Container>
                             <Container class="javax.swing.JScrollPane" name="scrollPaneExif">
                               <Properties>
                                 <Property name="name" type="java.lang.String" value="scrollPaneExif" noResource="true"/>
@@ -1286,7 +1326,7 @@
                               </AuxValues>
                               <Constraints>
                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                                  <GridBagConstraints gridX="0" gridY="0" gridWidth="1" gridHeight="1" fill="1" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="18" weightX="1.0" weightY="1.0"/>
+                                  <GridBagConstraints gridX="0" gridY="1" gridWidth="0" gridHeight="1" fill="1" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="18" weightX="1.0" weightY="1.0"/>
                                 </Constraint>
                               </Constraints>
 
@@ -1319,7 +1359,7 @@
                               </Properties>
                               <Constraints>
                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                                  <GridBagConstraints gridX="0" gridY="1" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="2" insetsLeft="0" insetsBottom="2" insetsRight="2" anchor="13" weightX="0.0" weightY="0.0"/>
+                                  <GridBagConstraints gridX="0" gridY="2" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="2" insetsLeft="0" insetsBottom="2" insetsRight="2" anchor="13" weightX="0.0" weightY="0.0"/>
                                 </Constraint>
                               </Constraints>
                             </Component>
@@ -1344,13 +1384,53 @@
 
                           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout"/>
                           <SubComponents>
+                            <Container class="javax.swing.JPanel" name="panelTableIptcFilter">
+                              <Properties>
+                                <Property name="name" type="java.lang.String" value="panelTableIptcFilter" noResource="true"/>
+                              </Properties>
+                              <Constraints>
+                                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                                  <GridBagConstraints gridX="0" gridY="0" gridWidth="0" gridHeight="1" fill="2" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="3" insetsRight="0" anchor="17" weightX="1.0" weightY="0.0"/>
+                                </Constraint>
+                              </Constraints>
+
+                              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout"/>
+                              <SubComponents>
+                                <Component class="javax.swing.JLabel" name="labeTTableIptcFilter">
+                                  <Properties>
+                                    <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                                      <ComponentRef name="textFieldListSelKeywordsFilter"/>
+                                    </Property>
+                                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.labeTTableIptcFilter.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                                    </Property>
+                                    <Property name="name" type="java.lang.String" value="labeTTableIptcFilter" noResource="true"/>
+                                  </Properties>
+                                  <Constraints>
+                                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                                      <GridBagConstraints gridX="0" gridY="0" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="17" weightX="0.0" weightY="0.0"/>
+                                    </Constraint>
+                                  </Constraints>
+                                </Component>
+                                <Component class="javax.swing.JTextField" name="textFieldTableIptcFilter">
+                                  <Properties>
+                                    <Property name="name" type="java.lang.String" value="textFieldTableIptcFilter" noResource="true"/>
+                                  </Properties>
+                                  <Constraints>
+                                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                                      <GridBagConstraints gridX="1" gridY="0" gridWidth="1" gridHeight="1" fill="2" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="5" insetsBottom="0" insetsRight="0" anchor="17" weightX="1.0" weightY="0.0"/>
+                                    </Constraint>
+                                  </Constraints>
+                                </Component>
+                              </SubComponents>
+                            </Container>
                             <Container class="javax.swing.JScrollPane" name="scrollPaneIptc">
                               <Properties>
                                 <Property name="name" type="java.lang.String" value="scrollPaneIptc" noResource="true"/>
                               </Properties>
                               <Constraints>
                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                                  <GridBagConstraints gridX="0" gridY="0" gridWidth="1" gridHeight="1" fill="1" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="10" weightX="1.0" weightY="1.0"/>
+                                  <GridBagConstraints gridX="0" gridY="1" gridWidth="0" gridHeight="1" fill="1" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="10" weightX="1.0" weightY="1.0"/>
                                 </Constraint>
                               </Constraints>
 
@@ -1383,7 +1463,7 @@
                               </Properties>
                               <Constraints>
                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                                  <GridBagConstraints gridX="0" gridY="1" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="2" insetsLeft="0" insetsBottom="2" insetsRight="2" anchor="13" weightX="0.0" weightY="0.0"/>
+                                  <GridBagConstraints gridX="0" gridY="2" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="2" insetsLeft="0" insetsBottom="2" insetsRight="2" anchor="13" weightX="0.0" weightY="0.0"/>
                                 </Constraint>
                               </Constraints>
                             </Component>
@@ -1409,214 +1489,589 @@
 
                           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
                           <SubComponents>
-                            <Container class="javax.swing.JScrollPane" name="scrollPaneXmpTiff">
+                            <Container class="javax.swing.JPanel" name="panelTableXmpTiff">
                               <Properties>
-                                <Property name="name" type="java.lang.String" value="scrollPaneXmpTiff" noResource="true"/>
+                                <Property name="name" type="java.lang.String" value="panelTableXmpTiff" noResource="true"/>
                               </Properties>
-                              <AuxValues>
-                                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                              </AuxValues>
                               <Constraints>
                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                                   <JTabbedPaneConstraints tabName="TIFF">
                                     <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.scrollPaneXmpTiff.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.panelTableXmpTiff.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                                     </Property>
                                   </JTabbedPaneConstraints>
                                 </Constraint>
                               </Constraints>
 
-                              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout"/>
                               <SubComponents>
-                                <Component class="javax.swing.JTable" name="tableXmpTiff">
+                                <Container class="javax.swing.JPanel" name="panelTableXmpTiffFilter">
                                   <Properties>
-                                    <Property name="autoCreateRowSorter" type="boolean" value="true"/>
-                                    <Property name="autoResizeMode" type="int" value="0"/>
-                                    <Property name="name" type="java.lang.String" value="tableXmpTiff" noResource="true"/>
+                                    <Property name="name" type="java.lang.String" value="panelTableXmpTiffFilter" noResource="true"/>
                                   </Properties>
-                                </Component>
+                                  <Constraints>
+                                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                                      <GridBagConstraints gridX="0" gridY="0" gridWidth="0" gridHeight="1" fill="2" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="3" insetsRight="0" anchor="17" weightX="1.0" weightY="0.0"/>
+                                    </Constraint>
+                                  </Constraints>
+
+                                  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout"/>
+                                  <SubComponents>
+                                    <Component class="javax.swing.JLabel" name="labelTableXmpTiffFilter">
+                                      <Properties>
+                                        <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                                          <ComponentRef name="textFieldListSelKeywordsFilter"/>
+                                        </Property>
+                                        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                                          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.labelTableXmpTiffFilter.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                                        </Property>
+                                        <Property name="name" type="java.lang.String" value="labelTableXmpTiffFilter" noResource="true"/>
+                                      </Properties>
+                                      <Constraints>
+                                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                                          <GridBagConstraints gridX="0" gridY="0" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="17" weightX="0.0" weightY="0.0"/>
+                                        </Constraint>
+                                      </Constraints>
+                                    </Component>
+                                    <Component class="javax.swing.JTextField" name="textFieldTableXmpTiffFilter">
+                                      <Properties>
+                                        <Property name="name" type="java.lang.String" value="textFieldTableXmpTiffFilter" noResource="true"/>
+                                      </Properties>
+                                      <Constraints>
+                                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                                          <GridBagConstraints gridX="1" gridY="0" gridWidth="1" gridHeight="1" fill="2" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="5" insetsBottom="0" insetsRight="0" anchor="17" weightX="1.0" weightY="0.0"/>
+                                        </Constraint>
+                                      </Constraints>
+                                    </Component>
+                                  </SubComponents>
+                                </Container>
+                                <Container class="javax.swing.JScrollPane" name="scrollPaneXmpTiff">
+                                  <Properties>
+                                    <Property name="name" type="java.lang.String" value="scrollPaneXmpTiff" noResource="true"/>
+                                  </Properties>
+                                  <AuxValues>
+                                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                                  </AuxValues>
+                                  <Constraints>
+                                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                                      <GridBagConstraints gridX="0" gridY="1" gridWidth="0" gridHeight="0" fill="1" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="10" weightX="1.0" weightY="1.0"/>
+                                    </Constraint>
+                                  </Constraints>
+
+                                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                                  <SubComponents>
+                                    <Component class="javax.swing.JTable" name="tableXmpTiff">
+                                      <Properties>
+                                        <Property name="autoCreateRowSorter" type="boolean" value="true"/>
+                                        <Property name="autoResizeMode" type="int" value="0"/>
+                                        <Property name="name" type="java.lang.String" value="tableXmpTiff" noResource="true"/>
+                                      </Properties>
+                                    </Component>
+                                  </SubComponents>
+                                </Container>
                               </SubComponents>
                             </Container>
-                            <Container class="javax.swing.JScrollPane" name="scrollPaneXmpExif">
+                            <Container class="javax.swing.JPanel" name="panelTableXmpExif">
                               <Properties>
-                                <Property name="name" type="java.lang.String" value="scrollPaneXmpExif" noResource="true"/>
+                                <Property name="name" type="java.lang.String" value="panelTableXmpExif" noResource="true"/>
                               </Properties>
-                              <AuxValues>
-                                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                              </AuxValues>
                               <Constraints>
                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                                   <JTabbedPaneConstraints tabName="EXIF">
                                     <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.scrollPaneXmpExif.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.panelTableXmpExif.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                                     </Property>
                                   </JTabbedPaneConstraints>
                                 </Constraint>
                               </Constraints>
 
-                              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout"/>
                               <SubComponents>
-                                <Component class="javax.swing.JTable" name="tableXmpExif">
+                                <Container class="javax.swing.JPanel" name="panelTableXmpExifFilter">
                                   <Properties>
-                                    <Property name="autoCreateRowSorter" type="boolean" value="true"/>
-                                    <Property name="autoResizeMode" type="int" value="0"/>
-                                    <Property name="name" type="java.lang.String" value="tableXmpExif" noResource="true"/>
+                                    <Property name="name" type="java.lang.String" value="panelTableXmpExifFilter" noResource="true"/>
                                   </Properties>
-                                </Component>
+                                  <Constraints>
+                                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                                      <GridBagConstraints gridX="0" gridY="0" gridWidth="0" gridHeight="1" fill="2" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="3" insetsRight="0" anchor="17" weightX="1.0" weightY="0.0"/>
+                                    </Constraint>
+                                  </Constraints>
+
+                                  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout"/>
+                                  <SubComponents>
+                                    <Component class="javax.swing.JLabel" name="labelTableXmpExifFilter">
+                                      <Properties>
+                                        <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                                          <ComponentRef name="textFieldListSelKeywordsFilter"/>
+                                        </Property>
+                                        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                                          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.labelTableXmpExifFilter.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                                        </Property>
+                                        <Property name="name" type="java.lang.String" value="labelTableXmpExifFilter" noResource="true"/>
+                                      </Properties>
+                                      <Constraints>
+                                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                                          <GridBagConstraints gridX="0" gridY="0" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="17" weightX="0.0" weightY="0.0"/>
+                                        </Constraint>
+                                      </Constraints>
+                                    </Component>
+                                    <Component class="javax.swing.JTextField" name="textFieldTableXmpExifFilter">
+                                      <Properties>
+                                        <Property name="name" type="java.lang.String" value="textFieldTableXmpExifFilter" noResource="true"/>
+                                      </Properties>
+                                      <Constraints>
+                                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                                          <GridBagConstraints gridX="1" gridY="0" gridWidth="1" gridHeight="1" fill="2" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="5" insetsBottom="0" insetsRight="0" anchor="17" weightX="1.0" weightY="0.0"/>
+                                        </Constraint>
+                                      </Constraints>
+                                    </Component>
+                                  </SubComponents>
+                                </Container>
+                                <Container class="javax.swing.JScrollPane" name="scrollPaneXmpExif">
+                                  <Properties>
+                                    <Property name="name" type="java.lang.String" value="scrollPaneXmpExif" noResource="true"/>
+                                  </Properties>
+                                  <AuxValues>
+                                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                                  </AuxValues>
+                                  <Constraints>
+                                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                                      <GridBagConstraints gridX="0" gridY="1" gridWidth="0" gridHeight="0" fill="1" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="10" weightX="1.0" weightY="1.0"/>
+                                    </Constraint>
+                                  </Constraints>
+
+                                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                                  <SubComponents>
+                                    <Component class="javax.swing.JTable" name="tableXmpExif">
+                                      <Properties>
+                                        <Property name="autoCreateRowSorter" type="boolean" value="true"/>
+                                        <Property name="autoResizeMode" type="int" value="0"/>
+                                        <Property name="name" type="java.lang.String" value="tableXmpExif" noResource="true"/>
+                                      </Properties>
+                                    </Component>
+                                  </SubComponents>
+                                </Container>
                               </SubComponents>
                             </Container>
-                            <Container class="javax.swing.JScrollPane" name="scrollPaneXmpDc">
+                            <Container class="javax.swing.JPanel" name="panelTableXmpDc">
                               <Properties>
-                                <Property name="name" type="java.lang.String" value="scrollPaneXmpDc" noResource="true"/>
+                                <Property name="name" type="java.lang.String" value="panelTableXmpDc" noResource="true"/>
                               </Properties>
-                              <AuxValues>
-                                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                              </AuxValues>
                               <Constraints>
                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                                   <JTabbedPaneConstraints tabName="Dublin Core">
                                     <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.scrollPaneXmpDc.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.panelTableXmpDc.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                                     </Property>
                                   </JTabbedPaneConstraints>
                                 </Constraint>
                               </Constraints>
 
-                              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout"/>
                               <SubComponents>
-                                <Component class="javax.swing.JTable" name="tableXmpDc">
+                                <Container class="javax.swing.JPanel" name="panelTableXmpDcFilter">
                                   <Properties>
-                                    <Property name="autoCreateRowSorter" type="boolean" value="true"/>
-                                    <Property name="autoResizeMode" type="int" value="0"/>
-                                    <Property name="name" type="java.lang.String" value="tableXmpDc" noResource="true"/>
+                                    <Property name="name" type="java.lang.String" value="panelTableXmpDcFilter" noResource="true"/>
                                   </Properties>
-                                </Component>
+                                  <Constraints>
+                                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                                      <GridBagConstraints gridX="0" gridY="0" gridWidth="0" gridHeight="1" fill="2" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="3" insetsRight="0" anchor="17" weightX="1.0" weightY="0.0"/>
+                                    </Constraint>
+                                  </Constraints>
+
+                                  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout"/>
+                                  <SubComponents>
+                                    <Component class="javax.swing.JLabel" name="labelTableXmpDcFilter">
+                                      <Properties>
+                                        <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                                          <ComponentRef name="textFieldListSelKeywordsFilter"/>
+                                        </Property>
+                                        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                                          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.labelTableXmpDcFilter.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                                        </Property>
+                                        <Property name="name" type="java.lang.String" value="labelTableXmpDcFilter" noResource="true"/>
+                                      </Properties>
+                                      <Constraints>
+                                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                                          <GridBagConstraints gridX="0" gridY="0" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="17" weightX="0.0" weightY="0.0"/>
+                                        </Constraint>
+                                      </Constraints>
+                                    </Component>
+                                    <Component class="javax.swing.JTextField" name="textFieldTableXmpDcFilter">
+                                      <Properties>
+                                        <Property name="name" type="java.lang.String" value="textFieldTableXmpDcFilter" noResource="true"/>
+                                      </Properties>
+                                      <Constraints>
+                                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                                          <GridBagConstraints gridX="1" gridY="0" gridWidth="1" gridHeight="1" fill="2" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="5" insetsBottom="0" insetsRight="0" anchor="17" weightX="1.0" weightY="0.0"/>
+                                        </Constraint>
+                                      </Constraints>
+                                    </Component>
+                                  </SubComponents>
+                                </Container>
+                                <Container class="javax.swing.JScrollPane" name="scrollPaneXmpDc">
+                                  <Properties>
+                                    <Property name="name" type="java.lang.String" value="scrollPaneXmpDc" noResource="true"/>
+                                  </Properties>
+                                  <AuxValues>
+                                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                                  </AuxValues>
+                                  <Constraints>
+                                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                                      <GridBagConstraints gridX="0" gridY="1" gridWidth="0" gridHeight="0" fill="1" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="10" weightX="1.0" weightY="1.0"/>
+                                    </Constraint>
+                                  </Constraints>
+
+                                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                                  <SubComponents>
+                                    <Component class="javax.swing.JTable" name="tableXmpDc">
+                                      <Properties>
+                                        <Property name="autoCreateRowSorter" type="boolean" value="true"/>
+                                        <Property name="autoResizeMode" type="int" value="0"/>
+                                        <Property name="name" type="java.lang.String" value="tableXmpDc" noResource="true"/>
+                                      </Properties>
+                                    </Component>
+                                  </SubComponents>
+                                </Container>
                               </SubComponents>
                             </Container>
-                            <Container class="javax.swing.JScrollPane" name="scrollPaneXmpIptc">
+                            <Container class="javax.swing.JPanel" name="panelTableXmpIptc">
                               <Properties>
-                                <Property name="name" type="java.lang.String" value="scrollPaneXmpIptc" noResource="true"/>
+                                <Property name="name" type="java.lang.String" value="panelTableXmpIptc" noResource="true"/>
                               </Properties>
-                              <AuxValues>
-                                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                              </AuxValues>
                               <Constraints>
                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                                   <JTabbedPaneConstraints tabName="IPTC">
                                     <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.scrollPaneXmpIptc.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.panelTableXmpIptc.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                                     </Property>
                                   </JTabbedPaneConstraints>
                                 </Constraint>
                               </Constraints>
 
-                              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout"/>
                               <SubComponents>
-                                <Component class="javax.swing.JTable" name="tableXmpIptc">
+                                <Container class="javax.swing.JPanel" name="panelTableXmpIptcFilter">
                                   <Properties>
-                                    <Property name="autoCreateRowSorter" type="boolean" value="true"/>
-                                    <Property name="autoResizeMode" type="int" value="0"/>
-                                    <Property name="name" type="java.lang.String" value="tableXmpIptc" noResource="true"/>
+                                    <Property name="name" type="java.lang.String" value="panelTableXmpIptcFilter" noResource="true"/>
                                   </Properties>
-                                </Component>
+                                  <Constraints>
+                                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                                      <GridBagConstraints gridX="0" gridY="0" gridWidth="0" gridHeight="1" fill="2" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="3" insetsRight="0" anchor="17" weightX="1.0" weightY="0.0"/>
+                                    </Constraint>
+                                  </Constraints>
+
+                                  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout"/>
+                                  <SubComponents>
+                                    <Component class="javax.swing.JLabel" name="labelTableXmpIptcFilter">
+                                      <Properties>
+                                        <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                                          <ComponentRef name="textFieldListSelKeywordsFilter"/>
+                                        </Property>
+                                        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                                          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.labelTableXmpIptcFilter.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                                        </Property>
+                                        <Property name="name" type="java.lang.String" value="labelTableXmpIptcFilter" noResource="true"/>
+                                      </Properties>
+                                      <Constraints>
+                                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                                          <GridBagConstraints gridX="0" gridY="0" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="17" weightX="0.0" weightY="0.0"/>
+                                        </Constraint>
+                                      </Constraints>
+                                    </Component>
+                                    <Component class="javax.swing.JTextField" name="textFieldTableXmpIptcFilter">
+                                      <Properties>
+                                        <Property name="name" type="java.lang.String" value="textFieldTableXmpIptcFilter" noResource="true"/>
+                                      </Properties>
+                                      <Constraints>
+                                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                                          <GridBagConstraints gridX="1" gridY="0" gridWidth="1" gridHeight="1" fill="2" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="5" insetsBottom="0" insetsRight="0" anchor="17" weightX="1.0" weightY="0.0"/>
+                                        </Constraint>
+                                      </Constraints>
+                                    </Component>
+                                  </SubComponents>
+                                </Container>
+                                <Container class="javax.swing.JScrollPane" name="scrollPaneXmpIptc">
+                                  <Properties>
+                                    <Property name="name" type="java.lang.String" value="scrollPaneXmpIptc" noResource="true"/>
+                                  </Properties>
+                                  <AuxValues>
+                                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                                  </AuxValues>
+                                  <Constraints>
+                                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                                      <GridBagConstraints gridX="0" gridY="1" gridWidth="0" gridHeight="0" fill="1" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="10" weightX="1.0" weightY="1.0"/>
+                                    </Constraint>
+                                  </Constraints>
+
+                                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                                  <SubComponents>
+                                    <Component class="javax.swing.JTable" name="tableXmpIptc">
+                                      <Properties>
+                                        <Property name="autoCreateRowSorter" type="boolean" value="true"/>
+                                        <Property name="autoResizeMode" type="int" value="0"/>
+                                        <Property name="name" type="java.lang.String" value="tableXmpIptc" noResource="true"/>
+                                      </Properties>
+                                    </Component>
+                                  </SubComponents>
+                                </Container>
                               </SubComponents>
                             </Container>
-                            <Container class="javax.swing.JScrollPane" name="scrollPaneXmpPhotoshop">
+                            <Container class="javax.swing.JPanel" name="panelTableXmpPhotoshop">
                               <Properties>
-                                <Property name="name" type="java.lang.String" value="scrollPaneXmpPhotoshop" noResource="true"/>
+                                <Property name="name" type="java.lang.String" value="panelTableXmpPhotoshop" noResource="true"/>
                               </Properties>
-                              <AuxValues>
-                                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                              </AuxValues>
                               <Constraints>
                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                                   <JTabbedPaneConstraints tabName="Photoshop">
                                     <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.scrollPaneXmpPhotoshop.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.panelTableXmpPhotoshop.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                                     </Property>
                                   </JTabbedPaneConstraints>
                                 </Constraint>
                               </Constraints>
 
-                              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout"/>
                               <SubComponents>
-                                <Component class="javax.swing.JTable" name="tableXmpPhotoshop">
+                                <Container class="javax.swing.JPanel" name="panelTableXmpPhotoshopFilter">
                                   <Properties>
-                                    <Property name="autoCreateRowSorter" type="boolean" value="true"/>
-                                    <Property name="autoResizeMode" type="int" value="0"/>
-                                    <Property name="name" type="java.lang.String" value="tableXmpPhotoshop" noResource="true"/>
+                                    <Property name="name" type="java.lang.String" value="panelTableXmpPhotoshopFilter" noResource="true"/>
                                   </Properties>
-                                </Component>
+                                  <Constraints>
+                                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                                      <GridBagConstraints gridX="0" gridY="0" gridWidth="0" gridHeight="1" fill="2" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="3" insetsRight="0" anchor="17" weightX="1.0" weightY="0.0"/>
+                                    </Constraint>
+                                  </Constraints>
+
+                                  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout"/>
+                                  <SubComponents>
+                                    <Component class="javax.swing.JLabel" name="labelTableXmpPhotoshopFilter">
+                                      <Properties>
+                                        <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                                          <ComponentRef name="textFieldListSelKeywordsFilter"/>
+                                        </Property>
+                                        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                                          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.labelTableXmpPhotoshopFilter.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                                        </Property>
+                                        <Property name="name" type="java.lang.String" value="labelTableXmpPhotoshopFilter" noResource="true"/>
+                                      </Properties>
+                                      <Constraints>
+                                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                                          <GridBagConstraints gridX="0" gridY="0" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="17" weightX="0.0" weightY="0.0"/>
+                                        </Constraint>
+                                      </Constraints>
+                                    </Component>
+                                    <Component class="javax.swing.JTextField" name="textFieldTableXmpPhotoshopFilter">
+                                      <Properties>
+                                        <Property name="name" type="java.lang.String" value="textFieldTableXmpPhotoshopFilter" noResource="true"/>
+                                      </Properties>
+                                      <Constraints>
+                                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                                          <GridBagConstraints gridX="1" gridY="0" gridWidth="1" gridHeight="1" fill="2" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="5" insetsBottom="0" insetsRight="0" anchor="17" weightX="1.0" weightY="0.0"/>
+                                        </Constraint>
+                                      </Constraints>
+                                    </Component>
+                                  </SubComponents>
+                                </Container>
+                                <Container class="javax.swing.JScrollPane" name="scrollPaneXmpPhotoshop">
+                                  <Properties>
+                                    <Property name="name" type="java.lang.String" value="scrollPaneXmpPhotoshop" noResource="true"/>
+                                  </Properties>
+                                  <AuxValues>
+                                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                                  </AuxValues>
+                                  <Constraints>
+                                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                                      <GridBagConstraints gridX="0" gridY="1" gridWidth="0" gridHeight="0" fill="1" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="10" weightX="1.0" weightY="1.0"/>
+                                    </Constraint>
+                                  </Constraints>
+
+                                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                                  <SubComponents>
+                                    <Component class="javax.swing.JTable" name="tableXmpPhotoshop">
+                                      <Properties>
+                                        <Property name="autoCreateRowSorter" type="boolean" value="true"/>
+                                        <Property name="autoResizeMode" type="int" value="0"/>
+                                        <Property name="name" type="java.lang.String" value="tableXmpPhotoshop" noResource="true"/>
+                                      </Properties>
+                                    </Component>
+                                  </SubComponents>
+                                </Container>
                               </SubComponents>
                             </Container>
-                            <Container class="javax.swing.JScrollPane" name="scrollPaneXmpXap">
+                            <Container class="javax.swing.JPanel" name="panelTableXmpXap">
                               <Properties>
-                                <Property name="name" type="java.lang.String" value="scrollPaneXmpXap" noResource="true"/>
+                                <Property name="name" type="java.lang.String" value="panelTableXmpXap" noResource="true"/>
                               </Properties>
-                              <AuxValues>
-                                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                              </AuxValues>
                               <Constraints>
                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                                   <JTabbedPaneConstraints tabName="Sonstige">
                                     <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.scrollPaneXmpXap.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.panelTableXmpXap.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                                     </Property>
                                   </JTabbedPaneConstraints>
                                 </Constraint>
                               </Constraints>
 
-                              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout"/>
                               <SubComponents>
-                                <Component class="javax.swing.JTable" name="tableXmpXap">
+                                <Container class="javax.swing.JPanel" name="panelTableXmpXapFilter">
                                   <Properties>
-                                    <Property name="autoCreateRowSorter" type="boolean" value="true"/>
-                                    <Property name="autoResizeMode" type="int" value="0"/>
-                                    <Property name="name" type="java.lang.String" value="tableXmpXap" noResource="true"/>
+                                    <Property name="name" type="java.lang.String" value="panelTableXmpXapFilter" noResource="true"/>
                                   </Properties>
-                                </Component>
+                                  <Constraints>
+                                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                                      <GridBagConstraints gridX="0" gridY="0" gridWidth="0" gridHeight="1" fill="2" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="3" insetsRight="0" anchor="17" weightX="1.0" weightY="0.0"/>
+                                    </Constraint>
+                                  </Constraints>
+
+                                  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout"/>
+                                  <SubComponents>
+                                    <Component class="javax.swing.JLabel" name="labelTableXmpXapFilter">
+                                      <Properties>
+                                        <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                                          <ComponentRef name="textFieldListSelKeywordsFilter"/>
+                                        </Property>
+                                        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                                          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.labelTableXmpXapFilter.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                                        </Property>
+                                        <Property name="name" type="java.lang.String" value="labelTableXmpXapFilter" noResource="true"/>
+                                      </Properties>
+                                      <Constraints>
+                                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                                          <GridBagConstraints gridX="0" gridY="0" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="17" weightX="0.0" weightY="0.0"/>
+                                        </Constraint>
+                                      </Constraints>
+                                    </Component>
+                                    <Component class="javax.swing.JTextField" name="textFieldTableXmpXapFilter">
+                                      <Properties>
+                                        <Property name="name" type="java.lang.String" value="textFieldTableXmpXapFilter" noResource="true"/>
+                                      </Properties>
+                                      <Constraints>
+                                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                                          <GridBagConstraints gridX="1" gridY="0" gridWidth="1" gridHeight="1" fill="2" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="5" insetsBottom="0" insetsRight="0" anchor="17" weightX="1.0" weightY="0.0"/>
+                                        </Constraint>
+                                      </Constraints>
+                                    </Component>
+                                  </SubComponents>
+                                </Container>
+                                <Container class="javax.swing.JScrollPane" name="scrollPaneXmpXap">
+                                  <Properties>
+                                    <Property name="name" type="java.lang.String" value="scrollPaneXmpXap" noResource="true"/>
+                                  </Properties>
+                                  <AuxValues>
+                                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                                  </AuxValues>
+                                  <Constraints>
+                                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                                      <GridBagConstraints gridX="0" gridY="1" gridWidth="0" gridHeight="0" fill="1" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="10" weightX="1.0" weightY="1.0"/>
+                                    </Constraint>
+                                  </Constraints>
+
+                                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                                  <SubComponents>
+                                    <Component class="javax.swing.JTable" name="tableXmpXap">
+                                      <Properties>
+                                        <Property name="autoCreateRowSorter" type="boolean" value="true"/>
+                                        <Property name="autoResizeMode" type="int" value="0"/>
+                                        <Property name="name" type="java.lang.String" value="tableXmpXap" noResource="true"/>
+                                      </Properties>
+                                    </Component>
+                                  </SubComponents>
+                                </Container>
                               </SubComponents>
                             </Container>
-                            <Container class="javax.swing.JScrollPane" name="scrollPaneXmpLightroom">
+                            <Container class="javax.swing.JPanel" name="panelTableXmpLightroom">
                               <Properties>
-                                <Property name="name" type="java.lang.String" value="scrollPaneXmpLightroom" noResource="true"/>
+                                <Property name="name" type="java.lang.String" value="panelTableXmpLightroom" noResource="true"/>
                               </Properties>
-                              <AuxValues>
-                                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                              </AuxValues>
                               <Constraints>
                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                                   <JTabbedPaneConstraints tabName="Lightroom">
                                     <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.scrollPaneXmpLightroom.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.panelTableXmpLightroom.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                                     </Property>
                                   </JTabbedPaneConstraints>
                                 </Constraint>
                               </Constraints>
 
-                              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout"/>
                               <SubComponents>
-                                <Component class="javax.swing.JTable" name="tableXmpLightroom">
+                                <Container class="javax.swing.JPanel" name="panelTableXmpLightroomFilter">
                                   <Properties>
-                                    <Property name="autoCreateRowSorter" type="boolean" value="true"/>
-                                    <Property name="autoResizeMode" type="int" value="0"/>
-                                    <Property name="name" type="java.lang.String" value="tableXmpLightroom" noResource="true"/>
+                                    <Property name="name" type="java.lang.String" value="panelTableXmpLightroomFilter" noResource="true"/>
                                   </Properties>
-                                </Component>
+                                  <Constraints>
+                                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                                      <GridBagConstraints gridX="0" gridY="0" gridWidth="0" gridHeight="1" fill="2" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="3" insetsRight="0" anchor="17" weightX="1.0" weightY="0.0"/>
+                                    </Constraint>
+                                  </Constraints>
+
+                                  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout"/>
+                                  <SubComponents>
+                                    <Component class="javax.swing.JLabel" name="labelTableXmpLightroomFilter">
+                                      <Properties>
+                                        <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                                          <ComponentRef name="textFieldListSelKeywordsFilter"/>
+                                        </Property>
+                                        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                                          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.labelTableXmpLightroomFilter.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                                        </Property>
+                                        <Property name="name" type="java.lang.String" value="labelTableXmpLightroomFilter" noResource="true"/>
+                                      </Properties>
+                                      <Constraints>
+                                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                                          <GridBagConstraints gridX="0" gridY="0" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="17" weightX="0.0" weightY="0.0"/>
+                                        </Constraint>
+                                      </Constraints>
+                                    </Component>
+                                    <Component class="javax.swing.JTextField" name="textFieldTableXmpLightroomFilter">
+                                      <Properties>
+                                        <Property name="name" type="java.lang.String" value="textFieldTableXmpLightroomFilter" noResource="true"/>
+                                      </Properties>
+                                      <Constraints>
+                                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                                          <GridBagConstraints gridX="1" gridY="0" gridWidth="1" gridHeight="1" fill="2" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="5" insetsBottom="0" insetsRight="0" anchor="17" weightX="1.0" weightY="0.0"/>
+                                        </Constraint>
+                                      </Constraints>
+                                    </Component>
+                                  </SubComponents>
+                                </Container>
+                                <Container class="javax.swing.JScrollPane" name="scrollPaneXmpLightroom">
+                                  <Properties>
+                                    <Property name="name" type="java.lang.String" value="scrollPaneXmpLightroom" noResource="true"/>
+                                  </Properties>
+                                  <AuxValues>
+                                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                                  </AuxValues>
+                                  <Constraints>
+                                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                                      <GridBagConstraints gridX="0" gridY="1" gridWidth="0" gridHeight="0" fill="1" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="10" weightX="1.0" weightY="1.0"/>
+                                    </Constraint>
+                                  </Constraints>
+
+                                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                                  <SubComponents>
+                                    <Component class="javax.swing.JTable" name="tableXmpLightroom">
+                                      <Properties>
+                                        <Property name="autoCreateRowSorter" type="boolean" value="true"/>
+                                        <Property name="autoResizeMode" type="int" value="0"/>
+                                        <Property name="name" type="java.lang.String" value="tableXmpLightroom" noResource="true"/>
+                                      </Properties>
+                                    </Component>
+                                  </SubComponents>
+                                </Container>
                               </SubComponents>
                             </Container>
-                            <Container class="javax.swing.JPanel" name="panelScrollPaneXmpCameraRawSettings">
+                            <Container class="javax.swing.JPanel" name="panelTableXmpCameraRawSettings">
                               <Properties>
-                                <Property name="name" type="java.lang.String" value="panelScrollPaneXmpCameraRawSettings" noResource="true"/>
+                                <Property name="name" type="java.lang.String" value="panelTableXmpCameraRawSettings" noResource="true"/>
                               </Properties>
                               <Constraints>
                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                                   <JTabbedPaneConstraints tabName="Camera Raw">
                                     <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.panelScrollPaneXmpCameraRawSettings.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
-                                    </Property>
-                                    <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                                      <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_xmp.png"/>
+                                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.panelTableXmpCameraRawSettings.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                                     </Property>
                                   </JTabbedPaneConstraints>
                                 </Constraint>
@@ -1673,7 +2128,7 @@
                                   </AuxValues>
                                   <Constraints>
                                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                                      <GridBagConstraints gridX="0" gridY="1" gridWidth="0" gridHeight="1" fill="1" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="10" weightX="1.0" weightY="1.0"/>
+                                      <GridBagConstraints gridX="0" gridY="1" gridWidth="0" gridHeight="0" fill="1" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="10" weightX="1.0" weightY="1.0"/>
                                     </Constraint>
                                   </Constraints>
 

@@ -8,8 +8,7 @@ Changelog JPhotoTagger http://jphototagger.org/
 * Fotoalben im Programmfenster rechts haben Textfeld zum Filtern
 * Stichwörter/Listenansicht zum Bearbeiten im Programmfenster rechts sowie im
   Eingabehilfen-Dialog haben Textfeld zum Filtern
-* Camera RAW-Einstellungen in XMP-Tabelle hat Textfeld zum Filtern
-  (Einträge können sehr umfangreich werden)
+* Tabellen im Programmfenster rechts haben Textfeld zum Filtern
 * Bugfix: Linksklick auf Listen-/Baumeintrag hebt den Eintrag wieder hervor
 
 0.8.67 2011-03-18
