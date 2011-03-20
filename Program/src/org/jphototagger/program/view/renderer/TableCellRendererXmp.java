@@ -1,6 +1,7 @@
 package org.jphototagger.program.view.renderer;
 
 import com.adobe.xmp.properties.XMPPropertyInfo;
+import javax.swing.table.TableModel;
 
 import org.jphototagger.lib.componentutil.TableUtil;
 import org.jphototagger.program.app.AppLookAndFeel;
@@ -17,6 +18,8 @@ import java.util.StringTokenizer;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableStringConverter;
+import org.jphototagger.lib.util.StringUtil;
 
 /**
  * Rendert Tabellen mit
@@ -32,8 +35,7 @@ public final class TableCellRendererXmp extends FormatterLabelMetadata implement
     private static final Translation TRANSLATION_EXIF = new Translation("ExifTagIdTagNameTranslations");
 
     @Override
-    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
-            int row, int column) {
+    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         JLabel cellLabel = new JLabel();
         XMPPropertyInfo xmpPropertyInfo = (XMPPropertyInfo) value;
 
@@ -49,7 +51,6 @@ public final class TableCellRendererXmp extends FormatterLabelMetadata implement
                                                AppLookAndFeel.TABLE_MAX_CHARS_ROW_HEADER,
                                                AppLookAndFeel.TABLE_ROW_HEADER_CSS);
         } else {
-            assert column < 2 : column;
             setContentFont(cellLabel);
             TableUtil.embedTableCellTextInHtml(table, row, cellLabel, xmpPropertyInfo.getValue().toString(),
                                                AppLookAndFeel.TABLE_MAX_CHARS_CELL, AppLookAndFeel.TABLE_CELL_CSS);
@@ -143,5 +144,28 @@ public final class TableCellRendererXmp extends FormatterLabelMetadata implement
 
     private static boolean isExifNamespace(String string) {
         return string.startsWith("exif:");
+    }
+
+    public static TableStringConverter createTableStringConverter() {
+        return new XmpTableStringConverter();
+    }
+
+    private static class XmpTableStringConverter extends TableStringConverter {
+
+        @Override
+        public String toString(TableModel model, int row, int column) {
+            Object value = model.getValueAt(row, column);
+
+            if (value instanceof XMPPropertyInfo) {
+                XMPPropertyInfo xmpPropertyInfo = (XMPPropertyInfo) value;
+                String xmpPath = xmpPropertyInfo.getPath();
+
+                return column == 0
+                        ? translate(xmpPath, xmpPath)
+                        : xmpPropertyInfo.getValue().toString();
+            } else {
+                return StringUtil.toStringNullToEmptyString(value);
+            }
+        }
     }
 }
