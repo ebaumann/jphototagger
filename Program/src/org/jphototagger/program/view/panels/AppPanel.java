@@ -39,6 +39,9 @@ import javax.swing.JTextArea;
 import javax.swing.JToggleButton;
 import javax.swing.JTree;
 import javax.swing.JViewport;
+import javax.swing.table.TableRowSorter;
+import javax.swing.table.TableStringConverter;
+import javax.swing.text.JTextComponent;
 import javax.swing.tree.TreeSelectionModel;
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.JXTree;
@@ -54,6 +57,9 @@ import org.jphototagger.program.helper.TableTextFilter;
 import org.jphototagger.program.model.ListModelWait;
 import org.jphototagger.program.model.TreeModelWait;
 import org.jphototagger.program.view.renderer.ListCellRendererFileFilters;
+import org.jphototagger.program.view.renderer.TableCellRendererExif;
+import org.jphototagger.program.view.renderer.TableCellRendererIptc;
+import org.jphototagger.program.view.renderer.TableCellRendererXmp;
 
 /**
  * Panel der Anwendung.
@@ -110,16 +116,40 @@ public final class AppPanel extends javax.swing.JPanel {
     }
 
     private void setTableFilters() {
-        textFieldTableExifFilter.getDocument().addDocumentListener(new TableTextFilter(tableExif));
-        textFieldTableIptcFilter.getDocument().addDocumentListener(new TableTextFilter(tableIptc));
-        textFieldTableXmpCameraRawSettingsFilter.getDocument().addDocumentListener(new TableTextFilter(tableXmpCameraRawSettings));
-        textFieldTableXmpDcFilter.getDocument().addDocumentListener(new TableTextFilter(tableXmpDc));
-        textFieldTableXmpExifFilter.getDocument().addDocumentListener(new TableTextFilter(tableXmpExif));
-        textFieldTableXmpIptcFilter.getDocument().addDocumentListener(new TableTextFilter(tableXmpIptc));
-        textFieldTableXmpLightroomFilter.getDocument().addDocumentListener(new TableTextFilter(tableXmpLightroom));
-        textFieldTableXmpPhotoshopFilter.getDocument().addDocumentListener(new TableTextFilter(tableXmpPhotoshop));
-        textFieldTableXmpTiffFilter.getDocument().addDocumentListener(new TableTextFilter(tableXmpTiff));
-        textFieldTableXmpXapFilter.getDocument().addDocumentListener(new TableTextFilter(tableXmpXap));
+        setExifTableFilter();
+        setIptcTableFilter();
+        setXmpTableFilter(textFieldTableXmpCameraRawSettingsFilter, tableXmpCameraRawSettings);
+        setXmpTableFilter(textFieldTableXmpDcFilter, tableXmpDc);
+        setXmpTableFilter(textFieldTableXmpExifFilter, tableXmpExif);
+        setXmpTableFilter(textFieldTableXmpIptcFilter, tableXmpIptc);
+        setXmpTableFilter(textFieldTableXmpLightroomFilter, tableXmpLightroom);
+        setXmpTableFilter(textFieldTableXmpPhotoshopFilter, tableXmpPhotoshop);
+        setXmpTableFilter(textFieldTableXmpTiffFilter, tableXmpTiff);
+        setXmpTableFilter(textFieldTableXmpXapFilter, tableXmpXap);
+    }
+
+    private void setExifTableFilter() {
+        TableRowSorter<?> rowSorter = (TableRowSorter<?>) tableExif.getRowSorter();
+        TableStringConverter stringConverter = TableCellRendererExif.createTableStringConverter();
+
+        rowSorter.setStringConverter(stringConverter);
+        textFieldTableExifFilter.getDocument().addDocumentListener(new TableTextFilter(tableExif, stringConverter));
+    }
+
+    private void setIptcTableFilter() {
+        TableRowSorter<?> rowSorter = (TableRowSorter<?>) tableIptc.getRowSorter();
+        TableStringConverter stringConverter = TableCellRendererIptc.createTableStringConverter();
+
+        rowSorter.setStringConverter(stringConverter);
+        textFieldTableIptcFilter.getDocument().addDocumentListener(new TableTextFilter(tableIptc, stringConverter));
+    }
+
+    private void setXmpTableFilter(JTextComponent filterTextComponent, JTable xmpTable) {
+        TableRowSorter<?> rowSorter = (TableRowSorter<?>) xmpTable.getRowSorter();
+        TableStringConverter stringConverter = TableCellRendererXmp.createTableStringConverter();
+
+        rowSorter.setStringConverter(stringConverter);
+        filterTextComponent.getDocument().addDocumentListener(new TableTextFilter(xmpTable, stringConverter));
     }
 
     private void displaySearchButton() {
