@@ -27,6 +27,11 @@ public final class TableCellRendererIptc extends FormatterLabelMetadata implemen
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         JLabel cellLabel = new JLabel();
+
+        if (value == null) {
+            return cellLabel;
+        }
+
         IptcEntry iptcEntry = (IptcEntry) value;
 
         setDefaultCellColors(cellLabel, isSelected);
@@ -52,9 +57,15 @@ public final class TableCellRendererIptc extends FormatterLabelMetadata implemen
     }
 
     private static String getIptcEntryNumber(IptcEntry iptcEntry) {
-        return Integer.toString(iptcEntry.getRecordNumber()) + ":" + Integer.toString(iptcEntry.getDataSetNumber());
-    }
+        if (iptcEntry == null) {
+            return "";
+        }
 
+        int recordNumber = iptcEntry.getRecordNumber();
+        int dataSetNumber = iptcEntry.getDataSetNumber();
+        
+        return Integer.toString(recordNumber) + ":" + Integer.toString(dataSetNumber);
+    }
 
     public static Comparator<?> createColumn0Comparator() {
         return new Column0Comparator();
