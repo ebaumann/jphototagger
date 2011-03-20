@@ -1250,6 +1250,7 @@ public final class FileUtil {
 
             if (p.fileFilter != null) {
                 fc.setFileFilter(p.fileFilter);
+                fc.setAcceptAllFileFilterUsed(false);
             }
 
             if (p.saveFilenameExtension != null) {
