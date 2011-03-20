@@ -37,12 +37,14 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.swing.JList;
 import javax.swing.JTree;
+import javax.swing.ListModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeCellRenderer;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
+import org.jdesktop.swingx.JXList;
+import org.jphototagger.lib.componentutil.ListUtil;
 
 /**
  * Helper for hierarchical keywords and Dublin Core subjects ("flat" keywords).
@@ -296,8 +298,8 @@ public final class KeywordsHelper {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                for (TreeCellRendererKeywords r : getCellRenderer()) {
-                    r.addSelImgKeywords(keywords);
+                for (TreeCellRendererKeywords treeCellRendererKeywords : getCellRenderer()) {
+                    treeCellRendererKeywords.addSelImgKeywords(keywords);
                 }
             }
         });
@@ -307,8 +309,8 @@ public final class KeywordsHelper {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                for (TreeCellRendererKeywords r : getCellRenderer()) {
-                    r.removeSelImgKeyword(keyword);
+                for (TreeCellRendererKeywords treeCellRendererKeywords : getCellRenderer()) {
+                    treeCellRendererKeywords.removeSelImgKeyword(keyword);
                 }
             }
         });
@@ -318,10 +320,10 @@ public final class KeywordsHelper {
         List<TreeCellRendererKeywords> renderer = new ArrayList<TreeCellRendererKeywords>();
 
         for (JTree tree : getKeywordTrees()) {
-            TreeCellRenderer r = tree.getCellRenderer();
+            TreeCellRenderer treeCellRendererKeywords = tree.getCellRenderer();
 
-            if (r instanceof TreeCellRendererKeywords) {
-                renderer.add((TreeCellRendererKeywords) r);
+            if (treeCellRendererKeywords instanceof TreeCellRendererKeywords) {
+                renderer.add((TreeCellRendererKeywords) treeCellRendererKeywords);
             }
         }
 
@@ -333,25 +335,48 @@ public final class KeywordsHelper {
                        InputHelperDialog.INSTANCE.getPanelKeywords().getTree());
     }
 
-    public static void selectInSelKeywordsList(final List<Integer> indices) {
-        if (indices == null) {
+    public static void selectInSelKeywordsList(final List<Integer> modelIndices) {
+        if (modelIndices == null) {
             throw new NullPointerException("indices == null");
         }
 
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                JList selKeywordsList = GUI.getAppPanel().getListSelKeywords();
+                JXList selKeywordsList = (JXList) GUI.getAppPanel().getListSelKeywords();
 
                 selKeywordsList.clearSelection();
                 GUI.getAppPanel().displaySelKeywordsList(AppPanel.SelectAlso.SEL_KEYWORDS_TAB);
 
-                if (!indices.isEmpty()) {
-                    selKeywordsList.setSelectedIndices(ArrayUtil.toIntArray(indices));
-                    selKeywordsList.ensureIndexIsVisible(indices.get(0));
+                if (!modelIndices.isEmpty()) {
+                    List<Integer> listIndices = ListUtil.convertModelIndicesToListIndices(modelIndices, selKeywordsList);
+                    
+                    selKeywordsList.setSelectedIndices(ArrayUtil.toIntArray(listIndices));
+                    selKeywordsList.ensureIndexIsVisible(listIndices.get(0));
                 }
             }
         });
+    }
+
+    public static List<String> getSelectedKeywordsFromList(JXList keywordsList) {
+        if (keywordsList == null) {
+            throw new NullPointerException("keywordsList == null");
+        }
+
+        List<String> selectedKeywords = new ArrayList<String>();
+        ListModel listModel = keywordsList.getModel();
+        int[] selectedIndices = keywordsList.getSelectedIndices();
+
+        for (int selectedIndex : selectedIndices) {
+            int modelIndex = keywordsList.convertIndexToModel(selectedIndex);
+            Object selectedElement = listModel.getElementAt(modelIndex);
+
+            if (selectedElement instanceof String) {
+                selectedKeywords.add((String) selectedElement);
+            }
+        }
+
+        return selectedKeywords;
     }
 
     public static void expandAllTreesTo(final DefaultMutableTreeNode node) {
@@ -476,7 +501,6 @@ public final class KeywordsHelper {
             }
         }
     }
-
 
     private static class RenameDcSubject extends HelperThread {
         private final String toName;

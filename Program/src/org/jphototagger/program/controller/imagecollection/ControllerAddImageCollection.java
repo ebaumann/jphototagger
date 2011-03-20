@@ -1,8 +1,6 @@
 package org.jphototagger.program.controller.imagecollection;
 
-import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.lib.event.util.KeyEventUtil;
-import org.jphototagger.program.comparator.ComparatorStringAscending;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.helper.ImageCollectionsHelper;
 import org.jphototagger.program.model.ListModelImageCollections;
@@ -66,8 +64,9 @@ public final class ControllerAddImageCollection implements ActionListener, KeyLi
     private void insertImageCollection(String collectionName) {
         ListModelImageCollections model = ModelFactory.INSTANCE.getModel(ListModelImageCollections.class);
 
-        ListUtil.insertSorted(model, collectionName, ComparatorStringAscending.INSTANCE,
-                              ListModelImageCollections.getSpecialCollectionCount(), model.getSize() - 1);
+        if (!model.contains(collectionName)) {
+            model.addElement(collectionName);
+        }
     }
 
     @Override

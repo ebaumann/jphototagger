@@ -12,6 +12,7 @@ import java.awt.Container;
 
 import javax.swing.JList;
 import javax.swing.JTree;
+import javax.swing.ListModel;
 import javax.swing.SortOrder;
 import javax.swing.tree.TreeSelectionModel;
 import org.jdesktop.swingx.JXList;
@@ -39,9 +40,14 @@ public class KeywordsPanel extends javax.swing.JPanel {
     private void postInitComponents() {
         tree.getSelectionModel().setSelectionMode(TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION);
         MnemonicUtil.setMnemonics((Container) this);
-        textFieldListFilter.getDocument().addDocumentListener(new ListTextFilter((JXList) list));
-        ((JXList)list).setAutoCreateRowSorter(true);
-        ((JXList)list).setSortOrder(SortOrder.ASCENDING);
+    }
+
+    private void decorateList() {
+        JXList jxList = (JXList) list;
+
+        textFieldListFilter.getDocument().addDocumentListener(new ListTextFilter(jxList));
+        jxList.setAutoCreateRowSorter(true);
+        jxList.setSortOrder(SortOrder.ASCENDING);
     }
 
     public JTree getTree() {
@@ -50,6 +56,15 @@ public class KeywordsPanel extends javax.swing.JPanel {
 
     public JList getList() {
         return list;
+    }
+
+    public void setListModel(ListModel model) {
+        if (model == null) {
+            throw new NullPointerException("model == null");
+        }
+
+        list.setModel(model);
+        decorateList();
     }
 
     public void setKeyCard(String key) {

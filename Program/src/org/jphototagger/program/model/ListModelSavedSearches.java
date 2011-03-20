@@ -1,7 +1,5 @@
 package org.jphototagger.program.model;
 
-import org.jphototagger.lib.componentutil.ListUtil;
-import org.jphototagger.program.comparator.ComparatorSavedSearch;
 import org.jphototagger.program.data.SavedSearch;
 import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseSavedSearches;
@@ -39,8 +37,10 @@ public final class ListModelSavedSearches extends DefaultListModel implements Da
         }
     }
 
-    private void insertSorted(SavedSearch search) {
-        ListUtil.insertSorted(this, search, ComparatorSavedSearch.INSTANCE, 0, getSize() - 1);
+    private void insertSavedSearch(SavedSearch search) {
+        if (!contains(search)) {
+            addElement(search);
+        }
     }
 
     private void deleteSearch(String name) {
@@ -63,7 +63,7 @@ public final class ListModelSavedSearches extends DefaultListModel implements Da
     }
 
     private void insertSearch(SavedSearch savedSearch) {
-        insertSorted(savedSearch);
+        insertSavedSearch(savedSearch);
     }
 
     private void updateSearch(SavedSearch savedSearch) {
@@ -72,7 +72,7 @@ public final class ListModelSavedSearches extends DefaultListModel implements Da
         if (index >= 0) {
             set(index, savedSearch);
         } else {
-            insertSorted(savedSearch);
+            insertSavedSearch(savedSearch);
         }
     }
 

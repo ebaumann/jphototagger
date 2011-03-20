@@ -98,8 +98,8 @@ public final class AppPanel extends javax.swing.JPanel {
         initCollections();
         scrollPaneThumbnails.getVerticalScrollBar().setUnitIncrement(30);
         setMnemonics();
-        setListFilters();
-        setTableFilters();
+        setListTextFilters();
+        setTableTextFilters();
     }
 
     private void setMnemonics() {
@@ -110,26 +110,30 @@ public final class AppPanel extends javax.swing.JPanel {
         MnemonicUtil.setMnemonics((Container) panelSearch);
     }
 
-    private void setListFilters() {
-        textFieldListSelKeywordsFilter.getDocument().addDocumentListener(new ListTextFilter((JXList) listSelKeywords));
-        textFieldListSavedSearchesFilter.getDocument().addDocumentListener(new ListTextFilter((JXList) listSavedSearches));
-        textFieldListImageCollectionsFilter.getDocument().addDocumentListener(new ListTextFilter((JXList) listImageCollections));
+    private void setListTextFilters() {
+        ListTextFilter listSelKeywordsTextFilter = new ListTextFilter((JXList) listSelKeywords);
+        ListTextFilter listImageCollectionsTextFilter = new ListTextFilter((JXList) listImageCollections);
+        ListTextFilter listSavedSearchesTextFilter = new ListTextFilter((JXList) listSavedSearches);
+
+        textFieldListSelKeywordsFilter.getDocument().addDocumentListener(listSelKeywordsTextFilter);
+        textFieldListSavedSearchesFilter.getDocument().addDocumentListener(listSavedSearchesTextFilter);
+        textFieldListImageCollectionsFilter.getDocument().addDocumentListener(listImageCollectionsTextFilter);
     }
 
-    private void setTableFilters() {
-        setExifTableFilter();
-        setIptcTableFilter();
-        setXmpTableFilter(textFieldTableXmpCameraRawSettingsFilter, tableXmpCameraRawSettings);
-        setXmpTableFilter(textFieldTableXmpDcFilter, tableXmpDc);
-        setXmpTableFilter(textFieldTableXmpExifFilter, tableXmpExif);
-        setXmpTableFilter(textFieldTableXmpIptcFilter, tableXmpIptc);
-        setXmpTableFilter(textFieldTableXmpLightroomFilter, tableXmpLightroom);
-        setXmpTableFilter(textFieldTableXmpPhotoshopFilter, tableXmpPhotoshop);
-        setXmpTableFilter(textFieldTableXmpTiffFilter, tableXmpTiff);
-        setXmpTableFilter(textFieldTableXmpXapFilter, tableXmpXap);
+    private void setTableTextFilters() {
+        setExifTableTextFilter();
+        setIptcTableTextFilter();
+        setXmpTableTextFilter(textFieldTableXmpCameraRawSettingsFilter, tableXmpCameraRawSettings);
+        setXmpTableTextFilter(textFieldTableXmpDcFilter, tableXmpDc);
+        setXmpTableTextFilter(textFieldTableXmpExifFilter, tableXmpExif);
+        setXmpTableTextFilter(textFieldTableXmpIptcFilter, tableXmpIptc);
+        setXmpTableTextFilter(textFieldTableXmpLightroomFilter, tableXmpLightroom);
+        setXmpTableTextFilter(textFieldTableXmpPhotoshopFilter, tableXmpPhotoshop);
+        setXmpTableTextFilter(textFieldTableXmpTiffFilter, tableXmpTiff);
+        setXmpTableTextFilter(textFieldTableXmpXapFilter, tableXmpXap);
     }
 
-    private void setExifTableFilter() {
+    private void setExifTableTextFilter() {
         TableRowSorter<?> rowSorter = (TableRowSorter<?>) tableExif.getRowSorter();
         TableStringConverter stringConverter = TableCellRendererExif.createTableStringConverter();
         Document document = textFieldTableExifFilter.getDocument();
@@ -139,7 +143,7 @@ public final class AppPanel extends javax.swing.JPanel {
         document.addDocumentListener(tableTextFilter);
     }
 
-    private void setIptcTableFilter() {
+    private void setIptcTableTextFilter() {
         TableRowSorter<?> rowSorter = (TableRowSorter<?>) tableIptc.getRowSorter();
         TableStringConverter stringConverter = TableCellRendererIptc.createTableStringConverter();
         Document document = textFieldTableIptcFilter.getDocument();
@@ -149,7 +153,7 @@ public final class AppPanel extends javax.swing.JPanel {
         document.addDocumentListener(tableTextFilter);
     }
 
-    private void setXmpTableFilter(JTextComponent filterTextComponent, JTable xmpTable) {
+    private void setXmpTableTextFilter(JTextComponent filterTextComponent, JTable xmpTable) {
         TableRowSorter<?> rowSorter = (TableRowSorter<?>) xmpTable.getRowSorter();
         TableStringConverter stringConverter = TableCellRendererXmp.createTableStringConverter();
         Document document = filterTextComponent.getDocument();

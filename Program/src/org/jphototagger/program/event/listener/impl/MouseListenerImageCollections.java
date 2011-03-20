@@ -10,6 +10,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JList;
+import org.jdesktop.swingx.JXList;
 
 /**
  * Do not use this class as a template for other implementations! Instead extend
@@ -27,7 +28,7 @@ public final class MouseListenerImageCollections extends MouseAdapter {
         popupMenu.setItemIndex(index);
 
         if (MouseEventUtil.isPopupTrigger(evt)) {
-            JList list = (JList) evt.getSource();
+            JXList list = (JXList) evt.getSource();
             boolean isItem = index >= 0;
             boolean isSpecialCollection = isSpecialCollection(list, index);
 
@@ -42,12 +43,13 @@ public final class MouseListenerImageCollections extends MouseAdapter {
         ((JList) evt.getSource()).setCursor(Cursor.getDefaultCursor());
     }
 
-    private boolean isSpecialCollection(JList list, int index) {
+    private boolean isSpecialCollection(JXList list, int index) {
         if (index < 0) {
             return false;
         }
 
-        Object o = list.getModel().getElementAt(index);
+        int modelIndex = list.convertIndexToModel(index);
+        Object o = list.getModel().getElementAt(modelIndex);
 
         if (o != null) {
             return ListModelImageCollections.isSpecialCollection(o.toString());

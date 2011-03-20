@@ -17,6 +17,8 @@ import java.util.Properties;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.JRadioButton;
+import org.jdesktop.swingx.JXList;
+import org.jphototagger.program.helper.KeywordsHelper;
 
 /**
  *
@@ -81,18 +83,9 @@ public final class ControllerKeywordItemSelected implements ActionListener, List
     }
 
     private List<String> getSelectedKeywords() {
-        Object[] selValues = GUI.getSelKeywordsList().getSelectedValues();
-        List<String> keywords = new ArrayList<String>();
+        JXList listSelKeywords = (JXList) GUI.getSelKeywordsList();
 
-        for (Object selValue : selValues) {
-            if (selValue instanceof String) {
-                keywords.add((String) selValue);
-            }
-        }
-
-        assert keywords.size() == selValues.length : "Not all keywords are strings: " + keywords;
-
-        return keywords;
+        return KeywordsHelper.getSelectedKeywordsFromList(listSelKeywords);
     }
 
     private boolean isAllKeywords() {

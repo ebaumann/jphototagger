@@ -35,6 +35,7 @@ import javax.swing.table.TableRowSorter;
 import javax.swing.tree.TreeModel;
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.sort.ListSortController;
+import org.jphototagger.program.view.panels.KeywordsPanel;
 import org.jphototagger.program.view.renderer.TableCellRendererExif;
 import org.jphototagger.program.view.renderer.TableCellRendererIptc;
 import org.jphototagger.program.view.renderer.TableCellRendererXmp;
@@ -163,7 +164,7 @@ public final class ModelFactory {
                 Support.setStatusbarInfo("ModelFactory.Starting.ListModelKeywords");
 
                 final JXList listSelKeywords = (JXList) appPanel.getListSelKeywords();
-                final JXList listEditKeywords = (JXList) appPanel.getListEditKeywords();
+                final KeywordsPanel panelEditKeywords = appPanel.getPanelEditKeywords();
                 final Cursor listCursor = setWaitCursor(listSelKeywords);
                 final ListModelKeywords modelKeywords = new ListModelKeywords();
 
@@ -174,7 +175,7 @@ public final class ModelFactory {
                         listSelKeywords.setModel(modelKeywords);
                         listSelKeywords.setAutoCreateRowSorter(true);
                         listSelKeywords.setSortOrder(SortOrder.ASCENDING);
-                        listEditKeywords.setModel(modelKeywords);
+                        panelEditKeywords.setListModel(modelKeywords);
                         InputHelperDialog.INSTANCE.setModelKeywords(modelKeywords);
                         AppWindowPersistence.readListSelKeywords();
                         listSelKeywords.setCursor(listCursor);

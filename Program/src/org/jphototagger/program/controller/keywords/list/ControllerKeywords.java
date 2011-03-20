@@ -14,6 +14,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.JList;
+import org.jdesktop.swingx.JXList;
+import org.jphototagger.program.helper.KeywordsHelper;
 
 /**
  *
@@ -47,7 +49,15 @@ public abstract class ControllerKeywords extends Controller {
             throw new NullPointerException("evt == null");
         }
 
-        action(getSelStrings((JList) evt.getSource()));
+        Object source = evt.getSource();
+
+        if (source instanceof JXList) {
+            JXList jxList = (JXList) source;
+
+            action(KeywordsHelper.getSelectedKeywordsFromList(jxList));
+        } else {
+            action(getSelectedStrings((JList) source));
+        }
     }
 
     protected ListModelKeywords getModel() {
@@ -57,22 +67,23 @@ public abstract class ControllerKeywords extends Controller {
     }
 
     private String getStringOfPopupMenu() {
-        JList list = PopupMenuKeywordsList.INSTANCE.getList();
-        int index = PopupMenuKeywordsList.INSTANCE.getSelIndex();
+        JXList list = (JXList) PopupMenuKeywordsList.INSTANCE.getList();
+        int listIndex = PopupMenuKeywordsList.INSTANCE.getSelIndex();
 
-        if (index < 0) {
+        if (listIndex < 0) {
             return "";
         }
 
-        return (String) list.getModel().getElementAt(index);
+        int modelIndex = list.convertIndexToModel(listIndex);
+
+        return (String) list.getModel().getElementAt(modelIndex);
     }
 
-    private List<String> getSelStrings(JList list) {
+    private List<String> getSelectedStrings(JList list) {
         Object[] selValues = list.getSelectedValues();
         List<String> selStrings = new ArrayList<String>(selValues.length);
 
         for (Object selValue : selValues) {
-            assert selValue instanceof String : selValue;
             selStrings.add((String) selValue);
         }
 
