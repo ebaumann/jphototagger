@@ -16,6 +16,9 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import org.jphototagger.lib.xml.bind.Base64ByteArrayXmlAdapter;
+import org.jphototagger.lib.xml.bind.Base64ByteStringXmlAdapter;
 
 /**
  *
@@ -165,9 +168,16 @@ public final class ExifTag {
      * left.
      */
     private final long valueOffset;
+    
+    @XmlJavaTypeAdapter(Base64ByteArrayXmlAdapter.class)
     private byte[] rawValue;
+
+    // The string value may contain "\000" not allowed in XML
+    @XmlJavaTypeAdapter(Base64ByteStringXmlAdapter.class)
     private final String stringValue;
+
     private final String name;
+
     private final int byteOrderId;
 
     /**
