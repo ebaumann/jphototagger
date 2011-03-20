@@ -385,7 +385,7 @@ public final class ListUtil {
      *                  model's objects
      * @return          all indices or empty list
      */
-    public static List<Integer> getIndicesOfItems(ListModel model, Collection<? extends String> toStrings) {
+    public static List<Integer> getModelIndicesOfItems(ListModel model, Collection<? extends String> toStrings) {
         if (model == null) {
             throw new NullPointerException("model == null");
         }
