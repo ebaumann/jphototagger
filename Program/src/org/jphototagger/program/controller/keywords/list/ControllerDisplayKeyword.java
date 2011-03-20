@@ -51,10 +51,10 @@ public final class ControllerDisplayKeyword extends ControllerKeywords {
         WaitDisplay.show();
 
         ListModel model = ModelFactory.INSTANCE.getModel(ListModelKeywords.class);
-        List<Integer> indices = ListUtil.getIndicesOfItems(model, keywords);
+        List<Integer> modelIndices = ListUtil.getModelIndicesOfItems(model, keywords);
 
-        if (!indices.isEmpty()) {
-            KeywordsHelper.selectInSelKeywordsList(indices);
+        if (!modelIndices.isEmpty()) {
+            KeywordsHelper.selectInSelKeywordsList(modelIndices);
         }
 
         WaitDisplay.hide();

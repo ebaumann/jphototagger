@@ -2,9 +2,7 @@ package org.jphototagger.program.model;
 
 import java.util.Comparator;
 import java.util.LinkedHashMap;
-import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.comparator.ComparatorStringAscending;
 import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseImageCollections;
 import org.jphototagger.program.resource.JptBundle;
@@ -72,8 +70,7 @@ public final class ListModelImageCollections extends DefaultListModel {
 
         if (index >= 0) {
             remove(index);
-            ListUtil.insertSorted(this, toName, ComparatorStringAscending.INSTANCE, getSpecialCollectionCount(),
-                                  getSize() - 1);
+            insertElementAt(toName, index);
         }
     }
 

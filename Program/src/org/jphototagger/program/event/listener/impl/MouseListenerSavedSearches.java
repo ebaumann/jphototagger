@@ -8,7 +8,7 @@ import org.jphototagger.program.view.popupmenus.PopupMenuSavedSearches;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.JList;
+import org.jdesktop.swingx.JXList;
 
 /**
  * Do not use this class as a template for other implementations! Instead extend
@@ -23,11 +23,12 @@ public final class MouseListenerSavedSearches extends MouseAdapter {
     public void mousePressed(MouseEvent evt) {
         if (MouseEventUtil.isPopupTrigger(evt)) {
             int index = ListUtil.getItemIndex(evt);
-            JList list = (JList) evt.getSource();
+            JXList list = (JXList) evt.getSource();
             boolean isItem = index >= 0;
 
             if (isItem) {
-                Object element = list.getModel().getElementAt(index);
+                int modelIndex = list.convertIndexToModel(index);
+                Object element = list.getModel().getElementAt(modelIndex);
 
                 if (element instanceof SavedSearch) {
                     SavedSearch savedSearch = (SavedSearch) element;

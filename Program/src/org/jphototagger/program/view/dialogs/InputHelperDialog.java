@@ -51,7 +51,7 @@ public class InputHelperDialog extends Dialog {
             throw new NullPointerException("model == null");
         }
 
-        panelKeywords.getList().setModel(model);
+        panelKeywords.setListModel(model);
     }
 
     private void readProperties() {

@@ -21,8 +21,6 @@ import java.util.Set;
 import javax.swing.DefaultListModel;
 
 /**
- * Elements are keyword {@link String}s retrieved through
- * {@link DatabaseImageFiles#getAllDcSubjects()}.
  *
  * @author Elmar Baumann
  */
@@ -47,7 +45,7 @@ public final class ListModelKeywords extends DefaultListModel implements Databas
     }
 
     private void addNewKeywords(Collection<? extends String> keywords) {
-        for (final String keyword : keywords) {
+        for (String keyword : keywords) {
             if (!contains(keyword)) {
                 addElement(keyword);
             }
@@ -55,7 +53,7 @@ public final class ListModelKeywords extends DefaultListModel implements Databas
     }
 
     private void removeKeywordsNotInDb(Collection<? extends String> keywords) {
-        for (final String keyword : keywords) {
+        for (String keyword : keywords) {
             if (contains(keyword) &&!databaseHasKeyword(keyword)) {
                 removeElement(keyword);
             }
@@ -79,10 +77,6 @@ public final class ListModelKeywords extends DefaultListModel implements Databas
 
     @Override
     public void xmpInserted(File imageFile, final Xmp xmp) {
-        if (xmp == null) {
-            throw new NullPointerException("xmp == null");
-        }
-
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -93,10 +87,6 @@ public final class ListModelKeywords extends DefaultListModel implements Databas
 
     @Override
     public void xmpDeleted(File imageFile, final Xmp xmp) {
-        if (xmp == null) {
-            throw new NullPointerException("xmp == null");
-        }
-
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -107,14 +97,6 @@ public final class ListModelKeywords extends DefaultListModel implements Databas
 
     @Override
     public void xmpUpdated(File imageFile, final Xmp oldXmp, final Xmp updatedXmp) {
-        if (oldXmp == null) {
-            throw new NullPointerException("oldXmp == null");
-        }
-
-        if (updatedXmp == null) {
-            throw new NullPointerException("updatedXmp == null");
-        }
-
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
