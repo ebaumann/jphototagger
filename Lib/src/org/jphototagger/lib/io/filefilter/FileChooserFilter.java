@@ -28,7 +28,7 @@ public final class FileChooserFilter extends javax.swing.filechooser.FileFilter 
      */
     @Override
     public boolean accept(File f) {
-        return fileFilter.accept(f);
+        return f.isDirectory() || fileFilter.accept(f);
     }
 
     @Override
