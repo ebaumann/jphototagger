@@ -237,6 +237,12 @@ public final class StringUtil {
         return sb.toString();
     }
 
+    public static String toStringNullToEmptyString(Object object) {
+        return object == null
+                ? ""
+                : object.toString();
+    }
+
     /**
      * Reads the input stream into a string and finally closes the input stream.
      *
