@@ -1,5 +1,6 @@
 package org.jphototagger.program.helper;
 
+import java.util.Comparator;
 import org.jphototagger.program.app.AppLogger;
 
 
@@ -51,7 +52,10 @@ public final class TableTextFilter implements DocumentListener {
             RowSorter<? extends TableModel> rowSorter = table.getRowSorter();
 
             if (rowSorter instanceof TableRowSorter<?>) {
-                ((TableRowSorter<?>) rowSorter).setRowFilter(trimmedText.isEmpty()
+                TableRowSorter<?> tableRowSorter = (TableRowSorter<?>) rowSorter;
+
+                tableRowSorter.setStringConverter(tableStringConverter);
+                tableRowSorter.setRowFilter(trimmedText.isEmpty()
                         ? null
                         : new ContainsStringRowFilter(trimmedText));
             }

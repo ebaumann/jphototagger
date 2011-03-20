@@ -7,6 +7,7 @@ import org.jphototagger.program.image.metadata.iptc.IptcEntry;
 import org.jphototagger.program.resource.Translation;
 
 import java.awt.Component;
+import java.util.Comparator;
 
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -52,6 +53,72 @@ public final class TableCellRendererIptc extends FormatterLabelMetadata implemen
 
     private static String getIptcEntryNumber(IptcEntry iptcEntry) {
         return Integer.toString(iptcEntry.getRecordNumber()) + ":" + Integer.toString(iptcEntry.getDataSetNumber());
+    }
+
+
+    public static Comparator<?> createColumn0Comparator() {
+        return new Column0Comparator();
+    }
+
+    public static Comparator<?> createColumn1Comparator() {
+        return new Column1Comparator();
+    }
+
+    public static Comparator<?> createColumn2Comparator() {
+        return new Column2Comparator();
+    }
+
+    private static class Column0Comparator implements Comparator<Object> {
+
+        @Override
+        public int compare(Object o1, Object o2) {
+            if (o1 instanceof IptcEntry && o2 instanceof IptcEntry) {
+                IptcEntry iptcEntry1 = (IptcEntry) o1;
+                IptcEntry iptcEntry2 = (IptcEntry) o2;
+                String o1String = getIptcEntryNumber(iptcEntry1);
+                String o2String = getIptcEntryNumber(iptcEntry2);
+
+                return o1String.compareToIgnoreCase(o2String);
+            } else {
+                return 0;
+            }
+        }
+    }
+
+    private static class Column1Comparator implements Comparator<Object> {
+
+        @Override
+        public int compare(Object o1, Object o2) {
+            if (o1 instanceof IptcEntry && o2 instanceof IptcEntry) {
+                IptcEntry iptcEntry1 = (IptcEntry) o1;
+                IptcEntry iptcEntry2 = (IptcEntry) o2;
+                String entryNumber1 = getIptcEntryNumber(iptcEntry1);
+                String entryNumber2 = getIptcEntryNumber(iptcEntry2);
+                String o1String = TRANSLATION.translate(entryNumber1, entryNumber1);
+                String o2String = TRANSLATION.translate(entryNumber2, entryNumber2);
+
+                return o1String.compareToIgnoreCase(o2String);
+            } else {
+                return 0;
+            }
+        }
+    }
+
+    private static class Column2Comparator implements Comparator<Object> {
+
+        @Override
+        public int compare(Object o1, Object o2) {
+            if (o1 instanceof IptcEntry && o2 instanceof IptcEntry) {
+                IptcEntry iptcEntry1 = (IptcEntry) o1;
+                IptcEntry iptcEntry2 = (IptcEntry) o2;
+                String o1String = iptcEntry1.getData();
+                String o2String = iptcEntry2.getData();
+
+                return o1String.compareToIgnoreCase(o2String);
+            } else {
+                return 0;
+            }
+        }
     }
 
     public static TableStringConverter createTableStringConverter() {

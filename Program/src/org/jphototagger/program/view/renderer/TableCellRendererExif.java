@@ -12,6 +12,7 @@ import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.resource.Translation;
 
 import java.awt.Component;
+import java.util.Comparator;
 
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -97,6 +98,48 @@ public final class TableCellRendererExif extends FormatterLabelMetadata implemen
 
     public static TableStringConverter createTableStringConverter() {
         return new ExifTableStringConverter();
+    }
+
+    public static Comparator<?> createColumn0Comparator() {
+        return new Column0Comparator();
+    }
+
+    public static Comparator<?> createColumn1Comparator() {
+        return new Column1Comparator();
+    }
+
+    private static class Column0Comparator implements Comparator<Object> {
+
+        @Override
+        public int compare(Object o1, Object o2) {
+            if (o1 instanceof ExifTag && o2 instanceof ExifTag) {
+                ExifTag exifTag1 = (ExifTag) o1;
+                ExifTag exifTag2 = (ExifTag) o2;
+                String o1String = getTagName(exifTag1).trim();
+                String o2String = getTagName(exifTag2).trim();
+
+                return o1String.compareToIgnoreCase(o2String);
+            } else {
+                return 0;
+            }
+        }
+    }
+
+    private static class Column1Comparator implements Comparator<Object> {
+
+        @Override
+        public int compare(Object o1, Object o2) {
+            if (o1 instanceof ExifTag && o2 instanceof ExifTag) {
+                ExifTag exifTag1 = (ExifTag) o1;
+                ExifTag exifTag2 = (ExifTag) o2;
+                String o1String = ExifTagValueFormatter.format(exifTag1);
+                String o2String = ExifTagValueFormatter.format(exifTag2);
+
+                return o1String.compareToIgnoreCase(o2String);
+            } else {
+                return 0;
+            }
+        }
     }
 
     private static class ExifTableStringConverter extends TableStringConverter {
