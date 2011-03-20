@@ -12,6 +12,7 @@ import org.jphototagger.program.resource.Translation;
 import java.awt.Component;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -144,6 +145,50 @@ public final class TableCellRendererXmp extends FormatterLabelMetadata implement
 
     private static boolean isExifNamespace(String string) {
         return string.startsWith("exif:");
+    }
+
+    public static Comparator<?> createColumn0Comparator() {
+        return new Column0Comparator();
+    }
+
+    public static Comparator<?> createColumn1Comparator() {
+        return new Column1Comparator();
+    }
+
+    private static class Column0Comparator implements Comparator<Object> {
+
+        @Override
+        public int compare(Object o1, Object o2) {
+            if (o1 instanceof XMPPropertyInfo && o2 instanceof XMPPropertyInfo) {
+                XMPPropertyInfo xmpPropertyInfo1 = (XMPPropertyInfo) o1;
+                XMPPropertyInfo xmpPropertyInfo2 = (XMPPropertyInfo) o2;
+                String xmpPath1 = xmpPropertyInfo1.getPath();
+                String xmpPath2 = xmpPropertyInfo2.getPath();
+                String o1String = translate(xmpPath1, xmpPath1);
+                String o2String = translate(xmpPath2, xmpPath2);
+
+                return o1String.compareToIgnoreCase(o2String);
+            } else {
+                return 0;
+            }
+        }
+    }
+
+    private static class Column1Comparator implements Comparator<Object> {
+
+        @Override
+        public int compare(Object o1, Object o2) {
+            if (o1 instanceof XMPPropertyInfo && o2 instanceof XMPPropertyInfo) {
+                XMPPropertyInfo xmpPropertyInfo1 = (XMPPropertyInfo) o1;
+                XMPPropertyInfo xmpPropertyInfo2 = (XMPPropertyInfo) o2;
+                String o1String = xmpPropertyInfo1.getValue().toString();
+                String o2String = xmpPropertyInfo2.getValue().toString();
+
+                return o1String.compareToIgnoreCase(o2String);
+            } else {
+                return 0;
+            }
+        }
     }
 
     public static TableStringConverter createTableStringConverter() {

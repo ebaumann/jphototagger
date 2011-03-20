@@ -23,15 +23,21 @@ import org.jphototagger.program.view.panels.AppPanel;
 
 import java.awt.Cursor;
 import java.awt.EventQueue;
+import java.util.Comparator;
 
 import java.util.List;
 
 import javax.swing.JList;
+import javax.swing.JTable;
 import javax.swing.JTree;
 import javax.swing.SortOrder;
+import javax.swing.table.TableRowSorter;
 import javax.swing.tree.TreeModel;
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.sort.ListSortController;
+import org.jphototagger.program.view.renderer.TableCellRendererExif;
+import org.jphototagger.program.view.renderer.TableCellRendererIptc;
+import org.jphototagger.program.view.renderer.TableCellRendererXmp;
 
 /**
  * Erzeugt die Models und verbindet sie mit den GUI-Elementen.
@@ -213,6 +219,7 @@ public final class ModelFactory {
         support.add(modelXmp7);
         support.add(modelXmp8);
         support.add(modelExif);
+
         appPanel.getTableIptc().setModel(modelIptc);
         appPanel.getTableXmpCameraRawSettings().setModel(modelXmp1);
         appPanel.getTableXmpDc().setModel(modelXmp2);
@@ -223,7 +230,48 @@ public final class ModelFactory {
         appPanel.getTableXmpTiff().setModel(modelXmp7);
         appPanel.getTableXmpXap().setModel(modelXmp8);
         appPanel.getTableExif().setModel(modelExif);
+
+        setIptcTableComparator(appPanel.getTableIptc());
+        setXmpTableComparator(appPanel.getTableXmpCameraRawSettings());
+        setXmpTableComparator(appPanel.getTableXmpDc());
+        setXmpTableComparator(appPanel.getTableXmpExif());
+        setXmpTableComparator(appPanel.getTableXmpIptc());
+        setXmpTableComparator(appPanel.getTableXmpLightroom());
+        setXmpTableComparator(appPanel.getTableXmpPhotoshop());
+        setXmpTableComparator(appPanel.getTableXmpTiff());
+        setXmpTableComparator(appPanel.getTableXmpXap());
+        setExifTableComparator(appPanel.getTableExif());
+
         Support.setStatusbarInfo("ModelFactory.Finished.TableModels");
+    }
+
+    private void setXmpTableComparator(JTable xmpTable) {
+        TableRowSorter<?> rowSorter = (TableRowSorter<?>)xmpTable.getRowSorter();
+        Comparator<?> column0Comparator = TableCellRendererXmp.createColumn0Comparator();
+        Comparator<?> column1Comparator = TableCellRendererXmp.createColumn1Comparator();
+
+        rowSorter.setComparator(0, column0Comparator);
+        rowSorter.setComparator(1, column1Comparator);
+    }
+
+    private void setIptcTableComparator(JTable iptcTabe) {
+        TableRowSorter<?> rowSorter = (TableRowSorter<?>)iptcTabe.getRowSorter();
+        Comparator<?> column0Comparator = TableCellRendererIptc.createColumn0Comparator();
+        Comparator<?> column1Comparator = TableCellRendererIptc.createColumn1Comparator();
+        Comparator<?> column2Comparator = TableCellRendererIptc.createColumn2Comparator();
+
+        rowSorter.setComparator(0, column0Comparator);
+        rowSorter.setComparator(1, column1Comparator);
+        rowSorter.setComparator(2, column2Comparator);
+    }
+
+    private void setExifTableComparator(JTable exif) {
+        TableRowSorter<?> rowSorter = (TableRowSorter<?>)exif.getRowSorter();
+        Comparator<?> column0Comparator = TableCellRendererExif.createColumn0Comparator();
+        Comparator<?> column1Comparator = TableCellRendererExif.createColumn1Comparator();
+
+        rowSorter.setComparator(0, column0Comparator);
+        rowSorter.setComparator(1, column1Comparator);
     }
 
     private void setTreeModels(AppPanel appPanel) {

@@ -1,5 +1,6 @@
 package org.jphototagger.program.view.panels;
 
+import javax.swing.text.Document;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.model.ComboBoxModelFastSearch;
 import org.jphototagger.program.resource.GUI;
@@ -131,25 +132,31 @@ public final class AppPanel extends javax.swing.JPanel {
     private void setExifTableFilter() {
         TableRowSorter<?> rowSorter = (TableRowSorter<?>) tableExif.getRowSorter();
         TableStringConverter stringConverter = TableCellRendererExif.createTableStringConverter();
+        Document document = textFieldTableExifFilter.getDocument();
+        TableTextFilter tableTextFilter = new TableTextFilter(tableExif, stringConverter);
 
         rowSorter.setStringConverter(stringConverter);
-        textFieldTableExifFilter.getDocument().addDocumentListener(new TableTextFilter(tableExif, stringConverter));
+        document.addDocumentListener(tableTextFilter);
     }
 
     private void setIptcTableFilter() {
         TableRowSorter<?> rowSorter = (TableRowSorter<?>) tableIptc.getRowSorter();
         TableStringConverter stringConverter = TableCellRendererIptc.createTableStringConverter();
+        Document document = textFieldTableIptcFilter.getDocument();
+        TableTextFilter tableTextFilter = new TableTextFilter(tableIptc, stringConverter);
 
         rowSorter.setStringConverter(stringConverter);
-        textFieldTableIptcFilter.getDocument().addDocumentListener(new TableTextFilter(tableIptc, stringConverter));
+        document.addDocumentListener(tableTextFilter);
     }
 
     private void setXmpTableFilter(JTextComponent filterTextComponent, JTable xmpTable) {
         TableRowSorter<?> rowSorter = (TableRowSorter<?>) xmpTable.getRowSorter();
         TableStringConverter stringConverter = TableCellRendererXmp.createTableStringConverter();
+        Document document = filterTextComponent.getDocument();
+        TableTextFilter tableTextFilter = new TableTextFilter(xmpTable, stringConverter);
 
         rowSorter.setStringConverter(stringConverter);
-        filterTextComponent.getDocument().addDocumentListener(new TableTextFilter(xmpTable, stringConverter));
+        document.addDocumentListener(tableTextFilter);
     }
 
     private void displaySearchButton() {
