@@ -148,4 +148,12 @@ public final class ImageFile {
 
         return hash;
     }
+
+    @Override
+    public String toString() {
+        return file == null
+                ? ""
+                : file.toString();
+    }
+
 }

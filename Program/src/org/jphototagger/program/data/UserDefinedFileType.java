@@ -89,6 +89,8 @@ public final class UserDefinedFileType {
 
     @Override
     public String toString() {
-        return description;
+        return description == null
+                ? ""
+                : description;
     }
 }

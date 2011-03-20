@@ -178,7 +178,9 @@ public final class UserDefinedFileFilter implements Serializable {
 
     @Override
     public String toString() {
-        return name;
+        return name == null
+                ? ""
+                : name;
     }
 
     /**
