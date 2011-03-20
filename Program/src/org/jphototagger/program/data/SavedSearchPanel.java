@@ -185,4 +185,13 @@ public final class SavedSearchPanel {
     public boolean hasSql(boolean isFirst) {
         return (isFirst || hasOperator()) && hasColumn() && hasComperator() && (value != null) &&!value.isEmpty();
     }
+
+    @Override
+    public String toString() {
+        String sql = getSqlString(false);
+
+        return sql == null
+                ? ""
+                : sql;
+    }
 }

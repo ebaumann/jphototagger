@@ -5,7 +5,6 @@ import org.jphototagger.program.resource.JptBundle;
 import java.awt.Color;
 
 /**
- * Flag of a Thumbnail.
  *
  * @author Elmar Baumann
  */
@@ -75,5 +74,10 @@ public final class ThumbnailFlag {
                             : 0);
 
         return hash;
+    }
+
+    @Override
+    public String toString() {
+        return string + "=" + color;
     }
 }

@@ -69,4 +69,11 @@ public final class ParamStatement {
     public void setQuery(boolean query) {
         this.query = query;
     }
+
+    @Override
+    public String toString() {
+        return sql == null
+                ? ""
+                : sql;
+    }
 }

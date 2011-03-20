@@ -126,4 +126,10 @@ public final class TextEntryContent implements TextEntry {
 
         // ignore
     }
+
+    @Override
+    public String toString() {
+        return column + "=" + text;
+    }
+
 }

@@ -27,4 +27,9 @@ public final class ColumnData {
     public Object getData() {
         return data;
     }
+
+    @Override
+    public String toString() {
+        return column + "=" + data;
+    }
 }

@@ -74,7 +74,10 @@ public final class Favorite {
 
     @Override
     public String toString() {
-        return name;    // Never change that (will be used to find model items)!
+        // Never change that (will be used to find model items)!
+        return name == null
+                ? ""
+                : name;    
     }
 
     @Override

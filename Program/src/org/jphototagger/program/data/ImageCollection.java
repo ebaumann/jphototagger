@@ -54,4 +54,11 @@ public final class ImageCollection {
                     ? null
                     : name;
     }
+
+    @Override
+    public String toString() {
+        return name == null
+                ? ""
+                : name;
+    }
 }

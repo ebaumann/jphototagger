@@ -233,8 +233,9 @@ public final class Program {
 
     @Override
     public String toString() {
-
         // Never change that (will be used to find model items)!
-        return alias;
+        return alias == null
+                ? ""
+                : alias;
     }
 }
