@@ -17,6 +17,7 @@ import java.util.Map;
 
 import javax.swing.JRadioButton;
 import javax.swing.SpinnerNumberModel;
+import org.jphototagger.program.view.dialogs.ExternalThumbnailCreatorChooserDialog;
 
 /**
  *
@@ -87,6 +88,20 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel
         boolean isCreatorExternalApp = UserSettings.INSTANCE.getThumbnailCreator().equals(ThumbnailCreator.EXTERNAL_APP);
 
         textFieldExternalThumbnailCreationCommand.setEnabled(isCreatorExternalApp);
+        buttonChooseExternalThumbnailCreator.setEnabled(isCreatorExternalApp);
+    }
+
+    private void chooseExternalThumbnailCreator() {
+        ExternalThumbnailCreatorChooserDialog dialog = new ExternalThumbnailCreatorChooserDialog();
+
+        dialog.setVisible(true);
+
+        if (dialog.isAccepted()) {
+            String creatorCommand = dialog.getCreatorCommand();
+
+            textFieldExternalThumbnailCreationCommand.setText(creatorCommand);
+            UserSettings.INSTANCE.setExternalThumbnailCreationCommand(creatorCommand);
+        }
     }
 
     @Override
@@ -107,7 +122,10 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel
 
     private void setThumbnailCreator(JRadioButton radioButton) {
         UserSettings.INSTANCE.setThumbnailCreator(thumbnailCreatorOfRadioButton.get(radioButton));
-        textFieldExternalThumbnailCreationCommand.setEnabled(radioButtonCreateThumbnailsWithExternalApp.isSelected());
+        boolean selected = radioButtonCreateThumbnailsWithExternalApp.isSelected();
+
+        textFieldExternalThumbnailCreationCommand.setEnabled(selected);
+        buttonChooseExternalThumbnailCreator.setEnabled(selected);
     }
 
     /**
@@ -136,19 +154,20 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel
         labelIsCreateThumbnailsWithExternalApp = new javax.swing.JLabel();
         textFieldExternalThumbnailCreationCommand = new javax.swing.JTextField();
         panelPadding2 = new javax.swing.JPanel();
+        buttonChooseExternalThumbnailCreator = new javax.swing.JButton();
 
-        setName("Form"); // NOI18N
+        setName("Form");
 
         panelThumbnailDimensions.setBorder(javax.swing.BorderFactory.createTitledBorder(JptBundle.INSTANCE.getString("SettingsThumbnailsPanel.panelThumbnailDimensions.border.title"))); // NOI18N
-        panelThumbnailDimensions.setName("panelThumbnailDimensions"); // NOI18N
+        panelThumbnailDimensions.setName("panelThumbnailDimensions");
 
         labelMaxThumbnailWidth.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         labelMaxThumbnailWidth.setLabelFor(spinnerMaxThumbnailWidth);
         labelMaxThumbnailWidth.setText(JptBundle.INSTANCE.getString("SettingsThumbnailsPanel.labelMaxThumbnailWidth.text")); // NOI18N
-        labelMaxThumbnailWidth.setName("labelMaxThumbnailWidth"); // NOI18N
+        labelMaxThumbnailWidth.setName("labelMaxThumbnailWidth");
 
         spinnerMaxThumbnailWidth.setModel(new SpinnerNumberModel(UserSettings.DEFAULT_THUMBNAIL_WIDTH, UserSettings.MIN_THUMBNAIL_WIDTH, UserSettings.MAX_THUMBNAIL_WIDTH, 50));
-        spinnerMaxThumbnailWidth.setName("spinnerMaxThumbnailWidth"); // NOI18N
+        spinnerMaxThumbnailWidth.setName("spinnerMaxThumbnailWidth");
         spinnerMaxThumbnailWidth.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 spinnerMaxThumbnailWidthStateChanged(evt);
@@ -157,7 +176,7 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel
 
         buttonUpdateAllThumbnails.setText(JptBundle.INSTANCE.getString("SettingsThumbnailsPanel.buttonUpdateAllThumbnails.text")); // NOI18N
         buttonUpdateAllThumbnails.setToolTipText(JptBundle.INSTANCE.getString("SettingsThumbnailsPanel.buttonUpdateAllThumbnails.toolTipText")); // NOI18N
-        buttonUpdateAllThumbnails.setName("buttonUpdateAllThumbnails"); // NOI18N
+        buttonUpdateAllThumbnails.setName("buttonUpdateAllThumbnails");
         buttonUpdateAllThumbnails.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonUpdateAllThumbnailsActionPerformed(evt);
@@ -167,7 +186,7 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel
         labelUpdateAllThumbnails.setForeground(new java.awt.Color(0, 0, 255));
         labelUpdateAllThumbnails.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         labelUpdateAllThumbnails.setText(JptBundle.INSTANCE.getString("SettingsThumbnailsPanel.labelUpdateAllThumbnails.text")); // NOI18N
-        labelUpdateAllThumbnails.setName("labelUpdateAllThumbnails"); // NOI18N
+        labelUpdateAllThumbnails.setName("labelUpdateAllThumbnails");
 
         javax.swing.GroupLayout panelThumbnailDimensionsLayout = new javax.swing.GroupLayout(panelThumbnailDimensions);
         panelThumbnailDimensions.setLayout(panelThumbnailDimensionsLayout);
@@ -198,11 +217,11 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel
         );
 
         panelThumbnailCreator.setBorder(javax.swing.BorderFactory.createTitledBorder(JptBundle.INSTANCE.getString("SettingsThumbnailsPanel.panelThumbnailCreator.border.title"))); // NOI18N
-        panelThumbnailCreator.setName("panelThumbnailCreator"); // NOI18N
+        panelThumbnailCreator.setName("panelThumbnailCreator");
 
         buttonGroupThumbnailCreator.add(radioButtonCreateThumbnailsWithJavaImageIo);
         radioButtonCreateThumbnailsWithJavaImageIo.setText(JptBundle.INSTANCE.getString("SettingsThumbnailsPanel.radioButtonCreateThumbnailsWithJavaImageIo.text")); // NOI18N
-        radioButtonCreateThumbnailsWithJavaImageIo.setName("radioButtonCreateThumbnailsWithJavaImageIo"); // NOI18N
+        radioButtonCreateThumbnailsWithJavaImageIo.setName("radioButtonCreateThumbnailsWithJavaImageIo");
         radioButtonCreateThumbnailsWithJavaImageIo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioButtonCreateThumbnailsWithJavaImageIoActionPerformed(evt);
@@ -211,7 +230,7 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel
 
         buttonGroupThumbnailCreator.add(radioButtonCreateThumbnailsWithImagero);
         radioButtonCreateThumbnailsWithImagero.setText(JptBundle.INSTANCE.getString("SettingsThumbnailsPanel.radioButtonCreateThumbnailsWithImagero.text")); // NOI18N
-        radioButtonCreateThumbnailsWithImagero.setName("radioButtonCreateThumbnailsWithImagero"); // NOI18N
+        radioButtonCreateThumbnailsWithImagero.setName("radioButtonCreateThumbnailsWithImagero");
         radioButtonCreateThumbnailsWithImagero.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioButtonCreateThumbnailsWithImageroActionPerformed(evt);
@@ -220,7 +239,7 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel
 
         buttonGroupThumbnailCreator.add(radioButtonUseEmbeddedThumbnails);
         radioButtonUseEmbeddedThumbnails.setText(JptBundle.INSTANCE.getString("SettingsThumbnailsPanel.radioButtonUseEmbeddedThumbnails.text")); // NOI18N
-        radioButtonUseEmbeddedThumbnails.setName("radioButtonUseEmbeddedThumbnails"); // NOI18N
+        radioButtonUseEmbeddedThumbnails.setName("radioButtonUseEmbeddedThumbnails");
         radioButtonUseEmbeddedThumbnails.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioButtonUseEmbeddedThumbnailsActionPerformed(evt);
@@ -229,7 +248,7 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel
 
         buttonGroupThumbnailCreator.add(radioButtonCreateThumbnailsWithExternalApp);
         radioButtonCreateThumbnailsWithExternalApp.setText(JptBundle.INSTANCE.getString("SettingsThumbnailsPanel.radioButtonCreateThumbnailsWithExternalApp.text")); // NOI18N
-        radioButtonCreateThumbnailsWithExternalApp.setName("radioButtonCreateThumbnailsWithExternalApp"); // NOI18N
+        radioButtonCreateThumbnailsWithExternalApp.setName("radioButtonCreateThumbnailsWithExternalApp");
         radioButtonCreateThumbnailsWithExternalApp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioButtonCreateThumbnailsWithExternalAppActionPerformed(evt);
@@ -269,23 +288,23 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel
         );
 
         panelExternalThumbnailApp.setBorder(javax.swing.BorderFactory.createTitledBorder(JptBundle.INSTANCE.getString("SettingsThumbnailsPanel.panelExternalThumbnailApp.border.title"))); // NOI18N
-        panelExternalThumbnailApp.setName("panelExternalThumbnailApp"); // NOI18N
+        panelExternalThumbnailApp.setName("panelExternalThumbnailApp");
 
         labelIsCreateThumbnailsWithExternalApp.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         labelIsCreateThumbnailsWithExternalApp.setLabelFor(textFieldExternalThumbnailCreationCommand);
         labelIsCreateThumbnailsWithExternalApp.setText(JptBundle.INSTANCE.getString("SettingsThumbnailsPanel.labelIsCreateThumbnailsWithExternalApp.text")); // NOI18N
-        labelIsCreateThumbnailsWithExternalApp.setName("labelIsCreateThumbnailsWithExternalApp"); // NOI18N
+        labelIsCreateThumbnailsWithExternalApp.setName("labelIsCreateThumbnailsWithExternalApp");
         labelIsCreateThumbnailsWithExternalApp.setPreferredSize(new java.awt.Dimension(1694, 60));
 
         textFieldExternalThumbnailCreationCommand.setEnabled(false);
-        textFieldExternalThumbnailCreationCommand.setName("textFieldExternalThumbnailCreationCommand"); // NOI18N
+        textFieldExternalThumbnailCreationCommand.setName("textFieldExternalThumbnailCreationCommand");
         textFieldExternalThumbnailCreationCommand.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 textFieldExternalThumbnailCreationCommandKeyReleased(evt);
             }
         });
 
-        panelPadding2.setName("panelPadding2"); // NOI18N
+        panelPadding2.setName("panelPadding2");
 
         javax.swing.GroupLayout panelPadding2Layout = new javax.swing.GroupLayout(panelPadding2);
         panelPadding2.setLayout(panelPadding2Layout);
@@ -298,6 +317,15 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
+        buttonChooseExternalThumbnailCreator.setText(JptBundle.INSTANCE.getString("SettingsThumbnailsPanel.buttonChooseExternalThumbnailCreator.text")); // NOI18N
+        buttonChooseExternalThumbnailCreator.setEnabled(false);
+        buttonChooseExternalThumbnailCreator.setName("buttonChooseExternalThumbnailCreator");
+        buttonChooseExternalThumbnailCreator.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonChooseExternalThumbnailCreatorActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelExternalThumbnailAppLayout = new javax.swing.GroupLayout(panelExternalThumbnailApp);
         panelExternalThumbnailApp.setLayout(panelExternalThumbnailAppLayout);
         panelExternalThumbnailAppLayout.setHorizontalGroup(
@@ -308,9 +336,11 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel
                     .addGroup(panelExternalThumbnailAppLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(labelIsCreateThumbnailsWithExternalApp, javax.swing.GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE))
-                    .addGroup(panelExternalThumbnailAppLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelExternalThumbnailAppLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(textFieldExternalThumbnailCreationCommand, javax.swing.GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE)))
+                        .addComponent(textFieldExternalThumbnailCreationCommand, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonChooseExternalThumbnailCreator)))
                 .addContainerGap())
         );
         panelExternalThumbnailAppLayout.setVerticalGroup(
@@ -320,7 +350,9 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel
                     .addComponent(panelPadding2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelIsCreateThumbnailsWithExternalApp, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textFieldExternalThumbnailCreationCommand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panelExternalThumbnailAppLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textFieldExternalThumbnailCreationCommand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonChooseExternalThumbnailCreator))
                 .addContainerGap())
         );
 
@@ -377,7 +409,12 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel
         setThumbnailCreator((JRadioButton) evt.getSource());
     }//GEN-LAST:event_radioButtonCreateThumbnailsWithJavaImageIoActionPerformed
 
+    private void buttonChooseExternalThumbnailCreatorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseExternalThumbnailCreatorActionPerformed
+        chooseExternalThumbnailCreator();
+    }//GEN-LAST:event_buttonChooseExternalThumbnailCreatorActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonChooseExternalThumbnailCreator;
     private javax.swing.ButtonGroup buttonGroupThumbnailCreator;
     private javax.swing.JButton buttonUpdateAllThumbnails;
     private javax.swing.JLabel labelIsCreateThumbnailsWithExternalApp;
