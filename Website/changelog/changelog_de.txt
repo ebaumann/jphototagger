@@ -3,6 +3,11 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.8.69 2011-03-20
+-----------------
+* Möglichen Fehler beim Lesen des EXIF-Caches (hoffentlich, Tests ohne
+  Probleme) beseitigt
+
 0.8.68 2011-03-19
 -----------------
 * Fotoalben im Programmfenster rechts haben Textfeld zum Filtern
