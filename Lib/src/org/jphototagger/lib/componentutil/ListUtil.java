@@ -12,6 +12,7 @@ import java.util.StringTokenizer;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.ListModel;
+import org.jdesktop.swingx.JXList;
 
 /**
  * Utils for {@link javax.swing.JList}.
@@ -259,17 +260,23 @@ public final class ListUtil {
     /**
      * Returns the string value of a list item got from the list's model.
      *
-     * @param  list  list
-     * @param  index index of the list item
-     * @return       string or null if the index isn't valid
+     * @param  list      list
+     * @param  listIndex index of the list item
+     * @return           string or null if the index isn't valid
      */
-    public static String getItemString(JList list, int index) {
+    public static String getItemString(JList list, int listIndex) {
         if (list == null) {
             throw new NullPointerException("list == null");
         }
 
-        if (index >= 0) {
-            Object o = list.getModel().getElementAt(index);
+        if (listIndex >= 0) {
+            int modelIndex = listIndex;
+
+            if (list instanceof JXList) {
+                modelIndex = ((JXList) list).convertIndexToModel(listIndex);
+            }
+            
+            Object o = list.getModel().getElementAt(modelIndex);
 
             if (o instanceof String) {
                 return (String) o;
