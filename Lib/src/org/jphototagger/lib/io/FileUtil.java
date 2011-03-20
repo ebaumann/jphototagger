@@ -1053,6 +1053,7 @@ public final class FileUtil {
         private boolean open;
         private boolean confirmOverwrite;
         private String saveFilenameExtension;
+        private int fileSelectionMode = JFileChooser.FILES_AND_DIRECTORIES;
 
         /**
          * Sets the prefix of the key for storing size and current directory
@@ -1184,6 +1185,14 @@ public final class FileUtil {
 
             return this;
         }
+
+        /**
+         *
+         * @param fileSelectionMode Default: {@link JFileChooser#FILES_AND_DIRECTORIES}
+         */
+        public void fileSelectionMode(int fileSelectionMode) {
+            this.fileSelectionMode = fileSelectionMode;
+        }
     }
 
 
@@ -1259,6 +1268,7 @@ public final class FileUtil {
 
             fc.setMultiSelectionEnabled(p.multiSelectionEnabled);
             fc.setConfirmOverwrite(p.confirmOverwrite);
+            fc.setFileSelectionMode(p.fileSelectionMode);
         }
 
         return fc;
