@@ -430,4 +430,24 @@ public final class ListUtil {
             list.setSelectedIndex(Math.min(size - 1, index));
         }
     }
+
+    public static List<Integer> convertModelIndicesToListIndices(List<? extends Integer> modelIndices, JXList list) {
+        if (modelIndices == null) {
+            throw new NullPointerException("modelIndices == null");
+        }
+
+        if (list == null) {
+            throw new NullPointerException("list == null");
+        }
+
+        List<Integer> listIndices = new ArrayList<Integer>();
+
+        for (Integer modelIndex : modelIndices) {
+            int listIndex = list.convertIndexToView(modelIndex);
+
+            listIndices.add(listIndex);
+        }
+
+        return listIndices;
+    }
 }
