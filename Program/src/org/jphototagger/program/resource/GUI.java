@@ -12,7 +12,7 @@ import java.io.File;
 
 import java.util.List;
 
-import javax.swing.JList;
+import org.jdesktop.swingx.JXList;
 import javax.swing.JTextArea;
 import javax.swing.JTree;
 
@@ -82,27 +82,27 @@ public final class GUI {
         });
     }
 
-    public static JList getSelKeywordsList() {
+    public static JXList getSelKeywordsList() {
         return appPanel.getListSelKeywords();
     }
 
-    public static JList getEditKeywordsList() {
+    public static JXList getEditKeywordsList() {
         return appPanel.getPanelEditKeywords().getList();
     }
 
-    public static JList getInputHelperKeywordsList() {
+    public static JXList getInputHelperKeywordsList() {
         return InputHelperDialog.INSTANCE.getPanelKeywords().getList();
     }
 
-    public static JList getNoMetadataList() {
+    public static JXList getNoMetadataList() {
         return appPanel.getListNoMetadata();
     }
 
-    public static JList getSavedSearchesList() {
+    public static JXList getSavedSearchesList() {
         return appPanel.getListSavedSearches();
     }
 
-    public static JList getImageCollectionsList() {
+    public static JXList getImageCollectionsList() {
         return appPanel.getListImageCollections();
     }
 

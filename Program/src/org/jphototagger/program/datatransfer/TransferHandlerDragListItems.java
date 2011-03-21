@@ -6,7 +6,7 @@ import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 
 import javax.swing.JComponent;
-import javax.swing.JList;
+import org.jdesktop.swingx.JXList;
 import javax.swing.TransferHandler;
 
 /**
@@ -31,7 +31,7 @@ public final class TransferHandlerDragListItems extends TransferHandler {
      */
     @Override
     protected Transferable createTransferable(JComponent c) {
-        return new TransferableObject(((JList) c).getSelectedValues(), dataFlavors);
+        return new TransferableObject(((JXList) c).getSelectedValues(), dataFlavors);
     }
 
     @Override

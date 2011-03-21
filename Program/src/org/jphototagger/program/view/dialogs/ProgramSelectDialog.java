@@ -56,10 +56,12 @@ public class ProgramSelectDialog extends Dialog {
      */
     public Program getSelectedProgram() {
         Program program  = null;
-        int     selIndex = listPrograms.getSelectedIndex();
+        int     selectedIndex = listPrograms.getSelectedIndex();
 
-        if (selIndex >= 0) {
-            program = (Program) model.get(selIndex);
+        if (selectedIndex >= 0) {
+            int modelIndex = listPrograms.convertIndexToModel(selectedIndex);
+
+            program = (Program) model.get(modelIndex);
         }
 
         return program;
@@ -75,8 +77,8 @@ public class ProgramSelectDialog extends Dialog {
     }
 
     private void handleMousClicked(MouseEvent evt) {
-        int selIndex = listPrograms.getSelectedIndex();
-        boolean isSelected = selIndex >= 0;
+        int selectedIndex = listPrograms.getSelectedIndex();
+        boolean isSelected = selectedIndex >= 0;
 
         if ((evt.getClickCount() >= 2) && isSelected) {
             handleButtonSelectAction();
@@ -102,7 +104,7 @@ public class ProgramSelectDialog extends Dialog {
     private void initComponents() {
 
         scrollPanePrograms = new javax.swing.JScrollPane();
-        listPrograms = new javax.swing.JList();
+        listPrograms = new org.jdesktop.swingx.JXList();
         buttonSelect = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -199,7 +201,7 @@ public class ProgramSelectDialog extends Dialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonSelect;
-    private javax.swing.JList listPrograms;
+    private org.jdesktop.swingx.JXList listPrograms;
     private javax.swing.JScrollPane scrollPanePrograms;
     // End of variables declaration//GEN-END:variables
 }

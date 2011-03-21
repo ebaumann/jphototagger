@@ -74,7 +74,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JList" name="listImageCollectionNames">
+        <Component class="org.jdesktop.swingx.JXList" name="listImageCollectionNames">
           <Properties>
             <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="ModelFactory.INSTANCE.getModel(ListModelImageCollections.class)" type="code"/>

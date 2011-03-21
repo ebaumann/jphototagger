@@ -10,7 +10,7 @@ import java.awt.EventQueue;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.JButton;
-import javax.swing.JList;
+import org.jdesktop.swingx.JXList;
 import org.jphototagger.program.resource.JptBundle;
 
 /**
@@ -36,7 +36,7 @@ public class MetaDataTemplatesPanel extends javax.swing.JPanel
         MnemonicUtil.setMnemonics((Container) this);
     }
 
-    public JList getList() {
+    public JXList getList() {
         return list;
     }
 
@@ -105,7 +105,7 @@ public class MetaDataTemplatesPanel extends javax.swing.JPanel
         java.awt.GridBagConstraints gridBagConstraints;
 
         scrollPane = new javax.swing.JScrollPane();
-        list = new javax.swing.JList();
+        list = new org.jdesktop.swingx.JXList();
         panelButtons = new javax.swing.JPanel();
         buttonAddToSelImages = new javax.swing.JButton();
         panelModifyButtons = new javax.swing.JPanel();
@@ -186,7 +186,7 @@ public class MetaDataTemplatesPanel extends javax.swing.JPanel
     private javax.swing.JButton buttonDelete;
     private javax.swing.JButton buttonEdit;
     private javax.swing.JButton buttonRename;
-    private javax.swing.JList list;
+    private org.jdesktop.swingx.JXList list;
     private javax.swing.JPanel panelButtons;
     private javax.swing.JPanel panelModifyButtons;
     private javax.swing.JScrollPane scrollPane;

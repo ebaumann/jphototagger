@@ -83,7 +83,7 @@ public final class ImageCollectionsDialog extends Dialog {
 
         labelSelectImageCollection = new javax.swing.JLabel();
         scrollPaneImageCollectionNames = new javax.swing.JScrollPane();
-        listImageCollectionNames = new javax.swing.JList();
+        listImageCollectionNames = new org.jdesktop.swingx.JXList();
         buttonOk = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -173,7 +173,7 @@ public final class ImageCollectionsDialog extends Dialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonOk;
     private javax.swing.JLabel labelSelectImageCollection;
-    private javax.swing.JList listImageCollectionNames;
+    private org.jdesktop.swingx.JXList listImageCollectionNames;
     private javax.swing.JScrollPane scrollPaneImageCollectionNames;
     // End of variables declaration//GEN-END:variables
 }

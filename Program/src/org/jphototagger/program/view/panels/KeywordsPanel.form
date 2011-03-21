@@ -2,9 +2,7 @@
 
 <Form version="1.7" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <Properties>
-    <Property name="name" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-      <PlainString value="Form"/>
-    </Property>
+    <Property name="name" type="java.lang.String" value="Form" noResource="true"/>
   </Properties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="1"/>
@@ -24,9 +22,7 @@
   <SubComponents>
     <Container class="javax.swing.JPanel" name="panelTree">
       <Properties>
-        <Property name="name" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <PlainString value="panelTree"/>
-        </Property>
+        <Property name="name" type="java.lang.String" value="panelTree" noResource="true"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
@@ -38,9 +34,7 @@
       <SubComponents>
         <Container class="javax.swing.JScrollPane" name="scrollPaneTree">
           <Properties>
-            <Property name="name" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <PlainString value="scrollPaneTree"/>
-            </Property>
+            <Property name="name" type="java.lang.String" value="scrollPaneTree" noResource="true"/>
           </Properties>
           <AuxValues>
             <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
@@ -62,9 +56,7 @@
                   <Connection code="new org.jphototagger.program.view.renderer.TreeCellRendererKeywords()" type="code"/>
                 </Property>
                 <Property name="dragEnabled" type="boolean" value="true"/>
-                <Property name="name" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <PlainString value="tree"/>
-                </Property>
+                <Property name="name" type="java.lang.String" value="tree" noResource="true"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JXTree()"/>
@@ -76,9 +68,7 @@
         </Container>
         <Container class="javax.swing.JPanel" name="panelButtons">
           <Properties>
-            <Property name="name" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <PlainString value="panelButtons"/>
-            </Property>
+            <Property name="name" type="java.lang.String" value="panelButtons" noResource="true"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
@@ -96,9 +86,7 @@
                 <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                   <Insets value="[1, 1, 1, 1]"/>
                 </Property>
-                <Property name="name" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <PlainString value="buttonAsList"/>
-                </Property>
+                <Property name="name" type="java.lang.String" value="buttonAsList" noResource="true"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonAsListActionPerformed"/>
@@ -117,9 +105,7 @@
                 <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                   <Insets value="[1, 1, 1, 1]"/>
                 </Property>
-                <Property name="name" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <PlainString value="buttonToggleExpandAllNodes"/>
-                </Property>
+                <Property name="name" type="java.lang.String" value="buttonToggleExpandAllNodes" noResource="true"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonToggleExpandAllNodesActionPerformed"/>
@@ -141,9 +127,7 @@
                 <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                   <Insets value="[1, 1, 1, 1]"/>
                 </Property>
-                <Property name="name" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <PlainString value="buttonSearchInTree"/>
-                </Property>
+                <Property name="name" type="java.lang.String" value="buttonSearchInTree" noResource="true"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
@@ -157,9 +141,7 @@
     </Container>
     <Container class="javax.swing.JPanel" name="panelList">
       <Properties>
-        <Property name="name" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <PlainString value="panelList"/>
-        </Property>
+        <Property name="name" type="java.lang.String" value="panelList" noResource="true"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
@@ -171,9 +153,7 @@
       <SubComponents>
         <Container class="javax.swing.JPanel" name="panelListFilter">
           <Properties>
-            <Property name="name" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <PlainString value="panelListFilter"/>
-            </Property>
+            <Property name="name" type="java.lang.String" value="panelListFilter" noResource="true"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
@@ -188,9 +168,7 @@
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="KeywordsPanel.labelListFilter.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
                 </Property>
-                <Property name="name" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <PlainString value="labelListFilter"/>
-                </Property>
+                <Property name="name" type="java.lang.String" value="labelListFilter" noResource="true"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
@@ -200,9 +178,7 @@
             </Component>
             <Component class="javax.swing.JTextField" name="textFieldListFilter">
               <Properties>
-                <Property name="name" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <PlainString value="textFieldListFilter"/>
-                </Property>
+                <Property name="name" type="java.lang.String" value="textFieldListFilter" noResource="true"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
@@ -214,9 +190,7 @@
         </Container>
         <Container class="javax.swing.JScrollPane" name="scrollPaneList">
           <Properties>
-            <Property name="name" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <PlainString value="scrollPaneList"/>
-            </Property>
+            <Property name="name" type="java.lang.String" value="scrollPaneList" noResource="true"/>
           </Properties>
           <AuxValues>
             <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
@@ -229,7 +203,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JList" name="list">
+            <Component class="org.jdesktop.swingx.JXList" name="list">
               <Properties>
                 <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="ListModelWait.INSTANCE" type="code"/>
@@ -238,9 +212,7 @@
                   <Connection code="new ListCellRendererKeywords()" type="code"/>
                 </Property>
                 <Property name="dragEnabled" type="boolean" value="true"/>
-                <Property name="name" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <PlainString value="list"/>
-                </Property>
+                <Property name="name" type="java.lang.String" value="list" noResource="true"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JXList()"/>
@@ -257,9 +229,7 @@
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
               <Insets value="[1, 1, 1, 1]"/>
             </Property>
-            <Property name="name" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <PlainString value="buttonAsTree"/>
-            </Property>
+            <Property name="name" type="java.lang.String" value="buttonAsTree" noResource="true"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonAsTreeActionPerformed"/>
@@ -273,7 +243,7 @@
         <Component class="javax.swing.JButton" name="buttonSearchInList">
           <Properties>
             <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new SearchInJxListAction((JXList)list)" type="code"/>
+              <Connection code="new SearchInJxListAction(list)" type="code"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="KeywordsPanel.buttonSearchInList.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
@@ -281,9 +251,7 @@
             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
               <Insets value="[1, 1, 1, 1]"/>
             </Property>
-            <Property name="name" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <PlainString value="buttonSearchInList"/>
-            </Property>
+            <Property name="name" type="java.lang.String" value="buttonSearchInList" noResource="true"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">

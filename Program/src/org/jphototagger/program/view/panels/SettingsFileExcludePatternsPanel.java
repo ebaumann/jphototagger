@@ -107,11 +107,11 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
 
     private void setEnabled() {
         int size = model.getSize();
-        boolean itemSelected = list.getSelectedIndex() >= 0;
+        boolean itemIsSelected = list.getSelectedIndex() >= 0;
 
         setEnabledButtonInsertPattern();
-        buttonDeletePattern.setEnabled(itemSelected);
-        menuItemDeletePattern.setEnabled(itemSelected);
+        buttonDeletePattern.setEnabled(itemIsSelected);
+        menuItemDeletePattern.setEnabled(itemIsSelected);
         buttonUpdateDatabase.setEnabled((size > 0) &&!isUpdateDatabase);
         buttonCancelUpdateDatabase.setEnabled(isUpdateDatabase);
     }
@@ -213,7 +213,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
         menuItemDeletePattern = new javax.swing.JMenuItem();
         labelInfoList = new javax.swing.JLabel();
         scrollPane = new javax.swing.JScrollPane();
-        list = new javax.swing.JList();
+        list = new org.jdesktop.swingx.JXList();
         labelTextFieldInputPattern = new javax.swing.JLabel();
         textFieldInputPattern = new javax.swing.JTextField();
         buttonDeletePattern = new javax.swing.JButton();
@@ -415,7 +415,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
     private javax.swing.JLabel labelInfoDatabase;
     private javax.swing.JLabel labelInfoList;
     private javax.swing.JLabel labelTextFieldInputPattern;
-    private javax.swing.JList list;
+    private org.jdesktop.swingx.JXList list;
     private javax.swing.JMenuItem menuItemDeletePattern;
     private javax.swing.JPopupMenu popupMenu;
     private javax.swing.JProgressBar progressBarUpdateDatabase;

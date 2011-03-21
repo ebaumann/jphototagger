@@ -10,15 +10,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import javax.swing.JList;
+import org.jdesktop.swingx.JXList;
 
 /**
- * Deletes a saved search when the
- * {@link org.jphototagger.program.view.popupmenus.PopupMenuSavedSearches} fires
- * the appropriate action.
- *
- * Also listens to the {@link JList}'s key events and deletes a selected saved
- * search when the <code>Del</code> key was pressed.
  *
  * @author Elmar Baumann
  */
@@ -34,7 +28,7 @@ public final class ControllerDeleteSavedSearch implements ActionListener, KeyLis
 
     @Override
     public void keyPressed(KeyEvent evt) {
-        JList list = GUI.getSavedSearchesList();
+        JXList list = GUI.getSavedSearchesList();
 
         if ((evt.getKeyCode() == KeyEvent.VK_DELETE) &&!list.isSelectionEmpty()) {
             Object value = list.getSelectedValue();

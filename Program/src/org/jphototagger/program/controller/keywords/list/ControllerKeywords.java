@@ -9,11 +9,9 @@ import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsList;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.swing.JList;
 import org.jdesktop.swingx.JXList;
 import org.jphototagger.program.helper.KeywordsHelper;
 
@@ -55,8 +53,6 @@ public abstract class ControllerKeywords extends Controller {
             JXList jxList = (JXList) source;
 
             action(KeywordsHelper.getSelectedKeywordsFromList(jxList));
-        } else {
-            action(getSelectedStrings((JList) source));
         }
     }
 
@@ -67,7 +63,7 @@ public abstract class ControllerKeywords extends Controller {
     }
 
     private String getStringOfPopupMenu() {
-        JXList list = (JXList) PopupMenuKeywordsList.INSTANCE.getList();
+        JXList list = PopupMenuKeywordsList.INSTANCE.getList();
         int listIndex = PopupMenuKeywordsList.INSTANCE.getSelIndex();
 
         if (listIndex < 0) {
@@ -78,15 +74,4 @@ public abstract class ControllerKeywords extends Controller {
 
         return (String) list.getModel().getElementAt(modelIndex);
     }
-
-    private List<String> getSelectedStrings(JList list) {
-        Object[] selValues = list.getSelectedValues();
-        List<String> selStrings = new ArrayList<String>(selValues.length);
-
-        for (Object selValue : selValues) {
-            selStrings.add((String) selValue);
         }
-
-        return selStrings;
-    }
-}

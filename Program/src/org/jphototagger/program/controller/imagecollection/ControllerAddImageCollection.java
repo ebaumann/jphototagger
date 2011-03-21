@@ -14,14 +14,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.EventQueue;
 
-import javax.swing.JList;
-
 /**
- * Kontrolliert Aktion: Erzeuge eine Bildsammlung, ausgelöst von
- * {@link org.jphototagger.program.view.popupmenus.PopupMenuThumbnails}.
- *
- * Also listens to the {@link JList}'s key events and creates a new image
- * collection when the keys <code>Ctrl+N</code> were pressed.
  *
  * @author Elmar Baumann
  */

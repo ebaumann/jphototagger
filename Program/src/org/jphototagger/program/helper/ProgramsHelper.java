@@ -12,7 +12,7 @@ import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
-import javax.swing.JList;
+import org.jdesktop.swingx.JXList;
 
 /**
  *
@@ -31,18 +31,19 @@ public final class ProgramsHelper {
      * @param listPrograms list with {@link DefaultListModel} as model and
      *                     {@link Program} as values
      */
-    public static void moveProgramUp(JList listPrograms) {
+    public static void moveProgramUp(JXList listPrograms) {
         if (listPrograms == null) {
             throw new NullPointerException("listPrograms == null");
         }
 
-        int selIndex = listPrograms.getSelectedIndex();
-        int upIndex = selIndex - 1;
-        boolean programSelected = listPrograms.getSelectedIndex() >= 0;
+        int selectedIndex = listPrograms.getSelectedIndex();
+        int modelIndex = listPrograms.convertIndexToModel(selectedIndex);
+        int upIndex = modelIndex - 1;
+        boolean programIsSelected = selectedIndex >= 0;
         DefaultListModel model = (DefaultListModel) listPrograms.getModel();
 
-        if (programSelected && (upIndex >= 0)) {
-            ListUtil.swapModelElements(model, upIndex, selIndex);
+        if (programIsSelected && (upIndex >= 0)) {
+            ListUtil.swapModelElements(model, upIndex, modelIndex);
             reorderPrograms(model);
             listPrograms.setSelectedIndex(upIndex);
         }
@@ -58,19 +59,20 @@ public final class ProgramsHelper {
      * @param listPrograms list with {@link DefaultListModel} as model and
      *                     {@link Program} as values
      */
-    public static void moveProgramDown(JList listPrograms) {
+    public static void moveProgramDown(JXList listPrograms) {
         if (listPrograms == null) {
             throw new NullPointerException("listPrograms == null");
         }
 
         DefaultListModel model = (DefaultListModel) listPrograms.getModel();
         int size = model.getSize();
-        int selIndex = listPrograms.getSelectedIndex();
-        int downIndex = selIndex + 1;
-        boolean programSelected = listPrograms.getSelectedIndex() >= 0;
+        int selectedIndex = listPrograms.getSelectedIndex();
+        int modelIndex = listPrograms.convertIndexToModel(selectedIndex);
+        int downIndex = modelIndex + 1;
+        boolean programIsSelected = selectedIndex >= 0;
 
-        if (programSelected && (downIndex < size)) {
-            ListUtil.swapModelElements(model, downIndex, selIndex);
+        if (programIsSelected && (downIndex < size)) {
+            ListUtil.swapModelElements(model, downIndex, modelIndex);
             reorderPrograms(model);
             listPrograms.setSelectedIndex(downIndex);
         }

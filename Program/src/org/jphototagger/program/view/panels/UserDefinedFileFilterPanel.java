@@ -152,7 +152,7 @@ public class UserDefinedFileFilterPanel extends javax.swing.JPanel implements Li
         menuItemUpdate = new javax.swing.JMenuItem();
         menuItemDelete = new javax.swing.JMenuItem();
         scrollPane = new javax.swing.JScrollPane();
-        list = new javax.swing.JList();
+        list = new org.jdesktop.swingx.JXList();
         buttonInsert = new javax.swing.JButton();
         buttonUpdate = new javax.swing.JButton();
         buttonDelete = new javax.swing.JButton();
@@ -309,7 +309,7 @@ public class UserDefinedFileFilterPanel extends javax.swing.JPanel implements Li
     private javax.swing.JButton buttonDelete;
     private javax.swing.JButton buttonInsert;
     private javax.swing.JButton buttonUpdate;
-    private javax.swing.JList list;
+    private org.jdesktop.swingx.JXList list;
     private javax.swing.JMenuItem menuItemDelete;
     private javax.swing.JMenuItem menuItemInsert;
     private javax.swing.JMenuItem menuItemUpdate;

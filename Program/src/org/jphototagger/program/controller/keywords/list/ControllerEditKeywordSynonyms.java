@@ -1,5 +1,7 @@
 package org.jphototagger.program.controller.keywords.list;
 
+import org.jdesktop.swingx.JXList;
+
 import org.jphototagger.lib.dialog.InputDialog;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.database.DatabaseSynonyms;
@@ -22,7 +24,6 @@ import java.util.StringTokenizer;
 
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
-import javax.swing.JList;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JPopupMenu.Separator;
@@ -52,7 +53,7 @@ public final class ControllerEditKeywordSynonyms extends ControllerKeywords impl
             ColumnXmpDcSubjectsSubject.INSTANCE);
     }
 
-    private JList getKeywordsList() {
+    private JXList getKeywordsList() {
         return getKeywordsPanel().getList();
     }
 

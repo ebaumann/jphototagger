@@ -6,7 +6,7 @@ import org.jphototagger.program.resource.JptBundle;
 
 import java.awt.event.KeyEvent;
 
-import javax.swing.JList;
+import org.jdesktop.swingx.JXList;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JPopupMenu.Separator;
@@ -30,7 +30,7 @@ public final class PopupMenuKeywordsList extends JPopupMenu {
     private final JMenuItem itemDisplayImages = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsList.DisplayName.Action.DisplayImages"));
     private final JMenuItem itemDelete = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsList.DisplayName.Action.Delete"), AppLookAndFeel.ICON_DELETE);
     private final JMenuItem itemAddToEditPanel = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsList.DisplayName.ActionAddToEditPanel"));
-    private JList list;
+    private JXList list;
     private int selIndex;
 
     private PopupMenuKeywordsList() {
@@ -46,11 +46,11 @@ public final class PopupMenuKeywordsList extends JPopupMenu {
         this.selIndex = selIndex;
     }
 
-    public JList getList() {
+    public JXList getList() {
         return list;
     }
 
-    public void setList(JList list) {
+    public void setList(JXList list) {
         this.list = list;
     }
 

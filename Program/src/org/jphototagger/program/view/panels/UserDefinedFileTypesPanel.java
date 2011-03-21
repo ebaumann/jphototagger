@@ -114,7 +114,7 @@ public class UserDefinedFileTypesPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         scrollPane = new javax.swing.JScrollPane();
-        list = new javax.swing.JList();
+        list = new org.jdesktop.swingx.JXList();
         labelInfo = new javax.swing.JLabel();
         buttonAdd = new javax.swing.JButton();
         buttonEdit = new javax.swing.JButton();
@@ -218,7 +218,7 @@ public class UserDefinedFileTypesPanel extends javax.swing.JPanel {
     private javax.swing.JButton buttonDelete;
     private javax.swing.JButton buttonEdit;
     private javax.swing.JLabel labelInfo;
-    private javax.swing.JList list;
+    private org.jdesktop.swingx.JXList list;
     private javax.swing.JScrollPane scrollPane;
     // End of variables declaration//GEN-END:variables
 }

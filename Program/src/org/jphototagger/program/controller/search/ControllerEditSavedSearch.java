@@ -12,15 +12,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import javax.swing.JList;
+import org.jdesktop.swingx.JXList;
 
 /**
- * Edits a selected saved search when the
- * {@link org.jphototagger.program.view.popupmenus.PopupMenuSavedSearches} fires
- * the appropriate action.
- *
- * Also listens to the {@link JList}'s key events and edits a selected saved
- * search when the keys <code>Ctrl+E</code> were pressed.
  *
  * @author Elmar Baumann
  */
@@ -36,7 +30,7 @@ public final class ControllerEditSavedSearch implements ActionListener, KeyListe
 
     @Override
     public void keyPressed(KeyEvent evt) {
-        JList list = GUI.getSavedSearchesList();
+        JXList list = GUI.getSavedSearchesList();
 
         if (KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_E) &&!list.isSelectionEmpty()) {
             Object value = list.getSelectedValue();

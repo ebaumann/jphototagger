@@ -1,5 +1,7 @@
 package org.jphototagger.program.view.panels;
 
+import org.jdesktop.swingx.JXList;
+
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.data.Exif;
@@ -42,7 +44,6 @@ import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.JComponent;
-import javax.swing.JList;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
@@ -205,7 +206,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
         return menuItemRemove;
     }
 
-    public JList getList() {
+    public JXList getList() {
         return list;
     }
 
@@ -504,13 +505,15 @@ public final class EditRepeatableTextEntryPanel extends JPanel
         }
 
         for (int selIndex : selIndices) {
-            renameListItem(selIndex);
+            int modelIndex = list.convertIndexToModel(selIndex);
+            
+            renameListItem(modelIndex);
         }
     }
 
-    private void renameListItem(int index) {
+    private void renameListItem(int modelIndex) {
         boolean ready = false;
-        String fromName = model.getElementAt(index).toString();
+        String fromName = model.getElementAt(modelIndex).toString();
         String toName = null;
 
         do {
@@ -531,7 +534,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
         } while (!ready);
 
         if (toName != null) {
-            model.set(index, toName);
+            model.set(modelIndex, toName);
             dirty = true;
             notifyTextChanged(column, fromName, toName);
         }
@@ -742,7 +745,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
         menuItemRemove = new javax.swing.JMenuItem();
         labelPrompt = new javax.swing.JLabel();
         scrollPaneList = new javax.swing.JScrollPane();
-        list = new javax.swing.JList();
+        list = new org.jdesktop.swingx.JXList();
         panelButtons = new javax.swing.JPanel();
         buttonRemoveSelection = new javax.swing.JButton();
         buttonAddInput = new javax.swing.JButton();
@@ -934,7 +937,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
     private javax.swing.JButton buttonRemoveSelection;
     private javax.swing.JButton buttonSuggestion;
     private javax.swing.JLabel labelPrompt;
-    private javax.swing.JList list;
+    private org.jdesktop.swingx.JXList list;
     private javax.swing.JMenuItem menuItemRemove;
     private javax.swing.JMenuItem menuItemRename;
     private javax.swing.JPanel panelButtons;

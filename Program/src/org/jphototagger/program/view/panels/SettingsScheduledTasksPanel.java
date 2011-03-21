@@ -194,7 +194,7 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel implem
         labelAutoscanDirectoriesInfo = new javax.swing.JLabel();
         labelAutoscanDirectoriesPrompt = new javax.swing.JLabel();
         scrollPaneListAutoscanDirectories = new javax.swing.JScrollPane();
-        listAutoscanDirectories = new javax.swing.JList();
+        listAutoscanDirectories = new org.jdesktop.swingx.JXList();
         checkBoxIsAutoscanIncludeSubdirectories = new javax.swing.JCheckBox();
         buttonRemoveAutoscanDirectories = new javax.swing.JButton();
         buttonAddAutoscanDirectories = new javax.swing.JButton();
@@ -425,7 +425,7 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel implem
     private javax.swing.JLabel labelAutoscanDirectoriesInfo;
     private javax.swing.JLabel labelAutoscanDirectoriesPrompt;
     private javax.swing.JLabel labelTasksMinutesToStartScheduledTasks;
-    private javax.swing.JList listAutoscanDirectories;
+    private org.jdesktop.swingx.JXList listAutoscanDirectories;
     private javax.swing.JPanel panelTasksAutoscan;
     private javax.swing.JScrollPane scrollPaneListAutoscanDirectories;
     private javax.swing.JSpinner spinnerMinutesToStartScheduledTasks;

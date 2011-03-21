@@ -6,7 +6,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Point;
 
-import javax.swing.JList;
+import org.jdesktop.swingx.JXList;
 
 /**
  * Do not use this class! Instead extend a popup menu from
@@ -20,10 +20,8 @@ public abstract class MouseListenerList extends MouseAdapter {
 
     @Override
     public void mousePressed(MouseEvent evt) {
-        assert evt.getSource() instanceof JList : evt.getSource();
-
         if (MouseEventUtil.isPopupTrigger(evt)) {
-            JList list = (JList) evt.getSource();
+            JXList list = (JXList) evt.getSource();
 
             index = list.locationToIndex(new Point(evt.getX(), evt.getY()));
 
@@ -41,5 +39,5 @@ public abstract class MouseListenerList extends MouseAdapter {
         return index;
     }
 
-    protected abstract void showPopup(JList list, int x, int y);
+    protected abstract void showPopup(JXList list, int x, int y);
 }
