@@ -56,7 +56,7 @@ public abstract class ControllerKeywords implements ActionListener, KeyListener 
     @Override
     public void keyPressed(KeyEvent evt) {
         if (myKey(evt)) {
-            List<DefaultMutableTreeNode> selNodes = getSelNodes(evt);
+            List<DefaultMutableTreeNode> selNodes = getSelectedNodes(evt);
 
             if ((selNodes != null) &&!selNodes.isEmpty() && checkNodeCount(selNodes)) {
                 localAction(selNodes);
@@ -101,7 +101,7 @@ public abstract class ControllerKeywords implements ActionListener, KeyListener 
         return selectedNodes;
     }
 
-    protected List<DefaultMutableTreeNode> getSelNodes(KeyEvent evt) {
+    protected List<DefaultMutableTreeNode> getSelectedNodes(KeyEvent evt) {
         if (evt == null) {
             throw new NullPointerException("evt == null");
         }

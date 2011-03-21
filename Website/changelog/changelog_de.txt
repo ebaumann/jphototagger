@@ -5,6 +5,9 @@ Changelog JPhotoTagger http://jphototagger.org/
 
 0.8.71 2011-03-21
 -----------------
+* Stichwörter in den Listenansichten werden hervorgehoben wie in
+  der Baumansicht, falls (genau) ein Bild ausgewählt ist, das
+  eine XMP-Filialdatei mit Stichwörtern hat
 * Bugfix: Im Stichwortbaum werden die Stichwörter eines ausgewählten
   Bilds wieder hervorgehoben, sofern das Bild eine XMP-Filialdatei
   mit Stichwörten hat
