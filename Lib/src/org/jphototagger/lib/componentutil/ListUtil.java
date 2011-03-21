@@ -31,7 +31,7 @@ public final class ListUtil {
      *
      * @param lists  lists
      */
-    public static void clearSelection(List<JList> lists) {
+    public static void clearSelection(List<? extends JList> lists) {
         if (lists == null) {
             throw new NullPointerException("lists == null");
         }
