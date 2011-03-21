@@ -18,6 +18,7 @@ import java.util.List;
 
 import javax.swing.JTree;
 import javax.swing.tree.TreeCellRenderer;
+import org.jdesktop.swingx.JXTree;
 
 /**
  * Listens to a {@link ThumbnailsPanel} and highlights in the tree
@@ -62,10 +63,15 @@ public final class ControllerHighlightKeywordsTree implements ThumbnailsPanelLis
     }
 
     private void setKeywords(JTree tree, Collection<String> keywords) {
-        TreeCellRenderer r = tree.getCellRenderer();
+        TreeCellRenderer treeCellRenderer = tree.getCellRenderer();
 
-        if (r instanceof TreeCellRendererKeywords) {
-            ((TreeCellRendererKeywords) r).setSelImgKeywords(keywords);
+        if (treeCellRenderer instanceof JXTree.DelegatingRenderer) {
+            treeCellRenderer = ((JXTree.DelegatingRenderer)treeCellRenderer).getDelegateRenderer();
+
+        }
+
+        if (treeCellRenderer instanceof TreeCellRendererKeywords) {
+            ((TreeCellRendererKeywords) treeCellRenderer).setHighlightKeywords(keywords);
             tree.repaint();
         }
     }

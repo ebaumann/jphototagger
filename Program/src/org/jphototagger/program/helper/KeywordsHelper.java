@@ -44,6 +44,7 @@ import javax.swing.tree.TreeCellRenderer;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import org.jdesktop.swingx.JXList;
+import org.jdesktop.swingx.JXTree;
 import org.jphototagger.lib.componentutil.ListUtil;
 
 /**
@@ -320,10 +321,15 @@ public final class KeywordsHelper {
         List<TreeCellRendererKeywords> renderer = new ArrayList<TreeCellRendererKeywords>();
 
         for (JTree tree : getKeywordTrees()) {
-            TreeCellRenderer treeCellRendererKeywords = tree.getCellRenderer();
+            TreeCellRenderer treeCellRenderer = tree.getCellRenderer();
 
-            if (treeCellRendererKeywords instanceof TreeCellRendererKeywords) {
-                renderer.add((TreeCellRendererKeywords) treeCellRendererKeywords);
+            if (treeCellRenderer instanceof JXTree.DelegatingRenderer) {
+                treeCellRenderer = ((JXTree.DelegatingRenderer)treeCellRenderer).getDelegateRenderer();
+
+            }
+
+            if (treeCellRenderer instanceof TreeCellRendererKeywords) {
+                renderer.add((TreeCellRendererKeywords) treeCellRenderer);
             }
         }
 
