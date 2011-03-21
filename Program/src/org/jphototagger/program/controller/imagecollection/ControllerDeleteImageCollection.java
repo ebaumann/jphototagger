@@ -1,5 +1,7 @@
 package org.jphototagger.program.controller.imagecollection;
 
+import org.jdesktop.swingx.JXList;
+
 import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.factory.ModelFactory;
@@ -14,14 +16,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.EventQueue;
 
-import javax.swing.JList;
-
 /**
- * Kontrolliert Aktion: Lösche Bildsammlung, ausgelöst von
- * {@link org.jphototagger.program.view.popupmenus.PopupMenuImageCollections}.
- *
- * Also listens to the {@link JList}'s key events and deletes the selected image
- * collection when the keys <code>Ctrl+N</code> were pressed.
  *
  * @author Elmar Baumann
  */
@@ -37,7 +32,7 @@ public final class ControllerDeleteImageCollection implements ActionListener, Ke
 
     @Override
     public void keyPressed(KeyEvent evt) {
-        JList list = GUI.getImageCollectionsList();
+        JXList list = GUI.getImageCollectionsList();
 
         if ((evt.getKeyCode() == KeyEvent.VK_DELETE) &&!list.isSelectionEmpty()) {
             Object value = list.getSelectedValue();

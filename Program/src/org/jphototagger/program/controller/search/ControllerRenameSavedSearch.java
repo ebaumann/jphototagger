@@ -10,15 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import javax.swing.JList;
-
 /**
- * Renames a selected saved search when the
- * {@link org.jphototagger.program.view.popupmenus.PopupMenuSavedSearches} fires
- * the appropriate action.
- *
- * Also listens to the {@link JList}'s key events and renames a selected saved
- * search when the keys <code>Ctrl+R</code> or <code>F2</code> were pressed.
  *
  * @author Elmar Baumann
  */

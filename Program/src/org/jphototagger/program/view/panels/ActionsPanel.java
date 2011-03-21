@@ -91,11 +91,11 @@ public final class ActionsPanel extends javax.swing.JPanel {
     }
 
     public void setEnabled() {
-        boolean isActionSelected = list.getSelectedIndex() >= 0;
-        int selIndex = list.getSelectedIndex();
+        int selectedIndex = list.getSelectedIndex();
         int size = list.getModel().getSize();
-        boolean canMoveDown = isActionSelected && selIndex < size - 1;
-        boolean canMoveUp = isActionSelected && selIndex > 0;
+        boolean isActionSelected = selectedIndex >= 0;
+        boolean canMoveDown = isActionSelected && selectedIndex < size - 1;
+        boolean canMoveUp = isActionSelected && selectedIndex > 0;
 
         buttonDelete.setEnabled(isActionSelected);
         menuItemDelete.setEnabled(isActionSelected);
@@ -255,7 +255,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
         menuItemMoveActionDown = new javax.swing.JMenuItem();
         labelActionList = new javax.swing.JLabel();
         scrollPane = new javax.swing.JScrollPane();
-        list = new javax.swing.JList();
+        list = new org.jdesktop.swingx.JXList();
         progressBar = new javax.swing.JProgressBar();
         panelButtons = new javax.swing.JPanel();
         buttonDelete = new javax.swing.JButton();
@@ -528,7 +528,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JLabel labelActionList;
-    private javax.swing.JList list;
+    private org.jdesktop.swingx.JXList list;
     private javax.swing.JMenuItem menuItemCreate;
     private javax.swing.JMenuItem menuItemDelete;
     private javax.swing.JMenuItem menuItemEdit;

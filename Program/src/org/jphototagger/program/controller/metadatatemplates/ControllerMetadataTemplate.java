@@ -10,7 +10,7 @@ import org.jphototagger.program.view.popupmenus.PopupMenuMetadataTemplates;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
-import javax.swing.JList;
+import org.jdesktop.swingx.JXList;
 
 /**
  *
@@ -51,7 +51,7 @@ public abstract class ControllerMetadataTemplate extends Controller {
         InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getList().requestFocusInWindow();
     }
 
-    protected JList getInputHelperList() {
+    protected JXList getInputHelperList() {
         return InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getList();
     }
 

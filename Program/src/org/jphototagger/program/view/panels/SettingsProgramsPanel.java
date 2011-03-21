@@ -82,10 +82,11 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel implements P
     }
 
     private void removeProgram() {
-        int index = listPrograms.getSelectedIndex();
+        int selectedIndex = listPrograms.getSelectedIndex();
+        int modelIndex = listPrograms.convertIndexToModel(selectedIndex);
 
-        if ((index >= 0) && askRemove(model.getElementAt(index).toString())) {
-            DatabasePrograms.INSTANCE.delete((Program) model.get(index));
+        if ((selectedIndex >= 0) && askRemove(model.getElementAt(modelIndex).toString())) {
+            DatabasePrograms.INSTANCE.delete((Program) model.get(modelIndex));
             setEnabled();
         }
     }
@@ -96,10 +97,10 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel implements P
 
     private void setEnabled() {
         boolean programSelected = isProgramSelected();
-        int selIndex = listPrograms.getSelectedIndex();
+        int selectedIndex = listPrograms.getSelectedIndex();
         int size = listPrograms.getModel().getSize();
-        boolean canMoveDown = programSelected && selIndex < size - 1;
-        boolean canMoveUp = programSelected && selIndex > 0;
+        boolean canMoveDown = programSelected && selectedIndex < size - 1;
+        boolean canMoveUp = programSelected && selectedIndex > 0;
 
         buttonEditProgram.setEnabled(programSelected);
         menuItemEditProgram.setEnabled(programSelected);
@@ -171,7 +172,7 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel implements P
         labelChooseDefaultProgram = new javax.swing.JLabel();
         labelPrograms = new javax.swing.JLabel();
         scrollPanePrograms = new javax.swing.JScrollPane();
-        listPrograms = new javax.swing.JList();
+        listPrograms = new org.jdesktop.swingx.JXList();
         buttonRemoveProgram = new javax.swing.JButton();
         buttonMoveProgramUp = new javax.swing.JButton();
         buttonMoveProgramDown = new javax.swing.JButton();
@@ -435,7 +436,7 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel implements P
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JLabel labelChooseDefaultProgram;
     private javax.swing.JLabel labelPrograms;
-    private javax.swing.JList listPrograms;
+    private org.jdesktop.swingx.JXList listPrograms;
     private javax.swing.JMenuItem menuItemAddProgram;
     private javax.swing.JMenuItem menuItemEditProgram;
     private javax.swing.JMenuItem menuItemMoveProgramDown;

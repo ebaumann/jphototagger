@@ -10,7 +10,6 @@ import org.jphototagger.lib.componentutil.TreeUtil;
 import java.awt.CardLayout;
 import java.awt.Container;
 
-import javax.swing.JList;
 import javax.swing.JTree;
 import javax.swing.ListModel;
 import javax.swing.SortOrder;
@@ -43,18 +42,16 @@ public class KeywordsPanel extends javax.swing.JPanel {
     }
 
     private void decorateList() {
-        JXList jxList = (JXList) list;
-
-        textFieldListFilter.getDocument().addDocumentListener(new ListTextFilter(jxList));
-        jxList.setAutoCreateRowSorter(true);
-        jxList.setSortOrder(SortOrder.ASCENDING);
+        textFieldListFilter.getDocument().addDocumentListener(new ListTextFilter(list));
+        list.setAutoCreateRowSorter(true);
+        list.setSortOrder(SortOrder.ASCENDING);
     }
 
     public JTree getTree() {
         return tree;
     }
 
-    public JList getList() {
+    public JXList getList() {
         return list;
     }
 
@@ -322,7 +319,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         panelList.add(buttonAsTree, gridBagConstraints);
 
-        buttonSearchInList.setAction(new SearchInJxListAction((JXList)list));
+        buttonSearchInList.setAction(new SearchInJxListAction(list));
         buttonSearchInList.setText(JptBundle.INSTANCE.getString("KeywordsPanel.buttonSearchInList.text")); // NOI18N
         buttonSearchInList.setMargin(new java.awt.Insets(1, 1, 1, 1));
         buttonSearchInList.setName("buttonSearchInList"); // NOI18N
@@ -356,7 +353,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
     private javax.swing.JButton buttonSearchInTree;
     private javax.swing.JToggleButton buttonToggleExpandAllNodes;
     private javax.swing.JLabel labelListFilter;
-    private javax.swing.JList list;
+    private org.jdesktop.swingx.JXList list;
     private javax.swing.JPanel panelButtons;
     private javax.swing.JPanel panelList;
     private javax.swing.JPanel panelListFilter;

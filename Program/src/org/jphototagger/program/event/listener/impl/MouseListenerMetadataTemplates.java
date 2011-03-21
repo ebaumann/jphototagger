@@ -3,7 +3,7 @@ package org.jphototagger.program.event.listener.impl;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.popupmenus.PopupMenuMetadataTemplates;
 
-import javax.swing.JList;
+import org.jdesktop.swingx.JXList;
 import javax.swing.ListSelectionModel;
 
 /**
@@ -18,7 +18,7 @@ public final class MouseListenerMetadataTemplates extends MouseListenerList {
     }
 
     @Override
-    protected void showPopup(JList list, int x, int y) {
+    protected void showPopup(JXList list, int x, int y) {
         if (list == null) {
             throw new NullPointerException("list == null");
         }

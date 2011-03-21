@@ -9,7 +9,6 @@ import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.JList;
 import org.jdesktop.swingx.JXList;
 
 /**
@@ -40,7 +39,7 @@ public final class MouseListenerImageCollections extends MouseAdapter {
 
     @Override
     public void mouseExited(MouseEvent evt) {
-        ((JList) evt.getSource()).setCursor(Cursor.getDefaultCursor());
+        ((JXList) evt.getSource()).setCursor(Cursor.getDefaultCursor());
     }
 
     private boolean isSpecialCollection(JXList list, int index) {

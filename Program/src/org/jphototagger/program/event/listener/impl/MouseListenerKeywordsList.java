@@ -3,7 +3,7 @@ package org.jphototagger.program.event.listener.impl;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsList;
 
-import javax.swing.JList;
+import org.jdesktop.swingx.JXList;
 
 /**
  * Do not use this class as a template for other implementations! Instead extend
@@ -15,7 +15,7 @@ public final class MouseListenerKeywordsList extends MouseListenerList {
     private final PopupMenuKeywordsList popup = PopupMenuKeywordsList.INSTANCE;
 
     @Override
-    protected void showPopup(JList list, int x, int y) {
+    protected void showPopup(JXList list, int x, int y) {
         if (list == null) {
             throw new NullPointerException("list == null");
         }

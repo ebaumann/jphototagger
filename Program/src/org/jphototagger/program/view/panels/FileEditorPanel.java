@@ -350,7 +350,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         checkBoxReplaceExistingFiles = new javax.swing.JCheckBox();
         labelInfoFiles = new javax.swing.JLabel();
         scrollPaneListFiles = new javax.swing.JScrollPane();
-        listFiles = new javax.swing.JList();
+        listFiles = new org.jdesktop.swingx.JXList();
         progressBar = new javax.swing.JProgressBar();
         labelPromptCurrentFile = new javax.swing.JLabel();
         labelCurrentFile = new javax.swing.JLabel();
@@ -508,7 +508,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     private javax.swing.JLabel labelDescription;
     private javax.swing.JLabel labelInfoFiles;
     private javax.swing.JLabel labelPromptCurrentFile;
-    private javax.swing.JList listFiles;
+    private org.jdesktop.swingx.JXList listFiles;
     private javax.swing.JPanel panelOptions;
     private javax.swing.JProgressBar progressBar;
     private javax.swing.JScrollPane scrollPaneListFiles;

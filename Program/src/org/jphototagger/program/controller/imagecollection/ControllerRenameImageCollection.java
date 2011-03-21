@@ -1,5 +1,7 @@
 package org.jphototagger.program.controller.imagecollection;
 
+import org.jdesktop.swingx.JXList;
+
 import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.factory.ModelFactory;
@@ -14,7 +16,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.EventQueue;
 
-import javax.swing.JList;
 import javax.swing.JTree;
 
 /**
@@ -39,7 +40,7 @@ public final class ControllerRenameImageCollection implements ActionListener, Ke
 
     @Override
     public void keyPressed(KeyEvent evt) {
-        JList list = GUI.getImageCollectionsList();
+        JXList list = GUI.getImageCollectionsList();
 
         if (isRename(evt) &&!list.isSelectionEmpty()) {
             Object value = list.getSelectedValue();

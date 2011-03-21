@@ -10,7 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.EventQueue;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -83,7 +82,7 @@ public final class ControllerKeywordItemSelected implements ActionListener, List
     }
 
     private List<String> getSelectedKeywords() {
-        JXList listSelKeywords = (JXList) GUI.getSelKeywordsList();
+        JXList listSelKeywords = GUI.getSelKeywordsList();
 
         return KeywordsHelper.getSelectedKeywordsFromList(listSelKeywords);
     }

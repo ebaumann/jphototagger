@@ -109,7 +109,7 @@ public final class ModelFactory {
             public void run() {
                 Support.setStatusbarInfo("ModelFactory.Starting.ListModelSavedSearches");
 
-                final JXList list = (JXList) appPanel.getListSavedSearches();
+                final JXList list = appPanel.getListSavedSearches();
                 final Cursor listCursor = setWaitCursor(list);
                 final ListModelSavedSearches model = new ListModelSavedSearches();
 
@@ -135,7 +135,7 @@ public final class ModelFactory {
             public void run() {
                 Support.setStatusbarInfo("ModelFactory.Starting.ListModelImageCollections");
 
-                final JXList list = (JXList) appPanel.getListImageCollections();
+                final JXList list = appPanel.getListImageCollections();
                 final Cursor listCursor = setWaitCursor(list);
                 final ListModelImageCollections model = new ListModelImageCollections();
 
@@ -163,7 +163,7 @@ public final class ModelFactory {
             public void run() {
                 Support.setStatusbarInfo("ModelFactory.Starting.ListModelKeywords");
 
-                final JXList listSelKeywords = (JXList) appPanel.getListSelKeywords();
+                final JXList listSelKeywords = appPanel.getListSelKeywords();
                 final KeywordsPanel panelEditKeywords = appPanel.getPanelEditKeywords();
                 final Cursor listCursor = setWaitCursor(listSelKeywords);
                 final ListModelKeywords modelKeywords = new ListModelKeywords();

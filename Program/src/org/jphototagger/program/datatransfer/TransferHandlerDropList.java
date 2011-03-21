@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
-import javax.swing.JList;
+import org.jdesktop.swingx.JXList;
 import javax.swing.TransferHandler;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -41,7 +41,7 @@ public final class TransferHandlerDropList extends TransferHandler {
             return false;
         }
 
-        JList list = (JList) support.getComponent();
+        JXList list = (JXList) support.getComponent();
         DefaultListModel listModel = (DefaultListModel) list.getModel();
         Transferable transferable = support.getTransferable();
 

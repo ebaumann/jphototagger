@@ -126,7 +126,9 @@ public class SettingsActionsPanel extends javax.swing.JPanel
     private void moveActionDown() {
         if (canMoveDown()) {
             listenToModel = false;
-            model.moveDown(list.getSelectedIndex());
+            int selectedIndex = list.getSelectedIndex();
+            int modelIndex = list.convertIndexToModel(selectedIndex);
+            model.moveDown(modelIndex);
             setEnabled();
             listenToModel = true;
         }
@@ -135,7 +137,9 @@ public class SettingsActionsPanel extends javax.swing.JPanel
     private void moveActionUp() {
         if (canMoveUp()) {
             listenToModel = false;
-            model.moveUp(list.getSelectedIndex());
+            int selectedIndex = list.getSelectedIndex();
+            int modelIndex = list.convertIndexToModel(selectedIndex);
+            model.moveUp(modelIndex);
             setEnabled();
             listenToModel = true;
         }
@@ -143,7 +147,9 @@ public class SettingsActionsPanel extends javax.swing.JPanel
 
     private void deleteAction() {
         if (isActionSelected()) {
-            Program action = (Program) model.get(list.getSelectedIndex());
+            int selectedIndex = list.getSelectedIndex();
+            int modelIndex = list.convertIndexToModel(selectedIndex);
+            Program action = (Program) model.get(modelIndex);
 
             if (confirmDelete(action.getAlias())) {
                 model.delete(action);
@@ -196,9 +202,10 @@ public class SettingsActionsPanel extends javax.swing.JPanel
     }
 
     private boolean canMoveDown() {
-        int selIndex = list.getSelectedIndex();
+        int selectedIndex = list.getSelectedIndex();
+        int modelIndex = list.convertIndexToModel(selectedIndex);
 
-        return (selIndex < model.getSize() - 1) && (selIndex >= 0);
+        return (modelIndex < model.getSize() - 1) && (selectedIndex >= 0);
     }
 
     private boolean canMoveUp() {
@@ -284,7 +291,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         menuItemShowActions = new javax.swing.JMenuItem();
         scrollPane = new javax.swing.JScrollPane();
-        list = new javax.swing.JList();
+        list = new org.jdesktop.swingx.JXList();
         buttonMoveUpAction = new javax.swing.JButton();
         buttonMoveDownAction = new javax.swing.JButton();
         buttonAddAction = new javax.swing.JButton();
@@ -549,7 +556,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel
     private javax.swing.JButton buttonShowActions;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
-    private javax.swing.JList list;
+    private org.jdesktop.swingx.JXList list;
     private javax.swing.JMenuItem menuItemAddAction;
     private javax.swing.JMenuItem menuItemDeleteAction;
     private javax.swing.JMenuItem menuItemMoveDownAction;

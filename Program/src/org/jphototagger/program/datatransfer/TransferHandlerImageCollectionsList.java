@@ -19,6 +19,8 @@ import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.TransferHandler;
 
+import org.jdesktop.swingx.JXList;
+
 /**
  * Adds images to an image collection (item hitted) or creates a new one (free
  * list area hitted) if thumbnails are dropped on the list with image
@@ -96,7 +98,7 @@ public final class TransferHandlerImageCollectionsList extends TransferHandler {
     }
 
     private String getImageCollectionName(int itemIndex) {
-        JList list = GUI.getAppPanel().getListImageCollections();
+        JXList list = GUI.getAppPanel().getListImageCollections();
 
         return list.getModel().getElementAt(itemIndex).toString();
     }

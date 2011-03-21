@@ -6,13 +6,11 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
-import javax.swing.JList;
+
+import org.jdesktop.swingx.JXList;
 import javax.swing.JTree;
 
 /**
- * Kontrolliert eine Gruppe von Lists und Trees, von denen nur bei einem Tree
- * oder einer List Items selektiert sein dürfen. Die Items der anderen werden
- * deselektiert, sobald bei einem ein Item in der Gruppe selektiert wird.
  *
  * @author Elmar Baumann
  */
@@ -28,7 +26,7 @@ public final class ControllerItemsMutualExcludeSelection implements TreeSelectio
             tree.addTreeSelectionListener(this);
         }
 
-        for (JList list : GUI.getAppPanel().getSelectionLists()) {
+        for (JXList list : GUI.getAppPanel().getSelectionLists()) {
             list.addListSelectionListener(this);
         }
     }
@@ -46,8 +44,8 @@ public final class ControllerItemsMutualExcludeSelection implements TreeSelectio
     public void valueChanged(ListSelectionEvent evt) {
         Object o = evt.getSource();
 
-        if (listen &&!evt.getValueIsAdjusting() && (o instanceof JList)) {
-            JList list = (JList) o;
+        if (listen &&!evt.getValueIsAdjusting() && (o instanceof JXList)) {
+            JXList list = (JXList) o;
 
             if (list.getSelectedIndex() >= 0) {
                 handleListSelected(list);
@@ -60,15 +58,15 @@ public final class ControllerItemsMutualExcludeSelection implements TreeSelectio
         clearSelectionOtherTrees(currentSelectedTree);
     }
 
-    private void handleListSelected(JList currentSelectedList) {
+    private void handleListSelected(JXList currentSelectedList) {
         clearSelectionAllTrees();
         clearSelectionOtherLists(currentSelectedList);
     }
 
-    private void clearSelectionOtherLists(JList list) {
+    private void clearSelectionOtherLists(JXList list) {
         listen = false;
 
-        for (JList aList : GUI.getAppPanel().getSelectionLists()) {
+        for (JXList aList : GUI.getAppPanel().getSelectionLists()) {
             if ((aList != list) &&!aList.isSelectionEmpty()) {
                 aList.clearSelection();
             }
@@ -96,7 +94,7 @@ public final class ControllerItemsMutualExcludeSelection implements TreeSelectio
     }
 
     private void clearSelectionAllLists() {
-        for (JList list : GUI.getAppPanel().getSelectionLists()) {
+        for (JXList list : GUI.getAppPanel().getSelectionLists()) {
             list.clearSelection();
         }
     }

@@ -343,7 +343,7 @@ public final class KeywordsHelper {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                JXList selKeywordsList = (JXList) GUI.getAppPanel().getListSelKeywords();
+                JXList selKeywordsList = GUI.getAppPanel().getListSelKeywords();
 
                 selKeywordsList.clearSelection();
                 GUI.getAppPanel().displaySelKeywordsList(AppPanel.SelectAlso.SEL_KEYWORDS_TAB);

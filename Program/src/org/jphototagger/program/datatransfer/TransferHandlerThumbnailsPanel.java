@@ -33,7 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JComponent;
-import javax.swing.JList;
+import org.jdesktop.swingx.JXList;
 import javax.swing.JTree;
 import javax.swing.TransferHandler;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -142,12 +142,14 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
     }
 
     private String getImageCollectionName() {
-        JList listImageCollections = GUI.getAppPanel().getListImageCollections();
+        JXList listImageCollections = GUI.getAppPanel().getListImageCollections();
         Object selElement = null;
-        int selIndex = listImageCollections.getSelectedIndex();
+        int selectedIndex = listImageCollections.getSelectedIndex();
 
-        if (selIndex >= 0) {
-            selElement = listImageCollections.getModel().getElementAt(selIndex);
+        if (selectedIndex >= 0) {
+            int modelIndex = listImageCollections.convertIndexToModel(selectedIndex);
+
+            selElement = listImageCollections.getModel().getElementAt(modelIndex);
         }
 
         return (selElement == null)

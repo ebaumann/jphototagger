@@ -291,7 +291,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         textAreaWords.setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerDropTextComponent());
         labelListWords = new javax.swing.JLabel();
         scrollPaneListWords = new javax.swing.JScrollPane();
-        listWords = new javax.swing.JList();
+        listWords = new org.jdesktop.swingx.JXList();
         buttonAddWord = new javax.swing.JButton();
         buttonRemoveWord = new javax.swing.JButton();
         buttonChangeWord = new javax.swing.JButton();
@@ -300,7 +300,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         textFieldSynonyms.setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerDropTextComponent());
         labelListSynonyms = new javax.swing.JLabel();
         scrollPaneListSynonyms = new javax.swing.JScrollPane();
-        listSynonyms = new javax.swing.JList();
+        listSynonyms = new org.jdesktop.swingx.JXList();
         buttonAddSynonym = new javax.swing.JButton();
         buttonRemoveSynonym = new javax.swing.JButton();
         buttonChangeSynonym = new javax.swing.JButton();
@@ -679,8 +679,8 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
     private javax.swing.JLabel labelListWords;
     private javax.swing.JLabel labelTextAreaWord;
     private javax.swing.JLabel labelTextFieldSynonym;
-    private javax.swing.JList listSynonyms;
-    private javax.swing.JList listWords;
+    private org.jdesktop.swingx.JXList listSynonyms;
+    private org.jdesktop.swingx.JXList listWords;
     private javax.swing.JMenuItem menuItemChangeSynonym;
     private javax.swing.JMenuItem menuItemChangeWord;
     private javax.swing.JMenuItem menuItemRemoveSynonym;

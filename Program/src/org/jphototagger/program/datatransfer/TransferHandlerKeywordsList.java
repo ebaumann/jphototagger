@@ -17,7 +17,7 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JComponent;
-import javax.swing.JList;
+import org.jdesktop.swingx.JXList;
 import javax.swing.TransferHandler;
 
 /**
@@ -45,8 +45,9 @@ public final class TransferHandlerKeywordsList extends TransferHandler {
             return false;
         }
 
-        JList list = (JList) support.getComponent();
-        Object value = list.getModel().getElementAt(index);
+        JXList list = (JXList) support.getComponent();
+        int modelIndex = list.convertIndexToModel(index);
+        Object value = list.getModel().getElementAt(modelIndex);
 
         if (value instanceof String) {
             String keyword = (String) value;
@@ -94,7 +95,7 @@ public final class TransferHandlerKeywordsList extends TransferHandler {
 
     @Override
     protected Transferable createTransferable(JComponent c) {
-        JList list = (JList) c;
+        JXList list = (JXList) c;
         Object[] selValues = list.getSelectedValues();
 
         return new TransferableObject(selValues, Flavor.KEYWORDS_LIST);

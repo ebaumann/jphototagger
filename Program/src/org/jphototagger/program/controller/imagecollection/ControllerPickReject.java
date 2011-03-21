@@ -1,5 +1,7 @@
 package org.jphototagger.program.controller.imagecollection;
 
+import org.jdesktop.swingx.JXList;
+
 import org.jphototagger.lib.componentutil.MessageLabel;
 import org.jphototagger.program.database.DatabaseImageCollections;
 import org.jphototagger.program.model.ListModelImageCollections;
@@ -18,20 +20,9 @@ import java.io.File;
 
 import java.util.List;
 
-import javax.swing.JList;
 import javax.swing.JMenuItem;
 
 /**
- * Listens to the menu item {@link ThumbnailsPanel} to key events
- * and on action adds a new keyword below the selected keyword.
- * <p>
- * If the key <strong>P</strong> was pressed, this class adds the selected
- * thumbnails to the <strong>Pick</strong> collection and if the key
- * <strong>R</strong> was pressed to the <strong>Reject</strong> collection.
- * <p>
- * Also listens to the {@link PopupMenuThumbnails#getItemPick()} and
- * {@link PopupMenuThumbnails#getItemReject()} and does the same as by the
- * key events <strong>P</strong> or <strong>R</strong>.
  *
  * @author Elmar Baumann
  */
@@ -107,7 +98,7 @@ public final class ControllerPickReject implements ActionListener, KeyListener {
             return false;
         }
 
-        JList list = GUI.getAppPanel().getListImageCollections();
+        JXList list = GUI.getAppPanel().getListImageCollections();
 
         if (list.getSelectedIndex() < 0) {
             return false;

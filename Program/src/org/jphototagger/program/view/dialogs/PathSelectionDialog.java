@@ -210,7 +210,7 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
 
         labelInfo = new javax.swing.JLabel();
         scrollPane = new javax.swing.JScrollPane();
-        list = new javax.swing.JList();
+        list = new org.jdesktop.swingx.JXList();
         buttonSelectNothing = new javax.swing.JButton();
         buttonSelectAll = new javax.swing.JButton();
         buttonSelectSelected = new javax.swing.JButton();
@@ -337,7 +337,7 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
     private javax.swing.JButton buttonSelectNothing;
     private javax.swing.JButton buttonSelectSelected;
     private javax.swing.JLabel labelInfo;
-    private javax.swing.JList list;
+    private org.jdesktop.swingx.JXList list;
     private javax.swing.JScrollPane scrollPane;
     // End of variables declaration//GEN-END:variables
 }

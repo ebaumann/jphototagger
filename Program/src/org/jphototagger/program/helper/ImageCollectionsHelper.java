@@ -14,7 +14,7 @@ import java.io.File;
 
 import java.util.List;
 
-import javax.swing.JList;
+import org.jdesktop.swingx.JXList;
 
 /**
  *
@@ -53,7 +53,7 @@ public final class ImageCollectionsHelper {
      * @return item or null if no item is selected
      */
     public static Object getSelectedCollection() {
-        JList list = GUI.getAppPanel().getListImageCollections();
+        JXList list = GUI.getAppPanel().getListImageCollections();
 
         return list.getSelectedValue();
     }

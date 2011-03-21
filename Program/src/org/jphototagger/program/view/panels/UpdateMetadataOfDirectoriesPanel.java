@@ -68,15 +68,16 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
     }
 
     private void removeSelectedDirectories() {
-        final int selIndex = list.getSelectedIndex();
-        if (selIndex >= 0) {
+        final int selectedIndex = list.getSelectedIndex();
+
+        if (selectedIndex >= 0) {
             for (Object selectedValue : list.getSelectedValues()) {
                 listModelDirectories.removeElement(selectedValue);
             }
 
             buttonStart.setEnabled(!listModelDirectories.isEmpty());
             labelFilecount.setText(Integer.toString(getFileCount()));
-            ListUtil.selectNearestIndex(list, selIndex);
+            ListUtil.selectNearestIndex(list, selectedIndex);
             list.requestFocusInWindow();
         }
     }
@@ -158,9 +159,9 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
     }
 
     private void setEnabledMenuItems() {
-        boolean itemSelected = list.getSelectedIndex() >= 0;
+        boolean itemIsSelected = list.getSelectedIndex() >= 0;
 
-        menuItemDelete.setEnabled(itemSelected && list.isEnabled());
+        menuItemDelete.setEnabled(itemIsSelected && list.isEnabled());
     }
 
     private void readProperties() {
@@ -381,7 +382,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
         menuItemDelete = new javax.swing.JMenuItem();
         labelHeadingListDirectories = new javax.swing.JLabel();
         scrollPane = new javax.swing.JScrollPane();
-        list = new javax.swing.JList();
+        list = new org.jdesktop.swingx.JXList();
         labelInfoFilecount = new javax.swing.JLabel();
         labelFilecount = new javax.swing.JLabel();
         checkBoxForce = new javax.swing.JCheckBox();
@@ -582,7 +583,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
     private javax.swing.JLabel labelHeadingListDirectories;
     private javax.swing.JLabel labelInfoCurrentFilename;
     private javax.swing.JLabel labelInfoFilecount;
-    private javax.swing.JList list;
+    private org.jdesktop.swingx.JXList list;
     private javax.swing.JMenuItem menuItemDelete;
     private javax.swing.JPopupMenu popupMenu;
     private javax.swing.JProgressBar progressBar;

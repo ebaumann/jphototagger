@@ -9,15 +9,7 @@ import org.jphototagger.program.view.popupmenus.PopupMenuSavedSearches;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
-import javax.swing.JList;
-
 /**
- * Creates a saved search when the
- * {@link org.jphototagger.program.view.popupmenus.PopupMenuSavedSearches} fires
- * the appropriate action.
- *
- * Also listens to the {@link JList}'s key events and creates a new saved
- * search when the keys <code>Ctrl+N</code> were pressed.
  *
  * @author Elmar Baumann
  */
