@@ -5,6 +5,9 @@ Changelog JPhotoTagger http://jphototagger.org/
 
 0.8.71 2011-03-21
 -----------------
+* Bugfix: Im Stichwortbaum werden die Stichwörter eines ausgewählten
+  Bilds wieder hervorgehoben, sofern das Bild eine XMP-Filialdatei
+  mit Stichwörten hat
 * Interna modifiziert
 
 0.8.70 2011-03-20
