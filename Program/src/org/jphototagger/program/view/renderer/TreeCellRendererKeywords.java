@@ -84,14 +84,14 @@ public final class TreeCellRendererKeywords extends DefaultTreeCellRenderer {
         }
     }
 
-    public void setSelImgKeywords(Collection<? extends String> keywords) {
-        if (keywords == null) {
+    public void setHighlightKeywords(Collection<? extends String> keywordsToHighlight) {
+        if (keywordsToHighlight == null) {
             throw new NullPointerException("keywords == null");
         }
 
         synchronized (this.highLightKeywords) {
             this.highLightKeywords.clear();
-            this.highLightKeywords.addAll(keywords);
+            this.highLightKeywords.addAll(keywordsToHighlight);
         }
     }
 
