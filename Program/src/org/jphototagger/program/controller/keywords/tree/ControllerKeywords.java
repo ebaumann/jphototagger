@@ -66,35 +66,39 @@ public abstract class ControllerKeywords implements ActionListener, KeyListener 
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        List<DefaultMutableTreeNode> selNodes = getSelNodes(evt);
+        List<DefaultMutableTreeNode> selNodes = getSelectedNodes(evt);
 
         if ((selNodes != null) &&!selNodes.isEmpty() && checkNodeCount(selNodes)) {
             localAction(selNodes);
         }
     }
 
-    protected List<DefaultMutableTreeNode> getSelNodes(ActionEvent evt) {
+    protected List<DefaultMutableTreeNode> getSelectedNodes(ActionEvent evt) {
         if (evt == null) {
             throw new NullPointerException("evt == null");
         }
 
-        TreePath[] selPaths = PopupMenuKeywordsTree.INSTANCE.getTreePaths();
+        TreePath[] selectedTreePaths = PopupMenuKeywordsTree.INSTANCE.isMouseCursorInSelection()
+                ? PopupMenuKeywordsTree.INSTANCE.getSelectedTreePaths()
+                : PopupMenuKeywordsTree.INSTANCE.isMouseOverTreePath()
+                ? new TreePath[] {PopupMenuKeywordsTree.INSTANCE.getTreePathAtMouseCursor()}
+                : null;
 
-        if (selPaths == null) {
+        if (selectedTreePaths == null) {
             return null;
         }
 
-        List<DefaultMutableTreeNode> selNodes = new ArrayList<DefaultMutableTreeNode>();
+        List<DefaultMutableTreeNode> selectedNodes = new ArrayList<DefaultMutableTreeNode>();
 
-        for (TreePath selPath : selPaths) {
-            Object node = selPath.getLastPathComponent();
+        for (TreePath selectedTreePath : selectedTreePaths) {
+            Object node = selectedTreePath.getLastPathComponent();
 
             if (node instanceof DefaultMutableTreeNode) {
-                selNodes.add((DefaultMutableTreeNode) node);
+                selectedNodes.add((DefaultMutableTreeNode) node);
             }
         }
 
-        return selNodes;
+        return selectedNodes;
     }
 
     protected List<DefaultMutableTreeNode> getSelNodes(KeyEvent evt) {

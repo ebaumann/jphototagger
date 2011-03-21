@@ -1,5 +1,6 @@
 package org.jphototagger.program.controller.keywords.tree;
 
+import javax.swing.tree.TreePath;
 import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.program.data.Keyword;
 import org.jphototagger.program.helper.KeywordsHelper;
@@ -58,8 +59,13 @@ public class ControllerKeywordsDisplayImages implements ActionListener {
     }
 
     private Keyword getKeyword() {
-        DefaultMutableTreeNode node =
-            (DefaultMutableTreeNode) PopupMenuKeywordsTree.INSTANCE.getTreePath().getLastPathComponent();
+        TreePath treePath = PopupMenuKeywordsTree.INSTANCE.getTreePathAtMouseCursor();
+
+        if (treePath == null) {
+            return null;
+        }
+
+        DefaultMutableTreeNode node = (DefaultMutableTreeNode) treePath.getLastPathComponent();
         Object userObject = node.getUserObject();
 
         if (userObject instanceof Keyword) {
