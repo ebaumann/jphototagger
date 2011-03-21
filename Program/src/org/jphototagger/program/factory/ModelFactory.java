@@ -36,6 +36,7 @@ import javax.swing.tree.TreeModel;
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.sort.ListSortController;
 import org.jphototagger.program.view.panels.KeywordsPanel;
+import org.jphototagger.program.view.renderer.KeywordHighlightPredicate;
 import org.jphototagger.program.view.renderer.TableCellRendererExif;
 import org.jphototagger.program.view.renderer.TableCellRendererIptc;
 import org.jphototagger.program.view.renderer.TableCellRendererXmp;
@@ -163,22 +164,23 @@ public final class ModelFactory {
             public void run() {
                 Support.setStatusbarInfo("ModelFactory.Starting.ListModelKeywords");
 
-                final JXList listSelKeywords = appPanel.getListSelKeywords();
+                final JXList listSelectedKeywords = appPanel.getListSelKeywords();
                 final KeywordsPanel panelEditKeywords = appPanel.getPanelEditKeywords();
-                final Cursor listCursor = setWaitCursor(listSelKeywords);
+                final Cursor listCursor = setWaitCursor(listSelectedKeywords);
                 final ListModelKeywords modelKeywords = new ListModelKeywords();
 
                 support.add(modelKeywords);
                 EventQueue.invokeLater(new Runnable() {
                     @Override
                     public void run() {
-                        listSelKeywords.setModel(modelKeywords);
-                        listSelKeywords.setAutoCreateRowSorter(true);
-                        listSelKeywords.setSortOrder(SortOrder.ASCENDING);
+                        listSelectedKeywords.setModel(modelKeywords);
+                        listSelectedKeywords.setAutoCreateRowSorter(true);
+                        listSelectedKeywords.setSortOrder(SortOrder.ASCENDING);
+                        listSelectedKeywords.addHighlighter(KeywordHighlightPredicate.getHighlighter());
                         panelEditKeywords.setListModel(modelKeywords);
                         InputHelperDialog.INSTANCE.setModelKeywords(modelKeywords);
                         AppWindowPersistence.readListSelKeywords();
-                        listSelKeywords.setCursor(listCursor);
+                        listSelectedKeywords.setCursor(listCursor);
                         Support.setStatusbarInfo("ModelFactory.Finished.ListModelKeywords");
                     }
                 });

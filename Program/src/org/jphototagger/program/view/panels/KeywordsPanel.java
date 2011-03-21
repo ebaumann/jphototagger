@@ -21,6 +21,7 @@ import org.jphototagger.program.controller.actions.SearchInJxTreeAction;
 import org.jphototagger.program.helper.ListTextFilter;
 import org.jphototagger.program.model.ListModelWait;
 import org.jphototagger.program.model.TreeModelWait;
+import org.jphototagger.program.view.renderer.KeywordHighlightPredicate;
 
 /**
  *
@@ -45,6 +46,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
         textFieldListFilter.getDocument().addDocumentListener(new ListTextFilter(list));
         list.setAutoCreateRowSorter(true);
         list.setSortOrder(SortOrder.ASCENDING);
+        list.addHighlighter(KeywordHighlightPredicate.getHighlighter());
     }
 
     public JTree getTree() {

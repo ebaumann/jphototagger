@@ -18,8 +18,7 @@ public final class ListCellRendererKeywords extends ListCellRendererExt {
     private static final long serialVersionUID = 8358358177217506189L;
 
     @Override
-    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
-            boolean cellHasFocus) {
+    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
         JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 
         setColors(index, isSelected, label);

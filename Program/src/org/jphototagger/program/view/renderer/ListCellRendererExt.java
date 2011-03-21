@@ -16,18 +16,21 @@ public class ListCellRendererExt extends DefaultListCellRenderer {
 
     public ListCellRendererExt() {
         setOpaque(true);
+        setForeground(AppLookAndFeel.getListForeground());
+        setBackground(AppLookAndFeel.getListBackground());
     }
 
     protected void setColors(int index, boolean selected, JLabel label) {
         boolean tempSelExists = tempSelRow >= 0;
         boolean isTempSelRow = index == tempSelRow;
+        boolean isSelection = isTempSelRow || (selected && !tempSelExists);
 
-        label.setForeground((isTempSelRow || (selected &&!tempSelExists))
+        label.setForeground((isSelection)
                             ? AppLookAndFeel.getListSelectionForeground()
-                            : AppLookAndFeel.getListForeground());
+                            : getForeground());
         label.setBackground((isTempSelRow || (selected &&!tempSelExists))
                             ? AppLookAndFeel.getListSelectionBackground()
-                            : AppLookAndFeel.getListBackground());
+                            : getBackground());
     }
 
     public void setTempSelectionRow(int index) {
