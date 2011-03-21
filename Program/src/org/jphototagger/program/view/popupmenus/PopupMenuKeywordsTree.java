@@ -41,8 +41,8 @@ public final class PopupMenuKeywordsTree extends JPopupMenu {
     private final JMenuItem itemCopy = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsTree.DisplayName.ActionCopy"), AppLookAndFeel.ICON_COPY);
     private final JMenuItem itemCollapseAllSubitems = new JMenuItem(JptBundle.INSTANCE.getString("MouseListenerTreeExpand.ItemCollapse"));
     private JTree tree;
-    private TreePath treePath;
-    private TreePath[] treePaths;
+    private TreePath treePathAtMouseCursor;
+    private TreePath[] selectedTreePaths;
 
     private PopupMenuKeywordsTree() {
         init();
@@ -100,32 +100,42 @@ public final class PopupMenuKeywordsTree extends JPopupMenu {
         return itemExpandAllSubitems;
     }
 
-    public void setTreePath(TreePath path) {
-        this.treePath = path;
+    public void setTreePathAtMouseCursor(TreePath path) {
+        this.treePathAtMouseCursor = path;
     }
 
-    public TreePath getTreePath() {
-        return treePath;
+    public TreePath getTreePathAtMouseCursor() {
+        return treePathAtMouseCursor;
     }
 
-    /**
-     *
-     * @param treePaths (temporary) selected tree paths or null
-     */
-    public void setTreePaths(TreePath[] treePaths) {
-        this.treePaths = (treePaths == null)
+    public void setSelectedTreePaths(TreePath[] treePaths) {
+        selectedTreePaths = (treePaths == null)
                          ? null
                          : Arrays.copyOf(treePaths, treePaths.length);
     }
 
-    /**
-     *
-     * @return (temporary) selected tree paths or null
-     */
-    public TreePath[] getTreePaths() {
-        return (treePaths == null)
+    public TreePath[] getSelectedTreePaths() {
+        return (selectedTreePaths == null)
                ? null
-               : Arrays.copyOf(treePaths, treePaths.length);
+               : Arrays.copyOf(selectedTreePaths, selectedTreePaths.length);
+    }
+
+    public boolean isMouseCursorInSelection() {
+        if (treePathAtMouseCursor == null || selectedTreePaths == null) {
+            return false;
+        }
+
+        for (TreePath treePath : selectedTreePaths) {
+            if (treePath.equals(treePathAtMouseCursor)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public boolean isMouseOverTreePath() {
+        return treePathAtMouseCursor != null;
     }
 
     public JTree getTree() {

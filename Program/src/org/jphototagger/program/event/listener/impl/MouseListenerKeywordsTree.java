@@ -38,33 +38,33 @@ public final class MouseListenerKeywordsTree extends MouseListenerTree {
         super.mousePressed(evt);
 
         if (MouseEventUtil.isPopupTrigger(evt)) {
-            TreePath mouseCursorPath = TreeUtil.getTreePath(evt);
-            boolean isHkNode = (mouseCursorPath != null) &&!TreeUtil.isRootItemPosition(evt)
-                               && (mouseCursorPath.getLastPathComponent() instanceof DefaultMutableTreeNode);
+            TreePath treePathAtMouseCursor = TreeUtil.getTreePath(evt);
+            boolean isHkNode = (treePathAtMouseCursor != null) &&!TreeUtil.isRootItemPosition(evt)
+                               && (treePathAtMouseCursor.getLastPathComponent() instanceof DefaultMutableTreeNode);
             JTree tree = (JTree) evt.getSource();
 
             popupMenu.setTree(tree);
-            setTreePathsToPopupMenu(tree, mouseCursorPath);
+            setTreePathsToPopupMenu(tree, treePathAtMouseCursor);
             setMenuItemsEnabled(isHkNode);
-            popupMenu.getItemAdd().setEnabled(mouseCursorPath != null);
+            popupMenu.getItemAdd().setEnabled(treePathAtMouseCursor != null);
             popupMenu.show(tree, evt.getX(), evt.getY());
         }
     }
 
-    private void setTreePathsToPopupMenu(JTree tree, TreePath mouseCursorPath) {
-        popupMenu.setTreePath(mouseCursorPath);
+    private void setTreePathsToPopupMenu(JTree tree, TreePath treePathAtMouseCursor) {
+        popupMenu.setTreePathAtMouseCursor(treePathAtMouseCursor);
 
-        if (mouseCursorPath == null) {
-            popupMenu.setTreePaths(null);
+        if (treePathAtMouseCursor == null) {
+            popupMenu.setSelectedTreePaths(null);
 
             return;
         }
 
-        TreePath[] selPaths = tree.getSelectionPaths();
+        TreePath[] selectionPaths = tree.getSelectionPaths();
 
-        popupMenu.setTreePaths((selPaths == null)
-                               ? new TreePath[] { mouseCursorPath }
-                               : selPaths);
+        popupMenu.setSelectedTreePaths((selectionPaths == null)
+                               ? new TreePath[] {treePathAtMouseCursor}
+                               : selectionPaths);
     }
 
     private void setMenuItemsEnabled(boolean hkNode) {

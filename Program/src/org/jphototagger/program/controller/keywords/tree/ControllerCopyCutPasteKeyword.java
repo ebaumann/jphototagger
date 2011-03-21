@@ -73,8 +73,14 @@ public class ControllerCopyCutPasteKeyword implements ActionListener, KeyListene
     // to implement a separate class
     @Override
     public void actionPerformed(ActionEvent evt) {
+        TreePath treePath = PopupMenuKeywordsTree.INSTANCE.getTreePathAtMouseCursor();
+
+        if (treePath == null) {
+            return;
+        }
+
         Object source = evt.getSource();
-        Object lastPathComponent = PopupMenuKeywordsTree.INSTANCE.getTreePath().getLastPathComponent();
+        Object lastPathComponent = treePath.getLastPathComponent();
         DefaultMutableTreeNode node = (DefaultMutableTreeNode) lastPathComponent;
 
         if (source == getCutItem()) {
