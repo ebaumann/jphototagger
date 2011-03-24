@@ -209,11 +209,11 @@ public final class AppLookAndFeel {
         return treeSelectionForeground;
     }
 
-    public static Color getTreeTextBackground() {
+    public static Color getTreeBackground() {
         return treeTextBackground;
     }
 
-    public static Color getTreeTextForeground() {
+    public static Color getTreeForeground() {
         return treeTextForeground;
     }
 

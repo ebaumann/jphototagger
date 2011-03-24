@@ -17,7 +17,7 @@ public class ListCellRendererExt extends DefaultListCellRenderer {
     private static final Color LIST_SELECTION_FOREGROUND = AppLookAndFeel.getListSelectionForeground();
     private static final Color LIST_SELECTION_BACKGROUND = AppLookAndFeel.getListSelectionBackground();
     private static final long serialVersionUID = 7531004273695822498L;
-    private int tempSelRow = -1;
+    private int tempSelectionRow = -1;
 
     public ListCellRendererExt() {
         setOpaque(true);
@@ -26,8 +26,8 @@ public class ListCellRendererExt extends DefaultListCellRenderer {
     }
 
     protected void setColors(int index, boolean itemAtIndexIsSelected, boolean tempSelRowIsSelected, JLabel label) {
-        boolean isTempSelRow = index == tempSelRow;
-        boolean tempSelExists = tempSelRow >= 0;
+        boolean isTempSelRow = index == tempSelectionRow;
+        boolean tempSelExists = tempSelectionRow >= 0;
         boolean isSelection = isTempSelRow
                                   || (!tempSelExists && itemAtIndexIsSelected)
                                   || (tempSelExists && !isTempSelRow && itemAtIndexIsSelected && tempSelRowIsSelected);
@@ -40,11 +40,11 @@ public class ListCellRendererExt extends DefaultListCellRenderer {
                             : LIST_BACKGROUND);
     }
 
-    public int getTempSelRow() {
-        return tempSelRow;
+    public int getTempSelectionRow() {
+        return tempSelectionRow;
     }
 
     public void setTempSelectionRow(int index) {
-        tempSelRow = index;
+        tempSelectionRow = index;
     }
 }

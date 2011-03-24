@@ -20,7 +20,7 @@ public final class ListCellRendererKeywords extends ListCellRendererExt {
     @Override
     public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
         JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-        int tempSelRow = getTempSelRow();
+        int tempSelRow = getTempSelectionRow();
         boolean tempSelRowIsSelected = tempSelRow < 0 ? false : list.isSelectedIndex(tempSelRow);
 
         setColors(index, isSelected, tempSelRowIsSelected, label);

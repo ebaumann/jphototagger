@@ -5,8 +5,15 @@ Changelog JPhotoTagger http://jphototagger.org/
 
 0.8.72 2011-03-24
 -----------------
-* Rechtsklick auf Stichwörter in Stichwortliste im rechten
-  Programmfenster sowie im Eingabehilfen-Dialog: Hervorhebungen korrigiert
+* Rechtsklick auf Stichwörter im rechten Programmfenster sowie im
+  Eingabehilfen-Dialog:
+  ** Stichwort unter Mauszeiger wird hervorgehoben, sofern es nicht
+     (bereits) hervorgehoben ist, weil ein ausgewähltes Vorschaubild
+     dieses Stichwort hat
+  ** Bisher ausgewählte Stichwörter werden nur hervorgehoben, falls
+     der Mauszeiger über einem ausgewählten Stichwort steht
+  Damit ist klarer, auf welche Stichwörter sich die Befehle des
+  Kontextmenüs beziehen.
 
 0.8.71 2011-03-21
 -----------------
