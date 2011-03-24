@@ -217,10 +217,10 @@ public class KeywordsPanel extends javax.swing.JPanel {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(2, 0, 2, 2);
+        gridBagConstraints.insets = new java.awt.Insets(2, 0, 2, 0);
         panelButtons.add(buttonAsList, gridBagConstraints);
 
         buttonToggleExpandAllNodes.setText(JptBundle.INSTANCE.getString("KeywordsPanel.buttonToggleExpandAllNodes.text")); // NOI18N
@@ -243,8 +243,9 @@ public class KeywordsPanel extends javax.swing.JPanel {
         buttonSearchInTree.setMargin(new java.awt.Insets(1, 1, 1, 1));
         buttonSearchInTree.setName("buttonSearchInTree"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new java.awt.Insets(2, 0, 2, 2);
         panelButtons.add(buttonSearchInTree, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
