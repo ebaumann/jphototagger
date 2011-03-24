@@ -22,20 +22,14 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
 
 /**
- * Renders items and text for
- * {@link org.jphototagger.program.model.TreeModelMiscMetadata} nodes.
  *
  * @author Elmar Baumann
  */
 public final class TreeCellRendererMiscMetadata extends TreeCellRendererExt {
-    private static final ImageIcon ICON_MISC_METADATA =
-        IconUtil.getImageIcon("/org/jphototagger/program/resource/icons/icon_misc_metadata.png");
-    private static final ImageIcon ICON_EXIF =
-        IconUtil.getImageIcon("/org/jphototagger/program/resource/icons/icon_exif.png");
-    private static final ImageIcon ICON_XMP =
-        IconUtil.getImageIcon("/org/jphototagger/program/resource/icons/icon_xmp.png");
-    private static final ImageIcon ICON_DETAIL =
-        IconUtil.getImageIcon("/org/jphototagger/program/resource/icons/icon_misc_metadata_detail.png");
+    private static final ImageIcon ICON_MISC_METADATA = IconUtil.getImageIcon("/org/jphototagger/program/resource/icons/icon_misc_metadata.png");
+    private static final ImageIcon ICON_EXIF = IconUtil.getImageIcon("/org/jphototagger/program/resource/icons/icon_exif.png");
+    private static final ImageIcon ICON_XMP = IconUtil.getImageIcon("/org/jphototagger/program/resource/icons/icon_xmp.png");
+    private static final ImageIcon ICON_DETAIL = IconUtil.getImageIcon("/org/jphototagger/program/resource/icons/icon_misc_metadata_detail.png");
     private static final Map<Column, ImageIcon> ICON_OF_COLUMN = new HashMap<Column, ImageIcon>();
     private static final long serialVersionUID = 4497836207990199053L;
 
@@ -50,20 +44,19 @@ public final class TreeCellRendererMiscMetadata extends TreeCellRendererExt {
     }
 
     @Override
-    public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded,
-            boolean leaf, int row, boolean hasFocus) {
+    public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {
         super.getTreeCellRendererComponent(tree, value, sel, expanded, false, row, hasFocus);
 
         DefaultMutableTreeNode node = (DefaultMutableTreeNode) value;
         DefaultMutableTreeNode parentNode = (DefaultMutableTreeNode) node.getParent();
         Object userObject = node.getUserObject();
-        Object parentUserObject = (parentNode == null)
-                                  ? null
-                                  : parentNode.getUserObject();
+        Object parentUserObject = (parentNode == null) ? null : parentNode.getUserObject();
+        int tempSelRow = getTempSelectionRow();
+        boolean tempSelRowIsSelected = tempSelRow < 0 ? false : tree.isRowSelected(tempSelRow);
 
         setIcon(userObject, parentUserObject, parentNode, (TreeNode) tree.getModel().getRoot(), leaf);
         setText(userObject, parentUserObject);
-        setColors(row, selected);
+        setColors(row, selected, tempSelRowIsSelected);
 
         return this;
     }
@@ -142,8 +135,9 @@ public final class TreeCellRendererMiscMetadata extends TreeCellRendererExt {
         return "";
     }
 
+    // TreeItemTempSelectionRowSetter calls this reflective not if only in super class defined
     @Override
     public void setTempSelectionRow(int index) {
-        tempSelRow = index;
+        super.setTempSelectionRow(index);
     }
 }

@@ -22,7 +22,7 @@ public final class ListCellRendererMetadataTemplates extends ListCellRendererExt
     public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
         JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
         String name = ((MetadataTemplate) value).getName();
-        boolean tempSelRowIsSelected = getTempSelRow() < 0 ? false : list.isSelectedIndex(getTempSelRow());
+        boolean tempSelRowIsSelected = getTempSelectionRow() < 0 ? false : list.isSelectedIndex(getTempSelectionRow());
 
         label.setText(name);
         label.setIcon(ICON);

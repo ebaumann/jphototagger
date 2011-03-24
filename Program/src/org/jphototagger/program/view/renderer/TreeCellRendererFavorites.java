@@ -71,10 +71,10 @@ public final class TreeCellRendererFavorites extends DefaultTreeCellRenderer {
 
         setForeground((isTempSelRow || (selected &&!tempSelExists))
                       ? AppLookAndFeel.getTreeSelectionForeground()
-                      : AppLookAndFeel.getTreeTextForeground());
+                      : AppLookAndFeel.getTreeForeground());
         setBackground((isTempSelRow || (selected &&!tempSelExists))
                       ? AppLookAndFeel.getTreeSelectionBackground()
-                      : AppLookAndFeel.getTreeTextBackground());
+                      : AppLookAndFeel.getTreeBackground());
     }
 
     private String getDirectoryName(File file) {

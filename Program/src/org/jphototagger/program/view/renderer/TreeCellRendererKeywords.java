@@ -1,8 +1,8 @@
 package org.jphototagger.program.view.renderer;
 
+import java.awt.Color;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.data.Keyword;
-import org.jphototagger.program.view.panels.KeywordsPanel;
 
 import java.awt.Component;
 
@@ -16,8 +16,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
 /**
- * Renders items and text for nodes in the tree of the
- * {@link KeywordsPanel}.
  *
  * @author Elmar Baumann
  */
@@ -25,6 +23,10 @@ public final class TreeCellRendererKeywords extends DefaultTreeCellRenderer {
     private static final Icon ICON_REAL = AppLookAndFeel.getIcon("icon_keyword.png");
     private static final Icon ICON_IMG_HAS_KEYWORD = AppLookAndFeel.getIcon("icon_keyword_hk_highlighted.png");
     private static final Icon ICON_HELPER = AppLookAndFeel.getIcon("icon_folder.png");
+    private static final Color TREE_FOREGROUND = AppLookAndFeel.getTreeForeground();
+    private static final Color TREE_BACKGROUND = AppLookAndFeel.getTreeBackground();
+    private static final Color TREE_SELECTION_FOREGROUND = AppLookAndFeel.getTreeSelectionForeground();
+    private static final Color TREE_SELECTION_BACKGROUND = AppLookAndFeel.getTreeSelectionBackground();
     private static final long serialVersionUID = -1948927991470364757L;
     private int tempSelectionRow = -1;
     private final List<String> highLightKeywords = new ArrayList<String>();
@@ -34,15 +36,14 @@ public final class TreeCellRendererKeywords extends DefaultTreeCellRenderer {
     }
 
     @Override
-    public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded,
-            boolean leaf, int row, boolean hasFocus) {
+    public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {
         super.getTreeCellRendererComponent(tree, value, sel, expanded, false, row, hasFocus);
-        render(((DefaultMutableTreeNode) value).getUserObject(), row);
+        render(((DefaultMutableTreeNode) value).getUserObject(), tree, row, sel);
 
         return this;
     }
 
-    private void render(Object userObject, int row) {
+    private void render(Object userObject, JTree tree, int row, boolean itemAtIndexIsSelected) {
         boolean selImgHasKeyword = false;
         boolean real = false;
         boolean helper = false;    // to know whether to render root item
@@ -56,8 +57,12 @@ public final class TreeCellRendererKeywords extends DefaultTreeCellRenderer {
             setText(keyword.getName());
         }
 
+        boolean tempSelRowIsSelected = tempSelectionRow < 0 ? false : tree.isRowSelected(tempSelectionRow);
         boolean tempSelExists = tempSelectionRow >= 0;
         boolean isTempSelRow = row == tempSelectionRow;
+        boolean isSelection = isTempSelRow
+                                  || (!tempSelExists && itemAtIndexIsSelected)
+                                  || (tempSelExists && !isTempSelRow && itemAtIndexIsSelected && tempSelRowIsSelected);
 
         setIcon(selImgHasKeyword
                 ? ICON_IMG_HAS_KEYWORD
@@ -66,16 +71,16 @@ public final class TreeCellRendererKeywords extends DefaultTreeCellRenderer {
                   : helper
                     ? ICON_HELPER
                     : ICON_REAL);    // Last: Root item
-        setForeground((isTempSelRow || (selected &&!tempSelExists))
-                      ? AppLookAndFeel.getTreeSelectionForeground()
+        setForeground(isSelection
+                      ? TREE_SELECTION_FOREGROUND
                       : selImgHasKeyword
                         ? AppLookAndFeel.TREE_SEL_IMG_HAS_KEYWORD_FOREGROUND
-                        : AppLookAndFeel.getTreeTextForeground());
-        setBackground((isTempSelRow || (selected &&!tempSelExists))
-                      ? AppLookAndFeel.getTreeSelectionBackground()
+                        : TREE_FOREGROUND);
+        setBackground(isSelection
+                      ? TREE_SELECTION_BACKGROUND
                       : selImgHasKeyword
                         ? AppLookAndFeel.TREE_SEL_IMG_HAS_KEYWORD_BACKGROUND
-                        : AppLookAndFeel.getTreeTextBackground());
+                        : TREE_BACKGROUND);
     }
 
     private boolean isKeyword(Object value) {
