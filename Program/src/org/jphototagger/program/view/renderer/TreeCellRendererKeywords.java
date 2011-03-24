@@ -21,7 +21,6 @@ import javax.swing.tree.DefaultTreeCellRenderer;
  */
 public final class TreeCellRendererKeywords extends DefaultTreeCellRenderer {
     private static final Icon ICON_REAL = AppLookAndFeel.getIcon("icon_keyword.png");
-    private static final Icon ICON_IMG_HAS_KEYWORD = AppLookAndFeel.getIcon("icon_keyword_hk_highlighted.png");
     private static final Icon ICON_HELPER = AppLookAndFeel.getIcon("icon_folder.png");
     private static final Color TREE_FOREGROUND = AppLookAndFeel.getTreeForeground();
     private static final Color TREE_BACKGROUND = AppLookAndFeel.getTreeBackground();
@@ -64,9 +63,7 @@ public final class TreeCellRendererKeywords extends DefaultTreeCellRenderer {
                                   || (!tempSelExists && itemAtIndexIsSelected)
                                   || (tempSelExists && !isTempSelRow && itemAtIndexIsSelected && tempSelRowIsSelected);
 
-        setIcon(selImgHasKeyword
-                ? ICON_IMG_HAS_KEYWORD
-                : real
+        setIcon(real
                   ? ICON_REAL
                   : helper
                     ? ICON_HELPER
