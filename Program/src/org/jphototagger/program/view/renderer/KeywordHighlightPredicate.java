@@ -1,6 +1,5 @@
 package org.jphototagger.program.view.renderer;
 
-import java.awt.Color;
 import java.io.File;
 import org.jdesktop.swingx.decorator.ComponentAdapter;
 import org.jdesktop.swingx.decorator.HighlightPredicate;
@@ -40,8 +39,8 @@ public final class KeywordHighlightPredicate implements HighlightPredicate, Thum
 
     private static Highlighter createHighlighter() {
         ColorHighlighter highlighter = new ColorHighlighter(new KeywordHighlightPredicate(),
-                                                            AppLookAndFeel.TREE_SEL_IMG_HAS_KEYWORD_BACKGROUND,
-                                                            AppLookAndFeel.TREE_SEL_IMG_HAS_KEYWORD_FOREGROUND);
+                                                            AppLookAndFeel.LIST_SEL_IMG_HAS_KEYWORD_BACKGROUND,
+                                                            AppLookAndFeel.LIST_SEL_IMG_HAS_KEYWORD_FOREGROUND);
 
         return highlighter;
     }
