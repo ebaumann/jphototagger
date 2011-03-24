@@ -64,18 +64,12 @@ public final class MouseListenerFactory {
         appPanel.getTreeEditKeywords().addMouseListener(listenerKeywordsTree);
         InputHelperDialog.INSTANCE.getPanelKeywords().getTree().addMouseListener(listenerKeywordsTree);
         InputHelperDialog.INSTANCE.getPanelKeywords().getList().addMouseListener(new MouseListenerKeywordsList());
-        InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getList().addMouseListener(
-            new MouseListenerMetadataTemplates());
-        support.add(new TreeItemTempSelectionRowSetter(appPanel.getTreeMiscMetadata(),
-                listenerTreeExpand.getPopupMenu()));
+        InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getList().addMouseListener(new MouseListenerMetadataTemplates());
+        support.add(new TreeItemTempSelectionRowSetter(appPanel.getTreeMiscMetadata(), listenerTreeExpand.getPopupMenu()));
         support.add(new TreeItemTempSelectionRowSetter(appPanel.getTreeTimeline(), listenerTreeExpand.getPopupMenu()));
-        support.add(new TreeItemTempSelectionRowSetter(appPanel.getTreeSelKeywords(),
-                listenerTreeExpand.getPopupMenu()));
+        support.add(new TreeItemTempSelectionRowSetter(appPanel.getTreeSelKeywords(), listenerTreeExpand.getPopupMenu()));
         support.add(new ListItemTempSelectionRowSetter(appPanel.getListEditKeywords(), PopupMenuKeywordsList.INSTANCE));
-        support.add(new ListItemTempSelectionRowSetter(InputHelperDialog.INSTANCE.getPanelKeywords().getList(),
-                PopupMenuKeywordsList.INSTANCE));
-        support.add(
-            new ListItemTempSelectionRowSetter(
-                InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getList(), PopupMenuMetadataTemplates.INSTANCE));
+        support.add(new ListItemTempSelectionRowSetter(InputHelperDialog.INSTANCE.getPanelKeywords().getList(), PopupMenuKeywordsList.INSTANCE));
+        support.add(new ListItemTempSelectionRowSetter(InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getList(), PopupMenuMetadataTemplates.INSTANCE));
     }
 }

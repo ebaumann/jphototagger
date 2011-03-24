@@ -19,20 +19,21 @@ public final class ListCellRendererMetadataTemplates extends ListCellRendererExt
     private static final long serialVersionUID = 8409972246407893544L;
 
     @Override
-    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
-            boolean cellHasFocus) {
+    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
         JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
         String name = ((MetadataTemplate) value).getName();
+        boolean tempSelRowIsSelected = getTempSelRow() < 0 ? false : list.isSelectedIndex(getTempSelRow());
 
         label.setText(name);
         label.setIcon(ICON);
-        setColors(index, isSelected, label);
+        setColors(index, isSelected, tempSelRowIsSelected, label);
 
         return label;
     }
 
+    // ListItemTempSelectionRowSetter calls this reflective not if only in super class defined
     @Override
     public void setTempSelectionRow(int index) {
-        tempSelRow = index;
+        super.setTempSelectionRow(index);
     }
 }
