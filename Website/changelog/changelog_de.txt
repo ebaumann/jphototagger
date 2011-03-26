@@ -5,7 +5,11 @@ Changelog JPhotoTagger http://jphototagger.org/
 
 0.8.73 2011-03-26
 -----------------
-*
+* Datei > Ordner auswählen: Auswahl kann abgebrochen werden. Dies
+  könnte erforderlich sein, falls der ausgewählte Ordner tausende
+  von Unterordnern enthält (rekursiv)
+* Werkzeuge > IPTC-Daten importieren: Auswahl kann abgebrochen
+  werden, Gründe siehe oben
 
 0.8.72 2011-03-24
 -----------------
