@@ -24,6 +24,7 @@ import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,7 +39,10 @@ import javax.swing.JFileChooser;
  * @author Elmar Baumann
  */
 public final class FileUtil {
-    private FileUtil() {}
+
+    public interface CancelRequest {
+        boolean isCancel();
+    }
 
     /**
      * Returns the content of a file as string.
@@ -397,11 +401,12 @@ public final class FileUtil {
     /**
      * Returns recursive all subdirectories of a parent directory.
      *
-     * @param  directory parent directory
-     * @param  options   options
-     * @return           subdirectories or empty list
+     * @param  directory     parent directory
+     * @param  cancelRequest cancel request or null
+     * @param  options       options
+     * @return               subdirectories or empty list
      */
-    public static List<File> getSubDirsRecursive(File directory, DirectoryFilter.Option... options) {
+    public static List<File> getSubDirsRecursive(File directory, CancelRequest cancelRequest, DirectoryFilter.Option... options) {
         if (directory == null) {
             throw new NullPointerException("directory == null");
         }
@@ -411,15 +416,26 @@ public final class FileUtil {
         }
 
         List<File> allSubDirs = new ArrayList<File>();
+        boolean isCancel = cancelRequest != null && cancelRequest.isCancel();
+
+        if (isCancel) {
+            return allSubDirs;
+        }
 
         if (directory.isDirectory()) {
             File[] subDirs = directory.listFiles(new DirectoryFilter(options));
 
             if (subDirs != null) {
                 for (File dir : subDirs) {
+                    isCancel = cancelRequest != null && cancelRequest.isCancel();
+
+                    if (isCancel) {
+                        return Collections.emptyList();
+                    }
+
                     allSubDirs.add(dir);
 
-                    List<File> subSubDirs = getSubDirsRecursive(dir, options);
+                    List<File> subSubDirs = getSubDirsRecursive(dir, cancelRequest, options);
 
                     allSubDirs.addAll(subSubDirs);
                 }
@@ -429,7 +445,7 @@ public final class FileUtil {
         return allSubDirs;
     }
 
-    public static List<File> getSubDirsRecursive(String pathname, DirectoryFilter.Option... options) {
+    public static List<File> getSubDirsRecursive(String pathname, CancelRequest cancelRequest, DirectoryFilter.Option... options) {
         if (pathname == null) {
             throw new NullPointerException("pathname == null");
         }
@@ -438,7 +454,7 @@ public final class FileUtil {
             throw new NullPointerException("options == null");
         }
 
-        return getSubDirsRecursive(new File(pathname), options);
+        return getSubDirsRecursive(new File(pathname), cancelRequest, options);
     }
 
     /**
@@ -1380,4 +1396,6 @@ public final class FileUtil {
 
         fileToTouch.setLastModified(reference);
     }
+
+    private FileUtil() {}
 }
