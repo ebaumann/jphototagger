@@ -17,7 +17,7 @@ import org.jphototagger.program.event.listener.TextEntryListener;
 import org.jphototagger.program.helper.AutocompleteHelper;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Suggest;
-import org.jphototagger.program.view.renderer.ListCellRendererKeywordsEdit;
+import org.jphototagger.program.view.renderer.ListCellRendererKeywordsEditPanel;
 import org.jphototagger.lib.componentutil.Autocomplete;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.ListUtil;
@@ -792,7 +792,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
 
         list.setModel(model);
         list.setToolTipText(JptBundle.INSTANCE.getString("EditRepeatableTextEntryPanel.list.toolTipText")); // NOI18N
-        list.setCellRenderer(new ListCellRendererKeywordsEdit());
+        list.setCellRenderer(new ListCellRendererKeywordsEditPanel());
         list.setComponentPopupMenu(popupMenuList);
         list.setDragEnabled(true);
         list.setDropMode(javax.swing.DropMode.INSERT);

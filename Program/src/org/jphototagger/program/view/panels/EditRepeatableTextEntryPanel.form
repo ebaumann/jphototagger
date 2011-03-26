@@ -104,7 +104,7 @@
               <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="EditRepeatableTextEntryPanel.list.toolTipText" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="cellRenderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new ListCellRendererKeywordsEdit()" type="code"/>
+              <Connection code="new org.jphototagger.program.view.renderer.ListCellRendererKeywordsEditPanel()" type="code"/>
             </Property>
             <Property name="componentPopupMenu" type="javax.swing.JPopupMenu" editor="org.netbeans.modules.form.ComponentChooserEditor">
               <ComponentRef name="popupMenuList"/>

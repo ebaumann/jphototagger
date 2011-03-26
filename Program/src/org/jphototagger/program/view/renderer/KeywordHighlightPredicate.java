@@ -1,5 +1,6 @@
 package org.jphototagger.program.view.renderer;
 
+import java.awt.Color;
 import java.io.File;
 import org.jdesktop.swingx.decorator.ComponentAdapter;
 import org.jdesktop.swingx.decorator.HighlightPredicate;
@@ -38,9 +39,11 @@ public final class KeywordHighlightPredicate implements HighlightPredicate, Thum
     }
 
     private static Highlighter createHighlighter() {
-        ColorHighlighter highlighter = new ColorHighlighter(new KeywordHighlightPredicate(),
-                                                            AppLookAndFeel.LIST_SEL_IMG_HAS_KEYWORD_BACKGROUND,
-                                                            AppLookAndFeel.LIST_SEL_IMG_HAS_KEYWORD_FOREGROUND);
+        Color background = AppLookAndFeel.LIST_SEL_IMG_HAS_KEYWORD_BACKGROUND;
+        Color foreground = AppLookAndFeel.LIST_SEL_IMG_HAS_KEYWORD_FOREGROUND;
+        KeywordHighlightPredicate predicate = new KeywordHighlightPredicate();
+
+        ColorHighlighter highlighter = new ColorHighlighter(predicate, background, foreground);
 
         return highlighter;
     }
@@ -51,11 +54,27 @@ public final class KeywordHighlightPredicate implements HighlightPredicate, Thum
 
     @Override
     public boolean isHighlighted(Component renderer, ComponentAdapter adapter) {
+        boolean isTemporarySelection = isTemporarySelection(renderer, adapter.row);
+
+        if (isTemporarySelection) {
+            return false;
+        }
+
         Object value = adapter.getValue();
 
         return (value == null)
                ? false
                : keywordsOfSelectedImage.contains(value.toString());
+    }
+
+    private boolean isTemporarySelection(Component renderer, int row) {
+        if (renderer instanceof ListCellRendererKeywords) {
+            int tempSelectionRow = ((ListCellRendererKeywords) renderer).getTempSelectionRow();
+
+            return tempSelectionRow == row;
+        }
+
+        return false;
     }
 
     @Override
