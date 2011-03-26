@@ -14,7 +14,7 @@ import javax.swing.JList;
  *
  * @author Elmar Baumann
  */
-public final class ListCellRendererKeywordsEdit extends DefaultListCellRenderer {
+public final class ListCellRendererKeywordsEditPanel extends DefaultListCellRenderer {
     private static final Icon ICON = AppLookAndFeel.getIcon("icon_keyword_list.png");
     private static final long serialVersionUID = -3496459487033704492L;
 
