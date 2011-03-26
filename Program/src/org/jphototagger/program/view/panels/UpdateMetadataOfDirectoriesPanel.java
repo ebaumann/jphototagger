@@ -49,6 +49,8 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
     private File lastDirectory = new File("");
     private static final transient Logger LOGGER = Logger.getLogger(UpdateMetadataOfDirectoriesPanel.class.getName());
     private transient InsertImageFilesIntoDatabase imageFileInserter;
+    private transient volatile boolean cancelChooseDirectories;
+    private transient CancelChooseRequest cancelChooseRequest = new CancelChooseRequest();
 
     public UpdateMetadataOfDirectoriesPanel() {
         initComponents();
@@ -286,6 +288,9 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
             lastDirectory = selectedDirs.get(0);
             progressBar.setIndeterminate(true);
             progressBar.setString(JptBundle.INSTANCE.getString("UpdateMetadataOfDirectoriesPanel.Info.ScanningDirs"));
+            cancelChooseDirectories = false;
+            cancelChooseRequest.cancel = false;
+            buttonCancelChooseDirectories.setEnabled(true);
             new AddNotContainedDirectories(selectedDirs).start();
         } else {
             buttonChooseDirectories.setEnabled(true);
@@ -319,6 +324,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
                         labelFilecount.setText(Integer.toString(getFileCount()));
                         buttonStart.setEnabled(!listModelDirectories.isEmpty());
                         buttonChooseDirectories.setEnabled(true);
+                        buttonCancelChooseDirectories.setEnabled(false);
                         progressBar.setIndeterminate(false);
                         progressBar.setString(null);
                     }
@@ -331,6 +337,10 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
 
         LOGGER.log(Level.INFO, "Searching directories not previously added from {0}", directories);
         for (File directory : directories) {
+            if (cancelChooseDirectories) {
+                return newDirectories;
+            }
+
             if (!listModelDirectories.contains(directory)) {
                 LOGGER.log(Level.INFO, "Found not previously added directory {0}", directory);
                 newDirectories.add(directory);
@@ -345,6 +355,10 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
         Collections.sort(directories, FileSort.PATHS_ASCENDING.getComparator());
 
         for (File directory : directories) {
+            if (cancelChooseDirectories) {
+                return;
+            }
+
             LOGGER.log(Level.INFO, "Searching image files in directory {0}", directory);
             ImageFileDirectory imageFileDir = new ImageFileDirectory(directory);
 
@@ -359,12 +373,27 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
         Option showHiddenFiles = UserSettings.INSTANCE.getDirFilterOptionShowHiddenFiles();
 
         for (File dir : directories) {
+            if (cancelChooseDirectories) {
+                return;
+            }
+
             LOGGER.log(Level.INFO, "Searching recursively subdirectories of {0}", dir);
-            subdirectories.addAll(FileUtil.getSubDirsRecursive(dir, showHiddenFiles));
+            subdirectories.addAll(FileUtil.getSubDirsRecursive(dir, cancelChooseRequest, showHiddenFiles));
         }
 
         LOGGER.log(Level.INFO, "Adding from {0} not previously added directories to {1}", new Object[]{subdirectories, directories});
         CollectionUtil.addNotContainedElements(subdirectories, directories);
+    }
+
+    private static class CancelChooseRequest implements FileUtil.CancelRequest {
+
+        private boolean cancel;
+
+        @Override
+        public boolean isCancel() {
+            return cancel;
+        }
+
     }
 
     /**
@@ -393,6 +422,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
         buttonChooseDirectories = new javax.swing.JButton();
         buttonCancel = new javax.swing.JButton();
         buttonStart = new javax.swing.JButton();
+        buttonCancelChooseDirectories = new javax.swing.JButton();
 
         popupMenu.setName("popupMenu"); // NOI18N
         popupMenu.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
@@ -487,36 +517,47 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
             }
         });
 
+        buttonCancelChooseDirectories.setText(JptBundle.INSTANCE.getString("UpdateMetadataOfDirectoriesPanel.buttonCancelChooseDirectories.text")); // NOI18N
+        buttonCancelChooseDirectories.setEnabled(false);
+        buttonCancelChooseDirectories.setName("buttonCancelChooseDirectories"); // NOI18N
+        buttonCancelChooseDirectories.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCancelChooseDirectoriesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE)
+                    .addComponent(scrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 688, Short.MAX_VALUE)
                     .addComponent(checkBoxIncludeSubdirectories)
                     .addComponent(checkBoxForce)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labelInfoFilecount)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(labelFilecount, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(buttonChooseDirectories)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonCancel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonStart))
+                    .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 688, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labelInfoCurrentFilename)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelCurrentFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE))
-                    .addComponent(labelHeadingListDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE))
+                        .addComponent(labelCurrentFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE))
+                    .addComponent(labelHeadingListDirectories, javax.swing.GroupLayout.DEFAULT_SIZE, 688, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(buttonChooseDirectories)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonCancelChooseDirectories)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonStart)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonCancel)))
                 .addContainerGap())
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonCancel, buttonChooseDirectories, buttonStart});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonCancel, buttonCancelChooseDirectories, buttonChooseDirectories, buttonStart});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -524,7 +565,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
                 .addContainerGap()
                 .addComponent(labelHeadingListDirectories, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
+                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelFilecount, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -541,8 +582,9 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
                 .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonStart)
                     .addComponent(buttonCancel)
+                    .addComponent(buttonStart)
+                    .addComponent(buttonCancelChooseDirectories)
                     .addComponent(buttonChooseDirectories))
                 .addContainerGap())
         );
@@ -572,8 +614,14 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
         setEnabledMenuItems();
     }//GEN-LAST:event_popupMenuPopupMenuWillBecomeVisible
 
+    private void buttonCancelChooseDirectoriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelChooseDirectoriesActionPerformed
+        cancelChooseDirectories = true;
+        cancelChooseRequest.cancel = true;
+    }//GEN-LAST:event_buttonCancelChooseDirectoriesActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCancel;
+    private javax.swing.JButton buttonCancelChooseDirectories;
     private javax.swing.JButton buttonChooseDirectories;
     private javax.swing.JButton buttonStart;
     private javax.swing.JCheckBox checkBoxForce;
