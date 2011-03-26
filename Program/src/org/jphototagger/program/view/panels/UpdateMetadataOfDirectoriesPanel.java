@@ -50,7 +50,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
     private static final transient Logger LOGGER = Logger.getLogger(UpdateMetadataOfDirectoriesPanel.class.getName());
     private transient InsertImageFilesIntoDatabase imageFileInserter;
     private transient volatile boolean cancelChooseDirectories;
-    private transient CancelChooseRequest cancelChooseRequest = new CancelChooseRequest();
+    private final transient CancelChooseRequest cancelChooseRequest = new CancelChooseRequest();
 
     public UpdateMetadataOfDirectoriesPanel() {
         initComponents();
@@ -393,7 +393,6 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
         public boolean isCancel() {
             return cancel;
         }
-
     }
 
     /**

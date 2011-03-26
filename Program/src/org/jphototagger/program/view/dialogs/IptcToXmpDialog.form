@@ -30,25 +30,37 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="progressBar" alignment="0" pref="661" max="32767" attributes="0"/>
-                  <Component id="checkBoxIncludeSubdirectories" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="labelDirectoryName" alignment="0" pref="661" max="32767" attributes="1"/>
-                  <Component id="labelInfo" alignment="0" pref="661" max="32767" attributes="1"/>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="labelDirectoryPrompt" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="484" max="32767" attributes="0"/>
-                      <Component id="buttonChooseDirectory" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="labelInfo" alignment="0" pref="696" max="32767" attributes="1"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="labelDirectoryPrompt" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="514" max="32767" attributes="0"/>
+                              <Component id="buttonChooseDirectory" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="labelDirectoryName" alignment="1" pref="696" max="32767" attributes="1"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="checkBoxIncludeSubdirectories" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="558" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="buttonCancel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="buttonStart" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="buttonCancel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="buttonStart" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="progressBar" alignment="1" pref="692" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -58,13 +70,13 @@
               <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
               <Component id="labelInfo" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="buttonChooseDirectory" min="-2" max="-2" attributes="0"/>
-                  <Component id="labelDirectoryPrompt" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="labelDirectoryPrompt" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="buttonChooseDirectory" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="labelDirectoryName" min="-2" pref="18" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="checkBoxIncludeSubdirectories" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="progressBar" min="-2" pref="20" max="-2" attributes="0"/>

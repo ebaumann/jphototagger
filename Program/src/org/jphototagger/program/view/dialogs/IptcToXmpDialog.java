@@ -34,6 +34,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
     private static final String KEY_DIRECTORY_NAME = "org.jphototagger.program.view.dialogs.IptcToXmpDialog.LastDirectory";
     private static final String KEY_INCLUDE_SUBDIRS = "org.jphototagger.program.view.dialogs.IptcToXmpDialog.IncludeSubdirectories";
     private static final long serialVersionUID = 873528245237986989L;
+    private final transient CancelChooseRequest cancelChooseRequest = new CancelChooseRequest();
     private File directory = new File("");
     private boolean cancel = true;
     private List<File> files;
@@ -143,26 +144,40 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
             labelDirectoryName.setText(directory.getAbsolutePath());
             setIconToDirectoryLabel();
         }
-
-        buttonCancel.setEnabled(false);
     }
 
     private void start() {
-        cancel = false;
-        setEnabledButtons();
+        new ConvertThread(this).start();
+    }
 
-        ConvertIptcToXmp converter = new ConvertIptcToXmp(getFiles());
+    private class ConvertThread extends Thread {
 
-        converter.addProgressListener(this);
+        private final ProgressListener progressListener;
 
-        Thread thread = new Thread(converter, "JPhotoTagger: Writing IPTC to XMP sidecar files");
+        ConvertThread(ProgressListener progressListener) {
+            super("JPhotoTagger: Writing IPTC to XMP sidecar files");
+            this.progressListener = progressListener;
+        }
 
-        thread.start();
-        buttonCancel.setEnabled(true);
+        @Override
+        public void run() {
+            cancel = false;
+            setEnabledButtons();
+
+            ConvertIptcToXmp convertIptcToXmp = new ConvertIptcToXmp(getFiles());
+
+            convertIptcToXmp.addProgressListener(progressListener);
+
+            Thread thread = new Thread(convertIptcToXmp, "JPhotoTagger: Writing IPTC to XMP sidecar files");
+
+            thread.start();
+        }
+
     }
 
     private void cancel() {
         cancel = true;
+        cancelChooseRequest.cancel = true;
         setVisible(false);
     }
 
@@ -174,7 +189,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
 
             if (checkBoxIncludeSubdirectories.isSelected()) {
                 Option showHiddenFiles = UserSettings.INSTANCE.getDirFilterOptionShowHiddenFiles();
-                directories.addAll(FileUtil.getSubDirsRecursive(directory, null, showHiddenFiles));
+                directories.addAll(FileUtil.getSubDirsRecursive(directory, cancelChooseRequest, showHiddenFiles));
             }
 
             return ImageFileFilterer.getImageFilesOfDirectories(directories);
@@ -184,8 +199,9 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
     }
 
     private void setEnabledButtons() {
-        buttonCancel.setEnabled(!cancel);
         buttonStart.setEnabled(cancel);
+        buttonCancel.setEnabled(!cancel);
+        cancelChooseRequest.cancel = cancel;
         buttonChooseDirectory.setEnabled(cancel);
     }
 
@@ -238,6 +254,16 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
     @Override
     protected void escape() {
         checkClose();
+    }
+
+    private static class CancelChooseRequest implements FileUtil.CancelRequest {
+
+        private boolean cancel;
+
+        @Override
+        public boolean isCancel() {
+            return cancel;
+        }
     }
 
     /**
@@ -313,22 +339,29 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(progressBar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 661, Short.MAX_VALUE)
-                    .addComponent(checkBoxIncludeSubdirectories, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelDirectoryName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 661, Short.MAX_VALUE)
-                    .addComponent(labelInfo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 661, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(labelDirectoryPrompt)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 484, Short.MAX_VALUE)
-                        .addComponent(buttonChooseDirectory))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(labelDirectoryPrompt)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 514, Short.MAX_VALUE)
+                                .addComponent(buttonChooseDirectory))
+                            .addComponent(labelDirectoryName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE))
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(buttonCancel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonStart)))
-                .addContainerGap())
+                        .addComponent(checkBoxIncludeSubdirectories)
+                        .addContainerGap(558, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(buttonCancel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buttonStart))
+                            .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 692, Short.MAX_VALUE))
+                        .addGap(16, 16, 16))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -336,12 +369,12 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
                 .addGap(11, 11, 11)
                 .addComponent(labelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(buttonChooseDirectory)
-                    .addComponent(labelDirectoryPrompt))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelDirectoryPrompt)
+                    .addComponent(buttonChooseDirectory))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelDirectoryName, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(checkBoxIncludeSubdirectories)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
