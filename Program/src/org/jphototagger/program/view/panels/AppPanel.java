@@ -56,6 +56,7 @@ import org.jphototagger.program.helper.ListTextFilter;
 import org.jphototagger.program.helper.TableTextFilter;
 import org.jphototagger.program.model.ListModelWait;
 import org.jphototagger.program.model.TreeModelWait;
+import org.jphototagger.program.view.dialogs.SettingsThumbnailDimensionsDialog;
 import org.jphototagger.program.view.renderer.ListCellRendererFileFilters;
 import org.jphototagger.program.view.renderer.TableCellRendererExif;
 import org.jphototagger.program.view.renderer.TableCellRendererIptc;
@@ -823,6 +824,7 @@ public final class AppPanel extends javax.swing.JPanel {
         labelThumbnailInfo = new javax.swing.JLabel();
         labelStatusbarText = new javax.swing.JLabel();
         sliderThumbnailSize = new javax.swing.JSlider();
+        buttonSetThumbnailDimensions = new javax.swing.JButton();
         labelError = new javax.swing.JLabel();
         buttonCancelProgress = new javax.swing.JButton();
         progressBar = new javax.swing.JProgressBar();
@@ -2155,6 +2157,18 @@ public final class AppPanel extends javax.swing.JPanel {
         sliderThumbnailSize.setToolTipText(JptBundle.INSTANCE.getString("AppPanel.sliderThumbnailSize.toolTipText")); // NOI18N
         sliderThumbnailSize.setName("sliderThumbnailSize"); // NOI18N
 
+        buttonSetThumbnailDimensions.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_thumbnail_size.png"))); // NOI18N
+        buttonSetThumbnailDimensions.setToolTipText(JptBundle.INSTANCE.getString("AppPanel.buttonSetThumbnailDimensions.toolTipText")); // NOI18N
+        buttonSetThumbnailDimensions.setBorder(null);
+        buttonSetThumbnailDimensions.setContentAreaFilled(false);
+        buttonSetThumbnailDimensions.setName("buttonSetThumbnailDimensions"); // NOI18N
+        buttonSetThumbnailDimensions.setPreferredSize(new java.awt.Dimension(16, 16));
+        buttonSetThumbnailDimensions.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSetThumbnailDimensionsActionPerformed(evt);
+            }
+        });
+
         labelError.setName("labelError"); // NOI18N
         labelError.setOpaque(true);
         labelError.setPreferredSize(new java.awt.Dimension(16, 16));
@@ -2172,12 +2186,14 @@ public final class AppPanel extends javax.swing.JPanel {
         panelStatusbarLayout.setHorizontalGroup(
             panelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelStatusbarLayout.createSequentialGroup()
-                .addComponent(labelThumbnailInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                .addComponent(labelThumbnailInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(labelStatusbarText, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
+                .addComponent(labelStatusbarText, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(sliderThumbnailSize, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonSetThumbnailDimensions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelError, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonCancelProgress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2192,7 +2208,8 @@ public final class AppPanel extends javax.swing.JPanel {
                 .addComponent(labelStatusbarText)
                 .addComponent(labelError, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(sliderThumbnailSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(buttonCancelProgress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(buttonCancelProgress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(buttonSetThumbnailDimensions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         panelStatusbarLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelStatusbarText, labelThumbnailInfo});
@@ -2213,6 +2230,10 @@ public final class AppPanel extends javax.swing.JPanel {
         displaySelKeywordsCard("keywordsTree");
     }//GEN-LAST:event_buttonDisplaySelKeywordsTreeActionPerformed
 
+    private void buttonSetThumbnailDimensionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSetThumbnailDimensionsActionPerformed
+        new SettingsThumbnailDimensionsDialog().setVisible(true);
+    }//GEN-LAST:event_buttonSetThumbnailDimensionsActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCancelProgress;
     private javax.swing.JButton buttonDisplaySelKeywordsList;
@@ -2229,6 +2250,7 @@ public final class AppPanel extends javax.swing.JPanel {
     private javax.swing.JButton buttonSearchInTreeMiscMetadata;
     private javax.swing.JButton buttonSearchInTreeSelKeywords;
     private javax.swing.JButton buttonSearchInTreeTimeline;
+    private javax.swing.JButton buttonSetThumbnailDimensions;
     private javax.swing.JComboBox comboBoxFastSearch;
     private javax.swing.JComboBox comboBoxFileFilters;
     private javax.swing.JLabel labeTTableIptcFilter;
