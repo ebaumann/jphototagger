@@ -38,6 +38,8 @@ public class SettingsThumbnailDimensionsDialog extends Dialog {
     }
 
     private void displayFurtherSettings() {
+        setVisible(false);
+
         SettingsDialog dlg = SettingsDialog.INSTANCE;
 
         dlg.selectTab(SettingsDialog.Tab.THUMBNAILS);
