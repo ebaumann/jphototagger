@@ -6,6 +6,8 @@ package org.jphototagger.program.view.dialogs;
 
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 
 /**
@@ -17,7 +19,7 @@ public class SettingsThumbnailDimensionsDialog extends Dialog {
     private static final long serialVersionUID = -6371918482095310098L;
 
     public SettingsThumbnailDimensionsDialog() {
-        super((java.awt.Frame) null, true);
+        super(GUI.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         postInitComponents();
     }
