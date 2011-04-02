@@ -24,6 +24,7 @@ import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.image.thumbnail.creator.ExternalThumbnailCreator;
 import org.jphototagger.program.image.thumbnail.creator.ExternalThumbnailCreators;
+import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 
 /**
@@ -38,7 +39,7 @@ public class ExternalThumbnailCreatorChooserDialog extends Dialog {
     private boolean accepted;
 
     public ExternalThumbnailCreatorChooserDialog() {
-        super((java.awt.Frame) null, true);
+        super(GUI.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         postInitComponents();
     }
