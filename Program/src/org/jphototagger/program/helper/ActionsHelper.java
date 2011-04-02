@@ -25,7 +25,7 @@ import org.jphototagger.program.controller.actions.AddProgramAction;
  */
 public final class ActionsHelper {
 
-    private static final JMenuItem ADD_ACTION__MENU_ITEM = new JMenuItem(new AddProgramAction());
+    private static final JMenuItem ADD_ACTION_MENU_ITEM = new JMenuItem(new AddProgramAction());
 
     public static JMenu actionsAsMenu() {
         List<Program> actions = DatabasePrograms.INSTANCE.getAll(DatabasePrograms.Type.ACTION);
@@ -35,7 +35,7 @@ public final class ActionsHelper {
             menu.add(new JMenuItem(new ActionStarter(action, action)));
         }
 
-        menu.add(ADD_ACTION__MENU_ITEM);
+        menu.add(ADD_ACTION_MENU_ITEM);
 
         return menu;
     }
@@ -49,7 +49,7 @@ public final class ActionsHelper {
             actionsMenu.add(new JMenuItem(new ActionStarter(action, action)));
         }
 
-        actionsMenu.add(ADD_ACTION__MENU_ITEM);
+        actionsMenu.add(ADD_ACTION_MENU_ITEM);
     }
 
     public static boolean existsAction(JMenu actionsMenu, Program action) {
@@ -73,9 +73,9 @@ public final class ActionsHelper {
             throw new NullPointerException("action == null");
         }
 
-        actionsMenu.remove(ADD_ACTION__MENU_ITEM);
+        actionsMenu.remove(ADD_ACTION_MENU_ITEM);
         actionsMenu.add(new ActionStarter(action, action));
-        actionsMenu.add(ADD_ACTION__MENU_ITEM);
+        actionsMenu.add(ADD_ACTION_MENU_ITEM);
     }
 
     public static void removeAction(JMenu actionsMenu, Program action) {
