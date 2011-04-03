@@ -3,6 +3,12 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.8.75 2011-03-04
+-----------------
+* Dialog zum Verändern der Vorschaubildgröße: Werden über die
+  Schaltfläche weitere Einstellungen aufgerufen, wird der Dialog
+  geschlossen
+
 0.8.74 2011-03-31
 -----------------
 * Programmfenster: Neben dem Regler zum Verändern der
