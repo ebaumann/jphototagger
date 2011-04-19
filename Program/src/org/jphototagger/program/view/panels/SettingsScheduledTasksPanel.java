@@ -84,7 +84,8 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel implem
 
     private void addAutoscanDirectories() {
         Option showHiddenDirs = UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs();
-        DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), new File(lastSelectedAutoscanDirectory), showHiddenDirs);
+        List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(UserSettings.KEY_HIDE_ROOT_FILES_FROM_DIRECTORIES_TAB);
+        DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), new File(lastSelectedAutoscanDirectory), hideRootFiles, showHiddenDirs);
 
         dlg.setSettings(UserSettings.INSTANCE.getSettings(), "SettingsScheduledTasksPanel.DirChooser");
         dlg.setVisible(true);

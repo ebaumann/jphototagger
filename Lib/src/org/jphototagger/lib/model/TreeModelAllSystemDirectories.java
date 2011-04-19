@@ -12,6 +12,8 @@ import java.io.File;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,6 +39,7 @@ public final class TreeModelAllSystemDirectories extends DefaultTreeModel implem
     private final transient DirectoryFilter directoryFilter;
     private final DefaultMutableTreeNode rootNode;
     private final JTree tree;
+    private final List<File> excludeRootDirectories = new ArrayList<File>();
     private static final Logger LOGGER = Logger.getLogger(TreeModelAllSystemDirectories.class.getName());
 
     /**
@@ -48,10 +51,16 @@ public final class TreeModelAllSystemDirectories extends DefaultTreeModel implem
      * @param directoryFilter filter, determines which directories are displayed
      */
     public TreeModelAllSystemDirectories(JTree tree, DirectoryFilter.Option... directoryFilter) {
+        this(tree, Collections.<File>emptyList(), directoryFilter);
+    }
+
+    public TreeModelAllSystemDirectories(JTree tree, Collection<? extends File> excludeRootDirectories,
+            DirectoryFilter.Option... directoryFilter) {
         super(new TreeNodeSortedChildren("Root of TreeModelAllSystemDirectories"));
         rootNode = (DefaultMutableTreeNode) getRoot();
         this.tree = tree;
         this.directoryFilter = new DirectoryFilter(directoryFilter);
+        this.excludeRootDirectories.addAll(excludeRootDirectories);
         addRootDirectories();
         tree.addTreeWillExpandListener(this);
     }
@@ -62,6 +71,7 @@ public final class TreeModelAllSystemDirectories extends DefaultTreeModel implem
         File[] roots = File.listRoots();
 
         LOGGER.log(Level.FINEST, "Root directories have been read: {0}", StringUtil.toString(roots));
+        LOGGER.log(Level.FINEST, "Root directories to exclude: {0}: ", excludeRootDirectories);
 
         if (roots == null) {
             return;
@@ -70,11 +80,15 @@ public final class TreeModelAllSystemDirectories extends DefaultTreeModel implem
         List<File> existingRootDirectories = Arrays.asList(roots);
 
         for (File existingRootDirectory : existingRootDirectories) {
+            boolean isExclude = excludeRootDirectories.contains(existingRootDirectory);
+
+            if (!isExclude) {
             DefaultMutableTreeNode rootDirectoryNode = new TreeNodeSortedChildren(existingRootDirectory);
 
             insertNodeInto(rootDirectoryNode, rootNode, rootNode.getChildCount());
             addChildren(rootDirectoryNode);
         }
+    }
     }
 
     private void addChildren(DefaultMutableTreeNode parentNode) {

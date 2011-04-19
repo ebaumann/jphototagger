@@ -50,18 +50,54 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+          <Component id="tabbedPane" alignment="0" max="32767" attributes="0"/>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Component id="tabbedPane" alignment="0" pref="340" max="32767" attributes="0"/>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Container class="javax.swing.JTabbedPane" name="tabbedPane">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="tabbedPane" noResource="true"/>
+      </Properties>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
+      <SubComponents>
+        <Container class="javax.swing.JPanel" name="panelFiles">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="panelFiles" noResource="true"/>
+          </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+              <JTabbedPaneConstraints tabName="Dateimuster">
+                <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsFileExcludePatternsPanel.panelFiles.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
+              </JTabbedPaneConstraints>
+            </Constraint>
+          </Constraints>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <EmptySpace min="0" pref="574" max="32767" attributes="0"/>
+                  <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="scrollPane" alignment="0" pref="465" max="32767" attributes="0"/>
+                              <Component id="scrollPane" alignment="0" pref="559" max="32767" attributes="0"/>
                   <Component id="labelInfoList" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="buttonDeletePattern" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonInsertPattern" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="labelInfoDatabase" alignment="1" pref="465" max="32767" attributes="0"/>
-                  <Component id="progressBarUpdateDatabase" alignment="0" pref="465" max="32767" attributes="0"/>
+                              <Component id="labelInfoDatabase" alignment="1" pref="559" max="32767" attributes="0"/>
+                              <Component id="progressBarUpdateDatabase" alignment="0" pref="559" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="buttonCancelUpdateDatabase" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -70,20 +106,23 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="labelTextFieldInputPattern" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="textFieldInputPattern" pref="384" max="32767" attributes="0"/>
+                                  <Component id="textFieldInputPattern" pref="478" max="32767" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
           </Group>
       </Group>
+              </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
+                  <EmptySpace min="0" pref="312" max="32767" attributes="0"/>
+                  <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
               <Component id="labelInfoList" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="scrollPane" pref="51" max="32767" attributes="0"/>
+                          <Component id="scrollPane" pref="114" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="textFieldInputPattern" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -103,51 +142,52 @@
                   <Component id="buttonUpdateDatabase" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="buttonCancelUpdateDatabase" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
+              </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="labelInfoList">
+            <Component class="javax.swing.JLabel" name="labelInfoDatabase">
       <Properties>
-        <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="list"/>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="0" red="0" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsFileExcludePatternsPanel.labelInfoList.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsFileExcludePatternsPanel.labelInfoDatabase.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
-        <Property name="name" type="java.lang.String" value="labelInfoList" noResource="true"/>
+                <Property name="name" type="java.lang.String" value="labelInfoDatabase" noResource="true"/>
       </Properties>
     </Component>
-    <Container class="javax.swing.JScrollPane" name="scrollPane">
+            <Component class="javax.swing.JProgressBar" name="progressBarUpdateDatabase">
       <Properties>
-        <Property name="name" type="java.lang.String" value="scrollPane" noResource="true"/>
+                <Property name="name" type="java.lang.String" value="progressBarUpdateDatabase" noResource="true"/>
       </Properties>
-      <AuxValues>
-        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-      </AuxValues>
-
-      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-      <SubComponents>
-        <Component class="org.jdesktop.swingx.JXList" name="list">
+            </Component>
+            <Component class="javax.swing.JButton" name="buttonCancelUpdateDatabase">
           <Properties>
-            <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="model" type="code"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsFileExcludePatternsPanel.buttonCancelUpdateDatabase.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
-            <Property name="selectionMode" type="int" value="0"/>
-            <Property name="componentPopupMenu" type="javax.swing.JPopupMenu" editor="org.netbeans.modules.form.ComponentChooserEditor">
-              <ComponentRef name="popupMenu"/>
+                <Property name="enabled" type="boolean" value="false"/>
+                <Property name="name" type="java.lang.String" value="buttonCancelUpdateDatabase" noResource="true"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonCancelUpdateDatabaseActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="buttonUpdateDatabase">
+              <Properties>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsFileExcludePatternsPanel.buttonUpdateDatabase.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
             </Property>
-            <Property name="name" type="java.lang.String" value="list" noResource="true"/>
+                <Property name="name" type="java.lang.String" value="buttonUpdateDatabase" noResource="true"/>
           </Properties>
           <Events>
-            <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="listValueChanged"/>
-            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="listKeyPressed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonUpdateDatabaseActionPerformed"/>
           </Events>
         </Component>
-      </SubComponents>
-    </Container>
     <Component class="javax.swing.JLabel" name="labelTextFieldInputPattern">
       <Properties>
         <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
@@ -198,44 +238,112 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonInsertPatternActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="labelInfoDatabase">
+            <Component class="javax.swing.JLabel" name="labelInfoList">
       <Properties>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="0" red="0" type="rgb"/>
+                <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                  <ComponentRef name="list"/>
         </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsFileExcludePatternsPanel.labelInfoDatabase.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsFileExcludePatternsPanel.labelInfoList.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
-        <Property name="name" type="java.lang.String" value="labelInfoDatabase" noResource="true"/>
+                <Property name="name" type="java.lang.String" value="labelInfoList" noResource="true"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JProgressBar" name="progressBarUpdateDatabase">
+            <Container class="javax.swing.JScrollPane" name="scrollPane">
       <Properties>
-        <Property name="name" type="java.lang.String" value="progressBarUpdateDatabase" noResource="true"/>
+                <Property name="name" type="java.lang.String" value="scrollPane" noResource="true"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="buttonCancelUpdateDatabase">
+              <AuxValues>
+                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+              </AuxValues>
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+              <SubComponents>
+                <Component class="org.jdesktop.swingx.JXList" name="list">
       <Properties>
-        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsFileExcludePatternsPanel.buttonCancelUpdateDatabase.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                    <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="model" type="code"/>
         </Property>
-        <Property name="enabled" type="boolean" value="false"/>
-        <Property name="name" type="java.lang.String" value="buttonCancelUpdateDatabase" noResource="true"/>
+                    <Property name="selectionMode" type="int" value="0"/>
+                    <Property name="componentPopupMenu" type="javax.swing.JPopupMenu" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                      <ComponentRef name="popupMenu"/>
+                    </Property>
+                    <Property name="name" type="java.lang.String" value="list" noResource="true"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonCancelUpdateDatabaseActionPerformed"/>
+                    <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="listValueChanged"/>
+                    <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="listKeyPressed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="buttonUpdateDatabase">
+              </SubComponents>
+            </Container>
+          </SubComponents>
+        </Container>
+        <Container class="javax.swing.JPanel" name="panelDirectoryFolder">
       <Properties>
+            <Property name="name" type="java.lang.String" value="panelDirectoryFolder" noResource="true"/>
+          </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+              <JTabbedPaneConstraints tabName="Ordner-Kartenreiter">
+                <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsFileExcludePatternsPanel.panelDirectoryFolder.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
+              </JTabbedPaneConstraints>
+            </Constraint>
+          </Constraints>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="scrollPanePanelDirectoryFolder" alignment="0" pref="554" max="32767" attributes="0"/>
+                          <Component id="labelInfopanelDirectoryFolder" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="labelInfopanelDirectoryFolder" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="scrollPanePanelDirectoryFolder" pref="270" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JLabel" name="labelInfopanelDirectoryFolder">
+              <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsFileExcludePatternsPanel.buttonUpdateDatabase.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsFileExcludePatternsPanel.labelInfopanelDirectoryFolder.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
-        <Property name="name" type="java.lang.String" value="buttonUpdateDatabase" noResource="true"/>
+                <Property name="name" type="java.lang.String" value="labelInfopanelDirectoryFolder" noResource="true"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonUpdateDatabaseActionPerformed"/>
-      </Events>
     </Component>
+            <Container class="javax.swing.JScrollPane" name="scrollPanePanelDirectoryFolder">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="scrollPanePanelDirectoryFolder" noResource="true"/>
+              </Properties>
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+              <SubComponents>
+                <Component class="org.jphototagger.program.view.panels.SelectRootFilesPanel" name="panelSelectRootFiles">
+                  <Properties>
+                    <Property name="name" type="java.lang.String" value="panelSelectRootFiles" noResource="true"/>
+                  </Properties>
+                </Component>
+  </SubComponents>
+            </Container>
+          </SubComponents>
+        </Container>
+      </SubComponents>
+    </Container>
   </SubComponents>
 </Form>
