@@ -84,7 +84,7 @@ public final class ControllerMenuItemEnabler implements ThumbnailsPanelListener,
             public void run() {
                 ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
                 Content content = tnPanel.getContent();
-                boolean fileSelected = tnPanel.isFileSelected();
+                boolean fileSelected = tnPanel.isAFileSelected();
 
                 for (JMenuItem item : itemsRequiresSelImages) {
                     item.setEnabled(fileSelected);
@@ -114,7 +114,7 @@ public final class ControllerMenuItemEnabler implements ThumbnailsPanelListener,
         PopupMenuThumbnails popupThumbnails = PopupMenuThumbnails.INSTANCE;
 
         popupThumbnails.getItemSelectAll().setEnabled(tnPanel.hasFiles());
-        popupThumbnails.getItemSelectNothing().setEnabled(tnPanel.isFileSelected());
+        popupThumbnails.getItemSelectNothing().setEnabled(tnPanel.isAFileSelected());
     }
 
     @Override

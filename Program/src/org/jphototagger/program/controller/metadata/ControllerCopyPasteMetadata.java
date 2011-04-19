@@ -113,7 +113,7 @@ public final class ControllerCopyPasteMetadata implements ActionListener, KeyLis
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                getCopyItem().setEnabled(GUI.getThumbnailsPanel().isFileSelected());
+                getCopyItem().setEnabled(GUI.getThumbnailsPanel().isAFileSelected());
             }
         });
     }

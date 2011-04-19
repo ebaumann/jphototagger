@@ -316,7 +316,7 @@ public final class AppPanel extends javax.swing.JPanel {
     /**
      * Sets text to display in the status bar.
      *
-     * @param text         text to display or empty string to remove text
+     * @param text         text to display or empty string to removeFiles text
      * @param type         changes the text color (red on errors)
      * @param milliseconds if greater than zero the message will be deleted
      *                     automatically after that time

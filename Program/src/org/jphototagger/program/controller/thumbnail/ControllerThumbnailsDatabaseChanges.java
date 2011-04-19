@@ -90,7 +90,7 @@ public final class ControllerThumbnailsDatabaseChanges implements DatabaseImageF
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                GUI.getThumbnailsPanel().remove(Collections.singleton(imageFile));
+                GUI.getThumbnailsPanel().removeFiles(Collections.singleton(imageFile));
             }
         });
     }

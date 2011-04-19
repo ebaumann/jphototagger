@@ -50,6 +50,7 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
         UserSettings settings = UserSettings.INSTANCE;
 
         textFieldExternalThumbnailCreationCommand.setText(settings.getExternalThumbnailCreationCommand());
+        checkBoxDisplayThumbnailTooltip.setSelected(settings.isDisplayThumbnailTooltip());
     }
 
     private void setSelectedRadioButtons() {
@@ -80,6 +81,12 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
             textFieldExternalThumbnailCreationCommand.setText(creatorCommand);
             UserSettings.INSTANCE.setExternalThumbnailCreationCommand(creatorCommand);
         }
+    }
+
+    private void setDisplayThumbnailTooltip() {
+        boolean isDisplayThumbnailTooltip = checkBoxDisplayThumbnailTooltip.isSelected();
+
+        UserSettings.INSTANCE.setDisplayThumbnailTooltip(isDisplayThumbnailTooltip);
     }
 
     @Override
@@ -120,6 +127,7 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
         textFieldExternalThumbnailCreationCommand = new javax.swing.JTextField();
         panelPadding2 = new javax.swing.JPanel();
         buttonChooseExternalThumbnailCreator = new javax.swing.JButton();
+        checkBoxDisplayThumbnailTooltip = new javax.swing.JCheckBox();
 
         setName("Form"); // NOI18N
 
@@ -245,10 +253,10 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
                     .addComponent(panelPadding2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panelExternalThumbnailAppLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(labelIsCreateThumbnailsWithExternalApp, javax.swing.GroupLayout.DEFAULT_SIZE, 651, Short.MAX_VALUE))
+                        .addComponent(labelIsCreateThumbnailsWithExternalApp, javax.swing.GroupLayout.DEFAULT_SIZE, 653, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelExternalThumbnailAppLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(textFieldExternalThumbnailCreationCommand, javax.swing.GroupLayout.DEFAULT_SIZE, 533, Short.MAX_VALUE)
+                        .addComponent(textFieldExternalThumbnailCreationCommand, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonChooseExternalThumbnailCreator)))
                 .addContainerGap())
@@ -266,16 +274,26 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
                 .addContainerGap())
         );
 
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/resource/properties/Bundle"); // NOI18N
+        checkBoxDisplayThumbnailTooltip.setText(bundle.getString("SettingsThumbnailsPanel.checkBoxDisplayThumbnailTooltip.text")); // NOI18N
+        checkBoxDisplayThumbnailTooltip.setName("checkBoxDisplayThumbnailTooltip"); // NOI18N
+        checkBoxDisplayThumbnailTooltip.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxDisplayThumbnailTooltipActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(panelSettingsThumbnailDimensions, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 685, Short.MAX_VALUE)
-                    .addComponent(panelThumbnailCreator, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelExternalThumbnailApp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(checkBoxDisplayThumbnailTooltip)
+                    .addComponent(panelSettingsThumbnailDimensions, javax.swing.GroupLayout.DEFAULT_SIZE, 685, Short.MAX_VALUE)
+                    .addComponent(panelThumbnailCreator, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelExternalThumbnailApp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -287,6 +305,8 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
                 .addComponent(panelThumbnailCreator, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelExternalThumbnailApp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkBoxDisplayThumbnailTooltip)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -315,9 +335,14 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
         chooseExternalThumbnailCreator();
     }//GEN-LAST:event_buttonChooseExternalThumbnailCreatorActionPerformed
 
+    private void checkBoxDisplayThumbnailTooltipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDisplayThumbnailTooltipActionPerformed
+        setDisplayThumbnailTooltip();
+    }//GEN-LAST:event_checkBoxDisplayThumbnailTooltipActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonChooseExternalThumbnailCreator;
     private javax.swing.ButtonGroup buttonGroupThumbnailCreator;
+    private javax.swing.JCheckBox checkBoxDisplayThumbnailTooltip;
     private javax.swing.JLabel labelIsCreateThumbnailsWithExternalApp;
     private javax.swing.JPanel panelExternalThumbnailApp;
     private javax.swing.JPanel panelPadding2;

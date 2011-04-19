@@ -37,7 +37,7 @@ public final class ImageCollectionsHelper {
                     List<File> selectedFiles = tnPanel.getSelectedFiles();
 
                     if (deleteImagesFromCollection(selectedValue.toString(), selectedFiles)) {
-                        tnPanel.remove(selectedFiles);
+                        tnPanel.removeFiles(selectedFiles);
                     }
                 } else {
                     AppLogger.logWarning(ControllerDeleteFromImageCollection.class,
@@ -89,7 +89,7 @@ public final class ImageCollectionsHelper {
      * Removes images from an image collection.
      *
      * @param collectionName name of the image collection
-     * @param imageFiles     image files to remove
+     * @param imageFiles     image files to removeFiles
      * @return               true if removed
      */
     public static boolean deleteImagesFromCollection(String collectionName, List<File> imageFiles) {

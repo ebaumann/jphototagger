@@ -70,7 +70,7 @@ public final class ControllerAdvancedSearch implements ActionListener {
     }
 
     private void setMetadataEditable() {
-        if (!GUI.getThumbnailsPanel().isFileSelected()) {
+        if (!GUI.getThumbnailsPanel().isAFileSelected()) {
             GUI.getEditPanel().setEditable(false);
         }
     }

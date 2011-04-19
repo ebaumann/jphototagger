@@ -226,7 +226,7 @@ public final class ControllerFastSearch implements ActionListener, RefreshListen
     }
 
     private void setMetadataEditable() {
-        if (!GUI.getThumbnailsPanel().isFileSelected()) {
+        if (!GUI.getThumbnailsPanel().isAFileSelected()) {
             GUI.getEditPanel().setEditable(false);
         }
     }

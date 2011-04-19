@@ -34,9 +34,7 @@ import java.util.Properties;
  */
 public final class UserSettings {
     private static final int DEFAULT_MINUTES_TO_START_SCHEDULED_TASKS = 5;
-
-    // When changing see comment for AppInfo.PROJECT_NAME
-    private static final String DOMAIN_NAME = "de.elmar_baumann";
+    private static final String DOMAIN_NAME = "de.elmar_baumann"; // When changing see comment for AppInfo.PROJECT_NAME
     private static final String KEY_ACCEPT_HIDDEN_DIRECTORIES = "UserSettings.IsAcceptHiddenDirectories";
     private static final String KEY_AUTO_DOWNLOAD_NEWER_VERSIONS = "UserSettings.AutoDownloadNewerVersions";
     private static final String KEY_AUTO_SCAN_INCLUDE_SUBDIRECTORIES = "UserSettings.IsAutoscanIncludeSubdirectories";
@@ -47,16 +45,12 @@ public final class UserSettings {
     private static final String KEY_DISPLAY_IPTC = "UserSettings.DisplayIptc";
     private static final String KEY_DISPLAY_SEARCH_BUTTON = "UserSettings.DisplaySearchButton";
     private static final String KEY_ENABLE_AUTOCOMPLETE = "UserSettings.EnableAutoComplete";
-    private static final String KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS =
-        "UserSettings.ExecuteActionsAfterImageChangeInDbAlways";
-    private static final String KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP =
-        "UserSettings.ExecuteActionsAfterImageChangeInDbIfImageHasXmp";
-    private static final String KEY_EXTERNAL_THUMBNAIL_CREATION_COMMAND =
-        "UserSettings.ExternalThumbnailCreationCommand";
+    private static final String KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS = "UserSettings.ExecuteActionsAfterImageChangeInDbAlways";
+    private static final String KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP = "UserSettings.ExecuteActionsAfterImageChangeInDbIfImageHasXmp";
+    private static final String KEY_EXTERNAL_THUMBNAIL_CREATION_COMMAND = "UserSettings.ExternalThumbnailCreationCommand";
     private static final String KEY_IPTC_CHARSET = "UserSettings.IptcCharset";
     private static final String KEY_LOG_LEVEL = "UserSettings.LogLevel";
-    private static final String KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS =
-        "UserSettings.MaximumSecondsToTerminateExternalPrograms";
+    private static final String KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS = "UserSettings.MaximumSecondsToTerminateExternalPrograms";
     private static final String KEY_MAX_THUMBNAIL_WIDTH = "UserSettings.MaxThumbnailWidth";
     private static final String KEY_MINUTES_TO_START_SCHEDULED_TASKS = "UserSettings.MinutesToStartScheduledTasks";
     private static final String KEY_OPTIONS_COPY_MOVE_FILES = "UserSettings.CopyMoveFiles";
@@ -67,6 +61,7 @@ public final class UserSettings {
     private static final String KEY_ADD_FILENAME_TO_GPS_LOCATION_EXPORT = "UserSettings.AddFilenameToGpsLocationExport";
     private static final String KEY_EXPERIMENTAL_FILE_FORMATS = "UserSettings.ExperimentalFileFormats";
     private static final String KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE = "UserSettings.Autocomplete.IgnoreCase";
+    private static final String KEY_DISPLAY_THUMBNAIL_TOOLTIP = "UserSettings.DisplayThumbnailTooltip";
     public static final int MIN_THUMBNAIL_WIDTH = 50;
     public static final int MAX_THUMBNAIL_WIDTH = 400;
     public static final int DEFAULT_THUMBNAIL_WIDTH = 150;
@@ -856,6 +851,22 @@ public final class UserSettings {
         return settings.containsKey(KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
                ? settings.getBoolean(KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
                : false;
+    }
+
+    /**
+     *
+     * @return Default: true
+     */
+    public boolean isDisplayThumbnailTooltip() {
+        return settings.containsKey(KEY_DISPLAY_THUMBNAIL_TOOLTIP)
+                ? settings.getBoolean(KEY_DISPLAY_THUMBNAIL_TOOLTIP)
+                : true;
+    }
+
+    public void setDisplayThumbnailTooltip(boolean display) {
+        settings.set(display, KEY_DISPLAY_THUMBNAIL_TOOLTIP);
+        writeToFile();
+        notifyListeners(Type.DISPLAY_THUMBNAIL_TOOLTIP);
     }
 
     /**

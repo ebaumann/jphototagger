@@ -52,7 +52,7 @@ public final class ControllerThumbnailSelectionEditMetadata implements Thumbnail
                 boolean canEdit = false;
                 ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
-                if (tnPanel.isFileSelected()) {
+                if (tnPanel.isAFileSelected()) {
                     canEdit = canEdit();
                     setEnabled(canEdit);
                     GUI.getEditPanel().setImageFiles(tnPanel.getSelectedFiles());

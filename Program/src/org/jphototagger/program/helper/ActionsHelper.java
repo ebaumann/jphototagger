@@ -165,7 +165,7 @@ public final class ActionsHelper {
         public void actionPerformed(ActionEvent evt) {
             ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
-            if (!tnPanel.isFileSelected()) {
+            if (!tnPanel.isAFileSelected()) {
                 return;
             }
 

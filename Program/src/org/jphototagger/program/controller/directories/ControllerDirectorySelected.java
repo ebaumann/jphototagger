@@ -104,7 +104,7 @@ public final class ControllerDirectorySelected implements TreeSelectionListener,
         }
 
         private void setMetadataEditable() {
-            if (!GUI.getThumbnailsPanel().isFileSelected()) {
+            if (!GUI.getThumbnailsPanel().isAFileSelected()) {
                 GUI.getEditPanel().setEditable(false);
             }
         }

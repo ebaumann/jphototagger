@@ -37,6 +37,6 @@ public final class MouseListenerMetadataTemplates extends MouseListenerList {
         PopupMenuMetadataTemplates.INSTANCE.getItemEdit().setEnabled(clickOnItem);
         PopupMenuMetadataTemplates.INSTANCE.getItemRename().setEnabled(clickOnItem);
         PopupMenuMetadataTemplates.INSTANCE.getItemSetToSelImages().setEnabled(
-            GUI.getThumbnailsPanel().isFileSelected());
+            GUI.getThumbnailsPanel().isAFileSelected());
     }
 }

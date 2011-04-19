@@ -65,7 +65,7 @@ public final class ControllerDeleteThumbnailsFromDatabase implements ActionListe
             }
         }
 
-        GUI.getThumbnailsPanel().remove(deleted);
+        GUI.getThumbnailsPanel().removeFiles(deleted);
     }
 
     private boolean confirmDelete() {

@@ -40,7 +40,7 @@ public final class ControllerThumbnailDoubleklick {
                 MessageDisplayer.information(null, "ControllerOpenFilesWithStandardApp.Info.DefineOpenApp");
                 ProgramsHelper.openSelectedFilesWidth(ProgramsHelper.addProgram());
             } else {
-                new StartPrograms(null).startProgram(program, Arrays.asList(panel.getFile(index)));
+                new StartPrograms(null).startProgram(program, Arrays.asList(panel.getFileAtIndex(index)));
             }
         }
     }

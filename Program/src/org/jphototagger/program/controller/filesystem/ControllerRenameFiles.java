@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * Listens to key events of {@link ThumbnailsPanel} and when
- * <code>F2</code> was pressed shows the {@link RenameDialog} to rename the
+ * <code>F2</code> was pressed shows the {@link RenameDialog} to renameFile the
  * selected files.
  *
  * @author Elmar Baumann
@@ -62,7 +62,7 @@ public final class ControllerRenameFiles implements ActionListener, KeyListener,
                 ThumbnailCache.INSTANCE.updateFiles(fromFile, toFile);
                 XmpCache.INSTANCE.updateFiles(fromFile, toFile);
                 RenderedThumbnailCache.INSTANCE.updateFiles(fromFile, toFile);
-                GUI.getThumbnailsPanel().rename(fromFile, toFile);
+                GUI.getThumbnailsPanel().renameFile(fromFile, toFile);
             }
         });
     }

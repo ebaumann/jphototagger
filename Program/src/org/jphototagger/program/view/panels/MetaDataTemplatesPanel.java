@@ -69,7 +69,7 @@ public class MetaDataTemplatesPanel extends javax.swing.JPanel
             buttonEdit.setEnabled(selected);
             buttonRename.setEnabled(selected);
             final ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
-            buttonAddToSelImages.setEnabled(selected && (tnPanel.isFileSelected()));
+            buttonAddToSelImages.setEnabled(selected && (tnPanel.isAFileSelected()));
         }
     }
 
@@ -81,7 +81,7 @@ public class MetaDataTemplatesPanel extends javax.swing.JPanel
             public void run() {
                 ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
-                buttonAddToSelImages.setEnabled((list.getSelectedIndex() >= 0) && tnPanel.isFileSelected());
+                buttonAddToSelImages.setEnabled((list.getSelectedIndex() >= 0) && tnPanel.isAFileSelected());
             }
         });
     }
