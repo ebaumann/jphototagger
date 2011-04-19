@@ -13,6 +13,8 @@ import java.io.File;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.event.PopupMenuEvent;
@@ -54,10 +56,19 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
      * @param options         options
      */
     public DirectoryChooser(java.awt.Frame parent, File startDirectory, Option... options) {
+        this(parent, startDirectory, Collections.<File>emptyList(), options);
+    }
+
+    public DirectoryChooser(java.awt.Frame parent, File startDirectory,
+            Collection<? extends File> excludeRootDirectories, Option... options) {
         super(parent, true);
 
         if (startDirectory == null) {
             throw new NullPointerException("startDirectory == null");
+        }
+
+        if (excludeRootDirectories == null) {
+            throw new NullPointerException("excludeRootDirectories == null");
         }
 
         if (options == null) {
@@ -67,7 +78,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
         this.startDirectory  = startDirectory;
         this.directoryFilter = Arrays.asList(options);
         initComponents();
-        this.model = new TreeModelAllSystemDirectories(tree, getIsShowHiddenDirsFilter());
+        this.model = new TreeModelAllSystemDirectories(tree, excludeRootDirectories, getIsShowHiddenDirsFilter());
         postInitComponents();
     }
 

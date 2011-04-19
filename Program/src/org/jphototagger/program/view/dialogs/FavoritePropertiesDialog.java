@@ -15,7 +15,9 @@ import java.awt.Container;
 import java.awt.event.KeyEvent;
 
 import java.io.File;
+import java.util.List;
 import org.jphototagger.program.data.Favorite;
+import org.jphototagger.program.view.panels.SelectRootFilesPanel;
 
 
 /**
@@ -45,7 +47,8 @@ public final class FavoritePropertiesDialog extends Dialog {
 
     private void chooseDirectory() {
         Option showHiddenDirs = UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs();
-        DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), dir, showHiddenDirs);
+        List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(UserSettings.KEY_HIDE_ROOT_FILES_FROM_DIRECTORIES_TAB);
+        DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), dir, hideRootFiles, showHiddenDirs);
 
         dlg.setSettings(UserSettings.INSTANCE.getSettings(), "FavoritePropertiesDialog.DirChooser");
         dlg.setVisible(true);

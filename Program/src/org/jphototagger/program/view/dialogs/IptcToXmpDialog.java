@@ -25,6 +25,7 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.swing.filechooser.FileSystemView;
+import org.jphototagger.program.view.panels.SelectRootFilesPanel;
 
 /**
  *
@@ -75,7 +76,8 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
     }
 
     private void chooseDirectory() {
-        DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), directory, UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
+        List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(UserSettings.KEY_HIDE_ROOT_FILES_FROM_DIRECTORIES_TAB);
+        DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), directory, hideRootFiles, UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
 
         dlg.setSettings(UserSettings.INSTANCE.getSettings(), "IptcToXmpDialog.DirChooser");
         dlg.setVisible(true);

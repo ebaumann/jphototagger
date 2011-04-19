@@ -29,6 +29,7 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.swing.filechooser.FileSystemView;
+import org.jphototagger.program.view.panels.SelectRootFilesPanel;
 
 /**
  *
@@ -142,7 +143,8 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
     }
 
     private void chooseTargetDirectory() {
-        DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), targetDirectory, UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
+        List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(UserSettings.KEY_HIDE_ROOT_FILES_FROM_DIRECTORIES_TAB);
+        DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), targetDirectory, hideRootFiles, UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
 
         dlg.setSettings(UserSettings.INSTANCE.getSettings(), "MoveToDirectoriesDialog.DirChooser");
         dlg.setVisible(true);

@@ -275,8 +275,8 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
     }
 
     private void chooseDirectories() {
-        DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), lastDirectory,
-                UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
+        List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(UserSettings.KEY_HIDE_ROOT_FILES_FROM_DIRECTORIES_TAB);
+        DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), lastDirectory, hideRootFiles, UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
 
         buttonChooseDirectories.setEnabled(false);
         dlg.setSettings(UserSettings.INSTANCE.getSettings(), "UpdateMetadataOfDirectoriesPanel.DirChooser");

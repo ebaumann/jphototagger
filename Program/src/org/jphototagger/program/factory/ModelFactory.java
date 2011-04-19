@@ -1,5 +1,6 @@
 package org.jphototagger.program.factory;
 
+import java.io.File;
 import org.jphototagger.lib.model.TreeModelAllSystemDirectories;
 import org.jphototagger.program.app.AppWindowPersistence;
 import org.jphototagger.program.model.ComboBoxModelFileFilters;
@@ -36,6 +37,7 @@ import javax.swing.tree.TreeModel;
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.sort.ListSortController;
 import org.jphototagger.program.view.panels.KeywordsPanel;
+import org.jphototagger.program.view.panels.SelectRootFilesPanel;
 import org.jphototagger.program.view.renderer.KeywordHighlightPredicate;
 import org.jphototagger.program.view.renderer.TableCellRendererExif;
 import org.jphototagger.program.view.renderer.TableCellRendererIptc;
@@ -400,8 +402,8 @@ public final class ModelFactory {
 
                 final JTree tree = appPanel.getTreeDirectories();
                 final Cursor treeCursor = setWaitCursor(tree);
-                final TreeModel model = new TreeModelAllSystemDirectories(tree,
-                                            UserSettings.INSTANCE.getDirFilterOptionShowHiddenFiles());
+                List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(UserSettings.KEY_HIDE_ROOT_FILES_FROM_DIRECTORIES_TAB);
+                final TreeModel model = new TreeModelAllSystemDirectories(tree, hideRootFiles, UserSettings.INSTANCE.getDirFilterOptionShowHiddenFiles());
 
                 support.add(model);
                 EventQueue.invokeLater(new Runnable() {

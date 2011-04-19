@@ -3,7 +3,17 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
-0.8.75 2011-03-04
+0.8.76 2011-04-19
+-----------------
+* Tooltips beim Überfahren der Vorschaubilder können deaktiviert werden:
+  Bearbeiten > Einstellungen > Vorschaubilder: Im Vorschaubildfenster
+  Informationen (Tooltip) anzeigen, falls der Mauszeiger über einem
+  Vorschaubild steht
+* Wurzelverzeichnisse ("Laufwerke") können ausgeschlossen werden im
+  Ordner-Kartenreiter: Bearbeiten > Einstellungen > Ausschließen >
+  Ordner-Kartenreiter
+
+0.8.75 2011-04-03
 -----------------
 * Dialog zum Verändern der Vorschaubildgröße: Werden über die
   Schaltfläche weitere Einstellungen aufgerufen, wird der Dialog

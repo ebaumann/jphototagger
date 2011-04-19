@@ -62,6 +62,7 @@ public final class UserSettings {
     private static final String KEY_EXPERIMENTAL_FILE_FORMATS = "UserSettings.ExperimentalFileFormats";
     private static final String KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE = "UserSettings.Autocomplete.IgnoreCase";
     private static final String KEY_DISPLAY_THUMBNAIL_TOOLTIP = "UserSettings.DisplayThumbnailTooltip";
+    public static final String KEY_HIDE_ROOT_FILES_FROM_DIRECTORIES_TAB = "UserSettings.HideRootFilesFromDirectoriesTab";
     public static final int MIN_THUMBNAIL_WIDTH = 50;
     public static final int MAX_THUMBNAIL_WIDTH = 400;
     public static final int DEFAULT_THUMBNAIL_WIDTH = 150;
