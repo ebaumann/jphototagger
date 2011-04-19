@@ -12,6 +12,8 @@ Changelog JPhotoTagger http://jphototagger.org/
 * Wurzelverzeichnisse ("Laufwerke") können ausgeschlossen werden im
   Ordner-Kartenreiter: Bearbeiten > Einstellungen > Ausschließen >
   Ordner-Kartenreiter
+* Bugfix: Keine Ausnahme mehr, falls das EXIF-Datum in der Datenbank
+  undefiniert ist
 
 0.8.75 2011-04-03
 -----------------
