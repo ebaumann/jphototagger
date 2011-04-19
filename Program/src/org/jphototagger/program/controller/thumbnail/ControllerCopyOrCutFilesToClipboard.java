@@ -52,7 +52,7 @@ public final class ControllerCopyOrCutFilesToClipboard implements ActionListener
 
     @Override
     public void keyPressed(KeyEvent evt) {
-        if (!tnPanel.isFileSelected()) {
+        if (!tnPanel.isAFileSelected()) {
             return;
         }
 
@@ -71,7 +71,7 @@ public final class ControllerCopyOrCutFilesToClipboard implements ActionListener
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        if (tnPanel.isFileSelected()) {
+        if (tnPanel.isAFileSelected()) {
             setFileAction(evt.getSource());
             transferSelectedFiles();
             popup.getItemPasteFromClipboard().setEnabled(true);
@@ -99,7 +99,7 @@ public final class ControllerCopyOrCutFilesToClipboard implements ActionListener
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                final boolean imagesSelected = tnPanel.isFileSelected();
+                final boolean imagesSelected = tnPanel.isAFileSelected();
 
                 getCopyItem().setEnabled(imagesSelected);
 

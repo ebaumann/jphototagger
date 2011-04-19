@@ -16,6 +16,7 @@ import org.jphototagger.program.data.Xmp;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.database.DatabaseUserDefinedFileFilters;
 import org.jphototagger.program.datatransfer.TransferHandlerThumbnailsPanel;
+import org.jphototagger.program.event.UserSettingsEvent;
 import org.jphototagger.program.event.listener.AppExitListener;
 import org.jphototagger.program.event.listener.DatabaseImageFilesListener;
 import org.jphototagger.program.event.listener.DatabaseUserDefinedFileFiltersListener;
@@ -70,6 +71,7 @@ import java.util.TooManyListenersException;
 import javax.swing.JPanel;
 import javax.swing.JViewport;
 import javax.swing.TransferHandler;
+import org.jphototagger.program.event.listener.UserSettingsListener;
 
 /**
  *
@@ -77,63 +79,24 @@ import javax.swing.TransferHandler;
  */
 public class ThumbnailsPanel extends JPanel
         implements ComponentListener, MouseListener, MouseMotionListener, KeyListener, ThumbnailUpdateListener,
-                   AppExitListener, DatabaseUserDefinedFileFiltersListener, DatabaseImageFilesListener {
+                   AppExitListener, DatabaseUserDefinedFileFiltersListener, DatabaseImageFilesListener, UserSettingsListener {
+
     private static final String KEY_THUMBNAIL_WIDTH = "ThumbnailsPanel.ThumbnailWidth";
     private static final long serialVersionUID = 1034671645083632578L;
-
-    /**
-     * Empty space surrounding a thumbnail outside it's border in pixel
-     */
     private static final int MARGIN_THUMBNAIL = 3;
-
-    /**
-     * Foreground color of this panel
-     */
     public static final Color COLOR_FOREGROUND_PANEL = Color.WHITE;
-
-    /**
-     * Background color of this panel
-     */
     public static final Color COLOR_BACKGROUND_PANEL = new Color(32, 32, 32);
-
-    /**
-     * Has the mouse clicked into a thumbnail?
-     */
-    private int clickInSelection = -1;
-
-    /**
-     * Contains the flags of thumbnails at specific indices
-     */
-    private final Map<Integer, ThumbnailFlag> flagOfThumbnail = new HashMap<Integer, ThumbnailFlag>();
-
-    /**
-     * Listens to thumbnail events
-     */
+    private int isClickInSelection = -1;
+    private final Map<Integer, ThumbnailFlag> flagOfThumbnailIndex = new HashMap<Integer, ThumbnailFlag>();
     private final List<ThumbnailsPanelListener> panelListeners = new ArrayList<ThumbnailsPanelListener>();
-
-    /**
-     * Contains the indices of the selected thumbnails
-     */
     private final List<Integer> selectedThumbnailIndices = new ArrayList<Integer>();
-
-    /**
-     * Count of thumbnails horicontal
-     */
     private int thumbnailCountPerRow = 0;
-
-    /**
-     * Accept dragging thumbnails?
-     */
-    private boolean dragEnabled = false;
-
-    /**
-     * Transfer data of dragged thumbnails
-     */
-    private boolean transferData = false;
+    private boolean dragThumbnailsEnabled = false;
+    private boolean isDisplayThumbnailTooltip = UserSettings.INSTANCE.isDisplayThumbnailTooltip();
+    private boolean transferDataOfDraggedThumbnails = false;
     private final ThumbnailPanelRenderer renderer = new ThumbnailPanelRenderer(this);
     private final transient RenderedThumbnailCache renderedThumbnailCache = RenderedThumbnailCache.INSTANCE;
-    private final EnumMap<Content, List<RefreshListener>> refreshListenersOf =
-        new EnumMap<Content, List<RefreshListener>>(Content.class);
+    private final EnumMap<Content, List<RefreshListener>> refreshListenersOf = new EnumMap<Content, List<RefreshListener>>(Content.class);
     private final PopupMenuThumbnails popupMenu = PopupMenuThumbnails.INSTANCE;
     private Comparator<File> fileSortComparator = FileSort.NAMES_ASCENDING.getComparator();
     private FileFilter fileFilter = AppFileFilters.INSTANCE.getAllAcceptedImageFilesFilter();
@@ -146,10 +109,6 @@ public class ThumbnailsPanel extends JPanel
     private volatile boolean notifySelChanged;
     private volatile boolean notifyTnsChanged;
     private volatile boolean notifyRefresh;
-
-    /**
-     * The viewport of this
-     */
     private JViewport viewport;
 
     public ThumbnailsPanel() {
@@ -167,6 +126,7 @@ public class ThumbnailsPanel extends JPanel
         renderedThumbnailCache.addThumbnailUpdateListener(this);
         DatabaseUserDefinedFileFilters.INSTANCE.addListener(this);
         DatabaseImageFiles.INSTANCE.addListener(this);
+        UserSettings.INSTANCE.addUserSettingsListener(this);
         addComponentListener(this);
         addMouseListener(this);
         addMouseMotionListener(this);
@@ -182,7 +142,7 @@ public class ThumbnailsPanel extends JPanel
 
     private void clearSelectionAndFlags() {
         clearSelection();
-        flagOfThumbnail.clear();
+        flagOfThumbnailIndex.clear();
     }
 
     /**
@@ -195,7 +155,7 @@ public class ThumbnailsPanel extends JPanel
             throw new IllegalArgumentException("Illegal index: " + index);
         }
 
-        File file = getFile(index);
+        File file = getFileAtIndex(index);
 
         if (file == null) {
             throw new IllegalArgumentException("Illegal index: " + index);
@@ -220,18 +180,7 @@ public class ThumbnailsPanel extends JPanel
         }
     }
 
-    /*
-     *  Convert index-based selection to a new set of files
-     */
     private synchronized void convertSelection(List<File> oldFiles, List<File> newFiles) {
-        if (oldFiles == null) {
-            throw new NullPointerException("oldFiles == null");
-        }
-
-        if (newFiles == null) {
-            throw new NullPointerException("newFiles == null");
-        }
-
         List<Integer> newSelection = new ArrayList<Integer>();
 
         for (int i : selectedThumbnailIndices) {
@@ -257,18 +206,14 @@ public class ThumbnailsPanel extends JPanel
     }
 
     public synchronized void clearSelection() {
-        clearSelection(new ArrayList<Integer>(selectedThumbnailIndices));
+        clearSelectionAtIndices(new ArrayList<Integer>(selectedThumbnailIndices));
     }
 
     public synchronized void selectAll() {
         setSelectedAll(true);
     }
 
-    /*
-     *  Also clears the selection, but takes the new indices of the selection
-     * as arguments, if files have been reordered etc.
-     */
-    private void clearSelection(List<Integer> indices) {
+    private void clearSelectionAtIndices(List<Integer> indices) {
         if (!indices.isEmpty()) {
             synchronized (this) {
                 selectedThumbnailIndices.clear();
@@ -295,16 +240,11 @@ public class ThumbnailsPanel extends JPanel
         return -1;
     }
 
-    /**
-     * Sets the width of a thumbnail.
-     *
-     * @param width  width in pixel
-     */
-    public synchronized void setThumbnailWidth(int width) {
-        if (width != renderer.getThumbnailWidth()) {
+    public synchronized void setThumbnailWidth(int widthInPixels) {
+        if (widthInPixels != renderer.getThumbnailWidth()) {
             float oldPosition = getRelativeScrollPosition();
 
-            renderer.setThumbnailWidth(width);
+            renderer.setThumbnailWidth(widthInPixels);
             setCountPerRow();
             setSize(getWidth(), getCalculatedHeight());
             setRelativeScrollPosition(oldPosition);
@@ -339,7 +279,7 @@ public class ThumbnailsPanel extends JPanel
      * @param enabled true if enabled. Default: false
      */
     private synchronized void setDragEnabled(boolean enabled) {
-        dragEnabled = enabled;
+        dragThumbnailsEnabled = enabled;
     }
 
     private synchronized int getThumbnailWidth() {
@@ -350,18 +290,18 @@ public class ThumbnailsPanel extends JPanel
         return new ArrayList<Integer>(selectedThumbnailIndices);
     }
 
-    private synchronized void repaint(int index) {
+    private synchronized void repaintAtIndex(int index) {
         repaint(getTopLeftOfTnIndex(index).x, getTopLeftOfTnIndex(index).y, renderer.getThumbnailAreaWidth(),
                 renderer.getThumbnailAreaHeight());
     }
 
-    private synchronized void repaint(Collection<Integer> indices) {
+    private synchronized void repaintAtIndices(Collection<Integer> indices) {
         if (indices == null) {
             throw new NullPointerException("indices == null");
         }
 
         for (int index : indices) {
-            repaint(index);
+            repaintAtIndex(index);
         }
     }
 
@@ -373,26 +313,26 @@ public class ThumbnailsPanel extends JPanel
                 int index = getIndexOf(event.getSource());
 
                 if (index >= 0) {
-                    repaint(index);
+                    repaintAtIndex(index);
                 }
             }
         });
     }
 
     private synchronized void addFlag(int index, ThumbnailFlag flag) {
-        flagOfThumbnail.put(index, flag);
+        flagOfThumbnailIndex.put(index, flag);
     }
 
-    private synchronized ThumbnailFlag getFlag(int index) {
-        return flagOfThumbnail.get(index);
+    private synchronized ThumbnailFlag getFlagAtIndex(int index) {
+        return flagOfThumbnailIndex.get(index);
     }
 
-    public synchronized ThumbnailFlag getFlag(File file) {
+    public synchronized ThumbnailFlag getFlagOfFile(File file) {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
 
-        return flagOfThumbnail.get(getIndexOf(file));
+        return flagOfThumbnailIndex.get(getIndexOf(file));
     }
 
     private int getCountHorizontalLeftFromX(int x) {
@@ -454,11 +394,11 @@ public class ThumbnailsPanel extends JPanel
         return (height - MARGIN_THUMBNAIL) / (renderer.getThumbnailAreaHeight() + MARGIN_THUMBNAIL);
     }
 
-    public synchronized boolean isSelected(int index) {
+    public synchronized boolean isSelectedAtIndex(int index) {
         return selectedThumbnailIndices.contains(index);
     }
 
-    public synchronized boolean isSelected(File file) {
+    public synchronized boolean isFileSelected(File file) {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
@@ -475,7 +415,7 @@ public class ThumbnailsPanel extends JPanel
      *
      * @return true if ore more image files are selected
      */
-    public synchronized boolean isFileSelected() {
+    public synchronized boolean isAFileSelected() {
         return !selectedThumbnailIndices.isEmpty();
     }
 
@@ -527,7 +467,7 @@ public class ThumbnailsPanel extends JPanel
     }
 
     private void transferData(MouseEvent evt) {
-        if (dragEnabled && isFileSelected()) {
+        if (dragThumbnailsEnabled && isAFileSelected()) {
             TransferHandler transferHandler = getTransferHandler();
 
             if (transferHandler != null) {
@@ -553,24 +493,24 @@ public class ThumbnailsPanel extends JPanel
             int thumbnailIndex = getThumbnailIndexAtPoint(evt.getX(), evt.getY());
 
             if (isIndex(thumbnailIndex)) {
-                transferData = true;
+                transferDataOfDraggedThumbnails = true;
 
                 if (MouseEventUtil.isDoubleClick(evt)) {
                     doubleClickAt(thumbnailIndex);
-                    setSelected(thumbnailIndex);
+                    setSelectedAtIndex(thumbnailIndex);
                 } else if (evt.isControlDown()) {
-                    if (!isSelected(thumbnailIndex)) {
-                        addToSelection(thumbnailIndex);
+                    if (!isSelectedAtIndex(thumbnailIndex)) {
+                        addIndexToSelection(thumbnailIndex);
                     } else {
-                        removeSelection(thumbnailIndex);
+                        removeIndexFromSelection(thumbnailIndex);
                     }
                 } else if (evt.isShiftDown()) {
                     enhanceSelectionTo(thumbnailIndex);
                 } else {
                     if (isClickInSelection(evt)) {
-                        clickInSelection = thumbnailIndex;
+                        isClickInSelection = thumbnailIndex;
                     } else {
-                        setSelected(thumbnailIndex);
+                        setSelectedAtIndex(thumbnailIndex);
                     }
                 }
             } else {
@@ -587,7 +527,7 @@ public class ThumbnailsPanel extends JPanel
 
         if (!isClickInSel) {
             if (isIndex(clickIndex)) {
-                setSelected(clickIndex);
+                setSelectedAtIndex(clickIndex);
                 isClickInSel = true;
             } else {
                 clearSelection();
@@ -598,23 +538,23 @@ public class ThumbnailsPanel extends JPanel
     }
 
     private synchronized void handleMouseReleased() {
-        if (clickInSelection >= 0) {
-            setSelected(clickInSelection);
-            clickInSelection = -1;
+        if (isClickInSelection >= 0) {
+            setSelectedAtIndex(isClickInSelection);
+            isClickInSelection = -1;
         }
     }
 
     private synchronized void handleMouseDragged(MouseEvent evt) {
-        clickInSelection = -1;
+        isClickInSelection = -1;
 
-        if (dragEnabled && transferData && isFileSelected()) {
+        if (dragThumbnailsEnabled && transferDataOfDraggedThumbnails && isAFileSelected()) {
             transferData(evt);
-            transferData = false;
+            transferDataOfDraggedThumbnails = false;
         }
     }
 
     private void handleMouseMoved(MouseEvent evt) {
-        if (dragEnabled) {
+        if (dragThumbnailsEnabled) {
             setCursor(Cursor.getDefaultCursor());
         }
 
@@ -648,7 +588,7 @@ public class ThumbnailsPanel extends JPanel
         boolean isEnhance = false;
 
         synchronized (this) {
-            isEnhance = isFileSelected();
+            isEnhance = isAFileSelected();
 
             if (isEnhance) {
                 Set<Integer> rerenderTargets = new HashSet<Integer>(selectedThumbnailIndices);
@@ -671,7 +611,7 @@ public class ThumbnailsPanel extends JPanel
                 rerender(rerenderTargets);
                 repaint();
             } else {
-                setSelected(index);
+                setSelectedAtIndex(index);
             }
         }
 
@@ -680,7 +620,7 @@ public class ThumbnailsPanel extends JPanel
         }
     }
 
-    public void setSelected(List<Integer> indices) {
+    public void setSelectedIndices(List<Integer> indices) {
         if (indices == null) {
             throw new NullPointerException("indices == null");
         }
@@ -720,7 +660,7 @@ public class ThumbnailsPanel extends JPanel
         return validIndices;
     }
 
-    private void setSelected(int index) {
+    private void setSelectedAtIndex(int index) {
         synchronized (this) {
             if (!isIndex(index)) {
                 assert false : "Invalid index: " + index;
@@ -740,11 +680,11 @@ public class ThumbnailsPanel extends JPanel
         repaint();
     }
 
-    private void addToSelection(int index) {
+    private void addIndexToSelection(int index) {
         boolean isSelect = false;
 
         synchronized (this) {
-            isSelect = !isSelected(index);
+            isSelect = !isSelectedAtIndex(index);
 
             if (isSelect) {
                 selectedThumbnailIndices.add(index);
@@ -758,15 +698,15 @@ public class ThumbnailsPanel extends JPanel
         }
     }
 
-    private void removeSelection(int index) {
+    private void removeIndexFromSelection(int index) {
         boolean isRemove = false;
 
         synchronized (this) {
-            isRemove = isSelected(index);
+            isRemove = isSelectedAtIndex(index);
 
             if (isRemove) {
 
-                // Do NOT call remove(int)!
+                // Do NOT call removeFiles(int)!
                 selectedThumbnailIndices.remove(Integer.valueOf(index));
                 rerender(index);
             }
@@ -814,7 +754,7 @@ public class ThumbnailsPanel extends JPanel
         File file = null;
 
         for (int i = low; i <= high; i++) {
-            file = getFile(i);
+            file = getFileAtIndex(i);
             assert file != null : "X: " + i + ", " + low + ", " + high + ".";
             renderedThumbnailCache.prefetch(file, renderer.getThumbnailWidth(), xmp);
         }
@@ -869,7 +809,7 @@ public class ThumbnailsPanel extends JPanel
 
     private synchronized void paintThumbnail(int index, Graphics g) {
         Point topLeft = getTopLeftOfTnIndex(index);
-        Image im = renderedThumbnailCache.getThumbnail(getFile(index), renderer.getThumbnailWidth(),
+        Image im = renderedThumbnailCache.getThumbnail(getFileAtIndex(index), renderer.getThumbnailWidth(),
                        isKeywordsOverlay());
 
         if (im != null) {
@@ -903,7 +843,7 @@ public class ThumbnailsPanel extends JPanel
         UserSettings.INSTANCE.writeToFile();
     }
 
-    private String createTooltipText(int index) {
+    private String createTooltipTextForIndex(int index) {
         if (isIndex(index)) {
             File file = files.get(index);
 
@@ -911,7 +851,7 @@ public class ThumbnailsPanel extends JPanel
                 return file.getAbsolutePath();
             }
 
-            ThumbnailFlag flag = getFlag(index);
+            ThumbnailFlag flag = getFlagAtIndex(index);
             String flagText = (flag == null)
                               ? ""
                               : flag.getString();
@@ -922,14 +862,14 @@ public class ThumbnailsPanel extends JPanel
             String unitString = unit.toString();
 
             return JptBundle.INSTANCE.getString("ThumbnailsPanel.TooltipText", file, unitLength, unitString, date,
-                    date, getSidecarFileName(file), flagText);
+                    date, getSidecarFileNameOfFile(file), flagText);
         } else {
             return "";
         }
     }
 
-    private String getSidecarFileName(File imageFile) {
-        File sidecarFile = XmpMetadata.getSidecarFile(imageFile);
+    private String getSidecarFileNameOfFile(File file) {
+        File sidecarFile = XmpMetadata.getSidecarFile(file);
 
         return (sidecarFile == null)
                ? ""
@@ -981,7 +921,7 @@ public class ThumbnailsPanel extends JPanel
      * @param  indices  file indices
      * @return files of valid indices
      */
-    private synchronized List<File> getFiles(List<Integer> indices) {
+    private synchronized List<File> getFilesAtIndices(List<Integer> indices) {
         List<File> f = new ArrayList<File>();
 
         for (Integer index : indices) {
@@ -993,10 +933,10 @@ public class ThumbnailsPanel extends JPanel
         return f;
     }
 
-    private synchronized List<Integer> getIndices(List<File> fileArray, boolean onlyIfExists) {
-        List<Integer> indices = new ArrayList<Integer>(fileArray.size());
+    private synchronized List<Integer> getIndicesOfFiles(List<File> files, boolean onlyIfExists) {
+        List<Integer> indices = new ArrayList<Integer>(files.size());
 
-        for (File file : fileArray) {
+        for (File file : files) {
             int index = files.indexOf(file);
 
             if (!onlyIfExists || (onlyIfExists && (index >= 0))) {
@@ -1008,7 +948,7 @@ public class ThumbnailsPanel extends JPanel
     }
 
     public synchronized List<File> getSelectedFiles() {
-        return getFiles(getSelectedIndices());
+        return getFilesAtIndices(getSelectedIndices());
     }
 
     public synchronized Comparator<File> getFileSortComparator() {
@@ -1050,7 +990,7 @@ public class ThumbnailsPanel extends JPanel
             return;
         }
 
-        List<File> selFiles = getFiles(selectedIndices);
+        List<File> selFiles = getFilesAtIndices(selectedIndices);
         List<File> filesWithoutMoved = new ArrayList<File>(files);
         int fileCount = filesWithoutMoved.size();
 
@@ -1063,7 +1003,7 @@ public class ThumbnailsPanel extends JPanel
         newOrderedFiles.addAll(filesWithoutMoved.subList(index, filesWithoutMoved.size()));
         files.clear();
         files.addAll(newOrderedFiles);
-        clearSelection(getIndices(selFiles, true));
+        clearSelectionAtIndices(getIndicesOfFiles(selFiles, true));
         repaint();
     }
 
@@ -1127,7 +1067,7 @@ public class ThumbnailsPanel extends JPanel
         }
 
         if (settings.hasSelThumbnails()) {
-            setSelected(settings.getSelThumbnails());
+            setSelectedIndices(settings.getSelThumbnails());
         }
     }
 
@@ -1164,15 +1104,15 @@ public class ThumbnailsPanel extends JPanel
      * Removes files from the <strong>display</strong>, <em>not</em> from the
      * file system.
      *
-     * @param filesToRemove  files to remove
+     * @param filesToRemove  files to removeFiles
      */
-    public synchronized void remove(Collection<? extends File> filesToRemove) {
+    public synchronized void removeFiles(Collection<? extends File> filesToRemove) {
         if (filesToRemove == null) {
             throw new NullPointerException("filesToRemove == null");
         }
 
         List<File> oldFiles = new ArrayList<File>(files);
-        List<Integer> selIndicesToRemove = getSelectedIndicesOf(filesToRemove);
+        List<Integer> selIndicesToRemove = getSelectedIndicesOfFiles(filesToRemove);
 
         if (files.removeAll(filesToRemove)) {
             selectedThumbnailIndices.removeAll(selIndicesToRemove);
@@ -1187,7 +1127,7 @@ public class ThumbnailsPanel extends JPanel
         }
     }
 
-    private synchronized List<Integer> getSelectedIndicesOf(Collection<? extends File> files) {
+    private synchronized List<Integer> getSelectedIndicesOfFiles(Collection<? extends File> files) {
         List<Integer> selIndices = new ArrayList<Integer>(files.size());
 
         for (File file : files) {
@@ -1208,7 +1148,7 @@ public class ThumbnailsPanel extends JPanel
      * @param fromFile  old file
      * @param toFile  new file
      */
-    public synchronized void rename(File fromFile, File toFile) {
+    public synchronized void renameFile(File fromFile, File toFile) {
         if (fromFile == null) {
             throw new NullPointerException("oldFile == null");
         }
@@ -1229,7 +1169,7 @@ public class ThumbnailsPanel extends JPanel
      *
      * @param file  file
      */
-    public synchronized void repaint(File file) {
+    public synchronized void repaintFile(File file) {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
@@ -1237,7 +1177,7 @@ public class ThumbnailsPanel extends JPanel
         int index = getIndexOf(file);
 
         if (index > 0) {
-            repaint(Collections.singleton(index));
+            repaintAtIndices(Collections.singleton(index));
         }
     }
 
@@ -1338,7 +1278,7 @@ public class ThumbnailsPanel extends JPanel
             List<File> selFiles = getSelectedFiles();
 
             setFiles(new ArrayList<File>(files), content);
-            setSelected(getIndices(selFiles, true));
+            setSelectedIndices(getIndicesOfFiles(selFiles, true));
         }
     }
 
@@ -1452,7 +1392,7 @@ public class ThumbnailsPanel extends JPanel
         int indexToSelect = indexSelectedThumbnail - thumbnailCountPerRow;
 
         if ((indexSelectedThumbnail >= 0) && isIndex(indexToSelect)) {
-            setSelected(indexToSelect);
+            setSelectedAtIndex(indexToSelect);
         }
     }
 
@@ -1461,7 +1401,7 @@ public class ThumbnailsPanel extends JPanel
         int indexToSelect = indexSelectedThumbnail + thumbnailCountPerRow;
 
         if ((indexSelectedThumbnail >= 0) && isIndex(indexToSelect)) {
-            setSelected(indexToSelect);
+            setSelectedAtIndex(indexToSelect);
         }
     }
 
@@ -1474,7 +1414,7 @@ public class ThumbnailsPanel extends JPanel
                 scrollToTop();
             }
 
-            setSelected(indexToSelect);
+            setSelectedAtIndex(indexToSelect);
         }
     }
 
@@ -1491,7 +1431,7 @@ public class ThumbnailsPanel extends JPanel
                 scrollToBottom();
             }
 
-            setSelected(indexToSelect);
+            setSelectedAtIndex(indexToSelect);
         }
     }
 
@@ -1680,7 +1620,7 @@ public class ThumbnailsPanel extends JPanel
      * @return file or null if the index is invalid
      * @see    #isIndex(int)
      */
-    public synchronized File getFile(int index) {
+    public synchronized File getFileAtIndex(int index) {
         return isIndex(index)
                ? files.get(index)
                : null;
@@ -1703,9 +1643,15 @@ public class ThumbnailsPanel extends JPanel
             throw new NullPointerException("evt == null");
         }
 
-        int index = getThumbnailIndexAtPoint(evt.getX(), evt.getY());
+        if (!isDisplayThumbnailTooltip) {
+            setToolTipText(null);
+            return;
+        }
 
-        setToolTipText(createTooltipText(index));
+        int index = getThumbnailIndexAtPoint(evt.getX(), evt.getY());
+        String tooltipText = createTooltipTextForIndex(index);
+
+        setToolTipText(tooltipText);
     }
 
     @Override
@@ -1732,13 +1678,13 @@ public class ThumbnailsPanel extends JPanel
         // ignore
     }
 
-    private synchronized void updateViaFileFilter(File imageFile) {
+    private synchronized void updateViaFileFilter(File file) {
 
         // Insertion can't be decided because we don't know whether the image
         // file is e.g. in a displayed directory or matches the criteria of a
         // search
-        if (!fileFilter.accept(imageFile) && files.contains(imageFile)) {
-            remove(Collections.singleton(imageFile));
+        if (!fileFilter.accept(file) && files.contains(file)) {
+            removeFiles(Collections.singleton(file));
         }
     }
 
@@ -1841,6 +1787,19 @@ public class ThumbnailsPanel extends JPanel
     public void dcSubjectDeleted(String dcSubject) {
 
         // ignore
+    }
+
+    @Override
+    public void applySettings(UserSettingsEvent evt) {
+        if (evt.getType().equals(UserSettingsEvent.Type.DISPLAY_THUMBNAIL_TOOLTIP)) {
+            boolean displayThumbnailTooltip = UserSettings.INSTANCE.isDisplayThumbnailTooltip();
+
+            isDisplayThumbnailTooltip = displayThumbnailTooltip;
+
+            if (!displayThumbnailTooltip) {
+                setToolTipText(null);
+            }
+        }
     }
 
     public static class Settings {

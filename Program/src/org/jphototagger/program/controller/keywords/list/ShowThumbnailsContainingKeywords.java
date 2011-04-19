@@ -95,7 +95,7 @@ public final class ShowThumbnailsContainingKeywords implements Runnable {
     }
 
     private void setMetadataEditable() {
-        if (!GUI.getThumbnailsPanel().isFileSelected()) {
+        if (!GUI.getThumbnailsPanel().isAFileSelected()) {
             GUI.getEditPanel().setEditable(false);
         }
     }

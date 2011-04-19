@@ -71,6 +71,6 @@ public final class ControllerMetadataTemplateSetToSelImages extends ControllerMe
     }
 
     private boolean imagesSelected() {
-        return GUI.getThumbnailsPanel().isFileSelected();
+        return GUI.getThumbnailsPanel().isAFileSelected();
     }
 }

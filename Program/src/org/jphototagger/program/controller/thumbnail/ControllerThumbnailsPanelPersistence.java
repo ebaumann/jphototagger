@@ -90,7 +90,7 @@ public final class ControllerThumbnailsPanelPersistence implements ThumbnailsPan
             }
         }
 
-        tnPanel.setSelected(indices);
+        tnPanel.setSelectedIndices(indices);
     }
 
     private void readProperties() {

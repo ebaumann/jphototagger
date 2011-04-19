@@ -95,7 +95,7 @@ public final class ControllerImageCollectionSelected implements ListSelectionLis
     }
 
     private void setMetadataEditable() {
-        if (!GUI.getThumbnailsPanel().isFileSelected()) {
+        if (!GUI.getThumbnailsPanel().isAFileSelected()) {
             GUI.getEditPanel().setEditable(false);
         }
     }

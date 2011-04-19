@@ -103,7 +103,7 @@ public final class ControllerPlugins implements ActionListener {
 
             if (evt.filesChanged()) {
                 for (File changedFile : evt.getChangedFiles()) {
-                    GUI.getThumbnailsPanel().repaint(changedFile);
+                    GUI.getThumbnailsPanel().repaintFile(changedFile);
                 }
             }
 

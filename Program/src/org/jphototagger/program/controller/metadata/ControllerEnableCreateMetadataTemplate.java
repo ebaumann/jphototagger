@@ -24,7 +24,7 @@ public final class ControllerEnableCreateMetadataTemplate implements ThumbnailsP
             @Override
             public void run() {
                 GUI.getAppPanel().getButtonMetadataTemplateCreate().setEnabled(
-                    GUI.getThumbnailsPanel().isFileSelected());
+                    GUI.getThumbnailsPanel().isAFileSelected());
             }
         });
     }

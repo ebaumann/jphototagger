@@ -62,7 +62,7 @@ public final class ControllerPickReject implements ActionListener, KeyListener {
 
         ThumbnailsPanel panelThumbnails = GUI.getThumbnailsPanel();
 
-        if (panelThumbnails.isFileSelected()) {
+        if (panelThumbnails.isAFileSelected()) {
             List<File> selFiles = panelThumbnails.getSelectedFiles();
 
             GUI.getAppPanel().setStatusbarText(getPopupMessage(pick), MessageLabel.MessageType.INFO, 1000);
@@ -74,7 +74,7 @@ public final class ControllerPickReject implements ActionListener, KeyListener {
                 deleteFromCollection(pick
                                      ? ListModelImageCollections.NAME_IMAGE_COLLECTION_REJECTED
                                      : ListModelImageCollections.NAME_IMAGE_COLLECTION_PICKED, selFiles);
-                panelThumbnails.remove(selFiles);
+                panelThumbnails.removeFiles(selFiles);
             }
         }
     }

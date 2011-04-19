@@ -290,7 +290,7 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
                     buttonStart.setEnabled(true);
                     runs = false;
                     moveTask = null;
-                    GUI.getThumbnailsPanel().remove(movedFiles);
+                    GUI.getThumbnailsPanel().removeFiles(movedFiles);
                     removeMovedFiles();
                     pListenerSupport.notifyEnded(evt);
                     checkErrors();

@@ -233,7 +233,7 @@ public final class FavoritesHelper {
         }
 
         private void setMetadataEditable() {
-            if (!tnPanel.isFileSelected()) {
+            if (!tnPanel.isAFileSelected()) {
                 editPanels.setEditable(false);
             }
         }

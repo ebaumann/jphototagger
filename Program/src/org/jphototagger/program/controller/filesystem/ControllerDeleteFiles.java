@@ -57,7 +57,7 @@ public final class ControllerDeleteFiles implements ActionListener, KeyListener 
     private void delete() {
         ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
-        if ((tnPanel.isFileSelected()) && tnPanel.getContent().canDeleteImagesFromFileSystem()) {
+        if ((tnPanel.isAFileSelected()) && tnPanel.getContent().canDeleteImagesFromFileSystem()) {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
@@ -73,7 +73,7 @@ public final class ControllerDeleteFiles implements ActionListener, KeyListener 
 
         if (!deletedImageFiles.isEmpty()) {
             DatabaseImageFiles.INSTANCE.delete(deletedImageFiles);
-            GUI.getThumbnailsPanel().remove(deletedImageFiles);
+            GUI.getThumbnailsPanel().removeFiles(deletedImageFiles);
         }
     }
 

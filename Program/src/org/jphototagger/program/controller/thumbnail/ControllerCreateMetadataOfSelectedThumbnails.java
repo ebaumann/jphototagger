@@ -60,7 +60,7 @@ public final class ControllerCreateMetadataOfSelectedThumbnails implements Actio
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        if (GUI.getThumbnailsPanel().isFileSelected()) {
+        if (GUI.getThumbnailsPanel().isAFileSelected()) {
             updateMetadata(getMetadataToInsertIntoDatabase(evt.getSource()));
         }
     }

@@ -100,7 +100,7 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
             return true;
         }
 
-        if (tnPanel.isFileSelected() && isImageCollection(tnPanel)) {
+        if (tnPanel.isAFileSelected() && isImageCollection(tnPanel)) {
             moveSelectedImages(support, tnPanel);
 
             return true;
@@ -256,7 +256,7 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
         Point p = support.getDropLocation().getDropPoint();
         ThumbnailsPanel panel = (ThumbnailsPanel) support.getComponent();
 
-        return panel.isSelected(panel.getImageMoveDropIndex(p.x, p.y));
+        return panel.isSelectedAtIndex(panel.getImageMoveDropIndex(p.x, p.y));
     }
 
     private boolean isThumbnailPos(TransferSupport support) {
@@ -273,7 +273,7 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
         int index = panel.getThumbnailIndexAtPoint(p.x, p.y);
 
         if (panel.isIndex(index)) {
-            return panel.getFile(index);
+            return panel.getFileAtIndex(index);
         } else {
             return null;
         }

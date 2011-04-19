@@ -171,7 +171,7 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
                 return false;
             }
 
-            File dragOverFile = panel.getFile(dragIndex);
+            File dragOverFile = panel.getFileAtIndex(dragIndex);
 
             return (panel.getIndexOf(file) >= 0) && file.equals(dragOverFile);
         }
@@ -206,7 +206,7 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
             g2.setFont(FONT);
             g2.setColor(ThumbnailsPanel.COLOR_BACKGROUND_PANEL);
             g2.fillRect(0, 0, w, h);
-            paintThumbnailBackground(g2, panel.isSelected(rtci.file), isDragOver(rtci.file));
+            paintThumbnailBackground(g2, panel.isFileSelected(rtci.file), isDragOver(rtci.file));
             paintThumbnailFlag(g2, rtci.file);
             paintThumbnail(scaled, g2);
 
@@ -253,7 +253,7 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
     }
 
     private void paintThumbnailFlag(Graphics g, File file) {
-        ThumbnailFlag flag = panel.getFlag(file);
+        ThumbnailFlag flag = panel.getFlagOfFile(file);
 
         if (flag != null) {
             Color oldColor = g.getColor();
@@ -313,7 +313,7 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
                     : 0;
         Color oldColor = g.getColor();
 
-        g.setColor(panel.isSelected(file)
+        g.setColor(panel.isFileSelected(file)
                    ? COLOR_TEXT_HIGHLIGHTED
                    : COLOR_TEXT);
         g.drawString(text, xText, getThumbnailAreaHeight() - FONT_PIXEL_DESCENT);

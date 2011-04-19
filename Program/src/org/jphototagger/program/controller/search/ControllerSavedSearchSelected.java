@@ -100,7 +100,7 @@ public final class ControllerSavedSearchSelected implements ListSelectionListene
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    if (!GUI.getThumbnailsPanel().isFileSelected()) {
+                    if (!GUI.getThumbnailsPanel().isAFileSelected()) {
                         GUI.getEditPanel().setEditable(false);
                     }
                 }
