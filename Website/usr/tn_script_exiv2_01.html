@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Creating Thumbnails: Extracting embedded thumbnails with Exiv2</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<meta name="date" content="2011-04-26T19:00:15+02:00" />
+	<meta http-equiv="content-language" content="en" />
+	<link rel="stylesheet" media="screen" type="text/css" href="../css/standard.css" />
+	<link rel="shortcut icon" href="../favicon.ico" />
+        <style type="text/css">
+            #content ol, #content ul { margin-top: 0.75em; margin-left: 0.75em; padding-left: 0.75em; }
+            #content ul { list-style-type: square; }
+        </style>
+</head>
+<body>
+
+<div id="page">
+    <div id="sitenav">
+        <h2>Navigate</h2>
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../download.html">Download</a></li>
+            <li><a href="../features.html">Features</a></li>
+            <li><a href="../system_req.html">System requirements</a></li>
+            <li><a href="../screenshots/index.html">Screenshots</a></li>
+            <li><a href="index.html">Users</a></li>
+            <li><a href="../dev/index.html">Developers</a></li>
+        </ul>
+        <h2>Discussion</h2>
+        <ul>
+            <li><a href="http://groups.google.de/group/jphototagger-benutzer">Deutsche Benutzer</a></li>
+            <li><a href="http://groups.google.de/group/jphototagger-developers">Developers</a></li>
+        </ul>
+        <h2>Tracking</h2>
+        <ul>
+            <li><a href="http://code.google.com/p/jphototagger/issues/list">Bugs, Issues</a></li>
+        </ul>
+        <h2>Repository</h2>
+        <ul>
+            <li><a href="http://code.google.com/p/jphototagger/source/checkout">Source Code</a></li>
+        </ul>
+    </div><!--sitenav-->
+    <div id="content">
+
+        <h1>Creating Thumbnails: Extracting embedded thumbnails with Exiv2</h1>
+
+        <ul>
+            <li>If not installed, download and install
+                <a href="http://www.exiv2.org/">http://www.exiv2.org/</a>
+            </li>
+            <li>Create a batch file as listed below</li>
+            <li>Open: <strong>Edit &gt; Settings &gt; Thumbnails</strong></li>
+            <li>Check <strong>Create thumbnails with own external program</strong></li>
+            <li>Write into the text field under <strong>External image creation application:</strong><br />
+                    <code>"Path_to_Batch_file" "%s"</code>
+                    <br />
+                    where <code>"Path_to_Batch_file"</code> is something like <code>"C:\Batch\exiv2.bat"</code> 
+                    (the folder path where the batch file is stored included the batch file name)
+            </li>
+        </ul>
+
+        <h2>Batch File</h2>
+
+        <p>Written by <strong>Matthias Vonken</strong>. You have to fit the path to <code>exiv2</code>.</p>
+        
+<pre>@echo off
+
+set IMAGE=%1
+
+rem Extracting image file name and remove suffix
+for %%i in (""%IMAGE%"") do set THUMB_ROOT=%%~ni
+
+rem Suffix of thumbnails created by Exiv2 
+set THUMB_SUFFIX=-preview1.jpg
+
+rem Joining image filename and Exiv2 suffix
+set THUMB="%THUMB_ROOT%%THUMB_SUFFIX%"
+
+set TEMP_THUMBNAIL_FOLDER=%TMP%
+
+rem Creating thumbnail
+"C:\exiv2\exiv2.exe" -ep1 -l%TEMP_THUMBNAIL_FOLDER% %IMAGE%
+
+rem Writing thumbnail into standard out
+type "%TEMP_THUMBNAIL_FOLDER%"\%THUMB%
+
+rem Deleting thumbnail
+del "%TEMP_THUMBNAIL_FOLDER%"\%THUMB%
+</pre>
+        
+        <p><strong>Author:</strong> Elmar Baumann
+            <br /><a href="mailto:info@jphototagger.org?subject=JPhotoTagger%20ImageMagick%20one%20liner">Write e-Mail</a>
+            <br /><strong>Status of this document:</strong> 2011-04-26
+        </p>
+
+    </div><!--content-->
+</div><!--page-->
+</body>
+</html>
