@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>Creating Thumbnails: Extracting embedded thumbnails with Exiv2</title>
+	<title>Creating Thumbnails: dcraw and ImageMagick in a Batch File</title>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<meta name="date" content="2011-04-26T19:00:15+02:00" />
 	<meta http-equiv="content-language" content="en" />
@@ -42,55 +42,45 @@
     </div><!--sitenav-->
     <div id="content">
 
-        <h1>Creating Thumbnails: Extracting embedded thumbnails with Exiv2</h1>
+        <h1>Creating Thumbnails: dcraw and ImageMagick in a Batch File</h1>
 
+        <p>Usage for <strong>RAW files</strong>.</p>
+        
         <ul>
             <li>If not installed, download and install
-                <a href="http://www.exiv2.org/">Exiv2</a>
+                <a href="http://www.cybercom.net/~dcoffin/dcraw/">DCRaw</a> and
+                <a href="http://www.imagemagick.org">ImageMagick</a>
             </li>
             <li>Create a batch file as listed below</li>
             <li>Open: <strong>Edit &gt; Settings &gt; Thumbnails</strong></li>
             <li>Check <strong>Create thumbnails with own external program</strong></li>
             <li>Write into the text field under <strong>External image creation application:</strong><br />
-                    <code>"Path_to_Batch_file" "%s"</code>
+                    <code>"Path_to_Batch_file" "%s" %i</code>
                     <br />
-                    where <code>"Path_to_Batch_file"</code> is something like <code>"C:\Batch\exiv2.bat"</code> 
-                    (the folder path where the batch file is stored including the batch file name)
+                    where <code>"Path_to_Batch_file"</code> is something like <code>"C:\Batch\dcraw.bat"</code> 
+                    (the folder path where the batch file is stored included the batch file name)
             </li>
         </ul>
 
         <h2>Batch File</h2>
 
-        <p>Written by <strong>Matthias Vonken</strong>. You have to fit the path to <code>exiv2.exe</code>.</p>
+        <p>Written by <strong>Matthias Vonken</strong>. You have to fit the paths to <code>dcraw.exe</code> and
+            <code>convert.exe</code> <em>and joining the last lines after &quot;rem&quot; to one line</em>.</p>
         
 <pre>@echo off
 
-set IMAGE=%1
+set IMAGE_FILE=%1
+set MAX_LENGTH=%2
 
-rem Extracting image file name and remove suffix
-for %%i in (""%IMAGE%"") do set THUMB_ROOT=%%~ni
-
-rem Suffix of thumbnails created by Exiv2 
-set THUMB_SUFFIX=-preview1.jpg
-
-rem Joining image filename and Exiv2 suffix
-set THUMB="%THUMB_ROOT%%THUMB_SUFFIX%"
-
-set TEMP_THUMBNAIL_FOLDER=%TMP%
-
-rem Creating thumbnail
-"C:\exiv2\exiv2.exe" -ep1 -l%TEMP_THUMBNAIL_FOLDER% %IMAGE%
-
-rem Writing thumbnail into standard out
-type "%TEMP_THUMBNAIL_FOLDER%"\%THUMB%
-
-rem Deleting thumbnail
-del "%TEMP_THUMBNAIL_FOLDER%"\%THUMB%
+rem Creating thumbnail - NEXT LINE HAS TO BE ONE LINE, REMOVE LINE BREAKS (JOINING THE FOLLOWING LINES)
+"C:\dcraw\dcraw.exe" -e -c %IMAGE_FILE% 
+| "C:\Program Files\ImageMagick-6.6.9-Q16\convert.exe"
+ - -thumbnail %MAX_LENGTH%x%MAX_LENGTH% -auto-orient jpg:-
 </pre>
         
         <p><strong>Author:</strong> Elmar Baumann
             <br /><a href="mailto:info@jphototagger.org?subject=JPhotoTagger%20ImageMagick%20one%20liner">Write e-Mail</a>
-            <br /><strong>Status of this document:</strong> 2011-04-26
+            <br /><strong>Status of this document:</strong> 2011-04-27
         </p>
 
     </div><!--content-->
