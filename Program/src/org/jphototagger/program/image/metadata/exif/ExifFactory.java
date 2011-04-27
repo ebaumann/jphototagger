@@ -1,9 +1,9 @@
 package org.jphototagger.program.image.metadata.exif;
 
+import org.jphototagger.lib.util.NumberUtil;
+
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.data.Exif;
-
-import java.io.File;
 
 import java.sql.Date;
 
@@ -29,77 +29,92 @@ final class ExifFactory {
         try {
             Exif exif = new Exif();
 
-            ExifTag dateTimeOriginal = exifTags.exifTagById(ExifTag.Id.DATE_TIME_ORIGINAL.value());
-            ExifTag focalLength = exifTags.exifTagById(ExifTag.Id.FOCAL_LENGTH.value());
-            ExifTag isoSpeedRatings = exifTags.exifTagById(ExifTag.Id.ISO_SPEED_RATINGS.value());
-            ExifTag model = exifTags.exifTagById(ExifTag.Id.MODEL.value());
-            ExifTag lens = exifTags.exifTagById(ExifTag.Id.MAKER_NOTE_LENS.value());
+            ExifTag dateTimeOriginalTag = exifTags.exifTagById(ExifTag.Id.DATE_TIME_ORIGINAL.value());
+            ExifTag focalLengthTag = exifTags.exifTagById(ExifTag.Id.FOCAL_LENGTH.value());
+            ExifTag isoSpeedRatingsTag = exifTags.exifTagById(ExifTag.Id.ISO_SPEED_RATINGS.value());
+            ExifTag modelTag = exifTags.exifTagById(ExifTag.Id.MODEL.value());
+            ExifTag lensTag = exifTags.exifTagById(ExifTag.Id.MAKER_NOTE_LENS.value());
 
-            if (dateTimeOriginal != null) {
-                setExifDateTimeOriginal(exif, dateTimeOriginal);
+            if (dateTimeOriginalTag != null) {
+                setExifDateTimeOriginal(exif, dateTimeOriginalTag);
             }
 
-            if (focalLength != null) {
-                setExifFocalLength(exif, focalLength);
+            if (focalLengthTag != null) {
+                setExifFocalLength(exif, focalLengthTag);
             }
 
-            if (isoSpeedRatings != null) {
-                setExifIsoSpeedRatings(exif, isoSpeedRatings);
+            if (isoSpeedRatingsTag != null) {
+                setExifIsoSpeedRatings(exif, isoSpeedRatingsTag);
             }
 
-            setExifEquipment(exif, model);
+            if (modelTag != null) {
+                setExifEquipment(exif, modelTag);
+            }
 
-            if (lens != null) {
-                exif.setLens(lens.stringValue());
+            if (lensTag != null) {
+                exif.setLens(lensTag.stringValue());
             }
 
             return exif;
         } catch (Exception ex) {
             AppLogger.logSevere(ExifMetadata.class, ex);
-        }
-
         return null;
     }
+    }
 
-    private static void setExifDateTimeOriginal(Exif exif, ExifTag exifTag) {
-        String datestring = exifTag.stringValue();    // did throw a null pointer exception
+    private static void setExifDateTimeOriginal(Exif exif, ExifTag dateTimeOriginalTag) {
+        String exifTagStringValue = dateTimeOriginalTag.stringValue();
+        String dateTimeString = exifTagStringValue == null 
+                                    ? "" 
+                                    : exifTagStringValue.trim();
+        int dateTimeStringLength = dateTimeString.length();
 
-        if ((datestring != null) && (datestring.trim().length() >= 11)) {
+        if (dateTimeStringLength >= 11) {
             try {
-                int year = new Integer(datestring.substring(0, 4)).intValue();
-                int month = new Integer(datestring.substring(5, 7)).intValue();
-                int day = new Integer(datestring.substring(8, 10)).intValue();
+                String yearString = dateTimeString.substring(0, 4);
+                String monthString = dateTimeString.substring(5, 7);
+                String dayString = dateTimeString.substring(8, 10);
+                
+                if (!NumberUtil.isInteger(yearString) || !NumberUtil.isInteger(monthString) || !NumberUtil.isInteger(dayString)) {
+                    return;
+                }
+                
+                int year = Integer.parseInt(yearString);
+                int month = Integer.parseInt(monthString);
+                int day = Integer.parseInt(dayString);
                 Calendar calendar = new GregorianCalendar();
 
                 if (year < 1839) {
                     AppLogger.logInfo(ExifFactory.class, "ExifFactory.Info.TooOldYear");
-
                     return;
                 }
 
                 calendar.set(year, month - 1, day);
 
-                try {
-                    exif.setDateTimeOriginal(new Date(calendar.getTimeInMillis()));
+                long timeInMillis = calendar.getTimeInMillis();
+                Date dateTimeOriginal = new Date(timeInMillis);
+
+                exif.setDateTimeOriginal(dateTimeOriginal);
                 } catch (Exception ex) {
                     AppLogger.logSevere(ExifMetadata.class, ex);
                 }
-            } catch (Exception ex) {
-                AppLogger.logSevere(ExifMetadata.class, ex);
             }
         }
-    }
 
-    private static void setExifEquipment(Exif exif, ExifTag exifTag) {
-        if (exifTag != null) {
-            exif.setRecordingEquipment(exifTag.stringValue().trim());
+    private static void setExifEquipment(Exif exif, ExifTag modelTag) {
+        String exifTagStringValue = modelTag.stringValue();
+
+        if (exifTagStringValue != null) {
+            exif.setRecordingEquipment(exifTagStringValue.trim());
         }
     }
 
-    private static void setExifFocalLength(Exif exif, ExifTag exifTag) {
+    private static void setExifFocalLength(Exif exif, ExifTag focalLengthTag) {
         try {
-            String length = exifTag.stringValue().trim();
-            StringTokenizer tokenizer = new StringTokenizer(length, "/:");
+            String exifTagStringValue = focalLengthTag.stringValue();
+            StringTokenizer tokenizer = exifTagStringValue == null 
+                                            ? new StringTokenizer("") 
+                                            : new StringTokenizer(exifTagStringValue.trim(), "/:");
 
             if (tokenizer.countTokens() >= 1) {
                 String denominatorString = tokenizer.nextToken();
@@ -109,13 +124,19 @@ final class ExifFactory {
                     numeratorString = tokenizer.nextToken();
                 }
 
-                double denominator = Double.valueOf(denominatorString);
+                if (!NumberUtil.isDouble(denominatorString)) {
+                    return;
+                }
+
+                double denominator = Double.parseDouble(denominatorString);
                 double focalLength = denominator;
 
-                if (numeratorString != null) {
-                    double numerator = new Double(numeratorString);
+                if (NumberUtil.isDouble(numeratorString)) {
+                    double numerator = Double.parseDouble(numeratorString);
 
+                    if (numerator != 0) {
                     focalLength = denominator / numerator;
+                }
                 }
 
                 exif.setFocalLength(focalLength);
@@ -125,9 +146,18 @@ final class ExifFactory {
         }
     }
 
-    private static void setExifIsoSpeedRatings(Exif exif, ExifTag exifTag) {
+    private static void setExifIsoSpeedRatings(Exif exif, ExifTag isoSpeedRatingsTag) {
         try {
-            exif.setIsoSpeedRatings(new Short(exifTag.stringValue().trim()).shortValue());
+            String exifTagStringValue = isoSpeedRatingsTag.stringValue();
+            String isoSpeedRatingsString = exifTagStringValue == null 
+                                               ? null 
+                                               : exifTagStringValue.trim();
+            
+            if (NumberUtil.isShort(isoSpeedRatingsString)) {
+                short isoSpeedRatings = Short.parseShort(isoSpeedRatingsString);
+                
+                exif.setIsoSpeedRatings(isoSpeedRatings);
+            }
         } catch (Exception ex) {
             AppLogger.logSevere(ExifMetadata.class, ex);
         }
