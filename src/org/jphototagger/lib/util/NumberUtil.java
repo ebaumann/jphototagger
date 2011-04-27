@@ -12,7 +12,7 @@ public final class NumberUtil {
      * @param  string may be null
      * @return 
      */
-    static boolean isShort(String string) {
+    public static boolean isShort(String string) {
         if (string == null) {
             return false;
         }
@@ -30,7 +30,7 @@ public final class NumberUtil {
      * @param  string may be null
      * @return 
      */
-    static boolean isLong(String string) {
+    public static boolean isLong(String string) {
         if (string == null) {
             return false;
         }
@@ -48,7 +48,7 @@ public final class NumberUtil {
      * @param  string may be null
      * @return 
      */
-    static boolean isInteger(String string) {
+    public static boolean isInteger(String string) {
         if (string == null) {
             return false;
         }
@@ -66,7 +66,7 @@ public final class NumberUtil {
      * @param  string may be null
      * @return 
      */
-    static boolean isFloat(String string) {
+    public static boolean isFloat(String string) {
         if (string == null) {
             return false;
         }
@@ -84,7 +84,7 @@ public final class NumberUtil {
      * @param  string may be null
      * @return 
      */
-    static boolean isDouble(String string) {
+    public static boolean isDouble(String string) {
         if (string == null) {
             return false;
         }
