@@ -3,6 +3,11 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.8.77 2011-04-27
+-----------------
+* Lesen von EXIF: Überprüfen, ob ISO-Wert eine Zahl ist (somit keine
+  Fehlermeldung, falls dies nicht zutrifft)
+
 0.8.76 2011-04-19
 -----------------
 * Tooltips beim Überfahren der Vorschaubilder können deaktiviert werden:
