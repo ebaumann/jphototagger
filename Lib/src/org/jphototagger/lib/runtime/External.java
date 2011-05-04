@@ -1,15 +1,18 @@
 package org.jphototagger.lib.runtime;
 
+import java.io.BufferedReader;
 import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.lib.resource.JslBundle;
 
 import java.io.InputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.StreamTokenizer;
 import java.io.StringReader;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.jphototagger.lib.io.IoUtil;
 
 /**
  * Something what doesn't happen in the JVM.
@@ -61,6 +64,32 @@ public final class External {
         }
     }
 
+    // Modified http://www.javaworld.com/javaworld/jw-12-2000/jw-1229-traps.html?page=4
+    private static class StreamGobbler extends Thread {
+
+        InputStream is;
+
+        StreamGobbler(InputStream is) {
+            this.is = is;
+        }
+
+        @Override
+        public void run() {
+            BufferedReader br = null;
+            
+            try {
+                InputStreamReader isr = new InputStreamReader(is);
+                br = new BufferedReader(isr);
+                
+                while (br.readLine() != null) {
+                }
+            } catch (Throwable t) {
+                Logger.getLogger(External.class.getName()).log(Level.WARNING, null, t);
+            } finally {
+                IoUtil.close(br);
+            }
+        }
+    }
 
     /**
      * Executes an external program and can wait until it's completed.
@@ -79,14 +108,19 @@ public final class External {
             Runtime runtime = Runtime.getRuntime();
             String[] cmd = parseQuotedCommandLine(command);
             Process p = runtime.exec(cmd);
+            StreamGobbler errorGobbler = new StreamGobbler(p.getErrorStream());            
+            StreamGobbler outputGobbler = new StreamGobbler(p.getInputStream());
+                
+            errorGobbler.start();
+            outputGobbler.start();
 
             if (wait) {
                 p.waitFor();
 
                 return new ProcessResult(p);
             }
-        } catch (Exception ex) {
-            Logger.getLogger(External.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(External.class.getName()).log(Level.SEVERE, null, t);
         }
 
         return null;
