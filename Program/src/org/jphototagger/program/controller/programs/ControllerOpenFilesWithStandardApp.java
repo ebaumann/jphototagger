@@ -34,9 +34,9 @@ public final class ControllerOpenFilesWithStandardApp implements ActionListener 
 
         if (program == null) {
             MessageDisplayer.information(null, "ControllerOpenFilesWithStandardApp.Info.DefineOpenApp");
-            ProgramsHelper.openSelectedFilesWidth(ProgramsHelper.addProgram());
+            ProgramsHelper.openSelectedFilesWidth(ProgramsHelper.addProgram(), false);
         } else {
-            new StartPrograms(null).startProgram(program, GUI.getSelectedImageFiles());
+            new StartPrograms(null).startProgram(program, GUI.getSelectedImageFiles(), false);
         }
     }
 }

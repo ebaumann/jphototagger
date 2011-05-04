@@ -337,7 +337,7 @@ public final class InsertImageFilesIntoDatabase extends Thread implements Cancel
         for (Program action : actions) {
             StartPrograms programStarter = new StartPrograms(null);
 
-            programStarter.startProgram(action, Collections.singletonList(imgFile));
+            programStarter.startProgram(action, Collections.singletonList(imgFile), true);
         }
     }
 

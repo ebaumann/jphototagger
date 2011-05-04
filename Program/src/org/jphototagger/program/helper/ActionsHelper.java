@@ -171,7 +171,7 @@ public final class ActionsHelper {
 
             StartPrograms starter = new StartPrograms(ProgressBar.INSTANCE.getResource(pBarOwner));
 
-            starter.startProgram(action, tnPanel.getSelectedFiles());
+            starter.startProgram(action, tnPanel.getSelectedFiles(), true);
             ProgressBar.INSTANCE.releaseResource(pBarOwner);
         }
     }

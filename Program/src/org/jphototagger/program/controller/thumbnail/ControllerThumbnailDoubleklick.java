@@ -38,9 +38,9 @@ public final class ControllerThumbnailDoubleklick {
 
                 // Reusing bundle string
                 MessageDisplayer.information(null, "ControllerOpenFilesWithStandardApp.Info.DefineOpenApp");
-                ProgramsHelper.openSelectedFilesWidth(ProgramsHelper.addProgram());
+                ProgramsHelper.openSelectedFilesWidth(ProgramsHelper.addProgram(), false);
             } else {
-                new StartPrograms(null).startProgram(program, Arrays.asList(panel.getFileAtIndex(index)));
+                new StartPrograms(null).startProgram(program, Arrays.asList(panel.getFileAtIndex(index)), false);
             }
         }
     }
