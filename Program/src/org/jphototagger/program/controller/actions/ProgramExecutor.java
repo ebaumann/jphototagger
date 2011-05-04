@@ -9,21 +9,22 @@ import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import javax.swing.JProgressBar;
 
 /**
- * Executes {@link Program}s.
  *
  * @author Elmar Baumann
  */
 public final class ProgramExecutor implements ProgramExecutionListener {
     private final StartPrograms programStarter;
+    private final boolean waitForTermination;
 
-    public ProgramExecutor(JProgressBar progressBar) {
+    public ProgramExecutor(JProgressBar progressBar, boolean waitForTermination) {
         programStarter = new StartPrograms(progressBar);
+        this.waitForTermination = waitForTermination;
     }
 
     @Override
     public void execute(Program program) {
         ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
-        programStarter.startProgram(program, tnPanel.getSelectedFiles());
+        programStarter.startProgram(program, tnPanel.getSelectedFiles(), waitForTermination);
     }
 }

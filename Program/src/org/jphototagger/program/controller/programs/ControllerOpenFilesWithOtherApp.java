@@ -9,9 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Kontrolliert die Aktion: Öffne ausgewählte Thumbnails mit einer anderen
- * Anwendung, ausgelöst von
- * {@link org.jphototagger.program.view.popupmenus.PopupMenuThumbnails}.
  *
  * @author Elmar Baumann
  */
@@ -33,7 +30,7 @@ public final class ControllerOpenFilesWithOtherApp implements ActionListener {
 
     private void openFiles(Program program) {
         if (program != null) {
-            programStarter.startProgram(program, GUI.getSelectedImageFiles());
+            programStarter.startProgram(program, GUI.getSelectedImageFiles(), false);
         }
     }
 }

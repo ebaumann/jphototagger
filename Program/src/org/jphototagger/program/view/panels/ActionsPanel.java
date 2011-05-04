@@ -46,7 +46,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
         MnemonicUtil.setMnemonics((Container) this);
         setAccelerators();
         selectFirstItem();
-        addListener(new ProgramExecutor(progressBar));
+        addListener(new ProgramExecutor(progressBar, true));
     }
 
     private void selectFirstItem() {

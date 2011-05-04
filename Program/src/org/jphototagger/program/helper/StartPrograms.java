@@ -43,12 +43,13 @@ public final class StartPrograms {
     /**
      * Executes a program.
      *
-     * @param  program     program
-     * @param  imageFiles  files to process
+     * @param  program           program
+     * @param  imageFiles        files to process
+     * @param waitForTermination  
      */
-    public void startProgram(Program program, List<File> imageFiles) {
+    public void startProgram(Program program, List<File> imageFiles, boolean waitForTermination) {
         if (checkFilecount(imageFiles)) {
-            Execute execute = new Execute(program, imageFiles);
+            Execute execute = new Execute(program, imageFiles, waitForTermination);
 
             synchronized (this) {
                 if (queue.isEmpty()) {
@@ -71,11 +72,12 @@ public final class StartPrograms {
     }
 
     private class Execute extends Thread {
-        private ProgramInputParametersDialog dlg = new ProgramInputParametersDialog();
-        private List<File> imageFiles;
-        private Program program;
+        private final ProgramInputParametersDialog dlg = new ProgramInputParametersDialog();
+        private final List<File> imageFiles;
+        private final Program program;
+        private final boolean waitForTermination;
 
-        Execute(Program program, List<File> imageFiles) {
+        Execute(Program program, List<File> imageFiles, boolean waitForTermination) {
             super("JPhotoTagger: Executing program " + program.getAlias());
 
             if (program == null) {
@@ -88,6 +90,7 @@ public final class StartPrograms {
 
             this.imageFiles = new ArrayList<File>(imageFiles);
             this.program = program;
+            this.waitForTermination = waitForTermination;
         }
 
         @Override
@@ -119,9 +122,10 @@ public final class StartPrograms {
 
                 logCommand(command);
 
-                External.ProcessResult result = External.execute(command, true);
+                External.ProcessResult result = External.execute(command, waitForTermination);
+                boolean terminatedWithErrors = result == null || result.getExitValue() != 0;
 
-                if ((result == null) || (result.getExitValue() != 0)) {
+                if (waitForTermination && terminatedWithErrors) {
                     AppLogger.logWarning(Execute.class, "Execute.ExternalExcecute.Error", command, (result == null)
                             ? "?"
                             : result.getErrorStream());
@@ -149,9 +153,10 @@ public final class StartPrograms {
 
             logCommand(command);
 
-            External.ProcessResult result = External.execute(command, true);
+            External.ProcessResult result = External.execute(command, waitForTermination);
+            boolean terminatedWithErrors = result == null || result.getExitValue() != 0;
 
-            if ((result == null) || (result.getExitValue() != 0)) {
+            if (waitForTermination && terminatedWithErrors) {
                 AppLogger.logWarning(Execute.class, "Execute.ExternalExcecute.Error", command, (result == null)
                         ? "?"
                         : result.getErrorStream());
@@ -175,9 +180,10 @@ public final class StartPrograms {
 
                 logCommand(command);
 
-                External.ProcessResult result = External.execute(command, true);
+                External.ProcessResult result = External.execute(command, waitForTermination);
+                boolean terminatedWithErrors = result == null || result.getExitValue() != 0;
 
-                if ((result == null) || (result.getExitValue() != 0)) {
+                if (waitForTermination && terminatedWithErrors) {
                     AppLogger.logWarning(Execute.class, "Execute.ExternalExcecute.Error", command, (result == null)
                             ? "?"
                             : result.getErrorStream());

@@ -22,7 +22,7 @@ public final class ControllerAddProgram extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        ProgramsHelper.openSelectedFilesWidth(ProgramsHelper.addProgram());
+        ProgramsHelper.openSelectedFilesWidth(ProgramsHelper.addProgram(), false);
     }
 
 }

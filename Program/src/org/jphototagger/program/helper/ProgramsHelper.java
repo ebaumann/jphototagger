@@ -163,11 +163,12 @@ public final class ProgramsHelper {
 
     /**
      *
-     * @param program may be null
+     * @param program             may be null
+     * @param waitForTermination  
      */
-    public static void openSelectedFilesWidth(Program program) {
+    public static void openSelectedFilesWidth(Program program, boolean waitForTermination) {
         if (program != null) {
-            new StartPrograms(null).startProgram(program, GUI.getSelectedImageFiles());
+            new StartPrograms(null).startProgram(program, GUI.getSelectedImageFiles(), waitForTermination);
         }
     }
 
