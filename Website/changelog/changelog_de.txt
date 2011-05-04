@@ -3,6 +3,13 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.8.78 2011-05-04
+-----------------
+* Werkzeuge > IPTC-Daten importieren: Zeichensatz kann ausgewählt
+  werden
+* Öffnen von Bildern durch Programme: Fehlermeldungen in JPhotoTagger
+  sowie in Programmen sollten nicht mehr vorkommen
+
 0.8.77 2011-04-27
 -----------------
 * Lesen von EXIF: Überprüfen, ob ISO-Wert eine Zahl ist (somit keine

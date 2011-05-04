@@ -2,6 +2,7 @@ package org.jphototagger.program.view.panels;
 
 import org.jphototagger.lib.dialog.DirectoryChooser.Option;
 import org.jphototagger.program.event.UserSettingsEvent;
+import org.jphototagger.program.event.UserSettingsEvent.Type;
 import org.jphototagger.program.helper.CopyFiles;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
@@ -21,13 +22,13 @@ import javax.swing.filechooser.FileSystemView;
 import org.jphototagger.program.controller.misc.ControllerUpdateCheck;
 import org.jphototagger.program.event.listener.UserSettingsListener;
 import org.jphototagger.program.factory.ControllerFactory;
+import org.jphototagger.program.model.IptcCharsetComboBoxModel;
 
 /**
  *
  * @author Elmar Baumann
  */
-public final class SettingsMiscPanel extends javax.swing.JPanel
-        implements Persistence, UserSettingsListener {
+public final class SettingsMiscPanel extends javax.swing.JPanel implements Persistence, UserSettingsListener {
     private static final long serialVersionUID = 479354601163285718L;
 
     public SettingsMiscPanel() {
@@ -138,9 +139,17 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
 
     @Override
     public void applySettings(UserSettingsEvent evt) {
-        if (evt.getType().equals(UserSettingsEvent.Type.CHECK_FOR_UPDATES)) {
+        Type eventType = evt.getType();
+        
+        if (eventType.equals(UserSettingsEvent.Type.CHECK_FOR_UPDATES)) {
             checkBoxAutoDownloadCheck.setSelected(UserSettings.INSTANCE.isAutoDownloadNewerVersions());
+        } else if (eventType.equals(UserSettingsEvent.Type.IPTC_CHARSET)) {
+            setIptcCharsetFromUserSettings();
         }
+    }
+
+    private void setIptcCharsetFromUserSettings() {
+        comboBoxIptcCharset.getModel().setSelectedItem(UserSettings.INSTANCE.getIptcCharset());
     }
 
     @Override
@@ -154,7 +163,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
         checkBoxIsAcceptHiddenDirectories.setSelected(settings.isAcceptHiddenDirectories());
         checkBoxAddFilenameToGpsLocationExport.setSelected(settings.isAddFilenameToGpsLocationExport());
         checkBoxExperimentalFileFormats.setSelected(settings.isUseExperimentalFileFormats());
-        comboBoxIptcCharset.getModel().setSelectedItem(UserSettings.INSTANCE.getIptcCharset());
+        setIptcCharsetFromUserSettings();
         comboBoxLogLevel.setSelectedItem(settings.getLogLevel().getLocalizedName());
         labelDatabaseDirectory.setText(UserSettings.INSTANCE.getDatabaseDirectoryName());
         labelDatabaseBackupDirectory.setText(UserSettings.INSTANCE.getDatabaseBackupDirectoryName());
@@ -298,10 +307,11 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
+        labelIptcCharset.setLabelFor(comboBoxIptcCharset);
         labelIptcCharset.setText(JptBundle.INSTANCE.getString("SettingsMiscPanel.labelIptcCharset.text")); // NOI18N
         labelIptcCharset.setName("labelIptcCharset"); // NOI18N
 
-        comboBoxIptcCharset.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ISO-8859-1", "UTF-8" }));
+        comboBoxIptcCharset.setModel(new IptcCharsetComboBoxModel());
         comboBoxIptcCharset.setName("comboBoxIptcCharset"); // NOI18N
         comboBoxIptcCharset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -427,9 +437,9 @@ public final class SettingsMiscPanel extends javax.swing.JPanel
                                 .addGroup(layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createSequentialGroup()
-                                            .addComponent(labelIptcCharset, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
+                                            .addComponent(labelIptcCharset, javax.swing.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE)
                                             .addGap(49, 49, 49))
-                                        .addComponent(labelLogLevel, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE))
+                                        .addComponent(labelLogLevel, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE))
                                     .addGap(14, 14, 14)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(comboBoxLogLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
