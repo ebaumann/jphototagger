@@ -517,6 +517,7 @@ public final class UserSettings {
 
         settings.set(charset, KEY_IPTC_CHARSET);
         writeToFile();
+        notifyListeners(Type.IPTC_CHARSET);
     }
 
     /**

@@ -49,10 +49,10 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="labelIptcCharset" pref="258" max="32767" attributes="2"/>
+                                          <Component id="labelIptcCharset" pref="311" max="32767" attributes="2"/>
                                           <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="labelLogLevel" pref="307" max="32767" attributes="2"/>
+                                      <Component id="labelLogLevel" pref="360" max="32767" attributes="2"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -251,6 +251,9 @@
     </Container>
     <Component class="javax.swing.JLabel" name="labelIptcCharset">
       <Properties>
+        <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="comboBoxIptcCharset"/>
+        </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsMiscPanel.labelIptcCharset.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
         </Property>
@@ -259,11 +262,8 @@
     </Component>
     <Component class="javax.swing.JComboBox" name="comboBoxIptcCharset">
       <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="2">
-            <StringItem index="0" value="ISO-8859-1"/>
-            <StringItem index="1" value="UTF-8"/>
-          </StringArray>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="new IptcCharsetComboBoxModel()" type="code"/>
         </Property>
         <Property name="name" type="java.lang.String" value="comboBoxIptcCharset" noResource="true"/>
       </Properties>

@@ -11,6 +11,7 @@ public final class UserSettingsEvent {
 
     public enum Type {
         DISPLAY_IPTC,
+        IPTC_CHARSET,
         LOG_LEVEL,
         MAX_THUMBNAIL_WIDTH,
         CHECK_FOR_UPDATES,
