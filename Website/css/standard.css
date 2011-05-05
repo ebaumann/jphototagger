@@ -6,7 +6,7 @@
 }
 
 body {
-    background: #fff;
+    background: url(logo.png) top left no-repeat #fff;
     color: #000;
     text-align: left;
 }
@@ -85,9 +85,7 @@ pre, code, kbd {
 
 #page {
     width: 55em;
-    overflow: hidden;
     margin: 0.5em auto;
-    background: url(logo.png) top left no-repeat #fff;
 }
 
 #sitenav {
