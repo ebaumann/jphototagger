@@ -128,7 +128,7 @@ public final class StartPrograms {
                 if (waitForTermination && terminatedWithErrors) {
                     AppLogger.logWarning(Execute.class, "Execute.ExternalExcecute.Error", command, (result == null)
                             ? "?"
-                            : result.getErrorStream());
+                            : result.getErrorStreamAsString());
                 }
 
                 setValueToProgressBar(++count);
@@ -159,7 +159,7 @@ public final class StartPrograms {
             if (waitForTermination && terminatedWithErrors) {
                 AppLogger.logWarning(Execute.class, "Execute.ExternalExcecute.Error", command, (result == null)
                         ? "?"
-                        : result.getErrorStream());
+                        : result.getErrorStreamAsString());
             }
 
             setValueToProgressBar(imageFiles.size());
@@ -186,7 +186,7 @@ public final class StartPrograms {
                 if (waitForTermination && terminatedWithErrors) {
                     AppLogger.logWarning(Execute.class, "Execute.ExternalExcecute.Error", command, (result == null)
                             ? "?"
-                            : result.getErrorStream());
+                            : result.getErrorStreamAsString());
                 }
 
                 setValueToProgressBar(++count);
