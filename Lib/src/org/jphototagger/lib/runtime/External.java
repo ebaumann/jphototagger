@@ -24,10 +24,14 @@ import org.jphototagger.lib.io.IoUtil;
  * @author Elmar Baumann
  */
 public final class External {
-    private enum Stream { STANDARD_ERROR, STANDARD_IN, STANDARD_OUT, }
+
+    private enum Stream { 
+        STANDARD_ERROR, 
+        STANDARD_IN, 
+        STANDARD_OUT, 
+    }
 
     public static class ProcessResult {
-        private static final byte[] emptyStream = {};
         private final int exitValue;
         private final String outputStream;
         private final String errorStream;
@@ -38,39 +42,33 @@ public final class External {
             this.errorStream = errorStream;
         }
 
-        public ProcessResult(Process process) {
-            byte[] os = getStream(process, Stream.STANDARD_OUT);
-            byte[] es = getStream(process, Stream.STANDARD_ERROR);
-
-            this.exitValue = process.exitValue();
-            this.outputStream = new String((os == null)
-                                           ? emptyStream
-                                           : os);
-            this.errorStream = new String((es == null)
-                                          ? emptyStream
-                                          : es);
-        }
-
-        public String getErrorStream() {
-            return errorStream;
-        }
-
         public int getExitValue() {
             return exitValue;
         }
 
-        public String getOutputStream() {
+        public String getOutputStreamAsString() {
             return outputStream;
         }
+
+        public String getErrorStreamAsString() {
+            return errorStream;
+    }
     }
 
     // Modified http://www.javaworld.com/javaworld/jw-12-2000/jw-1229-traps.html?page=4
     private static class StreamGobbler extends Thread {
 
-        InputStream is;
+        private final InputStream is;
+        private final StringBuilder sb = new StringBuilder();
+        private final boolean storeStreamInString;
 
-        StreamGobbler(InputStream is) {
+        private StreamGobbler(InputStream is, boolean storeStreamInString) {
             this.is = is;
+            this.storeStreamInString = storeStreamInString;
+        }
+
+        private String getStreamAsString() {
+            return sb.toString();
         }
 
         @Override
@@ -81,7 +79,15 @@ public final class External {
                 InputStreamReader isr = new InputStreamReader(is);
                 br = new BufferedReader(isr);
                 
+                if (storeStreamInString) {
+                    String line = null;
+                    
+                    while ((line = br.readLine()) != null) {
+                        sb.append(line);
+                    }
+                } else {
                 while (br.readLine() != null) {
+                }
                 }
             } catch (Throwable t) {
                 Logger.getLogger(External.class.getName()).log(Level.WARNING, null, t);
@@ -108,16 +114,21 @@ public final class External {
             Runtime runtime = Runtime.getRuntime();
             String[] cmd = parseQuotedCommandLine(command);
             Process p = runtime.exec(cmd);
-            StreamGobbler errorGobbler = new StreamGobbler(p.getErrorStream());            
-            StreamGobbler outputGobbler = new StreamGobbler(p.getInputStream());
+            boolean storeStreamInString = wait;
+            InputStream inputStream = p.getInputStream();
+            InputStream errorStream = p.getErrorStream();
+            StreamGobbler outputGobbler = new StreamGobbler(inputStream, storeStreamInString);
+            StreamGobbler errorGobbler = new StreamGobbler(errorStream, storeStreamInString);            
                 
             errorGobbler.start();
             outputGobbler.start();
 
             if (wait) {
-                p.waitFor();
+                int exitValue = p.waitFor();
+                String outputStreamString = outputGobbler.getStreamAsString();
+                String errorStreamString = errorGobbler.getStreamAsString();
 
-                return new ProcessResult(p);
+                return new ProcessResult(exitValue, outputStreamString, errorStreamString);
             }
         } catch (Throwable t) {
             Logger.getLogger(External.class.getName()).log(Level.SEVERE, null, t);
@@ -163,9 +174,10 @@ public final class External {
             Thread threadProcessDestroyer = new Thread(processDestroyer, "JPhotoTagger: Destroying process");
 
             threadProcessDestroyer.start();
+            byte[] outputStream = getStream(process, Stream.STANDARD_OUT);
+            byte[] errorStream = getStream(process, Stream.STANDARD_ERROR);
 
-            Pair<byte[], byte[]> streamContent = new Pair<byte[], byte[]>(getStream(process, Stream.STANDARD_OUT),
-                                                     getStream(process, Stream.STANDARD_ERROR));
+            Pair<byte[], byte[]> streamContent = new Pair<byte[], byte[]>(outputStream, errorStream);
 
             processDestroyer.processFinished();
             threadProcessDestroyer.interrupt();
