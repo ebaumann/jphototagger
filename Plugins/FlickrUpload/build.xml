@@ -72,13 +72,6 @@
 
     -->
     <target name="-post-jar">
-        <copy
-            file="dist/FlickrUpload.jar"
-            todir="../../Program/lib"
-        />
-        <zip
-            basedir="src"
-            destfile="../../Program/lib/FlickrUpload-src.zip"
-        />
+        <zip basedir="src" destfile="dist/FlickrUpload-src.zip" />
     </target>
 </project>

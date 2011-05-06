@@ -30,3 +30,4 @@ javadoc/.*
 ^Website/download\.html
 ^Website/jphototagger-version\.txt
 ^Website/manual/.*
+^Plugin/Plugin-src\.zip$
