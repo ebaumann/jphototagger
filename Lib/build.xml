@@ -68,13 +68,6 @@
 
     -->
     <target name="-post-jar">
-        <copy
-            file="dist/jsl.jar"
-            todir="../Program/lib"
-        />
-        <zip
-            basedir="src"
-            destfile="../Program/lib/jsl-src.zip"
-        />
+        <zip basedir="src" destfile="dist/jsl-src.zip" />
     </target>
 </project>

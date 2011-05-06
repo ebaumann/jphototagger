@@ -1,5 +1,7 @@
 package org.jphototagger.program.view.panels;
 
+import java.awt.event.ActionEvent;
+import java.util.Collection;
 import org.jphototagger.program.image.thumbnail.ThumbnailCreator;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Persistence;
@@ -11,9 +13,13 @@ import java.util.EnumMap;
 
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.JPopupMenu;
 
 import javax.swing.JRadioButton;
-import org.jphototagger.program.view.dialogs.ExternalThumbnailCreatorChooserDialog;
+import org.jphototagger.lib.util.ServiceLookup;
+import org.jphototagger.services.ExternalThumbnailCreator;
 
 /**
  *
@@ -21,6 +27,7 @@ import org.jphototagger.program.view.dialogs.ExternalThumbnailCreatorChooserDial
  */
 public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements Persistence {
     private static final long serialVersionUID = -5283587664627790755L;
+    private JPopupMenu createExternalThumbnailCreatorPopupMenu;
     private final Map<JRadioButton, ThumbnailCreator> thumbnailCreatorOfRadioButton = new HashMap<JRadioButton, ThumbnailCreator>();
     private final EnumMap<ThumbnailCreator, JRadioButton> radioButtonOfThumbnailCreator = new EnumMap<ThumbnailCreator, JRadioButton>(ThumbnailCreator.class);
 
@@ -71,16 +78,47 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
     }
 
     private void chooseExternalThumbnailCreator() {
-        ExternalThumbnailCreatorChooserDialog dialog = new ExternalThumbnailCreatorChooserDialog();
-
-        dialog.setVisible(true);
-
-        if (dialog.isAccepted()) {
-            String creatorCommand = dialog.getCreatorCommand();
-
-            textFieldExternalThumbnailCreationCommand.setText(creatorCommand);
-            UserSettings.INSTANCE.setExternalThumbnailCreationCommand(creatorCommand);
+        if (createExternalThumbnailCreatorPopupMenu == null) {
+            createExternalThumbnailCreatorPopupMenu = createExternalThumbnailCreatorPopupMenu();
         }
+        
+        int buttonHeight = buttonChooseExternalThumbnailCreator.getHeight();
+
+        createExternalThumbnailCreatorPopupMenu.show(buttonChooseExternalThumbnailCreator, 0, buttonHeight);
+    }
+    
+    private JPopupMenu createExternalThumbnailCreatorPopupMenu() {
+        JPopupMenu popupMenu = new JPopupMenu();
+        Collection<? extends ExternalThumbnailCreator> externalThumbnailCreators = ServiceLookup.lookupAll(ExternalThumbnailCreator.class);
+        
+        for (ExternalThumbnailCreator externalThumbnailCreator : externalThumbnailCreators) {
+            ExternalThumbnailCreatorAction action = new ExternalThumbnailCreatorAction(externalThumbnailCreator);
+            
+            popupMenu.add(action);
+        }
+        
+        return popupMenu;
+    }
+    
+    private class ExternalThumbnailCreatorAction extends AbstractAction {
+        private static final long serialVersionUID = 1L;
+        private final ExternalThumbnailCreator externalThumbnailCreator;
+
+        private ExternalThumbnailCreatorAction(ExternalThumbnailCreator externalThumbnailCreator) {
+            putValue(Action.NAME, externalThumbnailCreator.getDisplayName());
+            this.externalThumbnailCreator = externalThumbnailCreator;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String thumbnailCreationCommand = externalThumbnailCreator.getThumbnailCreationCommand();
+            
+            if (thumbnailCreationCommand != null) {
+                textFieldExternalThumbnailCreationCommand.setText(thumbnailCreationCommand);
+                UserSettings.INSTANCE.setExternalThumbnailCreationCommand(thumbnailCreationCommand);
+            }
+        }
+        
     }
 
     private void setDisplayThumbnailTooltip() {

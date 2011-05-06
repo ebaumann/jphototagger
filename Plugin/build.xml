@@ -72,13 +72,6 @@
 
     -->
     <target name="-post-jar">
-        <copy
-            file="dist/Plugin.jar"
-            todir="../Program/lib"
-        />
-        <zip
-            basedir="src"
-            destfile="../Program/lib/Plugin-src.zip"
-        />
+        <zip basedir="src" destfile="dist/Plugin-src.zip" />
     </target>
 </project>
