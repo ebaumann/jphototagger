@@ -1,16 +1,7 @@
 package org.jphototagger.dtncreators;
 
-import java.awt.Desktop;
 import java.io.File;
-import java.net.URI;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileFilter;
-import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.lib.io.FileUtil.FileChooserProperties;
-import org.jphototagger.lib.io.filefilter.AcceptExactFilenameNameFileFilter;
 import org.jphototagger.lib.system.SystemUtil;
 import org.jphototagger.services.ExternalThumbnailCreator;
 
@@ -21,9 +12,9 @@ import org.jphototagger.services.ExternalThumbnailCreator;
  */
 public final class ImageMagickThumbnailCreator implements ExternalThumbnailCreator {
 
-    private final ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/dtncreators/Bundle");
     private static final String COMMANDLINE_PARAMETERS = "-thumbnail %ix%i -auto-orient \"%s\" jpg:-";
-    private File lastDir;
+    private final ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/dtncreators/Bundle");
+    private final FileChooser fileChooser = createFileChooser();
 
     @Override
     public String getThumbnailCreationCommand() {
@@ -32,10 +23,10 @@ public final class ImageMagickThumbnailCreator implements ExternalThumbnailCreat
         dialog.setVisible(true);
         
         if (dialog.isBrowse()) {
-            browseImageMagickSite();
+            Util.browse("http://www.imagemagick.org/");
             return null;
         } else if (dialog.isChooseConvert()) {
-            File convertExecutable = chooseConvertExecutable();
+            File convertExecutable = fileChooser.chooseFileFixedName();
             
             return createCommand(convertExecutable);
         }
@@ -62,44 +53,26 @@ public final class ImageMagickThumbnailCreator implements ExternalThumbnailCreat
 
     }
     
-    private File chooseConvertExecutable() {
-        FileChooserProperties fcProps = new FileChooserProperties();
-        String title = bundle.getString("ImageMagickThumbnailCreator.ChooseFile.Dialogtitle");
+    private FileChooser createFileChooser() {
+        String convertFileName = getConvertFileName();
+        String convertFileDescription = getConvertFileDescription();
+        String fileChooserTitle = bundle.getString("ImageMagickThumbnailCreator.ChooseFile.Dialogtitle");
 
-        fcProps.dialogTitle(title);
-        fcProps.currentDirectoryPath(lastDir == null ? "" : lastDir.getAbsolutePath());
-        fcProps.multiSelectionEnabled(false);
-        fcProps.fileFilter(createFileFilter());
-        fcProps.fileSelectionMode(JFileChooser.FILES_ONLY);
-
-        File file = FileUtil.chooseFile(fcProps);
-
-        if (file != null) {
-            lastDir = file.getParentFile();
-        }
-        
-        return file;
+        return new FileChooser.Builder(convertFileName)
+                .fileChooserTitle(fileChooserTitle)
+                .fileDescription(convertFileDescription)
+                .build();
     }
     
-    private FileFilter createFileFilter() {
-        boolean isWindows = SystemUtil.isWindows();
-        String exactFilename = isWindows 
-                                   ? "convert.exe" 
-                                   : "convert";
-        String bundleKeyDescription = isWindows 
+    private String getConvertFileName() {
+        return SystemUtil.isWindows() ? "convert.exe" : "convert";
+    }
+    
+    private String getConvertFileDescription() {
+        String bundleKeyDescription = SystemUtil.isWindows() 
                                           ? "ImageMagickThumbnailCreator.FileFilter.Description.Windows" 
                                           : "ImageMagickThumbnailCreator.FileFilter.Description.OtherOS";
-        String description = bundle.getString(bundleKeyDescription);
-        AcceptExactFilenameNameFileFilter filter = new AcceptExactFilenameNameFileFilter(exactFilename);
-
-        return filter.forFileChooser(description);
-    }
-    
-    private void browseImageMagickSite() {
-        try {
-            Desktop.getDesktop().browse(new URI("http://www.imagemagick.org/"));
-        } catch (Throwable t) {
-            Logger.getLogger(ImageMagickThumbnailCreator.class.getName()).log(Level.SEVERE, null, t);
-        }
+        
+        return bundle.getString(bundleKeyDescription);
     }
 }
