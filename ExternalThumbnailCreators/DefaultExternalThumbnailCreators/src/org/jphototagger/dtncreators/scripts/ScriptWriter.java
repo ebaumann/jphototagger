@@ -110,16 +110,15 @@ public final class ScriptWriter {
             return s;
         }
         
-        StringBuilder sb = new StringBuilder();
+        String replaced = s;
         Set<String> replacementOfKeys = replacementOf.keySet();
         
         for (String replace : replacementOfKeys) {
             String replacement = replacementOf.get(replace);
-            String replaced = s.replace(replace, replacement);
             
-            sb.append(replaced);
+            replaced = replaced.replace(replace, replacement);
         }
         
-        return sb.toString();
+        return replaced;
     }
 }
