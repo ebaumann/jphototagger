@@ -39,7 +39,7 @@ public class ImageMagickThumbnailCreatorDialog extends Dialog {
     @SuppressWarnings("unchecked")
     private void initComponents() {//GEN-BEGIN:initComponents
 
-        labelInfo = new javax.swing.JLabel();
+        labelInfo = new org.jdesktop.swingx.JXLabel();
         buttonCancel = new javax.swing.JButton();
         buttonBrowse = new javax.swing.JButton();
         buttonChooseConvert = new javax.swing.JButton();
@@ -48,6 +48,7 @@ public class ImageMagickThumbnailCreatorDialog extends Dialog {
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/dtncreators/Bundle"); // NOI18N
         setTitle(bundle.getString("ImageMagickThumbnailCreatorDialog.title")); // NOI18N
 
+        labelInfo.setLineWrap(true);
         labelInfo.setText(bundle.getString("ImageMagickThumbnailCreatorDialog.labelInfo.text")); // NOI18N
 
         buttonCancel.setText(bundle.getString("ImageMagickThumbnailCreatorDialog.buttonCancel.text")); // NOI18N
@@ -75,25 +76,24 @@ public class ImageMagickThumbnailCreatorDialog extends Dialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(249, Short.MAX_VALUE)
-                .addComponent(buttonCancel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonBrowse)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonChooseConvert)
-                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(labelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(buttonCancel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonBrowse)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonChooseConvert))
+                    .addComponent(labelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(labelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addComponent(labelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonChooseConvert)
                     .addComponent(buttonBrowse)
@@ -142,6 +142,6 @@ public class ImageMagickThumbnailCreatorDialog extends Dialog {
     private javax.swing.JButton buttonBrowse;
     private javax.swing.JButton buttonCancel;
     private javax.swing.JButton buttonChooseConvert;
-    private javax.swing.JLabel labelInfo;
+    private org.jdesktop.swingx.JXLabel labelInfo;
     // End of variables declaration//GEN-END:variables
 }
