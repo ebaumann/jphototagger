@@ -92,9 +92,11 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
         Collection<? extends ExternalThumbnailCreator> externalThumbnailCreators = ServiceLookup.lookupAll(ExternalThumbnailCreator.class);
         
         for (ExternalThumbnailCreator externalThumbnailCreator : externalThumbnailCreators) {
-            ExternalThumbnailCreatorAction action = new ExternalThumbnailCreatorAction(externalThumbnailCreator);
-            
-            popupMenu.add(action);
+            if (externalThumbnailCreator.isEnabled()) {
+                ExternalThumbnailCreatorAction action = new ExternalThumbnailCreatorAction(externalThumbnailCreator);
+
+                popupMenu.add(action);
+            }
         }
         
         return popupMenu;
