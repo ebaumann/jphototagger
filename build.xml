@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="JPhotoTagger:_Build_all" default="default" basedir=".">
+    <description>Builds JPhotoTagger distribution</description>
+    <target name="default">
+        <antcall target="clean-and-build"><param name="dir" value="Services" /></antcall>
+        <antcall target="clean-and-build"><param name="dir" value="Lib" /></antcall>
+        <antcall target="clean-and-build"><param name="dir" value="Plugin" /></antcall>
+        <antcall target="clean-and-build"><param name="dir" value="Plugins/CopyFilenamesToClipboard" /></antcall>
+        <antcall target="clean-and-build"><param name="dir" value="Plugins/FlickrUpload" /></antcall>
+        <antcall target="clean-and-build"><param name="dir" value="Program" /></antcall>
+        <antcall target="clean-and-build"><param name="dir" value="ExternalThumbnailCreators/DefaultExternalThumbnailCreators" /></antcall>
+    </target>
+    <target name="clean-and-build">
+        <ant antfile="build.xml" target="clean" dir="${dir}" />
+        <ant antfile="build.xml" target="jar" dir="${dir}" />
+    </target>
+</project>
