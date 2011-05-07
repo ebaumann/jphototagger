@@ -3,6 +3,13 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.8.80 2011-05-08
+-----------------
+
+* Für Windows kann eine Batch-Datei erzeugt werden, die 
+  Vorschaubilder erzeugt mit DCRaw und ImageMagick convert
+  (Einstellungen > Vorschaubilder: Eigenes Programm > Auswählen)
+
 0.8.79 2011-05-04
 -----------------
 
