@@ -1,5 +1,7 @@
 @echo off
 
+rem Author: Matthias Vonken, 2011/05/05
+
 set IMAGE=%1
 set MAX_DIM=%2
 
@@ -13,10 +15,10 @@ if /I "%THUMB_SUFFIX%" ==".gif" GOTO OTHER
 if /I "%THUMB_SUFFIX%" ==".png" GOTO OTHER
 if /I "%THUMB_SUFFIX%" ==".psd" GOTO OTHER
 
-${dcraw.exe} -e -c %IMAGE% | ${convert.exe} - -thumbnail %MAX_DIM%x%MAX_DIM% -auto-orient jpg:-
+"${dcraw.exe}" -e -c %IMAGE% | "${convert.exe}" - -thumbnail %MAX_DIM%x%MAX_DIM% -auto-orient jpg:-
 goto END
 
 :OTHER
-${convert.exe} %IMAGE% -thumbnail %MAX_DIM%x%MAX_DIM% -auto-orient jpg:-
+"${convert.exe}" %IMAGE% -thumbnail %MAX_DIM%x%MAX_DIM% -auto-orient jpg:-
 
 :END

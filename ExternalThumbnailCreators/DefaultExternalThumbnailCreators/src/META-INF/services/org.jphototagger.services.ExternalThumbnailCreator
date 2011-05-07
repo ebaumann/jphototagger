@@ -1,1 +1,2 @@
 org.jphototagger.dtncreators.ImageMagickThumbnailCreator
+org.jphototagger.dtncreators.scripts.windows.ImageMagickDcrawThumbnailCreator
