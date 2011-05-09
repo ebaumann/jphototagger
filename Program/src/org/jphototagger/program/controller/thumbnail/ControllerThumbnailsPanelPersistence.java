@@ -95,7 +95,7 @@ public final class ControllerThumbnailsPanelPersistence implements ThumbnailsPan
 
     private void readProperties() {
         persistentSelectedFiles =
-            FileUtil.getAsFiles(UserSettings.INSTANCE.getSettings().getStringCollection(KEY_SELECTED_FILES));
+            FileUtil.getStringsAsFiles(UserSettings.INSTANCE.getSettings().getStringCollection(KEY_SELECTED_FILES));
         readSortFromProperties();
     }
 

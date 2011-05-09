@@ -48,7 +48,7 @@ public final class TreeModelAllSystemDirectories extends DefaultTreeModel implem
      * @param tree            tree using this model. When the tree will expand
      *                        new subdirectories of the expanded node will be
      *                        added
-     * @param directoryFilter filter, determines which directories are displayed
+     * @param directoryFilter filterFiles, determines which directories are displayed
      */
     public TreeModelAllSystemDirectories(JTree tree, DirectoryFilter.Option... directoryFilter) {
         this(tree, Collections.<File>emptyList(), directoryFilter);

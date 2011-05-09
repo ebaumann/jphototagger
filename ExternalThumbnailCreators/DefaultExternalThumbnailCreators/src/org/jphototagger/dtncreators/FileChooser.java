@@ -3,8 +3,8 @@ package org.jphototagger.dtncreators;
 import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
-import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.lib.io.FileUtil.FileChooserProperties;
+import org.jphototagger.lib.io.FileChooserHelper;
+import org.jphototagger.lib.io.FileChooserProperties;
 import org.jphototagger.lib.io.filefilter.AcceptExactFilenameNameFileFilter;
 
 /**
@@ -35,7 +35,7 @@ public final class FileChooser {
         fcProps.fileFilter(createFileFilter());
         fcProps.fileSelectionMode(JFileChooser.FILES_ONLY);
 
-        File file = FileUtil.chooseFile(fcProps);
+        File file = FileChooserHelper.chooseFile(fcProps);
         
         if (file != null) {
             fileChooserDirPath = file.getParentFile().getAbsolutePath();

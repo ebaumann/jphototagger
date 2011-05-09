@@ -1,7 +1,6 @@
 package org.jphototagger.program.image.metadata.exif.gps;
 
 import org.jphototagger.lib.dialog.FileChooserExt;
-import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.util.PropertiesUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
@@ -23,6 +22,7 @@ import java.util.List;
 import java.util.Properties;
 
 import javax.swing.JFileChooser;
+import org.jphototagger.lib.io.IoUtil;
 import org.jphototagger.program.cache.ExifCache;
 
 /**
@@ -131,7 +131,7 @@ public final class GPSLocationExportUtil {
                 AppLogger.logSevere(GPSLocationExportUtil.class, ex);
                 MessageDisplayer.error(null, "GPSLocationExportUtil.Error.Export", exportFile);
             } finally {
-                FileUtil.close(fos);
+                IoUtil.close(fos);
             }
         }
     }

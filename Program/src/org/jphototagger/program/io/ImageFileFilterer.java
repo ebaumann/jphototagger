@@ -78,7 +78,7 @@ public final class ImageFileFilterer {
             throw new NullPointerException("dir == null");
         }
 
-        List<File> dirAndSubdirs = FileUtil.getSubDirsRecursive(dir, null,
+        List<File> dirAndSubdirs = FileUtil.getSubDirectoriesRecursive(dir, null,
                                        UserSettings.INSTANCE.getDirFilterOptionShowHiddenFiles());
 
         dirAndSubdirs.add(dir);

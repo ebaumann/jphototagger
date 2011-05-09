@@ -11,6 +11,7 @@ import java.util.logging.Level;
 
 import java.util.logging.Logger;
 import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.lib.io.IoUtil;
 import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.event.listener.adapter.DatabaseImageFilesListenerAdapter;
@@ -40,7 +41,7 @@ public final class EmbeddedXmpCache extends DatabaseImageFilesListenerAdapter {
 
         try {
             LOGGER.log(Level.FINE, "Embedded Xmp Cache: Caching embedded XMP of image file ''{0}'' into ''{1}''", new Object[]{imageFile, cacheFile});
-            FileUtil.writeStringAsFile(cacheFile, xmpAsString);
+            FileUtil.writeStringAsFile(xmpAsString, cacheFile);
             FileUtil.touch(cacheFile, imageFile);
         } catch (Throwable ex) {
             AppLogger.logSevere(EmbeddedXmpCache.class, ex);
@@ -195,7 +196,7 @@ public final class EmbeddedXmpCache extends DatabaseImageFilesListenerAdapter {
         } catch (Throwable throwable) {
             AppLogger.logSevere(EmbeddedXmpCache.class, throwable);
         } finally {
-            FileUtil.close(is);
+            IoUtil.close(is);
         }
 
         return "";

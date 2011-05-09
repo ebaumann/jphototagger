@@ -34,6 +34,7 @@ import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JPanel;
 import org.jphototagger.lib.componentutil.ListUtil;
+import org.jphototagger.lib.io.CancelRequest;
 
 /**
  *
@@ -378,16 +379,16 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
             }
 
             LOGGER.log(Level.INFO, "Searching recursively subdirectories of {0}", dir);
-            subdirectories.addAll(FileUtil.getSubDirsRecursive(dir, cancelChooseRequest, showHiddenFiles));
+            subdirectories.addAll(FileUtil.getSubDirectoriesRecursive(dir, cancelChooseRequest, showHiddenFiles));
         }
 
         LOGGER.log(Level.INFO, "Adding from {0} not previously added directories to {1}", new Object[]{subdirectories, directories});
         CollectionUtil.addNotContainedElements(subdirectories, directories);
     }
 
-    private static class CancelChooseRequest implements FileUtil.CancelRequest {
+    private static class CancelChooseRequest implements CancelRequest {
 
-        private boolean cancel;
+        boolean cancel;
 
         @Override
         public boolean isCancel() {

@@ -180,7 +180,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
             allDirs.add(dir);
 
             if (includeSubDirs) {
-                allDirs.addAll(FileUtil.getSubDirsRecursive(dir, null, UserSettings.INSTANCE.getDirFilterOptionShowHiddenFiles()));
+                allDirs.addAll(FileUtil.getSubDirectoriesRecursive(dir, null, UserSettings.INSTANCE.getDirFilterOptionShowHiddenFiles()));
             }
         }
 

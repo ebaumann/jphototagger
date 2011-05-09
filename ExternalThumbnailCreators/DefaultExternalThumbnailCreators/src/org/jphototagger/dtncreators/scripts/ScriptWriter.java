@@ -55,10 +55,12 @@ public final class ScriptWriter {
             throw new NullPointerException("targetFile == null");
         }
         
+        FileUtil.getContentAsBytes(targetFile);
+        
         String script = readScript(scriptSourcePath);
         String scriptWithReplacements = replaceIn(script);
         
-        FileUtil.writeStringAsFile(targetFile, scriptWithReplacements);
+        FileUtil.writeStringAsFile(scriptWithReplacements, targetFile);
     }
     
     /**

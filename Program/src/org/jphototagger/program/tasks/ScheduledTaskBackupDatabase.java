@@ -117,7 +117,7 @@ public final class ScheduledTaskBackupDatabase implements FinalTaskListener {
 
         String infoFileName = getInfoFileName();
 
-        if (FileUtil.existsFile(infoFileName)) {
+        if (FileUtil.existsFile(new File(infoFileName))) {
             return getDaysEllapsed(new File(infoFileName)) >= UserSettings.INSTANCE.getScheduledBackupDbInterval();
         } else {
             return true;

@@ -59,7 +59,7 @@ public final class IptcIgnoreCache extends DatabaseImageFilesListenerAdapter {
             LOGGER.log(Level.FINEST,
                     "IPTC Ignore Cache: Ignore reading IPTC from image file ''{0}'' (Creating ''{1}'')",
                     new Object[]{imageFile, cacheFile});
-            FileUtil.writeStringAsFile(cacheFile, FILE_CONTENT);
+            FileUtil.writeStringAsFile(FILE_CONTENT, cacheFile);
             FileUtil.touch(cacheFile, imageFile);
         } catch (Throwable throwable) {
             AppLogger.logSevere(IptcIgnoreCache.class, throwable);

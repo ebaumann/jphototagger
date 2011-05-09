@@ -1219,7 +1219,7 @@ public class ThumbnailsPanel extends JPanel
             AppLogger.logFine(getClass(), "ThumbnailsPanel.SetFiles.Start", files.size());
             clearSelectionAndFlags();
 
-            List<File> filteredFiles = FileUtil.filter(files, fileFilter);
+            List<File> filteredFiles = FileUtil.filterFiles(files, fileFilter);
 
             Collections.sort(filteredFiles, fileSortComparator);
             this.files.clear();
