@@ -92,7 +92,7 @@ public final class PropertiesFile {
      * @throws IOException if the file couldn't be written
      */
     public void writeToFile() throws IOException {
-        FileUtil.ensureDirectoryExists(directoryName);
+        FileUtil.ensureDirectoryExists(new File(directoryName));
 
         FileOutputStream out = null;
 

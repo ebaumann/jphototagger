@@ -9,7 +9,6 @@ import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.image.metadata.xmp.Xmp;
 import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.lib.image.util.ImageUtil;
-import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.plugin.flickrupload.FlickrImageInfoPanel.ImageInfo;
 import org.jphototagger.plugin.Plugin;
 import org.jphototagger.plugin.PluginEvent;
@@ -34,6 +33,7 @@ import javax.swing.Action;
 import javax.swing.Icon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import org.jphototagger.lib.io.IoUtil;
 
 /**
  *
@@ -151,7 +151,7 @@ public final class FlickrUpload extends Plugin implements Serializable {
 
                     break;
                 } finally {
-                    FileUtil.close(is);
+                    IoUtil.close(is);
                 }
             }
 

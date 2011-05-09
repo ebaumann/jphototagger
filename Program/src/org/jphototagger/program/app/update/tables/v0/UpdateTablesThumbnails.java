@@ -221,12 +221,12 @@ final class UpdateTablesThumbnails extends Database {
     }
 
     private File getOldThumbnailFile(long id) {
-        String dir = UserSettings.INSTANCE.getThumbnailsDirectoryName();
+        String directoryName = UserSettings.INSTANCE.getThumbnailsDirectoryName();
 
         try {
-            FileUtil.ensureDirectoryExists(dir);
+            FileUtil.ensureDirectoryExists(new File(directoryName));
 
-            return new File(dir + File.separator + id);
+            return new File(directoryName + File.separator + id);
         } catch (Exception ex) {
             AppLogger.logSevere(UpdateTablesThumbnails.class, ex);
         }

@@ -74,12 +74,12 @@ public final class ImageMagickDcrawThumbnailCreator implements ExternalThumbnail
         scriptWriter.setReplace("${convert.exe}", convert.getAbsolutePath());
     }
 
-    private void writeScript(ScriptWriter scriptWriter, File script) throws Exception {
+    private void writeScript(ScriptWriter scriptWriter, File scriptFile) throws Exception {
         try {
             String readScript = scriptWriter.readScript("/org/jphototagger/dtncreators/scripts/windows/image_magick_dcraw.bat");
             
             readScript = scriptWriter.replaceIn(readScript);
-            FileUtil.writeStringAsFile(script, readScript);
+            FileUtil.writeStringAsFile(readScript, scriptFile);
         } catch (Exception ex) {
             errorMessageGetScript();
             throw ex;

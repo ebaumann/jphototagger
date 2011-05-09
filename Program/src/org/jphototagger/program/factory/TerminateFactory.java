@@ -1,6 +1,5 @@
 package org.jphototagger.program.factory;
 
-import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.app.AppCommandLineOptions;
 import org.jphototagger.program.app.AppInit;
 import org.jphototagger.program.controller.search.ControllerFastSearch;
@@ -70,7 +69,7 @@ public final class TerminateFactory {
             String dirName = cmdLineOptions.getFileImportDir();
             File dir = null;
 
-            if ((dirName != null) && FileUtil.existsDirectory(dirName)) {
+            if ((dirName != null) && new File(dirName).isDirectory()) {
                 dir = new File(dirName);
             }
 

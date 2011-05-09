@@ -162,10 +162,10 @@ public final class RuntimeUtil {
         }
 
         String path = file.getAbsolutePath();
-        String root = FileUtil.getRootName(path);
-        String dirPath = FileUtil.getDirPath(file);
-        String name = FileUtil.getPrefix(file.getName());
-        String extension = FileUtil.getSuffix(file.getName());
+        String root = FileUtil.getRoot(new File(path)).getAbsolutePath();
+        String dirPath = FileUtil.getDirectoryPath(file);
+        String name = FileUtil.getPrefix(file);
+        String extension = FileUtil.getSuffix(file);
 
         return pattern.replace(PATTERN_FS_DIR_PATH, dirPath).replace(PATTERN_FS_FILE_EXT,
                                extension).replace(PATTERN_FS_FILE_NAME, name).replace(PATTERN_FS_PATH,

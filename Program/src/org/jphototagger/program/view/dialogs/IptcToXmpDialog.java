@@ -25,6 +25,7 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.swing.filechooser.FileSystemView;
+import org.jphototagger.lib.io.CancelRequest;
 import org.jphototagger.program.event.UserSettingsEvent;
 import org.jphototagger.program.event.listener.UserSettingsListener;
 import org.jphototagger.program.model.IptcCharsetComboBoxModel;
@@ -213,7 +214,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener, U
 
             if (checkBoxIncludeSubdirectories.isSelected()) {
                 Option showHiddenFiles = UserSettings.INSTANCE.getDirFilterOptionShowHiddenFiles();
-                directories.addAll(FileUtil.getSubDirsRecursive(directory, cancelChooseRequest, showHiddenFiles));
+                directories.addAll(FileUtil.getSubDirectoriesRecursive(directory, cancelChooseRequest, showHiddenFiles));
             }
 
             return ImageFileFilterer.getImageFilesOfDirectories(directories);
@@ -280,9 +281,9 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener, U
         checkClose();
     }
 
-    private static class CancelChooseRequest implements FileUtil.CancelRequest {
+    private static class CancelChooseRequest implements CancelRequest {
 
-        private boolean cancel;
+        boolean cancel;
 
         @Override
         public boolean isCancel() {

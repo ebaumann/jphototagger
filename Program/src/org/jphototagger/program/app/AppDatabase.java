@@ -1,5 +1,6 @@
 package org.jphototagger.program.app;
 
+import java.io.File;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.Database;
@@ -52,13 +53,14 @@ public final class AppDatabase {
     }
 
     private static void ensureThumbnailDirExists() {
-        String dir = UserSettings.INSTANCE.getThumbnailsDirectoryName();
+        String directoryName = UserSettings.INSTANCE.getThumbnailsDirectoryName();
+        File directory = new File(directoryName);
 
         try {
-            FileUtil.ensureDirectoryExists(dir);
+            FileUtil.ensureDirectoryExists(directory);
         } catch (IOException ex) {
             AppLogger.logSevere(AppDatabase.class, ex);
-            MessageDisplayer.error(null, "AppDatabase.Error.TnDir", dir);
+            MessageDisplayer.error(null, "AppDatabase.Error.TnDir", directory);
             AppLifeCycle.quitBeforeGuiWasCreated();
         }
     }

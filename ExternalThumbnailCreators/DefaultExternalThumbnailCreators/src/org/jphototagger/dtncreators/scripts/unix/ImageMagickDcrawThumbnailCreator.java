@@ -80,7 +80,7 @@ public final class ImageMagickDcrawThumbnailCreator implements ExternalThumbnail
             String readScript = scriptWriter.readScript("/org/jphototagger/dtncreators/scripts/unix/image_magick_dcraw.sh");
             
             readScript = scriptWriter.replaceIn(readScript);
-            FileUtil.writeStringAsFile(scriptFile, readScript);
+            FileUtil.writeStringAsFile(readScript, scriptFile);
             scriptFile.setExecutable(true);
         } catch (Exception ex) {
             errorMessageGetScript();

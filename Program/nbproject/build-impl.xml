@@ -577,6 +577,62 @@ is divided into following sections:
         <propertyfile file="${built-jar.properties}">
             <entry key="${basedir}" value=""/>
         </propertyfile>
+        <antcall target="-maybe-call-dep">
+            <param name="call.built.properties" value="${built-jar.properties}"/>
+            <param location="${project.JPhotoTagger__Domain}" name="call.subproject"/>
+            <param location="${project.JPhotoTagger__Domain}/build.xml" name="call.script"/>
+            <param name="call.target" value="jar"/>
+            <param name="transfer.built-jar.properties" value="${built-jar.properties}"/>
+        </antcall>
+        <antcall target="-maybe-call-dep">
+            <param name="call.built.properties" value="${built-jar.properties}"/>
+            <param location="${project.JPhotoTagger__Image}" name="call.subproject"/>
+            <param location="${project.JPhotoTagger__Image}/build.xml" name="call.script"/>
+            <param name="call.target" value="jar"/>
+            <param name="transfer.built-jar.properties" value="${built-jar.properties}"/>
+        </antcall>
+        <antcall target="-maybe-call-dep">
+            <param name="call.built.properties" value="${built-jar.properties}"/>
+            <param location="${project.JPhotoTagger__Library}" name="call.subproject"/>
+            <param location="${project.JPhotoTagger__Library}/build.xml" name="call.script"/>
+            <param name="call.target" value="jar"/>
+            <param name="transfer.built-jar.properties" value="${built-jar.properties}"/>
+        </antcall>
+        <antcall target="-maybe-call-dep">
+            <param name="call.built.properties" value="${built-jar.properties}"/>
+            <param location="${project.JPhotoTagger__Plugin__Base}" name="call.subproject"/>
+            <param location="${project.JPhotoTagger__Plugin__Base}/build.xml" name="call.script"/>
+            <param name="call.target" value="jar"/>
+            <param name="transfer.built-jar.properties" value="${built-jar.properties}"/>
+        </antcall>
+        <antcall target="-maybe-call-dep">
+            <param name="call.built.properties" value="${built-jar.properties}"/>
+            <param location="${project.JPhotoTagger__Plugin__Copy_Filenames_To_Clipboard}" name="call.subproject"/>
+            <param location="${project.JPhotoTagger__Plugin__Copy_Filenames_To_Clipboard}/build.xml" name="call.script"/>
+            <param name="call.target" value="jar"/>
+            <param name="transfer.built-jar.properties" value="${built-jar.properties}"/>
+        </antcall>
+        <antcall target="-maybe-call-dep">
+            <param name="call.built.properties" value="${built-jar.properties}"/>
+            <param location="${project.JPhotoTagger__Plugin__Flickr_Upload}" name="call.subproject"/>
+            <param location="${project.JPhotoTagger__Plugin__Flickr_Upload}/build.xml" name="call.script"/>
+            <param name="call.target" value="jar"/>
+            <param name="transfer.built-jar.properties" value="${built-jar.properties}"/>
+        </antcall>
+        <antcall target="-maybe-call-dep">
+            <param name="call.built.properties" value="${built-jar.properties}"/>
+            <param location="${project.JPhotoTagger__Services}" name="call.subproject"/>
+            <param location="${project.JPhotoTagger__Services}/build.xml" name="call.script"/>
+            <param name="call.target" value="jar"/>
+            <param name="transfer.built-jar.properties" value="${built-jar.properties}"/>
+        </antcall>
+        <antcall target="-maybe-call-dep">
+            <param name="call.built.properties" value="${built-jar.properties}"/>
+            <param location="${project.JPhotoTagger__Thumbnail_Creator__Default_External_Thumbnail_Creators}" name="call.subproject"/>
+            <param location="${project.JPhotoTagger__Thumbnail_Creator__Default_External_Thumbnail_Creators}/build.xml" name="call.script"/>
+            <param name="call.target" value="jar"/>
+            <param name="transfer.built-jar.properties" value="${built-jar.properties}"/>
+        </antcall>
     </target>
     <target depends="init,-check-automatic-build,-clean-after-automatic-build" name="-verify-automatic-build"/>
     <target depends="init" name="-check-automatic-build">
@@ -1013,6 +1069,62 @@ is divided into following sections:
         <propertyfile file="${built-clean.properties}">
             <entry key="${basedir}" value=""/>
         </propertyfile>
+        <antcall target="-maybe-call-dep">
+            <param name="call.built.properties" value="${built-clean.properties}"/>
+            <param location="${project.JPhotoTagger__Domain}" name="call.subproject"/>
+            <param location="${project.JPhotoTagger__Domain}/build.xml" name="call.script"/>
+            <param name="call.target" value="clean"/>
+            <param name="transfer.built-clean.properties" value="${built-clean.properties}"/>
+        </antcall>
+        <antcall target="-maybe-call-dep">
+            <param name="call.built.properties" value="${built-clean.properties}"/>
+            <param location="${project.JPhotoTagger__Image}" name="call.subproject"/>
+            <param location="${project.JPhotoTagger__Image}/build.xml" name="call.script"/>
+            <param name="call.target" value="clean"/>
+            <param name="transfer.built-clean.properties" value="${built-clean.properties}"/>
+        </antcall>
+        <antcall target="-maybe-call-dep">
+            <param name="call.built.properties" value="${built-clean.properties}"/>
+            <param location="${project.JPhotoTagger__Library}" name="call.subproject"/>
+            <param location="${project.JPhotoTagger__Library}/build.xml" name="call.script"/>
+            <param name="call.target" value="clean"/>
+            <param name="transfer.built-clean.properties" value="${built-clean.properties}"/>
+        </antcall>
+        <antcall target="-maybe-call-dep">
+            <param name="call.built.properties" value="${built-clean.properties}"/>
+            <param location="${project.JPhotoTagger__Plugin__Base}" name="call.subproject"/>
+            <param location="${project.JPhotoTagger__Plugin__Base}/build.xml" name="call.script"/>
+            <param name="call.target" value="clean"/>
+            <param name="transfer.built-clean.properties" value="${built-clean.properties}"/>
+        </antcall>
+        <antcall target="-maybe-call-dep">
+            <param name="call.built.properties" value="${built-clean.properties}"/>
+            <param location="${project.JPhotoTagger__Plugin__Copy_Filenames_To_Clipboard}" name="call.subproject"/>
+            <param location="${project.JPhotoTagger__Plugin__Copy_Filenames_To_Clipboard}/build.xml" name="call.script"/>
+            <param name="call.target" value="clean"/>
+            <param name="transfer.built-clean.properties" value="${built-clean.properties}"/>
+        </antcall>
+        <antcall target="-maybe-call-dep">
+            <param name="call.built.properties" value="${built-clean.properties}"/>
+            <param location="${project.JPhotoTagger__Plugin__Flickr_Upload}" name="call.subproject"/>
+            <param location="${project.JPhotoTagger__Plugin__Flickr_Upload}/build.xml" name="call.script"/>
+            <param name="call.target" value="clean"/>
+            <param name="transfer.built-clean.properties" value="${built-clean.properties}"/>
+        </antcall>
+        <antcall target="-maybe-call-dep">
+            <param name="call.built.properties" value="${built-clean.properties}"/>
+            <param location="${project.JPhotoTagger__Services}" name="call.subproject"/>
+            <param location="${project.JPhotoTagger__Services}/build.xml" name="call.script"/>
+            <param name="call.target" value="clean"/>
+            <param name="transfer.built-clean.properties" value="${built-clean.properties}"/>
+        </antcall>
+        <antcall target="-maybe-call-dep">
+            <param name="call.built.properties" value="${built-clean.properties}"/>
+            <param location="${project.JPhotoTagger__Thumbnail_Creator__Default_External_Thumbnail_Creators}" name="call.subproject"/>
+            <param location="${project.JPhotoTagger__Thumbnail_Creator__Default_External_Thumbnail_Creators}/build.xml" name="call.script"/>
+            <param name="call.target" value="clean"/>
+            <param name="transfer.built-clean.properties" value="${built-clean.properties}"/>
+        </antcall>
     </target>
     <target depends="init" name="-do-clean">
         <delete dir="${build.dir}"/>
