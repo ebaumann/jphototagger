@@ -10,10 +10,10 @@ import org.jphototagger.program.event.listener.ThumbnailUpdateListener;
 import org.jphototagger.program.event.ThumbnailUpdateEvent;
 import org.jphototagger.program.resource.JptBundle;
 
-import java.awt.EventQueue;
 import java.awt.Image;
 
 import java.io.File;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  *
@@ -164,7 +164,7 @@ public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection> imple
         updateUsageTime(ci);
         ci.thumbnail = image;
         fileCache.maybeCleanupCache();
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 notifyUpdate(file);

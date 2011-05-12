@@ -12,7 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.EventQueue;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  *
@@ -45,7 +45,7 @@ public final class ControllerAddImageCollection implements ActionListener, KeyLi
         final String collectionName = ImageCollectionsHelper.insertImageCollection(GUI.getSelectedImageFiles());
 
         if (collectionName != null) {
-            EventQueue.invokeLater(new Runnable() {
+            EventQueueUtil.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     insertImageCollection(collectionName);

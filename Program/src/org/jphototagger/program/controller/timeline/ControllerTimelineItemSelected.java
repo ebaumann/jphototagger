@@ -12,7 +12,6 @@ import org.jphototagger.program.types.Content;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.WaitDisplay;
 
-import java.awt.EventQueue;
 
 import java.io.File;
 
@@ -28,6 +27,7 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  *
@@ -64,7 +64,7 @@ public final class ControllerTimelineItemSelected implements TreeSelectionListen
                 public void run() {
                     final Object lastPathComponent = path.getLastPathComponent();
 
-                    EventQueue.invokeLater(new Runnable() {
+                    EventQueueUtil.invokeLater(new Runnable() {
                         @Override
                         public void run() {
                             WaitDisplay.show();

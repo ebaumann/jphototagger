@@ -10,7 +10,6 @@ import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 
-import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 
 import java.io.File;
@@ -18,6 +17,7 @@ import java.io.File;
 import java.util.List;
 
 import javax.swing.table.TableModel;
+import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.app.MessageDisplayer;
 
 /**
@@ -52,7 +52,7 @@ public final class ControllerDisplayIptcUserSettings extends MouseAdapter implem
     }
 
     private void setEnabledIptcTab(final boolean displayIptc) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 GUI.getAppPanel().setEnabledIptcTab(displayIptc);
@@ -73,7 +73,7 @@ public final class ControllerDisplayIptcUserSettings extends MouseAdapter implem
                 if (selFiles.size() == 1) {
                     final File file = selFiles.get(0);
 
-                    EventQueue.invokeLater(new Runnable() {
+                    EventQueueUtil.invokeLater(new Runnable() {
                         @Override
                         public void run() {
                             ((TableModelIptc) model).setFile(file);

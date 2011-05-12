@@ -27,7 +27,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.EventQueue;
 
 import java.io.File;
 
@@ -38,6 +37,7 @@ import java.util.StringTokenizer;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Kontrolliert die Aktion: Schnellsuche durchführen.
@@ -135,7 +135,7 @@ public final class ControllerFastSearch implements ActionListener, RefreshListen
     }
 
     private void search(final String searchText) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 String userInput = searchText.trim();

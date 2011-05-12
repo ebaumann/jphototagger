@@ -46,7 +46,6 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
@@ -71,6 +70,7 @@ import java.util.TooManyListenersException;
 import javax.swing.JPanel;
 import javax.swing.JViewport;
 import javax.swing.TransferHandler;
+import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.event.listener.UserSettingsListener;
 
 /**
@@ -307,7 +307,7 @@ public class ThumbnailsPanel extends JPanel
 
     @Override
     public synchronized void thumbnailUpdated(final ThumbnailUpdateEvent event) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 int index = getIndexOf(event.getSource());
@@ -1656,7 +1656,7 @@ public class ThumbnailsPanel extends JPanel
 
     @Override
     public synchronized void filterUpdated(final UserDefinedFileFilter filter) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 updateFilter(filter);

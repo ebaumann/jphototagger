@@ -5,12 +5,12 @@ import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseFileExcludePatterns;
 import org.jphototagger.program.event.listener.DatabaseFileExcludePatternsListener;
 
-import java.awt.EventQueue;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Element are {@link String}s retrieved through
@@ -116,7 +116,7 @@ public final class ListModelFileExcludePatterns extends DefaultListModel
 
     @Override
     public void patternInserted(final String pattern) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 if (listenToDb) {
@@ -128,7 +128,7 @@ public final class ListModelFileExcludePatterns extends DefaultListModel
 
     @Override
     public void patternDeleted(final String pattern) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 if (listenToDb) {

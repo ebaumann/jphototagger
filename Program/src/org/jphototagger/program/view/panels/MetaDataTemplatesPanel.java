@@ -5,12 +5,12 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 
 import java.awt.Container;
-import java.awt.EventQueue;
 
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.JButton;
 import org.jdesktop.swingx.JXList;
+import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.resource.JptBundle;
 
 /**
@@ -75,7 +75,7 @@ public class MetaDataTemplatesPanel extends javax.swing.JPanel
 
     @Override
     public void thumbnailsSelectionChanged() {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
 
             @Override
             public void run() {

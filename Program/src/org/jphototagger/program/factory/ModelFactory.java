@@ -23,7 +23,6 @@ import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.panels.AppPanel;
 
 import java.awt.Cursor;
-import java.awt.EventQueue;
 import java.util.Comparator;
 
 import java.util.List;
@@ -36,6 +35,7 @@ import javax.swing.table.TableRowSorter;
 import javax.swing.tree.TreeModel;
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.sort.ListSortController;
+import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.view.panels.KeywordsPanel;
 import org.jphototagger.program.view.panels.SelectRootFilesPanel;
 import org.jphototagger.program.view.renderer.KeywordHighlightPredicate;
@@ -62,7 +62,7 @@ public final class ModelFactory {
             init = true;
         }
 
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 AppPanel appPanel = GUI.getAppPanel();
@@ -117,7 +117,7 @@ public final class ModelFactory {
                 final ListModelSavedSearches model = new ListModelSavedSearches();
 
                 support.add(model);
-                EventQueue.invokeLater(new Runnable() {
+                EventQueueUtil.invokeLater(new Runnable() {
                     @Override
                     public void run() {
                         list.setModel(model);
@@ -143,7 +143,7 @@ public final class ModelFactory {
                 final ListModelImageCollections model = new ListModelImageCollections();
 
                 support.add(model);
-                EventQueue.invokeLater(new Runnable() {
+                EventQueueUtil.invokeLater(new Runnable() {
                     @Override
                     public void run() {
                         list.setModel(model);
@@ -172,7 +172,7 @@ public final class ModelFactory {
                 final ListModelKeywords modelKeywords = new ListModelKeywords();
 
                 support.add(modelKeywords);
-                EventQueue.invokeLater(new Runnable() {
+                EventQueueUtil.invokeLater(new Runnable() {
                     @Override
                     public void run() {
                         listSelectedKeywords.setModel(modelKeywords);
@@ -298,7 +298,7 @@ public final class ModelFactory {
 
                 support.add(treeModelKeywords);
                 support.add(listModelTemplates);
-                EventQueue.invokeLater(new Runnable() {
+                EventQueueUtil.invokeLater(new Runnable() {
                     @Override
                     public void run() {
                         JTree treeSelKeywords = appPanel.getTreeSelKeywords();
@@ -332,7 +332,7 @@ public final class ModelFactory {
 
                 support.add(modelApp);
                 support.add(modelInputHelper);
-                EventQueue.invokeLater(new Runnable() {
+                EventQueueUtil.invokeLater(new Runnable() {
                     @Override
                     public void run() {
                         InputHelperDialog.INSTANCE.getPanelMiscXmpMetadata().getTree().setModel(modelInputHelper);
@@ -357,7 +357,7 @@ public final class ModelFactory {
                 final TreeModel model = new TreeModelTimeline();
 
                 support.add(model);
-                EventQueue.invokeLater(new Runnable() {
+                EventQueueUtil.invokeLater(new Runnable() {
                     @Override
                     public void run() {
                         tree.setModel(model);
@@ -380,7 +380,7 @@ public final class ModelFactory {
                 final Cursor treeCursor = setWaitCursor(tree);
                 final TreeModelFavorites model = new TreeModelFavorites(tree);
 
-                EventQueue.invokeLater(new Runnable() {
+                EventQueueUtil.invokeLater(new Runnable() {
                     @Override
                     public void run() {
                         support.add(model);
@@ -406,7 +406,7 @@ public final class ModelFactory {
                 final TreeModel model = new TreeModelAllSystemDirectories(tree, hideRootFiles, UserSettings.INSTANCE.getDirFilterOptionShowHiddenFiles());
 
                 support.add(model);
-                EventQueue.invokeLater(new Runnable() {
+                EventQueueUtil.invokeLater(new Runnable() {
                     @Override
                     public void run() {
                         tree.setModel(model);

@@ -8,7 +8,6 @@ import org.jphototagger.program.view.panels.KeywordsPanel;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.renderer.TreeCellRendererKeywords;
 
-import java.awt.EventQueue;
 
 import java.io.File;
 
@@ -19,6 +18,7 @@ import java.util.List;
 import javax.swing.JTree;
 import javax.swing.tree.TreeCellRenderer;
 import org.jdesktop.swingx.JXTree;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Listens to a {@link ThumbnailsPanel} and highlights in the tree
@@ -37,7 +37,7 @@ public final class ControllerHighlightKeywordsTree implements ThumbnailsPanelLis
 
     @Override
     public void thumbnailsSelectionChanged() {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 applyCurrentSelection();

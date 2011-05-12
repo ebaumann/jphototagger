@@ -10,7 +10,6 @@ import org.jphototagger.program.io.ImageUtil;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
 
-import java.awt.EventQueue;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,6 +25,7 @@ import java.util.logging.Logger;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  *
@@ -92,7 +92,7 @@ public final class MiscMetadataHelper {
 
         final List<Column> xmpColumns = XmpColumns.get();
 
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 EditMetadataPanels editPanels = GUI.getAppPanel().getEditMetadataPanels();
@@ -121,7 +121,7 @@ public final class MiscMetadataHelper {
 
         final List<Column> xmpColumns = XmpColumns.get();
 
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 EditMetadataPanels editPanels = GUI.getAppPanel().getEditMetadataPanels();
@@ -152,7 +152,7 @@ public final class MiscMetadataHelper {
             throw new NullPointerException("text == null");
         }
 
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 EditMetadataPanels editPanels = GUI.getAppPanel().getEditMetadataPanels();
@@ -173,7 +173,7 @@ public final class MiscMetadataHelper {
             throw new NullPointerException("text == null");
         }
 
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 EditMetadataPanels editPanels = GUI.getAppPanel().getEditMetadataPanels();
@@ -259,7 +259,7 @@ public final class MiscMetadataHelper {
             throw new NullPointerException("value == null");
         }
 
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 DefaultMutableTreeNode node = findNodeContains(column);

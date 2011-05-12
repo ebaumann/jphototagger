@@ -5,9 +5,9 @@ import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseRenameTemplates;
 import org.jphototagger.program.event.listener.DatabaseRenameTemplatesListener;
 
-import java.awt.EventQueue;
 
 import javax.swing.DefaultComboBoxModel;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  *
@@ -53,7 +53,7 @@ public final class ComboBoxModelRenameTemplates extends DefaultComboBoxModel
 
     @Override
     public void templateDeleted(final RenameTemplate template) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 deleteTemplate(template);
@@ -63,7 +63,7 @@ public final class ComboBoxModelRenameTemplates extends DefaultComboBoxModel
 
     @Override
     public void templateInserted(final RenameTemplate template) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 insertTemplate(template);
@@ -73,7 +73,7 @@ public final class ComboBoxModelRenameTemplates extends DefaultComboBoxModel
 
     @Override
     public void templateUpdated(final RenameTemplate template) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 updateTemplate(template);

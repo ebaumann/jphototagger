@@ -4,13 +4,13 @@ import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseAutoscanDirectories;
 import org.jphototagger.program.event.listener.DatabaseAutoscanDirectoriesListener;
 
-import java.awt.EventQueue;
 
 import java.io.File;
 
 import java.util.List;
 
 import javax.swing.DefaultListModel;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Elements are directory {@link File}s retrieved through
@@ -57,7 +57,7 @@ public final class ListModelAutoscanDirectories extends DefaultListModel
 
     @Override
     public void directoryInserted(final File directory) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 addDirectory(directory);
@@ -67,7 +67,7 @@ public final class ListModelAutoscanDirectories extends DefaultListModel
 
     @Override
     public void directoryDeleted(final File directory) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 removeDirectory(directory);

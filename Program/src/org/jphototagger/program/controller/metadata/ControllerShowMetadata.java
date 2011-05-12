@@ -25,7 +25,6 @@ import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.WaitDisplay;
 
-import java.awt.EventQueue;
 
 import java.io.File;
 
@@ -43,6 +42,7 @@ import java.util.Set;
 
 import javax.swing.JTable;
 import javax.swing.event.ChangeListener;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Listens for selection changes in the {@link ThumbnailsPanel} and
@@ -214,7 +214,7 @@ public final class ControllerShowMetadata implements ChangeListener, DatabaseIma
         Object source = e.getSource();
 
         if (source == metadataPane && isExactlyOneThumbnailSelected()) {
-            EventQueue.invokeLater(new ShowMetadata(EnumSet.allOf(Metadata.class)));
+            EventQueueUtil.invokeLater(new ShowMetadata(EnumSet.allOf(Metadata.class)));
         }
     }
 
@@ -248,7 +248,7 @@ public final class ControllerShowMetadata implements ChangeListener, DatabaseIma
 
         if (selectedFiles.size() == 1) {
             selectedImageFile = selectedFiles.get(0);
-            EventQueue.invokeLater(new ShowMetadata(EnumSet.allOf(Metadata.class)));
+            EventQueueUtil.invokeLater(new ShowMetadata(EnumSet.allOf(Metadata.class)));
         } else {
             removeDisplayedMetadata();
         }
@@ -257,12 +257,12 @@ public final class ControllerShowMetadata implements ChangeListener, DatabaseIma
     private void removeDisplayedMetadata() {
         appPanel.getButtonIptcToXmp().setEnabled(false);
         appPanel.getButtonExifToXmp().setEnabled(false);
-        EventQueue.invokeLater(new RemoveAllMetadata());
+        EventQueueUtil.invokeLater(new RemoveAllMetadata());
     }
 
     private void showUpdates(File updatedImageFile, Collection<? extends Metadata> metadata) {
         if (selectedImageFile != null && updatedImageFile.equals(selectedImageFile)) {
-            EventQueue.invokeLater(new ShowMetadata(metadata));
+            EventQueueUtil.invokeLater(new ShowMetadata(metadata));
         }
     }
 

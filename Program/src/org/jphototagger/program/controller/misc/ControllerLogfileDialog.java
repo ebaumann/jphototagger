@@ -15,13 +15,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.EventQueue;
 
 import java.util.logging.SimpleFormatter;
 import java.util.logging.XMLFormatter;
 
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Kontrolliert die Aktion: Logfiledialog anzeigen.
@@ -97,7 +97,7 @@ public final class ControllerLogfileDialog extends MouseAdapter implements Actio
 
     @Override
     public void error(Object source, String message) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 error();

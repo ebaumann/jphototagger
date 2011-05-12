@@ -17,7 +17,7 @@ import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsList;
 import org.jphototagger.program.view.popupmenus.PopupMenuMetadataTemplates;
 
-import java.awt.EventQueue;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Erzeugt und verbindet MouseListener.
@@ -38,7 +38,7 @@ public final class MouseListenerFactory {
             init = true;
         }
 
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 Support.setStatusbarInfo("MouseListenerFactory.Init.Start");

@@ -16,7 +16,6 @@ import org.jphototagger.program.model.TreeModelKeywords;
 import org.jphototagger.program.view.panels.KeywordsPanel;
 
 import java.awt.datatransfer.Transferable;
-import java.awt.EventQueue;
 
 import java.io.File;
 
@@ -28,6 +27,7 @@ import javax.swing.JTree;
 import javax.swing.TransferHandler;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Handles drags and drops for a {@link KeywordsPanel}'s tree.
@@ -183,7 +183,7 @@ public final class TransferHandlerKeywordsTree extends TransferHandler {
                     if (sourceNode != dropNode) {
                         final Keyword sourceKeyword = (Keyword) userObject;
 
-                        EventQueue.invokeLater(new Runnable() {
+                        EventQueueUtil.invokeLater(new Runnable() {
                             @Override
                             public void run() {
                                 treeModel.move(sourceNode, dropNode, sourceKeyword);

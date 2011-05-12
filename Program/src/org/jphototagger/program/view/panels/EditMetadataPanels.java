@@ -30,7 +30,6 @@ import org.jphototagger.program.view.ViewUtil;
 import org.jphototagger.program.view.WaitDisplay;
 
 import java.awt.Component;
-import java.awt.EventQueue;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
@@ -56,6 +55,7 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Panels mit Edit-Feldern zum Bearbeiten von Metadaten.
@@ -131,21 +131,21 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
     public void setEditable(final boolean editable) {
         this.editable = editable;
 
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
 
             @Override
             public void run() {
 
-        for (JPanel panel : panels) {
-            ((TextEntry) panel).setEditable(editable);
-        }
+                for (JPanel panel : panels) {
+                    ((TextEntry) panel).setEditable(editable);
+                }
 
-        if (editable) {
-            ls.notifyEditEnabled();
-        } else {
-            ls.notifyEditDisabled();
-        }
-    }
+                if (editable) {
+                    ls.notifyEditEnabled();
+                } else {
+                    ls.notifyEditDisabled();
+                }
+            }
         });
     }
 
@@ -170,17 +170,17 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
             throw new NullPointerException("imageFiles == null");
         }
 
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
 
             @Override
             public void run() {
-        showWaitSetImageFiles(imageFiles.size());
-        emptyPanels(false);
-        setXmpOfImageFiles(imageFiles);
-        setXmpToEditPanels();
-        setXmpOfFilesAsTextEntryListener(true);
-        hideWaitSetImageFiles(imageFiles.size());
-    }
+                showWaitSetImageFiles(imageFiles.size());
+                emptyPanels(false);
+                setXmpOfImageFiles(imageFiles);
+                setXmpToEditPanels();
+                setXmpOfFilesAsTextEntryListener(true);
+                hideWaitSetImageFiles(imageFiles.size());
+            }
         });
     }
 
@@ -284,32 +284,32 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
             return;
         }
 
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
 
             @Override
             public void run() {
-        JPanel panelAdd = null;
-        int size = panels.size();
+                JPanel panelAdd = null;
+                int size = panels.size();
 
-        for (int i = 0; (panelAdd == null) && (i < size); i++) {
-            JPanel panel = panels.get(i);
+                for (int i = 0; (panelAdd == null) && (i < size); i++) {
+                    JPanel panel = panels.get(i);
 
-            if (((TextEntry) panel).getColumn().equals(column)) {
-                panelAdd = panel;
+                    if (((TextEntry) panel).getColumn().equals(column)) {
+                        panelAdd = panel;
+                    }
+                }
+
+                if (panelAdd instanceof EditRepeatableTextEntryPanel) {
+                    ((EditRepeatableTextEntryPanel) panelAdd).addText(text);
+                } else if (panelAdd instanceof TextEntry) {
+                    TextEntry textEntry = (TextEntry) panelAdd;
+
+                    textEntry.setText(text);
+                    textEntry.setDirty(true);
+                }
+
+                checkSaveOnChanges();
             }
-        }
-
-        if (panelAdd instanceof EditRepeatableTextEntryPanel) {
-            ((EditRepeatableTextEntryPanel) panelAdd).addText(text);
-        } else if (panelAdd instanceof TextEntry) {
-            TextEntry textEntry = (TextEntry) panelAdd;
-
-            textEntry.setText(text);
-            textEntry.setDirty(true);
-        }
-
-        checkSaveOnChanges();
-    }
         });
     }
 
@@ -326,33 +326,33 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
             return;
         }
 
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
 
             @Override
             public void run() {
 
-        JPanel panelRemove = null;
-        int size = panels.size();
+                JPanel panelRemove = null;
+                int size = panels.size();
 
-        for (int i = 0; (panelRemove == null) && (i < size); i++) {
-            JPanel panel = panels.get(i);
+                for (int i = 0; (panelRemove == null) && (i < size); i++) {
+                    JPanel panel = panels.get(i);
 
-            if (((TextEntry) panel).getColumn().equals(column)) {
-                panelRemove = panel;
+                    if (((TextEntry) panel).getColumn().equals(column)) {
+                        panelRemove = panel;
+                    }
+                }
+
+                if (panelRemove instanceof EditRepeatableTextEntryPanel) {
+                    ((EditRepeatableTextEntryPanel) panelRemove).removeText(text);
+                } else if (panelRemove instanceof TextEntry) {
+                    TextEntry textEntry = (TextEntry) panelRemove;
+
+                    textEntry.setText("");
+                    textEntry.setDirty(true);
+                }
+
+                checkSaveOnChanges();
             }
-        }
-
-        if (panelRemove instanceof EditRepeatableTextEntryPanel) {
-            ((EditRepeatableTextEntryPanel) panelRemove).removeText(text);
-        } else if (panelRemove instanceof TextEntry) {
-            TextEntry textEntry = (TextEntry) panelRemove;
-
-            textEntry.setText("");
-            textEntry.setDirty(true);
-        }
-
-        checkSaveOnChanges();
-    }
         });
     }
 
@@ -414,48 +414,48 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
             return;
         }
 
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
 
             @Override
             public void run() {
 
-        for (JPanel panel : panels) {
-            if (panel instanceof EditTextEntryPanel) {
-                EditTextEntryPanel p = (EditTextEntryPanel) panel;
-                Object value = xmp.getValue(p.getColumn());
+                for (JPanel panel : panels) {
+                    if (panel instanceof EditTextEntryPanel) {
+                        EditTextEntryPanel p = (EditTextEntryPanel) panel;
+                        Object value = xmp.getValue(p.getColumn());
 
-                if (value != null) {
-                    p.setText(value.toString());
-                    p.setDirty(true);
-                }
-            } else if (panel instanceof EditRepeatableTextEntryPanel) {
-                EditRepeatableTextEntryPanel p = (EditRepeatableTextEntryPanel) panel;
-                Column column = p.getColumn();
-                Object value = xmp.getValue(column);
+                        if (value != null) {
+                            p.setText(value.toString());
+                            p.setDirty(true);
+                        }
+                    } else if (panel instanceof EditRepeatableTextEntryPanel) {
+                        EditRepeatableTextEntryPanel p = (EditRepeatableTextEntryPanel) panel;
+                        Column column = p.getColumn();
+                        Object value = xmp.getValue(column);
 
-                if (value instanceof Collection<?>) {
-                    Collection<?> collection = (Collection<?>) value;
+                        if (value instanceof Collection<?>) {
+                            Collection<?> collection = (Collection<?>) value;
 
-                    for (Object o : collection) {
-                        // addText() would set the dirty flag
-                        p.addText(o.toString());
+                            for (Object o : collection) {
+                                // addText() would set the dirty flag
+                                p.addText(o.toString());
+                            }
+                        }
+                    } else if (panel instanceof RatingSelectionPanel) {
+                        RatingSelectionPanel p = (RatingSelectionPanel) panel;
+                        Long rating = xmp.contains(ColumnXmpRating.INSTANCE)
+                                      ? (Long) xmp.getValue(ColumnXmpRating.INSTANCE)
+                                      : null;
+
+                        if (rating != null) {
+                            p.setText(Long.toString(rating));
+                            p.setDirty(true);
+                        }
                     }
                 }
-            } else if (panel instanceof RatingSelectionPanel) {
-                RatingSelectionPanel p = (RatingSelectionPanel) panel;
-                Long rating = xmp.contains(ColumnXmpRating.INSTANCE)
-                              ? (Long) xmp.getValue(ColumnXmpRating.INSTANCE)
-                              : null;
 
-                if (rating != null) {
-                    p.setText(Long.toString(rating));
-                    p.setDirty(true);
-                }
+                checkSaveOnChanges();
             }
-        }
-
-        checkSaveOnChanges();
-    }
         });
     }
 
@@ -473,29 +473,29 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
             return;
         }
 
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
 
             @Override
             public void run() {
-        JPanel panelToSet = null;
-        int size = panels.size();
+                JPanel panelToSet = null;
+                int size = panels.size();
 
-        for (int i = 0; (panelToSet == null) && (i < size); i++) {
-            JPanel panel = panels.get(i);
+                for (int i = 0; (panelToSet == null) && (i < size); i++) {
+                    JPanel panel = panels.get(i);
 
-            if (((TextEntry) panel).getColumn().equals(ColumnXmpRating.INSTANCE)) {
-                panelToSet = panel;
+                    if (((TextEntry) panel).getColumn().equals(ColumnXmpRating.INSTANCE)) {
+                        panelToSet = panel;
+                    }
+                }
+
+                if (panelToSet instanceof RatingSelectionPanel) {
+                    RatingSelectionPanel ratingPanel = (RatingSelectionPanel) panelToSet;
+
+                    ratingPanel.setTextAndNotify(Long.toString(rating));
+                }
+
+                checkSaveOnChanges();
             }
-        }
-
-        if (panelToSet instanceof RatingSelectionPanel) {
-            RatingSelectionPanel ratingPanel = (RatingSelectionPanel) panelToSet;
-
-            ratingPanel.setTextAndNotify(Long.toString(rating));
-        }
-
-        checkSaveOnChanges();
-    }
         });
     }
 
@@ -512,30 +512,30 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
             return;
         }
 
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
 
             @Override
             public void run() {
-        for (JPanel panel : panels) {
-            TextEntry textEntry = (TextEntry) panel;
-            Object value = template.getValueOfColumn(textEntry.getColumn());
+                for (JPanel panel : panels) {
+                    TextEntry textEntry = (TextEntry) panel;
+                    Object value = template.getValueOfColumn(textEntry.getColumn());
 
-            if (value instanceof String) {
-                String string = (String) value;
+                    if (value instanceof String) {
+                        String string = (String) value;
 
-                if (!string.isEmpty()) {
-                    textEntry.setText(string);
-                    textEntry.setDirty(true);
+                        if (!string.isEmpty()) {
+                            textEntry.setText(string);
+                            textEntry.setDirty(true);
+                        }
+                    } else if (value instanceof Collection<?>) {
+                        @SuppressWarnings("unchecked") Collection<String> strings = (Collection<String>) value;
+                        EditRepeatableTextEntryPanel repeatableTextEntry = (EditRepeatableTextEntryPanel) textEntry;
+
+                        repeatableTextEntry.setText(strings);
+                        repeatableTextEntry.setDirty(true);
+                    }
                 }
-            } else if (value instanceof Collection<?>) {
-                @SuppressWarnings("unchecked") Collection<String> strings = (Collection<String>) value;
-                EditRepeatableTextEntryPanel repeatableTextEntry = (EditRepeatableTextEntryPanel) textEntry;
-
-                repeatableTextEntry.setText(strings);
-                repeatableTextEntry.setDirty(true);
             }
-        }
-    }
         });
     }
 
@@ -573,14 +573,14 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
      * @param dirty  true if changes were made
      */
     public void setDirty(final boolean dirty) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
 
             @Override
             public void run() {
-        for (JPanel panel : panels) {
-            ((TextEntry) panel).setDirty(dirty);
-        }
-    }
+                for (JPanel panel : panels) {
+                    ((TextEntry) panel).setDirty(dirty);
+                }
+            }
         });
     }
 
@@ -866,18 +866,18 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
 
     public void setAutocomplete() {
         if (UserSettings.INSTANCE.isAutocomplete()) {
-            EventQueue.invokeLater(new Runnable() {
+            EventQueueUtil.invokeLater(new Runnable() {
 
                 @Override
                 public void run() {
-            for (JPanel panel : panels) {
-                if (panel instanceof TextEntry) {
-                    TextEntry textEntry = (TextEntry) panel;
+                    for (JPanel panel : panels) {
+                        if (panel instanceof TextEntry) {
+                            TextEntry textEntry = (TextEntry) panel;
 
-                    textEntry.setAutocomplete();
+                            textEntry.setAutocomplete();
+                        }
+                    }
                 }
-            }
-        }
             });
     }
     }
@@ -885,19 +885,19 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
     public void emptyPanels(final boolean dirty) {
         checkDirty();
 
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
 
             @Override
             public void run() {
 
-        // The listeners shouldn't notified when emptying text because they
-        // would delete their content
-        setXmpOfFilesAsTextEntryListener(false);
+                // The listeners shouldn't notified when emptying text because they
+                // would delete their content
+                setXmpOfFilesAsTextEntryListener(false);
 
-        for (JPanel panel : panels) {
-            ((TextEntry) panel).empty(dirty);
-        }
-    }
+                for (JPanel panel : panels) {
+                    ((TextEntry) panel).empty(dirty);
+                }
+            }
         });
     }
 
@@ -970,15 +970,15 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
         final Pair<File, Xmp> pair = imageFilesXmp.get(0);
 
         if (pair.getFirst().equals(imageFile)) {
-            EventQueue.invokeLater(new Runnable() {
+            EventQueueUtil.invokeLater(new Runnable() {
 
                 @Override
                 public void run() {
-            setXmpAsTextEntryListener(pair.getSecond(), false);
-            setXmpAsTextEntryListener(xmp, true);
-            imageFilesXmp.set(0, new Pair<File, Xmp>(imageFile, xmp));
-            setXmpToEditPanels();
-        }
+                    setXmpAsTextEntryListener(pair.getSecond(), false);
+                    setXmpAsTextEntryListener(xmp, true);
+                    imageFilesXmp.set(0, new Pair<File, Xmp>(imageFile, xmp));
+                    setXmpToEditPanels();
+                }
             });
     }
     }

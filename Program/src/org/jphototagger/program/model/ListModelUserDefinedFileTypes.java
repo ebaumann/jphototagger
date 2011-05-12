@@ -1,8 +1,8 @@
 package org.jphototagger.program.model;
 
-import java.awt.EventQueue;
 import java.util.List;
 import javax.swing.DefaultListModel;
+import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.data.UserDefinedFileType;
 import org.jphototagger.program.database.DatabaseUserDefinedFileTypes;
 import org.jphototagger.program.event.listener.DatabaseUserDefinedFileTypesListener;
@@ -34,7 +34,7 @@ public final class ListModelUserDefinedFileTypes extends DefaultListModel implem
 
     @Override
     public void fileTypeInserted(final UserDefinedFileType fileType) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
 
             @Override
             public void run() {
@@ -45,7 +45,7 @@ public final class ListModelUserDefinedFileTypes extends DefaultListModel implem
 
     @Override
     public void fileTypeUpdated(final UserDefinedFileType oldFileType, final UserDefinedFileType newFileType) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
 
             @Override
             public void run() {
@@ -60,7 +60,7 @@ public final class ListModelUserDefinedFileTypes extends DefaultListModel implem
 
     @Override
     public void fileTypeDeleted(final UserDefinedFileType fileType) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
 
             @Override
             public void run() {

@@ -14,11 +14,10 @@ import org.jphototagger.program.view.renderer.TableCellRendererExif;
 import org.jphototagger.program.view.renderer.TableCellRendererIptc;
 import org.jphototagger.program.view.renderer.TableCellRendererXmp;
 
-import java.awt.EventQueue;
-
 import java.util.List;
 
 import javax.swing.JTable;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Erzeugt Renderer und verknüpft sie mit den GUI-Elementen.
@@ -39,7 +38,7 @@ public final class RendererFactory {
             init = true;
         }
 
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 Support.setStatusbarInfo("RendererFactory.Init.Start");

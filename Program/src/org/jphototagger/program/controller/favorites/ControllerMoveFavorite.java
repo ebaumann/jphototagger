@@ -7,10 +7,10 @@ import org.jphototagger.program.view.popupmenus.PopupMenuFavorites;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.EventQueue;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Listens to the {@link PopupMenuFavorites} and moves in the list
@@ -33,7 +33,7 @@ public final class ControllerMoveFavorite implements ActionListener {
     public void actionPerformed(ActionEvent evt) {
         boolean moveUp = PopupMenuFavorites.INSTANCE.getItemMoveUp().equals(evt.getSource());
 
-        EventQueue.invokeLater(new MoveDir(moveUp));
+        EventQueueUtil.invokeLater(new MoveDir(moveUp));
     }
 
     private class MoveDir implements Runnable {
@@ -45,7 +45,7 @@ public final class ControllerMoveFavorite implements ActionListener {
 
         @Override
         public void run() {
-            EventQueue.invokeLater(new Runnable() {
+            EventQueueUtil.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     if (up) {

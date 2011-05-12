@@ -8,12 +8,12 @@ import org.jphototagger.program.view.popupmenus.PopupMenuDirectories;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.awt.EventQueue;
 
 import java.io.File;
 
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Listens to {@link PopupMenuDirectories#getItemDeleteDirectory()} and
@@ -57,7 +57,7 @@ public final class ControllerDeleteDirectory extends ControllerDirectory {
 
         if (dir != null) {
             if (FileSystemDirectories.delete(dir)) {
-                EventQueue.invokeLater(new Runnable() {
+                EventQueueUtil.invokeLater(new Runnable() {
                     @Override
                     public void run() {
                         TreeFileSystemDirectories.removeFromTreeModel(

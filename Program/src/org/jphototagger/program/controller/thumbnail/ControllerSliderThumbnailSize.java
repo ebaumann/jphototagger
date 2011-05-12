@@ -10,12 +10,12 @@ import org.jphototagger.program.UserSettings;
 import java.awt.AWTEvent;
 import java.awt.event.AWTEventListener;
 import java.awt.event.KeyEvent;
-import java.awt.EventQueue;
 import java.awt.Toolkit;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.JSlider;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Controls the slider which changes the size of the thumbnails
@@ -141,7 +141,7 @@ public final class ControllerSliderThumbnailSize
     }
 
     private void setThumbnailWidth() {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 int width = (int) ((double) getMaxTnWidth() * ((double) currentValue / 100.0));

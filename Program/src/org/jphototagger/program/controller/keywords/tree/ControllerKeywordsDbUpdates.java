@@ -9,7 +9,6 @@ import org.jphototagger.program.event.listener.DatabaseImageFilesListener;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.model.TreeModelKeywords;
 
-import java.awt.EventQueue;
 
 import java.io.File;
 
@@ -18,6 +17,7 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.swing.tree.DefaultMutableTreeNode;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Listens to database updates and adds not existing keywords.
@@ -51,7 +51,7 @@ public final class ControllerKeywordsDbUpdates implements DatabaseImageFilesList
     }
 
     private void addKeyword(final String keyword) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 TreeModelKeywords model = ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);

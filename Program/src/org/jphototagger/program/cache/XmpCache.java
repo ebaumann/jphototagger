@@ -8,13 +8,13 @@ import org.jphototagger.program.event.listener.DatabaseImageFilesListener;
 import org.jphototagger.program.event.listener.ThumbnailUpdateListener;
 import org.jphototagger.program.event.ThumbnailUpdateEvent;
 
-import java.awt.EventQueue;
 
 import java.io.File;
 
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  *
@@ -255,7 +255,7 @@ public final class XmpCache extends Cache<XmpCacheIndirection> implements Databa
         fileCache.maybeCleanupCache();
 
         if (repaint) {
-            EventQueue.invokeLater(new Runnable() {
+            EventQueueUtil.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     if (xmp.isEmpty()) {

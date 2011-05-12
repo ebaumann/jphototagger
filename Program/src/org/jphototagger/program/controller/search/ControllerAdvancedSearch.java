@@ -14,13 +14,13 @@ import org.jphototagger.program.view.WaitDisplay;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.EventQueue;
 
 import java.io.File;
 
 import java.util.List;
 
 import javax.swing.JButton;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Kontrolliert die Aktionen: Erweiterter Suchdialog soll angezeigt werden sowie
@@ -42,7 +42,7 @@ public final class ControllerAdvancedSearch implements ActionListener {
     }
 
     private void applySavedSearch(final SavedSearch savedSearch) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 assert savedSearch.isValid() : savedSearch;

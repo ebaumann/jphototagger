@@ -5,9 +5,9 @@ import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseSynonyms;
 import org.jphototagger.program.event.listener.DatabaseSynonymsListener;
 
-import java.awt.EventQueue;
 
 import javax.swing.DefaultListModel;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  *
@@ -226,7 +226,7 @@ public final class ListModelSynonyms extends DefaultListModel implements Databas
 
     @Override
     public void synonymOfWordDeleted(final String word, final String synonym) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 deleteSynonymOfWord(word, synonym);
@@ -236,7 +236,7 @@ public final class ListModelSynonyms extends DefaultListModel implements Databas
 
     @Override
     public void synonymInserted(final String word, final String synonym) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 insertSynonym(word, synonym);
@@ -246,7 +246,7 @@ public final class ListModelSynonyms extends DefaultListModel implements Databas
 
     @Override
     public void synonymOfWordRenamed(final String word, final String oldSynonymName, final String newSynonymName) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 renameSynonymOfWord(word, oldSynonymName, newSynonymName);
@@ -256,7 +256,7 @@ public final class ListModelSynonyms extends DefaultListModel implements Databas
 
     @Override
     public void synonymRenamed(final String oldSynonymName, final String newSynonymName) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 renameSynonym(oldSynonymName, newSynonymName);
@@ -266,7 +266,7 @@ public final class ListModelSynonyms extends DefaultListModel implements Databas
 
     @Override
     public void wordDeleted(final String word) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 deleteWord(word);
@@ -276,7 +276,7 @@ public final class ListModelSynonyms extends DefaultListModel implements Databas
 
     @Override
     public void wordRenamed(final String fromName, final String toName) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 renameWord(fromName, toName);

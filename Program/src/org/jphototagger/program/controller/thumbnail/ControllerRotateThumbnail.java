@@ -8,7 +8,6 @@ import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.EventQueue;
 import java.awt.Image;
 
 import java.io.File;
@@ -18,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.JMenuItem;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Kontrolliert die Aktion: Rotiere ein Thumbnail,
@@ -70,7 +70,7 @@ public final class ControllerRotateThumbnail implements ActionListener {
     }
 
     private void rotateSelectedImages(final float rotateAngle) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 List<File> selFiles = GUI.getSelectedImageFiles();

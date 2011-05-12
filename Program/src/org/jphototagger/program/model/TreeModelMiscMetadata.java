@@ -18,7 +18,6 @@ import org.jphototagger.program.database.metadata.xmp.ColumnXmpRating;
 import org.jphototagger.program.event.listener.DatabaseImageFilesListener;
 import org.jphototagger.program.resource.JptBundle;
 
-import java.awt.EventQueue;
 
 import java.io.File;
 
@@ -29,6 +28,7 @@ import java.util.Set;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * This model contains distinct values of specific EXIF and XMP database
@@ -257,7 +257,7 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel implements Dat
             throw new NullPointerException("updatedXmp == null");
         }
 
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 checkDeleted(oldXmp);
@@ -272,7 +272,7 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel implements Dat
             throw new NullPointerException("xmp == null");
         }
 
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 checkInserted(xmp);
@@ -286,7 +286,7 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel implements Dat
             throw new NullPointerException("xmp == null");
         }
 
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 checkDeleted(xmp);
@@ -296,7 +296,7 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel implements Dat
 
     @Override
     public void dcSubjectDeleted(final String dcSubject) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 checkDeleted(ColumnXmpDcSubjectsSubject.INSTANCE, dcSubject);
@@ -306,7 +306,7 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel implements Dat
 
     @Override
     public void dcSubjectInserted(final String dcSubject) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 checkInserted(ColumnXmpDcSubjectsSubject.INSTANCE, dcSubject);
@@ -320,7 +320,7 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel implements Dat
             throw new NullPointerException("exif == null");
         }
 
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 checkInserted(exif);
@@ -338,7 +338,7 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel implements Dat
             throw new NullPointerException("updatedExif == null");
         }
 
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 checkDeleted(oldExif);
@@ -349,7 +349,7 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel implements Dat
 
     @Override
     public void exifDeleted(File imageFile, final Exif exif) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 checkDeleted(exif);

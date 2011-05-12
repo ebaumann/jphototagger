@@ -11,10 +11,10 @@ import org.jphototagger.program.resource.JptBundle;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.EventQueue;
 
 import java.util.HashSet;
 import java.util.Set;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Updates all Thumbnails in the database with the current settings.
@@ -61,7 +61,7 @@ public final class UpdateAllThumbnails implements Runnable, ProgressListener, Ac
 
     @Override
     public void progressStarted(final ProgressEvent evt) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 setProgressDialogStarted(evt);
@@ -72,7 +72,7 @@ public final class UpdateAllThumbnails implements Runnable, ProgressListener, Ac
 
     @Override
     public void progressPerformed(final ProgressEvent evt) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 setProgressDialogPerformed(evt);
@@ -88,7 +88,7 @@ public final class UpdateAllThumbnails implements Runnable, ProgressListener, Ac
     }
 
     private void setProgressDialogEnded(final ProgressEvent evt) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 progressDialog.setValue(evt.getValue());
@@ -99,7 +99,7 @@ public final class UpdateAllThumbnails implements Runnable, ProgressListener, Ac
     }
 
     private void setProgressDialogPerformed(final ProgressEvent evt) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 progressDialog.setValue(evt.getValue());
@@ -109,7 +109,7 @@ public final class UpdateAllThumbnails implements Runnable, ProgressListener, Ac
     }
 
     private void setProgressDialogStarted(final ProgressEvent evt) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 progressDialog.setMinimum(evt.getMinimum());

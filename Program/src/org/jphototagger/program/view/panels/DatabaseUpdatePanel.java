@@ -18,7 +18,6 @@ import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 
 import java.awt.Container;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collection;
@@ -28,6 +27,7 @@ import java.util.List;
 import javax.swing.AbstractButton;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
+import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.database.DatabaseKeywords;
 import org.jphototagger.program.model.TreeModelKeywords;
 
@@ -161,7 +161,7 @@ public class DatabaseUpdatePanel extends JPanel
 
                  if (models != null) {
                      for (final TreeModelKeywords model : models) {
-                        EventQueue.invokeLater(new Runnable() {
+                        EventQueueUtil.invokeLater(new Runnable() {
 
                             @Override
                             public void run() {
@@ -196,7 +196,7 @@ public class DatabaseUpdatePanel extends JPanel
 
     @Override
     public void progressEnded(final ProgressEvent evt) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
 
             @Override
             public void run() {

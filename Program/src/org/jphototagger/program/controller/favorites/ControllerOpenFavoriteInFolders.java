@@ -13,7 +13,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.EventQueue;
 
 import java.io.File;
 
@@ -21,6 +20,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Listens to the {@link PopupMenuFavorites} and opens the
@@ -57,7 +57,7 @@ public final class ControllerOpenFavoriteInFolders implements ActionListener, Ke
     }
 
     private void selectDirectory() {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 TreePath path = PopupMenuFavorites.INSTANCE.getTreePath();

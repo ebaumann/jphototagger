@@ -10,13 +10,13 @@ import org.jphototagger.program.database.metadata.selections.DatabaseInfoRecordC
 import org.jphototagger.program.event.listener.DatabaseImageFilesListener;
 import org.jphototagger.program.resource.JptBundle;
 
-import java.awt.EventQueue;
 
 import java.io.File;
 
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Elements are {@link Column}s retrieved through
@@ -162,7 +162,7 @@ public final class TableModelDatabaseInfo extends TableModelExt implements Datab
                 setCountToBuffer(bufferOfColumn.get(column), DatabaseStatistics.INSTANCE.getTotalRecordCountOf(column));
             }
 
-            EventQueue.invokeLater(new Runnable() {
+            EventQueueUtil.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     fireTableDataChanged();

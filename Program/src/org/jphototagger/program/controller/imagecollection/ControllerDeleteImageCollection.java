@@ -14,7 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.EventQueue;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  *
@@ -56,7 +56,7 @@ public final class ControllerDeleteImageCollection implements ActionListener, Ke
         }
 
         if (collectionName != null) {
-            EventQueue.invokeLater(new Runnable() {
+            EventQueueUtil.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     if (ImageCollectionsHelper.deleteImageCollection(collectionName)) {

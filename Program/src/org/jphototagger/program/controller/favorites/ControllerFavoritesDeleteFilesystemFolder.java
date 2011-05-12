@@ -11,12 +11,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.EventQueue;
 
 import java.io.File;
 
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Listens to {@link PopupMenuFavorites#getItemDeleteFilesystemFolder()} and
@@ -52,7 +52,7 @@ public final class ControllerFavoritesDeleteFilesystemFolder implements ActionLi
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 deleteDirectory(

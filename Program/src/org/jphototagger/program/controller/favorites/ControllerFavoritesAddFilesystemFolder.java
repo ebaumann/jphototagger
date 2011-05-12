@@ -14,7 +14,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.EventQueue;
 
 import java.io.File;
 
@@ -23,6 +22,7 @@ import java.util.List;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Listens to {@link PopupMenuFavorites#getItemAddFilesystemFolder()} and
@@ -49,7 +49,7 @@ public final class ControllerFavoritesAddFilesystemFolder implements ActionListe
         final JTree tree = GUI.getFavoritesTree();
 
         if (KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_N) &&!tree.isSelectionEmpty()) {
-            EventQueue.invokeLater(new Runnable() {
+            EventQueueUtil.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     Object node = tree.getSelectionPath().getLastPathComponent();

@@ -16,7 +16,6 @@ import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.util.Settings;
 
 import java.awt.Container;
-import java.awt.EventQueue;
 
 import java.io.File;
 
@@ -25,6 +24,7 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.swing.filechooser.FileSystemView;
+import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.io.CancelRequest;
 import org.jphototagger.program.event.UserSettingsEvent;
 import org.jphototagger.program.event.listener.UserSettingsListener;
@@ -238,7 +238,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener, U
 
     @Override
     public void progressStarted(final ProgressEvent evt) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
 
             @Override
             public void run() {
@@ -252,7 +252,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener, U
 
     @Override
     public void progressPerformed(final ProgressEvent evt) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
 
             @Override
             public void run() {
@@ -264,7 +264,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener, U
 
     @Override
     public void progressEnded(final ProgressEvent evt) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
 
             @Override
             public void run() {

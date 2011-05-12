@@ -7,11 +7,11 @@ import org.jphototagger.program.database.DatabaseMetadataTemplates;
 import org.jphototagger.program.event.listener.DatabaseMetadataTemplatesListener;
 import org.jphototagger.program.resource.JptBundle;
 
-import java.awt.EventQueue;
 
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Elements are instances of {@link MetadataTemplate}s retrieved through
@@ -172,7 +172,7 @@ public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel
 
     @Override
     public void templateDeleted(final MetadataTemplate template) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 removeElement(template);
@@ -182,7 +182,7 @@ public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel
 
     @Override
     public void templateInserted(final MetadataTemplate template) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 addElement(template);
@@ -192,7 +192,7 @@ public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel
 
     @Override
     public void templateUpdated(final MetadataTemplate oldTemplate, MetadataTemplate updatedTemplate) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 updateTemplate(oldTemplate);
@@ -202,7 +202,7 @@ public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel
 
     @Override
     public void templateRenamed(final String fromName, final String toName) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 renameTemplate(fromName, toName);

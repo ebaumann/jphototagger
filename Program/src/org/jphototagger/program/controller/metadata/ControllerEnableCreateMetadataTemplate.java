@@ -3,7 +3,7 @@ package org.jphototagger.program.controller.metadata;
 import org.jphototagger.program.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.program.resource.GUI;
 
-import java.awt.EventQueue;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  *
@@ -20,7 +20,7 @@ public final class ControllerEnableCreateMetadataTemplate implements ThumbnailsP
 
     @Override
     public void thumbnailsSelectionChanged() {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 GUI.getAppPanel().getButtonMetadataTemplateCreate().setEnabled(

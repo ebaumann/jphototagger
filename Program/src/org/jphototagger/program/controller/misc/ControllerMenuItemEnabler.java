@@ -6,7 +6,6 @@ import org.jphototagger.program.types.Content;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
 
-import java.awt.EventQueue;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,6 +15,7 @@ import java.util.Map;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 import javax.swing.JMenuItem;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  *
@@ -79,7 +79,7 @@ public final class ControllerMenuItemEnabler implements ThumbnailsPanelListener,
     }
 
     private void setEnabled() {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();

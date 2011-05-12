@@ -1,7 +1,6 @@
 package org.jphototagger.lib.component;
 
 import java.awt.Container;
-import java.awt.EventQueue;
 import java.awt.datatransfer.StringSelection;
 import java.awt.Toolkit;
 
@@ -10,6 +9,7 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 
 import javax.swing.JPanel;
+import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.resource.JslBundle;
 
@@ -58,7 +58,7 @@ public class SystemOutputPanel extends JPanel {
     }
 
     private void updateTextArea(final String text) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 textArea.append(text);

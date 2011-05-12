@@ -15,7 +15,6 @@ import org.jphototagger.program.resource.JptBundle;
 
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.EventQueue;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,6 +28,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JPopupMenu.Separator;
+import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.controller.programs.ControllerAddProgram;
 
 /**
@@ -234,7 +234,7 @@ public final class PopupMenuThumbnails extends JPopupMenu implements DatabasePro
 
     @Override
     public void programDeleted(final Program program) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 updatePrograms(program);
@@ -244,7 +244,7 @@ public final class PopupMenuThumbnails extends JPopupMenu implements DatabasePro
 
     @Override
     public void programInserted(final Program program) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 updatePrograms(program);
@@ -254,7 +254,7 @@ public final class PopupMenuThumbnails extends JPopupMenu implements DatabasePro
 
     @Override
     public void programUpdated(final Program program) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 updatePrograms(program);

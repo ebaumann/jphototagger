@@ -1,6 +1,6 @@
 package org.jphototagger.program.view.dialogs;
 
-import java.awt.EventQueue;
+import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.event.listener.DatabaseProgramsListener;
@@ -64,7 +64,7 @@ public final class ActionsDialog extends Dialog implements DatabaseProgramsListe
 
     @Override
     public void programInserted(Program program) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
 
             @Override
             public void run() {
@@ -75,7 +75,7 @@ public final class ActionsDialog extends Dialog implements DatabaseProgramsListe
 
     @Override
     public void programUpdated(Program program) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
 
             @Override
             public void run() {

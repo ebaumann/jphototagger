@@ -11,9 +11,9 @@ import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.util.Settings;
 
 import java.awt.Container;
-import java.awt.EventQueue;
 
 import javax.swing.JPanel;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Uses
@@ -66,7 +66,7 @@ public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener
 
     @Override
     public void progressStarted(final ProgressEvent evt) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
 
             @Override
             public void run() {
@@ -79,7 +79,7 @@ public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener
 
     @Override
     public void progressPerformed(final ProgressEvent evt) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
 
             @Override
             public void run() {
@@ -90,7 +90,7 @@ public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener
 
     @Override
     public void progressEnded(ProgressEvent evt) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
 
             @Override
             public void run() {

@@ -13,7 +13,6 @@ import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.util.Settings;
 
 import java.awt.Container;
-import java.awt.EventQueue;
 
 import java.lang.reflect.Method;
 
@@ -27,6 +26,7 @@ import javax.swing.Icon;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.program.helper.DeleteNotReferenced1n;
 import org.jphototagger.program.helper.DeleteUnusedKeywords;
@@ -251,7 +251,7 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
 
     @Override
     public void progressStarted(final ProgressEvent evt) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
 
             @Override
             public void run() {
@@ -266,7 +266,7 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
 
     @Override
     public void progressPerformed(final ProgressEvent evt) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
 
             @Override
             public void run() {
@@ -278,7 +278,7 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
 
     @Override
     public void progressEnded(final ProgressEvent evt) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
 
             @Override
             public void run() {

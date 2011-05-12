@@ -13,7 +13,6 @@ import org.jphototagger.program.view.dialogs.SettingsDialog;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.EventQueue;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -22,6 +21,7 @@ import java.util.Map;
 
 import javax.swing.Icon;
 import javax.swing.JButton;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Runs scheduled tasks after
@@ -157,7 +157,7 @@ public final class ScheduledTasks implements ActionListener, UpdateMetadataCheck
     }
 
     private void setButtonState(final ButtonState state) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 button.setIcon(ICON_OF_BUTTON_STATE.get(state));
