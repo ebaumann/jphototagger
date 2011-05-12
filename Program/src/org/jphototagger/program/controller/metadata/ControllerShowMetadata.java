@@ -214,7 +214,7 @@ public final class ControllerShowMetadata implements ChangeListener, DatabaseIma
         Object source = e.getSource();
 
         if (source == metadataPane && isExactlyOneThumbnailSelected()) {
-            EventQueueUtil.invokeLater(new ShowMetadata(EnumSet.allOf(Metadata.class)));
+            EventQueueUtil.invokeInDispatchThread(new ShowMetadata(EnumSet.allOf(Metadata.class)));
         }
     }
 
@@ -248,7 +248,7 @@ public final class ControllerShowMetadata implements ChangeListener, DatabaseIma
 
         if (selectedFiles.size() == 1) {
             selectedImageFile = selectedFiles.get(0);
-            EventQueueUtil.invokeLater(new ShowMetadata(EnumSet.allOf(Metadata.class)));
+            EventQueueUtil.invokeInDispatchThread(new ShowMetadata(EnumSet.allOf(Metadata.class)));
         } else {
             removeDisplayedMetadata();
         }
@@ -257,12 +257,12 @@ public final class ControllerShowMetadata implements ChangeListener, DatabaseIma
     private void removeDisplayedMetadata() {
         appPanel.getButtonIptcToXmp().setEnabled(false);
         appPanel.getButtonExifToXmp().setEnabled(false);
-        EventQueueUtil.invokeLater(new RemoveAllMetadata());
+        EventQueueUtil.invokeInDispatchThread(new RemoveAllMetadata());
     }
 
     private void showUpdates(File updatedImageFile, Collection<? extends Metadata> metadata) {
         if (selectedImageFile != null && updatedImageFile.equals(selectedImageFile)) {
-            EventQueueUtil.invokeLater(new ShowMetadata(metadata));
+            EventQueueUtil.invokeInDispatchThread(new ShowMetadata(metadata));
         }
     }
 

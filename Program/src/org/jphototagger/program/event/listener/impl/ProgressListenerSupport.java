@@ -26,7 +26,7 @@ public final class ProgressListenerSupport extends ListenerSupport<ProgressListe
 
         for (final ProgressListener listener : listeners) {
             if (listener instanceof Component) {
-                EventQueueUtil.invokeLater(new Runnable() {
+                EventQueueUtil.invokeInDispatchThread(new Runnable() {
                     @Override
                     public void run() {
                         listener.progressStarted(event);
@@ -55,7 +55,7 @@ public final class ProgressListenerSupport extends ListenerSupport<ProgressListe
 
         for (final ProgressListener listener : listeners) {
             if (listener instanceof Component) {
-                EventQueueUtil.invokeLater(new Runnable() {
+                EventQueueUtil.invokeInDispatchThread(new Runnable() {
                     @Override
                     public void run() {
                         listener.progressPerformed(event);
@@ -82,7 +82,7 @@ public final class ProgressListenerSupport extends ListenerSupport<ProgressListe
 
         for (final ProgressListener listener : listeners) {
             if (listener instanceof Component) {
-                EventQueueUtil.invokeLater(new Runnable() {
+                EventQueueUtil.invokeInDispatchThread(new Runnable() {
                     @Override
                     public void run() {
                         listener.progressEnded(event);

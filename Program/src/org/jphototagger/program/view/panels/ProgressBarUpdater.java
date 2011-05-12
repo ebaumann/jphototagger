@@ -41,7 +41,7 @@ public final class ProgressBarUpdater implements ProgressListener {
 
     private synchronized void updateProgressBar(final ProgressEvent evt) {
         getProgressBar();
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 if (progressBar != null) {
@@ -73,7 +73,7 @@ public final class ProgressBarUpdater implements ProgressListener {
 
     @Override
     public synchronized void progressEnded(final ProgressEvent evt) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 if (progressBar != null) {

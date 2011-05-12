@@ -85,7 +85,7 @@ public final class AppWindowPersistence implements ComponentListener, AppExitLis
         final AppFrame appFrame = GUI.getAppFrame();
 
         UserSettings.INSTANCE.getSettings().applySizeAndLocation(appFrame);
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 appFrame.pack();
@@ -94,7 +94,7 @@ public final class AppWindowPersistence implements ComponentListener, AppExitLis
     }
 
     public void readAppPanelFromProperties() {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 AppPanel appPanel = GUI.getAppPanel();

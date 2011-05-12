@@ -153,7 +153,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
 
     @Override
     public void progressStarted(final ProgressEvent evt) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
             public void run() {
@@ -167,7 +167,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
 
     @Override
     public void progressPerformed(final ProgressEvent evt) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
             public void run() {
@@ -179,7 +179,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
 
     @Override
     public void progressEnded(final ProgressEvent evt) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
             public void run() {

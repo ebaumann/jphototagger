@@ -47,7 +47,7 @@ public final class ControllerRefreshFavorites implements ActionListener, KeyList
     }
 
     public void refresh() {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 ModelFactory.INSTANCE.getModel(TreeModelFavorites.class).update();

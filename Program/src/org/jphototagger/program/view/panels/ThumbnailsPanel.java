@@ -307,7 +307,7 @@ public class ThumbnailsPanel extends JPanel
 
     @Override
     public synchronized void thumbnailUpdated(final ThumbnailUpdateEvent event) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 int index = getIndexOf(event.getSource());
@@ -1656,7 +1656,7 @@ public class ThumbnailsPanel extends JPanel
 
     @Override
     public synchronized void filterUpdated(final UserDefinedFileFilter filter) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 updateFilter(filter);

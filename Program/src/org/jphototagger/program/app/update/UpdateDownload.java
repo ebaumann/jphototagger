@@ -188,7 +188,7 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
 
     private void startProgressBar() {
         progressBar = ProgressBar.INSTANCE.getResource(pBarOwner);
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 if (progressBar != null) {
@@ -201,7 +201,7 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
     }
 
     private void progressBarDownloadInfo() {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 if (progressBar != null) {
@@ -212,7 +212,7 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
     }
 
     private void releaseProgressBar() {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 if (progressBar != null) {

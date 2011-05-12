@@ -66,7 +66,7 @@ public class ControllerRenameKeyword extends ControllerKeywords implements Actio
         final String newName = getName(keyword, DatabaseKeywords.INSTANCE, getHKPanel().getTree());
 
         if ((newName != null) &&!newName.trim().isEmpty()) {
-            EventQueueUtil.invokeLater(new Runnable() {
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
                 @Override
                 public void run() {
                     rename(node, keyword, newName);

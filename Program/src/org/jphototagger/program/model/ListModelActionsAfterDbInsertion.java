@@ -145,7 +145,7 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel imp
 
     @Override
     public void programDeleted(final Program program) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 deleteProgram(program);
@@ -161,7 +161,7 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel imp
 
     @Override
     public void programUpdated(final Program program) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 updateProgram(program);

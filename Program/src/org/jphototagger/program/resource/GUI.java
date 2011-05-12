@@ -74,7 +74,7 @@ public final class GUI {
      * Calls {@link ThumbnailsPanel#refresh()}.
      */
     public static void refreshThumbnailsPanel() {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 getThumbnailsPanel().refresh();

@@ -57,7 +57,7 @@ public final class ControllerDeleteDirectory extends ControllerDirectory {
 
         if (dir != null) {
             if (FileSystemDirectories.delete(dir)) {
-                EventQueueUtil.invokeLater(new Runnable() {
+                EventQueueUtil.invokeInDispatchThread(new Runnable() {
                     @Override
                     public void run() {
                         TreeFileSystemDirectories.removeFromTreeModel(

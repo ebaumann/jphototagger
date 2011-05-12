@@ -58,7 +58,7 @@ public final class ControllerDeleteFiles implements ActionListener, KeyListener 
         ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
         if ((tnPanel.isAFileSelected()) && tnPanel.getContent().canDeleteImagesFromFileSystem()) {
-            EventQueueUtil.invokeLater(new Runnable() {
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
                 @Override
                 public void run() {
                     deleteSelectedFiles();

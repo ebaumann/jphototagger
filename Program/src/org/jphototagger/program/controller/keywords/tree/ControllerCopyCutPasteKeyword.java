@@ -136,7 +136,7 @@ public class ControllerCopyCutPasteKeyword implements ActionListener, KeyListene
     }
 
     private void pasteCopy(final JTree tree) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 TreePath[] selPaths = tree.getSelectionPaths();

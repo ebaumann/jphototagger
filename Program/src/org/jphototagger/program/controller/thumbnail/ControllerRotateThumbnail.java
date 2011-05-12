@@ -70,7 +70,7 @@ public final class ControllerRotateThumbnail implements ActionListener {
     }
 
     private void rotateSelectedImages(final float rotateAngle) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 List<File> selFiles = GUI.getSelectedImageFiles();

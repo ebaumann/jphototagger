@@ -33,7 +33,7 @@ public final class ControllerMoveFavorite implements ActionListener {
     public void actionPerformed(ActionEvent evt) {
         boolean moveUp = PopupMenuFavorites.INSTANCE.getItemMoveUp().equals(evt.getSource());
 
-        EventQueueUtil.invokeLater(new MoveDir(moveUp));
+        EventQueueUtil.invokeInDispatchThread(new MoveDir(moveUp));
     }
 
     private class MoveDir implements Runnable {
@@ -45,7 +45,7 @@ public final class ControllerMoveFavorite implements ActionListener {
 
         @Override
         public void run() {
-            EventQueueUtil.invokeLater(new Runnable() {
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
                 @Override
                 public void run() {
                     if (up) {

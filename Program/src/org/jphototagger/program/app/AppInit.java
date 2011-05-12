@@ -115,7 +115,7 @@ public final class AppInit {
     }
 
     private static void showMainWindow() {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 AppFrame appFrame = new AppFrame();

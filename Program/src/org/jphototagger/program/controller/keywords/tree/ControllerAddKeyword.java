@@ -53,7 +53,7 @@ public class ControllerAddKeyword extends ControllerKeywords implements ActionLi
 
     @Override
     protected void localAction(final List<DefaultMutableTreeNode> nodes) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 addKeyword(nodes.get(0));

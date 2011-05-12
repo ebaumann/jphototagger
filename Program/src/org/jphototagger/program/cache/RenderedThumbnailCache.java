@@ -74,7 +74,7 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
         fileCache.maybeCleanupCache();
 
         if (repaint) {
-            EventQueueUtil.invokeLater(new Runnable() {
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
                 @Override
                 public void run() {
                     notifyUpdate(file);

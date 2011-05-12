@@ -28,7 +28,7 @@ public final class ControllerThumbnailsDatabaseChanges implements DatabaseImageF
     }
 
     private void updateXmpCache(final File imageFile) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 XmpCache.INSTANCE.remove(imageFile);
@@ -72,7 +72,7 @@ public final class ControllerThumbnailsDatabaseChanges implements DatabaseImageF
 
         final File file = imageFile;
 
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 ThumbnailCache.INSTANCE.remove(file);
@@ -87,7 +87,7 @@ public final class ControllerThumbnailsDatabaseChanges implements DatabaseImageF
             throw new NullPointerException("imageFile == null");
         }
 
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 GUI.getThumbnailsPanel().removeFiles(Collections.singleton(imageFile));

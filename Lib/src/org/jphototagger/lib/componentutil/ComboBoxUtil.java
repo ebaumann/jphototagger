@@ -91,7 +91,7 @@ public final class ComboBoxUtil {
             throw new NullPointerException("string == null");
         }
 
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 int size = model.getSize();

@@ -161,7 +161,7 @@ public class DatabaseUpdatePanel extends JPanel
 
                  if (models != null) {
                      for (final TreeModelKeywords model : models) {
-                        EventQueueUtil.invokeLater(new Runnable() {
+                        EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
                             @Override
                             public void run() {
@@ -196,7 +196,7 @@ public class DatabaseUpdatePanel extends JPanel
 
     @Override
     public void progressEnded(final ProgressEvent evt) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
             public void run() {

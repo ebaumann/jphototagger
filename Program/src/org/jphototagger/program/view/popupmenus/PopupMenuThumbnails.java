@@ -234,7 +234,7 @@ public final class PopupMenuThumbnails extends JPopupMenu implements DatabasePro
 
     @Override
     public void programDeleted(final Program program) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 updatePrograms(program);
@@ -244,7 +244,7 @@ public final class PopupMenuThumbnails extends JPopupMenu implements DatabasePro
 
     @Override
     public void programInserted(final Program program) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 updatePrograms(program);
@@ -254,7 +254,7 @@ public final class PopupMenuThumbnails extends JPopupMenu implements DatabasePro
 
     @Override
     public void programUpdated(final Program program) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 updatePrograms(program);

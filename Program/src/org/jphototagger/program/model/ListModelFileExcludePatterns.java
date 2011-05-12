@@ -116,7 +116,7 @@ public final class ListModelFileExcludePatterns extends DefaultListModel
 
     @Override
     public void patternInserted(final String pattern) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 if (listenToDb) {
@@ -128,7 +128,7 @@ public final class ListModelFileExcludePatterns extends DefaultListModel
 
     @Override
     public void patternDeleted(final String pattern) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 if (listenToDb) {

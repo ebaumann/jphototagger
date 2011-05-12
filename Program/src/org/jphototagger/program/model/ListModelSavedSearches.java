@@ -78,7 +78,7 @@ public final class ListModelSavedSearches extends DefaultListModel implements Da
 
     @Override
     public void searchInserted(final SavedSearch savedSearch) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 insertSearch(savedSearch);
@@ -88,7 +88,7 @@ public final class ListModelSavedSearches extends DefaultListModel implements Da
 
     @Override
     public void searchUpdated(final SavedSearch savedSearch) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 updateSearch(savedSearch);
@@ -98,7 +98,7 @@ public final class ListModelSavedSearches extends DefaultListModel implements Da
 
     @Override
     public void searchDeleted(final String name) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 deleteSearch(name);
@@ -108,7 +108,7 @@ public final class ListModelSavedSearches extends DefaultListModel implements Da
 
     @Override
     public void searchRenamed(final String fromName, final String toName) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 renameSearch(fromName, toName);

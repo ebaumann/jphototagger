@@ -255,7 +255,7 @@ public final class XmpCache extends Cache<XmpCacheIndirection> implements Databa
         fileCache.maybeCleanupCache();
 
         if (repaint) {
-            EventQueueUtil.invokeLater(new Runnable() {
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
                 @Override
                 public void run() {
                     if (xmp.isEmpty()) {

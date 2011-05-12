@@ -42,7 +42,7 @@ public final class ControllerAdvancedSearch implements ActionListener {
     }
 
     private void applySavedSearch(final SavedSearch savedSearch) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 assert savedSearch.isValid() : savedSearch;

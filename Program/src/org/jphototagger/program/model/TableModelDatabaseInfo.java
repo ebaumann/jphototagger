@@ -162,7 +162,7 @@ public final class TableModelDatabaseInfo extends TableModelExt implements Datab
                 setCountToBuffer(bufferOfColumn.get(column), DatabaseStatistics.INSTANCE.getTotalRecordCountOf(column));
             }
 
-            EventQueueUtil.invokeLater(new Runnable() {
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
                 @Override
                 public void run() {
                     fireTableDataChanged();

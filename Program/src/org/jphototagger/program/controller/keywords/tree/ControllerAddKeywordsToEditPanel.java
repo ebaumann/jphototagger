@@ -57,7 +57,7 @@ public class ControllerAddKeywordsToEditPanel extends ControllerKeywords impleme
         final DefaultMutableTreeNode node = nodes.get(0);
         final List<String> keywordNames = new ArrayList<String>();
 
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 addParentKeywords(node, keywordNames);

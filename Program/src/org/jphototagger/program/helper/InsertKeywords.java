@@ -38,7 +38,7 @@ public final class InsertKeywords extends Thread {
     }
 
     private void copy() {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 TreeModelKeywords model = ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);

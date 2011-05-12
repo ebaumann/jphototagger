@@ -135,7 +135,7 @@ public final class ControllerFastSearch implements ActionListener, RefreshListen
     }
 
     private void search(final String searchText) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 String userInput = searchText.trim();

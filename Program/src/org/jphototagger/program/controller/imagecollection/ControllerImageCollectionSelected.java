@@ -72,7 +72,7 @@ public final class ControllerImageCollectionSelected implements ListSelectionLis
     }
 
     private void showImageCollection(final String collectionName, final ThumbnailsPanel.Settings settings) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 WaitDisplay.show();

@@ -38,7 +38,7 @@ public final class RendererFactory {
             init = true;
         }
 
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 Support.setStatusbarInfo("RendererFactory.Init.Start");

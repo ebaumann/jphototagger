@@ -64,7 +64,7 @@ public final class ControllerTimelineItemSelected implements TreeSelectionListen
                 public void run() {
                     final Object lastPathComponent = path.getLastPathComponent();
 
-                    EventQueueUtil.invokeLater(new Runnable() {
+                    EventQueueUtil.invokeInDispatchThread(new Runnable() {
                         @Override
                         public void run() {
                             WaitDisplay.show();

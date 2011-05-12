@@ -63,7 +63,7 @@ public final class ControllerThumbnailsPanelPersistence implements ThumbnailsPan
             propertiesRead = true;
         }
 
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 readSelectedFilesFromProperties();
@@ -145,7 +145,7 @@ public final class ControllerThumbnailsPanelPersistence implements ThumbnailsPan
                     AppLogger.logSevere(getClass(), ex);
                 }
 
-                EventQueueUtil.invokeLater(new Runnable() {
+                EventQueueUtil.invokeInDispatchThread(new Runnable() {
                     @Override
                     public void run() {
                         UserSettings.INSTANCE.getSettings().applySettings(

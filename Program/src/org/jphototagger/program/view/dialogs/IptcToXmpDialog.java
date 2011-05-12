@@ -238,7 +238,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener, U
 
     @Override
     public void progressStarted(final ProgressEvent evt) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
             public void run() {
@@ -252,7 +252,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener, U
 
     @Override
     public void progressPerformed(final ProgressEvent evt) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
             public void run() {
@@ -264,7 +264,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener, U
 
     @Override
     public void progressEnded(final ProgressEvent evt) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
             public void run() {

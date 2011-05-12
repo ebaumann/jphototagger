@@ -51,7 +51,7 @@ public class ControllerDeleteKeywordFromEditPanel extends ControllerKeywords imp
 
     @Override
     protected void localAction(final List<DefaultMutableTreeNode> nodes) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 remove(nodes.get(0));

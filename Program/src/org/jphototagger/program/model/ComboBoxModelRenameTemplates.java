@@ -53,7 +53,7 @@ public final class ComboBoxModelRenameTemplates extends DefaultComboBoxModel
 
     @Override
     public void templateDeleted(final RenameTemplate template) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 deleteTemplate(template);
@@ -63,7 +63,7 @@ public final class ComboBoxModelRenameTemplates extends DefaultComboBoxModel
 
     @Override
     public void templateInserted(final RenameTemplate template) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 insertTemplate(template);
@@ -73,7 +73,7 @@ public final class ComboBoxModelRenameTemplates extends DefaultComboBoxModel
 
     @Override
     public void templateUpdated(final RenameTemplate template) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 updateTemplate(template);

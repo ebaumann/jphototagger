@@ -58,7 +58,7 @@ public class SystemOutputPanel extends JPanel {
     }
 
     private void updateTextArea(final String text) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 textArea.append(text);

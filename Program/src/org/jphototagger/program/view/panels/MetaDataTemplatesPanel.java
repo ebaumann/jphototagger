@@ -75,7 +75,7 @@ public class MetaDataTemplatesPanel extends javax.swing.JPanel
 
     @Override
     public void thumbnailsSelectionChanged() {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
             public void run() {

@@ -51,7 +51,7 @@ public final class ControllerDirectorySelected implements TreeSelectionListener,
     }
 
     private void setFilesToThumbnailsPanel(ThumbnailsPanel.Settings settings) {
-        EventQueueUtil.invokeLater(new ShowThumbnails(settings));
+        EventQueueUtil.invokeInDispatchThread(new ShowThumbnails(settings));
     }
 
     private class ShowThumbnails implements Runnable {
@@ -63,7 +63,7 @@ public final class ControllerDirectorySelected implements TreeSelectionListener,
 
         @Override
         public void run() {
-            EventQueueUtil.invokeLater(new Runnable() {
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
                 @Override
                 public void run() {
                     showThumbnails();

@@ -27,7 +27,7 @@ public final class ImageCollectionsHelper {
      * Deletes selected files from an image collection.
      */
     public static void deleteSelectedFiles() {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 Object selectedValue = getSelectedCollection();

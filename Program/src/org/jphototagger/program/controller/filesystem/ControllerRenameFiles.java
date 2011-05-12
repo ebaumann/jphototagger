@@ -56,7 +56,7 @@ public final class ControllerRenameFiles implements ActionListener, KeyListener,
     private void renameFile(final File fromFile, final File toFile) {
         AppLogger.logInfo(ControllerRenameFiles.class, "ControllerRenameFiles.Info.Rename", fromFile, toFile);
         DatabaseImageFiles.INSTANCE.updateRename(fromFile, toFile);
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 ThumbnailCache.INSTANCE.updateFiles(fromFile, toFile);

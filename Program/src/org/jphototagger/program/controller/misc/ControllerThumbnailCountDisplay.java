@@ -62,7 +62,7 @@ public final class ControllerThumbnailCountDisplay implements ThumbnailsPanelLis
     }
 
     private void setLabel() {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 JLabel label = GUI.getAppPanel().getLabelThumbnailInfo();

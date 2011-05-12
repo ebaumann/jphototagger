@@ -22,7 +22,7 @@ public final class ControllerEmptyMetadata implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 GUI.getEditPanel().emptyPanels(true);

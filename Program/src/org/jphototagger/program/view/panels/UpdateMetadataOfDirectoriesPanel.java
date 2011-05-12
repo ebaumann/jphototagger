@@ -218,7 +218,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
     }
 
     private void setFileLabel(final File file) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
             public void run() {
@@ -228,7 +228,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
     }
 
     private void updateFinished() {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
             public void run() {
@@ -242,7 +242,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
 
     @Override
     public void progressStarted(final ProgressEvent evt) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
             public void run() {
@@ -255,7 +255,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
 
     @Override
     public void progressPerformed(final ProgressEvent evt) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
             public void run() {
@@ -266,7 +266,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
 
     @Override
     public void progressEnded(final ProgressEvent evt) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
             public void run() {
@@ -318,7 +318,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
                 addSubdirectories(newDirectories);
             }
 
-            EventQueueUtil.invokeLater(new Runnable() {
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
                     @Override
                     public void run() {
                         addDirectories(newDirectories);

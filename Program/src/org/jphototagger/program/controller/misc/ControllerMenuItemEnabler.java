@@ -79,7 +79,7 @@ public final class ControllerMenuItemEnabler implements ThumbnailsPanelListener,
     }
 
     private void setEnabled() {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();

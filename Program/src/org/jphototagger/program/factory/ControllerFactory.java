@@ -142,7 +142,7 @@ public final class ControllerFactory {
             init = true;
         }
 
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 Support.setStatusbarInfo("ControllerFactory.Init.Start");

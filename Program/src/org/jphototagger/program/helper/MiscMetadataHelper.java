@@ -92,7 +92,7 @@ public final class MiscMetadataHelper {
 
         final List<Column> xmpColumns = XmpColumns.get();
 
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 EditMetadataPanels editPanels = GUI.getAppPanel().getEditMetadataPanels();
@@ -121,7 +121,7 @@ public final class MiscMetadataHelper {
 
         final List<Column> xmpColumns = XmpColumns.get();
 
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 EditMetadataPanels editPanels = GUI.getAppPanel().getEditMetadataPanels();
@@ -152,7 +152,7 @@ public final class MiscMetadataHelper {
             throw new NullPointerException("text == null");
         }
 
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 EditMetadataPanels editPanels = GUI.getAppPanel().getEditMetadataPanels();
@@ -173,7 +173,7 @@ public final class MiscMetadataHelper {
             throw new NullPointerException("text == null");
         }
 
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 EditMetadataPanels editPanels = GUI.getAppPanel().getEditMetadataPanels();
@@ -259,7 +259,7 @@ public final class MiscMetadataHelper {
             throw new NullPointerException("value == null");
         }
 
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 DefaultMutableTreeNode node = findNodeContains(column);

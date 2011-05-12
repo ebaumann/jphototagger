@@ -63,7 +63,7 @@ public final class ControllerInsertFavorite implements ActionListener, KeyListen
     }
 
     private void insertFavorite(final File directory) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 FavoritePropertiesDialog dlg = new FavoritePropertiesDialog();

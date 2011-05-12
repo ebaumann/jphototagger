@@ -97,7 +97,7 @@ public final class ControllerLogfileDialog extends MouseAdapter implements Actio
 
     @Override
     public void error(Object source, String message) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 error();

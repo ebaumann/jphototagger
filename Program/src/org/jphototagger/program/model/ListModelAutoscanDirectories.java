@@ -57,7 +57,7 @@ public final class ListModelAutoscanDirectories extends DefaultListModel
 
     @Override
     public void directoryInserted(final File directory) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 addDirectory(directory);
@@ -67,7 +67,7 @@ public final class ListModelAutoscanDirectories extends DefaultListModel
 
     @Override
     public void directoryDeleted(final File directory) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 removeDirectory(directory);

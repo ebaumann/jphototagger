@@ -45,7 +45,7 @@ public final class ControllerSortThumbnails implements ActionListener {
     }
 
     private void sortThumbnails(final ActionEvent evt) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 WaitDisplay.show();

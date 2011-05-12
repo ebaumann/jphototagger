@@ -92,7 +92,7 @@ public final class SaveXmp extends Thread implements Cancelable {
 
     private void updateProgressBar(final int value) {
         getProgressBar();
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 if (progressBar != null) {
@@ -113,7 +113,7 @@ public final class SaveXmp extends Thread implements Cancelable {
     }
 
     private void releaseProgressBar() {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 if (progressBar != null) {

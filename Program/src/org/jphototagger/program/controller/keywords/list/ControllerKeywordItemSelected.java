@@ -72,7 +72,7 @@ public final class ControllerKeywordItemSelected implements ActionListener, List
     private void update(RefreshEvent evt) {
         List<String> selKeywords = getSelectedKeywords();
 
-        EventQueueUtil.invokeLater(isAllKeywords()
+        EventQueueUtil.invokeInDispatchThread(isAllKeywords()
                                ? new ShowThumbnailsContainingAllKeywords(selKeywords, (evt == null)
                 ? null
                 : evt.getSettings())

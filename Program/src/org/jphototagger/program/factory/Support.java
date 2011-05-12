@@ -45,7 +45,7 @@ final class Support {
     }
 
     static void setStatusbarInfo(final String propertyKey) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 GUI.getAppPanel().setStatusbarText(JptBundle.INSTANCE.getString(propertyKey),

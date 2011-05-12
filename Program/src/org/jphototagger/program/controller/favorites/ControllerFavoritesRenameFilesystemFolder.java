@@ -55,7 +55,7 @@ public final class ControllerFavoritesRenameFilesystemFolder implements ActionLi
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 renameDirectory(
