@@ -3,6 +3,14 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.8.81 2011-05-12
+-----------------
+
+* Nun kann auch für andere Systeme als Windows ein Skript erzeugt
+  werden, das Vorschaubilder erzeugt mit DCRaw und ImageMagick convert
+  (Einstellungen > Vorschaubilder: Eigenes Programm > Auswählen)
+* Interna modifiziert
+
 0.8.80 2011-05-08
 -----------------
 
