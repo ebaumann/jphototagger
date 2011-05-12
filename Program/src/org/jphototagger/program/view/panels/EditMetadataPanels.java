@@ -30,6 +30,7 @@ import org.jphototagger.program.view.ViewUtil;
 import org.jphototagger.program.view.WaitDisplay;
 
 import java.awt.Component;
+import java.awt.EventQueue;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
@@ -127,8 +128,13 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
      *
      * @param editable  true, wenn bearbeitbar
      */
-    public void setEditable(boolean editable) {
+    public void setEditable(final boolean editable) {
         this.editable = editable;
+
+        EventQueue.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
 
         for (JPanel panel : panels) {
             ((TextEntry) panel).setEditable(editable);
@@ -140,13 +146,9 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
             ls.notifyEditDisabled();
         }
     }
+        });
+    }
 
-    /**
-     * Liefert, ob die Daten bearbeitet werden können.
-     *
-     * @return true, wenn Bearbeiten möglich ist.
-     *         Default: true.
-     */
     public boolean isEditable() {
         return editable;
     }
@@ -163,17 +165,23 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
         }
     }
 
-    public synchronized void setImageFiles(Collection<File> imageFiles) {
+    public synchronized void setImageFiles(final Collection<File> imageFiles) {
         if (imageFiles == null) {
             throw new NullPointerException("imageFiles == null");
         }
 
+        EventQueue.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
         showWaitSetImageFiles(imageFiles.size());
         emptyPanels(false);
         setXmpOfImageFiles(imageFiles);
         setXmpToEditPanels();
         setXmpOfFilesAsTextEntryListener(true);
         hideWaitSetImageFiles(imageFiles.size());
+    }
+        });
     }
 
     private void setXmpOfImageFiles(Collection<File> imageFiles) {
@@ -263,7 +271,7 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
      * @param column column
      * @param text   text to add
      */
-    public void addText(Column column, String text) {
+    public void addText(final Column column, final String text) {
         if (column == null) {
             throw new NullPointerException("column == null");
         }
@@ -276,6 +284,10 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
             return;
         }
 
+        EventQueue.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
         JPanel panelAdd = null;
         int size = panels.size();
 
@@ -298,8 +310,10 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
 
         checkSaveOnChanges();
     }
+        });
+    }
 
-    public void removeText(Column column, String text) {
+    public void removeText(final Column column, final String text) {
         if (column == null) {
             throw new NullPointerException("column == null");
         }
@@ -311,6 +325,11 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
         if (!isEditable()) {
             return;
         }
+
+        EventQueue.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
 
         JPanel panelRemove = null;
         int size = panels.size();
@@ -333,6 +352,8 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
         }
 
         checkSaveOnChanges();
+    }
+        });
     }
 
     /**
@@ -384,7 +405,7 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
      *
      * @param xmp xmp object
      */
-    public void setXmp(Xmp xmp) {
+    public void setXmp(final Xmp xmp) {
         if (xmp == null) {
             throw new NullPointerException("xmp == null");
         }
@@ -392,6 +413,11 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
         if (!isEditable()) {
             return;
         }
+
+        EventQueue.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
 
         for (JPanel panel : panels) {
             if (panel instanceof EditTextEntryPanel) {
@@ -430,13 +456,15 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
 
         checkSaveOnChanges();
     }
+        });
+    }
 
     /**
      * Sets the rating if the rating panel is present.
      *
-     * @param rating rating
+     * @param rating
      */
-    public void setRating(Long rating) {
+    public void setRating(final Long rating) {
         if (rating == null) {
             throw new NullPointerException("rating == null");
         }
@@ -445,6 +473,10 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
             return;
         }
 
+        EventQueue.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
         JPanel panelToSet = null;
         int size = panels.size();
 
@@ -464,17 +496,14 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
 
         checkSaveOnChanges();
     }
+        });
+    }
 
     public Collection<Pair<File, Xmp>> getImageFilesXmp() {
         return new ArrayList<Pair<File, Xmp>>(imageFilesXmp);
     }
 
-    /**
-     * Setzt ein Metadaten-Edit-Template.
-     *
-     * @param template  Template
-     */
-    public void setMetadataTemplate(MetadataTemplate template) {
+    public void setMetadataTemplate(final MetadataTemplate template) {
         if (template == null) {
             throw new NullPointerException("template == null");
         }
@@ -483,6 +512,10 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
             return;
         }
 
+        EventQueue.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
         for (JPanel panel : panels) {
             TextEntry textEntry = (TextEntry) panel;
             Object value = template.getValueOfColumn(textEntry.getColumn());
@@ -502,6 +535,8 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
                 repeatableTextEntry.setDirty(true);
             }
         }
+    }
+        });
     }
 
     /**
@@ -537,10 +572,16 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
      *
      * @param dirty  true if changes were made
      */
-    public void setDirty(boolean dirty) {
+    public void setDirty(final boolean dirty) {
+        EventQueue.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
         for (JPanel panel : panels) {
             ((TextEntry) panel).setDirty(dirty);
         }
+    }
+        });
     }
 
     private void setXmpToEditPanels() {
@@ -825,6 +866,10 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
 
     public void setAutocomplete() {
         if (UserSettings.INSTANCE.isAutocomplete()) {
+            EventQueue.invokeLater(new Runnable() {
+
+                @Override
+                public void run() {
             for (JPanel panel : panels) {
                 if (panel instanceof TextEntry) {
                     TextEntry textEntry = (TextEntry) panel;
@@ -833,10 +878,17 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
                 }
             }
         }
+            });
+    }
     }
 
-    public void emptyPanels(boolean dirty) {
+    public void emptyPanels(final boolean dirty) {
         checkDirty();
+
+        EventQueue.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
 
         // The listeners shouldn't notified when emptying text because they
         // would delete their content
@@ -845,6 +897,8 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
         for (JPanel panel : panels) {
             ((TextEntry) panel).empty(dirty);
         }
+    }
+        });
     }
 
     @Override
@@ -908,21 +962,25 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
      *
      * @param imageFile image file with new XMP data
      */
-    private void setModifiedXmp(File imageFile, Xmp xmp) {
+    private void setModifiedXmp(final File imageFile, final Xmp xmp) {
         if (!editable || isDirty() || (imageFilesXmp.size() != 1)) {
             return;
         }
 
-        Pair<File, Xmp> pair = imageFilesXmp.get(0);
+        final Pair<File, Xmp> pair = imageFilesXmp.get(0);
 
         if (pair.getFirst().equals(imageFile)) {
+            EventQueue.invokeLater(new Runnable() {
+
+                @Override
+                public void run() {
             setXmpAsTextEntryListener(pair.getSecond(), false);
             setXmpAsTextEntryListener(xmp, true);
             imageFilesXmp.set(0, new Pair<File, Xmp>(imageFile, xmp));
             setXmpToEditPanels();
-
-            return;
         }
+            });
+    }
     }
 
     @Override
