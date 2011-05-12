@@ -59,7 +59,7 @@ public final class ControllerRenameDirectory extends ControllerDirectory {
             final File newDir = FileSystemDirectories.rename(dir);
 
             if (newDir != null) {
-                EventQueueUtil.invokeLater(new Runnable() {
+                EventQueueUtil.invokeInDispatchThread(new Runnable() {
                     @Override
                     public void run() {
                         node.setUserObject(newDir);

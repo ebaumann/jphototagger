@@ -66,7 +66,7 @@ public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener
 
     @Override
     public void progressStarted(final ProgressEvent evt) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
             public void run() {
@@ -79,7 +79,7 @@ public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener
 
     @Override
     public void progressPerformed(final ProgressEvent evt) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
             public void run() {
@@ -90,7 +90,7 @@ public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener
 
     @Override
     public void progressEnded(ProgressEvent evt) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
             public void run() {

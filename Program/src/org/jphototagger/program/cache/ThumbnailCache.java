@@ -164,7 +164,7 @@ public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection> imple
         updateUsageTime(ci);
         ci.thumbnail = image;
         fileCache.maybeCleanupCache();
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 notifyUpdate(file);

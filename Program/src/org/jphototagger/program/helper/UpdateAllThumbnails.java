@@ -61,7 +61,7 @@ public final class UpdateAllThumbnails implements Runnable, ProgressListener, Ac
 
     @Override
     public void progressStarted(final ProgressEvent evt) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 setProgressDialogStarted(evt);
@@ -72,7 +72,7 @@ public final class UpdateAllThumbnails implements Runnable, ProgressListener, Ac
 
     @Override
     public void progressPerformed(final ProgressEvent evt) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 setProgressDialogPerformed(evt);
@@ -88,7 +88,7 @@ public final class UpdateAllThumbnails implements Runnable, ProgressListener, Ac
     }
 
     private void setProgressDialogEnded(final ProgressEvent evt) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 progressDialog.setValue(evt.getValue());
@@ -99,7 +99,7 @@ public final class UpdateAllThumbnails implements Runnable, ProgressListener, Ac
     }
 
     private void setProgressDialogPerformed(final ProgressEvent evt) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 progressDialog.setValue(evt.getValue());
@@ -109,7 +109,7 @@ public final class UpdateAllThumbnails implements Runnable, ProgressListener, Ac
     }
 
     private void setProgressDialogStarted(final ProgressEvent evt) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 progressDialog.setMinimum(evt.getMinimum());

@@ -28,7 +28,7 @@ public final class ActionsMenuUpdater implements DatabaseProgramsListener {
     @Override
     public void programDeleted(final Program program) {
         if (program.isAction()) {
-            EventQueueUtil.invokeLater(new Runnable() {
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
                 @Override
                 public void run() {
                     JMenu actionMenu = PopupMenuThumbnails.INSTANCE.getMenuActions();
@@ -42,7 +42,7 @@ public final class ActionsMenuUpdater implements DatabaseProgramsListener {
     @Override
     public void programInserted(final Program program) {
         if (program.isAction()) {
-            EventQueueUtil.invokeLater(new Runnable() {
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
                 @Override
                 public void run() {
                     JMenu actionMenu = PopupMenuThumbnails.INSTANCE.getMenuActions();
@@ -56,7 +56,7 @@ public final class ActionsMenuUpdater implements DatabaseProgramsListener {
     @Override
     public void programUpdated(final Program program) {
         if (program.isAction()) {
-            EventQueueUtil.invokeLater(new Runnable() {
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
                 @Override
                 public void run() {
                     JMenu actionMenu = PopupMenuThumbnails.INSTANCE.getMenuActions();

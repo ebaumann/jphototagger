@@ -63,7 +63,7 @@ public final class ControllerRenameImageCollection implements ActionListener, Ke
 
     private void renameImageCollection(final String fromName) {
         if (fromName != null) {
-            EventQueueUtil.invokeLater(new Runnable() {
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
                 @Override
                 public void run() {
                     if (!ListModelImageCollections.checkIsNotSpecialCollection(fromName,

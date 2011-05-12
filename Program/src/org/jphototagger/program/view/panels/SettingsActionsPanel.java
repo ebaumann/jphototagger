@@ -241,7 +241,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel
     @Override
     public void programInserted(Program program) {
         if (program.isAction()) {
-            EventQueueUtil.invokeLater(new Runnable() {
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
                 @Override
                 public void run() {
@@ -254,7 +254,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel
     @Override
     public void programDeleted(Program program) {
         if (program.isAction()) {
-            EventQueueUtil.invokeLater(new Runnable() {
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
                 @Override
                 public void run() {

@@ -131,7 +131,7 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
     public void setEditable(final boolean editable) {
         this.editable = editable;
 
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
             public void run() {
@@ -170,7 +170,7 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
             throw new NullPointerException("imageFiles == null");
         }
 
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
             public void run() {
@@ -284,7 +284,7 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
             return;
         }
 
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
             public void run() {
@@ -326,7 +326,7 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
             return;
         }
 
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
             public void run() {
@@ -414,7 +414,7 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
             return;
         }
 
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
             public void run() {
@@ -473,7 +473,7 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
             return;
         }
 
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
             public void run() {
@@ -512,7 +512,7 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
             return;
         }
 
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
             public void run() {
@@ -573,7 +573,7 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
      * @param dirty  true if changes were made
      */
     public void setDirty(final boolean dirty) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
             public void run() {
@@ -866,7 +866,7 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
 
     public void setAutocomplete() {
         if (UserSettings.INSTANCE.isAutocomplete()) {
-            EventQueueUtil.invokeLater(new Runnable() {
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
                 @Override
                 public void run() {
@@ -885,7 +885,7 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
     public void emptyPanels(final boolean dirty) {
         checkDirty();
 
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
             public void run() {
@@ -970,7 +970,7 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
         final Pair<File, Xmp> pair = imageFilesXmp.get(0);
 
         if (pair.getFirst().equals(imageFile)) {
-            EventQueueUtil.invokeLater(new Runnable() {
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
                 @Override
                 public void run() {

@@ -107,7 +107,7 @@ public final class ControllerPasteFilesFromClipboard
             return;
         }
 
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 List<File> files = ClipboardUtil.getFilesFromSystemClipboard(FilenameDelimiter.NEWLINE);
@@ -136,7 +136,7 @@ public final class ControllerPasteFilesFromClipboard
 
     @Override
     public void thumbnailsChanged() {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 getPasteItem().setEnabled(canPasteFiles());

@@ -257,7 +257,7 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel implements Dat
             throw new NullPointerException("updatedXmp == null");
         }
 
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 checkDeleted(oldXmp);
@@ -272,7 +272,7 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel implements Dat
             throw new NullPointerException("xmp == null");
         }
 
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 checkInserted(xmp);
@@ -286,7 +286,7 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel implements Dat
             throw new NullPointerException("xmp == null");
         }
 
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 checkDeleted(xmp);
@@ -296,7 +296,7 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel implements Dat
 
     @Override
     public void dcSubjectDeleted(final String dcSubject) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 checkDeleted(ColumnXmpDcSubjectsSubject.INSTANCE, dcSubject);
@@ -306,7 +306,7 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel implements Dat
 
     @Override
     public void dcSubjectInserted(final String dcSubject) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 checkInserted(ColumnXmpDcSubjectsSubject.INSTANCE, dcSubject);
@@ -320,7 +320,7 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel implements Dat
             throw new NullPointerException("exif == null");
         }
 
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 checkInserted(exif);
@@ -338,7 +338,7 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel implements Dat
             throw new NullPointerException("updatedExif == null");
         }
 
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 checkDeleted(oldExif);
@@ -349,7 +349,7 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel implements Dat
 
     @Override
     public void exifDeleted(File imageFile, final Exif exif) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 checkDeleted(exif);

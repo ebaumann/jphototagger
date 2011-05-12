@@ -62,7 +62,7 @@ public final class ModelFactory {
             init = true;
         }
 
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 AppPanel appPanel = GUI.getAppPanel();
@@ -117,7 +117,7 @@ public final class ModelFactory {
                 final ListModelSavedSearches model = new ListModelSavedSearches();
 
                 support.add(model);
-                EventQueueUtil.invokeLater(new Runnable() {
+                EventQueueUtil.invokeInDispatchThread(new Runnable() {
                     @Override
                     public void run() {
                         list.setModel(model);
@@ -143,7 +143,7 @@ public final class ModelFactory {
                 final ListModelImageCollections model = new ListModelImageCollections();
 
                 support.add(model);
-                EventQueueUtil.invokeLater(new Runnable() {
+                EventQueueUtil.invokeInDispatchThread(new Runnable() {
                     @Override
                     public void run() {
                         list.setModel(model);
@@ -172,7 +172,7 @@ public final class ModelFactory {
                 final ListModelKeywords modelKeywords = new ListModelKeywords();
 
                 support.add(modelKeywords);
-                EventQueueUtil.invokeLater(new Runnable() {
+                EventQueueUtil.invokeInDispatchThread(new Runnable() {
                     @Override
                     public void run() {
                         listSelectedKeywords.setModel(modelKeywords);
@@ -298,7 +298,7 @@ public final class ModelFactory {
 
                 support.add(treeModelKeywords);
                 support.add(listModelTemplates);
-                EventQueueUtil.invokeLater(new Runnable() {
+                EventQueueUtil.invokeInDispatchThread(new Runnable() {
                     @Override
                     public void run() {
                         JTree treeSelKeywords = appPanel.getTreeSelKeywords();
@@ -332,7 +332,7 @@ public final class ModelFactory {
 
                 support.add(modelApp);
                 support.add(modelInputHelper);
-                EventQueueUtil.invokeLater(new Runnable() {
+                EventQueueUtil.invokeInDispatchThread(new Runnable() {
                     @Override
                     public void run() {
                         InputHelperDialog.INSTANCE.getPanelMiscXmpMetadata().getTree().setModel(modelInputHelper);
@@ -357,7 +357,7 @@ public final class ModelFactory {
                 final TreeModel model = new TreeModelTimeline();
 
                 support.add(model);
-                EventQueueUtil.invokeLater(new Runnable() {
+                EventQueueUtil.invokeInDispatchThread(new Runnable() {
                     @Override
                     public void run() {
                         tree.setModel(model);
@@ -380,7 +380,7 @@ public final class ModelFactory {
                 final Cursor treeCursor = setWaitCursor(tree);
                 final TreeModelFavorites model = new TreeModelFavorites(tree);
 
-                EventQueueUtil.invokeLater(new Runnable() {
+                EventQueueUtil.invokeInDispatchThread(new Runnable() {
                     @Override
                     public void run() {
                         support.add(model);
@@ -406,7 +406,7 @@ public final class ModelFactory {
                 final TreeModel model = new TreeModelAllSystemDirectories(tree, hideRootFiles, UserSettings.INSTANCE.getDirFilterOptionShowHiddenFiles());
 
                 support.add(model);
-                EventQueueUtil.invokeLater(new Runnable() {
+                EventQueueUtil.invokeInDispatchThread(new Runnable() {
                     @Override
                     public void run() {
                         tree.setModel(model);

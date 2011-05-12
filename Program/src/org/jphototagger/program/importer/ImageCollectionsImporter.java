@@ -98,7 +98,7 @@ public final class ImageCollectionsImporter implements Importer {
         }
 
         private void updateImageCollectionList(final ImageCollection imageCollection) {
-            EventQueueUtil.invokeLater(new Runnable() {
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
                 @Override
                 public void run() {
                     ListModelImageCollections model = ModelFactory.INSTANCE.getModel(ListModelImageCollections.class);

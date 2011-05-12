@@ -46,7 +46,7 @@ public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
 
                 @Override
                 public void run() {
-                    EventQueueUtil.invokeLater(new Runnable() {
+                    EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
                         @Override
                         public void run() {

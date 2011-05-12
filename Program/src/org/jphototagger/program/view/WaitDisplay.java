@@ -57,7 +57,7 @@ public final class WaitDisplay {
                 isShow = show;
             }
         } else {
-            EventQueueUtil.invokeLater(new Runnable() {
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
                 @Override
                 public void run() {
                     synchronized (LOCK) {

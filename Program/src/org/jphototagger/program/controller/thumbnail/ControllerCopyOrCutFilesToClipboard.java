@@ -96,7 +96,7 @@ public final class ControllerCopyOrCutFilesToClipboard implements ActionListener
 
     @Override
     public void thumbnailsSelectionChanged() {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 final boolean imagesSelected = tnPanel.isAFileSelected();

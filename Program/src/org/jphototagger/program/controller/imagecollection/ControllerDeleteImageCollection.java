@@ -56,7 +56,7 @@ public final class ControllerDeleteImageCollection implements ActionListener, Ke
         }
 
         if (collectionName != null) {
-            EventQueueUtil.invokeLater(new Runnable() {
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
                 @Override
                 public void run() {
                     if (ImageCollectionsHelper.deleteImageCollection(collectionName)) {

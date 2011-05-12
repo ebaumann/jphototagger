@@ -52,7 +52,7 @@ public class ControllerToggleRealKeyword extends ControllerKeywords implements A
             final TreeModelKeywords model = ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
 
             keyword.setReal(!keyword.isReal());
-            EventQueueUtil.invokeLater(new Runnable() {
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
                 @Override
                 public void run() {
                     model.changed(node, keyword);

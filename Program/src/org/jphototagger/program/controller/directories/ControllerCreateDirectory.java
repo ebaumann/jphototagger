@@ -54,7 +54,7 @@ public final class ControllerCreateDirectory extends ControllerDirectory {
             throw new NullPointerException("node == null");
         }
 
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 File dir = ModelFactory.INSTANCE.getModel(TreeModelAllSystemDirectories.class).createDirectoryIn(node);

@@ -55,7 +55,7 @@ public final class FavoritesHelper {
 
             final boolean dirChanged = !favorite.getDirectory().equals(oldDir);
 
-            EventQueueUtil.invokeLater(new Runnable() {
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
                 @Override
                 public void run() {
                     DatabaseFavorites db = DatabaseFavorites.INSTANCE;
@@ -80,7 +80,7 @@ public final class FavoritesHelper {
         }
 
         if (confirmDelete(favorite.getName())) {
-            EventQueueUtil.invokeLater(new Runnable() {
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
                 @Override
                 public void run() {
                     ModelFactory.INSTANCE.getModel(TreeModelFavorites.class).delete(favorite);
@@ -193,7 +193,7 @@ public final class FavoritesHelper {
             throw new NullPointerException("files == null");
         }
 
-        EventQueueUtil.invokeLater(new SetFiles(files, settings));
+        EventQueueUtil.invokeInDispatchThread(new SetFiles(files, settings));
     }
 
     private static class SetFiles implements Runnable {

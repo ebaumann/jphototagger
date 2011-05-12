@@ -76,7 +76,7 @@ public class ControllerKeywordsDisplayImages implements ActionListener {
     }
 
     private void showImages(final Keyword keyword) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 WaitDisplay.show();
@@ -91,7 +91,7 @@ public class ControllerKeywordsDisplayImages implements ActionListener {
     }
 
     private void showImages(final String keyword) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 WaitDisplay.show();

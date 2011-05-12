@@ -70,7 +70,7 @@ public final class KeywordsHelper {
             throw new NullPointerException("node == null");
         }
 
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 EditMetadataPanels editPanels = GUI.getAppPanel().getEditMetadataPanels();
@@ -241,7 +241,7 @@ public final class KeywordsHelper {
             throw new NullPointerException("keyword == null");
         }
 
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 TreeModelKeywords model = ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
@@ -296,7 +296,7 @@ public final class KeywordsHelper {
             throw new NullPointerException("keywords == null");
         }
 
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 for (TreeCellRendererKeywords treeCellRendererKeywords : getCellRenderer()) {
@@ -307,7 +307,7 @@ public final class KeywordsHelper {
     }
 
     public static void removeHighlightKeyword(final String keyword) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 for (TreeCellRendererKeywords treeCellRendererKeywords : getCellRenderer()) {
@@ -346,7 +346,7 @@ public final class KeywordsHelper {
             throw new NullPointerException("indices == null");
         }
 
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 JXList selKeywordsList = GUI.getAppPanel().getListSelKeywords();
@@ -390,7 +390,7 @@ public final class KeywordsHelper {
             throw new NullPointerException("node == null");
         }
 
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 for (JTree tree : getKeywordTrees()) {

@@ -57,7 +57,7 @@ public final class Xmp implements TextEntryListener {
 
     @Override
     public void textRemoved(final Column column, final String removedText) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 removeValue(column, removedText);
@@ -67,7 +67,7 @@ public final class Xmp implements TextEntryListener {
 
     @Override
     public void textAdded(final Column column, final String addedText) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 setValue(column, addedText);
@@ -77,7 +77,7 @@ public final class Xmp implements TextEntryListener {
 
     @Override
     public void textChanged(final Column xmpColumn, final String oldText, final String newText) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 changeText(xmpColumn, newText, oldText);

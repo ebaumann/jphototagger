@@ -108,7 +108,7 @@ public abstract class KeywordsImporter implements Importer {
 
         @Override
         public void run() {
-            EventQueueUtil.invokeLater(new Runnable() {
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
                 @Override
                 public void run() {
                     importKeywords();
@@ -162,7 +162,7 @@ public abstract class KeywordsImporter implements Importer {
 
         private void updateProgressBar(final int value) {
             getProgressBar();
-            EventQueueUtil.invokeLater(new Runnable() {
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
                 @Override
                 public void run() {
                     if (progressBar != null) {
@@ -183,7 +183,7 @@ public abstract class KeywordsImporter implements Importer {
         }
 
         private void releaseProgressBar() {
-            EventQueueUtil.invokeLater(new Runnable() {
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
                 @Override
                 public void run() {
                     if (progressBar != null) {

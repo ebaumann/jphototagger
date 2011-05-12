@@ -172,7 +172,7 @@ public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel
 
     @Override
     public void templateDeleted(final MetadataTemplate template) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 removeElement(template);
@@ -182,7 +182,7 @@ public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel
 
     @Override
     public void templateInserted(final MetadataTemplate template) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 addElement(template);
@@ -192,7 +192,7 @@ public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel
 
     @Override
     public void templateUpdated(final MetadataTemplate oldTemplate, MetadataTemplate updatedTemplate) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 updateTemplate(oldTemplate);
@@ -202,7 +202,7 @@ public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel
 
     @Override
     public void templateRenamed(final String fromName, final String toName) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 renameTemplate(fromName, toName);

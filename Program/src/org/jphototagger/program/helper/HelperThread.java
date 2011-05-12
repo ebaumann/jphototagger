@@ -137,7 +137,7 @@ public abstract class HelperThread extends Thread implements Cancelable {
     }
 
     private void getProgressBar() {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 if (progressBar == null) {
@@ -153,7 +153,7 @@ public abstract class HelperThread extends Thread implements Cancelable {
 
     private void setProgressBar(final int value) {
         getProgressBar();
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 if (progressBar != null) {
@@ -215,7 +215,7 @@ public abstract class HelperThread extends Thread implements Cancelable {
      */
     protected void progressEnded(Object info) {
         notifyProgressEnded(progressEvent(0, info));
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 if (progressBar != null) {

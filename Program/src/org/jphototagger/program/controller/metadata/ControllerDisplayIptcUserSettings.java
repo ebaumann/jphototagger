@@ -52,7 +52,7 @@ public final class ControllerDisplayIptcUserSettings extends MouseAdapter implem
     }
 
     private void setEnabledIptcTab(final boolean displayIptc) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 GUI.getAppPanel().setEnabledIptcTab(displayIptc);
@@ -73,7 +73,7 @@ public final class ControllerDisplayIptcUserSettings extends MouseAdapter implem
                 if (selFiles.size() == 1) {
                     final File file = selFiles.get(0);
 
-                    EventQueueUtil.invokeLater(new Runnable() {
+                    EventQueueUtil.invokeInDispatchThread(new Runnable() {
                         @Override
                         public void run() {
                             ((TableModelIptc) model).setFile(file);

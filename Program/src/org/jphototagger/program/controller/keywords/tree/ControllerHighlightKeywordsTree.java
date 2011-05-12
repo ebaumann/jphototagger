@@ -37,7 +37,7 @@ public final class ControllerHighlightKeywordsTree implements ThumbnailsPanelLis
 
     @Override
     public void thumbnailsSelectionChanged() {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 applyCurrentSelection();

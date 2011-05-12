@@ -49,7 +49,7 @@ public final class ControllerSavedSearchSelected implements ListSelectionListene
 
     private void search() {
         if (GUI.getSavedSearchesList().getSelectedIndex() >= 0) {
-            EventQueueUtil.invokeLater(new ShowThumbnails());
+            EventQueueUtil.invokeInDispatchThread(new ShowThumbnails());
         }
     }
 
@@ -97,7 +97,7 @@ public final class ControllerSavedSearchSelected implements ListSelectionListene
         }
 
         private void setMetadataEditable() {
-            EventQueueUtil.invokeLater(new Runnable() {
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
                 @Override
                 public void run() {
                     if (!GUI.getThumbnailsPanel().isAFileSelected()) {

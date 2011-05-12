@@ -20,7 +20,7 @@ public final class ControllerEnableCreateMetadataTemplate implements ThumbnailsP
 
     @Override
     public void thumbnailsSelectionChanged() {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 GUI.getAppPanel().getButtonMetadataTemplateCreate().setEnabled(

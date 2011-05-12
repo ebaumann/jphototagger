@@ -51,7 +51,7 @@ public class ControllerDeleteKeywords extends ControllerKeywords implements Acti
             return;
         }
 
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 deleteKeywords(nodes);

@@ -51,7 +51,7 @@ public final class ControllerKeywordsDbUpdates implements DatabaseImageFilesList
     }
 
     private void addKeyword(final String keyword) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 TreeModelKeywords model = ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);

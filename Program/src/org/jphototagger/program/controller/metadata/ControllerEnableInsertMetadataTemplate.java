@@ -40,7 +40,7 @@ public final class ControllerEnableInsertMetadataTemplate implements EditMetadat
 
     @Override
     public void editEnabled() {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 setButtonEnabled();
@@ -50,7 +50,7 @@ public final class ControllerEnableInsertMetadataTemplate implements EditMetadat
 
     @Override
     public void editDisabled() {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 setButtonEnabled();

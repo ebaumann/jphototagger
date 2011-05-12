@@ -77,7 +77,7 @@ public final class ListModelKeywords extends DefaultListModel implements Databas
 
     @Override
     public void xmpInserted(File imageFile, final Xmp xmp) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 addNewKeywords(getKeywords(xmp));
@@ -87,7 +87,7 @@ public final class ListModelKeywords extends DefaultListModel implements Databas
 
     @Override
     public void xmpDeleted(File imageFile, final Xmp xmp) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 removeKeywordsNotInDb(getKeywords(xmp));
@@ -97,7 +97,7 @@ public final class ListModelKeywords extends DefaultListModel implements Databas
 
     @Override
     public void xmpUpdated(File imageFile, final Xmp oldXmp, final Xmp updatedXmp) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 addNewKeywords(getKeywords(updatedXmp));
@@ -108,7 +108,7 @@ public final class ListModelKeywords extends DefaultListModel implements Databas
 
     @Override
     public void dcSubjectDeleted(final String dcSubject) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 removeKeywordsNotInDb(Collections.singleton(dcSubject));
@@ -118,7 +118,7 @@ public final class ListModelKeywords extends DefaultListModel implements Databas
 
     @Override
     public void dcSubjectInserted(final String dcSubject) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 addNewKeywords(Collections.singleton(dcSubject));

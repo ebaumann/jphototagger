@@ -46,7 +46,7 @@ public final class ControllerThumbnailSelectionEditMetadata implements Thumbnail
     }
 
     private void handleSelectionChanged() {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 boolean canEdit = false;

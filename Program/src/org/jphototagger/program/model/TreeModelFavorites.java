@@ -632,7 +632,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
     @Override
     public void favoriteInserted(final Favorite favorite) {
         if (listenToDb) {
-            EventQueueUtil.invokeLater(new Runnable() {
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
                 @Override
                 public void run() {
                     addFavorite(favorite);
@@ -644,7 +644,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
     @Override
     public void favoriteDeleted(final Favorite favorite) {
         if (listenToDb) {
-            EventQueueUtil.invokeLater(new Runnable() {
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
                 @Override
                 public void run() {
                     deleteFavorite(favorite);
@@ -656,7 +656,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
     @Override
     public void favoriteUpdated(final Favorite oldFavorite, final Favorite updatedFavorite) {
         if (listenToDb) {
-            EventQueueUtil.invokeLater(new Runnable() {
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
                 @Override
                 public void run() {
                     updateFavorite(oldFavorite, updatedFavorite);

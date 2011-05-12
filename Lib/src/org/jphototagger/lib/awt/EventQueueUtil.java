@@ -16,7 +16,7 @@ public final class EventQueueUtil {
      * 
      * @param runnable 
      */
-    public static void invokeLater(Runnable runnable) {
+    public static void invokeInDispatchThread(Runnable runnable) {
         if (runnable == null) {
             throw new NullPointerException("runnable == null");
         }

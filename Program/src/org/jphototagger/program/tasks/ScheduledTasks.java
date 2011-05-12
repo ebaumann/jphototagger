@@ -157,7 +157,7 @@ public final class ScheduledTasks implements ActionListener, UpdateMetadataCheck
     }
 
     private void setButtonState(final ButtonState state) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 button.setIcon(ICON_OF_BUTTON_STATE.get(state));

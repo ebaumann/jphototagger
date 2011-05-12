@@ -160,7 +160,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
 
     private void selectStartDirectory() {
         if (startDirectory.isDirectory()) {
-            EventQueueUtil.invokeLater(new Runnable() {
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
                 @Override
                 public void run() {

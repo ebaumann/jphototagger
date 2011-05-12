@@ -183,7 +183,7 @@ public final class TransferHandlerKeywordsTree extends TransferHandler {
                     if (sourceNode != dropNode) {
                         final Keyword sourceKeyword = (Keyword) userObject;
 
-                        EventQueueUtil.invokeLater(new Runnable() {
+                        EventQueueUtil.invokeInDispatchThread(new Runnable() {
                             @Override
                             public void run() {
                                 treeModel.move(sourceNode, dropNode, sourceKeyword);

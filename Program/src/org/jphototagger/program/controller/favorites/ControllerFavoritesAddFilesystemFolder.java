@@ -49,7 +49,7 @@ public final class ControllerFavoritesAddFilesystemFolder implements ActionListe
         final JTree tree = GUI.getFavoritesTree();
 
         if (KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_N) &&!tree.isSelectionEmpty()) {
-            EventQueueUtil.invokeLater(new Runnable() {
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
                 @Override
                 public void run() {
                     Object node = tree.getSelectionPath().getLastPathComponent();

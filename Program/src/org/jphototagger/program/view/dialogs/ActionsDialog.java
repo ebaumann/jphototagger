@@ -64,7 +64,7 @@ public final class ActionsDialog extends Dialog implements DatabaseProgramsListe
 
     @Override
     public void programInserted(Program program) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
             public void run() {
@@ -75,7 +75,7 @@ public final class ActionsDialog extends Dialog implements DatabaseProgramsListe
 
     @Override
     public void programUpdated(Program program) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
             public void run() {

@@ -284,7 +284,7 @@ public abstract class Plugin {
      * Paints the progress bar progress event.
      */
     public void progressEnded() {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             public void run() {
                 if (progressBar != null) {
                     if (progressBar.isStringPainted()) {
@@ -299,7 +299,7 @@ public abstract class Plugin {
     }
 
     private void setProgressBar(final int minimum, final int maximum, final int value, final String string) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             public void run() {
                 if (progressBar != null) {
                     progressBar.setMinimum(minimum);

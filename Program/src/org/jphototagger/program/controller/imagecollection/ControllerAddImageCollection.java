@@ -45,7 +45,7 @@ public final class ControllerAddImageCollection implements ActionListener, KeyLi
         final String collectionName = ImageCollectionsHelper.insertImageCollection(GUI.getSelectedImageFiles());
 
         if (collectionName != null) {
-            EventQueueUtil.invokeLater(new Runnable() {
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
                 @Override
                 public void run() {
                     insertImageCollection(collectionName);

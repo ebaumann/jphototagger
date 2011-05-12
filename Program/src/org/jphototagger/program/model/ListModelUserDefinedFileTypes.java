@@ -34,7 +34,7 @@ public final class ListModelUserDefinedFileTypes extends DefaultListModel implem
 
     @Override
     public void fileTypeInserted(final UserDefinedFileType fileType) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
             public void run() {
@@ -45,7 +45,7 @@ public final class ListModelUserDefinedFileTypes extends DefaultListModel implem
 
     @Override
     public void fileTypeUpdated(final UserDefinedFileType oldFileType, final UserDefinedFileType newFileType) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
             public void run() {
@@ -60,7 +60,7 @@ public final class ListModelUserDefinedFileTypes extends DefaultListModel implem
 
     @Override
     public void fileTypeDeleted(final UserDefinedFileType fileType) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
             public void run() {

@@ -74,7 +74,7 @@ public final class ControllerMetadataTemplates implements ActionListener {
     }
 
     private void createTemplate() {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 final String name = getNewName();
@@ -90,7 +90,7 @@ public final class ControllerMetadataTemplates implements ActionListener {
     }
 
     private void deleteTemplate() {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 Object o = getModel().getSelectedItem();
@@ -110,7 +110,7 @@ public final class ControllerMetadataTemplates implements ActionListener {
     }
 
     private void editTemplate() {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 Object o = getModel().getSelectedItem();
@@ -126,7 +126,7 @@ public final class ControllerMetadataTemplates implements ActionListener {
     }
 
     private void renameTemplate() {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 Object o = getModel().getSelectedItem();
@@ -140,7 +140,7 @@ public final class ControllerMetadataTemplates implements ActionListener {
     }
 
     private void updateTemplate() {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 Object o = getModel().getSelectedItem();
@@ -160,7 +160,7 @@ public final class ControllerMetadataTemplates implements ActionListener {
     }
 
     private void setCurrentTemplateToPanel() {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 Object o = getModel().getSelectedItem();

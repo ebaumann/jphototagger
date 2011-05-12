@@ -57,7 +57,7 @@ public final class ControllerOpenFavoriteInFolders implements ActionListener, Ke
     }
 
     private void selectDirectory() {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 TreePath path = PopupMenuFavorites.INSTANCE.getTreePath();

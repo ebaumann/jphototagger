@@ -173,7 +173,7 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
     }
 
     private void selectPrevImportCollection() {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 AppPanel appPanel = GUI.getAppPanel();

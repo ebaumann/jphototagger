@@ -51,7 +51,7 @@ public final class MessageLabel {
             throw new IllegalArgumentException("Negative milliseconds: " + milliseconds);
         }
 
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 label.setForeground(type.isError()
@@ -87,7 +87,7 @@ public final class MessageLabel {
                 Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
             }
 
-            EventQueueUtil.invokeLater(new Runnable() {
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
                 @Override
                 public void run() {
                     if (text.equals(label.getText())) {

@@ -83,7 +83,7 @@ public final class ListModelPrograms extends DefaultListModel implements Databas
         }
 
         if (isAppropriateProgramType(program)) {
-            EventQueueUtil.invokeLater(new Runnable() {
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
                 @Override
                 public void run() {
                     removeElement(program);
@@ -99,7 +99,7 @@ public final class ListModelPrograms extends DefaultListModel implements Databas
         }
 
         if (isAppropriateProgramType(program)) {
-            EventQueueUtil.invokeLater(new Runnable() {
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
                 @Override
                 public void run() {
                     addElement(program);
@@ -115,7 +115,7 @@ public final class ListModelPrograms extends DefaultListModel implements Databas
         }
 
         if (isAppropriateProgramType(program)) {
-            EventQueueUtil.invokeLater(new Runnable() {
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
                 @Override
                 public void run() {
                     updateProgram(program);

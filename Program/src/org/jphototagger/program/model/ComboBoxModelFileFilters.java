@@ -90,7 +90,7 @@ public final class ComboBoxModelFileFilters extends DefaultComboBoxModel
 
     @Override
     public void filterInserted(final UserDefinedFileFilter filter) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 insertFilter(filter);
@@ -100,7 +100,7 @@ public final class ComboBoxModelFileFilters extends DefaultComboBoxModel
 
     @Override
     public void filterDeleted(final UserDefinedFileFilter filter) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 deleteFilter(filter);
@@ -110,7 +110,7 @@ public final class ComboBoxModelFileFilters extends DefaultComboBoxModel
 
     @Override
     public void filterUpdated(final UserDefinedFileFilter filter) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 updateFilter(filter);

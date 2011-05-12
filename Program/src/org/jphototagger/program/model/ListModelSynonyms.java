@@ -226,7 +226,7 @@ public final class ListModelSynonyms extends DefaultListModel implements Databas
 
     @Override
     public void synonymOfWordDeleted(final String word, final String synonym) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 deleteSynonymOfWord(word, synonym);
@@ -236,7 +236,7 @@ public final class ListModelSynonyms extends DefaultListModel implements Databas
 
     @Override
     public void synonymInserted(final String word, final String synonym) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 insertSynonym(word, synonym);
@@ -246,7 +246,7 @@ public final class ListModelSynonyms extends DefaultListModel implements Databas
 
     @Override
     public void synonymOfWordRenamed(final String word, final String oldSynonymName, final String newSynonymName) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 renameSynonymOfWord(word, oldSynonymName, newSynonymName);
@@ -256,7 +256,7 @@ public final class ListModelSynonyms extends DefaultListModel implements Databas
 
     @Override
     public void synonymRenamed(final String oldSynonymName, final String newSynonymName) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 renameSynonym(oldSynonymName, newSynonymName);
@@ -266,7 +266,7 @@ public final class ListModelSynonyms extends DefaultListModel implements Databas
 
     @Override
     public void wordDeleted(final String word) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 deleteWord(word);
@@ -276,7 +276,7 @@ public final class ListModelSynonyms extends DefaultListModel implements Databas
 
     @Override
     public void wordRenamed(final String fromName, final String toName) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 renameWord(fromName, toName);

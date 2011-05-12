@@ -141,7 +141,7 @@ public final class ControllerSliderThumbnailSize
     }
 
     private void setThumbnailWidth() {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 int width = (int) ((double) getMaxTnWidth() * ((double) currentValue / 100.0));

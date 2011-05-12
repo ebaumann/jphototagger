@@ -42,7 +42,7 @@ public final class MetaFactory implements Runnable {
         MouseListenerFactory.INSTANCE.init();
 
         // No other factory after:
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 TerminateFactory.INSTANCE.init();

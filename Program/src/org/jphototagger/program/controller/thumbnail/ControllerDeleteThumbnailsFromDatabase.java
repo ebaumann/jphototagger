@@ -37,7 +37,7 @@ public final class ControllerDeleteThumbnailsFromDatabase implements ActionListe
 
     private void deleteSelectedThumbnails() {
         if (confirmDelete()) {
-            EventQueueUtil.invokeLater(new Runnable() {
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
                 @Override
                 public void run() {
                     List<File> selFiles = GUI.getSelectedImageFiles();

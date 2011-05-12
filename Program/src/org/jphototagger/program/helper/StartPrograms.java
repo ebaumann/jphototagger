@@ -230,7 +230,7 @@ public final class StartPrograms {
         }
 
         private void initProgressBar() {
-            EventQueueUtil.invokeLater(new Runnable() {
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
                 @Override
                 public void run() {
                     if (progressBar != null) {
@@ -243,7 +243,7 @@ public final class StartPrograms {
         }
 
         private void setValueToProgressBar(final int value) {
-            EventQueueUtil.invokeLater(new Runnable() {
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
                 @Override
                 public void run() {
                     if (progressBar != null) {

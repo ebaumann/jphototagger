@@ -118,7 +118,7 @@ public final class TreeModelTimeline extends DefaultTreeModel implements Databas
 
     @Override
     public void xmpInserted(File imageFile, final Xmp xmp) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 checkInserted(xmp);
@@ -128,7 +128,7 @@ public final class TreeModelTimeline extends DefaultTreeModel implements Databas
 
     @Override
     public void xmpUpdated(File imageFile, final Xmp oldXmp, final Xmp updatedXmp) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 checkDeleted(oldXmp);
@@ -139,7 +139,7 @@ public final class TreeModelTimeline extends DefaultTreeModel implements Databas
 
     @Override
     public void xmpDeleted(File imageFile, final Xmp xmp) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 checkDeleted(xmp);
@@ -149,7 +149,7 @@ public final class TreeModelTimeline extends DefaultTreeModel implements Databas
 
     @Override
     public void exifInserted(File imageFile, final Exif exif) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 checkInserted(exif);
@@ -159,7 +159,7 @@ public final class TreeModelTimeline extends DefaultTreeModel implements Databas
 
     @Override
     public void exifUpdated(File imageFile, final Exif oldExif, final Exif updatedExif) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 checkDeleted(oldExif);
@@ -170,7 +170,7 @@ public final class TreeModelTimeline extends DefaultTreeModel implements Databas
 
     @Override
     public void exifDeleted(File imageFile, final Exif exif) {
-        EventQueueUtil.invokeLater(new Runnable() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
                 checkDeleted(exif);

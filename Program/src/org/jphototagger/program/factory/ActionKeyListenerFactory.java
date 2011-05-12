@@ -39,7 +39,7 @@ public final class ActionKeyListenerFactory {
 
         if (!init) {
             init = true;
-            EventQueueUtil.invokeLater(new Runnable() {
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
                 @Override
                 public void run() {
                     addActionListeners();

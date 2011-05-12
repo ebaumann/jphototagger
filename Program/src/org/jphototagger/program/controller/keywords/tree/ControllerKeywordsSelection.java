@@ -38,7 +38,7 @@ public final class ControllerKeywordsSelection implements TreeSelectionListener 
     }
 
     private void showThumbnailsOfSelKeywords() {
-        EventQueueUtil.invokeLater(new ShowThumbnailsContainingAllKeywords2(getKeywordStringPaths()));
+        EventQueueUtil.invokeInDispatchThread(new ShowThumbnailsContainingAllKeywords2(getKeywordStringPaths()));
     }
 
     private List<List<String>> getKeywordStringPaths() {
