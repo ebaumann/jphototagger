@@ -22,9 +22,9 @@ import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsTree;
 import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
-import java.awt.EventQueue;
 
 import javax.swing.JMenuItem;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  *
@@ -39,7 +39,7 @@ public final class ActionKeyListenerFactory {
 
         if (!init) {
             init = true;
-            EventQueue.invokeLater(new Runnable() {
+            EventQueueUtil.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     addActionListeners();

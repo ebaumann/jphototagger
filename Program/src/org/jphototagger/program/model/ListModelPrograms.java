@@ -6,11 +6,11 @@ import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.database.DatabasePrograms.Type;
 import org.jphototagger.program.event.listener.DatabaseProgramsListener;
 
-import java.awt.EventQueue;
 
 import java.util.List;
 
 import javax.swing.DefaultListModel;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Contains {@link Program}s retrieved through
@@ -83,7 +83,7 @@ public final class ListModelPrograms extends DefaultListModel implements Databas
         }
 
         if (isAppropriateProgramType(program)) {
-            EventQueue.invokeLater(new Runnable() {
+            EventQueueUtil.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     removeElement(program);
@@ -99,7 +99,7 @@ public final class ListModelPrograms extends DefaultListModel implements Databas
         }
 
         if (isAppropriateProgramType(program)) {
-            EventQueue.invokeLater(new Runnable() {
+            EventQueueUtil.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     addElement(program);
@@ -115,7 +115,7 @@ public final class ListModelPrograms extends DefaultListModel implements Databas
         }
 
         if (isAppropriateProgramType(program)) {
-            EventQueue.invokeLater(new Runnable() {
+            EventQueueUtil.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     updateProgram(program);

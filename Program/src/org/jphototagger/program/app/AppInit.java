@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.SwingUtilities;
+import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.cache.CacheFileUtil;
 
 /**
@@ -114,10 +115,12 @@ public final class AppInit {
     }
 
     private static void showMainWindow() {
-        java.awt.EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new AppFrame().setVisible(true);
+                AppFrame appFrame = new AppFrame();
+                
+                appFrame.setVisible(true);
             }
         });
     }

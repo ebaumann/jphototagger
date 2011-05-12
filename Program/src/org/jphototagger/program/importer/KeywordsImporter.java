@@ -9,7 +9,6 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.panels.ProgressBar;
 
-import java.awt.EventQueue;
 
 import java.io.File;
 
@@ -21,6 +20,7 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Imports keywords.
@@ -108,7 +108,7 @@ public abstract class KeywordsImporter implements Importer {
 
         @Override
         public void run() {
-            EventQueue.invokeLater(new Runnable() {
+            EventQueueUtil.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     importKeywords();
@@ -162,7 +162,7 @@ public abstract class KeywordsImporter implements Importer {
 
         private void updateProgressBar(final int value) {
             getProgressBar();
-            EventQueue.invokeLater(new Runnable() {
+            EventQueueUtil.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     if (progressBar != null) {
@@ -183,7 +183,7 @@ public abstract class KeywordsImporter implements Importer {
         }
 
         private void releaseProgressBar() {
-            EventQueue.invokeLater(new Runnable() {
+            EventQueueUtil.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     if (progressBar != null) {

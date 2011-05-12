@@ -8,11 +8,11 @@ import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.event.listener.DatabaseImageFilesListener;
 import org.jphototagger.program.resource.GUI;
 
-import java.awt.EventQueue;
 
 import java.io.File;
 
 import java.util.Collections;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  *
@@ -28,7 +28,7 @@ public final class ControllerThumbnailsDatabaseChanges implements DatabaseImageF
     }
 
     private void updateXmpCache(final File imageFile) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 XmpCache.INSTANCE.remove(imageFile);
@@ -72,7 +72,7 @@ public final class ControllerThumbnailsDatabaseChanges implements DatabaseImageF
 
         final File file = imageFile;
 
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 ThumbnailCache.INSTANCE.remove(file);
@@ -87,7 +87,7 @@ public final class ControllerThumbnailsDatabaseChanges implements DatabaseImageF
             throw new NullPointerException("imageFile == null");
         }
 
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 GUI.getThumbnailsPanel().removeFiles(Collections.singleton(imageFile));

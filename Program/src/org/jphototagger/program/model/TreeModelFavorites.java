@@ -16,7 +16,6 @@ import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
 
 import java.awt.Cursor;
-import java.awt.EventQueue;
 
 import java.io.File;
 
@@ -36,6 +35,7 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.ExpandVetoException;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Elements are {@link DefaultMutableTreeNode}s with the user objects listed
@@ -632,7 +632,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
     @Override
     public void favoriteInserted(final Favorite favorite) {
         if (listenToDb) {
-            EventQueue.invokeLater(new Runnable() {
+            EventQueueUtil.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     addFavorite(favorite);
@@ -644,7 +644,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
     @Override
     public void favoriteDeleted(final Favorite favorite) {
         if (listenToDb) {
-            EventQueue.invokeLater(new Runnable() {
+            EventQueueUtil.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     deleteFavorite(favorite);
@@ -656,7 +656,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
     @Override
     public void favoriteUpdated(final Favorite oldFavorite, final Favorite updatedFavorite) {
         if (listenToDb) {
-            EventQueue.invokeLater(new Runnable() {
+            EventQueueUtil.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     updateFavorite(oldFavorite, updatedFavorite);

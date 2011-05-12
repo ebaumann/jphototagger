@@ -11,13 +11,13 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 
-import java.awt.EventQueue;
 
 import java.io.File;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Applies persistent settings to the thumbnails panel.
@@ -63,7 +63,7 @@ public final class ControllerThumbnailsPanelPersistence implements ThumbnailsPan
             propertiesRead = true;
         }
 
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 readSelectedFilesFromProperties();
@@ -145,7 +145,7 @@ public final class ControllerThumbnailsPanelPersistence implements ThumbnailsPan
                     AppLogger.logSevere(getClass(), ex);
                 }
 
-                EventQueue.invokeLater(new Runnable() {
+                EventQueueUtil.invokeLater(new Runnable() {
                     @Override
                     public void run() {
                         UserSettings.INSTANCE.getSettings().applySettings(

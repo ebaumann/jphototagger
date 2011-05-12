@@ -15,12 +15,12 @@ import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsTree;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.EventQueue;
 
 import java.util.List;
 
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Listens to the menu item {@link PopupMenuKeywordsTree#getItemRename()}
@@ -66,7 +66,7 @@ public class ControllerRenameKeyword extends ControllerKeywords implements Actio
         final String newName = getName(keyword, DatabaseKeywords.INSTANCE, getHKPanel().getTree());
 
         if ((newName != null) &&!newName.trim().isEmpty()) {
-            EventQueue.invokeLater(new Runnable() {
+            EventQueueUtil.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     rename(node, keyword, newName);

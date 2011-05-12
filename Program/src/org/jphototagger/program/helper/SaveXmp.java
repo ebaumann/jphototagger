@@ -10,7 +10,6 @@ import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.tasks.UserTasks;
 import org.jphototagger.program.view.panels.ProgressBar;
 
-import java.awt.EventQueue;
 
 import java.io.File;
 
@@ -19,6 +18,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import javax.swing.JProgressBar;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Writes {@link Xmp} objects to XMP files and inserts or updates them into the
@@ -92,7 +92,7 @@ public final class SaveXmp extends Thread implements Cancelable {
 
     private void updateProgressBar(final int value) {
         getProgressBar();
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 if (progressBar != null) {
@@ -113,7 +113,7 @@ public final class SaveXmp extends Thread implements Cancelable {
     }
 
     private void releaseProgressBar() {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 if (progressBar != null) {

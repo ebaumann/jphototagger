@@ -1,6 +1,6 @@
 package org.jphototagger.program.view.panels;
 
-import java.awt.EventQueue;
+import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.model.TableModelDatabaseInfo;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Filename;
@@ -46,7 +46,7 @@ public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
 
                 @Override
                 public void run() {
-                    EventQueue.invokeLater(new Runnable() {
+                    EventQueueUtil.invokeLater(new Runnable() {
 
                         @Override
                         public void run() {

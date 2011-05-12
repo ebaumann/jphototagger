@@ -16,14 +16,11 @@ import org.jphototagger.program.tasks.UserTasks;
 import org.jphototagger.program.view.dialogs.ImportImageFilesDialog;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.ProgressBarUpdater;
-
-import java.awt.EventQueue;
-
 import java.io.File;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Imports image files from a source directory to a target directory.
@@ -176,7 +173,7 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
     }
 
     private void selectPrevImportCollection() {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 AppPanel appPanel = GUI.getAppPanel();

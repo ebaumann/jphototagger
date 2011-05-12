@@ -6,13 +6,13 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 
-import java.awt.EventQueue;
 
 import java.io.File;
 
 import java.util.List;
 
 import javax.swing.JLabel;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Listens to the {@link ThumbnailsPanel} for thumbnail selections.
@@ -46,7 +46,7 @@ public final class ControllerThumbnailSelectionEditMetadata implements Thumbnail
     }
 
     private void handleSelectionChanged() {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 boolean canEdit = false;

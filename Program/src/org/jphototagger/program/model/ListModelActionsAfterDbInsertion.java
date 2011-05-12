@@ -8,12 +8,12 @@ import org.jphototagger.program.database.DatabaseActionsAfterDbInsertion;
 import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.event.listener.DatabaseProgramsListener;
 
-import java.awt.EventQueue;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Elements are {@link Program}s retrieved through
@@ -145,7 +145,7 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel imp
 
     @Override
     public void programDeleted(final Program program) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 deleteProgram(program);
@@ -161,7 +161,7 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel imp
 
     @Override
     public void programUpdated(final Program program) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 updateProgram(program);

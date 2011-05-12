@@ -1,8 +1,8 @@
 package org.jphototagger.lib.componentutil;
 
-import java.awt.EventQueue;
 
 import javax.swing.ComboBoxModel;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Werkzeuge für Comboboxen.
@@ -91,7 +91,7 @@ public final class ComboBoxUtil {
             throw new NullPointerException("string == null");
         }
 
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 int size = model.getSize();

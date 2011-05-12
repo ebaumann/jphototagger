@@ -12,11 +12,9 @@ import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
-
-import java.awt.EventQueue;
-
 import java.io.File;
 import java.io.FileFilter;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  *
@@ -35,7 +33,7 @@ public final class TerminateFactory {
             init = true;
         }
 
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 AppPanel appPanel = GUI.getAppPanel();

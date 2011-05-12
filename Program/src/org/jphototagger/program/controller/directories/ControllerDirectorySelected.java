@@ -11,7 +11,6 @@ import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuDirectories;
 import org.jphototagger.program.view.WaitDisplay;
 
-import java.awt.EventQueue;
 
 import java.io.File;
 
@@ -20,6 +19,7 @@ import java.util.List;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.TreePath;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Listens for selections of items in the directory tree view. A tree item
@@ -51,7 +51,7 @@ public final class ControllerDirectorySelected implements TreeSelectionListener,
     }
 
     private void setFilesToThumbnailsPanel(ThumbnailsPanel.Settings settings) {
-        EventQueue.invokeLater(new ShowThumbnails(settings));
+        EventQueueUtil.invokeLater(new ShowThumbnails(settings));
     }
 
     private class ShowThumbnails implements Runnable {
@@ -63,7 +63,7 @@ public final class ControllerDirectorySelected implements TreeSelectionListener,
 
         @Override
         public void run() {
-            EventQueue.invokeLater(new Runnable() {
+            EventQueueUtil.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     showThumbnails();

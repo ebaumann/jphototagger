@@ -13,11 +13,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.EventQueue;
 
 import java.io.File;
 
 import javax.swing.JTree;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Listens to the {@link PopupMenuFavorites} and inserts a
@@ -63,7 +63,7 @@ public final class ControllerInsertFavorite implements ActionListener, KeyListen
     }
 
     private void insertFavorite(final File directory) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 FavoritePropertiesDialog dlg = new FavoritePropertiesDialog();

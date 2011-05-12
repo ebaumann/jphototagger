@@ -9,9 +9,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.EventQueue;
 
 import javax.swing.JTree;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Refreshes the favorite directories tree: Adds new folders and removes
@@ -47,7 +47,7 @@ public final class ControllerRefreshFavorites implements ActionListener, KeyList
     }
 
     public void refresh() {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 ModelFactory.INSTANCE.getModel(TreeModelFavorites.class).update();

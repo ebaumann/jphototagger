@@ -6,7 +6,6 @@ import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 
-import java.awt.EventQueue;
 
 import java.io.File;
 
@@ -15,6 +14,7 @@ import java.util.List;
 import org.jdesktop.swingx.JXList;
 import javax.swing.JTextArea;
 import javax.swing.JTree;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Provides access to GUI elements.
@@ -74,7 +74,7 @@ public final class GUI {
      * Calls {@link ThumbnailsPanel#refresh()}.
      */
     public static void refreshThumbnailsPanel() {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 getThumbnailsPanel().refresh();

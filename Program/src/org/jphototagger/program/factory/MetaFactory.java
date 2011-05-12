@@ -6,7 +6,7 @@ import org.jphototagger.program.app.update.UpdateDownload;
 import org.jphototagger.program.tasks.ScheduledTaskBackupDatabase;
 import org.jphototagger.program.UserSettings;
 
-import java.awt.EventQueue;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Initalizes all other factories in the right order and sets the persistent
@@ -42,7 +42,7 @@ public final class MetaFactory implements Runnable {
         MouseListenerFactory.INSTANCE.init();
 
         // No other factory after:
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 TerminateFactory.INSTANCE.init();

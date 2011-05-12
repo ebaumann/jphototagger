@@ -14,9 +14,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.EventQueue;
 
 import javax.swing.JTree;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Renames the selected image collection when the
@@ -63,7 +63,7 @@ public final class ControllerRenameImageCollection implements ActionListener, Ke
 
     private void renameImageCollection(final String fromName) {
         if (fromName != null) {
-            EventQueue.invokeLater(new Runnable() {
+            EventQueueUtil.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     if (!ListModelImageCollections.checkIsNotSpecialCollection(fromName,

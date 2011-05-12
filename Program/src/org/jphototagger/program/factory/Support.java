@@ -4,14 +4,12 @@ import org.jphototagger.lib.componentutil.MessageLabel;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
-
-import java.awt.EventQueue;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  *
@@ -47,7 +45,7 @@ final class Support {
     }
 
     static void setStatusbarInfo(final String propertyKey) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 GUI.getAppPanel().setStatusbarText(JptBundle.INSTANCE.getString(propertyKey),

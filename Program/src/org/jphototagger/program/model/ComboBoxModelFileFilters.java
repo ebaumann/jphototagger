@@ -8,10 +8,10 @@ import org.jphototagger.program.database.DatabaseUserDefinedFileFilters;
 import org.jphototagger.program.event.listener.DatabaseUserDefinedFileFiltersListener;
 import org.jphototagger.program.UserSettings;
 
-import java.awt.EventQueue;
 import java.io.FileFilter;
 
 import javax.swing.DefaultComboBoxModel;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  *
@@ -90,7 +90,7 @@ public final class ComboBoxModelFileFilters extends DefaultComboBoxModel
 
     @Override
     public void filterInserted(final UserDefinedFileFilter filter) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 insertFilter(filter);
@@ -100,7 +100,7 @@ public final class ComboBoxModelFileFilters extends DefaultComboBoxModel
 
     @Override
     public void filterDeleted(final UserDefinedFileFilter filter) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 deleteFilter(filter);
@@ -110,7 +110,7 @@ public final class ComboBoxModelFileFilters extends DefaultComboBoxModel
 
     @Override
     public void filterUpdated(final UserDefinedFileFilter filter) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 updateFilter(filter);

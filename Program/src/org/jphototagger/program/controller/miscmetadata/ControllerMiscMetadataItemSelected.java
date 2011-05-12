@@ -11,7 +11,6 @@ import org.jphototagger.program.types.Content;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.WaitDisplay;
 
-import java.awt.EventQueue;
 
 import java.io.File;
 
@@ -21,6 +20,7 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  *
@@ -39,14 +39,14 @@ public final class ControllerMiscMetadataItemSelected implements TreeSelectionLi
     @Override
     public void valueChanged(TreeSelectionEvent evt) {
         if (evt.isAddedPath()) {
-            EventQueue.invokeLater(new ShowThumbnails(evt.getNewLeadSelectionPath(), null));
+            EventQueueUtil.invokeLater(new ShowThumbnails(evt.getNewLeadSelectionPath(), null));
         }
     }
 
     @Override
     public void refresh(RefreshEvent evt) {
         if (GUI.getMiscMetadataTree().getSelectionCount() == 1) {
-            EventQueue.invokeLater(new ShowThumbnails(GUI.getMiscMetadataTree().getSelectionPath(), evt.getSettings()));
+            EventQueueUtil.invokeLater(new ShowThumbnails(GUI.getMiscMetadataTree().getSelectionPath(), evt.getSettings()));
         }
     }
 

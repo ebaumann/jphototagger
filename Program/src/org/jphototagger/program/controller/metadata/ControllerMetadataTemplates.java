@@ -12,7 +12,7 @@ import org.jphototagger.program.view.panels.AppPanel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.EventQueue;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Kontrolliert Eingaben bezüglich Metadaten-Templates.
@@ -74,7 +74,7 @@ public final class ControllerMetadataTemplates implements ActionListener {
     }
 
     private void createTemplate() {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 final String name = getNewName();
@@ -90,7 +90,7 @@ public final class ControllerMetadataTemplates implements ActionListener {
     }
 
     private void deleteTemplate() {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 Object o = getModel().getSelectedItem();
@@ -110,7 +110,7 @@ public final class ControllerMetadataTemplates implements ActionListener {
     }
 
     private void editTemplate() {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 Object o = getModel().getSelectedItem();
@@ -126,7 +126,7 @@ public final class ControllerMetadataTemplates implements ActionListener {
     }
 
     private void renameTemplate() {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 Object o = getModel().getSelectedItem();
@@ -140,7 +140,7 @@ public final class ControllerMetadataTemplates implements ActionListener {
     }
 
     private void updateTemplate() {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 Object o = getModel().getSelectedItem();
@@ -160,7 +160,7 @@ public final class ControllerMetadataTemplates implements ActionListener {
     }
 
     private void setCurrentTemplateToPanel() {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 Object o = getModel().getSelectedItem();

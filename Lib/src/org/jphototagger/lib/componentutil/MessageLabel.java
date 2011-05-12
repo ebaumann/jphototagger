@@ -1,12 +1,12 @@
 package org.jphototagger.lib.componentutil;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JLabel;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Displays text in a {@code JLabel} for an amount of milliseconds, then hides
@@ -51,7 +51,7 @@ public final class MessageLabel {
             throw new IllegalArgumentException("Negative milliseconds: " + milliseconds);
         }
 
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 label.setForeground(type.isError()
@@ -87,7 +87,7 @@ public final class MessageLabel {
                 Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
             }
 
-            EventQueue.invokeLater(new Runnable() {
+            EventQueueUtil.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     if (text.equals(label.getText())) {

@@ -13,7 +13,6 @@ import org.jphototagger.program.view.panels.KeywordsPanel;
 import java.awt.Component;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
-import java.awt.EventQueue;
 
 
 import java.util.HashMap;
@@ -21,6 +20,7 @@ import java.util.Map;
 
 import javax.swing.JList;
 import javax.swing.JTree;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Reads and writes persistent important settings of {@link AppPanel} and
@@ -85,7 +85,7 @@ public final class AppWindowPersistence implements ComponentListener, AppExitLis
         final AppFrame appFrame = GUI.getAppFrame();
 
         UserSettings.INSTANCE.getSettings().applySizeAndLocation(appFrame);
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 appFrame.pack();
@@ -94,7 +94,7 @@ public final class AppWindowPersistence implements ComponentListener, AppExitLis
     }
 
     public void readAppPanelFromProperties() {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 AppPanel appPanel = GUI.getAppPanel();

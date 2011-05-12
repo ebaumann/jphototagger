@@ -7,14 +7,11 @@ import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Content;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.WaitDisplay;
-
-import java.awt.EventQueue;
-
 import java.io.File;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Displays in the {@link ThumbnailsPanel} thumbnails with specific keywords.
@@ -42,7 +39,7 @@ public final class ShowThumbnailsContainingKeywords implements Runnable {
 
     @Override
     public void run() {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 WaitDisplay.show();

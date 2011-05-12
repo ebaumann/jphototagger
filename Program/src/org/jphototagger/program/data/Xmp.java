@@ -11,7 +11,6 @@ import org.jphototagger.program.database.metadata.xmp.ColumnXmpIptc4XmpCoreDateC
 import org.jphototagger.program.database.metadata.xmp.XmpColumns;
 import org.jphototagger.program.event.listener.TextEntryListener;
 
-import java.awt.EventQueue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,6 +18,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * XMP metadata of an image file. The <code>see</code> sections of the method
@@ -57,7 +57,7 @@ public final class Xmp implements TextEntryListener {
 
     @Override
     public void textRemoved(final Column column, final String removedText) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 removeValue(column, removedText);
@@ -67,7 +67,7 @@ public final class Xmp implements TextEntryListener {
 
     @Override
     public void textAdded(final Column column, final String addedText) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 setValue(column, addedText);
@@ -77,7 +77,7 @@ public final class Xmp implements TextEntryListener {
 
     @Override
     public void textChanged(final Column xmpColumn, final String oldText, final String newText) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 changeText(xmpColumn, newText, oldText);

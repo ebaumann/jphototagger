@@ -9,13 +9,13 @@ import org.jphototagger.program.types.Persistence;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 
 import java.awt.Container;
-import java.awt.EventQueue;
 import java.awt.event.KeyEvent;
 
 import java.util.List;
 
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.UserSettings;
 
 /**
@@ -153,7 +153,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
 
     @Override
     public void progressStarted(final ProgressEvent evt) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
 
             @Override
             public void run() {
@@ -167,7 +167,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
 
     @Override
     public void progressPerformed(final ProgressEvent evt) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
 
             @Override
             public void run() {
@@ -179,7 +179,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
 
     @Override
     public void progressEnded(final ProgressEvent evt) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
 
             @Override
             public void run() {

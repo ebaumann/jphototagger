@@ -13,10 +13,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.EventQueue;
 import java.awt.Toolkit;
 
 import javax.swing.JMenuItem;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Listens to {@link PopupMenuThumbnails#getItemCopyToClipboard()},
@@ -96,7 +96,7 @@ public final class ControllerCopyOrCutFilesToClipboard implements ActionListener
 
     @Override
     public void thumbnailsSelectionChanged() {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 final boolean imagesSelected = tnPanel.isAFileSelected();

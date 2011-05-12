@@ -6,11 +6,11 @@ import org.jphototagger.program.database.DatabaseSavedSearches;
 import org.jphototagger.program.event.listener.DatabaseSavedSearchesListener;
 import org.jphototagger.program.helper.SavedSearchesHelper;
 
-import java.awt.EventQueue;
 
 import java.util.List;
 
 import javax.swing.DefaultListModel;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Elements are {@link SavedSearch}es.
@@ -78,7 +78,7 @@ public final class ListModelSavedSearches extends DefaultListModel implements Da
 
     @Override
     public void searchInserted(final SavedSearch savedSearch) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 insertSearch(savedSearch);
@@ -88,7 +88,7 @@ public final class ListModelSavedSearches extends DefaultListModel implements Da
 
     @Override
     public void searchUpdated(final SavedSearch savedSearch) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 updateSearch(savedSearch);
@@ -98,7 +98,7 @@ public final class ListModelSavedSearches extends DefaultListModel implements Da
 
     @Override
     public void searchDeleted(final String name) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 deleteSearch(name);
@@ -108,7 +108,7 @@ public final class ListModelSavedSearches extends DefaultListModel implements Da
 
     @Override
     public void searchRenamed(final String fromName, final String toName) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 renameSearch(fromName, toName);

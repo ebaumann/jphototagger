@@ -11,7 +11,6 @@ import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Content;
 import org.jphototagger.program.view.WaitDisplay;
 
-import java.awt.EventQueue;
 
 import java.io.File;
 
@@ -19,6 +18,7 @@ import java.util.List;
 
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  *
@@ -49,7 +49,7 @@ public final class ControllerSavedSearchSelected implements ListSelectionListene
 
     private void search() {
         if (GUI.getSavedSearchesList().getSelectedIndex() >= 0) {
-            EventQueue.invokeLater(new ShowThumbnails());
+            EventQueueUtil.invokeLater(new ShowThumbnails());
         }
     }
 
@@ -97,7 +97,7 @@ public final class ControllerSavedSearchSelected implements ListSelectionListene
         }
 
         private void setMetadataEditable() {
-            EventQueue.invokeLater(new Runnable() {
+            EventQueueUtil.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     if (!GUI.getThumbnailsPanel().isAFileSelected()) {

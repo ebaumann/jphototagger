@@ -3,10 +3,9 @@ package org.jphototagger.program.view.panels;
 import org.jphototagger.program.event.listener.ProgressListener;
 import org.jphototagger.program.event.ProgressEvent;
 
-import java.awt.EventQueue;
 
 import javax.swing.JProgressBar;
-import javax.swing.SwingUtilities;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  *
@@ -42,7 +41,7 @@ public final class ProgressBarUpdater implements ProgressListener {
 
     private synchronized void updateProgressBar(final ProgressEvent evt) {
         getProgressBar();
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 if (progressBar != null) {
@@ -74,7 +73,7 @@ public final class ProgressBarUpdater implements ProgressListener {
 
     @Override
     public synchronized void progressEnded(final ProgressEvent evt) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 if (progressBar != null) {

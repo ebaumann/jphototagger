@@ -11,10 +11,10 @@ import org.jphototagger.program.view.WaitDisplay;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.EventQueue;
 
 import javax.swing.JMenuItem;
 import javax.swing.tree.DefaultMutableTreeNode;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Listens to the menu item
@@ -76,7 +76,7 @@ public class ControllerKeywordsDisplayImages implements ActionListener {
     }
 
     private void showImages(final Keyword keyword) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 WaitDisplay.show();
@@ -91,7 +91,7 @@ public class ControllerKeywordsDisplayImages implements ActionListener {
     }
 
     private void showImages(final String keyword) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 WaitDisplay.show();

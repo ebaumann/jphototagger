@@ -7,12 +7,12 @@ import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.EventQueue;
 
 import java.io.File;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Kontrolliert die Aktion: Lösche selektierte Thumbnails,
@@ -37,7 +37,7 @@ public final class ControllerDeleteThumbnailsFromDatabase implements ActionListe
 
     private void deleteSelectedThumbnails() {
         if (confirmDelete()) {
-            EventQueue.invokeLater(new Runnable() {
+            EventQueueUtil.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     List<File> selFiles = GUI.getSelectedImageFiles();

@@ -15,12 +15,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.EventQueue;
 
 import java.io.File;
 
 import java.util.Collections;
 import java.util.List;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Listens to key events of {@link ThumbnailsPanel} and when
@@ -56,7 +56,7 @@ public final class ControllerRenameFiles implements ActionListener, KeyListener,
     private void renameFile(final File fromFile, final File toFile) {
         AppLogger.logInfo(ControllerRenameFiles.class, "ControllerRenameFiles.Info.Rename", fromFile, toFile);
         DatabaseImageFiles.INSTANCE.updateRename(fromFile, toFile);
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 ThumbnailCache.INSTANCE.updateFiles(fromFile, toFile);

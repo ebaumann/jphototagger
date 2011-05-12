@@ -6,9 +6,9 @@ import org.jphototagger.program.view.panels.AppPanel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.EventQueue;
 
 import javax.swing.JButton;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  *
@@ -40,7 +40,7 @@ public final class ControllerEnableInsertMetadataTemplate implements EditMetadat
 
     @Override
     public void editEnabled() {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 setButtonEnabled();
@@ -50,7 +50,7 @@ public final class ControllerEnableInsertMetadataTemplate implements EditMetadat
 
     @Override
     public void editDisabled() {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 setButtonEnabled();

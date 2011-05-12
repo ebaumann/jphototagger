@@ -118,9 +118,9 @@ import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.panels.KeywordsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuMiscMetadata;
 
-import java.awt.EventQueue;
 
 import java.util.List;
+import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.controller.metadata.ControllerDisplayIptcUserSettings;
 
 /**
@@ -142,7 +142,7 @@ public final class ControllerFactory {
             init = true;
         }
 
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 Support.setStatusbarInfo("ControllerFactory.Init.Start");

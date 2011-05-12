@@ -7,7 +7,6 @@ import org.jphototagger.program.event.ThumbnailUpdateEvent;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.renderer.ThumbnailPanelRenderer;
 
-import java.awt.EventQueue;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -18,6 +17,7 @@ import java.io.File;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * This cache contains scaled and fully rendered thumbnails.  Images can be
@@ -74,7 +74,7 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
         fileCache.maybeCleanupCache();
 
         if (repaint) {
-            EventQueue.invokeLater(new Runnable() {
+            EventQueueUtil.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     notifyUpdate(file);

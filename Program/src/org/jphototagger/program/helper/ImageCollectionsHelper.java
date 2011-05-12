@@ -8,13 +8,13 @@ import org.jphototagger.program.model.ListModelImageCollections;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 
-import java.awt.EventQueue;
 
 import java.io.File;
 
 import java.util.List;
 
 import org.jdesktop.swingx.JXList;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  *
@@ -27,7 +27,7 @@ public final class ImageCollectionsHelper {
      * Deletes selected files from an image collection.
      */
     public static void deleteSelectedFiles() {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 Object selectedValue = getSelectedCollection();

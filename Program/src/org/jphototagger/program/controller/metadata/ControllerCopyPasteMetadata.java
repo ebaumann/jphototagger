@@ -12,9 +12,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.EventQueue;
 
 import javax.swing.JMenuItem;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Listens to the menu items {@link PopupMenuThumbnails#getItemCopyMetadata()} and
@@ -110,7 +110,7 @@ public final class ControllerCopyPasteMetadata implements ActionListener, KeyLis
 
     @Override
     public void thumbnailsSelectionChanged() {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 getCopyItem().setEnabled(GUI.getThumbnailsPanel().isAFileSelected());

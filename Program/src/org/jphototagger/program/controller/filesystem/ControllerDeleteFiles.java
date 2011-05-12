@@ -13,11 +13,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.EventQueue;
 
 import java.io.File;
 
 import java.util.List;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Listens to key events of {@link ThumbnailsPanel} and when the
@@ -58,7 +58,7 @@ public final class ControllerDeleteFiles implements ActionListener, KeyListener 
         ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
         if ((tnPanel.isAFileSelected()) && tnPanel.getContent().canDeleteImagesFromFileSystem()) {
-            EventQueue.invokeLater(new Runnable() {
+            EventQueueUtil.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     deleteSelectedFiles();

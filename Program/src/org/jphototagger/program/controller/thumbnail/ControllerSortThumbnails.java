@@ -7,13 +7,13 @@ import org.jphototagger.program.view.WaitDisplay;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.EventQueue;
 
 import java.io.File;
 
 import java.util.Comparator;
 
 import javax.swing.JRadioButtonMenuItem;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  *
@@ -45,7 +45,7 @@ public final class ControllerSortThumbnails implements ActionListener {
     }
 
     private void sortThumbnails(final ActionEvent evt) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 WaitDisplay.show();

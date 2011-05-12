@@ -15,12 +15,12 @@ import org.jphototagger.program.view.renderer.ListCellRendererActions;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import java.awt.Container;
-import java.awt.EventQueue;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.event.ListDataListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseActionsAfterDbInsertion;
@@ -241,7 +241,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel
     @Override
     public void programInserted(Program program) {
         if (program.isAction()) {
-            EventQueue.invokeLater(new Runnable() {
+            EventQueueUtil.invokeLater(new Runnable() {
 
                 @Override
                 public void run() {
@@ -254,7 +254,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel
     @Override
     public void programDeleted(Program program) {
         if (program.isAction()) {
-            EventQueue.invokeLater(new Runnable() {
+            EventQueueUtil.invokeLater(new Runnable() {
 
                 @Override
                 public void run() {

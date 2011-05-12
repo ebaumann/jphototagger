@@ -6,9 +6,9 @@ import org.jphototagger.program.event.listener.DatabaseProgramsListener;
 import org.jphototagger.program.helper.ActionsHelper;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
 
-import java.awt.EventQueue;
 
 import javax.swing.JMenu;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Listens to {@link DatabasePrograms} events and inserts or removes actions
@@ -28,7 +28,7 @@ public final class ActionsMenuUpdater implements DatabaseProgramsListener {
     @Override
     public void programDeleted(final Program program) {
         if (program.isAction()) {
-            EventQueue.invokeLater(new Runnable() {
+            EventQueueUtil.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     JMenu actionMenu = PopupMenuThumbnails.INSTANCE.getMenuActions();
@@ -42,7 +42,7 @@ public final class ActionsMenuUpdater implements DatabaseProgramsListener {
     @Override
     public void programInserted(final Program program) {
         if (program.isAction()) {
-            EventQueue.invokeLater(new Runnable() {
+            EventQueueUtil.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     JMenu actionMenu = PopupMenuThumbnails.INSTANCE.getMenuActions();
@@ -56,7 +56,7 @@ public final class ActionsMenuUpdater implements DatabaseProgramsListener {
     @Override
     public void programUpdated(final Program program) {
         if (program.isAction()) {
-            EventQueue.invokeLater(new Runnable() {
+            EventQueueUtil.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     JMenu actionMenu = PopupMenuThumbnails.INSTANCE.getMenuActions();

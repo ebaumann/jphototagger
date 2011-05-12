@@ -11,11 +11,11 @@ import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsTree;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.EventQueue;
 
 import java.util.List;
 
 import javax.swing.tree.DefaultMutableTreeNode;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Listens to the menu item {@link PopupMenuKeywordsTree#getItemRemove()}
@@ -51,7 +51,7 @@ public class ControllerDeleteKeywords extends ControllerKeywords implements Acti
             return;
         }
 
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 deleteKeywords(nodes);

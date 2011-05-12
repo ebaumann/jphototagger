@@ -16,12 +16,12 @@ import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsTree;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.EventQueue;
 
 import java.util.List;
 
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Listens to the menu item {@link PopupMenuKeywordsTree#getItemAdd()}
@@ -53,7 +53,7 @@ public class ControllerAddKeyword extends ControllerKeywords implements ActionLi
 
     @Override
     protected void localAction(final List<DefaultMutableTreeNode> nodes) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 addKeyword(nodes.get(0));

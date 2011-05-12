@@ -6,6 +6,7 @@ import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.EventQueue;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Displays on the (entire) application frame a wait symbol (currently a
@@ -56,7 +57,7 @@ public final class WaitDisplay {
                 isShow = show;
             }
         } else {
-            EventQueue.invokeLater(new Runnable() {
+            EventQueueUtil.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     synchronized (LOCK) {

@@ -7,7 +7,6 @@ import org.jphototagger.lib.model.TreeModelAllSystemDirectories;
 import org.jphototagger.lib.resource.JslBundle;
 
 import java.awt.Container;
-import java.awt.EventQueue;
 
 import java.io.File;
 
@@ -25,6 +24,7 @@ import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Folder to choose one or multiple directories. Can create new directories,
@@ -160,7 +160,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
 
     private void selectStartDirectory() {
         if (startDirectory.isDirectory()) {
-            EventQueue.invokeLater(new Runnable() {
+            EventQueueUtil.invokeLater(new Runnable() {
 
                 @Override
                 public void run() {

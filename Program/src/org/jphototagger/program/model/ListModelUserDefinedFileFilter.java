@@ -5,9 +5,9 @@ import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseUserDefinedFileFilters;
 import org.jphototagger.program.event.listener.DatabaseUserDefinedFileFiltersListener;
 
-import java.awt.EventQueue;
 
 import javax.swing.DefaultListModel;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  *
@@ -52,7 +52,7 @@ public final class ListModelUserDefinedFileFilter extends DefaultListModel
 
     @Override
     public void filterInserted(final UserDefinedFileFilter filter) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 insertFilter(filter);
@@ -62,7 +62,7 @@ public final class ListModelUserDefinedFileFilter extends DefaultListModel
 
     @Override
     public void filterDeleted(final UserDefinedFileFilter filter) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 deleteFilter(filter);
@@ -72,7 +72,7 @@ public final class ListModelUserDefinedFileFilter extends DefaultListModel
 
     @Override
     public void filterUpdated(final UserDefinedFileFilter filter) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 updateFilter(filter);

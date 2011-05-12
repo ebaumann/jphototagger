@@ -16,7 +16,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.EventQueue;
 
 import java.io.File;
 
@@ -28,6 +27,7 @@ import javax.swing.event.MenuListener;
 import javax.swing.JMenuItem;
 import javax.swing.JTree;
 import javax.swing.TransferHandler;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Listens to {@link PopupMenuThumbnails#getItemPasteFromClipboard()} and on action
@@ -107,7 +107,7 @@ public final class ControllerPasteFilesFromClipboard
             return;
         }
 
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 List<File> files = ClipboardUtil.getFilesFromSystemClipboard(FilenameDelimiter.NEWLINE);
@@ -136,7 +136,7 @@ public final class ControllerPasteFilesFromClipboard
 
     @Override
     public void thumbnailsChanged() {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 getPasteItem().setEnabled(canPasteFiles());

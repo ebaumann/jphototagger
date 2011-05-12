@@ -16,7 +16,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.EventQueue;
 
 import java.util.ArrayList;
 
@@ -25,6 +24,7 @@ import javax.swing.JTree;
 import javax.swing.TransferHandler.TransferSupport;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 //The implementation can't paste the nodes to the system clipboard and let do
 //the work the panel's transfer handler, because the affected nodes when using
@@ -136,7 +136,7 @@ public class ControllerCopyCutPasteKeyword implements ActionListener, KeyListene
     }
 
     private void pasteCopy(final JTree tree) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 TreePath[] selPaths = tree.getSelectionPaths();

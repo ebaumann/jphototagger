@@ -5,7 +5,6 @@ import org.jphototagger.program.data.Keyword;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.AppPanel;
 
-import java.awt.EventQueue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +13,7 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Listens to {@link AppPanel#getTreeSelKeywords()} and on selection
@@ -38,7 +38,7 @@ public final class ControllerKeywordsSelection implements TreeSelectionListener 
     }
 
     private void showThumbnailsOfSelKeywords() {
-        EventQueue.invokeLater(new ShowThumbnailsContainingAllKeywords2(getKeywordStringPaths()));
+        EventQueueUtil.invokeLater(new ShowThumbnailsContainingAllKeywords2(getKeywordStringPaths()));
     }
 
     private List<List<String>> getKeywordStringPaths() {

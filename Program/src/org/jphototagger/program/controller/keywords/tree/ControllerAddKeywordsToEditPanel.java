@@ -14,7 +14,6 @@ import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsTree;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.EventQueue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +21,7 @@ import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Listens to the menu item
@@ -57,7 +57,7 @@ public class ControllerAddKeywordsToEditPanel extends ControllerKeywords impleme
         final DefaultMutableTreeNode node = nodes.get(0);
         final List<String> keywordNames = new ArrayList<String>();
 
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 addParentKeywords(node, keywordNames);

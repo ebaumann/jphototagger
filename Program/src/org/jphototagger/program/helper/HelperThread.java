@@ -5,12 +5,12 @@ import org.jphototagger.program.event.listener.ProgressListener;
 import org.jphototagger.program.event.ProgressEvent;
 import org.jphototagger.program.view.panels.ProgressBar;
 
-import java.awt.EventQueue;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.swing.JProgressBar;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Base class for helper threads managing progress listeners and providing a
@@ -137,7 +137,7 @@ public abstract class HelperThread extends Thread implements Cancelable {
     }
 
     private void getProgressBar() {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 if (progressBar == null) {
@@ -153,7 +153,7 @@ public abstract class HelperThread extends Thread implements Cancelable {
 
     private void setProgressBar(final int value) {
         getProgressBar();
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 if (progressBar != null) {
@@ -215,7 +215,7 @@ public abstract class HelperThread extends Thread implements Cancelable {
      */
     protected void progressEnded(Object info) {
         notifyProgressEnded(progressEvent(0, info));
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 if (progressBar != null) {

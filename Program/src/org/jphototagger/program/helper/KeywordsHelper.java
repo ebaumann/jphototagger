@@ -23,7 +23,6 @@ import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
 import org.jphototagger.program.view.renderer.TreeCellRendererKeywords;
 
-import java.awt.EventQueue;
 
 import java.io.File;
 import java.io.IOException;
@@ -45,6 +44,7 @@ import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.JXTree;
+import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.ListUtil;
 
 /**
@@ -70,7 +70,7 @@ public final class KeywordsHelper {
             throw new NullPointerException("node == null");
         }
 
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 EditMetadataPanels editPanels = GUI.getAppPanel().getEditMetadataPanels();
@@ -241,7 +241,7 @@ public final class KeywordsHelper {
             throw new NullPointerException("keyword == null");
         }
 
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 TreeModelKeywords model = ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
@@ -296,7 +296,7 @@ public final class KeywordsHelper {
             throw new NullPointerException("keywords == null");
         }
 
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 for (TreeCellRendererKeywords treeCellRendererKeywords : getCellRenderer()) {
@@ -307,7 +307,7 @@ public final class KeywordsHelper {
     }
 
     public static void removeHighlightKeyword(final String keyword) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 for (TreeCellRendererKeywords treeCellRendererKeywords : getCellRenderer()) {
@@ -346,7 +346,7 @@ public final class KeywordsHelper {
             throw new NullPointerException("indices == null");
         }
 
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 JXList selKeywordsList = GUI.getAppPanel().getListSelKeywords();
@@ -390,7 +390,7 @@ public final class KeywordsHelper {
             throw new NullPointerException("node == null");
         }
 
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
             @Override
             public void run() {
                 for (JTree tree : getKeywordTrees()) {

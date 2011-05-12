@@ -20,7 +20,6 @@ import org.jphototagger.lib.util.CollectionUtil;
 import org.jphototagger.lib.util.Settings;
 
 import java.awt.Container;
-import java.awt.EventQueue;
 import java.awt.event.KeyEvent;
 
 import java.io.File;
@@ -33,6 +32,7 @@ import java.util.logging.Logger;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JPanel;
+import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.lib.io.CancelRequest;
 
@@ -218,7 +218,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
     }
 
     private void setFileLabel(final File file) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
 
             @Override
             public void run() {
@@ -228,7 +228,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
     }
 
     private void updateFinished() {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
 
             @Override
             public void run() {
@@ -242,7 +242,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
 
     @Override
     public void progressStarted(final ProgressEvent evt) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
 
             @Override
             public void run() {
@@ -255,7 +255,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
 
     @Override
     public void progressPerformed(final ProgressEvent evt) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
 
             @Override
             public void run() {
@@ -266,7 +266,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
 
     @Override
     public void progressEnded(final ProgressEvent evt) {
-        EventQueue.invokeLater(new Runnable() {
+        EventQueueUtil.invokeLater(new Runnable() {
 
             @Override
             public void run() {
@@ -318,7 +318,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
                 addSubdirectories(newDirectories);
             }
 
-            EventQueue.invokeLater(new Runnable() {
+            EventQueueUtil.invokeLater(new Runnable() {
                     @Override
                     public void run() {
                         addDirectories(newDirectories);

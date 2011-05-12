@@ -9,7 +9,6 @@ import org.jphototagger.program.io.RuntimeUtil;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.dialogs.ProgramInputParametersDialog;
 
-import java.awt.EventQueue;
 
 import java.io.File;
 
@@ -20,6 +19,7 @@ import java.util.List;
 import java.util.Queue;
 
 import javax.swing.JProgressBar;
+import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Executes in a thread programs which processes image files.
@@ -230,7 +230,7 @@ public final class StartPrograms {
         }
 
         private void initProgressBar() {
-            EventQueue.invokeLater(new Runnable() {
+            EventQueueUtil.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     if (progressBar != null) {
@@ -243,7 +243,7 @@ public final class StartPrograms {
         }
 
         private void setValueToProgressBar(final int value) {
-            EventQueue.invokeLater(new Runnable() {
+            EventQueueUtil.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     if (progressBar != null) {
