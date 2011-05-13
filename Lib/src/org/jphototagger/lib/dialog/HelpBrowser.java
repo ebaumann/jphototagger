@@ -8,7 +8,6 @@ import org.jphototagger.lib.renderer.TreeCellRendererHelpContents;
 import org.jphototagger.lib.resource.JslBundle;
 import org.jphototagger.lib.util.help.HelpNode;
 import org.jphototagger.lib.util.help.HelpPage;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -16,15 +15,12 @@ import java.awt.event.MouseListener;
 import java.awt.Frame;
 import java.awt.MenuItem;
 import java.awt.PopupMenu;
-
 import java.net.URL;
-
 import java.util.LinkedList;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 import javax.swing.event.TreeSelectionEvent;

@@ -1,9 +1,7 @@
 package org.jphototagger.program.cache;
 
 import java.io.File;
-
 import java.lang.ref.SoftReference;
-
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;

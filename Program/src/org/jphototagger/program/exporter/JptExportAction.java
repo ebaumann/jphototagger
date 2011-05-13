@@ -2,9 +2,7 @@ package org.jphototagger.program.exporter;
 
 import org.jphototagger.program.view.dialogs.ExportImportDialog;
 import org.jphototagger.program.view.panels.ExportImportPanel.Context;
-
 import java.awt.event.ActionEvent;
-
 import javax.swing.AbstractAction;
 
 /**

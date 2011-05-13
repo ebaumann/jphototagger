@@ -1,7 +1,6 @@
 package org.jphototagger.program.controller.keywords.list;
 
 import org.jdesktop.swingx.JXList;
-
 import org.jphototagger.lib.dialog.InputDialog;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.database.DatabaseSynonyms;
@@ -12,16 +11,13 @@ import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.panels.EditRepeatableTextEntryPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsList;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
-
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 import javax.swing.JMenuItem;

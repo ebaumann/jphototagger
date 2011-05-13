@@ -21,12 +21,9 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.panels.AppPanel;
-
 import java.awt.Cursor;
 import java.util.Comparator;
-
 import java.util.List;
-
 import javax.swing.JList;
 import javax.swing.JTable;
 import javax.swing.JTree;

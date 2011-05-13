@@ -10,7 +10,6 @@ import org.jphototagger.program.view.renderer.ListCellRendererActions;
 import org.jphototagger.program.view.renderer.ListCellRendererPrograms;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
-
 import java.awt.Container;
 import java.awt.event.MouseEvent;
 

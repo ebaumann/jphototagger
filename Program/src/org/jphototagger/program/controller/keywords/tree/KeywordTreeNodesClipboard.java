@@ -3,7 +3,6 @@ package org.jphototagger.program.controller.keywords.tree;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**

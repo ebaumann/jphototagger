@@ -1,7 +1,6 @@
 package org.jphototagger.program.controller.keywords.tree;
 
 import org.jphototagger.program.view.panels.KeywordsPanel;
-
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;

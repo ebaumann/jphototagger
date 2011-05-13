@@ -22,16 +22,12 @@ import org.jphototagger.program.types.ContentUtil;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.ViewUtil;
-
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.Point;
-
 import java.io.File;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JComponent;
 import org.jdesktop.swingx.JXList;
 import javax.swing.JTree;

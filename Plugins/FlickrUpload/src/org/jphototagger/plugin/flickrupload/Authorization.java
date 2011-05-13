@@ -6,17 +6,12 @@ import com.aetrion.flickr.auth.Permission;
 import com.aetrion.flickr.Flickr;
 import com.aetrion.flickr.RequestContext;
 import com.aetrion.flickr.REST;
-
 import org.jphototagger.lib.componentutil.ComponentUtil;
-
 import java.awt.Desktop;
-
 import java.net.URL;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Properties;
-
 import javax.swing.JOptionPane;
 
 /**

@@ -4,9 +4,7 @@ import org.jphototagger.program.database.metadata.Column;
 import org.jphototagger.program.database.metadata.selections.ColumnIcons;
 import org.jphototagger.program.model.ComboBoxModelFastSearch;
 import org.jphototagger.program.resource.JptBundle;
-
 import java.awt.Component;
-
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;
 import javax.swing.JList;

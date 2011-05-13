@@ -4,8 +4,6 @@ import org.jphototagger.program.data.MetadataTemplate;
 import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseMetadataTemplates;
 import org.jphototagger.program.event.listener.DatabaseMetadataTemplatesListener;
-
-
 import javax.swing.DefaultListModel;
 import org.jphototagger.lib.awt.EventQueueUtil;
 

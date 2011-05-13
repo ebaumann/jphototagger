@@ -1,10 +1,8 @@
 package org.jphototagger.program.database.metadata.selections;
 
 import org.jphototagger.program.app.AppLookAndFeel;
-
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.swing.Icon;
 
 /**

@@ -2,7 +2,6 @@ package org.jphototagger.lib.component;
 
 import java.awt.Graphics;
 import java.awt.Image;
-
 import javax.swing.JPanel;
 
 /**

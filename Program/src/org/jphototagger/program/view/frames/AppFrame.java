@@ -22,15 +22,12 @@ import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.lib.comparator.FileSort;
 import org.jphototagger.lib.componentutil.MenuUtil;
 import org.jphototagger.lib.system.SystemUtil;
-
 import java.io.File;
-
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;

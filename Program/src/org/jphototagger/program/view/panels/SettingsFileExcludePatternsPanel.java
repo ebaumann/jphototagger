@@ -7,12 +7,9 @@ import org.jphototagger.program.model.ListModelFileExcludePatterns;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Persistence;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
-
 import java.awt.Container;
 import java.awt.event.KeyEvent;
-
 import java.util.List;
-
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import org.jphototagger.lib.awt.EventQueueUtil;

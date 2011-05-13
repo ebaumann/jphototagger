@@ -1,7 +1,6 @@
 package org.jphototagger.program.cache;
 
 import java.awt.Image;
-
 import java.io.File;
 
 /**

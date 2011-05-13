@@ -6,13 +6,10 @@ import org.jphototagger.program.controller.Controller;
 import org.jphototagger.program.database.metadata.Column;
 import org.jphototagger.program.helper.MiscMetadataHelper;
 import org.jphototagger.program.resource.GUI;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-
 import java.util.Arrays;
 import java.util.List;
-
 import javax.swing.JTree;
 import javax.swing.tree.TreePath;
 

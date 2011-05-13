@@ -2,15 +2,12 @@ package org.jphototagger.program.datatransfer;
 
 import org.jphototagger.program.data.Keyword;
 import org.jphototagger.program.helper.KeywordsHelper;
-
 import java.awt.Component;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JComponent;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;

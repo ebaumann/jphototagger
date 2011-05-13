@@ -8,9 +8,7 @@ import org.jphototagger.program.filefilter.NoXmpFileFilter;
 import org.jphototagger.program.filefilter.XmpRatingFileFilter;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
-
 import java.io.FileFilter;
-
 import java.util.HashMap;
 import java.util.Map;
 import org.jphototagger.program.database.DatabaseUserDefinedFileTypes;

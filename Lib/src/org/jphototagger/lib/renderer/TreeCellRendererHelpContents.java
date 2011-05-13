@@ -3,9 +3,7 @@ package org.jphototagger.lib.renderer;
 import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.lib.util.help.HelpNode;
 import org.jphototagger.lib.util.help.HelpPage;
-
 import java.awt.Component;
-
 import javax.swing.ImageIcon;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultTreeCellRenderer;

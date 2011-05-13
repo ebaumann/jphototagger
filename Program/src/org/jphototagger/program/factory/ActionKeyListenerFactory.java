@@ -18,11 +18,9 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.frames.AppFrame;
 import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsTree;
-
 import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
-
 import javax.swing.JMenuItem;
 import org.jphototagger.lib.awt.EventQueueUtil;
 

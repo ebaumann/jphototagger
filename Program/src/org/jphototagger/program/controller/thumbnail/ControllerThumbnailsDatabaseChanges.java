@@ -7,10 +7,7 @@ import org.jphototagger.program.data.Xmp;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.event.listener.DatabaseImageFilesListener;
 import org.jphototagger.program.resource.GUI;
-
-
 import java.io.File;
-
 import java.util.Collections;
 import org.jphototagger.lib.awt.EventQueueUtil;
 

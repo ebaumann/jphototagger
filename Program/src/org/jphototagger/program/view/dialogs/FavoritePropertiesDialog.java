@@ -10,10 +10,8 @@ import org.jphototagger.program.UserSettings;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.dialog.DirectoryChooser;
-
 import java.awt.Container;
 import java.awt.event.KeyEvent;
-
 import java.io.File;
 import java.util.List;
 import org.jphototagger.program.data.Favorite;

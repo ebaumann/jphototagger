@@ -1,9 +1,6 @@
 package org.jphototagger.program.data;
 
-import org.jphototagger.program.data.MetadataTemplate;
-import org.jphototagger.program.data.Iptc;
 import com.imagero.reader.iptc.IPTCEntryMeta;
-
 import org.jphototagger.program.data.Xmp.SetIptc;
 import org.jphototagger.program.database.metadata.Column;
 import org.jphototagger.program.database.metadata.mapping.IptcXmpMapping;
@@ -12,17 +9,12 @@ import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcDescription;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcTitle;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpLastModified;
-import org.jphototagger.program.database.metadata.xmp
-    .ColumnXmpPhotoshopAuthorsposition;
-import org.jphototagger.program.database.metadata.xmp
-    .ColumnXmpPhotoshopCaptionwriter;
-
+import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopAuthorsposition;
+import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopCaptionwriter;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
 import static org.junit.Assert.*;
-
 import java.util.Arrays;
 import java.util.Collection;
 

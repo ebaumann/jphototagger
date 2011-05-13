@@ -6,18 +6,14 @@ import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.program.image.thumbnail.ThumbnailUtil;
 import org.jphototagger.program.io.ImageFileFilterer;
 import org.jphototagger.program.resource.JptBundle;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
-
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-
 import java.io.File;
 import java.io.FileFilter;
-
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 

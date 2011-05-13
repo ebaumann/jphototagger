@@ -5,9 +5,7 @@ import org.jphototagger.lib.inputverifier.InputVerifierDate;
 import org.jphototagger.lib.inputverifier.InputVerifierMaxLength;
 import org.jphototagger.lib.inputverifier.InputVerifierNumber;
 import org.jphototagger.program.app.AppLogger;
-
 import java.text.DateFormat;
-
 import javax.swing.InputVerifier;
 
 /**

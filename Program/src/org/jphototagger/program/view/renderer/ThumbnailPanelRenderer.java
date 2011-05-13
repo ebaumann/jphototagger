@@ -9,7 +9,6 @@ import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpRating;
 import org.jphototagger.program.datatransfer.Flavor;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
-
 import java.awt.Color;
 import java.awt.datatransfer.Transferable;
 import java.awt.dnd.DropTargetDragEvent;
@@ -26,12 +25,9 @@ import java.awt.image.Kernel;
 import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.RenderingHints;
-
 import java.io.File;
-
 import java.util.Iterator;
 import java.util.List;
-
 import javax.swing.ImageIcon;
 
 /**

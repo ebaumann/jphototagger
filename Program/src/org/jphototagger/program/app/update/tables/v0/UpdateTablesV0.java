@@ -1,7 +1,6 @@
 package org.jphototagger.program.app.update.tables.v0;
 
 import org.jphototagger.program.app.update.tables.UpdateTablesFactory.Updater;
-
 import java.sql.Connection;
 import java.sql.SQLException;
 

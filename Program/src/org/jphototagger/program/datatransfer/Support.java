@@ -4,15 +4,11 @@ import org.jphototagger.lib.datatransfer.TransferUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.data.ColumnData;
 import org.jphototagger.program.io.ImageFileFilterer;
-
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
-
 import java.io.File;
-
 import java.util.Collection;
 import java.util.List;
-
 import javax.swing.TransferHandler.TransferSupport;
 import javax.swing.tree.DefaultMutableTreeNode;
 

@@ -1,7 +1,6 @@
 package org.jphototagger.program.io;
 
 import java.io.File;
-
 import java.util.Collections;
 import java.util.List;
 

@@ -1,17 +1,14 @@
 package org.jphototagger.lib.componentutil;
 
 import org.jphototagger.lib.generics.Pair;
-
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.event.KeyEvent;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JLabel;

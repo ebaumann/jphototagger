@@ -13,13 +13,11 @@ import org.jphototagger.program.UserSettings;
 import org.jphototagger.lib.component.TabOrEnterLeavingTextArea;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
-
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;

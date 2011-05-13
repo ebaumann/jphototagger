@@ -4,11 +4,8 @@ import org.jphototagger.program.controller.keywords.list.ShowThumbnailsContainin
 import org.jphototagger.program.data.Keyword;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.AppPanel;
-
-
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;

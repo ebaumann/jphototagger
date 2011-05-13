@@ -5,7 +5,6 @@ import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.controller.Controller;
 import org.jphototagger.program.helper.BackupDatabase;
 import org.jphototagger.program.resource.GUI;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 

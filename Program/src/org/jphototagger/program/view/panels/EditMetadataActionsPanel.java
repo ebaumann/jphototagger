@@ -2,9 +2,7 @@ package org.jphototagger.program.view.panels;
 
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
-
 import java.awt.Container;
-
 import javax.swing.JComboBox;
 
 /**

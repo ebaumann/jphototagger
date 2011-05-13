@@ -6,12 +6,9 @@ import org.jphototagger.program.helper.KeywordsHelper;
 import org.jphototagger.program.model.ListModelKeywords;
 import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsList;
 import org.jphototagger.program.view.WaitDisplay;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-
 import java.util.List;
-
 import javax.swing.ListModel;
 
 /**

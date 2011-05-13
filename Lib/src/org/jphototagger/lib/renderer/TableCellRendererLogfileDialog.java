@@ -2,17 +2,13 @@ package org.jphototagger.lib.renderer;
 
 import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.lib.resource.JslBundle;
-
 import java.awt.Color;
 import java.awt.Component;
-
 import java.text.SimpleDateFormat;
-
 import java.util.Date;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.Map;
-
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -33,20 +29,13 @@ public final class TableCellRendererLogfileDialog implements TableCellRenderer {
     private static final Map<Level, ImageIcon> ICON_OF_LEVEL = new HashMap<Level, ImageIcon>();
 
     static {
-        ICON_OF_LEVEL.put(Level.CONFIG,
-                          IconUtil.getImageIcon("/org/jphototagger/lib/resource/icons/icon_logfiledialog_config.png"));
-        ICON_OF_LEVEL.put(Level.FINE,
-                          IconUtil.getImageIcon("/org/jphototagger/lib/resource/icons/icon_logfiledialog_fine.png"));
-        ICON_OF_LEVEL.put(Level.FINER,
-                          IconUtil.getImageIcon("/org/jphototagger/lib/resource/icons/icon_logfiledialog_finer.png"));
-        ICON_OF_LEVEL.put(Level.FINEST,
-                          IconUtil.getImageIcon("/org/jphototagger/lib/resource/icons/icon_logfiledialog_finest.png"));
-        ICON_OF_LEVEL.put(Level.INFO,
-                          IconUtil.getImageIcon("/org/jphototagger/lib/resource/icons/icon_logfiledialog_info.png"));
-        ICON_OF_LEVEL.put(Level.SEVERE,
-                          IconUtil.getImageIcon("/org/jphototagger/lib/resource/icons/icon_logfiledialog_severe.png"));
-        ICON_OF_LEVEL.put(Level.WARNING,
-                          IconUtil.getImageIcon("/org/jphototagger/lib/resource/icons/icon_logfiledialog_warning.png"));
+        ICON_OF_LEVEL.put(Level.CONFIG, IconUtil.getImageIcon("/org/jphototagger/lib/resource/icons/icon_logfiledialog_config.png"));
+        ICON_OF_LEVEL.put(Level.FINE, IconUtil.getImageIcon("/org/jphototagger/lib/resource/icons/icon_logfiledialog_fine.png"));
+        ICON_OF_LEVEL.put(Level.FINER, IconUtil.getImageIcon("/org/jphototagger/lib/resource/icons/icon_logfiledialog_finer.png"));
+        ICON_OF_LEVEL.put(Level.FINEST, IconUtil.getImageIcon("/org/jphototagger/lib/resource/icons/icon_logfiledialog_finest.png"));
+        ICON_OF_LEVEL.put(Level.INFO, IconUtil.getImageIcon("/org/jphototagger/lib/resource/icons/icon_logfiledialog_info.png"));
+        ICON_OF_LEVEL.put(Level.SEVERE, IconUtil.getImageIcon("/org/jphototagger/lib/resource/icons/icon_logfiledialog_severe.png"));
+        ICON_OF_LEVEL.put(Level.WARNING, IconUtil.getImageIcon("/org/jphototagger/lib/resource/icons/icon_logfiledialog_warning.png"));
     }
 
     @Override

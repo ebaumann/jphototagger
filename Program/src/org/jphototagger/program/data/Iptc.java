@@ -1,9 +1,7 @@
 package org.jphototagger.program.data;
 
 import com.imagero.reader.iptc.IPTCEntryMeta;
-
 import org.jphototagger.program.database.metadata.mapping.IptcRepeatableValues;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;

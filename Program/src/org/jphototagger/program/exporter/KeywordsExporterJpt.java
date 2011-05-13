@@ -8,22 +8,17 @@ import org.jphototagger.program.io.CharEncoding;
 import org.jphototagger.program.io.FilenameSuffixes;
 import org.jphototagger.program.model.TreeModelKeywords;
 import org.jphototagger.program.resource.JptBundle;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Element;
-
 import java.io.File;
-
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.Icon;
 import javax.swing.tree.DefaultMutableTreeNode;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;

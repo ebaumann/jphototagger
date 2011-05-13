@@ -9,7 +9,6 @@ import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.ViewUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
-
 import java.awt.Container;
 
 /**

@@ -12,20 +12,15 @@ import org.jphototagger.program.image.metadata.exif.tag.ExifGpsMetadata;
 import org.jphototagger.program.image.metadata.exif.tag.ExifGpsUtil;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.resource.Translation;
-
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import java.io.File;
-
 import java.net.URI;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-
 import javax.swing.JButton;
 
 /**

@@ -2,12 +2,10 @@ package org.jphototagger.program.database;
 
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.database.metadata.Column;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-
 import java.util.List;
 
 /**

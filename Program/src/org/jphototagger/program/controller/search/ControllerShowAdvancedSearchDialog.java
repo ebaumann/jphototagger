@@ -2,7 +2,6 @@ package org.jphototagger.program.controller.search;
 
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.program.view.dialogs.AdvancedSearchDialog;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

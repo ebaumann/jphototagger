@@ -18,15 +18,11 @@ import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.dialog.DirectoryChooser;
 import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.lib.io.FileUtil;
-
 import java.awt.Container;
-
 import java.io.File;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import javax.swing.filechooser.FileSystemView;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.view.panels.SelectRootFilesPanel;

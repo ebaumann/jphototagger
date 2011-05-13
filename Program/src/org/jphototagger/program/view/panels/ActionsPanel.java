@@ -11,12 +11,9 @@ import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.dialogs.ProgramPropertiesDialog;
 import org.jphototagger.program.view.renderer.ListCellRendererActions;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
-
 import java.awt.Container;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-
-
 import javax.swing.JProgressBar;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.event.util.MouseEventUtil;

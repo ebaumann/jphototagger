@@ -1,12 +1,9 @@
 package org.jphototagger.lib.renderer;
 
 import java.awt.Component;
-
 import java.io.File;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.JLabel;

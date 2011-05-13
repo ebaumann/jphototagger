@@ -1,7 +1,6 @@
 package org.jphototagger.program.view;
 
 import org.jphototagger.program.resource.GUI;
-
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.event.MouseAdapter;

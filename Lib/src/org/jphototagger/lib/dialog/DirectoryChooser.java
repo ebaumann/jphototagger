@@ -5,17 +5,13 @@ import org.jphototagger.lib.io.filefilter.DirectoryFilter;
 import org.jphototagger.lib.io.TreeFileSystemDirectories;
 import org.jphototagger.lib.model.TreeModelAllSystemDirectories;
 import org.jphototagger.lib.resource.JslBundle;
-
 import java.awt.Container;
-
 import java.io.File;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 import javax.swing.event.TreeSelectionEvent;

@@ -7,11 +7,9 @@ import org.jphototagger.program.app.update.tables.IndexInfo;
 import org.jphototagger.program.database.Database;
 import org.jphototagger.program.database.DatabaseMetadata;
 import org.jphototagger.program.resource.JptBundle;
-
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-
 import java.util.HashMap;
 import java.util.Map;
 

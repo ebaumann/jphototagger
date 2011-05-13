@@ -9,7 +9,6 @@ import org.jphototagger.program.view.panels.MetaDataTemplatesPanel;
 import org.jphototagger.lib.componentutil.TabbedPaneUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.util.Settings;
-
 import javax.swing.ListModel;
 import org.jphototagger.program.view.panels.MiscXmpMetadataPanel;
 

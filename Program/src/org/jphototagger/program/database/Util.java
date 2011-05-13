@@ -2,7 +2,6 @@ package org.jphototagger.program.database;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-
 import java.util.List;
 
 /**

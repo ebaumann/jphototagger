@@ -6,19 +6,14 @@ import org.jphototagger.program.helper.ImageCollectionsHelper;
 import org.jphototagger.program.io.ImageFileFilterer;
 import org.jphototagger.program.model.ListModelImageCollections;
 import org.jphototagger.program.resource.GUI;
-
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
-
 import java.io.File;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.TransferHandler;
-
 import org.jdesktop.swingx.JXList;
 
 /**

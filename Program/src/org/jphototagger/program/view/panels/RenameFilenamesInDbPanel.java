@@ -9,9 +9,7 @@ import org.jphototagger.program.types.Persistence;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.util.Settings;
-
 import java.awt.Container;
-
 import javax.swing.JPanel;
 import org.jphototagger.lib.awt.EventQueueUtil;
 

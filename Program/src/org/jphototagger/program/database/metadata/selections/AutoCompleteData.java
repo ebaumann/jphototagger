@@ -4,7 +4,6 @@ import org.jphototagger.lib.util.CollectionUtil;
 import org.jphototagger.program.database.DatabaseContent;
 import org.jphototagger.program.database.metadata.Column;
 import org.jphototagger.program.UserSettings;
-
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;

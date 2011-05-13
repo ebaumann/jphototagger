@@ -5,9 +5,7 @@ import org.jphototagger.program.image.metadata.exif.datatype.ExifAscii;
 import org.jphototagger.program.image.metadata.exif.Ensure;
 import org.jphototagger.program.image.metadata.exif.ExifTag;
 import org.jphototagger.program.image.metadata.exif.ExifTagValueFormatter;
-
 import java.text.DateFormat;
-
 import java.util.GregorianCalendar;
 
 /**

@@ -1,9 +1,7 @@
 package org.jphototagger.program.image.metadata.exif;
 
 import org.jphototagger.program.image.metadata.exif.tag.ExifGpsMetadata;
-
 import java.io.File;
-
 import java.text.MessageFormat;
 
 /**

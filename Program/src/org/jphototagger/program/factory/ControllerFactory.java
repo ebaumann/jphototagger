@@ -117,8 +117,6 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.panels.KeywordsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuMiscMetadata;
-
-
 import java.util.List;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.controller.metadata.ControllerDisplayIptcUserSettings;

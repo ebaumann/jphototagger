@@ -15,15 +15,12 @@ import org.jphototagger.program.view.renderer.TreeCellRendererTimeline;
 import org.jphototagger.lib.component.ImageTextArea;
 import org.jphototagger.lib.componentutil.MessageLabel;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
-
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Container;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;

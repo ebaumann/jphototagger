@@ -22,19 +22,15 @@ import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Content;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.WaitDisplay;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-
 import java.io.File;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import org.jphototagger.lib.awt.EventQueueUtil;

@@ -4,18 +4,14 @@ import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 import java.awt.Toolkit;
-
 import java.io.File;
-
 import java.net.URI;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.StringTokenizer;
-
 import javax.swing.JList;
 import javax.swing.JTree;
 import javax.swing.TransferHandler;

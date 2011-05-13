@@ -6,7 +6,6 @@ import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Rectangle;
 import java.awt.Window;
-
 import java.util.ArrayList;
 import java.util.List;
 

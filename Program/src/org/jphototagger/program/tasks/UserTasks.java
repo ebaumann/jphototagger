@@ -1,7 +1,6 @@
 package org.jphototagger.program.tasks;
 
 import org.jphototagger.lib.concurrent.SerialExecutor;
-
 import java.util.concurrent.Executors;
 
 /**

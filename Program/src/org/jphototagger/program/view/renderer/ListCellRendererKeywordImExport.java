@@ -2,9 +2,7 @@ package org.jphototagger.program.view.renderer;
 
 import org.jphototagger.program.exporter.Exporter;
 import org.jphototagger.program.importer.Importer;
-
 import java.awt.Component;
-
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;
 import javax.swing.JList;

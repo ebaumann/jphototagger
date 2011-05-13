@@ -5,10 +5,8 @@ import org.jphototagger.program.database.metadata.file.ColumnFilesFilename;
 import org.jphototagger.program.database.metadata.Join;
 import org.jphototagger.program.database.metadata.Util;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlElement;

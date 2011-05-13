@@ -1,7 +1,6 @@
 package org.jphototagger.program.types;
 
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
-
 import java.util.HashSet;
 import java.util.Set;
 

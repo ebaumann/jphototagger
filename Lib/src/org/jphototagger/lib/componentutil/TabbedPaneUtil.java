@@ -1,7 +1,6 @@
 package org.jphototagger.lib.componentutil;
 
 import org.jphototagger.lib.generics.Pair;
-
 import javax.swing.JTabbedPane;
 
 /**

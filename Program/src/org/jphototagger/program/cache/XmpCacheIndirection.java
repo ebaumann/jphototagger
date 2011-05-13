@@ -1,7 +1,6 @@
 package org.jphototagger.program.cache;
 
 import org.jphototagger.program.data.Xmp;
-
 import java.io.File;
 
 /**

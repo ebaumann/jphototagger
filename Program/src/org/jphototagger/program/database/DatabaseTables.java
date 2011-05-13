@@ -3,7 +3,6 @@ package org.jphototagger.program.database;
 import org.jphototagger.program.app.AppLock;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.update.tables.UpdateTablesFactory;
-
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;

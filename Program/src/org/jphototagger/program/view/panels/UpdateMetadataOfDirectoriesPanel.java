@@ -18,18 +18,14 @@ import org.jphototagger.lib.dialog.DirectoryChooser;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.util.CollectionUtil;
 import org.jphototagger.lib.util.Settings;
-
 import java.awt.Container;
 import java.awt.event.KeyEvent;
-
 import java.io.File;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.DefaultListModel;
 import javax.swing.JPanel;
 import org.jphototagger.lib.awt.EventQueueUtil;

@@ -2,7 +2,6 @@ package org.jphototagger.program.database.metadata.selections;
 
 import org.jphototagger.program.image.metadata.exif.ExifMetadata.IfdType;
 import org.jphototagger.program.image.metadata.exif.ExifTag;
-
 import java.util.ArrayList;
 import java.util.List;
 

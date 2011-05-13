@@ -8,9 +8,7 @@ import org.jphototagger.program.io.ImageFileFilterer;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.panels.ProgressBarUpdater;
-
 import java.io.File;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

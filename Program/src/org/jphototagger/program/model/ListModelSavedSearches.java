@@ -5,10 +5,7 @@ import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseSavedSearches;
 import org.jphototagger.program.event.listener.DatabaseSavedSearchesListener;
 import org.jphototagger.program.helper.SavedSearchesHelper;
-
-
 import java.util.List;
-
 import javax.swing.DefaultListModel;
 import org.jphototagger.lib.awt.EventQueueUtil;
 

@@ -3,12 +3,9 @@ package org.jphototagger.program.controller.metadata;
 import org.jphototagger.program.helper.SetExifToXmp;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import java.io.File;
-
 import java.util.List;
 
 /**

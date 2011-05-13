@@ -5,9 +5,7 @@ import org.jphototagger.program.data.Program;
 import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.dialogs.ProgramPropertiesDialog;
-
 import java.awt.event.ActionEvent;
-
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 

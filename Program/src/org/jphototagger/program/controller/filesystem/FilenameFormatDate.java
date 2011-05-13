@@ -3,11 +3,8 @@ package org.jphototagger.program.controller.filesystem;
 import org.jphototagger.program.data.Exif;
 import org.jphototagger.program.image.metadata.exif.ExifMetadata;
 import org.jphototagger.program.resource.JptBundle;
-
 import java.io.File;
-
 import java.text.SimpleDateFormat;
-
 import java.util.Date;
 import org.jphototagger.program.app.AppFileFilters;
 

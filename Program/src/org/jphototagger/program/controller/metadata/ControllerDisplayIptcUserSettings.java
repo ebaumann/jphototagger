@@ -9,13 +9,9 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
-
 import java.awt.event.MouseAdapter;
-
 import java.io.File;
-
 import java.util.List;
-
 import javax.swing.table.TableModel;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.app.MessageDisplayer;

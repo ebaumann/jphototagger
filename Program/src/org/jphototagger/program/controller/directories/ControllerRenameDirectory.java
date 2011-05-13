@@ -5,12 +5,9 @@ import org.jphototagger.lib.model.TreeModelAllSystemDirectories;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.io.FileSystemDirectories;
 import org.jphototagger.program.view.popupmenus.PopupMenuDirectories;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-
 import java.io.File;
-
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import org.jphototagger.lib.awt.EventQueueUtil;

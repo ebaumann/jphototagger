@@ -15,15 +15,11 @@ import org.jphototagger.program.helper.FinalExecutable;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.panels.ProgressBar;
-
 import java.awt.EventQueue;
-
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-
 import java.net.URL;
-
 import javax.swing.JProgressBar;
 import org.jphototagger.lib.awt.EventQueueUtil;
 

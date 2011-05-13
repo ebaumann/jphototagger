@@ -1,7 +1,6 @@
 package org.jphototagger.lib.comparator;
 
 import java.io.File;
-
 import java.util.Comparator;
 
 /**

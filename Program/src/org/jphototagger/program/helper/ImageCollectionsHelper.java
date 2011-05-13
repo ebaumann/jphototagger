@@ -7,12 +7,8 @@ import org.jphototagger.program.database.DatabaseImageCollections;
 import org.jphototagger.program.model.ListModelImageCollections;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
-
-
 import java.io.File;
-
 import java.util.List;
-
 import org.jdesktop.swingx.JXList;
 import org.jphototagger.lib.awt.EventQueueUtil;
 

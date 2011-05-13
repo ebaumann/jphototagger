@@ -3,8 +3,6 @@ package org.jphototagger.program.view.panels;
 import java.awt.Container;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-
-
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.program.database.DatabasePrograms.Type;
@@ -16,7 +14,6 @@ import org.jphototagger.program.view.dialogs.ProgramPropertiesDialog;
 import org.jphototagger.program.view.renderer.ListCellRendererPrograms;
 import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.datatransfer.TransferHandlerReorderListItems;
-
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.event.util.MouseEventUtil;

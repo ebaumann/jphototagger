@@ -7,13 +7,10 @@ import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.tasks.UserTasks;
 import org.jphototagger.program.view.panels.ProgressBarUpdater;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.swing.JMenuItem;
 
 /**

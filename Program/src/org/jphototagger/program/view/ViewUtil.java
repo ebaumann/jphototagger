@@ -7,16 +7,12 @@ import org.jphototagger.program.data.Favorite;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
-
 import java.awt.Component;
 import java.awt.Container;
-
 import java.io.File;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import javax.swing.filechooser.FileFilter;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;

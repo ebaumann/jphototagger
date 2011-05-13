@@ -3,18 +3,14 @@ package org.jphototagger.plugin.cftc;
 import org.jphototagger.lib.resource.Bundle;
 import org.jphototagger.plugin.Plugin;
 import org.jphototagger.plugin.PluginEvent;
-
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
-
 import java.io.File;
 import java.io.Serializable;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
-
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JPanel;

@@ -7,10 +7,7 @@ import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Content;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.WaitDisplay;
-
-
 import java.io.File;
-
 import java.util.ArrayList;
 import java.util.List;
 import org.jphototagger.lib.awt.EventQueueUtil;

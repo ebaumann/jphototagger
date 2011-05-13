@@ -1,18 +1,14 @@
 package org.jphototagger.lib.componentutil;
 
 import org.jphototagger.lib.util.CollectionUtil;
-
 import java.awt.event.ActionEvent;
 import java.awt.EventQueue;
-
 import java.io.Serializable;
-
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.event.DocumentEvent;

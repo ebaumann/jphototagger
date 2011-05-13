@@ -3,12 +3,10 @@ package org.jphototagger.program.cache;
 import com.adobe.xmp.properties.XMPPropertyInfo;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.UserSettings;
-
 import java.io.File;
 import java.io.InputStream;
 import java.util.List;
 import java.util.logging.Level;
-
 import java.util.logging.Logger;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.IoUtil;

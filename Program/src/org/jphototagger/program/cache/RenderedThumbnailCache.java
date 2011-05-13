@@ -6,14 +6,11 @@ import org.jphototagger.program.event.listener.ThumbnailUpdateListener;
 import org.jphototagger.program.event.ThumbnailUpdateEvent;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.renderer.ThumbnailPanelRenderer;
-
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.awt.RenderingHints;
-
 import java.io.File;
-
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;

@@ -34,7 +34,6 @@ import org.jphototagger.program.types.SizeUnit;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
 import org.jphototagger.program.view.renderer.ThumbnailPanelRenderer;
-
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
@@ -50,10 +49,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
-
 import java.io.File;
 import java.io.FileFilter;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -66,7 +63,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TooManyListenersException;
-
 import javax.swing.JPanel;
 import javax.swing.JViewport;
 import javax.swing.TransferHandler;

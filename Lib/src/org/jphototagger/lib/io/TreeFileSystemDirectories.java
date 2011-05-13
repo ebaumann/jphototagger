@@ -2,12 +2,9 @@ package org.jphototagger.lib.io;
 
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.resource.JslBundle;
-
 import java.io.File;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;

@@ -15,17 +15,12 @@ import org.jphototagger.program.image.metadata.exif.tag.ExifGpsMetadata;
 import org.jphototagger.program.image.metadata.exif.tag.ExifGpsTimeStamp;
 import org.jphototagger.program.image.metadata.exif.tag.ExifGpsUtil;
 import org.jphototagger.program.resource.JptBundle;
-
 import java.io.IOException;
 import java.io.OutputStream;
-
 import java.nio.charset.UnsupportedCharsetException;
-
 import java.text.DateFormat;
-
 import java.util.Calendar;
 import java.util.Collection;
-
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 

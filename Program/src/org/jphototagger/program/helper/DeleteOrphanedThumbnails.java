@@ -10,9 +10,7 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
-
 import java.io.File;
-
 import java.util.Arrays;
 import java.util.Set;
 

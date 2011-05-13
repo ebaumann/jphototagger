@@ -6,9 +6,7 @@ import org.jphototagger.lib.util.RegexUtil;
 import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.program.database.DatabaseFileExcludePatterns;
 import org.jphototagger.program.UserSettings;
-
 import java.io.File;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;

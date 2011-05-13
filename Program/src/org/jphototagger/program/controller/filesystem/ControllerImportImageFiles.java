@@ -2,7 +2,6 @@ package org.jphototagger.program.controller.filesystem;
 
 import org.jphototagger.program.helper.ImportImageFiles;
 import org.jphototagger.program.resource.GUI;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

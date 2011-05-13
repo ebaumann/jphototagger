@@ -13,10 +13,8 @@ import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.tasks.UserTasks;
 import org.jphototagger.program.view.panels.ProgressBarUpdater;
-
 import java.io.File;
 import java.io.IOException;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;

@@ -1,10 +1,8 @@
 package org.jphototagger.lib.thirdparty;
 
-import org.jphototagger.lib.thirdparty.KMPMatch;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
 import static org.junit.Assert.*;
 
 /**

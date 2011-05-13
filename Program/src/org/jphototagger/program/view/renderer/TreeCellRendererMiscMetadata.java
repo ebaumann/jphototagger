@@ -7,14 +7,10 @@ import org.jphototagger.program.database.metadata.selections.ColumnIcons;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpRating;
 import org.jphototagger.program.model.TreeModelMiscMetadata;
 import org.jphototagger.program.resource.JptBundle;
-
 import java.awt.Component;
-
 import java.text.DecimalFormat;
-
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JTree;

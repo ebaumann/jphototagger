@@ -10,12 +10,9 @@ import org.jphototagger.program.image.metadata.exif.datatype.ExifShort;
 import org.jphototagger.program.image.metadata.exif.ExifTag;
 import org.jphototagger.program.image.metadata.exif.ExifTags;
 import org.jphototagger.program.image.metadata.exif.formatter.ExifRawValueFormatter;
-
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-
 import java.nio.ByteOrder;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Enumeration;

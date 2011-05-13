@@ -1,10 +1,8 @@
 package org.jphototagger.lib.util;
 
-import org.jphototagger.lib.util.ByteUtil;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
 import static org.junit.Assert.*;
 
 /**
@@ -25,7 +23,6 @@ public class ByteUtilTest {
      */
     @Test
     public void testToInt() {
-        System.out.println("toInt");
         assertEquals(0, ByteUtil.toInt((byte) 0x0));
         assertEquals(8, ByteUtil.toInt((byte) 0x8));
         assertEquals(9, ByteUtil.toInt((byte) 0x9));

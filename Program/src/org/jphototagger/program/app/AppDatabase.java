@@ -8,9 +8,7 @@ import org.jphototagger.program.database.DatabaseMetadata;
 import org.jphototagger.program.database.DatabaseTables;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
-
 import java.io.IOException;
-
 import java.sql.SQLException;
 
 /**

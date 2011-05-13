@@ -5,9 +5,7 @@ import org.jphototagger.lib.event.util.MouseEventUtil;
 import org.jphototagger.program.controller.keywords.tree.KeywordTreeNodesClipboard;
 import org.jphototagger.program.view.panels.KeywordsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsTree;
-
 import java.awt.event.MouseEvent;
-
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;

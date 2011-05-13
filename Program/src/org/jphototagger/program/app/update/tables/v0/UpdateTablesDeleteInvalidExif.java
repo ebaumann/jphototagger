@@ -8,10 +8,8 @@ import org.jphototagger.program.database.metadata.exif.ColumnExifFocalLength;
 import org.jphototagger.program.database.metadata.exif.ColumnExifIsoSpeedRatings;
 import org.jphototagger.program.database.metadata.exif.ColumnExifRecordingEquipment;
 import org.jphototagger.program.resource.JptBundle;
-
 import java.sql.Connection;
 import java.sql.SQLException;
-
 import java.util.HashSet;
 import java.util.Set;
 

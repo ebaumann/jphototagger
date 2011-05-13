@@ -4,7 +4,6 @@ import org.jphototagger.program.helper.ImageCollectionsHelper;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.ImageCollectionsDialog;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

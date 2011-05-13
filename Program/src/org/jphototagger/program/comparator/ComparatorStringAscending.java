@@ -1,7 +1,6 @@
 package org.jphototagger.program.comparator;
 
 import java.text.Collator;
-
 import java.util.Comparator;
 
 /**

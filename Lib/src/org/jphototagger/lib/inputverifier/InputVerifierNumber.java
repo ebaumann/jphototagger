@@ -2,17 +2,12 @@ package org.jphototagger.lib.inputverifier;
 
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.resource.JslBundle;
-
 import java.awt.HeadlessException;
-
 import java.io.Serializable;
-
 import java.text.NumberFormat;
 import java.text.ParseException;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;

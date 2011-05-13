@@ -5,12 +5,8 @@ import org.jphototagger.program.view.frames.AppFrame;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
-
-
 import java.io.File;
-
 import java.util.List;
-
 import org.jdesktop.swingx.JXList;
 import javax.swing.JTextArea;
 import javax.swing.JTree;

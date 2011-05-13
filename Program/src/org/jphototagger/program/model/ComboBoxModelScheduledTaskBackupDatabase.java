@@ -1,7 +1,6 @@
 package org.jphototagger.program.model;
 
 import org.jphototagger.program.tasks.ScheduledTaskBackupDatabase.Interval;
-
 import javax.swing.DefaultComboBoxModel;
 
 /**

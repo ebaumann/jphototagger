@@ -1,7 +1,6 @@
 package org.jphototagger.program.controller.filesystem;
 
 import org.jphototagger.program.resource.JptBundle;
-
 import java.text.DecimalFormat;
 
 /**

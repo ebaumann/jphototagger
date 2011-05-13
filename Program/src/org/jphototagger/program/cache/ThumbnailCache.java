@@ -9,9 +9,7 @@ import org.jphototagger.program.event.listener.DatabaseImageFilesListener;
 import org.jphototagger.program.event.listener.ThumbnailUpdateListener;
 import org.jphototagger.program.event.ThumbnailUpdateEvent;
 import org.jphototagger.program.resource.JptBundle;
-
 import java.awt.Image;
-
 import java.io.File;
 import org.jphototagger.lib.awt.EventQueueUtil;
 

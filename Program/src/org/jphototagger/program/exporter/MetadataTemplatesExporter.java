@@ -7,20 +7,15 @@ import org.jphototagger.program.database.DatabaseMetadataTemplates;
 import org.jphototagger.program.database.metadata.Column;
 import org.jphototagger.program.io.CharEncoding;
 import org.jphototagger.program.resource.JptBundle;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Element;
-
 import java.io.File;
-
 import java.util.Collection;
-
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.Icon;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;

@@ -3,9 +3,7 @@ package org.jphototagger.program.view.panels;
 import org.jphototagger.program.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
-
 import java.awt.Container;
-
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.JButton;

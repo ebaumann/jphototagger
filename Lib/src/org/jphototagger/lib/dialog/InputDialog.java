@@ -2,11 +2,8 @@ package org.jphototagger.lib.dialog;
 
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.util.Settings;
-
 import java.awt.event.KeyEvent;
-
 import java.util.Properties;
-
 import javax.swing.JDialog;
 import org.jphototagger.lib.resource.JslBundle;
 

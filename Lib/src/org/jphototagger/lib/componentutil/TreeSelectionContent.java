@@ -3,10 +3,8 @@ package org.jphototagger.lib.componentutil;
 import org.jphototagger.lib.event.util.MouseEventUtil;
 import org.jphototagger.lib.system.SystemUtil;
 import org.jphototagger.lib.util.Content;
-
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.JPopupMenu;

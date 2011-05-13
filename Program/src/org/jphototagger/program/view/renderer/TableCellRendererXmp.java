@@ -2,20 +2,16 @@ package org.jphototagger.program.view.renderer;
 
 import com.adobe.xmp.properties.XMPPropertyInfo;
 import javax.swing.table.TableModel;
-
 import org.jphototagger.lib.componentutil.TableUtil;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.database.metadata.selections.XmpInDatabase;
 import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
 import org.jphototagger.program.resource.Translation;
-
 import java.awt.Component;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.StringTokenizer;
-
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;

@@ -7,10 +7,8 @@ import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsList;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-
 import java.util.List;
 
 /**

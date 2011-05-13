@@ -6,17 +6,13 @@ import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.data.Favorite;
 import org.jphototagger.program.database.DatabaseFavorites;
 import org.jphototagger.program.resource.JptBundle;
-
 import java.io.File;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.Icon;
-
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;

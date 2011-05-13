@@ -10,15 +10,11 @@ import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.dialog.DirectoryChooser;
 import org.jphototagger.lib.util.StringUtil;
-
 import java.awt.Container;
-
 import java.io.File;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;

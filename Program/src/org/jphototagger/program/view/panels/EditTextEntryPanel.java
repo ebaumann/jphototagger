@@ -6,8 +6,7 @@ import org.jphototagger.program.data.TextEntry;
 import org.jphototagger.program.data.Xmp;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.database.metadata.Column;
-import org.jphototagger.program.database.metadata.selections
-    .AutoCompleteDataOfColumn;
+import org.jphototagger.program.database.metadata.selections.AutoCompleteDataOfColumn;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcTitle;
 import org.jphototagger.program.event.listener.DatabaseImageFilesListener;
 import org.jphototagger.program.event.listener.impl.TextEntryListenerSupport;
@@ -15,16 +14,13 @@ import org.jphototagger.program.event.listener.TextEntryListener;
 import org.jphototagger.program.helper.AutocompleteHelper;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.lib.componentutil.Autocomplete;
-
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.MouseListener;
 import java.io.File;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.JPanel;

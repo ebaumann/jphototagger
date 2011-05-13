@@ -1,11 +1,8 @@
 package org.jphototagger.program.helper;
 
 import org.jphototagger.program.app.AppLogger;
-
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.JTable;

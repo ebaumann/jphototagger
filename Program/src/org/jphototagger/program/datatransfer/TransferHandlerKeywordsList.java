@@ -8,14 +8,10 @@ import org.jphototagger.program.data.ColumnData;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import org.jphototagger.program.helper.MiscMetadataHelper;
 import org.jphototagger.program.view.panels.KeywordsPanel;
-
 import java.awt.datatransfer.Transferable;
-
 import java.io.File;
-
 import java.util.Collections;
 import java.util.List;
-
 import javax.swing.JComponent;
 import org.jdesktop.swingx.JXList;
 import javax.swing.TransferHandler;

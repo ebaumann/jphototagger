@@ -28,7 +28,6 @@ import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.ViewUtil;
 import org.jphototagger.program.view.WaitDisplay;
-
 import java.awt.Component;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -37,10 +36,8 @@ import java.awt.event.MouseEvent;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-
 import java.io.File;
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -50,7 +47,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Set;
 import java.util.Stack;
-
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;

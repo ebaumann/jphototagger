@@ -15,11 +15,8 @@ import org.jphototagger.lib.component.SelectObjectsPanel.SelectionEvent;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.DirectoryChooser;
 import org.jphototagger.lib.image.util.IconUtil;
-
 import java.awt.Container;
-
 import java.io.File;
-
 import java.util.ArrayList;
 import java.util.List;
 

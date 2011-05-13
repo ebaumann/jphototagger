@@ -3,13 +3,10 @@ package org.jphototagger.program.view.renderer;
 import java.awt.Color;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.data.Keyword;
-
 import java.awt.Component;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
 import javax.swing.Icon;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;

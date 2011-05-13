@@ -6,9 +6,7 @@ import org.jphototagger.program.data.Favorite;
 import org.jphototagger.program.database.DatabaseFavorites;
 import org.jphototagger.program.exporter.FavoritesExporter;
 import org.jphototagger.program.exporter.FavoritesExporter.CollectionWrapper;
-
 import java.io.File;
-
 import javax.swing.filechooser.FileFilter;
 import javax.swing.Icon;
 

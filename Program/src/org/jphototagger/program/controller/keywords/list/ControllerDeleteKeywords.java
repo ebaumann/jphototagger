@@ -4,10 +4,8 @@ import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.helper.KeywordsHelper;
 import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsList;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-
 import java.util.List;
 
 /**

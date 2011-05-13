@@ -1,10 +1,8 @@
 package org.jphototagger.lib.net;
 
 import org.jphototagger.lib.util.Version;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-
 import java.net.MalformedURLException;
 import java.net.URL;
 

@@ -5,7 +5,6 @@ import org.jphototagger.program.event.listener.impl.FileSystemListenerSupport;
 import org.jphototagger.program.event.listener.impl.ProgressListenerSupport;
 import org.jphototagger.program.event.listener.ProgressListener;
 import org.jphototagger.program.event.ProgressEvent;
-
 import java.io.File;
 
 /**

@@ -4,11 +4,9 @@ import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.lib.event.util.MouseEventUtil;
 import org.jphototagger.program.model.ListModelImageCollections;
 import org.jphototagger.program.view.popupmenus.PopupMenuImageCollections;
-
 import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 import org.jdesktop.swingx.JXList;
 
 /**

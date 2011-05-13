@@ -13,9 +13,7 @@ import org.jphototagger.program.view.popupmenus.PopupMenuSavedSearches;
 import org.jphototagger.program.view.renderer.TableCellRendererExif;
 import org.jphototagger.program.view.renderer.TableCellRendererIptc;
 import org.jphototagger.program.view.renderer.TableCellRendererXmp;
-
 import java.util.List;
-
 import javax.swing.JTable;
 import org.jphototagger.lib.awt.EventQueueUtil;
 

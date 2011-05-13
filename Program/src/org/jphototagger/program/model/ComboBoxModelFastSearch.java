@@ -2,7 +2,6 @@ package org.jphototagger.program.model;
 
 import org.jphototagger.program.database.metadata.Column;
 import org.jphototagger.program.database.metadata.selections.FastSearchColumns;
-
 import javax.swing.DefaultComboBoxModel;
 
 /**

@@ -2,13 +2,10 @@ package org.jphototagger.program.view.renderer;
 
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.model.ListModelImageCollections;
-
 import java.awt.Color;
 import java.awt.Component;
-
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.Icon;
 import javax.swing.JLabel;

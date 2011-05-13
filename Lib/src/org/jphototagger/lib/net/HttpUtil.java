@@ -3,7 +3,6 @@ package org.jphototagger.lib.net;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-
 import java.net.HttpURLConnection;
 import java.net.URL;
 

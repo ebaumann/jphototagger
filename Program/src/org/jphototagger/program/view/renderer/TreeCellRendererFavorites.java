@@ -4,11 +4,8 @@ import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.data.Favorite;
 import org.jphototagger.program.data.Timeline;
-
 import java.awt.Component;
-
 import java.io.File;
-
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;

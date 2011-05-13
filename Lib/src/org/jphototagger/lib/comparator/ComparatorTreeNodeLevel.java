@@ -1,9 +1,7 @@
 package org.jphototagger.lib.comparator;
 
 import java.io.Serializable;
-
 import java.util.Comparator;
-
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**

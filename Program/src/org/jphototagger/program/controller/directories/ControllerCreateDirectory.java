@@ -6,12 +6,9 @@ import org.jphototagger.program.controller.favorites.ControllerFavoritesAddFiles
 import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.view.popupmenus.PopupMenuDirectories;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-
 import java.io.File;
-
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import org.jphototagger.lib.awt.EventQueueUtil;

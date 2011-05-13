@@ -4,8 +4,6 @@ import org.jphototagger.program.data.RenameTemplate;
 import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseRenameTemplates;
 import org.jphototagger.program.event.listener.DatabaseRenameTemplatesListener;
-
-
 import javax.swing.DefaultComboBoxModel;
 import org.jphototagger.lib.awt.EventQueueUtil;
 

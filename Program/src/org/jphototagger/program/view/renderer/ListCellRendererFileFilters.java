@@ -2,11 +2,8 @@ package org.jphototagger.program.view.renderer;
 
 import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.program.app.AppLookAndFeel;
-
 import java.awt.Component;
-
 import java.io.FileFilter;
-
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.Icon;
 import javax.swing.JLabel;

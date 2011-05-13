@@ -1,7 +1,6 @@
 package org.jphototagger.program.image.metadata.exif.tag;
 
 import org.jphototagger.program.image.metadata.exif.datatype.ExifRational;
-
 import java.text.MessageFormat;
 
 /**

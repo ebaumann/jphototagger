@@ -1,7 +1,6 @@
 package org.jphototagger.lib.io.filefilter;
 
 import org.jphototagger.lib.resource.JslBundle;
-
 import java.io.File;
 import java.io.FileFilter;
 import java.io.Serializable;

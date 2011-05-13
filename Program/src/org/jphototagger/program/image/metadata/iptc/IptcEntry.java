@@ -2,10 +2,8 @@ package org.jphototagger.program.image.metadata.iptc;
 
 import com.imagero.reader.iptc.IPTCEntry;
 import com.imagero.reader.iptc.IPTCEntryMeta;
-
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.UserSettings;
-
 import java.util.Arrays;
 
 /**

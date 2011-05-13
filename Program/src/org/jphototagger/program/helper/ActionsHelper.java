@@ -7,11 +7,8 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.panels.ProgressBar;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
-
 import java.awt.event.ActionEvent;
-
 import java.util.List;
-
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JMenu;

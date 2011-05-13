@@ -5,12 +5,8 @@ import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
-
-
 import java.io.File;
-
 import java.util.List;
-
 import javax.swing.JLabel;
 import org.jphototagger.lib.awt.EventQueueUtil;
 

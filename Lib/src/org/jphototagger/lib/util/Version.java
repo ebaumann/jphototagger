@@ -1,7 +1,6 @@
 package org.jphototagger.lib.util;
 
 import java.text.MessageFormat;
-
 import java.util.StringTokenizer;
 
 /**

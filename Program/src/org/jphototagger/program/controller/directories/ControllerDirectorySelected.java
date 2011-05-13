@@ -10,12 +10,8 @@ import org.jphototagger.program.types.Content;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuDirectories;
 import org.jphototagger.program.view.WaitDisplay;
-
-
 import java.io.File;
-
 import java.util.List;
-
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.TreePath;

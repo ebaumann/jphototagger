@@ -1,7 +1,6 @@
 package org.jphototagger.program.controller.metadata;
 
 import org.jphototagger.program.resource.GUI;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import org.jphototagger.lib.awt.EventQueueUtil;

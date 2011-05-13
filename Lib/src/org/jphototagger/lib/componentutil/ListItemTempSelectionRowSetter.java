@@ -1,16 +1,12 @@
 package org.jphototagger.lib.componentutil;
 
 import org.jphototagger.lib.event.util.MouseEventUtil;
-
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.Point;
-
 import java.lang.reflect.Method;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 import javax.swing.JList;

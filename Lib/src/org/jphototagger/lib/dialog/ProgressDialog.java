@@ -1,10 +1,8 @@
 package org.jphototagger.lib.dialog;
 
 import org.jphototagger.lib.resource.JslBundle;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 

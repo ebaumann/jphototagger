@@ -20,15 +20,12 @@ import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopInstruct
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopSource;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopState;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopTransmissionReference;
-
 import java.awt.Component;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
 import javax.swing.text.JTextComponent;
 
 /**

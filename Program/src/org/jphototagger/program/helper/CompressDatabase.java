@@ -8,7 +8,6 @@ import org.jphototagger.program.event.ProgressEvent;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Filename;
 import org.jphototagger.program.UserSettings;
-
 import java.io.File;
 
 /**

@@ -3,12 +3,9 @@ package org.jphototagger.program.controller.keywords.list;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.helper.KeywordsHelper;
 import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsList;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-
 import java.util.List;
-
 import javax.swing.JMenuItem;
 
 /**

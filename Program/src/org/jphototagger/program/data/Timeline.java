@@ -4,15 +4,12 @@ import org.jphototagger.lib.model.TreeModelUpdateInfo;
 import org.jphototagger.lib.model.TreeNodeSortedChildren;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.resource.JptBundle;
-
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
-
 import java.util.Calendar;
 import java.util.Enumeration;
-
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
 

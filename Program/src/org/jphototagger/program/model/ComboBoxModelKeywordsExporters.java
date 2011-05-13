@@ -2,7 +2,6 @@ package org.jphototagger.program.model;
 
 import org.jphototagger.program.exporter.Exporter;
 import org.jphototagger.program.exporter.KeywordsExporters;
-
 import javax.swing.DefaultComboBoxModel;
 
 /**

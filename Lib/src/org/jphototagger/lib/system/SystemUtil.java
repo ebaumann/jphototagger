@@ -1,9 +1,7 @@
 package org.jphototagger.lib.system;
 
 import org.jphototagger.lib.util.Version;
-
 import java.awt.Desktop;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.StringTokenizer;

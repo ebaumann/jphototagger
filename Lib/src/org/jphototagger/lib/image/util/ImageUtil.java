@@ -8,14 +8,11 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.awt.MediaTracker;
 import java.awt.RenderingHints;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.imageio.ImageIO;
 
 /**

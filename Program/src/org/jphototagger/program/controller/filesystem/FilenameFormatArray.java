@@ -1,7 +1,6 @@
 package org.jphototagger.program.controller.filesystem;
 
 import java.io.File;
-
 import java.util.ArrayList;
 import java.util.List;
 

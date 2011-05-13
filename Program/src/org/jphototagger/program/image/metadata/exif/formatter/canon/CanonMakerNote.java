@@ -5,11 +5,9 @@ import org.jphototagger.lib.util.ByteUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.image.metadata.exif.datatype.ExifDatatypeUtil;
 import org.jphototagger.program.types.FileType;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-
 import java.nio.ByteOrder;
 
 /**

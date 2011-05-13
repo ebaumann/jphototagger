@@ -7,7 +7,6 @@ import com.imagero.reader.IOParameterBlock;
 import com.imagero.reader.jpeg.JpegReader;
 import com.imagero.reader.ReaderFactory;
 import com.imagero.reader.tiff.TiffReader;
-
 import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.lib.image.util.ImageTransform;
 import org.jphototagger.lib.runtime.External;
@@ -17,7 +16,6 @@ import org.jphototagger.program.image.metadata.exif.ExifTag;
 import org.jphototagger.program.image.metadata.exif.ExifTags;
 import org.jphototagger.program.types.FileType;
 import org.jphototagger.program.UserSettings;
-
 import java.awt.Container;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -25,13 +23,10 @@ import java.awt.image.BufferedImage;
 import java.awt.MediaTracker;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
-
 import java.io.ByteArrayInputStream;
 import java.io.File;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.imageio.ImageIO;
 import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.lib.io.FileUtil;
@@ -41,7 +36,6 @@ import org.jphototagger.program.data.UserDefinedFileType;
 import org.jphototagger.program.database.DatabaseUserDefinedFileTypes;
 
 /**
- * Hilfsklasse für Thumbnails.
  *
  * @author Elmar Baumann, Tobias Stening
  */
