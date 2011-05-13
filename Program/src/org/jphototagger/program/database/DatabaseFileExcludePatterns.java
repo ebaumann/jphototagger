@@ -6,14 +6,11 @@ import org.jphototagger.program.event.listener.DatabaseFileExcludePatternsListen
 import org.jphototagger.program.event.listener.impl.ListenerSupport;
 import org.jphototagger.program.event.listener.ProgressListener;
 import org.jphototagger.program.event.ProgressEvent;
-
 import java.io.File;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-
 import java.util.LinkedList;
 import java.util.List;
 

@@ -2,9 +2,7 @@ package org.jphototagger.program.image.metadata.exif.tag;
 
 import org.jphototagger.lib.util.ByteUtil;
 import org.jphototagger.program.resource.JptBundle;
-
 import java.nio.ByteOrder;
-
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;

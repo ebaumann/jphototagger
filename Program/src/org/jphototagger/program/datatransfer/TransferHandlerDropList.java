@@ -3,12 +3,9 @@ package org.jphototagger.program.datatransfer;
 import org.jphototagger.program.data.ColumnData;
 import org.jphototagger.program.data.Keyword;
 import org.jphototagger.program.helper.KeywordsHelper;
-
 import java.awt.datatransfer.Transferable;
-
 import java.util.Collection;
 import java.util.List;
-
 import javax.swing.DefaultListModel;
 import org.jdesktop.swingx.JXList;
 import javax.swing.TransferHandler;

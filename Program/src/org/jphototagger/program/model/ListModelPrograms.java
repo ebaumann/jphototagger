@@ -5,10 +5,7 @@ import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.database.DatabasePrograms.Type;
 import org.jphototagger.program.event.listener.DatabaseProgramsListener;
-
-
 import java.util.List;
-
 import javax.swing.DefaultListModel;
 import org.jphototagger.lib.awt.EventQueueUtil;
 

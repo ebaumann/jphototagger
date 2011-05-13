@@ -5,7 +5,6 @@ import org.jphototagger.program.event.RefreshEvent;
 import org.jphototagger.program.helper.FavoritesHelper;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.types.Content;
-
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 

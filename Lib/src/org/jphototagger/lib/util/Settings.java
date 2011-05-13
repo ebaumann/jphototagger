@@ -2,13 +2,10 @@ package org.jphototagger.lib.util;
 
 import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.lib.componentutil.TreeUtil;
-
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Point;
-
 import java.lang.reflect.Field;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -19,7 +16,6 @@ import java.util.logging.Logger;
 import java.util.Properties;
 import java.util.Set;
 import java.util.StringTokenizer;
-
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JComboBox;

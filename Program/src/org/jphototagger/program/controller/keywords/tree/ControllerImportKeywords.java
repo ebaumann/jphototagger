@@ -4,7 +4,6 @@ import org.jphototagger.program.importer.KeywordsImporter;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.KeywordImportDialog;
 import org.jphototagger.program.view.frames.AppFrame;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

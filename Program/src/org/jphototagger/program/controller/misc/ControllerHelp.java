@@ -12,21 +12,16 @@ import org.jphototagger.program.Main;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
-
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-
 import java.util.Locale;
-
 import javax.swing.JMenuItem;
 
 /**

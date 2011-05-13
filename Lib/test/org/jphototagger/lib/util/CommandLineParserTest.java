@@ -1,11 +1,9 @@
 package org.jphototagger.lib.util;
 
 import org.jphototagger.lib.util.CommandLineParser.Option;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
 import static org.junit.Assert.*;
 
 /**

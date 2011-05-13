@@ -3,10 +3,8 @@ package org.jphototagger.program.controller.metadata;
 import org.jphototagger.program.event.listener.EditMetadataPanelsListener;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.AppPanel;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import org.jphototagger.lib.awt.EventQueueUtil;
 

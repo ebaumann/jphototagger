@@ -6,10 +6,7 @@ import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseMetadataTemplates;
 import org.jphototagger.program.event.listener.DatabaseMetadataTemplatesListener;
 import org.jphototagger.program.resource.JptBundle;
-
-
 import java.util.List;
-
 import javax.swing.DefaultComboBoxModel;
 import org.jphototagger.lib.awt.EventQueueUtil;
 

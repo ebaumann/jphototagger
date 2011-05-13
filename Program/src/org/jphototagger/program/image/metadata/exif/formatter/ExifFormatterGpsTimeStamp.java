@@ -4,11 +4,8 @@ import org.jphototagger.program.image.metadata.exif.datatype.ExifDatatypeUtil;
 import org.jphototagger.program.image.metadata.exif.datatype.ExifRational;
 import org.jphototagger.program.image.metadata.exif.Ensure;
 import org.jphototagger.program.image.metadata.exif.ExifTag;
-
 import java.nio.ByteOrder;
-
 import java.text.DateFormat;
-
 import java.util.Arrays;
 import java.util.Calendar;
 

@@ -1,14 +1,10 @@
 package org.jphototagger.program.image.metadata.exif.gps;
 
 import org.jphototagger.program.image.metadata.exif.GPSImageInfo;
-
 import java.io.IOException;
 import java.io.OutputStream;
-
 import java.nio.charset.UnsupportedCharsetException;
-
 import java.util.Collection;
-
 import javax.swing.filechooser.FileFilter;
 
 /**

@@ -3,7 +3,6 @@ package org.jphototagger.program.database.metadata.selections;
 import org.jphototagger.program.model.TableModelExif;
 import org.jphototagger.program.model.TableModelIptc;
 import org.jphototagger.program.model.TableModelXmp;
-
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;

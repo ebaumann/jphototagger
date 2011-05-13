@@ -1,9 +1,7 @@
 package org.jphototagger.program.cache;
 
 import org.jphototagger.program.event.listener.ThumbnailUpdateListener;
-
 import java.io.File;
-
 import java.util.HashSet;
 import java.util.Set;
 

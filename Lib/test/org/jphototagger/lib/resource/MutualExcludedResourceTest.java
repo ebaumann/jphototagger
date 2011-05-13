@@ -1,8 +1,6 @@
 package org.jphototagger.lib.resource;
 
-import org.jphototagger.lib.resource.MutualExcludedResource;
 import org.junit.Test;
-
 import static org.junit.Assert.*;
 
 /**
@@ -13,7 +11,7 @@ public class MutualExcludedResourceTest {
     public MutualExcludedResourceTest() {}
 
     private final class TestClass extends MutualExcludedResource<Object> {
-        public TestClass() {
+        TestClass() {
             setResource(new Object());
         }
     }

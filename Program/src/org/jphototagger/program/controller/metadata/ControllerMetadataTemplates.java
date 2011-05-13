@@ -9,7 +9,6 @@ import org.jphototagger.program.model.ComboBoxModelMetadataTemplates;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.EditMetaDataTemplateDialog;
 import org.jphototagger.program.view.panels.AppPanel;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import org.jphototagger.lib.awt.EventQueueUtil;

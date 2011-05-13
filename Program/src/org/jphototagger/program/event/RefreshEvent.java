@@ -1,9 +1,7 @@
 package org.jphototagger.program.event;
 
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
-
 import java.awt.Point;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

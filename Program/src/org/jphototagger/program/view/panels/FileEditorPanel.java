@@ -12,16 +12,12 @@ import org.jphototagger.lib.io.filefilter.RegexFileFilter;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.renderer.ListCellRendererFileSystem;
 import org.jphototagger.lib.util.Settings;
-
 import java.awt.Container;
 import java.awt.Cursor;
-
 import java.io.File;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import javax.swing.filechooser.FileFilter;
 import javax.swing.JFileChooser;
 

@@ -1,7 +1,6 @@
 package org.jphototagger.program.event.listener.impl;
 
 import org.jphototagger.program.event.listener.FileSystemListener;
-
 import java.io.File;
 
 /**

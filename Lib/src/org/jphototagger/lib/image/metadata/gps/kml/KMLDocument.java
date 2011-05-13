@@ -3,7 +3,6 @@ package org.jphototagger.lib.image.metadata.gps.kml;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
-
 import java.util.ArrayList;
 import java.util.List;
 

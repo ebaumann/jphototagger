@@ -4,11 +4,8 @@ import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseFileExcludePatterns;
 import org.jphototagger.program.event.listener.DatabaseFileExcludePatternsListener;
-
-
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.DefaultListModel;
 import org.jphototagger.lib.awt.EventQueueUtil;
 

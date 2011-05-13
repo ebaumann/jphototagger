@@ -17,10 +17,8 @@ import org.jphototagger.program.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocat
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopHeadline;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopSource;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpRating;
-
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.swing.Icon;
 
 /**

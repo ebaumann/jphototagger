@@ -9,10 +9,8 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.tasks.UserTasks;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.frames.AppFrame;
-
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;

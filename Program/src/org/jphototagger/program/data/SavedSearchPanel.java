@@ -4,7 +4,6 @@ import org.jphototagger.program.database.metadata.Column;
 import org.jphototagger.program.database.metadata.Comparator;
 import org.jphototagger.program.database.metadata.Operator;
 import org.jphototagger.program.database.metadata.selections.ColumnIds;
-
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlRootElement;

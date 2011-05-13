@@ -6,9 +6,7 @@ import org.jphototagger.program.data.SavedSearch;
 import org.jphototagger.program.database.DatabaseSavedSearches;
 import org.jphototagger.program.exporter.SavedSearchesExporter;
 import org.jphototagger.program.exporter.SavedSearchesExporter.CollectionWrapper;
-
 import java.io.File;
-
 import javax.swing.filechooser.FileFilter;
 import javax.swing.Icon;
 

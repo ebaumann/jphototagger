@@ -3,7 +3,6 @@ package org.jphototagger.program.controller.misc;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.app.update.UpdateDownload;
 import org.jphototagger.program.resource.GUI;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

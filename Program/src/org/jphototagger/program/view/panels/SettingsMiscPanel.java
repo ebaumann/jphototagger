@@ -10,14 +10,10 @@ import org.jphototagger.program.types.Persistence;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.DirectoryChooser;
-
 import java.awt.Container;
-
 import java.io.File;
-
 import java.util.logging.Level;
 import javax.swing.Icon;
-
 import javax.swing.filechooser.FileSystemView;
 import org.jphototagger.program.controller.misc.ControllerUpdateCheck;
 import org.jphototagger.program.event.listener.UserSettingsListener;

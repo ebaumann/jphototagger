@@ -2,7 +2,6 @@ package org.jphototagger.program.event.listener;
 
 import org.jphototagger.program.data.Exif;
 import org.jphototagger.program.data.Xmp;
-
 import java.io.File;
 
 /**

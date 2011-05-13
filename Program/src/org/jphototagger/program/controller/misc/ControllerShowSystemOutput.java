@@ -4,7 +4,6 @@ import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.dialog.SystemOutputDialog;
 import org.jphototagger.program.app.AppInit;
 import org.jphototagger.program.resource.GUI;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

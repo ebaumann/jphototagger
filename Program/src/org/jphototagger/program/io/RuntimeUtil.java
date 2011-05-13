@@ -5,9 +5,7 @@ import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.runtime.External;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
-
 import java.io.File;
-
 import java.util.Arrays;
 import java.util.Collection;
 

@@ -2,9 +2,7 @@ package org.jphototagger.program.database.metadata;
 
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.database.metadata.Column.DataType;
-
 import java.text.NumberFormat;
-
 import javax.swing.text.DefaultFormatter;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;

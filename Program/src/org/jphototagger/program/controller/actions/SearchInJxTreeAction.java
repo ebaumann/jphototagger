@@ -2,11 +2,8 @@ package org.jphototagger.program.controller.actions;
 
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.JXTree;
-
 import org.jphototagger.program.resource.JptBundle;
-
 import java.awt.event.ActionEvent;
-
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ActionMap;

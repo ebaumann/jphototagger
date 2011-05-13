@@ -7,9 +7,7 @@ package org.jphototagger.program.controller.actions;
 
 import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.program.resource.JptBundle;
-
 import java.awt.event.ActionEvent;
-
 import javax.swing.AbstractAction;
 import javax.swing.JToggleButton;
 import javax.swing.JTree;

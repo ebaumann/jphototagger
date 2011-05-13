@@ -2,7 +2,6 @@ package org.jphototagger.lib.thirdparty;
 
 import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.lib.resource.JslBundle;
-
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -19,15 +18,12 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
-
 import java.text.DateFormatSymbols;
-
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComponent;

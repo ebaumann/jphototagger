@@ -1,11 +1,8 @@
 package org.jphototagger.plugin;
 
 import org.jphototagger.lib.generics.Pair;
-
 import java.awt.Image;
-
 import java.io.File;
-
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.LinkedHashMap;
@@ -13,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
-
 import javax.swing.Action;
 import javax.swing.Icon;
 import javax.swing.JPanel;

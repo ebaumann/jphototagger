@@ -3,9 +3,7 @@ package org.jphototagger.lib.datatransfer;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
-
 import java.io.File;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;

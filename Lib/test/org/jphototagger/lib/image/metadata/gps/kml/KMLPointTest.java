@@ -1,7 +1,6 @@
 package org.jphototagger.lib.image.metadata.gps.kml;
 
 import org.junit.Test;
-
 import static org.junit.Assert.*;
 
 /**

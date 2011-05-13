@@ -1,7 +1,6 @@
 package org.jphototagger.program.data;
 
 import java.sql.Date;
-
 import java.text.SimpleDateFormat;
 
 /**

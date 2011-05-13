@@ -2,9 +2,7 @@ package org.jphototagger.program.view.renderer;
 
 import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.program.data.Timeline;
-
 import java.awt.Component;
-
 import javax.swing.ImageIcon;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;

@@ -3,11 +3,8 @@ package org.jphototagger.program.view.renderer;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.data.Program;
-
 import java.awt.Component;
-
 import java.io.File;
-
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.Icon;

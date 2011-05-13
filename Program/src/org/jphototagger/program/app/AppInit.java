@@ -1,7 +1,6 @@
 package org.jphototagger.program.app;
 
 import com.imagero.reader.AbstractImageReader;
-
 import org.jphototagger.lib.dialog.SystemOutputDialog;
 import org.jphototagger.lib.system.SystemUtil;
 import org.jphototagger.lib.util.CommandLineParser;
@@ -9,12 +8,9 @@ import org.jphototagger.lib.util.Version;
 import org.jphototagger.program.resource.ImageProperties;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.frames.AppFrame;
-
 import java.awt.Toolkit;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.SwingUtilities;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.cache.CacheFileUtil;

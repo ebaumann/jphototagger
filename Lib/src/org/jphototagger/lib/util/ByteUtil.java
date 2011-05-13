@@ -1,7 +1,6 @@
 package org.jphototagger.lib.util;
 
 import java.io.PrintStream;
-
 import java.nio.ByteBuffer;
 
 /**

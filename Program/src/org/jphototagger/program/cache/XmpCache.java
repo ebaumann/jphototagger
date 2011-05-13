@@ -7,10 +7,7 @@ import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.event.listener.DatabaseImageFilesListener;
 import org.jphototagger.program.event.listener.ThumbnailUpdateListener;
 import org.jphototagger.program.event.ThumbnailUpdateEvent;
-
-
 import java.io.File;
-
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;

@@ -4,8 +4,6 @@ import org.jphototagger.program.data.UserDefinedFileFilter;
 import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseUserDefinedFileFilters;
 import org.jphototagger.program.event.listener.DatabaseUserDefinedFileFiltersListener;
-
-
 import javax.swing.DefaultListModel;
 import org.jphototagger.lib.awt.EventQueueUtil;
 

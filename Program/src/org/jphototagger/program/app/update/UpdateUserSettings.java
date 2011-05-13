@@ -1,7 +1,6 @@
 package org.jphototagger.program.app.update;
 
 import org.jphototagger.program.image.thumbnail.ThumbnailCreator;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

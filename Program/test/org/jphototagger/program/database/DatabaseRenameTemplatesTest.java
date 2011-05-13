@@ -1,19 +1,12 @@
 package org.jphototagger.program.database;
 
-import org.jphototagger.program.database.DatabaseTables;
-import org.jphototagger.program.database.ConnectionPool;
-import org.jphototagger.program.database.DatabaseRenameTemplates;
-import org.jphototagger.program.database.DatabaseMaintainance;
 import org.jphototagger.program.app.SplashScreen;
 import org.jphototagger.program.data.RenameTemplate;
 import org.jphototagger.program.data.RenameTemplateTest;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
 import static org.junit.Assert.*;
-
 import java.util.Set;
 
 /**

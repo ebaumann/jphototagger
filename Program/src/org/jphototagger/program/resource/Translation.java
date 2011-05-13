@@ -1,7 +1,6 @@
 package org.jphototagger.program.resource;
 
 import org.jphototagger.program.app.AppLogger;
-
 import java.util.ResourceBundle;
 
 /**

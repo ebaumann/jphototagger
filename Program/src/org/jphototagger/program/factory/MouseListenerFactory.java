@@ -16,7 +16,6 @@ import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsList;
 import org.jphototagger.program.view.popupmenus.PopupMenuMetadataTemplates;
-
 import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**

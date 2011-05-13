@@ -1,12 +1,9 @@
 package org.jphototagger.program.image.metadata.exif;
 
 import org.jphototagger.lib.util.NumberUtil;
-
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.data.Exif;
-
 import java.sql.Date;
-
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.StringTokenizer;

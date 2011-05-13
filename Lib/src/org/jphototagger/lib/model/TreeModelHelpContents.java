@@ -3,7 +3,6 @@ package org.jphototagger.lib.model;
 import org.jphototagger.lib.util.help.HelpIndexParser;
 import org.jphototagger.lib.util.help.HelpNode;
 import org.jphototagger.lib.util.help.HelpPage;
-
 import javax.swing.event.TreeModelListener;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;

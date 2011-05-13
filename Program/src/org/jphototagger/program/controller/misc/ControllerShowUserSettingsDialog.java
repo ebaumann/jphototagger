@@ -2,7 +2,6 @@ package org.jphototagger.program.controller.misc;
 
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.program.view.dialogs.SettingsDialog;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

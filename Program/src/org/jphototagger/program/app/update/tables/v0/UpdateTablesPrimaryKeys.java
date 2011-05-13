@@ -4,13 +4,11 @@ import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.SplashScreen;
 import org.jphototagger.program.database.Database;
 import org.jphototagger.program.resource.JptBundle;
-
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,9 +1,7 @@
 package org.jphototagger.program.image.metadata.exif.tag;
 
 import org.jphototagger.lib.generics.Pair;
-
 import java.nio.charset.Charset;
-
 import java.util.Arrays;
 
 /**

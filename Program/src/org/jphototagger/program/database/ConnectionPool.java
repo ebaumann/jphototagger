@@ -3,11 +3,9 @@ package org.jphototagger.program.database;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.types.Filename;
 import org.jphototagger.program.UserSettings;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-
 import java.util.LinkedList;
 import java.util.List;
 

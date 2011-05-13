@@ -5,11 +5,9 @@ import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.event.listener.UserSettingsListener;
 import org.jphototagger.program.event.UserSettingsEvent;
 import org.jphototagger.program.UserSettings;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.FileHandler;

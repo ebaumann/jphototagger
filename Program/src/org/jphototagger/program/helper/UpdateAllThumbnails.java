@@ -8,10 +8,8 @@ import org.jphototagger.program.event.listener.ProgressListener;
 import org.jphototagger.program.event.ProgressEvent;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import java.util.HashSet;
 import java.util.Set;
 import org.jphototagger.lib.awt.EventQueueUtil;

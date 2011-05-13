@@ -7,14 +7,11 @@ import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.helper.BackupDatabase;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;

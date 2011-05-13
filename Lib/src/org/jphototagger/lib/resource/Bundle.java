@@ -1,7 +1,6 @@
 package org.jphototagger.lib.resource;
 
 import java.text.MessageFormat;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.MissingResourceException;

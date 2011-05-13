@@ -2,10 +2,8 @@ package org.jphototagger.lib.io.filefilter;
 
 import java.io.File;
 import java.io.Serializable;
-
 import java.util.Arrays;
 import java.util.List;
-
 import javax.swing.filechooser.FileSystemView;
 
 /**

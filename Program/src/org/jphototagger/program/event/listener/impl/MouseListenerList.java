@@ -1,11 +1,9 @@
 package org.jphototagger.program.event.listener.impl;
 
 import org.jphototagger.lib.event.util.MouseEventUtil;
-
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Point;
-
 import org.jdesktop.swingx.JXList;
 
 /**

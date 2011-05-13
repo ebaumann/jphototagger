@@ -8,11 +8,9 @@ import org.jphototagger.program.helper.InsertImageFilesIntoDatabase.Insert;
 import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
 import org.jphototagger.program.io.RuntimeUtil;
 import org.jphototagger.program.types.FileEditor;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
 import java.util.Arrays;
 
 /**

@@ -4,9 +4,7 @@ import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.data.MetadataTemplate;
 import org.jphototagger.program.resource.JptBundle;
-
 import java.awt.event.KeyEvent;
-
 import org.jdesktop.swingx.JXList;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;

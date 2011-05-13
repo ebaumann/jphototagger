@@ -5,7 +5,6 @@ import org.jphototagger.program.app.AppWindowPersistence;
 import org.jphototagger.program.app.update.UpdateDownload;
 import org.jphototagger.program.tasks.ScheduledTaskBackupDatabase;
 import org.jphototagger.program.UserSettings;
-
 import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**

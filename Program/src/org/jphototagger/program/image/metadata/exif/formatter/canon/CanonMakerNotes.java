@@ -5,9 +5,7 @@ import org.jphototagger.program.image.metadata.exif.ExifMakerNotes;
 import org.jphototagger.program.image.metadata.exif.ExifMetadata.IfdType;
 import org.jphototagger.program.image.metadata.exif.ExifTag;
 import org.jphototagger.program.image.metadata.exif.ExifTags;
-
 import java.io.File;
-
 import java.util.ResourceBundle;
 
 /**

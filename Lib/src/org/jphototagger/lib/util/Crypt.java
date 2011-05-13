@@ -1,10 +1,8 @@
 package org.jphototagger.lib.util;
 
 import org.jphototagger.lib.thirdparty.Base64;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 

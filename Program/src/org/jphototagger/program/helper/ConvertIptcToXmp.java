@@ -9,10 +9,8 @@ import org.jphototagger.program.event.ProgressEvent;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase.Insert;
 import org.jphototagger.program.image.metadata.iptc.IptcMetadata;
 import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
-
 import java.io.File;
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

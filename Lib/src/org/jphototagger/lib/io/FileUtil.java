@@ -1,17 +1,12 @@
 package org.jphototagger.lib.io;
 
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
-
-
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
-
 import java.nio.channels.FileChannel;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;

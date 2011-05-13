@@ -7,14 +7,10 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.KeywordsPanel;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.renderer.TreeCellRendererKeywords;
-
-
 import java.io.File;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
 import javax.swing.JTree;
 import javax.swing.tree.TreeCellRenderer;
 import org.jdesktop.swingx.JXTree;

@@ -1,9 +1,7 @@
 package org.jphototagger.program.database.metadata.mapping;
 
 import com.adobe.xmp.properties.XMPPropertyInfo;
-
 import com.imagero.reader.iptc.IPTCEntryMeta;
-
 import java.util.HashMap;
 import java.util.Map;
 

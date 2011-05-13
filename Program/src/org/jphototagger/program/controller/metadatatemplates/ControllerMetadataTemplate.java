@@ -6,10 +6,8 @@ import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.model.ListModelMetadataTemplates;
 import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.popupmenus.PopupMenuMetadataTemplates;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-
 import org.jdesktop.swingx.JXList;
 
 /**

@@ -5,7 +5,6 @@ import org.jphototagger.program.database.DatabaseKeywords;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Suggest;
 import org.jphototagger.program.view.dialogs.PathSelectionDialog;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;

@@ -2,13 +2,10 @@ package org.jphototagger.program.database;
 
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
-
 import java.sql.Connection;
 import java.sql.Statement;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import static java.text.MessageFormat.format;
 
 /**

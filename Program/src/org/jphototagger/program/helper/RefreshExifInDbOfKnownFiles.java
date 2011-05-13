@@ -4,9 +4,7 @@ import org.jphototagger.program.data.Exif;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.image.metadata.exif.ExifMetadata;
 import org.jphototagger.program.resource.JptBundle;
-
 import java.io.File;
-
 import java.util.List;
 import org.jphototagger.program.app.AppFileFilters;
 

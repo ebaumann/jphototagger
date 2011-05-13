@@ -35,17 +35,13 @@ import org.jphototagger.program.event.listener.impl.ListenerSupport;
 import org.jphototagger.program.event.listener.ProgressListener;
 import org.jphototagger.program.event.ProgressEvent;
 import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
-
 import java.awt.Image;
-
 import java.io.File;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;

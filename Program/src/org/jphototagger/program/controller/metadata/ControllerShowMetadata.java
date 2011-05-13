@@ -4,7 +4,6 @@ import com.adobe.xmp.properties.XMPPropertyInfo;
 import com.adobe.xmp.XMPConst;
 import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
-
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.TableUtil;
 import org.jphototagger.program.cache.EmbeddedXmpCache;
@@ -24,10 +23,7 @@ import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.WaitDisplay;
-
-
 import java.io.File;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -39,7 +35,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Map;
 import java.util.Set;
-
 import javax.swing.JTable;
 import javax.swing.event.ChangeListener;
 import org.jphototagger.lib.awt.EventQueueUtil;

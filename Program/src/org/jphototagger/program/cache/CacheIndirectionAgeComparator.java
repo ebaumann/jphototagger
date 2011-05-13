@@ -2,9 +2,7 @@ package org.jphototagger.program.cache;
 
 import java.io.File;
 import java.io.Serializable;
-
 import java.lang.ref.SoftReference;
-
 import java.util.Comparator;
 import java.util.Map.Entry;
 

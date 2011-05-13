@@ -8,14 +8,10 @@ import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject
 import org.jphototagger.program.event.listener.DatabaseImageFilesListener;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.model.TreeModelKeywords;
-
-
 import java.io.File;
-
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-
 import javax.swing.tree.DefaultMutableTreeNode;
 import org.jphototagger.lib.awt.EventQueueUtil;
 

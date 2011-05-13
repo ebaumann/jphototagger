@@ -4,10 +4,8 @@ import org.jphototagger.program.data.MetadataTemplate;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.popupmenus.PopupMenuMetadataTemplates;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-
 import javax.swing.JButton;
 
 /**

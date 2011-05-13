@@ -4,12 +4,9 @@ import org.jphototagger.lib.util.ClassEquality;
 import org.jphototagger.program.data.Xmp;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
-
 import java.io.File;
 import java.io.Serializable;
-
 import java.text.Collator;
-
 import java.util.Comparator;
 
 /**

@@ -6,13 +6,9 @@ import org.jphototagger.program.data.Favorite;
 import org.jphototagger.program.io.ImageFileFilterer;
 import org.jphototagger.program.io.ImageUtil;
 import org.jphototagger.program.io.ImageUtil.ConfirmOverwrite;
-
 import java.awt.datatransfer.Transferable;
-
 import java.io.File;
-
 import java.util.List;
-
 import javax.swing.JComponent;
 import javax.swing.JTree;
 import javax.swing.TransferHandler;

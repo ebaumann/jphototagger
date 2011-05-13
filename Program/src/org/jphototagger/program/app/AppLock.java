@@ -2,7 +2,6 @@ package org.jphototagger.program.app;
 
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.UserSettings;
-
 import java.io.File;
 import java.io.IOException;
 

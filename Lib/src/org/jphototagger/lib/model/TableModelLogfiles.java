@@ -3,7 +3,6 @@ package org.jphototagger.lib.model;
 import org.jphototagger.lib.resource.JslBundle;
 import org.jphototagger.lib.util.CollectionUtil;
 import org.jphototagger.lib.util.logging.LogfileRecord;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

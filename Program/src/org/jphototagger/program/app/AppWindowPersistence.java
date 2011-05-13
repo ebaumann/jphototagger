@@ -9,15 +9,11 @@ import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.frames.AppFrame;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.KeywordsPanel;
-
 import java.awt.Component;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
-
-
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.swing.JList;
 import javax.swing.JTree;
 import org.jphototagger.lib.awt.EventQueueUtil;

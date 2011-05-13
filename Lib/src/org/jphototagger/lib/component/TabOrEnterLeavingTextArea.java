@@ -1,7 +1,6 @@
 package org.jphototagger.lib.component;
 
 import java.awt.event.KeyEvent;
-
 import javax.swing.JTextArea;
 
 /**

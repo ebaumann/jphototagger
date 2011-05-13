@@ -5,14 +5,10 @@ import org.jphototagger.lib.dialog.InputDialog;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
-
 import java.awt.Component;
-
 import java.io.File;
-
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 

@@ -2,12 +2,9 @@ package org.jphototagger.lib.beansbinding;
 
 import org.jdesktop.beansbinding.Validator;
 import org.jdesktop.beansbinding.Validator.Result;
-
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.resource.JslBundle;
-
 import java.io.Serializable;
-
 import javax.swing.JOptionPane;
 
 /**

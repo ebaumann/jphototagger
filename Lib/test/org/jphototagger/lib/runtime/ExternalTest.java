@@ -1,10 +1,7 @@
 package org.jphototagger.lib.runtime;
 
-import org.jphototagger.lib.runtime.External;
 import org.jphototagger.lib.generics.Pair;
-
 import org.junit.Test;
-
 import static org.junit.Assert.*;
 
 /**

@@ -2,7 +2,6 @@ package org.jphototagger.program.model;
 
 import java.util.logging.SimpleFormatter;
 import java.util.logging.XMLFormatter;
-
 import javax.swing.DefaultComboBoxModel;
 
 /**

@@ -5,16 +5,13 @@ import org.jphototagger.lib.dialog.HelpBrowser;
 import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
-
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.plaf.FontUIResource;

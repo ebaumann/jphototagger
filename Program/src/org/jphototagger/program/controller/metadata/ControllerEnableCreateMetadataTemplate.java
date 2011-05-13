@@ -2,7 +2,6 @@ package org.jphototagger.program.controller.metadata;
 
 import org.jphototagger.program.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.program.resource.GUI;
-
 import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**

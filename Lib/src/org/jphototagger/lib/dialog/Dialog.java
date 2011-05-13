@@ -1,7 +1,6 @@
 package org.jphototagger.lib.dialog;
 
 import org.jphototagger.lib.util.Settings;
-
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,7 +8,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.awt.Frame;
-
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JRootPane;

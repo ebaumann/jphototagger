@@ -1,12 +1,10 @@
 package org.jphototagger.lib.component;
 
 import org.jphototagger.lib.image.util.IconUtil;
-
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.Graphics;
 import java.awt.Image;
-
 import javax.swing.JTextArea;
 
 /**

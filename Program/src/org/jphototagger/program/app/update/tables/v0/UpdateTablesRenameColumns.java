@@ -6,10 +6,8 @@ import org.jphototagger.program.app.update.tables.ColumnInfo;
 import org.jphototagger.program.database.Database;
 import org.jphototagger.program.database.DatabaseMetadata;
 import org.jphototagger.program.resource.JptBundle;
-
 import java.sql.Connection;
 import java.sql.SQLException;
-
 import java.util.ArrayList;
 import java.util.List;
 

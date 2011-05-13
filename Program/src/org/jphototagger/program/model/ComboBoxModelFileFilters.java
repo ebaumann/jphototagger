@@ -7,9 +7,7 @@ import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseUserDefinedFileFilters;
 import org.jphototagger.program.event.listener.DatabaseUserDefinedFileFiltersListener;
 import org.jphototagger.program.UserSettings;
-
 import java.io.FileFilter;
-
 import javax.swing.DefaultComboBoxModel;
 import org.jphototagger.lib.awt.EventQueueUtil;
 

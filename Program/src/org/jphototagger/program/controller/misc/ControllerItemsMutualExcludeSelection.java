@@ -1,12 +1,10 @@
 package org.jphototagger.program.controller.misc;
 
 import org.jphototagger.program.resource.GUI;
-
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
-
 import org.jdesktop.swingx.JXList;
 import javax.swing.JTree;
 

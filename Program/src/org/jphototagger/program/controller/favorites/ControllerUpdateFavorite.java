@@ -4,10 +4,8 @@ import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.data.Favorite;
 import org.jphototagger.program.helper.FavoritesHelper;
 import org.jphototagger.program.view.popupmenus.PopupMenuFavorites;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 

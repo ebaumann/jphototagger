@@ -1,10 +1,8 @@
 package org.jphototagger.plugin.flickrupload;
 
 import com.adobe.xmp.properties.XMPPropertyInfo;
-
 import com.aetrion.flickr.uploader.Uploader;
 import com.aetrion.flickr.uploader.UploadMetaData;
-
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.image.metadata.xmp.Xmp;
 import org.jphototagger.lib.image.util.IconUtil;
@@ -12,22 +10,18 @@ import org.jphototagger.lib.image.util.ImageUtil;
 import org.jphototagger.plugin.flickrupload.FlickrImageInfoPanel.ImageInfo;
 import org.jphototagger.plugin.Plugin;
 import org.jphototagger.plugin.PluginEvent;
-
 import java.awt.event.ActionEvent;
 import java.awt.HeadlessException;
 import java.awt.Image;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.Serializable;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.Icon;

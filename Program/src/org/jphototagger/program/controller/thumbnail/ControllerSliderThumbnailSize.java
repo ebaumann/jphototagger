@@ -6,12 +6,10 @@ import org.jphototagger.program.event.listener.UserSettingsListener;
 import org.jphototagger.program.event.UserSettingsEvent;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.UserSettings;
-
 import java.awt.AWTEvent;
 import java.awt.event.AWTEventListener;
 import java.awt.event.KeyEvent;
 import java.awt.Toolkit;
-
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.JSlider;

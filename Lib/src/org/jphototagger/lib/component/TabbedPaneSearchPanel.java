@@ -3,12 +3,10 @@ package org.jphototagger.lib.component;
 import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.lib.resource.JslBundle;
 import org.jphototagger.lib.util.StringUtil;
-
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -16,7 +14,6 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.DefaultListCellRenderer;

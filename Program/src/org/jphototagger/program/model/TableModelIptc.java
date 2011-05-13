@@ -5,9 +5,7 @@ import org.jphototagger.program.image.metadata.iptc.IptcEntry;
 import org.jphototagger.program.image.metadata.iptc.IptcEntryComparator;
 import org.jphototagger.program.image.metadata.iptc.IptcMetadata;
 import org.jphototagger.program.resource.JptBundle;
-
 import java.io.File;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

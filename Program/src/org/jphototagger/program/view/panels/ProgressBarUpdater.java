@@ -2,8 +2,6 @@ package org.jphototagger.program.view.panels;
 
 import org.jphototagger.program.event.listener.ProgressListener;
 import org.jphototagger.program.event.ProgressEvent;
-
-
 import javax.swing.JProgressBar;
 import org.jphototagger.lib.awt.EventQueueUtil;
 

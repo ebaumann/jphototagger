@@ -10,10 +10,8 @@ import org.jphototagger.program.image.metadata.exif.ExifTagValueFormatter;
 import org.jphototagger.program.image.metadata.exif.tag.ExifGpsMetadata;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.resource.Translation;
-
 import java.awt.Component;
 import java.util.Comparator;
-
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;

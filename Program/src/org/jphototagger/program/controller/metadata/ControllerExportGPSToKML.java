@@ -4,13 +4,9 @@ import org.jphototagger.program.image.metadata.exif.gps.GPSLocationExportUtil;
 import org.jphototagger.program.image.metadata.exif.gps.KMLExporter;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
-
 import java.awt.event.ActionEvent;
-
 import java.io.File;
-
 import java.util.List;
-
 import javax.swing.AbstractAction;
 
 /**

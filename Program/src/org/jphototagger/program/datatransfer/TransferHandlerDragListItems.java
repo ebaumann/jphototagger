@@ -1,10 +1,8 @@
 package org.jphototagger.program.datatransfer;
 
 import org.jphototagger.lib.datatransfer.TransferableObject;
-
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
-
 import javax.swing.JComponent;
 import org.jdesktop.swingx.JXList;
 import javax.swing.TransferHandler;

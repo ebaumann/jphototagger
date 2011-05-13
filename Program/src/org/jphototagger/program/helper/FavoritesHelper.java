@@ -16,13 +16,9 @@ import org.jphototagger.program.view.panels.EditMetadataPanels;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.panels.ThumbnailsPanel.Settings;
 import org.jphototagger.program.view.WaitDisplay;
-
-
 import java.io.File;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;

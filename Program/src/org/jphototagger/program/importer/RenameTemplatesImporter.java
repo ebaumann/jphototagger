@@ -6,9 +6,7 @@ import org.jphototagger.program.data.RenameTemplate;
 import org.jphototagger.program.database.DatabaseRenameTemplates;
 import org.jphototagger.program.exporter.RenameTemplatesExporter;
 import org.jphototagger.program.exporter.RenameTemplatesExporter.CollectionWrapper;
-
 import java.io.File;
-
 import javax.swing.filechooser.FileFilter;
 import javax.swing.Icon;
 

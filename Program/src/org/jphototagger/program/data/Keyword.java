@@ -1,7 +1,6 @@
 package org.jphototagger.program.data;
 
 import org.jphototagger.program.database.DatabaseKeywords;
-
 import java.io.Serializable;
 
 /**

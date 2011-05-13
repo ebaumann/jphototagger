@@ -2,13 +2,11 @@ package org.jphototagger.lib.componentutil;
 
 import java.awt.event.MouseEvent;
 import java.awt.Point;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.StringTokenizer;
-
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.ListModel;

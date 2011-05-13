@@ -5,9 +5,7 @@ import org.jphototagger.program.event.listener.FileSystemListener;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase.Insert;
 import org.jphototagger.program.io.ImageFileFilterer;
 import org.jphototagger.program.tasks.UserTasks;
-
 import java.io.File;
-
 import java.util.Arrays;
 
 /**

@@ -5,8 +5,6 @@ import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.event.listener.DatabaseProgramsListener;
 import org.jphototagger.program.helper.ActionsHelper;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
-
-
 import javax.swing.JMenu;
 import org.jphototagger.lib.awt.EventQueueUtil;
 

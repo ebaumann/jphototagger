@@ -4,15 +4,12 @@ import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.program.event.listener.DatabaseProgramsListener;
 import org.jphototagger.program.event.listener.impl.ListenerSupport;
-
 import java.io.File;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
 import java.util.LinkedList;
 import java.util.List;
 

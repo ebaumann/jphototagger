@@ -5,10 +5,8 @@ import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
-
 import java.io.File;
 import java.io.IOException;
-
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;

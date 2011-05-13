@@ -12,16 +12,13 @@ import org.jphototagger.program.event.listener.DatabaseProgramsListener;
 import org.jphototagger.program.factory.PluginManager;
 import org.jphototagger.program.helper.ActionsHelper;
 import org.jphototagger.program.resource.JptBundle;
-
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import javax.swing.Action;
 import javax.swing.Icon;
 import javax.swing.JMenu;

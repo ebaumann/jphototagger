@@ -3,11 +3,9 @@ package org.jphototagger.program.filefilter;
 import org.jphototagger.program.data.Xmp;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpRating;
 import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
-
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

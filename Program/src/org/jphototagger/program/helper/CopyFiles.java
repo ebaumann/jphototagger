@@ -8,9 +8,7 @@ import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.event.listener.impl.ProgressListenerSupport;
 import org.jphototagger.program.event.listener.ProgressListener;
 import org.jphototagger.program.event.ProgressEvent;
-
 import java.io.File;
-
 import java.util.ArrayList;
 import java.util.List;
 

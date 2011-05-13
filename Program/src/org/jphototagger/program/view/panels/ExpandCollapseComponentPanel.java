@@ -3,14 +3,12 @@ package org.jphototagger.program.view.panels;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.lib.image.util.IconUtil;
-
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
-
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;

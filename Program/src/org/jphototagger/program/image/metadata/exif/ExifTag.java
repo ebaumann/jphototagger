@@ -1,14 +1,11 @@
 package org.jphototagger.program.image.metadata.exif;
 
 import com.imagero.reader.tiff.IFDEntry;
-
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.image.metadata.exif.datatype.ExifDataType;
 import org.jphototagger.program.image.metadata.exif.ExifMetadata.IfdType;
-
 import java.nio.ByteOrder;
 import java.text.MessageFormat;
-
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;

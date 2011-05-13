@@ -6,9 +6,7 @@ import org.jphototagger.program.database.DatabaseAutoscanDirectories;
 import org.jphototagger.program.exporter.AutoscanDirectoriesExporter;
 import org.jphototagger.program.exporter.AutoscanDirectoriesExporter.CollectionWrapper;
 import org.jphototagger.program.exporter.StringWrapper;
-
 import java.io.File;
-
 import javax.swing.filechooser.FileFilter;
 import javax.swing.Icon;
 

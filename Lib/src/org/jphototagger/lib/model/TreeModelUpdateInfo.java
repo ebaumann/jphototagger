@@ -1,12 +1,10 @@
 package org.jphototagger.lib.model;
 
 import org.jphototagger.lib.util.ArrayUtil;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
 import javax.swing.tree.TreeNode;
 
 /**

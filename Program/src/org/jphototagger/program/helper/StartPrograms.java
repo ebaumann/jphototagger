@@ -8,16 +8,12 @@ import org.jphototagger.program.helper.InsertImageFilesIntoDatabase.Insert;
 import org.jphototagger.program.io.RuntimeUtil;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.dialogs.ProgramInputParametersDialog;
-
-
 import java.io.File;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.List;
 import java.util.Queue;
-
 import javax.swing.JProgressBar;
 import org.jphototagger.lib.awt.EventQueueUtil;
 

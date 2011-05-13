@@ -4,10 +4,8 @@ import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.panels.AppPanel;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JToggleButton;
 
 /**

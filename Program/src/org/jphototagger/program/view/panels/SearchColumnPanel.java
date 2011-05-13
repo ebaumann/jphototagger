@@ -13,12 +13,9 @@ import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.renderer.ListCellRendererTableColumns;
 import org.jphototagger.lib.thirdparty.DateChooserDialog;
-
 import java.awt.event.KeyEvent;
-
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;

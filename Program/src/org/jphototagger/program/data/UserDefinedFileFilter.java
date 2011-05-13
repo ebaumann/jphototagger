@@ -2,11 +2,9 @@ package org.jphototagger.program.data;
 
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.resource.JptBundle;
-
 import java.io.File;
 import java.io.FileFilter;
 import java.io.Serializable;
-
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlRootElement;

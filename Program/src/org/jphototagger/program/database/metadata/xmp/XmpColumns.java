@@ -1,7 +1,6 @@
 package org.jphototagger.program.database.metadata.xmp;
 
 import org.jphototagger.program.database.metadata.Column;
-
 import java.util.ArrayList;
 import java.util.List;
 

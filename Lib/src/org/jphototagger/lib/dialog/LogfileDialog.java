@@ -10,14 +10,11 @@ import org.jphototagger.lib.util.logging.ExceptionLogfileRecord;
 import org.jphototagger.lib.util.logging.FrameLogfileRecord;
 import org.jphototagger.lib.util.logging.LogfileParser;
 import org.jphototagger.lib.util.logging.LogfileRecord;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Frame;
 import java.awt.Point;
-
 import java.io.File;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -29,7 +26,6 @@ import java.util.logging.SimpleFormatter;
 import java.util.logging.XMLFormatter;
 import java.util.Map;
 import java.util.Set;
-
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.JCheckBox;

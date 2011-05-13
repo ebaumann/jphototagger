@@ -10,12 +10,8 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Content;
 import org.jphototagger.program.view.WaitDisplay;
-
-
 import java.io.File;
-
 import java.util.List;
-
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import org.jphototagger.lib.awt.EventQueueUtil;

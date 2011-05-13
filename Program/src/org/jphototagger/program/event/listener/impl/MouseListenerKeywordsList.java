@@ -2,7 +2,6 @@ package org.jphototagger.program.event.listener.impl;
 
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsList;
-
 import org.jdesktop.swingx.JXList;
 
 /**

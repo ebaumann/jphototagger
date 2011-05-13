@@ -10,15 +10,12 @@ import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.dialogs.SettingsDialog;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.EnumMap;
 import java.util.Map;
-
 import javax.swing.Icon;
 import javax.swing.JButton;
 import org.jphototagger.lib.awt.EventQueueUtil;

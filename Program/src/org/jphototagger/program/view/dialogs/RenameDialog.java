@@ -25,15 +25,11 @@ import org.jphototagger.lib.componentutil.ComboBoxUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.util.Settings;
-
 import java.awt.Container;
 import java.awt.Image;
-
 import java.io.File;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.event.ListDataEvent;

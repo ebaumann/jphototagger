@@ -11,17 +11,13 @@ import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.util.Settings;
-
 import java.awt.Container;
-
 import java.lang.reflect.Method;
-
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
-
 import javax.swing.Icon;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;

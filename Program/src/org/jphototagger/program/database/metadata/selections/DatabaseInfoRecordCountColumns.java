@@ -1,31 +1,20 @@
 package org.jphototagger.program.database.metadata.selections;
 
 import org.jphototagger.program.database.metadata.Column;
-import org.jphototagger.program.database.metadata.exif.ColumnExifDateTimeOriginal;
-import org.jphototagger.program.database.metadata.exif.ColumnExifFocalLength;
-import org.jphototagger.program.database.metadata.exif.ColumnExifIsoSpeedRatings;
 import org.jphototagger.program.database.metadata.exif.ColumnExifLens;
 import org.jphototagger.program.database.metadata.exif.ColumnExifRecordingEquipment;
 import org.jphototagger.program.database.metadata.file.ColumnFilesFilename;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcCreator;
-import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcDescription;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcRights;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
-import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcTitle;
-import org.jphototagger.program.database.metadata.xmp.ColumnXmpIptc4XmpCoreDateCreated;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopAuthorsposition;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopCaptionwriter;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopCity;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopCountry;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopCredit;
-import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopHeadline;
-import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopInstructions;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopSource;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopState;
-import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopTransmissionReference;
-import org.jphototagger.program.database.metadata.xmp.ColumnXmpRating;
-
 import java.util.ArrayList;
 import java.util.List;
 

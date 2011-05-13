@@ -8,13 +8,9 @@ import org.jphototagger.program.model.TreeModelKeywords;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.panels.ProgressBar;
-
-
 import java.io.File;
-
 import java.util.Collection;
 import java.util.List;
-
 import javax.swing.JProgressBar;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;

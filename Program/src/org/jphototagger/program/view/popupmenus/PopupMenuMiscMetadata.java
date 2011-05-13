@@ -9,11 +9,8 @@ import org.jphototagger.program.helper.MiscMetadataHelper;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
-
 import java.awt.event.KeyEvent;
-
 import java.util.List;
-
 import javax.swing.Action;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;

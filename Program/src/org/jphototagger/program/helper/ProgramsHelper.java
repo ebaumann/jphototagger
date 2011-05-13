@@ -5,10 +5,8 @@ import org.jphototagger.program.data.Program;
 import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.ProgramPropertiesDialog;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.DefaultListModel;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;

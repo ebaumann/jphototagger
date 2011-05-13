@@ -12,15 +12,12 @@ import org.jphototagger.program.image.metadata.exif.tag.ExifGpsUtil;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.tasks.UserTasks;
 import org.jphototagger.program.UserSettings;
-
 import java.io.File;
 import java.io.FileOutputStream;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Properties;
-
 import javax.swing.JFileChooser;
 import org.jphototagger.lib.io.IoUtil;
 import org.jphototagger.program.cache.ExifCache;

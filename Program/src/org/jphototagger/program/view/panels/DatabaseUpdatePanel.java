@@ -16,14 +16,11 @@ import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.dialogs.RenameFilenamesInDbDialog;
 import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
-
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collection;
-
 import java.util.List;
-
 import javax.swing.AbstractButton;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;

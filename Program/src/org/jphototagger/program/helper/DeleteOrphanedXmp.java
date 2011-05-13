@@ -6,7 +6,6 @@ import org.jphototagger.program.event.listener.impl.ProgressListenerSupport;
 import org.jphototagger.program.event.listener.ProgressListener;
 import org.jphototagger.program.event.ProgressEvent;
 import org.jphototagger.program.resource.JptBundle;
-
 import java.text.MessageFormat;
 
 /**

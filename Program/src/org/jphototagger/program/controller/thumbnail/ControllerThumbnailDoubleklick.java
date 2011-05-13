@@ -6,7 +6,6 @@ import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.helper.ProgramsHelper;
 import org.jphototagger.program.helper.StartPrograms;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
-
 import java.util.Arrays;
 
 /**

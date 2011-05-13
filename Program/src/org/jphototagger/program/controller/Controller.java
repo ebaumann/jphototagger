@@ -1,12 +1,10 @@
 package org.jphototagger.program.controller;
 
 import org.jphototagger.program.app.AppLogger;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
 import java.lang.reflect.Method;
 
 /**

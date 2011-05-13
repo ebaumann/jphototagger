@@ -9,14 +9,10 @@ import org.jphototagger.program.types.Content;
 import org.jphototagger.program.types.FileAction;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.ViewUtil;
-
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
 import java.io.File;
-
 import java.util.List;
-
 import javax.swing.JTree;
 
 /**

@@ -8,15 +8,11 @@ import org.jphototagger.program.data.ColumnData;
 import org.jphototagger.program.database.metadata.Column;
 import org.jphototagger.program.database.metadata.xmp.XmpColumns;
 import org.jphototagger.program.helper.MiscMetadataHelper;
-
 import java.awt.datatransfer.Transferable;
-
 import java.io.File;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import javax.swing.JComponent;
 import javax.swing.JTree;
 import javax.swing.TransferHandler;

@@ -11,9 +11,7 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.dialogs.CopyToDirectoryDialog;
 import org.jphototagger.program.view.dialogs.MoveToDirectoryDialog;
-
 import java.io.File;
-
 import java.util.ArrayList;
 import java.util.List;
 

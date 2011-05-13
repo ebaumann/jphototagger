@@ -1,7 +1,6 @@
 package org.jphototagger.program.data;
 
 import com.imagero.reader.iptc.IPTCEntryMeta;
-
 import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.database.metadata.Column;
@@ -10,8 +9,6 @@ import org.jphototagger.program.database.metadata.mapping.XmpRepeatableValues;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpIptc4XmpCoreDateCreated;
 import org.jphototagger.program.database.metadata.xmp.XmpColumns;
 import org.jphototagger.program.event.listener.TextEntryListener;
-
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;

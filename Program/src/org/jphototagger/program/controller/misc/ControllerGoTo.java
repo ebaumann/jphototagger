@@ -3,14 +3,11 @@ package org.jphototagger.program.controller.misc;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.frames.AppFrame;
 import org.jphototagger.program.view.panels.AppPanel;
-
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import java.util.EnumMap;
 import java.util.Map;
-
 import javax.swing.JMenuItem;
 import javax.swing.JTabbedPane;
 

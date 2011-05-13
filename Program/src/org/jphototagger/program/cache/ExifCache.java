@@ -6,9 +6,7 @@ import org.jphototagger.program.event.listener.adapter.DatabaseImageFilesListene
 import org.jphototagger.program.image.metadata.exif.ExifMetadata;
 import org.jphototagger.program.image.metadata.exif.ExifTags;
 import org.jphototagger.program.UserSettings;
-
 import java.io.File;
-
 import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;

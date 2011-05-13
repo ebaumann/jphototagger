@@ -1,8 +1,6 @@
 package org.jphototagger.lib.generics;
 
-import org.jphototagger.lib.generics.Pair;
 import org.junit.Test;
-
 import static org.junit.Assert.*;
 
 /**

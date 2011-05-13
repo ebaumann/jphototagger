@@ -6,7 +6,6 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.dialogs.FileEditorDialog;
 import org.jphototagger.program.view.panels.FileEditorPanel;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

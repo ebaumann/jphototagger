@@ -6,10 +6,8 @@ import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.renderer.ListCellRendererKeywords;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.componentutil.TreeUtil;
-
 import java.awt.CardLayout;
 import java.awt.Container;
-
 import javax.swing.JTree;
 import javax.swing.ListModel;
 import javax.swing.SortOrder;

@@ -1,9 +1,7 @@
 package org.jphototagger.lib.model;
 
 import java.text.Collator;
-
 import java.util.Collections;
-
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.MutableTreeNode;
 

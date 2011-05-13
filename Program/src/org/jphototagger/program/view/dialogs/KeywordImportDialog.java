@@ -8,11 +8,8 @@ import org.jphototagger.program.UserSettings;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.util.Settings;
-
 import java.awt.Container;
-
 import java.io.File;
-
 import javax.swing.JFileChooser;
 
 /**

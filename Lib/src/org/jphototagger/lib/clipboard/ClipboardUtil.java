@@ -2,16 +2,13 @@ package org.jphototagger.lib.clipboard;
 
 import org.jphototagger.lib.datatransfer.TransferableFileCollection;
 import org.jphototagger.lib.datatransfer.TransferUtil;
-
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.ClipboardOwner;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 import java.awt.Toolkit;
-
 import java.io.File;
-
 import java.util.List;
 
 /**

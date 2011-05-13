@@ -11,14 +11,10 @@ import org.jphototagger.program.types.Content;
 import org.jphototagger.program.view.dialogs.AdvancedSearchDialog;
 import org.jphototagger.program.view.panels.AdvancedSearchPanel;
 import org.jphototagger.program.view.WaitDisplay;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import java.io.File;
-
 import java.util.List;
-
 import javax.swing.JButton;
 import org.jphototagger.lib.awt.EventQueueUtil;
 

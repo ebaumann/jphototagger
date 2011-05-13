@@ -8,7 +8,6 @@ import org.jphototagger.program.database.metadata.xmp.ColumnXmpRating;
 import org.jphototagger.program.event.listener.impl.TextEntryListenerSupport;
 import org.jphototagger.program.event.listener.TextEntryListener;
 import org.jphototagger.program.resource.JptBundle;
-
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.FocusEvent;
@@ -16,12 +15,10 @@ import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
-
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.JButton;

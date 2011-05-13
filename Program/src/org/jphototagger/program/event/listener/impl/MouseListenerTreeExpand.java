@@ -1,9 +1,7 @@
 package org.jphototagger.program.event.listener.impl;
 
 import org.jphototagger.program.resource.JptBundle;
-
 import java.awt.event.ActionListener;
-
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JTree;

@@ -11,7 +11,6 @@ import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcTitle;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopHeadline;
-
 import java.util.ArrayList;
 import java.util.List;
 

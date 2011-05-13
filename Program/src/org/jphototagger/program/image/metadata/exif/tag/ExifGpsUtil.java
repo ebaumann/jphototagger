@@ -5,13 +5,10 @@ import org.jphototagger.program.image.metadata.exif.datatype.ExifDatatypeUtil;
 import org.jphototagger.program.image.metadata.exif.datatype.ExifRational;
 import org.jphototagger.program.image.metadata.exif.ExifTag;
 import org.jphototagger.program.image.metadata.exif.ExifTags;
-
 import java.nio.ByteOrder;
-
 import java.text.DecimalFormat;
 import java.text.MessageFormat;
 import java.text.NumberFormat;
-
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Locale;

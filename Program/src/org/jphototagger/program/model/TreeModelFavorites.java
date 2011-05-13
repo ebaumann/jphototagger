@@ -14,11 +14,8 @@ import org.jphototagger.program.event.listener.AppExitListener;
 import org.jphototagger.program.event.listener.DatabaseFavoritesListener;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
-
 import java.awt.Cursor;
-
 import java.io.File;
-
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -26,7 +23,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Properties;
 import java.util.Stack;
-
 import javax.swing.event.TreeExpansionEvent;
 import javax.swing.event.TreeWillExpandListener;
 import javax.swing.JTree;

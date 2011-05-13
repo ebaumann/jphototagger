@@ -5,15 +5,11 @@ import org.jphototagger.lib.io.FileLock;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.io.RuntimeUtil;
 import org.jphototagger.program.UserSettings;
-
 import java.awt.Image;
-
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-
-
 import javax.swing.ImageIcon;
 import org.jphototagger.lib.io.IoUtil;
 

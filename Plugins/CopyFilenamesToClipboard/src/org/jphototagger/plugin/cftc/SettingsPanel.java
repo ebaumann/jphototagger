@@ -1,12 +1,10 @@
 package org.jphototagger.plugin.cftc;
 
 import java.awt.Component;
-
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.ResourceBundle;
-
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;

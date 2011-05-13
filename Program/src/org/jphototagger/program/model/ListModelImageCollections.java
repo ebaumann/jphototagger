@@ -6,10 +6,8 @@ import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseImageCollections;
 import org.jphototagger.program.resource.JptBundle;
-
 import java.util.List;
 import java.util.Map;
-
 import javax.swing.DefaultListModel;
 
 /**

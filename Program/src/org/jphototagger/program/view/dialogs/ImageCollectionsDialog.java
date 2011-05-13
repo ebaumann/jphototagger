@@ -8,10 +8,8 @@ import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.renderer.ListCellRendererImageCollections;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
-
 import java.awt.Container;
 import java.awt.event.MouseEvent;
-
 import javax.swing.ListModel;
 
 /**

@@ -25,7 +25,6 @@ import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopState;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopTransmissionReference;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpRating;
 import org.jphototagger.program.view.panels.AppPanel;
-
 import java.util.ArrayList;
 import java.util.List;
 

@@ -9,10 +9,7 @@ import org.jphototagger.program.database.metadata.Column;
 import org.jphototagger.program.database.metadata.selections.DatabaseInfoRecordCountColumns;
 import org.jphototagger.program.event.listener.DatabaseImageFilesListener;
 import org.jphototagger.program.resource.JptBundle;
-
-
 import java.io.File;
-
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;

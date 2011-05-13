@@ -16,9 +16,7 @@ import org.jphototagger.program.helper.CopyFiles;
 import org.jphototagger.program.helper.CopyFiles.Options;
 import org.jphototagger.program.image.thumbnail.ThumbnailCreator;
 import org.jphototagger.program.types.Filename;
-
 import java.io.File;
-
 import java.util.logging.Level;
 import java.util.Properties;
 

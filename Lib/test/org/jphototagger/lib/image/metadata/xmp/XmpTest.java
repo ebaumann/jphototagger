@@ -1,16 +1,11 @@
 package org.jphototagger.lib.image.metadata.xmp;
 
-import org.jphototagger.lib.image.metadata.xmp.Xmp;
 import com.adobe.xmp.properties.XMPPropertyInfo;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
 import static org.junit.Assert.*;
-
 import java.io.File;
-
 import java.util.Arrays;
 import java.util.List;
 

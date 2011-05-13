@@ -2,9 +2,7 @@ package org.jphototagger.lib.datatransfer;
 
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
-
 import java.io.Serializable;
-
 import java.util.Arrays;
 
 /**

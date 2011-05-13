@@ -7,16 +7,13 @@ import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Persistence;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
-
 import java.awt.Container;
 import java.util.EnumMap;
-
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JPopupMenu;
-
 import javax.swing.JRadioButton;
 import org.jphototagger.lib.util.ServiceLookup;
 import org.jphototagger.services.ExternalThumbnailCreator;

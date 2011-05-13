@@ -1,7 +1,6 @@
 package org.jphototagger.program.model;
 
 import org.jphototagger.program.data.UserDefinedFileFilter;
-
 import javax.swing.DefaultComboBoxModel;
 
 /**

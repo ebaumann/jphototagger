@@ -8,9 +8,7 @@ import com.adobe.xmp.XMPException;
 import com.adobe.xmp.XMPIterator;
 import com.adobe.xmp.XMPMeta;
 import com.adobe.xmp.XMPMetaFactory;
-
 import com.imagero.reader.iptc.IPTCEntryMeta;
-
 import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.lib.image.metadata.xmp.XmpFileReader;
 import org.jphototagger.lib.io.FileLock;
@@ -28,11 +26,9 @@ import org.jphototagger.program.database.metadata.selections.EditColumns;
 import org.jphototagger.program.database.metadata.selections.XmpInDatabase;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpLastModified;
 import org.jphototagger.program.io.RuntimeUtil;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;

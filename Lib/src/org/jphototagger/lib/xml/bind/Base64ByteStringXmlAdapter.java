@@ -1,7 +1,6 @@
 package org.jphototagger.lib.xml.bind;
 
 import org.jphototagger.lib.thirdparty.Base64;
-
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
@@ -10,6 +9,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  * @author Elmar Baumann
  */
 public final class Base64ByteStringXmlAdapter extends XmlAdapter<String, String> {
+
     @Override
     public String unmarshal(String value) throws Exception {
         if (value == null) {

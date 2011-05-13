@@ -4,15 +4,11 @@ import org.jphototagger.lib.componentutil.LookAndFeelUtil;
 import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.lib.model.TreeModelAllSystemDirectories;
 import org.jphototagger.lib.resource.JslBundle;
-
 import java.awt.Color;
 import java.awt.Component;
-
 import java.io.File;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.Icon;
 import javax.swing.JTree;

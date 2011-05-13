@@ -5,9 +5,7 @@ import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.event.listener.ProgressListener;
 import org.jphototagger.program.event.ProgressEvent;
 import org.jphototagger.program.resource.JptBundle;
-
 import java.io.File;
-
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;

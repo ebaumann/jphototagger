@@ -22,13 +22,11 @@ import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopTransmis
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpRating;
 import org.jphototagger.program.event.listener.DatabaseMetadataTemplatesListener;
 import org.jphototagger.program.event.listener.impl.ListenerSupport;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;

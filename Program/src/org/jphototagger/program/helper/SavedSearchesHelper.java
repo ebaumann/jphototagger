@@ -7,7 +7,6 @@ import org.jphototagger.program.data.SavedSearch;
 import org.jphototagger.program.database.DatabaseSavedSearches;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
-
 import javax.swing.DefaultListModel;
 
 /**

@@ -1,12 +1,9 @@
 package org.jphototagger.lib.inputverifier;
 
 import org.jphototagger.lib.resource.JslBundle;
-
 import java.io.Serializable;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;

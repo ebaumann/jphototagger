@@ -1,16 +1,12 @@
 package org.jphototagger.lib.image.util;
 
 import org.jphototagger.lib.resource.JslBundle;
-
 import java.awt.Image;
-
 import java.io.File;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;

@@ -1,12 +1,9 @@
 package org.jphototagger.lib.util;
 
-import org.jphototagger.lib.util.StringUtil;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
 import static org.junit.Assert.*;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;

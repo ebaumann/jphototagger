@@ -12,7 +12,6 @@ import org.jphototagger.program.io.CharEncoding;
 import org.jphototagger.program.io.FilenameSuffixes;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -21,7 +20,6 @@ import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;

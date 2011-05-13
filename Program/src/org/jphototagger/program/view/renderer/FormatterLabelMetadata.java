@@ -1,9 +1,7 @@
 package org.jphototagger.program.view.renderer;
 
 import org.jphototagger.program.app.AppLookAndFeel;
-
 import java.awt.Font;
-
 import javax.swing.JLabel;
 
 /**

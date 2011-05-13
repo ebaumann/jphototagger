@@ -1,7 +1,6 @@
 package org.jphototagger.program.model;
 
 import org.jphototagger.program.resource.JptBundle;
-
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 

@@ -2,7 +2,6 @@ package org.jphototagger.program.view.renderer;
 
 import java.awt.Color;
 import org.jphototagger.program.app.AppLookAndFeel;
-
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;
 

@@ -14,12 +14,8 @@ import org.jphototagger.program.helper.InsertImageFilesIntoDatabase.Insert;
 import org.jphototagger.program.model.ListModelImageCollections;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.panels.ProgressBarUpdater;
-
-
 import java.io.File;
-
 import java.util.List;
-
 import javax.swing.filechooser.FileFilter;
 import javax.swing.Icon;
 import org.jphototagger.lib.awt.EventQueueUtil;

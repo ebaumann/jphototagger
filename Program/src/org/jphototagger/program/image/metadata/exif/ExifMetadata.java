@@ -7,12 +7,10 @@ import com.imagero.reader.tiff.EXIF;
 import com.imagero.reader.tiff.IFDEntry;
 import com.imagero.reader.tiff.ImageFileDirectory;
 import com.imagero.reader.tiff.TiffReader;
-
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.data.Exif;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.types.FileType;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;

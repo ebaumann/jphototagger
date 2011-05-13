@@ -1,16 +1,13 @@
 package org.jphototagger.lib.componentutil;
 
 import java.awt.event.MouseEvent;
-
 import java.io.File;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Stack;
 import java.util.StringTokenizer;
-
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;

@@ -6,9 +6,7 @@ import org.jphototagger.program.data.UserDefinedFileFilter;
 import org.jphototagger.program.database.DatabaseUserDefinedFileFilters;
 import org.jphototagger.program.exporter.UserDefinedFileFilterExporter;
 import org.jphototagger.program.exporter.UserDefinedFileFilterExporter.CollectionWrapper;
-
 import java.io.File;
-
 import javax.swing.filechooser.FileFilter;
 import javax.swing.Icon;
 

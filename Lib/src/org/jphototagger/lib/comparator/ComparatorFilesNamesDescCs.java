@@ -1,10 +1,8 @@
 package org.jphototagger.lib.comparator;
 
 import org.jphototagger.lib.util.ClassEquality;
-
 import java.io.File;
 import java.io.Serializable;
-
 import java.util.Comparator;
 
 /**

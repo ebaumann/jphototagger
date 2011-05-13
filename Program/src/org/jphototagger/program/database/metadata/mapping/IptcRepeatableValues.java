@@ -1,7 +1,6 @@
 package org.jphototagger.program.database.metadata.mapping;
 
 import com.imagero.reader.iptc.IPTCEntryMeta;
-
 import java.util.HashMap;
 import java.util.Map;
 
