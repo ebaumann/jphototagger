@@ -14,23 +14,25 @@ import java.util.List;
  * @author Elmar Baumann
  */
 public class CollectionUtilTest {
-    public CollectionUtilTest() {}
+
+    public CollectionUtilTest() {
+    }
 
     @BeforeClass
-    public static void setUpClass() throws Exception {}
+    public static void setUpClass() throws Exception {
+    }
 
     @AfterClass
-    public static void tearDownClass() throws Exception {}
+    public static void tearDownClass() throws Exception {
+    }
 
     /**
      * Test of binaryInsert method, of class CollectionUtil.
      */
     @Test
     public void testBinaryInsert() {
-        System.out.println("binaryInsert");
-
         LinkedList<String> list = new LinkedList<String>();
-        String             el2  = "Birne";
+        String el2 = "Birne";
 
         CollectionUtil.binaryInsert(list, el2);
         assertTrue(list.size() == 1);
@@ -39,30 +41,30 @@ public class CollectionUtilTest {
         String el1 = "Apfel";
 
         CollectionUtil.binaryInsert(list, el1);
-        assertTrue(Arrays.equals(list.toArray(), new Object[] { el1, el2 }));
+        assertTrue(Arrays.equals(list.toArray(), new Object[]{el1, el2}));
 
         String el3 = "Zitrone";
 
         CollectionUtil.binaryInsert(list, el3);
         assertTrue(Arrays.equals(list.toArray(),
-                                 new Object[] { el1, el2, el3 }));
+                new Object[]{el1, el2, el3}));
         list.clear();
         CollectionUtil.binaryInsert(list, el1);
         CollectionUtil.binaryInsert(list, el3);
-        assertTrue(Arrays.equals(list.toArray(), new Object[] { el1, el3 }));
+        assertTrue(Arrays.equals(list.toArray(), new Object[]{el1, el3}));
         list.clear();
         CollectionUtil.binaryInsert(list, el1);
         CollectionUtil.binaryInsert(list, el2);
         CollectionUtil.binaryInsert(list, el1);
         assertTrue(Arrays.equals(list.toArray(),
-                                 new Object[] { el1, el1, el2 }));
+                new Object[]{el1, el1, el2}));
         list.clear();
         CollectionUtil.binaryInsert(list, el2);
         CollectionUtil.binaryInsert(list, el1);
         CollectionUtil.binaryInsert(list, el1);
         CollectionUtil.binaryInsert(list, el2);
-        assertTrue(Arrays.equals(list.toArray(), new Object[] { el1, el1, el2,
-                el2 }));
+        assertTrue(Arrays.equals(list.toArray(), new Object[]{el1, el1, el2,
+                    el2}));
     }
 
     /**
@@ -70,10 +72,8 @@ public class CollectionUtilTest {
      */
     @Test
     public void testIntegerTokenToList() {
-        System.out.println("integerTokenToList");
-
-        String        string    = "1,125,7";
-        String        delimiter = ",";
+        String string = "1,125,7";
+        String delimiter = ",";
         List<Integer> expResult = new ArrayList<Integer>();
 
         expResult.add(1);
@@ -81,10 +81,10 @@ public class CollectionUtilTest {
         expResult.add(7);
 
         List<Integer> result = CollectionUtil.integerTokenToList(string,
-                                   delimiter);
+                delimiter);
 
         assertEquals(expResult, result);
-        string    = "-1,42,29:33,72";
+        string = "-1,42,29:33,72";
         delimiter = ":,";
         expResult = new ArrayList<Integer>();
         expResult.add(-1);
@@ -94,26 +94,25 @@ public class CollectionUtilTest {
         expResult.add(72);
         result = CollectionUtil.integerTokenToList(string, delimiter);
         assertEquals(expResult, result);
-        string    = "-1";
+        string = "-1";
         delimiter = ",";
         expResult = new ArrayList<Integer>();
         expResult.add(-1);
         result = CollectionUtil.integerTokenToList(string, delimiter);
         assertEquals(expResult, result);
-        string    = "";
+        string = "";
         delimiter = ",";
         expResult = new ArrayList<Integer>();
-        result    = CollectionUtil.integerTokenToList(string, delimiter);
+        result = CollectionUtil.integerTokenToList(string, delimiter);
         assertEquals(expResult, result);
 
         try {
-            string    = "12,Peter";
+            string = "12,Peter";
             delimiter = ",";
             expResult = new ArrayList<Integer>();
-            result    = CollectionUtil.integerTokenToList(string, delimiter);
+            result = CollectionUtil.integerTokenToList(string, delimiter);
             fail("no NumberFormatException");
         } catch (NumberFormatException ex) {
-
             // ok
         }
 
@@ -121,7 +120,6 @@ public class CollectionUtilTest {
             CollectionUtil.integerTokenToList(null, "");
             fail("NullpointerException was not thrown");
         } catch (NullPointerException ex) {
-
             // ok
         }
 
@@ -129,7 +127,6 @@ public class CollectionUtilTest {
             CollectionUtil.integerTokenToList("", null);
             fail("NullpointerException was not thrown");
         } catch (NullPointerException ex) {
-
             // ok
         }
     }
@@ -139,10 +136,8 @@ public class CollectionUtilTest {
      */
     @Test
     public void testStringTokenToList() {
-        System.out.println("stringTokenToList");
-
-        String       string    = "anton,berta,cäsar,wilhelm";
-        String       delimiter = ",:";
+        String string = "anton,berta,cäsar,wilhelm";
+        String delimiter = ",:";
         List<String> expResult = new ArrayList<String>();
 
         expResult.add("anton");
@@ -150,11 +145,10 @@ public class CollectionUtilTest {
         expResult.add("cäsar");
         expResult.add("wilhelm");
 
-        List<String> result = CollectionUtil.stringTokenToList(string,
-                                  delimiter);
+        List<String> result = CollectionUtil.stringTokenToList(string, delimiter);
 
         assertEquals(expResult, result);
-        string    = "anton,berta,cäsar:wilhelm";
+        string = "anton,berta,cäsar:wilhelm";
         delimiter = ",:";
         expResult = new ArrayList<String>();
         expResult.add("anton");
@@ -163,7 +157,7 @@ public class CollectionUtilTest {
         expResult.add("wilhelm");
         result = CollectionUtil.stringTokenToList(string, delimiter);
         assertEquals(expResult, result);
-        string    = "anton:berta::cäsar:wilhelm";
+        string = "anton:berta::cäsar:wilhelm";
         delimiter = ",:";
         expResult = new ArrayList<String>();
         expResult.add("anton");
@@ -172,29 +166,28 @@ public class CollectionUtilTest {
         expResult.add("wilhelm");
         result = CollectionUtil.stringTokenToList(string, delimiter);
         assertEquals(expResult, result);
-        string    = "anton";
+        string = "anton";
         delimiter = ",";
         expResult = new ArrayList<String>();
         expResult.add(string);
         result = CollectionUtil.stringTokenToList(string, delimiter);
         assertEquals(expResult, result);
-        string    = "anton,berta,cäsar,:wilhelm";
+        string = "anton,berta,cäsar,:wilhelm";
         delimiter = "";
         expResult = new ArrayList<String>();
         expResult.add(string);
         result = CollectionUtil.stringTokenToList(string, delimiter);
         assertEquals(expResult, result);
-        string    = "";
+        string = "";
         delimiter = ",";
         expResult = new ArrayList<String>();
-        result    = CollectionUtil.stringTokenToList(string, delimiter);
+        result = CollectionUtil.stringTokenToList(string, delimiter);
         assertEquals(expResult, result);
 
         try {
             CollectionUtil.stringTokenToList(null, "");
             fail("NullpointerException was not thrown");
         } catch (NullPointerException ex) {
-
             // ok
         }
 
@@ -202,7 +195,6 @@ public class CollectionUtilTest {
             CollectionUtil.stringTokenToList("", null);
             fail("NullpointerException was not thrown");
         } catch (NullPointerException ex) {
-
             // ok
         }
     }

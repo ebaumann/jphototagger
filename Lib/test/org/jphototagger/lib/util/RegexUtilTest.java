@@ -15,28 +15,30 @@ import java.util.List;
  * @author Elmar Baumann
  */
 public class RegexUtilTest {
-    public RegexUtilTest() {}
+
+    public RegexUtilTest() {
+    }
 
     @BeforeClass
-    public static void setUpClass() throws Exception {}
+    public static void setUpClass() throws Exception {
+    }
 
     @AfterClass
-    public static void tearDownClass() throws Exception {}
+    public static void tearDownClass() throws Exception {
+    }
 
     /**
      * Test of getMatches method, of class RegexUtil.
      */
     @Test
     public void testGetMatches() {
-        System.out.println("getMatches");
-
         Collection<String> strings = new ArrayList<String>();
-        final String       s1      = "Bill";
-        final String       s2      = "Heute ist leider Montag";
-        final String       s3      = "99Luftballons";
-        final String       s4      = "Eiskreme";
-        final String       s5      = ".*pattern$";
-        final String       s6      = "Montag ist der Tag nach Sonntag";
+        final String s1 = "Bill";
+        final String s2 = "Heute ist leider Montag";
+        final String s3 = "99Luftballons";
+        final String s4 = "Eiskreme";
+        final String s5 = ".*pattern$";
+        final String s6 = "Montag ist der Tag nach Sonntag";
 
         strings.add(s1);
         strings.add(s2);
@@ -45,30 +47,30 @@ public class RegexUtilTest {
         strings.add(s5);
         strings.add(s6);
 
-        String       pattern   = ".*Montag$";
+        String pattern = ".*Montag$";
         List<String> expResult = Arrays.asList(s2);
-        List<String> result    = RegexUtil.getMatches(strings, pattern);
+        List<String> result = RegexUtil.getMatches(strings, pattern);
 
         assertEquals(expResult, result);
-        pattern   = ".*Montag.*";
+        pattern = ".*Montag.*";
         expResult = Arrays.asList(s2, s6);
-        result    = RegexUtil.getMatches(strings, pattern);
+        result = RegexUtil.getMatches(strings, pattern);
         assertEquals(expResult, result);
-        pattern   = java.util.regex.Pattern.quote(s5);
+        pattern = java.util.regex.Pattern.quote(s5);
         expResult = Arrays.asList(s5);
-        result    = RegexUtil.getMatches(strings, pattern);
+        result = RegexUtil.getMatches(strings, pattern);
         assertEquals(expResult, result);
-        pattern   = "[0-9]+.*";
+        pattern = "[0-9]+.*";
         expResult = Arrays.asList(s3);
-        result    = RegexUtil.getMatches(strings, pattern);
+        result = RegexUtil.getMatches(strings, pattern);
         assertEquals(expResult, result);
-        pattern   = ".*nüscht.*";
+        pattern = ".*nüscht.*";
         expResult = new ArrayList<String>();
-        result    = RegexUtil.getMatches(strings, pattern);
+        result = RegexUtil.getMatches(strings, pattern);
         assertEquals(expResult, result);
-        pattern   = "^B.*ll$";
+        pattern = "^B.*ll$";
         expResult = Arrays.asList(s1);
-        result    = RegexUtil.getMatches(strings, pattern);
+        result = RegexUtil.getMatches(strings, pattern);
         assertEquals(expResult, result);
     }
 
@@ -77,8 +79,6 @@ public class RegexUtilTest {
      */
     @Test
     public void testContainsMatch() {
-        System.out.println("containsMatch");
-
         Collection<String> patterns = new ArrayList<String>();
 
         patterns.add(".*Montag$");
@@ -108,37 +108,34 @@ public class RegexUtilTest {
      */
     @Test
     public void testContainsMatch_movedFromArrayUtils() {
-        System.out.println("matches");
-
         List<String> patterns = new ArrayList<String>();
 
         patterns.add(".*ille$");
 
-        String  string    = "Brille";
+        String string = "Brille";
         boolean expResult = true;
-        boolean result    = RegexUtil.containsMatch(patterns, string);
+        boolean result = RegexUtil.containsMatch(patterns, string);
 
         assertEquals(expResult, result);
         patterns = new ArrayList<String>();
         patterns.add("xyz");
         patterns.add("^[A-Z]+");
-        string    = "ABC";
+        string = "ABC";
         expResult = true;
-        result    = RegexUtil.containsMatch(patterns, string);
+        result = RegexUtil.containsMatch(patterns, string);
         assertEquals(expResult, result);
         patterns = new ArrayList<String>();
         patterns.add("xyz");
         patterns.add("^[A-Z]+");
-        string    = "AbC";
+        string = "AbC";
         expResult = false;
-        result    = RegexUtil.containsMatch(patterns, string);
+        result = RegexUtil.containsMatch(patterns, string);
         assertEquals(expResult, result);
 
         try {
             RegexUtil.containsMatch(null, "");
             fail("NullpointerException was not thrown");
         } catch (NullPointerException ex) {
-
             // ok
         }
 
@@ -146,7 +143,6 @@ public class RegexUtilTest {
             RegexUtil.containsMatch(new ArrayList<String>(), null);
             fail("NullpointerException was not thrown");
         } catch (NullPointerException ex) {
-
             // ok
         }
     }

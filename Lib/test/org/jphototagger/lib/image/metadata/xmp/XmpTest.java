@@ -27,8 +27,6 @@ public class XmpTest {
      */
     @Test
     public void testGetPropertyValueFrom() {
-        System.out.println("getPropertyValueFrom");
-
         File xmpFile =
             new File(XmpTest.class.getProtectionDomain().getCodeSource()
                 .getLocation().getPath() + File.separator + "org"

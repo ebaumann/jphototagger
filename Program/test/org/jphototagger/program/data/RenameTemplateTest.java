@@ -10,13 +10,17 @@ import static org.junit.Assert.*;
  * @author Elmar Baumann
  */
 public class RenameTemplateTest {
-    public RenameTemplateTest() {}
+
+    public RenameTemplateTest() {
+    }
 
     @BeforeClass
-    public static void setUpClass() throws Exception {}
+    public static void setUpClass() throws Exception {
+    }
 
     @AfterClass
-    public static void tearDownClass() throws Exception {}
+    public static void tearDownClass() throws Exception {
+    }
 
     public static RenameTemplate createTemplate() {
         RenameTemplate template = new RenameTemplate();
@@ -41,9 +45,7 @@ public class RenameTemplateTest {
 
     @Test
     public void testSetOther() {
-        System.out.println("set");
-
-        RenameTemplate other    = createTemplate();
+        RenameTemplate other = createTemplate();
         RenameTemplate template = new RenameTemplate();
 
         template.set(other);
@@ -54,8 +56,6 @@ public class RenameTemplateTest {
 
     @Test
     public void testSetter() {
-        System.out.println("testSetter");
-
         RenameTemplate template = createTemplate();
 
         assertEqualsCreated(template);
@@ -80,8 +80,6 @@ public class RenameTemplateTest {
 
     @Test
     public void testNull() {
-        System.out.println("testNull");
-
         RenameTemplate template = new RenameTemplate();
 
         assertNull(template.getDateDelimiter());
