@@ -23,8 +23,6 @@ public class KMPMatchTest {
      */
     @Test
     public void testIndexOf() {
-        System.out.println("indexOf");
-
         byte[] data    = { 0x00 };
         byte[] pattern = {
             0x3C, 0x3F, 0x78, 0x70, 0x61, 0x63, 0x6B, 0x65, 0x74, 0x20, 0x62,

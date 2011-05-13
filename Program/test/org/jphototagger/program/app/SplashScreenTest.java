@@ -1,6 +1,5 @@
 package org.jphototagger.program.app;
 
-import org.jphototagger.program.app.SplashScreen;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -27,7 +26,6 @@ public class SplashScreenTest {
      */
     @Test
     public void testSetProgress() {
-        System.out.println("setProgress");
         SplashScreen.INSTANCE.setMessage("5 %");
         SplashScreen.INSTANCE.setProgress(5);
         sleep(500);
@@ -62,11 +60,9 @@ public class SplashScreenTest {
      */
     @Test
     public void testSetMessage() {
-        System.out.println("setMessage");
         SplashScreen.INSTANCE.setMessage("Testmessage 1");
         sleep(2000);
-        SplashScreen.INSTANCE.setMessage(
-            "Testmessage 2 (should have replaced previous)");
+        SplashScreen.INSTANCE.setMessage("Testmessage 2 (should have replaced previous)");
         sleep(2000);
     }
 

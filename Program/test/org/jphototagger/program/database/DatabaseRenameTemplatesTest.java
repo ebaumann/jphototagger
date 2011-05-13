@@ -14,23 +14,23 @@ import java.util.Set;
  * @author Elmar Baumann
  */
 public class DatabaseRenameTemplatesTest {
+
     private final DatabaseRenameTemplates db = DatabaseRenameTemplates.INSTANCE;
 
-    public DatabaseRenameTemplatesTest() {}
+    public DatabaseRenameTemplatesTest() {
+    }
 
     @BeforeClass
     public static void setUpClass() throws Exception {
         SplashScreen.INSTANCE.init();
         ConnectionPool.INSTANCE.init();
         DatabaseTables.INSTANCE.createTables();
-        DatabaseRenameTemplates.INSTANCE.delete(
-            RenameTemplateTest.createTemplate().getName());
+        DatabaseRenameTemplates.INSTANCE.delete(RenameTemplateTest.createTemplate().getName());
     }
 
     @AfterClass
     public static void tearDownClass() throws Exception {
-        DatabaseRenameTemplates.INSTANCE.delete(
-            RenameTemplateTest.createTemplate().getName());
+        DatabaseRenameTemplates.INSTANCE.delete(RenameTemplateTest.createTemplate().getName());
         DatabaseRenameTemplates.INSTANCE.delete("New name");
         DatabaseMaintainance.INSTANCE.shutdown();
     }
@@ -40,8 +40,6 @@ public class DatabaseRenameTemplatesTest {
      */
     @Test
     public void testInsert() {
-        System.out.println("insert");
-
         RenameTemplate template = RenameTemplateTest.createTemplate();
 
         template.setId(null);
@@ -58,8 +56,6 @@ public class DatabaseRenameTemplatesTest {
      */
     @Test
     public void testUpdate() {
-        System.out.println("update");
-
         RenameTemplate template = RenameTemplateTest.createTemplate();
 
         template.setId(null);
@@ -78,8 +74,6 @@ public class DatabaseRenameTemplatesTest {
      */
     @Test
     public void testDelete() {
-        System.out.println("delete");
-
         RenameTemplate template = RenameTemplateTest.createTemplate();
 
         template.setId(null);
@@ -93,8 +87,6 @@ public class DatabaseRenameTemplatesTest {
      */
     @Test
     public void testGetAll() {
-        System.out.println("getAll");
-
         RenameTemplate template1 = RenameTemplateTest.createTemplate();
         RenameTemplate template2 = new RenameTemplate(template1);
 
@@ -118,8 +110,6 @@ public class DatabaseRenameTemplatesTest {
      */
     @Test
     public void testFind() {
-        System.out.println("find");
-
         RenameTemplate template = RenameTemplateTest.createTemplate();
 
         db.delete(template.getName());
@@ -134,8 +124,6 @@ public class DatabaseRenameTemplatesTest {
      */
     @Test
     public void testExists() {
-        System.out.println("exists");
-
         RenameTemplate template = RenameTemplateTest.createTemplate();
 
         db.delete(template.getName());
