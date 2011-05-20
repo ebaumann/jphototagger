@@ -1924,7 +1924,7 @@ public final class DatabaseImageFiles extends Database {
         stmt.setLong(1, idFile);
         setLong(ensureValueExists("exif_recording_equipment", "equipment", exif.getRecordingEquipment()), stmt, 2);
         setDate(exif.getDateTimeOriginal(), stmt, 3);
-        setDouble(exif.getFocalLength(), stmt, 4);
+        setDouble(exif.getFocalLengthGreaterZeroOrNull(), stmt, 4);
         setShort(exif.getIsoSpeedRatings(), stmt, 5);
         setLong(ensureValueExists("exif_lenses", "lens", exif.getLens()), stmt, 6);
     }
