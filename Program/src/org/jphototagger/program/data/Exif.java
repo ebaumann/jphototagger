@@ -45,6 +45,12 @@ public final class Exif {
     public double getFocalLength() {
         return focalLength;
     }
+    
+    public Double getFocalLengthGreaterZeroOrNull() {
+        return focalLength > 0
+                ? focalLength
+                : null;
+    }
 
     /**
      * Sets the focal length of the camera's lens which projected the image.
