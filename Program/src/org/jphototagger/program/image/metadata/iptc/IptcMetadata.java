@@ -9,7 +9,10 @@ import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.data.Iptc;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.jphototagger.program.app.AppFileFilters;
@@ -132,6 +135,47 @@ public final class IptcMetadata {
         }
 
         return iptc;
+    }
+
+    private static Set<IPTCEntry> toEntrySet(IPTCEntry[][] entries) {
+        Set<IPTCEntry> entrySet = new HashSet<IPTCEntry>();
+        
+        if (entries != null) {
+            for (int i = 0; i < entries.length; i++) {
+                addEntriesToSet(entries[i], entrySet);
+            }
+        }
+        
+        return entrySet;
+    }
+
+    private static void addEntriesToSet(IPTCEntry[] entries, Set<IPTCEntry> entrySet) {
+        if (entries != null) {
+            for (int i = 0; i < entries.length; i++) {
+                IPTCEntry entry = entries[i];
+
+                if (entry != null) {
+                    entrySet.add(entry);
+                }
+            }
+        }
+    }
+    
+    public static IPTCEntry findEntry(Collection<? extends IPTCEntry> entries, int recordNumber, int dataSetNumber) {
+        if (entries == null) {
+            throw new NullPointerException("entries == null");
+        }
+        
+        for (IPTCEntry entry : entries) {
+            int recordNo = entry.getRecordNumber();
+            int dataSetNo = entry.getDataSetNumber();
+            
+            if (recordNo == recordNumber && dataSetNo == dataSetNumber) {
+                return entry;
+            }
+        }
+        
+        return null;
     }
 
     private IptcMetadata() {}
