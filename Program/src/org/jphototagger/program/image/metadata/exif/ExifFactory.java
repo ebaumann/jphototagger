@@ -133,10 +133,12 @@ final class ExifFactory {
 
                     if (numerator != 0) {
                     focalLength = denominator / numerator;
-                }
+                    }
                 }
 
-                exif.setFocalLength(focalLength);
+                if (focalLength > 0) {
+                    exif.setFocalLength(focalLength);
+                }
             }
         } catch (Exception ex) {
             AppLogger.logSevere(ExifMetadata.class, ex);
