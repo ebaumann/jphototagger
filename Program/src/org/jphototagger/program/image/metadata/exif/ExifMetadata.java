@@ -98,14 +98,12 @@ public final class ExifMetadata {
                     IFDEntry entry = currentIfdEntry[j];
                     ExifTag exifTag = new ExifTag(entry, IfdType.EXIF);
 
-                    exifTags.addExifTag(exifTag);
-                    
                     if (exifTag.isGpsId()) {
                         exifTags.addGpsTag(new ExifTag(entry, IfdType.GPS));
-                    }
-                    
-                    if (exifTag.isMakerNoteId()) {
-                        exifTags.addMakerNoteTag(new ExifTag(entry, IfdType.MAKER_NOTE));
+                    } else if (exifTag.isMakerNoteId()) {
+                        //exifTags.addMakerNoteTag(new ExifTag(entry, IfdType.MAKER_NOTE));
+                    } else {
+                        exifTags.addExifTag(exifTag);
                     }
                 }
             }
