@@ -143,6 +143,10 @@ public final class ExifTag {
         public boolean isGpsId() {
             return GPS_IDS.contains(this);
         }
+        
+        public boolean isMakerNoteId() {
+            return MAKER_NOTE.equals(this);
+        }
     }
 
     @XmlTransient
@@ -297,6 +301,12 @@ public final class ExifTag {
         Id id = id();
         
         return id != null && id.isGpsId();
+    }
+    
+    public boolean isMakerNoteId() {
+        Id id = id();
+        
+        return id != null && id.isMakerNoteId();
     }
 
     public long valueOffset() {
