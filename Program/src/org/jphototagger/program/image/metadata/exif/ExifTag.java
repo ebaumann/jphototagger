@@ -7,8 +7,10 @@ import org.jphototagger.program.image.metadata.exif.ExifMetadata.IfdType;
 import java.nio.ByteOrder;
 import java.text.MessageFormat;
 import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -91,11 +93,23 @@ public final class ExifTag {
         SUBJECT_DISTANCE_RANGE(41996),
         IMAGE_UNIQUE_ID(42016),
         ;
-
+        
         /**
          * Integer value of tag ID as specified in the EXIF standard
          */
         private final int value;
+    
+        @XmlTransient
+        private static final Set<Id> GPS_IDS = EnumSet.of(Id.GPS_ALTITUDE,
+                                                          Id.GPS_ALTITUDE_REF,
+                                                          Id.GPS_DATE_STAMP,
+                                                          Id.GPS_LATITUDE,
+                                                          Id.GPS_LATITUDE_REF,
+                                                          Id.GPS_LONGITUDE,
+                                                          Id.GPS_LONGITUDE_REF,
+                                                          Id.GPS_SATELLITES,
+                                                          Id.GPS_TIME_STAMP,
+                                                          Id.GPS_VERSION_ID);
 
         /**
          * Returns the integer value of this tag ID.
@@ -124,6 +138,10 @@ public final class ExifTag {
 
         private Id(int value) {
             this.value = value;
+        }
+        
+        public boolean isGpsId() {
+            return GPS_IDS.contains(this);
         }
     }
 
@@ -274,6 +292,12 @@ public final class ExifTag {
     public IfdType ifdType() {
         return ifdType;
     }
+    
+    public boolean isGpsId() {
+        Id id = id();
+        
+        return id != null && id.isGpsId();
+    }
 
     public long valueOffset() {
         return valueOffset;
@@ -310,7 +334,7 @@ public final class ExifTag {
 
         return t;
     }
-
+    
     @Override
     public String toString() {
         return (name == null)
