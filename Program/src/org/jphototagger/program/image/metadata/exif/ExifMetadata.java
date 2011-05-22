@@ -96,8 +96,13 @@ public final class ExifMetadata {
 
                 for (int j = 0; j < currentIfdEntry.length; j++) {
                     IFDEntry entry = currentIfdEntry[j];
+                    ExifTag exifTag = new ExifTag(entry, IfdType.EXIF);
 
-                    exifTags.addExifTag(new ExifTag(entry, IfdType.EXIF));
+                    exifTags.addExifTag(exifTag);
+                    
+                    if (exifTag.isGpsId()) {
+                        exifTags.addGpsTag(new ExifTag(entry, IfdType.GPS));
+                    }
                 }
             }
         }
