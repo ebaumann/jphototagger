@@ -7,6 +7,7 @@ import org.jphototagger.program.resource.JptBundle;
 import java.io.File;
 import java.util.List;
 import org.jphototagger.program.app.AppFileFilters;
+import org.jphototagger.program.cache.ExifCache;
 
 /**
  * Refreshes the EXIF metadata of all known imagesfiles whithout time stamp
@@ -37,6 +38,7 @@ public final class RefreshExifInDbOfKnownFiles extends HelperThread {
             Exif exif = null;
 
            if (!AppFileFilters.INSTANCE.isUserDefinedFileType(imageFile)) {
+                ExifCache.INSTANCE.deleteCachedExifTags(imageFile);
                 exif = ExifMetadata.getExif(imageFile);
             }
 
