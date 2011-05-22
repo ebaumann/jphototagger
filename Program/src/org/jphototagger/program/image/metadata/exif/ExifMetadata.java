@@ -103,6 +103,10 @@ public final class ExifMetadata {
                     if (exifTag.isGpsId()) {
                         exifTags.addGpsTag(new ExifTag(entry, IfdType.GPS));
                     }
+                    
+                    if (exifTag.isMakerNoteId()) {
+                        exifTags.addMakerNoteTag(new ExifTag(entry, IfdType.MAKER_NOTE));
+                    }
                 }
             }
         }
