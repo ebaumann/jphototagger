@@ -3,6 +3,11 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.8.82 2011-05-22
+-----------------
+
+* Bugfix: GPS-Informationen in JPEG-Dateien werden ausgewertet
+
 0.8.81 2011-05-12
 -----------------
 
