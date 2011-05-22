@@ -36,6 +36,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Set;
 import org.jphototagger.program.app.AppFileFilters;
+import org.jphototagger.program.cache.ExifCache;
 
 /**
  * Inserts or updates image file metadata - EXIF, thumbnail, XMP - into the
@@ -259,7 +260,8 @@ public final class InsertImageFilesIntoDatabase extends Thread implements Cancel
         Exif exif = null;
 
         if (!AppFileFilters.INSTANCE.isUserDefinedFileType(file)) {
-            exif = ExifMetadata.getCachedExif(file);
+            ExifCache.INSTANCE.deleteCachedExifTags(file);
+            exif = ExifMetadata.getExif(file);
         }
 
         if ((exif != null) && !exif.isEmpty()) {
