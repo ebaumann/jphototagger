@@ -303,14 +303,14 @@ public final class AppFrame extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
 
         buttonGroupSort = new javax.swing.ButtonGroup();
         menuBar = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         menuItemScanDirectory = new javax.swing.JMenuItem();
         menuItemMaintainDatabase = new javax.swing.JMenuItem();
+        menuItemMaintainance = new JMenuItem(org.jphototagger.program.controller.maintainance.DisplayMaintainanceDialogAction.INSTANCE);
         sep1 = new javax.swing.JPopupMenu.Separator();
         menuImportImageFiles = new javax.swing.JMenuItem();
         sep2 = new javax.swing.JPopupMenu.Separator();
@@ -431,6 +431,9 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemMaintainDatabase.setText(JptBundle.INSTANCE.getString("AppFrame.menuItemMaintainDatabase.text")); // NOI18N
         menuItemMaintainDatabase.setName("menuItemMaintainDatabase"); // NOI18N
         menuFile.add(menuItemMaintainDatabase);
+
+        menuItemMaintainance.setName("menuItemMaintainance"); // NOI18N
+        menuFile.add(menuItemMaintainance);
 
         sep1.setName("sep1"); // NOI18N
         menuFile.add(sep1);
@@ -919,7 +922,7 @@ public final class AppFrame extends javax.swing.JFrame {
         menuBar.add(menuHelp);
 
         setJMenuBar(menuBar);
-    }// </editor-fold>//GEN-END:initComponents
+    }//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupSort;
@@ -967,6 +970,7 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemImportKeywords;
     private javax.swing.JMenuItem menuItemInputHelper;
     private javax.swing.JMenuItem menuItemMaintainDatabase;
+    private javax.swing.JMenuItem menuItemMaintainance;
     private javax.swing.JMenuItem menuItemOpenPdfUserManual;
     private javax.swing.JMenuItem menuItemOutputWindow;
     private javax.swing.JMenuItem menuItemScanDirectory;

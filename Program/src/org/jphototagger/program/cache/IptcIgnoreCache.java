@@ -101,6 +101,47 @@ public final class IptcIgnoreCache extends DatabaseImageFilesListenerAdapter {
             }
         }
     }
+    /**
+     * Removes all files from the cache directory.
+     *
+     * @return count of deleted files
+     */
+    public int clear() {
+        File[] cacheFiles = CACHE_DIR.listFiles();
+
+        if (cacheFiles == null || cacheFiles.length == 0) {
+            return 0;
+        }
+
+        LOGGER.log(Level.INFO, "IPTC Ignore Cache: Deleting all cache files in directory ''{0}''", CACHE_DIR);
+
+        int deleteCount = 0;
+
+        for (File cacheFile : cacheFiles) {
+            boolean deleted = cacheFile.delete();
+
+            if (deleted) {
+                deleteCount++;
+            } else {
+                LOGGER.log(Level.WARNING, "IPTC Ignore Cache: Couldn't delete cache file ''{0}''", cacheFile);
+            }
+        }
+
+        return deleteCount;
+    }
+
+    /**
+     *
+     * @return count of cached files
+     */
+    public int getSize() {
+        File[] cacheFiles = CACHE_DIR.listFiles();
+
+        return cacheFiles == null
+                ? 0
+                : cacheFiles.length;
+    }
+
 
     private File getCacheFile(File imageFile) {
         return new File(CACHE_DIR + File.separator + CacheFileUtil.getMd5Filename(imageFile));
