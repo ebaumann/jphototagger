@@ -3,7 +3,7 @@ package org.jphototagger.program.controller.maintainance;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.cache.ExifCache;
+import org.jphototagger.program.cache.IptcIgnoreCache;
 import org.jphototagger.program.resource.JptBundle;
 
 /**
@@ -23,7 +23,7 @@ public final class ClearIptcIgnoreCacheAction extends AbstractAction {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (confirm()) {
-            int deletedFileCount = ExifCache.INSTANCE.clear();
+            int deletedFileCount = IptcIgnoreCache.INSTANCE.clear();
             showDeletedFileCountInfo(deletedFileCount);
         }
     }
