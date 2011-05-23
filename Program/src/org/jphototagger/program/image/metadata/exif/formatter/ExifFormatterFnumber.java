@@ -25,13 +25,13 @@ public final class ExifFormatterFnumber extends ExifFormatter {
 
         Ensure.exifTagId(exifTag, ExifTag.Id.F_NUMBER);
 
-        if (ExifRational.byteCount() == exifTag.rawValue().length) {
-            ExifRational fNumer = new ExifRational(exifTag.rawValue(), exifTag.byteOrder());
+        if (ExifRational.getRawValueByteCount() == exifTag.getRawValue().length) {
+            ExifRational fNumer = new ExifRational(exifTag.getRawValue(), exifTag.convertByteOrderIdToByteOrder());
             DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance();
 
             df.applyPattern("#.#");
 
-            return df.format(ExifDatatypeUtil.toDouble(fNumer));
+            return df.format(ExifDatatypeUtil.convertExifRationalToDouble(fNumer));
         }
 
         return "?";

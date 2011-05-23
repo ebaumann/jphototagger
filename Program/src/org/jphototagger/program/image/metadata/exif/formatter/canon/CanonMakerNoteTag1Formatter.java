@@ -45,7 +45,7 @@ final class CanonMakerNoteTag1Formatter {
                       ? df.format(minF) + " mm"
                       : df.format(minF) + "-" + df.format(maxF) + " mm";
 
-        CanonMakerNotes.addTag(exifTags, ExifTag.Id.MAKER_NOTE_LENS.value(), "Lens", lens);
+        CanonMakerNotes.addTag(exifTags, ExifTag.Id.MAKER_NOTE_LENS.getTagId(), "Lens", lens);
     }
 
     private static void addFocusMode(short[] values, ExifTags exifTags) {

@@ -23,7 +23,7 @@ public final class ExifFormatterGpsVersionId extends ExifFormatter {
 
         Ensure.exifTagId(exifTag, ExifTag.Id.GPS_VERSION_ID);
 
-        byte[] rawValue = exifTag.rawValue();
+        byte[] rawValue = exifTag.getRawValue();
 
         assert rawValue.length == 4 : rawValue.length;
 
@@ -36,6 +36,6 @@ public final class ExifFormatterGpsVersionId extends ExifFormatter {
         ExifByte third = new ExifByte(Arrays.copyOfRange(rawValue, 2, 3));
         ExifByte fourth = new ExifByte(Arrays.copyOfRange(rawValue, 3, 4));
 
-        return first.value() + "." + second.value() + "." + third.value() + "." + fourth.value();
+        return first.getValue() + "." + second.getValue() + "." + third.getValue() + "." + fourth.getValue();
     }
 }

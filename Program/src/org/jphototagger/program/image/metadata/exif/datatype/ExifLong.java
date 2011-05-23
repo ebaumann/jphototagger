@@ -13,16 +13,15 @@ import java.nio.ByteOrder;
  * @author Elmar Baumann
  */
 public final class ExifLong {
+
     private final int value;
 
     /**
-     * Creates a new instance.
      *
-     * @param  rawValue   raw value
-     * @param  byteOrder  byte order
+     * @param  rawValue
+     * @param  byteOrder
      * @throws IllegalArgumentException if the length of the raw value is not
-     *         equals to {@link #byteCount()} or if the value is
-     *         negativ
+     *         equals to {@link #getRawValueByteCount()} or if the value is negative
      */
     public ExifLong(byte[] rawValue, ByteOrder byteOrder) {
         if (rawValue == null) {
@@ -33,8 +32,8 @@ public final class ExifLong {
             throw new NullPointerException("byteOrder == null");
         }
 
-        Ensure.length(rawValue, byteCount());
-        value = ExifDatatypeUtil.intFromRawValue(rawValue, byteOrder);
+        Ensure.length(rawValue, getRawValueByteCount());
+        value = ExifDatatypeUtil.convertRawValueToInt(rawValue, byteOrder);
         Ensure.zeroOrPositive(value);
     }
 
@@ -43,28 +42,25 @@ public final class ExifLong {
      *
      * @return valid raw value byte count
      */
-    public static int byteCount() {
+    public static int getRawValueByteCount() {
         return 4;
     }
 
-    public static boolean byteCountOk(byte[] rawValue) {
-        if (rawValue == null) {
-            throw new NullPointerException("rawValue == null");
+    public static boolean isRawValueByteCountOk(byte[] rawValue) {
+        return rawValue == null
+                ? false
+                : rawValue.length == getRawValueByteCount();
         }
 
-        return rawValue.length == byteCount();
-    }
-
-    public static ExifDataType dataType() {
+    public static ExifDataType getExifDataType() {
         return ExifDataType.LONG;
     }
 
     /**
-     * Returns the value.
      *
      * @return value {@code >= 0}
      */
-    public int value() {
+    public int getValue() {
         return value;
     }
 
@@ -73,17 +69,22 @@ public final class ExifLong {
         return Integer.toString(value);
     }
 
+    /**
+     *
+     * @param  obj
+     * @return     true if the values of both objects are equals
+     */
     @Override
     public boolean equals(Object obj) {
-        if (obj == null) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof ExifLong)) {
             return false;
         }
 
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-
-        final ExifLong other = (ExifLong) obj;
+        ExifLong other = (ExifLong) obj;
 
         return this.value == other.value;
     }

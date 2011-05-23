@@ -22,6 +22,6 @@ public final class ExifFormatterCopyright extends ExifFormatter {
 
         Ensure.exifTagId(exifTag, ExifTag.Id.COPYRIGHT);
 
-        return ExifCopyright.photographerCopyright(exifTag.rawValue());
+        return ExifCopyright.convertRawValueToPhotographerCopyright(exifTag.getRawValue());
     }
 }

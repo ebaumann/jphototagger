@@ -24,7 +24,7 @@ public final class ExifFormatterFlash extends ExifFormatter {
 
         Ensure.exifTagId(exifTag, ExifTag.Id.FLASH);
 
-        byte[] rawValue = exifTag.rawValue();
+        byte[] rawValue = exifTag.getRawValue();
 
         if ((rawValue != null) && (rawValue.length >= 1)) {
             boolean[] bitsByte1 = ByteUtil.getBits(rawValue[0]);
@@ -40,6 +40,6 @@ public final class ExifFormatterFlash extends ExifFormatter {
                    : translate(IfdType.EXIF, "FlashNotFired");
         }
 
-        return ExifAscii.decode(rawValue);
+        return ExifAscii.convertRawValueToString(rawValue);
     }
 }

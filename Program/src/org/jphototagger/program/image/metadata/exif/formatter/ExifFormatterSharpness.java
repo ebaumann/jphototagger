@@ -32,9 +32,9 @@ public final class ExifFormatterSharpness extends ExifFormatter {
 
         Ensure.exifTagId(exifTag, ExifTag.Id.SHARPNESS);
 
-        if (ExifShort.byteCount() == exifTag.rawValue().length) {
-            ExifShort es = new ExifShort(exifTag.rawValue(), exifTag.byteOrder());
-            int value = es.value();
+        if (ExifShort.getRawValueByteCount() == exifTag.getRawValue().length) {
+            ExifShort es = new ExifShort(exifTag.getRawValue(), exifTag.convertByteOrderIdToByteOrder());
+            int value = es.getValue();
 
             if (EXIF_KEY_OF_SHARPNESS.containsKey(value)) {
                 return translate(IfdType.EXIF, EXIF_KEY_OF_SHARPNESS.get(value));

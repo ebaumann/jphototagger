@@ -38,9 +38,9 @@ public final class ExifFormatterExposureProgram extends ExifFormatter {
 
         Ensure.exifTagId(exifTag, ExifTag.Id.EXPOSURE_PROGRAM);
 
-        if (ExifShort.byteCountOk(exifTag.rawValue())) {
-            ExifShort es = new ExifShort(exifTag.rawValue(), exifTag.byteOrder());
-            int value = es.value();
+        if (ExifShort.isRawValueByteCountOk(exifTag.getRawValue())) {
+            ExifShort es = new ExifShort(exifTag.getRawValue(), exifTag.convertByteOrderIdToByteOrder());
+            int value = es.getValue();
 
             if (EXIF_KEY_OF_EXPOSURE_PROGRAM.containsKey(value)) {
                 return translate(IfdType.EXIF, EXIF_KEY_OF_EXPOSURE_PROGRAM.get(value));

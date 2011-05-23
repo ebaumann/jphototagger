@@ -23,10 +23,10 @@ public final class ExifFormatterIsoSpeedRatings extends ExifFormatter {
 
         Ensure.exifTagId(exifTag, ExifTag.Id.ISO_SPEED_RATINGS);
 
-        if (ExifShort.byteCountOk(exifTag.rawValue())) {
-            ExifShort es = new ExifShort(exifTag.rawValue(), exifTag.byteOrder());
+        if (ExifShort.isRawValueByteCountOk(exifTag.getRawValue())) {
+            ExifShort es = new ExifShort(exifTag.getRawValue(), exifTag.convertByteOrderIdToByteOrder());
 
-            return Integer.toString(es.value()) + POSTFIX;
+            return Integer.toString(es.getValue()) + POSTFIX;
         }
 
         return "?" + POSTFIX;

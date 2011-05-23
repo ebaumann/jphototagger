@@ -26,11 +26,11 @@ final class ExifFactory {
         try {
             Exif exif = new Exif();
 
-            ExifTag dateTimeOriginalTag = exifTags.exifTagById(ExifTag.Id.DATE_TIME_ORIGINAL.value());
-            ExifTag focalLengthTag = exifTags.exifTagById(ExifTag.Id.FOCAL_LENGTH.value());
-            ExifTag isoSpeedRatingsTag = exifTags.exifTagById(ExifTag.Id.ISO_SPEED_RATINGS.value());
-            ExifTag modelTag = exifTags.exifTagById(ExifTag.Id.MODEL.value());
-            ExifTag lensTag = exifTags.exifTagById(ExifTag.Id.MAKER_NOTE_LENS.value());
+            ExifTag dateTimeOriginalTag = exifTags.findExifTagByTagId(ExifTag.Id.DATE_TIME_ORIGINAL.getTagId());
+            ExifTag focalLengthTag = exifTags.findExifTagByTagId(ExifTag.Id.FOCAL_LENGTH.getTagId());
+            ExifTag isoSpeedRatingsTag = exifTags.findExifTagByTagId(ExifTag.Id.ISO_SPEED_RATINGS.getTagId());
+            ExifTag modelTag = exifTags.findExifTagByTagId(ExifTag.Id.MODEL.getTagId());
+            ExifTag lensTag = exifTags.findExifTagByTagId(ExifTag.Id.MAKER_NOTE_LENS.getTagId());
 
             if (dateTimeOriginalTag != null) {
                 setExifDateTimeOriginal(exif, dateTimeOriginalTag);
@@ -49,7 +49,7 @@ final class ExifFactory {
             }
 
             if (lensTag != null) {
-                exif.setLens(lensTag.stringValue());
+                exif.setLens(lensTag.getStringValue());
             }
 
             return exif;
@@ -60,7 +60,7 @@ final class ExifFactory {
     }
 
     private static void setExifDateTimeOriginal(Exif exif, ExifTag dateTimeOriginalTag) {
-        String exifTagStringValue = dateTimeOriginalTag.stringValue();
+        String exifTagStringValue = dateTimeOriginalTag.getStringValue();
         String dateTimeString = exifTagStringValue == null 
                                     ? "" 
                                     : exifTagStringValue.trim();
@@ -99,7 +99,7 @@ final class ExifFactory {
         }
 
     private static void setExifEquipment(Exif exif, ExifTag modelTag) {
-        String exifTagStringValue = modelTag.stringValue();
+        String exifTagStringValue = modelTag.getStringValue();
 
         if (exifTagStringValue != null) {
             exif.setRecordingEquipment(exifTagStringValue.trim());
@@ -108,7 +108,7 @@ final class ExifFactory {
 
     private static void setExifFocalLength(Exif exif, ExifTag focalLengthTag) {
         try {
-            String exifTagStringValue = focalLengthTag.stringValue();
+            String exifTagStringValue = focalLengthTag.getStringValue();
             StringTokenizer tokenizer = exifTagStringValue == null 
                                             ? new StringTokenizer("") 
                                             : new StringTokenizer(exifTagStringValue.trim(), "/:");
@@ -147,7 +147,7 @@ final class ExifFactory {
 
     private static void setExifIsoSpeedRatings(Exif exif, ExifTag isoSpeedRatingsTag) {
         try {
-            String exifTagStringValue = isoSpeedRatingsTag.stringValue();
+            String exifTagStringValue = isoSpeedRatingsTag.getStringValue();
             String isoSpeedRatingsString = exifTagStringValue == null 
                                                ? null 
                                                : exifTagStringValue.trim();

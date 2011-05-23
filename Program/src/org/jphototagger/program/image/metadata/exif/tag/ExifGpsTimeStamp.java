@@ -9,6 +9,7 @@ import java.text.MessageFormat;
  * @author Elmar Baumann
  */
 public final class ExifGpsTimeStamp {
+
     private ExifRational hours;
     private ExifRational minutes;
     private ExifRational seconds;
@@ -31,15 +32,15 @@ public final class ExifGpsTimeStamp {
         this.seconds = seconds;
     }
 
-    public ExifRational hours() {
+    public ExifRational getHours() {
         return hours;
     }
 
-    public ExifRational minutes() {
+    public ExifRational getMinutes() {
         return minutes;
     }
 
-    public ExifRational seconds() {
+    public ExifRational getSeconds() {
         return seconds;
     }
 

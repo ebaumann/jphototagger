@@ -58,7 +58,7 @@ public final class ExifFormatterUserComment extends ExifFormatter {
 
         Ensure.exifTagId(exifTag, ExifTag.Id.USER_COMMENT);
 
-        byte[] rawValue = exifTag.rawValue();
+        byte[] rawValue = exifTag.getRawValue();
 
         if (rawValue.length <= 8) {
             return "";

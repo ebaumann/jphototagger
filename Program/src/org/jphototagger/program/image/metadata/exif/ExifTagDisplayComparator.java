@@ -20,45 +20,45 @@ public final class ExifTagDisplayComparator implements Comparator<ExifTag> {
     static {
 
         // display order
-        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.DATE_TIME_ORIGINAL.value());
-        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.IMAGE_DESCRIPTION.value());
-        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.MAKE.value());
-        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.MODEL.value());
-        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.FOCAL_LENGTH.value());
-        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.FOCAL_LENGTH_IN_35_MM_FILM.value());
-        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.SUBJECT_DISTANCE_RANGE.value());
-        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.EXPOSURE_TIME.value());
-        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.F_NUMBER.value());
-        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.ISO_SPEED_RATINGS.value());
-        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.METERING_MODE.value());
-        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.EXPOSURE_MODE.value());
-        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.EXPOSURE_PROGRAM.value());
-        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.FLASH.value());
-        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.WHITE_BALANCE.value());
-        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.SATURATION.value());
-        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.SHARPNESS.value());
-        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.CONTRAST.value());
-        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.USER_COMMENT.value());
-        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.COPYRIGHT.value());
-        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.ARTIST.value());
-        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.IMAGE_WIDTH.value());
-        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.IMAGE_LENGTH.value());
-        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.BITS_PER_SAMPLE.value());
-        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.DATE_TIME_DIGITIZED.value());
-        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.FILE_SOURCE.value());
-        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.DATE_TIME.value());
-        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.SOFTWARE.value());
-        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.MAKER_NOTE_LENS.value());
-        GPS_IFD_TAG_ID_VALUES.add(ExifTag.Id.GPS_VERSION_ID.value());
-        GPS_IFD_TAG_ID_VALUES.add(ExifTag.Id.GPS_LATITUDE_REF.value());
-        GPS_IFD_TAG_ID_VALUES.add(ExifTag.Id.GPS_LATITUDE.value());
-        GPS_IFD_TAG_ID_VALUES.add(ExifTag.Id.GPS_LONGITUDE_REF.value());
-        GPS_IFD_TAG_ID_VALUES.add(ExifTag.Id.GPS_LONGITUDE.value());
-        GPS_IFD_TAG_ID_VALUES.add(ExifTag.Id.GPS_ALTITUDE_REF.value());
-        GPS_IFD_TAG_ID_VALUES.add(ExifTag.Id.GPS_ALTITUDE.value());
-        GPS_IFD_TAG_ID_VALUES.add(ExifTag.Id.GPS_TIME_STAMP.value());
-        GPS_IFD_TAG_ID_VALUES.add(ExifTag.Id.GPS_SATELLITES.value());
-        GPS_IFD_TAG_ID_VALUES.add(ExifTag.Id.GPS_DATE_STAMP.value());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.DATE_TIME_ORIGINAL.getTagId());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.IMAGE_DESCRIPTION.getTagId());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.MAKE.getTagId());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.MODEL.getTagId());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.FOCAL_LENGTH.getTagId());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.FOCAL_LENGTH_IN_35_MM_FILM.getTagId());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.SUBJECT_DISTANCE_RANGE.getTagId());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.EXPOSURE_TIME.getTagId());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.F_NUMBER.getTagId());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.ISO_SPEED_RATINGS.getTagId());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.METERING_MODE.getTagId());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.EXPOSURE_MODE.getTagId());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.EXPOSURE_PROGRAM.getTagId());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.FLASH.getTagId());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.WHITE_BALANCE.getTagId());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.SATURATION.getTagId());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.SHARPNESS.getTagId());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.CONTRAST.getTagId());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.USER_COMMENT.getTagId());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.COPYRIGHT.getTagId());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.ARTIST.getTagId());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.IMAGE_WIDTH.getTagId());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.IMAGE_LENGTH.getTagId());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.BITS_PER_SAMPLE.getTagId());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.DATE_TIME_DIGITIZED.getTagId());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.FILE_SOURCE.getTagId());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.DATE_TIME.getTagId());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.SOFTWARE.getTagId());
+        EXIF_IFD_TAG_ID_VALUES.add(ExifTag.Id.MAKER_NOTE_LENS.getTagId());
+        GPS_IFD_TAG_ID_VALUES.add(ExifTag.Id.GPS_VERSION_ID.getTagId());
+        GPS_IFD_TAG_ID_VALUES.add(ExifTag.Id.GPS_LATITUDE_REF.getTagId());
+        GPS_IFD_TAG_ID_VALUES.add(ExifTag.Id.GPS_LATITUDE.getTagId());
+        GPS_IFD_TAG_ID_VALUES.add(ExifTag.Id.GPS_LONGITUDE_REF.getTagId());
+        GPS_IFD_TAG_ID_VALUES.add(ExifTag.Id.GPS_LONGITUDE.getTagId());
+        GPS_IFD_TAG_ID_VALUES.add(ExifTag.Id.GPS_ALTITUDE_REF.getTagId());
+        GPS_IFD_TAG_ID_VALUES.add(ExifTag.Id.GPS_ALTITUDE.getTagId());
+        GPS_IFD_TAG_ID_VALUES.add(ExifTag.Id.GPS_TIME_STAMP.getTagId());
+        GPS_IFD_TAG_ID_VALUES.add(ExifTag.Id.GPS_SATELLITES.getTagId());
+        GPS_IFD_TAG_ID_VALUES.add(ExifTag.Id.GPS_DATE_STAMP.getTagId());
 
         int order = 0;
 
@@ -79,8 +79,8 @@ public final class ExifTagDisplayComparator implements Comparator<ExifTag> {
 
     @Override
     public int compare(ExifTag exifTagLeft, ExifTag exifTagRight) {
-        int tagIdLeft = exifTagLeft.idValue();
-        int tagIdRight = exifTagRight.idValue();
+        int tagIdLeft = exifTagLeft.getTagId();
+        int tagIdRight = exifTagRight.getTagId();
 
         if (ORDER_OF_TAG_ID_VALUE.containsKey(tagIdLeft) && ORDER_OF_TAG_ID_VALUE.containsKey(tagIdRight)) {
             return ORDER_OF_TAG_ID_VALUE.get(tagIdLeft) - ORDER_OF_TAG_ID_VALUE.get(tagIdRight);

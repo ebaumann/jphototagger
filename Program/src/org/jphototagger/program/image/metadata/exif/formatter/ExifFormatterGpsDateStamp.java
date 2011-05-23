@@ -26,7 +26,7 @@ public final class ExifFormatterGpsDateStamp extends ExifFormatter {
 
         Ensure.exifTagId(exifTag, ExifTag.Id.GPS_DATE_STAMP);
 
-        byte[] rawValue = exifTag.rawValue();
+        byte[] rawValue = exifTag.getRawValue();
         String rawString = new String(rawValue);
 
         if (rawString.length() != 11) {

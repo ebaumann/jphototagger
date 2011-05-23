@@ -72,93 +72,43 @@ public final class ExifGpsMetadata {
     private ExifGpsDateStamp gpsDateStamp;
     private int gpsDifferential;
 
-    /**
-     * Returns the altitude.
-     *
-     * @return altitude
-     */
-    public ExifGpsAltitude altitude() {
+    public ExifGpsAltitude getAltitude() {
         return altitude;
     }
 
-    /**
-     * Sets the altitude.
-     *
-     * @param altitude altitude
-     */
     public void setAltitude(ExifGpsAltitude altitude) {
         this.altitude = altitude;
     }
 
-    /**
-     * Returns the latitude of the destination point.
-     *
-     * @return latitude
-     */
-    public ExifGpsLatitude destLatitude() {
+    public ExifGpsLatitude getDestLatitude() {
         return destLatitude;
     }
 
-    /**
-     * Sets the latitude of the destination point.
-     *
-     * @param destLatitude latitude
-     */
     public void setDestLatitude(ExifGpsLatitude destLatitude) {
         this.destLatitude = destLatitude;
     }
 
-    /**
-     * Returns the longitude of the destination point.
-     *
-     * @return longitude
-     */
-    public ExifGpsLongitude destLongitude() {
+    public ExifGpsLongitude getDestLongitude() {
         return destLongitude;
     }
 
-    /**
-     * Sets the longitude of the destination point.
-     *
-     * @param destLongitude longitude
-     */
     public void setDestLongitude(ExifGpsLongitude destLongitude) {
         this.destLongitude = destLongitude;
     }
 
-    /**
-     * Returns the name of GPS area.
-     *
-     * @return name of GPS area
-     */
-    public String gpsAreaInformation() {
+    public String getGpsAreaInformation() {
         return gpsAreaInformation;
     }
 
-    /**
-     * Sets the name of GPS area.
-     *
-     * @param gpsAreaInformation
-     */
     public void setGpsAreaInformation(String gpsAreaInformation) {
         this.gpsAreaInformation = gpsAreaInformation;
     }
 
-    /**
-     * Returns the GPS date.
-     *
-     * @return date
-     */
-    public ExifGpsDateStamp dateStamp() {
+    public ExifGpsDateStamp getGpsDateStamp() {
         return gpsDateStamp;
     }
 
-    /**
-     * Sets the GPS date.
-     *
-     * @param gpsDateStamp date
-     */
-    public void setDateStamp(ExifGpsDateStamp gpsDateStamp) {
+    public void setGpsDateStamp(ExifGpsDateStamp gpsDateStamp) {
         this.gpsDateStamp = gpsDateStamp;
     }
 
@@ -168,7 +118,7 @@ public final class ExifGpsMetadata {
      *
      * @return bearing
      */
-    public ExifRational gpsDestBearing() {
+    public ExifRational getGpsDestBearing() {
         return gpsDestBearing;
     }
 
@@ -188,7 +138,7 @@ public final class ExifGpsMetadata {
      *
      * @return reference
      */
-    public GpsDestBearingRef gpsDestBearingRef() {
+    public GpsDestBearingRef getGpsDestBearingRef() {
         return gpsDestBearingRef;
     }
 
@@ -207,7 +157,7 @@ public final class ExifGpsMetadata {
      *
      * @return unit
      */
-    public GpsDestDistanceRef gpsDestDistanceRef() {
+    public GpsDestDistanceRef getGpsDestDistanceRef() {
         return gpsDestDistanceRef;
     }
 
@@ -225,7 +175,7 @@ public final class ExifGpsMetadata {
      *
      * @return differential correction
      */
-    public int gpsDifferential() {
+    public int getGpsDifferential() {
         return gpsDifferential;
     }
 
@@ -243,7 +193,7 @@ public final class ExifGpsMetadata {
      *
      * @return distance to destination
      */
-    public ExifRational gpsDistanceToDestination() {
+    public ExifRational getGpsDistanceToDestination() {
         return gpsDistanceToDestination;
     }
 
@@ -263,7 +213,7 @@ public final class ExifGpsMetadata {
      *
      * @return GPS DOP
      */
-    public ExifRational gpsDop() {
+    public ExifRational getGpsDop() {
         return gpsDop;
     }
 
@@ -284,7 +234,7 @@ public final class ExifGpsMetadata {
      *
      * @return direction
      */
-    public ExifRational gpsImgDirection() {
+    public ExifRational getGpsImgDirection() {
         return gpsImgDirection;
     }
 
@@ -304,7 +254,7 @@ public final class ExifGpsMetadata {
      *
      * @return reference
      */
-    public GpsImgDirectionRef gpsImgDirectionRef() {
+    public GpsImgDirectionRef getGpsImgDirectionRef() {
         return gpsImgDirectionRef;
     }
 
@@ -326,7 +276,7 @@ public final class ExifGpsMetadata {
      *
      * @return data
      */
-    public String gpsMapDatum() {
+    public String getGpsMapDatum() {
         return gpsMapDatum;
     }
 
@@ -347,7 +297,7 @@ public final class ExifGpsMetadata {
      *
      * @return GPS measurement mode
      */
-    public GpsMeasureMode gpsMeasurementMode() {
+    public GpsMeasureMode getGpsMeasurementMode() {
         return gpsMeasurementMode;
     }
 
@@ -365,7 +315,7 @@ public final class ExifGpsMetadata {
      *
      * @return name
      */
-    public String gpsProcessingMethod() {
+    public String getGpsProcessingMethod() {
         return gpsProcessingMethod;
     }
 
@@ -383,7 +333,7 @@ public final class ExifGpsMetadata {
      *
      * @return status
      */
-    public GpsStatus gpsReceiverStatus() {
+    public GpsStatus getGpsReceiverStatus() {
         return gpsReceiverStatus;
     }
 
@@ -403,7 +353,7 @@ public final class ExifGpsMetadata {
      *
      * @return satellites
      */
-    public String gpsSatellites() {
+    public String getGpsSatellites() {
         return gpsSatellites;
     }
 
@@ -423,7 +373,7 @@ public final class ExifGpsMetadata {
      *
      * @return speed of GPS receiver movement
      */
-    public ExifRational gpsSpeed() {
+    public ExifRational getGpsSpeed() {
         return gpsSpeed;
     }
 
@@ -441,7 +391,7 @@ public final class ExifGpsMetadata {
      *
      * @return unit
      */
-    public GpsSpeedRef gpsSpeedRef() {
+    public GpsSpeedRef getGpsSpeedRef() {
         return gpsSpeedRef;
     }
 
@@ -460,7 +410,7 @@ public final class ExifGpsMetadata {
      *
      * @return direction
      */
-    public ExifRational gpsTrack() {
+    public ExifRational getGpsTrack() {
         return gpsTrack;
     }
 
@@ -480,7 +430,7 @@ public final class ExifGpsMetadata {
      *
      * @return reference
      */
-    public GpsTrackRef gpsTrackRef() {
+    public GpsTrackRef getGpsTrackRef() {
         return gpsTrackRef;
     }
 
@@ -494,16 +444,16 @@ public final class ExifGpsMetadata {
     }
 
     /**
-     * Returns the latitude.
+     * Returns the getLatitude.
      *
-     * @return latitude
+     * @return getLatitude
      */
-    public ExifGpsLatitude latitude() {
+    public ExifGpsLatitude getLatitude() {
         return latitude;
     }
 
     /**
-     * Sets the latitude.
+     * Sets the getLatitude.
      *
      * @param latitude latitude
      */
@@ -512,16 +462,16 @@ public final class ExifGpsMetadata {
     }
 
     /**
-     * Returns the longitude.
+     * Returns the getLongitude.
      *
-     * @return longitude
+     * @return getLongitude
      */
-    public ExifGpsLongitude longitude() {
+    public ExifGpsLongitude getLongitude() {
         return longitude;
     }
 
     /**
-     * Sets the longitude.
+     * Sets the getLongitude.
      *
      * @param longitude longitude
      */
@@ -534,7 +484,7 @@ public final class ExifGpsMetadata {
      *
      * @return time
      */
-    public ExifGpsTimeStamp timeStamp() {
+    public ExifGpsTimeStamp getTimeStamp() {
         return timeStamp;
     }
 
@@ -547,18 +497,18 @@ public final class ExifGpsMetadata {
     }
 
     /**
-     * Returns the GPS tag version.
+     * Returns the GPS tag getVersion.
      *
-     * @return GPS tag version
+     * @return GPS tag getVersion
      */
-    public ExifGpsVersion version() {
+    public ExifGpsVersion getVersion() {
         return version;
     }
 
     /**
-     * Sets the GPS tag version.
+     * Sets the GPS tag getVersion.
      *
-     * @param version GPS tag version
+     * @param version GPS tag getVersion
      */
     public void setVersion(ExifGpsVersion version) {
         this.version = version;

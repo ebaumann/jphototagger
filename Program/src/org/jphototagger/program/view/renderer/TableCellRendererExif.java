@@ -69,27 +69,27 @@ public final class TableCellRendererExif extends FormatterLabelMetadata implemen
     }
 
     private static String getTagName(ExifTag exifTag) {
-        String tagName = exifTag.name();
+        String tagName = exifTag.getName();
 
-        if (exifTag.ifdType().equals(IfdType.MAKER_NOTE)) {
+        if (exifTag.getIfdType().equals(IfdType.MAKER_NOTE)) {
             return tagName;
         }
 
-        if (exifTag.id().value() >= ExifTag.Id.MAKER_NOTE.value()) {
+        if (exifTag.convertTagIdToEnumId().getTagId() >= ExifTag.Id.MAKER_NOTE.getTagId()) {
             return tagName;
         }
 
-        return TRANSLATION.translate(Integer.toString(exifTag.idValue()), tagName);
+        return TRANSLATION.translate(Integer.toString(exifTag.getTagId()), tagName);
     }
 
     private void setIsMakerNoteTagColor(JLabel cellLabel, ExifTag exifTag, boolean isSelected) {
-        if (exifTag.ifdType().equals(IfdType.MAKER_NOTE)) {
+        if (exifTag.getIfdType().equals(IfdType.MAKER_NOTE)) {
             setIsExifMakerNoteColors(cellLabel, isSelected);
         }
     }
 
     private void setIsStoredInDatabaseColor(JLabel cellLabel, ExifTag exifTag, boolean isSelected) {
-        if (ExifInDatabase.isInDatabase(exifTag.ifdType(), exifTag.id())) {
+        if (ExifInDatabase.isInDatabase(exifTag.getIfdType(), exifTag.convertTagIdToEnumId())) {
             setIsStoredInDatabaseColors(cellLabel, isSelected);
         }
     }

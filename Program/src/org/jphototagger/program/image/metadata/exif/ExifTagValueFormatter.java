@@ -26,7 +26,7 @@ public final class ExifTagValueFormatter {
             return formatter.format(exifTag);
         }
 
-        return exifTag.stringValue().trim();
+        return exifTag.getStringValue().trim();
     }
 
     private ExifTagValueFormatter() {}

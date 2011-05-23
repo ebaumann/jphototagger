@@ -22,6 +22,6 @@ public final class ExifFormatterGpsSatellites extends ExifFormatter {
 
         Ensure.exifTagId(exifTag, ExifTag.Id.GPS_SATELLITES);
 
-        return ExifAscii.decode(exifTag.rawValue());
+        return ExifAscii.convertRawValueToString(exifTag.getRawValue());
     }
 }

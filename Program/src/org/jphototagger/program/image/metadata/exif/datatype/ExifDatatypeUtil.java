@@ -9,28 +9,29 @@ import java.nio.ByteOrder;
  * @author Elmar Baumann
  */
 public final class ExifDatatypeUtil {
-    public static double toDouble(ExifRational rational) {
+    
+    public static double convertExifRationalToDouble(ExifRational rational) {
         if (rational == null) {
             throw new NullPointerException("rational == null");
         }
 
-        double numerator = rational.numerator();
-        double denominator = rational.denominator();
+        double numerator = rational.getNumerator();
+        double denominator = rational.getDenominator();
 
         assert denominator > 0 : denominator;
 
         return numerator / denominator;
     }
 
-    public static long toLong(ExifRational rational) {
+    public static long convertExifRationalToLong(ExifRational rational) {
         if (rational == null) {
             throw new NullPointerException("rational == null");
         }
 
-        return (long) Math.floor(toDouble(rational));
+        return (long) Math.floor(convertExifRationalToDouble(rational));
     }
 
-    public static int intFromRawValue(byte[] rawValue, ByteOrder byteOrder) {
+    public static int convertRawValueToInt(byte[] rawValue, ByteOrder byteOrder) {
         if (rawValue == null) {
             throw new NullPointerException("rawValue == null");
         }
@@ -39,12 +40,12 @@ public final class ExifDatatypeUtil {
             throw new NullPointerException("byteOrder == null");
         }
 
-        ByteBuffer buf = getByeBuffer(rawValue, byteOrder);
+        ByteBuffer buf = getByteBuffer(rawValue, byteOrder);
 
         return buf.getInt();
     }
 
-    public static short shortFromRawValue(byte[] rawValue, ByteOrder byteOrder) {
+    public static short convertRawValueToShort(byte[] rawValue, ByteOrder byteOrder) {
         if (rawValue == null) {
             throw new NullPointerException("rawValue == null");
         }
@@ -53,12 +54,12 @@ public final class ExifDatatypeUtil {
             throw new NullPointerException("byteOrder == null");
         }
 
-        ByteBuffer buf = getByeBuffer(rawValue, byteOrder);
+        ByteBuffer buf = getByteBuffer(rawValue, byteOrder);
 
         return buf.getShort();
     }
 
-    private static ByteBuffer getByeBuffer(byte[] rawValue, ByteOrder byteOrder) {
+    private static ByteBuffer getByteBuffer(byte[] rawValue, ByteOrder byteOrder) {
         ByteBuffer buf = ByteBuffer.wrap(rawValue);
 
         buf.order(byteOrder);

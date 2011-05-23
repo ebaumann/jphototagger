@@ -26,8 +26,8 @@ public final class ExifFormatterDateTime extends ExifFormatter {
 
         Ensure.exifTagId(exifTag, ExifTag.Id.DATE_TIME_ORIGINAL);
 
-        byte[] rawValue = exifTag.rawValue();
-        String value = ExifAscii.decode(rawValue).trim();
+        byte[] rawValue = exifTag.getRawValue();
+        String value = ExifAscii.convertRawValueToString(rawValue).trim();
 
         if (value.length() >= 18) {
             try {
