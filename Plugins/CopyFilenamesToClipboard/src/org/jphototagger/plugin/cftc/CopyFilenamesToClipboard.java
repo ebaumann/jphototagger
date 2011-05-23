@@ -4,16 +4,13 @@ import org.jphototagger.lib.resource.Bundle;
 import org.jphototagger.plugin.Plugin;
 import org.jphototagger.plugin.PluginEvent;
 import java.awt.datatransfer.StringSelection;
-import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
 import java.io.File;
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Properties;
-import javax.swing.AbstractAction;
-import javax.swing.Action;
 import javax.swing.JPanel;
+import org.jphototagger.lib.util.ServiceLookup;
+import org.jphototagger.services.Storage;
 
 /**
  * Copies into the system clipboard names of files.
@@ -21,14 +18,12 @@ import javax.swing.JPanel;
  * @author Elmar Baumann
  */
 public final class CopyFilenamesToClipboard extends Plugin implements Serializable {
+
     private static final long serialVersionUID = 526527636923496736L;
     public static final String KEY_FILENAME_DELIMITER = CopyFilenamesToClipboard.class.getName() + ".KeyDelimiter";
     public static final String DEFAULT_FILENAME_DELIMITER = "\n";
-    private final CopyAction copyAction = new CopyAction();
     private String fileNameDelimiter = DEFAULT_FILENAME_DELIMITER;
     private static final transient Bundle BUNDLE = new Bundle("org/jphototagger/plugin/cftc/Bundle");
-
-    public CopyFilenamesToClipboard() {}
 
     @Override
     public String getName() {
@@ -42,7 +37,7 @@ public final class CopyFilenamesToClipboard extends Plugin implements Serializab
 
     @Override
     public JPanel getSettingsPanel() {
-        return new SettingsPanel(getProperties());
+        return new SettingsPanel();
     }
 
     @Override
@@ -55,54 +50,41 @@ public final class CopyFilenamesToClipboard extends Plugin implements Serializab
         return "index.html";
     }
 
-    private class CopyAction extends AbstractAction {
-        private static final long serialVersionUID = 932072385600278529L;
+    @Override
+    public void processFiles(List<File> files) {
+        notifyPluginListeners(new PluginEvent(PluginEvent.Type.STARTED));
+        setDelimiter();
 
-        CopyAction() {
-            putValue(Action.NAME, getName());
+        StringBuilder sb = new StringBuilder();
+        int index = 0;
+
+        for (File file : files) {
+            sb.append(index == 0
+                    ? ""
+                    : fileNameDelimiter).append(file.getAbsolutePath());
+            index++;
         }
 
-        @Override
-        public void actionPerformed(ActionEvent evt) {
-            notifyPluginListeners(new PluginEvent(PluginEvent.Type.STARTED));
-            setDelimiter();
-
-            StringBuilder sb = new StringBuilder();
-            int index = 0;
-
-            for (File file : getFiles()) {
-                sb.append((index++ == 0)
-                          ? ""
-                          : fileNameDelimiter).append(file.getAbsolutePath());
-            }
-
-            Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(sb.toString()), null);
-            notifyFinished();
-        }
-
-        private void notifyFinished() {
-            PluginEvent evt = new PluginEvent(PluginEvent.Type.FINISHED_SUCCESS);
-
-            evt.setProcessedFiles(getFiles());
-            notifyPluginListeners(evt);
-        }
-
-        private void setDelimiter() {
-            Properties properties = getProperties();
-
-            if (properties != null) {
-                String delimiter = properties.getProperty(KEY_FILENAME_DELIMITER);
-
-                if (delimiter != null) {
-                    fileNameDelimiter = delimiter;
-                }
-            }
-        }
+        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(sb.toString()), null);
+        notifyFinished(files);
     }
 
+    private void notifyFinished(List<File> files) {
+        PluginEvent evt = new PluginEvent(PluginEvent.Type.FINISHED_SUCCESS);
 
-    @Override
-    public List<? extends Action> getActions() {
-        return Arrays.asList(copyAction);
+        evt.setProcessedFiles(files);
+        notifyPluginListeners(evt);
+    }
+
+    private void setDelimiter() {
+        Storage storage = ServiceLookup.lookup(Storage.class);
+
+        if (storage != null) {
+            String delimiter = storage.getString(KEY_FILENAME_DELIMITER);
+
+            if (delimiter != null) {
+                fileNameDelimiter = delimiter;
+            }
+        }
     }
 }

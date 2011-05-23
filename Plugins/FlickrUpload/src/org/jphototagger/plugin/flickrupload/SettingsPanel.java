@@ -1,7 +1,5 @@
 package org.jphototagger.plugin.flickrupload;
 
-import java.util.Properties;
-
 /**
  *
  *
@@ -9,29 +7,18 @@ import java.util.Properties;
  */
 public class SettingsPanel extends javax.swing.JPanel {
     private static final long serialVersionUID = -7766362003081534388L;
-    private transient Settings settings;
-    private Properties properties;
+    private transient Settings settings = new Settings();
 
     public SettingsPanel() {
         initComponents();
-    }
-
-    public void setProperties(Properties properties) {
-        if (properties == null) {
-            throw new NullPointerException("properties == null");
-        }
-
-        this.properties = properties;
-        settings = new Settings(properties);
-        readProperties();
+        readSettings();
     }
 
     private void deleteToken() {
-        assert properties != null;
-        new Authorization(properties).deleteToken();
+        new Authorization().deleteToken();
     }
 
-    private void readProperties() {
+    private void readSettings() {
         checkBoxDcDescription.setSelected(settings.isAddDcDescription());
         checkBoxDcSubjects.setSelected(settings.isAddDcSubjects());
         checkBoxPhotoshopHeadline.setSelected(settings.isAddPhotoshopHeadline());
@@ -166,7 +153,7 @@ public class SettingsPanel extends javax.swing.JPanel {
     private void checkBoxPhotoshopHeadlineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxPhotoshopHeadlineActionPerformed
         if (settings != null) {
             settings.setAddPhotoshopHeadline(
-                checkBoxPhotoshopHeadline.isSelected());
+                    checkBoxPhotoshopHeadline.isSelected());
         }
     }//GEN-LAST:event_checkBoxPhotoshopHeadlineActionPerformed
 
@@ -175,7 +162,6 @@ public class SettingsPanel extends javax.swing.JPanel {
             settings.setAddDcDescription(checkBoxDcDescription.isSelected());
         }
     }//GEN-LAST:event_checkBoxDcDescriptionActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonDeleteToken;
     private javax.swing.JCheckBox checkBoxDcDescription;

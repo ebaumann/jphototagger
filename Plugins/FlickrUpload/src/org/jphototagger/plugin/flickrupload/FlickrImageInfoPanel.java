@@ -8,6 +8,7 @@ import java.awt.Image;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
@@ -19,14 +20,16 @@ import org.jphototagger.lib.component.TabOrEnterLeavingTextArea;
  *
  * @author Elmar Baumann
  */
-public class FlickrImageInfoPanel extends javax.swing.JPanel {
+public final class FlickrImageInfoPanel extends javax.swing.JPanel {
+
     public static final int IMAGE_WIDTH = 150;
     private static final long serialVersionUID = 9219933749046808577L;
     private static final String TAGS_DELIM = ";";
     private final ResourceBundle bundle = ResourceBundle.getBundle("org/jphototagger/plugin/flickrupload/Bundle");
     private File imageFile;
 
-    public static class ImageInfo {
+    public static final class ImageInfo {
+
         private final Image image;
         private final File imageFile;
         private final String title;
@@ -70,7 +73,7 @@ public class FlickrImageInfoPanel extends javax.swing.JPanel {
         }
 
         public List<String> getTags() {
-            return tags;
+            return Collections.unmodifiableList(tags);
         }
 
         public String getTitle() {
@@ -138,8 +141,9 @@ public class FlickrImageInfoPanel extends javax.swing.JPanel {
         int index = 0;
 
         for (String tag : tags) {
-            sb.append(index++ == 0 ? "" : TAGS_DELIM);
+            sb.append(index == 0 ? "" : TAGS_DELIM);
             sb.append(tag);
+            index++;
         }
 
         textAreaTags.setText(sb.toString());
@@ -343,8 +347,6 @@ public class FlickrImageInfoPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(3, 7, 0, 0);
         add(scrollPaneTags, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox checkBoxUpload;
     private javax.swing.JLabel labelDescription;
@@ -358,5 +360,4 @@ public class FlickrImageInfoPanel extends javax.swing.JPanel {
     private javax.swing.JTextArea textAreaTags;
     private javax.swing.JTextField textFieldTitle;
     // End of variables declaration//GEN-END:variables
-
 }

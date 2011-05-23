@@ -74,7 +74,7 @@ import org.jphototagger.program.controller.misc.ControllerItemsMutualExcludeSele
 import org.jphototagger.program.controller.misc.ControllerLogfileDialog;
 import org.jphototagger.program.controller.misc.ControllerMaintainDatabase;
 import org.jphototagger.program.controller.misc.ControllerMenuItemEnabler;
-import org.jphototagger.program.controller.misc.ControllerPlugins;
+import org.jphototagger.program.controller.plugin.ControllerPlugins;
 import org.jphototagger.program.controller.misc.ControllerShowSynonymsDialog;
 import org.jphototagger.program.controller.misc.ControllerShowSystemOutput;
 import org.jphototagger.program.controller.misc.ControllerShowUserSettingsDialog;
@@ -127,6 +127,7 @@ import org.jphototagger.program.controller.metadata.ControllerDisplayIptcUserSet
  * @author Elmar Baumann
  */
 public final class ControllerFactory {
+
     public static final ControllerFactory INSTANCE = new ControllerFactory();
     private final Support support = new Support();
     private volatile boolean init;
@@ -141,6 +142,7 @@ public final class ControllerFactory {
         }
 
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 Support.setStatusbarInfo("ControllerFactory.Init.Start");
@@ -261,7 +263,7 @@ public final class ControllerFactory {
         support.add(new ControllerRemoveMetadataFromSelImages(popupAppWindow));
 
         PopupMenuMiscMetadata popupInputHelper =
-            new PopupMenuMiscMetadata(InputHelperDialog.INSTANCE.getPanelMiscXmpMetadata().getTree());
+                new PopupMenuMiscMetadata(InputHelperDialog.INSTANCE.getPanelMiscXmpMetadata().getTree());
 
         support.add(new ControllerDeleteMiscMetadata(popupInputHelper));
         support.add(new ControllerRenameMiscMetadata(popupInputHelper));
@@ -298,8 +300,8 @@ public final class ControllerFactory {
     }
 
     private void addKeywordsControllers() {
-        KeywordsPanel[] keywordPanels = { GUI.getAppPanel().getPanelEditKeywords(),
-                                          InputHelperDialog.INSTANCE.getPanelKeywords() };
+        KeywordsPanel[] keywordPanels = {GUI.getAppPanel().getPanelEditKeywords(),
+            InputHelperDialog.INSTANCE.getPanelKeywords()};
 
         for (KeywordsPanel keywordsPanel : keywordPanels) {
             support.add(new ControllerToggleRealKeyword(keywordsPanel));
@@ -307,7 +309,7 @@ public final class ControllerFactory {
             support.add(new ControllerAddKeyword(keywordsPanel));
             support.add(new org.jphototagger.program.controller.keywords.tree.ControllerDeleteKeywords(keywordsPanel));
             support.add(
-                new org.jphototagger.program.controller.keywords.tree.ControllerAddKeywordsToEditPanel(keywordsPanel));
+                    new org.jphototagger.program.controller.keywords.tree.ControllerAddKeywordsToEditPanel(keywordsPanel));
             support.add(new ControllerDeleteKeywordFromEditPanel(keywordsPanel));
             support.add(new ControllerCopyCutPasteKeyword(keywordsPanel));
             support.add(new ControllerKeywordsDisplayImages());

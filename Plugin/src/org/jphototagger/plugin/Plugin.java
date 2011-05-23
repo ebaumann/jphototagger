@@ -1,130 +1,41 @@
 package org.jphototagger.plugin;
 
-import org.jphototagger.lib.generics.Pair;
-import java.awt.Image;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArraySet;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Properties;
 import java.util.Set;
-import javax.swing.Action;
 import javax.swing.Icon;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.util.ServiceLookup;
+import org.jphototagger.services.ProgressBarProvider;
 
 /**
  * Base class for Plugins.
+ * <p>
+ * <strong>Important notice:</strong> A plugin uses interfaces and Java Services. E.g.
+ * if a suproject can deliver thumbnails, it implements a thumbnail provider, publish it
+ * in the <code>META-INF.services</code> folder and the plugin asks for an
+ * implementation of the thumbnail provider interface.
  *
  * @author Elmar Baumann
  */
 public abstract class Plugin {
-    private Properties properties;
+
     private JProgressBar progressBar;
-    private final Map<File, Image> thumbnailOfFile = new LinkedHashMap<File, Image>();
+    private final List<File> files = new ArrayList<File>();
     private final Set<PluginListener> pluginListeners = new CopyOnWriteArraySet<PluginListener>();
     private boolean pBarStringPainted;
 
     /**
-     * Sets a progress bar.
-     *
-     * @param progressBar progress bar for displaying the current progress.
-     *                    <em>Can be null!</em>
-     */
-    public void setProgressBar(JProgressBar progressBar) {
-        this.progressBar = progressBar;
-
-        if (progressBar != null) {
-            pBarStringPainted = progressBar.isStringPainted();
-        }
-    }
-
-    /**
-     * Returns the progress bar.
+     * Returns the progress bar, used from this plugin while performing files.
      *
      * @return progress bar or null
      */
     public JProgressBar getProgressBar() {
         return progressBar;
-    }
-
-    /**
-     * Sets properties to set persistent values.
-     *
-     * @param properties properties read and written persistent. The key
-     *                   has to be unique, e.g. a combination of the fully
-     *                   qualified class and field name
-     */
-    public void setProperties(Properties properties) {
-        if (properties == null) {
-            throw new NullPointerException("properties == null");
-        }
-
-        this.properties = properties;
-    }
-
-    /**
-     * Returns the properties.
-     *
-     * @return properties
-     */
-    public Properties getProperties() {
-        return properties;
-    }
-
-    /**
-     * Sets the files to process.
-     *
-     * @param files files to process. The first element of the pair is the image
-     *              file, the second it's thumbnail or null
-     */
-    public void setFiles(List<Pair<File, Image>> files) {
-        if (files == null) {
-            throw new NullPointerException("files == null");
-        }
-
-        synchronized (files) {
-            thumbnailOfFile.clear();
-
-            for (Pair<File, Image> tnOfFile : files) {
-                File file = tnOfFile.getFirst();
-                Image tn = tnOfFile.getSecond();
-
-                if (file == null) {
-                    throw new IllegalArgumentException("File is null!");
-                }
-
-                thumbnailOfFile.put(file, tn);
-            }
-        }
-    }
-
-    /**
-     * Returns the files to process.
-     *
-     * @return files
-     */
-    public List<File> getFiles() {
-        synchronized (thumbnailOfFile) {
-            return new ArrayList<File>(thumbnailOfFile.keySet());
-        }
-    }
-
-    /**
-     * Returns a thumbnail of a file.
-     *
-     * @param  file file
-     * @return      thumbnail or null
-     */
-    public Image getThumbnail(File file) {
-        if (file == null) {
-            throw new NullPointerException("file == null");
-        }
-
-        return thumbnailOfFile.get(file);
     }
 
     /**
@@ -134,8 +45,7 @@ public abstract class Plugin {
      *                 important to call
      *                 {@link PluginListener#action(PluginEvent)} with
      *                 one or more of <code>Event#FINISHED_...</code> arguments
-     *                 so that it can release resources such as the process'
-     *                 progress bar.
+     *                 so that it can release resources
      */
     public void addPluginListener(PluginListener listener) {
         if (listener == null) {
@@ -163,7 +73,7 @@ public abstract class Plugin {
      *
      * @param event event
      */
-    public void notifyPluginListeners(PluginEvent event) {
+    protected void notifyPluginListeners(PluginEvent event) {
         if (event == null) {
             throw new NullPointerException("event == null");
         }
@@ -173,7 +83,13 @@ public abstract class Plugin {
                 listener.action(event);
             }
         }
+
+        if (event.getType().isFinished()) {
+            releaseProgressBar();
+        }
     }
+
+    public abstract void processFiles(List<File> files);
 
     /**
      * Returns the <strong>localized</strong> short name of the plugin for
@@ -198,13 +114,6 @@ public abstract class Plugin {
     public Icon getIcon() {
         return null;
     }
-
-    /**
-     * Returns all actions of this plugin (all what the plugin can do).
-     *
-     * @return actions ordered for presentation in a menu
-     */
-    public abstract List<? extends Action> getActions();
 
     /**
      * Returns the path to the XML contents file of the plugin's help.
@@ -252,6 +161,32 @@ public abstract class Plugin {
         return null;
     }
 
+    private void getProgressBarFromService() {
+        if (progressBar != null) {
+            return;
+        }
+
+        ProgressBarProvider progressBarProvider = ServiceLookup.lookup(ProgressBarProvider.class);
+
+        if (progressBarProvider != null) {
+            progressBar = progressBarProvider.getProgressBar(this);
+        }
+    }
+
+    private void releaseProgressBar() {
+        if (progressBar == null) {
+            return;
+        }
+
+        ProgressBarProvider progressBarProvider = ServiceLookup.lookup(ProgressBarProvider.class);
+
+        if (progressBarProvider != null) {
+            progressBarProvider.releaseProgressBar(progressBar, this);
+        }
+
+        progressBar = null;
+    }
+
     /**
      * Paints the progress bar start event.
      *
@@ -261,6 +196,7 @@ public abstract class Plugin {
      * @param string  string to paint onto progress bar or null
      */
     public void progressStarted(int minimum, int maximum, int value, String string) {
+        getProgressBarFromService();
         setProgressBar(0, maximum, value, string);
     }
 
@@ -273,6 +209,7 @@ public abstract class Plugin {
      * @param string  string to paint onto progress bar or null
      */
     public void progressPerformed(int minimum, int maximum, int value, String string) {
+        getProgressBarFromService();
         setProgressBar(minimum, maximum, value, string);
     }
 
@@ -281,6 +218,7 @@ public abstract class Plugin {
      */
     public void progressEnded() {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             public void run() {
                 if (progressBar != null) {
                     if (progressBar.isStringPainted()) {
@@ -289,6 +227,7 @@ public abstract class Plugin {
 
                     progressBar.setStringPainted(pBarStringPainted);
                     progressBar.setValue(0);
+                    releaseProgressBar();
                 }
             }
         });
@@ -296,6 +235,7 @@ public abstract class Plugin {
 
     private void setProgressBar(final int minimum, final int maximum, final int value, final String string) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             public void run() {
                 if (progressBar != null) {
                     progressBar.setMinimum(minimum);

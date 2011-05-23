@@ -3,12 +3,13 @@ package org.jphototagger.plugin.cftc;
 import java.awt.Component;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Properties;
 import java.util.ResourceBundle;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import org.jphototagger.lib.util.ServiceLookup;
+import org.jphototagger.services.Storage;
 
 /**
  * Settings for {@link CopyFilenamesToClipboard}.
@@ -19,17 +20,16 @@ public class SettingsPanel extends javax.swing.JPanel {
     private static final long serialVersionUID = -8198418342037889703L;
     private final DelimiterModel model = new DelimiterModel();
     private final DelimiterRenderer renderer = new DelimiterRenderer();
-    private final Properties properties;
+    private final Storage storage = ServiceLookup.lookup(Storage.class);
 
-    public SettingsPanel(Properties properties) {
-        this.properties = properties;
+    public SettingsPanel() {
         initComponents();
         setPersistentModelValue();
     }
 
     private void setPersistentModelValue() {
-        if (properties != null) {
-            String delim = properties.getProperty(CopyFilenamesToClipboard.KEY_FILENAME_DELIMITER);
+        if (storage != null) {
+            String delim = storage.getString(CopyFilenamesToClipboard.KEY_FILENAME_DELIMITER);
 
             if (delim == null) {
                 delim = CopyFilenamesToClipboard.DEFAULT_FILENAME_DELIMITER;
@@ -67,8 +67,8 @@ public class SettingsPanel extends javax.swing.JPanel {
 
 
     private void writeDelimiter() {
-        if (properties != null) {
-            properties.setProperty(CopyFilenamesToClipboard.KEY_FILENAME_DELIMITER, model.getSelectedItem().toString());
+        if (storage != null) {
+            storage.setString(CopyFilenamesToClipboard.KEY_FILENAME_DELIMITER, model.getSelectedItem().toString());
         }
     }
 
@@ -160,7 +160,6 @@ public class SettingsPanel extends javax.swing.JPanel {
     private void comboBoxDelimiterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxDelimiterActionPerformed
         writeDelimiter();
     }//GEN-LAST:event_comboBoxDelimiterActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox comboBoxDelimiter;
     private javax.swing.JLabel jLabel1;

@@ -11,8 +11,9 @@ import java.awt.Desktop;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.Properties;
 import javax.swing.JOptionPane;
+import org.jphototagger.lib.util.ServiceLookup;
+import org.jphototagger.services.Storage;
 
 /**
  *
@@ -20,6 +21,7 @@ import javax.swing.JOptionPane;
  * @author Elmar Baumann
  */
 final class Authorization {
+
     private static final String KEY_TOKEN = "org.jphototagger.plugin.flickrupload.FlickrToken";
     private RequestContext requestContext;
     private String frob;
@@ -27,11 +29,6 @@ final class Authorization {
     private AuthInterface authInterface;
     private boolean authenticated;
     private Auth auth;
-    private final Properties properties;
-
-    Authorization(Properties properties) {
-        this.properties = properties;
-    }
 
     public AuthInterface getAuthInterface() {
         assert authenticated;
@@ -40,7 +37,27 @@ final class Authorization {
     }
 
     public void deleteToken() {
-        properties.remove(KEY_TOKEN);
+        Storage storage = ServiceLookup.lookup(Storage.class);
+
+        if (storage != null) {
+            storage.removeKey(KEY_TOKEN);
+        }
+    }
+
+    private String getToken() {
+        Storage storage = ServiceLookup.lookup(Storage.class);
+
+        return storage == null
+                ? ""
+                : storage.getString(KEY_TOKEN);
+    }
+
+    private void setToken(String token) {
+        Storage storage = ServiceLookup.lookup(Storage.class);
+
+        if (storage != null) {
+            storage.setString(KEY_TOKEN, token);
+        }
     }
 
     public boolean authenticate() {
@@ -51,7 +68,7 @@ final class Authorization {
             requestContext = RequestContext.getRequestContext();
             authInterface = flickr.getAuthInterface();
             frob = authInterface.getFrob();
-            token = properties.getProperty(KEY_TOKEN);
+            token = getToken();
 
             if (token == null) {
                 authenticateViaWebBrowser();
@@ -76,12 +93,12 @@ final class Authorization {
         URL url = authInterface.buildAuthenticationUrl(Permission.DELETE, frob);
 
         JOptionPane.showMessageDialog(ComponentUtil.getFrameWithIcon(),
-                                      FlickrBundle.INSTANCE.getString("Auth.Info.GetToken.Browse"));
+                FlickrBundle.INSTANCE.getString("Auth.Info.GetToken.Browse"));
         Desktop.getDesktop().browse(url.toURI());
         JOptionPane.showMessageDialog(ComponentUtil.getFrameWithIcon(),
-                                      FlickrBundle.INSTANCE.getString("Auth.Info.GetToken.Confirm"));
+                FlickrBundle.INSTANCE.getString("Auth.Info.GetToken.Confirm"));
         auth = authInterface.getToken(frob);
         token = auth.getToken();
-        properties.setProperty(KEY_TOKEN, token);
+        setToken(token);
     }
 }
