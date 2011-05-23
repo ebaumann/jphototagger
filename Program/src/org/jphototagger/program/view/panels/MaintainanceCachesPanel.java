@@ -46,7 +46,7 @@ public class MaintainanceCachesPanel extends javax.swing.JPanel {
         buttonClearExifCache.setAction(ClearExifCacheAction.INSTANCE);
         labelInfoClearExifCache = new JXLabel();
         buttonClearIptcIgnoreCache = new JButton();
-        buttonClearExifCache.setAction(ClearIptcIgnoreCacheAction.INSTANCE);
+        buttonClearIptcIgnoreCache.setAction(ClearIptcIgnoreCacheAction.INSTANCE);
         labelInfoClearIptcIgnoreCache = new JXLabel();
 
         setName("MaintainanceCachesPanel"); // NOI18N
@@ -78,7 +78,7 @@ public class MaintainanceCachesPanel extends javax.swing.JPanel {
                     .addGroup(Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(buttonClearIptcIgnoreCache)
                         .addPreferredGap(ComponentPlacement.RELATED)
-                        .addComponent(labelInfoClearIptcIgnoreCache, GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE))
+                        .addComponent(labelInfoClearIptcIgnoreCache, GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE))
                     .addComponent(labelInfo, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
                     .addGroup(Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(buttonClearExifCache)

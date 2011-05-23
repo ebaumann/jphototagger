@@ -26,7 +26,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="buttonClearIptcIgnoreCache" linkSize="1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="labelInfoClearIptcIgnoreCache" pref="372" max="32767" attributes="0"/>
+                      <Component id="labelInfoClearIptcIgnoreCache" pref="486" max="32767" attributes="0"/>
                   </Group>
                   <Component id="labelInfo" alignment="0" min="0" pref="0" max="32767" attributes="2"/>
                   <Group type="102" alignment="0" attributes="0">
@@ -96,7 +96,7 @@
         <Property name="name" type="java.lang.String" value="buttonClearIptcIgnoreCache" noResource="true"/>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="buttonClearExifCache.setAction(org.jphototagger.program.controller.maintainance.ClearIptcIgnoreCacheAction.INSTANCE);"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="buttonClearIptcIgnoreCache.setAction(org.jphototagger.program.controller.maintainance.ClearIptcIgnoreCacheAction.INSTANCE);"/>
       </AuxValues>
     </Component>
     <Component class="org.jdesktop.swingx.JXLabel" name="labelInfoClearIptcIgnoreCache">
