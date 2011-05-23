@@ -31,7 +31,7 @@ public final class CanonMakerNotes implements ExifMakerNotes {
             throw new NullPointerException("makerNoteTag == null");
         }
 
-        CanonIfd ifd = new CanonIfd(makerNoteTag.rawValue(), makerNoteTag.byteOrder());
+        CanonIfd ifd = new CanonIfd(makerNoteTag.getRawValue(), makerNoteTag.convertByteOrderIdToByteOrder());
         short[] tag1Values = CanonMakerNote.getTag1Values(file, ifd);
         short[] tag4Values = CanonMakerNote.getTag4Values(file, ifd);
 
@@ -45,7 +45,7 @@ public final class CanonMakerNotes implements ExifMakerNotes {
     }
 
     static int tagId(int canonTag, int offset) {
-        return ExifTag.Id.MAKER_NOTE_CANON_START.value() + canonTag * 100 + offset;
+        return ExifTag.Id.MAKER_NOTE_CANON_START.getTagId() + canonTag * 100 + offset;
     }
 
     static void addTag(ExifTags exifTags, int tagId, String nameBundleKey, String value) {

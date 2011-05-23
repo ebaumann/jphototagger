@@ -178,7 +178,7 @@ public final class CanonMakerNote {
 
         raf.seek(pos);
 
-        return ExifDatatypeUtil.shortFromRawValue(size, JPEG_BYTE_ORDER);
+        return ExifDatatypeUtil.convertRawValueToShort(size, JPEG_BYTE_ORDER);
     }
 
     private static boolean isJpegFile(RandomAccessFile raf) throws Exception {
@@ -272,7 +272,7 @@ public final class CanonMakerNote {
 
         System.arraycopy(raw, 0, rawValueLen, 0, 2);
 
-        short valueCount = (short) (ExifDatatypeUtil.shortFromRawValue(rawValueLen, byteOrder) / 2 - 1);
+        short valueCount = (short) (ExifDatatypeUtil.convertRawValueToShort(rawValueLen, byteOrder) / 2 - 1);
 
         if (valueCount <= 0) {
             return null;
@@ -289,7 +289,7 @@ public final class CanonMakerNote {
 
         for (int i = 0; i < valueCount; i++) {
             System.arraycopy(raw, 2 + 2 * i, rawValue, 0, 2);
-            values[i] = ExifDatatypeUtil.shortFromRawValue(rawValue, byteOrder);
+            values[i] = ExifDatatypeUtil.convertRawValueToShort(rawValue, byteOrder);
         }
 
         return values;

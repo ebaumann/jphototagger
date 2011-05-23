@@ -30,9 +30,9 @@ public final class ExifFormatterContrast extends ExifFormatter {
 
         Ensure.exifTagId(exifTag, ExifTag.Id.CONTRAST);
 
-        if (ExifShort.byteCountOk(exifTag.rawValue())) {
-            ExifShort es = new ExifShort(exifTag.rawValue(), exifTag.byteOrder());
-            int value = es.value();
+        if (ExifShort.isRawValueByteCountOk(exifTag.getRawValue())) {
+            ExifShort es = new ExifShort(exifTag.getRawValue(), exifTag.convertByteOrderIdToByteOrder());
+            int value = es.getValue();
 
             if (EXIF_KEY_OF_CONTRAST.containsKey(value)) {
                 return translate(IfdType.EXIF, EXIF_KEY_OF_CONTRAST.get(value));

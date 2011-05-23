@@ -23,8 +23,8 @@ public final class ExifFormatterExposureTime extends ExifFormatter {
 
         Ensure.exifTagId(exifTag, ExifTag.Id.EXPOSURE_TIME);
 
-        if (ExifRational.byteCount() == exifTag.rawValue().length) {
-            ExifRational time = new ExifRational(exifTag.rawValue(), exifTag.byteOrder());
+        if (ExifRational.getRawValueByteCount() == exifTag.getRawValue().length) {
+            ExifRational time = new ExifRational(exifTag.getRawValue(), exifTag.convertByteOrderIdToByteOrder());
             Pair<Integer, Integer> pair = getAsExposureTime(time);
             int numerator = pair.getFirst();
             int denominator = pair.getSecond();
@@ -42,8 +42,8 @@ public final class ExifFormatterExposureTime extends ExifFormatter {
     }
 
     private static Pair<Integer, Integer> getAsExposureTime(ExifRational er) {
-        int numerator = er.numerator();
-        int denominator = er.denominator();
+        int numerator = er.getNumerator();
+        int denominator = er.getDenominator();
         double result = (double) numerator / (double) denominator;
 
         if (result < 1) {

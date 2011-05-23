@@ -21,6 +21,6 @@ public final class ExifFormatterAscii extends ExifFormatter {
 
         Ensure.exifDataType(exifTag, ExifDataType.ASCII);
 
-        return ExifAscii.decode(exifTag.rawValue());
+        return ExifAscii.convertRawValueToString(exifTag.getRawValue());
     }
 }

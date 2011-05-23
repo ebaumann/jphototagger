@@ -19,11 +19,11 @@ public final class ExifMakerNotesFactory {
     }
 
     static void add(File file, ExifTags exifTags) {
-        ExifTag makerNoteTag = exifTags.exifTagById(ExifTag.Id.MAKER_NOTE.value());
-        ExifTag makeTag = exifTags.exifTagById(ExifTag.Id.MAKE.value());
+        ExifTag makerNoteTag = exifTags.findExifTagByTagId(ExifTag.Id.MAKER_NOTE.getTagId());
+        ExifTag makeTag = exifTags.findExifTagByTagId(ExifTag.Id.MAKE.getTagId());
         String make = (makeTag == null)
                       ? null
-                      : makeTag.stringValue().toLowerCase();
+                      : makeTag.getStringValue().toLowerCase();
 
         if ((makeTag != null) && (makerNoteTag != null)) {
             for (String mk : makerNotesOfMake.keySet()) {

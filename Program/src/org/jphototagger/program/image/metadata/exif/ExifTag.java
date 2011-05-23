@@ -70,7 +70,7 @@ public final class ExifTag {
 
         /**
          * Maker note that shall be displayed. Alle maker notes equals to or
-         * grater than this value will be displayed.
+         * grater than this getTagId will be displayed.
          */
         MAKER_NOTE_LENS(3750010),
         MAKER_NOTE_CANON_START(3751000),
@@ -95,9 +95,9 @@ public final class ExifTag {
         ;
         
         /**
-         * Integer value of tag ID as specified in the EXIF standard
+         * Integer getTagId of tag ID as specified in the EXIF standard
          */
-        private final int value;
+        private final int tagId;
     
         @XmlTransient
         private static final Set<Id> GPS_IDS = EnumSet.of(Id.GPS_ALTITUDE,
@@ -112,23 +112,23 @@ public final class ExifTag {
                                                           Id.GPS_VERSION_ID);
 
         /**
-         * Returns the integer value of this tag ID.
+         * Returns the integer getTagId of this tag ID.
          *
-         * @return value
+         * @return getTagId
          */
-        public int value() {
-            return value;
+        public int getTagId() {
+            return tagId;
         }
 
         /**
-         * Returns an tag id with a specific integer value.
+         * Returns an tag id with a specific integer getTagId.
          *
-         * @param  value value
-         * @return       Id or {@link Id#UNKNOWN} if no tag has such value
+         * @param  tagId tag ID
+         * @return       Id or {@link Id#UNKNOWN} if no tag has such getTagId
          */
-        public static Id fromValue(int value) {
+        public static Id convertTagIdToId(int tagId) {
             for (Id id : Id.values()) {
-                if (id.value == value) {
+                if (id.tagId == tagId) {
                     return id;
                 }
             }
@@ -137,7 +137,7 @@ public final class ExifTag {
         }
 
         private Id(int value) {
-            this.value = value;
+            this.tagId = value;
         }
         
         public boolean isGpsId() {
@@ -154,7 +154,7 @@ public final class ExifTag {
 
     static {
         for (ExifDataType type : ExifDataType.values()) {
-            DATA_TYPE_OF_TAG_ID.put(type.value(), type);
+            DATA_TYPE_OF_TAG_ID.put(type.getValue(), type);
         }
     }
 
@@ -166,7 +166,7 @@ public final class ExifTag {
     /**
      * Tag identifier, bytes 0 - 1 in the IFD entry
      */
-    private final int idValue;
+    private final int tagId;
 
     /**
      * Data type identifier, bytes 2 - 3 in the IFD entry
@@ -176,14 +176,14 @@ public final class ExifTag {
     /**
      * Value count, bytes 4 - 7 in the IFD entry
      *
-     * (!= byte count, 1 SHORT == value count of 1 even it requires 2 bytes of
+     * (!= byte count, 1 SHORT == getTagId count of 1 even it requires 2 bytes of
      * storage)
      */
     private final int valueCount;
 
     /**
-     * Offset in bytes from the TIFF header to the value, bytes 8 - 11 in the
-     * IFD entry. If the value fits in 4 bytes the value itself, starting from
+     * Offset in bytes from the TIFF header to the getTagId, bytes 8 - 11 in the
+     * IFD entry. If the getTagId fits in 4 bytes the getTagId itself, starting from
      * left.
      */
     private final long valueOffset;
@@ -191,7 +191,7 @@ public final class ExifTag {
     @XmlJavaTypeAdapter(Base64ByteArrayXmlAdapter.class)
     private byte[] rawValue;
 
-    // The string value may contain "\000" not allowed in XML
+    // The string getTagId may contain "\000" not allowed in XML
     @XmlJavaTypeAdapter(Base64ByteStringXmlAdapter.class)
     private final String stringValue;
 
@@ -209,7 +209,7 @@ public final class ExifTag {
         name = "";
         byteOrderId = -1;
         valueCount = -1;
-        idValue = -1;
+        tagId = -1;
         dataTypeId = -1;
         ifdType = IfdType.UNDEFINED;
     }
@@ -223,13 +223,13 @@ public final class ExifTag {
             throw new NullPointerException("ifdType == null");
         }
 
-        idValue = entry.getTag();
+        tagId = entry.getTag();
         valueCount = entry.getCount();
         valueOffset = entry.getValueOffset();
         dataTypeId = entry.getType();
         name = entry.getEntryMeta().getName();
         byteOrderId = entry.parent.getByteOrder();
-        rawValue = rawValueDeepCopy(entry);
+        rawValue = deepCopyRawValueOfIfdEntry(entry);
         stringValue = entry.toString();
         this.ifdType = ifdType;
     }
@@ -248,7 +248,7 @@ public final class ExifTag {
      */
     public ExifTag(int tagId, int dataTypeId, int valueCount, long valueOffset, byte[] rawValue, String stringValue,
                    int byteOrderId, String name, ExifMetadata.IfdType ifdType) {
-        this.idValue = tagId;
+        this.tagId = tagId;
         this.dataTypeId = dataTypeId;
         this.valueCount = valueCount;
         this.valueOffset = valueOffset;
@@ -261,7 +261,7 @@ public final class ExifTag {
         this.ifdType = ifdType;
     }
 
-    public ByteOrder byteOrder() {
+    public ByteOrder convertByteOrderIdToByteOrder() {
 
         // 0x4949 (18761) == little endian, 0x4D4D (19789) == big endian
         return (byteOrderId == 18761)
@@ -269,63 +269,51 @@ public final class ExifTag {
                : ByteOrder.BIG_ENDIAN;
     }
 
-    public int byteOrderId() {
+    public int getByteOrderId() {
         return byteOrderId;
     }
 
-    public String name() {
+    public String getName() {
         return name;
     }
 
-    public byte[] rawValue() {
+    public byte[] getRawValue() {
         return Arrays.copyOf(rawValue, rawValue.length);
     }
 
-    public String stringValue() {
+    public String getStringValue() {
         return stringValue;
     }
 
-    public int idValue() {
-        return idValue;
+    public int getTagId() {
+        return tagId;
     }
 
-    public Id id() {
-        return Id.fromValue(idValue);
+    public Id convertTagIdToEnumId() {
+        return Id.convertTagIdToId(tagId);
     }
 
-    public IfdType ifdType() {
+    public IfdType getIfdType() {
         return ifdType;
     }
     
-    public boolean isGpsId() {
-        Id id = id();
-        
-        return id != null && id.isGpsId();
-    }
-    
-    public boolean isMakerNoteId() {
-        Id id = id();
-        
-        return id != null && id.isMakerNoteId();
-    }
-
-    public long valueOffset() {
+    public long getValueOffset() {
         return valueOffset;
     }
 
-    public int valueCount() {
+    public int getValueCount() {
         return valueCount;
     }
 
-    public ExifDataType dataType() {
-        return dataTypeOfTagId(dataTypeId);
+    public ExifDataType convertDataTypeIdToExifDataType() {
+        return convertDataTypeIdToExifDataType(dataTypeId);
     }
 
-    public int dataTypeId() {
+    public int getDataTypeId() {
         return dataTypeId;
     }
 
-    private byte[] rawValueDeepCopy(IFDEntry entry) {
+    private byte[] deepCopyRawValueOfIfdEntry(IFDEntry entry) {
         try {
             return Arrays.copyOf(entry.getRawValue(), entry.getRawValue().length);
         } catch (Exception ex) {
@@ -335,7 +323,7 @@ public final class ExifTag {
         return null;
     }
 
-    private ExifDataType dataTypeOfTagId(int tagId) {
+    private ExifDataType convertDataTypeIdToExifDataType(int tagId) {
         ExifDataType t = DATA_TYPE_OF_TAG_ID.get(tagId);
 
         if (t == null) {
@@ -352,21 +340,24 @@ public final class ExifTag {
                : name;
     }
 
+    /**
+     *
+     * @param  obj
+     * @return     true, if IFD type {@link #getIfdType()} and tag ID {@link #getTagId()} both equals
+     */
     @Override
     public boolean equals(Object obj) {
-        if (obj == null) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof ExifTag)) {
             return false;
         }
 
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
+        ExifTag other = (ExifTag) obj;
 
-        final ExifTag other = (ExifTag) obj;
-
-        assert(ifdType != null) && (other.ifdType != null);
-
-        return ifdType.equals(other.ifdType) && (idValue == other.idValue);
+        return ifdType.equals(other.ifdType) && (tagId == other.tagId);
     }
 
     @Override
@@ -376,12 +367,12 @@ public final class ExifTag {
         hash = 13 * hash + ((this.ifdType != null)
                             ? this.ifdType.hashCode()
                             : 0);
-        hash = 13 * hash + this.idValue;
+        hash = 13 * hash + this.tagId;
 
         return hash;
     }
 
-    public String info() {
+    public String toInfoString() {
         String pattern = "EXIF Tag ["
                 + "ID: {0}"
                 + ", Name: {1}"
@@ -395,13 +386,13 @@ public final class ExifTag {
                 + "]";
 
         return MessageFormat.format(pattern,
-                idValue,
+                tagId,
                 (name == null) ? " Undefined " : name,
                 valueCount,
                 valueOffset,
-                dataType(),
+                convertDataTypeIdToExifDataType(),
                 (rawValue == null) ? 0 : rawValue.length,
-                byteOrder(),
+                convertByteOrderIdToByteOrder(),
                 (stringValue == null) ? "" : stringValue,
                 ifdType);
     }

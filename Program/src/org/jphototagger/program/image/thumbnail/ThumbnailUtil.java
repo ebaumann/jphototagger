@@ -242,7 +242,7 @@ public final class ThumbnailUtil {
             double rotateAngle = 0.0;
 
             if (exifTags != null) {
-                ExifTag exifTag = exifTags.exifTagById(274);
+                ExifTag exifTag = exifTags.findExifTagByTagId(274);
 
                 if (exifTag != null) {
                     rotateAngle = ExifThumbnailUtil.getThumbnailRotationAngle(exifTag);

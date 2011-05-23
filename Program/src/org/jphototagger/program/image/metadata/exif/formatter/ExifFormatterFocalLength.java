@@ -25,15 +25,15 @@ public final class ExifFormatterFocalLength extends ExifFormatter {
 
         Ensure.exifTagId(exifTag, ExifTag.Id.FOCAL_LENGTH);
 
-        byte[] rawValue = exifTag.rawValue();
+        byte[] rawValue = exifTag.getRawValue();
 
-        if (ExifRational.isValid(rawValue, exifTag.byteOrder())) {
-            ExifRational er = new ExifRational(rawValue, exifTag.byteOrder());
+        if (ExifRational.isValid(rawValue, exifTag.convertByteOrderIdToByteOrder())) {
+            ExifRational er = new ExifRational(rawValue, exifTag.convertByteOrderIdToByteOrder());
             DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance();
 
             df.applyPattern("#.# mm");
 
-            return df.format(ExifDatatypeUtil.toDouble(er));
+            return df.format(ExifDatatypeUtil.convertExifRationalToDouble(er));
         }
 
         return "?";

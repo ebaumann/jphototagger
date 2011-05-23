@@ -19,7 +19,7 @@ public final class NikonMakerNoteType3Tag132 implements ExifRawValueFormatter {
             throw new NullPointerException("exifTag == null");
         }
 
-        byte[] rawValue = exifTag.rawValue();
+        byte[] rawValue = exifTag.getRawValue();
 
         if (rawValue.length != 32) {
             return "?";
@@ -35,17 +35,17 @@ public final class NikonMakerNoteType3Tag132 implements ExifRawValueFormatter {
         System.arraycopy(rawValue, 16, minFStopRawValue, 0, 8);
         System.arraycopy(rawValue, 24, maxFStopRawValue, 0, 8);
 
-        ByteOrder byteOrder = exifTag.byteOrder();
+        ByteOrder byteOrder = exifTag.convertByteOrderIdToByteOrder();
         ExifRational minFocalLengthR = new ExifRational(minFocalLengthRawValue, byteOrder);
         ExifRational maxFocalLengthR = new ExifRational(maxFocalLengthRawValue, byteOrder);
         ExifRational minFStopR = new ExifRational(minFStopRawValue, byteOrder);
         ExifRational maxFStopR = new ExifRational(maxFStopRawValue, byteOrder);
         boolean fixFocalLength = minFocalLengthR.equals(maxFocalLengthR);
         boolean fixFStop = minFStopR.equals(maxFStopR);
-        double minFocalLength = ExifDatatypeUtil.toDouble(minFocalLengthR);
-        double maxFocalLength = ExifDatatypeUtil.toDouble(maxFocalLengthR);
-        double minFStop = ExifDatatypeUtil.toDouble(minFStopR);
-        double maxFStop = ExifDatatypeUtil.toDouble(maxFStopR);
+        double minFocalLength = ExifDatatypeUtil.convertExifRationalToDouble(minFocalLengthR);
+        double maxFocalLength = ExifDatatypeUtil.convertExifRationalToDouble(maxFocalLengthR);
+        double minFStop = ExifDatatypeUtil.convertExifRationalToDouble(minFStopR);
+        double maxFStop = ExifDatatypeUtil.convertExifRationalToDouble(maxFStopR);
         DecimalFormat df = new DecimalFormat("#.#");
         String focalLength = fixFocalLength
                              ? df.format(minFocalLength) + " mm"

@@ -17,7 +17,18 @@ public final class ExifGpsLatitude {
     /**
      * Indicates whether the latitude is north or south latitude.
      */
-    public enum Ref { NORTH, SOUTH }
+    public enum Ref {
+        NORTH,
+        SOUTH;
+
+        public boolean isNorth() {
+            return this.equals(NORTH);
+        }
+
+        public boolean isSouth() {
+            return this.equals(SOUTH);
+        }
+    }
 
     private static final Map<String, Ref> REF_OF_STRING = new HashMap<String, Ref>();
     private static final Map<Ref, String> LOCALIZED_STRING_OF_REF = new EnumMap<Ref, String>(Ref.class);
@@ -46,11 +57,11 @@ public final class ExifGpsLatitude {
         }
 
         ensureByteCount(refRawValue, degreesRawValue);
-        this.ref = ref(refRawValue);
+        this.ref = convertRawValueToRef(refRawValue);
         this.degrees = new ExifDegrees(degreesRawValue, byteOrder);
     }
 
-    private static Ref ref(byte[] rawValue) {
+    private static Ref convertRawValueToRef(byte[] rawValue) {
         String s = null;
 
         if ((rawValue != null) && (rawValue.length == 2)) {
@@ -60,48 +71,44 @@ public final class ExifGpsLatitude {
         return REF_OF_STRING.get(s);
     }
 
-    public static int byteCount() {
+    public static int getRawValueByteCount() {
         return 24;
     }
 
-    public static int refByteCount() {
+    public static int getRefByteCount() {
         return 2;
     }
 
-    public static boolean byteCountOk(byte[] rawValue) {
-        if (rawValue == null) {
-            throw new NullPointerException("rawValue == null");
+    public static boolean isRawValueByteCountOk(byte[] rawValue) {
+        return rawValue == null
+                ? false
+                : rawValue.length == getRawValueByteCount();
         }
 
-        return rawValue.length == byteCount();
+    public static boolean isRefByteCountOk(byte[] rawValue) {
+        return rawValue == null
+                ? false
+                : rawValue.length == getRefByteCount();
     }
 
-    public static boolean refByteCountOk(byte[] rawValue) {
-        if (rawValue == null) {
-            throw new NullPointerException("rawValue == null");
+    public String getLocalizedString() {
+        return ExifGpsUtil.getDegreesAsString(degrees) + " " + LOCALIZED_STRING_OF_REF.get(ref);
         }
 
-        return rawValue.length == refByteCount();
-    }
-
-    public String localizedString() {
-        return ExifGpsUtil.degreesToString(degrees) + " " + LOCALIZED_STRING_OF_REF.get(ref);
-    }
-
-    public ExifDegrees degrees() {
+    public ExifDegrees getExifDegrees() {
         return degrees;
     }
 
-    public Ref ref() {
+    public Ref getRef() {
         return ref;
     }
 
     private void ensureByteCount(byte[] refRawValue, byte[] degreesRawValue) throws IllegalArgumentException {
-        if (!refByteCountOk(refRawValue)) {
+        if (!isRefByteCountOk(refRawValue)) {
             throw new IllegalArgumentException("Illegal ref raw value byte count: " + refRawValue.length);
         }
 
-        if (!byteCountOk(degreesRawValue)) {
+        if (!isRawValueByteCountOk(degreesRawValue)) {
             throw new IllegalArgumentException("Illegal raw value byte count: " + degreesRawValue.length);
         }
     }

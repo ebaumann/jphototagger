@@ -22,7 +22,7 @@ public final class ExifFormatterFileSource extends ExifFormatter {
 
         Ensure.exifTagId(exifTag, ExifTag.Id.FILE_SOURCE);
 
-        byte[] rawValue = exifTag.rawValue();
+        byte[] rawValue = exifTag.getRawValue();
 
         if (rawValue.length >= 1) {
             int value = rawValue[0];

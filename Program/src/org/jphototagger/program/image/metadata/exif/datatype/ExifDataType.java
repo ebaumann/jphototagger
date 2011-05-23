@@ -96,16 +96,16 @@ public enum ExifDataType {
 
     private final int value;
     private final int bitCount;
-    private final String string;
+    private final String valueAsString;
 
-    private ExifDataType(int value, int bitCount, String string) {
-        if (string == null) {
-            throw new NullPointerException("string == null");
+    private ExifDataType(int value, int bitCount, String valueAsString) {
+        if (valueAsString == null) {
+            throw new NullPointerException("valueAsString == null");
         }
 
         this.value = value;
         this.bitCount = bitCount;
-        this.string = string;
+        this.valueAsString = valueAsString;
     }
 
     /**
@@ -114,7 +114,7 @@ public enum ExifDataType {
      *
      * @return value
      */
-    public int value() {
+    public int getValue() {
         return value;
     }
 
@@ -123,25 +123,23 @@ public enum ExifDataType {
      *
      * @return bit count
      */
-    public int bitCount() {
+    public int getBitCount() {
         return bitCount;
     }
 
-    public static ExifDataType fromType(int type) {
+    public static ExifDataType convertIntegerValueToExifDataType(int value) {
         for (ExifDataType dataType : values()) {
-            if (dataType.value == type) {
+            if (dataType.value == value) {
                 return dataType;
             }
         }
 
-        assert false : type;
-
         return UNDEFINED;
     }
 
-    public static boolean isType(int type) {
+    public static boolean canConvertIntegerValueToExifDataType(int value) {
         for (ExifDataType dataType : values()) {
-            if (dataType.value == type) {
+            if (dataType.value == value) {
                 return true;
             }
         }
@@ -154,12 +152,12 @@ public enum ExifDataType {
      *
      * @return string
      */
-    public String valueString() {
-        return string;
+    public String getValueAsString() {
+        return valueAsString;
     }
 
     @Override
     public String toString() {
-        return value + " (" + string + ")";
+        return value + " (" + valueAsString + ")";
     }
 }

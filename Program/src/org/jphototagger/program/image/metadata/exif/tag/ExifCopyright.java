@@ -10,6 +10,7 @@ import java.util.Arrays;
  * @author Elmar Baumann
  */
 public final class ExifCopyright {
+
     private final String photographerCopyright;
     private final String editorCopyright;
 
@@ -22,15 +23,15 @@ public final class ExifCopyright {
             throw new NullPointerException("editorCopyright == null");
         }
 
-        this.photographerCopyright = photographerCopyright(photographerCopyright);
-        this.editorCopyright = editorCopyright(editorCopyright);
+        this.photographerCopyright = convertRawValueToPhotographerCopyright(photographerCopyright);
+        this.editorCopyright = convertRawValueToEditorCopyright(editorCopyright);
     }
 
-    public String editorCopyright() {
+    public String getEditorCopyright() {
         return editorCopyright;
     }
 
-    public String photographerCopyright() {
+    public String getPhotographerCopyright() {
         return photographerCopyright;
     }
 
@@ -42,14 +43,14 @@ public final class ExifCopyright {
      *                   information is not in the raw value
      *
      */
-    public static String photographerCopyright(byte[] rawValue) {
+    public static String convertRawValueToPhotographerCopyright(byte[] rawValue) {
         if (rawValue == null) {
             throw new NullPointerException("rawValue == null");
         }
 
-        Pair<Integer, Integer> photographerOffsets = photographerOffsets(rawValue);
+        Pair<Integer, Integer> photographerOffsets = findPhotographerOffsetsOfRawValue(rawValue);
 
-        return string(rawValue, photographerOffsets.getFirst(), photographerOffsets.getSecond());
+        return convertRawValueToString(rawValue, photographerOffsets.getFirst(), photographerOffsets.getSecond());
     }
 
     /**
@@ -60,17 +61,17 @@ public final class ExifCopyright {
      *                   information is not in the raw value
      *
      */
-    public static String editorCopyright(byte[] rawValue) {
+    public static String convertRawValueToEditorCopyright(byte[] rawValue) {
         if (rawValue == null) {
             throw new NullPointerException("rawValue == null");
         }
 
-        Pair<Integer, Integer> editorOffsets = editorOffsets(rawValue);
+        Pair<Integer, Integer> editorOffsets = findEditorOffsetsOfRawValue(rawValue);
 
-        return string(rawValue, editorOffsets.getFirst(), editorOffsets.getSecond());
+        return convertRawValueToString(rawValue, editorOffsets.getFirst(), editorOffsets.getSecond());
     }
 
-    private static String string(byte[] ba, int first, int last) {
+    private static String convertRawValueToString(byte[] ba, int first, int last) {
         if ((first < 0) || (first > ba.length) || (last < first) || (last > ba.length)) {
             return "";
         }
@@ -78,7 +79,7 @@ public final class ExifCopyright {
         return new String(Arrays.copyOfRange(ba, first, last), Charset.forName("US-ASCII"));
     }
 
-    private static Pair<Integer, Integer> photographerOffsets(byte[] rawValue) {
+    private static Pair<Integer, Integer> findPhotographerOffsetsOfRawValue(byte[] rawValue) {
         if (rawValue.length < 2) {
             return new Pair<Integer, Integer>(-1, -1);
         }
@@ -93,12 +94,12 @@ public final class ExifCopyright {
         return new Pair<Integer, Integer>(0, i - 1);
     }
 
-    private static Pair<Integer, Integer> editorOffsets(byte[] rawValue) {
+    private static Pair<Integer, Integer> findEditorOffsetsOfRawValue(byte[] rawValue) {
         if (rawValue.length < 3) {
             return new Pair<Integer, Integer>(-1, -1);
         }
 
-        Pair<Integer, Integer> photographerOffsets = photographerOffsets(rawValue);
+        Pair<Integer, Integer> photographerOffsets = findPhotographerOffsetsOfRawValue(rawValue);
 
         if ((photographerOffsets.getFirst() == -1) || (photographerOffsets.getSecond() == rawValue.length)) {
             return new Pair<Integer, Integer>(-1, -1);

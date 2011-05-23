@@ -76,9 +76,9 @@ public final class NikonMakerNotes implements ExifMakerNotes {
     }
 
     private void add(ExifTag exifMakerNote, ExifTags exifTags) {
-        assert exifMakerNote.id().equals(ExifTag.Id.MAKER_NOTE);
+        assert exifMakerNote.convertTagIdToEnumId().equals(ExifTag.Id.MAKER_NOTE);
 
-        NikonMakerNote nikonMakerNote = NikonMakerNotes.get(exifTags, exifMakerNote.rawValue());
+        NikonMakerNote nikonMakerNote = NikonMakerNotes.get(exifTags, exifMakerNote.getRawValue());
 
         if (nikonMakerNote == null) {
             return;
@@ -88,7 +88,7 @@ public final class NikonMakerNotes implements ExifMakerNotes {
         int offset = nikonMakerNote.getByteOffsetToIfd();
 
         try {
-            byte[] raw = exifMakerNote.rawValue();
+            byte[] raw = exifMakerNote.getRawValue();
             byte[] bytes = new byte[raw.length - offset];
 
             System.arraycopy(raw, offset, bytes, 0, bytes.length);
@@ -111,19 +111,19 @@ public final class NikonMakerNotes implements ExifMakerNotes {
 
     private static void mergeMakerNoteTags(ExifTags exifTags, List<Pair<Integer, Integer>> equalTagIds) {
         for (Pair<Integer, Integer> pair : equalTagIds) {
-            ExifTag makerNoteTag = exifTags.makerNoteTagById(pair.getFirst());
+            ExifTag makerNoteTag = exifTags.findmakerNoteTagByTagId(pair.getFirst());
 
             if (makerNoteTag != null) {
-                ExifTag exifTag = exifTags.exifTagById(pair.getSecond());
+                ExifTag exifTag = exifTags.findExifTagByTagId(pair.getSecond());
 
-                exifTags.removeMakerNoteTag(makerNoteTag);
+                exifTags.removeFromMakerNoteTags(makerNoteTag);
 
                 // prefering existing tag
                 if (exifTag == null) {
-                    exifTags.addExifTag(new ExifTag(pair.getSecond(), makerNoteTag.dataTypeId(),
-                                                    makerNoteTag.valueCount(), makerNoteTag.valueOffset(),
-                                                    makerNoteTag.rawValue(), makerNoteTag.stringValue(),
-                                                    makerNoteTag.byteOrderId(), makerNoteTag.name(), IfdType.EXIF));
+                    exifTags.addExifTag(new ExifTag(pair.getSecond(), makerNoteTag.getDataTypeId(),
+                                                    makerNoteTag.getValueCount(), makerNoteTag.getValueOffset(),
+                                                    makerNoteTag.getRawValue(), makerNoteTag.getStringValue(),
+                                                    makerNoteTag.getByteOrderId(), makerNoteTag.getName(), IfdType.EXIF));
                 }
             }
         }

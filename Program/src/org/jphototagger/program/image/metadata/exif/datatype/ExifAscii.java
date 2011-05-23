@@ -7,6 +7,7 @@ package org.jphototagger.program.image.metadata.exif.datatype;
  * @author Elmar Baumann
  */
 public final class ExifAscii {
+    
     private final String value;
 
     public ExifAscii(byte[] rawValue) {
@@ -14,16 +15,10 @@ public final class ExifAscii {
             throw new NullPointerException("rawValue == null");
         }
 
-        value = decode(rawValue);
+        value = convertRawValueToString(rawValue);
     }
 
-    /**
-     * Decodes a raw value.
-     *
-     * @param  rawValue raw value
-     * @return          decoded value
-     */
-    public static String decode(byte[] rawValue) {
+    public static String convertRawValueToString(byte[] rawValue) {
         if (rawValue == null) {
             throw new NullPointerException("rawValue == null");
         }
@@ -36,42 +31,43 @@ public final class ExifAscii {
                : "";
     }
 
-    public static ExifDataType dataType() {
+    public static ExifDataType getExifDataType() {
         return ExifDataType.ASCII;
     }
 
-    public String value() {
+    public String getValue() {
         return value;
     }
 
+    /**
+     * 
+     * @param  obj
+     * @return     true if the values of both objects are equals
+     */
     @Override
     public boolean equals(Object obj) {
-        if (obj == null) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof ExifAscii)) {
             return false;
         }
 
-        if (getClass() != obj.getClass()) {
-            return false;
+        ExifAscii other = (ExifAscii) obj;
+
+        return this.value == null
+                                 ? other.value == null
+                                 : this.value.equals(other.value);
         }
-
-        final ExifAscii other = (ExifAscii) obj;
-
-        if ((this.value == null)
-            ? (other.value != null)
-            : !this.value.equals(other.value)) {
-            return false;
-        }
-
-        return true;
-    }
 
     @Override
     public int hashCode() {
         int hash = 7;
 
-        hash = 37 * hash + ((this.value != null)
+        hash = 37 * hash + this.value != null
                             ? this.value.hashCode()
-                            : 0);
+                               : 0;
 
         return hash;
     }

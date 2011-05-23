@@ -20,109 +20,125 @@ import java.util.TimeZone;
  * @author Elmar Baumann
  */
 public final class ExifGpsUtil {
-    public static double degrees(ExifDegrees degrees) {
-        if (degrees == null) {
-            throw new NullPointerException("degrees == null");
-        }
 
-        return ExifDatatypeUtil.toDouble(degrees.degrees()) + ExifDatatypeUtil.toDouble(degrees.minutes()) / 60
-               + ExifDatatypeUtil.toDouble(degrees.seconds()) / 3600;
+    public static double convertExifDegreesToDouble(ExifDegrees exifDegrees) {
+        if (exifDegrees == null) {
+            throw new NullPointerException("exifDegrees == null");
+        }
+        ExifRational degrees = exifDegrees.getDegrees();
+        ExifRational minutes = exifDegrees.getMinutes();
+        ExifRational seconds = exifDegrees.getSeconds();
+        double degreesDouble = ExifDatatypeUtil.convertExifRationalToDouble(degrees);
+        double minutesDouble = ExifDatatypeUtil.convertExifRationalToDouble(minutes);
+        double secondsDouble = ExifDatatypeUtil.convertExifRationalToDouble(seconds);
+
+        return degreesDouble + minutesDouble / 60 + secondsDouble / 3600;
     }
 
-    public static double secondsOfMinutes(ExifRational minutes) {
+    public static double getSecondsOfMinutes(ExifRational minutes) {
         if (minutes == null) {
             throw new NullPointerException("minutes == null");
         }
 
-        double doubleMinutes = ExifDatatypeUtil.toDouble(minutes);
-        double integerMinutes = ExifDatatypeUtil.toLong(minutes);
+        double doubleMinutes = ExifDatatypeUtil.convertExifRationalToDouble(minutes);
+        double integerMinutes = ExifDatatypeUtil.convertExifRationalToLong(minutes);
 
         return (doubleMinutes - integerMinutes) * 60;
     }
 
-    public static String degreesToString(ExifDegrees degrees) {
-        if (degrees == null) {
-            throw new NullPointerException("degrees == null");
+    public static String getDegreesAsString(ExifDegrees exifDegrees) {
+        if (exifDegrees == null) {
+            throw new NullPointerException("exifDegrees == null");
         }
 
         MessageFormat msg = new MessageFormat("{0}° {1}'' {2}''''");
-        double deg = ExifDatatypeUtil.toDouble(degrees.degrees());
-        double min = ExifDatatypeUtil.toDouble(degrees.minutes());
-        double sec = ExifDatatypeUtil.toDouble(degrees.seconds());
+        ExifRational exifDeg = exifDegrees.getDegrees();
+        ExifRational exifMinutes = exifDegrees.getMinutes();
+        ExifRational exifSeconds = exifDegrees.getSeconds();
+        double degrees = ExifDatatypeUtil.convertExifRationalToDouble(exifDeg);
+        double minutes = ExifDatatypeUtil.convertExifRationalToDouble(exifMinutes);
+        double seconds = ExifDatatypeUtil.convertExifRationalToDouble(exifSeconds);
 
-        if (sec == 0) {
-            min = ExifDatatypeUtil.toLong(degrees.minutes());
-            sec = ExifGpsUtil.secondsOfMinutes(degrees.minutes());
+        if (seconds == 0) {
+            minutes = ExifDatatypeUtil.convertExifRationalToLong(exifMinutes);
+            seconds = ExifGpsUtil.getSecondsOfMinutes(exifMinutes);
         }
 
-        DecimalFormat dfDegMin = new DecimalFormat("#");
-        DecimalFormat dfSec = new DecimalFormat("#.##");
-        Object[] params = { dfDegMin.format(deg), dfDegMin.format(min), dfSec.format(sec) };
+        DecimalFormat decmailFormatMinutes = new DecimalFormat("#");
+        DecimalFormat decimalFormatSeconds = new DecimalFormat("#.##");
+        String degreesFormatted = decmailFormatMinutes.format(degrees);
+        String minutesFormatted = decmailFormatMinutes.format(minutes);
+        String secondsFormatted = decimalFormatSeconds.format(seconds);
+        Object[] params = { degreesFormatted, minutesFormatted, secondsFormatted};
 
         return msg.format(params);
     }
 
-    public static String googleMapsUrl(ExifGpsLongitude longitude, ExifGpsLatitude latitude) {
-        if (longitude == null) {
-            throw new NullPointerException("longitude == null");
+    public static String getGoogleMapsUrl(ExifGpsLongitude exifGpsLongitude, ExifGpsLatitude exifGpsLatitude) {
+        if (exifGpsLongitude == null) {
+            throw new NullPointerException("exifGpsLongitude == null");
         }
 
-        if (latitude == null) {
-            throw new NullPointerException("latitude == null");
+        if (exifGpsLatitude == null) {
+            throw new NullPointerException("exifGpsLatitude == null");
         }
 
-        MessageFormat msg = new MessageFormat("http://maps.google.com/maps?q={0},{1}&spn=0.001,0.001&t=k&hl="
-                                + Locale.getDefault().getLanguage());
-        DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance(Locale.ENGLISH);
+        String language = Locale.getDefault().getLanguage();
 
-        df.applyPattern("#.########");
+        MessageFormat msg = new MessageFormat("http://maps.google.com/maps?q={0},{1}&spn=0.001,0.001&t=k&hl=" + language);
+        DecimalFormat decimalFormat = (DecimalFormat) NumberFormat.getNumberInstance(Locale.ENGLISH);
 
-        double latititudeValue = degrees(latitude.degrees());
-        double longitudeValue = degrees(longitude.degrees());
+        decimalFormat.applyPattern("#.########");
 
-        if (latitude.ref().equals(ExifGpsLatitude.Ref.SOUTH)) {
-            latititudeValue *= -1;
+        double latititude = convertExifDegreesToDouble(exifGpsLatitude.getExifDegrees());
+        double longitude = convertExifDegreesToDouble(exifGpsLongitude.getExifDegrees());
+        ExifGpsLatitude.Ref latitudeRef = exifGpsLatitude.getRef();
+        ExifGpsLongitude.Ref longitudeRef = exifGpsLongitude.getRef();
+        boolean isSouth = latitudeRef.isSouth();
+        boolean isWest = longitudeRef.isWest();
+
+        if (isSouth) {
+            latititude *= -1;
         }
 
-        if (longitude.ref().equals(ExifGpsLongitude.Ref.WEST)) {
-            longitudeValue *= -1;
+        if (isWest) {
+            longitude *= -1;
         }
 
-        Object[] params = { df.format(latititudeValue), df.format(longitudeValue) };
+        Object[] params = { decimalFormat.format(latititude), decimalFormat.format(longitude) };
 
         return msg.format(params);
     }
 
-    public static ExifGpsMetadata gpsMetadata(ExifTags exifTags) {
+    public static ExifGpsMetadata createGpsMetadataFromExifTags(ExifTags exifTags) {
         if (exifTags == null) {
             throw new NullPointerException("exifTags == null");
         }
 
-        ExifGpsMetadata gpsMetaData = new ExifGpsMetadata();
+        ExifGpsMetadata exifGpsMetaData = new ExifGpsMetadata();
 
-        setGpsLatitude(gpsMetaData, exifTags);
-        setGpsLongitude(gpsMetaData, exifTags);
-        setGpsAltitude(gpsMetaData, exifTags);
-        setGpsDate(gpsMetaData, exifTags);
-        setGpsTime(gpsMetaData, exifTags);
+        setGpsLatitudeFromExifTagsToExifGpsMetadata(exifTags, exifGpsMetaData);
+        setGpsLongitudeFromExifTagsToExifGpsMetadata(exifTags, exifGpsMetaData);
+        setGpsAltitudeFromExifTagsToExifGpsMetadata(exifTags, exifGpsMetaData);
+        setGpsDateFromExifTagsToExifGpsMetadata(exifTags, exifGpsMetaData);
+        setGpsTimeFromExifTagsToExifGpsMetadata(exifTags, exifGpsMetaData);
 
-        return gpsMetaData;
+        return exifGpsMetaData;
     }
 
     /**
      * Returns the GPS date and time.
      *
-     * @param  md meta data
-     * @return    date and time or null if the meta data does not contain time
-     *            information or on errors
+     * @param  exifGpsMetaData meta data
+     * @return                 date and time or null if the meta data does not contain time information or on errors
      */
-    public static Calendar getGpsTime(ExifGpsMetadata md) {
-        if (md == null) {
-            throw new NullPointerException("md == null");
+    public static Calendar getGpsTimeFromExifGpsMetadata(ExifGpsMetadata exifGpsMetaData) {
+        if (exifGpsMetaData == null) {
+            throw new NullPointerException("exifGpsMetaData == null");
         }
 
-        ExifGpsDateStamp dateStamp = md.dateStamp();
-        ExifGpsTimeStamp timeStamp = md.timeStamp();
+        ExifGpsDateStamp dateStamp = exifGpsMetaData.getGpsDateStamp();
+        ExifGpsTimeStamp timeStamp = exifGpsMetaData.getTimeStamp();
 
         if ((dateStamp != null) && (timeStamp != null) && dateStamp.isValid()) {
             try {
@@ -131,9 +147,9 @@ public final class ExifGpsUtil {
                 cal.set(Calendar.YEAR, dateStamp.getYear());
                 cal.set(Calendar.MONTH, dateStamp.getMonth() - 1);
                 cal.set(Calendar.DAY_OF_MONTH, dateStamp.getDay());
-                cal.set(Calendar.HOUR_OF_DAY, (int) ExifDatatypeUtil.toDouble(timeStamp.hours()));
-                cal.set(Calendar.MINUTE, (int) ExifDatatypeUtil.toDouble(timeStamp.minutes()));
-                cal.set(Calendar.SECOND, (int) ExifDatatypeUtil.toDouble(timeStamp.seconds()));
+                cal.set(Calendar.HOUR_OF_DAY, (int) ExifDatatypeUtil.convertExifRationalToDouble(timeStamp.getHours()));
+                cal.set(Calendar.MINUTE, (int) ExifDatatypeUtil.convertExifRationalToDouble(timeStamp.getMinutes()));
+                cal.set(Calendar.SECOND, (int) ExifDatatypeUtil.convertExifRationalToDouble(timeStamp.getSeconds()));
 
                 return cal;
             } catch (Exception ex) {
@@ -144,58 +160,70 @@ public final class ExifGpsUtil {
         return null;
     }
 
-    private static void setGpsLongitude(ExifGpsMetadata gpsMetaData, ExifTags exifTags) {
-        ExifTag tagLongitudeRef = exifTags.gpsTagById(ExifTag.Id.GPS_LONGITUDE_REF.value());
-        ExifTag tagLongitude = exifTags.gpsTagById(ExifTag.Id.GPS_LONGITUDE.value());
+    private static void setGpsLongitudeFromExifTagsToExifGpsMetadata(ExifTags exifTags, ExifGpsMetadata exifGpsMetaData) {
+        ExifTag tagLongitudeRef = exifTags.findGpsTagByTagId(ExifTag.Id.GPS_LONGITUDE_REF.getTagId());
+        ExifTag tagLongitude = exifTags.findGpsTagByTagId(ExifTag.Id.GPS_LONGITUDE.getTagId());
 
         if ((tagLongitudeRef != null) && (tagLongitude != null)) {
-            gpsMetaData.setLongitude(new ExifGpsLongitude(tagLongitudeRef.rawValue(), tagLongitude.rawValue(),
-                    tagLongitude.byteOrder()));
+            byte[] refRawValue = tagLongitudeRef.getRawValue();
+            byte[] degreesRawValue = tagLongitude.getRawValue();
+            ByteOrder byteOrder = tagLongitude.convertByteOrderIdToByteOrder();
+            ExifGpsLongitude longitude = new ExifGpsLongitude(refRawValue, degreesRawValue, byteOrder);
+
+            exifGpsMetaData.setLongitude(longitude);
         }
     }
 
-    private static void setGpsLatitude(ExifGpsMetadata gpsMetaData, ExifTags exifTags) {
-        ExifTag tagLatitudeRef = exifTags.gpsTagById(ExifTag.Id.GPS_LATITUDE_REF.value());
-        ExifTag tagLatitude = exifTags.gpsTagById(ExifTag.Id.GPS_LATITUDE.value());
+    private static void setGpsLatitudeFromExifTagsToExifGpsMetadata(ExifTags exifTags, ExifGpsMetadata exifGpsMetaData) {
+        ExifTag tagLatitudeRef = exifTags.findGpsTagByTagId(ExifTag.Id.GPS_LATITUDE_REF.getTagId());
+        ExifTag tagLatitude = exifTags.findGpsTagByTagId(ExifTag.Id.GPS_LATITUDE.getTagId());
 
         if ((tagLatitudeRef != null) && (tagLatitude != null)) {
-            gpsMetaData.setLatitude(new ExifGpsLatitude(tagLatitudeRef.rawValue(), tagLatitude.rawValue(),
-                    tagLatitude.byteOrder()));
+            byte[] refRawValue = tagLatitudeRef.getRawValue();
+            byte[] degreesRawValue = tagLatitude.getRawValue();
+            ByteOrder byteOrder = tagLatitude.convertByteOrderIdToByteOrder();
+            ExifGpsLatitude latitude = new ExifGpsLatitude(refRawValue, degreesRawValue, byteOrder);
+
+            exifGpsMetaData.setLatitude(latitude);
         }
     }
 
-    private static void setGpsAltitude(ExifGpsMetadata gpsMetaData, ExifTags exifTags) {
-        ExifTag tagAltitudeRef = exifTags.gpsTagById(ExifTag.Id.GPS_ALTITUDE_REF.value());
-        ExifTag tagAltitude = exifTags.gpsTagById(ExifTag.Id.GPS_ALTITUDE.value());
+    private static void setGpsAltitudeFromExifTagsToExifGpsMetadata(ExifTags exifTags, ExifGpsMetadata exifGpsMetaData) {
+        ExifTag tagAltitudeRef = exifTags.findGpsTagByTagId(ExifTag.Id.GPS_ALTITUDE_REF.getTagId());
+        ExifTag tagAltitude = exifTags.findGpsTagByTagId(ExifTag.Id.GPS_ALTITUDE.getTagId());
 
         if ((tagAltitudeRef != null) && (tagAltitude != null)) {
-            gpsMetaData.setAltitude(new ExifGpsAltitude(tagAltitudeRef.rawValue(), tagAltitude.rawValue(),
-                    tagAltitude.byteOrder()));
+            byte[] refRawValue = tagAltitudeRef.getRawValue();
+            byte[] rawValue = tagAltitude.getRawValue();
+            ByteOrder byteOrder = tagAltitude.convertByteOrderIdToByteOrder();
+            ExifGpsAltitude altitude = new ExifGpsAltitude(refRawValue, rawValue, byteOrder);
+
+            exifGpsMetaData.setAltitude(altitude);
         }
     }
 
-    private static void setGpsDate(ExifGpsMetadata gpsMetaData, ExifTags exifTags) {
-        ExifTag tagDate = exifTags.gpsTagById(ExifTag.Id.GPS_DATE_STAMP.value());
+    private static void setGpsDateFromExifTagsToExifGpsMetadata(ExifTags exifTags, ExifGpsMetadata exifGpsMetaData) {
+        ExifTag tagDate = exifTags.findGpsTagByTagId(ExifTag.Id.GPS_DATE_STAMP.getTagId());
 
         if (tagDate != null) {
-            byte[] rawValue = tagDate.rawValue();
+            byte[] rawValue = tagDate.getRawValue();
 
             if ((rawValue != null) && (rawValue.length == 11)) {
                 ExifGpsDateStamp dateStamp = new ExifGpsDateStamp(rawValue);
 
-                gpsMetaData.setDateStamp(dateStamp);
+                exifGpsMetaData.setGpsDateStamp(dateStamp);
             }
         }
     }
 
-    private static void setGpsTime(ExifGpsMetadata gpsMetaData, ExifTags exifTags) {
-        ExifTag tagTime = exifTags.gpsTagById(ExifTag.Id.GPS_TIME_STAMP.value());
+    private static void setGpsTimeFromExifTagsToExifGpsMetadata(ExifTags exifTags, ExifGpsMetadata exifGpsMetaData) {
+        ExifTag tagTime = exifTags.findGpsTagByTagId(ExifTag.Id.GPS_TIME_STAMP.getTagId());
 
         if (tagTime != null) {
-            byte[] rawValue = tagTime.rawValue();
+            byte[] rawValue = tagTime.getRawValue();
 
             if ((rawValue != null) && (rawValue.length == 24)) {
-                ByteOrder byteOrder = tagTime.byteOrder();
+                ByteOrder byteOrder = tagTime.convertByteOrderIdToByteOrder();
                 byte[] hoursRawValue = Arrays.copyOfRange(rawValue, 0, 8);
                 byte[] minutesRawValue = Arrays.copyOfRange(rawValue, 8, 16);
                 byte[] secondsRawValue = Arrays.copyOfRange(rawValue, 16, 24);
@@ -204,7 +232,7 @@ public final class ExifGpsUtil {
                 ExifRational seconds = new ExifRational(secondsRawValue, byteOrder);
                 ExifGpsTimeStamp timeStamp = new ExifGpsTimeStamp(hours, minutes, seconds);
 
-                gpsMetaData.setTimeStamp(timeStamp);
+                exifGpsMetaData.setTimeStamp(timeStamp);
             }
         }
     }

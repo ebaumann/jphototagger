@@ -8,6 +8,9 @@ import org.jphototagger.program.image.metadata.exif.ExifTag;
 import org.jphototagger.program.image.metadata.exif.ExifTagDisplayComparator;
 import org.jphototagger.program.image.metadata.exif.ExifTags;
 import org.jphototagger.program.image.metadata.exif.ExifTagsToDisplay;
+import org.jphototagger.program.image.metadata.exif.tag.ExifGpsAltitude;
+import org.jphototagger.program.image.metadata.exif.tag.ExifGpsLatitude;
+import org.jphototagger.program.image.metadata.exif.tag.ExifGpsLongitude;
 import org.jphototagger.program.image.metadata.exif.tag.ExifGpsMetadata;
 import org.jphototagger.program.image.metadata.exif.tag.ExifGpsUtil;
 import org.jphototagger.program.resource.JptBundle;
@@ -93,48 +96,51 @@ public final class TableModelExif extends TableModelExt {
         addExifTags(exifTags.getMakerNoteTags());
     }
 
-    private void addExifTags(Collection<ExifTag> tags) {
-        List<ExifTag> exifTagsToDisplay = ExifTagsToDisplay.get(tags);
+    private void addExifTags(Collection<? extends ExifTag> tags) {
+        List<ExifTag> displayableExifTags = ExifTagsToDisplay.getDisplayableExifTagsOf(tags);
 
-        if (exifTagsToDisplay != null) {
-            Collections.sort(exifTagsToDisplay, ExifTagDisplayComparator.INSTANCE);
+        if (displayableExifTags != null) {
+            Collections.sort(displayableExifTags, ExifTagDisplayComparator.INSTANCE);
 
-            for (ExifTag exifTagToDisplay : exifTagsToDisplay) {
-                String value = exifTagToDisplay.stringValue();
+            for (ExifTag displayableExifTag : displayableExifTags) {
+                String tagValue = displayableExifTag.getStringValue();
 
-                if (value.length() > 0) {
-                    addTableRow(exifTagToDisplay);
+                if (tagValue.length() > 0) {
+                    addTableRow(displayableExifTag);
                 }
             }
         }
     }
 
     private void addGpsTags() {
-        exifGpsMetadata = ExifGpsUtil.gpsMetadata(exifTags);
+        exifGpsMetadata = ExifGpsUtil.createGpsMetadataFromExifTags(exifTags);
+        ExifGpsLatitude latitude = exifGpsMetadata.getLatitude();
+        ExifGpsLongitude longitude = exifGpsMetadata.getLongitude();
+        ExifGpsAltitude altitude = exifGpsMetadata.getAltitude();
 
-        if (exifGpsMetadata.latitude() != null) {
-            final String tagId = Integer.toString(ExifTag.Id.GPS_LATITUDE.value());
-            final String tagName = TRANSLATION.translate(tagId, tagId);
+        if (latitude != null) {
+            String tagId = Integer.toString(ExifTag.Id.GPS_LATITUDE.getTagId());
+            String tagName = TRANSLATION.translate(tagId, tagId);
 
-            super.addRow(new Object[] { tagName, exifGpsMetadata.latitude().localizedString() });
+            super.addRow(new Object[] { tagName, exifGpsMetadata.getLatitude().getLocalizedString() });
         }
 
-        if (exifGpsMetadata.longitude() != null) {
-            final String tagId = Integer.toString(ExifTag.Id.GPS_LONGITUDE.value());
-            final String tagName = TRANSLATION.translate(tagId, tagId);
+        if (longitude != null) {
+            String tagId = Integer.toString(ExifTag.Id.GPS_LONGITUDE.getTagId());
+            String tagName = TRANSLATION.translate(tagId, tagId);
 
-            super.addRow(new Object[] { tagName, exifGpsMetadata.longitude().localizedString() });
+            super.addRow(new Object[] { tagName, exifGpsMetadata.getLongitude().toLocalizedString() });
         }
 
-        if (exifGpsMetadata.altitude() != null) {
-            final String tagId = Integer.toString(ExifTag.Id.GPS_ALTITUDE.value());
-            final String tagName = TRANSLATION.translate(tagId, tagId);
+        if (altitude != null) {
+            String tagId = Integer.toString(ExifTag.Id.GPS_ALTITUDE.getTagId());
+            String tagName = TRANSLATION.translate(tagId, tagId);
 
-            super.addRow(new Object[] { tagName, exifGpsMetadata.altitude().localizedString() });
+            super.addRow(new Object[] { tagName, exifGpsMetadata.getAltitude().getLocalizedString() });
         }
 
-        if ((exifGpsMetadata.longitude() != null) && (exifGpsMetadata.latitude() != null)) {
-            final JButton button = new JButton(JptBundle.INSTANCE.getString("TableModelExif.Button.GoogleMaps"));
+        if (longitude != null && latitude != null) {
+            JButton button = new JButton(JptBundle.INSTANCE.getString("TableModelExif.Button.GoogleMaps"));
 
             button.addActionListener(new GpsButtonListener());
             super.addRow(new Object[] { exifGpsMetadata, button });
@@ -164,7 +170,7 @@ public final class TableModelExif extends TableModelExt {
 
         private void browse() {
             if (exifGpsMetadata != null) {
-                String url = ExifGpsUtil.googleMapsUrl(exifGpsMetadata.longitude(), exifGpsMetadata.latitude());
+                String url = ExifGpsUtil.getGoogleMapsUrl(exifGpsMetadata.getLongitude(), exifGpsMetadata.getLatitude());
 
                 try {
                     Desktop.getDesktop().browse(new URI(url));

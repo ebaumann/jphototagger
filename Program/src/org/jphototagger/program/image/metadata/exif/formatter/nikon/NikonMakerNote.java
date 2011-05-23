@@ -105,13 +105,13 @@ public final class NikonMakerNote {
     }
 
     boolean matches(ExifTags exifTags, byte[] makerNoteRawValue) {
-        ExifTag exifTag = exifTags.exifTagById(exifMatchTagId);
+        ExifTag exifTag = exifTags.findExifTagByTagId(exifMatchTagId);
 
         if (exifTag == null) {
             return false;
         }
 
-        boolean matches = exifTag.stringValue().matches(exifTagMatchPattern);
+        boolean matches = exifTag.getStringValue().matches(exifTagMatchPattern);
 
         if (magicBytePatterns == null) {
             return matches;
@@ -167,11 +167,11 @@ public final class NikonMakerNote {
         List<ExifTag> displayableTags = new ArrayList<ExifTag>();
 
         for (ExifTag exifTag : makerNoteTags) {
-            int pos = indexOf(exifTag.idValue(), makerNoteTagInfos);
+            int pos = indexOf(exifTag.getTagId(), makerNoteTagInfos);
 
             if (pos >= 0) {
                 MakerNoteTagInfo info = makerNoteTagInfos.get(pos);
-                byte[] rawValue = exifTag.rawValue();
+                byte[] rawValue = exifTag.getRawValue();
                 int offset = info.rawValueOffset;
                 int bytesToRead = info.readAllBytes()
                                   ? rawValue.length - offset
@@ -186,18 +186,18 @@ public final class NikonMakerNote {
                 if (requiresByteOrder(dataTypeClass)) {
                     Constructor<?> c = dataTypeClass.getConstructor(byte[].class, ByteOrder.class);
 
-                    dataType = c.newInstance(rawValueMakerNote, exifTag.byteOrder());
+                    dataType = c.newInstance(rawValueMakerNote, exifTag.convertByteOrderIdToByteOrder());
                 } else {
                     Constructor<?> c = dataTypeClass.getConstructor(byte[].class);
 
                     dataType = c.newInstance(rawValueMakerNote);
                 }
 
-                ExifTag makerNoteTag = new ExifTag(exifTag.idValue(), exifTag.dataType().value(), exifTag.valueCount(),
-                                                   exifTag.valueOffset(), rawValueMakerNote, info.hasFormatterClass()
+                ExifTag makerNoteTag = new ExifTag(exifTag.getTagId(), exifTag.convertDataTypeIdToExifDataType().getValue(), exifTag.getValueCount(),
+                                                   exifTag.getValueOffset(), rawValueMakerNote, info.hasFormatterClass()
                         ? format(info.exifFormatterClass, exifTag)
-                        : dataType.toString().trim(), exifTag.byteOrderId(), bundle.getString(info.tagNameBundleKey),
-                            exifTag.ifdType());
+                        : dataType.toString().trim(), exifTag.getByteOrderId(), bundle.getString(info.tagNameBundleKey),
+                            exifTag.getIfdType());
 
                 displayableTags.add(makerNoteTag);
             }

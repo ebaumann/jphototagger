@@ -27,8 +27,8 @@ public final class ExifFormatterGpsTimeStamp extends ExifFormatter {
 
         Ensure.exifTagId(exifTag, ExifTag.Id.GPS_TIME_STAMP);
 
-        ByteOrder byteOrder = exifTag.byteOrder();
-        byte[] rawValue = exifTag.rawValue();
+        ByteOrder byteOrder = exifTag.convertByteOrderIdToByteOrder();
+        byte[] rawValue = exifTag.getRawValue();
 
         if (rawValue.length != 24) {
             return new String(rawValue);
@@ -37,9 +37,9 @@ public final class ExifFormatterGpsTimeStamp extends ExifFormatter {
         ExifRational hours = new ExifRational(Arrays.copyOfRange(rawValue, 0, 8), byteOrder);
         ExifRational minutes = new ExifRational(Arrays.copyOfRange(rawValue, 8, 16), byteOrder);
         ExifRational seconds = new ExifRational(Arrays.copyOfRange(rawValue, 16, 24), byteOrder);
-        int h = (int) ExifDatatypeUtil.toLong(hours);
-        int m = (int) ExifDatatypeUtil.toLong(minutes);
-        int s = (int) ExifDatatypeUtil.toLong(seconds);
+        int h = (int) ExifDatatypeUtil.convertExifRationalToLong(hours);
+        int m = (int) ExifDatatypeUtil.convertExifRationalToLong(minutes);
+        int s = (int) ExifDatatypeUtil.convertExifRationalToLong(seconds);
         Calendar cal = Calendar.getInstance();
 
         cal.set(2009, 4, 3, h, m, s);

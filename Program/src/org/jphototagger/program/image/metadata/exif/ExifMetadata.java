@@ -97,11 +97,12 @@ public final class ExifMetadata {
                 for (int j = 0; j < currentIfdEntry.length; j++) {
                     IFDEntry entry = currentIfdEntry[j];
                     ExifTag exifTag = new ExifTag(entry, IfdType.EXIF);
+                    ExifTag.Id exifTagId = exifTag.convertTagIdToEnumId();
 
-                    if (exifTag.isGpsId()) {
+                    if (exifTagId.isGpsId()) {
                         exifTags.addGpsTag(new ExifTag(entry, IfdType.GPS));
-                    } else if (exifTag.isMakerNoteId()) {
-                        //exifTags.addMakerNoteTag(new ExifTag(entry, IfdType.MAKER_NOTE));
+                    } else if (exifTagId.isMakerNoteId()) {
+                        exifTags.addMakerNoteTag(new ExifTag(entry, IfdType.MAKER_NOTE));
                     } else {
                         exifTags.addExifTag(exifTag);
                     }

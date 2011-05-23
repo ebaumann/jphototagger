@@ -26,7 +26,7 @@ public final class ExifGpsVersion {
      * @param rawValue can be null
      */
     public ExifGpsVersion(byte[] rawValue) {
-        if ((rawValue != null) && byteCountOk(rawValue)) {
+        if ((rawValue != null) && isRawValueByteCountOk(rawValue)) {
             first = ByteUtil.toInt(rawValue[0]);
             second = ByteUtil.toInt(rawValue[1]);
             third = ByteUtil.toInt(rawValue[2]);
@@ -34,17 +34,15 @@ public final class ExifGpsVersion {
         }
     }
 
-    public static int byteCount() {
+    public static int getRawValueByteCount() {
         return 4;
     }
 
-    public static boolean byteCountOk(byte[] rawValue) {
-        if (rawValue == null) {
-            throw new NullPointerException("rawValue == null");
+    public static boolean isRawValueByteCountOk(byte[] rawValue) {
+        return rawValue == null
+                ? false
+                : rawValue.length == getRawValueByteCount();
         }
-
-        return rawValue.length == byteCount();
-    }
 
     public int first() {
         return first;

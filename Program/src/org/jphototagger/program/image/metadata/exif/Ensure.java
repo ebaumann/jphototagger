@@ -25,8 +25,8 @@ public final class Ensure {
             throw new NullPointerException("id == null");
         }
 
-        if (exifTag.idValue() != id.value()) {
-            throw new IllegalArgumentException("Wrong tag: " + exifTag.idValue() + ". Expected: " + id.value());
+        if (exifTag.getTagId() != id.getTagId()) {
+            throw new IllegalArgumentException("Wrong tag: " + exifTag.getTagId() + ". Expected: " + id.getTagId());
         }
     }
 
@@ -46,16 +46,16 @@ public final class Ensure {
             throw new NullPointerException("dataType == null");
         }
 
-        if (!exifTag.dataType().equals(dataType)) {
-            throw new IllegalArgumentException("Wrong type: " + exifTag.dataType() + ". Expected: " + dataType);
+        if (!exifTag.convertDataTypeIdToExifDataType().equals(dataType)) {
+            throw new IllegalArgumentException("Wrong type: " + exifTag.convertDataTypeIdToExifDataType() + ". Expected: " + dataType);
         }
     }
 
     /**
-     * Ensures that a value is zero or zeroOrPositive.
+     * Ensures that a getTagId is zero or zeroOrPositive.
      *
-     * @param  value value
-     * @throws       IllegalArgumentException if the value is negative
+     * @param  getTagId getTagId
+     * @throws       IllegalArgumentException if the getTagId is negative
      */
     public static void zeroOrPositive(long value) throws IllegalArgumentException {
         if (value < 0) {

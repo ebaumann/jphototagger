@@ -62,22 +62,22 @@ public final class KMLExporter implements GPSLocationExporter {
 
     private static KMLPlacemark getPlacemark(GPSImageInfo gpsImageInfo) {
         ExifGpsMetadata gpsMd = gpsImageInfo.getGPSMetaData();
-        ExifGpsLongitude longitude = gpsMd.longitude();
-        ExifGpsLatitude latitude = gpsMd.latitude();
-        ExifGpsAltitude altitude = gpsMd.altitude();
+        ExifGpsLongitude longitude = gpsMd.getLongitude();
+        ExifGpsLatitude latitude = gpsMd.getLatitude();
+        ExifGpsAltitude altitude = gpsMd.getAltitude();
 
         if ((latitude != null) && (longitude != null)) {
-            double longDeg = ExifGpsUtil.degrees(longitude.degrees());
-            double latDeg = ExifGpsUtil.degrees(latitude.degrees());
+            double longDeg = ExifGpsUtil.convertExifDegreesToDouble(longitude.getExifDegrees());
+            double latDeg = ExifGpsUtil.convertExifDegreesToDouble(latitude.getExifDegrees());
             double alt = (altitude == null)
                          ? Double.MIN_VALUE
-                         : ExifDatatypeUtil.toDouble(altitude.value());
+                         : ExifDatatypeUtil.convertExifRationalToDouble(altitude.getValue());
 
-            if (latitude.ref().equals(ExifGpsLatitude.Ref.SOUTH)) {
+            if (latitude.getRef().equals(ExifGpsLatitude.Ref.SOUTH)) {
                 latDeg *= -1;
             }
 
-            if (longitude.ref().equals(ExifGpsLongitude.Ref.WEST)) {
+            if (longitude.getRef().equals(ExifGpsLongitude.Ref.WEST)) {
                 longDeg *= -1;
             }
 
@@ -97,12 +97,12 @@ public final class KMLExporter implements GPSLocationExporter {
     // Sets the GPS date and time as name
     private static void addName(KMLPlacemark placemark, GPSImageInfo gpsImageInfo) {
         ExifGpsMetadata gpsMd = gpsImageInfo.getGPSMetaData();
-        ExifGpsDateStamp dateStamp = gpsMd.dateStamp();
-        ExifGpsTimeStamp timeStamp = gpsMd.timeStamp();
+        ExifGpsDateStamp dateStamp = gpsMd.getGpsDateStamp();
+        ExifGpsTimeStamp timeStamp = gpsMd.getTimeStamp();
 
         if ((dateStamp != null) && (timeStamp != null)) {
             try {
-                Calendar cal = ExifGpsUtil.getGpsTime(gpsMd);
+                Calendar cal = ExifGpsUtil.getGpsTimeFromExifGpsMetadata(gpsMd);
                 DateFormat df = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.LONG);
                 String filename = GPSLocationExportUtil.getFilename(gpsImageInfo.getImageFile());
                 String name = df.format(cal.getTime()) + filename;

@@ -32,9 +32,9 @@ public final class ExifFormatterSaturation extends ExifFormatter {
 
         Ensure.exifTagId(exifTag, ExifTag.Id.SATURATION);
 
-        if (ExifShort.byteCountOk(exifTag.rawValue())) {
-            ExifShort es = new ExifShort(exifTag.rawValue(), exifTag.byteOrder());
-            int value = es.value();
+        if (ExifShort.isRawValueByteCountOk(exifTag.getRawValue())) {
+            ExifShort es = new ExifShort(exifTag.getRawValue(), exifTag.convertByteOrderIdToByteOrder());
+            int value = es.getValue();
 
             if (exifKeyOfSaturation.containsKey(value)) {
                 return translate(IfdType.EXIF, exifKeyOfSaturation.get(value));

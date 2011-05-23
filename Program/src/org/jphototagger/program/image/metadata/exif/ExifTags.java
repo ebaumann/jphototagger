@@ -23,6 +23,7 @@ import org.jphototagger.program.importer.XmlObjectImporter;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlSeeAlso(ExifTag.class)
 public final class ExifTags {
+
     private String makerNoteDescription;
 
     /**
@@ -61,12 +62,12 @@ public final class ExifTags {
         return Collections.unmodifiableSet(makerNoteTags);
     }
 
-    public int tagCount() {
+    public int getTagCount() {
         return exifTags.size() + gpsTags.size() + interoperabilityTags.size() + makerNoteTags.size();
     }
 
-    public List<ExifTag> asList() {
-        List<ExifTag> allTags = new ArrayList<ExifTag>(tagCount());
+    public List<ExifTag> getAllTagsAsList() {
+        List<ExifTag> allTags = new ArrayList<ExifTag>(getTagCount());
 
         allTags.addAll(exifTags);
         allTags.addAll(gpsTags);
@@ -128,23 +129,23 @@ public final class ExifTags {
         this.makerNoteDescription = makerNoteDescription;
     }
 
-    public ExifTag exifTagById(int id) {
-        return byId(exifTags, id);
+    public ExifTag findExifTagByTagId(int tagId) {
+        return findExifTagByTagId(exifTags, tagId);
     }
 
-    public ExifTag gpsTagById(int id) {
-        return byId(gpsTags, id);
+    public ExifTag findGpsTagByTagId(int tagId) {
+        return findExifTagByTagId(gpsTags, tagId);
     }
 
-    public ExifTag interoparabilityTagById(int id) {
-        return byId(interoperabilityTags, id);
+    public ExifTag findInteroparabilityTagByTagId(int tagId) {
+        return findExifTagByTagId(interoperabilityTags, tagId);
     }
 
-    public ExifTag makerNoteTagById(int id) {
-        return byId(makerNoteTags, id);
+    public ExifTag findmakerNoteTagByTagId(int tagId) {
+        return findExifTagByTagId(makerNoteTags, tagId);
     }
 
-    public void removeExifTag(ExifTag tag) {
+    public void removeFromExifTags(ExifTag tag) {
         if (tag == null) {
             throw new NullPointerException("tag == null");
         }
@@ -152,7 +153,7 @@ public final class ExifTags {
         exifTags.remove(tag);
     }
 
-    public void removeMakerNoteTag(ExifTag tag) {
+    public void removeFromMakerNoteTags(ExifTag tag) {
         if (tag == null) {
             throw new NullPointerException("tag == null");
         }
@@ -160,7 +161,7 @@ public final class ExifTags {
         makerNoteTags.remove(tag);
     }
 
-    public void removeInteroperabilityTag(ExifTag tag) {
+    public void removeFromInteroperabilityTags(ExifTag tag) {
         if (tag == null) {
             throw new NullPointerException("tag == null");
         }
@@ -168,7 +169,7 @@ public final class ExifTags {
         interoperabilityTags.remove(tag);
     }
 
-    public void removeGpsTag(ExifTag tag) {
+    public void removeFromGpsTags(ExifTag tag) {
         if (tag == null) {
             throw new NullPointerException("tag == null");
         }
@@ -176,9 +177,9 @@ public final class ExifTags {
         gpsTags.remove(tag);
     }
 
-    private ExifTag byId(Collection<ExifTag> tags, int id) {
+    private ExifTag findExifTagByTagId(Collection<ExifTag> tags, int id) {
         for (ExifTag tag : tags) {
-            if (tag.idValue() == id) {
+            if (tag.getTagId() == id) {
                 return tag;
             }
         }

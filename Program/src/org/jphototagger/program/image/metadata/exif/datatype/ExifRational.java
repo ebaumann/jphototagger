@@ -22,13 +22,12 @@ public final class ExifRational {
      * @param  rawValue   raw value
      * @param  byteOrder  byte order
      * @throws IllegalArgumentException if the length of the raw value is not
-     *         equals to {@link #byteCount()} or if the result is
-     *         negativ or if the denominator is zero
+     *         equals to {@link #getRawValueByteCount()} or if the result is negative or if the denominator is zero
      */
     public ExifRational(byte[] rawValue, ByteOrder byteOrder) {
-        Ensure.length(rawValue, byteCount());
-        numerator = ExifDatatypeUtil.intFromRawValue(Arrays.copyOfRange(rawValue, 0, 4), byteOrder);
-        denominator = ExifDatatypeUtil.intFromRawValue(Arrays.copyOfRange(rawValue, 4, 8), byteOrder);
+        Ensure.length(rawValue, getRawValueByteCount());
+        numerator = ExifDatatypeUtil.convertRawValueToInt(Arrays.copyOfRange(rawValue, 0, 4), byteOrder);
+        denominator = ExifDatatypeUtil.convertRawValueToInt(Arrays.copyOfRange(rawValue, 4, 8), byteOrder);
         Ensure.zeroOrPositive(numerator, denominator);
         Ensure.noDivisionByZero(denominator);
     }
@@ -51,9 +50,9 @@ public final class ExifRational {
             throw new NullPointerException("byteOrder == null");
         }
 
-        if (rawValue.length == byteCount()) {
-            int numerator = ExifDatatypeUtil.intFromRawValue(Arrays.copyOfRange(rawValue, 0, 4), byteOrder);
-            int denominator = ExifDatatypeUtil.intFromRawValue(Arrays.copyOfRange(rawValue, 4, 8), byteOrder);
+        if (rawValue.length == getRawValueByteCount()) {
+            int numerator = ExifDatatypeUtil.convertRawValueToInt(Arrays.copyOfRange(rawValue, 0, 4), byteOrder);
+            int denominator = ExifDatatypeUtil.convertRawValueToInt(Arrays.copyOfRange(rawValue, 4, 8), byteOrder);
             boolean negative = ((numerator < 0) && (denominator > 0)) || ((numerator > 0) && (denominator < 0));
 
             return !negative && (denominator != 0);
@@ -67,24 +66,22 @@ public final class ExifRational {
      *
      * @return valid raw value byte count
      */
-    public static int byteCount() {
+    public static int getRawValueByteCount() {
         return 8;
     }
 
-    public static boolean byteCountOk(byte[] rawValue) {
-        if (rawValue == null) {
-            throw new NullPointerException("rawValue == null");
+    public static boolean isRawValueByteCountOk(byte[] rawValue) {
+        return rawValue == null
+                ? false
+                : rawValue.length == getRawValueByteCount();
         }
-
-        return rawValue.length == byteCount();
-    }
 
     /**
      * Returns the denominator.
      *
      * @return denominator {@code >= 0}
      */
-    public int denominator() {
+    public int getDenominator() {
         return denominator;
     }
 
@@ -93,27 +90,32 @@ public final class ExifRational {
      *
      * @return numerator {@code >= 0}
      */
-    public int numerator() {
+    public int getNumerator() {
         return numerator;
     }
 
-    public static ExifDataType dataType() {
+    public static ExifDataType getExifDataType() {
         return ExifDataType.RATIONAL;
     }
 
+    /**
+     *
+     * @param  obj
+     * @return     true if thei numerators and denumerators of both objects are equals
+     */
     @Override
     public boolean equals(Object obj) {
-        if (obj == null) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof ExifRational)) {
             return false;
         }
 
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
+        ExifRational other = (ExifRational) obj;
 
-        final ExifRational other = (ExifRational) obj;
-
-        return (this.numerator == other.numerator) && (this.denominator == other.denominator);
+        return this.numerator == other.numerator && this.denominator == other.denominator;
     }
 
     @Override

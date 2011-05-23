@@ -30,10 +30,10 @@ public final class ExifThumbnailUtil {
      * @return         rotation angle
      */
     public static double getThumbnailRotationAngle(ExifTag exifTag) {
-        assert(exifTag == null) || (exifTag.idValue() == 274);
+        assert(exifTag == null) || (exifTag.getTagId() == 274);
 
         if (exifTag != null) {
-            Double angle = ROTATION_ANGLE_OF_STRING.get(exifTag.stringValue());
+            Double angle = ROTATION_ANGLE_OF_STRING.get(exifTag.getStringValue());
 
             if (angle == null) {
                 return 0;

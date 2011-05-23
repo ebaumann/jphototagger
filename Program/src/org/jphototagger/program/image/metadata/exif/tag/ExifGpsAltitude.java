@@ -25,10 +25,8 @@ public final class ExifGpsAltitude {
     static {
         REF_OF_INTEGER.put(0, Ref.OBOVE_SEA_LEVEL);
         REF_OF_INTEGER.put(1, Ref.BELOW_SEA_LEVEL);
-        LOCALIZED_STRING_OF_REF.put(Ref.OBOVE_SEA_LEVEL,
-                                    JptBundle.INSTANCE.getString("ExifGpsAltitudeRefOboveSeaLevel"));
-        LOCALIZED_STRING_OF_REF.put(Ref.BELOW_SEA_LEVEL,
-                                    JptBundle.INSTANCE.getString("ExifGpsAltitudeRefBelowSeaLevel"));
+        LOCALIZED_STRING_OF_REF.put(Ref.OBOVE_SEA_LEVEL, JptBundle.INSTANCE.getString("ExifGpsAltitudeRefOboveSeaLevel"));
+        LOCALIZED_STRING_OF_REF.put(Ref.BELOW_SEA_LEVEL, JptBundle.INSTANCE.getString("ExifGpsAltitudeRefBelowSeaLevel"));
     }
 
     private Ref ref;
@@ -48,68 +46,64 @@ public final class ExifGpsAltitude {
         }
 
         ensureByteCount(refRawValue, rawValue);
-        this.ref = ref(refRawValue);
+        this.ref = convertRawValueToRef(refRawValue);
         this.value = new ExifRational(Arrays.copyOfRange(rawValue, 0, 8), byteOrder);
     }
 
     /**
-     * Returns the valid raw value reference byte count.
+     * Returns the valid raw getValue reference byte count.
      *
-     * @return valid raw value byte count
+     * @return valid raw getValue byte count
      */
-    public static int refByteCount() {
+    public static int getRefByteCount() {
         return 1;
     }
 
     /**
-     * Returns the valid raw value byte count.
+     * Returns the valid raw getValue byte count.
      *
-     * @return valid raw value byte count
+     * @return valid raw getValue byte count
      */
-    public static int byteCount() {
+    public static int getRawValueByteCount() {
         return 8;
     }
 
-    public static boolean byteCountOk(byte[] rawValue) {
-        if (rawValue == null) {
-            throw new NullPointerException("rawValue == null");
+    public static boolean isRawValueByteCountOk(byte[] rawValue) {
+        return rawValue == null
+                ? false
+                : rawValue.length == getRawValueByteCount();
         }
 
-        return rawValue.length == byteCount();
+    public static boolean isRefByteCountOk(byte[] rawValue) {
+        return rawValue == null
+                ? false
+                : rawValue.length == getRefByteCount();
     }
 
-    public static boolean refByteCountOk(byte[] rawValue) {
-        if (rawValue == null) {
-            throw new NullPointerException("rawValue == null");
-        }
-
-        return rawValue.length == refByteCount();
-    }
-
-    private static Ref ref(byte[] rawValue) {
+    private static Ref convertRawValueToRef(byte[] rawValue) {
         return REF_OF_INTEGER.get(ByteUtil.toInt(rawValue[0]));
     }
 
-    public String localizedString() {
+    public String getLocalizedString() {
         MessageFormat msg = new MessageFormat("{0} m {1}");
 
-        return msg.format(new Object[] { ExifDatatypeUtil.toLong(value), LOCALIZED_STRING_OF_REF.get(ref) });
+        return msg.format(new Object[] { ExifDatatypeUtil.convertExifRationalToLong(value), LOCALIZED_STRING_OF_REF.get(ref) });
     }
 
-    public Ref ref() {
+    public Ref getRef() {
         return ref;
     }
 
-    public ExifRational value() {
+    public ExifRational getValue() {
         return value;
     }
 
     private void ensureByteCount(byte[] refRawValue, byte[] rawValue) throws IllegalArgumentException {
-        if (!refByteCountOk(refRawValue)) {
+        if (!isRefByteCountOk(refRawValue)) {
             throw new IllegalArgumentException("Illegal ref raw value byte count: " + refRawValue.length);
         }
 
-        if (!byteCountOk(rawValue)) {
+        if (!isRawValueByteCountOk(rawValue)) {
             throw new IllegalArgumentException("Illegal raw value byte count: " + rawValue.length);
         }
     }

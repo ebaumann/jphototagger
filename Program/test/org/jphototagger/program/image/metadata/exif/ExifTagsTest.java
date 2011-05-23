@@ -30,8 +30,8 @@ public class ExifTagsTest {
 
             assertEquals(2, exifTags1.size());
 
-            ExifTag exifTag1Read = exifTagsRead.exifTagById(125);
-            ExifTag exifTag2Read = exifTagsRead.exifTagById(521);
+            ExifTag exifTag1Read = exifTagsRead.findExifTagByTagId(125);
+            ExifTag exifTag2Read = exifTagsRead.findExifTagByTagId(521);
 
             assertExifTagsEquals(exifTag1, exifTag1Read);
             assertExifTagsEquals(exifTag2, exifTag2Read);
@@ -41,17 +41,17 @@ public class ExifTagsTest {
     }
 
     private void assertExifTagsEquals(ExifTag exifTag1, ExifTag exifTag2) {
-        assertEquals(exifTag1.byteOrder(), exifTag2.byteOrder());
-        assertEquals(exifTag1.byteOrderId(), exifTag2.byteOrderId());
-        assertEquals(exifTag1.dataType(), exifTag2.dataType());
-        assertEquals(exifTag1.id(), exifTag2.id());
-        assertEquals(exifTag1.idValue(), exifTag2.idValue());
-        assertEquals(exifTag1.ifdType(), exifTag2.ifdType());
-        assertEquals(exifTag1.name(), exifTag2.name());
-        assertArrayEquals(exifTag1.rawValue(), exifTag2.rawValue());
-        assertEquals(exifTag1.stringValue(), exifTag2.stringValue());
-        assertEquals(exifTag1.valueCount(), exifTag2.valueCount());
-        assertEquals(exifTag1.valueOffset(), exifTag2.valueOffset());
+        assertEquals(exifTag1.convertByteOrderIdToByteOrder(), exifTag2.convertByteOrderIdToByteOrder());
+        assertEquals(exifTag1.getByteOrderId(), exifTag2.getByteOrderId());
+        assertEquals(exifTag1.convertDataTypeIdToExifDataType(), exifTag2.convertDataTypeIdToExifDataType());
+        assertEquals(exifTag1.convertTagIdToEnumId(), exifTag2.convertTagIdToEnumId());
+        assertEquals(exifTag1.getTagId(), exifTag2.getTagId());
+        assertEquals(exifTag1.getIfdType(), exifTag2.getIfdType());
+        assertEquals(exifTag1.getName(), exifTag2.getName());
+        assertArrayEquals(exifTag1.getRawValue(), exifTag2.getRawValue());
+        assertEquals(exifTag1.getStringValue(), exifTag2.getStringValue());
+        assertEquals(exifTag1.getValueCount(), exifTag2.getValueCount());
+        assertEquals(exifTag1.getValueOffset(), exifTag2.getValueOffset());
     }
 
     @Test
