@@ -99,7 +99,7 @@ public final class TableModelExif extends TableModelExt {
     private void addExifTags(Collection<? extends ExifTag> tags) {
         List<ExifTag> displayableExifTags = ExifTagsToDisplay.getDisplayableExifTagsOf(tags);
 
-        if (displayableExifTags != null) {
+        if (!displayableExifTags.isEmpty()) {
             Collections.sort(displayableExifTags, ExifTagDisplayComparator.INSTANCE);
 
             for (ExifTag displayableExifTag : displayableExifTags) {

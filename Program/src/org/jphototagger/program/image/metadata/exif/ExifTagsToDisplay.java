@@ -77,8 +77,7 @@ public final class ExifTagsToDisplay {
     private static boolean isDisplayableExifTag(ExifTag exifTag) {
         IfdType ifdType = exifTag.getIfdType();
         int tagId = exifTag.getTagId();
-
-        assert IfdType.values().length == 5;    // Handle added getTagId!
+        ExifTag.Id id= exifTag.convertTagIdToEnumId();
 
         switch (ifdType) {
         case EXIF :
@@ -91,7 +90,7 @@ public final class ExifTagsToDisplay {
             return ID_VALUES_OF_GPS_TAGS_TO_DISPLAY.contains(tagId);
 
         default :
-            return ifdType.equals(IfdType.MAKER_NOTE);
+            return ifdType.equals(IfdType.MAKER_NOTE) && !id.isMakerNoteId();
         }
     }
 
