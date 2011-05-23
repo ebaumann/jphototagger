@@ -3,6 +3,12 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.8.83 2011-05-23
+-----------------
+
+* Neuer Menüpunkt: Datei > Wartung
+* Einige Makernote-Tagnamen für EXIF-Tabelle übersetzt (Programmfenster rechts)
+
 0.8.82 2011-05-22
 -----------------
 
@@ -19,7 +25,7 @@ Changelog JPhotoTagger http://jphototagger.org/
 0.8.80 2011-05-08
 -----------------
 
-* Für Windows kann eine Batch-Datei erzeugt werden, die 
+* Für Windows kann eine Batch-Datei erzeugt werden, die
   Vorschaubilder erzeugt mit DCRaw und ImageMagick convert
   (Einstellungen > Vorschaubilder: Eigenes Programm > Auswählen)
 
@@ -428,7 +434,7 @@ Changelog JPhotoTagger http://jphototagger.org/
 
 * Aktionen (F4): Reihenfolge kann geändert werden über das Kontextmenü oder
   Ziehen und Ablegen
-* Bearbeiten > Einstellungen > Programme: 
+* Bearbeiten > Einstellungen > Programme:
   * Programme können in der Liste via Ziehen und Ablegen angeordnet werden
   * Liste hat Kontextmenü und Tastenkürzel mit den gleichen Aktionen wie die
     Schaltflächen unter der Liste (Tastenkürzel sind dem Kontextmenü zu
@@ -466,7 +472,7 @@ Changelog JPhotoTagger http://jphototagger.org/
   * Verschiedenes / Angaben zu den Bildern
   * Stichwörter / Listenansicht
   * Stichwörter / Baumansicht
-  
+
 
 0.8.21 2010-04-04
 -----------------
