@@ -12,6 +12,7 @@ import java.util.Properties;
  * @author Elmar Baumann
  */
 public final class PluginManager {
+
     private static final LinkedHashSet<Plugin> ALL_PLUGINS = new LinkedHashSet<Plugin>();
     private static final LinkedHashSet<Plugin> PLUGINS = new LinkedHashSet<Plugin>();
     public static final PluginManager INSTANCE = new PluginManager();
@@ -111,7 +112,6 @@ public final class PluginManager {
         Properties properties = UserSettings.INSTANCE.getProperties();
 
         for (Plugin plugin : ServiceLookup.lookupAll(Plugin.class)) {
-            plugin.setProperties(properties);
             ALL_PLUGINS.add(plugin);
 
             if (!isExclude(plugin)) {

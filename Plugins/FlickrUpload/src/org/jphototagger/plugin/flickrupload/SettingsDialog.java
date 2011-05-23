@@ -1,7 +1,5 @@
 package org.jphototagger.plugin.flickrupload;
 
-import java.util.Properties;
-
 /**
  *
  *
@@ -13,14 +11,6 @@ public class SettingsDialog extends javax.swing.JDialog {
     public SettingsDialog() {
         super((java.awt.Frame) null, true);
         initComponents();
-    }
-
-    public void setProperties(Properties properties) {
-        if (properties == null) {
-            throw new NullPointerException("properties == null");
-        }
-
-        panelSettings.setProperties(properties);
     }
 
     /**
@@ -60,10 +50,12 @@ public class SettingsDialog extends javax.swing.JDialog {
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 SettingsDialog dialog = new SettingsDialog();
 
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
@@ -73,7 +65,6 @@ public class SettingsDialog extends javax.swing.JDialog {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jphototagger.plugin.flickrupload.SettingsPanel panelSettings;
     // End of variables declaration//GEN-END:variables

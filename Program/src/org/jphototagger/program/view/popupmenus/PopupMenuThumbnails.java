@@ -20,12 +20,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import javax.swing.Action;
-import javax.swing.Icon;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JPopupMenu.Separator;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.program.controller.plugin.PluginAction;
 import org.jphototagger.program.controller.programs.ControllerAddProgram;
 
 /**
@@ -34,6 +34,7 @@ import org.jphototagger.program.controller.programs.ControllerAddProgram;
  * @author Elmar Baumann, Tobias Stening
  */
 public final class PopupMenuThumbnails extends JPopupMenu implements DatabaseProgramsListener {
+
     public static final PopupMenuThumbnails INSTANCE = new PopupMenuThumbnails();
     private static final long serialVersionUID = 1415777088897583494L;
     private static final ControllerAddProgram ADD_PROGRAM_ACTION = new ControllerAddProgram();
@@ -79,7 +80,6 @@ public final class PopupMenuThumbnails extends JPopupMenu implements DatabasePro
     private final JMenuItem itemCopyToClipboard = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuThumbnails.DisplayName.ItemCopyToClipboard"), AppLookAndFeel.ICON_COPY);
     private final JMenuItem itemCopyMetadata = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuThumbnails.DisplayName.ItemCopyMetadata"), AppLookAndFeel.ICON_COPY);
     private final JMenuItem itemAddToImageCollection = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuThumbnails.DisplayName.Action.AddToImageCollection"), AppLookAndFeel.getIcon("icon_imagecollection_add_to.png"));
-
     // End menu items
     private final List<ActionListener> actionListenersOpenFilesWithOtherApp = new ArrayList<ActionListener>();
     private final Map<JMenuItem, Program> programOfMenuItem = new HashMap<JMenuItem, Program>();
@@ -167,34 +167,13 @@ public final class PopupMenuThumbnails extends JPopupMenu implements DatabasePro
     }
 
     private void addItemsOf(Plugin plugin) {
-        List<? extends Action> pluginActions = plugin.getActions();
-        int actionCount = pluginActions.size();
-        List<JMenuItem> pluginItems = new ArrayList<JMenuItem>(actionCount);
+        PluginAction pluginAction = new PluginAction(plugin);
+        JMenuItem pluginItem = new JMenuItem(pluginAction);
 
-        for (Action action : pluginActions) {
-            Icon actionIcon = (Icon) action.getValue(Action.SMALL_ICON);
-            String actionName = action.getValue(Action.NAME).toString();
-            JMenuItem pluginItem = new JMenuItem(actionName, actionIcon);
+        ACTION_OF_ITEM.put(pluginItem, pluginAction);
+        PLUGIN_OF_ITEM.put(pluginItem, plugin);
 
-            pluginItems.add(pluginItem);
-            ACTION_OF_ITEM.put(pluginItem, action);
-        }
-
-        for (JMenuItem pluginItem : pluginItems) {
-            PLUGIN_OF_ITEM.put(pluginItem, plugin);
-        }
-
-        if (pluginItems.size() == 1) {
-            menuPlugins.add(pluginItems.get(0));
-        } else if (pluginItems.size() > 1) {    // Adding submenu
-            JMenu pluginMenu = new JMenu(plugin.getName());
-
-            for (JMenuItem pluginItem : pluginItems) {
-                pluginMenu.add(pluginItem);
-            }
-
-            menuPlugins.add(pluginMenu);
-        }
+        menuPlugins.add(pluginItem);
     }
 
     public void setOtherPrograms() {
@@ -232,6 +211,7 @@ public final class PopupMenuThumbnails extends JPopupMenu implements DatabasePro
     @Override
     public void programDeleted(final Program program) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 updatePrograms(program);
@@ -242,6 +222,7 @@ public final class PopupMenuThumbnails extends JPopupMenu implements DatabasePro
     @Override
     public void programInserted(final Program program) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 updatePrograms(program);
@@ -252,6 +233,7 @@ public final class PopupMenuThumbnails extends JPopupMenu implements DatabasePro
     @Override
     public void programUpdated(final Program program) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 updatePrograms(program);

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.jphototagger.plugin.flickrupload;
 
 import java.awt.Container;
@@ -9,12 +5,13 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 import java.util.ResourceBundle;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
+import org.jphototagger.lib.util.ServiceLookup;
 import org.jphototagger.plugin.flickrupload.FlickrImageInfoPanel.ImageInfo;
+import org.jphototagger.services.Storage;
 
 /**
  *
@@ -22,22 +19,14 @@ import org.jphototagger.plugin.flickrupload.FlickrImageInfoPanel.ImageInfo;
  * @author Elmar Baumann
  */
 public class FlickrImageInfoDialog extends Dialog {
+
     private static final long serialVersionUID = 6349275951817414186L;
     private final ResourceBundle bundle = ResourceBundle.getBundle("org/jphototagger/plugin/flickrupload/Bundle");
     private final List<ImageInfo> imageInfos = new ArrayList<ImageInfo>();
     private boolean upload;
-    private final Properties properties;
 
     public FlickrImageInfoDialog() {
         super(ComponentUtil.getFrameWithIcon(), true);
-        properties = null;
-        initComponents();
-        postInitComponents();
-    }
-
-    public FlickrImageInfoDialog(Properties properties) {
-        super(ComponentUtil.getFrameWithIcon(), true);
-        this.properties = properties;
         initComponents();
         postInitComponents();
     }
@@ -67,29 +56,33 @@ public class FlickrImageInfoDialog extends Dialog {
     }
 
     private void writePersistent() {
-        if (properties != null) {
-            new org.jphototagger.lib.util.Settings(properties).setSizeAndLocation(this);
+        Storage storage = ServiceLookup.lookup(Storage.class);
+
+        if (storage != null) {
+            storage.setSizeAndLocation(this);
         }
     }
 
     private void readPersistent() {
-        if (properties != null) {
-            new org.jphototagger.lib.util.Settings(properties).applySizeAndLocation(this);
+        Storage storage = ServiceLookup.lookup(Storage.class);
+
+        if (storage != null) {
+            storage.applySizeAndLocation(this);
         }
     }
 
     private void addImageInfoPanels() {
-        int size  = imageInfos.size();
+        int size = imageInfos.size();
         int gridy = -1;
 
         for (int i = 0; i < size; i++) {
             FlickrImageInfoPanel panel = new FlickrImageInfoPanel(imageInfos.get(i));
-            boolean even  = i % 2 != 0;
+            boolean even = i % 2 != 0;
             int gridx = even ? 1 : 0;
 
             gridy = even ? gridy : gridy + 1;
-            
-            GridBagConstraints gbc   = getConstraints(gridx, gridy);
+
+            GridBagConstraints gbc = getConstraints(gridx, gridy);
 
             if (i >= size - 2) {
                 gbc.gridheight = GridBagConstraints.REMAINDER;
@@ -268,13 +261,15 @@ public class FlickrImageInfoDialog extends Dialog {
     }//GEN-LAST:event_buttonSelectNoneActionPerformed
 
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 FlickrImageInfoDialog dialog = new FlickrImageInfoDialog();
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
@@ -284,7 +279,6 @@ public class FlickrImageInfoDialog extends Dialog {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCancel;
     private javax.swing.JButton buttonSelectAll;

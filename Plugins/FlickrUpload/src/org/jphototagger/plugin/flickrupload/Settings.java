@@ -1,6 +1,7 @@
 package org.jphototagger.plugin.flickrupload;
 
-import java.util.Properties;
+import org.jphototagger.lib.util.ServiceLookup;
+import org.jphototagger.services.Storage;
 
 /**
  *
@@ -8,31 +9,24 @@ import java.util.Properties;
  * @author Elmar Baumann
  */
 public final class Settings {
+
     private static final String KEY_DC_DESCRIPTION = "org.jphototagger.plugin.flickrupload.AddDcDescription";
     private static final String KEY_PHOTOSHOP_HEADLINE = "org.jphototagger.plugin.flickrupload.AddPhotoshopHeadline";
     private static final String KEY_DC_SUBJECTS = "org.jphototagger.plugin.flickrupload.AddDcSubjects";
     private static final String VALUE_BOOLEAN_TRUE = "1";
     private static final String VALUE_BOOLEAN_FALSE = "0";
-    private final Properties properties;
-
-    public Settings(Properties properties) {
-        if (properties == null) {
-            throw new NullPointerException("properties == null");
-        }
-
-        this.properties = properties;
-    }
+    private final Storage storage = ServiceLookup.lookup(Storage.class);
 
     public void setAddDcDescription(boolean add) {
-        setBoolean(add, KEY_DC_DESCRIPTION);
+        setBoolean(KEY_DC_DESCRIPTION, add);
     }
 
     public void setAddPhotoshopHeadline(boolean add) {
-        setBoolean(add, KEY_PHOTOSHOP_HEADLINE);
+        setBoolean(KEY_PHOTOSHOP_HEADLINE, add);
     }
 
     public void setAddDcSubjects(boolean add) {
-        setBoolean(add, KEY_DC_SUBJECTS);
+        setBoolean(KEY_DC_SUBJECTS, add);
     }
 
     public boolean isAddDcDescription() {
@@ -48,14 +42,21 @@ public final class Settings {
     }
 
     private boolean isTrue(String key) {
-        String value = properties.getProperty(key);
+        if (storage == null) {
+            return false;
+        }
 
-        return (value != null) && value.equals(VALUE_BOOLEAN_TRUE);
+        String value = storage.getString(key);
+
+        return value != null && value.equals(VALUE_BOOLEAN_TRUE);
     }
 
-    private void setBoolean(boolean b, String key) {
-        properties.setProperty(key, b
-                                    ? VALUE_BOOLEAN_TRUE
-                                    : VALUE_BOOLEAN_FALSE);
+    private void setBoolean(String key, boolean b) {
+        if (storage != null) {
+
+            storage.setString(key, b
+                    ? VALUE_BOOLEAN_TRUE
+                    : VALUE_BOOLEAN_FALSE);
+        }
     }
 }

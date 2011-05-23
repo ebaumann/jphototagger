@@ -9,24 +9,17 @@ import java.util.List;
  * @author Elmar Baumann
  */
 public class PluginEvent {
+
     public enum Type {
 
-        /**
-         * The plugin action has been started
-         */
         STARTED,
-
-        /**
-         * The plugin action has been finished successfully
-         */
         FINISHED_SUCCESS,
+        FINISHED_ERRORS;
 
-        /**
-         * The plugin action has been finished with errors
-         */
-        FINISHED_ERRORS,
+        public boolean isFinished() {
+            return this.equals(FINISHED_SUCCESS) || this.equals(FINISHED_ERRORS);
+        }
     }
-
     private final Type type;
     private final List<File> processedFiles = new ArrayList<File>();
     private final List<File> changedFiles = new ArrayList<File>();
