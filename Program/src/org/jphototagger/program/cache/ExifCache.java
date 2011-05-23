@@ -20,6 +20,7 @@ import org.jphototagger.program.database.DatabaseImageFiles;
  * @author Elmar Baumann
  */
 public final class ExifCache extends DatabaseImageFilesListenerAdapter {
+
     private final File CACHE_DIR = new File(UserSettings.INSTANCE.getDatabaseDirectoryName() + File.separator + "ExifCache");
     private static final Logger LOGGER = Logger.getLogger(ExifCache.class.getName());
     private final SerialExecutor SERIAL_EXECUTOR = new SerialExecutor(Executors.newCachedThreadPool());
@@ -179,6 +180,47 @@ public final class ExifCache extends DatabaseImageFilesListenerAdapter {
 
             return exifTags;
         }
+    }
+
+    /**
+     * Removes all files from the cache directory.
+     *
+     * @return count of deleted files
+     */
+    public int clear() {
+        File[] cacheFiles = CACHE_DIR.listFiles();
+
+        if (cacheFiles == null || cacheFiles.length == 0) {
+            return 0;
+        }
+
+        LOGGER.log(Level.INFO, "EXIF Cache: Deleting all cache files in directory ''{0}''", CACHE_DIR);
+
+        int deleteCount = 0;
+
+        for (File cacheFile : cacheFiles) {
+            boolean deleted = cacheFile.delete();
+
+            if (deleted) {
+                deleteCount++;
+            } else {
+                LOGGER.log(Level.WARNING, "EXIF Cache: Couldn't delete cache file ''{0}''", cacheFile);
+            }
+        }
+
+        return deleteCount;
+    }
+
+    /**
+     *
+     * @return count of cached files
+     */
+    public int getSize() {
+        File[] cacheFiles = CACHE_DIR.listFiles();
+
+        return cacheFiles == null
+                ? 0
+                : cacheFiles.length;
     }
 
     void ensureCacheDiretoryExists() {

@@ -45,6 +45,14 @@
                 <Property name="name" type="java.lang.String" value="menuItemMaintainDatabase" noResource="true"/>
               </Properties>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="menuItemMaintainance">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="menuItemMaintainance" noResource="true"/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JMenuItem(org.jphototagger.program.controller.maintainance.DisplayMaintainanceDialogAction.INSTANCE)"/>
+              </AuxValues>
+            </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="sep1">
               <Properties>
                 <Property name="name" type="java.lang.String" value="sep1" noResource="true"/>
