@@ -6,12 +6,15 @@ import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.database.metadata.selections.ExifInDatabase;
 import org.jphototagger.program.image.metadata.exif.ExifMetadata.IfdType;
 import org.jphototagger.program.image.metadata.exif.ExifTag;
+import org.jphototagger.program.image.metadata.exif.ExifTag.Id;
 import org.jphototagger.program.image.metadata.exif.ExifTagValueFormatter;
 import org.jphototagger.program.image.metadata.exif.tag.ExifGpsMetadata;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.resource.Translation;
 import java.awt.Component;
 import java.util.Comparator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
@@ -24,7 +27,10 @@ import org.jphototagger.lib.util.StringUtil;
  * @author Elmar Baumann
  */
 public final class TableCellRendererExif extends FormatterLabelMetadata implements TableCellRenderer {
-    private static final Translation TRANSLATION = new Translation("ExifTagIdTagNameTranslations");
+
+    private static final Translation TAG_ID_TAGNAME_TRANSLATION = new Translation("ExifTagIdTagNameTranslations");
+    private static final Translation TAGNAME_TRANSLATION = new Translation("ExifTagNameTranslations");
+    private static final Logger LOGGER = Logger.getLogger(TableCellRendererExif.class.getName());
 
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
@@ -70,16 +76,31 @@ public final class TableCellRendererExif extends FormatterLabelMetadata implemen
 
     private static String getTagName(ExifTag exifTag) {
         String tagName = exifTag.getName();
+        IfdType ifdType = exifTag.getIfdType();
+        boolean isMakerNoteIfd = ifdType.equals(IfdType.MAKER_NOTE);
 
-        if (exifTag.getIfdType().equals(IfdType.MAKER_NOTE)) {
+        if (isMakerNoteIfd) {
             return tagName;
         }
 
-        if (exifTag.convertTagIdToEnumId().getTagId() >= ExifTag.Id.MAKER_NOTE.getTagId()) {
-            return tagName;
+        Id exifTagId = exifTag.convertTagIdToEnumId();
+        int tagId = exifTagId.getTagId();
+        int makerNoteTagId = ExifTag.Id.MAKER_NOTE.getTagId();
+        boolean isMakerNoteTag = tagId >= makerNoteTagId;
+
+        if (isMakerNoteTag) {
+            boolean canTranslate = TAGNAME_TRANSLATION.canTranslate(tagName);
+
+            if (!canTranslate) {
+                LOGGER.log(Level.INFO, "EXIF tag name suggested for translation: ''{0}''", tagName);
+            }
+
+            return canTranslate
+                    ? TAGNAME_TRANSLATION.translate(tagName)
+                    : tagName;
         }
 
-        return TRANSLATION.translate(Integer.toString(exifTag.getTagId()), tagName);
+        return TAG_ID_TAGNAME_TRANSLATION.translate(Integer.toString(exifTag.getTagId()), tagName);
     }
 
     private void setIsMakerNoteTagColor(JLabel cellLabel, ExifTag exifTag, boolean isSelected) {
