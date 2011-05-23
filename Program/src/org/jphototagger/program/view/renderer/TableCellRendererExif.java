@@ -110,8 +110,12 @@ public final class TableCellRendererExif extends FormatterLabelMetadata implemen
     }
 
     private void setIsStoredInDatabaseColor(JLabel cellLabel, ExifTag exifTag, boolean isSelected) {
-        if (ExifInDatabase.isInDatabase(exifTag.getIfdType(), exifTag.convertTagIdToEnumId())) {
+        IfdType ifdType = exifTag.getIfdType();
+        Id ExifTagId = exifTag.convertTagIdToEnumId();
+
+        if (ExifInDatabase.isInDatabase(ifdType, ExifTagId)) {
             setIsStoredInDatabaseColors(cellLabel, isSelected);
+            cellLabel.setToolTipText(JptBundle.INSTANCE.getString("TableCellRendererExif.ToolTipText.CellLabelStoredInDatabase"));
         }
     }
 
