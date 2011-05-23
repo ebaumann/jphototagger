@@ -79,4 +79,8 @@ public final class Translation {
 
         return alternate;
     }
+
+    public boolean canTranslate(String string) {
+        return bundle.containsKey(string);
+    }
 }
