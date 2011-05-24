@@ -1,8 +1,8 @@
 package org.jphototagger.program.image.metadata.exif.gps;
 
-import org.jphototagger.lib.image.metadata.gps.kml.KMLDocument;
-import org.jphototagger.lib.image.metadata.gps.kml.KMLPlacemark;
-import org.jphototagger.lib.image.metadata.gps.kml.KMLPoint;
+import org.jphototagger.kml.KMLDocument;
+import org.jphototagger.kml.KMLPlacemark;
+import org.jphototagger.kml.KMLPoint;
 import org.jphototagger.program.app.AppInfo;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.image.metadata.exif.datatype.ExifDatatypeUtil;

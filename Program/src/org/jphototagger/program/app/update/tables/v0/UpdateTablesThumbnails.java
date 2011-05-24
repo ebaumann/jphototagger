@@ -1,6 +1,6 @@
 package org.jphototagger.program.app.update.tables.v0;
 
-import org.jphototagger.lib.image.util.ImageUtil;
+import org.jphototagger.image.util.ImageUtil;
 import org.jphototagger.lib.io.filefilter.RegexFileFilter;
 import org.jphototagger.lib.io.FileLock;
 import org.jphototagger.lib.io.FileUtil;
