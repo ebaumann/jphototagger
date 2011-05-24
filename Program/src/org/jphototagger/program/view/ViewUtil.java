@@ -116,7 +116,7 @@ public class ViewUtil {
         if (fc.showOpenDialog(parentComp) == JFileChooser.APPROVE_OPTION) {
             File selFile = fc.getSelectedFile();
 
-            UserSettings.INSTANCE.getSettings().set(selFile.getAbsolutePath(), keyCurrentDir);
+            UserSettings.INSTANCE.getSettings().set(keyCurrentDir, selFile.getAbsolutePath());
 
             return selFile;
         }

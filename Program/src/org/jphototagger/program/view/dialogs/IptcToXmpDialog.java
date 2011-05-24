@@ -132,8 +132,8 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener, U
         Settings settings = UserSettings.INSTANCE.getSettings();
 
         settings.set(this, UserSettings.SET_TABBED_PANE_SETTINGS);
-        settings.set(directory.getAbsolutePath(), KEY_DIRECTORY_NAME);
-        settings.set(checkBoxIncludeSubdirectories.isSelected(), KEY_INCLUDE_SUBDIRS);
+        settings.set(KEY_DIRECTORY_NAME, directory.getAbsolutePath());
+        settings.set(KEY_INCLUDE_SUBDIRS, checkBoxIncludeSubdirectories.isSelected());
         UserSettings.INSTANCE.writeToFile();
     }
 

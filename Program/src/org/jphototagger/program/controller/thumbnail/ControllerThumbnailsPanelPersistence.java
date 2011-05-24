@@ -71,7 +71,7 @@ public final class ControllerThumbnailsPanelPersistence implements ThumbnailsPan
 
     private void writeSelectionToProperties() {
         UserSettings.INSTANCE.getSettings().setStringCollection(
-            FileUtil.getAbsolutePathnames(GUI.getSelectedImageFiles()), KEY_SELECTED_FILES);
+            KEY_SELECTED_FILES, FileUtil.getAbsolutePathnames(GUI.getSelectedImageFiles()));
         UserSettings.INSTANCE.writeToFile();
     }
 
@@ -105,7 +105,7 @@ public final class ControllerThumbnailsPanelPersistence implements ThumbnailsPan
         Class<?> sortClass = cmp.getClass();
 
         if (!sortClass.equals(ComparatorFilesNoSort.class)) {
-            UserSettings.INSTANCE.getSettings().set(sortClass.getName(), KEY_SORT);
+            UserSettings.INSTANCE.getSettings().set(KEY_SORT, sortClass.getName());
         }
     }
 
@@ -146,8 +146,7 @@ public final class ControllerThumbnailsPanelPersistence implements ThumbnailsPan
                     @Override
                     public void run() {
                         UserSettings.INSTANCE.getSettings().applySettings(
-                            GUI.getAppPanel().getScrollPaneThumbnailsPanel(),
-                            KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION);
+                            KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION, GUI.getAppPanel().getScrollPaneThumbnailsPanel());
                     }
                 });
             }
@@ -160,8 +159,7 @@ public final class ControllerThumbnailsPanelPersistence implements ThumbnailsPan
     }
 
     private void writeViewportViewPositionToProperties() {
-        UserSettings.INSTANCE.getSettings().set(GUI.getAppPanel().getScrollPaneThumbnailsPanel(),
-                KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION);
+        UserSettings.INSTANCE.getSettings().set(KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION, GUI.getAppPanel().getScrollPaneThumbnailsPanel());
         UserSettings.INSTANCE.writeToFile();
     }
 }

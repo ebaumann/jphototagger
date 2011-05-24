@@ -57,7 +57,7 @@ public class InputHelperDialog extends Dialog {
         Settings settings = UserSettings.INSTANCE.getSettings();
 
         panelKeywords.readProperties();
-        settings.applySettings(panelMiscXmpMetadata.getTree(), KEY_TREE_MISC_XMP);
+        settings.applySettings(KEY_TREE_MISC_XMP, panelMiscXmpMetadata.getTree());
 
         int selIndexTabbedPane = settings.getInt(KEY_SEL_INDEX_TABBED_PANE);
 
@@ -69,8 +69,8 @@ public class InputHelperDialog extends Dialog {
     private void writeProperties() {
         Settings settings = UserSettings.INSTANCE.getSettings();
 
-        settings.set(tabbedPane.getSelectedIndex(), KEY_SEL_INDEX_TABBED_PANE);
-        settings.set(panelMiscXmpMetadata.getTree(), KEY_TREE_MISC_XMP);
+        settings.set(KEY_SEL_INDEX_TABBED_PANE, tabbedPane.getSelectedIndex());
+        settings.set(KEY_TREE_MISC_XMP, panelMiscXmpMetadata.getTree());
         panelKeywords.writeProperties();
         UserSettings.INSTANCE.writeToFile();
     }

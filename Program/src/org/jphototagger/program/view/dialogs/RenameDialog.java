@@ -418,7 +418,7 @@ public final class RenameDialog extends Dialog implements ListDataListener {
             tabbedPane.setSelectedComponent(panelInputName);
         }
 
-        settings.applySelectedIndex(comboBoxRenameTemplates, KEY_SEL_TEMPLATE);
+        settings.applySelectedIndex(KEY_SEL_TEMPLATE, comboBoxRenameTemplates);
     }
 
     private void setEnabledConstantTextFields() {
@@ -588,7 +588,7 @@ public final class RenameDialog extends Dialog implements ListDataListener {
 
     private void handleComboBoxRenameTemplatesActionPerformed() {
         if (listen) {
-            UserSettings.INSTANCE.getSettings().setSelectedIndex(comboBoxRenameTemplates, KEY_SEL_TEMPLATE);
+            UserSettings.INSTANCE.getSettings().setSelectedIndex(KEY_SEL_TEMPLATE, comboBoxRenameTemplates);
             UserSettings.INSTANCE.writeToFile();
             setRenameTemplate();
             setEnabledRenameTemplateButtons();

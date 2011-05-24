@@ -21,7 +21,7 @@ public final class JptStorage implements Storage {
 
     @Override
     public void setString(String key, String value) {
-        settings.set(value, key);
+        settings.set(key, value);
         writeToFile();
     }
 
@@ -44,7 +44,7 @@ public final class JptStorage implements Storage {
 
     @Override
     public void setBoolean(String key, boolean value) {
-        settings.set(value, key);
+        settings.set(key, value);
         writeToFile();
     }
 

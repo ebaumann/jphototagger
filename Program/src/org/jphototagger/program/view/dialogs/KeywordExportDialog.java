@@ -122,7 +122,7 @@ public class KeywordExportDialog extends Dialog {
     private void readProperties() {
         Settings settings = UserSettings.INSTANCE.getSettings();
 
-        settings.applySelectedIndex(comboBoxExporter, KEY_SEL_EXPORTER_INDEX);
+        settings.applySelectedIndex(KEY_SEL_EXPORTER_INDEX, comboBoxExporter);
 
         File prevExpFile = new File(settings.getString(KEY_PREV_EXPORT_FILE));
 
@@ -136,10 +136,10 @@ public class KeywordExportDialog extends Dialog {
     private void writeProperties() {
         Settings settings = UserSettings.INSTANCE.getSettings();
 
-        settings.setSelectedIndex(comboBoxExporter, KEY_SEL_EXPORTER_INDEX);
+        settings.setSelectedIndex(KEY_SEL_EXPORTER_INDEX, comboBoxExporter);
 
         if ((file != null) && file.isFile()) {
-            settings.set(file.getAbsolutePath(), KEY_PREV_EXPORT_FILE);
+            settings.set(KEY_PREV_EXPORT_FILE, file.getAbsolutePath());
         }
     }
 

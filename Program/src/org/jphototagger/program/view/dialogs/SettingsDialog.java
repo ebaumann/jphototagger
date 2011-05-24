@@ -116,7 +116,7 @@ public final class SettingsDialog extends Dialog {
 
     private void readProperties() {
         UserSettings.INSTANCE.getSettings().applySizeAndLocation(this);
-        UserSettings.INSTANCE.getSettings().applySettings(tabbedPane, KEY_INDEX_TABBED_PANE, null);
+        UserSettings.INSTANCE.getSettings().applySettings(KEY_INDEX_TABBED_PANE, tabbedPane, null);
 
         for (Persistence panel : persistentPanels) {
             panel.readProperties();
@@ -124,7 +124,7 @@ public final class SettingsDialog extends Dialog {
     }
 
     private void writeProperties() {
-        UserSettings.INSTANCE.getSettings().set(tabbedPane, KEY_INDEX_TABBED_PANE, null);
+        UserSettings.INSTANCE.getSettings().set(KEY_INDEX_TABBED_PANE, tabbedPane, null);
 
         for (Persistence panel : persistentPanels) {
             panel.writeProperties();

@@ -114,17 +114,17 @@ public final class Settings {
                     final Class<?> fieldType = field.getType();
 
                     if (fieldType.equals(JTabbedPane.class)) {
-                        applySettings((JTabbedPane) field.get(component), key, hints);
+                        applySettings(key, (JTabbedPane) field.get(component), hints);
                     } else if (fieldType.equals(JSplitPane.class)) {
-                        applySettings((JSplitPane) field.get(component), key);
+                        applySettings(key, (JSplitPane) field.get(component));
                     } else if (fieldType.equals(JTable.class)) {
-                        applySettings((JTable) field.get(component), key);
+                        applySettings(key, (JTable) field.get(component));
                     } else if (fieldType.equals(JTree.class)) {
-                        applySettings((JTree) field.get(component), key);
+                        applySettings(key, (JTree) field.get(component));
                     } else if (fieldType.equals(JComboBox.class)) {
-                        applySelectedIndex((JComboBox) field.get(component), key);
+                        applySelectedIndex(key, (JComboBox) field.get(component));
                     } else if (fieldType.equals(JList.class)) {
-                        applySelectedIndices((JList) field.get(component), key);
+                        applySelectedIndices(key, (JList) field.get(component));
                     }
                 } catch (Exception ex) {
                     Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
@@ -139,7 +139,7 @@ public final class Settings {
      * @param buttonGroup button group
      * @param key         key
      */
-    public void applySettings(ButtonGroup buttonGroup, String key) {
+    public void applySettings(String key, ButtonGroup buttonGroup) {
         if (buttonGroup == null) {
             throw new NullPointerException("buttonGroup == null");
         }
@@ -169,7 +169,7 @@ public final class Settings {
      * @param tree tree
      * @param key  key
      */
-    public void applySettings(JTree tree, String key) {
+    public void applySettings(String key, JTree tree) {
         if (tree == null) {
             throw new NullPointerException("tree == null");
         }
@@ -230,7 +230,7 @@ public final class Settings {
      * @param splitPane split pane
      * @param key       key
      */
-    public void applySettings(JSplitPane splitPane, String key) {
+    public void applySettings(String key, JSplitPane splitPane) {
         if (splitPane == null) {
             throw new NullPointerException("splitPane == null");
         }
@@ -256,7 +256,7 @@ public final class Settings {
      * @param scrollPane scroll pane
      * @param key        key
      */
-    public void applySettings(JScrollPane scrollPane, String key) {
+    public void applySettings(String key, JScrollPane scrollPane) {
         if (scrollPane == null) {
             throw new NullPointerException("scrollPane == null");
         }
@@ -286,7 +286,7 @@ public final class Settings {
      * @param table table
      * @param key   key
      */
-    public void applySettings(JTable table, String key) {
+    public void applySettings(String key, JTable table) {
         if (table == null) {
             throw new NullPointerException("table == null");
         }
@@ -315,7 +315,7 @@ public final class Settings {
      * @param spinner spinner
      * @param key     key
      */
-    public void applySettings(JSpinner spinner, String key) {
+    public void applySettings(String key, JSpinner spinner) {
         if (spinner == null) {
             throw new NullPointerException("spinner == null");
         }
@@ -342,7 +342,7 @@ public final class Settings {
      * @param key   key
      * @param hints hints or null
      */
-    public void applySettings(JTabbedPane pane, String key, SettingsHints hints) {
+    public void applySettings(String key, JTabbedPane pane, SettingsHints hints) {
         if (pane == null) {
             throw new NullPointerException("pane == null");
         }
@@ -374,7 +374,7 @@ public final class Settings {
         }
     }
 
-    public void applySelectedIndex(JComboBox comboBox, String key) {
+    public void applySelectedIndex(String key, JComboBox comboBox) {
         if (comboBox == null) {
             throw new NullPointerException("comboBox == null");
         }
@@ -404,7 +404,7 @@ public final class Settings {
      * @param button toggle button
      * @param key    key
      */
-    public void applySettings(JToggleButton button, String key) {
+    public void applySettings(String key, JToggleButton button) {
         if (button == null) {
             throw new NullPointerException("button == null");
         }
@@ -426,7 +426,7 @@ public final class Settings {
      * @param list list
      * @param key  key for the indices
      */
-    public void applySelectedIndices(JList list, String key) {
+    public void applySelectedIndices(String key, JList list) {
         if (list == null) {
             throw new NullPointerException("list == null");
         }
@@ -481,7 +481,7 @@ public final class Settings {
         return "";
     }
 
-    public void setIntegerCollection(Collection<? extends Integer> integers, String key) {
+    public void setIntegerCollection(String key, Collection<? extends Integer> integers) {
         if (integers == null) {
             throw new NullPointerException("array == null");
         }
@@ -500,7 +500,7 @@ public final class Settings {
         properties.setProperty(key, sb.toString());
     }
 
-    public void setStringCollection(Collection<? extends String> strings, String key) {
+    public void setStringCollection(String key, Collection<? extends String> strings) {
         if (strings == null) {
             throw new NullPointerException("strings == null");
         }
@@ -602,17 +602,17 @@ public final class Settings {
                     final Class<?> fieldType = field.getType();
 
                     if (fieldType.equals(JComboBox.class)) {
-                        setSelectedIndex((JComboBox) field.get(component), key);
+                        setSelectedIndex(key, (JComboBox) field.get(component));
                     } else if (fieldType.equals(JList.class)) {
-                        setSelectedIndices((JList) field.get(component), key);
+                        setSelectedIndices(key, (JList) field.get(component));
                     } else if (fieldType.equals(JTabbedPane.class)) {
-                        set((JTabbedPane) field.get(component), key, hints);
+                        set(key, (JTabbedPane) field.get(component), hints);
                     } else if (fieldType.equals(JTable.class)) {
-                        set((JTable) field.get(component), key);
+                        set(key, (JTable) field.get(component));
                     } else if (fieldType.equals(JSplitPane.class)) {
-                        set((JSplitPane) field.get(component), key);
+                        set(key, (JSplitPane) field.get(component));
                     } else if (fieldType.equals(JTree.class)) {
-                        set((JTree) field.get(component), key);
+                        set(key, (JTree) field.get(component));
                     }
                 } catch (Exception ex) {
                     Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
@@ -629,7 +629,7 @@ public final class Settings {
      * @param buttonGroup button group
      * @param key         key
      */
-    public void set(ButtonGroup buttonGroup, String key) {
+    public void set(String key, ButtonGroup buttonGroup) {
         if (buttonGroup == null) {
             throw new NullPointerException("buttonGroup == null");
         }
@@ -653,7 +653,7 @@ public final class Settings {
         }
     }
 
-    public void set(JSpinner spinner, String key) {
+    public void set(String key, JSpinner spinner) {
         if (spinner == null) {
             throw new NullPointerException("spinner == null");
         }
@@ -671,7 +671,7 @@ public final class Settings {
      * @param key
      * @param hints hints or null
      */
-    public void set(JTabbedPane pane, String key, SettingsHints hints) {
+    public void set(String key, JTabbedPane pane, SettingsHints hints) {
         if (pane == null) {
             throw new NullPointerException("pane == null");
         }
@@ -697,7 +697,7 @@ public final class Settings {
         }
     }
 
-    public void setSelectedIndex(JComboBox comboBox, String key) {
+    public void setSelectedIndex(String key, JComboBox comboBox) {
         if (comboBox == null) {
             throw new NullPointerException("comboBox == null");
         }
@@ -709,7 +709,7 @@ public final class Settings {
         properties.setProperty(key + KEY_APPENDIX_SELECTED, Integer.toString(comboBox.getSelectedIndex()));
     }
 
-    public void set(JToggleButton button, String key) {
+    public void set(String key, JToggleButton button) {
         if (button == null) {
             throw new NullPointerException("button == null");
         }
@@ -725,7 +725,7 @@ public final class Settings {
         properties.setProperty(key, status);
     }
 
-    public void setSelectedIndices(JList list, String key) {
+    public void setSelectedIndices(String key, JList list) {
         if (list == null) {
             throw new NullPointerException("list == null");
         }
@@ -740,11 +740,11 @@ public final class Settings {
         if (selIndices.length == 0) {
             properties.remove(keySelIndices);
         } else {
-            setIntegerCollection(ArrayUtil.toList(selIndices), keySelIndices);
+            setIntegerCollection(keySelIndices, ArrayUtil.toList(selIndices));
         }
     }
 
-    public void set(String string, String key) {
+    public void set(String key, String string) {
         if (string == null) {
             throw new NullPointerException("string == null");
         }
@@ -764,7 +764,7 @@ public final class Settings {
         properties.remove(key);
     }
 
-    public void set(JTable table, String key) {
+    public void set(String key, JTable table) {
         if (table == null) {
             throw new NullPointerException("table == null");
         }
@@ -782,10 +782,10 @@ public final class Settings {
             colWidths.add(colModel.getColumn(index).getWidth());
         }
 
-        setIntegerCollection(colWidths, key);
+        setIntegerCollection(key, colWidths);
     }
 
-    public void set(JSplitPane splitPane, String key) {
+    public void set(String key, JSplitPane splitPane) {
         if (splitPane == null) {
             throw new NullPointerException("splitPane == null");
         }
@@ -799,7 +799,7 @@ public final class Settings {
         properties.setProperty(key, Integer.toString(dividerLocation));
     }
 
-    public void set(JScrollPane scrollPane, String key) {
+    public void set(String key, JScrollPane scrollPane) {
         if (scrollPane == null) {
             throw new NullPointerException("scrollPane == null");
         }
@@ -815,7 +815,7 @@ public final class Settings {
         properties.setProperty(key + KEY_POSTFIX_VIEWPORT_VIEW_POSITION_Y, y.toString());
     }
 
-    public void set(JTree tree, String key) {
+    public void set(String key, JTree tree) {
         if (tree == null) {
             throw new NullPointerException("tree == null");
         }
@@ -831,14 +831,14 @@ public final class Settings {
 
         for (int row = 0; row < rowCount; row++) {
             if (tree.isExpanded(row)) {
-                setTreePath(tree.getPathForRow(row).getPath(), tree.isRowSelected(row), toIndexedKey(key, pathIndex++));
+                setTreePath(toIndexedKey(key, pathIndex++), tree.getPathForRow(row).getPath(), tree.isRowSelected(row));
             } else if (tree.isRowSelected(row)) {    // Selected but not expanded
-                setTreePath(tree.getPathForRow(row).getPath(), true, toIndexedKey(key, pathIndex++));
+                setTreePath(toIndexedKey(key, pathIndex++), tree.getPathForRow(row).getPath(), true);
             }
         }
     }
 
-    private void setTreePath(Object[] path, boolean selected, String key) {
+    private void setTreePath(String key, Object[] path, boolean selected) {
         StringBuilder sb = new StringBuilder();
 
         for (int index = 0; index < path.length; index++) {
@@ -870,7 +870,7 @@ public final class Settings {
         return result;
     }
 
-    public void set(int value, String key) {
+    public void set(String key, int value) {
         if (key == null) {
             throw new NullPointerException("key == null");
         }
@@ -888,14 +888,14 @@ public final class Settings {
                : false;
     }
 
-    public void set(boolean b, String key) {
+    public void set(String key, boolean b) {
         if (key == null) {
             throw new NullPointerException("key == null");
         }
 
-        set(b
+        set(key, b
             ? 1
-            : 0, key);
+                 : 0);
     }
 
     /**
@@ -926,7 +926,7 @@ public final class Settings {
             throw new NullPointerException("component == null");
         }
 
-        applySize(component, component.getClass().getName());
+        applySize(component.getClass().getName(), component);
     }
 
     /**
@@ -950,7 +950,7 @@ public final class Settings {
      * @param component component
      * @param key       key
      */
-    public void applySize(Component component, String key) {
+    public void applySize(String key, Component component) {
         if (component == null) {
             throw new NullPointerException("component == null");
         }
@@ -986,7 +986,7 @@ public final class Settings {
             throw new NullPointerException("component == null");
         }
 
-        applyLocation(component, component.getClass().getName());
+        applyLocation(component.getClass().getName(), component);
     }
 
     /**
@@ -997,7 +997,7 @@ public final class Settings {
      * @param key       key
      * @return          true if location has been applied
      */
-    public boolean applyLocation(Component component, String key) {
+    public boolean applyLocation(String key, Component component) {
         if (component == null) {
             throw new NullPointerException("component == null");
         }
@@ -1051,7 +1051,7 @@ public final class Settings {
             throw new NullPointerException("component == null");
         }
 
-        setSize(component, component.getClass().getName());
+        setSize(component.getClass().getName(), component);
     }
 
     /**
@@ -1060,7 +1060,7 @@ public final class Settings {
      * @param component component
      * @param key       key
      */
-    public void setSize(Component component, String key) {
+    public void setSize(String key, Component component) {
         if (component == null) {
             throw new NullPointerException("component == null");
         }
@@ -1085,7 +1085,7 @@ public final class Settings {
             throw new NullPointerException("component == null");
         }
 
-        setLocation(component, component.getClass().getName());
+        setLocation(component.getClass().getName(), component);
     }
 
     /**
@@ -1094,7 +1094,7 @@ public final class Settings {
      * @param component component
      * @param key       key
      */
-    public void setLocation(Component component, String key) {
+    public void setLocation(String key, Component component) {
         if (component == null) {
             throw new NullPointerException("component == null");
         }

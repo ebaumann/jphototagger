@@ -68,7 +68,7 @@ public final class AppWindowPersistence implements ComponentListener, AppExitLis
         assert isSelKeywordsCard && knownCardName : c;
 
         if (isSelKeywordsCard && knownCardName) {
-            UserSettings.INSTANCE.getSettings().set(NAME_OF_CARD.get(c), KEY_KEYWORDS_VIEW);
+            UserSettings.INSTANCE.getSettings().set(KEY_KEYWORDS_VIEW, NAME_OF_CARD.get(c));
             UserSettings.INSTANCE.writeToFile();
         }
     }
@@ -168,8 +168,8 @@ public final class AppWindowPersistence implements ComponentListener, AppExitLis
         Settings settings = UserSettings.INSTANCE.getSettings();
 
         settings.set(appPanel, getAppPanelSettingsHints());
-        settings.set(appPanel.getSplitPaneMain().getDividerLocation(), KEY_DIVIDER_LOCATION_MAIN);
-        settings.set(appPanel.getSplitPaneThumbnailsMetadata().getDividerLocation(), KEY_DIVIDER_LOCATION_THUMBNAILS);
+        settings.set(KEY_DIVIDER_LOCATION_MAIN, appPanel.getSplitPaneMain().getDividerLocation());
+        settings.set(KEY_DIVIDER_LOCATION_THUMBNAILS, appPanel.getSplitPaneThumbnailsMetadata().getDividerLocation());
         appPanel.getPanelEditKeywords().writeProperties();
 
         // Later than settings.set(appPanel, null)!
@@ -242,11 +242,11 @@ public final class AppWindowPersistence implements ComponentListener, AppExitLis
     }
 
     private static void read(JTree tree, String key) {
-        UserSettings.INSTANCE.getSettings().applySettings(tree, key);
+        UserSettings.INSTANCE.getSettings().applySettings(key, tree);
     }
 
     private static void read(JList list, String key) {
-        UserSettings.INSTANCE.getSettings().applySelectedIndices(list, key);
+        UserSettings.INSTANCE.getSettings().applySelectedIndices(key, list);
     }
 
     // Independent from renamings
@@ -268,11 +268,11 @@ public final class AppWindowPersistence implements ComponentListener, AppExitLis
     }
 
     private void write(JTree tree, String key) {
-        UserSettings.INSTANCE.getSettings().set(tree, key);
+        UserSettings.INSTANCE.getSettings().set(key, tree);
     }
 
     private void write(JList list, String key) {
-        UserSettings.INSTANCE.getSettings().setSelectedIndices(list, key);
+        UserSettings.INSTANCE.getSettings().setSelectedIndices(key, list);
     }
 
     @Override
