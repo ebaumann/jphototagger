@@ -55,7 +55,7 @@ public final class ControllerThumbnailFileFilter implements ActionListener, Item
     private void writeSettings() {
         Settings settings = UserSettings.INSTANCE.getSettings();
 
-        settings.set(getFileFilterComboBox().getSelectedIndex(), ComboBoxModelFileFilters.SETTINGS_KEY_SEL_INDEX);
+        settings.set(ComboBoxModelFileFilters.SETTINGS_KEY_SEL_INDEX, getFileFilterComboBox().getSelectedIndex());
         UserSettings.INSTANCE.writeToFile();
     }
 }

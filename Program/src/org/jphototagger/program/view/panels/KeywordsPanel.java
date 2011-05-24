@@ -84,7 +84,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
      * Reads the persistent properties, currently the selected tree node.
      */
     public void readProperties() {
-        UserSettings.INSTANCE.getSettings().applySettings(tree, keyTree);
+        UserSettings.INSTANCE.getSettings().applySettings(keyTree, tree);
         readCardProperties();
     }
 
@@ -106,7 +106,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
         CardLayout cl = (CardLayout) (getLayout());
 
         cl.show(this, name);
-        UserSettings.INSTANCE.getSettings().set(name, keyCard);
+        UserSettings.INSTANCE.getSettings().set(keyCard, name);
         UserSettings.INSTANCE.writeToFile();
     }
 
@@ -114,7 +114,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
      * Writes the persistent properties, currently the selected tree node.
      */
     public void writeProperties() {
-        UserSettings.INSTANCE.getSettings().set(tree, keyTree);
+        UserSettings.INSTANCE.getSettings().set(keyTree, tree);
         UserSettings.INSTANCE.writeToFile();
     }
 

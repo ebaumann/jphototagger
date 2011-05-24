@@ -266,9 +266,9 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         Settings settings = UserSettings.INSTANCE.getSettings();
 
         settings.set(this, null);
-        settings.set(prevSelectedDirectory.getAbsolutePath(), KEY_DIRECTORY_NAME);
-        settings.set(checkBoxIncludeSubdirectories, KEY_INCLUDE_SUBDIRS);
-        settings.set(checkBoxReplaceExistingFiles, KEY_REPLACE_EXISTING_FILES);
+        settings.set(KEY_DIRECTORY_NAME, prevSelectedDirectory.getAbsolutePath());
+        settings.set(KEY_INCLUDE_SUBDIRS, checkBoxIncludeSubdirectories);
+        settings.set(KEY_REPLACE_EXISTING_FILES, checkBoxReplaceExistingFiles);
         UserSettings.INSTANCE.writeToFile();
     }
 

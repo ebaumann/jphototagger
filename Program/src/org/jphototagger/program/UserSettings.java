@@ -151,7 +151,7 @@ public final class UserSettings {
             throw new NullPointerException("directoryName == null");
         }
 
-        settings.set(directoryName, KEY_DATABASE_DIRECTORY);
+        settings.set(KEY_DATABASE_DIRECTORY, directoryName);
         writeToFile();
     }
 
@@ -178,7 +178,7 @@ public final class UserSettings {
             throw new NullPointerException("directoryName == null");
         }
 
-        settings.set(directoryName, KEY_DATABASE_BACKUP_DIRECTORY);
+        settings.set(KEY_DATABASE_BACKUP_DIRECTORY, directoryName);
         writeToFile();
     }
 
@@ -322,7 +322,7 @@ public final class UserSettings {
             throw new NullPointerException("command == null");
         }
 
-        settings.set(command, KEY_EXTERNAL_THUMBNAIL_CREATION_COMMAND);
+        settings.set(KEY_EXTERNAL_THUMBNAIL_CREATION_COMMAND, command);
         writeToFile();
     }
 
@@ -346,7 +346,7 @@ public final class UserSettings {
             throw new NullPointerException("logLevel == null");
         }
 
-        settings.set(logLevel.toString(), KEY_LOG_LEVEL);
+        settings.set(KEY_LOG_LEVEL, logLevel.toString());
         writeToFile();
         notifyListeners(Type.LOG_LEVEL);
     }
@@ -371,7 +371,7 @@ public final class UserSettings {
         }
 
         if (level == null) {
-            settings.set(Level.INFO.getLocalizedName(), KEY_LOG_LEVEL);
+            settings.set(KEY_LOG_LEVEL, Level.INFO.getLocalizedName());
         }
 
         return (level == null)
@@ -385,7 +385,7 @@ public final class UserSettings {
      * @param display true, if the search button shall be displayed
      */
     public void setDisplaySearchButton(boolean display) {
-        settings.set(display, KEY_DISPLAY_SEARCH_BUTTON);
+        settings.set(KEY_DISPLAY_SEARCH_BUTTON, display);
         writeToFile();
     }
 
@@ -407,7 +407,7 @@ public final class UserSettings {
      * @param scan true, when to scan image files for embedded XMP metadata
      */
     public void setScanForEmbeddedXmp(boolean scan) {
-        settings.set(scan, KEY_SCAN_FOR_EMBEDDED_XMP);
+        settings.set(KEY_SCAN_FOR_EMBEDDED_XMP, scan);
         writeToFile();
     }
 
@@ -434,7 +434,7 @@ public final class UserSettings {
             throw new NullPointerException("options == null");
         }
 
-        settings.set(options.getInt(), KEY_OPTIONS_COPY_MOVE_FILES);
+        settings.set(KEY_OPTIONS_COPY_MOVE_FILES, options.getInt());
         writeToFile();
     }
 
@@ -457,8 +457,8 @@ public final class UserSettings {
      * @param set true when the actions shall be executed always
      */
     public void setExecuteActionsAfterImageChangeInDbAlways(boolean set) {
-        settings.set(set, KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS);
-        settings.set(!set, KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP);
+        settings.set(KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS, set);
+        settings.set(KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP, !set);
         writeToFile();
     }
 
@@ -484,8 +484,8 @@ public final class UserSettings {
      *            has embedded XMP metadata
      */
     public void setExecuteActionsAfterImageChangeInDbIfImageHasXmp(boolean set) {
-        settings.set(!set, KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS);
-        settings.set(set, KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP);
+        settings.set(KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS, !set);
+        settings.set(KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP, set);
         writeToFile();
     }
 
@@ -513,7 +513,7 @@ public final class UserSettings {
             throw new NullPointerException("charset == null");
         }
 
-        settings.set(charset, KEY_IPTC_CHARSET);
+        settings.set(KEY_IPTC_CHARSET, charset);
         writeToFile();
         notifyListeners(Type.IPTC_CHARSET);
     }
@@ -538,7 +538,7 @@ public final class UserSettings {
      * @param include true if include subdirectories
      */
     public void setAutoscanIncludeSubdirectories(boolean include) {
-        settings.set(include, KEY_AUTO_SCAN_INCLUDE_SUBDIRECTORIES);
+        settings.set(KEY_AUTO_SCAN_INCLUDE_SUBDIRECTORIES, include);
         writeToFile();
     }
 
@@ -573,7 +573,7 @@ public final class UserSettings {
      * @param early true if input shall be saved early. Default: true.
      */
     public void setSaveInputEarly(boolean early) {
-        settings.set(early, KEY_SAVE_INPUT_EARLY);
+        settings.set(KEY_SAVE_INPUT_EARLY, early);
         writeToFile();
     }
 
@@ -584,7 +584,7 @@ public final class UserSettings {
      * @param minutes minutes
      */
     public void setMinutesToStartScheduledTasks(int minutes) {
-        settings.set(Integer.toString(minutes), KEY_MINUTES_TO_START_SCHEDULED_TASKS);
+        settings.set(KEY_MINUTES_TO_START_SCHEDULED_TASKS, Integer.toString(minutes));
         writeToFile();
     }
 
@@ -609,7 +609,7 @@ public final class UserSettings {
      * @param width length in pixel
      */
     public void setMaxThumbnailWidth(int width) {
-        settings.set(Integer.toString(width), KEY_MAX_THUMBNAIL_WIDTH);
+        settings.set(KEY_MAX_THUMBNAIL_WIDTH, Integer.toString(width));
         writeToFile();
         notifyListeners(Type.MAX_THUMBNAIL_WIDTH);
     }
@@ -642,7 +642,7 @@ public final class UserSettings {
             throw new IllegalArgumentException("Invalid time: " + seconds.intValue());
         }
 
-        settings.set(seconds, KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS);
+        settings.set(KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS, seconds);
         writeToFile();
     }
 
@@ -664,7 +664,7 @@ public final class UserSettings {
      * @param accept true, if accepted
      */
     public void setAcceptHiddenDirectories(boolean accept) {
-        settings.set(accept, KEY_ACCEPT_HIDDEN_DIRECTORIES);
+        settings.set(KEY_ACCEPT_HIDDEN_DIRECTORIES, accept);
         writeToFile();
     }
 
@@ -687,7 +687,7 @@ public final class UserSettings {
      *             Default: true.
      */
     public void setAutoDownloadNewerVersions(boolean auto) {
-        settings.set(auto, KEY_AUTO_DOWNLOAD_NEWER_VERSIONS);
+        settings.set(KEY_AUTO_DOWNLOAD_NEWER_VERSIONS, auto);
         writeToFile();
         notifyListeners(Type.CHECK_FOR_UPDATES);
     }
@@ -709,7 +709,7 @@ public final class UserSettings {
      * @param display true, if IPTC shall be displayed, if an image was selected
      */
     public void setDisplayIptc(boolean display) {
-        settings.set(display, KEY_DISPLAY_IPTC);
+        settings.set(KEY_DISPLAY_IPTC, display);
         writeToFile();
         notifyListeners(Type.DISPLAY_IPTC);
     }
@@ -732,7 +732,7 @@ public final class UserSettings {
      * @param interval days
      */
     public void setScheduledBackupDbInterval(int interval) {
-        settings.set(interval, KEY_DATABASE_BACKUP_INTERVAL);
+        settings.set(KEY_DATABASE_BACKUP_INTERVAL, interval);
         writeToFile();
     }
 
@@ -753,7 +753,7 @@ public final class UserSettings {
      * @param scheduled true, if automized backups shall be scheduled
      */
     public void setScheduledBackupDb(boolean scheduled) {
-        settings.set(scheduled, KEY_DATABASE_SCHEDULED_BACKUP);
+        settings.set(KEY_DATABASE_SCHEDULED_BACKUP, scheduled);
         writeToFile();
     }
 
@@ -769,7 +769,7 @@ public final class UserSettings {
     }
 
     public void setAddFilenameToGpsLocationExport(boolean add) {
-        settings.set(add, KEY_ADD_FILENAME_TO_GPS_LOCATION_EXPORT);
+        settings.set(KEY_ADD_FILENAME_TO_GPS_LOCATION_EXPORT, add);
         writeToFile();
     }
 
@@ -785,7 +785,7 @@ public final class UserSettings {
      * @param enable true, if autocomplete shall be enabled.
      */
     public void setEnableAutocomplete(boolean enable) {
-        settings.set(enable, KEY_ENABLE_AUTOCOMPLETE);
+        settings.set(KEY_ENABLE_AUTOCOMPLETE, enable);
         writeToFile();
     }
 
@@ -806,7 +806,7 @@ public final class UserSettings {
      * @param update true if update permanently
      */
     public void setUpdateAutocomplete(boolean update) {
-        settings.set(update, KEY_UPDATE_AUTOCOMPLETE);
+        settings.set(KEY_UPDATE_AUTOCOMPLETE, update);
         writeToFile();
     }
 
@@ -827,7 +827,7 @@ public final class UserSettings {
      * @param b true, if to use experimental image file formats
      */
     public void setUseExperimentalFileFormats(boolean b) {
-        settings.set(b, KEY_EXPERIMENTAL_FILE_FORMATS);
+        settings.set(KEY_EXPERIMENTAL_FILE_FORMATS, b);
         writeToFile();
     }
 
@@ -843,7 +843,7 @@ public final class UserSettings {
     }
 
     public void setAutocompleteFastSearchIgnoreCase(boolean ignore) {
-        settings.set(ignore, KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE);
+        settings.set(KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE, ignore);
         writeToFile();
     }
 
@@ -864,7 +864,7 @@ public final class UserSettings {
     }
 
     public void setDisplayThumbnailTooltip(boolean display) {
-        settings.set(display, KEY_DISPLAY_THUMBNAIL_TOOLTIP);
+        settings.set(KEY_DISPLAY_THUMBNAIL_TOOLTIP, display);
         writeToFile();
         notifyListeners(Type.DISPLAY_THUMBNAIL_TOOLTIP);
     }

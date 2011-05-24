@@ -281,7 +281,7 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
     private void readProperties() {
         Settings settings = UserSettings.INSTANCE.getSettings();
 
-        settings.applySettings(checkBoxCopyXmp, KEY_COPY_XMP);
+        settings.applySettings(KEY_COPY_XMP, checkBoxCopyXmp);
 
         File directory = new File(UserSettings.INSTANCE.getSettings().getString(KEY_LAST_DIRECTORY));
 
@@ -293,8 +293,8 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
     private void writeProperties() {
         Settings settings = UserSettings.INSTANCE.getSettings();
 
-        settings.set(targetDirectory.getAbsolutePath(), KEY_LAST_DIRECTORY);
-        settings.set(checkBoxCopyXmp, KEY_COPY_XMP);
+        settings.set(KEY_LAST_DIRECTORY, targetDirectory.getAbsolutePath());
+        settings.set(KEY_COPY_XMP, checkBoxCopyXmp);
         UserSettings.INSTANCE.writeToFile();
     }
 

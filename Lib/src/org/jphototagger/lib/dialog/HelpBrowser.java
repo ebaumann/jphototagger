@@ -278,7 +278,7 @@ public final class HelpBrowser extends Dialog
         Settings settings = getSettings();
 
         if (settings != null) {
-            settings.set(splitPane.getDividerLocation(), KEY_DIVIDER_LOCATION);
+            settings.set(KEY_DIVIDER_LOCATION, splitPane.getDividerLocation());
         }
     }
 

@@ -558,15 +558,14 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
 
     private void checkBoxDeleteRecordsOfNotExistingFilesInDatabaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDeleteRecordsOfNotExistingFilesInDatabaseActionPerformed
         UserSettings.INSTANCE.getSettings().set(
-            checkBoxDeleteRecordsOfNotExistingFilesInDatabase.isSelected(),
-            KEY_DEL_RECORDS_OF_NOT_EX_FILES);
+            KEY_DEL_RECORDS_OF_NOT_EX_FILES, checkBoxDeleteRecordsOfNotExistingFilesInDatabase.isSelected());
         UserSettings.INSTANCE.writeToFile();
         checkCheckboxes();
     }//GEN-LAST:event_checkBoxDeleteRecordsOfNotExistingFilesInDatabaseActionPerformed
 
     private void checkBoxCompressDatabaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxCompressDatabaseActionPerformed
         UserSettings.INSTANCE.getSettings().set(
-            checkBoxCompressDatabase.isSelected(), KEY_COMPRESS_DB);
+            KEY_COMPRESS_DB, checkBoxCompressDatabase.isSelected());
         UserSettings.INSTANCE.writeToFile();
         checkCheckboxes();
     }//GEN-LAST:event_checkBoxCompressDatabaseActionPerformed
@@ -585,22 +584,21 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
 
     private void checkBoxDeleteOrphanedThumbnailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDeleteOrphanedThumbnailsActionPerformed
         UserSettings.INSTANCE.getSettings().set(
-            checkBoxDeleteOrphanedThumbnails.isSelected(),
-            KEY_DEL_ORPHANED_THUMBS);
+            KEY_DEL_ORPHANED_THUMBS, checkBoxDeleteOrphanedThumbnails.isSelected());
         UserSettings.INSTANCE.writeToFile();
         checkCheckboxes();
     }//GEN-LAST:event_checkBoxDeleteOrphanedThumbnailsActionPerformed
 
     private void checkBoxDeleteUnusedKeywordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDeleteUnusedKeywordsActionPerformed
         UserSettings.INSTANCE.getSettings().set(
-            checkBoxDeleteUnusedKeywords.isSelected(), KEY_DEL_UNUSED_KEYWORDS);
+            KEY_DEL_UNUSED_KEYWORDS, checkBoxDeleteUnusedKeywords.isSelected());
         UserSettings.INSTANCE.writeToFile();
         checkCheckboxes();
     }//GEN-LAST:event_checkBoxDeleteUnusedKeywordsActionPerformed
 
     private void checkBoxDeleteNotReferenced1nActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDeleteNotReferenced1nActionPerformed
         UserSettings.INSTANCE.getSettings().set(
-            checkBoxDeleteNotReferenced1n.isSelected(), KEY_DEL_NOT_REF_1_N);
+            KEY_DEL_NOT_REF_1_N, checkBoxDeleteNotReferenced1n.isSelected());
         UserSettings.INSTANCE.writeToFile();
         checkCheckboxes();
     }//GEN-LAST:event_checkBoxDeleteNotReferenced1nActionPerformed

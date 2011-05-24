@@ -156,8 +156,8 @@ public final class FileChooserHelper {
         if (canWriteProperties(p)) {
             Settings settings = new Settings(p.getProperties());
 
-            settings.set(fc.getWidth(), p.getPropertyKeyPrefix() + Settings.KEY_POSTFIX_WIDTH);
-            settings.set(fc.getHeight(), p.getPropertyKeyPrefix() + Settings.KEY_POSTFIX_HEIGHT);
+            settings.set(p.getPropertyKeyPrefix() + Settings.KEY_POSTFIX_WIDTH, fc.getWidth());
+            settings.set(p.getPropertyKeyPrefix() + Settings.KEY_POSTFIX_HEIGHT, fc.getHeight());
         }
     }
 

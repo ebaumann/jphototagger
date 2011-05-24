@@ -139,8 +139,8 @@ public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener
 
         Settings settings = UserSettings.INSTANCE.getSettings();
 
-        settings.set(textFieldSearch.getText(), KEY_SEARCH);
-        settings.set(textFieldReplacement.getText(), KEY_REPLACEMENT);
+        settings.set(KEY_SEARCH, textFieldSearch.getText());
+        settings.set(KEY_REPLACEMENT, textFieldReplacement.getText());
         UserSettings.INSTANCE.writeToFile();
     }
 

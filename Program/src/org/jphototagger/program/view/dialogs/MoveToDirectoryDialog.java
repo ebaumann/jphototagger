@@ -232,7 +232,7 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
     }
 
     private void targetDirectoryToSettings() {
-        UserSettings.INSTANCE.getSettings().set(targetDirectory.getAbsolutePath(), KEY_TARGET_DIRECTORY);
+        UserSettings.INSTANCE.getSettings().set(KEY_TARGET_DIRECTORY, targetDirectory.getAbsolutePath());
         UserSettings.INSTANCE.writeToFile();
     }
 

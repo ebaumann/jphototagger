@@ -183,7 +183,7 @@ public final class FavoritePropertiesDialog extends Dialog {
     }
 
     private void directoryToSettings() {
-        UserSettings.INSTANCE.getSettings().set(dir.getAbsolutePath(), KEY_LAST_DIRECTORY);
+        UserSettings.INSTANCE.getSettings().set(KEY_LAST_DIRECTORY, dir.getAbsolutePath());
         UserSettings.INSTANCE.writeToFile();
     }
 

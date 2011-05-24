@@ -101,9 +101,9 @@ public final class ControllerKeywordItemSelected implements ActionListener, List
     }
 
     private void writePersistent() {
-        UserSettings.INSTANCE.getSettings().set(isAllKeywords()
+        UserSettings.INSTANCE.getSettings().set(KEY_RADIO_BUTTON, isAllKeywords()
                 ? 0
-                : 1, KEY_RADIO_BUTTON);
+                                  : 1);
         UserSettings.INSTANCE.writeToFile();
     }
 }

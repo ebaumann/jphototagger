@@ -94,12 +94,12 @@ public class SettingsPluginsPanel extends javax.swing.JPanel implements ChangeLi
 
     @Override
     public void readProperties() {
-        UserSettings.INSTANCE.getSettings().applySettings(tabbedPane, KEY_TABBED_PANE, null);
+        UserSettings.INSTANCE.getSettings().applySettings(KEY_TABBED_PANE, tabbedPane, null);
     }
 
     @Override
     public void writeProperties() {
-        UserSettings.INSTANCE.getSettings().set(tabbedPane, KEY_TABBED_PANE, null);
+        UserSettings.INSTANCE.getSettings().set(KEY_TABBED_PANE, tabbedPane, null);
         UserSettings.INSTANCE.writeToFile();
     }
 

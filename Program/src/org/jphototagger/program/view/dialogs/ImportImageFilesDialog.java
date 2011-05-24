@@ -302,7 +302,7 @@ public class ImportImageFilesDialog extends Dialog {
         }
 
         deleteSrcFilesAfterCopying = selected;
-        UserSettings.INSTANCE.getSettings().set(deleteSrcFilesAfterCopying, KEY_DEL_SRC_AFTER_COPY);
+        UserSettings.INSTANCE.getSettings().set(KEY_DEL_SRC_AFTER_COPY, deleteSrcFilesAfterCopying);
         UserSettings.INSTANCE.writeToFile();
     }
 

@@ -120,7 +120,7 @@ public final class ControllerHelp implements ActionListener, HelpBrowserListener
 
         if (!url.getProtocol().startsWith("http")) {
             currentUrl = HelpBrowser.getLastPathComponent(url);
-            UserSettings.INSTANCE.getSettings().set(currentUrl, KEY_CURRENT_URL);
+            UserSettings.INSTANCE.getSettings().set(KEY_CURRENT_URL, currentUrl);
             UserSettings.INSTANCE.writeToFile();
         }
     }

@@ -131,7 +131,7 @@ public class SelectRootFilesPanel extends javax.swing.JPanel implements Persiste
             selectedRootFilePaths.add(selectedRootFile.getAbsolutePath());
         }
 
-        settings.setStringCollection(selectedRootFilePaths, persistenceKey);
+        settings.setStringCollection(persistenceKey, selectedRootFilePaths);
         UserSettings.INSTANCE.writeToFile();
     }
 

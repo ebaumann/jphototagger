@@ -240,7 +240,7 @@ public final class ProgramPropertiesDialog extends Dialog {
             return;
         }
 
-        SETTINGS.set(dir.getAbsolutePath(), KEY_LAST_DIR);
+        SETTINGS.set(KEY_LAST_DIR, dir.getAbsolutePath());
         UserSettings.INSTANCE.writeToFile();
         lastDir = dir;
     }
@@ -300,7 +300,7 @@ public final class ProgramPropertiesDialog extends Dialog {
             removeExpertSettings();
         }
 
-        SETTINGS.set(isExpertSettings, KEY_EXPERT_SETTINGS);
+        SETTINGS.set(KEY_EXPERT_SETTINGS, isExpertSettings);
         UserSettings.INSTANCE.writeToFile();
         pack();
         ComponentUtil.forceRepaint(this);
