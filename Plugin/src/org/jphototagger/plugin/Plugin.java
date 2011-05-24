@@ -30,15 +30,6 @@ public abstract class Plugin {
     private boolean pBarStringPainted;
 
     /**
-     * Returns the progress bar, used from this plugin while performing files.
-     *
-     * @return progress bar or null
-     */
-    public JProgressBar getProgressBar() {
-        return progressBar;
-    }
-
-    /**
      * Adds a listener.
      *
      * @param listener listener. If the action runs in the background, it's
@@ -195,7 +186,7 @@ public abstract class Plugin {
      * @param value   current value
      * @param string  string to paint onto progress bar or null
      */
-    public void progressStarted(int minimum, int maximum, int value, String string) {
+    protected void progressStarted(int minimum, int maximum, int value, String string) {
         getProgressBarFromService();
         setProgressBar(0, maximum, value, string);
     }
@@ -208,15 +199,15 @@ public abstract class Plugin {
      * @param value   current value
      * @param string  string to paint onto progress bar or null
      */
-    public void progressPerformed(int minimum, int maximum, int value, String string) {
+    protected void progressPerformed(int minimum, int maximum, int value, String string) {
         getProgressBarFromService();
         setProgressBar(minimum, maximum, value, string);
     }
 
     /**
-     * Paints the progress bar progress event.
+     * Paints the progress bar end event.
      */
-    public void progressEnded() {
+    protected void progressEnded() {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             public void run() {
