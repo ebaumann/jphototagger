@@ -8,7 +8,7 @@ import com.imagero.reader.jpeg.JpegReader;
 import com.imagero.reader.ReaderFactory;
 import com.imagero.reader.tiff.TiffReader;
 import org.jphototagger.lib.generics.Pair;
-import org.jphototagger.lib.image.util.ImageTransform;
+import org.jphototagger.image.util.ImageTransform;
 import org.jphototagger.lib.runtime.External;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.database.metadata.exif.ExifThumbnailUtil;

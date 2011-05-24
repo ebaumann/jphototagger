@@ -10,7 +10,7 @@ import com.adobe.xmp.XMPMeta;
 import com.adobe.xmp.XMPMetaFactory;
 import com.imagero.reader.iptc.IPTCEntryMeta;
 import org.jphototagger.lib.generics.Pair;
-import org.jphototagger.lib.image.metadata.xmp.XmpFileReader;
+import org.jphototagger.xmp.XmpFileReader;
 import org.jphototagger.lib.io.FileLock;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.app.AppLogger;
@@ -137,7 +137,7 @@ public final class XmpMetadata {
     }
 
     /**
-     * 
+     *
      * @param xmpAsString can be null
      * @return
      */
@@ -243,7 +243,7 @@ public final class XmpMetadata {
     }
 
     /**
-     * 
+     *
      * @param  imageFile can be null
      * @return           may be null
      */

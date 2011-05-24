@@ -1,6 +1,5 @@
 package org.jphototagger.lib.image.util;
 
-import org.jphototagger.lib.resource.JslBundle;
 import java.awt.Image;
 import java.io.File;
 import java.util.ArrayList;
@@ -40,8 +39,7 @@ public final class IconUtil {
         if (imgURL != null) {
             return new ImageIcon(imgURL).getImage();
         } else {
-            Logger.getLogger(IconUtil.class.getName()).log(Level.SEVERE, null,
-                             JslBundle.INSTANCE.getString("IconUtil.GetIconImage.Error.FileNotFound") + path);
+            Logger.getLogger(IconUtil.class.getName()).log(Level.SEVERE, null, "Image path not found: " + path);
         }
 
         return null;
@@ -90,8 +88,7 @@ public final class IconUtil {
         if (imgURL != null) {
             return new ImageIcon(imgURL);
         } else {
-            Logger.getLogger(IconUtil.class.getName()).log(Level.SEVERE, null,
-                             JslBundle.INSTANCE.getString("IconUtil.GetImageIcon.Error.FileNotFound") + path);
+            Logger.getLogger(IconUtil.class.getName()).log(Level.SEVERE, null, "Image path not found: " + path);
         }
 
         return null;
@@ -150,5 +147,6 @@ public final class IconUtil {
         return icon;
     }
 
-    private IconUtil() {}
+    private IconUtil() {
+    }
 }

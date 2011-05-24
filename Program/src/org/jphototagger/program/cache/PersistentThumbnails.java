@@ -1,6 +1,6 @@
 package org.jphototagger.program.cache;
 
-import org.jphototagger.lib.image.util.ImageUtil;
+import org.jphototagger.image.util.ImageUtil;
 import org.jphototagger.lib.io.FileLock;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.io.RuntimeUtil;

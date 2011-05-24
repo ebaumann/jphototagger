@@ -1,6 +1,6 @@
 package org.jphototagger.program.controller.thumbnail;
 
-import org.jphototagger.lib.image.util.ImageTransform;
+import org.jphototagger.image.util.ImageTransform;
 import org.jphototagger.program.cache.PersistentThumbnails;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.resource.GUI;
