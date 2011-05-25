@@ -11,7 +11,7 @@ import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.util.ServiceLookup;
 import org.jphototagger.plugin.flickrupload.FlickrImageInfoPanel.ImageInfo;
-import org.jphototagger.services.Storage;
+import org.jphototagger.services.core.Storage;
 
 /**
  *

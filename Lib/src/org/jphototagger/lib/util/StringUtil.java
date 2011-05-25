@@ -276,5 +276,14 @@ public final class StringUtil {
         return writer.toString();
     }
 
+    /**
+     *
+     * @param  string Can be null
+     * @return        true, if the string is not null and not empty if trimmed
+     */
+    public static boolean hasContent(String string) {
+        return string != null && !string.trim().isEmpty();
+    }
+
     private StringUtil() {}
 }

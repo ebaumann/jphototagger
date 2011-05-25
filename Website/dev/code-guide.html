@@ -57,74 +57,21 @@
 
         <h2>Logging</h2>
 
-        <p>For logging use the class <code>org.jphototagger.program.app.AppLogger</code>.
-           It creates the class' logger, formats messages with an arbitrary
-           count of parameters and notifies silently users on  logging level
-           <code>WARNING</code> and <code>SEVERE</code>.
-        </p>
-
-        <h2>Message-, input-, confirmation dialogs</h2>
-
-        <p>For displaying messages, getting input and confirmation use
-           the class <code>org.jphototagger.program.app.MessageDisplayer</code>.
-        </p>
-
-        <h2>Using persistent settings</h2>
-
-        <p>For reading and writing settings persistent, use
-            <code>org.jphototagger.lib.util.Settings</code> returned by
-            <code>UserSettings#getSettings()</code>. If you want flush changes
-            immediately, call <code>UserSettings#writeToFile()</code>, otherwise
-            all settings will be written before exiting the VM.
-        </p>
-
-        <h2>Internationalization</h2>
-
-        <p>All GUI strings and internationalized logging messages are in <em>one</em>
-            properties file (per language a variant with the language code, e.g.
-            <code>Bundle_en.properties</code> for English):
-            <code>org/jphototagger/program/resource/properties/Bundle.properties</code>.
-            In <strong>NetBeans</strong> open it in the <strong>Projects</strong>
-            tab and the context menu item <strong>Open</strong> for comparing
-            different translations and sorting the keys and translations to
-            find fast missing strings [NetBeans 6.8].
-            <a href="naming_conventions.html">Naming conventions</a>.
-        </p>
-
-        <p>If You create a GUI form in <strong>NetBeans</strong>, select in the
-            navigator the root node (<strong>Form ...</strong>), open the
-            context menu, choose <strong>Properties</strong> and select that
-            bundle file (<strong>Properties Bundle File</strong> button). Ensure,
-            that <strong>Automatic Internationalization</strong> is checked.
-            That can be done automatically: <strong>Tools &gt; Options  &gt;
-            Miscellaneous &gt; GUI Builder / Automatic Internationalization:
-            On</strong>.
-        </p>
-
-        <h2>The &quot;Library&quot;</h2>
-
-        <p>Implement Code in the &quot;Library&quot;, if it is probably reusable
-            in other programs, especially in <strong>JPhotoTagger</strong>
-            plugins. The Library is located below the workspace folder
-            <code>Lib</code>.
+        <p>For logging use the
+            <a href="http://download.oracle.com/javase/6/docs/technotes/guides/logging/">Java Logging API</a>.
+            Example: <code>Logger.getLogger(MyClass.class.getName()).log(Level.INFO, "Bla...");</code>
         </p>
 
         <h2>Write tests</h2>
 
-        <p>In the current state (2010-03-05) <strong>JPhotoTagger</strong> has
-            &quot;enough&quot; functionality, so that we have time for
-            implementing new features. We have too less tests.
-        </p>
-
         <p>Within the NetBeans IDE select <strong>Tools &gt; Create JUnit
                 Tests</strong> which creates a skeleton class for the current
-                class. You have &quot;only&quot; to write the test code and
-                press <kbd>Ctrl+Alt+F6</kbd> to run the test.
+                class. Press <kbd>Ctrl+Alt+F6</kbd> to run the test.
         </p>
 
         <p><strong>Author:</strong> Elmar Baumann
             <br /><a href="mailto:info@jphototagger.org?subject=JPhotoTagger%20Coding%20guidelines">Write e-Mail</a>
-            <br /><strong>Status of this document:</strong> 2010-03-05
+            <br /><strong>Status of this document:</strong> 2011-05-25
         </p>
 
     </div><!--content-->

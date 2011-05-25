@@ -13,7 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.jphototagger.lib.util.ServiceLookup;
-import org.jphototagger.services.Storage;
+import org.jphototagger.services.core.Storage;
 
 /**
  *

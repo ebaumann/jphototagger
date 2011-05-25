@@ -2,7 +2,7 @@ package org.jphototagger.program.app;
 
 import java.io.File;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.services.UserDirectoryProvider;
+import org.jphototagger.services.core.UserDirectoryProvider;
 
 /**
  *

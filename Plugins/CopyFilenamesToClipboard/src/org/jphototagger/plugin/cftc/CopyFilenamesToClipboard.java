@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.util.List;
 import javax.swing.JPanel;
 import org.jphototagger.lib.util.ServiceLookup;
-import org.jphototagger.services.Storage;
+import org.jphototagger.services.core.Storage;
 
 /**
  * Copies into the system clipboard names of files.

@@ -9,7 +9,7 @@ import org.jphototagger.dtncreators.Util;
 import org.jphototagger.dtncreators.scripts.ScriptWriter;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.system.SystemUtil;
-import org.jphototagger.services.ExternalThumbnailCreator;
+import org.jphototagger.services.plugin.ExternalThumbnailCreator;
 
 /**
  *

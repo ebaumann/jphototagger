@@ -25,7 +25,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import org.jphototagger.lib.io.IoUtil;
 import org.jphototagger.lib.util.ServiceLookup;
-import org.jphototagger.services.ThumbnailProvider;
+import org.jphototagger.services.core.ThumbnailProvider;
 
 /**
  *
