@@ -1202,7 +1202,7 @@ public class ThumbnailsPanel extends JPanel
      * @param files    files
      * @param content  content description of the files
      */
-    public synchronized void setFiles(List<File> files, Content content) {
+    public synchronized void setFiles(Collection<? extends File> files, Content content) {
         if (files == null) {
             throw new NullPointerException("files == null");
         }

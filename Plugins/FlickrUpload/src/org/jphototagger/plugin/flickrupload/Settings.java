@@ -1,7 +1,7 @@
 package org.jphototagger.plugin.flickrupload;
 
 import org.jphototagger.lib.util.ServiceLookup;
-import org.jphototagger.services.Storage;
+import org.jphototagger.services.core.Storage;
 
 /**
  *

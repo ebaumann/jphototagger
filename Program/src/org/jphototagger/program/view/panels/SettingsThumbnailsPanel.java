@@ -16,7 +16,7 @@ import javax.swing.Action;
 import javax.swing.JPopupMenu;
 import javax.swing.JRadioButton;
 import org.jphototagger.lib.util.ServiceLookup;
-import org.jphototagger.services.ExternalThumbnailCreator;
+import org.jphototagger.services.plugin.ExternalThumbnailCreator;
 
 /**
  *

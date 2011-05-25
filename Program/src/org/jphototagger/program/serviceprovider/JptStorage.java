@@ -3,7 +3,7 @@ package org.jphototagger.program.serviceprovider;
 import java.awt.Component;
 import org.jphototagger.lib.util.Settings;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.services.Storage;
+import org.jphototagger.services.core.Storage;
 
 /**
  *

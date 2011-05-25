@@ -6,7 +6,7 @@ import java.net.URI;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.jphototagger.lib.util.ServiceLookup;
-import org.jphototagger.services.UserDirectoryProvider;
+import org.jphototagger.services.core.UserDirectoryProvider;
 
 /**
  *

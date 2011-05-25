@@ -1,6 +1,7 @@
 package org.jphototagger.program.view.frames;
 
 import java.awt.event.KeyEvent;
+import javax.swing.JPopupMenu.Separator;
 import org.jphototagger.program.app.AppInfo;
 import org.jphototagger.program.app.AppLifeCycle;
 import org.jphototagger.program.app.AppLookAndFeel;
@@ -23,18 +24,31 @@ import org.jphototagger.lib.comparator.FileSort;
 import org.jphototagger.lib.componentutil.MenuUtil;
 import org.jphototagger.lib.system.SystemUtil;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.EnumMap;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.Action;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JRadioButtonMenuItem;
 import org.jphototagger.lib.event.util.KeyEventUtil;
+import org.jphototagger.lib.util.ServiceLookup;
+import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.program.controller.actions.EditUserDefinedFileTypesAction;
 import org.jphototagger.program.controller.actions.ShowActionDialogAction;
+import org.jphototagger.services.plugin.EditMenuActionProvider;
+import org.jphototagger.services.plugin.FileMenuActionProvider;
+import org.jphototagger.services.plugin.MenuActionProvider;
+import org.jphototagger.services.plugin.PositionComparator;
+import org.jphototagger.services.plugin.ToolsMenuActionProvider;
 
 /**
  * The application's frame.
@@ -117,20 +131,61 @@ public final class AppFrame extends javax.swing.JFrame {
         NO_METADATA,
     }
 
-    ;
     public AppFrame() {
-        initComponents();
-        GUI.setAppFrame(this);
-        postInitComponents();
+        init();
     }
 
-    private void postInitComponents() {
+    private void init() {
+        initComponents();
+        GUI.setAppFrame(this);
         addAppPanel();
+        addPluginsMenuItems();
         MenuUtil.setMnemonics(menuBar);
         initSortMenuItemsMap();
         initGotoMenuItemsMap();
         setIconImages(AppLookAndFeel.getAppIcons());
         AppLifeCycle.INSTANCE.started(this);
+    }
+
+    private void addPluginsMenuItems() {
+        List<MenuActionProvider> fileMenuActionProviders
+                = new ArrayList<MenuActionProvider>(ServiceLookup.lookupAll(FileMenuActionProvider.class));
+        List<MenuActionProvider> editMenuActionProviders
+                = new ArrayList<MenuActionProvider>(ServiceLookup.lookupAll(EditMenuActionProvider.class));
+        List<MenuActionProvider> toolsMenuActionProviders
+                = new ArrayList<MenuActionProvider>(ServiceLookup.lookupAll(ToolsMenuActionProvider.class));
+
+        addPluginMenuItems(fileMenuActionProviders, menuFile);
+        addPluginMenuItems(editMenuActionProviders, menuEdit);
+        addPluginMenuItems(toolsMenuActionProviders, menuTools);
+    }
+
+    private void addPluginMenuItems(List<? extends MenuActionProvider> menuActionProviders, JMenu menu) {
+        Collections.sort(menuActionProviders, PositionComparator.INSTANCE);
+
+        if (!menuActionProviders.isEmpty()) {
+            menu.add(new Separator());
+        }
+
+        for (MenuActionProvider menuActionProvider : menuActionProviders) {
+            Action menuAction = menuActionProvider.getMenuAction();
+
+            if (checkPluginMenuActionHasName(menuActionProvider, menuAction)) {
+                menu.add(menuAction);
+            }
+        }
+    }
+
+    private boolean checkPluginMenuActionHasName(MenuActionProvider menuActionProvider, Action action) {
+        Object value = action.getValue(Action.NAME);
+        boolean hasName = value != null && value instanceof String && StringUtil.hasContent(((String)value));
+
+        if (!hasName) {
+            Logger.getLogger(AppFrame.class.getName()).log(Level.WARNING,
+                    "Action {0} of {1} hasn''t a name and will not be added to the menu", new Object[]{action, menuActionProvider});
+        }
+
+        return hasName;
     }
 
     public AppPanel getAppPanel() {
@@ -923,7 +978,6 @@ public final class AppFrame extends javax.swing.JFrame {
 
         setJMenuBar(menuBar);
     }//GEN-END:initComponents
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupSort;
     private javax.swing.JCheckBoxMenuItem checkBoxMenuItemKeywordOverlay;

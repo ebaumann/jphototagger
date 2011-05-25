@@ -21,6 +21,8 @@ import java.awt.Container;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -42,6 +44,8 @@ import javax.swing.text.JTextComponent;
 import javax.swing.tree.TreeSelectionModel;
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.JXTree;
+import org.jphototagger.lib.util.ServiceLookup;
+import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.controller.actions.SearchInJxListAction;
 import org.jphototagger.program.controller.actions.SearchInJxTreeAction;
@@ -58,6 +62,10 @@ import org.jphototagger.program.view.renderer.ListCellRendererFileFilters;
 import org.jphototagger.program.view.renderer.TableCellRendererExif;
 import org.jphototagger.program.view.renderer.TableCellRendererIptc;
 import org.jphototagger.program.view.renderer.TableCellRendererXmp;
+import org.jphototagger.services.plugin.ComponentProvider;
+import org.jphototagger.services.plugin.ContextMetadataComponentProvider;
+import org.jphototagger.services.plugin.PositionComparator;
+import org.jphototagger.services.plugin.SelectionComponentProvider;
 
 /**
  * Panel der Anwendung.
@@ -70,7 +78,7 @@ public final class AppPanel extends javax.swing.JPanel {
     private static final String KEY_DIVIDER_LOCATION_THUMBNAILS = "AppPanel.DividerLocationThumbnails";
     private static final int DEFAULT_DIVIDER_LOCATION_MAIN = 100;
     private static final int DEFAULT_DIVIDER_LOCATION_THUMBNAILS = 200;
-    private final transient MessageLabel messageLabel;
+    private transient MessageLabel messageLabel;
     private final List<JTable> xmpTables = new ArrayList<JTable>();
     private final List<JTable> metadataTables = new ArrayList<JTable>();
     private final List<JTree> selectionTrees = new ArrayList<JTree>();
@@ -80,13 +88,13 @@ public final class AppPanel extends javax.swing.JPanel {
     public static final transient String DISABLED_IPTC_TAB_TOOLTIP_TEXT = JptBundle.INSTANCE.getString("AppPanel.TabMetadataIptc.TooltipText.Disabled");
 
     public AppPanel() {
+        init();
+    }
+
+    private void init() {
         initComponents();
         messageLabel = new MessageLabel(labelStatusbarText);
         GUI.setAppPanel(this);
-        postInitComponents();
-    }
-
-    private void postInitComponents() {
         displaySearchButton();
         editMetadtaPanels = new EditMetadataPanels(panelEditMetadata);
         panelThumbnails.setViewport(scrollPaneThumbnails.getViewport());
@@ -97,6 +105,48 @@ public final class AppPanel extends javax.swing.JPanel {
         setMnemonics();
         setListTextFilters();
         setTableTextFilters();
+        addPluginsComponents();
+    }
+
+    private void addPluginsComponents() {
+        List<ComponentProvider> selectionComponentProviders =
+                new ArrayList<ComponentProvider>(ServiceLookup.lookupAll(SelectionComponentProvider.class));
+        List<ComponentProvider> metadataComponentProviders =
+                new ArrayList<ComponentProvider>(ServiceLookup.lookupAll(ContextMetadataComponentProvider.class));
+
+        addPluginComponents(selectionComponentProviders, tabbedPaneSelection);
+        addPluginComponents(metadataComponentProviders, tabbedPaneMetadata);
+    }
+
+    private void addPluginComponents(List<? extends ComponentProvider> componentProviders, JTabbedPane tabbedPane) {
+        Collections.sort(componentProviders, PositionComparator.INSTANCE);
+
+        for (ComponentProvider componentProvider : componentProviders) {
+            Component component = componentProvider.getComponent();
+            String displayName = componentProvider.getDisplayName();
+
+            if (checkDisplaynameOfPlugin(componentProvider, component, displayName)) {
+                tabbedPane.add(component);
+
+                int componentIndex = tabbedPane.indexOfComponent(component);
+
+                if (componentIndex >= 0) {
+                    tabbedPane.setTitleAt(componentIndex, displayName);
+                }
+            }
+        }
+    }
+
+    private boolean checkDisplaynameOfPlugin(ComponentProvider componentProvider, Component component, String displayName) {
+        boolean hasDisplayName = StringUtil.hasContent(displayName);
+
+        if (!hasDisplayName) {
+            Logger.getLogger(AppPanel.class.getName()).log(Level.WARNING,
+                    "Component provider {0} hasn''t a display name and it''s component {1} will not be added",
+                    new Object[]{componentProvider, component});
+        }
+
+        return hasDisplayName;
     }
 
     private void setMnemonics() {
@@ -2230,7 +2280,6 @@ public final class AppPanel extends javax.swing.JPanel {
     private void buttonSetThumbnailDimensionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSetThumbnailDimensionsActionPerformed
         new SettingsThumbnailDimensionsDialog().setVisible(true);
     }//GEN-LAST:event_buttonSetThumbnailDimensionsActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCancelProgress;
     private javax.swing.JButton buttonDisplaySelKeywordsList;

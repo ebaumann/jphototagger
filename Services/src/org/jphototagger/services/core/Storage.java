@@ -1,4 +1,4 @@
-package org.jphototagger.services;
+package org.jphototagger.services.core;
 
 import java.awt.Component;
 

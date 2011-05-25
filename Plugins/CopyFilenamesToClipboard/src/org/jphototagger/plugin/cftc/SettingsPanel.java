@@ -9,7 +9,7 @@ import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import org.jphototagger.lib.util.ServiceLookup;
-import org.jphototagger.services.Storage;
+import org.jphototagger.services.core.Storage;
 
 /**
  * Settings for {@link CopyFilenamesToClipboard}.

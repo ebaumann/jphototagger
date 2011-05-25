@@ -3,7 +3,7 @@ package org.jphototagger.program.serviceprovider;
 import java.awt.Image;
 import java.io.File;
 import org.jphototagger.program.cache.ThumbnailCache;
-import org.jphototagger.services.ThumbnailProvider;
+import org.jphototagger.services.core.ThumbnailProvider;
 
 /**
  *

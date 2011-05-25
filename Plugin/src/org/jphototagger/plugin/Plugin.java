@@ -10,15 +10,25 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.ServiceLookup;
-import org.jphototagger.services.ProgressBarProvider;
+import org.jphototagger.services.core.ProgressBarProvider;
 
 /**
- * Base class for Plugins.
+ * Base class for Plugins processing selected files. JPhotoTagger presents the
+ * capability of this plugin to the user if files are selected and calls
+ * {@link #processFiles(List)}. Examples are transferring images to a web service
+ * or converting image files into other file formats.
  * <p>
- * <strong>Important notice:</strong> A plugin uses interfaces and Java Services. E.g.
- * if a suproject can deliver thumbnails, it implements a thumbnail provider, publish it
- * in the <code>META-INF.services</code> folder and the plugin asks for an
- * implementation of the thumbnail provider interface.
+ * For adding components (windows) and menu items to JPhotoTagger's GUI, implement
+ * a service defined in Project <strong>JPhotoTagger: Services</strong>, package
+ * {@code org.jphototagger.services.plugin}, see the JDK documentation for
+ * <a href="http://java.sun.com/j2se/1.4.2/docs/guide/jar/jar.html#Service%20Provider">Service Provider</a>.
+ * The project <strong>JPhotoTagger: Library</strong>'s class {@code ServiceLookup} has
+ * methods for getting one or all implementations of a specific service.
+ * <p>
+ * <strong>Important notice:</strong> A plugin shall use interfaces and Java Services.
+ *  E.g. if a subproject can deliver thumbnails, it implements a thumbnail provider, publish it
+ * in the <code>META-INF.services</code> folder and the plugin asks for an implementation of the
+ * thumbnail provider interface.
  *
  * @author Elmar Baumann
  */
