@@ -1,30 +1,31 @@
-package org.jphototagger.plugin;
+package org.jphototagger.services.plugin;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import java.util.Collections;
 
 /**
  *
  * @author Elmar Baumann
  */
-public class PluginEvent {
+public class FileProcessorPluginEvent {
 
     public enum Type {
 
-        STARTED,
-        FINISHED_SUCCESS,
-        FINISHED_ERRORS;
+        PROCESSING_STARTED,
+        PROCESSING_FINISHED_SUCCESS,
+        PROCESSING_FINISHED_ERRORS;
 
         public boolean isFinished() {
-            return this.equals(FINISHED_SUCCESS) || this.equals(FINISHED_ERRORS);
+            return this.equals(PROCESSING_FINISHED_SUCCESS) || this.equals(PROCESSING_FINISHED_ERRORS);
         }
     }
     private final Type type;
-    private final List<File> processedFiles = new ArrayList<File>();
-    private final List<File> changedFiles = new ArrayList<File>();
+    private final Collection<File> processedFiles = new ArrayList<File>();
+    private final Collection<File> changedFiles = new ArrayList<File>();
 
-    public PluginEvent(Type type) {
+    public FileProcessorPluginEvent(Type type) {
         if (type == null) {
             throw new NullPointerException("type == null");
         }
@@ -32,11 +33,11 @@ public class PluginEvent {
         this.type = type;
     }
 
-    public List<File> getChangedFiles() {
-        return new ArrayList<File>(changedFiles);
+    public Collection<? extends File> getChangedFiles() {
+        return Collections.unmodifiableCollection(changedFiles);
     }
 
-    public void setChangedFiles(List<File> changedFiles) {
+    public void setChangedFiles(Collection<? extends File> changedFiles) {
         if (changedFiles == null) {
             throw new NullPointerException("changedFiles == null");
         }
@@ -49,7 +50,7 @@ public class PluginEvent {
         return changedFiles.size() > 0;
     }
 
-    public void setProcessedFiles(List<File> processedFiles) {
+    public void setProcessedFiles(Collection<? extends File> processedFiles) {
         if (processedFiles == null) {
             throw new NullPointerException("processedFiles == null");
         }
@@ -58,8 +59,8 @@ public class PluginEvent {
         this.processedFiles.addAll(processedFiles);
     }
 
-    public List<File> getProcessedFiles() {
-        return new ArrayList<File>(processedFiles);
+    public Collection<? extends File> getProcessedFiles() {
+        return Collections.unmodifiableCollection(processedFiles);
     }
 
     public Type getType() {
@@ -67,15 +68,15 @@ public class PluginEvent {
     }
 
     public boolean isStarted() {
-        return type.equals(Type.STARTED);
+        return type.equals(Type.PROCESSING_STARTED);
     }
 
     public boolean isFinishedSuccessfully() {
-        return type.equals(Type.FINISHED_SUCCESS);
+        return type.equals(Type.PROCESSING_FINISHED_SUCCESS);
     }
 
     public boolean isFinishedWithErrors() {
-        return type.equals(Type.FINISHED_ERRORS);
+        return type.equals(Type.PROCESSING_FINISHED_ERRORS);
     }
 
     public boolean isFinished() {

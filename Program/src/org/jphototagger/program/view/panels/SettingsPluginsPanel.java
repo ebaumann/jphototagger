@@ -1,7 +1,6 @@
 package org.jphototagger.program.view.panels;
 
-import org.jphototagger.program.factory.PluginManager;
-import org.jphototagger.plugin.Plugin;
+import org.jphototagger.program.factory.FileProcessorPluginManager;
 import org.jphototagger.program.types.Persistence;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.lib.componentutil.ComponentUtil;
@@ -20,10 +19,13 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
+import org.jphototagger.program.factory.MainWindowComponentPluginManager;
+import org.jphototagger.program.factory.PluginManager;
 import org.jphototagger.program.resource.JptBundle;
+import org.jphototagger.services.plugin.Plugin;
 
 /**
- * Dynamically adds panels of plugins ({@link Plugin#getSettingsPanel()}).
+ * Dynamically adds panels of plugins ({@link AbstractFileProcessorPlugin#getSettingsComponent()}).
  *
  * @author Elmar Baumann
  */
@@ -38,33 +40,41 @@ public class SettingsPluginsPanel extends javax.swing.JPanel implements ChangeLi
     }
 
     private void postInitComponents() {
-        for (Plugin plugin : PluginManager.INSTANCE.getPlugins()) {
-            addPluginSettingsPanel(plugin);
-        }
-
-        for (Plugin plugin : PluginManager.INSTANCE.getAllPlugins()) {
-            addPluginCheckBox(plugin);
-        }
-
+        addPlugins(FileProcessorPluginManager.INSTANCE);
+        addPlugins(MainWindowComponentPluginManager.INSTANCE);
         panelExcludeCheckboxes.add(new JPanel(), getGbcAfterLastCheckBox());    // ensures checkboxes vertically top and not centered
         MnemonicUtil.setMnemonics((Container) this);
         setEnabledHelpButton();
         tabbedPane.addChangeListener(this);
     }
 
-    private void addPluginSettingsPanel(Plugin plugin) {
-        JPanel panel = plugin.getSettingsPanel();
+    private <T extends Plugin> void addPlugins(PluginManager<T> pluginManager) {
+        for (Plugin plugin : pluginManager.getEnabledPlugins()) {
+            addPluginSettingsComponent(plugin);
+        }
 
-        if (panel != null) {
-            helpContentsPathOfTab.put(panel, new Pair<String, String>(plugin.getHelpContentsPath(), plugin.getFirstHelpPageName()));
-            tabbedPane.add(plugin.getName(), panel);
+        for (T plugin : pluginManager.getAllPlugins()) {
+            addPluginEnableCheckBox(pluginManager, plugin);
         }
     }
 
-    private void addPluginCheckBox(Plugin plugin) {
-        JCheckBox checkBox = new JCheckBox(new ActionExcludePlugin(plugin));
+    private void addPluginSettingsComponent(Plugin plugin) {
+        Component component = plugin.getSettingsComponent();
 
-        checkBox.setSelected(!PluginManager.INSTANCE.isExcluded(plugin));
+        if (component != null) {
+            String helpContentsPath = plugin.getHelpContentsPath();
+            String firstHelpPageName = plugin.getFirstHelpPageName();
+
+            helpContentsPathOfTab.put(component, new Pair<String, String>(helpContentsPath, firstHelpPageName));
+            tabbedPane.add(plugin.getDisplayName(), component);
+        }
+    }
+
+    private <T extends Plugin> void addPluginEnableCheckBox(PluginManager<T> pluginManager, T plugin) {
+        ActionExcludePlugin<T> actionExcludePlugin = new ActionExcludePlugin<T>(pluginManager, plugin);
+        JCheckBox checkBox = new JCheckBox(actionExcludePlugin);
+
+        checkBox.setSelected(pluginManager.isEnabled(plugin));
         panelExcludeCheckboxes.add(checkBox, getGbcCheckBox());
     }
 
@@ -103,27 +113,24 @@ public class SettingsPluginsPanel extends javax.swing.JPanel implements ChangeLi
         UserSettings.INSTANCE.writeToFile();
     }
 
-    private static class ActionExcludePlugin extends AbstractAction {
+    private static class ActionExcludePlugin<T extends Plugin> extends AbstractAction {
         private static final long serialVersionUID = -7156530079287891717L;
-        private transient final Plugin plugin;
+        private transient final T plugin;
+        private transient final PluginManager<T> pluginManager;
 
-        ActionExcludePlugin(Plugin plugin) {
-            if (plugin == null) {
-                throw new NullPointerException("plugin == null");
-            }
-
+        ActionExcludePlugin(PluginManager<T> pluginManager, T plugin) {
+            this.pluginManager = pluginManager;
             this.plugin = plugin;
-            putValue(Action.NAME, plugin.getName());
+            putValue(Action.NAME, plugin.getDisplayName());
         }
 
         @Override
         public void actionPerformed(ActionEvent evt) {
             JCheckBox cb = (JCheckBox) evt.getSource();
 
-            PluginManager.INSTANCE.exclude(plugin, !cb.isSelected());
+            pluginManager.setEnabled(plugin, cb.isSelected());
         }
     }
-
 
     private void showHelp() {
         String helpContentsPath = helpContentsPathOfTab.get(tabbedPane.getSelectedComponent()).getFirst();
@@ -242,7 +249,6 @@ public class SettingsPluginsPanel extends javax.swing.JPanel implements ChangeLi
     private void buttonHelpPluginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHelpPluginActionPerformed
         showHelp();
     }//GEN-LAST:event_buttonHelpPluginActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupActionsAfterDatabaseInsertion;
     private javax.swing.JButton buttonHelpPlugin;

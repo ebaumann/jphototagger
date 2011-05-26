@@ -2,14 +2,13 @@ package org.jphototagger.program.view.popupmenus;
 
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.image.util.IconUtil;
-import org.jphototagger.plugin.Plugin;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.controller.metadata.ControllerExportGPSToKML;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.database.DatabasePrograms.Type;
 import org.jphototagger.program.event.listener.DatabaseProgramsListener;
-import org.jphototagger.program.factory.PluginManager;
+import org.jphototagger.program.factory.FileProcessorPluginManager;
 import org.jphototagger.program.helper.ActionsHelper;
 import org.jphototagger.program.resource.JptBundle;
 import java.awt.event.ActionListener;
@@ -27,6 +26,7 @@ import javax.swing.JPopupMenu.Separator;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.controller.plugin.PluginAction;
 import org.jphototagger.program.controller.programs.ControllerAddProgram;
+import org.jphototagger.services.plugin.FileProcessorPlugin;
 
 /**
  * Popup menu of the thumbnails panel.
@@ -84,7 +84,7 @@ public final class PopupMenuThumbnails extends JPopupMenu implements DatabasePro
     private final List<ActionListener> actionListenersOpenFilesWithOtherApp = new ArrayList<ActionListener>();
     private final Map<JMenuItem, Program> programOfMenuItem = new HashMap<JMenuItem, Program>();
     private final Map<JMenuItem, Long> RATING_OF_ITEM = new HashMap<JMenuItem, Long>();
-    private final Map<JMenuItem, Plugin> PLUGIN_OF_ITEM = new HashMap<JMenuItem, Plugin>();
+    private final Map<JMenuItem, FileProcessorPlugin> FILE_PROCESSOR_PLUGIN_OF_ITEM = new HashMap<JMenuItem, FileProcessorPlugin>();
     private final Map<JMenuItem, Action> ACTION_OF_ITEM = new HashMap<JMenuItem, Action>();
 
     private PopupMenuThumbnails() {
@@ -155,23 +155,23 @@ public final class PopupMenuThumbnails extends JPopupMenu implements DatabasePro
     }
 
     private void addPluginItems() {
-        if (!PluginManager.INSTANCE.hasPlugins()) {
+        if (!FileProcessorPluginManager.INSTANCE.hasEnabledPlugins()) {
             return;
         }
 
         add(menuPlugins);
 
-        for (Plugin plugin : PluginManager.INSTANCE.getPlugins()) {
+        for (FileProcessorPlugin plugin : FileProcessorPluginManager.INSTANCE.getEnabledPlugins()) {
             addItemsOf(plugin);
         }
     }
 
-    private void addItemsOf(Plugin plugin) {
-        PluginAction pluginAction = new PluginAction(plugin);
+    private void addItemsOf(FileProcessorPlugin plugin) {
+        PluginAction<FileProcessorPlugin> pluginAction = new PluginAction<FileProcessorPlugin>(plugin);
         JMenuItem pluginItem = new JMenuItem(pluginAction);
 
         ACTION_OF_ITEM.put(pluginItem, pluginAction);
-        PLUGIN_OF_ITEM.put(pluginItem, plugin);
+        FILE_PROCESSOR_PLUGIN_OF_ITEM.put(pluginItem, plugin);
 
         menuPlugins.add(pluginItem);
     }
@@ -419,12 +419,12 @@ public final class PopupMenuThumbnails extends JPopupMenu implements DatabasePro
         return RATING_OF_ITEM.get(item);
     }
 
-    public Set<JMenuItem> getPluginMenuItems() {
-        return PLUGIN_OF_ITEM.keySet();
+    public Set<JMenuItem> getFileProcessorPluginMenuItems() {
+        return FILE_PROCESSOR_PLUGIN_OF_ITEM.keySet();
     }
 
-    public Plugin getPluginOfItem(JMenuItem item) {
-        return PLUGIN_OF_ITEM.get(item);
+    public FileProcessorPlugin getFileProcessorPluginOfItem(JMenuItem item) {
+        return FILE_PROCESSOR_PLUGIN_OF_ITEM.get(item);
     }
 
     public synchronized void addActionListenerOpenFilesWithOtherApp(ActionListener listener) {

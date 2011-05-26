@@ -1,14 +1,15 @@
 package org.jphototagger.plugin.cftc;
 
+import java.awt.Component;
 import org.jphototagger.lib.resource.Bundle;
-import org.jphototagger.plugin.Plugin;
-import org.jphototagger.plugin.PluginEvent;
+import org.jphototagger.plugin.AbstractFileProcessorPlugin;
+import org.jphototagger.services.plugin.FileProcessorPluginEvent;
 import java.awt.datatransfer.StringSelection;
 import java.awt.Toolkit;
 import java.io.File;
 import java.io.Serializable;
-import java.util.List;
-import javax.swing.JPanel;
+import java.util.Collection;
+import javax.swing.Icon;
 import org.jphototagger.lib.util.ServiceLookup;
 import org.jphototagger.services.core.Storage;
 
@@ -17,7 +18,7 @@ import org.jphototagger.services.core.Storage;
  *
  * @author Elmar Baumann
  */
-public final class CopyFilenamesToClipboard extends Plugin implements Serializable {
+public final class CopyFilenamesToClipboard extends AbstractFileProcessorPlugin implements Serializable {
 
     private static final long serialVersionUID = 526527636923496736L;
     public static final String KEY_FILENAME_DELIMITER = CopyFilenamesToClipboard.class.getName() + ".KeyDelimiter";
@@ -26,7 +27,7 @@ public final class CopyFilenamesToClipboard extends Plugin implements Serializab
     private static final transient Bundle BUNDLE = new Bundle("org/jphototagger/plugin/cftc/Bundle");
 
     @Override
-    public String getName() {
+    public String getDisplayName() {
         return BUNDLE.getString("CopyFilenamesToClipboard.Name");
     }
 
@@ -36,7 +37,7 @@ public final class CopyFilenamesToClipboard extends Plugin implements Serializab
     }
 
     @Override
-    public JPanel getSettingsPanel() {
+    public Component getSettingsComponent() {
         return new SettingsPanel();
     }
 
@@ -50,9 +51,13 @@ public final class CopyFilenamesToClipboard extends Plugin implements Serializab
         return "index.html";
     }
 
+    public Icon getIcon() {
+        return null;
+    }
+
     @Override
-    public void processFiles(List<File> files) {
-        notifyPluginListeners(new PluginEvent(PluginEvent.Type.STARTED));
+    public void processFiles(Collection<? extends File> files) {
+        notifyFileProcessorPluginListeners(new FileProcessorPluginEvent(FileProcessorPluginEvent.Type.PROCESSING_STARTED));
         setDelimiter();
 
         StringBuilder sb = new StringBuilder();
@@ -69,11 +74,11 @@ public final class CopyFilenamesToClipboard extends Plugin implements Serializab
         notifyFinished(files);
     }
 
-    private void notifyFinished(List<File> files) {
-        PluginEvent evt = new PluginEvent(PluginEvent.Type.FINISHED_SUCCESS);
+    private void notifyFinished(Collection<? extends File>files) {
+        FileProcessorPluginEvent evt = new FileProcessorPluginEvent(FileProcessorPluginEvent.Type.PROCESSING_FINISHED_SUCCESS);
 
         evt.setProcessedFiles(files);
-        notifyPluginListeners(evt);
+        notifyFileProcessorPluginListeners(evt);
     }
 
     private void setDelimiter() {

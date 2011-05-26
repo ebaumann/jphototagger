@@ -3,26 +3,27 @@ package org.jphototagger.plugin.flickrupload;
 import com.adobe.xmp.properties.XMPPropertyInfo;
 import com.aetrion.flickr.uploader.Uploader;
 import com.aetrion.flickr.uploader.UploadMetaData;
+import java.awt.Component;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.xmp.Xmp;
 import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.image.util.ImageUtil;
 import org.jphototagger.plugin.flickrupload.FlickrImageInfoPanel.ImageInfo;
-import org.jphototagger.plugin.Plugin;
-import org.jphototagger.plugin.PluginEvent;
+import org.jphototagger.plugin.AbstractFileProcessorPlugin;
+import org.jphototagger.services.plugin.FileProcessorPluginEvent;
 import java.awt.HeadlessException;
 import java.awt.Image;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import org.jphototagger.lib.io.IoUtil;
 import org.jphototagger.lib.util.ServiceLookup;
 import org.jphototagger.services.core.ThumbnailProvider;
@@ -32,14 +33,14 @@ import org.jphototagger.services.core.ThumbnailProvider;
  *
  * @author Elmar Baumann
  */
-public final class FlickrUpload extends Plugin implements Serializable {
+public final class FlickrUpload extends AbstractFileProcessorPlugin implements Serializable {
 
     private static final long serialVersionUID = -2935460271965834936L;
     private static final Icon icon = IconUtil.getImageIcon("/org/jphototagger/plugin/flickrupload/flickr.png");
     private static final String PROGRESS_BAR_STRING = FlickrBundle.INSTANCE.getString("FlickrUpload.ProgressBar.String");
 
     @Override
-    public String getName() {
+    public String getDisplayName() {
         return FlickrBundle.INSTANCE.getString("FlickrUpload.Name");
     }
 
@@ -49,7 +50,7 @@ public final class FlickrUpload extends Plugin implements Serializable {
     }
 
     @Override
-    public JPanel getSettingsPanel() {
+    public Component getSettingsComponent() {
         return new SettingsPanel();
     }
 
@@ -69,15 +70,15 @@ public final class FlickrUpload extends Plugin implements Serializable {
     }
 
     @Override
-    public void processFiles(List<File> files) {
+    public void processFiles(Collection<? extends File> files) {
         new Upload(files).start();
     }
 
     private class Upload extends Thread {
 
-        private final List<File> files;
+        private final Collection<? extends File> files;
 
-        Upload(List<File> files) {
+        Upload(Collection<? extends File> files) {
             this.files = new ArrayList<File>(files);
             setName("Uploading images to Flickr  @ " + FlickrUpload.class.getSimpleName());
         }
@@ -105,7 +106,7 @@ public final class FlickrUpload extends Plugin implements Serializable {
             boolean success = true;
             List<File> processedFiles = new ArrayList<File>(size);
 
-            notifyPluginListeners(new PluginEvent(PluginEvent.Type.STARTED));
+            notifyFileProcessorPluginListeners(new FileProcessorPluginEvent(FileProcessorPluginEvent.Type.PROCESSING_STARTED));
             progressStarted(0, size, 0, PROGRESS_BAR_STRING);
 
             File imageFile = null;
@@ -149,12 +150,12 @@ public final class FlickrUpload extends Plugin implements Serializable {
         }
 
         private void notifyFinished(List<File> processedFiles, boolean success) {
-            PluginEvent evt = new PluginEvent(success
-                    ? PluginEvent.Type.FINISHED_SUCCESS
-                    : PluginEvent.Type.FINISHED_ERRORS);
+            FileProcessorPluginEvent evt = new FileProcessorPluginEvent(success
+                    ? FileProcessorPluginEvent.Type.PROCESSING_FINISHED_SUCCESS
+                    : FileProcessorPluginEvent.Type.PROCESSING_FINISHED_ERRORS);
 
             evt.setProcessedFiles(processedFiles);
-            notifyPluginListeners(evt);
+            notifyFileProcessorPluginListeners(evt);
         }
 
         private UploadMetaData getUploadMetaData(ImageInfo imageInfo) {

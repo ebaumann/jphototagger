@@ -44,6 +44,7 @@ import org.jphototagger.lib.util.ServiceLookup;
 import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.program.controller.actions.EditUserDefinedFileTypesAction;
 import org.jphototagger.program.controller.actions.ShowActionDialogAction;
+import org.jphototagger.program.factory.MainWindowComponentPluginManager;
 import org.jphototagger.services.plugin.EditMenuActionProvider;
 import org.jphototagger.services.plugin.FileMenuActionProvider;
 import org.jphototagger.services.plugin.MenuActionProvider;
@@ -123,7 +124,7 @@ public final class AppFrame extends javax.swing.JFrame {
         IMAGE_COLLECTIONS,
         IPTC_METADATA,
         KEYWORDS_SEL,
-        MISC_METADATA, 
+        MISC_METADATA,
         SAVED_SEARCHES,
         THUMBNAILS_PANEL,
         TIMELINE,
@@ -168,10 +169,12 @@ public final class AppFrame extends javax.swing.JFrame {
         }
 
         for (MenuActionProvider menuActionProvider : menuActionProviders) {
-            Action menuAction = menuActionProvider.getMenuAction();
+            if (MainWindowComponentPluginManager.INSTANCE.isEnabled(menuActionProvider.getPlugin())) {
+                Action menuAction = menuActionProvider.getMenuAction();
 
-            if (checkPluginMenuActionHasName(menuActionProvider, menuAction)) {
-                menu.add(menuAction);
+                if (checkPluginMenuActionHasName(menuActionProvider, menuAction)) {
+                    menu.add(menuAction);
+                }
             }
         }
     }
