@@ -1,8 +1,7 @@
 package org.jphototagger.program.controller.plugin;
 
-import org.jphototagger.plugin.Plugin;
-import org.jphototagger.plugin.PluginEvent;
-import org.jphototagger.plugin.PluginListener;
+import org.jphototagger.services.plugin.FileProcessorPluginEvent;
+import org.jphototagger.services.plugin.FileProcessorPluginListener;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
 import java.awt.event.ActionEvent;
@@ -11,6 +10,8 @@ import java.io.File;
 import java.util.List;
 import javax.swing.Action;
 import javax.swing.JMenuItem;
+import org.jphototagger.services.plugin.FileProcessorPlugin;
+import org.jphototagger.services.plugin.Plugin;
 
 /**
  * Listens to items of {@link PopupMenuThumbnails#getMenuPlugins()} and sets
@@ -18,20 +19,20 @@ import javax.swing.JMenuItem;
  *
  * @author Elmar Baumann
  */
-public final class ControllerPlugins implements ActionListener {
+public final class ControllerFileProcessorPlugins implements ActionListener {
 
-    public ControllerPlugins() {
+    public ControllerFileProcessorPlugins() {
         listen();
     }
 
     private void listen() {
-        for (JMenuItem item : PopupMenuThumbnails.INSTANCE.getPluginMenuItems()) {
+        for (JMenuItem item : PopupMenuThumbnails.INSTANCE.getFileProcessorPluginMenuItems()) {
             item.addActionListener(this);
 
-            Plugin plugin = PopupMenuThumbnails.INSTANCE.getPluginOfItem(item);
+            FileProcessorPlugin plugin = PopupMenuThumbnails.INSTANCE.getFileProcessorPluginOfItem(item);
             Listener pluginListener = new Listener();
 
-            plugin.addPluginListener(pluginListener);
+            plugin.addFileProcessorPluginListener(pluginListener);
         }
     }
 
@@ -45,21 +46,25 @@ public final class ControllerPlugins implements ActionListener {
             Action action = PopupMenuThumbnails.INSTANCE.getActionOfItem(item);
 
             if (action instanceof PluginAction) {
-                PluginAction pluginAction = (PluginAction) action;
+                PluginAction<?> pluginAction = (PluginAction<?>) action;
                 Plugin plugin = pluginAction.getPlugin();
 
-                plugin.processFiles(selFiles);
+                if (plugin instanceof FileProcessorPlugin) {
+                    FileProcessorPlugin fileProcessorPlugin = (FileProcessorPlugin) plugin;
+
+                    fileProcessorPlugin.processFiles(selFiles);
+                }
             }
         }
     }
 
-    private static class Listener implements PluginListener {
+    private static class Listener implements FileProcessorPluginListener {
 
         Listener() {
         }
 
         @Override
-        public void action(PluginEvent evt) {
+        public void action(FileProcessorPluginEvent evt) {
             if (evt == null) {
                 throw new NullPointerException("evt == null");
             }

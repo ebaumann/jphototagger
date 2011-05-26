@@ -74,7 +74,7 @@ import org.jphototagger.program.controller.misc.ControllerItemsMutualExcludeSele
 import org.jphototagger.program.controller.misc.ControllerLogfileDialog;
 import org.jphototagger.program.controller.misc.ControllerMaintainDatabase;
 import org.jphototagger.program.controller.misc.ControllerMenuItemEnabler;
-import org.jphototagger.program.controller.plugin.ControllerPlugins;
+import org.jphototagger.program.controller.plugin.ControllerFileProcessorPlugins;
 import org.jphototagger.program.controller.misc.ControllerShowSynonymsDialog;
 import org.jphototagger.program.controller.misc.ControllerShowSystemOutput;
 import org.jphototagger.program.controller.misc.ControllerShowUserSettingsDialog;
@@ -337,7 +337,7 @@ public final class ControllerFactory {
     }
 
     private void addMiscControllers() {
-        support.add(new ControllerPlugins());
+        support.add(new ControllerFileProcessorPlugins());
     }
 
     private void addSizeAndLocationController() {

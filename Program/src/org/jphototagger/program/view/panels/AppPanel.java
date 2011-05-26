@@ -53,6 +53,7 @@ import org.jphototagger.program.controller.actions.TreeExpandCollapseAllAction;
 import org.jphototagger.program.datatransfer.TransferHandlerKeywordsList;
 import org.jphototagger.program.datatransfer.TransferHandlerKeywordsTree;
 import org.jphototagger.program.datatransfer.TransferHandlerMiscMetadataTree;
+import org.jphototagger.program.factory.MainWindowComponentPluginManager;
 import org.jphototagger.program.helper.ListTextFilter;
 import org.jphototagger.program.helper.TableTextFilter;
 import org.jphototagger.program.model.ListModelWait;
@@ -122,16 +123,18 @@ public final class AppPanel extends javax.swing.JPanel {
         Collections.sort(componentProviders, PositionComparator.INSTANCE);
 
         for (ComponentProvider componentProvider : componentProviders) {
-            Component component = componentProvider.getComponent();
-            String displayName = componentProvider.getDisplayName();
+            if (MainWindowComponentPluginManager.INSTANCE.isEnabled(componentProvider.getPlugin())) {
+                Component component = componentProvider.getComponent();
+                String displayName = componentProvider.getDisplayName();
 
-            if (checkDisplaynameOfPlugin(componentProvider, component, displayName)) {
-                tabbedPane.add(component);
+                if (checkDisplaynameOfPlugin(componentProvider, component, displayName)) {
+                    tabbedPane.add(component);
 
-                int componentIndex = tabbedPane.indexOfComponent(component);
+                    int componentIndex = tabbedPane.indexOfComponent(component);
 
-                if (componentIndex >= 0) {
-                    tabbedPane.setTitleAt(componentIndex, displayName);
+                    if (componentIndex >= 0) {
+                        tabbedPane.setTitleAt(componentIndex, displayName);
+                    }
                 }
             }
         }

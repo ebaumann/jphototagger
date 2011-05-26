@@ -21,4 +21,10 @@ public interface ComponentProvider extends PositionProvider {
      * @return <em>Short</em> name
      */
     String getDisplayName();
+
+    /**
+     *
+     * @return Plugin which provides the component
+     */
+    MainWindowComponentPlugin getPlugin();
 }

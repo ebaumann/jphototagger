@@ -3,30 +3,31 @@ package org.jphototagger.program.controller.plugin;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
-import org.jphototagger.plugin.Plugin;
+import org.jphototagger.services.plugin.Plugin;
 
 /**
  *
  *
+ * @param <T> Type of plugin
  * @author Elmar Baumann
  */
-public final class PluginAction extends AbstractAction {
+public final class PluginAction<T extends Plugin> extends AbstractAction {
 
     private static final long serialVersionUID = 1L;
-    private final Plugin plugin;
+    private final T plugin;
 
-    public PluginAction(Plugin plugin) {
+    public PluginAction(T plugin) {
         if (plugin == null) {
             throw new NullPointerException("plugin == null");
         }
 
         this.plugin = plugin;
 
-        putValue(Action.NAME, plugin.getName());
+        putValue(Action.NAME, plugin.getDisplayName());
         putValue(Action.SMALL_ICON, plugin.getIcon());
     }
 
-    public Plugin getPlugin() {
+    public T getPlugin() {
         return plugin;
     }
 

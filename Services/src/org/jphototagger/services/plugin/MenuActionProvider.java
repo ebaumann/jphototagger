@@ -21,4 +21,10 @@ import javax.swing.Action;
 public interface MenuActionProvider extends PositionProvider {
 
     Action getMenuAction();
+
+    /**
+     *
+     * @return Plugin which provides thr action
+     */
+    MainWindowComponentPlugin getPlugin();
 }
