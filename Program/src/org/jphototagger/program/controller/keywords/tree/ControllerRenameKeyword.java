@@ -1,5 +1,6 @@
 package org.jphototagger.program.controller.keywords.tree;
 
+import java.util.Properties;
 import org.jphototagger.lib.dialog.InputDialog;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.data.Keyword;
@@ -15,9 +16,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.List;
-import javax.swing.JTree;
+import javax.swing.JDialog;
 import javax.swing.tree.DefaultMutableTreeNode;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.util.StringUtil;
 
 /**
  * Listens to the menu item {@link PopupMenuKeywordsTree#getItemRename()}
@@ -29,6 +31,7 @@ import org.jphototagger.lib.awt.EventQueueUtil;
  * @author Elmar Baumann
  */
 public class ControllerRenameKeyword extends ControllerKeywords implements ActionListener, KeyListener {
+
     public ControllerRenameKeyword(KeywordsPanel _panel) {
         super(_panel);
     }
@@ -60,10 +63,11 @@ public class ControllerRenameKeyword extends ControllerKeywords implements Actio
     }
 
     private void renameKeyword(final DefaultMutableTreeNode node, final Keyword keyword) {
-        final String newName = getName(keyword, DatabaseKeywords.INSTANCE, getHKPanel().getTree());
+        final String newName = getName(keyword);
 
-        if ((newName != null) &&!newName.trim().isEmpty()) {
+        if ((newName != null) && !newName.trim().isEmpty()) {
             EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
                 @Override
                 public void run() {
                     rename(node, keyword, newName);
@@ -73,36 +77,65 @@ public class ControllerRenameKeyword extends ControllerKeywords implements Actio
     }
 
     private void rename(DefaultMutableTreeNode node, Keyword keyword, String toName) {
-        TreeModelKeywords model = ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
+        TreeModelKeywords keywordsTreeModel = ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
 
         keyword.setName(toName);
-        model.changed(node, keyword);
+        keywordsTreeModel.changed(node, keyword);
     }
 
-    static String getName(Keyword keyword, DatabaseKeywords database, JTree tree) {
+    static String getName(Keyword keyword) {
         String toName = null;
         String fromName = keyword.getName();
+        InputDialog inputDialog = createInputDialog(fromName);
         boolean input = true;
-        InputDialog dlg = new InputDialog(InputHelperDialog.INSTANCE,
-                                          JptBundle.INSTANCE.getString("ControllerRenameKeyword.Input.Name", fromName),
-                                          fromName, UserSettings.INSTANCE.getProperties(),
-                                          ControllerRenameKeyword.class.getName());
 
-        while (input && (toName == null)) {
-            dlg.setVisible(true);
-            toName = dlg.getInput();
-            input = false;
+        while (input) {
+            inputDialog.setVisible(true);
 
-            if (dlg.isAccepted() && (toName != null) &&!toName.trim().isEmpty()) {
-                Keyword s = new Keyword(keyword.getId(), keyword.getIdParent(), toName.trim(), keyword.isReal());
+            if (!inputDialog.isAccepted()) {
+                return null;
+            }
 
-                if (database.hasParentChildWithEqualName(s)) {
-                    toName = null;
-                    input = MessageDisplayer.confirmYesNo(null, "ControllerRenameKeyword.Confirm.Exists", s);
-                }
+            toName = inputDialog.getInput();
+
+            if (!StringUtil.hasContent(toName)) {
+                return null;
+            }
+
+            toName = toName.trim();
+
+            if (toName.equals(fromName)) {
+                return null;
+            }
+
+            Keyword newKeyword = createKeywordFromExistingKeyword(keyword, toName);
+
+            if (DatabaseKeywords.INSTANCE.hasParentChildWithEqualName(newKeyword)) {
+                toName = null;
+                input = MessageDisplayer.confirmYesNo(null, "ControllerRenameKeyword.Confirm.Exists", newKeyword);
+            } else {
+                return toName;
             }
         }
 
         return toName;
+    }
+
+    private static InputDialog createInputDialog(String input) {
+        JDialog owner = InputHelperDialog.INSTANCE;
+        String info = JptBundle.INSTANCE.getString("ControllerRenameKeyword.Input.Name", input);
+        Properties properties = UserSettings.INSTANCE.getProperties();
+        String propertyKey = ControllerRenameKeyword.class.getName();
+
+        return new InputDialog(owner, info, input, properties, propertyKey);
+    }
+
+    private static Keyword createKeywordFromExistingKeyword(Keyword keyword, String newName) {
+        Long keywordId = keyword.getId();
+        Long parentKeywordId = keyword.getIdParent();
+        String newKeywordName = newName.trim();
+        Boolean isReal = keyword.isReal();
+
+        return new Keyword(keywordId, parentKeywordId, newKeywordName, isReal);
     }
 }
