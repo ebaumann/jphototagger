@@ -3,6 +3,13 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.8.84 2011-06-25
+-----------------
+
+* Bugfix: Stichwortbaum im Anwendungsfenster rechts: Umbenennen
+  (F2) abbrechen führt nichts durch (Vorher: Stichwort wurde
+  umbenannt)
+
 0.8.83 2011-05-23
 -----------------
 

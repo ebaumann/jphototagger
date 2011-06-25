@@ -1,5 +1,6 @@
 package org.jphototagger.program.controller.keywords.tree;
 
+import java.util.Properties;
 import org.jphototagger.lib.dialog.InputDialog;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.app.MessageDisplayer;
@@ -16,9 +17,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.List;
+import javax.swing.JDialog;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.util.StringUtil;
 
 /**
  * Listens to the menu item {@link PopupMenuKeywordsTree#getItemAdd()}
@@ -30,6 +33,7 @@ import org.jphototagger.lib.awt.EventQueueUtil;
  * @author Elmar Baumann
  */
 public class ControllerAddKeyword extends ControllerKeywords implements ActionListener, KeyListener {
+
     public ControllerAddKeyword(KeywordsPanel panel) {
         super(panel);
     }
@@ -51,6 +55,7 @@ public class ControllerAddKeyword extends ControllerKeywords implements ActionLi
     @Override
     protected void localAction(final List<DefaultMutableTreeNode> nodes) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 addKeyword(nodes.get(0));
@@ -59,55 +64,93 @@ public class ControllerAddKeyword extends ControllerKeywords implements ActionLi
     }
 
     private boolean isRootNode(Object node) {
-        return ModelFactory.INSTANCE.getModel(TreeModelKeywords.class).getRoot().equals(node);
+        TreeModelKeywords keywordsTreeModel = ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
+        Object rootNode = keywordsTreeModel.getRoot();
+
+        return rootNode.equals(node);
     }
 
     private void addKeyword(DefaultMutableTreeNode node) {
         Object userObject = node.getUserObject();
 
         if (userObject instanceof Keyword) {
-            add(node, (Keyword) userObject);
+            addKeywordToParentNode(node, (Keyword) userObject);
         } else if (isRootNode(node)) {
-            add(node, null);
+            addKeywordToParentNode(node, null);
         }
     }
 
-    private void add(DefaultMutableTreeNode parentNode, Keyword parentKeyword) {
-        Keyword newKeyword = new Keyword(null, (parentKeyword == null)
-                ? null
-                : parentKeyword.getId(), "", true);
-        JTree tree = getHKPanel().getTree();
-        String name = getName(newKeyword, tree);
+    private void addKeywordToParentNode(DefaultMutableTreeNode parentNode, Keyword parentKeyword) {
+        Keyword newKeyword = createChildKeywordForParentKeyword(parentKeyword);
+        String keywordName = getName(newKeyword);
 
-        if ((name != null) &&!name.trim().isEmpty()) {
-            ModelFactory.INSTANCE.getModel(TreeModelKeywords.class).insert(parentNode, name, true, true);
-            KeywordsTreePathExpander.expand(getHKPanel().getTree(), parentNode);
+        if ((keywordName != null) && !keywordName.trim().isEmpty()) {
+            TreeModelKeywords keywordsTreeModel = ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
+            JTree keywordsTree = getHKPanel().getTree();
+            boolean isReal = true;
+            boolean errorMessageIfExists = true;
+
+            keywordsTreeModel.insert(parentNode, keywordName, isReal, errorMessageIfExists);
+            KeywordsTreePathExpander.expand(keywordsTree, parentNode);
         }
     }
 
-    static String getName(Keyword keyword, JTree tree) {
+    private Keyword createChildKeywordForParentKeyword(Keyword parentKeyword) {
+        Long parentKeywordId = parentKeyword == null ? null : parentKeyword.getId();
+        Long childKeywordId = null;
+        String keywordName = "";
+        boolean isReal = true;
+
+        return new Keyword(childKeywordId, parentKeywordId, keywordName, isReal);
+    }
+
+    static String getName(Keyword keyword) {
         String newName = null;
+        InputDialog inputDialog = createInputDialog();
         boolean input = true;
-        DatabaseKeywords db = DatabaseKeywords.INSTANCE;
-        InputDialog dlg = new InputDialog(InputHelperDialog.INSTANCE,
-                                          JptBundle.INSTANCE.getString("ControllerAddKeyword.Input.Name"), "",
-                                          UserSettings.INSTANCE.getProperties(), ControllerAddKeyword.class.getName());
 
-        while (input && (newName == null)) {
-            dlg.setVisible(true);
-            newName = dlg.getInput();
-            input = false;
+        while (input) {
+            inputDialog.setVisible(true);
 
-            if (dlg.isAccepted() && (newName != null) &&!newName.trim().isEmpty()) {
-                Keyword s = new Keyword(keyword.getId(), keyword.getIdParent(), newName.trim(), keyword.isReal());
+            if (!inputDialog.isAccepted()) {
+                return null;
+            }
 
-                if (db.hasParentChildWithEqualName(s)) {
-                    newName = null;
-                    input = MessageDisplayer.confirmYesNo(null, "ControllerAddKeyword.Confirm.Exists", s);
-                }
+            newName = inputDialog.getInput();
+
+            if (!StringUtil.hasContent(newName)) {
+                return null;
+            }
+
+            Keyword newKeyword = createKeywordFromExistingKeyword(keyword, newName);
+
+            if (DatabaseKeywords.INSTANCE.hasParentChildWithEqualName(newKeyword)) {
+                newName = null;
+                input = MessageDisplayer.confirmYesNo(null, "ControllerAddKeyword.Confirm.Exists", newKeyword);
+            } else {
+                return newName;
             }
         }
 
         return newName;
+    }
+
+    private static InputDialog createInputDialog() {
+        JDialog owner = InputHelperDialog.INSTANCE;
+        String info = JptBundle.INSTANCE.getString("ControllerAddKeyword.Input.Name");
+        String input = "";
+        Properties properties = UserSettings.INSTANCE.getProperties();
+        String propertyKey = ControllerAddKeyword.class.getName();
+
+        return new InputDialog(owner, info, input, properties, propertyKey);
+    }
+
+    private static Keyword createKeywordFromExistingKeyword(Keyword keyword, String newName) {
+        Long keywordId = keyword.getId();
+        Long parentKeywordId = keyword.getIdParent();
+        String newKeywordName = newName.trim();
+        Boolean isReal = keyword.isReal();
+
+        return new Keyword(keywordId, parentKeywordId, newKeywordName, isReal);
     }
 }
