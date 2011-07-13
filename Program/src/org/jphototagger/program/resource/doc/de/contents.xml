@@ -33,6 +33,10 @@
         <url>issues.html</url>
         <title>Wie melde ich Fehler und Wünsche?</title>
     </page>
+    <page>
+        <url>multiuser.html</url>
+        <title>JPhotoTagger auf mehreren Rechnern mit mehreren Benutzern für die gleichen Bilder benutzen</title>
+   </page>
     <node>
         <title>Schnell arbeiten (Zeit sparen)</title>
         <page>
