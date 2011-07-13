@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+    <head>
+        <title>JPhotoTagger auf mehreren Rechnern mit mehreren Benutzern für die gleichen Bilder benutzen</title>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+
+        <h1>JPhotoTagger auf mehreren Rechnern mit mehreren Benutzern
+            für die gleichen Bilder benutzen
+        </h1>
+
+        <p>Szenario: Die Bilder einer Familie oder eines Unternehmens sind in
+            einem Netzwerk auf einem Server oder NAS (Network Attached Storage)
+            gespeichert und sollen von mehreren Rechnern aus gemeinsam benutzt
+            werden. Dazu sind die (entfernten) Speicherorte in das (lokale)
+            Dateisystem der unterschiedlichen Rechner integriert, beispielsweise
+            als "Netzlaufwerk".
+        </p>
+
+        <p><strong>JPhotoTagger</strong> schreibt die Metadaten wie Stichwörter,
+            Bildtitel und Bildbeschreibungen in XMP-Filialdateien in das gleiche
+            Verzeichnis wie die Bilddateien. EXIF-Daten wie die Kamera und
+            Aufnahmezeit stehen ("ohnehin") in den Bildern. Sobald
+            <strong>JPhotoTagger</strong> ein Bildverzeichnis eingelesen hat,
+            kennt es die Stichwörter etc. Ändert ein Benutzer z.B. ein Stichwort
+            oder fügt eines hinzu, erkennt <strong>JPhotoTagger</strong> anhand
+            eines neuen Datums der XMP-Filildatei die Änderung und aktualisiert
+            seine Datenbank. Tipp: Unter <strong>Bearbeiten &gt; Einstellungen
+                &gt; Automatisieren</strong> lassen sich Ordner automatisch einlesen.
+            Salopp ausgedrückt, sind die Daten in den XMP-Filialdateien
+            "Masterdaten", die Datenbank ist ein Cache zum (schnellen) Auffinden
+            der Bilder.
+        </p>
+
+        <p>Deshalb ist es kein Problem, <strong>JPhotoTagger</strong> auf
+            unterschiedlichen Rechnern und Betriebssystemen für die gleichen
+            Bilder einzusetzen. Ein Benutzer kann über seinen Rechner den
+            Bildern Stichwörter und andere Metadaten zuweisen. Sobald ein
+            anderer oder der gleiche Benutzer das Bildverzeichnis auf einem
+            anderen Rechner auswählt, ergänzt <strong>JPhotoTagger</strong>
+            (automatisch) seine rechnerlokale Datenbank mit den Stichwörtern
+            (siehe Tipp oben: Änderungen aufzufinden, lässt sich automatisieren).
+        </p>
+
+        <p>Es ist zu empfehlen, dass jeder Benutzer seine eigene
+            <strong>JPhotoTagger</strong>-Datenbank hat; dies ist
+            gewährleistet, außer der Benutzer ändert den Ort der Datenbank
+            über die Einstellungen (<strong>Bearbeiten &gt; Einstellungen
+                &gt; Sonstiges: Datenbankordner</strong>): Die gleiche
+            Datenbank darf zur gleichen Zeit <em>nicht</em> zweimal oder
+            häufiger geöffnet sein (<strong>JPhotoTagger</strong> zeigt in
+            diesem Fall während des Starts eine Warnung an)! Die Stichwörter
+            werden (ohnehin) aus den XMP-Filialdateien bezogen. So ist es
+            auch möglich, dass Bilder auf Netzlaufwerken sind und diese unter
+            verschiedenen Namen (Laufwerksbuchstaben) auf verschiedenen
+            Rechnern und Betriebssystemen angesprochen werden. Andere
+            Betriebssysteme haben
+            ("ohnehin") andere Strategien, Ordner zu benennen, beispielsweise
+            sind "Laufwerksbuchstaben" eine Windows-Eigenheit und ein
+            Ordnerpfad hat under Windows Backslashes (\) und unter
+            Unix-Systemen Slashes (/).
+        </p>
+
+        <p>Wichtig ist, dass mehrere Benutzer <em>nicht</em> <strong>zur
+                gleichen Zeit im gleichen Ordner</strong> Bildern Metdaten
+            zuweisen (Stichwörter eingeben, Bildbeschreibungen ändern etc.).
+            Was dann geschieht, ist undefiniert, z.B. könnte dabei ein Benutzer
+            die Metadaten-Änderungen eines anderen überschreiben, im schlimmsten
+            Fall ist die XMP-Filialdatei anschließend ungültig.
+        </p>
+
+    </body>
+</html>
