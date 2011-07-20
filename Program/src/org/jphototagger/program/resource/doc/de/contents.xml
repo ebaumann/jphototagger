@@ -33,10 +33,6 @@
         <url>issues.html</url>
         <title>Wie melde ich Fehler und Wünsche?</title>
     </page>
-    <page>
-        <url>multiuser.html</url>
-        <title>JPhotoTagger auf mehreren Rechnern mit mehreren Benutzern für die gleichen Bilder benutzen</title>
-   </page>
     <node>
         <title>Schnell arbeiten (Zeit sparen)</title>
         <page>
@@ -387,6 +383,21 @@
         <url>commandline.html</url>
         <title>Kommandozeilenparameter</title>
     </page>
+    <node>
+        <title>FAQ</title>
+        <page>
+            <url>faq_multiuser.html</url>
+            <title>FAQ: JPhotoTagger auf mehreren Rechnern mit mehreren Benutzern für die gleichen Bilder benutzen</title>
+       </page>
+        <page>
+            <url>faq_multiple_databases.html</url>
+            <title>FAQ: Mehrere Datenbanken mit JPhotoTagger benutzen?</title>
+       </page>
+       <page>
+           <url>faq_feature_request.html</url>
+           <title>FAQ: Ich hätte gerne diese oder jene Funktion in JPhotoTagger</title>
+       </page>
+    </node>
     <node>
         <title>Glossar</title>
         <page>
