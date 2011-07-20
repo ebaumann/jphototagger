@@ -4,9 +4,9 @@ import com.imagero.reader.ImageProcOptions;
 import com.imagero.reader.ImageReader;
 import com.imagero.reader.Imagero;
 import com.imagero.reader.IOParameterBlock;
-import com.imagero.reader.jpeg.JpegReader;
 import com.imagero.reader.ReaderFactory;
 import com.imagero.reader.tiff.TiffReader;
+import java.awt.image.ImageProducer;
 import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.image.util.ImageTransform;
 import org.jphototagger.lib.runtime.External;
@@ -183,18 +183,20 @@ public final class ThumbnailUtil {
             LOGGER.log(Level.INFO, "Reading embedded thumbnail from image file ''{0}'', size {1} Bytes", new Object[]{file, file.length()});
             reader = ReaderFactory.createReader(file);
 
-            if (reader instanceof JpegReader) {
+            if (reader instanceof TiffReader) {
+                TiffReader tiffReader = (TiffReader) reader;
+
+                if (tiffReader.getThumbnailCount() > 0) {
+                    ImageProducer thumbnailProducer = tiffReader.getThumbnail(0);
+
+                    thumbnail = Toolkit.getDefaultToolkit().createImage(thumbnailProducer);
+                }
+            } else {
                 IOParameterBlock ioParamBlock = new IOParameterBlock();
 
                 ioParamBlock.setSource(file);
                 thumbnail = Imagero.getThumbnail(ioParamBlock, 0);
-            } else if (reader instanceof TiffReader) {
-                TiffReader tiffReader = (TiffReader) reader;
-
-                if (tiffReader.getThumbnailCount() > 0) {
-                    thumbnail = Toolkit.getDefaultToolkit().createImage(tiffReader.getThumbnail(0));
                 }
-            }
         } catch (Exception ex) {
             AppLogger.logSevere(ThumbnailUtil.class, ex);
 
@@ -456,5 +458,6 @@ public final class ThumbnailUtil {
         }
     }
 
-    private ThumbnailUtil() {}
+    private ThumbnailUtil() {
+}
 }
