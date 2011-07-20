@@ -3,6 +3,17 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.8.85 2011-07-20
+-----------------
+
+* Bugfix: In CR2-RAW-Dateien (Canon) eingebettete Vorschaubilder werden
+  gelesen (Testbilder von Canon EOS 5D)
+* Die Hilfe hat ein neues Kapitel: FAQ
+** FAQ: JPhotoTagger auf mehreren Rechnern mit mehreren Benutzern für die
+   gleichen Bilder benutzen
+** FAQ: Mehrere Datenbanken mit JPhotoTagger benutzen?
+** FAQ: Ich hätte gerne diese oder jene Funktion in JPhotoTagger
+
 0.8.84 2011-06-25
 -----------------
 
