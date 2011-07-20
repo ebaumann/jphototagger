@@ -359,15 +359,15 @@
                       <Group type="102" attributes="0">
                           <Component id="labelFilePrompt" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="labelErrorFileDoesNotExist" pref="314" max="32767" attributes="0"/>
+                          <Component id="labelErrorFileDoesNotExist" pref="358" max="32767" attributes="0"/>
                           <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="labelAlias" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="textFieldAlias" pref="310" max="32767" attributes="0"/>
+                          <Component id="textFieldAlias" pref="363" max="32767" attributes="0"/>
                       </Group>
-                      <Component id="labelFile" alignment="1" pref="427" max="32767" attributes="0"/>
+                      <Component id="labelFile" alignment="1" pref="447" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                   <Component id="buttonChooseFile" min="-2" max="-2" attributes="0"/>
