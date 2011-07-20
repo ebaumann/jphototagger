@@ -21,6 +21,7 @@ import javax.swing.JFileChooser;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.LookAndFeelUtil;
 import org.jphototagger.lib.util.Settings;
+import org.jphototagger.lib.util.StringUtil;
 
 /**
  * Modal Dialog to change or define the properties of a program which can
@@ -224,6 +225,9 @@ public final class ProgramPropertiesDialog extends Dialog {
                 labelFile.setText(file.getAbsolutePath());
                 showFileExists(true);
                 setProgramIcon();
+                if (!StringUtil.hasContent(textFieldAlias.getText())) {
+                    textFieldAlias.setText(file.getName());
+                }
                 textFieldAlias.requestFocusInWindow();
             } else {
                 MessageDisplayer.error(this, "ProgramPropertiesDialog.Error.ChooseFile");
