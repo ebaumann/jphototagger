@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+    <head>
+        <title>FAQ: Mehrere Datenbanken mit JPhotoTagger benutzen?</title>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+
+        <h1>FAQ: Mehrere Datenbanken mit JPhotoTagger benutzen?</h1>
+
+        <p>Die Idee hinter der <strong>JPhotoTagger</strong>-Datenbank ist:
+            Der Benutzer soll Überblick haben über alle seine Bilder, eine
+            Suche soll alle Bilder berücksichtigen, die nicht ausgeschlossen
+            wurden über <code>Bearbeiten &gt; Einstellungen &gt; Ausschließen</code>.
+        </p>
+
+        <p>Die Datenbank ist nur erforderlich für die Suche und sie enthält
+            einige Benutzereinstellungen, beispielsweise die Favoritenordner.
+            Ist sie beschädigt oder gelöscht, kann <strong>JPhotoTagger</strong>
+            die Bildverzeichnisse neu einlesen und kennt wieder alle Metadaten, da
+            diese in den XMP-Filialdateien stehen. So können auch andere
+            Programme die Metadaten nutzen und bearbeiten, XMP ist
+            standardisiert. Tipp: Das Einlesen kann automatisiert werden über
+            <code>Bearbeiten &gt; Einstellungen &gt; Automatisieren</code>.
+        </p>
+
+        <p>Sollen die angezeigten Bilder eingeschränkt werden, geschieht
+            dies in der Hauptsache über die
+            Metadaten: Bilder eines bestimmten Datumbereichs,
+            Bilder, die bestimmte Stichwörter oder Beschreibungen enthalten,
+            Bilder die mit einer bestimmten Kamera fotografiert wurden usw.
+            Die Enschränkung soll <em>nicht</em> lauten: Bilder, die in einer
+            bestimmten Datenbank sind. Außer über die Metadaten und den Ordnern
+            des Dateisystems können Bilder in <strong>JPhotoTagger</strong>
+            auch in <a href="mainwindow_collections.html">Fotoalben</a> nach
+            beliebigen Kriterien gruppiert werden. Noch &quot;mächtiger&quot;
+            sind <a href="mainwindow_searches.html">gespeicherte Suchen</a>.
+        </p>
+
+        <p>Im Gegensatz dazu stehen Programme, bei denen die Datenbank der
+            &quot;Master&quot; ist: Ihr Inhalt ist anderen Programmen
+            verschlossen und ist die Datenbank defekt oder nicht mehr aufzufinden,
+            sind die Metadaten verloren.
+        </p>
+
+        <p>Beispiel <strong>Adobe Photoshop Lightroom</strong> (Version ist 3,
+            während dieser Artikel geschrieben wird): Die Metadaten sind
+            in einer Datenbank, die als &quot;Katalog&quot; bezeichnet
+            wird. <strong>Lightroom</strong> kennt nur Bilder, falls sie
+            explizit in die Datenbank eingelesen werden. Die Metadaten
+            speichert es in die Datenbank und nur über einen Benutzerbefehl
+            in die XMP-Filialdateien (Änderungen lassen sich auch
+            automatisch speichern, wovon aber viele abraten). Was in
+            anderen Datenbanken (Katalogen) ist, kennt Lightroom nicht, dazu
+            müssen diese geöffnet werden: Zu einem Zeitpunkt kennt
+            <strong>Lightroom</strong> nur, was in einer bestimmten Datenbank
+            ist. Abhilfe: Es können Metadaten anderer Kataloge in einen
+            Katalog (Datenbank) importiert werden. Sind neue Dateien in
+            einen Ordner importiert worden, ist <strong>Lightroom</strong>
+            mitzuteilen, diese in die Datenbank einzulesen.
+        </p>
+
+        <p>So ein Ansatz hat bestimmt Vorteile, ist aber komplizierter und es ist
+            wahrscheinlicher, dass Inkonsistenzen auftreten (aus
+            einer anderen Datenbank wird importiert, dort wird anschließend
+            etwas modifiziert) oder dass Änderungen &quot;unter den Tisch fallen&quot;
+            (neue Bilder werden über ein anderes Programm in einen Ordner kopiert
+            oder ein anderes Programm schreibt neue Stichwörter in die XMP-Filialdatei,
+            ohne dass <strong>Lightroom</strong> angewiesen wird, Änderungen
+            zu integrieren). Auf jeden Fall bedeutet er mehr Arbeit und Zeitaufwand.
+        </p>
+        <p><strong>JPhotoTagger</strong> hat das Dateisystem als
+            &quot;Master&quot;: Wird ein Ordner ausgewählt, kennt
+            <strong>JPhotoTagger</strong> automatisch alle Bilder darin.
+            Hat ein anderes Programm wie <strong>Lightroom</strong>
+            die XMP-Filialdatei modifiziert, beispielsweise Stichwörter hinzugefügt oder
+            umbenannt, liest <strong>JPhotoTagger</strong> diese Stichwörter
+            automatisch in seine Datenbank.
+        </p>
+
+        <p>Die <strong>JPhotoTagger</strong>-Datenbank ist eher als Cache (schneller Zwischenspeicher)
+            zu betrachten. Es ist zwar möglich, über Umwegen ähnlich mit mehreren Datenbanken zu arbeiten
+            (<code>Bearbeiten &gt; Einstellungen &gt;
+            Sonstiges: Datenbankordner</code> in Kombination mit
+            <code>Bearbeiten &gt; Einstellungen &gt; Ausschließen</code>), es
+            ist jedoch eine &quot;Krücke&quot;, da <strong>JPhotoTagger</strong>
+            nicht zu diesem Zweck entwickelt wurde (mehrere Datenbanken
+            mit eventuell verschiedenen Namen). Der Autor empfiehlt,
+            falls das wichtig ist, ein anderes Programm zu benutzen,
+            beispielsweise <strong>Lightroom</strong> (das mehr ist als
+            eine Bilddatenbank).
+        </p>
+
+        <p>Der Benutzer sollte sich nicht um den Ablageort der
+            <strong>JPhotoTagger</strong>-Datenbank kümmern müssen oder gar
+            um deren Dateinamen. Die
+            Einstellung eines anderen Ordners für die Datenbank ist
+            dafür gedacht, diese beispielsweise in einen
+            Ordner zu speichern, der regelmäßig
+            gesichert wird, sodass bei Beschädigung oder Verlust ein zeitaufwändiges Neueinlesen der
+            Metadaten nicht erforderlich ist.
+        </p>
+
+    </body>
+</html>
