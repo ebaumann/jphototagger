@@ -1,6 +1,7 @@
 package org.jphototagger.program.app;
 
 import java.io.File;
+import java.util.Collections;
 import java.util.List;
 import org.jphototagger.lib.io.filefilter.RegexFileFilter;
 import org.jphototagger.program.data.UserDefinedFileType;
@@ -9,6 +10,7 @@ import org.jphototagger.program.filefilter.XmpRatingFileFilter;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
 import java.io.FileFilter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import org.jphototagger.program.database.DatabaseUserDefinedFileTypes;
@@ -27,6 +29,7 @@ public final class AppFileFilters {
     public static final FileFilter XMP_RATING_4_STARS = new XmpRatingFileFilter(4);
     public static final FileFilter XMP_RATING_5_STARS = new XmpRatingFileFilter(5);
     private final Map<FileFilter, String> displayNameOfFilter = new HashMap<FileFilter, String>();
+    private static final List<String> EXPERIMENTAL_FILE_FORMAT_DESCRIPTIONS = new ArrayList<String>();
     private final RegexFileFilter allAcceptedImageFilesFilter;
     private final RegexFileFilter acceptedRawFilesFilter;
     private final RegexFileFilter acceptedDngFilesFilter;
@@ -44,6 +47,8 @@ public final class AppFileFilters {
         userDefinedFileTypesFilter = createUserDefindedFileTypesFilter();
         boolean experimental = UserSettings.INSTANCE.isUseExperimentalFileFormats();
 
+        initExperimentalFileFormatDescriptions();
+
         if (experimental) {
             addRawImageFileExperimentalPatterns(acceptedRawFilesFilter);
             addRawImageFileExperimentalPatterns(allAcceptedImageFilesFilter);
@@ -58,48 +63,48 @@ public final class AppFileFilters {
 
     private RegexFileFilter createAllAcceptedImagesFileFilter() {
         return new RegexFileFilter(
-          ".*\\.[cC][rR][wW];"     // Canon RAW
-        + ".*\\.[cC][rR]2;"        // Canon RAW 2
-        + ".*\\.[dD][cC][rR];"     // Kodak RAW
-        + ".*\\.[dD][nN][gG];"     // Digal Negative
-        + ".*\\.[jJ][pP][gG];"     // Joint Photographic Experts Group
-        + ".*\\.[jJ][pP][eE][gG];" // Joint Photographic Experts Group
-        + ".*\\.[mM][rR][wW];"     // Minolta RAW
-        + ".*\\.[nN][eE][fF];"     // Nikon RAW
-        + ".*\\.[tT][hH][mM];"     // EXIF Info
-        + ".*\\.[tT][iI][fF];"     // Tagged Image File Format
-        + ".*\\.[tT][iI][fF][fF];" // Tagged Image File Format
-        , ";");
+                ".*\\.[cC][rR][wW];" // Canon RAW
+                + ".*\\.[cC][rR]2;" // Canon RAW 2
+                + ".*\\.[dD][cC][rR];" // Kodak RAW
+                + ".*\\.[dD][nN][gG];" // Digal Negative
+                + ".*\\.[jJ][pP][gG];" // Joint Photographic Experts Group
+                + ".*\\.[jJ][pP][eE][gG];" // Joint Photographic Experts Group
+                + ".*\\.[mM][rR][wW];" // Minolta RAW
+                + ".*\\.[nN][eE][fF];" // Nikon RAW
+                + ".*\\.[tT][hH][mM];" // EXIF Info
+                + ".*\\.[tT][iI][fF];" // Tagged Image File Format
+                + ".*\\.[tT][iI][fF][fF];" // Tagged Image File Format
+                , ";");
     }
 
     private RegexFileFilter createAcceptedRawFilesFiter() {
         return new RegexFileFilter(
-          ".*\\.[cC][rR][wW];"     // Canon RAW
-        + ".*\\.[cC][rR]2;"        // Canon RAW 2
-        + ".*\\.[dD][cC][rR];"     // Kodak RAW
-        + ".*\\.[mM][rR][wW];"     // Minolta RAW
-        + ".*\\.[nN][eE][fF];"     // Nikon RAW
-        , ";");
+                ".*\\.[cC][rR][wW];" // Canon RAW
+                + ".*\\.[cC][rR]2;" // Canon RAW 2
+                + ".*\\.[dD][cC][rR];" // Kodak RAW
+                + ".*\\.[mM][rR][wW];" // Minolta RAW
+                + ".*\\.[nN][eE][fF];" // Nikon RAW
+                , ";");
     }
 
     private RegexFileFilter createAcceptedDngFilesFiter() {
         return new RegexFileFilter(
-          ".*\\.[dD][nN][gG];"     // Digal Negative
-        , ";");
+                ".*\\.[dD][nN][gG];" // Digal Negative
+                , ";");
     }
 
     private RegexFileFilter createAcceptedJpegFilesFiter() {
         return new RegexFileFilter(
-          ".*\\.[jJ][pP][gG];"     // Joint Photographic Experts Group
-        + ".*\\.[jJ][pP][eE][gG];" // Joint Photographic Experts Group
-            , ";");
+                ".*\\.[jJ][pP][gG];" // Joint Photographic Experts Group
+                + ".*\\.[jJ][pP][eE][gG];" // Joint Photographic Experts Group
+                , ";");
     }
 
     private RegexFileFilter createAcceptedTiffFilesFiter() {
         return new RegexFileFilter(
-          ".*\\.[tT][iI][fF];"     // Tagged Image File Format
-        + ".*\\.[tT][iI][fF][fF];" // Tagged Image File Format
-            , ";");
+                ".*\\.[tT][iI][fF];" // Tagged Image File Format
+                + ".*\\.[tT][iI][fF][fF];" // Tagged Image File Format
+                , ";");
     }
 
     private RegexFileFilter createUserDefindedFileTypesFilter() {
@@ -142,6 +147,16 @@ public final class AppFileFilters {
 
     private void addRawImageFileExperimentalPatterns(RegexFileFilter filter) {
         filter.addAcceptPattern(".*\\.[sS][rR][wW]");    // Samsung RAW
+        filter.addAcceptPattern(".*\\.[aA][rR][wW]");    // Sony (Alpha) RAW
+    }
+
+    private void initExperimentalFileFormatDescriptions() {
+        EXPERIMENTAL_FILE_FORMAT_DESCRIPTIONS.add("Samsung RAW (*.srw)");
+        EXPERIMENTAL_FILE_FORMAT_DESCRIPTIONS.add("Sony Alpha RAW (*.arw)");
+    }
+
+    public static List<String> getExperimentalFileFormatDescriptions() {
+        return Collections.unmodifiableList(EXPERIMENTAL_FILE_FORMAT_DESCRIPTIONS);
     }
 
     private void initDisplaynames() {

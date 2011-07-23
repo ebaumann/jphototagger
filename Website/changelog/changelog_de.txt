@@ -3,6 +3,11 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.8.85 2011-07-23
+-----------------
+
+* Sony Alpha RAW-Format als experimentelles Dateiformat hinzugefügt
+
 0.8.85 2011-07-20
 -----------------
 
