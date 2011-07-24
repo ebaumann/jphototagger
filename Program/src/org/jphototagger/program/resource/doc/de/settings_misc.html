@@ -148,10 +148,43 @@
         <h2>Datenbankordner</h2>
 
         <p>Sie können die Datenbank in einem anderen Ordner anlegen lassen.
-            Wollen Sie Ihre bisherigen Daten übernehmen, kopieren Sie aus dem
+            Wollen Sie Ihre bisherigen Daten übernehmen, verschieben Sie aus dem
             aktuellen Datenbankordner, der im Dialog angezeigt wird, folgende
-            Dateien <em>nach Beenden</em> von <strong>JPhotoTagger</strong> und
-            <em>vor einem Neustart</em>:
+            Dateien und Ordner - sofern vorhanden - <em>nach Beenden</em> von
+            <strong>JPhotoTagger</strong> und <em>vor einem Neustart</em> in
+            den neuen Ordner:
+        </p>
+        
+        <ul>
+            <li><code>database.*</code> (<code>database.backup, database.data,
+                database.log, database.properties, database.script</code>)
+            </li>
+            <li>Ordner <code>thumbnails</code></li>
+            <li>Ordner <code>ExifCache</code></li>
+            <li>Ordner <code>EmbeddedXmpCache</code></li>
+            <li>Ordner <code>IptcIgnoreCache</code></li>
+            <li>Ordner <code>plugincache</code></li>
+        </ul>
+        
+        <p>Sie könnten die Datenbank auslagern wollen in einen bestimmten Ordner,
+            den Sie regelmäßig sichern (Backup). Und/oder Sie speichern die
+            Datenbank in einem Netzwerk, in das Sie sich von verschiedenen
+            Rechnern aus anmelden, wobei die Ordnerpfade zu den Bildern auf
+            allen Rechnern gleich lauten.
+        </p>
+        
+        <p><em>Diese Option ist nicht dafür gedacht, dass mehrere Benutzer
+           die gleiche Datenbank teilen!</em> Beim Start meldet <strong>JPhotoTagger</strong>,
+           falls die Datenbank (wahrscheinlich) geöffnet ist. Sind Sie sicher,
+           dies ist nicht der Fall, können Sie <strong>JPhotoTagger</strong>
+           starten. Im günstigsten Fall verhindert das Betriebssystem, dass die
+           gleiche Datenbank zwei Mal geöffnet wird, im ungünstigsten ist
+           die Datenbank anschließend beschädigt - es ist nicht vorherzusagen,
+           was genau geschieht. Falls Sie sicher sind, die Datenbank wird nicht
+           gleichzeitig mehrmals geöffnet, können Sie diese mit mehreren
+           Benutzern teilen, zu empfehlen ist dies <em>nicht</em> (In diesem
+           Fall sollten die Ordnerpfade zu den Bildern bei allen Benutzern
+           identisch sein).
         </p>
 
         <h3>Ordner für Datenbanksicherungen</h3>
