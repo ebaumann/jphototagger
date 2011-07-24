@@ -18,7 +18,7 @@ public final class AppInfo {
      * The application's version
      */
     // Never change that scheme: "[0-9]+\.[0-9]+\.[0-9]+"!
-    public static final String APP_VERSION = "0.8.86";
+    public static final String APP_VERSION = "0.8.87";
     /**
      * ("Historical") Name of this project.
      * <p>
