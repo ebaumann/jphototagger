@@ -51,6 +51,7 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import org.jphototagger.program.image.thumbnail.ThumbnailUtil;
 
 /**
  * Database containing metadata of image files.
@@ -547,8 +548,12 @@ public final class DatabaseImageFiles extends Database {
 
             while (!progressEvent.isCancel() && rs.next()) {
                 File imgFile = getFile(rs.getString(1));
+                Image thumbnail = ThumbnailUtil.getThumbnail(imgFile);
 
-                updateThumbnailFile(imgFile, PersistentThumbnails.getThumbnail(imgFile));
+                if (thumbnail != null) {
+                    updateThumbnailFile(imgFile, thumbnail);
+                }
+                
                 updated++;
                 progressEvent.setValue(++count);
                 progressEvent.setInfo(imgFile);
@@ -565,7 +570,7 @@ public final class DatabaseImageFiles extends Database {
 
         return updated;
     }
-
+    
     /**
      * Updates the thumbnail of an image file.
      *
