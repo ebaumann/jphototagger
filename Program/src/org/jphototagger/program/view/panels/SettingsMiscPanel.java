@@ -19,6 +19,7 @@ import javax.swing.filechooser.FileSystemView;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.util.SystemProperties;
 import org.jphototagger.program.app.AppFileFilters;
+import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.controller.misc.ControllerUpdateCheck;
 import org.jphototagger.program.event.listener.UserSettingsListener;
 import org.jphototagger.program.factory.ControllerFactory;
@@ -209,7 +210,8 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
      */
     @SuppressWarnings("unchecked")
 
-    private void initComponents() {//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
 
         buttonGroupCopyMoveFiles = new javax.swing.ButtonGroup();
         experimentalFileFormatsDialog = new javax.swing.JDialog();
@@ -242,6 +244,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/resource/properties/Bundle"); // NOI18N
         experimentalFileFormatsDialog.setTitle(bundle.getString("SettingsMiscPanel.experimentalFileFormatsDialog.title")); // NOI18N
+        experimentalFileFormatsDialog.setIconImages(AppLookAndFeel.getAppIcons());
         experimentalFileFormatsDialog.setModal(true);
         experimentalFileFormatsDialog.setName("experimentalFileFormatsDialog"); // NOI18N
 
@@ -375,7 +378,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCopyMoveFilesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelCopyMoveFilesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(radioButtonCopyMoveFileRenameIfExists, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(radioButtonCopyMoveFileRenameIfExists, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE)
                     .addComponent(radioButtonCopyMoveFileConfirmOverwrite, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -554,7 +557,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
                 .addComponent(panelDatabaseDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-    }//GEN-END:initComponents
+    }// </editor-fold>//GEN-END:initComponents
 
     private void checkBoxAutoDownloadCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAutoDownloadCheckActionPerformed
         handleActionPerformedAutoDownload();
