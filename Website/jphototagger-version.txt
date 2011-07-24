@@ -1,1 +1,1 @@
-<span class="version">0.8.86</span>
+<span class="version">0.8.87</span>

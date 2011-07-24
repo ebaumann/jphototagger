@@ -3,7 +3,14 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
-0.8.85 2011-07-23
+0.8.87 2011-07-24
+-----------------
+
+* Bugfix: Aufgabe "Alle Vorschaubilder neu erzeugen" funktioniert
+  wieder wie beabsichtigt ("Bearbeiten > Einstellungen >
+  Vorschaubilder" und "Datei > Datenbank > Aktualisieren")
+
+0.8.86 2011-07-23
 -----------------
 
 * Sony Alpha RAW-Format als experimentelles Dateiformat hinzugefügt
