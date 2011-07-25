@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Creating Thumbnails: MPlayer (Videos), DCRaw and ImageMagick in a Bash script (1)</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<meta name="date" content="2011-04-26T19:00:15+02:00" />
+	<meta http-equiv="content-language" content="en" />
+	<link rel="stylesheet" media="screen" type="text/css" href="../css/standard.css" />
+	<link rel="shortcut icon" href="../favicon.ico" />
+        <style type="text/css">
+            #content ol, #content ul { margin-top: 0.75em; margin-left: 0.75em; padding-left: 0.75em; }
+            #content ul { list-style-type: square; }
+        </style>
+</head>
+<body>
+
+<div id="page">
+    <div id="sitenav">
+        <h2>Navigate</h2>
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../download.html">Download</a></li>
+            <li><a href="../features.html">Features</a></li>
+            <li><a href="../system_req.html">System requirements</a></li>
+            <li><a href="../screenshots/index.html">Screenshots</a></li>
+            <li><a href="index.html">Users</a></li>
+            <li><a href="../dev/index.html">Developers</a></li>
+        </ul>
+        <h2>Discussion</h2>
+        <ul>
+            <li><a href="http://groups.google.de/group/jphototagger-benutzer">Deutsche Benutzer</a></li>
+            <li><a href="http://groups.google.de/group/jphototagger-developers">Developers</a></li>
+        </ul>
+        <h2>Tracking</h2>
+        <ul>
+            <li><a href="http://code.google.com/p/jphototagger/issues/list">Bugs, Issues</a></li>
+        </ul>
+        <h2>Repository</h2>
+        <ul>
+            <li><a href="http://code.google.com/p/jphototagger/source/checkout">Source Code</a></li>
+        </ul>
+    </div><!--sitenav-->
+    <div id="content">
+
+        <h1>Creating Thumbnails: MPlayer (Videos), DCRaw and ImageMagick in a Bash script (1)</h1>
+
+        <p>This Bash script also renders a thumbnail of video files.</p>
+
+        <p><strong>JPhotoTagger</strong> reads Video files only, if their extensions
+            added as <strong>User Defined File Types</strong>
+            (Menu <code>Window</code>).
+        </p>
+
+        <ul>
+            <li>If not installed, download and install
+                <a href="http://www.cybercom.net/~dcoffin/dcraw/">DCRaw</a> and
+                <a href="http://www.imagemagick.org">ImageMagick</a>
+                <a href="http://www.mplayerhq.hu/design7/dload.html">MPlayer</a>
+            </li>
+            <li>Use this <a href="files/image_magick_dcraw_mplayer.sh">File</a> as template, add executable privileges
+            </li>
+            <li>Fix paths</li>
+            <li>Open: <strong>Edit &gt; Settings &gt; Thumbnails</strong></li>
+            <li>Check <strong>Create thumbnails with own external program</strong></li>
+            <li>Write into the text field under <strong>External image creation application:</strong><br />
+                    <code>"Path_to_Bash_file" "%s" %i</code>
+                    <br />
+                    where <code>"Path_to_Bash_file"</code> is something like <code>"/home/me/scripts/jphototagger_thumbnails.sh"</code>
+                    (the folder path where the Bash file is stored is included the Bash script's file name)
+            </li>
+        </ul>
+
+        <p><strong>Author:</strong> Elmar Baumann
+            <br /><a href="mailto:info@jphototagger.org?subject=JPhotoTagger%20ImageMagick%20one%20liner">Write e-Mail</a>
+            <br /><strong>Status of this document:</strong> 2011-07-25
+        </p>
+
+    </div><!--content-->
+</div><!--page-->
+</body>
+</html>
