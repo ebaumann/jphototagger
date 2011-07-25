@@ -3,12 +3,10 @@ package org.jphototagger.lib.util;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.ServiceLoader;
 
 /**
- * Looks for implementations of a Java service.
+ * Looks for implementations of a Java Service.
  *
  * For details see http://java.sun.com/j2se/1.4.2/docs/guide/jar/jar.html#Service%20Provider.
  *
@@ -19,50 +17,49 @@ import java.util.ServiceLoader;
 public final class ServiceLookup {
 
     /**
-     * Returns the first implementing class of a Java service.
+     * Returns the first implementation of a Java Service.
      *
-     * @param <T>    Class type - usually the service interface
-     * @param clazz  Class -  usually the service interface's class object
-     * @return       first of all implementing classes of that service or null
-     *               if no class implements that service
+     * @param <T>           service interface type
+     * @param serviceClass  service interface class
+     * @return              first of all implementations of that service
+     *                      or null if no class implements that service
      */
-    public static <T> T lookup(Class<T> clazz) {
-        if (clazz == null) {
-            throw new NullPointerException("clazz == null");
+    public static <T> T lookup(Class<T> serviceClass) {
+        if (serviceClass == null) {
+            throw new NullPointerException("serviceClass == null");
         }
 
-        Iterator<T> services = ServiceLoader.load(clazz).iterator();
+        ServiceLoader<T> serviceLoader = ServiceLoader.load(serviceClass);
+        Iterator<T> serviceImplementations = serviceLoader.iterator();
 
-        return services.hasNext()
-               ? services.next()
-               : null;
+        return serviceImplementations.hasNext()
+                ? serviceImplementations.next()
+                : null;
     }
 
     /**
-     * Returns all implementing classses of a Java service.
+     * Returns all implementations of a Java Service.
      *
-     * @param <T>    Class type - usually the service interface
-     * @param clazz  Class -  usually the service interface's class object
-     * @return       all implementing classes of that service or null if no
-     *               class implements that service
+     * @param <T>           service interface type
+     * @param serviceClass  service interface class
+     * @return              all implementations of that service
+     *                      or an empty collection if no class implements that service
      */
-    public static <T> Collection<? extends T> lookupAll(Class<T> clazz) {
-        if (clazz == null) {
-            throw new NullPointerException("clazz == null");
+    public static <T> Collection<? extends T> lookupAll(Class<T> serviceClass) {
+        if (serviceClass == null) {
+            throw new NullPointerException("serviceClass == null");
         }
 
-        Collection<T> result = new ArrayList<T>();
+        Collection<T> serviceImplementations = new ArrayList<T>();
+        ServiceLoader<T> serviceLoader = ServiceLoader.load(serviceClass);
 
-        try {
-            for (T service : ServiceLoader.load(clazz)) {
-                result.add(service);
-            }
-        } catch (Exception ex) {
-            Logger.getLogger(ServiceLookup.class.getName()).log(Level.SEVERE, null, ex);
+        for (T service : serviceLoader) {
+            serviceImplementations.add(service);
         }
 
-        return result;
+        return serviceImplementations;
     }
 
-    private ServiceLookup() {}
+    private ServiceLookup() {
+    }
 }
