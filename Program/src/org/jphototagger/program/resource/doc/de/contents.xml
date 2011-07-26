@@ -397,6 +397,10 @@
            <url>faq_feature_request.html</url>
            <title>FAQ: Ich hätte gerne diese oder jene Funktion in JPhotoTagger</title>
        </page>
+       <page>
+            <url>faq_videos.html</url>
+            <title>FAQ: Wie kann ich Videos katalogisieren?</title>
+       </page>
     </node>
     <node>
         <title>Glossar</title>

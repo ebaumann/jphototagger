@@ -23,13 +23,18 @@ public final class ImageMagickDcrawThumbnailCreator implements ExternalThumbnail
     @Override
     public String getThumbnailCreationCommand() {
         ImageMagickDcrawThumbnailCreatorDialog dialog = new ImageMagickDcrawThumbnailCreatorDialog();
-        
+
         dialog.setVisible(true);
-        
+
         if (dialog.isAccepted()) {
-            return createCommand(dialog.getDcraw(), dialog.getIdentify(), dialog.getConvert());
+            File dcraw = dialog.getDcraw();
+            File identify = dialog.getIdentify();
+            File convert = dialog.getConvert();
+            File mplayer = dialog.getMplayer();
+
+            return createCommand(dcraw, identify, convert, mplayer);
         }
-        
+
         return null;
     }
 
@@ -42,26 +47,27 @@ public final class ImageMagickDcrawThumbnailCreator implements ExternalThumbnail
     public boolean isEnabled() {
         return !SystemUtil.isWindows();
     }
-    
-    private String createCommand(File dcraw, File identify, File convert) {
+
+    private String createCommand(File dcraw, File identify, File convert, File mplayer) {
         if (dcraw == null || identify == null || convert == null) {
             return null;
         }
-        
+
         File userDirectory = Util.lookupUserDirectory();
-        
+
         if (userDirectory == null) {
             errorMessageUserDirectory();
             return null;
         }
-        
+
         ScriptWriter scriptWriter = new ScriptWriter();
-        String scriptPath = userDirectory.getAbsolutePath() + File.separator + "image_magick_dcraw.sh";
-        
+        String scriptName = mplayer == null ? "image_magick_dcraw.sh" : "image_magick_dcraw_mplayer.sh";
+        String scriptPath = userDirectory.getAbsolutePath() + File.separator + scriptName;
+
         try {
-            setReplace(scriptWriter, dcraw, identify, convert);
-            writeScript(scriptWriter, new File(scriptPath));
-            
+            setReplace(scriptWriter, dcraw, identify, convert, mplayer);
+            writeScript(scriptName, scriptWriter, new File(scriptPath));
+
             return "\"" + scriptPath + "\" \"%s\" %i";
         } catch (Exception ex) {
             Logger.getLogger(ImageMagickDcrawThumbnailCreator.class.getName()).log(Level.SEVERE, null, ex);
@@ -69,16 +75,20 @@ public final class ImageMagickDcrawThumbnailCreator implements ExternalThumbnail
         }
     }
 
-    private void setReplace(ScriptWriter scriptWriter, File dcraw, File identify, File convert) {
-        scriptWriter.setReplace("${dcraw}", dcraw.getAbsolutePath());
-        scriptWriter.setReplace("${identify}", identify.getAbsolutePath());
-        scriptWriter.setReplace("${convert}", convert.getAbsolutePath());
+    private void setReplace(ScriptWriter scriptWriter, File dcraw, File identify, File convert, File mplayer) {
+        scriptWriter.addReplace("${dcraw}", dcraw.getAbsolutePath());
+        scriptWriter.addReplace("${identify}", identify.getAbsolutePath());
+        scriptWriter.addReplace("${convert}", convert.getAbsolutePath());
+
+        if (mplayer != null) {
+            scriptWriter.addReplace("${mplayer}", mplayer.getAbsolutePath());
+        }
     }
 
-    private void writeScript(ScriptWriter scriptWriter, File scriptFile) throws Exception {
+    private void writeScript(String templateName, ScriptWriter scriptWriter, File scriptFile) throws Exception {
         try {
-            String readScript = scriptWriter.readScript("/org/jphototagger/dtncreators/scripts/unix/image_magick_dcraw.sh");
-            
+            String readScript = scriptWriter.readScript("/org/jphototagger/dtncreators/scripts/unix/" + templateName);
+
             readScript = scriptWriter.replaceIn(readScript);
             FileUtil.writeStringAsFile(readScript, scriptFile);
             scriptFile.setExecutable(true);
@@ -91,14 +101,14 @@ public final class ImageMagickDcrawThumbnailCreator implements ExternalThumbnail
     private void errorMessageUserDirectory() {
         String message = bundle.getString("ImageMagickDcrawThumbnailCreator.Error.UserDirectory");
         String title = bundle.getString("ImageMagickDcrawThumbnailCreator.Error.Title");
-        
+
         JOptionPane.showMessageDialog(null, message, title, JOptionPane.ERROR_MESSAGE);
     }
 
     private void errorMessageGetScript() {
         String message = bundle.getString("ImageMagickDcrawThumbnailCreator.Error.GetScript");
         String title = bundle.getString("ImageMagickDcrawThumbnailCreator.Error.Title");
-        
+
         JOptionPane.showMessageDialog(null, message, title, JOptionPane.ERROR_MESSAGE);
     }
 }

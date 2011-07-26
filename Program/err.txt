@@ -1,0 +1,36 @@
+MPlayer Sherpya-SVN-r30369-4.2.5 (C) 2000-2009 MPlayer Team
+getch2: 6 can't get number of input events  [disabling console input]
+
+Playing D:\Bilder\2011\2011-04 Motorradtour Thüringen\2011-04-23\2011-04-23-007.MP4.
+libavformat file format detected.
+[lavf] Audio stream found, -aid 0
+[lavf] Video stream found, -vid 1
+VIDEO:  [H264]  640x480  24bpp  29.970 fps  4109.1 kbps (501.6 kbyte/s)
+Clip info:
+ major_brand: mp42
+ minor_version: 0
+ compatible_brands: mp42isomavc1
+jpeg: Parsing suboptions.
+jpeg: Progressive JPEG disabled.
+jpeg: Baseline JPEG enabled.
+jpeg: Suboptions parsed OK.
+==========================================================================
+Opening video decoder: [ffmpeg] FFmpeg's libavcodec codec family
+Selected video codec: [ffh264] vfm: ffmpeg (FFmpeg H.264)
+==========================================================================
+==========================================================================
+Opening audio decoder: [faad] AAC (MPEG2/4 Advanced Audio Coding)
+AUDIO: 32000 Hz, 2 ch, s16le, 128.0 kbit/12.50% (ratio: 16000->128000)
+Selected audio codec: [faad] afm: faad (FAAD AAC (MPEG-2/MPEG-4 Audio))
+==========================================================================
+AO: [dsound] 32000Hz 2ch s16le (2 bytes per sample)
+Starting playback...
+Could not find matching colorspace - retrying with -vf scale...
+Opening video filter: [scale]
+Movie-Aspect is undefined - no prescaling applied.
+[swscaler @ 01EB34F4]BICUBIC scaler, from yuv420p to rgb24 using MMX2
+VO: [jpeg] 400x300 => 400x300 RGB 24-bit  [zoom]
+jpeg: . - Output directory already exists and is writable.
+A:   0.0 V:   0.0 A-V:  0.033 ct:  0.000   0/  0 ??% ??% ??,?% 0 0             
+
+Exiting... (End of file)

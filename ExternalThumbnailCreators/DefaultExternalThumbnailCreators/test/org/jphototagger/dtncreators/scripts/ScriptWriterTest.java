@@ -18,7 +18,7 @@ public class ScriptWriterTest {
         String readScript = scriptWriter.readScript(scriptSourcePath);
         
         assertFalse(readScript.contains(replacement));
-        scriptWriter.setReplace(replace, replacement);
+        scriptWriter.addReplace(replace, replacement);
         String scriptWithReplaced = scriptWriter.replaceIn(readScript);
         assertTrue(scriptWithReplaced.contains(replacement));
     }
