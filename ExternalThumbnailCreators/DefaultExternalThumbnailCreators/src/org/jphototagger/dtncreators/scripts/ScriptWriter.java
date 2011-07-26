@@ -28,7 +28,7 @@ public final class ScriptWriter {
      * @param replace 
      * @param replacement 
      */
-    public void setReplace(String replace, String replacement) {
+    public void addReplace(String replace, String replacement) {
         if (replace == null) {
             throw new NullPointerException("replace == null");
         }
@@ -98,7 +98,7 @@ public final class ScriptWriter {
     }
     
     /**
-     * Uses replacements in {@link #setReplace(java.lang.String, java.lang.String)}.
+     * Uses replacements in {@link #addReplace(java.lang.String, java.lang.String)}.
      * 
      * @param s
      * @return s with replaced substrings

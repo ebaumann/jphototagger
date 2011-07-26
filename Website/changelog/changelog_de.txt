@@ -3,6 +3,15 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.8.88 2011-07-26
+-----------------
+
+* MPlayer ausgewählt werden zum Erzeugen von Vorschaubildern für Videos bei
+  "Auswählen > Skript: DCRaw + ImageMagick" im Dialog "Bearbeiten > 
+  Einstellungen > Vorschaubilder: Erzeuge Vorschaubilder mit eigenem Programm"
+  Die Hilfe enthält dazu eine neue Seite: "FAQ: Wie kann ich Videos
+  katalogisieren?"
+
 0.8.87 2011-07-24
 -----------------
 
