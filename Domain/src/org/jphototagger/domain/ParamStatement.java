@@ -1,4 +1,4 @@
-package org.jphototagger.program.data;
+package org.jphototagger.domain;
 
 import java.util.ArrayList;
 import java.util.List;

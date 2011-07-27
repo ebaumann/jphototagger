@@ -4,7 +4,7 @@ import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.comparator.ComparatorStringAscending;
-import org.jphototagger.program.data.ImageCollection;
+import org.jphototagger.domain.ImageCollection;
 import org.jphototagger.program.database.DatabaseImageCollections;
 import org.jphototagger.program.exporter.ImageCollectionsExporter;
 import org.jphototagger.program.exporter.ImageCollectionsExporter.CollectionWrapper;

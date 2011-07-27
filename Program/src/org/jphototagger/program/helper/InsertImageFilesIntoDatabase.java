@@ -4,7 +4,7 @@ import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.cache.PersistentThumbnails;
-import org.jphototagger.program.data.Exif;
+import org.jphototagger.domain.Exif;
 import org.jphototagger.program.data.ImageFile;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.program.data.Xmp;

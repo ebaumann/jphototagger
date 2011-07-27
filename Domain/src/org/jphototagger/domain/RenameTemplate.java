@@ -1,4 +1,4 @@
-package org.jphototagger.program.data;
+package org.jphototagger.domain;
 
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAccessType;

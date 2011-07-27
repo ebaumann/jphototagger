@@ -1,7 +1,7 @@
 package org.jphototagger.program.controller.favorites;
 
 import org.jphototagger.program.controller.Controller;
-import org.jphototagger.program.data.Favorite;
+import org.jphototagger.domain.Favorite;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.popupmenus.PopupMenuFavorites;
 import java.awt.event.ActionEvent;

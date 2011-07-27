@@ -3,7 +3,7 @@ package org.jphototagger.program.exporter;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.data.Favorite;
+import org.jphototagger.domain.Favorite;
 import org.jphototagger.program.database.DatabaseFavorites;
 import org.jphototagger.program.resource.JptBundle;
 import java.io.File;

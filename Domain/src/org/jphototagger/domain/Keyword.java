@@ -1,6 +1,5 @@
-package org.jphototagger.program.data;
+package org.jphototagger.domain;
 
-import org.jphototagger.program.database.DatabaseKeywords;
 import java.io.Serializable;
 
 /**
@@ -12,6 +11,7 @@ import java.io.Serializable;
  * @author Elmar Baumann
  */
 public final class Keyword implements Comparable<Keyword>, Serializable {
+
     private static final long serialVersionUID = -8175948472921889128L;
     private Long id;
     private Long idParent;
@@ -140,7 +140,7 @@ public final class Keyword implements Comparable<Keyword>, Serializable {
 
         final Keyword other = (Keyword) obj;
 
-        if ((this.id != other.id) && ((this.id == null) ||!this.id.equals(other.id))) {
+        if ((this.id != other.id) && ((this.id == null) || !this.id.equals(other.id))) {
             return false;
         }
 
@@ -152,14 +152,14 @@ public final class Keyword implements Comparable<Keyword>, Serializable {
         int hash = 7;
 
         hash = 59 * hash + ((this.id != null)
-                            ? this.id.hashCode()
-                            : 0);
+                ? this.id.hashCode()
+                : 0);
         hash = 59 * hash + ((this.idParent != null)
-                            ? this.idParent.hashCode()
-                            : 0);
+                ? this.idParent.hashCode()
+                : 0);
         hash = 59 * hash + ((this.name != null)
-                            ? this.name.hashCode()
-                            : 0);
+                ? this.name.hashCode()
+                : 0);
 
         return hash;
     }

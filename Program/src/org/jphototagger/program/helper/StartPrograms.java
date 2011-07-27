@@ -41,7 +41,7 @@ public final class StartPrograms {
      *
      * @param  program           program
      * @param  imageFiles        files to process
-     * @param waitForTermination  
+     * @param waitForTermination
      */
     public void startProgram(Program program, List<File> imageFiles, boolean waitForTermination) {
         if (checkFilecount(imageFiles)) {

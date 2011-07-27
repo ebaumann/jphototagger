@@ -8,7 +8,7 @@ import org.jphototagger.lib.model.TreeNodeSortedChildren;
 import org.jphototagger.program.app.AppLifeCycle;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.data.Favorite;
+import org.jphototagger.domain.Favorite;
 import org.jphototagger.program.database.DatabaseFavorites;
 import org.jphototagger.program.event.listener.AppExitListener;
 import org.jphototagger.program.event.listener.DatabaseFavoritesListener;

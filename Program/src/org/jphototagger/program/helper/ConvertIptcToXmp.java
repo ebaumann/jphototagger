@@ -60,7 +60,7 @@ public final class ConvertIptcToXmp implements Runnable, Cancelable {
             File imageFile = imageFiles.get(index);
             File xmpFile = XmpMetadata.suggestSidecarFile(imageFile);
             Iptc iptc = null;
-            
+
             if (!AppFileFilters.INSTANCE.isUserDefinedFileType(imageFile)) {
                 iptc = IptcMetadata.getIptc(imageFile);
             }

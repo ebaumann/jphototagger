@@ -3,7 +3,7 @@ package org.jphototagger.program.app.update.tables.v0;
 import org.jphototagger.program.app.SplashScreen;
 import org.jphototagger.program.database.Database;
 import org.jphototagger.program.database.DatabaseApplicationProperties;
-import org.jphototagger.program.database.metadata.Column;
+import org.jphototagger.domain.Column;
 import org.jphototagger.program.database.metadata.exif.ColumnExifFocalLength;
 import org.jphototagger.program.database.metadata.exif.ColumnExifIsoSpeedRatings;
 import org.jphototagger.program.database.metadata.exif.ColumnExifRecordingEquipment;

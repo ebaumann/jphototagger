@@ -1,6 +1,6 @@
-package org.jphototagger.program.data;
+package org.jphototagger.domain;
 
-import org.jphototagger.program.database.metadata.Column;
+import org.jphototagger.domain.Column;
 
 /**
  * Data of a column.

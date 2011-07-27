@@ -2,7 +2,7 @@ package org.jphototagger.program.helper;
 
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
-import org.jphototagger.program.data.Favorite;
+import org.jphototagger.domain.Favorite;
 import org.jphototagger.program.database.DatabaseFavorites;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.io.ImageFileFilterer;

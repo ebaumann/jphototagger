@@ -77,7 +77,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel
         if (ConnectionPool.INSTANCE.isInit()) {
             hasActions = DatabasePrograms.INSTANCE.getCount(true) > 0;
         }
-        
+
         buttonAddAction.setEnabled(hasActions);
         menuItemAddAction.setEnabled(hasActions);
     }

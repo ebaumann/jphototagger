@@ -162,7 +162,7 @@ public final class ProgramsHelper {
     /**
      *
      * @param program             may be null
-     * @param waitForTermination  
+     * @param waitForTermination
      */
     public static void openSelectedFilesWidth(Program program, boolean waitForTermination) {
         if (program != null) {

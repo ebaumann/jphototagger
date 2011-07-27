@@ -1,6 +1,6 @@
 package org.jphototagger.program.datatransfer;
 
-import org.jphototagger.program.data.Keyword;
+import org.jphototagger.domain.Keyword;
 import org.jphototagger.program.helper.KeywordsHelper;
 import java.awt.Component;
 import java.awt.datatransfer.DataFlavor;

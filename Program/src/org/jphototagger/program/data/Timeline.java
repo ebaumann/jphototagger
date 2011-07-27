@@ -23,10 +23,8 @@ import javax.swing.tree.TreeModel;
  * @author Elmar Baumann
  */
 public final class Timeline {
-    private final DefaultMutableTreeNode ROOT_NODE =
-        new TreeNodeSortedChildren(JptBundle.INSTANCE.getString("Timeline.RootNode.DisplayName"));
-    private static final DefaultMutableTreeNode UNKNOWN_NODE =
-        new TreeNodeSortedChildren(JptBundle.INSTANCE.getString("Timeline.UnknownNode.DisplayName"));
+    private final DefaultMutableTreeNode ROOT_NODE = new TreeNodeSortedChildren(JptBundle.INSTANCE.getString("Timeline.RootNode.DisplayName"));
+    private static final DefaultMutableTreeNode UNKNOWN_NODE = new TreeNodeSortedChildren(JptBundle.INSTANCE.getString("Timeline.UnknownNode.DisplayName"));
     private boolean unknownNode;
 
     /**

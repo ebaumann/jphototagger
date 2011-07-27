@@ -1,4 +1,4 @@
-package org.jphototagger.program.data;
+package org.jphototagger.domain;
 
 import java.io.File;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -76,7 +76,7 @@ public final class Favorite {
         // Never change that (will be used to find model items)!
         return name == null
                 ? ""
-                : name;    
+                : name;
     }
 
     @Override

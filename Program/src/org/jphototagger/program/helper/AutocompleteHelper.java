@@ -2,7 +2,7 @@ package org.jphototagger.program.helper;
 
 import org.jphototagger.lib.componentutil.Autocomplete;
 import org.jphototagger.program.data.Xmp;
-import org.jphototagger.program.database.metadata.Column;
+import org.jphototagger.domain.Column;
 import org.jphototagger.program.database.metadata.selections.AutoCompleteData;
 import org.jphototagger.program.database.metadata.selections.AutoCompleteDataOfColumn;
 import org.jphototagger.program.database.metadata.selections.FastSearchColumns;

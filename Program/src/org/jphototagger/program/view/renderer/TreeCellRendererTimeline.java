@@ -53,7 +53,7 @@ public final class TreeCellRendererTimeline extends TreeCellRendererExt {
 
         int tempSelRow = getTempSelectionRow();
         boolean tempSelRowIsSelected = tempSelRow < 0 ? false : tree.isRowSelected(tempSelRow);
-        
+
         setColors(row, selected, tempSelRowIsSelected);
 
         return this;

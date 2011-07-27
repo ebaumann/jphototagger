@@ -3,7 +3,7 @@ package org.jphototagger.program.data;
 import com.imagero.reader.iptc.IPTCEntryMeta;
 import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.program.app.AppLogger;
-import org.jphototagger.program.database.metadata.Column;
+import org.jphototagger.domain.Column;
 import org.jphototagger.program.database.metadata.mapping.IptcXmpMapping;
 import org.jphototagger.program.database.metadata.mapping.XmpRepeatableValues;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpIptc4XmpCoreDateCreated;
@@ -15,7 +15,10 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.jphototagger.domain.Column;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.program.data.Iptc;
+import org.jphototagger.program.data.MetadataTemplate;
 
 /**
  * XMP metadata of an image file. The <code>see</code> sections of the method

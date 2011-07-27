@@ -9,7 +9,7 @@ import javax.swing.event.ListSelectionListener;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.event.util.MouseEventUtil;
 import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.data.UserDefinedFileType;
+import org.jphototagger.domain.UserDefinedFileType;
 import org.jphototagger.program.database.DatabaseUserDefinedFileTypes;
 import org.jphototagger.program.model.ListModelUserDefinedFileTypes;
 import org.jphototagger.program.resource.JptBundle;

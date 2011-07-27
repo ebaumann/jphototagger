@@ -2,7 +2,7 @@ package org.jphototagger.program.data;
 
 import com.imagero.reader.iptc.IPTCEntryMeta;
 import org.jphototagger.program.data.Xmp.SetIptc;
-import org.jphototagger.program.database.metadata.Column;
+import org.jphototagger.domain.Column;
 import org.jphototagger.program.database.metadata.mapping.IptcXmpMapping;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcCreator;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcDescription;

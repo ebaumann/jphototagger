@@ -2,7 +2,7 @@ package org.jphototagger.program.importer;
 
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.data.Favorite;
+import org.jphototagger.domain.Favorite;
 import org.jphototagger.program.database.DatabaseFavorites;
 import org.jphototagger.program.exporter.FavoritesExporter;
 import org.jphototagger.program.exporter.FavoritesExporter.CollectionWrapper;

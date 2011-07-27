@@ -1,6 +1,6 @@
 package org.jphototagger.program.event.listener;
 
-import org.jphototagger.program.data.Favorite;
+import org.jphototagger.domain.Favorite;
 
 /**
  * Listens to events in

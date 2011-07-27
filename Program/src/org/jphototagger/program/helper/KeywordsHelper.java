@@ -6,7 +6,7 @@ import org.jphototagger.lib.util.ArrayUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.data.ImageFile;
-import org.jphototagger.program.data.Keyword;
+import org.jphototagger.domain.Keyword;
 import org.jphototagger.program.data.Xmp;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.database.DatabaseKeywords;
@@ -352,7 +352,7 @@ public final class KeywordsHelper {
 
                 if (!modelIndices.isEmpty()) {
                     List<Integer> listIndices = ListUtil.convertModelIndicesToListIndices(modelIndices, selKeywordsList);
-                    
+
                     selKeywordsList.setSelectedIndices(ArrayUtil.toIntArray(listIndices));
                     selKeywordsList.ensureIndexIsVisible(listIndices.get(0));
                 }

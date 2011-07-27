@@ -1,6 +1,6 @@
 package org.jphototagger.program.controller.keywords.tree;
 
-import org.jphototagger.program.data.Keyword;
+import org.jphototagger.domain.Keyword;
 import org.jphototagger.program.database.DatabaseKeywords;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Suggest;

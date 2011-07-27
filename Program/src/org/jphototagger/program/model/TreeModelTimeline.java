@@ -1,7 +1,7 @@
 package org.jphototagger.program.model;
 
 import org.jphototagger.lib.model.TreeModelUpdateInfo;
-import org.jphototagger.program.data.Exif;
+import org.jphototagger.domain.Exif;
 import org.jphototagger.program.data.Timeline;
 import org.jphototagger.program.data.Timeline.Date;
 import org.jphototagger.program.data.Xmp;

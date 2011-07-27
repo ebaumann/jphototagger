@@ -1,7 +1,7 @@
 package org.jphototagger.program.database;
 
 import org.jphototagger.program.app.AppLogger;
-import org.jphototagger.program.database.metadata.Column;
+import org.jphototagger.domain.Column;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -40,7 +40,7 @@ public final class DatabaseStatistics extends Database {
             con = getConnection();
             stmt = con.createStatement();
 
-            String sql = "SELECT COUNT(*) FROM " + column.getTablename() 
+            String sql = "SELECT COUNT(*) FROM " + column.getTablename()
                          + " WHERE " + column.getName() + " IS NOT NULL";
 
             logFinest(sql);
@@ -150,7 +150,7 @@ public final class DatabaseStatistics extends Database {
             for (int i = 0; !exists && (i < size); i++) {
                 Column column = columns.get(i);
 
-                stmt = con.prepareStatement("SELECT COUNT(*) FROM " + column.getTablename() 
+                stmt = con.prepareStatement("SELECT COUNT(*) FROM " + column.getTablename()
                                             + " WHERE " + column.getName() + " = ?");
                 stmt.setString(1, value);
                 logFinest(stmt);
@@ -192,7 +192,7 @@ public final class DatabaseStatistics extends Database {
 
         try {
             con = getConnection();
-            stmt = con.prepareStatement("SELECT COUNT(*) FROM " + column.getTablename() 
+            stmt = con.prepareStatement("SELECT COUNT(*) FROM " + column.getTablename()
                                         + " WHERE " + column.getName() + " = ?");
             stmt.setString(1, value);
             logFinest(stmt);

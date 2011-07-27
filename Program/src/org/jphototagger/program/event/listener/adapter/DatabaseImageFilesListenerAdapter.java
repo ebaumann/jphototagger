@@ -1,6 +1,6 @@
 package org.jphototagger.program.event.listener.adapter;
 
-import org.jphototagger.program.data.Exif;
+import org.jphototagger.domain.Exif;
 import org.jphototagger.program.data.Xmp;
 import org.jphototagger.program.event.listener.DatabaseImageFilesListener;
 import java.io.File;

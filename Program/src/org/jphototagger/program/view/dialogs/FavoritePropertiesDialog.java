@@ -14,7 +14,7 @@ import java.awt.Container;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.List;
-import org.jphototagger.program.data.Favorite;
+import org.jphototagger.domain.Favorite;
 import org.jphototagger.program.view.panels.SelectRootFilesPanel;
 
 
@@ -94,7 +94,7 @@ public final class FavoritePropertiesDialog extends Dialog {
         }
 
         this.dir = dir;
-        
+
         String dirPathName = dir.getAbsolutePath();
 
         labelDirectoryname.setText(dirPathName);

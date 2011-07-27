@@ -14,7 +14,7 @@ import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.data.UserDefinedFileType;
+import org.jphototagger.domain.UserDefinedFileType;
 import org.jphototagger.program.database.DatabaseUserDefinedFileTypes;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
@@ -105,7 +105,7 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
     private boolean isExternalThumbnailCreator() {
         return checkBoxExternalThumbnailCreator.isSelected();
     }
-    
+
     private void save() {
         if (checkValid()) {
             UserDefinedFileType oldUserDefinedFileType = new UserDefinedFileType(userDefinedFileType);
@@ -118,7 +118,7 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
             } else {
                 countUpdated = DatabaseUserDefinedFileTypes.INSTANCE.update(oldUserDefinedFileType, userDefinedFileType);
             }
-            
+
             if (countUpdated > 0) {
                 changed = false;
                 escape();

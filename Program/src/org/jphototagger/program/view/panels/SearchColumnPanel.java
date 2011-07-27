@@ -2,10 +2,9 @@ package org.jphototagger.program.view.panels;
 
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.data.SavedSearchPanel;
-import org.jphototagger.program.database.metadata.Column;
+import org.jphototagger.domain.Column;
 import org.jphototagger.program.database.metadata.Comparator;
 import org.jphototagger.program.database.metadata.exif.ColumnExifDateTimeOriginal;
-import org.jphototagger.program.database.metadata.FormatterFactory;
 import org.jphototagger.program.database.metadata.Operator;
 import org.jphototagger.program.database.metadata.selections.AdvancedSearchColumns;
 import org.jphototagger.program.database.metadata.selections.ColumnIds;
@@ -75,7 +74,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         Column column = getColumn();
         Column.DataType columnDataType = column.getDataType();
 
-        textFieldValue.setFormatterFactory(FormatterFactory.getFormatterFactory(column));
+        textFieldValue.setFormatterFactory(column.getFormatterFactory());
 
         if (columnDataType.equals(prevColumnDataType) && !value.isEmpty()) {
             textFieldValue.setText(value);
@@ -511,7 +510,6 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
     private void textFieldValueKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldValueKeyTyped
         handleTextFieldValueKeyTyped(evt);
     }//GEN-LAST:event_textFieldValueKeyTyped
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCalendar;
     public javax.swing.JButton buttonRemoveColumn;

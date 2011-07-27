@@ -2,7 +2,7 @@ package org.jphototagger.program.view.renderer;
 
 import java.awt.Color;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.data.Keyword;
+import org.jphototagger.domain.Keyword;
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.Collection;
