@@ -1,6 +1,6 @@
 package org.jphototagger.program.database.metadata.selections;
 
-import org.jphototagger.program.database.metadata.Column;
+import org.jphototagger.domain.Column;
 import org.jphototagger.program.database.metadata.selections.EditHints.SizeEditField;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcCreator;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcDescription;

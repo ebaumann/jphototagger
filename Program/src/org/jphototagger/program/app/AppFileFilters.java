@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.Collections;
 import java.util.List;
 import org.jphototagger.lib.io.filefilter.RegexFileFilter;
-import org.jphototagger.program.data.UserDefinedFileType;
+import org.jphototagger.domain.UserDefinedFileType;
 import org.jphototagger.program.filefilter.NoXmpFileFilter;
 import org.jphototagger.program.filefilter.XmpRatingFileFilter;
 import org.jphototagger.program.resource.JptBundle;

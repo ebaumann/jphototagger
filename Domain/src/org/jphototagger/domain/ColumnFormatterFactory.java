@@ -1,8 +1,9 @@
-package org.jphototagger.program.database.metadata;
+package org.jphototagger.domain;
 
-import org.jphototagger.program.app.AppLogger;
-import org.jphototagger.program.database.metadata.Column.DataType;
+import org.jphototagger.domain.Column.DataType;
 import java.text.NumberFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.text.DefaultFormatter;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
@@ -13,12 +14,13 @@ import javax.swing.text.NumberFormatter;
  *
  * @author Elmar Baumann
  */
-public final class FormatterFactory {
+final class ColumnFormatterFactory {
+
     private static DefaultFormatterFactory integerFormatterFactory;
     private static DefaultFormatterFactory doubleFormatterFactory;
     private static DefaultFormatterFactory dateFormatterFactory;
     private static DefaultFormatterFactory defaultFormatterFactory =
-        new DefaultFormatterFactory(new DefaultFormatter());
+            new DefaultFormatterFactory(new DefaultFormatter());
 
     static {
         try {
@@ -37,7 +39,7 @@ public final class FormatterFactory {
             doubleFormatterFactory = new DefaultFormatterFactory(doubleFormatter);
             dateFormatterFactory = new DefaultFormatterFactory(new MaskFormatter("####-##-##"));
         } catch (Exception ex) {
-            AppLogger.logSevere(FormatterFactory.class, ex);
+            Logger.getLogger(ColumnFormatterFactory.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -59,5 +61,6 @@ public final class FormatterFactory {
         }
     }
 
-    private FormatterFactory() {}
+    private ColumnFormatterFactory() {
+    }
 }

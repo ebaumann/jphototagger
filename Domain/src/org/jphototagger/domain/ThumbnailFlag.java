@@ -1,6 +1,5 @@
-package org.jphototagger.program.data;
+package org.jphototagger.domain;
 
-import org.jphototagger.program.resource.JptBundle;
 import java.awt.Color;
 
 /**
@@ -8,10 +7,10 @@ import java.awt.Color;
  * @author Elmar Baumann
  */
 public final class ThumbnailFlag {
+
     private final Color color;
     private final String string;
-    public static final ThumbnailFlag ERROR_FILE_NOT_FOUND =
-        new ThumbnailFlag(Color.RED, JptBundle.INSTANCE.getString("ThumbnailFlag.Error.FileNotFound"));
+    public static final ThumbnailFlag ERROR_FILE_NOT_FOUND = new ThumbnailFlag(Color.RED, "File not found");
 
     public ThumbnailFlag(Color color, String string) {
         if (color == null) {
@@ -50,11 +49,11 @@ public final class ThumbnailFlag {
 
         final ThumbnailFlag other = (ThumbnailFlag) obj;
 
-        if ((this.color != other.color) && ((this.color == null) ||!this.color.equals(other.color))) {
+        if ((this.color != other.color) && ((this.color == null) || !this.color.equals(other.color))) {
             return false;
         }
 
-        if ((this.string == null) ||!this.string.equals(other.string)) {
+        if ((this.string == null) || !this.string.equals(other.string)) {
             return false;
         }
 
@@ -66,11 +65,11 @@ public final class ThumbnailFlag {
         int hash = 5;
 
         hash = 71 * hash + ((this.color != null)
-                            ? this.color.hashCode()
-                            : 0);
+                ? this.color.hashCode()
+                : 0);
         hash = 71 * hash + ((this.string != null)
-                            ? this.string.hashCode()
-                            : 0);
+                ? this.string.hashCode()
+                : 0);
 
         return hash;
     }

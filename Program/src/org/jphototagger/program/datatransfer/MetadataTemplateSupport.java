@@ -3,7 +3,7 @@ package org.jphototagger.program.datatransfer;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.data.MetadataTemplate;
 import org.jphototagger.program.data.TextEntry;
-import org.jphototagger.program.database.metadata.Column;
+import org.jphototagger.domain.Column;
 import org.jphototagger.program.view.panels.EditRepeatableTextEntryPanel;
 import java.awt.Component;
 import java.util.Collection;

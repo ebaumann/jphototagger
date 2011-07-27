@@ -3,12 +3,12 @@ package org.jphototagger.program.database;
 import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.cache.PersistentThumbnails;
-import org.jphototagger.program.data.Exif;
+import org.jphototagger.domain.Exif;
 import org.jphototagger.program.data.ImageFile;
 import org.jphototagger.program.data.Timeline;
 import org.jphototagger.program.data.Xmp;
 import org.jphototagger.program.database.DatabaseImageFiles.DcSubjectOption;
-import org.jphototagger.program.database.metadata.Column;
+import org.jphototagger.domain.Column;
 import org.jphototagger.program.database.metadata.Join;
 import org.jphototagger.program.database.metadata.Join.Type;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcCreator;
@@ -553,7 +553,7 @@ public final class DatabaseImageFiles extends Database {
                 if (thumbnail != null) {
                     updateThumbnailFile(imgFile, thumbnail);
                 }
-                
+
                 updated++;
                 progressEvent.setValue(++count);
                 progressEvent.setInfo(imgFile);
@@ -570,7 +570,7 @@ public final class DatabaseImageFiles extends Database {
 
         return updated;
     }
-    
+
     /**
      * Updates the thumbnail of an image file.
      *
@@ -1731,7 +1731,7 @@ public final class DatabaseImageFiles extends Database {
                          + " INNER JOIN xmp ON xmp_dc_subject.id_xmp = xmp.id"
                          + " INNER JOIN files ON xmp.id_file = files.id"
                          + " WHERE dc_subjects.subject IN "
-                         + Util.getParamsInParentheses(count) 
+                         + Util.getParamsInParentheses(count)
                          + " GROUP BY files.filename HAVING COUNT(*) = "
                          + count;
 
@@ -1834,7 +1834,7 @@ public final class DatabaseImageFiles extends Database {
             String tableName = column.getTablename();
             String columnName = column.getName();
             int count = words.size();
-            String sql = " SELECT files.filename FROM files" 
+            String sql = " SELECT files.filename FROM files"
                          + Join.getJoinToFiles(tableName, Type.INNER)
                          + " WHERE "
                          + tableName + "." + columnName
@@ -2296,7 +2296,7 @@ public final class DatabaseImageFiles extends Database {
         try {
             con = getConnection();
 
-            String sql = "SELECT files.filename FROM files" + Join.getJoinToFiles(tableName, Type.INNER) 
+            String sql = "SELECT files.filename FROM files" + Join.getJoinToFiles(tableName, Type.INNER)
                          + " WHERE " + tableName + "." + columnName + " = ?"
                          + " ORDER BY files.filename ASC";
 
@@ -2493,7 +2493,7 @@ public final class DatabaseImageFiles extends Database {
 
         return isLink
                ? Join.getNullSqlOf(tablename)
-               : "SELECT files.filename FROM files INNER JOIN " 
+               : "SELECT files.filename FROM files INNER JOIN "
                  + tablename + " ON files.id = " + tablename + ".id_file WHERE "
                  + tablename + "." + columnName + " IS NULL"
                  + " UNION SELECT files.filename FROM files " + Join.getUnjoinedFilesSqlWhere(tablename);

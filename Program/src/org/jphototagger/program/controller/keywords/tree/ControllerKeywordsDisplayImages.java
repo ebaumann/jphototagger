@@ -2,7 +2,7 @@ package org.jphototagger.program.controller.keywords.tree;
 
 import javax.swing.tree.TreePath;
 import org.jphototagger.lib.componentutil.ListUtil;
-import org.jphototagger.program.data.Keyword;
+import org.jphototagger.domain.Keyword;
 import org.jphototagger.program.helper.KeywordsHelper;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.AppPanel;

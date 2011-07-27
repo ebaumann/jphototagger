@@ -1,7 +1,7 @@
 package org.jphototagger.program.controller.keywords.tree;
 
 import org.jphototagger.program.controller.keywords.list.ShowThumbnailsContainingAllKeywords2;
-import org.jphototagger.program.data.Keyword;
+import org.jphototagger.domain.Keyword;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.AppPanel;
 import java.util.ArrayList;

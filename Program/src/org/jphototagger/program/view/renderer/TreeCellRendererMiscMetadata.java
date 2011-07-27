@@ -1,7 +1,7 @@
 package org.jphototagger.program.view.renderer;
 
 import org.jphototagger.lib.image.util.IconUtil;
-import org.jphototagger.program.database.metadata.Column;
+import org.jphototagger.domain.Column;
 import org.jphototagger.program.database.metadata.exif.ColumnExifFocalLength;
 import org.jphototagger.program.database.metadata.selections.ColumnIcons;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpRating;

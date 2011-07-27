@@ -3,7 +3,7 @@ package org.jphototagger.program.view;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.data.Favorite;
+import org.jphototagger.domain.Favorite;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.panels.EditMetadataPanels;

@@ -3,7 +3,7 @@ package org.jphototagger.program.model;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.program.data.UserDefinedFileType;
+import org.jphototagger.domain.UserDefinedFileType;
 import org.jphototagger.program.database.DatabaseUserDefinedFileTypes;
 import org.jphototagger.program.event.listener.DatabaseUserDefinedFileTypesListener;
 

@@ -7,7 +7,7 @@ import javax.swing.event.ChangeEvent;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.TableUtil;
 import org.jphototagger.program.cache.EmbeddedXmpCache;
-import org.jphototagger.program.data.Exif;
+import org.jphototagger.domain.Exif;
 import org.jphototagger.program.data.Xmp;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.database.metadata.selections.MetadataTableModels;

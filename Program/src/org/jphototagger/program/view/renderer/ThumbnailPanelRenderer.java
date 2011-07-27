@@ -3,7 +3,7 @@ package org.jphototagger.program.view.renderer;
 import org.jphototagger.program.cache.RenderedThumbnailCacheIndirection;
 import org.jphototagger.program.cache.ThumbnailRenderer;
 import org.jphototagger.program.cache.XmpCache;
-import org.jphototagger.program.data.ThumbnailFlag;
+import org.jphototagger.domain.ThumbnailFlag;
 import org.jphototagger.program.data.Xmp;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpRating;

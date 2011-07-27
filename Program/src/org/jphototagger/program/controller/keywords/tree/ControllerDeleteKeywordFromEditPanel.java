@@ -1,7 +1,7 @@
 package org.jphototagger.program.controller.keywords.tree;
 
 import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.data.Keyword;
+import org.jphototagger.domain.Keyword;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import org.jphototagger.program.helper.KeywordsHelper;
 import org.jphototagger.program.resource.GUI;

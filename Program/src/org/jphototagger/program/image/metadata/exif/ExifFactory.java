@@ -2,7 +2,7 @@ package org.jphototagger.program.image.metadata.exif;
 
 import org.jphototagger.lib.util.NumberUtil;
 import org.jphototagger.program.app.AppLogger;
-import org.jphototagger.program.data.Exif;
+import org.jphototagger.domain.Exif;
 import java.sql.Date;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -61,8 +61,8 @@ final class ExifFactory {
 
     private static void setExifDateTimeOriginal(Exif exif, ExifTag dateTimeOriginalTag) {
         String exifTagStringValue = dateTimeOriginalTag.getStringValue();
-        String dateTimeString = exifTagStringValue == null 
-                                    ? "" 
+        String dateTimeString = exifTagStringValue == null
+                                    ? ""
                                     : exifTagStringValue.trim();
         int dateTimeStringLength = dateTimeString.length();
 
@@ -71,11 +71,11 @@ final class ExifFactory {
                 String yearString = dateTimeString.substring(0, 4);
                 String monthString = dateTimeString.substring(5, 7);
                 String dayString = dateTimeString.substring(8, 10);
-                
+
                 if (!NumberUtil.isInteger(yearString) || !NumberUtil.isInteger(monthString) || !NumberUtil.isInteger(dayString)) {
                     return;
                 }
-                
+
                 int year = Integer.parseInt(yearString);
                 int month = Integer.parseInt(monthString);
                 int day = Integer.parseInt(dayString);
@@ -109,8 +109,8 @@ final class ExifFactory {
     private static void setExifFocalLength(Exif exif, ExifTag focalLengthTag) {
         try {
             String exifTagStringValue = focalLengthTag.getStringValue();
-            StringTokenizer tokenizer = exifTagStringValue == null 
-                                            ? new StringTokenizer("") 
+            StringTokenizer tokenizer = exifTagStringValue == null
+                                            ? new StringTokenizer("")
                                             : new StringTokenizer(exifTagStringValue.trim(), "/:");
 
             if (tokenizer.countTokens() >= 1) {
@@ -148,13 +148,13 @@ final class ExifFactory {
     private static void setExifIsoSpeedRatings(Exif exif, ExifTag isoSpeedRatingsTag) {
         try {
             String exifTagStringValue = isoSpeedRatingsTag.getStringValue();
-            String isoSpeedRatingsString = exifTagStringValue == null 
-                                               ? null 
+            String isoSpeedRatingsString = exifTagStringValue == null
+                                               ? null
                                                : exifTagStringValue.trim();
-            
+
             if (NumberUtil.isShort(isoSpeedRatingsString)) {
                 short isoSpeedRatings = Short.parseShort(isoSpeedRatingsString);
-                
+
                 exif.setIsoSpeedRatings(isoSpeedRatings);
             }
         } catch (Exception ex) {

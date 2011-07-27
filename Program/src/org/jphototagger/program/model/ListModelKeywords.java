@@ -1,6 +1,6 @@
 package org.jphototagger.program.model;
 
-import org.jphototagger.program.data.Exif;
+import org.jphototagger.domain.Exif;
 import org.jphototagger.program.data.Xmp;
 import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseImageFiles;

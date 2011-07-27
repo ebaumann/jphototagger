@@ -2,7 +2,7 @@ package org.jphototagger.program.event.listener.impl;
 
 import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.lib.event.util.MouseEventUtil;
-import org.jphototagger.program.data.Favorite;
+import org.jphototagger.domain.Favorite;
 import org.jphototagger.program.view.popupmenus.PopupMenuFavorites;
 import java.awt.event.MouseEvent;
 import java.io.File;

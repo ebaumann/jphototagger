@@ -1,7 +1,7 @@
 package org.jphototagger.program.cache;
 
 import org.jphototagger.lib.generics.Pair;
-import org.jphototagger.program.data.Exif;
+import org.jphototagger.domain.Exif;
 import org.jphototagger.program.data.Xmp;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.event.listener.DatabaseImageFilesListener;

@@ -3,7 +3,7 @@ package org.jphototagger.program.view.panels;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.data.TextEntry;
-import org.jphototagger.program.database.metadata.Column;
+import org.jphototagger.domain.Column;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpRating;
 import org.jphototagger.program.event.listener.impl.TextEntryListenerSupport;
 import org.jphototagger.program.event.listener.TextEntryListener;

@@ -1,7 +1,7 @@
 package org.jphototagger.program.database;
 
 import org.jphototagger.program.app.SplashScreen;
-import org.jphototagger.program.data.RenameTemplate;
+import org.jphototagger.domain.RenameTemplate;
 import org.jphototagger.program.data.RenameTemplateTest;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;

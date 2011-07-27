@@ -1,7 +1,7 @@
 package org.jphototagger.program.database;
 
 import org.jphototagger.program.app.AppLogger;
-import org.jphototagger.program.data.RenameTemplate;
+import org.jphototagger.domain.RenameTemplate;
 import org.jphototagger.program.event.listener.DatabaseRenameTemplatesListener;
 import org.jphototagger.program.event.listener.impl.ListenerSupport;
 import java.sql.Connection;

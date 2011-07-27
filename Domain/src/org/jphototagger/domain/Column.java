@@ -1,12 +1,14 @@
-package org.jphototagger.program.database.metadata;
+package org.jphototagger.domain;
 
 import org.jphototagger.lib.inputverifier.InputVerifierAlwaysTrue;
 import org.jphototagger.lib.inputverifier.InputVerifierDate;
 import org.jphototagger.lib.inputverifier.InputVerifierMaxLength;
 import org.jphototagger.lib.inputverifier.InputVerifierNumber;
-import org.jphototagger.program.app.AppLogger;
 import java.text.DateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.InputVerifier;
+import javax.swing.text.DefaultFormatterFactory;
 
 /**
  * Database column containing metadata with the user acts on.
@@ -14,6 +16,7 @@ import javax.swing.InputVerifier;
  * @author Elmar Baumann
  */
 public class Column {
+
     private final DataType dataType;
     private String description;
     private int length;
@@ -53,26 +56,18 @@ public class Column {
 
         /** Java type <code>byte[]</code> */
         BINARY(InputVerifierAlwaysTrue.INSTANCE),
-
         /** Java type <code>java.sql.Date</code> */
         DATE(new InputVerifierDate("yyyy-MM-dd")),
-
         /** Java type <code>int</code> */
         INTEGER(InputVerifierNumber.INSTANCE),
-
         /** Java type <code>long</code> */
         BIGINT(InputVerifierNumber.INSTANCE),
-
         /** Java type <code>double</code> */
         REAL(InputVerifierNumber.INSTANCE),
-
         /** Java type <code>short</code> */
         SMALLINT(InputVerifierNumber.INSTANCE),
-
         /** Java type <code>java.lang.String</code> */
-        STRING(InputVerifierAlwaysTrue.INSTANCE)
-        ;
-
+        STRING(InputVerifierAlwaysTrue.INSTANCE);
         private final InputVerifier defaultInputVerifier;
 
         private DataType(InputVerifier inputVerifier) {
@@ -87,29 +82,29 @@ public class Column {
          */
         public Object parseString(String string) {
             switch (this) {
-            case BINARY :
-                return string.getBytes();
+                case BINARY:
+                    return string.getBytes();
 
-            case DATE :
-                return string2date(string);
+                case DATE:
+                    return string2date(string);
 
-            case INTEGER :
-                return Integer.parseInt(string);
+                case INTEGER:
+                    return Integer.parseInt(string);
 
-            case BIGINT :
-                return Long.parseLong(string);
+                case BIGINT:
+                    return Long.parseLong(string);
 
-            case REAL :
-                return Double.parseDouble(string);
+                case REAL:
+                    return Double.parseDouble(string);
 
-            case SMALLINT :
-                return Short.parseShort(string);
+                case SMALLINT:
+                    return Short.parseShort(string);
 
-            case STRING :
-                return string;
+                case STRING:
+                    return string;
 
-            default :
-                throw new IllegalArgumentException("Not handled type: " + this);
+                default:
+                    throw new IllegalArgumentException("Not handled type: " + this);
             }
         }
 
@@ -117,7 +112,7 @@ public class Column {
             try {
                 return new java.sql.Date(DateFormat.getInstance().parse(s).getTime());
             } catch (Exception ex) {
-                AppLogger.logSevere(Column.class, ex);
+                Logger.getLogger(Column.class.getName()).log(Level.SEVERE, null, ex);
             }
 
             return s;
@@ -131,12 +126,12 @@ public class Column {
     @Override
     public String toString() {
         String desc = (description == null)
-                      ? ""
-                      : description.trim();
+                ? ""
+                : description.trim();
 
         return desc.isEmpty()
-               ? name
-               : desc;
+                ? name
+                : desc;
     }
 
     @Override
@@ -155,11 +150,11 @@ public class Column {
         int hash = 7;
 
         hash = 83 * hash + ((tablename != null)
-                            ? tablename.hashCode()
-                            : 0);
+                ? tablename.hashCode()
+                : 0);
         hash = 83 * hash + ((name != null)
-                            ? name.hashCode()
-                            : 0);
+                ? name.hashCode()
+                : 0);
 
         return hash;
     }
@@ -237,7 +232,11 @@ public class Column {
      */
     public InputVerifier getInputVerifier() {
         return dataType.equals(DataType.STRING)
-               ? new InputVerifierMaxLength(length)
-               : dataType.defaultInputVerifier;
+                ? new InputVerifierMaxLength(length)
+                : dataType.defaultInputVerifier;
+    }
+
+    public DefaultFormatterFactory getFormatterFactory() {
+        return ColumnFormatterFactory.getFormatterFactory(this);
     }
 }

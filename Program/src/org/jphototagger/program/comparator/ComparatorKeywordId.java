@@ -1,6 +1,6 @@
 package org.jphototagger.program.comparator;
 
-import org.jphototagger.program.data.Keyword;
+import org.jphototagger.domain.Keyword;
 import java.util.Comparator;
 
 /**

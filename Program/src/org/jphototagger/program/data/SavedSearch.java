@@ -1,6 +1,6 @@
 package org.jphototagger.program.data;
 
-import org.jphototagger.program.database.metadata.Column;
+import org.jphototagger.domain.Column;
 import org.jphototagger.program.database.metadata.file.ColumnFilesFilename;
 import org.jphototagger.program.database.metadata.Join;
 import org.jphototagger.program.database.metadata.Util;
@@ -12,6 +12,8 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.jphototagger.domain.Column;
+import org.jphototagger.domain.ParamStatement;
 
 /**
  *

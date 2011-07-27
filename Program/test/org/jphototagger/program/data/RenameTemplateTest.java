@@ -1,5 +1,6 @@
 package org.jphototagger.program.data;
 
+import org.jphototagger.domain.RenameTemplate;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;

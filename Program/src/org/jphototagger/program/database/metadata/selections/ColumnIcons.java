@@ -1,7 +1,7 @@
 package org.jphototagger.program.database.metadata.selections;
 
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.database.metadata.Column;
+import org.jphototagger.domain.Column;
 import org.jphototagger.program.database.metadata.exif.ColumnExifFocalLength;
 import org.jphototagger.program.database.metadata.exif.ColumnExifIsoSpeedRatings;
 import org.jphototagger.program.database.metadata.exif.ColumnExifLens;

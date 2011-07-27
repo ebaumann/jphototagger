@@ -1,6 +1,6 @@
 package org.jphototagger.program.event.listener;
 
-import org.jphototagger.program.data.UserDefinedFileType;
+import org.jphototagger.domain.UserDefinedFileType;
 
 /**
  *

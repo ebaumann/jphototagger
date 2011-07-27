@@ -96,7 +96,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
     }
 
     private void checkSave() {
-        if (panelXmpEdit.isDirty() 
+        if (panelXmpEdit.isDirty()
             && MessageDisplayer.confirmYesNo(this, "EditMetaDataTemplateDialog.Confirm.CheckSave")) {
             save();
         }

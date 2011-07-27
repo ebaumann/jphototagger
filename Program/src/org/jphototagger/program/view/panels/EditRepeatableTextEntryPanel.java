@@ -3,11 +3,11 @@ package org.jphototagger.program.view.panels;
 import org.jdesktop.swingx.JXList;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.data.Exif;
+import org.jphototagger.domain.Exif;
 import org.jphototagger.program.data.TextEntry;
 import org.jphototagger.program.data.Xmp;
 import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.program.database.metadata.Column;
+import org.jphototagger.domain.Column;
 import org.jphototagger.program.database.metadata.selections.AutoCompleteDataOfColumn;
 import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
 import org.jphototagger.program.event.listener.DatabaseImageFilesListener;
@@ -502,7 +502,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
 
         for (int selIndex : selIndices) {
             int modelIndex = list.convertIndexToModel(selIndex);
-            
+
             renameListItem(modelIndex);
         }
     }

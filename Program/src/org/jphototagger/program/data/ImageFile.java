@@ -1,5 +1,6 @@
 package org.jphototagger.program.data;
 
+import org.jphototagger.domain.Exif;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase.Insert;
 import java.awt.Image;

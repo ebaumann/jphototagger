@@ -2,7 +2,7 @@ package org.jphototagger.program.datatransfer;
 
 import org.jphototagger.lib.datatransfer.TransferUtil;
 import org.jphototagger.lib.datatransfer.TransferUtil.FilenameDelimiter;
-import org.jphototagger.program.data.Favorite;
+import org.jphototagger.domain.Favorite;
 import org.jphototagger.program.io.ImageFileFilterer;
 import org.jphototagger.program.io.ImageUtil;
 import org.jphototagger.program.io.ImageUtil.ConfirmOverwrite;

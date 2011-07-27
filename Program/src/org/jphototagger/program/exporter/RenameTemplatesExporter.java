@@ -3,7 +3,7 @@ package org.jphototagger.program.exporter;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.data.RenameTemplate;
+import org.jphototagger.domain.RenameTemplate;
 import org.jphototagger.program.database.DatabaseRenameTemplates;
 import org.jphototagger.program.resource.JptBundle;
 import java.io.File;

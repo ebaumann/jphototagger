@@ -1,7 +1,7 @@
 package org.jphototagger.program.controller.search;
 
 import org.jphototagger.lib.componentutil.TreeUtil;
-import org.jphototagger.program.data.ParamStatement;
+import org.jphototagger.domain.ParamStatement;
 import org.jphototagger.program.data.SavedSearch;
 import org.jphototagger.program.database.DatabaseFind;
 import org.jphototagger.program.helper.SavedSearchesHelper;

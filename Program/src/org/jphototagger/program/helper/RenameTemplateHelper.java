@@ -2,7 +2,7 @@ package org.jphototagger.program.helper;
 
 import org.jphototagger.lib.dialog.InputDialog;
 import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.data.RenameTemplate;
+import org.jphototagger.domain.RenameTemplate;
 import org.jphototagger.program.database.DatabaseRenameTemplates;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;

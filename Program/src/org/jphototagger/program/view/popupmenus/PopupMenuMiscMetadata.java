@@ -3,7 +3,7 @@ package org.jphototagger.program.view.popupmenus;
 import org.jphototagger.lib.event.listener.PopupMenuTree;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.database.metadata.Column;
+import org.jphototagger.domain.Column;
 import org.jphototagger.program.database.metadata.xmp.XmpColumns;
 import org.jphototagger.program.helper.MiscMetadataHelper;
 import org.jphototagger.program.resource.GUI;

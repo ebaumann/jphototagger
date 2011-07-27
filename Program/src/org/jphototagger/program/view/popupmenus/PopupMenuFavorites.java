@@ -2,7 +2,7 @@ package org.jphototagger.program.view.popupmenus;
 
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.data.Favorite;
+import org.jphototagger.domain.Favorite;
 import org.jphototagger.program.resource.JptBundle;
 import java.awt.event.KeyEvent;
 import javax.swing.JMenuItem;

@@ -3,7 +3,7 @@ package org.jphototagger.program.controller.miscmetadata;
 import org.jphototagger.lib.event.listener.PopupMenuTree;
 import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.program.controller.Controller;
-import org.jphototagger.program.database.metadata.Column;
+import org.jphototagger.domain.Column;
 import org.jphototagger.program.helper.MiscMetadataHelper;
 import org.jphototagger.program.resource.GUI;
 import java.awt.event.ActionEvent;

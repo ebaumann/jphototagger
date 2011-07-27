@@ -3,7 +3,7 @@ package org.jphototagger.program.exporter;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.data.ImageCollection;
+import org.jphototagger.domain.ImageCollection;
 import org.jphototagger.program.database.DatabaseImageCollections;
 import org.jphototagger.program.resource.JptBundle;
 import java.io.File;

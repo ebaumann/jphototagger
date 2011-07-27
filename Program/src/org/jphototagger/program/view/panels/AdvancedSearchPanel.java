@@ -6,7 +6,7 @@ import javax.swing.event.DocumentEvent;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.data.SavedSearch;
 import org.jphototagger.program.data.SavedSearchPanel;
-import org.jphototagger.program.data.ParamStatement;
+import org.jphototagger.domain.ParamStatement;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Persistence;
 import org.jphototagger.program.UserSettings;
@@ -507,7 +507,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
         boolean saved = update
                 ? SavedSearchesHelper.update(savedSearch)
                 : SavedSearchesHelper.insert(savedSearch);
-        
+
         if (saved) {
             setSearchName(savedSearch.getName());
             setUndirty();

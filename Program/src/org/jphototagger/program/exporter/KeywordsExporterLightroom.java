@@ -2,7 +2,7 @@ package org.jphototagger.program.exporter;
 
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.data.Keyword;
+import org.jphototagger.domain.Keyword;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.io.CharEncoding;
 import org.jphototagger.program.io.FilenameSuffixes;

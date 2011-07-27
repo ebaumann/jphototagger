@@ -1,6 +1,6 @@
 package org.jphototagger.program.event.listener;
 
-import org.jphototagger.program.database.metadata.Column;
+import org.jphototagger.domain.Column;
 
 /**
  * Listens to an {@link org.jphototagger.program.data.TextEntry}.

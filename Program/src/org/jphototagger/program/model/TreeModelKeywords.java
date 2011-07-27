@@ -4,7 +4,7 @@ import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.lib.model.TreeNodeSortedChildren;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.data.Keyword;
+import org.jphototagger.domain.Keyword;
 import org.jphototagger.program.database.DatabaseKeywords;
 import org.jphototagger.program.helper.KeywordsHelper;
 import org.jphototagger.program.resource.JptBundle;

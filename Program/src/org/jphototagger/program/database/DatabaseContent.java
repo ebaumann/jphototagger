@@ -1,7 +1,7 @@
 package org.jphototagger.program.database;
 
 import org.jphototagger.program.app.AppLogger;
-import org.jphototagger.program.database.metadata.Column;
+import org.jphototagger.domain.Column;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -41,7 +41,7 @@ public final class DatabaseContent extends Database {
 
             stmt = con.createStatement();
 
-            String sql = "SELECT DISTINCT " + columnName 
+            String sql = "SELECT DISTINCT " + columnName
                          + " FROM " + column.getTablename()
                          + " WHERE " + columnName
                          + " IS NOT NULL ORDER BY 1 ASC";

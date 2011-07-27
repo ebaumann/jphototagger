@@ -1,4 +1,4 @@
-package org.jphototagger.program.data;
+package org.jphototagger.domain;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
@@ -45,7 +45,7 @@ public final class Exif {
     public double getFocalLength() {
         return focalLength;
     }
-    
+
     public Double getFocalLengthGreaterZeroOrNull() {
         return focalLength > 0
                 ? focalLength
