@@ -17,5 +17,7 @@ public interface UserDefinedFileTypesRepository {
 
     void remove(UserDefinedFileType serDefinedFileType);
 
+    boolean existsFileTypeWithSuffix(String suffix);
+
     List<UserDefinedFileType> findAll();
 }
