@@ -1,1 +1,1 @@
-org.jphototagger.program.serviceprovider.JptUserDirectoryServiceProvider
+org.jphototagger.program.serviceprovider.core.UserDirectoryServiceProviderImpl

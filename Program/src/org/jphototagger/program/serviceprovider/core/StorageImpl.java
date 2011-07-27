@@ -1,4 +1,4 @@
-package org.jphototagger.program.serviceprovider;
+package org.jphototagger.program.serviceprovider.core;
 
 import java.awt.Component;
 import org.jphototagger.lib.util.Settings;
@@ -10,7 +10,7 @@ import org.jphototagger.services.core.Storage;
  *
  * @author Elmar Baumann
  */
-public final class JptStorage implements Storage {
+public final class StorageImpl implements Storage {
 
     private Settings settings = UserSettings.INSTANCE.getSettings();
 

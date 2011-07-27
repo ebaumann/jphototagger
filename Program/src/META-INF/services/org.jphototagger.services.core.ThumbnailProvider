@@ -1,1 +1,1 @@
-org.jphototagger.program.serviceprovider.JptThumbnailProvider
+org.jphototagger.program.serviceprovider.core.ThumbnailProviderImpl
