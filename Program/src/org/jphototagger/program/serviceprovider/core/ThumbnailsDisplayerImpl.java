@@ -1,4 +1,4 @@
-package org.jphototagger.program.serviceprovider;
+package org.jphototagger.program.serviceprovider.core;
 
 import java.io.File;
 import java.util.Collection;
@@ -13,7 +13,7 @@ import org.jphototagger.services.core.ThumbnailsDisplayer;
  *
  * @author Elmar Baumann
  */
-public final class JptThumbnailsDisplayer implements ThumbnailsDisplayer {
+public final class ThumbnailsDisplayerImpl implements ThumbnailsDisplayer {
 
     @Override
     public void displayThumbnailsOfImageFiles(Collection<? extends File> imageFiles) {

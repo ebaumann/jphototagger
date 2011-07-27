@@ -1,4 +1,4 @@
-package org.jphototagger.program.serviceprovider;
+package org.jphototagger.program.serviceprovider.core;
 
 import java.io.File;
 import org.jphototagger.program.UserSettings;
@@ -10,7 +10,7 @@ import org.jphototagger.services.core.CacheDirectoryProvider;
  *
  * @author Elmar Baumann
  */
-public final class JptCacheDirectoryProvider implements CacheDirectoryProvider {
+public final class CacheDirectoryProviderImpl implements CacheDirectoryProvider {
 
     private static final File CACHE_DIRECTORY = new File(UserSettings.INSTANCE.getDatabaseDirectoryName() + File.separator + "plugincache");
 
@@ -26,7 +26,7 @@ public final class JptCacheDirectoryProvider implements CacheDirectoryProvider {
             boolean created = CACHE_DIRECTORY.mkdirs();
 
             if (!created) {
-                AppLogger.logWarning(JptCacheDirectoryProvider.class,
+                AppLogger.logWarning(CacheDirectoryProviderImpl.class,
                         "JptCacheDirectoryProvider.Error.CreatingCacheDirectory", CACHE_DIRECTORY);
             }
         }
