@@ -143,6 +143,10 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
     }
 
     private boolean checkIsNotAcceptedSuffix() {
+        if (!inAddNew) {
+            return true;
+        }
+
         String suffix = getSuffix();
         File aFile = new File("abc." + suffix);
 
