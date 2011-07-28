@@ -2,10 +2,10 @@ package org.jphototagger.program.controller.thumbnail;
 
 import org.jphototagger.program.cache.ThumbnailCache;
 import org.jphototagger.program.cache.XmpCache;
-import org.jphototagger.domain.Exif;
-import org.jphototagger.program.data.Xmp;
+import org.jphototagger.domain.exif.Exif;
+import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.program.event.listener.DatabaseImageFilesListener;
+import org.jphototagger.domain.event.listener.DatabaseImageFilesListener;
 import org.jphototagger.program.resource.GUI;
 import java.io.File;
 import java.util.Collections;

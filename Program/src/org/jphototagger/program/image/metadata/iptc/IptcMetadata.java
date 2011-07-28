@@ -6,7 +6,7 @@ import com.imagero.reader.iptc.IPTCEntryCollection;
 import com.imagero.reader.iptc.IPTCEntryMeta;
 import com.imagero.reader.MetadataUtils;
 import org.jphototagger.program.app.AppLogger;
-import org.jphototagger.program.data.Iptc;
+import org.jphototagger.domain.iptc.Iptc;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -139,13 +139,13 @@ public final class IptcMetadata {
 
     private static Set<IPTCEntry> toEntrySet(IPTCEntry[][] entries) {
         Set<IPTCEntry> entrySet = new HashSet<IPTCEntry>();
-        
+
         if (entries != null) {
             for (int i = 0; i < entries.length; i++) {
                 addEntriesToSet(entries[i], entrySet);
             }
         }
-        
+
         return entrySet;
     }
 
@@ -160,21 +160,21 @@ public final class IptcMetadata {
             }
         }
     }
-    
+
     public static IPTCEntry findEntry(Collection<? extends IPTCEntry> entries, int recordNumber, int dataSetNumber) {
         if (entries == null) {
             throw new NullPointerException("entries == null");
         }
-        
+
         for (IPTCEntry entry : entries) {
             int recordNo = entry.getRecordNumber();
             int dataSetNo = entry.getDataSetNumber();
-            
+
             if (recordNo == recordNumber && dataSetNo == dataSetNumber) {
                 return entry;
             }
         }
-        
+
         return null;
     }
 

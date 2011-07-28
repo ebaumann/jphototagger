@@ -1,7 +1,7 @@
 package org.jphototagger.services.repository;
 
 import java.util.List;
-import org.jphototagger.domain.UserDefinedFileType;
+import org.jphototagger.domain.filetypes.UserDefinedFileType;
 
 /**
  *

@@ -1,24 +1,25 @@
 package org.jphototagger.program.helper;
 
+import org.jphototagger.domain.database.InsertIntoDatabase;
 import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.cache.PersistentThumbnails;
-import org.jphototagger.domain.Exif;
-import org.jphototagger.program.data.ImageFile;
+import org.jphototagger.domain.exif.Exif;
+import org.jphototagger.domain.image.ImageFile;
 import org.jphototagger.program.data.Program;
-import org.jphototagger.program.data.Xmp;
+import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.program.database.DatabaseActionsAfterDbInsertion;
 import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.program.database.metadata.xmp.ColumnXmpIptc4XmpCoreDateCreated;
-import org.jphototagger.program.database.metadata.xmp.ColumnXmpLastModified;
-import org.jphototagger.program.event.listener.impl.ListenerSupport;
-import org.jphototagger.program.event.listener.impl.ProgressListenerSupport;
-import org.jphototagger.program.event.listener.ProgressListener;
-import org.jphototagger.program.event.listener.UpdateMetadataCheckListener;
-import org.jphototagger.program.event.ProgressEvent;
-import org.jphototagger.program.event.UpdateMetadataCheckEvent;
-import org.jphototagger.program.event.UpdateMetadataCheckEvent.Type;
+import org.jphototagger.domain.database.column.ColumnXmpIptc4XmpCoreDateCreated;
+import org.jphototagger.domain.database.column.ColumnXmpLastModified;
+import org.jphototagger.domain.event.listener.impl.ListenerSupport;
+import org.jphototagger.domain.event.listener.impl.ProgressListenerSupport;
+import org.jphototagger.lib.event.listener.ProgressListener;
+import org.jphototagger.domain.event.listener.UpdateMetadataCheckListener;
+import org.jphototagger.lib.event.ProgressEvent;
+import org.jphototagger.domain.event.UpdateMetadataCheckEvent;
+import org.jphototagger.domain.event.UpdateMetadataCheckEvent.Type;
 import org.jphototagger.program.image.metadata.exif.ExifMetadata;
 import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
 import org.jphototagger.program.image.thumbnail.ThumbnailUtil;
@@ -49,49 +50,9 @@ public final class InsertImageFilesIntoDatabase extends Thread implements Cancel
     private final ProgressListenerSupport pls = new ProgressListenerSupport();
     private final ListenerSupport<UpdateMetadataCheckListener> ls = new ListenerSupport<UpdateMetadataCheckListener>();
     private ProgressEvent progressEvent = new ProgressEvent(this, null);
-    private final Set<Insert> what = new HashSet<Insert>();
+    private final Set<InsertIntoDatabase> what = new HashSet<InsertIntoDatabase>();
     private final List<File> imageFiles;
     private boolean cancel;
-
-    /**
-     * Metadata to insert.
-     */
-    public enum Insert {
-
-        /**
-         * Insert or update EXIF, thumbnail and XMP against these rules:
-         *
-         * <ul>
-         * <li>Update EXIF, if the image file's file system last modified
-         *     timestamp is not equal to it's database timestamp
-         *     <code>files.lastmodified</code></li>
-         * <li>Insert or update the thumbnail, if the image file's file system
-         *     last modified timestamp is not equal to it's database timestamp
-         *     <code>files.lastmodified</code></li>
-         * <li>Insert or update XMP if the XMP sidecar file's file system last
-         *     modified timestamp is not equal to it's database timestamp
-         *     <code>files.xmp_lastmodified</code></li>
-         * </ul>
-         */
-        OUT_OF_DATE,
-
-        /**
-         * Insert or update the image file's EXIF metadata regardless of
-         * timestamps
-         */
-        EXIF,
-
-        /**
-         * Insert or update the image file's thumbnail regardless of timestamps
-         */
-        THUMBNAIL,
-
-        /**
-         * Insert or update the image file's XMP metadata from it's XMP sidecar
-         * file regardless of timestamps
-         */
-        XMP;
-    }
 
     /**
      * Constructor.
@@ -100,7 +61,7 @@ public final class InsertImageFilesIntoDatabase extends Thread implements Cancel
      *                   updated
      * @param what       metadata to insert
      */
-    public InsertImageFilesIntoDatabase(List<File> imageFiles, Insert... what) {
+    public InsertImageFilesIntoDatabase(List<File> imageFiles, InsertIntoDatabase... what) {
         super("JPhotoTagger: Inserting image files into database");
 
         if (imageFiles == null) {
@@ -155,17 +116,17 @@ public final class InsertImageFilesIntoDatabase extends Thread implements Cancel
         imageFile.setLastmodified(imgFile.lastModified());
 
         if (isUpdateThumbnail(imgFile)) {
-            imageFile.addInsertIntoDb(Insert.THUMBNAIL);
+            imageFile.addInsertIntoDb(InsertIntoDatabase.THUMBNAIL);
             createAndSetThumbnail(imageFile);
         }
 
         if (isUpdateXmp(imgFile)) {
-            imageFile.addInsertIntoDb(Insert.XMP);
+            imageFile.addInsertIntoDb(InsertIntoDatabase.XMP);
             setXmp(imageFile);
         }
 
         if (isUpdateExif(imgFile)) {
-            imageFile.addInsertIntoDb(Insert.EXIF);
+            imageFile.addInsertIntoDb(InsertIntoDatabase.EXIF);
             setExif(imageFile);
         }
 
@@ -173,8 +134,8 @@ public final class InsertImageFilesIntoDatabase extends Thread implements Cancel
     }
 
     private boolean isUpdateThumbnail(File imageFile) {
-        return what.contains(Insert.THUMBNAIL)
-               || (what.contains(Insert.OUT_OF_DATE)
+        return what.contains(InsertIntoDatabase.THUMBNAIL)
+               || (what.contains(InsertIntoDatabase.OUT_OF_DATE)
                    && (!existsThumbnail(imageFile) ||!isThumbnailUpToDate(imageFile)));
     }
 
@@ -183,11 +144,11 @@ public final class InsertImageFilesIntoDatabase extends Thread implements Cancel
     }
 
     private boolean isUpdateExif(File imageFile) {
-        return what.contains(Insert.EXIF) || (what.contains(Insert.OUT_OF_DATE) &&!isImageFileUpToDate(imageFile));
+        return what.contains(InsertIntoDatabase.EXIF) || (what.contains(InsertIntoDatabase.OUT_OF_DATE) &&!isImageFileUpToDate(imageFile));
     }
 
     private boolean isUpdateXmp(File imageFile) {
-        return what.contains(Insert.XMP) || (what.contains(Insert.OUT_OF_DATE) &&!isXmpUpToDate(imageFile));
+        return what.contains(InsertIntoDatabase.XMP) || (what.contains(InsertIntoDatabase.OUT_OF_DATE) &&!isXmpUpToDate(imageFile));
     }
 
     private boolean isImageFileUpToDate(File imageFile) {

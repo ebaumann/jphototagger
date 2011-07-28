@@ -1,10 +1,10 @@
 package org.jphototagger.program.io;
 
-import org.jphototagger.program.event.listener.FileSystemListener;
-import org.jphototagger.program.event.listener.impl.FileSystemListenerSupport;
-import org.jphototagger.program.event.listener.impl.ProgressListenerSupport;
-import org.jphototagger.program.event.listener.ProgressListener;
-import org.jphototagger.program.event.ProgressEvent;
+import org.jphototagger.lib.event.listener.FileSystemListener;
+import org.jphototagger.domain.event.listener.impl.FileSystemListenerSupport;
+import org.jphototagger.domain.event.listener.impl.ProgressListenerSupport;
+import org.jphototagger.lib.event.listener.ProgressListener;
+import org.jphototagger.lib.event.ProgressEvent;
 import java.io.File;
 
 /**

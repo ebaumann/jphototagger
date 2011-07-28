@@ -1,8 +1,8 @@
 package org.jphototagger.program.helper;
 
 import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.program.event.listener.FileSystemListener;
-import org.jphototagger.program.helper.InsertImageFilesIntoDatabase.Insert;
+import org.jphototagger.lib.event.listener.FileSystemListener;
+import org.jphototagger.domain.database.InsertIntoDatabase;
 import org.jphototagger.program.io.ImageFileFilterer;
 import org.jphototagger.program.tasks.UserTasks;
 import java.io.File;
@@ -40,7 +40,7 @@ public final class FilesystemDatabaseUpdater implements FileSystemListener {
     private void insertFileIntoDatabase(File file) {
         if (ImageFileFilterer.isImageFile(file)) {
             InsertImageFilesIntoDatabase inserter = new InsertImageFilesIntoDatabase(Arrays.asList(file),
-                                                        Insert.OUT_OF_DATE);
+                                                        InsertIntoDatabase.OUT_OF_DATE);
 
             if (wait) {
                 inserter.run();    // run in this thread!

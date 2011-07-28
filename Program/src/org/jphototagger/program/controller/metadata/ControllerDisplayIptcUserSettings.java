@@ -2,8 +2,8 @@ package org.jphototagger.program.controller.metadata;
 
 import java.awt.event.MouseEvent;
 import javax.swing.JTabbedPane;
-import org.jphototagger.program.event.listener.UserSettingsListener;
-import org.jphototagger.program.event.UserSettingsEvent;
+import org.jphototagger.domain.event.listener.UserSettingsListener;
+import org.jphototagger.domain.event.UserSettingsEvent;
 import org.jphototagger.program.model.TableModelIptc;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.UserSettings;

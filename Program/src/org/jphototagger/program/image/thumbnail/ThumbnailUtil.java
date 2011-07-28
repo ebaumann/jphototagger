@@ -32,7 +32,7 @@ import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.program.cache.ExifCache;
-import org.jphototagger.domain.UserDefinedFileType;
+import org.jphototagger.domain.filetypes.UserDefinedFileType;
 import org.jphototagger.program.database.DatabaseUserDefinedFileTypes;
 
 /**

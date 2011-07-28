@@ -4,7 +4,7 @@ import org.jphototagger.lib.runtime.External;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.data.Program;
-import org.jphototagger.program.helper.InsertImageFilesIntoDatabase.Insert;
+import org.jphototagger.domain.database.InsertIntoDatabase;
 import org.jphototagger.program.io.RuntimeUtil;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.dialogs.ProgramInputParametersDialog;
@@ -251,7 +251,7 @@ public final class StartPrograms {
 
         private void updateDatabase() {
             if (program.isChangeFile()) {
-                InsertImageFilesIntoDatabase updater = new InsertImageFilesIntoDatabase(imageFiles, Insert.OUT_OF_DATE);
+                InsertImageFilesIntoDatabase updater = new InsertImageFilesIntoDatabase(imageFiles, InsertIntoDatabase.OUT_OF_DATE);
 
                 updater.run();    // run in this thread!
             }

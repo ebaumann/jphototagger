@@ -1,7 +1,7 @@
 package org.jphototagger.program.view.renderer;
 
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.data.MetadataTemplate;
+import org.jphototagger.domain.templates.MetadataTemplate;
 import java.awt.Component;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;

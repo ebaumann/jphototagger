@@ -8,7 +8,7 @@ import java.util.ResourceBundle;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JOptionPane;
-import org.jphototagger.domain.UserDefinedFileType;
+import org.jphototagger.domain.filetypes.UserDefinedFileType;
 import org.jphototagger.lib.util.ServiceLookup;
 import org.jphototagger.services.repository.UserDefinedFileTypesRepository;
 

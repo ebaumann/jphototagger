@@ -1,9 +1,9 @@
 package org.jphototagger.program.model;
 
-import org.jphototagger.domain.RenameTemplate;
+import org.jphototagger.domain.database.RenameTemplate;
 import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseRenameTemplates;
-import org.jphototagger.program.event.listener.DatabaseRenameTemplatesListener;
+import org.jphototagger.domain.event.listener.DatabaseRenameTemplatesListener;
 import javax.swing.DefaultComboBoxModel;
 import org.jphototagger.lib.awt.EventQueueUtil;
 

@@ -1,10 +1,9 @@
 package org.jphototagger.program.data;
 
-import org.jphototagger.domain.Column;
 import org.jphototagger.program.database.metadata.file.ColumnFilesFilename;
 import org.jphototagger.program.database.metadata.Join;
 import org.jphototagger.program.database.metadata.Util;
-import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.domain.database.column.ColumnXmpDcSubjectsSubject;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -12,8 +11,8 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
-import org.jphototagger.domain.Column;
-import org.jphototagger.domain.ParamStatement;
+import org.jphototagger.domain.database.Column;
+import org.jphototagger.domain.database.ParamStatement;
 
 /**
  *
@@ -29,30 +28,27 @@ public final class SavedSearch {
     @XmlElementWrapper(name = "Keywords")
     @XmlElement(type = String.class)
     private List<String> keywords = new ArrayList<String>();
-
     /**
      * Column panels if type equals KEYWORDS_AND_PANELS
      */
     @XmlElementWrapper(name = "Panels")
     @XmlElement(type = SavedSearchPanel.class)
     private List<SavedSearchPanel> panels = new ArrayList<SavedSearchPanel>();
-
     /**
      * Custom SQL if type equals CUSTOM_SQL
      */
     private String customSql;
-
     /**
      * Type
      */
     private Type type;
-
     /**
      * Name and identifier
      */
     private String name;
 
-    public SavedSearch() {}
+    public SavedSearch() {
+    }
 
     public SavedSearch(SavedSearch other) {
         if (other == null) {
@@ -63,9 +59,8 @@ public final class SavedSearch {
     }
 
     public enum Type {
-        KEYWORDS_AND_PANELS((short) 0), CUSTOM_SQL((short) 1),
-        ;
 
+        KEYWORDS_AND_PANELS((short) 0), CUSTOM_SQL((short) 1),;
         private final short value;
 
         private Type(short value) {
@@ -99,7 +94,7 @@ public final class SavedSearch {
     }
 
     public boolean hasPanels() {
-        return (panels != null) &&!panels.isEmpty();
+        return (panels != null) && !panels.isEmpty();
     }
 
     /**
@@ -142,7 +137,7 @@ public final class SavedSearch {
         }
 
         if (type.equals(Type.CUSTOM_SQL)) {
-            return (customSql != null) &&!customSql.isEmpty();
+            return (customSql != null) && !customSql.isEmpty();
         } else if (type.equals(Type.KEYWORDS_AND_PANELS)) {
             return hasKeywords() || hasPanels();
         } else {
@@ -154,8 +149,8 @@ public final class SavedSearch {
 
     public ParamStatement createParamStatement() {
         return isCustomSql()
-               ? createParamStmtFromCustomSql()
-               : createParamStmtFromPanels();
+                ? createParamStmtFromCustomSql()
+                : createParamStmtFromPanels();
     }
 
     public boolean isCustomSql() {
@@ -190,8 +185,8 @@ public final class SavedSearch {
 
     public void setName(String name) {
         this.name = (name == null)
-                    ? null
-                    : name.trim();
+                ? null
+                : name.trim();
     }
 
     /**
@@ -205,8 +200,8 @@ public final class SavedSearch {
 
     public void setCustomSql(String customSql) {
         this.customSql = (customSql == null)
-                         ? null
-                         : customSql.trim();
+                ? null
+                : customSql.trim();
     }
 
     @Override
@@ -235,8 +230,8 @@ public final class SavedSearch {
         final SavedSearch other = (SavedSearch) obj;
 
         if ((this.name == null)
-            ? (other.name != null)
-            : !this.name.equals(other.name)) {
+                ? (other.name != null)
+                : !this.name.equals(other.name)) {
             return false;
         }
 
@@ -248,8 +243,8 @@ public final class SavedSearch {
         int hash = 5;
 
         hash = 73 * hash + ((this.name != null)
-                            ? this.name.hashCode()
-                            : 0);
+                ? this.name.hashCode()
+                : 0);
 
         return hash;
     }
@@ -362,9 +357,9 @@ public final class SavedSearch {
         String paramsInParentheses = org.jphototagger.program.database.Util.getParamsInParentheses(count);
 
         statement.append(and
-                         ? " AND"
-                         : "").append(" dc_subjects.subject IN ").append(paramsInParentheses).append(
-                             " GROUP BY files.filename" + " HAVING COUNT(*) = ").append(Integer.toString(count));
+                ? " AND"
+                : "").append(" dc_subjects.subject IN ").append(paramsInParentheses).append(
+                " GROUP BY files.filename" + " HAVING COUNT(*) = ").append(Integer.toString(count));
     }
 
     private void appendToFrom(StringBuilder statement) {
@@ -374,8 +369,8 @@ public final class SavedSearch {
 
         for (String tablename : Util.getDistinctTablenamesOfColumns(getColumns())) {
             statement.append((index++ == 0)
-                             ? ""
-                             : " ");
+                    ? ""
+                    : " ");
             statement.append(Join.getJoinToFiles(tablename, Join.Type.INNER));
         }
     }

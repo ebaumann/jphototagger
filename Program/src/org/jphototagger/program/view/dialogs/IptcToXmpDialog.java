@@ -2,8 +2,8 @@ package org.jphototagger.program.view.dialogs;
 
 import org.jphototagger.lib.io.filefilter.DirectoryFilter.Option;
 import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.event.listener.ProgressListener;
-import org.jphototagger.program.event.ProgressEvent;
+import org.jphototagger.lib.event.listener.ProgressListener;
+import org.jphototagger.lib.event.ProgressEvent;
 import org.jphototagger.program.helper.ConvertIptcToXmp;
 import org.jphototagger.program.io.ImageFileFilterer;
 import org.jphototagger.program.resource.GUI;
@@ -22,8 +22,8 @@ import java.util.List;
 import javax.swing.filechooser.FileSystemView;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.io.CancelRequest;
-import org.jphototagger.program.event.UserSettingsEvent;
-import org.jphototagger.program.event.listener.UserSettingsListener;
+import org.jphototagger.domain.event.UserSettingsEvent;
+import org.jphototagger.domain.event.listener.UserSettingsListener;
 import org.jphototagger.program.model.IptcCharsetComboBoxModel;
 import org.jphototagger.program.view.panels.SelectRootFilesPanel;
 
@@ -165,7 +165,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener, U
     @Override
     public void applySettings(UserSettingsEvent evt) {
         UserSettingsEvent.Type eventType = evt.getType();
-        
+
         if (eventType.equals(UserSettingsEvent.Type.IPTC_CHARSET)) {
             setIptcCharsetFromUserSettings();
         }

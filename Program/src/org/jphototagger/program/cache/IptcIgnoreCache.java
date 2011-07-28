@@ -7,7 +7,7 @@ import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.program.event.listener.adapter.DatabaseImageFilesListenerAdapter;
+import org.jphototagger.domain.event.listener.DatabaseImageFilesListenerAdapter;
 
 /**
  *
@@ -31,7 +31,7 @@ public final class IptcIgnoreCache extends DatabaseImageFilesListenerAdapter {
         }
 
         boolean ignore = containsUpToDateIgnoreInfo(imageFile);
-        
+
         if (ignore) {
             LOGGER.log(Level.FINEST, "IPTC Ignore Cache: Ignore reading IPTC from image file ''{0}''", imageFile);
         }
@@ -68,7 +68,7 @@ public final class IptcIgnoreCache extends DatabaseImageFilesListenerAdapter {
 
     private void unIgnore(File imageFile, File cacheFile) {
         if (cacheFile.isFile()) {
-            LOGGER.log(Level.FINEST, 
+            LOGGER.log(Level.FINEST,
                     "IPTC Ignore Cache: Don''t ignore reading IPTC from image file ''{0}'' (Deleting ''{1}'')",
                     new Object[]{imageFile, cacheFile});
             cacheFile.delete();

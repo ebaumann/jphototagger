@@ -1,10 +1,10 @@
 package org.jphototagger.program.helper;
 
 import org.jphototagger.lib.generics.Pair;
-import org.jphototagger.domain.ColumnData;
-import org.jphototagger.program.data.Xmp;
-import org.jphototagger.domain.Column;
-import org.jphototagger.program.database.metadata.xmp.XmpColumns;
+import org.jphototagger.domain.database.ColumnData;
+import org.jphototagger.domain.xmp.Xmp;
+import org.jphototagger.domain.database.Column;
+import org.jphototagger.domain.database.column.XmpColumns;
 import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
 import org.jphototagger.program.io.ImageUtil;
 import org.jphototagger.program.resource.GUI;

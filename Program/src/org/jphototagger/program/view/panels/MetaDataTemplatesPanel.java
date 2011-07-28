@@ -1,6 +1,6 @@
 package org.jphototagger.program.view.panels;
 
-import org.jphototagger.program.event.listener.ThumbnailsPanelListener;
+import org.jphototagger.domain.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import java.awt.Container;

@@ -2,11 +2,11 @@ package org.jphototagger.program.view.panels;
 
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.data.TextEntry;
-import org.jphototagger.domain.Column;
-import org.jphototagger.program.database.metadata.xmp.ColumnXmpRating;
-import org.jphototagger.program.event.listener.impl.TextEntryListenerSupport;
-import org.jphototagger.program.event.listener.TextEntryListener;
+import org.jphototagger.domain.text.TextEntry;
+import org.jphototagger.domain.database.Column;
+import org.jphototagger.domain.database.column.ColumnXmpRating;
+import org.jphototagger.domain.event.listener.impl.TextEntryListenerSupport;
+import org.jphototagger.domain.event.listener.TextEntryListener;
 import org.jphototagger.program.resource.JptBundle;
 import java.awt.Color;
 import java.awt.Component;

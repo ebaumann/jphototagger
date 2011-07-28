@@ -3,7 +3,7 @@ package org.jphototagger.program.io;
 import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.event.ProgressEvent;
+import org.jphototagger.lib.event.ProgressEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;

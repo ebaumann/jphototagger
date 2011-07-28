@@ -1,11 +1,11 @@
 package org.jphototagger.program.controller.keywords.tree;
 
-import org.jphototagger.domain.Exif;
-import org.jphototagger.program.data.Xmp;
+import org.jphototagger.domain.exif.Exif;
+import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.database.DatabaseKeywords;
-import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
-import org.jphototagger.program.event.listener.DatabaseImageFilesListener;
+import org.jphototagger.domain.database.column.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.domain.event.listener.DatabaseImageFilesListener;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.model.TreeModelKeywords;
 import java.io.File;

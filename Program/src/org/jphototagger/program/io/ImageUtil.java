@@ -2,8 +2,8 @@ package org.jphototagger.program.io;
 
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.controller.filesystem.ControllerMoveFiles;
-import org.jphototagger.program.event.listener.ProgressListener;
-import org.jphototagger.program.event.ProgressEvent;
+import org.jphototagger.lib.event.listener.ProgressListener;
+import org.jphototagger.lib.event.ProgressEvent;
 import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.helper.FilesystemDatabaseUpdater;
 import org.jphototagger.program.image.metadata.xmp.XmpMetadata;

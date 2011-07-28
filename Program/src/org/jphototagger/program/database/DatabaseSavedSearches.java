@@ -1,11 +1,11 @@
 package org.jphototagger.program.database;
 
 import org.jphototagger.program.app.AppLogger;
-import org.jphototagger.domain.ParamStatement;
+import org.jphototagger.domain.database.ParamStatement;
 import org.jphototagger.program.data.SavedSearch;
 import org.jphototagger.program.data.SavedSearchPanel;
 import org.jphototagger.program.event.listener.DatabaseSavedSearchesListener;
-import org.jphototagger.program.event.listener.impl.ListenerSupport;
+import org.jphototagger.domain.event.listener.impl.ListenerSupport;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

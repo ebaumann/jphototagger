@@ -4,7 +4,7 @@ import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.program.database.DatabaseActionsAfterDbInsertion;
 import org.jphototagger.program.database.DatabasePrograms.Type;
-import org.jphototagger.program.event.listener.impl.ListenerSupport;
+import org.jphototagger.domain.event.listener.impl.ListenerSupport;
 import org.jphototagger.program.event.listener.ProgramExecutionListener;
 import org.jphototagger.program.model.ListModelPrograms;
 import org.jphototagger.program.resource.JptBundle;

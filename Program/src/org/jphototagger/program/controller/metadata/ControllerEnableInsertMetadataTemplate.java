@@ -1,6 +1,6 @@
 package org.jphototagger.program.controller.metadata;
 
-import org.jphototagger.program.event.listener.EditMetadataPanelsListener;
+import org.jphototagger.domain.event.listener.EditMetadataPanelsListener;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.AppPanel;
 import java.awt.event.ActionEvent;

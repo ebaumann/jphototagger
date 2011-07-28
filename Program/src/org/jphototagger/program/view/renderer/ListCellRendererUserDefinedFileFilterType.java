@@ -1,7 +1,7 @@
 package org.jphototagger.program.view.renderer;
 
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.data.UserDefinedFileFilter;
+import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
 import java.awt.Component;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.Icon;

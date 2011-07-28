@@ -3,8 +3,8 @@ package org.jphototagger.program.helper;
 import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.program.app.AppLifeCycle;
-import org.jphototagger.program.data.Xmp;
-import org.jphototagger.program.helper.InsertImageFilesIntoDatabase.Insert;
+import org.jphototagger.domain.xmp.Xmp;
+import org.jphototagger.domain.database.InsertIntoDatabase;
 import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.tasks.UserTasks;
@@ -73,7 +73,7 @@ public final class SaveXmp extends Thread implements Cancelable {
     }
 
     private void updateDatabase(File imageFile) {
-        InsertImageFilesIntoDatabase updater = new InsertImageFilesIntoDatabase(Arrays.asList(imageFile), Insert.XMP);
+        InsertImageFilesIntoDatabase updater = new InsertImageFilesIntoDatabase(Arrays.asList(imageFile), InsertIntoDatabase.XMP);
 
         updater.run();    // run in this thread!
     }

@@ -1,9 +1,9 @@
 package org.jphototagger.program.controller.thumbnail;
 
 import org.jphototagger.program.app.AppLogger;
-import org.jphototagger.program.event.listener.ThumbnailsPanelListener;
+import org.jphototagger.domain.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
-import org.jphototagger.program.helper.InsertImageFilesIntoDatabase.Insert;
+import org.jphototagger.domain.database.InsertIntoDatabase;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.tasks.AutomaticTask;
@@ -41,7 +41,7 @@ public final class ControllerCreateMetadataOfDisplayedThumbnails implements Thum
         AppLogger.logInfo(getClass(), "ControllerCreateMetadataOfDisplayedThumbnails.Info.Update");
 
         InsertImageFilesIntoDatabase inserter = new InsertImageFilesIntoDatabase(GUI.getThumbnailsPanel().getFiles(),
-                                                    Insert.OUT_OF_DATE);
+                                                    InsertIntoDatabase.OUT_OF_DATE);
         String pBarString =
             JptBundle.INSTANCE.getString("ControllerCreateMetadataOfDisplayedThumbnails.ProgressBar.String");
 

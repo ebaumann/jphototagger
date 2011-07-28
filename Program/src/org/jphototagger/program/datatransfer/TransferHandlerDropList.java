@@ -1,7 +1,7 @@
 package org.jphototagger.program.datatransfer;
 
-import org.jphototagger.domain.ColumnData;
-import org.jphototagger.domain.Keyword;
+import org.jphototagger.domain.database.ColumnData;
+import org.jphototagger.domain.keywords.Keyword;
 import org.jphototagger.program.helper.KeywordsHelper;
 import java.awt.datatransfer.Transferable;
 import java.util.Collection;

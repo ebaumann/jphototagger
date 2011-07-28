@@ -6,7 +6,7 @@ import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.data.UserDefinedFileFilter;
+import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
 import org.jphototagger.program.database.DatabaseUserDefinedFileFilters;
 import org.jphototagger.program.model.ComboBoxModelUserDefinedFileFilterType;
 import org.jphototagger.program.resource.GUI;
@@ -229,7 +229,7 @@ public class EditUserDefinedFileFilterDialog extends Dialog {
     private javax.swing.JButton buttonOk;
     private javax.swing.JCheckBox checkBoxNot;
     private javax.swing.JComboBox comboBoxType;
-    private org.jphototagger.program.data.UserDefinedFileFilter filter;
+    private org.jphototagger.domain.filefilter.UserDefinedFileFilter filter;
     private javax.swing.JLabel labelName;
     private javax.swing.JTextField textFieldExpression;
     private javax.swing.JTextField textFieldName;

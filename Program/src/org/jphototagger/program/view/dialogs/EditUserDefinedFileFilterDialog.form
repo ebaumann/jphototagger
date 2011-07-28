@@ -2,7 +2,7 @@
 
 <Form version="1.5" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
   <NonVisualComponents>
-    <Component class="org.jphototagger.program.data.UserDefinedFileFilter" name="filter">
+    <Component class="org.jphototagger.domain.filefilter.UserDefinedFileFilter" name="filter">
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="udf"/>
       </AuxValues>

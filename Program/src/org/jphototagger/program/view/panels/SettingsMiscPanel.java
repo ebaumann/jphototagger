@@ -2,8 +2,8 @@ package org.jphototagger.program.view.panels;
 
 import java.util.List;
 import org.jphototagger.lib.dialog.DirectoryChooser.Option;
-import org.jphototagger.program.event.UserSettingsEvent;
-import org.jphototagger.program.event.UserSettingsEvent.Type;
+import org.jphototagger.domain.event.UserSettingsEvent;
+import org.jphototagger.domain.event.UserSettingsEvent.Type;
 import org.jphototagger.program.helper.CopyFiles;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
@@ -21,7 +21,7 @@ import org.jphototagger.lib.util.SystemProperties;
 import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.controller.misc.ControllerUpdateCheck;
-import org.jphototagger.program.event.listener.UserSettingsListener;
+import org.jphototagger.domain.event.listener.UserSettingsListener;
 import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.model.IptcCharsetComboBoxModel;
 

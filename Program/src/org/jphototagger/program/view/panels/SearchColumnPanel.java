@@ -2,13 +2,13 @@ package org.jphototagger.program.view.panels;
 
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.data.SavedSearchPanel;
-import org.jphototagger.domain.Column;
+import org.jphototagger.domain.database.Column;
 import org.jphototagger.program.database.metadata.Comparator;
 import org.jphototagger.program.database.metadata.exif.ColumnExifDateTimeOriginal;
 import org.jphototagger.program.database.metadata.Operator;
 import org.jphototagger.program.database.metadata.selections.AdvancedSearchColumns;
 import org.jphototagger.program.database.metadata.selections.ColumnIds;
-import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.domain.database.column.ColumnXmpDcSubjectsSubject;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.renderer.ListCellRendererTableColumns;
 import org.jphototagger.lib.thirdparty.DateChooserDialog;
@@ -18,7 +18,7 @@ import java.util.GregorianCalendar;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
-import org.jphototagger.program.database.metadata.xmp.ColumnXmpIptc4XmpCoreDateCreated;
+import org.jphototagger.domain.database.column.ColumnXmpIptc4XmpCoreDateCreated;
 import org.jphototagger.program.resource.JptBundle;
 
 /**

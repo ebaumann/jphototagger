@@ -2,7 +2,7 @@ package org.jphototagger.program.importer;
 
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.data.UserDefinedFileFilter;
+import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
 import org.jphototagger.program.database.DatabaseUserDefinedFileFilters;
 import org.jphototagger.program.exporter.UserDefinedFileFilterExporter;
 import org.jphototagger.program.exporter.UserDefinedFileFilterExporter.CollectionWrapper;

@@ -2,7 +2,7 @@ package org.jphototagger.program.controller.metadata;
 
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.data.MetadataTemplate;
+import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.program.database.DatabaseMetadataTemplates;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.model.ComboBoxModelMetadataTemplates;

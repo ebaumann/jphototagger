@@ -1,13 +1,13 @@
 package org.jphototagger.program.view.panels;
 
 import org.jphototagger.lib.io.filefilter.DirectoryFilter.Option;
-import org.jphototagger.program.event.listener.ProgressListener;
-import org.jphototagger.program.event.listener.UpdateMetadataCheckListener;
-import org.jphototagger.program.event.ProgressEvent;
-import org.jphototagger.program.event.UpdateMetadataCheckEvent;
-import org.jphototagger.program.event.UpdateMetadataCheckEvent.Type;
+import org.jphototagger.lib.event.listener.ProgressListener;
+import org.jphototagger.domain.event.listener.UpdateMetadataCheckListener;
+import org.jphototagger.lib.event.ProgressEvent;
+import org.jphototagger.domain.event.UpdateMetadataCheckEvent;
+import org.jphototagger.domain.event.UpdateMetadataCheckEvent.Type;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
-import org.jphototagger.program.helper.InsertImageFilesIntoDatabase.Insert;
+import org.jphototagger.domain.database.InsertIntoDatabase;
 import org.jphototagger.program.io.ImageFileDirectory;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
@@ -123,17 +123,17 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
     }
 
     private void createImageFileInserter(List<File> selectedImageFiles) {
-        Insert[] insertIntoDatabase = getWhatToInsertIntoDatabase();
+        InsertIntoDatabase[] insertIntoDatabase = getWhatToInsertIntoDatabase();
 
         imageFileInserter = new InsertImageFilesIntoDatabase(selectedImageFiles, insertIntoDatabase);
         imageFileInserter.addProgressListener(this);
         imageFileInserter.addUpdateMetadataCheckListener(this);
     }
 
-    private Insert[] getWhatToInsertIntoDatabase() {
+    private InsertIntoDatabase[] getWhatToInsertIntoDatabase() {
         return checkBoxForce.isSelected()
-               ? new Insert[] { Insert.EXIF, Insert.THUMBNAIL, Insert.XMP }
-               : new Insert[] { Insert.OUT_OF_DATE };
+               ? new InsertIntoDatabase[] { InsertIntoDatabase.EXIF, InsertIntoDatabase.THUMBNAIL, InsertIntoDatabase.XMP }
+               : new InsertIntoDatabase[] { InsertIntoDatabase.OUT_OF_DATE };
     }
 
     private void cancelUpdate() {

@@ -1,16 +1,16 @@
 package org.jphototagger.program.database.metadata.selections;
 
-import org.jphototagger.domain.Column;
+import org.jphototagger.domain.database.Column;
 import org.jphototagger.program.database.metadata.exif.ColumnExifFocalLength;
 import org.jphototagger.program.database.metadata.exif.ColumnExifIsoSpeedRatings;
 import org.jphototagger.program.database.metadata.exif.ColumnExifRecordingEquipment;
 import org.jphototagger.program.database.metadata.file.ColumnFilesFilename;
-import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcDescription;
-import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcRights;
-import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
-import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcTitle;
-import org.jphototagger.program.database.metadata.xmp.ColumnXmpIptc4xmpcoreLocation;
-import org.jphototagger.program.database.metadata.xmp.ColumnXmpPhotoshopHeadline;
+import org.jphototagger.domain.database.column.ColumnXmpDcDescription;
+import org.jphototagger.domain.database.column.ColumnXmpDcRights;
+import org.jphototagger.domain.database.column.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.domain.database.column.ColumnXmpDcTitle;
+import org.jphototagger.domain.database.column.ColumnXmpIptc4xmpcoreLocation;
+import org.jphototagger.domain.database.column.ColumnXmpPhotoshopHeadline;
 import java.util.ArrayList;
 import java.util.List;
 
