@@ -1,8 +1,8 @@
 package org.jphototagger.program.database;
 
 import org.jphototagger.program.app.AppLogger;
-import org.jphototagger.program.event.listener.DatabaseAutoscanDirectoriesListener;
-import org.jphototagger.program.event.listener.impl.ListenerSupport;
+import org.jphototagger.domain.event.listener.DatabaseAutoscanDirectoriesListener;
+import org.jphototagger.domain.event.listener.impl.ListenerSupport;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

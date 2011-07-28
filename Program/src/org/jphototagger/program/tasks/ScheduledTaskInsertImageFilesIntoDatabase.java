@@ -3,7 +3,7 @@ package org.jphototagger.program.tasks;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.database.DatabaseAutoscanDirectories;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
-import org.jphototagger.program.helper.InsertImageFilesIntoDatabase.Insert;
+import org.jphototagger.domain.database.InsertIntoDatabase;
 import org.jphototagger.program.io.ImageFileFilterer;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
@@ -49,7 +49,7 @@ public final class ScheduledTaskInsertImageFilesIntoDatabase {
             }
         }
 
-        InsertImageFilesIntoDatabase inserter = new InsertImageFilesIntoDatabase(imageFiles, Insert.OUT_OF_DATE);
+        InsertImageFilesIntoDatabase inserter = new InsertImageFilesIntoDatabase(imageFiles, InsertIntoDatabase.OUT_OF_DATE);
         String pBarString =
             JptBundle.INSTANCE.getString("ScheduledTaskInsertImageFilesIntoDatabase.ProgressBar.String");
 

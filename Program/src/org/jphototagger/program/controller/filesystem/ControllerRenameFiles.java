@@ -5,7 +5,7 @@ import org.jphototagger.program.cache.RenderedThumbnailCache;
 import org.jphototagger.program.cache.ThumbnailCache;
 import org.jphototagger.program.cache.XmpCache;
 import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.program.event.listener.FileSystemListener;
+import org.jphototagger.lib.event.listener.FileSystemListener;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.RenameDialog;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;

@@ -1,9 +1,9 @@
 package org.jphototagger.program.controller.thumbnail;
 
 import org.jphototagger.lib.event.util.KeyEventUtil;
-import org.jphototagger.program.event.listener.ThumbnailsPanelListener;
-import org.jphototagger.program.event.listener.UserSettingsListener;
-import org.jphototagger.program.event.UserSettingsEvent;
+import org.jphototagger.domain.event.listener.ThumbnailsPanelListener;
+import org.jphototagger.domain.event.listener.UserSettingsListener;
+import org.jphototagger.domain.event.UserSettingsEvent;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.UserSettings;
 import java.awt.AWTEvent;

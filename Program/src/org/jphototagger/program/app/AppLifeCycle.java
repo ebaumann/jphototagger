@@ -1,8 +1,8 @@
 package org.jphototagger.program.app;
 
 import org.jphototagger.program.database.DatabaseMaintainance;
-import org.jphototagger.program.event.listener.AppExitListener;
-import org.jphototagger.program.event.listener.impl.ListenerSupport;
+import org.jphototagger.domain.event.listener.AppExitListener;
+import org.jphototagger.domain.event.listener.impl.ListenerSupport;
 import org.jphototagger.program.factory.MetaFactory;
 import org.jphototagger.program.helper.Cleanup;
 import org.jphototagger.program.resource.GUI;

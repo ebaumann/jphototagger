@@ -1,7 +1,7 @@
 package org.jphototagger.program.controller.metadatatemplates;
 
 import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.data.MetadataTemplate;
+import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.program.database.DatabaseMetadataTemplates;
 import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.popupmenus.PopupMenuMetadataTemplates;

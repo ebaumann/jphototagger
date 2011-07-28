@@ -1,6 +1,6 @@
 package org.jphototagger.program.app;
 
-import org.jphototagger.program.event.listener.impl.ErrorListeners;
+import org.jphototagger.domain.event.listener.impl.ErrorListeners;
 import org.jphototagger.program.resource.JptBundle;
 import java.text.MessageFormat;
 import java.util.logging.Level;

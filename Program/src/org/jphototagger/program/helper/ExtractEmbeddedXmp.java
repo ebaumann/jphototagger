@@ -4,7 +4,7 @@ import org.jphototagger.xmp.XmpFileReader;
 import org.jphototagger.lib.io.FileLock;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.helper.InsertImageFilesIntoDatabase.Insert;
+import org.jphototagger.domain.database.InsertIntoDatabase;
 import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
 import org.jphototagger.program.io.RuntimeUtil;
 import org.jphototagger.program.types.FileEditor;
@@ -82,7 +82,7 @@ public final class ExtractEmbeddedXmp extends FileEditor {
     }
 
     private void updateDatabase(File imageFile) {
-        InsertImageFilesIntoDatabase insert = new InsertImageFilesIntoDatabase(Arrays.asList(imageFile), Insert.XMP);
+        InsertImageFilesIntoDatabase insert = new InsertImageFilesIntoDatabase(Arrays.asList(imageFile), InsertIntoDatabase.XMP);
 
         insert.run();    // run in this thread!
     }

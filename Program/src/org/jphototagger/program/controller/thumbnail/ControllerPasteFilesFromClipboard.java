@@ -5,7 +5,7 @@ import org.jphototagger.lib.datatransfer.TransferUtil;
 import org.jphototagger.lib.datatransfer.TransferUtil.FilenameDelimiter;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.datatransfer.TransferHandlerDirectoryTree;
-import org.jphototagger.program.event.listener.ThumbnailsPanelListener;
+import org.jphototagger.domain.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.types.Content;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;

@@ -2,8 +2,8 @@ package org.jphototagger.program.app;
 
 import org.jphototagger.lib.dialog.LogfileDialog;
 import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.program.event.listener.UserSettingsListener;
-import org.jphototagger.program.event.UserSettingsEvent;
+import org.jphototagger.domain.event.listener.UserSettingsListener;
+import org.jphototagger.domain.event.UserSettingsEvent;
 import org.jphototagger.program.UserSettings;
 import java.io.File;
 import java.io.IOException;
@@ -80,7 +80,7 @@ public final class AppLoggingSystem implements UserSettingsListener {
         try {
             String settingsDirectoryName = UserSettings.INSTANCE.getSettingsDirectoryName();
             File settingsDirectory = new File(settingsDirectoryName);
-            
+
             FileUtil.ensureDirectoryExists(settingsDirectory);
         } catch (Exception ex) {
             ex.printStackTrace();

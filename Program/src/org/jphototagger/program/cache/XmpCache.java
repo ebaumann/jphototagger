@@ -1,12 +1,12 @@
 package org.jphototagger.program.cache;
 
 import org.jphototagger.lib.generics.Pair;
-import org.jphototagger.domain.Exif;
-import org.jphototagger.program.data.Xmp;
+import org.jphototagger.domain.exif.Exif;
+import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.program.event.listener.DatabaseImageFilesListener;
-import org.jphototagger.program.event.listener.ThumbnailUpdateListener;
-import org.jphototagger.program.event.ThumbnailUpdateEvent;
+import org.jphototagger.domain.event.listener.DatabaseImageFilesListener;
+import org.jphototagger.domain.event.listener.ThumbnailUpdateListener;
+import org.jphototagger.domain.event.ThumbnailUpdateEvent;
 import java.io.File;
 import java.util.Collection;
 import java.util.HashSet;

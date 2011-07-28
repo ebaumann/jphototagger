@@ -3,7 +3,7 @@ package org.jphototagger.program.app.update.tables.v0;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.app.SplashScreen;
-import org.jphototagger.domain.Keyword;
+import org.jphototagger.domain.keywords.Keyword;
 import org.jphototagger.program.database.Database;
 import org.jphototagger.program.database.DatabaseKeywords;
 import org.jphototagger.program.database.DatabaseMetadata;

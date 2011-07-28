@@ -1,6 +1,6 @@
 package org.jphototagger.program.database.metadata.selections;
 
-import org.jphototagger.domain.Column;
+import org.jphototagger.domain.database.Column;
 import org.jphototagger.program.UserSettings;
 import java.util.Arrays;
 import java.util.HashMap;

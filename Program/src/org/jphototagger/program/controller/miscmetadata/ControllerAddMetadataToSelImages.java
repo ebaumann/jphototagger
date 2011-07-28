@@ -1,7 +1,7 @@
 package org.jphototagger.program.controller.miscmetadata;
 
 import org.jphototagger.lib.event.util.KeyEventUtil;
-import org.jphototagger.domain.Column;
+import org.jphototagger.domain.database.Column;
 import org.jphototagger.program.helper.MiscMetadataHelper;
 import org.jphototagger.program.view.popupmenus.PopupMenuMiscMetadata;
 import java.awt.event.KeyEvent;

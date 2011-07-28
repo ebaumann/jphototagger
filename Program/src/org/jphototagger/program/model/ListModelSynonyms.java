@@ -3,7 +3,7 @@ package org.jphototagger.program.model;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseSynonyms;
-import org.jphototagger.program.event.listener.DatabaseSynonymsListener;
+import org.jphototagger.domain.event.listener.DatabaseSynonymsListener;
 import javax.swing.DefaultListModel;
 import org.jphototagger.lib.awt.EventQueueUtil;
 

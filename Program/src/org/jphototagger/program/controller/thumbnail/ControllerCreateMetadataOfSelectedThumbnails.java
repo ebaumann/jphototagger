@@ -1,7 +1,7 @@
 package org.jphototagger.program.controller.thumbnail;
 
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
-import org.jphototagger.program.helper.InsertImageFilesIntoDatabase.Insert;
+import org.jphototagger.domain.database.InsertIntoDatabase;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.tasks.UserTasks;
@@ -23,7 +23,7 @@ import javax.swing.JMenuItem;
  * @author Elmar Baumann
  */
 public final class ControllerCreateMetadataOfSelectedThumbnails implements ActionListener {
-    private final Map<JMenuItem, Insert[]> databaseUpdateOfMenuItem = new HashMap<JMenuItem, Insert[]>();
+    private final Map<JMenuItem, InsertIntoDatabase[]> databaseUpdateOfMenuItem = new HashMap<JMenuItem, InsertIntoDatabase[]>();
 
     /**
      * Konstruktor. <em>Nur eine Instanz erzeugen!</em>
@@ -36,16 +36,16 @@ public final class ControllerCreateMetadataOfSelectedThumbnails implements Actio
     private void initDatabaseUpdateOfMenuItem() {
         PopupMenuThumbnails popupMenu = PopupMenuThumbnails.INSTANCE;
 
-        databaseUpdateOfMenuItem.put(popupMenu.getItemUpdateMetadata(), new Insert[] { Insert.EXIF, Insert.XMP });
-        databaseUpdateOfMenuItem.put(popupMenu.getItemUpdateThumbnail(), new Insert[] { Insert.THUMBNAIL });
+        databaseUpdateOfMenuItem.put(popupMenu.getItemUpdateMetadata(), new InsertIntoDatabase[] { InsertIntoDatabase.EXIF, InsertIntoDatabase.XMP });
+        databaseUpdateOfMenuItem.put(popupMenu.getItemUpdateThumbnail(), new InsertIntoDatabase[] { InsertIntoDatabase.THUMBNAIL });
     }
 
-    private Insert[] getMetadataToInsertIntoDatabase(Object o) {
+    private InsertIntoDatabase[] getMetadataToInsertIntoDatabase(Object o) {
         if (o instanceof JMenuItem) {
             return databaseUpdateOfMenuItem.get((JMenuItem) o);
         }
 
-        return new Insert[] { Insert.OUT_OF_DATE };
+        return new InsertIntoDatabase[] { InsertIntoDatabase.OUT_OF_DATE };
     }
 
     private void listen() {
@@ -62,7 +62,7 @@ public final class ControllerCreateMetadataOfSelectedThumbnails implements Actio
         }
     }
 
-    private void updateMetadata(Insert[] what) {
+    private void updateMetadata(InsertIntoDatabase[] what) {
         InsertImageFilesIntoDatabase inserter =
             new InsertImageFilesIntoDatabase(GUI.getThumbnailsPanel().getSelectedFiles(), what);
         String pBarString =

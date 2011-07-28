@@ -1,12 +1,12 @@
 package org.jphototagger.program.model;
 
-import org.jphototagger.domain.Exif;
-import org.jphototagger.program.data.Xmp;
+import org.jphototagger.domain.exif.Exif;
+import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.database.DatabaseStatistics;
-import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
-import org.jphototagger.program.event.listener.DatabaseImageFilesListener;
+import org.jphototagger.domain.database.column.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.domain.event.listener.DatabaseImageFilesListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;

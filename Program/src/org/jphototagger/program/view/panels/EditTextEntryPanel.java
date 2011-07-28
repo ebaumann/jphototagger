@@ -1,16 +1,16 @@
 package org.jphototagger.program.view.panels;
 
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.domain.Exif;
-import org.jphototagger.program.data.TextEntry;
-import org.jphototagger.program.data.Xmp;
+import org.jphototagger.domain.exif.Exif;
+import org.jphototagger.domain.text.TextEntry;
+import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.domain.Column;
+import org.jphototagger.domain.database.Column;
 import org.jphototagger.program.database.metadata.selections.AutoCompleteDataOfColumn;
-import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcTitle;
-import org.jphototagger.program.event.listener.DatabaseImageFilesListener;
-import org.jphototagger.program.event.listener.impl.TextEntryListenerSupport;
-import org.jphototagger.program.event.listener.TextEntryListener;
+import org.jphototagger.domain.database.column.ColumnXmpDcTitle;
+import org.jphototagger.domain.event.listener.DatabaseImageFilesListener;
+import org.jphototagger.domain.event.listener.impl.TextEntryListenerSupport;
+import org.jphototagger.domain.event.listener.TextEntryListener;
 import org.jphototagger.program.helper.AutocompleteHelper;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.lib.componentutil.Autocomplete;

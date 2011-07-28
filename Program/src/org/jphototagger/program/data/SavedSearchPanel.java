@@ -1,13 +1,12 @@
 package org.jphototagger.program.data;
 
-import org.jphototagger.domain.Column;
 import org.jphototagger.program.database.metadata.Comparator;
 import org.jphototagger.program.database.metadata.Operator;
 import org.jphototagger.program.database.metadata.selections.ColumnIds;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlRootElement;
-import org.jphototagger.domain.Column;
+import org.jphototagger.domain.database.Column;
 
 /**
  *
@@ -16,6 +15,7 @@ import org.jphototagger.domain.Column;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class SavedSearchPanel {
+
     private int columnId = -1;
     private int comparatorId = -1;
     private int operatorId = -1;
@@ -25,7 +25,8 @@ public final class SavedSearchPanel {
     private boolean bracketRightSelected;
     private String value;
 
-    public SavedSearchPanel() {}
+    public SavedSearchPanel() {
+    }
 
     public SavedSearchPanel(SavedSearchPanel other) {
         if (other == null) {
@@ -123,7 +124,7 @@ public final class SavedSearchPanel {
     }
 
     public boolean hasValue() {
-        return (value != null) &&!value.isEmpty();
+        return (value != null) && !value.isEmpty();
     }
 
     public boolean isTrimmedValueEmpty() {
@@ -136,8 +137,8 @@ public final class SavedSearchPanel {
 
     public void setValue(String value) {
         this.value = (value == null)
-                     ? null
-                     : value.trim();
+                ? null
+                : value.trim();
     }
 
     public String getSqlString(boolean isFirst) {
@@ -149,20 +150,20 @@ public final class SavedSearchPanel {
 
             if (!isFirst) {
                 sb.append(bracketLeft1Selected
-                          ? " ("
-                          : "");
+                        ? " ("
+                        : "");
                 sb.append(" ").append(operator.toSqlString());
             }
 
             sb.append(bracketLeft2Selected
-                      ? " ("
-                      : "");
+                    ? " ("
+                    : "");
             sb.append(" ").append(column.getTablename()).append(".").append(column.getName());
             sb.append(" ").append(comparator.toSqlString());
             sb.append(" ?");
             sb.append(bracketRightSelected
-                      ? ")"
-                      : "");
+                    ? ")"
+                    : "");
 
             return sb.toString();
         }
@@ -183,7 +184,7 @@ public final class SavedSearchPanel {
     }
 
     public boolean hasSql(boolean isFirst) {
-        return (isFirst || hasOperator()) && hasColumn() && hasComperator() && (value != null) &&!value.isEmpty();
+        return (isFirst || hasOperator()) && hasColumn() && hasComperator() && (value != null) && !value.isEmpty();
     }
 
     @Override

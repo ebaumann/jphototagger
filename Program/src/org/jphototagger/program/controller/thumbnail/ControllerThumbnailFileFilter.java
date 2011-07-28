@@ -1,7 +1,7 @@
 package org.jphototagger.program.controller.thumbnail;
 
 import org.jphototagger.lib.util.Settings;
-import org.jphototagger.program.data.UserDefinedFileFilter;
+import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
 import org.jphototagger.program.model.ComboBoxModelFileFilters;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.UserSettings;

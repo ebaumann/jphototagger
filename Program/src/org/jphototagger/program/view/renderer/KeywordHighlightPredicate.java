@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.io.File;
 import org.jdesktop.swingx.decorator.ComponentAdapter;
 import org.jdesktop.swingx.decorator.HighlightPredicate;
-import org.jphototagger.program.event.listener.ThumbnailsPanelListener;
+import org.jphototagger.domain.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import java.awt.Component;

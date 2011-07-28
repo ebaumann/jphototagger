@@ -2,7 +2,7 @@ package org.jphototagger.program.controller.filesystem;
 
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.program.event.listener.FileSystemListener;
+import org.jphototagger.lib.event.listener.FileSystemListener;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.MoveToDirectoryDialog;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;

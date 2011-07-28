@@ -2,7 +2,7 @@ package org.jphototagger.program.controller.metadatatemplates;
 
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.event.util.KeyEventUtil;
-import org.jphototagger.program.data.MetadataTemplate;
+import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.EditMetaDataTemplateDialog;
 import org.jphototagger.program.view.dialogs.InputHelperDialog;

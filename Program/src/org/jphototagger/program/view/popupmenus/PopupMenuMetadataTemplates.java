@@ -2,7 +2,7 @@ package org.jphototagger.program.view.popupmenus;
 
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.data.MetadataTemplate;
+import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.program.resource.JptBundle;
 import java.awt.event.KeyEvent;
 import org.jdesktop.swingx.JXList;

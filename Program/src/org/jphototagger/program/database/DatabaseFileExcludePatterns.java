@@ -2,10 +2,10 @@ package org.jphototagger.program.database;
 
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.cache.PersistentThumbnails;
-import org.jphototagger.program.event.listener.DatabaseFileExcludePatternsListener;
-import org.jphototagger.program.event.listener.impl.ListenerSupport;
-import org.jphototagger.program.event.listener.ProgressListener;
-import org.jphototagger.program.event.ProgressEvent;
+import org.jphototagger.domain.event.listener.DatabaseFileExcludePatternsListener;
+import org.jphototagger.domain.event.listener.impl.ListenerSupport;
+import org.jphototagger.lib.event.listener.ProgressListener;
+import org.jphototagger.lib.event.ProgressEvent;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

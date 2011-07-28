@@ -2,8 +2,8 @@ package org.jphototagger.program.view.panels;
 
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.program.event.listener.ProgressListener;
-import org.jphototagger.program.event.ProgressEvent;
+import org.jphototagger.lib.event.listener.ProgressListener;
+import org.jphototagger.lib.event.ProgressEvent;
 import org.jphototagger.program.helper.CompressDatabase;
 import org.jphototagger.program.helper.DeleteOrphanedThumbnails;
 import org.jphototagger.program.helper.DeleteOrphanedXmp;

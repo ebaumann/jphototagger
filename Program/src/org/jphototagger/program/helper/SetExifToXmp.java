@@ -1,11 +1,12 @@
 package org.jphototagger.program.helper;
 
-import org.jphototagger.domain.Exif;
-import org.jphototagger.program.data.ImageFile;
-import org.jphototagger.program.data.Xmp;
+import org.jphototagger.domain.database.InsertIntoDatabase;
+import org.jphototagger.domain.exif.Exif;
+import org.jphototagger.domain.image.ImageFile;
+import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.program.database.metadata.xmp.ColumnXmpIptc4XmpCoreDateCreated;
-import org.jphototagger.program.database.metadata.xmp.ColumnXmpLastModified;
+import org.jphototagger.domain.database.column.ColumnXmpIptc4XmpCoreDateCreated;
+import org.jphototagger.domain.database.column.ColumnXmpLastModified;
 import org.jphototagger.program.image.metadata.exif.ExifMetadata;
 import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
 import org.jphototagger.program.resource.JptBundle;
@@ -145,7 +146,7 @@ public final class SetExifToXmp extends HelperThread {
                     imageFile.setLastmodified(imgFile.lastModified());
                     imageFile.setFile(imgFile);
                     imageFile.setXmp(xmp);
-                    imageFile.addInsertIntoDb(InsertImageFilesIntoDatabase.Insert.XMP);
+                    imageFile.addInsertIntoDb(InsertIntoDatabase.XMP);
                     DatabaseImageFiles.INSTANCE.insertOrUpdate(imageFile);
                 }
             }

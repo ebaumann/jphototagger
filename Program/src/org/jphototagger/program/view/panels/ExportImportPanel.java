@@ -2,7 +2,7 @@ package org.jphototagger.program.view.panels;
 
 import org.jphototagger.lib.dialog.DirectoryChooser.Option;
 import org.jphototagger.program.app.AppLogger;
-import org.jphototagger.program.event.listener.impl.ListenerSupport;
+import org.jphototagger.domain.event.listener.impl.ListenerSupport;
 import org.jphototagger.program.exporter.Exporter;
 import org.jphototagger.program.exporter.JptExporters;
 import org.jphototagger.program.importer.Importer;

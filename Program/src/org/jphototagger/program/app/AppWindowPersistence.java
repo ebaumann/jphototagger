@@ -3,7 +3,7 @@ package org.jphototagger.program.app;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.util.Settings;
 import org.jphototagger.lib.util.SettingsHints;
-import org.jphototagger.program.event.listener.AppExitListener;
+import org.jphototagger.domain.event.listener.AppExitListener;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.frames.AppFrame;

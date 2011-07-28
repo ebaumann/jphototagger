@@ -2,7 +2,7 @@ package org.jphototagger.program.model;
 
 import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseAutoscanDirectories;
-import org.jphototagger.program.event.listener.DatabaseAutoscanDirectoriesListener;
+import org.jphototagger.domain.event.listener.DatabaseAutoscanDirectoriesListener;
 import java.io.File;
 import java.util.List;
 import javax.swing.DefaultListModel;

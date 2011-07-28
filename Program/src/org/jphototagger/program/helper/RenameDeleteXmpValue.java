@@ -2,13 +2,13 @@ package org.jphototagger.program.helper;
 
 import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.data.Xmp;
+import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.domain.Column;
-import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
-import org.jphototagger.program.database.metadata.xmp.XmpColumns;
-import org.jphototagger.program.event.ProgressEvent;
-import org.jphototagger.program.helper.InsertImageFilesIntoDatabase.Insert;
+import org.jphototagger.domain.database.Column;
+import org.jphototagger.domain.database.column.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.domain.database.column.XmpColumns;
+import org.jphototagger.lib.event.ProgressEvent;
+import org.jphototagger.domain.database.InsertIntoDatabase;
 import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.tasks.UserTasks;
@@ -156,7 +156,7 @@ public final class RenameDeleteXmpValue {
 
                     if (XmpMetadata.writeXmpToSidecarFile(xmp, XmpMetadata.suggestSidecarFile(imageFile))) {
                         new InsertImageFilesIntoDatabase(Collections.singletonList(imageFile),
-                                                         Insert.XMP).run();    // run in this thread!
+                                                         InsertIntoDatabase.XMP).run();    // run in this thread!
                     }
                 }
 

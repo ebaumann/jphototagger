@@ -1,8 +1,8 @@
 package org.jphototagger.program.view.dialogs;
 
 import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.data.MetadataTemplate;
-import org.jphototagger.program.data.Xmp;
+import org.jphototagger.domain.templates.MetadataTemplate;
+import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.program.database.DatabaseMetadataTemplates;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;

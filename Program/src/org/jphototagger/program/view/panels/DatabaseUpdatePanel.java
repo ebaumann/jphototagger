@@ -2,8 +2,8 @@ package org.jphototagger.program.view.panels;
 
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.event.listener.ProgressListener;
-import org.jphototagger.program.event.ProgressEvent;
+import org.jphototagger.lib.event.listener.ProgressListener;
+import org.jphototagger.lib.event.ProgressEvent;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.helper.HelperThread;
 import org.jphototagger.program.helper.InsertKeywords;

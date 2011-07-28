@@ -14,7 +14,7 @@ import java.awt.Container;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.List;
-import org.jphototagger.domain.Favorite;
+import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.program.view.panels.SelectRootFilesPanel;
 
 

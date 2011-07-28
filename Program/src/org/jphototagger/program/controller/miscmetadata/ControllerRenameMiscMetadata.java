@@ -1,6 +1,6 @@
 package org.jphototagger.program.controller.miscmetadata;
 
-import org.jphototagger.domain.Column;
+import org.jphototagger.domain.database.Column;
 import org.jphototagger.program.helper.RenameDeleteXmpValue;
 import org.jphototagger.program.view.popupmenus.PopupMenuMiscMetadata;
 import java.awt.event.KeyEvent;

@@ -1,17 +1,18 @@
 package org.jphototagger.program.helper;
 
+import org.jphototagger.domain.database.InsertIntoDatabase;
 import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.lib.util.ArrayUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.data.ImageFile;
-import org.jphototagger.domain.Keyword;
-import org.jphototagger.program.data.Xmp;
+import org.jphototagger.domain.image.ImageFile;
+import org.jphototagger.domain.keywords.Keyword;
+import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.database.DatabaseKeywords;
-import org.jphototagger.program.database.metadata.xmp.ColumnXmpDcSubjectsSubject;
-import org.jphototagger.program.database.metadata.xmp.ColumnXmpLastModified;
+import org.jphototagger.domain.database.column.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.domain.database.column.ColumnXmpLastModified;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
 import org.jphototagger.program.model.TreeModelKeywords;
@@ -439,7 +440,7 @@ public final class KeywordsHelper {
             imageFile.setLastmodified(imgFile.lastModified());
             xmp.setValue(ColumnXmpLastModified.INSTANCE, sidecarFile.lastModified());
             imageFile.setXmp(xmp);
-            imageFile.addInsertIntoDb(InsertImageFilesIntoDatabase.Insert.XMP);
+            imageFile.addInsertIntoDb(InsertIntoDatabase.XMP);
             DatabaseImageFiles.INSTANCE.insertOrUpdate(imageFile);
         }
     }

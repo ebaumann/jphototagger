@@ -2,8 +2,8 @@ package org.jphototagger.program.database;
 
 import org.jphototagger.lib.dialog.LongMessageDialog;
 import org.jphototagger.program.app.AppLogger;
-import org.jphototagger.program.event.listener.ProgressListener;
-import org.jphototagger.program.event.ProgressEvent;
+import org.jphototagger.lib.event.listener.ProgressListener;
+import org.jphototagger.lib.event.ProgressEvent;
 import org.jphototagger.program.resource.JptBundle;
 import java.io.File;
 import java.sql.Connection;

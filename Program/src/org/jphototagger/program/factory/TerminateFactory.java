@@ -3,7 +3,7 @@ package org.jphototagger.program.factory;
 import org.jphototagger.program.app.AppCommandLineOptions;
 import org.jphototagger.program.app.AppInit;
 import org.jphototagger.program.controller.search.ControllerFastSearch;
-import org.jphototagger.program.data.UserDefinedFileFilter;
+import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
 import org.jphototagger.program.helper.ImportImageFiles;
 import org.jphototagger.program.model.ComboBoxModelFileFilters;
 import org.jphototagger.program.resource.GUI;

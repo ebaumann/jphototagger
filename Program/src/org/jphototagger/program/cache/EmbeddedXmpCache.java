@@ -12,7 +12,7 @@ import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.IoUtil;
 import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.program.event.listener.adapter.DatabaseImageFilesListenerAdapter;
+import org.jphototagger.domain.event.listener.DatabaseImageFilesListenerAdapter;
 import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
 
 /**

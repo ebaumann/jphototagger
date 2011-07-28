@@ -4,13 +4,13 @@ import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.comparator.ComparatorStringAscending;
-import org.jphototagger.domain.ImageCollection;
+import org.jphototagger.domain.imagecollections.ImageCollection;
 import org.jphototagger.program.database.DatabaseImageCollections;
 import org.jphototagger.program.exporter.ImageCollectionsExporter;
 import org.jphototagger.program.exporter.ImageCollectionsExporter.CollectionWrapper;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
-import org.jphototagger.program.helper.InsertImageFilesIntoDatabase.Insert;
+import org.jphototagger.domain.database.InsertIntoDatabase;
 import org.jphototagger.program.model.ListModelImageCollections;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.panels.ProgressBarUpdater;
@@ -107,7 +107,7 @@ public final class ImageCollectionsImporter implements Importer {
 
         private void insertIntoDbMissingFiles(ImageCollection imageCollection) {
             InsertImageFilesIntoDatabase inserter = new InsertImageFilesIntoDatabase(imageCollection.getFiles(),
-                                                        Insert.OUT_OF_DATE);
+                                                        InsertIntoDatabase.OUT_OF_DATE);
 
             inserter.addProgressListener(new ProgressBarUpdater(inserter,
                     JptBundle.INSTANCE.getString("ImageCollectionsImporter.ProgressBar.String")));

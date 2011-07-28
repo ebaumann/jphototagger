@@ -1,9 +1,9 @@
 package org.jphototagger.program.database;
 
 import org.jphototagger.program.app.AppLogger;
-import org.jphototagger.domain.ImageCollection;
-import org.jphototagger.program.event.listener.DatabaseImageCollectionsListener;
-import org.jphototagger.program.event.listener.impl.ListenerSupport;
+import org.jphototagger.domain.imagecollections.ImageCollection;
+import org.jphototagger.domain.event.listener.DatabaseImageCollectionsListener;
+import org.jphototagger.domain.event.listener.impl.ListenerSupport;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

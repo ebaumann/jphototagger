@@ -1,7 +1,7 @@
 package org.jphototagger.program.controller.keywords.tree;
 
 import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.program.event.listener.ThumbnailsPanelListener;
+import org.jphototagger.domain.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.KeywordsPanel;

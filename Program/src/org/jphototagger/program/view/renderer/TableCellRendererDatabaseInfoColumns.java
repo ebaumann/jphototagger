@@ -1,6 +1,6 @@
 package org.jphototagger.program.view.renderer;
 
-import org.jphototagger.domain.Column;
+import org.jphototagger.domain.database.Column;
 import java.awt.Component;
 import javax.swing.JLabel;
 import javax.swing.JTable;

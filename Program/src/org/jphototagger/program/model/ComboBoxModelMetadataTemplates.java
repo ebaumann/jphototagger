@@ -1,10 +1,10 @@
 package org.jphototagger.program.model;
 
 import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.data.MetadataTemplate;
+import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseMetadataTemplates;
-import org.jphototagger.program.event.listener.DatabaseMetadataTemplatesListener;
+import org.jphototagger.domain.event.listener.DatabaseMetadataTemplatesListener;
 import org.jphototagger.program.resource.JptBundle;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
