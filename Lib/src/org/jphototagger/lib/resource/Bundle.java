@@ -24,6 +24,7 @@ import java.util.ResourceBundle;
  * @author Elmar Baumann
  */
 public class Bundle {
+
     private final ResourceBundle bundle;
 
     /**
@@ -40,6 +41,35 @@ public class Bundle {
         }
 
         bundle = ResourceBundle.getBundle(path);
+    }
+
+    /**
+     *
+     * @param clazz
+     * @return Bundle of {@code Bundle.properties} whithin the same package as {@code clazz}
+     */
+    public static Bundle getBundle(Class<?> clazz) {
+        if (clazz == null) {
+            throw new NullPointerException("clazz == null");
+        }
+
+        String packagePath = getPackagePath(clazz);
+        String bundlePath = packagePath + '/' + "Bundle";
+
+        return new Bundle(bundlePath);
+    }
+
+    private static String getPackagePath(Class<?> clazz) {
+        String className = clazz.getName();
+        int indexLastDot = className.lastIndexOf('.');
+
+        if (indexLastDot < 1) {
+            return "";
+        }
+
+        String packagePath = className.substring(0, indexLastDot);
+
+        return packagePath.replace(".", "/");
     }
 
     /**
