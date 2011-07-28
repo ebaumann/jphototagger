@@ -1,6 +1,7 @@
 package org.jphototagger.dtncreators;
 
 import java.awt.event.ActionEvent;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.ResourceBundle;
@@ -53,12 +54,16 @@ public final class SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction extends A
     public void actionPerformed(ActionEvent e) {
         if (confirmSave()) {
             UserDefinedFileTypesRepository repo = ServiceLookup.lookup(UserDefinedFileTypesRepository.class);
+            int saveCount = 0;
 
             for (UserDefinedFileType userDefinedFileType : VIDEO_FILES) {
                 if (!repo.existsFileTypeWithSuffix(userDefinedFileType.getSuffix())) {
                     repo.save(userDefinedFileType);
+                    saveCount++;
                 }
             }
+
+            showInfoAfterSave(saveCount);
         }
     }
 
@@ -68,5 +73,14 @@ public final class SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction extends A
         int result = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
 
         return result == JOptionPane.YES_OPTION;
+    }
+
+    private void showInfoAfterSave(int saveCount) {
+        String pattern = BUNDLE.getString("SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction.InfoAfterSave.MessageTemplate");
+        String title = BUNDLE.getString("SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction.InfoAfterSave.Title");
+        String message = MessageFormat.format(pattern, saveCount);
+        int messageType = JOptionPane.INFORMATION_MESSAGE;
+
+        JOptionPane.showMessageDialog(null, message, title, messageType);
     }
 }
