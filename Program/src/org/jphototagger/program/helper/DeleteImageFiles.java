@@ -1,7 +1,7 @@
 package org.jphototagger.program.helper;
 
 import org.jphototagger.lib.generics.Pair;
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.controller.filesystem.ControllerDeleteFiles;
 import org.jphototagger.program.image.metadata.xmp.XmpMetadata;

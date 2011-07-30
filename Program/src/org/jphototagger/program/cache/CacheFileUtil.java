@@ -5,7 +5,7 @@
  */
 package org.jphototagger.program.cache;
 
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import java.io.File;
 import java.security.MessageDigest;
 

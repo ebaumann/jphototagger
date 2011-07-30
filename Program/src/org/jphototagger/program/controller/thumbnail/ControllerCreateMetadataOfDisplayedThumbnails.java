@@ -1,6 +1,6 @@
 package org.jphototagger.program.controller.thumbnail;
 
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.domain.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
 import org.jphototagger.domain.database.InsertIntoDatabase;

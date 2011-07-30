@@ -3,7 +3,7 @@ package org.jphototagger.program.datatransfer;
 import org.jphototagger.lib.datatransfer.TransferableObject;
 import org.jphototagger.lib.datatransfer.TransferUtil;
 import org.jphototagger.lib.datatransfer.TransferUtil.FilenameDelimiter;
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.domain.database.ColumnData;
 import org.jphototagger.domain.templates.MetadataTemplate;

@@ -1,6 +1,6 @@
 package org.jphototagger.program.database;
 
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.domain.database.xmp.ColumnXmpDcCreator;
 import org.jphototagger.domain.database.xmp.ColumnXmpDcDescription;

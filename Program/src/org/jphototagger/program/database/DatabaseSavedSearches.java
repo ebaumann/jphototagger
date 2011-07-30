@@ -1,6 +1,6 @@
 package org.jphototagger.program.database;
 
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.domain.database.search.ParamStatement;
 import org.jphototagger.program.data.SavedSearch;
 import org.jphototagger.program.data.SavedSearchPanel;

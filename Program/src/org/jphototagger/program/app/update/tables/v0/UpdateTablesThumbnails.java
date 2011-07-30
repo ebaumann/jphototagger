@@ -4,7 +4,7 @@ import org.jphototagger.image.util.ImageUtil;
 import org.jphototagger.lib.io.filefilter.RegexFileFilter;
 import org.jphototagger.lib.io.FileLock;
 import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.app.SplashScreen;
 import org.jphototagger.program.cache.PersistentThumbnails;
 import org.jphototagger.program.database.Database;

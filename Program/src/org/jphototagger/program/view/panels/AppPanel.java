@@ -46,7 +46,7 @@ import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.JXTree;
 import org.jphototagger.lib.util.ServiceLookup;
 import org.jphototagger.lib.util.StringUtil;
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.controller.actions.SearchInJxListAction;
 import org.jphototagger.program.controller.actions.SearchInJxTreeAction;
 import org.jphototagger.program.controller.actions.TreeExpandCollapseAllAction;

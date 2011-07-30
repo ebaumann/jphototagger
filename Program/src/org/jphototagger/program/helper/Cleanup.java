@@ -1,6 +1,6 @@
 package org.jphototagger.program.helper;
 
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.tasks.AutomaticTask;
 import org.jphototagger.program.tasks.ScheduledTasks;
 import org.jphototagger.program.tasks.UserTasks;

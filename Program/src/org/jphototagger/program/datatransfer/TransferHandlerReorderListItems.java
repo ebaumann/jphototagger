@@ -1,7 +1,7 @@
 package org.jphototagger.program.datatransfer;
 
 import org.jphototagger.lib.datatransfer.TransferableObject;
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.util.ArrayList;

@@ -1,7 +1,7 @@
 package org.jphototagger.program.helper;
 
 import org.jphototagger.lib.runtime.External;
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.domain.database.InsertIntoDatabase;

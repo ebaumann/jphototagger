@@ -10,7 +10,7 @@ import java.awt.image.ImageProducer;
 import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.image.util.ImageTransform;
 import org.jphototagger.lib.runtime.External;
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.database.metadata.exif.ExifThumbnailUtil;
 import org.jphototagger.domain.exif.ExifTag;
 import org.jphototagger.program.image.metadata.exif.ExifTags;

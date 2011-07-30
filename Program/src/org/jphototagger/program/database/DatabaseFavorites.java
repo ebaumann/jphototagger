@@ -1,6 +1,6 @@
 package org.jphototagger.program.database;
 
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.domain.event.listener.DatabaseFavoritesListener;
 import org.jphototagger.domain.event.listener.impl.ListenerSupport;

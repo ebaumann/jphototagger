@@ -2,7 +2,7 @@ package org.jphototagger.program.controller.imagecollection;
 
 import org.jdesktop.swingx.JXList;
 import org.jphototagger.lib.componentutil.ListUtil;
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.helper.ImageCollectionsHelper;
 import org.jphototagger.program.model.ListModelImageCollections;

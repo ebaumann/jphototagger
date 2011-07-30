@@ -1,7 +1,7 @@
 package org.jphototagger.program.tasks;
 
 import org.jphototagger.lib.concurrent.SerialExecutor;
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.domain.event.listener.UpdateMetadataCheckListener;
 import org.jphototagger.domain.event.UpdateMetadataCheckEvent;

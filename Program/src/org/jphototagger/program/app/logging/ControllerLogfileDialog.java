@@ -1,19 +1,21 @@
-package org.jphototagger.program.controller.misc;
+package org.jphototagger.program.app.logging;
 
+import java.util.logging.Level;
+import java.util.logging.LogRecord;
 import org.jphototagger.lib.componentutil.MessageLabel;
 import org.jphototagger.lib.dialog.LogfileDialog;
 import org.jphototagger.lib.event.util.MouseEventUtil;
-import org.jphototagger.program.app.AppLoggingSystem;
+import org.jphototagger.program.app.logging.AppLoggingSystem;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.domain.event.listener.ErrorListener;
-import org.jphototagger.domain.event.listener.impl.ErrorListeners;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.logging.Handler;
+import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 import java.util.logging.XMLFormatter;
 import javax.swing.JLabel;
@@ -21,16 +23,15 @@ import javax.swing.JMenuItem;
 import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
- * Kontrolliert die Aktion: Logfiledialog anzeigen.
  *
  * @author Elmar Baumann
  */
-public final class ControllerLogfileDialog extends MouseAdapter implements ActionListener, ErrorListener {
+public final class ControllerLogfileDialog extends Handler implements ActionListener, MouseListener {
+
     private static final long MILLISECONDS_ERROR_DISPLAY = 4000;
-    private static final String LABEL_ERROR_TOOLTIP_TEXT =
-        JptBundle.INSTANCE.getString("ControllerLogfileDialog.LabelErrorTooltipText");
-    private static final String STATUSBAR_ERROR_TEXT =
-        JptBundle.INSTANCE.getString("ControllerLogfileDialog.Error.Info");
+    private static final String LABEL_ERROR_TOOLTIP_TEXT = JptBundle.INSTANCE.getString("ControllerLogfileDialog.LabelErrorTooltipText");
+    private static final String STATUSBAR_ERROR_TEXT = JptBundle.INSTANCE.getString("ControllerLogfileDialog.Error.Info");
+    private static final int MIN_LOG_LEVEL_VALUE = Level.WARNING.intValue();
 
     public ControllerLogfileDialog() {
         listen();
@@ -40,7 +41,9 @@ public final class ControllerLogfileDialog extends MouseAdapter implements Actio
         getItemErrorLogfile().addActionListener(this);
         getItemAllLogfile().addActionListener(this);
         GUI.getAppPanel().getLabelError().addMouseListener(this);
-        ErrorListeners.INSTANCE.add(this);
+        Logger.getLogger("").addHandler(this);
+         // Separately from Root Logger "" because JPhotoTagger's logging system doesn't use parent handlers
+        Logger.getLogger("org.jphototagger").addHandler(this);
     }
 
     private JMenuItem getItemAllLogfile() {
@@ -49,6 +52,22 @@ public final class ControllerLogfileDialog extends MouseAdapter implements Actio
 
     private JMenuItem getItemErrorLogfile() {
         return GUI.getAppFrame().getMenuItemDisplayLogfile();
+    }
+
+    @Override
+    public void publish(LogRecord record) {
+        int value = record.getLevel().intValue();
+        boolean isLog = value >= MIN_LOG_LEVEL_VALUE;
+
+        if (isLog) {
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
+                @Override
+                public void run() {
+                    showErrorLabel();
+                }
+            });
+        }
     }
 
     @Override
@@ -63,9 +82,8 @@ public final class ControllerLogfileDialog extends MouseAdapter implements Actio
         }
     }
 
-    private void error() {
-        GUI.getAppPanel().setStatusbarText(STATUSBAR_ERROR_TEXT, MessageLabel.MessageType.ERROR,
-                                           MILLISECONDS_ERROR_DISPLAY);
+    private void showErrorLabel() {
+        GUI.getAppPanel().setStatusbarText(STATUSBAR_ERROR_TEXT, MessageLabel.MessageType.ERROR, MILLISECONDS_ERROR_DISPLAY);
         getItemErrorLogfile().setEnabled(true);
 
         JLabel labelError = GUI.getAppPanel().getLabelError();
@@ -93,12 +111,32 @@ public final class ControllerLogfileDialog extends MouseAdapter implements Actio
     }
 
     @Override
-    public void error(Object source, String message) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-            @Override
-            public void run() {
-                error();
-            }
-        });
+    public void mousePressed(MouseEvent e) {
+        // ignore
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        // ignore
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        // ignore
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        // ignore
+    }
+
+    @Override
+    public void flush() {
+        // ignore
+    }
+
+    @Override
+    public void close() throws SecurityException {
+        // ignore
     }
 }

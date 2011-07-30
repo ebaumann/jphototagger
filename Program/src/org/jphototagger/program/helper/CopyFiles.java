@@ -3,7 +3,7 @@ package org.jphototagger.program.helper;
 import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.domain.event.listener.impl.ProgressListenerSupport;
 import org.jphototagger.lib.event.listener.ProgressListener;

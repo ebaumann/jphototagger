@@ -1,7 +1,7 @@
 package org.jphototagger.program.factory;
 
 import org.jphototagger.lib.componentutil.MessageLabel;
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import java.util.ArrayList;

@@ -5,7 +5,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.domain.event.listener.DatabaseImageFilesListenerAdapter;
 

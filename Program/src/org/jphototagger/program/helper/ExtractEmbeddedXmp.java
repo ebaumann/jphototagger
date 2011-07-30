@@ -2,7 +2,7 @@ package org.jphototagger.program.helper;
 
 import org.jphototagger.xmp.XmpFileReader;
 import org.jphototagger.lib.io.FileLock;
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.domain.database.InsertIntoDatabase;
 import org.jphototagger.program.image.metadata.xmp.XmpMetadata;

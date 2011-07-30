@@ -4,7 +4,7 @@ import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.lib.io.filefilter.RegexFileFilter;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.app.AppLifeCycle;
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.lib.event.ProgressEvent;
 import org.jphototagger.program.resource.JptBundle;

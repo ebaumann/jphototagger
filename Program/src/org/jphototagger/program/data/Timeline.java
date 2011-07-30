@@ -2,7 +2,7 @@ package org.jphototagger.program.data;
 
 import org.jphototagger.lib.model.TreeModelUpdateInfo;
 import org.jphototagger.lib.model.TreeNodeSortedChildren;
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.resource.JptBundle;
 import java.text.DateFormat;
 import java.text.DecimalFormat;

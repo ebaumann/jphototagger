@@ -1,6 +1,6 @@
 package org.jphototagger.program.view.renderer;
 
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.io.ImageFileDirectory;
 import org.jphototagger.program.resource.JptBundle;
 import java.awt.Component;

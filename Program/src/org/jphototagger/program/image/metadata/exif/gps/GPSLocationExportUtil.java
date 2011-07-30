@@ -2,7 +2,7 @@ package org.jphototagger.program.image.metadata.exif.gps;
 
 import org.jphototagger.lib.dialog.FileChooserExt;
 import org.jphototagger.lib.util.PropertiesUtil;
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.helper.HelperThread;
 import org.jphototagger.program.image.metadata.exif.ExifTags;

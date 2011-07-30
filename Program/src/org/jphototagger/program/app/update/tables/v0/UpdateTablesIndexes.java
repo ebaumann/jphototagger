@@ -1,7 +1,7 @@
 package org.jphototagger.program.app.update.tables.v0;
 
 import org.jphototagger.lib.generics.Pair;
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.app.SplashScreen;
 import org.jphototagger.program.app.update.tables.IndexInfo;
 import org.jphototagger.program.database.Database;

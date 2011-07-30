@@ -71,7 +71,7 @@ import org.jphototagger.program.controller.misc.ControllerBackupDatabase;
 import org.jphototagger.program.controller.misc.ControllerGoTo;
 import org.jphototagger.program.controller.misc.ControllerHelp;
 import org.jphototagger.program.controller.misc.ControllerItemsMutualExcludeSelection;
-import org.jphototagger.program.controller.misc.ControllerLogfileDialog;
+import org.jphototagger.program.app.logging.ControllerLogfileDialog;
 import org.jphototagger.program.controller.misc.ControllerMaintainDatabase;
 import org.jphototagger.program.controller.misc.ControllerMenuItemEnabler;
 import org.jphototagger.program.controller.plugin.ControllerFileProcessorPlugins;

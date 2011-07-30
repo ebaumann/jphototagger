@@ -2,7 +2,7 @@ package org.jphototagger.program.image.metadata.exif.formatter.canon;
 
 import org.jphototagger.lib.thirdparty.KMPMatch;
 import org.jphototagger.lib.util.ByteUtil;
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.image.metadata.exif.datatype.ExifDatatypeUtil;
 import org.jphototagger.program.types.FileType;
 import java.io.File;

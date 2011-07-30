@@ -1,6 +1,6 @@
 package org.jphototagger.program.image.metadata.exif.formatter.canon;
 
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.image.metadata.exif.ExifMakerNotes;
 import org.jphototagger.domain.exif.ExifIfdType;
 import org.jphototagger.domain.exif.ExifTag;

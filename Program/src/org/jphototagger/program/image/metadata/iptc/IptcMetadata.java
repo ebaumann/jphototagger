@@ -5,7 +5,7 @@ import com.imagero.reader.iptc.IPTCEntry;
 import com.imagero.reader.iptc.IPTCEntryCollection;
 import com.imagero.reader.iptc.IPTCEntryMeta;
 import com.imagero.reader.MetadataUtils;
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.domain.iptc.Iptc;
 import java.io.File;
 import java.util.ArrayList;

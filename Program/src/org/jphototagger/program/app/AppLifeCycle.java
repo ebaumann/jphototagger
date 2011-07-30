@@ -1,5 +1,6 @@
 package org.jphototagger.program.app;
 
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.database.DatabaseMaintainance;
 import org.jphototagger.domain.event.listener.AppExitListener;
 import org.jphototagger.domain.event.listener.impl.ListenerSupport;

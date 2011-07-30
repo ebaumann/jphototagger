@@ -1,7 +1,7 @@
 package org.jphototagger.program.database;
 
 import org.jphototagger.lib.generics.Pair;
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.cache.PersistentThumbnails;
 import org.jphototagger.domain.exif.Exif;
 import org.jphototagger.domain.image.ImageFile;

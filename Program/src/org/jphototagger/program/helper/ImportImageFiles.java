@@ -2,7 +2,7 @@ package org.jphototagger.program.helper;
 
 import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.database.DatabaseImageCollections;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.lib.event.listener.ProgressListener;

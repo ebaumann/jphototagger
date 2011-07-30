@@ -1,5 +1,6 @@
 package org.jphototagger.program.app;
 
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.UserSettings;
 import java.io.File;

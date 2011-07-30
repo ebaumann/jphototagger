@@ -3,7 +3,7 @@ package org.jphototagger.program.io;
 import org.jphototagger.lib.io.FileLock;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.runtime.External;
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
 import java.io.File;
 import java.util.Arrays;

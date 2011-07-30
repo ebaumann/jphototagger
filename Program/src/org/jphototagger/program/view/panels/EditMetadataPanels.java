@@ -3,7 +3,7 @@ package org.jphototagger.program.view.panels;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.program.app.AppLifeCycle;
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.controller.keywords.tree.SuggestKeywords;
 import org.jphototagger.domain.exif.Exif;

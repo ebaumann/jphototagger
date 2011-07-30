@@ -1,5 +1,6 @@
 package org.jphototagger.program.app;
 
+import org.jphototagger.program.app.logging.AppLoggingSystem;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.dialog.InputDialog;
 import org.jphototagger.program.resource.GUI;

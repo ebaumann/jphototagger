@@ -2,7 +2,7 @@ package org.jphototagger.program.model;
 
 import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.lib.model.TreeNodeSortedChildren;
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.domain.keywords.Keyword;
 import org.jphototagger.program.database.DatabaseKeywords;
