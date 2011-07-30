@@ -3,7 +3,7 @@ package org.jphototagger.program.controller.maintainance;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.cache.IptcIgnoreCache;
+import org.jphototagger.iptc.IptcIgnoreCache;
 import org.jphototagger.program.resource.JptBundle;
 
 /**

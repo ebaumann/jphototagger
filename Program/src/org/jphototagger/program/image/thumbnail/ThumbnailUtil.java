@@ -1,39 +1,42 @@
 package org.jphototagger.program.image.thumbnail;
 
-import com.imagero.reader.ImageProcOptions;
-import com.imagero.reader.ImageReader;
-import com.imagero.reader.Imagero;
-import com.imagero.reader.IOParameterBlock;
-import com.imagero.reader.ReaderFactory;
-import com.imagero.reader.tiff.TiffReader;
-import java.awt.image.ImageProducer;
-import org.jphototagger.image.util.ImageTransform;
-import org.jphototagger.lib.runtime.External;
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.database.metadata.exif.ExifThumbnailUtil;
-import org.jphototagger.exif.ExifTag;
-import org.jphototagger.exif.ExifTags;
-import org.jphototagger.image.FileType;
-import org.jphototagger.program.UserSettings;
 import java.awt.Container;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.awt.MediaTracker;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.awt.image.ImageProducer;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.imageio.ImageIO;
+
+import org.jphototagger.domain.filetypes.UserDefinedFileType;
+import org.jphototagger.exif.ExifMetadata;
+import org.jphototagger.exif.ExifTag;
+import org.jphototagger.exif.ExifTags;
+import org.jphototagger.image.FileType;
+import org.jphototagger.image.util.ImageTransform;
 import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.program.app.AppFileFilters;
-import org.jphototagger.domain.filetypes.UserDefinedFileType;
-import org.jphototagger.program.database.DatabaseUserDefinedFileTypes;
-import org.jphototagger.exif.ExifMetadata;
+import org.jphototagger.lib.runtime.External;
 import org.jphototagger.lib.runtime.ExternalOutput;
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.app.AppFileFilters;
+import org.jphototagger.program.app.logging.AppLogger;
+import org.jphototagger.program.database.DatabaseUserDefinedFileTypes;
+import org.jphototagger.program.database.metadata.exif.ExifThumbnailUtil;
+
+import com.imagero.reader.IOParameterBlock;
+import com.imagero.reader.ImageProcOptions;
+import com.imagero.reader.ImageReader;
+import com.imagero.reader.Imagero;
+import com.imagero.reader.ReaderFactory;
+import com.imagero.reader.tiff.TiffReader;
 
 /**
  *

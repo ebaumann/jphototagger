@@ -13,7 +13,7 @@ import org.jphototagger.lib.componentutil.TableUtil;
 import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.lib.util.Translation;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.image.metadata.iptc.IptcEntry;
+import org.jphototagger.iptc.IptcEntry;
 
 /**
  * Rendert Tabellen mit
