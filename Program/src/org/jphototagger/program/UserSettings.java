@@ -57,7 +57,6 @@ public final class UserSettings {
     private static final String KEY_THUMBNAIL_CREATOR = "UserSettings.ThumbnailCreator";
     private static final String KEY_UPDATE_AUTOCOMPLETE = "UserSettings.UpdateAutocomplete";
     private static final String KEY_ADD_FILENAME_TO_GPS_LOCATION_EXPORT = "UserSettings.AddFilenameToGpsLocationExport";
-    private static final String KEY_EXPERIMENTAL_FILE_FORMATS = "UserSettings.ExperimentalFileFormats";
     private static final String KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE = "UserSettings.Autocomplete.IgnoreCase";
     private static final String KEY_DISPLAY_THUMBNAIL_TOOLTIP = "UserSettings.DisplayThumbnailTooltip";
     public static final String KEY_HIDE_ROOT_FILES_FROM_DIRECTORIES_TAB = "UserSettings.HideRootFilesFromDirectoriesTab";
@@ -819,27 +818,6 @@ public final class UserSettings {
         return settings.containsKey(KEY_UPDATE_AUTOCOMPLETE)
                ? settings.getBoolean(KEY_UPDATE_AUTOCOMPLETE)
                : true;
-    }
-
-    /**
-     * Sets whether to use experimental image file formats.
-     *
-     * @param b true, if to use experimental image file formats
-     */
-    public void setUseExperimentalFileFormats(boolean b) {
-        settings.set(KEY_EXPERIMENTAL_FILE_FORMATS, b);
-        writeToFile();
-    }
-
-    /**
-     * Returns whether to use experimental image file formats.
-     *
-     * @return true if to use experimental image file formats. Default: false.
-     */
-    public boolean isUseExperimentalFileFormats() {
-        return settings.containsKey(KEY_EXPERIMENTAL_FILE_FORMATS)
-               ? settings.getBoolean(KEY_EXPERIMENTAL_FILE_FORMATS)
-               : false;
     }
 
     public void setAutocompleteFastSearchIgnoreCase(boolean ignore) {
