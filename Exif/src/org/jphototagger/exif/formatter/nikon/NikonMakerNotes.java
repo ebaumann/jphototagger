@@ -9,13 +9,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.jphototagger.exif.ExifIfdType;
+import org.jphototagger.exif.ExifMakerNotes;
 import org.jphototagger.exif.ExifTag;
 import org.jphototagger.exif.ExifTags;
-import org.jphototagger.lib.generics.Pair;
 
 import com.imagero.reader.tiff.ImageFileDirectory;
 import com.imagero.reader.tiff.TiffReader;
-import org.jphototagger.exif.ExifMakerNotes;
 
 /**
  *
@@ -111,18 +110,18 @@ public final class NikonMakerNotes implements ExifMakerNotes {
         }
     }
 
-    private static void mergeMakerNoteTags(ExifTags exifTags, List<Pair<Integer, Integer>> equalTagIds) {
-        for (Pair<Integer, Integer> pair : equalTagIds) {
-            ExifTag makerNoteTag = exifTags.findmakerNoteTagByTagId(pair.getFirst());
+    private static void mergeMakerNoteTags(ExifTags exifTags, List<NikonMakerNoteTagIdExifTagId> equalTagIds) {
+        for (NikonMakerNoteTagIdExifTagId nikonMakerNoteTagIdExifTagId : equalTagIds) {
+            ExifTag makerNoteTag = exifTags.findmakerNoteTagByTagId(nikonMakerNoteTagIdExifTagId.getNikonMakerNoteTagId());
 
             if (makerNoteTag != null) {
-                ExifTag exifTag = exifTags.findExifTagByTagId(pair.getSecond());
+                ExifTag exifTag = exifTags.findExifTagByTagId(nikonMakerNoteTagIdExifTagId.getExifTagId());
 
                 exifTags.removeFromMakerNoteTags(makerNoteTag);
 
                 // prefering existing tag
                 if (exifTag == null) {
-                    exifTags.addExifTag(new ExifTag(pair.getSecond(), makerNoteTag.getDataTypeId(),
+                    exifTags.addExifTag(new ExifTag(nikonMakerNoteTagIdExifTagId.getExifTagId(), makerNoteTag.getDataTypeId(),
                             makerNoteTag.getValueCount(), makerNoteTag.getValueOffset(),
                             makerNoteTag.getRawValue(), makerNoteTag.getStringValue(),
                             makerNoteTag.getByteOrderId(), makerNoteTag.getName(), ExifIfdType.EXIF));

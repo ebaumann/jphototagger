@@ -1,15 +1,15 @@
 package org.jphototagger.program.app.update.tables.v0;
 
-import org.jphototagger.lib.generics.Pair;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.jphototagger.program.app.SplashScreen;
 import org.jphototagger.program.app.update.tables.ColumnInfo;
 import org.jphototagger.program.database.Database;
 import org.jphototagger.program.database.DatabaseMetadata;
 import org.jphototagger.program.resource.JptBundle;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -17,39 +17,46 @@ import java.util.List;
  * @author Elmar Baumann
  */
 final class UpdateTablesRenameColumns {
-    private static final List<Pair<ColumnInfo, ColumnInfo>> COLUMNS = new ArrayList<Pair<ColumnInfo, ColumnInfo>>();
+
+    private static final Collection<ColumnRenameInfo> COLUMN_RENAME_INFOS = new ArrayList<ColumnRenameInfo>();
 
     static {
-        COLUMNS.add(new Pair<ColumnInfo, ColumnInfo>(new ColumnInfo("programs", "parameters", null, null),
-                             new ColumnInfo(null, "parameters_before_filename", null, null)));
-        COLUMNS.add(new Pair<ColumnInfo, ColumnInfo>(new ColumnInfo("xmp", "id_files", null, null),
-                             new ColumnInfo(null, "id_file", null, null)));
-        COLUMNS.add(new Pair<ColumnInfo, ColumnInfo>(new ColumnInfo("exif", "id_files", null, null),
-                             new ColumnInfo(null, "id_file", null, null)));
-        COLUMNS.add(new Pair<ColumnInfo, ColumnInfo>(new ColumnInfo("collections", "id_collectionnnames", null, null),
-                             new ColumnInfo(null, "id_collectionnname", null, null)));
-        COLUMNS.add(new Pair<ColumnInfo, ColumnInfo>(new ColumnInfo("collections", "id_files", null, null),
-                             new ColumnInfo(null, "id_file", null, null)));
-        COLUMNS.add(new Pair<ColumnInfo,
-                             ColumnInfo>(new ColumnInfo("saved_searches_panels", "id_saved_searches", null, null),
-                                         new ColumnInfo(null, "id_saved_search", null, null)));
-        COLUMNS.add(new Pair<ColumnInfo,
-                             ColumnInfo>(new ColumnInfo("saved_searches_keywords", "id_saved_searches", null, null),
-                                         new ColumnInfo(null, "id_saved_search", null, null)));
-        COLUMNS.add(new Pair<ColumnInfo,
-                             ColumnInfo>(new ColumnInfo("actions_after_db_insertion", "id_programs", null, null),
-                                         new ColumnInfo(null, "id_program", null, null)));
-        COLUMNS.add(new Pair<ColumnInfo, ColumnInfo>(new ColumnInfo("saved_searches", "sql_string", null, null),
-                             new ColumnInfo(null, "custom_sql", null, null)));
+        COLUMN_RENAME_INFOS.add(new ColumnRenameInfo(
+                new ColumnInfo("programs", "parameters", null, null),
+                new ColumnInfo(null, "parameters_before_filename", null, null)));
+        COLUMN_RENAME_INFOS.add(
+                new ColumnRenameInfo(new ColumnInfo("xmp", "id_files", null, null),
+                new ColumnInfo(null, "id_file", null, null)));
+        COLUMN_RENAME_INFOS.add(
+                new ColumnRenameInfo(new ColumnInfo("exif", "id_files", null, null),
+                new ColumnInfo(null, "id_file", null, null)));
+        COLUMN_RENAME_INFOS.add(
+                new ColumnRenameInfo(new ColumnInfo("collections", "id_collectionnnames", null, null),
+                new ColumnInfo(null, "id_collectionnname", null, null)));
+        COLUMN_RENAME_INFOS.add(
+                new ColumnRenameInfo(new ColumnInfo("collections", "id_files", null, null),
+                new ColumnInfo(null, "id_file", null, null)));
+        COLUMN_RENAME_INFOS.add(
+                new ColumnRenameInfo(new ColumnInfo("saved_searches_panels", "id_saved_searches", null, null),
+                new ColumnInfo(null, "id_saved_search", null, null)));
+        COLUMN_RENAME_INFOS.add(
+                new ColumnRenameInfo(new ColumnInfo("saved_searches_keywords", "id_saved_searches", null, null),
+                new ColumnInfo(null, "id_saved_search", null, null)));
+        COLUMN_RENAME_INFOS.add(
+                new ColumnRenameInfo(new ColumnInfo("actions_after_db_insertion", "id_programs", null, null),
+                new ColumnInfo(null, "id_program", null, null)));
+        COLUMN_RENAME_INFOS.add(
+                new ColumnRenameInfo(new ColumnInfo("saved_searches", "sql_string", null, null),
+                new ColumnInfo(null, "custom_sql", null, null)));
     }
 
-    private final List<Pair<ColumnInfo, ColumnInfo>> renameColumns = new ArrayList<Pair<ColumnInfo, ColumnInfo>>();
+    private final Collection<ColumnRenameInfo> columnToRenameInfos = new ArrayList<ColumnRenameInfo>();
 
     void update(Connection con) throws SQLException {
         startMessage();
         setColumns(con);
 
-        if (renameColumns.size() > 0) {
+        if (columnToRenameInfos.size() > 0) {
             renameColumns(con);
         }
 
@@ -59,25 +66,29 @@ final class UpdateTablesRenameColumns {
     private void setColumns(Connection con) throws SQLException {
         DatabaseMetadata dbMeta = DatabaseMetadata.INSTANCE;
 
-        renameColumns.clear();
+        columnToRenameInfos.clear();
 
-        for (Pair<ColumnInfo, ColumnInfo> info : COLUMNS) {
-            if (dbMeta.existsColumn(con, info.getFirst().getTableName(), info.getFirst().getColumnName())) {
-                renameColumns.add(info);
+        for (ColumnRenameInfo columnRenameInfo : COLUMN_RENAME_INFOS) {
+            ColumnInfo oldColumnInfo = columnRenameInfo.getOldColumnInfo();
+            String oldTableName = oldColumnInfo.getTableName();
+            String oldColumnName = oldColumnInfo.getColumnName();
+
+            if (dbMeta.existsColumn(con, oldTableName, oldColumnName)) {
+                columnToRenameInfos.add(columnRenameInfo);
             }
         }
     }
 
     private void renameColumns(Connection con) throws SQLException {
-        for (Pair<ColumnInfo, ColumnInfo> info : renameColumns) {
+        for (ColumnRenameInfo info : columnToRenameInfos) {
             renameColumn(con, info);
         }
     }
 
-    private void renameColumn(Connection con, Pair<ColumnInfo, ColumnInfo> info) throws SQLException {
-        String tableName = info.getFirst().getTableName();
-        String fromColumnName = info.getFirst().getColumnName();
-        String toColumnName = info.getSecond().getColumnName();
+    private void renameColumn(Connection con, ColumnRenameInfo info) throws SQLException {
+        String tableName = info.getOldColumnInfo().getTableName();
+        String fromColumnName = info.getOldColumnInfo().getColumnName();
+        String toColumnName = info.getNewColumnInfo().getColumnName();
 
         if (DatabaseMetadata.INSTANCE.existsColumn(con, tableName, fromColumnName)
                 &&!DatabaseMetadata.INSTANCE.existsColumn(con, tableName, toColumnName)) {

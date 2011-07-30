@@ -1,27 +1,29 @@
 package org.jphototagger.program.view.panels;
 
-import org.jphototagger.program.factory.FileProcessorPluginManager;
-import org.jphototagger.program.types.Persistence;
-import org.jphototagger.program.UserSettings;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.GridBagConstraints;
+import java.awt.event.ActionEvent;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.JCheckBox;
+import javax.swing.JPanel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.HelpBrowser;
-import org.jphototagger.lib.generics.Pair;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.event.ActionEvent;
-import java.awt.GridBagConstraints;
-import java.util.HashMap;
-import java.util.Map;
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.JCheckBox;
-import javax.swing.JPanel;
+import org.jphototagger.plugin.AbstractFileProcessorPlugin;
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.factory.FileProcessorPluginManager;
 import org.jphototagger.program.factory.MainWindowComponentPluginManager;
 import org.jphototagger.program.factory.PluginManager;
 import org.jphototagger.program.resource.JptBundle;
+import org.jphototagger.program.types.Persistence;
 import org.jphototagger.services.plugin.Plugin;
 
 /**
@@ -30,9 +32,20 @@ import org.jphototagger.services.plugin.Plugin;
  * @author Elmar Baumann
  */
 public class SettingsPluginsPanel extends javax.swing.JPanel implements ChangeListener, Persistence {
+
+    private static class HelpContentsPathFirstPageName {
+        private final String helpContentsPath;
+        private final String firstHelpPageName;
+
+        private HelpContentsPathFirstPageName(String helpContentsPath, String firstHelpPageName) {
+            this.helpContentsPath = helpContentsPath;
+            this.firstHelpPageName = firstHelpPageName;
+        }
+    }
+
     private static final long serialVersionUID = 6790634142245254676L;
     private static final String KEY_TABBED_PANE = "SettingsPluginsPanel.TabbedPane";
-    private final Map<Component, Pair<String, String>> helpContentsPathOfTab = new HashMap<Component, Pair<String, String>>();
+    private final Map<Component, HelpContentsPathFirstPageName> helpContentsPathOfTab = new HashMap<Component, HelpContentsPathFirstPageName>();
 
     public SettingsPluginsPanel() {
         initComponents();
@@ -65,7 +78,7 @@ public class SettingsPluginsPanel extends javax.swing.JPanel implements ChangeLi
             String helpContentsPath = plugin.getHelpContentsPath();
             String firstHelpPageName = plugin.getFirstHelpPageName();
 
-            helpContentsPathOfTab.put(component, new Pair<String, String>(helpContentsPath, firstHelpPageName));
+            helpContentsPathOfTab.put(component, new HelpContentsPathFirstPageName(helpContentsPath, firstHelpPageName));
             tabbedPane.add(plugin.getDisplayName(), component);
         }
     }
@@ -133,8 +146,8 @@ public class SettingsPluginsPanel extends javax.swing.JPanel implements ChangeLi
     }
 
     private void showHelp() {
-        String helpContentsPath = helpContentsPathOfTab.get(tabbedPane.getSelectedComponent()).getFirst();
-        String firstPageUrl = helpContentsPathOfTab.get(tabbedPane.getSelectedComponent()).getSecond();
+        String helpContentsPath = helpContentsPathOfTab.get(tabbedPane.getSelectedComponent()).helpContentsPath;
+        String firstPageUrl = helpContentsPathOfTab.get(tabbedPane.getSelectedComponent()).firstHelpPageName;
 
         if (helpContentsPath != null) {
             HelpBrowser help = HelpBrowser.INSTANCE;

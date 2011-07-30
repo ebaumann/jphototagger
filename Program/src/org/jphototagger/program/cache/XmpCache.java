@@ -1,23 +1,25 @@
 package org.jphototagger.program.cache;
 
-import org.jphototagger.lib.generics.Pair;
-import org.jphototagger.domain.exif.Exif;
-import org.jphototagger.domain.xmp.Xmp;
-import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.domain.event.listener.DatabaseImageFilesListener;
-import org.jphototagger.domain.event.listener.ThumbnailUpdateListener;
-import org.jphototagger.domain.event.ThumbnailUpdateEvent;
 import java.io.File;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+
+import org.jphototagger.domain.event.ThumbnailUpdateEvent;
+import org.jphototagger.domain.event.listener.DatabaseImageFilesListener;
+import org.jphototagger.domain.event.listener.ThumbnailUpdateListener;
+import org.jphototagger.domain.exif.Exif;
+import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.program.database.DatabaseImageFiles;
+import org.jphototagger.program.image.metadata.xmp.FileXmp;
 
 /**
  *
  * @author Martin Pohlack
  */
 public final class XmpCache extends Cache<XmpCacheIndirection> implements DatabaseImageFilesListener {
+
     public static final XmpCache INSTANCE = new XmpCache();
     private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
 
@@ -73,55 +75,46 @@ public final class XmpCache extends Cache<XmpCacheIndirection> implements Databa
 
     @Override
     public void imageFileDeleted(File imageFile) {
-
         // ignore
     }
 
     @Override
     public void imageFileInserted(File imageFile) {
-
         // ignore
     }
 
     @Override
     public void imageFileRenamed(File oldImageFile, File newImageFile) {
-
         // ignore
     }
 
     @Override
     public void exifUpdated(File imageFile, Exif oldExif, Exif updatedExif) {
-
         // ignore
     }
 
     @Override
     public void thumbnailUpdated(File imageFile) {
-
         // ignore
     }
 
     @Override
     public void dcSubjectDeleted(String dcSubject) {
-
         // ignore
     }
 
     @Override
     public void dcSubjectInserted(String dcSubject) {
-
         // ignore
     }
 
     @Override
     public void exifInserted(File imageFile, Exif exif) {
-
         // ignore
     }
 
     @Override
     public void exifDeleted(File imageFile, Exif exif) {
-
         // ignore
     }
 
@@ -131,6 +124,7 @@ public final class XmpCache extends Cache<XmpCacheIndirection> implements Databa
     }
 
     private static class XmpFetcher implements Runnable {
+
         private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
         private WorkQueue<XmpCacheIndirection> wq;
         private XmpCache cache;
@@ -174,16 +168,19 @@ public final class XmpCache extends Cache<XmpCacheIndirection> implements Databa
 
                             // wait a bit to allow ThumbnailCache to get some disk bandwidth
                             Thread.sleep(10);
-                        } catch (Exception ex) {}
+                        } catch (Exception ex) {
+                        }
                     }
 
-                    List<Pair<File, Xmp>> res = db.getXmpOfImageFiles(imageFiles);
+                    List<FileXmp> res = db.getXmpOfImageFiles(imageFiles);
+                    boolean repaint = true;
 
                     // send updates to request results
-                    for (Pair<File, Xmp> p : res) {
-                        File temp = p.getFirst();
+                    for (FileXmp fileXmp : res) {
+                        File temp = fileXmp.getFile();
+                        Xmp xmp = fileXmp.getXmp();
 
-                        cache.update(p.getSecond(), temp, true);
+                        cache.update(xmp, temp, repaint);
                         imageFiles.remove(temp);
                     }
 
@@ -202,11 +199,9 @@ public final class XmpCache extends Cache<XmpCacheIndirection> implements Databa
         }
     }
 
-
     /**
      * Interface for producers.
      */
-
     /**
      * Creates a new entry in the cache with the two keys index and file.
      *
@@ -253,6 +248,7 @@ public final class XmpCache extends Cache<XmpCacheIndirection> implements Databa
 
         if (repaint) {
             EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
                 @Override
                 public void run() {
                     if (xmp.isEmpty()) {

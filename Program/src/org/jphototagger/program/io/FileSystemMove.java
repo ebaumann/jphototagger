@@ -1,23 +1,23 @@
 package org.jphototagger.program.io;
 
-import org.jphototagger.lib.generics.Pair;
-import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.lib.event.ProgressEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jphototagger.lib.event.ProgressEvent;
+import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.lib.io.SourceTargetFile;
+import org.jphototagger.program.app.MessageDisplayer;
+
 /**
  * Moves files to a target directory. The info object in
  * {@link org.jphototagger.program.event.ProgressEvent#getInfo()} is a
- * {@link org.jphototagger.lib.generics.Pair} where
- * {@link org.jphototagger.lib.generics.Pair#getFirst()} is the source file and
- * {@link org.jphototagger.lib.generics.Pair#getSecond()} is the target file.
+ * {@link SourceTargetFile}.
  *
  * @author Elmar Baumann
  */
 public final class FileSystemMove extends FileSystem implements Runnable {
+
     private final List<File> sourceFiles = new ArrayList<File>();
     private final List<File> targetFiles = new ArrayList<File>();
     private final boolean renameIfTargetFileExists;
@@ -101,7 +101,7 @@ public final class FileSystemMove extends FileSystem implements Runnable {
             }
 
             progressEvent.setValue(i + 1);
-            progressEvent.setInfo(new Pair<File, File>(sourceFile, targetFile));
+            progressEvent.setInfo(new SourceTargetFile(sourceFile, targetFile));
             notifyProgressListenerPerformed(progressEvent);
             cancel = progressEvent.isCancel();
         }

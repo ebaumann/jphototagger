@@ -1,8 +1,7 @@
 package org.jphototagger.lib.runtime;
 
-import org.jphototagger.lib.generics.Pair;
-import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Test;
 
 /**
  *
@@ -20,11 +19,11 @@ public class ExternalTest {
     public void testExecuteGetOutput() {
         String output = "abcd";
         String command = "echo " + output;
-        Pair<byte[], byte[]> result = External.executeGetOutput(command, 10000);
-        String resultToString = new String(result.getFirst()).trim();    // trim(): "echo" appends "\n"
+        ExternalOutput result = External.executeGetOutput(command, 10000);
+        String resultToString = new String(result.getOutputStream()).trim();    // trim(): "echo" appends "\n"
 
         assertEquals(output, resultToString);
-        assertEquals(null, result.getSecond());
+        assertEquals(null, result.getErrorStream());
         result = External.executeGetOutput("thiscommanddoesnotexist-really", 10000);
         assertNull(result);
     }

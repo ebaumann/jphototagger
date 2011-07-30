@@ -7,7 +7,6 @@ import com.imagero.reader.IOParameterBlock;
 import com.imagero.reader.ReaderFactory;
 import com.imagero.reader.tiff.TiffReader;
 import java.awt.image.ImageProducer;
-import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.image.util.ImageTransform;
 import org.jphototagger.lib.runtime.External;
 import org.jphototagger.program.app.logging.AppLogger;
@@ -34,6 +33,7 @@ import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.domain.filetypes.UserDefinedFileType;
 import org.jphototagger.program.database.DatabaseUserDefinedFileTypes;
 import org.jphototagger.exif.ExifMetadata;
+import org.jphototagger.lib.runtime.ExternalOutput;
 
 /**
  *
@@ -174,7 +174,18 @@ public final class ThumbnailUtil {
         return getEmbeddedThumbnailRotated(file);
     }
 
-    private static Pair<Image, ImageReader> getEmbeddedThumbnailWithReader(File file) {
+    private static class ImageImageReader {
+
+        private final Image image;
+        private final ImageReader imageReader;
+
+        private ImageImageReader(Image image, ImageReader imageReader) {
+            this.image = image;
+            this.imageReader = imageReader;
+        }
+    }
+
+    private static ImageImageReader getEmbeddedThumbnailWithReader(File file) {
         Image thumbnail = null;
         ImageReader reader = null;
 
@@ -196,14 +207,14 @@ public final class ThumbnailUtil {
 
                 ioParamBlock.setSource(file);
                 thumbnail = Imagero.getThumbnail(ioParamBlock, 0);
-                }
+            }
         } catch (Exception ex) {
             AppLogger.logSevere(ThumbnailUtil.class, ex);
 
-            return new Pair<Image, ImageReader>(null, null);
+            return new ImageImageReader(null, null);
         }
 
-        return new Pair<Image, ImageReader>(thumbnail, reader);
+        return new ImageImageReader(thumbnail, reader);
     }
 
     private static Image getScaledImageImagero(File file, int maxLength) {
@@ -235,8 +246,8 @@ public final class ThumbnailUtil {
     }
 
     private static Image getEmbeddedThumbnailRotated(File file) {
-        Pair<Image, ImageReader> pair = getEmbeddedThumbnailWithReader(file);
-        Image thumbnail = pair.getFirst();
+        ImageImageReader ImageAndReader = getEmbeddedThumbnailWithReader(file);
+        Image thumbnail = ImageAndReader.image;
         Image rotatedThumbnail = thumbnail;
 
         if (thumbnail != null) {
@@ -255,7 +266,7 @@ public final class ThumbnailUtil {
             rotatedThumbnail = ImageTransform.rotate(thumbnail, rotateAngle);
         }
 
-        closeReader(pair.getSecond());    // Needs to be open for calling ImageTransform.rotate()
+        closeReader(ImageAndReader.imageReader);    // Needs to be open for calling ImageTransform.rotate()
 
         return rotatedThumbnail;
     }
@@ -286,21 +297,21 @@ public final class ThumbnailUtil {
         }
 
         AppLogger.logInfo(ThumbnailUtil.class, "ThumbnailUtil.GetThumbnailFromExternalApplication.Information", file,
-                          maxLength);
+                maxLength);
 
         String cmd = command.replace("%s", file.getAbsolutePath()).replace("%i", Integer.toString(maxLength));
         Image image = null;
 
         logExternalAppCommand(cmd);
 
-        Pair<byte[], byte[]> output = External.executeGetOutput(cmd,
-                                          UserSettings.INSTANCE.getMaxSecondsToTerminateExternalPrograms() * 1000);
+        ExternalOutput output = External.executeGetOutput(cmd,
+                UserSettings.INSTANCE.getMaxSecondsToTerminateExternalPrograms() * 1000);
 
         if (output == null) {
             return null;
         }
 
-        byte[] stdout = output.getFirst();
+        byte[] stdout = output.getOutputStream();
 
         if (stdout != null) {
             try {
@@ -310,7 +321,7 @@ public final class ThumbnailUtil {
             }
         }
 
-        if (output.getSecond() != null) {
+        if (output.getErrorStream() != null) {
             logStderr(file, output);
         }
 
@@ -359,7 +370,7 @@ public final class ThumbnailUtil {
             int origHeight = image.getHeight();    // Orignalhöhe
             int origWidth = image.getWidth();    // Originalbreite
             double factor = getScaleFactor(origWidth, origHeight,
-                                           minWidth);    // Skalierungsfaktor von Originalgröße auf Zielgröße
+                    minWidth);    // Skalierungsfaktor von Originalgröße auf Zielgröße
             int scaledWidth = (int) (origWidth / factor);    // Zielbreite
             int scaledHeight = (int) (origHeight / factor);    // Zielhöhe
             int pass = 1;    // Zähler für die Durchläufe - nur für Debugging
@@ -392,8 +403,8 @@ public final class ThumbnailUtil {
 
     private static double getScaleFactor(int width, int height, int maxWidth) {
         double longer = (width > height)
-                        ? width
-                        : height;
+                ? width
+                : height;
 
         return longer / (double) maxWidth;
     }
@@ -447,11 +458,11 @@ public final class ThumbnailUtil {
         }
     }
 
-    private static void logStderr(File imageFile, Pair<byte[], byte[]> output) {
-        byte[] stderr = output.getSecond();
+    private static void logStderr(File imageFile, ExternalOutput output) {
+        byte[] stderr = output.getErrorStream();
         String errorMsg = ((stderr == null)
-                           ? ""
-                           : new String(stderr).trim());
+                ? ""
+                : new String(stderr).trim());
 
         if (!errorMsg.isEmpty()) {
             AppLogger.logWarning(ThumbnailUtil.class, "ThumbnailUtil.Error.ExternalProgram", imageFile, errorMsg);
@@ -459,5 +470,5 @@ public final class ThumbnailUtil {
     }
 
     private ThumbnailUtil() {
-}
+    }
 }

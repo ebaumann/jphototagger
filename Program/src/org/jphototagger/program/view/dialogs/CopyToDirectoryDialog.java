@@ -1,31 +1,33 @@
 package org.jphototagger.program.view.dialogs;
 
-import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.lib.event.listener.FileSystemListener;
-import org.jphototagger.domain.event.listener.impl.FileSystemListenerSupport;
-import org.jphototagger.domain.event.listener.impl.ProgressListenerSupport;
-import org.jphototagger.lib.event.listener.ProgressListener;
-import org.jphototagger.lib.event.ProgressEvent;
-import org.jphototagger.program.helper.CopyFiles;
-import org.jphototagger.program.helper.CopyFiles.Options;
-import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.UserSettings;
-import org.jphototagger.lib.componentutil.ComponentUtil;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.dialog.Dialog;
-import org.jphototagger.lib.dialog.DirectoryChooser;
-import org.jphototagger.lib.generics.Pair;
-import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.lib.util.Settings;
 import java.awt.Container;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
 import javax.swing.filechooser.FileSystemView;
+
+import org.jphototagger.domain.event.listener.impl.FileSystemListenerSupport;
+import org.jphototagger.domain.event.listener.impl.ProgressListenerSupport;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.componentutil.ComponentUtil;
+import org.jphototagger.lib.componentutil.MnemonicUtil;
+import org.jphototagger.lib.dialog.Dialog;
+import org.jphototagger.lib.dialog.DirectoryChooser;
+import org.jphototagger.lib.event.ProgressEvent;
+import org.jphototagger.lib.event.listener.FileSystemListener;
+import org.jphototagger.lib.event.listener.ProgressListener;
+import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.lib.io.SourceTargetFile;
+import org.jphototagger.lib.util.Settings;
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.program.helper.CopyFiles;
+import org.jphototagger.program.helper.CopyFiles.Options;
+import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.panels.SelectRootFilesPanel;
 
 /**
@@ -123,8 +125,8 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
                  : CopyFiles.Options.CONFIRM_OVERWRITE;
     }
 
-    private List<Pair<File, File>> getFiles(boolean addXmp) {
-        List<Pair<File, File>> filePairs = new ArrayList<Pair<File, File>>();
+    private List<SourceTargetFile> getFiles(boolean addXmp) {
+        List<SourceTargetFile> sourceTargetFiles = new ArrayList<SourceTargetFile>();
 
         for (File sourceFile : sourceFiles) {
             File targetFile = new File(targetDirectory + File.separator + sourceFile.getName());
@@ -132,23 +134,23 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
             // XMP first to avoid dynamically creating sidecar files before copied
             // when the embedded option is true and the image has IPTC or emb. XMP
             if (addXmp) {
-                addXmp(sourceFile, filePairs);
+                addXmp(sourceFile, sourceTargetFiles);
             }
 
-            filePairs.add(new Pair<File, File>(sourceFile, targetFile));
+            sourceTargetFiles.add(new SourceTargetFile(sourceFile, targetFile));
         }
 
-        return filePairs;
+        return sourceTargetFiles;
     }
 
-    private void addXmp(File imageFile, List<Pair<File, File>> filePairs) {
+    private void addXmp(File imageFile, List<SourceTargetFile> sourceTargetFiles) {
         File sidecarFile = XmpMetadata.getSidecarFile(imageFile);
 
         if (sidecarFile != null) {
             File sourceSidecarFile = sidecarFile;
             File targetSidecarFile = new File(targetDirectory + File.separator + sourceSidecarFile.getName());
 
-            filePairs.add(new Pair<File, File>(sourceSidecarFile, targetSidecarFile));
+            sourceTargetFiles.add(new SourceTargetFile(sourceSidecarFile, targetSidecarFile));
         }
     }
 
@@ -331,11 +333,15 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
             @Override
             public void run() {
                 progressBar.setValue(evt.getValue());
+                Object info = evt.getInfo();
 
-                Pair<File, File> files = (Pair<File, File>) evt.getInfo();
+                if (info instanceof SourceTargetFile) {
+                    SourceTargetFile files = (SourceTargetFile) info;
 
-                labelCurrentFilename.setText(files.getFirst().getAbsolutePath());
-                notifyFileSystemActionListenersCopied(files.getFirst(), files.getSecond());
+                    labelCurrentFilename.setText(files.getSourceFile().getAbsolutePath());
+                    notifyFileSystemActionListenersCopied(files.getSourceFile(), files.getTargetFile());
+                }
+
                 pListenerSupport.notifyPerformed(evt);
             }
         });
@@ -545,11 +551,13 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 CopyToDirectoryDialog dialog = new CopyToDirectoryDialog();
 
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
@@ -559,7 +567,6 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCancel;
     private javax.swing.JButton buttonChooseDirectory;

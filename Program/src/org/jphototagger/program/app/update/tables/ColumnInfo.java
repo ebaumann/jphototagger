@@ -18,30 +18,18 @@ public final class ColumnInfo {
         this.index = index;
     }
 
-    /**
-     * @return the tableName
-     */
     public String getTableName() {
         return tableName;
     }
 
-    /**
-     * @return the columnName
-     */
     public String getColumnName() {
         return columnName;
     }
 
-    /**
-     * @return the dataType
-     */
     public String getDataType() {
         return dataType;
     }
 
-    /**
-     * @return the index
-     */
     public IndexOfColumn getIndex() {
         return index;
     }

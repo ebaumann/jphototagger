@@ -1,28 +1,5 @@
 package org.jphototagger.program.helper;
 
-import org.jphototagger.domain.database.InsertIntoDatabase;
-import org.jphototagger.lib.componentutil.TreeUtil;
-import org.jphototagger.lib.generics.Pair;
-import org.jphototagger.lib.util.ArrayUtil;
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.domain.image.ImageFile;
-import org.jphototagger.domain.keywords.Keyword;
-import org.jphototagger.domain.xmp.Xmp;
-import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.program.database.DatabaseKeywords;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
-import org.jphototagger.domain.database.xmp.ColumnXmpLastModified;
-import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
-import org.jphototagger.program.model.TreeModelKeywords;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.tasks.UserTasks;
-import org.jphototagger.program.view.dialogs.InputHelperDialog;
-import org.jphototagger.program.view.panels.AppPanel;
-import org.jphototagger.program.view.panels.EditMetadataPanels;
-import org.jphototagger.program.view.renderer.TreeCellRendererKeywords;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,16 +10,41 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.JTree;
 import javax.swing.ListModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeCellRenderer;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
+
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.JXTree;
+import org.jphototagger.domain.database.InsertIntoDatabase;
+import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.domain.database.xmp.ColumnXmpLastModified;
+import org.jphototagger.domain.image.ImageFile;
+import org.jphototagger.domain.keywords.Keyword;
+import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.ListUtil;
+import org.jphototagger.lib.componentutil.TreeUtil;
+import org.jphototagger.lib.util.ArrayUtil;
+import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.program.app.logging.AppLogger;
+import org.jphototagger.program.database.DatabaseImageFiles;
+import org.jphototagger.program.database.DatabaseKeywords;
+import org.jphototagger.program.factory.ModelFactory;
+import org.jphototagger.program.image.metadata.xmp.FileXmp;
+import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
+import org.jphototagger.program.model.TreeModelKeywords;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.resource.JptBundle;
+import org.jphototagger.program.tasks.UserTasks;
+import org.jphototagger.program.view.dialogs.InputHelperDialog;
+import org.jphototagger.program.view.panels.AppPanel;
+import org.jphototagger.program.view.panels.EditMetadataPanels;
+import org.jphototagger.program.view.renderer.TreeCellRendererKeywords;
 
 /**
  * Helper for hierarchical keywords and Dublin Core subjects ("flat" keywords).
@@ -53,7 +55,9 @@ import org.jphototagger.lib.componentutil.ListUtil;
  * @author Elmar Baumann
  */
 public final class KeywordsHelper {
-    private KeywordsHelper() {}
+
+    private KeywordsHelper() {
+    }
 
     /**
      * Adds the keyword - contained as user object in a d.m. tree node -
@@ -68,6 +72,7 @@ public final class KeywordsHelper {
         }
 
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 EditMetadataPanels editPanels = GUI.getAppPanel().getEditMetadataPanels();
@@ -103,7 +108,7 @@ public final class KeywordsHelper {
      */
     public static void insertDcSubject() {
         String dcSubject = MessageDisplayer.input("KeywordsHelper.Input.InsertDcSubject", "",
-                               "KeywordsHelper.Input.InsertDcSubject.Settings");
+                "KeywordsHelper.Input.InsertDcSubject.Settings");
 
         if ((dcSubject != null) && checkExistsDcSubject(dcSubject)) {
             if (DatabaseImageFiles.INSTANCE.insertDcSubject(dcSubject)) {
@@ -161,9 +166,9 @@ public final class KeywordsHelper {
             }
         }
 
-        List<Pair<File, Xmp>> saveList = new ArrayList<Pair<File, Xmp>>();
+        List<FileXmp> saveList = new ArrayList<FileXmp>();
 
-        saveList.add(new Pair<File, Xmp>(imageFile, xmp));
+        saveList.add(new FileXmp(imageFile, xmp));
         SaveXmp.save(saveList);
     }
 
@@ -194,8 +199,8 @@ public final class KeywordsHelper {
             TreeNode parent = n.getParent();
 
             n = (parent instanceof DefaultMutableTreeNode)
-                ? (DefaultMutableTreeNode) parent
-                : null;
+                    ? (DefaultMutableTreeNode) parent
+                    : null;
         }
 
         return list;
@@ -239,6 +244,7 @@ public final class KeywordsHelper {
         }
 
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 TreeModelKeywords model = ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
@@ -246,7 +252,7 @@ public final class KeywordsHelper {
                 DefaultMutableTreeNode selNode = null;
 
                 for (Enumeration<DefaultMutableTreeNode> e = root.breadthFirstEnumeration();
-                        (selNode == null) && e.hasMoreElements(); ) {
+                        (selNode == null) && e.hasMoreElements();) {
                     DefaultMutableTreeNode node = e.nextElement();
                     Object userObject = node.getUserObject();
 
@@ -294,6 +300,7 @@ public final class KeywordsHelper {
         }
 
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 for (TreeCellRendererKeywords treeCellRendererKeywords : getCellRenderer()) {
@@ -305,6 +312,7 @@ public final class KeywordsHelper {
 
     public static void removeHighlightKeyword(final String keyword) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 for (TreeCellRendererKeywords treeCellRendererKeywords : getCellRenderer()) {
@@ -321,7 +329,7 @@ public final class KeywordsHelper {
             TreeCellRenderer treeCellRenderer = tree.getCellRenderer();
 
             if (treeCellRenderer instanceof JXTree.DelegatingRenderer) {
-                treeCellRenderer = ((JXTree.DelegatingRenderer)treeCellRenderer).getDelegateRenderer();
+                treeCellRenderer = ((JXTree.DelegatingRenderer) treeCellRenderer).getDelegateRenderer();
 
             }
 
@@ -335,7 +343,7 @@ public final class KeywordsHelper {
 
     private static List<JTree> getKeywordTrees() {
         return Arrays.<JTree>asList(GUI.getAppPanel().getTreeEditKeywords(), GUI.getAppPanel().getTreeSelKeywords(),
-                       InputHelperDialog.INSTANCE.getPanelKeywords().getTree());
+                InputHelperDialog.INSTANCE.getPanelKeywords().getTree());
     }
 
     public static void selectInSelKeywordsList(final List<Integer> modelIndices) {
@@ -344,6 +352,7 @@ public final class KeywordsHelper {
         }
 
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 JXList selKeywordsList = GUI.getAppPanel().getListSelKeywords();
@@ -388,6 +397,7 @@ public final class KeywordsHelper {
         }
 
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 for (JTree tree : getKeywordTrees()) {
@@ -446,6 +456,7 @@ public final class KeywordsHelper {
     }
 
     private static class DeleteDcSubject extends HelperThread {
+
         private final String dcSubject;
         private volatile boolean cancel;
 
@@ -458,7 +469,7 @@ public final class KeywordsHelper {
         @Override
         public void run() {
             List<File> imageFiles =
-                new ArrayList<File>(DatabaseImageFiles.INSTANCE.getImageFilesOfDcSubject(dcSubject));
+                    new ArrayList<File>(DatabaseImageFiles.INSTANCE.getImageFilesOfDcSubject(dcSubject));
 
             logStartDelete(dcSubject);
             progressStarted(0, 0, imageFiles.size(), null);
@@ -466,7 +477,7 @@ public final class KeywordsHelper {
             int size = imageFiles.size();
             int index = 0;
 
-            for (index = 0; !cancel &&!isInterrupted() && (index < size); index++) {
+            for (index = 0; !cancel && !isInterrupted() && (index < size); index++) {
                 File imageFile = imageFiles.get(index);
                 File sidecarFile = XmpMetadata.suggestSidecarFile(imageFile);
                 Xmp xmp = null;
@@ -506,6 +517,7 @@ public final class KeywordsHelper {
     }
 
     private static class RenameDcSubject extends HelperThread {
+
         private final String toName;
         private final String fromName;
         private volatile boolean cancel;
@@ -527,7 +539,7 @@ public final class KeywordsHelper {
             int size = imageFiles.size();
             int index = 0;
 
-            for (index = 0; !cancel &&!isInterrupted() && (index < size); index++) {
+            for (index = 0; !cancel && !isInterrupted() && (index < size); index++) {
                 File imageFile = imageFiles.get(index);
                 File sidecarFile = XmpMetadata.suggestSidecarFile(imageFile);
                 Xmp xmp = null;

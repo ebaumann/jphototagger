@@ -1,16 +1,24 @@
 package org.jphototagger.program.database;
 
-import org.jphototagger.lib.generics.Pair;
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.cache.PersistentThumbnails;
-import org.jphototagger.domain.exif.Exif;
-import org.jphototagger.domain.image.ImageFile;
-import org.jphototagger.program.data.Timeline;
-import org.jphototagger.domain.xmp.Xmp;
-import org.jphototagger.program.database.DatabaseImageFiles.DcSubjectOption;
+import java.awt.Image;
+import java.io.File;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.EnumSet;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+
+import org.bushe.swing.event.EventBus;
 import org.jphototagger.domain.database.Column;
-import org.jphototagger.program.database.metadata.Join;
-import org.jphototagger.program.database.metadata.Join.Type;
 import org.jphototagger.domain.database.xmp.ColumnXmpDcCreator;
 import org.jphototagger.domain.database.xmp.ColumnXmpDcDescription;
 import org.jphototagger.domain.database.xmp.ColumnXmpDcRights;
@@ -30,31 +38,24 @@ import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopSource;
 import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopState;
 import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopTransmissionReference;
 import org.jphototagger.domain.database.xmp.ColumnXmpRating;
-import org.jphototagger.domain.event.listener.DatabaseImageFilesListener;
-import org.jphototagger.domain.event.listener.impl.ListenerSupport;
-import org.jphototagger.lib.event.listener.ProgressListener;
-import org.jphototagger.lib.event.ProgressEvent;
-import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
-import java.awt.Image;
-import java.io.File;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.EnumSet;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
-import org.bushe.swing.event.EventBus;
 import org.jphototagger.domain.event.ImageFileAddedEvent;
 import org.jphototagger.domain.event.ImageFileMovedEvent;
 import org.jphototagger.domain.event.ImageFileRemovedEvent;
+import org.jphototagger.domain.event.listener.DatabaseImageFilesListener;
+import org.jphototagger.domain.event.listener.impl.ListenerSupport;
+import org.jphototagger.domain.exif.Exif;
+import org.jphototagger.domain.image.ImageFile;
+import org.jphototagger.domain.xmp.Xmp;
+import org.jphototagger.lib.event.ProgressEvent;
+import org.jphototagger.lib.event.listener.ProgressListener;
+import org.jphototagger.program.app.logging.AppLogger;
+import org.jphototagger.program.cache.PersistentThumbnails;
+import org.jphototagger.program.data.Timeline;
+import org.jphototagger.program.database.DatabaseImageFiles.DcSubjectOption;
+import org.jphototagger.program.database.metadata.Join;
+import org.jphototagger.program.database.metadata.Join.Type;
+import org.jphototagger.program.image.metadata.xmp.FileXmp;
+import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
 import org.jphototagger.program.image.thumbnail.ThumbnailUtil;
 
 /**
@@ -1283,16 +1284,16 @@ public final class DatabaseImageFiles extends Database {
      * Returns XMP metadata of image files.
      *
      * @param imageFiles image files
-     * @return           XMP metadata where the first element of a pair is the
-     *                   image file and the second the XMP metadata of that
-     *                   file
+     * @return           XMP metadata where {@link FileXmp#getFile()} is the
+     *                   image file and {@link FileXmp#getXmp()} the XMP metadata of that
+     *                   image file
      */
-    public List<Pair<File, Xmp>> getXmpOfImageFiles(Collection<? extends File> imageFiles) {
+    public List<FileXmp> getXmpOfImageFiles(Collection<? extends File> imageFiles) {
         if (imageFiles == null) {
             throw new NullPointerException("imageFiles == null");
         }
 
-        List<Pair<File, Xmp>> list = new ArrayList<Pair<File, Xmp>>();
+        List<FileXmp> list = new ArrayList<FileXmp>();
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -1344,7 +1345,9 @@ public final class DatabaseImageFiles extends Database {
                 xmp.setValue(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE, getString(rs, 19));
 
                 if (!filepath.equals(prevFilepath)) {
-                    list.add(new Pair<File, Xmp>(getFile(filepath), xmp));
+                    File file = getFile(filepath);
+
+                    list.add(new FileXmp(file, xmp));
                 }
 
                 prevFilepath = filepath;

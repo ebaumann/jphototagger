@@ -1,21 +1,22 @@
 package org.jphototagger.program.importer;
 
-import org.jphototagger.lib.generics.Pair;
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.exporter.KeywordsExporterLightroom;
-import org.jphototagger.program.io.CharEncoding;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.InputStreamReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import javax.swing.filechooser.FileFilter;
+
 import javax.swing.Icon;
+import javax.swing.filechooser.FileFilter;
+
+import org.jphototagger.program.app.logging.AppLogger;
+import org.jphototagger.program.exporter.KeywordsExporterLightroom;
+import org.jphototagger.program.io.CharEncoding;
 
 /**
  * Imports keywords exported by <strong>Adobe Photoshop Lightroom</strong>.
@@ -23,8 +24,8 @@ import javax.swing.Icon;
  * @author Elmar Baumann
  */
 public final class KeywordsImporterLightroom extends KeywordsImporter {
-    public static final KeywordsImporterLightroom INSTANCE = new KeywordsImporterLightroom();
 
+    public static final KeywordsImporterLightroom INSTANCE = new KeywordsImporterLightroom();
     /**
      * Lightroom exports keywords within {} - constant if changed in later
      * Lightroom versions
@@ -34,7 +35,7 @@ public final class KeywordsImporterLightroom extends KeywordsImporter {
     private final Node root = new Node(null, -1, "ROOT");
 
     @Override
-    public Collection<List<Pair<String, Boolean>>> getPaths(File file) {
+    public Collection<List<KeywordString>> getPaths(File file) {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
@@ -73,8 +74,8 @@ public final class KeywordsImporterLightroom extends KeywordsImporter {
         }
     }
 
-    private Collection<List<Pair<String, Boolean>>> pathsOfNodes(Collection<? extends Node> nodes) {
-        List<List<Pair<String, Boolean>>> paths = new ArrayList<List<Pair<String, Boolean>>>();
+    private Collection<List<KeywordString>> pathsOfNodes(Collection<? extends Node> nodes) {
+        List<List<KeywordString>> paths = new ArrayList<List<KeywordString>>();
 
         for (Node node : nodes) {
             paths.add(pathOfNode(node));
@@ -83,12 +84,12 @@ public final class KeywordsImporterLightroom extends KeywordsImporter {
         return paths;
     }
 
-    private List<Pair<String, Boolean>> pathOfNode(Node node) {
-        List<Pair<String, Boolean>> path = new ArrayList<Pair<String, Boolean>>();
+    private List<KeywordString> pathOfNode(Node node) {
+        List<KeywordString> path = new ArrayList<KeywordString>();
         Node parent = node;
 
         while (parent != root) {
-            path.add(new Pair<String, Boolean>(parent.getString(), true));
+            path.add(new KeywordString(parent.getString(), true));
             parent = parent.getParent();
         }
 
@@ -124,12 +125,12 @@ public final class KeywordsImporterLightroom extends KeywordsImporter {
         // proably more efficient than calculating start and end index and
         // returning a substring in one call
         return (hasStartBracket && hasEndBracket)
-               ? line.substring(1, line.length() - 1)
-               : hasStartBracket
-                 ? line.substring(1)
-                 : hasEndBracket
-                   ? line.substring(0, line.length() - 1)
-                   : line;
+                ? line.substring(1, line.length() - 1)
+                : hasStartBracket
+                ? line.substring(1)
+                : hasEndBracket
+                ? line.substring(0, line.length() - 1)
+                : line;
     }
 
     private List<String> readLines(File file) throws FileNotFoundException, IOException {
@@ -195,6 +196,7 @@ public final class KeywordsImporterLightroom extends KeywordsImporter {
     }
 
     private class Node {
+
         private final int level;
         private final Node parent;
         private final List<Node> children = new ArrayList<Node>();
@@ -227,11 +229,11 @@ public final class KeywordsImporterLightroom extends KeywordsImporter {
         }
 
         public Node getChildAt(int index) {
-            assert(index >= 0) && (index < children.size()) : index;
+            assert (index >= 0) && (index < children.size()) : index;
 
             return ((index >= 0) && (index < children.size()))
-                   ? children.get(index)
-                   : null;
+                    ? children.get(index)
+                    : null;
         }
 
         public String getString() {
@@ -275,6 +277,6 @@ public final class KeywordsImporterLightroom extends KeywordsImporter {
         }
     }
 
-
-    private KeywordsImporterLightroom() {}
+    private KeywordsImporterLightroom() {
+    }
 }

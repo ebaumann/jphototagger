@@ -1,15 +1,16 @@
 package org.jphototagger.program.helper;
 
-import org.jphototagger.lib.generics.Pair;
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.controller.filesystem.ControllerDeleteFiles;
-import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
-import org.jphototagger.program.types.DeleteOption;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.program.app.logging.AppLogger;
+import org.jphototagger.program.controller.filesystem.ControllerDeleteFiles;
+import org.jphototagger.program.image.metadata.xmp.ImageFileSidecarFile;
+import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
+import org.jphototagger.program.types.DeleteOption;
 
 /**
  * Deletes image files from the file system.
@@ -39,13 +40,13 @@ public final class DeleteImageFiles {
         List<DeleteOption> optionList = Arrays.asList(options);
 
         if (confirmDelete(optionList)) {
-            List<Pair<File, File>> imageFilesWithSidecarFiles = XmpMetadata.getImageFilesWithSidecarFiles(imageFiles);
+            List<ImageFileSidecarFile> imageFilesWithSidecarFiles = XmpMetadata.getImageFilesWithSidecarFiles(imageFiles);
 
-            for (Pair<File, File> filePair : imageFilesWithSidecarFiles) {
-                File imageFile = filePair.getFirst();
+            for (ImageFileSidecarFile imageFileSidecarFile : imageFilesWithSidecarFiles) {
+                File imageFile = imageFileSidecarFile.getImageFile();
 
                 if (imageFile.delete()) {
-                    deleteSidecarFile(filePair.getSecond(), optionList);
+                    deleteSidecarFile(imageFileSidecarFile.getSidecarFile(), optionList);
                     deletedImageFiles.add(imageFile);
                 } else {
                     errorMessageDelete(imageFile, optionList);
@@ -78,5 +79,6 @@ public final class DeleteImageFiles {
         return true;
     }
 
-    private DeleteImageFiles() {}
+    private DeleteImageFiles() {
+    }
 }

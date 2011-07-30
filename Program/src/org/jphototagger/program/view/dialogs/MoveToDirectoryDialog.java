@@ -1,30 +1,32 @@
 package org.jphototagger.program.view.dialogs;
 
-import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.lib.event.listener.FileSystemListener;
+import java.awt.Container;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import javax.swing.filechooser.FileSystemView;
+
 import org.jphototagger.domain.event.listener.impl.FileSystemListenerSupport;
 import org.jphototagger.domain.event.listener.impl.ProgressListenerSupport;
-import org.jphototagger.lib.event.listener.ProgressListener;
+import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.componentutil.MnemonicUtil;
+import org.jphototagger.lib.dialog.Dialog;
+import org.jphototagger.lib.dialog.DirectoryChooser;
 import org.jphototagger.lib.event.ProgressEvent;
+import org.jphototagger.lib.event.listener.FileSystemListener;
+import org.jphototagger.lib.event.listener.ProgressListener;
+import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.lib.io.SourceTargetFile;
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.helper.CopyFiles;
 import org.jphototagger.program.helper.CopyFiles.Options;
 import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
 import org.jphototagger.program.io.FileSystemMove;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.UserSettings;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.dialog.Dialog;
-import org.jphototagger.lib.dialog.DirectoryChooser;
-import org.jphototagger.lib.generics.Pair;
-import org.jphototagger.lib.io.FileUtil;
-import java.awt.Container;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import javax.swing.filechooser.FileSystemView;
-import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.view.panels.SelectRootFilesPanel;
 
 /**
@@ -266,11 +268,16 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
             @Override
             public void run() {
                 progressBar.setValue(evt.getValue());
+                Object info = evt.getInfo();
 
-                @SuppressWarnings("unchecked")
-                String filename = ((Pair<File, File>) evt.getInfo()).getFirst().getAbsolutePath();
+                if (info instanceof SourceTargetFile) {
+                    SourceTargetFile sourceTargetFile = (SourceTargetFile) info;
 
-                labelCurrentFilename.setText(filename);
+                    String filename = sourceTargetFile.getSourceFile().getAbsolutePath();
+
+                    labelCurrentFilename.setText(filename);
+                }
+
                 checkCancel(evt);
                 pListenerSupport.notifyPerformed(evt);
             }
@@ -482,11 +489,13 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 MoveToDirectoryDialog dialog = new MoveToDirectoryDialog();
 
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
@@ -496,7 +505,6 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCancel;
     private javax.swing.JButton buttonChooseDirectory;

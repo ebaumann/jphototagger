@@ -1,14 +1,5 @@
 package org.jphototagger.program.helper;
 
-import org.jphototagger.lib.generics.Pair;
-import org.jphototagger.domain.database.ColumnData;
-import org.jphototagger.domain.xmp.Xmp;
-import org.jphototagger.domain.database.Column;
-import org.jphototagger.domain.database.xmp.XmpColumns;
-import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
-import org.jphototagger.program.io.ImageUtil;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.panels.EditMetadataPanels;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,10 +9,22 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
+
+import org.jphototagger.domain.database.Column;
+import org.jphototagger.domain.database.ColumnData;
+import org.jphototagger.domain.database.ColumnStringValue;
+import org.jphototagger.domain.database.xmp.XmpColumns;
+import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.program.image.metadata.xmp.FileXmp;
+import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
+import org.jphototagger.program.io.ImageUtil;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.view.panels.EditMetadataPanels;
 
 /**
  *
@@ -40,7 +43,7 @@ public final class MiscMetadataHelper {
             throw new NullPointerException("imageFile == null");
         }
 
-        List<Pair<File, Xmp>> saveList = new ArrayList<Pair<File, Xmp>>();
+        List<FileXmp> saveList = new ArrayList<FileXmp>();
 
         for (File imageFile : imageFiles) {
             if (imageFile.exists() && ImageUtil.checkImageEditable(imageFile)) {
@@ -60,7 +63,7 @@ public final class MiscMetadataHelper {
                     xmp.setValue(data.getColumn(), data.getData());
                 }
 
-                saveList.add(new Pair<File, Xmp>(imageFile, xmp));
+                saveList.add(new FileXmp(imageFile, xmp));
             }
         }
 
@@ -283,15 +286,15 @@ public final class MiscMetadataHelper {
      * @param  paths
      * @return       values or empty list
      */
-    public static List<Pair<Column, String>> getColValuesFrom(List<TreePath> paths) {
+    public static List<ColumnStringValue> getColValuesFrom(List<TreePath> paths) {
         if (paths == null) {
             throw new NullPointerException("paths == null");
         }
 
-        List<Pair<Column, String>> values = new ArrayList<Pair<Column, String>>(paths.size());
+        List<ColumnStringValue> values = new ArrayList<ColumnStringValue>(paths.size());
 
         for (TreePath path : paths) {
-            Pair<Column, String> value = getColValueFrom(path);
+            ColumnStringValue value = getColValueFrom(path);
 
             if (value != null) {
                 values.add(value);
@@ -306,7 +309,7 @@ public final class MiscMetadataHelper {
      * @param  path
      * @return       value or null
      */
-    public static Pair<Column, String> getColValueFrom(TreePath path) {
+    public static ColumnStringValue getColValueFrom(TreePath path) {
         if (path == null) {
             throw new NullPointerException("path == null");
         }
@@ -321,7 +324,7 @@ public final class MiscMetadataHelper {
      * @param  node
      * @return       value or null
      */
-    public static Pair<Column, String> getColValueFrom(DefaultMutableTreeNode node) {
+    public static ColumnStringValue getColValueFrom(DefaultMutableTreeNode node) {
         if (node == null) {
             throw new NullPointerException("node == null");
         }
@@ -331,7 +334,7 @@ public final class MiscMetadataHelper {
             DefaultMutableTreeNode parentNode = (DefaultMutableTreeNode) node.getParent();
             Column column = (Column) parentNode.getUserObject();
 
-            return new Pair<Column, String>(column, value);
+            return new ColumnStringValue(column, value);
         }
 
         return null;

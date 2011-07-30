@@ -1,31 +1,5 @@
 package org.jphototagger.program.image.metadata.xmp;
 
-import com.adobe.xmp.options.IteratorOptions;
-import com.adobe.xmp.options.PropertyOptions;
-import com.adobe.xmp.options.SerializeOptions;
-import com.adobe.xmp.properties.XMPPropertyInfo;
-import com.adobe.xmp.XMPException;
-import com.adobe.xmp.XMPIterator;
-import com.adobe.xmp.XMPMeta;
-import com.adobe.xmp.XMPMetaFactory;
-import com.imagero.reader.iptc.IPTCEntryMeta;
-import org.jphototagger.lib.generics.Pair;
-import org.jphototagger.xmp.XmpFileReader;
-import org.jphototagger.lib.io.FileLock;
-import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.cache.EmbeddedXmpCache;
-import org.jphototagger.domain.xmp.Xmp;
-import org.jphototagger.domain.database.Column;
-import org.jphototagger.domain.metadata.mapping.IptcEntryXmpPathStartMapping;
-import org.jphototagger.domain.metadata.mapping.XmpColumnNamespaceUriMapping;
-import org.jphototagger.domain.metadata.mapping.XmpColumnXmpArrayNameMapping;
-import org.jphototagger.domain.metadata.mapping.XmpColumnXmpDataTypeMapping;
-import org.jphototagger.domain.metadata.mapping.XmpColumnXmpDataTypeMapping.XmpValueType;
-import org.jphototagger.program.database.metadata.selections.EditColumns;
-import org.jphototagger.domain.database.xmp.XmpInDatabase;
-import org.jphototagger.domain.database.xmp.ColumnXmpLastModified;
-import org.jphototagger.program.io.RuntimeUtil;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -37,6 +11,33 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.jphototagger.domain.database.Column;
+import org.jphototagger.domain.database.xmp.ColumnXmpLastModified;
+import org.jphototagger.domain.database.xmp.XmpInDatabase;
+import org.jphototagger.domain.metadata.mapping.IptcEntryXmpPathStartMapping;
+import org.jphototagger.domain.metadata.mapping.XmpColumnNamespaceUriMapping;
+import org.jphototagger.domain.metadata.mapping.XmpColumnXmpArrayNameMapping;
+import org.jphototagger.domain.metadata.mapping.XmpColumnXmpDataTypeMapping;
+import org.jphototagger.domain.metadata.mapping.XmpColumnXmpDataTypeMapping.XmpValueType;
+import org.jphototagger.domain.xmp.Xmp;
+import org.jphototagger.lib.io.FileLock;
+import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.program.app.logging.AppLogger;
+import org.jphototagger.program.cache.EmbeddedXmpCache;
+import org.jphototagger.program.database.metadata.selections.EditColumns;
+import org.jphototagger.program.io.RuntimeUtil;
+import org.jphototagger.xmp.XmpFileReader;
+
+import com.adobe.xmp.XMPException;
+import com.adobe.xmp.XMPIterator;
+import com.adobe.xmp.XMPMeta;
+import com.adobe.xmp.XMPMetaFactory;
+import com.adobe.xmp.options.IteratorOptions;
+import com.adobe.xmp.options.PropertyOptions;
+import com.adobe.xmp.options.SerializeOptions;
+import com.adobe.xmp.properties.XMPPropertyInfo;
+import com.imagero.reader.iptc.IPTCEntryMeta;
 
 /**
  * Gets and sets XMP metadata from image files and XMP sidecar files and to
@@ -69,12 +70,12 @@ public final class XmpMetadata {
 
         /** The XMP metadta is embedded into the data file */
         EMBEDDED,
-
         /** The XMP metadta exists in a sidecar file */
         SIDECAR_FILE
     }
 
-    private XmpMetadata() {}
+    private XmpMetadata() {
+    }
 
     /**
      * Returns all {@link XMPPropertyInfo}s of a specific namespace.
@@ -113,7 +114,7 @@ public final class XmpMetadata {
      *                  or on errors while reading
      */
     static List<XMPPropertyInfo> getEmbeddedPropertyInfos(File imageFile) {
-        if ((imageFile == null) ||!imageFile.exists()) {
+        if ((imageFile == null) || !imageFile.exists()) {
             return null;
         }
 
@@ -129,7 +130,7 @@ public final class XmpMetadata {
      * @throws IOException
      */
     public static List<XMPPropertyInfo> getPropertyInfosOfSidecarFile(File sidecarFile) throws IOException {
-        if ((sidecarFile == null) ||!sidecarFile.exists()) {
+        if ((sidecarFile == null) || !sidecarFile.exists()) {
             return null;
         }
 
@@ -169,7 +170,7 @@ public final class XmpMetadata {
      */
     private static void addXmpPropertyInfosTo(XMPMeta fromXmpMeta, List<XMPPropertyInfo> toXmpPropertyInfos) {
         try {
-            for (XMPIterator it = fromXmpMeta.iterator(); it.hasNext(); ) {
+            for (XMPIterator it = fromXmpMeta.iterator(); it.hasNext();) {
                 XMPPropertyInfo xmpPropertyInfo = (XMPPropertyInfo) it.next();
 
                 if (hasContent(xmpPropertyInfo)) {
@@ -183,7 +184,7 @@ public final class XmpMetadata {
 
     private static boolean hasContent(XMPPropertyInfo xmpPropertyInfo) {
         return !xmpPropertyInfo.getOptions().isQualifier() && (xmpPropertyInfo.getPath() != null)
-               && (xmpPropertyInfo.getValue() != null) && (xmpPropertyInfo.getValue().toString().length() > 0);
+                && (xmpPropertyInfo.getValue() != null) && (xmpPropertyInfo.getValue().toString().length() > 0);
     }
 
     /**
@@ -248,7 +249,7 @@ public final class XmpMetadata {
      * @return           may be null
      */
     public static String getEmbeddedXmpAsString(File imageFile) {
-        if ((imageFile == null) ||!imageFile.exists()) {
+        if ((imageFile == null) || !imageFile.exists()) {
             return null;
         }
 
@@ -259,7 +260,7 @@ public final class XmpMetadata {
     }
 
     public static String getXmpAsStringOfSidecarFile(File sidecarFile) throws IOException {
-        if ((sidecarFile == null) ||!sidecarFile.exists()) {
+        if ((sidecarFile == null) || !sidecarFile.exists()) {
             return null;
         }
 
@@ -391,7 +392,7 @@ public final class XmpMetadata {
         if (sidecarFile.exists()) {
             String xmp = FileUtil.getContentAsString(sidecarFile, "UTF-8");
 
-            if ((xmp != null) &&!xmp.trim().isEmpty()) {
+            if ((xmp != null) && !xmp.trim().isEmpty()) {
                 return XMPMetaFactory.parseFromString(xmp);
             }
         }
@@ -426,7 +427,7 @@ public final class XmpMetadata {
      * @throws XMPException if the namespace or uri or data is invalid
      */
     private static void copyMetadata(Xmp fromXmp, XMPMeta toXmpMeta, Column column, String namespaceUri,
-                                     String arrayName)
+            String arrayName)
             throws XMPException {
         Object xmpValue = fromXmp.getValue(column);
 
@@ -436,7 +437,7 @@ public final class XmpMetadata {
 
                 // 2009-08-02: No side effects if value is clear
                 // ("orphaned data"), because previous metadata was deleted
-                if (XmpColumnXmpDataTypeMapping.isText(column) &&!value.trim().isEmpty()) {
+                if (XmpColumnXmpDataTypeMapping.isText(column) && !value.trim().isEmpty()) {
                     toXmpMeta.setProperty(namespaceUri, arrayName, value);
                 } else if (XmpColumnXmpDataTypeMapping.isLanguageAlternative(column)) {
                     toXmpMeta.setLocalizedText(namespaceUri, arrayName, "", "x-default", value);
@@ -451,7 +452,7 @@ public final class XmpMetadata {
 
                     if (!doesArrayItemExist(toXmpMeta, namespaceUri, arrayName, trimmedValue)) {
                         toXmpMeta.appendArrayItem(namespaceUri, arrayName, getArrayPropertyOptionsOf(column),
-                                                  trimmedValue, null);
+                                trimmedValue, null);
                     }
                 }
             } else if (xmpValue instanceof Long) {
@@ -467,7 +468,7 @@ public final class XmpMetadata {
     private static boolean doesArrayItemExist(XMPMeta xmpMeta, String namespaceUri, String propertyName, String item)
             throws XMPException {
         if (xmpMeta.doesPropertyExist(namespaceUri, propertyName)) {
-            for (XMPIterator it = xmpMeta.iterator(namespaceUri, propertyName, new IteratorOptions()); it.hasNext(); ) {
+            for (XMPIterator it = xmpMeta.iterator(namespaceUri, propertyName, new IteratorOptions()); it.hasNext();) {
                 XMPPropertyInfo xmpPropertyInfo = (XMPPropertyInfo) it.next();
 
                 if (xmpPropertyInfo != null) {
@@ -514,7 +515,7 @@ public final class XmpMetadata {
             out = new FileOutputStream(toSidecarFile);
             out.getChannel().lock();
             XMPMetaFactory.serialize(fromXmpMeta, out,
-                                     new SerializeOptions().setPadding(10).setOmitPacketWrapper(true));
+                    new SerializeOptions().setPadding(10).setOmitPacketWrapper(true));
 
             return true;
         } catch (Exception ex) {
@@ -546,7 +547,7 @@ public final class XmpMetadata {
      * @throws           IOException
      */
     public static Xmp getXmpFromSidecarFileOf(File imageFile) throws IOException {
-        if ((imageFile == null) ||!hasImageASidecarFile(imageFile)) {
+        if ((imageFile == null) || !hasImageASidecarFile(imageFile)) {
             return null;
         }
 
@@ -568,8 +569,8 @@ public final class XmpMetadata {
         String xmpString = EmbeddedXmpCache.INSTANCE.getCachedXmp(imageFile);
 
         return (xmpString == null)
-               ? null
-               : getXmp(getPropertyInfosOfXmpString(xmpString), imageFile, XmpLocation.EMBEDDED);
+                ? null
+                : getXmp(getPropertyInfosOfXmpString(xmpString), imageFile, XmpLocation.EMBEDDED);
     }
 
     /**
@@ -609,7 +610,7 @@ public final class XmpMetadata {
     }
 
     private static Xmp getXmp(List<XMPPropertyInfo> xmpPropertyInfos, File areFromXmpImageFile,
-                              XmpLocation xmpLocation) {
+            XmpLocation xmpLocation) {
         Xmp xmp = null;
 
         if (xmpPropertyInfos != null) {
@@ -646,33 +647,28 @@ public final class XmpMetadata {
     }
 
     /**
-     * Returns pairs of image files and their sidecar files.
+     * Returns image files and their sidecar files.
      *
      * @param  imageFiles image files
-     * @return            pairs of image files with their corresponding sidecar
-     *                    files.
-     *                    {@link org.jphototagger.lib.generics.Pair#getFirst()}
-     *                    returns a reference to an image file object in the
-     *                    <code>imageFiles</code> list.
-     *                    {@link org.jphototagger.lib.generics.Pair#getSecond()}
-     *                    returns the sidecar file of the referenced image file
-     *                    or null if the image file has no sidecar file.
+     * @return            image files with their corresponding sidecar files.
+     *                    {@link ImageFileSidecarFile#getSidecarFile()}
+     *                    returns null if the image file has no sidecar file.
      */
-    public static List<Pair<File, File>> getImageFilesWithSidecarFiles(List<File> imageFiles) {
+    public static List<ImageFileSidecarFile> getImageFilesWithSidecarFiles(List<File> imageFiles) {
         if (imageFiles == null) {
             throw new NullPointerException("imageFiles == null");
         }
 
-        List<Pair<File, File>> filePairs = new ArrayList<Pair<File, File>>();
+        List<ImageFileSidecarFile> imageFilesSidecarFiles = new ArrayList<ImageFileSidecarFile>();
 
         for (File imageFile : imageFiles) {
             File sidecarFile = getSidecarFile(imageFile);
 
-            filePairs.add(new Pair<File, File>(imageFile, (sidecarFile == null)
+            imageFilesSidecarFiles.add(new ImageFileSidecarFile(imageFile, (sidecarFile == null)
                     ? null
                     : sidecarFile));
         }
 
-        return filePairs;
+        return imageFilesSidecarFiles;
     }
 }

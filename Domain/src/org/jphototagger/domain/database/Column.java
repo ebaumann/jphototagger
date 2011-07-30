@@ -1,14 +1,16 @@
 package org.jphototagger.domain.database;
 
+import java.text.DateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.swing.InputVerifier;
+import javax.swing.text.DefaultFormatterFactory;
+
 import org.jphototagger.lib.inputverifier.InputVerifierAlwaysTrue;
 import org.jphototagger.lib.inputverifier.InputVerifierDate;
 import org.jphototagger.lib.inputverifier.InputVerifierMaxLength;
 import org.jphototagger.lib.inputverifier.InputVerifierNumber;
-import java.text.DateFormat;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.InputVerifier;
-import javax.swing.text.DefaultFormatterFactory;
 
 /**
  * Database column containing metadata with the user acts on.

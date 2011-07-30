@@ -1,24 +1,26 @@
 package org.jphototagger.program.datatransfer;
 
-import org.jphototagger.lib.datatransfer.TransferableObject;
-import org.jphototagger.lib.datatransfer.TransferUtil;
-import org.jphototagger.lib.generics.Pair;
-import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.domain.database.ColumnData;
-import org.jphototagger.domain.database.Column;
-import org.jphototagger.domain.database.xmp.XmpColumns;
-import org.jphototagger.program.helper.MiscMetadataHelper;
 import java.awt.datatransfer.Transferable;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import javax.swing.JComponent;
 import javax.swing.JTree;
 import javax.swing.TransferHandler;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
+
+import org.jphototagger.domain.database.Column;
+import org.jphototagger.domain.database.ColumnData;
+import org.jphototagger.domain.database.ColumnStringValue;
+import org.jphototagger.domain.database.xmp.XmpColumns;
+import org.jphototagger.lib.datatransfer.TransferUtil;
+import org.jphototagger.lib.datatransfer.TransferableObject;
+import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.program.helper.MiscMetadataHelper;
 
 /**
  *
@@ -56,17 +58,17 @@ public final class TransferHandlerMiscMetadataTree extends TransferHandler {
             return false;
         }
 
-        Pair<Column, String> colValue = MiscMetadataHelper.getColValueFrom(dropNode);
+        ColumnStringValue colValue = MiscMetadataHelper.getColValueFrom(dropNode);
 
         if (colValue == null) {
             return false;
         }
 
         List<File> imageFiles = Support.getImageFiles(support);
-        String value = colValue.getSecond();
+        String value = colValue.getValue();
 
         if (!imageFiles.isEmpty() && confirmImport(value, imageFiles.size())) {
-            ColumnData cd = new ColumnData(colValue.getFirst(), value);
+            ColumnData cd = new ColumnData(colValue.getColumn(), value);
 
             MiscMetadataHelper.saveToImageFiles(Collections.singletonList(cd), imageFiles);
 

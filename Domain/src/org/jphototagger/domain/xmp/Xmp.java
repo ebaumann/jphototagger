@@ -2,7 +2,6 @@ package org.jphototagger.domain.xmp;
 
 import org.jphototagger.domain.iptc.Iptc;
 import com.imagero.reader.iptc.IPTCEntryMeta;
-import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.domain.database.xmp.ColumnXmpIptc4XmpCoreDateCreated;
 import org.jphototagger.domain.database.xmp.XmpColumns;
 import java.util.ArrayList;
@@ -16,6 +15,7 @@ import java.util.logging.Logger;
 import org.jphototagger.domain.database.Column;
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.domain.event.listener.TextEntryListener;
+import org.jphototagger.domain.metadata.mapping.IPTCEntryMetaColumn;
 import org.jphototagger.domain.metadata.mapping.IptcXmpMapping;
 import org.jphototagger.domain.metadata.mapping.XmpRepeatableValues;
 import org.jphototagger.lib.awt.EventQueueUtil;
@@ -170,10 +170,10 @@ public final class Xmp implements TextEntryListener {
             clear();
         }
 
-        List<Pair<IPTCEntryMeta, Column>> mappings = IptcXmpMapping.getAllPairs();
+        List<IPTCEntryMetaColumn> mappings = IptcXmpMapping.getAllMappings();
 
-        for (Pair<IPTCEntryMeta, Column> mappingPair : mappings) {
-            Column xmpColumn = mappingPair.getSecond();
+        for (IPTCEntryMetaColumn mapping : mappings) {
+            Column xmpColumn = mapping.getColumn();
             IPTCEntryMeta iptcEntryMeta = IptcXmpMapping.getIptcEntryMetaOfXmpColumn(xmpColumn);
             Object iptcValue = iptc.getValue(iptcEntryMeta);
 
