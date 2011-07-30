@@ -2,8 +2,8 @@ package org.jphototagger.exif.tag;
 
 import java.nio.charset.Charset;
 import java.util.Arrays;
+import org.jphototagger.lib.generics.NumberRange;
 
-import org.jphototagger.lib.generics.Pair;
 
 /**
  * Copyright as specified in the EXIF standard, tag 33432 (8298.H).
@@ -49,9 +49,9 @@ public final class ExifCopyright {
             throw new NullPointerException("rawValue == null");
         }
 
-        Pair<Integer, Integer> photographerOffsets = findPhotographerOffsetsOfRawValue(rawValue);
+        NumberRange<Integer> photographerOffsets = findPhotographerOffsetsOfRawValue(rawValue);
 
-        return convertRawValueToString(rawValue, photographerOffsets.getFirst(), photographerOffsets.getSecond());
+        return convertRawValueToString(rawValue, photographerOffsets.getBegin(), photographerOffsets.getEnd());
     }
 
     /**
@@ -67,9 +67,9 @@ public final class ExifCopyright {
             throw new NullPointerException("rawValue == null");
         }
 
-        Pair<Integer, Integer> editorOffsets = findEditorOffsetsOfRawValue(rawValue);
+        NumberRange<Integer> editorOffsets = findEditorOffsetsOfRawValue(rawValue);
 
-        return convertRawValueToString(rawValue, editorOffsets.getFirst(), editorOffsets.getSecond());
+        return convertRawValueToString(rawValue, editorOffsets.getBegin(), editorOffsets.getEnd());
     }
 
     private static String convertRawValueToString(byte[] ba, int first, int last) {
@@ -80,9 +80,9 @@ public final class ExifCopyright {
         return new String(Arrays.copyOfRange(ba, first, last), Charset.forName("US-ASCII"));
     }
 
-    private static Pair<Integer, Integer> findPhotographerOffsetsOfRawValue(byte[] rawValue) {
+    private static NumberRange<Integer> findPhotographerOffsetsOfRawValue(byte[] rawValue) {
         if (rawValue.length < 2) {
-            return new Pair<Integer, Integer>(-1, -1);
+            return new NumberRange<Integer>(-1, -1);
         }
 
         boolean end = false;
@@ -92,20 +92,20 @@ public final class ExifCopyright {
             end = rawValue[i++] == 0x0;
         }
 
-        return new Pair<Integer, Integer>(0, i - 1);
+        return new NumberRange<Integer>(0, i - 1);
     }
 
-    private static Pair<Integer, Integer> findEditorOffsetsOfRawValue(byte[] rawValue) {
+    private static NumberRange<Integer> findEditorOffsetsOfRawValue(byte[] rawValue) {
         if (rawValue.length < 3) {
-            return new Pair<Integer, Integer>(-1, -1);
+            return new NumberRange<Integer>(-1, -1);
         }
 
-        Pair<Integer, Integer> photographerOffsets = findPhotographerOffsetsOfRawValue(rawValue);
+        NumberRange<Integer> photographerOffsets = findPhotographerOffsetsOfRawValue(rawValue);
 
-        if ((photographerOffsets.getFirst() == -1) || (photographerOffsets.getSecond() == rawValue.length)) {
-            return new Pair<Integer, Integer>(-1, -1);
+        if ((photographerOffsets.getBegin() == -1) || (photographerOffsets.getEnd() == rawValue.length)) {
+            return new NumberRange<Integer>(-1, -1);
         }
 
-        return new Pair<Integer, Integer>(photographerOffsets.getSecond() + 1, rawValue.length - 1);
+        return new NumberRange<Integer>(photographerOffsets.getEnd() + 1, rawValue.length - 1);
     }
 }

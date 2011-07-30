@@ -1,41 +1,13 @@
 package org.jphototagger.program.view.panels;
 
-import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.generics.Pair;
-import org.jphototagger.program.app.AppLifeCycle;
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.controller.keywords.tree.SuggestKeywords;
-import org.jphototagger.domain.exif.Exif;
-import org.jphototagger.domain.templates.MetadataTemplate;
-import org.jphototagger.domain.text.TextEntry;
-import org.jphototagger.domain.xmp.Xmp;
-import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.domain.database.Column;
-import org.jphototagger.program.database.metadata.selections.EditColumns;
-import org.jphototagger.program.database.metadata.selections.EditHints;
-import org.jphototagger.program.database.metadata.selections.EditHints.SizeEditField;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
-import org.jphototagger.domain.database.xmp.ColumnXmpRating;
-import org.jphototagger.domain.event.listener.AppExitListener;
-import org.jphototagger.domain.event.listener.DatabaseImageFilesListener;
-import org.jphototagger.domain.event.listener.EditMetadataPanelsListener;
-import org.jphototagger.domain.event.listener.impl.EditMetadataPanelsListenerSupport;
-import org.jphototagger.program.helper.SaveXmp;
-import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.view.ViewUtil;
-import org.jphototagger.program.view.WaitDisplay;
 import java.awt.Component;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -43,15 +15,45 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.Set;
 import java.util.Stack;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+
+import org.jphototagger.domain.database.Column;
+import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.domain.database.xmp.ColumnXmpRating;
+import org.jphototagger.domain.event.listener.AppExitListener;
+import org.jphototagger.domain.event.listener.DatabaseImageFilesListener;
+import org.jphototagger.domain.event.listener.EditMetadataPanelsListener;
+import org.jphototagger.domain.event.listener.impl.EditMetadataPanelsListenerSupport;
+import org.jphototagger.domain.exif.Exif;
+import org.jphototagger.domain.templates.MetadataTemplate;
+import org.jphototagger.domain.text.TextEntry;
+import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.componentutil.MnemonicUtil;
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.app.AppLifeCycle;
+import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.program.app.logging.AppLogger;
+import org.jphototagger.program.controller.keywords.tree.SuggestKeywords;
+import org.jphototagger.program.database.DatabaseImageFiles;
+import org.jphototagger.program.database.metadata.selections.EditColumns;
+import org.jphototagger.program.database.metadata.selections.EditHints;
+import org.jphototagger.program.database.metadata.selections.EditHints.SizeEditField;
+import org.jphototagger.program.helper.SaveXmp;
+import org.jphototagger.program.image.metadata.xmp.FileXmp;
+import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.resource.JptBundle;
+import org.jphototagger.program.view.ViewUtil;
+import org.jphototagger.program.view.WaitDisplay;
 
 /**
  * Panels mit Edit-Feldern zum Bearbeiten von Metadaten.
@@ -59,8 +61,9 @@ import org.jphototagger.lib.awt.EventQueueUtil;
  * @author Elmar Baumann, Tobias Stening
  */
 public final class EditMetadataPanels implements FocusListener, DatabaseImageFilesListener, AppExitListener {
+
     private final List<JPanel> panels = new ArrayList<JPanel>();
-    private final List<Pair<File, Xmp>> imageFilesXmp = new ArrayList<Pair<File, Xmp>>();
+    private final List<FileXmp> imageFilesXmp = new ArrayList<FileXmp>();
     private boolean editable = true;
     private WatchDifferentValues watchDifferentValues = new WatchDifferentValues();
     private final EditMetadataPanelsListenerSupport ls = new EditMetadataPanelsListenerSupport();
@@ -198,13 +201,13 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
                 xmp = new Xmp();
             }
 
-            imageFilesXmp.add(new Pair<File, Xmp>(imageFile, xmp));
+            imageFilesXmp.add(new FileXmp(imageFile, xmp));
         }
     }
 
     private void setXmpOfFilesAsTextEntryListener(boolean add) {
-        for (Pair<File, Xmp> pair : imageFilesXmp) {
-            setXmpAsTextEntryListener(pair.getSecond(), add);
+        for (FileXmp imageFileXmp : imageFilesXmp) {
+            setXmpAsTextEntryListener(imageFileXmp.getXmp(), add);
         }
     }
 
@@ -382,7 +385,7 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
                     // Only one call possible, so try catch within a loop is ok
                     String s = p.getText();
 
-                    if ((s != null) &&!s.isEmpty()) {
+                    if ((s != null) && !s.isEmpty()) {
                         xmp.setValue(ColumnXmpRating.INSTANCE, Long.getLong(s));
                     }
                 } catch (Exception ex) {
@@ -440,8 +443,8 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
                     } else if (panel instanceof RatingSelectionPanel) {
                         RatingSelectionPanel p = (RatingSelectionPanel) panel;
                         Long rating = xmp.contains(ColumnXmpRating.INSTANCE)
-                                      ? (Long) xmp.getValue(ColumnXmpRating.INSTANCE)
-                                      : null;
+                                ? (Long) xmp.getValue(ColumnXmpRating.INSTANCE)
+                                : null;
 
                         if (rating != null) {
                             p.setText(Long.toString(rating));
@@ -495,8 +498,8 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
         });
     }
 
-    public Collection<Pair<File, Xmp>> getImageFilesXmp() {
-        return new ArrayList<Pair<File, Xmp>>(imageFilesXmp);
+    public Collection<FileXmp> getImageFilesXmp() {
+        return new ArrayList<FileXmp>(imageFilesXmp);
     }
 
     public void setMetadataTemplate(final MetadataTemplate template) {
@@ -554,7 +557,7 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
             } else {
                 String value = textEntry.getText();
 
-                if ((value != null) &&!value.trim().isEmpty()) {
+                if ((value != null) && !value.trim().isEmpty()) {
                     template.setValueOfColumn(textEntry.getColumn(), value.trim());
                 }
             }
@@ -626,7 +629,7 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
         assert imageFilesXmp.size() >= 1 : "No files!";
 
         if (imageFilesXmp.size() == 1) {
-            Object value = imageFilesXmp.get(0).getSecond().getValue(column);
+            Object value = imageFilesXmp.get(0).getXmp().getValue(column);
 
             if (value instanceof List<?>) {
                 return (List<String>) value;
@@ -638,8 +641,8 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
         // more then 1 file
         Stack<List<String>> lists = new Stack<List<String>>();
 
-        for (Pair<File, Xmp> pair : imageFilesXmp) {
-            Xmp xmp = pair.getSecond();
+        for (FileXmp imageFileXmp : imageFilesXmp) {
+            Xmp xmp = imageFileXmp.getXmp();
             Object value = xmp.getValue(column);
 
             if (value instanceof List<?>) {
@@ -666,18 +669,18 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
         assert imageFilesXmp.size() >= 1 : "No files!";
 
         if (imageFilesXmp.size() == 1) {
-            String value = toString(imageFilesXmp.get(0).getSecond().getValue(column));
+            String value = toString(imageFilesXmp.get(0).getXmp().getValue(column));
 
             return (value == null)
-                   ? ""
-                   : value.trim();
+                    ? ""
+                    : value.trim();
         }
 
         // more then 1 file
         Stack<String> strings = new Stack<String>();
 
-        for (Pair<File, Xmp> pair : imageFilesXmp) {
-            Xmp xmp = pair.getSecond();
+        for (FileXmp imageFileXmp : imageFilesXmp) {
+            Xmp xmp = imageFileXmp.getXmp();
             String value = toString(xmp.getValue(column));
 
             if (value != null) {
@@ -701,11 +704,11 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
     }
 
     private boolean hasValue(Column column) {
-        for (Pair<File, Xmp> pair : imageFilesXmp) {
-            Xmp xmp = pair.getSecond();
+        for (FileXmp imageFileXmp : imageFilesXmp) {
+            Xmp xmp = imageFileXmp.getXmp();
             String value = toString(xmp.getValue(column));
 
-            if ((value != null) &&!value.trim().isEmpty()) {
+            if ((value != null) && !value.trim().isEmpty()) {
                 return true;
             }
         }
@@ -772,7 +775,7 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
         mnemonics.add((char) actionsPanel.buttonMetadataTemplateAdd.getMnemonic());
         mnemonics.add((char) actionsPanel.labelPromptCurrentTemplate.getDisplayedMnemonic());
         mnemonics.addAll(MnemonicUtil.getMnemonicCharsOf(Arrays.asList(GUI.getAppPanel().getMnemonizedComponents())));
-        ViewUtil.setDisplayedMnemonicsToLabels(container, mnemonics.toArray(new Character[] {}));
+        ViewUtil.setDisplayedMnemonicsToLabels(container, mnemonics.toArray(new Character[]{}));
     }
 
     private GridBagConstraints newConstraints() {
@@ -852,8 +855,8 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
 
                     panel.textAreaEdit.addFocusListener(this);
                     panel.textAreaEdit.setRows(large
-                                               ? 4
-                                               : 1);
+                            ? 4
+                            : 1);
                     panels.add(panel);
                 }
             }
@@ -875,7 +878,7 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
                     }
                 }
             });
-    }
+        }
     }
 
     public void emptyPanels(final boolean dirty) {
@@ -924,8 +927,7 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
     }
 
     private boolean isEditControl(Component c) {
-        return (c instanceof JTextArea) || (c instanceof JTextField) || (c instanceof RatingSelectionPanel)
-        ;
+        return (c instanceof JTextArea) || (c instanceof JTextField) || (c instanceof RatingSelectionPanel);
     }
 
     private void scrollToVisible(Object inputSource) {
@@ -963,20 +965,20 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
             return;
         }
 
-        final Pair<File, Xmp> pair = imageFilesXmp.get(0);
+        final FileXmp imageFileXmp = imageFilesXmp.get(0);
 
-        if (pair.getFirst().equals(imageFile)) {
+        if (imageFileXmp.getFile().equals(imageFile)) {
             EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
                 @Override
                 public void run() {
-                    setXmpAsTextEntryListener(pair.getSecond(), false);
+                    setXmpAsTextEntryListener(imageFileXmp.getXmp(), false);
                     setXmpAsTextEntryListener(xmp, true);
-                    imageFilesXmp.set(0, new Pair<File, Xmp>(imageFile, xmp));
+                    imageFilesXmp.set(0, new FileXmp(imageFile, xmp));
                     setXmpToEditPanels();
                 }
             });
-    }
+        }
     }
 
     @Override
@@ -1054,59 +1056,51 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
 
     @Override
     public void exifInserted(File imageFile, Exif exif) {
-
         // ignore
     }
 
     @Override
     public void exifUpdated(File imageFile, Exif oldExif, Exif updatedExif) {
-
         // ignore
     }
 
     @Override
     public void exifDeleted(File imageFile, Exif exif) {
-
         // ignore
     }
 
     @Override
     public void imageFileDeleted(File imageFile) {
-
         // ignore
     }
 
     @Override
     public void imageFileInserted(File imageFile) {
-
         // ignore
     }
 
     @Override
     public void imageFileRenamed(File oldImageFile, File newImageFile) {
-
         // ignore
     }
 
     @Override
     public void thumbnailUpdated(File imageFile) {
-
         // ignore
     }
 
     @Override
     public void dcSubjectDeleted(String dcSubject) {
-
         // ignore
     }
 
     @Override
     public void dcSubjectInserted(String dcSubject) {
-
         // ignore
     }
 
     private class WatchDifferentValues extends MouseAdapter {
+
         private final List<TextEntry> entries = new ArrayList<TextEntry>();
         private final Set<TextEntry> releasedEntries = new HashSet<TextEntry>();
         private volatile boolean listen;
@@ -1122,11 +1116,10 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
         private void listenToEntries() {
             for (TextEntry entry : entries) {
                 if (entry instanceof RatingSelectionPanel) {
-
                     // Text not parsable as number leads to an exception
                 } else {
                     entry.setText(
-                        JptBundle.INSTANCE.getString("EditMetadataPanels.DisableIfMultipleValues.Info.TextEntry"));
+                            JptBundle.INSTANCE.getString("EditMetadataPanels.DisableIfMultipleValues.Info.TextEntry"));
                 }
 
                 entry.addMouseListenerToInputComponents(this);
@@ -1165,7 +1158,7 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
         @Override
         public void mousePressed(MouseEvent evt) {
             synchronized (this) {
-                if (!editable ||!listen) {
+                if (!editable || !listen) {
                     return;
                 }
 

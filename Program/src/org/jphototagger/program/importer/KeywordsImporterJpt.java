@@ -1,6 +1,19 @@
 package org.jphototagger.program.importer;
 
-import org.jphototagger.lib.generics.Pair;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Stack;
+
+import javax.swing.Icon;
+import javax.swing.filechooser.FileFilter;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
 import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.exporter.KeywordsExporterJpt;
 import org.w3c.dom.Document;
@@ -10,18 +23,6 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-import java.io.File;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Stack;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.Icon;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 
 /**
  * Imports Keywords exported by {@link KeywordsExporterJpt}.
@@ -29,10 +30,11 @@ import javax.xml.parsers.DocumentBuilderFactory;
  * @author Elmar Baumann
  */
 public final class KeywordsImporterJpt extends KeywordsImporter implements EntityResolver {
+
     public static final KeywordsImporterJpt INSTANCE = new KeywordsImporterJpt();
 
     @Override
-    public Collection<List<Pair<String, Boolean>>> getPaths(File file) {
+    public Collection<List<KeywordString>> getPaths(File file) {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
@@ -56,8 +58,8 @@ public final class KeywordsImporterJpt extends KeywordsImporter implements Entit
         return null;
     }
 
-    private List<List<Pair<String, Boolean>>> getPaths(Node rootNode) {
-        List<List<Pair<String, Boolean>>> paths = new ArrayList<List<Pair<String, Boolean>>>();
+    private List<List<KeywordString>> getPaths(Node rootNode) {
+        List<List<KeywordString>> paths = new ArrayList<List<KeywordString>>();
         List<Node> leafs = getAllLeafs(rootNode);
         List<Stack<Node>> pathStacks = new ArrayList<Stack<Node>>();
 
@@ -70,7 +72,7 @@ public final class KeywordsImporterJpt extends KeywordsImporter implements Entit
         }
 
         for (Stack<Node> stack : pathStacks) {
-            List<Pair<String, Boolean>> path = new ArrayList<Pair<String, Boolean>>(stack.size());
+            List<KeywordString> path = new ArrayList<KeywordString>(stack.size());
 
             while (!stack.isEmpty()) {
                 path.add(getKeyword(stack.pop()));
@@ -82,19 +84,18 @@ public final class KeywordsImporterJpt extends KeywordsImporter implements Entit
         return paths;
     }
 
-    private Pair<String, Boolean> getKeyword(Node node) {
+    private KeywordString getKeyword(Node node) {
         NamedNodeMap attr = node.getAttributes();
         String name = attr.getNamedItem(KeywordsExporterJpt.ATTRIBUTE_NAME).getNodeValue();
-        Boolean real = attr.getNamedItem(KeywordsExporterJpt.ATTRIBUTE_TYPE).getNodeValue().equals(
-                           KeywordsExporterJpt.VALUE_OF_ATTRIBUTE_TYPE.get(true));
+        Boolean real = attr.getNamedItem(KeywordsExporterJpt.ATTRIBUTE_TYPE).getNodeValue().equals(KeywordsExporterJpt.VALUE_OF_ATTRIBUTE_TYPE.get(true));
 
-        return new Pair<String, Boolean>(name, real);
+        return new KeywordString(name, real);
     }
 
     private void pushParents(Stack<Node> nodes, Node node) {
         Node parent = node.getParentNode();
 
-        if ((parent != null) &&!parent.getNodeName().equals(KeywordsExporterJpt.TAGNAME_ROOT)) {
+        if ((parent != null) && !parent.getNodeName().equals(KeywordsExporterJpt.TAGNAME_ROOT)) {
             nodes.push(parent);
             pushParents(nodes, parent);    // recursive
         }
@@ -168,9 +169,10 @@ public final class KeywordsImporterJpt extends KeywordsImporter implements Entit
         }
 
         return (stream == null)
-               ? null
-               : new InputSource(new InputStreamReader(stream));
+                ? null
+                : new InputSource(new InputStreamReader(stream));
     }
 
-    private KeywordsImporterJpt() {}
+    private KeywordsImporterJpt() {
+    }
 }

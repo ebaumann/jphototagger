@@ -1,6 +1,5 @@
 package org.jphototagger.lib.componentutil;
 
-import org.jphototagger.lib.generics.Pair;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.event.KeyEvent;
@@ -20,6 +19,7 @@ import javax.swing.JTabbedPane;
  * @author Elmar Baumann
  */
 public final class MnemonicUtil {
+
     private static final Map<Character, Integer> MNEMONIC_OF_CHAR = new HashMap<Character, Integer>();
 
     static {
@@ -90,33 +90,33 @@ public final class MnemonicUtil {
      * <em>The valid range of mnemonic characters is [A-Za-z0-9]</em>.
      *
      * @param   string masked string or string without an ampersand
-     * @return         The first object of the pair is the mnemonic or -1 if the
+     * @return         {@link MnemonicIndexString#index} ist -1 if the
      *                 string does not contain an ampersand or the mnemonic
-     *                 character is invalid. The second object of the pair is
-     *                 the string without the mask, or the string itself if the
-     *                 first object is -1.
+     *                 character is invalid. {@link MnemonicIndexString#string} is
+     *                 the string without the mask, or the string itself if
+     *                 {@link MnemonicIndexString#index} is -1.
      * @throws NullPointerException if <code>string</code> is null
      */
-    public static Pair<Integer, String> getMnemonic(String string) {
+    static MnemonicIndexString getMnemonic(String string) {
         if (string == null) {
             throw new NullPointerException("string == null");
         }
 
-        Pair<Integer, String> noMnemonicPair = new Pair<Integer, String>(-1, string);
+        MnemonicIndexString noMnemonicIndexString = new MnemonicIndexString(-1, string);
 
         if (string.length() < 2) {
-            return noMnemonicPair;
+            return noMnemonicIndexString;
         }
 
         int strlen = string.length();
         int ampersandIndex = string.indexOf('&');
 
         if (ampersandIndex < 0) {
-            return noMnemonicPair;
+            return noMnemonicIndexString;
         }
 
         if ((strlen < 2) || (ampersandIndex < 0) || (ampersandIndex > strlen - 2)) {
-            return noMnemonicPair;
+            return noMnemonicIndexString;
         }
 
         char mnemonicChar = string.substring(ampersandIndex + 1, ampersandIndex + 2).toUpperCase().charAt(0);
@@ -127,16 +127,16 @@ public final class MnemonicUtil {
         if (isInRange) {
             int mnemonic = MnemonicUtil.getMnemonicOf(mnemonicChar);
             String titlePrefix = (ampersandIndex == 0)
-                                 ? ""
-                                 : string.substring(0, ampersandIndex);
+                    ? ""
+                    : string.substring(0, ampersandIndex);
             String titlePostfix = (ampersandIndex == strlen - 1)
-                                  ? ""
-                                  : string.substring(ampersandIndex + 1);
+                    ? ""
+                    : string.substring(ampersandIndex + 1);
 
-            return new Pair<Integer, String>(mnemonic, titlePrefix + titlePostfix);
+            return new MnemonicIndexString(mnemonic, titlePrefix + titlePostfix);
         }
 
-        return noMnemonicPair;
+        return noMnemonicIndexString;
     }
 
     /**
@@ -246,18 +246,18 @@ public final class MnemonicUtil {
             throw new NullPointerException("component == null");
         }
 
-        Pair<Integer, String> mnPair = null;
+        MnemonicIndexString mnemonicIndexString = null;
 
         if (component instanceof JLabel) {
             JLabel label = (JLabel) component;
             String text = label.getText();
 
             if (text != null) {
-                mnPair = getMnemonic(text);
+                mnemonicIndexString = getMnemonic(text);
 
-                if (hasMnemonic(mnPair)) {
-                    label.setText(mnPair.getSecond());
-                    label.setDisplayedMnemonic(mnPair.getFirst());
+                if (hasMnemonic(mnemonicIndexString)) {
+                    label.setText(mnemonicIndexString.string);
+                    label.setDisplayedMnemonic(mnemonicIndexString.index);
                 }
             }
         } else if (component instanceof AbstractButton) {
@@ -265,11 +265,11 @@ public final class MnemonicUtil {
             String text = button.getText();
 
             if (text != null) {
-                mnPair = getMnemonic(text);
+                mnemonicIndexString = getMnemonic(text);
 
-                if (hasMnemonic(mnPair)) {
-                    button.setText(mnPair.getSecond());
-                    button.setMnemonic(mnPair.getFirst());
+                if (hasMnemonic(mnemonicIndexString)) {
+                    button.setText(mnemonicIndexString.string);
+                    button.setMnemonic(mnemonicIndexString.index);
                 }
             }
         } else if (component instanceof JTabbedPane) {
@@ -277,8 +277,8 @@ public final class MnemonicUtil {
         }
     }
 
-    private static boolean hasMnemonic(Pair<Integer, String> p) {
-        return MNEMONIC_OF_CHAR.containsValue(p.getFirst());
+    private static boolean hasMnemonic(MnemonicIndexString p) {
+        return MNEMONIC_OF_CHAR.containsValue(p.index);
     }
 
     /**
@@ -313,5 +313,6 @@ public final class MnemonicUtil {
         return mnemonics;
     }
 
-    private MnemonicUtil() {}
+    private MnemonicUtil() {
+    }
 }

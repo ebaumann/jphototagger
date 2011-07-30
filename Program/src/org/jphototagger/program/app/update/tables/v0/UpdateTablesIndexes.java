@@ -1,17 +1,17 @@
 package org.jphototagger.program.app.update.tables.v0;
 
-import org.jphototagger.lib.generics.Pair;
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.app.SplashScreen;
-import org.jphototagger.program.app.update.tables.IndexInfo;
-import org.jphototagger.program.database.Database;
-import org.jphototagger.program.database.DatabaseMetadata;
-import org.jphototagger.program.resource.JptBundle;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.jphototagger.program.app.SplashScreen;
+import org.jphototagger.program.app.logging.AppLogger;
+import org.jphototagger.program.app.update.tables.IndexInfo;
+import org.jphototagger.program.database.Database;
+import org.jphototagger.program.database.DatabaseMetadata;
+import org.jphototagger.program.resource.JptBundle;
 
 /**
  * Updates the tables indexes.
@@ -19,15 +19,15 @@ import java.util.Map;
  * @author Elmar Baumann
  */
 final class UpdateTablesIndexes {
-    private static final Map<Pair<String, String>, IndexInfo[]> INDEX_TO_REPLACE = new HashMap<Pair<String, String>,
-                                                                                       IndexInfo[]>();
+
+    private static final Map<IndexOfTable, IndexInfo[]> INDEX_TO_REPLACE = new HashMap<IndexOfTable, IndexInfo[]>();
 
     static {
-        INDEX_TO_REPLACE.put(new Pair<String, String>("idx_collections_id", "collections"),
-                             new IndexInfo[] {
-                                 new IndexInfo(false, "idx_collections_id_collectionnname", "collections",
-                                     "id_collectionnname"),
-                                 new IndexInfo(false, "idx_collections_id_file", "collections", "id_file") });
+        INDEX_TO_REPLACE.put(new IndexOfTable("idx_collections_id", "collections"),
+                new IndexInfo[]{
+                    new IndexInfo(false, "idx_collections_id_collectionnname", "collections",
+                    "id_collectionnname"),
+                    new IndexInfo(false, "idx_collections_id_file", "collections", "id_file")});
     }
 
     void update(Connection con) throws SQLException {
@@ -37,12 +37,12 @@ final class UpdateTablesIndexes {
     }
 
     private void replaceIndices(Connection con) throws SQLException {
-        for (Pair<String, String> pair : INDEX_TO_REPLACE.keySet()) {
-            String indexName = pair.getFirst();
-            String tableName = pair.getSecond();
+        for (IndexOfTable indexOfTable : INDEX_TO_REPLACE.keySet()) {
+            String indexName = indexOfTable.getIndexName();
+            String tableName = indexOfTable.getTableName();
 
             if (DatabaseMetadata.existsIndex(con, indexName, tableName)) {
-                replaceIndex(con, indexName, INDEX_TO_REPLACE.get(pair));
+                replaceIndex(con, indexName, INDEX_TO_REPLACE.get(indexOfTable));
             }
         }
     }

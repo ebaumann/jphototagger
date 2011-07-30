@@ -1,16 +1,17 @@
 package org.jphototagger.program.helper;
 
-import org.jphototagger.lib.concurrent.Cancelable;
-import org.jphototagger.lib.generics.Pair;
-import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.domain.event.listener.impl.ProgressListenerSupport;
-import org.jphototagger.lib.event.listener.ProgressListener;
-import org.jphototagger.lib.event.ProgressEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.jphototagger.domain.event.listener.impl.ProgressListenerSupport;
+import org.jphototagger.lib.concurrent.Cancelable;
+import org.jphototagger.lib.event.ProgressEvent;
+import org.jphototagger.lib.event.listener.ProgressListener;
+import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.lib.io.SourceTargetFile;
+import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.program.app.logging.AppLogger;
 
 /**
  * Kopieren von Dateien.
@@ -18,10 +19,11 @@ import java.util.List;
  * @author Elmar Baumann
  */
 public final class CopyFiles implements Runnable, Cancelable {
+
     private final ProgressListenerSupport ls = new ProgressListenerSupport();
     private final List<File> errorFiles = new ArrayList<File>();
     private final Options options;
-    private final List<Pair<File, File>> sourceTargetFiles;
+    private final List<SourceTargetFile> sourceTargetFiles;
     private volatile boolean cancel;
 
     /**
@@ -31,7 +33,7 @@ public final class CopyFiles implements Runnable, Cancelable {
      *                 ist die Quelldatei, die zweite die Zieldatei.
      * @param options  Optionen
      */
-    public CopyFiles(List<Pair<File, File>> sourceTargetFiles, Options options) {
+    public CopyFiles(List<SourceTargetFile> sourceTargetFiles, Options options) {
         if (sourceTargetFiles == null) {
             throw new NullPointerException("sourceTargetFiles == null");
         }
@@ -40,7 +42,7 @@ public final class CopyFiles implements Runnable, Cancelable {
             throw new NullPointerException("options == null");
         }
 
-        this.sourceTargetFiles = new ArrayList<Pair<File, File>>(sourceTargetFiles);
+        this.sourceTargetFiles = new ArrayList<SourceTargetFile>(sourceTargetFiles);
         this.options = options;
     }
 
@@ -56,14 +58,10 @@ public final class CopyFiles implements Runnable, Cancelable {
 
         /** Overwrite existing files only if confirmed */
         CONFIRM_OVERWRITE(0),
-
         /** Overwrite existing files without confirmYesNo */
         FORCE_OVERWRITE(1),
-
         /** Rename the source file if the target file exists */
-        RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS(2),
-        ;
-
+        RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS(2),;
         private final int index;
 
         private Options(int index) {
@@ -93,8 +91,7 @@ public final class CopyFiles implements Runnable, Cancelable {
      * liefert ein
      * {@link  org.jphototagger.program.event.ProgressEvent}-Objekt,
      * das mit {@link  org.jphototagger.program.event.ProgressEvent#getInfo()}
-     * ein {@link org.jphototagger.lib.generics.Pair}-Objekt liefert mit der
-     * aktuellen Quelldatei als erstes Element und der Zieldatei als zweites.
+     * ein {@link SourceTargetFile}-Objekt liefert.
      *
      * {@link ProgressListener#progressEnded(ProgressEvent)}
      * liefert ein
@@ -116,29 +113,29 @@ public final class CopyFiles implements Runnable, Cancelable {
         int size = sourceTargetFiles.size();
 
         for (int i = 0; !cancel && (i < size); i++) {
-            Pair<File, File> filePair = sourceTargetFiles.get(i);
+            SourceTargetFile sourceTargetFile = sourceTargetFiles.get(i);
 
-            if (checkDifferent(filePair) && checkOverwrite(filePair)) {
+            if (checkDifferent(sourceTargetFile) && checkOverwrite(sourceTargetFile)) {
                 try {
-                    File sourceFile = filePair.getFirst();
-                    File targetFile = getTargetFile(filePair);
+                    File sourceFile = sourceTargetFile.getSourceFile();
+                    File targetFile = getTargetFile(sourceTargetFile);
 
                     logCopyFile(sourceFile, targetFile);
                     FileUtil.copyFile(sourceFile, targetFile);
                 } catch (Exception ex) {
                     AppLogger.logSevere(CopyFiles.class, ex);
-                    errorFiles.add(filePair.getFirst());
+                    errorFiles.add(sourceTargetFile.getSourceFile());
                 }
             }
 
-            notifyPerformed(i, filePair);
+            notifyPerformed(i, sourceTargetFile);
         }
 
         notifyEnded();
     }
 
-    private File getTargetFile(Pair<File, File> files) {
-        File targetFile = files.getSecond();
+    private File getTargetFile(SourceTargetFile files) {
+        File targetFile = files.getTargetFile();
 
         if (options.equals(Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS) && targetFile.exists()) {
             targetFile = FileUtil.getNotExistingFile(targetFile);
@@ -157,8 +154,8 @@ public final class CopyFiles implements Runnable, Cancelable {
         ls.notifyStarted(evt);
     }
 
-    private synchronized void notifyPerformed(int value, Pair<File, File> filePair) {
-        ProgressEvent evt = new ProgressEvent(this, 0, sourceTargetFiles.size(), value, filePair);
+    private synchronized void notifyPerformed(int value, SourceTargetFile sourceTargetFile) {
+        ProgressEvent evt = new ProgressEvent(this, 0, sourceTargetFiles.size(), value, sourceTargetFile);
 
         ls.notifyPerformed(evt);
     }
@@ -169,17 +166,16 @@ public final class CopyFiles implements Runnable, Cancelable {
         ls.notifyEnded(evt);
     }
 
-    private boolean checkOverwrite(Pair<File, File> filePair) {
+    private boolean checkOverwrite(SourceTargetFile sourceTargetFile) {
         if (options.equals(Options.FORCE_OVERWRITE) || options.equals(Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS)) {
             return true;
         }
 
-        File target = filePair.getSecond();
+        File target = sourceTargetFile.getTargetFile();
 
         if (target.exists()) {
             MessageDisplayer.ConfirmAction action = MessageDisplayer.confirmYesNoCancel(null,
-                                                        "CopyFiles.Confirm.OverwriteExisting", filePair.getSecond(),
-                                                        filePair.getFirst());
+                    "CopyFiles.Confirm.OverwriteExisting", sourceTargetFile.getTargetFile(), sourceTargetFile.getSourceFile());
 
             if (action.equals(MessageDisplayer.ConfirmAction.CANCEL)) {
                 cancel();
@@ -191,9 +187,9 @@ public final class CopyFiles implements Runnable, Cancelable {
         return true;
     }
 
-    private boolean checkDifferent(Pair<File, File> filePair) {
-        if (filePair.getFirst().equals(filePair.getSecond())) {
-            MessageDisplayer.error(null, "CopyFiles.Error.FilesAreEquals", filePair.getFirst());
+    private boolean checkDifferent(SourceTargetFile sourceTargetFile) {
+        if (sourceTargetFile.getSourceFile().equals(sourceTargetFile.getTargetFile())) {
+            MessageDisplayer.error(null, "CopyFiles.Error.FilesAreEquals", sourceTargetFile.getSourceFile());
 
             return false;
         }

@@ -1,7 +1,6 @@
 package org.jphototagger.domain.metadata.mapping;
 
 import com.imagero.reader.iptc.IPTCEntryMeta;
-import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.domain.database.Column;
 import org.jphototagger.domain.database.xmp.ColumnXmpDcCreator;
 import org.jphototagger.domain.database.xmp.ColumnXmpDcDescription;
@@ -78,15 +77,15 @@ public final class IptcXmpMapping {
         return IPTC_ENTRY_META_OF_XMP_COLUMN.get(xmpColumn);
     }
 
-    public static List<Pair<IPTCEntryMeta, Column>> getAllPairs() {
-        List<Pair<IPTCEntryMeta, Column>> pairs = new ArrayList<Pair<IPTCEntryMeta, Column>>();
+    public static List<IPTCEntryMetaColumn> getAllMappings() {
+        List<IPTCEntryMetaColumn> iptcEntryMetaColumns = new ArrayList<IPTCEntryMetaColumn>();
         Set<IPTCEntryMeta> iptcEntryMetas = XMP_COLUMN_OF_IPTC_ENTRY_META.keySet();
 
         for (IPTCEntryMeta iptcEntryMeta : iptcEntryMetas) {
-            pairs.add(new Pair<IPTCEntryMeta, Column>(iptcEntryMeta, XMP_COLUMN_OF_IPTC_ENTRY_META.get(iptcEntryMeta)));
+            iptcEntryMetaColumns.add(new IPTCEntryMetaColumn(iptcEntryMeta, XMP_COLUMN_OF_IPTC_ENTRY_META.get(iptcEntryMeta)));
         }
 
-        return pairs;
+        return iptcEntryMetaColumns;
     }
 
     private IptcXmpMapping() {

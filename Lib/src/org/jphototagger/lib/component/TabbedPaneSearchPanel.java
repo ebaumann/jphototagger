@@ -1,8 +1,5 @@
 package org.jphototagger.lib.component;
 
-import org.jphototagger.lib.generics.Pair;
-import org.jphototagger.lib.resource.JslBundle;
-import org.jphototagger.lib.util.StringUtil;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.event.ComponentEvent;
@@ -14,18 +11,22 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import javax.swing.border.Border;
-import javax.swing.border.TitledBorder;
+
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JRadioButton;
 import javax.swing.JTabbedPane;
+import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
+import org.jphototagger.lib.resource.JslBundle;
+import org.jphototagger.lib.util.StringUtil;
 
 /**
  * Displays in a list titles of tabbed panes of tabs matching a search word
@@ -231,7 +232,7 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel
         if (tab == null) {
             throw new NullPointerException("tab == null");
         }
-        
+
         for (String word : words) {
             setTabOfWord(word, tab);
         }
@@ -498,7 +499,7 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel
 
     private String getHighlightedHtml(String s, String word) {
         StringBuilder sb = new StringBuilder();
-        List<Pair<Integer, Integer>> validRanges = getValidRangesInHtml(s);
+        List<BeginEndIndex> validRanges = getValidRangesInHtml(s);
         int bIndexText = 0;
         int eIndexText = 0;
         int bIndexHtml = 0;
@@ -508,15 +509,15 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel
             return s;
         }
 
-        for (Pair<Integer, Integer> range : validRanges) {
-            eIndexHtml = range.getFirst();
+        for (BeginEndIndex range : validRanges) {
+            eIndexHtml = range.beginIndex;
 
             if (StringUtil.isSubstring(s, bIndexHtml, eIndexHtml)) {
                 sb.append(s.substring(bIndexHtml, eIndexHtml));
             }
 
-            bIndexText = range.getFirst();
-            eIndexText = range.getSecond() + 1;
+            bIndexText = range.beginIndex;
+            eIndexText = range.endIndex + 1;
             bIndexHtml = eIndexText;
 
             if (StringUtil.isSubstring(s, bIndexText, eIndexText)) {
@@ -531,9 +532,8 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel
         return sb.toString();
     }
 
-    private List<Pair<Integer, Integer>> getValidRangesInHtml(String s) {
-        List<Pair<Integer, Integer>> ranges = new ArrayList<Pair<Integer,
-                                                  Integer>>();
+    private List<BeginEndIndex> getValidRangesInHtml(String s) {
+        List<BeginEndIndex> ranges = new ArrayList<BeginEndIndex>();
         int len  = s.length();
         int start = 0;
 
@@ -541,7 +541,7 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel
             char c = s.charAt(i);
 
             if ((c == '<') && (i > 0) && (start < len)) {
-                ranges.add(new Pair<Integer, Integer>(start, i - 1));
+                ranges.add(new BeginEndIndex(start, i - 1));
             } else if (c == '>') {
                 start = i + 1;
             }
@@ -634,7 +634,6 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel
             setTabOfSelectedListValue();
         }
     }//GEN-LAST:event_listValueChanged
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel labelSearch;
     private javax.swing.JList list;

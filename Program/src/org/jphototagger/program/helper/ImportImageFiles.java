@@ -1,13 +1,19 @@
 package org.jphototagger.program.helper;
 
-import org.jphototagger.lib.generics.Pair;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import org.jphototagger.domain.database.InsertIntoDatabase;
+import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.event.ProgressEvent;
+import org.jphototagger.lib.event.listener.ProgressListener;
 import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.lib.io.SourceTargetFile;
 import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.database.DatabaseImageCollections;
 import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.lib.event.listener.ProgressListener;
-import org.jphototagger.lib.event.ProgressEvent;
-import org.jphototagger.domain.database.InsertIntoDatabase;
 import org.jphototagger.program.io.ImageFileFilterer;
 import org.jphototagger.program.model.ListModelImageCollections;
 import org.jphototagger.program.resource.GUI;
@@ -16,11 +22,6 @@ import org.jphototagger.program.tasks.UserTasks;
 import org.jphototagger.program.view.dialogs.ImportImageFilesDialog;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.ProgressBarUpdater;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Imports image files from a source directory to a target directory.
@@ -32,15 +33,16 @@ import org.jphototagger.lib.awt.EventQueueUtil;
  * @author Elmar Baumann
  */
 public final class ImportImageFiles extends Thread implements ProgressListener {
+
     private static final String progressBarString = JptBundle.INSTANCE.getString("ImportImageFiles.Info.ProgressBar");
     private final List<File> copiedTargetFiles = new ArrayList<File>();
     private final List<File> copiedSourceFiles = new ArrayList<File>();
-    private final List<Pair<File, File>> sourceTargetFiles;
+    private final List<SourceTargetFile> sourceTargetFiles;
     private final boolean deleteScrFilesAfterCopying;
 
-    private ImportImageFiles(List<Pair<File, File>> sourceTargetFiles, boolean deleteScrFilesAfterCopying) {
+    private ImportImageFiles(List<SourceTargetFile> sourceTargetFiles, boolean deleteScrFilesAfterCopying) {
         super("JPhotoTagger: Importing image files");
-        this.sourceTargetFiles = new ArrayList<Pair<File, File>>(sourceTargetFiles);
+        this.sourceTargetFiles = new ArrayList<SourceTargetFile>(sourceTargetFiles);
         this.deleteScrFilesAfterCopying = deleteScrFilesAfterCopying;
     }
 
@@ -72,23 +74,22 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
 
     private static void copy(List<File> sourceImageFiles, File targetDir, boolean deleteScrFilesAfterCopying) {
         if (sourceImageFiles.size() > 0) {
-            UserTasks.INSTANCE.add(new ImportImageFiles(getSourceTargetFilePairs(sourceImageFiles, targetDir),
+            UserTasks.INSTANCE.add(new ImportImageFiles(getSourceTargetFiles(sourceImageFiles, targetDir),
                     deleteScrFilesAfterCopying));
         }
     }
 
-    private static List<Pair<File, File>> getSourceTargetFilePairs(Collection<? extends File> sourceFiles,
-            File targetDirectory) {
-        List<Pair<File, File>> pairs = new ArrayList<Pair<File, File>>(sourceFiles.size());
+    private static List<SourceTargetFile> getSourceTargetFiles(Collection<? extends File> sourceFiles, File targetDirectory) {
+        List<SourceTargetFile> sourceTargetFiles = new ArrayList<SourceTargetFile>(sourceFiles.size());
         String targetDir = targetDirectory.getAbsolutePath();
 
         for (File sourceFile : sourceFiles) {
             File targetFile = new File(targetDir + File.separator + sourceFile.getName());
 
-            pairs.add(new Pair<File, File>(sourceFile, targetFile));
+            sourceTargetFiles.add(new SourceTargetFile(sourceFile, targetFile));
         }
 
-        return pairs;
+        return sourceTargetFiles;
     }
 
     @Override
@@ -103,7 +104,6 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
 
     @Override
     public void progressStarted(ProgressEvent evt) {
-
         // ignore
     }
 
@@ -111,17 +111,13 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
     public void progressPerformed(ProgressEvent evt) {
         Object o = evt.getInfo();
 
-        if (o instanceof Pair<?, ?>) {
-            Pair<?, ?> pair = (Pair<?, ?>) o;
-            Object second = pair.getSecond();
+        if (o instanceof SourceTargetFile) {
+            SourceTargetFile sourceTargetFile = (SourceTargetFile) o;
+            File targetFile = sourceTargetFile.getTargetFile();
 
-            if (second instanceof File) {
-                File file = (File) second;
-
-                if (!file.getName().toLowerCase().endsWith(".xmp")) {
-                    copiedTargetFiles.add(file);
-                    copiedSourceFiles.add((File) pair.getFirst());
-                }
+            if (!targetFile.getName().toLowerCase().endsWith(".xmp")) {
+                copiedTargetFiles.add(targetFile);
+                copiedSourceFiles.add(sourceTargetFile.getSourceFile());
             }
         }
     }
@@ -174,13 +170,14 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
 
     private void selectPrevImportCollection() {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 AppPanel appPanel = GUI.getAppPanel();
 
                 appPanel.getTabbedPaneSelection().setSelectedComponent(appPanel.getTabSelectionImageCollections());
                 GUI.getAppPanel().getListImageCollections().setSelectedValue(
-                    ListModelImageCollections.NAME_IMAGE_COLLECTION_PREV_IMPORT, true);
+                        ListModelImageCollections.NAME_IMAGE_COLLECTION_PREV_IMPORT, true);
             }
         });
     }
@@ -191,7 +188,7 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
 
             if (!file.delete()) {
                 AppLogger.logWarning(ImportImageFiles.class, progressBarString,
-                                     "ImportImageFiles.Error.DeleteCopiedFile", file);
+                        "ImportImageFiles.Error.DeleteCopiedFile", file);
             }
         }
     }

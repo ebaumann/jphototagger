@@ -1,17 +1,19 @@
 package org.jphototagger.program.controller.miscmetadata;
 
-import org.jphototagger.lib.event.listener.PopupMenuTree;
-import org.jphototagger.lib.generics.Pair;
-import org.jphototagger.program.controller.Controller;
-import org.jphototagger.domain.database.Column;
-import org.jphototagger.program.helper.MiscMetadataHelper;
-import org.jphototagger.program.resource.GUI;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.Arrays;
 import java.util.List;
+
 import javax.swing.JTree;
 import javax.swing.tree.TreePath;
+
+import org.jphototagger.domain.database.Column;
+import org.jphototagger.domain.database.ColumnStringValue;
+import org.jphototagger.lib.event.listener.PopupMenuTree;
+import org.jphototagger.program.controller.Controller;
+import org.jphototagger.program.helper.MiscMetadataHelper;
+import org.jphototagger.program.resource.GUI;
 
 /**
  *
@@ -25,9 +27,12 @@ public abstract class ControllerMiscMetadata extends Controller implements Popup
 
     protected abstract void action(Column column, String value);
 
-    private void action(List<Pair<Column, String>> pairs) {
-        for (Pair<Column, String> pair : pairs) {
-            action(pair.getFirst(), pair.getSecond());
+    private void action(List<ColumnStringValue> columnStringValues) {
+        for (ColumnStringValue columnStringValue : columnStringValues) {
+            Column column = columnStringValue.getColumn();
+            String value = columnStringValue.getValue();
+
+            action(column, value);
         }
     }
 

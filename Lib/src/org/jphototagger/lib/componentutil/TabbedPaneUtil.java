@@ -1,6 +1,5 @@
 package org.jphototagger.lib.componentutil;
 
-import org.jphototagger.lib.generics.Pair;
 import javax.swing.JTabbedPane;
 
 /**
@@ -29,15 +28,16 @@ public final class TabbedPaneUtil {
             String title = pane.getTitleAt(tabIndex);
 
             if ((title != null) && (title.length() > 1)) {
-                Pair<Integer, String> mnPair = MnemonicUtil.getMnemonic(title);
+                MnemonicIndexString mnemonicIndexString = MnemonicUtil.getMnemonic(title);
 
-                if (mnPair.getFirst() != -1) {
-                    pane.setTitleAt(tabIndex, mnPair.getSecond());
-                    pane.setMnemonicAt(tabIndex, mnPair.getFirst());
+                if (mnemonicIndexString.index != -1) {
+                    pane.setTitleAt(tabIndex, mnemonicIndexString.string);
+                    pane.setMnemonicAt(tabIndex, mnemonicIndexString.index);
                 }
             }
         }
     }
 
-    private TabbedPaneUtil() {}
+    private TabbedPaneUtil() {
+    }
 }

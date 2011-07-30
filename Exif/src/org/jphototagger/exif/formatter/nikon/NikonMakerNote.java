@@ -5,6 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.List;
@@ -20,7 +21,6 @@ import org.jphototagger.exif.datatype.ExifLong;
 import org.jphototagger.exif.datatype.ExifRational;
 import org.jphototagger.exif.datatype.ExifShort;
 import org.jphototagger.exif.formatter.ExifRawValueFormatter;
-import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.lib.util.ArrayUtil;
 import org.jphototagger.lib.util.RegexUtil;
 
@@ -46,7 +46,7 @@ public final class NikonMakerNote {
     private final int byteOffsetToTiffHeader;
     private final byte[][] magicBytePatterns;
     private final List<MakerNoteTagInfo> makerNoteTagInfos = new ArrayList<MakerNoteTagInfo>();
-    private final List<Pair<Integer, Integer>> equalTagIdsInExifIfd = new ArrayList<Pair<Integer, Integer>>();
+    private final List<NikonMakerNoteTagIdExifTagId> equalTagIdsInExifIfd = new ArrayList<NikonMakerNoteTagIdExifTagId>();
 
     /**
      *
@@ -152,15 +152,8 @@ public final class NikonMakerNote {
         return description;
     }
 
-    /**
-     * Returns pairs of equal tag IDs: The first value in a pair is the tag ID
-     * within the Maker Note IFD, the second value is the tag ID within the
-     * EXIF IFD.
-     *
-     * @return Equal tag IDs
-     */
-    List<Pair<Integer, Integer>> getTagIdsEqualInExifIfd() {
-        return new ArrayList<Pair<Integer, Integer>>(equalTagIdsInExifIfd);
+    List<NikonMakerNoteTagIdExifTagId> getTagIdsEqualInExifIfd() {
+        return Collections.unmodifiableList(equalTagIdsInExifIfd);
     }
 
     @SuppressWarnings("unchecked")
@@ -270,7 +263,7 @@ public final class NikonMakerNote {
     private void setTagIdsEqualInExifIfd() {
         for (MakerNoteTagInfo info : makerNoteTagInfos) {
             if (info.equalsToExifTag()) {
-                equalTagIdsInExifIfd.add(new Pair<Integer, Integer>(info.tagIdValue, info.equalsToExifTagId));
+                equalTagIdsInExifIfd.add(new NikonMakerNoteTagIdExifTagId(info.tagIdValue, info.equalsToExifTagId));
             }
         }
     }

@@ -1,22 +1,23 @@
 package org.jphototagger.program.importer;
 
-import org.jphototagger.lib.componentutil.MessageLabel.MessageType;
-import org.jphototagger.lib.concurrent.Cancelable;
-import org.jphototagger.lib.generics.Pair;
-import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.program.model.TreeModelKeywords;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.view.panels.ProgressBar;
 import java.io.File;
 import java.util.Collection;
 import java.util.List;
+
 import javax.swing.JProgressBar;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
+
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.componentutil.MessageLabel.MessageType;
+import org.jphototagger.lib.concurrent.Cancelable;
+import org.jphototagger.program.factory.ModelFactory;
+import org.jphototagger.program.model.TreeModelKeywords;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.resource.JptBundle;
+import org.jphototagger.program.view.panels.ProgressBar;
 
 /**
  * Imports keywords.
@@ -24,6 +25,7 @@ import org.jphototagger.lib.awt.EventQueueUtil;
  * @author Elmar Baumann
  */
 public abstract class KeywordsImporter implements Importer {
+
     private static final String PROGRESSBAR_STRING = JptBundle.INSTANCE.getString("KeywordImporter.ProgressBar.String");
 
     /**
@@ -53,11 +55,9 @@ public abstract class KeywordsImporter implements Importer {
      * }
      *
      * @param  file file with keywords to import
-     * @return      keyword paths. The first element in the pair is the keyword,
-     *              the second is true, if the keyword is a real keyword and
-     *              false if it's a helper. Null on errors.
+     * @return      keyword paths, null on errors.
      */
-    public abstract Collection<List<Pair<String, Boolean>>> getPaths(File file);
+    public abstract Collection<List<KeywordString>> getPaths(File file);
 
     @Override
     public void importFile(File file) {
@@ -65,7 +65,7 @@ public abstract class KeywordsImporter implements Importer {
             throw new NullPointerException("file == null");
         }
 
-        Collection<List<Pair<String, Boolean>>> paths = getPaths(file);
+        Collection<List<KeywordString>> paths = getPaths(file);
 
         if (paths != null) {
             new ImportTask(paths).start();
@@ -73,13 +73,14 @@ public abstract class KeywordsImporter implements Importer {
     }
 
     private static class ImportTask extends Thread implements Cancelable {
-        private final Collection<List<Pair<String, Boolean>>> paths;
+
+        private final Collection<List<KeywordString>> paths;
         private final TreeModel treeModel = ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
         private JProgressBar progressBar;
         private volatile boolean cancel;
         private final Object pBarOwner = this;
 
-        ImportTask(Collection<List<Pair<String, Boolean>>> paths) {
+        ImportTask(Collection<List<KeywordString>> paths) {
             super("JPhotoTagger: Importing keywords");
 
             if (paths == null) {
@@ -105,6 +106,7 @@ public abstract class KeywordsImporter implements Importer {
         @Override
         public void run() {
             EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
                 @Override
                 public void run() {
                     importKeywords();
@@ -121,19 +123,19 @@ public abstract class KeywordsImporter implements Importer {
                 int progressValue = 0;
                 int importCount = 0;
 
-                for (List<Pair<String, Boolean>> path : paths) {
+                for (List<KeywordString> path : paths) {
                     if (cancel || isInterrupted()) {
                         break;
                     }
 
                     DefaultMutableTreeNode node = (DefaultMutableTreeNode) model.getRoot();
 
-                    for (Pair<String, Boolean> keyword : path) {
-                        DefaultMutableTreeNode existingNode = model.findChildByName(node, keyword.getFirst());
+                    for (KeywordString keyword : path) {
+                        DefaultMutableTreeNode existingNode = model.findChildByName(node, keyword.getKeyword());
 
                         if (existingNode == null) {
-                            model.insert(node, keyword.getFirst(), keyword.getSecond(), false);
-                            node = model.findChildByName(node, keyword.getFirst());
+                            model.insert(node, keyword.getKeyword(), keyword.isReal(), false);
+                            node = model.findChildByName(node, keyword.getKeyword());
                             importCount++;
                         } else {
                             node = existingNode;
@@ -159,6 +161,7 @@ public abstract class KeywordsImporter implements Importer {
         private void updateProgressBar(final int value) {
             getProgressBar();
             EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
                 @Override
                 public void run() {
                     if (progressBar != null) {
@@ -180,6 +183,7 @@ public abstract class KeywordsImporter implements Importer {
 
         private void releaseProgressBar() {
             EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
                 @Override
                 public void run() {
                     if (progressBar != null) {

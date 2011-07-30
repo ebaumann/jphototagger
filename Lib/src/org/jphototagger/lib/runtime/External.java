@@ -1,16 +1,16 @@
 package org.jphototagger.lib.runtime;
 
 import java.io.BufferedReader;
-import org.jphototagger.lib.generics.Pair;
-import org.jphototagger.lib.resource.JslBundle;
-import java.io.InputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StreamTokenizer;
 import java.io.StringReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import org.jphototagger.lib.io.IoUtil;
+import org.jphototagger.lib.resource.JslBundle;
 
 /**
  * Something what doesn't happen in the JVM.
@@ -23,10 +23,10 @@ import org.jphototagger.lib.io.IoUtil;
  */
 public final class External {
 
-    private enum Stream { 
-        STANDARD_ERROR, 
-        STANDARD_IN, 
-        STANDARD_OUT, 
+    private enum Stream {
+        STANDARD_ERROR,
+        STANDARD_IN,
+        STANDARD_OUT,
     }
 
     public static class ProcessResult {
@@ -72,14 +72,14 @@ public final class External {
         @Override
         public void run() {
             BufferedReader br = null;
-            
+
             try {
                 InputStreamReader isr = new InputStreamReader(is);
                 br = new BufferedReader(isr);
-                
+
                 if (storeStreamInString) {
                     String line = null;
-                    
+
                     while ((line = br.readLine()) != null) {
                         sb.append(line);
                     }
@@ -116,8 +116,8 @@ public final class External {
             InputStream inputStream = p.getInputStream();
             InputStream errorStream = p.getErrorStream();
             StreamGobbler outputGobbler = new StreamGobbler(inputStream, storeStreamInString);
-            StreamGobbler errorGobbler = new StreamGobbler(errorStream, storeStreamInString);            
-                
+            StreamGobbler errorGobbler = new StreamGobbler(errorStream, storeStreamInString);
+
             errorGobbler.start();
             outputGobbler.start();
 
@@ -142,18 +142,18 @@ public final class External {
      * @param  maxMilliseconds  Maximum time in milliseconds to wait for closing
      *                          the process' streams. If this time is exceeded,
      *                          the process streams will be closed. In this case
-     *                          {@link Pair#getSecond()} contains an error
+     *                          {@link ExternalOutput#getErrorStream()} contains an error
      *                          message that the stream was closed.
-     * @return         Pair of bytes written by the program or null if errors
-     *                 occured. The first element of the pair is null if the
+     * @return         Bytes written by the program or null if errors
+     *                 occured. {@link ExternalOutput#getOutputStream()} is null if the
      *                 program didn't write anything to the system's standard
      *                 output or the bytes the program has written to the
-     *                 system's standard output. The second element of the pair
+     *                 system's standard output. The {@link ExternalOutput#getErrorStream()}
      *                 is null if the program didn't write anything to the
      *                 system's standard error output or the bytes the program
      *                 has written to the system's standard error output.
      */
-    public static Pair<byte[], byte[]> executeGetOutput(String command, long maxMilliseconds) {
+    public static ExternalOutput executeGetOutput(String command, long maxMilliseconds) {
         if (command == null) {
             throw new NullPointerException("command == null");
         }
@@ -175,7 +175,7 @@ public final class External {
             byte[] outputStream = getStream(process, Stream.STANDARD_OUT);
             byte[] errorStream = getStream(process, Stream.STANDARD_ERROR);
 
-            Pair<byte[], byte[]> streamContent = new Pair<byte[], byte[]>(outputStream, errorStream);
+            ExternalOutput streamContent = new ExternalOutput(outputStream, errorStream);
 
             processDestroyer.processFinished();
             threadProcessDestroyer.interrupt();
