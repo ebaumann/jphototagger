@@ -8,8 +8,8 @@ import java.util.List;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.controller.filesystem.ControllerDeleteFiles;
-import org.jphototagger.program.image.metadata.xmp.ImageFileSidecarFile;
-import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
+import org.jphototagger.xmp.ImageFileSidecarFile;
+import org.jphototagger.xmp.XmpMetadata;
 import org.jphototagger.program.types.DeleteOption;
 
 /**

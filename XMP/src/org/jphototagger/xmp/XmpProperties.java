@@ -24,7 +24,7 @@ import java.util.logging.Logger;
  *
  * @author Elmar Baumann
  */
-public final class Xmp {
+public final class XmpProperties {
     public enum Namespace {
         CAMERA_RAW(XMPConst.NS_CAMERARAW, "crs"), DUBLIN_CORE(XMPConst.NS_DC, "dc"), EXIF(XMPConst.NS_EXIF, "exif"),
         IPTC_CORE(XMPConst.NS_IPTCCORE, "Iptc4xmpCore"), LIGHTROOM("http://ns.adobe.com/lightroom/1.0/", "lr"),
@@ -161,7 +161,7 @@ public final class Xmp {
             XMPMetaFactory.getSchemaRegistry().registerNamespace(Namespace.LIGHTROOM.getUri(),
                     Namespace.LIGHTROOM.getPrefix());
         } catch (Exception ex) {
-            Logger.getLogger(Xmp.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(XmpProperties.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -220,7 +220,7 @@ public final class Xmp {
 
             return propertyInfos;
         } catch (XMPException ex) {
-            Logger.getLogger(Xmp.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(XmpProperties.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return null;
@@ -263,13 +263,13 @@ public final class Xmp {
 
             return propertyInfos;
         } catch (Exception ex) {
-            Logger.getLogger(Xmp.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(XmpProperties.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (fis != null) {
                 try {
                     fis.close();
                 } catch (IOException ex) {
-                    Logger.getLogger(Xmp.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(XmpProperties.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -283,8 +283,8 @@ public final class Xmp {
      * Usage example for getting all Dublin Core subjects (keywords) from a XMP
      * sidecar file:
      * <pre>
-     * List&lt;XMPPropertyInfo&gt; xmpPropertyInfos = Xmp.getPropertyInfosOfSidecarFile(xmpFile);
-     * List&lt;String&gt; dcSubjects = Xmp.getPropertyValuesFrom(xmpPropertyInfos, Xmp.PropertyValue.DC_SUBJECT);
+     * List&lt;XMPPropertyInfo&gt; xmpPropertyInfos = XmpProperties.getPropertyInfosOfSidecarFile(xmpFile);
+     * List&lt;String&gt; dcSubjects = XmpProperties.getPropertyValuesFrom(xmpPropertyInfos, XmpProperties.PropertyValue.DC_SUBJECT);
      * </pre>
      *
      * @param  xmpPropertyInfos property infos
@@ -324,15 +324,15 @@ public final class Xmp {
     }
 
     /**
-     * Calls {@link #getPropertyValuesFrom(java.util.Collection, org.jphototagger.lib.image.metadata.xmp.Xmp.PropertyValue)}
+     * Calls {@link #getPropertyValuesFrom(java.util.Collection, org.jphototagger.lib.image.metadata.xmp.XmpProperties.PropertyValue)}
      * and returns the first value.
      * <p>
      * Usage for not repeatable values.
      * <p>
      * Usage example for the headline (title) from a XMP sidecar file:
      * <pre>
-     * List&lt;XMPPropertyInfo&gt; xmpPropertyInfos = Xmp.getPropertyInfosOfSidecarFile(xmpFile);
-     * String headline = Xmp.getPropertyValueFrom(xmpPropertyInfos, Xmp.PropertyValue.PHOTOSHOP_HEADLINE);
+     * List&lt;XMPPropertyInfo&gt; xmpPropertyInfos = XmpProperties.getPropertyInfosOfSidecarFile(xmpFile);
+     * String headline = XmpProperties.getPropertyValueFrom(xmpPropertyInfos, XmpProperties.PropertyValue.PHOTOSHOP_HEADLINE);
      * </pre>
      *
      * @param xmpPropertyInfos property infos
@@ -356,5 +356,5 @@ public final class Xmp {
                : values.get(0);
     }
 
-    private Xmp() {}
+    private XmpProperties() {}
 }

@@ -1,4 +1,4 @@
-package org.jphototagger.program.image.metadata.xmp;
+package org.jphototagger.xmp;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -23,11 +23,6 @@ import org.jphototagger.domain.metadata.mapping.XmpColumnXmpDataTypeMapping.XmpV
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.io.FileLock;
 import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.cache.EmbeddedXmpCache;
-import org.jphototagger.program.database.metadata.selections.EditColumns;
-import org.jphototagger.program.io.RuntimeUtil;
-import org.jphototagger.xmp.XmpFileReader;
 
 import com.adobe.xmp.XMPException;
 import com.adobe.xmp.XMPIterator;
@@ -155,7 +150,7 @@ public final class XmpMetadata {
             }
         } catch (Exception ex) {
             propertyInfos = null;
-            AppLogger.logSevere(XmpMetadata.class, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         }
 
         return propertyInfos;
@@ -178,7 +173,7 @@ public final class XmpMetadata {
                 }
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(XmpMetadata.class, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         }
     }
 
@@ -253,7 +248,6 @@ public final class XmpMetadata {
             return null;
         }
 
-        AppLogger.logInfo(XmpMetadata.class, "XmpMetadata.Info.ReadEmbeddedXmp", imageFile);
         LOGGER.log(Level.INFO, "Reading embedded XMP from image file ''{0}'', size {1} Bytes", new Object[]{imageFile, imageFile.length()});
 
         return XmpFileReader.readFile(imageFile);
@@ -264,7 +258,7 @@ public final class XmpMetadata {
             return null;
         }
 
-        AppLogger.logInfo(XmpMetadata.class, "XmpMetadata.Info.ReadSidecarFile", sidecarFile);
+        LOGGER.log(Level.INFO, "Reading XMP metadata in sidecar file ''{0}''", sidecarFile);
 
         return FileUtil.getContentAsString(sidecarFile, "UTF-8");
     }
@@ -373,7 +367,7 @@ public final class XmpMetadata {
 
             return writeSidecarFile(toXmpMeta, toSidecarFile);
         } catch (Exception ex) {
-            AppLogger.logSevere(XmpMetadata.class, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
 
             return false;
         }
@@ -460,7 +454,7 @@ public final class XmpMetadata {
 
                 toXmpMeta.setProperty(namespaceUri, arrayName, Long.toString(value));
             } else {
-                AppLogger.logWarning(XmpMetadata.class, "XmpMetadata.Error.WriteSetMetadata", xmpValue.getClass());
+                LOGGER.log(Level.INFO, "No rule to write ''{0}''", xmpValue.getClass());
             }
         }
     }
@@ -507,7 +501,7 @@ public final class XmpMetadata {
     private static boolean writeSidecarFile(XMPMeta fromXmpMeta, File toSidecarFile) {
         FileOutputStream out = null;
 
-        if (!RuntimeUtil.lockLogWarning(toSidecarFile, XmpMetadata.class)) {
+        if (!FileLock.INSTANCE.lockLogWarning(toSidecarFile, XmpMetadata.class)) {
             return false;
         }
 
@@ -519,7 +513,7 @@ public final class XmpMetadata {
 
             return true;
         } catch (Exception ex) {
-            AppLogger.logSevere(XmpMetadata.class, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
 
             return false;
         } finally {
@@ -529,7 +523,7 @@ public final class XmpMetadata {
                 try {
                     out.close();
                 } catch (Exception ex) {
-                    AppLogger.logSevere(XmpMetadata.class, ex);
+                    LOGGER.log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -625,7 +619,7 @@ public final class XmpMetadata {
                     try {
                         xmp.setValue(column, column.getDataType().parseString(value.toString()));
                     } catch (Exception ex) {
-                        AppLogger.logSevere(XmpMetadata.class, ex);
+                        LOGGER.log(Level.SEVERE, null, ex);
                     }
                 }
             }

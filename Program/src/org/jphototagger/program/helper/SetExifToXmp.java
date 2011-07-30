@@ -8,7 +8,7 @@ import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.domain.database.xmp.ColumnXmpIptc4XmpCoreDateCreated;
 import org.jphototagger.domain.database.xmp.ColumnXmpLastModified;
 import org.jphototagger.exif.ExifMetadata;
-import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
+import org.jphototagger.xmp.XmpMetadata;
 import org.jphototagger.program.resource.JptBundle;
 import java.io.File;
 import java.io.IOException;

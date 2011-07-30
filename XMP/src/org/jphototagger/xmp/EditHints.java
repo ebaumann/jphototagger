@@ -1,4 +1,4 @@
-package org.jphototagger.program.database.metadata.selections;
+package org.jphototagger.xmp;
 
 /**
  * Hinweise für Spalten, die bearbeitet werden können.

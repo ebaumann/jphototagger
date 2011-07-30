@@ -25,7 +25,7 @@ import org.jphototagger.domain.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.domain.event.listener.ThumbnailUpdateListener;
 import org.jphototagger.program.event.RefreshEvent;
 import org.jphototagger.domain.event.ThumbnailUpdateEvent;
-import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
+import org.jphototagger.xmp.XmpMetadata;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Content;

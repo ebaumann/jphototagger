@@ -6,7 +6,7 @@ import org.jphototagger.lib.event.listener.ProgressListener;
 import org.jphototagger.lib.event.ProgressEvent;
 import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.helper.FilesystemDatabaseUpdater;
-import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
+import org.jphototagger.xmp.XmpMetadata;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.dialogs.CopyToDirectoryDialog;

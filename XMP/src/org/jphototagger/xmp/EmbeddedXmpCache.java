@@ -1,22 +1,22 @@
-package org.jphototagger.program.cache;
+package org.jphototagger.xmp;
 
-import com.adobe.xmp.properties.XMPPropertyInfo;
-import org.jphototagger.program.app.logging.AppLogger;
 import java.io.File;
 import java.io.InputStream;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.domain.event.ImageFileMovedEvent;
 import org.jphototagger.domain.event.ImageFileRemovedEvent;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.IoUtil;
-import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.lib.util.ServiceLookup;
-import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
+import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.services.core.CacheDirectoryProvider;
+
+import com.adobe.xmp.properties.XMPPropertyInfo;
 
 /**
  *
@@ -46,7 +46,7 @@ public final class EmbeddedXmpCache {
             FileUtil.writeStringAsFile(xmpAsString, cacheFile);
             FileUtil.touch(cacheFile, imageFile);
         } catch (Throwable ex) {
-            AppLogger.logSevere(EmbeddedXmpCache.class, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
             cacheFile.delete();
         }
     }
@@ -112,7 +112,7 @@ public final class EmbeddedXmpCache {
                     new Object[]{imageFile, cacheFile});
             return FileUtil.getContentAsString(cacheFile, "UTF-8");
         } catch (Throwable throwable) {
-            AppLogger.logSevere(EmbeddedXmpCache.class, throwable);
+            LOGGER.log(Level.SEVERE, null, throwable);
         }
 
         return null;
@@ -185,7 +185,7 @@ public final class EmbeddedXmpCache {
             is = EmbeddedXmpCache.class.getResourceAsStream("Empty.xmp");
             return StringUtil.convertStreamToString(is, "UTF-8");
         } catch (Throwable throwable) {
-            AppLogger.logSevere(EmbeddedXmpCache.class, throwable);
+            LOGGER.log(Level.SEVERE, null, throwable);
         } finally {
             IoUtil.close(is);
         }
@@ -231,7 +231,7 @@ public final class EmbeddedXmpCache {
                 LOGGER.log(Level.FINEST, "Embedded Xmp Cache: Creating cache directory ''{0}''", CACHE_DIR);
                 FileUtil.ensureDirectoryExists(CACHE_DIR);
             } catch (Throwable ex) {
-                AppLogger.logSevere(EmbeddedXmpCache.class, ex);
+                LOGGER.log(Level.SEVERE, null, ex);
             }
         }
     }

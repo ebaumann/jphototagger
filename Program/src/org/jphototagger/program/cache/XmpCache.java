@@ -12,7 +12,7 @@ import org.jphototagger.domain.exif.Exif;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.program.image.metadata.xmp.FileXmp;
+import org.jphototagger.xmp.FileXmp;
 
 /**
  *

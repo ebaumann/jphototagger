@@ -5,7 +5,7 @@ import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.program.database.DatabaseMetadataTemplates;
 import org.jphototagger.domain.database.Column;
-import org.jphototagger.program.database.metadata.selections.EditColumns;
+import org.jphototagger.xmp.EditColumns;
 import org.jphototagger.program.exporter.MetadataTemplatesExporter;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;

@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Locks  <em>internally</em> a file (other applications doesn't regognize
@@ -16,7 +18,9 @@ import java.util.Map;
  * @author Elmar Baumann
  */
 public final class FileLock {
+
     public static final FileLock INSTANCE = new FileLock();
+    private static final Logger LOGGER = Logger.getLogger(FileLock.class.getName());
     private final Map<File, Object> ownerOfLockedFile = Collections.synchronizedMap(new HashMap<File, Object>());
 
     /**
@@ -44,6 +48,41 @@ public final class FileLock {
 
             return false;
         }
+    }
+
+    /**
+     * Locks <em>internally</em> a file (other applications doesn't regognize
+     * the lock) and logs a warning if the file couldn't be locked.
+     * <p>
+     * If a file couldn't be locked a message with {@link Level#WARNING} will be
+     * logged with this class' {@link Logger}.
+     * <p>
+     * <em>The caller has to call {@link FileLock#unlock(java.io.File, java.lang.Object)}
+     * after using the file!</em>
+     *
+     * @param  file  file to lock
+     * @param  newOwner owner of the file lock
+     * @return       true if the file was locked
+     */
+    public boolean lockLogWarning(File file, Object newOwner) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
+        if (newOwner == null) {
+            throw new NullPointerException("owner == null");
+        }
+
+        if (!lock(file, newOwner)) {
+            Object currentOwner = getOwner(file);
+            LOGGER.log(Level.WARNING,
+                    "The file ''{0}'' couldn''t be locked through {1}, because it''s already locked through {2}!",
+                    new Object[]{file, newOwner, currentOwner});
+
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -87,5 +126,6 @@ public final class FileLock {
         }
     }
 
-    private FileLock() {}
+    private FileLock() {
+    }
 }

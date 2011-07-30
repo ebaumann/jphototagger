@@ -14,7 +14,7 @@ import org.jphototagger.domain.templates.RenameTemplate;
 import org.jphototagger.lib.event.listener.FileSystemListener;
 import org.jphototagger.domain.event.listener.impl.FileSystemListenerSupport;
 import org.jphototagger.program.helper.RenameTemplateHelper;
-import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
+import org.jphototagger.xmp.XmpMetadata;
 import org.jphototagger.program.image.thumbnail.ThumbnailUtil;
 import org.jphototagger.program.model.ComboBoxModelRenameTemplates;
 import org.jphototagger.program.resource.GUI;

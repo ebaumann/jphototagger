@@ -1,4 +1,4 @@
-package org.jphototagger.program.image.metadata.xmp;
+package org.jphototagger.xmp;
 
 /**
  * Namespaces not existing in {@link com.adobe.xmp.XMPConst}.

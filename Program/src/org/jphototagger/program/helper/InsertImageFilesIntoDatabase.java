@@ -21,7 +21,7 @@ import org.jphototagger.lib.event.ProgressEvent;
 import org.jphototagger.domain.event.UpdateMetadataCheckEvent;
 import org.jphototagger.domain.event.UpdateMetadataCheckEvent.Type;
 import org.jphototagger.exif.ExifMetadata;
-import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
+import org.jphototagger.xmp.XmpMetadata;
 import org.jphototagger.program.image.thumbnail.ThumbnailUtil;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;

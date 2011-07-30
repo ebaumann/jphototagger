@@ -1,6 +1,5 @@
 package org.jphototagger.program.io;
 
-import org.jphototagger.lib.io.FileLock;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.runtime.External;
 import org.jphototagger.program.app.logging.AppLogger;
@@ -15,6 +14,7 @@ import java.util.Collection;
  * @author Elmar Baumann
  */
 public final class RuntimeUtil {
+
     private static final String QUOTE = "\"";
     private static final String SEPARATOR = " ";
     private static final String EMPTY = "";
@@ -118,7 +118,7 @@ public final class RuntimeUtil {
         }
 
         return getQuotedForCommandLine(Arrays.asList(files), getDefaultCommandLineSeparator(),
-                                       getDefaultCommandlineQuote());
+                getDefaultCommandlineQuote());
     }
 
     /**
@@ -165,10 +165,11 @@ public final class RuntimeUtil {
         String name = FileUtil.getPrefix(file);
         String extension = FileUtil.getSuffix(file);
 
-        return pattern.replace(PATTERN_FS_DIR_PATH, dirPath).replace(PATTERN_FS_FILE_EXT,
-                               extension).replace(PATTERN_FS_FILE_NAME, name).replace(PATTERN_FS_PATH,
-                                   path).replace(PATTERN_FS_ROOT, root)
-        ;
+        return pattern.replace(PATTERN_FS_DIR_PATH, dirPath)
+                .replace(PATTERN_FS_FILE_EXT, extension)
+                .replace(PATTERN_FS_FILE_NAME, name)
+                .replace(PATTERN_FS_PATH,
+                path).replace(PATTERN_FS_ROOT, root);
     }
 
     private static String getQuotedForCommandLine(Collection<? extends File> files, String separator, String quote) {
@@ -177,46 +178,13 @@ public final class RuntimeUtil {
 
         for (File file : files) {
             sb.append((index++ == 0)
-                      ? EMPTY
-                      : separator).append(quote).append(file.getAbsolutePath()).append(quote);
+                    ? EMPTY
+                    : separator).append(quote).append(file.getAbsolutePath()).append(quote);
         }
 
         return sb.toString();
     }
 
-    /**
-     * Locks <em>internally</em> a file (other applications doesn't regognize
-     * the lock) and logs a warning if the file couldn't be locked.
-     * <p>
-     * If a file couldn't be locked,
-     * {@link AppLogger#logWarning(java.lang.Class, java.lang.String, Object[])} will be
-     * called.
-     * <p>
-     * Uses {@link FileLock#lock(java.io.File, java.lang.Object)}. <em>The
-     * caller has to call {@link FileLock#unlock(java.io.File, java.lang.Object)}
-     * after using the file!</em>
-     *
-     * @param  file  file to lock
-     * @param  owner owner of the file lock
-     * @return       true if the file was locked
-     */
-    public static boolean lockLogWarning(File file, Object owner) {
-        if (file == null) {
-            throw new NullPointerException("file == null");
-        }
-
-        if (owner == null) {
-            throw new NullPointerException("owner == null");
-        }
-
-        if (!FileLock.INSTANCE.lock(file, owner)) {
-            AppLogger.logWarning(owner.getClass(), "IoUtil.Error.lock", file, owner, FileLock.INSTANCE.getOwner(file));
-
-            return false;
-        }
-
-        return true;
+    private RuntimeUtil() {
     }
-
-    private RuntimeUtil() {}
 }

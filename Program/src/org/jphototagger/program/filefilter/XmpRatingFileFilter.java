@@ -2,7 +2,7 @@ package org.jphototagger.program.filefilter;
 
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.domain.database.xmp.ColumnXmpRating;
-import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
+import org.jphototagger.xmp.XmpMetadata;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;

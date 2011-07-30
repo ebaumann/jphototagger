@@ -1,6 +1,6 @@
 package org.jphototagger.program.filefilter;
 
-import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
+import org.jphototagger.xmp.XmpMetadata;
 import java.io.File;
 import java.io.FileFilter;
 

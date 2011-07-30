@@ -1,18 +1,5 @@
 package org.jphototagger.program.app.update.tables.v0;
 
-import org.jphototagger.image.util.ImageUtil;
-import org.jphototagger.lib.io.filefilter.RegexFileFilter;
-import org.jphototagger.lib.io.FileLock;
-import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.app.SplashScreen;
-import org.jphototagger.program.cache.PersistentThumbnails;
-import org.jphototagger.program.database.Database;
-import org.jphototagger.program.database.DatabaseApplicationProperties;
-import org.jphototagger.program.database.DatabaseMaintainance;
-import org.jphototagger.program.io.RuntimeUtil;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.UserSettings;
 import java.awt.Image;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -23,7 +10,21 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 import javax.swing.ImageIcon;
+
+import org.jphototagger.image.util.ImageUtil;
+import org.jphototagger.lib.io.FileLock;
+import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.lib.io.filefilter.RegexFileFilter;
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.app.SplashScreen;
+import org.jphototagger.program.app.logging.AppLogger;
+import org.jphototagger.program.cache.PersistentThumbnails;
+import org.jphototagger.program.database.Database;
+import org.jphototagger.program.database.DatabaseApplicationProperties;
+import org.jphototagger.program.database.DatabaseMaintainance;
+import org.jphototagger.program.resource.JptBundle;
 
 /**
  *
@@ -121,7 +122,7 @@ final class UpdateTablesThumbnails extends Database {
         }
 
         try {
-            if (!RuntimeUtil.lockLogWarning(tnFile, UpdateTablesThumbnails.class)) {
+            if (!FileLock.INSTANCE.lockLogWarning(tnFile, UpdateTablesThumbnails.class)) {
                 return;
             }
 

@@ -5,7 +5,7 @@ import com.aetrion.flickr.uploader.Uploader;
 import com.aetrion.flickr.uploader.UploadMetaData;
 import java.awt.Component;
 import org.jphototagger.lib.componentutil.ComponentUtil;
-import org.jphototagger.xmp.Xmp;
+import org.jphototagger.xmp.XmpProperties;
 import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.image.util.ImageUtil;
 import org.jphototagger.plugin.flickrupload.FlickrImageInfoPanel.ImageInfo;
@@ -196,7 +196,7 @@ public final class FlickrUpload extends AbstractFileProcessorPlugin implements S
         }
 
         private ImageInfo getImageInfo(File imageFile, Settings settings) {
-            File sidecarFile = Xmp.getSidecarfileOf(imageFile);
+            File sidecarFile = XmpProperties.getSidecarfileOf(imageFile);
             Image image = getThumbnail(imageFile);
             ImageInfo emptyImageInfo = getEmptyImageInfo(image, imageFile);
 
@@ -204,7 +204,7 @@ public final class FlickrUpload extends AbstractFileProcessorPlugin implements S
                 return emptyImageInfo;
             }
 
-            List<XMPPropertyInfo> pInfos = Xmp.getPropertyInfosOfSidecarFile(sidecarFile);
+            List<XMPPropertyInfo> pInfos = XmpProperties.getPropertyInfosOfSidecarFile(sidecarFile);
 
             if (pInfos == null) {
                 return emptyImageInfo;
@@ -217,7 +217,7 @@ public final class FlickrUpload extends AbstractFileProcessorPlugin implements S
             List<String> tags = Collections.<String>emptyList();
 
             if (settings.isAddDcDescription()) {
-                value = Xmp.getPropertyValueFrom(pInfos, Xmp.PropertyValue.DC_DESCRIPTION);
+                value = XmpProperties.getPropertyValueFrom(pInfos, XmpProperties.PropertyValue.DC_DESCRIPTION);
 
                 if ((value != null) && !value.isEmpty()) {
                     description = value;
@@ -225,7 +225,7 @@ public final class FlickrUpload extends AbstractFileProcessorPlugin implements S
             }
 
             if (settings.isAddPhotoshopHeadline()) {
-                value = Xmp.getPropertyValueFrom(pInfos, Xmp.PropertyValue.PHOTOSHOP_HEADLINE);
+                value = XmpProperties.getPropertyValueFrom(pInfos, XmpProperties.PropertyValue.PHOTOSHOP_HEADLINE);
 
                 if ((value != null) && !value.isEmpty()) {
                     title = value;
@@ -233,7 +233,7 @@ public final class FlickrUpload extends AbstractFileProcessorPlugin implements S
             }
 
             if (settings.isAddDcSubjects()) {
-                values = Xmp.getPropertyValuesFrom(pInfos, Xmp.PropertyValue.DC_SUBJECT);
+                values = XmpProperties.getPropertyValuesFrom(pInfos, XmpProperties.PropertyValue.DC_SUBJECT);
 
                 if (!values.isEmpty()) {
                     tags = values;

@@ -23,7 +23,7 @@ import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.helper.CopyFiles;
 import org.jphototagger.program.helper.CopyFiles.Options;
-import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
+import org.jphototagger.xmp.XmpMetadata;
 import org.jphototagger.program.io.FileSystemMove;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;

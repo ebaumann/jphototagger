@@ -1,4 +1,4 @@
-package org.jphototagger.program.image.metadata.xmp;
+package org.jphototagger.xmp;
 
 import java.io.File;
 
