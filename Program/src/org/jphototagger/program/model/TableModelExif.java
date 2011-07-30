@@ -2,11 +2,10 @@ package org.jphototagger.program.model;
 
 import org.jphototagger.lib.model.TableModelExt;
 import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.cache.ExifCache;
 import org.jphototagger.program.image.metadata.exif.ExifMetadata;
 import org.jphototagger.domain.exif.ExifTag;
 import org.jphototagger.program.image.metadata.exif.ExifTagDisplayComparator;
-import org.jphototagger.program.image.metadata.exif.ExifTags;
+import org.jphototagger.exif.ExifTags;
 import org.jphototagger.program.image.metadata.exif.ExifTagsToDisplay;
 import org.jphototagger.program.image.metadata.exif.tag.ExifGpsAltitude;
 import org.jphototagger.program.image.metadata.exif.tag.ExifGpsLatitude;
@@ -84,7 +83,7 @@ public final class TableModelExif extends TableModelExt {
     }
 
     private void setExifTags() {
-        exifTags = ExifCache.INSTANCE.getExifTags(file);
+        exifTags = ExifMetadata.getCachedExifTags(file);
 
         if (exifTags == null) {
             return;

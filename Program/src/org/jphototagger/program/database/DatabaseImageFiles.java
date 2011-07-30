@@ -51,6 +51,10 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import org.bushe.swing.event.EventBus;
+import org.jphototagger.domain.event.ImageFileAddedEvent;
+import org.jphototagger.domain.event.ImageFileMovedEvent;
+import org.jphototagger.domain.event.ImageFileRemovedEvent;
 import org.jphototagger.program.image.thumbnail.ThumbnailUtil;
 
 /**
@@ -2780,18 +2784,21 @@ public final class DatabaseImageFiles extends Database {
     }
 
     void notifyImageFileDeleted(File imageFile) {
+        EventBus.publish(new ImageFileRemovedEvent(this, imageFile));
         for (DatabaseImageFilesListener listener : ls.get()) {
             listener.imageFileDeleted(imageFile);
         }
     }
 
     private void notifyImageFileInserted(File imageFile) {
+        EventBus.publish(new ImageFileAddedEvent(this, imageFile));
         for (DatabaseImageFilesListener listener : ls.get()) {
             listener.imageFileInserted(imageFile);
         }
     }
 
     private void notifyImageFileRenamed(File oldFile, File newFile) {
+        EventBus.publish(new ImageFileMovedEvent(this, oldFile, newFile));
         for (DatabaseImageFilesListener listener : ls.get()) {
             listener.imageFileRenamed(oldFile, newFile);
         }

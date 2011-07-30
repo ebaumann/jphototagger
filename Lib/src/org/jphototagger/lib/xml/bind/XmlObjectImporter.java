@@ -1,10 +1,11 @@
-package org.jphototagger.program.importer;
+package org.jphototagger.lib.xml.bind;
 
-import org.jphototagger.program.app.logging.AppLogger;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
@@ -15,6 +16,7 @@ import javax.xml.bind.Unmarshaller;
  * @author Elmar Baumann
  */
 public final class XmlObjectImporter {
+
     public static Object importObject(File file, Class<?> clazz) throws JAXBException, FileNotFoundException {
         if (file == null) {
             throw new NullPointerException("file == null");
@@ -43,10 +45,11 @@ public final class XmlObjectImporter {
             try {
                 fis.close();
             } catch (IOException ex) {
-                AppLogger.logSevere(XmlObjectImporter.class, ex);
+                Logger.getLogger(XmlObjectImporter.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
 
-    private XmlObjectImporter() {}
+    private XmlObjectImporter() {
+    }
 }

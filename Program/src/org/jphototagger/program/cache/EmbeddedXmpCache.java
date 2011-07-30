@@ -2,26 +2,30 @@ package org.jphototagger.program.cache;
 
 import com.adobe.xmp.properties.XMPPropertyInfo;
 import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.UserSettings;
 import java.io.File;
 import java.io.InputStream;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.domain.event.ImageFileMovedEvent;
+import org.jphototagger.domain.event.ImageFileRemovedEvent;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.IoUtil;
 import org.jphototagger.lib.util.StringUtil;
-import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.domain.event.listener.DatabaseImageFilesListenerAdapter;
+import org.jphototagger.lib.util.ServiceLookup;
 import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
+import org.jphototagger.services.core.CacheDirectoryProvider;
 
 /**
  *
  *
  * @author Elmar Baumann
  */
-public final class EmbeddedXmpCache extends DatabaseImageFilesListenerAdapter {
-    private final File CACHE_DIR = new File(UserSettings.INSTANCE.getDatabaseDirectoryName() + File.separator + "EmbeddedXmpCache");
+public final class EmbeddedXmpCache {
+
+    private final File CACHE_DIR;
     private static final Logger LOGGER = Logger.getLogger(EmbeddedXmpCache.class.getName());
     private final String EMPTY_XMP = getEmptyXmp();
     public static final EmbeddedXmpCache INSTANCE = new EmbeddedXmpCache();
@@ -57,7 +61,7 @@ public final class EmbeddedXmpCache extends DatabaseImageFilesListenerAdapter {
         }
 
         if (!containsUpToDateXmp(imageFile)) {
-            LOGGER.log(Level.FINEST, "Embedded Xmp Cache: Updating embedded XMP cache file of image file ''{0}''", new Object[] { imageFile });
+            LOGGER.log(Level.FINEST, "Embedded Xmp Cache: Updating embedded XMP cache file of image file ''{0}''", new Object[]{imageFile});
             cacheXmp(imageFile, xmpAsString);
         }
     }
@@ -105,7 +109,7 @@ public final class EmbeddedXmpCache extends DatabaseImageFilesListenerAdapter {
 
         try {
             LOGGER.log(Level.FINEST, "Embedded Xmp Cache: Reading embedded XMP cache of image file ''{0}'' from cache file ''{1}''",
-                       new Object[] { imageFile, cacheFile });
+                    new Object[]{imageFile, cacheFile});
             return FileUtil.getContentAsString(cacheFile, "UTF-8");
         } catch (Throwable throwable) {
             AppLogger.logSevere(EmbeddedXmpCache.class, throwable);
@@ -123,7 +127,7 @@ public final class EmbeddedXmpCache extends DatabaseImageFilesListenerAdapter {
 
         if (cacheFile.isFile()) {
             LOGGER.log(Level.FINEST, "Embedded Xmp Cache: Deleting embedded XMP cache file ''{0}'' of image file ''{1}''",
-                    new Object[] { cacheFile, imageFile });
+                    new Object[]{cacheFile, imageFile});
             cacheFile.delete();
         }
     }
@@ -137,9 +141,9 @@ public final class EmbeddedXmpCache extends DatabaseImageFilesListenerAdapter {
         File newCacheFile = getCacheFile(newImageFile);
 
         LOGGER.log(
-            Level.FINEST,
-            "Embedded Xmp Cache: Renaming embedded XMP cache file ''{0}'' of renamed image file ''{1}'' to cache file ''{2}'' of new image file ''{3}''",
-            new Object[] { oldCacheFile, oldImageFile, newCacheFile, newImageFile });
+                Level.FINEST,
+                "Embedded Xmp Cache: Renaming embedded XMP cache file ''{0}'' of renamed image file ''{1}'' to cache file ''{2}'' of new image file ''{3}''",
+                new Object[]{oldCacheFile, oldImageFile, newCacheFile, newImageFile});
 
         if (newCacheFile.isFile()) {
             newCacheFile.delete();
@@ -170,19 +174,8 @@ public final class EmbeddedXmpCache extends DatabaseImageFilesListenerAdapter {
         return XmpMetadata.getPropertyInfosOfXmpString(xmpAsString);
     }
 
-    void ensureCacheDiretoryExists() {
-        if (!CACHE_DIR.isDirectory()) {
-            try {
-                LOGGER.log(Level.FINEST, "Embedded Xmp Cache: Creating cache directory ''{0}''", CACHE_DIR);
-                FileUtil.ensureDirectoryExists(CACHE_DIR);
-            } catch (Throwable ex) {
-                AppLogger.logSevere(EmbeddedXmpCache.class, ex);
-            }
-        }
-    }
-
     private File getCacheFile(File imageFile) {
-        return new File(CACHE_DIR + File.separator + CacheFileUtil.getMd5Filename(imageFile) + ".xml");
+        return new File(CACHE_DIR + File.separator + FileUtil.getMd5FilenameOfAbsolutePath(imageFile) + ".xml");
     }
 
     private String getEmptyXmp() {
@@ -200,17 +193,46 @@ public final class EmbeddedXmpCache extends DatabaseImageFilesListenerAdapter {
         return "";
     }
 
-    @Override
-    public void imageFileRenamed(File oldImageFile, File newImageFile) {
+    @EventSubscriber(eventClass = ImageFileMovedEvent.class)
+    public void imageFileMoved(ImageFileMovedEvent event) {
+        File oldImageFile = event.getOldImageFile();
+        File newImageFile = event.getNewImageFile();
+
         renameCachedXmp(oldImageFile, newImageFile);
     }
 
-    @Override
-    public void imageFileDeleted(File imageFile) {
-        deleteCachedXmp(imageFile);
+    @EventSubscriber(eventClass = ImageFileRemovedEvent.class)
+    public void imageFileRemoved(ImageFileRemovedEvent event) {
+        File deletedImageFile = event.getImageFile();
+
+        deleteCachedXmp(deletedImageFile);
+    }
+
+    public void init() {
+        AnnotationProcessor.process(this);
     }
 
     private EmbeddedXmpCache() {
-        DatabaseImageFiles.INSTANCE.addListener(this);
+        CACHE_DIR = lookupCacheDirectory();
+        ensureCacheDiretoryExists();
+    }
+
+    private File lookupCacheDirectory() {
+        CacheDirectoryProvider provider = ServiceLookup.lookup(CacheDirectoryProvider.class);
+        File cacheDirectory = provider.getCacheDirectory();
+        String cacheDirectoryPath = cacheDirectory.getAbsolutePath();
+
+        return new File(cacheDirectoryPath + File.separator + "EmbeddedXmpCache");
+    }
+
+    private void ensureCacheDiretoryExists() {
+        if (!CACHE_DIR.isDirectory()) {
+            try {
+                LOGGER.log(Level.FINEST, "Embedded Xmp Cache: Creating cache directory ''{0}''", CACHE_DIR);
+                FileUtil.ensureDirectoryExists(CACHE_DIR);
+            } catch (Throwable ex) {
+                AppLogger.logSevere(EmbeddedXmpCache.class, ex);
+            }
+        }
     }
 }

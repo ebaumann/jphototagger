@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import javax.swing.ImageIcon;
+import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.IoUtil;
 
 /**
@@ -19,7 +20,9 @@ import org.jphototagger.lib.io.IoUtil;
  * @author  Martin Pohlack, Elmar Baumann
  */
 public final class PersistentThumbnails {
-    private PersistentThumbnails() {}
+
+    private PersistentThumbnails() {
+    }
 
     /**
      * Writes a thumbnail.
@@ -80,9 +83,9 @@ public final class PersistentThumbnails {
 
         File tnFile = getThumbnailFile(imageFile);
 
-        if ((tnFile != null) &&!tnFile.delete()) {
+        if ((tnFile != null) && !tnFile.delete()) {
             AppLogger.logWarning(PersistentThumbnails.class, "DatabaseImageFiles.Error.DeleteThumbnail", tnFile,
-                                 imageFile);
+                    imageFile);
 
             return false;
         }
@@ -93,7 +96,7 @@ public final class PersistentThumbnails {
     /**
      * Returns an existing thumbnail.
      *
-     * @param  md5Filename name returned by {@link #getMd5Filename(File) }
+     * @param  md5Filename name returned by {@link #getMd5FilenameOfAbsolutePath(File) }
      * @return             thumbnail if the thumbnail file exists and was read
      */
     private static Image getThumbnail(String md5Filename) {
@@ -139,7 +142,7 @@ public final class PersistentThumbnails {
             throw new NullPointerException("imageFile == null");
         }
 
-        String md5Filename = CacheFileUtil.getMd5Filename(imageFile);
+        String md5Filename = FileUtil.getMd5FilenameOfAbsolutePath(imageFile);
 
         return getThumbnail(md5Filename);
     }
@@ -156,11 +159,11 @@ public final class PersistentThumbnails {
             throw new NullPointerException("imageFile == null");
         }
 
-        String md5Filename = CacheFileUtil.getMd5Filename(imageFile);
+        String md5Filename = FileUtil.getMd5FilenameOfAbsolutePath(imageFile);
 
         return (md5Filename == null)
-               ? null
-               : getThumbnailfile(md5Filename);
+                ? null
+                : getThumbnailfile(md5Filename);
     }
 
     /**
@@ -177,8 +180,8 @@ public final class PersistentThumbnails {
         File tnFile = getThumbnailFile(imageFile);
 
         return (tnFile == null)
-               ? false
-               : tnFile.exists();
+                ? false
+                : tnFile.exists();
     }
 
     /**
@@ -202,7 +205,7 @@ public final class PersistentThumbnails {
             throw new NullPointerException("toImageFile == null");
         }
 
-        final String fromMd5Filename = CacheFileUtil.getMd5Filename(fromImageFile);
+        final String fromMd5Filename = FileUtil.getMd5FilenameOfAbsolutePath(fromImageFile);
 
         if (fromMd5Filename == null) {
             return false;
@@ -214,16 +217,15 @@ public final class PersistentThumbnails {
             return false;
         }
 
-        File toTnFile = getThumbnailfile(CacheFileUtil.getMd5Filename(toImageFile));
+        File toTnFile = getThumbnailfile(FileUtil.getMd5FilenameOfAbsolutePath(toImageFile));
 
         if (!fromTnFile.renameTo(toTnFile)) {
             AppLogger.logWarning(PersistentThumbnails.class, "PersistentThumbnails.Error.Rename", fromImageFile,
-                                 toImageFile);
+                    toImageFile);
 
             return false;
         }
 
         return true;
     }
-
 }

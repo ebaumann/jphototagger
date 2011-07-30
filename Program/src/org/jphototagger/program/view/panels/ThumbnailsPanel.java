@@ -1317,6 +1317,7 @@ public class ThumbnailsPanel extends JPanel
     }
 
     private void notifySelectionChanged() {
+        //EventBus.publish(new ImageSelectionChangeEvent(this, files));
         synchronized (panelListeners) {
             if (!notifySelChanged) {
                 notifySelChanged = true;

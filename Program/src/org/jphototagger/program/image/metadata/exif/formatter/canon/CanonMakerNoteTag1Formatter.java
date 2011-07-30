@@ -1,7 +1,7 @@
 package org.jphototagger.program.image.metadata.exif.formatter.canon;
 
 import org.jphototagger.domain.exif.ExifTag;
-import org.jphototagger.program.image.metadata.exif.ExifTags;
+import org.jphototagger.exif.ExifTags;
 import java.text.DecimalFormat;
 
 //References:
