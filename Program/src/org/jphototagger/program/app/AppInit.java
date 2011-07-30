@@ -14,8 +14,10 @@ import java.awt.Toolkit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.SwingUtilities;
+import org.bushe.swing.event.EventBus;
+import org.jphototagger.domain.event.AppWillInitEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.program.cache.CacheFileUtil;
+import org.jphototagger.program.cache.CacheUtil;
 
 /**
  * Initializes the application.
@@ -30,11 +32,13 @@ import org.jphototagger.program.cache.CacheFileUtil;
  * @author Elmar Baumann
  */
 public final class AppInit {
+
     public static final AppInit INSTANCE = new AppInit();
     private AppCommandLineOptions commandLineOptions;
     private volatile boolean init;
 
-    private AppInit() {}
+    private AppInit() {
+    }
 
     public void init(String[] args) {
         synchronized (this) {
@@ -59,7 +63,8 @@ public final class AppInit {
         checkJavaVersion();
         lock();
         showSplashScreen();
-        CacheFileUtil.ensureCacheDirectoriesExists();
+        EventBus.publish(new AppWillInitEvent(this));
+        CacheUtil.initCaches();
         AppDatabase.init();
         SplashScreen.INSTANCE.setProgress(75);
         AbstractImageReader.install(ImageProperties.class);
@@ -95,6 +100,7 @@ public final class AppInit {
         if (commandLineOptions.isCaptureOutput()) {
             try {
                 SwingUtilities.invokeAndWait(new Runnable() {
+
                     @Override
                     public void run() {
                         SystemOutputDialog.INSTANCE.captureOutput();
@@ -107,13 +113,14 @@ public final class AppInit {
     }
 
     private static void lock() {
-        if (!AppLock.lock() &&!AppLock.forceLock()) {
+        if (!AppLock.lock() && !AppLock.forceLock()) {
             System.exit(1);
         }
     }
 
     private static void showMainWindow() {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 AppFrame appFrame = new AppFrame();

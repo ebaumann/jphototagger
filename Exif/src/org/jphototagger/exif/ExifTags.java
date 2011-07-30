@@ -1,4 +1,4 @@
-package org.jphototagger.program.image.metadata.exif;
+package org.jphototagger.exif;
 
 import org.jphototagger.domain.exif.ExifTag;
 import java.io.File;
@@ -12,8 +12,8 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
-import org.jphototagger.program.exporter.XmlObjectExporter;
-import org.jphototagger.program.importer.XmlObjectImporter;
+import org.jphototagger.lib.xml.bind.XmlObjectExporter;
+import org.jphototagger.lib.xml.bind.XmlObjectImporter;
 
 /**
  * EXIF tags separated by their TIFF IFD (image file directory).

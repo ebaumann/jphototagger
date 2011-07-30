@@ -5,7 +5,7 @@ import org.jphototagger.lib.util.PropertiesUtil;
 import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.helper.HelperThread;
-import org.jphototagger.program.image.metadata.exif.ExifTags;
+import org.jphototagger.exif.ExifTags;
 import org.jphototagger.program.image.metadata.exif.GPSImageInfo;
 import org.jphototagger.program.image.metadata.exif.tag.ExifGpsMetadata;
 import org.jphototagger.program.image.metadata.exif.tag.ExifGpsUtil;
@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Properties;
 import javax.swing.JFileChooser;
 import org.jphototagger.lib.io.IoUtil;
-import org.jphototagger.program.cache.ExifCache;
+import org.jphototagger.program.image.metadata.exif.ExifMetadata;
 
 /**
  * Utils for exporting GPS metadata.
@@ -79,7 +79,7 @@ public final class GPSLocationExportUtil {
 
             for (int i = 0; !cancel &&!isInterrupted() && (i < fileCount); i++) {
                 File imageFile = imageFiles.get(i);
-                ExifTags et = ExifCache.INSTANCE.getExifTags(imageFile);
+                ExifTags et = ExifMetadata.getCachedExifTags(imageFile);
 
                 if (et != null) {
                     ExifGpsMetadata gpsMetadata = ExifGpsUtil.createGpsMetadataFromExifTags(et);

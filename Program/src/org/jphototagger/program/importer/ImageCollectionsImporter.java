@@ -1,5 +1,6 @@
 package org.jphototagger.program.importer;
 
+import org.jphototagger.lib.xml.bind.XmlObjectImporter;
 import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.app.AppLookAndFeel;

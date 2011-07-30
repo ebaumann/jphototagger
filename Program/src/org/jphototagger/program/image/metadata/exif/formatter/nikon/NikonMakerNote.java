@@ -8,7 +8,7 @@ import org.jphototagger.program.image.metadata.exif.datatype.ExifLong;
 import org.jphototagger.program.image.metadata.exif.datatype.ExifRational;
 import org.jphototagger.program.image.metadata.exif.datatype.ExifShort;
 import org.jphototagger.domain.exif.ExifTag;
-import org.jphototagger.program.image.metadata.exif.ExifTags;
+import org.jphototagger.exif.ExifTags;
 import org.jphototagger.program.image.metadata.exif.formatter.ExifRawValueFormatter;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;

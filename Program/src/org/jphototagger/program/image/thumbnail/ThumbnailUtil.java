@@ -13,7 +13,7 @@ import org.jphototagger.lib.runtime.External;
 import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.database.metadata.exif.ExifThumbnailUtil;
 import org.jphototagger.domain.exif.ExifTag;
-import org.jphototagger.program.image.metadata.exif.ExifTags;
+import org.jphototagger.exif.ExifTags;
 import org.jphototagger.program.types.FileType;
 import org.jphototagger.program.UserSettings;
 import java.awt.Container;
@@ -31,9 +31,9 @@ import javax.imageio.ImageIO;
 import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.app.AppFileFilters;
-import org.jphototagger.program.cache.ExifCache;
 import org.jphototagger.domain.filetypes.UserDefinedFileType;
 import org.jphototagger.program.database.DatabaseUserDefinedFileTypes;
+import org.jphototagger.program.image.metadata.exif.ExifMetadata;
 
 /**
  *
@@ -240,7 +240,7 @@ public final class ThumbnailUtil {
         Image rotatedThumbnail = thumbnail;
 
         if (thumbnail != null) {
-            ExifTags exifTags = ExifCache.INSTANCE.getExifTags(file);
+            ExifTags exifTags = ExifMetadata.getCachedExifTags(file);
             double rotateAngle = 0.0;
 
             if (exifTags != null) {

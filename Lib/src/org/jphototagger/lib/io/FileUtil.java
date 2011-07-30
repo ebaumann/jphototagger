@@ -7,12 +7,14 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
+import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Utilities for Files.
@@ -127,7 +129,7 @@ public final class FileUtil {
             throw new NullPointerException("file == null");
         }
 
-        return file.exists() &&!file.isDirectory();
+        return file.exists() && !file.isDirectory();
     }
 
     /**
@@ -436,8 +438,8 @@ public final class FileUtil {
         }
 
         return (root == null)
-               ? file
-               : root;
+                ? file
+                : root;
     }
 
     /**
@@ -511,7 +513,7 @@ public final class FileUtil {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
-        
+
         String filename = file.getName();
 
         int index = filename.lastIndexOf('.');
@@ -552,7 +554,6 @@ public final class FileUtil {
         return new File(file.getPath() + suffix);
     }
 
-
     /**
      * Changes the last modification time of a file.
      *
@@ -572,5 +573,40 @@ public final class FileUtil {
         fileToTouch.setLastModified(reference);
     }
 
-    private FileUtil() {}
+    public static String getMd5FilenameOfAbsolutePath(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
+        MessageDigest md5;
+
+        try {
+            md5 = MessageDigest.getInstance("MD5");
+        } catch (Exception ex) {
+            Logger.getLogger(FileUtil.class.getName()).log(Level.SEVERE, null, ex);
+
+            return null;
+        }
+
+        md5.reset();
+        md5.update(("file://" + file.getAbsolutePath()).getBytes());
+
+        byte[] result = md5.digest();
+        StringBuilder hex = new StringBuilder();
+
+        for (int i = 0; i < result.length; i++) {
+            if ((result[i] & 0xff) == 0) {
+                hex.append("00");
+            } else if ((result[i] & 0xff) < 0x10) {
+                hex.append("0").append(Integer.toHexString(0xFF & result[i]));
+            } else {
+                hex.append(Integer.toHexString(0xFF & result[i]));
+            }
+        }
+
+        return hex.toString();
+    }
+
+    private FileUtil() {
+    }
 }

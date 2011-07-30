@@ -3,22 +3,26 @@ package org.jphototagger.program.cache;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.domain.event.ImageFileMovedEvent;
+import org.jphototagger.domain.event.ImageFileRemovedEvent;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.domain.event.listener.DatabaseImageFilesListenerAdapter;
+import org.jphototagger.lib.util.ServiceLookup;
+import org.jphototagger.services.core.CacheDirectoryProvider;
 
 /**
  *
  *
  * @author Elmar Baumann
  */
-public final class IptcIgnoreCache extends DatabaseImageFilesListenerAdapter {
+public final class IptcIgnoreCache {
 
-    private final File CACHE_DIR = new File(UserSettings.INSTANCE.getDatabaseDirectoryName() + File.separator + "IptcIgnoreCache");
+    private final File CACHE_DIR;
     private static final Logger LOGGER = Logger.getLogger(IptcIgnoreCache.class.getName());
-    private static final String FILE_CONTENT= "";
+    private static final String FILE_CONTENT = "";
     public static final IptcIgnoreCache INSTANCE = new IptcIgnoreCache();
 
     public boolean isIgnore(File imageFile) {
@@ -91,16 +95,6 @@ public final class IptcIgnoreCache extends DatabaseImageFilesListenerAdapter {
         return timestampCachedFile == timestampImageFile;
     }
 
-    public void ensureCacheDiretoryExists() {
-        if (!CACHE_DIR.isDirectory()) {
-            try {
-                LOGGER.log(Level.FINEST, "IPTC Ignore Cache: Creating cache directory ''{0}''", CACHE_DIR);
-                FileUtil.ensureDirectoryExists(CACHE_DIR);
-            } catch (Throwable ex) {
-                AppLogger.logSevere(IptcIgnoreCache.class, ex);
-            }
-        }
-    }
     /**
      * Removes all files from the cache directory.
      *
@@ -142,14 +136,14 @@ public final class IptcIgnoreCache extends DatabaseImageFilesListenerAdapter {
                 : cacheFiles.length;
     }
 
-
     private File getCacheFile(File imageFile) {
-        return new File(CACHE_DIR + File.separator + CacheFileUtil.getMd5Filename(imageFile));
+        return new File(CACHE_DIR + File.separator + FileUtil.getMd5FilenameOfAbsolutePath(imageFile));
     }
 
-
-    @Override
-    public void imageFileRenamed(File oldImageFile, File newImageFile) {
+    @EventSubscriber(eventClass = ImageFileMovedEvent.class)
+    public void imageFileMoved(ImageFileMovedEvent event) {
+        File oldImageFile = event.getOldImageFile();
+        File newImageFile = event.getNewImageFile();
         File oldCacheFile = getCacheFile(oldImageFile);
 
         if (oldCacheFile.exists()) {
@@ -163,16 +157,41 @@ public final class IptcIgnoreCache extends DatabaseImageFilesListenerAdapter {
         }
     }
 
-    @Override
-    public void imageFileDeleted(File imageFile) {
-        File cacheFile = getCacheFile(imageFile);
+    @EventSubscriber(eventClass = ImageFileRemovedEvent.class)
+    public void imageFileRemoved(ImageFileRemovedEvent event) {
+        File deletedImageFile = event.getImageFile();
+        File cacheFile = getCacheFile(deletedImageFile);
 
         if (cacheFile.exists()) {
-            unIgnore(imageFile, cacheFile);
+            unIgnore(deletedImageFile, cacheFile);
         }
     }
 
+    public void init() {
+        AnnotationProcessor.process(this);
+    }
+
     private IptcIgnoreCache() {
-        DatabaseImageFiles.INSTANCE.addListener(this);
+        CACHE_DIR = lookupCacheDirectory();
+        ensureCacheDiretoryExists();
+    }
+
+    private File lookupCacheDirectory() {
+        CacheDirectoryProvider provider = ServiceLookup.lookup(CacheDirectoryProvider.class);
+        File cacheDirectory = provider.getCacheDirectory();
+        String cacheDirectoryPath = cacheDirectory.getAbsolutePath();
+
+        return new File(cacheDirectoryPath + File.separator + "IptcIgnoreCache");
+    }
+
+    private void ensureCacheDiretoryExists() {
+        if (!CACHE_DIR.isDirectory()) {
+            try {
+                LOGGER.log(Level.FINEST, "IPTC Ignore Cache: Creating cache directory ''{0}''", CACHE_DIR);
+                FileUtil.ensureDirectoryExists(CACHE_DIR);
+            } catch (Throwable ex) {
+                AppLogger.logSevere(IptcIgnoreCache.class, ex);
+            }
+        }
     }
 }

@@ -1,5 +1,6 @@
 package org.jphototagger.program.image.metadata.exif;
 
+import org.jphototagger.exif.ExifTags;
 import org.jphototagger.domain.exif.ExifTag;
 import org.jphototagger.domain.exif.ExifIfdType;
 import com.imagero.reader.ImageReader;
@@ -16,9 +17,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.jphototagger.exif.ExifSupport;
 import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.cache.ExifCache;
+import org.jphototagger.exif.cache.ExifCache;
 
 /**
  * Extracts EXIF metadata from images as {@link ExifTag} and
@@ -199,7 +201,39 @@ public final class ExifMetadata {
             throw new NullPointerException("imageFile == null");
         }
 
-        return ExifFactory.getExif(ExifCache.INSTANCE.getExifTags(imageFile));
+        return ExifFactory.getExif(getCachedExifTags(imageFile));
+    }
+
+    /**
+     * Returns EXIF tags of an image file from the cache if up to date. If the
+     * tags are not up to date, they will be created from the image file and cached.
+     *
+     * @param  imageFile image file
+     * @return           tags or null if the tags neither in the cache nor could be
+     *                   created from the image file
+     */
+    public static ExifTags getCachedExifTags(File imageFile) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+
+        if (ExifCache.INSTANCE.containsUpToDateExifTags(imageFile)) {
+            return ExifCache.INSTANCE.getCachedExifTags(imageFile);
+        } else {
+            ExifTags exifTags = null;
+
+            if (ExifSupport.INSTANCE.canReadExif(imageFile)) {
+                exifTags = getExifTags(imageFile);
+            }
+
+            if (exifTags == null) {
+                ExifCache.INSTANCE.cacheExifTags(imageFile, new ExifTags());
+            } else {
+                ExifCache.INSTANCE.cacheExifTags(imageFile, exifTags);
+            }
+
+            return exifTags;
+        }
     }
 
     /**

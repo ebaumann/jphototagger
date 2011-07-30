@@ -37,7 +37,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Set;
 import org.jphototagger.program.app.AppFileFilters;
-import org.jphototagger.program.cache.ExifCache;
+import org.jphototagger.exif.cache.ExifCache;
 
 /**
  * Inserts or updates image file metadata - EXIF, thumbnail, XMP - into the

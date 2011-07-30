@@ -4,7 +4,7 @@ import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.image.metadata.exif.datatype.ExifDatatypeUtil;
 import org.jphototagger.program.image.metadata.exif.datatype.ExifRational;
 import org.jphototagger.domain.exif.ExifTag;
-import org.jphototagger.program.image.metadata.exif.ExifTags;
+import org.jphototagger.exif.ExifTags;
 import java.nio.ByteOrder;
 import java.text.DecimalFormat;
 import java.text.MessageFormat;

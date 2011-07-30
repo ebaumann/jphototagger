@@ -7,7 +7,7 @@ import org.jphototagger.program.resource.JptBundle;
 import java.io.File;
 import java.util.List;
 import org.jphototagger.program.app.AppFileFilters;
-import org.jphototagger.program.cache.ExifCache;
+import org.jphototagger.exif.cache.ExifCache;
 
 /**
  * Refreshes the EXIF metadata of all known imagesfiles whithout time stamp

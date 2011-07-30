@@ -1,11 +1,12 @@
-package org.jphototagger.program.exporter;
+package org.jphototagger.lib.xml.bind;
 
-import org.jphototagger.program.app.logging.AppLogger;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -16,6 +17,7 @@ import javax.xml.bind.Marshaller;
  * @author Elmar Baumann
  */
 public final class XmlObjectExporter {
+
     public static void export(Object object, File file) throws JAXBException, IOException {
         if (object == null) {
             throw new NullPointerException("object == null");
@@ -63,9 +65,10 @@ public final class XmlObjectExporter {
             writer.flush();
             writer.close();
         } catch (Exception ex) {
-            AppLogger.logSevere(XmlObjectExporter.class, ex);
+            Logger.getLogger(XmlObjectExporter.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    private XmlObjectExporter() {}
+    private XmlObjectExporter() {
+    }
 }

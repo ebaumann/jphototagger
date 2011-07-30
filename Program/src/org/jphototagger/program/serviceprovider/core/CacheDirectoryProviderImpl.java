@@ -12,7 +12,7 @@ import org.jphototagger.services.core.CacheDirectoryProvider;
  */
 public final class CacheDirectoryProviderImpl implements CacheDirectoryProvider {
 
-    private static final File CACHE_DIRECTORY = new File(UserSettings.INSTANCE.getDatabaseDirectoryName() + File.separator + "plugincache");
+    private static final File CACHE_DIRECTORY = new File(UserSettings.INSTANCE.getSettingsDirectoryName() + File.separator + "cache");
 
     @Override
     public File getCacheDirectory() {
