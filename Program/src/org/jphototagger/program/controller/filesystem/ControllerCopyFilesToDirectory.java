@@ -1,6 +1,6 @@
 package org.jphototagger.program.controller.filesystem;
 
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.helper.FilesystemDatabaseUpdater;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.CopyToDirectoryDialog;

@@ -1,6 +1,6 @@
 package org.jphototagger.program.database;
 
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.domain.event.listener.DatabaseSynonymsListener;
 import org.jphototagger.domain.event.listener.impl.ListenerSupport;
 import java.sql.Connection;

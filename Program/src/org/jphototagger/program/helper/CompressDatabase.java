@@ -1,6 +1,6 @@
 package org.jphototagger.program.helper;
 
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.database.DatabaseMaintainance;
 import org.jphototagger.domain.event.listener.impl.ProgressListenerSupport;
 import org.jphototagger.lib.event.listener.ProgressListener;

@@ -4,7 +4,7 @@ import org.jphototagger.domain.database.InsertIntoDatabase;
 import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.lib.util.ArrayUtil;
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.domain.image.ImageFile;
 import org.jphototagger.domain.keywords.Keyword;

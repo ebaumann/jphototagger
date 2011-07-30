@@ -1,7 +1,7 @@
 package org.jphototagger.program.helper;
 
 import org.jphototagger.lib.concurrent.Cancelable;
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.domain.iptc.Iptc;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.event.listener.ProgressListener;

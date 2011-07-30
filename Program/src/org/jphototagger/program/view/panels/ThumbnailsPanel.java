@@ -6,7 +6,7 @@ import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.util.MathUtil;
 import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.program.app.AppLifeCycle;
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.cache.RenderedThumbnailCache;
 import org.jphototagger.program.controller.thumbnail.ControllerThumbnailDoubleklick;
 import org.jphototagger.domain.exif.Exif;

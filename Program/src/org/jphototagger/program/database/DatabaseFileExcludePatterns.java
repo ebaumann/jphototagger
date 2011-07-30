@@ -1,6 +1,6 @@
 package org.jphototagger.program.database;
 
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.cache.PersistentThumbnails;
 import org.jphototagger.domain.event.listener.DatabaseFileExcludePatternsListener;
 import org.jphototagger.domain.event.listener.impl.ListenerSupport;

@@ -13,7 +13,7 @@ import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.xmp.XmpFileReader;
 import org.jphototagger.lib.io.FileLock;
 import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.cache.EmbeddedXmpCache;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.domain.database.Column;

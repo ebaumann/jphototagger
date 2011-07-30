@@ -1,5 +1,6 @@
 package org.jphototagger.program.app;
 
+import org.jphototagger.program.app.logging.AppLogger;
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Font;

@@ -6,7 +6,7 @@ import org.jphototagger.lib.util.PropertiesFile;
 import org.jphototagger.lib.util.Settings;
 import org.jphototagger.lib.util.SettingsHints;
 import org.jphototagger.program.app.AppInfo;
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.app.update.UpdateUserSettings;
 import org.jphototagger.domain.event.listener.impl.UserSettingsListenerSupport;
 import org.jphototagger.domain.event.listener.UserSettingsListener;

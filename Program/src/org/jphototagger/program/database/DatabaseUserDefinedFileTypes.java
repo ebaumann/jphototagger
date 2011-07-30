@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.domain.filetypes.UserDefinedFileType;
 import org.jphototagger.domain.event.listener.DatabaseUserDefinedFileTypesListener;
 import org.jphototagger.domain.event.listener.impl.ListenerSupport;

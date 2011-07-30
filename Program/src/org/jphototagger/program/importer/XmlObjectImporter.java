@@ -1,6 +1,6 @@
 package org.jphototagger.program.importer;
 
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

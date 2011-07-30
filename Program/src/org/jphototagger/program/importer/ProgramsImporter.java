@@ -1,6 +1,6 @@
 package org.jphototagger.program.importer;
 
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.program.database.DatabasePrograms;

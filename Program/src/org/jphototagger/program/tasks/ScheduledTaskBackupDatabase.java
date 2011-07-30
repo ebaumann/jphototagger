@@ -3,7 +3,7 @@ package org.jphototagger.program.tasks;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.app.AppLifeCycle;
 import org.jphototagger.program.app.AppLifeCycle.FinalTaskListener;
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.helper.BackupDatabase;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;

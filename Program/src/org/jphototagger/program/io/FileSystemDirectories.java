@@ -2,7 +2,7 @@ package org.jphototagger.program.io;
 
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.TreeFileSystemDirectories;
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import java.io.File;
 import java.util.List;

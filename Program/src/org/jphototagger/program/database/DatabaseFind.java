@@ -1,6 +1,6 @@
 package org.jphototagger.program.database;
 
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.domain.database.search.ParamStatement;
 import org.jphototagger.domain.database.Column;
 import org.jphototagger.program.database.metadata.Join;

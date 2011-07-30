@@ -1,7 +1,7 @@
 package org.jphototagger.program.controller.imagecollection;
 
 import org.jphototagger.lib.comparator.FileSort;
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.database.DatabaseImageCollections;
 import org.jphototagger.program.event.listener.RefreshListener;
 import org.jphototagger.program.event.RefreshEvent;

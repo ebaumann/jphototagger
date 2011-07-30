@@ -1,7 +1,7 @@
 package org.jphototagger.program.datatransfer;
 
 import org.jphototagger.lib.datatransfer.TransferUtil;
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.domain.database.ColumnData;
 import org.jphototagger.program.io.ImageFileFilterer;
 import java.awt.datatransfer.DataFlavor;

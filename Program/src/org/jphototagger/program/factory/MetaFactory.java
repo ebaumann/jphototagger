@@ -1,6 +1,6 @@
 package org.jphototagger.program.factory;
 
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.app.AppWindowPersistence;
 import org.jphototagger.program.app.update.UpdateDownload;
 import org.jphototagger.program.tasks.ScheduledTaskBackupDatabase;

@@ -1,6 +1,6 @@
 package org.jphototagger.program.view.dialogs;
 
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.controller.filesystem.FilenameFormat;
 import org.jphototagger.program.controller.filesystem.FilenameFormatArray;

@@ -1,7 +1,7 @@
 package org.jphototagger.program.importer;
 
 import org.jphototagger.lib.generics.Pair;
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.exporter.KeywordsExporterJpt;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;

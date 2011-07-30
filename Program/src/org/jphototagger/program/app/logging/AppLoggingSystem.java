@@ -1,4 +1,4 @@
-package org.jphototagger.program.app;
+package org.jphototagger.program.app.logging;
 
 import org.jphototagger.lib.dialog.LogfileDialog;
 import org.jphototagger.lib.io.FileUtil;
@@ -88,10 +88,8 @@ public final class AppLoggingSystem implements UserSettingsListener {
     }
 
     private static void createHandlers() throws IOException {
-        fileHandlerImportant = new FileHandler(getLogfilePathPatternErrorMessages(), MAX_LOGFILE_SIZE_IN_BYTES,
-                LOGFILE_ROTATE_COUNT, APPEND_OUTPUT_TO_LOGFILE);
-        fileHandlerAllMsgs = new FileHandler(getLogfilePathPatternAllMessages(), MAX_LOGFILE_SIZE_IN_BYTES,
-                LOGFILE_ROTATE_COUNT, APPEND_OUTPUT_TO_LOGFILE);
+        fileHandlerImportant = new FileHandler(getLogfilePathPatternErrorMessages(), MAX_LOGFILE_SIZE_IN_BYTES, LOGFILE_ROTATE_COUNT, APPEND_OUTPUT_TO_LOGFILE);
+        fileHandlerAllMsgs = new FileHandler(getLogfilePathPatternAllMessages(), MAX_LOGFILE_SIZE_IN_BYTES, LOGFILE_ROTATE_COUNT, APPEND_OUTPUT_TO_LOGFILE);
         systemOutHandler = new StreamHandler(System.out, new SimpleFormatter());
 
         synchronized (HANDLERS) {

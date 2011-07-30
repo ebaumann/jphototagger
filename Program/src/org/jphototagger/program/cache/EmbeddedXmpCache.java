@@ -1,7 +1,7 @@
 package org.jphototagger.program.cache;
 
 import com.adobe.xmp.properties.XMPPropertyInfo;
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.UserSettings;
 import java.io.File;
 import java.io.InputStream;

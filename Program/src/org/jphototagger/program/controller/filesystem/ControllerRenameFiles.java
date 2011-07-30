@@ -1,6 +1,6 @@
 package org.jphototagger.program.controller.filesystem;
 
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.cache.RenderedThumbnailCache;
 import org.jphototagger.program.cache.ThumbnailCache;
 import org.jphototagger.program.cache.XmpCache;

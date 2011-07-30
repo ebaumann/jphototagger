@@ -1,6 +1,6 @@
 package org.jphototagger.program.exporter;
 
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.domain.keywords.Keyword;
 import org.jphototagger.program.factory.ModelFactory;

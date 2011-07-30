@@ -1,6 +1,6 @@
 package org.jphototagger.program.app.update.tables.v0;
 
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.app.SplashScreen;
 import org.jphototagger.program.database.Database;
 import org.jphototagger.program.resource.JptBundle;

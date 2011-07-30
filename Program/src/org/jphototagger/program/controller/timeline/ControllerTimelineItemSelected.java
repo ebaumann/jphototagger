@@ -1,6 +1,6 @@
 package org.jphototagger.program.controller.timeline;
 
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
 import org.jphototagger.program.data.Timeline;
 import org.jphototagger.program.database.DatabaseImageFiles;

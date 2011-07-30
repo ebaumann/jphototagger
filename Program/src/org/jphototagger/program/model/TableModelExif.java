@@ -1,7 +1,7 @@
 package org.jphototagger.program.model;
 
 import org.jphototagger.lib.model.TableModelExt;
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.cache.ExifCache;
 import org.jphototagger.program.image.metadata.exif.ExifMetadata;
 import org.jphototagger.domain.exif.ExifTag;

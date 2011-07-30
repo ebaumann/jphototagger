@@ -1,11 +1,11 @@
-package org.jphototagger.program.app;
+package org.jphototagger.program.app.logging;
 
-import org.jphototagger.domain.event.listener.impl.ErrorListeners;
 import org.jphototagger.program.resource.JptBundle;
 import java.text.MessageFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.LogRecord;
+import org.jphototagger.program.app.AppInfo;
 
 /**
  * Logs <strong>localized</strong> messages.
@@ -156,7 +156,6 @@ public final class AppLogger {
         }
 
         log(c, Level.WARNING, bundleKey, params);
-        ErrorListeners.INSTANCE.notifyListeners(c, JptBundle.INSTANCE.getString(bundleKey, params));
     }
 
     /**
@@ -186,7 +185,6 @@ public final class AppLogger {
         lr.setThrown(t);
         Logger.getLogger(loggerName).log(lr);
         AppLoggingSystem.flush(AppLoggingSystem.HandlerType.SYSTEM_OUT);
-        ErrorListeners.INSTANCE.notifyListeners(c, message);
     }
 
     private static void log(Class<?> c, Level level, String bundleKey, Object... params) {
@@ -263,39 +261,24 @@ public final class AppLogger {
         sb.append(LINE_SEP).append("Java Runtime Environment vendor: ").append(System.getProperty("java.vendor"));
         sb.append(LINE_SEP).append("Java vendor URL: ").append(System.getProperty("java.vendor.url"));
         sb.append(LINE_SEP).append("Java installation directory: ").append(System.getProperty("java.home"));
-        sb.append(LINE_SEP).append("Java Virtual Machine specification version: ").append(
-            System.getProperty("java.vm.specification.version"));
-        sb.append(LINE_SEP).append("Java Virtual Machine specification vendor: ").append(
-            System.getProperty("java.vm.specification.vendor"));
-        sb.append(LINE_SEP).append("Java Virtual Machine specification name: ").append(
-            System.getProperty("java.vm.specification.name"));
-        sb.append(LINE_SEP).append("Java Virtual Machine implementation version: ").append(
-            System.getProperty("java.vm.version"));
-        sb.append(LINE_SEP).append("Java Virtual Machine implementation vendor: ").append(
-            System.getProperty("java.vm.vendor"));
-        sb.append(LINE_SEP).append("Java Virtual Machine implementation name: ").append(
-            System.getProperty("java.vm.name"));
-        sb.append(LINE_SEP).append("Java Runtime Environment specification version: ").append(
-            System.getProperty("java.specification.version"));
-        sb.append(LINE_SEP).append("Java Runtime Environment specification vendor: ").append(
-            System.getProperty("java.specification.vendor"));
-        sb.append(LINE_SEP).append("Java Runtime Environment specification name: ").append(
-            System.getProperty("java.specification.name"));
-        sb.append(LINE_SEP).append("Java class format version number: ").append(
-            System.getProperty("java.class.version"));
+        sb.append(LINE_SEP).append("Java Virtual Machine specification version: ").append(System.getProperty("java.vm.specification.version"));
+        sb.append(LINE_SEP).append("Java Virtual Machine specification vendor: ").append(System.getProperty("java.vm.specification.vendor"));
+        sb.append(LINE_SEP).append("Java Virtual Machine specification name: ").append(System.getProperty("java.vm.specification.name"));
+        sb.append(LINE_SEP).append("Java Virtual Machine implementation version: ").append(System.getProperty("java.vm.version"));
+        sb.append(LINE_SEP).append("Java Virtual Machine implementation vendor: ").append(System.getProperty("java.vm.vendor"));
+        sb.append(LINE_SEP).append("Java Virtual Machine implementation name: ").append(System.getProperty("java.vm.name"));
+        sb.append(LINE_SEP).append("Java Runtime Environment specification version: ").append(System.getProperty("java.specification.version"));
+        sb.append(LINE_SEP).append("Java Runtime Environment specification vendor: ").append(System.getProperty("java.specification.vendor"));
+        sb.append(LINE_SEP).append("Java Runtime Environment specification name: ").append(System.getProperty("java.specification.name"));
+        sb.append(LINE_SEP).append("Java class format version number: ").append(System.getProperty("java.class.version"));
         sb.append(LINE_SEP).append("Java class path: ").append(System.getProperty("java.class.path"));
-        sb.append(LINE_SEP).append("List of paths to search when loading libraries: ").append(
-            System.getProperty("java.library.path"));
+        sb.append(LINE_SEP).append("List of paths to search when loading libraries: ").append(System.getProperty("java.library.path"));
         sb.append(LINE_SEP).append("Default temp file path: ").append(System.getProperty("java.io.tmpdir"));
         sb.append(LINE_SEP).append("Name of JIT compiler to use: ").append(System.getProperty("java.compiler"));
-        sb.append(LINE_SEP).append("Path of extension directory or directories: ").append(
-            System.getProperty("java.ext.dirs"));
+        sb.append(LINE_SEP).append("Path of extension directory or directories: ").append(System.getProperty("java.ext.dirs"));
         sb.append(LINE_SEP).append("Operating system name: ").append(System.getProperty("os.name"));
         sb.append(LINE_SEP).append("Operating system architecture: ").append(System.getProperty("os.arch"));
-
-        StringBuilder append =
-            sb.append(LINE_SEP).append("Operating system version: ").append(System.getProperty("os.version"));
-
+        sb.append(LINE_SEP).append("Operating system version: ").append(System.getProperty("os.version"));
         sb.append(LINE_SEP).append("File separator: ").append(System.getProperty("file.separator"));
         sb.append(LINE_SEP).append("Path separator: ").append(System.getProperty("path.separator"));
         sb.append(LINE_SEP).append("User's account name: ").append(System.getProperty("user.name"));

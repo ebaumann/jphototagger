@@ -1,7 +1,7 @@
 package org.jphototagger.program.helper;
 
 import org.jphototagger.lib.dialog.ProgressDialog;
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.controller.misc.SizeAndLocationController;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.lib.event.listener.ProgressListener;

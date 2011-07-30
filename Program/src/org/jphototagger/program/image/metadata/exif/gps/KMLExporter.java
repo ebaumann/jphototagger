@@ -4,7 +4,7 @@ import org.jphototagger.kml.KMLDocument;
 import org.jphototagger.kml.KMLPlacemark;
 import org.jphototagger.kml.KMLPoint;
 import org.jphototagger.program.app.AppInfo;
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.image.metadata.exif.datatype.ExifDatatypeUtil;
 import org.jphototagger.program.image.metadata.exif.GPSImageInfo;
 import org.jphototagger.program.image.metadata.exif.tag.ExifGpsAltitude;

@@ -3,7 +3,7 @@ package org.jphototagger.program.image.metadata.exif.formatter.nikon;
 import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.lib.util.ArrayUtil;
 import org.jphototagger.lib.util.RegexUtil;
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.image.metadata.exif.datatype.ExifLong;
 import org.jphototagger.program.image.metadata.exif.datatype.ExifRational;
 import org.jphototagger.program.image.metadata.exif.datatype.ExifShort;

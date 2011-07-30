@@ -1,7 +1,7 @@
 package org.jphototagger.program.cache;
 
 import org.jphototagger.lib.image.util.IconUtil;
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.domain.event.listener.ThumbnailUpdateListener;
 import org.jphototagger.domain.event.ThumbnailUpdateEvent;
 import org.jphototagger.program.resource.JptBundle;

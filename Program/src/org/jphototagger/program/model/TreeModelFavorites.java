@@ -6,7 +6,7 @@ import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.TreeFileSystemDirectories;
 import org.jphototagger.lib.model.TreeNodeSortedChildren;
 import org.jphototagger.program.app.AppLifeCycle;
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.program.database.DatabaseFavorites;

@@ -2,7 +2,7 @@ package org.jphototagger.program.helper;
 
 import org.jphototagger.domain.database.InsertIntoDatabase;
 import org.jphototagger.lib.concurrent.Cancelable;
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.cache.PersistentThumbnails;
 import org.jphototagger.domain.exif.Exif;

@@ -1,6 +1,6 @@
 package org.jphototagger.program.view.panels;
 
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.lib.event.listener.ProgressListener;
 import org.jphototagger.lib.event.ProgressEvent;

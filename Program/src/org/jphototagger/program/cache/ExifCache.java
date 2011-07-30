@@ -1,7 +1,7 @@
 package org.jphototagger.program.cache;
 
 import org.jphototagger.lib.concurrent.SerialExecutor;
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.domain.event.listener.DatabaseImageFilesListenerAdapter;
 import org.jphototagger.program.image.metadata.exif.ExifMetadata;
 import org.jphototagger.program.image.metadata.exif.ExifTags;

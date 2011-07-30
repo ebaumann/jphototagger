@@ -1,6 +1,6 @@
 package org.jphototagger.program.controller.metadata;
 
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.program.database.DatabaseMetadataTemplates;

@@ -4,7 +4,7 @@ import org.jphototagger.lib.comparator.ComparatorFilesNoSort;
 import org.jphototagger.lib.comparator.FileSort;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.app.AppLifeCycle;
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.domain.event.listener.AppExitListener;
 import org.jphototagger.domain.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.program.resource.GUI;

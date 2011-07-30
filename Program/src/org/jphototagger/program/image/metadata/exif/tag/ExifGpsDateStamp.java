@@ -1,6 +1,6 @@
 package org.jphototagger.program.image.metadata.exif.tag;
 
-import org.jphototagger.program.app.AppLogger;
+import org.jphototagger.program.app.logging.AppLogger;
 
 /**
  * EXIF GPS date stamp.
