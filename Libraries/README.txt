@@ -1,4 +1,5 @@
 beansbinding.jar -> (Beansbinding 1.2.1 Release 2007/11/02 https://svn.java.net/svn/beansbinding~svn)
+eventbus.jar -> eventbus-1.4.jar EventBus 1.4 http://java.net/projects/eventbus (https://svn.java.net/svn/eventbus~svn)
 flickrapi.jar -> flickrapi-1.2.jar (flickrj Flickr API-1.2 http://flickrj.sf.net/)
 hsqldb.jar -> HSQLDB 1.8.0.10 (HyperSQL Database Engine, http://hsqldb.org/)
 ImgrRdr.jar -> ImgrRdr200_RC10.jar (http://reader.imagero.com/)
