@@ -1,18 +1,19 @@
 package org.jphototagger.program.cache;
 
-import org.jphototagger.image.util.ImageUtil;
-import org.jphototagger.lib.io.FileLock;
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.io.RuntimeUtil;
-import org.jphototagger.program.UserSettings;
 import java.awt.Image;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+
 import javax.swing.ImageIcon;
+
+import org.jphototagger.image.util.ImageUtil;
+import org.jphototagger.lib.io.FileLock;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.IoUtil;
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.app.logging.AppLogger;
 
 /**
  * Persistent stored (cached) thumbnails.
@@ -47,7 +48,7 @@ public final class PersistentThumbnails {
         }
 
         try {
-            if (!RuntimeUtil.lockLogWarning(tnFile, PersistentThumbnails.class)) {
+            if (!FileLock.INSTANCE.lockLogWarning(tnFile, PersistentThumbnails.class)) {
                 return;
             }
 

@@ -54,8 +54,8 @@ import org.jphototagger.program.data.Timeline;
 import org.jphototagger.program.database.DatabaseImageFiles.DcSubjectOption;
 import org.jphototagger.program.database.metadata.Join;
 import org.jphototagger.program.database.metadata.Join.Type;
-import org.jphototagger.program.image.metadata.xmp.FileXmp;
-import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
+import org.jphototagger.xmp.FileXmp;
+import org.jphototagger.xmp.XmpMetadata;
 import org.jphototagger.program.image.thumbnail.ThumbnailUtil;
 
 /**

@@ -17,7 +17,7 @@ import org.jphototagger.lib.componentutil.TableUtil;
 import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.lib.util.Translation;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
+import org.jphototagger.xmp.XmpMetadata;
 import org.jphototagger.program.resource.JptBundle;
 
 import com.adobe.xmp.properties.XMPPropertyInfo;

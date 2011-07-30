@@ -1,7 +1,11 @@
-package org.jphototagger.program.database.metadata.selections;
+package org.jphototagger.xmp;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.jphototagger.domain.database.Column;
-import org.jphototagger.program.database.metadata.selections.EditHints.SizeEditField;
 import org.jphototagger.domain.database.xmp.ColumnXmpDcCreator;
 import org.jphototagger.domain.database.xmp.ColumnXmpDcDescription;
 import org.jphototagger.domain.database.xmp.ColumnXmpDcRights;
@@ -20,10 +24,7 @@ import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopSource;
 import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopState;
 import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopTransmissionReference;
 import org.jphototagger.domain.database.xmp.ColumnXmpRating;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import org.jphototagger.xmp.EditHints.SizeEditField;
 
 /**
  * Supported XMP columns for editing and updating XMP sidecar files.
@@ -31,6 +32,7 @@ import java.util.Map;
  * @author Elmar Baumann
  */
 public final class EditColumns {
+
     private static final Map<Column, EditHints> EDIT_HINT_OF_COLUMN = new LinkedHashMap<Column, EditHints>();
 
     static {
@@ -70,5 +72,6 @@ public final class EditColumns {
         return EDIT_HINT_OF_COLUMN.get(column);
     }
 
-    private EditColumns() {}
+    private EditColumns() {
+    }
 }
