@@ -6,7 +6,7 @@ import org.jphototagger.program.data.Timeline;
 import org.jphototagger.program.data.Timeline.Date;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.domain.database.column.ColumnXmpIptc4XmpCoreDateCreated;
+import org.jphototagger.domain.database.xmp.ColumnXmpIptc4XmpCoreDateCreated;
 import org.jphototagger.domain.event.listener.DatabaseImageFilesListener;
 import java.io.File;
 import javax.swing.tree.DefaultMutableTreeNode;

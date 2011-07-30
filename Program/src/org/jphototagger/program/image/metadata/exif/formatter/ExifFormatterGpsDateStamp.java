@@ -2,7 +2,7 @@ package org.jphototagger.program.image.metadata.exif.formatter;
 
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.image.metadata.exif.Ensure;
-import org.jphototagger.program.image.metadata.exif.ExifTag;
+import org.jphototagger.domain.exif.ExifTag;
 import org.jphototagger.program.image.metadata.exif.ExifTagValueFormatter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

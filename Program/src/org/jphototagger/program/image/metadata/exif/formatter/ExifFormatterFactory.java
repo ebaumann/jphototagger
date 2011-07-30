@@ -1,7 +1,7 @@
 package org.jphototagger.program.image.metadata.exif.formatter;
 
-import org.jphototagger.program.image.metadata.exif.ExifMetadata.IfdType;
-import org.jphototagger.program.image.metadata.exif.ExifTag;
+import org.jphototagger.domain.exif.ExifIfdType;
+import org.jphototagger.domain.exif.ExifTag;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -61,7 +61,7 @@ public final class ExifFormatterFactory {
             throw new NullPointerException("exifTag == null");
         }
 
-        IfdType ifdType = exifTag.getIfdType();
+        ExifIfdType ifdType = exifTag.getIfdType();
         int tagId = exifTag.getTagId();
 
         switch (ifdType) {

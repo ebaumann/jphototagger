@@ -2,8 +2,8 @@ package org.jphototagger.program.image.metadata.exif.formatter.canon;
 
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.image.metadata.exif.ExifMakerNotes;
-import org.jphototagger.program.image.metadata.exif.ExifMetadata.IfdType;
-import org.jphototagger.program.image.metadata.exif.ExifTag;
+import org.jphototagger.domain.exif.ExifIfdType;
+import org.jphototagger.domain.exif.ExifTag;
 import org.jphototagger.program.image.metadata.exif.ExifTags;
 import java.io.File;
 import java.util.ResourceBundle;
@@ -51,7 +51,7 @@ public final class CanonMakerNotes implements ExifMakerNotes {
     static void addTag(ExifTags exifTags, int tagId, String nameBundleKey, String value) {
         try {
             exifTags.addMakerNoteTag(new ExifTag(tagId, -1, -1, -1, null, value, -1, BUNDLE.getString(nameBundleKey),
-                    IfdType.MAKER_NOTE));
+                    ExifIfdType.MAKER_NOTE));
         } catch (Exception ex) {
             AppLogger.logSevere(CanonMakerNotes.class, ex);
         }

@@ -12,7 +12,7 @@ import org.jphototagger.image.util.ImageTransform;
 import org.jphototagger.lib.runtime.External;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.database.metadata.exif.ExifThumbnailUtil;
-import org.jphototagger.program.image.metadata.exif.ExifTag;
+import org.jphototagger.domain.exif.ExifTag;
 import org.jphototagger.program.image.metadata.exif.ExifTags;
 import org.jphototagger.program.types.FileType;
 import org.jphototagger.program.UserSettings;

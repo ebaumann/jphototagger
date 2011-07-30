@@ -1,5 +1,7 @@
 package org.jphototagger.program.image.metadata.exif;
 
+import org.jphototagger.domain.exif.ExifTag;
+import org.jphototagger.domain.exif.ExifIfdType;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +18,8 @@ public class ExifTagsTest {
     public void testWriteToFile() throws Exception {
         File file = getFile();
         try {
-            ExifTag exifTag1 = new ExifTag(125, 250, 500, 1000L, new byte[]{0x3C, 0x78, 0x3A}, "abc", 47, "bla", ExifMetadata.IfdType.EXIF);
-            ExifTag exifTag2 = new ExifTag(521, 52, 5, 1L, new byte[]{0x30, 0x75, 0x0A}, "def", 74, "blu", ExifMetadata.IfdType.GPS);
+            ExifTag exifTag1 = new ExifTag(125, 250, 500, 1000L, new byte[]{0x3C, 0x78, 0x3A}, "abc", 47, "bla", ExifIfdType.EXIF);
+            ExifTag exifTag2 = new ExifTag(521, 52, 5, 1L, new byte[]{0x30, 0x75, 0x0A}, "def", 74, "blu", ExifIfdType.GPS);
             ExifTags exifTags = new ExifTags();
 
             exifTags.addExifTag(exifTag1);

@@ -1,17 +1,17 @@
 package org.jphototagger.program.database.metadata.selections;
 
 import org.jphototagger.domain.database.Column;
-import org.jphototagger.domain.database.column.ColumnXmpDcCreator;
-import org.jphototagger.domain.database.column.ColumnXmpDcRights;
-import org.jphototagger.domain.database.column.ColumnXmpDcSubjectsSubject;
-import org.jphototagger.domain.database.column.ColumnXmpIptc4xmpcoreLocation;
-import org.jphototagger.domain.database.column.ColumnXmpPhotoshopAuthorsposition;
-import org.jphototagger.domain.database.column.ColumnXmpPhotoshopCaptionwriter;
-import org.jphototagger.domain.database.column.ColumnXmpPhotoshopCity;
-import org.jphototagger.domain.database.column.ColumnXmpPhotoshopCountry;
-import org.jphototagger.domain.database.column.ColumnXmpPhotoshopCredit;
-import org.jphototagger.domain.database.column.ColumnXmpPhotoshopSource;
-import org.jphototagger.domain.database.column.ColumnXmpPhotoshopState;
+import org.jphototagger.domain.database.xmp.ColumnXmpDcCreator;
+import org.jphototagger.domain.database.xmp.ColumnXmpDcRights;
+import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.domain.database.xmp.ColumnXmpIptc4xmpcoreLocation;
+import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopAuthorsposition;
+import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopCaptionwriter;
+import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopCity;
+import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopCountry;
+import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopCredit;
+import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopSource;
+import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopState;
 import java.util.ArrayList;
 import java.util.List;
 

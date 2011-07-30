@@ -2,7 +2,7 @@ package org.jphototagger.domain.templates;
 
 import org.jphototagger.domain.database.Column;
 import org.jphototagger.domain.xmp.Xmp;
-import org.jphototagger.domain.database.column.XmpColumns;
+import org.jphototagger.domain.database.xmp.XmpColumns;
 import java.util.HashMap;
 import java.util.Set;
 

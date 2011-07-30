@@ -1,6 +1,6 @@
 package org.jphototagger.program.controller.search;
 
-import org.jphototagger.domain.database.ParamStatement;
+import org.jphototagger.domain.database.search.ParamStatement;
 import org.jphototagger.program.data.SavedSearch;
 import org.jphototagger.program.database.DatabaseFind;
 import org.jphototagger.program.event.listener.RefreshListener;

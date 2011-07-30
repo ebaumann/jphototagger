@@ -1,5 +1,7 @@
 package org.jphototagger.program.image.metadata.exif;
 
+import org.jphototagger.domain.exif.ExifTag;
+import org.jphototagger.domain.exif.ExifIfdType;
 import com.imagero.reader.ImageReader;
 import com.imagero.reader.jpeg.JpegReader;
 import com.imagero.reader.MetadataUtils;
@@ -7,7 +9,6 @@ import com.imagero.reader.tiff.EXIF;
 import com.imagero.reader.tiff.IFDEntry;
 import com.imagero.reader.tiff.ImageFileDirectory;
 import com.imagero.reader.tiff.TiffReader;
-import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.domain.exif.Exif;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.types.FileType;
@@ -16,6 +17,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.jphototagger.program.app.AppFileFilters;
+import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.cache.ExifCache;
 
 /**
@@ -28,16 +30,8 @@ public final class ExifMetadata {
 
     private static final Logger LOGGER = Logger.getLogger(ExifMetadata.class.getName());
 
-    public enum IfdType {
-        EXIF,
-        GPS,
-        INTEROPERABILITY,
-        MAKER_NOTE,
-        UNDEFINED,
-        ;
+    private ExifMetadata() {
     }
-
-    private ExifMetadata() {}
 
     /**
      * Returns {@link ExifTag} instances of an image file.
@@ -46,7 +40,7 @@ public final class ExifMetadata {
      * @return           EXIF entries or null if errors occured
      */
     public static ExifTags getExifTags(File imageFile) {
-        if ((imageFile == null) ||!imageFile.exists()) {
+        if ((imageFile == null) || !imageFile.exists()) {
             return null;
         }
 
@@ -56,7 +50,7 @@ public final class ExifMetadata {
             LOGGER.log(Level.INFO, "Reading EXIF from image file ''{0}'', size {1} Bytes", new Object[]{imageFile, imageFile.length()});
             addExifTags(imageFile, exifTags);
         } catch (Exception ex) {
-            AppLogger.logSevere(ExifMetadata.class, ex);
+            Logger.getLogger(ExifMetadata.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         ExifMakerNotesFactory.add(imageFile, exifTags);
@@ -80,7 +74,7 @@ public final class ExifMetadata {
             // FIXME: IfdType.EXIF: How to determine the IFD type of an IFD
             // (using not IfdType.EXIF)?
             for (int i = 0; i < count; i++) {
-                addTagsOfIfd(((TiffReader) imageReader).getIFD(i), IfdType.EXIF, exifTags);
+                addTagsOfIfd(((TiffReader) imageReader).getIFD(i), ExifIfdType.EXIF, exifTags);
             }
         }
 
@@ -96,13 +90,13 @@ public final class ExifMetadata {
 
                 for (int j = 0; j < currentIfdEntry.length; j++) {
                     IFDEntry entry = currentIfdEntry[j];
-                    ExifTag exifTag = new ExifTag(entry, IfdType.EXIF);
+                    ExifTag exifTag = new ExifTag(entry, ExifIfdType.EXIF);
                     ExifTag.Id exifTagId = exifTag.convertTagIdToEnumId();
 
                     if (exifTagId.isGpsId()) {
-                        exifTags.addGpsTag(new ExifTag(entry, IfdType.GPS));
+                        exifTags.addGpsTag(new ExifTag(entry, ExifIfdType.GPS));
                     } else if (exifTagId.isMakerNoteId()) {
-                        exifTags.addMakerNoteTag(new ExifTag(entry, IfdType.MAKER_NOTE));
+                        exifTags.addMakerNoteTag(new ExifTag(entry, ExifIfdType.MAKER_NOTE));
                     } else {
                         exifTags.addExifTag(exifTag);
                     }
@@ -117,37 +111,37 @@ public final class ExifMetadata {
         }
     }
 
-    private static void addTagsOfIfd(ImageFileDirectory ifd, IfdType ifdType, ExifTags exifTags) {
-        if (!ifdType.equals(IfdType.UNDEFINED)) {
+    private static void addTagsOfIfd(ImageFileDirectory ifd, ExifIfdType ifdType, ExifTags exifTags) {
+        if (!ifdType.equals(ExifIfdType.UNDEFINED)) {
             addExifTags(ifd, ifdType, exifTags);
         }
 
         for (int i = 0; i < ifd.getIFDCount(); i++) {
             ImageFileDirectory subIfd = ifd.getIFDAt(i);
 
-            addTagsOfIfd(subIfd, IfdType.UNDEFINED, exifTags);    // recursive
+            addTagsOfIfd(subIfd, ExifIfdType.UNDEFINED, exifTags);    // recursive
         }
 
         ImageFileDirectory exifIFD = ifd.getExifIFD();
 
         if (exifIFD != null) {
-            addTagsOfIfd(exifIFD, IfdType.EXIF, exifTags);    // recursive
+            addTagsOfIfd(exifIFD, ExifIfdType.EXIF, exifTags);    // recursive
         }
 
         ImageFileDirectory gpsIFD = ifd.getGpsIFD();
 
         if (gpsIFD != null) {
-            addTagsOfIfd(gpsIFD, IfdType.GPS, exifTags);    // recursive
+            addTagsOfIfd(gpsIFD, ExifIfdType.GPS, exifTags);    // recursive
         }
 
         ImageFileDirectory interoperabilityIFD = ifd.getInteroperabilityIFD();
 
         if (interoperabilityIFD != null) {
-            addTagsOfIfd(interoperabilityIFD, IfdType.INTEROPERABILITY, exifTags);    // recursive
+            addTagsOfIfd(interoperabilityIFD, ExifIfdType.INTEROPERABILITY, exifTags);    // recursive
         }
     }
 
-    private static void addExifTags(ImageFileDirectory ifd, IfdType ifdType, ExifTags exifTags) {
+    private static void addExifTags(ImageFileDirectory ifd, ExifIfdType ifdType, ExifTags exifTags) {
         int entryCount = ifd.getEntryCount();
 
         for (int i = 0; i < entryCount; i++) {
@@ -157,28 +151,28 @@ public final class ExifMetadata {
                 ExifTag exifTag = new ExifTag(ifdEntry, ifdType);
 
                 switch (ifdType) {
-                case EXIF :
-                    exifTags.addExifTag(exifTag);
+                    case EXIF:
+                        exifTags.addExifTag(exifTag);
 
-                    break;
+                        break;
 
-                case GPS :
-                    exifTags.addGpsTag(exifTag);
+                    case GPS:
+                        exifTags.addGpsTag(exifTag);
 
-                    break;
+                        break;
 
-                case INTEROPERABILITY :
-                    exifTags.addInteroperabilityTag(exifTag);
+                    case INTEROPERABILITY:
+                        exifTags.addInteroperabilityTag(exifTag);
 
-                    break;
+                        break;
 
-                case MAKER_NOTE :
-                    exifTags.addMakerNoteTag(exifTag);
+                    case MAKER_NOTE:
+                        exifTags.addMakerNoteTag(exifTag);
 
-                    break;
+                        break;
 
-                default :
-                    assert(false);
+                    default:
+                        assert (false);
                 }
             }
         }

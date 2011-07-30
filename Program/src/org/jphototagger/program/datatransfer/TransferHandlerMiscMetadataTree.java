@@ -6,7 +6,7 @@ import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.domain.database.ColumnData;
 import org.jphototagger.domain.database.Column;
-import org.jphototagger.domain.database.column.XmpColumns;
+import org.jphototagger.domain.database.xmp.XmpColumns;
 import org.jphototagger.program.helper.MiscMetadataHelper;
 import java.awt.datatransfer.Transferable;
 import java.io.File;

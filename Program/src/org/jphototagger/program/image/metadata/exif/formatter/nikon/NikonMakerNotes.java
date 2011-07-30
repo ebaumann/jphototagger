@@ -6,8 +6,8 @@ import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.image.metadata.exif.ExifMakerNotes;
 import org.jphototagger.program.image.metadata.exif.ExifMetadata;
-import org.jphototagger.program.image.metadata.exif.ExifMetadata.IfdType;
-import org.jphototagger.program.image.metadata.exif.ExifTag;
+import org.jphototagger.domain.exif.ExifIfdType;
+import org.jphototagger.domain.exif.ExifTag;
 import org.jphototagger.program.image.metadata.exif.ExifTags;
 import java.io.File;
 import java.util.ArrayList;
@@ -98,7 +98,7 @@ public final class NikonMakerNotes implements ExifMakerNotes {
             int count = ifd.getEntryCount();
 
             for (int i = 0; i < count; i++) {
-                allMakerNoteTags.add(new ExifTag(ifd.getEntryAt(i), IfdType.MAKER_NOTE));
+                allMakerNoteTags.add(new ExifTag(ifd.getEntryAt(i), ExifIfdType.MAKER_NOTE));
             }
 
             exifTags.addMakerNoteTags(nikonMakerNote.getDisplayableMakerNotesOf(allMakerNoteTags));
@@ -123,7 +123,7 @@ public final class NikonMakerNotes implements ExifMakerNotes {
                     exifTags.addExifTag(new ExifTag(pair.getSecond(), makerNoteTag.getDataTypeId(),
                                                     makerNoteTag.getValueCount(), makerNoteTag.getValueOffset(),
                                                     makerNoteTag.getRawValue(), makerNoteTag.getStringValue(),
-                                                    makerNoteTag.getByteOrderId(), makerNoteTag.getName(), IfdType.EXIF));
+                                                    makerNoteTag.getByteOrderId(), makerNoteTag.getName(), ExifIfdType.EXIF));
                 }
             }
         }

@@ -1,6 +1,7 @@
 package org.jphototagger.program.image.metadata.exif;
 
-import org.jphototagger.program.image.metadata.exif.datatype.ExifDataType;
+import org.jphototagger.domain.exif.ExifTag;
+import org.jphototagger.domain.exif.ExifDataType;
 
 /**
  * Checks conditions and throws Exceptions if not fullified.

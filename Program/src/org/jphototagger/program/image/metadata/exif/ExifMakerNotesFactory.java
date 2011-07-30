@@ -1,5 +1,6 @@
 package org.jphototagger.program.image.metadata.exif;
 
+import org.jphototagger.domain.exif.ExifTag;
 import org.jphototagger.program.image.metadata.exif.formatter.canon.CanonMakerNotes;
 import org.jphototagger.program.image.metadata.exif.formatter.nikon.NikonMakerNotes;
 import java.io.File;

@@ -3,10 +3,10 @@ package org.jphototagger.program.view.renderer;
 import javax.swing.table.TableModel;
 import org.jphototagger.lib.componentutil.TableUtil;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.database.metadata.selections.ExifInDatabase;
-import org.jphototagger.program.image.metadata.exif.ExifMetadata.IfdType;
-import org.jphototagger.program.image.metadata.exif.ExifTag;
-import org.jphototagger.program.image.metadata.exif.ExifTag.Id;
+import org.jphototagger.domain.database.exif.ExifInDatabase;
+import org.jphototagger.domain.exif.ExifIfdType;
+import org.jphototagger.domain.exif.ExifTag;
+import org.jphototagger.domain.exif.ExifTag.Id;
 import org.jphototagger.program.image.metadata.exif.ExifTagValueFormatter;
 import org.jphototagger.program.image.metadata.exif.tag.ExifGpsMetadata;
 import org.jphototagger.program.resource.JptBundle;
@@ -76,8 +76,8 @@ public final class TableCellRendererExif extends FormatterLabelMetadata implemen
 
     private static String getTagName(ExifTag exifTag) {
         String tagName = exifTag.getName();
-        IfdType ifdType = exifTag.getIfdType();
-        boolean isMakerNoteIfd = ifdType.equals(IfdType.MAKER_NOTE);
+        ExifIfdType ifdType = exifTag.getIfdType();
+        boolean isMakerNoteIfd = ifdType.equals(ExifIfdType.MAKER_NOTE);
 
         if (isMakerNoteIfd) {
             return tagName;
@@ -104,13 +104,13 @@ public final class TableCellRendererExif extends FormatterLabelMetadata implemen
     }
 
     private void setIsMakerNoteTagColor(JLabel cellLabel, ExifTag exifTag, boolean isSelected) {
-        if (exifTag.getIfdType().equals(IfdType.MAKER_NOTE)) {
+        if (exifTag.getIfdType().equals(ExifIfdType.MAKER_NOTE)) {
             setIsExifMakerNoteColors(cellLabel, isSelected);
         }
     }
 
     private void setIsStoredInDatabaseColor(JLabel cellLabel, ExifTag exifTag, boolean isSelected) {
-        IfdType ifdType = exifTag.getIfdType();
+        ExifIfdType ifdType = exifTag.getIfdType();
         Id ExifTagId = exifTag.convertTagIdToEnumId();
 
         if (ExifInDatabase.isInDatabase(ifdType, ExifTagId)) {

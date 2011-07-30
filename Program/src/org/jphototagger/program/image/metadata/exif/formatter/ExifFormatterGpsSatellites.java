@@ -2,7 +2,7 @@ package org.jphototagger.program.image.metadata.exif.formatter;
 
 import org.jphototagger.program.image.metadata.exif.datatype.ExifAscii;
 import org.jphototagger.program.image.metadata.exif.Ensure;
-import org.jphototagger.program.image.metadata.exif.ExifTag;
+import org.jphototagger.domain.exif.ExifTag;
 
 /**
  * Formats an EXIF entry of the dataType {@code ExifTag.Id#GPS_SATELLITES}.

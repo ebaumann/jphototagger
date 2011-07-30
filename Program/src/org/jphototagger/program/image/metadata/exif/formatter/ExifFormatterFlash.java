@@ -3,8 +3,8 @@ package org.jphototagger.program.image.metadata.exif.formatter;
 import org.jphototagger.lib.util.ByteUtil;
 import org.jphototagger.program.image.metadata.exif.datatype.ExifAscii;
 import org.jphototagger.program.image.metadata.exif.Ensure;
-import org.jphototagger.program.image.metadata.exif.ExifMetadata.IfdType;
-import org.jphototagger.program.image.metadata.exif.ExifTag;
+import org.jphototagger.domain.exif.ExifIfdType;
+import org.jphototagger.domain.exif.ExifTag;
 
 /**
  * Formats an EXIF entry of the dataType {@code ExifTag.Id#FLASH}.
@@ -32,12 +32,12 @@ public final class ExifFormatterFlash extends ExifFormatter {
             boolean hasFlash = !bitsByte1[5];
 
             if (!hasFlash) {
-                return translate(IfdType.EXIF, "FlashNone");
+                return translate(ExifIfdType.EXIF, "FlashNone");
             }
 
             return fired
-                   ? translate(IfdType.EXIF, "FlashFired")
-                   : translate(IfdType.EXIF, "FlashNotFired");
+                   ? translate(ExifIfdType.EXIF, "FlashFired")
+                   : translate(ExifIfdType.EXIF, "FlashNotFired");
         }
 
         return ExifAscii.convertRawValueToString(rawValue);

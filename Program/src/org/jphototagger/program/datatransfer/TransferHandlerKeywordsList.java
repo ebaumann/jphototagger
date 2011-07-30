@@ -5,7 +5,7 @@ import org.jphototagger.lib.datatransfer.TransferUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.domain.database.ColumnData;
-import org.jphototagger.domain.database.column.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
 import org.jphototagger.program.helper.MiscMetadataHelper;
 import org.jphototagger.program.view.panels.KeywordsPanel;
 import java.awt.datatransfer.Transferable;

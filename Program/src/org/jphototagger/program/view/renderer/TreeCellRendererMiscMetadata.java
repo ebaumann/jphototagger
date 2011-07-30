@@ -2,9 +2,9 @@ package org.jphototagger.program.view.renderer;
 
 import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.domain.database.Column;
-import org.jphototagger.program.database.metadata.exif.ColumnExifFocalLength;
+import org.jphototagger.domain.database.exif.ColumnExifFocalLength;
 import org.jphototagger.program.database.metadata.selections.ColumnIcons;
-import org.jphototagger.domain.database.column.ColumnXmpRating;
+import org.jphototagger.domain.database.xmp.ColumnXmpRating;
 import org.jphototagger.program.model.TreeModelMiscMetadata;
 import org.jphototagger.program.resource.JptBundle;
 import java.awt.Component;

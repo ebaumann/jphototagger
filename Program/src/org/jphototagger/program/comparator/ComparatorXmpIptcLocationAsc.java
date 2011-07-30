@@ -3,7 +3,7 @@ package org.jphototagger.program.comparator;
 import org.jphototagger.lib.util.ClassEquality;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.domain.database.column.ColumnXmpIptc4xmpcoreLocation;
+import org.jphototagger.domain.database.xmp.ColumnXmpIptc4xmpcoreLocation;
 import java.io.File;
 import java.io.Serializable;
 import java.text.Collator;

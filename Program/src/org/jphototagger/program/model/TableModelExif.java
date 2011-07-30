@@ -4,7 +4,7 @@ import org.jphototagger.lib.model.TableModelExt;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.cache.ExifCache;
 import org.jphototagger.program.image.metadata.exif.ExifMetadata;
-import org.jphototagger.program.image.metadata.exif.ExifTag;
+import org.jphototagger.domain.exif.ExifTag;
 import org.jphototagger.program.image.metadata.exif.ExifTagDisplayComparator;
 import org.jphototagger.program.image.metadata.exif.ExifTags;
 import org.jphototagger.program.image.metadata.exif.ExifTagsToDisplay;

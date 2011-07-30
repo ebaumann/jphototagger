@@ -6,7 +6,7 @@ import javax.swing.event.DocumentEvent;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.data.SavedSearch;
 import org.jphototagger.program.data.SavedSearchPanel;
-import org.jphototagger.domain.database.ParamStatement;
+import org.jphototagger.domain.database.search.ParamStatement;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Persistence;
 import org.jphototagger.program.UserSettings;
