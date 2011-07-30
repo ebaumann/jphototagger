@@ -1,4 +1,4 @@
-package org.jphototagger.program.image.metadata.iptc;
+package org.jphototagger.iptc;
 
 import java.util.Comparator;
 

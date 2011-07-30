@@ -7,7 +7,7 @@ import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.event.listener.ProgressListener;
 import org.jphototagger.lib.event.ProgressEvent;
 import org.jphototagger.domain.database.InsertIntoDatabase;
-import org.jphototagger.program.image.metadata.iptc.IptcMetadata;
+import org.jphototagger.iptc.IptcMetadata;
 import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
 import java.io.File;
 import java.io.IOException;

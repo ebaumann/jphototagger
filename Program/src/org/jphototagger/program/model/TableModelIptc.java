@@ -1,16 +1,16 @@
 package org.jphototagger.program.model;
 
 import org.jphototagger.lib.model.TableModelExt;
-import org.jphototagger.program.image.metadata.iptc.IptcEntry;
-import org.jphototagger.program.image.metadata.iptc.IptcEntryComparator;
-import org.jphototagger.program.image.metadata.iptc.IptcMetadata;
+import org.jphototagger.iptc.IptcEntry;
+import org.jphototagger.iptc.IptcEntryComparator;
+import org.jphototagger.iptc.IptcMetadata;
 import org.jphototagger.program.resource.JptBundle;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import org.jphototagger.program.app.AppFileFilters;
-import org.jphototagger.program.cache.IptcIgnoreCache;
+import org.jphototagger.iptc.IptcIgnoreCache;
 
 /**
  * All elements are {@link IptcEntry}s of <em>one</em> image file retrieved

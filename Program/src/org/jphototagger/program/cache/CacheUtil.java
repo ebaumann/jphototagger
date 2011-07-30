@@ -1,5 +1,6 @@
 package org.jphototagger.program.cache;
 
+import org.jphototagger.iptc.IptcIgnoreCache;
 import org.jphototagger.exif.cache.ExifCache;
 
 /**

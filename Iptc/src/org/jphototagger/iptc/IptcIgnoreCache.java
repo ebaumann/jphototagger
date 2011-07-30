@@ -1,17 +1,17 @@
-package org.jphototagger.program.cache;
+package org.jphototagger.iptc;
 
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.domain.event.ImageFileMovedEvent;
 import org.jphototagger.domain.event.ImageFileRemovedEvent;
 import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.lib.util.ServiceLookup;
 import org.jphototagger.services.core.CacheDirectoryProvider;
+import org.jphototagger.services.core.UserProperties;
 
 /**
  *
@@ -26,7 +26,7 @@ public final class IptcIgnoreCache {
     public static final IptcIgnoreCache INSTANCE = new IptcIgnoreCache();
 
     public boolean isIgnore(File imageFile) {
-        if (!UserSettings.INSTANCE.isDisplayIptc()) {
+        if (!isDisplayIptc()) {
             return true;
         }
 
@@ -41,6 +41,12 @@ public final class IptcIgnoreCache {
         }
 
         return ignore;
+    }
+
+    private boolean isDisplayIptc() {
+        UserProperties properties = ServiceLookup.lookup(UserProperties.class);
+
+        return properties.isDisplayIptc();
     }
 
     public void setIgnore(File imageFile, boolean ignore) {
@@ -66,7 +72,7 @@ public final class IptcIgnoreCache {
             FileUtil.writeStringAsFile(FILE_CONTENT, cacheFile);
             FileUtil.touch(cacheFile, imageFile);
         } catch (Throwable throwable) {
-            AppLogger.logSevere(IptcIgnoreCache.class, throwable);
+            LOGGER.log(Level.SEVERE, null, throwable);
         }
     }
 
@@ -189,8 +195,8 @@ public final class IptcIgnoreCache {
             try {
                 LOGGER.log(Level.FINEST, "IPTC Ignore Cache: Creating cache directory ''{0}''", CACHE_DIR);
                 FileUtil.ensureDirectoryExists(CACHE_DIR);
-            } catch (Throwable ex) {
-                AppLogger.logSevere(IptcIgnoreCache.class, ex);
+            } catch (Throwable throwable) {
+                LOGGER.log(Level.SEVERE, null, throwable);
             }
         }
     }

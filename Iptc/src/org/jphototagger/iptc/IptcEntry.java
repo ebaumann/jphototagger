@@ -1,10 +1,14 @@
-package org.jphototagger.program.image.metadata.iptc;
+package org.jphototagger.iptc;
+
+import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.jphototagger.lib.util.ServiceLookup;
+import org.jphototagger.services.core.UserProperties;
 
 import com.imagero.reader.iptc.IPTCEntry;
 import com.imagero.reader.iptc.IPTCEntryMeta;
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.UserSettings;
-import java.util.Arrays;
 
 /**
  * IPTC-Eintrag in einer Bilddatei. Dekodiert die Daten (getData()) als
@@ -13,6 +17,7 @@ import java.util.Arrays;
  * @author Elmar Baumann
  */
 public final class IptcEntry {
+
     private final String name;
     private final byte[] data;
     private final int recordNumber;
@@ -82,7 +87,7 @@ public final class IptcEntry {
             IptcEntry otherEntry = (IptcEntry) o;
 
             return (recordNumber == otherEntry.recordNumber) && (datasetNumber == otherEntry.datasetNumber)
-                   && getData().equals(otherEntry.getData());
+                    && getData().equals(otherEntry.getData());
         }
 
         return false;
@@ -100,9 +105,13 @@ public final class IptcEntry {
 
     private String getEncodedData() {
         try {
-            return new String(data, UserSettings.INSTANCE.getIptcCharset()).trim();
+            UserProperties properties = ServiceLookup.lookup(UserProperties.class);
+            String iptcCharset = properties.getIptcCharset();
+            String encodedData = new String(data, iptcCharset);
+
+            return encodedData.trim();
         } catch (Exception ex) {
-            AppLogger.logSevere(IptcEntry.class, ex);
+            Logger.getLogger(IptcEntry.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return "";
