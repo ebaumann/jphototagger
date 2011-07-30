@@ -1,6 +1,5 @@
 package org.jphototagger.program.view.panels;
 
-import java.util.List;
 import org.jphototagger.lib.dialog.DirectoryChooser.Option;
 import org.jphototagger.domain.event.UserSettingsEvent;
 import org.jphototagger.domain.event.UserSettingsEvent.Type;
@@ -16,10 +15,6 @@ import java.io.File;
 import java.util.logging.Level;
 import javax.swing.Icon;
 import javax.swing.filechooser.FileSystemView;
-import org.jphototagger.lib.componentutil.ComponentUtil;
-import org.jphototagger.lib.util.SystemProperties;
-import org.jphototagger.program.app.AppFileFilters;
-import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.controller.misc.ControllerUpdateCheck;
 import org.jphototagger.domain.event.listener.UserSettingsListener;
 import org.jphototagger.program.factory.ControllerFactory;
@@ -92,25 +87,6 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
         }
     }
 
-    private void displayExperimentalFileFormats() {
-        ComponentUtil.show(experimentalFileFormatsDialog);
-    }
-
-    private String getExperimentalFileFormatsAsText() {
-        StringBuilder sb = new StringBuilder();
-        List<String> experimentalFileFormatDescriptions = AppFileFilters.getExperimentalFileFormatDescriptions();
-        String lineSeparator = SystemProperties.getLineSeparator();
-        boolean isFirstLine = true;
-
-        for (String description : experimentalFileFormatDescriptions) {
-            sb.append(isFirstLine ? "" : lineSeparator);
-            sb.append(description);
-            isFirstLine = false;
-        }
-
-        return sb.toString();
-    }
-
     private void handleActionPerformedSetStandardDatabaseDirectory() {
         setDatabaseDirectoryName(
             UserSettings.INSTANCE.getDefaultDatabaseDirectoryName(), false);
@@ -147,10 +123,6 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
         UserSettings.INSTANCE.setAddFilenameToGpsLocationExport(checkBoxAddFilenameToGpsLocationExport.isSelected());
     }
 
-    private void setExperimentalFileFormats() {
-        UserSettings.INSTANCE.setUseExperimentalFileFormats(checkBoxExperimentalFileFormats.isSelected());
-    }
-
     private void checkLogLevel() {
         if (comboBoxLogLevel.getSelectedIndex() < 0) {
             comboBoxLogLevel.setSelectedIndex(0);
@@ -182,7 +154,6 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
         checkBoxDisplaySearchButton.setSelected(UserSettings.INSTANCE.isDisplaySearchButton());
         checkBoxIsAcceptHiddenDirectories.setSelected(settings.isAcceptHiddenDirectories());
         checkBoxAddFilenameToGpsLocationExport.setSelected(settings.isAddFilenameToGpsLocationExport());
-        checkBoxExperimentalFileFormats.setSelected(settings.isUseExperimentalFileFormats());
         setIptcCharsetFromUserSettings();
         comboBoxLogLevel.setSelectedItem(settings.getLogLevel().getLocalizedName());
         labelDatabaseDirectory.setText(UserSettings.INSTANCE.getDatabaseDirectoryName());
@@ -210,22 +181,14 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
 
         buttonGroupCopyMoveFiles = new javax.swing.ButtonGroup();
-        experimentalFileFormatsDialog = new javax.swing.JDialog();
-        labelExperimentalFileFormatsPrompt = new javax.swing.JLabel();
-        scrollPaneExperimentalFileFormats = new javax.swing.JScrollPane();
-        textAreaExperimentalFileFormats = new javax.swing.JTextArea();
-        labelExperimentalFileFormatsInfo = new org.jdesktop.swingx.JXLabel();
         checkBoxIsAcceptHiddenDirectories = new javax.swing.JCheckBox();
         checkBoxAutoDownloadCheck = new javax.swing.JCheckBox();
         buttonCheckDownload = new javax.swing.JButton();
         checkBoxDisplaySearchButton = new javax.swing.JCheckBox();
         checkBoxAddFilenameToGpsLocationExport = new javax.swing.JCheckBox();
-        checkBoxExperimentalFileFormats = new javax.swing.JCheckBox();
-        buttonDisplayExperimentalFileFormats = new javax.swing.JButton();
         panelCopyMoveFiles = new javax.swing.JPanel();
         radioButtonCopyMoveFileConfirmOverwrite = new javax.swing.JRadioButton();
         radioButtonCopyMoveFileRenameIfExists = new javax.swing.JRadioButton();
@@ -241,55 +204,6 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
         labelPromptDatabaseBackupDirectory = new javax.swing.JLabel();
         labelDatabaseBackupDirectory = new javax.swing.JLabel();
         buttonChooseDatabaseBackupDirectory = new javax.swing.JButton();
-
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/resource/properties/Bundle"); // NOI18N
-        experimentalFileFormatsDialog.setTitle(bundle.getString("SettingsMiscPanel.experimentalFileFormatsDialog.title")); // NOI18N
-        experimentalFileFormatsDialog.setIconImages(AppLookAndFeel.getAppIcons());
-        experimentalFileFormatsDialog.setModal(true);
-        experimentalFileFormatsDialog.setName("experimentalFileFormatsDialog"); // NOI18N
-
-        labelExperimentalFileFormatsPrompt.setText(bundle.getString("SettingsMiscPanel.labelExperimentalFileFormatsPrompt.text")); // NOI18N
-        labelExperimentalFileFormatsPrompt.setName("labelExperimentalFileFormatsPrompt"); // NOI18N
-
-        scrollPaneExperimentalFileFormats.setName("scrollPaneExperimentalFileFormats"); // NOI18N
-
-        textAreaExperimentalFileFormats.setColumns(20);
-        textAreaExperimentalFileFormats.setEditable(false);
-        textAreaExperimentalFileFormats.setRows(5);
-        textAreaExperimentalFileFormats.setText(getExperimentalFileFormatsAsText());
-        textAreaExperimentalFileFormats.setName("textAreaExperimentalFileFormats"); // NOI18N
-        scrollPaneExperimentalFileFormats.setViewportView(textAreaExperimentalFileFormats);
-
-        labelExperimentalFileFormatsInfo.setLineWrap(true);
-        labelExperimentalFileFormatsInfo.setText(bundle.getString("SettingsMiscPanel.labelExperimentalFileFormatsInfo.text")); // NOI18N
-        labelExperimentalFileFormatsInfo.setName("labelExperimentalFileFormatsInfo"); // NOI18N
-
-        javax.swing.GroupLayout experimentalFileFormatsDialogLayout = new javax.swing.GroupLayout(experimentalFileFormatsDialog.getContentPane());
-        experimentalFileFormatsDialog.getContentPane().setLayout(experimentalFileFormatsDialogLayout);
-        experimentalFileFormatsDialogLayout.setHorizontalGroup(
-            experimentalFileFormatsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(experimentalFileFormatsDialogLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(experimentalFileFormatsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelExperimentalFileFormatsPrompt)
-                    .addComponent(scrollPaneExperimentalFileFormats, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
-                    .addComponent(labelExperimentalFileFormatsInfo, 0, 0, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        experimentalFileFormatsDialogLayout.setVerticalGroup(
-            experimentalFileFormatsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(experimentalFileFormatsDialogLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(labelExperimentalFileFormatsPrompt)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneExperimentalFileFormats, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelExperimentalFileFormatsInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        experimentalFileFormatsDialog.pack();
-        experimentalFileFormatsDialog.setLocationRelativeTo(this);
 
         setName("Form"); // NOI18N
 
@@ -330,23 +244,6 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
         checkBoxAddFilenameToGpsLocationExport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxAddFilenameToGpsLocationExportActionPerformed(evt);
-            }
-        });
-
-        checkBoxExperimentalFileFormats.setText(JptBundle.INSTANCE.getString("SettingsMiscPanel.checkBoxExperimentalFileFormats.text")); // NOI18N
-        checkBoxExperimentalFileFormats.setName("checkBoxExperimentalFileFormats"); // NOI18N
-        checkBoxExperimentalFileFormats.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkBoxExperimentalFileFormatsActionPerformed(evt);
-            }
-        });
-
-        buttonDisplayExperimentalFileFormats.setText(bundle.getString("SettingsMiscPanel.buttonDisplayExperimentalFileFormats.text")); // NOI18N
-        buttonDisplayExperimentalFileFormats.setToolTipText(bundle.getString("SettingsMiscPanel.buttonDisplayExperimentalFileFormats.toolTipText")); // NOI18N
-        buttonDisplayExperimentalFileFormats.setName("buttonDisplayExperimentalFileFormats"); // NOI18N
-        buttonDisplayExperimentalFileFormats.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonDisplayExperimentalFileFormatsActionPerformed(evt);
             }
         });
 
@@ -503,12 +400,14 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelDatabaseDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(checkBoxAutoDownloadCheck)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(buttonCheckDownload))
                     .addComponent(checkBoxDisplaySearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(checkBoxAddFilenameToGpsLocationExport)
+                    .addComponent(checkBoxIsAcceptHiddenDirectories)
+                    .addComponent(panelDatabaseDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelCopyMoveFiles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labelLogLevel)
@@ -517,13 +416,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labelIptcCharset)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(comboBoxIptcCharset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(checkBoxExperimentalFileFormats)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(buttonDisplayExperimentalFileFormats))
-                    .addComponent(checkBoxAddFilenameToGpsLocationExport)
-                    .addComponent(checkBoxIsAcceptHiddenDirectories))
+                        .addComponent(comboBoxIptcCharset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -539,11 +432,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
                 .addComponent(checkBoxDisplaySearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(checkBoxAddFilenameToGpsLocationExport)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(checkBoxExperimentalFileFormats)
-                    .addComponent(buttonDisplayExperimentalFileFormats))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelCopyMoveFiles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -557,7 +446,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
                 .addComponent(panelDatabaseDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-    }// </editor-fold>//GEN-END:initComponents
+    }//GEN-END:initComponents
 
     private void checkBoxAutoDownloadCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAutoDownloadCheckActionPerformed
         handleActionPerformedAutoDownload();
@@ -606,33 +495,20 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
     private void checkBoxAddFilenameToGpsLocationExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAddFilenameToGpsLocationExportActionPerformed
         handleActionPerformedCheckBoxAddFilenameToGpsLocationExport();
     }//GEN-LAST:event_checkBoxAddFilenameToGpsLocationExportActionPerformed
-
-    private void checkBoxExperimentalFileFormatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxExperimentalFileFormatsActionPerformed
-        setExperimentalFileFormats();
-    }//GEN-LAST:event_checkBoxExperimentalFileFormatsActionPerformed
-
-    private void buttonDisplayExperimentalFileFormatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDisplayExperimentalFileFormatsActionPerformed
-        displayExperimentalFileFormats();
-    }//GEN-LAST:event_buttonDisplayExperimentalFileFormatsActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCheckDownload;
     private javax.swing.JButton buttonChooseDatabaseBackupDirectory;
     private javax.swing.JButton buttonChooseDatabaseDirectory;
-    private javax.swing.JButton buttonDisplayExperimentalFileFormats;
     private javax.swing.ButtonGroup buttonGroupCopyMoveFiles;
     private javax.swing.JButton buttonSetStandardDatabaseDirectoryName;
     private javax.swing.JCheckBox checkBoxAddFilenameToGpsLocationExport;
     private javax.swing.JCheckBox checkBoxAutoDownloadCheck;
     private javax.swing.JCheckBox checkBoxDisplaySearchButton;
-    private javax.swing.JCheckBox checkBoxExperimentalFileFormats;
     private javax.swing.JCheckBox checkBoxIsAcceptHiddenDirectories;
     private javax.swing.JComboBox comboBoxIptcCharset;
     private javax.swing.JComboBox comboBoxLogLevel;
-    private javax.swing.JDialog experimentalFileFormatsDialog;
     private javax.swing.JLabel labelDatabaseBackupDirectory;
     private javax.swing.JLabel labelDatabaseDirectory;
-    private org.jdesktop.swingx.JXLabel labelExperimentalFileFormatsInfo;
-    private javax.swing.JLabel labelExperimentalFileFormatsPrompt;
     private javax.swing.JLabel labelInfoDatabaseDirectory;
     private javax.swing.JLabel labelIptcCharset;
     private javax.swing.JLabel labelLogLevel;
@@ -641,7 +517,5 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
     private javax.swing.JPanel panelDatabaseDirectory;
     private javax.swing.JRadioButton radioButtonCopyMoveFileConfirmOverwrite;
     private javax.swing.JRadioButton radioButtonCopyMoveFileRenameIfExists;
-    private javax.swing.JScrollPane scrollPaneExperimentalFileFormats;
-    private javax.swing.JTextArea textAreaExperimentalFileFormats;
     // End of variables declaration//GEN-END:variables
 }

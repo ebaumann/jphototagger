@@ -1,19 +1,17 @@
 package org.jphototagger.program.app;
 
 import java.io.File;
-import java.util.Collections;
+import java.io.FileFilter;
+import java.util.HashMap;
 import java.util.List;
-import org.jphototagger.lib.io.filefilter.RegexFileFilter;
+import java.util.Map;
+
 import org.jphototagger.domain.filetypes.UserDefinedFileType;
+import org.jphototagger.lib.io.filefilter.RegexFileFilter;
+import org.jphototagger.program.database.DatabaseUserDefinedFileTypes;
 import org.jphototagger.program.filefilter.NoXmpFileFilter;
 import org.jphototagger.program.filefilter.XmpRatingFileFilter;
 import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.UserSettings;
-import java.io.FileFilter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import org.jphototagger.program.database.DatabaseUserDefinedFileTypes;
 
 /**
  * Special file filters used in the application.
@@ -29,7 +27,6 @@ public final class AppFileFilters {
     public static final FileFilter XMP_RATING_4_STARS = new XmpRatingFileFilter(4);
     public static final FileFilter XMP_RATING_5_STARS = new XmpRatingFileFilter(5);
     private final Map<FileFilter, String> displayNameOfFilter = new HashMap<FileFilter, String>();
-    private static final List<String> EXPERIMENTAL_FILE_FORMAT_DESCRIPTIONS = new ArrayList<String>();
     private final RegexFileFilter allAcceptedImageFilesFilter;
     private final RegexFileFilter acceptedRawFilesFilter;
     private final RegexFileFilter acceptedDngFilesFilter;
@@ -45,14 +42,6 @@ public final class AppFileFilters {
         acceptedJpegFilesFilter = createAcceptedJpegFilesFiter();
         acceptedTiffFilesFilter = createAcceptedTiffFilesFiter();
         userDefinedFileTypesFilter = createUserDefindedFileTypesFilter();
-        boolean experimental = UserSettings.INSTANCE.isUseExperimentalFileFormats();
-
-        initExperimentalFileFormatDescriptions();
-
-        if (experimental) {
-            addRawImageFileExperimentalPatterns(acceptedRawFilesFilter);
-            addRawImageFileExperimentalPatterns(allAcceptedImageFilesFilter);
-        }
 
         if (userDefinedFileTypesFilter != null) {
             allAcceptedImageFilesFilter.addAcceptPatternsOf(userDefinedFileTypesFilter);
@@ -63,7 +52,8 @@ public final class AppFileFilters {
 
     private RegexFileFilter createAllAcceptedImagesFileFilter() {
         return new RegexFileFilter(
-                ".*\\.[cC][rR][wW];" // Canon RAW
+                  ".*\\.[aA][rR][wW]" // Sony (Alpha) RAW
+                + ".*\\.[cC][rR][wW];" // Canon RAW
                 + ".*\\.[cC][rR]2;" // Canon RAW 2
                 + ".*\\.[dD][cC][rR];" // Kodak RAW
                 + ".*\\.[dD][nN][gG];" // Digal Negative
@@ -71,6 +61,7 @@ public final class AppFileFilters {
                 + ".*\\.[jJ][pP][eE][gG];" // Joint Photographic Experts Group
                 + ".*\\.[mM][rR][wW];" // Minolta RAW
                 + ".*\\.[nN][eE][fF];" // Nikon RAW
+                + ".*\\.[sS][rR][wW]" // Samsung RAW
                 + ".*\\.[tT][hH][mM];" // EXIF Info
                 + ".*\\.[tT][iI][fF];" // Tagged Image File Format
                 + ".*\\.[tT][iI][fF][fF];" // Tagged Image File Format
@@ -79,11 +70,13 @@ public final class AppFileFilters {
 
     private RegexFileFilter createAcceptedRawFilesFiter() {
         return new RegexFileFilter(
-                ".*\\.[cC][rR][wW];" // Canon RAW
+                  ".*\\.[aA][rR][wW]" // Sony (Alpha) RAW
+                + ".*\\.[cC][rR][wW];" // Canon RAW
                 + ".*\\.[cC][rR]2;" // Canon RAW 2
                 + ".*\\.[dD][cC][rR];" // Kodak RAW
                 + ".*\\.[mM][rR][wW];" // Minolta RAW
                 + ".*\\.[nN][eE][fF];" // Nikon RAW
+                + ".*\\.[sS][rR][wW]" // Samsung RAW
                 , ";");
     }
 
@@ -143,20 +136,6 @@ public final class AppFileFilters {
         }
 
         return sb.toString();
-    }
-
-    private void addRawImageFileExperimentalPatterns(RegexFileFilter filter) {
-        filter.addAcceptPattern(".*\\.[sS][rR][wW]");    // Samsung RAW
-        filter.addAcceptPattern(".*\\.[aA][rR][wW]");    // Sony (Alpha) RAW
-    }
-
-    private void initExperimentalFileFormatDescriptions() {
-        EXPERIMENTAL_FILE_FORMAT_DESCRIPTIONS.add("Samsung RAW (*.srw)");
-        EXPERIMENTAL_FILE_FORMAT_DESCRIPTIONS.add("Sony Alpha RAW (*.arw)");
-    }
-
-    public static List<String> getExperimentalFileFormatDescriptions() {
-        return Collections.unmodifiableList(EXPERIMENTAL_FILE_FORMAT_DESCRIPTIONS);
     }
 
     private void initDisplaynames() {

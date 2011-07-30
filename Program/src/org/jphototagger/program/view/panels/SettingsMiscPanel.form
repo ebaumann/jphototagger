@@ -4,92 +4,6 @@
   <NonVisualComponents>
     <Component class="javax.swing.ButtonGroup" name="buttonGroupCopyMoveFiles">
     </Component>
-    <Container class="javax.swing.JDialog" name="experimentalFileFormatsDialog">
-      <Properties>
-        <Property name="title" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsMiscPanel.experimentalFileFormatsDialog.title" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-        </Property>
-        <Property name="iconImages" type="java.util.List" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="AppLookAndFeel.getAppIcons()" type="code"/>
-        </Property>
-        <Property name="modal" type="boolean" value="true"/>
-        <Property name="name" type="java.lang.String" value="experimentalFileFormatsDialog" noResource="true"/>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="experimentalFileFormatsDialog.pack();&#xa;experimentalFileFormatsDialog.setLocationRelativeTo(this);"/>
-      </AuxValues>
-
-      <Layout>
-        <DimensionLayout dim="0">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="labelExperimentalFileFormatsPrompt" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="scrollPaneExperimentalFileFormats" alignment="0" pref="450" max="32767" attributes="2"/>
-                      <Component id="labelExperimentalFileFormatsInfo" alignment="0" min="0" pref="0" max="32767" attributes="2"/>
-                  </Group>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
-              </Group>
-          </Group>
-        </DimensionLayout>
-        <DimensionLayout dim="1">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                  <Component id="labelExperimentalFileFormatsPrompt" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="scrollPaneExperimentalFileFormats" pref="154" max="32767" attributes="0"/>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="labelExperimentalFileFormatsInfo" pref="52" max="32767" attributes="0"/>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
-              </Group>
-          </Group>
-        </DimensionLayout>
-      </Layout>
-      <SubComponents>
-        <Component class="javax.swing.JLabel" name="labelExperimentalFileFormatsPrompt">
-          <Properties>
-            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsMiscPanel.labelExperimentalFileFormatsPrompt.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-            </Property>
-            <Property name="name" type="java.lang.String" value="labelExperimentalFileFormatsPrompt" noResource="true"/>
-          </Properties>
-        </Component>
-        <Container class="javax.swing.JScrollPane" name="scrollPaneExperimentalFileFormats">
-          <Properties>
-            <Property name="name" type="java.lang.String" value="scrollPaneExperimentalFileFormats" noResource="true"/>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-          </AuxValues>
-
-          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-          <SubComponents>
-            <Component class="javax.swing.JTextArea" name="textAreaExperimentalFileFormats">
-              <Properties>
-                <Property name="columns" type="int" value="20"/>
-                <Property name="editable" type="boolean" value="false"/>
-                <Property name="rows" type="int" value="5"/>
-                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="getExperimentalFileFormatsAsText()" type="code"/>
-                </Property>
-                <Property name="name" type="java.lang.String" value="textAreaExperimentalFileFormats" noResource="true"/>
-              </Properties>
-            </Component>
-          </SubComponents>
-        </Container>
-        <Component class="org.jdesktop.swingx.JXLabel" name="labelExperimentalFileFormatsInfo">
-          <Properties>
-            <Property name="lineWrap" type="boolean" value="true"/>
-            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsMiscPanel.labelExperimentalFileFormatsInfo.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-            </Property>
-            <Property name="name" type="java.lang.String" value="labelExperimentalFileFormatsInfo" noResource="true"/>
-          </Properties>
-        </Component>
-      </SubComponents>
-    </Container>
   </NonVisualComponents>
   <Properties>
     <Property name="name" type="java.lang.String" value="Form" noResource="true"/>
@@ -110,34 +24,29 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="panelDatabaseDirectory" alignment="0" max="32767" attributes="2"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="checkBoxAutoDownloadCheck" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="buttonCheckDownload" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="checkBoxDisplaySearchButton" alignment="0" min="-2" pref="367" max="-2" attributes="0"/>
+                  <Component id="checkBoxAddFilenameToGpsLocationExport" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="checkBoxIsAcceptHiddenDirectories" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="panelDatabaseDirectory" alignment="0" max="32767" attributes="2"/>
                   <Component id="panelCopyMoveFiles" alignment="0" min="-2" max="-2" attributes="1"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="labelLogLevel" min="-2" max="-2" attributes="2"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="comboBoxLogLevel" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <Component id="labelIptcCharset" min="-2" max="-2" attributes="2"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="comboBoxIptcCharset" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" attributes="0">
-                      <Component id="checkBoxExperimentalFileFormats" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="buttonDisplayExperimentalFileFormats" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="checkBoxAddFilenameToGpsLocationExport" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="checkBoxIsAcceptHiddenDirectories" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -157,12 +66,7 @@
               <Component id="checkBoxDisplaySearchButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="checkBoxAddFilenameToGpsLocationExport" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="checkBoxExperimentalFileFormats" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="buttonDisplayExperimentalFileFormats" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="panelCopyMoveFiles" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -235,31 +139,6 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxAddFilenameToGpsLocationExportActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JCheckBox" name="checkBoxExperimentalFileFormats">
-      <Properties>
-        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsMiscPanel.checkBoxExperimentalFileFormats.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
-        </Property>
-        <Property name="name" type="java.lang.String" value="checkBoxExperimentalFileFormats" noResource="true"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxExperimentalFileFormatsActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="buttonDisplayExperimentalFileFormats">
-      <Properties>
-        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsMiscPanel.buttonDisplayExperimentalFileFormats.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-        </Property>
-        <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsMiscPanel.buttonDisplayExperimentalFileFormats.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-        </Property>
-        <Property name="name" type="java.lang.String" value="buttonDisplayExperimentalFileFormats" noResource="true"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonDisplayExperimentalFileFormatsActionPerformed"/>
       </Events>
     </Component>
     <Container class="javax.swing.JPanel" name="panelCopyMoveFiles">
