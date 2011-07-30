@@ -1,6 +1,5 @@
 package org.jphototagger.exif;
 
-import org.jphototagger.domain.exif.ExifTag;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;

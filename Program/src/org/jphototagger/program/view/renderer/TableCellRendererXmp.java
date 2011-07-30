@@ -1,23 +1,26 @@
 package org.jphototagger.program.view.renderer;
 
-import com.adobe.xmp.properties.XMPPropertyInfo;
-import javax.swing.table.TableModel;
-import org.jphototagger.lib.componentutil.TableUtil;
-import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.domain.database.xmp.XmpInDatabase;
-import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
-import org.jphototagger.program.resource.Translation;
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.StringTokenizer;
+
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableModel;
 import javax.swing.table.TableStringConverter;
+
+import org.jphototagger.domain.database.xmp.XmpInDatabase;
+import org.jphototagger.lib.componentutil.TableUtil;
 import org.jphototagger.lib.util.StringUtil;
+import org.jphototagger.lib.util.Translation;
+import org.jphototagger.program.app.AppLookAndFeel;
+import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
 import org.jphototagger.program.resource.JptBundle;
+
+import com.adobe.xmp.properties.XMPPropertyInfo;
 
 /**
  * Rendert Tabellen mit
@@ -28,9 +31,8 @@ import org.jphototagger.program.resource.JptBundle;
 public final class TableCellRendererXmp extends FormatterLabelMetadata implements TableCellRenderer {
     private static final String DELIMITER_PATH = "/";
     private static final String DELIMITER_NAMESPACE = ":";
-    private static final Translation TRANSLATION_XMP = new Translation("XmpPropertyTranslations");
-    private static final Translation TRANSLATION_XMP_EXIF_TAG_ID = new Translation("XmpPropertyExifTagIdTranslations");
-    private static final Translation TRANSLATION_EXIF = new Translation("ExifTagIdTagNameTranslations");
+    private static final Translation TRANSLATION_XMP = new Translation("org/jphototagger/program/view/renderer/XmpPropertyTranslations");
+    private static final Translation TRANSLATION_XMP_EXIF_TAG_ID = new Translation("org/jphototagger/program/view/renderer/XmpPropertyExifTagIdTranslations");
 
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
@@ -73,8 +75,7 @@ public final class TableCellRendererXmp extends FormatterLabelMetadata implement
             String pathComponent = pathComponents.get(i);
             String withoutIndex = getWithoutIndex(pathComponent);
             String translated = (isExifNamespace(pathComponent)
-                                 ? TRANSLATION_EXIF.translate(TRANSLATION_XMP_EXIF_TAG_ID.translate(withoutIndex,
-                                     alternate))
+                                 ? TableCellRendererExif.TAG_ID_TAGNAME_TRANSLATION.translate(TRANSLATION_XMP_EXIF_TAG_ID.translate(withoutIndex, alternate))
                                  : TRANSLATION_XMP.translate(withoutIndex, alternate));
 
             newPath.append(getWithoutNamespace(translated)).append(getIndexString(pathComponent)).append(

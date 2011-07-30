@@ -1,17 +1,19 @@
 package org.jphototagger.program.view.renderer;
 
-import javax.swing.table.TableModel;
-import org.jphototagger.lib.componentutil.TableUtil;
-import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.image.metadata.iptc.IptcEntry;
-import org.jphototagger.program.resource.Translation;
 import java.awt.Component;
 import java.util.Comparator;
+
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableModel;
 import javax.swing.table.TableStringConverter;
+
+import org.jphototagger.lib.componentutil.TableUtil;
 import org.jphototagger.lib.util.StringUtil;
+import org.jphototagger.lib.util.Translation;
+import org.jphototagger.program.app.AppLookAndFeel;
+import org.jphototagger.program.image.metadata.iptc.IptcEntry;
 
 /**
  * Rendert Tabellen mit
@@ -20,7 +22,8 @@ import org.jphototagger.lib.util.StringUtil;
  * @author Elmar Baumann
  */
 public final class TableCellRendererIptc extends FormatterLabelMetadata implements TableCellRenderer {
-    private static final Translation TRANSLATION = new Translation("IptcRecordDataSetNumberTranslations");
+
+    private static final Translation TRANSLATION = new Translation("org/jphototagger/program/view/renderer/IptcRecordDataSetNumberTranslations");
 
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
@@ -39,16 +42,16 @@ public final class TableCellRendererIptc extends FormatterLabelMetadata implemen
         if (column == 0) {
             setContentFont(cellLabel);
             TableUtil.embedTableCellTextInHtml(table, row, cellLabel, entryNumber,
-                                               AppLookAndFeel.TABLE_MAX_CHARS_ROW_HEADER,
-                                               AppLookAndFeel.TABLE_ROW_HEADER_CSS);
+                    AppLookAndFeel.TABLE_MAX_CHARS_ROW_HEADER,
+                    AppLookAndFeel.TABLE_ROW_HEADER_CSS);
         } else if (column == 1) {
             setHeaderFont(cellLabel);
             TableUtil.embedTableCellTextInHtml(table, row, cellLabel, TRANSLATION.translate(entryNumber, entryNumber),
-                                               AppLookAndFeel.TABLE_MAX_CHARS_CELL, AppLookAndFeel.TABLE_CELL_CSS);
+                    AppLookAndFeel.TABLE_MAX_CHARS_CELL, AppLookAndFeel.TABLE_CELL_CSS);
         } else {
             setContentFont(cellLabel);
             TableUtil.embedTableCellTextInHtml(table, row, cellLabel, iptcEntry.getData(),
-                                               AppLookAndFeel.TABLE_MAX_CHARS_CELL, AppLookAndFeel.TABLE_CELL_CSS);
+                    AppLookAndFeel.TABLE_MAX_CHARS_CELL, AppLookAndFeel.TABLE_CELL_CSS);
         }
 
         return cellLabel;
@@ -61,7 +64,7 @@ public final class TableCellRendererIptc extends FormatterLabelMetadata implemen
 
         int recordNumber = iptcEntry.getRecordNumber();
         int dataSetNumber = iptcEntry.getDataSetNumber();
-        
+
         return Integer.toString(recordNumber) + ":" + Integer.toString(dataSetNumber);
     }
 
@@ -153,6 +156,5 @@ public final class TableCellRendererIptc extends FormatterLabelMetadata implemen
                 return StringUtil.toStringNullToEmptyString(value);
             }
         }
-
     }
 }

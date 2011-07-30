@@ -9,6 +9,7 @@ package org.jphototagger.lib.generics;
  * @param <B> second object
  * @author Elmar Baumann
  */
+@Deprecated
 public class Pair<A, B> {
     private final A first;
     private final B second;

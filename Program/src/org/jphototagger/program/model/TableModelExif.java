@@ -2,18 +2,17 @@ package org.jphototagger.program.model;
 
 import org.jphototagger.lib.model.TableModelExt;
 import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.image.metadata.exif.ExifMetadata;
-import org.jphototagger.domain.exif.ExifTag;
-import org.jphototagger.program.image.metadata.exif.ExifTagDisplayComparator;
+import org.jphototagger.exif.ExifMetadata;
+import org.jphototagger.exif.ExifTag;
+import org.jphototagger.exif.ExifTagDisplayComparator;
 import org.jphototagger.exif.ExifTags;
-import org.jphototagger.program.image.metadata.exif.ExifTagsToDisplay;
-import org.jphototagger.program.image.metadata.exif.tag.ExifGpsAltitude;
-import org.jphototagger.program.image.metadata.exif.tag.ExifGpsLatitude;
-import org.jphototagger.program.image.metadata.exif.tag.ExifGpsLongitude;
-import org.jphototagger.program.image.metadata.exif.tag.ExifGpsMetadata;
-import org.jphototagger.program.image.metadata.exif.tag.ExifGpsUtil;
+import org.jphototagger.exif.ExifTagsToDisplay;
+import org.jphototagger.exif.tag.ExifGpsAltitude;
+import org.jphototagger.exif.tag.ExifGpsLatitude;
+import org.jphototagger.exif.tag.ExifGpsLongitude;
+import org.jphototagger.exif.tag.ExifGpsMetadata;
+import org.jphototagger.exif.tag.ExifGpsUtil;
 import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.resource.Translation;
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,6 +23,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.JButton;
+import org.jphototagger.program.view.renderer.TableCellRendererExif;
 
 /**
  * Elements are {@link ExifTag}s ore {@link String}s in case of GPS information
@@ -42,7 +42,6 @@ public final class TableModelExif extends TableModelExt {
     private File file;
     private transient ExifGpsMetadata exifGpsMetadata;
     private transient ExifTags exifTags;
-    private static final Translation TRANSLATION = new Translation("ExifTagIdTagNameTranslations");
 
     public TableModelExif() {
         setRowHeaders();
@@ -119,21 +118,21 @@ public final class TableModelExif extends TableModelExt {
 
         if (latitude != null) {
             String tagId = Integer.toString(ExifTag.Id.GPS_LATITUDE.getTagId());
-            String tagName = TRANSLATION.translate(tagId, tagId);
+            String tagName = TableCellRendererExif.TAG_ID_TAGNAME_TRANSLATION.translate(tagId, tagId);
 
             super.addRow(new Object[] { tagName, exifGpsMetadata.getLatitude().getLocalizedString() });
         }
 
         if (longitude != null) {
             String tagId = Integer.toString(ExifTag.Id.GPS_LONGITUDE.getTagId());
-            String tagName = TRANSLATION.translate(tagId, tagId);
+            String tagName = TableCellRendererExif.TAG_ID_TAGNAME_TRANSLATION.translate(tagId, tagId);
 
             super.addRow(new Object[] { tagName, exifGpsMetadata.getLongitude().toLocalizedString() });
         }
 
         if (altitude != null) {
             String tagId = Integer.toString(ExifTag.Id.GPS_ALTITUDE.getTagId());
-            String tagName = TRANSLATION.translate(tagId, tagId);
+            String tagName = TableCellRendererExif.TAG_ID_TAGNAME_TRANSLATION.translate(tagId, tagId);
 
             super.addRow(new Object[] { tagName, exifGpsMetadata.getAltitude().getLocalizedString() });
         }

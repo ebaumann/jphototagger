@@ -2,7 +2,7 @@ package org.jphototagger.program.helper;
 
 import org.jphototagger.domain.exif.Exif;
 import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.program.image.metadata.exif.ExifMetadata;
+import org.jphototagger.exif.ExifMetadata;
 import org.jphototagger.program.resource.JptBundle;
 import java.io.File;
 import java.util.List;

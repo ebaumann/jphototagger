@@ -1,26 +1,28 @@
 package org.jphototagger.program.image.metadata.exif.gps;
 
-import org.jphototagger.lib.dialog.FileChooserExt;
-import org.jphototagger.lib.util.PropertiesUtil;
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.helper.HelperThread;
-import org.jphototagger.exif.ExifTags;
-import org.jphototagger.program.image.metadata.exif.GPSImageInfo;
-import org.jphototagger.program.image.metadata.exif.tag.ExifGpsMetadata;
-import org.jphototagger.program.image.metadata.exif.tag.ExifGpsUtil;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.tasks.UserTasks;
-import org.jphototagger.program.UserSettings;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.swing.JFileChooser;
+
+import org.jphototagger.exif.ExifTags;
+import org.jphototagger.exif.tag.ExifGpsMetadata;
+import org.jphototagger.exif.tag.ExifGpsUtil;
+import org.jphototagger.lib.dialog.FileChooserExt;
 import org.jphototagger.lib.io.IoUtil;
-import org.jphototagger.program.image.metadata.exif.ExifMetadata;
+import org.jphototagger.lib.util.PropertiesUtil;
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.program.helper.HelperThread;
+import org.jphototagger.exif.ExifMetadata;
+import org.jphototagger.program.resource.JptBundle;
+import org.jphototagger.program.tasks.UserTasks;
 
 /**
  * Utils for exporting GPS metadata.
@@ -28,6 +30,7 @@ import org.jphototagger.program.image.metadata.exif.ExifMetadata;
  * @author Elmar Baumann
  */
 public final class GPSLocationExportUtil {
+
     private static final String KEY_CURRENT_DIR = "GPSLocationExportUtil.CurrentDir";
 
     /**
@@ -51,6 +54,7 @@ public final class GPSLocationExportUtil {
     }
 
     private static class Exporter extends HelperThread {
+
         private volatile boolean cancel;
         private final GPSLocationExporter exporter;
         private final List<? extends File> imageFiles;
@@ -72,12 +76,12 @@ public final class GPSLocationExportUtil {
             int fileCount = imageFiles.size();
 
             progressStarted(0, 0, fileCount, (fileCount > 0)
-                                             ? imageFiles.get(0)
-                                             : null);
+                    ? imageFiles.get(0)
+                    : null);
 
             List<GPSImageInfo> imageInfos = new ArrayList<GPSImageInfo>(fileCount);
 
-            for (int i = 0; !cancel &&!isInterrupted() && (i < fileCount); i++) {
+            for (int i = 0; !cancel && !isInterrupted() && (i < fileCount); i++) {
                 File imageFile = imageFiles.get(i);
                 ExifTags et = ExifMetadata.getCachedExifTags(imageFile);
 
@@ -125,7 +129,7 @@ public final class GPSLocationExportUtil {
                 exporter.export(gpsImageInfos, fos);
                 fos.flush();
             } catch (Exception ex) {
-                AppLogger.logSevere(GPSLocationExportUtil.class, ex);
+                Logger.getLogger(GPSLocationExportUtil.class.getName()).log(Level.SEVERE, null, ex);
                 MessageDisplayer.error(null, "GPSLocationExportUtil.Error.Export", exportFile);
             } finally {
                 IoUtil.close(fos);
@@ -166,5 +170,6 @@ public final class GPSLocationExportUtil {
         }
     }
 
-    private GPSLocationExportUtil() {}
+    private GPSLocationExportUtil() {
+    }
 }
