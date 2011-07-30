@@ -12,9 +12,9 @@ import org.jphototagger.image.util.ImageTransform;
 import org.jphototagger.lib.runtime.External;
 import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.database.metadata.exif.ExifThumbnailUtil;
-import org.jphototagger.domain.exif.ExifTag;
+import org.jphototagger.exif.ExifTag;
 import org.jphototagger.exif.ExifTags;
-import org.jphototagger.program.types.FileType;
+import org.jphototagger.image.FileType;
 import org.jphototagger.program.UserSettings;
 import java.awt.Container;
 import java.awt.Graphics2D;
@@ -33,7 +33,7 @@ import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.domain.filetypes.UserDefinedFileType;
 import org.jphototagger.program.database.DatabaseUserDefinedFileTypes;
-import org.jphototagger.program.image.metadata.exif.ExifMetadata;
+import org.jphototagger.exif.ExifMetadata;
 
 /**
  *

@@ -19,7 +19,7 @@ import org.jphototagger.program.image.thumbnail.ThumbnailUtil;
 import org.jphototagger.program.model.ComboBoxModelRenameTemplates;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.types.FileType;
+import org.jphototagger.image.FileType;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.lib.componentutil.ComboBoxUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;

@@ -1,7 +1,7 @@
 package org.jphototagger.program.comparator;
 
 import org.jphototagger.lib.util.ClassEquality;
-import org.jphototagger.program.image.metadata.exif.ExifMetadata;
+import org.jphototagger.exif.ExifMetadata;
 import java.io.File;
 import java.io.Serializable;
 import java.util.Comparator;

@@ -3,14 +3,14 @@ package org.jphototagger.program.view.renderer;
 import javax.swing.table.TableModel;
 import org.jphototagger.lib.componentutil.TableUtil;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.domain.database.exif.ExifInDatabase;
-import org.jphototagger.domain.exif.ExifIfdType;
-import org.jphototagger.domain.exif.ExifTag;
-import org.jphototagger.domain.exif.ExifTag.Id;
-import org.jphototagger.program.image.metadata.exif.ExifTagValueFormatter;
-import org.jphototagger.program.image.metadata.exif.tag.ExifGpsMetadata;
+import org.jphototagger.exif.ExifInDatabase;
+import org.jphototagger.exif.ExifIfdType;
+import org.jphototagger.exif.ExifTag;
+import org.jphototagger.exif.ExifTag.Id;
+import org.jphototagger.exif.ExifTagValueFormatter;
+import org.jphototagger.exif.tag.ExifGpsMetadata;
 import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.resource.Translation;
+import org.jphototagger.lib.util.Translation;
 import java.awt.Component;
 import java.util.Comparator;
 import java.util.logging.Level;
@@ -28,8 +28,8 @@ import org.jphototagger.lib.util.StringUtil;
  */
 public final class TableCellRendererExif extends FormatterLabelMetadata implements TableCellRenderer {
 
-    private static final Translation TAG_ID_TAGNAME_TRANSLATION = new Translation("ExifTagIdTagNameTranslations");
-    private static final Translation TAGNAME_TRANSLATION = new Translation("ExifTagNameTranslations");
+    public static final Translation TAG_ID_TAGNAME_TRANSLATION = new Translation("org/jphototagger/program/view/renderer/ExifTagIdTagNameTranslations");
+    public static final Translation TAGNAME_TRANSLATION = new Translation("org/jphototagger/program/view/renderer/ExifTagNameTranslations");
     private static final Logger LOGGER = Logger.getLogger(TableCellRendererExif.class.getName());
 
     @Override

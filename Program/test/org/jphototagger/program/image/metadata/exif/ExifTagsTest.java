@@ -1,8 +1,8 @@
 package org.jphototagger.program.image.metadata.exif;
 
 import org.jphototagger.exif.ExifTags;
-import org.jphototagger.domain.exif.ExifTag;
-import org.jphototagger.domain.exif.ExifIfdType;
+import org.jphototagger.exif.ExifTag;
+import org.jphototagger.exif.ExifIfdType;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;

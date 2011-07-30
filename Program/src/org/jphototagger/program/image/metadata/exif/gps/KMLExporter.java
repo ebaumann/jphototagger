@@ -1,28 +1,30 @@
 package org.jphototagger.program.image.metadata.exif.gps;
 
-import org.jphototagger.kml.KMLDocument;
-import org.jphototagger.kml.KMLPlacemark;
-import org.jphototagger.kml.KMLPoint;
-import org.jphototagger.program.app.AppInfo;
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.image.metadata.exif.datatype.ExifDatatypeUtil;
-import org.jphototagger.program.image.metadata.exif.GPSImageInfo;
-import org.jphototagger.program.image.metadata.exif.tag.ExifGpsAltitude;
-import org.jphototagger.program.image.metadata.exif.tag.ExifGpsDateStamp;
-import org.jphototagger.program.image.metadata.exif.tag.ExifGpsLatitude;
-import org.jphototagger.program.image.metadata.exif.tag.ExifGpsLongitude;
-import org.jphototagger.program.image.metadata.exif.tag.ExifGpsMetadata;
-import org.jphototagger.program.image.metadata.exif.tag.ExifGpsTimeStamp;
-import org.jphototagger.program.image.metadata.exif.tag.ExifGpsUtil;
-import org.jphototagger.program.resource.JptBundle;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.UnsupportedCharsetException;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+import org.jphototagger.exif.datatype.ExifDatatypeUtil;
+import org.jphototagger.exif.tag.ExifGpsAltitude;
+import org.jphototagger.exif.tag.ExifGpsDateStamp;
+import org.jphototagger.exif.tag.ExifGpsLatitude;
+import org.jphototagger.exif.tag.ExifGpsLongitude;
+import org.jphototagger.exif.tag.ExifGpsMetadata;
+import org.jphototagger.exif.tag.ExifGpsTimeStamp;
+import org.jphototagger.exif.tag.ExifGpsUtil;
+import org.jphototagger.kml.KMLDocument;
+import org.jphototagger.kml.KMLPlacemark;
+import org.jphototagger.kml.KMLPoint;
+import org.jphototagger.program.app.AppInfo;
+import org.jphototagger.program.resource.JptBundle;
 
 /**
  * Exports GPS metadata into an {@link KMLDocument}.
@@ -30,6 +32,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author Elmar Baumann
  */
 public final class KMLExporter implements GPSLocationExporter {
+
     @Override
     public void export(Collection<? extends GPSImageInfo> gpsImageInfos, OutputStream os)
             throws IOException, UnsupportedCharsetException {
@@ -70,8 +73,8 @@ public final class KMLExporter implements GPSLocationExporter {
             double longDeg = ExifGpsUtil.convertExifDegreesToDouble(longitude.getExifDegrees());
             double latDeg = ExifGpsUtil.convertExifDegreesToDouble(latitude.getExifDegrees());
             double alt = (altitude == null)
-                         ? Double.MIN_VALUE
-                         : ExifDatatypeUtil.convertExifRationalToDouble(altitude.getValue());
+                    ? Double.MIN_VALUE
+                    : ExifDatatypeUtil.convertExifRationalToDouble(altitude.getValue());
 
             if (latitude.getRef().equals(ExifGpsLatitude.Ref.SOUTH)) {
                 latDeg *= -1;
@@ -82,8 +85,8 @@ public final class KMLExporter implements GPSLocationExporter {
             }
 
             KMLPoint point = (alt >= 0)
-                             ? new KMLPoint(longDeg, latDeg, alt)
-                             : new KMLPoint(longDeg, latDeg);
+                    ? new KMLPoint(longDeg, latDeg, alt)
+                    : new KMLPoint(longDeg, latDeg);
             KMLPlacemark placemark = new KMLPlacemark(point);
 
             addName(placemark, gpsImageInfo);
@@ -109,7 +112,7 @@ public final class KMLExporter implements GPSLocationExporter {
 
                 placemark.setName(name);
             } catch (Exception ex) {
-                AppLogger.logSevere(ExifGpsUtil.class, ex);
+                Logger.getLogger(KMLExporter.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
