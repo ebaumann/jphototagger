@@ -4,7 +4,7 @@ import org.jphototagger.lib.generics.Pair;
 import org.jphototagger.domain.database.ColumnData;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.domain.database.Column;
-import org.jphototagger.domain.database.column.XmpColumns;
+import org.jphototagger.domain.database.xmp.XmpColumns;
 import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
 import org.jphototagger.program.io.ImageUtil;
 import org.jphototagger.program.resource.GUI;

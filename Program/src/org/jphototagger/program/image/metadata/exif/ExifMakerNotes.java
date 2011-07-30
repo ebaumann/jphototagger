@@ -1,5 +1,6 @@
 package org.jphototagger.program.image.metadata.exif;
 
+import org.jphototagger.domain.exif.ExifTag;
 import java.io.File;
 
 /**

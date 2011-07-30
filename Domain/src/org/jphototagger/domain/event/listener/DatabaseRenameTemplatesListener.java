@@ -1,6 +1,6 @@
 package org.jphototagger.domain.event.listener;
 
-import org.jphototagger.domain.database.RenameTemplate;
+import org.jphototagger.domain.templates.RenameTemplate;
 
 /**
  * Listens to events in

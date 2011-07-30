@@ -1,6 +1,6 @@
 package org.jphototagger.program.image.metadata.exif.formatter;
 
-import org.jphototagger.program.image.metadata.exif.ExifTag;
+import org.jphototagger.domain.exif.ExifTag;
 
 /**
  * Formats a raw value of an EXIF tag (Generic raw value formatter).

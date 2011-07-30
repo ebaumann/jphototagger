@@ -1,9 +1,9 @@
 package org.jphototagger.program.image.metadata.exif.formatter;
 
 import org.jphototagger.program.image.metadata.exif.datatype.ExifAscii;
-import org.jphototagger.program.image.metadata.exif.datatype.ExifDataType;
+import org.jphototagger.domain.exif.ExifDataType;
 import org.jphototagger.program.image.metadata.exif.Ensure;
-import org.jphototagger.program.image.metadata.exif.ExifTag;
+import org.jphototagger.domain.exif.ExifTag;
 
 /**
  * Formats EXIF metadata fields in ASCII format.

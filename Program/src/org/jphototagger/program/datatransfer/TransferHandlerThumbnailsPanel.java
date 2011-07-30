@@ -9,7 +9,7 @@ import org.jphototagger.domain.database.ColumnData;
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.program.database.DatabaseImageCollections;
 import org.jphototagger.domain.database.Column;
-import org.jphototagger.domain.database.column.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
 import org.jphototagger.program.helper.FavoritesHelper;
 import org.jphototagger.program.helper.KeywordsHelper;
 import org.jphototagger.program.helper.MiscMetadataHelper;

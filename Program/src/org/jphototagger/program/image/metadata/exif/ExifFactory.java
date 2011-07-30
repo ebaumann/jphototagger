@@ -1,5 +1,6 @@
 package org.jphototagger.program.image.metadata.exif;
 
+import org.jphototagger.domain.exif.ExifTag;
 import org.jphototagger.lib.util.NumberUtil;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.domain.exif.Exif;

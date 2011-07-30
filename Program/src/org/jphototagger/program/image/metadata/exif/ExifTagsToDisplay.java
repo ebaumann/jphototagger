@@ -1,6 +1,7 @@
 package org.jphototagger.program.image.metadata.exif;
 
-import org.jphototagger.program.image.metadata.exif.ExifMetadata.IfdType;
+import org.jphototagger.domain.exif.ExifTag;
+import org.jphototagger.domain.exif.ExifIfdType;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -75,7 +76,7 @@ public final class ExifTagsToDisplay {
     }
 
     private static boolean isDisplayableExifTag(ExifTag exifTag) {
-        IfdType ifdType = exifTag.getIfdType();
+        ExifIfdType ifdType = exifTag.getIfdType();
         int tagId = exifTag.getTagId();
         ExifTag.Id id= exifTag.convertTagIdToEnumId();
 
@@ -90,7 +91,7 @@ public final class ExifTagsToDisplay {
             return ID_VALUES_OF_GPS_TAGS_TO_DISPLAY.contains(tagId);
 
         default :
-            return ifdType.equals(IfdType.MAKER_NOTE) && !id.isMakerNoteId();
+            return ifdType.equals(ExifIfdType.MAKER_NOTE) && !id.isMakerNoteId();
         }
     }
 

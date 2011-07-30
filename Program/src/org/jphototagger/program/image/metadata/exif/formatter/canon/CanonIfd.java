@@ -1,6 +1,6 @@
 package org.jphototagger.program.image.metadata.exif.formatter.canon;
 
-import org.jphototagger.program.image.metadata.exif.datatype.ExifDataType;
+import org.jphototagger.domain.exif.ExifDataType;
 import org.jphototagger.program.image.metadata.exif.datatype.ExifDatatypeUtil;
 import java.nio.ByteOrder;
 import java.util.HashMap;

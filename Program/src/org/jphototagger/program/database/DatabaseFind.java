@@ -1,12 +1,12 @@
 package org.jphototagger.program.database;
 
 import org.jphototagger.program.app.AppLogger;
-import org.jphototagger.domain.database.ParamStatement;
+import org.jphototagger.domain.database.search.ParamStatement;
 import org.jphototagger.domain.database.Column;
 import org.jphototagger.program.database.metadata.Join;
 import org.jphototagger.program.database.metadata.Join.Type;
 import org.jphototagger.program.database.metadata.Util;
-import org.jphototagger.domain.database.column.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

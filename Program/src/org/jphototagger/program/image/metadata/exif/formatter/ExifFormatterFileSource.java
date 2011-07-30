@@ -1,8 +1,8 @@
 package org.jphototagger.program.image.metadata.exif.formatter;
 
 import org.jphototagger.program.image.metadata.exif.Ensure;
-import org.jphototagger.program.image.metadata.exif.ExifMetadata.IfdType;
-import org.jphototagger.program.image.metadata.exif.ExifTag;
+import org.jphototagger.domain.exif.ExifIfdType;
+import org.jphototagger.domain.exif.ExifTag;
 
 /**
  * Formats an EXIF entry of the dataType {@code ExifTag.Id#FILE_SOURCE}.
@@ -28,7 +28,7 @@ public final class ExifFormatterFileSource extends ExifFormatter {
             int value = rawValue[0];
 
             if (value == 3) {
-                return translate(IfdType.EXIF, "FileSourceDigitalCamera");
+                return translate(ExifIfdType.EXIF, "FileSourceDigitalCamera");
             }
         }
 

@@ -3,7 +3,7 @@ package org.jphototagger.program.image.metadata.exif.tag;
 import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.image.metadata.exif.datatype.ExifDatatypeUtil;
 import org.jphototagger.program.image.metadata.exif.datatype.ExifRational;
-import org.jphototagger.program.image.metadata.exif.ExifTag;
+import org.jphototagger.domain.exif.ExifTag;
 import org.jphototagger.program.image.metadata.exif.ExifTags;
 import java.nio.ByteOrder;
 import java.text.DecimalFormat;

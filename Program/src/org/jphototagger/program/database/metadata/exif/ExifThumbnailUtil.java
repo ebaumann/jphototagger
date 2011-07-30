@@ -1,6 +1,6 @@
 package org.jphototagger.program.database.metadata.exif;
 
-import org.jphototagger.program.image.metadata.exif.ExifTag;
+import org.jphototagger.domain.exif.ExifTag;
 import java.util.HashMap;
 import java.util.Map;
 

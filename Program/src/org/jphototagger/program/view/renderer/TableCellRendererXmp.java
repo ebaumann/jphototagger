@@ -4,7 +4,7 @@ import com.adobe.xmp.properties.XMPPropertyInfo;
 import javax.swing.table.TableModel;
 import org.jphototagger.lib.componentutil.TableUtil;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.database.metadata.selections.XmpInDatabase;
+import org.jphototagger.domain.database.xmp.XmpInDatabase;
 import org.jphototagger.program.image.metadata.xmp.XmpMetadata;
 import org.jphototagger.program.resource.Translation;
 import java.awt.Component;

@@ -1,6 +1,6 @@
 package org.jphototagger.program.model;
 
-import org.jphototagger.domain.database.RenameTemplate;
+import org.jphototagger.domain.templates.RenameTemplate;
 import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseRenameTemplates;
 import org.jphototagger.domain.event.listener.DatabaseRenameTemplatesListener;

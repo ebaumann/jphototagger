@@ -4,7 +4,7 @@ import org.jphototagger.program.app.AppLogger;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.domain.text.TextEntry;
 import org.jphototagger.domain.database.Column;
-import org.jphototagger.domain.database.column.ColumnXmpRating;
+import org.jphototagger.domain.database.xmp.ColumnXmpRating;
 import org.jphototagger.domain.event.listener.impl.TextEntryListenerSupport;
 import org.jphototagger.domain.event.listener.TextEntryListener;
 import org.jphototagger.program.resource.JptBundle;

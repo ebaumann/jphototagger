@@ -10,7 +10,7 @@ import org.jphototagger.program.controller.filesystem.FilenameFormatEmptyString;
 import org.jphototagger.program.controller.filesystem.FilenameFormatFileName;
 import org.jphototagger.program.controller.filesystem.FilenameFormatFilenamePostfix;
 import org.jphototagger.program.controller.filesystem.FilenameFormatNumberSequence;
-import org.jphototagger.domain.database.RenameTemplate;
+import org.jphototagger.domain.templates.RenameTemplate;
 import org.jphototagger.lib.event.listener.FileSystemListener;
 import org.jphototagger.domain.event.listener.impl.FileSystemListenerSupport;
 import org.jphototagger.program.helper.RenameTemplateHelper;

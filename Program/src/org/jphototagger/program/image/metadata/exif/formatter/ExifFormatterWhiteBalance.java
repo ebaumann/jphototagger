@@ -2,8 +2,8 @@ package org.jphototagger.program.image.metadata.exif.formatter;
 
 import org.jphototagger.program.image.metadata.exif.datatype.ExifShort;
 import org.jphototagger.program.image.metadata.exif.Ensure;
-import org.jphototagger.program.image.metadata.exif.ExifMetadata.IfdType;
-import org.jphototagger.program.image.metadata.exif.ExifTag;
+import org.jphototagger.domain.exif.ExifIfdType;
+import org.jphototagger.domain.exif.ExifTag;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,7 +36,7 @@ public final class ExifFormatterWhiteBalance extends ExifFormatter {
             int value = es.getValue();
 
             if (EXIF_KEY_OF_WHITE_BALANCE.containsKey(value)) {
-                return translate(IfdType.EXIF, EXIF_KEY_OF_WHITE_BALANCE.get(value));
+                return translate(ExifIfdType.EXIF, EXIF_KEY_OF_WHITE_BALANCE.get(value));
             }
         }
 

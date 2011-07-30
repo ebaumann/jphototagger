@@ -1,5 +1,7 @@
 package org.jphototagger.program.image.metadata.exif.datatype;
 
+import org.jphototagger.domain.exif.ExifDataType;
+
 /**
  * EXIF data type ASCII as described in the standard: An 8-bit byte containing
  * one 7-bit ASCII code. The final byte is terminated with NULL.
@@ -7,7 +9,7 @@ package org.jphototagger.program.image.metadata.exif.datatype;
  * @author Elmar Baumann
  */
 public final class ExifAscii {
-    
+
     private final String value;
 
     public ExifAscii(byte[] rawValue) {
@@ -40,7 +42,7 @@ public final class ExifAscii {
     }
 
     /**
-     * 
+     *
      * @param  obj
      * @return     true if the values of both objects are equals
      */

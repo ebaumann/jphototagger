@@ -1,7 +1,7 @@
 package org.jphototagger.program.image.metadata.exif.formatter;
 
 import org.jphototagger.program.image.metadata.exif.Ensure;
-import org.jphototagger.program.image.metadata.exif.ExifTag;
+import org.jphototagger.domain.exif.ExifTag;
 import org.jphototagger.program.image.metadata.exif.tag.ExifCopyright;
 
 /**
