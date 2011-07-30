@@ -26,14 +26,14 @@ import org.jphototagger.lib.awt.EventQueueUtil;
  *
  * @author Elmar Baumann
  */
-public final class ControllerLogfileDialog extends Handler implements ActionListener, MouseListener {
+public final class ErrorLogHandler extends Handler implements ActionListener, MouseListener {
 
     private static final long MILLISECONDS_ERROR_DISPLAY = 4000;
     private static final String LABEL_ERROR_TOOLTIP_TEXT = JptBundle.INSTANCE.getString("ControllerLogfileDialog.LabelErrorTooltipText");
     private static final String STATUSBAR_ERROR_TEXT = JptBundle.INSTANCE.getString("ControllerLogfileDialog.Error.Info");
     private static final int MIN_LOG_LEVEL_VALUE = Level.WARNING.intValue();
 
-    public ControllerLogfileDialog() {
+    public ErrorLogHandler() {
         listen();
     }
 

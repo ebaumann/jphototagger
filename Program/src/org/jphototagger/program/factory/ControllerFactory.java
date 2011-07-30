@@ -71,7 +71,7 @@ import org.jphototagger.program.controller.misc.ControllerBackupDatabase;
 import org.jphototagger.program.controller.misc.ControllerGoTo;
 import org.jphototagger.program.controller.misc.ControllerHelp;
 import org.jphototagger.program.controller.misc.ControllerItemsMutualExcludeSelection;
-import org.jphototagger.program.app.logging.ControllerLogfileDialog;
+import org.jphototagger.program.app.logging.ErrorLogHandler;
 import org.jphototagger.program.controller.misc.ControllerMaintainDatabase;
 import org.jphototagger.program.controller.misc.ControllerMenuItemEnabler;
 import org.jphototagger.program.controller.plugin.ControllerFileProcessorPlugins;
@@ -168,7 +168,7 @@ public final class ControllerFactory {
 
     private void addAppWindowMenuItemControllers() {
         support.add(new ControllerMenuItemEnabler());
-        support.add(new ControllerLogfileDialog());
+        support.add(new ErrorLogHandler());
         support.add(new ControllerGoTo());
         support.add(new ControllerToggleKeywordOverlay());
         support.add(new ControllerSliderThumbnailSize());
