@@ -1,20 +1,21 @@
 package org.jphototagger.program.view.dialogs;
 
-import org.jphototagger.lib.dialog.DirectoryChooser.Option;
-import org.jphototagger.lib.util.Settings;
-import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.database.DatabaseFavorites;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.UserSettings;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.dialog.Dialog;
-import org.jphototagger.lib.dialog.DirectoryChooser;
 import java.awt.Container;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.List;
+
 import org.jphototagger.domain.favorites.Favorite;
+import org.jphototagger.lib.componentutil.MnemonicUtil;
+import org.jphototagger.lib.dialog.Dialog;
+import org.jphototagger.lib.dialog.DirectoryChooser;
+import org.jphototagger.lib.dialog.DirectoryChooser.Option;
+import org.jphototagger.lib.util.Settings;
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.program.database.DatabaseFavorites;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.panels.SelectRootFilesPanel;
 
 
@@ -211,8 +212,7 @@ public final class FavoritePropertiesDialog extends Dialog {
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
 
         labelPromptFavoriteName = new javax.swing.JLabel();
         textFieldFavoriteName = new javax.swing.JTextField();
@@ -222,7 +222,8 @@ public final class FavoritePropertiesDialog extends Dialog {
         buttonOk = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle(JptBundle.INSTANCE.getString("FavoritePropertiesDialog.title")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/dialogs/Bundle"); // NOI18N
+        setTitle(bundle.getString("FavoritePropertiesDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -231,7 +232,7 @@ public final class FavoritePropertiesDialog extends Dialog {
         });
 
         labelPromptFavoriteName.setLabelFor(textFieldFavoriteName);
-        labelPromptFavoriteName.setText(JptBundle.INSTANCE.getString("FavoritePropertiesDialog.labelPromptFavoriteName.text")); // NOI18N
+        labelPromptFavoriteName.setText(bundle.getString("FavoritePropertiesDialog.labelPromptFavoriteName.text")); // NOI18N
         labelPromptFavoriteName.setName("labelPromptFavoriteName"); // NOI18N
 
         textFieldFavoriteName.setName("textFieldFavoriteName"); // NOI18N
@@ -247,7 +248,7 @@ public final class FavoritePropertiesDialog extends Dialog {
             }
         });
 
-        buttonChooseDirectory.setText(JptBundle.INSTANCE.getString("FavoritePropertiesDialog.buttonChooseDirectory.text_1")); // NOI18N
+        buttonChooseDirectory.setText(bundle.getString("FavoritePropertiesDialog.buttonChooseDirectory.text_1")); // NOI18N
         buttonChooseDirectory.setName("buttonChooseDirectory"); // NOI18N
         buttonChooseDirectory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -258,7 +259,7 @@ public final class FavoritePropertiesDialog extends Dialog {
         labelDirectoryname.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         labelDirectoryname.setName("labelDirectoryname"); // NOI18N
 
-        buttonCancel.setText(JptBundle.INSTANCE.getString("FavoritePropertiesDialog.buttonCancel.text")); // NOI18N
+        buttonCancel.setText(bundle.getString("FavoritePropertiesDialog.buttonCancel.text")); // NOI18N
         buttonCancel.setName("buttonCancel"); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -266,7 +267,7 @@ public final class FavoritePropertiesDialog extends Dialog {
             }
         });
 
-        buttonOk.setText(JptBundle.INSTANCE.getString("FavoritePropertiesDialog.buttonOk.text")); // NOI18N
+        buttonOk.setText(bundle.getString("FavoritePropertiesDialog.buttonOk.text")); // NOI18N
         buttonOk.setEnabled(false);
         buttonOk.setName("buttonOk"); // NOI18N
         buttonOk.addActionListener(new java.awt.event.ActionListener() {
@@ -313,7 +314,7 @@ public final class FavoritePropertiesDialog extends Dialog {
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelDirectoryname, textFieldFavoriteName});
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }//GEN-END:initComponents
 
     private void buttonChooseDirectoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseDirectoryActionPerformed
         chooseDirectory();

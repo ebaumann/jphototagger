@@ -1,19 +1,20 @@
 package org.jphototagger.program.view.panels;
 
-import org.jphototagger.program.database.DatabaseFileExcludePatterns;
-import org.jphototagger.lib.event.listener.ProgressListener;
-import org.jphototagger.lib.event.ProgressEvent;
-import org.jphototagger.program.model.ListModelFileExcludePatterns;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.types.Persistence;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
 import java.awt.Container;
 import java.awt.event.KeyEvent;
 import java.util.List;
+
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.componentutil.MnemonicUtil;
+import org.jphototagger.lib.event.ProgressEvent;
+import org.jphototagger.lib.event.listener.ProgressListener;
 import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.database.DatabaseFileExcludePatterns;
+import org.jphototagger.program.model.ListModelFileExcludePatterns;
+import org.jphototagger.program.types.Persistence;
 
 /**
  *
@@ -213,8 +214,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
 
         popupMenu = new javax.swing.JPopupMenu();
         menuItemDeletePattern = new javax.swing.JMenuItem();
@@ -240,7 +240,8 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
 
         menuItemDeletePattern.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
         menuItemDeletePattern.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_delete.png"))); // NOI18N
-        menuItemDeletePattern.setText(JptBundle.INSTANCE.getString("SettingsFileExcludePatternsPanel.menuItemDeletePattern.text")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/panels/Bundle"); // NOI18N
+        menuItemDeletePattern.setText(bundle.getString("SettingsFileExcludePatternsPanel.menuItemDeletePattern.text")); // NOI18N
         menuItemDeletePattern.setName("menuItemDeletePattern"); // NOI18N
         menuItemDeletePattern.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -256,12 +257,12 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
         panelFiles.setName("panelFiles"); // NOI18N
 
         labelInfoDatabase.setForeground(new java.awt.Color(0, 0, 255));
-        labelInfoDatabase.setText(JptBundle.INSTANCE.getString("SettingsFileExcludePatternsPanel.labelInfoDatabase.text")); // NOI18N
+        labelInfoDatabase.setText(bundle.getString("SettingsFileExcludePatternsPanel.labelInfoDatabase.text")); // NOI18N
         labelInfoDatabase.setName("labelInfoDatabase"); // NOI18N
 
         progressBarUpdateDatabase.setName("progressBarUpdateDatabase"); // NOI18N
 
-        buttonCancelUpdateDatabase.setText(JptBundle.INSTANCE.getString("SettingsFileExcludePatternsPanel.buttonCancelUpdateDatabase.text")); // NOI18N
+        buttonCancelUpdateDatabase.setText(bundle.getString("SettingsFileExcludePatternsPanel.buttonCancelUpdateDatabase.text")); // NOI18N
         buttonCancelUpdateDatabase.setEnabled(false);
         buttonCancelUpdateDatabase.setName("buttonCancelUpdateDatabase"); // NOI18N
         buttonCancelUpdateDatabase.addActionListener(new java.awt.event.ActionListener() {
@@ -270,7 +271,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
             }
         });
 
-        buttonUpdateDatabase.setText(JptBundle.INSTANCE.getString("SettingsFileExcludePatternsPanel.buttonUpdateDatabase.text")); // NOI18N
+        buttonUpdateDatabase.setText(bundle.getString("SettingsFileExcludePatternsPanel.buttonUpdateDatabase.text")); // NOI18N
         buttonUpdateDatabase.setName("buttonUpdateDatabase"); // NOI18N
         buttonUpdateDatabase.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -279,7 +280,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
         });
 
         labelTextFieldInputPattern.setLabelFor(textFieldInputPattern);
-        labelTextFieldInputPattern.setText(JptBundle.INSTANCE.getString("SettingsFileExcludePatternsPanel.labelTextFieldInputPattern.text")); // NOI18N
+        labelTextFieldInputPattern.setText(bundle.getString("SettingsFileExcludePatternsPanel.labelTextFieldInputPattern.text")); // NOI18N
         labelTextFieldInputPattern.setName("labelTextFieldInputPattern"); // NOI18N
 
         textFieldInputPattern.setName("textFieldInputPattern"); // NOI18N
@@ -294,8 +295,8 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
             }
         });
 
-        buttonDeletePattern.setText(JptBundle.INSTANCE.getString("SettingsFileExcludePatternsPanel.buttonDeletePattern.text")); // NOI18N
-        buttonDeletePattern.setToolTipText(JptBundle.INSTANCE.getString("SettingsFileExcludePatternsPanel.buttonDeletePattern.toolTipText")); // NOI18N
+        buttonDeletePattern.setText(bundle.getString("SettingsFileExcludePatternsPanel.buttonDeletePattern.text")); // NOI18N
+        buttonDeletePattern.setToolTipText(bundle.getString("SettingsFileExcludePatternsPanel.buttonDeletePattern.toolTipText")); // NOI18N
         buttonDeletePattern.setEnabled(false);
         buttonDeletePattern.setName("buttonDeletePattern"); // NOI18N
         buttonDeletePattern.addActionListener(new java.awt.event.ActionListener() {
@@ -304,8 +305,8 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
             }
         });
 
-        buttonInsertPattern.setText(JptBundle.INSTANCE.getString("SettingsFileExcludePatternsPanel.buttonInsertPattern.text")); // NOI18N
-        buttonInsertPattern.setToolTipText(JptBundle.INSTANCE.getString("SettingsFileExcludePatternsPanel.buttonInsertPattern.toolTipText")); // NOI18N
+        buttonInsertPattern.setText(bundle.getString("SettingsFileExcludePatternsPanel.buttonInsertPattern.text")); // NOI18N
+        buttonInsertPattern.setToolTipText(bundle.getString("SettingsFileExcludePatternsPanel.buttonInsertPattern.toolTipText")); // NOI18N
         buttonInsertPattern.setEnabled(false);
         buttonInsertPattern.setName("buttonInsertPattern"); // NOI18N
         buttonInsertPattern.addActionListener(new java.awt.event.ActionListener() {
@@ -315,7 +316,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
         });
 
         labelInfoList.setLabelFor(list);
-        labelInfoList.setText(JptBundle.INSTANCE.getString("SettingsFileExcludePatternsPanel.labelInfoList.text")); // NOI18N
+        labelInfoList.setText(bundle.getString("SettingsFileExcludePatternsPanel.labelInfoList.text")); // NOI18N
         labelInfoList.setName("labelInfoList"); // NOI18N
 
         scrollPane.setName("scrollPane"); // NOI18N
@@ -340,58 +341,57 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
         panelFiles.setLayout(panelFilesLayout);
         panelFilesLayout.setHorizontalGroup(
             panelFilesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 574, Short.MAX_VALUE)
+            .addGap(0, 740, Short.MAX_VALUE)
             .addGroup(panelFilesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(panelFilesLayout.createSequentialGroup()
                     .addGap(7, 7, 7)
                     .addGroup(panelFilesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(scrollPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
-                    .addComponent(labelInfoList, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(scrollPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 725, Short.MAX_VALUE)
+                        .addComponent(labelInfoList, javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(panelFilesLayout.createSequentialGroup()
-                        .addComponent(buttonDeletePattern)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonInsertPattern))
-                        .addComponent(labelInfoDatabase, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
-                        .addComponent(progressBarUpdateDatabase, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
+                            .addComponent(buttonDeletePattern)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(buttonInsertPattern))
+                        .addComponent(labelInfoDatabase, javax.swing.GroupLayout.DEFAULT_SIZE, 725, Short.MAX_VALUE)
+                        .addComponent(progressBarUpdateDatabase, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 725, Short.MAX_VALUE)
                         .addGroup(panelFilesLayout.createSequentialGroup()
-                        .addComponent(buttonCancelUpdateDatabase)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonUpdateDatabase))
+                            .addComponent(buttonCancelUpdateDatabase)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(buttonUpdateDatabase))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelFilesLayout.createSequentialGroup()
-                        .addComponent(labelTextFieldInputPattern)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(textFieldInputPattern, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)))
+                            .addComponent(labelTextFieldInputPattern)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(textFieldInputPattern, javax.swing.GroupLayout.DEFAULT_SIZE, 616, Short.MAX_VALUE)))
                     .addGap(8, 8, 8)))
         );
         panelFilesLayout.setVerticalGroup(
             panelFilesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 312, Short.MAX_VALUE)
+            .addGap(0, 313, Short.MAX_VALUE)
             .addGroup(panelFilesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(panelFilesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelInfoList)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addContainerGap()
+                    .addComponent(labelInfoList)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(panelFilesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textFieldInputPattern, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelTextFieldInputPattern))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textFieldInputPattern, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(labelTextFieldInputPattern))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(panelFilesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonInsertPattern)
-                    .addComponent(buttonDeletePattern))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelInfoDatabase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(progressBarUpdateDatabase, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(buttonInsertPattern)
+                        .addComponent(buttonDeletePattern))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(labelInfoDatabase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(progressBarUpdateDatabase, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addGroup(panelFilesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonUpdateDatabase)
-                    .addComponent(buttonCancelUpdateDatabase))
+                        .addComponent(buttonUpdateDatabase)
+                        .addComponent(buttonCancelUpdateDatabase))
                     .addContainerGap()))
         );
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/resource/properties/Bundle"); // NOI18N
         tabbedPane.addTab(bundle.getString("SettingsFileExcludePatternsPanel.panelFiles.TabConstraints.tabTitle"), panelFiles); // NOI18N
 
         panelDirectoryFolder.setName("panelDirectoryFolder"); // NOI18N
@@ -411,7 +411,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
             .addGroup(panelDirectoryFolderLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelDirectoryFolderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPanePanelDirectoryFolder, javax.swing.GroupLayout.DEFAULT_SIZE, 554, Short.MAX_VALUE)
+                    .addComponent(scrollPanePanelDirectoryFolder, javax.swing.GroupLayout.DEFAULT_SIZE, 716, Short.MAX_VALUE)
                     .addComponent(labelInfopanelDirectoryFolder))
                 .addContainerGap())
         );
@@ -421,7 +421,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
                 .addContainerGap()
                 .addComponent(labelInfopanelDirectoryFolder)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPanePanelDirectoryFolder, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+                .addComponent(scrollPanePanelDirectoryFolder, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -437,7 +437,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
         );
-    }// </editor-fold>//GEN-END:initComponents
+    }//GEN-END:initComponents
 
     private void listValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listValueChanged
         handleListValueChanged(evt);

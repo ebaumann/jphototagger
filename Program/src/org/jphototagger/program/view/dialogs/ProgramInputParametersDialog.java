@@ -1,11 +1,11 @@
 package org.jphototagger.program.view.dialogs;
 
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.UserSettings;
+import java.awt.Container;
+
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
-import java.awt.Container;
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.resource.GUI;
 
 /**
  *
@@ -78,8 +78,7 @@ public final class ProgramInputParametersDialog extends Dialog {
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
 
         buttonGroup = new javax.swing.ButtonGroup();
         panelContext = new javax.swing.JPanel();
@@ -96,18 +95,19 @@ public final class ProgramInputParametersDialog extends Dialog {
         buttonOk = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle(JptBundle.INSTANCE.getString("ProgramInputParametersDialog.title")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/dialogs/Bundle"); // NOI18N
+        setTitle(bundle.getString("ProgramInputParametersDialog.title")); // NOI18N
         setName("Form"); // NOI18N
 
-        panelContext.setBorder(javax.swing.BorderFactory.createTitledBorder(JptBundle.INSTANCE.getString("ProgramInputParametersDialog.panelContext.border.title"))); // NOI18N
+        panelContext.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("ProgramInputParametersDialog.panelContext.border.title"))); // NOI18N
         panelContext.setName("panelContext"); // NOI18N
 
-        labelContextProgramPrompt.setText(JptBundle.INSTANCE.getString("ProgramInputParametersDialog.labelContextProgramPrompt.text")); // NOI18N
+        labelContextProgramPrompt.setText(bundle.getString("ProgramInputParametersDialog.labelContextProgramPrompt.text")); // NOI18N
         labelContextProgramPrompt.setName("labelContextProgramPrompt"); // NOI18N
 
         labelContextProgram.setName("labelContextProgram"); // NOI18N
 
-        labelContextFilePrompt.setText(JptBundle.INSTANCE.getString("ProgramInputParametersDialog.labelContextFilePrompt.text")); // NOI18N
+        labelContextFilePrompt.setText(bundle.getString("ProgramInputParametersDialog.labelContextFilePrompt.text")); // NOI18N
         labelContextFilePrompt.setName("labelContextFilePrompt"); // NOI18N
 
         labelContextFile.setName("labelContextFile"); // NOI18N
@@ -145,7 +145,7 @@ public final class ProgramInputParametersDialog extends Dialog {
         panelContextLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelContextFile, labelContextFilePrompt});
 
         labelPrompt.setLabelFor(textAreaParameter);
-        labelPrompt.setText(JptBundle.INSTANCE.getString("ProgramInputParametersDialog.labelPrompt.text")); // NOI18N
+        labelPrompt.setText(bundle.getString("ProgramInputParametersDialog.labelPrompt.text")); // NOI18N
         labelPrompt.setName("labelPrompt"); // NOI18N
 
         scrollPaneAreaParameter.setName("scrollPaneAreaParameter"); // NOI18N
@@ -157,14 +157,14 @@ public final class ProgramInputParametersDialog extends Dialog {
 
         buttonGroup.add(radioButtonParametersBeforeFilename);
         radioButtonParametersBeforeFilename.setSelected(true);
-        radioButtonParametersBeforeFilename.setText(JptBundle.INSTANCE.getString("ProgramInputParametersDialog.radioButtonParametersBeforeFilename.text")); // NOI18N
+        radioButtonParametersBeforeFilename.setText(bundle.getString("ProgramInputParametersDialog.radioButtonParametersBeforeFilename.text")); // NOI18N
         radioButtonParametersBeforeFilename.setName("radioButtonParametersBeforeFilename"); // NOI18N
 
         buttonGroup.add(radioButtonParametersAfterFilename);
-        radioButtonParametersAfterFilename.setText(JptBundle.INSTANCE.getString("ProgramInputParametersDialog.radioButtonParametersAfterFilename.text")); // NOI18N
+        radioButtonParametersAfterFilename.setText(bundle.getString("ProgramInputParametersDialog.radioButtonParametersAfterFilename.text")); // NOI18N
         radioButtonParametersAfterFilename.setName("radioButtonParametersAfterFilename"); // NOI18N
 
-        buttonCancel.setText(JptBundle.INSTANCE.getString("ProgramInputParametersDialog.buttonCancel.text")); // NOI18N
+        buttonCancel.setText(bundle.getString("ProgramInputParametersDialog.buttonCancel.text")); // NOI18N
         buttonCancel.setName("buttonCancel"); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -172,7 +172,7 @@ public final class ProgramInputParametersDialog extends Dialog {
             }
         });
 
-        buttonOk.setText(JptBundle.INSTANCE.getString("ProgramInputParametersDialog.buttonOk.text")); // NOI18N
+        buttonOk.setText(bundle.getString("ProgramInputParametersDialog.buttonOk.text")); // NOI18N
         buttonOk.setName("buttonOk"); // NOI18N
         buttonOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -190,7 +190,7 @@ public final class ProgramInputParametersDialog extends Dialog {
                     .addComponent(radioButtonParametersBeforeFilename)
                     .addComponent(panelContext, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(labelPrompt)
-                    .addComponent(scrollPaneAreaParameter, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
+                    .addComponent(scrollPaneAreaParameter, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
                     .addComponent(radioButtonParametersAfterFilename)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(buttonCancel)
@@ -222,7 +222,7 @@ public final class ProgramInputParametersDialog extends Dialog {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }//GEN-END:initComponents
 
     private void buttonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOkActionPerformed
         accepted = true;

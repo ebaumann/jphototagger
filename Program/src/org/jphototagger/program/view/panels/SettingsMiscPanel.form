@@ -11,7 +11,7 @@
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="1"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="true"/>
-    <AuxValue name="FormSettings_formBundle" type="java.lang.String" value="org/jphototagger/program/resource/properties/Bundle"/>
+    <AuxValue name="FormSettings_formBundle" type="java.lang.String" value="org/jphototagger/program/view/panels/Bundle"/>
     <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="true"/>
@@ -89,7 +89,7 @@
     <Component class="javax.swing.JCheckBox" name="checkBoxIsAcceptHiddenDirectories">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsMiscPanel.checkBoxIsAcceptHiddenDirectories.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="SettingsMiscPanel.checkBoxIsAcceptHiddenDirectories.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="name" type="java.lang.String" value="checkBoxIsAcceptHiddenDirectories" noResource="true"/>
       </Properties>
@@ -100,7 +100,7 @@
     <Component class="javax.swing.JCheckBox" name="checkBoxAutoDownloadCheck">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsMiscPanel.checkBoxAutoDownloadCheck.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="SettingsMiscPanel.checkBoxAutoDownloadCheck.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="name" type="java.lang.String" value="checkBoxAutoDownloadCheck" noResource="true"/>
       </Properties>
@@ -111,7 +111,7 @@
     <Component class="javax.swing.JButton" name="buttonCheckDownload">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsMiscPanel.buttonCheckDownload.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="SettingsMiscPanel.buttonCheckDownload.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="name" type="java.lang.String" value="buttonCheckDownload" noResource="true"/>
       </Properties>
@@ -122,7 +122,7 @@
     <Component class="javax.swing.JCheckBox" name="checkBoxDisplaySearchButton">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsMiscPanel.checkBoxDisplaySearchButton.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="SettingsMiscPanel.checkBoxDisplaySearchButton.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="name" type="java.lang.String" value="checkBoxDisplaySearchButton" noResource="true"/>
       </Properties>
@@ -133,7 +133,7 @@
     <Component class="javax.swing.JCheckBox" name="checkBoxAddFilenameToGpsLocationExport">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsMiscPanel.checkBoxAddFilenameToGpsLocationExport.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="SettingsMiscPanel.checkBoxAddFilenameToGpsLocationExport.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="name" type="java.lang.String" value="checkBoxAddFilenameToGpsLocationExport" noResource="true"/>
       </Properties>
@@ -146,7 +146,7 @@
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
             <TitledBorder title="Kopieren/Verschieben von Dateien: Quelldatei">
-              <ResourceString PropertyName="titleX" bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsMiscPanel.panelCopyMoveFiles.border.title" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+              <ResourceString PropertyName="titleX" bundle="org/jphototagger/program/view/panels/Bundle.properties" key="SettingsMiscPanel.panelCopyMoveFiles.border.title" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </TitledBorder>
           </Border>
         </Property>
@@ -184,7 +184,7 @@
               <ComponentRef name="buttonGroupCopyMoveFiles"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsMiscPanel.radioButtonCopyMoveFileConfirmOverwrite.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="SettingsMiscPanel.radioButtonCopyMoveFileConfirmOverwrite.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="name" type="java.lang.String" value="radioButtonCopyMoveFileConfirmOverwrite" noResource="true"/>
           </Properties>
@@ -198,7 +198,7 @@
               <ComponentRef name="buttonGroupCopyMoveFiles"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsMiscPanel.radioButtonCopyMoveFileRenameIfExists.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="SettingsMiscPanel.radioButtonCopyMoveFileRenameIfExists.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="name" type="java.lang.String" value="radioButtonCopyMoveFileRenameIfExists" noResource="true"/>
           </Properties>
@@ -214,7 +214,7 @@
           <ComponentRef name="comboBoxIptcCharset"/>
         </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsMiscPanel.labelIptcCharset.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="SettingsMiscPanel.labelIptcCharset.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="name" type="java.lang.String" value="labelIptcCharset" noResource="true"/>
       </Properties>
@@ -230,6 +230,17 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboBoxIptcCharsetActionPerformed"/>
       </Events>
     </Component>
+    <Component class="javax.swing.JLabel" name="labelLogLevel">
+      <Properties>
+        <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="comboBoxLogLevel"/>
+        </Property>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="SettingsMiscPanel.labelLogLevel.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
+        <Property name="name" type="java.lang.String" value="labelLogLevel" noResource="true"/>
+      </Properties>
+    </Component>
     <Component class="javax.swing.JComboBox" name="comboBoxLogLevel">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
@@ -241,23 +252,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboBoxLogLevelActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="labelLogLevel">
-      <Properties>
-        <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="comboBoxLogLevel"/>
-        </Property>
-        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsMiscPanel.labelLogLevel.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
-        </Property>
-        <Property name="name" type="java.lang.String" value="labelLogLevel" noResource="true"/>
-      </Properties>
-    </Component>
     <Container class="javax.swing.JPanel" name="panelDatabaseDirectory">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
             <TitledBorder title="Datenbankordner">
-              <ResourceString PropertyName="titleX" bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsMiscPanel.panelDatabaseDirectory.border.title" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+              <ResourceString PropertyName="titleX" bundle="org/jphototagger/program/view/panels/Bundle.properties" key="SettingsMiscPanel.panelDatabaseDirectory.border.title" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </TitledBorder>
           </Border>
         </Property>
@@ -312,6 +312,39 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
+        <Component class="javax.swing.JLabel" name="labelInfoDatabaseDirectory">
+          <Properties>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="SettingsMiscPanel.labelInfoDatabaseDirectory.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
+            <Property name="name" type="java.lang.String" value="labelInfoDatabaseDirectory" noResource="true"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="buttonSetStandardDatabaseDirectoryName">
+          <Properties>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="SettingsMiscPanel.buttonSetStandardDatabaseDirectoryName.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
+            <Property name="name" type="java.lang.String" value="buttonSetStandardDatabaseDirectoryName" noResource="true"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSetStandardDatabaseDirectoryNameActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="buttonChooseDatabaseDirectory">
+          <Properties>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="SettingsMiscPanel.buttonChooseDatabaseDirectory.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
+            <Property name="name" type="java.lang.String" value="buttonChooseDatabaseDirectory" noResource="true"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonChooseDatabaseDirectoryActionPerformed"/>
+          </Events>
+        </Component>
         <Component class="javax.swing.JLabel" name="labelDatabaseDirectory">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -325,46 +358,24 @@
             <Property name="name" type="java.lang.String" value="labelDatabaseDirectory" noResource="true"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="buttonSetStandardDatabaseDirectoryName">
-          <Properties>
-            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsMiscPanel.buttonSetStandardDatabaseDirectoryName.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
-            </Property>
-            <Property name="name" type="java.lang.String" value="buttonSetStandardDatabaseDirectoryName" noResource="true"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSetStandardDatabaseDirectoryNameActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="buttonChooseDatabaseDirectory">
-          <Properties>
-            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsMiscPanel.buttonChooseDatabaseDirectory.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
-            </Property>
-            <Property name="name" type="java.lang.String" value="buttonChooseDatabaseDirectory" noResource="true"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonChooseDatabaseDirectoryActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JLabel" name="labelInfoDatabaseDirectory">
-          <Properties>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="ff" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsMiscPanel.labelInfoDatabaseDirectory.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
-            </Property>
-            <Property name="name" type="java.lang.String" value="labelInfoDatabaseDirectory" noResource="true"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JLabel" name="labelPromptDatabaseBackupDirectory">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsMiscPanel.labelPromptDatabaseBackupDirectory.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="SettingsMiscPanel.labelPromptDatabaseBackupDirectory.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="name" type="java.lang.String" value="labelPromptDatabaseBackupDirectory" noResource="true"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="buttonChooseDatabaseBackupDirectory">
+          <Properties>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="SettingsMiscPanel.buttonChooseDatabaseBackupDirectory.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
+            <Property name="name" type="java.lang.String" value="buttonChooseDatabaseBackupDirectory" noResource="true"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonChooseDatabaseBackupDirectoryActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="labelDatabaseBackupDirectory">
           <Properties>
@@ -378,17 +389,6 @@
             </Property>
             <Property name="name" type="java.lang.String" value="labelDatabaseBackupDirectory" noResource="true"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="buttonChooseDatabaseBackupDirectory">
-          <Properties>
-            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsMiscPanel.buttonChooseDatabaseBackupDirectory.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
-            </Property>
-            <Property name="name" type="java.lang.String" value="buttonChooseDatabaseBackupDirectory" noResource="true"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonChooseDatabaseBackupDirectoryActionPerformed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>

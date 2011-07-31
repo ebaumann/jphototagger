@@ -1,17 +1,18 @@
 package org.jphototagger.program.view.panels;
 
+import java.awt.Container;
+
+import javax.swing.JPanel;
+
+import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.componentutil.MnemonicUtil;
+import org.jphototagger.lib.event.ProgressEvent;
+import org.jphototagger.lib.event.listener.ProgressListener;
+import org.jphototagger.lib.util.Settings;
+import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.lib.event.listener.ProgressListener;
-import org.jphototagger.lib.event.ProgressEvent;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Persistence;
-import org.jphototagger.program.UserSettings;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.util.Settings;
-import java.awt.Container;
-import javax.swing.JPanel;
-import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Uses
@@ -152,8 +153,7 @@ public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
 
         buttonGroupPosition = new javax.swing.ButtonGroup();
         labelTitle = new javax.swing.JLabel();
@@ -167,12 +167,13 @@ public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener
         setName("Form"); // NOI18N
 
         labelTitle.setForeground(new java.awt.Color(0, 0, 255));
-        labelTitle.setText(JptBundle.INSTANCE.getString("RenameFilenamesInDbPanel.labelTitle.text")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/panels/Bundle"); // NOI18N
+        labelTitle.setText(bundle.getString("RenameFilenamesInDbPanel.labelTitle.text")); // NOI18N
         labelTitle.setName("labelTitle"); // NOI18N
 
         labelSearch.setForeground(new java.awt.Color(0, 196, 0));
         labelSearch.setLabelFor(textFieldSearch);
-        labelSearch.setText(JptBundle.INSTANCE.getString("RenameFilenamesInDbPanel.labelSearch.text")); // NOI18N
+        labelSearch.setText(bundle.getString("RenameFilenamesInDbPanel.labelSearch.text")); // NOI18N
         labelSearch.setName("labelSearch"); // NOI18N
 
         textFieldSearch.setName("textFieldSearch"); // NOI18N
@@ -184,7 +185,7 @@ public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener
 
         labelReplacement.setForeground(new java.awt.Color(0, 196, 0));
         labelReplacement.setLabelFor(textFieldReplacement);
-        labelReplacement.setText(JptBundle.INSTANCE.getString("RenameFilenamesInDbPanel.labelReplacement.text")); // NOI18N
+        labelReplacement.setText(bundle.getString("RenameFilenamesInDbPanel.labelReplacement.text")); // NOI18N
         labelReplacement.setName("labelReplacement"); // NOI18N
 
         textFieldReplacement.setName("textFieldReplacement"); // NOI18N
@@ -196,7 +197,7 @@ public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener
 
         progressBar.setName("progressBar"); // NOI18N
 
-        buttonReplace.setText(JptBundle.INSTANCE.getString("RenameFilenamesInDbPanel.buttonReplace.text")); // NOI18N
+        buttonReplace.setText(bundle.getString("RenameFilenamesInDbPanel.buttonReplace.text")); // NOI18N
         buttonReplace.setEnabled(false);
         buttonReplace.setName("buttonReplace"); // NOI18N
         buttonReplace.addActionListener(new java.awt.event.ActionListener() {
@@ -212,7 +213,7 @@ public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
+                    .addComponent(labelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelSearch, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -222,7 +223,7 @@ public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener
                             .addComponent(textFieldSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
                             .addComponent(textFieldReplacement, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)))
                     .addComponent(buttonReplace, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE))
+                    .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -247,7 +248,7 @@ public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {textFieldReplacement, textFieldSearch});
 
-    }// </editor-fold>//GEN-END:initComponents
+    }//GEN-END:initComponents
 
     private void buttonReplaceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonReplaceActionPerformed
         replace(this);
@@ -260,7 +261,6 @@ public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener
     private void textFieldReplacementKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldReplacementKeyReleased
         setButtonReplaceEnabled();
     }//GEN-LAST:event_textFieldReplacementKeyReleased
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupPosition;
     private javax.swing.JButton buttonReplace;

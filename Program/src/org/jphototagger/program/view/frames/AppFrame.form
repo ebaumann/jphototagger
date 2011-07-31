@@ -12,7 +12,7 @@
         <Menu class="javax.swing.JMenu" name="menuFile">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuFile.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuFile.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="name" type="java.lang.String" value="menuFile" noResource="true"/>
           </Properties>
@@ -26,7 +26,7 @@
                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_folder.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuItemScanDirectory.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuItemScanDirectory.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="menuItemScanDirectory" noResource="true"/>
               </Properties>
@@ -40,13 +40,16 @@
                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_database.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuItemMaintainDatabase.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuItemMaintainDatabase.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="menuItemMaintainDatabase" noResource="true"/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemMaintainance">
               <Properties>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuItemMaintainance.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
                 <Property name="name" type="java.lang.String" value="menuItemMaintainance" noResource="true"/>
               </Properties>
               <AuxValues>
@@ -67,7 +70,7 @@
                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_card.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuImportImageFiles.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuImportImageFiles.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="menuImportImageFiles" noResource="true"/>
               </Properties>
@@ -83,7 +86,7 @@
                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_export.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuExport.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuExport.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="menuExport" noResource="true"/>
               </Properties>
@@ -97,7 +100,7 @@
                       <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_app_small.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuItemExportJptMisc.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuItemExportJptMisc.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                     <Property name="name" type="java.lang.String" value="menuItemExportJptMisc" noResource="true"/>
                   </Properties>
@@ -108,7 +111,7 @@
                       <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_keyword.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuItemExportKeywords.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuItemExportKeywords.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                     <Property name="name" type="java.lang.String" value="menuItemExportKeywords" noResource="true"/>
                   </Properties>
@@ -121,7 +124,7 @@
                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_import.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuImport.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuImport.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="menuImport" noResource="true"/>
               </Properties>
@@ -135,7 +138,7 @@
                       <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_app_small.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuItemImportJptMisc.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuItemImportJptMisc.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                     <Property name="name" type="java.lang.String" value="menuItemImportJptMisc" noResource="true"/>
                   </Properties>
@@ -146,7 +149,7 @@
                       <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_keyword.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuItemImportKeywords.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuItemImportKeywords.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                     <Property name="name" type="java.lang.String" value="menuItemImportKeywords" noResource="true"/>
                   </Properties>
@@ -159,7 +162,7 @@
                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_save.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuItemBackupDatabase.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuItemBackupDatabase.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="menuItemBackupDatabase" noResource="true"/>
               </Properties>
@@ -178,7 +181,7 @@
                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_exit.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuItemExit.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuItemExit.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="menuItemExit" noResource="true"/>
               </Properties>
@@ -188,7 +191,7 @@
         <Menu class="javax.swing.JMenu" name="menuEdit">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuEdit.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuEdit.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="name" type="java.lang.String" value="menuEdit" noResource="true"/>
           </Properties>
@@ -202,7 +205,7 @@
                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_settings.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuItemSettings.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuItemSettings.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="menuItemSettings" noResource="true"/>
               </Properties>
@@ -221,7 +224,7 @@
                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_search.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuItemSearch.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuItemSearch.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="menuItemSearch" noResource="true"/>
               </Properties>
@@ -231,7 +234,7 @@
         <Menu class="javax.swing.JMenu" name="menuView">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuView.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuView.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="name" type="java.lang.String" value="menuView" noResource="true"/>
           </Properties>
@@ -242,7 +245,7 @@
                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_sort.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuSort.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuSort.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="menuSort" noResource="true"/>
               </Properties>
@@ -253,7 +256,7 @@
                       <ComponentRef name="buttonGroupSort"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortFilepathAscending.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.radioButtonMenuItemSortFilepathAscending.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                     <Property name="name" type="java.lang.String" value="radioButtonMenuItemSortFilepathAscending" noResource="true"/>
                   </Properties>
@@ -264,7 +267,7 @@
                       <ComponentRef name="buttonGroupSort"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortFilepathDescending.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.radioButtonMenuItemSortFilepathDescending.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                     <Property name="name" type="java.lang.String" value="radioButtonMenuItemSortFilepathDescending" noResource="true"/>
                   </Properties>
@@ -280,7 +283,7 @@
                       <ComponentRef name="buttonGroupSort"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortFilenameAscending.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.radioButtonMenuItemSortFilenameAscending.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                     <Property name="name" type="java.lang.String" value="radioButtonMenuItemSortFilenameAscending" noResource="true"/>
                   </Properties>
@@ -291,7 +294,7 @@
                       <ComponentRef name="buttonGroupSort"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortFilenameDescending.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.radioButtonMenuItemSortFilenameDescending.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                     <Property name="name" type="java.lang.String" value="radioButtonMenuItemSortFilenameDescending" noResource="true"/>
                   </Properties>
@@ -307,7 +310,7 @@
                       <ComponentRef name="buttonGroupSort"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortFileTypeAscending.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.radioButtonMenuItemSortFileTypeAscending.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                     <Property name="name" type="java.lang.String" value="radioButtonMenuItemSortFileTypeAscending" noResource="true"/>
                   </Properties>
@@ -318,7 +321,7 @@
                       <ComponentRef name="buttonGroupSort"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortFileTypeDescending.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.radioButtonMenuItemSortFileTypeDescending.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                     <Property name="name" type="java.lang.String" value="radioButtonMenuItemSortFileTypeDescending" noResource="true"/>
                   </Properties>
@@ -334,7 +337,7 @@
                       <ComponentRef name="buttonGroupSort"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortLastModifiedAscending.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.radioButtonMenuItemSortLastModifiedAscending.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                     <Property name="name" type="java.lang.String" value="radioButtonMenuItemSortLastModifiedAscending" noResource="true"/>
                   </Properties>
@@ -345,7 +348,7 @@
                       <ComponentRef name="buttonGroupSort"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortLastModifiedDescending.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.radioButtonMenuItemSortLastModifiedDescending.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                     <Property name="name" type="java.lang.String" value="radioButtonMenuItemSortLastModifiedDescending" noResource="true"/>
                   </Properties>
@@ -361,7 +364,7 @@
                       <ComponentRef name="buttonGroupSort"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortExifDateTimeOriginalAscending.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.radioButtonMenuItemSortExifDateTimeOriginalAscending.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                     <Property name="name" type="java.lang.String" value="radioButtonMenuItemSortExifDateTimeOriginalAscending" noResource="true"/>
                   </Properties>
@@ -372,7 +375,7 @@
                       <ComponentRef name="buttonGroupSort"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortExifDateTimeOriginalDescending.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.radioButtonMenuItemSortExifDateTimeOriginalDescending.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                     <Property name="name" type="java.lang.String" value="radioButtonMenuItemSortExifDateTimeOriginalDescending" noResource="true"/>
                   </Properties>
@@ -388,7 +391,7 @@
                       <ComponentRef name="buttonGroupSort"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortExifIsoSpeedRatingAscending.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.radioButtonMenuItemSortExifIsoSpeedRatingAscending.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                     <Property name="name" type="java.lang.String" value="radioButtonMenuItemSortExifIsoSpeedRatingAscending" noResource="true"/>
                   </Properties>
@@ -399,7 +402,7 @@
                       <ComponentRef name="buttonGroupSort"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortExifIsoSpeedRatingDescending.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.radioButtonMenuItemSortExifIsoSpeedRatingDescending.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                     <Property name="name" type="java.lang.String" value="radioButtonMenuItemSortExifIsoSpeedRatingDescending" noResource="true"/>
                   </Properties>
@@ -415,7 +418,7 @@
                       <ComponentRef name="buttonGroupSort"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortExifFocalLengthAscending.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.radioButtonMenuItemSortExifFocalLengthAscending.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                     <Property name="name" type="java.lang.String" value="radioButtonMenuItemSortExifFocalLengthAscending" noResource="true"/>
                   </Properties>
@@ -426,7 +429,7 @@
                       <ComponentRef name="buttonGroupSort"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortExifFocalLengthDescending.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.radioButtonMenuItemSortExifFocalLengthDescending.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                     <Property name="name" type="java.lang.String" value="radioButtonMenuItemSortExifFocalLengthDescending" noResource="true"/>
                   </Properties>
@@ -442,7 +445,7 @@
                       <ComponentRef name="buttonGroupSort"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortExifRecordingEquipmentAscending.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.radioButtonMenuItemSortExifRecordingEquipmentAscending.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                     <Property name="name" type="java.lang.String" value="radioButtonMenuItemSortExifRecordingEquipmentAscending" noResource="true"/>
                   </Properties>
@@ -453,7 +456,7 @@
                       <ComponentRef name="buttonGroupSort"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortExifRecordingEquipmentDescending.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.radioButtonMenuItemSortExifRecordingEquipmentDescending.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                     <Property name="name" type="java.lang.String" value="radioButtonMenuItemSortExifRecordingEquipmentDescending" noResource="true"/>
                   </Properties>
@@ -469,7 +472,7 @@
                       <ComponentRef name="buttonGroupSort"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortXmpIptcLocationAscending.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.radioButtonMenuItemSortXmpIptcLocationAscending.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                     <Property name="name" type="java.lang.String" value="radioButtonMenuItemSortXmpIptcLocationAscending" noResource="true"/>
                   </Properties>
@@ -480,7 +483,7 @@
                       <ComponentRef name="buttonGroupSort"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortXmpIptcLocationDescending.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.radioButtonMenuItemSortXmpIptcLocationDescending.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                     <Property name="name" type="java.lang.String" value="radioButtonMenuItemSortXmpIptcLocationDescending" noResource="true"/>
                   </Properties>
@@ -496,7 +499,7 @@
                       <ComponentRef name="buttonGroupSort"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortXmpRatingAscending.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.radioButtonMenuItemSortXmpRatingAscending.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                     <Property name="name" type="java.lang.String" value="radioButtonMenuItemSortXmpRatingAscending" noResource="true"/>
                   </Properties>
@@ -507,7 +510,7 @@
                       <ComponentRef name="buttonGroupSort"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortXmpRatingDescending.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.radioButtonMenuItemSortXmpRatingDescending.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                     <Property name="name" type="java.lang.String" value="radioButtonMenuItemSortXmpRatingDescending" noResource="true"/>
                   </Properties>
@@ -523,7 +526,7 @@
                       <ComponentRef name="buttonGroupSort"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.radioButtonMenuItemSortNone.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.radioButtonMenuItemSortNone.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                     <Property name="enabled" type="boolean" value="false"/>
                     <Property name="name" type="java.lang.String" value="radioButtonMenuItemSortNone" noResource="true"/>
@@ -542,10 +545,10 @@
                   <Connection code="KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_O)" type="code"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.checkBoxMenuItemKeywordOverlay.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.checkBoxMenuItemKeywordOverlay.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.checkBoxMenuItemKeywordOverlay.toolTipText" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.checkBoxMenuItemKeywordOverlay.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="checkBoxMenuItemKeywordOverlay" noResource="true"/>
               </Properties>
@@ -555,7 +558,7 @@
         <Menu class="javax.swing.JMenu" name="menuGoto">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuGoto.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuGoto.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="name" type="java.lang.String" value="menuGoto" noResource="true"/>
           </Properties>
@@ -569,7 +572,7 @@
                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_search.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuItemGotoFastSearch.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuItemGotoFastSearch.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="menuItemGotoFastSearch" noResource="true"/>
               </Properties>
@@ -583,7 +586,7 @@
                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_edit.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuItemGotoEdit.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuItemGotoEdit.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="menuItemGotoEdit" noResource="true"/>
               </Properties>
@@ -602,7 +605,7 @@
                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_folder.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuItemGotoDirectories.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuItemGotoDirectories.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="menuItemGotoDirectories" noResource="true"/>
               </Properties>
@@ -616,7 +619,7 @@
                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_search.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuItemGotoSavedSearches.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuItemGotoSavedSearches.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="menuItemGotoSavedSearches" noResource="true"/>
               </Properties>
@@ -630,7 +633,7 @@
                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_imagecollection.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuItemGotoCollections.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuItemGotoCollections.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="menuItemGotoCollections" noResource="true"/>
               </Properties>
@@ -644,7 +647,7 @@
                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_favorite.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuItemGotoFavorites.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuItemGotoFavorites.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="menuItemGotoFavorites" noResource="true"/>
               </Properties>
@@ -658,7 +661,7 @@
                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_keyword.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuItemGotoKeywordsSel.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuItemGotoKeywordsSel.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="menuItemGotoKeywordsSel" noResource="true"/>
               </Properties>
@@ -672,7 +675,7 @@
                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_timeline.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuItemGotoTimeline.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuItemGotoTimeline.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="menuItemGotoTimeline" noResource="true"/>
               </Properties>
@@ -686,7 +689,7 @@
                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_misc_metadata.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuItemGotoMiscMetadata.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuItemGotoMiscMetadata.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="menuItemGotoMiscMetadata" noResource="true"/>
               </Properties>
@@ -700,7 +703,7 @@
                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_no_metadata.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuItemGotoNoMetadata.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuItemGotoNoMetadata.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="menuItemGotoNoMetadata" noResource="true"/>
               </Properties>
@@ -719,7 +722,7 @@
                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_thumbnails.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuItemGotoThumbnailsPanel.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuItemGotoThumbnailsPanel.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="menuItemGotoThumbnailsPanel" noResource="true"/>
               </Properties>
@@ -738,7 +741,7 @@
                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_iptc.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuItemGotoIptcMetadata.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuItemGotoIptcMetadata.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="menuItemGotoIptcMetadata" noResource="true"/>
               </Properties>
@@ -752,7 +755,7 @@
                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_exif.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuItemGotoExifMetadata.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuItemGotoExifMetadata.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="menuItemGotoExifMetadata" noResource="true"/>
               </Properties>
@@ -766,7 +769,7 @@
                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_xmp.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuItemGotoXmpMetadata.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuItemGotoXmpMetadata.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="menuItemGotoXmpMetadata" noResource="true"/>
               </Properties>
@@ -780,7 +783,7 @@
                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_keyword.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuItemGotoKeywordsEdit.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuItemGotoKeywordsEdit.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="menuItemGotoKeywordsEdit" noResource="true"/>
               </Properties>
@@ -790,7 +793,7 @@
         <Menu class="javax.swing.JMenu" name="menuTools">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuTools.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuTools.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="name" type="java.lang.String" value="menuTools" noResource="true"/>
           </Properties>
@@ -804,7 +807,7 @@
                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_iptc.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuItemToolIptcToXmp.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuItemToolIptcToXmp.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="menuItemToolIptcToXmp" noResource="true"/>
               </Properties>
@@ -818,7 +821,7 @@
                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_xmp.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuItemExtractEmbeddedXmp.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuItemExtractEmbeddedXmp.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="menuItemExtractEmbeddedXmp" noResource="true"/>
               </Properties>
@@ -828,7 +831,7 @@
         <Menu class="javax.swing.JMenu" name="menuWindow">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuWindow.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuWindow.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="name" type="java.lang.String" value="menuWindow" noResource="true"/>
           </Properties>
@@ -842,7 +845,7 @@
                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_edit.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuItemInputHelper.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuItemInputHelper.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="menuItemInputHelper" noResource="true"/>
               </Properties>
@@ -856,7 +859,7 @@
                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_action.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuItemActions.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuItemActions.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="menuItemActions" noResource="true"/>
               </Properties>
@@ -867,7 +870,7 @@
                   <KeyStroke key="F7"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuItemSynonyms.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuItemSynonyms.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="menuItemSynonyms" noResource="true"/>
               </Properties>
@@ -878,7 +881,7 @@
                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_filter.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuItemUserDefinedFileFilter.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuItemUserDefinedFileFilter.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="menuItemUserDefinedFileFilter" noResource="true"/>
               </Properties>
@@ -886,7 +889,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="menuItemUserDefinedFileType">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuItemUserDefinedFileType.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuItemUserDefinedFileType.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="menuItemUserDefinedFileType" noResource="true"/>
               </Properties>
@@ -908,7 +911,7 @@
                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_view_logfile.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuItemOutputWindow.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuItemOutputWindow.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="menuItemOutputWindow" noResource="true"/>
               </Properties>
@@ -924,7 +927,7 @@
                   <Connection code="KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_L)" type="code"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuItemDisplayLogfile.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuItemDisplayLogfile.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="enabled" type="boolean" value="false"/>
                 <Property name="name" type="java.lang.String" value="menuItemDisplayLogfile" noResource="true"/>
@@ -933,7 +936,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="menuItemDisplayAllLogfile">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuItemDisplayAllLogfile.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuItemDisplayAllLogfile.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="menuItemDisplayAllLogfile" noResource="true"/>
               </Properties>
@@ -943,7 +946,7 @@
         <Menu class="javax.swing.JMenu" name="menuHelp">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuHelp.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuHelp.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="name" type="java.lang.String" value="menuHelp" noResource="true"/>
           </Properties>
@@ -957,7 +960,7 @@
                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_help.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuItemHelp.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuItemHelp.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="menuItemHelp" noResource="true"/>
               </Properties>
@@ -968,7 +971,7 @@
                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_pdf_manual.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuItemOpenPdfUserManual.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuItemOpenPdfUserManual.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="enabled" type="boolean" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="SystemUtil.canOpen()" type="code"/>
@@ -982,7 +985,7 @@
                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_keyboard.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuItemAcceleratorKeys.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuItemAcceleratorKeys.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="menuItemAcceleratorKeys" noResource="true"/>
               </Properties>
@@ -998,7 +1001,7 @@
                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_web.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuItemBrowseUserForum.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuItemBrowseUserForum.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="enabled" type="boolean" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="SystemUtil.canBrowse()" type="code"/>
@@ -1012,7 +1015,7 @@
                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_web.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuItemBrowseWebsite.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuItemBrowseWebsite.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="enabled" type="boolean" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="SystemUtil.canBrowse()" type="code"/>
@@ -1026,7 +1029,7 @@
                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_web.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuItemBrowseChangelog.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuItemBrowseChangelog.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="enabled" type="boolean" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="SystemUtil.canBrowse()" type="code"/>
@@ -1045,7 +1048,7 @@
                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_mail.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuItemSendBugMail.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuItemSendBugMail.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="enabled" type="boolean" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="SystemUtil.canMail()" type="code"/>
@@ -1059,7 +1062,7 @@
                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_mail.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuItemSendFeatureMail.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuItemSendFeatureMail.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="enabled" type="boolean" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="SystemUtil.canMail()" type="code"/>
@@ -1078,7 +1081,7 @@
                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_refresh.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuItemCheckForUpdates.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuItemCheckForUpdates.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="menuItemCheckForUpdates" noResource="true"/>
               </Properties>
@@ -1094,7 +1097,7 @@
                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_app_about.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppFrame.menuItemAbout.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuItemAbout.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="menuItemAbout" noResource="true"/>
               </Properties>
@@ -1118,7 +1121,7 @@
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="1"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="true"/>
-    <AuxValue name="FormSettings_formBundle" type="java.lang.String" value="org/jphototagger/program/resource/properties/Bundle"/>
+    <AuxValue name="FormSettings_formBundle" type="java.lang.String" value="org/jphototagger/program/view/frames/Bundle"/>
     <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="true"/>

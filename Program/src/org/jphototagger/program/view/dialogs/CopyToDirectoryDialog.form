@@ -8,7 +8,7 @@
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="0"/>
     <Property name="title" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="CopyToDirectoryDialog.title" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+      <ResourceString bundle="org/jphototagger/program/view/dialogs/Bundle.properties" key="CopyToDirectoryDialog.title" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
     </Property>
     <Property name="name" type="java.lang.String" value="Form" noResource="true"/>
   </Properties>
@@ -21,7 +21,7 @@
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="1"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="true"/>
-    <AuxValue name="FormSettings_formBundle" type="java.lang.String" value="org/jphototagger/program/resource/properties/Bundle"/>
+    <AuxValue name="FormSettings_formBundle" type="java.lang.String" value="org/jphototagger/program/view/dialogs/Bundle"/>
     <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="true"/>
@@ -45,16 +45,16 @@
                       <EmptySpace pref="125" max="32767" attributes="0"/>
                       <Component id="buttonChooseDirectory" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="labelTargetDirectory" alignment="0" pref="515" max="32767" attributes="2"/>
+                  <Component id="labelTargetDirectory" alignment="0" pref="628" max="32767" attributes="2"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="labelInfoCurrentFilename" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="labelCurrentFilename" pref="439" max="32767" attributes="0"/>
+                      <Component id="labelCurrentFilename" pref="530" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="progressBar" alignment="0" pref="515" max="32767" attributes="2"/>
+                  <Component id="progressBar" alignment="0" pref="628" max="32767" attributes="2"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="labelInfoIsThread" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="139" max="32767" attributes="0"/>
+                      <EmptySpace pref="157" max="32767" attributes="0"/>
                       <Component id="buttonCancel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonStart" min="-2" max="-2" attributes="0"/>
@@ -102,7 +102,7 @@
     <Component class="javax.swing.JLabel" name="labelInfo">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="CopyToDirectoryDialog.labelInfo.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/program/view/dialogs/Bundle.properties" key="CopyToDirectoryDialog.labelInfo.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="name" type="java.lang.String" value="labelInfo" noResource="true"/>
       </Properties>
@@ -110,7 +110,7 @@
     <Component class="javax.swing.JButton" name="buttonChooseDirectory">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="CopyToDirectoryDialog.buttonChooseDirectory.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/program/view/dialogs/Bundle.properties" key="CopyToDirectoryDialog.buttonChooseDirectory.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="name" type="java.lang.String" value="buttonChooseDirectory" noResource="true"/>
       </Properties>
@@ -134,7 +134,7 @@
           <ComponentRef name="buttonGroupFileExists"/>
         </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="CopyToDirectoryDialog.radioButtonForceOverwrite.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/program/view/dialogs/Bundle.properties" key="CopyToDirectoryDialog.radioButtonForceOverwrite.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="name" type="java.lang.String" value="radioButtonForceOverwrite" noResource="true"/>
       </Properties>
@@ -145,7 +145,7 @@
           <ComponentRef name="buttonGroupFileExists"/>
         </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="CopyToDirectoryDialog.radioButtonRenameIfTargetFileExists.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/program/view/dialogs/Bundle.properties" key="CopyToDirectoryDialog.radioButtonRenameIfTargetFileExists.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="name" type="java.lang.String" value="radioButtonRenameIfTargetFileExists" noResource="true"/>
       </Properties>
@@ -154,7 +154,7 @@
       <Properties>
         <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="CopyToDirectoryDialog.checkBoxCopyXmp.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/program/view/dialogs/Bundle.properties" key="CopyToDirectoryDialog.checkBoxCopyXmp.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="name" type="java.lang.String" value="checkBoxCopyXmp" noResource="true"/>
       </Properties>
@@ -167,7 +167,7 @@
     <Component class="javax.swing.JLabel" name="labelInfoCurrentFilename">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="CopyToDirectoryDialog.labelInfoCurrentFilename.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/program/view/dialogs/Bundle.properties" key="CopyToDirectoryDialog.labelInfoCurrentFilename.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="name" type="java.lang.String" value="labelInfoCurrentFilename" noResource="true"/>
       </Properties>
@@ -186,7 +186,7 @@
           <Color blue="ff" green="0" red="0" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="CopyToDirectoryDialog.labelInfoIsThread.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/program/view/dialogs/Bundle.properties" key="CopyToDirectoryDialog.labelInfoIsThread.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="name" type="java.lang.String" value="labelInfoIsThread" noResource="true"/>
       </Properties>
@@ -194,7 +194,7 @@
     <Component class="javax.swing.JButton" name="buttonCancel">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="CopyToDirectoryDialog.buttonCancel.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/program/view/dialogs/Bundle.properties" key="CopyToDirectoryDialog.buttonCancel.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
         <Property name="name" type="java.lang.String" value="buttonCancel" noResource="true"/>
@@ -206,7 +206,7 @@
     <Component class="javax.swing.JButton" name="buttonStart">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="CopyToDirectoryDialog.buttonStart.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/program/view/dialogs/Bundle.properties" key="CopyToDirectoryDialog.buttonStart.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
         <Property name="name" type="java.lang.String" value="buttonStart" noResource="true"/>

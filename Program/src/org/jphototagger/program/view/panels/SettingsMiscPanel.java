@@ -1,24 +1,25 @@
 package org.jphototagger.program.view.panels;
 
-import org.jphototagger.lib.dialog.DirectoryChooser.Option;
-import org.jphototagger.domain.event.UserSettingsEvent;
-import org.jphototagger.domain.event.UserSettingsEvent.Type;
-import org.jphototagger.program.helper.CopyFiles;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.types.Persistence;
-import org.jphototagger.program.UserSettings;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.dialog.DirectoryChooser;
 import java.awt.Container;
 import java.io.File;
 import java.util.logging.Level;
+
 import javax.swing.Icon;
 import javax.swing.filechooser.FileSystemView;
-import org.jphototagger.program.controller.misc.ControllerUpdateCheck;
+
+import org.jphototagger.domain.event.UserSettingsEvent;
+import org.jphototagger.domain.event.UserSettingsEvent.Type;
 import org.jphototagger.domain.event.listener.UserSettingsListener;
+import org.jphototagger.lib.componentutil.MnemonicUtil;
+import org.jphototagger.lib.dialog.DirectoryChooser;
+import org.jphototagger.lib.dialog.DirectoryChooser.Option;
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.controller.misc.ControllerUpdateCheck;
 import org.jphototagger.program.factory.ControllerFactory;
+import org.jphototagger.program.helper.CopyFiles;
 import org.jphototagger.program.model.IptcCharsetComboBoxModel;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.types.Persistence;
 
 /**
  *
@@ -194,20 +195,21 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
         radioButtonCopyMoveFileRenameIfExists = new javax.swing.JRadioButton();
         labelIptcCharset = new javax.swing.JLabel();
         comboBoxIptcCharset = new javax.swing.JComboBox();
-        comboBoxLogLevel = new javax.swing.JComboBox();
         labelLogLevel = new javax.swing.JLabel();
+        comboBoxLogLevel = new javax.swing.JComboBox();
         panelDatabaseDirectory = new javax.swing.JPanel();
-        labelDatabaseDirectory = new javax.swing.JLabel();
+        labelInfoDatabaseDirectory = new javax.swing.JLabel();
         buttonSetStandardDatabaseDirectoryName = new javax.swing.JButton();
         buttonChooseDatabaseDirectory = new javax.swing.JButton();
-        labelInfoDatabaseDirectory = new javax.swing.JLabel();
+        labelDatabaseDirectory = new javax.swing.JLabel();
         labelPromptDatabaseBackupDirectory = new javax.swing.JLabel();
-        labelDatabaseBackupDirectory = new javax.swing.JLabel();
         buttonChooseDatabaseBackupDirectory = new javax.swing.JButton();
+        labelDatabaseBackupDirectory = new javax.swing.JLabel();
 
         setName("Form"); // NOI18N
 
-        checkBoxIsAcceptHiddenDirectories.setText(JptBundle.INSTANCE.getString("SettingsMiscPanel.checkBoxIsAcceptHiddenDirectories.text")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/panels/Bundle"); // NOI18N
+        checkBoxIsAcceptHiddenDirectories.setText(bundle.getString("SettingsMiscPanel.checkBoxIsAcceptHiddenDirectories.text")); // NOI18N
         checkBoxIsAcceptHiddenDirectories.setName("checkBoxIsAcceptHiddenDirectories"); // NOI18N
         checkBoxIsAcceptHiddenDirectories.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -215,7 +217,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
             }
         });
 
-        checkBoxAutoDownloadCheck.setText(JptBundle.INSTANCE.getString("SettingsMiscPanel.checkBoxAutoDownloadCheck.text")); // NOI18N
+        checkBoxAutoDownloadCheck.setText(bundle.getString("SettingsMiscPanel.checkBoxAutoDownloadCheck.text")); // NOI18N
         checkBoxAutoDownloadCheck.setName("checkBoxAutoDownloadCheck"); // NOI18N
         checkBoxAutoDownloadCheck.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -223,7 +225,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
             }
         });
 
-        buttonCheckDownload.setText(JptBundle.INSTANCE.getString("SettingsMiscPanel.buttonCheckDownload.text")); // NOI18N
+        buttonCheckDownload.setText(bundle.getString("SettingsMiscPanel.buttonCheckDownload.text")); // NOI18N
         buttonCheckDownload.setName("buttonCheckDownload"); // NOI18N
         buttonCheckDownload.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -231,7 +233,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
             }
         });
 
-        checkBoxDisplaySearchButton.setText(JptBundle.INSTANCE.getString("SettingsMiscPanel.checkBoxDisplaySearchButton.text")); // NOI18N
+        checkBoxDisplaySearchButton.setText(bundle.getString("SettingsMiscPanel.checkBoxDisplaySearchButton.text")); // NOI18N
         checkBoxDisplaySearchButton.setName("checkBoxDisplaySearchButton"); // NOI18N
         checkBoxDisplaySearchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -239,7 +241,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
             }
         });
 
-        checkBoxAddFilenameToGpsLocationExport.setText(JptBundle.INSTANCE.getString("SettingsMiscPanel.checkBoxAddFilenameToGpsLocationExport.text")); // NOI18N
+        checkBoxAddFilenameToGpsLocationExport.setText(bundle.getString("SettingsMiscPanel.checkBoxAddFilenameToGpsLocationExport.text")); // NOI18N
         checkBoxAddFilenameToGpsLocationExport.setName("checkBoxAddFilenameToGpsLocationExport"); // NOI18N
         checkBoxAddFilenameToGpsLocationExport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -247,11 +249,11 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
             }
         });
 
-        panelCopyMoveFiles.setBorder(javax.swing.BorderFactory.createTitledBorder(JptBundle.INSTANCE.getString("SettingsMiscPanel.panelCopyMoveFiles.border.title"))); // NOI18N
+        panelCopyMoveFiles.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("SettingsMiscPanel.panelCopyMoveFiles.border.title"))); // NOI18N
         panelCopyMoveFiles.setName("panelCopyMoveFiles"); // NOI18N
 
         buttonGroupCopyMoveFiles.add(radioButtonCopyMoveFileConfirmOverwrite);
-        radioButtonCopyMoveFileConfirmOverwrite.setText(JptBundle.INSTANCE.getString("SettingsMiscPanel.radioButtonCopyMoveFileConfirmOverwrite.text")); // NOI18N
+        radioButtonCopyMoveFileConfirmOverwrite.setText(bundle.getString("SettingsMiscPanel.radioButtonCopyMoveFileConfirmOverwrite.text")); // NOI18N
         radioButtonCopyMoveFileConfirmOverwrite.setName("radioButtonCopyMoveFileConfirmOverwrite"); // NOI18N
         radioButtonCopyMoveFileConfirmOverwrite.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -260,7 +262,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
         });
 
         buttonGroupCopyMoveFiles.add(radioButtonCopyMoveFileRenameIfExists);
-        radioButtonCopyMoveFileRenameIfExists.setText(JptBundle.INSTANCE.getString("SettingsMiscPanel.radioButtonCopyMoveFileRenameIfExists.text")); // NOI18N
+        radioButtonCopyMoveFileRenameIfExists.setText(bundle.getString("SettingsMiscPanel.radioButtonCopyMoveFileRenameIfExists.text")); // NOI18N
         radioButtonCopyMoveFileRenameIfExists.setName("radioButtonCopyMoveFileRenameIfExists"); // NOI18N
         radioButtonCopyMoveFileRenameIfExists.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -289,7 +291,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
         );
 
         labelIptcCharset.setLabelFor(comboBoxIptcCharset);
-        labelIptcCharset.setText(JptBundle.INSTANCE.getString("SettingsMiscPanel.labelIptcCharset.text")); // NOI18N
+        labelIptcCharset.setText(bundle.getString("SettingsMiscPanel.labelIptcCharset.text")); // NOI18N
         labelIptcCharset.setName("labelIptcCharset"); // NOI18N
 
         comboBoxIptcCharset.setModel(new IptcCharsetComboBoxModel());
@@ -300,6 +302,10 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
             }
         });
 
+        labelLogLevel.setLabelFor(comboBoxLogLevel);
+        labelLogLevel.setText(bundle.getString("SettingsMiscPanel.labelLogLevel.text")); // NOI18N
+        labelLogLevel.setName("labelLogLevel"); // NOI18N
+
         comboBoxLogLevel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { java.util.logging.Level.WARNING.getLocalizedName(), java.util.logging.Level.SEVERE.getLocalizedName(), java.util.logging.Level.INFO.getLocalizedName(), java.util.logging.Level.CONFIG.getLocalizedName(), java.util.logging.Level.FINE.getLocalizedName(), java.util.logging.Level.FINER.getLocalizedName(), java.util.logging.Level.FINEST.getLocalizedName() }));
         comboBoxLogLevel.setName("comboBoxLogLevel"); // NOI18N
         comboBoxLogLevel.addActionListener(new java.awt.event.ActionListener() {
@@ -308,18 +314,14 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
             }
         });
 
-        labelLogLevel.setLabelFor(comboBoxLogLevel);
-        labelLogLevel.setText(JptBundle.INSTANCE.getString("SettingsMiscPanel.labelLogLevel.text")); // NOI18N
-        labelLogLevel.setName("labelLogLevel"); // NOI18N
-
-        panelDatabaseDirectory.setBorder(javax.swing.BorderFactory.createTitledBorder(JptBundle.INSTANCE.getString("SettingsMiscPanel.panelDatabaseDirectory.border.title"))); // NOI18N
+        panelDatabaseDirectory.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("SettingsMiscPanel.panelDatabaseDirectory.border.title"))); // NOI18N
         panelDatabaseDirectory.setName("panelDatabaseDirectory"); // NOI18N
 
-        labelDatabaseDirectory.setForeground(new java.awt.Color(0, 0, 255));
-        labelDatabaseDirectory.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        labelDatabaseDirectory.setName("labelDatabaseDirectory"); // NOI18N
+        labelInfoDatabaseDirectory.setForeground(new java.awt.Color(255, 0, 0));
+        labelInfoDatabaseDirectory.setText(bundle.getString("SettingsMiscPanel.labelInfoDatabaseDirectory.text")); // NOI18N
+        labelInfoDatabaseDirectory.setName("labelInfoDatabaseDirectory"); // NOI18N
 
-        buttonSetStandardDatabaseDirectoryName.setText(JptBundle.INSTANCE.getString("SettingsMiscPanel.buttonSetStandardDatabaseDirectoryName.text")); // NOI18N
+        buttonSetStandardDatabaseDirectoryName.setText(bundle.getString("SettingsMiscPanel.buttonSetStandardDatabaseDirectoryName.text")); // NOI18N
         buttonSetStandardDatabaseDirectoryName.setName("buttonSetStandardDatabaseDirectoryName"); // NOI18N
         buttonSetStandardDatabaseDirectoryName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -327,7 +329,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
             }
         });
 
-        buttonChooseDatabaseDirectory.setText(JptBundle.INSTANCE.getString("SettingsMiscPanel.buttonChooseDatabaseDirectory.text")); // NOI18N
+        buttonChooseDatabaseDirectory.setText(bundle.getString("SettingsMiscPanel.buttonChooseDatabaseDirectory.text")); // NOI18N
         buttonChooseDatabaseDirectory.setName("buttonChooseDatabaseDirectory"); // NOI18N
         buttonChooseDatabaseDirectory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -335,24 +337,24 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
             }
         });
 
-        labelInfoDatabaseDirectory.setForeground(new java.awt.Color(255, 0, 0));
-        labelInfoDatabaseDirectory.setText(JptBundle.INSTANCE.getString("SettingsMiscPanel.labelInfoDatabaseDirectory.text")); // NOI18N
-        labelInfoDatabaseDirectory.setName("labelInfoDatabaseDirectory"); // NOI18N
+        labelDatabaseDirectory.setForeground(new java.awt.Color(0, 0, 255));
+        labelDatabaseDirectory.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        labelDatabaseDirectory.setName("labelDatabaseDirectory"); // NOI18N
 
-        labelPromptDatabaseBackupDirectory.setText(JptBundle.INSTANCE.getString("SettingsMiscPanel.labelPromptDatabaseBackupDirectory.text")); // NOI18N
+        labelPromptDatabaseBackupDirectory.setText(bundle.getString("SettingsMiscPanel.labelPromptDatabaseBackupDirectory.text")); // NOI18N
         labelPromptDatabaseBackupDirectory.setName("labelPromptDatabaseBackupDirectory"); // NOI18N
 
-        labelDatabaseBackupDirectory.setForeground(new java.awt.Color(0, 0, 255));
-        labelDatabaseBackupDirectory.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        labelDatabaseBackupDirectory.setName("labelDatabaseBackupDirectory"); // NOI18N
-
-        buttonChooseDatabaseBackupDirectory.setText(JptBundle.INSTANCE.getString("SettingsMiscPanel.buttonChooseDatabaseBackupDirectory.text")); // NOI18N
+        buttonChooseDatabaseBackupDirectory.setText(bundle.getString("SettingsMiscPanel.buttonChooseDatabaseBackupDirectory.text")); // NOI18N
         buttonChooseDatabaseBackupDirectory.setName("buttonChooseDatabaseBackupDirectory"); // NOI18N
         buttonChooseDatabaseBackupDirectory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseDatabaseBackupDirectoryActionPerformed(evt);
             }
         });
+
+        labelDatabaseBackupDirectory.setForeground(new java.awt.Color(0, 0, 255));
+        labelDatabaseBackupDirectory.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        labelDatabaseBackupDirectory.setName("labelDatabaseBackupDirectory"); // NOI18N
 
         javax.swing.GroupLayout panelDatabaseDirectoryLayout = new javax.swing.GroupLayout(panelDatabaseDirectory);
         panelDatabaseDirectory.setLayout(panelDatabaseDirectoryLayout);

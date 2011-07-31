@@ -19,7 +19,7 @@
               <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_new.png"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsActionsPanel.menuItemAddAction.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="SettingsActionsPanel.menuItemAddAction.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="enabled" type="boolean" value="false"/>
             <Property name="name" type="java.lang.String" value="menuItemAddAction" noResource="true"/>
@@ -37,7 +37,7 @@
               <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_delete.png"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsActionsPanel.menuItemDeleteAction.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="SettingsActionsPanel.menuItemDeleteAction.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="enabled" type="boolean" value="false"/>
             <Property name="name" type="java.lang.String" value="menuItemDeleteAction" noResource="true"/>
@@ -57,7 +57,7 @@
               <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_arrow_up.png"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsActionsPanel.menuItemMoveUpAction.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="SettingsActionsPanel.menuItemMoveUpAction.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="enabled" type="boolean" value="false"/>
             <Property name="name" type="java.lang.String" value="menuItemMoveUpAction" noResource="true"/>
@@ -72,7 +72,7 @@
               <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_arrow_down.png"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsActionsPanel.menuItemMoveDownAction.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="SettingsActionsPanel.menuItemMoveDownAction.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="enabled" type="boolean" value="false"/>
             <Property name="name" type="java.lang.String" value="menuItemMoveDownAction" noResource="true"/>
@@ -89,7 +89,7 @@
         <MenuItem class="javax.swing.JMenuItem" name="menuItemShowActions">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsActionsPanel.menuItemShowActions.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="SettingsActionsPanel.menuItemShowActions.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="name" type="java.lang.String" value="menuItemShowActions" noResource="true"/>
           </Properties>
@@ -104,7 +104,7 @@
     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
       <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
         <TitledBorder title="Aktionen nach Einf&#xfc;gen der Metadaten in die Datenbank">
-          <ResourceString PropertyName="titleX" bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsActionsPanel.border.title" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+          <ResourceString PropertyName="titleX" bundle="org/jphototagger/program/view/panels/Bundle.properties" key="SettingsActionsPanel.border.title" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </TitledBorder>
       </Border>
     </Property>
@@ -113,7 +113,7 @@
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="1"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="true"/>
-    <AuxValue name="FormSettings_formBundle" type="java.lang.String" value="org/jphototagger/program/resource/properties/Bundle"/>
+    <AuxValue name="FormSettings_formBundle" type="java.lang.String" value="org/jphototagger/program/view/panels/Bundle"/>
     <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="true"/>
@@ -220,7 +220,7 @@
     <Component class="javax.swing.JButton" name="buttonMoveUpAction">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsActionsPanel.buttonMoveUpAction.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="SettingsActionsPanel.buttonMoveUpAction.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
         <Property name="name" type="java.lang.String" value="buttonMoveUpAction" noResource="true"/>
@@ -232,7 +232,7 @@
     <Component class="javax.swing.JButton" name="buttonMoveDownAction">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsActionsPanel.buttonMoveDownAction.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="SettingsActionsPanel.buttonMoveDownAction.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
         <Property name="name" type="java.lang.String" value="buttonMoveDownAction" noResource="true"/>
@@ -244,7 +244,7 @@
     <Component class="javax.swing.JButton" name="buttonAddAction">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsActionsPanel.buttonAddAction.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="SettingsActionsPanel.buttonAddAction.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
         <Property name="name" type="java.lang.String" value="buttonAddAction" noResource="true"/>
@@ -256,7 +256,7 @@
     <Component class="javax.swing.JButton" name="buttonDeleteAction">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsActionsPanel.buttonDeleteAction.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="SettingsActionsPanel.buttonDeleteAction.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
         <Property name="name" type="java.lang.String" value="buttonDeleteAction" noResource="true"/>
@@ -268,7 +268,7 @@
     <Component class="javax.swing.JButton" name="buttonShowActions">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsActionsPanel.buttonShowActions.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="SettingsActionsPanel.buttonShowActions.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="name" type="java.lang.String" value="buttonShowActions" noResource="true"/>
       </Properties>
@@ -282,7 +282,7 @@
           <ComponentRef name="buttonGroupExecute"/>
         </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsActionsPanel.radioButtonExecuteAlways.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="SettingsActionsPanel.radioButtonExecuteAlways.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="name" type="java.lang.String" value="radioButtonExecuteAlways" noResource="true"/>
       </Properties>
@@ -296,7 +296,7 @@
           <ComponentRef name="buttonGroupExecute"/>
         </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="SettingsActionsPanel.radioButtonExecuteIfImageHasXmp.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="SettingsActionsPanel.radioButtonExecuteIfImageHasXmp.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="name" type="java.lang.String" value="radioButtonExecuteIfImageHasXmp" noResource="true"/>
       </Properties>

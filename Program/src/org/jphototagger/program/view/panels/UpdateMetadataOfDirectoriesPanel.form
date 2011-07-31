@@ -23,7 +23,7 @@
               <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_delete.png"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="UpdateMetadataOfDirectoriesPanel.menuItemDelete.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="UpdateMetadataOfDirectoriesPanel.menuItemDelete.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="name" type="java.lang.String" value="menuItemDelete" noResource="true"/>
           </Properties>
@@ -40,7 +40,7 @@
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="1"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="true"/>
-    <AuxValue name="FormSettings_formBundle" type="java.lang.String" value="org/jphototagger/program/resource/properties/Bundle"/>
+    <AuxValue name="FormSettings_formBundle" type="java.lang.String" value="org/jphototagger/program/view/panels/Bundle"/>
     <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="true"/>
@@ -59,7 +59,7 @@
           <ComponentRef name="list"/>
         </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="UpdateMetadataOfDirectoriesPanel.labelHeadingListDirectories.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="UpdateMetadataOfDirectoriesPanel.labelHeadingListDirectories.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="name" type="java.lang.String" value="labelHeadingListDirectories" noResource="true"/>
       </Properties>
@@ -106,7 +106,7 @@
     <Component class="javax.swing.JLabel" name="labelInfoFilecount">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="UpdateMetadataOfDirectoriesPanel.labelInfoFilecount.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="UpdateMetadataOfDirectoriesPanel.labelInfoFilecount.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="name" type="java.lang.String" value="labelInfoFilecount" noResource="true"/>
       </Properties>
@@ -121,7 +121,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="99" red="0" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="0"/>
+        <Property name="text" type="java.lang.String" value="0" noResource="true"/>
         <Property name="name" type="java.lang.String" value="labelFilecount" noResource="true"/>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[4, 20]"/>
@@ -136,7 +136,7 @@
     <Component class="javax.swing.JCheckBox" name="checkBoxForce">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="UpdateMetadataOfDirectoriesPanel.checkBoxForce.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="UpdateMetadataOfDirectoriesPanel.checkBoxForce.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="name" type="java.lang.String" value="checkBoxForce" noResource="true"/>
       </Properties>
@@ -150,7 +150,7 @@
       <Properties>
         <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="UpdateMetadataOfDirectoriesPanel.checkBoxIncludeSubdirectories.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="UpdateMetadataOfDirectoriesPanel.checkBoxIncludeSubdirectories.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="name" type="java.lang.String" value="checkBoxIncludeSubdirectories" noResource="true"/>
       </Properties>
@@ -175,7 +175,7 @@
         <Component class="javax.swing.JLabel" name="labelInfoCurrentFilename">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="UpdateMetadataOfDirectoriesPanel.labelInfoCurrentFilename.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="UpdateMetadataOfDirectoriesPanel.labelInfoCurrentFilename.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="name" type="java.lang.String" value="labelInfoCurrentFilename" noResource="true"/>
           </Properties>
@@ -234,7 +234,7 @@
         <Component class="javax.swing.JButton" name="buttonCancelChooseDirectories">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="UpdateMetadataOfDirectoriesPanel.buttonCancelChooseDirectories.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="UpdateMetadataOfDirectoriesPanel.buttonCancelChooseDirectories.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="enabled" type="boolean" value="false"/>
             <Property name="name" type="java.lang.String" value="buttonCancelChooseDirectories" noResource="true"/>
@@ -246,7 +246,7 @@
         <Component class="javax.swing.JButton" name="buttonCancel">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="UpdateMetadataOfDirectoriesPanel.buttonCancel.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="UpdateMetadataOfDirectoriesPanel.buttonCancel.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="enabled" type="boolean" value="false"/>
             <Property name="name" type="java.lang.String" value="buttonCancel" noResource="true"/>
@@ -258,7 +258,7 @@
         <Component class="javax.swing.JButton" name="buttonChooseDirectories">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="UpdateMetadataOfDirectoriesPanel.buttonChooseDirectories.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="UpdateMetadataOfDirectoriesPanel.buttonChooseDirectories.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="name" type="java.lang.String" value="buttonChooseDirectories" noResource="true"/>
           </Properties>
@@ -269,7 +269,7 @@
         <Component class="javax.swing.JButton" name="buttonStart">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="UpdateMetadataOfDirectoriesPanel.buttonStart.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="UpdateMetadataOfDirectoriesPanel.buttonStart.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="enabled" type="boolean" value="false"/>
             <Property name="name" type="java.lang.String" value="buttonStart" noResource="true"/>

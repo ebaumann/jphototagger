@@ -7,7 +7,7 @@
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="1"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="true"/>
-    <AuxValue name="FormSettings_formBundle" type="java.lang.String" value="org/jphototagger/program/resource/properties/Bundle"/>
+    <AuxValue name="FormSettings_formBundle" type="java.lang.String" value="org/jphototagger/program/view/panels/Bundle"/>
     <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="true"/>
@@ -44,7 +44,7 @@
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="S&amp;tichwortkombinationen">
                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AdvancedSearchPanel.panelKeywords.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AdvancedSearchPanel.panelKeywords.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
               </JTabbedPaneConstraints>
             </Constraint>
@@ -56,7 +56,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="panelKeywordsInput" alignment="0" pref="636" max="32767" attributes="0"/>
+                          <Component id="panelKeywordsInput" alignment="0" pref="632" max="32767" attributes="0"/>
                           <Component id="labelInfoKeywords" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -69,7 +69,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="labelInfoKeywords" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="panelKeywordsInput" pref="158" max="32767" attributes="0"/>
+                      <Component id="panelKeywordsInput" pref="154" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -79,7 +79,7 @@
             <Component class="javax.swing.JLabel" name="labelInfoKeywords">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AdvancedSearchPanel.labelInfoKeywords.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AdvancedSearchPanel.labelInfoKeywords.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="labelInfoKeywords" noResource="true"/>
               </Properties>
@@ -102,7 +102,7 @@
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Einfaches SQ&amp;L">
                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AdvancedSearchPanel.panelSimpleSql.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AdvancedSearchPanel.panelSimpleSql.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
               </JTabbedPaneConstraints>
             </Constraint>
@@ -114,10 +114,10 @@
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneColumns" alignment="1" pref="636" max="32767" attributes="0"/>
+                          <Component id="scrollPaneColumns" alignment="1" pref="632" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="labelInfoDelete" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="341" max="32767" attributes="0"/>
+                              <EmptySpace pref="249" max="32767" attributes="0"/>
                               <Component id="buttonAddColumn" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -129,7 +129,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="scrollPaneColumns" pref="149" max="32767" attributes="0"/>
+                      <Component id="scrollPaneColumns" pref="144" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="buttonAddColumn" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -166,7 +166,7 @@
                   <Color blue="ff" green="0" red="0" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AdvancedSearchPanel.labelInfoDelete.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AdvancedSearchPanel.labelInfoDelete.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="labelInfoDelete" noResource="true"/>
               </Properties>
@@ -174,7 +174,7 @@
             <Component class="javax.swing.JButton" name="buttonAddColumn">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AdvancedSearchPanel.buttonAddColumn.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AdvancedSearchPanel.buttonAddColumn.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="buttonAddColumn" noResource="true"/>
               </Properties>
@@ -192,7 +192,7 @@
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Eigenes S&amp;QL">
                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AdvancedSearchPanel.panelCustomSql.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AdvancedSearchPanel.panelCustomSql.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
               </JTabbedPaneConstraints>
             </Constraint>
@@ -204,7 +204,7 @@
               <Properties>
                 <Property name="displayedMnemonic" type="int" value="107"/>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AdvancedSearchPanel.labelCustomSqlInfo.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AdvancedSearchPanel.labelCustomSqlInfo.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="labelCustomSqlInfo" noResource="true"/>
               </Properties>
@@ -286,7 +286,7 @@
         <Component class="javax.swing.JButton" name="buttonSaveSearch">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AdvancedSearchPanel.buttonSaveSearch.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AdvancedSearchPanel.buttonSaveSearch.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="name" type="java.lang.String" value="buttonSaveSearch" noResource="true"/>
           </Properties>
@@ -297,7 +297,7 @@
         <Component class="javax.swing.JButton" name="buttonSaveAs">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AdvancedSearchPanel.buttonSaveAs.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AdvancedSearchPanel.buttonSaveAs.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="name" type="java.lang.String" value="buttonSaveAs" noResource="true"/>
           </Properties>
@@ -308,7 +308,7 @@
         <Component class="javax.swing.JButton" name="buttonResetColumns">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AdvancedSearchPanel.buttonResetColumns.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AdvancedSearchPanel.buttonResetColumns.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="name" type="java.lang.String" value="buttonResetColumns" noResource="true"/>
           </Properties>
@@ -319,7 +319,7 @@
         <Component class="javax.swing.JButton" name="buttonSearch">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AdvancedSearchPanel.buttonSearch.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AdvancedSearchPanel.buttonSearch.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="name" type="java.lang.String" value="buttonSearch" noResource="true"/>
           </Properties>

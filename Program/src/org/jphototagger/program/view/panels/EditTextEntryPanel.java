@@ -1,19 +1,5 @@
 package org.jphototagger.program.view.panels;
 
-import org.jphototagger.program.UserSettings;
-import org.jphototagger.domain.exif.Exif;
-import org.jphototagger.domain.text.TextEntry;
-import org.jphototagger.domain.xmp.Xmp;
-import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.domain.database.Column;
-import org.jphototagger.program.database.metadata.selections.AutoCompleteDataOfColumn;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcTitle;
-import org.jphototagger.domain.event.listener.DatabaseImageFilesListener;
-import org.jphototagger.domain.event.listener.impl.TextEntryListenerSupport;
-import org.jphototagger.domain.event.listener.TextEntryListener;
-import org.jphototagger.program.helper.AutocompleteHelper;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.lib.componentutil.Autocomplete;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.MouseListener;
@@ -21,9 +7,24 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+import javax.swing.JPanel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.JPanel;
+
+import org.jphototagger.domain.database.Column;
+import org.jphototagger.domain.database.xmp.ColumnXmpDcTitle;
+import org.jphototagger.domain.event.listener.DatabaseImageFilesListener;
+import org.jphototagger.domain.event.listener.TextEntryListener;
+import org.jphototagger.domain.event.listener.impl.TextEntryListenerSupport;
+import org.jphototagger.domain.exif.Exif;
+import org.jphototagger.domain.text.TextEntry;
+import org.jphototagger.domain.xmp.Xmp;
+import org.jphototagger.lib.componentutil.Autocomplete;
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.database.DatabaseImageFiles;
+import org.jphototagger.program.database.metadata.selections.AutoCompleteDataOfColumn;
+import org.jphototagger.program.helper.AutocompleteHelper;
 
 /**
  * Panel zum Eingeben einzeiliger Texte.
@@ -310,8 +311,7 @@ public final class EditTextEntryPanel extends JPanel
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
         labelPrompt = new javax.swing.JLabel();
@@ -321,7 +321,7 @@ public final class EditTextEntryPanel extends JPanel
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
 
-        labelPrompt.setText(JptBundle.INSTANCE.getString("EditTextEntryPanel.labelPrompt.text")); // NOI18N
+        labelPrompt.setText("Prompt:"); // NOI18N
         labelPrompt.setToolTipText(column.getLongerDescription());
         labelPrompt.setName("labelPrompt"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -348,8 +348,7 @@ public final class EditTextEntryPanel extends JPanel
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         add(scrollPane, gridBagConstraints);
-    }// </editor-fold>//GEN-END:initComponents
-
+    }//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel labelPrompt;
     private javax.swing.JScrollPane scrollPane;

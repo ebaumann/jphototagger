@@ -1,10 +1,10 @@
 package org.jphototagger.program.view.panels;
 
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.types.Persistence;
-import org.jphototagger.program.UserSettings;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
 import java.awt.Container;
+
+import org.jphototagger.lib.componentutil.MnemonicUtil;
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.types.Persistence;
 
 /**
  *
@@ -77,8 +77,7 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
 
         labelMaximumSecondsToTerminateExternalPrograms = new javax.swing.JLabel();
         spinnerMaximumSecondsToTerminateExternalPrograms = new javax.swing.JSpinner();
@@ -93,7 +92,8 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
         setName("Form"); // NOI18N
 
         labelMaximumSecondsToTerminateExternalPrograms.setLabelFor(spinnerMaximumSecondsToTerminateExternalPrograms);
-        labelMaximumSecondsToTerminateExternalPrograms.setText(JptBundle.INSTANCE.getString("SettingsPerformancePanel.labelMaximumSecondsToTerminateExternalPrograms.text")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/panels/Bundle"); // NOI18N
+        labelMaximumSecondsToTerminateExternalPrograms.setText(bundle.getString("SettingsPerformancePanel.labelMaximumSecondsToTerminateExternalPrograms.text")); // NOI18N
         labelMaximumSecondsToTerminateExternalPrograms.setName("labelMaximumSecondsToTerminateExternalPrograms"); // NOI18N
 
         spinnerMaximumSecondsToTerminateExternalPrograms.setModel(new javax.swing.SpinnerNumberModel(60, 10, 600, 1));
@@ -104,7 +104,7 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
             }
         });
 
-        checkBoxScanForEmbeddedXmp.setText(JptBundle.INSTANCE.getString("SettingsPerformancePanel.checkBoxScanForEmbeddedXmp.text")); // NOI18N
+        checkBoxScanForEmbeddedXmp.setText(bundle.getString("SettingsPerformancePanel.checkBoxScanForEmbeddedXmp.text")); // NOI18N
         checkBoxScanForEmbeddedXmp.setName("checkBoxScanForEmbeddedXmp"); // NOI18N
         checkBoxScanForEmbeddedXmp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -112,7 +112,7 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
             }
         });
 
-        checkBoxDisplayIptc.setText(JptBundle.INSTANCE.getString("SettingsPerformancePanel.checkBoxDisplayIptc.text")); // NOI18N
+        checkBoxDisplayIptc.setText(bundle.getString("SettingsPerformancePanel.checkBoxDisplayIptc.text")); // NOI18N
         checkBoxDisplayIptc.setName("checkBoxDisplayIptc"); // NOI18N
         checkBoxDisplayIptc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -120,7 +120,7 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
             }
         });
 
-        checkBoxSaveInputEarly.setText(JptBundle.INSTANCE.getString("SettingsPerformancePanel.checkBoxSaveInputEarly.text")); // NOI18N
+        checkBoxSaveInputEarly.setText(bundle.getString("SettingsPerformancePanel.checkBoxSaveInputEarly.text")); // NOI18N
         checkBoxSaveInputEarly.setName("checkBoxSaveInputEarly"); // NOI18N
         checkBoxSaveInputEarly.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -128,10 +128,10 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
             }
         });
 
-        panelAutocomplete.setBorder(javax.swing.BorderFactory.createTitledBorder(JptBundle.INSTANCE.getString("SettingsPerformancePanel.panelAutocomplete.border.title"))); // NOI18N
+        panelAutocomplete.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("SettingsPerformancePanel.panelAutocomplete.border.title"))); // NOI18N
         panelAutocomplete.setName("panelAutocomplete"); // NOI18N
 
-        checkBoxEnableAutocomplete.setText(JptBundle.INSTANCE.getString("SettingsPerformancePanel.checkBoxEnableAutocomplete.text")); // NOI18N
+        checkBoxEnableAutocomplete.setText(bundle.getString("SettingsPerformancePanel.checkBoxEnableAutocomplete.text")); // NOI18N
         checkBoxEnableAutocomplete.setName("checkBoxEnableAutocomplete"); // NOI18N
         checkBoxEnableAutocomplete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -139,7 +139,7 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
             }
         });
 
-        checkBoxUpdateAutocomplete.setText(JptBundle.INSTANCE.getString("SettingsPerformancePanel.checkBoxUpdateAutocomplete.text")); // NOI18N
+        checkBoxUpdateAutocomplete.setText(bundle.getString("SettingsPerformancePanel.checkBoxUpdateAutocomplete.text")); // NOI18N
         checkBoxUpdateAutocomplete.setName("checkBoxUpdateAutocomplete"); // NOI18N
         checkBoxUpdateAutocomplete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -147,7 +147,7 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
             }
         });
 
-        checkBoxAutocompleteIgnoreCase.setText(JptBundle.INSTANCE.getString("SettingsPerformancePanel.checkBoxAutocompleteIgnoreCase.text")); // NOI18N
+        checkBoxAutocompleteIgnoreCase.setText(bundle.getString("SettingsPerformancePanel.checkBoxAutocompleteIgnoreCase.text")); // NOI18N
         checkBoxAutocompleteIgnoreCase.setName("checkBoxAutocompleteIgnoreCase"); // NOI18N
         checkBoxAutocompleteIgnoreCase.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -212,7 +212,7 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
                 .addComponent(panelAutocomplete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-    }// </editor-fold>//GEN-END:initComponents
+    }//GEN-END:initComponents
 
     private void spinnerMaximumSecondsToTerminateExternalProgramsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerMaximumSecondsToTerminateExternalProgramsStateChanged
         setMaximumSecondsToTerminateExternalPrograms();

@@ -25,10 +25,10 @@ import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.helper.CopyFiles;
 import org.jphototagger.program.helper.CopyFiles.Options;
-import org.jphototagger.xmp.XmpMetadata;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.panels.SelectRootFilesPanel;
+import org.jphototagger.xmp.XmpMetadata;
 
 /**
  *
@@ -386,8 +386,7 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
 
         buttonGroupFileExists = new javax.swing.ButtonGroup();
         labelInfo = new javax.swing.JLabel();
@@ -404,7 +403,8 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
         buttonStart = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle(JptBundle.INSTANCE.getString("CopyToDirectoryDialog.title")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/dialogs/Bundle"); // NOI18N
+        setTitle(bundle.getString("CopyToDirectoryDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -412,10 +412,10 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
             }
         });
 
-        labelInfo.setText(JptBundle.INSTANCE.getString("CopyToDirectoryDialog.labelInfo.text")); // NOI18N
+        labelInfo.setText(bundle.getString("CopyToDirectoryDialog.labelInfo.text")); // NOI18N
         labelInfo.setName("labelInfo"); // NOI18N
 
-        buttonChooseDirectory.setText(JptBundle.INSTANCE.getString("CopyToDirectoryDialog.buttonChooseDirectory.text")); // NOI18N
+        buttonChooseDirectory.setText(bundle.getString("CopyToDirectoryDialog.buttonChooseDirectory.text")); // NOI18N
         buttonChooseDirectory.setName("buttonChooseDirectory"); // NOI18N
         buttonChooseDirectory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -427,30 +427,30 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
         labelTargetDirectory.setName("labelTargetDirectory"); // NOI18N
 
         buttonGroupFileExists.add(radioButtonForceOverwrite);
-        radioButtonForceOverwrite.setText(JptBundle.INSTANCE.getString("CopyToDirectoryDialog.radioButtonForceOverwrite.text")); // NOI18N
+        radioButtonForceOverwrite.setText(bundle.getString("CopyToDirectoryDialog.radioButtonForceOverwrite.text")); // NOI18N
         radioButtonForceOverwrite.setName("radioButtonForceOverwrite"); // NOI18N
 
         buttonGroupFileExists.add(radioButtonRenameIfTargetFileExists);
-        radioButtonRenameIfTargetFileExists.setText(JptBundle.INSTANCE.getString("CopyToDirectoryDialog.radioButtonRenameIfTargetFileExists.text")); // NOI18N
+        radioButtonRenameIfTargetFileExists.setText(bundle.getString("CopyToDirectoryDialog.radioButtonRenameIfTargetFileExists.text")); // NOI18N
         radioButtonRenameIfTargetFileExists.setName("radioButtonRenameIfTargetFileExists"); // NOI18N
 
         checkBoxCopyXmp.setSelected(true);
-        checkBoxCopyXmp.setText(JptBundle.INSTANCE.getString("CopyToDirectoryDialog.checkBoxCopyXmp.text")); // NOI18N
+        checkBoxCopyXmp.setText(bundle.getString("CopyToDirectoryDialog.checkBoxCopyXmp.text")); // NOI18N
         checkBoxCopyXmp.setName("checkBoxCopyXmp"); // NOI18N
 
         progressBar.setName("progressBar"); // NOI18N
 
-        labelInfoCurrentFilename.setText(JptBundle.INSTANCE.getString("CopyToDirectoryDialog.labelInfoCurrentFilename.text")); // NOI18N
+        labelInfoCurrentFilename.setText(bundle.getString("CopyToDirectoryDialog.labelInfoCurrentFilename.text")); // NOI18N
         labelInfoCurrentFilename.setName("labelInfoCurrentFilename"); // NOI18N
 
         labelCurrentFilename.setForeground(new java.awt.Color(0, 0, 255));
         labelCurrentFilename.setName("labelCurrentFilename"); // NOI18N
 
         labelInfoIsThread.setForeground(new java.awt.Color(0, 0, 255));
-        labelInfoIsThread.setText(JptBundle.INSTANCE.getString("CopyToDirectoryDialog.labelInfoIsThread.text")); // NOI18N
+        labelInfoIsThread.setText(bundle.getString("CopyToDirectoryDialog.labelInfoIsThread.text")); // NOI18N
         labelInfoIsThread.setName("labelInfoIsThread"); // NOI18N
 
-        buttonCancel.setText(JptBundle.INSTANCE.getString("CopyToDirectoryDialog.buttonCancel.text")); // NOI18N
+        buttonCancel.setText(bundle.getString("CopyToDirectoryDialog.buttonCancel.text")); // NOI18N
         buttonCancel.setEnabled(false);
         buttonCancel.setName("buttonCancel"); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -459,7 +459,7 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
             }
         });
 
-        buttonStart.setText(JptBundle.INSTANCE.getString("CopyToDirectoryDialog.buttonStart.text")); // NOI18N
+        buttonStart.setText(bundle.getString("CopyToDirectoryDialog.buttonStart.text")); // NOI18N
         buttonStart.setEnabled(false);
         buttonStart.setName("buttonStart"); // NOI18N
         buttonStart.addActionListener(new java.awt.event.ActionListener() {
@@ -482,15 +482,15 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
                         .addComponent(labelInfo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
                         .addComponent(buttonChooseDirectory))
-                    .addComponent(labelTargetDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 515, Short.MAX_VALUE)
+                    .addComponent(labelTargetDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(labelInfoCurrentFilename)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelCurrentFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 439, Short.MAX_VALUE))
-                    .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 515, Short.MAX_VALUE)
+                        .addComponent(labelCurrentFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE))
+                    .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labelInfoIsThread)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 157, Short.MAX_VALUE)
                         .addComponent(buttonCancel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonStart)))
@@ -528,7 +528,7 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {buttonCancel, buttonStart, progressBar});
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }//GEN-END:initComponents
 
     private void buttonStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonStartActionPerformed
         start(checkBoxCopyXmp.isSelected(), getCopyOptions());

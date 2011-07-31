@@ -1,24 +1,26 @@
 package org.jphototagger.program.view.dialogs;
 
-import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.UserSettings;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.dialog.Dialog;
 import java.awt.Component;
 import java.awt.Container;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
+import org.jphototagger.lib.componentutil.MnemonicUtil;
+import org.jphototagger.lib.dialog.Dialog;
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.app.AppLookAndFeel;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.resource.JptBundle;
 
 /**
  * Modal dialog to select a path.
@@ -202,8 +204,7 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
 
         labelInfo = new javax.swing.JLabel();
         scrollPane = new javax.swing.JScrollPane();
@@ -212,7 +213,8 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
         buttonSelectAll = new javax.swing.JButton();
         buttonSelectSelected = new javax.swing.JButton();
 
-        setTitle(JptBundle.INSTANCE.getString("PathSelectionDialog.title")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/dialogs/Bundle"); // NOI18N
+        setTitle(bundle.getString("PathSelectionDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -230,7 +232,7 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
         list.setName("list"); // NOI18N
         scrollPane.setViewportView(list);
 
-        buttonSelectNothing.setText(JptBundle.INSTANCE.getString("PathSelectionDialog.buttonSelectNothing.text")); // NOI18N
+        buttonSelectNothing.setText(bundle.getString("PathSelectionDialog.buttonSelectNothing.text")); // NOI18N
         buttonSelectNothing.setName("buttonSelectNothing"); // NOI18N
         buttonSelectNothing.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -238,7 +240,7 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
             }
         });
 
-        buttonSelectAll.setText(JptBundle.INSTANCE.getString("PathSelectionDialog.buttonSelectAll.text")); // NOI18N
+        buttonSelectAll.setText(bundle.getString("PathSelectionDialog.buttonSelectAll.text")); // NOI18N
         buttonSelectAll.setName("buttonSelectAll"); // NOI18N
         buttonSelectAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -246,7 +248,7 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
             }
         });
 
-        buttonSelectSelected.setText(JptBundle.INSTANCE.getString("PathSelectionDialog.buttonSelectSelected.text")); // NOI18N
+        buttonSelectSelected.setText(bundle.getString("PathSelectionDialog.buttonSelectSelected.text")); // NOI18N
         buttonSelectSelected.setEnabled(false);
         buttonSelectSelected.setName("buttonSelectSelected"); // NOI18N
         buttonSelectSelected.addActionListener(new java.awt.event.ActionListener() {
@@ -288,7 +290,7 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }//GEN-END:initComponents
 
     private void buttonSelectNothingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSelectNothingActionPerformed
         handleButtonSelectNothingActionPerformed();
@@ -302,7 +304,7 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
         handleButtonSelectSelectedActionPerformed();
     }//GEN-LAST:event_buttonSelectSelectedActionPerformed
 
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {                                   
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {
         setVisible(false);    // writes properties
     }                         // GEN-LAST:event_formWindowClosing
 

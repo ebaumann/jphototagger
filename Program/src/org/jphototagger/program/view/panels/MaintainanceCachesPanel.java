@@ -1,20 +1,16 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.jphototagger.program.view.panels;
 
-import java.awt.Component;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.util.ResourceBundle;
+
 import javax.swing.JButton;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.SwingConstants;
+
 import org.jdesktop.swingx.JXLabel;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.program.controller.maintainance.ClearExifCacheAction;
 import org.jphototagger.program.controller.maintainance.ClearIptcIgnoreCacheAction;
-import org.jphototagger.program.resource.JptBundle;
 
 /**
  *
@@ -40,6 +36,7 @@ public class MaintainanceCachesPanel extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     private void initComponents() {//GEN-BEGIN:initComponents
+        GridBagConstraints gridBagConstraints;
 
         labelInfo = new JXLabel();
         buttonClearExifCache = new JButton();
@@ -50,60 +47,56 @@ public class MaintainanceCachesPanel extends javax.swing.JPanel {
         labelInfoClearIptcIgnoreCache = new JXLabel();
 
         setName("MaintainanceCachesPanel"); // NOI18N
+        setLayout(new GridBagLayout());
 
         labelInfo.setLineWrap(true);
-        labelInfo.setText(JptBundle.INSTANCE.getString("MaintainanceCachesPanel.labelInfo.text")); // NOI18N
+        ResourceBundle bundle = ResourceBundle.getBundle("org/jphototagger/program/view/panels/Bundle"); // NOI18N
+        labelInfo.setText(bundle.getString("MaintainanceCachesPanel.labelInfo.text")); // NOI18N
         labelInfo.setName("labelInfo"); // NOI18N
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new Insets(5, 5, 0, 5);
+        add(labelInfo, gridBagConstraints);
 
-        buttonClearExifCache.setText(JptBundle.INSTANCE.getString("MaintainanceCachesPanel.buttonClearExifCache.text")); // NOI18N
+        buttonClearExifCache.setText(bundle.getString("MaintainanceCachesPanel.buttonClearExifCache.text")); // NOI18N
         buttonClearExifCache.setName("buttonClearExifCache"); // NOI18N
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
+        gridBagConstraints.insets = new Insets(10, 5, 0, 0);
+        add(buttonClearExifCache, gridBagConstraints);
 
-        labelInfoClearExifCache.setText(JptBundle.INSTANCE.getString("MaintainanceCachesPanel.labelInfoClearExifCache.text")); // NOI18N
+        labelInfoClearExifCache.setText(bundle.getString("MaintainanceCachesPanel.labelInfoClearExifCache.text")); // NOI18N
         labelInfoClearExifCache.setName("labelInfoClearExifCache"); // NOI18N
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new Insets(10, 5, 0, 5);
+        add(labelInfoClearExifCache, gridBagConstraints);
 
-        buttonClearIptcIgnoreCache.setText(JptBundle.INSTANCE.getString("MaintainanceCachesPanel.buttonClearIptcIgnoreCache.text")); // NOI18N
+        buttonClearIptcIgnoreCache.setText(bundle.getString("MaintainanceCachesPanel.buttonClearIptcIgnoreCache.text")); // NOI18N
         buttonClearIptcIgnoreCache.setName("buttonClearIptcIgnoreCache"); // NOI18N
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
+        gridBagConstraints.insets = new Insets(10, 5, 0, 0);
+        add(buttonClearIptcIgnoreCache, gridBagConstraints);
 
         labelInfoClearIptcIgnoreCache.setLineWrap(true);
-        labelInfoClearIptcIgnoreCache.setText(JptBundle.INSTANCE.getString("MaintainanceCachesPanel.labelInfoClearIptcIgnoreCache.text")); // NOI18N
+        labelInfoClearIptcIgnoreCache.setText(bundle.getString("MaintainanceCachesPanel.labelInfoClearIptcIgnoreCache.text")); // NOI18N
         labelInfoClearIptcIgnoreCache.setName("labelInfoClearIptcIgnoreCache"); // NOI18N
-
-        GroupLayout layout = new GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(Alignment.TRAILING)
-                    .addGroup(Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(buttonClearIptcIgnoreCache)
-                        .addPreferredGap(ComponentPlacement.RELATED)
-                        .addComponent(labelInfoClearIptcIgnoreCache, GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE))
-                    .addComponent(labelInfo, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
-                    .addGroup(Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(buttonClearExifCache)
-                        .addPreferredGap(ComponentPlacement.RELATED)
-                        .addComponent(labelInfoClearExifCache)))
-                .addContainerGap())
-        );
-
-        layout.linkSize(SwingConstants.HORIZONTAL, new Component[] {buttonClearExifCache, buttonClearIptcIgnoreCache});
-
-        layout.setVerticalGroup(
-            layout.createParallelGroup(Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelInfo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(Alignment.CENTER)
-                    .addComponent(buttonClearExifCache)
-                    .addComponent(labelInfoClearExifCache, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(Alignment.CENTER)
-                    .addComponent(buttonClearIptcIgnoreCache)
-                    .addComponent(labelInfoClearIptcIgnoreCache, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new Insets(10, 5, 0, 5);
+        add(labelInfoClearIptcIgnoreCache, gridBagConstraints);
     }//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JButton buttonClearExifCache;

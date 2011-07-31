@@ -224,8 +224,7 @@ public class DatabaseUpdatePanel extends JPanel
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
 
         labelRefreshExif = new javax.swing.JLabel();
         toggleButtonRefreshExif = new javax.swing.JToggleButton();
@@ -237,19 +236,20 @@ public class DatabaseUpdatePanel extends JPanel
         buttonRenameFiles = new javax.swing.JButton();
         labelCopyKeywordsToKeywordsTree = new javax.swing.JLabel();
         buttonCopyKeywordsToKeywordsTree = new javax.swing.JButton();
-        labelExifDateToXmpDateCreated = new javax.swing.JLabel();
-        progressBar = new javax.swing.JProgressBar();
-        toggleButtonExifDateToXmpDateCreated = new javax.swing.JToggleButton();
         labelDeleteKeywordsTree = new javax.swing.JLabel();
         buttonDeleteKeywordsTree = new javax.swing.JButton();
+        labelExifDateToXmpDateCreated = new javax.swing.JLabel();
+        toggleButtonExifDateToXmpDateCreated = new javax.swing.JToggleButton();
+        progressBar = new javax.swing.JProgressBar();
 
         setName("Form"); // NOI18N
 
         labelRefreshExif.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_exif.png"))); // NOI18N
-        labelRefreshExif.setText(JptBundle.INSTANCE.getString("DatabaseUpdatePanel.labelRefreshExif.text")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/panels/Bundle"); // NOI18N
+        labelRefreshExif.setText(bundle.getString("DatabaseUpdatePanel.labelRefreshExif.text")); // NOI18N
         labelRefreshExif.setName("labelRefreshExif"); // NOI18N
 
-        toggleButtonRefreshExif.setText(JptBundle.INSTANCE.getString("DatabaseUpdatePanel.toggleButtonRefreshExif.text")); // NOI18N
+        toggleButtonRefreshExif.setText(bundle.getString("DatabaseUpdatePanel.toggleButtonRefreshExif.text")); // NOI18N
         toggleButtonRefreshExif.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         toggleButtonRefreshExif.setName("toggleButtonRefreshExif"); // NOI18N
         toggleButtonRefreshExif.addActionListener(new java.awt.event.ActionListener() {
@@ -259,10 +259,10 @@ public class DatabaseUpdatePanel extends JPanel
         });
 
         labelRefreshXmp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_xmp.png"))); // NOI18N
-        labelRefreshXmp.setText(JptBundle.INSTANCE.getString("DatabaseUpdatePanel.labelRefreshXmp.text")); // NOI18N
+        labelRefreshXmp.setText(bundle.getString("DatabaseUpdatePanel.labelRefreshXmp.text")); // NOI18N
         labelRefreshXmp.setName("labelRefreshXmp"); // NOI18N
 
-        toggleButtonRefreshXmp.setText(JptBundle.INSTANCE.getString("DatabaseUpdatePanel.toggleButtonRefreshXmp.text")); // NOI18N
+        toggleButtonRefreshXmp.setText(bundle.getString("DatabaseUpdatePanel.toggleButtonRefreshXmp.text")); // NOI18N
         toggleButtonRefreshXmp.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         toggleButtonRefreshXmp.setName("toggleButtonRefreshXmp"); // NOI18N
         toggleButtonRefreshXmp.addActionListener(new java.awt.event.ActionListener() {
@@ -272,10 +272,10 @@ public class DatabaseUpdatePanel extends JPanel
         });
 
         labelUpdateThumbnails.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_image.png"))); // NOI18N
-        labelUpdateThumbnails.setText(JptBundle.INSTANCE.getString("DatabaseUpdatePanel.labelUpdateThumbnails.text")); // NOI18N
+        labelUpdateThumbnails.setText(bundle.getString("DatabaseUpdatePanel.labelUpdateThumbnails.text")); // NOI18N
         labelUpdateThumbnails.setName("labelUpdateThumbnails"); // NOI18N
 
-        buttonUpdateThumbnails.setText(JptBundle.INSTANCE.getString("DatabaseUpdatePanel.buttonUpdateThumbnails.text")); // NOI18N
+        buttonUpdateThumbnails.setText(bundle.getString("DatabaseUpdatePanel.buttonUpdateThumbnails.text")); // NOI18N
         buttonUpdateThumbnails.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         buttonUpdateThumbnails.setName("buttonUpdateThumbnails"); // NOI18N
         buttonUpdateThumbnails.addActionListener(new java.awt.event.ActionListener() {
@@ -284,10 +284,10 @@ public class DatabaseUpdatePanel extends JPanel
             }
         });
 
-        labelRenameFiles.setText(JptBundle.INSTANCE.getString("DatabaseUpdatePanel.labelRenameFiles.text")); // NOI18N
+        labelRenameFiles.setText(bundle.getString("DatabaseUpdatePanel.labelRenameFiles.text")); // NOI18N
         labelRenameFiles.setName("labelRenameFiles"); // NOI18N
 
-        buttonRenameFiles.setText(JptBundle.INSTANCE.getString("DatabaseUpdatePanel.buttonRenameFiles.text")); // NOI18N
+        buttonRenameFiles.setText(bundle.getString("DatabaseUpdatePanel.buttonRenameFiles.text")); // NOI18N
         buttonRenameFiles.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         buttonRenameFiles.setName("buttonRenameFiles"); // NOI18N
         buttonRenameFiles.addActionListener(new java.awt.event.ActionListener() {
@@ -297,10 +297,10 @@ public class DatabaseUpdatePanel extends JPanel
         });
 
         labelCopyKeywordsToKeywordsTree.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_tree.png"))); // NOI18N
-        labelCopyKeywordsToKeywordsTree.setText(JptBundle.INSTANCE.getString("DatabaseUpdatePanel.labelCopyKeywordsToKeywordsTree.text")); // NOI18N
+        labelCopyKeywordsToKeywordsTree.setText(bundle.getString("DatabaseUpdatePanel.labelCopyKeywordsToKeywordsTree.text")); // NOI18N
         labelCopyKeywordsToKeywordsTree.setName("labelCopyKeywordsToKeywordsTree"); // NOI18N
 
-        buttonCopyKeywordsToKeywordsTree.setText(JptBundle.INSTANCE.getString("DatabaseUpdatePanel.buttonCopyKeywordsToKeywordsTree.text")); // NOI18N
+        buttonCopyKeywordsToKeywordsTree.setText(bundle.getString("DatabaseUpdatePanel.buttonCopyKeywordsToKeywordsTree.text")); // NOI18N
         buttonCopyKeywordsToKeywordsTree.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         buttonCopyKeywordsToKeywordsTree.setName("buttonCopyKeywordsToKeywordsTree"); // NOI18N
         buttonCopyKeywordsToKeywordsTree.addActionListener(new java.awt.event.ActionListener() {
@@ -309,12 +309,23 @@ public class DatabaseUpdatePanel extends JPanel
             }
         });
 
-        labelExifDateToXmpDateCreated.setText(JptBundle.INSTANCE.getString("DatabaseUpdatePanel.labelExifDateToXmpDateCreated.text")); // NOI18N
+        labelDeleteKeywordsTree.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_tree.png"))); // NOI18N
+        labelDeleteKeywordsTree.setText(bundle.getString("DatabaseUpdatePanel.labelDeleteKeywordsTree.text")); // NOI18N
+        labelDeleteKeywordsTree.setName("labelDeleteKeywordsTree"); // NOI18N
+
+        buttonDeleteKeywordsTree.setText(bundle.getString("DatabaseUpdatePanel.buttonDeleteKeywordsTree.text")); // NOI18N
+        buttonDeleteKeywordsTree.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        buttonDeleteKeywordsTree.setName("buttonDeleteKeywordsTree"); // NOI18N
+        buttonDeleteKeywordsTree.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonDeleteKeywordsTreeActionPerformed(evt);
+            }
+        });
+
+        labelExifDateToXmpDateCreated.setText(bundle.getString("DatabaseUpdatePanel.labelExifDateToXmpDateCreated.text")); // NOI18N
         labelExifDateToXmpDateCreated.setName("labelExifDateToXmpDateCreated"); // NOI18N
 
-        progressBar.setName("progressBar"); // NOI18N
-
-        toggleButtonExifDateToXmpDateCreated.setText(JptBundle.INSTANCE.getString("DatabaseUpdatePanel.toggleButtonExifDateToXmpDateCreated.text")); // NOI18N
+        toggleButtonExifDateToXmpDateCreated.setText(bundle.getString("DatabaseUpdatePanel.toggleButtonExifDateToXmpDateCreated.text")); // NOI18N
         toggleButtonExifDateToXmpDateCreated.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         toggleButtonExifDateToXmpDateCreated.setName("toggleButtonExifDateToXmpDateCreated"); // NOI18N
         toggleButtonExifDateToXmpDateCreated.addActionListener(new java.awt.event.ActionListener() {
@@ -323,18 +334,7 @@ public class DatabaseUpdatePanel extends JPanel
             }
         });
 
-        labelDeleteKeywordsTree.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_tree.png"))); // NOI18N
-        labelDeleteKeywordsTree.setText(JptBundle.INSTANCE.getString("DatabaseUpdatePanel.labelDeleteKeywordsTree.text")); // NOI18N
-        labelDeleteKeywordsTree.setName("labelDeleteKeywordsTree"); // NOI18N
-
-        buttonDeleteKeywordsTree.setText(JptBundle.INSTANCE.getString("DatabaseUpdatePanel.buttonDeleteKeywordsTree.text")); // NOI18N
-        buttonDeleteKeywordsTree.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        buttonDeleteKeywordsTree.setName("buttonDeleteKeywordsTree"); // NOI18N
-        buttonDeleteKeywordsTree.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonDeleteKeywordsTreeActionPerformed(evt);
-            }
-        });
+        progressBar.setName("progressBar"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -345,7 +345,7 @@ public class DatabaseUpdatePanel extends JPanel
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labelRefreshExif)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
                         .addComponent(toggleButtonRefreshExif))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labelRefreshXmp)
@@ -353,15 +353,15 @@ public class DatabaseUpdatePanel extends JPanel
                         .addComponent(toggleButtonRefreshXmp))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labelUpdateThumbnails)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 154, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 172, Short.MAX_VALUE)
                         .addComponent(buttonUpdateThumbnails))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labelRenameFiles)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 152, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 163, Short.MAX_VALUE)
                         .addComponent(buttonRenameFiles))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labelCopyKeywordsToKeywordsTree)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
                         .addComponent(buttonCopyKeywordsToKeywordsTree))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(labelDeleteKeywordsTree)
@@ -369,9 +369,9 @@ public class DatabaseUpdatePanel extends JPanel
                         .addComponent(buttonDeleteKeywordsTree))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(labelExifDateToXmpDateCreated)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 178, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 202, Short.MAX_VALUE)
                         .addComponent(toggleButtonExifDateToXmpDateCreated))
-                    .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE))
+                    .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 521, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -412,7 +412,7 @@ public class DatabaseUpdatePanel extends JPanel
                 .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-    }// </editor-fold>//GEN-END:initComponents
+    }//GEN-END:initComponents
 
     private void toggleButtonRefreshExifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleButtonRefreshExifActionPerformed
         updateExif();

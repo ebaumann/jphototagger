@@ -1,15 +1,16 @@
 package org.jphototagger.program.view.dialogs;
 
-import org.jphototagger.program.datatransfer.TransferHandlerDragListItems;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.view.panels.KeywordsPanel;
-import org.jphototagger.program.view.panels.MetaDataTemplatesPanel;
+import javax.swing.ListModel;
+
 import org.jphototagger.lib.componentutil.TabbedPaneUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.util.Settings;
-import javax.swing.ListModel;
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.datatransfer.TransferHandlerDragListItems;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.resource.JptBundle;
+import org.jphototagger.program.view.panels.KeywordsPanel;
+import org.jphototagger.program.view.panels.MetaDataTemplatesPanel;
 import org.jphototagger.program.view.panels.MiscXmpMetadataPanel;
 
 /**
@@ -111,8 +112,7 @@ public class InputHelperDialog extends Dialog {
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
 
         tabbedPane = new javax.swing.JTabbedPane();
         panelKeywords = new org.jphototagger.program.view.panels.KeywordsPanel();
@@ -122,7 +122,8 @@ public class InputHelperDialog extends Dialog {
         labelInfo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle(JptBundle.INSTANCE.getString("InputHelperDialog.title")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/dialogs/Bundle"); // NOI18N
+        setTitle(bundle.getString("InputHelperDialog.title")); // NOI18N
         setAlwaysOnTop(true);
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -135,15 +136,15 @@ public class InputHelperDialog extends Dialog {
         tabbedPane.setName("tabbedPane"); // NOI18N
 
         panelKeywords.setName("panelKeywords"); // NOI18N
-        tabbedPane.addTab(JptBundle.INSTANCE.getString("InputHelperDialog.panelKeywords.TabConstraints.tabTitle"), panelKeywords); // NOI18N
+        tabbedPane.addTab(bundle.getString("InputHelperDialog.panelKeywords.TabConstraints.tabTitle"), panelKeywords); // NOI18N
 
         panelMiscXmpMetadata.setName("panelMiscXmpMetadata"); // NOI18N
-        tabbedPane.addTab(JptBundle.INSTANCE.getString("InputHelperDialog.panelMiscXmpMetadata.TabConstraints.tabTitle"), panelMiscXmpMetadata); // NOI18N
+        tabbedPane.addTab(bundle.getString("InputHelperDialog.panelMiscXmpMetadata.TabConstraints.tabTitle"), panelMiscXmpMetadata); // NOI18N
 
         panelMetaDataTemplates.setName("panelMetaDataTemplates"); // NOI18N
-        tabbedPane.addTab(JptBundle.INSTANCE.getString("InputHelperDialog.panelMetaDataTemplates.TabConstraints.tabTitle"), panelMetaDataTemplates); // NOI18N
+        tabbedPane.addTab(bundle.getString("InputHelperDialog.panelMetaDataTemplates.TabConstraints.tabTitle"), panelMetaDataTemplates); // NOI18N
 
-        labelInfo.setText(JptBundle.INSTANCE.getString("InputHelperDialog.labelInfo.text")); // NOI18N
+        labelInfo.setText(bundle.getString("InputHelperDialog.labelInfo.text")); // NOI18N
         labelInfo.setName("labelInfo"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -153,7 +154,7 @@ public class InputHelperDialog extends Dialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tabbedPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
+                    .addComponent(tabbedPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 283, Short.MAX_VALUE)
                     .addComponent(labelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -161,14 +162,14 @@ public class InputHelperDialog extends Dialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
+                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         setVisible(false);

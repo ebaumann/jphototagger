@@ -1,17 +1,19 @@
 package org.jphototagger.program.view.dialogs;
 
+import java.awt.Container;
+import java.io.File;
+
+import javax.swing.JFileChooser;
+
+import org.jphototagger.lib.componentutil.MnemonicUtil;
+import org.jphototagger.lib.dialog.Dialog;
+import org.jphototagger.lib.util.Settings;
+import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.exporter.Exporter;
 import org.jphototagger.program.model.ComboBoxModelKeywordsExporters;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.UserSettings;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.dialog.Dialog;
-import org.jphototagger.lib.util.Settings;
-import java.awt.Container;
-import java.io.File;
-import javax.swing.JFileChooser;
 
 /**
  * Modal dialog for exporting keywords.
@@ -180,8 +182,7 @@ public class KeywordExportDialog extends Dialog {
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
 
         labelFormat = new javax.swing.JLabel();
         comboBoxExporter = new javax.swing.JComboBox();
@@ -191,7 +192,8 @@ public class KeywordExportDialog extends Dialog {
         buttonCancel = new javax.swing.JButton();
         buttonExport = new javax.swing.JButton();
 
-        setTitle(JptBundle.INSTANCE.getString("KeywordExportDialog.title")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/dialogs/Bundle"); // NOI18N
+        setTitle(bundle.getString("KeywordExportDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -200,20 +202,20 @@ public class KeywordExportDialog extends Dialog {
         });
 
         labelFormat.setLabelFor(comboBoxExporter);
-        labelFormat.setText(JptBundle.INSTANCE.getString("KeywordExportDialog.labelFormat.text")); // NOI18N
+        labelFormat.setText(bundle.getString("KeywordExportDialog.labelFormat.text")); // NOI18N
         labelFormat.setName("labelFormat"); // NOI18N
 
         comboBoxExporter.setModel(comboBoxModelExporter);
         comboBoxExporter.setName("comboBoxExporter"); // NOI18N
         comboBoxExporter.setRenderer(new org.jphototagger.program.view.renderer.ListCellRendererKeywordImExport());
 
-        labelInfoFilename.setText(JptBundle.INSTANCE.getString("KeywordExportDialog.labelInfoFilename.text")); // NOI18N
+        labelInfoFilename.setText(bundle.getString("KeywordExportDialog.labelInfoFilename.text")); // NOI18N
         labelInfoFilename.setName("labelInfoFilename"); // NOI18N
 
         labelFilename.setForeground(new java.awt.Color(0, 0, 255));
         labelFilename.setName("labelFilename"); // NOI18N
 
-        buttonChooseFile.setText(JptBundle.INSTANCE.getString("KeywordExportDialog.buttonChooseFile.text")); // NOI18N
+        buttonChooseFile.setText(bundle.getString("KeywordExportDialog.buttonChooseFile.text")); // NOI18N
         buttonChooseFile.setName("buttonChooseFile"); // NOI18N
         buttonChooseFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -221,7 +223,7 @@ public class KeywordExportDialog extends Dialog {
             }
         });
 
-        buttonCancel.setText(JptBundle.INSTANCE.getString("KeywordExportDialog.buttonCancel.text")); // NOI18N
+        buttonCancel.setText(bundle.getString("KeywordExportDialog.buttonCancel.text")); // NOI18N
         buttonCancel.setName("buttonCancel"); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -230,7 +232,7 @@ public class KeywordExportDialog extends Dialog {
         });
 
         buttonExport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_export.png"))); // NOI18N
-        buttonExport.setText(JptBundle.INSTANCE.getString("KeywordExportDialog.buttonExport.text")); // NOI18N
+        buttonExport.setText(bundle.getString("KeywordExportDialog.buttonExport.text")); // NOI18N
         buttonExport.setEnabled(false);
         buttonExport.setName("buttonExport"); // NOI18N
         buttonExport.addActionListener(new java.awt.event.ActionListener() {
@@ -284,7 +286,7 @@ public class KeywordExportDialog extends Dialog {
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelFilename, labelInfoFilename});
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         writeProperties();

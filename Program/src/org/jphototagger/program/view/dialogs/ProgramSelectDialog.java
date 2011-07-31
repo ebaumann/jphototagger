@@ -1,17 +1,18 @@
 package org.jphototagger.program.view.dialogs;
 
+import java.awt.Container;
+import java.awt.event.MouseEvent;
+import java.util.ResourceBundle;
+
+import org.jphototagger.lib.componentutil.MnemonicUtil;
+import org.jphototagger.lib.dialog.Dialog;
+import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.program.database.DatabasePrograms.Type;
 import org.jphototagger.program.model.ListModelPrograms;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.renderer.ListCellRendererActions;
 import org.jphototagger.program.view.renderer.ListCellRendererPrograms;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.dialog.Dialog;
-import java.awt.Container;
-import java.awt.event.MouseEvent;
 
 /**
  * Dialog to select an {@link org.jphototagger.program.data.Program}.
@@ -34,7 +35,20 @@ public class ProgramSelectDialog extends Dialog {
         this.type = type;
         model = new ListModelPrograms(type);
         initComponents();
+        postInitComponents();
+    }
+
+    private void postInitComponents() {
         MnemonicUtil.setMnemonics((Container) this);
+        setTitle();
+    }
+
+    private void setTitle() {
+        ResourceBundle bundle = ResourceBundle.getBundle("org/jphototagger/program/view/dialogs/Bundle"); // NOI18N
+        String actionsTitle = bundle.getString("ProgramSelectDialog.Title.Actions"); // NOI18N
+        String programsTitle = bundle.getString("ProgramSelectDialog.Title.Programs"); // NOI18N
+
+        setTitle(type.equals(Type.ACTION) ? actionsTitle : programsTitle);
     }
 
     /**
@@ -99,15 +113,13 @@ public class ProgramSelectDialog extends Dialog {
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
 
         scrollPanePrograms = new javax.swing.JScrollPane();
         listPrograms = new org.jdesktop.swingx.JXList();
         buttonSelect = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle(type.equals(Type.ACTION) ? org.jphototagger.program.resource.JptBundle.INSTANCE.getString("ProgramSelectDialog.Title.Actions") : org.jphototagger.program.resource.JptBundle.INSTANCE.getString("ProgramSelectDialog.Title.Programs"));
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -129,7 +141,8 @@ public class ProgramSelectDialog extends Dialog {
         });
         scrollPanePrograms.setViewportView(listPrograms);
 
-        buttonSelect.setText(JptBundle.INSTANCE.getString("ProgramSelectDialog.buttonSelect.text")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/dialogs/Bundle"); // NOI18N
+        buttonSelect.setText(bundle.getString("ProgramSelectDialog.buttonSelect.text")); // NOI18N
         buttonSelect.setEnabled(false);
         buttonSelect.setName("buttonSelect"); // NOI18N
         buttonSelect.addActionListener(new java.awt.event.ActionListener() {
@@ -163,7 +176,7 @@ public class ProgramSelectDialog extends Dialog {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }//GEN-END:initComponents
 
     private void listProgramsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listProgramsMouseClicked
         handleMousClicked(evt);

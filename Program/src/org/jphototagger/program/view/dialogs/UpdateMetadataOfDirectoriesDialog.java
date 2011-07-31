@@ -1,9 +1,9 @@
 package org.jphototagger.program.view.dialogs;
 
+import org.jphototagger.lib.dialog.Dialog;
+import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.UserSettings;
-import org.jphototagger.lib.dialog.Dialog;
 
 /**
  * Dialog zum Scannen eines Verzeichnisses nach Bildern und Einfügen
@@ -45,13 +45,13 @@ public final class UpdateMetadataOfDirectoriesDialog extends Dialog {
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
 
         panel = new org.jphototagger.program.view.panels.UpdateMetadataOfDirectoriesPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle(JptBundle.INSTANCE.getString("UpdateMetadataOfDirectoriesDialog.title")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/dialogs/Bundle"); // NOI18N
+        setTitle(bundle.getString("UpdateMetadataOfDirectoriesDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -79,7 +79,7 @@ public final class UpdateMetadataOfDirectoriesDialog extends Dialog {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         endDialog();

@@ -1,9 +1,10 @@
 package org.jphototagger.program.view.dialogs;
 
+
+import org.jphototagger.lib.dialog.Dialog;
+import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.UserSettings;
-import org.jphototagger.lib.dialog.Dialog;
 
 /**
  * Holds a {@link org.jphototagger.program.view.panels.RenameFilenamesInDbPanel}.
@@ -61,13 +62,13 @@ public class RenameFilenamesInDbDialog extends Dialog {
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
 
         panelDbFilenameReplace = new org.jphototagger.program.view.panels.RenameFilenamesInDbPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle(JptBundle.INSTANCE.getString("RenameFilenamesInDbDialog.title")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/dialogs/Bundle"); // NOI18N
+        setTitle(bundle.getString("RenameFilenamesInDbDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -89,7 +90,7 @@ public class RenameFilenamesInDbDialog extends Dialog {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         checkClosing();

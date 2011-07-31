@@ -1,15 +1,16 @@
 package org.jphototagger.program.view.dialogs;
 
-import org.jphototagger.program.app.MessageDisplayer;
+import java.awt.Container;
+
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.domain.xmp.Xmp;
-import org.jphototagger.program.database.DatabaseMetadataTemplates;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.view.ViewUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
-import java.awt.Container;
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.program.database.DatabaseMetadataTemplates;
+import org.jphototagger.program.resource.JptBundle;
+import org.jphototagger.program.view.ViewUtil;
 
 /**
  * Modal dialog for modifying and saving a {@link MetadataTemplate} into the
@@ -151,8 +152,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
 
         labelName = new javax.swing.JLabel();
         textFieldName = new javax.swing.JTextField();
@@ -163,7 +163,8 @@ public class EditMetaDataTemplateDialog extends Dialog {
         buttonSave = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle(JptBundle.INSTANCE.getString("EditMetaDataTemplateDialog.title")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/dialogs/Bundle"); // NOI18N
+        setTitle(bundle.getString("EditMetaDataTemplateDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -172,7 +173,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
         });
 
         labelName.setLabelFor(textFieldName);
-        labelName.setText(JptBundle.INSTANCE.getString("EditMetaDataTemplateDialog.labelName.text")); // NOI18N
+        labelName.setText(bundle.getString("EditMetaDataTemplateDialog.labelName.text")); // NOI18N
         labelName.setName("labelName"); // NOI18N
 
         textFieldName.setEnabled(false);
@@ -188,7 +189,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
         panelPadding.setLayout(panelPaddingLayout);
         panelPaddingLayout.setHorizontalGroup(
             panelPaddingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 629, Short.MAX_VALUE)
+            .addGap(0, 631, Short.MAX_VALUE)
             .addGroup(panelPaddingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(panelPaddingLayout.createSequentialGroup()
                     .addGap(8, 8, 8)
@@ -202,12 +203,12 @@ public class EditMetaDataTemplateDialog extends Dialog {
                 .addGroup(panelPaddingLayout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(panelXmpEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(13, Short.MAX_VALUE)))
+                    .addContainerGap(80, Short.MAX_VALUE)))
         );
 
         scrollPane.setViewportView(panelPadding);
 
-        buttonCancel.setText(JptBundle.INSTANCE.getString("EditMetaDataTemplateDialog.buttonCancel.text")); // NOI18N
+        buttonCancel.setText(bundle.getString("EditMetaDataTemplateDialog.buttonCancel.text")); // NOI18N
         buttonCancel.setName("buttonCancel"); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -215,7 +216,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
             }
         });
 
-        buttonSave.setText(JptBundle.INSTANCE.getString("EditMetaDataTemplateDialog.buttonSave.text")); // NOI18N
+        buttonSave.setText(bundle.getString("EditMetaDataTemplateDialog.buttonSave.text")); // NOI18N
         buttonSave.setName("buttonSave"); // NOI18N
         buttonSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -230,7 +231,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(scrollPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 632, Short.MAX_VALUE)
+                    .addComponent(scrollPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 649, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(buttonCancel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -258,7 +259,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }//GEN-END:initComponents
 
     private void buttonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSaveActionPerformed
         save();

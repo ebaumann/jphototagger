@@ -14,10 +14,10 @@
         <Component class="javax.swing.JCheckBox" name="checkBoxChangeFile">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ProgramPropertiesDialog.checkBoxChangeFile.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/view/dialogs/Bundle.properties" key="ProgramPropertiesDialog.checkBoxChangeFile.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ProgramPropertiesDialog.checkBoxChangeFile.toolTipText" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/view/dialogs/Bundle.properties" key="ProgramPropertiesDialog.checkBoxChangeFile.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="name" type="java.lang.String" value="checkBoxChangeFile" noResource="true"/>
           </Properties>
@@ -32,7 +32,7 @@
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                 <TitledBorder title="Programmparameter">
-                  <ResourceString PropertyName="titleX" bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ProgramPropertiesDialog.panelParameter.border.title" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString PropertyName="titleX" bundle="org/jphototagger/program/view/dialogs/Bundle.properties" key="ProgramPropertiesDialog.panelParameter.border.title" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </TitledBorder>
               </Border>
             </Property>
@@ -52,7 +52,7 @@
                   <ComponentRef name="textAreaParametersBeforeFilename"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ProgramPropertiesDialog.labelParametersBeforeFilename.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/dialogs/Bundle.properties" key="ProgramPropertiesDialog.labelParametersBeforeFilename.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="labelParametersBeforeFilename" noResource="true"/>
               </Properties>
@@ -96,7 +96,7 @@
                   <ComponentRef name="textAreaParametersAfterFilename"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ProgramPropertiesDialog.labelParametersAfterFilename.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/dialogs/Bundle.properties" key="ProgramPropertiesDialog.labelParametersAfterFilename.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="labelParametersAfterFilename" noResource="true"/>
               </Properties>
@@ -137,7 +137,7 @@
             <Component class="javax.swing.JCheckBox" name="checkBoxUsePattern">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ProgramPropertiesDialog.checkBoxUsePattern.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/dialogs/Bundle.properties" key="ProgramPropertiesDialog.checkBoxUsePattern.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="checkBoxUsePattern" noResource="true"/>
               </Properties>
@@ -153,7 +153,7 @@
             <Component class="javax.swing.JButton" name="buttonInfoUsePattern">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ProgramPropertiesDialog.buttonInfoUsePattern.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/dialogs/Bundle.properties" key="ProgramPropertiesDialog.buttonInfoUsePattern.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="buttonInfoUsePattern" noResource="true"/>
               </Properties>
@@ -201,7 +201,7 @@
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                 <TitledBorder title="Parameter eingeben vor dem Ausf&#xfc;hren">
-                  <ResourceString PropertyName="titleX" bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ProgramPropertiesDialog.panelInputBeforeExecute.border.title" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString PropertyName="titleX" bundle="org/jphototagger/program/view/dialogs/Bundle.properties" key="ProgramPropertiesDialog.panelInputBeforeExecute.border.title" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </TitledBorder>
               </Border>
             </Property>
@@ -218,7 +218,7 @@
             <Component class="javax.swing.JCheckBox" name="checkBoxInputBeforeExecute">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ProgramPropertiesDialog.checkBoxInputBeforeExecute.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/dialogs/Bundle.properties" key="ProgramPropertiesDialog.checkBoxInputBeforeExecute.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="checkBoxInputBeforeExecute" noResource="true"/>
               </Properties>
@@ -234,7 +234,7 @@
             <Component class="javax.swing.JCheckBox" name="checkBoxInputBeforeExecutePerFile">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ProgramPropertiesDialog.checkBoxInputBeforeExecutePerFile.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/dialogs/Bundle.properties" key="ProgramPropertiesDialog.checkBoxInputBeforeExecutePerFile.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="enabled" type="boolean" value="false"/>
                 <Property name="name" type="java.lang.String" value="checkBoxInputBeforeExecutePerFile" noResource="true"/>
@@ -252,7 +252,7 @@
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                 <TitledBorder title="Bei Auswahl mehrerer Dateien">
-                  <ResourceString PropertyName="titleX" bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ProgramPropertiesDialog.panelSingleFileProcessing.border.title" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString PropertyName="titleX" bundle="org/jphototagger/program/view/dialogs/Bundle.properties" key="ProgramPropertiesDialog.panelMultipleSelection.border.title" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </TitledBorder>
               </Border>
             </Property>
@@ -273,7 +273,7 @@
                 </Property>
                 <Property name="selected" type="boolean" value="true"/>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ProgramPropertiesDialog.radioButtonSingleFileProcessingYes.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/dialogs/Bundle.properties" key="ProgramPropertiesDialog.radioButtonSingleFileProcessingYes.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="radioButtonSingleFileProcessingYes" noResource="true"/>
               </Properties>
@@ -289,7 +289,7 @@
                   <ComponentRef name="buttonGroupSingleFileProcessing"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ProgramPropertiesDialog.radioButtonSingleFileProcessingNo.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/dialogs/Bundle.properties" key="ProgramPropertiesDialog.radioButtonSingleFileProcessingNo.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="radioButtonSingleFileProcessingNo" noResource="true"/>
               </Properties>
@@ -307,7 +307,7 @@
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
     <Property name="title" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ProgramPropertiesDialog.title" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+      <ResourceString bundle="org/jphototagger/program/view/dialogs/Bundle.properties" key="ProgramPropertiesDialog.title" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
     </Property>
     <Property name="name" type="java.lang.String" value="Form" noResource="true"/>
   </Properties>
@@ -320,7 +320,7 @@
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="1"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="true"/>
-    <AuxValue name="FormSettings_formBundle" type="java.lang.String" value="org/jphototagger/program/resource/properties/Bundle"/>
+    <AuxValue name="FormSettings_formBundle" type="java.lang.String" value="org/jphototagger/program/view/dialogs/Bundle"/>
     <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="true"/>
@@ -338,7 +338,7 @@
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
             <TitledBorder title="Angaben zum Programm">
-              <ResourceString PropertyName="titleX" bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ProgramPropertiesDialog.panelProgram.border.title" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+              <ResourceString PropertyName="titleX" bundle="org/jphototagger/program/view/dialogs/Bundle.properties" key="ProgramPropertiesDialog.panelProgram.border.title" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </TitledBorder>
           </Border>
         </Property>
@@ -359,15 +359,15 @@
                       <Group type="102" attributes="0">
                           <Component id="labelFilePrompt" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="labelErrorFileDoesNotExist" pref="358" max="32767" attributes="0"/>
+                          <Component id="labelErrorFileDoesNotExist" pref="314" max="32767" attributes="0"/>
                           <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="labelAlias" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="textFieldAlias" pref="363" max="32767" attributes="0"/>
+                          <Component id="textFieldAlias" pref="310" max="32767" attributes="0"/>
                       </Group>
-                      <Component id="labelFile" alignment="1" pref="447" max="32767" attributes="0"/>
+                      <Component id="labelFile" alignment="1" pref="427" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                   <Component id="buttonChooseFile" min="-2" max="-2" attributes="0"/>
@@ -406,7 +406,7 @@
               <Color blue="0" green="0" red="ff" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ProgramPropertiesDialog.labelFilePrompt.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/view/dialogs/Bundle.properties" key="ProgramPropertiesDialog.labelFilePrompt.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="name" type="java.lang.String" value="labelFilePrompt" noResource="true"/>
           </Properties>
@@ -416,16 +416,14 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ProgramPropertiesDialog.labelErrorFileDoesNotExist.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
-            </Property>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt; &lt;/html&gt;" noResource="true"/>
             <Property name="name" type="java.lang.String" value="labelErrorFileDoesNotExist" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="buttonChooseFile">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ProgramPropertiesDialog.buttonChooseFile.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/view/dialogs/Bundle.properties" key="ProgramPropertiesDialog.buttonChooseFile.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="name" type="java.lang.String" value="buttonChooseFile" noResource="true"/>
           </Properties>
@@ -456,7 +454,7 @@
               <ComponentRef name="textFieldAlias"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ProgramPropertiesDialog.labelAlias.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/view/dialogs/Bundle.properties" key="ProgramPropertiesDialog.labelAlias.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="name" type="java.lang.String" value="labelAlias" noResource="true"/>
           </Properties>
@@ -493,7 +491,7 @@
           <Color blue="0" green="0" red="ff" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ProgramPropertiesDialog.labelInfoRequiredInputs.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/program/view/dialogs/Bundle.properties" key="ProgramPropertiesDialog.labelInfoRequiredInputs.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="name" type="java.lang.String" value="labelInfoRequiredInputs" noResource="true"/>
       </Properties>
@@ -506,7 +504,7 @@
     <Component class="javax.swing.JButton" name="buttonCancel">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ProgramPropertiesDialog.buttonCancel.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/program/view/dialogs/Bundle.properties" key="ProgramPropertiesDialog.buttonCancel.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="name" type="java.lang.String" value="buttonCancel" noResource="true"/>
       </Properties>
@@ -522,7 +520,7 @@
     <Component class="javax.swing.JButton" name="buttonOk">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="ProgramPropertiesDialog.buttonOk.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/program/view/dialogs/Bundle.properties" key="ProgramPropertiesDialog.buttonOk.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
         <Property name="name" type="java.lang.String" value="buttonOk" noResource="true"/>
