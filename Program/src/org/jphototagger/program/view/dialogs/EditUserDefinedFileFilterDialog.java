@@ -11,7 +11,6 @@ import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.database.DatabaseUserDefinedFileFilters;
 import org.jphototagger.program.model.ComboBoxModelUserDefinedFileFilterType;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.renderer.ListCellRendererUserDefinedFileFilterType;
 
 /**
@@ -42,9 +41,14 @@ public class EditUserDefinedFileFilterDialog extends Dialog {
     }
 
     private void postInitComponents() {
-        setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
-        setHelpPageUrl(JptBundle.INSTANCE.getString("Help.Url.UserDefinedFileFilter.Edit"));
+        setHelpPage();
         MnemonicUtil.setMnemonics((Container) this);
+    }
+
+    private void setHelpPage() {
+        // Has to be localized!
+        setHelpContentsUrl("/org/jphototagger/program/resource/doc/de/contents.xml");
+        setHelpPageUrl("user_defined_file_filter_edit.html");
     }
 
     public UserDefinedFileFilter getFilter() {

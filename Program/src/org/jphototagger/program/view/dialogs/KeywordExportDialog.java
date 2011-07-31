@@ -13,7 +13,6 @@ import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.exporter.Exporter;
 import org.jphototagger.program.model.ComboBoxModelKeywordsExporters;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
 
 /**
  * Modal dialog for exporting keywords.
@@ -31,13 +30,14 @@ public class KeywordExportDialog extends Dialog {
     public KeywordExportDialog() {
         super(GUI.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
-        setHelpPages();
+        setHelpPage();
         MnemonicUtil.setMnemonics((Container) this);
     }
 
-    private void setHelpPages() {
-        setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
-        setHelpPageUrl(JptBundle.INSTANCE.getString("Help.Url.KeywordExportDialog"));
+    private void setHelpPage() {
+        // Has to be localized!
+        setHelpContentsUrl("/org/jphototagger/program/resource/doc/de/contents.xml");
+        setHelpPageUrl("export_keywords.html");
     }
 
     /**

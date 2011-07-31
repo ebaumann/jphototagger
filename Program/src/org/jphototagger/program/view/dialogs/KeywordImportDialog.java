@@ -12,7 +12,6 @@ import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.importer.KeywordsImporter;
 import org.jphototagger.program.model.ComboBoxModelKeywordsImporters;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
 
 /**
  * Modal dialog for importing keywords.
@@ -30,13 +29,14 @@ public class KeywordImportDialog extends Dialog {
     public KeywordImportDialog() {
         super(GUI.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
-        setHelpPages();
+        setHelpPage();
         MnemonicUtil.setMnemonics((Container) this);
     }
 
-    private void setHelpPages() {
-        setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
-        setHelpPageUrl(JptBundle.INSTANCE.getString("Help.Url.KeywordImportDialog"));
+    private void setHelpPage() {
+        // Has to be localized!
+        setHelpContentsUrl("/org/jphototagger/program/resource/doc/de/contents.xml");
+        setHelpPageUrl("import_keywords.html");
     }
 
     /**

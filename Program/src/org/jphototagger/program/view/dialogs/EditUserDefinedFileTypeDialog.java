@@ -19,7 +19,6 @@ import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.database.DatabaseUserDefinedFileTypes;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
 
 /**
  *
@@ -39,11 +38,16 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
     }
 
     private void postInitComponents() {
-        setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
-        setHelpPageUrl(JptBundle.INSTANCE.getString("Help.Url.UserDefinedFileType.Edit"));
+        setHelpPage();
         MnemonicUtil.setMnemonics(this);
         initSuffixTextField();
         listen();
+    }
+
+    private void setHelpPage() {
+        // Has to be localized!
+        setHelpContentsUrl("/org/jphototagger/program/resource/doc/de/contents.xml");
+        setHelpPageUrl("user_defined_file_type_edit.html");
     }
 
     private void initSuffixTextField() {

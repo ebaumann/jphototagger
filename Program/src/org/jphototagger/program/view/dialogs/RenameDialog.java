@@ -37,7 +37,6 @@ import org.jphototagger.program.helper.RenameTemplateHelper;
 import org.jphototagger.program.image.thumbnail.ThumbnailUtil;
 import org.jphototagger.program.model.ComboBoxModelRenameTemplates;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.xmp.XmpMetadata;
 
 /**
@@ -64,7 +63,7 @@ public final class RenameDialog extends Dialog implements ListDataListener {
 
     private void postInitComponents() {
         setComboBoxModels();
-        setHelpPages();
+        setHelpPage();
         MnemonicUtil.setMnemonics((Container) this);
         setEnabledRenameTemplateButtons();
         comboBoxRenameTemplates.getModel().addListDataListener(this);
@@ -88,9 +87,10 @@ public final class RenameDialog extends Dialog implements ListDataListener {
         return model;
     }
 
-    private void setHelpPages() {
-        setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
-        setHelpPageUrl(JptBundle.INSTANCE.getString("Help.Url.RenameDialog"));
+    private void setHelpPage() {
+        // Has to be localized!
+        setHelpContentsUrl("/org/jphototagger/program/resource/doc/de/contents.xml");
+        setHelpPageUrl("rename_images.html");
     }
 
     public void addFileSystemListener(FileSystemListener listener) {

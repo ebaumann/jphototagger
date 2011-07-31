@@ -26,7 +26,6 @@ import org.jphototagger.program.helper.ConvertIptcToXmp;
 import org.jphototagger.program.io.ImageFileFilterer;
 import org.jphototagger.program.model.IptcCharsetComboBoxModel;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.panels.SelectRootFilesPanel;
 
 /**
@@ -45,14 +44,15 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener, U
     public IptcToXmpDialog() {
         super(GUI.getAppFrame(), false, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
-        setHelpPages();
+        setHelpPage();
         MnemonicUtil.setMnemonics((Container) this);
         UserSettings.INSTANCE.addUserSettingsListener(this);
     }
 
-    private void setHelpPages() {
-        setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
-        setHelpPageUrl(JptBundle.INSTANCE.getString("Help.Url.IptcToXmpDialog"));
+    private void setHelpPage() {
+        // Has to be localized!
+        setHelpContentsUrl("/org/jphototagger/program/resource/doc/de/contents.xml");
+        setHelpPageUrl("import_iptc.html");
     }
 
     /**

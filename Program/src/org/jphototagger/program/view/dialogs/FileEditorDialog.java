@@ -19,7 +19,7 @@ public class FileEditorDialog extends Dialog {
     public FileEditorDialog() {
         super(GUI.getAppFrame(), false, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
-        setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
+        setHelpContentsUrl("/org/jphototagger/program/resource/doc/de/contents.xml");
     }
 
     public FileEditorPanel getFileEditorPanel() {

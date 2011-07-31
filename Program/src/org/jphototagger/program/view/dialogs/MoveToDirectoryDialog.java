@@ -25,7 +25,6 @@ import org.jphototagger.program.helper.CopyFiles;
 import org.jphototagger.program.helper.CopyFiles.Options;
 import org.jphototagger.program.io.FileSystemMove;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.panels.SelectRootFilesPanel;
 import org.jphototagger.xmp.XmpMetadata;
 
@@ -50,13 +49,14 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
     public MoveToDirectoryDialog() {
         super(GUI.getAppFrame(), false, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
-        setHelpPages();
+        setHelpPage();
         MnemonicUtil.setMnemonics((Container) this);
     }
 
-    private void setHelpPages() {
-        setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
-        setHelpPageUrl(JptBundle.INSTANCE.getString("Help.Url.MoveToDirectoryDialog"));
+    private void setHelpPage() {
+        // Has to be localized!
+        setHelpContentsUrl("/org/jphototagger/program/resource/doc/de/contents.xml");
+        setHelpPageUrl("move_images.html");
     }
 
     public void addProgressListener(ProgressListener listener) {

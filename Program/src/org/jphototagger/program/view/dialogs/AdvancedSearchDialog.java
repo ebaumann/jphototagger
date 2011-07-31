@@ -20,7 +20,7 @@ public final class AdvancedSearchDialog extends Dialog
         super(GUI.getAppFrame(), modal, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
         panel.addNameListener(this);
-        setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
+        setHelpContentsUrl("/org/jphototagger/program/resource/doc/de/contents.xml");
     }
 
     @Override
@@ -45,7 +45,7 @@ public final class AdvancedSearchDialog extends Dialog
 
     @Override
     protected void help() {
-        help(JptBundle.INSTANCE.getString("Help.Url.AdvancedSearchDialog"));
+        help("advanced_search.html");
     }
 
     @Override
