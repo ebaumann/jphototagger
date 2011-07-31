@@ -8,7 +8,6 @@ import org.jphototagger.lib.util.Settings;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.datatransfer.TransferHandlerDragListItems;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.panels.KeywordsPanel;
 import org.jphototagger.program.view.panels.MetaDataTemplatesPanel;
 import org.jphototagger.program.view.panels.MiscXmpMetadataPanel;
@@ -32,7 +31,7 @@ public class InputHelperDialog extends Dialog {
     }
 
     private void postInitComponents() {
-        setHelpPages();
+        setHelpPage();
         setKeyCards();
     }
 
@@ -41,9 +40,10 @@ public class InputHelperDialog extends Dialog {
         panelKeywords.setKeyTree("InputHelperDialog.Keywords.Tree");
     }
 
-    private void setHelpPages() {
-        setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
-        setHelpPageUrl(JptBundle.INSTANCE.getString("Help.Url.InputHelpers"));
+    private void setHelpPage() {
+        // Has to be localized!
+        setHelpContentsUrl("/org/jphototagger/program/resource/doc/de/contents.xml");
+        setHelpPageUrl("input_helpers.html");
     }
 
     public void setModelKeywords(ListModel model) {

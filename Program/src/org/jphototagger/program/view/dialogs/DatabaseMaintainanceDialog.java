@@ -5,7 +5,6 @@ import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
 
 /**
  * Modaler Dialog zur Wartung der Thumbnaildatenbank.
@@ -19,13 +18,14 @@ public final class DatabaseMaintainanceDialog extends Dialog {
     private DatabaseMaintainanceDialog() {
         super(GUI.getAppFrame(), false, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
-        setHelpPages();
+        setHelpPage();
         TabbedPaneUtil.setMnemonics(tabbedPane);
     }
 
-    private void setHelpPages() {
-        setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
-        setHelpPageUrl(JptBundle.INSTANCE.getString("Help.Url.DatabaseMaintainanceDialog"));
+    private void setHelpPage() {
+        // Has to be localized!
+        setHelpContentsUrl("/org/jphototagger/program/resource/doc/de/contents.xml");
+        setHelpPageUrl("maintain_database.html");
     }
 
     @Override

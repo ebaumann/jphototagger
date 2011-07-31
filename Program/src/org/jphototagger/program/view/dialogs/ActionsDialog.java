@@ -27,12 +27,13 @@ public final class ActionsDialog extends Dialog implements DatabaseProgramsListe
     }
 
     private void postInitComponents() {
-        setHelpPages();
+        setHelpPage();
         DatabasePrograms.INSTANCE.addListener(this);
     }
 
-    private void setHelpPages() {
-        setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
+    private void setHelpPage() {
+        // Has to be localized!
+        setHelpContentsUrl("/org/jphototagger/program/resource/doc/de/contents.xml");
         setHelpPageUrl(JptBundle.INSTANCE.getString("Help.Url.ActionsDialog"));
     }
 

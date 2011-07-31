@@ -15,7 +15,6 @@ import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.database.DatabaseFavorites;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.panels.SelectRootFilesPanel;
 
 
@@ -35,13 +34,14 @@ public final class FavoritePropertiesDialog extends Dialog {
     public FavoritePropertiesDialog() {
         super(GUI.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
-        setHelpPages();
+        setHelpPage();
         MnemonicUtil.setMnemonics((Container) this);
     }
 
-    private void setHelpPages() {
-        setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
-        setHelpPageUrl(JptBundle.INSTANCE.getString("Help.Url.FavoriteDirectoryPropertiesDialog"));
+    private void setHelpPage() {
+        // Has to be localized!
+        setHelpContentsUrl("/org/jphototagger/program/resource/doc/de/contents.xml");
+        setHelpPageUrl("mainwindow_favorites.html");
     }
 
     private void chooseDirectory() {

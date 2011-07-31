@@ -30,7 +30,7 @@ import javax.swing.JMenuItem;
  * @author Elmar Baumann
  */
 public final class ControllerHelp implements ActionListener, HelpBrowserListener {
-    private static final String HELP_CONTENTS_URL = JptBundle.INSTANCE.getString("Help.Url.Contents");
+    private static final String HELP_CONTENTS_URL = "/org/jphototagger/program/resource/doc/de/contents.xml";
     private static final String KEY_CURRENT_URL = ControllerHelp.class.getName() + ".CurrentURL";
     private String currentUrl = UserSettings.INSTANCE.getSettings().getString(KEY_CURRENT_URL);
 
@@ -144,7 +144,7 @@ public final class ControllerHelp implements ActionListener, HelpBrowserListener
 
     private void showAcceleratorKeyHelp() {
         initHelp();
-        HelpBrowser.INSTANCE.setDisplayUrl(JptBundle.INSTANCE.getString("Help.Url.AcceleratorKeys"));
+        HelpBrowser.INSTANCE.setDisplayUrl("accelerator_keys.html");
         ComponentUtil.show(HelpBrowser.INSTANCE);
     }
 

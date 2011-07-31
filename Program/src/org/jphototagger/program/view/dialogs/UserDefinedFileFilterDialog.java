@@ -3,7 +3,6 @@ package org.jphototagger.program.view.dialogs;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
 
 /**
  *
@@ -20,8 +19,13 @@ public class UserDefinedFileFilterDialog extends Dialog {
     }
 
     private void postInitComponents() {
-        setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
-        setHelpPageUrl(JptBundle.INSTANCE.getString("Help.Url.UserDefinedFileFilter"));
+        setHelpPage();
+    }
+
+    private void setHelpPage() {
+        // Has to be localized!
+        setHelpContentsUrl("/org/jphototagger/program/resource/doc/de/contents.xml");
+        setHelpPageUrl("user_defined_file_filter.html");
     }
 
     /** This method is called from within the constructor to

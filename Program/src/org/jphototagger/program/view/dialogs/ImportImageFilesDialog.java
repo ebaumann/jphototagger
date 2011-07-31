@@ -18,7 +18,6 @@ import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.panels.ImagePreviewPanel;
 
 /**
@@ -43,13 +42,14 @@ public class ImportImageFilesDialog extends Dialog {
     public ImportImageFilesDialog() {
         super(GUI.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
-        setHelpPages();
+        setHelpPage();
         init();
     }
 
-    private void setHelpPages() {
-        setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
-        setHelpPageUrl(JptBundle.INSTANCE.getString("Help.Url.ImportImageFiles"));
+    private void setHelpPage() {
+        // Has to be localized!
+        setHelpContentsUrl("/org/jphototagger/program/resource/doc/de/contents.xml");
+        setHelpPageUrl("import_images.html");
     }
 
     private void init() {

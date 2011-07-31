@@ -3,7 +3,6 @@ package org.jphototagger.program.view.dialogs;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
 
 /**
  * Dialog zum Scannen eines Verzeichnisses nach Bildern und Einfügen
@@ -18,12 +17,13 @@ public final class UpdateMetadataOfDirectoriesDialog extends Dialog {
     private UpdateMetadataOfDirectoriesDialog() {
         super(GUI.getAppFrame(), false, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
-        setHelpPages();
+        setHelpPage();
     }
 
-    private void setHelpPages() {
-        setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
-        setHelpPageUrl(JptBundle.INSTANCE.getString("Help.Url.UpdateMetadataOfDirectories"));
+    private void setHelpPage() {
+        // Has to be localized!
+        setHelpContentsUrl("/org/jphototagger/program/resource/doc/de/contents.xml");
+        setHelpPageUrl("scan_directories.html");
     }
 
     private void endDialog() {

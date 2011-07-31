@@ -31,12 +31,16 @@ public class ExportImportDialog extends Dialog implements ExportImportListener {
         setTitle(context.equals(ExportImportPanel.Context.EXPORT)
                  ? JptBundle.INSTANCE.getString("ExportImportDialog.Title.Export")
                  : JptBundle.INSTANCE.getString("ExportImportDialog.Title.Import"));
-        setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
-        setHelpPageUrl(context.equals(ExportImportPanel.Context.EXPORT)
-                       ? JptBundle.INSTANCE.getString("Help.Url.ExportImportDialog.Export")
-                       : JptBundle.INSTANCE.getString("Help.Url.ExportImportDialog.Import"));
+        setHelpContentsUrl("/org/jphototagger/program/resource/doc/de/contents.xml");
+        setHelpPage();
         panelExportImport.setContext(context);
         panelExportImport.addListener(this);
+    }
+
+    private void setHelpPage() {
+        // Has to be localized!
+        setHelpContentsUrl("/org/jphototagger/program/resource/doc/de/contents.xml");
+        setHelpPageUrl(context.equals(ExportImportPanel.Context.EXPORT) ? "export_jpt.html" : "import_jpt.html");
     }
 
     @Override

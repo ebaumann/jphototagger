@@ -11,7 +11,6 @@ import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.model.ListModelImageCollections;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.renderer.ListCellRendererImageCollections;
 
 /**
@@ -26,13 +25,14 @@ public final class ImageCollectionsDialog extends Dialog {
     public ImageCollectionsDialog() {
         super(GUI.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
         initComponents();
-        setHelpPages();
+        setHelpPage();
         MnemonicUtil.setMnemonics((Container) this);
     }
 
-    private void setHelpPages() {
-        setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
-        setHelpPageUrl(JptBundle.INSTANCE.getString("Help.Url.ImageCollectionsDialog"));
+    private void setHelpPage() {
+        // Has to be localized!
+        setHelpContentsUrl("/org/jphototagger/program/resource/doc/de/contents.xml");
+        setHelpPageUrl("collection_add_to.html");
     }
 
     public boolean isCollectionSelected() {

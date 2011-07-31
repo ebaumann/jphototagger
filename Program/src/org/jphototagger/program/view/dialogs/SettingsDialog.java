@@ -54,7 +54,7 @@ public final class SettingsDialog extends Dialog {
         initPersistentPanels();
         readProperties();
         TabbedPaneUtil.setMnemonics(tabbedPane);
-        setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
+        setHelpContentsUrl("/org/jphototagger/program/resource/doc/de/contents.xml");
         initSearchPanel();
     }
 
@@ -72,14 +72,14 @@ public final class SettingsDialog extends Dialog {
             tabOfIndex.put(indexOfTab.get(tab), tab);
         }
 
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(0), JptBundle.INSTANCE.getString("Help.Url.UserSettingsDialog.Programs"));
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(1), JptBundle.INSTANCE.getString("Help.Url.UserSettingsDialog.Thumbnails"));
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(2), JptBundle.INSTANCE.getString("Help.Url.UserSettingsDialog.Tasks"));
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(3), JptBundle.INSTANCE.getString("Help.Url.UserSettingsDialog.Performance"));
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(4), JptBundle.INSTANCE.getString("Help.Url.UserSettingsDialog.FileExcludePattern"));
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(5), JptBundle.INSTANCE.getString("Help.Url.UserSettingsDialog.Misc"));
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(6), JptBundle.INSTANCE.getString("Help.Url.UserSettingsDialog.Actions"));
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(7), JptBundle.INSTANCE.getString("Help.Url.UserSettingsDialog.Plugins"));
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(0), "settings_programs.html");
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(1), "settings_thumbnails.html");
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(2), "settings_tasks.html");
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(3), "settings_performance.html");
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(4), "settings_file_excludepattern.html");
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(5), "settings_misc.html");
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(6), "settings_actions.html");
+        helpUrlOfComponent.put(tabbedPane.getComponentAt(7), "settings_plugins.html");
     }
 
     private void initPersistentPanels() {

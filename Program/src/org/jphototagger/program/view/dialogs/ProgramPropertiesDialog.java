@@ -293,8 +293,8 @@ public final class ProgramPropertiesDialog extends Dialog {
     }
 
     private void showPatternHelp() {
-        setHelpContentsUrl(JptBundle.INSTANCE.getString("Help.Url.Contents"));
-        help(JptBundle.INSTANCE.getString("Help.Url.Contents.ParameterSubstitution"));
+        setHelpContentsUrl("/org/jphototagger/program/resource/doc/de/contents.xml");
+        help("parameter_substitution.html");
     }
 
     private void toggleExpertSettings() {
