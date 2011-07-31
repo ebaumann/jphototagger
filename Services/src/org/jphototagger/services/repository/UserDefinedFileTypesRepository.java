@@ -20,4 +20,6 @@ public interface UserDefinedFileTypesRepository {
     boolean existsFileTypeWithSuffix(String suffix);
 
     List<UserDefinedFileType> findAll();
+
+    UserDefinedFileType findBySuffix(String suffix);
 }

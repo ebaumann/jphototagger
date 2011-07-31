@@ -1,6 +1,6 @@
 package org.jphototagger.program.app.update;
 
-import org.jphototagger.program.image.thumbnail.ThumbnailCreator;
+import org.jphototagger.program.image.thumbnail.ThumbnailCreationStrategy;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -118,10 +118,10 @@ public final class UpdateUserSettings {
         properties.remove(KEY_CREATE_THUMBNAILS_WITH_EXTERNAL_APP);
         properties.remove(KEY_USE_EMBEDDED_THUMBNAILS);
         properties.put(KEY_THUMBNAIL_CREATOR, externalApp
-                ? ThumbnailCreator.EXTERNAL_APP.name()
+                ? ThumbnailCreationStrategy.EXTERNAL_APP.name()
                 : useEmbedded
-                  ? ThumbnailCreator.EMBEDDED.name()
-                  : ThumbnailCreator.JAVA_IMAGE_IO.name());
+                  ? ThumbnailCreationStrategy.EMBEDDED.name()
+                  : ThumbnailCreationStrategy.JAVA_IMAGE_IO.name());
     }
 
     private UpdateUserSettings() {}

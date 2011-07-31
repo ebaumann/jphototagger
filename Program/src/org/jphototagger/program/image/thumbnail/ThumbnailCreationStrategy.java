@@ -5,7 +5,7 @@ package org.jphototagger.program.image.thumbnail;
  *
  * @author Elmar Baumann
  */
-public enum ThumbnailCreator {
+public enum ThumbnailCreationStrategy {
 
     /**
      * Get in the image embedded thumbnail

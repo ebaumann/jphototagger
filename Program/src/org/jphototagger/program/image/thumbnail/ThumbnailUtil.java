@@ -25,11 +25,10 @@ import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.runtime.External;
 import org.jphototagger.lib.runtime.ExternalOutput;
+import org.jphototagger.lib.util.ServiceLookup;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.app.AppFileFilters;
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.database.DatabaseUserDefinedFileTypes;
-import org.jphototagger.program.database.metadata.exif.ExifThumbnailUtil;
+import org.jphototagger.exif.ExifThumbnailUtil;
+import org.jphototagger.services.repository.UserDefinedFileTypesRepository;
 
 import com.imagero.reader.IOParameterBlock;
 import com.imagero.reader.ImageProcOptions;
@@ -48,7 +47,7 @@ public final class ThumbnailUtil {
 
     /**
      * Returns a thumbnail created with
-     * {@link UserSettings#setThumbnailCreator(org.jphototagger.program.image.thumbnail.ThumbnailCreator)}.
+     * {@link UserSettings#setThumbnailCreator(org.jphototagger.program.image.thumbnail.ThumbnailCreationStrategy)}.
      * <p>
      * If the creator did not create a thumbnail, this method tries to get an
      * embedded thumbnail.
@@ -65,24 +64,24 @@ public final class ThumbnailUtil {
             return null;
         }
 
-        if (AppFileFilters.INSTANCE.isUserDefinedFileType(file)) {
+        if (isUserDefinedFileType(file)) {
             return getUserDefinedThumbnail(file);
         }
 
-        ThumbnailCreator creator = UserSettings.INSTANCE.getThumbnailCreator();
+        ThumbnailCreationStrategy creationStrategy = UserSettings.INSTANCE.getThumbnailCreator();
         int maxLength = UserSettings.INSTANCE.getMaxThumbnailWidth();
         boolean isRawImage = FileType.isRawFile(file.getName());
-        boolean canCreateImage = !isRawImage || (isRawImage && creator.equals(ThumbnailCreator.EXTERNAL_APP));
+        boolean canCreateImage = !isRawImage || (isRawImage && creationStrategy.equals(ThumbnailCreationStrategy.EXTERNAL_APP));
         Image thumbnail = null;
 
-        if (creator.equals(ThumbnailCreator.EXTERNAL_APP)) {    // has to be 1st.
+        if (creationStrategy.equals(ThumbnailCreationStrategy.EXTERNAL_APP)) {    // has to be 1st.
             String createCommand = UserSettings.INSTANCE.getExternalThumbnailCreationCommand();
             thumbnail = getThumbnailFromExternalApplication(file, createCommand, maxLength);
-        } else if (!canCreateImage || creator.equals(ThumbnailCreator.EMBEDDED)) {
+        } else if (!canCreateImage || creationStrategy.equals(ThumbnailCreationStrategy.EMBEDDED)) {
             thumbnail = ThumbnailUtil.getEmbeddedThumbnailRotated(file);
-        } else if (creator.equals(ThumbnailCreator.IMAGERO)) {
+        } else if (creationStrategy.equals(ThumbnailCreationStrategy.IMAGERO)) {
             thumbnail = getScaledImageImagero(file, maxLength);
-        } else if (creator.equals(ThumbnailCreator.JAVA_IMAGE_IO)) {
+        } else if (creationStrategy.equals(ThumbnailCreationStrategy.JAVA_IMAGE_IO)) {
             thumbnail = getThumbnailFromJavaImageIo(file, maxLength);
         } else {
             return null;
@@ -95,9 +94,17 @@ public final class ThumbnailUtil {
         return thumbnail;
     }
 
+    private static boolean isUserDefinedFileType(File file) {
+        String suffix = FileUtil.getSuffix(file);
+        UserDefinedFileTypesRepository repo = ServiceLookup.lookup(UserDefinedFileTypesRepository.class);
+
+        return repo.existsFileTypeWithSuffix(suffix);
+    }
+
     private static Image getUserDefinedThumbnail(File file) {
         String suffix = FileUtil.getSuffix(file);
-        UserDefinedFileType fileType = DatabaseUserDefinedFileTypes.INSTANCE.findBySuffix(suffix);
+        UserDefinedFileTypesRepository repo = ServiceLookup.lookup(UserDefinedFileTypesRepository.class);
+        UserDefinedFileType fileType = repo.findBySuffix(suffix);
 
         if (fileType == null || !fileType.isExternalThumbnailCreator()) {
             return IconUtil.getIconImage("/org/jphototagger/program/resource/images/user_defined_file_type.jpg");
@@ -126,7 +133,7 @@ public final class ThumbnailUtil {
             throw new IllegalArgumentException("Invalid length: " + maxLength);
         }
 
-        if (AppFileFilters.INSTANCE.isUserDefinedFileType(file)) {
+        if (isUserDefinedFileType(file)) {
             return null;
         }
 
@@ -142,11 +149,10 @@ public final class ThumbnailUtil {
             throw new IllegalArgumentException("Invalid length: " + maxLength);
         }
 
-        if (AppFileFilters.INSTANCE.isUserDefinedFileType(file)) {
+        if (isUserDefinedFileType(file)) {
             return null;
         }
 
-        AppLogger.logInfo(ThumbnailUtil.class, "ThumbnailUtil.CreateImage.Information.JavaIo", file, maxLength);
         LOGGER.log(Level.INFO, "Creating thumbnail from image file ''{0}'', size {1} Bytes", new Object[]{file, file.length()});
 
         BufferedImage image = loadImage(file);
@@ -170,7 +176,7 @@ public final class ThumbnailUtil {
             throw new NullPointerException("file == null");
         }
 
-        if (AppFileFilters.INSTANCE.isUserDefinedFileType(file)) {
+        if (isUserDefinedFileType(file)) {
             return null;
         }
 
@@ -193,7 +199,6 @@ public final class ThumbnailUtil {
         ImageReader reader = null;
 
         try {
-            AppLogger.logInfo(ThumbnailUtil.class, "ThumbnailUtil.GetFileEmbeddedThumbnail.Info", file);
             LOGGER.log(Level.INFO, "Reading embedded thumbnail from image file ''{0}'', size {1} Bytes", new Object[]{file, file.length()});
             reader = ReaderFactory.createReader(file);
 
@@ -212,7 +217,7 @@ public final class ThumbnailUtil {
                 thumbnail = Imagero.getThumbnail(ioParamBlock, 0);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(ThumbnailUtil.class, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
 
             return new ImageImageReader(null, null);
         }
@@ -222,8 +227,7 @@ public final class ThumbnailUtil {
 
     private static Image getScaledImageImagero(File file, int maxLength) {
         try {
-            AppLogger.logInfo(ThumbnailUtil.class, "ThumbnailUtil.GetScaledImageImagero.Info", file, maxLength);
-            LOGGER.log(Level.INFO, "Creating thumbnail from image file ''{0}'', size {1} Bytes", new Object[]{file, file.length()});
+            LOGGER.log(Level.INFO, "Creating thumbnail from image file ''{0}'', size of image file is {1} Bytes", new Object[]{file, file.length()});
 
             IOParameterBlock ioParamBlock = new IOParameterBlock();
             ImageProcOptions procOptions = new ImageProcOptions();
@@ -238,14 +242,10 @@ public final class ThumbnailUtil {
 
             return image;
         } catch (Exception ex) {
-            AppLogger.logSevere(ThumbnailUtil.class, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         }
 
         return null;
-    }
-
-    private static void logExternalAppCommand(String cmd) {
-        AppLogger.logFinest(ThumbnailUtil.class, "ThumbnailUtil.Info.ExternalAppCreationCommand", cmd);
     }
 
     private static Image getEmbeddedThumbnailRotated(File file) {
@@ -265,7 +265,7 @@ public final class ThumbnailUtil {
                 }
             }
 
-            AppLogger.logInfo(ThumbnailUtil.class, "ThumbnailUtil.GetRotatedThumbnail.Information", file);
+            LOGGER.log(Level.INFO, "Rotating extracted thumbnail that was embedded file ''{0}''", file);
             rotatedThumbnail = ImageTransform.rotate(thumbnail, rotateAngle);
         }
 
@@ -299,16 +299,15 @@ public final class ThumbnailUtil {
             return null;
         }
 
-        AppLogger.logInfo(ThumbnailUtil.class, "ThumbnailUtil.GetThumbnailFromExternalApplication.Information", file,
-                maxLength);
+        LOGGER.log(Level.INFO, "Creating thumbnail of file ''{0}'' with external program. The length of the thumbnail''s width will be{1} pixels",
+                new Object[]{file, maxLength});
 
         String cmd = command.replace("%s", file.getAbsolutePath()).replace("%i", Integer.toString(maxLength));
         Image image = null;
 
-        logExternalAppCommand(cmd);
+        LOGGER.log(Level.FINEST, "Creating thumbnail with external application. Command: ''{0}''", cmd);
 
-        ExternalOutput output = External.executeGetOutput(cmd,
-                UserSettings.INSTANCE.getMaxSecondsToTerminateExternalPrograms() * 1000);
+        ExternalOutput output = External.executeGetOutput(cmd, UserSettings.INSTANCE.getMaxSecondsToTerminateExternalPrograms() * 1000);
 
         if (output == null) {
             return null;
@@ -398,7 +397,7 @@ public final class ThumbnailUtil {
             // Letzter Skalierungsschritt auf Zielgröße
             scaledImage = scaleImage(scaledWidth, scaledHeight, img);
         } catch (Exception ex) {
-            AppLogger.logSevere(ThumbnailUtil.class, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         }
 
         return scaledImage;
@@ -449,7 +448,7 @@ public final class ThumbnailUtil {
             mediaTracker.addImage(image, 0);
             mediaTracker.waitForID(0);
         } catch (Exception ex) {
-            AppLogger.logSevere(ThumbnailUtil.class, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         }
 
         return image;
@@ -468,7 +467,8 @@ public final class ThumbnailUtil {
                 : new String(stderr).trim());
 
         if (!errorMsg.isEmpty()) {
-            AppLogger.logWarning(ThumbnailUtil.class, "ThumbnailUtil.Error.ExternalProgram", imageFile, errorMsg);
+            LOGGER.log(Level.WARNING, "Program error message while creating a thumbnail of file ''{0}'': ''{1}''",
+                    new Object[]{imageFile, errorMsg});
         }
     }
 
