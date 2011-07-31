@@ -1,25 +1,27 @@
 package org.jphototagger.program.view.panels;
 
-import org.jphototagger.program.datatransfer.TransferHandlerDragListItems;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.view.renderer.ListCellRendererKeywords;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.componentutil.TreeUtil;
 import java.awt.CardLayout;
 import java.awt.Container;
+
 import javax.swing.JTree;
 import javax.swing.ListModel;
 import javax.swing.SortOrder;
 import javax.swing.tree.TreeSelectionModel;
+
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.JXTree;
+import org.jphototagger.lib.componentutil.MnemonicUtil;
+import org.jphototagger.lib.componentutil.TreeUtil;
+import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.controller.actions.SearchInJxListAction;
 import org.jphototagger.program.controller.actions.SearchInJxTreeAction;
+import org.jphototagger.program.datatransfer.TransferHandlerDragListItems;
 import org.jphototagger.program.helper.ListTextFilter;
 import org.jphototagger.program.model.ListModelWait;
 import org.jphototagger.program.model.TreeModelWait;
+import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.renderer.KeywordHighlightPredicate;
+import org.jphototagger.program.view.renderer.ListCellRendererKeywords;
 
 /**
  *
@@ -158,8 +160,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
         panelTree = new javax.swing.JPanel();
@@ -167,9 +168,9 @@ public class KeywordsPanel extends javax.swing.JPanel {
         tree = new JXTree();
         tree.setShowsRootHandles(true);
         panelButtons = new javax.swing.JPanel();
-        buttonAsList = new javax.swing.JButton();
         buttonToggleExpandAllNodes = new javax.swing.JToggleButton();
         buttonSearchInTree = new javax.swing.JButton();
+        buttonAsList = new javax.swing.JButton();
         panelList = new javax.swing.JPanel();
         panelListFilter = new javax.swing.JPanel();
         labelListFilter = new javax.swing.JLabel();
@@ -177,8 +178,8 @@ public class KeywordsPanel extends javax.swing.JPanel {
         scrollPaneList = new javax.swing.JScrollPane();
         list = new JXList();
         list.setTransferHandler(new TransferHandlerDragListItems(org.jphototagger.program.datatransfer.Flavor.KEYWORDS_LIST));
-        buttonAsTree = new javax.swing.JButton();
         buttonSearchInList = new javax.swing.JButton();
+        buttonAsTree = new javax.swing.JButton();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.CardLayout());
@@ -206,22 +207,8 @@ public class KeywordsPanel extends javax.swing.JPanel {
         panelButtons.setName("panelButtons"); // NOI18N
         panelButtons.setLayout(new java.awt.GridBagLayout());
 
-        buttonAsList.setText(JptBundle.INSTANCE.getString("KeywordsPanel.buttonAsList.text")); // NOI18N
-        buttonAsList.setMargin(new java.awt.Insets(1, 1, 1, 1));
-        buttonAsList.setName("buttonAsList"); // NOI18N
-        buttonAsList.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonAsListActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(2, 0, 2, 0);
-        panelButtons.add(buttonAsList, gridBagConstraints);
-
-        buttonToggleExpandAllNodes.setText(JptBundle.INSTANCE.getString("KeywordsPanel.buttonToggleExpandAllNodes.text")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/panels/Bundle"); // NOI18N
+        buttonToggleExpandAllNodes.setText(bundle.getString("KeywordsPanel.buttonToggleExpandAllNodes.text")); // NOI18N
         buttonToggleExpandAllNodes.setMargin(new java.awt.Insets(1, 1, 1, 1));
         buttonToggleExpandAllNodes.setName("buttonToggleExpandAllNodes"); // NOI18N
         buttonToggleExpandAllNodes.addActionListener(new java.awt.event.ActionListener() {
@@ -237,7 +224,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
         panelButtons.add(buttonToggleExpandAllNodes, gridBagConstraints);
 
         buttonSearchInTree.setAction(new SearchInJxTreeAction((JXTree)tree));
-        buttonSearchInTree.setText(JptBundle.INSTANCE.getString("KeywordsPanel.buttonSearchInTree.text")); // NOI18N
+        buttonSearchInTree.setText(bundle.getString("KeywordsPanel.buttonSearchInTree.text")); // NOI18N
         buttonSearchInTree.setMargin(new java.awt.Insets(1, 1, 1, 1));
         buttonSearchInTree.setName("buttonSearchInTree"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -245,6 +232,21 @@ public class KeywordsPanel extends javax.swing.JPanel {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets(2, 0, 2, 2);
         panelButtons.add(buttonSearchInTree, gridBagConstraints);
+
+        buttonAsList.setText(bundle.getString("KeywordsPanel.buttonAsList.text")); // NOI18N
+        buttonAsList.setMargin(new java.awt.Insets(1, 1, 1, 1));
+        buttonAsList.setName("buttonAsList"); // NOI18N
+        buttonAsList.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAsListActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 0, 2, 0);
+        panelButtons.add(buttonAsList, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -260,7 +262,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
         panelListFilter.setName("panelListFilter"); // NOI18N
         panelListFilter.setLayout(new java.awt.GridBagLayout());
 
-        labelListFilter.setText(JptBundle.INSTANCE.getString("KeywordsPanel.labelListFilter.text")); // NOI18N
+        labelListFilter.setText(bundle.getString("KeywordsPanel.labelListFilter.text")); // NOI18N
         labelListFilter.setName("labelListFilter"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -305,7 +307,19 @@ public class KeywordsPanel extends javax.swing.JPanel {
         gridBagConstraints.weighty = 1.0;
         panelList.add(scrollPaneList, gridBagConstraints);
 
-        buttonAsTree.setText(JptBundle.INSTANCE.getString("KeywordsPanel.buttonAsTree.text")); // NOI18N
+        buttonSearchInList.setAction(new SearchInJxListAction(list));
+        buttonSearchInList.setText(bundle.getString("KeywordsPanel.buttonSearchInList.text")); // NOI18N
+        buttonSearchInList.setMargin(new java.awt.Insets(1, 1, 1, 1));
+        buttonSearchInList.setName("buttonSearchInList"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        panelList.add(buttonSearchInList, gridBagConstraints);
+
+        buttonAsTree.setText(bundle.getString("KeywordsPanel.buttonAsTree.text")); // NOI18N
         buttonAsTree.setMargin(new java.awt.Insets(1, 1, 1, 1));
         buttonAsTree.setName("buttonAsTree"); // NOI18N
         buttonAsTree.addActionListener(new java.awt.event.ActionListener() {
@@ -320,20 +334,8 @@ public class KeywordsPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
         panelList.add(buttonAsTree, gridBagConstraints);
 
-        buttonSearchInList.setAction(new SearchInJxListAction(list));
-        buttonSearchInList.setText(JptBundle.INSTANCE.getString("KeywordsPanel.buttonSearchInList.text")); // NOI18N
-        buttonSearchInList.setMargin(new java.awt.Insets(1, 1, 1, 1));
-        buttonSearchInList.setName("buttonSearchInList"); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
-        panelList.add(buttonSearchInList, gridBagConstraints);
-
         add(panelList, "List");
-    }// </editor-fold>//GEN-END:initComponents
+    }//GEN-END:initComponents
 
     private void buttonToggleExpandAllNodesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonToggleExpandAllNodesActionPerformed
         handleButtonToggleExpandAllNodesActionPerformed();
@@ -346,7 +348,6 @@ public class KeywordsPanel extends javax.swing.JPanel {
     private void buttonAsTreeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAsTreeActionPerformed
         displayCard("Tree");
     }//GEN-LAST:event_buttonAsTreeActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAsList;
     private javax.swing.JButton buttonAsTree;

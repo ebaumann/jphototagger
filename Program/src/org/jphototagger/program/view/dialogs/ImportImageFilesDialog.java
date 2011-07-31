@@ -1,23 +1,25 @@
 package org.jphototagger.program.view.dialogs;
 
-import org.jphototagger.lib.dialog.DirectoryChooser.Option;
-import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.view.panels.ImagePreviewPanel;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.dialog.Dialog;
-import org.jphototagger.lib.dialog.DirectoryChooser;
-import org.jphototagger.lib.util.StringUtil;
 import java.awt.Container;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import javax.swing.filechooser.FileSystemView;
+
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.filechooser.FileSystemView;
+
+import org.jphototagger.lib.componentutil.MnemonicUtil;
+import org.jphototagger.lib.dialog.Dialog;
+import org.jphototagger.lib.dialog.DirectoryChooser;
+import org.jphototagger.lib.dialog.DirectoryChooser.Option;
+import org.jphototagger.lib.util.StringUtil;
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.resource.JptBundle;
+import org.jphototagger.program.view.panels.ImagePreviewPanel;
 
 /**
  *
@@ -314,8 +316,7 @@ public class ImportImageFilesDialog extends Dialog {
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
 
         labelPromptSourceDir = new javax.swing.JLabel();
         labelSourceDir = new javax.swing.JLabel();
@@ -331,15 +332,16 @@ public class ImportImageFilesDialog extends Dialog {
         buttonOk = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle(JptBundle.INSTANCE.getString("ImportImageFilesDialog.title")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/dialogs/Bundle"); // NOI18N
+        setTitle(bundle.getString("ImportImageFilesDialog.title")); // NOI18N
         setName("Form"); // NOI18N
 
-        labelPromptSourceDir.setText(JptBundle.INSTANCE.getString("ImportImageFilesDialog.labelPromptSourceDir.text")); // NOI18N
+        labelPromptSourceDir.setText(bundle.getString("ImportImageFilesDialog.labelPromptSourceDir.text")); // NOI18N
         labelPromptSourceDir.setName("labelPromptSourceDir"); // NOI18N
 
         labelSourceDir.setName("labelSourceDir"); // NOI18N
 
-        buttonChooseSourceDir.setText(JptBundle.INSTANCE.getString("ImportImageFilesDialog.buttonChooseSourceDir.text")); // NOI18N
+        buttonChooseSourceDir.setText(bundle.getString("ImportImageFilesDialog.buttonChooseSourceDir.text")); // NOI18N
         buttonChooseSourceDir.setName("buttonChooseSourceDir"); // NOI18N
         buttonChooseSourceDir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -347,12 +349,12 @@ public class ImportImageFilesDialog extends Dialog {
             }
         });
 
-        labelPromptChooseFiles.setText(JptBundle.INSTANCE.getString("ImportImageFilesDialog.labelPromptChooseFiles.text")); // NOI18N
+        labelPromptChooseFiles.setText(bundle.getString("ImportImageFilesDialog.labelPromptChooseFiles.text")); // NOI18N
         labelPromptChooseFiles.setName("labelPromptChooseFiles"); // NOI18N
 
         labelChoosedFiles.setName("labelChoosedFiles"); // NOI18N
 
-        buttonChooseFiles.setText(JptBundle.INSTANCE.getString("ImportImageFilesDialog.buttonChooseFiles.text")); // NOI18N
+        buttonChooseFiles.setText(bundle.getString("ImportImageFilesDialog.buttonChooseFiles.text")); // NOI18N
         buttonChooseFiles.setName("buttonChooseFiles"); // NOI18N
         buttonChooseFiles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -360,12 +362,12 @@ public class ImportImageFilesDialog extends Dialog {
             }
         });
 
-        labelPromptTargetDir.setText(JptBundle.INSTANCE.getString("ImportImageFilesDialog.labelPromptTargetDir.text")); // NOI18N
+        labelPromptTargetDir.setText(bundle.getString("ImportImageFilesDialog.labelPromptTargetDir.text")); // NOI18N
         labelPromptTargetDir.setName("labelPromptTargetDir"); // NOI18N
 
         labelTargetDir.setName("labelTargetDir"); // NOI18N
 
-        checkBoxDeleteAfterCopy.setText(JptBundle.INSTANCE.getString("ImportImageFilesDialog.checkBoxDeleteAfterCopy.text")); // NOI18N
+        checkBoxDeleteAfterCopy.setText(bundle.getString("ImportImageFilesDialog.checkBoxDeleteAfterCopy.text")); // NOI18N
         checkBoxDeleteAfterCopy.setName("checkBoxDeleteAfterCopy"); // NOI18N
         checkBoxDeleteAfterCopy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -373,7 +375,7 @@ public class ImportImageFilesDialog extends Dialog {
             }
         });
 
-        buttonChooseTargetDir.setText(JptBundle.INSTANCE.getString("ImportImageFilesDialog.buttonChooseTargetDir.text")); // NOI18N
+        buttonChooseTargetDir.setText(bundle.getString("ImportImageFilesDialog.buttonChooseTargetDir.text")); // NOI18N
         buttonChooseTargetDir.setName("buttonChooseTargetDir"); // NOI18N
         buttonChooseTargetDir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -381,7 +383,7 @@ public class ImportImageFilesDialog extends Dialog {
             }
         });
 
-        buttonCancel.setText(JptBundle.INSTANCE.getString("ImportImageFilesDialog.buttonCancel.text")); // NOI18N
+        buttonCancel.setText(bundle.getString("ImportImageFilesDialog.buttonCancel.text")); // NOI18N
         buttonCancel.setName("buttonCancel"); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -389,7 +391,7 @@ public class ImportImageFilesDialog extends Dialog {
             }
         });
 
-        buttonOk.setText(JptBundle.INSTANCE.getString("ImportImageFilesDialog.buttonOk.text")); // NOI18N
+        buttonOk.setText(bundle.getString("ImportImageFilesDialog.buttonOk.text")); // NOI18N
         buttonOk.setEnabled(false);
         buttonOk.setName("buttonOk"); // NOI18N
         buttonOk.addActionListener(new java.awt.event.ActionListener() {
@@ -404,8 +406,8 @@ public class ImportImageFilesDialog extends Dialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(97, 97, 97)
-                .addComponent(labelSourceDir, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
-                .addContainerGap(221, Short.MAX_VALUE))
+                .addComponent(labelSourceDir, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
+                .addContainerGap(261, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -420,7 +422,7 @@ public class ImportImageFilesDialog extends Dialog {
                             .addComponent(checkBoxDeleteAfterCopy)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(97, 97, 97)
-                        .addComponent(labelTargetDir, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)))
+                        .addComponent(labelTargetDir, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(buttonChooseFiles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -428,7 +430,7 @@ public class ImportImageFilesDialog extends Dialog {
                     .addComponent(buttonChooseTargetDir))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(363, Short.MAX_VALUE)
+                .addContainerGap(405, Short.MAX_VALUE)
                 .addComponent(buttonCancel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonOk)
@@ -473,7 +475,7 @@ public class ImportImageFilesDialog extends Dialog {
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelChoosedFiles, labelPromptChooseFiles});
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }//GEN-END:initComponents
 
     private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
         setAccepted(false);

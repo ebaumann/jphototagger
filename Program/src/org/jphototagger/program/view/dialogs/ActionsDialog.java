@@ -1,13 +1,13 @@
 package org.jphototagger.program.view.dialogs;
 
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.dialog.Dialog;
+import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.event.listener.DatabaseProgramsListener;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.UserSettings;
-import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.program.view.panels.ActionsPanel;
 
 /**
@@ -91,12 +91,12 @@ public final class ActionsDialog extends Dialog implements DatabaseProgramsListe
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
 
         panelActions = new org.jphototagger.program.view.panels.ActionsPanel();
 
-        setTitle(JptBundle.INSTANCE.getString("ActionsDialog.title")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/dialogs/Bundle"); // NOI18N
+        setTitle(bundle.getString("ActionsDialog.title")); // NOI18N
         setAlwaysOnTop(true);
         setName("Form"); // NOI18N
 
@@ -114,7 +114,7 @@ public final class ActionsDialog extends Dialog implements DatabaseProgramsListe
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }//GEN-END:initComponents
 
     /**
      * @param args the command line arguments

@@ -1,10 +1,10 @@
 package org.jphototagger.program.view.panels;
 
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.model.TableModelDatabaseInfo;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Filename;
-import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.renderer.TableCellRendererDatabaseInfoColumns;
 
 /**
@@ -74,8 +74,7 @@ public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
 
         labelTable = new javax.swing.JLabel();
         scrollPane = new javax.swing.JScrollPane();
@@ -84,7 +83,8 @@ public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
 
         setName("Form"); // NOI18N
 
-        labelTable.setText(JptBundle.INSTANCE.getString("DatabaseInfoCountPanel.labelTable.text")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/panels/Bundle"); // NOI18N
+        labelTable.setText(bundle.getString("DatabaseInfoCountPanel.labelTable.text")); // NOI18N
         labelTable.setName("labelTable"); // NOI18N
 
         scrollPane.setName("scrollPane"); // NOI18N
@@ -92,7 +92,7 @@ public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
         table.setName("table"); // NOI18N
         scrollPane.setViewportView(table);
 
-        labelFilename.setText(JptBundle.INSTANCE.getString("DatabaseInfoCountPanel.labelFilename.text")); // NOI18N
+        labelFilename.setText(bundle.getString("DatabaseInfoCountPanel.labelFilename.text")); // NOI18N
         labelFilename.setName("labelFilename"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -118,8 +118,7 @@ public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
                 .addComponent(labelFilename, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-    }// </editor-fold>//GEN-END:initComponents
-
+    }//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel labelFilename;
     private javax.swing.JLabel labelTable;

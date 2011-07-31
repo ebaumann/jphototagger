@@ -1,19 +1,21 @@
 package org.jphototagger.program.view.dialogs;
 
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.types.Persistence;
-import org.jphototagger.program.UserSettings;
-import org.jphototagger.lib.componentutil.TabbedPaneUtil;
-import org.jphototagger.lib.dialog.Dialog;
-import org.jphototagger.lib.util.StringUtil;
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.swing.JButton;
+
+import org.jphototagger.lib.componentutil.TabbedPaneUtil;
+import org.jphototagger.lib.dialog.Dialog;
+import org.jphototagger.lib.util.StringUtil;
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.resource.JptBundle;
+import org.jphototagger.program.types.Persistence;
 
 /**
  * Modaler Dialog für Anwendungseinstellungen.
@@ -166,8 +168,7 @@ public final class SettingsDialog extends Dialog {
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
 
         panelSearch = new org.jphototagger.lib.component.TabbedPaneSearchPanel();
         tabbedPane = new javax.swing.JTabbedPane();
@@ -181,7 +182,8 @@ public final class SettingsDialog extends Dialog {
         panelPlugins = new org.jphototagger.program.view.panels.SettingsPluginsPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle(JptBundle.INSTANCE.getString("SettingsDialog.title")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/dialogs/Bundle"); // NOI18N
+        setTitle(bundle.getString("SettingsDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -195,28 +197,28 @@ public final class SettingsDialog extends Dialog {
         tabbedPane.setName("tabbedPane"); // NOI18N
 
         panelPrograms.setName("panelPrograms"); // NOI18N
-        tabbedPane.addTab(JptBundle.INSTANCE.getString("SettingsDialog.panelPrograms.TabConstraints.tabTitle"), panelPrograms); // NOI18N
+        tabbedPane.addTab(bundle.getString("SettingsDialog.panelPrograms.TabConstraints.tabTitle"), panelPrograms); // NOI18N
 
         panelThumbnails.setName("panelThumbnails"); // NOI18N
-        tabbedPane.addTab(JptBundle.INSTANCE.getString("SettingsDialog.panelThumbnails.TabConstraints.tabTitle"), panelThumbnails); // NOI18N
+        tabbedPane.addTab(bundle.getString("SettingsDialog.panelThumbnails.TabConstraints.tabTitle"), panelThumbnails); // NOI18N
 
         panelTasks.setName("panelTasks"); // NOI18N
-        tabbedPane.addTab(JptBundle.INSTANCE.getString("SettingsDialog.panelTasks.TabConstraints.tabTitle"), panelTasks); // NOI18N
+        tabbedPane.addTab(bundle.getString("SettingsDialog.panelTasks.TabConstraints.tabTitle"), panelTasks); // NOI18N
 
         panelPerformance.setName("panelPerformance"); // NOI18N
-        tabbedPane.addTab(JptBundle.INSTANCE.getString("SettingsDialog.panelPerformance.TabConstraints.tabTitle"), panelPerformance); // NOI18N
+        tabbedPane.addTab(bundle.getString("SettingsDialog.panelPerformance.TabConstraints.tabTitle"), panelPerformance); // NOI18N
 
         panelFileExcludePatterns.setName("panelFileExcludePatterns"); // NOI18N
-        tabbedPane.addTab(JptBundle.INSTANCE.getString("SettingsDialog.panelFileExcludePatterns.TabConstraints.tabTitle"), panelFileExcludePatterns); // NOI18N
+        tabbedPane.addTab(bundle.getString("SettingsDialog.panelFileExcludePatterns.TabConstraints.tabTitle"), panelFileExcludePatterns); // NOI18N
 
         panelMisc.setName("panelMisc"); // NOI18N
-        tabbedPane.addTab(JptBundle.INSTANCE.getString("SettingsDialog.panelMisc.TabConstraints.tabTitle"), panelMisc); // NOI18N
+        tabbedPane.addTab(bundle.getString("SettingsDialog.panelMisc.TabConstraints.tabTitle"), panelMisc); // NOI18N
 
         panelActions.setName("panelActions"); // NOI18N
-        tabbedPane.addTab(JptBundle.INSTANCE.getString("SettingsDialog.panelActions.TabConstraints.tabTitle"), panelActions); // NOI18N
+        tabbedPane.addTab(bundle.getString("SettingsDialog.panelActions.TabConstraints.tabTitle"), panelActions); // NOI18N
 
         panelPlugins.setName("panelPlugins"); // NOI18N
-        tabbedPane.addTab(JptBundle.INSTANCE.getString("SettingsDialog.panelPlugins.TabConstraints.tabTitle"), panelPlugins); // NOI18N
+        tabbedPane.addTab(bundle.getString("SettingsDialog.panelPlugins.TabConstraints.tabTitle"), panelPlugins); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -235,12 +237,12 @@ public final class SettingsDialog extends Dialog {
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(panelSearch, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE)
-                    .addComponent(tabbedPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 455, Short.MAX_VALUE))
+                    .addComponent(tabbedPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         writeProperties();

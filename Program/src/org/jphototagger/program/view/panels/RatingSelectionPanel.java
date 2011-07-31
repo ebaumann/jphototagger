@@ -1,13 +1,5 @@
 package org.jphototagger.program.view.panels;
 
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.domain.text.TextEntry;
-import org.jphototagger.domain.database.Column;
-import org.jphototagger.domain.database.xmp.ColumnXmpRating;
-import org.jphototagger.domain.event.listener.impl.TextEntryListenerSupport;
-import org.jphototagger.domain.event.listener.TextEntryListener;
-import org.jphototagger.program.resource.JptBundle;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.FocusEvent;
@@ -19,10 +11,19 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+
+import org.jphototagger.domain.database.Column;
+import org.jphototagger.domain.database.xmp.ColumnXmpRating;
+import org.jphototagger.domain.event.listener.TextEntryListener;
+import org.jphototagger.domain.event.listener.impl.TextEntryListenerSupport;
+import org.jphototagger.domain.text.TextEntry;
+import org.jphototagger.program.app.AppLookAndFeel;
+import org.jphototagger.program.app.logging.AppLogger;
 
 /*
 * RatingSelectionPanel.java
@@ -329,8 +330,7 @@ public class RatingSelectionPanel extends JPanel
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
         labelPrompt = new javax.swing.JLabel();
@@ -346,7 +346,7 @@ public class RatingSelectionPanel extends JPanel
         setPreferredSize(new java.awt.Dimension(102, 32));
         setLayout(new java.awt.GridBagLayout());
 
-        labelPrompt.setText("Prompt:");
+        labelPrompt.setText("Prompt:"); // NOI18N
         labelPrompt.setToolTipText(column.getLongerDescription());
         labelPrompt.setName("labelPrompt"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -359,7 +359,8 @@ public class RatingSelectionPanel extends JPanel
 
         buttonNoRating.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_xmp_rating_remove_not_set.png"))); // NOI18N
         buttonNoRating.setMnemonic('0');
-        buttonNoRating.setToolTipText(JptBundle.INSTANCE.getString("RatingSelectionPanel.buttonNoRating.toolTipText")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/panels/Bundle"); // NOI18N
+        buttonNoRating.setToolTipText(bundle.getString("RatingSelectionPanel.buttonNoRating.toolTipText")); // NOI18N
         buttonNoRating.setBorder(null);
         buttonNoRating.setContentAreaFilled(false);
         buttonNoRating.setName("buttonNoRating"); // NOI18N
@@ -377,7 +378,7 @@ public class RatingSelectionPanel extends JPanel
 
         buttonStar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_xmp_rating_not_set.png"))); // NOI18N
         buttonStar1.setMnemonic('1');
-        buttonStar1.setToolTipText(JptBundle.INSTANCE.getString("RatingSelectionPanel.buttonStar1.toolTipText")); // NOI18N
+        buttonStar1.setToolTipText(bundle.getString("RatingSelectionPanel.buttonStar1.toolTipText")); // NOI18N
         buttonStar1.setBorder(null);
         buttonStar1.setContentAreaFilled(false);
         buttonStar1.setName("buttonStar1"); // NOI18N
@@ -395,7 +396,7 @@ public class RatingSelectionPanel extends JPanel
 
         buttonStar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_xmp_rating_not_set.png"))); // NOI18N
         buttonStar2.setMnemonic('2');
-        buttonStar2.setToolTipText(JptBundle.INSTANCE.getString("RatingSelectionPanel.buttonStar2.toolTipText")); // NOI18N
+        buttonStar2.setToolTipText(bundle.getString("RatingSelectionPanel.buttonStar2.toolTipText")); // NOI18N
         buttonStar2.setBorder(null);
         buttonStar2.setContentAreaFilled(false);
         buttonStar2.setName("buttonStar2"); // NOI18N
@@ -413,7 +414,7 @@ public class RatingSelectionPanel extends JPanel
 
         buttonStar3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_xmp_rating_not_set.png"))); // NOI18N
         buttonStar3.setMnemonic('3');
-        buttonStar3.setToolTipText(JptBundle.INSTANCE.getString("RatingSelectionPanel.buttonStar3.toolTipText")); // NOI18N
+        buttonStar3.setToolTipText(bundle.getString("RatingSelectionPanel.buttonStar3.toolTipText")); // NOI18N
         buttonStar3.setBorder(null);
         buttonStar3.setContentAreaFilled(false);
         buttonStar3.setName("buttonStar3"); // NOI18N
@@ -431,7 +432,7 @@ public class RatingSelectionPanel extends JPanel
 
         buttonStar4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_xmp_rating_not_set.png"))); // NOI18N
         buttonStar4.setMnemonic('4');
-        buttonStar4.setToolTipText(JptBundle.INSTANCE.getString("RatingSelectionPanel.buttonStar4.toolTipText")); // NOI18N
+        buttonStar4.setToolTipText(bundle.getString("RatingSelectionPanel.buttonStar4.toolTipText")); // NOI18N
         buttonStar4.setBorder(null);
         buttonStar4.setContentAreaFilled(false);
         buttonStar4.setName("buttonStar4"); // NOI18N
@@ -449,7 +450,7 @@ public class RatingSelectionPanel extends JPanel
 
         buttonStar5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_xmp_rating_not_set.png"))); // NOI18N
         buttonStar5.setMnemonic('5');
-        buttonStar5.setToolTipText(JptBundle.INSTANCE.getString("RatingSelectionPanel.buttonStar5.toolTipText")); // NOI18N
+        buttonStar5.setToolTipText(bundle.getString("RatingSelectionPanel.buttonStar5.toolTipText")); // NOI18N
         buttonStar5.setBorder(null);
         buttonStar5.setContentAreaFilled(false);
         buttonStar5.setName("buttonStar5"); // NOI18N
@@ -464,7 +465,7 @@ public class RatingSelectionPanel extends JPanel
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 1, 0);
         add(buttonStar5, gridBagConstraints);
-    }// </editor-fold>//GEN-END:initComponents
+    }//GEN-END:initComponents
 
     private void buttonNoRatingMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonNoRatingMousePressed
         handleButtonPressed((JButton) evt.getSource());
@@ -489,7 +490,6 @@ public class RatingSelectionPanel extends JPanel
     private void buttonStar5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonStar5MousePressed
         handleButtonPressed((JButton) evt.getSource());
     }//GEN-LAST:event_buttonStar5MousePressed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonNoRating;
     private javax.swing.JButton buttonStar1;

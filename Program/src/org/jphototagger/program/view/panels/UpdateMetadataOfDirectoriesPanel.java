@@ -1,23 +1,5 @@
 package org.jphototagger.program.view.panels;
 
-import org.jphototagger.lib.io.filefilter.DirectoryFilter.Option;
-import org.jphototagger.lib.event.listener.ProgressListener;
-import org.jphototagger.domain.event.listener.UpdateMetadataCheckListener;
-import org.jphototagger.lib.event.ProgressEvent;
-import org.jphototagger.domain.event.UpdateMetadataCheckEvent;
-import org.jphototagger.domain.event.UpdateMetadataCheckEvent.Type;
-import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
-import org.jphototagger.domain.database.InsertIntoDatabase;
-import org.jphototagger.program.io.ImageFileDirectory;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.UserSettings;
-import org.jphototagger.lib.comparator.FileSort;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.dialog.DirectoryChooser;
-import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.lib.util.CollectionUtil;
-import org.jphototagger.lib.util.Settings;
 import java.awt.Container;
 import java.awt.event.KeyEvent;
 import java.io.File;
@@ -26,11 +8,31 @@ import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.DefaultListModel;
 import javax.swing.JPanel;
+
+import org.jphototagger.domain.database.InsertIntoDatabase;
+import org.jphototagger.domain.event.UpdateMetadataCheckEvent;
+import org.jphototagger.domain.event.UpdateMetadataCheckEvent.Type;
+import org.jphototagger.domain.event.listener.UpdateMetadataCheckListener;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.comparator.FileSort;
 import org.jphototagger.lib.componentutil.ListUtil;
+import org.jphototagger.lib.componentutil.MnemonicUtil;
+import org.jphototagger.lib.dialog.DirectoryChooser;
+import org.jphototagger.lib.event.ProgressEvent;
+import org.jphototagger.lib.event.listener.ProgressListener;
 import org.jphototagger.lib.io.CancelRequest;
+import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.lib.io.filefilter.DirectoryFilter.Option;
+import org.jphototagger.lib.util.CollectionUtil;
+import org.jphototagger.lib.util.Settings;
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
+import org.jphototagger.program.io.ImageFileDirectory;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.resource.JptBundle;
 
 /**
  *
@@ -399,8 +401,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
         popupMenu = new javax.swing.JPopupMenu();
@@ -435,7 +436,8 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
 
         menuItemDelete.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
         menuItemDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_delete.png"))); // NOI18N
-        menuItemDelete.setText(JptBundle.INSTANCE.getString("UpdateMetadataOfDirectoriesPanel.menuItemDelete.text")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/panels/Bundle"); // NOI18N
+        menuItemDelete.setText(bundle.getString("UpdateMetadataOfDirectoriesPanel.menuItemDelete.text")); // NOI18N
         menuItemDelete.setName("menuItemDelete"); // NOI18N
         menuItemDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -448,7 +450,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
         setLayout(new java.awt.GridBagLayout());
 
         labelHeadingListDirectories.setLabelFor(list);
-        labelHeadingListDirectories.setText(JptBundle.INSTANCE.getString("UpdateMetadataOfDirectoriesPanel.labelHeadingListDirectories.text")); // NOI18N
+        labelHeadingListDirectories.setText(bundle.getString("UpdateMetadataOfDirectoriesPanel.labelHeadingListDirectories.text")); // NOI18N
         labelHeadingListDirectories.setName("labelHeadingListDirectories"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -479,7 +481,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
         add(scrollPane, gridBagConstraints);
 
-        labelInfoFilecount.setText(JptBundle.INSTANCE.getString("UpdateMetadataOfDirectoriesPanel.labelInfoFilecount.text")); // NOI18N
+        labelInfoFilecount.setText(bundle.getString("UpdateMetadataOfDirectoriesPanel.labelInfoFilecount.text")); // NOI18N
         labelInfoFilecount.setName("labelInfoFilecount"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -487,7 +489,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
         add(labelInfoFilecount, gridBagConstraints);
 
         labelFilecount.setForeground(new java.awt.Color(0, 153, 0));
-        labelFilecount.setText("0");
+        labelFilecount.setText("0"); // NOI18N
         labelFilecount.setName("labelFilecount"); // NOI18N
         labelFilecount.setPreferredSize(new java.awt.Dimension(4, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -498,7 +500,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
         add(labelFilecount, gridBagConstraints);
 
-        checkBoxForce.setText(JptBundle.INSTANCE.getString("UpdateMetadataOfDirectoriesPanel.checkBoxForce.text")); // NOI18N
+        checkBoxForce.setText(bundle.getString("UpdateMetadataOfDirectoriesPanel.checkBoxForce.text")); // NOI18N
         checkBoxForce.setName("checkBoxForce"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -508,7 +510,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
         add(checkBoxForce, gridBagConstraints);
 
         checkBoxIncludeSubdirectories.setSelected(true);
-        checkBoxIncludeSubdirectories.setText(JptBundle.INSTANCE.getString("UpdateMetadataOfDirectoriesPanel.checkBoxIncludeSubdirectories.text")); // NOI18N
+        checkBoxIncludeSubdirectories.setText(bundle.getString("UpdateMetadataOfDirectoriesPanel.checkBoxIncludeSubdirectories.text")); // NOI18N
         checkBoxIncludeSubdirectories.setName("checkBoxIncludeSubdirectories"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -520,7 +522,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
         panelCurrentFile.setName("panelCurrentFile"); // NOI18N
         panelCurrentFile.setLayout(new java.awt.GridBagLayout());
 
-        labelInfoCurrentFilename.setText(JptBundle.INSTANCE.getString("UpdateMetadataOfDirectoriesPanel.labelInfoCurrentFilename.text")); // NOI18N
+        labelInfoCurrentFilename.setText(bundle.getString("UpdateMetadataOfDirectoriesPanel.labelInfoCurrentFilename.text")); // NOI18N
         labelInfoCurrentFilename.setName("labelInfoCurrentFilename"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 0;
@@ -559,7 +561,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
         panelButtons.setName("panelButtons"); // NOI18N
         panelButtons.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
 
-        buttonCancelChooseDirectories.setText(JptBundle.INSTANCE.getString("UpdateMetadataOfDirectoriesPanel.buttonCancelChooseDirectories.text")); // NOI18N
+        buttonCancelChooseDirectories.setText(bundle.getString("UpdateMetadataOfDirectoriesPanel.buttonCancelChooseDirectories.text")); // NOI18N
         buttonCancelChooseDirectories.setEnabled(false);
         buttonCancelChooseDirectories.setName("buttonCancelChooseDirectories"); // NOI18N
         buttonCancelChooseDirectories.addActionListener(new java.awt.event.ActionListener() {
@@ -569,7 +571,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
         });
         panelButtons.add(buttonCancelChooseDirectories);
 
-        buttonCancel.setText(JptBundle.INSTANCE.getString("UpdateMetadataOfDirectoriesPanel.buttonCancel.text")); // NOI18N
+        buttonCancel.setText(bundle.getString("UpdateMetadataOfDirectoriesPanel.buttonCancel.text")); // NOI18N
         buttonCancel.setEnabled(false);
         buttonCancel.setName("buttonCancel"); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -579,7 +581,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
         });
         panelButtons.add(buttonCancel);
 
-        buttonChooseDirectories.setText(JptBundle.INSTANCE.getString("UpdateMetadataOfDirectoriesPanel.buttonChooseDirectories.text")); // NOI18N
+        buttonChooseDirectories.setText(bundle.getString("UpdateMetadataOfDirectoriesPanel.buttonChooseDirectories.text")); // NOI18N
         buttonChooseDirectories.setName("buttonChooseDirectories"); // NOI18N
         buttonChooseDirectories.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -588,7 +590,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
         });
         panelButtons.add(buttonChooseDirectories);
 
-        buttonStart.setText(JptBundle.INSTANCE.getString("UpdateMetadataOfDirectoriesPanel.buttonStart.text")); // NOI18N
+        buttonStart.setText(bundle.getString("UpdateMetadataOfDirectoriesPanel.buttonStart.text")); // NOI18N
         buttonStart.setEnabled(false);
         buttonStart.setName("buttonStart"); // NOI18N
         buttonStart.addActionListener(new java.awt.event.ActionListener() {
@@ -603,7 +605,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
         add(panelButtons, gridBagConstraints);
-    }// </editor-fold>//GEN-END:initComponents
+    }//GEN-END:initComponents
 
     private void listKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_listKeyReleased
         handleListKeyReleased(evt);

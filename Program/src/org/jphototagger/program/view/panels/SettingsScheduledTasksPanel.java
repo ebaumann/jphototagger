@@ -1,25 +1,26 @@
 package org.jphototagger.program.view.panels;
 
-import org.jphototagger.lib.dialog.DirectoryChooser.Option;
-import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.database.DatabaseAutoscanDirectories;
-import org.jphototagger.program.model.ListModelAutoscanDirectories;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.types.Persistence;
-import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.model.ComboBoxModelScheduledTaskBackupDatabase;
-import org.jphototagger.program.tasks.ScheduledTaskBackupDatabase;
-import org.jphototagger.program.tasks.ScheduledTaskBackupDatabase.Interval;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.dialog.DirectoryChooser;
-import org.jphototagger.lib.renderer.ListCellRendererFileSystem;
 import java.awt.Container;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.List;
+
 import javax.swing.JButton;
 import javax.swing.SpinnerNumberModel;
+
+import org.jphototagger.lib.componentutil.MnemonicUtil;
+import org.jphototagger.lib.dialog.DirectoryChooser;
+import org.jphototagger.lib.dialog.DirectoryChooser.Option;
+import org.jphototagger.lib.renderer.ListCellRendererFileSystem;
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.program.database.DatabaseAutoscanDirectories;
+import org.jphototagger.program.model.ComboBoxModelScheduledTaskBackupDatabase;
+import org.jphototagger.program.model.ListModelAutoscanDirectories;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.tasks.ScheduledTaskBackupDatabase;
+import org.jphototagger.program.tasks.ScheduledTaskBackupDatabase.Interval;
+import org.jphototagger.program.types.Persistence;
 
 /**
  *
@@ -183,8 +184,7 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel implem
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
         panelTasksAutoscan = new javax.swing.JPanel();
@@ -203,11 +203,12 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel implem
 
         setName("Form"); // NOI18N
 
-        panelTasksAutoscan.setBorder(javax.swing.BorderFactory.createTitledBorder(JptBundle.INSTANCE.getString("SettingsScheduledTasksPanel.panelTasksAutoscan.border.title"))); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/panels/Bundle"); // NOI18N
+        panelTasksAutoscan.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("SettingsScheduledTasksPanel.panelTasksAutoscan.border.title"))); // NOI18N
         panelTasksAutoscan.setName("panelTasksAutoscan"); // NOI18N
         panelTasksAutoscan.setLayout(new java.awt.GridBagLayout());
 
-        labelAutoscanDirectoriesInfo.setText(JptBundle.INSTANCE.getString("SettingsScheduledTasksPanel.labelAutoscanDirectoriesInfo.text")); // NOI18N
+        labelAutoscanDirectoriesInfo.setText(bundle.getString("SettingsScheduledTasksPanel.labelAutoscanDirectoriesInfo.text")); // NOI18N
         labelAutoscanDirectoriesInfo.setName("labelAutoscanDirectoriesInfo"); // NOI18N
         labelAutoscanDirectoriesInfo.setPreferredSize(new java.awt.Dimension(978, 48));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -221,7 +222,7 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel implem
         panelTasksAutoscan.add(labelAutoscanDirectoriesInfo, gridBagConstraints);
 
         labelAutoscanDirectoriesPrompt.setLabelFor(listAutoscanDirectories);
-        labelAutoscanDirectoriesPrompt.setText(JptBundle.INSTANCE.getString("SettingsScheduledTasksPanel.labelAutoscanDirectoriesPrompt.text")); // NOI18N
+        labelAutoscanDirectoriesPrompt.setText(bundle.getString("SettingsScheduledTasksPanel.labelAutoscanDirectoriesPrompt.text")); // NOI18N
         labelAutoscanDirectoriesPrompt.setName("labelAutoscanDirectoriesPrompt"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -261,7 +262,7 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel implem
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
         panelTasksAutoscan.add(scrollPaneListAutoscanDirectories, gridBagConstraints);
 
-        checkBoxIsAutoscanIncludeSubdirectories.setText(JptBundle.INSTANCE.getString("SettingsScheduledTasksPanel.checkBoxIsAutoscanIncludeSubdirectories.text")); // NOI18N
+        checkBoxIsAutoscanIncludeSubdirectories.setText(bundle.getString("SettingsScheduledTasksPanel.checkBoxIsAutoscanIncludeSubdirectories.text")); // NOI18N
         checkBoxIsAutoscanIncludeSubdirectories.setName("checkBoxIsAutoscanIncludeSubdirectories"); // NOI18N
         checkBoxIsAutoscanIncludeSubdirectories.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -277,7 +278,7 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel implem
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 0);
         panelTasksAutoscan.add(checkBoxIsAutoscanIncludeSubdirectories, gridBagConstraints);
 
-        buttonRemoveAutoscanDirectories.setText(JptBundle.INSTANCE.getString("SettingsScheduledTasksPanel.buttonRemoveAutoscanDirectories.text")); // NOI18N
+        buttonRemoveAutoscanDirectories.setText(bundle.getString("SettingsScheduledTasksPanel.buttonRemoveAutoscanDirectories.text")); // NOI18N
         buttonRemoveAutoscanDirectories.setEnabled(false);
         buttonRemoveAutoscanDirectories.setName("buttonRemoveAutoscanDirectories"); // NOI18N
         buttonRemoveAutoscanDirectories.addActionListener(new java.awt.event.ActionListener() {
@@ -292,7 +293,7 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel implem
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 0);
         panelTasksAutoscan.add(buttonRemoveAutoscanDirectories, gridBagConstraints);
 
-        buttonAddAutoscanDirectories.setText(JptBundle.INSTANCE.getString("SettingsScheduledTasksPanel.buttonAddAutoscanDirectories.text")); // NOI18N
+        buttonAddAutoscanDirectories.setText(bundle.getString("SettingsScheduledTasksPanel.buttonAddAutoscanDirectories.text")); // NOI18N
         buttonAddAutoscanDirectories.setName("buttonAddAutoscanDirectories"); // NOI18N
         buttonAddAutoscanDirectories.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -306,7 +307,7 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel implem
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panelTasksAutoscan.add(buttonAddAutoscanDirectories, gridBagConstraints);
 
-        checkBoxScheduledBackupDb.setText(JptBundle.INSTANCE.getString("SettingsScheduledTasksPanel.checkBoxScheduledBackupDb.text")); // NOI18N
+        checkBoxScheduledBackupDb.setText(bundle.getString("SettingsScheduledTasksPanel.checkBoxScheduledBackupDb.text")); // NOI18N
         checkBoxScheduledBackupDb.setName("checkBoxScheduledBackupDb"); // NOI18N
         checkBoxScheduledBackupDb.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -324,14 +325,14 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel implem
         });
 
         buttonScheduledTasks.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_start.png"))); // NOI18N
-        buttonScheduledTasks.setToolTipText(JptBundle.INSTANCE.getString("ScheduledTasks.TooltipText.Start"));
+        buttonScheduledTasks.setToolTipText(bundle.getString("SettingsScheduledTasksPanel.buttonScheduledTasks.toolTipText")); // NOI18N
         buttonScheduledTasks.setAlignmentY(0.0F);
         buttonScheduledTasks.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         buttonScheduledTasks.setMargin(new java.awt.Insets(0, 0, 0, 0));
         buttonScheduledTasks.setName("buttonScheduledTasks"); // NOI18N
 
         labelTasksMinutesToStartScheduledTasks.setLabelFor(spinnerMinutesToStartScheduledTasks);
-        labelTasksMinutesToStartScheduledTasks.setText(JptBundle.INSTANCE.getString("SettingsScheduledTasksPanel.labelTasksMinutesToStartScheduledTasks.text")); // NOI18N
+        labelTasksMinutesToStartScheduledTasks.setText(bundle.getString("SettingsScheduledTasksPanel.labelTasksMinutesToStartScheduledTasks.text")); // NOI18N
         labelTasksMinutesToStartScheduledTasks.setName("labelTasksMinutesToStartScheduledTasks"); // NOI18N
 
         spinnerMinutesToStartScheduledTasks.setModel(new SpinnerNumberModel(5, 1, 6000, 1));
@@ -378,7 +379,7 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel implem
                     .addComponent(buttonScheduledTasks))
                 .addContainerGap())
         );
-    }// </editor-fold>//GEN-END:initComponents
+    }//GEN-END:initComponents
 
     private void listAutoscanDirectoriesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listAutoscanDirectoriesValueChanged
         setEnabledButtonRemoveAutoscanDirectory();

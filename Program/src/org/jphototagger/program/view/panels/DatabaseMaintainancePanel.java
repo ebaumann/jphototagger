@@ -1,16 +1,5 @@
 package org.jphototagger.program.view.panels;
 
-import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.lib.event.listener.ProgressListener;
-import org.jphototagger.lib.event.ProgressEvent;
-import org.jphototagger.program.helper.CompressDatabase;
-import org.jphototagger.program.helper.DeleteOrphanedThumbnails;
-import org.jphototagger.program.helper.DeleteOrphanedXmp;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.UserSettings;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.util.Settings;
 import java.awt.Container;
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -18,13 +7,25 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
+
 import javax.swing.Icon;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.concurrent.Cancelable;
+import org.jphototagger.lib.event.ProgressEvent;
+import org.jphototagger.lib.event.listener.ProgressListener;
+import org.jphototagger.lib.util.Settings;
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.app.AppLookAndFeel;
+import org.jphototagger.program.database.DatabaseImageFiles;
+import org.jphototagger.program.helper.CompressDatabase;
 import org.jphototagger.program.helper.DeleteNotReferenced1n;
+import org.jphototagger.program.helper.DeleteOrphanedThumbnails;
+import org.jphototagger.program.helper.DeleteOrphanedXmp;
 import org.jphototagger.program.helper.DeleteUnusedKeywords;
 
 /**
@@ -326,8 +327,7 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
 
         panelContent = new javax.swing.JPanel();
         checkBoxDeleteRecordsOfNotExistingFilesInDatabase = new javax.swing.JCheckBox();
@@ -352,7 +352,8 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
 
         panelContent.setName("panelContent"); // NOI18N
 
-        checkBoxDeleteRecordsOfNotExistingFilesInDatabase.setText(JptBundle.INSTANCE.getString("DatabaseMaintainancePanel.checkBoxDeleteRecordsOfNotExistingFilesInDatabase.text")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/panels/Bundle"); // NOI18N
+        checkBoxDeleteRecordsOfNotExistingFilesInDatabase.setText(bundle.getString("DatabaseMaintainancePanel.checkBoxDeleteRecordsOfNotExistingFilesInDatabase.text")); // NOI18N
         checkBoxDeleteRecordsOfNotExistingFilesInDatabase.setName("checkBoxDeleteRecordsOfNotExistingFilesInDatabase"); // NOI18N
         checkBoxDeleteRecordsOfNotExistingFilesInDatabase.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -365,7 +366,7 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
         labelFinishedDeleteRecordsOfNotExistingFilesInDatabase.setName("labelFinishedDeleteRecordsOfNotExistingFilesInDatabase"); // NOI18N
         labelFinishedDeleteRecordsOfNotExistingFilesInDatabase.setPreferredSize(new java.awt.Dimension(22, 22));
 
-        checkBoxCompressDatabase.setText(JptBundle.INSTANCE.getString("DatabaseMaintainancePanel.checkBoxCompressDatabase.text")); // NOI18N
+        checkBoxCompressDatabase.setText(bundle.getString("DatabaseMaintainancePanel.checkBoxCompressDatabase.text")); // NOI18N
         checkBoxCompressDatabase.setName("checkBoxCompressDatabase"); // NOI18N
         checkBoxCompressDatabase.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -378,7 +379,7 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
         labelFinishedCompressDatabase.setName("labelFinishedCompressDatabase"); // NOI18N
         labelFinishedCompressDatabase.setPreferredSize(new java.awt.Dimension(22, 22));
 
-        checkBoxDeleteOrphanedThumbnails.setText(JptBundle.INSTANCE.getString("DatabaseMaintainancePanel.checkBoxDeleteOrphanedThumbnails.text")); // NOI18N
+        checkBoxDeleteOrphanedThumbnails.setText(bundle.getString("DatabaseMaintainancePanel.checkBoxDeleteOrphanedThumbnails.text")); // NOI18N
         checkBoxDeleteOrphanedThumbnails.setName("checkBoxDeleteOrphanedThumbnails"); // NOI18N
         checkBoxDeleteOrphanedThumbnails.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -391,7 +392,7 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
         labelFinishedDeleteOrphanedThumbnails.setName("labelFinishedDeleteOrphanedThumbnails"); // NOI18N
         labelFinishedDeleteOrphanedThumbnails.setPreferredSize(new java.awt.Dimension(22, 22));
 
-        checkBoxDeleteUnusedKeywords.setText(JptBundle.INSTANCE.getString("DatabaseMaintainancePanel.checkBoxDeleteUnusedKeywords.text")); // NOI18N
+        checkBoxDeleteUnusedKeywords.setText(bundle.getString("DatabaseMaintainancePanel.checkBoxDeleteUnusedKeywords.text")); // NOI18N
         checkBoxDeleteUnusedKeywords.setName("checkBoxDeleteUnusedKeywords"); // NOI18N
         checkBoxDeleteUnusedKeywords.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -404,7 +405,7 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
         labelFinishedDeleteUnusedKeywords.setName("labelFinishedDeleteUnusedKeywords"); // NOI18N
         labelFinishedDeleteUnusedKeywords.setPreferredSize(new java.awt.Dimension(22, 22));
 
-        checkBoxDeleteNotReferenced1n.setText(JptBundle.INSTANCE.getString("DatabaseMaintainancePanel.checkBoxDeleteNotReferenced1n.text")); // NOI18N
+        checkBoxDeleteNotReferenced1n.setText(bundle.getString("DatabaseMaintainancePanel.checkBoxDeleteNotReferenced1n.text")); // NOI18N
         checkBoxDeleteNotReferenced1n.setName("checkBoxDeleteNotReferenced1n"); // NOI18N
         checkBoxDeleteNotReferenced1n.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -418,7 +419,7 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
         labelFinishedDeleteNotReferenced1n.setPreferredSize(new java.awt.Dimension(22, 22));
 
         labelMessages.setForeground(new java.awt.Color(0, 0, 255));
-        labelMessages.setText(JptBundle.INSTANCE.getString("DatabaseMaintainancePanel.labelMessages.text")); // NOI18N
+        labelMessages.setText(bundle.getString("DatabaseMaintainancePanel.labelMessages.text")); // NOI18N
         labelMessages.setName("labelMessages"); // NOI18N
 
         scrollPaneMessages.setName("scrollPaneMessages"); // NOI18N
@@ -434,7 +435,7 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
         progressBar.setName("progressBar"); // NOI18N
 
         buttonDeleteMessages.setForeground(new java.awt.Color(0, 0, 255));
-        buttonDeleteMessages.setText(JptBundle.INSTANCE.getString("DatabaseMaintainancePanel.buttonDeleteMessages.text")); // NOI18N
+        buttonDeleteMessages.setText(bundle.getString("DatabaseMaintainancePanel.buttonDeleteMessages.text")); // NOI18N
         buttonDeleteMessages.setEnabled(false);
         buttonDeleteMessages.setName("buttonDeleteMessages"); // NOI18N
         buttonDeleteMessages.addActionListener(new java.awt.event.ActionListener() {
@@ -443,7 +444,7 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
             }
         });
 
-        buttonCancelAction.setText(JptBundle.INSTANCE.getString("DatabaseMaintainancePanel.buttonCancelAction.text")); // NOI18N
+        buttonCancelAction.setText(bundle.getString("DatabaseMaintainancePanel.buttonCancelAction.text")); // NOI18N
         buttonCancelAction.setEnabled(false);
         buttonCancelAction.setName("buttonCancelAction"); // NOI18N
         buttonCancelAction.addActionListener(new java.awt.event.ActionListener() {
@@ -452,7 +453,7 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
             }
         });
 
-        buttonStartMaintain.setText(JptBundle.INSTANCE.getString("DatabaseMaintainancePanel.buttonStartMaintain.text")); // NOI18N
+        buttonStartMaintain.setText(bundle.getString("DatabaseMaintainancePanel.buttonStartMaintain.text")); // NOI18N
         buttonStartMaintain.setEnabled(false);
         buttonStartMaintain.setName("buttonStartMaintain"); // NOI18N
         buttonStartMaintain.addActionListener(new java.awt.event.ActionListener() {
@@ -471,31 +472,31 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
                 .addComponent(labelFinishedDeleteRecordsOfNotExistingFilesInDatabase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelContentLayout.createSequentialGroup()
                 .addComponent(checkBoxCompressDatabase)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 264, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 307, Short.MAX_VALUE)
                 .addComponent(labelFinishedCompressDatabase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelContentLayout.createSequentialGroup()
                 .addComponent(checkBoxDeleteOrphanedThumbnails)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 224, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 257, Short.MAX_VALUE)
                 .addComponent(labelFinishedDeleteOrphanedThumbnails, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelContentLayout.createSequentialGroup()
                 .addComponent(checkBoxDeleteUnusedKeywords)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 216, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 249, Short.MAX_VALUE)
                 .addComponent(labelFinishedDeleteUnusedKeywords, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE)
+            .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
             .addGroup(panelContentLayout.createSequentialGroup()
                 .addComponent(buttonDeleteMessages)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 198, Short.MAX_VALUE)
                 .addComponent(buttonCancelAction)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonStartMaintain))
             .addGroup(panelContentLayout.createSequentialGroup()
                 .addComponent(checkBoxDeleteNotReferenced1n)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 162, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 188, Short.MAX_VALUE)
                 .addComponent(labelFinishedDeleteNotReferenced1n, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(panelContentLayout.createSequentialGroup()
                 .addComponent(labelMessages)
                 .addContainerGap())
-            .addComponent(scrollPaneMessages, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE)
+            .addComponent(scrollPaneMessages, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
         );
 
         panelContentLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {labelFinishedCompressDatabase, labelFinishedDeleteOrphanedThumbnails, labelFinishedDeleteRecordsOfNotExistingFilesInDatabase});
@@ -554,7 +555,7 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
                 .addComponent(panelContent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
-    }// </editor-fold>//GEN-END:initComponents
+    }//GEN-END:initComponents
 
     private void checkBoxDeleteRecordsOfNotExistingFilesInDatabaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDeleteRecordsOfNotExistingFilesInDatabaseActionPerformed
         UserSettings.INSTANCE.getSettings().set(

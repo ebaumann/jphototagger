@@ -1,24 +1,25 @@
 package org.jphototagger.program.view.panels;
 
-import org.jphototagger.lib.dialog.DirectoryChooser.Option;
-import org.jphototagger.program.app.logging.AppLogger;
+import java.awt.Container;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.jphototagger.domain.event.listener.impl.ListenerSupport;
+import org.jphototagger.lib.component.SelectObjectsPanel;
+import org.jphototagger.lib.component.SelectObjectsPanel.SelectionEvent;
+import org.jphototagger.lib.componentutil.MnemonicUtil;
+import org.jphototagger.lib.dialog.DirectoryChooser;
+import org.jphototagger.lib.dialog.DirectoryChooser.Option;
+import org.jphototagger.lib.image.util.IconUtil;
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.exporter.Exporter;
 import org.jphototagger.program.exporter.JptExporters;
 import org.jphototagger.program.importer.Importer;
 import org.jphototagger.program.importer.JptImporters;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.UserSettings;
-import org.jphototagger.lib.component.SelectObjectsPanel;
-import org.jphototagger.lib.component.SelectObjectsPanel.SelectionEvent;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.dialog.DirectoryChooser;
-import org.jphototagger.lib.image.util.IconUtil;
-import java.awt.Container;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -261,8 +262,7 @@ public class ExportImportPanel extends javax.swing.JPanel
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
 
         labelPromptDir = new javax.swing.JLabel();
         labelDir = new javax.swing.JLabel();
@@ -276,12 +276,13 @@ public class ExportImportPanel extends javax.swing.JPanel
 
         setName("Form"); // NOI18N
 
-        labelPromptDir.setText(JptBundle.INSTANCE.getString("ExportImportPanel.labelPromptDir.text")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/panels/Bundle"); // NOI18N
+        labelPromptDir.setText(bundle.getString("ExportImportPanel.labelPromptDir.text")); // NOI18N
         labelPromptDir.setName("labelPromptDir"); // NOI18N
 
         labelDir.setName("labelDir"); // NOI18N
 
-        buttonSelDir.setText(JptBundle.INSTANCE.getString("ExportImportPanel.buttonSelDir.text")); // NOI18N
+        buttonSelDir.setText(bundle.getString("ExportImportPanel.buttonSelDir.text")); // NOI18N
         buttonSelDir.setName("buttonSelDir"); // NOI18N
         buttonSelDir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -292,7 +293,7 @@ public class ExportImportPanel extends javax.swing.JPanel
         labelSelectInfo.setText("Auswahl:"); // NOI18N
         labelSelectInfo.setName("labelSelectInfo"); // NOI18N
 
-        buttonSelectAll.setText(JptBundle.INSTANCE.getString("ExportImportPanel.buttonSelectAll.text")); // NOI18N
+        buttonSelectAll.setText(bundle.getString("ExportImportPanel.buttonSelectAll.text")); // NOI18N
         buttonSelectAll.setEnabled(false);
         buttonSelectAll.setName("buttonSelectAll"); // NOI18N
         buttonSelectAll.addActionListener(new java.awt.event.ActionListener() {
@@ -301,7 +302,7 @@ public class ExportImportPanel extends javax.swing.JPanel
             }
         });
 
-        buttonSelectNone.setText(JptBundle.INSTANCE.getString("ExportImportPanel.buttonSelectNone.text")); // NOI18N
+        buttonSelectNone.setText(bundle.getString("ExportImportPanel.buttonSelectNone.text")); // NOI18N
         buttonSelectNone.setEnabled(false);
         buttonSelectNone.setName("buttonSelectNone"); // NOI18N
         buttonSelectNone.addActionListener(new java.awt.event.ActionListener() {
@@ -337,11 +338,11 @@ public class ExportImportPanel extends javax.swing.JPanel
             .addGroup(layout.createSequentialGroup()
                 .addComponent(labelPromptDir)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelDir, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+                .addComponent(labelDir, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(buttonSelDir))
-            .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
-            .addComponent(labelSelectInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
+            .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
+            .addComponent(labelSelectInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonSelectAll, buttonSelectNone});
@@ -366,7 +367,7 @@ public class ExportImportPanel extends javax.swing.JPanel
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelDir, labelPromptDir});
 
-    }// </editor-fold>//GEN-END:initComponents
+    }//GEN-END:initComponents
 
     private void buttonSelDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSelDirActionPerformed
         selectDirectory();

@@ -1,11 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.jphototagger.program.view.dialogs;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ResourceBundle;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JTabbedPane;
@@ -13,7 +10,6 @@ import javax.swing.WindowConstants;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.panels.MaintainanceCachesPanel;
 
 /**
@@ -41,7 +37,8 @@ public class MaintainanceDialog extends Dialog {
         panelMaintainanceCaches = new MaintainanceCachesPanel();
 
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle(JptBundle.INSTANCE.getString("MaintainanceDialog.title")); // NOI18N
+        ResourceBundle bundle = ResourceBundle.getBundle("org/jphototagger/program/view/dialogs/Bundle"); // NOI18N
+        setTitle(bundle.getString("MaintainanceDialog.title")); // NOI18N
         setIconImage(null);
         setName("MaintainanceDialog"); // NOI18N
         addWindowListener(new WindowAdapter() {
@@ -53,7 +50,7 @@ public class MaintainanceDialog extends Dialog {
         tabbedPane.setName("tabbedPane"); // NOI18N
 
         panelMaintainanceCaches.setName("panelMaintainanceCaches"); // NOI18N
-        tabbedPane.addTab(JptBundle.INSTANCE.getString("MaintainanceDialog.panelMaintainanceCaches.TabConstraints.tabTitle"), panelMaintainanceCaches); // NOI18N
+        tabbedPane.addTab(bundle.getString("MaintainanceDialog.panelMaintainanceCaches.TabConstraints.tabTitle"), panelMaintainanceCaches); // NOI18N
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

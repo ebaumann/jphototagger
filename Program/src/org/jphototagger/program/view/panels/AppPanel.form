@@ -11,7 +11,7 @@
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="1"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="true"/>
-    <AuxValue name="FormSettings_formBundle" type="java.lang.String" value="org/jphototagger/program/resource/properties/Bundle"/>
+    <AuxValue name="FormSettings_formBundle" type="java.lang.String" value="org/jphototagger/program/view/panels/Bundle"/>
     <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="true"/>
@@ -84,7 +84,7 @@
                 <Component class="javax.swing.JButton" name="buttonSearch">
                   <Properties>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.buttonSearch.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.buttonSearch.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                     <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                       <Insets value="[1, 1, 1, 1]"/>
@@ -135,7 +135,7 @@
                       <ComponentRef name="comboBoxFileFilters"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.labelFileFilters.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                      <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.labelFileFilters.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                     <Property name="name" type="java.lang.String" value="labelFileFilters" noResource="true"/>
                   </Properties>
@@ -180,7 +180,7 @@
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                       <JTabbedPaneConstraints tabName="Ordner">
                         <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.panelDirectories.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                          <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.panelDirectories.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </Property>
                         <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_folder.png"/>
@@ -232,7 +232,7 @@
                           <Connection code="new SearchInJxTreeAction((JXTree)treeDirectories)" type="code"/>
                         </Property>
                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.buttonSearchInDirectories.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                          <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.buttonSearchInDirectories.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </Property>
                         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                           <Insets value="[1, 1, 1, 1]"/>
@@ -255,7 +255,7 @@
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                       <JTabbedPaneConstraints tabName="Suchen">
                         <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.panelSavedSearches.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                          <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.panelSavedSearches.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </Property>
                         <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_search.png"/>
@@ -284,7 +284,7 @@
                               <ComponentRef name="textFieldListSelKeywordsFilter"/>
                             </Property>
                             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.labelListSavedSearchesFilter.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                              <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.labelListSavedSearchesFilter.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="name" type="java.lang.String" value="labelListSavedSearchesFilter" noResource="true"/>
                           </Properties>
@@ -344,7 +344,7 @@
                           <Connection code="new SearchInJxListAction(listSavedSearches)" type="code"/>
                         </Property>
                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.buttonSearchInSavedSearches.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                          <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.buttonSearchInSavedSearches.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </Property>
                         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                           <Insets value="[1, 1, 1, 1]"/>
@@ -367,7 +367,7 @@
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                       <JTabbedPaneConstraints tabName="Fotoalben">
                         <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.panelImageCollections.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                          <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.panelImageCollections.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </Property>
                         <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_imagecollection.png"/>
@@ -396,7 +396,7 @@
                               <ComponentRef name="textFieldListSelKeywordsFilter"/>
                             </Property>
                             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.labelListImageCollectionsFilter.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                              <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.labelListImageCollectionsFilter.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="name" type="java.lang.String" value="labelListImageCollectionsFilter" noResource="true"/>
                           </Properties>
@@ -458,7 +458,7 @@
                           <Connection code="new SearchInJxListAction(listImageCollections)" type="code"/>
                         </Property>
                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.buttonSearchInImageCollections.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                          <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.buttonSearchInImageCollections.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </Property>
                         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                           <Insets value="[1, 1, 1, 1]"/>
@@ -481,7 +481,7 @@
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                       <JTabbedPaneConstraints tabName="Favoriten">
                         <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.panelFavorites.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                          <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.panelFavorites.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </Property>
                         <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_favorite.png"/>
@@ -532,7 +532,7 @@
                           <Connection code="new SearchInJxTreeAction((JXTree)treeFavorites)" type="code"/>
                         </Property>
                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.buttonSearchInTreeFavorites.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                          <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.buttonSearchInTreeFavorites.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </Property>
                         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                           <Insets value="[1, 1, 1, 1]"/>
@@ -555,7 +555,7 @@
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                       <JTabbedPaneConstraints tabName="Stichw&#xf6;rter">
                         <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.panelSelKeywords.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                          <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.panelSelKeywords.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </Property>
                         <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_keyword.png"/>
@@ -614,7 +614,7 @@
                         <Component class="javax.swing.JButton" name="buttonDisplaySelKeywordsList">
                           <Properties>
                             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.buttonDisplaySelKeywordsList.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                              <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.buttonDisplaySelKeywordsList.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                               <Insets value="[1, 1, 1, 1]"/>
@@ -633,7 +633,7 @@
                         <Component class="javax.swing.JToggleButton" name="toggleButtonExpandAllNodesSelKeywords">
                           <Properties>
                             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.toggleButtonExpandAllNodesSelKeywords.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                              <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.toggleButtonExpandAllNodesSelKeywords.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                               <Insets value="[1, 1, 1, 1]"/>
@@ -652,7 +652,7 @@
                               <Connection code="new SearchInJxTreeAction((JXTree)treeSelKeywords)" type="code"/>
                             </Property>
                             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.buttonSearchInTreeSelKeywords.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                              <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.buttonSearchInTreeSelKeywords.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                               <Insets value="[1, 1, 1, 1]"/>
@@ -697,7 +697,7 @@
                                   <ComponentRef name="textFieldListSelKeywordsFilter"/>
                                 </Property>
                                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.labelListSelKeywordsFilter.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.labelListSelKeywordsFilter.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                                 </Property>
                                 <Property name="name" type="java.lang.String" value="labelListSelKeywordsFilter" noResource="true"/>
                               </Properties>
@@ -758,7 +758,7 @@
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                                 <TitledBorder title="Mehrfachauswahl: Bilder enthalten">
-                                  <ResourceString PropertyName="titleX" bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.panelSelKeywordsListMultipleSelection.border.title" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                                  <ResourceString PropertyName="titleX" bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.panelSelKeywordsListMultipleSelection.border.title" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                                 </TitledBorder>
                               </Border>
                             </Property>
@@ -778,7 +778,7 @@
                                   <ComponentRef name="buttonGroupKeywordsMultipleSel"/>
                                 </Property>
                                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.radioButtonSelKeywordsMultipleSelAll.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.radioButtonSelKeywordsMultipleSelAll.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                                 </Property>
                                 <Property name="name" type="java.lang.String" value="radioButtonSelKeywordsMultipleSelAll" noResource="true"/>
                               </Properties>
@@ -794,7 +794,7 @@
                                   <ComponentRef name="buttonGroupKeywordsMultipleSel"/>
                                 </Property>
                                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.radioButtonSelKeywordsMultipleSelOne.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.radioButtonSelKeywordsMultipleSelOne.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                                 </Property>
                                 <Property name="name" type="java.lang.String" value="radioButtonSelKeywordsMultipleSelOne" noResource="true"/>
                               </Properties>
@@ -809,7 +809,7 @@
                         <Component class="javax.swing.JButton" name="buttonDisplaySelKeywordsTree">
                           <Properties>
                             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.buttonDisplaySelKeywordsTree.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                              <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.buttonDisplaySelKeywordsTree.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                               <Insets value="[1, 1, 1, 1]"/>
@@ -831,7 +831,7 @@
                               <Connection code="new SearchInJxListAction(listSelKeywords)" type="code"/>
                             </Property>
                             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.buttonSearchInListSelKeywords.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                              <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.buttonSearchInListSelKeywords.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                             </Property>
                             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                               <Insets value="[1, 1, 1, 1]"/>
@@ -856,7 +856,7 @@
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                       <JTabbedPaneConstraints tabName="Zeitleiste">
                         <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.panelTimeline.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                          <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.panelTimeline.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </Property>
                         <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_timeline.png"/>
@@ -925,7 +925,7 @@
                           <Connection code="new SearchInJxTreeAction((JXTree)treeTimeline)" type="code"/>
                         </Property>
                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.buttonSearchInTreeTimeline.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                          <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.buttonSearchInTreeTimeline.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </Property>
                         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                           <Insets value="[1, 1, 1, 1]"/>
@@ -948,7 +948,7 @@
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                       <JTabbedPaneConstraints tabName="Verschiedenes">
                         <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.panelMiscMetadata.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                          <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.panelMiscMetadata.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </Property>
                         <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_misc_metadata.png"/>
@@ -1018,7 +1018,7 @@
                           <Connection code="new SearchInJxTreeAction((JXTree)treeMiscMetadata)" type="code"/>
                         </Property>
                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.buttonSearchInTreeMiscMetadata.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                          <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.buttonSearchInTreeMiscMetadata.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </Property>
                         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                           <Insets value="[1, 1, 1, 1]"/>
@@ -1041,7 +1041,7 @@
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                       <JTabbedPaneConstraints tabName="Ohne Metadaten">
                         <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.panelNoMetadata.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                          <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.panelNoMetadata.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </Property>
                         <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_no_metadata.png"/>
@@ -1239,7 +1239,7 @@
                           <Color blue="ff" green="ff" red="ff" type="rgb"/>
                         </Property>
                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.labelMetadataFilename.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                          <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.labelMetadataFilename.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </Property>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
@@ -1266,7 +1266,7 @@
                             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                               <JTabbedPaneConstraints tabName="EXIF">
                                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.panelExif.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.panelExif.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                                 </Property>
                                 <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_exif.png"/>
@@ -1295,7 +1295,7 @@
                                       <ComponentRef name="textFieldListSelKeywordsFilter"/>
                                     </Property>
                                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.labelTableExifFilter.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                                      <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.labelTableExifFilter.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                                     </Property>
                                     <Property name="name" type="java.lang.String" value="labelTableExifFilter" noResource="true"/>
                                   </Properties>
@@ -1347,10 +1347,10 @@
                                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_xmp.png"/>
                                 </Property>
                                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.buttonExifToXmp.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.buttonExifToXmp.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                                 </Property>
                                 <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.buttonExifToXmp.toolTipText" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.buttonExifToXmp.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                                 </Property>
                                 <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                                   <Insets value="[2, 2, 2, 2]"/>
@@ -1373,7 +1373,7 @@
                             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                               <JTabbedPaneConstraints tabName="IPTC">
                                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.panelIptc.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.panelIptc.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                                 </Property>
                                 <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_iptc.png"/>
@@ -1402,7 +1402,7 @@
                                       <ComponentRef name="textFieldListSelKeywordsFilter"/>
                                     </Property>
                                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.labeTTableIptcFilter.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                                      <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.labeTTableIptcFilter.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                                     </Property>
                                     <Property name="name" type="java.lang.String" value="labeTTableIptcFilter" noResource="true"/>
                                   </Properties>
@@ -1451,10 +1451,10 @@
                                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_xmp.png"/>
                                 </Property>
                                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.buttonIptcToXmp.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.buttonIptcToXmp.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                                 </Property>
                                 <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.buttonIptcToXmp.toolTipText" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.buttonIptcToXmp.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                                 </Property>
                                 <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                                   <Insets value="[2, 2, 2, 2]"/>
@@ -1478,7 +1478,7 @@
                             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                               <JTabbedPaneConstraints tabName="XMP">
                                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.tabbedPaneXmp.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.tabbedPaneXmp.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                                 </Property>
                                 <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_xmp.png"/>
@@ -1497,7 +1497,7 @@
                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                                   <JTabbedPaneConstraints tabName="TIFF">
                                     <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.panelTableXmpTiff.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                                      <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.panelTableXmpTiff.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                                     </Property>
                                   </JTabbedPaneConstraints>
                                 </Constraint>
@@ -1523,7 +1523,7 @@
                                           <ComponentRef name="textFieldListSelKeywordsFilter"/>
                                         </Property>
                                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.labelTableXmpTiffFilter.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                                          <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.labelTableXmpTiffFilter.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                                         </Property>
                                         <Property name="name" type="java.lang.String" value="labelTableXmpTiffFilter" noResource="true"/>
                                       </Properties>
@@ -1579,7 +1579,7 @@
                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                                   <JTabbedPaneConstraints tabName="EXIF">
                                     <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.panelTableXmpExif.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                                      <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.panelTableXmpExif.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                                     </Property>
                                   </JTabbedPaneConstraints>
                                 </Constraint>
@@ -1605,7 +1605,7 @@
                                           <ComponentRef name="textFieldListSelKeywordsFilter"/>
                                         </Property>
                                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.labelTableXmpExifFilter.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                                          <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.labelTableXmpExifFilter.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                                         </Property>
                                         <Property name="name" type="java.lang.String" value="labelTableXmpExifFilter" noResource="true"/>
                                       </Properties>
@@ -1661,7 +1661,7 @@
                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                                   <JTabbedPaneConstraints tabName="Dublin Core">
                                     <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.panelTableXmpDc.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                                      <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.panelTableXmpDc.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                                     </Property>
                                   </JTabbedPaneConstraints>
                                 </Constraint>
@@ -1687,7 +1687,7 @@
                                           <ComponentRef name="textFieldListSelKeywordsFilter"/>
                                         </Property>
                                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.labelTableXmpDcFilter.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                                          <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.labelTableXmpDcFilter.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                                         </Property>
                                         <Property name="name" type="java.lang.String" value="labelTableXmpDcFilter" noResource="true"/>
                                       </Properties>
@@ -1743,7 +1743,7 @@
                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                                   <JTabbedPaneConstraints tabName="IPTC">
                                     <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.panelTableXmpIptc.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                                      <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.panelTableXmpIptc.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                                     </Property>
                                   </JTabbedPaneConstraints>
                                 </Constraint>
@@ -1769,7 +1769,7 @@
                                           <ComponentRef name="textFieldListSelKeywordsFilter"/>
                                         </Property>
                                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.labelTableXmpIptcFilter.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                                          <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.labelTableXmpIptcFilter.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                                         </Property>
                                         <Property name="name" type="java.lang.String" value="labelTableXmpIptcFilter" noResource="true"/>
                                       </Properties>
@@ -1825,7 +1825,7 @@
                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                                   <JTabbedPaneConstraints tabName="Photoshop">
                                     <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.panelTableXmpPhotoshop.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                                      <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.panelTableXmpPhotoshop.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                                     </Property>
                                   </JTabbedPaneConstraints>
                                 </Constraint>
@@ -1851,7 +1851,7 @@
                                           <ComponentRef name="textFieldListSelKeywordsFilter"/>
                                         </Property>
                                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.labelTableXmpPhotoshopFilter.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                                          <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.labelTableXmpPhotoshopFilter.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                                         </Property>
                                         <Property name="name" type="java.lang.String" value="labelTableXmpPhotoshopFilter" noResource="true"/>
                                       </Properties>
@@ -1907,7 +1907,7 @@
                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                                   <JTabbedPaneConstraints tabName="Sonstige">
                                     <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.panelTableXmpXap.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                                      <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.panelTableXmpXap.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                                     </Property>
                                   </JTabbedPaneConstraints>
                                 </Constraint>
@@ -1933,7 +1933,7 @@
                                           <ComponentRef name="textFieldListSelKeywordsFilter"/>
                                         </Property>
                                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.labelTableXmpXapFilter.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                                          <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.labelTableXmpXapFilter.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                                         </Property>
                                         <Property name="name" type="java.lang.String" value="labelTableXmpXapFilter" noResource="true"/>
                                       </Properties>
@@ -1989,7 +1989,7 @@
                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                                   <JTabbedPaneConstraints tabName="Lightroom">
                                     <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.panelTableXmpLightroom.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                                      <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.panelTableXmpLightroom.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                                     </Property>
                                   </JTabbedPaneConstraints>
                                 </Constraint>
@@ -2015,7 +2015,7 @@
                                           <ComponentRef name="textFieldListSelKeywordsFilter"/>
                                         </Property>
                                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.labelTableXmpLightroomFilter.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                                          <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.labelTableXmpLightroomFilter.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                                         </Property>
                                         <Property name="name" type="java.lang.String" value="labelTableXmpLightroomFilter" noResource="true"/>
                                       </Properties>
@@ -2071,7 +2071,7 @@
                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                                   <JTabbedPaneConstraints tabName="Camera Raw">
                                     <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                      <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.panelTableXmpCameraRawSettings.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                                      <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.panelTableXmpCameraRawSettings.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                                     </Property>
                                   </JTabbedPaneConstraints>
                                 </Constraint>
@@ -2097,7 +2097,7 @@
                                           <ComponentRef name="textFieldListSelKeywordsFilter"/>
                                         </Property>
                                         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                          <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.labelTableXmpCameraRawSettingsFilter.text" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                                          <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.labelTableXmpCameraRawSettingsFilter.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                                         </Property>
                                         <Property name="name" type="java.lang.String" value="labelTableXmpCameraRawSettingsFilter" noResource="true"/>
                                       </Properties>
@@ -2155,7 +2155,7 @@
                             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                               <JTabbedPaneConstraints tabName="Bearbeiten">
                                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.panelTabEditMetadata.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.panelTabEditMetadata.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                                 </Property>
                                 <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_edit.png"/>
@@ -2234,7 +2234,7 @@
                             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                               <JTabbedPaneConstraints tabName="Stichw&#xf6;rter">
                                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                                  <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.panelEditKeywords.TabConstraints.tabTitle" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+                                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.panelEditKeywords.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                                 </Property>
                                 <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_keyword.png"/>
@@ -2315,7 +2315,7 @@
             <Property name="minimum" type="int" value="10"/>
             <Property name="snapToTicks" type="boolean" value="true"/>
             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.sliderThumbnailSize.toolTipText" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.sliderThumbnailSize.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="name" type="java.lang.String" value="sliderThumbnailSize" noResource="true"/>
           </Properties>
@@ -2326,7 +2326,7 @@
               <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_thumbnail_size.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/resource/properties/Bundle.properties" key="AppPanel.buttonSetThumbnailDimensions.toolTipText" replaceFormat="JptBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="AppPanel.buttonSetThumbnailDimensions.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>

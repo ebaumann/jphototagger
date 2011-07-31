@@ -1,18 +1,20 @@
 package org.jphototagger.program.view.panels;
 
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.UserSettings;
-import org.jphototagger.lib.image.util.IconUtil;
 import java.awt.Component;
 import java.awt.Container;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.text.JTextComponent;
+
+import org.jphototagger.lib.image.util.IconUtil;
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.resource.JptBundle;
 
 /**
  * Contains a button which expands or collapses a component. If the component
@@ -202,8 +204,7 @@ public class ExpandCollapseComponentPanel extends JPanel implements FocusListene
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
         buttonExpandCollapse = new javax.swing.JButton();
@@ -227,7 +228,7 @@ public class ExpandCollapseComponentPanel extends JPanel implements FocusListene
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 5);
         add(buttonExpandCollapse, gridBagConstraints);
-    }// </editor-fold>//GEN-END:initComponents
+    }//GEN-END:initComponents
 
     private void buttonExpandCollapseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExpandCollapseActionPerformed
         toggleExpandCollapse();

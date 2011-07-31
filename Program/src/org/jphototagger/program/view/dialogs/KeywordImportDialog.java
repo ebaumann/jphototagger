@@ -1,16 +1,18 @@
 package org.jphototagger.program.view.dialogs;
 
+import java.awt.Container;
+import java.io.File;
+
+import javax.swing.JFileChooser;
+
+import org.jphototagger.lib.componentutil.MnemonicUtil;
+import org.jphototagger.lib.dialog.Dialog;
+import org.jphototagger.lib.util.Settings;
+import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.importer.KeywordsImporter;
 import org.jphototagger.program.model.ComboBoxModelKeywordsImporters;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.UserSettings;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.dialog.Dialog;
-import org.jphototagger.lib.util.Settings;
-import java.awt.Container;
-import java.io.File;
-import javax.swing.JFileChooser;
 
 /**
  * Modal dialog for importing keywords.
@@ -167,8 +169,7 @@ public class KeywordImportDialog extends Dialog {
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
 
         labelFormat = new javax.swing.JLabel();
         comboBoxImporter = new javax.swing.JComboBox();
@@ -178,7 +179,8 @@ public class KeywordImportDialog extends Dialog {
         buttonCancel = new javax.swing.JButton();
         buttonImport = new javax.swing.JButton();
 
-        setTitle(JptBundle.INSTANCE.getString("KeywordImportDialog.title")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/dialogs/Bundle"); // NOI18N
+        setTitle(bundle.getString("KeywordImportDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -187,20 +189,20 @@ public class KeywordImportDialog extends Dialog {
         });
 
         labelFormat.setLabelFor(comboBoxImporter);
-        labelFormat.setText(JptBundle.INSTANCE.getString("KeywordImportDialog.labelFormat.text")); // NOI18N
+        labelFormat.setText(bundle.getString("KeywordImportDialog.labelFormat.text")); // NOI18N
         labelFormat.setName("labelFormat"); // NOI18N
 
         comboBoxImporter.setModel(comboBoxModelImporter);
         comboBoxImporter.setName("comboBoxImporter"); // NOI18N
         comboBoxImporter.setRenderer(new org.jphototagger.program.view.renderer.ListCellRendererKeywordImExport());
 
-        labelInfoFilename.setText(JptBundle.INSTANCE.getString("KeywordImportDialog.labelInfoFilename.text")); // NOI18N
+        labelInfoFilename.setText(bundle.getString("KeywordImportDialog.labelInfoFilename.text")); // NOI18N
         labelInfoFilename.setName("labelInfoFilename"); // NOI18N
 
         labelFilename.setForeground(new java.awt.Color(0, 0, 255));
         labelFilename.setName("labelFilename"); // NOI18N
 
-        buttonChooseFile.setText(JptBundle.INSTANCE.getString("KeywordImportDialog.buttonChooseFile.text")); // NOI18N
+        buttonChooseFile.setText(bundle.getString("KeywordImportDialog.buttonChooseFile.text")); // NOI18N
         buttonChooseFile.setName("buttonChooseFile"); // NOI18N
         buttonChooseFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -208,7 +210,7 @@ public class KeywordImportDialog extends Dialog {
             }
         });
 
-        buttonCancel.setText(JptBundle.INSTANCE.getString("KeywordImportDialog.buttonCancel.text")); // NOI18N
+        buttonCancel.setText(bundle.getString("KeywordImportDialog.buttonCancel.text")); // NOI18N
         buttonCancel.setName("buttonCancel"); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -217,7 +219,7 @@ public class KeywordImportDialog extends Dialog {
         });
 
         buttonImport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_import.png"))); // NOI18N
-        buttonImport.setText(JptBundle.INSTANCE.getString("KeywordImportDialog.buttonImport.text")); // NOI18N
+        buttonImport.setText(bundle.getString("KeywordImportDialog.buttonImport.text")); // NOI18N
         buttonImport.setEnabled(false);
         buttonImport.setName("buttonImport"); // NOI18N
         buttonImport.addActionListener(new java.awt.event.ActionListener() {
@@ -271,7 +273,7 @@ public class KeywordImportDialog extends Dialog {
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelFilename, labelInfoFilename});
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         writeProperties();

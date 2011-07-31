@@ -1,11 +1,11 @@
 package org.jphototagger.program.view.dialogs;
 
+import org.jphototagger.lib.componentutil.TabbedPaneUtil;
+import org.jphototagger.lib.dialog.Dialog;
+import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.UserSettings;
-import org.jphototagger.lib.componentutil.TabbedPaneUtil;
-import org.jphototagger.lib.dialog.Dialog;
 
 /**
  * Modaler Dialog zur Wartung der Thumbnaildatenbank.
@@ -63,8 +63,7 @@ public final class DatabaseMaintainanceDialog extends Dialog {
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
 
         tabbedPane = new javax.swing.JTabbedPane();
         panelCount = new org.jphototagger.program.view.panels.DatabaseInfoCountPanel();
@@ -72,7 +71,8 @@ public final class DatabaseMaintainanceDialog extends Dialog {
         panelDatabaseUpdate = new org.jphototagger.program.view.panels.DatabaseUpdatePanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle(JptBundle.INSTANCE.getString("DatabaseMaintainanceDialog.title")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/dialogs/Bundle"); // NOI18N
+        setTitle(bundle.getString("DatabaseMaintainanceDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -83,13 +83,13 @@ public final class DatabaseMaintainanceDialog extends Dialog {
         tabbedPane.setName("tabbedPane"); // NOI18N
 
         panelCount.setName("panelCount"); // NOI18N
-        tabbedPane.addTab(JptBundle.INSTANCE.getString("DatabaseMaintainanceDialog.panelCount.TabConstraints.tabTitle"), panelCount); // NOI18N
+        tabbedPane.addTab(bundle.getString("DatabaseMaintainanceDialog.panelCount.TabConstraints.tabTitle"), panelCount); // NOI18N
 
         panelMaintainance.setName("panelMaintainance"); // NOI18N
-        tabbedPane.addTab(JptBundle.INSTANCE.getString("DatabaseMaintainanceDialog.panelMaintainance.TabConstraints.tabTitle"), panelMaintainance); // NOI18N
+        tabbedPane.addTab(bundle.getString("DatabaseMaintainanceDialog.panelMaintainance.TabConstraints.tabTitle"), panelMaintainance); // NOI18N
 
         panelDatabaseUpdate.setName("panelDatabaseUpdate"); // NOI18N
-        tabbedPane.addTab(JptBundle.INSTANCE.getString("DatabaseMaintainanceDialog.panelDatabaseUpdate.TabConstraints.tabTitle"), panelDatabaseUpdate); // NOI18N
+        tabbedPane.addTab(bundle.getString("DatabaseMaintainanceDialog.panelDatabaseUpdate.TabConstraints.tabTitle"), panelDatabaseUpdate); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -109,7 +109,7 @@ public final class DatabaseMaintainanceDialog extends Dialog {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         close();

@@ -1,25 +1,26 @@
 package org.jphototagger.program.view.panels;
 
-import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.data.SavedSearchPanel;
-import org.jphototagger.domain.database.Column;
-import org.jphototagger.program.database.metadata.Comparator;
-import org.jphototagger.domain.database.exif.ColumnExifDateTimeOriginal;
-import org.jphototagger.program.database.metadata.Operator;
-import org.jphototagger.domain.database.search.AdvancedSearchColumns;
-import org.jphototagger.program.database.metadata.selections.ColumnIds;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.renderer.ListCellRendererTableColumns;
-import org.jphototagger.lib.thirdparty.DateChooserDialog;
 import java.awt.event.KeyEvent;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
+
+import org.jphototagger.domain.database.Column;
+import org.jphototagger.domain.database.exif.ColumnExifDateTimeOriginal;
+import org.jphototagger.domain.database.search.AdvancedSearchColumns;
+import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
 import org.jphototagger.domain.database.xmp.ColumnXmpIptc4XmpCoreDateCreated;
-import org.jphototagger.program.resource.JptBundle;
+import org.jphototagger.lib.thirdparty.DateChooserDialog;
+import org.jphototagger.program.app.AppLookAndFeel;
+import org.jphototagger.program.data.SavedSearchPanel;
+import org.jphototagger.program.database.metadata.Comparator;
+import org.jphototagger.program.database.metadata.Operator;
+import org.jphototagger.program.database.metadata.selections.ColumnIds;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.view.renderer.ListCellRendererTableColumns;
 
 /**
  * Panel mit einer Suchspalte und deren möglichen Verknüpfungen, Operatoren
@@ -320,8 +321,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
         toggleButtonBracketLeft1 = new javax.swing.JToggleButton();
@@ -339,7 +339,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         setLayout(new java.awt.GridBagLayout());
 
         toggleButtonBracketLeft1.setForeground(new java.awt.Color(255, 0, 0));
-        toggleButtonBracketLeft1.setText("(");
+        toggleButtonBracketLeft1.setText("("); // NOI18N
         toggleButtonBracketLeft1.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
         toggleButtonBracketLeft1.setContentAreaFilled(false);
         toggleButtonBracketLeft1.setMargin(new java.awt.Insets(2, 2, 2, 2));
@@ -368,7 +368,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         add(comboBoxOperators, gridBagConstraints);
 
         toggleButtonBracketLeft2.setForeground(new java.awt.Color(255, 0, 0));
-        toggleButtonBracketLeft2.setText("(");
+        toggleButtonBracketLeft2.setText("("); // NOI18N
         toggleButtonBracketLeft2.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
         toggleButtonBracketLeft2.setContentAreaFilled(false);
         toggleButtonBracketLeft2.setMargin(new java.awt.Insets(2, 2, 2, 2));
@@ -429,7 +429,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         add(textFieldValue, gridBagConstraints);
 
         toggleButtonBracketRight.setForeground(new java.awt.Color(255, 0, 0));
-        toggleButtonBracketRight.setText(")");
+        toggleButtonBracketRight.setText(")"); // NOI18N
         toggleButtonBracketRight.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
         toggleButtonBracketRight.setContentAreaFilled(false);
         toggleButtonBracketRight.setMargin(new java.awt.Insets(2, 2, 2, 2));
@@ -465,7 +465,8 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         add(buttonCalendar, gridBagConstraints);
 
         buttonRemoveColumn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_delete12.png"))); // NOI18N
-        buttonRemoveColumn.setToolTipText(JptBundle.INSTANCE.getString("SearchColumnPanel.buttonRemoveColumn.toolTipText")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/panels/Bundle"); // NOI18N
+        buttonRemoveColumn.setToolTipText(bundle.getString("SearchColumnPanel.buttonRemoveColumn.toolTipText")); // NOI18N
         buttonRemoveColumn.setMargin(new java.awt.Insets(2, 2, 2, 2));
         buttonRemoveColumn.setMaximumSize(new java.awt.Dimension(16, 16));
         buttonRemoveColumn.setMinimumSize(new java.awt.Dimension(16, 16));
@@ -476,7 +477,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
         add(buttonRemoveColumn, gridBagConstraints);
-    }// </editor-fold>//GEN-END:initComponents
+    }//GEN-END:initComponents
 
     private void toggleButtonBracketLeft1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleButtonBracketLeft1ActionPerformed
         handleTaggleButtonBracketLeftActionPerformed();

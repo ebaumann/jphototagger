@@ -1,31 +1,32 @@
 package org.jphototagger.program.view.panels;
 
-import java.awt.event.KeyEvent;
-import javax.swing.event.ListDataEvent;
-import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.data.Program;
-import org.jphototagger.program.database.DatabasePrograms.Type;
-import org.jphototagger.program.model.ListModelActionsAfterDbInsertion;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.types.Persistence;
-import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.view.dialogs.ActionsDialog;
-import org.jphototagger.program.view.dialogs.ProgramSelectDialog;
-import org.jphototagger.program.view.renderer.ListCellRendererActions;
-import org.jphototagger.lib.componentutil.ComponentUtil;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
 import java.awt.Container;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.componentutil.ComponentUtil;
+import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.event.util.KeyEventUtil;
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.program.data.Program;
 import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseActionsAfterDbInsertion;
 import org.jphototagger.program.database.DatabasePrograms;
+import org.jphototagger.program.database.DatabasePrograms.Type;
 import org.jphototagger.program.event.listener.DatabaseProgramsListener;
+import org.jphototagger.program.model.ListModelActionsAfterDbInsertion;
+import org.jphototagger.program.types.Persistence;
+import org.jphototagger.program.view.dialogs.ActionsDialog;
+import org.jphototagger.program.view.dialogs.ProgramSelectDialog;
+import org.jphototagger.program.view.renderer.ListCellRendererActions;
 
 /**
  *
@@ -278,8 +279,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
 
         buttonGroupExecute = new javax.swing.ButtonGroup();
         popupMenu = new javax.swing.JPopupMenu();
@@ -303,7 +303,8 @@ public class SettingsActionsPanel extends javax.swing.JPanel
         popupMenu.setName("popupMenu"); // NOI18N
 
         menuItemAddAction.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_new.png"))); // NOI18N
-        menuItemAddAction.setText(JptBundle.INSTANCE.getString("SettingsActionsPanel.menuItemAddAction.text")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/panels/Bundle"); // NOI18N
+        menuItemAddAction.setText(bundle.getString("SettingsActionsPanel.menuItemAddAction.text")); // NOI18N
         menuItemAddAction.setEnabled(false);
         menuItemAddAction.setName("menuItemAddAction"); // NOI18N
         menuItemAddAction.addActionListener(new java.awt.event.ActionListener() {
@@ -315,7 +316,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel
 
         menuItemDeleteAction.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
         menuItemDeleteAction.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_delete.png"))); // NOI18N
-        menuItemDeleteAction.setText(JptBundle.INSTANCE.getString("SettingsActionsPanel.menuItemDeleteAction.text")); // NOI18N
+        menuItemDeleteAction.setText(bundle.getString("SettingsActionsPanel.menuItemDeleteAction.text")); // NOI18N
         menuItemDeleteAction.setEnabled(false);
         menuItemDeleteAction.setName("menuItemDeleteAction"); // NOI18N
         menuItemDeleteAction.addActionListener(new java.awt.event.ActionListener() {
@@ -329,7 +330,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel
         popupMenu.add(jSeparator1);
 
         menuItemMoveUpAction.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_arrow_up.png"))); // NOI18N
-        menuItemMoveUpAction.setText(JptBundle.INSTANCE.getString("SettingsActionsPanel.menuItemMoveUpAction.text")); // NOI18N
+        menuItemMoveUpAction.setText(bundle.getString("SettingsActionsPanel.menuItemMoveUpAction.text")); // NOI18N
         menuItemMoveUpAction.setEnabled(false);
         menuItemMoveUpAction.setName("menuItemMoveUpAction"); // NOI18N
         menuItemMoveUpAction.addActionListener(new java.awt.event.ActionListener() {
@@ -340,7 +341,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel
         popupMenu.add(menuItemMoveUpAction);
 
         menuItemMoveDownAction.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_arrow_down.png"))); // NOI18N
-        menuItemMoveDownAction.setText(JptBundle.INSTANCE.getString("SettingsActionsPanel.menuItemMoveDownAction.text")); // NOI18N
+        menuItemMoveDownAction.setText(bundle.getString("SettingsActionsPanel.menuItemMoveDownAction.text")); // NOI18N
         menuItemMoveDownAction.setEnabled(false);
         menuItemMoveDownAction.setName("menuItemMoveDownAction"); // NOI18N
         menuItemMoveDownAction.addActionListener(new java.awt.event.ActionListener() {
@@ -353,7 +354,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel
         jSeparator2.setName("jSeparator2"); // NOI18N
         popupMenu.add(jSeparator2);
 
-        menuItemShowActions.setText(JptBundle.INSTANCE.getString("SettingsActionsPanel.menuItemShowActions.text")); // NOI18N
+        menuItemShowActions.setText(bundle.getString("SettingsActionsPanel.menuItemShowActions.text")); // NOI18N
         menuItemShowActions.setName("menuItemShowActions"); // NOI18N
         menuItemShowActions.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -362,7 +363,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel
         });
         popupMenu.add(menuItemShowActions);
 
-        setBorder(javax.swing.BorderFactory.createTitledBorder(JptBundle.INSTANCE.getString("SettingsActionsPanel.border.title"))); // NOI18N
+        setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("SettingsActionsPanel.border.title"))); // NOI18N
         setName("Form"); // NOI18N
 
         scrollPane.setName("scrollPane"); // NOI18N
@@ -379,7 +380,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel
         });
         scrollPane.setViewportView(list);
 
-        buttonMoveUpAction.setText(JptBundle.INSTANCE.getString("SettingsActionsPanel.buttonMoveUpAction.text")); // NOI18N
+        buttonMoveUpAction.setText(bundle.getString("SettingsActionsPanel.buttonMoveUpAction.text")); // NOI18N
         buttonMoveUpAction.setEnabled(false);
         buttonMoveUpAction.setName("buttonMoveUpAction"); // NOI18N
         buttonMoveUpAction.addActionListener(new java.awt.event.ActionListener() {
@@ -388,7 +389,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel
             }
         });
 
-        buttonMoveDownAction.setText(JptBundle.INSTANCE.getString("SettingsActionsPanel.buttonMoveDownAction.text")); // NOI18N
+        buttonMoveDownAction.setText(bundle.getString("SettingsActionsPanel.buttonMoveDownAction.text")); // NOI18N
         buttonMoveDownAction.setEnabled(false);
         buttonMoveDownAction.setName("buttonMoveDownAction"); // NOI18N
         buttonMoveDownAction.addActionListener(new java.awt.event.ActionListener() {
@@ -397,7 +398,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel
             }
         });
 
-        buttonAddAction.setText(JptBundle.INSTANCE.getString("SettingsActionsPanel.buttonAddAction.text")); // NOI18N
+        buttonAddAction.setText(bundle.getString("SettingsActionsPanel.buttonAddAction.text")); // NOI18N
         buttonAddAction.setEnabled(false);
         buttonAddAction.setName("buttonAddAction"); // NOI18N
         buttonAddAction.addActionListener(new java.awt.event.ActionListener() {
@@ -406,7 +407,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel
             }
         });
 
-        buttonDeleteAction.setText(JptBundle.INSTANCE.getString("SettingsActionsPanel.buttonDeleteAction.text")); // NOI18N
+        buttonDeleteAction.setText(bundle.getString("SettingsActionsPanel.buttonDeleteAction.text")); // NOI18N
         buttonDeleteAction.setEnabled(false);
         buttonDeleteAction.setName("buttonDeleteAction"); // NOI18N
         buttonDeleteAction.addActionListener(new java.awt.event.ActionListener() {
@@ -415,7 +416,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel
             }
         });
 
-        buttonShowActions.setText(JptBundle.INSTANCE.getString("SettingsActionsPanel.buttonShowActions.text")); // NOI18N
+        buttonShowActions.setText(bundle.getString("SettingsActionsPanel.buttonShowActions.text")); // NOI18N
         buttonShowActions.setName("buttonShowActions"); // NOI18N
         buttonShowActions.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -424,7 +425,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel
         });
 
         buttonGroupExecute.add(radioButtonExecuteAlways);
-        radioButtonExecuteAlways.setText(JptBundle.INSTANCE.getString("SettingsActionsPanel.radioButtonExecuteAlways.text")); // NOI18N
+        radioButtonExecuteAlways.setText(bundle.getString("SettingsActionsPanel.radioButtonExecuteAlways.text")); // NOI18N
         radioButtonExecuteAlways.setName("radioButtonExecuteAlways"); // NOI18N
         radioButtonExecuteAlways.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -433,7 +434,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel
         });
 
         buttonGroupExecute.add(radioButtonExecuteIfImageHasXmp);
-        radioButtonExecuteIfImageHasXmp.setText(JptBundle.INSTANCE.getString("SettingsActionsPanel.radioButtonExecuteIfImageHasXmp.text")); // NOI18N
+        radioButtonExecuteIfImageHasXmp.setText(bundle.getString("SettingsActionsPanel.radioButtonExecuteIfImageHasXmp.text")); // NOI18N
         radioButtonExecuteIfImageHasXmp.setName("radioButtonExecuteIfImageHasXmp"); // NOI18N
         radioButtonExecuteIfImageHasXmp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -493,7 +494,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel
                 .addComponent(radioButtonExecuteIfImageHasXmp)
                 .addContainerGap())
         );
-    }// </editor-fold>//GEN-END:initComponents
+    }//GEN-END:initComponents
 
     private void buttonShowActionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonShowActionsActionPerformed
         showActions();

@@ -230,8 +230,7 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
 
         panelDcSubjects = new org.jphototagger.program.view.panels.EditRepeatableTextEntryPanel();
         panelDcTitle = new org.jphototagger.program.view.panels.EditTextEntryPanel();
@@ -346,7 +345,7 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelPhotoshopCaptionwriter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-    }// </editor-fold>//GEN-END:initComponents
+    }//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jphototagger.program.view.panels.EditTextEntryPanel panelDcCreator;

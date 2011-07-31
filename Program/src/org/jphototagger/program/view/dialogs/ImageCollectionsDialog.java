@@ -1,16 +1,18 @@
 package org.jphototagger.program.view.dialogs;
 
+import java.awt.Container;
+import java.awt.event.MouseEvent;
+
+import javax.swing.ListModel;
+
+import org.jphototagger.lib.componentutil.MnemonicUtil;
+import org.jphototagger.lib.dialog.Dialog;
+import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.model.ListModelImageCollections;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.renderer.ListCellRendererImageCollections;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.dialog.Dialog;
-import java.awt.Container;
-import java.awt.event.MouseEvent;
-import javax.swing.ListModel;
 
 /**
  * Dialog zum Anzeigen und Auswählen der Namen von Bildsammlungen.
@@ -76,8 +78,7 @@ public final class ImageCollectionsDialog extends Dialog {
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
 
         labelSelectImageCollection = new javax.swing.JLabel();
         scrollPaneImageCollectionNames = new javax.swing.JScrollPane();
@@ -85,11 +86,12 @@ public final class ImageCollectionsDialog extends Dialog {
         buttonOk = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle(JptBundle.INSTANCE.getString("ImageCollectionsDialog.title")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/dialogs/Bundle"); // NOI18N
+        setTitle(bundle.getString("ImageCollectionsDialog.title")); // NOI18N
         setName("Form"); // NOI18N
 
         labelSelectImageCollection.setLabelFor(listImageCollectionNames);
-        labelSelectImageCollection.setText(JptBundle.INSTANCE.getString("ImageCollectionsDialog.labelSelectImageCollection.text")); // NOI18N
+        labelSelectImageCollection.setText(bundle.getString("ImageCollectionsDialog.labelSelectImageCollection.text")); // NOI18N
         labelSelectImageCollection.setName("labelSelectImageCollection"); // NOI18N
 
         scrollPaneImageCollectionNames.setName("scrollPaneImageCollectionNames"); // NOI18N
@@ -105,7 +107,7 @@ public final class ImageCollectionsDialog extends Dialog {
         });
         scrollPaneImageCollectionNames.setViewportView(listImageCollectionNames);
 
-        buttonOk.setText(JptBundle.INSTANCE.getString("ImageCollectionsDialog.buttonOk.text")); // NOI18N
+        buttonOk.setText(bundle.getString("ImageCollectionsDialog.buttonOk.text")); // NOI18N
         buttonOk.setName("buttonOk"); // NOI18N
         buttonOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -138,7 +140,7 @@ public final class ImageCollectionsDialog extends Dialog {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }//GEN-END:initComponents
 
     private void buttonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOkActionPerformed
         handleButtonOkClicked();

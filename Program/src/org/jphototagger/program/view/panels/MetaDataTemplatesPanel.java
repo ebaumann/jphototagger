@@ -1,15 +1,16 @@
 package org.jphototagger.program.view.panels;
 
-import org.jphototagger.domain.event.listener.ThumbnailsPanelListener;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
 import java.awt.Container;
+
+import javax.swing.JButton;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.JButton;
+
 import org.jdesktop.swingx.JXList;
+import org.jphototagger.domain.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.program.resource.JptBundle;
+import org.jphototagger.lib.componentutil.MnemonicUtil;
+import org.jphototagger.program.resource.GUI;
 
 /**
  *
@@ -98,19 +99,18 @@ public class MetaDataTemplatesPanel extends javax.swing.JPanel
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
         scrollPane = new javax.swing.JScrollPane();
         list = new org.jdesktop.swingx.JXList();
         panelButtons = new javax.swing.JPanel();
-        buttonAddToSelImages = new javax.swing.JButton();
         panelModifyButtons = new javax.swing.JPanel();
         buttonRename = new javax.swing.JButton();
         buttonAdd = new javax.swing.JButton();
         buttonEdit = new javax.swing.JButton();
         buttonDelete = new javax.swing.JButton();
+        buttonAddToSelImages = new javax.swing.JButton();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
@@ -134,32 +134,25 @@ public class MetaDataTemplatesPanel extends javax.swing.JPanel
         panelButtons.setName("panelButtons"); // NOI18N
         panelButtons.setLayout(new java.awt.GridBagLayout());
 
-        buttonAddToSelImages.setText(JptBundle.INSTANCE.getString("MetaDataTemplatesPanel.buttonAddToSelImages.text")); // NOI18N
-        buttonAddToSelImages.setEnabled(false);
-        buttonAddToSelImages.setName("buttonAddToSelImages"); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        panelButtons.add(buttonAddToSelImages, gridBagConstraints);
-
         panelModifyButtons.setName("panelModifyButtons"); // NOI18N
         panelModifyButtons.setLayout(new java.awt.GridLayout(2, 0));
 
-        buttonRename.setText(JptBundle.INSTANCE.getString("MetaDataTemplatesPanel.buttonRename.text")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/panels/Bundle"); // NOI18N
+        buttonRename.setText(bundle.getString("MetaDataTemplatesPanel.buttonRename.text")); // NOI18N
         buttonRename.setEnabled(false);
         buttonRename.setName("buttonRename"); // NOI18N
         panelModifyButtons.add(buttonRename);
 
-        buttonAdd.setText(JptBundle.INSTANCE.getString("MetaDataTemplatesPanel.buttonAdd.text")); // NOI18N
+        buttonAdd.setText(bundle.getString("MetaDataTemplatesPanel.buttonAdd.text")); // NOI18N
         buttonAdd.setName("buttonAdd"); // NOI18N
         panelModifyButtons.add(buttonAdd);
 
-        buttonEdit.setText(JptBundle.INSTANCE.getString("MetaDataTemplatesPanel.buttonEdit.text")); // NOI18N
+        buttonEdit.setText(bundle.getString("MetaDataTemplatesPanel.buttonEdit.text")); // NOI18N
         buttonEdit.setEnabled(false);
         buttonEdit.setName("buttonEdit"); // NOI18N
         panelModifyButtons.add(buttonEdit);
 
-        buttonDelete.setText(JptBundle.INSTANCE.getString("MetaDataTemplatesPanel.buttonDelete.text")); // NOI18N
+        buttonDelete.setText(bundle.getString("MetaDataTemplatesPanel.buttonDelete.text")); // NOI18N
         buttonDelete.setEnabled(false);
         buttonDelete.setName("buttonDelete"); // NOI18N
         panelModifyButtons.add(buttonDelete);
@@ -170,14 +163,21 @@ public class MetaDataTemplatesPanel extends javax.swing.JPanel
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         panelButtons.add(panelModifyButtons, gridBagConstraints);
 
+        buttonAddToSelImages.setText(bundle.getString("MetaDataTemplatesPanel.buttonAddToSelImages.text")); // NOI18N
+        buttonAddToSelImages.setEnabled(false);
+        buttonAddToSelImages.setName("buttonAddToSelImages"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        panelButtons.add(buttonAddToSelImages, gridBagConstraints);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
         add(panelButtons, gridBagConstraints);
-    }// </editor-fold>//GEN-END:initComponents
-
+    }//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAdd;
     private javax.swing.JButton buttonAddToSelImages;

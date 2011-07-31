@@ -22,7 +22,6 @@ import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.factory.FileProcessorPluginManager;
 import org.jphototagger.program.factory.MainWindowComponentPluginManager;
 import org.jphototagger.program.factory.PluginManager;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Persistence;
 import org.jphototagger.services.plugin.Plugin;
 
@@ -179,8 +178,7 @@ public class SettingsPluginsPanel extends javax.swing.JPanel implements ChangeLi
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
 
         buttonGroupActionsAfterDatabaseInsertion = new javax.swing.ButtonGroup();
         tabbedPane = new javax.swing.JTabbedPane();
@@ -197,7 +195,8 @@ public class SettingsPluginsPanel extends javax.swing.JPanel implements ChangeLi
 
         panelExclude.setName("panelExclude"); // NOI18N
 
-        labelInfoExclude.setText(JptBundle.INSTANCE.getString("SettingsPluginsPanel.labelInfoExclude.text")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/panels/Bundle"); // NOI18N
+        labelInfoExclude.setText(bundle.getString("SettingsPluginsPanel.labelInfoExclude.text")); // NOI18N
         labelInfoExclude.setName("labelInfoExclude"); // NOI18N
 
         scrollPaneExclude.setAlignmentX(0.0F);
@@ -215,7 +214,7 @@ public class SettingsPluginsPanel extends javax.swing.JPanel implements ChangeLi
             .addGroup(panelExcludeLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelExcludeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPaneExclude, javax.swing.GroupLayout.DEFAULT_SIZE, 466, Short.MAX_VALUE)
+                    .addComponent(scrollPaneExclude, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
                     .addComponent(labelInfoExclude))
                 .addContainerGap())
         );
@@ -225,13 +224,13 @@ public class SettingsPluginsPanel extends javax.swing.JPanel implements ChangeLi
                 .addContainerGap()
                 .addComponent(labelInfoExclude)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneExclude, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                .addComponent(scrollPaneExclude, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        tabbedPane.addTab(JptBundle.INSTANCE.getString("SettingsPluginsPanel.panelExclude.TabConstraints.tabTitle"), panelExclude); // NOI18N
+        tabbedPane.addTab(bundle.getString("SettingsPluginsPanel.panelExclude.TabConstraints.tabTitle"), panelExclude); // NOI18N
 
-        buttonHelpPlugin.setText(JptBundle.INSTANCE.getString("SettingsPluginsPanel.buttonHelpPlugin.text")); // NOI18N
+        buttonHelpPlugin.setText(bundle.getString("SettingsPluginsPanel.buttonHelpPlugin.text")); // NOI18N
         buttonHelpPlugin.setName("buttonHelpPlugin"); // NOI18N
         buttonHelpPlugin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -243,7 +242,7 @@ public class SettingsPluginsPanel extends javax.swing.JPanel implements ChangeLi
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
+            .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(420, Short.MAX_VALUE)
                 .addComponent(buttonHelpPlugin)
@@ -257,7 +256,7 @@ public class SettingsPluginsPanel extends javax.swing.JPanel implements ChangeLi
                 .addComponent(buttonHelpPlugin)
                 .addContainerGap())
         );
-    }// </editor-fold>//GEN-END:initComponents
+    }//GEN-END:initComponents
 
     private void buttonHelpPluginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHelpPluginActionPerformed
         showHelp();

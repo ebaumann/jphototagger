@@ -1,11 +1,11 @@
 package org.jphototagger.program.view.dialogs;
 
+import org.jphototagger.lib.dialog.Dialog;
+import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.panels.ExportImportPanel;
 import org.jphototagger.program.view.panels.ExportImportPanel.ExportImportListener;
-import org.jphototagger.lib.dialog.Dialog;
 
 /**
  *
@@ -52,12 +52,13 @@ public class ExportImportDialog extends Dialog implements ExportImportListener {
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
 
         panelExportImport = new org.jphototagger.program.view.panels.ExportImportPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/dialogs/Bundle"); // NOI18N
+        setTitle(bundle.getString("ExportImportDialog.title")); // NOI18N
         setName("Form"); // NOI18N
 
         panelExportImport.setName("panelExportImport"); // NOI18N
@@ -68,7 +69,7 @@ public class ExportImportDialog extends Dialog implements ExportImportListener {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelExportImport, javax.swing.GroupLayout.PREFERRED_SIZE, 402, Short.MAX_VALUE)
+                .addComponent(panelExportImport, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -80,7 +81,7 @@ public class ExportImportDialog extends Dialog implements ExportImportListener {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }//GEN-END:initComponents
 
     /**
      * @param args the command line arguments

@@ -1,26 +1,5 @@
 package org.jphototagger.program.view.panels;
 
-import org.jdesktop.swingx.JXList;
-import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.domain.exif.Exif;
-import org.jphototagger.domain.text.TextEntry;
-import org.jphototagger.domain.xmp.Xmp;
-import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.domain.database.Column;
-import org.jphototagger.program.database.metadata.selections.AutoCompleteDataOfColumn;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
-import org.jphototagger.domain.event.listener.DatabaseImageFilesListener;
-import org.jphototagger.domain.event.listener.impl.TextEntryListenerSupport;
-import org.jphototagger.domain.event.listener.TextEntryListener;
-import org.jphototagger.program.helper.AutocompleteHelper;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.types.Suggest;
-import org.jphototagger.program.view.renderer.ListCellRendererKeywordsEditPanel;
-import org.jphototagger.lib.componentutil.Autocomplete;
-import org.jphototagger.lib.componentutil.ComponentUtil;
-import org.jphototagger.lib.componentutil.ListUtil;
-import org.jphototagger.lib.event.util.KeyEventUtil;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -33,17 +12,38 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+
 import javax.swing.DefaultListModel;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.event.ListDataEvent;
-import javax.swing.event.ListDataListener;
-import javax.swing.event.ListSelectionEvent;
 import javax.swing.JComponent;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JTextArea;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.event.ListDataEvent;
+import javax.swing.event.ListDataListener;
+import javax.swing.event.ListSelectionEvent;
+
+import org.jdesktop.swingx.JXList;
+import org.jphototagger.domain.database.Column;
+import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.domain.event.listener.DatabaseImageFilesListener;
+import org.jphototagger.domain.event.listener.TextEntryListener;
+import org.jphototagger.domain.event.listener.impl.TextEntryListenerSupport;
+import org.jphototagger.domain.exif.Exif;
+import org.jphototagger.domain.text.TextEntry;
+import org.jphototagger.domain.xmp.Xmp;
+import org.jphototagger.lib.componentutil.Autocomplete;
+import org.jphototagger.lib.componentutil.ComponentUtil;
+import org.jphototagger.lib.componentutil.ListUtil;
+import org.jphototagger.lib.event.util.KeyEventUtil;
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.program.database.DatabaseImageFiles;
+import org.jphototagger.program.database.metadata.selections.AutoCompleteDataOfColumn;
+import org.jphototagger.program.helper.AutocompleteHelper;
+import org.jphototagger.program.types.Suggest;
 
 /**
  * Panel with an input text field an a list. The list contains multiple words,
@@ -732,8 +732,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
         popupMenuList = new javax.swing.JPopupMenu();
@@ -752,7 +751,8 @@ public final class EditRepeatableTextEntryPanel extends JPanel
         popupMenuList.setName("popupMenuList"); // NOI18N
 
         menuItemRename.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
-        menuItemRename.setText(JptBundle.INSTANCE.getString("EditRepeatableTextEntryPanel.menuItemRename.text")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/panels/Bundle"); // NOI18N
+        menuItemRename.setText(bundle.getString("EditRepeatableTextEntryPanel.menuItemRename.text")); // NOI18N
         menuItemRename.setName("menuItemRename"); // NOI18N
         menuItemRename.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -762,7 +762,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
         popupMenuList.add(menuItemRename);
 
         menuItemRemove.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
-        menuItemRemove.setText(JptBundle.INSTANCE.getString("EditRepeatableTextEntryPanel.menuItemRemove.text")); // NOI18N
+        menuItemRemove.setText(bundle.getString("EditRepeatableTextEntryPanel.menuItemRemove.text")); // NOI18N
         menuItemRemove.setName("menuItemRemove"); // NOI18N
         menuItemRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -774,7 +774,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
 
-        labelPrompt.setText(JptBundle.INSTANCE.getString("EditRepeatableTextEntryPanel.labelPrompt.text")); // NOI18N
+        labelPrompt.setText("Prompt:"); // NOI18N
         labelPrompt.setToolTipText(column.getLongerDescription());
         labelPrompt.setName("labelPrompt"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -787,8 +787,8 @@ public final class EditRepeatableTextEntryPanel extends JPanel
         scrollPaneList.setName("scrollPaneList"); // NOI18N
 
         list.setModel(model);
-        list.setToolTipText(JptBundle.INSTANCE.getString("EditRepeatableTextEntryPanel.list.toolTipText")); // NOI18N
-        list.setCellRenderer(new ListCellRendererKeywordsEditPanel());
+        list.setToolTipText(bundle.getString("EditRepeatableTextEntryPanel.list.toolTipText")); // NOI18N
+        list.setCellRenderer(new org.jphototagger.program.view.renderer.ListCellRendererKeywordsEditPanel());
         list.setComponentPopupMenu(popupMenuList);
         list.setDragEnabled(true);
         list.setDropMode(javax.swing.DropMode.INSERT);
@@ -821,8 +821,8 @@ public final class EditRepeatableTextEntryPanel extends JPanel
         panelButtons.setLayout(new java.awt.GridLayout(3, 1));
 
         buttonRemoveSelection.setMnemonic('-');
-        buttonRemoveSelection.setText(JptBundle.INSTANCE.getString("EditRepeatableTextEntryPanel.buttonRemoveSelection.text")); // NOI18N
-        buttonRemoveSelection.setToolTipText(JptBundle.INSTANCE.getString("EditRepeatableTextEntryPanel.buttonRemoveSelection.toolTipText")); // NOI18N
+        buttonRemoveSelection.setText("-"); // NOI18N
+        buttonRemoveSelection.setToolTipText(bundle.getString("EditRepeatableTextEntryPanel.buttonRemoveSelection.toolTipText")); // NOI18N
         buttonRemoveSelection.setContentAreaFilled(false);
         buttonRemoveSelection.setName("buttonRemoveSelection"); // NOI18N
         buttonRemoveSelection.addActionListener(new java.awt.event.ActionListener() {
@@ -833,8 +833,8 @@ public final class EditRepeatableTextEntryPanel extends JPanel
         panelButtons.add(buttonRemoveSelection);
 
         buttonAddInput.setMnemonic('+');
-        buttonAddInput.setText(JptBundle.INSTANCE.getString("EditRepeatableTextEntryPanel.buttonAddInput.text")); // NOI18N
-        buttonAddInput.setToolTipText(JptBundle.INSTANCE.getString("EditRepeatableTextEntryPanel.buttonAddInput.toolTipText")); // NOI18N
+        buttonAddInput.setText("+"); // NOI18N
+        buttonAddInput.setToolTipText(bundle.getString("EditRepeatableTextEntryPanel.buttonAddInput.toolTipText")); // NOI18N
         buttonAddInput.setContentAreaFilled(false);
         buttonAddInput.setName("buttonAddInput"); // NOI18N
         buttonAddInput.addActionListener(new java.awt.event.ActionListener() {
@@ -845,7 +845,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
         panelButtons.add(buttonAddInput);
 
         buttonSuggestion.setMnemonic('k');
-        buttonSuggestion.setText(JptBundle.INSTANCE.getString("EditRepeatableTextEntryPanel.buttonSuggestion.text")); // NOI18N
+        buttonSuggestion.setText("K"); // NOI18N
         buttonSuggestion.setContentAreaFilled(false);
         buttonSuggestion.setEnabled(false);
         buttonSuggestion.setName("buttonSuggestion"); // NOI18N
@@ -890,7 +890,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(2, 0, 0, 0);
         add(scrollPaneTextArea, gridBagConstraints);
-    }// </editor-fold>//GEN-END:initComponents
+    }//GEN-END:initComponents
 
     private void buttonAddInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddInputActionPerformed
         handleButtonAddInputActionPerformed();
@@ -927,7 +927,6 @@ public final class EditRepeatableTextEntryPanel extends JPanel
     private void textAreaInputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textAreaInputKeyPressed
         suggestText(evt);
     }//GEN-LAST:event_textAreaInputKeyPressed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAddInput;
     private javax.swing.JButton buttonRemoveSelection;
