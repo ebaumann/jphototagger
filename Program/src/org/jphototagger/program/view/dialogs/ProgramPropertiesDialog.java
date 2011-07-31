@@ -23,7 +23,6 @@ import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
 
 /**
  * Modal Dialog to change or define the properties of a program which can
@@ -36,8 +35,9 @@ public final class ProgramPropertiesDialog extends Dialog {
     private transient Program program = new Program();
     private static final String KEY_LAST_DIR = "ProgramPropertiesDialog.LastDirectory";
     private static final String KEY_EXPERT_SETTINGS = "ProgramPropertiesDialog.ExpertSettings";
-    private static final String BUTTON_TEXT_TOGGLE_TO_EXPERT_SETTINGS = JptBundle.INSTANCE.getString("ProgramPropertiesDialog.ButtonText.ExpertSettings");
-    private static final String BUTTON_TEXT_TOGGLE_TO_SIMPLE_SETTINGS = JptBundle.INSTANCE.getString("ProgramPropertiesDialog.ButtonText.SimpleSettings");
+    private static final java.util.ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/dialogs/Bundle"); // NOI18N
+    private static final String BUTTON_TEXT_TOGGLE_TO_EXPERT_SETTINGS = BUNDLE.getString("ProgramPropertiesDialog.ButtonText.ExpertSettings");
+    private static final String BUTTON_TEXT_TOGGLE_TO_SIMPLE_SETTINGS = BUNDLE.getString("ProgramPropertiesDialog.ButtonText.SimpleSettings");
     private static final Settings SETTINGS = UserSettings.INSTANCE.getSettings();
     private File lastDir = new File(SETTINGS.getString(KEY_LAST_DIR));
     private File file;
@@ -95,7 +95,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         if (exists) {
             labelErrorFileDoesNotExist.setText("<html> </html>");
         } else {
-            labelErrorFileDoesNotExist.setText(JptBundle.INSTANCE.getString("ProgramPropertiesDialog.LabelErrorFileDoesNotExist.ErrorText"));
+            labelErrorFileDoesNotExist.setText(BUNDLE.getString("ProgramPropertiesDialog.LabelErrorFileDoesNotExist.ErrorText"));
         }
 
         labelFile.setForeground(exists
@@ -147,9 +147,9 @@ public final class ProgramPropertiesDialog extends Dialog {
     }
 
     private void setActionTexts() {
-        setTitle(JptBundle.INSTANCE.getString("ProgramPropertiesDialog.title.Action"));
-        labelFilePrompt.setText(JptBundle.INSTANCE.getString("ProgramPropertiesDialog.labelFilePrompt.text.Action"));
-        labelAlias.setText(JptBundle.INSTANCE.getString("ProgramPropertiesDialog.labelAlias.text.Action"));
+        setTitle(BUNDLE.getString("ProgramPropertiesDialog.title.Action"));
+        labelFilePrompt.setText(BUNDLE.getString("ProgramPropertiesDialog.labelFilePrompt.text.Action"));
+        labelAlias.setText(BUNDLE.getString("ProgramPropertiesDialog.labelAlias.text.Action"));
     }
 
     private void setProgramIcon() {

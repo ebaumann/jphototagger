@@ -3,7 +3,6 @@ package org.jphototagger.program.view.dialogs;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.panels.AdvancedSearchPanel;
 
 /**
@@ -67,7 +66,9 @@ public final class AdvancedSearchDialog extends Dialog
     }
 
     private void setSearchName(String name) {
-        setTitle(JptBundle.INSTANCE.getString("AdvancedSearchDialog.TitlePrefix") + ": " + name);
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/dialogs/Bundle"); // NOI18N
+
+        setTitle(bundle.getString("AdvancedSearchDialog.TitlePrefix") + ": " + name);
     }
 
     /**

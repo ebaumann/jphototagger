@@ -20,7 +20,6 @@ import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
 
 /**
  * Modal dialog to select a path.

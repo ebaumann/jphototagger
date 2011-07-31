@@ -33,7 +33,6 @@ import org.jphototagger.program.data.SavedSearch;
 import org.jphototagger.program.data.SavedSearchPanel;
 import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.helper.SavedSearchesHelper;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Persistence;
 
 /**
@@ -46,7 +45,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
     private final List<SearchColumnPanel> searchColumnPanels = new LinkedList<SearchColumnPanel>();
     private final Map<Component, Component> defaultInputOfComponent = new HashMap<Component, Component>();
     private final Map<JButton, SearchColumnPanel> searchPanelOfRemoveButton = new HashMap<JButton, SearchColumnPanel>();
-    private String searchName = JptBundle.INSTANCE.getString("AdvancedSearchPanel.UndefinedName");
+    private String searchName;
     private boolean isSavedSearch;
     private boolean columnRemoved;
     private boolean customSqlChanged;
@@ -63,6 +62,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
     }
 
     private void postInitComponents() {
+        setUndefinedSearchName();
         panelPadding.setSize(10, 2);
         listenToSearchPanels();
         setAutocomplete();
@@ -71,6 +71,13 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
         setFocusToInputInTab(tabbedPane.getSelectedComponent());
         MnemonicUtil.setMnemonics((Container) this);
     }
+
+    private void setUndefinedSearchName() {
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/panels/Bundle"); // NOI18N;
+
+        setSearchName(bundle.getString("AdvancedSearchPanel.UndefinedName"));
+    }
+
 
     private void setAutocomplete() {
         if (UserSettings.INSTANCE.isAutocomplete()) {
@@ -146,7 +153,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
     public void willDispose() {
         checkChanged();
         setUndirty();
-        setSearchName(JptBundle.INSTANCE.getString("AdvancedSearchPanel.UndefinedName"));
+        setUndefinedSearchName();
     }
 
     private void setUndirty() {
@@ -843,7 +850,6 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
     private void tabbedPaneFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tabbedPaneFocusGained
         setFocusToInputInTab(tabbedPane.getSelectedComponent());
     }//GEN-LAST:event_tabbedPaneFocusGained
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAddColumn;
     private javax.swing.JButton buttonResetColumns;

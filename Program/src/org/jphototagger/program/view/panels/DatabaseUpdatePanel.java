@@ -12,7 +12,6 @@ import org.jphototagger.program.helper.RefreshXmpInDbOfKnownFiles;
 import org.jphototagger.program.helper.SetExifToXmp;
 import org.jphototagger.program.helper.UpdateAllThumbnails;
 import org.jphototagger.program.model.ListModelKeywords;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.dialogs.RenameFilenamesInDbDialog;
 import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
@@ -32,10 +31,11 @@ import org.jphototagger.program.model.TreeModelKeywords;
  *
  * @author Elmar Baumann
  */
-public class DatabaseUpdatePanel extends JPanel
-        implements ActionListener, ProgressListener {
+public class DatabaseUpdatePanel extends JPanel implements ActionListener, ProgressListener {
+
     private static final long serialVersionUID = 3148751698141558616L;
-    private static final String BUTTON_TEXT_CANCEL = JptBundle.INSTANCE.getString("DatabaseUpdatePanel.DisplayName.Cancel");
+    private static final java.util.ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/panels/Bundle"); // NOI18N
+    private static final String BUTTON_TEXT_CANCEL = BUNDLE.getString("DatabaseUpdatePanel.DisplayName.Cancel");
     private transient UpdateAllThumbnails thumbnailUpdater;
     private final AbstractButton[] buttons;
     private volatile boolean cancel;
@@ -95,12 +95,12 @@ public class DatabaseUpdatePanel extends JPanel
     }
 
     private void setStartButtonTexts() {
-        toggleButtonRefreshExif.setText(JptBundle.INSTANCE.getString("DatabaseUpdatePanel.toggleButtonRefreshExif.text"));
-        toggleButtonRefreshXmp.setText(JptBundle.INSTANCE.getString("DatabaseUpdatePanel.toggleButtonRefreshXmp.text"));
-        buttonUpdateThumbnails.setText(JptBundle.INSTANCE.getString("DatabaseUpdatePanel.buttonUpdateThumbnails.text"));
-        buttonRenameFiles.setText(JptBundle.INSTANCE.getString("DatabaseUpdatePanel.buttonRenameFiles.text"));
-        buttonCopyKeywordsToKeywordsTree.setText(JptBundle.INSTANCE.getString("DatabaseUpdatePanel.buttonCopyKeywordsToKeywordsTree.text"));
-        toggleButtonExifDateToXmpDateCreated.setText(JptBundle.INSTANCE.getString("DatabaseUpdatePanel.toggleButtonExifDateToXmpDateCreated.text"));
+        toggleButtonRefreshExif.setText(BUNDLE.getString("DatabaseUpdatePanel.toggleButtonRefreshExif.text"));
+        toggleButtonRefreshXmp.setText(BUNDLE.getString("DatabaseUpdatePanel.toggleButtonRefreshXmp.text"));
+        buttonUpdateThumbnails.setText(BUNDLE.getString("DatabaseUpdatePanel.buttonUpdateThumbnails.text"));
+        buttonRenameFiles.setText(BUNDLE.getString("DatabaseUpdatePanel.buttonRenameFiles.text"));
+        buttonCopyKeywordsToKeywordsTree.setText(BUNDLE.getString("DatabaseUpdatePanel.buttonCopyKeywordsToKeywordsTree.text"));
+        toggleButtonExifDateToXmpDateCreated.setText(BUNDLE.getString("DatabaseUpdatePanel.toggleButtonExifDateToXmpDateCreated.text"));
         MnemonicUtil.setMnemonics((Container) this);
     }
 

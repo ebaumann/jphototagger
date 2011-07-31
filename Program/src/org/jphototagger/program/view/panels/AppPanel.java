@@ -53,7 +53,6 @@ import org.jphototagger.program.model.ComboBoxModelFastSearch;
 import org.jphototagger.program.model.ListModelWait;
 import org.jphototagger.program.model.TreeModelWait;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.dialogs.SettingsThumbnailDimensionsDialog;
 import org.jphototagger.program.view.renderer.ListCellRendererFastSearchColumns;
 import org.jphototagger.program.view.renderer.ListCellRendererFileFilters;
@@ -88,7 +87,7 @@ public final class AppPanel extends javax.swing.JPanel {
     private final List<JXList> selectionLists = new ArrayList<JXList>();
     private transient EditMetadataPanels editMetadtaPanels;
     private transient EditMetadataActionsPanel panelEditActions;
-    public static final transient String DISABLED_IPTC_TAB_TOOLTIP_TEXT = JptBundle.INSTANCE.getString("AppPanel.TabMetadataIptc.TooltipText.Disabled");
+    public static final transient String DISABLED_IPTC_TAB_TOOLTIP_TEXT = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/panels/Bundle").getString("AppPanel.TabMetadataIptc.TooltipText.Disabled");
 
     public AppPanel() {
         init();

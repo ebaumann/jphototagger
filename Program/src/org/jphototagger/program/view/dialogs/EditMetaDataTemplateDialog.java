@@ -9,7 +9,6 @@ import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.database.DatabaseMetadataTemplates;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.ViewUtil;
 
 /**
@@ -65,7 +64,9 @@ public class EditMetaDataTemplateDialog extends Dialog {
     }
 
     private void setTitle() {
-        setTitle(JptBundle.INSTANCE.getString(templateHasName()
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/dialogs/Bundle"); // NOI18N
+
+        setTitle(bundle.getString(templateHasName()
                 ? "EditMetaDataTemplateDialog.Title.Edit"
                 : "EditMetaDataTemplateDialog.Title.New"));
     }

@@ -5,7 +5,6 @@ import java.awt.Container;
 import javax.swing.JComboBox;
 
 import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.program.resource.JptBundle;
 
 /**
  * Panel for action sources (buttons) related to edit metadata.
@@ -26,10 +25,11 @@ public final class EditMetadataActionsPanel extends javax.swing.JPanel {
     }
 
     private void setTemplateName() {
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/panels/Bundle"); // NOI18N
         Object selItem = comboBoxMetadataTemplates.getSelectedItem();
 
         labelTemplateName.setText((selItem == null)
-                                  ? JptBundle.INSTANCE.getString("EditMetadataActionsPanel.labelTemplateName.text")
+                                  ? bundle.getString("EditMetadataActionsPanel.labelTemplateName.text")
                                   : selItem.toString());
     }
 

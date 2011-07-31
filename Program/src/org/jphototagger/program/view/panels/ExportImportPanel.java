@@ -28,6 +28,7 @@ import org.jphototagger.program.resource.JptBundle;
 public class ExportImportPanel extends javax.swing.JPanel
         implements SelectObjectsPanel.SelectionListener {
     private static final long serialVersionUID = -4556829908393776160L;
+    private static final java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/panels/Bundle"); // NOI18N
     private static final String TEXT_EXPORT = JptBundle.INSTANCE.getString("ExportImportPanel.Button.DisplayName.Export");
     private static final String TEXT_IMPORT = JptBundle.INSTANCE.getString("ExportImportPanel.Button.DisplayName.Import");
     private static final String KEY_SEL_INDICES_EXPORT = "ExportImportPanel.Export.SelIndices";

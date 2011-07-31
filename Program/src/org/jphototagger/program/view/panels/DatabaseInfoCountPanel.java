@@ -1,9 +1,10 @@
 package org.jphototagger.program.view.panels;
 
+import java.text.MessageFormat;
+import java.util.ResourceBundle;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.model.TableModelDatabaseInfo;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Filename;
 import org.jphototagger.program.view.renderer.TableCellRendererDatabaseInfoColumns;
 
@@ -36,8 +37,12 @@ public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
     }
 
     private void setLabelFilename() {
-        labelFilename.setText(
-            JptBundle.INSTANCE.getString("DatabaseInfoCountPanel.labelFilename.Filename", UserSettings.INSTANCE.getDatabaseFileName(Filename.FULL_PATH)));
+        ResourceBundle bundle = ResourceBundle.getBundle("org/jphototagger/program/view/panels/Bundle"); // NOI18N
+        String pattern = bundle.getString("DatabaseInfoCountPanel.labelFilename.Filename");
+        String databaseFileName = UserSettings.INSTANCE.getDatabaseFileName(Filename.FULL_PATH);
+        String message = MessageFormat.format(pattern, databaseFileName);
+
+        labelFilename.setText(message);
     }
 
     private void setModelDatabaseInfo() {
