@@ -7,7 +7,6 @@ import org.jphototagger.program.data.Program;
 import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.event.listener.DatabaseProgramsListener;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.panels.ActionsPanel;
 
 /**
@@ -34,7 +33,7 @@ public final class ActionsDialog extends Dialog implements DatabaseProgramsListe
     private void setHelpPage() {
         // Has to be localized!
         setHelpContentsUrl("/org/jphototagger/program/resource/doc/de/contents.xml");
-        setHelpPageUrl(JptBundle.INSTANCE.getString("Help.Url.ActionsDialog"));
+        setHelpPageUrl("dialog_actions.html");
     }
 
     public ActionsPanel getPanelActions() {

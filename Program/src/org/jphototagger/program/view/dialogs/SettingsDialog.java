@@ -14,7 +14,6 @@ import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Persistence;
 
 /**
@@ -95,13 +94,15 @@ public final class SettingsDialog extends Dialog {
     }
 
     private void initSearchPanel() {
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/dialogs/Bundle"); // NOI18N
+
         panelSearch.setParentPane(tabbedPane);
-        panelSearch.addSearchWordsTo(StringUtil.getWordsOf(JptBundle.INSTANCE.getString("SettingsDialog.AdditionalSearchWords.PanelThumbnails")), panelThumbnails);
-        panelSearch.addSearchWordsTo(StringUtil.getWordsOf(JptBundle.INSTANCE.getString("SettingsDialog.AdditionalSearchWords.PanelTasks")), panelTasks);
-        panelSearch.addSearchWordsTo(StringUtil.getWordsOf(JptBundle.INSTANCE.getString("SettingsDialog.AdditionalSearchWords.PanelPerformance")), panelPerformance);
-        panelSearch.addSearchWordsTo(StringUtil.getWordsOf(JptBundle.INSTANCE.getString("SettingsDialog.AdditionalSearchWords.PanelExclude")), panelFileExcludePatterns);
-        panelSearch.addSearchWordsTo(StringUtil.getWordsOf(JptBundle.INSTANCE.getString("SettingsDialog.AdditionalSearchWords.PanelPlugins")), panelPlugins);
-        panelSearch.addSearchWordsTo(StringUtil.getWordsOf(JptBundle.INSTANCE.getString("SettingsDialog.AdditionalSearchWords.PanelMiscMisc")), panelMisc);
+        panelSearch.addSearchWordsTo(StringUtil.getWordsOf(bundle.getString("SettingsDialog.AdditionalSearchWords.PanelThumbnails")), panelThumbnails);
+        panelSearch.addSearchWordsTo(StringUtil.getWordsOf(bundle.getString("SettingsDialog.AdditionalSearchWords.PanelTasks")), panelTasks);
+        panelSearch.addSearchWordsTo(StringUtil.getWordsOf(bundle.getString("SettingsDialog.AdditionalSearchWords.PanelPerformance")), panelPerformance);
+        panelSearch.addSearchWordsTo(StringUtil.getWordsOf(bundle.getString("SettingsDialog.AdditionalSearchWords.PanelExclude")), panelFileExcludePatterns);
+        panelSearch.addSearchWordsTo(StringUtil.getWordsOf(bundle.getString("SettingsDialog.AdditionalSearchWords.PanelPlugins")), panelPlugins);
+        panelSearch.addSearchWordsTo(StringUtil.getWordsOf(bundle.getString("SettingsDialog.AdditionalSearchWords.PanelMiscMisc")), panelMisc);
     }
 
     public void selectTab(Tab tab) {

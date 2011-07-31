@@ -51,7 +51,6 @@ import org.jphototagger.program.helper.SaveXmp;
 import org.jphototagger.xmp.FileXmp;
 import org.jphototagger.xmp.XmpMetadata;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.ViewUtil;
 import org.jphototagger.program.view.WaitDisplay;
 
@@ -1118,8 +1117,9 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
                 if (entry instanceof RatingSelectionPanel) {
                     // Text not parsable as number leads to an exception
                 } else {
+                    java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/panels/Bundle"); // NOI18N
                     entry.setText(
-                            JptBundle.INSTANCE.getString("EditMetadataPanels.DisableIfMultipleValues.Info.TextEntry"));
+                            bundle.getString("EditMetadataPanels.DisableIfMultipleValues.Info.TextEntry"));
                 }
 
                 entry.addMouseListenerToInputComponents(this);

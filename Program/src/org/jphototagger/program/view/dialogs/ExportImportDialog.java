@@ -3,7 +3,6 @@ package org.jphototagger.program.view.dialogs;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.panels.ExportImportPanel;
 import org.jphototagger.program.view.panels.ExportImportPanel.ExportImportListener;
 
@@ -28,13 +27,18 @@ public class ExportImportDialog extends Dialog implements ExportImportListener {
     }
 
     private void postInitComponents() {
-        setTitle(context.equals(ExportImportPanel.Context.EXPORT)
-                 ? JptBundle.INSTANCE.getString("ExportImportDialog.Title.Export")
-                 : JptBundle.INSTANCE.getString("ExportImportDialog.Title.Import"));
-        setHelpContentsUrl("/org/jphototagger/program/resource/doc/de/contents.xml");
+        setTitle();
         setHelpPage();
         panelExportImport.setContext(context);
         panelExportImport.addListener(this);
+    }
+
+    private void setTitle() {
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/dialogs/Bundle"); // NOI18N
+
+        setTitle(context.equals(ExportImportPanel.Context.EXPORT)
+                 ? bundle.getString("ExportImportDialog.Title.Export")
+                 : bundle.getString("ExportImportDialog.Title.Import"));
     }
 
     private void setHelpPage() {
