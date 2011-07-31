@@ -14,7 +14,7 @@ import org.jphototagger.domain.event.UserSettingsEvent;
 import org.jphototagger.domain.event.UserSettingsEvent.Type;
 import org.jphototagger.program.helper.CopyFiles;
 import org.jphototagger.program.helper.CopyFiles.Options;
-import org.jphototagger.program.image.thumbnail.ThumbnailCreator;
+import org.jphototagger.program.image.thumbnail.ThumbnailCreationStrategy;
 import org.jphototagger.program.types.Filename;
 import java.io.File;
 import java.util.logging.Level;
@@ -289,7 +289,7 @@ public final class UserSettings {
      *
      * @param creator thumbnail creator
      */
-    public void setThumbnailCreator(ThumbnailCreator creator) {
+    public void setThumbnailCreator(ThumbnailCreationStrategy creator) {
         if (creator == null) {
             throw new NullPointerException("creator == null");
         }
@@ -302,12 +302,12 @@ public final class UserSettings {
      * Returns the thumbnail creator.
      *
      * @return thumbnail creator.
-     *                   Default: {@link ThumbnailCreator#JAVA_IMAGE_IO}.
+     *                   Default: {@link ThumbnailCreationStrategy#JAVA_IMAGE_IO}.
      */
-    public ThumbnailCreator getThumbnailCreator() {
+    public ThumbnailCreationStrategy getThumbnailCreator() {
         return properties.containsKey(KEY_THUMBNAIL_CREATOR)
-               ? ThumbnailCreator.valueOf(properties.getProperty(KEY_THUMBNAIL_CREATOR))
-               : ThumbnailCreator.JAVA_IMAGE_IO;
+               ? ThumbnailCreationStrategy.valueOf(properties.getProperty(KEY_THUMBNAIL_CREATOR))
+               : ThumbnailCreationStrategy.JAVA_IMAGE_IO;
     }
 
     /**

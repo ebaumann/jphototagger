@@ -53,4 +53,9 @@ public final class UserDefinedFileTypeRepositoryImpl implements UserDefinedFileT
     public boolean existsFileTypeWithSuffix(String suffix) {
         return db.existsSuffix(suffix);
     }
+
+    @Override
+    public UserDefinedFileType findBySuffix(String suffix) {
+        return DatabaseUserDefinedFileTypes.INSTANCE.findBySuffix(suffix);
+    }
 }
