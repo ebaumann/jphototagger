@@ -1,12 +1,15 @@
 package org.jphototagger.domain.database.xmp;
 
-import org.jphototagger.lib.inputverifier.InputVerifierEmpty;
-import org.jphototagger.lib.inputverifier.InputVerifiersOr;
-import org.jphototagger.lib.inputverifier.InputVerifierStringPattern;
-import org.jphototagger.domain.database.Column;
+
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
+
+import org.jphototagger.domain.database.Column;
+import org.jphototagger.lib.inputverifier.InputVerifierEmpty;
+import org.jphototagger.lib.inputverifier.InputVerifierStringPattern;
+import org.jphototagger.lib.inputverifier.InputVerifiersOr;
+import org.jphototagger.lib.resource.Bundle;
 
 /**
  * "IPTC Core" Schema for XMP,  property name <strong>DateCreated</strong>,
@@ -25,8 +28,8 @@ public final class ColumnXmpIptc4XmpCoreDateCreated extends Column {
     private ColumnXmpIptc4XmpCoreDateCreated() {
         super("iptc4xmpcore_datecreated", "xmp", DataType.STRING);
         setLength(10);
-        setDescription(Bundle.INSTANCE.getString("ColumnXmpIptc4XmpCoreDateCreated.Description"));
-        setLongerDescription(Bundle.INSTANCE.getString("ColumnXmpIptc4XmpCoreDateCreated.LongerDescription"));
+        setDescription(Bundle.getString(ColumnXmpIptc4XmpCoreDateCreated.class, "ColumnXmpIptc4XmpCoreDateCreated.Description"));
+        setLongerDescription(Bundle.getString(ColumnXmpIptc4XmpCoreDateCreated.class, "ColumnXmpIptc4XmpCoreDateCreated.LongerDescription"));
     }
 
     @Override
@@ -62,8 +65,8 @@ public final class ColumnXmpIptc4XmpCoreDateCreated extends Column {
         }
 
         private void errorMessage(JComponent input) {
-            String message = Bundle.INSTANCE.getString("ColumnXmpIptc4XmpCoreDateCreated.Rules");
-            String title = Bundle.INSTANCE.getString("ColumnXmpIptc4XmpCoreDateCreated.Title.ErrorInput");
+            String message = Bundle.getString(ColumnXmpIptc4XmpCoreDateCreated.class, "ColumnXmpIptc4XmpCoreDateCreated.Rules");
+            String title = Bundle.getString(ColumnXmpIptc4XmpCoreDateCreated.class, "ColumnXmpIptc4XmpCoreDateCreated.Title.ErrorInput");
             int messageType = JOptionPane.ERROR_MESSAGE;
 
             JOptionPane.showMessageDialog(input, message, title, messageType);

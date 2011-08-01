@@ -11,14 +11,6 @@ import static org.junit.Assert.*;
 public class BundleTest {
 
     @Test
-    public void testGetBundle() {
-        Bundle bundle = Bundle.getBundle(BundleTest.class);
-        String value = bundle.getString("BundleTestKey");
-
-        assertEquals("BundleTestValue", value);
-    }
-
-    @Test
     public void testGetString_3args() {
         String s = Bundle.getString(BundleTest.class, "BundleTestKey2Args", "blubb", 25);
 
@@ -35,7 +27,7 @@ public class BundleTest {
 
     @Test
     public void testContainsKey() {
-        Bundle bundle = Bundle.getBundle(BundleTest.class);
+        Bundle bundle = new Bundle("org/jphototagger/lib/resource/Bundle");
 
         assertTrue(bundle.containsKey("BundleTestKey"));
         assertFalse(bundle.containsKey("NotExistingBundleTestKey"));

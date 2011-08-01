@@ -2,6 +2,7 @@ package org.jphototagger.domain.database.exif;
 
 import org.jphototagger.domain.database.Column;
 import org.jphototagger.domain.database.Column.DataType;
+import org.jphototagger.lib.resource.Bundle;
 
 /**
  * Tabellenspalte <code>exif_recording_equipment</code> der Tabelle <code>exif</code>.
@@ -18,6 +19,6 @@ public final class ColumnExifRecordingEquipment extends Column {
     private ColumnExifRecordingEquipment() {
         super("equipment", "exif_recording_equipment", DataType.STRING);
         setLength(125);
-        setDescription(Bundle.INSTANCE.getString("ColumnExifRecordingEquipment.Description"));
+        setDescription(Bundle.getString(ColumnExifRecordingEquipment.class, "ColumnExifRecordingEquipment.Description"));
     }
 }

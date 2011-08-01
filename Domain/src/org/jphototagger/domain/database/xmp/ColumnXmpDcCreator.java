@@ -2,6 +2,7 @@ package org.jphototagger.domain.database.xmp;
 
 import org.jphototagger.domain.database.Column;
 import org.jphototagger.domain.database.Column.DataType;
+import org.jphototagger.lib.resource.Bundle;
 
 /**
  * Spalte <code>dc_creators</code> der Tabelle <code>xmp</code>.
@@ -15,7 +16,7 @@ public final class ColumnXmpDcCreator extends Column {
     private ColumnXmpDcCreator() {
         super("creator", "dc_creators", DataType.STRING);
         setLength(128);
-        setDescription(Bundle.INSTANCE.getString("ColumnXmpDcCreator.Description"));
-        setLongerDescription(Bundle.INSTANCE.getString("ColumnXmpDcCreator.LongerDescription"));
+        setDescription(Bundle.getString(ColumnXmpDcCreator.class, "ColumnXmpDcCreator.Description"));
+        setLongerDescription(Bundle.getString(ColumnXmpDcCreator.class, "ColumnXmpDcCreator.LongerDescription"));
     }
 }

@@ -1,6 +1,7 @@
 package org.jphototagger.domain.database.exif;
 
 import org.jphototagger.domain.database.Column;
+import org.jphototagger.lib.resource.Bundle;
 
 /**
  * Tabellenspalte <code>exif_lenses</code> der Tabelle <code>exif</code>.
@@ -15,6 +16,6 @@ public final class ColumnExifLens extends Column {
 
     private ColumnExifLens() {
         super("lens", "exif_lenses", DataType.STRING);
-        setDescription(Bundle.INSTANCE.getString("ColumnExifLens.Description"));
+        setDescription(Bundle.getString(ColumnExifLens.class, "ColumnExifLens.Description"));
     }
 }

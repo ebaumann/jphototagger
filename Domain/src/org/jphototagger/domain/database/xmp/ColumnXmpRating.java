@@ -1,9 +1,11 @@
 package org.jphototagger.domain.database.xmp;
 
-import org.jphototagger.lib.inputverifier.InputVerifierNumberRange;
+import javax.swing.InputVerifier;
+
 import org.jphototagger.domain.database.Column;
 import org.jphototagger.domain.database.Column.DataType;
-import javax.swing.InputVerifier;
+import org.jphototagger.lib.inputverifier.InputVerifierNumberRange;
+import org.jphototagger.lib.resource.Bundle;
 
 /**
  * Spalte <code>rating</code> der Tabelle <code>xmp</code>.
@@ -17,8 +19,8 @@ public final class ColumnXmpRating extends Column {
     private ColumnXmpRating() {
         super("rating", "xmp", DataType.BIGINT);
         setLength(1);
-        setDescription(Bundle.INSTANCE.getString("ColumnXmpRating.Description"));
-        setLongerDescription(Bundle.INSTANCE.getString("ColumnXmpRating.LongerDescription"));
+        setDescription(Bundle.getString(ColumnXmpRating.class, "ColumnXmpRating.Description"));
+        setLongerDescription(Bundle.getString(ColumnXmpRating.class, "ColumnXmpRating.LongerDescription"));
     }
 
     /**

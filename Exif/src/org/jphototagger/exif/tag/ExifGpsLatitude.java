@@ -4,6 +4,7 @@ import java.nio.ByteOrder;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
+import org.jphototagger.lib.resource.Bundle;
 
 import org.jphototagger.lib.util.ByteUtil;
 
@@ -36,8 +37,8 @@ public final class ExifGpsLatitude {
     static {
         REF_OF_STRING.put("N", Ref.NORTH);
         REF_OF_STRING.put("S", Ref.SOUTH);
-        LOCALIZED_STRING_OF_REF.put(Ref.NORTH, Bundle.INSTANCE.getString("ExifGpsLatitudeRefNorth"));
-        LOCALIZED_STRING_OF_REF.put(Ref.SOUTH, Bundle.INSTANCE.getString("ExifGpsLatitudeRefSouth"));
+        LOCALIZED_STRING_OF_REF.put(Ref.NORTH, Bundle.getString(ExifGpsLatitude.class, "ExifGpsLatitudeRefNorth"));
+        LOCALIZED_STRING_OF_REF.put(Ref.SOUTH, Bundle.getString(ExifGpsLatitude.class, "ExifGpsLatitudeRefSouth"));
     }
 
     private Ref ref;

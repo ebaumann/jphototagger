@@ -1,6 +1,7 @@
 package org.jphototagger.domain.database.exif;
 
 import org.jphototagger.domain.database.Column;
+import org.jphototagger.lib.resource.Bundle;
 
 /**
  * Tabellenspalte <code>exif_date_time_original</code> der Tabelle <code>exif</code>.
@@ -16,6 +17,6 @@ public final class ColumnExifDateTimeOriginal extends Column {
 
     private ColumnExifDateTimeOriginal() {
         super("exif_date_time_original", "exif", DataType.DATE);
-        setDescription(Bundle.INSTANCE.getString("ColumnExifDateTimeOriginal.Description"));
+        setDescription(Bundle.getString(ColumnExifDateTimeOriginal.class, "ColumnExifDateTimeOriginal.Description"));
     }
 }

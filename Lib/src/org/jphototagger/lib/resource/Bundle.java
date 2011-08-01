@@ -44,31 +44,9 @@ public class Bundle {
     }
 
     /**
-     *
-     * @param clazz
-     * @return Bundle of {@code Bundle.properties} whithin the same package as {@code clazz}
-     */
-    public static Bundle getBundle(Class<?> clazz) {
-        if (clazz == null) {
-            throw new NullPointerException("clazz == null");
-        }
-
-        String bundlePath = createDefaultBundlePath(clazz);
-
-        return new Bundle(bundlePath);
-    }
-
-    private static String createDefaultBundlePath(Class<?> clazz) {
-        String packagePath = getPackagePath(clazz);
-        String bundlePath = packagePath + '/' + "Bundle";
-
-        return bundlePath;
-    }
-
-    /**
      * Returns a string from the resource bundle and logs {@link MissingResourceException}s rather than throwing it.
      * <p>
-     * This method is preferrable to create a new instance of this class or using {@link #getBundle(java.lang.Class)}.
+     * This method is preferrable to create a new instance of this class.
      *
      * @param clazz
      * @param key
@@ -89,6 +67,13 @@ public class Bundle {
         ResourceBundle bundle = ResourceBundle.getBundle(bundlePath);
 
         return getFormattedString(bundle, key, params);
+    }
+
+    private static String createDefaultBundlePath(Class<?> clazz) {
+        String packagePath = getPackagePath(clazz);
+        String bundlePath = packagePath + '/' + "Bundle";
+
+        return bundlePath;
     }
 
     private static String getPackagePath(Class<?> clazz) {
