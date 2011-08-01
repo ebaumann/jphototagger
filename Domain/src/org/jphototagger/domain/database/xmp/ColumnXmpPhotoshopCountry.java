@@ -2,6 +2,7 @@ package org.jphototagger.domain.database.xmp;
 
 import org.jphototagger.domain.database.Column;
 import org.jphototagger.domain.database.Column.DataType;
+import org.jphototagger.lib.resource.Bundle;
 
 /**
  * Spalte <code>photoshop_countries</code> der Tabelle <code>xmp</code>.
@@ -15,7 +16,7 @@ public final class ColumnXmpPhotoshopCountry extends Column {
     private ColumnXmpPhotoshopCountry() {
         super("country", "photoshop_countries", DataType.STRING);
         setLength(64);
-        setDescription(Bundle.INSTANCE.getString("ColumnXmpPhotoshopCountry.Description"));
-        setLongerDescription(Bundle.INSTANCE.getString("ColumnXmpPhotoshopCountry.LongerDescription"));
+        setDescription(Bundle.getString(ColumnXmpPhotoshopCountry.class, "ColumnXmpPhotoshopCountry.Description"));
+        setLongerDescription(Bundle.getString(ColumnXmpPhotoshopCountry.class, "ColumnXmpPhotoshopCountry.LongerDescription"));
     }
 }

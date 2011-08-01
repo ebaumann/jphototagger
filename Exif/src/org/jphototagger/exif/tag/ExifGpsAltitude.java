@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.jphototagger.exif.datatype.ExifDatatypeUtil;
 import org.jphototagger.exif.datatype.ExifRational;
+import org.jphototagger.lib.resource.Bundle;
 import org.jphototagger.lib.util.ByteUtil;
 
 /**
@@ -25,8 +26,8 @@ public final class ExifGpsAltitude {
     static {
         REF_OF_INTEGER.put(0, Ref.OBOVE_SEA_LEVEL);
         REF_OF_INTEGER.put(1, Ref.BELOW_SEA_LEVEL);
-        LOCALIZED_STRING_OF_REF.put(Ref.OBOVE_SEA_LEVEL, Bundle.INSTANCE.getString("ExifGpsAltitudeRefOboveSeaLevel"));
-        LOCALIZED_STRING_OF_REF.put(Ref.BELOW_SEA_LEVEL, Bundle.INSTANCE.getString("ExifGpsAltitudeRefBelowSeaLevel"));
+        LOCALIZED_STRING_OF_REF.put(Ref.OBOVE_SEA_LEVEL, Bundle.getString(ExifGpsAltitude.class, "ExifGpsAltitudeRefOboveSeaLevel"));
+        LOCALIZED_STRING_OF_REF.put(Ref.BELOW_SEA_LEVEL, Bundle.getString(ExifGpsAltitude.class, "ExifGpsAltitudeRefBelowSeaLevel"));
     }
 
     private Ref ref;

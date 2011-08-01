@@ -1,6 +1,7 @@
 package org.jphototagger.domain.database.exif;
 
 import org.jphototagger.domain.database.Column;
+import org.jphototagger.lib.resource.Bundle;
 
 /**
  * Tabellenspalte <code>exif_focal_length</code> der Tabelle <code>exif</code>.
@@ -16,6 +17,6 @@ public final class ColumnExifFocalLength extends Column {
 
     private ColumnExifFocalLength() {
         super("exif_focal_length", "exif", DataType.REAL);
-        setDescription(Bundle.INSTANCE.getString("ColumnExifFocalLength.Description"));
+        setDescription(Bundle.getString(ColumnExifFocalLength.class, "ColumnExifFocalLength.Description"));
     }
 }

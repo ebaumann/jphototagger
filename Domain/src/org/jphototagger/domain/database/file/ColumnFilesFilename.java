@@ -2,6 +2,7 @@ package org.jphototagger.domain.database.file;
 
 import org.jphototagger.domain.database.Column;
 import org.jphototagger.domain.database.Column.DataType;
+import org.jphototagger.lib.resource.Bundle;
 
 /**
  * Tabellenspalte <code>filename</code> der Tabelle <code>files</code>.
@@ -14,6 +15,6 @@ public final class ColumnFilesFilename extends Column {
     private ColumnFilesFilename() {
         super("filename", "files", DataType.STRING);
         setLength(512);
-        setDescription(Bundle.INSTANCE.getString("ColumnFilesFilename.Description"));
+        setDescription(Bundle.getString(ColumnFilesFilename.class, "ColumnFilesFilename.Description"));
     }
 }

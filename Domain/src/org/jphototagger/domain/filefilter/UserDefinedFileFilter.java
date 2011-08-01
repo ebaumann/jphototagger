@@ -5,9 +5,12 @@ import java.io.FileFilter;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.xml.bind.annotation.XmlAccessorType;
+
 import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.jphototagger.lib.resource.Bundle;
 
 /**
  *
@@ -27,10 +30,11 @@ public final class UserDefinedFileFilter implements Serializable {
 
     public enum Type {
 
-        STARTS_WITH(0, Bundle.INSTANCE.getString("UserDefinedFileFilter.DisplayName.StartsWith")),
-        CONTAINS(1, Bundle.INSTANCE.getString("UserDefinedFileFilter.DisplayName.Contains")),
-        ENDS_WITH(2, Bundle.INSTANCE.getString("UserDefinedFileFilter.DisplayName.EndsWith")),
-        REGEX(3, Bundle.INSTANCE.getString("UserDefinedFileFilter.DisplayName.Regex")),;
+        STARTS_WITH(0, Bundle.getString(UserDefinedFileFilter.class, "UserDefinedFileFilter.DisplayName.StartsWith")),
+        CONTAINS(1, Bundle.getString(UserDefinedFileFilter.class, "UserDefinedFileFilter.DisplayName.Contains")),
+        ENDS_WITH(2, Bundle.getString(UserDefinedFileFilter.class, "UserDefinedFileFilter.DisplayName.EndsWith")),
+        REGEX(3, Bundle.getString(UserDefinedFileFilter.class, "UserDefinedFileFilter.DisplayName.Regex")),
+        ;
         private final int value;
         private final String displayName;
 
