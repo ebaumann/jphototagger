@@ -1,11 +1,12 @@
 package org.jphototagger.lib.dialog;
 
-import org.jphototagger.lib.componentutil.ComponentUtil;
-import org.jphototagger.lib.util.Settings;
 import java.awt.event.KeyEvent;
 import java.util.Properties;
+
 import javax.swing.JDialog;
-import org.jphototagger.lib.resource.JslBundle;
+
+import org.jphototagger.lib.componentutil.ComponentUtil;
+import org.jphototagger.lib.util.Settings;
 
 /**
  * Modal text input dialog writing it's location to a properties object on demand.
@@ -168,8 +169,7 @@ public final class InputDialog extends Dialog {
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
 
         labelPrompt = new javax.swing.JLabel();
         textFieldInput = new javax.swing.JTextField();
@@ -177,10 +177,11 @@ public final class InputDialog extends Dialog {
         buttonOk = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle(JslBundle.INSTANCE.getString("InputDialog.title")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/lib/dialog/Bundle"); // NOI18N
+        setTitle(bundle.getString("InputDialog.title")); // NOI18N
         setName("Form"); // NOI18N
 
-        labelPrompt.setText(JslBundle.INSTANCE.getString("InputDialog.labelPrompt.text")); // NOI18N
+        labelPrompt.setText(bundle.getString("InputDialog.labelPrompt.text")); // NOI18N
         labelPrompt.setName("labelPrompt"); // NOI18N
 
         textFieldInput.setName("textFieldInput"); // NOI18N
@@ -191,7 +192,7 @@ public final class InputDialog extends Dialog {
         });
 
         buttonCancel.setMnemonic('a');
-        buttonCancel.setText(JslBundle.INSTANCE.getString("InputDialog.buttonCancel.text")); // NOI18N
+        buttonCancel.setText(bundle.getString("InputDialog.buttonCancel.text")); // NOI18N
         buttonCancel.setName("buttonCancel"); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -200,7 +201,7 @@ public final class InputDialog extends Dialog {
         });
 
         buttonOk.setMnemonic('o');
-        buttonOk.setText(JslBundle.INSTANCE.getString("InputDialog.buttonOk.text")); // NOI18N
+        buttonOk.setText(bundle.getString("InputDialog.buttonOk.text")); // NOI18N
         buttonOk.setName("buttonOk"); // NOI18N
         buttonOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -238,7 +239,7 @@ public final class InputDialog extends Dialog {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }//GEN-END:initComponents
 
     private void buttonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOkActionPerformed
         accepted = true;

@@ -1,6 +1,5 @@
 package org.jphototagger.lib.dialog;
 
-import org.jphototagger.lib.resource.JslBundle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Set;
@@ -169,8 +168,7 @@ public final class ProgressDialog extends javax.swing.JDialog {
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
 
         labelInfo = new javax.swing.JLabel();
         progressBar = new javax.swing.JProgressBar();
@@ -178,6 +176,8 @@ public final class ProgressDialog extends javax.swing.JDialog {
         labelProgressInfo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/lib/dialog/Bundle"); // NOI18N
+        setTitle(bundle.getString("ProgressDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -185,12 +185,12 @@ public final class ProgressDialog extends javax.swing.JDialog {
             }
         });
 
-        labelInfo.setText(JslBundle.INSTANCE.getString("ProgressDialogLabelMessageText")); // NOI18N
+        labelInfo.setText("Info"); // NOI18N
         labelInfo.setName("labelInfo"); // NOI18N
 
         progressBar.setName("progressBar"); // NOI18N
 
-        buttonStop.setText(JslBundle.INSTANCE.getString("ProgressDialog.buttonStop.text")); // NOI18N
+        buttonStop.setText(bundle.getString("ProgressDialog.buttonStop.text")); // NOI18N
         buttonStop.setName("buttonStop"); // NOI18N
         buttonStop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -208,12 +208,12 @@ public final class ProgressDialog extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelProgressInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
+                    .addComponent(labelProgressInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonStop))
-                    .addComponent(labelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE))
+                    .addComponent(labelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -233,7 +233,7 @@ public final class ProgressDialog extends javax.swing.JDialog {
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {buttonStop, progressBar});
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }//GEN-END:initComponents
 
     private void buttonStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonStopActionPerformed
         stop();

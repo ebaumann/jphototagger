@@ -5,7 +5,6 @@ import org.jphototagger.lib.io.filefilter.RegexFileFilter;
 import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.program.image.thumbnail.ThumbnailUtil;
 import org.jphototagger.program.io.ImageFileFilterer;
-import org.jphototagger.program.resource.JptBundle;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -16,6 +15,7 @@ import java.io.File;
 import java.io.FileFilter;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
+import org.jphototagger.lib.resource.Bundle;
 
 //Code based on http://www.javalobby.org/java/forums/t49462.html
 
@@ -115,8 +115,7 @@ public class ImagePreviewPanel extends JPanel implements PropertyChangeListener 
     }
 
     private static class ImageFileFilter implements FileFilter {
-        private static final String DESCRIPTION =
-            JptBundle.INSTANCE.getString("ImagePreviewPanel.ImageFileFilter.Description");
+        private static final String DESCRIPTION = Bundle.getString(ImagePreviewPanel.class, "ImagePreviewPanel.ImageFileFilter.Description");
         private static final RegexFileFilter FILE_FILTER = AppFileFilters.INSTANCE.getAllAcceptedImageFilesFilter();
         private static final ImageFileFilter INSTANCE = new ImageFileFilter();
 

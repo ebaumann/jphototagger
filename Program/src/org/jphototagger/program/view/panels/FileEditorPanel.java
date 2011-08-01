@@ -16,11 +16,11 @@ import org.jphototagger.lib.dialog.DirectoryChooser.Option;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.filefilter.RegexFileFilter;
 import org.jphototagger.lib.renderer.ListCellRendererFileSystem;
+import org.jphototagger.lib.resource.Bundle;
 import org.jphototagger.lib.util.Settings;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.FileEditor;
 
 /**
@@ -39,7 +39,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     private List<File> selectedDirectories = new ArrayList<File>();
     private File prevSelectedDirectory = new File("");
     private FileEditor fileEditor = new FileEditor();
-    private FileFilter fileChooserFileFilter = AppFileFilters.INSTANCE.getAllAcceptedImageFilesFilter().forFileChooser(JptBundle.INSTANCE.getString("FileEditorPanel.FileChooserFileFilter.Description"));
+    private FileFilter fileChooserFileFilter = AppFileFilters.INSTANCE.getAllAcceptedImageFilesFilter().forFileChooser(Bundle.getString(FileEditorPanel.class, "FileEditorPanel.FileChooserFileFilter.Description"));
     private transient RegexFileFilter dirChooserFileFilter = new RegexFileFilter(".*", ";");
     private String title = "";
     private volatile boolean selectDirs;
@@ -251,8 +251,8 @@ public final class FileEditorPanel extends javax.swing.JPanel {
 
     private void setFileButtonText() {
         buttonSelectFiles.setText(selectDirs
-                                  ? JptBundle.INSTANCE.getString("FileEditorPanel.ButtonFiles.DirectoriesText")
-                                  : JptBundle.INSTANCE.getString("FileEditorPanel.ButtonFiles.FilesText"));
+                                  ? Bundle.getString(FileEditorPanel.class, "FileEditorPanel.ButtonFiles.DirectoriesText")
+                                  : Bundle.getString(FileEditorPanel.class, "FileEditorPanel.ButtonFiles.FilesText"));
     }
 
     public void readProperties() {

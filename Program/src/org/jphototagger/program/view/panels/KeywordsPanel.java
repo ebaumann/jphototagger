@@ -12,6 +12,7 @@ import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.JXTree;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.componentutil.TreeUtil;
+import org.jphototagger.lib.resource.Bundle;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.controller.actions.SearchInJxListAction;
 import org.jphototagger.program.controller.actions.SearchInJxTreeAction;
@@ -19,7 +20,6 @@ import org.jphototagger.program.datatransfer.TransferHandlerDragListItems;
 import org.jphototagger.program.helper.ListTextFilter;
 import org.jphototagger.program.model.ListModelWait;
 import org.jphototagger.program.model.TreeModelWait;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.renderer.KeywordHighlightPredicate;
 import org.jphototagger.program.view.renderer.ListCellRendererKeywords;
 
@@ -148,8 +148,8 @@ public class KeywordsPanel extends javax.swing.JPanel {
 
         TreeUtil.expandAll(tree, selected);
         buttonToggleExpandAllNodes.setText(selected
-                                           ? JptBundle.INSTANCE.getString("KeywordsPanel.ButtonToggleExpandAllNodes.Selected")
-                                           : JptBundle.INSTANCE.getString("KeywordsPanel.ButtonToggleExpandAllNodes.DeSelected"));
+                                           ? Bundle.getString(KeywordsPanel.class, "KeywordsPanel.ButtonToggleExpandAllNodes.Selected")
+                                           : Bundle.getString(KeywordsPanel.class, "KeywordsPanel.ButtonToggleExpandAllNodes.DeSelected"));
     }
 
     /**

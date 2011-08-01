@@ -1,33 +1,35 @@
 package org.jphototagger.lib.dialog;
 
-import org.jphototagger.lib.componentutil.ComponentUtil;
-import org.jphototagger.lib.event.HelpBrowserEvent;
-import org.jphototagger.lib.event.listener.HelpBrowserListener;
-import org.jphototagger.lib.model.TreeModelHelpContents;
-import org.jphototagger.lib.renderer.TreeCellRendererHelpContents;
-import org.jphototagger.lib.resource.JslBundle;
-import org.jphototagger.lib.util.help.HelpNode;
-import org.jphototagger.lib.util.help.HelpPage;
+import java.awt.Frame;
+import java.awt.MenuItem;
+import java.awt.PopupMenu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.Frame;
-import java.awt.MenuItem;
-import java.awt.PopupMenu;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
+
+import org.jphototagger.lib.componentutil.ComponentUtil;
+import org.jphototagger.lib.event.HelpBrowserEvent;
+import org.jphototagger.lib.event.listener.HelpBrowserListener;
+import org.jphototagger.lib.model.TreeModelHelpContents;
+import org.jphototagger.lib.renderer.TreeCellRendererHelpContents;
+import org.jphototagger.lib.resource.Bundle;
 import org.jphototagger.lib.util.Settings;
+import org.jphototagger.lib.util.help.HelpNode;
+import org.jphototagger.lib.util.help.HelpPage;
 
 /**
  * Browser for HTML help files. Usually those are packaged with the application
@@ -35,12 +37,11 @@ import org.jphototagger.lib.util.Settings;
  *
  * @author Elmar Baumann
  */
-public final class HelpBrowser extends Dialog
-        implements ActionListener, HyperlinkListener, MouseListener, TreeSelectionListener {
+public final class HelpBrowser extends Dialog implements ActionListener, HyperlinkListener, MouseListener, TreeSelectionListener {
     private static final long serialVersionUID = 6909713450716449838L;
     private static final String KEY_DIVIDER_LOCATION = "HelpBrowser.DividerLocation";
-    private static final String DISPLAY_NAME_ACTION_PREVIOUS = JslBundle.INSTANCE.getString("HelpBrowser.Action.Previous");
-    private static final String DISPLAY_NAME_ACTION_NEXT = JslBundle.INSTANCE.getString("HelpBrowser.Action.Next");
+    private static final String DISPLAY_NAME_ACTION_PREVIOUS = Bundle.getString(HelpBrowser.class, "HelpBrowser.Action.Previous");
+    private static final String DISPLAY_NAME_ACTION_NEXT = Bundle.getString(HelpBrowser.class, "HelpBrowser.Action.Next");
     private final LinkedList<URL> urlHistory = new LinkedList<URL>();
     private final Set<HelpBrowserListener> listeners = new CopyOnWriteArraySet<HelpBrowserListener>();
     private int currentHistoryIndex = -1;
@@ -350,7 +351,7 @@ public final class HelpBrowser extends Dialog
                     String helpPageUrl = helpPage.getUrl();
                     URL url = getClass().getResource(baseUrl + "/" + helpPageUrl);
 
-                    setTitle(helpPage.getTitle() + JslBundle.INSTANCE.getString("HelpBrowser.TitlePostfix"));
+                    setTitle(helpPage.getTitle() + Bundle.getString(HelpBrowser.class, "HelpBrowser.TitlePostfix"));
                     showUrl(url);
                 }
             }
@@ -382,8 +383,7 @@ public final class HelpBrowser extends Dialog
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
 
         splitPane = new javax.swing.JSplitPane();
         panelTree = new javax.swing.JPanel();
@@ -395,7 +395,8 @@ public final class HelpBrowser extends Dialog
         buttonPrevious = new javax.swing.JButton();
         buttonNext = new javax.swing.JButton();
 
-        setTitle(JslBundle.INSTANCE.getString("HelpBrowser.title")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/lib/dialog/Bundle"); // NOI18N
+        setTitle(bundle.getString("HelpBrowser.title")); // NOI18N
         setName("Form"); // NOI18N
 
         splitPane.setDividerLocation(250);
@@ -446,8 +447,8 @@ public final class HelpBrowser extends Dialog
         splitPane.setRightComponent(panelPage);
 
         buttonPrevious.setMnemonic('z');
-        buttonPrevious.setText(JslBundle.INSTANCE.getString("HelpBrowser.buttonPrevious.text")); // NOI18N
-        buttonPrevious.setToolTipText(JslBundle.INSTANCE.getString("HelpBrowser.buttonPrevious.toolTipText")); // NOI18N
+        buttonPrevious.setText(bundle.getString("HelpBrowser.buttonPrevious.text")); // NOI18N
+        buttonPrevious.setToolTipText(bundle.getString("HelpBrowser.buttonPrevious.toolTipText")); // NOI18N
         buttonPrevious.setEnabled(false);
         buttonPrevious.setName("buttonPrevious"); // NOI18N
         buttonPrevious.addActionListener(new java.awt.event.ActionListener() {
@@ -457,8 +458,8 @@ public final class HelpBrowser extends Dialog
         });
 
         buttonNext.setMnemonic('v');
-        buttonNext.setText(JslBundle.INSTANCE.getString("HelpBrowser.buttonNext.text")); // NOI18N
-        buttonNext.setToolTipText(JslBundle.INSTANCE.getString("HelpBrowser.buttonNext.toolTipText")); // NOI18N
+        buttonNext.setText(bundle.getString("HelpBrowser.buttonNext.text")); // NOI18N
+        buttonNext.setToolTipText(bundle.getString("HelpBrowser.buttonNext.toolTipText")); // NOI18N
         buttonNext.setEnabled(false);
         buttonNext.setName("buttonNext"); // NOI18N
         buttonNext.addActionListener(new java.awt.event.ActionListener() {
@@ -494,7 +495,7 @@ public final class HelpBrowser extends Dialog
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }//GEN-END:initComponents
 
     private void buttonNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNextActionPerformed
         goNext();

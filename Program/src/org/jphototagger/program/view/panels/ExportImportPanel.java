@@ -4,6 +4,8 @@ import java.awt.Container;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.jphototagger.domain.event.listener.impl.ListenerSupport;
 import org.jphototagger.lib.component.SelectObjectsPanel;
@@ -12,25 +14,23 @@ import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.DirectoryChooser;
 import org.jphototagger.lib.dialog.DirectoryChooser.Option;
 import org.jphototagger.lib.image.util.IconUtil;
+import org.jphototagger.lib.resource.Bundle;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.exporter.Exporter;
 import org.jphototagger.program.exporter.JptExporters;
 import org.jphototagger.program.importer.Importer;
 import org.jphototagger.program.importer.JptImporters;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
 
 /**
  *
  * @author Elmar Baumann
  */
-public class ExportImportPanel extends javax.swing.JPanel
-        implements SelectObjectsPanel.SelectionListener {
+public class ExportImportPanel extends javax.swing.JPanel implements SelectObjectsPanel.SelectionListener {
     private static final long serialVersionUID = -4556829908393776160L;
-    private static final java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/panels/Bundle"); // NOI18N
-    private static final String TEXT_EXPORT = JptBundle.INSTANCE.getString("ExportImportPanel.Button.DisplayName.Export");
-    private static final String TEXT_IMPORT = JptBundle.INSTANCE.getString("ExportImportPanel.Button.DisplayName.Import");
+    private static final Logger LOGGER = Logger.getLogger(ExportImportPanel.class.getName());
+    private static final String TEXT_EXPORT = Bundle.getString(ExportImportPanel.class, "ExportImportPanel.Button.DisplayName.Export");
+    private static final String TEXT_IMPORT = Bundle.getString(ExportImportPanel.class, "ExportImportPanel.Button.DisplayName.Import");
     private static final String KEY_SEL_INDICES_EXPORT = "ExportImportPanel.Export.SelIndices";
     private static final String KEY_SEL_INDICES_IMPORT = "ExportImportPanel.Import.SelIndices";
     private static final String KEY_LAST_DIR = "ExportImportPanel.LastDirectory";
@@ -76,8 +76,8 @@ public class ExportImportPanel extends javax.swing.JPanel
 
     private void setInfoLabel() {
         labelSelectInfo.setText(isExport()
-                                ? JptBundle.INSTANCE.getString("ExportImportPanel.LabelSelectInfo.Text.Export")
-                                : JptBundle.INSTANCE.getString("ExportImportPanel.LabelSelectInfo.Text.Import"));
+                                ? Bundle.getString(ExportImportPanel.class, "ExportImportPanel.LabelSelectInfo.Text.Export")
+                                : Bundle.getString(ExportImportPanel.class, "ExportImportPanel.LabelSelectInfo.Text.Import"));
     }
 
     public void setContext(Context context) {
@@ -175,12 +175,17 @@ public class ExportImportPanel extends javax.swing.JPanel
             if (o instanceof Exporter) {
                 Exporter exporter = (Exporter) o;
                 File exportFile = new File(dir.getAbsolutePath() + File.separator + exporter.getDefaultFilename());
-
-                AppLogger.logInfo(ExportImportPanel.class, "ExportImportPanel.Info.ExportFile", exporter.getDisplayName(), exportFile);
+                logExport(exporter, exportFile);
                 exporter.exportFile(exportFile);
                 exportedFiles.add(exportFile);
             }
         }
+    }
+
+    private void logExport(Exporter exporter, File exportFile) {
+        String exporterDisplayName = exporter.getDisplayName();
+
+        LOGGER.log(Level.INFO, "{0}: Exporting File ''{1}''", new Object[]{exporterDisplayName, exportFile});
     }
 
     private void importFiles() {
@@ -194,15 +199,28 @@ public class ExportImportPanel extends javax.swing.JPanel
                 File importFile = new File(dir.getAbsolutePath() + File.separator + importer.getDefaultFilename());
 
                 if (importFile.exists()) {
-                    AppLogger.logInfo(ExportImportPanel.class, "ExportImportPanel.Info.ImportFile", importer.getDisplayName(), importFile);
+                    logImport(importer, importFile);
                     importer.importFile(importFile);
                     importedFiles.add(importFile);
                 } else {
-                    AppLogger.logWarning(ExportImportPanel.class,"ExportImportPanel.Error.ImportFile", importer.getDisplayName(), importFile);
+                    logImportErrorFileDoesNotExist(importer, importFile);
                     missingFiles.add(importFile);
                 }
             }
         }
+    }
+
+    private void logImport(Importer importer, File importFile) {
+        String importerDisplayName = importer.getDisplayName();
+
+        LOGGER.log(Level.INFO, "{0}: Importing File ''{1}''", new Object[]{importerDisplayName, importFile});
+    }
+
+    private void logImportErrorFileDoesNotExist(Importer importer, File importFile) {
+        String importerDisplayName = importer.getDisplayName();
+
+        LOGGER.log(Level.INFO, "{0}: The following file can't be imported, because it does not exist: ''{1}''",
+                new Object[]{importerDisplayName, importFile});
     }
 
     private void setEnabledButtons() {

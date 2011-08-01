@@ -11,7 +11,7 @@
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="1"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="true"/>
-    <AuxValue name="FormSettings_formBundle" type="java.lang.String" value="org/jphototagger/lib/resource/properties/Bundle"/>
+    <AuxValue name="FormSettings_formBundle" type="java.lang.String" value="org/jphototagger/lib/dialog/Bundle"/>
     <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="true"/>
@@ -37,7 +37,7 @@
     <Component class="javax.swing.JLabel" name="labelShortMessage">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/lib/resource/properties/Bundle.properties" key="LongMessageDialog.labelShortMessage.text" replaceFormat="JslBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/lib/dialog/Bundle.properties" key="LongMessageDialog.labelShortMessage.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="name" type="java.lang.String" value="labelShortMessage" noResource="true"/>
       </Properties>
@@ -124,10 +124,10 @@
         <Component class="javax.swing.JButton" name="buttonMail">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/lib/resource/properties/Bundle.properties" key="LongMessageDialog.buttonMail.text" replaceFormat="JslBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/lib/dialog/Bundle.properties" key="LongMessageDialog.buttonMail.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/lib/resource/properties/Bundle.properties" key="LongMessageDialog.buttonMail.toolTipText" replaceFormat="JslBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/lib/dialog/Bundle.properties" key="LongMessageDialog.buttonMail.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="enabled" type="boolean" value="false"/>
             <Property name="name" type="java.lang.String" value="buttonMail" noResource="true"/>
@@ -139,10 +139,10 @@
         <Component class="javax.swing.JButton" name="buttonCopy">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/lib/resource/properties/Bundle.properties" key="LongMessageDialog.buttonCopy.text" replaceFormat="JslBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/lib/dialog/Bundle.properties" key="LongMessageDialog.buttonCopy.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/lib/resource/properties/Bundle.properties" key="LongMessageDialog.buttonCopy.toolTipText" replaceFormat="JslBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/lib/dialog/Bundle.properties" key="LongMessageDialog.buttonCopy.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="name" type="java.lang.String" value="buttonCopy" noResource="true"/>
           </Properties>
@@ -153,10 +153,10 @@
         <Component class="javax.swing.JButton" name="buttonClose">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/lib/resource/properties/Bundle.properties" key="LongMessageDialog.buttonClose.text" replaceFormat="JslBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/lib/dialog/Bundle.properties" key="LongMessageDialog.buttonClose.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/lib/resource/properties/Bundle.properties" key="LongMessageDialog.buttonClose.toolTipText" replaceFormat="JslBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/lib/dialog/Bundle.properties" key="LongMessageDialog.buttonClose.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="name" type="java.lang.String" value="buttonClose" noResource="true"/>
           </Properties>

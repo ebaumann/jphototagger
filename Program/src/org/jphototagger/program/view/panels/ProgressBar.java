@@ -1,14 +1,16 @@
 package org.jphototagger.program.view.panels;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JProgressBar;
+
 import org.jphototagger.lib.concurrent.Cancelable;
+import org.jphototagger.lib.resource.Bundle;
 import org.jphototagger.lib.resource.MutualExcludedResource;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JProgressBar;
 
 /**
  * Synchronized access to {@link AppPanel#getProgressBar()}.
@@ -79,7 +81,7 @@ public final class ProgressBar extends MutualExcludedResource<JProgressBar> impl
         buttonCancel.setEnabled(enabled);
 
         if (enabled) {
-            buttonCancel.setToolTipText(JptBundle.INSTANCE.getString("ProgressBar.TooltipText.Cancel"));
+            buttonCancel.setToolTipText(Bundle.getString(ProgressBar.class, "ProgressBar.TooltipText.Cancel"));
             buttonCancel.setIcon(AppLookAndFeel.ICON_CANCEL);
         } else {
             buttonCancel.setToolTipText("");

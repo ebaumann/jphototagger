@@ -26,20 +26,19 @@ import org.jphototagger.lib.event.listener.ProgressListener;
 import org.jphototagger.lib.io.CancelRequest;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter.Option;
+import org.jphototagger.lib.resource.Bundle;
 import org.jphototagger.lib.util.CollectionUtil;
 import org.jphototagger.lib.util.Settings;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
 import org.jphototagger.program.io.ImageFileDirectory;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
 
 /**
  *
  * @author Elmar Baumann
  */
-public final class UpdateMetadataOfDirectoriesPanel extends JPanel
-        implements UpdateMetadataCheckListener, ProgressListener {
+public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements UpdateMetadataCheckListener, ProgressListener {
     private static final String KEY_LAST_DIRECTORY = "org.jphototagger.program.view.ScanDirectoriesDialog.lastSelectedDirectory";
     private static final String KEY_FORCE = "org.jphototagger.program.view.ScanDirectoriesDialog.force";
     private static final String KEY_SUBDIRECTORIES = "org.jphototagger.program.view.ScanDirectoriesDialog.subdirectories";
@@ -285,7 +284,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel
 
             lastDirectory = selectedDirs.get(0);
             progressBar.setIndeterminate(true);
-            progressBar.setString(JptBundle.INSTANCE.getString("UpdateMetadataOfDirectoriesPanel.Info.ScanningDirs"));
+            progressBar.setString(Bundle.getString(UpdateMetadataOfDirectoriesPanel.class, "UpdateMetadataOfDirectoriesPanel.Info.ScanningDirs"));
             cancelChooseDirectories = false;
             cancelChooseRequest.cancel = false;
             buttonCancelChooseDirectories.setEnabled(true);

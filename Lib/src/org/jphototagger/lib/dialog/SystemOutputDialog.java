@@ -2,7 +2,6 @@ package org.jphototagger.lib.dialog;
 
 import org.jphototagger.lib.component.SystemOutputPanel;
 import org.jphototagger.lib.componentutil.ComponentUtil;
-import org.jphototagger.lib.resource.JslBundle;
 
 /**
  * Contains a {@link org.jphototagger.lib.component.SystemOutputPanel}.
@@ -40,13 +39,13 @@ public class SystemOutputDialog extends Dialog {
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
 
         panelSystemOutput = new org.jphototagger.lib.component.SystemOutputPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle(JslBundle.INSTANCE.getString("SystemOutputDialog.title")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/lib/dialog/Bundle"); // NOI18N
+        setTitle(bundle.getString("SystemOutputDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -62,19 +61,19 @@ public class SystemOutputDialog extends Dialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelSystemOutput, javax.swing.GroupLayout.PREFERRED_SIZE, 339, Short.MAX_VALUE)
+                .addComponent(panelSystemOutput, javax.swing.GroupLayout.DEFAULT_SIZE, 786, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelSystemOutput, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
+                .addComponent(panelSystemOutput, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         setVisible(false);
