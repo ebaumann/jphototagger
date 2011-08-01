@@ -3,7 +3,7 @@ package org.jphototagger.program.serviceprovider.repository;
 import java.util.List;
 import org.jphototagger.domain.filetypes.UserDefinedFileType;
 import org.jphototagger.program.database.DatabaseUserDefinedFileTypes;
-import org.jphototagger.services.repository.UserDefinedFileTypesRepository;
+import org.jphototagger.api.repository.UserDefinedFileTypesRepository;
 
 /**
  *

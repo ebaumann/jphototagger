@@ -3,7 +3,7 @@ package org.jphototagger.plugin.cftc;
 import java.awt.Component;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.plugin.AbstractFileProcessorPlugin;
-import org.jphototagger.services.plugin.FileProcessorPluginEvent;
+import org.jphototagger.api.plugin.FileProcessorPluginEvent;
 import java.awt.datatransfer.StringSelection;
 import java.awt.Toolkit;
 import java.io.File;
@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import javax.swing.Icon;
 import org.jphototagger.lib.util.ServiceLookup;
-import org.jphototagger.services.core.Storage;
+import org.jphototagger.api.core.Storage;
 
 /**
  * Copies into the system clipboard names of files.

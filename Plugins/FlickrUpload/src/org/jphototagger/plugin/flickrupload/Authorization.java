@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.ServiceLookup;
-import org.jphototagger.services.core.Storage;
+import org.jphototagger.api.core.Storage;
 
 /**
  *

@@ -3,7 +3,7 @@ package org.jphototagger.program.serviceprovider.core;
 import java.io.File;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.services.core.CacheDirectoryProvider;
+import org.jphototagger.api.core.CacheDirectoryProvider;
 
 /**
  *

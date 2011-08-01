@@ -10,7 +10,7 @@ import org.jphototagger.dtncreators.Util;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.util.ServiceLookup;
-import org.jphototagger.services.core.Branding;
+import org.jphototagger.api.core.Branding;
 
 /**
  *

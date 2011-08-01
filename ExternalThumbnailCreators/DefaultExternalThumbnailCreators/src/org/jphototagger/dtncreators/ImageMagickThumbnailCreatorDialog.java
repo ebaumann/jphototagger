@@ -3,7 +3,7 @@ package org.jphototagger.dtncreators;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.util.ServiceLookup;
-import org.jphototagger.services.core.Branding;
+import org.jphototagger.api.core.Branding;
 
 /**
  *
@@ -14,7 +14,7 @@ public class ImageMagickThumbnailCreatorDialog extends Dialog {
     private static final long serialVersionUID = 1L;
     private boolean browse;
     private boolean chooseConvert;
-    
+
     public ImageMagickThumbnailCreatorDialog() {
         super((java.awt.Frame) null, true);
         initComponents();

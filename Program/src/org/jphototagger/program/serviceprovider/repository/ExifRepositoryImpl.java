@@ -3,7 +3,7 @@ package org.jphototagger.program.serviceprovider.repository;
 import java.io.File;
 import org.jphototagger.domain.exif.Exif;
 import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.services.repository.ExifRepository;
+import org.jphototagger.api.repository.ExifRepository;
 
 /**
  *
