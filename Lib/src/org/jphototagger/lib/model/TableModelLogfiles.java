@@ -1,12 +1,13 @@
 package org.jphototagger.lib.model;
 
-import org.jphototagger.lib.resource.JslBundle;
-import org.jphototagger.lib.util.CollectionUtil;
-import org.jphototagger.lib.util.logging.LogfileRecord;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
+
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.util.CollectionUtil;
+import org.jphototagger.lib.util.logging.LogfileRecord;
 
 /**
  * Datensätze mit ausgewählten Spalten einer Logdatei.
@@ -57,7 +58,7 @@ public final class TableModelLogfiles extends TableModelExt {
             String message = record.getMessage();
 
             row.add((message == null)
-                    ? JslBundle.INSTANCE.getString("TableModelLogfiles.Error.MessageIsNull")
+                    ? Bundle.getString(TableModelLogfiles.class, "TableModelLogfiles.Error.MessageIsNull")
                     : message);
             records.add(record);
             addRow(row.toArray(new Object[row.size()]));
@@ -80,9 +81,9 @@ public final class TableModelLogfiles extends TableModelExt {
     }
 
     private void addColumns() {
-        addColumn(JslBundle.INSTANCE.getString("TableModelLogfiles.HeaderColumn.1"));
-        addColumn(JslBundle.INSTANCE.getString("TableModelLogfiles.HeaderColumn.2"));
-        addColumn(JslBundle.INSTANCE.getString("TableModelLogfiles.HeaderColumn.3"));
+        addColumn(Bundle.getString(TableModelLogfiles.class, "TableModelLogfiles.HeaderColumn.1"));
+        addColumn(Bundle.getString(TableModelLogfiles.class, "TableModelLogfiles.HeaderColumn.2"));
+        addColumn(Bundle.getString(TableModelLogfiles.class, "TableModelLogfiles.HeaderColumn.3"));
     }
 
     /**

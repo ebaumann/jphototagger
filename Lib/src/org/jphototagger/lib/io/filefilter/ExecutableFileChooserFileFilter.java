@@ -1,9 +1,9 @@
 package org.jphototagger.lib.io.filefilter;
 
-import org.jphototagger.lib.resource.JslBundle;
 import java.io.File;
 import java.io.Serializable;
 import javax.swing.filechooser.FileFilter;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * BUG: Does not work.
@@ -20,6 +20,6 @@ public final class ExecutableFileChooserFileFilter extends FileFilter implements
 
     @Override
     public String getDescription() {
-        return JslBundle.INSTANCE.getString("ExecutableFileChooserFileFilter.Description");
+        return Bundle.getString(ExecutableFileChooserFileFilter.class, "ExecutableFileChooserFileFilter.Description");
     }
 }

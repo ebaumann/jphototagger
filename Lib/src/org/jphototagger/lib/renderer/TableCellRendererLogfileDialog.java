@@ -1,19 +1,21 @@
 package org.jphototagger.lib.renderer;
 
-import org.jphototagger.lib.image.util.IconUtil;
-import org.jphototagger.lib.resource.JslBundle;
 import java.awt.Color;
 import java.awt.Component;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.logging.Level;
 import java.util.Map;
+import java.util.logging.Level;
+
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
+
+import org.jphototagger.lib.image.util.IconUtil;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * Renders the {@link java.util.logging.Level} icons displayed in the GUI of
@@ -24,8 +26,7 @@ import javax.swing.table.TableCellRenderer;
  */
 public final class TableCellRendererLogfileDialog implements TableCellRenderer {
     private static final Color SEL_BACKGROUND_COLOR = new Color(251, 225, 146);
-    private static final SimpleDateFormat DATE_FORMAT =
-        new SimpleDateFormat(JslBundle.INSTANCE.getString("TableCellRendererLogfileDialog.DateFormat"));
+    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat(Bundle.getString(TableCellRendererLogfileDialog.class, "TableCellRendererLogfileDialog.DateFormat"));
     private static final Map<Level, ImageIcon> ICON_OF_LEVEL = new HashMap<Level, ImageIcon>();
 
     static {

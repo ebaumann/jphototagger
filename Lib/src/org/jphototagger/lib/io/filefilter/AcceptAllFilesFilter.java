@@ -1,9 +1,9 @@
 package org.jphototagger.lib.io.filefilter;
 
-import org.jphototagger.lib.resource.JslBundle;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.Serializable;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * Accepts all Files, rejects directories.
@@ -29,6 +29,6 @@ public final class AcceptAllFilesFilter implements FileFilter, Serializable {
      * @return file filter
      */
     public javax.swing.filechooser.FileFilter forFileChooser() {
-        return new FileChooserFilter(this, JslBundle.INSTANCE.getString("AcceptAllFilesFilter.Description"));
+        return new FileChooserFilter(this, Bundle.getString(AcceptAllFilesFilter.class, "AcceptAllFilesFilter.Description"));
     }
 }

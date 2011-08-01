@@ -1,7 +1,7 @@
 package org.jphototagger.domain.database.exif;
 
 import org.jphototagger.domain.database.Column;
-import org.jphototagger.lib.resource.Bundle;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * Tabellenspalte <code>exif_lenses</code> der Tabelle <code>exif</code>.

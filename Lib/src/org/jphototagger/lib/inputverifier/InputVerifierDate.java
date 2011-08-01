@@ -1,7 +1,5 @@
 package org.jphototagger.lib.inputverifier;
 
-import org.jphototagger.lib.componentutil.ComponentUtil;
-import org.jphototagger.lib.resource.JslBundle;
 import java.awt.HeadlessException;
 import java.io.Serializable;
 import java.text.DateFormat;
@@ -9,10 +7,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.text.JTextComponent;
+
+import org.jphototagger.lib.componentutil.ComponentUtil;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * Verifies whether the input is a date and, if not, displays an error
@@ -21,6 +23,7 @@ import javax.swing.text.JTextComponent;
  * @author Elmar Baumann
  */
 public final class InputVerifierDate extends InputVerifier implements Serializable {
+
     private static final long serialVersionUID = 1163686474402473633L;
     private final String pattern;
 
@@ -62,16 +65,16 @@ public final class InputVerifierDate extends InputVerifier implements Serializab
 
     private void errorMessage() throws HeadlessException {
         JOptionPane.showMessageDialog(ComponentUtil.getFrameWithIcon(),
-                                      JslBundle.INSTANCE.getString("InputVerifierDate.Error.NaN"),
-                                      JslBundle.INSTANCE.getString("InputVerifierDate.Error.NaN.Title"),
-                                      JOptionPane.ERROR_MESSAGE);
+                Bundle.getString(InputVerifierDate.class, "InputVerifierDate.Error.NaN"),
+                Bundle.getString(InputVerifierDate.class, "InputVerifierDate.Error.NaN.Title"),
+                JOptionPane.ERROR_MESSAGE);
     }
 
     private boolean isValid(JTextComponent textComponent) {
         String text = textComponent.getText().trim();
         DateFormat df = (pattern == null)
-                        ? DateFormat.getInstance()
-                        : new SimpleDateFormat(pattern);
+                ? DateFormat.getInstance()
+                : new SimpleDateFormat(pattern);
 
         try {
             df.parse(text);

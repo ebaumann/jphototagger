@@ -22,7 +22,7 @@ import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.io.TreeFileSystemDirectories;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
 import org.jphototagger.lib.model.TreeModelAllSystemDirectories;
-import org.jphototagger.lib.resource.Bundle;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * Folder to choose one or multiple directories. Can create new directories,

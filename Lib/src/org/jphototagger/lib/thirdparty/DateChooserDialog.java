@@ -1,10 +1,14 @@
 package org.jphototagger.lib.thirdparty;
 
-import org.jphototagger.lib.image.util.IconUtil;
-import org.jphototagger.lib.resource.JslBundle;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -12,18 +16,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.Insets;
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -32,12 +31,15 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import org.jphototagger.lib.image.util.IconUtil;
+import org.jphototagger.lib.util.Bundle;
+
 /**
  * Code geringfügig modifiziert Elmar Baumann:
  * - Konstruktoren private
  * - Buttons für Monatswechsel mit Icons
  * - Icons für die Titelleiste können wahlweise gesetzt werden
- * - Strings aus JslBundle
+ * - Strings aus Bundle
  * - main() entfernt
  *
  *
@@ -71,13 +73,13 @@ import javax.swing.JPanel;
  *          Displays a JDateChooser in a modal JDialog with the specified date
  *           and returns the selected date or null if dismissed.
  */
-
 /**
  * Date Chooser Dialog.
  *
  * @author Knute Johnson, Elmar Baumann
  */
 public final class DateChooserDialog extends JComponent {
+
     private static final long serialVersionUID = 6639100896711582088L;
     private final String[] dayStr;
     private final String[] monthStr;
@@ -119,6 +121,7 @@ public final class DateChooserDialog extends JComponent {
         previousButton.setBorder(BorderFactory.createEmptyBorder());
         previousButton.setPreferredSize(new Dimension(16, 16));
         previousButton.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent ae) {
                 gc.add(Calendar.MONTH, -1);
@@ -142,6 +145,7 @@ public final class DateChooserDialog extends JComponent {
         nextButton.setBorder(BorderFactory.createEmptyBorder());
         nextButton.setPreferredSize(new Dimension(16, 16));
         nextButton.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent ae) {
                 gc.add(Calendar.MONTH, 1);
@@ -156,6 +160,7 @@ public final class DateChooserDialog extends JComponent {
         add(nextButton, c);
 
         MouseListener ml = new MouseAdapter() {
+
             @Override
             public void mouseClicked(MouseEvent me) {
                 JLabel dayLabel = (JLabel) me.getSource();
@@ -189,8 +194,8 @@ public final class DateChooserDialog extends JComponent {
 
             if (i == 6) {
                 x = (firstDay == Calendar.MONDAY)
-                    ? Calendar.SUNDAY
-                    : Calendar.SATURDAY;
+                        ? Calendar.SUNDAY
+                        : Calendar.SATURDAY;
             }
 
             dayOfWeekLabels[i] = new JLabel(dayStr[x].toUpperCase(), JLabel.CENTER);
@@ -295,7 +300,7 @@ public final class DateChooserDialog extends JComponent {
 
         JFrame f = new JFrame();
 
-        dialog = new JDialog(f, JslBundle.INSTANCE.getString("DateChooserDialog.title"), true);
+        dialog = new JDialog(f, Bundle.getString(DateChooserDialog.class, "DateChooserDialog.title"), true);
 
         if (icons != null) {
             dialog.setIconImages(icons);
@@ -303,6 +308,7 @@ public final class DateChooserDialog extends JComponent {
 
         dialog.setLayout(new GridBagLayout());
         dialog.addWindowListener(new WindowAdapter() {
+
             @Override
             public void windowClosing(WindowEvent we) {
                 retcod = null;
@@ -316,9 +322,10 @@ public final class DateChooserDialog extends JComponent {
         c.gridwidth = 1;
         c.anchor = GridBagConstraints.WEST;
 
-        JButton okButton = new JButton(JslBundle.INSTANCE.getString("DateChooserDialog.okButton"));
+        JButton okButton = new JButton(Bundle.getString(DateChooserDialog.class, "DateChooserDialog.okButton"));
 
         okButton.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent ae) {
                 retcod = dc.getCalendar();
@@ -329,9 +336,10 @@ public final class DateChooserDialog extends JComponent {
         ++c.gridx;
         c.anchor = GridBagConstraints.EAST;
 
-        JButton cancelButton = new JButton(JslBundle.INSTANCE.getString("DateChooserDialog.cancelButton"));
+        JButton cancelButton = new JButton(Bundle.getString(DateChooserDialog.class, "DateChooserDialog.cancelButton"));
 
         cancelButton.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent ae) {
                 retcod = null;

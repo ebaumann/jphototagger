@@ -26,6 +26,7 @@ import java.util.logging.Logger;
  * @author    Elmar Baumann
  */
 public class MutualExcludedResource<T> {
+
     private T resource = null;
     private boolean locked = false;
     private Object owner = null;
@@ -61,15 +62,21 @@ public class MutualExcludedResource<T> {
         if (isAvailable()) {
             setLocked(true);
             setOwner(owner);
-            logger.log(Level.FINEST,
-                       JslBundle.INSTANCE.getString("MutualExcludedResource.Info.Get",
-                           resource.getClass().getSimpleName(), owner.getClass().getSimpleName(), owner.hashCode(),
-                           owner.toString()));
+            logGained(owner);
 
             return resource;
         }
 
         return null;
+    }
+
+    private void logGained(Object owner) {
+        String resourceName = resource.getClass().getSimpleName();
+        String ownerName = owner.getClass().getSimpleName();
+        int ownerId = owner.hashCode();
+        String ownerString = owner.toString();
+
+        logger.log(Level.FINEST, "Resource {0} give to {1} [{2}, {3}]", new Object[]{resourceName, ownerName, ownerId, ownerString});
     }
 
     /**
@@ -88,15 +95,21 @@ public class MutualExcludedResource<T> {
         if (isLocked() && (owner != null) && (owner == getOwner())) {
             this.owner = null;
             setLocked(false);
-            logger.log(Level.FINEST,
-                       JslBundle.INSTANCE.getString("MutualExcludedResource.Info.Release",
-                           resource.getClass().getSimpleName(), owner.getClass().getSimpleName(), owner.hashCode(),
-                           owner.toString()));
+            logReleased(owner);
 
             return true;
         }
 
         return false;
+    }
+
+    private void logReleased(Object owner) {
+        String resourceName = resource.getClass().getSimpleName();
+        String ownerName = owner.getClass().getSimpleName();
+        int ownerId = owner.hashCode();
+        String ownerString = owner.toString();
+
+        logger.log(Level.FINEST, "Resource {0} released from {1} [{2}, {3}]]", new Object[]{resourceName, ownerName, ownerId, ownerString});
     }
 
     /**
@@ -151,5 +164,6 @@ public class MutualExcludedResource<T> {
         return owner;
     }
 
-    protected MutualExcludedResource() {}
+    protected MutualExcludedResource() {
+    }
 }

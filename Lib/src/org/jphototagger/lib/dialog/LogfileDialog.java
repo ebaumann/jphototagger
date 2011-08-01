@@ -28,7 +28,7 @@ import javax.swing.text.html.HTMLDocument;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.model.TableModelLogfiles;
 import org.jphototagger.lib.renderer.TableCellRendererLogfileDialog;
-import org.jphototagger.lib.resource.Bundle;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.logging.ExceptionLogfileRecord;
 import org.jphototagger.lib.util.logging.FrameLogfileRecord;
 import org.jphototagger.lib.util.logging.LogfileParser;

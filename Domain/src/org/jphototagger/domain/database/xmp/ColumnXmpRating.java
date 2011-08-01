@@ -5,7 +5,7 @@ import javax.swing.InputVerifier;
 import org.jphototagger.domain.database.Column;
 import org.jphototagger.domain.database.Column.DataType;
 import org.jphototagger.lib.inputverifier.InputVerifierNumberRange;
-import org.jphototagger.lib.resource.Bundle;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * Spalte <code>rating</code> der Tabelle <code>xmp</code>.

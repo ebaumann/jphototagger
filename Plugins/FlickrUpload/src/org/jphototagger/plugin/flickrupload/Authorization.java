@@ -12,6 +12,7 @@ import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.ServiceLookup;
 import org.jphototagger.services.core.Storage;
 
@@ -83,7 +84,7 @@ final class Authorization {
             return true;
         } catch (Exception ex) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, FlickrBundle.INSTANCE.getString("Auth.Error"));
+            JOptionPane.showMessageDialog(null, Bundle.getString(Authorization.class, "Auth.Error"));
         }
 
         return false;
@@ -92,11 +93,9 @@ final class Authorization {
     private void authenticateViaWebBrowser() throws Exception {
         URL url = authInterface.buildAuthenticationUrl(Permission.DELETE, frob);
 
-        JOptionPane.showMessageDialog(ComponentUtil.getFrameWithIcon(),
-                FlickrBundle.INSTANCE.getString("Auth.Info.GetToken.Browse"));
+        JOptionPane.showMessageDialog(ComponentUtil.getFrameWithIcon(), Bundle.getString(Authorization.class, "Auth.Info.GetToken.Browse"));
         Desktop.getDesktop().browse(url.toURI());
-        JOptionPane.showMessageDialog(ComponentUtil.getFrameWithIcon(),
-                FlickrBundle.INSTANCE.getString("Auth.Info.GetToken.Confirm"));
+        JOptionPane.showMessageDialog(ComponentUtil.getFrameWithIcon(), Bundle.getString(Authorization.class, "Auth.Info.GetToken.Confirm"));
         auth = authInterface.getToken(frob);
         token = auth.getToken();
         setToken(token);

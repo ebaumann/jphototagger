@@ -1,7 +1,7 @@
 package org.jphototagger.plugin.cftc;
 
 import java.awt.Component;
-import org.jphototagger.lib.resource.Bundle;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.plugin.AbstractFileProcessorPlugin;
 import org.jphototagger.services.plugin.FileProcessorPluginEvent;
 import java.awt.datatransfer.StringSelection;
@@ -24,16 +24,15 @@ public final class CopyFilenamesToClipboard extends AbstractFileProcessorPlugin 
     public static final String KEY_FILENAME_DELIMITER = CopyFilenamesToClipboard.class.getName() + ".KeyDelimiter";
     public static final String DEFAULT_FILENAME_DELIMITER = "\n";
     private String fileNameDelimiter = DEFAULT_FILENAME_DELIMITER;
-    private static final transient Bundle BUNDLE = new Bundle("org/jphototagger/plugin/cftc/Bundle");
 
     @Override
     public String getDisplayName() {
-        return BUNDLE.getString("CopyFilenamesToClipboard.Name");
+        return Bundle.getString(CopyFilenamesToClipboard.class, "CopyFilenamesToClipboard.Name");
     }
 
     @Override
     public String getDescription() {
-        return BUNDLE.getString("CopyFilenamesToClipboard.Description");
+        return Bundle.getString(CopyFilenamesToClipboard.class, "CopyFilenamesToClipboard.Description");
     }
 
     @Override

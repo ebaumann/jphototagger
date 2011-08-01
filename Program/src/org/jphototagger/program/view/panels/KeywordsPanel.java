@@ -12,7 +12,7 @@ import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.JXTree;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.componentutil.TreeUtil;
-import org.jphototagger.lib.resource.Bundle;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.controller.actions.SearchInJxListAction;
 import org.jphototagger.program.controller.actions.SearchInJxTreeAction;

@@ -1,16 +1,19 @@
 package org.jphototagger.lib.io;
 
-import org.jphototagger.lib.componentutil.ComponentUtil;
-import org.jphototagger.lib.resource.JslBundle;
+import java.awt.Frame;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
+
+import org.jphototagger.lib.componentutil.ComponentUtil;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * Creates, renames and deletes directories from the file system and updates
@@ -235,9 +238,11 @@ public final class TreeFileSystemDirectories {
             throw new NullPointerException("file == null");
         }
 
-        return JOptionPane.showInputDialog(ComponentUtil.getFrameWithIcon(),
-                                           JslBundle.INSTANCE.getString("TreeFileSystemDirectories.Input.NewName",
-                                               file), file.getName());
+        Frame parentFrame = ComponentUtil.getFrameWithIcon();
+        String message = Bundle.getString(TreeFileSystemDirectories.class, "TreeFileSystemDirectories.Input.NewName", file);
+        String initSelectionValue = file.getName();
+
+        return JOptionPane.showInputDialog(parentFrame, message, initSelectionValue);
     }
 
     /**
@@ -253,12 +258,11 @@ public final class TreeFileSystemDirectories {
         }
 
         if (file.exists()) {
-            JOptionPane
-                .showMessageDialog(ComponentUtil.getFrameWithIcon(), JslBundle.INSTANCE
-                    .getString("TreeFileSystemDirectories.Error.DirectoryAlreadyExists", file
-                        .getAbsolutePath()), JslBundle.INSTANCE
-                            .getString("TreeFileSystemDirectories.Error.DirectoryAlreadyExists.Title"), JOptionPane
-                            .ERROR_MESSAGE);
+            Frame parentFrame = ComponentUtil.getFrameWithIcon();
+            String message = Bundle.getString(TreeFileSystemDirectories.class, "TreeFileSystemDirectories.Error.DirectoryAlreadyExists", file.getAbsolutePath());
+            String title = Bundle.getString(TreeFileSystemDirectories.class, "TreeFileSystemDirectories.Error.DirectoryAlreadyExists.Title");
+
+            JOptionPane.showMessageDialog(parentFrame, message, title, JOptionPane.ERROR_MESSAGE);
 
             return false;
         }
@@ -277,10 +281,12 @@ public final class TreeFileSystemDirectories {
             throw new NullPointerException("directoryName == null");
         }
 
-        return JOptionPane.showConfirmDialog(ComponentUtil.getFrameWithIcon(),
-                JslBundle.INSTANCE.getString("TreeFileSystemDirectories.Confirm.Delete", directoryName),
-                JslBundle.INSTANCE.getString("TreeFileSystemDirectories.Confirm.Delete.Title"),
-                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
+        Frame parentFrame = ComponentUtil.getFrameWithIcon();
+        String message = Bundle.getString(TreeFileSystemDirectories.class, "TreeFileSystemDirectories.Confirm.Delete", directoryName);
+        String title = Bundle.getString(TreeFileSystemDirectories.class, "TreeFileSystemDirectories.Confirm.Delete.Title");
+        int optionType = JOptionPane.YES_NO_OPTION;
+
+        return JOptionPane.showConfirmDialog(parentFrame, message, title, optionType) == JOptionPane.YES_OPTION;
     }
 
     /**
@@ -294,16 +300,19 @@ public final class TreeFileSystemDirectories {
             throw new NullPointerException("directoryName == null");
         }
 
-        JOptionPane.showMessageDialog(
-            ComponentUtil.getFrameWithIcon(),
-            JslBundle.INSTANCE.getString("TreeFileSystemDirectories.Error.Delete", directoryName),
-            JslBundle.INSTANCE.getString("TreeFileSystemDirectories.Error.Delete.Title"), JOptionPane.ERROR_MESSAGE);
+        Frame parentFrame = ComponentUtil.getFrameWithIcon();
+        String message = Bundle.getString(TreeFileSystemDirectories.class, "TreeFileSystemDirectories.Error.Delete", directoryName);
+        String titel = Bundle.getString(TreeFileSystemDirectories.class, "TreeFileSystemDirectories.Error.Delete.Title");
+        int messageType = JOptionPane.ERROR_MESSAGE;
+
+        JOptionPane.showMessageDialog(parentFrame, message, titel, messageType);
     }
 
     private static String getSubDirectoryName() {
-        return JOptionPane.showInputDialog(
-            ComponentUtil.getFrameWithIcon(),
-            JslBundle.INSTANCE.getString("TreeFileSystemDirectories.Input.SubDirectoryName"));
+        Frame parentFrame = ComponentUtil.getFrameWithIcon();
+        String message = Bundle.getString(TreeFileSystemDirectories.class, "TreeFileSystemDirectories.Input.SubDirectoryName");
+
+        return JOptionPane.showInputDialog(parentFrame, message);
     }
 
     private TreeFileSystemDirectories() {}

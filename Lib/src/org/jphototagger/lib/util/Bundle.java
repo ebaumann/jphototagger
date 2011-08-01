@@ -1,4 +1,4 @@
-package org.jphototagger.lib.resource;
+package org.jphototagger.lib.util;
 
 import java.text.MessageFormat;
 import java.util.MissingResourceException;
@@ -7,19 +7,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Manages <em>one</em> {@link ResourceBundle}.
- * <p>
- * Can be instanciated directly or subclussed, e.g.:
- * <pre>
- * public final class JslBundle extends Bundle {
- *
- *     public static final JslBundle INSTANCE = new JslBundle();
- *
- *     private JslBundle() {
- *         super("org/jphototagger/lib/resource/properties/Bundle");
- *     }
- * }
- * </pre>
  *
  * @author Elmar Baumann
  */
@@ -34,6 +21,7 @@ public class Bundle {
      *
      * @param path path, e.g. <code>"org/jphototagger/lib/resource/properties/Bundle"</code>
      *             <code>Bundle.properties</code> if in that package at least one file does exist
+     * @deprecated
      */
     public Bundle(String path) {
         if (path == null) {
@@ -108,6 +96,7 @@ public class Bundle {
      * @param key
      * @param params optional params as described in the {@link MessageFormat} class documentation
      * @return       string or the key whithin two question marks if that key does not address a string whithin the resource bundle
+     * @deprecated 
      */
     public String getString(String key, Object... params) {
         if (key == null) {
@@ -117,6 +106,11 @@ public class Bundle {
         return getFormattedString(bundle, key, params);
     }
 
+    /**
+     * @param key
+     * @return
+     * @deprecated
+     */
     public boolean containsKey(String key) {
         if (key == null) {
             return false;

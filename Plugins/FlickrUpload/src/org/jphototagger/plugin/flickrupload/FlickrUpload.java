@@ -25,6 +25,7 @@ import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.JOptionPane;
 import org.jphototagger.lib.io.IoUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.ServiceLookup;
 import org.jphototagger.services.core.ThumbnailProvider;
 
@@ -37,16 +38,16 @@ public final class FlickrUpload extends AbstractFileProcessorPlugin implements S
 
     private static final long serialVersionUID = -2935460271965834936L;
     private static final Icon icon = IconUtil.getImageIcon("/org/jphototagger/plugin/flickrupload/flickr.png");
-    private static final String PROGRESS_BAR_STRING = FlickrBundle.INSTANCE.getString("FlickrUpload.ProgressBar.String");
+    private static final String PROGRESS_BAR_STRING = Bundle.getString(FlickrUpload.class, "FlickrUpload.ProgressBar.String");
 
     @Override
     public String getDisplayName() {
-        return FlickrBundle.INSTANCE.getString("FlickrUpload.Name");
+        return Bundle.getString(FlickrUpload.class, "FlickrUpload.Name");
     }
 
     @Override
     public String getDescription() {
-        return FlickrBundle.INSTANCE.getString("FlickrUpload.Description");
+        return Bundle.getString(FlickrUpload.class, "FlickrUpload.Description");
     }
 
     @Override
@@ -138,15 +139,13 @@ public final class FlickrUpload extends AbstractFileProcessorPlugin implements S
 
         private void uploadFinished(int index, List<File> processedFiles, boolean success) throws HeadlessException {
             progressEnded();
-            JOptionPane.showMessageDialog(ComponentUtil.getFrameWithIcon(),
-                    FlickrBundle.INSTANCE.getString("FlickrUpload.Info.UploadCount", index));
+            JOptionPane.showMessageDialog(ComponentUtil.getFrameWithIcon(), Bundle.getString(FlickrUpload.class, "FlickrUpload.Info.UploadCount", index));
             notifyFinished(processedFiles, success);
         }
 
         private void logDisplayUploadException(Exception ex, File imageFile) throws HeadlessException {
             Logger.getLogger(FlickrUpload.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(ComponentUtil.getFrameWithIcon(),
-                    FlickrBundle.INSTANCE.getString("FlickrUpload.Error.Upload", imageFile));
+            JOptionPane.showMessageDialog(ComponentUtil.getFrameWithIcon(), Bundle.getString(FlickrUpload.class, "FlickrUpload.Error.Upload", imageFile));
         }
 
         private void notifyFinished(List<File> processedFiles, boolean success) {

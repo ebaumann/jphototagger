@@ -1,6 +1,5 @@
 package org.jphototagger.lib.inputverifier;
 
-import org.jphototagger.lib.resource.JslBundle;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -8,6 +7,7 @@ import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.text.JTextComponent;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * Verifies Input in a <code>JTextComponent</code> against a maximum and maximum
@@ -97,8 +97,8 @@ public final class InputVerifierNumberRange extends InputVerifier implements Ser
         }
 
         JOptionPane.showMessageDialog(input,
-                                      JslBundle.INSTANCE.getString("InputVerifierNumberRange.ErrorMessage", min, max),
-                                      JslBundle.INSTANCE.getString("InputVerifierNumberRange.Error.Title"),
+                                      Bundle.getString(InputVerifierNumberRange.class, "InputVerifierNumberRange.ErrorMessage", min, max),
+                                      Bundle.getString(InputVerifierNumberRange.class, "InputVerifierNumberRange.Error.Title"),
                                       JOptionPane.ERROR_MESSAGE);
     }
 }

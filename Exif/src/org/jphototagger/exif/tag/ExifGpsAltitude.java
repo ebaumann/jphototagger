@@ -9,7 +9,7 @@ import java.util.Map;
 
 import org.jphototagger.exif.datatype.ExifDatatypeUtil;
 import org.jphototagger.exif.datatype.ExifRational;
-import org.jphototagger.lib.resource.Bundle;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.ByteUtil;
 
 /**

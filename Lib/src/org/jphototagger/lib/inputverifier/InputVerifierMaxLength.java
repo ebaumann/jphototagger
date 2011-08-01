@@ -1,11 +1,13 @@
 package org.jphototagger.lib.inputverifier;
 
-import org.jphototagger.lib.resource.JslBundle;
 import java.io.Serializable;
+
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.text.JTextComponent;
+
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * Verifies Input in a <code>JTextComponent</code> against a maximum allowed
@@ -70,8 +72,8 @@ public final class InputVerifierMaxLength extends InputVerifier implements Seria
         }
 
         JOptionPane.showMessageDialog(input,
-                                      JslBundle.INSTANCE.getString("InputVerifierMaxLength.ErrorMessage", maxLength),
-                                      JslBundle.INSTANCE.getString("InputVerifierMaxLength.Error.Title"),
+                                      Bundle.getString(InputVerifierMaxLength.class, "InputVerifierMaxLength.ErrorMessage", maxLength),
+                                      Bundle.getString(InputVerifierMaxLength.class, "InputVerifierMaxLength.Error.Title"),
                                       JOptionPane.ERROR_MESSAGE);
     }
 }
