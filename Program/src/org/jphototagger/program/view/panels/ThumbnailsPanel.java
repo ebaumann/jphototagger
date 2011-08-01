@@ -27,7 +27,6 @@ import org.jphototagger.program.event.RefreshEvent;
 import org.jphototagger.domain.event.ThumbnailUpdateEvent;
 import org.jphototagger.xmp.XmpMetadata;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Content;
 import org.jphototagger.program.types.FileAction;
 import org.jphototagger.program.types.SizeUnit;
@@ -68,6 +67,7 @@ import javax.swing.JViewport;
 import javax.swing.TransferHandler;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.domain.event.listener.UserSettingsListener;
+import org.jphototagger.lib.resource.Bundle;
 
 /**
  *
@@ -857,7 +857,7 @@ public class ThumbnailsPanel extends JPanel
             Date date = new Date(file.lastModified());
             String unitString = unit.toString();
 
-            return JptBundle.INSTANCE.getString("ThumbnailsPanel.TooltipText", file, unitLength, unitString, date,
+            return Bundle.getString(ThumbnailsPanel.class, "ThumbnailsPanel.TooltipText", file, unitLength, unitString, date,
                     date, getSidecarFileNameOfFile(file), flagText);
         } else {
             return "";

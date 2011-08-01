@@ -13,7 +13,6 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import org.jphototagger.lib.clipboard.ClipboardUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.resource.JslBundle;
 import org.jphototagger.lib.system.SystemUtil;
 import org.jphototagger.lib.util.Settings;
 
@@ -133,8 +132,7 @@ public class LongMessageDialog extends Dialog {
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
         labelIcon = new javax.swing.JLabel();
@@ -160,7 +158,8 @@ public class LongMessageDialog extends Dialog {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
         getContentPane().add(labelIcon, gridBagConstraints);
 
-        labelShortMessage.setText(JslBundle.INSTANCE.getString("LongMessageDialog.labelShortMessage.text")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/lib/dialog/Bundle"); // NOI18N
+        labelShortMessage.setText(bundle.getString("LongMessageDialog.labelShortMessage.text")); // NOI18N
         labelShortMessage.setName("labelShortMessage"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -195,8 +194,8 @@ public class LongMessageDialog extends Dialog {
 
         panelSearch.setName("panelSearch"); // NOI18N
 
-        buttonMail.setText(JslBundle.INSTANCE.getString("LongMessageDialog.buttonMail.text")); // NOI18N
-        buttonMail.setToolTipText(JslBundle.INSTANCE.getString("LongMessageDialog.buttonMail.toolTipText")); // NOI18N
+        buttonMail.setText(bundle.getString("LongMessageDialog.buttonMail.text")); // NOI18N
+        buttonMail.setToolTipText(bundle.getString("LongMessageDialog.buttonMail.toolTipText")); // NOI18N
         buttonMail.setEnabled(false);
         buttonMail.setName("buttonMail"); // NOI18N
         buttonMail.addActionListener(new java.awt.event.ActionListener() {
@@ -205,8 +204,8 @@ public class LongMessageDialog extends Dialog {
             }
         });
 
-        buttonCopy.setText(JslBundle.INSTANCE.getString("LongMessageDialog.buttonCopy.text")); // NOI18N
-        buttonCopy.setToolTipText(JslBundle.INSTANCE.getString("LongMessageDialog.buttonCopy.toolTipText")); // NOI18N
+        buttonCopy.setText(bundle.getString("LongMessageDialog.buttonCopy.text")); // NOI18N
+        buttonCopy.setToolTipText(bundle.getString("LongMessageDialog.buttonCopy.toolTipText")); // NOI18N
         buttonCopy.setName("buttonCopy"); // NOI18N
         buttonCopy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -214,8 +213,8 @@ public class LongMessageDialog extends Dialog {
             }
         });
 
-        buttonClose.setText(JslBundle.INSTANCE.getString("LongMessageDialog.buttonClose.text")); // NOI18N
-        buttonClose.setToolTipText(JslBundle.INSTANCE.getString("LongMessageDialog.buttonClose.toolTipText")); // NOI18N
+        buttonClose.setText(bundle.getString("LongMessageDialog.buttonClose.text")); // NOI18N
+        buttonClose.setToolTipText(bundle.getString("LongMessageDialog.buttonClose.toolTipText")); // NOI18N
         buttonClose.setName("buttonClose"); // NOI18N
         buttonClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -262,7 +261,7 @@ public class LongMessageDialog extends Dialog {
         getContentPane().add(panelControls, gridBagConstraints);
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }//GEN-END:initComponents
 
     private void buttonCopyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCopyActionPerformed
         copyToClipboard();

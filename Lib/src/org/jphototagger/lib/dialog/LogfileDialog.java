@@ -1,36 +1,38 @@
 package org.jphototagger.lib.dialog;
 
+import java.awt.Frame;
 import java.awt.HeadlessException;
-import java.io.IOException;
-import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.lib.model.TableModelLogfiles;
-import org.jphototagger.lib.renderer.TableCellRendererLogfileDialog;
-import org.jphototagger.lib.resource.JslBundle;
-import org.jphototagger.lib.util.logging.ExceptionLogfileRecord;
-import org.jphototagger.lib.util.logging.FrameLogfileRecord;
-import org.jphototagger.lib.util.logging.LogfileParser;
-import org.jphototagger.lib.util.logging.LogfileRecord;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.Frame;
-import java.awt.Point;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 import java.util.logging.XMLFormatter;
-import java.util.Map;
-import java.util.Set;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
+
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.text.html.HTMLDocument;
+
+import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.lib.model.TableModelLogfiles;
+import org.jphototagger.lib.renderer.TableCellRendererLogfileDialog;
+import org.jphototagger.lib.resource.Bundle;
+import org.jphototagger.lib.util.logging.ExceptionLogfileRecord;
+import org.jphototagger.lib.util.logging.FrameLogfileRecord;
+import org.jphototagger.lib.util.logging.LogfileParser;
+import org.jphototagger.lib.util.logging.LogfileRecord;
 
 /**
  * Nichtmodaler Dialog zum Anzeigen einer Logdatei geschrieben von einem
@@ -171,18 +173,18 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
     }
 
     private void errorMessageEmpty() throws HeadlessException {
-        JOptionPane.showMessageDialog(this,
-                    JslBundle.INSTANCE.getString("LogfileDialog.Error.LogfileIsEmpty"),
-                    JslBundle.INSTANCE.getString("LogfileDialog.Error.LogfileIsEmpty.Title"),
-                    JOptionPane.ERROR_MESSAGE);
+        String message = Bundle.getString(LogfileDialog.class, "LogfileDialog.Error.LogfileIsEmpty");
+        String title = Bundle.getString(LogfileDialog.class, "LogfileDialog.Error.LogfileIsEmpty.Title");
+
+        JOptionPane.showMessageDialog(this, message, title, JOptionPane.ERROR_MESSAGE);
     }
 
     private void errorMessageMaxBytes(long logfileBytes) {
-        JOptionPane.showMessageDialog(this,
-                JslBundle.INSTANCE.getString("LogfileDialog.Error.MaximumSizeExceeded",
-                Math.round((float) logfileBytes / (float) maxBytes)),
-                JslBundle.INSTANCE.getString("LogfileDialog.Error.MaximumSizeExceeded.Title"),
-                JOptionPane.ERROR_MESSAGE);
+        int maxSizeInMeagbytes = Math.round((float) logfileBytes / (float) maxBytes);
+        String message = Bundle.getString(LogfileDialog.class, "LogfileDialog.Error.MaximumSizeExceeded", maxSizeInMeagbytes);
+        String title = Bundle.getString(LogfileDialog.class, "LogfileDialog.Error.MaximumSizeExceeded.Title");
+
+        JOptionPane.showMessageDialog(this, message, title, JOptionPane.ERROR_MESSAGE);
     }
 
     public long getMaxBytes() {
@@ -240,24 +242,24 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
         details.append("\n<table>");
         addDetailTableRow(
             details,
-            JslBundle.INSTANCE.getString("LogfileDialog.Info.Loglevel"),
+            Bundle.getString(LogfileDialog.class, "LogfileDialog.Info.Loglevel"),
             logfileRecord.getLevel().getLocalizedName());
         addDetailTableRow(
             details,
-            JslBundle.INSTANCE.getString("LogfileDialog.Info.Message"),
+            Bundle.getString(LogfileDialog.class, "LogfileDialog.Info.Message"),
             logfileRecord.getMessage());
         addDetailTableRow(
             details,
-            JslBundle.INSTANCE.getString("LogfileDialog.Info.LoggerClass"),
+            Bundle.getString(LogfileDialog.class, "LogfileDialog.Info.LoggerClass"),
             logfileRecord.getLogger());
         addDetailTableRow(
-            details, JslBundle.INSTANCE.getString("LogfileDialog.Info.Class"),
+            details, Bundle.getString(LogfileDialog.class, "LogfileDialog.Info.Class"),
             logfileRecord.getClassname());
         addDetailTableRow(
-            details, JslBundle.INSTANCE.getString("LogfileDialog.Info.Method"),
+            details, Bundle.getString(LogfileDialog.class, "LogfileDialog.Info.Method"),
             logfileRecord.getMethodname());
         addDetailTableRow(
-            details, JslBundle.INSTANCE.getString("LogfileDialog.Info.Thread"),
+            details, Bundle.getString(LogfileDialog.class, "LogfileDialog.Info.Thread"),
             logfileRecord.getThread());
         details.append("\n</table>");
         addDetailException(details, logfileRecord.getException());
@@ -296,7 +298,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
                         .append(" ")
                         .append(frame.getMethodName());
                 stringBuffer
-                        .append(JslBundle.INSTANCE.getString("LogfileDialog.Info.StartLineNumber"))
+                        .append(Bundle.getString(LogfileDialog.class, "LogfileDialog.Info.StartLineNumber"))
                         .append(frame.getLine())
                         .append(")");
             }
@@ -383,12 +385,10 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
     }
 
     private void errorMessageNotSupportedFormat() {
-        JOptionPane
-            .showMessageDialog(this, JslBundle.INSTANCE
-                .getString("LogfileDialog.Error.UnknownLogfileFormat"), JslBundle
-                .INSTANCE
-                .getString("LogfileDialog.Error.UnknownLogfileFormat.Title"), JOptionPane
-                .ERROR_MESSAGE);
+        String message = Bundle.getString(LogfileDialog.class, "LogfileDialog.Error.UnknownLogfileFormat");
+        String title = Bundle.getString(LogfileDialog.class, "LogfileDialog.Error.UnknownLogfileFormat.Title");
+
+        JOptionPane.showMessageDialog(this, message, title, JOptionPane.ERROR_MESSAGE);
     }
 
     private void readSimple() {
@@ -433,8 +433,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
 
         tabbedPane = new javax.swing.JTabbedPane();
         panelXml = new javax.swing.JPanel();
@@ -469,7 +468,8 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
         buttonReload = new javax.swing.JButton();
         buttonExit = new javax.swing.JButton();
 
-        setTitle(JslBundle.INSTANCE.getString("LogfileDialog.title")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/lib/dialog/Bundle"); // NOI18N
+        setTitle(bundle.getString("LogfileDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -481,7 +481,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
 
         panelXml.setName("panelXml"); // NOI18N
 
-        panelFilter.setBorder(javax.swing.BorderFactory.createTitledBorder(JslBundle.INSTANCE.getString("LogfileDialog.panelFilter.border.title"))); // NOI18N
+        panelFilter.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("LogfileDialog.panelFilter.border.title"))); // NOI18N
         panelFilter.setName("panelFilter"); // NOI18N
 
         panelFilterCheckBoxes.setName("panelFilterCheckBoxes"); // NOI18N
@@ -599,7 +599,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
 
         panelSearchXml.setName("panelSearchXml"); // NOI18N
 
-        labelSearch.setText(JslBundle.INSTANCE.getString("LogfileDialog.labelSearch.text")); // NOI18N
+        labelSearch.setText(bundle.getString("LogfileDialog.labelSearch.text")); // NOI18N
         labelSearch.setName("labelSearch"); // NOI18N
 
         textFieldSearch.setName("textFieldSearch"); // NOI18N
@@ -616,7 +616,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
             .addGroup(panelSearchXmlLayout.createSequentialGroup()
                 .addComponent(labelSearch)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textFieldSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE))
+                .addComponent(textFieldSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 393, Short.MAX_VALUE))
         );
         panelSearchXmlLayout.setVerticalGroup(
             panelSearchXmlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -667,9 +667,9 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
             .addGroup(panelXmlLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelXmlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPaneTableLogfileRecords, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE)
+                    .addComponent(scrollPaneTableLogfileRecords, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
                     .addComponent(panelFilter, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(scrollPaneTextPaneDetails, javax.swing.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE))
+                    .addComponent(scrollPaneTextPaneDetails, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelXmlLayout.setVerticalGroup(
@@ -677,13 +677,13 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
             .addGroup(panelXmlLayout.createSequentialGroup()
                 .addComponent(panelFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneTableLogfileRecords, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
+                .addComponent(scrollPaneTableLogfileRecords, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneTextPaneDetails, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
+                .addComponent(scrollPaneTextPaneDetails, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        tabbedPane.addTab(JslBundle.INSTANCE.getString("LogfileDialog.panelXml.TabConstraints.tabTitle"), panelXml); // NOI18N
+        tabbedPane.addTab(bundle.getString("LogfileDialog.panelXml.TabConstraints.tabTitle"), panelXml); // NOI18N
 
         panelSimple.setName("panelSimple"); // NOI18N
 
@@ -700,23 +700,23 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
             panelSimpleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelSimpleLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollPanePanelSimple, javax.swing.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE)
+                .addComponent(scrollPanePanelSimple, javax.swing.GroupLayout.DEFAULT_SIZE, 482, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelSimpleLayout.setVerticalGroup(
             panelSimpleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelSimpleLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollPanePanelSimple, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
+                .addComponent(scrollPanePanelSimple, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        tabbedPane.addTab(JslBundle.INSTANCE.getString("LogfileDialog.panelSimple.TabConstraints.tabTitle"), panelSimple); // NOI18N
+        tabbedPane.addTab(bundle.getString("LogfileDialog.panelSimple.TabConstraints.tabTitle"), panelSimple); // NOI18N
 
         panelSearchSimple.setName("panelSearchSimple"); // NOI18N
 
         buttonReload.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/lib/resource/icons/icon_refresh24.png"))); // NOI18N
-        buttonReload.setToolTipText(JslBundle.INSTANCE.getString("LogfileDialog.buttonReload.toolTipText")); // NOI18N
+        buttonReload.setToolTipText(bundle.getString("LogfileDialog.buttonReload.toolTipText")); // NOI18N
         buttonReload.setBorder(null);
         buttonReload.setName("buttonReload"); // NOI18N
         buttonReload.addActionListener(new java.awt.event.ActionListener() {
@@ -726,7 +726,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
         });
 
         buttonExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/lib/resource/icons/icon_exit24.png"))); // NOI18N
-        buttonExit.setToolTipText(JslBundle.INSTANCE.getString("LogfileDialog.buttonExit.toolTipText")); // NOI18N
+        buttonExit.setToolTipText(bundle.getString("LogfileDialog.buttonExit.toolTipText")); // NOI18N
         buttonExit.setBorder(null);
         buttonExit.setName("buttonExit"); // NOI18N
         buttonExit.addActionListener(new java.awt.event.ActionListener() {
@@ -742,7 +742,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(tabbedPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
+                    .addComponent(tabbedPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(panelSearchSimple, javax.swing.GroupLayout.DEFAULT_SIZE, 439, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -765,7 +765,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }//GEN-END:initComponents
 
     private void textFieldSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldSearchKeyReleased
         filterTable();

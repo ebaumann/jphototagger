@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.text.JTextComponent;
 
 import org.jphototagger.lib.image.util.IconUtil;
+import org.jphototagger.lib.resource.Bundle;
 import org.jphototagger.program.UserSettings;
 
 /**
@@ -27,9 +28,8 @@ public class ExpandCollapseComponentPanel extends JPanel implements FocusListene
     private static final String ICON_PATH_COLLAPSE = "/org/jphototagger/program/resource/icons/icon_edit_metadata_collapse.png";
     private static final ImageIcon ICON_EXPAND = IconUtil.getImageIcon(ICON_PATH_EXPAND);
     private static final ImageIcon ICON_COLLAPSE = IconUtil.getImageIcon(ICON_PATH_COLLAPSE);
-    private static final java.util.ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/panels/Bundle"); // NOI18N
-    private static final String TOOLTIP_TEXT_EXPAND = BUNDLE.getString("ExpandCollapseComponentPanel.TooltipTextExpand");
-    private static final String TOOLTIP_TEXT_COLLAPSE = BUNDLE.getString("ExpandCollapseComponentPanel.TooltipTextCollapse");
+    private static final String TOOLTIP_TEXT_EXPAND = Bundle.getString(ExpandCollapseComponentPanel.class, "ExpandCollapseComponentPanel.TooltipTextExpand");
+    private static final String TOOLTIP_TEXT_COLLAPSE = Bundle.getString(ExpandCollapseComponentPanel.class, "ExpandCollapseComponentPanel.TooltipTextCollapse");
     private String keyPersistence  = "";
     private final Component component;
     private JLabel labelFill;

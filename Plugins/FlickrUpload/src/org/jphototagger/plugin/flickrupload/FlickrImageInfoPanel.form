@@ -23,7 +23,7 @@
       <Properties>
         <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/plugin/flickrupload/Bundle.properties" key="FlickrImageInfoPanel.checkBoxUpload.text" replaceFormat="bundle.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/plugin/flickrupload/Bundle.properties" key="FlickrImageInfoPanel.checkBoxUpload.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="name" type="java.lang.String" value="checkBoxUpload" noResource="true"/>
       </Properties>
@@ -68,7 +68,7 @@
     <Component class="javax.swing.JLabel" name="labelFilename">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/plugin/flickrupload/Bundle.properties" key="FlickrImageInfoPanel.labelFilename.text" replaceFormat="bundle.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/plugin/flickrupload/Bundle.properties" key="FlickrImageInfoPanel.labelFilename.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="name" type="java.lang.String" value="labelFilename" noResource="true"/>
       </Properties>
@@ -84,7 +84,7 @@
           <ComponentRef name="textFieldTitle"/>
         </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/plugin/flickrupload/Bundle.properties" key="FlickrImageInfoPanel.labelTitle.text" replaceFormat="bundle.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/plugin/flickrupload/Bundle.properties" key="FlickrImageInfoPanel.labelTitle.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="name" type="java.lang.String" value="labelTitle" noResource="true"/>
       </Properties>
@@ -111,7 +111,7 @@
           <ComponentRef name="textAreaDescription"/>
         </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/plugin/flickrupload/Bundle.properties" key="FlickrImageInfoPanel.labelDescription.text" replaceFormat="bundle.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/plugin/flickrupload/Bundle.properties" key="FlickrImageInfoPanel.labelDescription.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="name" type="java.lang.String" value="labelDescription" noResource="true"/>
       </Properties>
@@ -154,7 +154,7 @@
           <ComponentRef name="textAreaTags"/>
         </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/plugin/flickrupload/Bundle.properties" key="FlickrImageInfoPanel.labelTags.text" replaceFormat="bundle.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/plugin/flickrupload/Bundle.properties" key="FlickrImageInfoPanel.labelTags.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="name" type="java.lang.String" value="labelTags" noResource="true"/>
       </Properties>

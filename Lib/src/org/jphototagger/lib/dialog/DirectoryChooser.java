@@ -1,10 +1,5 @@
 package org.jphototagger.lib.dialog;
 
-import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.io.filefilter.DirectoryFilter;
-import org.jphototagger.lib.io.TreeFileSystemDirectories;
-import org.jphototagger.lib.model.TreeModelAllSystemDirectories;
-import org.jphototagger.lib.resource.JslBundle;
 import java.awt.Container;
 import java.io.File;
 import java.util.ArrayList;
@@ -12,15 +7,22 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+
+import javax.swing.JOptionPane;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
-import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
+
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.componentutil.MnemonicUtil;
+import org.jphototagger.lib.io.TreeFileSystemDirectories;
+import org.jphototagger.lib.io.filefilter.DirectoryFilter;
+import org.jphototagger.lib.model.TreeModelAllSystemDirectories;
+import org.jphototagger.lib.resource.Bundle;
 
 /**
  * Folder to choose one or multiple directories. Can create new directories,
@@ -96,14 +98,14 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
 
     private void setUsageText() {
         labelUsage.setText(directoryFilter.contains(Option.MULTI_SELECTION)
-                           ? JslBundle.INSTANCE.getString("DirectoryChooser.LabelUsage.MultipleSelection")
-                           : JslBundle.INSTANCE.getString("DirectoryChooser.LabelUsage.SingleSelection"));
+                           ? Bundle.getString(DirectoryChooser.class, "DirectoryChooser.LabelUsage.MultipleSelection")
+                           : Bundle.getString(DirectoryChooser.class, "DirectoryChooser.LabelUsage.SingleSelection"));
     }
 
     private void setTitle() {
         setTitle(directoryFilter.contains(Option.MULTI_SELECTION)
-                 ? JslBundle.INSTANCE.getString("DirectoryChooser.Title.MultipleSelection")
-                 : JslBundle.INSTANCE.getString("DirectoryChooser.Title.SingleSelection"));
+                 ? Bundle.getString(DirectoryChooser.class, "DirectoryChooser.Title.MultipleSelection")
+                 : Bundle.getString(DirectoryChooser.class, "DirectoryChooser.Title.SingleSelection"));
     }
 
     @Override
@@ -189,8 +191,8 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
                 JOptionPane
                     .showMessageDialog(
                     this,
-                    JslBundle.INSTANCE.getString("DirectoryChooser.Error.NoDirectoryChosen"),
-                    JslBundle.INSTANCE.getString("DirectoryChooser.Error.NoDirectoryChosen.Title"),
+                    Bundle.getString(DirectoryChooser.class, "DirectoryChooser.Error.NoDirectoryChosen"),
+                    Bundle.getString(DirectoryChooser.class, "DirectoryChooser.Error.NoDirectoryChosen.Title"),
                     JOptionPane.ERROR_MESSAGE);
             }
         }
@@ -305,8 +307,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
 
         popupMenu = new javax.swing.JPopupMenu();
         menuItemAdd = new javax.swing.JMenuItem();
@@ -324,7 +325,8 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
 
         popupMenu.setName("popupMenu"); // NOI18N
 
-        menuItemAdd.setText(JslBundle.INSTANCE.getString("DirectoryChooser.menuItemAdd.text")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/lib/dialog/Bundle"); // NOI18N
+        menuItemAdd.setText(bundle.getString("DirectoryChooser.menuItemAdd.text")); // NOI18N
         menuItemAdd.setName("menuItemAdd"); // NOI18N
         menuItemAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -333,7 +335,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
         });
         popupMenu.add(menuItemAdd);
 
-        menuItemRename.setText(JslBundle.INSTANCE.getString("DirectoryChooser.menuItemRename.text")); // NOI18N
+        menuItemRename.setText(bundle.getString("DirectoryChooser.menuItemRename.text")); // NOI18N
         menuItemRename.setName("menuItemRename"); // NOI18N
         menuItemRename.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -342,7 +344,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
         });
         popupMenu.add(menuItemRename);
 
-        menuItemDelete.setText(JslBundle.INSTANCE.getString("DirectoryChooser.menuItemDelete.text")); // NOI18N
+        menuItemDelete.setText(bundle.getString("DirectoryChooser.menuItemDelete.text")); // NOI18N
         menuItemDelete.setName("menuItemDelete"); // NOI18N
         menuItemDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -352,7 +354,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
         popupMenu.add(menuItemDelete);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle(JslBundle.INSTANCE.getString("DirectoryChooser.title")); // NOI18N
+        setTitle(bundle.getString("DirectoryChooser.title")); // NOI18N
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -369,11 +371,11 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
         tree.setName("Tree directory chooser"); // NOI18N
         scrollPane.setViewportView(tree);
 
-        labelUsage.setText(JslBundle.INSTANCE.getString("DirectoryChooser.labelUsage.text")); // NOI18N
+        labelUsage.setText(bundle.getString("DirectoryChooser.labelUsage.text")); // NOI18N
         labelUsage.setName("labelUsage"); // NOI18N
 
         buttonRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/lib/resource/icons/icon_refresh.png"))); // NOI18N
-        buttonRefresh.setToolTipText(JslBundle.INSTANCE.getString("DirectoryChooser.buttonRefresh.toolTipText")); // NOI18N
+        buttonRefresh.setToolTipText(bundle.getString("DirectoryChooser.buttonRefresh.toolTipText")); // NOI18N
         buttonRefresh.setName("buttonRefresh"); // NOI18N
         buttonRefresh.setPreferredSize(new java.awt.Dimension(25, 25));
         buttonRefresh.addActionListener(new java.awt.event.ActionListener() {
@@ -382,7 +384,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
             }
         });
 
-        buttonAdd.setText(JslBundle.INSTANCE.getString("DirectoryChooser.buttonAdd.text")); // NOI18N
+        buttonAdd.setText(bundle.getString("DirectoryChooser.buttonAdd.text")); // NOI18N
         buttonAdd.setEnabled(false);
         buttonAdd.setName("buttonAdd"); // NOI18N
         buttonAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -391,7 +393,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
             }
         });
 
-        buttonDelete.setText(JslBundle.INSTANCE.getString("DirectoryChooser.buttonDelete.text")); // NOI18N
+        buttonDelete.setText(bundle.getString("DirectoryChooser.buttonDelete.text")); // NOI18N
         buttonDelete.setEnabled(false);
         buttonDelete.setName("buttonDelete"); // NOI18N
         buttonDelete.addActionListener(new java.awt.event.ActionListener() {
@@ -400,7 +402,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
             }
         });
 
-        buttonRename.setText(JslBundle.INSTANCE.getString("DirectoryChooser.buttonRename.text")); // NOI18N
+        buttonRename.setText(bundle.getString("DirectoryChooser.buttonRename.text")); // NOI18N
         buttonRename.setEnabled(false);
         buttonRename.setName("buttonRename"); // NOI18N
         buttonRename.addActionListener(new java.awt.event.ActionListener() {
@@ -410,7 +412,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
         });
 
         buttonCancel.setMnemonic('b');
-        buttonCancel.setText(JslBundle.INSTANCE.getString("DirectoryChooser.buttonCancel.text")); // NOI18N
+        buttonCancel.setText(bundle.getString("DirectoryChooser.buttonCancel.text")); // NOI18N
         buttonCancel.setName("buttonCancel"); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -419,7 +421,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
         });
 
         buttonChoose.setMnemonic('a');
-        buttonChoose.setText(JslBundle.INSTANCE.getString("DirectoryChooser.buttonChoose.text")); // NOI18N
+        buttonChoose.setText(bundle.getString("DirectoryChooser.buttonChoose.text")); // NOI18N
         buttonChoose.setName("buttonChoose"); // NOI18N
         buttonChoose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -434,8 +436,8 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
-                    .addComponent(labelUsage, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
+                    .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE)
+                    .addComponent(labelUsage, javax.swing.GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(buttonRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -478,7 +480,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {buttonAdd, buttonCancel, buttonChoose, buttonDelete, buttonRefresh, buttonRename});
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }//GEN-END:initComponents
 
     private void buttonChooseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseActionPerformed
         ok();
@@ -525,13 +527,15 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 DirectoryChooser dialog =
-                    new DirectoryChooser(new javax.swing.JFrame(),
-                                         new File(""));
+                        new DirectoryChooser(new javax.swing.JFrame(),
+                        new File(""));
 
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
@@ -541,7 +545,6 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAdd;
     private javax.swing.JButton buttonCancel;

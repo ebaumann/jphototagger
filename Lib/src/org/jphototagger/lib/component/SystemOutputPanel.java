@@ -1,15 +1,16 @@
 package org.jphototagger.lib.component;
 
 import java.awt.Container;
-import java.awt.datatransfer.StringSelection;
 import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
+
 import javax.swing.JPanel;
+
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.resource.JslBundle;
 
 //Most parts of code from http://unserializableone.blogspot.com/2009/01/redirecting-systemout-and-systemerr-to.html
 
@@ -106,8 +107,7 @@ public class SystemOutputPanel extends JPanel {
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
 
         scrollPane = new javax.swing.JScrollPane();
         textArea = new javax.swing.JTextArea();
@@ -130,8 +130,9 @@ public class SystemOutputPanel extends JPanel {
 
         searchPanel.setName("searchPanel"); // NOI18N
 
-        buttonDelete.setText(JslBundle.INSTANCE.getString("SystemOutputPanel.buttonDelete.text")); // NOI18N
-        buttonDelete.setToolTipText(JslBundle.INSTANCE.getString("SystemOutputPanel.buttonDelete.toolTipText")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/lib/component/Bundle"); // NOI18N
+        buttonDelete.setText(bundle.getString("SystemOutputPanel.buttonDelete.text")); // NOI18N
+        buttonDelete.setToolTipText(bundle.getString("SystemOutputPanel.buttonDelete.toolTipText")); // NOI18N
         buttonDelete.setName("buttonDelete"); // NOI18N
         buttonDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -139,8 +140,8 @@ public class SystemOutputPanel extends JPanel {
             }
         });
 
-        buttonCopyToClipboard.setText(JslBundle.INSTANCE.getString("SystemOutputPanel.buttonCopyToClipboard.text")); // NOI18N
-        buttonCopyToClipboard.setToolTipText(JslBundle.INSTANCE.getString("SystemOutputPanel.buttonCopyToClipboard.toolTipText")); // NOI18N
+        buttonCopyToClipboard.setText(bundle.getString("SystemOutputPanel.buttonCopyToClipboard.text")); // NOI18N
+        buttonCopyToClipboard.setToolTipText(bundle.getString("SystemOutputPanel.buttonCopyToClipboard.toolTipText")); // NOI18N
         buttonCopyToClipboard.setName("buttonCopyToClipboard"); // NOI18N
         buttonCopyToClipboard.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -158,7 +159,7 @@ public class SystemOutputPanel extends JPanel {
                 .addComponent(buttonDelete)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonCopyToClipboard))
-            .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 593, Short.MAX_VALUE)
+            .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 673, Short.MAX_VALUE)
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonCopyToClipboard, buttonDelete});
@@ -177,7 +178,7 @@ public class SystemOutputPanel extends JPanel {
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {buttonCopyToClipboard, buttonDelete, searchPanel});
 
-    }// </editor-fold>//GEN-END:initComponents
+    }//GEN-END:initComponents
 
     private void buttonCopyToClipboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCopyToClipboardActionPerformed
         copyToClipboard();

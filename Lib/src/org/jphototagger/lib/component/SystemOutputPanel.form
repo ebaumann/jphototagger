@@ -7,7 +7,7 @@
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="1"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="true"/>
-    <AuxValue name="FormSettings_formBundle" type="java.lang.String" value="org/jphototagger/lib/resource/properties/Bundle"/>
+    <AuxValue name="FormSettings_formBundle" type="java.lang.String" value="org/jphototagger/lib/component/Bundle"/>
     <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="true"/>
@@ -27,7 +27,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="buttonCopyToClipboard" linkSize="3" min="-2" max="-2" attributes="0"/>
           </Group>
-          <Component id="scrollPane" alignment="0" pref="593" max="32767" attributes="0"/>
+          <Component id="scrollPane" alignment="0" pref="673" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -80,10 +80,10 @@
     <Component class="javax.swing.JButton" name="buttonDelete">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/lib/resource/properties/Bundle.properties" key="SystemOutputPanel.buttonDelete.text" replaceFormat="JslBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/lib/component/Bundle.properties" key="SystemOutputPanel.buttonDelete.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/lib/resource/properties/Bundle.properties" key="SystemOutputPanel.buttonDelete.toolTipText" replaceFormat="JslBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/lib/component/Bundle.properties" key="SystemOutputPanel.buttonDelete.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="name" type="java.lang.String" value="buttonDelete" noResource="true"/>
       </Properties>
@@ -94,10 +94,10 @@
     <Component class="javax.swing.JButton" name="buttonCopyToClipboard">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/lib/resource/properties/Bundle.properties" key="SystemOutputPanel.buttonCopyToClipboard.text" replaceFormat="JslBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/lib/component/Bundle.properties" key="SystemOutputPanel.buttonCopyToClipboard.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/lib/resource/properties/Bundle.properties" key="SystemOutputPanel.buttonCopyToClipboard.toolTipText" replaceFormat="JslBundle.INSTANCE.getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/lib/component/Bundle.properties" key="SystemOutputPanel.buttonCopyToClipboard.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="name" type="java.lang.String" value="buttonCopyToClipboard" noResource="true"/>
       </Properties>

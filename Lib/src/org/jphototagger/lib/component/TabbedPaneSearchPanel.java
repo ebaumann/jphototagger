@@ -25,7 +25,6 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import org.jphototagger.lib.resource.JslBundle;
 import org.jphototagger.lib.util.StringUtil;
 
 /**
@@ -578,8 +577,7 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
 
         labelSearch = new javax.swing.JLabel();
         textFieldSearch = new javax.swing.JTextField();
@@ -590,7 +588,8 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel
 
         labelSearch.setDisplayedMnemonic('s');
         labelSearch.setLabelFor(textFieldSearch);
-        labelSearch.setText(JslBundle.INSTANCE.getString("TabbedPaneSearchPanel.labelSearch.text")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/lib/component/Bundle"); // NOI18N
+        labelSearch.setText(bundle.getString("TabbedPaneSearchPanel.labelSearch.text")); // NOI18N
         labelSearch.setName("labelSearch"); // NOI18N
 
         textFieldSearch.setName("textFieldSearch"); // NOI18N
@@ -616,7 +615,7 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel
                 .addComponent(labelSearch)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textFieldSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE))
-            .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+            .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -627,7 +626,7 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE))
         );
-    }// </editor-fold>//GEN-END:initComponents
+    }//GEN-END:initComponents
 
     private void listValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listValueChanged
         if (!evt.getValueIsAdjusting()) {

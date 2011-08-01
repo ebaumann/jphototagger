@@ -5,7 +5,6 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
@@ -21,7 +20,6 @@ import org.jphototagger.services.core.Storage;
 public class FlickrImageInfoDialog extends Dialog {
 
     private static final long serialVersionUID = 6349275951817414186L;
-    private final ResourceBundle bundle = ResourceBundle.getBundle("org/jphototagger/plugin/flickrupload/Bundle");
     private final List<ImageInfo> imageInfos = new ArrayList<ImageInfo>();
     private boolean upload;
 
