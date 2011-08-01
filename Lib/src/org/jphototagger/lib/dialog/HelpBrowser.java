@@ -26,7 +26,7 @@ import org.jphototagger.lib.event.HelpBrowserEvent;
 import org.jphototagger.lib.event.listener.HelpBrowserListener;
 import org.jphototagger.lib.model.TreeModelHelpContents;
 import org.jphototagger.lib.renderer.TreeCellRendererHelpContents;
-import org.jphototagger.lib.resource.Bundle;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.Settings;
 import org.jphototagger.lib.util.help.HelpNode;
 import org.jphototagger.lib.util.help.HelpPage;

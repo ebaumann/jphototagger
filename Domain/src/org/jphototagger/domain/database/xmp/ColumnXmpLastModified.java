@@ -1,7 +1,7 @@
 package org.jphototagger.domain.database.xmp;
 
 import org.jphototagger.domain.database.Column;
-import org.jphototagger.lib.resource.Bundle;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * Column <code>lastmodified</code> of table <code>xmp</code>.

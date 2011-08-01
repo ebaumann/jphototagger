@@ -15,7 +15,7 @@ import java.io.File;
 import java.io.FileFilter;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
-import org.jphototagger.lib.resource.Bundle;
+import org.jphototagger.lib.util.Bundle;
 
 //Code based on http://www.javalobby.org/java/forums/t49462.html
 

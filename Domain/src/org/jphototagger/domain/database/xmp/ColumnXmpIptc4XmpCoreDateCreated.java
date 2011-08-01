@@ -9,7 +9,7 @@ import org.jphototagger.domain.database.Column;
 import org.jphototagger.lib.inputverifier.InputVerifierEmpty;
 import org.jphototagger.lib.inputverifier.InputVerifierStringPattern;
 import org.jphototagger.lib.inputverifier.InputVerifiersOr;
-import org.jphototagger.lib.resource.Bundle;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * "IPTC Core" Schema for XMP,  property name <strong>DateCreated</strong>,

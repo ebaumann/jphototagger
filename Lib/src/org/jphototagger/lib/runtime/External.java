@@ -10,7 +10,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.jphototagger.lib.io.IoUtil;
-import org.jphototagger.lib.resource.JslBundle;
 
 /**
  * Something what doesn't happen in the JVM.
@@ -273,10 +272,9 @@ public final class External {
                 process.destroy();
                 destroyed = true;
 
-                String errorMessage = JslBundle.INSTANCE.getString("External.ExecuteGetOutput.ErrorMessage",
-                                          millisecondsWait, command);
-
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, errorMessage);
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
+                        "The command {1} did run more than {0} milliseconds and was terminated.",
+                        new Object[]{millisecondsWait, command});
             }
         }
     }

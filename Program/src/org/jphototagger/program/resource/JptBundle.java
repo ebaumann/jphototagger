@@ -1,6 +1,6 @@
 package org.jphototagger.program.resource;
 
-import org.jphototagger.lib.resource.Bundle;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  *

@@ -26,7 +26,7 @@ import org.jphototagger.lib.event.listener.ProgressListener;
 import org.jphototagger.lib.io.CancelRequest;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter.Option;
-import org.jphototagger.lib.resource.Bundle;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.CollectionUtil;
 import org.jphototagger.lib.util.Settings;
 import org.jphototagger.program.UserSettings;

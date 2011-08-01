@@ -67,7 +67,7 @@ import javax.swing.JViewport;
 import javax.swing.TransferHandler;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.domain.event.listener.UserSettingsListener;
-import org.jphototagger.lib.resource.Bundle;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  *

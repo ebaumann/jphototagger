@@ -2,7 +2,7 @@ package org.jphototagger.domain.database.xmp;
 
 import org.jphototagger.domain.database.Column;
 import org.jphototagger.domain.database.Column.DataType;
-import org.jphototagger.lib.resource.Bundle;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * Spalte <code>photoshop_states</code> der Tabelle <code>xmp</code>.

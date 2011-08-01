@@ -4,7 +4,7 @@ import java.nio.ByteOrder;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
-import org.jphototagger.lib.resource.Bundle;
+import org.jphototagger.lib.util.Bundle;
 
 import org.jphototagger.lib.util.ByteUtil;
 

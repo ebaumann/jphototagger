@@ -16,7 +16,7 @@ import org.jphototagger.lib.dialog.DirectoryChooser.Option;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.filefilter.RegexFileFilter;
 import org.jphototagger.lib.renderer.ListCellRendererFileSystem;
-import org.jphototagger.lib.resource.Bundle;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.Settings;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.AppFileFilters;

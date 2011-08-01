@@ -1,10 +1,12 @@
 package org.jphototagger.lib.dialog;
 
-import org.jphototagger.lib.resource.JslBundle;
 import java.io.File;
-import javax.swing.filechooser.FileSystemView;
+
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileSystemView;
+
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * {@link JFileChooser} with the following extensions (<strong>Save
@@ -28,6 +30,7 @@ import javax.swing.JOptionPane;
  * @author Elmar Baumann
  */
 public final class FileChooserExt extends JFileChooser {
+
     private static final long serialVersionUID = 2263451265476542816L;
     private boolean confirmOverwrite;
     private String saveFilenameExtension;
@@ -52,7 +55,8 @@ public final class FileChooserExt extends JFileChooser {
         super(currentDirectoryPath);
     }
 
-    public FileChooserExt() {}
+    public FileChooserExt() {
+    }
 
     /**
      * Returns, whether to confirm overwrite existing files in Save Mode.
@@ -92,8 +96,8 @@ public final class FileChooserExt extends JFileChooser {
      */
     public void setSaveFilenameExtension(String extension) {
         saveFilenameExtension = (extension == null)
-                                ? null
-                                : extension;
+                ? null
+                : extension;
 
         if ((saveFilenameExtension != null) && saveFilenameExtension.isEmpty()) {
             saveFilenameExtension = null;
@@ -132,8 +136,8 @@ public final class FileChooserExt extends JFileChooser {
             File selFile = getSelectedFile();
 
             return (selFile == null)
-                   ? false
-                   : saveFileExists(selFile);
+                    ? false
+                    : saveFileExists(selFile);
         }
     }
 
@@ -159,12 +163,12 @@ public final class FileChooserExt extends JFileChooser {
     private boolean confirmOverwrite() {
         boolean multiSel = isMultiSelectionEnabled();
         String question = multiSel
-                          ? JslBundle.INSTANCE.getString("FileChooserExt.Confirm.OverwriteMultiSel")
-                          : JslBundle.INSTANCE.getString("FileChooserExt.Confirm.OverwriteSingleSel");
-        String title = JslBundle.INSTANCE.getString("FileChooserExt.Confirm.OverwriteTitle");
+                ? Bundle.getString(FileChooserExt.class, "FileChooserExt.Confirm.OverwriteMultiSel")
+                : Bundle.getString(FileChooserExt.class, "FileChooserExt.Confirm.OverwriteSingleSel");
+        String title = Bundle.getString(FileChooserExt.class, "FileChooserExt.Confirm.OverwriteTitle");
+        int optionType = JOptionPane.YES_NO_OPTION;
 
-        return JOptionPane.showConfirmDialog(null, question, title, JOptionPane.YES_NO_OPTION)
-               == JOptionPane.YES_OPTION;
+        return JOptionPane.showConfirmDialog(null, question, title, optionType) == JOptionPane.YES_OPTION;
     }
 
     /**
@@ -198,7 +202,7 @@ public final class FileChooserExt extends JFileChooser {
             if (selFile == null) {
                 return new File[0];
             } else {
-                return new File[] { selFile };
+                return new File[]{selFile};
             }
         }
     }

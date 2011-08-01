@@ -2,7 +2,7 @@ package org.jphototagger.domain.database.file;
 
 import org.jphototagger.domain.database.Column;
 import org.jphototagger.domain.database.Column.DataType;
-import org.jphototagger.lib.resource.Bundle;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * Tabellenspalte <code>lastmodified</code> der Tabelle <code>files</code>.

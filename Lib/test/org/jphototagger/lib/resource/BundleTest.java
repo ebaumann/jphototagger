@@ -1,5 +1,6 @@
 package org.jphototagger.lib.resource;
 
+import org.jphototagger.lib.util.Bundle;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

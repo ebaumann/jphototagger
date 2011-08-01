@@ -1,17 +1,19 @@
 package org.jphototagger.lib.inputverifier;
 
-import org.jphototagger.lib.componentutil.ComponentUtil;
-import org.jphototagger.lib.resource.JslBundle;
 import java.awt.HeadlessException;
 import java.io.Serializable;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.text.JTextComponent;
+
+import org.jphototagger.lib.componentutil.ComponentUtil;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * Verifies whether the input is a number and, if not, displays an error
@@ -46,8 +48,8 @@ public final class InputVerifierNumber extends InputVerifier implements Serializ
 
     private void errorMessage() throws HeadlessException {
         JOptionPane.showMessageDialog(ComponentUtil.getFrameWithIcon(),
-                                      JslBundle.INSTANCE.getString("InputVerifierNumber.Error.NaN"),
-                                      JslBundle.INSTANCE.getString("InputVerifierNumber.Error.NaN.Title"),
+                                      Bundle.getString(InputVerifierNumber.class, "InputVerifierNumber.Error.NaN"),
+                                      Bundle.getString(InputVerifierNumber.class, "InputVerifierNumber.Error.NaN.Title"),
                                       JOptionPane.ERROR_MESSAGE);
     }
 

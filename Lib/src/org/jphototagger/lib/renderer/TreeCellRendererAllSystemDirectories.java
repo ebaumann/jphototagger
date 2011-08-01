@@ -1,19 +1,21 @@
 package org.jphototagger.lib.renderer;
 
-import org.jphototagger.lib.componentutil.LookAndFeelUtil;
-import org.jphototagger.lib.image.util.IconUtil;
-import org.jphototagger.lib.model.TreeModelAllSystemDirectories;
-import org.jphototagger.lib.resource.JslBundle;
 import java.awt.Color;
 import java.awt.Component;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.filechooser.FileSystemView;
+
 import javax.swing.Icon;
 import javax.swing.JTree;
+import javax.swing.filechooser.FileSystemView;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
+
+import org.jphototagger.lib.componentutil.LookAndFeelUtil;
+import org.jphototagger.lib.image.util.IconUtil;
+import org.jphototagger.lib.model.TreeModelAllSystemDirectories;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * Renders items of {@link TreeModelAllSystemDirectories}. Ddisplays only the
@@ -25,8 +27,7 @@ public final class TreeCellRendererAllSystemDirectories extends DefaultTreeCellR
     private static final long serialVersionUID = -1995225344254643215L;
     private final FileSystemView fileSystemView = FileSystemView.getFileSystemView();
     private Icon rootIcon = IconUtil.getImageIcon("/org/jphototagger/lib/resource/icons/icon_workspace.png");
-    private static final String DISPLAY_NAME_ROOT =
-        JslBundle.INSTANCE.getString("TreeCellRendererAllSystemDirectories.DisplayName.Root");
+    private static final String DISPLAY_NAME_ROOT = Bundle.getString(TreeCellRendererAllSystemDirectories.class, "TreeCellRendererAllSystemDirectories.DisplayName.Root");
     private int tempSelRow = -1;
     private static final Color TREE_SELECTION_FOREGROUND = LookAndFeelUtil.getUiColor("Tree.selectionForeground");
     private static final Color TREE_SELECTION_BACKGROUND = LookAndFeelUtil.getUiColor("Tree.selectionBackground");

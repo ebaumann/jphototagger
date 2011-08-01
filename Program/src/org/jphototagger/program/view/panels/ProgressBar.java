@@ -7,7 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JProgressBar;
 
 import org.jphototagger.lib.concurrent.Cancelable;
-import org.jphototagger.lib.resource.Bundle;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.resource.MutualExcludedResource;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.resource.GUI;
