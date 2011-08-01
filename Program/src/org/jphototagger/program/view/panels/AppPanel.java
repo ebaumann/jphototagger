@@ -64,10 +64,10 @@ import org.jphototagger.program.view.renderer.TableCellRendererIptc;
 import org.jphototagger.program.view.renderer.TableCellRendererXmp;
 import org.jphototagger.program.view.renderer.TreeCellRendererMiscMetadata;
 import org.jphototagger.program.view.renderer.TreeCellRendererTimeline;
-import org.jphototagger.services.plugin.ComponentProvider;
-import org.jphototagger.services.plugin.ContextMetadataComponentProvider;
-import org.jphototagger.services.plugin.PositionComparator;
-import org.jphototagger.services.plugin.SelectionComponentProvider;
+import org.jphototagger.api.plugin.ComponentProvider;
+import org.jphototagger.api.plugin.ContextMetadataComponentProvider;
+import org.jphototagger.api.plugin.PositionComparator;
+import org.jphototagger.api.plugin.SelectionComponentProvider;
 
 /**
  * Panel der Anwendung.

@@ -26,7 +26,7 @@ import javax.swing.JPopupMenu.Separator;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.controller.plugin.PluginAction;
 import org.jphototagger.program.controller.programs.ControllerAddProgram;
-import org.jphototagger.services.plugin.FileProcessorPlugin;
+import org.jphototagger.api.plugin.FileProcessorPlugin;
 
 /**
  * Popup menu of the thumbnails panel.

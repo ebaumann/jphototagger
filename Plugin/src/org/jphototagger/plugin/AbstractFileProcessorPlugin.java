@@ -1,14 +1,14 @@
 package org.jphototagger.plugin;
 
-import org.jphototagger.services.plugin.FileProcessorPluginListener;
-import org.jphototagger.services.plugin.FileProcessorPluginEvent;
+import org.jphototagger.api.plugin.FileProcessorPluginListener;
+import org.jphototagger.api.plugin.FileProcessorPluginEvent;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.Set;
 import javax.swing.JProgressBar;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.ServiceLookup;
-import org.jphototagger.services.core.ProgressBarProvider;
-import org.jphototagger.services.plugin.FileProcessorPlugin;
+import org.jphototagger.api.core.ProgressBarProvider;
+import org.jphototagger.api.plugin.FileProcessorPlugin;
 
 /**
  * Handles Listeners and provides a progress bar.

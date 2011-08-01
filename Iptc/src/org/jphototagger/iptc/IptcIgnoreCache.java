@@ -10,8 +10,8 @@ import org.jphototagger.domain.event.ImageFileMovedEvent;
 import org.jphototagger.domain.event.ImageFileRemovedEvent;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.util.ServiceLookup;
-import org.jphototagger.services.core.CacheDirectoryProvider;
-import org.jphototagger.services.core.UserProperties;
+import org.jphototagger.api.core.CacheDirectoryProvider;
+import org.jphototagger.api.core.UserProperties;
 
 /**
  *

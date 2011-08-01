@@ -14,7 +14,7 @@ import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.IoUtil;
 import org.jphototagger.lib.util.ServiceLookup;
 import org.jphototagger.lib.util.StringUtil;
-import org.jphototagger.services.core.CacheDirectoryProvider;
+import org.jphototagger.api.core.CacheDirectoryProvider;
 
 import com.adobe.xmp.properties.XMPPropertyInfo;
 

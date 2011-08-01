@@ -1,6 +1,6 @@
 package org.jphototagger.program.factory;
 
-import org.jphototagger.services.plugin.FileProcessorPlugin;
+import org.jphototagger.api.plugin.FileProcessorPlugin;
 
 /**
  *

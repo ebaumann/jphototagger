@@ -3,7 +3,7 @@ package org.jphototagger.dtncreators;
 import java.io.File;
 import java.util.ResourceBundle;
 import org.jphototagger.lib.system.SystemUtil;
-import org.jphototagger.services.plugin.ExternalThumbnailCreator;
+import org.jphototagger.api.plugin.ExternalThumbnailCreator;
 
 /**
  *
@@ -19,18 +19,18 @@ public final class ImageMagickThumbnailCreator implements ExternalThumbnailCreat
     @Override
     public String getThumbnailCreationCommand() {
         ImageMagickThumbnailCreatorDialog dialog = new ImageMagickThumbnailCreatorDialog();
-        
+
         dialog.setVisible(true);
-        
+
         if (dialog.isBrowse()) {
             Util.browse("http://www.imagemagick.org/");
             return null;
         } else if (dialog.isChooseConvert()) {
             File convertExecutable = fileChooser.chooseFileFixedName();
-            
+
             return createCommand(convertExecutable);
         }
-        
+
         return null;
     }
 
@@ -43,16 +43,16 @@ public final class ImageMagickThumbnailCreator implements ExternalThumbnailCreat
     public boolean isEnabled() {
         return true;
     }
-    
+
     private String createCommand(File file) {
         if (file == null) {
             return null;
         }
-        
+
         return "\"" + file.getAbsolutePath() + "\" " + COMMANDLINE_PARAMETERS;
 
     }
-    
+
     private FileChooser createFileChooser() {
         String convertFileName = getConvertFileName();
         String convertFileDescription = getConvertFileDescription();
@@ -63,16 +63,16 @@ public final class ImageMagickThumbnailCreator implements ExternalThumbnailCreat
                 .fileDescription(convertFileDescription)
                 .build();
     }
-    
+
     private String getConvertFileName() {
         return SystemUtil.isWindows() ? "convert.exe" : "convert";
     }
-    
+
     private String getConvertFileDescription() {
-        String bundleKeyDescription = SystemUtil.isWindows() 
-                                          ? "ImageMagickThumbnailCreator.FileFilter.Description.Windows" 
+        String bundleKeyDescription = SystemUtil.isWindows()
+                                          ? "ImageMagickThumbnailCreator.FileFilter.Description.Windows"
                                           : "ImageMagickThumbnailCreator.FileFilter.Description.OtherOS";
-        
+
         return bundle.getString(bundleKeyDescription);
     }
 }

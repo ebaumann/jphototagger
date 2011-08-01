@@ -7,7 +7,7 @@ import org.jphototagger.program.UserSettings;
 import java.util.LinkedHashSet;
 import java.util.Properties;
 import java.util.Set;
-import org.jphototagger.services.plugin.Plugin;
+import org.jphototagger.api.plugin.Plugin;
 
 /**
  *

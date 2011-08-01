@@ -6,7 +6,7 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.types.Content;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
-import org.jphototagger.services.core.ThumbnailsDisplayer;
+import org.jphototagger.api.core.ThumbnailsDisplayer;
 
 /**
  *

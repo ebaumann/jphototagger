@@ -10,7 +10,7 @@ import javax.swing.Action;
 import javax.swing.JOptionPane;
 import org.jphototagger.domain.filetypes.UserDefinedFileType;
 import org.jphototagger.lib.util.ServiceLookup;
-import org.jphototagger.services.repository.UserDefinedFileTypesRepository;
+import org.jphototagger.api.repository.UserDefinedFileTypesRepository;
 
 /**
  *

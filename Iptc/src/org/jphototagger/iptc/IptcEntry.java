@@ -5,7 +5,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.jphototagger.lib.util.ServiceLookup;
-import org.jphototagger.services.core.UserProperties;
+import org.jphototagger.api.core.UserProperties;
 
 import com.imagero.reader.iptc.IPTCEntry;
 import com.imagero.reader.iptc.IPTCEntryMeta;

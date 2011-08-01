@@ -1,7 +1,7 @@
 package org.jphototagger.program.serviceprovider.core;
 
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.services.core.UserProperties;
+import org.jphototagger.api.core.UserProperties;
 
 /**
  *

@@ -19,6 +19,22 @@
         </data>
         <references xmlns="http://www.netbeans.org/ns/ant-project-references/1">
             <reference>
+                <foreign-project>JPhotoTagger__API</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>build.xml</script>
+                <target>jar</target>
+                <clean-target>clean</clean-target>
+                <id>jar</id>
+            </reference>
+            <reference>
+                <foreign-project>JPhotoTagger__API</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>build.xml</script>
+                <target>jar</target>
+                <clean-target>clean</clean-target>
+                <id>jar</id>
+            </reference>
+            <reference>
                 <foreign-project>JPhotoTagger__Domain</foreign-project>
                 <artifact-type>jar</artifact-type>
                 <script>build.xml</script>
@@ -91,14 +107,6 @@
                 <id>jar</id>
             </reference>
             <reference>
-                <foreign-project>JPhotoTagger__Services</foreign-project>
-                <artifact-type>jar</artifact-type>
-                <script>build.xml</script>
-                <target>jar</target>
-                <clean-target>clean</clean-target>
-                <id>jar</id>
-            </reference>
-            <reference>
                 <foreign-project>JPhotoTagger__Thumbnail_Creator__Default_External_Thumbnail_Creators</foreign-project>
                 <artifact-type>jar</artifact-type>
                 <script>build.xml</script>
@@ -108,6 +116,14 @@
             </reference>
             <reference>
                 <foreign-project>JPhotoTagger__XMP</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>build.xml</script>
+                <target>jar</target>
+                <clean-target>clean</clean-target>
+                <id>jar</id>
+            </reference>
+            <reference>
+                <foreign-project>PhotoTagger__API</foreign-project>
                 <artifact-type>jar</artifact-type>
                 <script>build.xml</script>
                 <target>jar</target>

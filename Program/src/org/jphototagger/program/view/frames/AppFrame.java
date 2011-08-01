@@ -46,11 +46,11 @@ import org.jphototagger.program.controller.actions.ShowActionDialogAction;
 import org.jphototagger.program.factory.MainWindowComponentPluginManager;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.AppPanel;
-import org.jphototagger.services.plugin.EditMenuActionProvider;
-import org.jphototagger.services.plugin.FileMenuActionProvider;
-import org.jphototagger.services.plugin.MenuActionProvider;
-import org.jphototagger.services.plugin.PositionComparator;
-import org.jphototagger.services.plugin.ToolsMenuActionProvider;
+import org.jphototagger.api.plugin.EditMenuActionProvider;
+import org.jphototagger.api.plugin.FileMenuActionProvider;
+import org.jphototagger.api.plugin.MenuActionProvider;
+import org.jphototagger.api.plugin.PositionComparator;
+import org.jphototagger.api.plugin.ToolsMenuActionProvider;
 
 /**
  * The application's frame.

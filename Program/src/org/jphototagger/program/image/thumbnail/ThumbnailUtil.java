@@ -28,7 +28,7 @@ import org.jphototagger.lib.runtime.ExternalOutput;
 import org.jphototagger.lib.util.ServiceLookup;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.exif.ExifThumbnailUtil;
-import org.jphototagger.services.repository.UserDefinedFileTypesRepository;
+import org.jphototagger.api.repository.UserDefinedFileTypesRepository;
 
 import com.imagero.reader.IOParameterBlock;
 import com.imagero.reader.ImageProcOptions;

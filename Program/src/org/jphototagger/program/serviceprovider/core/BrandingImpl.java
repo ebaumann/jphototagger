@@ -4,7 +4,7 @@ import java.awt.Image;
 import java.util.List;
 import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.services.core.Branding;
+import org.jphototagger.api.core.Branding;
 
 /**
  *

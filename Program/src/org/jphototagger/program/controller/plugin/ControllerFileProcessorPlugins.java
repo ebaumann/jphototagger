@@ -1,7 +1,7 @@
 package org.jphototagger.program.controller.plugin;
 
-import org.jphototagger.services.plugin.FileProcessorPluginEvent;
-import org.jphototagger.services.plugin.FileProcessorPluginListener;
+import org.jphototagger.api.plugin.FileProcessorPluginEvent;
+import org.jphototagger.api.plugin.FileProcessorPluginListener;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
 import java.awt.event.ActionEvent;
@@ -10,8 +10,8 @@ import java.io.File;
 import java.util.List;
 import javax.swing.Action;
 import javax.swing.JMenuItem;
-import org.jphototagger.services.plugin.FileProcessorPlugin;
-import org.jphototagger.services.plugin.Plugin;
+import org.jphototagger.api.plugin.FileProcessorPlugin;
+import org.jphototagger.api.plugin.Plugin;
 
 /**
  * Listens to items of {@link PopupMenuThumbnails#getMenuPlugins()} and sets

@@ -1,6 +1,6 @@
 package org.jphototagger.program.factory;
 
-import org.jphototagger.services.plugin.MainWindowComponentPlugin;
+import org.jphototagger.api.plugin.MainWindowComponentPlugin;
 
 /**
  *

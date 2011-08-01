@@ -23,7 +23,7 @@ import org.jphototagger.program.factory.FileProcessorPluginManager;
 import org.jphototagger.program.factory.MainWindowComponentPluginManager;
 import org.jphototagger.program.factory.PluginManager;
 import org.jphototagger.program.types.Persistence;
-import org.jphototagger.services.plugin.Plugin;
+import org.jphototagger.api.plugin.Plugin;
 
 /**
  * Dynamically adds panels of plugins ({@link AbstractFileProcessorPlugin#getSettingsComponent()}).

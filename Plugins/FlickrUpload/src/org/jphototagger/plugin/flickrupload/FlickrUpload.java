@@ -10,7 +10,7 @@ import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.image.util.ImageUtil;
 import org.jphototagger.plugin.flickrupload.FlickrImageInfoPanel.ImageInfo;
 import org.jphototagger.plugin.AbstractFileProcessorPlugin;
-import org.jphototagger.services.plugin.FileProcessorPluginEvent;
+import org.jphototagger.api.plugin.FileProcessorPluginEvent;
 import java.awt.HeadlessException;
 import java.awt.Image;
 import java.io.File;
@@ -27,7 +27,7 @@ import javax.swing.JOptionPane;
 import org.jphototagger.lib.io.IoUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.ServiceLookup;
-import org.jphototagger.services.core.ThumbnailProvider;
+import org.jphototagger.api.core.ThumbnailProvider;
 
 /**
  *
