@@ -1,17 +1,18 @@
 package org.jphototagger.program.tasks;
 
-import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.program.database.DatabaseAutoscanDirectories;
-import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
-import org.jphototagger.domain.database.InsertIntoDatabase;
-import org.jphototagger.program.io.ImageFileFilterer;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.view.panels.ProgressBarUpdater;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import org.jphototagger.domain.database.InsertIntoDatabase;
+import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.database.DatabaseAutoscanDirectories;
+import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
+import org.jphototagger.program.io.ImageFileFilterer;
+import org.jphototagger.program.view.panels.ProgressBarUpdater;
 
 /**
  * Creates a {@link InsertImageFilesIntoDatabase} instance for the image files
@@ -50,8 +51,7 @@ public final class ScheduledTaskInsertImageFilesIntoDatabase {
         }
 
         InsertImageFilesIntoDatabase inserter = new InsertImageFilesIntoDatabase(imageFiles, InsertIntoDatabase.OUT_OF_DATE);
-        String pBarString =
-            JptBundle.INSTANCE.getString("ScheduledTaskInsertImageFilesIntoDatabase.ProgressBar.String");
+        String pBarString = Bundle.getString(ScheduledTaskInsertImageFilesIntoDatabase.class, "ScheduledTaskInsertImageFilesIntoDatabase.ProgressBar.String");
 
         inserter.addProgressListener(new ProgressBarUpdater(inserter, pBarString));
 

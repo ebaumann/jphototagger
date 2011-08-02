@@ -13,12 +13,12 @@ import org.jphototagger.lib.event.ProgressEvent;
 import org.jphototagger.lib.event.listener.ProgressListener;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.SourceTargetFile;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.database.DatabaseImageCollections;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.io.ImageFileFilterer;
 import org.jphototagger.program.model.ListModelImageCollections;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.tasks.UserTasks;
 import org.jphototagger.program.view.dialogs.ImportImageFilesDialog;
 import org.jphototagger.program.view.panels.AppPanel;
@@ -35,7 +35,7 @@ import org.jphototagger.program.view.panels.ProgressBarUpdater;
  */
 public final class ImportImageFiles extends Thread implements ProgressListener {
 
-    private static final String progressBarString = JptBundle.INSTANCE.getString("ImportImageFiles.Info.ProgressBar");
+    private static final String progressBarString = Bundle.getString(ImportImageFiles.class, "ImportImageFiles.Info.ProgressBar");
     private final List<File> copiedTargetFiles = new ArrayList<File>();
     private final List<File> copiedSourceFiles = new ArrayList<File>();
     private final List<SourceTargetFile> sourceTargetFiles;

@@ -7,9 +7,9 @@ import java.util.logging.Logger;
 import org.jphototagger.domain.event.listener.impl.ProgressListenerSupport;
 import org.jphototagger.lib.event.ProgressEvent;
 import org.jphototagger.lib.event.listener.ProgressListener;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.database.DatabaseMaintainance;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Filename;
 
 /**
@@ -82,7 +82,7 @@ public final class CompressDatabase implements Runnable {
     }
 
     private synchronized void notifyStarted() {
-        ProgressEvent evt = new ProgressEvent(this, JptBundle.INSTANCE.getString("CompressDatabase.Start"));
+        ProgressEvent evt = new ProgressEvent(this, Bundle.getString(CompressDatabase.class, "CompressDatabase.Start"));
 
         listenerSupport.notifyStarted(evt);
     }
@@ -100,10 +100,10 @@ public final class CompressDatabase implements Runnable {
     private Object getEndMessage() {
         double mb = 1024 * 1024;
         Object[] params = { success
-                            ? JptBundle.INSTANCE.getString("CompressDatabase.End.Success.True")
-                            : JptBundle.INSTANCE.getString("CompressDatabase.End.Success.False"), sizeBefore,
+                            ? Bundle.getString(CompressDatabase.class, "CompressDatabase.End.Success.True")
+                            : Bundle.getString(CompressDatabase.class, "CompressDatabase.End.Success.False"), sizeBefore,
                             new Double(sizeBefore / mb), sizeAfter, new Double(sizeAfter / mb) };
 
-        return JptBundle.INSTANCE.getString("CompressDatabase.End", params);
+        return Bundle.getString(CompressDatabase.class, "CompressDatabase.End", params);
     }
 }

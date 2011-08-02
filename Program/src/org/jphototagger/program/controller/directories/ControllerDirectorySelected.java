@@ -1,21 +1,23 @@
 package org.jphototagger.program.controller.directories;
 
-import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
-import org.jphototagger.program.event.listener.RefreshListener;
-import org.jphototagger.program.event.RefreshEvent;
-import org.jphototagger.program.io.ImageFileFilterer;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.types.Content;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
-import org.jphototagger.program.view.popupmenus.PopupMenuDirectories;
-import org.jphototagger.program.view.WaitDisplay;
 import java.io.File;
 import java.util.List;
+
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.TreePath;
+
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
+import org.jphototagger.program.event.RefreshEvent;
+import org.jphototagger.program.event.listener.RefreshListener;
+import org.jphototagger.program.io.ImageFileFilterer;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.types.Content;
+import org.jphototagger.program.view.WaitDisplay;
+import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.jphototagger.program.view.popupmenus.PopupMenuDirectories;
 
 /**
  * Listens for selections of items in the directory tree view. A tree item
@@ -84,9 +86,9 @@ public final class ControllerDirectorySelected implements TreeSelectionListener,
         }
 
         private void setTitle(File selectedDirectory) {
-            GUI.getAppFrame().setTitle(
-                JptBundle.INSTANCE.getString(
-                    "ControllerDirectorySelected.AppFrame.Title.Directory", selectedDirectory));
+            String title = Bundle.getString(ShowThumbnails.class, "ControllerDirectorySelected.AppFrame.Title.Directory", selectedDirectory);
+
+            GUI.getAppFrame().setTitle(title);
         }
 
         private String getDirectorynameFromTree() {

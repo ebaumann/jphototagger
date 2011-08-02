@@ -1,5 +1,6 @@
 package org.jphototagger.program.controller.metadata;
 
+import java.awt.Component;
 import java.awt.event.MouseEvent;
 import javax.swing.JTabbedPane;
 import org.jphototagger.domain.event.listener.UserSettingsListener;
@@ -14,7 +15,8 @@ import java.io.File;
 import java.util.List;
 import javax.swing.table.TableModel;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 
 /**
  *
@@ -82,9 +84,11 @@ public final class ControllerDisplayIptcUserSettings extends MouseAdapter implem
 
     private void checkDisplayIptc() {
         boolean isDisplayIptc = UserSettings.INSTANCE.isDisplayIptc();
+        Component parentComponent = null;
+        String message = Bundle.getString(ControllerDisplayIptcUserSettings.class, "ControllerDisplayIptcUserSettings.Confirm.DisplayIptc");
 
         if (!isDisplayIptc
-            && MessageDisplayer.confirmYesNo(null, "ControllerDisplayIptcUserSettings.Confirm.DisplayIptc")) {
+            && MessageDisplayer.confirmYesNo(parentComponent, message)) {
             UserSettings.INSTANCE.setDisplayIptc(true);
         }
     }

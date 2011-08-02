@@ -17,10 +17,11 @@ import org.jphototagger.lib.componentutil.LookAndFeelUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.image.util.IconUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.Settings;
 import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.program.resource.GUI;
 
@@ -193,7 +194,8 @@ public final class ProgramPropertiesDialog extends Dialog {
             accecpted = true;
             setVisible(false);
         } else {
-            MessageDisplayer.error(this, "ProgramPropertiesDialog.Error.MissingData");
+            String message = Bundle.getString(ProgramPropertiesDialog.class, "ProgramPropertiesDialog.Error.MissingData");
+            MessageDisplayer.error(this, message);
         }
     }
 
@@ -232,7 +234,8 @@ public final class ProgramPropertiesDialog extends Dialog {
                 }
                 textFieldAlias.requestFocusInWindow();
             } else {
-                MessageDisplayer.error(this, "ProgramPropertiesDialog.Error.ChooseFile");
+                String message = Bundle.getString(ProgramPropertiesDialog.class, "ProgramPropertiesDialog.Error.ChooseFile");
+                MessageDisplayer.error(this, message);
             }
         }
 

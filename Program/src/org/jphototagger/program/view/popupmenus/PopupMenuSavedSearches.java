@@ -1,12 +1,14 @@
 package org.jphototagger.program.view.popupmenus;
 
-import org.jphototagger.lib.event.util.KeyEventUtil;
-import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.data.SavedSearch;
-import org.jphototagger.program.resource.JptBundle;
 import java.awt.event.KeyEvent;
+
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
+
+import org.jphototagger.lib.event.util.KeyEventUtil;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.app.AppLookAndFeel;
+import org.jphototagger.program.data.SavedSearch;
 
 /**
  * Do not use this class as template for implemention! Instead extend
@@ -17,10 +19,10 @@ import javax.swing.JPopupMenu;
 public final class PopupMenuSavedSearches extends JPopupMenu {
     private static final long serialVersionUID = 3540766100829834971L;
     public static final PopupMenuSavedSearches INSTANCE = new PopupMenuSavedSearches();
-    private final JMenuItem itemDelete = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuSavedSearches.DisplayName.Action.Delete"), AppLookAndFeel.ICON_DELETE);
-    private final JMenuItem itemEdit = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuSavedSearches.DisplayName.Action.Edit"), AppLookAndFeel.ICON_EDIT);
-    private final JMenuItem itemCreate = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuSavedSearches.DisplayName.Action.New"), AppLookAndFeel.ICON_NEW);
-    private final JMenuItem itemRename = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuSavedSearches.DisplayName.Action.Rename"), AppLookAndFeel.ICON_RENAME);
+    private final JMenuItem itemDelete = new JMenuItem(Bundle.getString(PopupMenuSavedSearches.class, "PopupMenuSavedSearches.DisplayName.Action.Delete"), AppLookAndFeel.ICON_DELETE);
+    private final JMenuItem itemEdit = new JMenuItem(Bundle.getString(PopupMenuSavedSearches.class, "PopupMenuSavedSearches.DisplayName.Action.Edit"), AppLookAndFeel.ICON_EDIT);
+    private final JMenuItem itemCreate = new JMenuItem(Bundle.getString(PopupMenuSavedSearches.class, "PopupMenuSavedSearches.DisplayName.Action.New"), AppLookAndFeel.ICON_NEW);
+    private final JMenuItem itemRename = new JMenuItem(Bundle.getString(PopupMenuSavedSearches.class, "PopupMenuSavedSearches.DisplayName.Action.Rename"), AppLookAndFeel.ICON_RENAME);
     private transient SavedSearch savedSearch;
 
     private PopupMenuSavedSearches() {

@@ -15,10 +15,10 @@ import org.jphototagger.domain.database.InsertIntoDatabase;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.runtime.External;
 import org.jphototagger.lib.runtime.External.ProcessResult;
-import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.program.io.RuntimeUtil;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.dialogs.ProgramInputParametersDialog;
 
 /**
@@ -65,7 +65,8 @@ public final class StartPrograms {
 
     private boolean checkFilecount(List<File> imageFiles) {
         if (imageFiles.size() <= 0) {
-            MessageDisplayer.error(null, "StartPrograms.Error.Selection");
+            String message = Bundle.getString(StartPrograms.class, "StartPrograms.Error.Selection");
+            MessageDisplayer.error(null, message);
 
             return false;
         }
@@ -172,7 +173,7 @@ public final class StartPrograms {
         private String getProcessAllCommand() {
             return RuntimeUtil.quoteForCommandLine(program.getFile()) + RuntimeUtil.getDefaultCommandLineSeparator()
                    + program.getCommandlineParameters(imageFiles,
-                       getAdditionalParameters(JptBundle.INSTANCE.getString("StartPrograms.GetInput.Title"), 2),
+                       getAdditionalParameters(Bundle.getString(Execute.class, "StartPrograms.GetInput.Title"), 2),
                        dlg.isParametersBeforeFilename());
         }
 

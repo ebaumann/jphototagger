@@ -1,19 +1,21 @@
 package org.jphototagger.program.io;
 
-import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.controller.filesystem.ControllerMoveFiles;
-import org.jphototagger.lib.event.listener.ProgressListener;
-import org.jphototagger.lib.event.ProgressEvent;
-import org.jphototagger.program.factory.ControllerFactory;
-import org.jphototagger.program.helper.FilesystemDatabaseUpdater;
-import org.jphototagger.xmp.XmpMetadata;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.view.dialogs.CopyToDirectoryDialog;
-import org.jphototagger.program.view.dialogs.MoveToDirectoryDialog;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.jphototagger.lib.event.ProgressEvent;
+import org.jphototagger.lib.event.listener.ProgressListener;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.program.controller.filesystem.ControllerMoveFiles;
+import org.jphototagger.program.factory.ControllerFactory;
+import org.jphototagger.program.helper.FilesystemDatabaseUpdater;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.view.dialogs.CopyToDirectoryDialog;
+import org.jphototagger.program.view.dialogs.MoveToDirectoryDialog;
+import org.jphototagger.xmp.XmpMetadata;
 
 /**
  * Utilities for images.
@@ -58,8 +60,9 @@ public final class ImageUtil {
             throw new NullPointerException("confirm == null");
         }
 
-        if (confirm.yes()
-                &&!confirmFileAction("ImageUtil.Confirm.Copy", sourceFiles.size(), targetDirectory.getAbsolutePath())) {
+        String message = Bundle.getString(ImageUtil.class, "ImageUtil.Confirm.Copy", sourceFiles.size(), targetDirectory.getAbsolutePath());
+
+        if (confirm.yes() &&!confirmFileAction(message)) {
             return;
         }
 
@@ -81,8 +84,9 @@ public final class ImageUtil {
      *                        confirm overwrite existing files
      */
     public static void moveImageFiles(List<File> sourceFiles, File targetDirectory, ConfirmOverwrite confirm) {
-        if (confirm.yes()
-                &&!confirmFileAction("ImageUtil.Confirm.Move", sourceFiles.size(), targetDirectory.getAbsolutePath())) {
+        String message = Bundle.getString(ImageUtil.class, "ImageUtil.Confirm.Move", sourceFiles.size(), targetDirectory.getAbsolutePath());
+
+        if (confirm.yes() &&!confirmFileAction(message)) {
             return;
         }
 
@@ -94,8 +98,8 @@ public final class ImageUtil {
         }
     }
 
-    private static boolean confirmFileAction(String bundleKey, int size, String absolutePath) {
-        return MessageDisplayer.confirmYesNo(null, bundleKey, size, absolutePath);
+    private static boolean confirmFileAction(String message) {
+        return MessageDisplayer.confirmYesNo(null, message);
     }
 
     private synchronized static void addProgressListener(CopyToDirectoryDialog dlg) {
@@ -162,7 +166,8 @@ public final class ImageUtil {
         }
 
         if (!XmpMetadata.canWriteSidecarFileForImageFile(imageFile)) {
-            MessageDisplayer.error(null, "ImageUtil.Error.WriteSidecarFile", imageFile.getParentFile());
+            String message = Bundle.getString(ImageUtil.class, "ImageUtil.Error.WriteSidecarFile", imageFile.getParentFile());
+            MessageDisplayer.error(null, message);
 
             return false;
         }

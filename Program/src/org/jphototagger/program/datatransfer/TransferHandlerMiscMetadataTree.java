@@ -19,7 +19,8 @@ import org.jphototagger.domain.database.ColumnStringValue;
 import org.jphototagger.domain.database.xmp.XmpColumns;
 import org.jphototagger.lib.datatransfer.TransferUtil;
 import org.jphototagger.lib.datatransfer.TransferableObject;
-import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.helper.MiscMetadataHelper;
 
 /**
@@ -28,6 +29,7 @@ import org.jphototagger.program.helper.MiscMetadataHelper;
  * @author Elmar Baumann
  */
 public final class TransferHandlerMiscMetadataTree extends TransferHandler {
+
     private static final long serialVersionUID = -260820309332646425L;
     private static final List<Column> XMP_COLS = XmpColumns.get();
 
@@ -79,7 +81,9 @@ public final class TransferHandlerMiscMetadataTree extends TransferHandler {
     }
 
     private boolean confirmImport(Object value, int fileCount) {
-        return MessageDisplayer.confirmYesNo(null, "TransferHandlerMiscMetadataTree.Confirm.Import", value, fileCount);
+        String message = Bundle.getString(TransferHandlerMiscMetadataTree.class, "TransferHandlerMiscMetadataTree.Confirm.Import", value, fileCount);
+
+        return MessageDisplayer.confirmYesNo(null, message);
     }
 
     @Override

@@ -1,13 +1,15 @@
 package org.jphototagger.program.view.popupmenus;
 
-import org.jphototagger.lib.event.util.KeyEventUtil;
-import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.resource.JptBundle;
 import java.awt.event.KeyEvent;
-import org.jdesktop.swingx.JXList;
+
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JPopupMenu.Separator;
+
+import org.jdesktop.swingx.JXList;
+import org.jphototagger.lib.event.util.KeyEventUtil;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.app.AppLookAndFeel;
 
 /**
  * Do not use this class as template for implemention! Instead extend
@@ -21,13 +23,13 @@ import javax.swing.JPopupMenu.Separator;
 public final class PopupMenuKeywordsList extends JPopupMenu {
     private static final long serialVersionUID = -552638878495121120L;
     public static final PopupMenuKeywordsList INSTANCE = new PopupMenuKeywordsList();
-    private final JMenuItem itemInsert = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsList.DisplayName.Action.Insert"), AppLookAndFeel.ICON_NEW);
-    private final JMenuItem itemRename = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsList.DisplayName.Action.Rename"), AppLookAndFeel.ICON_RENAME);
-    private final JMenuItem itemRemoveFromEditPanel = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsList.DisplayName.ActionRemoveFromEditPanel"));
-    private final JMenuItem itemEditSynonyms = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsList.DisplayName.Action.EditSynonyms"), AppLookAndFeel.ICON_EDIT);
-    private final JMenuItem itemDisplayImages = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsList.DisplayName.Action.DisplayImages"));
-    private final JMenuItem itemDelete = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsList.DisplayName.Action.Delete"), AppLookAndFeel.ICON_DELETE);
-    private final JMenuItem itemAddToEditPanel = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuKeywordsList.DisplayName.ActionAddToEditPanel"));
+    private final JMenuItem itemInsert = new JMenuItem(Bundle.getString(PopupMenuKeywordsList.class, "PopupMenuKeywordsList.DisplayName.Action.Insert"), AppLookAndFeel.ICON_NEW);
+    private final JMenuItem itemRename = new JMenuItem(Bundle.getString(PopupMenuKeywordsList.class, "PopupMenuKeywordsList.DisplayName.Action.Rename"), AppLookAndFeel.ICON_RENAME);
+    private final JMenuItem itemRemoveFromEditPanel = new JMenuItem(Bundle.getString(PopupMenuKeywordsList.class, "PopupMenuKeywordsList.DisplayName.ActionRemoveFromEditPanel"));
+    private final JMenuItem itemEditSynonyms = new JMenuItem(Bundle.getString(PopupMenuKeywordsList.class, "PopupMenuKeywordsList.DisplayName.Action.EditSynonyms"), AppLookAndFeel.ICON_EDIT);
+    private final JMenuItem itemDisplayImages = new JMenuItem(Bundle.getString(PopupMenuKeywordsList.class, "PopupMenuKeywordsList.DisplayName.Action.DisplayImages"));
+    private final JMenuItem itemDelete = new JMenuItem(Bundle.getString(PopupMenuKeywordsList.class, "PopupMenuKeywordsList.DisplayName.Action.Delete"), AppLookAndFeel.ICON_DELETE);
+    private final JMenuItem itemAddToEditPanel = new JMenuItem(Bundle.getString(PopupMenuKeywordsList.class, "PopupMenuKeywordsList.DisplayName.ActionAddToEditPanel"));
     private JXList list;
     private int selIndex;
 

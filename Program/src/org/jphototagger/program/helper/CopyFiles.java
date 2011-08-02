@@ -12,7 +12,8 @@ import org.jphototagger.lib.event.ProgressEvent;
 import org.jphototagger.lib.event.listener.ProgressListener;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.SourceTargetFile;
-import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 
 /**
  * Kopieren von Dateien.
@@ -176,8 +177,10 @@ public final class CopyFiles implements Runnable, Cancelable {
         File target = sourceTargetFile.getTargetFile();
 
         if (target.exists()) {
-            MessageDisplayer.ConfirmAction action = MessageDisplayer.confirmYesNoCancel(null,
-                    "CopyFiles.Confirm.OverwriteExisting", sourceTargetFile.getTargetFile(), sourceTargetFile.getSourceFile());
+            String message = Bundle.getString(CopyFiles.class, "CopyFiles.Confirm.OverwriteExisting",
+                    sourceTargetFile.getTargetFile(), sourceTargetFile.getSourceFile());
+
+            MessageDisplayer.ConfirmAction action = MessageDisplayer.confirmYesNoCancel(null, message);
 
             if (action.equals(MessageDisplayer.ConfirmAction.CANCEL)) {
                 cancel();
@@ -191,7 +194,9 @@ public final class CopyFiles implements Runnable, Cancelable {
 
     private boolean checkDifferent(SourceTargetFile sourceTargetFile) {
         if (sourceTargetFile.getSourceFile().equals(sourceTargetFile.getTargetFile())) {
-            MessageDisplayer.error(null, "CopyFiles.Error.FilesAreEquals", sourceTargetFile.getSourceFile());
+            String message = Bundle.getString(CopyFiles.class, "CopyFiles.Error.FilesAreEquals", sourceTargetFile.getSourceFile());
+
+            MessageDisplayer.error(null, message);
 
             return false;
         }

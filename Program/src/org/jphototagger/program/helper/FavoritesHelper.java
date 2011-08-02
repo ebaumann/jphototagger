@@ -1,28 +1,30 @@
 package org.jphototagger.program.helper;
 
-import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JTree;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreePath;
+
 import org.jphototagger.domain.favorites.Favorite;
+import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
 import org.jphototagger.program.database.DatabaseFavorites;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.io.ImageFileFilterer;
 import org.jphototagger.program.model.TreeModelFavorites;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Content;
+import org.jphototagger.program.view.WaitDisplay;
 import org.jphototagger.program.view.dialogs.FavoritePropertiesDialog;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.panels.ThumbnailsPanel.Settings;
-import org.jphototagger.program.view.WaitDisplay;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.JTree;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreePath;
-import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  *
@@ -61,7 +63,8 @@ public final class FavoritesHelper {
                             GUI.refreshThumbnailsPanel();
                         }
                     } else {
-                        MessageDisplayer.error(null, "FavoritesHelper.Error.Update", favorite);
+                        String message = Bundle.getString(FavoritesHelper.class, "FavoritesHelper.Error.Update", favorite);
+                        MessageDisplayer.error(null, message);
 
                         return;
                     }
@@ -86,7 +89,9 @@ public final class FavoritesHelper {
     }
 
     private static boolean confirmDelete(String favoriteName) {
-        return MessageDisplayer.confirmYesNo(null, "FavoritesHelper.Confirm.Delete", favoriteName);
+        String message = Bundle.getString(FavoritesHelper.class, "FavoritesHelper.Confirm.Delete", favoriteName);
+
+        return MessageDisplayer.confirmYesNo(null, message);
     }
 
     /**
@@ -222,7 +227,7 @@ public final class FavoritesHelper {
         private void setTitle() {
             File dir = FavoritesHelper.getSelectedDir();
 
-            GUI.getAppFrame().setTitle(JptBundle.INSTANCE.getString("FavoritesHelper.AppFrame.Title.FavoriteDirectory",
+            GUI.getAppFrame().setTitle(Bundle.getString(SetFiles.class, "FavoritesHelper.AppFrame.Title.FavoriteDirectory",
                     (dir == null)
                     ? "?"
                     : dir));

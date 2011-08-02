@@ -1,17 +1,18 @@
 package org.jphototagger.program.controller.keywords.list;
 
-import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
-import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.types.Content;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
-import org.jphototagger.program.view.WaitDisplay;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
+import org.jphototagger.program.database.DatabaseImageFiles;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.types.Content;
+import org.jphototagger.program.view.WaitDisplay;
+import org.jphototagger.program.view.panels.ThumbnailsPanel;
 
 /**
  * Displays in the {@link ThumbnailsPanel} thumbnails of images containing all
@@ -83,13 +84,13 @@ public final class ShowThumbnailsContainingAllKeywords implements Runnable {
 
     private void setTitle(List<String> keywords) {
         GUI.getAppFrame().setTitle(
-            JptBundle.INSTANCE.getString(
+                Bundle.getString(ShowThumbnailsContainingAllKeywords.class,
                 "ShowThumbnailsContainingAllKeywords.AppFrame.Title.Keywords.Path", Util.keywordPathString(keywords)));
     }
 
     private void setTitle(String keyword) {
         GUI.getAppFrame().setTitle(
-            JptBundle.INSTANCE.getString("ShowThumbnailsContainingAllKeywords.AppFrame.Title.Keyword", keyword));
+                Bundle.getString(ShowThumbnailsContainingAllKeywords.class, "ShowThumbnailsContainingAllKeywords.AppFrame.Title.Keyword", keyword));
     }
 
     private void setMetadataEditable() {

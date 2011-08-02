@@ -1,19 +1,20 @@
 package org.jphototagger.program.model;
 
-import org.jphototagger.lib.model.TableModelExt;
-import org.jphototagger.domain.exif.Exif;
-import org.jphototagger.domain.xmp.Xmp;
-import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.program.database.DatabaseStatistics;
-import org.jphototagger.domain.database.Column;
-import org.jphototagger.program.database.metadata.selections.DatabaseInfoRecordCountColumns;
-import org.jphototagger.domain.event.listener.DatabaseImageFilesListener;
-import org.jphototagger.program.resource.JptBundle;
 import java.io.File;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
+
+import org.jphototagger.domain.database.Column;
+import org.jphototagger.domain.event.listener.DatabaseImageFilesListener;
+import org.jphototagger.domain.exif.Exif;
+import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.model.TableModelExt;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.database.DatabaseImageFiles;
+import org.jphototagger.program.database.DatabaseStatistics;
+import org.jphototagger.program.database.metadata.selections.DatabaseInfoRecordCountColumns;
 
 /**
  * Elements are {@link Column}s retrieved through
@@ -61,8 +62,8 @@ public final class TableModelDatabaseInfo extends TableModelExt implements Datab
     }
 
     private void addColumnHeaders() {
-        addColumn(JptBundle.INSTANCE.getString("TableModelDatabaseInfo.HeaderColumn.1"));
-        addColumn(JptBundle.INSTANCE.getString("TableModelDatabaseInfo.HeaderColumn.2"));
+        addColumn(Bundle.getString(TableModelDatabaseInfo.class, "TableModelDatabaseInfo.HeaderColumn.1"));
+        addColumn(Bundle.getString(TableModelDatabaseInfo.class, "TableModelDatabaseInfo.HeaderColumn.2"));
     }
 
     private void addRows() {

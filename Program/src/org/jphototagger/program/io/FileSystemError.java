@@ -1,17 +1,17 @@
 package org.jphototagger.program.io;
 
-import org.jphototagger.program.resource.JptBundle;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  *
  * @author Elmar Baumann
  */
 public enum FileSystemError {
-    LOCKED(JptBundle.INSTANCE.getString("FileSystemError.LOCKED")),
-    MISSING_PRIVILEGES(JptBundle.INSTANCE.getString("FileSystemError.MISSING_PRIVILEGES")),
-    MOVE_RENAME_EXISTS(JptBundle.INSTANCE.getString("FileSystemError.MOVE_RENAME_EXISTS")),
-    READ_ONLY(JptBundle.INSTANCE.getString("FileSystemError.READ_ONLY")),
-    UNKNOWN(JptBundle.INSTANCE.getString("FileSystemError.UNKNOWN"));
+    LOCKED(Bundle.getString(FileSystemError.class, "FileSystemError.LOCKED")),
+    MISSING_PRIVILEGES(Bundle.getString(FileSystemError.class, "FileSystemError.MISSING_PRIVILEGES")),
+    MOVE_RENAME_EXISTS(Bundle.getString(FileSystemError.class, "FileSystemError.MOVE_RENAME_EXISTS")),
+    READ_ONLY(Bundle.getString(FileSystemError.class, "FileSystemError.READ_ONLY")),
+    UNKNOWN(Bundle.getString(FileSystemError.class, "FileSystemError.UNKNOWN"));
 
     private final String message;
 

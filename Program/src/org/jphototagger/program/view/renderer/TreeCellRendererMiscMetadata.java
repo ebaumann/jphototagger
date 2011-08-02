@@ -1,21 +1,23 @@
 package org.jphototagger.program.view.renderer;
 
-import org.jphototagger.lib.image.util.IconUtil;
-import org.jphototagger.domain.database.Column;
-import org.jphototagger.domain.database.exif.ColumnExifFocalLength;
-import org.jphototagger.program.database.metadata.selections.ColumnIcons;
-import org.jphototagger.domain.database.xmp.ColumnXmpRating;
-import org.jphototagger.program.model.TreeModelMiscMetadata;
-import org.jphototagger.program.resource.JptBundle;
 import java.awt.Component;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
+
+import org.jphototagger.domain.database.Column;
+import org.jphototagger.domain.database.exif.ColumnExifFocalLength;
+import org.jphototagger.domain.database.xmp.ColumnXmpRating;
+import org.jphototagger.lib.image.util.IconUtil;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.database.metadata.selections.ColumnIcons;
+import org.jphototagger.program.model.TreeModelMiscMetadata;
 
 /**
  *
@@ -124,7 +126,7 @@ public final class TreeCellRendererMiscMetadata extends TreeCellRendererExt {
             if (column.equals(ColumnExifFocalLength.INSTANCE)) {
                 return " mm";
             } else if (column.equals(ColumnXmpRating.INSTANCE)) {
-                return JptBundle.INSTANCE.getString("TreeCellRendererMiscMetadata.PostfixColumnXmpRating");
+                return Bundle.getString(TreeCellRendererMiscMetadata.class, "TreeCellRendererMiscMetadata.PostfixColumnXmpRating");
             }
         }
 

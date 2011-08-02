@@ -17,10 +17,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.jphototagger.domain.templates.RenameTemplate;
 import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.xml.bind.XmlObjectExporter;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.database.DatabaseRenameTemplates;
-import org.jphototagger.program.resource.JptBundle;
 
 /**
  *
@@ -28,9 +28,7 @@ import org.jphototagger.program.resource.JptBundle;
  * @author Elmar Baumann
  */
 public final class RenameTemplatesExporter implements Exporter {
-    public static final FileFilter FILE_FILTER =
-        new FileNameExtensionFilter(JptBundle.INSTANCE.getString("RenameTemplatesExporter.DisplayName.FileFilter"),
-                                    "xml");
+    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(RenameTemplatesExporter.class, "RenameTemplatesExporter.DisplayName.FileFilter"), "xml");
     public static final RenameTemplatesExporter INSTANCE = new RenameTemplatesExporter();
 
     @Override
@@ -57,7 +55,7 @@ public final class RenameTemplatesExporter implements Exporter {
 
     @Override
     public String getDisplayName() {
-        return JptBundle.INSTANCE.getString("RenameTemplatesExporter.DisplayName");
+        return Bundle.getString(RenameTemplatesExporter.class, "RenameTemplatesExporter.DisplayName");
     }
 
     @Override

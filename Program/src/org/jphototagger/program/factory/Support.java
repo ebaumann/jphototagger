@@ -10,8 +10,8 @@ import java.util.logging.Logger;
 
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.MessageLabel;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
 
 /**
  *
@@ -48,12 +48,11 @@ final class Support {
         instances.add(instance);
     }
 
-    static void setStatusbarInfo(final String propertyKey) {
+    static void setStatusbarInfo(final String message) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
-                GUI.getAppPanel().setStatusbarText(JptBundle.INSTANCE.getString(propertyKey),
-                                                   MessageLabel.MessageType.INFO, 2000);
+                GUI.getAppPanel().setStatusbarText(message, MessageLabel.MessageType.INFO, 2000);
             }
         });
     }

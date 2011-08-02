@@ -1,11 +1,13 @@
 package org.jphototagger.program.app;
 
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.UserSettings;
 
 /**
@@ -91,10 +93,14 @@ public final class AppLock {
     }
 
     private static boolean confirmForceUnlock() {
-        return MessageDisplayer.confirmYesNo(null, "AppLock.Error.LockFileExists", LOCKFILE_NAME);
+        String message = Bundle.getString(AppLock.class, "AppLock.Error.LockFileExists", LOCKFILE_NAME);
+
+        return MessageDisplayer.confirmYesNo(null, message);
     }
 
     private static void errorMessageDelete() {
-        MessageDisplayer.error(null, "AppLock.Error.DeleteLockFile", LOCKFILE_NAME);
+        String message = Bundle.getString(AppLock.class, "AppLock.Error.DeleteLockFile", LOCKFILE_NAME);
+
+        MessageDisplayer.error(null, message);
     }
 }

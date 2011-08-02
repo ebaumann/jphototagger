@@ -1,12 +1,14 @@
 package org.jphototagger.program.controller.actions;
 
-import org.jdesktop.swingx.JXList;
-import org.jdesktop.swingx.JXTree;
-import org.jphototagger.program.resource.JptBundle;
 import java.awt.event.ActionEvent;
+
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ActionMap;
+
+import org.jdesktop.swingx.JXList;
+import org.jdesktop.swingx.JXTree;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * Performs the action "find" of a {@link JXList}'s action map.
@@ -18,7 +20,7 @@ public final class SearchInJxTreeAction extends AbstractAction {
     private final JXTree tree;
 
     public SearchInJxTreeAction(JXTree tree) {
-        super(JptBundle.INSTANCE.getString("SearchInJxTreeAction.Name"));
+        super(Bundle.getString(SearchInJxTreeAction.class, "SearchInJxTreeAction.Name"));
 
         if (tree == null) {
             throw new NullPointerException("tree == null");

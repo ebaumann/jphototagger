@@ -13,8 +13,9 @@ import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
 import org.jphototagger.lib.componentutil.Autocomplete;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.event.util.MouseEventUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.database.metadata.selections.AutoCompleteDataOfColumn;
 import org.jphototagger.program.model.ListModelSynonyms;
@@ -158,8 +159,9 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
 
         if (o instanceof String) {
             String word = (String) o;
+            String message = Bundle.getString(SynonymsPanel.class, "SynonymsPanel.Confirm.RemoveWord", word);
 
-            if (MessageDisplayer.confirmYesNo(this, "SynonymsPanel.Confirm.RemoveWord", word)) {
+            if (MessageDisplayer.confirmYesNo(this, message)) {
                 modelWords.removeWord(word);
                 modelSynonyms.removeAllElements();
             }
@@ -171,9 +173,10 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
 
         if (o instanceof String) {
             String oldWord = (String) o;
-            String newWord = MessageDisplayer.input("SynonymsPanel.Info.ChangeWord", oldWord, "SynonymsPanel.Pos.ChangeWord", oldWord);
+            String info = Bundle.getString(SynonymsPanel.class, "SynonymsPanel.Info.ChangeWord");
+            String newWord = MessageDisplayer.input(info, oldWord);
 
-            if ((newWord != null) &&!newWord.equals(oldWord)) {
+            if (newWord != null &&!newWord.equals(oldWord)) {
                 modelWords.changeWord(oldWord, newWord);
                 modelSynonyms.setWord(newWord);
             }
@@ -198,8 +201,9 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
 
         if (o instanceof String) {
             String synonym = (String) o;
+            String message = Bundle.getString(SynonymsPanel.class, "SynonymsPanel.Confirm.RemoveSynonym", synonym);
 
-            if (MessageDisplayer.confirmYesNo(this, "SynonymsPanel.Confirm.RemoveSynonym", synonym)) {
+            if (MessageDisplayer.confirmYesNo(this, message)) {
                 modelSynonyms.removeSynonym(synonym);
             }
         }
@@ -210,7 +214,8 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
 
         if (o instanceof String) {
             String oldSynonym = (String) o;
-            String newSynonym = MessageDisplayer.input("SynonymsPanel.Info.ChangeSynonym", oldSynonym, "SynonymsPanel.Pos.ChangeSynonym", oldSynonym);
+            String info = Bundle.getString(SynonymsPanel.class, "SynonymsPanel.Info.ChangeSynonym");
+            String newSynonym = MessageDisplayer.input(info, oldSynonym);
 
             if ((newSynonym != null) &&!newSynonym.equals(oldSynonym)) {
                 modelSynonyms.changeSynonym(oldSynonym, newSynonym);
@@ -223,7 +228,9 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
             modelWords.addWord(word);
         }
 
-        MessageDisplayer.information(this, "SynonymsPanel.Info.AddAllKeywords");
+        String message = Bundle.getString(SynonymsPanel.class, "SynonymsPanel.Info.AddAllKeywords");
+
+        MessageDisplayer.information(this, message);
     }
 
     private void handleListSynonymsKeyPressed(KeyEvent evt) {

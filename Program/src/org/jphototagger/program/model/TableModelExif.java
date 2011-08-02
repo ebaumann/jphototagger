@@ -25,7 +25,7 @@ import org.jphototagger.exif.tag.ExifGpsLongitude;
 import org.jphototagger.exif.tag.ExifGpsMetadata;
 import org.jphototagger.exif.tag.ExifGpsUtil;
 import org.jphototagger.lib.model.TableModelExt;
-import org.jphototagger.program.resource.JptBundle;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.view.renderer.TableCellRendererExif;
 
 /**
@@ -51,8 +51,8 @@ public final class TableModelExif extends TableModelExt {
     }
 
     private void setRowHeaders() {
-        addColumn(JptBundle.INSTANCE.getString("TableModelExif.HeaderColumn.1"));
-        addColumn(JptBundle.INSTANCE.getString("TableModelExif.HeaderColumn.2"));
+        addColumn(Bundle.getString(TableModelExif.class, "TableModelExif.HeaderColumn.1"));
+        addColumn(Bundle.getString(TableModelExif.class, "TableModelExif.HeaderColumn.2"));
     }
 
     /**
@@ -141,7 +141,7 @@ public final class TableModelExif extends TableModelExt {
         }
 
         if (longitude != null && latitude != null) {
-            JButton button = new JButton(JptBundle.INSTANCE.getString("TableModelExif.Button.GoogleMaps"));
+            JButton button = new JButton(Bundle.getString(TableModelExif.class, "TableModelExif.Button.GoogleMaps"));
 
             button.addActionListener(new GpsButtonListener());
             super.addRow(new Object[] { exifGpsMetadata, button });

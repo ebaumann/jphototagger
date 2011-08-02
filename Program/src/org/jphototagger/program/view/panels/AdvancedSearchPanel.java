@@ -26,8 +26,9 @@ import org.jphototagger.domain.event.listener.impl.ListenerSupport;
 import org.jphototagger.lib.component.TabOrEnterLeavingTextArea;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.controller.search.ControllerAdvancedSearch;
 import org.jphototagger.program.data.SavedSearch;
 import org.jphototagger.program.data.SavedSearchPanel;
@@ -202,7 +203,8 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
         valid = valid && checkBrackets();
 
         if (!valid) {
-            MessageDisplayer.error(this, "AdvancedSearchPanel.Error.InvalidQuery");
+            String message = Bundle.getString(AdvancedSearchPanel.class, "AdvancedSearchPanel.Error.InvalidQuery");
+            MessageDisplayer.error(this, message);
         }
 
         return valid;
@@ -457,8 +459,9 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
 
     private void checkChanged() {
         if (columnRemoved || columnChanged() || customSqlChanged || panelKeywordsInput.isDirty()) {
+            String message = Bundle.getString(AdvancedSearchPanel.class, "AdvancedSearchPanel.Confirm.SaveChanges");
 
-            if (MessageDisplayer.confirmYesNo(this, "AdvancedSearchPanel.Confirm.SaveChanges")) {
+            if (MessageDisplayer.confirmYesNo(this, message)) {
                 save(createSavedSearch(), true);
             }
         }

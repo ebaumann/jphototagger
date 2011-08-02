@@ -15,6 +15,7 @@ import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
 import java.io.File;
 import java.io.FileFilter;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  *
@@ -37,15 +38,16 @@ public final class TerminateFactory {
             @Override
             public void run() {
                 AppPanel appPanel = GUI.getAppPanel();
-
-                Support.setStatusbarInfo("MiscFactory.Init.Start");
+                String message = Bundle.getString(TerminateFactory.class, "MiscFactory.Init.Start");
+                Support.setStatusbarInfo(message);
                 appPanel.getEditMetadataPanels().setAutocomplete();
                 PopupMenuThumbnails.INSTANCE.setOtherPrograms();
                 ScheduledTasks.INSTANCE.run();
                 checkImportImageFiles();
                 setAutocomplete();
                 setTnPanelFileFilter();
-                Support.setStatusbarInfo("MiscFactory.Init.Finished");
+                message = Bundle.getString(TerminateFactory.class, "MiscFactory.Init.Finished");
+                Support.setStatusbarInfo(message);
             }
         });
     }

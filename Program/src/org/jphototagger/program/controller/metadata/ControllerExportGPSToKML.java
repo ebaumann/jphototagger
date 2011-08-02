@@ -1,13 +1,15 @@
 package org.jphototagger.program.controller.metadata;
 
-import org.jphototagger.program.image.metadata.exif.gps.GPSLocationExportUtil;
-import org.jphototagger.program.image.metadata.exif.gps.KMLExporter;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.util.List;
+
 import javax.swing.AbstractAction;
+
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.image.metadata.exif.gps.GPSLocationExportUtil;
+import org.jphototagger.program.image.metadata.exif.gps.KMLExporter;
+import org.jphototagger.program.resource.GUI;
 
 /**
  *
@@ -18,7 +20,7 @@ public final class ControllerExportGPSToKML extends AbstractAction {
     private static final long serialVersionUID = 6618409829007878958L;
 
     public ControllerExportGPSToKML() {
-        super(JptBundle.INSTANCE.getString("ControllerExportGPS.Name"));
+        super(Bundle.getString(ControllerExportGPSToKML.class, "ControllerExportGPS.Name"));
     }
 
     @Override

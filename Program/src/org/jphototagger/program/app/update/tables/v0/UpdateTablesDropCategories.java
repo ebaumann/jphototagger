@@ -16,8 +16,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.jphototagger.domain.keywords.Keyword;
+import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.app.SplashScreen;
 import org.jphototagger.program.database.Database;
 import org.jphototagger.program.database.DatabaseKeywords;
@@ -25,7 +26,6 @@ import org.jphototagger.program.database.DatabaseMetadata;
 import org.jphototagger.program.helper.KeywordsHelper;
 import org.jphototagger.program.io.CharEncoding;
 import org.jphototagger.program.io.FilenameSuffixes;
-import org.jphototagger.program.resource.JptBundle;
 
 //Unproper handling if only one of the two actions completed
 
@@ -129,15 +129,17 @@ final class UpdateTablesDropCategories {
     }
 
     private boolean errorSave(Exception ex) {
-        MessageDisplayer.error(null, "UpdateTablesDropCategories.Error.Save", ex.getLocalizedMessage());
+        String message = Bundle.getString(UpdateTablesDropCategories.class, "UpdateTablesDropCategories.Error.Save", ex.getLocalizedMessage());
+        MessageDisplayer.error(null, message);
 
         return false;
     }
 
     private void importCategories() {
         String filename = getFilename();
+        String message = Bundle.getString(UpdateTablesDropCategories.class, "UpdateTablesDropCategories.Confirm.Import", filename);
 
-        if (MessageDisplayer.confirmYesNo(null, "UpdateTablesDropCategories.Confirm.Import", filename)) {
+        if (MessageDisplayer.confirmYesNo(null, message)) {
             BufferedReader reader = null;
 
             try {
@@ -156,7 +158,8 @@ final class UpdateTablesDropCategories {
                     }
                 }
             } catch (Exception ex) {
-                MessageDisplayer.error(null, "UpdateTablesDropCategories.Import.Error", ex.getLocalizedMessage());
+                message = Bundle.getString(UpdateTablesDropCategories.class, "UpdateTablesDropCategories.Import.Error", ex.getLocalizedMessage());
+                MessageDisplayer.error(null, message);
             } finally {
                 try {
                     reader.close();
@@ -166,6 +169,6 @@ final class UpdateTablesDropCategories {
     }
 
     private void startMessage() {
-        SplashScreen.INSTANCE.setMessage(JptBundle.INSTANCE.getString("UpdateTablesDropCategories.Info"));
+        SplashScreen.INSTANCE.setMessage(Bundle.getString(UpdateTablesDropCategories.class, "UpdateTablesDropCategories.Info"));
     }
 }

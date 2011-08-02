@@ -10,9 +10,10 @@ import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.dialog.DirectoryChooser;
 import org.jphototagger.lib.dialog.DirectoryChooser.Option;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.Settings;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.database.DatabaseFavorites;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.SelectRootFilesPanel;
@@ -135,7 +136,8 @@ public final class FavoritePropertiesDialog extends Dialog {
             boolean exists = db.exists(favoriteName);
 
             if (!update && exists) {
-                MessageDisplayer.error(this, "FavoritePropertiesDialog.Error.FavoriteExists", favoriteName);
+                String message = Bundle.getString(FavoritePropertiesDialog.class, "FavoritePropertiesDialog.Error.FavoriteExists", favoriteName);
+                MessageDisplayer.error(this, message);
             } else {
                 accepted = true;
                 setVisible(false);
@@ -145,7 +147,8 @@ public final class FavoritePropertiesDialog extends Dialog {
 
     private boolean checkValuesOk() {
         if (!valuesOk()) {
-            MessageDisplayer.error(this, "FavoritePropertiesDialog.Error.InvalidInput");
+            String message = Bundle.getString(FavoritePropertiesDialog.class, "FavoritePropertiesDialog.Error.InvalidInput");
+            MessageDisplayer.error(this, message);
 
             return false;
         }

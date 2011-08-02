@@ -1,6 +1,6 @@
 package org.jphototagger.program.controller.filesystem;
 
-import org.jphototagger.program.resource.JptBundle;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * Format with the name of a filname excluded the postfix and the parents.
@@ -20,6 +20,6 @@ public final class FilenameFormatFileName extends FilenameFormat {
 
     @Override
     public String toString() {
-        return JptBundle.INSTANCE.getString("FilenameFormatFileName.String");
+        return Bundle.getString(FilenameFormatFileName.class, "FilenameFormatFileName.String");
     }
 }

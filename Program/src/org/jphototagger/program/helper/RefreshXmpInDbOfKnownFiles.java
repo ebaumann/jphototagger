@@ -1,15 +1,16 @@
 package org.jphototagger.program.helper;
 
-import org.jphototagger.domain.xmp.Xmp;
-import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.xmp.XmpMetadata;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.UserSettings;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.jphototagger.domain.xmp.Xmp;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.database.DatabaseImageFiles;
+import org.jphototagger.xmp.XmpMetadata;
 
 /**
  * Refreshes the XMP metadata of all known imagesfiles whithout time stamp
@@ -22,7 +23,7 @@ public final class RefreshXmpInDbOfKnownFiles extends HelperThread {
 
     public RefreshXmpInDbOfKnownFiles() {
         super("JPhotoTagger: Refreshing XMP in the database of known files");
-        setInfo(JptBundle.INSTANCE.getString("RefreshXmpInDbOfKnownFiles.Info"));
+        setInfo(Bundle.getString(RefreshXmpInDbOfKnownFiles.class, "RefreshXmpInDbOfKnownFiles.Info"));
     }
 
     @Override

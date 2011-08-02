@@ -7,8 +7,8 @@ import java.util.logging.Logger;
 import org.jphototagger.domain.event.listener.impl.ProgressListenerSupport;
 import org.jphototagger.lib.event.ProgressEvent;
 import org.jphototagger.lib.event.listener.ProgressListener;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.program.resource.JptBundle;
 
 /**
  * Löscht in der Datenbank Datensätze mit Dateien, die nicht mehr existieren.
@@ -119,12 +119,12 @@ public final class DeleteOrphanedXmp implements Runnable, ProgressListener {
     }
 
     private void setMessagesFiles() {
-        startMessage = JptBundle.INSTANCE.getString("DeleteOrphanedXmp.Files.Start");
-        endMessage = JptBundle.INSTANCE.getString("DeleteOrphanedXmp.Files.End");
+        startMessage = Bundle.getString(DeleteOrphanedXmp.class, "DeleteOrphanedXmp.Files.Start");
+        endMessage = Bundle.getString(DeleteOrphanedXmp.class, "DeleteOrphanedXmp.Files.End");
     }
 
     private void setMessagesXmp() {
-        startMessage = JptBundle.INSTANCE.getString("DeleteOrphanedXmp.Xmp.Start");
-        endMessage = JptBundle.INSTANCE.getString("DeleteOrphanedXmp.Xmp.End");
+        startMessage = Bundle.getString(DeleteOrphanedXmp.class, "DeleteOrphanedXmp.Xmp.Start");
+        endMessage = Bundle.getString(DeleteOrphanedXmp.class, "DeleteOrphanedXmp.Xmp.End");
     }
 }

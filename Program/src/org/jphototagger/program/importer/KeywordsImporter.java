@@ -13,10 +13,10 @@ import javax.swing.tree.TreePath;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.MessageLabel.MessageType;
 import org.jphototagger.lib.concurrent.Cancelable;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.model.TreeModelKeywords;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.panels.ProgressBar;
 
 /**
@@ -26,7 +26,7 @@ import org.jphototagger.program.view.panels.ProgressBar;
  */
 public abstract class KeywordsImporter implements Importer {
 
-    private static final String PROGRESSBAR_STRING = JptBundle.INSTANCE.getString("KeywordImporter.ProgressBar.String");
+    private static final String PROGRESSBAR_STRING = Bundle.getString(KeywordsImporter.class, "KeywordImporter.ProgressBar.String");
 
     /**
      * Returns all keyword paths to the leaf nodes.
@@ -201,7 +201,7 @@ public abstract class KeywordsImporter implements Importer {
         }
 
         private void messageImported(int importCount) {
-            String message = JptBundle.INSTANCE.getString("ImportTask.Info.Imported", importCount);
+            String message = Bundle.getString(ImportTask.class, "ImportTask.Info.Imported", importCount);
 
             GUI.getAppPanel().setStatusbarText(message, MessageType.INFO, 2000);
         }

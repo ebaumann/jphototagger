@@ -19,13 +19,13 @@ import org.jphototagger.image.util.ImageUtil;
 import org.jphototagger.lib.io.FileLock;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.filefilter.RegexFileFilter;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.SplashScreen;
 import org.jphototagger.program.cache.PersistentThumbnails;
 import org.jphototagger.program.database.Database;
 import org.jphototagger.program.database.DatabaseApplicationProperties;
 import org.jphototagger.program.database.DatabaseMaintainance;
-import org.jphototagger.program.resource.JptBundle;
 
 /**
  *
@@ -280,6 +280,6 @@ final class UpdateTablesThumbnails extends Database {
     }
 
     private void startMessage() {
-        SplashScreen.INSTANCE.setMessage(JptBundle.INSTANCE.getString("UpdateTablesThumbnails.Info"));
+        SplashScreen.INSTANCE.setMessage(Bundle.getString(UpdateTablesThumbnails.class, "UpdateTablesThumbnails.Info"));
     }
 }

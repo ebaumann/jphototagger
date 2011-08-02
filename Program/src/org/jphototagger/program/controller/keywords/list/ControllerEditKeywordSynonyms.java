@@ -1,16 +1,5 @@
 package org.jphototagger.program.controller.keywords.list;
 
-import org.jdesktop.swingx.JXList;
-import org.jphototagger.lib.dialog.InputDialog;
-import org.jphototagger.lib.event.util.KeyEventUtil;
-import org.jphototagger.program.database.DatabaseSynonyms;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.view.dialogs.InputHelperDialog;
-import org.jphototagger.program.view.panels.EditRepeatableTextEntryPanel;
-import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsList;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -18,11 +7,23 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
-import javax.swing.event.PopupMenuEvent;
-import javax.swing.event.PopupMenuListener;
+
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JPopupMenu.Separator;
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
+
+import org.jdesktop.swingx.JXList;
+import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.lib.dialog.InputDialog;
+import org.jphototagger.lib.event.util.KeyEventUtil;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.database.DatabaseSynonyms;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.view.dialogs.InputHelperDialog;
+import org.jphototagger.program.view.panels.EditRepeatableTextEntryPanel;
+import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsList;
 
 /**
  *
@@ -30,8 +31,8 @@ import javax.swing.JPopupMenu.Separator;
  */
 public final class ControllerEditKeywordSynonyms extends ControllerKeywords implements PopupMenuListener {
     private static final String DELIM = ";";
-    private final JMenuItem itemEditSynonyms =
-        new JMenuItem(JptBundle.INSTANCE.getString("ControllerEditKeywordSynonyms.MenuItemEditSynonyms.DisplayName"));
+    private static final String DISPLAYNAME = Bundle.getString(ControllerEditKeywordSynonyms.class, "ControllerEditKeywordSynonyms.MenuItemEditSynonyms.DisplayName");
+    private final JMenuItem itemEditSynonyms = new JMenuItem(DISPLAYNAME);
 
     public ControllerEditKeywordSynonyms() {
         addMenuItem();
@@ -141,11 +142,10 @@ public final class ControllerEditKeywordSynonyms extends ControllerKeywords impl
 
     private void editSynonyms(String keyword) {
         Set<String> oldSynonyms = DatabaseSynonyms.INSTANCE.getSynonymsOf(keyword);
-        InputDialog dlg = new InputDialog(InputHelperDialog.INSTANCE,
-                                          JptBundle.INSTANCE.getString("ControllerEditKeywordSynonyms.Info.Input",
-                                              keyword, DELIM), catSynonyms(oldSynonyms),
-                                                  UserSettings.INSTANCE.getProperties(),
-                                                  "ControllerEditKeywordSynonyms.Pos");
+        InputHelperDialog owner = InputHelperDialog.INSTANCE;
+        String info = Bundle.getString(ControllerEditKeywordSynonyms.class, "ControllerEditKeywordSynonyms.Info.Input", keyword, DELIM);
+        String input = catSynonyms(oldSynonyms);
+        InputDialog dlg = new InputDialog(owner, info, input);
 
         dlg.setVisible(true);
 

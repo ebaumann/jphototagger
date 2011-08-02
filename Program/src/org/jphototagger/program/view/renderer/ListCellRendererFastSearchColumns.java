@@ -1,13 +1,15 @@
 package org.jphototagger.program.view.renderer;
 
-import org.jphototagger.domain.database.Column;
-import org.jphototagger.program.database.metadata.selections.ColumnIcons;
-import org.jphototagger.program.model.ComboBoxModelFastSearch;
-import org.jphototagger.program.resource.JptBundle;
 import java.awt.Component;
+
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;
 import javax.swing.JList;
+
+import org.jphototagger.domain.database.Column;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.database.metadata.selections.ColumnIcons;
+import org.jphototagger.program.model.ComboBoxModelFastSearch;
 
 /**
  * Renders elements of a {@link ComboBoxModelFastSearch}.
@@ -28,7 +30,7 @@ public final class ListCellRendererFastSearchColumns extends DefaultListCellRend
             label.setText(column.getDescription());
             label.setIcon(ColumnIcons.getIcon(column));
         } else if ((value != null) && value.equals(ComboBoxModelFastSearch.ALL_DEFINED_COLUMNS)) {
-            label.setText(JptBundle.INSTANCE.getString("ListCellRendererFastSearchColumns.Text.AllDefinedColumns"));
+            label.setText(Bundle.getString(ListCellRendererFastSearchColumns.class, "ListCellRendererFastSearchColumns.Text.AllDefinedColumns"));
             label.setIcon(null);
         }
 

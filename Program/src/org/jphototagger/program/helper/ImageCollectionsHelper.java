@@ -7,7 +7,8 @@ import java.util.logging.Logger;
 
 import org.jdesktop.swingx.JXList;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.database.DatabaseImageCollections;
 import org.jphototagger.program.model.ListModelImageCollections;
 import org.jphototagger.program.resource.GUI;
@@ -99,7 +100,9 @@ public final class ImageCollectionsHelper {
             throw new NullPointerException("imageFiles == null");
         }
 
-        if (confirmDelete("ImageCollectionsHelper.Confirm.DeleteSelectedFiles", collectionName)) {
+        String message = Bundle.getString(ImageCollectionsHelper.class, "ImageCollectionsHelper.Confirm.DeleteSelectedFiles", collectionName);
+
+        if (confirmDelete(message)) {
             boolean removed = DatabaseImageCollections.INSTANCE.deleteImagesFrom(collectionName, imageFiles)
                               == imageFiles.size();
 
@@ -125,8 +128,9 @@ public final class ImageCollectionsHelper {
         }
 
         boolean deleted = false;
+        String message = Bundle.getString(ImageCollectionsHelper.class, "ImageCollectionsHelper.Confirm.DeleteCollection", collectionName);
 
-        if (confirmDelete("ImageCollectionsHelper.Confirm.DeleteCollection", collectionName)) {
+        if (confirmDelete(message)) {
             deleted = DatabaseImageCollections.INSTANCE.delete(collectionName);
 
             if (!deleted) {
@@ -212,7 +216,8 @@ public final class ImageCollectionsHelper {
             return true;
         }
 
-        MessageDisplayer.error(null, "ImageCollectionsHelper.Error.InvalidName", name);
+        String message = Bundle.getString(ImageCollectionsHelper.class, "ImageCollectionsHelper.Error.InvalidName", name);
+        MessageDisplayer.error(null, message);
 
         return false;
     }
@@ -222,27 +227,32 @@ public final class ImageCollectionsHelper {
     }
 
     private static void errorMessageAddImagesToCollection(String collectionName) {
-        MessageDisplayer.error(null, "ImageCollectionsHelper.Error.AddImagesToCollection", collectionName);
+        String message = Bundle.getString(ImageCollectionsHelper.class, "ImageCollectionsHelper.Error.AddImagesToCollection", collectionName);
+        MessageDisplayer.error(null, message);
     }
 
     private static void errorMessageAddImageCollection(String collectionName) {
-        MessageDisplayer.error(null, "ImageCollectionsHelper.Error.AddImageCollection", collectionName);
+        String message = Bundle.getString(ImageCollectionsHelper.class, "ImageCollectionsHelper.Error.AddImageCollection", collectionName);
+        MessageDisplayer.error(null, message);
     }
 
     private static void errorMessageDeleteImageCollection(String collectionName) {
-        MessageDisplayer.error(null, "ImageCollectionsHelper.Error.DeleteImageCollection", collectionName);
+        String message = Bundle.getString(ImageCollectionsHelper.class, "ImageCollectionsHelper.Error.DeleteImageCollection", collectionName);
+        MessageDisplayer.error(null, message);
     }
 
     private static void errorMessageDeleteImagesFromCollection(String collectionName) {
-        MessageDisplayer.error(null, "ImageCollectionsHelper.Error.DeleteImagesFromCollection", collectionName);
+        String message = Bundle.getString(ImageCollectionsHelper.class, "ImageCollectionsHelper.Error.DeleteImagesFromCollection", collectionName);
+        MessageDisplayer.error(null, message);
     }
 
     private static void errorMessageRenameImageCollection(String collectionName) {
-        MessageDisplayer.error(null, "ImageCollectionsHelper.Error.RenameImageCollection", collectionName);
+        String message = Bundle.getString(ImageCollectionsHelper.class, "ImageCollectionsHelper.Error.RenameImageCollection", collectionName);
+        MessageDisplayer.error(null, message);
     }
 
-    private static boolean confirmDelete(String bundleKey, String collectionName) {
-        return MessageDisplayer.confirmYesNo(null, bundleKey, collectionName);
+    private static boolean confirmDelete(String message) {
+        return MessageDisplayer.confirmYesNo(null, message);
     }
 
     private static String inputCollectionName(String defaultName) {
@@ -255,8 +265,8 @@ public final class ImageCollectionsHelper {
             String nameNextTry = name;
 
             if (DatabaseImageCollections.INSTANCE.exists(name) ||!checkIsValidName(name)) {
-                willAdd = MessageDisplayer.confirmYesNo(null, "ImageCollectionsHelper.Confirm.InputNewCollectionName",
-                        name);
+                String message = Bundle.getString(ImageCollectionsHelper.class, "ImageCollectionsHelper.Confirm.InputNewCollectionName", name);
+                willAdd = MessageDisplayer.confirmYesNo(null, message);
                 name = null;
             }
 
@@ -269,8 +279,9 @@ public final class ImageCollectionsHelper {
     }
 
     private static String getCollectionName(String defaultName) {
-        String name = MessageDisplayer.input("ImageCollectionsHelper.Input.CollectionName", defaultName,
-                          ImageCollectionsHelper.class.getName());
+        String info = Bundle.getString(ImageCollectionsHelper.class, "ImageCollectionsHelper.Input.CollectionName");
+        String input = defaultName;
+        String name = MessageDisplayer.input(info, input);
 
         if (name != null) {
             name = name.trim();

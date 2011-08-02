@@ -1,11 +1,13 @@
 package org.jphototagger.program.model;
 
-import com.adobe.xmp.properties.XMPPropertyInfo;
-import org.jphototagger.lib.model.TableModelExt;
-import org.jphototagger.program.resource.JptBundle;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.jphototagger.lib.model.TableModelExt;
+import org.jphototagger.lib.util.Bundle;
+
+import com.adobe.xmp.properties.XMPPropertyInfo;
 
 /**
  * Alle elements are {@code XMPPropertyInfo} instances retrieved through
@@ -83,7 +85,7 @@ public final class TableModelXmp extends TableModelExt {
     }
 
     private void setRowHeaders() {
-        addColumn(JptBundle.INSTANCE.getString("TableModelXmp.HeaderColumn.1"));
-        addColumn(JptBundle.INSTANCE.getString("TableModelXmp.HeaderColumn.2"));
+        addColumn(Bundle.getString(TableModelXmp.class, "TableModelXmp.HeaderColumn.1"));
+        addColumn(Bundle.getString(TableModelXmp.class, "TableModelXmp.HeaderColumn.2"));
     }
 }

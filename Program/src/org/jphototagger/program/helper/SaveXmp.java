@@ -11,12 +11,12 @@ import org.jphototagger.domain.database.InsertIntoDatabase;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.concurrent.Cancelable;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppLifeCycle;
-import org.jphototagger.xmp.FileXmp;
-import org.jphototagger.xmp.XmpMetadata;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.tasks.UserTasks;
 import org.jphototagger.program.view.panels.ProgressBar;
+import org.jphototagger.xmp.FileXmp;
+import org.jphototagger.xmp.XmpMetadata;
 
 /**
  * Writes {@link Xmp} objects to XMP files and inserts or updates them into the
@@ -25,7 +25,7 @@ import org.jphototagger.program.view.panels.ProgressBar;
  * @author Elmar Baumann
  */
 public final class SaveXmp extends Thread implements Cancelable {
-    private static final String PROGRESSBAR_STRING = JptBundle.INSTANCE.getString("SaveXmp.ProgressBar.String");
+    private static final String PROGRESSBAR_STRING = Bundle.getString(SaveXmp.class, "SaveXmp.ProgressBar.String");
     private final Collection<FileXmp> imageFilesXmp;
     private JProgressBar progressBar;
     private volatile boolean cancel;

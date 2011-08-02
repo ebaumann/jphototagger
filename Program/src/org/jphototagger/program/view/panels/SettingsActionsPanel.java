@@ -14,8 +14,9 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.event.util.KeyEventUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseActionsAfterDbInsertion;
@@ -196,10 +197,10 @@ public class SettingsActionsPanel extends javax.swing.JPanel
     }
 
     private boolean confirmDelete(String actionName) {
-        return MessageDisplayer.confirmYesNo(
-            this,
-            "SettingsActionsPanel.Confirm.RemoveActionAfterDatabaseInsertion",
-            actionName);
+        String message = Bundle.getString(SettingsActionsPanel.class,
+                "SettingsActionsPanel.Confirm.RemoveActionAfterDatabaseInsertion", actionName);
+
+        return MessageDisplayer.confirmYesNo(this, message);
     }
 
     private boolean canMoveDown() {

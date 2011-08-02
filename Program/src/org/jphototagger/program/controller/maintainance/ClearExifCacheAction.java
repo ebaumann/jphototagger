@@ -1,10 +1,12 @@
 package org.jphototagger.program.controller.maintainance;
 
 import java.awt.event.ActionEvent;
+
 import javax.swing.AbstractAction;
-import org.jphototagger.program.app.MessageDisplayer;
+
 import org.jphototagger.exif.cache.ExifCache;
-import org.jphototagger.program.resource.JptBundle;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 
 /**
  *
@@ -17,7 +19,7 @@ public final class ClearExifCacheAction extends AbstractAction {
     public static final ClearExifCacheAction INSTANCE = new ClearExifCacheAction();
 
     private ClearExifCacheAction() {
-        super(JptBundle.INSTANCE.getString("ClearExifCacheAction.Name"));
+        super(Bundle.getString(ClearExifCacheAction.class, "ClearExifCacheAction.Name"));
     }
 
     @Override
@@ -29,10 +31,13 @@ public final class ClearExifCacheAction extends AbstractAction {
     }
 
     public boolean confirm() {
-        return MessageDisplayer.confirmYesNo(null, "ClearExifCacheAction.Confirm");
+        String message = Bundle.getString(ClearExifCacheAction.class, "ClearExifCacheAction.Confirm");
+
+        return MessageDisplayer.confirmYesNo(null, message);
     }
 
     private void showDeletedFileCountInfo(int deletedFileCount) {
-        MessageDisplayer.information(null, "ClearExifCacheAction.Info.DeletedFileCount", deletedFileCount);
+        String message = Bundle.getString(ClearExifCacheAction.class, "ClearExifCacheAction.Info.DeletedFileCount", deletedFileCount);
+        MessageDisplayer.information(null, message);
     }
 }

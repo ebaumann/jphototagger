@@ -1,10 +1,12 @@
 package org.jphototagger.program.controller.misc;
 
-import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.app.update.UpdateDownload;
-import org.jphototagger.program.resource.GUI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.program.app.update.UpdateDownload;
+import org.jphototagger.program.resource.GUI;
 
 /**
  *
@@ -23,9 +25,11 @@ public final class ControllerUpdateCheck implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (UpdateDownload.isCheckPending()) {
-            MessageDisplayer.error(null, "ControllerUpdateCheck.Error.CheckDownload");
+            String message = Bundle.getString(ControllerUpdateCheck.class, "ControllerUpdateCheck.Error.CheckDownload");
+            MessageDisplayer.error(null, message);
         } else {
-            MessageDisplayer.information(null, "ControllerUpdateCheck.Info");
+            String message = Bundle.getString(ControllerUpdateCheck.class, "ControllerUpdateCheck.Info");
+            MessageDisplayer.information(null, message);
             UpdateDownload.checkForNewerVersion();
         }
     }

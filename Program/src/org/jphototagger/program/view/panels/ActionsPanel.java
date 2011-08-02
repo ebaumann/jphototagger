@@ -10,7 +10,8 @@ import org.jphototagger.domain.event.listener.impl.ListenerSupport;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.event.util.MouseEventUtil;
-import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.controller.actions.ProgramExecutor;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.program.database.DatabaseActionsAfterDbInsertion;
@@ -198,10 +199,12 @@ public final class ActionsPanel extends javax.swing.JPanel {
     private boolean confirmDelete(Program program) {
         String  programName = program.getAlias();
         boolean existsInActionsAfterDbInsertion = DatabaseActionsAfterDbInsertion.INSTANCE.exists(program);
+        String messageExistsInOtherDb = Bundle.getString(ActionsPanel.class, "ActionsPanel.Confirm.Delete.ExistsInOtherDb", programName);
+        String messageExists = Bundle.getString(ActionsPanel.class, "ActionsPanel.Confirm.Delete", programName);
 
         return existsInActionsAfterDbInsertion
-               ? MessageDisplayer.confirmYesNo(this, "ActionsPanel.Confirm.Delete.ExistsInOtherDb", programName)
-               : MessageDisplayer.confirmYesNo(this, "ActionsPanel.Confirm.Delete", programName);
+               ? MessageDisplayer.confirmYesNo(this, messageExistsInOtherDb)
+               : MessageDisplayer.confirmYesNo(this, messageExists);
     }
 
     public synchronized void addListener(ProgramExecutionListener l) {

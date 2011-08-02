@@ -1,16 +1,19 @@
 package org.jphototagger.program.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.DefaultListModel;
+
+import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.ListUtil;
-import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseActionsAfterDbInsertion;
 import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.event.listener.DatabaseProgramsListener;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.DefaultListModel;
-import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Elements are {@link Program}s retrieved through
@@ -129,15 +132,19 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel imp
     }
 
     private void errorMessageDelete(Program action) {
-        MessageDisplayer.error(null, "ListModelActionsAfterDbInsertion.Error.Remove", action);
+        String message = Bundle.getString(ListModelActionsAfterDbInsertion.class, "ListModelActionsAfterDbInsertion.Error.Remove", action);
+        MessageDisplayer.error(null, message);
     }
 
     private void errorMessageSwap(int indexFirstElement) {
-        MessageDisplayer.error(null, "ListModelActionsAfterDbInsertion.Error.Swap", (Program) get(indexFirstElement));
+        Program program = (Program) get(indexFirstElement);
+        String message = Bundle.getString(ListModelActionsAfterDbInsertion.class, "ListModelActionsAfterDbInsertion.Error.Swap", program);
+        MessageDisplayer.error(null, message);
     }
 
     private void errorMessageInsert(Program action) {
-        MessageDisplayer.error(null, "ListModelActionsAfterDbInsertion.Error.Add", action);
+        String message = Bundle.getString(ListModelActionsAfterDbInsertion.class, "ListModelActionsAfterDbInsertion.Error.Add", action);
+        MessageDisplayer.error(null, message);
     }
 
     @Override

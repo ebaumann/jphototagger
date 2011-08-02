@@ -10,11 +10,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.AppLifeCycle;
 import org.jphototagger.program.app.AppLifeCycle.FinalTaskListener;
 import org.jphototagger.program.helper.BackupDatabase;
-import org.jphototagger.program.resource.JptBundle;
 
 /**
  *
@@ -32,10 +32,10 @@ public final class ScheduledTaskBackupDatabase implements FinalTaskListener {
     private ScheduledTaskBackupDatabase() {}
 
     public enum Interval {
-        PER_SESSION(0, JptBundle.INSTANCE.getString("ScheduledTaskBackupDatabase.Interval.Session")),
-        PER_DAY(1, JptBundle.INSTANCE.getString("ScheduledTaskBackupDatabase.Interval.Day")),
-        PER_WEEK(7, JptBundle.INSTANCE.getString("ScheduledTaskBackupDatabase.Interval.Week")),
-        PER_MONTH(30, JptBundle.INSTANCE.getString("ScheduledTaskBackupDatabase.Interval.Month")),
+        PER_SESSION(0, Bundle.getString(Interval.class, "ScheduledTaskBackupDatabase.Interval.Session")),
+        PER_DAY(1, Bundle.getString(Interval.class, "ScheduledTaskBackupDatabase.Interval.Day")),
+        PER_WEEK(7, Bundle.getString(Interval.class, "ScheduledTaskBackupDatabase.Interval.Week")),
+        PER_MONTH(30, Bundle.getString(Interval.class, "ScheduledTaskBackupDatabase.Interval.Month")),
         ;
 
         private final int days;

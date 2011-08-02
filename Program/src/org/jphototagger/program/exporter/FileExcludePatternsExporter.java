@@ -15,10 +15,10 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.xml.bind.XmlObjectExporter;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.database.DatabaseFileExcludePatterns;
-import org.jphototagger.program.resource.JptBundle;
 
 /**
  *
@@ -26,9 +26,7 @@ import org.jphototagger.program.resource.JptBundle;
  * @author Elmar Baumann
  */
 public final class FileExcludePatternsExporter implements Exporter {
-    public static final FileFilter FILE_FILTER =
-        new FileNameExtensionFilter(JptBundle.INSTANCE.getString("FileExcludePatternsExporter.DisplayName.FileFilter"),
-                                    "xml");
+    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(FileExcludePatternsExporter.class, "FileExcludePatternsExporter.DisplayName.FileFilter"), "xml");
     public static final FileExcludePatternsExporter INSTANCE = new FileExcludePatternsExporter();
 
     @Override
@@ -55,7 +53,7 @@ public final class FileExcludePatternsExporter implements Exporter {
 
     @Override
     public String getDisplayName() {
-        return JptBundle.INSTANCE.getString("FileExcludePatternsExporter.DisplayName");
+        return Bundle.getString(FileExcludePatternsExporter.class, "FileExcludePatternsExporter.DisplayName");
     }
 
     @Override

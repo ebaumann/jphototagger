@@ -9,9 +9,9 @@ import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.filechooser.FileSystemView;
+import org.jphototagger.lib.util.Bundle;
 
 import org.jphototagger.program.io.ImageFileDirectory;
-import org.jphototagger.program.resource.JptBundle;
 
 /**
  * Benutzt vom ScanDirectoriesDialog, zeigt Systemordnericons vor
@@ -47,7 +47,7 @@ public final class ListCellRendererDirectories extends DefaultListCellRenderer {
     }
 
     private static String getLabelText(ImageFileDirectory directoryInfo) {
-        return JptBundle.INSTANCE.getString("ListCellRendererDirectories.LabelText",
+        return Bundle.getString(ListCellRendererDirectories.class, "ListCellRendererDirectories.LabelText",
                 directoryInfo.getDirectory().getAbsolutePath(), directoryInfo.getImageFileCount());
     }
 }

@@ -19,7 +19,8 @@ import org.jphototagger.domain.keywords.Keyword;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.datatransfer.TransferUtil;
 import org.jphototagger.lib.datatransfer.TransferableObject;
-import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.controller.keywords.tree.KeywordTreeNodesClipboard;
 import org.jphototagger.program.controller.keywords.tree.KeywordsTreePathExpander;
 import org.jphototagger.program.factory.ModelFactory;
@@ -97,7 +98,8 @@ public final class TransferHandlerKeywordsTree extends TransferHandler {
 
     private static boolean checkSelCount(int selCount) {
         if (selCount != 1) {
-            MessageDisplayer.error(null, "TransferHandlerKeywordsTree.Error.Import.Selection");
+            String message = Bundle.getString(TransferHandlerKeywordsTree.class, "TransferHandlerKeywordsTree.Error.Import.Selection");
+            MessageDisplayer.error(null, message);
 
             return false;
         }
@@ -149,7 +151,9 @@ public final class TransferHandlerKeywordsTree extends TransferHandler {
     }
 
     private boolean confirmImport(int fileCount) {
-        return MessageDisplayer.confirmYesNo(null, "TransferHandlerKeywords.Confirm.Import", fileCount);
+        String message = Bundle.getString(TransferHandlerKeywordsTree.class, "TransferHandlerKeywords.Confirm.Import", fileCount);
+
+        return MessageDisplayer.confirmYesNo(null, message);
     }
 
     @SuppressWarnings("unchecked")

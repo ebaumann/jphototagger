@@ -16,10 +16,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.xml.bind.XmlObjectExporter;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.database.DatabaseFavorites;
-import org.jphototagger.program.resource.JptBundle;
 
 /**
  *
@@ -27,8 +27,7 @@ import org.jphototagger.program.resource.JptBundle;
  * @author Elmar Baumann
  */
 public final class FavoritesExporter implements Exporter {
-    public static final FileFilter FILE_FILTER =
-        new FileNameExtensionFilter(JptBundle.INSTANCE.getString("FavoritesExporter.DisplayName.FileFilter"), "xml");
+    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(FavoritesExporter.class, "FavoritesExporter.DisplayName.FileFilter"), "xml");
     public static final FavoritesExporter INSTANCE = new FavoritesExporter();
 
     @Override
@@ -55,7 +54,7 @@ public final class FavoritesExporter implements Exporter {
 
     @Override
     public String getDisplayName() {
-        return JptBundle.INSTANCE.getString("FavoritesExporter.DisplayName");
+        return Bundle.getString(FavoritesExporter.class, "FavoritesExporter.DisplayName");
     }
 
     @Override

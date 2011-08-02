@@ -20,12 +20,12 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.jphototagger.domain.keywords.Keyword;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.io.CharEncoding;
 import org.jphototagger.program.io.FilenameSuffixes;
 import org.jphototagger.program.model.TreeModelKeywords;
-import org.jphototagger.program.resource.JptBundle;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
@@ -78,7 +78,7 @@ public final class KeywordsExporterJpt implements Exporter {
      * Icon returned by {@link #getIcon()}
      */
     private static final Icon ICON = AppLookAndFeel.getIcon("icon_app_small.png");
-    private static final String DISPLAY_NAME = JptBundle.INSTANCE.getString("KeywordExporterJpt.DisplayName");
+    private static final String DISPLAY_NAME = Bundle.getString(KeywordsExporterJpt.class, "KeywordExporterJpt.DisplayName");
     private static final FileFilter FILE_FILTER = new FileNameExtensionFilter(DISPLAY_NAME, "xml");
 
     static {

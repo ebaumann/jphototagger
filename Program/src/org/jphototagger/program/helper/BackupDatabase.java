@@ -1,14 +1,5 @@
 package org.jphototagger.program.helper;
 
-import org.jphototagger.lib.concurrent.Cancelable;
-import org.jphototagger.lib.io.filefilter.RegexFileFilter;
-import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.program.app.AppLifeCycle;
-import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.lib.event.ProgressEvent;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.view.panels.ProgressBarUpdater;
 import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -20,6 +11,16 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
+
+import org.jphototagger.lib.concurrent.Cancelable;
+import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.lib.event.ProgressEvent;
+import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.lib.io.filefilter.RegexFileFilter;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.app.AppLifeCycle;
+import org.jphototagger.program.view.panels.ProgressBarUpdater;
 
 /**
  *
@@ -64,9 +65,8 @@ public final class BackupDatabase extends AppLifeCycle.FinalTask implements Runn
                 return;
             }
 
-            File tnBackupDir = new File(backupDir.getAbsolutePath() + File.separator
-                                        + UserSettings.getThumbnailDirBasename());
-            String pBarString = JptBundle.INSTANCE.getString("BackupDatabase.ProgressBar.String");
+            File tnBackupDir = new File(backupDir.getAbsolutePath() + File.separator + UserSettings.getThumbnailDirBasename());
+            String pBarString = Bundle.getString(BackupDatabase.class, "BackupDatabase.ProgressBar.String");
 
             progressBarUpdater = new ProgressBarUpdater(this, pBarString);
             filecount = dbFiles.size() + tnFiles.size();
@@ -78,7 +78,8 @@ public final class BackupDatabase extends AppLifeCycle.FinalTask implements Runn
 
             notifyProgressEnded();
         } else {
-            MessageDisplayer.error(null, "BackupDatabase.Error.FileNotExists");
+            String message = Bundle.getString(BackupDatabase.class, "BackupDatabase.Error.FileNotExists");
+            MessageDisplayer.error(null, message);
         }
     }
 
@@ -94,7 +95,8 @@ public final class BackupDatabase extends AppLifeCycle.FinalTask implements Runn
                 }
             } catch (IOException ex) {
                 Logger.getLogger(BackupDatabase.class.getName()).log(Level.SEVERE, null, ex);
-                MessageDisplayer.error(null, "BackupDatabase.Error.Copy", file, toDir);
+                String message = Bundle.getString(BackupDatabase.class, "BackupDatabase.Error.Copy", file, toDir);
+                MessageDisplayer.error(null, message);
 
                 return false;
             }
@@ -137,7 +139,8 @@ public final class BackupDatabase extends AppLifeCycle.FinalTask implements Runn
         if (dir.mkdir() && tnDir.mkdir()) {
             return dir;
         } else {
-            MessageDisplayer.error(null, "BackupDatabase.Error.CreateDir", dir);
+            String message = Bundle.getString(BackupDatabase.class, "BackupDatabase.Error.CreateDir", dir);
+            MessageDisplayer.error(null, message);
 
             return null;
         }

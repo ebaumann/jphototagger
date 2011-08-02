@@ -15,11 +15,11 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.xml.bind.XmlObjectExporter;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.program.database.DatabasePrograms;
-import org.jphototagger.program.resource.JptBundle;
 
 /**
  *
@@ -27,8 +27,7 @@ import org.jphototagger.program.resource.JptBundle;
  * @author Elmar Baumann
  */
 public final class ProgramsExporter implements Exporter {
-    public static final FileFilter FILE_FILTER =
-        new FileNameExtensionFilter(JptBundle.INSTANCE.getString("ProgramsExporter.DisplayName.FileFilter"), "xml");
+    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(ProgramsExporter.class, "ProgramsExporter.DisplayName.FileFilter"), "xml");
     public static final ProgramsExporter INSTANCE = new ProgramsExporter();
 
     @Override
@@ -56,7 +55,7 @@ public final class ProgramsExporter implements Exporter {
 
     @Override
     public String getDisplayName() {
-        return JptBundle.INSTANCE.getString("ProgramsExporter.DisplayName");
+        return Bundle.getString(ProgramsExporter.class, "ProgramsExporter.DisplayName");
     }
 
     @Override

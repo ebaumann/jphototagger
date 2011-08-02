@@ -1,13 +1,16 @@
 package org.jphototagger.program.helper;
 
+
+import javax.swing.DefaultListModel;
+
 import org.jphototagger.lib.comparator.FileSort;
-import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
 import org.jphototagger.program.data.SavedSearch;
 import org.jphototagger.program.database.DatabaseSavedSearches;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
-import javax.swing.DefaultListModel;
 
 /**
  *
@@ -72,7 +75,8 @@ public final class SavedSearchesHelper {
             if (DatabaseSavedSearches.INSTANCE.insert(savedSearch)) {
                 return true;
             } else {
-                MessageDisplayer.error(null, "SavedSearchesHelper.Error.Insert", savedSearch);
+                String message = Bundle.getString(SavedSearchesHelper.class, "SavedSearchesHelper.Error.Insert", savedSearch);
+                MessageDisplayer.error(null, message);
             }
         }
 
@@ -93,7 +97,8 @@ public final class SavedSearchesHelper {
         if (DatabaseSavedSearches.INSTANCE.update(savedSearch)) {
             return true;
         } else {
-            MessageDisplayer.error(null, "SavedSearchesHelper.Error.Update", savedSearch);
+            String message = Bundle.getString(SavedSearchesHelper.class, "SavedSearchesHelper.Error.Update", savedSearch);
+            MessageDisplayer.error(null, message);
 
             return false;
         }
@@ -113,7 +118,8 @@ public final class SavedSearchesHelper {
 
         if (confirmDelete(searchName)) {
             if (!DatabaseSavedSearches.INSTANCE.delete(searchName)) {
-                MessageDisplayer.error(null, "SavedSearchesHelper.Error.Delete");
+                String message = Bundle.getString(SavedSearchesHelper.class, "SavedSearchesHelper.Error.Delete");
+                MessageDisplayer.error(null, message);
             }
         }
     }
@@ -139,7 +145,8 @@ public final class SavedSearchesHelper {
 
         if (toName != null) {
             if (!DatabaseSavedSearches.INSTANCE.updateRename(fromName, toName)) {
-                MessageDisplayer.error(null, "SavedSearchesHelper.Error.Rename", fromName);
+                String message = Bundle.getString(SavedSearchesHelper.class, "SavedSearchesHelper.Error.Rename", fromName);
+                MessageDisplayer.error(null, message);
             }
         }
     }
@@ -198,21 +205,28 @@ public final class SavedSearchesHelper {
     }
 
     private static String getInput(String fromName) {
-        return MessageDisplayer.input("SavedSearchesHelper.Input.NewName", fromName,
-                                      SavedSearchesHelper.class.getName());
+        String info = Bundle.getString(SavedSearchesHelper.class, "SavedSearchesHelper.Input.NewName");
+        String input = fromName;
+
+        return MessageDisplayer.input(info, input);
     }
 
     private static boolean confirmInputNotExistingName(String input) {
-        return MessageDisplayer.confirmYesNo(null, "SavedSearchesHelper.Confirm.InputDifferentName", input);
+        String message = Bundle.getString(SavedSearchesHelper.class, "SavedSearchesHelper.Confirm.InputDifferentName", input);
+
+        return MessageDisplayer.confirmYesNo(null, message);
     }
 
     private static boolean confirmDelete(String name) {
-        return MessageDisplayer.confirmYesNo(null, "SavedSearchesHelper.Confirm.Delete", name);
+        String message = Bundle.getString(SavedSearchesHelper.class, "SavedSearchesHelper.Confirm.Delete", name);
+
+        return MessageDisplayer.confirmYesNo(null, message);
     }
 
     private static boolean ensureNotOverwrite(String name) {
         if (DatabaseSavedSearches.INSTANCE.exists(name)) {
-            MessageDisplayer.error(null, "SavedSearchesHelper.Error.Exists", name);
+            String message = Bundle.getString(SavedSearchesHelper.class, "SavedSearchesHelper.Error.Exists", name);
+            MessageDisplayer.error(null, message);
 
             return false;
         }

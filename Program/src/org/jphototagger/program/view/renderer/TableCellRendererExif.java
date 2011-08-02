@@ -1,25 +1,27 @@
 package org.jphototagger.program.view.renderer;
 
-import javax.swing.table.TableModel;
-import org.jphototagger.lib.componentutil.TableUtil;
-import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.exif.ExifInDatabase;
-import org.jphototagger.exif.ExifIfdType;
-import org.jphototagger.exif.ExifTag;
-import org.jphototagger.exif.ExifTag.Id;
-import org.jphototagger.exif.ExifTagValueFormatter;
-import org.jphototagger.exif.tag.ExifGpsMetadata;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.lib.util.Translation;
 import java.awt.Component;
 import java.util.Comparator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableModel;
 import javax.swing.table.TableStringConverter;
+
+import org.jphototagger.exif.ExifIfdType;
+import org.jphototagger.exif.ExifInDatabase;
+import org.jphototagger.exif.ExifTag;
+import org.jphototagger.exif.ExifTag.Id;
+import org.jphototagger.exif.ExifTagValueFormatter;
+import org.jphototagger.exif.tag.ExifGpsMetadata;
+import org.jphototagger.lib.componentutil.TableUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
+import org.jphototagger.lib.util.Translation;
+import org.jphototagger.program.app.AppLookAndFeel;
 
 /**
  *
@@ -62,7 +64,7 @@ public final class TableCellRendererExif extends FormatterLabelMetadata implemen
             }
         } else if (value instanceof ExifGpsMetadata) {
             if (column == 0) {
-                cellLabel.setText(JptBundle.INSTANCE.getString("TableCellRendererExif.Column.ShowLocationIn"));
+                cellLabel.setText(Bundle.getString(TableCellRendererExif.class, "TableCellRendererExif.Column.ShowLocationIn"));
             }
         } else if (value instanceof Component) {
             return (Component) value;
@@ -115,7 +117,7 @@ public final class TableCellRendererExif extends FormatterLabelMetadata implemen
 
         if (ExifInDatabase.isInDatabase(ifdType, ExifTagId)) {
             setIsStoredInDatabaseColors(cellLabel, isSelected);
-            cellLabel.setToolTipText(JptBundle.INSTANCE.getString("TableCellRendererExif.ToolTipText.CellLabelStoredInDatabase"));
+            cellLabel.setToolTipText(Bundle.getString(TableCellRendererExif.class, "TableCellRendererExif.ToolTipText.CellLabelStoredInDatabase"));
         }
     }
 

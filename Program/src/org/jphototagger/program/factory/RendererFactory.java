@@ -1,7 +1,13 @@
 package org.jphototagger.program.factory;
 
+import java.util.List;
+
+import javax.swing.JTable;
+
+import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.ListItemTempSelectionRowSetter;
 import org.jphototagger.lib.componentutil.TreeItemTempSelectionRowSetter;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.panels.AppPanel;
@@ -13,9 +19,6 @@ import org.jphototagger.program.view.popupmenus.PopupMenuSavedSearches;
 import org.jphototagger.program.view.renderer.TableCellRendererExif;
 import org.jphototagger.program.view.renderer.TableCellRendererIptc;
 import org.jphototagger.program.view.renderer.TableCellRendererXmp;
-import java.util.List;
-import javax.swing.JTable;
-import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Erzeugt Renderer und verknüpft sie mit den GUI-Elementen.
@@ -39,10 +42,12 @@ public final class RendererFactory {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
-                Support.setStatusbarInfo("RendererFactory.Init.Start");
+                String message = Bundle.getString(RendererFactory.class, "RendererFactory.Init.Start");
+                Support.setStatusbarInfo(message);
                 setMetadataTablesRenderers();
                 setPopupMenuHighlighter();
-                Support.setStatusbarInfo("RendererFactory.Init.Finished");
+                message = Bundle.getString(RendererFactory.class, "RendererFactory.Init.Finished");
+                Support.setStatusbarInfo(message);
             }
         });
     }

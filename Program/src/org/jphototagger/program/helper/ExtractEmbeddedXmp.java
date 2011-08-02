@@ -9,7 +9,8 @@ import java.util.logging.Logger;
 
 import org.jphototagger.domain.database.InsertIntoDatabase;
 import org.jphototagger.lib.io.FileLock;
-import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.types.FileEditor;
 import org.jphototagger.xmp.XmpFileReader;
 import org.jphototagger.xmp.XmpMetadata;
@@ -42,7 +43,9 @@ public final class ExtractEmbeddedXmp extends FileEditor {
 
     private boolean confirmRemove(File file) {
         if (getConfirmOverwrite()) {
-            return MessageDisplayer.confirmYesNo(null, "ExtractEmbeddedXmp.Confirm.Overwrite", file);
+            String message = Bundle.getString(ExtractEmbeddedXmp.class, "ExtractEmbeddedXmp.Confirm.Overwrite", file);
+
+            return MessageDisplayer.confirmYesNo(null, message);
         }
 
         return true;

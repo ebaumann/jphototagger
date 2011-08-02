@@ -12,6 +12,7 @@ import org.jphototagger.domain.database.InsertIntoDatabase;
 import org.jphototagger.domain.imagecollections.ImageCollection;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.ListUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.xml.bind.XmlObjectImporter;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.comparator.ComparatorStringAscending;
@@ -21,7 +22,6 @@ import org.jphototagger.program.exporter.ImageCollectionsExporter.CollectionWrap
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
 import org.jphototagger.program.model.ListModelImageCollections;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.panels.ProgressBarUpdater;
 
 /**
@@ -114,7 +114,7 @@ public final class ImageCollectionsImporter implements Importer {
                                                         InsertIntoDatabase.OUT_OF_DATE);
 
             inserter.addProgressListener(new ProgressBarUpdater(inserter,
-                    JptBundle.INSTANCE.getString("ImageCollectionsImporter.ProgressBar.String")));
+                    Bundle.getString(ImportThread.class, "ImageCollectionsImporter.ProgressBar.String")));
             inserter.run();    // run in this thread!
         }
     }

@@ -11,17 +11,17 @@ import java.util.logging.Logger;
 
 import javax.swing.JFileChooser;
 
+import org.jphototagger.exif.ExifMetadata;
 import org.jphototagger.exif.ExifTags;
 import org.jphototagger.exif.tag.ExifGpsMetadata;
 import org.jphototagger.exif.tag.ExifGpsUtil;
 import org.jphototagger.lib.dialog.FileChooserExt;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.io.IoUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.PropertiesUtil;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.helper.HelperThread;
-import org.jphototagger.exif.ExifMetadata;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.tasks.UserTasks;
 
 /**
@@ -63,7 +63,7 @@ public final class GPSLocationExportUtil {
             super("JPhotoTagger: Exporting GPS locations");
             this.exporter = exporter;
             this.imageFiles = new ArrayList<File>(imageFiles);
-            setInfo(JptBundle.INSTANCE.getString("GPSLocationExportUtil.Exporter.Info"));
+            setInfo(Bundle.getString(Exporter.class, "GPSLocationExportUtil.Exporter.Info"));
         }
 
         @Override
@@ -103,8 +103,7 @@ public final class GPSLocationExportUtil {
      * Exports GPS metadata in image files into a file.
      *
      * @param exporter   exporter for a specific file format
-     * @param imageFiles image files with EXIF metadata containing GPS
-     *                   information
+     * @param imageFiles image files with EXIF metadata containing GPS information
      */
     public static void export(GPSLocationExporter exporter, Collection<? extends File> imageFiles) {
         if (exporter == null) {
@@ -130,7 +129,8 @@ public final class GPSLocationExportUtil {
                 fos.flush();
             } catch (Exception ex) {
                 Logger.getLogger(GPSLocationExportUtil.class.getName()).log(Level.SEVERE, null, ex);
-                MessageDisplayer.error(null, "GPSLocationExportUtil.Error.Export", exportFile);
+                String message = Bundle.getString(GPSLocationExportUtil.class, "GPSLocationExportUtil.Error.Export", exportFile);
+                MessageDisplayer.error(null, message);
             } finally {
                 IoUtil.close(fos);
             }

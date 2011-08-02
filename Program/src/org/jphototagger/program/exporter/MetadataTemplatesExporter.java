@@ -19,10 +19,10 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.jphototagger.domain.database.Column;
 import org.jphototagger.domain.templates.MetadataTemplate;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.database.DatabaseMetadataTemplates;
 import org.jphototagger.program.io.CharEncoding;
-import org.jphototagger.program.resource.JptBundle;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
@@ -35,9 +35,7 @@ import org.w3c.dom.Element;
  */
 public final class MetadataTemplatesExporter implements Exporter {
     private static final long serialVersionUID = 1L;
-    private static final FileFilter FILE_FILTER =
-        new FileNameExtensionFilter(JptBundle.INSTANCE.getString("MetadataTemplatesExporter.DisplayName.FileFilter"),
-                                    "xml");
+    private static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(MetadataTemplatesExporter.class, "MetadataTemplatesExporter.DisplayName.FileFilter"), "xml");
     public static final MetadataTemplatesExporter INSTANCE = new MetadataTemplatesExporter();
     public static final String DTD = "metadatatemplates.dtd";
     public static final String TAGNAME_ROOT = "templates";
@@ -143,7 +141,7 @@ public final class MetadataTemplatesExporter implements Exporter {
 
     @Override
     public String getDisplayName() {
-        return JptBundle.INSTANCE.getString("MetadataTemplatesExporter.DisplayName");
+        return Bundle.getString(MetadataTemplatesExporter.class, "MetadataTemplatesExporter.DisplayName");
     }
 
     @Override

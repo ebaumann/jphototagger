@@ -1,5 +1,6 @@
 package org.jphototagger.program.app;
 
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.HashSet;
@@ -10,6 +11,7 @@ import java.util.logging.Logger;
 
 import org.jphototagger.domain.event.listener.AppExitListener;
 import org.jphototagger.domain.event.listener.impl.ListenerSupport;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.database.DatabaseMaintainance;
 import org.jphototagger.program.factory.MetaFactory;
@@ -244,7 +246,9 @@ public final class AppLifeCycle {
             return true;
         }
 
-        return MessageDisplayer.confirmYesNo(appFrame, "AppLifeCycle.Confirm.QuitOnUserTasks");
+        String message = Bundle.getString(AppLifeCycle.class, "AppLifeCycle.Confirm.QuitOnUserTasks");
+
+        return MessageDisplayer.confirmYesNo(appFrame, message);
     }
 
     private void checkDataToSave() {
@@ -264,8 +268,9 @@ public final class AppLifeCycle {
                 }
 
                 if (elapsedMilliseconds >= timeoutMilliSeconds) {
-                    MessageDisplayer.error(null, "AppLifeCycle.Error.ExitDataNotSaved.MaxWaitTimeExceeded",
-                                           timeoutMilliSeconds / 1000);
+                    String message = Bundle.getString(AppLifeCycle.class,
+                            "AppLifeCycle.Error.ExitDataNotSaved.MaxWaitTimeExceeded", timeoutMilliSeconds / 1000);
+                    MessageDisplayer.error(null, message);
                 }
             }
         }

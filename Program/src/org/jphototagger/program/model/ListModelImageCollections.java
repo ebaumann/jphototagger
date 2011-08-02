@@ -2,13 +2,15 @@ package org.jphototagger.program.model;
 
 import java.util.Comparator;
 import java.util.LinkedHashMap;
-import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.database.ConnectionPool;
-import org.jphototagger.program.database.DatabaseImageCollections;
-import org.jphototagger.program.resource.JptBundle;
 import java.util.List;
 import java.util.Map;
+
 import javax.swing.DefaultListModel;
+
+import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.database.ConnectionPool;
+import org.jphototagger.program.database.DatabaseImageCollections;
 
 /**
  * Elements are {@link String}s with all names of image collections retrieved
@@ -25,19 +27,19 @@ public final class ListModelImageCollections extends DefaultListModel {
      * image files
      */
     public static final String NAME_IMAGE_COLLECTION_PREV_IMPORT =
-        JptBundle.INSTANCE.getString("ListModelImageCollections.DisplayName.ItemImageCollections.LastImport");
+            Bundle.getString(ListModelImageCollections.class, "ListModelImageCollections.DisplayName.ItemImageCollections.LastImport");
 
     /**
      * Name of the image collection which contains picked images
      */
     public static final String NAME_IMAGE_COLLECTION_PICKED =
-        JptBundle.INSTANCE.getString("ListModelImageCollections.DisplayName.ItemImageCollections.Picked");
+            Bundle.getString(ListModelImageCollections.class, "ListModelImageCollections.DisplayName.ItemImageCollections.Picked");
 
     /**
      * Name of the image collection which contains rejected images
      */
     public static final String NAME_IMAGE_COLLECTION_REJECTED =
-        JptBundle.INSTANCE.getString("ListModelImageCollections.DisplayName.ItemImageCollections.Rejected");
+            Bundle.getString(ListModelImageCollections.class, "ListModelImageCollections.DisplayName.ItemImageCollections.Rejected");
 
     static {
 
@@ -60,7 +62,8 @@ public final class ListModelImageCollections extends DefaultListModel {
             throw new NullPointerException("toName == null");
         }
 
-        if (!checkIsNotSpecialCollection(toName, "ListModelImageCollections.Error.RenameSpecialCollection")) {
+        String errorMessage = Bundle.getString(ListModelImageCollections.class, "ListModelImageCollections.Error.RenameSpecialCollection");
+        if (!checkIsNotSpecialCollection(toName, errorMessage)) {
             return;
         }
 
@@ -127,24 +130,22 @@ public final class ListModelImageCollections extends DefaultListModel {
      * is, displays a warning message with the name of the image collection as
      * parameter.
      *
-     * @param  collectionName name of the image collection
-     * @param  propertyKey    property key to load the warning message. If it
-     *                        has a parameter zero, that will be replaced with
-     *                        the name of the image collection
+     * @param  collectionName
+     * @param  errorMessage
      * @return                true if everything is ok: the image collection is
      *                        <em>not</em> a special collection
      */
-    public static boolean checkIsNotSpecialCollection(String collectionName, String propertyKey) {
+    public static boolean checkIsNotSpecialCollection(String collectionName, String errorMessage) {
         if (collectionName == null) {
             throw new NullPointerException("collectionName == null");
         }
 
-        if (propertyKey == null) {
+        if (errorMessage == null) {
             throw new NullPointerException("propertyKey == null");
         }
 
         if (isSpecialCollection(collectionName)) {
-            MessageDisplayer.warning(null, propertyKey, collectionName);
+            MessageDisplayer.warning(null, errorMessage);
 
             return false;
         }

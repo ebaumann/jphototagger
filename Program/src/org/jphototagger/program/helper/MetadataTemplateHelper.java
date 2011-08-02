@@ -2,9 +2,9 @@ package org.jphototagger.program.helper;
 
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.dialog.InputDialog;
-import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.database.DatabaseMetadataTemplates;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.dialogs.InputHelperDialog;
 
 /**
@@ -22,9 +22,11 @@ public final class MetadataTemplateHelper {
      * @return         name or null
      */
     public static String getNewTemplateName(String fromName) {
-        InputDialog dlg = new InputDialog(InputHelperDialog.INSTANCE);
+        InputHelperDialog owner = InputHelperDialog.INSTANCE;
+        InputDialog dlg = new InputDialog(owner);
+        String info = Bundle.getString(MetadataTemplateHelper.class, "MetadataTemplateHelper.Info.InputName");
 
-        dlg.setInfo(JptBundle.INSTANCE.getString("MetadataTemplateHelper.Info.InputName"));
+        dlg.setInfo(info);
 
         if (fromName != null) {
             dlg.setInput(fromName);
@@ -46,13 +48,17 @@ public final class MetadataTemplateHelper {
             boolean namesEqual = (fromName != null) && name.equalsIgnoreCase(fromName);
 
             if (namesEqual) {
-                if (!MessageDisplayer.confirmYesNo(null, "MetadataTemplateHelper.Error.NamEquals")) {
+                String message = Bundle.getString(MetadataTemplateHelper.class, "MetadataTemplateHelper.Error.NamEquals");
+
+                if (!MessageDisplayer.confirmYesNo(null, message)) {
                     return null;
                 }
             }
 
             if (!namesEqual && DatabaseMetadataTemplates.INSTANCE.exists(name)) {
-                if (!MessageDisplayer.confirmYesNo(null, "MetadataTemplateHelper.Error.NameExists", name)) {
+                String message = Bundle.getString(MetadataTemplateHelper.class, "MetadataTemplateHelper.Error.NameExists", name);
+
+                if (!MessageDisplayer.confirmYesNo(null, message)) {
                     return null;
                 }
             } else {
@@ -61,5 +67,6 @@ public final class MetadataTemplateHelper {
         }
     }
 
-    private MetadataTemplateHelper() {}
+    private MetadataTemplateHelper() {
+}
 }

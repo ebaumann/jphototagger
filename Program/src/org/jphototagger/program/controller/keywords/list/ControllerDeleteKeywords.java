@@ -1,12 +1,14 @@
 package org.jphototagger.program.controller.keywords.list;
 
-import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.helper.KeywordsHelper;
-import org.jphototagger.program.view.dialogs.InputHelperDialog;
-import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsList;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.List;
+
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.program.helper.KeywordsHelper;
+import org.jphototagger.program.view.dialogs.InputHelperDialog;
+import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsList;
 
 /**
  * Deletes keywords of selected items whithin the keywords list.
@@ -46,14 +48,15 @@ public final class ControllerDeleteKeywords extends ControllerKeywords {
 
         if (size == 1) {
             String keyword = keywords.get(0);
+            String message = Bundle.getString(ControllerDeleteKeywords.class, "ControllerDeleteKeywords.List.Confirm.Delete", keyword);
 
-            if (MessageDisplayer.confirmYesNo(InputHelperDialog.INSTANCE,
-                                              "ControllerDeleteKeywords.List.Confirm.Delete", keyword)) {
+            if (MessageDisplayer.confirmYesNo(InputHelperDialog.INSTANCE, message)) {
                 KeywordsHelper.deleteDcSubject(keyword);
             }
         } else if (size > 1) {
-            if (MessageDisplayer.confirmYesNo(InputHelperDialog.INSTANCE,
-                                              "ControllerDeleteKeywords.List.Confirm.DeleteMultiple", size)) {
+            String message = Bundle.getString(ControllerDeleteKeywords.class, "ControllerDeleteKeywords.List.Confirm.DeleteMultiple", size);
+
+            if (MessageDisplayer.confirmYesNo(InputHelperDialog.INSTANCE, message)) {
                 for (String keyword : keywords) {
                     KeywordsHelper.deleteDcSubject(keyword);
                 }

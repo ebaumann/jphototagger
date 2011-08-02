@@ -1,27 +1,27 @@
 package org.jphototagger.program.controller.keywords.tree;
 
-import java.util.Properties;
-import org.jphototagger.lib.dialog.InputDialog;
-import org.jphototagger.lib.event.util.KeyEventUtil;
-import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.domain.keywords.Keyword;
-import org.jphototagger.program.database.DatabaseKeywords;
-import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.program.model.TreeModelKeywords;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.view.dialogs.InputHelperDialog;
-import org.jphototagger.program.view.panels.KeywordsPanel;
-import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsTree;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.List;
+
 import javax.swing.JDialog;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
+
+import org.jphototagger.domain.keywords.Keyword;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.dialog.InputDialog;
+import org.jphototagger.lib.event.util.KeyEventUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
+import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.program.database.DatabaseKeywords;
+import org.jphototagger.program.factory.ModelFactory;
+import org.jphototagger.program.model.TreeModelKeywords;
+import org.jphototagger.program.view.dialogs.InputHelperDialog;
+import org.jphototagger.program.view.panels.KeywordsPanel;
+import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsTree;
 
 /**
  * Listens to the menu item {@link PopupMenuKeywordsTree#getItemAdd()}
@@ -126,7 +126,8 @@ public class ControllerAddKeyword extends ControllerKeywords implements ActionLi
 
             if (DatabaseKeywords.INSTANCE.hasParentChildWithEqualName(newKeyword)) {
                 newName = null;
-                input = MessageDisplayer.confirmYesNo(null, "ControllerAddKeyword.Confirm.Exists", newKeyword);
+                String message = Bundle.getString(ControllerAddKeyword.class, "ControllerAddKeyword.Confirm.Exists", newKeyword);
+                input = MessageDisplayer.confirmYesNo(null, message);
             } else {
                 return newName;
             }
@@ -137,12 +138,10 @@ public class ControllerAddKeyword extends ControllerKeywords implements ActionLi
 
     private static InputDialog createInputDialog() {
         JDialog owner = InputHelperDialog.INSTANCE;
-        String info = JptBundle.INSTANCE.getString("ControllerAddKeyword.Input.Name");
+        String info = Bundle.getString(ControllerAddKeyword.class, "ControllerAddKeyword.Input.Name");
         String input = "";
-        Properties properties = UserSettings.INSTANCE.getProperties();
-        String propertyKey = ControllerAddKeyword.class.getName();
 
-        return new InputDialog(owner, info, input, properties, propertyKey);
+        return new InputDialog(owner, info, input);
     }
 
     private static Keyword createKeywordFromExistingKeyword(Keyword keyword, String newName) {

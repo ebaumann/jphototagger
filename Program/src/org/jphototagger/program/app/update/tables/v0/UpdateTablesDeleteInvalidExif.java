@@ -1,17 +1,18 @@
 package org.jphototagger.program.app.update.tables.v0;
 
-import org.jphototagger.program.app.SplashScreen;
-import org.jphototagger.program.database.Database;
-import org.jphototagger.program.database.DatabaseApplicationProperties;
-import org.jphototagger.domain.database.Column;
-import org.jphototagger.domain.database.exif.ColumnExifFocalLength;
-import org.jphototagger.domain.database.exif.ColumnExifIsoSpeedRatings;
-import org.jphototagger.domain.database.exif.ColumnExifRecordingEquipment;
-import org.jphototagger.program.resource.JptBundle;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
+
+import org.jphototagger.domain.database.Column;
+import org.jphototagger.domain.database.exif.ColumnExifFocalLength;
+import org.jphototagger.domain.database.exif.ColumnExifIsoSpeedRatings;
+import org.jphototagger.domain.database.exif.ColumnExifRecordingEquipment;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.app.SplashScreen;
+import org.jphototagger.program.database.Database;
+import org.jphototagger.program.database.DatabaseApplicationProperties;
 
 /**
  * Removes invalid EXIF metadata (Bugfix).
@@ -61,6 +62,6 @@ final class UpdateTablesDeleteInvalidExif {
     }
 
     private void startMessage() {
-        SplashScreen.INSTANCE.setMessage(JptBundle.INSTANCE.getString("UpdateTablesDeleteInvalidExif.Info"));
+        SplashScreen.INSTANCE.setMessage(Bundle.getString(UpdateTablesDeleteInvalidExif.class, "UpdateTablesDeleteInvalidExif.Info"));
     }
 }

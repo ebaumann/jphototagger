@@ -22,7 +22,8 @@ import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.lib.datatransfer.TransferUtil;
 import org.jphototagger.lib.datatransfer.TransferUtil.FilenameDelimiter;
 import org.jphototagger.lib.datatransfer.TransferableObject;
-import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.database.DatabaseImageCollections;
 import org.jphototagger.program.helper.FavoritesHelper;
 import org.jphototagger.program.helper.KeywordsHelper;
@@ -351,6 +352,8 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
     }
 
     private void errorMessageSelCount() {
-        MessageDisplayer.error(null, "TransferHandlerThumbnailsPanel.Error.NoSelection");
+        String message = Bundle.getString(TransferHandlerThumbnailsPanel.class, "TransferHandlerThumbnailsPanel.Error.NoSelection");
+
+        MessageDisplayer.error(null, message);
     }
 }

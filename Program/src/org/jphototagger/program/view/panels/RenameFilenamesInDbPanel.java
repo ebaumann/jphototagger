@@ -8,9 +8,10 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.event.ProgressEvent;
 import org.jphototagger.lib.event.listener.ProgressListener;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.Settings;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.types.Persistence;
 
@@ -53,8 +54,9 @@ public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener
                     String searchText = textFieldSearch.getText();
                     String replacementText = textFieldReplacement.getText();
                     int count = DatabaseImageFiles.INSTANCE.updateRenameFilenamesStartingWith(searchText, replacementText, progressListener);
+                    String message = Bundle.getString(RenameFilenamesInDbPanel.class, "RenameFilenamesInDbPanel.Info.Count", count);
 
-                    MessageDisplayer.information(null, "RenameFilenamesInDbPanel.Info.Count", count);
+                    MessageDisplayer.information(null, message);
                     runs = false;
                 }
             }, "JPhotoTagger: Renaming files in database");
@@ -116,8 +118,9 @@ public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener
     private boolean confirmReplace() {
         String searchText = textFieldSearch.getText();
         String replacementText = textFieldReplacement.getText();
+        String message = Bundle.getString(RenameFilenamesInDbPanel.class, "RenameFilenamesInDbPanel.Confirm.Replace", searchText, replacementText);
 
-        return MessageDisplayer.confirmYesNo(this, "RenameFilenamesInDbPanel.Confirm.Replace", searchText, replacementText);
+        return MessageDisplayer.confirmYesNo(this, message);
     }
 
     @Override

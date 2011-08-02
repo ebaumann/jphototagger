@@ -15,11 +15,11 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.xml.bind.XmlObjectExporter;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.data.SavedSearch;
 import org.jphototagger.program.database.DatabaseSavedSearches;
-import org.jphototagger.program.resource.JptBundle;
 
 /**
  *
@@ -27,9 +27,7 @@ import org.jphototagger.program.resource.JptBundle;
  * @author Elmar Baumann
  */
 public final class SavedSearchesExporter implements Exporter {
-    public static final FileFilter FILE_FILTER =
-        new FileNameExtensionFilter(JptBundle.INSTANCE.getString("SavedSearchesExporter.DisplayName.FileFilter"),
-                                    "xml");
+    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(SavedSearchesExporter.class, "SavedSearchesExporter.DisplayName.FileFilter"), "xml");
     public static final SavedSearchesExporter INSTANCE = new SavedSearchesExporter();
 
     @Override
@@ -56,7 +54,7 @@ public final class SavedSearchesExporter implements Exporter {
 
     @Override
     public String getDisplayName() {
-        return JptBundle.INSTANCE.getString("SavedSearchesExporter.DisplayName");
+        return Bundle.getString(SavedSearchesExporter.class, "SavedSearchesExporter.DisplayName");
     }
 
     @Override

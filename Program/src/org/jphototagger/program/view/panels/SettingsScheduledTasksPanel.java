@@ -12,8 +12,9 @@ import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.DirectoryChooser;
 import org.jphototagger.lib.dialog.DirectoryChooser.Option;
 import org.jphototagger.lib.renderer.ListCellRendererFileSystem;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.database.DatabaseAutoscanDirectories;
 import org.jphototagger.program.model.ComboBoxModelScheduledTaskBackupDatabase;
 import org.jphototagger.program.model.ListModelAutoscanDirectories;
@@ -123,11 +124,13 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel implem
     }
 
     private void errorMessageInsertAutoscanDirectory(File directory) {
-        MessageDisplayer.error(this, "SettingsScheduledTasksPanel.Error.InsertAutoscanDirectory", directory);
+        String message = Bundle.getString(SettingsScheduledTasksPanel.class, "SettingsScheduledTasksPanel.Error.InsertAutoscanDirectory", directory);
+        MessageDisplayer.error(this, message);
     }
 
     private void errorMessageDeleteAutoscanDirectory(File directory) {
-        MessageDisplayer.error(this, "SettingsScheduledTasksPanel.Error.DeleteAutoscanDirectory", directory);
+        String message = Bundle.getString(SettingsScheduledTasksPanel.class, "SettingsScheduledTasksPanel.Error.DeleteAutoscanDirectory", directory);
+        MessageDisplayer.error(this, message);
     }
 
     private void handleKeyEventListTasksAutoscanDirectories(KeyEvent evt) {

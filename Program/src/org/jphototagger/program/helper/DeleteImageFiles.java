@@ -6,8 +6,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.jphototagger.lib.util.Bundle;
 
-import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.types.DeleteOption;
 import org.jphototagger.xmp.ImageFileSidecarFile;
 import org.jphototagger.xmp.XmpMetadata;
@@ -74,8 +75,11 @@ public final class DeleteImageFiles {
     }
 
     private static boolean confirmDelete(List<DeleteOption> options) {
+
         if (options.contains(DeleteOption.CONFIRM_DELETE)) {
-            return MessageDisplayer.confirmYesNo(null, "DeleteImageFiles.Confirm.Delete");
+            String message = Bundle.getString(DeleteImageFiles.class, "DeleteImageFiles.Confirm.Delete");
+
+            return MessageDisplayer.confirmYesNo(null, message);
         }
 
         return true;

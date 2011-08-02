@@ -15,10 +15,10 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.xml.bind.XmlObjectExporter;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.database.DatabaseAutoscanDirectories;
-import org.jphototagger.program.resource.JptBundle;
 
 /**
  *
@@ -27,8 +27,7 @@ import org.jphototagger.program.resource.JptBundle;
  */
 public final class AutoscanDirectoriesExporter implements Exporter {
     public static final FileFilter FILE_FILTER =
-        new FileNameExtensionFilter(JptBundle.INSTANCE.getString("AutoscanDirectoriesExporter.DisplayName.FileFilter"),
-                                    "xml");
+        new FileNameExtensionFilter(Bundle.getString(AutoscanDirectoriesExporter.class, "AutoscanDirectoriesExporter.DisplayName.FileFilter"), "xml");
     public static final AutoscanDirectoriesExporter INSTANCE = new AutoscanDirectoriesExporter();
 
     private AutoscanDirectoriesExporter() {}
@@ -57,7 +56,7 @@ public final class AutoscanDirectoriesExporter implements Exporter {
 
     @Override
     public String getDisplayName() {
-        return JptBundle.INSTANCE.getString("AutoscanDirectoriesExporter.DisplayName");
+        return Bundle.getString(AutoscanDirectoriesExporter.class, "AutoscanDirectoriesExporter.DisplayName");
     }
 
     @Override

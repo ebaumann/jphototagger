@@ -1,18 +1,21 @@
 package org.jphototagger.program.controller.keywords.tree;
 
-import org.jphototagger.lib.event.util.KeyEventUtil;
-import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.domain.keywords.Keyword;
-import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.program.model.TreeModelKeywords;
-import org.jphototagger.program.view.panels.KeywordsPanel;
-import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsTree;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.List;
+
 import javax.swing.tree.DefaultMutableTreeNode;
+
+import org.jphototagger.domain.keywords.Keyword;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.event.util.KeyEventUtil;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.program.factory.ModelFactory;
+import org.jphototagger.program.model.TreeModelKeywords;
+import org.jphototagger.program.view.panels.KeywordsPanel;
+import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsTree;
 
 /**
  * Listens to the menu item {@link PopupMenuKeywordsTree#getItemToggleReal()}
@@ -56,7 +59,8 @@ public class ControllerToggleRealKeyword extends ControllerKeywords implements A
                 }
             });
         } else {
-            MessageDisplayer.error(null, "ControllerToggleRealKeyword.Error.Node", node);
+            String message = Bundle.getString(ControllerToggleRealKeyword.class, "ControllerToggleRealKeyword.Error.Node", node);
+            MessageDisplayer.error(null, message);
         }
     }
 }

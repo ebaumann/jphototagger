@@ -19,9 +19,10 @@ import org.jphototagger.lib.event.listener.ProgressListener;
 import org.jphototagger.lib.io.CancelRequest;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter.Option;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.Settings;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.helper.ConvertIptcToXmp;
 import org.jphototagger.program.io.ImageFileFilterer;
 import org.jphototagger.program.model.IptcCharsetComboBoxModel;
@@ -95,7 +96,8 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener, U
     }
 
     private void errorMessageWaitBeforeClose() {
-        MessageDisplayer.error(this, "IptcToXmpDialog.Error.CancelBeforeClose");
+        String message = Bundle.getString(IptcToXmpDialog.class, "IptcToXmpDialog.Error.CancelBeforeClose");
+        MessageDisplayer.error(this, message);
     }
 
     @Override

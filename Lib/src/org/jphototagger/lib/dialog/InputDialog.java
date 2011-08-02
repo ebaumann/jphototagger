@@ -1,12 +1,10 @@
 package org.jphototagger.lib.dialog;
 
 import java.awt.event.KeyEvent;
-import java.util.Properties;
 
 import javax.swing.JDialog;
 
 import org.jphototagger.lib.componentutil.ComponentUtil;
-import org.jphototagger.lib.util.Settings;
 
 /**
  * Modal text input dialog writing it's location to a properties object on demand.
@@ -15,8 +13,6 @@ import org.jphototagger.lib.util.Settings;
  */
 public final class InputDialog extends Dialog {
     private static final long  serialVersionUID = -4217215186067129031L;
-    private transient Settings settings;
-    private String propertyKey;
     private boolean accepted;
 
     public InputDialog() {
@@ -43,27 +39,6 @@ public final class InputDialog extends Dialog {
         textFieldInput.setText(input);
     }
 
-    public InputDialog(String info, String input, Properties properties, String propertyKey) {
-        super(ComponentUtil.getFrameWithIcon(), true);
-        initComponents();
-        labelPrompt.setText(info);
-        textFieldInput.setText(input);
-        setProperties(properties, propertyKey);
-    }
-
-    public InputDialog(JDialog owner, String info, String input, Properties properties, String propertyKey) {
-        super(owner, true);
-        initComponents();
-        labelPrompt.setText(info);
-        textFieldInput.setText(input);
-        setProperties(properties, propertyKey);
-    }
-
-    /**
-     * Sets the info text ("prompt").
-     *
-     * @param info info text
-     */
     public void setInfo(String info) {
         if (info == null) {
             throw new NullPointerException("info == null");
@@ -72,11 +47,6 @@ public final class InputDialog extends Dialog {
         labelPrompt.setText(info);
     }
 
-    /**
-     * Sets the input to a specific string.
-     *
-     * @param input input
-     */
     public void setInput(String input) {
         if (input == null) {
             throw new NullPointerException("input == null");
@@ -86,8 +56,6 @@ public final class InputDialog extends Dialog {
     }
 
     /**
-     * Returns whether the dialog was closed with <strong>OK</strong> and the
-     * user input shall be used.
      *
      * @return true if closed with OK
      */
@@ -95,64 +63,8 @@ public final class InputDialog extends Dialog {
         return accepted;
     }
 
-    /**
-     * Returns the user input.
-     *
-     * @return input
-     */
     public String getInput() {
         return textFieldInput.getText();
-    }
-
-    /**
-     * Sets the properties to put size and location.
-     *
-     * @param properties  properties
-     * @param propertyKey property key
-     */
-    public void setProperties(Properties properties, String propertyKey) {
-        if (properties == null) {
-            throw new NullPointerException("properties == null");
-        }
-
-        if (propertyKey == null) {
-            throw new NullPointerException("propertyKey == null");
-        }
-
-        settings         = new Settings(properties);
-        this.propertyKey = propertyKey;
-    }
-
-    @Override
-    public void setVisible(boolean visible) {
-        if (visible) {
-            readProperties();
-        } else {
-            writeProperties();
-        }
-
-        super.setVisible(visible);
-    }
-
-    private void readProperties() {
-        if ((settings != null) && (propertyKey != null)) {
-            settings.applySize(propertyKey, this);
-            settings.applyLocation(propertyKey, this);
-        }
-
-        if (getLocation().x <= 0) {
-            ComponentUtil.centerScreen(this);
-        }
-
-        textFieldInput.selectAll();
-        textFieldInput.requestFocusInWindow();
-    }
-
-    private void writeProperties() {
-        if ((settings != null) && (propertyKey != null)) {
-            settings.setSize(propertyKey, this);
-            settings.setLocation(propertyKey, this);
-        }
     }
 
     @Override

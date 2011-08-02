@@ -17,12 +17,12 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
 
 import org.jphototagger.domain.keywords.Keyword;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.io.CharEncoding;
 import org.jphototagger.program.io.FilenameSuffixes;
 import org.jphototagger.program.model.TreeModelKeywords;
-import org.jphototagger.program.resource.JptBundle;
 
 /**
  * Imports keywords exported by <strong>Adobe Photoshop Lightroom</strong>.
@@ -120,7 +120,7 @@ public final class KeywordsExporterLightroom implements Exporter {
 
     @Override
     public String getDisplayName() {
-        return JptBundle.INSTANCE.getString("KeywordExporterLightroom.DisplayName");
+        return Bundle.getString(KeywordsExporterLightroom.class, "KeywordExporterLightroom.DisplayName");
     }
 
     @Override

@@ -28,6 +28,7 @@ import org.jphototagger.exif.cache.ExifCache;
 import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.lib.event.ProgressEvent;
 import org.jphototagger.lib.event.listener.ProgressListener;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.program.app.AppLookAndFeel;
@@ -36,7 +37,6 @@ import org.jphototagger.program.data.Program;
 import org.jphototagger.program.database.DatabaseActionsAfterDbInsertion;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.image.thumbnail.ThumbnailUtil;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.xmp.XmpMetadata;
 
 /**
@@ -422,14 +422,12 @@ public final class InsertImageFilesIntoDatabase extends Thread implements Cancel
 
     private void logInsertImageFile(ImageFile data) {
         Object[] params = { data.getFile().getAbsolutePath(), (data.getExif() == null)
-                ? JptBundle.INSTANCE.getString("InsertImageFilesIntoDatabase.Info.StartInsert.No")
-                : JptBundle.INSTANCE.getString("InsertImageFilesIntoDatabase.Info.StartInsert.Yes"), (data.getXmp()
-                    == null)
-                ? JptBundle.INSTANCE.getString("InsertImageFilesIntoDatabase.Info.StartInsert.No")
-                : JptBundle.INSTANCE.getString(
-                    "InsertImageFilesIntoDatabase.Info.StartInsert.Yes"), (data.getThumbnail() == null)
-                ? JptBundle.INSTANCE.getString("InsertImageFilesIntoDatabase.Info.StartInsert.No")
-                : JptBundle.INSTANCE.getString("InsertImageFilesIntoDatabase.Info.StartInsert.Yes") };
+                ? Bundle.getString(InsertImageFilesIntoDatabase.class, "InsertImageFilesIntoDatabase.Info.StartInsert.No")
+                : Bundle.getString(InsertImageFilesIntoDatabase.class, "InsertImageFilesIntoDatabase.Info.StartInsert.Yes"), (data.getXmp() == null)
+                ? Bundle.getString(InsertImageFilesIntoDatabase.class, "InsertImageFilesIntoDatabase.Info.StartInsert.No")
+                : Bundle.getString(InsertImageFilesIntoDatabase.class, "InsertImageFilesIntoDatabase.Info.StartInsert.Yes"), (data.getThumbnail() == null)
+                ? Bundle.getString(InsertImageFilesIntoDatabase.class, "InsertImageFilesIntoDatabase.Info.StartInsert.No")
+                : Bundle.getString(InsertImageFilesIntoDatabase.class, "InsertImageFilesIntoDatabase.Info.StartInsert.Yes") };
 
         LOGGER.log(Level.INFO, "Add metadata into the database of file ''{0}'': EXIF: {1}, XMP: {2}, Thumbnail: {3}", params);
     }

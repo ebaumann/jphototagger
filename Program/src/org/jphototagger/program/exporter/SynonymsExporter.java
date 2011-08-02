@@ -15,11 +15,11 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import org.jphototagger.lib.util.Bundle;
 
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.database.DatabaseSynonyms;
 import org.jphototagger.program.io.CharEncoding;
-import org.jphototagger.program.resource.JptBundle;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -31,8 +31,7 @@ import org.w3c.dom.Element;
  */
 public final class SynonymsExporter implements Exporter {
     private static final long serialVersionUID = 1L;
-    private static final FileFilter FILE_FILTER =
-        new FileNameExtensionFilter(JptBundle.INSTANCE.getString("SynonymsExporter.DisplayName.FileFilter"), "xml");
+    private static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(SynonymsExporter.class, "SynonymsExporter.DisplayName.FileFilter"), "xml");
     public static final SynonymsExporter INSTANCE = new SynonymsExporter();
     public static final String DTD = "synonyms.dtd";
     public static final String TAGNAME_ROOT = "synonyms";
@@ -109,7 +108,7 @@ public final class SynonymsExporter implements Exporter {
 
     @Override
     public String getDisplayName() {
-        return JptBundle.INSTANCE.getString("SynonymsExporter.DisplayName");
+        return Bundle.getString(SynonymsExporter.class, "SynonymsExporter.DisplayName");
     }
 
     @Override

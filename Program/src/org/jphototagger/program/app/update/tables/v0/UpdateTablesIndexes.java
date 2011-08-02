@@ -7,12 +7,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.jphototagger.lib.util.Bundle;
 
 import org.jphototagger.program.app.SplashScreen;
 import org.jphototagger.program.app.update.tables.IndexInfo;
 import org.jphototagger.program.database.Database;
 import org.jphototagger.program.database.DatabaseMetadata;
-import org.jphototagger.program.resource.JptBundle;
 
 /**
  * Updates the tables indexes.
@@ -71,6 +71,6 @@ final class UpdateTablesIndexes {
     }
 
     private void startMessage() {
-        SplashScreen.INSTANCE.setMessage(JptBundle.INSTANCE.getString("UpdateTablesIndexes.Info"));
+        SplashScreen.INSTANCE.setMessage(Bundle.getString(UpdateTablesIndexes.class, "UpdateTablesIndexes.Info"));
     }
 }

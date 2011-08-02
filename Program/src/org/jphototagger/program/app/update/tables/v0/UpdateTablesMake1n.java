@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.jphototagger.lib.util.Bundle;
 
 import org.jphototagger.program.app.SplashScreen;
 import org.jphototagger.program.app.update.tables.ColumnInfo;
@@ -16,7 +17,6 @@ import org.jphototagger.program.database.Database;
 import org.jphototagger.program.database.DatabaseMaintainance;
 import org.jphototagger.program.database.DatabaseMetadata;
 import org.jphototagger.program.database.DatabaseSavedSearches;
-import org.jphototagger.program.resource.JptBundle;
 
 /**
  * Moves content of a table column into another table related 1:n (one to many)
@@ -235,6 +235,6 @@ public final class UpdateTablesMake1n {
     }
 
     private void startMessage() {
-        SplashScreen.INSTANCE.setMessage(JptBundle.INSTANCE.getString("UpdateTablesMake1n.Info"));
+        SplashScreen.INSTANCE.setMessage(Bundle.getString(UpdateTablesMake1n.class, "UpdateTablesMake1n.Info"));
     }
 }

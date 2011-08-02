@@ -1,14 +1,16 @@
 package org.jphototagger.program.view.popupmenus;
 
-import org.jphototagger.lib.event.util.KeyEventUtil;
-import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.domain.favorites.Favorite;
-import org.jphototagger.program.resource.JptBundle;
 import java.awt.event.KeyEvent;
+
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JPopupMenu.Separator;
 import javax.swing.tree.TreePath;
+
+import org.jphototagger.domain.favorites.Favorite;
+import org.jphototagger.lib.event.util.KeyEventUtil;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.app.AppLookAndFeel;
 
 /**
  * Do not use this class as template for implemention! Instead extend
@@ -20,18 +22,18 @@ import javax.swing.tree.TreePath;
 public final class PopupMenuFavorites extends JPopupMenu {
     private static final long serialVersionUID = -7344945087460562958L;
     public static final PopupMenuFavorites INSTANCE = new PopupMenuFavorites();
-    private final JMenuItem itemInsertFavorite = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuFavorites.DisplayName.Action.InsertFavorite"), AppLookAndFeel.ICON_NEW);
-    private final JMenuItem itemUpdateFavorite = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuFavorites.DisplayName.Action.UpdateFavorite"), AppLookAndFeel.ICON_EDIT);
-    private final JMenuItem itemRenameFilesystemFolder = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuFavorites.DisplayName.Action.RenameFilesystemFolder"), AppLookAndFeel.ICON_RENAME);
-    private final JMenuItem itemRefresh = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuFavorites.DisplayName.Action.Refresh"), AppLookAndFeel.ICON_REFRESH);
-    private final JMenuItem itemOpenInFolders = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuFavorites.DisplayName.Action.OpenInFolders"), AppLookAndFeel.getIcon("icon_folder.png"));
-    private final JMenuItem itemMoveUp = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuFavorites.DisplayName.Action.MoveUp"), AppLookAndFeel.getIcon("icon_arrow_up.png"));
-    private final JMenuItem itemMoveDown = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuFavorites.DisplayName.Action.MoveDown"), AppLookAndFeel.getIcon("icon_arrow_down.png"));
-    private final JMenuItem itemExpandAllSubitems = new JMenuItem(JptBundle.INSTANCE.getString("MouseListenerTreeExpand.ItemExpand"));
-    private final JMenuItem itemDeleteFilesystemFolder = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuFavorites.DisplayName.Action.DeleteFilesystemFolder"), AppLookAndFeel.ICON_DELETE);
-    private final JMenuItem itemDeleteFavorite = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuFavorites.DisplayName.Action.DeleteFavorite"), AppLookAndFeel.ICON_DELETE);
-    private final JMenuItem itemCollapseAllSubitems = new JMenuItem(JptBundle.INSTANCE.getString("MouseListenerTreeExpand.ItemCollapse"));
-    private final JMenuItem itemAddFilesystemFolder = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuFavorites.DisplayName.Action.AddFilesystemFolder"), AppLookAndFeel.getIcon("icon_folder_new.png"));
+    private final JMenuItem itemInsertFavorite = new JMenuItem(Bundle.getString(PopupMenuFavorites.class, "PopupMenuFavorites.DisplayName.Action.InsertFavorite"), AppLookAndFeel.ICON_NEW);
+    private final JMenuItem itemUpdateFavorite = new JMenuItem(Bundle.getString(PopupMenuFavorites.class, "PopupMenuFavorites.DisplayName.Action.UpdateFavorite"), AppLookAndFeel.ICON_EDIT);
+    private final JMenuItem itemRenameFilesystemFolder = new JMenuItem(Bundle.getString(PopupMenuFavorites.class, "PopupMenuFavorites.DisplayName.Action.RenameFilesystemFolder"), AppLookAndFeel.ICON_RENAME);
+    private final JMenuItem itemRefresh = new JMenuItem(Bundle.getString(PopupMenuFavorites.class, "PopupMenuFavorites.DisplayName.Action.Refresh"), AppLookAndFeel.ICON_REFRESH);
+    private final JMenuItem itemOpenInFolders = new JMenuItem(Bundle.getString(PopupMenuFavorites.class, "PopupMenuFavorites.DisplayName.Action.OpenInFolders"), AppLookAndFeel.getIcon("icon_folder.png"));
+    private final JMenuItem itemMoveUp = new JMenuItem(Bundle.getString(PopupMenuFavorites.class, "PopupMenuFavorites.DisplayName.Action.MoveUp"), AppLookAndFeel.getIcon("icon_arrow_up.png"));
+    private final JMenuItem itemMoveDown = new JMenuItem(Bundle.getString(PopupMenuFavorites.class, "PopupMenuFavorites.DisplayName.Action.MoveDown"), AppLookAndFeel.getIcon("icon_arrow_down.png"));
+    private final JMenuItem itemExpandAllSubitems = new JMenuItem(Bundle.getString(PopupMenuFavorites.class, "PopupMenuFavorites.ItemExpand"));
+    private final JMenuItem itemDeleteFilesystemFolder = new JMenuItem(Bundle.getString(PopupMenuFavorites.class, "PopupMenuFavorites.DisplayName.Action.DeleteFilesystemFolder"), AppLookAndFeel.ICON_DELETE);
+    private final JMenuItem itemDeleteFavorite = new JMenuItem(Bundle.getString(PopupMenuFavorites.class, "PopupMenuFavorites.DisplayName.Action.DeleteFavorite"), AppLookAndFeel.ICON_DELETE);
+    private final JMenuItem itemCollapseAllSubitems = new JMenuItem(Bundle.getString(PopupMenuFavorites.class, "PopupMenuFavorites.ItemCollapse"));
+    private final JMenuItem itemAddFilesystemFolder = new JMenuItem(Bundle.getString(PopupMenuFavorites.class, "PopupMenuFavorites.DisplayName.Action.AddFilesystemFolder"), AppLookAndFeel.getIcon("icon_folder_new.png"));
     private transient Favorite favoriteDirectory;
     private TreePath treePath;
 

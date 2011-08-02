@@ -19,8 +19,9 @@ import org.jphototagger.lib.event.listener.FileSystemListener;
 import org.jphototagger.lib.event.listener.ProgressListener;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.SourceTargetFile;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.helper.CopyFiles;
 import org.jphototagger.program.helper.CopyFiles.Options;
 import org.jphototagger.program.io.FileSystemMove;
@@ -69,7 +70,8 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
 
     private void checkClosing() {
         if (runs) {
-            MessageDisplayer.error(this, "MoveToDirectoryDialog.Error.CancelBeforeClose");
+            String message = Bundle.getString(MoveToDirectoryDialog.class, "MoveToDirectoryDialog.Error.CancelBeforeClose");
+            MessageDisplayer.error(this, message);
         } else {
             setVisible(false);
         }
@@ -77,7 +79,8 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
 
     private void checkErrors() {
         if (errors) {
-            MessageDisplayer.error(this, "MoveToDirectoryDialog.Error.CheckLogfile");
+            String message = Bundle.getString(MoveToDirectoryDialog.class, "MoveToDirectoryDialog.Error.CheckLogfile");
+            MessageDisplayer.error(this, message);
         }
     }
 
@@ -158,7 +161,8 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
                     setIconToLabelTargetDirectory();
                     buttonStart.setEnabled(true);
                 } else {
-                    MessageDisplayer.error(this, "MoveToDirectoryDialog.TargetDirNotWritable", targetDirectory);
+                    String message = Bundle.getString(MoveToDirectoryDialog.class, "MoveToDirectoryDialog.TargetDirNotWritable", targetDirectory);
+                    MessageDisplayer.error(this, message);
                 }
             }
         } else {

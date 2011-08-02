@@ -1,6 +1,6 @@
 package org.jphototagger.program.database.metadata;
 
-import org.jphototagger.program.resource.JptBundle;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * Operator einer Spaltenverknüpfung.
@@ -10,10 +10,10 @@ import org.jphototagger.program.resource.JptBundle;
 public enum Operator {
 
     /** Verknüpfung zweier Spalten mit AND */
-    AND(0, "AND", JptBundle.INSTANCE.getString("Operator.And")),
+    AND(0, "AND", Bundle.getString(Operator.class, "Operator.And")),
 
     /** Verknüpfung zweier Spalten mit OR */
-    OR(1, "OR", JptBundle.INSTANCE.getString("Operator.Or")),;
+    OR(1, "OR", Bundle.getString(Operator.class, "Operator.Or")),;
 
     private final int id;
     private final String sqlString;

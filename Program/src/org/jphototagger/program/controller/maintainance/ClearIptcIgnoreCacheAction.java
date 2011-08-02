@@ -1,10 +1,12 @@
 package org.jphototagger.program.controller.maintainance;
 
 import java.awt.event.ActionEvent;
+
 import javax.swing.AbstractAction;
-import org.jphototagger.program.app.MessageDisplayer;
+
 import org.jphototagger.iptc.IptcIgnoreCache;
-import org.jphototagger.program.resource.JptBundle;
+import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  *
@@ -17,7 +19,7 @@ public final class ClearIptcIgnoreCacheAction extends AbstractAction {
     public static final ClearIptcIgnoreCacheAction INSTANCE = new ClearIptcIgnoreCacheAction();
 
     private ClearIptcIgnoreCacheAction() {
-        super(JptBundle.INSTANCE.getString("ClearIptcIgnoreCacheAction.Name"));
+        super(Bundle.getString(ClearIptcIgnoreCacheAction.class, "ClearIptcIgnoreCacheAction.Name"));
     }
 
     @Override
@@ -29,10 +31,13 @@ public final class ClearIptcIgnoreCacheAction extends AbstractAction {
     }
 
     public boolean confirm() {
-        return MessageDisplayer.confirmYesNo(null, "ClearIptcIgnoreCacheAction.Confirm");
+        String message = Bundle.getString(ClearIptcIgnoreCacheAction.class, "ClearIptcIgnoreCacheAction.Confirm");
+
+        return MessageDisplayer.confirmYesNo(null, message);
     }
 
     private void showDeletedFileCountInfo(int deletedFileCount) {
-        MessageDisplayer.information(null, "ClearIptcIgnoreCacheAction.Info.DeletedFileCount", deletedFileCount);
+        String message = Bundle.getString(ClearIptcIgnoreCacheAction.class, "ClearIptcIgnoreCacheAction.Info.DeletedFileCount", deletedFileCount);
+        MessageDisplayer.information(null, message);
     }
 }

@@ -7,13 +7,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.jphototagger.lib.util.Bundle;
 
 import org.jphototagger.program.app.SplashScreen;
 import org.jphototagger.program.database.Database;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.database.DatabaseMetadata;
 import org.jphototagger.program.database.DatabaseSavedSearches;
-import org.jphototagger.program.resource.JptBundle;
 
 /**
  *
@@ -142,6 +142,6 @@ final class UpdateTablesXmpDcSubjects {
     }
 
     private void startMessage() {
-        SplashScreen.INSTANCE.setMessage(JptBundle.INSTANCE.getString("UpdateTablesXmpDcSubjects.Info"));
+        SplashScreen.INSTANCE.setMessage(Bundle.getString(UpdateTablesXmpDcSubjects.class, "UpdateTablesXmpDcSubjects.Info"));
     }
 }

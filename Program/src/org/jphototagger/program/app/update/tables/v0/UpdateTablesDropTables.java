@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.jphototagger.lib.util.Bundle;
 
 import org.jphototagger.program.app.SplashScreen;
 import org.jphototagger.program.database.Database;
 import org.jphototagger.program.database.DatabaseMetadata;
-import org.jphototagger.program.resource.JptBundle;
 
 /**
  *
@@ -53,6 +53,6 @@ public final class UpdateTablesDropTables {
     }
 
     private void startMessage() {
-        SplashScreen.INSTANCE.setMessage(JptBundle.INSTANCE.getString("UpdateTablesDropTables.Info"));
+        SplashScreen.INSTANCE.setMessage(Bundle.getString(UpdateTablesDropTables.class, "UpdateTablesDropTables.Info"));
     }
 }

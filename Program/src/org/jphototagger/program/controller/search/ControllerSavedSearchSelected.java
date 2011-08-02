@@ -1,20 +1,22 @@
 package org.jphototagger.program.controller.search;
 
-import org.jphototagger.domain.database.search.ParamStatement;
-import org.jphototagger.program.data.SavedSearch;
-import org.jphototagger.program.database.DatabaseFind;
-import org.jphototagger.program.event.listener.RefreshListener;
-import org.jphototagger.program.event.RefreshEvent;
-import org.jphototagger.program.helper.SavedSearchesHelper;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.types.Content;
-import org.jphototagger.program.view.WaitDisplay;
 import java.io.File;
 import java.util.List;
+
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+
+import org.jphototagger.domain.database.search.ParamStatement;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.data.SavedSearch;
+import org.jphototagger.program.database.DatabaseFind;
+import org.jphototagger.program.event.RefreshEvent;
+import org.jphototagger.program.event.listener.RefreshListener;
+import org.jphototagger.program.helper.SavedSearchesHelper;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.types.Content;
+import org.jphototagger.program.view.WaitDisplay;
 
 /**
  *
@@ -88,8 +90,7 @@ public final class ControllerSavedSearchSelected implements ListSelectionListene
 
         private void setTitle(String name) {
             GUI.getAppFrame().setTitle(
-                JptBundle.INSTANCE.getString(
-                    "ControllerSavedSearchSelected.AppFrame.Title.AdvancedSearch.Saved", name));
+                    Bundle.getString(ShowThumbnails.class, "ControllerSavedSearchSelected.AppFrame.Title.AdvancedSearch.Saved", name));
         }
 
         private void setMetadataEditable() {

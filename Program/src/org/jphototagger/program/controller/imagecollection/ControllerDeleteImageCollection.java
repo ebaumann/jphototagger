@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import org.jdesktop.swingx.JXList;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.ListUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.helper.ImageCollectionsHelper;
 import org.jphototagger.program.model.ListModelImageCollections;
@@ -53,8 +54,8 @@ public final class ControllerDeleteImageCollection implements ActionListener, Ke
     }
 
     private void deleteCollection(final String collectionName) {
-        if (!ListModelImageCollections.checkIsNotSpecialCollection(collectionName,
-                "ControllerDeleteImageCollection.Error.SpecialCollection")) {
+        String errorMessage = Bundle.getString(ControllerDeleteImageCollection.class, "ControllerDeleteImageCollection.Error.SpecialCollection", collectionName);
+        if (!ListModelImageCollections.checkIsNotSpecialCollection(collectionName, errorMessage)) {
             return;
         }
 

@@ -15,7 +15,8 @@ import org.jphototagger.domain.database.ColumnData;
 import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
 import org.jphototagger.lib.datatransfer.TransferUtil;
 import org.jphototagger.lib.datatransfer.TransferableObject;
-import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.helper.MiscMetadataHelper;
 import org.jphototagger.program.view.panels.KeywordsPanel;
 
@@ -66,7 +67,9 @@ public final class TransferHandlerKeywordsList extends TransferHandler {
     }
 
     private boolean confirmImport(String keyword, int fileCount) {
-        return MessageDisplayer.confirmYesNo(null, "TransferHandlerKeywordsList.Confirm.Import", keyword, fileCount);
+        String message = Bundle.getString(TransferHandlerKeywordsList.class, "TransferHandlerKeywordsList.Confirm.Import", keyword, fileCount);
+
+        return MessageDisplayer.confirmYesNo(null, message);
     }
 
     /**

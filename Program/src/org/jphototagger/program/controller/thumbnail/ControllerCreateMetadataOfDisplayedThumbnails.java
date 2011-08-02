@@ -5,9 +5,9 @@ import java.util.logging.Logger;
 
 import org.jphototagger.domain.database.InsertIntoDatabase;
 import org.jphototagger.domain.event.listener.ThumbnailsPanelListener;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.tasks.AutomaticTask;
 import org.jphototagger.program.view.panels.ProgressBarUpdater;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
@@ -45,10 +45,8 @@ public final class ControllerCreateMetadataOfDisplayedThumbnails implements Thum
     private synchronized void updateMetadata() {
         LOGGER.log(Level.INFO, "Synchronizing displayed thumbnails with the database");
 
-        InsertImageFilesIntoDatabase inserter = new InsertImageFilesIntoDatabase(GUI.getThumbnailsPanel().getFiles(),
-                                                    InsertIntoDatabase.OUT_OF_DATE);
-        String pBarString =
-            JptBundle.INSTANCE.getString("ControllerCreateMetadataOfDisplayedThumbnails.ProgressBar.String");
+        InsertImageFilesIntoDatabase inserter = new InsertImageFilesIntoDatabase(GUI.getThumbnailsPanel().getFiles(), InsertIntoDatabase.OUT_OF_DATE);
+        String pBarString = Bundle.getString(ControllerCreateMetadataOfDisplayedThumbnails.class, "ControllerCreateMetadataOfDisplayedThumbnails.ProgressBar.String");
 
         inserter.addProgressListener(new ProgressBarUpdater(inserter, pBarString));
         AutomaticTask.INSTANCE.setTask(inserter);

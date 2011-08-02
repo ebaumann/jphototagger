@@ -14,9 +14,10 @@ import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.dialog.DirectoryChooser;
 import org.jphototagger.lib.dialog.DirectoryChooser.Option;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.ImagePreviewPanel;
 
@@ -279,7 +280,8 @@ public class ImportImageFilesDialog extends Dialog {
 
     private boolean checkDirsDifferent(File src, File tgt) {
         if (src.equals(tgt)) {
-            MessageDisplayer.error(this, "ImportImageFilesDialog.Error.DirsEquals");
+            String message = Bundle.getString(ImportImageFilesDialog.class, "ImportImageFilesDialog.Error.DirsEquals");
+            MessageDisplayer.error(this, message);
 
             return false;
         }
@@ -295,7 +297,9 @@ public class ImportImageFilesDialog extends Dialog {
         boolean selected = checkBoxDeleteAfterCopy.isSelected();
 
         if (selected) {
-            if (!MessageDisplayer.confirmYesNo(this, "ImportImageFilesDialog.Confirm.DeleteAfterCopy")) {
+            String message = Bundle.getString(ImportImageFilesDialog.class, "ImportImageFilesDialog.Confirm.DeleteAfterCopy");
+
+            if (!MessageDisplayer.confirmYesNo(this, message)) {
                 listenToCheckBox = false;
                 selected = false;
                 checkBoxDeleteAfterCopy.setSelected(false);

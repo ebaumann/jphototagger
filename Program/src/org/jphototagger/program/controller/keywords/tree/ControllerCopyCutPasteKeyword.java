@@ -1,8 +1,23 @@
 package org.jphototagger.program.controller.keywords.tree;
 
+import java.awt.datatransfer.Transferable;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.ArrayList;
+
+import javax.swing.JMenuItem;
+import javax.swing.JTree;
+import javax.swing.TransferHandler.TransferSupport;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreePath;
+
+import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.datatransfer.TransferableObject;
 import org.jphototagger.lib.event.util.KeyEventUtil;
-import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.controller.keywords.tree.KeywordTreeNodesClipboard.Action;
 import org.jphototagger.program.datatransfer.Flavor;
 import org.jphototagger.program.datatransfer.TransferHandlerKeywordsTree;
@@ -10,18 +25,6 @@ import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.model.TreeModelKeywords;
 import org.jphototagger.program.view.panels.KeywordsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsTree;
-import java.awt.datatransfer.Transferable;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.ArrayList;
-import javax.swing.JMenuItem;
-import javax.swing.JTree;
-import javax.swing.TransferHandler.TransferSupport;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreePath;
-import org.jphototagger.lib.awt.EventQueueUtil;
 
 //The implementation can't paste the nodes to the system clipboard and let do
 //the work the panel's transfer handler, because the affected nodes when using
@@ -166,7 +169,9 @@ public class ControllerCopyCutPasteKeyword implements ActionListener, KeyListene
             return true;
         }
 
-        return MessageDisplayer.confirmYesNo(null, "ControllerCopyCutPasteKeyword.Confirm.CopyToAllSelected");
+        String message = Bundle.getString(ControllerCopyCutPasteKeyword.class, "ControllerCopyCutPasteKeyword.Confirm.CopyToAllSelected");
+
+        return MessageDisplayer.confirmYesNo(null, message);
     }
 
     private boolean isCopyFromClipBoard() {

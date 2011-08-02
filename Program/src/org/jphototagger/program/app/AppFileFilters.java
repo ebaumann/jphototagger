@@ -8,10 +8,10 @@ import java.util.Map;
 
 import org.jphototagger.domain.filetypes.UserDefinedFileType;
 import org.jphototagger.lib.io.filefilter.RegexFileFilter;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.database.DatabaseUserDefinedFileTypes;
 import org.jphototagger.program.filefilter.NoXmpFileFilter;
 import org.jphototagger.program.filefilter.XmpRatingFileFilter;
-import org.jphototagger.program.resource.JptBundle;
 
 /**
  * Special file filters used in the application.
@@ -139,18 +139,18 @@ public final class AppFileFilters {
     }
 
     private void initDisplaynames() {
-        displayNameOfFilter.put(allAcceptedImageFilesFilter, JptBundle.INSTANCE.getString("AppFileFilters.DisplayName.ALL"));
-        displayNameOfFilter.put(acceptedDngFilesFilter, JptBundle.INSTANCE.getString("AppFileFilters.DisplayName.DNG"));
-        displayNameOfFilter.put(acceptedJpegFilesFilter, JptBundle.INSTANCE.getString("AppFileFilters.DisplayName.JPEG"));
-        displayNameOfFilter.put(acceptedRawFilesFilter, JptBundle.INSTANCE.getString("AppFileFilters.DisplayName.RAW"));
-        displayNameOfFilter.put(acceptedTiffFilesFilter, JptBundle.INSTANCE.getString("AppFileFilters.DisplayName.TIFF"));
-        displayNameOfFilter.put(userDefinedFileTypesFilter, JptBundle.INSTANCE.getString("AppFileFilters.DisplayName.UserDefinedFileTypes"));
-        displayNameOfFilter.put(NO_XMP, JptBundle.INSTANCE.getString("AppFileFilters.DisplayName.NoXmp"));
-        displayNameOfFilter.put(XMP_RATING_1_STAR, JptBundle.INSTANCE.getString("AppFileFilters.DisplayName.1Star"));
-        displayNameOfFilter.put(XMP_RATING_2_STARS, JptBundle.INSTANCE.getString("AppFileFilters.DisplayName.2Stars"));
-        displayNameOfFilter.put(XMP_RATING_3_STARS, JptBundle.INSTANCE.getString("AppFileFilters.DisplayName.3Stars"));
-        displayNameOfFilter.put(XMP_RATING_4_STARS, JptBundle.INSTANCE.getString("AppFileFilters.DisplayName.4Stars"));
-        displayNameOfFilter.put(XMP_RATING_5_STARS, JptBundle.INSTANCE.getString("AppFileFilters.DisplayName.5Stars"));
+        displayNameOfFilter.put(allAcceptedImageFilesFilter, Bundle.getString(AppFileFilters.class, "AppFileFilters.DisplayName.ALL"));
+        displayNameOfFilter.put(acceptedDngFilesFilter, Bundle.getString(AppFileFilters.class, "AppFileFilters.DisplayName.DNG"));
+        displayNameOfFilter.put(acceptedJpegFilesFilter, Bundle.getString(AppFileFilters.class, "AppFileFilters.DisplayName.JPEG"));
+        displayNameOfFilter.put(acceptedRawFilesFilter, Bundle.getString(AppFileFilters.class, "AppFileFilters.DisplayName.RAW"));
+        displayNameOfFilter.put(acceptedTiffFilesFilter, Bundle.getString(AppFileFilters.class, "AppFileFilters.DisplayName.TIFF"));
+        displayNameOfFilter.put(userDefinedFileTypesFilter, Bundle.getString(AppFileFilters.class, "AppFileFilters.DisplayName.UserDefinedFileTypes"));
+        displayNameOfFilter.put(NO_XMP, Bundle.getString(AppFileFilters.class, "AppFileFilters.DisplayName.NoXmp"));
+        displayNameOfFilter.put(XMP_RATING_1_STAR, Bundle.getString(AppFileFilters.class, "AppFileFilters.DisplayName.1Star"));
+        displayNameOfFilter.put(XMP_RATING_2_STARS, Bundle.getString(AppFileFilters.class, "AppFileFilters.DisplayName.2Stars"));
+        displayNameOfFilter.put(XMP_RATING_3_STARS, Bundle.getString(AppFileFilters.class, "AppFileFilters.DisplayName.3Stars"));
+        displayNameOfFilter.put(XMP_RATING_4_STARS, Bundle.getString(AppFileFilters.class, "AppFileFilters.DisplayName.4Stars"));
+        displayNameOfFilter.put(XMP_RATING_5_STARS, Bundle.getString(AppFileFilters.class, "AppFileFilters.DisplayName.5Stars"));
     }
 
     public RegexFileFilter getAcceptedDngFilesFilter() {

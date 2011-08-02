@@ -4,12 +4,12 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+import org.jphototagger.lib.util.Bundle;
 
 import org.jphototagger.program.app.SplashScreen;
 import org.jphototagger.program.app.update.tables.ColumnInfo;
 import org.jphototagger.program.database.Database;
 import org.jphototagger.program.database.DatabaseMetadata;
-import org.jphototagger.program.resource.JptBundle;
 
 /**
  *
@@ -108,6 +108,6 @@ final class UpdateTablesRenameColumns {
     }
 
     private void startMessage() {
-        SplashScreen.INSTANCE.setMessage(JptBundle.INSTANCE.getString("UpdateTablesRenameColumns.Info"));
+        SplashScreen.INSTANCE.setMessage(Bundle.getString(UpdateTablesRenameColumns.class, "UpdateTablesRenameColumns.Info"));
     }
 }

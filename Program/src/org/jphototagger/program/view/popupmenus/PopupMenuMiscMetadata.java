@@ -1,16 +1,8 @@
 package org.jphototagger.program.view.popupmenus;
 
-import org.jphototagger.lib.event.listener.PopupMenuTree;
-import org.jphototagger.lib.event.util.KeyEventUtil;
-import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.domain.database.Column;
-import org.jphototagger.domain.database.xmp.XmpColumns;
-import org.jphototagger.program.helper.MiscMetadataHelper;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.view.panels.EditMetadataPanels;
 import java.awt.event.KeyEvent;
 import java.util.List;
+
 import javax.swing.Action;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
@@ -19,6 +11,16 @@ import javax.swing.JPopupMenu.Separator;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
+
+import org.jphototagger.domain.database.Column;
+import org.jphototagger.domain.database.xmp.XmpColumns;
+import org.jphototagger.lib.event.listener.PopupMenuTree;
+import org.jphototagger.lib.event.util.KeyEventUtil;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.app.AppLookAndFeel;
+import org.jphototagger.program.helper.MiscMetadataHelper;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.view.panels.EditMetadataPanels;
 
 /**
  * Do not use this class as template for implemention! Instead extend
@@ -45,12 +47,12 @@ public final class PopupMenuMiscMetadata extends PopupMenuTree {
     }
 
     private void createMenuItems() {
-        itemDelete = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuMiscMetadata.DisplayName.ItemDelete"), AppLookAndFeel.ICON_DELETE);
-        itemExpandAllSubitems = new JMenuItem(JptBundle.INSTANCE.getString("MouseListenerTreeExpand.ItemExpand"));
-        itemRename = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuMiscMetadata.DisplayName.ItemRename"), AppLookAndFeel.ICON_RENAME);
-        itemCollapseAllSubitems = new JMenuItem(JptBundle.INSTANCE.getString("MouseListenerTreeExpand.ItemCollapse"));
-        itemAddToEditPanel = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuMiscMetadata.DisplayName.ActionAddToEditPanel"));
-        itemRemoveFromEditPanel = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuMiscMetadata.DisplayName.ActionRemoveFromEditPanel"));
+        itemDelete = new JMenuItem(Bundle.getString(PopupMenuMiscMetadata.class, "PopupMenuMiscMetadata.DisplayName.ItemDelete"), AppLookAndFeel.ICON_DELETE);
+        itemExpandAllSubitems = new JMenuItem(Bundle.getString(PopupMenuMiscMetadata.class, "PopupMenuMiscMetadata.ItemExpand"));
+        itemRename = new JMenuItem(Bundle.getString(PopupMenuMiscMetadata.class, "PopupMenuMiscMetadata.DisplayName.ItemRename"), AppLookAndFeel.ICON_RENAME);
+        itemCollapseAllSubitems = new JMenuItem(Bundle.getString(PopupMenuMiscMetadata.class, "PopupMenuMiscMetadata.ItemCollapse"));
+        itemAddToEditPanel = new JMenuItem(Bundle.getString(PopupMenuMiscMetadata.class, "PopupMenuMiscMetadata.DisplayName.ActionAddToEditPanel"));
+        itemRemoveFromEditPanel = new JMenuItem(Bundle.getString(PopupMenuMiscMetadata.class, "PopupMenuMiscMetadata.DisplayName.ActionRemoveFromEditPanel"));
     }
 
     @Override

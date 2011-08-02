@@ -1,11 +1,11 @@
 package org.jphototagger.program.event.listener.impl;
 
-import org.jphototagger.program.resource.JptBundle;
 import java.awt.event.ActionListener;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JTree;
 import javax.swing.tree.TreePath;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * Do not use this class as template for implemention! Instead extend
@@ -16,10 +16,8 @@ import javax.swing.tree.TreePath;
  */
 public final class MouseListenerTreeExpand extends MouseListenerTree implements ActionListener {
     private final JPopupMenu popupMenu = new JPopupMenu();
-    private final JMenuItem itemExpand =
-        new JMenuItem(JptBundle.INSTANCE.getString("MouseListenerTreeExpand.ItemExpand"));
-    private final JMenuItem itemCollapse =
-        new JMenuItem(JptBundle.INSTANCE.getString("MouseListenerTreeExpand.ItemCollapse"));
+    private final JMenuItem itemExpand = new JMenuItem(Bundle.getString(MouseListenerTreeExpand.class, "MouseListenerTreeExpand.ItemExpand"));
+    private final JMenuItem itemCollapse = new JMenuItem(Bundle.getString(MouseListenerTreeExpand.class, "MouseListenerTreeExpand.ItemCollapse"));
 
     public MouseListenerTreeExpand() {
         popupMenu.add(itemExpand);

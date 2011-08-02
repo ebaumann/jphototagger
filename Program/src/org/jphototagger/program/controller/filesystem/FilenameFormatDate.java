@@ -1,11 +1,12 @@
 package org.jphototagger.program.controller.filesystem;
 
-import org.jphototagger.domain.exif.Exif;
-import org.jphototagger.exif.ExifMetadata;
-import org.jphototagger.program.resource.JptBundle;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import org.jphototagger.domain.exif.Exif;
+import org.jphototagger.exif.ExifMetadata;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppFileFilters;
 
 /**
@@ -91,7 +92,7 @@ public final class FilenameFormatDate extends FilenameFormat {
 
     @Override
     public String toString() {
-        return JptBundle.INSTANCE.getString("FilenameFormatDate.String");
+        return Bundle.getString(FilenameFormatDate.class, "FilenameFormatDate.String");
     }
 
     private FilenameFormatDate() {}
