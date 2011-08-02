@@ -1,15 +1,18 @@
 package org.jphototagger.program.view.renderer;
 
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.data.Program;
 import java.awt.Component;
 import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.swing.DefaultListCellRenderer;
-import javax.swing.filechooser.FileSystemView;
 import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.filechooser.FileSystemView;
+
+import org.jphototagger.program.app.AppLookAndFeel;
+import org.jphototagger.program.data.Program;
 
 /**
  *
@@ -37,7 +40,7 @@ public final class ListCellRendererPrograms extends DefaultListCellRenderer {
                     try {
                         setIcon(FILE_SYSTEM_VIEW.getSystemIcon(file));
                     } catch (Exception ex) {
-                        AppLogger.logSevere(ListCellRendererPrograms.class, ex);
+                        Logger.getLogger(ListCellRendererPrograms.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
             }

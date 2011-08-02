@@ -1,6 +1,5 @@
 package org.jphototagger.program.helper;
 
-import org.jphototagger.program.app.logging.AppLogger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.event.DocumentEvent;
@@ -55,7 +54,7 @@ public final class TableTextFilter implements DocumentListener {
                         : new ContainsStringRowFilter(trimmedText));
             }
         } catch (Throwable throwable) {
-            AppLogger.logSevere(TableTextFilter.class, throwable);
+            Logger.getLogger(TableTextFilter.class.getName()).log(Level.SEVERE, null, throwable);
         }
     }
 

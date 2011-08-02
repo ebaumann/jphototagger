@@ -1,7 +1,6 @@
 package org.jphototagger.program.helper;
 
 import org.jdesktop.swingx.JXList;
-import org.jphototagger.program.app.logging.AppLogger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.event.DocumentEvent;
@@ -39,7 +38,7 @@ public final class ListTextFilter implements DocumentListener {
                               : new ContainsStringRowFilter(trimmedText));
 
         } catch (Throwable throwable) {
-            AppLogger.logSevere(ListTextFilter.class, throwable);
+            Logger.getLogger(ListTextFilter.class.getName()).log(Level.SEVERE, null, throwable);
         }
     }
 

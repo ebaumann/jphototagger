@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.jphototagger.domain.database.InsertIntoDatabase;
 import org.jphototagger.lib.awt.EventQueueUtil;
@@ -11,7 +13,6 @@ import org.jphototagger.lib.event.ProgressEvent;
 import org.jphototagger.lib.event.listener.ProgressListener;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.SourceTargetFile;
-import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.database.DatabaseImageCollections;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.io.ImageFileFilterer;
@@ -39,6 +40,7 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
     private final List<File> copiedSourceFiles = new ArrayList<File>();
     private final List<SourceTargetFile> sourceTargetFiles;
     private final boolean deleteScrFilesAfterCopying;
+    private static final Logger LOGGER = Logger.getLogger(ImportImageFiles.class.getName());
 
     private ImportImageFiles(List<SourceTargetFile> sourceTargetFiles, boolean deleteScrFilesAfterCopying) {
         super("JPhotoTagger: Importing image files");
@@ -159,7 +161,7 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
             int delCount = db.deleteImagesFrom(collectionName, prevCollectionFiles);
 
             if (delCount != prevCollectionFiles.size()) {
-                AppLogger.logWarning(getClass(), "ImportImageFiles.Error.DeleteCollectionImages", collectionName);
+                LOGGER.log(Level.WARNING, "Could not delete all images from ''{0}''!", collectionName);
 
                 return;
             }
@@ -184,11 +186,10 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
 
     private void deleteCopiedSourceFiles() {
         for (File file : copiedSourceFiles) {
-            AppLogger.logInfo(ImportImageFiles.class, "ImportImageFiles.Info.DeleteCopiedFile", file);
+            LOGGER.log(Level.INFO, "Deleting after import file ''{0}''", file);
 
             if (!file.delete()) {
-                AppLogger.logWarning(ImportImageFiles.class, progressBarString,
-                        "ImportImageFiles.Error.DeleteCopiedFile", file);
+                LOGGER.log(Level.WARNING, "Error while deleting file ''{0}''!", file);
             }
         }
     }

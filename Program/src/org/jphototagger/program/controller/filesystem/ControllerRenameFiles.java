@@ -1,15 +1,5 @@
 package org.jphototagger.program.controller.filesystem;
 
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.cache.RenderedThumbnailCache;
-import org.jphototagger.program.cache.ThumbnailCache;
-import org.jphototagger.program.cache.XmpCache;
-import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.lib.event.listener.FileSystemListener;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.dialogs.RenameDialog;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
-import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -17,7 +7,19 @@ import java.awt.event.KeyListener;
 import java.io.File;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.event.listener.FileSystemListener;
+import org.jphototagger.program.cache.RenderedThumbnailCache;
+import org.jphototagger.program.cache.ThumbnailCache;
+import org.jphototagger.program.cache.XmpCache;
+import org.jphototagger.program.database.DatabaseImageFiles;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.view.dialogs.RenameDialog;
+import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
 
 /**
  * Listens to key events of {@link ThumbnailsPanel} and when
@@ -27,6 +29,9 @@ import org.jphototagger.lib.awt.EventQueueUtil;
  * @author Elmar Baumann
  */
 public final class ControllerRenameFiles implements ActionListener, KeyListener, FileSystemListener {
+
+    private static final Logger LOGGER = Logger.getLogger(ControllerRenameFiles.class.getName());
+
     public ControllerRenameFiles() {
         listen();
     }
@@ -51,7 +56,7 @@ public final class ControllerRenameFiles implements ActionListener, KeyListener,
     }
 
     private void renameFile(final File fromFile, final File toFile) {
-        AppLogger.logInfo(ControllerRenameFiles.class, "ControllerRenameFiles.Info.Rename", fromFile, toFile);
+        LOGGER.log(Level.INFO, "Rename in the database file ''{0}'' to ''{1}''", new Object[]{fromFile, toFile});
         DatabaseImageFiles.INSTANCE.updateRename(fromFile, toFile);
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override

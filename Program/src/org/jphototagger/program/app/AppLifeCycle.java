@@ -1,20 +1,22 @@
 package org.jphototagger.program.app;
 
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.database.DatabaseMaintainance;
-import org.jphototagger.domain.event.listener.AppExitListener;
-import org.jphototagger.domain.event.listener.impl.ListenerSupport;
-import org.jphototagger.program.factory.MetaFactory;
-import org.jphototagger.program.helper.Cleanup;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.tasks.UserTasks;
-import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.view.frames.AppFrame;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.jphototagger.domain.event.listener.AppExitListener;
+import org.jphototagger.domain.event.listener.impl.ListenerSupport;
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.database.DatabaseMaintainance;
+import org.jphototagger.program.factory.MetaFactory;
+import org.jphototagger.program.helper.Cleanup;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.tasks.UserTasks;
+import org.jphototagger.program.view.frames.AppFrame;
 
 /**
  * Life cycle of the application.
@@ -28,6 +30,7 @@ public final class AppLifeCycle {
     private final Set<FinalTask> finalTasks = new LinkedHashSet<FinalTask>();
     private AppFrame appFrame;
     private boolean started;
+    private static final Logger LOGGER = Logger.getLogger(AppLifeCycle.class.getName());
 
     private AppLifeCycle() {}
 
@@ -250,14 +253,14 @@ public final class AppLifeCycle {
         long checkIntervalMilliSeconds = 2 * 1000;
 
         if (hasSaveObjects()) {
-            AppLogger.logInfo(getClass(), "AppLifeCycle.Info.SaveObjectsExisting", saveObjects);
+            LOGGER.log(Level.INFO, "Application waits until those objects have saved data: {0}", saveObjects);
 
             while (hasSaveObjects() && (elapsedMilliseconds < timeoutMilliSeconds)) {
                 try {
                     elapsedMilliseconds += checkIntervalMilliSeconds;
                     Thread.sleep(checkIntervalMilliSeconds);
                 } catch (Exception ex) {
-                    AppLogger.logSevere(getClass(), ex);
+                    Logger.getLogger(AppLifeCycle.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
                 if (elapsedMilliseconds >= timeoutMilliSeconds) {

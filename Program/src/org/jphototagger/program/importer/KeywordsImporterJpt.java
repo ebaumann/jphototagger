@@ -8,13 +8,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Stack;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.Icon;
 import javax.swing.filechooser.FileFilter;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.exporter.KeywordsExporterJpt;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
@@ -52,7 +53,7 @@ public final class KeywordsImporterJpt extends KeywordsImporter implements Entit
                 return getPaths(nl.item(0));
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(getClass(), ex);
+            Logger.getLogger(KeywordsImporterJpt.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return null;

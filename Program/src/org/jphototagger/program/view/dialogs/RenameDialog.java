@@ -5,6 +5,8 @@ import java.awt.Image;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
@@ -24,7 +26,6 @@ import org.jphototagger.lib.event.listener.FileSystemListener;
 import org.jphototagger.lib.util.Settings;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.controller.filesystem.FilenameFormat;
 import org.jphototagger.program.controller.filesystem.FilenameFormatArray;
 import org.jphototagger.program.controller.filesystem.FilenameFormatConstantString;
@@ -45,11 +46,13 @@ import org.jphototagger.xmp.XmpMetadata;
  * @author Elmar Baumann
  */
 public final class RenameDialog extends Dialog implements ListDataListener {
+
     private static final long serialVersionUID = 2975958115627670989L;
     private static final String KEY_SEL_TEMPLATE = "RenameDialog.SelectedTemplate";
     private final transient FilenameFormatArray filenameFormatArray = new FilenameFormatArray();
     private List<File> imageFiles = new ArrayList<File>();
     private final transient FileSystemListenerSupport ls = new FileSystemListenerSupport();
+    private static final Logger LOGGER = Logger.getLogger(RenameDialog.class.getName());
     private int fileIndex = 0;
     private boolean lockClose = false;
     private boolean cancel = false;
@@ -165,12 +168,12 @@ public final class RenameDialog extends Dialog implements ListDataListener {
 
             if (fromXmpFile.exists()) {
                 if (!toXmpFile.delete()) {
-                    AppLogger.logWarning(RenameDialog.class, "RenameDialog.Error.XmpFileCouldNotBeDeleted", toXmpFile);
+                    LOGGER.log(Level.WARNING, "XMP file ''{0}'' couldn't be deleted!", toXmpFile);
                 }
             }
 
             if (!fromXmpFile.renameTo(toXmpFile)) {
-                AppLogger.logWarning(RenameDialog.class, "RenameDialog.Error.XmpFileCouldNotBeRenamed", fromXmpFile, toXmpFile);
+                LOGGER.log(Level.WARNING, "XMP file ''{0}'' couldn't be renamed to ''{1}''!", new Object[]{fromXmpFile, toXmpFile});
             }
         }
     }

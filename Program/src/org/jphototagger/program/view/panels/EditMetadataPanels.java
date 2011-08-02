@@ -41,7 +41,6 @@ import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.AppLifeCycle;
 import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.controller.keywords.tree.SuggestKeywords;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.xmp.EditColumns;
@@ -388,7 +387,7 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
                         xmp.setValue(ColumnXmpRating.INSTANCE, Long.getLong(s));
                     }
                 } catch (Exception ex) {
-                    AppLogger.logSevere(getClass(), ex);
+                    Logger.getLogger(EditMetadataPanels.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }

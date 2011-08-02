@@ -1,17 +1,20 @@
 package org.jphototagger.program.data;
 
-import org.jphototagger.lib.model.TreeModelUpdateInfo;
-import org.jphototagger.lib.model.TreeNodeSortedChildren;
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.resource.JptBundle;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Enumeration;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
+
+import org.jphototagger.lib.model.TreeModelUpdateInfo;
+import org.jphototagger.lib.model.TreeNodeSortedChildren;
+import org.jphototagger.program.resource.JptBundle;
 
 /**
  * Times when images are created for useage in a {@link TreeModel}.
@@ -461,7 +464,7 @@ public final class Timeline {
 
                 return true;
             } catch (Exception ex) {
-                AppLogger.logSevere(Date.class, ex);
+                Logger.getLogger(Date.class.getName()).log(Level.SEVERE, null, ex);
                 reset();
             }
 
@@ -530,7 +533,7 @@ public final class Timeline {
 
                 return dfLong.format(date);
             } catch (Exception ex) {
-                AppLogger.logSevere(Date.class, ex);
+                Logger.getLogger(Date.class.getName()).log(Level.SEVERE, null, ex);
             }
 
             return JptBundle.INSTANCE.getString("Timeline.DisplayName.NoMonth");

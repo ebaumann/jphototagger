@@ -1,29 +1,32 @@
 package org.jphototagger.program.datatransfer;
 
-import org.jphototagger.lib.datatransfer.TransferableObject;
-import org.jphototagger.lib.datatransfer.TransferUtil;
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.controller.keywords.tree.KeywordsTreePathExpander;
-import org.jphototagger.program.controller.keywords.tree.KeywordTreeNodesClipboard;
-import org.jphototagger.domain.database.ColumnData;
-import org.jphototagger.domain.keywords.Keyword;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
-import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.program.helper.KeywordsHelper;
-import org.jphototagger.program.helper.MiscMetadataHelper;
-import org.jphototagger.program.model.TreeModelKeywords;
-import org.jphototagger.program.view.panels.KeywordsPanel;
 import java.awt.datatransfer.Transferable;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.swing.JComponent;
 import javax.swing.JTree;
 import javax.swing.TransferHandler;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
+
+import org.jphototagger.domain.database.ColumnData;
+import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.domain.keywords.Keyword;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.datatransfer.TransferUtil;
+import org.jphototagger.lib.datatransfer.TransferableObject;
+import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.program.controller.keywords.tree.KeywordTreeNodesClipboard;
+import org.jphototagger.program.controller.keywords.tree.KeywordsTreePathExpander;
+import org.jphototagger.program.factory.ModelFactory;
+import org.jphototagger.program.helper.KeywordsHelper;
+import org.jphototagger.program.helper.MiscMetadataHelper;
+import org.jphototagger.program.model.TreeModelKeywords;
+import org.jphototagger.program.view.panels.KeywordsPanel;
 
 /**
  * Handles drags and drops for a {@link KeywordsPanel}'s tree.
@@ -189,7 +192,7 @@ public final class TransferHandlerKeywordsTree extends TransferHandler {
                 }
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(TransferHandlerKeywordsTree.class, ex);
+            Logger.getLogger(TransferHandlerKeywordsTree.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

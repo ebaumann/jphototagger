@@ -1,24 +1,29 @@
 package org.jphototagger.program.controller.imagecollection;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.jdesktop.swingx.JXList;
+import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.ListUtil;
-import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.helper.ImageCollectionsHelper;
 import org.jphototagger.program.model.ListModelImageCollections;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.popupmenus.PopupMenuImageCollections;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  *
  * @author Elmar Baumann
  */
 public final class ControllerDeleteImageCollection implements ActionListener, KeyListener {
+
+    private static final Logger LOGGER = Logger.getLogger(ControllerDeleteImageCollection.class.getName());
+
     public ControllerDeleteImageCollection() {
         listen();
     }
@@ -63,8 +68,7 @@ public final class ControllerDeleteImageCollection implements ActionListener, Ke
                 }
             });
         } else {
-            AppLogger.logWarning(ControllerDeleteImageCollection.class,
-                                 "ControllerDeleteImageCollection.Error.CollectionNameIsNull");
+            LOGGER.log(Level.WARNING, "Delete photo album: Couldn't find the selected photo album in the database!");
         }
     }
 

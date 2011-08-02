@@ -1,9 +1,24 @@
 package org.jphototagger.program.view.panels;
 
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.lib.event.listener.ProgressListener;
+import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Collection;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.swing.AbstractButton;
+import javax.swing.JPanel;
+import javax.swing.JToggleButton;
+
+import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.componentutil.ListUtil;
+import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.event.ProgressEvent;
+import org.jphototagger.lib.event.listener.ProgressListener;
+import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.program.database.DatabaseKeywords;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.helper.HelperThread;
 import org.jphototagger.program.helper.InsertKeywords;
@@ -12,20 +27,8 @@ import org.jphototagger.program.helper.RefreshXmpInDbOfKnownFiles;
 import org.jphototagger.program.helper.SetExifToXmp;
 import org.jphototagger.program.helper.UpdateAllThumbnails;
 import org.jphototagger.program.model.ListModelKeywords;
-import org.jphototagger.program.view.dialogs.RenameFilenamesInDbDialog;
-import org.jphototagger.lib.componentutil.ListUtil;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
-import java.awt.Container;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Collection;
-import java.util.List;
-import javax.swing.AbstractButton;
-import javax.swing.JPanel;
-import javax.swing.JToggleButton;
-import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.program.database.DatabaseKeywords;
 import org.jphototagger.program.model.TreeModelKeywords;
+import org.jphototagger.program.view.dialogs.RenameFilenamesInDbDialog;
 
 /**
  *
@@ -85,7 +88,7 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
                 helperThread.start();
                 button.setText(BUTTON_TEXT_CANCEL);
             } catch (Exception ex) {
-                AppLogger.logSevere(DatabaseUpdatePanel.class, ex);
+                Logger.getLogger(DatabaseUpdatePanel.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
             cancel = true;

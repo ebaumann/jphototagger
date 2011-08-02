@@ -1,16 +1,18 @@
 package org.jphototagger.program.app;
 
-import org.jphototagger.program.app.logging.AppLogger;
 import java.io.File;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.Database;
 import org.jphototagger.program.database.DatabaseMetadata;
 import org.jphototagger.program.database.DatabaseTables;
 import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.UserSettings;
-import java.io.IOException;
-import java.sql.SQLException;
 
 /**
  * Initializes the application's database.
@@ -58,7 +60,7 @@ public final class AppDatabase {
         try {
             FileUtil.ensureDirectoryExists(directory);
         } catch (IOException ex) {
-            AppLogger.logSevere(AppDatabase.class, ex);
+            Logger.getLogger(AppDatabase.class.getName()).log(Level.SEVERE, null, ex);
             MessageDisplayer.error(null, "AppDatabase.Error.TnDir", directory);
             AppLifeCycle.quitBeforeGuiWasCreated();
         }

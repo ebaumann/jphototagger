@@ -10,11 +10,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.Icon;
 import javax.swing.filechooser.FileFilter;
 
-import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.exporter.KeywordsExporterLightroom;
 import org.jphototagger.program.io.CharEncoding;
 
@@ -52,7 +53,7 @@ public final class KeywordsImporterLightroom extends KeywordsImporter {
                 }
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(getClass(), ex);
+            Logger.getLogger(KeywordsImporterLightroom.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         List<Node> leafs = new ArrayList<Node>();

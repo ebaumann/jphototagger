@@ -1,6 +1,7 @@
 package org.jphototagger.program.helper;
 
-import org.jphototagger.program.app.logging.AppLogger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.jphototagger.program.tasks.AutomaticTask;
 import org.jphototagger.program.tasks.ScheduledTasks;
 import org.jphototagger.program.tasks.UserTasks;
@@ -40,7 +41,7 @@ public final class Cleanup {
             // Let the tasks a little bit time to complete until they can interrupt
             Thread.sleep(MILLISECONDS_SLEEP);
         } catch (Exception ex) {
-            AppLogger.logSevere(Cleanup.class, ex);
+            Logger.getLogger(Cleanup.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

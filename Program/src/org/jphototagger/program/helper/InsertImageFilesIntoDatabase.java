@@ -1,30 +1,5 @@
 package org.jphototagger.program.helper;
 
-import org.jphototagger.domain.database.InsertIntoDatabase;
-import org.jphototagger.lib.concurrent.Cancelable;
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.cache.PersistentThumbnails;
-import org.jphototagger.domain.exif.Exif;
-import org.jphototagger.domain.image.ImageFile;
-import org.jphototagger.program.data.Program;
-import org.jphototagger.domain.xmp.Xmp;
-import org.jphototagger.program.database.DatabaseActionsAfterDbInsertion;
-import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.domain.database.xmp.ColumnXmpIptc4XmpCoreDateCreated;
-import org.jphototagger.domain.database.xmp.ColumnXmpLastModified;
-import org.jphototagger.domain.event.listener.impl.ListenerSupport;
-import org.jphototagger.domain.event.listener.impl.ProgressListenerSupport;
-import org.jphototagger.lib.event.listener.ProgressListener;
-import org.jphototagger.domain.event.listener.UpdateMetadataCheckListener;
-import org.jphototagger.lib.event.ProgressEvent;
-import org.jphototagger.domain.event.UpdateMetadataCheckEvent;
-import org.jphototagger.domain.event.UpdateMetadataCheckEvent.Type;
-import org.jphototagger.exif.ExifMetadata;
-import org.jphototagger.xmp.XmpMetadata;
-import org.jphototagger.program.image.thumbnail.ThumbnailUtil;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.UserSettings;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
@@ -33,11 +8,36 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.Set;
-import org.jphototagger.program.app.AppFileFilters;
+
+import org.jphototagger.domain.database.InsertIntoDatabase;
+import org.jphototagger.domain.database.xmp.ColumnXmpIptc4XmpCoreDateCreated;
+import org.jphototagger.domain.database.xmp.ColumnXmpLastModified;
+import org.jphototagger.domain.event.UpdateMetadataCheckEvent;
+import org.jphototagger.domain.event.UpdateMetadataCheckEvent.Type;
+import org.jphototagger.domain.event.listener.UpdateMetadataCheckListener;
+import org.jphototagger.domain.event.listener.impl.ListenerSupport;
+import org.jphototagger.domain.event.listener.impl.ProgressListenerSupport;
+import org.jphototagger.domain.exif.Exif;
+import org.jphototagger.domain.image.ImageFile;
+import org.jphototagger.domain.xmp.Xmp;
+import org.jphototagger.exif.ExifMetadata;
 import org.jphototagger.exif.cache.ExifCache;
+import org.jphototagger.lib.concurrent.Cancelable;
+import org.jphototagger.lib.event.ProgressEvent;
+import org.jphototagger.lib.event.listener.ProgressListener;
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.app.AppFileFilters;
+import org.jphototagger.program.app.AppLookAndFeel;
+import org.jphototagger.program.cache.PersistentThumbnails;
+import org.jphototagger.program.data.Program;
+import org.jphototagger.program.database.DatabaseActionsAfterDbInsertion;
+import org.jphototagger.program.database.DatabaseImageFiles;
+import org.jphototagger.program.image.thumbnail.ThumbnailUtil;
+import org.jphototagger.program.resource.JptBundle;
+import org.jphototagger.xmp.XmpMetadata;
 
 /**
  * Inserts or updates image file metadata - EXIF, thumbnail, XMP - into the
@@ -53,6 +53,7 @@ public final class InsertImageFilesIntoDatabase extends Thread implements Cancel
     private final Set<InsertIntoDatabase> what = new HashSet<InsertIntoDatabase>();
     private final List<File> imageFiles;
     private boolean cancel;
+    private static final Logger LOGGER = Logger.getLogger(InsertImageFilesIntoDatabase.class.getName());
 
     /**
      * Constructor.
@@ -398,23 +399,20 @@ public final class InsertImageFilesIntoDatabase extends Thread implements Cancel
     }
 
     private void errorMessageNullThumbnail(File file) {
-        AppLogger.logWarning(InsertImageFilesIntoDatabase.class, "InsertImageFilesIntoDatabase.Error.NullThumbnail",
-                             file);
+        LOGGER.log(Level.WARNING, "Thumbnail couldn't be created for image file ''{0}''", file);
     }
 
     private void informationMessagePerformed(File file) {
-        AppLogger.logFinest(InsertImageFilesIntoDatabase.class,
-                            "InsertImageFilesIntoDatabase.Info.CheckImageForModifications", file);
+        LOGGER.log(Level.FINEST, "Synchronizing ''{0}'' with the database", file);
     }
 
     private void informationMessageEnded(int filecount) {
-        AppLogger.logInfo(InsertImageFilesIntoDatabase.class,
-                          "InsertImageFilesIntoDatabase.Info.UpdateMetadataFinished", filecount);
+        LOGGER.log(Level.INFO, "Synchronized {0} image files with the database", filecount);
     }
 
     private boolean checkExists(File imageFile) {
         if (!imageFile.exists()) {
-            AppLogger.logWarning(getClass(), "InsertImageFilesIntoDatabase.Error.ImageFileDoesNotExist", imageFile);
+            LOGGER.log(Level.WARNING, "Image file ''{0}'' does not (longer) exist and will not be updated in the database", imageFile);
 
             return false;
         }
@@ -433,6 +431,6 @@ public final class InsertImageFilesIntoDatabase extends Thread implements Cancel
                 ? JptBundle.INSTANCE.getString("InsertImageFilesIntoDatabase.Info.StartInsert.No")
                 : JptBundle.INSTANCE.getString("InsertImageFilesIntoDatabase.Info.StartInsert.Yes") };
 
-        AppLogger.logInfo(InsertImageFilesIntoDatabase.class, "InsertImageFilesIntoDatabase.Info.StartInsert", params);
+        LOGGER.log(Level.INFO, "Add metadata into the database of file ''{0}'': EXIF: {1}, XMP: {2}, Thumbnail: {3}", params);
     }
 }

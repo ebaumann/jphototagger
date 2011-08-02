@@ -1,24 +1,27 @@
 package org.jphototagger.program.tasks;
 
-import org.jphototagger.lib.concurrent.SerialExecutor;
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.domain.event.listener.UpdateMetadataCheckListener;
-import org.jphototagger.domain.event.UpdateMetadataCheckEvent;
-import org.jphototagger.domain.event.UpdateMetadataCheckEvent.Type;
-import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.view.dialogs.SettingsDialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.swing.Icon;
 import javax.swing.JButton;
+
+import org.jphototagger.domain.event.UpdateMetadataCheckEvent;
+import org.jphototagger.domain.event.UpdateMetadataCheckEvent.Type;
+import org.jphototagger.domain.event.listener.UpdateMetadataCheckListener;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.concurrent.SerialExecutor;
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.app.AppLookAndFeel;
+import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
+import org.jphototagger.program.resource.JptBundle;
+import org.jphototagger.program.view.dialogs.SettingsDialog;
 
 /**
  * Runs scheduled tasks after
@@ -76,7 +79,7 @@ public final class ScheduledTasks implements ActionListener, UpdateMetadataCheck
                         startUpdate();
                     }
                 } catch (Exception ex) {
-                    AppLogger.logSevere(getClass(), ex);
+                    Logger.getLogger(ScheduledTasks.class.getName()).log(Level.SEVERE, null, this);
                 }
             }
         }, "JPhotoTagger: Scheduled tasks");

@@ -1,6 +1,5 @@
 package org.jphototagger.program.database;
 
-import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
 import org.jphototagger.domain.event.listener.DatabaseUserDefinedFileFiltersListener;
 import org.jphototagger.domain.event.listener.impl.ListenerSupport;
@@ -11,6 +10,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -58,7 +59,7 @@ public final class DatabaseUserDefinedFileFilters extends Database {
                 notifyInserted(filter);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseUserDefinedFileFilters.class, ex);
+            Logger.getLogger(DatabaseUserDefinedFileFilters.class.getName()).log(Level.SEVERE, null, ex);
             count = 0;
             rollback(con);
         } finally {
@@ -135,7 +136,7 @@ public final class DatabaseUserDefinedFileFilters extends Database {
                 notifyUpdated(filter);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseUserDefinedFileFilters.class, ex);
+            Logger.getLogger(DatabaseUserDefinedFileFilters.class.getName()).log(Level.SEVERE, null, ex);
             count = 0;
             rollback(con);
         } finally {
@@ -170,7 +171,7 @@ public final class DatabaseUserDefinedFileFilters extends Database {
                 notifyDeleted(filter);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseUserDefinedFileFilters.class, ex);
+            Logger.getLogger(DatabaseUserDefinedFileFilters.class.getName()).log(Level.SEVERE, null, ex);
             count = 0;
             rollback(con);
         } finally {
@@ -204,7 +205,7 @@ public final class DatabaseUserDefinedFileFilters extends Database {
                 count = rs.getInt(1);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseUserDefinedFileFilters.class, ex);
+            Logger.getLogger(DatabaseUserDefinedFileFilters.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -239,7 +240,7 @@ public final class DatabaseUserDefinedFileFilters extends Database {
                 filter.add(f);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseUserDefinedFileFilters.class, ex);
+            Logger.getLogger(DatabaseUserDefinedFileFilters.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);

@@ -1,17 +1,19 @@
 package org.jphototagger.program.app.update.tables.v0;
 
-import org.jphototagger.program.app.logging.AppLogger;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.jphototagger.program.app.SplashScreen;
 import org.jphototagger.program.database.Database;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.database.DatabaseMetadata;
 import org.jphototagger.program.database.DatabaseSavedSearches;
 import org.jphototagger.program.resource.JptBundle;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 /**
  *
@@ -19,6 +21,8 @@ import java.sql.Statement;
  * @author Elmar Baumann
  */
 final class UpdateTablesXmpDcSubjects {
+    private static final Logger LOGGER = Logger.getLogger(UpdateTablesXmpDcSubjects.class.getName());
+
     void update(Connection con) throws SQLException {
         startMessage();
 
@@ -42,7 +46,7 @@ final class UpdateTablesXmpDcSubjects {
 
             String sql = "SELECT DISTINCT subject FROM xmp_dc_subjects";
 
-            AppLogger.logFinest(getClass(), AppLogger.USE_STRING, sql);
+            LOGGER.log(Level.FINEST, sql);
             rs = stmt.executeQuery(sql);
 
             String subject = null;
@@ -66,7 +70,7 @@ final class UpdateTablesXmpDcSubjects {
         try {
             stmt = con.prepareStatement(sql);
             stmt.setString(1, subject);
-            AppLogger.logFiner(getClass(), AppLogger.USE_STRING, stmt);
+            LOGGER.log(Level.FINER, stmt.toString());
             stmt.executeUpdate();
         } finally {
             Database.close(stmt);
@@ -80,7 +84,7 @@ final class UpdateTablesXmpDcSubjects {
 
         try {
             stmt = con.createStatement();
-            AppLogger.logFinest(getClass(), AppLogger.USE_STRING, sql);
+            LOGGER.log(Level.FINEST, sql);
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
@@ -107,7 +111,7 @@ final class UpdateTablesXmpDcSubjects {
         try {
             stmt = con.prepareStatement("SELECT COUNT(*) FROM xmp WHERE id = ?");
             stmt.setLong(1, id);
-            AppLogger.logFinest(getClass(), AppLogger.USE_STRING, stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
 
             if (rs.next()) {
@@ -129,7 +133,7 @@ final class UpdateTablesXmpDcSubjects {
                 stmt = con.prepareStatement(sql);
                 stmt.setLong(1, idXmp);
                 stmt.setLong(2, idDcSubject);
-                AppLogger.logFiner(getClass(), AppLogger.USE_STRING, stmt);
+                LOGGER.log(Level.FINER, stmt.toString());
                 stmt.executeUpdate();
             } finally {
                 Database.close(stmt);

@@ -1,9 +1,11 @@
 package org.jphototagger.program.serviceprovider.core;
 
 import java.io.File;
-import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.app.logging.AppLogger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.jphototagger.api.core.UserDirectoryProvider;
+import org.jphototagger.program.UserSettings;
 
 /**
  *
@@ -13,6 +15,7 @@ import org.jphototagger.api.core.UserDirectoryProvider;
 public final class UserDirectoryServiceProviderImpl implements UserDirectoryProvider {
 
     private static final File USER_DIRECTORY = new File(UserSettings.INSTANCE.getSettingsDirectoryName() + File.separator + "pluginsettings");
+    private static final Logger LOGGER = Logger.getLogger(UserDirectoryServiceProviderImpl.class.getName());
 
     @Override
     public File getUserDirectory() {
@@ -26,8 +29,7 @@ public final class UserDirectoryServiceProviderImpl implements UserDirectoryProv
             boolean created = USER_DIRECTORY.mkdirs();
 
             if (!created) {
-                AppLogger.logWarning(UserDirectoryServiceProviderImpl.class,
-                        "UserDirectoryServiceProvider.Error.CreatingUserDirectory", USER_DIRECTORY);
+                LOGGER.log(Level.WARNING, "Error creating user folder ''{0}''", USER_DIRECTORY);
             }
         }
     }

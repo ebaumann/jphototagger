@@ -32,14 +32,18 @@ import javax.swing.tree.TreeSelectionModel;
 
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.JXTree;
+import org.jphototagger.api.plugin.ComponentProvider;
+import org.jphototagger.api.plugin.ContextMetadataComponentProvider;
+import org.jphototagger.api.plugin.PositionComparator;
+import org.jphototagger.api.plugin.SelectionComponentProvider;
 import org.jphototagger.lib.component.ImageTextArea;
 import org.jphototagger.lib.componentutil.MessageLabel;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.ServiceLookup;
 import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.controller.actions.SearchInJxListAction;
 import org.jphototagger.program.controller.actions.SearchInJxTreeAction;
 import org.jphototagger.program.controller.actions.TreeExpandCollapseAllAction;
@@ -64,10 +68,6 @@ import org.jphototagger.program.view.renderer.TableCellRendererIptc;
 import org.jphototagger.program.view.renderer.TableCellRendererXmp;
 import org.jphototagger.program.view.renderer.TreeCellRendererMiscMetadata;
 import org.jphototagger.program.view.renderer.TreeCellRendererTimeline;
-import org.jphototagger.api.plugin.ComponentProvider;
-import org.jphototagger.api.plugin.ContextMetadataComponentProvider;
-import org.jphototagger.api.plugin.PositionComparator;
-import org.jphototagger.api.plugin.SelectionComponentProvider;
 
 /**
  * Panel der Anwendung.
@@ -87,7 +87,8 @@ public final class AppPanel extends javax.swing.JPanel {
     private final List<JXList> selectionLists = new ArrayList<JXList>();
     private transient EditMetadataPanels editMetadtaPanels;
     private transient EditMetadataActionsPanel panelEditActions;
-    public static final transient String DISABLED_IPTC_TAB_TOOLTIP_TEXT = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/panels/Bundle").getString("AppPanel.TabMetadataIptc.TooltipText.Disabled");
+    public static final transient String DISABLED_IPTC_TAB_TOOLTIP_TEXT = Bundle.getString(AppPanel.class, "AppPanel.TabMetadataIptc.TooltipText.Disabled");
+    private static final Logger LOGGER = Logger.getLogger(AppPanel.class.getName());
 
     public AppPanel() {
         init();
@@ -388,7 +389,7 @@ public final class AppPanel extends javax.swing.JPanel {
             labelStatusbarText.setText(text);
         }
 
-        AppLogger.logInfo(AppPanel.class, AppLogger.USE_STRING, text);
+        LOGGER.log(Level.INFO, text);
     }
 
     public EditMetadataPanels getEditMetadataPanels() {

@@ -1,22 +1,25 @@
 package org.jphototagger.program.exporter;
 
-import org.jphototagger.lib.xml.bind.XmlObjectExporter;
-import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.domain.favorites.Favorite;
-import org.jphototagger.program.database.DatabaseFavorites;
-import org.jphototagger.program.resource.JptBundle;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.swing.Icon;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.Icon;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.jphototagger.domain.favorites.Favorite;
+import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.lib.xml.bind.XmlObjectExporter;
+import org.jphototagger.program.app.AppLookAndFeel;
+import org.jphototagger.program.database.DatabaseFavorites;
+import org.jphototagger.program.resource.JptBundle;
 
 /**
  *
@@ -41,7 +44,7 @@ public final class FavoritesExporter implements Exporter {
 
             XmlObjectExporter.export(new CollectionWrapper(templates), xmlFile);
         } catch (Exception ex) {
-            AppLogger.logSevere(FavoritesExporter.class, ex);
+            Logger.getLogger(FavoritesExporter.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

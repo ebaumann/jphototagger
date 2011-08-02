@@ -1,8 +1,5 @@
 package org.jphototagger.program.database;
 
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.domain.event.listener.DatabaseAutoscanDirectoriesListener;
-import org.jphototagger.domain.event.listener.impl.ListenerSupport;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,6 +7,11 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.jphototagger.domain.event.listener.DatabaseAutoscanDirectoriesListener;
+import org.jphototagger.domain.event.listener.impl.ListenerSupport;
 
 /**
  *
@@ -49,7 +51,7 @@ public final class DatabaseAutoscanDirectories extends Database {
                     notifyInserted(directory);
                 }
             } catch (Exception ex) {
-                AppLogger.logSevere(DatabaseAutoscanDirectories.class, ex);
+                Logger.getLogger(DatabaseAutoscanDirectories.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
                 close(stmt);
                 free(con);
@@ -83,7 +85,7 @@ public final class DatabaseAutoscanDirectories extends Database {
                 notifyDeleted(directory);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseAutoscanDirectories.class, ex);
+            Logger.getLogger(DatabaseAutoscanDirectories.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(stmt);
             free(con);
@@ -113,7 +115,7 @@ public final class DatabaseAutoscanDirectories extends Database {
                 exists = rs.getInt(1) > 0;
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseAutoscanDirectories.class, ex);
+            Logger.getLogger(DatabaseAutoscanDirectories.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -141,7 +143,7 @@ public final class DatabaseAutoscanDirectories extends Database {
                 directories.add(getFile(rs.getString(1)));
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseAutoscanDirectories.class, ex);
+            Logger.getLogger(DatabaseAutoscanDirectories.class.getName()).log(Level.SEVERE, null, ex);
             directories.clear();
         } finally {
             close(rs, stmt);

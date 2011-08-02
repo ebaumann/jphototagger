@@ -1,24 +1,25 @@
 package org.jphototagger.program;
 
+import java.io.File;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.jphototagger.domain.event.UserSettingsEvent;
+import org.jphototagger.domain.event.UserSettingsEvent.Type;
+import org.jphototagger.domain.event.listener.UserSettingsListener;
+import org.jphototagger.domain.event.listener.impl.UserSettingsListenerSupport;
 import org.jphototagger.lib.dialog.DirectoryChooser;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
 import org.jphototagger.lib.util.PropertiesFile;
 import org.jphototagger.lib.util.Settings;
 import org.jphototagger.lib.util.SettingsHints;
 import org.jphototagger.program.app.AppInfo;
-import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.app.update.UpdateUserSettings;
-import org.jphototagger.domain.event.listener.impl.UserSettingsListenerSupport;
-import org.jphototagger.domain.event.listener.UserSettingsListener;
-import org.jphototagger.domain.event.UserSettingsEvent;
-import org.jphototagger.domain.event.UserSettingsEvent.Type;
 import org.jphototagger.program.helper.CopyFiles;
 import org.jphototagger.program.helper.CopyFiles.Options;
 import org.jphototagger.program.image.thumbnail.ThumbnailCreationStrategy;
 import org.jphototagger.program.types.Filename;
-import java.io.File;
-import java.util.logging.Level;
-import java.util.Properties;
 
 /**
  * Stores user settings in a single {@link java.util.Properties} instance.
@@ -126,7 +127,7 @@ public final class UserSettings {
         try {
             propertiesFile.writeToFile();
         } catch (Exception ex) {
-            AppLogger.logSevere(UserSettings.class, ex);
+            Logger.getLogger(UserSettings.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -365,7 +366,7 @@ public final class UserSettings {
             try {
                 level = Level.parse(levelString);
             } catch (Exception ex) {
-                AppLogger.logSevere(UserSettings.class, ex);
+                Logger.getLogger(UserSettings.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 

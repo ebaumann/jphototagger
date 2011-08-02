@@ -1,10 +1,12 @@
 package org.jphototagger.program.helper;
 
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.database.DatabaseMaintainance;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.jphototagger.domain.event.listener.impl.ProgressListenerSupport;
-import org.jphototagger.lib.event.listener.ProgressListener;
 import org.jphototagger.lib.event.ProgressEvent;
+import org.jphototagger.lib.event.listener.ProgressListener;
+import org.jphototagger.program.database.DatabaseMaintainance;
 import org.jphototagger.program.resource.JptBundle;
 
 /**
@@ -14,8 +16,10 @@ import org.jphototagger.program.resource.JptBundle;
  * @author Elmar Baumann
  */
 public final class DeleteNotReferenced1n implements Runnable {
+
     private final ProgressListenerSupport ls = new ProgressListenerSupport();
     private volatile int countDeleted = 0;
+    private static final Logger LOGGER = Logger.getLogger(DeleteNotReferenced1n.class.getName());
 
     public synchronized void addProgressListener(ProgressListener listener) {
         if (listener == null) {
@@ -39,7 +43,7 @@ public final class DeleteNotReferenced1n implements Runnable {
     public void notifyProgressStarted() {
         ProgressEvent evt = new ProgressEvent(this, 0, 1, 0, getStartMessage());
 
-        AppLogger.logInfo(DeleteNotReferenced1n.class, "DeleteNotReferenced1n.Info.Start");
+        LOGGER.log(Level.INFO, "Deleting not referenced data from the database");
         ls.notifyStarted(evt);
     }
 

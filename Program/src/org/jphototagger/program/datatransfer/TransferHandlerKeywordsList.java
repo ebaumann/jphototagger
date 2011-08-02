@@ -1,20 +1,23 @@
 package org.jphototagger.program.datatransfer;
 
-import org.jphototagger.lib.datatransfer.TransferableObject;
-import org.jphototagger.lib.datatransfer.TransferUtil;
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.domain.database.ColumnData;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
-import org.jphototagger.program.helper.MiscMetadataHelper;
-import org.jphototagger.program.view.panels.KeywordsPanel;
 import java.awt.datatransfer.Transferable;
 import java.io.File;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.swing.JComponent;
-import org.jdesktop.swingx.JXList;
 import javax.swing.TransferHandler;
+
+import org.jdesktop.swingx.JXList;
+import org.jphototagger.domain.database.ColumnData;
+import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.lib.datatransfer.TransferUtil;
+import org.jphototagger.lib.datatransfer.TransferableObject;
+import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.program.helper.MiscMetadataHelper;
+import org.jphototagger.program.view.panels.KeywordsPanel;
 
 /**
  * Transfer handler for {@link KeywordsPanel#getList()}.
@@ -83,7 +86,7 @@ public final class TransferHandlerKeywordsList extends TransferHandler {
         try {
             return (Object[]) transferable.getTransferData(Flavor.KEYWORDS_LIST);
         } catch (Exception ex) {
-            AppLogger.logSevere(TransferHandlerKeywordsList.class, ex);
+            Logger.getLogger(TransferHandlerKeywordsList.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return null;

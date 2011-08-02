@@ -1,15 +1,17 @@
 package org.jphototagger.program.app.update.tables.v0;
 
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.app.SplashScreen;
-import org.jphototagger.program.database.Database;
-import org.jphototagger.program.database.DatabaseMetadata;
-import org.jphototagger.program.resource.JptBundle;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.jphototagger.program.app.SplashScreen;
+import org.jphototagger.program.database.Database;
+import org.jphototagger.program.database.DatabaseMetadata;
+import org.jphototagger.program.resource.JptBundle;
 
 /**
  *
@@ -17,6 +19,9 @@ import java.sql.Statement;
  * @author Elmar Baumann
  */
 final class UpdateTablesXmpLastModified {
+
+    private static final Logger LOGGER = Logger.getLogger(UpdateTablesXmpLastModified.class.getName());
+
     void update(Connection con) throws SQLException {
         startMessage();
         removeColumnXmpLastModifiedFromTableXmp(con);
@@ -52,7 +57,7 @@ final class UpdateTablesXmpLastModified {
             long idFiles = -1;
             String sql = "SELECT id, lastmodified FROM files";
 
-            AppLogger.logFinest(getClass(), AppLogger.USE_STRING, sql);
+            LOGGER.log(Level.FINEST, sql);
             rsQuery = stmtQuery.executeQuery(sql);
 
             while (rsQuery.next()) {
@@ -60,7 +65,7 @@ final class UpdateTablesXmpLastModified {
                 lastModified = rsQuery.getLong(2);
                 stmtUpdate.setLong(1, lastModified);
                 stmtUpdate.setLong(2, idFiles);
-                AppLogger.logFiner(getClass(), AppLogger.USE_STRING, stmtUpdate);
+                LOGGER.log(Level.FINER, stmtUpdate.toString());
                 stmtUpdate.executeUpdate();
             }
         } finally {

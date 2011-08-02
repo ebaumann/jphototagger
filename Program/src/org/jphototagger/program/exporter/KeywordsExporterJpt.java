@@ -1,32 +1,35 @@
 package org.jphototagger.program.exporter;
 
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.app.AppLookAndFeel;
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.swing.Icon;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
 import org.jphototagger.domain.keywords.Keyword;
+import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.io.CharEncoding;
 import org.jphototagger.program.io.FilenameSuffixes;
 import org.jphototagger.program.model.TreeModelKeywords;
 import org.jphototagger.program.resource.JptBundle;
-import org.w3c.dom.Document;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.DOMImplementation;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.Icon;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
 
 /**
  * JPhotoTagger's own exportFile format.
@@ -99,7 +102,7 @@ public final class KeywordsExporterJpt implements Exporter {
             initTransformer(trans);
             trans.transform(ds, sr);
         } catch (Exception ex) {
-            AppLogger.logSevere(getClass(), ex);
+            Logger.getLogger(KeywordsExporterJpt.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

@@ -1,14 +1,16 @@
 package org.jphototagger.program.controller.filesystem;
 
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.helper.FilesystemDatabaseUpdater;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.dialogs.CopyToDirectoryDialog;
-import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.jphototagger.program.helper.FilesystemDatabaseUpdater;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.view.dialogs.CopyToDirectoryDialog;
+import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
 
 /**
  * Kontrolliert die Aktion: Ausgewählte Dateien in ein Verzeichnis kopieren.
@@ -16,6 +18,9 @@ import java.util.List;
  * @author Elmar Baumann
  */
 public final class ControllerCopyFilesToDirectory implements ActionListener {
+
+    private static final Logger LOGGER = Logger.getLogger(ControllerCopyFilesToDirectory.class.getName());
+
     public ControllerCopyFilesToDirectory() {
         listen();
     }
@@ -39,8 +44,7 @@ public final class ControllerCopyFilesToDirectory implements ActionListener {
             dlg.addFileSystemActionListener(new FilesystemDatabaseUpdater(true));
             dlg.setVisible(true);
         } else {
-            AppLogger.logWarning(ControllerCopyFilesToDirectory.class,
-                                 "ControllerCopyFilesToDirectory.Error.NoImagesSelected");
+            LOGGER.log(Level.WARNING, "Copy images: No images selected!");
         }
     }
 }

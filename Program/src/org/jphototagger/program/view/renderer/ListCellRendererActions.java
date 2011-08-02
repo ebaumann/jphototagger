@@ -1,14 +1,17 @@
 package org.jphototagger.program.view.renderer;
 
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.data.Program;
 import java.awt.Component;
 import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JList;
+
+import org.jphototagger.program.app.AppLookAndFeel;
+import org.jphototagger.program.data.Program;
 
 /**
  *
@@ -34,7 +37,7 @@ public final class ListCellRendererActions extends DefaultListCellRenderer {
             try {
                 setIcon(ICON_ACTION);
             } catch (Exception ex) {
-                AppLogger.logSevere(ListCellRendererActions.class, ex);
+                Logger.getLogger(ListCellRendererActions.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
             label.setIcon(ICON_ERROR);

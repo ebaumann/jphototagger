@@ -1,14 +1,5 @@
 package org.jphototagger.program.app;
 
-import org.jphototagger.program.app.logging.AppLoggingSystem;
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.lib.dialog.LongMessageDialog;
-import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.lib.util.SystemProperties;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.view.WaitDisplay;
 import java.awt.AWTEvent;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -16,6 +7,16 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.jphototagger.lib.dialog.LongMessageDialog;
+import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.lib.util.SystemProperties;
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.app.logging.AppLogUtil;
+import org.jphototagger.program.app.logging.AppLoggingSystem;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.resource.JptBundle;
+import org.jphototagger.program.view.WaitDisplay;
 
 /**
  * JPhotoTagger's event queue.
@@ -25,6 +26,7 @@ import java.util.logging.Logger;
  * @author Elmar Baumann
  */
 public final class AppEventQueue extends java.awt.EventQueue {
+
     private static final String NEWLINE = SystemProperties.getLineSeparator();
     private static final String FILE_ENCODING = SystemProperties.getFileEncoding();
 
@@ -33,7 +35,7 @@ public final class AppEventQueue extends java.awt.EventQueue {
         try {
             super.dispatchEvent(event);
         } catch (Throwable t) {
-            AppLogger.logSevere(AppEventQueue.class, t);
+            Logger.getLogger(AppEventQueue.class.getName()).log(Level.SEVERE, null, t);
             getDialog(t).setVisible(true);
             hideWaitDisplay();
         }
@@ -53,7 +55,7 @@ public final class AppEventQueue extends java.awt.EventQueue {
     }
 
     private String createMessage(Throwable t) {
-        String message = AppLogger.getMessage(t);
+        String message = AppLogUtil.createMessage(t);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         PrintStream ps = new PrintStream(baos);
 

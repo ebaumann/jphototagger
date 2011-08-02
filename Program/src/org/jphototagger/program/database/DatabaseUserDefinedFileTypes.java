@@ -6,10 +6,12 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.domain.filetypes.UserDefinedFileType;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.jphototagger.domain.event.listener.DatabaseUserDefinedFileTypesListener;
 import org.jphototagger.domain.event.listener.impl.ListenerSupport;
+import org.jphototagger.domain.filetypes.UserDefinedFileType;
 
 /**
  *
@@ -50,7 +52,7 @@ public final class DatabaseUserDefinedFileTypes extends Database {
                 notifyFileTypeInserted(fileType);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseUserDefinedFileTypes.class, ex);
+            Logger.getLogger(DatabaseUserDefinedFileTypes.class.getName()).log(Level.SEVERE, null, ex);
             count = 0;
             rollback(con);
         } finally {
@@ -91,7 +93,7 @@ public final class DatabaseUserDefinedFileTypes extends Database {
                 notifyFileTypeUpdated(oldFileType, newFileType);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseUserDefinedFileTypes.class, ex);
+            Logger.getLogger(DatabaseUserDefinedFileTypes.class.getName()).log(Level.SEVERE, null, ex);
             count = 0;
             rollback(con);
         } finally {
@@ -130,7 +132,7 @@ public final class DatabaseUserDefinedFileTypes extends Database {
                 notifyFileTypeDeleted(fileType);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseUserDefinedFileTypes.class, ex);
+            Logger.getLogger(DatabaseUserDefinedFileTypes.class.getName()).log(Level.SEVERE, null, ex);
             count = 0;
             rollback(con);
         } finally {
@@ -171,7 +173,7 @@ public final class DatabaseUserDefinedFileTypes extends Database {
                 fileTypes.add(fileType);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseUserDefinedFileTypes.class, ex);
+            Logger.getLogger(DatabaseUserDefinedFileTypes.class.getName()).log(Level.SEVERE, null, ex);
             fileTypes.clear();
         } finally {
             close(rs, stmt);
@@ -209,7 +211,7 @@ public final class DatabaseUserDefinedFileTypes extends Database {
                 count = rs.getLong(1);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseUserDefinedFileTypes.class, ex);
+            Logger.getLogger(DatabaseUserDefinedFileTypes.class.getName()).log(Level.SEVERE, null, ex);
             count = 0;
             rollback(con);
         } finally {
@@ -252,7 +254,7 @@ public final class DatabaseUserDefinedFileTypes extends Database {
                 fileType.setExternalThumbnailCreator(externalThumbnailCreator);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseUserDefinedFileTypes.class, ex);
+            Logger.getLogger(DatabaseUserDefinedFileTypes.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -276,7 +278,7 @@ public final class DatabaseUserDefinedFileTypes extends Database {
                 id = rs.getLong(1);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseUserDefinedFileTypes.class, ex);
+            Logger.getLogger(DatabaseUserDefinedFileTypes.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
         }

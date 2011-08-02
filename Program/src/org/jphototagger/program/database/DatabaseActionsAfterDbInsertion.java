@@ -1,15 +1,17 @@
 package org.jphototagger.program.database;
 
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.data.Program;
-import org.jphototagger.program.event.listener.DatabaseActionsAfterDbInsertionListener;
-import org.jphototagger.domain.event.listener.impl.ListenerSupport;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.jphototagger.domain.event.listener.impl.ListenerSupport;
+import org.jphototagger.program.data.Program;
+import org.jphototagger.program.event.listener.DatabaseActionsAfterDbInsertionListener;
 
 /**
  * Contains (links to) external Programs to execute after inserting metadata
@@ -18,8 +20,8 @@ import java.util.List;
  * @author Elmar Baumann
  */
 public final class DatabaseActionsAfterDbInsertion extends Database {
-    private final ListenerSupport<DatabaseActionsAfterDbInsertionListener> ls =
-        new ListenerSupport<DatabaseActionsAfterDbInsertionListener>();
+    private final ListenerSupport<DatabaseActionsAfterDbInsertionListener> ls = new ListenerSupport<DatabaseActionsAfterDbInsertionListener>();
+    private static final Logger LOGGER = Logger.getLogger(DatabaseActionsAfterDbInsertion.class.getName());
     public static final DatabaseActionsAfterDbInsertion INSTANCE = new DatabaseActionsAfterDbInsertion();
 
     private DatabaseActionsAfterDbInsertion() {}
@@ -56,7 +58,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
                 notifyInserted(program);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseActionsAfterDbInsertion.class, ex);
+            Logger.getLogger(DatabaseActionsAfterDbInsertion.class.getName()).log(Level.SEVERE, null, ex);
             rollback(con);
         } finally {
             close(stmt);
@@ -94,7 +96,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
                 notifyDeleted(program);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseActionsAfterDbInsertion.class, ex);
+            Logger.getLogger(DatabaseActionsAfterDbInsertion.class.getName()).log(Level.SEVERE, null, ex);
             rollback(con);
         } finally {
             close(stmt);
@@ -129,13 +131,15 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
                 Program program = DatabasePrograms.INSTANCE.find(idProgram);
 
                 if (program == null) {
-                    AppLogger.logWarning(getClass(), "DatabaseActionsAfterDbInsertion.ProgramDoesNotExist", idProgram);
+                    LOGGER.log(Level.WARNING,
+                            "Error getting an action to start after insertion of metadata into the database: The programm whith the ID {0} not exist!",
+                            idProgram);
                 } else {
                     programs.add(program);
                 }
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseActionsAfterDbInsertion.class, ex);
+            Logger.getLogger(DatabaseActionsAfterDbInsertion.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -172,7 +176,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
                 exists = rs.getInt(1) > 0;
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseAutoscanDirectories.class, ex);
+            Logger.getLogger(DatabaseActionsAfterDbInsertion.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -200,7 +204,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
                 count = rs.getInt(1);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseAutoscanDirectories.class, ex);
+            Logger.getLogger(DatabaseActionsAfterDbInsertion.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -250,7 +254,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
                 notifyReordered();
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseActionsAfterDbInsertion.class, ex);
+            Logger.getLogger(DatabaseActionsAfterDbInsertion.class.getName()).log(Level.SEVERE, null, ex);
             rollback(con);
         } finally {
             close(stmt);

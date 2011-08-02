@@ -1,20 +1,23 @@
 package org.jphototagger.program.datatransfer;
 
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.program.helper.ImageCollectionsHelper;
-import org.jphototagger.program.io.ImageFileFilterer;
-import org.jphototagger.program.model.ListModelImageCollections;
-import org.jphototagger.program.resource.GUI;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.TransferHandler;
+
 import org.jdesktop.swingx.JXList;
+import org.jphototagger.program.factory.ModelFactory;
+import org.jphototagger.program.helper.ImageCollectionsHelper;
+import org.jphototagger.program.io.ImageFileFilterer;
+import org.jphototagger.program.model.ListModelImageCollections;
+import org.jphototagger.program.resource.GUI;
 
 /**
  * Adds images to an image collection (item hitted) or creates a new one (free
@@ -52,7 +55,7 @@ public final class TransferHandlerImageCollectionsList extends TransferHandler {
 
             imageFiles = getImageFiles((List<File>) transferable.getTransferData(DataFlavor.javaFileListFlavor));
         } catch (Exception ex) {
-            AppLogger.logSevere(TransferHandlerImageCollectionsList.class, ex);
+            Logger.getLogger(TransferHandlerImageCollectionsList.class.getName()).log(Level.SEVERE, null, ex);
 
             return false;
         }

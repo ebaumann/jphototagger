@@ -1,17 +1,5 @@
 package org.jphototagger.program.app.update.tables.v0;
 
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.app.SplashScreen;
-import org.jphototagger.domain.keywords.Keyword;
-import org.jphototagger.program.database.Database;
-import org.jphototagger.program.database.DatabaseKeywords;
-import org.jphototagger.program.database.DatabaseMetadata;
-import org.jphototagger.program.helper.KeywordsHelper;
-import org.jphototagger.program.io.CharEncoding;
-import org.jphototagger.program.io.FilenameSuffixes;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.UserSettings;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -24,6 +12,20 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.jphototagger.domain.keywords.Keyword;
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.program.app.SplashScreen;
+import org.jphototagger.program.database.Database;
+import org.jphototagger.program.database.DatabaseKeywords;
+import org.jphototagger.program.database.DatabaseMetadata;
+import org.jphototagger.program.helper.KeywordsHelper;
+import org.jphototagger.program.io.CharEncoding;
+import org.jphototagger.program.io.FilenameSuffixes;
+import org.jphototagger.program.resource.JptBundle;
 
 //Unproper handling if only one of the two actions completed
 
@@ -33,6 +35,8 @@ import java.sql.Statement;
  * @author Elmar Baumann
  */
 final class UpdateTablesDropCategories {
+    private static final Logger LOGGER = Logger.getLogger(UpdateTablesDropCategories.class.getName());
+
     void update(Connection con) throws SQLException {
         startMessage();
 
@@ -63,7 +67,7 @@ final class UpdateTablesDropCategories {
             writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(getFilename()),
                     CharEncoding.LIGHTROOM_KEYWORDS));
             stmt = con.createStatement();
-            AppLogger.logFinest(getClass(), AppLogger.USE_STRING, sql);
+            LOGGER.log(Level.FINEST, sql);
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
@@ -108,16 +112,16 @@ final class UpdateTablesDropCategories {
 
             String sql = "ALTER TABLE xmp DROP COLUMN photoshop_category";
 
-            AppLogger.logFiner(getClass(), AppLogger.USE_STRING, sql);
+            LOGGER.log(Level.FINER, sql);
             stmt.executeUpdate(sql);
             sql = "ALTER TABLE metadata_edit_templates DROP COLUMN photoshopCategory";
-            AppLogger.logFiner(getClass(), AppLogger.USE_STRING, sql);
+            LOGGER.log(Level.FINER, sql);
             stmt.executeUpdate(sql);
             sql = "ALTER TABLE metadata_edit_templates DROP COLUMN photoshopSupplementalCategories";
-            AppLogger.logFiner(getClass(), AppLogger.USE_STRING, sql);
+            LOGGER.log(Level.FINER, sql);
             stmt.executeUpdate(sql);
             sql = "DROP TABLE xmp_photoshop_supplementalcategories";
-            AppLogger.logFiner(getClass(), AppLogger.USE_STRING, sql);
+            LOGGER.log(Level.FINER, sql);
             stmt.executeUpdate(sql);
         } finally {
             Database.close(stmt);

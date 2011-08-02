@@ -1,12 +1,5 @@
 package org.jphototagger.program.database;
 
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.domain.database.search.ParamStatement;
-import org.jphototagger.domain.database.Column;
-import org.jphototagger.program.database.metadata.Join;
-import org.jphototagger.program.database.metadata.Join.Type;
-import org.jphototagger.program.database.metadata.Util;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,6 +8,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.jphototagger.domain.database.Column;
+import org.jphototagger.domain.database.search.ParamStatement;
+import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.program.database.metadata.Join;
+import org.jphototagger.program.database.metadata.Join.Type;
+import org.jphototagger.program.database.metadata.Util;
 
 /**
  *
@@ -57,7 +59,7 @@ public final class DatabaseFind extends Database {
                 imageFiles.add(getFile(rs.getString(1)));
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseFind.class, ex);
+            Logger.getLogger(DatabaseFind.class.getName()).log(Level.SEVERE, null, ex);
             imageFiles.clear();
         } finally {
             close(rs, stmt);
@@ -124,7 +126,7 @@ public final class DatabaseFind extends Database {
                     }
                 }
             } catch (Exception ex) {
-                AppLogger.logSevere(DatabaseFind.class, ex);
+                Logger.getLogger(DatabaseFind.class.getName()).log(Level.SEVERE, null, ex);
                 imageFiles.clear();
             } finally {
                 close(rs, stmt);

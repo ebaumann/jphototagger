@@ -1,9 +1,5 @@
 package org.jphototagger.program.app.update.tables.v0;
 
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.app.SplashScreen;
-import org.jphototagger.program.database.Database;
-import org.jphototagger.program.resource.JptBundle;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
@@ -11,6 +7,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.jphototagger.program.app.SplashScreen;
+import org.jphototagger.program.database.Database;
+import org.jphototagger.program.resource.JptBundle;
 
 /**
  * Updates the table's primary keys.
@@ -19,6 +21,7 @@ import java.util.List;
  */
 final class UpdateTablesPrimaryKeys {
     private static final List<String> TABLES_PRIMARY_KEYS_TO_DROP = new ArrayList<String>();
+    private static final Logger LOGGER = Logger.getLogger(UpdateTablesPrimaryKeys.class.getName());
 
     void update(Connection con) throws SQLException {
         startMessage();
@@ -45,8 +48,7 @@ final class UpdateTablesPrimaryKeys {
                         hasPk = true;
 
                         String sql = "alter table " + table + " drop primary key";
-
-                        AppLogger.logFiner(getClass(), AppLogger.USE_STRING, sql);
+                        LOGGER.log(Level.FINER, sql);
                         stmt.executeUpdate(sql);
                     }
                 }

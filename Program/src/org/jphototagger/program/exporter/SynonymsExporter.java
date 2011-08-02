@@ -1,25 +1,28 @@
 package org.jphototagger.program.exporter;
 
-import org.jphototagger.program.app.logging.AppLogger;
+import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.swing.Icon;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.database.DatabaseSynonyms;
 import org.jphototagger.program.io.CharEncoding;
 import org.jphototagger.program.resource.JptBundle;
-import org.w3c.dom.Document;
 import org.w3c.dom.DOMImplementation;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import java.io.File;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.Icon;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
 
 /**
  *
@@ -54,7 +57,7 @@ public final class SynonymsExporter implements Exporter {
             initTransformer(trans);
             trans.transform(ds, sr);
         } catch (Exception ex) {
-            AppLogger.logSevere(SynonymsExporter.class, ex);
+            Logger.getLogger(SynonymsExporter.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

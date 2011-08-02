@@ -3,6 +3,8 @@ package org.jphototagger.program.helper;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.jphototagger.domain.event.listener.impl.ProgressListenerSupport;
 import org.jphototagger.lib.concurrent.Cancelable;
@@ -11,7 +13,6 @@ import org.jphototagger.lib.event.listener.ProgressListener;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.SourceTargetFile;
 import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.app.logging.AppLogger;
 
 /**
  * Kopieren von Dateien.
@@ -25,6 +26,7 @@ public final class CopyFiles implements Runnable, Cancelable {
     private final Options options;
     private final List<SourceTargetFile> sourceTargetFiles;
     private volatile boolean cancel;
+    private static final Logger LOGGER = Logger.getLogger(CopyFiles.class.getName());
 
     /**
      * Konstruktor
@@ -123,7 +125,7 @@ public final class CopyFiles implements Runnable, Cancelable {
                     logCopyFile(sourceFile, targetFile);
                     FileUtil.copyFile(sourceFile, targetFile);
                 } catch (Exception ex) {
-                    AppLogger.logSevere(CopyFiles.class, ex);
+                    Logger.getLogger(CopyFiles.class.getName()).log(Level.SEVERE, null, ex);
                     errorFiles.add(sourceTargetFile.getSourceFile());
                 }
             }
@@ -145,7 +147,7 @@ public final class CopyFiles implements Runnable, Cancelable {
     }
 
     private void logCopyFile(File sourceFile, File targetFile) {
-        AppLogger.logInfo(CopyFiles.class, "CopyFiles.Info.StartCopy", sourceFile, targetFile);
+        LOGGER.log(Level.INFO, "Copy file ''{0}'' to ''{1}''", new Object[]{sourceFile, targetFile});
     }
 
     private synchronized void notifyStart() {

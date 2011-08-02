@@ -4,7 +4,6 @@ import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.lib.io.filefilter.RegexFileFilter;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.app.AppLifeCycle;
-import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.lib.event.ProgressEvent;
 import org.jphototagger.program.resource.JptBundle;
@@ -18,6 +17,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 /**
@@ -92,7 +93,7 @@ public final class BackupDatabase extends AppLifeCycle.FinalTask implements Runn
                     return true;
                 }
             } catch (IOException ex) {
-                AppLogger.logSevere(BackupDatabase.class, ex);
+                Logger.getLogger(BackupDatabase.class.getName()).log(Level.SEVERE, null, ex);
                 MessageDisplayer.error(null, "BackupDatabase.Error.Copy", file, toDir);
 
                 return false;

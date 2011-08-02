@@ -5,6 +5,8 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
 
@@ -13,7 +15,6 @@ import org.jphototagger.lib.io.FileLock;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.IoUtil;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.app.logging.AppLogger;
 
 /**
  * Persistent stored (cached) thumbnails.
@@ -21,6 +22,8 @@ import org.jphototagger.program.app.logging.AppLogger;
  * @author  Martin Pohlack, Elmar Baumann
  */
 public final class PersistentThumbnails {
+
+    private static final Logger LOGGER = Logger.getLogger(PersistentThumbnails.class.getName());
 
     private PersistentThumbnails() {
     }
@@ -66,7 +69,7 @@ public final class PersistentThumbnails {
                 }
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(PersistentThumbnails.class, ex);
+            Logger.getLogger(PersistentThumbnails.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             FileLock.INSTANCE.unlock(tnFile, PersistentThumbnails.class);
             IoUtil.close(fos);
@@ -74,7 +77,7 @@ public final class PersistentThumbnails {
     }
 
     private static void logWriteThumbnail(File tnFile) {
-        AppLogger.logInfo(PersistentThumbnails.class, "PersistentThumbnails.Info.WriteThumbnail", tnFile);
+        LOGGER.log(Level.INFO, "Writing thumbnail ''{0}''", tnFile);
     }
 
     public static boolean deleteThumbnail(File imageFile) {
@@ -85,8 +88,9 @@ public final class PersistentThumbnails {
         File tnFile = getThumbnailFile(imageFile);
 
         if ((tnFile != null) && !tnFile.delete()) {
-            AppLogger.logWarning(PersistentThumbnails.class, "DatabaseImageFiles.Error.DeleteThumbnail", tnFile,
-                    imageFile);
+            LOGGER.log(Level.WARNING,
+                    "Thumbnail ''{0}'' of image file ''{1}'' couldn't be deleted!",
+                    new Object[]{tnFile, imageFile});
 
             return false;
         }
@@ -124,7 +128,7 @@ public final class PersistentThumbnails {
                 thumbnail = icon.getImage();
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(PersistentThumbnails.class, ex);
+            Logger.getLogger(PersistentThumbnails.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             IoUtil.close(fis);
         }
@@ -221,8 +225,9 @@ public final class PersistentThumbnails {
         File toTnFile = getThumbnailfile(FileUtil.getMd5FilenameOfAbsolutePath(toImageFile));
 
         if (!fromTnFile.renameTo(toTnFile)) {
-            AppLogger.logWarning(PersistentThumbnails.class, "PersistentThumbnails.Error.Rename", fromImageFile,
-                    toImageFile);
+            LOGGER.log(Level.WARNING,
+                    "Thumbnail ''{0}'' couldn't be renamed to ''{1}''!",
+                    new Object[]{fromImageFile, toImageFile});
 
             return false;
         }

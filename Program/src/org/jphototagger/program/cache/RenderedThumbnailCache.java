@@ -1,20 +1,22 @@
 package org.jphototagger.program.cache;
 
-import org.jphototagger.lib.image.util.IconUtil;
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.domain.event.listener.ThumbnailUpdateListener;
-import org.jphototagger.domain.event.ThumbnailUpdateEvent;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.view.renderer.ThumbnailPanelRenderer;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.jphototagger.domain.event.ThumbnailUpdateEvent;
+import org.jphototagger.domain.event.listener.ThumbnailUpdateListener;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.image.util.IconUtil;
+import org.jphototagger.program.resource.JptBundle;
+import org.jphototagger.program.view.renderer.ThumbnailPanelRenderer;
 
 /**
  * This cache contains scaled and fully rendered thumbnails.  Images can be
@@ -146,10 +148,8 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
                     }
 
                     cache.update(im, rtci.file, rtci.length, true);
-                } catch (InterruptedException ex) {
-                    AppLogger.logSevere(getClass(), ex);
-                } catch (RuntimeException ex) {
-                    AppLogger.logSevere(getClass(), ex);
+                } catch (Throwable t) {
+                    Logger.getLogger(ThumbnailRenderer.class.getName()).log(Level.SEVERE, null, t);
                 }
             }
         }

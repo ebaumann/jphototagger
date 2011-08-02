@@ -1,20 +1,22 @@
 package org.jphototagger.program.controller.thumbnail;
 
-import org.jphototagger.lib.comparator.ComparatorFilesNoSort;
-import org.jphototagger.lib.comparator.FileSort;
-import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.program.app.AppLifeCycle;
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.domain.event.listener.AppExitListener;
-import org.jphototagger.domain.event.listener.ThumbnailsPanelListener;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.jphototagger.domain.event.listener.AppExitListener;
+import org.jphototagger.domain.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.comparator.ComparatorFilesNoSort;
+import org.jphototagger.lib.comparator.FileSort;
+import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.app.AppLifeCycle;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.view.panels.ThumbnailsPanel;
 
 /**
  * Applies persistent settings to the thumbnails panel.
@@ -123,7 +125,7 @@ public final class ControllerThumbnailsPanelPersistence implements ThumbnailsPan
 
                 return (Comparator<File>) Class.forName(className).newInstance();
             } catch (Exception ex) {
-                AppLogger.logSevere(ControllerThumbnailsPanelPersistence.class, ex);
+                Logger.getLogger(ControllerThumbnailsPanelPersistence.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
@@ -139,7 +141,7 @@ public final class ControllerThumbnailsPanelPersistence implements ThumbnailsPan
                     // Waiting until TN panel size was calculated
                     Thread.sleep(2000);
                 } catch (Exception ex) {
-                    AppLogger.logSevere(getClass(), ex);
+                    Logger.getLogger(ControllerThumbnailsPanelPersistence.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
                 EventQueueUtil.invokeInDispatchThread(new Runnable() {

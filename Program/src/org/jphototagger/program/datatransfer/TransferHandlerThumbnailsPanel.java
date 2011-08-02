@@ -1,15 +1,29 @@
 package org.jphototagger.program.datatransfer;
 
-import org.jphototagger.lib.datatransfer.TransferableObject;
+import java.awt.Point;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.swing.JComponent;
+import javax.swing.JTree;
+import javax.swing.TransferHandler;
+import javax.swing.tree.DefaultMutableTreeNode;
+
+import org.jdesktop.swingx.JXList;
+import org.jphototagger.domain.database.Column;
+import org.jphototagger.domain.database.ColumnData;
+import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.lib.datatransfer.TransferUtil;
 import org.jphototagger.lib.datatransfer.TransferUtil.FilenameDelimiter;
-import org.jphototagger.program.app.logging.AppLogger;
+import org.jphototagger.lib.datatransfer.TransferableObject;
 import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.domain.database.ColumnData;
-import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.program.database.DatabaseImageCollections;
-import org.jphototagger.domain.database.Column;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
 import org.jphototagger.program.helper.FavoritesHelper;
 import org.jphototagger.program.helper.KeywordsHelper;
 import org.jphototagger.program.helper.MiscMetadataHelper;
@@ -19,20 +33,9 @@ import org.jphototagger.program.io.ImageUtil.ConfirmOverwrite;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.types.Content;
 import org.jphototagger.program.types.ContentUtil;
+import org.jphototagger.program.view.ViewUtil;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
-import org.jphototagger.program.view.ViewUtil;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.Transferable;
-import java.awt.Point;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.JComponent;
-import org.jdesktop.swingx.JXList;
-import javax.swing.JTree;
-import javax.swing.TransferHandler;
-import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
  * Handler for <strong>copying</strong> or <strong>moving</strong> a list of
@@ -320,7 +323,7 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
             assert selTemplates.length == 1;
             GUI.getAppPanel().getEditMetadataPanels().setMetadataTemplate((MetadataTemplate) selTemplates[0]);
         } catch (Exception ex) {
-            AppLogger.logSevere(TransferHandlerThumbnailsPanel.class, ex);
+            Logger.getLogger(TransferHandlerThumbnailsPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -343,7 +346,7 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
                 MiscMetadataHelper.saveToImageFile(colData, imageFile);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(TransferHandlerThumbnailsPanel.class, ex);
+            Logger.getLogger(TransferHandlerThumbnailsPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

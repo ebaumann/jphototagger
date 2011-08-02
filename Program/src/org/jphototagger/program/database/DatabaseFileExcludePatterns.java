@@ -1,11 +1,5 @@
 package org.jphototagger.program.database;
 
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.cache.PersistentThumbnails;
-import org.jphototagger.domain.event.listener.DatabaseFileExcludePatternsListener;
-import org.jphototagger.domain.event.listener.impl.ListenerSupport;
-import org.jphototagger.lib.event.listener.ProgressListener;
-import org.jphototagger.lib.event.ProgressEvent;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,6 +7,14 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.jphototagger.domain.event.listener.DatabaseFileExcludePatternsListener;
+import org.jphototagger.domain.event.listener.impl.ListenerSupport;
+import org.jphototagger.lib.event.ProgressEvent;
+import org.jphototagger.lib.event.listener.ProgressListener;
+import org.jphototagger.program.cache.PersistentThumbnails;
 
 /**
  *
@@ -58,7 +60,7 @@ public final class DatabaseFileExcludePatterns extends Database {
                 notifyInserted(pattern);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseFileExcludePatterns.class, ex);
+            Logger.getLogger(DatabaseFileExcludePatterns.class.getName()).log(Level.SEVERE, null, ex);
             rollback(con);
         } finally {
             close(stmt);
@@ -99,7 +101,7 @@ public final class DatabaseFileExcludePatterns extends Database {
                 notifyDeleted(pattern);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseFileExcludePatterns.class, ex);
+            Logger.getLogger(DatabaseFileExcludePatterns.class.getName()).log(Level.SEVERE, null, ex);
             rollback(con);
         } finally {
             close(stmt);
@@ -136,7 +138,7 @@ public final class DatabaseFileExcludePatterns extends Database {
                 exists = rs.getInt(1) > 0;
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseFileExcludePatterns.class, ex);
+            Logger.getLogger(DatabaseFileExcludePatterns.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -169,7 +171,7 @@ public final class DatabaseFileExcludePatterns extends Database {
                 patterns.add(rs.getString(1));
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseFileExcludePatterns.class, ex);
+            Logger.getLogger(DatabaseFileExcludePatterns.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -254,7 +256,7 @@ public final class DatabaseFileExcludePatterns extends Database {
             con.commit();
             notifyProgressListenerEnd(listener, event);
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseFileExcludePatterns.class, ex);
+            Logger.getLogger(DatabaseFileExcludePatterns.class.getName()).log(Level.SEVERE, null, ex);
             rollback(con);
         } finally {
             close(rs, stmtQuery);

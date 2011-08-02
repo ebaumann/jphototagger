@@ -1,12 +1,14 @@
 package org.jphototagger.program.io;
 
-import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.lib.runtime.External;
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.app.MessageDisplayer;
 import java.io.File;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.lib.runtime.External;
+import org.jphototagger.program.app.MessageDisplayer;
 
 /**
  * I/O utils.
@@ -23,6 +25,7 @@ public final class RuntimeUtil {
     public static final String PATTERN_FS_DIR_PATH = "%p";
     public static final String PATTERN_FS_FILE_NAME = "%n";
     public static final String PATTERN_FS_FILE_EXT = "%x";
+    private static final Logger LOGGER = Logger.getLogger(RuntimeUtil.class.getName());
 
     /**
      * Executes an application and desplays a message dialog on errors.
@@ -45,10 +48,10 @@ public final class RuntimeUtil {
             String openCommand = appPath + getDefaultCommandLineSeparator() + arguments;
 
             try {
-                AppLogger.logInfo(RuntimeUtil.class, "IoUtil.Info.Execute", openCommand);
+                LOGGER.log(Level.INFO, "Executing command: ''{0}''", openCommand);
                 Runtime.getRuntime().exec(External.parseQuotedCommandLine(openCommand));
             } catch (Exception ex) {
-                AppLogger.logSevere(RuntimeUtil.class, ex);
+                Logger.getLogger(RuntimeUtil.class.getName()).log(Level.SEVERE, null, ex);
                 MessageDisplayer.error(null, "IoUtil.Error.OpenFile");
             }
         }
