@@ -1,6 +1,19 @@
 package org.jphototagger.program.importer;
 
-import org.jphototagger.program.app.logging.AppLogger;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.swing.Icon;
+import javax.swing.filechooser.FileFilter;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.database.DatabaseSynonyms;
 import org.jphototagger.program.exporter.SynonymsExporter;
@@ -10,16 +23,6 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-import java.io.File;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.Icon;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 
 /**
  *
@@ -46,7 +49,7 @@ public final class SynonymsImporter implements Importer, EntityResolver {
 
             importSynonyms(doc);
         } catch (Exception ex) {
-            AppLogger.logSevere(getClass(), ex);
+            Logger.getLogger(SynonymsImporter.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

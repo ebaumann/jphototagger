@@ -1,11 +1,13 @@
 package org.jphototagger.program.database;
 
-import org.jphototagger.program.app.AppLock;
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.app.update.tables.UpdateTablesFactory;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.jphototagger.program.app.AppLock;
+import org.jphototagger.program.app.update.tables.UpdateTablesFactory;
 
 /**
  * All database tables.
@@ -82,7 +84,7 @@ public final class DatabaseTables extends Database {
             createUserDefinedFileTypesTable(con, stmt);
             UpdateTablesFactory.INSTANCE.updatePostCreation(con);
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseTables.class, ex);
+            Logger.getLogger(DatabaseTables.class.getName()).log(Level.SEVERE, null, ex);
 
             if (ex instanceof SQLException) {
                 errorMessageSqlException((SQLException) ex);

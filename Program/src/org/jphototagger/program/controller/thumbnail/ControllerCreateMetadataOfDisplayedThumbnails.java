@@ -1,9 +1,11 @@
 package org.jphototagger.program.controller.thumbnail;
 
-import org.jphototagger.program.app.logging.AppLogger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.jphototagger.domain.database.InsertIntoDatabase;
 import org.jphototagger.domain.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
-import org.jphototagger.domain.database.InsertIntoDatabase;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.tasks.AutomaticTask;
@@ -24,6 +26,9 @@ import org.jphototagger.program.view.panels.ThumbnailsPanel;
  * @author Elmar Baumann
  */
 public final class ControllerCreateMetadataOfDisplayedThumbnails implements ThumbnailsPanelListener {
+
+    private static final Logger LOGGER = Logger.getLogger(ControllerCreateMetadataOfDisplayedThumbnails.class.getName());
+
     public ControllerCreateMetadataOfDisplayedThumbnails() {
         listen();
     }
@@ -38,7 +43,7 @@ public final class ControllerCreateMetadataOfDisplayedThumbnails implements Thum
     }
 
     private synchronized void updateMetadata() {
-        AppLogger.logInfo(getClass(), "ControllerCreateMetadataOfDisplayedThumbnails.Info.Update");
+        LOGGER.log(Level.INFO, "Synchronizing displayed thumbnails with the database");
 
         InsertImageFilesIntoDatabase inserter = new InsertImageFilesIntoDatabase(GUI.getThumbnailsPanel().getFiles(),
                                                     InsertIntoDatabase.OUT_OF_DATE);

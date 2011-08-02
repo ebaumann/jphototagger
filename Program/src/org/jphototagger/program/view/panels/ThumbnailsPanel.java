@@ -1,42 +1,13 @@
 package org.jphototagger.program.view.panels;
 
-import org.jphototagger.lib.comparator.FileSort;
-import org.jphototagger.lib.event.util.MouseEventUtil;
-import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.lib.util.MathUtil;
-import org.jphototagger.program.app.AppFileFilters;
-import org.jphototagger.program.app.AppLifeCycle;
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.cache.RenderedThumbnailCache;
-import org.jphototagger.program.controller.thumbnail.ControllerThumbnailDoubleklick;
-import org.jphototagger.domain.exif.Exif;
-import org.jphototagger.domain.thumbnails.ThumbnailFlag;
-import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
-import org.jphototagger.domain.xmp.Xmp;
-import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.program.database.DatabaseUserDefinedFileFilters;
-import org.jphototagger.program.datatransfer.TransferHandlerThumbnailsPanel;
-import org.jphototagger.domain.event.UserSettingsEvent;
-import org.jphototagger.domain.event.listener.AppExitListener;
-import org.jphototagger.domain.event.listener.DatabaseImageFilesListener;
-import org.jphototagger.domain.event.listener.DatabaseUserDefinedFileFiltersListener;
-import org.jphototagger.program.event.listener.RefreshListener;
-import org.jphototagger.domain.event.listener.ThumbnailsPanelListener;
-import org.jphototagger.domain.event.listener.ThumbnailUpdateListener;
-import org.jphototagger.program.event.RefreshEvent;
-import org.jphototagger.domain.event.ThumbnailUpdateEvent;
-import org.jphototagger.xmp.XmpMetadata;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.types.Content;
-import org.jphototagger.program.types.FileAction;
-import org.jphototagger.program.types.SizeUnit;
-import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
-import org.jphototagger.program.view.renderer.ThumbnailPanelRenderer;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.KeyEvent;
@@ -44,10 +15,6 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Point;
-import java.awt.Rectangle;
 import java.io.File;
 import java.io.FileFilter;
 import java.util.ArrayList;
@@ -62,12 +29,48 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TooManyListenersException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.swing.JPanel;
 import javax.swing.JViewport;
 import javax.swing.TransferHandler;
-import org.jphototagger.lib.awt.EventQueueUtil;
+
+import org.jphototagger.domain.event.ThumbnailUpdateEvent;
+import org.jphototagger.domain.event.UserSettingsEvent;
+import org.jphototagger.domain.event.listener.AppExitListener;
+import org.jphototagger.domain.event.listener.DatabaseImageFilesListener;
+import org.jphototagger.domain.event.listener.DatabaseUserDefinedFileFiltersListener;
+import org.jphototagger.domain.event.listener.ThumbnailUpdateListener;
+import org.jphototagger.domain.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.domain.event.listener.UserSettingsListener;
+import org.jphototagger.domain.exif.Exif;
+import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
+import org.jphototagger.domain.thumbnails.ThumbnailFlag;
+import org.jphototagger.domain.xmp.Xmp;
+import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.comparator.FileSort;
+import org.jphototagger.lib.event.util.MouseEventUtil;
+import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.util.MathUtil;
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.app.AppFileFilters;
+import org.jphototagger.program.app.AppLifeCycle;
+import org.jphototagger.program.cache.RenderedThumbnailCache;
+import org.jphototagger.program.controller.thumbnail.ControllerThumbnailDoubleklick;
+import org.jphototagger.program.database.DatabaseImageFiles;
+import org.jphototagger.program.database.DatabaseUserDefinedFileFilters;
+import org.jphototagger.program.datatransfer.TransferHandlerThumbnailsPanel;
+import org.jphototagger.program.event.RefreshEvent;
+import org.jphototagger.program.event.listener.RefreshListener;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.types.Content;
+import org.jphototagger.program.types.FileAction;
+import org.jphototagger.program.types.SizeUnit;
+import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
+import org.jphototagger.program.view.renderer.ThumbnailPanelRenderer;
+import org.jphototagger.xmp.XmpMetadata;
 
 /**
  *
@@ -106,6 +109,7 @@ public class ThumbnailsPanel extends JPanel
     private volatile boolean notifyTnsChanged;
     private volatile boolean notifyRefresh;
     private JViewport viewport;
+    private static final Logger LOGGER = Logger.getLogger(ThumbnailsPanel.class.getName());
 
     public ThumbnailsPanel() {
         initRefreshListeners();
@@ -132,7 +136,7 @@ public class ThumbnailsPanel extends JPanel
         try {
             getDropTarget().addDropTargetListener(renderer);
         } catch (TooManyListenersException ex) {
-            AppLogger.logSevere(getClass(), ex);
+            Logger.getLogger(ThumbnailsPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -1007,7 +1011,7 @@ public class ThumbnailsPanel extends JPanel
         synchronized (refreshListenersOf) {
             if (!notifyRefresh) {
                 notifyRefresh = true;
-                AppLogger.logInfo(getClass(), "ThumbnailsPanel.Info.Refresh");
+                LOGGER.log(Level.INFO, "Refreshing thumbnails view");
 
                 for (RefreshListener listener : refreshListenersOf.get(content)) {
                     listener.refresh(evt);
@@ -1212,7 +1216,7 @@ public class ThumbnailsPanel extends JPanel
         }
 
         synchronized (this) {
-            AppLogger.logFine(getClass(), "ThumbnailsPanel.SetFiles.Start", files.size());
+            Logger.getLogger(ThumbnailsPanel.class.getName()).log(Level.FINE, "{0} new files to display", files.size());
             clearSelectionAndFlags();
 
             List<File> filteredFiles = FileUtil.filterFiles(files, fileFilter);

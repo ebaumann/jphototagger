@@ -1,15 +1,17 @@
 package org.jphototagger.program.controller.filesystem;
 
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.lib.event.listener.FileSystemListener;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.dialogs.MoveToDirectoryDialog;
-import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.jphototagger.lib.event.listener.FileSystemListener;
+import org.jphototagger.program.database.DatabaseImageFiles;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.view.dialogs.MoveToDirectoryDialog;
+import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
 
 /**
  * Renames files in the file system.
@@ -17,6 +19,9 @@ import java.util.List;
  * @author Elmar Baumann
  */
 public final class ControllerMoveFiles implements ActionListener, FileSystemListener {
+
+    private static final Logger LOGGER = Logger.getLogger(ControllerMoveFiles.class.getName());
+
     public ControllerMoveFiles() {
         listen();
     }
@@ -40,7 +45,7 @@ public final class ControllerMoveFiles implements ActionListener, FileSystemList
             dlg.addFileSystemListener(this);
             dlg.setVisible(true);
         } else {
-            AppLogger.logWarning(ControllerMoveFiles.class, "ControllerMoveFiles.ErrorMessaga.NoImagesSelected");
+            LOGGER.log(Level.WARNING, "Moving images: No images selected!");
         }
     }
 

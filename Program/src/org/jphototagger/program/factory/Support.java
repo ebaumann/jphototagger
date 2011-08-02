@@ -1,15 +1,17 @@
 package org.jphototagger.program.factory;
 
-import org.jphototagger.lib.componentutil.MessageLabel;
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.componentutil.MessageLabel;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.resource.JptBundle;
 
 /**
  *
@@ -17,7 +19,9 @@ import org.jphototagger.lib.awt.EventQueueUtil;
  * @author Elmar Baumann
  */
 final class Support {
+
     private final Map<Class<?>, List<Object>> OBJECT_INSTANCES_OF_CLASS = new HashMap<Class<?>, List<Object>>();
+    private static final Logger LOGGER = Logger.getLogger(Support.class.getName());
 
     @SuppressWarnings("unchecked")
     synchronized <T> List<T> getAll(Class<T> clazz) {
@@ -64,7 +68,7 @@ final class Support {
      */
     static boolean checkInit(Class<?> c, boolean init) {
         if (init) {
-            AppLogger.logWarning(Support.class, "Support.Error.InitCalledMoreThanOneTimes", c.getName());
+            LOGGER.log(Level.WARNING, "{0}: Initalized Meta-Factory again!", c.getName());
 
             return false;
         }

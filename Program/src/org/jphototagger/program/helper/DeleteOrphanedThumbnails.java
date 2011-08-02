@@ -1,18 +1,20 @@
 package org.jphototagger.program.helper;
 
-import org.jphototagger.lib.concurrent.Cancelable;
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.domain.event.listener.impl.ProgressListenerSupport;
-import org.jphototagger.lib.event.listener.ProgressListener;
-import org.jphototagger.lib.event.ProgressEvent;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import java.io.File;
 import java.util.Arrays;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.jphototagger.domain.event.listener.impl.ProgressListenerSupport;
+import org.jphototagger.lib.concurrent.Cancelable;
+import org.jphototagger.lib.event.ProgressEvent;
+import org.jphototagger.lib.event.listener.ProgressListener;
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.database.DatabaseImageFiles;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.resource.JptBundle;
+import org.jphototagger.program.view.panels.ThumbnailsPanel;
 
 /**
  * Deletes thumbnails without an image file in the database.
@@ -29,6 +31,7 @@ public final class DeleteOrphanedThumbnails implements Runnable, Cancelable {
     private int countDeleted = 0;
     private int currentFileIndex = 0;
     private volatile boolean cancel;
+    private static final Logger LOGGER = Logger.getLogger(DeleteOrphanedThumbnails.class.getName());
 
     public synchronized void addProgressListener(ProgressListener l) {
         if (l == null) {
@@ -73,7 +76,7 @@ public final class DeleteOrphanedThumbnails implements Runnable, Cancelable {
                         tnPanel.removeFiles(Arrays.asList(fileInDir));
                     }
                 } else {
-                    AppLogger.logWarning(getClass(), "DeleteOrphanedThumbnails.Error.Delete", fileInDir);
+                    LOGGER.log(Level.WARNING, "Can't delete orphaned thumbnail ''{0}''!", fileInDir);
                 }
             }
 
@@ -84,11 +87,11 @@ public final class DeleteOrphanedThumbnails implements Runnable, Cancelable {
     }
 
     private synchronized void logDelete(File file) {
-        AppLogger.logInfo(DeleteOrphanedThumbnails.class, "DeleteOrphanedThumbnails.Info.DeleteFile", file);
+        LOGGER.log(Level.INFO, "Deleting orphaned thumbnail file ''{0}''", file);
     }
 
     private synchronized void notifyStarted() {
-        AppLogger.logInfo(DeleteOrphanedThumbnails.class, "DeleteOrphanedThumbnails.Info.Start", countFilesInDir);
+        LOGGER.log(Level.INFO, "Verifying which of the {0} thumbnails are orphaned", countFilesInDir);
 
         ProgressEvent evt = new ProgressEvent(this, 0, countFilesInDir, 0, getStartMessage());
 
@@ -96,7 +99,7 @@ public final class DeleteOrphanedThumbnails implements Runnable, Cancelable {
     }
 
     private void notifyPerformed(File file) {
-        AppLogger.logFinest(DeleteOrphanedThumbnails.class, "DeleteOrphanedThumbnails.Info.Performed", file);
+        LOGGER.log(Level.FINEST, "Verifying wheter thumbnail ''{0}'' is orphaned", file);
 
         ProgressEvent evt = new ProgressEvent(this, 0, countFilesInDir, currentFileIndex, getPerformedMessage(file));
 
@@ -107,7 +110,7 @@ public final class DeleteOrphanedThumbnails implements Runnable, Cancelable {
         ProgressEvent evt = new ProgressEvent(this, 0, countFilesInDir, currentFileIndex, getEndMessage());
 
         ls.notifyEnded(evt);
-        AppLogger.logInfo(DeleteOrphanedThumbnails.class, "DeleteOrphanedThumbnails.Info.End", currentFileIndex);
+        LOGGER.log(Level.INFO, "Verifying of orphaned thumbnails finished. Deleted {0} thumbnails.", currentFileIndex);
     }
 
     private String getStartMessage() {

@@ -1,16 +1,19 @@
 package org.jphototagger.program.datatransfer;
 
-import org.jphototagger.lib.datatransfer.TransferableObject;
-import org.jphototagger.program.app.logging.AppLogger;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.swing.DefaultListModel;
 import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.TransferHandler;
+
+import org.jphototagger.lib.datatransfer.TransferableObject;
 
 /**
  * Reorders in a list with a {@link DefaultListModel} dragged and dropped items
@@ -87,7 +90,7 @@ public final class TransferHandlerReorderListItems extends TransferHandler {
                 indexInfo = (IndexInfo) td;
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(getClass(), ex);
+            Logger.getLogger(TransferHandlerReorderListItems.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         if (indexInfo != null) {
@@ -117,8 +120,8 @@ public final class TransferHandlerReorderListItems extends TransferHandler {
         for (int index : selIndices) {
             try {
                 selValues.add(model.get(index));
-            } catch (Exception e) {
-                AppLogger.logSevere(getClass(), e);
+            } catch (Exception ex) {
+                Logger.getLogger(TransferHandlerReorderListItems.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
@@ -150,7 +153,7 @@ public final class TransferHandlerReorderListItems extends TransferHandler {
                 return ((IndexInfo) td).source;
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(getClass(), ex);
+            Logger.getLogger(TransferHandlerReorderListItems.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return null;

@@ -5,9 +5,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.jphototagger.program.app.SplashScreen;
-import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.app.update.tables.IndexInfo;
 import org.jphototagger.program.database.Database;
 import org.jphototagger.program.database.DatabaseMetadata;
@@ -21,6 +22,8 @@ import org.jphototagger.program.resource.JptBundle;
 final class UpdateTablesIndexes {
 
     private static final Map<IndexOfTable, IndexInfo[]> INDEX_TO_REPLACE = new HashMap<IndexOfTable, IndexInfo[]>();
+    private static final Logger LOGGER = Logger.getLogger(UpdateTablesIndexes.class.getName());
+
 
     static {
         INDEX_TO_REPLACE.put(new IndexOfTable("idx_collections_id", "collections"),
@@ -55,11 +58,11 @@ final class UpdateTablesIndexes {
 
             String sql = "DROP INDEX " + indexName + " IF EXISTS";
 
-            AppLogger.logFiner(getClass(), AppLogger.USE_STRING, sql);
+            LOGGER.log(Level.FINER, sql);
             stmt.executeUpdate(sql);
 
             for (IndexInfo indexInfo : indexInfos) {
-                AppLogger.logFiner(getClass(), AppLogger.USE_STRING, indexInfo.sql());
+                LOGGER.log(Level.FINER, indexInfo.sql());
                 stmt.executeUpdate(indexInfo.sql());
             }
         } finally {

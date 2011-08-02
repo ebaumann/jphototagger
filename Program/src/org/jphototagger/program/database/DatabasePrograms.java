@@ -1,9 +1,5 @@
 package org.jphototagger.program.database;
 
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.data.Program;
-import org.jphototagger.program.event.listener.DatabaseProgramsListener;
-import org.jphototagger.domain.event.listener.impl.ListenerSupport;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,6 +8,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.jphototagger.domain.event.listener.impl.ListenerSupport;
+import org.jphototagger.program.data.Program;
+import org.jphototagger.program.event.listener.DatabaseProgramsListener;
 
 /**
  * Contains external Programs to start within the application. The primary
@@ -75,7 +77,7 @@ public final class DatabasePrograms extends Database {
             con.commit();
             notifyInserted(program);
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabasePrograms.class, ex);
+            Logger.getLogger(DatabasePrograms.class.getName()).log(Level.SEVERE, null, ex);
             rollback(con);
         } finally {
             close(stmt);
@@ -177,7 +179,7 @@ public final class DatabasePrograms extends Database {
             con.commit();
             notifyUpdated(program);
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabasePrograms.class, ex);
+            Logger.getLogger(DatabasePrograms.class.getName()).log(Level.SEVERE, null, ex);
             rollback(con);
         } finally {
             close(stmt);
@@ -245,7 +247,7 @@ public final class DatabasePrograms extends Database {
             DatabaseActionsAfterDbInsertion.INSTANCE.delete(program);
             notifyDeleted(program);
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabasePrograms.class, ex);
+            Logger.getLogger(DatabasePrograms.class.getName()).log(Level.SEVERE, null, ex);
             rollback(con);
         } finally {
             close(stmt);
@@ -282,7 +284,7 @@ public final class DatabasePrograms extends Database {
                 programs.add(createProgramOfCurrentRecord(rs));
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabasePrograms.class, ex);
+            Logger.getLogger(DatabasePrograms.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -383,7 +385,7 @@ public final class DatabasePrograms extends Database {
                 program = createProgramOfCurrentRecord(rs);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabasePrograms.class, ex);
+            Logger.getLogger(DatabasePrograms.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -424,7 +426,7 @@ public final class DatabasePrograms extends Database {
                 exists = rs.getLong(1) > 0;
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabasePrograms.class, ex);
+            Logger.getLogger(DatabasePrograms.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -456,7 +458,7 @@ public final class DatabasePrograms extends Database {
                 program = createProgramOfCurrentRecord(rs);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabasePrograms.class, ex);
+            Logger.getLogger(DatabasePrograms.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -504,7 +506,7 @@ public final class DatabasePrograms extends Database {
                 count = rs.getInt(1);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabasePrograms.class, ex);
+            Logger.getLogger(DatabasePrograms.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -573,7 +575,7 @@ public final class DatabasePrograms extends Database {
                 count = rs.getInt(1);
             }
         } catch (SQLException ex) {
-            AppLogger.logSevere(getClass(), ex);
+            Logger.getLogger(DatabasePrograms.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
         }

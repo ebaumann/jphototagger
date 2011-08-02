@@ -1,9 +1,5 @@
 package org.jphototagger.program.database;
 
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.domain.favorites.Favorite;
-import org.jphototagger.domain.event.listener.DatabaseFavoritesListener;
-import org.jphototagger.domain.event.listener.impl.ListenerSupport;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,6 +7,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.jphototagger.domain.event.listener.DatabaseFavoritesListener;
+import org.jphototagger.domain.event.listener.impl.ListenerSupport;
+import org.jphototagger.domain.favorites.Favorite;
 
 /**
  *
@@ -57,7 +59,7 @@ public final class DatabaseFavorites extends Database {
                 notifyInserted(favorite);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseFavorites.class, ex);
+            Logger.getLogger(DatabaseFavorites.class.getName()).log(Level.SEVERE, null, ex);
             rollback(con);
         } finally {
             close(stmt);
@@ -94,7 +96,7 @@ public final class DatabaseFavorites extends Database {
                 notifyDeleted(delFavorite);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseFavorites.class, ex);
+            Logger.getLogger(DatabaseFavorites.class.getName()).log(Level.SEVERE, null, ex);
             rollback(con);
         } finally {
             close(stmt);
@@ -135,7 +137,7 @@ public final class DatabaseFavorites extends Database {
                 notifyUpdated(oldFavorite, find(toFavoriteName));
             }
         } catch (SQLException ex) {
-            AppLogger.logSevere(getClass(), ex);
+            Logger.getLogger(DatabaseFavorites.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
         }
@@ -186,7 +188,7 @@ public final class DatabaseFavorites extends Database {
                 notifyUpdated(oldFavorite, favorite);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseFavorites.class, ex);
+            Logger.getLogger(DatabaseFavorites.class.getName()).log(Level.SEVERE, null, ex);
             rollback(con);
         } finally {
             close(stmt);
@@ -223,7 +225,7 @@ public final class DatabaseFavorites extends Database {
             }
         } catch (Exception ex) {
             favorites.clear();
-            AppLogger.logSevere(DatabaseFavorites.class, ex);
+            Logger.getLogger(DatabaseFavorites.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -254,7 +256,7 @@ public final class DatabaseFavorites extends Database {
                 favorite.setIndex(rs.getInt(4));
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseFavorites.class, ex);
+            Logger.getLogger(DatabaseFavorites.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -285,7 +287,7 @@ public final class DatabaseFavorites extends Database {
                 favorite.setIndex(rs.getInt(4));
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseFavorites.class, ex);
+            Logger.getLogger(DatabaseFavorites.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -311,7 +313,7 @@ public final class DatabaseFavorites extends Database {
                 id = rs.getLong(1);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseFavorites.class, ex);
+            Logger.getLogger(DatabaseFavorites.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -345,7 +347,7 @@ public final class DatabaseFavorites extends Database {
 
             exists = count > 0;
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseFavorites.class, ex);
+            Logger.getLogger(DatabaseFavorites.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);

@@ -1,14 +1,16 @@
 package org.jphototagger.program.helper;
 
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.database.DatabaseMaintainance;
+import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.jphototagger.domain.event.listener.impl.ProgressListenerSupport;
-import org.jphototagger.lib.event.listener.ProgressListener;
 import org.jphototagger.lib.event.ProgressEvent;
+import org.jphototagger.lib.event.listener.ProgressListener;
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.database.DatabaseMaintainance;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Filename;
-import org.jphototagger.program.UserSettings;
-import java.io.File;
 
 /**
  * Compresses the database.
@@ -20,6 +22,7 @@ public final class CompressDatabase implements Runnable {
     private boolean success = false;
     private long sizeBefore;
     private long sizeAfter;
+    private static final Logger LOGGER = Logger.getLogger(CompressDatabase.class.getName());
 
     public synchronized void addProgressListener(ProgressListener l) {
         if (l == null) {
@@ -85,7 +88,7 @@ public final class CompressDatabase implements Runnable {
     }
 
     private void logCompressDatabase() {
-        AppLogger.logInfo(CompressDatabase.class, "CompressDatabase.Info.StartCompress");
+        LOGGER.log(Level.INFO, "Compressing database");
     }
 
     private synchronized void notifyEnded() {

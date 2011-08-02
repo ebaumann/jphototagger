@@ -1,27 +1,30 @@
 package org.jphototagger.program.cache;
 
-import org.jphototagger.lib.image.util.IconUtil;
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.domain.exif.Exif;
-import org.jphototagger.domain.xmp.Xmp;
-import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.domain.event.listener.DatabaseImageFilesListener;
-import org.jphototagger.domain.event.listener.ThumbnailUpdateListener;
-import org.jphototagger.domain.event.ThumbnailUpdateEvent;
-import org.jphototagger.program.resource.JptBundle;
 import java.awt.Image;
 import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.jphototagger.domain.event.ThumbnailUpdateEvent;
+import org.jphototagger.domain.event.listener.DatabaseImageFilesListener;
+import org.jphototagger.domain.event.listener.ThumbnailUpdateListener;
+import org.jphototagger.domain.exif.Exif;
+import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.image.util.IconUtil;
+import org.jphototagger.program.database.DatabaseImageFiles;
+import org.jphototagger.program.resource.JptBundle;
 
 /**
  *
  * @author Martin Pohlack
  */
 public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection> implements DatabaseImageFilesListener {
+
     public static final ThumbnailCache INSTANCE = new ThumbnailCache();
-    private Image noPreviewThumbnail =
-        IconUtil.getIconImage(JptBundle.INSTANCE.getString("ThumbnailCache.Path.NoPreviewThumbnail"));
+    private Image noPreviewThumbnail = IconUtil.getIconImage(JptBundle.INSTANCE.getString("ThumbnailCache.Path.NoPreviewThumbnail"));
     private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
+    private static final Logger LOGGER = Logger.getLogger(ThumbnailCache.class.getName());
 
     private ThumbnailCache() {
         db.addListener(this);
@@ -217,12 +220,12 @@ public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection> imple
                     Image image = null;
 
                     if (imageFile == null) {
-                        AppLogger.logWarning(ThumbnailFetcher.class, "ThumbnailCache.Info.FileIsNull");
+                        LOGGER.log(Level.WARNING, "Didn't find thumbnail of image in preview cache (is null)!");
                     } else {
                         File tnFile = PersistentThumbnails.getThumbnailFile(imageFile);
 
                         if (tnFile == null) {
-                            AppLogger.logWarning(ThumbnailFetcher.class, "ThumbnailCache.Info.NoTnFilename", imageFile);
+                            LOGGER.log(Level.WARNING, "Can't resolve thumnbail name for image file ''{0}''", imageFile);
                         } else {
                             image = PersistentThumbnails.getThumbnail(imageFile);
                         }
@@ -234,7 +237,7 @@ public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection> imple
 
                     cache.update(image, imageFile);
                 } catch (Exception ex) {
-                    AppLogger.logSevere(getClass(), ex);
+                    Logger.getLogger(ThumbnailFetcher.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }

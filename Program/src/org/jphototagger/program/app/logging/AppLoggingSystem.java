@@ -1,10 +1,5 @@
 package org.jphototagger.program.app.logging;
 
-import org.jphototagger.lib.dialog.LogfileDialog;
-import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.domain.event.listener.UserSettingsListener;
-import org.jphototagger.domain.event.UserSettingsEvent;
-import org.jphototagger.program.UserSettings;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -13,11 +8,17 @@ import java.util.List;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.logging.LogManager;
+import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 import java.util.logging.StreamHandler;
 import java.util.logging.XMLFormatter;
+
+import org.jphototagger.domain.event.UserSettingsEvent;
+import org.jphototagger.domain.event.listener.UserSettingsListener;
+import org.jphototagger.lib.dialog.LogfileDialog;
+import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.program.UserSettings;
 
 /**
  * Logging system of the application.
@@ -68,7 +69,7 @@ public final class AppLoggingSystem implements UserSettingsListener {
                 setFormattersToFileHandlers();
                 setEncodingToFileHandlers();
             } catch (Exception ex) {
-                AppLogger.logSevere(AppLoggingSystem.class, ex);
+                Logger.getLogger(AppLoggingSystem.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
                 createAppLogger();
                 addHandlersToLogger(appLogger);

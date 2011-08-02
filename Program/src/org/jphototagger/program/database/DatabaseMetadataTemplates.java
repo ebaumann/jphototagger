@@ -1,7 +1,17 @@
 package org.jphototagger.program.database;
 
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.domain.templates.MetadataTemplate;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.StringTokenizer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.jphototagger.domain.database.xmp.ColumnXmpDcCreator;
 import org.jphototagger.domain.database.xmp.ColumnXmpDcDescription;
 import org.jphototagger.domain.database.xmp.ColumnXmpDcRights;
@@ -22,15 +32,7 @@ import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopTransmissionRefere
 import org.jphototagger.domain.database.xmp.ColumnXmpRating;
 import org.jphototagger.domain.event.listener.DatabaseMetadataTemplatesListener;
 import org.jphototagger.domain.event.listener.impl.ListenerSupport;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.StringTokenizer;
+import org.jphototagger.domain.templates.MetadataTemplate;
 
 /**
  *
@@ -99,7 +101,7 @@ public final class DatabaseMetadataTemplates extends Database {
             inserted = true;
             notifyInserted(template);
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseMetadataTemplates.class, ex);
+            Logger.getLogger(DatabaseMetadataTemplates.class.getName()).log(Level.SEVERE, null, ex);
             rollback(con);
         } finally {
             close(stmt);
@@ -228,7 +230,7 @@ public final class DatabaseMetadataTemplates extends Database {
                 setValues(template, rs);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseMetadataTemplates.class, ex);
+            Logger.getLogger(DatabaseMetadataTemplates.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -264,7 +266,7 @@ public final class DatabaseMetadataTemplates extends Database {
                 templates.add(template);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseMetadataTemplates.class, ex);
+            Logger.getLogger(DatabaseMetadataTemplates.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -431,7 +433,7 @@ public final class DatabaseMetadataTemplates extends Database {
                 notifyUpdated(oldTemplate, template);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseMetadataTemplates.class, ex);
+            Logger.getLogger(DatabaseMetadataTemplates.class.getName()).log(Level.SEVERE, null, ex);
             rollback(con);
         } finally {
             close(stmt);
@@ -467,7 +469,7 @@ public final class DatabaseMetadataTemplates extends Database {
                 notifyRenamed(fromName, toName);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseMetadataTemplates.class, ex);
+            Logger.getLogger(DatabaseMetadataTemplates.class.getName()).log(Level.SEVERE, null, ex);
             rollback(con);
         } finally {
             close(stmt);
@@ -511,7 +513,7 @@ public final class DatabaseMetadataTemplates extends Database {
                 notifyDelted(template);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseMetadataTemplates.class, ex);
+            Logger.getLogger(DatabaseMetadataTemplates.class.getName()).log(Level.SEVERE, null, ex);
             rollback(con);
         } finally {
             close(stmt);
@@ -542,7 +544,7 @@ public final class DatabaseMetadataTemplates extends Database {
                 exists = rs.getInt(1) > 0;
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseMetadataTemplates.class, ex);
+            Logger.getLogger(DatabaseMetadataTemplates.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);

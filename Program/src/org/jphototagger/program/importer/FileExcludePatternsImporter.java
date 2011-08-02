@@ -1,15 +1,18 @@
 package org.jphototagger.program.importer;
 
+import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.swing.Icon;
+import javax.swing.filechooser.FileFilter;
+
 import org.jphototagger.lib.xml.bind.XmlObjectImporter;
-import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.database.DatabaseFileExcludePatterns;
 import org.jphototagger.program.exporter.FileExcludePatternsExporter;
 import org.jphototagger.program.exporter.FileExcludePatternsExporter.CollectionWrapper;
 import org.jphototagger.program.exporter.StringWrapper;
-import java.io.File;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.Icon;
 
 /**
  *
@@ -36,7 +39,7 @@ public final class FileExcludePatternsImporter implements Importer {
                 }
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(FileExcludePatternsImporter.class, ex);
+            Logger.getLogger(FileExcludePatternsImporter.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

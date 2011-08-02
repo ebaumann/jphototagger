@@ -1,20 +1,23 @@
 package org.jphototagger.program.controller.imagecollection;
 
+import java.io.File;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
+import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.comparator.FileSort;
-import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.database.DatabaseImageCollections;
-import org.jphototagger.program.event.listener.RefreshListener;
 import org.jphototagger.program.event.RefreshEvent;
+import org.jphototagger.program.event.listener.RefreshListener;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Content;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.WaitDisplay;
-import java.io.File;
-import java.util.List;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.program.view.panels.ThumbnailsPanel;
 
 /**
  * Kontrolliert die Aktion: Eine Bildsammlung wurde ausgewählt.
@@ -24,6 +27,9 @@ import org.jphototagger.lib.awt.EventQueueUtil;
  * @author Elmar Baumann
  */
 public final class ControllerImageCollectionSelected implements ListSelectionListener, RefreshListener {
+
+    private static final Logger LOGGER = Logger.getLogger(ControllerImageCollectionSelected.class.getName());
+
     public ControllerImageCollectionSelected() {
         listen();
     }
@@ -56,8 +62,7 @@ public final class ControllerImageCollectionSelected implements ListSelectionLis
                 if (selValue != null) {
                     showImageCollection(selValue.toString(), settings);
                 } else {
-                    AppLogger.logWarning(ControllerImageCollectionSelected.class,
-                                         "ControllerImageCollectionSelected.Error.SelectedValueIsNull");
+                    LOGGER.log(Level.WARNING, "Photo album item selected: Couldn't find the album's name (Item value == null)!");
                 }
 
                 setMetadataEditable();

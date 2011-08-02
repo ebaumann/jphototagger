@@ -1,7 +1,19 @@
 package org.jphototagger.program.model;
 
-import org.jphototagger.lib.model.TableModelExt;
-import org.jphototagger.program.app.logging.AppLogger;
+import java.awt.Desktop;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.swing.JButton;
+
 import org.jphototagger.exif.ExifMetadata;
 import org.jphototagger.exif.ExifTag;
 import org.jphototagger.exif.ExifTagDisplayComparator;
@@ -12,17 +24,8 @@ import org.jphototagger.exif.tag.ExifGpsLatitude;
 import org.jphototagger.exif.tag.ExifGpsLongitude;
 import org.jphototagger.exif.tag.ExifGpsMetadata;
 import org.jphototagger.exif.tag.ExifGpsUtil;
+import org.jphototagger.lib.model.TableModelExt;
 import org.jphototagger.program.resource.JptBundle;
-import java.awt.Desktop;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import javax.swing.JButton;
 import org.jphototagger.program.view.renderer.TableCellRendererExif;
 
 /**
@@ -77,7 +80,7 @@ public final class TableModelExif extends TableModelExt {
         try {
             setExifTags();
         } catch (Exception ex) {
-            AppLogger.logSevere(TableModelExif.class, ex);
+            Logger.getLogger(TableModelExif.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -173,7 +176,7 @@ public final class TableModelExif extends TableModelExt {
                 try {
                     Desktop.getDesktop().browse(new URI(url));
                 } catch (Exception ex) {
-                    AppLogger.logSevere(TableModelExif.class, ex);
+                    Logger.getLogger(GpsButtonListener.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }

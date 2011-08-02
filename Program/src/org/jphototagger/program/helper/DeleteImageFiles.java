@@ -4,13 +4,13 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.controller.filesystem.ControllerDeleteFiles;
+import org.jphototagger.program.types.DeleteOption;
 import org.jphototagger.xmp.ImageFileSidecarFile;
 import org.jphototagger.xmp.XmpMetadata;
-import org.jphototagger.program.types.DeleteOption;
 
 /**
  * Deletes image files from the file system.
@@ -18,6 +18,8 @@ import org.jphototagger.program.types.DeleteOption;
  * @author Elmar Baumann
  */
 public final class DeleteImageFiles {
+
+    private static final Logger LOGGER = Logger.getLogger(DeleteImageFiles.class.getName());
 
     /**
      * Deletes image files from the file system <strong>and</strong> their
@@ -67,7 +69,7 @@ public final class DeleteImageFiles {
 
     private static void errorMessageDelete(File file, List<DeleteOption> options) {
         if (options.contains(DeleteOption.MESSAGES_ON_FAILURES)) {
-            AppLogger.logWarning(ControllerDeleteFiles.class, "DeleteImageFiles.Error.Delete", file.getAbsolutePath());
+            LOGGER.log(Level.WARNING, "File ''{0}'' couldn't be deleted!", file);
         }
     }
 

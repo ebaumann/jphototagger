@@ -1,9 +1,5 @@
 package org.jphototagger.program.database;
 
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.domain.imagecollections.ImageCollection;
-import org.jphototagger.domain.event.listener.DatabaseImageCollectionsListener;
-import org.jphototagger.domain.event.listener.impl.ListenerSupport;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,6 +8,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.jphototagger.domain.event.listener.DatabaseImageCollectionsListener;
+import org.jphototagger.domain.event.listener.impl.ListenerSupport;
+import org.jphototagger.domain.imagecollections.ImageCollection;
 
 /**
  *
@@ -19,9 +21,10 @@ import java.util.List;
  * @author Elmar Baumann
  */
 public final class DatabaseImageCollections extends Database {
+
     public static final DatabaseImageCollections INSTANCE = new DatabaseImageCollections();
-    private final ListenerSupport<DatabaseImageCollectionsListener> ls =
-        new ListenerSupport<DatabaseImageCollectionsListener>();
+    private static final Logger LOGGER = Logger.getLogger(DatabaseImageCollections.class.getName());
+    private final ListenerSupport<DatabaseImageCollectionsListener> ls = new ListenerSupport<DatabaseImageCollectionsListener>();
 
     private DatabaseImageCollections() {}
 
@@ -49,7 +52,7 @@ public final class DatabaseImageCollections extends Database {
                 names.add(rs.getString(1));
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseImageCollections.class, ex);
+            Logger.getLogger(DatabaseImageCollections.class.getName()).log(Level.SEVERE, null, ex);
             names.clear();
         } finally {
             close(rs, stmt);
@@ -103,7 +106,7 @@ public final class DatabaseImageCollections extends Database {
                 notifyCollectionRenamed(fromName, toName);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseImageCollections.class, ex);
+            Logger.getLogger(DatabaseImageCollections.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(stmt);
             free(con);
@@ -138,7 +141,7 @@ public final class DatabaseImageCollections extends Database {
                 imageFiles.add(getFile(rs.getString(1)));
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseImageCollections.class, ex);
+            Logger.getLogger(DatabaseImageCollections.class.getName()).log(Level.SEVERE, null, ex);
             imageFiles.clear();
         } finally {
             close(rs, stmt);
@@ -204,7 +207,7 @@ public final class DatabaseImageCollections extends Database {
                 long idImageFile = DatabaseImageFiles.INSTANCE.findIdImageFile(con, imageFile);
 
                 if (!DatabaseImageFiles.INSTANCE.exists(imageFile)) {
-                    AppLogger.logWarning(getClass(), "DatabaseImageCollections.Error.Insert.FileId", imageFile);
+                    LOGGER.log(Level.WARNING, "File ''{0}'' is not in the database! No photo album will be created!", imageFile);
                     rollback(con);
 
                     return false;
@@ -221,7 +224,7 @@ public final class DatabaseImageCollections extends Database {
             added = true;
             notifyCollectionInserted(collectionName, imageFiles);
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseImageCollections.class, ex);
+            Logger.getLogger(DatabaseImageCollections.class.getName()).log(Level.SEVERE, null, ex);
             rollback(con);
         } finally {
             close(stmtColl);
@@ -259,7 +262,7 @@ public final class DatabaseImageCollections extends Database {
             deleted = true;
             notifyCollectionDeleted(collectioNname, delFiles);
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseImageCollections.class, ex);
+            Logger.getLogger(DatabaseImageCollections.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(stmt);
             free(con);
@@ -311,7 +314,7 @@ public final class DatabaseImageCollections extends Database {
             con.commit();
             notifyImagesDeleted(collectionName, deletedFiles);
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseImageCollections.class, ex);
+            Logger.getLogger(DatabaseImageCollections.class.getName()).log(Level.SEVERE, null, ex);
             rollback(con);
         } finally {
             close(stmt);
@@ -377,7 +380,7 @@ public final class DatabaseImageCollections extends Database {
             con.commit();
             added = true;
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseImageCollections.class, ex);
+            Logger.getLogger(DatabaseImageCollections.class.getName()).log(Level.SEVERE, null, ex);
             rollback(con);
         } finally {
             close(stmt);
@@ -475,7 +478,7 @@ public final class DatabaseImageCollections extends Database {
                 exists = rs.getInt(1) > 0;
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseImageCollections.class, ex);
+            Logger.getLogger(DatabaseImageCollections.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -508,7 +511,7 @@ public final class DatabaseImageCollections extends Database {
                 count = rs.getInt(1);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseImageCollections.class, ex);
+            Logger.getLogger(DatabaseImageCollections.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -541,7 +544,7 @@ public final class DatabaseImageCollections extends Database {
                 count = rs.getInt(1);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseImageCollections.class, ex);
+            Logger.getLogger(DatabaseImageCollections.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);

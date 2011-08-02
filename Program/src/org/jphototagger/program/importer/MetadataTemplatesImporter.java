@@ -1,12 +1,28 @@
 package org.jphototagger.program.importer;
 
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.domain.templates.MetadataTemplate;
-import org.jphototagger.program.database.DatabaseMetadataTemplates;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.StringTokenizer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.swing.Icon;
+import javax.swing.filechooser.FileFilter;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
 import org.jphototagger.domain.database.Column;
-import org.jphototagger.xmp.EditColumns;
+import org.jphototagger.domain.templates.MetadataTemplate;
+import org.jphototagger.program.app.AppLookAndFeel;
+import org.jphototagger.program.database.DatabaseMetadataTemplates;
 import org.jphototagger.program.exporter.MetadataTemplatesExporter;
+import org.jphototagger.xmp.EditColumns;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -14,19 +30,6 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-import java.io.File;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.StringTokenizer;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.Icon;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 
 /**
  *
@@ -60,7 +63,7 @@ public final class MetadataTemplatesImporter implements Importer, EntityResolver
 
             importTemplates(doc);
         } catch (Exception ex) {
-            AppLogger.logSevere(getClass(), ex);
+            Logger.getLogger(MetadataTemplatesImporter.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

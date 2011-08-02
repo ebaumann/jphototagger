@@ -1,10 +1,5 @@
 package org.jphototagger.program.database;
 
-import org.jphototagger.lib.dialog.LongMessageDialog;
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.lib.event.listener.ProgressListener;
-import org.jphototagger.lib.event.ProgressEvent;
-import org.jphototagger.program.resource.JptBundle;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.Date;
@@ -12,6 +7,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.jphototagger.lib.dialog.LongMessageDialog;
+import org.jphototagger.lib.event.ProgressEvent;
+import org.jphototagger.lib.event.listener.ProgressListener;
+import org.jphototagger.program.resource.JptBundle;
 
 /**
  * Base class of specialized database classes.
@@ -19,7 +21,11 @@ import java.sql.Statement;
  * @author Elmar Baumann
  */
 public class Database {
-    protected Database() {}
+
+    private static final Logger LOGGER = Logger.getLogger(Database.class.getName());
+
+    protected Database() {
+    }
 
     public static void errorMessageSqlException(SQLException ex) {
         LongMessageDialog dlg = new LongMessageDialog(null, true);
@@ -47,7 +53,7 @@ public class Database {
 
         try {
             stmt = con.createStatement();
-            AppLogger.logFiner(Database.class, AppLogger.USE_STRING, sql);
+            LOGGER.log(Level.FINER, sql);
             isResultSet = stmt.execute(sql);
         } catch (SQLException ex) {
             throw ex;
@@ -114,7 +120,7 @@ public class Database {
         try {
             ConnectionPool.INSTANCE.free(con);
         } catch (Exception ex) {
-            AppLogger.logSevere(Database.class, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         }
     }
 
@@ -126,7 +132,7 @@ public class Database {
         try {
             stmt.close();
         } catch (SQLException ex) {
-            AppLogger.logSevere(Database.class, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         }
     }
 
@@ -138,7 +144,7 @@ public class Database {
         try {
             stmt.close();
         } catch (SQLException ex) {
-            AppLogger.logSevere(Database.class, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         }
     }
 
@@ -152,7 +158,7 @@ public class Database {
                 stmt.close();
             }
         } catch (SQLException ex) {
-            AppLogger.logSevere(Database.class, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         }
     }
 
@@ -166,7 +172,7 @@ public class Database {
                 stmt.close();
             }
         } catch (SQLException ex) {
-            AppLogger.logSevere(Database.class, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         }
     }
 
@@ -184,7 +190,7 @@ public class Database {
         try {
             con.rollback();
         } catch (Exception ex) {
-            AppLogger.logSevere(Database.class, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         }
     }
 
@@ -214,7 +220,7 @@ public class Database {
 
             stmt = con.prepareStatement(sql);
             stmt.setString(1, value);
-            AppLogger.logFinest(Database.class, AppLogger.USE_STRING, stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
 
             if (rs.next()) {
@@ -323,7 +329,7 @@ public class Database {
         try {
             stmt = con.prepareStatement("SELECT COUNT(*) FROM " + tablename + " WHERE " + columnName + " = ?");
             stmt.setString(1, value);
-            AppLogger.logFinest(Database.class, AppLogger.USE_STRING, stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
 
             if (rs.next()) {
@@ -356,7 +362,7 @@ public class Database {
         try {
             stmt = con.prepareStatement("SELECT COUNT(*) FROM " + tablename + " WHERE " + columnName + " = ?");
             stmt.setLong(1, value);
-            AppLogger.logFinest(Database.class, AppLogger.USE_STRING, stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
 
             if (rs.next()) {
@@ -492,7 +498,7 @@ public class Database {
         try {
             return Class.forName(classname);
         } catch (ClassNotFoundException ex) {
-            AppLogger.logSevere(Database.class, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         }
 
         return null;
@@ -814,7 +820,7 @@ public class Database {
             throw new NullPointerException("sql == null");
         }
 
-        AppLogger.logFiner(getClass(), AppLogger.USE_STRING, sql);
+        LOGGER.log(Level.FINER, sql);
     }
 
     protected void logFiner(PreparedStatement stmt) {
@@ -822,7 +828,7 @@ public class Database {
             throw new NullPointerException("stmt == null");
         }
 
-        AppLogger.logFiner(getClass(), AppLogger.USE_STRING, stmt.toString());
+        LOGGER.log(Level.FINER, stmt.toString());
     }
 
     protected void logFinest(String sql) {
@@ -830,7 +836,7 @@ public class Database {
             throw new NullPointerException("sql == null");
         }
 
-        AppLogger.logFinest(getClass(), AppLogger.USE_STRING, sql);
+        LOGGER.log(Level.FINEST, sql);
     }
 
     protected void logFinest(PreparedStatement stmt) {
@@ -838,6 +844,6 @@ public class Database {
             throw new NullPointerException("stmt == null");
         }
 
-        AppLogger.logFinest(getClass(), AppLogger.USE_STRING, stmt.toString());
+        LOGGER.log(Level.FINEST, stmt.toString());
     }
 }

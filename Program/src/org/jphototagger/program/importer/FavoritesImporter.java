@@ -1,15 +1,18 @@
 package org.jphototagger.program.importer;
 
-import org.jphototagger.lib.xml.bind.XmlObjectImporter;
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.app.AppLookAndFeel;
+import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.swing.Icon;
+import javax.swing.filechooser.FileFilter;
+
 import org.jphototagger.domain.favorites.Favorite;
+import org.jphototagger.lib.xml.bind.XmlObjectImporter;
+import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.database.DatabaseFavorites;
 import org.jphototagger.program.exporter.FavoritesExporter;
 import org.jphototagger.program.exporter.FavoritesExporter.CollectionWrapper;
-import java.io.File;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.Icon;
 
 /**
  *
@@ -35,7 +38,7 @@ public final class FavoritesImporter implements Importer {
                 }
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(FavoritesImporter.class, ex);
+            Logger.getLogger(FavoritesImporter.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

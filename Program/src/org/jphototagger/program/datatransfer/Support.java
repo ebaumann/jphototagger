@@ -1,16 +1,19 @@
 package org.jphototagger.program.datatransfer;
 
-import org.jphototagger.lib.datatransfer.TransferUtil;
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.domain.database.ColumnData;
-import org.jphototagger.program.io.ImageFileFilterer;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.io.File;
 import java.util.Collection;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.swing.TransferHandler.TransferSupport;
 import javax.swing.tree.DefaultMutableTreeNode;
+
+import org.jphototagger.domain.database.ColumnData;
+import org.jphototagger.lib.datatransfer.TransferUtil;
+import org.jphototagger.program.io.ImageFileFilterer;
 
 /**
  * Support for data transfer.
@@ -36,7 +39,7 @@ public final class Support {
         try {
             return (Object[]) transferable.getTransferData(Flavor.KEYWORDS_LIST);
         } catch (Exception ex) {
-            AppLogger.logSevere(Flavor.class, ex);
+            Logger.getLogger(Support.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return null;
@@ -57,7 +60,7 @@ public final class Support {
         try {
             return (Collection<? extends ColumnData>) transferable.getTransferData(Flavor.COLUMN_DATA);
         } catch (Exception ex) {
-            AppLogger.logSevere(Flavor.class, ex);
+            Logger.getLogger(Support.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return null;
@@ -80,7 +83,7 @@ public final class Support {
         try {
             return (List<DefaultMutableTreeNode>) transferable.getTransferData(Flavor.KEYWORDS_TREE);
         } catch (Exception ex) {
-            AppLogger.logSevere(Flavor.class, ex);
+            Logger.getLogger(Support.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return null;
@@ -125,7 +128,7 @@ public final class Support {
         try {
             return (String) transferable.getTransferData(DataFlavor.stringFlavor);
         } catch (Exception ex) {
-            AppLogger.logSevere(Flavor.class, ex);
+            Logger.getLogger(Support.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return null;

@@ -1,7 +1,7 @@
 package org.jphototagger.program.app;
 
 import org.jphototagger.program.app.logging.AppLoggingSystem;
-import org.jphototagger.program.app.logging.AppLogger;
+import org.jphototagger.program.app.logging.AppLogUtil;
 import com.imagero.reader.AbstractImageReader;
 import org.jphototagger.lib.dialog.SystemOutputDialog;
 import org.jphototagger.lib.system.SystemUtil;
@@ -59,7 +59,7 @@ public final class AppInit {
         AppLookAndFeel.set();
         captureOutput();    // Has to be called before AppLoggingSystem.init()!
         AppLoggingSystem.init();
-        AppLogger.logSystemInfo();
+        AppLogUtil.logSystemInfo();
         checkJavaVersion();
         lock();
         showSplashScreen();

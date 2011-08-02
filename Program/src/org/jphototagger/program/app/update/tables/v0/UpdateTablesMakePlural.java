@@ -1,10 +1,5 @@
 package org.jphototagger.program.app.update.tables.v0;
 
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.app.SplashScreen;
-import org.jphototagger.program.database.Database;
-import org.jphototagger.program.database.DatabaseMetadata;
-import org.jphototagger.program.resource.JptBundle;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -12,6 +7,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.jphototagger.program.app.SplashScreen;
+import org.jphototagger.program.database.Database;
+import org.jphototagger.program.database.DatabaseMetadata;
+import org.jphototagger.program.resource.JptBundle;
 
 /**
  *
@@ -21,13 +23,14 @@ import java.util.Map;
 final class UpdateTablesMakePlural {
     private static final Map<String, String> TO_TABLE_NAME_OF = new HashMap<String, String>();
     private static final List<IndexRenameInfo> INDICES_TO_RENAME = new ArrayList<IndexRenameInfo>();
+    private static final Logger LOGGER = Logger.getLogger(UpdateTablesMakePlural.class.getName());
 
     private static class IndexRenameInfo {
         private final String tableName;
         private final String fromName;
         private final String toName;
 
-        public IndexRenameInfo(String tableName, String fromName, String toName) {
+        private IndexRenameInfo(String tableName, String fromName, String toName) {
             this.tableName = tableName;
             this.fromName = fromName;
             this.toName = toName;
@@ -114,7 +117,7 @@ final class UpdateTablesMakePlural {
                         &&!DatabaseMetadata.INSTANCE.existsTable(con, toName)) {
                     String sql = "ALTER TABLE " + fromName + " RENAME TO " + toName;
 
-                    AppLogger.logFiner(getClass(), AppLogger.USE_STRING, sql);
+                    LOGGER.log(Level.FINER, sql);
                     stmt.executeUpdate(sql);
                 }
             }
@@ -134,7 +137,7 @@ final class UpdateTablesMakePlural {
                         &&!DatabaseMetadata.existsIndex(con, info.toName, info.tableName)) {
                     String sql = "ALTER INDEX " + info.fromName + " RENAME TO " + info.toName;
 
-                    AppLogger.logFiner(getClass(), AppLogger.USE_STRING, sql);
+                    LOGGER.log(Level.FINER, sql);
                     stmt.executeUpdate(sql);
                 }
             }

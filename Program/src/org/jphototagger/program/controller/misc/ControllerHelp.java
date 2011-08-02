@@ -1,17 +1,5 @@
 package org.jphototagger.program.controller.misc;
 
-import org.jphototagger.lib.componentutil.ComponentUtil;
-import org.jphototagger.lib.dialog.HelpBrowser;
-import org.jphototagger.lib.event.HelpBrowserEvent;
-import org.jphototagger.lib.event.listener.HelpBrowserListener;
-import org.jphototagger.program.app.AppInfo;
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.app.logging.AppLoggingSystem;
-import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.Main;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.UserSettings;
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,7 +10,22 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.swing.JMenuItem;
+
+import org.jphototagger.lib.componentutil.ComponentUtil;
+import org.jphototagger.lib.dialog.HelpBrowser;
+import org.jphototagger.lib.event.HelpBrowserEvent;
+import org.jphototagger.lib.event.listener.HelpBrowserListener;
+import org.jphototagger.program.Main;
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.app.AppInfo;
+import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.program.app.logging.AppLoggingSystem;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.resource.JptBundle;
 
 /**
  *
@@ -33,6 +36,7 @@ public final class ControllerHelp implements ActionListener, HelpBrowserListener
     private static final String HELP_CONTENTS_URL = "/org/jphototagger/program/resource/doc/de/contents.xml";
     private static final String KEY_CURRENT_URL = ControllerHelp.class.getName() + ".CurrentURL";
     private String currentUrl = UserSettings.INSTANCE.getSettings().getString(KEY_CURRENT_URL);
+    private static final Logger LOGGER = Logger.getLogger(ControllerHelp.class.getName());
 
     public ControllerHelp() {
         listen();
@@ -162,16 +166,15 @@ public final class ControllerHelp implements ActionListener, HelpBrowserListener
         try {
             URI uri = getMailtoUri(to, subject, body);
 
-            AppLogger.logInfo(ControllerHelp.class, "ControllerSendMail.Info.SendMail.Uri", uri);
+            LOGGER.log(Level.INFO, "Sending email to this URI: ''{0}''", uri);
             Desktop.getDesktop().mail(uri);
         } catch (Exception ex) {
+            Logger.getLogger(ControllerHelp.class.getName()).log(Level.SEVERE, null, ex);
             MessageDisplayer.error(null, "ControllerSendMail.Error.SendMail");
-            AppLogger.logSevere(ControllerHelp.class, ex);
         }
     }
 
-    private URI getMailtoUri(String to, String subject, String body)
-            throws URISyntaxException, UnsupportedEncodingException {
+    private URI getMailtoUri(String to, String subject, String body) throws URISyntaxException, UnsupportedEncodingException {
         String bodyPart = ((body == null) || body.trim().isEmpty())
                           ? ""
                           : "&body=" + body;
@@ -183,7 +186,7 @@ public final class ControllerHelp implements ActionListener, HelpBrowserListener
         try {
             Desktop.getDesktop().browse(new URI(uri));
         } catch (Exception ex) {
-            AppLogger.logSevere(ControllerHelp.class, ex);
+            Logger.getLogger(ControllerHelp.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -197,7 +200,7 @@ public final class ControllerHelp implements ActionListener, HelpBrowserListener
         try {
             Desktop.getDesktop().open(manual);
         } catch (IOException ex) {
-            AppLogger.logSevere(ControllerHelp.class, ex);
+            Logger.getLogger(ControllerHelp.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -241,7 +244,7 @@ public final class ControllerHelp implements ActionListener, HelpBrowserListener
                 }
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(AppInfo.class, ex);
+            Logger.getLogger(ControllerHelp.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         MessageDisplayer.error(null, "ControllerHelp.Error.NoPdfFile", manualPath);
@@ -257,11 +260,13 @@ public final class ControllerHelp implements ActionListener, HelpBrowserListener
     }
 
     private static void logJarDir(File jarPath) {
-        AppLogger.logFinest(ControllerHelp.class, "ControllerHelp.ManualPath.ParentDir", jarPath.getParentFile());
+        File parentFile = jarPath.getParentFile();
+
+        LOGGER.log(Level.FINEST, "Got folder to JAR file: ''{0}''", parentFile);
     }
 
     private static void logJarFile(File jarPath) {
-        AppLogger.logFinest(ControllerHelp.class, "ControllerHelp.ManualPath.JarPath", jarPath);
+        LOGGER.log(Level.FINEST, "Got path to JAR file: ''{0}''", jarPath);
     }
 
     private static void logIfNotExists(File file) {
@@ -270,7 +275,7 @@ public final class ControllerHelp implements ActionListener, HelpBrowserListener
         }
 
         if (!file.exists()) {
-            AppLogger.logFinest(ControllerHelp.class, "ControllerHelp.Info.FileNotExists", file);
+            LOGGER.log(Level.FINEST, "File ''{0}'' does not exist", file);
         }
     }
 }

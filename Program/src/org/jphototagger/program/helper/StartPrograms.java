@@ -1,21 +1,25 @@
 package org.jphototagger.program.helper;
 
-import org.jphototagger.lib.runtime.External;
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.data.Program;
-import org.jphototagger.domain.database.InsertIntoDatabase;
-import org.jphototagger.program.io.RuntimeUtil;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.view.dialogs.ProgramInputParametersDialog;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.List;
 import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.swing.JProgressBar;
+
+import org.jphototagger.domain.database.InsertIntoDatabase;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.runtime.External;
+import org.jphototagger.lib.runtime.External.ProcessResult;
+import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.program.data.Program;
+import org.jphototagger.program.io.RuntimeUtil;
+import org.jphototagger.program.resource.JptBundle;
+import org.jphototagger.program.view.dialogs.ProgramInputParametersDialog;
 
 /**
  * Executes in a thread programs which processes image files.
@@ -23,8 +27,10 @@ import org.jphototagger.lib.awt.EventQueueUtil;
  * @author Elmar Baumann
  */
 public final class StartPrograms {
+
     private final Queue<Execute> queue = new ConcurrentLinkedQueue<Execute>();
     private final JProgressBar progressBar;
+    private static final Logger LOGGER = Logger.getLogger(StartPrograms.class.getName());
 
     /**
      * Constructor.
@@ -107,7 +113,7 @@ public final class StartPrograms {
         }
 
         private void logCommand(String command) {
-            AppLogger.logInfo(StartPrograms.class, "StartPrograms.Info.ExecuteCommand", command);
+            LOGGER.log(Level.INFO, "Execute command: ''{0}''", command);
         }
 
         private void processPattern() {
@@ -122,13 +128,17 @@ public final class StartPrograms {
                 boolean terminatedWithErrors = result == null || result.getExitValue() != 0;
 
                 if (waitForTermination && terminatedWithErrors) {
-                    AppLogger.logWarning(Execute.class, "Execute.ExternalExcecute.Error", command, (result == null)
-                            ? "?"
-                            : result.getErrorStreamAsString());
+                    logError(command, result);
                 }
 
                 setValueToProgressBar(++count);
             }
+        }
+
+        private void logError(String command, ProcessResult result) {
+            LOGGER.log(Level.WARNING, "Error executing command  ''{0}'': {1}!", new Object[]{command, (result == null)
+                    ? "?"
+                    : result.getErrorStreamAsString()});
         }
 
         private String getProcessPatternCommand(File file) {
@@ -153,9 +163,7 @@ public final class StartPrograms {
             boolean terminatedWithErrors = result == null || result.getExitValue() != 0;
 
             if (waitForTermination && terminatedWithErrors) {
-                AppLogger.logWarning(Execute.class, "Execute.ExternalExcecute.Error", command, (result == null)
-                        ? "?"
-                        : result.getErrorStreamAsString());
+                logError(command, result);
             }
 
             setValueToProgressBar(imageFiles.size());
@@ -180,9 +188,7 @@ public final class StartPrograms {
                 boolean terminatedWithErrors = result == null || result.getExitValue() != 0;
 
                 if (waitForTermination && terminatedWithErrors) {
-                    AppLogger.logWarning(Execute.class, "Execute.ExternalExcecute.Error", command, (result == null)
-                            ? "?"
-                            : result.getErrorStreamAsString());
+                    logError(command, result);
                 }
 
                 setValueToProgressBar(++count);

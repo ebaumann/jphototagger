@@ -1,25 +1,28 @@
 package org.jphototagger.program.importer;
 
-import org.jphototagger.lib.xml.bind.XmlObjectImporter;
+import java.io.File;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.swing.Icon;
+import javax.swing.filechooser.FileFilter;
+
+import org.jphototagger.domain.database.InsertIntoDatabase;
+import org.jphototagger.domain.imagecollections.ImageCollection;
+import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.ListUtil;
-import org.jphototagger.program.app.logging.AppLogger;
+import org.jphototagger.lib.xml.bind.XmlObjectImporter;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.comparator.ComparatorStringAscending;
-import org.jphototagger.domain.imagecollections.ImageCollection;
 import org.jphototagger.program.database.DatabaseImageCollections;
 import org.jphototagger.program.exporter.ImageCollectionsExporter;
 import org.jphototagger.program.exporter.ImageCollectionsExporter.CollectionWrapper;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
-import org.jphototagger.domain.database.InsertIntoDatabase;
 import org.jphototagger.program.model.ListModelImageCollections;
 import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.panels.ProgressBarUpdater;
-import java.io.File;
-import java.util.List;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.Icon;
-import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  *
@@ -44,7 +47,7 @@ public final class ImageCollectionsImporter implements Importer {
 
             new ImportThread(wrapper.getCollection()).start();
         } catch (Exception ex) {
-            AppLogger.logSevere(ImageCollectionsImporter.class, ex);
+            Logger.getLogger(ImageCollectionsImporter.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

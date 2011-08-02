@@ -1,7 +1,5 @@
 package org.jphototagger.program.database;
 
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.domain.keywords.Keyword;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,6 +9,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.jphototagger.domain.keywords.Keyword;
 
 //Handling null:
 //ID: Can never be null
@@ -72,7 +74,7 @@ public final class DatabaseKeywords extends Database {
                 keywords.add(new Keyword(rs.getLong(1), idParent, rs.getString(3), rs.getBoolean(4)));
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseKeywords.class, ex);
+            Logger.getLogger(DatabaseKeywords.class.getName()).log(Level.SEVERE, null, ex);
             keywords.clear();
         } finally {
             close(rs, stmt);
@@ -124,7 +126,7 @@ public final class DatabaseKeywords extends Database {
             logFiner(stmt);
             updated = stmt.executeUpdate() == 1;
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseKeywords.class, ex);
+            Logger.getLogger(DatabaseKeywords.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(stmt);
             free(con);
@@ -194,7 +196,7 @@ public final class DatabaseKeywords extends Database {
                 keyword.setId(nextId);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseKeywords.class, ex);
+            Logger.getLogger(DatabaseKeywords.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(stmt);
             free(con);
@@ -221,7 +223,7 @@ public final class DatabaseKeywords extends Database {
             countAffected = stmt.executeUpdate();
             con.commit();
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseKeywords.class, ex);
+            Logger.getLogger(DatabaseKeywords.class.getName()).log(Level.SEVERE, null, ex);
             rollback(con);
         } finally {
             close(stmt);
@@ -262,7 +264,7 @@ public final class DatabaseKeywords extends Database {
             con.commit();
             deleted = true;
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseKeywords.class, ex);
+            Logger.getLogger(DatabaseKeywords.class.getName()).log(Level.SEVERE, null, ex);
             rollback(con);
         } finally {
             close(stmt);
@@ -328,7 +330,7 @@ public final class DatabaseKeywords extends Database {
                 idParent = parent.getIdParent();
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseKeywords.class, ex);
+            Logger.getLogger(DatabaseKeywords.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             free(con);
         }
@@ -371,7 +373,7 @@ public final class DatabaseKeywords extends Database {
                 children.add(new Keyword(rs.getLong(1), idPar, rs.getString(3), rs.getBoolean(4)));
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseKeywords.class, ex);
+            Logger.getLogger(DatabaseKeywords.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -412,7 +414,7 @@ public final class DatabaseKeywords extends Database {
                 children.add(new Keyword(rs.getLong(1), idParent, rs.getString(3), rs.getBoolean(4)));
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseKeywords.class, ex);
+            Logger.getLogger(DatabaseKeywords.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -492,7 +494,7 @@ public final class DatabaseKeywords extends Database {
                 exists = rs.getInt(1) > 0;
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseKeywords.class, ex);
+            Logger.getLogger(DatabaseKeywords.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -531,7 +533,7 @@ public final class DatabaseKeywords extends Database {
                 exists = rs.getInt(1) > 0;
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseKeywords.class, ex);
+            Logger.getLogger(DatabaseKeywords.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -564,7 +566,7 @@ public final class DatabaseKeywords extends Database {
                 exists = rs.getInt(1) > 0;
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseKeywords.class, ex);
+            Logger.getLogger(DatabaseKeywords.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -606,7 +608,7 @@ public final class DatabaseKeywords extends Database {
             logFinest(stmt);
             count = stmt.executeUpdate();
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseKeywords.class, ex);
+            Logger.getLogger(DatabaseKeywords.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(stmt);
             free(con);
@@ -663,7 +665,7 @@ public final class DatabaseKeywords extends Database {
                 }
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseKeywords.class, ex);
+            Logger.getLogger(DatabaseKeywords.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);

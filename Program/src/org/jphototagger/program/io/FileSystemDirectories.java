@@ -1,11 +1,13 @@
 package org.jphototagger.program.io;
 
-import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.lib.io.TreeFileSystemDirectories;
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.database.DatabaseImageFiles;
 import java.io.File;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.lib.io.TreeFileSystemDirectories;
+import org.jphototagger.program.database.DatabaseImageFiles;
 
 /**
  * Renames or deletes a directory from the file system and updates the database
@@ -14,7 +16,11 @@ import java.util.List;
  * @author Elmar Baumann
  */
 public final class FileSystemDirectories {
-    private FileSystemDirectories() {}
+
+    private static final Logger LOGGER = Logger.getLogger(FileSystemDirectories.class.getName());
+
+    private FileSystemDirectories() {
+    }
 
     /**
      * Deletes a directory from the file system and updates the
@@ -45,7 +51,7 @@ public final class FileSystemDirectories {
                     return true;
                 } catch (Exception ex) {
                     TreeFileSystemDirectories.errorMessageDelete(directory.getName());
-                    AppLogger.logSevere(FileSystemDirectories.class, ex);
+                    Logger.getLogger(FileSystemDirectories.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -85,7 +91,7 @@ public final class FileSystemDirectories {
                             return newDirectory;
                         }
                     } catch (Exception ex) {
-                        AppLogger.logSevere(FileSystemDirectories.class, ex);
+                        Logger.getLogger(FileSystemDirectories.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
             }
@@ -95,12 +101,14 @@ public final class FileSystemDirectories {
     }
 
     private static void logDelete(File directory, int countDeletedInDatabase) {
-        AppLogger.logInfo(FileSystemDirectories.class, "FileSystemDirectories.Info.Delete", directory,
-                          countDeletedInDatabase);
+        LOGGER.log(Level.INFO,
+                "Deleted folder ''{0}''. {1} image files deleted from the database",
+                new Object[]{directory, countDeletedInDatabase});
     }
 
     private static void logInfoRenamed(File directory, File newDirectory, int countRenamedInDatabase) {
-        AppLogger.logInfo(FileSystemDirectories.class, "FileSystemDirectories.Info.Rename", directory, newDirectory,
-                          countRenamedInDatabase);
+        LOGGER.log(Level.INFO,
+                "Folder ''{0}'' was renamed to ''{1}''. Updated {2} image files in the database.",
+                new Object[]{directory, newDirectory, countRenamedInDatabase});
     }
 }

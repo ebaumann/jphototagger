@@ -1,27 +1,30 @@
 package org.jphototagger.program.app.update;
 
+import java.awt.EventQueue;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.swing.JProgressBar;
+
+import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.lib.net.CancelRequest;
 import org.jphototagger.lib.net.HttpUtil;
 import org.jphototagger.lib.net.NetVersion;
 import org.jphototagger.lib.system.SystemUtil;
 import org.jphototagger.lib.util.Version;
+import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.AppInfo;
 import org.jphototagger.program.app.AppLifeCycle;
-import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.database.DatabaseApplicationProperties;
 import org.jphototagger.program.helper.FinalExecutable;
 import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.panels.ProgressBar;
-import java.awt.EventQueue;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.net.URL;
-import javax.swing.JProgressBar;
-import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Checks for newer versions of JPhotoTagger and downloads them depending
@@ -42,6 +45,7 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
     private volatile boolean cancel;
     private static boolean checkPending;
     private final Object pBarOwner = this;
+    private static final Logger LOGGER = Logger.getLogger(UpdateDownload.class.getName());
 
     public UpdateDownload() {
         super("JPhotoTagger: Checking for and downloading newer version");
@@ -97,7 +101,7 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
                     }
                 });
             } catch (Exception ex) {
-                AppLogger.logSevere(UpdateDownload.class, ex);
+                Logger.getLogger(UpdateDownload.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -117,12 +121,12 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
 
                 if (cancel && downloadFile.exists()) {
                     if (!downloadFile.delete()) {
-                        AppLogger.logWarning(getClass(), "UpdateDownload.Error.DeleteDownloadFile", downloadFile);
+                        LOGGER.log(Level.WARNING, "Uncomplete downloaded file ''{0}'' couldn't be deleted!", downloadFile);
                     }
                 }
             }
         } catch (Exception ex) {
-            AppLogger.logInfo(UpdateDownload.class, "UpdateDownload.Error.Compare", ex.getLocalizedMessage());
+            LOGGER.log(Level.INFO, "The most recent version of JPhotoTagger couldn't be retrieved: {0}", ex.getLocalizedMessage());
         } finally {
             releaseProgressBar();
 
@@ -155,7 +159,7 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
                 MessageDisplayer.information(null, "UpdateDownload.Info.Success", downloadFile);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(UpdateDownload.class, ex);
+            Logger.getLogger(UpdateDownload.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

@@ -1,13 +1,16 @@
 package org.jphototagger.program.datatransfer;
 
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.domain.templates.MetadataTemplate;
-import org.jphototagger.domain.text.TextEntry;
-import org.jphototagger.domain.database.Column;
-import org.jphototagger.program.view.panels.EditRepeatableTextEntryPanel;
 import java.awt.Component;
 import java.util.Collection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.swing.TransferHandler.TransferSupport;
+
+import org.jphototagger.domain.database.Column;
+import org.jphototagger.domain.templates.MetadataTemplate;
+import org.jphototagger.domain.text.TextEntry;
+import org.jphototagger.program.view.panels.EditRepeatableTextEntryPanel;
 
 /**
  *
@@ -41,7 +44,7 @@ final class MetadataTemplateSupport {
                 }
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(TransferHandlerDropTextComponent.class, ex);
+            Logger.getLogger(MetadataTemplateSupport.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

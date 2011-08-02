@@ -1,16 +1,17 @@
 package org.jphototagger.program.helper;
 
-import org.jphototagger.program.app.logging.AppLogger;
+import java.io.File;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.jdesktop.swingx.JXList;
+import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.controller.imagecollection.ControllerDeleteFromImageCollection;
 import org.jphototagger.program.database.DatabaseImageCollections;
 import org.jphototagger.program.model.ListModelImageCollections;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
-import java.io.File;
-import java.util.List;
-import org.jdesktop.swingx.JXList;
-import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  *
@@ -18,6 +19,8 @@ import org.jphototagger.lib.awt.EventQueueUtil;
  * @author Elmar Baumann
  */
 public final class ImageCollectionsHelper {
+
+    private static final Logger LOGGER = Logger.getLogger(ImageCollectionsHelper.class.getName());
 
     /**
      * Deletes selected files from an image collection.
@@ -36,8 +39,7 @@ public final class ImageCollectionsHelper {
                         tnPanel.removeFiles(selectedFiles);
                     }
                 } else {
-                    AppLogger.logWarning(ControllerDeleteFromImageCollection.class,
-                                         "ImageCollectionsHelper.Error.NoCollectionSelected");
+                    LOGGER.log(Level.WARNING, "No Image collection selected!");
                 }
             }
         });
@@ -216,7 +218,7 @@ public final class ImageCollectionsHelper {
     }
 
     private static void logAddImageCollection(String name) {
-        AppLogger.logInfo(ImageCollectionsHelper.class, "ImageCollectionsHelper.Info.StartInsert", name);
+        LOGGER.log(Level.INFO, "Insert photo album ''{0}'' into the database", name);
     }
 
     private static void errorMessageAddImagesToCollection(String collectionName) {

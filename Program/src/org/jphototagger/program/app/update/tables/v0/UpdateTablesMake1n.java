@@ -1,13 +1,5 @@
 package org.jphototagger.program.app.update.tables.v0;
 
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.app.SplashScreen;
-import org.jphototagger.program.app.update.tables.ColumnInfo;
-import org.jphototagger.program.database.Database;
-import org.jphototagger.program.database.DatabaseMaintainance;
-import org.jphototagger.program.database.DatabaseMetadata;
-import org.jphototagger.program.database.DatabaseSavedSearches;
-import org.jphototagger.program.resource.JptBundle;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,6 +7,16 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.jphototagger.program.app.SplashScreen;
+import org.jphototagger.program.app.update.tables.ColumnInfo;
+import org.jphototagger.program.database.Database;
+import org.jphototagger.program.database.DatabaseMaintainance;
+import org.jphototagger.program.database.DatabaseMetadata;
+import org.jphototagger.program.database.DatabaseSavedSearches;
+import org.jphototagger.program.resource.JptBundle;
 
 /**
  * Moves content of a table column into another table related 1:n (one to many)
@@ -26,6 +28,7 @@ import java.util.Map;
  */
 public final class UpdateTablesMake1n {
     private static final Map<ColumnInfo, ColumnInfo> TARGET_COL_OF = new HashMap<ColumnInfo, ColumnInfo>();
+    private static final Logger LOGGER = Logger.getLogger(UpdateTablesMake1n.class.getName());
 
     static {
         TARGET_COL_OF.put(new ColumnInfo("exif", "exif_recording_equipment", null, null),
@@ -87,7 +90,7 @@ public final class UpdateTablesMake1n {
 
                     addLinkColumn(con, sourceTable, targetTable);
                     stmt = con.createStatement();
-                    AppLogger.logFinest(getClass(), AppLogger.USE_STRING, sql);
+                    LOGGER.log(Level.FINEST, sql);
                     rs = stmt.executeQuery(sql);
 
                     while (rs.next()) {
@@ -136,19 +139,19 @@ public final class UpdateTablesMake1n {
 
                 String sqlAddColumn = "ALTER TABLE " + sourceTable + " ADD COLUMN " + newColumn + " BIGINT";
 
-                AppLogger.logFiner(getClass(), AppLogger.USE_STRING, sqlAddColumn);
+                LOGGER.log(Level.FINER, sqlAddColumn);
                 stmt.executeUpdate(sqlAddColumn);
 
                 String sqlAddForeignKey = "ALTER TABLE " + sourceTable + " ADD FOREIGN KEY (" + newColumn
                                           + ") REFERENCES " + targetTable + "(id) ON DELETE SET NULL";
 
-                AppLogger.logFiner(getClass(), AppLogger.USE_STRING, sqlAddForeignKey);
+                LOGGER.log(Level.FINER, sqlAddForeignKey);
                 stmt.executeUpdate(sqlAddForeignKey);
 
                 String indexname = "idx_" + sourceTable + "_" + newColumn;
                 String sqlCreateIndex = "CREATE INDEX " + indexname + " ON " + sourceTable + " (" + newColumn + ")";
 
-                AppLogger.logFiner(getClass(), AppLogger.USE_STRING, sqlCreateIndex);
+                LOGGER.log(Level.FINER, sqlCreateIndex);
                 stmt.executeUpdate(sqlCreateIndex);
                 con.commit();
             } finally {
@@ -165,13 +168,13 @@ public final class UpdateTablesMake1n {
                 String sql = "ALTER TABLE " + table + " DROP " + column;
 
                 stmt = con.createStatement();
-                AppLogger.logFiner(getClass(), AppLogger.USE_STRING, sql);
+                LOGGER.log(Level.FINER, sql);
                 stmt.executeUpdate(sql);
                 sql = "DROP INDEX idx_" + table + "_" + column + " IF EXISTS";
-                AppLogger.logFiner(getClass(), AppLogger.USE_STRING, sql);
+                LOGGER.log(Level.FINER, sql);
                 stmt.executeUpdate(sql);
             } catch (SQLException ex) {
-                AppLogger.logSevere(UpdateTablesMake1n.class, ex);
+                LOGGER.log(Level.SEVERE, null, ex);
             } finally {
                 Database.close(stmt);
             }
@@ -205,7 +208,7 @@ public final class UpdateTablesMake1n {
 
                 stmt = con.prepareStatement(sql);
                 stmt.setString(1, value);
-                AppLogger.logFiner(getClass(), AppLogger.USE_STRING, sql);
+                LOGGER.log(Level.FINER, sql);
                 stmt.executeUpdate();
             } finally {
                 Database.close(stmt);
@@ -224,7 +227,7 @@ public final class UpdateTablesMake1n {
             stmt = con.prepareStatement(sql);
             stmt.setLong(1, Database.getId(con, targetTable, targetColumn, targetValue));
             stmt.setLong(2, sourceId);
-            AppLogger.logFiner(getClass(), AppLogger.USE_STRING, stmt);
+            LOGGER.log(Level.FINER, stmt.toString());
             stmt.executeUpdate();
         } finally {
             Database.close(stmt);

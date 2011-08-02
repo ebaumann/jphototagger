@@ -11,6 +11,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
@@ -23,7 +25,6 @@ import org.jphototagger.domain.event.listener.TextEntryListener;
 import org.jphototagger.domain.event.listener.impl.TextEntryListenerSupport;
 import org.jphototagger.domain.text.TextEntry;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.app.logging.AppLogger;
 
 /*
 * RatingSelectionPanel.java
@@ -124,7 +125,7 @@ public class RatingSelectionPanel extends JPanel
                 val = Integer.valueOf(text).intValue();
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(getClass(), ex);
+            Logger.getLogger(RatingSelectionPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         value = val;

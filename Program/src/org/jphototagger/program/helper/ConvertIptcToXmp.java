@@ -1,14 +1,5 @@
 package org.jphototagger.program.helper;
 
-import org.jphototagger.lib.concurrent.Cancelable;
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.domain.iptc.Iptc;
-import org.jphototagger.domain.xmp.Xmp;
-import org.jphototagger.lib.event.listener.ProgressListener;
-import org.jphototagger.lib.event.ProgressEvent;
-import org.jphototagger.domain.database.InsertIntoDatabase;
-import org.jphototagger.iptc.IptcMetadata;
-import org.jphototagger.xmp.XmpMetadata;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,7 +7,16 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.jphototagger.domain.database.InsertIntoDatabase;
+import org.jphototagger.domain.iptc.Iptc;
+import org.jphototagger.domain.xmp.Xmp;
+import org.jphototagger.iptc.IptcMetadata;
+import org.jphototagger.lib.concurrent.Cancelable;
+import org.jphototagger.lib.event.ProgressEvent;
+import org.jphototagger.lib.event.listener.ProgressListener;
 import org.jphototagger.program.app.AppFileFilters;
+import org.jphototagger.xmp.XmpMetadata;
 
 /**
  * Erzeugt XMP-Daten anhand bestehender IPTC-Daten.
@@ -27,6 +27,7 @@ public final class ConvertIptcToXmp implements Runnable, Cancelable {
     private final List<ProgressListener> prLs = new ArrayList<ProgressListener>();
     private final List<File> imageFiles;
     private boolean cancel;
+    private static final Logger LOGGER = Logger.getLogger(ConvertIptcToXmp.class.getName());
 
     public ConvertIptcToXmp(List<File> imageFiles) {
         if (imageFiles == null) {
@@ -105,7 +106,7 @@ public final class ConvertIptcToXmp implements Runnable, Cancelable {
     }
 
     private void logWriteXmpFile(File imageFile) {
-        AppLogger.logInfo(ConvertIptcToXmp.class, "ConvertIptcToXmp.Info.StartWriteXmpFile", imageFile);
+        LOGGER.log(Level.INFO, "Write XMP sidecar file from IPTC in file ''{0}''", imageFile);
     }
 
     private synchronized void notifyStart() {

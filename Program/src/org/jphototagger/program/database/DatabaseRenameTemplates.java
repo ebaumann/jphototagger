@@ -1,9 +1,5 @@
 package org.jphototagger.program.database;
 
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.domain.templates.RenameTemplate;
-import org.jphototagger.domain.event.listener.DatabaseRenameTemplatesListener;
-import org.jphototagger.domain.event.listener.impl.ListenerSupport;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,6 +7,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.jphototagger.domain.event.listener.DatabaseRenameTemplatesListener;
+import org.jphototagger.domain.event.listener.impl.ListenerSupport;
+import org.jphototagger.domain.templates.RenameTemplate;
 
 /**
  *
@@ -83,7 +85,7 @@ public final class DatabaseRenameTemplates extends Database {
                 notifyInserted(template);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseRenameTemplates.class, ex);
+            Logger.getLogger(DatabaseRenameTemplates.class.getName()).log(Level.SEVERE, null, ex);
             rollback(con);
         } finally {
             close(stmt);
@@ -133,7 +135,7 @@ public final class DatabaseRenameTemplates extends Database {
                 notifyUpdated(template);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseRenameTemplates.class, ex);
+            Logger.getLogger(DatabaseRenameTemplates.class.getName()).log(Level.SEVERE, null, ex);
             rollback(con);
         } finally {
             close(stmt);
@@ -167,7 +169,7 @@ public final class DatabaseRenameTemplates extends Database {
                 notifyDeleted(delTemplate);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseFavorites.class, ex);
+            Logger.getLogger(DatabaseRenameTemplates.class.getName()).log(Level.SEVERE, null, ex);
             rollback(con);
         } finally {
             close(stmt);
@@ -236,7 +238,7 @@ public final class DatabaseRenameTemplates extends Database {
             }
         } catch (Exception ex) {
             templates.clear();
-            AppLogger.logSevere(DatabaseFavorites.class, ex);
+            Logger.getLogger(DatabaseRenameTemplates.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -291,7 +293,7 @@ public final class DatabaseRenameTemplates extends Database {
                 template = getTemplate(rs);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseFavorites.class, ex);
+            Logger.getLogger(DatabaseRenameTemplates.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -325,7 +327,7 @@ public final class DatabaseRenameTemplates extends Database {
 
             exists = count > 0;
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseFavorites.class, ex);
+            Logger.getLogger(DatabaseRenameTemplates.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -351,7 +353,7 @@ public final class DatabaseRenameTemplates extends Database {
                 id = rs.getInt(1);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseFavorites.class, ex);
+            Logger.getLogger(DatabaseRenameTemplates.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);

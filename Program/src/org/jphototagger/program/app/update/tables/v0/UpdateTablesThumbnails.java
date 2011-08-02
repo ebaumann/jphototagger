@@ -10,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
 
@@ -19,7 +21,6 @@ import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.filefilter.RegexFileFilter;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.SplashScreen;
-import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.cache.PersistentThumbnails;
 import org.jphototagger.program.database.Database;
 import org.jphototagger.program.database.DatabaseApplicationProperties;
@@ -33,8 +34,8 @@ import org.jphototagger.program.resource.JptBundle;
  */
 final class UpdateTablesThumbnails extends Database {
     private static final int FETCH_MAX_ROWS = 1000;
-    private static final String KEY_UPATED_THUMBNAILS_NAMES_HASH_1 =
-        "Updated_Thumbnails_Names_Hash_1";    // Never change this!
+    private static final String KEY_UPATED_THUMBNAILS_NAMES_HASH_1 = "Updated_Thumbnails_Names_Hash_1";    // Never change this!
+    private static final Logger LOGGER = Logger.getLogger(UpdateTablesThumbnails.class.getName());
     private int count;
 
     void update(Connection con) throws SQLException {
@@ -65,7 +66,7 @@ final class UpdateTablesThumbnails extends Database {
 
         try {
             stmt = con.createStatement();
-            AppLogger.logFinest(getClass(), AppLogger.USE_STRING, sql);
+            LOGGER.log(Level.FINEST, sql);
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
@@ -88,7 +89,7 @@ final class UpdateTablesThumbnails extends Database {
         try {
             stmt = con.prepareStatement("UPDATE files SET thumbnail = NULL WHERE id = ?");
             stmt.setLong(1, id);
-            AppLogger.logFiner(UpdateTablesThumbnails.class, stmt.toString());
+            LOGGER.log(Level.FINER, stmt.toString());
             stmt.executeUpdate();
         } finally {
             Database.close(stmt);
@@ -108,7 +109,7 @@ final class UpdateTablesThumbnails extends Database {
 
                 writeThumbnail(thumbnail, id);
             } catch (Exception ex) {
-                AppLogger.logSevere(UpdateTablesThumbnails.class, ex);
+                Logger.getLogger(UpdateTablesThumbnails.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -139,7 +140,7 @@ final class UpdateTablesThumbnails extends Database {
                 }
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(UpdateTablesThumbnails.class, ex);
+            Logger.getLogger(UpdateTablesThumbnails.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             FileLock.INSTANCE.unlock(tnFile, UpdateTablesThumbnails.class);
             closeStream(fos);
@@ -151,7 +152,7 @@ final class UpdateTablesThumbnails extends Database {
             try {
                 fis.close();
             } catch (Exception ex) {
-                AppLogger.logSevere(UpdateTablesThumbnails.class, ex);
+                Logger.getLogger(UpdateTablesThumbnails.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -182,7 +183,7 @@ final class UpdateTablesThumbnails extends Database {
                     long id = Long.parseLong(file.getName());
 
                     stmt.setLong(1, id);
-                    AppLogger.logFinest(UpdateTablesThumbnails.class, AppLogger.USE_STRING, sql);
+                    LOGGER.log(Level.FINEST, sql);
                     rs = stmt.executeQuery();
 
                     if (rs.next()) {
@@ -191,17 +192,17 @@ final class UpdateTablesThumbnails extends Database {
                         convertThumbnail(id, imageFile);
                     } else {
                         if (!file.delete()) {    // orphaned thumbnail
-                            AppLogger.logWarning(getClass(), "UpdateTablesThumbnails.Error.DeleteThumbnail", file);
+                            LOGGER.log(Level.WARNING, "Can't delete orphaned Thumbnail ''{0}''!", file);
                         }
                     }
                 } catch (Exception ex) {
-                    AppLogger.logSevere(UpdateTablesThumbnails.class, ex);
+                    Logger.getLogger(UpdateTablesThumbnails.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
 
             DatabaseApplicationProperties.INSTANCE.setBoolean(KEY_UPATED_THUMBNAILS_NAMES_HASH_1, true);
         } catch (Exception ex) {
-            AppLogger.logSevere(UpdateTablesThumbnails.class, ex);
+            Logger.getLogger(UpdateTablesThumbnails.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             Database.close(rs, stmt);
         }
@@ -225,7 +226,7 @@ final class UpdateTablesThumbnails extends Database {
 
             return new File(directoryName + File.separator + id);
         } catch (Exception ex) {
-            AppLogger.logSevere(UpdateTablesThumbnails.class, ex);
+            Logger.getLogger(UpdateTablesThumbnails.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return null;
@@ -246,11 +247,11 @@ final class UpdateTablesThumbnails extends Database {
 
         if ((newTnFile != null) && newTnFile.exists()) {
             if (!oldTnFile.delete()) {
-                AppLogger.logWarning(getClass(), "UpdateTablesThumbnails.Error.DeleteOld", oldTnFile);
+                LOGGER.log(Level.WARNING, "Can't delete old thumbnail ''{0}''!", oldTnFile);
             }
         } else {
             if (!oldTnFile.renameTo(newTnFile)) {
-                AppLogger.logWarning(getClass(), "UpdateTablesThumbnails.Error.Rename", oldTnFile, newTnFile);
+                LOGGER.log(Level.WARNING, "Can't rename thumbnail ''{0}'' to ''{1}''!", new Object[]{oldTnFile, newTnFile});
             }
         }
     }
@@ -265,7 +266,7 @@ final class UpdateTablesThumbnails extends Database {
 
             String sql = "SELECT  COUNT(*) FROM files WHERE thumbnail IS NOT NULL";
 
-            AppLogger.logFinest(getClass(), AppLogger.USE_STRING, sql);
+            LOGGER.log(Level.FINEST, sql);
             rs = stmt.executeQuery(sql);
 
             if (rs.next()) {

@@ -1,16 +1,5 @@
 package org.jphototagger.program.controller.timeline;
 
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
-import org.jphototagger.program.data.Timeline;
-import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.program.event.listener.RefreshListener;
-import org.jphototagger.program.event.RefreshEvent;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.types.Content;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
-import org.jphototagger.program.view.WaitDisplay;
 import java.io.File;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -18,11 +7,25 @@ import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
+
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
+import org.jphototagger.program.data.Timeline;
+import org.jphototagger.program.database.DatabaseImageFiles;
+import org.jphototagger.program.event.RefreshEvent;
+import org.jphototagger.program.event.listener.RefreshListener;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.resource.JptBundle;
+import org.jphototagger.program.types.Content;
+import org.jphototagger.program.view.WaitDisplay;
+import org.jphototagger.program.view.panels.ThumbnailsPanel;
 
 /**
  *
@@ -127,7 +130,7 @@ public final class ControllerTimelineItemSelected implements TreeSelectionListen
                 d = df.parse(Integer.toString(date.year) + "-" + Integer.toString(date.month) + "-"
                              + Integer.toString(date.day));
             } catch (Exception ex) {
-                AppLogger.logSevere(getClass(), ex);
+                Logger.getLogger(ControllerTimelineItemSelected.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 

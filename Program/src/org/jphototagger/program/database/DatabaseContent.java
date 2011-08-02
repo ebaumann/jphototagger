@@ -1,12 +1,14 @@
 package org.jphototagger.program.database;
 
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.domain.database.Column;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.jphototagger.domain.database.Column;
 
 /**
  *
@@ -53,7 +55,7 @@ public final class DatabaseContent extends Database {
                 content.add(rs.getString(1));
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseContent.class, ex);
+            Logger.getLogger(DatabaseContent.class.getName()).log(Level.SEVERE, null, ex);
             content.clear();
         } finally {
             close(rs, stmt);

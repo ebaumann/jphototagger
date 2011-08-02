@@ -1,19 +1,22 @@
 package org.jphototagger.program.controller.imagecollection;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.swing.JTree;
+
 import org.jdesktop.swingx.JXList;
+import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.ListUtil;
-import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.helper.ImageCollectionsHelper;
 import org.jphototagger.program.model.ListModelImageCollections;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.popupmenus.PopupMenuImageCollections;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import javax.swing.JTree;
-import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Renames the selected image collection when the
@@ -26,6 +29,9 @@ import org.jphototagger.lib.awt.EventQueueUtil;
  * @author Elmar Baumann
  */
 public final class ControllerRenameImageCollection implements ActionListener, KeyListener {
+
+    private static final Logger LOGGER = Logger.getLogger(ControllerRenameImageCollection.class.getName());
+
     public ControllerRenameImageCollection() {
         listen();
     }
@@ -79,8 +85,7 @@ public final class ControllerRenameImageCollection implements ActionListener, Ke
                 }
             });
         } else {
-            AppLogger.logWarning(ControllerRenameImageCollection.class,
-                                 "ControllerRenameImageCollection.Error.NameIsNull");
+            LOGGER.log(Level.WARNING, "Rename photo album: Couldn't find the album's name (Item value == null)!");
         }
     }
 

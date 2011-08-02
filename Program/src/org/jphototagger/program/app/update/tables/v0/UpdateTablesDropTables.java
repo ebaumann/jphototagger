@@ -1,15 +1,17 @@
 package org.jphototagger.program.app.update.tables.v0;
 
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.app.SplashScreen;
-import org.jphototagger.program.database.Database;
-import org.jphototagger.program.database.DatabaseMetadata;
-import org.jphototagger.program.resource.JptBundle;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.jphototagger.program.app.SplashScreen;
+import org.jphototagger.program.database.Database;
+import org.jphototagger.program.database.DatabaseMetadata;
+import org.jphototagger.program.resource.JptBundle;
 
 /**
  *
@@ -17,7 +19,9 @@ import java.util.List;
  * @author Elmar Baumann
  */
 public final class UpdateTablesDropTables {
+
     private static final List<String> TABLES = new ArrayList<String>();
+    private static final Logger LOGGER = Logger.getLogger(UpdateTablesDropTables.class.getName());
 
     static {
         TABLES.add("saved_searches_values");
@@ -39,7 +43,7 @@ public final class UpdateTablesDropTables {
                 if (DatabaseMetadata.INSTANCE.existsTable(con, table)) {
                     String sql = "DROP TABLE " + table;
 
-                    AppLogger.logFiner(getClass(), AppLogger.USE_STRING, sql);
+                    LOGGER.log(Level.FINER, sql);
                     stmt.executeUpdate(sql);
                 }
             }

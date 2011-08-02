@@ -1,15 +1,18 @@
 package org.jphototagger.program.importer;
 
+import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.swing.Icon;
+import javax.swing.filechooser.FileFilter;
+
 import org.jphototagger.lib.xml.bind.XmlObjectImporter;
-import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.exporter.ProgramsExporter;
 import org.jphototagger.program.exporter.ProgramsExporter.CollectionWrapper;
-import java.io.File;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.Icon;
 
 /**
  *
@@ -35,7 +38,7 @@ public final class ProgramsImporter implements Importer {
                 }
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(ProgramsImporter.class, ex);
+            Logger.getLogger(ProgramsImporter.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

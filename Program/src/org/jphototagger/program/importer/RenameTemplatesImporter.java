@@ -1,15 +1,18 @@
 package org.jphototagger.program.importer;
 
-import org.jphototagger.lib.xml.bind.XmlObjectImporter;
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.app.AppLookAndFeel;
+import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.swing.Icon;
+import javax.swing.filechooser.FileFilter;
+
 import org.jphototagger.domain.templates.RenameTemplate;
+import org.jphototagger.lib.xml.bind.XmlObjectImporter;
+import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.database.DatabaseRenameTemplates;
 import org.jphototagger.program.exporter.RenameTemplatesExporter;
 import org.jphototagger.program.exporter.RenameTemplatesExporter.CollectionWrapper;
-import java.io.File;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.Icon;
 
 /**
  *
@@ -36,7 +39,7 @@ public final class RenameTemplatesImporter implements Importer {
                 }
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(RenameTemplatesImporter.class, ex);
+            Logger.getLogger(RenameTemplatesImporter.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

@@ -1,14 +1,17 @@
 package org.jphototagger.program.view.renderer;
 
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.io.ImageFileDirectory;
-import org.jphototagger.program.resource.JptBundle;
 import java.awt.Component;
 import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.swing.DefaultListCellRenderer;
-import javax.swing.filechooser.FileSystemView;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.filechooser.FileSystemView;
+
+import org.jphototagger.program.io.ImageFileDirectory;
+import org.jphototagger.program.resource.JptBundle;
 
 /**
  * Benutzt vom ScanDirectoriesDialog, zeigt Systemordnericons vor
@@ -33,7 +36,7 @@ public final class ListCellRendererDirectories extends DefaultListCellRenderer {
                 try {
                     label.setIcon(FILE_SYSTEM_VIEW.getSystemIcon(dir));
                 } catch (Exception ex) {
-                    AppLogger.logSevere(ListCellRendererDirectories.class, ex);
+                    Logger.getLogger(ListCellRendererDirectories.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }

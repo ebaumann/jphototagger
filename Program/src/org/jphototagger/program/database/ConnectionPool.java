@@ -1,13 +1,15 @@
 package org.jphototagger.program.database;
 
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.types.Filename;
-import org.jphototagger.program.UserSettings;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.types.Filename;
 
 /**
  * A class for preallocating, recycling, and managing
@@ -161,7 +163,7 @@ public final class ConnectionPool implements Runnable {
                 try {
                     wait();
                 } catch (InterruptedException ex) {
-                    AppLogger.logSevere(getClass(), ex);
+                    Logger.getLogger(ConnectionPool.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
 
@@ -217,7 +219,7 @@ public final class ConnectionPool implements Runnable {
 
             // Give up on new connection and wait for existing one
             // to free up.
-            AppLogger.logSevere(getClass(), ex);
+            Logger.getLogger(ConnectionPool.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

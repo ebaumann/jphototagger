@@ -1,17 +1,19 @@
 package org.jphototagger.program.controller.metadata;
 
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.app.MessageDisplayer;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.jphototagger.domain.templates.MetadataTemplate;
+import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.database.DatabaseMetadataTemplates;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.model.ComboBoxModelMetadataTemplates;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.EditMetaDataTemplateDialog;
 import org.jphototagger.program.view.panels.AppPanel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Kontrolliert Eingaben bezüglich Metadaten-Templates.
@@ -19,6 +21,9 @@ import org.jphototagger.lib.awt.EventQueueUtil;
  * @author Elmar Baumann
  */
 public final class ControllerMetadataTemplates implements ActionListener {
+
+    private static final Logger LOGGER = Logger.getLogger(ControllerMetadataTemplates.class.getName());
+
     public ControllerMetadataTemplates() {
         listen();
         setButtonsEnabled();
@@ -101,8 +106,7 @@ public final class ControllerMetadataTemplates implements ActionListener {
                         getModel().delete(template);
                     }
                 } else {
-                    AppLogger.logWarning(ControllerMetadataTemplates.class,
-                                         "ControllerMetadataTemplates.Error.WrongObject", o);
+                    LOGGER.log(Level.WARNING, "Metadata template: Got this object instead a metadata template: {0}", o);
                 }
             }
         });
@@ -151,8 +155,7 @@ public final class ControllerMetadataTemplates implements ActionListener {
                     newTemplate.setName(oldTemplate.getName());
                     getModel().update(newTemplate);
                 } else {
-                    AppLogger.logWarning(ControllerMetadataTemplates.class,
-                                         "ControllerMetadataTemplates.Error.WrongObject", o);
+                    LOGGER.log(Level.WARNING, "Metadata template: Got this object instead a metadata template: {0}", o);
                 }
             }
         });
@@ -169,8 +172,7 @@ public final class ControllerMetadataTemplates implements ActionListener {
 
                     GUI.getEditPanel().setMetadataTemplate(template);
                 } else {
-                    AppLogger.logWarning(ControllerMetadataTemplates.class,
-                                         "ControllerMetadataTemplates.Error.InsertTemplateIsNull");
+                    LOGGER.log(Level.WARNING, "Insert Metadata template: Selected Metadata template == null");
                 }
             }
         });

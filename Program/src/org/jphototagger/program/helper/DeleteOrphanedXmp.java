@@ -1,12 +1,14 @@
 package org.jphototagger.program.helper;
 
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.domain.event.listener.impl.ProgressListenerSupport;
-import org.jphototagger.lib.event.listener.ProgressListener;
-import org.jphototagger.lib.event.ProgressEvent;
-import org.jphototagger.program.resource.JptBundle;
 import java.text.MessageFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.jphototagger.domain.event.listener.impl.ProgressListenerSupport;
+import org.jphototagger.lib.event.ProgressEvent;
+import org.jphototagger.lib.event.listener.ProgressListener;
+import org.jphototagger.program.database.DatabaseImageFiles;
+import org.jphototagger.program.resource.JptBundle;
 
 /**
  * Löscht in der Datenbank Datensätze mit Dateien, die nicht mehr existieren.
@@ -21,6 +23,7 @@ public final class DeleteOrphanedXmp implements Runnable, ProgressListener {
     private volatile int countDeleted = 0;
     private String startMessage;
     private String endMessage;
+    private static final Logger LOGGER = Logger.getLogger(DeleteOrphanedXmp.class.getName());
 
     @Override
     public void run() {
@@ -112,7 +115,7 @@ public final class DeleteOrphanedXmp implements Runnable, ProgressListener {
     }
 
     private void logDeleteRecords() {
-        AppLogger.logInfo(DeleteOrphanedXmp.class, "DeleteOrphanedXmp.Info.StartRemove");
+        LOGGER.log(Level.INFO, "Delete from database records with not existing files");
     }
 
     private void setMessagesFiles() {

@@ -1,12 +1,5 @@
 package org.jphototagger.program.tasks;
 
-import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.program.app.AppLifeCycle;
-import org.jphototagger.program.app.AppLifeCycle.FinalTaskListener;
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.helper.BackupDatabase;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.UserSettings;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -16,12 +9,20 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.app.AppLifeCycle;
+import org.jphototagger.program.app.AppLifeCycle.FinalTaskListener;
+import org.jphototagger.program.helper.BackupDatabase;
+import org.jphototagger.program.resource.JptBundle;
+
 /**
  *
  *
  * @author Elmar Baumann
  */
 public final class ScheduledTaskBackupDatabase implements FinalTaskListener {
+
     public static final String CHARSET_INFO_FILE = "ASCII";
     private static final String DATE_FORMAT = "yyyy-MM-dd";
     private static final String FILENAME_LAST_BACKUP = "LastBackup";
@@ -95,13 +96,13 @@ public final class ScheduledTaskBackupDatabase implements FinalTaskListener {
             fos.write(dateString.getBytes(CHARSET_INFO_FILE));
             fos.flush();
         } catch (Exception ex) {
-            AppLogger.logSevere(ScheduledTaskBackupDatabase.class, ex);
+            Logger.getLogger(ScheduledTaskBackupDatabase.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (fos != null) {
                 try {
                     fos.close();
                 } catch (Exception ex) {
-                    AppLogger.logSevere(ScheduledTaskBackupDatabase.class, ex);
+                    Logger.getLogger(ScheduledTaskBackupDatabase.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -150,7 +151,7 @@ public final class ScheduledTaskBackupDatabase implements FinalTaskListener {
 
             return diff / MILLISECONDS_PER_DAY;
         } catch (Exception ex) {
-            AppLogger.logSevere(ScheduledTaskBackupDatabase.class, ex);
+            Logger.getLogger(ScheduledTaskBackupDatabase.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return -1;

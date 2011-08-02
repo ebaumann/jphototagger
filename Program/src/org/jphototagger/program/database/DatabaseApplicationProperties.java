@@ -1,9 +1,11 @@
 package org.jphototagger.program.database;
 
-import org.jphototagger.program.app.logging.AppLogger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 /**
  * Database for the application's usage.
@@ -54,7 +56,7 @@ public final class DatabaseApplicationProperties extends Database {
 
             return count > 0;
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseApplicationProperties.class, ex);
+            Logger.getLogger(DatabaseApplicationProperties.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -87,7 +89,7 @@ public final class DatabaseApplicationProperties extends Database {
             logFiner(stmt);
             stmt.executeUpdate();
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseApplicationProperties.class, ex);
+            Logger.getLogger(DatabaseApplicationProperties.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(stmt);
             free(con);
@@ -165,7 +167,7 @@ public final class DatabaseApplicationProperties extends Database {
             logFiner(stmt);
             stmt.executeUpdate();
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseApplicationProperties.class, ex);
+            Logger.getLogger(DatabaseApplicationProperties.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(stmt);
             free(con);
@@ -209,7 +211,7 @@ public final class DatabaseApplicationProperties extends Database {
             }
         } catch (Exception ex) {
             string = null;
-            AppLogger.logSevere(DatabaseApplicationProperties.class, ex);
+            Logger.getLogger(DatabaseApplicationProperties.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);

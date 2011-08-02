@@ -1,15 +1,18 @@
 package org.jphototagger.program.view.renderer;
 
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.domain.favorites.Favorite;
-import org.jphototagger.program.data.Timeline;
 import java.awt.Component;
 import java.io.File;
-import javax.swing.filechooser.FileSystemView;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.swing.JTree;
+import javax.swing.filechooser.FileSystemView;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
+
+import org.jphototagger.domain.favorites.Favorite;
+import org.jphototagger.program.app.AppLookAndFeel;
+import org.jphototagger.program.data.Timeline;
 
 /**
  * Renders items and text for {@link org.jphototagger.program.data.Timeline} nodes.
@@ -57,7 +60,7 @@ public final class TreeCellRendererFavorites extends DefaultTreeCellRenderer {
                     try {
                         setIcon(fileSystemView.getSystemIcon(file));
                     } catch (Exception ex) {
-                        AppLogger.logSevere(TreeCellRendererFavorites.class, ex);
+                        Logger.getLogger(TreeCellRendererFavorites.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
             }

@@ -1,11 +1,13 @@
 package org.jphototagger.program.factory;
 
-import org.jphototagger.program.app.logging.AppLogger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.AppWindowPersistence;
 import org.jphototagger.program.app.update.UpdateDownload;
 import org.jphototagger.program.tasks.ScheduledTaskBackupDatabase;
-import org.jphototagger.program.UserSettings;
-import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Initalizes all other factories in the right order and sets the persistent
@@ -54,7 +56,6 @@ public final class MetaFactory implements Runnable {
 
     private void checkForDownload() {
         UpdateDownload.askOnceCheckForNewerVersion();
-
         if (UserSettings.INSTANCE.isAutoDownloadNewerVersions()) {
 
             // Returning immediately
@@ -65,7 +66,7 @@ public final class MetaFactory implements Runnable {
                         Thread.sleep(60 * 1000);
                         UpdateDownload.checkForNewerVersion();
                     } catch (Exception ex) {
-                        AppLogger.logSevere(getClass(), ex);
+                        Logger.getLogger(MetaFactory.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
             }, "JPhotoTagger: Checking for a newer version").start();

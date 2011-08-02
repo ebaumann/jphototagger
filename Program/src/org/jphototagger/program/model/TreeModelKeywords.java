@@ -1,20 +1,23 @@
 package org.jphototagger.program.model;
 
-import org.jphototagger.lib.componentutil.TreeUtil;
-import org.jphototagger.lib.model.TreeNodeSortedChildren;
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.domain.keywords.Keyword;
-import org.jphototagger.program.database.DatabaseKeywords;
-import org.jphototagger.program.helper.KeywordsHelper;
-import org.jphototagger.program.resource.JptBundle;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
+
+import org.jphototagger.domain.keywords.Keyword;
+import org.jphototagger.lib.componentutil.TreeUtil;
+import org.jphototagger.lib.model.TreeNodeSortedChildren;
+import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.program.database.DatabaseKeywords;
+import org.jphototagger.program.helper.KeywordsHelper;
+import org.jphototagger.program.resource.JptBundle;
 
 /**
  * Elements are {@link DefaultMutableTreeNode}s with the user objects listed
@@ -28,7 +31,9 @@ import javax.swing.tree.TreeNode;
  * @author Elmar Baumann
  */
 public final class TreeModelKeywords extends DefaultTreeModel {
+
     private static final long serialVersionUID = -1044898256327030256L;
+    private static final Logger LOGGER = Logger.getLogger(TreeModelKeywords.class.getName());
     private final DefaultMutableTreeNode ROOT;
 
     public TreeModelKeywords() {
@@ -329,7 +334,7 @@ public final class TreeModelKeywords extends DefaultTreeModel {
             }
         }
 
-        AppLogger.logWarning(TreeModelKeywords.class, "TreeModelKeywords.Error.SetIdParent", parentNode);
+        LOGGER.log(Level.WARNING, "TreeModelKeywords.Error.SetIdParent", parentNode);
 
         return false;
     }

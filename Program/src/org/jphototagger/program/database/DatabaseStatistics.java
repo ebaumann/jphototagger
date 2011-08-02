@@ -1,12 +1,14 @@
 package org.jphototagger.program.database;
 
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.domain.database.Column;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.jphototagger.domain.database.Column;
 
 /**
  *
@@ -50,7 +52,7 @@ public final class DatabaseStatistics extends Database {
                 count = rs.getInt(1);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseStatistics.class, ex);
+            Logger.getLogger(DatabaseStatistics.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -83,7 +85,7 @@ public final class DatabaseStatistics extends Database {
                 count = rs.getInt(1);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseStatistics.class, ex);
+            Logger.getLogger(DatabaseStatistics.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -116,7 +118,7 @@ public final class DatabaseStatistics extends Database {
                 count = rs.getInt(1);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseStatistics.class, ex);
+            Logger.getLogger(DatabaseStatistics.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -164,7 +166,7 @@ public final class DatabaseStatistics extends Database {
                 stmt.close();
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseStatistics.class, ex);
+            Logger.getLogger(DatabaseStatistics.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -202,7 +204,7 @@ public final class DatabaseStatistics extends Database {
                 count = rs.getInt(1);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseStatistics.class, ex);
+            Logger.getLogger(DatabaseStatistics.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);

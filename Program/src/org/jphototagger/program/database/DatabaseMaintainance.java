@@ -1,12 +1,14 @@
 package org.jphototagger.program.database;
 
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.app.MessageDisplayer;
 import java.sql.Connection;
 import java.sql.Statement;
+import static java.text.MessageFormat.format;
 import java.util.ArrayList;
 import java.util.List;
-import static java.text.MessageFormat.format;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.jphototagger.program.app.MessageDisplayer;
 
 /**
  *
@@ -14,7 +16,9 @@ import static java.text.MessageFormat.format;
  * @author Elmar Baumann
  */
 public final class DatabaseMaintainance extends Database {
+
     public static final DatabaseMaintainance INSTANCE = new DatabaseMaintainance();
+    private static final Logger LOGGER = Logger.getLogger(DatabaseMaintainance.class.getName());
 
     private DatabaseMaintainance() {}
 
@@ -29,10 +33,10 @@ public final class DatabaseMaintainance extends Database {
             con = getConnection();
             con.setAutoCommit(true);
             stmt = con.createStatement();
-            AppLogger.logInfo(DatabaseMaintainance.class, "DatabaseMaintainance.Info.Shutdown");
+            LOGGER.log(Level.INFO, "Closing the database");
             stmt.executeUpdate("SHUTDOWN");
         } catch (Exception ex) {
-            AppLogger.logSevere(Database.class, ex);
+            Logger.getLogger(DatabaseMaintainance.class.getName()).log(Level.SEVERE, null, ex);
             MessageDisplayer.error(null, "DatabaseMaintainance.Error.Shutdown");
         } finally {
             close(stmt);
@@ -56,7 +60,7 @@ public final class DatabaseMaintainance extends Database {
             stmt.executeUpdate("CHECKPOINT DEFRAG");
             success = true;
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseMaintainance.class, ex);
+            Logger.getLogger(DatabaseMaintainance.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(stmt);
             free(con);
@@ -131,7 +135,7 @@ public final class DatabaseMaintainance extends Database {
                 deleted += stmt.executeUpdate(sql);
             }
         } catch (Exception ex) {
-            AppLogger.logSevere(DatabaseMaintainance.class, ex);
+            Logger.getLogger(DatabaseMaintainance.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(stmt);
             free(con);

@@ -31,12 +31,9 @@ import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.lib.util.ArrayUtil;
 import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.app.logging.AppLogger;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.database.DatabaseKeywords;
 import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.xmp.FileXmp;
-import org.jphototagger.xmp.XmpMetadata;
 import org.jphototagger.program.model.TreeModelKeywords;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.resource.JptBundle;
@@ -45,6 +42,8 @@ import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
 import org.jphototagger.program.view.renderer.TreeCellRendererKeywords;
+import org.jphototagger.xmp.FileXmp;
+import org.jphototagger.xmp.XmpMetadata;
 
 /**
  * Helper for hierarchical keywords and Dublin Core subjects ("flat" keywords).
@@ -55,6 +54,8 @@ import org.jphototagger.program.view.renderer.TreeCellRendererKeywords;
  * @author Elmar Baumann
  */
 public final class KeywordsHelper {
+
+    private static final Logger LOGGER = Logger.getLogger(KeywordsHelper.class.getName());
 
     private KeywordsHelper() {
     }
@@ -501,7 +502,7 @@ public final class KeywordsHelper {
         }
 
         private static void logStartDelete(String keyword) {
-            AppLogger.logInfo(KeywordsHelper.class, "KeywordsHelper.Info.StartDelete", keyword);
+            LOGGER.log(Level.INFO, "Deleting keyword ''{0}'' from the database and all XMP sidecar files", keyword);
         }
 
         @Override
@@ -572,7 +573,9 @@ public final class KeywordsHelper {
         }
 
         private static void logStartRename(String fromName, String toName) {
-            AppLogger.logInfo(KeywordsHelper.class, "KeywordsHelper.Info.StartRename", fromName, toName);
+            LOGGER.log(Level.INFO,
+                    "Rename keyword ''{0}'' into ''{1}'' in the database and all XMP sidecar files",
+                    new Object[]{fromName, toName});
         }
 
         @Override

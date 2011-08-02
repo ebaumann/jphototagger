@@ -1,18 +1,20 @@
 package org.jphototagger.program.helper;
 
-import org.jphototagger.lib.dialog.ProgressDialog;
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.controller.misc.SizeAndLocationController;
-import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.lib.event.listener.ProgressListener;
-import org.jphototagger.lib.event.ProgressEvent;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.dialog.ProgressDialog;
+import org.jphototagger.lib.event.ProgressEvent;
+import org.jphototagger.lib.event.listener.ProgressListener;
+import org.jphototagger.program.controller.misc.SizeAndLocationController;
+import org.jphototagger.program.database.DatabaseImageFiles;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.resource.JptBundle;
 
 /**
  * Updates all Thumbnails in the database with the current settings.
@@ -20,9 +22,11 @@ import org.jphototagger.lib.awt.EventQueueUtil;
  * @author Elmar Baumann
  */
 public final class UpdateAllThumbnails implements Runnable, ProgressListener, ActionListener {
+
     private ProgressDialog progressDialog;
     private boolean cancel;
     private final Set<ActionListener> actionListeners = new HashSet<ActionListener>();
+    private static final Logger LOGGER = Logger.getLogger(UpdateAllThumbnails.class.getName());
 
     /**
      * Adds an action listener. It will be notified when the work is done.
@@ -123,7 +127,7 @@ public final class UpdateAllThumbnails implements Runnable, ProgressListener, Ac
     }
 
     private void logUpdateAllThumbnails() {
-        AppLogger.logInfo(UpdateAllThumbnails.class, "UpdateAllThumbnails.Info.StartUpdate");
+        LOGGER.log(Level.INFO, "Updating all known thumbnails in the database");
     }
 
     private synchronized void notifyActionPerformed() {

@@ -1,37 +1,38 @@
 package org.jphototagger.program.model;
 
-import org.jphototagger.lib.componentutil.TreeUtil;
-import org.jphototagger.lib.io.filefilter.DirectoryFilter;
-import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.lib.io.TreeFileSystemDirectories;
-import org.jphototagger.lib.model.TreeNodeSortedChildren;
-import org.jphototagger.program.app.AppLifeCycle;
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.domain.favorites.Favorite;
-import org.jphototagger.program.database.DatabaseFavorites;
-import org.jphototagger.domain.event.listener.AppExitListener;
-import org.jphototagger.domain.event.listener.DatabaseFavoritesListener;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.UserSettings;
 import java.awt.Cursor;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.Properties;
 import java.util.Stack;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.swing.JTree;
 import javax.swing.event.TreeExpansionEvent;
 import javax.swing.event.TreeWillExpandListener;
-import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.ExpandVetoException;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
+
+import org.jphototagger.domain.event.listener.AppExitListener;
+import org.jphototagger.domain.event.listener.DatabaseFavoritesListener;
+import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.componentutil.TreeUtil;
+import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.lib.io.TreeFileSystemDirectories;
+import org.jphototagger.lib.io.filefilter.DirectoryFilter;
+import org.jphototagger.lib.model.TreeNodeSortedChildren;
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.app.AppLifeCycle;
+import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.program.database.DatabaseFavorites;
+import org.jphototagger.program.resource.JptBundle;
 
 /**
  * Elements are {@link DefaultMutableTreeNode}s with the user objects listed
@@ -713,7 +714,6 @@ public final class TreeModelFavorites extends DefaultTreeModel
     }
 
     private void errorMessageAddDirectory(Favorite favorite) {
-        AppLogger.logWarning(TreeModelFavorites.class, "TreeModelFavorites.Error.DbDirectoryDoesNotExist",
-                             favorite.getDirectory());
+        LOGGER.log(Level.WARNING, "The favorite ''{0}'' couldn't be read!", favorite.getDirectory());
     }
 }

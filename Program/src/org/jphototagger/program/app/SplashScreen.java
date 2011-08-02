@@ -1,12 +1,14 @@
 package org.jphototagger.program.app;
 
-import org.jphototagger.program.app.logging.AppLogger;
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 /**
  * The application's splashscreen.
@@ -18,8 +20,7 @@ public final class SplashScreen {
     private static final Color MESSAGE_COLOR = Color.BLACK;
     private static final int MESSAGE_FONT_SIZE = 12;
     private static final Font MESSAGE_FONT = new Font("Arial", Font.PLAIN, MESSAGE_FONT_SIZE);
-    private static final Font MESSAGE_HEADER_FONT = new Font(MESSAGE_FONT.getName(), Font.BOLD,
-                                                        (int) (MESSAGE_FONT_SIZE * 1.5 + 0.5));
+    private static final Font MESSAGE_HEADER_FONT = new Font(MESSAGE_FONT.getName(), Font.BOLD, (int) (MESSAGE_FONT_SIZE * 1.5 + 0.5));
     private static final Color SLOGAN_COLOR = Color.BLUE;
     private static final int SLOGAN_PADDING_TO_MESSAGE = 15;
     private static final int PROGRESSBAR_HEIGHT = 15;
@@ -35,6 +36,7 @@ public final class SplashScreen {
     private int progressValue;
     private volatile boolean init;
     public static final SplashScreen INSTANCE = new SplashScreen();
+    private static final Logger LOGGER = Logger.getLogger(SplashScreen.class.getName());
 
     public synchronized void init() {
         if (init) {
@@ -90,7 +92,7 @@ public final class SplashScreen {
         assert init;
 
         this.message = message;
-        AppLogger.logInfo(getClass(), AppLogger.USE_STRING, message);
+        LOGGER.log(Level.INFO, message);
 
         if (canDisplay()) {
             updateDisplay();

@@ -1,9 +1,11 @@
 package org.jphototagger.program.serviceprovider.core;
 
 import java.io.File;
-import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.app.logging.AppLogger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.jphototagger.api.core.CacheDirectoryProvider;
+import org.jphototagger.program.UserSettings;
 
 /**
  *
@@ -13,6 +15,7 @@ import org.jphototagger.api.core.CacheDirectoryProvider;
 public final class CacheDirectoryProviderImpl implements CacheDirectoryProvider {
 
     private static final File CACHE_DIRECTORY = new File(UserSettings.INSTANCE.getSettingsDirectoryName() + File.separator + "cache");
+    private static final Logger LOGGER = Logger.getLogger(CacheDirectoryProviderImpl.class.getName());
 
     @Override
     public File getCacheDirectory() {
@@ -26,8 +29,7 @@ public final class CacheDirectoryProviderImpl implements CacheDirectoryProvider 
             boolean created = CACHE_DIRECTORY.mkdirs();
 
             if (!created) {
-                AppLogger.logWarning(CacheDirectoryProviderImpl.class,
-                        "JptCacheDirectoryProvider.Error.CreatingCacheDirectory", CACHE_DIRECTORY);
+                LOGGER.log(Level.WARNING, "Error creating cache folder ''{0}''", CACHE_DIRECTORY);
             }
         }
     }

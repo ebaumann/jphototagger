@@ -1,10 +1,12 @@
 package org.jphototagger.program.app;
 
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.program.UserSettings;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.program.UserSettings;
 
 /**
  * Creates an application lock file to prevent multiple instances. Uses
@@ -40,7 +42,7 @@ public final class AppLock {
 
                 return true;
             } catch (IOException ex) {
-                AppLogger.logSevere(AppLock.class, ex);
+                Logger.getLogger(AppLock.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 

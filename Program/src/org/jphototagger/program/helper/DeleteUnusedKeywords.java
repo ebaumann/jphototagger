@@ -1,14 +1,16 @@
 package org.jphototagger.program.helper;
 
-import org.jphototagger.lib.concurrent.Cancelable;
-import org.jphototagger.program.app.logging.AppLogger;
-import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.domain.event.listener.impl.ProgressListenerSupport;
-import org.jphototagger.lib.event.listener.ProgressListener;
-import org.jphototagger.lib.event.ProgressEvent;
-import org.jphototagger.program.resource.JptBundle;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.jphototagger.domain.event.listener.impl.ProgressListenerSupport;
+import org.jphototagger.lib.concurrent.Cancelable;
+import org.jphototagger.lib.event.ProgressEvent;
+import org.jphototagger.lib.event.listener.ProgressListener;
+import org.jphototagger.program.database.DatabaseImageFiles;
+import org.jphototagger.program.resource.JptBundle;
 
 /**
  * Deletes from the database keywords not contained in any image file.
@@ -19,6 +21,7 @@ public final class DeleteUnusedKeywords implements Runnable, Cancelable {
     private volatile boolean cancel;
     private final ProgressListenerSupport ls = new ProgressListenerSupport();
     private volatile int countDeleted = 0;
+    private static final Logger LOGGER = Logger.getLogger(DeleteUnusedKeywords.class.getName());
 
     public synchronized void addProgressListener(ProgressListener listener) {
         if (listener == null) {
@@ -59,7 +62,7 @@ public final class DeleteUnusedKeywords implements Runnable, Cancelable {
     public void notifyProgressStarted(int count) {
         ProgressEvent evt = new ProgressEvent(this, 0, count, 0, getStartMessage());
 
-        AppLogger.logInfo(DeleteUnusedKeywords.class, "DeleteUnusedKeywords.Info.Start");
+        LOGGER.log(Level.INFO, "Deleting unused keywords");
 
         // Catching cancellation request
         for (ProgressListener listener : ls.get()) {
