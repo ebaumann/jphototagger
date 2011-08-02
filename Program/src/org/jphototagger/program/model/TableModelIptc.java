@@ -1,16 +1,17 @@
 package org.jphototagger.program.model;
 
-import org.jphototagger.lib.model.TableModelExt;
-import org.jphototagger.iptc.IptcEntry;
-import org.jphototagger.iptc.IptcEntryComparator;
-import org.jphototagger.iptc.IptcMetadata;
-import org.jphototagger.program.resource.JptBundle;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import org.jphototagger.program.app.AppFileFilters;
+
+import org.jphototagger.iptc.IptcEntry;
+import org.jphototagger.iptc.IptcEntryComparator;
 import org.jphototagger.iptc.IptcIgnoreCache;
+import org.jphototagger.iptc.IptcMetadata;
+import org.jphototagger.lib.model.TableModelExt;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.app.AppFileFilters;
 
 /**
  * All elements are {@link IptcEntry}s of <em>one</em> image file retrieved
@@ -76,8 +77,8 @@ public final class TableModelIptc extends TableModelExt {
     }
 
     private void addColumnHeaders() {
-        addColumn(JptBundle.INSTANCE.getString("TableModelIptc.HeaderColumn.1"));
-        addColumn(JptBundle.INSTANCE.getString("TableModelIptc.HeaderColumn.2"));
-        addColumn(JptBundle.INSTANCE.getString("TableModelIptc.HeaderColumn.3"));
+        addColumn(Bundle.getString(TableModelIptc.class, "TableModelIptc.HeaderColumn.1"));
+        addColumn(Bundle.getString(TableModelIptc.class, "TableModelIptc.HeaderColumn.2"));
+        addColumn(Bundle.getString(TableModelIptc.class, "TableModelIptc.HeaderColumn.3"));
     }
 }

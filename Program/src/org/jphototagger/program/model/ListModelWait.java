@@ -1,7 +1,7 @@
 package org.jphototagger.program.model;
 
-import org.jphototagger.program.resource.JptBundle;
 import javax.swing.DefaultListModel;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * Contains exactly one list element with a "wait" text and is a substitute as
@@ -14,6 +14,6 @@ public final class ListModelWait extends DefaultListModel {
     public static final ListModelWait INSTANCE = new ListModelWait();
 
     public ListModelWait() {
-        addElement(JptBundle.INSTANCE.getString("ListModelWait.ItemText"));
+        addElement(Bundle.getString(ListModelWait.class, "ListModelWait.ItemText"));
     }
 }

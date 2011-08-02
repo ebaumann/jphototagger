@@ -7,7 +7,8 @@ import java.util.List;
 import org.jphototagger.lib.event.ProgressEvent;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.SourceTargetFile;
-import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 
 /**
  * Moves files to a target directory. The info object in
@@ -123,7 +124,8 @@ public final class FileSystemMove extends FileSystem implements Runnable {
         boolean exists = targetFile.exists();
 
         if (exists) {
-            MessageDisplayer.error(null, "FileSystemMove.Error.TargetExists", sourceFile, targetFile);
+            String message = Bundle.getString(FileSystemMove.class, "FileSystemMove.Error.TargetExists", sourceFile, targetFile);
+            MessageDisplayer.error(null, message);
         }
 
         return !exists;
@@ -133,7 +135,8 @@ public final class FileSystemMove extends FileSystem implements Runnable {
         if (moved) {
             notifyFileSystemListenersMoved(sourceFile, targetFile);
         } else {
-            MessageDisplayer.error(null, "FileSystemMove.Error", sourceFile, targetFile);
+            String message = Bundle.getString(FileSystemMove.class, "FileSystemMove.Error", sourceFile, targetFile);
+            MessageDisplayer.error(null, message);
         }
     }
 }

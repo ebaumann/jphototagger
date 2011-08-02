@@ -1,13 +1,16 @@
 package org.jphototagger.program.model;
 
-import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.database.ConnectionPool;
-import org.jphototagger.program.database.DatabaseFileExcludePatterns;
-import org.jphototagger.domain.event.listener.DatabaseFileExcludePatternsListener;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.DefaultListModel;
+
+import org.jphototagger.domain.event.listener.DatabaseFileExcludePatternsListener;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.program.database.ConnectionPool;
+import org.jphototagger.program.database.DatabaseFileExcludePatterns;
 
 /**
  * Element are {@link String}s retrieved through
@@ -100,15 +103,18 @@ public final class ListModelFileExcludePatterns extends DefaultListModel
     }
 
     private void errorMessageDelete(String trimmedPattern) {
-        MessageDisplayer.error(null, "ListModelFileExcludePatterns.Error.Delete", trimmedPattern);
+        String message = Bundle.getString(ListModelFileExcludePatterns.class, "ListModelFileExcludePatterns.Error.Delete", trimmedPattern);
+        MessageDisplayer.error(null, message);
     }
 
     private void errorMessageInsert(String trimmedPattern) {
-        MessageDisplayer.error(null, "ListModelFileExcludePatterns.Error.InsertPattern.Add", trimmedPattern);
+        String message = Bundle.getString(ListModelFileExcludePatterns.class, "ListModelFileExcludePatterns.Error.InsertPattern.Add", trimmedPattern);
+        MessageDisplayer.error(null, message);
     }
 
     private void errorMessageExists(String trimmedPattern) {
-        MessageDisplayer.error(null, "ListModelFileExcludePatterns.Error.InsertPattern.Exists", trimmedPattern);
+        String message = Bundle.getString(ListModelFileExcludePatterns.class, "ListModelFileExcludePatterns.Error.InsertPattern.Exists", trimmedPattern);
+        MessageDisplayer.error(null, message);
     }
 
     @Override

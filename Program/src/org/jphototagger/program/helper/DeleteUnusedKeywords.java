@@ -9,8 +9,8 @@ import org.jphototagger.domain.event.listener.impl.ProgressListenerSupport;
 import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.lib.event.ProgressEvent;
 import org.jphototagger.lib.event.listener.ProgressListener;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.program.resource.JptBundle;
 
 /**
  * Deletes from the database keywords not contained in any image file.
@@ -100,10 +100,10 @@ public final class DeleteUnusedKeywords implements Runnable, Cancelable {
     }
 
     private Object getEndMessage(int count, int countDeleted) {
-        return JptBundle.INSTANCE.getString("DeleteUnusedKeywords.Info.Finished", count, countDeleted);
+        return Bundle.getString(DeleteUnusedKeywords.class, "DeleteUnusedKeywords.Info.Finished", count, countDeleted);
     }
 
     private Object getStartMessage() {
-        return JptBundle.INSTANCE.getString("DeleteUnusedKeywords.Info.Start");
+        return Bundle.getString(DeleteUnusedKeywords.class, "DeleteUnusedKeywords.Info.Start");
     }
 }

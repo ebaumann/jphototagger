@@ -7,9 +7,10 @@ import javax.swing.JFileChooser;
 
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.Settings;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.exporter.Exporter;
 import org.jphototagger.program.model.ComboBoxModelKeywordsExporters;
 import org.jphototagger.program.resource.GUI;
@@ -161,7 +162,9 @@ public class KeywordExportDialog extends Dialog {
             return true;
         }
 
-        return MessageDisplayer.confirmYesNo(this, "KeywordExportDialog.Confirm.OverwriteFile", file);
+        String message = Bundle.getString(KeywordExportDialog.class, "KeywordExportDialog.Confirm.OverwriteFile", file);
+
+        return MessageDisplayer.confirmYesNo(this, message);
     }
 
     @Override

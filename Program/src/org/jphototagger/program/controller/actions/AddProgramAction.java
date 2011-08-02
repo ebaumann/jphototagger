@@ -3,11 +3,11 @@ package org.jphototagger.program.controller.actions;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.program.database.DatabasePrograms;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.dialogs.ProgramPropertiesDialog;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  *
@@ -18,7 +18,7 @@ public final class AddProgramAction extends AbstractAction {
     private static final long serialVersionUID = -8236351732517551399L;
 
     public AddProgramAction() {
-        super(JptBundle.INSTANCE.getString("ControllerAddAction.Name"));
+        super(Bundle.getString(AddProgramAction.class, "AddProgramAction.Name"));
         putValue(Action.SMALL_ICON, AppLookAndFeel.getIcon("icon_add.png"));
     }
 

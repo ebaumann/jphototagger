@@ -7,13 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.jphototagger.lib.util.Bundle;
 
 import org.jphototagger.program.app.SplashScreen;
 import org.jphototagger.program.app.update.tables.ColumnInfo;
 import org.jphototagger.program.app.update.tables.IndexOfColumn;
 import org.jphototagger.program.database.Database;
 import org.jphototagger.program.database.DatabaseMetadata;
-import org.jphototagger.program.resource.JptBundle;
 
 /**
  * Adds new columns to the database.
@@ -148,7 +148,7 @@ final class UpdateTablesInsertColumns {
     }
 
     private void startMessage() {
-        SplashScreen.INSTANCE.setMessage(JptBundle.INSTANCE.getString("UpdateTablesInsertColumns.Info"));
+        SplashScreen.INSTANCE.setMessage(Bundle.getString(UpdateTablesInsertColumns.class, "UpdateTablesInsertColumns.Info"));
     }
 
     private void addSpecialColumns(Connection con) throws SQLException {

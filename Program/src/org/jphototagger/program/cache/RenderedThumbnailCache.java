@@ -15,7 +15,7 @@ import org.jphototagger.domain.event.ThumbnailUpdateEvent;
 import org.jphototagger.domain.event.listener.ThumbnailUpdateListener;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.image.util.IconUtil;
-import org.jphototagger.program.resource.JptBundle;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.view.renderer.ThumbnailPanelRenderer;
 
 /**
@@ -29,22 +29,19 @@ import org.jphototagger.program.view.renderer.ThumbnailPanelRenderer;
  */
 public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
     public static final RenderedThumbnailCache INSTANCE = new RenderedThumbnailCache();
-    protected final int MAX_ENTRIES = 1500;
-    static int currentAge = 0;
+    private final int MAX_ENTRIES = 1500;
+    private static int currentAge = 0;
     private final Set<ThumbnailUpdateListener> updateListeners = new HashSet<ThumbnailUpdateListener>();
-    protected WorkQueue<RenderedThumbnailCacheIndirection> workQueue =
-        new WorkQueue<RenderedThumbnailCacheIndirection>();
+    private WorkQueue<RenderedThumbnailCacheIndirection> workQueue = new WorkQueue<RenderedThumbnailCacheIndirection>();
     private ThumbnailCache thumbCache = ThumbnailCache.INSTANCE;
     private XmpCache xmpCache = XmpCache.INSTANCE;
     private Image scaledDummyThumbnail = null;
-    private Image dummyThumbnail =
-        IconUtil.getIconImage(JptBundle.INSTANCE.getString("RenderedThumbnailCache.Path.DummyThumbnail"));
+    private Image dummyThumbnail = IconUtil.getIconImage(Bundle.getString(RenderedThumbnailCache.class, "RenderedThumbnailCache.Path.DummyThumbnail"));
 
     /**
      * Mapping from file to all kinds of cached data
      */
-    protected final SoftCacheMap<RenderedThumbnailCacheIndirection> fileCache =
-        new SoftCacheMap<RenderedThumbnailCacheIndirection>(MAX_ENTRIES, workQueue);
+    private final SoftCacheMap<RenderedThumbnailCacheIndirection> fileCache = new SoftCacheMap<RenderedThumbnailCacheIndirection>(MAX_ENTRIES, workQueue);
     private ThumbnailPanelRenderer renderer = null;
 
     private RenderedThumbnailCache() {
@@ -201,7 +198,7 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
         }
     }
 
-    protected void updateUsageTime(CacheIndirection ci) {
+    private void updateUsageTime(CacheIndirection ci) {
         if (ci == null) {
             throw new NullPointerException("ci == null");
         }
@@ -259,7 +256,7 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
         return null;
     }
 
-    protected synchronized void generateEntry(File file, int length, boolean prefetch) {
+    private synchronized void generateEntry(File file, int length, boolean prefetch) {
         if (file == null) {
             throw new NullPointerException("file == null");
         }

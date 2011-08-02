@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.jphototagger.lib.util.Bundle;
 
 import org.jphototagger.program.app.SplashScreen;
 import org.jphototagger.program.database.Database;
-import org.jphototagger.program.resource.JptBundle;
 
 /**
  * Updates the table's primary keys.
@@ -59,6 +59,6 @@ final class UpdateTablesPrimaryKeys {
     }
 
     private void startMessage() {
-        SplashScreen.INSTANCE.setMessage(JptBundle.INSTANCE.getString("UpdateTablesPrimaryKeys.Info"));
+        SplashScreen.INSTANCE.setMessage(Bundle.getString(UpdateTablesPrimaryKeys.class, "UpdateTablesPrimaryKeys.Info"));
     }
 }

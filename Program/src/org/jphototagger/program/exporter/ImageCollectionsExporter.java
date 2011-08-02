@@ -16,10 +16,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.jphototagger.domain.imagecollections.ImageCollection;
 import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.xml.bind.XmlObjectExporter;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.database.DatabaseImageCollections;
-import org.jphototagger.program.resource.JptBundle;
 
 /**
  *
@@ -27,9 +27,7 @@ import org.jphototagger.program.resource.JptBundle;
  * @author Elmar Baumann
  */
 public final class ImageCollectionsExporter implements Exporter {
-    public static final FileFilter FILE_FILTER =
-        new FileNameExtensionFilter(JptBundle.INSTANCE.getString("ImageCollectionsExporter.DisplayName.FileFilter"),
-                                    "xml");
+    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(ImageCollectionsExporter.class, "ImageCollectionsExporter.DisplayName.FileFilter"), "xml");
     public static final ImageCollectionsExporter INSTANCE = new ImageCollectionsExporter();
 
     @Override
@@ -56,7 +54,7 @@ public final class ImageCollectionsExporter implements Exporter {
 
     @Override
     public String getDisplayName() {
-        return JptBundle.INSTANCE.getString("ExportImageCollections.DisplayName");
+        return Bundle.getString(ImageCollectionsExporter.class, "ExportImageCollections.DisplayName");
     }
 
     @Override

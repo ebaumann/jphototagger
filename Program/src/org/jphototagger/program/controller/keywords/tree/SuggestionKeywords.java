@@ -1,14 +1,15 @@
 package org.jphototagger.program.controller.keywords.tree;
 
-import org.jphototagger.domain.keywords.Keyword;
-import org.jphototagger.program.database.DatabaseKeywords;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.types.Suggest;
-import org.jphototagger.program.view.dialogs.PathSelectionDialog;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+
+import org.jphototagger.domain.keywords.Keyword;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.database.DatabaseKeywords;
+import org.jphototagger.program.types.Suggest;
+import org.jphototagger.program.view.dialogs.PathSelectionDialog;
 
 /**
  * Suggest keywords.
@@ -38,7 +39,7 @@ public class SuggestionKeywords implements Suggest {
             PathSelectionDialog dlg = new PathSelectionDialog(parentKeywords,
                                           PathSelectionDialog.Mode.DISTINCT_ELEMENTS);
 
-            dlg.setInfoMessage(JptBundle.INSTANCE.getString("SuggestKeywords.Info", keywordName));
+            dlg.setInfoMessage(Bundle.getString(SuggestionKeywords.class, "SuggestKeywords.Info", keywordName));
             dlg.setVisible(true);
 
             if (dlg.isAccepted()) {
@@ -73,6 +74,6 @@ public class SuggestionKeywords implements Suggest {
 
     @Override
     public String getDescription() {
-        return JptBundle.INSTANCE.getString("SuggestKeywords.Description");
+        return Bundle.getString(SuggestionKeywords.class, "SuggestKeywords.Description");
     }
 }

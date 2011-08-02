@@ -1,6 +1,6 @@
 package org.jphototagger.program.controller.filesystem;
 
-import org.jphototagger.program.resource.JptBundle;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * A format which is always an empty string.
@@ -21,6 +21,6 @@ public final class FilenameFormatEmptyString extends FilenameFormat {
 
     @Override
     public String toString() {
-        return JptBundle.INSTANCE.getString("FilenameFormatEmptyString.String");
+        return Bundle.getString(FilenameFormatEmptyString.class, "FilenameFormatEmptyString.String");
     }
 }

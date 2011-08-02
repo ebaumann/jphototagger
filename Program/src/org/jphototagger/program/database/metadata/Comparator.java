@@ -1,6 +1,6 @@
 package org.jphototagger.program.database.metadata;
 
-import org.jphototagger.program.resource.JptBundle;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * Comparator einer Spaltensuche (vergleicht den Spaltenwert mit einem
@@ -11,25 +11,25 @@ import org.jphototagger.program.resource.JptBundle;
 public enum Comparator {
 
     /** SQL-Operator "=" */
-    EQUALS(0, "=", JptBundle.INSTANCE.getString("Comparator.OperatorEquals")),
+    EQUALS(0, "=", Bundle.getString(Comparator.class, "Comparator.OperatorEquals")),
 
     /** SQL-Operator "LIKE" */
-    LIKE(1, "LIKE", JptBundle.INSTANCE.getString("Comparator.OperatorLike")),
+    LIKE(1, "LIKE", Bundle.getString(Comparator.class, "Comparator.OperatorLike")),
 
     /** SQL-Operator "<>" */
-    NOT_EQUALS(2, "<>", JptBundle.INSTANCE.getString("Comparator.OperatorNotEquals")),
+    NOT_EQUALS(2, "<>", Bundle.getString(Comparator.class, "Comparator.OperatorNotEquals")),
 
     /** SQL-Operator ">" */
-    GREATER(3, ">", JptBundle.INSTANCE.getString("Comparator.OperatorGreaterThan")),
+    GREATER(3, ">", Bundle.getString(Comparator.class, "Comparator.OperatorGreaterThan")),
 
     /** SQL-Operator ">=" */
-    GREATER_EQUALS(4, ">=", JptBundle.INSTANCE.getString("Comparator.OperatorGreaterEquals")),
+    GREATER_EQUALS(4, ">=", Bundle.getString(Comparator.class, "Comparator.OperatorGreaterEquals")),
 
     /** SQL-Operator "<" */
-    LOWER(5, "<", JptBundle.INSTANCE.getString("Comparator.OperatorLessThan")),
+    LOWER(5, "<", Bundle.getString(Comparator.class, "Comparator.OperatorLessThan")),
 
     /** SQL-Operator "<=" */
-    LOWER_EQUALS(6, "<=", JptBundle.INSTANCE.getString("Comparator.OperatorLessEquals"));
+    LOWER_EQUALS(6, "<=", Bundle.getString(Comparator.class, "Comparator.OperatorLessEquals"));
 
     private final int id;
     private final String sqlString;

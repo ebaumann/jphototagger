@@ -4,7 +4,6 @@ import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.panels.ProgressBar;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import java.awt.event.ActionEvent;
@@ -13,6 +12,7 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.controller.actions.AddProgramAction;
 
 /**
@@ -26,7 +26,7 @@ public final class ActionsHelper {
 
     public static JMenu actionsAsMenu() {
         List<Program> actions = DatabasePrograms.INSTANCE.getAll(DatabasePrograms.Type.ACTION);
-        JMenu menu = new JMenu(JptBundle.INSTANCE.getString("ActionsHelper.ActionMenu.DisplayName"));
+        JMenu menu = new JMenu(Bundle.getString(ActionsHelper.class, "ActionsHelper.ActionMenu.DisplayName"));
 
         for (Program action : actions) {
             menu.add(new JMenuItem(new ActionStarter(action, action)));

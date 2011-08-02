@@ -23,9 +23,10 @@ import org.jphototagger.lib.componentutil.ComboBoxUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.event.listener.FileSystemListener;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.Settings;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.controller.filesystem.FilenameFormat;
 import org.jphototagger.program.controller.filesystem.FilenameFormatArray;
 import org.jphototagger.program.controller.filesystem.FilenameFormatConstantString;
@@ -281,7 +282,9 @@ public final class RenameDialog extends Dialog implements ListDataListener {
         boolean defined = !input.isEmpty();
 
         if (!defined) {
-            MessageDisplayer.error(this, "RenameDialog.Error.InvalidInput");
+            String message = Bundle.getString(RenameDialog.class, "RenameDialog.Error.InvalidInput");
+
+            MessageDisplayer.error(this, message);
         }
 
         return defined;
@@ -291,7 +294,8 @@ public final class RenameDialog extends Dialog implements ListDataListener {
         boolean equals = newFile.getAbsolutePath().equals(oldFile.getAbsolutePath());
 
         if (equals) {
-            MessageDisplayer.error(this, "RenameDialog.Error.FilenamesEquals");
+            String message = Bundle.getString(RenameDialog.class, "RenameDialog.Error.FilenamesEquals");
+            MessageDisplayer.error(this, message);
         }
 
         return !equals;
@@ -301,7 +305,9 @@ public final class RenameDialog extends Dialog implements ListDataListener {
         boolean exists = file.exists();
 
         if (exists) {
-            MessageDisplayer.error(this, "RenameDialog.Error.NewFileExists", file.getName());
+            String message = Bundle.getString(RenameDialog.class, "RenameDialog.Error.NewFileExists", file.getName());
+
+            MessageDisplayer.error(this, message);
         }
 
         return !exists;
@@ -395,7 +401,9 @@ public final class RenameDialog extends Dialog implements ListDataListener {
     }
 
     private void errorMessageNotRenamed(String filename) {
-        if (!MessageDisplayer.confirmYesNo(this, "RenameDialog.Confirm.RenameNextFile", filename)) {
+        String message = Bundle.getString(RenameDialog.class, "RenameDialog.Confirm.RenameNextFile", filename);
+
+        if (!MessageDisplayer.confirmYesNo(this, message)) {
             cancel = true;
             setVisible(false);
             dispose();

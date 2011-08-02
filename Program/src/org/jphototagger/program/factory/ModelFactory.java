@@ -1,7 +1,23 @@
 package org.jphototagger.program.factory;
 
+import java.awt.Cursor;
 import java.io.File;
+import java.util.Comparator;
+import java.util.List;
+
+import javax.swing.JList;
+import javax.swing.JTable;
+import javax.swing.JTree;
+import javax.swing.SortOrder;
+import javax.swing.table.TableRowSorter;
+import javax.swing.tree.TreeModel;
+
+import org.jdesktop.swingx.JXList;
+import org.jdesktop.swingx.sort.ListSortController;
+import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.model.TreeModelAllSystemDirectories;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.AppWindowPersistence;
 import org.jphototagger.program.model.ComboBoxModelFileFilters;
 import org.jphototagger.program.model.ComboBoxModelMetadataTemplates;
@@ -18,21 +34,8 @@ import org.jphototagger.program.model.TreeModelKeywords;
 import org.jphototagger.program.model.TreeModelMiscMetadata;
 import org.jphototagger.program.model.TreeModelTimeline;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.panels.AppPanel;
-import java.awt.Cursor;
-import java.util.Comparator;
-import java.util.List;
-import javax.swing.JList;
-import javax.swing.JTable;
-import javax.swing.JTree;
-import javax.swing.SortOrder;
-import javax.swing.table.TableRowSorter;
-import javax.swing.tree.TreeModel;
-import org.jdesktop.swingx.JXList;
-import org.jdesktop.swingx.sort.ListSortController;
-import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.view.panels.KeywordsPanel;
 import org.jphototagger.program.view.panels.SelectRootFilesPanel;
 import org.jphototagger.program.view.renderer.KeywordHighlightPredicate;
@@ -64,12 +67,14 @@ public final class ModelFactory {
             public void run() {
                 AppPanel appPanel = GUI.getAppPanel();
 
-                Support.setStatusbarInfo("ModelFactory.Init.Start");
+                String message = Bundle.getString(ModelFactory.class, "ModelFactory.Init.Start");
+                Support.setStatusbarInfo(message);
                 setTableModels(appPanel);
                 setComboBoxModels(appPanel);
                 setListModels(appPanel);
                 setTreeModels(appPanel);
-                Support.setStatusbarInfo("ModelFactory.Init.Finished");
+                message = Bundle.getString(ModelFactory.class, "ModelFactory.Init.Finished");
+                Support.setStatusbarInfo(message);
             }
         });
     }
@@ -87,13 +92,15 @@ public final class ModelFactory {
     }
 
     private void setComboBoxModelMetadataTemplates(AppPanel appPanel) {
-        Support.setStatusbarInfo("ModelFactory.Starting.ComboBoxModelMetadataTemplates");
+        String message = Bundle.getString(ModelFactory.class, "ModelFactory.Starting.ComboBoxModelMetadataTemplates");
+        Support.setStatusbarInfo(message);
 
         ComboBoxModelMetadataTemplates model = new ComboBoxModelMetadataTemplates();
 
         support.add(model);
         appPanel.getPanelEditMetadataActions().getComboBoxMetadataTemplates().setModel(model);
-        Support.setStatusbarInfo("ModelFactory.Finished.ComboBoxModelMetadataTemplates");
+        message = Bundle.getString(ModelFactory.class, "ModelFactory.Finished.ComboBoxModelMetadataTemplates");
+        Support.setStatusbarInfo(message);
     }
 
     private void setListModels(AppPanel appPanel) {
@@ -107,7 +114,8 @@ public final class ModelFactory {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Support.setStatusbarInfo("ModelFactory.Starting.ListModelSavedSearches");
+                String message = Bundle.getString(ModelFactory.class, "ModelFactory.Starting.ListModelSavedSearches");
+                Support.setStatusbarInfo(message);
 
                 final JXList list = appPanel.getListSavedSearches();
                 final Cursor listCursor = setWaitCursor(list);
@@ -122,7 +130,8 @@ public final class ModelFactory {
                         list.setSortOrder(SortOrder.ASCENDING);
                         AppWindowPersistence.readListSavedSearches();
                         list.setCursor(listCursor);
-                        Support.setStatusbarInfo("ModelFactory.Finished.ListModelSavedSearches");
+                        String message = Bundle.getString(ModelFactory.class, "ModelFactory.Finished.ListModelSavedSearches");
+                        Support.setStatusbarInfo(message);
                     }
                 });
             }
@@ -133,7 +142,8 @@ public final class ModelFactory {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Support.setStatusbarInfo("ModelFactory.Starting.ListModelImageCollections");
+                String message = Bundle.getString(ModelFactory.class, "ModelFactory.Starting.ListModelImageCollections");
+                Support.setStatusbarInfo(message);
 
                 final JXList list = appPanel.getListImageCollections();
                 final Cursor listCursor = setWaitCursor(list);
@@ -150,7 +160,8 @@ public final class ModelFactory {
                         list.setSortOrder(SortOrder.ASCENDING);
                         AppWindowPersistence.readListImageCollections();
                         list.setCursor(listCursor);
-                        Support.setStatusbarInfo("ModelFactory.Finished.ListModelImageCollections");
+                        String message = Bundle.getString(ModelFactory.class, "ModelFactory.Finished.ListModelImageCollections");
+                        Support.setStatusbarInfo(message);
                     }
                 });
             }
@@ -161,7 +172,8 @@ public final class ModelFactory {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Support.setStatusbarInfo("ModelFactory.Starting.ListModelKeywords");
+                String message = Bundle.getString(ModelFactory.class, "ModelFactory.Starting.ListModelKeywords");
+                Support.setStatusbarInfo(message);
 
                 final JXList listSelectedKeywords = appPanel.getListSelKeywords();
                 final KeywordsPanel panelEditKeywords = appPanel.getPanelEditKeywords();
@@ -180,7 +192,8 @@ public final class ModelFactory {
                         InputHelperDialog.INSTANCE.setModelKeywords(modelKeywords);
                         AppWindowPersistence.readListSelKeywords();
                         listSelectedKeywords.setCursor(listCursor);
-                        Support.setStatusbarInfo("ModelFactory.Finished.ListModelKeywords");
+                        String message = Bundle.getString(ModelFactory.class, "ModelFactory.Finished.ListModelKeywords");
+                        Support.setStatusbarInfo(message);
                     }
                 });
             }
@@ -188,17 +201,20 @@ public final class ModelFactory {
     }
 
     private void setListModelNoMetadata(AppPanel appPanel) {
-        Support.setStatusbarInfo("ModelFactory.Starting.ListModelNoMetadata");
+        String message = Bundle.getString(ModelFactory.class, "ModelFactory.Starting.ListModelNoMetadata");
+        Support.setStatusbarInfo(message);
 
         ListModelNoMetadata model = new ListModelNoMetadata();
 
         support.add(model);
         appPanel.getListNoMetadata().setModel(model);
-        Support.setStatusbarInfo("ModelFactory.Finished.ListModelNoMetadata");
+        message = Bundle.getString(ModelFactory.class, "ModelFactory.Finished.ListModelNoMetadata");
+        Support.setStatusbarInfo(message);
     }
 
     private void setTableModels(AppPanel appPanel) {
-        Support.setStatusbarInfo("ModelFactory.Starting.TableModels");
+        String message = Bundle.getString(ModelFactory.class, "ModelFactory.Starting.TableModels");
+        Support.setStatusbarInfo(message);
 
         TableModelIptc modelIptc = new TableModelIptc();
         TableModelXmp modelXmp1 = new TableModelXmp();
@@ -244,7 +260,8 @@ public final class ModelFactory {
         setXmpTableComparator(appPanel.getTableXmpXap());
         setExifTableComparator(appPanel.getTableExif());
 
-        Support.setStatusbarInfo("ModelFactory.Finished.TableModels");
+        message = Bundle.getString(ModelFactory.class, "ModelFactory.Finished.TableModels");
+        Support.setStatusbarInfo(message);
     }
 
     private void setXmpTableComparator(JTable xmpTable) {
@@ -288,7 +305,8 @@ public final class ModelFactory {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Support.setStatusbarInfo("ModelFactory.Starting.TreeModelKeywords");
+                String message = Bundle.getString(ModelFactory.class, "ModelFactory.Starting.TreeModelKeywords");
+                Support.setStatusbarInfo(message);
 
                 final TreeModel treeModelKeywords = new TreeModelKeywords();
                 final ListModelMetadataTemplates listModelTemplates = new ListModelMetadataTemplates();
@@ -309,7 +327,8 @@ public final class ModelFactory {
                         AppWindowPersistence.readTreeEditKeywords();
                         InputHelperDialog.INSTANCE.getPanelKeywords().getTree().setModel(treeModelKeywords);
                         InputHelperDialog.INSTANCE.getPanelMetaDataTemplates().getList().setModel(listModelTemplates);
-                        Support.setStatusbarInfo("ModelFactory.Finished.TreeModelKeywords");
+                        String message = Bundle.getString(ModelFactory.class, "ModelFactory.Finished.TreeModelKeywords");
+                        Support.setStatusbarInfo(message);
                     }
                 });
             }
@@ -320,7 +339,8 @@ public final class ModelFactory {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Support.setStatusbarInfo("ModelFactory.Starting.TreeModelMiscMetadata");
+                String message = Bundle.getString(ModelFactory.class, "ModelFactory.Starting.TreeModelMiscMetadata");
+                Support.setStatusbarInfo(message);
 
                 final JTree tree = appPanel.getTreeMiscMetadata();
                 final Cursor treeCursor = setWaitCursor(tree);
@@ -336,7 +356,8 @@ public final class ModelFactory {
                         tree.setModel(modelApp);
                         AppWindowPersistence.readTreeMiscMetadata();
                         tree.setCursor(treeCursor);
-                        Support.setStatusbarInfo("ModelFactory.Finished.TreeModelMiscMetadata");
+                        String message = Bundle.getString(ModelFactory.class, "ModelFactory.Finished.TreeModelMiscMetadata");
+                        Support.setStatusbarInfo(message);
                     }
                 });
             }
@@ -347,7 +368,8 @@ public final class ModelFactory {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Support.setStatusbarInfo("ModelFactory.Starting.TreeModelTimeline");
+                String message = Bundle.getString(ModelFactory.class, "ModelFactory.Starting.TreeModelTimeline");
+                Support.setStatusbarInfo(message);
 
                 final JTree tree = appPanel.getTreeTimeline();
                 final Cursor treeCursor = setWaitCursor(tree);
@@ -360,7 +382,8 @@ public final class ModelFactory {
                         tree.setModel(model);
                         AppWindowPersistence.readTreeTimeline();
                         tree.setCursor(treeCursor);
-                        Support.setStatusbarInfo("ModelFactory.Finished.TreeModelTimeline");
+                        String message = Bundle.getString(ModelFactory.class, "ModelFactory.Finished.TreeModelTimeline");
+                        Support.setStatusbarInfo(message);
                     }
                 });
             }
@@ -371,7 +394,8 @@ public final class ModelFactory {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Support.setStatusbarInfo("ModelFactory.Starting.TreeModelFavorites");
+                String message = Bundle.getString(ModelFactory.class, "ModelFactory.Starting.TreeModelFavorites");
+                Support.setStatusbarInfo(message);
 
                 final JTree tree = appPanel.getTreeFavorites();
                 final Cursor treeCursor = setWaitCursor(tree);
@@ -384,7 +408,8 @@ public final class ModelFactory {
                         tree.setModel(model);
                         model.readFromProperties();
                         tree.setCursor(treeCursor);
-                        Support.setStatusbarInfo("ModelFactory.Finished.TreeModelFavorites");
+                        String message = Bundle.getString(ModelFactory.class, "ModelFactory.Finished.TreeModelFavorites");
+                        Support.setStatusbarInfo(message);
                     }
                 });
             }
@@ -395,7 +420,8 @@ public final class ModelFactory {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Support.setStatusbarInfo("ModelFactory.Starting.TreeModelDirectories");
+                String message = Bundle.getString(ModelFactory.class, "ModelFactory.Starting.TreeModelDirectories");
+                Support.setStatusbarInfo(message);
 
                 final JTree tree = appPanel.getTreeDirectories();
                 final Cursor treeCursor = setWaitCursor(tree);
@@ -409,7 +435,8 @@ public final class ModelFactory {
                         tree.setModel(model);
                         AppWindowPersistence.readTreeDirectories();
                         tree.setCursor(treeCursor);
-                        Support.setStatusbarInfo("ModelFactory.Finished.TreeModelDirectories");
+                        String message = Bundle.getString(ModelFactory.class, "ModelFactory.Finished.TreeModelDirectories");
+                        Support.setStatusbarInfo(message);
                     }
                 });
             }

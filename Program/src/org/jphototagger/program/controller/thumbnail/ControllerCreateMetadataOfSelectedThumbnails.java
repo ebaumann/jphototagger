@@ -1,17 +1,19 @@
 package org.jphototagger.program.controller.thumbnail;
 
-import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
-import org.jphototagger.domain.database.InsertIntoDatabase;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.tasks.UserTasks;
-import org.jphototagger.program.view.panels.ProgressBarUpdater;
-import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.swing.JMenuItem;
+
+import org.jphototagger.domain.database.InsertIntoDatabase;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.tasks.UserTasks;
+import org.jphototagger.program.view.panels.ProgressBarUpdater;
+import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
 
 /**
  * Kontrolliert die Aktion: Metadaten erzeugen für ausgewählte Bilder,
@@ -63,10 +65,8 @@ public final class ControllerCreateMetadataOfSelectedThumbnails implements Actio
     }
 
     private void updateMetadata(InsertIntoDatabase[] what) {
-        InsertImageFilesIntoDatabase inserter =
-            new InsertImageFilesIntoDatabase(GUI.getThumbnailsPanel().getSelectedFiles(), what);
-        String pBarString =
-            JptBundle.INSTANCE.getString("ControllerCreateMetadataOfSelectedThumbnails.ProgressBar.String");
+        InsertImageFilesIntoDatabase inserter = new InsertImageFilesIntoDatabase(GUI.getThumbnailsPanel().getSelectedFiles(), what);
+        String pBarString = Bundle.getString(ControllerCreateMetadataOfSelectedThumbnails.class, "ControllerCreateMetadataOfSelectedThumbnails.ProgressBar.String");
 
         inserter.addProgressListener(new ProgressBarUpdater(inserter, pBarString));
         UserTasks.INSTANCE.add(inserter);

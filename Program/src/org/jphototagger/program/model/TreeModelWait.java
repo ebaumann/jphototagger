@@ -1,8 +1,8 @@
 package org.jphototagger.program.model;
 
-import org.jphototagger.program.resource.JptBundle;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * Contains exactly one tree node below the root with a "wait" text and is a
@@ -12,7 +12,7 @@ import javax.swing.tree.DefaultTreeModel;
  */
 public final class TreeModelWait extends DefaultTreeModel {
     private static final long serialVersionUID = -6456827464935791978L;
-    private static final String ITEM_TEXT = JptBundle.INSTANCE.getString("TreeModelWait.ItemText");
+    private static final String ITEM_TEXT = Bundle.getString(TreeModelWait.class, "TreeModelWait.ItemText");
     public static final TreeModelWait INSTANCE = new TreeModelWait();
 
     public TreeModelWait() {

@@ -1,18 +1,21 @@
 package org.jphototagger.program.controller.metadata;
 
-import org.jphototagger.lib.event.util.KeyEventUtil;
-import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.domain.xmp.Xmp;
-import org.jphototagger.domain.event.listener.ThumbnailsPanelListener;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.panels.EditMetadataPanels;
-import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
 import javax.swing.JMenuItem;
+
+import org.jphototagger.domain.event.listener.ThumbnailsPanelListener;
+import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.event.util.KeyEventUtil;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.view.panels.EditMetadataPanels;
+import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
 
 /**
  * Listens to the menu items {@link PopupMenuThumbnails#getItemCopyMetadata()} and
@@ -88,7 +91,8 @@ public final class ControllerCopyPasteMetadata implements ActionListener, KeyLis
         int selCount = GUI.getThumbnailsPanel().getSelectionCount();
 
         if (selCount <= 0) {
-            MessageDisplayer.error(null, "ControllerCopyPasteMetadata.Error.NoSelection");
+            String message = Bundle.getString(ControllerCopyPasteMetadata.class, "ControllerCopyPasteMetadata.Error.NoSelection");
+            MessageDisplayer.error(null, message);
 
             return false;
         }
@@ -98,7 +102,8 @@ public final class ControllerCopyPasteMetadata implements ActionListener, KeyLis
 
     private boolean checkCanEdit(EditMetadataPanels editPanel) {
         if (!editPanel.isEditable()) {
-            MessageDisplayer.error(null, "ControllerCopyPasteMetadata.Error.NotEditable");
+            String message = Bundle.getString(ControllerCopyPasteMetadata.class, "ControllerCopyPasteMetadata.Error.NotEditable");
+            MessageDisplayer.error(null, message);
 
             return false;
         }

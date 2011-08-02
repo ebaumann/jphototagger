@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 import org.jphototagger.lib.dialog.LongMessageDialog;
 import org.jphototagger.lib.event.ProgressEvent;
 import org.jphototagger.lib.event.listener.ProgressListener;
-import org.jphototagger.program.resource.JptBundle;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * Base class of specialized database classes.
@@ -30,13 +30,13 @@ public class Database {
     public static void errorMessageSqlException(SQLException ex) {
         LongMessageDialog dlg = new LongMessageDialog(null, true);
 
-        dlg.setTitle(JptBundle.INSTANCE.getString("DatabaseTables.Error.Title"));
+        dlg.setTitle(Bundle.getString(Database.class, "DatabaseTables.Error.Title"));
         dlg.setLongMessage(getExceptionMessage(ex));
         dlg.setVisible(true);
     }
 
     private static String getExceptionMessage(SQLException ex) {
-        return JptBundle.INSTANCE.getString("DatabaseTables.Error", ex.getLocalizedMessage());
+        return Bundle.getString(Database.class, "DatabaseTables.Error", ex.getLocalizedMessage());
     }
 
     public static boolean execute(Connection con, String sql) throws SQLException {

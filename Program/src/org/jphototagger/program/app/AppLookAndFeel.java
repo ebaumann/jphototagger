@@ -3,7 +3,6 @@ package org.jphototagger.program.app;
 import org.jphototagger.lib.componentutil.LookAndFeelUtil;
 import org.jphototagger.lib.dialog.HelpBrowser;
 import org.jphototagger.lib.image.util.IconUtil;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.UserSettings;
 import java.awt.Color;
 import java.awt.Font;
@@ -16,6 +15,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.plaf.FontUIResource;
 import javax.swing.UIManager;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  *
@@ -52,7 +52,7 @@ public final class AppLookAndFeel {
     public static final Icon ICON_FILTER = getIcon("icon_filter.png");
     public static final Icon ICON_START = getIcon("icon_start.png");
     public static final Icon ICON_CANCEL = getIcon("icon_cancel.png");
-    public static final Image ERROR_THUMBNAIL = IconUtil.getIconImage(JptBundle.INSTANCE.getString("ErrorThumbnailPath"));
+    public static final Image ERROR_THUMBNAIL = IconUtil.getIconImage(Bundle.getString(AppLookAndFeel.class, "ErrorThumbnailPath"));
     private static final List<Image> APP_ICONS = new ArrayList<Image>();
     private static final List<String> APP_ICON_PATHS = new ArrayList<String>();
     private static Color listBackground;

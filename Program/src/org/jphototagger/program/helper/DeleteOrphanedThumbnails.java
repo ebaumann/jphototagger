@@ -10,10 +10,10 @@ import org.jphototagger.domain.event.listener.impl.ProgressListenerSupport;
 import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.lib.event.ProgressEvent;
 import org.jphototagger.lib.event.listener.ProgressListener;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 
 /**
@@ -114,14 +114,14 @@ public final class DeleteOrphanedThumbnails implements Runnable, Cancelable {
     }
 
     private String getStartMessage() {
-        return JptBundle.INSTANCE.getString("DeleteOrphanedThumbnails.Info.Start", countFilesInDir);
+        return Bundle.getString(DeleteOrphanedThumbnails.class, "DeleteOrphanedThumbnails.Info.Start", countFilesInDir);
     }
 
     private String getPerformedMessage(File file) {
-        return JptBundle.INSTANCE.getString("DeleteOrphanedThumbnails.Info.Performed", file);
+        return Bundle.getString(DeleteOrphanedThumbnails.class, "DeleteOrphanedThumbnails.Info.Performed", file);
     }
 
     private String getEndMessage() {
-        return JptBundle.INSTANCE.getString("DeleteOrphanedThumbnails.Info.End", countDeleted);
+        return Bundle.getString(DeleteOrphanedThumbnails.class, "DeleteOrphanedThumbnails.Info.End", countDeleted);
     }
 }

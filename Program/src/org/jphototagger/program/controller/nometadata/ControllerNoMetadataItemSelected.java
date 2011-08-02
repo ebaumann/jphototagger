@@ -4,7 +4,6 @@ import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.domain.database.Column;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Content;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
@@ -13,6 +12,7 @@ import java.io.File;
 import java.util.List;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * Listens to selections within the list {@link AppPanel#getListNoMetadata()}
@@ -57,7 +57,7 @@ public final class ControllerNoMetadataItemSelected implements ListSelectionList
 
     private void setTitle(Column column) {
         GUI.getAppFrame().setTitle(
-            JptBundle.INSTANCE.getString(
+                Bundle.getString(ControllerNoMetadataItemSelected.class,
                 "ControllerNoMetadataItemSelected.AppFrame.Title.WithoutMetadata", column.getDescription()));
     }
 }

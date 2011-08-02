@@ -14,9 +14,10 @@ import javax.swing.text.Document;
 import org.jphototagger.domain.filetypes.UserDefinedFileType;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.AppFileFilters;
-import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.database.DatabaseUserDefinedFileTypes;
 import org.jphototagger.program.resource.GUI;
 
@@ -141,7 +142,8 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
         String description = getDescription();
 
         if (suffix.isEmpty() || description.isEmpty()) {
-            MessageDisplayer.error(this, "EditUserDefinedFileTypeDialog.Error.Empty");
+            String message = Bundle.getString(EditUserDefinedFileTypeDialog.class, "EditUserDefinedFileTypeDialog.Error.Empty");
+            MessageDisplayer.error(this, message);
             return false;
         } else {
             return true;
@@ -157,7 +159,8 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
         File aFile = new File("abc." + suffix);
 
         if (AppFileFilters.INSTANCE.isAcceptedImageFile(aFile)) {
-            MessageDisplayer.error(this, "EditUserDefinedFileTypeDialog.Error.IsAcceptedSuffix", suffix);
+            String message = Bundle.getString(EditUserDefinedFileTypeDialog.class, "EditUserDefinedFileTypeDialog.Error.IsAcceptedSuffix", suffix);
+            MessageDisplayer.error(this, message);
             return false;
         } else {
             return true;
@@ -174,7 +177,8 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
         boolean suffixExists = DatabaseUserDefinedFileTypes.INSTANCE.existsSuffix(suffix);
 
         if (suffixExists) {
-            MessageDisplayer.error(this, "EditUserDefinedFileTypeDialog.Error.SuffixExists", suffix);
+            String message = Bundle.getString(EditUserDefinedFileTypeDialog.class, "EditUserDefinedFileTypeDialog.Error.SuffixExists", suffix);
+            MessageDisplayer.error(this, message);
         }
 
         return !suffixExists;
@@ -189,7 +193,8 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
 
     private boolean checkDiscardChanges() {
         if (changed) {
-            return MessageDisplayer.confirmYesNo(this, "EditUserDefinedFileTypeDialog.Confirm.DiscardChanges");
+            String message = Bundle.getString(EditUserDefinedFileTypeDialog.class, "EditUserDefinedFileTypeDialog.Confirm.DiscardChanges");
+            return MessageDisplayer.confirmYesNo(this, message);
         } else {
             return true;
         }

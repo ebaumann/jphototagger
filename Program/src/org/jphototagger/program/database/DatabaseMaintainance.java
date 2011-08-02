@@ -7,8 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.jphototagger.lib.util.Bundle;
 
-import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 
 /**
  *
@@ -37,7 +38,9 @@ public final class DatabaseMaintainance extends Database {
             stmt.executeUpdate("SHUTDOWN");
         } catch (Exception ex) {
             Logger.getLogger(DatabaseMaintainance.class.getName()).log(Level.SEVERE, null, ex);
-            MessageDisplayer.error(null, "DatabaseMaintainance.Error.Shutdown");
+            String message = Bundle.getString(DatabaseMaintainance.class, "DatabaseMaintainance.Error.Shutdown");
+
+            MessageDisplayer.error(null, message);
         } finally {
             close(stmt);
         }

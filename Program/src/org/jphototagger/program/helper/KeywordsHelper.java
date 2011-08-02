@@ -29,14 +29,14 @@ import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.lib.componentutil.TreeUtil;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.ArrayUtil;
-import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.database.DatabaseKeywords;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.model.TreeModelKeywords;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.tasks.UserTasks;
 import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.panels.AppPanel;
@@ -108,14 +108,16 @@ public final class KeywordsHelper {
      * Inserts into the Database a Dublin Core keyword via user input.
      */
     public static void insertDcSubject() {
-        String dcSubject = MessageDisplayer.input("KeywordsHelper.Input.InsertDcSubject", "",
-                "KeywordsHelper.Input.InsertDcSubject.Settings");
+        String info = Bundle.getString(KeywordsHelper.class, "KeywordsHelper.Input.InsertDcSubject");
+        String input = "";
+        String dcSubject = MessageDisplayer.input(info, input);
 
         if ((dcSubject != null) && checkExistsDcSubject(dcSubject)) {
             if (DatabaseImageFiles.INSTANCE.insertDcSubject(dcSubject)) {
                 insertDcSubjectAsKeyword(dcSubject);
             } else {
-                MessageDisplayer.error(null, "KeywordsHelper.Error.InsertDcSubject", dcSubject);
+                String message = Bundle.getString(KeywordsHelper.class, "KeywordsHelper.Error.InsertDcSubject", dcSubject);
+                MessageDisplayer.error(null, message);
             }
         }
     }
@@ -128,7 +130,8 @@ public final class KeywordsHelper {
 
     private static boolean checkExistsDcSubject(String dcSubject) {
         if (DatabaseImageFiles.INSTANCE.existsDcSubject(dcSubject)) {
-            MessageDisplayer.error(null, "KeywordsHelper.Error.DcSubjectExists", dcSubject);
+            String message = Bundle.getString(KeywordsHelper.class, "KeywordsHelper.Error.DcSubjectExists", dcSubject);
+            MessageDisplayer.error(null, message);
 
             return false;
         }
@@ -464,7 +467,7 @@ public final class KeywordsHelper {
         DeleteDcSubject(String keyword) {
             super("JPhotoTagger: Deleting keyword");
             this.dcSubject = keyword;
-            setInfo(JptBundle.INSTANCE.getString("KeywordsHelper.Info.Delete"));
+            setInfo(Bundle.getString(DeleteDcSubject.class, "KeywordsHelper.Info.Delete"));
         }
 
         @Override
@@ -527,7 +530,7 @@ public final class KeywordsHelper {
             super("JPhotoTagger: Renaming DC subject");
             this.fromName = fromName;
             this.toName = toName;
-            setInfo(JptBundle.INSTANCE.getString("KeywordsHelper.Info.Rename"));
+            setInfo(Bundle.getString(RenameDcSubject.class, "KeywordsHelper.Info.Rename"));
         }
 
         @Override

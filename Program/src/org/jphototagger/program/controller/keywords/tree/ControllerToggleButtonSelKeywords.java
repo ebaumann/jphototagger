@@ -1,12 +1,14 @@
 package org.jphototagger.program.controller.keywords.tree;
 
-import org.jphototagger.lib.componentutil.TreeUtil;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.view.panels.AppPanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JToggleButton;
+
+import org.jphototagger.lib.componentutil.TreeUtil;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.view.panels.AppPanel;
 
 /**
  * Listens to {@link AppPanel#getToggleButtonSelKeywords()} and expands or
@@ -31,7 +33,7 @@ public final class ControllerToggleButtonSelKeywords implements ActionListener {
 
         TreeUtil.expandAll(GUI.getAppPanel().getTreeSelKeywords(), selected);
         toggleButtonExpandAllNodesSelKeywords.setText(selected
-                ? JptBundle.INSTANCE.getString("KeywordsPanel.ButtonToggleExpandAllNodes.Selected")
-                : JptBundle.INSTANCE.getString("KeywordsPanel.ButtonToggleExpandAllNodes.DeSelected"));
+                ? Bundle.getString(ControllerToggleButtonSelKeywords.class, "KeywordsPanel.ButtonToggleExpandAllNodes.Selected")
+                : Bundle.getString(ControllerToggleButtonSelKeywords.class, "KeywordsPanel.ButtonToggleExpandAllNodes.DeSelected"));
     }
 }

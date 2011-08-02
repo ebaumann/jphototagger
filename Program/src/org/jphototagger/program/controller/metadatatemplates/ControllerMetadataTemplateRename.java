@@ -1,14 +1,17 @@
 package org.jphototagger.program.controller.metadatatemplates;
 
-import org.jphototagger.program.app.MessageDisplayer;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+
+import javax.swing.JButton;
+
 import org.jphototagger.domain.templates.MetadataTemplate;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.database.DatabaseMetadataTemplates;
 import org.jphototagger.program.helper.MetadataTemplateHelper;
 import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.popupmenus.PopupMenuMetadataTemplates;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-import javax.swing.JButton;
 
 /**
  *
@@ -67,7 +70,8 @@ public final class ControllerMetadataTemplateRename extends ControllerMetadataTe
 
         if (toName != null) {
             if (!DatabaseMetadataTemplates.INSTANCE.updateRename(fromName, toName)) {
-                MessageDisplayer.error(null, "ControllerMetadataTemplateRename.Error", fromName);
+                String message = Bundle.getString(ControllerMetadataTemplateRename.class, "ControllerMetadataTemplateRename.Error", fromName);
+                MessageDisplayer.error(null, message);
             }
         }
 

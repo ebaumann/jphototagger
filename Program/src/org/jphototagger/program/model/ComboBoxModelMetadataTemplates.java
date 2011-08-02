@@ -1,14 +1,16 @@
 package org.jphototagger.program.model;
 
-import org.jphototagger.program.app.MessageDisplayer;
+import java.util.List;
+
+import javax.swing.DefaultComboBoxModel;
+
+import org.jphototagger.domain.event.listener.DatabaseMetadataTemplatesListener;
 import org.jphototagger.domain.templates.MetadataTemplate;
+import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseMetadataTemplates;
-import org.jphototagger.domain.event.listener.DatabaseMetadataTemplatesListener;
-import org.jphototagger.program.resource.JptBundle;
-import java.util.List;
-import javax.swing.DefaultComboBoxModel;
-import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Elements are instances of {@link MetadataTemplate}s retrieved through
@@ -38,8 +40,7 @@ public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel
         if ((getIndexOf(template) >= 0) && DatabaseMetadataTemplates.INSTANCE.delete(template.getName())) {
             removeElement(template);
         } else {
-            errorMessage(template.getName(),
-                         JptBundle.INSTANCE.getString("ComboBoxModelMetadataTemplates.Error.ParamDelete"));
+            errorMessage(template.getName(), Bundle.getString(ComboBoxModelMetadataTemplates.class, "ComboBoxModelMetadataTemplates.Error.ParamDelete"));
         }
     }
 
@@ -62,7 +63,7 @@ public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel
             setSelectedItem(template);
         } else {
             errorMessage(template.getName(),
-                         JptBundle.INSTANCE.getString("ComboBoxModelMetadataTemplates.Error.ParamInsert"));
+                         Bundle.getString(ComboBoxModelMetadataTemplates.class, "ComboBoxModelMetadataTemplates.Error.ParamInsert"));
         }
     }
 
@@ -84,7 +85,7 @@ public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel
             setSelectedItem(template);
         } else {
             errorMessage(template.getName(),
-                         JptBundle.INSTANCE.getString("ComboBoxModelMetadataTemplates.Error.ParamUpdate"));
+                         Bundle.getString(ComboBoxModelMetadataTemplates.class, "ComboBoxModelMetadataTemplates.Error.ParamUpdate"));
         }
     }
 
@@ -112,7 +113,7 @@ public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel
             setSelectedItem(template);
         } else {
             errorMessage(template.getName(),
-                         JptBundle.INSTANCE.getString("ComboBoxModelMetadataTemplates.Error.ParamRename"));
+                         Bundle.getString(ComboBoxModelMetadataTemplates.class, "ComboBoxModelMetadataTemplates.Error.ParamRename"));
         }
     }
 
@@ -148,7 +149,8 @@ public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel
     }
 
     private void errorMessage(String name, String cause) {
-        MessageDisplayer.error(null, "ComboBoxModelMetadataTemplates.Error.Template", name, cause);
+        String message = Bundle.getString(ComboBoxModelMetadataTemplates.class, "ComboBoxModelMetadataTemplates.Error.Template", name, cause);
+        MessageDisplayer.error(null, message);
     }
 
     private int indexOfTemplate(String name) {

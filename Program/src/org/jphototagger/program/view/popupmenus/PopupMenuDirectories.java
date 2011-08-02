@@ -1,14 +1,16 @@
 package org.jphototagger.program.view.popupmenus;
 
-import org.jphototagger.lib.event.util.KeyEventUtil;
-import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.resource.JptBundle;
 import java.awt.event.KeyEvent;
 import java.io.File;
+
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JPopupMenu.Separator;
 import javax.swing.tree.TreePath;
+
+import org.jphototagger.lib.event.util.KeyEventUtil;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.app.AppLookAndFeel;
 
 /**
  * Do not use this class as template for implemention! Instead extend
@@ -20,13 +22,13 @@ import javax.swing.tree.TreePath;
 public final class PopupMenuDirectories extends JPopupMenu {
     private static final long serialVersionUID = 4574458335277932153L;
     public static final PopupMenuDirectories INSTANCE = new PopupMenuDirectories();
-    private final JMenuItem itemAddToFavorites = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuDirectories.DisplayName.Action.AddToFavoriteDirectories"), AppLookAndFeel.getIcon("icon_favorite.png"));
-    private final JMenuItem itemCreateDirectory = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuDirectories.DisplayName.Action.CreateDirectory"), AppLookAndFeel.getIcon("icon_folder_new.png"));
-    private final JMenuItem itemRenameDirectory = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuDirectories.DisplayName.Action.RenameDirectory"), AppLookAndFeel.ICON_RENAME);
-    private final JMenuItem itemRefresh = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuDirectories.DisplayName.Action.Refresh"), AppLookAndFeel.ICON_REFRESH);
-    private final JMenuItem itemDeleteDirectory = new JMenuItem(JptBundle.INSTANCE.getString("PopupMenuDirectories.DisplayName.Action.DeleteDirectory"), AppLookAndFeel.ICON_DELETE);
-    private final JMenuItem menuItemExpandAllSubitems = new JMenuItem(JptBundle.INSTANCE.getString("MouseListenerTreeExpand.ItemExpand"));
-    private final JMenuItem menuItemCollapseAllSubitems = new JMenuItem(JptBundle.INSTANCE.getString("MouseListenerTreeExpand.ItemCollapse"));
+    private final JMenuItem itemAddToFavorites = new JMenuItem(Bundle.getString(PopupMenuDirectories.class, "PopupMenuDirectories.DisplayName.Action.AddToFavoriteDirectories"), AppLookAndFeel.getIcon("icon_favorite.png"));
+    private final JMenuItem itemCreateDirectory = new JMenuItem(Bundle.getString(PopupMenuDirectories.class, "PopupMenuDirectories.DisplayName.Action.CreateDirectory"), AppLookAndFeel.getIcon("icon_folder_new.png"));
+    private final JMenuItem itemRenameDirectory = new JMenuItem(Bundle.getString(PopupMenuDirectories.class, "PopupMenuDirectories.DisplayName.Action.RenameDirectory"), AppLookAndFeel.ICON_RENAME);
+    private final JMenuItem itemRefresh = new JMenuItem(Bundle.getString(PopupMenuDirectories.class, "PopupMenuDirectories.DisplayName.Action.Refresh"), AppLookAndFeel.ICON_REFRESH);
+    private final JMenuItem itemDeleteDirectory = new JMenuItem(Bundle.getString(PopupMenuDirectories.class, "PopupMenuDirectories.DisplayName.Action.DeleteDirectory"), AppLookAndFeel.ICON_DELETE);
+    private final JMenuItem menuItemExpandAllSubitems = new JMenuItem(Bundle.getString(PopupMenuDirectories.class, "PopupMenuDirectories.ItemExpand"));
+    private final JMenuItem menuItemCollapseAllSubitems = new JMenuItem(Bundle.getString(PopupMenuDirectories.class, "PopupMenuDirectories.ItemCollapse"));
     private boolean treeSelected = false;
     private File directory;
     private TreePath path;

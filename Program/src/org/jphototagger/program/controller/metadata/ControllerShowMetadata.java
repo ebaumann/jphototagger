@@ -1,28 +1,5 @@
 package org.jphototagger.program.controller.metadata;
 
-import com.adobe.xmp.properties.XMPPropertyInfo;
-import com.adobe.xmp.XMPConst;
-import javax.swing.JTabbedPane;
-import javax.swing.event.ChangeEvent;
-import org.jphototagger.lib.componentutil.ComponentUtil;
-import org.jphototagger.lib.componentutil.TableUtil;
-import org.jphototagger.xmp.EmbeddedXmpCache;
-import org.jphototagger.domain.exif.Exif;
-import org.jphototagger.domain.xmp.Xmp;
-import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.program.database.metadata.selections.MetadataTableModels;
-import org.jphototagger.domain.event.listener.DatabaseImageFilesListener;
-import org.jphototagger.domain.event.listener.ThumbnailsPanelListener;
-import org.jphototagger.xmp.XmpMetadata;
-import org.jphototagger.program.model.TableModelExif;
-import org.jphototagger.program.model.TableModelIptc;
-import org.jphototagger.program.model.TableModelXmp;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.view.panels.AppPanel;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
-import org.jphototagger.program.view.WaitDisplay;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -31,13 +8,39 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
+import org.jphototagger.domain.event.listener.DatabaseImageFilesListener;
+import org.jphototagger.domain.event.listener.ThumbnailsPanelListener;
+import org.jphototagger.domain.exif.Exif;
+import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.componentutil.ComponentUtil;
+import org.jphototagger.lib.componentutil.TableUtil;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.database.DatabaseImageFiles;
+import org.jphototagger.program.database.metadata.selections.MetadataTableModels;
+import org.jphototagger.program.model.TableModelExif;
+import org.jphototagger.program.model.TableModelIptc;
+import org.jphototagger.program.model.TableModelXmp;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.view.WaitDisplay;
+import org.jphototagger.program.view.panels.AppPanel;
+import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.jphototagger.xmp.EmbeddedXmpCache;
+import org.jphototagger.xmp.XmpMetadata;
+
+import com.adobe.xmp.XMPConst;
+import com.adobe.xmp.properties.XMPPropertyInfo;
 
 /**
  * Listens for selection changes in the {@link ThumbnailsPanel} and
@@ -327,7 +330,7 @@ public final class ControllerShowMetadata implements ChangeListener, DatabaseIma
             removeMetadataFromTables(allMetadata);
             repaintMetadataTables(allMetadata);
             appPanel.getLabelMetadataFilename().setText(
-                JptBundle.INSTANCE.getString("ControllerShowMetadata.Info.MetadataIsShownOnlyIfOneImageIsSelected"));
+                    Bundle.getString(RemoveAllMetadata.class, "ControllerShowMetadata.Info.MetadataIsShownOnlyIfOneImageIsSelected"));
         }
     }
 
@@ -374,7 +377,7 @@ public final class ControllerShowMetadata implements ChangeListener, DatabaseIma
 
             appPanel.getLabelMetadataFilename().setText(imageFile.getName() + (XmpMetadata.hasImageASidecarFile(imageFile)
                     ? ""
-                    : JptBundle.INSTANCE.getString("ControllerShowMetadata.Embedded")));
+                    : Bundle.getString(ShowMetadata.class, "ControllerShowMetadata.Embedded")));
             WaitDisplay.hide();
             resizeMetadataTables(resizeTableMetadta);
             repaintMetadataTables(resizeTableMetadta);

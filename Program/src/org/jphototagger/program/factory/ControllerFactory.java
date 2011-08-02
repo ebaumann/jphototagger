@@ -1,6 +1,11 @@
 package org.jphototagger.program.factory;
 
+import java.util.List;
+
+import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.dialog.SystemOutputDialog;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.app.logging.ErrorLogHandler;
 import org.jphototagger.program.controller.actions.ActionsMenuUpdater;
 import org.jphototagger.program.controller.directories.ControllerCreateDirectory;
 import org.jphototagger.program.controller.directories.ControllerDeleteDirectory;
@@ -9,9 +14,9 @@ import org.jphototagger.program.controller.directories.ControllerDirectorySelect
 import org.jphototagger.program.controller.directories.ControllerRefreshDirectoryTree;
 import org.jphototagger.program.controller.directories.ControllerRenameDirectory;
 import org.jphototagger.program.controller.favorites.ControllerDeleteFavorite;
+import org.jphototagger.program.controller.favorites.ControllerFavoriteSelected;
 import org.jphototagger.program.controller.favorites.ControllerFavoritesAddFilesystemFolder;
 import org.jphototagger.program.controller.favorites.ControllerFavoritesDeleteFilesystemFolder;
-import org.jphototagger.program.controller.favorites.ControllerFavoriteSelected;
 import org.jphototagger.program.controller.favorites.ControllerFavoritesRenameFilesystemFolder;
 import org.jphototagger.program.controller.favorites.ControllerInsertFavorite;
 import org.jphototagger.program.controller.favorites.ControllerMoveFavorite;
@@ -51,6 +56,7 @@ import org.jphototagger.program.controller.keywords.tree.ControllerShowKeywordsD
 import org.jphototagger.program.controller.keywords.tree.ControllerToggleButtonSelKeywords;
 import org.jphototagger.program.controller.keywords.tree.ControllerToggleRealKeyword;
 import org.jphototagger.program.controller.metadata.ControllerCopyPasteMetadata;
+import org.jphototagger.program.controller.metadata.ControllerDisplayIptcUserSettings;
 import org.jphototagger.program.controller.metadata.ControllerEmptyMetadata;
 import org.jphototagger.program.controller.metadata.ControllerEnableCreateMetadataTemplate;
 import org.jphototagger.program.controller.metadata.ControllerEnableInsertMetadataTemplate;
@@ -71,10 +77,8 @@ import org.jphototagger.program.controller.misc.ControllerBackupDatabase;
 import org.jphototagger.program.controller.misc.ControllerGoTo;
 import org.jphototagger.program.controller.misc.ControllerHelp;
 import org.jphototagger.program.controller.misc.ControllerItemsMutualExcludeSelection;
-import org.jphototagger.program.app.logging.ErrorLogHandler;
 import org.jphototagger.program.controller.misc.ControllerMaintainDatabase;
 import org.jphototagger.program.controller.misc.ControllerMenuItemEnabler;
-import org.jphototagger.program.controller.plugin.ControllerFileProcessorPlugins;
 import org.jphototagger.program.controller.misc.ControllerShowSynonymsDialog;
 import org.jphototagger.program.controller.misc.ControllerShowSystemOutput;
 import org.jphototagger.program.controller.misc.ControllerShowUserSettingsDialog;
@@ -87,6 +91,7 @@ import org.jphototagger.program.controller.miscmetadata.ControllerMiscMetadataIt
 import org.jphototagger.program.controller.miscmetadata.ControllerRemoveMetadataFromSelImages;
 import org.jphototagger.program.controller.miscmetadata.ControllerRenameMiscMetadata;
 import org.jphototagger.program.controller.nometadata.ControllerNoMetadataItemSelected;
+import org.jphototagger.program.controller.plugin.ControllerFileProcessorPlugins;
 import org.jphototagger.program.controller.programs.ControllerOpenFilesWithOtherApp;
 import org.jphototagger.program.controller.programs.ControllerOpenFilesWithStandardApp;
 import org.jphototagger.program.controller.rating.ControllerSetRating;
@@ -117,9 +122,6 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.panels.KeywordsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuMiscMetadata;
-import java.util.List;
-import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.program.controller.metadata.ControllerDisplayIptcUserSettings;
 
 /**
  * Erzeugt alle Controller.
@@ -145,7 +147,8 @@ public final class ControllerFactory {
 
             @Override
             public void run() {
-                Support.setStatusbarInfo("ControllerFactory.Init.Start");
+                String message = Bundle.getString(ControllerFactory.class, "ControllerFactory.Init.Start");
+                Support.setStatusbarInfo(message);
                 addAppWindowMenuItemControllers();
                 addAppWindowSelectionControllers();
                 addImageCollectionControllers();
@@ -161,7 +164,8 @@ public final class ControllerFactory {
                 addKeywordsControllers();
                 addMiscControllers();
                 addSizeAndLocationController();
-                Support.setStatusbarInfo("ControllerFactory.Init.Finished");
+                message = Bundle.getString(ControllerFactory.class, "ControllerFactory.Init.Finished");
+                Support.setStatusbarInfo(message);
             }
         });
     }

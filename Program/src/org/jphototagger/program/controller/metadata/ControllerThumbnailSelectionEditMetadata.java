@@ -1,14 +1,16 @@
 package org.jphototagger.program.controller.metadata;
 
-import org.jphototagger.domain.event.listener.ThumbnailsPanelListener;
-import org.jphototagger.xmp.XmpMetadata;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import java.io.File;
 import java.util.List;
+
 import javax.swing.JLabel;
+
+import org.jphototagger.domain.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.jphototagger.xmp.XmpMetadata;
 
 /**
  * Listens to the {@link ThumbnailsPanel} for thumbnail selections.
@@ -22,6 +24,7 @@ import org.jphototagger.lib.awt.EventQueueUtil;
  * @author Elmar Baumann
  */
 public final class ControllerThumbnailSelectionEditMetadata implements ThumbnailsPanelListener {
+
     public ControllerThumbnailSelectionEditMetadata() {
         listen();
     }
@@ -32,7 +35,6 @@ public final class ControllerThumbnailSelectionEditMetadata implements Thumbnail
 
     @Override
     public void thumbnailsChanged() {
-
         // ignore
     }
 
@@ -43,6 +45,7 @@ public final class ControllerThumbnailSelectionEditMetadata implements Thumbnail
 
     private void handleSelectionChanged() {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 boolean canEdit = false;
@@ -71,13 +74,13 @@ public final class ControllerThumbnailSelectionEditMetadata implements Thumbnail
         JLabel labelEditable = GUI.getAppPanel().getLabelMetadataInfoEditable();
 
         labelEditable.setText(canEdit
-                              ? multipleThumbnailsSelected()
-                                ? JptBundle.INSTANCE.getString(
-                                    "ControllerThumbnailSelectionEditMetadata.Info.MetadataEditAddOnlyChanges")
-                                : JptBundle.INSTANCE.getString(
-                                    "ControllerThumbnailSelectionEditMetadata.Info.EditIsEnabled")
-                              : JptBundle.INSTANCE.getString(
-                                  "ControllerThumbnailSelectionEditMetadata.Info.EditIsDisabled"));
+                ? multipleThumbnailsSelected()
+                ? Bundle.getString(ControllerThumbnailSelectionEditMetadata.class,
+                "ControllerThumbnailSelectionEditMetadata.Info.MetadataEditAddOnlyChanges")
+                : Bundle.getString(ControllerThumbnailSelectionEditMetadata.class,
+                "ControllerThumbnailSelectionEditMetadata.Info.EditIsEnabled")
+                : Bundle.getString(ControllerThumbnailSelectionEditMetadata.class,
+                "ControllerThumbnailSelectionEditMetadata.Info.EditIsDisabled"));
     }
 
     private boolean multipleThumbnailsSelected() {

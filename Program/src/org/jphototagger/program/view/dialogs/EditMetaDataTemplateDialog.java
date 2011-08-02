@@ -6,8 +6,9 @@ import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.database.DatabaseMetadataTemplates;
 import org.jphototagger.program.view.ViewUtil;
 
@@ -98,8 +99,9 @@ public class EditMetaDataTemplateDialog extends Dialog {
     }
 
     private void checkSave() {
-        if (panelXmpEdit.isDirty()
-            && MessageDisplayer.confirmYesNo(this, "EditMetaDataTemplateDialog.Confirm.CheckSave")) {
+        String message = Bundle.getString(EditMetaDataTemplateDialog.class, "EditMetaDataTemplateDialog.Confirm.CheckSave");
+
+        if (panelXmpEdit.isDirty() && MessageDisplayer.confirmYesNo(this, message)) {
             save();
         }
     }
@@ -112,7 +114,8 @@ public class EditMetaDataTemplateDialog extends Dialog {
             if (DatabaseMetadataTemplates.INSTANCE.insertOrUpdate(template)) {
                 panelXmpEdit.setDirty(false);
             } else {
-                MessageDisplayer.error(this, "EditMetaDataTemplateDialog.Error.Save");
+                String message = Bundle.getString(EditMetaDataTemplateDialog.class, "EditMetaDataTemplateDialog.Error.Save");
+                MessageDisplayer.error(this, message);
             }
 
             setVisible(false);
@@ -126,7 +129,8 @@ public class EditMetaDataTemplateDialog extends Dialog {
 
             if (textfieldHasName) {
                 if (DatabaseMetadataTemplates.INSTANCE.exists(name)) {
-                    MessageDisplayer.error(this, "EditMetaDataTemplateDialog.Error.NameExists", name);
+                    String message = Bundle.getString(EditMetaDataTemplateDialog.class, "EditMetaDataTemplateDialog.Error.NameExists", name);
+                    MessageDisplayer.error(this, message);
                     textFieldName.requestFocusInWindow();
                     textFieldName.selectAll();
 
@@ -135,7 +139,8 @@ public class EditMetaDataTemplateDialog extends Dialog {
                     template.setName(name);
                 }
             } else {
-                MessageDisplayer.error(this, "EditMetaDataTemplateDialog.Error.SaveNoName");
+                String message = Bundle.getString(EditMetaDataTemplateDialog.class, "EditMetaDataTemplateDialog.Error.SaveNoName");
+                MessageDisplayer.error(this, message);
                 textFieldName.requestFocusInWindow();
 
                 return false;

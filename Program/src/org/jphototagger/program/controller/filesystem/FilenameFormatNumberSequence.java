@@ -1,7 +1,7 @@
 package org.jphototagger.program.controller.filesystem;
 
-import org.jphototagger.program.resource.JptBundle;
 import java.text.DecimalFormat;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  *
@@ -71,7 +71,7 @@ public final class FilenameFormatNumberSequence extends FilenameFormat {
 
     @Override
     public String toString() {
-        return JptBundle.INSTANCE.getString("FilenameFormatNumberSequence.String");
+        return Bundle.getString(FilenameFormatNumberSequence.class, "FilenameFormatNumberSequence.String");
     }
 
     private FilenameFormatNumberSequence() {}

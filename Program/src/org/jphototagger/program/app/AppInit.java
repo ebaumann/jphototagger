@@ -1,23 +1,27 @@
 package org.jphototagger.program.app;
 
-import org.jphototagger.program.app.logging.AppLoggingSystem;
-import org.jphototagger.program.app.logging.AppLogUtil;
-import com.imagero.reader.AbstractImageReader;
-import org.jphototagger.lib.dialog.SystemOutputDialog;
-import org.jphototagger.lib.system.SystemUtil;
-import org.jphototagger.lib.util.CommandLineParser;
-import org.jphototagger.lib.util.Version;
-import org.jphototagger.program.resource.ImageProperties;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.view.frames.AppFrame;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import java.awt.Toolkit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.SwingUtilities;
+
 import org.bushe.swing.event.EventBus;
 import org.jphototagger.domain.event.AppWillInitEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.dialog.SystemOutputDialog;
+import org.jphototagger.lib.system.SystemUtil;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.util.CommandLineParser;
+import org.jphototagger.lib.util.Version;
+import org.jphototagger.program.app.logging.AppLogUtil;
+import org.jphototagger.program.app.logging.AppLoggingSystem;
 import org.jphototagger.program.cache.CacheUtil;
+import org.jphototagger.program.resource.ImageProperties;
+import org.jphototagger.program.view.frames.AppFrame;
+
+import com.imagero.reader.AbstractImageReader;
 
 /**
  * Initializes the application.
@@ -78,7 +82,7 @@ public final class AppInit {
             return;
         }
 
-        SplashScreen.INSTANCE.setMessage(JptBundle.INSTANCE.getString("AppInit.Info.InitGui"));
+        SplashScreen.INSTANCE.setMessage(Bundle.getString(AppInit.class, "AppInit.Info.InitGui"));
         SplashScreen.INSTANCE.setProgress(100);
         SplashScreen.INSTANCE.close();
     }
@@ -144,6 +148,7 @@ public final class AppInit {
     }
 
     private static void errorMessageJavaVersion(Version javaVersion) {
-        MessageDisplayer.error(null, "AppInit.Error.JavaVersion", javaVersion, AppInfo.MIN_JAVA_VERSION);
+        String message = Bundle.getString(AppInit.class, "AppInit.Error.JavaVersion", javaVersion, AppInfo.MIN_JAVA_VERSION);
+        MessageDisplayer.error(null, message);
     }
 }

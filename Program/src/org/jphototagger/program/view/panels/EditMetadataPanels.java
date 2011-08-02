@@ -38,20 +38,21 @@ import org.jphototagger.domain.text.TextEntry;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.AppLifeCycle;
-import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.controller.keywords.tree.SuggestKeywords;
 import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.xmp.EditColumns;
-import org.jphototagger.xmp.EditHints;
-import org.jphototagger.xmp.EditHints.SizeEditField;
 import org.jphototagger.program.helper.SaveXmp;
-import org.jphototagger.xmp.FileXmp;
-import org.jphototagger.xmp.XmpMetadata;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.ViewUtil;
 import org.jphototagger.program.view.WaitDisplay;
+import org.jphototagger.xmp.EditColumns;
+import org.jphototagger.xmp.EditHints;
+import org.jphototagger.xmp.EditHints.SizeEditField;
+import org.jphototagger.xmp.FileXmp;
+import org.jphototagger.xmp.XmpMetadata;
 
 /**
  * Panels mit Edit-Feldern zum Bearbeiten von Metadaten.
@@ -1196,7 +1197,9 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
                 throw new NullPointerException("entry == null");
             }
 
-            if (MessageDisplayer.confirmYesNo(null, "EditMetadataPanels.DisableIfMultipleValues.Confirm.Edit")) {
+            String message = Bundle.getString(WatchDifferentValues.class, "EditMetadataPanels.DisableIfMultipleValues.Confirm.Edit");
+
+            if (MessageDisplayer.confirmYesNo(null, message)) {
                 releaseEntry(entry);
 
                 return true;

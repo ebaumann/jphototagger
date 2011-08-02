@@ -11,7 +11,8 @@ import javax.swing.event.ListSelectionListener;
 import org.jphototagger.domain.filetypes.UserDefinedFileType;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.event.util.MouseEventUtil;
-import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.database.DatabaseUserDefinedFileTypes;
 import org.jphototagger.program.model.ListModelUserDefinedFileTypes;
 import org.jphototagger.program.view.dialogs.EditUserDefinedFileTypeDialog;
@@ -52,7 +53,9 @@ public class UserDefinedFileTypesPanel extends javax.swing.JPanel {
     }
 
     private void deleteUserDefinedFileType() {
-        if (MessageDisplayer.confirmYesNo(this, "UserDefinedFileTypesPanel.Confirm.Delete")) {
+        String message = Bundle.getString(UserDefinedFileTypesPanel.class, "UserDefinedFileTypesPanel.Confirm.Delete");
+
+        if (MessageDisplayer.confirmYesNo(this, message)) {
             List<UserDefinedFileType> fileTypes = getSelectedUserDefinedFileTypes();
 
             for (UserDefinedFileType fileType : fileTypes) {

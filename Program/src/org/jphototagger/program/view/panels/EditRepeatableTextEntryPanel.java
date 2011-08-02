@@ -38,8 +38,9 @@ import org.jphototagger.lib.componentutil.Autocomplete;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.lib.event.util.KeyEventUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.database.metadata.selections.AutoCompleteDataOfColumn;
 import org.jphototagger.program.helper.AutocompleteHelper;
@@ -324,7 +325,9 @@ public final class EditRepeatableTextEntryPanel extends JPanel
     }
 
     private boolean confirmRemoveSelectedItems() {
-        return MessageDisplayer.confirmYesNo(this, "EditRepeatableTextEntryPanel.Confirm.RemoveSelItems");
+        String message = Bundle.getString(EditRepeatableTextEntryPanel.class, "EditRepeatableTextEntryPanel.Confirm.RemoveSelItems");
+
+        return MessageDisplayer.confirmYesNo(this, message);
     }
 
     @Override
@@ -514,14 +517,18 @@ public final class EditRepeatableTextEntryPanel extends JPanel
 
         do {
             bundleKeyPosRenameDialog = getClass().getName();
-            toName = MessageDisplayer.input("EditRepeatableTextEntryPanel.Input.RenameListItem", fromName, bundleKeyPosRenameDialog);
+            String info = Bundle.getString(EditRepeatableTextEntryPanel.class, "EditRepeatableTextEntryPanel.Input.RenameListItem");
+            String input = fromName;
+            toName = MessageDisplayer.input(info, input);
             ready = toName == null;
 
             if ((toName != null) && toName.trim().equalsIgnoreCase(fromName)) {
-                ready = !MessageDisplayer.confirmYesNo(list, "EditRepeatableTextEntryPanel.Confirm.SameNames");
+                String message = Bundle.getString(EditRepeatableTextEntryPanel.class, "EditRepeatableTextEntryPanel.Confirm.SameNames");
+                ready = !MessageDisplayer.confirmYesNo(list, message);
                 toName = null;
             } else if ((toName != null) && ListUtil.containsString(list.getModel(), toName.trim())) {
-                ready = !MessageDisplayer.confirmYesNo(list, "EditRepeatableTextEntryPanel.Confirm.NameExists", toName);
+                String message = Bundle.getString(EditRepeatableTextEntryPanel.class, "EditRepeatableTextEntryPanel.Confirm.NameExists", toName);
+                ready = !MessageDisplayer.confirmYesNo(list, message);
                 toName = null;
             } else if ((toName != null) &&!toName.trim().isEmpty()) {
                 ready = true;
@@ -538,7 +545,8 @@ public final class EditRepeatableTextEntryPanel extends JPanel
 
     private boolean checkSelected(int selCount) {
         if (selCount <= 0) {
-            MessageDisplayer.error(this, "EditRepeatableTextEntryPanel.Error.Select");
+            String message = Bundle.getString(EditRepeatableTextEntryPanel.class, "EditRepeatableTextEntryPanel.Error.Select");
+            MessageDisplayer.error(this, message);
 
             return false;
         }

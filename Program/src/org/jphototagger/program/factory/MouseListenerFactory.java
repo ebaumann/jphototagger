@@ -1,8 +1,11 @@
 package org.jphototagger.program.factory;
 
+
+import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.ListItemTempSelectionRowSetter;
 import org.jphototagger.lib.componentutil.TreeItemTempSelectionRowSetter;
 import org.jphototagger.lib.event.listener.TableButtonMouseListener;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.event.listener.impl.MouseListenerDirectories;
 import org.jphototagger.program.event.listener.impl.MouseListenerFavorites;
 import org.jphototagger.program.event.listener.impl.MouseListenerImageCollections;
@@ -16,7 +19,6 @@ import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsList;
 import org.jphototagger.program.view.popupmenus.PopupMenuMetadataTemplates;
-import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Erzeugt und verbindet MouseListener.
@@ -40,9 +42,11 @@ public final class MouseListenerFactory {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
-                Support.setStatusbarInfo("MouseListenerFactory.Init.Start");
+                String message = Bundle.getString(MouseListenerFactory.class, "MouseListenerFactory.Init.Start");
+                Support.setStatusbarInfo(message);
                 addMouseListeners();
-                Support.setStatusbarInfo("MouseListenerFactory.Init.Finished");
+                message = Bundle.getString(MouseListenerFactory.class , "MouseListenerFactory.Init.Finished");
+                Support.setStatusbarInfo(message);
             }
         });
     }

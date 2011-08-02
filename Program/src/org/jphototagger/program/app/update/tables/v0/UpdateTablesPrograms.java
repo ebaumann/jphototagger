@@ -1,16 +1,17 @@
 package org.jphototagger.program.app.update.tables.v0;
 
-import org.jphototagger.lib.util.Settings;
-import org.jphototagger.program.app.SplashScreen;
-import org.jphototagger.program.data.Program;
-import org.jphototagger.program.database.Database;
-import org.jphototagger.program.database.DatabasePrograms;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.UserSettings;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.util.Settings;
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.app.SplashScreen;
+import org.jphototagger.program.data.Program;
+import org.jphototagger.program.database.Database;
+import org.jphototagger.program.database.DatabasePrograms;
 
 /**
  *
@@ -80,6 +81,6 @@ final class UpdateTablesPrograms extends Database {
     }
 
     private void startMessage() {
-        SplashScreen.INSTANCE.setMessage(JptBundle.INSTANCE.getString("UpdateTablesPrograms.Info"));
+        SplashScreen.INSTANCE.setMessage(Bundle.getString(UpdateTablesPrograms.class, "UpdateTablesPrograms.Info"));
     }
 }

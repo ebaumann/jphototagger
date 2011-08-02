@@ -1,8 +1,9 @@
 package org.jphototagger.program.view.dialogs;
 
 import org.jphototagger.lib.dialog.Dialog;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.FileEditorPanel;
 
@@ -40,7 +41,8 @@ public class FileEditorDialog extends Dialog {
 
     private void hideIfNotRunning() {
         if (panelFileEditor.isRunning()) {
-            MessageDisplayer.error(this, "FileEditorDialog.Error.Running");
+            String message = Bundle.getString(FileEditorDialog.class, "FileEditorDialog.Error.Running");
+            MessageDisplayer.error(this, message);
         } else {
             super.setVisible(false);
         }

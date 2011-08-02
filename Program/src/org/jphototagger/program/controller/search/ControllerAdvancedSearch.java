@@ -1,22 +1,24 @@
 package org.jphototagger.program.controller.search;
 
-import org.jphototagger.lib.componentutil.TreeUtil;
-import org.jphototagger.domain.database.search.ParamStatement;
-import org.jphototagger.program.data.SavedSearch;
-import org.jphototagger.program.database.DatabaseFind;
-import org.jphototagger.program.helper.SavedSearchesHelper;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.types.Content;
-import org.jphototagger.program.view.dialogs.AdvancedSearchDialog;
-import org.jphototagger.program.view.panels.AdvancedSearchPanel;
-import org.jphototagger.program.view.WaitDisplay;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.List;
+
 import javax.swing.JButton;
+
+import org.jphototagger.domain.database.search.ParamStatement;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.componentutil.TreeUtil;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.data.SavedSearch;
+import org.jphototagger.program.database.DatabaseFind;
+import org.jphototagger.program.helper.SavedSearchesHelper;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.types.Content;
+import org.jphototagger.program.view.WaitDisplay;
+import org.jphototagger.program.view.dialogs.AdvancedSearchDialog;
+import org.jphototagger.program.view.panels.AdvancedSearchPanel;
 
 /**
  * Kontrolliert die Aktionen: Erweiterter Suchdialog soll angezeigt werden sowie
@@ -55,12 +57,11 @@ public final class ControllerAdvancedSearch implements ActionListener {
                 GUI.getThumbnailsPanel().setFiles(imageFiles, Content.SAVED_SEARCH);
                 WaitDisplay.hide();
             }
+
             private void setTitle(String name) {
-                GUI.getAppFrame().setTitle((name == null)
-                                           ? JptBundle.INSTANCE.getString(
-                                               "ControllerAdvancedSearch.AppFrame.Title.AdvancedSearch")
-                                           : JptBundle.INSTANCE.getString(
-                                               "ControllerAdvancedSearch.AppFrame.Title.AdvancedSearch.Saved", name));
+                String titleAdvancedSearch = Bundle.getString(ControllerAdvancedSearch.class, "ControllerAdvancedSearch.AppFrame.Title.AdvancedSearch");
+                String titleSavedSearch = Bundle.getString(ControllerAdvancedSearch.class,  "ControllerAdvancedSearch.AppFrame.Title.AdvancedSearch.Saved", name);
+                GUI.getAppFrame().setTitle(name == null ? titleAdvancedSearch : titleSavedSearch);
             }
         });
     }

@@ -17,15 +17,15 @@ import javax.swing.JMenuItem;
 
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.dialog.HelpBrowser;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.event.HelpBrowserEvent;
 import org.jphototagger.lib.event.listener.HelpBrowserListener;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.Main;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.AppInfo;
-import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.app.logging.AppLoggingSystem;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
 
 /**
  *
@@ -153,9 +153,11 @@ public final class ControllerHelp implements ActionListener, HelpBrowserListener
     }
 
     private void sendBugMail() {
-        sendMail(AppInfo.MAIL_TO_ADDRESS_BUGS, AppInfo.MAIL_SUBJECT_BUGS,
-                 JptBundle.INSTANCE.getString("ControllerSendMail.Info.AttachLogfile",
-                     AppLoggingSystem.geLogfilePathAllMessages()));
+        String mailto = AppInfo.MAIL_TO_ADDRESS_BUGS;
+        String subject = AppInfo.MAIL_SUBJECT_BUGS;
+        String message = Bundle.getString(ControllerHelp.class, "ControllerSendMail.Info.AttachLogfile", AppLoggingSystem.geLogfilePathAllMessages());
+
+        sendMail(mailto, subject, message);
     }
 
     private void sendFeatureMail() {
@@ -170,7 +172,8 @@ public final class ControllerHelp implements ActionListener, HelpBrowserListener
             Desktop.getDesktop().mail(uri);
         } catch (Exception ex) {
             Logger.getLogger(ControllerHelp.class.getName()).log(Level.SEVERE, null, ex);
-            MessageDisplayer.error(null, "ControllerSendMail.Error.SendMail");
+            String message = Bundle.getString(ControllerHelp.class, "ControllerSendMail.Error.SendMail");
+            MessageDisplayer.error(null, message);
         }
     }
 
@@ -247,7 +250,8 @@ public final class ControllerHelp implements ActionListener, HelpBrowserListener
             Logger.getLogger(ControllerHelp.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        MessageDisplayer.error(null, "ControllerHelp.Error.NoPdfFile", manualPath);
+        String message = Bundle.getString(ControllerHelp.class, "ControllerHelp.Error.NoPdfFile", manualPath);
+        MessageDisplayer.error(null, message);
 
         return null;
     }

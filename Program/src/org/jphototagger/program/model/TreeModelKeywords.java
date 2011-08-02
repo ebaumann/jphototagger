@@ -13,11 +13,11 @@ import javax.swing.tree.TreeNode;
 
 import org.jphototagger.domain.keywords.Keyword;
 import org.jphototagger.lib.componentutil.TreeUtil;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.model.TreeNodeSortedChildren;
-import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.database.DatabaseKeywords;
 import org.jphototagger.program.helper.KeywordsHelper;
-import org.jphototagger.program.resource.JptBundle;
 
 /**
  * Elements are {@link DefaultMutableTreeNode}s with the user objects listed
@@ -37,7 +37,7 @@ public final class TreeModelKeywords extends DefaultTreeModel {
     private final DefaultMutableTreeNode ROOT;
 
     public TreeModelKeywords() {
-        super(new TreeNodeSortedChildren(JptBundle.INSTANCE.getString("TreeModelKeywords.DisplayName.Root")));
+        super(new TreeNodeSortedChildren(Bundle.getString(TreeModelKeywords.class, "TreeModelKeywords.DisplayName.Root")));
         ROOT = (DefaultMutableTreeNode) getRoot();
         createTree();
     }
@@ -118,7 +118,8 @@ public final class TreeModelKeywords extends DefaultTreeModel {
 
                 return node;
             } else {
-                MessageDisplayer.error(null, "TreeModelKeywords.Error.DbInsert", keyword);
+                String message = Bundle.getString(TreeModelKeywords.class, "TreeModelKeywords.Error.DbInsert", keyword);
+                MessageDisplayer.error(null, message);
             }
         }
 
@@ -166,7 +167,8 @@ public final class TreeModelKeywords extends DefaultTreeModel {
 
             return node;
         } else {
-            MessageDisplayer.error(null, "TreeModelKeywords.Error.DbCopy", keyword.getName(), targetKeyword.getName());
+            String message = Bundle.getString(TreeModelKeywords.class, "TreeModelKeywords.Error.DbCopy", keyword.getName(), targetKeyword.getName());
+            MessageDisplayer.error(null, message);
         }
 
         return null;
@@ -184,7 +186,8 @@ public final class TreeModelKeywords extends DefaultTreeModel {
     private boolean ensureIsNotChild(DefaultMutableTreeNode parentNode, String keyword, boolean errorMessage) {
         if (childHasKeyword(parentNode, keyword)) {
             if (errorMessage) {
-                MessageDisplayer.error(null, "TreeModelKeywords.Error.KeywordExists", keyword, parentNode);
+                String message = Bundle.getString(TreeModelKeywords.class, "TreeModelKeywords.Error.KeywordExists", keyword, parentNode);
+                MessageDisplayer.error(null, message);
             }
 
             return false;
@@ -197,7 +200,8 @@ public final class TreeModelKeywords extends DefaultTreeModel {
         boolean isBelow = TreeUtil.isAbove(source, target);
 
         if (isBelow) {
-            MessageDisplayer.error(null, "TreeModelKeywords.Error.TargetBelowSource");
+            String message = Bundle.getString(TreeModelKeywords.class, "TreeModelKeywords.Error.TargetBelowSource");
+            MessageDisplayer.error(null, message);
 
             return false;
         }
@@ -247,7 +251,8 @@ public final class TreeModelKeywords extends DefaultTreeModel {
         if (DatabaseKeywords.INSTANCE.delete(delKeywords)) {
             removeNodeFromParent(keywordNode);
         } else {
-            MessageDisplayer.error(null, "TreeModelKeywords.Error.DbRemove", keywordNode.toString());
+            String message = Bundle.getString(TreeModelKeywords.class, "TreeModelKeywords.Error.DbRemove", keywordNode.toString());
+            MessageDisplayer.error(null, message);
         }
     }
 
@@ -280,7 +285,8 @@ public final class TreeModelKeywords extends DefaultTreeModel {
                 fireTreeNodesChanged(src, parentNode.getPath(), new int[] { parentNode.getIndex(node) },
                                      new Object[] { node });
             } else {
-                MessageDisplayer.error(null, "TreeModelKeywords.Error.DbUpdate", keyword);
+                String message = Bundle.getString(TreeModelKeywords.class, "TreeModelKeywords.Error.DbUpdate", keyword);
+                MessageDisplayer.error(null, message);
             }
         }
     }

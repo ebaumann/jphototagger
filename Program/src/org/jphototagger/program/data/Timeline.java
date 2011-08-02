@@ -14,7 +14,7 @@ import javax.swing.tree.TreeModel;
 
 import org.jphototagger.lib.model.TreeModelUpdateInfo;
 import org.jphototagger.lib.model.TreeNodeSortedChildren;
-import org.jphototagger.program.resource.JptBundle;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * Times when images are created for useage in a {@link TreeModel}.
@@ -26,8 +26,8 @@ import org.jphototagger.program.resource.JptBundle;
  * @author Elmar Baumann
  */
 public final class Timeline {
-    private final DefaultMutableTreeNode ROOT_NODE = new TreeNodeSortedChildren(JptBundle.INSTANCE.getString("Timeline.RootNode.DisplayName"));
-    private static final DefaultMutableTreeNode UNKNOWN_NODE = new TreeNodeSortedChildren(JptBundle.INSTANCE.getString("Timeline.UnknownNode.DisplayName"));
+    private final DefaultMutableTreeNode ROOT_NODE = new TreeNodeSortedChildren(Bundle.getString(Timeline.class, "Timeline.RootNode.DisplayName"));
+    private static final DefaultMutableTreeNode UNKNOWN_NODE = new TreeNodeSortedChildren(Bundle.getString(Timeline.class, "Timeline.UnknownNode.DisplayName"));
     private boolean unknownNode;
 
     /**
@@ -524,7 +524,7 @@ public final class Timeline {
         public String getMonthDisplayName() {
             try {
                 if (!hasMonth()) {
-                    return JptBundle.INSTANCE.getString("Timeline.DisplayName.NoMonth");
+                    return Bundle.getString(Date.class, "Timeline.DisplayName.NoMonth");
                 }
 
                 DateFormat df = new SimpleDateFormat("M");
@@ -536,7 +536,7 @@ public final class Timeline {
                 Logger.getLogger(Date.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            return JptBundle.INSTANCE.getString("Timeline.DisplayName.NoMonth");
+            return Bundle.getString(Date.class, "Timeline.DisplayName.NoMonth");
         }
 
         @Override

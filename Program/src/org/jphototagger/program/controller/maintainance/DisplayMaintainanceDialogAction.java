@@ -3,8 +3,8 @@ package org.jphototagger.program.controller.maintainance;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.dialogs.MaintainanceDialog;
 
 /**
@@ -17,7 +17,7 @@ public final class DisplayMaintainanceDialogAction extends AbstractAction {
     public static final DisplayMaintainanceDialogAction INSTANCE = new DisplayMaintainanceDialogAction();
 
     private DisplayMaintainanceDialogAction() {
-        super(JptBundle.INSTANCE.getString("DisplayMaintainanceDialogAction.Name"));
+        super(Bundle.getString(DisplayMaintainanceDialogAction.class, "DisplayMaintainanceDialogAction.Name"));
 
         putValue(Action.SMALL_ICON, AppLookAndFeel.getIcon("icon_settings.png"));
     }

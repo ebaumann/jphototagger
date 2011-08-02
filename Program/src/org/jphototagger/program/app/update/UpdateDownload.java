@@ -12,18 +12,18 @@ import javax.swing.JProgressBar;
 
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.concurrent.Cancelable;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.net.CancelRequest;
 import org.jphototagger.lib.net.HttpUtil;
 import org.jphototagger.lib.net.NetVersion;
 import org.jphototagger.lib.system.SystemUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.Version;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.AppInfo;
 import org.jphototagger.program.app.AppLifeCycle;
-import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.database.DatabaseApplicationProperties;
 import org.jphototagger.program.helper.FinalExecutable;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.panels.ProgressBar;
 
 /**
@@ -33,6 +33,7 @@ import org.jphototagger.program.view.panels.ProgressBar;
  * @author Elmar Baumann
  */
 public final class UpdateDownload extends Thread implements CancelRequest, Cancelable {
+
     private static final String FILENAME_WINDOWS = "JPhotoTagger-Setup.exe";
     private static final String FILENAME_ZIP = "JPhotoTagger.zip";
     private static final String URL_VERSION_CHECK_FILE = "http://www.jphototagger.org/jphototagger-version.txt";
@@ -76,7 +77,6 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
 
         new UpdateDownload().start();
     }
-
     private static final String KEY_ASK_ONCE_CHECK_FOR_NEWER_VERSION = "UpdateDownload.CheckForNewerVersion";
 
     /**
@@ -93,10 +93,13 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
         if (!DatabaseApplicationProperties.INSTANCE.getBoolean(KEY_ASK_ONCE_CHECK_FOR_NEWER_VERSION)) {
             try {
                 EventQueue.invokeAndWait(new Runnable() {
+
                     @Override
                     public void run() {
-                        UserSettings.INSTANCE.setAutoDownloadNewerVersions(MessageDisplayer.confirmYesNo(null,
-                                "UpdateDownload.Confirm.CheckForNewerVersion"));
+                        String message = Bundle.getString(UpdateDownload.class, "UpdateDownload.Confirm.CheckForNewerVersion");
+                        boolean isAutoDownload = MessageDisplayer.confirmYesNo(null, message);
+
+                        UserSettings.INSTANCE.setAutoDownloadNewerVersions(isAutoDownload);
                         DatabaseApplicationProperties.INSTANCE.setBoolean(KEY_ASK_ONCE_CHECK_FOR_NEWER_VERSION, true);
                     }
                 });
@@ -111,9 +114,9 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
         startProgressBar();
 
         try {
-            if (hasNewerVersion()
-                    && MessageDisplayer.confirmYesNo(null, "UpdateDownload.Confirm.Download",
-                        currentVersion.toString3(), netVersion.toString3())) {
+            String message = Bundle.getString(UpdateDownload.class, "UpdateDownload.Confirm.Download", currentVersion.toString3(), netVersion.toString3());
+
+            if (hasNewerVersion() && MessageDisplayer.confirmYesNo(null, message)) {
                 progressBarDownloadInfo();
                 download();
 
@@ -156,7 +159,8 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
             if (SystemUtil.isWindows()) {
                 setFinalExecutable(downloadFile);
             } else {
-                MessageDisplayer.information(null, "UpdateDownload.Info.Success", downloadFile);
+                String message = Bundle.getString(UpdateDownload.class, "UpdateDownload.Info.Success", downloadFile);
+                MessageDisplayer.information(null, message);
             }
         } catch (Exception ex) {
             Logger.getLogger(UpdateDownload.class.getName()).log(Level.SEVERE, null, ex);
@@ -164,7 +168,9 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
     }
 
     private void setFinalExecutable(File downloadFile) {
-        if (MessageDisplayer.confirmYesNo(null, "UpdateDownload.Confirm.SetFinalExecutable", downloadFile)) {
+        String message = Bundle.getString(UpdateDownload.class, "UpdateDownload.Confirm.SetFinalExecutable", downloadFile);
+
+        if (MessageDisplayer.confirmYesNo(null, message)) {
             FinalExecutable exec = new FinalExecutable(downloadFile.getAbsolutePath());
 
             AppLifeCycle.INSTANCE.addFinalTask(exec);
@@ -189,12 +195,13 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
     private void startProgressBar() {
         progressBar = ProgressBar.INSTANCE.getResource(pBarOwner);
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 if (progressBar != null) {
                     progressBar.setIndeterminate(true);
                     progressBar.setStringPainted(true);
-                    progressBar.setString(JptBundle.INSTANCE.getString("UpdateDownload.Info.ProgressBar"));
+                    progressBar.setString(Bundle.getString(UpdateDownload.class, "UpdateDownload.Info.ProgressBar"));
                 }
             }
         });
@@ -202,10 +209,11 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
 
     private void progressBarDownloadInfo() {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 if (progressBar != null) {
-                    progressBar.setString(JptBundle.INSTANCE.getString("UpdateDownload.Info.ProgressBarDownload"));
+                    progressBar.setString(Bundle.getString(UpdateDownload.class, "UpdateDownload.Info.ProgressBarDownload"));
                 }
             }
         });
@@ -213,6 +221,7 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
 
     private void releaseProgressBar() {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 if (progressBar != null) {

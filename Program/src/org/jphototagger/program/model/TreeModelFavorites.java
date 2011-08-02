@@ -24,15 +24,15 @@ import org.jphototagger.domain.event.listener.DatabaseFavoritesListener;
 import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.TreeUtil;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.TreeFileSystemDirectories;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
 import org.jphototagger.lib.model.TreeNodeSortedChildren;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.AppLifeCycle;
-import org.jphototagger.program.app.MessageDisplayer;
 import org.jphototagger.program.database.DatabaseFavorites;
-import org.jphototagger.program.resource.JptBundle;
 
 /**
  * Elements are {@link DefaultMutableTreeNode}s with the user objects listed
@@ -60,7 +60,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
     private static final Logger LOGGER = Logger.getLogger(TreeModelFavorites.class.getName());
 
     public TreeModelFavorites(JTree tree) {
-        super(new DefaultMutableTreeNode(JptBundle.INSTANCE.getString("TreeModelFavorites.Root.DisplayName")));
+        super(new DefaultMutableTreeNode(Bundle.getString(TreeModelFavorites.class, "TreeModelFavorites.Root.DisplayName")));
 
         if (tree == null) {
             throw new NullPointerException("tree == null");
@@ -88,7 +88,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
                     addFavorite(favorite);
                 } else {
                     errorMessage(favorite.getName(),
-                                 JptBundle.INSTANCE.getString("TreeModelFavorites.Error.ParamInsert"));
+                                 Bundle.getString(TreeModelFavorites.class, "TreeModelFavorites.Error.ParamInsert"));
                 }
             }
 
@@ -110,7 +110,7 @@ public final class TreeModelFavorites extends DefaultTreeModel
                 removeNodeFromParent(favNode);
                 resetFavoriteIndices();
             } else {
-                errorMessage(favorite.getName(), JptBundle.INSTANCE.getString("TreeModelFavorites.Error.ParamDelete"));
+                errorMessage(favorite.getName(), Bundle.getString(TreeModelFavorites.class, "TreeModelFavorites.Error.ParamDelete"));
             }
 
             listenToDb = true;
@@ -710,7 +710,8 @@ public final class TreeModelFavorites extends DefaultTreeModel
     }
 
     private void errorMessage(String favoriteName, String cause) {
-        MessageDisplayer.error(null, "TreeModelFavorites.Error.Template", favoriteName, cause);
+        String message = Bundle.getString(TreeModelFavorites.class, "TreeModelFavorites.Error.Template", favoriteName, cause);
+        MessageDisplayer.error(null, message);
     }
 
     private void errorMessageAddDirectory(Favorite favorite) {

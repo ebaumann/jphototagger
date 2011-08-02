@@ -8,7 +8,8 @@ import java.util.logging.Logger;
 
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.runtime.External;
-import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 
 /**
  * I/O utils.
@@ -52,7 +53,8 @@ public final class RuntimeUtil {
                 Runtime.getRuntime().exec(External.parseQuotedCommandLine(openCommand));
             } catch (Exception ex) {
                 Logger.getLogger(RuntimeUtil.class.getName()).log(Level.SEVERE, null, ex);
-                MessageDisplayer.error(null, "IoUtil.Error.OpenFile");
+                String message = Bundle.getString(RuntimeUtil.class, "IoUtil.Error.OpenFile");
+                MessageDisplayer.error(null, message);
             }
         }
     }

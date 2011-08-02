@@ -6,8 +6,8 @@ import java.util.logging.Logger;
 import org.jphototagger.domain.event.listener.impl.ProgressListenerSupport;
 import org.jphototagger.lib.event.ProgressEvent;
 import org.jphototagger.lib.event.listener.ProgressListener;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.database.DatabaseMaintainance;
-import org.jphototagger.program.resource.JptBundle;
 
 /**
  * Deletes from the database records in 1:n tables not referenced by another
@@ -54,10 +54,10 @@ public final class DeleteNotReferenced1n implements Runnable {
     }
 
     private Object getStartMessage() {
-        return JptBundle.INSTANCE.getString("DeleteNotReferenced1n.Info.Start");
+        return Bundle.getString(DeleteNotReferenced1n.class, "DeleteNotReferenced1n.Info.Start");
     }
 
     private Object getEndMessage() {
-        return JptBundle.INSTANCE.getString("DeleteNotReferenced1n.Info.Finished", countDeleted);
+        return Bundle.getString(DeleteNotReferenced1n.class, "DeleteNotReferenced1n.Info.Finished", countDeleted);
     }
 }

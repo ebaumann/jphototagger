@@ -1,24 +1,27 @@
 package org.jphototagger.program.controller.keywords.tree;
 
-import org.jphototagger.lib.event.util.KeyEventUtil;
-import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.domain.keywords.Keyword;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JPanel;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreeNode;
+
 import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.domain.keywords.Keyword;
+import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.event.util.KeyEventUtil;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.helper.KeywordsHelper;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
 import org.jphototagger.program.view.panels.EditRepeatableTextEntryPanel;
 import org.jphototagger.program.view.panels.KeywordsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsTree;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.JPanel;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreeNode;
-import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Listens to the menu item
@@ -78,10 +81,12 @@ public class ControllerAddKeywordsToEditPanel extends ControllerKeywords impleme
                 KeywordsHelper.addHighlightKeywords(keywordNames);
                 editPanels.checkSaveOnChanges();
             } else {
-                MessageDisplayer.error(null, "ControllerAddKeywordsToEditPanel.Error.EditDisabled");
+                String message = Bundle.getString(ControllerAddKeywordsToEditPanel.class, "ControllerAddKeywordsToEditPanel.Error.EditDisabled");
+                MessageDisplayer.error(null, message);
             }
         } else {
-            MessageDisplayer.error(null, "ControllerAddKeywordsToEditPanel.Error.NoEditPanel");
+            String message = Bundle.getString(ControllerAddKeywordsToEditPanel.class, "ControllerAddKeywordsToEditPanel.Error.NoEditPanel");
+            MessageDisplayer.error(null, message);
         }
     }
 

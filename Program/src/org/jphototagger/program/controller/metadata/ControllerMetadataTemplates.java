@@ -7,7 +7,8 @@ import java.util.logging.Logger;
 
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.database.DatabaseMetadataTemplates;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.model.ComboBoxModelMetadataTemplates;
@@ -79,6 +80,7 @@ public final class ControllerMetadataTemplates implements ActionListener {
 
     private void createTemplate() {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 final String name = getNewName();
@@ -95,6 +97,7 @@ public final class ControllerMetadataTemplates implements ActionListener {
 
     private void deleteTemplate() {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 Object o = getModel().getSelectedItem();
@@ -114,6 +117,7 @@ public final class ControllerMetadataTemplates implements ActionListener {
 
     private void editTemplate() {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 Object o = getModel().getSelectedItem();
@@ -130,6 +134,7 @@ public final class ControllerMetadataTemplates implements ActionListener {
 
     private void renameTemplate() {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 Object o = getModel().getSelectedItem();
@@ -144,6 +149,7 @@ public final class ControllerMetadataTemplates implements ActionListener {
 
     private void updateTemplate() {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 Object o = getModel().getSelectedItem();
@@ -163,6 +169,7 @@ public final class ControllerMetadataTemplates implements ActionListener {
 
     private void setCurrentTemplateToPanel() {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 Object o = getModel().getSelectedItem();
@@ -184,8 +191,10 @@ public final class ControllerMetadataTemplates implements ActionListener {
         String name = null;
         DatabaseMetadataTemplates db = DatabaseMetadataTemplates.INSTANCE;
 
-        while (exists &&!cancel) {
-            name = MessageDisplayer.input("ControllerMetadataTemplates.Input.TemplateName", name, getClass().getName());
+        while (exists && !cancel) {
+            String info = Bundle.getString(ControllerMetadataTemplates.class, "ControllerMetadataTemplates.Input.TemplateName");
+            String input = name;
+            name = MessageDisplayer.input(info, input);
             exists = (name != null) && db.exists(name);
 
             if (exists) {
@@ -201,11 +210,14 @@ public final class ControllerMetadataTemplates implements ActionListener {
     }
 
     private boolean confirmDelete(String templateName) {
-        return MessageDisplayer.confirmYesNo(null, "ControllerMetadataTemplates.Confirm.Delete", templateName);
+        String message = Bundle.getString(ControllerMetadataTemplates.class, "ControllerMetadataTemplates.Confirm.Delete", templateName);
+
+        return MessageDisplayer.confirmYesNo(null, message);
     }
 
     private boolean rejectOverride(String name) {
-        return !MessageDisplayer.confirmYesNo(null, "ControllerMetadataTemplates.Confirm.OverwriteExistingTemplate",
-                name);
+        String message = Bundle.getString(ControllerMetadataTemplates.class, "ControllerMetadataTemplates.Confirm.OverwriteExistingTemplate", name);
+
+        return !MessageDisplayer.confirmYesNo(null, message);
     }
 }

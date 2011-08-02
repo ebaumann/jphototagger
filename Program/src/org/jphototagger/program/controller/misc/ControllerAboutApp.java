@@ -1,13 +1,16 @@
 package org.jphototagger.program.controller.misc;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppInfo;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
+import org.jphototagger.program.view.frames.AppFrame;
 
 /**
  * Kontrolliert die Aktion: Informationen über die Anwendung sollen angezeigt
@@ -21,9 +24,10 @@ public final class ControllerAboutApp implements ActionListener {
         ImageIcon icon = AppLookAndFeel.getIcon("icon_logo.png");
         String key = "ControllerAboutApp.Info.About";
         String title = "JPhotoTagger";
+        AppFrame parentComponent = GUI.getAppFrame();
+        String message = Bundle.getString(ControllerAboutApp.class, key, AppInfo.APP_NAME, AppInfo.APP_VERSION);
+        int messageType = JOptionPane.INFORMATION_MESSAGE;
 
-        JOptionPane.showMessageDialog(GUI.getAppFrame(),
-                                      JptBundle.INSTANCE.getString(key, AppInfo.APP_NAME, AppInfo.APP_VERSION), title,
-                                      JOptionPane.INFORMATION_MESSAGE, icon);
+        JOptionPane.showMessageDialog(parentComponent, message, title, messageType, icon);
     }
 }

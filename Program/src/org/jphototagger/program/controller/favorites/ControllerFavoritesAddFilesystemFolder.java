@@ -1,24 +1,27 @@
 package org.jphototagger.program.controller.favorites;
 
-import org.jphototagger.lib.event.util.KeyEventUtil;
-import org.jphototagger.lib.io.TreeFileSystemDirectories;
-import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.controller.filesystem.ControllerMoveFiles;
-import org.jphototagger.program.factory.ControllerFactory;
-import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.program.model.TreeModelFavorites;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.popupmenus.PopupMenuFavorites;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
 import java.util.List;
+
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
+
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.event.util.KeyEventUtil;
+import org.jphototagger.lib.io.TreeFileSystemDirectories;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.program.controller.filesystem.ControllerMoveFiles;
+import org.jphototagger.program.factory.ControllerFactory;
+import org.jphototagger.program.factory.ModelFactory;
+import org.jphototagger.program.model.TreeModelFavorites;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.view.popupmenus.PopupMenuFavorites;
 
 /**
  * Listens to {@link PopupMenuFavorites#getItemAddFilesystemFolder()} and
@@ -98,7 +101,9 @@ public final class ControllerFavoritesAddFilesystemFolder implements ActionListe
     }
 
     private boolean isMoveSelFiles() {
-        return MessageDisplayer.confirmYesNo(null, "ControllerFavoritesAddFilesystemFolder.Confirm.MoveSelFiles");
+        String message = Bundle.getString(ControllerFavoritesAddFilesystemFolder.class, "ControllerFavoritesAddFilesystemFolder.Confirm.MoveSelFiles");
+
+        return MessageDisplayer.confirmYesNo(null, message);
     }
 
     @Override

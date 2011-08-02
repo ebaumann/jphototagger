@@ -10,11 +10,11 @@ import javax.swing.event.ListSelectionListener;
 
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.comparator.FileSort;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.database.DatabaseImageCollections;
 import org.jphototagger.program.event.RefreshEvent;
 import org.jphototagger.program.event.listener.RefreshListener;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.types.Content;
 import org.jphototagger.program.view.WaitDisplay;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
@@ -88,9 +88,9 @@ public final class ControllerImageCollectionSelected implements ListSelectionLis
                 WaitDisplay.hide();
             }
             private void setTitle() {
-                GUI.getAppFrame().setTitle(
-                    JptBundle.INSTANCE.getString(
-                        "ControllerImageCollectionSelected.AppFrame.Title.Collection", collectionName));
+                String title = Bundle.getString(ControllerImageCollectionSelected.class ,  "ControllerImageCollectionSelected.AppFrame.Title.Collection", collectionName);
+
+                GUI.getAppFrame().setTitle(title);
             }
         });
     }

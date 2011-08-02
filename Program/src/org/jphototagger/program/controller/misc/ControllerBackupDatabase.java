@@ -1,12 +1,14 @@
 package org.jphototagger.program.controller.misc;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppLifeCycle;
-import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.controller.Controller;
 import org.jphototagger.program.helper.BackupDatabase;
 import org.jphototagger.program.resource.GUI;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
 
 /**
  *
@@ -52,7 +54,8 @@ public final class ControllerBackupDatabase extends Controller {
     }
 
     private void addBackupTask() {
-        MessageDisplayer.information(null, "ControllerBackupDatabase.Info.ChooseDir");
+        String message = Bundle.getString(ControllerBackupDatabase.class, "ControllerBackupDatabase.Info.ChooseDir");
+        MessageDisplayer.information(null, message);
         AppLifeCycle.INSTANCE.addFinalTask(BackupDatabase.INSTANCE);
     }
 }

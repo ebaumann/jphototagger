@@ -1,9 +1,5 @@
 package org.jphototagger.program.controller.keywords.tree;
 
-import org.jphototagger.lib.componentutil.TreeUtil;
-import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.view.panels.KeywordsPanel;
-import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsTree;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -11,9 +7,16 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
+
+import org.jphototagger.lib.componentutil.TreeUtil;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.program.view.panels.KeywordsPanel;
+import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsTree;
 
 /**
  * Abstract root class for some controllers in this packages.  Contains some
@@ -157,7 +160,8 @@ public abstract class ControllerKeywords implements ActionListener, KeyListener 
                     DefaultMutableTreeNode node = nodes.get(j);
 
                     if (TreeUtil.isAbove(parent, node)) {
-                        MessageDisplayer.error(null, "ControllerDeleteKeywords.Tree.Error.IsChild");
+                        String message = Bundle.getString(ControllerKeywords.class, "ControllerDeleteKeywords.Tree.Error.IsChild");
+                        MessageDisplayer.error(null, message);
 
                         return false;
                     }
@@ -170,7 +174,8 @@ public abstract class ControllerKeywords implements ActionListener, KeyListener 
 
     private boolean checkNodeCount(Collection<DefaultMutableTreeNode> coll) {
         if (!canHandleMultipleNodes() && (coll.size() > 1)) {
-            MessageDisplayer.error(null, "ControllerKeywords.Error.MultiSelection");
+            String message = Bundle.getString(ControllerKeywords.class, "ControllerKeywords.Error.MultiSelection");
+            MessageDisplayer.error(null, message);
 
             return false;
         }

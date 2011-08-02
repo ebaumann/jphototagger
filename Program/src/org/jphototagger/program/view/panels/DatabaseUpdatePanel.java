@@ -17,7 +17,8 @@ import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.event.ProgressEvent;
 import org.jphototagger.lib.event.listener.ProgressListener;
-import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.database.DatabaseKeywords;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.helper.HelperThread;
@@ -143,14 +144,16 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
         if (keywords.size() > 0) {
             setEnabledAllButtons(false);
             new InsertKeywords(keywords).run();    // run in this thread!
-            MessageDisplayer.information(this, "DatabaseUpdatePanel.Info.CopyKeywordsToTree");
+            String message = Bundle.getString(DatabaseUpdatePanel.class, "DatabaseUpdatePanel.Info.CopyKeywordsToTree");
+            MessageDisplayer.information(this, message);
             setEnabledAllButtons(true);
         }
     }
 
     private void deleteAllKeywordsFromKeywordsTree() {
-        if (MessageDisplayer.confirmYesNo(this,
-             "DatabaseUpdatePanel.Confirm.DeleteAllKeywordsFromKeywordsTree")) {
+        String message = Bundle.getString(DatabaseUpdatePanel.class, "DatabaseUpdatePanel.Confirm.DeleteAllKeywordsFromKeywordsTree");
+
+        if (MessageDisplayer.confirmYesNo(this, message)) {
 
             setEnabledAllButtons(false);
             int count = DatabaseKeywords.INSTANCE.deleteAllKeywords();
@@ -171,7 +174,8 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
                      }
                  }
 
-                 MessageDisplayer.information(this, "DatabaseUpdatePanel.Info.DeletedKeywords", count);
+                 message = Bundle.getString(DatabaseUpdatePanel.class, "DatabaseUpdatePanel.Info.DeletedKeywords", count);
+                 MessageDisplayer.information(this, message);
              }
 
             setEnabledAllButtons(true);
@@ -444,7 +448,6 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
     private void buttonDeleteKeywordsTreeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteKeywordsTreeActionPerformed
         deleteAllKeywordsFromKeywordsTree();
     }//GEN-LAST:event_buttonDeleteKeywordsTreeActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCopyKeywordsToKeywordsTree;
     private javax.swing.JButton buttonDeleteKeywordsTree;

@@ -1,7 +1,7 @@
 package org.jphototagger.program.app;
 
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.Version;
-import org.jphototagger.program.resource.JptBundle;
 
 /**
  * Informations about this application.
@@ -36,7 +36,7 @@ public final class AppInfo {
     /**
      * Title of the application
      */
-    public static final String APP_DESCRIPTION = JptBundle.INSTANCE.getString("AppInfo.AppDescription");
+    public static final String APP_DESCRIPTION = Bundle.getString(AppInfo.class, "AppInfo.AppDescription");
     /**
      * To mail address for bug reports
      */
@@ -44,7 +44,7 @@ public final class AppInfo {
     /**
      * Localized subject for  mails
      */
-    public static final String MAIL_SUBJECT_BUGS = JptBundle.INSTANCE.getString("AppInfo.Subject.Bugs");
+    public static final String MAIL_SUBJECT_BUGS = Bundle.getString(AppInfo.class, "AppInfo.Subject.Bugs");
     /**
      * To mail address for feature requests
      */
@@ -52,19 +52,19 @@ public final class AppInfo {
     /**
      * Localized subject for  mails
      */
-    public static final String MAIL_SUBJECT_FEATURES = JptBundle.INSTANCE.getString("AppInfo.Subject.Features");
+    public static final String MAIL_SUBJECT_FEATURES = Bundle.getString(AppInfo.class, "AppInfo.Subject.Features");
     /**
      * Localized URI to JPhotoTagger's user forum
      */
-    public static final String URI_USER_FORUM = JptBundle.INSTANCE.getString("AppInfo.URI.UserForum");
+    public static final String URI_USER_FORUM = Bundle.getString(AppInfo.class, "AppInfo.URI.UserForum");
     /**
      * Localized URI to JPhotoTagger's website
      */
-    public static final String URI_WEBSITE = JptBundle.INSTANCE.getString("AppInfo.URI.Website");
+    public static final String URI_WEBSITE = Bundle.getString(AppInfo.class, "AppInfo.URI.Website");
     /**
      * Localized URI to JPhotoTagger's change log
      */
-    public static final String URI_CHANGELOG = JptBundle.INSTANCE.getString("AppInfo.URI.Changelog");
+    public static final String URI_CHANGELOG = Bundle.getString(AppInfo.class, "AppInfo.URI.Changelog");
 
     private AppInfo() {
     }

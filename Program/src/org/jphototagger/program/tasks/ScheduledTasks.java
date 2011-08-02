@@ -17,10 +17,10 @@ import org.jphototagger.domain.event.UpdateMetadataCheckEvent.Type;
 import org.jphototagger.domain.event.listener.UpdateMetadataCheckListener;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.concurrent.SerialExecutor;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
-import org.jphototagger.program.resource.JptBundle;
 import org.jphototagger.program.view.dialogs.SettingsDialog;
 
 /**
@@ -51,10 +51,8 @@ public final class ScheduledTasks implements ActionListener, UpdateMetadataCheck
     }
 
     private static void init() {
-        TOOLTIP_TEXT_OF_BUTTON_STATE.put(ButtonState.START,
-                                         JptBundle.INSTANCE.getString("ScheduledTasks.TooltipText.Start"));
-        TOOLTIP_TEXT_OF_BUTTON_STATE.put(ButtonState.CANCEL,
-                                         JptBundle.INSTANCE.getString("ScheduledTasks.TooltipText.Cancel"));
+        TOOLTIP_TEXT_OF_BUTTON_STATE.put(ButtonState.START, Bundle.getString(ScheduledTasks.class, "ScheduledTasks.TooltipText.Start"));
+        TOOLTIP_TEXT_OF_BUTTON_STATE.put(ButtonState.CANCEL, Bundle.getString(ScheduledTasks.class, "ScheduledTasks.TooltipText.Cancel"));
         ICON_OF_BUTTON_STATE.put(ButtonState.START, AppLookAndFeel.ICON_START);
         ICON_OF_BUTTON_STATE.put(ButtonState.CANCEL, AppLookAndFeel.ICON_CANCEL);
     }

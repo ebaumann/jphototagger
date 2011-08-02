@@ -1,27 +1,5 @@
 package org.jphototagger.program.controller.search;
 
-import org.jphototagger.lib.componentutil.Autocomplete;
-import org.jphototagger.lib.componentutil.ListUtil;
-import org.jphototagger.lib.componentutil.TreeUtil;
-import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
-import org.jphototagger.domain.exif.Exif;
-import org.jphototagger.domain.xmp.Xmp;
-import org.jphototagger.program.database.DatabaseFind;
-import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.domain.database.Column;
-import org.jphototagger.program.database.metadata.selections.AutoCompleteDataOfColumn;
-import org.jphototagger.program.database.metadata.selections.FastSearchColumns;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
-import org.jphototagger.domain.event.listener.DatabaseImageFilesListener;
-import org.jphototagger.program.event.listener.RefreshListener;
-import org.jphototagger.program.event.RefreshEvent;
-import org.jphototagger.program.helper.AutocompleteHelper;
-import org.jphototagger.program.model.ComboBoxModelFastSearch;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.types.Content;
-import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.view.WaitDisplay;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -31,9 +9,33 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+
+import org.jphototagger.domain.database.Column;
+import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.domain.event.listener.DatabaseImageFilesListener;
+import org.jphototagger.domain.exif.Exif;
+import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.componentutil.Autocomplete;
+import org.jphototagger.lib.componentutil.ListUtil;
+import org.jphototagger.lib.componentutil.TreeUtil;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
+import org.jphototagger.program.database.DatabaseFind;
+import org.jphototagger.program.database.DatabaseImageFiles;
+import org.jphototagger.program.database.metadata.selections.AutoCompleteDataOfColumn;
+import org.jphototagger.program.database.metadata.selections.FastSearchColumns;
+import org.jphototagger.program.event.RefreshEvent;
+import org.jphototagger.program.event.listener.RefreshListener;
+import org.jphototagger.program.helper.AutocompleteHelper;
+import org.jphototagger.program.model.ComboBoxModelFastSearch;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.types.Content;
+import org.jphototagger.program.view.WaitDisplay;
 
 /**
  * Kontrolliert die Aktion: Schnellsuche durchführen.
@@ -152,10 +154,12 @@ public final class ControllerFastSearch implements ActionListener, RefreshListen
                     WaitDisplay.hide();
                 }
             }
+
             private void setTitle(String userInput) {
-                GUI.getAppFrame().setTitle(
-                    JptBundle.INSTANCE.getString("ControllerFastSearch.AppFrame.Title.FastSearch", userInput));
+                String title = Bundle.getString(ControllerFastSearch.class , "ControllerFastSearch.AppFrame.Title.FastSearch", userInput);
+                GUI.getAppFrame().setTitle(title);
             }
+
             private List<File> searchFiles(String userInput) {
                 if (isSearchAllDefinedColumns()) {
                     return DatabaseFind.INSTANCE.findImageFilesLikeOr(FastSearchColumns.get(), userInput);

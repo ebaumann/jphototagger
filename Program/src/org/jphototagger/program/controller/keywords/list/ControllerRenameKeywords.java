@@ -1,15 +1,17 @@
 package org.jphototagger.program.controller.keywords.list;
 
-import org.jphototagger.lib.dialog.InputDialog;
-import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.helper.KeywordsHelper;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.view.dialogs.InputHelperDialog;
-import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsList;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.List;
+
+import javax.swing.JDialog;
+
+import org.jphototagger.lib.dialog.InputDialog;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.program.helper.KeywordsHelper;
+import org.jphototagger.program.view.dialogs.InputHelperDialog;
+import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsList;
 
 /**
  * Renames keywords of selected items whithin the keywords list.
@@ -55,7 +57,8 @@ public final class ControllerRenameKeywords extends ControllerKeywords {
                 KeywordsHelper.renameDcSubject(fromName, toName);
             }
         } else if (size > 1) {
-            MessageDisplayer.information(null, "ControllerRenameKeywords.Info.MultipleSelected");
+            String message = Bundle.getString(ControllerRenameKeywords.class, "ControllerRenameKeywords.Info.MultipleSelected");
+            MessageDisplayer.information(null, message);
         }
     }
 
@@ -63,10 +66,10 @@ public final class ControllerRenameKeywords extends ControllerKeywords {
         assert(fromName != null) && (fromName.trim().length() > 0) : fromName;
 
         boolean finished = false;
-        InputDialog dlg = new InputDialog(InputHelperDialog.INSTANCE,
-                                          JptBundle.INSTANCE.getString("ControllerRenameKeywords.Info.Input"),
-                                          fromName, UserSettings.INSTANCE.getProperties(),
-                                          "ControllerRenameKeyword.Input");
+        JDialog owner = InputHelperDialog.INSTANCE;
+        String info = Bundle.getString(ControllerRenameKeywords.class, "ControllerRenameKeywords.Info.Input");
+        String input = fromName;
+        InputDialog dlg = new InputDialog(owner, info, input);
 
         while (!finished) {
             dlg.setVisible(true);
@@ -77,7 +80,9 @@ public final class ControllerRenameKeywords extends ControllerKeywords {
                 boolean equals = (newName != null) &&!newName.trim().isEmpty() && newName.equalsIgnoreCase(fromName);
 
                 if (equals) {
-                    finished = !MessageDisplayer.confirmYesNo(dlg, "ControllerRenameKeywords.Confirm.NewName");
+                    String message = Bundle.getString(ControllerRenameKeywords.class, "ControllerRenameKeywords.Confirm.NewName");
+
+                    finished = !MessageDisplayer.confirmYesNo(dlg, message);
                 } else {
                     return newName;
                 }

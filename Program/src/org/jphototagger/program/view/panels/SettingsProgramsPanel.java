@@ -7,7 +7,8 @@ import java.awt.event.MouseEvent;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.event.util.MouseEventUtil;
-import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.database.DatabasePrograms.Type;
@@ -89,7 +90,9 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel implements P
     }
 
     private boolean askRemove(String otherImageOpenApp) {
-        return MessageDisplayer.confirmYesNo(this, "SettingsProgramsPanel.Confirm.RemoveImageOpenApp", otherImageOpenApp);
+        String message = Bundle.getString(SettingsProgramsPanel.class, "SettingsProgramsPanel.Confirm.RemoveImageOpenApp", otherImageOpenApp);
+
+        return MessageDisplayer.confirmYesNo(this, message);
     }
 
     private void setEnabled() {

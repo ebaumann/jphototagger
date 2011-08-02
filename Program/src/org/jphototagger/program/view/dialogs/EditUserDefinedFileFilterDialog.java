@@ -6,8 +6,9 @@ import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
 import org.jphototagger.lib.beansbinding.MaxLengthValidator;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.database.DatabaseUserDefinedFileFilters;
 import org.jphototagger.program.model.ComboBoxModelUserDefinedFileFilterType;
 import org.jphototagger.program.resource.GUI;
@@ -66,13 +67,15 @@ public class EditUserDefinedFileFilterDialog extends Dialog {
                 setVisible(false);
             }
         } else {
-            MessageDisplayer.error(this, "EditUserDefinedFileFilterDialog.Error.Valid");
+            String message = Bundle.getString(EditUserDefinedFileFilterDialog.class, "EditUserDefinedFileFilterDialog.Error.Valid");
+            MessageDisplayer.error(this, message);
         }
     }
 
     private boolean checkName(String name) {
         if (DatabaseUserDefinedFileFilters.INSTANCE.exists(name)) {
-            MessageDisplayer.error(this, "EditUserDefinedFileFilterDialog.Error.NameExists", name);
+            String message = Bundle.getString(EditUserDefinedFileFilterDialog.class, "EditUserDefinedFileFilterDialog.Error.NameExists", name);
+            MessageDisplayer.error(this, message);
             return false;
         }
 

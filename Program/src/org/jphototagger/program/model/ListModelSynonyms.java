@@ -1,11 +1,14 @@
 package org.jphototagger.program.model;
 
-import org.jphototagger.program.app.MessageDisplayer;
+
+import javax.swing.DefaultListModel;
+
+import org.jphototagger.domain.event.listener.DatabaseSynonymsListener;
+import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseSynonyms;
-import org.jphototagger.domain.event.listener.DatabaseSynonymsListener;
-import javax.swing.DefaultListModel;
-import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  *
@@ -97,7 +100,9 @@ public final class ListModelSynonyms extends DefaultListModel implements Databas
             if (DatabaseSynonyms.INSTANCE.insert(word, synonym) == 1) {
                 addElement(synonym);
             } else {
-                MessageDisplayer.error(null, "ListModelSynonyms.Error.AddSynonym", word, synonym);
+                String message = Bundle.getString(ListModelSynonyms.class, "ListModelSynonyms.Error.AddSynonym", word, synonym);
+
+                MessageDisplayer.error(null, message);
             }
 
             listen = true;

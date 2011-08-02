@@ -20,9 +20,10 @@ import org.jphototagger.lib.event.listener.FileSystemListener;
 import org.jphototagger.lib.event.listener.ProgressListener;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.SourceTargetFile;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.Settings;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.helper.CopyFiles;
 import org.jphototagger.program.helper.CopyFiles.Options;
 import org.jphototagger.program.resource.GUI;
@@ -96,7 +97,8 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
 
     private void checkClosing() {
         if (copy) {
-            MessageDisplayer.error(this, "CopyToDirectoryDialog.Error.CancelBeforeClose");
+            String message = Bundle.getString(CopyToDirectoryDialog.class, "CopyToDirectoryDialog.Error.CancelBeforeClose");
+            MessageDisplayer.error(this, message);
         } else {
             setVisible(false);
         }
@@ -104,7 +106,8 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
 
     private void checkError(List<String> errorFiles) {
         if (errorFiles.size() > 0) {
-            MessageDisplayer.error(this, "CopyToDirectoryDialog.Error.CopyErrorsOccured");
+            String message = Bundle.getString(CopyToDirectoryDialog.class, "CopyToDirectoryDialog.Error.CopyErrorsOccured");
+            MessageDisplayer.error(this, message);
         }
     }
 
@@ -177,7 +180,8 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
                     setIconToLabelTargetDirectory();
                     buttonStart.setEnabled(true);
                 } else {
-                    MessageDisplayer.error(this, "CopyToDirectoryDialog.TargetDirNotWritable", targetDirectory);
+                    String message = Bundle.getString(CopyToDirectoryDialog.class, "CopyToDirectoryDialog.TargetDirNotWritable", targetDirectory);
+                    MessageDisplayer.error(this, message);
                 }
             }
         } else {
@@ -259,11 +263,13 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
     }
 
     private void errorMessageTargetDirectoryDoesNotExist() {
-        MessageDisplayer.error(this, "CopyToDirectoryDialog.Error.TargetDirectoryDoesNotExist", targetDirectory.getAbsolutePath());
+        String message = Bundle.getString(CopyToDirectoryDialog.class, "CopyToDirectoryDialog.Error.TargetDirectoryDoesNotExist", targetDirectory.getAbsolutePath());
+        MessageDisplayer.error(this, message);
     }
 
     private void errorMessageMissingSourceFiles() {
-        MessageDisplayer.error(this, "CopyToDirectoryDialog.Error.MissingSourceFiles");
+        String message = Bundle.getString(CopyToDirectoryDialog.class, "CopyToDirectoryDialog.Error.MissingSourceFiles");
+        MessageDisplayer.error(this, message);
     }
 
     @Override

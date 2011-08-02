@@ -1,24 +1,25 @@
 package org.jphototagger.program.helper;
 
-import org.jphototagger.lib.concurrent.Cancelable;
-import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.domain.xmp.Xmp;
-import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.domain.database.Column;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
-import org.jphototagger.domain.database.xmp.XmpColumns;
-import org.jphototagger.lib.event.ProgressEvent;
-import org.jphototagger.domain.database.InsertIntoDatabase;
-import org.jphototagger.xmp.XmpMetadata;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.tasks.UserTasks;
-import org.jphototagger.program.view.panels.ProgressBarUpdater;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.jphototagger.domain.database.Column;
+import org.jphototagger.domain.database.InsertIntoDatabase;
+import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.domain.database.xmp.XmpColumns;
+import org.jphototagger.domain.xmp.Xmp;
+import org.jphototagger.lib.concurrent.Cancelable;
+import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.lib.event.ProgressEvent;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.database.DatabaseImageFiles;
+import org.jphototagger.program.tasks.UserTasks;
+import org.jphototagger.program.view.panels.ProgressBarUpdater;
+import org.jphototagger.xmp.XmpMetadata;
 
 /**
  * Renames or deletes values in XMP sidecar files.
@@ -52,15 +53,16 @@ public final class RenameDeleteXmpValue {
         }
 
         checkColumn(column);
-
-        String newValue = MessageDisplayer.input("RenameXmpValue.Input.NewValue", oldValue, "RenameXmpValue.Settings",
-                              oldValue);
+        String info = Bundle.getString(RenameDeleteXmpValue.class, "RenameXmpValue.Input.NewValue");
+        String input = oldValue;
+        String newValue = MessageDisplayer.input(info, input);
 
         if (newValue != null) {
             newValue = newValue.trim();
 
             if (newValue.equals(oldValue.trim())) {
-                MessageDisplayer.error(null, "RenameXmpValue.Error.ValuesEquals");
+                String message = Bundle.getString(RenameDeleteXmpValue.class, "RenameXmpValue.Error.ValuesEquals");
+                MessageDisplayer.error(null, message);
             } else {
                 UserTasks.INSTANCE.add(new Rename(column, oldValue, newValue));
             }
@@ -95,7 +97,9 @@ public final class RenameDeleteXmpValue {
             return;
         }
 
-        if (MessageDisplayer.confirmYesNo(null, "RenameXmpValue.Confirm.Delete", value)) {
+        String message = Bundle.getString(RenameDeleteXmpValue.class, "RenameXmpValue.Confirm.Delete", value);
+
+        if (MessageDisplayer.confirmYesNo(null, message)) {
             UserTasks.INSTANCE.add(new Rename(column, value, ""));
         }
     }
@@ -111,8 +115,7 @@ public final class RenameDeleteXmpValue {
     }
 
     private static class Rename extends Thread implements Cancelable {
-        private ProgressBarUpdater pb = new ProgressBarUpdater(this,
-                                            JptBundle.INSTANCE.getString("RenameXmpValue.ProgressBar.String"));
+        private ProgressBarUpdater pb = new ProgressBarUpdater(this, Bundle.getString(Rename.class, "RenameXmpValue.ProgressBar.String"));
         private final Column column;
         private final String newValue;
         private final String oldValue;

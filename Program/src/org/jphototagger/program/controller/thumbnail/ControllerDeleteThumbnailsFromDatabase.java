@@ -1,15 +1,17 @@
 package org.jphototagger.program.controller.thumbnail;
 
-import org.jphototagger.program.app.MessageDisplayer;
-import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.program.database.DatabaseImageFiles;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
 
 /**
  * Kontrolliert die Aktion: Lösche selektierte Thumbnails,
@@ -66,13 +68,16 @@ public final class ControllerDeleteThumbnailsFromDatabase implements ActionListe
     }
 
     private boolean confirmDelete() {
-        return MessageDisplayer.confirmYesNo(null,
+        String message = Bundle.getString(ControllerDeleteThumbnailsFromDatabase.class,
                 "ControllerDeleteThumbnailsFromDatabase.Confirm.DeleteSelectedFiles",
                 GUI.getThumbnailsPanel().getSelectionCount());
+
+        return MessageDisplayer.confirmYesNo(null, message);
     }
 
     private void errorMessageDeleteImageFiles(int countFiles, int countDeleted) {
-        MessageDisplayer.error(null, "ControllerDeleteThumbnailsFromDatabase.Error.DeleteSelectedFiles", countFiles,
-                               countDeleted);
+        String message = Bundle.getString(ControllerDeleteThumbnailsFromDatabase.class,
+                "ControllerDeleteThumbnailsFromDatabase.Error.DeleteSelectedFiles", countFiles, countDeleted);
+        MessageDisplayer.error(null, message);
     }
 }

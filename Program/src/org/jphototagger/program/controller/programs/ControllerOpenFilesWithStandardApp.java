@@ -1,14 +1,16 @@
 package org.jphototagger.program.controller.programs;
 
-import org.jphototagger.program.app.MessageDisplayer;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.helper.ProgramsHelper;
 import org.jphototagger.program.helper.StartPrograms;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  *
@@ -32,7 +34,8 @@ public final class ControllerOpenFilesWithStandardApp implements ActionListener 
         Program program = DatabasePrograms.INSTANCE.getDefaultImageOpenProgram();
 
         if (program == null) {
-            MessageDisplayer.information(null, "ControllerOpenFilesWithStandardApp.Info.DefineOpenApp");
+            String message = Bundle.getString(ControllerOpenFilesWithOtherApp.class, "ControllerOpenFilesWithStandardApp.Info.DefineOpenApp");
+            MessageDisplayer.information(null, message);
             ProgramsHelper.openSelectedFilesWidth(ProgramsHelper.addProgram(), false);
         } else {
             new StartPrograms(null).startProgram(program, GUI.getSelectedImageFiles(), false);

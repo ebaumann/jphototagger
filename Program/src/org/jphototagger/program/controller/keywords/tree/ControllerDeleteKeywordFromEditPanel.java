@@ -1,6 +1,6 @@
 package org.jphototagger.program.controller.keywords.tree;
 
-import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.domain.keywords.Keyword;
 import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
 import org.jphototagger.program.helper.KeywordsHelper;
@@ -16,6 +16,7 @@ import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * Listens to the menu item
@@ -76,10 +77,12 @@ public class ControllerDeleteKeywordFromEditPanel extends ControllerKeywords imp
                 editPanels.checkSaveOnChanges();
                 KeywordsHelper.removeHighlightKeyword(keyword);
             } else {
-                MessageDisplayer.error(null, "ControllerDeleteKeywordFromEditPanel.Error.EditDisabled");
+                String message = Bundle.getString(ControllerDeleteKeywordFromEditPanel.class, "ControllerDeleteKeywordFromEditPanel.Error.EditDisabled");
+                MessageDisplayer.error(null, message);
             }
         } else {
-            MessageDisplayer.error(null, "ControllerDeleteKeywordFromEditPanel.Error.NoEditPanel");
+            String message = Bundle.getString(ControllerDeleteKeywordFromEditPanel.class, "ControllerDeleteKeywordFromEditPanel.Error.NoEditPanel");
+            MessageDisplayer.error(null, message);
         }
     }
 

@@ -1,6 +1,6 @@
 package org.jphototagger.program.controller.filesystem;
 
-import org.jphototagger.program.resource.JptBundle;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * Filename format that returns exactly a set string (formats nothing).
@@ -35,7 +35,7 @@ public final class FilenameFormatConstantString extends FilenameFormat {
 
     @Override
     public String toString() {
-        return JptBundle.INSTANCE.getString("FilenameFormatConstantString.String");
+        return Bundle.getString(FilenameFormatConstantString.class, "FilenameFormatConstantString.String");
     }
 
     private FilenameFormatConstantString() {}

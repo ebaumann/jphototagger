@@ -1,14 +1,15 @@
 package org.jphototagger.program.app.update.tables.v0;
 
-import org.jphototagger.program.app.SplashScreen;
-import org.jphototagger.program.app.update.tables.ColumnInfo;
-import org.jphototagger.program.database.Database;
-import org.jphototagger.program.database.DatabaseMetadata;
-import org.jphototagger.program.resource.JptBundle;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.app.SplashScreen;
+import org.jphototagger.program.app.update.tables.ColumnInfo;
+import org.jphototagger.program.database.Database;
+import org.jphototagger.program.database.DatabaseMetadata;
 
 /**
  * Drops unused columns.
@@ -64,6 +65,6 @@ final class UpdateTablesDropColumns {
     }
 
     private void startMessage() {
-        SplashScreen.INSTANCE.setMessage(JptBundle.INSTANCE.getString("UpdateTablesDropColumns.Info"));
+        SplashScreen.INSTANCE.setMessage(Bundle.getString(UpdateTablesDropColumns.class, "UpdateTablesDropColumns.Info"));
     }
 }

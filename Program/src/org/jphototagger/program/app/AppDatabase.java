@@ -6,13 +6,14 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.Database;
 import org.jphototagger.program.database.DatabaseMetadata;
 import org.jphototagger.program.database.DatabaseTables;
-import org.jphototagger.program.resource.JptBundle;
 
 /**
  * Initializes the application's database.
@@ -47,8 +48,9 @@ public final class AppDatabase {
 
     private static void checkDatabaseVersion() {
         if (DatabaseMetadata.isDatabaseOfNewerVersion()) {
-            MessageDisplayer.error(null, "AppDatabase.Error.NewerDbVersion", DatabaseMetadata.getDatabaseAppVersion(),
-                                   AppInfo.APP_VERSION);
+            String message = Bundle.getString(AppDatabase.class, "AppDatabase.Error.NewerDbVersion",
+                    DatabaseMetadata.getDatabaseAppVersion(), AppInfo.APP_VERSION);
+            MessageDisplayer.error(null, message);
             AppLifeCycle.quitBeforeGuiWasCreated();
         }
     }
@@ -61,12 +63,13 @@ public final class AppDatabase {
             FileUtil.ensureDirectoryExists(directory);
         } catch (IOException ex) {
             Logger.getLogger(AppDatabase.class.getName()).log(Level.SEVERE, null, ex);
-            MessageDisplayer.error(null, "AppDatabase.Error.TnDir", directory);
+            String message = Bundle.getString(AppDatabase.class, "AppDatabase.Error.TnDir", directory);
+            MessageDisplayer.error(null, message);
             AppLifeCycle.quitBeforeGuiWasCreated();
         }
     }
 
     private static void startMessage() {
-        SplashScreen.INSTANCE.setMessage(JptBundle.INSTANCE.getString("AppDatabase.Info.ConnectToDatabase"));
+        SplashScreen.INSTANCE.setMessage(Bundle.getString(AppDatabase.class, "AppDatabase.Info.ConnectToDatabase"));
     }
 }

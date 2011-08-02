@@ -1,15 +1,5 @@
 package org.jphototagger.program.helper;
 
-import org.jphototagger.domain.database.InsertIntoDatabase;
-import org.jphototagger.domain.exif.Exif;
-import org.jphototagger.domain.image.ImageFile;
-import org.jphototagger.domain.xmp.Xmp;
-import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.domain.database.xmp.ColumnXmpIptc4XmpCoreDateCreated;
-import org.jphototagger.domain.database.xmp.ColumnXmpLastModified;
-import org.jphototagger.exif.ExifMetadata;
-import org.jphototagger.xmp.XmpMetadata;
-import org.jphototagger.program.resource.JptBundle;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,7 +7,18 @@ import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.jphototagger.domain.database.InsertIntoDatabase;
+import org.jphototagger.domain.database.xmp.ColumnXmpIptc4XmpCoreDateCreated;
+import org.jphototagger.domain.database.xmp.ColumnXmpLastModified;
+import org.jphototagger.domain.exif.Exif;
+import org.jphototagger.domain.image.ImageFile;
+import org.jphototagger.domain.xmp.Xmp;
+import org.jphototagger.exif.ExifMetadata;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppFileFilters;
+import org.jphototagger.program.database.DatabaseImageFiles;
+import org.jphototagger.xmp.XmpMetadata;
 
 /**
  * Sets EXIF metadata to XMP whithout time stamp check, currently only the date
@@ -72,7 +73,7 @@ public final class SetExifToXmp extends HelperThread {
     }
 
     private void setInfo() {
-        setInfo(JptBundle.INSTANCE.getString("SetExifToXmp.Info"));
+        setInfo(Bundle.getString(SetExifToXmp.class, "SetExifToXmp.Info"));
     }
 
     @Override

@@ -11,10 +11,10 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.dialog.ProgressDialog;
 import org.jphototagger.lib.event.ProgressEvent;
 import org.jphototagger.lib.event.listener.ProgressListener;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.controller.misc.SizeAndLocationController;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
 
 /**
  * Updates all Thumbnails in the database with the current settings.
@@ -48,8 +48,8 @@ public final class UpdateAllThumbnails implements Runnable, ProgressListener, Ac
 
     private void initProgressDialog() {
         progressDialog = new ProgressDialog(GUI.getAppFrame());
-        progressDialog.setTitle(JptBundle.INSTANCE.getString("UpdateAllThumbnails.Dialog.Title"));
-        progressDialog.setInfoText(JptBundle.INSTANCE.getString("UpdateAllThumbnails.Dialog.InfoText"));
+        progressDialog.setTitle(Bundle.getString(UpdateAllThumbnails.class, "UpdateAllThumbnails.Dialog.Title"));
+        progressDialog.setInfoText(Bundle.getString(UpdateAllThumbnails.class, "UpdateAllThumbnails.Dialog.InfoText"));
         progressDialog.addActionListener(this);
         progressDialog.addWindowListener(new SizeAndLocationController());
         progressDialog.setVisible(true);

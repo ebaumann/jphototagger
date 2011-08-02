@@ -12,7 +12,8 @@ import javax.swing.event.ListSelectionListener;
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.event.util.MouseEventUtil;
-import org.jphototagger.program.app.MessageDisplayer;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.database.DatabaseUserDefinedFileFilters;
 import org.jphototagger.program.model.ListModelUserDefinedFileFilter;
 import org.jphototagger.program.view.dialogs.EditUserDefinedFileFilterDialog;
@@ -45,7 +46,9 @@ public class UserDefinedFileFilterPanel extends javax.swing.JPanel implements Li
     }
 
     private void errorMessageInsert(UserDefinedFileFilter filter) {
-        MessageDisplayer.error(this, "UserDefinedFileFilterPanel.Error.Insert", filter);
+        String message = Bundle.getString(UserDefinedFileFilterPanel.class, "UserDefinedFileFilterPanel.Error.Insert", filter);
+
+        MessageDisplayer.error(this, message);
     }
 
     private void updateFilter() {
@@ -64,7 +67,9 @@ public class UserDefinedFileFilterPanel extends javax.swing.JPanel implements Li
     }
 
     private void errorMessageUpdate(UserDefinedFileFilter filter) {
-        MessageDisplayer.error(this, "UserDefinedFileFilterPanel.Error.Update", filter);
+        String message = Bundle.getString(UserDefinedFileFilterPanel.class, "UserDefinedFileFilterPanel.Error.Update", filter);
+
+        MessageDisplayer.error(this, message);
     }
 
     private void deleteFilter() {
@@ -78,11 +83,15 @@ public class UserDefinedFileFilterPanel extends javax.swing.JPanel implements Li
     }
 
     private void errorMessageDelete(UserDefinedFileFilter filter) {
-        MessageDisplayer.error(this, "UserDefinedFileFilterPanel.Error.Delete", filter);
+        String message = Bundle.getString(UserDefinedFileFilterPanel.class, "UserDefinedFileFilterPanel.Error.Delete", filter);
+
+        MessageDisplayer.error(this, message);
     }
 
     private boolean confirmDelete() {
-        return MessageDisplayer.confirmYesNo(this, "UserDefinedFileFilterPanel.Confirm.Delete");
+        String message = Bundle.getString(UserDefinedFileFilterPanel.class, "UserDefinedFileFilterPanel.Confirm.Delete");
+
+        return MessageDisplayer.confirmYesNo(this, message);
     }
 
     private List<UserDefinedFileFilter> getSelectedFilters() {

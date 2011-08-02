@@ -1,26 +1,27 @@
 package org.jphototagger.program.app.logging;
 
-import java.util.logging.Level;
-import java.util.logging.LogRecord;
-import org.jphototagger.lib.componentutil.MessageLabel;
-import org.jphototagger.lib.dialog.LogfileDialog;
-import org.jphototagger.lib.event.util.MouseEventUtil;
-import org.jphototagger.program.app.logging.AppLoggingSystem;
-import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.UserSettings;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 import java.util.logging.XMLFormatter;
+
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
+
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.componentutil.MessageLabel;
+import org.jphototagger.lib.dialog.LogfileDialog;
+import org.jphototagger.lib.event.util.MouseEventUtil;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.app.AppLookAndFeel;
+import org.jphototagger.program.resource.GUI;
 
 /**
  *
@@ -29,8 +30,8 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 public final class ErrorLogHandler extends Handler implements ActionListener, MouseListener {
 
     private static final long MILLISECONDS_ERROR_DISPLAY = 4000;
-    private static final String LABEL_ERROR_TOOLTIP_TEXT = JptBundle.INSTANCE.getString("ControllerLogfileDialog.LabelErrorTooltipText");
-    private static final String STATUSBAR_ERROR_TEXT = JptBundle.INSTANCE.getString("ControllerLogfileDialog.Error.Info");
+    private static final String LABEL_ERROR_TOOLTIP_TEXT = Bundle.getString(ErrorLogHandler.class, "ControllerLogfileDialog.LabelErrorTooltipText");
+    private static final String STATUSBAR_ERROR_TEXT = Bundle.getString(ErrorLogHandler.class, "ControllerLogfileDialog.Error.Info");
     private static final int MIN_LOG_LEVEL_VALUE = Level.WARNING.intValue();
 
     public ErrorLogHandler() {

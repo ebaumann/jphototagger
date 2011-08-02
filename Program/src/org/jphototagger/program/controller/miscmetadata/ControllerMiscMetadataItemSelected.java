@@ -1,22 +1,24 @@
 package org.jphototagger.program.controller.miscmetadata;
 
-import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
-import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.domain.database.Column;
-import org.jphototagger.program.event.listener.RefreshListener;
-import org.jphototagger.program.event.RefreshEvent;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.resource.JptBundle;
-import org.jphototagger.program.types.Content;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
-import org.jphototagger.program.view.WaitDisplay;
 import java.io.File;
 import java.util.ArrayList;
+
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
+
+import org.jphototagger.domain.database.Column;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
+import org.jphototagger.program.database.DatabaseImageFiles;
+import org.jphototagger.program.event.RefreshEvent;
+import org.jphototagger.program.event.listener.RefreshListener;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.types.Content;
+import org.jphototagger.program.view.WaitDisplay;
+import org.jphototagger.program.view.panels.ThumbnailsPanel;
 
 /**
  *
@@ -111,20 +113,17 @@ public final class ControllerMiscMetadataItemSelected implements TreeSelectionLi
         // 1 path where tnPanel.apply(tnPanelSettings) is not to call
         private void setTitle() {
             GUI.getAppFrame().setTitle(
-                JptBundle.INSTANCE.getString("ControllerMiscMetadataItemSelected.AppFrame.Title.Metadata"));
+                    Bundle.getString(ShowThumbnails.class, "ControllerMiscMetadataItemSelected.AppFrame.Title.Metadata"));
         }
 
         private void setTitle(Column column) {
             GUI.getAppFrame().setTitle(
-                JptBundle.INSTANCE.getString(
-                    "ControllerMiscMetadataItemSelected.AppFrame.Title.Metadata.Column", column.getDescription()));
+                    Bundle.getString(ShowThumbnails.class, "ControllerMiscMetadataItemSelected.AppFrame.Title.Metadata.Column", column.getDescription()));
         }
 
         private void setTitle(Column column, Object userObject) {
-            GUI.getAppFrame().setTitle(
-                JptBundle.INSTANCE.getString(
-                    "ControllerMiscMetadataItemSelected.AppFrame.Title.Metadata.Object",
-                    column.getDescription() + " " + userObject.toString()));
+            GUI.getAppFrame().setTitle(Bundle.getString(ShowThumbnails.class,
+                    "ControllerMiscMetadataItemSelected.AppFrame.Title.Metadata.Object", column.getDescription(), userObject.toString()));
         }
     }
 }

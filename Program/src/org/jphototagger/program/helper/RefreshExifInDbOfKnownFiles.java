@@ -1,13 +1,14 @@
 package org.jphototagger.program.helper;
 
-import org.jphototagger.domain.exif.Exif;
-import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.exif.ExifMetadata;
-import org.jphototagger.program.resource.JptBundle;
 import java.io.File;
 import java.util.List;
-import org.jphototagger.program.app.AppFileFilters;
+
+import org.jphototagger.domain.exif.Exif;
+import org.jphototagger.exif.ExifMetadata;
 import org.jphototagger.exif.cache.ExifCache;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.app.AppFileFilters;
+import org.jphototagger.program.database.DatabaseImageFiles;
 
 /**
  * Refreshes the EXIF metadata of all known imagesfiles whithout time stamp
@@ -20,7 +21,7 @@ public final class RefreshExifInDbOfKnownFiles extends HelperThread {
 
     public RefreshExifInDbOfKnownFiles() {
         super("JPhotoTagger: Refreshing EXIF in the database of known files");
-        setInfo(JptBundle.INSTANCE.getString("RefreshExifInDbOfKnownFiles.Info"));
+        setInfo(Bundle.getString(RefreshExifInDbOfKnownFiles.class, "RefreshExifInDbOfKnownFiles.Info"));
     }
 
     @Override

@@ -23,8 +23,8 @@ import org.jphototagger.exif.tag.ExifGpsUtil;
 import org.jphototagger.kml.KMLDocument;
 import org.jphototagger.kml.KMLPlacemark;
 import org.jphototagger.kml.KMLPoint;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppInfo;
-import org.jphototagger.program.resource.JptBundle;
 
 /**
  * Exports GPS metadata into an {@link KMLDocument}.
@@ -124,7 +124,7 @@ public final class KMLExporter implements GPSLocationExporter {
 
     @Override
     public String getDisplayName() {
-        return JptBundle.INSTANCE.getString("KMLExporter.DisplayName");
+        return Bundle.getString(KMLExporter.class, "KMLExporter.DisplayName");
     }
 
     @Override

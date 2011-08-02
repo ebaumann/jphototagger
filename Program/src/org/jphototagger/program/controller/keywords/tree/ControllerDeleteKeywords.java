@@ -1,18 +1,21 @@
 package org.jphototagger.program.controller.keywords.tree;
 
-import org.jphototagger.program.app.MessageDisplayer;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.List;
+
+import javax.swing.tree.DefaultMutableTreeNode;
+
 import org.jphototagger.domain.keywords.Keyword;
+import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.model.TreeModelKeywords;
 import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.panels.KeywordsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsTree;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.List;
-import javax.swing.tree.DefaultMutableTreeNode;
-import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Listens to the menu item {@link PopupMenuKeywordsTree#getItemRemove()}
@@ -63,16 +66,16 @@ public class ControllerDeleteKeywords extends ControllerKeywords implements Acti
             if (userObject instanceof Keyword) {
                 delete(node, (Keyword) userObject, nodes.size() == 1);
             } else {
-                MessageDisplayer.error(null, "ControllerDeleteKeywords.Tree.Error.Node", node);
+                String message = Bundle.getString(ControllerDeleteKeywords.class, "ControllerDeleteKeywords.Tree.Error.Node", node);
+                MessageDisplayer.error(null, message);
             }
         }
     }
 
     private void delete(DefaultMutableTreeNode node, Keyword keyword, boolean confirm) {
-        if (!confirm
-                || (confirm
-                    && MessageDisplayer.confirmYesNo(InputHelperDialog.INSTANCE,
-                        "ControllerDeleteKeywords.Tree.Confirm.Delete", keyword))) {
+        InputHelperDialog parentComponent = InputHelperDialog.INSTANCE;
+        String message = Bundle.getString(ControllerDeleteKeywords.class, "ControllerDeleteKeywords.Tree.Confirm.Delete", keyword);
+        if (!confirm || (confirm && MessageDisplayer.confirmYesNo(parentComponent,message))) {
             ModelFactory.INSTANCE.getModel(TreeModelKeywords.class).delete(node);
         }
     }
@@ -84,7 +87,9 @@ public class ControllerDeleteKeywords extends ControllerKeywords implements Acti
             return true;
         }
 
-        return MessageDisplayer.confirmYesNo(InputHelperDialog.INSTANCE,
-                "ControllerDeleteKeywords.Tree.Confirm.MultipleKeywords", size);
+        InputHelperDialog parentComponent = InputHelperDialog.INSTANCE;
+        String message = Bundle.getString(ControllerDeleteKeywords.class, "ControllerDeleteKeywords.Tree.Confirm.MultipleKeywords", size);
+
+        return MessageDisplayer.confirmYesNo(parentComponent, message);
     }
 }
