@@ -1,4 +1,4 @@
-package org.jphototagger.api.plugin;
+package org.jphototagger.api.image;
 
 /**
  *

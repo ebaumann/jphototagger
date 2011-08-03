@@ -17,7 +17,7 @@ import org.jphototagger.lib.util.ServiceLookup;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.image.thumbnail.ThumbnailCreationStrategy;
 import org.jphototagger.program.types.Persistence;
-import org.jphototagger.api.plugin.ExternalThumbnailCreator;
+import org.jphototagger.api.image.ExternalThumbnailCreator;
 
 /**
  *

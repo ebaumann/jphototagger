@@ -20,7 +20,6 @@ import org.jphototagger.lib.dialog.HelpBrowser;
 import org.jphototagger.plugin.AbstractFileProcessorPlugin;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.factory.FileProcessorPluginManager;
-import org.jphototagger.program.factory.MainWindowComponentPluginManager;
 import org.jphototagger.program.factory.PluginManager;
 import org.jphototagger.program.types.Persistence;
 import org.jphototagger.api.plugin.Plugin;
@@ -53,7 +52,6 @@ public class SettingsPluginsPanel extends javax.swing.JPanel implements ChangeLi
 
     private void postInitComponents() {
         addPlugins(FileProcessorPluginManager.INSTANCE);
-        addPlugins(MainWindowComponentPluginManager.INSTANCE);
         panelExcludeCheckboxes.add(new JPanel(), getGbcAfterLastCheckBox());    // ensures checkboxes vertically top and not centered
         MnemonicUtil.setMnemonics((Container) this);
         setEnabledHelpButton();
