@@ -1,15 +1,18 @@
 package org.jphototagger.program.serviceprovider.repository;
 
 import java.io.File;
+
+import org.jphototagger.api.repository.ExifRepository;
 import org.jphototagger.domain.exif.Exif;
 import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.api.repository.ExifRepository;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  *
  *
  * @author Elmar Baumann
  */
+@ServiceProvider(service = ExifRepository.class)
 public final class ExifRepositoryImpl implements ExifRepository {
 
     @Override

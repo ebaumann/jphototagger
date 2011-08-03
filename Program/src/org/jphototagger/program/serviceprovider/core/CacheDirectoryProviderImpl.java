@@ -6,12 +6,14 @@ import java.util.logging.Logger;
 
 import org.jphototagger.api.core.CacheDirectoryProvider;
 import org.jphototagger.program.UserSettings;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  *
  *
  * @author Elmar Baumann
  */
+@ServiceProvider(service = CacheDirectoryProvider.class)
 public final class CacheDirectoryProviderImpl implements CacheDirectoryProvider {
 
     private static final File CACHE_DIRECTORY = new File(UserSettings.INSTANCE.getSettingsDirectoryName() + File.separator + "cache");

@@ -2,16 +2,18 @@ package org.jphototagger.program.serviceprovider.core;
 
 import java.awt.Image;
 import java.util.List;
+
+import org.jphototagger.api.core.Branding;
 import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.api.core.Branding;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2011-07-26
+ * @author Elmar Baumann
  */
+@ServiceProvider(service = Branding.class)
 public final class BrandingImpl implements Branding {
 
     @Override

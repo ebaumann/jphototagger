@@ -2,17 +2,20 @@ package org.jphototagger.program.serviceprovider.core;
 
 import java.io.File;
 import java.util.Collection;
+
+import org.jphototagger.api.core.ThumbnailsDisplayer;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.types.Content;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
-import org.jphototagger.api.core.ThumbnailsDisplayer;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  *
  *
  * @author Elmar Baumann
  */
+@ServiceProvider(service = ThumbnailsDisplayer.class)
 public final class ThumbnailsDisplayerImpl implements ThumbnailsDisplayer {
 
     @Override

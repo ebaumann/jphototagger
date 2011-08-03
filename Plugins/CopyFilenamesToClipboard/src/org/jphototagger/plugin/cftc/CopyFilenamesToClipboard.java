@@ -1,23 +1,28 @@
 package org.jphototagger.plugin.cftc;
 
 import java.awt.Component;
-import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.plugin.AbstractFileProcessorPlugin;
-import org.jphototagger.api.plugin.FileProcessorPluginEvent;
-import java.awt.datatransfer.StringSelection;
 import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
 import java.io.File;
 import java.io.Serializable;
 import java.util.Collection;
+
 import javax.swing.Icon;
-import org.jphototagger.lib.util.ServiceLookup;
+
 import org.jphototagger.api.core.Storage;
+import org.jphototagger.api.plugin.FileProcessorPlugin;
+import org.jphototagger.api.plugin.FileProcessorPluginEvent;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.util.ServiceLookup;
+import org.jphototagger.plugin.AbstractFileProcessorPlugin;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * Copies into the system clipboard names of files.
  *
  * @author Elmar Baumann
  */
+@ServiceProvider(service = FileProcessorPlugin.class)
 public final class CopyFilenamesToClipboard extends AbstractFileProcessorPlugin implements Serializable {
 
     private static final long serialVersionUID = 526527636923496736L;
@@ -73,7 +78,7 @@ public final class CopyFilenamesToClipboard extends AbstractFileProcessorPlugin 
         notifyFinished(files);
     }
 
-    private void notifyFinished(Collection<? extends File>files) {
+    private void notifyFinished(Collection<? extends File> files) {
         FileProcessorPluginEvent evt = new FileProcessorPluginEvent(FileProcessorPluginEvent.Type.PROCESSING_FINISHED_SUCCESS);
 
         evt.setProcessedFiles(files);

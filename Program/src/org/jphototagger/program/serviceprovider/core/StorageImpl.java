@@ -1,15 +1,18 @@
 package org.jphototagger.program.serviceprovider.core;
 
 import java.awt.Component;
+
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.lib.util.Settings;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.api.core.Storage;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  *
  *
  * @author Elmar Baumann
  */
+@ServiceProvider(service = Storage.class)
 public final class StorageImpl implements Storage {
 
     private Settings settings = UserSettings.INSTANCE.getSettings();
