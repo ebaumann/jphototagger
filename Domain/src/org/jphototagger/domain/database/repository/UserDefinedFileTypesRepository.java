@@ -1,4 +1,4 @@
-package org.jphototagger.api.repository;
+package org.jphototagger.domain.database.repository;
 
 import java.util.List;
 import org.jphototagger.domain.filetypes.UserDefinedFileType;
