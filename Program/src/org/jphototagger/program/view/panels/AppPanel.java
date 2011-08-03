@@ -32,16 +32,10 @@ import javax.swing.tree.TreeSelectionModel;
 
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.JXTree;
-import org.jphototagger.api.plugin.ComponentProvider;
-import org.jphototagger.api.plugin.ContextMetadataComponentProvider;
-import org.jphototagger.api.plugin.PositionComparator;
-import org.jphototagger.api.plugin.SelectionComponentProvider;
 import org.jphototagger.lib.component.ImageTextArea;
 import org.jphototagger.lib.componentutil.MessageLabel;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.lib.util.ServiceLookup;
-import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.controller.actions.SearchInJxListAction;
@@ -50,7 +44,6 @@ import org.jphototagger.program.controller.actions.TreeExpandCollapseAllAction;
 import org.jphototagger.program.datatransfer.TransferHandlerKeywordsList;
 import org.jphototagger.program.datatransfer.TransferHandlerKeywordsTree;
 import org.jphototagger.program.datatransfer.TransferHandlerMiscMetadataTree;
-import org.jphototagger.program.factory.MainWindowComponentPluginManager;
 import org.jphototagger.program.helper.ListTextFilter;
 import org.jphototagger.program.helper.TableTextFilter;
 import org.jphototagger.program.model.ComboBoxModelFastSearch;
@@ -108,50 +101,6 @@ public final class AppPanel extends javax.swing.JPanel {
         setMnemonics();
         setListTextFilters();
         setTableTextFilters();
-        addPluginsComponents();
-    }
-
-    private void addPluginsComponents() {
-        List<ComponentProvider> selectionComponentProviders =
-                new ArrayList<ComponentProvider>(ServiceLookup.lookupAll(SelectionComponentProvider.class));
-        List<ComponentProvider> metadataComponentProviders =
-                new ArrayList<ComponentProvider>(ServiceLookup.lookupAll(ContextMetadataComponentProvider.class));
-
-        addPluginComponents(selectionComponentProviders, tabbedPaneSelection);
-        addPluginComponents(metadataComponentProviders, tabbedPaneMetadata);
-    }
-
-    private void addPluginComponents(List<? extends ComponentProvider> componentProviders, JTabbedPane tabbedPane) {
-        Collections.sort(componentProviders, PositionComparator.INSTANCE);
-
-        for (ComponentProvider componentProvider : componentProviders) {
-            if (MainWindowComponentPluginManager.INSTANCE.isEnabled(componentProvider.getPlugin())) {
-                Component component = componentProvider.getComponent();
-                String displayName = componentProvider.getDisplayName();
-
-                if (checkDisplaynameOfPlugin(componentProvider, component, displayName)) {
-                    tabbedPane.add(component);
-
-                    int componentIndex = tabbedPane.indexOfComponent(component);
-
-                    if (componentIndex >= 0) {
-                        tabbedPane.setTitleAt(componentIndex, displayName);
-                    }
-                }
-            }
-        }
-    }
-
-    private boolean checkDisplaynameOfPlugin(ComponentProvider componentProvider, Component component, String displayName) {
-        boolean hasDisplayName = StringUtil.hasContent(displayName);
-
-        if (!hasDisplayName) {
-            Logger.getLogger(AppPanel.class.getName()).log(Level.WARNING,
-                    "Component provider {0} hasn''t a display name and it''s component {1} will not be added",
-                    new Object[]{componentProvider, component});
-        }
-
-        return hasDisplayName;
     }
 
     private void setMnemonics() {

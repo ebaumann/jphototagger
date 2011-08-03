@@ -3,7 +3,7 @@ package org.jphototagger.dtncreators;
 import java.io.File;
 import java.util.ResourceBundle;
 
-import org.jphototagger.api.plugin.ExternalThumbnailCreator;
+import org.jphototagger.api.image.ExternalThumbnailCreator;
 import org.jphototagger.lib.system.SystemUtil;
 import org.openide.util.lookup.ServiceProvider;
 

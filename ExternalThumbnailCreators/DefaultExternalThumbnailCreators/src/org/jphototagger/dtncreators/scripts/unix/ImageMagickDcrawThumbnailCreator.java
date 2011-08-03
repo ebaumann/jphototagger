@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 
-import org.jphototagger.api.plugin.ExternalThumbnailCreator;
+import org.jphototagger.api.image.ExternalThumbnailCreator;
 import org.jphototagger.dtncreators.Util;
 import org.jphototagger.dtncreators.scripts.ScriptWriter;
 import org.jphototagger.lib.io.FileUtil;
