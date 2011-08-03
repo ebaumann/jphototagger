@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Vector;
 import javax.swing.DefaultListModel;
 import javax.swing.ListModel;
 import javax.swing.event.ListSelectionEvent;
@@ -15,11 +16,12 @@ import org.openide.util.lookup.AbstractLookup;
 import org.openide.util.lookup.InstanceContent;
 
 /**
- *
+ * List which puts selected list items into a Lookup. The item type
  *
  * @author Elmar Baumann
  */
 public final class NodeLookupList extends JXList {
+
     private static final long serialVersionUID = 1L;
     private final InstanceContent content = new InstanceContent();
     private Lookup lookup = new AbstractLookup(content);
@@ -46,6 +48,35 @@ public final class NodeLookupList extends JXList {
         return lookup;
     }
 
+    /**
+     * <em>Don't call this method!</em>.
+     * @param model
+     * @throws UnsupportedOperationException
+     */
+    @Override
+    public void setModel(ListModel model) {
+        throw new UnsupportedOperationException("Forbidden as long as models can contain elements of aribitrary type");
+    }
+
+    /**
+     * <em>Don't call this method!</em>.
+     * @param listData
+     * @throws UnsupportedOperationException
+     */
+    @Override
+    public void setListData(Object[] listData) {
+        throw new UnsupportedOperationException("Forbidden as long as models can contain elements of aribitrary type");
+    }
+
+    /**
+     * <em>Don't call this method!</em>.
+     * @param listData
+     * @throws UnsupportedOperationException
+     */
+    @Override
+    public void setListData(Vector<?> listData) {
+        throw new UnsupportedOperationException("Forbidden as long as models can contain elements of aribitrary type");
+    }
     private ListSelectionListener selectionListener = new ListSelectionListener() {
 
         @Override
@@ -65,7 +96,7 @@ public final class NodeLookupList extends JXList {
             List<Node> selectedNodes = new ArrayList<Node>(selectedValues.length);
 
             for (Object selectedVaue : selectedValues) {
-                selectedNodes.add((Node)selectedVaue);
+                selectedNodes.add((Node) selectedVaue);
             }
 
             return selectedNodes;
