@@ -6,8 +6,7 @@ import java.util.List;
 /**
  *
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2011-07-26
+ * @author  Elmar Baumann
  */
 public interface Branding {
 

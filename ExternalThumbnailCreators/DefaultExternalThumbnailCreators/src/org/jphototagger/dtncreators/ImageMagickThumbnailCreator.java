@@ -2,14 +2,17 @@ package org.jphototagger.dtncreators;
 
 import java.io.File;
 import java.util.ResourceBundle;
-import org.jphototagger.lib.system.SystemUtil;
+
 import org.jphototagger.api.plugin.ExternalThumbnailCreator;
+import org.jphototagger.lib.system.SystemUtil;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  *
  *
  * @author Elmar Baumann
  */
+@ServiceProvider(service = ExternalThumbnailCreator.class)
 public final class ImageMagickThumbnailCreator implements ExternalThumbnailCreator {
 
     private static final String COMMANDLINE_PARAMETERS = "-thumbnail %ix%i -auto-orient \"%s\" jpg:-";
@@ -58,10 +61,7 @@ public final class ImageMagickThumbnailCreator implements ExternalThumbnailCreat
         String convertFileDescription = getConvertFileDescription();
         String fileChooserTitle = bundle.getString("ImageMagickThumbnailCreator.ChooseFile.Dialogtitle");
 
-        return new FileChooser.Builder(convertFileName)
-                .fileChooserTitle(fileChooserTitle)
-                .fileDescription(convertFileDescription)
-                .build();
+        return new FileChooser.Builder(convertFileName).fileChooserTitle(fileChooserTitle).fileDescription(convertFileDescription).build();
     }
 
     private String getConvertFileName() {
@@ -70,8 +70,8 @@ public final class ImageMagickThumbnailCreator implements ExternalThumbnailCreat
 
     private String getConvertFileDescription() {
         String bundleKeyDescription = SystemUtil.isWindows()
-                                          ? "ImageMagickThumbnailCreator.FileFilter.Description.Windows"
-                                          : "ImageMagickThumbnailCreator.FileFilter.Description.OtherOS";
+                ? "ImageMagickThumbnailCreator.FileFilter.Description.Windows"
+                : "ImageMagickThumbnailCreator.FileFilter.Description.OtherOS";
 
         return bundle.getString(bundleKeyDescription);
     }

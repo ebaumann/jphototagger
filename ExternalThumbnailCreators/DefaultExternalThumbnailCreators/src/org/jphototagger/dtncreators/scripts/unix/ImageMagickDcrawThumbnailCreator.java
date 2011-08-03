@@ -4,18 +4,22 @@ import java.io.File;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.JOptionPane;
+
+import org.jphototagger.api.plugin.ExternalThumbnailCreator;
 import org.jphototagger.dtncreators.Util;
 import org.jphototagger.dtncreators.scripts.ScriptWriter;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.system.SystemUtil;
-import org.jphototagger.api.plugin.ExternalThumbnailCreator;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  *
  *
  * @author Elmar Baumann
  */
+@ServiceProvider(service = ExternalThumbnailCreator.class)
 public final class ImageMagickDcrawThumbnailCreator implements ExternalThumbnailCreator {
 
     private final ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/dtncreators/scripts/unix/Bundle");

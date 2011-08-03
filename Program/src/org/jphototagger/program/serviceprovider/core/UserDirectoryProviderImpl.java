@@ -6,16 +6,18 @@ import java.util.logging.Logger;
 
 import org.jphototagger.api.core.UserDirectoryProvider;
 import org.jphototagger.program.UserSettings;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  *
  *
  * @author Elmar Baumann
  */
-public final class UserDirectoryServiceProviderImpl implements UserDirectoryProvider {
+@ServiceProvider(service = UserDirectoryProvider.class)
+public final class UserDirectoryProviderImpl implements UserDirectoryProvider {
 
     private static final File USER_DIRECTORY = new File(UserSettings.INSTANCE.getSettingsDirectoryName() + File.separator + "pluginsettings");
-    private static final Logger LOGGER = Logger.getLogger(UserDirectoryServiceProviderImpl.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(UserDirectoryProviderImpl.class.getName());
 
     @Override
     public File getUserDirectory() {

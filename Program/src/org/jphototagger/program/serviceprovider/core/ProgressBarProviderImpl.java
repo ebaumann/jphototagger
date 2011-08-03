@@ -1,14 +1,17 @@
 package org.jphototagger.program.serviceprovider.core;
 
 import javax.swing.JProgressBar;
-import org.jphototagger.program.view.panels.ProgressBar;
+
 import org.jphototagger.api.core.ProgressBarProvider;
+import org.jphototagger.program.view.panels.ProgressBar;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  *
  *
  * @author Elmar Baumann
  */
+@ServiceProvider(service = ProgressBarProvider.class)
 public final class ProgressBarProviderImpl implements ProgressBarProvider {
 
     @Override

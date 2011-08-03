@@ -1,16 +1,6 @@
 package org.jphototagger.plugin.flickrupload;
 
-import com.adobe.xmp.properties.XMPPropertyInfo;
-import com.aetrion.flickr.uploader.Uploader;
-import com.aetrion.flickr.uploader.UploadMetaData;
 import java.awt.Component;
-import org.jphototagger.lib.componentutil.ComponentUtil;
-import org.jphototagger.xmp.XmpProperties;
-import org.jphototagger.lib.image.util.IconUtil;
-import org.jphototagger.image.util.ImageUtil;
-import org.jphototagger.plugin.flickrupload.FlickrImageInfoPanel.ImageInfo;
-import org.jphototagger.plugin.AbstractFileProcessorPlugin;
-import org.jphototagger.api.plugin.FileProcessorPluginEvent;
 import java.awt.HeadlessException;
 import java.awt.Image;
 import java.io.File;
@@ -22,18 +12,34 @@ import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.Icon;
 import javax.swing.JOptionPane;
+
+import org.jphototagger.api.core.ThumbnailProvider;
+import org.jphototagger.api.plugin.FileProcessorPlugin;
+import org.jphototagger.api.plugin.FileProcessorPluginEvent;
+import org.jphototagger.image.util.ImageUtil;
+import org.jphototagger.lib.componentutil.ComponentUtil;
+import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.lib.io.IoUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.ServiceLookup;
-import org.jphototagger.api.core.ThumbnailProvider;
+import org.jphototagger.plugin.AbstractFileProcessorPlugin;
+import org.jphototagger.plugin.flickrupload.FlickrImageInfoPanel.ImageInfo;
+import org.jphototagger.xmp.XmpProperties;
+import org.openide.util.lookup.ServiceProvider;
+
+import com.adobe.xmp.properties.XMPPropertyInfo;
+import com.aetrion.flickr.uploader.UploadMetaData;
+import com.aetrion.flickr.uploader.Uploader;
 
 /**
  *
  *
  * @author Elmar Baumann
  */
+@ServiceProvider(service = FileProcessorPlugin.class)
 public final class FlickrUpload extends AbstractFileProcessorPlugin implements Serializable {
 
     private static final long serialVersionUID = -2935460271965834936L;

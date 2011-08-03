@@ -6,8 +6,7 @@ import java.io.OutputStreamWriter;
 /**
  * Encapsulates {@link System.getProperty()} keys.
  *
- * @author  Elmar Baumann <eb@elmar-baumann.de>
- * @version 2011-02-19
+ * @author  Elmar Baumann
  */
 public final class SystemProperties {
     public static String getJavaVersion() {
