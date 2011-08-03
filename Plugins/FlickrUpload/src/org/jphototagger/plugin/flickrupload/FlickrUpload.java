@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.JOptionPane;
 
-import org.jphototagger.api.core.ThumbnailProvider;
+import org.jphototagger.api.image.ThumbnailProvider;
 import org.jphototagger.api.plugin.FileProcessorPlugin;
 import org.jphototagger.api.plugin.FileProcessorPluginEvent;
 import org.jphototagger.image.util.ImageUtil;

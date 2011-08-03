@@ -3,7 +3,7 @@ package org.jphototagger.program.serviceprovider.core;
 import java.io.File;
 import java.util.Collection;
 
-import org.jphototagger.api.core.ThumbnailsDisplayer;
+import org.jphototagger.api.image.ThumbnailsDisplayer;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.types.Content;
