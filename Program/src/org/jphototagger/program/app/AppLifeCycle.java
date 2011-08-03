@@ -1,16 +1,18 @@
 package org.jphototagger.program.app;
 
-import org.jphototagger.lib.dialog.MessageDisplayer;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.jphototagger.api.modules.Module;
 import org.jphototagger.domain.event.listener.AppExitListener;
 import org.jphototagger.domain.event.listener.impl.ListenerSupport;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.database.DatabaseMaintainance;
@@ -19,6 +21,7 @@ import org.jphototagger.program.helper.Cleanup;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.tasks.UserTasks;
 import org.jphototagger.program.view.frames.AppFrame;
+import org.openide.util.Lookup;
 
 /**
  * Life cycle of the application.
@@ -26,6 +29,7 @@ import org.jphototagger.program.view.frames.AppFrame;
  * @author Elmar Baumann
  */
 public final class AppLifeCycle {
+
     public static final AppLifeCycle INSTANCE = new AppLifeCycle();
     private final Set<Object> saveObjects = new HashSet<Object>();
     private final ListenerSupport<AppExitListener> ls = new ListenerSupport<AppExitListener>();
@@ -34,7 +38,8 @@ public final class AppLifeCycle {
     private boolean started;
     private static final Logger LOGGER = Logger.getLogger(AppLifeCycle.class.getName());
 
-    private AppLifeCycle() {}
+    private AppLifeCycle() {
+    }
 
     /**
      * Has be to called <em>once</em> after the {@link AppFrame} has been
@@ -156,24 +161,21 @@ public final class AppLifeCycle {
         ls.remove(listener);
     }
 
-    private void notifyExitListeners() {
-        for (AppExitListener listener : ls.get()) {
-            listener.appWillExit();
-        }
-    }
-
     private void listenForQuit() {
         appFrame.addWindowListener(new WindowAdapter() {
+
             @Override
             public void windowClosed(WindowEvent evt) {
                 quit();
             }
+
             @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 quit();
             }
         });
         appFrame.getMenuItemExit().addActionListener(new java.awt.event.ActionListener() {
+
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 quit();
@@ -187,6 +189,7 @@ public final class AppLifeCycle {
     public void quit() {
         if (ensureUserTasksFinished()) {
             notifyExitListeners();
+            notifyModulesForClose();
             writeProperties();
             checkDataToSave();
             Cleanup.shutdown();
@@ -199,6 +202,20 @@ public final class AppLifeCycle {
                     executeFinalTasksAndQuit();
                 }
             }
+        }
+    }
+
+    private void notifyExitListeners() {
+        for (AppExitListener listener : ls.get()) {
+            listener.appWillExit();
+        }
+    }
+
+    private void notifyModulesForClose() {
+        Collection<? extends Module> modules = Lookup.getDefault().lookupAll(Module.class);
+
+        for (Module module : modules) {
+            module.close();
         }
     }
 
@@ -216,6 +233,7 @@ public final class AppLifeCycle {
 
     private void executeFinalTasksAndQuit() {
         FinalTaskListener listener = new FinalTaskListener() {
+
             @Override
             public void finished() {
                 synchronized (finalTasks) {
@@ -295,8 +313,8 @@ public final class AppLifeCycle {
         void finished();
     }
 
-
     public static abstract class FinalTask {
+
         private final ListenerSupport<FinalTaskListener> ls = new ListenerSupport<FinalTaskListener>();
 
         public void addListener(FinalTaskListener listener) {
