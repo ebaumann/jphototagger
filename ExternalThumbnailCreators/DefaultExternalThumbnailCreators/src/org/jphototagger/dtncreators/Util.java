@@ -5,8 +5,8 @@ import java.io.File;
 import java.net.URI;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.jphototagger.lib.util.ServiceLookup;
 import org.jphototagger.api.core.UserDirectoryProvider;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -28,7 +28,7 @@ public final class Util {
     }
 
     public static File lookupUserDirectory() {
-        UserDirectoryProvider provider = ServiceLookup.lookup(UserDirectoryProvider.class);
+        UserDirectoryProvider provider = Lookup.getDefault().lookup(UserDirectoryProvider.class);
 
         return provider == null
                 ? null

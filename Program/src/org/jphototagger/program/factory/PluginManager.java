@@ -2,12 +2,13 @@ package org.jphototagger.program.factory;
 
 import java.util.Collection;
 import java.util.Collections;
-import org.jphototagger.lib.util.ServiceLookup;
-import org.jphototagger.program.UserSettings;
 import java.util.LinkedHashSet;
 import java.util.Properties;
 import java.util.Set;
+
 import org.jphototagger.api.plugin.Plugin;
+import org.jphototagger.program.UserSettings;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -30,7 +31,7 @@ public class PluginManager<T extends Plugin> {
     }
 
     private void init() {
-        for (T plugin : ServiceLookup.lookupAll(pluginClass)) {
+        for (T plugin : Lookup.getDefault().lookupAll(pluginClass)) {
             ALL_PLUGINS.add(plugin);
 
             if (isFlaggedAsEnabeld(plugin)) {

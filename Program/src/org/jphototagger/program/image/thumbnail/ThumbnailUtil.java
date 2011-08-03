@@ -15,20 +15,20 @@ import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 
+import org.jphototagger.domain.database.repository.UserDefinedFileTypesRepository;
 import org.jphototagger.domain.filetypes.UserDefinedFileType;
 import org.jphototagger.exif.ExifMetadata;
 import org.jphototagger.exif.ExifTag;
 import org.jphototagger.exif.ExifTags;
+import org.jphototagger.exif.ExifThumbnailUtil;
 import org.jphototagger.image.FileType;
 import org.jphototagger.image.util.ImageTransform;
 import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.runtime.External;
 import org.jphototagger.lib.runtime.ExternalOutput;
-import org.jphototagger.lib.util.ServiceLookup;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.exif.ExifThumbnailUtil;
-import org.jphototagger.domain.database.repository.UserDefinedFileTypesRepository;
+import org.openide.util.Lookup;
 
 import com.imagero.reader.IOParameterBlock;
 import com.imagero.reader.ImageProcOptions;
@@ -96,14 +96,14 @@ public final class ThumbnailUtil {
 
     private static boolean isUserDefinedFileType(File file) {
         String suffix = FileUtil.getSuffix(file);
-        UserDefinedFileTypesRepository repo = ServiceLookup.lookup(UserDefinedFileTypesRepository.class);
+        UserDefinedFileTypesRepository repo = Lookup.getDefault().lookup(UserDefinedFileTypesRepository.class);
 
         return repo.existsFileTypeWithSuffix(suffix);
     }
 
     private static Image getUserDefinedThumbnail(File file) {
         String suffix = FileUtil.getSuffix(file);
-        UserDefinedFileTypesRepository repo = ServiceLookup.lookup(UserDefinedFileTypesRepository.class);
+        UserDefinedFileTypesRepository repo = Lookup.getDefault().lookup(UserDefinedFileTypesRepository.class);
         UserDefinedFileType fileType = repo.findBySuffix(suffix);
 
         if (fileType == null || !fileType.isExternalThumbnailCreator()) {

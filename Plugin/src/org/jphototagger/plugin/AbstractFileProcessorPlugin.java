@@ -1,14 +1,16 @@
 package org.jphototagger.plugin;
 
-import org.jphototagger.api.plugin.FileProcessorPluginListener;
-import org.jphototagger.api.plugin.FileProcessorPluginEvent;
-import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
+
 import javax.swing.JProgressBar;
-import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.util.ServiceLookup;
-import org.jphototagger.api.windows.ProgressBarProvider;
+
 import org.jphototagger.api.plugin.FileProcessorPlugin;
+import org.jphototagger.api.plugin.FileProcessorPluginEvent;
+import org.jphototagger.api.plugin.FileProcessorPluginListener;
+import org.jphototagger.api.windows.ProgressBarProvider;
+import org.jphototagger.lib.awt.EventQueueUtil;
+import org.openide.util.Lookup;
 
 /**
  * Handles Listeners and provides a progress bar.
@@ -58,7 +60,7 @@ public abstract class AbstractFileProcessorPlugin implements FileProcessorPlugin
             return;
         }
 
-        ProgressBarProvider progressBarProvider = ServiceLookup.lookup(ProgressBarProvider.class);
+        ProgressBarProvider progressBarProvider = Lookup.getDefault().lookup(ProgressBarProvider.class);
 
         if (progressBarProvider != null) {
             progressBar = progressBarProvider.getProgressBar(this);
@@ -70,7 +72,7 @@ public abstract class AbstractFileProcessorPlugin implements FileProcessorPlugin
             return;
         }
 
-        ProgressBarProvider progressBarProvider = ServiceLookup.lookup(ProgressBarProvider.class);
+        ProgressBarProvider progressBarProvider = Lookup.getDefault().lookup(ProgressBarProvider.class);
 
         if (progressBarProvider != null) {
             progressBarProvider.releaseProgressBar(progressBar, this);

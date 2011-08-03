@@ -24,10 +24,10 @@ import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.lib.io.IoUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.lib.util.ServiceLookup;
 import org.jphototagger.plugin.AbstractFileProcessorPlugin;
 import org.jphototagger.plugin.flickrupload.FlickrImageInfoPanel.ImageInfo;
 import org.jphototagger.xmp.XmpProperties;
+import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
 import com.adobe.xmp.properties.XMPPropertyInfo;
@@ -187,7 +187,7 @@ public final class FlickrUpload extends AbstractFileProcessorPlugin implements S
         }
 
         private Image getThumbnail(File imageFile) {
-            ThumbnailProvider thumbnailProvider = ServiceLookup.lookup(ThumbnailProvider.class);
+            ThumbnailProvider thumbnailProvider = Lookup.getDefault().lookup(ThumbnailProvider.class);
 
             if (thumbnailProvider != null) {
                 Image thumbnail = thumbnailProvider.getThumbnail(imageFile);
