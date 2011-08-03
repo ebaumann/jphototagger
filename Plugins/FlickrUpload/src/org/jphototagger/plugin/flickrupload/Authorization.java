@@ -1,21 +1,23 @@
 package org.jphototagger.plugin.flickrupload;
 
-import com.aetrion.flickr.auth.Auth;
-import com.aetrion.flickr.auth.AuthInterface;
-import com.aetrion.flickr.auth.Permission;
-import com.aetrion.flickr.Flickr;
-import com.aetrion.flickr.RequestContext;
-import com.aetrion.flickr.REST;
-import org.jphototagger.lib.componentutil.ComponentUtil;
 import java.awt.Desktop;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.JOptionPane;
-import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.lib.util.ServiceLookup;
+
 import org.jphototagger.api.core.Storage;
+import org.jphototagger.lib.componentutil.ComponentUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.openide.util.Lookup;
+
+import com.aetrion.flickr.Flickr;
+import com.aetrion.flickr.REST;
+import com.aetrion.flickr.RequestContext;
+import com.aetrion.flickr.auth.Auth;
+import com.aetrion.flickr.auth.AuthInterface;
+import com.aetrion.flickr.auth.Permission;
 
 /**
  *
