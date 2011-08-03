@@ -1,4 +1,4 @@
-package org.jphototagger.domain.database.repository;
+package org.jphototagger.domain.repository;
 
 import java.io.File;
 import org.jphototagger.domain.exif.Exif;

@@ -2,7 +2,7 @@ package org.jphototagger.program.serviceprovider.repository;
 
 import java.util.List;
 
-import org.jphototagger.domain.database.repository.UserDefinedFileTypesRepository;
+import org.jphototagger.domain.repository.UserDefinedFileTypesRepository;
 import org.jphototagger.domain.filetypes.UserDefinedFileType;
 import org.jphototagger.program.database.DatabaseUserDefinedFileTypes;
 import org.openide.util.lookup.ServiceProvider;

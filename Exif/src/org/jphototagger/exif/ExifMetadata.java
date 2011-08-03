@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.domain.database.repository.ExifRepository;
+import org.jphototagger.domain.repository.ExifRepository;
 import org.jphototagger.domain.exif.Exif;
 import org.jphototagger.exif.cache.ExifCache;
 import org.jphototagger.image.FileType;

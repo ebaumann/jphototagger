@@ -1,7 +1,5 @@
 package org.jphototagger.api.windows;
 
-import javax.swing.Action;
-
 /**
  *
  *
@@ -9,17 +7,17 @@ import javax.swing.Action;
  */
 public interface MainMenuManger {
 
-    void addToFilesMenu(Action action);
+    void addToFileMenu(AppMenuAction appMenuAction);
 
-    void addToEditMenu(Action action);
+    void addToEditMenu(AppMenuAction appMenuAction);
 
-    void addToViewMenu(Action action);
+    void addToViewMenu(AppMenuAction appMenuAction);
 
-    void addToGotoMenu(Action action);
+    void addToGotoMenu(AppMenuAction appMenuAction);
 
-    void addToToolsMenu(Action action);
+    void addToToolsMenu(AppMenuAction appMenuAction);
 
-    void addToWindowMenu(Action action);
+    void addToWindowMenu(AppMenuAction appMenuAction);
 
-    void addToHelpMenu(Action action);
+    void addToHelpMenu(AppMenuAction appMenuAction);
 }

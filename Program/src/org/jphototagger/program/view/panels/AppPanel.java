@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -32,6 +33,8 @@ import javax.swing.tree.TreeSelectionModel;
 
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.JXTree;
+import org.jphototagger.api.windows.AppWindow;
+import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.component.ImageTextArea;
 import org.jphototagger.lib.componentutil.MessageLabel;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
@@ -650,6 +653,32 @@ public final class AppPanel extends javax.swing.JPanel {
 
     public JSplitPane getSplitPaneThumbnailsMetadata() {
         return splitPaneThumbnailsMetadata;
+    }
+
+    void dockIntoSelectionWindow(AppWindow appWindow) {
+        dockIntoTabbedPane(appWindow, tabbedPaneSelection);
+    }
+
+    void dockIntoEditWindow(AppWindow appWindow) {
+        dockIntoTabbedPane(appWindow, tabbedPaneSelection);
+    }
+
+    private void dockIntoTabbedPane(final AppWindow appWindow, final JTabbedPane tabbedPane) {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
+            @Override
+            public void run() {
+                int tabCount = tabbedPaneSelection.getTabCount();
+                int appWindowPosition = appWindow.getPosition();
+                int tabIndex = appWindowPosition < 0 || appWindowPosition > tabCount ? tabCount : appWindowPosition;
+                Component component = appWindow.getComponent();
+                Icon icon = appWindow.getIcon();
+                String tip = appWindow.getTip();
+                String title = appWindow.getTitle();
+
+                tabbedPane.insertTab(title, icon, component, tip, tabIndex);
+            }
+        });
     }
 
     @SuppressWarnings("serial")

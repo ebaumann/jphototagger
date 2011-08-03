@@ -10,7 +10,7 @@ public interface Module {
     /**
      * Called from the Framework, initializes a module
      */
-    void init();
+    void start();
 
     /**
      * Called from the Framework before the application exits or removes the module

@@ -12,6 +12,7 @@ import java.util.StringTokenizer;
  * @author Elmar Baumann
  */
 public final class CollectionUtil {
+
     private static final String EMPTY_STRING = "";
 
     /**
@@ -221,7 +222,7 @@ public final class CollectionUtil {
      * @return                     token string
      */
     public static String toTokenString(Collection<? extends Object> collection, String delimiter,
-                                       String delimiterReplacement) {
+            String delimiterReplacement) {
         if (collection == null) {
             throw new NullPointerException("collection == null");
         }
@@ -239,13 +240,26 @@ public final class CollectionUtil {
 
         for (Object o : collection) {
             tokenString.append(((index++ == 0)
-                                ? EMPTY_STRING
-                                : delimiter));
+                    ? EMPTY_STRING
+                    : delimiter));
             tokenString.append(o.toString().replace(delimiter, delimiterReplacement));
         }
 
         return tokenString.toString();
     }
 
-    private CollectionUtil() {}
+    /**
+     *
+     * @param <T>
+     * @param collection
+     * @return first element or null if empty
+     */
+    public static <T> T getFirstElement(Collection<? extends T> collection) {
+        return collection.size() > 0
+                ? collection.iterator().next()
+                : null;
+    }
+
+    private CollectionUtil() {
+    }
 }
