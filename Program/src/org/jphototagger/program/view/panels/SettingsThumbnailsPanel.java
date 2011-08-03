@@ -12,12 +12,12 @@ import javax.swing.Action;
 import javax.swing.JPopupMenu;
 import javax.swing.JRadioButton;
 
+import org.jphototagger.api.image.ExternalThumbnailCreator;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.util.ServiceLookup;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.image.thumbnail.ThumbnailCreationStrategy;
 import org.jphototagger.program.types.Persistence;
-import org.jphototagger.api.image.ExternalThumbnailCreator;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -87,7 +87,7 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
 
     private JPopupMenu createExternalThumbnailCreatorPopupMenu() {
         JPopupMenu popupMenu = new JPopupMenu();
-        Collection<? extends ExternalThumbnailCreator> externalThumbnailCreators = ServiceLookup.lookupAll(ExternalThumbnailCreator.class);
+        Collection<? extends ExternalThumbnailCreator> externalThumbnailCreators = Lookup.getDefault().lookupAll(ExternalThumbnailCreator.class);
 
         for (ExternalThumbnailCreator externalThumbnailCreator : externalThumbnailCreators) {
             if (externalThumbnailCreator.isEnabled()) {
@@ -352,7 +352,6 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
     private void checkBoxDisplayThumbnailTooltipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDisplayThumbnailTooltipActionPerformed
         setDisplayThumbnailTooltip();
     }//GEN-LAST:event_checkBoxDisplayThumbnailTooltipActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonChooseExternalThumbnailCreator;
     private javax.swing.ButtonGroup buttonGroupThumbnailCreator;

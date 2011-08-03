@@ -1,16 +1,17 @@
 package org.jphototagger.exif.cache;
 
-import org.jphototagger.exif.ExifTags;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.api.core.CacheDirectoryProvider;
 import org.jphototagger.domain.event.ImageFileMovedEvent;
 import org.jphototagger.domain.event.ImageFileRemovedEvent;
+import org.jphototagger.exif.ExifTags;
 import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.lib.util.ServiceLookup;
-import org.jphototagger.api.core.CacheDirectoryProvider;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -215,7 +216,7 @@ public final class ExifCache {
     }
 
     private File lookupCacheDirectory() {
-        CacheDirectoryProvider provider = ServiceLookup.lookup(CacheDirectoryProvider.class);
+        CacheDirectoryProvider provider = Lookup.getDefault().lookup(CacheDirectoryProvider.class);
         File cacheDirectory = provider.getCacheDirectory();
         String cacheDirectoryPath = cacheDirectory.getAbsolutePath();
 

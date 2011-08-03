@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.ServiceLookup;
 import org.jphototagger.api.core.Storage;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -38,7 +39,7 @@ final class Authorization {
     }
 
     public void deleteToken() {
-        Storage storage = ServiceLookup.lookup(Storage.class);
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
 
         if (storage != null) {
             storage.removeKey(KEY_TOKEN);
@@ -46,7 +47,7 @@ final class Authorization {
     }
 
     private String getToken() {
-        Storage storage = ServiceLookup.lookup(Storage.class);
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
 
         return storage == null
                 ? ""
@@ -54,7 +55,7 @@ final class Authorization {
     }
 
     private void setToken(String token) {
-        Storage storage = ServiceLookup.lookup(Storage.class);
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
 
         if (storage != null) {
             storage.setString(KEY_TOKEN, token);

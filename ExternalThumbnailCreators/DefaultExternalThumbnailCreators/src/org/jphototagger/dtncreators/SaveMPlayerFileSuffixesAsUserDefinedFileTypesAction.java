@@ -5,12 +5,14 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.ResourceBundle;
+
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JOptionPane;
-import org.jphototagger.domain.filetypes.UserDefinedFileType;
-import org.jphototagger.lib.util.ServiceLookup;
+
 import org.jphototagger.domain.database.repository.UserDefinedFileTypesRepository;
+import org.jphototagger.domain.filetypes.UserDefinedFileType;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -53,7 +55,7 @@ public final class SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction extends A
     @Override
     public void actionPerformed(ActionEvent e) {
         if (confirmSave()) {
-            UserDefinedFileTypesRepository repo = ServiceLookup.lookup(UserDefinedFileTypesRepository.class);
+            UserDefinedFileTypesRepository repo = Lookup.getDefault().lookup(UserDefinedFileTypesRepository.class);
             int saveCount = 0;
 
             for (UserDefinedFileType userDefinedFileType : VIDEO_FILES) {

@@ -2,15 +2,17 @@ package org.jphototagger.dtncreators.scripts.windows;
 
 import java.io.File;
 import java.util.ResourceBundle;
+
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+
+import org.jphototagger.api.core.Branding;
 import org.jphototagger.dtncreators.FileChooser;
 import org.jphototagger.dtncreators.SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction;
 import org.jphototagger.dtncreators.Util;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
-import org.jphototagger.lib.util.ServiceLookup;
-import org.jphototagger.api.core.Branding;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -157,7 +159,7 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/dtncreators/scripts/windows/Bundle"); // NOI18N
         setTitle(bundle.getString("ImageMagickDcrawThumbnailCreatorDialog.title")); // NOI18N
-        setIconImages(ServiceLookup.lookup(Branding.class).getAppIcons());
+        setIconImages(Lookup.getDefault().lookup(Branding.class).getAppIcons());
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         panelContent.setLayout(new java.awt.GridBagLayout());

@@ -2,15 +2,17 @@ package org.jphototagger.dtncreators.scripts.unix;
 
 import java.io.File;
 import java.util.ResourceBundle;
+
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+
+import org.jphototagger.api.core.Branding;
 import org.jphototagger.dtncreators.FileChooser;
 import org.jphototagger.dtncreators.SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction;
 import org.jphototagger.dtncreators.Util;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
-import org.jphototagger.lib.util.ServiceLookup;
-import org.jphototagger.api.core.Branding;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -28,8 +30,8 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
     private final FileChooser convertFileChooser = createConvertFileChooser();
     private final FileChooser identifyFileChooser = createIdentifyFileChooser();
     private final FileChooser mplayerFileChooser = createMPlayerFileChooser();
-    private static final Icon OK_ICON = new ImageIcon(ImageMagickDcrawThumbnailCreatorDialog.class .getResource("/org/jphototagger/dtncreators/icons/icon_ok.png"));
-    private static final Icon ERROR_ICON = new ImageIcon(ImageMagickDcrawThumbnailCreatorDialog.class .getResource("/org/jphototagger/dtncreators/icons/icon_error.png"));
+    private static final Icon OK_ICON = new ImageIcon(ImageMagickDcrawThumbnailCreatorDialog.class.getResource("/org/jphototagger/dtncreators/icons/icon_ok.png"));
+    private static final Icon ERROR_ICON = new ImageIcon(ImageMagickDcrawThumbnailCreatorDialog.class.getResource("/org/jphototagger/dtncreators/icons/icon_error.png"));
     private boolean accepted;
 
     public ImageMagickDcrawThumbnailCreatorDialog() {
@@ -147,11 +149,7 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
 
     private FileChooser createFileChooser(String filename, String fileDescription, String fileChooserTitle) {
 
-        return new FileChooser.Builder(filename)
-                .fileChooserTitle(fileChooserTitle)
-                .fileChooserDirPath("/usr/bin")
-                .fileDescription(fileDescription)
-                .build();
+        return new FileChooser.Builder(filename).fileChooserTitle(fileChooserTitle).fileChooserDirPath("/usr/bin").fileDescription(fileDescription).build();
     }
 
     /** This method is called from within the constructor to
@@ -187,7 +185,7 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/dtncreators/scripts/unix/Bundle"); // NOI18N
         setTitle(bundle.getString("ImageMagickDcrawThumbnailCreatorDialog.title")); // NOI18N
-        setIconImages(ServiceLookup.lookup(Branding.class).getAppIcons());
+        setIconImages(Lookup.getDefault().lookup(Branding.class).getAppIcons());
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         panelContent.setLayout(new java.awt.GridBagLayout());

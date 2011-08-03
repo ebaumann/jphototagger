@@ -5,11 +5,11 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.jphototagger.domain.database.repository.ExifRepository;
 import org.jphototagger.domain.exif.Exif;
 import org.jphototagger.exif.cache.ExifCache;
 import org.jphototagger.image.FileType;
-import org.jphototagger.lib.util.ServiceLookup;
-import org.jphototagger.domain.database.repository.ExifRepository;
+import org.openide.util.Lookup;
 
 import com.imagero.reader.ImageReader;
 import com.imagero.reader.MetadataUtils;
@@ -277,7 +277,7 @@ public final class ExifMetadata {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
-        ExifRepository exifRepository = ServiceLookup.lookup(ExifRepository.class);
+        ExifRepository exifRepository = Lookup.getDefault().lookup(ExifRepository.class);
         Exif exif = exifRepository.getExif(imageFile);
 
         if ((exif == null) || (exif.getDateTimeOriginal() == null)) {

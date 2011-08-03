@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.lib.util.ServiceLookup;
 import org.jphototagger.api.core.UserProperties;
+import org.openide.util.Lookup;
 
 import com.imagero.reader.iptc.IPTCEntry;
 import com.imagero.reader.iptc.IPTCEntryMeta;
@@ -105,7 +105,7 @@ public final class IptcEntry {
 
     private String getEncodedData() {
         try {
-            UserProperties properties = ServiceLookup.lookup(UserProperties.class);
+            UserProperties properties = Lookup.getDefault().lookup(UserProperties.class);
             String iptcCharset = properties.getIptcCharset();
             String encodedData = new String(data, iptcCharset);
 

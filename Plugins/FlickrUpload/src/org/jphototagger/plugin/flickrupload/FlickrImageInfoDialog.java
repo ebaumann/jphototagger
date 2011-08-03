@@ -5,12 +5,13 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
-import org.jphototagger.lib.util.ServiceLookup;
 import org.jphototagger.plugin.flickrupload.FlickrImageInfoPanel.ImageInfo;
-import org.jphototagger.api.core.Storage;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -54,7 +55,7 @@ public class FlickrImageInfoDialog extends Dialog {
     }
 
     private void writePersistent() {
-        Storage storage = ServiceLookup.lookup(Storage.class);
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
 
         if (storage != null) {
             storage.setSizeAndLocation(this);
@@ -62,7 +63,7 @@ public class FlickrImageInfoDialog extends Dialog {
     }
 
     private void readPersistent() {
-        Storage storage = ServiceLookup.lookup(Storage.class);
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
 
         if (storage != null) {
             storage.applySizeAndLocation(this);

@@ -13,8 +13,8 @@ import org.jphototagger.api.core.Storage;
 import org.jphototagger.api.plugin.FileProcessorPlugin;
 import org.jphototagger.api.plugin.FileProcessorPluginEvent;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.lib.util.ServiceLookup;
 import org.jphototagger.plugin.AbstractFileProcessorPlugin;
+import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
 /**
@@ -86,7 +86,7 @@ public final class CopyFilenamesToClipboard extends AbstractFileProcessorPlugin 
     }
 
     private void setDelimiter() {
-        Storage storage = ServiceLookup.lookup(Storage.class);
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
 
         if (storage != null) {
             String delimiter = storage.getString(KEY_FILENAME_DELIMITER);

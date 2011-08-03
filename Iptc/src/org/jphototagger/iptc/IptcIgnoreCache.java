@@ -6,12 +6,12 @@ import java.util.logging.Logger;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.api.core.CacheDirectoryProvider;
+import org.jphototagger.api.core.UserProperties;
 import org.jphototagger.domain.event.ImageFileMovedEvent;
 import org.jphototagger.domain.event.ImageFileRemovedEvent;
 import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.lib.util.ServiceLookup;
-import org.jphototagger.api.core.CacheDirectoryProvider;
-import org.jphototagger.api.core.UserProperties;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -44,7 +44,7 @@ public final class IptcIgnoreCache {
     }
 
     private boolean isDisplayIptc() {
-        UserProperties properties = ServiceLookup.lookup(UserProperties.class);
+        UserProperties properties = Lookup.getDefault().lookup(UserProperties.class);
 
         return properties.isDisplayIptc();
     }
@@ -183,7 +183,7 @@ public final class IptcIgnoreCache {
     }
 
     private File lookupCacheDirectory() {
-        CacheDirectoryProvider provider = ServiceLookup.lookup(CacheDirectoryProvider.class);
+        CacheDirectoryProvider provider = Lookup.getDefault().lookup(CacheDirectoryProvider.class);
         File cacheDirectory = provider.getCacheDirectory();
         String cacheDirectoryPath = cacheDirectory.getAbsolutePath();
 

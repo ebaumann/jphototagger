@@ -8,13 +8,13 @@ import java.util.logging.Logger;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.api.core.CacheDirectoryProvider;
 import org.jphototagger.domain.event.ImageFileMovedEvent;
 import org.jphototagger.domain.event.ImageFileRemovedEvent;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.IoUtil;
-import org.jphototagger.lib.util.ServiceLookup;
 import org.jphototagger.lib.util.StringUtil;
-import org.jphototagger.api.core.CacheDirectoryProvider;
+import org.openide.util.Lookup;
 
 import com.adobe.xmp.properties.XMPPropertyInfo;
 
@@ -218,7 +218,7 @@ public final class EmbeddedXmpCache {
     }
 
     private File lookupCacheDirectory() {
-        CacheDirectoryProvider provider = ServiceLookup.lookup(CacheDirectoryProvider.class);
+        CacheDirectoryProvider provider = Lookup.getDefault().lookup(CacheDirectoryProvider.class);
         File cacheDirectory = provider.getCacheDirectory();
         String cacheDirectoryPath = cacheDirectory.getAbsolutePath();
 

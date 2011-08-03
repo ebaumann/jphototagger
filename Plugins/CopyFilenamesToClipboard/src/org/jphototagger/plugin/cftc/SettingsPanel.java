@@ -4,12 +4,14 @@ import java.awt.Component;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import org.jphototagger.lib.util.ServiceLookup;
+
 import org.jphototagger.api.core.Storage;
+import org.openide.util.Lookup;
 
 /**
  * Settings for {@link CopyFilenamesToClipboard}.
@@ -20,7 +22,7 @@ public class SettingsPanel extends javax.swing.JPanel {
     private static final long serialVersionUID = -8198418342037889703L;
     private final DelimiterModel model = new DelimiterModel();
     private final DelimiterRenderer renderer = new DelimiterRenderer();
-    private final Storage storage = ServiceLookup.lookup(Storage.class);
+    private final Storage storage = Lookup.getDefault().lookup(Storage.class);
 
     public SettingsPanel() {
         initComponents();
