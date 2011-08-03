@@ -1,13 +1,16 @@
 package org.jphototagger.program.factory;
 
+import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.jphototagger.api.modules.Module;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.AppWindowPersistence;
 import org.jphototagger.program.app.update.UpdateDownload;
 import org.jphototagger.program.tasks.ScheduledTaskBackupDatabase;
+import org.openide.util.Lookup;
 
 /**
  * Initalizes all other factories in the right order and sets the persistent
@@ -50,6 +53,7 @@ public final class MetaFactory implements Runnable {
                 appPersistence.readAppPanelFromProperties();
             }
         });
+        installModules();
         checkForDownload();
         ScheduledTaskBackupDatabase.INSTANCE.setBackup();
     }
@@ -70,6 +74,14 @@ public final class MetaFactory implements Runnable {
                     }
                 }
             }, "JPhotoTagger: Checking for a newer version").start();
+        }
+    }
+
+    private void installModules() {
+        Collection<? extends Module> modules = Lookup.getDefault().lookupAll(Module.class);
+
+        for (Module module : modules) {
+            module.start();
         }
     }
 }

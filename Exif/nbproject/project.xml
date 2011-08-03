@@ -21,14 +21,6 @@
                 <id>jar</id>
             </reference>
             <reference>
-                <foreign-project>JPhotoTagger__API</foreign-project>
-                <artifact-type>jar</artifact-type>
-                <script>build.xml</script>
-                <target>jar</target>
-                <clean-target>clean</clean-target>
-                <id>jar</id>
-            </reference>
-            <reference>
                 <foreign-project>JPhotoTagger__Domain</foreign-project>
                 <artifact-type>jar</artifact-type>
                 <script>build.xml</script>
@@ -46,14 +38,6 @@
             </reference>
             <reference>
                 <foreign-project>JPhotoTagger__Library</foreign-project>
-                <artifact-type>jar</artifact-type>
-                <script>build.xml</script>
-                <target>jar</target>
-                <clean-target>clean</clean-target>
-                <id>jar</id>
-            </reference>
-            <reference>
-                <foreign-project>PhotoTagger__API</foreign-project>
                 <artifact-type>jar</artifact-type>
                 <script>build.xml</script>
                 <target>jar</target>

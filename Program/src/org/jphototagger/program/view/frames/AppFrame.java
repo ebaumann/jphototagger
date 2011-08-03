@@ -8,11 +8,14 @@ import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.Action;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JRadioButtonMenuItem;
 
+import org.jphototagger.api.windows.AppMenuAction;
+import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.comparator.FileSort;
 import org.jphototagger.lib.componentutil.MenuUtil;
 import org.jphototagger.lib.event.util.KeyEventUtil;
@@ -293,6 +296,50 @@ public final class AppFrame extends javax.swing.JFrame {
         } else {
             super.setTitle(title + " - " + AppInfo.APP_NAME);
         }
+    }
+
+    void addToFileMenu(AppMenuAction appMenuAction) {
+        addToMenu(appMenuAction, menuFile);
+    }
+
+    void addToEditMenu(AppMenuAction appMenuAction) {
+        addToMenu(appMenuAction, menuEdit);
+    }
+
+    void addToViewMenu(AppMenuAction appMenuAction) {
+        addToMenu(appMenuAction, menuView);
+    }
+
+    void addToGotoMenu(AppMenuAction appMenuAction) {
+        addToMenu(appMenuAction, menuGoto);
+    }
+
+    void addToToolsMenu(AppMenuAction appMenuAction) {
+        addToMenu(appMenuAction, menuTools);
+    }
+
+    void addToWindowMenu(AppMenuAction appMenuAction) {
+        addToMenu(appMenuAction, menuWindow);
+    }
+
+    void addToHelpMenu(AppMenuAction appMenuAction) {
+        addToMenu(appMenuAction, menuHelp);
+    }
+
+    private void addToMenu(final AppMenuAction appMenuAction, final JMenu menu) {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
+            @Override
+            public void run() {
+                int position = appMenuAction.getPosition();
+                Action action = appMenuAction.getAction();
+                int itemCount = menu.getItemCount();
+                int index = position < 0 || position > itemCount ? itemCount : position;
+
+                menu.add(new JMenuItem(action), index);
+
+            }
+        });
     }
 
     /**

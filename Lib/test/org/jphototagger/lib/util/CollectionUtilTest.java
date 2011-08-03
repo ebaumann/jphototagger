@@ -1,11 +1,11 @@
 package org.jphototagger.lib.util;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -14,17 +14,6 @@ import java.util.List;
  * @author Elmar Baumann
  */
 public class CollectionUtilTest {
-
-    public CollectionUtilTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
 
     /**
      * Test of binaryInsert method, of class CollectionUtil.
@@ -197,5 +186,21 @@ public class CollectionUtilTest {
         } catch (NullPointerException ex) {
             // ok
         }
+    }
+
+    @Test
+    public void testGetFirstElement() {
+        Collection<String> strings = Collections.emptyList();
+        String firstElement = CollectionUtil.getFirstElement(strings);
+        String idefix = "Idefix";
+        String pluto = "Pluto";
+
+        assertNull(firstElement);
+        strings = Arrays.asList(idefix);
+        firstElement = CollectionUtil.getFirstElement(strings);
+        assertEquals(idefix, firstElement);
+        strings = Arrays.asList(pluto, idefix);
+        firstElement = CollectionUtil.getFirstElement(strings);
+        assertEquals(pluto, firstElement);
     }
 }
