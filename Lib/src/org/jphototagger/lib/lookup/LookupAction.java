@@ -11,12 +11,24 @@ import org.openide.util.Lookup;
 import org.openide.util.LookupEvent;
 import org.openide.util.LookupListener;
 
+/**
+ * Action for objects in a Lookup.
+ *
+ * @author Elmar Baumann
+ * @param <T> This Action listens for the presence of that objects in the Lookup and uses them for performing
+ */
 public abstract class LookupAction<T> extends AbstractAction implements LookupListener {
 
     private final Class<? extends T> lookupResultClass;
     private final Lookup lookup;
     private Lookup.Result<? extends T> lookupResult;
 
+    /**
+     *
+     * @param lookupResultClass Objects classe's required for performing this action
+     * @param lookup  Lookup which can continious change it's contents, sometimes (or always)
+     *                this Lookup contains objects of {@code lookupResultClass}
+     */
     protected LookupAction(Class<? extends T> lookupResultClass, Lookup lookup) {
         if (lookupResultClass == null) {
             throw new NullPointerException("lookupResultClass == null");
@@ -31,6 +43,12 @@ public abstract class LookupAction<T> extends AbstractAction implements LookupLi
         setLookupResult();
     }
 
+    /**
+     * Subclasses can decide whether this action is enabled based on the Lookup's content.
+     *
+     * @param lookupContent
+     * @return
+     */
     protected abstract boolean isEnabled(Collection<? extends T> lookupContent);
 
     private void setLookupResult() {
@@ -74,5 +92,10 @@ public abstract class LookupAction<T> extends AbstractAction implements LookupLi
         actionPerformed(lookupResult.allInstances());
     }
 
+    /**
+     * Will be called through {@link #actionPerformed(java.awt.event.ActionEvent)} with the Lookup's content.
+     *
+     * @param lookupContent
+     */
     public abstract void actionPerformed(Collection<? extends T> lookupContent);
 }
