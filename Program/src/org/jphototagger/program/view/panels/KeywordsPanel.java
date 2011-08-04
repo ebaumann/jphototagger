@@ -17,7 +17,7 @@ import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.controller.actions.SearchInJxListAction;
 import org.jphototagger.program.controller.actions.SearchInJxTreeAction;
 import org.jphototagger.program.datatransfer.TransferHandlerDragListItems;
-import org.jphototagger.program.helper.ListTextFilter;
+import org.jphototagger.lib.swingx.ListTextFilter;
 import org.jphototagger.program.model.ListModelWait;
 import org.jphototagger.program.model.TreeModelWait;
 import org.jphototagger.program.view.renderer.KeywordHighlightPredicate;

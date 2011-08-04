@@ -44,5 +44,25 @@ public final class PropertiesUtil {
         }
     }
 
-    private PropertiesUtil() {}
+    /**
+     *
+     * @param clazz
+     * @return Path <em>without</em> leading and trailing slash,
+     *        e.g. {@code "org/jphototagger/bla"} if the Class name is {@code "org.jphototagger.bla.Blubb"}
+     */
+    public static String resolvePackagePathForResource(Class<?> clazz) {
+        String className = clazz.getName();
+        int indexLastDot = className.lastIndexOf('.');
+
+        if (indexLastDot < 1) {
+            return "";
+        }
+
+        String packagePath = className.substring(0, indexLastDot);
+
+        return packagePath.replace(".", "/");
+    }
+
+    private PropertiesUtil() {
+    }
 }

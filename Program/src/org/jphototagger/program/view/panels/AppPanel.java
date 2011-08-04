@@ -47,7 +47,7 @@ import org.jphototagger.program.controller.actions.TreeExpandCollapseAllAction;
 import org.jphototagger.program.datatransfer.TransferHandlerKeywordsList;
 import org.jphototagger.program.datatransfer.TransferHandlerKeywordsTree;
 import org.jphototagger.program.datatransfer.TransferHandlerMiscMetadataTree;
-import org.jphototagger.program.helper.ListTextFilter;
+import org.jphototagger.lib.swingx.ListTextFilter;
 import org.jphototagger.program.helper.TableTextFilter;
 import org.jphototagger.program.model.ComboBoxModelFastSearch;
 import org.jphototagger.program.model.ListModelWait;
@@ -986,7 +986,7 @@ public final class AppPanel extends javax.swing.JPanel {
         panelListSavedSearchesFilter.setName("panelListSavedSearchesFilter"); // NOI18N
         panelListSavedSearchesFilter.setLayout(new java.awt.GridBagLayout());
 
-        labelListSavedSearchesFilter.setLabelFor(textFieldListSelKeywordsFilter);
+        labelListSavedSearchesFilter.setLabelFor(textFieldListSavedSearchesFilter);
         labelListSavedSearchesFilter.setText(bundle.getString("AppPanel.labelListSavedSearchesFilter.text")); // NOI18N
         labelListSavedSearchesFilter.setName("labelListSavedSearchesFilter"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -1052,7 +1052,7 @@ public final class AppPanel extends javax.swing.JPanel {
         panelListImageCollectionsFilter.setName("panelListImageCollectionsFilter"); // NOI18N
         panelListImageCollectionsFilter.setLayout(new java.awt.GridBagLayout());
 
-        labelListImageCollectionsFilter.setLabelFor(textFieldListSelKeywordsFilter);
+        labelListImageCollectionsFilter.setLabelFor(textFieldListImageCollectionsFilter);
         labelListImageCollectionsFilter.setText(bundle.getString("AppPanel.labelListImageCollectionsFilter.text")); // NOI18N
         labelListImageCollectionsFilter.setName("labelListImageCollectionsFilter"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -1520,7 +1520,7 @@ public final class AppPanel extends javax.swing.JPanel {
         panelTableExifFilter.setName("panelTableExifFilter"); // NOI18N
         panelTableExifFilter.setLayout(new java.awt.GridBagLayout());
 
-        labelTableExifFilter.setLabelFor(textFieldListSelKeywordsFilter);
+        labelTableExifFilter.setLabelFor(textFieldTableExifFilter);
         labelTableExifFilter.setText(bundle.getString("AppPanel.labelTableExifFilter.text")); // NOI18N
         labelTableExifFilter.setName("labelTableExifFilter"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -1586,7 +1586,7 @@ public final class AppPanel extends javax.swing.JPanel {
         panelTableIptcFilter.setName("panelTableIptcFilter"); // NOI18N
         panelTableIptcFilter.setLayout(new java.awt.GridBagLayout());
 
-        labeTTableIptcFilter.setLabelFor(textFieldListSelKeywordsFilter);
+        labeTTableIptcFilter.setLabelFor(textFieldTableIptcFilter);
         labeTTableIptcFilter.setText(bundle.getString("AppPanel.labeTTableIptcFilter.text")); // NOI18N
         labeTTableIptcFilter.setName("labeTTableIptcFilter"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -1654,7 +1654,7 @@ public final class AppPanel extends javax.swing.JPanel {
         panelTableXmpTiffFilter.setName("panelTableXmpTiffFilter"); // NOI18N
         panelTableXmpTiffFilter.setLayout(new java.awt.GridBagLayout());
 
-        labelTableXmpTiffFilter.setLabelFor(textFieldListSelKeywordsFilter);
+        labelTableXmpTiffFilter.setLabelFor(textFieldTableXmpTiffFilter);
         labelTableXmpTiffFilter.setText(bundle.getString("AppPanel.labelTableXmpTiffFilter.text")); // NOI18N
         labelTableXmpTiffFilter.setName("labelTableXmpTiffFilter"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -1708,7 +1708,7 @@ public final class AppPanel extends javax.swing.JPanel {
         panelTableXmpExifFilter.setName("panelTableXmpExifFilter"); // NOI18N
         panelTableXmpExifFilter.setLayout(new java.awt.GridBagLayout());
 
-        labelTableXmpExifFilter.setLabelFor(textFieldListSelKeywordsFilter);
+        labelTableXmpExifFilter.setLabelFor(textFieldTableXmpExifFilter);
         labelTableXmpExifFilter.setText(bundle.getString("AppPanel.labelTableXmpExifFilter.text")); // NOI18N
         labelTableXmpExifFilter.setName("labelTableXmpExifFilter"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -1762,7 +1762,7 @@ public final class AppPanel extends javax.swing.JPanel {
         panelTableXmpDcFilter.setName("panelTableXmpDcFilter"); // NOI18N
         panelTableXmpDcFilter.setLayout(new java.awt.GridBagLayout());
 
-        labelTableXmpDcFilter.setLabelFor(textFieldListSelKeywordsFilter);
+        labelTableXmpDcFilter.setLabelFor(textFieldTableXmpDcFilter);
         labelTableXmpDcFilter.setText(bundle.getString("AppPanel.labelTableXmpDcFilter.text")); // NOI18N
         labelTableXmpDcFilter.setName("labelTableXmpDcFilter"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -1816,7 +1816,7 @@ public final class AppPanel extends javax.swing.JPanel {
         panelTableXmpIptcFilter.setName("panelTableXmpIptcFilter"); // NOI18N
         panelTableXmpIptcFilter.setLayout(new java.awt.GridBagLayout());
 
-        labelTableXmpIptcFilter.setLabelFor(textFieldListSelKeywordsFilter);
+        labelTableXmpIptcFilter.setLabelFor(textFieldTableXmpIptcFilter);
         labelTableXmpIptcFilter.setText(bundle.getString("AppPanel.labelTableXmpIptcFilter.text")); // NOI18N
         labelTableXmpIptcFilter.setName("labelTableXmpIptcFilter"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -1870,7 +1870,7 @@ public final class AppPanel extends javax.swing.JPanel {
         panelTableXmpPhotoshopFilter.setName("panelTableXmpPhotoshopFilter"); // NOI18N
         panelTableXmpPhotoshopFilter.setLayout(new java.awt.GridBagLayout());
 
-        labelTableXmpPhotoshopFilter.setLabelFor(textFieldListSelKeywordsFilter);
+        labelTableXmpPhotoshopFilter.setLabelFor(textFieldTableXmpPhotoshopFilter);
         labelTableXmpPhotoshopFilter.setText(bundle.getString("AppPanel.labelTableXmpPhotoshopFilter.text")); // NOI18N
         labelTableXmpPhotoshopFilter.setName("labelTableXmpPhotoshopFilter"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -1924,7 +1924,7 @@ public final class AppPanel extends javax.swing.JPanel {
         panelTableXmpXapFilter.setName("panelTableXmpXapFilter"); // NOI18N
         panelTableXmpXapFilter.setLayout(new java.awt.GridBagLayout());
 
-        labelTableXmpXapFilter.setLabelFor(textFieldListSelKeywordsFilter);
+        labelTableXmpXapFilter.setLabelFor(textFieldTableXmpXapFilter);
         labelTableXmpXapFilter.setText(bundle.getString("AppPanel.labelTableXmpXapFilter.text")); // NOI18N
         labelTableXmpXapFilter.setName("labelTableXmpXapFilter"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -1978,7 +1978,7 @@ public final class AppPanel extends javax.swing.JPanel {
         panelTableXmpLightroomFilter.setName("panelTableXmpLightroomFilter"); // NOI18N
         panelTableXmpLightroomFilter.setLayout(new java.awt.GridBagLayout());
 
-        labelTableXmpLightroomFilter.setLabelFor(textFieldListSelKeywordsFilter);
+        labelTableXmpLightroomFilter.setLabelFor(textFieldTableXmpLightroomFilter);
         labelTableXmpLightroomFilter.setText(bundle.getString("AppPanel.labelTableXmpLightroomFilter.text")); // NOI18N
         labelTableXmpLightroomFilter.setName("labelTableXmpLightroomFilter"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -2032,7 +2032,7 @@ public final class AppPanel extends javax.swing.JPanel {
         panelTableXmpCameraRawSettingsFilter.setName("panelTableXmpCameraRawSettingsFilter"); // NOI18N
         panelTableXmpCameraRawSettingsFilter.setLayout(new java.awt.GridBagLayout());
 
-        labelTableXmpCameraRawSettingsFilter.setLabelFor(textFieldListSelKeywordsFilter);
+        labelTableXmpCameraRawSettingsFilter.setLabelFor(textFieldTableXmpCameraRawSettingsFilter);
         labelTableXmpCameraRawSettingsFilter.setText(bundle.getString("AppPanel.labelTableXmpCameraRawSettingsFilter.text")); // NOI18N
         labelTableXmpCameraRawSettingsFilter.setName("labelTableXmpCameraRawSettingsFilter"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();

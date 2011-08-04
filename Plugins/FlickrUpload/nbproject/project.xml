@@ -52,5 +52,6 @@
                 <clean-target>clean</clean-target>
                 <id>jar</id>
             </reference>
+        </references>
     </configuration>
 </project>

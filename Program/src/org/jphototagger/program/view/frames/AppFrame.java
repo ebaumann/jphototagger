@@ -12,6 +12,7 @@ import javax.swing.Action;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu.Separator;
 import javax.swing.JRadioButtonMenuItem;
 
 import org.jphototagger.api.windows.AppMenuAction;
@@ -335,6 +336,11 @@ public final class AppFrame extends javax.swing.JFrame {
                 Action action = appMenuAction.getAction();
                 int itemCount = menu.getItemCount();
                 int index = position < 0 || position > itemCount ? itemCount : position;
+
+                if (appMenuAction.isSeparatorBefore()) {
+                    menu.add(new Separator(), index);
+                    index++;
+                }
 
                 menu.add(new JMenuItem(action), index);
 

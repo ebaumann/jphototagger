@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import org.jphototagger.api.windows.AppMenuAction;
+import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.lib.util.Bundle;
 
 /**
@@ -18,6 +19,8 @@ public final class BrowseRepositoryFilesAction extends AbstractAction implements
 
     private BrowseRepositoryFilesAction() {
         super(Bundle.getString(BrowseRepositoryFilesAction.class, "DisplayFileBrowserAction.Name"));
+
+        putValue(Action.SMALL_ICON, IconUtil.getImageIcon(BrowseRepositoryFilesAction.class, "icon_database.png"));
     }
 
     @Override
@@ -35,5 +38,10 @@ public final class BrowseRepositoryFilesAction extends AbstractAction implements
     @Override
     public int getPosition() {
         return -1;
+    }
+
+    @Override
+    public boolean isSeparatorBefore() {
+        return true;
     }
 }

@@ -1,20 +1,20 @@
 package org.jphototagger.repositoryfilebrowser;
 
-import java.awt.Image;
-import java.awt.event.ActionEvent;
 import java.io.File;
 import java.util.Collection;
 import java.util.List;
+import javax.swing.ListModel;
 import javax.swing.SwingWorker;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import org.jphototagger.api.core.Branding;
-import org.jphototagger.api.image.ThumbnailProvider;
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.domain.repository.ImageFileRepository;
 import org.jphototagger.lib.componentutil.ComponentUtil;
+import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
-import org.jphototagger.lib.lookup.LookupAction;
-import org.jphototagger.lib.util.CollectionUtil;
+import org.jphototagger.lib.lookup.NodeListCellRenderer;
+import org.jphototagger.lib.swingx.ListTextFilter;
 import org.openide.util.Lookup;
 
 /**
@@ -25,17 +25,55 @@ import org.openide.util.Lookup;
 public class RepositoryFileBrowserDialog extends Dialog {
 
     private static final long serialVersionUID = 1L;
-    private final DisplayImageAction displayImageAction;
+    private RepositoryImageFileInfo imageFileInfo;
+    private FileNode selectedFileNode;
 
     public RepositoryFileBrowserDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        displayImageAction = new DisplayImageAction(listFiles.getLookup());
         postInitComponents();
     }
 
     private void postInitComponents() {
-        listFiles.addListSelectionListener(listSelectionListener);
+        initFileFilter();
+        listFiles.addListSelectionListener(new FileSelectionListener());
+        MnemonicUtil.setMnemonics(this);
+    }
+
+    private void initFileFilter() {
+        ListTextFilter listTextFilter = new ListTextFilter(listFiles);
+
+        textFieldFilter.getDocument().addDocumentListener(listTextFilter);
+    }
+
+    public void setSelectedFileNode(FileNode fileNode) {
+        RepositoryImageFileInfo oldImageFileInfo = this.imageFileInfo;
+        FileNode oldSelectedFileNode = this.selectedFileNode;
+        selectedFileNode = fileNode;
+        imageFileInfo = new RepositoryImageFileInfo(fileNode);
+        firePropertyChange("imageFileInfo", oldImageFileInfo, imageFileInfo);
+        firePropertyChange("selectedFileNode", oldSelectedFileNode, selectedFileNode);
+    }
+
+    public RepositoryImageFileInfo getImageFileInfo() {
+        return imageFileInfo;
+    }
+
+    public FileNode getSelectedFileNode() {
+        return selectedFileNode;
+    }
+
+    // Beans Binding makes trouble with sorted lists, have no time
+    // to find a solution
+    private class FileSelectionListener implements ListSelectionListener {
+
+        @Override
+        public void valueChanged(ListSelectionEvent e) {
+            if (!e.getValueIsAdjusting()) {
+                FileNode selectedNode = (FileNode) listFiles.getSelectedValue();
+                setSelectedFileNode(selectedNode);
+            }
+        }
     }
 
     private void insertImageFiles() {
@@ -65,46 +103,18 @@ public class RepositoryFileBrowserDialog extends Dialog {
             for (FileNode node : nodes) {
                 listFiles.addNode(node);
             }
+
+            updateFileCountLabel();
         }
     }
 
-    private class DisplayImageAction extends LookupAction<FileNode> {
+    private void updateFileCountLabel() {
+        ListModel model = listFiles.getModel();
+        int fileCount = model.getSize();
 
-        private static final long serialVersionUID = 1L;
-
-        private DisplayImageAction(Lookup lookup) {
-            super(FileNode.class, lookup);
-        }
-
-        @Override
-        protected boolean isEnabled(Collection<? extends FileNode> lookupContent) {
-            return lookupContent.size() == 1;
-        }
-
-        @Override
-        public void actionPerformed(Collection<? extends FileNode> lookupContent) {
-            FileNode fileNode = CollectionUtil.getFirstElement(lookupContent);
-            Image thumbnail = null;
-
-            if (fileNode != null) {
-                ThumbnailProvider thumbnailProvider = Lookup.getDefault().lookup(ThumbnailProvider.class);
-                File file = fileNode.getFile();
-                thumbnail = thumbnailProvider.getThumbnail(file);
-            }
-
-            imagePanel.setImage(thumbnail);
-            ComponentUtil.forceRepaint(imagePanel);
-        }
+        labelFileCount.setText(Integer.toString(fileCount));
+        ComponentUtil.forceRepaint(labelFileCount);
     }
-    private ListSelectionListener listSelectionListener = new ListSelectionListener() {
-
-        @Override
-        public void valueChanged(ListSelectionEvent e) {
-            if (!e.getValueIsAdjusting() && displayImageAction.isEnabled()) {
-                displayImageAction.actionPerformed((ActionEvent) null);
-            }
-        }
-    };
 
     @Override
     public void setVisible(boolean visible) {
@@ -115,6 +125,18 @@ public class RepositoryFileBrowserDialog extends Dialog {
         super.setVisible(visible);
     }
 
+    @Override
+    protected void applySizeAndLocation() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        storage.applySizeAndLocation(this);
+    }
+
+    @Override
+    protected void setSizeAndLocation() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        storage.setSizeAndLocation(this);
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -122,89 +144,380 @@ public class RepositoryFileBrowserDialog extends Dialog {
      */
     @SuppressWarnings("unchecked")
     private void initComponents() {//GEN-BEGIN:initComponents
+        java.awt.GridBagConstraints gridBagConstraints;
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
-        scrollPane = new javax.swing.JScrollPane();
+        panelContent = new javax.swing.JPanel();
+        panelFilter = new javax.swing.JPanel();
+        labelFilterPrompt = new javax.swing.JLabel();
+        textFieldFilter = new javax.swing.JTextField();
+        scrollPaneFiles = new javax.swing.JScrollPane();
         listFiles = new org.jphototagger.lib.lookup.NodeLookupList();
-        panelThumbnailSourroundingBorder = new javax.swing.JPanel();
+        panelSelectedFilepath = new javax.swing.JPanel();
+        labelSelectedFilepathPrompt = new javax.swing.JLabel();
+        labelSelectedFilepath = new javax.swing.JLabel();
+        labelFileCountPrompt = new javax.swing.JLabel();
+        labelFileCount = new javax.swing.JLabel();
+        panelInfo = new javax.swing.JPanel();
+        panelThumbnail = new javax.swing.JPanel();
         imagePanel = new org.jphototagger.lib.component.ImagePanel();
         panelDetails = new javax.swing.JPanel();
+        panelImageFile = new javax.swing.JPanel();
+        checkBoxImageFileExists = new javax.swing.JCheckBox();
+        labelimeImageFileInRepositoryPrompt = new javax.swing.JLabel();
+        labelimeImageFileInRepository = new javax.swing.JLabel();
+        labelimeImageFileInFileSystemPrompt = new javax.swing.JLabel();
+        labelimeImageFileInFileSystem = new javax.swing.JLabel();
+        labelTimeImageFileWarning = new javax.swing.JLabel();
+        panelXMPFile = new javax.swing.JPanel();
+        checkBoxXmpFileExists = new javax.swing.JCheckBox();
+        labelPromptTimeXmpFileInRepository = new javax.swing.JLabel();
+        labelTimeXmpFileInRepository = new javax.swing.JLabel();
+        labelPromptTimeXmpFileInFileSystem = new javax.swing.JLabel();
+        labelTimeXmpFileInFileSystem = new javax.swing.JLabel();
+        labelTimeXmpFileWarning = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/repositoryfilebrowser/Bundle"); // NOI18N
         setTitle(bundle.getString("RepositoryFileBrowserDialog.title")); // NOI18N
         setIconImages(Lookup.getDefault().lookup(Branding.class).getAppIcons());
+        setName("Form"); // NOI18N
+        getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        scrollPane.setViewportView(listFiles);
+        panelContent.setName("panelContent"); // NOI18N
+        panelContent.setLayout(new java.awt.GridBagLayout());
 
-        panelThumbnailSourroundingBorder.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("RepositoryFileBrowserDialog.panelThumbnailSourroundingBorder.border.title"))); // NOI18N
+        panelFilter.setName("panelFilter"); // NOI18N
+        panelFilter.setLayout(new java.awt.GridBagLayout());
+
+        labelFilterPrompt.setLabelFor(textFieldFilter);
+        labelFilterPrompt.setText(bundle.getString("RepositoryFileBrowserDialog.labelFilterPrompt.text")); // NOI18N
+        labelFilterPrompt.setName("labelFilterPrompt"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        panelFilter.add(labelFilterPrompt, gridBagConstraints);
+
+        textFieldFilter.setName("textFieldFilter"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelFilter.add(textFieldFilter, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        panelContent.add(panelFilter, gridBagConstraints);
+
+        scrollPaneFiles.setName("scrollPaneFiles"); // NOI18N
+        scrollPaneFiles.setPreferredSize(new java.awt.Dimension(400, 131));
+
+        listFiles.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        listFiles.setAutoCreateRowSorter(true);
+        listFiles.setCellRenderer(new NodeListCellRenderer());
+        listFiles.setComparator(FileNodeComparator.INSTANCE);
+        listFiles.setName("listFiles"); // NOI18N
+        listFiles.setSortOrder(javax.swing.SortOrder.ASCENDING);
+        scrollPaneFiles.setViewportView(listFiles);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 0.6;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        panelContent.add(scrollPaneFiles, gridBagConstraints);
+
+        panelSelectedFilepath.setName("panelSelectedFilepath"); // NOI18N
+        panelSelectedFilepath.setLayout(new java.awt.GridBagLayout());
+
+        labelSelectedFilepathPrompt.setText(bundle.getString("RepositoryFileBrowserDialog.labelSelectedFilepathPrompt.text")); // NOI18N
+        labelSelectedFilepathPrompt.setName("labelSelectedFilepathPrompt"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weighty = 1.0;
+        panelSelectedFilepath.add(labelSelectedFilepathPrompt, gridBagConstraints);
+
+        labelSelectedFilepath.setForeground(new java.awt.Color(0, 0, 255));
+        labelSelectedFilepath.setName("labelSelectedFilepath"); // NOI18N
+
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${imageFileInfo.imageFileIcon}"), labelSelectedFilepath, org.jdesktop.beansbinding.BeanProperty.create("icon"));
+        binding.setSourceNullValue(null);
+        binding.setSourceUnreadableValue(null);
+        bindingGroup.addBinding(binding);
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${imageFileInfo.imageFilepath}"), labelSelectedFilepath, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelSelectedFilepath.add(labelSelectedFilepath, gridBagConstraints);
+
+        labelFileCountPrompt.setText(bundle.getString("RepositoryFileBrowserDialog.labelFileCountPrompt.text")); // NOI18N
+        labelFileCountPrompt.setName("labelFileCountPrompt"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        panelSelectedFilepath.add(labelFileCountPrompt, gridBagConstraints);
+
+        labelFileCount.setName("labelFileCount"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelSelectedFilepath.add(labelFileCount, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        panelContent.add(panelSelectedFilepath, gridBagConstraints);
+
+        panelInfo.setName("panelInfo"); // NOI18N
+        panelInfo.setLayout(new java.awt.GridBagLayout());
+
+        panelThumbnail.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("RepositoryFileBrowserDialog.panelThumbnail.border.title"))); // NOI18N
+        panelThumbnail.setName("panelThumbnail"); // NOI18N
+        panelThumbnail.setPreferredSize(new java.awt.Dimension(150, 150));
 
         imagePanel.setImageIsAbsentText(bundle.getString("RepositoryFileBrowserDialog.imagePanel.imageIsAbsentText")); // NOI18N
+        imagePanel.setName("imagePanel"); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${imageFileInfo.thumbnail}"), imagePanel, org.jdesktop.beansbinding.BeanProperty.create("image"));
+        bindingGroup.addBinding(binding);
 
         javax.swing.GroupLayout imagePanelLayout = new javax.swing.GroupLayout(imagePanel);
         imagePanel.setLayout(imagePanelLayout);
         imagePanelLayout.setHorizontalGroup(
             imagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 441, Short.MAX_VALUE)
+            .addGap(0, 165, Short.MAX_VALUE)
         );
         imagePanelLayout.setVerticalGroup(
             imagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 301, Short.MAX_VALUE)
+            .addGap(0, 229, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout panelThumbnailSourroundingBorderLayout = new javax.swing.GroupLayout(panelThumbnailSourroundingBorder);
-        panelThumbnailSourroundingBorder.setLayout(panelThumbnailSourroundingBorderLayout);
-        panelThumbnailSourroundingBorderLayout.setHorizontalGroup(
-            panelThumbnailSourroundingBorderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelThumbnailSourroundingBorderLayout.createSequentialGroup()
+        javax.swing.GroupLayout panelThumbnailLayout = new javax.swing.GroupLayout(panelThumbnail);
+        panelThumbnail.setLayout(panelThumbnailLayout);
+        panelThumbnailLayout.setHorizontalGroup(
+            panelThumbnailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelThumbnailLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(imagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        panelThumbnailSourroundingBorderLayout.setVerticalGroup(
-            panelThumbnailSourroundingBorderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelThumbnailSourroundingBorderLayout.createSequentialGroup()
+        panelThumbnailLayout.setVerticalGroup(
+            panelThumbnailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelThumbnailLayout.createSequentialGroup()
                 .addComponent(imagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 0.4;
+        gridBagConstraints.weighty = 1.0;
+        panelInfo.add(panelThumbnail, gridBagConstraints);
 
         panelDetails.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("RepositoryFileBrowserDialog.panelDetails.border.title"))); // NOI18N
+        panelDetails.setName("panelDetails"); // NOI18N
+        panelDetails.setPreferredSize(new java.awt.Dimension(325, 229));
+        panelDetails.setLayout(new java.awt.GridBagLayout());
 
-        javax.swing.GroupLayout panelDetailsLayout = new javax.swing.GroupLayout(panelDetails);
-        panelDetails.setLayout(panelDetailsLayout);
-        panelDetailsLayout.setHorizontalGroup(
-            panelDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 255, Short.MAX_VALUE)
-        );
-        panelDetailsLayout.setVerticalGroup(
-            panelDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 313, Short.MAX_VALUE)
-        );
+        panelImageFile.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("RepositoryFileBrowserDialog.panelImageFile.border.title"))); // NOI18N
+        panelImageFile.setName("panelImageFile"); // NOI18N
+        panelImageFile.setLayout(new java.awt.GridBagLayout());
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 752, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(panelThumbnailSourroundingBorder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(panelDetails, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelDetails, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelThumbnailSourroundingBorder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
+        checkBoxImageFileExists.setText(bundle.getString("RepositoryFileBrowserDialog.checkBoxImageFileExists.text")); // NOI18N
+        checkBoxImageFileExists.setEnabled(false);
+        checkBoxImageFileExists.setName("checkBoxImageFileExists"); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${imageFileInfo.imageFileExists}"), checkBoxImageFileExists, org.jdesktop.beansbinding.BeanProperty.create("selected"));
+        binding.setSourceNullValue(false);
+        binding.setSourceUnreadableValue(false);
+        bindingGroup.addBinding(binding);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
+        panelImageFile.add(checkBoxImageFileExists, gridBagConstraints);
+
+        labelimeImageFileInRepositoryPrompt.setText(bundle.getString("RepositoryFileBrowserDialog.labelimeImageFileInRepositoryPrompt.text")); // NOI18N
+        labelimeImageFileInRepositoryPrompt.setName("labelimeImageFileInRepositoryPrompt"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 0);
+        panelImageFile.add(labelimeImageFileInRepositoryPrompt, gridBagConstraints);
+
+        labelimeImageFileInRepository.setName("labelimeImageFileInRepository"); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${imageFileInfo.timeImageFileInRepository}"), labelimeImageFileInRepository, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
+        panelImageFile.add(labelimeImageFileInRepository, gridBagConstraints);
+
+        labelimeImageFileInFileSystemPrompt.setText(bundle.getString("RepositoryFileBrowserDialog.labelimeImageFileInFileSystemPrompt.text")); // NOI18N
+        labelimeImageFileInFileSystemPrompt.setName("labelimeImageFileInFileSystemPrompt"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 0);
+        panelImageFile.add(labelimeImageFileInFileSystemPrompt, gridBagConstraints);
+
+        labelimeImageFileInFileSystem.setName("labelimeImageFileInFileSystem"); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${imageFileInfo.timeImageFileInFileSystem}"), labelimeImageFileInFileSystem, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 0);
+        panelImageFile.add(labelimeImageFileInFileSystem, gridBagConstraints);
+
+        labelTimeImageFileWarning.setForeground(new java.awt.Color(255, 0, 51));
+        labelTimeImageFileWarning.setName("labelTimeImageFileWarning"); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${imageFileInfo.timeImageFileWarning}"), labelTimeImageFileWarning, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        binding.setSourceNullValue(null);
+        binding.setSourceUnreadableValue(null);
+        bindingGroup.addBinding(binding);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(3, 10, 3, 3);
+        panelImageFile.add(labelTimeImageFileWarning, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(3, 3, 0, 3);
+        panelDetails.add(panelImageFile, gridBagConstraints);
+
+        panelXMPFile.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("RepositoryFileBrowserDialog.panelXMPFile.border.title"))); // NOI18N
+        panelXMPFile.setName("panelXMPFile"); // NOI18N
+        panelXMPFile.setLayout(new java.awt.GridBagLayout());
+
+        checkBoxXmpFileExists.setText(bundle.getString("RepositoryFileBrowserDialog.checkBoxXmpFileExists.text")); // NOI18N
+        checkBoxXmpFileExists.setEnabled(false);
+        checkBoxXmpFileExists.setName("checkBoxXmpFileExists"); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${imageFileInfo.xmpFileExists}"), checkBoxXmpFileExists, org.jdesktop.beansbinding.BeanProperty.create("selected"));
+        binding.setSourceNullValue(false);
+        binding.setSourceUnreadableValue(false);
+        bindingGroup.addBinding(binding);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
+        panelXMPFile.add(checkBoxXmpFileExists, gridBagConstraints);
+
+        labelPromptTimeXmpFileInRepository.setText(bundle.getString("RepositoryFileBrowserDialog.labelPromptTimeXmpFileInRepository.text")); // NOI18N
+        labelPromptTimeXmpFileInRepository.setName("labelPromptTimeXmpFileInRepository"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 0);
+        panelXMPFile.add(labelPromptTimeXmpFileInRepository, gridBagConstraints);
+
+        labelTimeXmpFileInRepository.setName("labelTimeXmpFileInRepository"); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${imageFileInfo.timeXmpFileInRepository}"), labelTimeXmpFileInRepository, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
+        panelXMPFile.add(labelTimeXmpFileInRepository, gridBagConstraints);
+
+        labelPromptTimeXmpFileInFileSystem.setText(bundle.getString("RepositoryFileBrowserDialog.labelPromptTimeXmpFileInFileSystem.text")); // NOI18N
+        labelPromptTimeXmpFileInFileSystem.setName("labelPromptTimeXmpFileInFileSystem"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 0);
+        panelXMPFile.add(labelPromptTimeXmpFileInFileSystem, gridBagConstraints);
+
+        labelTimeXmpFileInFileSystem.setName("labelTimeXmpFileInFileSystem"); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${imageFileInfo.timeXmpFileInFileSystem}"), labelTimeXmpFileInFileSystem, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 0);
+        panelXMPFile.add(labelTimeXmpFileInFileSystem, gridBagConstraints);
+
+        labelTimeXmpFileWarning.setForeground(new java.awt.Color(255, 0, 51));
+        labelTimeXmpFileWarning.setName("labelTimeXmpFileWarning"); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${imageFileInfo.timeXmpFileWarning}"), labelTimeXmpFileWarning, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        binding.setSourceNullValue(null);
+        binding.setSourceUnreadableValue(null);
+        bindingGroup.addBinding(binding);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(3, 10, 3, 3);
+        panelXMPFile.add(labelTimeXmpFileWarning, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(3, 3, 0, 3);
+        panelDetails.add(panelXMPFile, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 0.6;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelInfo.add(panelDetails, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 0.4;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        panelContent.add(panelInfo, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.gridheight = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        getContentPane().add(panelContent, gridBagConstraints);
+
+        bindingGroup.bind();
 
         pack();
     }//GEN-END:initComponents
@@ -230,10 +543,35 @@ public class RepositoryFileBrowserDialog extends Dialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox checkBoxImageFileExists;
+    private javax.swing.JCheckBox checkBoxXmpFileExists;
     private org.jphototagger.lib.component.ImagePanel imagePanel;
+    private javax.swing.JLabel labelFileCount;
+    private javax.swing.JLabel labelFileCountPrompt;
+    private javax.swing.JLabel labelFilterPrompt;
+    private javax.swing.JLabel labelPromptTimeXmpFileInFileSystem;
+    private javax.swing.JLabel labelPromptTimeXmpFileInRepository;
+    private javax.swing.JLabel labelSelectedFilepath;
+    private javax.swing.JLabel labelSelectedFilepathPrompt;
+    private javax.swing.JLabel labelTimeImageFileWarning;
+    private javax.swing.JLabel labelTimeXmpFileInFileSystem;
+    private javax.swing.JLabel labelTimeXmpFileInRepository;
+    private javax.swing.JLabel labelTimeXmpFileWarning;
+    private javax.swing.JLabel labelimeImageFileInFileSystem;
+    private javax.swing.JLabel labelimeImageFileInFileSystemPrompt;
+    private javax.swing.JLabel labelimeImageFileInRepository;
+    private javax.swing.JLabel labelimeImageFileInRepositoryPrompt;
     private org.jphototagger.lib.lookup.NodeLookupList listFiles;
+    private javax.swing.JPanel panelContent;
     private javax.swing.JPanel panelDetails;
-    private javax.swing.JPanel panelThumbnailSourroundingBorder;
-    private javax.swing.JScrollPane scrollPane;
+    private javax.swing.JPanel panelFilter;
+    private javax.swing.JPanel panelImageFile;
+    private javax.swing.JPanel panelInfo;
+    private javax.swing.JPanel panelSelectedFilepath;
+    private javax.swing.JPanel panelThumbnail;
+    private javax.swing.JPanel panelXMPFile;
+    private javax.swing.JScrollPane scrollPaneFiles;
+    private javax.swing.JTextField textFieldFilter;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }
