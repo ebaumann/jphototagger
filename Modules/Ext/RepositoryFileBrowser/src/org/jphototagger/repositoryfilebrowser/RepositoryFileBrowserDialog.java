@@ -125,7 +125,7 @@ public class RepositoryFileBrowserDialog extends Dialog {
 
         scrollPane = new javax.swing.JScrollPane();
         listFiles = new org.jphototagger.lib.lookup.NodeLookupList();
-        panelBorder = new javax.swing.JPanel();
+        panelThumbnailSourroundingBorder = new javax.swing.JPanel();
         imagePanel = new org.jphototagger.lib.component.ImagePanel();
         panelDetails = new javax.swing.JPanel();
 
@@ -136,7 +136,9 @@ public class RepositoryFileBrowserDialog extends Dialog {
 
         scrollPane.setViewportView(listFiles);
 
-        imagePanel.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("RepositoryFileBrowserDialog.imagePanel.border.title"))); // NOI18N
+        panelThumbnailSourroundingBorder.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("RepositoryFileBrowserDialog.panelThumbnailSourroundingBorder.border.title"))); // NOI18N
+
+        imagePanel.setImageIsAbsentText(bundle.getString("RepositoryFileBrowserDialog.imagePanel.imageIsAbsentText")); // NOI18N
 
         javax.swing.GroupLayout imagePanelLayout = new javax.swing.GroupLayout(imagePanel);
         imagePanel.setLayout(imagePanelLayout);
@@ -146,22 +148,21 @@ public class RepositoryFileBrowserDialog extends Dialog {
         );
         imagePanelLayout.setVerticalGroup(
             imagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 264, Short.MAX_VALUE)
+            .addGap(0, 301, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout panelBorderLayout = new javax.swing.GroupLayout(panelBorder);
-        panelBorder.setLayout(panelBorderLayout);
-        panelBorderLayout.setHorizontalGroup(
-            panelBorderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelBorderLayout.createSequentialGroup()
+        javax.swing.GroupLayout panelThumbnailSourroundingBorderLayout = new javax.swing.GroupLayout(panelThumbnailSourroundingBorder);
+        panelThumbnailSourroundingBorder.setLayout(panelThumbnailSourroundingBorderLayout);
+        panelThumbnailSourroundingBorderLayout.setHorizontalGroup(
+            panelThumbnailSourroundingBorderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelThumbnailSourroundingBorderLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(imagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(imagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        panelBorderLayout.setVerticalGroup(
-            panelBorderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelBorderLayout.createSequentialGroup()
-                .addContainerGap()
+        panelThumbnailSourroundingBorderLayout.setVerticalGroup(
+            panelThumbnailSourroundingBorderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelThumbnailSourroundingBorderLayout.createSequentialGroup()
                 .addComponent(imagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -172,24 +173,24 @@ public class RepositoryFileBrowserDialog extends Dialog {
         panelDetails.setLayout(panelDetailsLayout);
         panelDetailsLayout.setHorizontalGroup(
             panelDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 249, Short.MAX_VALUE)
+            .addGap(0, 255, Short.MAX_VALUE)
         );
         panelDetailsLayout.setVerticalGroup(
             panelDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 288, Short.MAX_VALUE)
+            .addGap(0, 313, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 752, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(panelBorder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 752, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(panelThumbnailSourroundingBorder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(panelDetails, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -197,11 +198,11 @@ public class RepositoryFileBrowserDialog extends Dialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
+                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panelDetails, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelBorder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(panelThumbnailSourroundingBorder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -231,8 +232,8 @@ public class RepositoryFileBrowserDialog extends Dialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jphototagger.lib.component.ImagePanel imagePanel;
     private org.jphototagger.lib.lookup.NodeLookupList listFiles;
-    private javax.swing.JPanel panelBorder;
     private javax.swing.JPanel panelDetails;
+    private javax.swing.JPanel panelThumbnailSourroundingBorder;
     private javax.swing.JScrollPane scrollPane;
     // End of variables declaration//GEN-END:variables
 }
