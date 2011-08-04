@@ -7,7 +7,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.StringTokenizer;
-import org.jphototagger.lib.component.ImagePanel.Align;
 import org.jphototagger.lib.component.TabOrEnterLeavingTextArea;
 
 /**
@@ -77,22 +76,16 @@ public final class FlickrImageInfoPanel extends javax.swing.JPanel {
 
     public FlickrImageInfoPanel() {
         initComponents();
-        postInitComponents();
     }
 
     public FlickrImageInfoPanel(ImageInfo imageInfo) {
         initComponents();
-        postInitComponents();
 
         setImage(imageInfo.getImage());
         setImageFile(imageInfo.getImageFile());
         setTitle(imageInfo.getTitle());
         setTags(imageInfo.getTags());
         setDescription(imageInfo.getDescription());
-    }
-
-    private void postInitComponents() {
-        panelImage.setAlign(Align.LEFT_TOP);
     }
 
     public void setFocusToTitle() {

@@ -1,17 +1,22 @@
 package org.jphototagger.repositoryfilebrowser;
 
 import java.io.File;
+import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.Collections;
-import org.jphototagger.api.nodes.Node;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import org.jphototagger.api.nodes.AbstractNode;
+import org.jphototagger.lib.image.util.IconUtil;
 
 /**
  *
  *
  * @author Elmar Baumann
  */
-public final class FileNode implements Node {
+public final class FileNode extends AbstractNode {
 
+    public static final ImageIcon SMALL_ICON = IconUtil.getImageIcon(FileNode.class, "icon_file.png");
     private final File file;
 
     public FileNode(File file) {
@@ -34,5 +39,31 @@ public final class FileNode implements Node {
     @Override
     public String toString() {
         return file.getAbsolutePath();
+    }
+
+    @Override
+    public Icon getSmallIcon() {
+        return SMALL_ICON;
+    }
+
+    @Override
+    public String getDisplayName() {
+        String pattern = "{0} [{1}]";
+
+        return MessageFormat.format(pattern, file.getName(), file.getAbsolutePath());
+    }
+
+    @Override
+    public String getHtmlDisplayName() {
+        StringBuilder pattern = new StringBuilder("<html>");
+
+        pattern.append("<span style=\"background-color:#EAF5FF\">")
+                .append("{0}")
+                .append("</span>")
+                .append("&nbsp;&nbsp;&nbsp;")
+                .append("[{1}]")
+                .append("</html>");
+
+        return MessageFormat.format(pattern.toString(), file.getName(), file.getAbsolutePath());
     }
 }

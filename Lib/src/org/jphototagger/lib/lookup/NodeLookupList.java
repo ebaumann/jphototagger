@@ -96,7 +96,8 @@ public final class NodeLookupList extends JXList {
             List<Node> selectedNodes = new ArrayList<Node>(selectedValues.length);
 
             for (Object selectedVaue : selectedValues) {
-                selectedNodes.add((Node) selectedVaue);
+                Node node = (Node) selectedVaue;
+                selectedNodes.add(node);
             }
 
             return selectedNodes;

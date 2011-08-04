@@ -4,7 +4,7 @@ import java.awt.Image;
 import java.io.File;
 
 import org.jphototagger.api.image.ThumbnailProvider;
-import org.jphototagger.program.cache.ThumbnailCache;
+import org.jphototagger.program.cache.PersistentThumbnails;
 import org.openide.util.lookup.ServiceProvider;
 
 /**
@@ -19,6 +19,6 @@ public final class ThumbnailProviderImpl implements ThumbnailProvider {
     public Image getThumbnail(File imageFile) {
         return imageFile == null
                 ? null
-                : ThumbnailCache.INSTANCE.getThumbnail(imageFile);
+                : PersistentThumbnails.getThumbnail(imageFile);
     }
 }

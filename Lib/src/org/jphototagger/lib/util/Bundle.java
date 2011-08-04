@@ -38,23 +38,10 @@ public class Bundle {
     }
 
     private static String createDefaultBundlePath(Class<?> clazz) {
-        String packagePath = resolvePackagePath(clazz);
+        String packagePath = PropertiesUtil.resolvePackagePathForResource(clazz);
         String bundlePath = packagePath + '/' + "Bundle";
 
         return bundlePath;
-    }
-
-    private static String resolvePackagePath(Class<?> clazz) {
-        String className = clazz.getName();
-        int indexLastDot = className.lastIndexOf('.');
-
-        if (indexLastDot < 1) {
-            return "";
-        }
-
-        String packagePath = className.substring(0, indexLastDot);
-
-        return packagePath.replace(".", "/");
     }
 
     private static String getFormattedString(ResourceBundle bundle, String key, Object... params) {

@@ -1,4 +1,4 @@
-package org.jphototagger.program.helper;
+package org.jphototagger.lib.swingx;
 
 import org.jdesktop.swingx.JXList;
 import java.util.logging.Level;

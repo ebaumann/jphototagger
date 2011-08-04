@@ -16,4 +16,6 @@ public interface AppMenuAction {
      * @return netative value f not present
      */
     int getPosition();
+
+    boolean isSeparatorBefore();
 }

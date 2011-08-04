@@ -6,9 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.filechooser.FileSystemView;
+
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.filechooser.FileSystemView;
+
+import org.jphototagger.lib.util.PropertiesUtil;
 
 /**
  * Werkzeuge für Icons.
@@ -92,6 +95,26 @@ public final class IconUtil {
         }
 
         return null;
+    }
+
+    /**
+     *
+     * @param clazz Class within the same package as the icon
+     * @param iconName e.g. "file.png"
+     * @return
+     */
+    public static ImageIcon getImageIcon(Class<?> clazz, String iconName) {
+        if (clazz == null) {
+            throw new NullPointerException("clazz == null");
+        }
+
+        if (iconName == null) {
+            throw new NullPointerException("iconName == null");
+        }
+
+        String packagePath = PropertiesUtil.resolvePackagePathForResource(clazz);
+
+        return getImageIcon('/' + packagePath + '/' + iconName);
     }
 
     /**

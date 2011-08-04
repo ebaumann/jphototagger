@@ -25,6 +25,7 @@ public class ImagePanel extends JPanel {
         Image oldImage = this.image;
         this.image = image;
         firePropertyChange("image", oldImage, image);
+        repaint();
     }
 
     public Image getImage() {

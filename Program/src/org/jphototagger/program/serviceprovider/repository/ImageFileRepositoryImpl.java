@@ -18,4 +18,14 @@ public final class ImageFileRepositoryImpl implements ImageFileRepository {
     public Collection<? extends File> getAllImageFiles() {
         return DatabaseImageFiles.INSTANCE.getAllImageFiles();
     }
+
+    @Override
+    public long getRepositoryImageFileTimestamp(File imageFile) {
+        return DatabaseImageFiles.INSTANCE.getImageFileLastModified(imageFile);
+    }
+
+    @Override
+    public long getRepositoryXmpFileTimestamp(File imageFile) {
+        return DatabaseImageFiles.INSTANCE.getLastModifiedXmp(imageFile);
+    }
 }
