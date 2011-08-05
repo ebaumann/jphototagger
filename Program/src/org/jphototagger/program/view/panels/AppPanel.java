@@ -84,6 +84,10 @@ public final class AppPanel extends javax.swing.JPanel {
     private transient EditMetadataPanels editMetadtaPanels;
     private transient EditMetadataActionsPanel panelEditActions;
     public static final transient String DISABLED_IPTC_TAB_TOOLTIP_TEXT = Bundle.getString(AppPanel.class, "AppPanel.TabMetadataIptc.TooltipText.Disabled");
+    private ListTextFilter listSelKeywordsTextFilter;
+    private ListTextFilter listImageCollectionsTextFilter;
+    private ListTextFilter listSavedSearchesTextFilter;
+
     private static final Logger LOGGER = Logger.getLogger(AppPanel.class.getName());
 
     public AppPanel() {
@@ -102,7 +106,7 @@ public final class AppPanel extends javax.swing.JPanel {
         initCollections();
         scrollPaneThumbnails.getVerticalScrollBar().setUnitIncrement(30);
         setMnemonics();
-        setListTextFilters();
+        initListTextFilters();
         setTableTextFilters();
     }
 
@@ -114,14 +118,14 @@ public final class AppPanel extends javax.swing.JPanel {
         MnemonicUtil.setMnemonics((Container) panelSearch);
     }
 
-    private void setListTextFilters() {
-        ListTextFilter listSelKeywordsTextFilter = new ListTextFilter(listSelKeywords);
-        ListTextFilter listImageCollectionsTextFilter = new ListTextFilter(listImageCollections);
-        ListTextFilter listSavedSearchesTextFilter = new ListTextFilter(listSavedSearches);
+    private void initListTextFilters() {
+        listSelKeywordsTextFilter = new ListTextFilter(listSelKeywords);
+        listImageCollectionsTextFilter = new ListTextFilter(listImageCollections);
+        listSavedSearchesTextFilter = new ListTextFilter(listSavedSearches);
 
-        textFieldListSelKeywordsFilter.getDocument().addDocumentListener(listSelKeywordsTextFilter);
-        textFieldListSavedSearchesFilter.getDocument().addDocumentListener(listSavedSearchesTextFilter);
-        textFieldListImageCollectionsFilter.getDocument().addDocumentListener(listImageCollectionsTextFilter);
+        listSelKeywordsTextFilter.filterOnDocumentChanges(textFieldListSelKeywordsFilter.getDocument());
+        listSavedSearchesTextFilter.filterOnDocumentChanges(textFieldListSavedSearchesFilter.getDocument());
+        listImageCollectionsTextFilter.filterOnDocumentChanges(textFieldListImageCollectionsFilter.getDocument());
     }
 
     private void setTableTextFilters() {
