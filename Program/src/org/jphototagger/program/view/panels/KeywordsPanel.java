@@ -29,6 +29,7 @@ import org.jphototagger.program.view.renderer.ListCellRendererKeywords;
  */
 public class KeywordsPanel extends javax.swing.JPanel {
     private static final long serialVersionUID = 5968799511284000903L;
+    private ListTextFilter listTextFilter;
     private String keyTree = "KeywordsPanel.Tree.SelectedNode";
     private String keyCard = "KeywordsPanel.Card";
 
@@ -43,7 +44,8 @@ public class KeywordsPanel extends javax.swing.JPanel {
     }
 
     private void decorateList() {
-        textFieldListFilter.getDocument().addDocumentListener(new ListTextFilter(list));
+        listTextFilter = new ListTextFilter(list);
+        listTextFilter.filterOnDocumentChanges(textFieldListFilter.getDocument());
         list.setAutoCreateRowSorter(true);
         list.setSortOrder(SortOrder.ASCENDING);
         list.addHighlighter(KeywordHighlightPredicate.getHighlighter());

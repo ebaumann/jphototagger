@@ -27,6 +27,7 @@ public class RepositoryFileBrowserDialog extends Dialog {
     private static final long serialVersionUID = 1L;
     private RepositoryImageFileInfo imageFileInfo;
     private FileNode selectedFileNode;
+    private ListTextFilter listTextFilter;
 
     public RepositoryFileBrowserDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -41,9 +42,9 @@ public class RepositoryFileBrowserDialog extends Dialog {
     }
 
     private void initFileFilter() {
-        ListTextFilter listTextFilter = new ListTextFilter(listFiles);
+        listTextFilter = new ListTextFilter(listFiles);
 
-        textFieldFilter.getDocument().addDocumentListener(listTextFilter);
+        listTextFilter.filterOnActionPerformed(jButton1, textFieldFilter.getDocument());
     }
 
     public void setSelectedFileNode(FileNode fileNode) {
@@ -151,6 +152,7 @@ public class RepositoryFileBrowserDialog extends Dialog {
         panelFilter = new javax.swing.JPanel();
         labelFilterPrompt = new javax.swing.JLabel();
         textFieldFilter = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
         scrollPaneFiles = new javax.swing.JScrollPane();
         listFiles = new org.jphototagger.lib.lookup.NodeLookupList();
         panelSelectedFilepath = new javax.swing.JPanel();
@@ -208,6 +210,13 @@ public class RepositoryFileBrowserDialog extends Dialog {
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
         panelFilter.add(textFieldFilter, gridBagConstraints);
+
+        jButton1.setText(bundle.getString("RepositoryFileBrowserDialog.jButton1.text")); // NOI18N
+        jButton1.setName("jButton1"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelFilter.add(jButton1, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -546,6 +555,7 @@ public class RepositoryFileBrowserDialog extends Dialog {
     private javax.swing.JCheckBox checkBoxImageFileExists;
     private javax.swing.JCheckBox checkBoxXmpFileExists;
     private org.jphototagger.lib.component.ImagePanel imagePanel;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel labelFileCount;
     private javax.swing.JLabel labelFileCountPrompt;
     private javax.swing.JLabel labelFilterPrompt;
