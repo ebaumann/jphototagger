@@ -28,6 +28,7 @@ public class RepositoryImageFileInfo {
     private Boolean xmpFileExists;
     private String timeImageFileWarning;
     private String timeXmpFileWarning;
+    private String thumbnailSizeInfo;
     private final ImageFileRepository imageFileRepository = Lookup.getDefault().lookup(ImageFileRepository.class);
     private static final DateFormat DATE_FORMAT = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM);
     private static final String TIME_WARNING_STRING = Bundle.getString(RepositoryImageFileInfo.class, "RepositoryImageFileInfo.TimeWarningString");
@@ -37,6 +38,7 @@ public class RepositoryImageFileInfo {
             imageFile = fileNode.getFile();
             imageFileIcon = fileNode.getSmallIcon();
             setThumbnail();
+            setThumbnailSizeInfo();
             setImageFileTimeStamps();
             setXmpFileTimeStamps();
             setFilesExists();
@@ -46,6 +48,17 @@ public class RepositoryImageFileInfo {
     private void setThumbnail() {
         ThumbnailProvider thumbnailProvider = Lookup.getDefault().lookup(ThumbnailProvider.class);
         thumbnail = thumbnailProvider.getThumbnail(imageFile);
+    }
+
+    private void setThumbnailSizeInfo() {
+        if (thumbnail == null) {
+            return;
+        }
+
+        int width = thumbnail.getWidth(null);
+        int height = thumbnail.getHeight(null);
+
+        thumbnailSizeInfo = Bundle.getString(RepositoryImageFileInfo.class, "RepositoryImageFileInfo.ThumbnailSizeInfo", width, height);
     }
 
     private void setImageFileTimeStamps() {
@@ -92,17 +105,21 @@ public class RepositoryImageFileInfo {
 
     private void setTimeXmpFileWarning(long repoTimeStamp, File xmpFile) {
         long lastModified = xmpFile.lastModified();
-        timeXmpFileWarning = lastModified != repoTimeStamp ? TIME_WARNING_STRING : "";
+        timeXmpFileWarning = xmpFile.exists() && lastModified != repoTimeStamp ? TIME_WARNING_STRING : "";
     }
 
     private void setTimeImageFileWarning(long repoTimeStamp) {
         long lastModified = imageFile == null ? Long.MIN_VALUE : imageFile.lastModified();
-        timeImageFileWarning = lastModified != repoTimeStamp ? TIME_WARNING_STRING : "";
+        timeImageFileWarning = imageFile != null && imageFile.exists() && lastModified != repoTimeStamp ? TIME_WARNING_STRING : "";
     }
 
     private void setFilesExists() {
-        imageFileExists = imageFile.exists();
-        xmpFileExists = resolveXmpFile(imageFile).exists();
+        imageFileExists = existsImageFile();
+        xmpFileExists = imageFile != null && resolveXmpFile(imageFile).exists();
+    }
+
+    private boolean existsImageFile() {
+        return imageFile != null && imageFile.exists();
     }
 
     public File getImageFile() {
@@ -151,5 +168,9 @@ public class RepositoryImageFileInfo {
 
     public String getTimeXmpFileWarning() {
         return timeXmpFileWarning;
+    }
+
+    public String getThumbnailSizeInfo() {
+        return thumbnailSizeInfo;
     }
 }
