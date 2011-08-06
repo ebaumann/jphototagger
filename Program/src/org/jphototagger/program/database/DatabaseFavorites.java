@@ -10,9 +10,11 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.domain.event.listener.DatabaseFavoritesListener;
-import org.jphototagger.domain.event.listener.impl.ListenerSupport;
+import org.bushe.swing.event.EventBus;
 import org.jphototagger.domain.favorites.Favorite;
+import org.jphototagger.domain.repository.event.FavoriteDeletedEvent;
+import org.jphototagger.domain.repository.event.FavoriteInsertedEvent;
+import org.jphototagger.domain.repository.event.FavoriteUpdatedEvent;
 
 /**
  *
@@ -20,8 +22,8 @@ import org.jphototagger.domain.favorites.Favorite;
  * @author Elmar Baumann
  */
 public final class DatabaseFavorites extends Database {
+
     public static final DatabaseFavorites INSTANCE = new DatabaseFavorites();
-    private final ListenerSupport<DatabaseFavoritesListener> ls = new ListenerSupport<DatabaseFavoritesListener>();
 
     private DatabaseFavorites() {}
 
@@ -356,37 +358,15 @@ public final class DatabaseFavorites extends Database {
         return exists;
     }
 
-    public void addListener(DatabaseFavoritesListener listener) {
-        if (listener == null) {
-            throw new NullPointerException("listener == null");
-        }
-
-        ls.add(listener);
-    }
-
-    public void removeListener(DatabaseFavoritesListener listener) {
-        if (listener == null) {
-            throw new NullPointerException("listener == null");
-        }
-
-        ls.remove(listener);
-    }
-
     private void notifyInserted(Favorite favorite) {
-        for (DatabaseFavoritesListener listener : ls.get()) {
-            listener.favoriteInserted(favorite);
-        }
+        EventBus.publish(new FavoriteInsertedEvent(this, favorite));
     }
 
     private void notifyDeleted(Favorite favorite) {
-        for (DatabaseFavoritesListener listener : ls.get()) {
-            listener.favoriteDeleted(favorite);
-        }
+        EventBus.publish(new FavoriteDeletedEvent(this, favorite));
     }
 
     private void notifyUpdated(Favorite oldFavorite, Favorite updatedFavorite) {
-        for (DatabaseFavoritesListener listener : ls.get()) {
-            listener.favoriteUpdated(oldFavorite, updatedFavorite);
-        }
+        EventBus.publish(new FavoriteUpdatedEvent(this, oldFavorite, updatedFavorite));
     }
 }
