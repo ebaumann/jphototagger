@@ -252,10 +252,6 @@ public class Dialog extends JDialog implements WindowListener {
                : settingsKey;
     }
 
-    protected Settings getSettings() {
-        return settings;
-    }
-
     private void registerKeyboardActions() {
         KeyStroke strokeEscape = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
         KeyStroke strokeHelp = KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0);

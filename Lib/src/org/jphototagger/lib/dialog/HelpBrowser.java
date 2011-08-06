@@ -21,15 +21,16 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.event.HelpBrowserEvent;
 import org.jphototagger.lib.event.listener.HelpBrowserListener;
 import org.jphototagger.lib.model.TreeModelHelpContents;
 import org.jphototagger.lib.renderer.TreeCellRendererHelpContents;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.lib.util.Settings;
 import org.jphototagger.lib.util.help.HelpNode;
 import org.jphototagger.lib.util.help.HelpPage;
+import org.openide.util.Lookup;
 
 /**
  * Browser for HTML help files. Usually those are packaged with the application
@@ -268,18 +269,18 @@ public final class HelpBrowser extends Dialog implements ActionListener, Hyperli
     }
 
     private void readDividerLocationFromProperties() {
-        Settings settings = getSettings();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
 
-        if (settings != null && settings.containsKey(KEY_DIVIDER_LOCATION)) {
-            splitPane.setDividerLocation(settings.getInt(KEY_DIVIDER_LOCATION));
+        if (storage != null && storage.containsKey(KEY_DIVIDER_LOCATION)) {
+            splitPane.setDividerLocation(storage.getInt(KEY_DIVIDER_LOCATION));
         }
     }
 
     private void writeDividerLocationToProperties() {
-        Settings settings = getSettings();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
 
-        if (settings != null) {
-            settings.set(KEY_DIVIDER_LOCATION, splitPane.getDividerLocation());
+        if (storage != null) {
+            storage.setInt(KEY_DIVIDER_LOCATION, splitPane.getDividerLocation());
         }
     }
 

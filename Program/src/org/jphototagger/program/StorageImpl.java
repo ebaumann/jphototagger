@@ -1,4 +1,4 @@
-package org.jphototagger.program.serviceprovider.core;
+package org.jphototagger.program;
 
 import java.awt.Component;
 
@@ -7,7 +7,6 @@ import org.jphototagger.api.core.Storage;
 import org.jphototagger.domain.event.UserPropertyChangedEvent;
 import org.jphototagger.lib.util.ObjectUtil;
 import org.jphototagger.lib.util.Settings;
-import org.jphototagger.program.UserSettings;
 import org.openide.util.lookup.ServiceProvider;
 
 /**
@@ -55,6 +54,22 @@ public final class StorageImpl implements Storage {
     @Override
     public void setBoolean(String key, boolean value) {
         boolean oldValue = settings.getBoolean(key);
+        if (value != oldValue) {
+            settings.set(key, value);
+            writeToFile();
+            EventBus.publish(new UserPropertyChangedEvent(this, key, oldValue, value));
+        }
+    }
+
+    @Override
+    public int getInt(String key) {
+        return settings.getInt(key);
+    }
+
+    @Override
+    public void setInt(String key, int value) {
+        int oldValue = settings.getInt(key);
+
         if (value != oldValue) {
             settings.set(key, value);
             writeToFile();
