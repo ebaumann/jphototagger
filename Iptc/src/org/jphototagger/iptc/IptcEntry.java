@@ -4,11 +4,12 @@ import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.api.core.UserProperties;
 import org.openide.util.Lookup;
 
 import com.imagero.reader.iptc.IPTCEntry;
 import com.imagero.reader.iptc.IPTCEntryMeta;
+import org.jphototagger.api.core.Storage;
+import org.jphototagger.domain.event.UserPropertyChangedEvent;
 
 /**
  * IPTC-Eintrag in einer Bilddatei. Dekodiert die Daten (getData()) als
@@ -105,8 +106,8 @@ public final class IptcEntry {
 
     private String getEncodedData() {
         try {
-            UserProperties properties = Lookup.getDefault().lookup(UserProperties.class);
-            String iptcCharset = properties.getIptcCharset();
+            Storage storage = Lookup.getDefault().lookup(Storage.class);
+            String iptcCharset = storage.getString(UserPropertyChangedEvent.PROPERTY_IPTC_CHARSET);
             String encodedData = new String(data, iptcCharset);
 
             return encodedData.trim();

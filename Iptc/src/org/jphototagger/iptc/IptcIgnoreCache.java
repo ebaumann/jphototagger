@@ -7,7 +7,8 @@ import java.util.logging.Logger;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.core.CacheDirectoryProvider;
-import org.jphototagger.api.core.UserProperties;
+import org.jphototagger.api.core.Storage;
+import org.jphototagger.domain.event.UserPropertyChangedEvent;
 import org.jphototagger.domain.repository.event.ImageFileMovedEvent;
 import org.jphototagger.domain.repository.event.ImageFileDeletedEvent;
 import org.jphototagger.lib.io.FileUtil;
@@ -44,9 +45,9 @@ public final class IptcIgnoreCache {
     }
 
     private boolean isDisplayIptc() {
-        UserProperties properties = Lookup.getDefault().lookup(UserProperties.class);
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
 
-        return properties.isDisplayIptc();
+        return storage.getBoolean(UserPropertyChangedEvent.PROPERTY_DISPLAY_IPTC);
     }
 
     public void setIgnore(File imageFile, boolean ignore) {
