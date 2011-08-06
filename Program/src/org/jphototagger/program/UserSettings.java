@@ -30,6 +30,7 @@ import org.jphototagger.program.types.Filename;
  * @author Elmar Baumann
  */
 public final class UserSettings {
+
     private static final int DEFAULT_MINUTES_TO_START_SCHEDULED_TASKS = 5;
     private static final String DOMAIN_NAME = "de.elmar_baumann"; // When changing see comment for AppInfo.PROJECT_NAME
     private static final String KEY_ACCEPT_HIDDEN_DIRECTORIES = "UserSettings.IsAcceptHiddenDirectories";
@@ -56,7 +57,6 @@ public final class UserSettings {
     public static final int MIN_THUMBNAIL_WIDTH = 50;
     public static final int MAX_THUMBNAIL_WIDTH = 400;
     public static final int DEFAULT_THUMBNAIL_WIDTH = 150;
-
     // NEVER CHANGE PROPERTIES_FILENAME!
     private static final String PROPERTIES_FILENAME = "Settings.properties";
     public static final SettingsHints SET_TABBED_PANE_SETTINGS = new SettingsHints(SettingsHints.Option.SET_TABBED_PANE_CONTENT);
@@ -70,18 +70,6 @@ public final class UserSettings {
         UpdateUserSettings.update(properties);
         settings.removeKeysWithEmptyValues();
         writeToFile();
-    }
-
-    /**
-     * Returns the properties with the user settings.
-     * <p>
-     * If You are modifying the properties not through a setter of this class,
-     * You have to call {@link #writeToFile()} to make the changes persistent.
-     *
-     * @return properties
-     */
-    public Properties getProperties() {
-        return properties;
     }
 
     /**
@@ -103,9 +91,7 @@ public final class UserSettings {
      * Writes the properties of this settings to a file.
      * <p>
      * The setters of this class always calling this method after updating the
-     * properties. If You change the properties outside
-     * ({@link #getProperties()}, {@link #getSettings()}, You have to call
-     * <code>writeToFile()</code> to make changes persistent.
+     * properties.
      *
      */
     public void writeToFile() {
@@ -148,8 +134,8 @@ public final class UserSettings {
      */
     public String getDatabaseDirectoryName() {
         return properties.containsKey(KEY_DATABASE_DIRECTORY)
-               ? settings.getString(KEY_DATABASE_DIRECTORY)
-               : getDefaultDatabaseDirectoryName();
+                ? settings.getString(KEY_DATABASE_DIRECTORY)
+                : getDefaultDatabaseDirectoryName();
     }
 
     /**
@@ -175,8 +161,8 @@ public final class UserSettings {
      */
     public String getDatabaseBackupDirectoryName() {
         return properties.containsKey(KEY_DATABASE_BACKUP_DIRECTORY)
-               ? settings.getString(KEY_DATABASE_BACKUP_DIRECTORY)
-               : getDatabaseDirectoryName();
+                ? settings.getString(KEY_DATABASE_BACKUP_DIRECTORY)
+                : getDatabaseDirectoryName();
     }
 
     /**
@@ -254,8 +240,8 @@ public final class UserSettings {
      */
     public DirectoryChooser.Option getDirChooserOptionShowHiddenDirs() {
         return isAcceptHiddenDirectories()
-               ? DirectoryChooser.Option.DISPLAY_HIDDEN_DIRECTORIES
-               : DirectoryChooser.Option.NO_OPTION;
+                ? DirectoryChooser.Option.DISPLAY_HIDDEN_DIRECTORIES
+                : DirectoryChooser.Option.NO_OPTION;
     }
 
     /**
@@ -266,8 +252,8 @@ public final class UserSettings {
      */
     public DirectoryFilter.Option getDirFilterOptionShowHiddenFiles() {
         return isAcceptHiddenDirectories()
-               ? DirectoryFilter.Option.ACCEPT_HIDDEN_FILES
-               : DirectoryFilter.Option.NO_OPTION;
+                ? DirectoryFilter.Option.ACCEPT_HIDDEN_FILES
+                : DirectoryFilter.Option.NO_OPTION;
     }
 
     /**
@@ -292,8 +278,8 @@ public final class UserSettings {
      */
     public ThumbnailCreationStrategy getThumbnailCreator() {
         return properties.containsKey(KEY_THUMBNAIL_CREATOR)
-               ? ThumbnailCreationStrategy.valueOf(properties.getProperty(KEY_THUMBNAIL_CREATOR))
-               : ThumbnailCreationStrategy.JAVA_IMAGE_IO;
+                ? ThumbnailCreationStrategy.valueOf(properties.getProperty(KEY_THUMBNAIL_CREATOR))
+                : ThumbnailCreationStrategy.JAVA_IMAGE_IO;
     }
 
     /**
@@ -363,8 +349,8 @@ public final class UserSettings {
         }
 
         return (level == null)
-               ? Level.INFO
-               : level;
+                ? Level.INFO
+                : level;
     }
 
     /**
@@ -384,8 +370,8 @@ public final class UserSettings {
      */
     public boolean isDisplaySearchButton() {
         return properties.containsKey(KEY_DISPLAY_SEARCH_BUTTON)
-               ? settings.getBoolean(KEY_DISPLAY_SEARCH_BUTTON)
-               : true;
+                ? settings.getBoolean(KEY_DISPLAY_SEARCH_BUTTON)
+                : true;
     }
 
     /**
@@ -408,8 +394,8 @@ public final class UserSettings {
      */
     public boolean isScanForEmbeddedXmp() {
         return properties.containsKey(KEY_SCAN_FOR_EMBEDDED_XMP)
-               ? settings.getBoolean(KEY_SCAN_FOR_EMBEDDED_XMP)
-               : false;
+                ? settings.getBoolean(KEY_SCAN_FOR_EMBEDDED_XMP)
+                : false;
     }
 
     /**
@@ -433,8 +419,8 @@ public final class UserSettings {
      */
     public CopyFiles.Options getCopyMoveFilesOptions() {
         return properties.containsKey(KEY_OPTIONS_COPY_MOVE_FILES)
-               ? CopyFiles.Options.fromInt(settings.getInt(KEY_OPTIONS_COPY_MOVE_FILES))
-               : CopyFiles.Options.CONFIRM_OVERWRITE;
+                ? CopyFiles.Options.fromInt(settings.getInt(KEY_OPTIONS_COPY_MOVE_FILES))
+                : CopyFiles.Options.CONFIRM_OVERWRITE;
     }
 
     /**
@@ -460,8 +446,8 @@ public final class UserSettings {
      */
     public boolean isExecuteActionsAfterImageChangeInDbAlways() {
         return properties.containsKey(KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS)
-               ? settings.getBoolean(KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS)
-               : false;
+                ? settings.getBoolean(KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS)
+                : false;
     }
 
     /**
@@ -487,8 +473,8 @@ public final class UserSettings {
      */
     public boolean isExecuteActionsAfterImageChangeInDbIfImageHasXmp() {
         return properties.containsKey(KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP)
-               ? settings.getBoolean(KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP)
-               : false;
+                ? settings.getBoolean(KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP)
+                : false;
     }
 
     /**
@@ -518,8 +504,8 @@ public final class UserSettings {
         String charset = settings.getString(UserPropertyChangedEvent.PROPERTY_IPTC_CHARSET);
 
         return charset.isEmpty()
-               ? "ISO-8859-1"
-               : charset;
+                ? "ISO-8859-1"
+                : charset;
     }
 
     /**
@@ -541,8 +527,8 @@ public final class UserSettings {
      */
     public boolean isAutoscanIncludeSubdirectories() {
         return properties.containsKey(KEY_AUTO_SCAN_INCLUDE_SUBDIRECTORIES)
-               ? settings.getBoolean(KEY_AUTO_SCAN_INCLUDE_SUBDIRECTORIES)
-               : true;
+                ? settings.getBoolean(KEY_AUTO_SCAN_INCLUDE_SUBDIRECTORIES)
+                : true;
     }
 
     /**
@@ -553,8 +539,8 @@ public final class UserSettings {
      */
     public boolean isSaveInputEarly() {
         return properties.containsKey(KEY_SAVE_INPUT_EARLY)
-               ? settings.getBoolean(KEY_SAVE_INPUT_EARLY)
-               : true;
+                ? settings.getBoolean(KEY_SAVE_INPUT_EARLY)
+                : true;
     }
 
     /**
@@ -590,8 +576,8 @@ public final class UserSettings {
         int minutes = settings.getInt(KEY_MINUTES_TO_START_SCHEDULED_TASKS);
 
         return (minutes > 0)
-               ? minutes
-               : DEFAULT_MINUTES_TO_START_SCHEDULED_TASKS;
+                ? minutes
+                : DEFAULT_MINUTES_TO_START_SCHEDULED_TASKS;
     }
 
     /**
@@ -618,8 +604,8 @@ public final class UserSettings {
         int width = settings.getInt(UserPropertyChangedEvent.PROPERTY_MAX_THUMBNAIL_WIDTH);
 
         return (width != Integer.MIN_VALUE)
-               ? width
-               : DEFAULT_THUMBNAIL_WIDTH;
+                ? width
+                : DEFAULT_THUMBNAIL_WIDTH;
     }
 
     /**
@@ -647,8 +633,8 @@ public final class UserSettings {
      */
     public int getMaxSecondsToTerminateExternalPrograms() {
         return properties.containsKey(KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS)
-               ? settings.getInt(KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS)
-               : 60;
+                ? settings.getInt(KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS)
+                : 60;
     }
 
     /**
@@ -670,8 +656,8 @@ public final class UserSettings {
      */
     public boolean isAcceptHiddenDirectories() {
         return properties.containsKey(KEY_ACCEPT_HIDDEN_DIRECTORIES)
-               ? settings.getBoolean(KEY_ACCEPT_HIDDEN_DIRECTORIES)
-               : false;
+                ? settings.getBoolean(KEY_ACCEPT_HIDDEN_DIRECTORIES)
+                : false;
     }
 
     /**
@@ -696,8 +682,8 @@ public final class UserSettings {
      */
     public boolean isCheckForUpdates() {
         return properties.containsKey(UserPropertyChangedEvent.PROPERTY_CHECK_FOR_UPDATES)
-               ? settings.getBoolean(UserPropertyChangedEvent.PROPERTY_CHECK_FOR_UPDATES)
-               : true;
+                ? settings.getBoolean(UserPropertyChangedEvent.PROPERTY_CHECK_FOR_UPDATES)
+                : true;
     }
 
     /**
@@ -722,8 +708,8 @@ public final class UserSettings {
      */
     public boolean isDisplayIptc() {
         return properties.containsKey(UserPropertyChangedEvent.PROPERTY_DISPLAY_IPTC)
-               ? settings.getBoolean(UserPropertyChangedEvent.PROPERTY_DISPLAY_IPTC)
-               : false;
+                ? settings.getBoolean(UserPropertyChangedEvent.PROPERTY_DISPLAY_IPTC)
+                : false;
     }
 
     /**
@@ -743,8 +729,8 @@ public final class UserSettings {
      */
     public int getScheduledBackupDbInterval() {
         return properties.containsKey(KEY_DATABASE_BACKUP_INTERVAL)
-               ? settings.getInt(KEY_DATABASE_BACKUP_INTERVAL)
-               : -1;
+                ? settings.getInt(KEY_DATABASE_BACKUP_INTERVAL)
+                : -1;
     }
 
     /**
@@ -764,8 +750,8 @@ public final class UserSettings {
      */
     public boolean isScheduledBackupDb() {
         return properties.containsKey(KEY_DATABASE_SCHEDULED_BACKUP)
-               ? settings.getBoolean(KEY_DATABASE_SCHEDULED_BACKUP)
-               : false;
+                ? settings.getBoolean(KEY_DATABASE_SCHEDULED_BACKUP)
+                : false;
     }
 
     public void setAddFilenameToGpsLocationExport(boolean add) {
@@ -775,8 +761,8 @@ public final class UserSettings {
 
     public boolean isAddFilenameToGpsLocationExport() {
         return properties.containsKey(KEY_ADD_FILENAME_TO_GPS_LOCATION_EXPORT)
-               ? settings.getBoolean(KEY_ADD_FILENAME_TO_GPS_LOCATION_EXPORT)
-               : false;
+                ? settings.getBoolean(KEY_ADD_FILENAME_TO_GPS_LOCATION_EXPORT)
+                : false;
     }
 
     /**
@@ -796,8 +782,8 @@ public final class UserSettings {
      */
     public boolean isAutocomplete() {
         return settings.containsKey(KEY_ENABLE_AUTOCOMPLETE)
-               ? settings.getBoolean(KEY_ENABLE_AUTOCOMPLETE)
-               : true;
+                ? settings.getBoolean(KEY_ENABLE_AUTOCOMPLETE)
+                : true;
     }
 
     /**
@@ -817,8 +803,8 @@ public final class UserSettings {
      */
     public boolean isUpdateAutocomplete() {
         return settings.containsKey(KEY_UPDATE_AUTOCOMPLETE)
-               ? settings.getBoolean(KEY_UPDATE_AUTOCOMPLETE)
-               : true;
+                ? settings.getBoolean(KEY_UPDATE_AUTOCOMPLETE)
+                : true;
     }
 
     public void setAutocompleteFastSearchIgnoreCase(boolean ignore) {
@@ -828,8 +814,8 @@ public final class UserSettings {
 
     public boolean isAutocompleteFastSearchIgnoreCase() {
         return settings.containsKey(KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
-               ? settings.getBoolean(KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
-               : false;
+                ? settings.getBoolean(KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
+                : false;
     }
 
     /**

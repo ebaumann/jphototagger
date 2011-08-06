@@ -1,21 +1,25 @@
 package org.jphototagger.lib.component;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import java.util.StringTokenizer;
+import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
+
+import org.jphototagger.api.core.Storage;
+import org.openide.util.Lookup;
 
 /**
  * Panel to select objects from a collection of objects.
@@ -28,13 +32,13 @@ import javax.swing.JPanel;
  * @author Elmar Baumann
  */
 public final class SelectObjectsPanel extends JPanel implements ActionListener {
+
     private static final long serialVersionUID = -273547657004917436L;
     private static final String DELIM_SEL_INDICES = ",";
     private final List<JCheckBox> checkBoxes = new ArrayList<JCheckBox>();
     private final Map<JCheckBox, Object> objectOfCheckBox = new LinkedHashMap<JCheckBox, Object>();
     private final Set<SelectionListener> listeners = new CopyOnWriteArraySet<SelectionListener>();
-    private String keySelIndices;
-    private Properties properties;
+    private String storageKey;
     private int componentCount;
 
     public SelectObjectsPanel() {
@@ -62,8 +66,7 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
             throw new NullPointerException("keySelIndices == null");
         }
 
-        this.properties = properties;
-        this.keySelIndices = keySelIndices;
+        this.storageKey = keySelIndices;
         init();
     }
 
@@ -72,6 +75,7 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
     }
 
     public static class SelectionEvent {
+
         private final Object selectedObject;
         private final int selectionCount;
 
@@ -89,14 +93,13 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
         }
     }
 
-
     /**
      * A selection listener will be notified, if the user did select an object.
      */
     public interface SelectionListener {
+
         void objectSelected(SelectionEvent evt);
     }
-
 
     public void addSelectionListener(SelectionListener listener) {
         listeners.add(listener);
@@ -152,21 +155,8 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
         return count;
     }
 
-    /**
-     * Sets the properties for setting and getting selected indices.
-     * <p>
-     * Usage only, if the count and order of objects is always the same. The
-     * order is defined through the order of
-     * {@link #add(java.lang.Object, java.lang.String)} calls.
-     *
-     * @param properties    properties
-     * @param keySelIndices key in <code>properties</code> for setting and
-     *                      getting the selected indices
-     * @see                 #applyPropertiesSelectedIndices()
-     */
-    public void setProperties(Properties properties, String keySelIndices) {
-        this.properties = properties;
-        this.keySelIndices = keySelIndices;
+    public void setStorageKey(String storageKey) {
+        this.storageKey = storageKey;
     }
 
     public void add(Object object, String displayName) {
@@ -239,11 +229,12 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
      * {@link SelectObjectsPanel#SelectObjectsPanel(Properties, String)}
      */
     public void applyPropertiesSelectedIndices() {
-        if ((properties == null) ||!properties.containsKey(keySelIndices)) {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        if ((storage == null) || !storage.containsKey(storageKey)) {
             return;
         }
 
-        StringTokenizer st = new StringTokenizer(properties.getProperty(keySelIndices), DELIM_SEL_INDICES);
+        StringTokenizer st = new StringTokenizer(storage.getString(storageKey), DELIM_SEL_INDICES);
         int[] indices = new int[st.countTokens()];
         int i = 0;
 
@@ -290,7 +281,9 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
     }
 
     private void writeSelectedIndicesToProperties() {
-        if (properties == null) {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        if (storage == null) {
             return;
         }
 
@@ -300,12 +293,12 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
         for (int i = 0; i < size; i++) {
             if (checkBoxes.get(i).isSelected()) {
                 sb.append((i == 0)
-                          ? ""
-                          : DELIM_SEL_INDICES);
+                        ? ""
+                        : DELIM_SEL_INDICES);
                 sb.append(Integer.toString(i));
             }
         }
 
-        properties.setProperty(keySelIndices, sb.toString());
+        storage.setString(storageKey, sb.toString());
     }
 }

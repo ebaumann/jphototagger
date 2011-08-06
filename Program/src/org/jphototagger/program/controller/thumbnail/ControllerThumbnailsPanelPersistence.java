@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.domain.event.AppWillExitEvent;
 import org.jphototagger.domain.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.lib.awt.EventQueueUtil;
@@ -18,6 +19,7 @@ import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.openide.util.Lookup;
 
 /**
  * Applies persistent settings to the thumbnails panel.
@@ -119,7 +121,8 @@ public final class ControllerThumbnailsPanelPersistence implements ThumbnailsPan
      */
     @SuppressWarnings("unchecked")
     public static Comparator<File> getFileSortComparator() {
-        if (UserSettings.INSTANCE.getProperties().containsKey(KEY_SORT)) {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        if (storage.containsKey(KEY_SORT)) {
             try {
                 String className = UserSettings.INSTANCE.getSettings().getString(KEY_SORT);
 

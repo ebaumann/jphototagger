@@ -5,6 +5,8 @@ import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.panels.AppPanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import org.jphototagger.api.core.Storage;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -38,10 +40,10 @@ public final class ControllerToggleKeywordOverlay implements ActionListener {
     }
 
     private void readPersistent() {
-        UserSettings settings = UserSettings.INSTANCE;
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
 
-        if (settings.getProperties().containsKey(KEY_SHOW_METADATA_OVERLAY)) {
-            boolean wasSelected = settings.getSettings().getBoolean(KEY_SHOW_METADATA_OVERLAY);
+        if (storage.containsKey(KEY_SHOW_METADATA_OVERLAY)) {
+            boolean wasSelected = storage.getBoolean(KEY_SHOW_METADATA_OVERLAY);
 
             GUI.getAppFrame().getCheckBoxMenuItemKeywordOverlay().setSelected(wasSelected);
             GUI.getThumbnailsPanel().setKeywordsOverlay(wasSelected);
@@ -49,7 +51,8 @@ public final class ControllerToggleKeywordOverlay implements ActionListener {
     }
 
     private void writePersistent() {
-        UserSettings.INSTANCE.getSettings().set(KEY_SHOW_METADATA_OVERLAY, GUI.getAppFrame().getCheckBoxMenuItemKeywordOverlay().isSelected());
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        storage.setBoolean(KEY_SHOW_METADATA_OVERLAY, GUI.getAppFrame().getCheckBoxMenuItemKeywordOverlay().isSelected());
         UserSettings.INSTANCE.writeToFile();
     }
 }

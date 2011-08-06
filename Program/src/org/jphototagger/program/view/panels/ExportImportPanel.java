@@ -97,8 +97,7 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
             setImportCheckBoxes();
         }
 
-        panelSelectObjects.setProperties(UserSettings.INSTANCE.getProperties(),
-                                         isExport()
+        panelSelectObjects.setStorageKey(isExport()
                                          ? KEY_SEL_INDICES_EXPORT
                                          : KEY_SEL_INDICES_IMPORT);
         panelSelectObjects.applyPropertiesSelectedIndices();

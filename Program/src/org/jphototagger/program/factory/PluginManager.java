@@ -3,9 +3,9 @@ package org.jphototagger.program.factory;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
-import java.util.Properties;
 import java.util.Set;
 
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.api.plugin.Plugin;
 import org.jphototagger.program.UserSettings;
 import org.openide.util.Lookup;
@@ -41,14 +41,14 @@ public class PluginManager<T extends Plugin> {
     }
 
     private boolean isFlaggedAsEnabeld(T plugin) {
-        Properties properties = UserSettings.INSTANCE.getProperties();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
         String key = getEnabledPropertyKeyForPlugin(plugin);
 
-        if (!properties.containsKey(key)) {
+        if (!storage.containsKey(key)) {
             return true; // Don't hide unknown plugins
         }
 
-        return properties.getProperty(key).equals(PROPERTY_STRING_VALUE_TRUE);
+        return storage.getString(key).equals(PROPERTY_STRING_VALUE_TRUE);
     }
 
     private String getEnabledPropertyKeyForPlugin(T plugin) {
@@ -80,15 +80,15 @@ public class PluginManager<T extends Plugin> {
             throw new NullPointerException("plugin == null");
         }
 
-        Properties properties = UserSettings.INSTANCE.getProperties();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
         String key = getEnabledPropertyKeyForPlugin(plugin);
 
         if (enabled) {
             ENABLED_PLUGINS.add(plugin);
-            properties.setProperty(key, PROPERTY_STRING_VALUE_TRUE);
+            storage.setString(key, PROPERTY_STRING_VALUE_TRUE);
         } else {
             ENABLED_PLUGINS.remove(plugin);
-            properties.setProperty(key, PROPERTY_STRING_VALUE_FALSE);
+            storage.setString(key, PROPERTY_STRING_VALUE_FALSE);
         }
 
         UserSettings.INSTANCE.writeToFile();

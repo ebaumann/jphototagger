@@ -1,28 +1,27 @@
 package org.jphototagger.lib.util;
 
 import java.io.File;
-import java.util.Properties;
+import org.jphototagger.api.core.Storage;
 
 /**
- * Utils for {@link java.util.Properties}.
  *
  * @author Elmar Baumann
  */
-public final class PropertiesUtil {
+public final class StorageUtil {
 
     /**
      * Sets to the properties as value the absolute path of a directory.
      *
-     * @param properties properties
+     * @param storage
      * @param key        key
      * @param file       file or null. If the file is not a directory, it's
      *                   parent file will be set. If the file is a directory, it
      *                   will be set. If the file is null, nothing will be set.
      * @return           true if the directory path name was set
      */
-    public static boolean setDirectory(Properties properties, String key, File file) {
-        if (properties == null) {
-            throw new NullPointerException("properties == null");
+    public static boolean setDirectory(Storage storage, String key, File file) {
+        if (storage == null) {
+            throw new NullPointerException("storage == null");
         }
 
         if (key == null) {
@@ -34,11 +33,11 @@ public final class PropertiesUtil {
         }
 
         if (file.isDirectory()) {
-            properties.put(key, file.getAbsolutePath());
+            storage.setString(key, file.getAbsolutePath());
 
             return true;
         } else {
-            properties.put(key, file.getParentFile().getAbsolutePath());
+            storage.setString(key, file.getParentFile().getAbsolutePath());
 
             return true;
         }
@@ -63,6 +62,6 @@ public final class PropertiesUtil {
         return packagePath.replace(".", "/");
     }
 
-    private PropertiesUtil() {
+    private StorageUtil() {
     }
 }

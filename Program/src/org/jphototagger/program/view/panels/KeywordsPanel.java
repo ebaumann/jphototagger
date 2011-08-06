@@ -10,6 +10,7 @@ import javax.swing.tree.TreeSelectionModel;
 
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.JXTree;
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.lib.util.Bundle;
@@ -22,6 +23,7 @@ import org.jphototagger.program.model.ListModelWait;
 import org.jphototagger.program.model.TreeModelWait;
 import org.jphototagger.program.view.renderer.KeywordHighlightPredicate;
 import org.jphototagger.program.view.renderer.ListCellRendererKeywords;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -94,8 +96,9 @@ public class KeywordsPanel extends javax.swing.JPanel {
 
     private void readCardProperties() {
         String name = "Tree";
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
 
-        if (UserSettings.INSTANCE.getProperties().containsKey(keyCard)) {
+        if (storage.containsKey(keyCard)) {
             String s = UserSettings.INSTANCE.getSettings().getString(keyCard);
 
             if (s.equals("Tree") || s.equals("List")) {
