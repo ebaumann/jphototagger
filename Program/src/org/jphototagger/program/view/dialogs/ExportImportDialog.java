@@ -1,7 +1,6 @@
 package org.jphototagger.program.view.dialogs;
 
 import org.jphototagger.lib.dialog.Dialog;
-import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.ExportImportPanel;
 import org.jphototagger.program.view.panels.ExportImportPanel.ExportImportListener;
@@ -15,7 +14,9 @@ public class ExportImportDialog extends Dialog implements ExportImportListener {
     private final ExportImportPanel.Context context;
 
     public ExportImportDialog(ExportImportPanel.Context context) {
-        super(GUI.getAppFrame(), UserSettings.INSTANCE.getSettings(), "ExportImportDialog");
+        super(GUI.getAppFrame());
+
+        setStorageKey("ExportImportDialog");
 
         if (context == null) {
             throw new NullPointerException("context == null");

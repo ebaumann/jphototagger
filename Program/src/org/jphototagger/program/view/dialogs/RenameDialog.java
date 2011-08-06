@@ -60,7 +60,7 @@ public final class RenameDialog extends Dialog implements ListDataListener {
     private transient boolean listen = true;
 
     public RenameDialog() {
-        super(GUI.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
+        super(GUI.getAppFrame(), true);
         initComponents();
         postInitComponents();
     }

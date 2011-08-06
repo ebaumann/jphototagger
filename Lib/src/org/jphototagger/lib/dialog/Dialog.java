@@ -1,6 +1,5 @@
 package org.jphototagger.lib.dialog;
 
-import org.jphototagger.lib.util.Settings;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,6 +11,8 @@ import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JRootPane;
 import javax.swing.KeyStroke;
+import org.jphototagger.api.core.Storage;
+import org.openide.util.Lookup;
 
 /**
  * Dialog which can close by pressing the ESC key and showing the Help dialog
@@ -25,84 +26,31 @@ public class Dialog extends JDialog implements WindowListener {
     private transient ActionListener actionListenerHelp;
     private String helpContentsUrl = "";
     private String helpPageUrl;
-    private transient Settings settings;
-    private String settingsKey;
+    private String storageKey;
     private boolean ignoreSizeAndLocation;
     private transient final HelpBrowser help = HelpBrowser.INSTANCE;
 
     public Dialog(Frame owner, boolean modal) {
         super(owner, modal);
-        init(null, null);
+        init();
     }
 
     public Dialog(JDialog owner, boolean modal) {
         super(owner, modal);
-        init(null, null);
+        init();
     }
 
     public Dialog(Frame owner) {
         super(owner);
-        init(null, null);
+        init();
     }
 
     public Dialog(JDialog owner) {
         super(owner);
-        init(null, null);
+        init();
     }
 
-    /**
-     *
-     * @param owner
-     * @param modal
-     * @param settings     settings for size and location
-     * @param settingsKey  key for size and location or null if the class name
-     *                     shall be the key
-     */
-    public Dialog(Frame owner, boolean modal, Settings settings, String settingsKey) {
-        super(owner, modal);
-        init(settings, settingsKey);
-    }
-
-    /**
-     *
-     * @param owner
-     * @param modal
-     * @param settings     settings for size and location
-     * @param settingsKey  key for size and location or null if the class name
-     *                     shall be the key
-     */
-    public Dialog(JDialog owner, boolean modal, Settings settings, String settingsKey) {
-        super(owner, modal);
-        init(settings, settingsKey);
-    }
-
-    /**
-     *
-     * @param owner
-     * @param settings     settings for size and location
-     * @param settingsKey  key for size and location or null if the class name
-     *                     shall be the key
-     */
-    public Dialog(Frame owner, Settings settings, String settingsKey) {
-        super(owner);
-        init(settings, settingsKey);
-    }
-
-    /**
-     *
-     * @param owner
-     * @param settings     settings for size and location
-     * @param settingsKey  key for size and location or null if the class name
-     *                     shall be the key
-     */
-    public Dialog(JDialog owner, Settings settings, String settingsKey) {
-        super(owner);
-        init(settings, settingsKey);
-    }
-
-    private void init(Settings settings, String settingsKey) {
-        this.settings = settings;
-        this.settingsKey = settingsKey;
+    private void init() {
         createActionListener();
         registerKeyboardActions();
         addWindowListener(this);
@@ -196,20 +144,15 @@ public class Dialog extends JDialog implements WindowListener {
     }
 
     /**
-     * Sets the settings for storing and retrieving the size and location on
-     * {@link #setVisible(boolean)} and {@link #escape()}.
+     * This dialog persists size and location if a {@link Storage} implementation
+     * is present, by default it uses the class' name as key, here a different
+     * key can be set. This makes sense if the same dialog is used whithin different
+     * contexts.
      *
-     * @param settings
-     * @param settingsKey key if not the class name of the component shall be
-     *                    the key for size and location, else null
+     * @param storageKey key
      */
-    public void setSettings(Settings settings, String settingsKey) {
-        if (settings == null) {
-            throw new NullPointerException("settings == null");
-        }
-
-        this.settings = settings;
-        this.settingsKey = settingsKey;
+    public void setStorageKey(String storageKey) {
+        this.storageKey = storageKey;
     }
 
     public void setIgnoreSizeAndLocation(boolean ignore) {
@@ -217,14 +160,16 @@ public class Dialog extends JDialog implements WindowListener {
     }
 
     protected void setSizeAndLocation() {
-        if (ignoreSizeAndLocation || settings == null) {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        if (ignoreSizeAndLocation || storage == null) {
             return;
         }
 
         String key = getSizeAndLocationKey();
 
-        settings.setSize(key, this);
-        settings.setLocation(key, this);
+        storage.setSize(key, this);
+        storage.setLocation(key, this);
     }
 
     protected void applySizeAndLocation() {
@@ -232,24 +177,23 @@ public class Dialog extends JDialog implements WindowListener {
             return;
         }
 
-        if (settings == null) {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        if (storage == null) {
             setLocationRelativeTo(null);
             return;
         }
 
         String key = getSizeAndLocationKey();
 
-        settings.applySize(key, this);
-
-        if (!settings.applyLocation(key, this)) {
-            setLocationRelativeTo(null);
-        }
+        storage.applySize(key, this);
+        storage.applyLocation(key, this);
     }
 
     private String getSizeAndLocationKey() {
-        return (settingsKey == null)
+        return (storageKey == null)
                ? getClass().getName()
-               : settingsKey;
+               : storageKey;
     }
 
     private void registerKeyboardActions() {

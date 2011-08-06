@@ -12,7 +12,6 @@ import org.jphototagger.lib.dialog.LongMessageDialog;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.SystemProperties;
-import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.logging.AppLogUtil;
 import org.jphototagger.program.app.logging.AppLoggingSystem;
 import org.jphototagger.program.resource.GUI;
@@ -42,8 +41,7 @@ public final class AppEventQueue extends java.awt.EventQueue {
     }
 
     private LongMessageDialog getDialog(Throwable t) {
-        LongMessageDialog dlg = new LongMessageDialog(GUI.getAppFrame(), true, UserSettings.INSTANCE.getSettings(),
-                                    null);
+        LongMessageDialog dlg = new LongMessageDialog(GUI.getAppFrame(), true);
 
         dlg.setTitle(Bundle.getString(AppEventQueue.class, "AppEventQueue.Error.Title"));
         dlg.setErrorIcon();

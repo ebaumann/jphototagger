@@ -1,9 +1,8 @@
 package org.jphototagger.program.view.dialogs;
 
 import org.jphototagger.lib.dialog.Dialog;
-import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.UserSettings;
 import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.FileEditorPanel;
 
@@ -17,7 +16,7 @@ public class FileEditorDialog extends Dialog {
     private static final long serialVersionUID = -3235645652277682178L;
 
     public FileEditorDialog() {
-        super(GUI.getAppFrame(), false, UserSettings.INSTANCE.getSettings(), null);
+        super(GUI.getAppFrame(), false);
         initComponents();
         setHelpContentsUrl("/org/jphototagger/program/resource/doc/de/contents.xml");
     }
@@ -95,11 +94,13 @@ public class FileEditorDialog extends Dialog {
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 FileEditorDialog dialog = new FileEditorDialog();
 
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
@@ -109,7 +110,6 @@ public class FileEditorDialog extends Dialog {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jphototagger.program.view.panels.FileEditorPanel panelFileEditor;
     // End of variables declaration//GEN-END:variables

@@ -27,7 +27,7 @@ public class KeywordImportDialog extends Dialog {
     private ComboBoxModelKeywordsImporters comboBoxModelImporter = new ComboBoxModelKeywordsImporters();
 
     public KeywordImportDialog() {
-        super(GUI.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
+        super(GUI.getAppFrame(), true);
         initComponents();
         setHelpPage();
         MnemonicUtil.setMnemonics((Container) this);

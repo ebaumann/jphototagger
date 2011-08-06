@@ -25,6 +25,14 @@ public interface Storage {
 
     void removeKey(String key);
 
+    void setSize(String key, Component component);
+
+    void applySize(String key, Component component);
+
+    void setLocation(String key, Component component);
+
+    void applyLocation(String key, Component component);
+
     void setSizeAndLocation(Component component);
 
     void applySizeAndLocation(Component component);

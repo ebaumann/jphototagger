@@ -44,7 +44,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
     private List<File> files;
 
     public IptcToXmpDialog() {
-        super(GUI.getAppFrame(), false, UserSettings.INSTANCE.getSettings(), null);
+        super(GUI.getAppFrame(), false);
         initComponents();
         setHelpPage();
         MnemonicUtil.setMnemonics((Container) this);
@@ -84,7 +84,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
         List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(UserSettings.KEY_HIDE_ROOT_FILES_FROM_DIRECTORIES_TAB);
         DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), directory, hideRootFiles, UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
 
-        dlg.setSettings(UserSettings.INSTANCE.getSettings(), "IptcToXmpDialog.DirChooser");
+        dlg.setStorageKey("IptcToXmpDialog.DirChooser");
         dlg.setVisible(true);
 
         if (dlg.isAccepted()) {

@@ -1,7 +1,6 @@
 package org.jphototagger.program.view.dialogs;
 
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.UserSettings;
 import org.jphototagger.lib.dialog.Dialog;
 
 /**
@@ -14,7 +13,8 @@ public class SynonymsDialog extends Dialog {
     public static final SynonymsDialog INSTANCE = new SynonymsDialog();
 
     private SynonymsDialog() {
-        super(GUI.getAppFrame(), false, UserSettings.INSTANCE.getSettings(), "SynonymsDialog");
+        super(GUI.getAppFrame(), false);
+        setStorageKey("SynonymsDialog");
         initComponents();
         postInitComponents();
     }

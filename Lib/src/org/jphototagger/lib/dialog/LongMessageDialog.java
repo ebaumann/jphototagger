@@ -2,19 +2,16 @@ package org.jphototagger.lib.dialog;
 
 import java.awt.Container;
 import java.awt.Desktop;
-import java.awt.Frame;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import org.jphototagger.lib.clipboard.ClipboardUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.system.SystemUtil;
-import org.jphototagger.lib.util.Settings;
 
 /**
  * Dialog for displaying long messages.
@@ -36,26 +33,6 @@ public class LongMessageDialog extends Dialog {
 
     public LongMessageDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        init();
-    }
-
-    public LongMessageDialog(JDialog owner, Settings settings, String settingsKey) {
-        super(owner, settings, settingsKey);
-        init();
-    }
-
-    public LongMessageDialog(Frame owner, Settings settings, String settingsKey) {
-        super(owner, settings, settingsKey);
-        init();
-    }
-
-    public LongMessageDialog(JDialog owner, boolean modal, Settings settings, String settingsKey) {
-        super(owner, modal, settings, settingsKey);
-        init();
-    }
-
-    public LongMessageDialog(Frame owner, boolean modal, Settings settings, String settingsKey) {
-        super(owner, modal, settings, settingsKey);
         init();
     }
 
@@ -280,12 +257,14 @@ public class LongMessageDialog extends Dialog {
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 LongMessageDialog dialog =
-                    new LongMessageDialog(new javax.swing.JFrame(), true);
+                        new LongMessageDialog(new javax.swing.JFrame(), true);
 
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
@@ -295,7 +274,6 @@ public class LongMessageDialog extends Dialog {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonClose;
     private javax.swing.JButton buttonCopy;

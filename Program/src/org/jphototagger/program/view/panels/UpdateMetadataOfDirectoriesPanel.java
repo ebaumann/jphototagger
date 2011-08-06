@@ -276,7 +276,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Up
         DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), lastDirectory, hideRootFiles, UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
 
         buttonChooseDirectories.setEnabled(false);
-        dlg.setSettings(UserSettings.INSTANCE.getSettings(), "UpdateMetadataOfDirectoriesPanel.DirChooser");
+        dlg.setStorageKey("UpdateMetadataOfDirectoriesPanel.DirChooser");
         dlg.setVisible(true);
 
         if (dlg.isAccepted()) {

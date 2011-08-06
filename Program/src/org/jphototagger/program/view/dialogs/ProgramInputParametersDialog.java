@@ -16,7 +16,7 @@ public final class ProgramInputParametersDialog extends Dialog {
     private boolean accepted = false;
 
     public ProgramInputParametersDialog() {
-        super(GUI.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
+        super(GUI.getAppFrame(), true);
         initComponents();
         MnemonicUtil.setMnemonics((Container) this);
     }

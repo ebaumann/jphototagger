@@ -15,7 +15,7 @@ public final class UpdateMetadataOfDirectoriesDialog extends Dialog {
     private static final long serialVersionUID = -3660709942403455416L;
 
     private UpdateMetadataOfDirectoriesDialog() {
-        super(GUI.getAppFrame(), false, UserSettings.INSTANCE.getSettings(), null);
+        super(GUI.getAppFrame(), false);
         initComponents();
         setHelpPage();
     }

@@ -15,7 +15,6 @@ import org.jphototagger.domain.filetypes.UserDefinedFileType;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.database.DatabaseUserDefinedFileTypes;
@@ -27,13 +26,14 @@ import org.jphototagger.program.resource.GUI;
  * @author Elmar Baumann
  */
 public class EditUserDefinedFileTypeDialog extends Dialog {
+
     private static final long serialVersionUID = -4574879678796117598L;
     private UserDefinedFileType userDefinedFileType = new UserDefinedFileType();
     private boolean changed;
     private boolean inAddNew = true;
 
     public EditUserDefinedFileTypeDialog() {
-        super(GUI.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
+        super(GUI.getAppFrame(), true);
         initComponents();
         postInitComponents();
     }
@@ -224,6 +224,7 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
     }
 
     private class SuffixDocumentFilter extends javax.swing.text.DocumentFilter {
+
         private static final String VALID_REGEX_PATTERN = "[A-Za-z0-9]+";
         private final int maxLength = DatabaseUserDefinedFileTypes.getMaxLengthSuffix();
 
@@ -259,7 +260,6 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
                     ? lengthIsValid
                     : lengthIsValid && text.matches(VALID_REGEX_PATTERN);
         }
-
     }
 
     /** This method is called from within the constructor to
@@ -367,14 +367,16 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
     }//GEN-LAST:event_buttonHelpActionPerformed
 
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 EditUserDefinedFileTypeDialog dialog = new EditUserDefinedFileTypeDialog();
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
@@ -384,7 +386,6 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonHelp;
     private javax.swing.JButton buttonSave;
@@ -394,5 +395,4 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
     private javax.swing.JTextField textFieldDescription;
     private javax.swing.JTextField textFieldSuffix;
     // End of variables declaration//GEN-END:variables
-
 }

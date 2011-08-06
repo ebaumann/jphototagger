@@ -43,7 +43,7 @@ public final class SettingsDialog extends Dialog {
 
     ;
     private SettingsDialog() {
-        super(GUI.getAppFrame(), false, UserSettings.INSTANCE.getSettings(), null);
+        super(GUI.getAppFrame(), false);
         initComponents();
         postInitComponents();
     }

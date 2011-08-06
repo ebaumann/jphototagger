@@ -2,7 +2,6 @@ package org.jphototagger.program.view.dialogs;
 
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
-import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.resource.GUI;
 
 /**
@@ -14,7 +13,7 @@ public class UserDefinedFileTypesDialog extends Dialog {
     private static final long serialVersionUID = -8265070403438909881L;
 
     public UserDefinedFileTypesDialog() {
-        super(GUI.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
+        super(GUI.getAppFrame(), true);
         initComponents();
         postInitComponents();
     }

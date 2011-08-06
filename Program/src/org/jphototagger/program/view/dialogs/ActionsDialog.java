@@ -2,7 +2,6 @@ package org.jphototagger.program.view.dialogs;
 
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.dialog.Dialog;
-import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.event.listener.DatabaseProgramsListener;
@@ -20,7 +19,7 @@ public final class ActionsDialog extends Dialog implements DatabaseProgramsListe
     private static final long serialVersionUID = -2671488119703014515L;
 
     private ActionsDialog() {
-        super(GUI.getAppFrame(), false, UserSettings.INSTANCE.getSettings(), null);
+        super(GUI.getAppFrame(), false);
         initComponents();
         postInitComponents();
     }
