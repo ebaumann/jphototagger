@@ -11,9 +11,12 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.domain.event.listener.DatabaseImageCollectionsListener;
-import org.jphototagger.domain.event.listener.impl.ListenerSupport;
+import org.bushe.swing.event.EventBus;
 import org.jphototagger.domain.imagecollections.ImageCollection;
+import org.jphototagger.domain.repository.event.ImageCollectionDeletedEvent;
+import org.jphototagger.domain.repository.event.ImageCollectionImagesInsertedEvent;
+import org.jphototagger.domain.repository.event.ImageCollectionInsertedEvent;
+import org.jphototagger.domain.repository.event.ImageCollectionRenamedEvent;
 
 /**
  *
@@ -24,7 +27,6 @@ public final class DatabaseImageCollections extends Database {
 
     public static final DatabaseImageCollections INSTANCE = new DatabaseImageCollections();
     private static final Logger LOGGER = Logger.getLogger(DatabaseImageCollections.class.getName());
-    private final ListenerSupport<DatabaseImageCollectionsListener> ls = new ListenerSupport<DatabaseImageCollectionsListener>();
 
     private DatabaseImageCollections() {}
 
@@ -600,49 +602,23 @@ public final class DatabaseImageCollections extends Database {
         return id;
     }
 
-    public void addListener(DatabaseImageCollectionsListener listener) {
-        if (listener == null) {
-            throw new NullPointerException("listener == null");
-        }
-
-        ls.add(listener);
-    }
-
-    public void removeListener(DatabaseImageCollectionsListener listener) {
-        if (listener == null) {
-            throw new NullPointerException("listener == null");
-        }
-
-        ls.remove(listener);
-    }
-
     private void notifyImagesInserted(String collectionName, List<File> insertedImageFiles) {
-        for (DatabaseImageCollectionsListener listener : ls.get()) {
-            listener.imagesInserted(collectionName, insertedImageFiles);
-        }
+        EventBus.publish(new ImageCollectionImagesInsertedEvent(this, collectionName, insertedImageFiles));
     }
 
     private void notifyImagesDeleted(String collectionName, List<File> deletedImageFiles) {
-        for (DatabaseImageCollectionsListener listener : ls.get()) {
-            listener.imagesDeleted(collectionName, deletedImageFiles);
-        }
+        EventBus.publish(new ImageCollectionDeletedEvent(this, collectionName, deletedImageFiles));
     }
 
     private void notifyCollectionInserted(String collectionName, List<File> insertedImageFiles) {
-        for (DatabaseImageCollectionsListener listener : ls.get()) {
-            listener.collectionInserted(collectionName, insertedImageFiles);
-        }
+        EventBus.publish(new ImageCollectionInsertedEvent(this, collectionName, insertedImageFiles));
     }
 
     private void notifyCollectionDeleted(String collectionName, List<File> deletedImageFiles) {
-        for (DatabaseImageCollectionsListener listener : ls.get()) {
-            listener.collectionDeleted(collectionName, deletedImageFiles);
-        }
+        EventBus.publish(new ImageCollectionDeletedEvent(this, collectionName, deletedImageFiles));
     }
 
     private void notifyCollectionRenamed(String fromName, String toName) {
-        for (DatabaseImageCollectionsListener listener : ls.get()) {
-            listener.collectionRenamed(fromName, toName);
-        }
+        EventBus.publish(new ImageCollectionRenamedEvent(this, fromName, toName));
     }
 }
