@@ -8,8 +8,9 @@ import java.util.List;
 
 import javax.swing.filechooser.FileSystemView;
 
-import org.jphototagger.domain.event.UserSettingsEvent;
-import org.jphototagger.domain.event.listener.UserSettingsListener;
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.domain.event.UserPropertyChangedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
@@ -33,7 +34,7 @@ import org.jphototagger.program.view.panels.SelectRootFilesPanel;
  *
  * @author Elmar Baumann
  */
-public final class IptcToXmpDialog extends Dialog implements ProgressListener, UserSettingsListener {
+public final class IptcToXmpDialog extends Dialog implements ProgressListener {
     private static final String KEY_DIRECTORY_NAME = "org.jphototagger.program.view.dialogs.IptcToXmpDialog.LastDirectory";
     private static final String KEY_INCLUDE_SUBDIRS = "org.jphototagger.program.view.dialogs.IptcToXmpDialog.IncludeSubdirectories";
     private static final long serialVersionUID = 873528245237986989L;
@@ -47,7 +48,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener, U
         initComponents();
         setHelpPage();
         MnemonicUtil.setMnemonics((Container) this);
-        UserSettings.INSTANCE.addUserSettingsListener(this);
+        AnnotationProcessor.process(this);
     }
 
     private void setHelpPage() {
@@ -166,11 +167,9 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener, U
         UserSettings.INSTANCE.setIptcCharset(comboBoxIptcCharset.getSelectedItem().toString());
     }
 
-    @Override
-    public void applySettings(UserSettingsEvent evt) {
-        UserSettingsEvent.Type eventType = evt.getType();
-
-        if (eventType.equals(UserSettingsEvent.Type.IPTC_CHARSET)) {
+    @EventSubscriber(eventClass = UserPropertyChangedEvent.class)
+    public void applySettings(UserPropertyChangedEvent evt) {
+        if (UserPropertyChangedEvent.PROPERTY_IPTC_CHARSET.equals(evt.getProperty())) {
             setIptcCharsetFromUserSettings();
         }
     }

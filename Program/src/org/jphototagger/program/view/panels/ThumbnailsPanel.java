@@ -40,11 +40,10 @@ import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.domain.event.AppWillExitEvent;
 import org.jphototagger.domain.event.ThumbnailUpdateEvent;
-import org.jphototagger.domain.event.UserSettingsEvent;
+import org.jphototagger.domain.event.UserPropertyChangedEvent;
 import org.jphototagger.domain.event.listener.DatabaseUserDefinedFileFiltersListener;
 import org.jphototagger.domain.event.listener.ThumbnailUpdateListener;
 import org.jphototagger.domain.event.listener.ThumbnailsPanelListener;
-import org.jphototagger.domain.event.listener.UserSettingsListener;
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
 import org.jphototagger.domain.repository.event.ImageFileDeletedEvent;
 import org.jphototagger.domain.repository.event.ImageFileInsertedEvent;
@@ -81,7 +80,7 @@ import org.jphototagger.xmp.XmpMetadata;
  */
 public class ThumbnailsPanel extends JPanel
         implements ComponentListener, MouseListener, MouseMotionListener, KeyListener, ThumbnailUpdateListener,
-        DatabaseUserDefinedFileFiltersListener, UserSettingsListener {
+        DatabaseUserDefinedFileFiltersListener {
 
     private static final String KEY_THUMBNAIL_WIDTH = "ThumbnailsPanel.ThumbnailWidth";
     private static final long serialVersionUID = 1034671645083632578L;
@@ -129,7 +128,6 @@ public class ThumbnailsPanel extends JPanel
         renderedThumbnailCache.addThumbnailUpdateListener(this);
         DatabaseUserDefinedFileFilters.INSTANCE.addListener(this);
         AnnotationProcessor.process(this);
-        UserSettings.INSTANCE.addUserSettingsListener(this);
         addComponentListener(this);
         addMouseListener(this);
         addMouseMotionListener(this);
@@ -1735,10 +1733,10 @@ public class ThumbnailsPanel extends JPanel
         updateViaFileFilter(evt.getImageFile());
     }
 
-    @Override
-    public void applySettings(UserSettingsEvent evt) {
-        if (evt.getType().equals(UserSettingsEvent.Type.DISPLAY_THUMBNAIL_TOOLTIP)) {
-            boolean displayThumbnailTooltip = UserSettings.INSTANCE.isDisplayThumbnailTooltip();
+    @EventSubscriber(eventClass = UserPropertyChangedEvent.class)
+    public void applySettings(UserPropertyChangedEvent evt) {
+        if (UserPropertyChangedEvent.PROPERTY_DISPLAY_THUMBNAIL_TOOLTIP.equals(evt.getProperty())) {
+            boolean displayThumbnailTooltip = (Boolean) evt.getNewValue();
 
             isDisplayThumbnailTooltip = displayThumbnailTooltip;
 

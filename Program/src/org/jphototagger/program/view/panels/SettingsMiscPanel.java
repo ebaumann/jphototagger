@@ -7,9 +7,9 @@ import java.util.logging.Level;
 import javax.swing.Icon;
 import javax.swing.filechooser.FileSystemView;
 
-import org.jphototagger.domain.event.UserSettingsEvent;
-import org.jphototagger.domain.event.UserSettingsEvent.Type;
-import org.jphototagger.domain.event.listener.UserSettingsListener;
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.domain.event.UserPropertyChangedEvent;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.DirectoryChooser;
 import org.jphototagger.lib.dialog.DirectoryChooser.Option;
@@ -25,13 +25,14 @@ import org.jphototagger.program.types.Persistence;
  *
  * @author Elmar Baumann
  */
-public final class SettingsMiscPanel extends javax.swing.JPanel implements Persistence, UserSettingsListener {
+public final class SettingsMiscPanel extends javax.swing.JPanel implements Persistence {
+
     private static final long serialVersionUID = 479354601163285718L;
 
     public SettingsMiscPanel() {
         initComponents();
         MnemonicUtil.setMnemonics((Container) this);
-        UserSettings.INSTANCE.addUserSettingsListener(this);
+        AnnotationProcessor.process(this);
     }
 
     private File chooseDirectory(File startDirectory) {
@@ -113,7 +114,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
     }
 
     private void handleActionPerformedAutoDownload() {
-        UserSettings.INSTANCE.setAutoDownloadNewerVersions(checkBoxAutoDownloadCheck.isSelected());
+        UserSettings.INSTANCE.setCheckForUpdates(checkBoxAutoDownloadCheck.isSelected());
     }
 
     private void handleActionComboBoxIptcCharset() {
@@ -130,13 +131,11 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
         }
     }
 
-    @Override
-    public void applySettings(UserSettingsEvent evt) {
-        Type eventType = evt.getType();
-
-        if (eventType.equals(UserSettingsEvent.Type.CHECK_FOR_UPDATES)) {
-            checkBoxAutoDownloadCheck.setSelected(UserSettings.INSTANCE.isAutoDownloadNewerVersions());
-        } else if (eventType.equals(UserSettingsEvent.Type.IPTC_CHARSET)) {
+    @EventSubscriber(eventClass = UserPropertyChangedEvent.class)
+    public void applySettings(UserPropertyChangedEvent evt) {
+        if (UserPropertyChangedEvent.PROPERTY_CHECK_FOR_UPDATES.equals(evt.getProperty())) {
+            checkBoxAutoDownloadCheck.setSelected((Boolean)evt.getNewValue());
+        } else if (UserPropertyChangedEvent.PROPERTY_IPTC_CHARSET.equals(evt.getProperty())) {
             setIptcCharsetFromUserSettings();
         }
     }
@@ -151,7 +150,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
 
         UserSettings settings = UserSettings.INSTANCE;
 
-        checkBoxAutoDownloadCheck.setSelected(settings.isAutoDownloadNewerVersions());
+        checkBoxAutoDownloadCheck.setSelected(settings.isCheckForUpdates());
         checkBoxDisplaySearchButton.setSelected(UserSettings.INSTANCE.isDisplaySearchButton());
         checkBoxIsAcceptHiddenDirectories.setSelected(settings.isAcceptHiddenDirectories());
         checkBoxAddFilenameToGpsLocationExport.setSelected(settings.isAddFilenameToGpsLocationExport());
