@@ -18,10 +18,11 @@ import javax.swing.JTable;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import org.jphototagger.domain.event.listener.DatabaseImageFilesListener;
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.domain.event.listener.ThumbnailsPanelListener;
-import org.jphototagger.domain.exif.Exif;
-import org.jphototagger.domain.xmp.Xmp;
+import org.jphototagger.domain.repository.event.XmpInsertedEvent;
+import org.jphototagger.domain.repository.event.XmpUpdatedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.TableUtil;
@@ -41,6 +42,9 @@ import org.jphototagger.xmp.XmpMetadata;
 
 import com.adobe.xmp.XMPConst;
 import com.adobe.xmp.properties.XMPPropertyInfo;
+import org.jphototagger.domain.repository.event.ExifInsertedEvent;
+import org.jphototagger.domain.repository.event.ExifUpdatedEvent;
+import org.jphototagger.domain.repository.event.XmpDeletedEvent;
 
 /**
  * Listens for selection changes in the {@link ThumbnailsPanel} and
@@ -53,7 +57,8 @@ import com.adobe.xmp.properties.XMPPropertyInfo;
  *
  * @author Elmar Baumann
  */
-public final class ControllerShowMetadata implements ChangeListener, DatabaseImageFilesListener, ThumbnailsPanelListener {
+public final class ControllerShowMetadata implements ChangeListener, ThumbnailsPanelListener {
+
     private static final Logger LOGGER = Logger.getLogger(ControllerShowMetadata.class.getName());
     private final Map<TableModelXmp, String[]> namespacesOfXmpTableModel = new HashMap<TableModelXmp, String[]>();
     private final MetadataTableModels metadataTableModels = new MetadataTableModels();
@@ -71,11 +76,14 @@ public final class ControllerShowMetadata implements ChangeListener, DatabaseIma
         listen();
     }
 
-    private enum Metadata { EXIF, IPTC, XMP; }
+    private enum Metadata {
+
+        EXIF, IPTC, XMP;
+    }
 
     private void listen() {
+        AnnotationProcessor.process(this);
         GUI.getThumbnailsPanel().addThumbnailsPanelListener(this);
-        DatabaseImageFiles.INSTANCE.addListener(this);
         metadataPane.addChangeListener(this);
     }
 
@@ -102,30 +110,22 @@ public final class ControllerShowMetadata implements ChangeListener, DatabaseIma
     }
 
     private void initNamespacesOfXmpTableModelMap() {
-        namespacesOfXmpTableModel.put(metadataTableModels
-                .getXmpTableModelDc(),
-                new String[] { XMPConst.NS_DC, XMPConst.NS_DC_DEPRECATED });
-        namespacesOfXmpTableModel.put(metadataTableModels
-                .getXmpTableModelExif(),
-                new String[] { XMPConst.NS_EXIF, XMPConst.NS_EXIF_AUX });
-        namespacesOfXmpTableModel.put(metadataTableModels
-                .getXmpTableModelIptc(),
-                new String[] { XMPConst.NS_IPTCCORE });
-        namespacesOfXmpTableModel.put(metadataTableModels
-                .getXmpTableModelLightroom(),
-                new String[] { "http://ns.adobe.com/lightroom/1.0/" });
-        namespacesOfXmpTableModel.put(metadataTableModels
-                .getXmpTableModelPhotoshop(),
-                new String[] { XMPConst.NS_PHOTOSHOP });
-        namespacesOfXmpTableModel.put(metadataTableModels
-                .getXmpTableModelTiff(),
-                new String[] { XMPConst.NS_TIFF });
-        namespacesOfXmpTableModel.put(metadataTableModels
-                .getXmpTableModelCameraRawSettings(),
-                new String[] { XMPConst.NS_CAMERARAW, "http://ns.adobe.com/camera-raw-saved-settings/1.0/" });
-        namespacesOfXmpTableModel.put(metadataTableModels
-                .getXmpTableModelXap(),
-                new String[] { XMPConst.NS_XMP, XMPConst.NS_XMP_RIGHTS });
+        namespacesOfXmpTableModel.put(metadataTableModels.getXmpTableModelDc(),
+                new String[]{XMPConst.NS_DC, XMPConst.NS_DC_DEPRECATED});
+        namespacesOfXmpTableModel.put(metadataTableModels.getXmpTableModelExif(),
+                new String[]{XMPConst.NS_EXIF, XMPConst.NS_EXIF_AUX});
+        namespacesOfXmpTableModel.put(metadataTableModels.getXmpTableModelIptc(),
+                new String[]{XMPConst.NS_IPTCCORE});
+        namespacesOfXmpTableModel.put(metadataTableModels.getXmpTableModelLightroom(),
+                new String[]{"http://ns.adobe.com/lightroom/1.0/"});
+        namespacesOfXmpTableModel.put(metadataTableModels.getXmpTableModelPhotoshop(),
+                new String[]{XMPConst.NS_PHOTOSHOP});
+        namespacesOfXmpTableModel.put(metadataTableModels.getXmpTableModelTiff(),
+                new String[]{XMPConst.NS_TIFF});
+        namespacesOfXmpTableModel.put(metadataTableModels.getXmpTableModelCameraRawSettings(),
+                new String[]{XMPConst.NS_CAMERARAW, "http://ns.adobe.com/camera-raw-saved-settings/1.0/"});
+        namespacesOfXmpTableModel.put(metadataTableModels.getXmpTableModelXap(),
+                new String[]{XMPConst.NS_XMP, XMPConst.NS_XMP_RIGHTS});
     }
 
     private void setSelectedImageFileUndefined() {
@@ -135,39 +135,29 @@ public final class ControllerShowMetadata implements ChangeListener, DatabaseIma
         xmpReadFromImageFile = false;
     }
 
-    @Override
-    public void xmpInserted(File imageFile, Xmp xmp) {
-        showUpdates(imageFile, Collections.singleton(Metadata.XMP));
+    @EventSubscriber(eventClass = XmpInsertedEvent.class)
+    public void xmpInserted(XmpInsertedEvent evt) {
+        showUpdates(evt.getImageFile(), Collections.singleton(Metadata.XMP));
     }
 
-    @Override
-    public void xmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp) {
-        showUpdates(imageFile, Collections.singleton(Metadata.XMP));
+    @EventSubscriber(eventClass = XmpUpdatedEvent.class)
+    public void xmpUpdated(XmpUpdatedEvent evt) {
+        showUpdates(evt.getImageFile(), Collections.singleton(Metadata.XMP));
     }
 
-    @Override
-    public void xmpDeleted(File imageFile, Xmp xmp) {
-        showUpdates(imageFile, Collections.singleton(Metadata.XMP));
+    @EventSubscriber(eventClass = XmpDeletedEvent.class)
+    public void xmpDeleted(XmpDeletedEvent evt) {
+        showUpdates(evt.getImageFile(), Collections.singleton(Metadata.XMP));
     }
 
-    @Override
-    public void exifDeleted(File imageFile, Exif exif) {
-        // ignore
+    @EventSubscriber(eventClass = ExifUpdatedEvent.class)
+    public void exifUpdated(ExifUpdatedEvent evt) {
+        showUpdates(evt.getImageFile(), Collections.singleton(Metadata.EXIF));
     }
 
-    @Override
-    public void exifUpdated(File imageFile, Exif oldExif, Exif updatedExif) {
-        showUpdates(imageFile, Collections.singleton(Metadata.EXIF));
-    }
-
-    @Override
-    public void exifInserted(File imageFile, Exif exif) {
-        showUpdates(imageFile, Collections.singleton(Metadata.EXIF));
-    }
-
-    @Override
-    public void imageFileInserted(File imageFile) {
-        // ignore
+    @EventSubscriber(eventClass = ExifInsertedEvent.class)
+    public void exifInserted(ExifInsertedEvent evt) {
+        showUpdates(evt.getImageFile(), Collections.singleton(Metadata.EXIF));
     }
 
     @Override
@@ -179,31 +169,6 @@ public final class ControllerShowMetadata implements ChangeListener, DatabaseIma
 
     @Override
     public void thumbnailsChanged() {
-        // ignore
-    }
-
-    @Override
-    public void imageFileDeleted(File imageFile) {
-        // ignore
-    }
-
-    @Override
-    public void imageFileRenamed(File oldImageFile, File newImageFile) {
-        // ignore
-    }
-
-    @Override
-    public void thumbnailUpdated(File imageFile) {
-        // ignore
-    }
-
-    @Override
-    public void dcSubjectDeleted(String dcSubject) {
-        // ignore
-    }
-
-    @Override
-    public void dcSubjectInserted(String dcSubject) {
         // ignore
     }
 
@@ -323,6 +288,7 @@ public final class ControllerShowMetadata implements ChangeListener, DatabaseIma
     }
 
     private class RemoveAllMetadata implements Runnable {
+
         @Override
         public void run() {
             Set<Metadata> allMetadata = EnumSet.allOf(Metadata.class);
@@ -335,6 +301,7 @@ public final class ControllerShowMetadata implements ChangeListener, DatabaseIma
     }
 
     private class ShowMetadata implements Runnable {
+
         private final Collection<? extends Metadata> metadata;
         private final File imageFile = selectedImageFile;
 
@@ -389,10 +356,10 @@ public final class ControllerShowMetadata implements ChangeListener, DatabaseIma
 
             try {
                 allInfos = (sidecarFile != null)
-                               ? XmpMetadata.getPropertyInfosOfSidecarFile(sidecarFile)
-                               : UserSettings.INSTANCE.isScanForEmbeddedXmp()
-                               ? EmbeddedXmpCache.INSTANCE.getXmpPropertyInfos(imageFile)
-                               : null;
+                        ? XmpMetadata.getPropertyInfosOfSidecarFile(sidecarFile)
+                        : UserSettings.INSTANCE.isScanForEmbeddedXmp()
+                        ? EmbeddedXmpCache.INSTANCE.getXmpPropertyInfos(imageFile)
+                        : null;
                 xmpReadFromImageFile = true;
             } catch (Throwable throwable) {
                 LOGGER.log(Level.SEVERE, null, throwable);

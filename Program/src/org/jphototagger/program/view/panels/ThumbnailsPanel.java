@@ -36,18 +36,23 @@ import javax.swing.JPanel;
 import javax.swing.JViewport;
 import javax.swing.TransferHandler;
 
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.domain.event.ThumbnailUpdateEvent;
 import org.jphototagger.domain.event.UserSettingsEvent;
 import org.jphototagger.domain.event.listener.AppExitListener;
-import org.jphototagger.domain.event.listener.DatabaseImageFilesListener;
 import org.jphototagger.domain.event.listener.DatabaseUserDefinedFileFiltersListener;
 import org.jphototagger.domain.event.listener.ThumbnailUpdateListener;
 import org.jphototagger.domain.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.domain.event.listener.UserSettingsListener;
-import org.jphototagger.domain.exif.Exif;
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
+import org.jphototagger.domain.repository.event.ImageFileDeletedEvent;
+import org.jphototagger.domain.repository.event.ImageFileInsertedEvent;
+import org.jphototagger.domain.repository.event.ImageFileMovedEvent;
+import org.jphototagger.domain.repository.event.XmpDeletedEvent;
+import org.jphototagger.domain.repository.event.XmpInsertedEvent;
+import org.jphototagger.domain.repository.event.XmpUpdatedEvent;
 import org.jphototagger.domain.thumbnails.ThumbnailFlag;
-import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.comparator.FileSort;
 import org.jphototagger.lib.event.util.MouseEventUtil;
@@ -59,7 +64,6 @@ import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.program.app.AppLifeCycle;
 import org.jphototagger.program.cache.RenderedThumbnailCache;
 import org.jphototagger.program.controller.thumbnail.ControllerThumbnailDoubleklick;
-import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.database.DatabaseUserDefinedFileFilters;
 import org.jphototagger.program.datatransfer.TransferHandlerThumbnailsPanel;
 import org.jphototagger.program.event.RefreshEvent;
@@ -78,7 +82,7 @@ import org.jphototagger.xmp.XmpMetadata;
  */
 public class ThumbnailsPanel extends JPanel
         implements ComponentListener, MouseListener, MouseMotionListener, KeyListener, ThumbnailUpdateListener,
-                   AppExitListener, DatabaseUserDefinedFileFiltersListener, DatabaseImageFilesListener, UserSettingsListener {
+        AppExitListener, DatabaseUserDefinedFileFiltersListener, UserSettingsListener {
 
     private static final String KEY_THUMBNAIL_WIDTH = "ThumbnailsPanel.ThumbnailWidth";
     private static final long serialVersionUID = 1034671645083632578L;
@@ -125,7 +129,7 @@ public class ThumbnailsPanel extends JPanel
     private void listen() {
         renderedThumbnailCache.addThumbnailUpdateListener(this);
         DatabaseUserDefinedFileFilters.INSTANCE.addListener(this);
-        DatabaseImageFiles.INSTANCE.addListener(this);
+        AnnotationProcessor.process(this);
         UserSettings.INSTANCE.addUserSettingsListener(this);
         addComponentListener(this);
         addMouseListener(this);
@@ -308,6 +312,7 @@ public class ThumbnailsPanel extends JPanel
     @Override
     public synchronized void thumbnailUpdated(final ThumbnailUpdateEvent event) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 int index = getIndexOf(event.getSource());
@@ -352,8 +357,8 @@ public class ThumbnailsPanel extends JPanel
         int endExtPadding = startExtPadding + MARGIN_THUMBNAIL;
 
         return (x < startExtPadding)
-               || ((x > endExtPadding)
-                   && (endExtPadding + renderer.getThumbnailAreaWidth() + MARGIN_THUMBNAIL <= getWidth()));
+                || ((x > endExtPadding)
+                && (endExtPadding + renderer.getThumbnailAreaWidth() + MARGIN_THUMBNAIL <= getWidth()));
     }
 
     private boolean isThumbnailAreaInHeight(int y) {
@@ -445,7 +450,7 @@ public class ThumbnailsPanel extends JPanel
     public synchronized int getImageMoveDropIndex(int x, int y) {
         int row = Math.max(0, (y - MARGIN_THUMBNAIL) / (renderer.getThumbnailAreaHeight() + MARGIN_THUMBNAIL));
         int col = Math.max(0, Math.min(getColumnCount(),
-                                       (x - MARGIN_THUMBNAIL) / (renderer.getThumbnailAreaWidth() + MARGIN_THUMBNAIL)));
+                (x - MARGIN_THUMBNAIL) / (renderer.getThumbnailAreaWidth() + MARGIN_THUMBNAIL)));
 
         if ((row < 0) || (col < 0)) {
             return -1;
@@ -462,8 +467,8 @@ public class ThumbnailsPanel extends JPanel
         int count = (int) ((double) (width - MARGIN_THUMBNAIL) / (double) tnWidth);
 
         return (count > files.size())
-               ? files.size()
-               : count;
+                ? files.size()
+                : count;
     }
 
     private void transferData(MouseEvent evt) {
@@ -485,7 +490,7 @@ public class ThumbnailsPanel extends JPanel
     private synchronized void handleMousePressed(MouseEvent evt) {
         boolean isLeftClick = MouseEventUtil.isLeftClick(evt);
 
-        if (isLeftClick &&!hasFocus()) {
+        if (isLeftClick && !hasFocus()) {
             requestFocus();
         }
 
@@ -597,11 +602,11 @@ public class ThumbnailsPanel extends JPanel
                 selectedThumbnailIndices.clear();
 
                 int startIndex = (index > firstSelected)
-                                 ? firstSelected
-                                 : index;
+                        ? firstSelected
+                        : index;
                 int endIndex = (index > firstSelected)
-                               ? index
-                               : firstSelected;
+                        ? index
+                        : firstSelected;
 
                 for (int i = startIndex; i <= endIndex; i++) {
                     selectedThumbnailIndices.add(i);
@@ -719,14 +724,14 @@ public class ThumbnailsPanel extends JPanel
 
     private synchronized int getColumnIndexAt(int thumbnailIndex) {
         return ((thumbnailIndex > 0) && (thumbnailCountPerRow > 0))
-               ? thumbnailIndex % thumbnailCountPerRow
-               : 0;
+                ? thumbnailIndex % thumbnailCountPerRow
+                : 0;
     }
 
     private synchronized int getRowIndexAt(int thumbnailIndex) {
         return (thumbnailCountPerRow > 0)
-               ? thumbnailIndex / thumbnailCountPerRow
-               : 0;
+                ? thumbnailIndex / thumbnailCountPerRow
+                : 0;
     }
 
     private synchronized void handleMouseDoubleKlicked() {
@@ -770,7 +775,7 @@ public class ThumbnailsPanel extends JPanel
             int lastIndex = Math.min(getLastPaintIndexAtHeight(rectClip.y + rectClip.height), files.size());
             int firstColumn = Math.max(0, getCountHorizontalLeftFromX(rectClip.x));
             int lastColumn = Math.min(thumbnailCountPerRow - 1,
-                                      getCountHorizontalRightFromX(rectClip.x + rectClip.width));
+                    getCountHorizontalRightFromX(rectClip.x + rectClip.width));
 
             for (int index = firstIndex; index < lastIndex; index++) {
                 if ((index % thumbnailCountPerRow >= firstColumn) && (index % thumbnailCountPerRow <= lastColumn)) {
@@ -810,7 +815,7 @@ public class ThumbnailsPanel extends JPanel
     private synchronized void paintThumbnail(int index, Graphics g) {
         Point topLeft = getTopLeftOfTnIndex(index);
         Image im = renderedThumbnailCache.getThumbnail(getFileAtIndex(index), renderer.getThumbnailWidth(),
-                       isKeywordsOverlay());
+                isKeywordsOverlay());
 
         if (im != null) {
             g.drawImage(im, topLeft.x, topLeft.y, viewport);
@@ -853,8 +858,8 @@ public class ThumbnailsPanel extends JPanel
 
             ThumbnailFlag flag = getFlagAtIndex(index);
             String flagText = (flag == null)
-                              ? ""
-                              : flag.getString();
+                    ? ""
+                    : flag.getString();
             long length = file.length();
             SizeUnit unit = SizeUnit.unit(length);
             long unitLength = length / unit.bytes();
@@ -872,8 +877,8 @@ public class ThumbnailsPanel extends JPanel
         File sidecarFile = XmpMetadata.getSidecarFile(file);
 
         return (sidecarFile == null)
-               ? ""
-               : sidecarFile.getAbsolutePath();
+                ? ""
+                : sidecarFile.getAbsolutePath();
     }
 
     public synchronized Content getContent() {
@@ -1088,8 +1093,8 @@ public class ThumbnailsPanel extends JPanel
         JViewport vp = getViewport();
 
         return (vp == null)
-               ? new Point(0, 0)
-               : vp.getViewPosition();
+                ? new Point(0, 0)
+                : vp.getViewPosition();
     }
 
     public synchronized boolean containsFile(File file) {
@@ -1198,7 +1203,6 @@ public class ThumbnailsPanel extends JPanel
      * Color of the background surrounding a highlighted thumbnail. When
      * changing, look for {@link #COLOR_TEXT_HIGHLIGHTED}.
      */
-
     /**
      * Sets the files to display. Previous desplayed files will be hidden.
      * The new files will be displayed in the defined sort order.
@@ -1297,12 +1301,12 @@ public class ThumbnailsPanel extends JPanel
         double count = (double) files.size() / (double) thumbnailCountPerRow;
 
         return (files.size() > thumbnailCountPerRow)
-               ? (int) (MathUtil.isInteger(count)
-                        ? count
-                        : count + 1)
-               : (files.isEmpty())
-                 ? 0
-                 : 1;
+                ? (int) (MathUtil.isInteger(count)
+                ? count
+                : count + 1)
+                : (files.isEmpty())
+                ? 0
+                : 1;
     }
 
     /**
@@ -1353,8 +1357,8 @@ public class ThumbnailsPanel extends JPanel
     public Dimension getPreferredSize() {
         Component parent = getParent();
         int width = (parent instanceof JViewport)
-                    ? parent.getWidth()
-                    : getWidth();
+                ? parent.getWidth()
+                : getWidth();
         int heigth = getCalculatedHeight();
 
         return new Dimension(width, heigth);
@@ -1375,18 +1379,21 @@ public class ThumbnailsPanel extends JPanel
         double count = (double) (width - MARGIN_THUMBNAIL) / (double) (tnAreaWidth + MARGIN_THUMBNAIL);
 
         thumbnailCountPerRow = (count >= 1)
-                               ? (int) count
-                               : 1;
+                ? (int) count
+                : 1;
     }
 
     @Override
-    public void componentMoved(ComponentEvent evt) {}
+    public void componentMoved(ComponentEvent evt) {
+    }
 
     @Override
-    public void componentShown(ComponentEvent evt) {}
+    public void componentShown(ComponentEvent evt) {
+    }
 
     @Override
-    public void componentHidden(ComponentEvent evt) {}
+    public void componentHidden(ComponentEvent evt) {
+    }
 
     private synchronized void setSelectedUp() {
         int indexSelectedThumbnail = getSelectedIndex();
@@ -1511,10 +1518,12 @@ public class ThumbnailsPanel extends JPanel
     }
 
     @Override
-    public void mouseEntered(MouseEvent evt) {}
+    public void mouseEntered(MouseEvent evt) {
+    }
 
     @Override
-    public void mouseClicked(MouseEvent evt) {}
+    public void mouseClicked(MouseEvent evt) {
+    }
 
     @Override
     public void mousePressed(MouseEvent evt) {
@@ -1527,7 +1536,8 @@ public class ThumbnailsPanel extends JPanel
     }
 
     @Override
-    public void mouseExited(MouseEvent evt) {}
+    public void mouseExited(MouseEvent evt) {
+    }
 
     @Override
     public void mouseMoved(MouseEvent evt) {
@@ -1540,7 +1550,8 @@ public class ThumbnailsPanel extends JPanel
     }
 
     @Override
-    public void keyTyped(KeyEvent evt) {}
+    public void keyTyped(KeyEvent evt) {
+    }
 
     @Override
     public void keyPressed(KeyEvent evt) {
@@ -1576,7 +1587,8 @@ public class ThumbnailsPanel extends JPanel
     }
 
     @Override
-    public void keyReleased(KeyEvent evt) {}
+    public void keyReleased(KeyEvent evt) {
+    }
 
     @Override
     public boolean isFocusable() {
@@ -1623,8 +1635,8 @@ public class ThumbnailsPanel extends JPanel
      */
     public synchronized File getFileAtIndex(int index) {
         return isIndex(index)
-               ? files.get(index)
-               : null;
+                ? files.get(index)
+                : null;
     }
 
     private void doubleClickAt(int index) {
@@ -1658,6 +1670,7 @@ public class ThumbnailsPanel extends JPanel
     @Override
     public synchronized void filterUpdated(final UserDefinedFileFilter filter) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 updateFilter(filter);
@@ -1675,7 +1688,6 @@ public class ThumbnailsPanel extends JPanel
 
     @Override
     public void filterInserted(UserDefinedFileFilter filter) {
-
         // ignore
     }
 
@@ -1691,103 +1703,38 @@ public class ThumbnailsPanel extends JPanel
 
     @Override
     public void filterDeleted(UserDefinedFileFilter filter) {
-
         // ignore
     }
 
-    @Override
-    public void imageFileInserted(File imageFile) {
-        if (imageFile == null) {
-            throw new NullPointerException("imageFile == null");
-        }
-
-        updateViaFileFilter(imageFile);
+    @EventSubscriber(eventClass = ImageFileInsertedEvent.class)
+    public void imageFileInserted(ImageFileInsertedEvent evt) {
+        updateViaFileFilter(evt.getImageFile());
     }
 
-    @Override
-    public void imageFileRenamed(File oldImageFile, File newImageFile) {
-        if (oldImageFile == null) {
-            throw new NullPointerException("oldImageFile == null");
-        }
-
-        if (newImageFile == null) {
-            throw new NullPointerException("newImageFile == null");
-        }
-
-        updateViaFileFilter(oldImageFile);
-        updateViaFileFilter(newImageFile);
+    @EventSubscriber(eventClass = ImageFileMovedEvent.class)
+    public void imageFileRenamed(ImageFileMovedEvent evt) {
+        updateViaFileFilter(evt.getOldImageFile());
+        updateViaFileFilter(evt.getNewImageFile());
     }
 
-    @Override
-    public void imageFileDeleted(File imageFile) {
-        if (imageFile == null) {
-            throw new NullPointerException("imageFile == null");
-        }
-
-        updateViaFileFilter(imageFile);
+    @EventSubscriber(eventClass = ImageFileDeletedEvent.class)
+    public void imageFileDeleted(ImageFileDeletedEvent evt) {
+        updateViaFileFilter(evt.getImageFile());
     }
 
-    @Override
-    public void xmpInserted(File imageFile, Xmp xmp) {
-        if (imageFile == null) {
-            throw new NullPointerException("imageFile == null");
-        }
-
-        updateViaFileFilter(imageFile);
+    @EventSubscriber(eventClass = XmpInsertedEvent.class)
+    public void xmpInserted(XmpInsertedEvent evt) {
+        updateViaFileFilter(evt.getImageFile());
     }
 
-    @Override
-    public void xmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp) {
-        if (imageFile == null) {
-            throw new NullPointerException("imageFile == null");
-        }
-
-        updateViaFileFilter(imageFile);
+    @EventSubscriber(eventClass = XmpUpdatedEvent.class)
+    public void xmpUpdated(XmpUpdatedEvent evt) {
+        updateViaFileFilter(evt.getImageFile());
     }
 
-    @Override
-    public void xmpDeleted(File imageFile, Xmp xmp) {
-        if (imageFile == null) {
-            throw new NullPointerException("imageFile == null");
-        }
-
-        updateViaFileFilter(imageFile);
-    }
-
-    @Override
-    public void exifInserted(File imageFile, Exif exif) {
-
-        // ignore
-    }
-
-    @Override
-    public void exifUpdated(File imageFile, Exif oldExif, Exif updatedExif) {
-
-        // ignore
-    }
-
-    @Override
-    public void exifDeleted(File imageFile, Exif exif) {
-
-        // ignore
-    }
-
-    @Override
-    public void thumbnailUpdated(File imageFile) {
-
-        // ignore
-    }
-
-    @Override
-    public void dcSubjectInserted(String dcSubject) {
-
-        // ignore
-    }
-
-    @Override
-    public void dcSubjectDeleted(String dcSubject) {
-
-        // ignore
+    @EventSubscriber(eventClass = XmpDeletedEvent.class)
+    public void xmpDeleted(XmpDeletedEvent evt) {
+        updateViaFileFilter(evt.getImageFile());
     }
 
     @Override
@@ -1804,6 +1751,7 @@ public class ThumbnailsPanel extends JPanel
     }
 
     public static class Settings {
+
         private final List<Integer> selThumbnails;
         private final Point viewPosition;
 

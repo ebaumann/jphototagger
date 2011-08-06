@@ -7,6 +7,9 @@ Changelog JPhotoTagger http://jphototagger.org/
 ----------------
 
 * Neu: Fenster > Datenbankbrowser
+* "Experimentelle Dateiformate" werden zukünftig automatisch
+  aktiviert nach einem Test (keine Option mehr im
+  Einstellungen-Dialog)
 * Architektur signifikant gändert
 
 0.8.90 2011-07-28

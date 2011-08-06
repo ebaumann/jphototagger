@@ -5,10 +5,13 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.domain.event.ThumbnailUpdateEvent;
-import org.jphototagger.domain.event.listener.DatabaseImageFilesListener;
 import org.jphototagger.domain.event.listener.ThumbnailUpdateListener;
-import org.jphototagger.domain.exif.Exif;
+import org.jphototagger.domain.repository.event.XmpDeletedEvent;
+import org.jphototagger.domain.repository.event.XmpInsertedEvent;
+import org.jphototagger.domain.repository.event.XmpUpdatedEvent;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.database.DatabaseImageFiles;
@@ -18,104 +21,31 @@ import org.jphototagger.xmp.FileXmp;
  *
  * @author Martin Pohlack
  */
-public final class XmpCache extends Cache<XmpCacheIndirection> implements DatabaseImageFilesListener {
+public final class XmpCache extends Cache<XmpCacheIndirection> {
 
     public static final XmpCache INSTANCE = new XmpCache();
     private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
 
     private XmpCache() {
-        db.addListener(this);
+        AnnotationProcessor.process(this);
         new Thread(new XmpFetcher(workQueue, this), "JPhotoTagger: XmpFetcher").start();
     }
 
-    @Override
-    public void xmpInserted(File imageFile, Xmp xmp) {
-        if (imageFile == null) {
-            throw new NullPointerException("imageFile == null");
-        }
-
-        if (xmp == null) {
-            throw new NullPointerException("xmp == null");
-        }
-
+    @EventSubscriber(eventClass = XmpInsertedEvent.class)
+    public void xmpInserted(XmpInsertedEvent evt) {
         // special case, directly use new xmp in cache
-        update(xmp, imageFile, true);
+        update(evt.getXmp(), evt.getImageFile(), true);
     }
 
-    @Override
-    public void xmpDeleted(File imageFile, Xmp xmp) {
-        if (imageFile == null) {
-            throw new NullPointerException("imageFile == null");
-        }
-
-        if (xmp == null) {
-            throw new NullPointerException("xmp == null");
-        }
-
-        update(imageFile);
+    @EventSubscriber(eventClass = XmpDeletedEvent.class)
+    public void xmpDeleted(XmpDeletedEvent evt) {
+        update(evt.getImageFile());
     }
 
-    @Override
-    public void xmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp) {
-        if (imageFile == null) {
-            throw new NullPointerException("imageFile == null");
-        }
-
-        if (oldXmp == null) {
-            throw new NullPointerException("oldXmp == null");
-        }
-
-        if (updatedXmp == null) {
-            throw new NullPointerException("updatedXmp == null");
-        }
-
+    @EventSubscriber(eventClass = XmpUpdatedEvent.class)
+    public void xmpUpdated(XmpUpdatedEvent evt) {
         // special case, directly use new xmp in cache
-        update(updatedXmp, imageFile, true);
-    }
-
-    @Override
-    public void imageFileDeleted(File imageFile) {
-        // ignore
-    }
-
-    @Override
-    public void imageFileInserted(File imageFile) {
-        // ignore
-    }
-
-    @Override
-    public void imageFileRenamed(File oldImageFile, File newImageFile) {
-        // ignore
-    }
-
-    @Override
-    public void exifUpdated(File imageFile, Exif oldExif, Exif updatedExif) {
-        // ignore
-    }
-
-    @Override
-    public void thumbnailUpdated(File imageFile) {
-        // ignore
-    }
-
-    @Override
-    public void dcSubjectDeleted(String dcSubject) {
-        // ignore
-    }
-
-    @Override
-    public void dcSubjectInserted(String dcSubject) {
-        // ignore
-    }
-
-    @Override
-    public void exifInserted(File imageFile, Exif exif) {
-        // ignore
-    }
-
-    @Override
-    public void exifDeleted(File imageFile, Exif exif) {
-        // ignore
+        update(evt.getUpdatedXmp(), evt.getImageFile(), true);
     }
 
     private void update(File imageFile) {

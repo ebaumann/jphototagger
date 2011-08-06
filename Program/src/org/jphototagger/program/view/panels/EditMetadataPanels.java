@@ -25,25 +25,27 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.domain.database.Column;
 import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
 import org.jphototagger.domain.database.xmp.ColumnXmpRating;
 import org.jphototagger.domain.event.listener.AppExitListener;
-import org.jphototagger.domain.event.listener.DatabaseImageFilesListener;
 import org.jphototagger.domain.event.listener.EditMetadataPanelsListener;
 import org.jphototagger.domain.event.listener.impl.EditMetadataPanelsListenerSupport;
-import org.jphototagger.domain.exif.Exif;
+import org.jphototagger.domain.repository.event.XmpDeletedEvent;
+import org.jphototagger.domain.repository.event.XmpInsertedEvent;
+import org.jphototagger.domain.repository.event.XmpUpdatedEvent;
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.domain.text.TextEntry;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.AppLifeCycle;
-import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.controller.keywords.tree.SuggestKeywords;
-import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.helper.SaveXmp;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.ViewUtil;
@@ -59,7 +61,7 @@ import org.jphototagger.xmp.XmpMetadata;
  *
  * @author Elmar Baumann, Tobias Stening
  */
-public final class EditMetadataPanels implements FocusListener, DatabaseImageFilesListener, AppExitListener {
+public final class EditMetadataPanels implements FocusListener, AppExitListener {
 
     private final List<JPanel> panels = new ArrayList<JPanel>();
     private final List<FileXmp> imageFilesXmp = new ArrayList<FileXmp>();
@@ -790,7 +792,7 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
     }
 
     private void listenToActionSources() {
-        DatabaseImageFiles.INSTANCE.addListener(this);
+        AnnotationProcessor.process(this);
         AppLifeCycle.INSTANCE.addAppExitListener(this);
     }
 
@@ -1014,88 +1016,19 @@ public final class EditMetadataPanels implements FocusListener, DatabaseImageFil
         ls.remove(listener);
     }
 
-    @Override
-    public void xmpInserted(File imageFile, Xmp xmp) {
-        if (imageFile == null) {
-            throw new NullPointerException("imageFile == null");
-        }
-
-        if (xmp == null) {
-            throw new NullPointerException("xmp == null");
-        }
-
-        setModifiedXmp(imageFile, xmp);
+    @EventSubscriber(eventClass = XmpInsertedEvent.class)
+    public void xmpInserted(XmpInsertedEvent evt) {
+        setModifiedXmp(evt.getImageFile(), evt.getXmp());
     }
 
-    @Override
-    public void xmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp) {
-        if (imageFile == null) {
-            throw new NullPointerException("imageFile == null");
-        }
-
-        if (updatedXmp == null) {
-            throw new NullPointerException("updatedXmp == null");
-        }
-
-        setModifiedXmp(imageFile, updatedXmp);
+    @EventSubscriber(eventClass = XmpUpdatedEvent.class)
+    public void xmpUpdated(XmpUpdatedEvent evt) {
+        setModifiedXmp(evt.getImageFile(), evt.getUpdatedXmp());
     }
 
-    @Override
-    public void xmpDeleted(File imageFile, Xmp xmp) {
-        if (imageFile == null) {
-            throw new NullPointerException("imageFile == null");
-        }
-
-        if (xmp == null) {
-            throw new NullPointerException("xmp == null");
-        }
-
-        setModifiedXmp(imageFile, xmp);
-    }
-
-    @Override
-    public void exifInserted(File imageFile, Exif exif) {
-        // ignore
-    }
-
-    @Override
-    public void exifUpdated(File imageFile, Exif oldExif, Exif updatedExif) {
-        // ignore
-    }
-
-    @Override
-    public void exifDeleted(File imageFile, Exif exif) {
-        // ignore
-    }
-
-    @Override
-    public void imageFileDeleted(File imageFile) {
-        // ignore
-    }
-
-    @Override
-    public void imageFileInserted(File imageFile) {
-        // ignore
-    }
-
-    @Override
-    public void imageFileRenamed(File oldImageFile, File newImageFile) {
-        // ignore
-    }
-
-    @Override
-    public void thumbnailUpdated(File imageFile) {
-        // ignore
-    }
-
-    @Override
-    public void dcSubjectDeleted(String dcSubject) {
-        // ignore
-    }
-
-    @Override
-    public void dcSubjectInserted(String dcSubject) {
-        // ignore
+    @EventSubscriber(eventClass = XmpDeletedEvent.class)
+    public void xmpDeleted(XmpDeletedEvent evt) {
+        setModifiedXmp(evt.getImageFile(), evt.getXmp());
     }
 
     private class WatchDifferentValues extends MouseAdapter {

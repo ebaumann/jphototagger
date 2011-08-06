@@ -1,31 +1,37 @@
 package org.jphototagger.program.controller.thumbnail;
 
-import org.jphototagger.program.cache.ThumbnailCache;
-import org.jphototagger.program.cache.XmpCache;
-import org.jphototagger.domain.exif.Exif;
-import org.jphototagger.domain.xmp.Xmp;
-import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.domain.event.listener.DatabaseImageFilesListener;
-import org.jphototagger.program.resource.GUI;
 import java.io.File;
 import java.util.Collections;
+
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.domain.repository.event.ImageFileDeletedEvent;
+import org.jphototagger.domain.repository.event.ThumbnailUpdatedEvent;
+import org.jphototagger.domain.repository.event.XmpDeletedEvent;
+import org.jphototagger.domain.repository.event.XmpInsertedEvent;
+import org.jphototagger.domain.repository.event.XmpUpdatedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.program.cache.ThumbnailCache;
+import org.jphototagger.program.cache.XmpCache;
+import org.jphototagger.program.resource.GUI;
 
 /**
  *
  * @author Elmar Baumann
  */
-public final class ControllerThumbnailsDatabaseChanges implements DatabaseImageFilesListener {
+public final class ControllerThumbnailsDatabaseChanges {
+
     public ControllerThumbnailsDatabaseChanges() {
         listen();
     }
 
     private void listen() {
-        DatabaseImageFiles.INSTANCE.addListener(this);
+        AnnotationProcessor.process(this);
     }
 
     private void updateXmpCache(final File imageFile) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 XmpCache.INSTANCE.remove(imageFile);
@@ -34,103 +40,43 @@ public final class ControllerThumbnailsDatabaseChanges implements DatabaseImageF
         });
     }
 
-    @Override
-    public void xmpInserted(File imageFile, Xmp xmp) {
-        if (imageFile == null) {
-            throw new NullPointerException("imageFile == null");
-        }
-
-        updateXmpCache(imageFile);
+    @EventSubscriber(eventClass = XmpInsertedEvent.class)
+    public void xmpInserted(XmpInsertedEvent evt) {
+        updateXmpCache(evt.getImageFile());
     }
 
-    @Override
-    public void xmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp) {
-        if (imageFile == null) {
-            throw new NullPointerException("imageFile == null");
-        }
-
-        updateXmpCache(imageFile);
+    @EventSubscriber(eventClass = XmpUpdatedEvent.class)
+    public void xmpUpdated(XmpUpdatedEvent evt) {
+        updateXmpCache(evt.getImageFile());
     }
 
-    @Override
-    public void xmpDeleted(File imageFile, Xmp xmp) {
-        if (imageFile == null) {
-            throw new NullPointerException("imageFile == null");
-        }
-
-        updateXmpCache(imageFile);
+    @EventSubscriber(eventClass = XmpDeletedEvent.class)
+    public void xmpDeleted(XmpDeletedEvent evt) {
+        updateXmpCache(evt.getImageFile());
     }
 
-    @Override
-    public void thumbnailUpdated(File imageFile) {
-        if (imageFile == null) {
-            throw new NullPointerException("imageFile == null");
-        }
-
-        final File file = imageFile;
+    @EventSubscriber(eventClass = ThumbnailUpdatedEvent.class)
+    public void thumbnailUpdated(ThumbnailUpdatedEvent evt) {
+        final File imageFile = evt.getImageFile();
 
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                ThumbnailCache.INSTANCE.remove(file);
-                ThumbnailCache.INSTANCE.notifyUpdate(file);
+                ThumbnailCache.INSTANCE.remove(imageFile);
+                ThumbnailCache.INSTANCE.notifyUpdate(imageFile);
             }
         });
     }
 
-    @Override
-    public void imageFileDeleted(final File imageFile) {
-        if (imageFile == null) {
-            throw new NullPointerException("imageFile == null");
-        }
-
+    @EventSubscriber(eventClass = ImageFileDeletedEvent.class)
+    public void imageFileDeleted(final ImageFileDeletedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                GUI.getThumbnailsPanel().removeFiles(Collections.singleton(imageFile));
+                GUI.getThumbnailsPanel().removeFiles(Collections.singleton(evt.getImageFile()));
             }
         });
-    }
-
-    @Override
-    public void imageFileInserted(File imageFile) {
-
-        // ignore
-    }
-
-    @Override
-    public void imageFileRenamed(File oldImageFile, File newImageFile) {
-
-        // ignore
-    }
-
-    @Override
-    public void exifUpdated(File imageFile, Exif oldExif, Exif updatedExif) {
-
-        // ignore
-    }
-
-    @Override
-    public void exifInserted(File imageFile, Exif exif) {
-
-        // ignore
-    }
-
-    @Override
-    public void dcSubjectDeleted(String dcSubject) {
-
-        // ignore
-    }
-
-    @Override
-    public void dcSubjectInserted(String dcSubject) {
-
-        // ignore
-    }
-
-    @Override
-    public void exifDeleted(File imageFile, Exif exif) {
-
-        // ignore
     }
 }

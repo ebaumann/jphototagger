@@ -1,6 +1,5 @@
 package org.jphototagger.program.model;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -9,6 +8,8 @@ import java.util.Set;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.domain.database.Column;
 import org.jphototagger.domain.database.exif.ColumnExifFocalLength;
 import org.jphototagger.domain.database.exif.ColumnExifIsoSpeedRatings;
@@ -20,8 +21,15 @@ import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
 import org.jphototagger.domain.database.xmp.ColumnXmpIptc4xmpcoreLocation;
 import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopSource;
 import org.jphototagger.domain.database.xmp.ColumnXmpRating;
-import org.jphototagger.domain.event.listener.DatabaseImageFilesListener;
 import org.jphototagger.domain.exif.Exif;
+import org.jphototagger.domain.repository.event.DcSubjectDeletedEvent;
+import org.jphototagger.domain.repository.event.DcSubjectInsertedEvent;
+import org.jphototagger.domain.repository.event.ExifDeletedEvent;
+import org.jphototagger.domain.repository.event.ExifInsertedEvent;
+import org.jphototagger.domain.repository.event.ExifUpdatedEvent;
+import org.jphototagger.domain.repository.event.XmpDeletedEvent;
+import org.jphototagger.domain.repository.event.XmpInsertedEvent;
+import org.jphototagger.domain.repository.event.XmpUpdatedEvent;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.TreeUtil;
@@ -44,7 +52,8 @@ import org.jphototagger.program.database.DatabaseImageFiles;
  *
  * @author Elmar Baumann
  */
-public final class TreeModelMiscMetadata extends DefaultTreeModel implements DatabaseImageFilesListener {
+public final class TreeModelMiscMetadata extends DefaultTreeModel {
+
     private static final Object EXIF_USER_OBJECT = Bundle.getString(TreeModelMiscMetadata.class, "TreeModelMiscMetadata.ExifNode.DisplayName");
     private static final long serialVersionUID = 2498087635943355657L;
     private static final Object XMP_USER_OBJECT = Bundle.getString(TreeModelMiscMetadata.class, "TreeModelMiscMetadata.XmpNode.DisplayName");
@@ -65,7 +74,6 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel implements Dat
         COLUMN_USER_OBJECTS.add(EXIF_USER_OBJECT);
         COLUMN_USER_OBJECTS.add(XMP_USER_OBJECT);
     }
-
     private final boolean onlyXmp;
     private final DefaultMutableTreeNode ROOT;
 
@@ -83,7 +91,7 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel implements Dat
     }
 
     private void listen() {
-        DatabaseImageFiles.INSTANCE.addListener(this);
+        AnnotationProcessor.process(this);
     }
 
     public boolean isOnlyXmp() {
@@ -170,14 +178,14 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel implements Dat
     private void checkDeleted(Column column, Object userObject) {
         DefaultMutableTreeNode node = findNodeWithUserObject(ROOT, column);
 
-        if ((node != null) &&!DatabaseImageFiles.INSTANCE.exists(column, userObject)) {
+        if ((node != null) && !DatabaseImageFiles.INSTANCE.exists(column, userObject)) {
             DefaultMutableTreeNode child = findNodeWithUserObject(node, userObject);
 
             if (child != null) {
                 int index = node.getIndex(child);
 
                 node.remove(index);
-                nodesWereRemoved(node, new int[] { index }, new Object[] { child });
+                nodesWereRemoved(node, new int[]{index}, new Object[]{child});
             }
         }
     }
@@ -228,7 +236,7 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel implements Dat
                 DefaultMutableTreeNode newChild = new DefaultMutableTreeNode(userObject);
 
                 node.add(newChild);
-                nodesWereInserted(node, new int[] { node.getIndex(newChild) });
+                nodesWereInserted(node, new int[]{node.getIndex(newChild)});
             }
         }
     }
@@ -239,141 +247,97 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel implements Dat
         TreeUtil.addNodesUserWithObject(foundNodes, rootNode, userObject, 1);
 
         return (foundNodes.size() > 0)
-               ? foundNodes.get(0)
-               : null;
+                ? foundNodes.get(0)
+                : null;
     }
 
-    @Override
-    public void xmpUpdated(File imageFile, final Xmp oldXmp, final Xmp updatedXmp) {
-        if (oldXmp == null) {
-            throw new NullPointerException("oldXmp == null");
-        }
-
-        if (updatedXmp == null) {
-            throw new NullPointerException("updatedXmp == null");
-        }
-
+    @EventSubscriber(eventClass = XmpUpdatedEvent.class)
+    public void xmpUpdated(final XmpUpdatedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                checkDeleted(oldXmp);
-                checkInserted(updatedXmp);
+                checkDeleted(evt.getOldXmp());
+                checkInserted(evt.getUpdatedXmp());
             }
         });
     }
 
-    @Override
-    public void xmpInserted(File imageFile, final Xmp xmp) {
-        if (xmp == null) {
-            throw new NullPointerException("xmp == null");
-        }
-
+    @EventSubscriber(eventClass = XmpInsertedEvent.class)
+    public void xmpInserted(final XmpInsertedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                checkInserted(xmp);
+                checkInserted(evt.getXmp());
             }
         });
     }
 
-    @Override
-    public void xmpDeleted(File imageFile, final Xmp xmp) {
-        if (xmp == null) {
-            throw new NullPointerException("xmp == null");
-        }
-
+    @EventSubscriber(eventClass = XmpDeletedEvent.class)
+    public void xmpDeleted(final XmpDeletedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                checkDeleted(xmp);
+                checkDeleted(evt.getXmp());
             }
         });
     }
 
-    @Override
-    public void dcSubjectDeleted(final String dcSubject) {
+    @EventSubscriber(eventClass = DcSubjectDeletedEvent.class)
+    public void dcSubjectDeleted(final DcSubjectDeletedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                checkDeleted(ColumnXmpDcSubjectsSubject.INSTANCE, dcSubject);
+                checkDeleted(ColumnXmpDcSubjectsSubject.INSTANCE, evt.getDcSubject());
             }
         });
     }
 
-    @Override
-    public void dcSubjectInserted(final String dcSubject) {
+    @EventSubscriber(eventClass = DcSubjectInsertedEvent.class)
+    public void dcSubjectInserted(final DcSubjectInsertedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                checkInserted(ColumnXmpDcSubjectsSubject.INSTANCE, dcSubject);
+                checkInserted(ColumnXmpDcSubjectsSubject.INSTANCE, evt.getDcSubject());
             }
         });
     }
 
-    @Override
-    public void exifInserted(File imageFile, final Exif exif) {
-        if (exif == null) {
-            throw new NullPointerException("exif == null");
-        }
-
+    @EventSubscriber(eventClass = ExifInsertedEvent.class)
+    public void exifInserted(final ExifInsertedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                checkInserted(exif);
+                checkInserted(evt.getExif());
             }
         });
     }
 
-    @Override
-    public void exifUpdated(File imageFile, final Exif oldExif, final Exif updatedExif) {
-        if (oldExif == null) {
-            throw new NullPointerException("oldExif == null");
-        }
-
-        if (updatedExif == null) {
-            throw new NullPointerException("updatedExif == null");
-        }
-
+    @EventSubscriber(eventClass = ExifUpdatedEvent.class)
+    public void exifUpdated(final ExifUpdatedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                checkDeleted(oldExif);
-                checkInserted(updatedExif);
+                checkDeleted(evt.getOldExif());
+                checkInserted(evt.getUpdatedExif());
             }
         });
     }
 
-    @Override
-    public void exifDeleted(File imageFile, final Exif exif) {
+    @EventSubscriber(eventClass = ExifDeletedEvent.class)
+    public void exifDeleted(final ExifDeletedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                checkDeleted(exif);
+                checkDeleted(evt.getExif());
             }
         });
-    }
-
-    @Override
-    public void imageFileDeleted(File imageFile) {
-
-        // ignore
-    }
-
-    @Override
-    public void imageFileInserted(File imageFile) {
-
-        // ignore
-    }
-
-    @Override
-    public void imageFileRenamed(File oldImageFile, File newImageFile) {
-
-        // ignore
-    }
-
-    @Override
-    public void thumbnailUpdated(File imageFile) {
-
-        // ignore
     }
 }

@@ -7,8 +7,8 @@ import java.util.logging.Logger;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.core.CacheDirectoryProvider;
-import org.jphototagger.domain.event.ImageFileMovedEvent;
-import org.jphototagger.domain.event.ImageFileRemovedEvent;
+import org.jphototagger.domain.repository.event.ImageFileMovedEvent;
+import org.jphototagger.domain.repository.event.ImageFileDeletedEvent;
 import org.jphototagger.exif.ExifTags;
 import org.jphototagger.lib.io.FileUtil;
 import org.openide.util.Lookup;
@@ -199,8 +199,8 @@ public final class ExifCache {
         renameCachedExifTags(oldImageFile, newImageFile);
     }
 
-    @EventSubscriber(eventClass = ImageFileRemovedEvent.class)
-    public void imageFileRemoved(ImageFileRemovedEvent event) {
+    @EventSubscriber(eventClass = ImageFileDeletedEvent.class)
+    public void imageFileRemoved(ImageFileDeletedEvent event) {
         File deletedImageFile = event.getImageFile();
 
         deleteCachedExifTags(deletedImageFile);

@@ -1,32 +1,36 @@
 package org.jphototagger.program.controller.keywords.tree;
 
-import org.jphototagger.domain.exif.Exif;
-import org.jphototagger.domain.xmp.Xmp;
-import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.program.database.DatabaseKeywords;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
-import org.jphototagger.domain.event.listener.DatabaseImageFilesListener;
-import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.program.model.TreeModelKeywords;
-import java.io.File;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+
 import javax.swing.tree.DefaultMutableTreeNode;
+
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.domain.repository.event.DcSubjectInsertedEvent;
+import org.jphototagger.domain.repository.event.XmpInsertedEvent;
+import org.jphototagger.domain.repository.event.XmpUpdatedEvent;
+import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.program.database.DatabaseKeywords;
+import org.jphototagger.program.factory.ModelFactory;
+import org.jphototagger.program.model.TreeModelKeywords;
 
 /**
  * Listens to database updates and adds not existing keywords.
  *
  * @author Elmar Baumann
  */
-public final class ControllerKeywordsDbUpdates implements DatabaseImageFilesListener {
+public final class ControllerKeywordsDbUpdates {
+
     public ControllerKeywordsDbUpdates() {
         listen();
     }
 
     private void listen() {
-        DatabaseImageFiles.INSTANCE.addListener(this);
+        AnnotationProcessor.process(this);
     }
 
     @SuppressWarnings("unchecked")
@@ -48,6 +52,7 @@ public final class ControllerKeywordsDbUpdates implements DatabaseImageFilesList
 
     private void addKeyword(final String keyword) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 TreeModelKeywords model = ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
@@ -57,72 +62,18 @@ public final class ControllerKeywordsDbUpdates implements DatabaseImageFilesList
         });
     }
 
-    @Override
-    public void xmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp) {
-        addNotExistingKeywords(updatedXmp);
+    @EventSubscriber(eventClass = XmpUpdatedEvent.class)
+    public void xmpUpdated(XmpUpdatedEvent evt) {
+        addNotExistingKeywords(evt.getUpdatedXmp());
     }
 
-    @Override
-    public void dcSubjectInserted(String dcSubject) {
-        addNotExistingKeywords(Collections.singleton(dcSubject));
+    @EventSubscriber(eventClass = DcSubjectInsertedEvent.class)
+    public void dcSubjectInserted(DcSubjectInsertedEvent evt) {
+        addNotExistingKeywords(Collections.singleton(evt.getDcSubject()));
     }
 
-    @Override
-    public void xmpInserted(File imageFile, Xmp xmp) {
-        addNotExistingKeywords(xmp);
-    }
-
-    @Override
-    public void imageFileDeleted(File imageFile) {
-
-        // ignore
-    }
-
-    @Override
-    public void imageFileInserted(File imageFile) {
-
-        // ignore
-    }
-
-    @Override
-    public void imageFileRenamed(File oldImageFile, File newImageFile) {
-
-        // ignore
-    }
-
-    @Override
-    public void xmpDeleted(File imageFile, Xmp xmp) {
-
-        // ignore
-    }
-
-    @Override
-    public void exifInserted(File imageFile, Exif exif) {
-
-        // ignore
-    }
-
-    @Override
-    public void exifDeleted(File imageFile, Exif exif) {
-
-        // ignore
-    }
-
-    @Override
-    public void exifUpdated(File imageFile, Exif oldExif, Exif updatedExif) {
-
-        // ignore
-    }
-
-    @Override
-    public void thumbnailUpdated(File imageFile) {
-
-        // ignore
-    }
-
-    @Override
-    public void dcSubjectDeleted(String dcSubject) {
-
-        // ignore
+    @EventSubscriber(eventClass = XmpInsertedEvent.class)
+    public void xmpInserted(XmpInsertedEvent evt) {
+        addNotExistingKeywords(evt.getXmp());
     }
 }

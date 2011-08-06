@@ -3,7 +3,6 @@ package org.jphototagger.program.view.panels;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.MouseListener;
-import java.io.File;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -12,17 +11,19 @@ import javax.swing.JPanel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.domain.database.Column;
 import org.jphototagger.domain.database.xmp.ColumnXmpDcTitle;
-import org.jphototagger.domain.event.listener.DatabaseImageFilesListener;
 import org.jphototagger.domain.event.listener.TextEntryListener;
 import org.jphototagger.domain.event.listener.impl.TextEntryListenerSupport;
-import org.jphototagger.domain.exif.Exif;
+import org.jphototagger.domain.repository.event.DcSubjectInsertedEvent;
+import org.jphototagger.domain.repository.event.XmpInsertedEvent;
+import org.jphototagger.domain.repository.event.XmpUpdatedEvent;
 import org.jphototagger.domain.text.TextEntry;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.componentutil.Autocomplete;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.database.metadata.selections.AutoCompleteDataOfColumn;
 import org.jphototagger.program.helper.AutocompleteHelper;
 
@@ -31,8 +32,7 @@ import org.jphototagger.program.helper.AutocompleteHelper;
  *
  * @author Elmar Baumann
  */
-public final class EditTextEntryPanel extends JPanel
-        implements TextEntry, DocumentListener, DatabaseImageFilesListener {
+public final class EditTextEntryPanel extends JPanel implements TextEntry, DocumentListener {
     private static final Color EDITABLE_COLOR = Color.WHITE;
     private static final long serialVersionUID = -6455550547873630461L;
     private transient Column column;
@@ -44,6 +44,7 @@ public final class EditTextEntryPanel extends JPanel
     public EditTextEntryPanel() {
         column = ColumnXmpDcTitle.INSTANCE;
         initComponents();
+        AnnotationProcessor.process(this);
     }
 
     public EditTextEntryPanel(Column column) {
@@ -54,13 +55,13 @@ public final class EditTextEntryPanel extends JPanel
         this.column = column;
         initComponents();
         postSetColumn();
+        AnnotationProcessor.process(this);
     }
 
     private void postSetColumn() {
         setPropmt();
         textAreaEdit.setInputVerifier(column.getInputVerifier());
         textAreaEdit.getDocument().addDocumentListener(this);
-        DatabaseImageFiles.INSTANCE.addListener(this);
         textAreaEdit.setName("JPhotoTagger text area for " + column.getDescription());
     }
 
@@ -138,74 +139,20 @@ public final class EditTextEntryPanel extends JPanel
         }
     }
 
-    @Override
-    public void xmpInserted(File imageFile, Xmp xmp) {
-        addToAutocomplete(xmp);
+    @EventSubscriber(eventClass = XmpInsertedEvent.class)
+    public void xmpInserted(XmpInsertedEvent evt) {
+        addToAutocomplete(evt.getXmp());
     }
 
-    @Override
-    public void xmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp) {
-        addToAutocomplete(updatedXmp);
+    @EventSubscriber(eventClass = XmpUpdatedEvent.class)
+    public void xmpUpdated(XmpUpdatedEvent evt) {
+        addToAutocomplete(evt.getUpdatedXmp());
     }
 
-    @Override
-    public void xmpDeleted(File imageFile, Xmp xmp) {
-
-        // ignore
-    }
-
-    @Override
-    public void exifDeleted(File imageFile, Exif exif) {
-
-        // ignore
-    }
-
-    @Override
-    public void imageFileDeleted(File imageFile) {
-
-        // ignore
-    }
-
-    @Override
-    public void imageFileInserted(File imageFile) {
-
-        // ignore
-    }
-
-    @Override
-    public void imageFileRenamed(File oldImageFile, File newImageFile) {
-
-        // ignore
-    }
-
-    @Override
-    public void exifInserted(File imageFile, Exif exif) {
-
-        // ignore
-    }
-
-    @Override
-    public void exifUpdated(File imageFile, Exif oldExif, Exif updatedExif) {
-
-        // ignore
-    }
-
-    @Override
-    public void thumbnailUpdated(File imageFile) {
-
-        // ignore
-    }
-
-    @Override
-    public void dcSubjectDeleted(String dcSubject) {
-
-        // ignore
-    }
-
-    @Override
-    public void dcSubjectInserted(String dcSubject) {
+    @EventSubscriber(eventClass = DcSubjectInsertedEvent.class)
+    public void dcSubjectInserted(DcSubjectInsertedEvent evt) {
         if (isAutocomplete()) {
-            AutocompleteHelper.addAutocompleteData(column, autocomplete, Collections.singleton(dcSubject));
+            AutocompleteHelper.addAutocompleteData(column, autocomplete, Collections.singleton(evt.getDcSubject()));
         }
     }
 
