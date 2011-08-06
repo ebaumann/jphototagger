@@ -30,7 +30,7 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.domain.database.Column;
 import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
 import org.jphototagger.domain.database.xmp.ColumnXmpRating;
-import org.jphototagger.domain.event.listener.AppExitListener;
+import org.jphototagger.domain.event.AppWillExitEvent;
 import org.jphototagger.domain.event.listener.EditMetadataPanelsListener;
 import org.jphototagger.domain.event.listener.impl.EditMetadataPanelsListenerSupport;
 import org.jphototagger.domain.repository.event.XmpDeletedEvent;
@@ -61,7 +61,7 @@ import org.jphototagger.xmp.XmpMetadata;
  *
  * @author Elmar Baumann, Tobias Stening
  */
-public final class EditMetadataPanels implements FocusListener, AppExitListener {
+public final class EditMetadataPanels implements FocusListener {
 
     private final List<JPanel> panels = new ArrayList<JPanel>();
     private final List<FileXmp> imageFilesXmp = new ArrayList<FileXmp>();
@@ -793,7 +793,6 @@ public final class EditMetadataPanels implements FocusListener, AppExitListener 
 
     private void listenToActionSources() {
         AnnotationProcessor.process(this);
-        AppLifeCycle.INSTANCE.addAppExitListener(this);
     }
 
     private void addActionPanel() {
@@ -982,8 +981,8 @@ public final class EditMetadataPanels implements FocusListener, AppExitListener 
         }
     }
 
-    @Override
-    public void appWillExit() {
+    @EventSubscriber(eventClass = AppWillExitEvent.class)
+    public void appWillExit(AppWillExitEvent evt) {
         checkDirty();
     }
 

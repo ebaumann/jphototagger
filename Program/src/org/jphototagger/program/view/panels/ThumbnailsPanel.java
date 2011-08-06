@@ -38,9 +38,9 @@ import javax.swing.TransferHandler;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.domain.event.AppWillExitEvent;
 import org.jphototagger.domain.event.ThumbnailUpdateEvent;
 import org.jphototagger.domain.event.UserSettingsEvent;
-import org.jphototagger.domain.event.listener.AppExitListener;
 import org.jphototagger.domain.event.listener.DatabaseUserDefinedFileFiltersListener;
 import org.jphototagger.domain.event.listener.ThumbnailUpdateListener;
 import org.jphototagger.domain.event.listener.ThumbnailsPanelListener;
@@ -61,7 +61,6 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.MathUtil;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.AppFileFilters;
-import org.jphototagger.program.app.AppLifeCycle;
 import org.jphototagger.program.cache.RenderedThumbnailCache;
 import org.jphototagger.program.controller.thumbnail.ControllerThumbnailDoubleklick;
 import org.jphototagger.program.database.DatabaseUserDefinedFileFilters;
@@ -82,7 +81,7 @@ import org.jphototagger.xmp.XmpMetadata;
  */
 public class ThumbnailsPanel extends JPanel
         implements ComponentListener, MouseListener, MouseMotionListener, KeyListener, ThumbnailUpdateListener,
-        AppExitListener, DatabaseUserDefinedFileFiltersListener, UserSettingsListener {
+        DatabaseUserDefinedFileFiltersListener, UserSettingsListener {
 
     private static final String KEY_THUMBNAIL_WIDTH = "ThumbnailsPanel.ThumbnailWidth";
     private static final long serialVersionUID = 1034671645083632578L;
@@ -135,7 +134,6 @@ public class ThumbnailsPanel extends JPanel
         addMouseListener(this);
         addMouseMotionListener(this);
         addKeyListener(this);
-        AppLifeCycle.INSTANCE.addAppExitListener(this);
 
         try {
             getDropTarget().addDropTargetListener(renderer);
@@ -842,8 +840,8 @@ public class ThumbnailsPanel extends JPanel
         }
     }
 
-    @Override
-    public void appWillExit() {
+    @EventSubscriber(eventClass = AppWillExitEvent.class)
+    public void appWillExit(AppWillExitEvent evt) {
         UserSettings.INSTANCE.getSettings().set(ThumbnailsPanel.KEY_THUMBNAIL_WIDTH, getThumbnailWidth());
         UserSettings.INSTANCE.writeToFile();
     }

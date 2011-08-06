@@ -7,14 +7,15 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.domain.event.listener.AppExitListener;
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.domain.event.AppWillExitEvent;
 import org.jphototagger.domain.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.comparator.ComparatorFilesNoSort;
 import org.jphototagger.lib.comparator.FileSort;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.app.AppLifeCycle;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 
@@ -23,13 +24,11 @@ import org.jphototagger.program.view.panels.ThumbnailsPanel;
  *
  * @author Elmar Baumann
  */
-public final class ControllerThumbnailsPanelPersistence implements ThumbnailsPanelListener, AppExitListener {
-    private static final String KEY_SELECTED_FILES =
-        "org.jphototagger.program.view.controller.ControllerThumbnailsPanelPersistence.SelectedFiles";
-    private static final String KEY_SORT =
-        "org.jphototagger.program.view.controller.ControllerThumbnailsPanelPersistence.Sort";
-    private static final String KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION =
-        "org.jphototagger.program.view.panels.controller.ViewportViewPosition";
+public final class ControllerThumbnailsPanelPersistence implements ThumbnailsPanelListener {
+
+    private static final String KEY_SELECTED_FILES = "org.jphototagger.program.view.controller.ControllerThumbnailsPanelPersistence.SelectedFiles";
+    private static final String KEY_SORT = "org.jphototagger.program.view.controller.ControllerThumbnailsPanelPersistence.Sort";
+    private static final String KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION = "org.jphototagger.program.view.panels.controller.ViewportViewPosition";
     private volatile boolean propertiesRead;
     private List<File> persistentSelectedFiles = new ArrayList<File>();
 
@@ -40,7 +39,7 @@ public final class ControllerThumbnailsPanelPersistence implements ThumbnailsPan
 
     private void listen() {
         GUI.getThumbnailsPanel().addThumbnailsPanelListener(this);
-        AppLifeCycle.INSTANCE.addAppExitListener(this);
+        AnnotationProcessor.process(this);
     }
 
     @Override
@@ -63,6 +62,7 @@ public final class ControllerThumbnailsPanelPersistence implements ThumbnailsPan
         }
 
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 readSelectedFilesFromProperties();
@@ -73,7 +73,7 @@ public final class ControllerThumbnailsPanelPersistence implements ThumbnailsPan
 
     private void writeSelectionToProperties() {
         UserSettings.INSTANCE.getSettings().setStringCollection(
-            KEY_SELECTED_FILES, FileUtil.getAbsolutePathnames(GUI.getSelectedImageFiles()));
+                KEY_SELECTED_FILES, FileUtil.getAbsolutePathnames(GUI.getSelectedImageFiles()));
         UserSettings.INSTANCE.writeToFile();
     }
 
@@ -94,7 +94,7 @@ public final class ControllerThumbnailsPanelPersistence implements ThumbnailsPan
 
     private void readProperties() {
         persistentSelectedFiles =
-            FileUtil.getStringsAsFiles(UserSettings.INSTANCE.getSettings().getStringCollection(KEY_SELECTED_FILES));
+                FileUtil.getStringsAsFiles(UserSettings.INSTANCE.getSettings().getStringCollection(KEY_SELECTED_FILES));
         readSortFromProperties();
     }
 
@@ -134,6 +134,7 @@ public final class ControllerThumbnailsPanelPersistence implements ThumbnailsPan
 
     private void readViewportViewPositionFromProperties() {
         new Thread(new Runnable() {
+
             @Override
             public void run() {
                 try {
@@ -145,18 +146,19 @@ public final class ControllerThumbnailsPanelPersistence implements ThumbnailsPan
                 }
 
                 EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
                     @Override
                     public void run() {
                         UserSettings.INSTANCE.getSettings().applySettings(
-                            KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION, GUI.getAppPanel().getScrollPaneThumbnailsPanel());
+                                KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION, GUI.getAppPanel().getScrollPaneThumbnailsPanel());
                     }
                 });
             }
         }, "JPhotoTagger: Restoring viewport position").start();
     }
 
-    @Override
-    public void appWillExit() {
+    @EventSubscriber(eventClass = AppWillExitEvent.class)
+    public void appWillExit(AppWillExitEvent evt) {
         writeViewportViewPositionToProperties();
     }
 

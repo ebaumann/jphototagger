@@ -21,7 +21,7 @@ import javax.swing.tree.TreePath;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-import org.jphototagger.domain.event.listener.AppExitListener;
+import org.jphototagger.domain.event.AppWillExitEvent;
 import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.domain.repository.event.FavoriteDeletedEvent;
 import org.jphototagger.domain.repository.event.FavoriteInsertedEvent;
@@ -35,7 +35,6 @@ import org.jphototagger.lib.io.filefilter.DirectoryFilter;
 import org.jphototagger.lib.model.TreeNodeSortedChildren;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.app.AppLifeCycle;
 import org.jphototagger.program.database.DatabaseFavorites;
 
 /**
@@ -52,7 +51,7 @@ import org.jphototagger.program.database.DatabaseFavorites;
  *
  * @author Elmar Baumann
  */
-public final class TreeModelFavorites extends DefaultTreeModel implements TreeWillExpandListener, AppExitListener {
+public final class TreeModelFavorites extends DefaultTreeModel implements TreeWillExpandListener {
 
     private static final String KEY_SELECTED_DIR = "TreeModelFavorites.SelDir";
     private static final String KEY_SELECTED_FAV_NAME = "TreeModelFavorites.SelFavDir";
@@ -75,7 +74,6 @@ public final class TreeModelFavorites extends DefaultTreeModel implements TreeWi
         tree.addTreeWillExpandListener(this);
         addFavorites();
         AnnotationProcessor.process(this);
-        AppLifeCycle.INSTANCE.addAppExitListener(this);
     }
 
     public void insert(Favorite favorite) {
@@ -710,8 +708,8 @@ public final class TreeModelFavorites extends DefaultTreeModel implements TreeWi
         // ignore
     }
 
-    @Override
-    public void appWillExit() {
+    @EventSubscriber(eventClass = AppWillExitEvent.class)
+    public void appWillExit(AppWillExitEvent evt) {
         writeToProperties();
     }
 
