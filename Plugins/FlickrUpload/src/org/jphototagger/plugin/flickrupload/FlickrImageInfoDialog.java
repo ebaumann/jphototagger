@@ -58,7 +58,8 @@ public class FlickrImageInfoDialog extends Dialog {
         Storage storage = Lookup.getDefault().lookup(Storage.class);
 
         if (storage != null) {
-            storage.setSizeAndLocation(this);
+            storage.setSize(FlickrImageInfoDialog.class.getName(), this);
+            storage.setLocation(FlickrImageInfoDialog.class.getName(), this);
         }
     }
 
@@ -66,7 +67,8 @@ public class FlickrImageInfoDialog extends Dialog {
         Storage storage = Lookup.getDefault().lookup(Storage.class);
 
         if (storage != null) {
-            storage.applySizeAndLocation(this);
+            storage.applySize(FlickrImageInfoDialog.class.getName(), this);
+            storage.applyLocation(FlickrImageInfoDialog.class.getName(), this);
         }
     }
 

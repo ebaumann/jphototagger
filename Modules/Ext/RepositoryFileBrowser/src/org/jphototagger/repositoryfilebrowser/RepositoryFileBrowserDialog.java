@@ -130,13 +130,15 @@ public class RepositoryFileBrowserDialog extends Dialog {
     @Override
     protected void applySizeAndLocation() {
         Storage storage = Lookup.getDefault().lookup(Storage.class);
-        storage.applySizeAndLocation(this);
+        storage.applySize(RepositoryFileBrowserDialog.class.getName(), this);
+        storage.applyLocation(RepositoryFileBrowserDialog.class.getName(), this);
     }
 
     @Override
     protected void setSizeAndLocation() {
         Storage storage = Lookup.getDefault().lookup(Storage.class);
-        storage.setSizeAndLocation(this);
+        storage.setSize(RepositoryFileBrowserDialog.class.getName(), this);
+        storage.setLocation(RepositoryFileBrowserDialog.class.getName(), this);
     }
 
     /** This method is called from within the constructor to

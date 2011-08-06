@@ -32,8 +32,4 @@ public interface Storage {
     void setLocation(String key, Component component);
 
     void applyLocation(String key, Component component);
-
-    void setSizeAndLocation(Component component);
-
-    void applySizeAndLocation(Component component);
 }
