@@ -5,10 +5,8 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.domain.event.UserSettingsEvent;
-import org.jphototagger.domain.event.UserSettingsEvent.Type;
-import org.jphototagger.domain.event.listener.UserSettingsListener;
-import org.jphototagger.domain.event.listener.impl.UserSettingsListenerSupport;
+import org.bushe.swing.event.EventBus;
+import org.jphototagger.domain.event.UserPropertyChangedEvent;
 import org.jphototagger.lib.dialog.DirectoryChooser;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
 import org.jphototagger.lib.util.PropertiesFile;
@@ -35,22 +33,17 @@ public final class UserSettings {
     private static final int DEFAULT_MINUTES_TO_START_SCHEDULED_TASKS = 5;
     private static final String DOMAIN_NAME = "de.elmar_baumann"; // When changing see comment for AppInfo.PROJECT_NAME
     private static final String KEY_ACCEPT_HIDDEN_DIRECTORIES = "UserSettings.IsAcceptHiddenDirectories";
-    private static final String KEY_AUTO_DOWNLOAD_NEWER_VERSIONS = "UserSettings.AutoDownloadNewerVersions";
     private static final String KEY_AUTO_SCAN_INCLUDE_SUBDIRECTORIES = "UserSettings.IsAutoscanIncludeSubdirectories";
     private static final String KEY_DATABASE_BACKUP_DIRECTORY = "UserSettings.DatabaseBackupDirectoryName";
     private static final String KEY_DATABASE_BACKUP_INTERVAL = "UserSettings.DbBackupInterval";
     private static final String KEY_DATABASE_DIRECTORY = "UserSettings.DatabaseDirectoryName";
     private static final String KEY_DATABASE_SCHEDULED_BACKUP = "UserSettings.DbScheduledBackup";
-    private static final String KEY_DISPLAY_IPTC = "UserSettings.DisplayIptc";
     private static final String KEY_DISPLAY_SEARCH_BUTTON = "UserSettings.DisplaySearchButton";
     private static final String KEY_ENABLE_AUTOCOMPLETE = "UserSettings.EnableAutoComplete";
     private static final String KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS = "UserSettings.ExecuteActionsAfterImageChangeInDbAlways";
     private static final String KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP = "UserSettings.ExecuteActionsAfterImageChangeInDbIfImageHasXmp";
     private static final String KEY_EXTERNAL_THUMBNAIL_CREATION_COMMAND = "UserSettings.ExternalThumbnailCreationCommand";
-    private static final String KEY_IPTC_CHARSET = "UserSettings.IptcCharset";
-    private static final String KEY_LOG_LEVEL = "UserSettings.LogLevel";
     private static final String KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS = "UserSettings.MaximumSecondsToTerminateExternalPrograms";
-    private static final String KEY_MAX_THUMBNAIL_WIDTH = "UserSettings.MaxThumbnailWidth";
     private static final String KEY_MINUTES_TO_START_SCHEDULED_TASKS = "UserSettings.MinutesToStartScheduledTasks";
     private static final String KEY_OPTIONS_COPY_MOVE_FILES = "UserSettings.CopyMoveFiles";
     private static final String KEY_SAVE_INPUT_EARLY = "UserSettings.SaveInputEarly";
@@ -59,7 +52,6 @@ public final class UserSettings {
     private static final String KEY_UPDATE_AUTOCOMPLETE = "UserSettings.UpdateAutocomplete";
     private static final String KEY_ADD_FILENAME_TO_GPS_LOCATION_EXPORT = "UserSettings.AddFilenameToGpsLocationExport";
     private static final String KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE = "UserSettings.Autocomplete.IgnoreCase";
-    private static final String KEY_DISPLAY_THUMBNAIL_TOOLTIP = "UserSettings.DisplayThumbnailTooltip";
     public static final String KEY_HIDE_ROOT_FILES_FROM_DIRECTORIES_TAB = "UserSettings.HideRootFilesFromDirectoriesTab";
     public static final int MIN_THUMBNAIL_WIDTH = 50;
     public static final int MAX_THUMBNAIL_WIDTH = 400;
@@ -67,18 +59,11 @@ public final class UserSettings {
 
     // NEVER CHANGE PROPERTIES_FILENAME!
     private static final String PROPERTIES_FILENAME = "Settings.properties";
-
-    /** Field description */
-    public static final SettingsHints SET_TABBED_PANE_SETTINGS =
-        new SettingsHints(SettingsHints.Option.SET_TABBED_PANE_CONTENT);
-
-    /** Field description */
+    public static final SettingsHints SET_TABBED_PANE_SETTINGS = new SettingsHints(SettingsHints.Option.SET_TABBED_PANE_CONTENT);
     public static final UserSettings INSTANCE = new UserSettings();
     private final Properties properties = new Properties();
-    private final PropertiesFile propertiesFile = new PropertiesFile(DOMAIN_NAME, AppInfo.PROJECT_NAME,
-                                                      PROPERTIES_FILENAME, properties);
+    private final PropertiesFile propertiesFile = new PropertiesFile(DOMAIN_NAME, AppInfo.PROJECT_NAME, PROPERTIES_FILENAME, properties);
     private final Settings settings = new Settings(properties);
-    private final UserSettingsListenerSupport listenerSupport = new UserSettingsListenerSupport();
 
     private UserSettings() {
         propertiesFile.readFromFile();
@@ -346,9 +331,12 @@ public final class UserSettings {
             throw new NullPointerException("logLevel == null");
         }
 
-        settings.set(KEY_LOG_LEVEL, logLevel.toString());
-        writeToFile();
-        notifyListeners(Type.LOG_LEVEL);
+        Level oldValue = getLogLevel();
+        if (!logLevel.equals(oldValue)) {
+            settings.set(UserPropertyChangedEvent.PROPERTY_LOG_LEVEL, logLevel.toString());
+            writeToFile();
+            EventBus.publish(new UserPropertyChangedEvent(this, UserPropertyChangedEvent.PROPERTY_LOG_LEVEL, oldValue, logLevel));
+        }
     }
 
     /**
@@ -360,8 +348,8 @@ public final class UserSettings {
     public Level getLogLevel() {
         Level level = null;
 
-        if (properties.containsKey(KEY_LOG_LEVEL)) {
-            String levelString = settings.getString(KEY_LOG_LEVEL);
+        if (properties.containsKey(UserPropertyChangedEvent.PROPERTY_LOG_LEVEL)) {
+            String levelString = settings.getString(UserPropertyChangedEvent.PROPERTY_LOG_LEVEL);
 
             try {
                 level = Level.parse(levelString);
@@ -371,7 +359,7 @@ public final class UserSettings {
         }
 
         if (level == null) {
-            settings.set(KEY_LOG_LEVEL, Level.INFO.getLocalizedName());
+            settings.set(UserPropertyChangedEvent.PROPERTY_LOG_LEVEL, Level.INFO.getLocalizedName());
         }
 
         return (level == null)
@@ -513,9 +501,12 @@ public final class UserSettings {
             throw new NullPointerException("charset == null");
         }
 
-        settings.set(KEY_IPTC_CHARSET, charset);
-        writeToFile();
-        notifyListeners(Type.IPTC_CHARSET);
+        String oldValue = getIptcCharset();
+        if (!charset.equals(oldValue)) {
+            settings.set(UserPropertyChangedEvent.PROPERTY_IPTC_CHARSET, charset);
+            writeToFile();
+            EventBus.publish(new UserPropertyChangedEvent(this, UserPropertyChangedEvent.PROPERTY_IPTC_CHARSET, oldValue, charset));
+        }
     }
 
     /**
@@ -524,7 +515,7 @@ public final class UserSettings {
      * @return charset. Default: "ISO-8859-1".
      */
     public String getIptcCharset() {
-        String charset = settings.getString(KEY_IPTC_CHARSET);
+        String charset = settings.getString(UserPropertyChangedEvent.PROPERTY_IPTC_CHARSET);
 
         return charset.isEmpty()
                ? "ISO-8859-1"
@@ -609,9 +600,12 @@ public final class UserSettings {
      * @param width length in pixel
      */
     public void setMaxThumbnailWidth(int width) {
-        settings.set(KEY_MAX_THUMBNAIL_WIDTH, Integer.toString(width));
-        writeToFile();
-        notifyListeners(Type.MAX_THUMBNAIL_WIDTH);
+        int oldValue = getMaxThumbnailWidth();
+        if (width != oldValue) {
+            settings.set(UserPropertyChangedEvent.PROPERTY_MAX_THUMBNAIL_WIDTH, Integer.toString(width));
+            writeToFile();
+            EventBus.publish(new UserPropertyChangedEvent(this, UserPropertyChangedEvent.PROPERTY_MAX_THUMBNAIL_WIDTH, oldValue, width));
+        }
     }
 
     /**
@@ -621,7 +615,7 @@ public final class UserSettings {
      *         <code>DEFAULT_MAX_THUMBNAIL_LENGTH</code>.
      */
     public int getMaxThumbnailWidth() {
-        int width = settings.getInt(KEY_MAX_THUMBNAIL_WIDTH);
+        int width = settings.getInt(UserPropertyChangedEvent.PROPERTY_MAX_THUMBNAIL_WIDTH);
 
         return (width != Integer.MIN_VALUE)
                ? width
@@ -686,10 +680,13 @@ public final class UserSettings {
      * @param auto true if to check and auto download.
      *             Default: true.
      */
-    public void setAutoDownloadNewerVersions(boolean auto) {
-        settings.set(KEY_AUTO_DOWNLOAD_NEWER_VERSIONS, auto);
-        writeToFile();
-        notifyListeners(Type.CHECK_FOR_UPDATES);
+    public void setCheckForUpdates(boolean auto) {
+        boolean oldValue = isCheckForUpdates();
+        if (auto != oldValue) {
+            settings.set(UserPropertyChangedEvent.PROPERTY_CHECK_FOR_UPDATES, auto);
+            writeToFile();
+            EventBus.publish(new UserPropertyChangedEvent(this, UserPropertyChangedEvent.PROPERTY_CHECK_FOR_UPDATES, oldValue, auto));
+        }
     }
 
     /**
@@ -697,9 +694,9 @@ public final class UserSettings {
      *
      * @return true, if to check and auto download
      */
-    public boolean isAutoDownloadNewerVersions() {
-        return properties.containsKey(KEY_AUTO_DOWNLOAD_NEWER_VERSIONS)
-               ? settings.getBoolean(KEY_AUTO_DOWNLOAD_NEWER_VERSIONS)
+    public boolean isCheckForUpdates() {
+        return properties.containsKey(UserPropertyChangedEvent.PROPERTY_CHECK_FOR_UPDATES)
+               ? settings.getBoolean(UserPropertyChangedEvent.PROPERTY_CHECK_FOR_UPDATES)
                : true;
     }
 
@@ -709,9 +706,12 @@ public final class UserSettings {
      * @param display true, if IPTC shall be displayed, if an image was selected
      */
     public void setDisplayIptc(boolean display) {
-        settings.set(KEY_DISPLAY_IPTC, display);
-        writeToFile();
-        notifyListeners(Type.DISPLAY_IPTC);
+        boolean oldValue = isDisplayIptc();
+        if (display != oldValue) {
+            settings.set(UserPropertyChangedEvent.PROPERTY_DISPLAY_IPTC, display);
+            writeToFile();
+            EventBus.publish(new UserPropertyChangedEvent(this, UserPropertyChangedEvent.PROPERTY_DISPLAY_IPTC, oldValue, display));
+        }
     }
 
     /**
@@ -721,8 +721,8 @@ public final class UserSettings {
      *         Default: false.
      */
     public boolean isDisplayIptc() {
-        return properties.containsKey(KEY_DISPLAY_IPTC)
-               ? settings.getBoolean(KEY_DISPLAY_IPTC)
+        return properties.containsKey(UserPropertyChangedEvent.PROPERTY_DISPLAY_IPTC)
+               ? settings.getBoolean(UserPropertyChangedEvent.PROPERTY_DISPLAY_IPTC)
                : false;
     }
 
@@ -837,44 +837,17 @@ public final class UserSettings {
      * @return Default: true
      */
     public boolean isDisplayThumbnailTooltip() {
-        return settings.containsKey(KEY_DISPLAY_THUMBNAIL_TOOLTIP)
-                ? settings.getBoolean(KEY_DISPLAY_THUMBNAIL_TOOLTIP)
+        return settings.containsKey(UserPropertyChangedEvent.PROPERTY_DISPLAY_THUMBNAIL_TOOLTIP)
+                ? settings.getBoolean(UserPropertyChangedEvent.PROPERTY_DISPLAY_THUMBNAIL_TOOLTIP)
                 : true;
     }
 
     public void setDisplayThumbnailTooltip(boolean display) {
-        settings.set(KEY_DISPLAY_THUMBNAIL_TOOLTIP, display);
-        writeToFile();
-        notifyListeners(Type.DISPLAY_THUMBNAIL_TOOLTIP);
-    }
-
-    /**
-     * Adss a listener.
-     *
-     * @param listener listener
-     */
-    public void addUserSettingsListener(UserSettingsListener listener) {
-        if (listener == null) {
-            throw new NullPointerException("listener == null");
+        boolean oldValue = isDisplayThumbnailTooltip();
+        if (display != oldValue) {
+            settings.set(UserPropertyChangedEvent.PROPERTY_DISPLAY_THUMBNAIL_TOOLTIP, display);
+            writeToFile();
+            EventBus.publish(new UserPropertyChangedEvent(this, UserPropertyChangedEvent.PROPERTY_DISPLAY_THUMBNAIL_TOOLTIP, oldValue, display));
         }
-
-        listenerSupport.add(listener);
-    }
-
-    /**
-     * Removes a listener.
-     *
-     * @param listener listener
-     */
-    public void removeUserSettingsListener(UserSettingsListener listener) {
-        if (listener == null) {
-            throw new NullPointerException("listener == null");
-        }
-
-        listenerSupport.remove(listener);
-    }
-
-    private void notifyListeners(UserSettingsEvent.Type type) {
-        listenerSupport.notifyUserListeners(new UserSettingsEvent(type, this));
     }
 }

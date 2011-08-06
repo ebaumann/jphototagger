@@ -2,8 +2,7 @@ package org.jphototagger.program.controller.thumbnail;
 
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.domain.event.listener.ThumbnailsPanelListener;
-import org.jphototagger.domain.event.listener.UserSettingsListener;
-import org.jphototagger.domain.event.UserSettingsEvent;
+import org.jphototagger.domain.event.UserPropertyChangedEvent;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.UserSettings;
 import java.awt.AWTEvent;
@@ -13,6 +12,8 @@ import java.awt.Toolkit;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.JSlider;
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
@@ -20,14 +21,13 @@ import org.jphototagger.lib.awt.EventQueueUtil;
  *
  * @author Elmar Baumann
  */
-public final class ControllerSliderThumbnailSize
-        implements AWTEventListener, ChangeListener, ThumbnailsPanelListener, UserSettingsListener {
+public final class ControllerSliderThumbnailSize implements AWTEventListener, ChangeListener, ThumbnailsPanelListener {
+
     private static final int STEP_WIDTH = 1;
     private static final int LARGER_STEP_WIDTH = 10;
     private static final int MIN_MAGINFICATION_PERCENT = 10;
     private static final int MAX_MAGINFICATION_PERCENT = 100;
-    private static final String KEY_SLIDER_VALUE =
-        "org.jphototagger.program.controller.thumbnail.ControllerSliderThumbnailSize." + "SliderValue";
+    private static final String KEY_SLIDER_VALUE = "org.jphototagger.program.controller.thumbnail.ControllerSliderThumbnailSize." + "SliderValue";
     private int currentValue = 100;
 
     public ControllerSliderThumbnailSize() {
@@ -38,7 +38,7 @@ public final class ControllerSliderThumbnailSize
     private void listen() {
         GUI.getThumbnailsPanel().addThumbnailsPanelListener(this);
         getSlider().addChangeListener(this);
-        UserSettings.INSTANCE.addUserSettingsListener(this);
+        AnnotationProcessor.process(this);
         Toolkit.getDefaultToolkit().addAWTEventListener(this, AWTEvent.KEY_EVENT_MASK);
     }
 
@@ -112,9 +112,9 @@ public final class ControllerSliderThumbnailSize
         setThumbnailWidth();
     }
 
-    @Override
-    public void applySettings(UserSettingsEvent evt) {
-        if (evt.getType().equals(UserSettingsEvent.Type.MAX_THUMBNAIL_WIDTH)) {
+    @EventSubscriber(eventClass = UserPropertyChangedEvent.class)
+    public void applySettings(UserPropertyChangedEvent evt) {
+        if (UserPropertyChangedEvent.PROPERTY_MAX_THUMBNAIL_WIDTH.equals(evt.getProperty())) {
             setThumbnailWidth();
         }
     }

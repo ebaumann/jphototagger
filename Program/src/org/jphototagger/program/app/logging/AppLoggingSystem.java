@@ -14,8 +14,9 @@ import java.util.logging.SimpleFormatter;
 import java.util.logging.StreamHandler;
 import java.util.logging.XMLFormatter;
 
-import org.jphototagger.domain.event.UserSettingsEvent;
-import org.jphototagger.domain.event.listener.UserSettingsListener;
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.domain.event.UserPropertyChangedEvent;
 import org.jphototagger.lib.dialog.LogfileDialog;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.UserSettings;
@@ -32,11 +33,11 @@ import org.jphototagger.program.UserSettings;
  *
  * @author Elmar Baumann
  */
-public final class AppLoggingSystem implements UserSettingsListener {
+public final class AppLoggingSystem {
+
     private static final int LOGFILE_ROTATE_COUNT = 5;
     private static final int MAX_LOGFILE_SIZE_IN_BYTES = (int) LogfileDialog.DEFAULT_MAX_BYTES;
     private static final String LOGFILE_PATH_DIR = UserSettings.INSTANCE.getSettingsDirectoryName();
-
     // INSTANCE exists only for applying user settings!
     private static final AppLoggingSystem INSTANCE = new AppLoggingSystem();
     private static final List<Handler> HANDLERS = new ArrayList<Handler>();
@@ -47,10 +48,13 @@ public final class AppLoggingSystem implements UserSettingsListener {
     private static boolean init;
     private static Handler systemOutHandler;
 
-    public enum HandlerType { SYSTEM_OUT, FILE, }
+    public enum HandlerType {
+
+        SYSTEM_OUT, FILE,
+    }
 
     private AppLoggingSystem() {
-        UserSettings.INSTANCE.addUserSettingsListener(this);
+        AnnotationProcessor.process(this);
     }
 
     /**
@@ -140,35 +144,35 @@ public final class AppLoggingSystem implements UserSettingsListener {
         }
     }
 
-    @Override
-    public void applySettings(UserSettingsEvent evt) {
-        if ((appLogger != null) && evt.getType().equals(UserSettingsEvent.Type.LOG_LEVEL)) {
-            systemOutHandler.setLevel(UserSettings.INSTANCE.getLogLevel());
+    @EventSubscriber(eventClass = UserPropertyChangedEvent.class)
+    public void applySettings(UserPropertyChangedEvent evt) {
+        if (appLogger != null && UserPropertyChangedEvent.PROPERTY_LOG_LEVEL.equals(evt.getProperty())) {
+            systemOutHandler.setLevel((Level) evt.getNewValue());
         }
     }
 
     public static void flush(HandlerType handler) {
         switch (handler) {
-        case SYSTEM_OUT :
-            if (systemOutHandler != null) {
-                systemOutHandler.flush();
-            }
+            case SYSTEM_OUT:
+                if (systemOutHandler != null) {
+                    systemOutHandler.flush();
+                }
 
-            break;
+                break;
 
-        case FILE :
-            if (fileHandlerImportant != null) {
-                fileHandlerImportant.flush();
-            }
+            case FILE:
+                if (fileHandlerImportant != null) {
+                    fileHandlerImportant.flush();
+                }
 
-            if (fileHandlerAllMsgs != null) {
-                fileHandlerAllMsgs.flush();
-            }
+                if (fileHandlerAllMsgs != null) {
+                    fileHandlerAllMsgs.flush();
+                }
 
-            break;
+                break;
 
-        default :
-            assert false;
+            default:
+                assert false;
         }
     }
 

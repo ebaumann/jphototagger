@@ -28,7 +28,7 @@ import org.jphototagger.program.view.panels.ProgressBar;
 
 /**
  * Checks for newer versions of JPhotoTagger and downloads them depending
- * on {@link UserSettings#isAutoDownloadNewerVersions()}.
+ * on {@link UserSettings#isCheckForUpdates()}.
  *
  * @author Elmar Baumann
  */
@@ -87,7 +87,7 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
      * set to true and calling this method again does nothing.
      * <p>
      * The answer will be stored in
-     * {@link UserSettings#setAutoDownloadNewerVersions(boolean)}-
+     * {@link UserSettings#setCheckForUpdates(boolean)}-
      */
     public static void askOnceCheckForNewerVersion() {
         if (!DatabaseApplicationProperties.INSTANCE.getBoolean(KEY_ASK_ONCE_CHECK_FOR_NEWER_VERSION)) {
@@ -99,7 +99,7 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
                         String message = Bundle.getString(UpdateDownload.class, "UpdateDownload.Confirm.CheckForNewerVersion");
                         boolean isAutoDownload = MessageDisplayer.confirmYesNo(null, message);
 
-                        UserSettings.INSTANCE.setAutoDownloadNewerVersions(isAutoDownload);
+                        UserSettings.INSTANCE.setCheckForUpdates(isAutoDownload);
                         DatabaseApplicationProperties.INSTANCE.setBoolean(KEY_ASK_ONCE_CHECK_FOR_NEWER_VERSION, true);
                     }
                 });

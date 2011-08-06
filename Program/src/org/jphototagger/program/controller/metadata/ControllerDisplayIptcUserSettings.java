@@ -3,8 +3,7 @@ package org.jphototagger.program.controller.metadata;
 import java.awt.Component;
 import java.awt.event.MouseEvent;
 import javax.swing.JTabbedPane;
-import org.jphototagger.domain.event.listener.UserSettingsListener;
-import org.jphototagger.domain.event.UserSettingsEvent;
+import org.jphototagger.domain.event.UserPropertyChangedEvent;
 import org.jphototagger.program.model.TableModelIptc;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.UserSettings;
@@ -14,6 +13,8 @@ import java.awt.event.MouseAdapter;
 import java.io.File;
 import java.util.List;
 import javax.swing.table.TableModel;
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.dialog.MessageDisplayer;
@@ -23,7 +24,7 @@ import org.jphototagger.lib.dialog.MessageDisplayer;
  *
  * @author Elmar Baumann
  */
-public final class ControllerDisplayIptcUserSettings extends MouseAdapter implements UserSettingsListener {
+public final class ControllerDisplayIptcUserSettings extends MouseAdapter {
 
     private final JTabbedPane metadataPane = GUI.getAppPanel().getTabbedPaneMetadata();
 
@@ -32,14 +33,14 @@ public final class ControllerDisplayIptcUserSettings extends MouseAdapter implem
     }
 
     private void listen() {
-        UserSettings.INSTANCE.addUserSettingsListener(this);
+        AnnotationProcessor.process(this);
         metadataPane.addMouseListener(this);
     }
 
-    @Override
-    public void applySettings(UserSettingsEvent evt) {
-        if (evt.getType().equals(UserSettingsEvent.Type.DISPLAY_IPTC)) {
-            boolean displayIptc = UserSettings.INSTANCE.isDisplayIptc();
+    @EventSubscriber(eventClass = UserPropertyChangedEvent.class)
+    public void applySettings(UserPropertyChangedEvent evt) {
+        if (UserPropertyChangedEvent.PROPERTY_DISPLAY_IPTC.equals(evt.getProperty())) {
+            boolean displayIptc = (Boolean) evt.getNewValue();
 
             setEnabledIptcTab(displayIptc);
 
@@ -51,6 +52,7 @@ public final class ControllerDisplayIptcUserSettings extends MouseAdapter implem
 
     private void setEnabledIptcTab(final boolean displayIptc) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 GUI.getAppPanel().setEnabledIptcTab(displayIptc);
@@ -72,6 +74,7 @@ public final class ControllerDisplayIptcUserSettings extends MouseAdapter implem
                     final File file = selFiles.get(0);
 
                     EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
                         @Override
                         public void run() {
                             ((TableModelIptc) model).setFile(file);
@@ -88,7 +91,7 @@ public final class ControllerDisplayIptcUserSettings extends MouseAdapter implem
         String message = Bundle.getString(ControllerDisplayIptcUserSettings.class, "ControllerDisplayIptcUserSettings.Confirm.DisplayIptc");
 
         if (!isDisplayIptc
-            && MessageDisplayer.confirmYesNo(parentComponent, message)) {
+                && MessageDisplayer.confirmYesNo(parentComponent, message)) {
             UserSettings.INSTANCE.setDisplayIptc(true);
         }
     }

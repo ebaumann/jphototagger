@@ -5,9 +5,9 @@ import java.awt.event.ActionListener;
 
 import javax.swing.SpinnerNumberModel;
 
-import org.jphototagger.domain.event.UserSettingsEvent;
-import org.jphototagger.domain.event.UserSettingsEvent.Type;
-import org.jphototagger.domain.event.listener.UserSettingsListener;
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.domain.event.UserPropertyChangedEvent;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.helper.UpdateAllThumbnails;
@@ -18,7 +18,8 @@ import org.jphototagger.program.types.Persistence;
  *
  * @author Elmar Baumann
  */
-public class SettingsThumbnailDimensionsPanel extends javax.swing.JPanel implements ActionListener, Persistence, UserSettingsListener {
+public class SettingsThumbnailDimensionsPanel extends javax.swing.JPanel implements ActionListener, Persistence {
+
     private static final long serialVersionUID = -6857947357604949567L;
     private transient UpdateAllThumbnails thumbnailsUpdater;
     private boolean listenToMaxThumbnailWidthChanges = true;
@@ -30,7 +31,7 @@ public class SettingsThumbnailDimensionsPanel extends javax.swing.JPanel impleme
 
     private void postInitComponents() {
         MnemonicUtil.setMnemonics(this);
-        UserSettings.INSTANCE.addUserSettingsListener(this);
+        AnnotationProcessor.process(this);
     }
 
     private void handleStateChangedSpinnerMaxThumbnailWidth() {
@@ -68,14 +69,11 @@ public class SettingsThumbnailDimensionsPanel extends javax.swing.JPanel impleme
         }
     }
 
-    @Override
-    public void applySettings(UserSettingsEvent evt) {
-        Type type = evt.getType();
-        boolean maxThumbnailWidthChanged = type.equals(UserSettingsEvent.Type.MAX_THUMBNAIL_WIDTH);
-
-        if (maxThumbnailWidthChanged) {
+    @EventSubscriber(eventClass = UserPropertyChangedEvent.class)
+    public void applySettings(UserPropertyChangedEvent evt) {
+        if (UserPropertyChangedEvent.PROPERTY_MAX_THUMBNAIL_WIDTH.equals(evt.getProperty())) {
             listenToMaxThumbnailWidthChanges = false;
-            spinnerMaxThumbnailWidth.setValue(UserSettings.INSTANCE.getMaxThumbnailWidth());
+            spinnerMaxThumbnailWidth.setValue((Integer) evt.getNewValue());
             listenToMaxThumbnailWidthChanges = true;
         }
     }
@@ -161,8 +159,6 @@ public class SettingsThumbnailDimensionsPanel extends javax.swing.JPanel impleme
             updateAllThumbnails();
         }
 }//GEN-LAST:event_buttonUpdateAllThumbnailsActionPerformed
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonUpdateAllThumbnails;
     private javax.swing.JLabel labelMaxThumbnailWidth;
