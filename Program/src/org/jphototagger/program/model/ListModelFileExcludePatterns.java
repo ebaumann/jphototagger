@@ -5,10 +5,13 @@ import java.util.List;
 
 import javax.swing.DefaultListModel;
 
-import org.jphototagger.domain.event.listener.DatabaseFileExcludePatternsListener;
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.domain.repository.event.FileExcludePatternDeletedEvent;
+import org.jphototagger.domain.repository.event.FileExcludePatternInsertedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseFileExcludePatterns;
 
@@ -21,15 +24,15 @@ import org.jphototagger.program.database.DatabaseFileExcludePatterns;
  *
  * @author Elmar Baumann
  */
-public final class ListModelFileExcludePatterns extends DefaultListModel
-        implements DatabaseFileExcludePatternsListener {
+public final class ListModelFileExcludePatterns extends DefaultListModel {
+
     private static final long serialVersionUID = -8337739189362442866L;
     private volatile transient boolean listenToDb = true;
     private List<String> patterns;
 
     public ListModelFileExcludePatterns() {
         addElements();
-        DatabaseFileExcludePatterns.INSTANCE.addListener(this);
+        AnnotationProcessor.process(this);
     }
 
     public List<String> getPatterns() {
@@ -117,25 +120,27 @@ public final class ListModelFileExcludePatterns extends DefaultListModel
         MessageDisplayer.error(null, message);
     }
 
-    @Override
-    public void patternInserted(final String pattern) {
+    @EventSubscriber(eventClass = FileExcludePatternInsertedEvent.class)
+    public void patternInserted(final FileExcludePatternInsertedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 if (listenToDb) {
-                    insertPattern(pattern);
+                    insertPattern(evt.getPattern());
                 }
             }
         });
     }
 
-    @Override
-    public void patternDeleted(final String pattern) {
+    @EventSubscriber(eventClass = FileExcludePatternDeletedEvent.class)
+    public void patternDeleted(final FileExcludePatternDeletedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 if (listenToDb) {
-                    deletePattern(pattern);
+                    deletePattern(evt.getPattern());
                 }
             }
         });
