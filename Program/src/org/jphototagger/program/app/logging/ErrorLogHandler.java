@@ -19,7 +19,6 @@ import org.jphototagger.lib.componentutil.MessageLabel;
 import org.jphototagger.lib.dialog.LogfileDialog;
 import org.jphototagger.lib.event.util.MouseEventUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.resource.GUI;
 
@@ -107,7 +106,6 @@ public final class ErrorLogHandler extends Handler implements ActionListener, Mo
     private void showLogfileDialog(String logfilename, Class<?> formatterClass) {
         LogfileDialog dlg = new LogfileDialog(GUI.getAppFrame(), logfilename, formatterClass);
 
-        dlg.setSettings(UserSettings.INSTANCE.getSettings(), null);
         dlg.setVisible(true);
     }
 

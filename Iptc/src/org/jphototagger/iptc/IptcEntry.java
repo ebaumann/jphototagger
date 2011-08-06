@@ -10,6 +10,7 @@ import com.imagero.reader.iptc.IPTCEntry;
 import com.imagero.reader.iptc.IPTCEntryMeta;
 import org.jphototagger.api.core.Storage;
 import org.jphototagger.domain.event.UserPropertyChangedEvent;
+import org.jphototagger.lib.util.StringUtil;
 
 /**
  * IPTC-Eintrag in einer Bilddatei. Dekodiert die Daten (getData()) als
@@ -108,6 +109,10 @@ public final class IptcEntry {
         try {
             Storage storage = Lookup.getDefault().lookup(Storage.class);
             String iptcCharset = storage.getString(UserPropertyChangedEvent.PROPERTY_IPTC_CHARSET);
+            if (!StringUtil.hasContent(iptcCharset)) {
+                iptcCharset = "ISO-8859-1";
+            }
+
             String encodedData = new String(data, iptcCharset);
 
             return encodedData.trim();

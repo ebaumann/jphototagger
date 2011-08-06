@@ -215,7 +215,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(UserSettings.KEY_HIDE_ROOT_FILES_FROM_DIRECTORIES_TAB);
         DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), prevSelectedDirectory, hideRootFiles, getDirChooserOptions());
 
-        dlg.setSettings(UserSettings.INSTANCE.getSettings(), "FileEditorPanel.DirChooser");
+        dlg.setStorageKey("FileEditorPanel.DirChooser");
         dlg.setVisible(true);
 
         if (dlg.isAccepted()) {

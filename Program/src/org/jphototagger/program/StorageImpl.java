@@ -78,6 +78,28 @@ public final class StorageImpl implements Storage {
     }
 
     @Override
+    public void setSize(String key, Component component) {
+        settings.setSize(key, component);
+        writeToFile();
+    }
+
+    @Override
+    public void applySize(String key, Component component) {
+        settings.applySize(key, component);
+    }
+
+    @Override
+    public void setLocation(String key, Component component) {
+        settings.setLocation(key, component);
+        writeToFile();
+    }
+
+    @Override
+    public void applyLocation(String key, Component component) {
+        settings.applyLocation(key, component);
+    }
+
+    @Override
     public boolean getBoolean(String key) {
         return settings.getBoolean(key);
     }

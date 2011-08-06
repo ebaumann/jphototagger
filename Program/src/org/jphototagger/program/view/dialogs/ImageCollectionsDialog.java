@@ -7,7 +7,6 @@ import javax.swing.ListModel;
 
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
-import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.model.ListModelImageCollections;
 import org.jphototagger.program.resource.GUI;
@@ -23,7 +22,7 @@ public final class ImageCollectionsDialog extends Dialog {
     private boolean ok = false;
 
     public ImageCollectionsDialog() {
-        super(GUI.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
+        super(GUI.getAppFrame(), true);
         initComponents();
         setHelpPage();
         MnemonicUtil.setMnemonics((Container) this);

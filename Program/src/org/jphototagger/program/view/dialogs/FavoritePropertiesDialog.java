@@ -33,7 +33,7 @@ public final class FavoritePropertiesDialog extends Dialog {
     private boolean update;
 
     public FavoritePropertiesDialog() {
-        super(GUI.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
+        super(GUI.getAppFrame(), true);
         initComponents();
         setHelpPage();
         MnemonicUtil.setMnemonics((Container) this);
@@ -50,7 +50,7 @@ public final class FavoritePropertiesDialog extends Dialog {
         List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(UserSettings.KEY_HIDE_ROOT_FILES_FROM_DIRECTORIES_TAB);
         DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), dir, hideRootFiles, showHiddenDirs);
 
-        dlg.setSettings(UserSettings.INSTANCE.getSettings(), "FavoritePropertiesDialog.DirChooser");
+        dlg.setStorageKey("FavoritePropertiesDialog.DirChooser");
         dlg.setVisible(true);
 
         if (dlg.isAccepted()) {

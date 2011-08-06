@@ -17,7 +17,6 @@ import javax.swing.event.ListSelectionListener;
 
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
-import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.resource.GUI;
 
@@ -39,7 +38,7 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
     }
 
     public PathSelectionDialog(Collection<Collection<String>> paths, Mode mode) {
-        super(GUI.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
+        super(GUI.getAppFrame(), true);
         if (paths == null) {
             throw new NullPointerException("paths == null");
         }

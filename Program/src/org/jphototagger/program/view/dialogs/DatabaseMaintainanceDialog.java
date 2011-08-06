@@ -17,7 +17,7 @@ public final class DatabaseMaintainanceDialog extends Dialog {
     public static final DatabaseMaintainanceDialog INSTANCE = new DatabaseMaintainanceDialog();
 
     private DatabaseMaintainanceDialog() {
-        super(GUI.getAppFrame(), false, UserSettings.INSTANCE.getSettings(), null);
+        super(GUI.getAppFrame(), false);
         initComponents();
         setHelpPage();
         TabbedPaneUtil.setMnemonics(tabbedPane);

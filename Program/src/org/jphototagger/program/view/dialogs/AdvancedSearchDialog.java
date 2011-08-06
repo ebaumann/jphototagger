@@ -1,7 +1,6 @@
 package org.jphototagger.program.view.dialogs;
 
 import org.jphototagger.lib.dialog.Dialog;
-import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.AdvancedSearchPanel;
 
@@ -16,7 +15,7 @@ public final class AdvancedSearchDialog extends Dialog
     private static final long serialVersionUID = -7381253840654600441L;
 
     private AdvancedSearchDialog(boolean modal) {
-        super(GUI.getAppFrame(), modal, UserSettings.INSTANCE.getSettings(), null);
+        super(GUI.getAppFrame(), modal);
         initComponents();
         panel.addNameListener(this);
         setHelpContentsUrl("/org/jphototagger/program/resource/doc/de/contents.xml");

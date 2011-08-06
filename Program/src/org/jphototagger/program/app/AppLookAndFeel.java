@@ -3,7 +3,6 @@ package org.jphototagger.program.app;
 import org.jphototagger.lib.componentutil.LookAndFeelUtil;
 import org.jphototagger.lib.dialog.HelpBrowser;
 import org.jphototagger.lib.image.util.IconUtil;
-import org.jphototagger.program.UserSettings;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
@@ -162,7 +161,6 @@ public final class AppLookAndFeel {
 
     private static void setHelp() {
         HelpBrowser.INSTANCE.setIconImages(getAppIcons());
-        HelpBrowser.INSTANCE.setSettings(UserSettings.INSTANCE.getSettings(), null);
     }
 
     private static void setUiColors() {

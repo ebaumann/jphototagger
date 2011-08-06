@@ -24,7 +24,7 @@ public class InputHelperDialog extends Dialog {
     private static final String KEY_TREE_MISC_XMP = "InputHelperDialog.TreeMiscXmpMetadata";
 
     public InputHelperDialog() {
-        super(GUI.getAppFrame(), false, UserSettings.INSTANCE.getSettings(), null);
+        super(GUI.getAppFrame(), false);
         initComponents();
         postInitComponents();
         TabbedPaneUtil.setMnemonics(tabbedPane);

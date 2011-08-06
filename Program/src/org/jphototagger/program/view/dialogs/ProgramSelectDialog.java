@@ -6,7 +6,6 @@ import java.util.ResourceBundle;
 
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
-import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.program.database.DatabasePrograms.Type;
 import org.jphototagger.program.model.ListModelPrograms;
@@ -26,7 +25,7 @@ public class ProgramSelectDialog extends Dialog {
     private boolean accepted;
 
     public ProgramSelectDialog(Type type) {
-        super(GUI.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
+        super(GUI.getAppFrame(), true);
 
         if (type == null) {
             throw new NullPointerException("type == null");

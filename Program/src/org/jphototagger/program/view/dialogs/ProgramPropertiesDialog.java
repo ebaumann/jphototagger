@@ -50,7 +50,7 @@ public final class ProgramPropertiesDialog extends Dialog {
     private static final Color BG_COLOR_LABEL_FILE_NOT_EXISTS = Color.RED;
 
     public ProgramPropertiesDialog(boolean action) {
-        super(GUI.getAppFrame(), true, SETTINGS, null);
+        super(GUI.getAppFrame(), true);
         this.action = action;
         program.setAction(action);
         initComponents();

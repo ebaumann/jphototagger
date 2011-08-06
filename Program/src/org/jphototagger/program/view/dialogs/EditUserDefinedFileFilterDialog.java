@@ -7,7 +7,6 @@ import org.jphototagger.lib.beansbinding.MaxLengthValidator;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.UserSettings;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.database.DatabaseUserDefinedFileFilters;
 import org.jphototagger.program.model.ComboBoxModelUserDefinedFileFilterType;
@@ -20,18 +19,19 @@ import org.jphototagger.program.view.renderer.ListCellRendererUserDefinedFileFil
  * @author Elmar Baumann
  */
 public class EditUserDefinedFileFilterDialog extends Dialog {
+
     private static final long serialVersionUID = 9122178822987764160L;
     private boolean accepted;
     private final UserDefinedFileFilter udf = new UserDefinedFileFilter();
 
     public EditUserDefinedFileFilterDialog() {
-        super(GUI.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
+        super(GUI.getAppFrame(), true);
         initComponents();
         postInitComponents();
     }
 
     public EditUserDefinedFileFilterDialog(UserDefinedFileFilter filter) {
-        super(GUI.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
+        super(GUI.getAppFrame(), true);
         if (filter == null) {
             throw new NullPointerException("filter == null");
         }
@@ -214,14 +214,16 @@ public class EditUserDefinedFileFilterDialog extends Dialog {
     }//GEN-LAST:event_buttonCancelActionPerformed
 
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 EditUserDefinedFileFilterDialog dialog = new EditUserDefinedFileFilterDialog();
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
@@ -231,7 +233,6 @@ public class EditUserDefinedFileFilterDialog extends Dialog {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCancel;
     private javax.swing.JButton buttonOk;
@@ -243,5 +244,4 @@ public class EditUserDefinedFileFilterDialog extends Dialog {
     private javax.swing.JTextField textFieldName;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
-
 }

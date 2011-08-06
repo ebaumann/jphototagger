@@ -48,7 +48,7 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
     private final transient FileSystemListenerSupport ls = new FileSystemListenerSupport();
 
     public MoveToDirectoryDialog() {
-        super(GUI.getAppFrame(), false, UserSettings.INSTANCE.getSettings(), null);
+        super(GUI.getAppFrame(), false);
         initComponents();
         setHelpPage();
         MnemonicUtil.setMnemonics((Container) this);
@@ -147,7 +147,7 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
         List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(UserSettings.KEY_HIDE_ROOT_FILES_FROM_DIRECTORIES_TAB);
         DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), targetDirectory, hideRootFiles, UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
 
-        dlg.setSettings(UserSettings.INSTANCE.getSettings(), "MoveToDirectoriesDialog.DirChooser");
+        dlg.setStorageKey("MoveToDirectoriesDialog.DirChooser");
         dlg.setVisible(true);
 
         if (dlg.isAccepted()) {

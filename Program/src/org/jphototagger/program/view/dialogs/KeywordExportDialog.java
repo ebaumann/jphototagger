@@ -29,7 +29,7 @@ public class KeywordExportDialog extends Dialog {
     private static final String KEY_SEL_EXPORTER_INDEX = "KeywordExportDialog.SelectedExporterIndex";
 
     public KeywordExportDialog() {
-        super(GUI.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
+        super(GUI.getAppFrame(), true);
         initComponents();
         setHelpPage();
         MnemonicUtil.setMnemonics((Container) this);
@@ -312,11 +312,13 @@ public class KeywordExportDialog extends Dialog {
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 KeywordExportDialog dialog = new KeywordExportDialog();
 
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
@@ -326,7 +328,6 @@ public class KeywordExportDialog extends Dialog {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCancel;
     private javax.swing.JButton buttonChooseFile;

@@ -41,7 +41,7 @@ public class ImportImageFilesDialog extends Dialog {
     private boolean listenToCheckBox = true;
 
     public ImportImageFilesDialog() {
-        super(GUI.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
+        super(GUI.getAppFrame(), true);
         initComponents();
         setHelpPage();
         init();
@@ -226,8 +226,7 @@ public class ImportImageFilesDialog extends Dialog {
         Option showHiddenDirs = UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs();
         DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), startDir, showHiddenDirs);
 
-        dlg.setSettings(UserSettings.INSTANCE.getSettings(), null);
-        dlg.setSettings(UserSettings.INSTANCE.getSettings(), "ImportImageFilesDialog.DirChooser");
+        dlg.setStorageKey("ImportImageFilesDialog.DirChooser");
         dlg.setVisible(true);
 
         return dlg.isAccepted()

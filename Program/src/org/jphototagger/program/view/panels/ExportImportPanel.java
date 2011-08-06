@@ -139,7 +139,7 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
         Option showHiddenDirs = UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs();
         DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), new File(""), showHiddenDirs);
 
-        dlg.setSettings(UserSettings.INSTANCE.getSettings(), "ExportImportPanel.DirChooser");
+        dlg.setStorageKey("ExportImportPanel.DirChooser");
         dlg.setVisible(true);
 
         if (dlg.isAccepted()) {

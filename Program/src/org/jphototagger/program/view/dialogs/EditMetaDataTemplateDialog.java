@@ -7,7 +7,6 @@ import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.UserSettings;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.database.DatabaseMetadataTemplates;
 import org.jphototagger.program.view.ViewUtil;
@@ -28,7 +27,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
     private transient Xmp xmp = new Xmp();
 
     public EditMetaDataTemplateDialog() {
-        super(InputHelperDialog.INSTANCE, true, UserSettings.INSTANCE.getSettings(), null);
+        super(InputHelperDialog.INSTANCE, true);
         initComponents();
         setMnemonics();
     }

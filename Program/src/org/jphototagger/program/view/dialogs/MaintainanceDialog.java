@@ -8,7 +8,6 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JTabbedPane;
 import javax.swing.WindowConstants;
 import org.jphototagger.lib.dialog.Dialog;
-import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.MaintainanceCachesPanel;
 
@@ -21,7 +20,7 @@ public class MaintainanceDialog extends Dialog {
     private static final long serialVersionUID = 1L;
 
     public MaintainanceDialog() {
-        super(GUI.getAppFrame(), true, UserSettings.INSTANCE.getSettings(), null);
+        super(GUI.getAppFrame(), true);
         initComponents();
     }
 
