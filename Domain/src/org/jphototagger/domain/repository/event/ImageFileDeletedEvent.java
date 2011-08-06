@@ -1,4 +1,4 @@
-package org.jphototagger.domain.event;
+package org.jphototagger.domain.repository.event;
 
 import java.io.File;
 
@@ -7,12 +7,12 @@ import java.io.File;
  *
  * @author Elmar Baumann
  */
-public final class ImageFileRemovedEvent {
+public final class ImageFileDeletedEvent {
 
     private final Object source;
     private final File imageFile;
 
-    public ImageFileRemovedEvent(Object source, File imageFile) {
+    public ImageFileDeletedEvent(Object source, File imageFile) {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }

@@ -40,13 +40,20 @@ import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopSource;
 import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopState;
 import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopTransmissionReference;
 import org.jphototagger.domain.database.xmp.ColumnXmpRating;
-import org.jphototagger.domain.event.ImageFileAddedEvent;
-import org.jphototagger.domain.event.ImageFileMovedEvent;
-import org.jphototagger.domain.event.ImageFileRemovedEvent;
-import org.jphototagger.domain.event.listener.DatabaseImageFilesListener;
-import org.jphototagger.domain.event.listener.impl.ListenerSupport;
+import org.jphototagger.domain.repository.event.ImageFileInsertedEvent;
+import org.jphototagger.domain.repository.event.ImageFileMovedEvent;
+import org.jphototagger.domain.repository.event.ImageFileDeletedEvent;
 import org.jphototagger.domain.exif.Exif;
 import org.jphototagger.domain.image.ImageFile;
+import org.jphototagger.domain.repository.event.DcSubjectDeletedEvent;
+import org.jphototagger.domain.repository.event.DcSubjectInsertedEvent;
+import org.jphototagger.domain.repository.event.ExifDeletedEvent;
+import org.jphototagger.domain.repository.event.ExifInsertedEvent;
+import org.jphototagger.domain.repository.event.ExifUpdatedEvent;
+import org.jphototagger.domain.repository.event.ThumbnailUpdatedEvent;
+import org.jphototagger.domain.repository.event.XmpDeletedEvent;
+import org.jphototagger.domain.repository.event.XmpInsertedEvent;
+import org.jphototagger.domain.repository.event.XmpUpdatedEvent;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.event.ProgressEvent;
 import org.jphototagger.lib.event.listener.ProgressListener;
@@ -66,7 +73,6 @@ import org.jphototagger.xmp.XmpMetadata;
  */
 public final class DatabaseImageFiles extends Database {
     public static final DatabaseImageFiles INSTANCE = new DatabaseImageFiles();
-    private final ListenerSupport<DatabaseImageFilesListener> ls = new ListenerSupport<DatabaseImageFilesListener>();
 
     public enum DcSubjectOption { INCLUDE_SYNONYMS }
 
@@ -2771,94 +2777,51 @@ public final class DatabaseImageFiles extends Database {
         return exists;
     }
 
-    public void addListener(DatabaseImageFilesListener listener) {
-        if (listener == null) {
-            throw new NullPointerException("listener == null");
-        }
-
-        ls.add(listener);
-    }
-
-    public void removeListener(DatabaseImageFilesListener listener) {
-        if (listener == null) {
-            throw new NullPointerException("listener == null");
-        }
-
-        ls.remove(listener);
-    }
-
     void notifyImageFileDeleted(File imageFile) {
-        EventBus.publish(new ImageFileRemovedEvent(this, imageFile));
-        for (DatabaseImageFilesListener listener : ls.get()) {
-            listener.imageFileDeleted(imageFile);
-        }
+        EventBus.publish(new ImageFileDeletedEvent(this, imageFile));
     }
 
     private void notifyImageFileInserted(File imageFile) {
-        EventBus.publish(new ImageFileAddedEvent(this, imageFile));
-        for (DatabaseImageFilesListener listener : ls.get()) {
-            listener.imageFileInserted(imageFile);
-        }
+        EventBus.publish(new ImageFileInsertedEvent(this, imageFile));
     }
 
     private void notifyImageFileRenamed(File oldFile, File newFile) {
         EventBus.publish(new ImageFileMovedEvent(this, oldFile, newFile));
-        for (DatabaseImageFilesListener listener : ls.get()) {
-            listener.imageFileRenamed(oldFile, newFile);
-        }
     }
 
     private void notifyXmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp) {
-        for (DatabaseImageFilesListener listener : ls.get()) {
-            listener.xmpUpdated(imageFile, oldXmp, updatedXmp);
-        }
+        EventBus.publish(new XmpUpdatedEvent(this, imageFile, oldXmp, updatedXmp));
     }
 
     private void notifyXmpInserted(File imageFile, Xmp xmp) {
-        for (DatabaseImageFilesListener listener : ls.get()) {
-            listener.xmpInserted(imageFile, xmp);
-        }
+        EventBus.publish(new XmpInsertedEvent(this, imageFile, xmp));
     }
 
     private void notifyXmpDeleted(File imageFile, Xmp xmp) {
-        for (DatabaseImageFilesListener listener : ls.get()) {
-            listener.xmpDeleted(imageFile, xmp);
-        }
+        EventBus.publish(new XmpDeletedEvent(this, imageFile, xmp));
     }
 
     private void notifyExifUpdated(File imageFile, Exif oldExif, Exif updatedExif) {
-        for (DatabaseImageFilesListener listener : ls.get()) {
-            listener.exifUpdated(imageFile, oldExif, updatedExif);
-        }
+        EventBus.publish(new ExifUpdatedEvent(this, imageFile, oldExif, updatedExif));
     }
 
     private void notifyExifInserted(File imageFile, Exif eExif) {
-        for (DatabaseImageFilesListener listener : ls.get()) {
-            listener.exifInserted(imageFile, eExif);
-        }
+        EventBus.publish(new ExifInsertedEvent(this, imageFile, eExif));
     }
 
-    private void notifyExifDeleted(File imageFile, Exif eExif) {
-        for (DatabaseImageFilesListener listener : ls.get()) {
-            listener.exifDeleted(imageFile, eExif);
-        }
+    private void notifyExifDeleted(File imageFile, Exif exif) {
+        EventBus.publish(new ExifDeletedEvent(exif, imageFile, exif));
     }
 
     private void notifyThumbnailUpdated(File imageFile) {
-        for (DatabaseImageFilesListener listener : ls.get()) {
-            listener.thumbnailUpdated(imageFile);
-        }
+        EventBus.publish(new ThumbnailUpdatedEvent(this, imageFile));
     }
 
     private void notifyDcSubjectInserted(String dcSubject) {
-        for (DatabaseImageFilesListener listener : ls.get()) {
-            listener.dcSubjectInserted(dcSubject);
-        }
+        EventBus.publish(new DcSubjectInsertedEvent(this, dcSubject));
     }
 
     private void notifyDcSubjectDeleted(String dcSubject) {
-        for (DatabaseImageFilesListener listener : ls.get()) {
-            listener.dcSubjectDeleted(dcSubject);
-        }
+        EventBus.publish(new DcSubjectDeletedEvent(this, dcSubject));
     }
 }

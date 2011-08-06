@@ -1,31 +1,38 @@
 package org.jphototagger.program.model;
 
-import org.jphototagger.domain.exif.Exif;
-import org.jphototagger.domain.xmp.Xmp;
-import org.jphototagger.program.database.ConnectionPool;
-import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.program.database.DatabaseStatistics;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
-import org.jphototagger.domain.event.listener.DatabaseImageFilesListener;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+
 import javax.swing.DefaultListModel;
+
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.domain.repository.event.DcSubjectDeletedEvent;
+import org.jphototagger.domain.repository.event.DcSubjectInsertedEvent;
+import org.jphototagger.domain.repository.event.XmpDeletedEvent;
+import org.jphototagger.domain.repository.event.XmpInsertedEvent;
+import org.jphototagger.domain.repository.event.XmpUpdatedEvent;
+import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.program.database.ConnectionPool;
+import org.jphototagger.program.database.DatabaseImageFiles;
+import org.jphototagger.program.database.DatabaseStatistics;
 
 /**
  *
  * @author Elmar Baumann
  */
-public final class ListModelKeywords extends DefaultListModel implements DatabaseImageFilesListener {
+public final class ListModelKeywords extends DefaultListModel {
+
     private static final long serialVersionUID = -9181622876402951455L;
 
     public ListModelKeywords() {
         addElements();
-        DatabaseImageFiles.INSTANCE.addListener(this);
+        AnnotationProcessor.process(this);
     }
 
     private void addElements() {
@@ -50,7 +57,7 @@ public final class ListModelKeywords extends DefaultListModel implements Databas
 
     private void removeKeywordsNotInDb(Collection<? extends String> keywords) {
         for (String keyword : keywords) {
-            if (contains(keyword) &&!databaseHasKeyword(keyword)) {
+            if (contains(keyword) && !databaseHasKeyword(keyword)) {
                 removeElement(keyword);
             }
         }
@@ -71,96 +78,59 @@ public final class ListModelKeywords extends DefaultListModel implements Databas
         return keywords;
     }
 
-    @Override
-    public void xmpInserted(File imageFile, final Xmp xmp) {
+    @EventSubscriber(eventClass = XmpInsertedEvent.class)
+    public void xmpInserted(final XmpInsertedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                addNewKeywords(getKeywords(xmp));
+                addNewKeywords(getKeywords(evt.getXmp()));
             }
         });
     }
 
-    @Override
-    public void xmpDeleted(File imageFile, final Xmp xmp) {
+    @EventSubscriber(eventClass = XmpDeletedEvent.class)
+    public void xmpDeleted(final XmpDeletedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                removeKeywordsNotInDb(getKeywords(xmp));
+                removeKeywordsNotInDb(getKeywords(evt.getXmp()));
             }
         });
     }
 
-    @Override
-    public void xmpUpdated(File imageFile, final Xmp oldXmp, final Xmp updatedXmp) {
+    @EventSubscriber(eventClass = XmpUpdatedEvent.class)
+    public void xmpUpdated(final XmpUpdatedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                addNewKeywords(getKeywords(updatedXmp));
-                removeKeywordsNotInDb(getKeywords(oldXmp));
+                addNewKeywords(getKeywords(evt.getUpdatedXmp()));
+                removeKeywordsNotInDb(getKeywords(evt.getOldXmp()));
             }
         });
     }
 
-    @Override
-    public void dcSubjectDeleted(final String dcSubject) {
+    @EventSubscriber(eventClass = DcSubjectDeletedEvent.class)
+    public void dcSubjectDeleted(final DcSubjectDeletedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                removeKeywordsNotInDb(Collections.singleton(dcSubject));
+                removeKeywordsNotInDb(Collections.singleton(evt.getDcSubject()));
             }
         });
     }
 
-    @Override
-    public void dcSubjectInserted(final String dcSubject) {
+    @EventSubscriber(eventClass = DcSubjectInsertedEvent.class)
+    public void dcSubjectInserted(final DcSubjectInsertedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                addNewKeywords(Collections.singleton(dcSubject));
+                addNewKeywords(Collections.singleton(evt.getDcSubject()));
             }
         });
-    }
-
-    @Override
-    public void imageFileDeleted(File imageFile) {
-
-        // ignore
-    }
-
-    @Override
-    public void imageFileInserted(File imageFile) {
-
-        // ignore
-    }
-
-    @Override
-    public void exifInserted(File imageFile, Exif exif) {
-
-        // ignore
-    }
-
-    @Override
-    public void exifDeleted(File imageFile, Exif exif) {
-
-        // ignore
-    }
-
-    @Override
-    public void exifUpdated(File imageFile, Exif oldExif, Exif updatedExif) {
-
-        // ignore
-    }
-
-    @Override
-    public void thumbnailUpdated(File imageFile) {
-
-        // ignore
-    }
-
-    @Override
-    public void imageFileRenamed(File oldImageFile, File newImageFile) {
-
-        // ignore
     }
 }

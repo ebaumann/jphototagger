@@ -1,17 +1,25 @@
 package org.jphototagger.program.model;
 
-import org.jphototagger.lib.model.TreeModelUpdateInfo;
-import org.jphototagger.domain.exif.Exif;
-import org.jphototagger.program.data.Timeline;
-import org.jphototagger.program.data.Timeline.Date;
-import org.jphototagger.domain.xmp.Xmp;
-import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.domain.database.xmp.ColumnXmpIptc4XmpCoreDateCreated;
-import org.jphototagger.domain.event.listener.DatabaseImageFilesListener;
-import java.io.File;
+
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.domain.database.xmp.ColumnXmpIptc4XmpCoreDateCreated;
+import org.jphototagger.domain.exif.Exif;
+import org.jphototagger.domain.repository.event.ExifDeletedEvent;
+import org.jphototagger.domain.repository.event.ExifInsertedEvent;
+import org.jphototagger.domain.repository.event.ExifUpdatedEvent;
+import org.jphototagger.domain.repository.event.XmpDeletedEvent;
+import org.jphototagger.domain.repository.event.XmpInsertedEvent;
+import org.jphototagger.domain.repository.event.XmpUpdatedEvent;
+import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.model.TreeModelUpdateInfo;
+import org.jphototagger.program.data.Timeline;
+import org.jphototagger.program.data.Timeline.Date;
+import org.jphototagger.program.database.DatabaseImageFiles;
 
 /**
  *
@@ -28,7 +36,8 @@ import org.jphototagger.lib.awt.EventQueueUtil;
  *
  * @author Elmar Baumann
  */
-public final class TreeModelTimeline extends DefaultTreeModel implements DatabaseImageFilesListener {
+public final class TreeModelTimeline extends DefaultTreeModel {
+
     private static final long serialVersionUID = 3932797263824188655L;
     private final transient Timeline timeline;
 
@@ -40,14 +49,14 @@ public final class TreeModelTimeline extends DefaultTreeModel implements Databas
     }
 
     private void listen() {
-        DatabaseImageFiles.INSTANCE.addListener(this);
+        AnnotationProcessor.process(this);
     }
 
     private void checkDeleted(Xmp xmp) {
         Object o = xmp.getValue(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE);
         String xmpDate = (o == null)
-                         ? null
-                         : (String) xmp.getValue(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE);
+                ? null
+                : (String) xmp.getValue(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE);
         boolean xmpDateExists = (xmpDate != null) && DatabaseImageFiles.INSTANCE.existsXMPDateCreated(xmpDate);
 
         if (!xmpDateExists && (xmpDate != null)) {
@@ -55,7 +64,7 @@ public final class TreeModelTimeline extends DefaultTreeModel implements Databas
 
             date.setXmpDateCreated(xmpDate);
 
-            if (date.isValid() &&!DatabaseImageFiles.INSTANCE.existsXMPDateCreated(xmpDate)) {
+            if (date.isValid() && !DatabaseImageFiles.INSTANCE.existsXMPDateCreated(xmpDate)) {
                 delete(date);
             }
         }
@@ -113,101 +122,71 @@ public final class TreeModelTimeline extends DefaultTreeModel implements Databas
         }
     }
 
-    @Override
-    public void xmpInserted(File imageFile, final Xmp xmp) {
+    @EventSubscriber(eventClass = XmpInsertedEvent.class)
+    public void xmpInserted(final XmpInsertedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                checkInserted(xmp);
+                checkInserted(evt.getXmp());
             }
         });
     }
 
-    @Override
-    public void xmpUpdated(File imageFile, final Xmp oldXmp, final Xmp updatedXmp) {
+    @EventSubscriber(eventClass = XmpUpdatedEvent.class)
+    public void xmpUpdated(final XmpUpdatedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                checkDeleted(oldXmp);
-                checkInserted(updatedXmp);
+                checkDeleted(evt.getOldXmp());
+                checkInserted(evt.getUpdatedXmp());
             }
         });
     }
 
-    @Override
-    public void xmpDeleted(File imageFile, final Xmp xmp) {
+    @EventSubscriber(eventClass = XmpDeletedEvent.class)
+    public void xmpDeleted(final XmpDeletedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                checkDeleted(xmp);
+                checkDeleted(evt.getXmp());
             }
         });
     }
 
-    @Override
-    public void exifInserted(File imageFile, final Exif exif) {
+    @EventSubscriber(eventClass = ExifInsertedEvent.class)
+    public void exifInserted(final ExifInsertedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                checkInserted(exif);
+                checkInserted(evt.getExif());
             }
         });
     }
 
-    @Override
-    public void exifUpdated(File imageFile, final Exif oldExif, final Exif updatedExif) {
+    @EventSubscriber(eventClass = ExifUpdatedEvent.class)
+    public void exifUpdated(final ExifUpdatedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                checkDeleted(oldExif);
-                checkInserted(updatedExif);
+                checkDeleted(evt.getOldExif());
+                checkInserted(evt.getUpdatedExif());
             }
         });
     }
 
-    @Override
-    public void exifDeleted(File imageFile, final Exif exif) {
+    @EventSubscriber(eventClass = ExifDeletedEvent.class)
+    public void exifDeleted(final ExifDeletedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                checkDeleted(exif);
+                checkDeleted(evt.getExif());
             }
         });
-    }
-
-    @Override
-    public void imageFileDeleted(File imageFile) {
-
-        // ignore
-    }
-
-    @Override
-    public void imageFileInserted(File imageFile) {
-
-        // ignore
-    }
-
-    @Override
-    public void imageFileRenamed(File oldImageFile, File newImageFile) {
-
-        // ignore
-    }
-
-    @Override
-    public void thumbnailUpdated(File imageFile) {
-
-        // ignore
-    }
-
-    @Override
-    public void dcSubjectDeleted(String dcSubject) {
-
-        // ignore
-    }
-
-    @Override
-    public void dcSubjectInserted(String dcSubject) {
-
-        // ignore
     }
 }

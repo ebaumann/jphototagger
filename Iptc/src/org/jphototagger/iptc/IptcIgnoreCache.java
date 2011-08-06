@@ -8,8 +8,8 @@ import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.core.CacheDirectoryProvider;
 import org.jphototagger.api.core.UserProperties;
-import org.jphototagger.domain.event.ImageFileMovedEvent;
-import org.jphototagger.domain.event.ImageFileRemovedEvent;
+import org.jphototagger.domain.repository.event.ImageFileMovedEvent;
+import org.jphototagger.domain.repository.event.ImageFileDeletedEvent;
 import org.jphototagger.lib.io.FileUtil;
 import org.openide.util.Lookup;
 
@@ -163,8 +163,8 @@ public final class IptcIgnoreCache {
         }
     }
 
-    @EventSubscriber(eventClass = ImageFileRemovedEvent.class)
-    public void imageFileRemoved(ImageFileRemovedEvent event) {
+    @EventSubscriber(eventClass = ImageFileDeletedEvent.class)
+    public void imageFileRemoved(ImageFileDeletedEvent event) {
         File deletedImageFile = event.getImageFile();
         File cacheFile = getCacheFile(deletedImageFile);
 

@@ -13,10 +13,13 @@ import java.util.StringTokenizer;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.domain.database.Column;
 import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
-import org.jphototagger.domain.event.listener.DatabaseImageFilesListener;
-import org.jphototagger.domain.exif.Exif;
+import org.jphototagger.domain.repository.event.XmpDeletedEvent;
+import org.jphototagger.domain.repository.event.XmpInsertedEvent;
+import org.jphototagger.domain.repository.event.XmpUpdatedEvent;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.Autocomplete;
@@ -42,7 +45,8 @@ import org.jphototagger.program.view.WaitDisplay;
  *
  * @author Elmar Baumann
  */
-public final class ControllerFastSearch implements ActionListener, RefreshListener, DatabaseImageFilesListener {
+public final class ControllerFastSearch implements ActionListener, RefreshListener {
+
     private static final String DELIMITER_SEARCH_WORDS = ";";
     private final Autocomplete autocomplete;
     private boolean isAutocomplete;
@@ -68,8 +72,9 @@ public final class ControllerFastSearch implements ActionListener, RefreshListen
     }
 
     private void listen() {
-        DatabaseImageFiles.INSTANCE.addListener(this);
+        AnnotationProcessor.process(this);
         GUI.getSearchTextArea().addKeyListener(new KeyAdapter() {
+
             @Override
             public void keyReleased(KeyEvent evt) {
                 if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -108,11 +113,12 @@ public final class ControllerFastSearch implements ActionListener, RefreshListen
     }
 
     private void decorateTextFieldSearch() {
-        if ((autocomplete == null) ||!UserSettings.INSTANCE.isAutocomplete()) {
+        if ((autocomplete == null) || !UserSettings.INSTANCE.isAutocomplete()) {
             return;
         }
 
         new Thread(new Runnable() {
+
             @Override
             public void run() {
                 autocomplete.decorate(GUI.getSearchTextArea(), isSearchAllDefinedColumns()
@@ -134,6 +140,7 @@ public final class ControllerFastSearch implements ActionListener, RefreshListen
 
     private void search(final String searchText) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 String userInput = searchText.trim();
@@ -156,7 +163,7 @@ public final class ControllerFastSearch implements ActionListener, RefreshListen
             }
 
             private void setTitle(String userInput) {
-                String title = Bundle.getString(ControllerFastSearch.class , "ControllerFastSearch.AppFrame.Title.FastSearch", userInput);
+                String title = Bundle.getString(ControllerFastSearch.class, "ControllerFastSearch.AppFrame.Title.FastSearch", userInput);
                 GUI.getAppFrame().setTitle(title);
             }
 
@@ -176,7 +183,7 @@ public final class ControllerFastSearch implements ActionListener, RefreshListen
                     if (searchWords.size() == 1) {
                         if (isKeywordSearch) {
                             return new ArrayList<File>(
-                                DatabaseImageFiles.INSTANCE.getImageFilesOfDcSubject(
+                                    DatabaseImageFiles.INSTANCE.getImageFilesOfDcSubject(
                                     searchWords.get(0), DatabaseImageFiles.DcSubjectOption.INCLUDE_SYNONYMS));
                         } else {
                             return DatabaseFind.INSTANCE.findImageFilesLikeOr(Arrays.asList(searchColumn), userInput);
@@ -184,7 +191,7 @@ public final class ControllerFastSearch implements ActionListener, RefreshListen
                     } else if (searchWords.size() > 1) {
                         if (isKeywordSearch) {
                             return new ArrayList<File>(
-                                DatabaseImageFiles.INSTANCE.getImageFilesOfAllDcSubjects(searchWords));
+                                    DatabaseImageFiles.INSTANCE.getImageFilesOfAllDcSubjects(searchWords));
                         } else {
                             return new ArrayList<File>(DatabaseImageFiles.INSTANCE.getImageFilesOfAll(searchColumn,
                                     searchWords));
@@ -253,84 +260,18 @@ public final class ControllerFastSearch implements ActionListener, RefreshListen
         return (autocomplete != null) && UserSettings.INSTANCE.isAutocomplete();
     }
 
-    @Override
-    public void xmpInserted(File imageFile, Xmp xmp) {
-        if (xmp == null) {
-            throw new NullPointerException("xmp == null");
-        }
-
-        addAutocompleteWordsOf(xmp);
+    @EventSubscriber(eventClass = XmpInsertedEvent.class)
+    public void xmpInserted(XmpInsertedEvent evt) {
+        addAutocompleteWordsOf(evt.getXmp());
     }
 
-    @Override
-    public void xmpDeleted(File imageFile, Xmp xmp) {
-        if (xmp == null) {
-            throw new NullPointerException("xmp == null");
-        }
-
-        addAutocompleteWordsOf(xmp);
+    @EventSubscriber(eventClass = XmpDeletedEvent.class)
+    public void xmpDeleted(XmpDeletedEvent evt) {
+        addAutocompleteWordsOf(evt.getXmp());
     }
 
-    @Override
-    public void xmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp) {
-        if (updatedXmp == null) {
-            throw new NullPointerException("updatedXmp == null");
-        }
-
-        addAutocompleteWordsOf(updatedXmp);
-    }
-
-    @Override
-    public void imageFileDeleted(File imageFile) {
-
-        // ignore
-    }
-
-    @Override
-    public void imageFileInserted(File imageFile) {
-
-        // ignore
-    }
-
-    @Override
-    public void exifInserted(File imageFile, Exif exif) {
-
-        // ignore
-    }
-
-    @Override
-    public void imageFileRenamed(File oldImageFile, File newImageFile) {
-
-        // ignore
-    }
-
-    @Override
-    public void exifDeleted(File imageFile, Exif exif) {
-
-        // ignore
-    }
-
-    @Override
-    public void exifUpdated(File imageFile, Exif oldExif, Exif updatedExif) {
-
-        // ignore
-    }
-
-    @Override
-    public void thumbnailUpdated(File imageFile) {
-
-        // ignore
-    }
-
-    @Override
-    public void dcSubjectDeleted(String dcSubject) {
-
-        // ignore
-    }
-
-    @Override
-    public void dcSubjectInserted(String dcSubject) {
-
-        // ignore
+    @EventSubscriber(eventClass = XmpUpdatedEvent.class)
+    public void xmpUpdated(XmpUpdatedEvent evt) {
+        addAutocompleteWordsOf(evt.getUpdatedXmp());
     }
 }

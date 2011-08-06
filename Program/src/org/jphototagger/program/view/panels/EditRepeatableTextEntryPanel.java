@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseListener;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -25,23 +24,25 @@ import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 import javax.swing.event.ListSelectionEvent;
 
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jdesktop.swingx.JXList;
 import org.jphototagger.domain.database.Column;
 import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
-import org.jphototagger.domain.event.listener.DatabaseImageFilesListener;
 import org.jphototagger.domain.event.listener.TextEntryListener;
 import org.jphototagger.domain.event.listener.impl.TextEntryListenerSupport;
-import org.jphototagger.domain.exif.Exif;
+import org.jphototagger.domain.repository.event.DcSubjectInsertedEvent;
+import org.jphototagger.domain.repository.event.XmpInsertedEvent;
+import org.jphototagger.domain.repository.event.XmpUpdatedEvent;
 import org.jphototagger.domain.text.TextEntry;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.componentutil.Autocomplete;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.ListUtil;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.UserSettings;
-import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.database.metadata.selections.AutoCompleteDataOfColumn;
 import org.jphototagger.program.helper.AutocompleteHelper;
 import org.jphototagger.program.types.Suggest;
@@ -56,7 +57,7 @@ import org.jphototagger.program.types.Suggest;
  * @author Elmar Baumann
  */
 public final class EditRepeatableTextEntryPanel extends JPanel
-        implements TextEntry, ActionListener, DocumentListener, ListDataListener, DatabaseImageFilesListener {
+        implements TextEntry, ActionListener, DocumentListener, ListDataListener {
     private static final long serialVersionUID = -5581799743101447535L;
     private String bundleKeyPosRenameDialog;
     private final DefaultListModel model = new DefaultListModel();
@@ -89,7 +90,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
         textAreaInput.setInputVerifier(column.getInputVerifier());
         textAreaInput.getDocument().addDocumentListener(this);
         model.addListDataListener(this);
-        DatabaseImageFiles.INSTANCE.addListener(this);
+        AnnotationProcessor.process(this);
         setPropmt();
         textAreaInput.setName("JPhotoTagger Text Area for " + column.getDescription());
     }
@@ -653,82 +654,20 @@ public final class EditRepeatableTextEntryPanel extends JPanel
         }
     }
 
-    @Override
-    public void xmpInserted(File imageFile, Xmp xmp) {
-        if (xmp == null) {
-            throw new NullPointerException("xmp == null");
-        }
-
-        addToAutocomplete(xmp);
+    @EventSubscriber(eventClass = XmpInsertedEvent.class)
+    public void xmpInserted(XmpInsertedEvent evt) {
+        addToAutocomplete(evt.getXmp());
     }
 
-    @Override
-    public void xmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp) {
-        if (updatedXmp == null) {
-            throw new NullPointerException("updatedXmp == null");
-        }
-
-        addToAutocomplete(updatedXmp);
+    @EventSubscriber(eventClass = XmpUpdatedEvent.class)
+    public void xmpUpdated(XmpUpdatedEvent evt) {
+        addToAutocomplete(evt.getUpdatedXmp());
     }
 
-    @Override
-    public void xmpDeleted(File imageFile, Xmp xmp) {
-
-        // ignore
-    }
-
-    @Override
-    public void exifDeleted(File imageFile, Exif exif) {
-
-        // ignore
-    }
-
-    @Override
-    public void imageFileDeleted(File imageFile) {
-
-        // ignore
-    }
-
-    @Override
-    public void imageFileInserted(File imageFile) {
-
-        // ignore
-    }
-
-    @Override
-    public void imageFileRenamed(File oldImageFile, File newImageFile) {
-
-        // ignore
-    }
-
-    @Override
-    public void exifInserted(File imageFile, Exif exif) {
-
-        // ignore
-    }
-
-    @Override
-    public void exifUpdated(File imageFile, Exif oldExif, Exif updatedExif) {
-
-        // ignore
-    }
-
-    @Override
-    public void thumbnailUpdated(File imageFile) {
-
-        // ignore
-    }
-
-    @Override
-    public void dcSubjectDeleted(String dcSubject) {
-
-        // ignore
-    }
-
-    @Override
-    public void dcSubjectInserted(String dcSubject) {
+    @EventSubscriber(eventClass = DcSubjectInsertedEvent.class)
+    public void dcSubjectInserted(DcSubjectInsertedEvent evt) {
         if (isAutocomplete()) {
-            AutocompleteHelper.addAutocompleteData(ColumnXmpDcSubjectsSubject.INSTANCE, autocomplete, Collections.singleton(dcSubject));
+            AutocompleteHelper.addAutocompleteData(ColumnXmpDcSubjectsSubject.INSTANCE, autocomplete, Collections.singleton(evt.getDcSubject()));
         }
     }
 

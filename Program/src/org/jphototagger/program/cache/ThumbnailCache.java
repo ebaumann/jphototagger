@@ -5,11 +5,14 @@ import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.domain.event.ThumbnailUpdateEvent;
-import org.jphototagger.domain.event.listener.DatabaseImageFilesListener;
 import org.jphototagger.domain.event.listener.ThumbnailUpdateListener;
-import org.jphototagger.domain.exif.Exif;
-import org.jphototagger.domain.xmp.Xmp;
+import org.jphototagger.domain.repository.event.ImageFileDeletedEvent;
+import org.jphototagger.domain.repository.event.ImageFileInsertedEvent;
+import org.jphototagger.domain.repository.event.ImageFileMovedEvent;
+import org.jphototagger.domain.repository.event.ThumbnailUpdatedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.lib.util.Bundle;
@@ -19,7 +22,7 @@ import org.jphototagger.program.database.DatabaseImageFiles;
  *
  * @author Martin Pohlack
  */
-public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection> implements DatabaseImageFilesListener {
+public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection> {
 
     public static final ThumbnailCache INSTANCE = new ThumbnailCache();
     private Image noPreviewThumbnail = IconUtil.getIconImage(Bundle.getString(ThumbnailCache.class, "ThumbnailCache.Path.NoPreviewThumbnail"));
@@ -27,98 +30,31 @@ public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection> imple
     private static final Logger LOGGER = Logger.getLogger(ThumbnailCache.class.getName());
 
     private ThumbnailCache() {
-        db.addListener(this);
+        AnnotationProcessor.process(this);
         new Thread(new ThumbnailFetcher(workQueue, this), "JPhotoTagger: ThumbnailFetcher").start();
     }
 
-    @Override
-    public void imageFileDeleted(File imageFile) {
-        if (imageFile == null) {
-            throw new NullPointerException("imageFile == null");
-        }
-
-        fileCache.remove(imageFile);
+    @EventSubscriber(eventClass = ImageFileDeletedEvent.class)
+    public void imageFileDeleted(ImageFileDeletedEvent evt) {
+        fileCache.remove(evt.getImageFile());
     }
 
-    @Override
-    public void imageFileInserted(File imageFile) {
-        if (imageFile == null) {
-            throw new NullPointerException("imageFile == null");
-        }
-
-        notifyUpdate(imageFile);
+    @EventSubscriber(eventClass = ImageFileInsertedEvent.class)
+    public void imageFileInserted(ImageFileInsertedEvent evt) {
+        notifyUpdate(evt.getImageFile());
     }
 
-    @Override
-    public void imageFileRenamed(File oldImageFile, File newImageFile) {
-        if (oldImageFile == null) {
-            throw new NullPointerException("oldImageFile == null");
-        }
-
-        if (newImageFile == null) {
-            throw new NullPointerException("newImageFile == null");
-        }
-
-        fileCache.remove(oldImageFile);
-        notifyUpdate(newImageFile);
+    @EventSubscriber(eventClass = ImageFileMovedEvent.class)
+    public void imageFileRenamed(ImageFileMovedEvent evt) {
+        fileCache.remove(evt.getOldImageFile());
+        notifyUpdate(evt.getNewImageFile());
     }
 
-    @Override
-    public void thumbnailUpdated(File imageFile) {
-        if (imageFile == null) {
-            throw new NullPointerException("imageFile == null");
-        }
-
+    @EventSubscriber(eventClass = ThumbnailUpdatedEvent.class)
+    public void thumbnailUpdated(ThumbnailUpdatedEvent evt) {
+        File imageFile = evt.getImageFile();
         fileCache.remove(imageFile);
         notifyUpdate(imageFile);
-    }
-
-    @Override
-    public void xmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp) {
-
-        // ignore
-    }
-
-    @Override
-    public void xmpDeleted(File imageFile, Xmp xmp) {
-
-        // ignore
-    }
-
-    @Override
-    public void exifUpdated(File imageFile, Exif oldExif, Exif updatedExif) {
-
-        // ignore
-    }
-
-    @Override
-    public void dcSubjectDeleted(String dcSubject) {
-
-        // ignore
-    }
-
-    @Override
-    public void dcSubjectInserted(String dcSubject) {
-
-        // ignore
-    }
-
-    @Override
-    public void xmpInserted(File imageFile, Xmp xmp) {
-
-        // ignore
-    }
-
-    @Override
-    public void exifInserted(File imageFile, Exif exif) {
-
-        // ignore
-    }
-
-    @Override
-    public void exifDeleted(File imageFile, Exif exif) {
-
-        // ignore
     }
 
     /**
@@ -166,6 +102,7 @@ public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection> imple
         ci.thumbnail = image;
         fileCache.maybeCleanupCache();
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 notifyUpdate(file);
@@ -201,6 +138,7 @@ public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection> imple
     }
 
     private static class ThumbnailFetcher implements Runnable {
+
         private final ThumbnailCache cache;
         private WorkQueue<ThumbnailCacheIndirection> wq;
 

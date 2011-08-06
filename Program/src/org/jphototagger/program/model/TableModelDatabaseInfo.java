@@ -1,18 +1,24 @@
 package org.jphototagger.program.model;
 
-import java.io.File;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
 
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.domain.database.Column;
-import org.jphototagger.domain.event.listener.DatabaseImageFilesListener;
-import org.jphototagger.domain.exif.Exif;
-import org.jphototagger.domain.xmp.Xmp;
+import org.jphototagger.domain.repository.event.DcSubjectDeletedEvent;
+import org.jphototagger.domain.repository.event.DcSubjectInsertedEvent;
+import org.jphototagger.domain.repository.event.ExifDeletedEvent;
+import org.jphototagger.domain.repository.event.ExifInsertedEvent;
+import org.jphototagger.domain.repository.event.ExifUpdatedEvent;
+import org.jphototagger.domain.repository.event.ImageFileDeletedEvent;
+import org.jphototagger.domain.repository.event.ImageFileInsertedEvent;
+import org.jphototagger.domain.repository.event.XmpDeletedEvent;
+import org.jphototagger.domain.repository.event.XmpUpdatedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.model.TableModelExt;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.database.DatabaseStatistics;
 import org.jphototagger.program.database.metadata.selections.DatabaseInfoRecordCountColumns;
 
@@ -26,7 +32,8 @@ import org.jphototagger.program.database.metadata.selections.DatabaseInfoRecordC
  *
  * @author Elmar Baumann, Tobias Stening
  */
-public final class TableModelDatabaseInfo extends TableModelExt implements DatabaseImageFilesListener {
+public final class TableModelDatabaseInfo extends TableModelExt {
+
     private static final long serialVersionUID = 1974343527501774916L;
     private final LinkedHashMap<Column, StringBuffer> bufferOfColumn = new LinkedHashMap<Column, StringBuffer>();
     private boolean listenToDatabase;
@@ -35,7 +42,7 @@ public final class TableModelDatabaseInfo extends TableModelExt implements Datab
         initBufferOfColumn();
         addColumnHeaders();
         addRows();
-        DatabaseImageFiles.INSTANCE.addListener(this);
+        AnnotationProcessor.process(this);
     }
 
     private void initBufferOfColumn() {
@@ -75,73 +82,56 @@ public final class TableModelDatabaseInfo extends TableModelExt implements Datab
     }
 
     private Object[] getRow(Column rowHeader, StringBuffer bufferDifferent) {
-        return new Object[] { rowHeader, bufferDifferent };
+        return new Object[]{rowHeader, bufferDifferent};
     }
 
     private void setCount() {
         new SetCountThread().start();
     }
 
-    @Override
-    public void imageFileDeleted(File imageFile) {
+    @EventSubscriber(eventClass = ImageFileDeletedEvent.class)
+    public void imageFileDeleted(ImageFileDeletedEvent evt) {
         update();
     }
 
-    @Override
-    public void imageFileInserted(File imageFile) {
+    @EventSubscriber(eventClass = ImageFileInsertedEvent.class)
+    public void imageFileInserted(ImageFileInsertedEvent evt) {
         update();
     }
 
-    @Override
-    public void xmpUpdated(File imageFile, Xmp oldXmp, Xmp updatedXmp) {
+    @EventSubscriber(eventClass = XmpUpdatedEvent.class)
+    public void xmpUpdated(XmpUpdatedEvent evt) {
         update();
     }
 
-    @Override
-    public void dcSubjectDeleted(String dcSubject) {
+    @EventSubscriber(eventClass = DcSubjectDeletedEvent.class)
+    public void dcSubjectDeleted(DcSubjectDeletedEvent evt) {
         update();
     }
 
-    @Override
-    public void dcSubjectInserted(String dcSubject) {
+    @EventSubscriber(eventClass = DcSubjectInsertedEvent.class)
+    public void dcSubjectInserted(DcSubjectInsertedEvent evt) {
         update();
     }
 
-    @Override
-    public void xmpInserted(File imageFile, Xmp xmp) {
+    @EventSubscriber(eventClass = XmpDeletedEvent.class)
+    public void xmpDeleted(XmpDeletedEvent evt) {
         update();
     }
 
-    @Override
-    public void xmpDeleted(File imageFile, Xmp xmp) {
+    @EventSubscriber(eventClass = ExifInsertedEvent.class)
+    public void exifInserted(ExifInsertedEvent evt) {
         update();
     }
 
-    @Override
-    public void exifInserted(File imageFile, Exif exif) {
+    @EventSubscriber(eventClass = ExifUpdatedEvent.class)
+    public void exifUpdated(ExifUpdatedEvent evt) {
         update();
     }
 
-    @Override
-    public void exifUpdated(File imageFile, Exif oldExif, Exif updatedExif) {
+    @EventSubscriber(eventClass = ExifDeletedEvent.class)
+    public void exifDeleted(ExifDeletedEvent evt) {
         update();
-    }
-
-    @Override
-    public void exifDeleted(File imageFile, Exif exif) {
-        update();
-    }
-
-    @Override
-    public void imageFileRenamed(File oldImageFile, File newImageFile) {
-
-        // ignore
-    }
-
-    @Override
-    public void thumbnailUpdated(File imageFile) {
-
-        // ignore
     }
 
     private void setCountToBuffer(StringBuffer buffer, Integer count) {
@@ -149,6 +139,7 @@ public final class TableModelDatabaseInfo extends TableModelExt implements Datab
     }
 
     private class SetCountThread extends Thread {
+
         SetCountThread() {
             super("JPhotoTagger: Setting count in database info");
             setPriority(MIN_PRIORITY);
@@ -161,6 +152,7 @@ public final class TableModelDatabaseInfo extends TableModelExt implements Datab
             }
 
             EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
                 @Override
                 public void run() {
                     fireTableDataChanged();
