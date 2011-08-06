@@ -10,8 +10,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.domain.event.listener.DatabaseFileExcludePatternsListener;
-import org.jphototagger.domain.event.listener.impl.ListenerSupport;
+import org.bushe.swing.event.EventBus;
+import org.jphototagger.domain.repository.event.FileExcludePatternDeletedEvent;
+import org.jphototagger.domain.repository.event.FileExcludePatternInsertedEvent;
 import org.jphototagger.lib.event.ProgressEvent;
 import org.jphototagger.lib.event.listener.ProgressListener;
 import org.jphototagger.program.cache.PersistentThumbnails;
@@ -22,9 +23,8 @@ import org.jphototagger.program.cache.PersistentThumbnails;
  * @author Elmar Baumann
  */
 public final class DatabaseFileExcludePatterns extends Database {
+
     public static final DatabaseFileExcludePatterns INSTANCE = new DatabaseFileExcludePatterns();
-    private final ListenerSupport<DatabaseFileExcludePatternsListener> ls =
-        new ListenerSupport<DatabaseFileExcludePatternsListener>();
 
     private DatabaseFileExcludePatterns() {}
 
@@ -267,31 +267,11 @@ public final class DatabaseFileExcludePatterns extends Database {
         return count;
     }
 
-    public void addListener(DatabaseFileExcludePatternsListener listener) {
-        if (listener == null) {
-            throw new NullPointerException("listener == null");
-        }
-
-        ls.add(listener);
-    }
-
-    public void removeListener(DatabaseFileExcludePatternsListener listener) {
-        if (listener == null) {
-            throw new NullPointerException("listener == null");
-        }
-
-        ls.remove(listener);
-    }
-
     private void notifyInserted(String pattern) {
-        for (DatabaseFileExcludePatternsListener listener : ls.get()) {
-            listener.patternInserted(pattern);
-        }
+        EventBus.publish(new FileExcludePatternInsertedEvent(this, pattern));
     }
 
     private void notifyDeleted(String pattern) {
-        for (DatabaseFileExcludePatternsListener listener : ls.get()) {
-            listener.patternDeleted(pattern);
-        }
+        EventBus.publish(new FileExcludePatternDeletedEvent(this, pattern));
     }
 }
