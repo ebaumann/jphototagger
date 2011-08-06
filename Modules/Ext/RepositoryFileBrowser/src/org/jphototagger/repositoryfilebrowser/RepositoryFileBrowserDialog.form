@@ -79,12 +79,12 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton1">
+            <Component class="javax.swing.JButton" name="buttonApplyFilter">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/repositoryfilebrowser/Bundle.properties" key="RepositoryFileBrowserDialog.jButton1.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/repositoryfilebrowser/Bundle.properties" key="RepositoryFileBrowserDialog.buttonApplyFilter.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
-                <Property name="name" type="java.lang.String" value="jButton1" noResource="true"/>
+                <Property name="name" type="java.lang.String" value="buttonApplyFilter" noResource="true"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
@@ -130,9 +130,9 @@
             </Component>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="panelSelectedFilepath">
+        <Container class="javax.swing.JPanel" name="panelListInfo">
           <Properties>
-            <Property name="name" type="java.lang.String" value="panelSelectedFilepath" noResource="true"/>
+            <Property name="name" type="java.lang.String" value="panelListInfo" noResource="true"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
@@ -175,7 +175,7 @@
               </BindingProperties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                  <GridBagConstraints gridX="-1" gridY="-1" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="5" insetsBottom="0" insetsRight="0" anchor="18" weightX="1.0" weightY="1.0"/>
+                  <GridBagConstraints gridX="-1" gridY="-1" gridWidth="0" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="5" insetsBottom="0" insetsRight="0" anchor="18" weightX="1.0" weightY="1.0"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -188,7 +188,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                  <GridBagConstraints gridX="-1" gridY="-1" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="10" insetsBottom="0" insetsRight="0" anchor="18" weightX="0.0" weightY="0.0"/>
+                  <GridBagConstraints gridX="-1" gridY="-1" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="17" weightX="0.0" weightY="0.0"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -198,7 +198,21 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                  <GridBagConstraints gridX="-1" gridY="-1" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="5" insetsBottom="0" insetsRight="0" anchor="18" weightX="0.0" weightY="0.0"/>
+                  <GridBagConstraints gridX="-1" gridY="-1" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="5" insetsBottom="0" insetsRight="0" anchor="17" weightX="0.0" weightY="0.0"/>
+                </Constraint>
+              </Constraints>
+            </Component>
+            <Component class="javax.swing.JProgressBar" name="progressBarGetFiles">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="progressBarGetFiles" noResource="true"/>
+                <Property name="string" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="org/jphototagger/repositoryfilebrowser/Bundle.properties" key="RepositoryFileBrowserDialog.progressBarGetFiles.string" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
+                <Property name="stringPainted" type="boolean" value="true"/>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                  <GridBagConstraints gridX="-1" gridY="-1" gridWidth="1" gridHeight="1" fill="2" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="10" insetsBottom="0" insetsRight="0" anchor="17" weightX="0.0" weightY="0.0"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -275,7 +289,7 @@
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="229" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="219" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -323,19 +337,18 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JCheckBox" name="checkBoxImageFileExists">
+                    <Component class="org.jphototagger.lib.component.BooleanLabel" name="booleanLabelImageFileExists">
                       <Properties>
-                        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="org/jphototagger/repositoryfilebrowser/Bundle.properties" key="RepositoryFileBrowserDialog.checkBoxImageFileExists.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                        <Property name="falseText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                          <ResourceString bundle="org/jphototagger/repositoryfilebrowser/Bundle.properties" key="RepositoryFileBrowserDialog.booleanLabelImageFileExists.falseText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </Property>
-                        <Property name="enabled" type="boolean" value="false"/>
-                        <Property name="name" type="java.lang.String" value="checkBoxImageFileExists" noResource="true"/>
+                        <Property name="trueText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                          <ResourceString bundle="org/jphototagger/repositoryfilebrowser/Bundle.properties" key="RepositoryFileBrowserDialog.booleanLabelImageFileExists.trueText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                        </Property>
+                        <Property name="name" type="java.lang.String" value="booleanLabelImageFileExists" noResource="true"/>
                       </Properties>
                       <BindingProperties>
-                        <BindingProperty name="selected" source="Form" sourcePath="${imageFileInfo.imageFileExists}" target="checkBoxImageFileExists" targetPath="selected" updateStrategy="0" immediately="false">
-                          <Property name="nullValue" type="boolean" value="false"/>
-                          <Property name="incompletePathValue" type="boolean" value="false"/>
-                        </BindingProperty>
+                        <BindingProperty name="isTrue" source="Form" sourcePath="${imageFileInfo.imageFileExists}" target="booleanLabelImageFileExists" targetPath="isTrue" updateStrategy="0" immediately="false"/>
                       </BindingProperties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
@@ -429,25 +442,24 @@
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                      <GridBagConstraints gridX="-1" gridY="-1" gridWidth="0" gridHeight="1" fill="2" ipadX="0" ipadY="0" insetsTop="3" insetsLeft="3" insetsBottom="0" insetsRight="3" anchor="18" weightX="1.0" weightY="1.0"/>
+                      <GridBagConstraints gridX="-1" gridY="-1" gridWidth="0" gridHeight="1" fill="2" ipadX="0" ipadY="0" insetsTop="3" insetsLeft="3" insetsBottom="0" insetsRight="3" anchor="18" weightX="1.0" weightY="0.0"/>
                     </Constraint>
                   </Constraints>
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JCheckBox" name="checkBoxXmpFileExists">
+                    <Component class="org.jphototagger.lib.component.BooleanLabel" name="booleanLabelXmpFileExists">
                       <Properties>
-                        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="org/jphototagger/repositoryfilebrowser/Bundle.properties" key="RepositoryFileBrowserDialog.checkBoxXmpFileExists.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                        <Property name="falseText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                          <ResourceString bundle="org/jphototagger/repositoryfilebrowser/Bundle.properties" key="RepositoryFileBrowserDialog.booleanLabelXmpFileExists.falseText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </Property>
-                        <Property name="enabled" type="boolean" value="false"/>
-                        <Property name="name" type="java.lang.String" value="checkBoxXmpFileExists" noResource="true"/>
+                        <Property name="trueText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                          <ResourceString bundle="org/jphototagger/repositoryfilebrowser/Bundle.properties" key="RepositoryFileBrowserDialog.booleanLabelXmpFileExists.trueText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                        </Property>
+                        <Property name="name" type="java.lang.String" value="booleanLabelXmpFileExists" noResource="true"/>
                       </Properties>
                       <BindingProperties>
-                        <BindingProperty name="selected" source="Form" sourcePath="${imageFileInfo.xmpFileExists}" target="checkBoxXmpFileExists" targetPath="selected" updateStrategy="0" immediately="false">
-                          <Property name="nullValue" type="boolean" value="false"/>
-                          <Property name="incompletePathValue" type="boolean" value="false"/>
-                        </BindingProperty>
+                        <BindingProperty name="isTrue" source="Form" sourcePath="${imageFileInfo.xmpFileExists}" target="booleanLabelXmpFileExists" targetPath="isTrue" updateStrategy="0" immediately="false"/>
                       </BindingProperties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
@@ -528,6 +540,22 @@
                     </Component>
                   </SubComponents>
                 </Container>
+                <Component class="javax.swing.JLabel" name="labelThumbnailSizeInfo">
+                  <Properties>
+                    <Property name="name" type="java.lang.String" value="labelThumbnailSizeInfo" noResource="true"/>
+                  </Properties>
+                  <BindingProperties>
+                    <BindingProperty name="text" source="Form" sourcePath="${imageFileInfo.thumbnailSizeInfo}" target="labelThumbnailSizeInfo" targetPath="text" updateStrategy="0" immediately="false">
+                      <Property name="nullValue" type="java.lang.String" value="null"/>
+                      <Property name="incompletePathValue" type="java.lang.String" value="null"/>
+                    </BindingProperty>
+                  </BindingProperties>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                      <GridBagConstraints gridX="-1" gridY="-1" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="5" insetsLeft="5" insetsBottom="5" insetsRight="5" anchor="18" weightX="0.0" weightY="1.0"/>
+                    </Constraint>
+                  </Constraints>
+                </Component>
               </SubComponents>
             </Container>
           </SubComponents>
