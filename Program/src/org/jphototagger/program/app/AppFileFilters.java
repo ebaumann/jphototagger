@@ -52,7 +52,7 @@ public final class AppFileFilters {
 
     private RegexFileFilter createAllAcceptedImagesFileFilter() {
         return new RegexFileFilter(
-                  ".*\\.[aA][rR][wW]" // Sony (Alpha) RAW
+                  ".*\\.[aA][rR][wW];" // Sony (Alpha) RAW
                 + ".*\\.[cC][rR][wW];" // Canon RAW
                 + ".*\\.[cC][rR]2;" // Canon RAW 2
                 + ".*\\.[dD][cC][rR];" // Kodak RAW
@@ -61,7 +61,7 @@ public final class AppFileFilters {
                 + ".*\\.[jJ][pP][eE][gG];" // Joint Photographic Experts Group
                 + ".*\\.[mM][rR][wW];" // Minolta RAW
                 + ".*\\.[nN][eE][fF];" // Nikon RAW
-                + ".*\\.[sS][rR][wW]" // Samsung RAW
+                + ".*\\.[sS][rR][wW];" // Samsung RAW
                 + ".*\\.[tT][hH][mM];" // EXIF Info
                 + ".*\\.[tT][iI][fF];" // Tagged Image File Format
                 + ".*\\.[tT][iI][fF][fF];" // Tagged Image File Format
@@ -70,13 +70,13 @@ public final class AppFileFilters {
 
     private RegexFileFilter createAcceptedRawFilesFiter() {
         return new RegexFileFilter(
-                  ".*\\.[aA][rR][wW]" // Sony (Alpha) RAW
+                  ".*\\.[aA][rR][wW];" // Sony (Alpha) RAW
                 + ".*\\.[cC][rR][wW];" // Canon RAW
                 + ".*\\.[cC][rR]2;" // Canon RAW 2
                 + ".*\\.[dD][cC][rR];" // Kodak RAW
                 + ".*\\.[mM][rR][wW];" // Minolta RAW
                 + ".*\\.[nN][eE][fF];" // Nikon RAW
-                + ".*\\.[sS][rR][wW]" // Samsung RAW
+                + ".*\\.[sS][rR][wW];" // Samsung RAW
                 , ";");
     }
 
