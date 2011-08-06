@@ -9,8 +9,9 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.bushe.swing.event.EventBus;
 import org.jphototagger.api.modules.Module;
-import org.jphototagger.domain.event.listener.AppExitListener;
+import org.jphototagger.domain.event.AppWillExitEvent;
 import org.jphototagger.domain.event.listener.impl.ListenerSupport;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
@@ -32,7 +33,6 @@ public final class AppLifeCycle {
 
     public static final AppLifeCycle INSTANCE = new AppLifeCycle();
     private final Set<Object> saveObjects = new HashSet<Object>();
-    private final ListenerSupport<AppExitListener> ls = new ListenerSupport<AppExitListener>();
     private final Set<FinalTask> finalTasks = new LinkedHashSet<FinalTask>();
     private AppFrame appFrame;
     private boolean started;
@@ -134,33 +134,6 @@ public final class AppLifeCycle {
         }
     }
 
-    /**
-     * Adds a listener to notify when the application will exit.
-     *
-     * @param listener listener
-     */
-    public void addAppExitListener(AppExitListener listener) {
-        if (listener == null) {
-            throw new NullPointerException("listener == null");
-        }
-
-        ls.add(listener);
-    }
-
-    /**
-     * Removes a listener added by
-     * {@link #addAppExitListener(AppExitListener)}.
-     *
-     * @param listener listener
-     */
-    public void removeAppExitListener(AppExitListener listener) {
-        if (listener == null) {
-            throw new NullPointerException("listener == null");
-        }
-
-        ls.remove(listener);
-    }
-
     private void listenForQuit() {
         appFrame.addWindowListener(new WindowAdapter() {
 
@@ -188,7 +161,7 @@ public final class AppLifeCycle {
      */
     public void quit() {
         if (ensureUserTasksFinished()) {
-            notifyExitListeners();
+            EventBus.publish(new AppWillExitEvent(this));
             notifyModulesForClose();
             writeProperties();
             checkDataToSave();
@@ -202,12 +175,6 @@ public final class AppLifeCycle {
                     executeFinalTasksAndQuit();
                 }
             }
-        }
-    }
-
-    private void notifyExitListeners() {
-        for (AppExitListener listener : ls.get()) {
-            listener.appWillExit();
         }
     }
 

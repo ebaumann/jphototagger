@@ -1,22 +1,26 @@
 package org.jphototagger.program.app;
 
-import org.jphototagger.lib.componentutil.ComponentUtil;
-import org.jphototagger.lib.util.Settings;
-import org.jphototagger.lib.util.SettingsHints;
-import org.jphototagger.domain.event.listener.AppExitListener;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.view.frames.AppFrame;
-import org.jphototagger.program.view.panels.AppPanel;
-import org.jphototagger.program.view.panels.KeywordsPanel;
 import java.awt.Component;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.swing.JList;
 import javax.swing.JTree;
+
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.domain.event.AppWillExitEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.componentutil.ComponentUtil;
+import org.jphototagger.lib.util.Settings;
+import org.jphototagger.lib.util.SettingsHints;
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.view.frames.AppFrame;
+import org.jphototagger.program.view.panels.AppPanel;
+import org.jphototagger.program.view.panels.KeywordsPanel;
 
 /**
  * Reads and writes persistent important settings of {@link AppPanel} and
@@ -24,7 +28,7 @@ import org.jphototagger.lib.awt.EventQueueUtil;
  *
  * @author Elmar Baumann
  */
-public final class AppWindowPersistence implements ComponentListener, AppExitListener {
+public final class AppWindowPersistence implements ComponentListener {
 
     // Strings has to be equals to that in AppPanel!
     private static final String KEY_DIVIDER_LOCATION_MAIN = "AppPanel.DividerLocationMain";
@@ -54,7 +58,7 @@ public final class AppWindowPersistence implements ComponentListener, AppExitLis
     }
 
     private void listen() {
-        AppLifeCycle.INSTANCE.addAppExitListener(this);
+        AnnotationProcessor.process(this);
         cardSelKeywordsList.addComponentListener(this);
         cardSelKeywordsTree.addComponentListener(this);
     }
@@ -158,8 +162,8 @@ public final class AppWindowPersistence implements ComponentListener, AppExitLis
         }
     }
 
-    @Override
-    public void appWillExit() {
+    @EventSubscriber(eventClass = AppWillExitEvent.class)
+    public void appWillExit(AppWillExitEvent evt) {
         writeAppProperties();
     }
 
