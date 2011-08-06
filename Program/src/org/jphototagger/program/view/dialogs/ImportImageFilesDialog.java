@@ -10,6 +10,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.filechooser.FileSystemView;
 
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.dialog.DirectoryChooser;
@@ -20,6 +21,7 @@ import org.jphototagger.program.UserSettings;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.ImagePreviewPanel;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -218,8 +220,8 @@ public class ImportImageFilesDialog extends Dialog {
     }
 
     private void toSettings(String key, File dir) {
-        UserSettings.INSTANCE.getProperties().setProperty(key, dir.getAbsolutePath());
-        UserSettings.INSTANCE.writeToFile();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        storage.setString(key, dir.getAbsolutePath());
     }
 
     private File chooseDir(File startDir) {

@@ -21,6 +21,7 @@ import javax.swing.ListModel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.domain.database.search.ParamStatement;
 import org.jphototagger.domain.event.listener.impl.ListenerSupport;
 import org.jphototagger.lib.component.TabOrEnterLeavingTextArea;
@@ -35,6 +36,7 @@ import org.jphototagger.program.data.SavedSearchPanel;
 import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.helper.SavedSearchesHelper;
 import org.jphototagger.program.types.Persistence;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -173,15 +175,17 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
 
     @Override
     public void readProperties() {
-        if (UserSettings.INSTANCE.getProperties().containsKey(KEY_SELECTED_TAB_INDEX)) {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        if (storage.containsKey(KEY_SELECTED_TAB_INDEX)) {
             tabbedPane.setSelectedIndex(UserSettings.INSTANCE.getSettings().getInt(KEY_SELECTED_TAB_INDEX));
         }
     }
 
     @Override
     public void writeProperties() {
-        UserSettings.INSTANCE.getSettings().set(KEY_SELECTED_TAB_INDEX, tabbedPane.getSelectedIndex());
-        UserSettings.INSTANCE.writeToFile();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        storage.setInt(KEY_SELECTED_TAB_INDEX, tabbedPane.getSelectedIndex());
     }
 
     private boolean checkIsSearchValid() {

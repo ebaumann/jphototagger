@@ -5,12 +5,12 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JFileChooser;
 
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.exif.ExifMetadata;
 import org.jphototagger.exif.ExifTags;
 import org.jphototagger.exif.tag.ExifGpsMetadata;
@@ -19,10 +19,11 @@ import org.jphototagger.lib.dialog.FileChooserExt;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.io.IoUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.lib.util.PropertiesUtil;
+import org.jphototagger.lib.util.StorageUtil;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.helper.HelperThread;
 import org.jphototagger.program.tasks.UserTasks;
+import org.openide.util.Lookup;
 
 /**
  * Utils for exporting GPS metadata.
@@ -157,15 +158,16 @@ public final class GPSLocationExportUtil {
     }
 
     private static synchronized File getCurrentDir() {
-        Properties properties = UserSettings.INSTANCE.getProperties();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        String path = storage.getString(KEY_CURRENT_DIR);
 
-        return new File(properties.getProperty(KEY_CURRENT_DIR, ""));
+        return new File(path == null ? "" : path);
     }
 
     private static synchronized void setCurrentDir(File dir) {
-        Properties properties = UserSettings.INSTANCE.getProperties();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
 
-        if (PropertiesUtil.setDirectory(properties, KEY_CURRENT_DIR, dir)) {
+        if (StorageUtil.setDirectory(storage, KEY_CURRENT_DIR, dir)) {
             UserSettings.INSTANCE.writeToFile();
         }
     }

@@ -5,7 +5,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
-import java.util.Properties;
 import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,6 +20,7 @@ import javax.swing.tree.TreePath;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.domain.event.AppWillExitEvent;
 import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.domain.repository.event.FavoriteDeletedEvent;
@@ -36,6 +36,7 @@ import org.jphototagger.lib.model.TreeNodeSortedChildren;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.database.DatabaseFavorites;
+import org.openide.util.Lookup;
 
 /**
  * Elements are {@link DefaultMutableTreeNode}s with the user objects listed
@@ -519,9 +520,9 @@ public final class TreeModelFavorites extends DefaultTreeModel implements TreeWi
     }
 
     public void readFromProperties() {
-        Properties properties = UserSettings.INSTANCE.getProperties();
-        String favname = properties.getProperty(KEY_SELECTED_FAV_NAME);
-        String dirname = properties.getProperty(KEY_SELECTED_DIR);
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        String favname = storage.getString(KEY_SELECTED_FAV_NAME);
+        String dirname = storage.getString(KEY_SELECTED_DIR);
 
         if ((favname != null) && (dirname != null) && !favname.trim().isEmpty() && !dirname.trim().isEmpty()) {
             expandToFile(favname.trim(), new File(dirname.trim()), true);
@@ -562,25 +563,25 @@ public final class TreeModelFavorites extends DefaultTreeModel implements TreeWi
                     }
                 }
 
-                Properties properties = UserSettings.INSTANCE.getProperties();
+                Storage storage = Lookup.getDefault().lookup(Storage.class);
 
                 if (dirname == null) {
-                    properties.remove(KEY_SELECTED_DIR);
+                    storage.removeKey(KEY_SELECTED_DIR);
                 } else {
-                    properties.setProperty(KEY_SELECTED_DIR, dirname);
+                    storage.setString(KEY_SELECTED_DIR, dirname);
                 }
 
                 if (favname == null) {
-                    properties.remove(KEY_SELECTED_FAV_NAME);
+                    storage.removeKey(KEY_SELECTED_FAV_NAME);
                 } else {
-                    properties.setProperty(KEY_SELECTED_FAV_NAME, favname);
+                    storage.setString(KEY_SELECTED_FAV_NAME, favname);
                 }
             }
         } else {
-            Properties properties = UserSettings.INSTANCE.getProperties();
+            Storage storage = Lookup.getDefault().lookup(Storage.class);
 
-            properties.remove(KEY_SELECTED_DIR);
-            properties.remove(KEY_SELECTED_FAV_NAME);
+            storage.removeKey(KEY_SELECTED_DIR);
+            storage.removeKey(KEY_SELECTED_FAV_NAME);
         }
 
         UserSettings.INSTANCE.writeToFile();

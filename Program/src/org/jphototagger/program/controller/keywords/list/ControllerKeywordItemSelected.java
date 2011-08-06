@@ -1,20 +1,23 @@
 package org.jphototagger.program.controller.keywords.list;
 
-import org.jphototagger.program.event.listener.RefreshListener;
-import org.jphototagger.program.event.RefreshEvent;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.types.Content;
-import org.jphototagger.program.UserSettings;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
-import java.util.Properties;
+
+import javax.swing.JRadioButton;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.JRadioButton;
+
 import org.jdesktop.swingx.JXList;
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.event.RefreshEvent;
+import org.jphototagger.program.event.listener.RefreshListener;
 import org.jphototagger.program.helper.KeywordsHelper;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.types.Content;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -22,6 +25,7 @@ import org.jphototagger.program.helper.KeywordsHelper;
  * @author Elmar Baumann
  */
 public final class ControllerKeywordItemSelected implements ActionListener, ListSelectionListener, RefreshListener {
+
     private static final String KEY_RADIO_BUTTON = "ControllerKeywordItemSelected.RadioButton";
 
     public ControllerKeywordItemSelected() {
@@ -70,10 +74,10 @@ public final class ControllerKeywordItemSelected implements ActionListener, List
         List<String> selKeywords = getSelectedKeywords();
 
         EventQueueUtil.invokeInDispatchThread(isAllKeywords()
-                               ? new ShowThumbnailsContainingAllKeywords(selKeywords, (evt == null)
+                ? new ShowThumbnailsContainingAllKeywords(selKeywords, (evt == null)
                 ? null
                 : evt.getSettings())
-                               : new ShowThumbnailsContainingKeywords(selKeywords, (evt == null)
+                : new ShowThumbnailsContainingKeywords(selKeywords, (evt == null)
                 ? null
                 : evt.getSettings()));
     }
@@ -89,11 +93,11 @@ public final class ControllerKeywordItemSelected implements ActionListener, List
     }
 
     private void readPersistent() {
-        Properties properties = UserSettings.INSTANCE.getProperties();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
         boolean radioButtonAll = true;
 
-        if (properties.containsKey(KEY_RADIO_BUTTON)) {
-            radioButtonAll = UserSettings.INSTANCE.getSettings().getInt(KEY_RADIO_BUTTON) == 0;
+        if (storage.containsKey(KEY_RADIO_BUTTON)) {
+            radioButtonAll = storage.getInt(KEY_RADIO_BUTTON) == 0;
         }
 
         getRadioButtonAllKeywords().setSelected(radioButtonAll);
@@ -101,9 +105,10 @@ public final class ControllerKeywordItemSelected implements ActionListener, List
     }
 
     private void writePersistent() {
-        UserSettings.INSTANCE.getSettings().set(KEY_RADIO_BUTTON, isAllKeywords()
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        storage.setInt(KEY_RADIO_BUTTON, isAllKeywords()
                 ? 0
-                                  : 1);
+                : 1);
         UserSettings.INSTANCE.writeToFile();
     }
 }

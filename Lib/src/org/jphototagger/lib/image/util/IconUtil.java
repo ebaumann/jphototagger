@@ -11,7 +11,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.filechooser.FileSystemView;
 
-import org.jphototagger.lib.util.PropertiesUtil;
+import org.jphototagger.lib.util.StorageUtil;
 
 /**
  * Werkzeuge für Icons.
@@ -112,7 +112,7 @@ public final class IconUtil {
             throw new NullPointerException("iconName == null");
         }
 
-        String packagePath = PropertiesUtil.resolvePackagePathForResource(clazz);
+        String packagePath = StorageUtil.resolvePackagePathForResource(clazz);
 
         return getImageIcon('/' + packagePath + '/' + iconName);
     }

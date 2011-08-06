@@ -12,9 +12,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.text.JTextComponent;
 
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.UserSettings;
+import org.openide.util.Lookup;
 
 /**
  * Contains a button which expands or collapses a component. If the component
@@ -105,8 +106,8 @@ public class ExpandCollapseComponentPanel extends JPanel implements FocusListene
 
     private void writeExpandedState() {
         if (!keyPersistence.isEmpty()) {
-            UserSettings.INSTANCE.getSettings().set(keyPersistence, expanded);
-            UserSettings.INSTANCE.writeToFile();
+            Storage storage = Lookup.getDefault().lookup(Storage.class);
+            storage.setBoolean(keyPersistence, expanded);
         }
     }
 
@@ -115,8 +116,9 @@ public class ExpandCollapseComponentPanel extends JPanel implements FocusListene
      */
     public void readExpandedState() {
         if (!keyPersistence.isEmpty()) {
-            if (UserSettings.INSTANCE.getProperties().containsKey(keyPersistence)) {
-                expanded = UserSettings.INSTANCE.getSettings().getBoolean(keyPersistence);
+            Storage storage = Lookup.getDefault().lookup(Storage.class);
+            if (storage.containsKey(keyPersistence)) {
+                expanded = storage.getBoolean(keyPersistence);
                 setExpanded();
             }
         }
@@ -233,7 +235,6 @@ public class ExpandCollapseComponentPanel extends JPanel implements FocusListene
     private void buttonExpandCollapseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExpandCollapseActionPerformed
         toggleExpandCollapse();
     }//GEN-LAST:event_buttonExpandCollapseActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonExpandCollapse;
     // End of variables declaration//GEN-END:variables

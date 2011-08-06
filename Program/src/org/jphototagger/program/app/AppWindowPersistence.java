@@ -11,6 +11,7 @@ import javax.swing.JTree;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.domain.event.AppWillExitEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.ComponentUtil;
@@ -21,6 +22,7 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.frames.AppFrame;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.KeywordsPanel;
+import org.openide.util.Lookup;
 
 /**
  * Reads and writes persistent important settings of {@link AppPanel} and
@@ -142,9 +144,10 @@ public final class AppWindowPersistence implements ComponentListener {
         // Strings has to be equal to the card names in AppPanel
         // (errors on renamings)!
         String name = "keywordsTree";
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
 
-        if (UserSettings.INSTANCE.getProperties().containsKey(KEY_KEYWORDS_VIEW)) {
-            String s = UserSettings.INSTANCE.getSettings().getString(KEY_KEYWORDS_VIEW);
+        if (storage.containsKey(KEY_KEYWORDS_VIEW)) {
+            String s = storage.getString(KEY_KEYWORDS_VIEW);
 
             if (s.equals("flatKeywords") || s.equals("keywordsTree")) {
                 name = s;

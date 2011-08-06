@@ -38,7 +38,7 @@ public class Bundle {
     }
 
     private static String createDefaultBundlePath(Class<?> clazz) {
-        String packagePath = PropertiesUtil.resolvePackagePathForResource(clazz);
+        String packagePath = StorageUtil.resolvePackagePathForResource(clazz);
         String bundlePath = packagePath + '/' + "Bundle";
 
         return bundlePath;

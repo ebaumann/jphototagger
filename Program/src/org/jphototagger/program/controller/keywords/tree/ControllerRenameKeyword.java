@@ -128,10 +128,12 @@ public class ControllerRenameKeyword extends ControllerKeywords implements Actio
     private static InputDialog createInputDialog(String input) {
         JDialog owner = InputHelperDialog.INSTANCE;
         String info = Bundle.getString(ControllerRenameKeyword.class, "ControllerRenameKeyword.Input.Name", input);
-        Properties properties = UserSettings.INSTANCE.getProperties();
-        String propertyKey = ControllerRenameKeyword.class.getName();
+        String storageKey = ControllerRenameKeyword.class.getName();
+        InputDialog inputDialog = new InputDialog(owner, info, input);
 
-        return new InputDialog(owner, info, input);
+        inputDialog.setStorageKey(storageKey);
+
+        return inputDialog;
     }
 
     private static Keyword createKeywordFromExistingKeyword(Keyword keyword, String newName) {
