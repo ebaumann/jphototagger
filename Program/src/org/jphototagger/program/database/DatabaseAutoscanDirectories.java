@@ -10,8 +10,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.domain.event.listener.DatabaseAutoscanDirectoriesListener;
-import org.jphototagger.domain.event.listener.impl.ListenerSupport;
+import org.bushe.swing.event.EventBus;
+import org.jphototagger.domain.repository.event.AutoscanDirectoryDeletedEvent;
+import org.jphototagger.domain.repository.event.AutoscanDirectoryInsertedEvent;
 
 /**
  *
@@ -19,11 +20,11 @@ import org.jphototagger.domain.event.listener.impl.ListenerSupport;
  * @author Elmar Baumann
  */
 public final class DatabaseAutoscanDirectories extends Database {
-    public static final DatabaseAutoscanDirectories INSTANCE = new DatabaseAutoscanDirectories();
-    private final ListenerSupport<DatabaseAutoscanDirectoriesListener> ls =
-        new ListenerSupport<DatabaseAutoscanDirectoriesListener>();
 
-    private DatabaseAutoscanDirectories() {}
+    public static final DatabaseAutoscanDirectories INSTANCE = new DatabaseAutoscanDirectories();
+
+    private DatabaseAutoscanDirectories() {
+    }
 
     public boolean insert(File directory) {
         if (directory == null) {
@@ -153,31 +154,11 @@ public final class DatabaseAutoscanDirectories extends Database {
         return directories;
     }
 
-    public void addListener(DatabaseAutoscanDirectoriesListener listener) {
-        if (listener == null) {
-            throw new NullPointerException("listener == null");
-        }
-
-        ls.add(listener);
-    }
-
-    public void removeListener(DatabaseAutoscanDirectoriesListener listener) {
-        if (listener == null) {
-            throw new NullPointerException("listener == null");
-        }
-
-        ls.remove(listener);
-    }
-
     private void notifyInserted(File dir) {
-        for (DatabaseAutoscanDirectoriesListener listener : ls.get()) {
-            listener.directoryInserted(dir);
-        }
+        EventBus.publish(new AutoscanDirectoryInsertedEvent(this, dir));
     }
 
     private void notifyDeleted(File dir) {
-        for (DatabaseAutoscanDirectoriesListener listener : ls.get()) {
-            listener.directoryDeleted(dir);
-        }
+        EventBus.publish(new AutoscanDirectoryDeletedEvent(this, dir));
     }
 }
