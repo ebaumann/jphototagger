@@ -1,12 +1,17 @@
 package org.jphototagger.program.model;
 
-import org.jphototagger.program.database.ConnectionPool;
-import org.jphototagger.program.database.DatabaseAutoscanDirectories;
-import org.jphototagger.domain.event.listener.DatabaseAutoscanDirectoriesListener;
 import java.io.File;
 import java.util.List;
+
 import javax.swing.DefaultListModel;
+
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.domain.repository.event.AutoscanDirectoryDeletedEvent;
+import org.jphototagger.domain.repository.event.AutoscanDirectoryInsertedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.program.database.ConnectionPool;
+import org.jphototagger.program.database.DatabaseAutoscanDirectories;
 
 /**
  * Elements are directory {@link File}s retrieved through
@@ -16,13 +21,13 @@ import org.jphototagger.lib.awt.EventQueueUtil;
  *
  * @author Elmar Baumann, Tobias Stening
  */
-public final class ListModelAutoscanDirectories extends DefaultListModel
-        implements DatabaseAutoscanDirectoriesListener {
+public final class ListModelAutoscanDirectories extends DefaultListModel {
+
     private static final long serialVersionUID = 5568827666022563702L;
 
     public ListModelAutoscanDirectories() {
         addElements();
-        DatabaseAutoscanDirectories.INSTANCE.addListener(this);
+        AnnotationProcessor.process(this);
     }
 
     private void addElements() {
@@ -51,22 +56,24 @@ public final class ListModelAutoscanDirectories extends DefaultListModel
         }
     }
 
-    @Override
-    public void directoryInserted(final File directory) {
+    @EventSubscriber(eventClass = AutoscanDirectoryInsertedEvent.class)
+    public void directoryInserted(final AutoscanDirectoryInsertedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                addDirectory(directory);
+                addDirectory(evt.getDirectory());
             }
         });
     }
 
-    @Override
-    public void directoryDeleted(final File directory) {
+    @EventSubscriber(eventClass = AutoscanDirectoryDeletedEvent.class)
+    public void directoryDeleted(final AutoscanDirectoryDeletedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                removeDirectory(directory);
+                removeDirectory(evt.getDirectory());
             }
         });
     }
