@@ -17,6 +17,10 @@ public interface Storage {
 
     boolean getBoolean(String key);
 
+    int getInt(String key);
+
+    void setInt(String key, int value);
+
     boolean containsKey(String key);
 
     void removeKey(String key);
