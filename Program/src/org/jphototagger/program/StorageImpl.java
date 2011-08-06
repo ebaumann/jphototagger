@@ -35,17 +35,6 @@ public final class StorageImpl implements Storage {
     }
 
     @Override
-    public void setSizeAndLocation(Component component) {
-        settings.setSizeAndLocation(component);
-        writeToFile();
-    }
-
-    @Override
-    public void applySizeAndLocation(Component component) {
-        settings.applySizeAndLocation(component);
-    }
-
-    @Override
     public void removeKey(String key) {
         settings.removeKey(key);
         writeToFile();
