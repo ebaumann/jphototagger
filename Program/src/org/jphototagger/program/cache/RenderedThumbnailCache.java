@@ -11,7 +11,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.domain.event.ThumbnailUpdateEvent;
+import org.jphototagger.domain.thumbnails.event.ThumbnailUpdateEvent;
 import org.jphototagger.domain.event.listener.ThumbnailUpdateListener;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.image.util.IconUtil;

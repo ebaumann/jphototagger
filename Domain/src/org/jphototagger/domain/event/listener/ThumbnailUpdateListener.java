@@ -1,6 +1,6 @@
 package org.jphototagger.domain.event.listener;
 
-import org.jphototagger.domain.event.ThumbnailUpdateEvent;
+import org.jphototagger.domain.thumbnails.event.ThumbnailUpdateEvent;
 
 /**
  * Interface for receiving ThumbnailUpdateEvents

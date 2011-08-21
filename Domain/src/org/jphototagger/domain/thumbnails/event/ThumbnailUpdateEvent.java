@@ -1,4 +1,4 @@
-package org.jphototagger.domain.event;
+package org.jphototagger.domain.thumbnails.event;
 
 import java.io.File;
 
