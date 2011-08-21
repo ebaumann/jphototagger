@@ -12,9 +12,10 @@ import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.JButton;
 
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.domain.event.UpdateMetadataCheckEvent;
 import org.jphototagger.domain.event.UpdateMetadataCheckEvent.Type;
-import org.jphototagger.domain.event.listener.UpdateMetadataCheckListener;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.concurrent.SerialExecutor;
 import org.jphototagger.lib.util.Bundle;
@@ -31,11 +32,10 @@ import org.jphototagger.program.view.dialogs.SettingsDialog;
  *
  * @author Elmar Baumann
  */
-public final class ScheduledTasks implements ActionListener, UpdateMetadataCheckListener {
-    private static final Map<ButtonState, Icon> ICON_OF_BUTTON_STATE = new EnumMap<ButtonState,
-                                                                           Icon>(ButtonState.class);
-    private static final Map<ButtonState, String> TOOLTIP_TEXT_OF_BUTTON_STATE = new EnumMap<ButtonState,
-                                                                                     String>(ButtonState.class);
+public final class ScheduledTasks implements ActionListener {
+
+    private static final Map<ButtonState, Icon> ICON_OF_BUTTON_STATE = new EnumMap<ButtonState, Icon>(ButtonState.class);
+    private static final Map<ButtonState, String> TOOLTIP_TEXT_OF_BUTTON_STATE = new EnumMap<ButtonState, String>(ButtonState.class);
     public static final ScheduledTasks INSTANCE = new ScheduledTasks();
     private final SerialExecutor executor = new SerialExecutor(Executors.newCachedThreadPool());
     private final JButton button = SettingsDialog.INSTANCE.getButtonScheduledTasks();
@@ -43,11 +43,15 @@ public final class ScheduledTasks implements ActionListener, UpdateMetadataCheck
     private volatile boolean isRunning;
     private volatile boolean runnedManual;
 
-    private enum ButtonState { START, CANCEL }
+    private enum ButtonState {
+
+        START, CANCEL
+    }
 
     private ScheduledTasks() {
         init();
         button.addActionListener(this);
+        AnnotationProcessor.process(this);
     }
 
     private static void init() {
@@ -67,6 +71,7 @@ public final class ScheduledTasks implements ActionListener, UpdateMetadataCheck
         }
 
         Thread thread = new Thread(new Runnable() {
+
             @Override
             public void run() {
                 try {
@@ -114,19 +119,19 @@ public final class ScheduledTasks implements ActionListener, UpdateMetadataCheck
         // Thread because the button does not redraw until the longer operation
         // to gather the files has been finished
         new Thread(new Runnable() {
+
             @Override
             public void run() {
                 InsertImageFilesIntoDatabase inserter = ScheduledTaskInsertImageFilesIntoDatabase.getThread();
 
                 if (inserter != null) {
-                    inserter.addUpdateMetadataCheckListener(INSTANCE);
                     executor.execute(inserter);
                 }
             }
         }, "JPhotoTagger: Inserting image files into database").start();
     }
 
-    @Override
+    @EventSubscriber(eventClass = UpdateMetadataCheckEvent.class)
     public void checkForUpdate(UpdateMetadataCheckEvent evt) {
         if (evt.getType().equals(Type.CHECK_FINISHED)) {
             setButtonState(ButtonState.START);
@@ -156,6 +161,7 @@ public final class ScheduledTasks implements ActionListener, UpdateMetadataCheck
 
     private void setButtonState(final ButtonState state) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 button.setIcon(ICON_OF_BUTTON_STATE.get(state));

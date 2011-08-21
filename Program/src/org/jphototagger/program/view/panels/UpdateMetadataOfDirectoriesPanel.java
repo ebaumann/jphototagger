@@ -12,10 +12,11 @@ import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JPanel;
 
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.domain.database.InsertIntoDatabase;
 import org.jphototagger.domain.event.UpdateMetadataCheckEvent;
 import org.jphototagger.domain.event.UpdateMetadataCheckEvent.Type;
-import org.jphototagger.domain.event.listener.UpdateMetadataCheckListener;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.comparator.FileSort;
 import org.jphototagger.lib.componentutil.ListUtil;
@@ -38,7 +39,7 @@ import org.jphototagger.program.resource.GUI;
  *
  * @author Elmar Baumann
  */
-public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements UpdateMetadataCheckListener, ProgressListener {
+public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements ProgressListener {
     private static final String KEY_LAST_DIRECTORY = "org.jphototagger.program.view.ScanDirectoriesDialog.lastSelectedDirectory";
     private static final String KEY_FORCE = "org.jphototagger.program.view.ScanDirectoriesDialog.force";
     private static final String KEY_SUBDIRECTORIES = "org.jphototagger.program.view.ScanDirectoriesDialog.subdirectories";
@@ -54,6 +55,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Up
         initComponents();
         readProperties();
         MnemonicUtil.setMnemonics((Container) this);
+        AnnotationProcessor.process(this);
     }
 
     public void willDispose() {
@@ -128,7 +130,6 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Up
 
         imageFileInserter = new InsertImageFilesIntoDatabase(selectedImageFiles, insertIntoDatabase);
         imageFileInserter.addProgressListener(this);
-        imageFileInserter.addUpdateMetadataCheckListener(this);
     }
 
     private InsertIntoDatabase[] getWhatToInsertIntoDatabase() {
@@ -198,7 +199,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Up
      *
      * @param evt event containing the current filename
      */
-    @Override
+    @EventSubscriber(eventClass = UpdateMetadataCheckEvent.class)
     public void checkForUpdate(UpdateMetadataCheckEvent evt) {
         if (evt.getType().equals(Type.CHECKING_FILE)) {
             File file = evt.getImageFile();
@@ -207,7 +208,6 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Up
                 setFileLabel(file);
             }
         } else if (evt.getType().equals(Type.CHECK_FINISHED)) {
-            imageFileInserter.removeUpdateMetadataCheckListener(this);
             imageFileInserter = null;
             updateFinished();
         }
@@ -634,7 +634,6 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Up
         cancelChooseDirectories = true;
         cancelChooseRequest.cancel = true;
     }//GEN-LAST:event_buttonCancelChooseDirectoriesActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCancel;
     private javax.swing.JButton buttonCancelChooseDirectories;
