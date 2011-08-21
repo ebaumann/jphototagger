@@ -83,7 +83,7 @@ public final class ControllerMetadataTemplates implements ActionListener {
 
             @Override
             public void run() {
-                final String name = getNewName();
+                final String name = getNewName(null);
 
                 if (name != null) {
                     MetadataTemplate template = GUI.getEditPanel().getMetadataTemplate();
@@ -137,11 +137,12 @@ public final class ControllerMetadataTemplates implements ActionListener {
 
             @Override
             public void run() {
-                Object o = getModel().getSelectedItem();
-                String name = getNewName();
+                Object selectedItem = getModel().getSelectedItem();
+                MetadataTemplate template = (MetadataTemplate) selectedItem;
+                String name = getNewName(template.getName());
 
                 if (name != null) {
-                    getModel().rename((MetadataTemplate) o, name);
+                    getModel().rename(template, name);
                 }
             }
         });
@@ -185,10 +186,10 @@ public final class ControllerMetadataTemplates implements ActionListener {
         });
     }
 
-    private String getNewName() {
+    private String getNewName(String oldName) {
         boolean exists = true;
         boolean cancel = false;
-        String name = null;
+        String name = oldName;
         DatabaseMetadataTemplates db = DatabaseMetadataTemplates.INSTANCE;
 
         while (exists && !cancel) {
