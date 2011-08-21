@@ -1,9 +1,15 @@
 package org.jphototagger.program.model;
 
-
 import javax.swing.DefaultListModel;
 
-import org.jphototagger.domain.event.listener.DatabaseSynonymsListener;
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.domain.repository.event.synonyms.SynonymInsertedEvent;
+import org.jphototagger.domain.repository.event.synonyms.SynonymOfWordDeletedEvent;
+import org.jphototagger.domain.repository.event.synonyms.SynonymOfWordRenamedEvent;
+import org.jphototagger.domain.repository.event.synonyms.SynonymRenamedEvent;
+import org.jphototagger.domain.repository.event.synonyms.WordDeletedEvent;
+import org.jphototagger.domain.repository.event.synonyms.WordRenamedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.dialog.MessageDisplayer;
@@ -15,13 +21,17 @@ import org.jphototagger.program.database.DatabaseSynonyms;
  *
  * @author Elmar Baumann
  */
-public final class ListModelSynonyms extends DefaultListModel implements DatabaseSynonymsListener {
+public final class ListModelSynonyms extends DefaultListModel {
+
     private static final long serialVersionUID = -7595224452344062647L;
     private boolean listen = true;
     private final Role role;
     private String word;
 
-    public enum Role { WORDS, SYNONYMS }
+    public enum Role {
+
+        WORDS, SYNONYMS
+    }
 
     public ListModelSynonyms(Role role) {
         if (role == null) {
@@ -34,7 +44,7 @@ public final class ListModelSynonyms extends DefaultListModel implements Databas
     }
 
     private void listen() {
-        DatabaseSynonyms.INSTANCE.addListener(this);
+        AnnotationProcessor.process(this);
     }
 
     private boolean isRoleSynonymForWord(String word) {
@@ -48,7 +58,7 @@ public final class ListModelSynonyms extends DefaultListModel implements Databas
 
         assert role.equals(Role.WORDS);
 
-        if (role.equals(Role.WORDS) &&!contains(word)) {
+        if (role.equals(Role.WORDS) && !contains(word)) {
             addElement(word);
         }
     }
@@ -77,7 +87,7 @@ public final class ListModelSynonyms extends DefaultListModel implements Databas
             throw new NullPointerException("newWord == null");
         }
 
-        assert role.equals(Role.WORDS) &&!oldWord.equals(newWord);
+        assert role.equals(Role.WORDS) && !oldWord.equals(newWord);
 
         if (role.equals(Role.WORDS) && contains(oldWord)) {
             listen = false;
@@ -94,7 +104,7 @@ public final class ListModelSynonyms extends DefaultListModel implements Databas
 
         assert role.equals(Role.SYNONYMS) && (word != null);
 
-        if (role.equals(Role.SYNONYMS) && (word != null) &&!contains(synonym)) {
+        if (role.equals(Role.SYNONYMS) && (word != null) && !contains(synonym)) {
             listen = false;
 
             if (DatabaseSynonyms.INSTANCE.insert(word, synonym) == 1) {
@@ -136,7 +146,7 @@ public final class ListModelSynonyms extends DefaultListModel implements Databas
             throw new NullPointerException("newSynonym == null");
         }
 
-        assert role.equals(Role.SYNONYMS) && (word != null) &&!oldSynonym.equals(newSynonym);
+        assert role.equals(Role.SYNONYMS) && (word != null) && !oldSynonym.equals(newSynonym);
 
         if (role.equals(Role.SYNONYMS) && (word != null) && contains(oldSynonym)) {
             listen = false;
@@ -158,7 +168,7 @@ public final class ListModelSynonyms extends DefaultListModel implements Databas
 
         assert role.equals(Role.SYNONYMS);
 
-        if (role.equals(Role.SYNONYMS) && ((model.word == null) ||!model.word.equals(word))) {
+        if (role.equals(Role.SYNONYMS) && ((model.word == null) || !model.word.equals(word))) {
             model.word = word;
             addElements();
         }
@@ -186,9 +196,9 @@ public final class ListModelSynonyms extends DefaultListModel implements Databas
     }
 
     private void insertSynonym(String word, String synonym) {
-        if (listen && role.equals(Role.WORDS) &&!contains(word)) {
+        if (listen && role.equals(Role.WORDS) && !contains(word)) {
             addElement(word);
-        } else if (listen && isRoleSynonymForWord(word) &&!contains(synonym)) {
+        } else if (listen && isRoleSynonymForWord(word) && !contains(synonym)) {
             addElement(synonym);
         }
     }
@@ -196,7 +206,7 @@ public final class ListModelSynonyms extends DefaultListModel implements Databas
     private void deleteSynonymOfWord(String word, String synonym) {
         if (listen && isRoleSynonymForWord(word) && contains(synonym)) {
             removeElement(synonym);
-        } else if (listen && role.equals(Role.WORDS) && contains(word) &&!DatabaseSynonyms.INSTANCE.existsWord(word)) {
+        } else if (listen && role.equals(Role.WORDS) && contains(word) && !DatabaseSynonyms.INSTANCE.existsWord(word)) {
             removeElement(word);
         }
     }
@@ -227,49 +237,54 @@ public final class ListModelSynonyms extends DefaultListModel implements Databas
         }
     }
 
-    @Override
-    public void synonymOfWordDeleted(final String word, final String synonym) {
+    @EventSubscriber(eventClass = SynonymOfWordDeletedEvent.class)
+    public void synonymOfWordDeleted(final SynonymOfWordDeletedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                deleteSynonymOfWord(word, synonym);
+                deleteSynonymOfWord(word, evt.getSynonym());
             }
         });
     }
 
-    @Override
-    public void synonymInserted(final String word, final String synonym) {
+    @EventSubscriber(eventClass = SynonymInsertedEvent.class)
+    public void synonymInserted(final SynonymInsertedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                insertSynonym(word, synonym);
+                insertSynonym(word, evt.getSynonym());
             }
         });
     }
 
-    @Override
-    public void synonymOfWordRenamed(final String word, final String oldSynonymName, final String newSynonymName) {
+    @EventSubscriber(eventClass = SynonymOfWordRenamedEvent.class)
+    public void synonymOfWordRenamed(final SynonymOfWordRenamedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                renameSynonymOfWord(word, oldSynonymName, newSynonymName);
+                renameSynonymOfWord(word, evt.getOldSynonymName(), evt.getNewSynonymName());
             }
         });
     }
 
-    @Override
-    public void synonymRenamed(final String oldSynonymName, final String newSynonymName) {
+    @EventSubscriber(eventClass = SynonymRenamedEvent.class)
+    public void synonymRenamed(final SynonymRenamedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                renameSynonym(oldSynonymName, newSynonymName);
+                renameSynonym(evt.getOldSynonymName(), evt.getNewSynonymName());
             }
         });
     }
 
-    @Override
-    public void wordDeleted(final String word) {
+    @EventSubscriber(eventClass = WordDeletedEvent.class)
+    public void wordDeleted(final WordDeletedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 deleteWord(word);
@@ -277,12 +292,13 @@ public final class ListModelSynonyms extends DefaultListModel implements Databas
         });
     }
 
-    @Override
-    public void wordRenamed(final String fromName, final String toName) {
+    @EventSubscriber(eventClass = WordRenamedEvent.class)
+    public void wordRenamed(final WordRenamedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                renameWord(fromName, toName);
+                renameWord(evt.getFromName(), evt.getToName());
             }
         });
     }

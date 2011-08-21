@@ -9,8 +9,13 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.domain.event.listener.DatabaseSynonymsListener;
-import org.jphototagger.domain.event.listener.impl.ListenerSupport;
+import org.bushe.swing.event.EventBus;
+import org.jphototagger.domain.repository.event.synonyms.SynonymInsertedEvent;
+import org.jphototagger.domain.repository.event.synonyms.SynonymOfWordDeletedEvent;
+import org.jphototagger.domain.repository.event.synonyms.SynonymOfWordRenamedEvent;
+import org.jphototagger.domain.repository.event.synonyms.SynonymRenamedEvent;
+import org.jphototagger.domain.repository.event.synonyms.WordDeletedEvent;
+import org.jphototagger.domain.repository.event.synonyms.WordRenamedEvent;
 
 /**
  *
@@ -18,8 +23,8 @@ import org.jphototagger.domain.event.listener.impl.ListenerSupport;
  * @author Elmar Baumann
  */
 public final class DatabaseSynonyms extends Database {
+
     public static final DatabaseSynonyms INSTANCE = new DatabaseSynonyms();
-    private final ListenerSupport<DatabaseSynonymsListener> ls = new ListenerSupport<DatabaseSynonymsListener>();
 
     public int updateSynonymOf(String word, String oldSynonym, String newSynonym) {
         if (word == null) {
@@ -41,8 +46,7 @@ public final class DatabaseSynonyms extends Database {
         try {
             con = getConnection();
             con.setAutoCommit(false);
-            stmt = con.prepareStatement("UPDATE synonyms SET synonym = ?"
-                                        + " WHERE word = ? AND synonym = ?");
+            stmt = con.prepareStatement("UPDATE synonyms SET synonym = ? WHERE word = ? AND synonym = ?");
             stmt.setString(1, newSynonym);
             stmt.setString(2, word);
             stmt.setString(3, oldSynonym);
@@ -407,57 +411,30 @@ public final class DatabaseSynonyms extends Database {
         return words;
     }
 
-    public void addListener(DatabaseSynonymsListener listener) {
-        if (listener == null) {
-            throw new NullPointerException("listener == null");
-        }
-
-        ls.add(listener);
-    }
-
-    public void removeListener(DatabaseSynonymsListener listener) {
-        if (listener == null) {
-            throw new NullPointerException("listener == null");
-        }
-
-        ls.remove(listener);
-    }
-
     private void notifySynonymOfWordDeleted(String word, String synonym) {
-        for (DatabaseSynonymsListener listener : ls.get()) {
-            listener.synonymOfWordDeleted(word, synonym);
-        }
+        EventBus.publish(new SynonymOfWordDeletedEvent(this, word, synonym));
     }
 
     private void notifyWordDeleted(String word) {
-        for (DatabaseSynonymsListener listener : ls.get()) {
-            listener.wordDeleted(word);
-        }
+        EventBus.publish(new WordDeletedEvent(this, word));
     }
 
     private void notifySynonymInserted(String word, String synonym) {
-        for (DatabaseSynonymsListener listener : ls.get()) {
-            listener.synonymInserted(word, synonym);
-        }
+        EventBus.publish(new SynonymInsertedEvent(this, word, synonym));
     }
 
     private void notifySynonymOfWordRenamed(String word, String oldSynonymName, String newSynonymName) {
-        for (DatabaseSynonymsListener listener : ls.get()) {
-            listener.synonymOfWordRenamed(word, oldSynonymName, newSynonymName);
-        }
+        EventBus.publish(new SynonymOfWordRenamedEvent(this, word, oldSynonymName, newSynonymName));
     }
 
     private void notifySynonymRenamed(String oldSynonymName, String newSynonymName) {
-        for (DatabaseSynonymsListener listener : ls.get()) {
-            listener.synonymRenamed(oldSynonymName, newSynonymName);
-        }
+        EventBus.publish(new SynonymRenamedEvent(this, oldSynonymName, newSynonymName));
     }
 
     private void notifyWordRenamed(String fromName, String toName) {
-        for (DatabaseSynonymsListener listener : ls.get()) {
-            listener.wordRenamed(fromName, toName);
-        }
+        EventBus.publish(new WordRenamedEvent(this, fromName, toName));
     }
 
-    private DatabaseSynonyms() {}
+    private DatabaseSynonyms() {
+    }
 }
