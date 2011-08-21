@@ -12,6 +12,7 @@ import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.bushe.swing.event.EventBus;
 import org.jphototagger.domain.database.xmp.ColumnXmpDcCreator;
 import org.jphototagger.domain.database.xmp.ColumnXmpDcDescription;
 import org.jphototagger.domain.database.xmp.ColumnXmpDcRights;
@@ -30,8 +31,10 @@ import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopSource;
 import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopState;
 import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopTransmissionReference;
 import org.jphototagger.domain.database.xmp.ColumnXmpRating;
-import org.jphototagger.domain.event.listener.DatabaseMetadataTemplatesListener;
-import org.jphototagger.domain.event.listener.impl.ListenerSupport;
+import org.jphototagger.domain.repository.event.metadatatemplates.MetadataTemplateDeletedEvent;
+import org.jphototagger.domain.repository.event.metadatatemplates.MetadataTemplateInsertedEvent;
+import org.jphototagger.domain.repository.event.metadatatemplates.MetadataTemplateRenamedEvent;
+import org.jphototagger.domain.repository.event.metadatatemplates.MetadataTemplateUpdatedEvent;
 import org.jphototagger.domain.templates.MetadataTemplate;
 
 /**
@@ -40,12 +43,12 @@ import org.jphototagger.domain.templates.MetadataTemplate;
  * @author Elmar Baumann
  */
 public final class DatabaseMetadataTemplates extends Database {
+
     private static final String DELIM_REPEATABLE_STRINGS = "\t";
     public static final DatabaseMetadataTemplates INSTANCE = new DatabaseMetadataTemplates();
-    private final ListenerSupport<DatabaseMetadataTemplatesListener> ls =
-        new ListenerSupport<DatabaseMetadataTemplatesListener>();
 
-    private DatabaseMetadataTemplates() {}
+    private DatabaseMetadataTemplates() {
+    }
 
     /**
      * Fügt ein neues Metadaten-Edit-Template ein. Existiert das Template
@@ -72,26 +75,26 @@ public final class DatabaseMetadataTemplates extends Database {
             con.setAutoCommit(false);
 
             String sql = "INSERT INTO metadata_edit_templates ("
-                         + "name"    // --  1 --
-                         + ", dcSubjects"    // --  2 --
-                         + ", dcTitle"    // --  3 --
-                         + ", photoshopHeadline"    // --  4 --
-                         + ", dcDescription"    // --  5 --
-                         + ", photoshopCaptionwriter"    // --  6 --
-                         + ", iptc4xmpcoreLocation"    // --  7 --
-                         + ", dcRights"    // --  8 --
-                         + ", dcCreator"    // --  9 --
-                         + ", photoshopAuthorsposition"    // -- 10 --
-                         + ", photoshopCity"    // -- 11 --
-                         + ", photoshopState"    // -- 12 --
-                         + ", photoshopCountry"    // -- 13 --
-                         + ", photoshopTransmissionReference"    // -- 14 --
-                         + ", photoshopInstructions"    // -- 15 --
-                         + ", photoshopCredit"    // -- 16 --
-                         + ", photoshopSource"    // -- 17 --
-                         + ", rating"    // -- 18 --
-                         + ", iptc4xmpcore_datecreated"    // -- 19 --
-                         + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?" + ", ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    + "name" // --  1 --
+                    + ", dcSubjects" // --  2 --
+                    + ", dcTitle" // --  3 --
+                    + ", photoshopHeadline" // --  4 --
+                    + ", dcDescription" // --  5 --
+                    + ", photoshopCaptionwriter" // --  6 --
+                    + ", iptc4xmpcoreLocation" // --  7 --
+                    + ", dcRights" // --  8 --
+                    + ", dcCreator" // --  9 --
+                    + ", photoshopAuthorsposition" // -- 10 --
+                    + ", photoshopCity" // -- 11 --
+                    + ", photoshopState" // -- 12 --
+                    + ", photoshopCountry" // -- 13 --
+                    + ", photoshopTransmissionReference" // -- 14 --
+                    + ", photoshopInstructions" // -- 15 --
+                    + ", photoshopCredit" // -- 16 --
+                    + ", photoshopSource" // -- 17 --
+                    + ", rating" // -- 18 --
+                    + ", iptc4xmpcore_datecreated" // -- 19 --
+                    + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?" + ", ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             stmt = con.prepareStatement(sql);
             set(stmt, template);
@@ -115,63 +118,63 @@ public final class DatabaseMetadataTemplates extends Database {
     private void set(PreparedStatement stmt, MetadataTemplate template) throws SQLException {
         stmt.setString(1, template.getName());
         stmt.setBytes(2, (template.getValueOfColumn(ColumnXmpDcSubjectsSubject.INSTANCE) == null)
-                         ? null
-                         : fromRepeatable(
-                             (Collection<String>) template.getValueOfColumn(
-                                 ColumnXmpDcSubjectsSubject.INSTANCE)).getBytes());
+                ? null
+                : fromRepeatable(
+                (Collection<String>) template.getValueOfColumn(
+                ColumnXmpDcSubjectsSubject.INSTANCE)).getBytes());
         stmt.setBytes(3, (template.getValueOfColumn(ColumnXmpDcTitle.INSTANCE) == null)
-                         ? null
-                         : ((String) template.getValueOfColumn(ColumnXmpDcTitle.INSTANCE)).getBytes());
+                ? null
+                : ((String) template.getValueOfColumn(ColumnXmpDcTitle.INSTANCE)).getBytes());
         stmt.setBytes(4, (template.getValueOfColumn(ColumnXmpPhotoshopHeadline.INSTANCE) == null)
-                         ? null
-                         : ((String) template.getValueOfColumn(ColumnXmpPhotoshopHeadline.INSTANCE)).getBytes());
+                ? null
+                : ((String) template.getValueOfColumn(ColumnXmpPhotoshopHeadline.INSTANCE)).getBytes());
         stmt.setBytes(5, (template.getValueOfColumn(ColumnXmpDcDescription.INSTANCE) == null)
-                         ? null
-                         : ((String) template.getValueOfColumn(ColumnXmpDcDescription.INSTANCE)).getBytes());
+                ? null
+                : ((String) template.getValueOfColumn(ColumnXmpDcDescription.INSTANCE)).getBytes());
         stmt.setBytes(6, (template.getValueOfColumn(ColumnXmpPhotoshopCaptionwriter.INSTANCE) == null)
-                         ? null
-                         : ((String) template.getValueOfColumn(ColumnXmpPhotoshopCaptionwriter.INSTANCE)).getBytes());
+                ? null
+                : ((String) template.getValueOfColumn(ColumnXmpPhotoshopCaptionwriter.INSTANCE)).getBytes());
         stmt.setBytes(7, (template.getValueOfColumn(ColumnXmpIptc4xmpcoreLocation.INSTANCE) == null)
-                         ? null
-                         : ((String) template.getValueOfColumn(ColumnXmpIptc4xmpcoreLocation.INSTANCE)).getBytes());
+                ? null
+                : ((String) template.getValueOfColumn(ColumnXmpIptc4xmpcoreLocation.INSTANCE)).getBytes());
         stmt.setBytes(8, (template.getValueOfColumn(ColumnXmpDcRights.INSTANCE) == null)
-                         ? null
-                         : ((String) template.getValueOfColumn(ColumnXmpDcRights.INSTANCE)).getBytes());
+                ? null
+                : ((String) template.getValueOfColumn(ColumnXmpDcRights.INSTANCE)).getBytes());
         stmt.setBytes(9, (template.getValueOfColumn(ColumnXmpDcCreator.INSTANCE) == null)
-                         ? null
-                         : ((String) template.getValueOfColumn(ColumnXmpDcCreator.INSTANCE)).getBytes());
+                ? null
+                : ((String) template.getValueOfColumn(ColumnXmpDcCreator.INSTANCE)).getBytes());
         stmt.setBytes(10, (template.getValueOfColumn(ColumnXmpPhotoshopAuthorsposition.INSTANCE) == null)
-                          ? null
-                          : ((String) template.getValueOfColumn(
-                              ColumnXmpPhotoshopAuthorsposition.INSTANCE)).getBytes());
+                ? null
+                : ((String) template.getValueOfColumn(
+                ColumnXmpPhotoshopAuthorsposition.INSTANCE)).getBytes());
         stmt.setBytes(11, (template.getValueOfColumn(ColumnXmpPhotoshopCity.INSTANCE) == null)
-                          ? null
-                          : ((String) template.getValueOfColumn(ColumnXmpPhotoshopCity.INSTANCE)).getBytes());
+                ? null
+                : ((String) template.getValueOfColumn(ColumnXmpPhotoshopCity.INSTANCE)).getBytes());
         stmt.setBytes(12, (template.getValueOfColumn(ColumnXmpPhotoshopState.INSTANCE) == null)
-                          ? null
-                          : ((String) template.getValueOfColumn(ColumnXmpPhotoshopState.INSTANCE)).getBytes());
+                ? null
+                : ((String) template.getValueOfColumn(ColumnXmpPhotoshopState.INSTANCE)).getBytes());
         stmt.setBytes(13, (template.getValueOfColumn(ColumnXmpPhotoshopCountry.INSTANCE) == null)
-                          ? null
-                          : ((String) template.getValueOfColumn(ColumnXmpPhotoshopCountry.INSTANCE)).getBytes());
+                ? null
+                : ((String) template.getValueOfColumn(ColumnXmpPhotoshopCountry.INSTANCE)).getBytes());
         stmt.setBytes(14, (template.getValueOfColumn(ColumnXmpPhotoshopTransmissionReference.INSTANCE) == null)
-                          ? null
-                          : ((String) template.getValueOfColumn(
-                              ColumnXmpPhotoshopTransmissionReference.INSTANCE)).getBytes());
+                ? null
+                : ((String) template.getValueOfColumn(
+                ColumnXmpPhotoshopTransmissionReference.INSTANCE)).getBytes());
         stmt.setBytes(15, (template.getValueOfColumn(ColumnXmpPhotoshopInstructions.INSTANCE) == null)
-                          ? null
-                          : ((String) template.getValueOfColumn(ColumnXmpPhotoshopInstructions.INSTANCE)).getBytes());
+                ? null
+                : ((String) template.getValueOfColumn(ColumnXmpPhotoshopInstructions.INSTANCE)).getBytes());
         stmt.setBytes(16, (template.getValueOfColumn(ColumnXmpPhotoshopCredit.INSTANCE) == null)
-                          ? null
-                          : ((String) template.getValueOfColumn(ColumnXmpPhotoshopCredit.INSTANCE)).getBytes());
+                ? null
+                : ((String) template.getValueOfColumn(ColumnXmpPhotoshopCredit.INSTANCE)).getBytes());
         stmt.setBytes(17, (template.getValueOfColumn(ColumnXmpPhotoshopSource.INSTANCE) == null)
-                          ? null
-                          : ((String) template.getValueOfColumn(ColumnXmpPhotoshopSource.INSTANCE)).getBytes());
+                ? null
+                : ((String) template.getValueOfColumn(ColumnXmpPhotoshopSource.INSTANCE)).getBytes());
         stmt.setBytes(18, (template.getValueOfColumn(ColumnXmpRating.INSTANCE) == null)
-                          ? null
-                          : ((String) template.getValueOfColumn(ColumnXmpRating.INSTANCE)).getBytes());
+                ? null
+                : ((String) template.getValueOfColumn(ColumnXmpRating.INSTANCE)).getBytes());
         stmt.setBytes(19, (template.getValueOfColumn(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE) == null)
-                          ? null
-                          : ((String) template.getValueOfColumn(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE)).getBytes());
+                ? null
+                : ((String) template.getValueOfColumn(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE)).getBytes());
     }
 
     private String fromRepeatable(Collection<String> strings) {
@@ -180,8 +183,8 @@ public final class DatabaseMetadataTemplates extends Database {
 
         for (String string : strings) {
             sb.append((index++ == 0)
-                      ? ""
-                      : DELIM_REPEATABLE_STRINGS);
+                    ? ""
+                    : DELIM_REPEATABLE_STRINGS);
             sb.append(string);
         }
 
@@ -276,27 +279,26 @@ public final class DatabaseMetadataTemplates extends Database {
     }
 
     private String getSelectForSetValues() {
-        return "SELECT name"    // --  1 --
-               + ", dcSubjects"    // --  2 --
-               + ", dcTitle"    // --  3 --
-               + ", photoshopHeadline"    // --  4 --
-               + ", dcDescription"    // --  5 --
-               + ", photoshopCaptionwriter"    // --  6 --
-               + ", iptc4xmpcoreLocation"    // --  7 --
-               + ", dcRights"    // --  8 --
-               + ", dcCreator"    // --  9 --
-               + ", photoshopAuthorsposition"    // -- 10 --
-               + ", photoshopCity"    // -- 11 --
-               + ", photoshopState"    // -- 12 --
-               + ", photoshopCountry"    // -- 13 --
-               + ", photoshopTransmissionReference"    // -- 14 --
-               + ", photoshopInstructions"    // -- 15 --
-               + ", photoshopCredit"    // -- 16 --
-               + ", photoshopSource"    // -- 17 --
-               + ", rating"    // -- 18 --
-               + ", iptc4xmpcore_datecreated"    // -- 19 --
-               + " FROM metadata_edit_templates"
-        ;
+        return "SELECT name" // --  1 --
+                + ", dcSubjects" // --  2 --
+                + ", dcTitle" // --  3 --
+                + ", photoshopHeadline" // --  4 --
+                + ", dcDescription" // --  5 --
+                + ", photoshopCaptionwriter" // --  6 --
+                + ", iptc4xmpcoreLocation" // --  7 --
+                + ", dcRights" // --  8 --
+                + ", dcCreator" // --  9 --
+                + ", photoshopAuthorsposition" // -- 10 --
+                + ", photoshopCity" // -- 11 --
+                + ", photoshopState" // -- 12 --
+                + ", photoshopCountry" // -- 13 --
+                + ", photoshopTransmissionReference" // -- 14 --
+                + ", photoshopInstructions" // -- 15 --
+                + ", photoshopCredit" // -- 16 --
+                + ", photoshopSource" // -- 17 --
+                + ", rating" // -- 18 --
+                + ", iptc4xmpcore_datecreated" // -- 19 --
+                + " FROM metadata_edit_templates";
     }
 
     private void setValues(MetadataTemplate template, ResultSet rs) throws SQLException {
@@ -393,26 +395,26 @@ public final class DatabaseMetadataTemplates extends Database {
         PreparedStatement stmt = null;
 
         try {
-            String sql = "UPDATE metadata_edit_templates" + " SET name = ?"    // --  1 --
-                         + ", dcSubjects = ?"    // --  2 --
-                         + ", dcTitle = ?"    // --  3 --
-                         + ", photoshopHeadline = ?"    // --  4 --
-                         + ", dcDescription = ?"    // --  5 --
-                         + ", photoshopCaptionwriter = ?"    // --  6 --
-                         + ", iptc4xmpcoreLocation = ?"    // --  7 --
-                         + ", dcRights = ?"    // --  8 --
-                         + ", dcCreator = ?"    // --  9 --
-                         + ", photoshopAuthorsposition = ?"    // -- 10 --
-                         + ", photoshopCity = ?"    // -- 11 --
-                         + ", photoshopState = ?"    // -- 12 --
-                         + ", photoshopCountry = ?"    // -- 13 --
-                         + ", photoshopTransmissionReference = ?"    // -- 14 --
-                         + ", photoshopInstructions = ?"    // -- 15 --
-                         + ", photoshopCredit = ?"    // -- 16 --
-                         + ", photoshopSource = ?"    // -- 17 --
-                         + ", rating = ?"    // -- 18 --
-                         + ", iptc4xmpcore_datecreated = ?"    // -- 19 --
-                         + " WHERE name = ?";    // -- 20 --
+            String sql = "UPDATE metadata_edit_templates" + " SET name = ?" // --  1 --
+                    + ", dcSubjects = ?" // --  2 --
+                    + ", dcTitle = ?" // --  3 --
+                    + ", photoshopHeadline = ?" // --  4 --
+                    + ", dcDescription = ?" // --  5 --
+                    + ", photoshopCaptionwriter = ?" // --  6 --
+                    + ", iptc4xmpcoreLocation = ?" // --  7 --
+                    + ", dcRights = ?" // --  8 --
+                    + ", dcCreator = ?" // --  9 --
+                    + ", photoshopAuthorsposition = ?" // -- 10 --
+                    + ", photoshopCity = ?" // -- 11 --
+                    + ", photoshopState = ?" // -- 12 --
+                    + ", photoshopCountry = ?" // -- 13 --
+                    + ", photoshopTransmissionReference = ?" // -- 14 --
+                    + ", photoshopInstructions = ?" // -- 15 --
+                    + ", photoshopCredit = ?" // -- 16 --
+                    + ", photoshopSource = ?" // -- 17 --
+                    + ", rating = ?" // -- 18 --
+                    + ", iptc4xmpcore_datecreated = ?" // -- 19 --
+                    + " WHERE name = ?";    // -- 20 --
 
             con = getConnection();
             con.setAutoCommit(false);
@@ -553,43 +555,19 @@ public final class DatabaseMetadataTemplates extends Database {
         return exists;
     }
 
-    public void addListener(DatabaseMetadataTemplatesListener listener) {
-        if (listener == null) {
-            throw new NullPointerException("listener == null");
-        }
-
-        ls.add(listener);
-    }
-
-    public void removeListener(DatabaseMetadataTemplatesListener listener) {
-        if (listener == null) {
-            throw new NullPointerException("listener == null");
-        }
-
-        ls.remove(listener);
-    }
-
     private void notifyDelted(MetadataTemplate template) {
-        for (DatabaseMetadataTemplatesListener listener : ls.get()) {
-            listener.templateDeleted(template);
-        }
+        EventBus.publish(new MetadataTemplateDeletedEvent(this, template));
     }
 
     private void notifyInserted(MetadataTemplate template) {
-        for (DatabaseMetadataTemplatesListener listener : ls.get()) {
-            listener.templateInserted(template);
-        }
+        EventBus.publish(new MetadataTemplateInsertedEvent(this, template));
     }
 
     private void notifyUpdated(MetadataTemplate oldTemplate, MetadataTemplate updatedTemplate) {
-        for (DatabaseMetadataTemplatesListener listener : ls.get()) {
-            listener.templateUpdated(oldTemplate, updatedTemplate);
-        }
+        EventBus.publish(new MetadataTemplateUpdatedEvent(this, oldTemplate, updatedTemplate));
     }
 
     private void notifyRenamed(String fromName, String toName) {
-        for (DatabaseMetadataTemplatesListener listener : ls.get()) {
-            listener.templateRenamed(fromName, toName);
-        }
+        EventBus.publish(new MetadataTemplateRenamedEvent(this, fromName, toName));
     }
 }

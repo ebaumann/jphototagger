@@ -4,7 +4,12 @@ import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 
-import org.jphototagger.domain.event.listener.DatabaseMetadataTemplatesListener;
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.domain.repository.event.metadatatemplates.MetadataTemplateDeletedEvent;
+import org.jphototagger.domain.repository.event.metadatatemplates.MetadataTemplateInsertedEvent;
+import org.jphototagger.domain.repository.event.metadatatemplates.MetadataTemplateRenamedEvent;
+import org.jphototagger.domain.repository.event.metadatatemplates.MetadataTemplateUpdatedEvent;
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
@@ -18,13 +23,13 @@ import org.jphototagger.program.database.DatabaseMetadataTemplates;
  *
  * @author Elmar Baumann, Tobias Stening
  */
-public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel
-        implements DatabaseMetadataTemplatesListener {
+public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel {
+
     private static final long serialVersionUID = 7895253533969078904L;
 
     public ComboBoxModelMetadataTemplates() {
         addElements();
-        DatabaseMetadataTemplates.INSTANCE.addListener(this);
+        AnnotationProcessor.process(this);
     }
 
     /**
@@ -63,7 +68,7 @@ public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel
             setSelectedItem(template);
         } else {
             errorMessage(template.getName(),
-                         Bundle.getString(ComboBoxModelMetadataTemplates.class, "ComboBoxModelMetadataTemplates.Error.ParamInsert"));
+                    Bundle.getString(ComboBoxModelMetadataTemplates.class, "ComboBoxModelMetadataTemplates.Error.ParamInsert"));
         }
     }
 
@@ -85,7 +90,7 @@ public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel
             setSelectedItem(template);
         } else {
             errorMessage(template.getName(),
-                         Bundle.getString(ComboBoxModelMetadataTemplates.class, "ComboBoxModelMetadataTemplates.Error.ParamUpdate"));
+                    Bundle.getString(ComboBoxModelMetadataTemplates.class, "ComboBoxModelMetadataTemplates.Error.ParamUpdate"));
         }
     }
 
@@ -113,7 +118,7 @@ public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel
             setSelectedItem(template);
         } else {
             errorMessage(template.getName(),
-                         Bundle.getString(ComboBoxModelMetadataTemplates.class, "ComboBoxModelMetadataTemplates.Error.ParamRename"));
+                    Bundle.getString(ComboBoxModelMetadataTemplates.class, "ComboBoxModelMetadataTemplates.Error.ParamRename"));
         }
     }
 
@@ -169,42 +174,46 @@ public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel
         return -1;
     }
 
-    @Override
-    public void templateDeleted(final MetadataTemplate template) {
+    @EventSubscriber(eventClass = MetadataTemplateDeletedEvent.class)
+    public void templateDeleted(final MetadataTemplateDeletedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                removeElement(template);
+                removeElement(evt.getTemplate());
             }
         });
     }
 
-    @Override
-    public void templateInserted(final MetadataTemplate template) {
+    @EventSubscriber(eventClass = MetadataTemplateInsertedEvent.class)
+    public void templateInserted(final MetadataTemplateInsertedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                addElement(template);
+                addElement(evt.getTemplate());
             }
         });
     }
 
-    @Override
-    public void templateUpdated(final MetadataTemplate oldTemplate, MetadataTemplate updatedTemplate) {
+    @EventSubscriber(eventClass = MetadataTemplateUpdatedEvent.class)
+    public void templateUpdated(final MetadataTemplateUpdatedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                updateTemplate(oldTemplate);
+                updateTemplate(evt.getOldTemplate());
             }
         });
     }
 
-    @Override
-    public void templateRenamed(final String fromName, final String toName) {
+    @EventSubscriber(eventClass = MetadataTemplateRenamedEvent.class)
+    public void templateRenamed(final MetadataTemplateRenamedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                renameTemplate(fromName, toName);
+                renameTemplate(evt.getFromName(), evt.getToName());
             }
         });
     }
