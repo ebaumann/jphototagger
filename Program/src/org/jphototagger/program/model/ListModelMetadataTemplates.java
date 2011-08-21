@@ -3,8 +3,13 @@ package org.jphototagger.program.model;
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseMetadataTemplates;
-import org.jphototagger.domain.event.listener.DatabaseMetadataTemplatesListener;
 import javax.swing.DefaultListModel;
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.domain.repository.event.metadatatemplates.MetadataTemplateDeletedEvent;
+import org.jphototagger.domain.repository.event.metadatatemplates.MetadataTemplateInsertedEvent;
+import org.jphototagger.domain.repository.event.metadatatemplates.MetadataTemplateRenamedEvent;
+import org.jphototagger.domain.repository.event.metadatatemplates.MetadataTemplateUpdatedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
@@ -13,12 +18,13 @@ import org.jphototagger.lib.awt.EventQueueUtil;
  *
  * @author Elmar Baumann
  */
-public final class ListModelMetadataTemplates extends DefaultListModel implements DatabaseMetadataTemplatesListener {
+public final class ListModelMetadataTemplates extends DefaultListModel {
+
     private static final long serialVersionUID = -1726658041913008196L;
 
     public ListModelMetadataTemplates() {
         addElements();
-        DatabaseMetadataTemplates.INSTANCE.addListener(this);
+        AnnotationProcessor.process(this);
     }
 
     private void addElements() {
@@ -66,42 +72,46 @@ public final class ListModelMetadataTemplates extends DefaultListModel implement
         }
     }
 
-    @Override
-    public void templateDeleted(final MetadataTemplate template) {
+    @EventSubscriber(eventClass = MetadataTemplateDeletedEvent.class)
+    public void templateDeleted(final MetadataTemplateDeletedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                removeElement(template);
+                removeElement(evt.getTemplate());
             }
         });
     }
 
-    @Override
-    public void templateInserted(final MetadataTemplate template) {
+    @EventSubscriber(eventClass = MetadataTemplateInsertedEvent.class)
+    public void templateInserted(final MetadataTemplateInsertedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                addElement(template);
+                addElement(evt.getTemplate());
             }
         });
     }
 
-    @Override
-    public void templateUpdated(final MetadataTemplate oldTemplate, MetadataTemplate updatedTemplate) {
+    @EventSubscriber(eventClass = MetadataTemplateUpdatedEvent.class)
+    public void templateUpdated(final MetadataTemplateUpdatedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                updateTemplate(oldTemplate);
+                updateTemplate(evt.getOldTemplate());
             }
         });
     }
 
-    @Override
-    public void templateRenamed(final String fromName, final String toName) {
+    @EventSubscriber(eventClass = MetadataTemplateRenamedEvent.class)
+    public void templateRenamed(final MetadataTemplateRenamedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                renameTemplate(fromName, toName);
+                renameTemplate(evt.getFromName(), evt.getToName());
             }
         });
     }
