@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bushe.swing.event.EventBus;
+import org.jphototagger.api.file.event.FileMovedEvent;
 import org.jphototagger.lib.event.ProgressEvent;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.SourceTargetFile;
@@ -133,7 +135,7 @@ public final class FileSystemMove extends FileSystem implements Runnable {
 
     private void notifyMoved(boolean moved, File sourceFile, File targetFile) {
         if (moved) {
-            notifyFileSystemListenersMoved(sourceFile, targetFile);
+            EventBus.publish(new FileMovedEvent(this, sourceFile, targetFile));
         } else {
             String message = Bundle.getString(FileSystemMove.class, "FileSystemMove.Error", sourceFile, targetFile);
             MessageDisplayer.error(null, message);

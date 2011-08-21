@@ -8,7 +8,8 @@ import java.util.List;
 
 import javax.swing.filechooser.FileSystemView;
 
-import org.jphototagger.domain.event.listener.impl.FileSystemListenerSupport;
+import org.bushe.swing.event.EventBus;
+import org.jphototagger.api.file.event.FileCopiedEvent;
 import org.jphototagger.domain.event.listener.impl.ProgressListenerSupport;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.ComponentUtil;
@@ -16,7 +17,6 @@ import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.dialog.DirectoryChooser;
 import org.jphototagger.lib.event.ProgressEvent;
-import org.jphototagger.lib.event.listener.FileSystemListener;
 import org.jphototagger.lib.event.listener.ProgressListener;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.SourceTargetFile;
@@ -26,6 +26,7 @@ import org.jphototagger.program.UserSettings;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.helper.CopyFiles;
 import org.jphototagger.program.helper.CopyFiles.Options;
+import org.jphototagger.program.helper.FilesystemDatabaseUpdater;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.SelectRootFilesPanel;
 import org.jphototagger.xmp.XmpMetadata;
@@ -39,12 +40,12 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
     private static final String KEY_COPY_XMP = "CopyToDirectoryDialog.CopyXmp";
     private static final long serialVersionUID = 2401347394410721552L;
     private final transient ProgressListenerSupport pListenerSupport = new ProgressListenerSupport();
-    private final transient FileSystemListenerSupport fsListenerSupport = new FileSystemListenerSupport();
     private transient CopyFiles copyTask;
     private boolean copy;
     private boolean writeProperties = true;
     private Collection<File> sourceFiles;
     private File targetDirectory = new File("");
+    private final FilesystemDatabaseUpdater fileSystemDbUpdater = new FilesystemDatabaseUpdater(true); // Required!
 
     public CopyToDirectoryDialog() {
         super(GUI.getAppFrame(), false);
@@ -73,26 +74,6 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
         }
 
         pListenerSupport.remove(listener);
-    }
-
-    public void addFileSystemActionListener(FileSystemListener listener) {
-        if (listener == null) {
-            throw new NullPointerException("listener == null");
-        }
-
-        fsListenerSupport.add(listener);
-    }
-
-    public void removeFileSystemActionListener(FileSystemListener listener) {
-        if (listener == null) {
-            throw new NullPointerException("listener == null");
-        }
-
-        fsListenerSupport.remove(listener);
-    }
-
-    private void notifyFileSystemActionListenersCopied(File src, File target) {
-        fsListenerSupport.notifyCopied(src, target);
     }
 
     private void checkClosing() {
@@ -343,9 +324,11 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
 
                 if (info instanceof SourceTargetFile) {
                     SourceTargetFile files = (SourceTargetFile) info;
+                    File sourceFile = files.getSourceFile();
+                    File targetFile = files.getTargetFile();
 
                     labelCurrentFilename.setText(files.getSourceFile().getAbsolutePath());
-                    notifyFileSystemActionListenersCopied(files.getSourceFile(), files.getTargetFile());
+                    EventBus.publish(new FileCopiedEvent(this, sourceFile, targetFile));
                 }
 
                 pListenerSupport.notifyPerformed(evt);

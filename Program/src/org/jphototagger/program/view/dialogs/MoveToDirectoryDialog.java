@@ -8,14 +8,15 @@ import java.util.List;
 
 import javax.swing.filechooser.FileSystemView;
 
-import org.jphototagger.domain.event.listener.impl.FileSystemListenerSupport;
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.api.file.event.FileMovedEvent;
 import org.jphototagger.domain.event.listener.impl.ProgressListenerSupport;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.dialog.DirectoryChooser;
 import org.jphototagger.lib.event.ProgressEvent;
-import org.jphototagger.lib.event.listener.FileSystemListener;
 import org.jphototagger.lib.event.listener.ProgressListener;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.SourceTargetFile;
@@ -33,7 +34,7 @@ import org.jphototagger.xmp.XmpMetadata;
  *
  * @author Elmar Baumann
  */
-public final class MoveToDirectoryDialog extends Dialog implements ProgressListener, FileSystemListener {
+public final class MoveToDirectoryDialog extends Dialog implements ProgressListener {
     private static final long serialVersionUID = 3213926343815394815L;
     private static final String KEY_TARGET_DIRECTORY = "org.jphototagger.program.view.dialogs.MoveToDirectoryDialog.TargetDirectory";
     private final List<File> movedFiles = new ArrayList<File>();
@@ -45,13 +46,13 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
     private List<File> sourceFiles;
     private File targetDirectory = new File("");
     private boolean moveIfVisible = false;
-    private final transient FileSystemListenerSupport ls = new FileSystemListenerSupport();
 
     public MoveToDirectoryDialog() {
         super(GUI.getAppFrame(), false);
         initComponents();
         setHelpPage();
         MnemonicUtil.setMnemonics((Container) this);
+        AnnotationProcessor.process(this);
     }
 
     private void setHelpPage() {
@@ -122,21 +123,8 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
         return "JPhotoTagger: Moving files to directory " + targetDirectory.getAbsolutePath();
     }
 
-    public void addFileSystemListener(FileSystemListener listener) {
-        if (listener == null) {
-            throw new NullPointerException("listener == null");
-        }
-
-        ls.add(listener);
-    }
-
     private void addListenerToMoveTask() {
-        moveTask.addFileSystemListener(this);
         moveTask.addProgressListener(this);
-
-        for (FileSystemListener listener : ls.get()) {
-            moveTask.addFileSystemListener(listener);
-        }
     }
 
     private void cancel() {
@@ -215,10 +203,8 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
         if (visible) {
             if (moveIfVisible) {
                 start();
-                ls.add(this);
             } else {
                 setTargetDirectory();
-                ls.remove(this);
             }
         } else {
             targetDirectoryToSettings();
@@ -322,27 +308,11 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
     }
 
 
-    @Override
-    public void fileMoved(File source, File target) {
-        movedFiles.add(source);
-    }
+    @EventSubscriber(eventClass = FileMovedEvent.class)
+    public void fileMoved(FileMovedEvent evt) {
+        File sourceFile = evt.getSourceFile();
 
-    @Override
-    public void fileCopied(File source, File target) {
-
-        // ignore
-    }
-
-    @Override
-    public void fileDeleted(File file) {
-
-        // ignore
-    }
-
-    @Override
-    public void fileRenamed(File oldFile, File newFile) {
-
-        // ignore
+        movedFiles.add(sourceFile);
     }
 
     /**

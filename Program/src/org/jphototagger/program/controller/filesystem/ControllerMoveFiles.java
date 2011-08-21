@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.lib.event.listener.FileSystemListener;
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.api.file.event.FileMovedEvent;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.MoveToDirectoryDialog;
@@ -18,7 +20,7 @@ import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
  *
  * @author Elmar Baumann
  */
-public final class ControllerMoveFiles implements ActionListener, FileSystemListener {
+public final class ControllerMoveFiles implements ActionListener {
 
     private static final Logger LOGGER = Logger.getLogger(ControllerMoveFiles.class.getName());
 
@@ -28,6 +30,7 @@ public final class ControllerMoveFiles implements ActionListener, FileSystemList
 
     private void listen() {
         PopupMenuThumbnails.INSTANCE.getItemFileSystemMoveFiles().addActionListener(this);
+        AnnotationProcessor.process(this);
     }
 
     @Override
@@ -42,7 +45,6 @@ public final class ControllerMoveFiles implements ActionListener, FileSystemList
             MoveToDirectoryDialog dlg = new MoveToDirectoryDialog();
 
             dlg.setSourceFiles(selFiles);
-            dlg.addFileSystemListener(this);
             dlg.setVisible(true);
         } else {
             LOGGER.log(Level.WARNING, "Moving images: No images selected!");
@@ -69,7 +71,6 @@ public final class ControllerMoveFiles implements ActionListener, FileSystemList
 
             dlg.setSourceFiles(srcFiles);
             dlg.setTargetDirectory(targetDir);
-            dlg.addFileSystemListener(this);
             dlg.setVisible(true);
         }
     }
@@ -78,28 +79,13 @@ public final class ControllerMoveFiles implements ActionListener, FileSystemList
         return file.getName().toLowerCase().endsWith("xmp");
     }
 
-    @Override
-    public void fileMoved(File source, File target) {
-        if (!isXmpFile(source)) {
-            DatabaseImageFiles.INSTANCE.updateRename(source, target);
+    @EventSubscriber(eventClass = FileMovedEvent.class)
+    public void fileMoved(FileMovedEvent evt) {
+        File sourceFile = evt.getSourceFile();
+        File targetFile = evt.getTargetFile();
+
+        if (!isXmpFile(sourceFile)) {
+            DatabaseImageFiles.INSTANCE.updateRename(sourceFile, targetFile);
         }
-    }
-
-    @Override
-    public void fileCopied(File source, File target) {
-
-        // ignore
-    }
-
-    @Override
-    public void fileDeleted(File file) {
-
-        // ignore
-    }
-
-    @Override
-    public void fileRenamed(File oldFile, File newFile) {
-
-        // ignore
     }
 }

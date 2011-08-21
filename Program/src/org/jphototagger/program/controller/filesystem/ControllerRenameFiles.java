@@ -10,8 +10,10 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.api.file.event.FileRenamedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.event.listener.FileSystemListener;
 import org.jphototagger.program.cache.RenderedThumbnailCache;
 import org.jphototagger.program.cache.ThumbnailCache;
 import org.jphototagger.program.cache.XmpCache;
@@ -28,7 +30,7 @@ import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
  *
  * @author Elmar Baumann
  */
-public final class ControllerRenameFiles implements ActionListener, KeyListener, FileSystemListener {
+public final class ControllerRenameFiles implements ActionListener, KeyListener {
 
     private static final Logger LOGGER = Logger.getLogger(ControllerRenameFiles.class.getName());
 
@@ -38,6 +40,7 @@ public final class ControllerRenameFiles implements ActionListener, KeyListener,
 
     private void listen() {
         GUI.getThumbnailsPanel().addKeyListener(this);
+        AnnotationProcessor.process(this);
         PopupMenuThumbnails.INSTANCE.getItemFileSystemRenameFiles().addActionListener(this);
     }
 
@@ -59,6 +62,7 @@ public final class ControllerRenameFiles implements ActionListener, KeyListener,
         LOGGER.log(Level.INFO, "Rename in the database file ''{0}'' to ''{1}''", new Object[]{fromFile, toFile});
         DatabaseImageFiles.INSTANCE.updateRename(fromFile, toFile);
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 ThumbnailCache.INSTANCE.updateFiles(fromFile, toFile);
@@ -77,7 +81,6 @@ public final class ControllerRenameFiles implements ActionListener, KeyListener,
 
             Collections.sort(selFiles);
             dlg.setImageFiles(selFiles);
-            dlg.addFileSystemListener(this);
             dlg.setEnabledTemplates(GUI.getThumbnailsPanel().getContent().isUniqueFileSystemDirectory());
             dlg.setVisible(true);
         }
@@ -85,36 +88,19 @@ public final class ControllerRenameFiles implements ActionListener, KeyListener,
 
     @Override
     public void keyTyped(KeyEvent evt) {
-
         // ignore
     }
 
     @Override
     public void keyReleased(KeyEvent evt) {
-
         // ignore
     }
 
-    @Override
-    public void fileRenamed(final File fromFile, final File toFile) {
+    @EventSubscriber(eventClass = FileRenamedEvent.class)
+    public void fileRenamed(final FileRenamedEvent evt) {
+        File fromFile = evt.getSourceFile();
+        File toFile = evt.getTargetFile();
+
         renameFile(fromFile, toFile);
-    }
-
-    @Override
-    public void fileCopied(File source, File target) {
-
-        // ignore
-    }
-
-    @Override
-    public void fileDeleted(File file) {
-
-        // ignore
-    }
-
-    @Override
-    public void fileMoved(File source, File target) {
-
-        // ignore
     }
 }

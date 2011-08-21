@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.program.helper.FilesystemDatabaseUpdater;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.CopyToDirectoryDialog;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
@@ -41,7 +40,6 @@ public final class ControllerCopyFilesToDirectory implements ActionListener {
             CopyToDirectoryDialog dlg = new CopyToDirectoryDialog();
 
             dlg.setSourceFiles(selFiles);
-            dlg.addFileSystemActionListener(new FilesystemDatabaseUpdater(true));
             dlg.setVisible(true);
         } else {
             LOGGER.log(Level.WARNING, "Copy images: No images selected!");

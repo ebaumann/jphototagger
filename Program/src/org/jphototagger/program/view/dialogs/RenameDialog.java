@@ -16,13 +16,13 @@ import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 import javax.swing.filechooser.FileSystemView;
 
-import org.jphototagger.domain.event.listener.impl.FileSystemListenerSupport;
+import org.bushe.swing.event.EventBus;
+import org.jphototagger.api.file.event.FileRenamedEvent;
 import org.jphototagger.domain.templates.RenameTemplate;
 import org.jphototagger.image.FileType;
 import org.jphototagger.lib.componentutil.ComboBoxUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
-import org.jphototagger.lib.event.listener.FileSystemListener;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.Settings;
 import org.jphototagger.program.UserSettings;
@@ -52,7 +52,6 @@ public final class RenameDialog extends Dialog implements ListDataListener {
     private static final String KEY_SEL_TEMPLATE = "RenameDialog.SelectedTemplate";
     private final transient FilenameFormatArray filenameFormatArray = new FilenameFormatArray();
     private List<File> imageFiles = new ArrayList<File>();
-    private final transient FileSystemListenerSupport ls = new FileSystemListenerSupport();
     private static final Logger LOGGER = Logger.getLogger(RenameDialog.class.getName());
     private int fileIndex = 0;
     private boolean lockClose = false;
@@ -97,22 +96,6 @@ public final class RenameDialog extends Dialog implements ListDataListener {
         setHelpPageUrl("rename_images.html");
     }
 
-    public void addFileSystemListener(FileSystemListener listener) {
-        if (listener == null) {
-            throw new NullPointerException("listener == null");
-        }
-
-        ls.add(listener);
-    }
-
-    public void removeFileSystemListener(FileSystemListener listener) {
-        if (listener == null) {
-            throw new NullPointerException("listener == null");
-        }
-
-        ls.remove(listener);
-    }
-
     /**
      * En- or disables the panel for renaming via templates.
      *
@@ -148,7 +131,7 @@ public final class RenameDialog extends Dialog implements ListDataListener {
             throw new NullPointerException("toImageFile == null");
         }
 
-        ls.notifyRenamed(fromImageFile, toImageFile);
+        EventBus.publish(new FileRenamedEvent(this, fromImageFile, toImageFile));
     }
 
     private boolean renameImageFile(File fromImageFile, File toImageFile) {
@@ -1406,11 +1389,13 @@ public final class RenameDialog extends Dialog implements ListDataListener {
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 RenameDialog dialog = new RenameDialog();
 
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
@@ -1420,7 +1405,6 @@ public final class RenameDialog extends Dialog implements ListDataListener {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonDeleteRenameTemplate;
     private javax.swing.JButton buttonNextFile;
