@@ -18,7 +18,7 @@ import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.io.ImageFileFilterer;
 import org.jphototagger.program.model.TreeModelFavorites;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.types.Content;
+import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.program.view.WaitDisplay;
 import org.jphototagger.program.view.dialogs.FavoritePropertiesDialog;
 import org.jphototagger.program.view.panels.AppPanel;
@@ -218,7 +218,7 @@ public final class FavoritesHelper {
             WaitDisplay.show();
             ControllerSortThumbnails.setLastSort();
             setTitle();
-            tnPanel.setFiles(files, Content.FAVORITE);
+            tnPanel.setFiles(files, TypeOfDisplayedImages.FAVORITE);
             tnPanel.apply(tnPanelSettings);
             setMetadataEditable();
             WaitDisplay.hide();

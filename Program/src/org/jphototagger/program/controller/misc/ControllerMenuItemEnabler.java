@@ -1,8 +1,7 @@
 package org.jphototagger.program.controller.misc;
 
-import org.jphototagger.domain.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.types.Content;
+import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
 import java.util.ArrayList;
@@ -12,6 +11,10 @@ import java.util.Map;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 import javax.swing.JMenuItem;
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.domain.thumbnails.event.ThumbnailsChangedEvent;
+import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
@@ -19,8 +22,8 @@ import org.jphototagger.lib.awt.EventQueueUtil;
  *
  * @author Elmar Baumann
  */
-public final class ControllerMenuItemEnabler implements ThumbnailsPanelListener, PopupMenuListener {
-    private final Map<JMenuItem, List<Content>> contentsOfItemsRequiresSelImages = new HashMap<JMenuItem, List<Content>>();
+public final class ControllerMenuItemEnabler implements PopupMenuListener {
+    private final Map<JMenuItem, List<TypeOfDisplayedImages>> contentsOfItemsRequiresSelImages = new HashMap<JMenuItem, List<TypeOfDisplayedImages>>();
     private final List<JMenuItem> itemsRequiresSelImages = new ArrayList<JMenuItem>();
 
     public ControllerMenuItemEnabler() {
@@ -29,19 +32,19 @@ public final class ControllerMenuItemEnabler implements ThumbnailsPanelListener,
     }
 
     private void listen() {
-        GUI.getThumbnailsPanel().addThumbnailsPanelListener(this);
         PopupMenuThumbnails.INSTANCE.addPopupMenuListener(this);
+        AnnotationProcessor.process(this);
     }
 
     private void init() {
-        List<Content> contents = new ArrayList<Content>();
+        List<TypeOfDisplayedImages> contents = new ArrayList<TypeOfDisplayedImages>();
         PopupMenuThumbnails popupThumbnails = PopupMenuThumbnails.INSTANCE;
 
-        contents.add(Content.DIRECTORY);
-        contents.add(Content.FAVORITE);
+        contents.add(TypeOfDisplayedImages.DIRECTORY);
+        contents.add(TypeOfDisplayedImages.FAVORITE);
         contentsOfItemsRequiresSelImages.put(PopupMenuThumbnails.INSTANCE.getItemFileSystemMoveFiles(), contents);
-        contents = new ArrayList<Content>();
-        contents.add(Content.IMAGE_COLLECTION);
+        contents = new ArrayList<TypeOfDisplayedImages>();
+        contents.add(TypeOfDisplayedImages.IMAGE_COLLECTION);
         contentsOfItemsRequiresSelImages.put(popupThumbnails.getItemDeleteFromImageCollection(), contents);
         itemsRequiresSelImages.add(popupThumbnails.getItemUpdateThumbnail());
         itemsRequiresSelImages.add(popupThumbnails.getItemUpdateMetadata());
@@ -80,7 +83,7 @@ public final class ControllerMenuItemEnabler implements ThumbnailsPanelListener,
             @Override
             public void run() {
                 ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
-                Content content = tnPanel.getContent();
+                TypeOfDisplayedImages content = tnPanel.getContent();
                 boolean fileSelected = tnPanel.isAFileSelected();
 
                 for (JMenuItem item : itemsRequiresSelImages) {
@@ -114,13 +117,13 @@ public final class ControllerMenuItemEnabler implements ThumbnailsPanelListener,
         popupThumbnails.getItemSelectNothing().setEnabled(tnPanel.isAFileSelected());
     }
 
-    @Override
-    public void thumbnailsSelectionChanged() {
+    @EventSubscriber(eventClass=ThumbnailsSelectionChangedEvent.class)
+    public void thumbnailsSelectionChanged(final ThumbnailsSelectionChangedEvent evt) {
         setEnabled();
     }
 
-    @Override
-    public void thumbnailsChanged() {
+    @EventSubscriber(eventClass=ThumbnailsChangedEvent.class)
+    public void thumbnailsChanged(final ThumbnailsChangedEvent evt) {
         setEnabled();
     }
 

@@ -4,7 +4,7 @@ import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.domain.database.Column;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.types.Content;
+import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.WaitDisplay;
@@ -50,7 +50,7 @@ public final class ControllerNoMetadataItemSelected implements ListSelectionList
             ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
             ControllerSortThumbnails.setLastSort();
-            tnPanel.setFiles(imageFiles, Content.MISSING_METADATA);
+            tnPanel.setFiles(imageFiles, TypeOfDisplayedImages.MISSING_METADATA);
             WaitDisplay.hide();
         }
     }

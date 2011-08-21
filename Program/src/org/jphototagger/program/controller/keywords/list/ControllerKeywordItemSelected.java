@@ -16,7 +16,7 @@ import org.jphototagger.program.event.RefreshEvent;
 import org.jphototagger.program.event.listener.RefreshListener;
 import org.jphototagger.program.helper.KeywordsHelper;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.types.Content;
+import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.openide.util.Lookup;
 
 /**
@@ -37,7 +37,7 @@ public final class ControllerKeywordItemSelected implements ActionListener, List
         GUI.getSelKeywordsList().addListSelectionListener(this);
         getRadioButtonAllKeywords().addActionListener(this);
         getRadioButtonOneKeyword().addActionListener(this);
-        GUI.getThumbnailsPanel().addRefreshListener(this, Content.KEYWORD);
+        GUI.getThumbnailsPanel().addRefreshListener(this, TypeOfDisplayedImages.KEYWORD);
     }
 
     private JRadioButton getRadioButtonAllKeywords() {

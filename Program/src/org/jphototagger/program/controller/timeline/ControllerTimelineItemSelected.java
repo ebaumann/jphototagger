@@ -23,7 +23,7 @@ import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.event.RefreshEvent;
 import org.jphototagger.program.event.listener.RefreshListener;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.types.Content;
+import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.program.view.WaitDisplay;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 
@@ -38,7 +38,7 @@ public final class ControllerTimelineItemSelected implements TreeSelectionListen
 
     private void listen() {
         GUI.getTimelineTree().addTreeSelectionListener(this);
-        GUI.getThumbnailsPanel().addRefreshListener(this, Content.TIMELINE);
+        GUI.getThumbnailsPanel().addRefreshListener(this, TypeOfDisplayedImages.TIMELINE);
     }
 
     @Override
@@ -90,7 +90,7 @@ public final class ControllerTimelineItemSelected implements TreeSelectionListen
         if (node.equals(Timeline.getUnknownNode())) {
             setTitle();
             ControllerSortThumbnails.setLastSort();
-            GUI.getThumbnailsPanel().setFiles(DatabaseImageFiles.INSTANCE.getFilesOfUnknownDate(), Content.TIMELINE);
+            GUI.getThumbnailsPanel().setFiles(DatabaseImageFiles.INSTANCE.getFilesOfUnknownDate(), TypeOfDisplayedImages.TIMELINE);
         } else if (userObject instanceof Timeline.Date) {
             Timeline.Date date = (Timeline.Date) userObject;
             DefaultMutableTreeNode parent = (DefaultMutableTreeNode) node.getParent();
@@ -110,7 +110,7 @@ public final class ControllerTimelineItemSelected implements TreeSelectionListen
                 List<File> files = new ArrayList<File>(DatabaseImageFiles.INSTANCE.getFilesOf(date.year, month, day));
 
                 ControllerSortThumbnails.setLastSort();
-                GUI.getThumbnailsPanel().setFiles(files, Content.TIMELINE);
+                GUI.getThumbnailsPanel().setFiles(files, TypeOfDisplayedImages.TIMELINE);
             }
         }
     }

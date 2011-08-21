@@ -2,7 +2,6 @@ package org.jphototagger.program.controller.thumbnail;
 
 import org.jphototagger.lib.clipboard.ClipboardUtil;
 import org.jphototagger.lib.event.util.KeyEventUtil;
-import org.jphototagger.domain.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.types.FileAction;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
@@ -14,6 +13,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.Toolkit;
 import javax.swing.JMenuItem;
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
@@ -25,7 +27,8 @@ import org.jphototagger.lib.awt.EventQueueUtil;
  *
  * @author Elmar Baumann
  */
-public final class ControllerCopyOrCutFilesToClipboard implements ActionListener, KeyListener, ThumbnailsPanelListener {
+public final class ControllerCopyOrCutFilesToClipboard implements ActionListener, KeyListener {
+
     private final ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
     private final PopupMenuThumbnails popup = PopupMenuThumbnails.INSTANCE;
 
@@ -36,8 +39,8 @@ public final class ControllerCopyOrCutFilesToClipboard implements ActionListener
     private void listen() {
         getCopyItem().addActionListener(this);
         getCutItem().addActionListener(this);
-        tnPanel.addThumbnailsPanelListener(this);
         tnPanel.addKeyListener(this);
+        AnnotationProcessor.process(this);
     }
 
     private JMenuItem getCopyItem() {
@@ -92,12 +95,13 @@ public final class ControllerCopyOrCutFilesToClipboard implements ActionListener
         ClipboardUtil.copyToClipboard(tnPanel.getSelectedFiles(), clipboard, null);
     }
 
-    @Override
-    public void thumbnailsSelectionChanged() {
+    @EventSubscriber(eventClass = ThumbnailsSelectionChangedEvent.class)
+    public void thumbnailsSelectionChanged(final ThumbnailsSelectionChangedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                final boolean imagesSelected = tnPanel.isAFileSelected();
+                final boolean imagesSelected = evt.isAFileSelected();
 
                 getCopyItem().setEnabled(imagesSelected);
 
@@ -108,20 +112,12 @@ public final class ControllerCopyOrCutFilesToClipboard implements ActionListener
     }
 
     @Override
-    public void thumbnailsChanged() {
-
-        // ignore
-    }
-
-    @Override
     public void keyTyped(KeyEvent evt) {
-
         // ignore
     }
 
     @Override
     public void keyReleased(KeyEvent evt) {
-
         // ignore
     }
 }

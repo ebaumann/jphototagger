@@ -4,7 +4,7 @@ import org.jphototagger.program.event.listener.RefreshListener;
 import org.jphototagger.program.event.RefreshEvent;
 import org.jphototagger.program.helper.FavoritesHelper;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.types.Content;
+import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 
@@ -22,7 +22,7 @@ public final class ControllerFavoriteSelected implements TreeSelectionListener, 
 
     private void listen() {
         GUI.getFavoritesTree().getSelectionModel().addTreeSelectionListener(this);
-        GUI.getThumbnailsPanel().addRefreshListener(this, Content.FAVORITE);
+        GUI.getThumbnailsPanel().addRefreshListener(this, TypeOfDisplayedImages.FAVORITE);
     }
 
     @Override

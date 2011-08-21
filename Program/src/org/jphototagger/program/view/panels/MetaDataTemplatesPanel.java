@@ -3,11 +3,14 @@ package org.jphototagger.program.view.panels;
 import java.awt.Container;
 
 import javax.swing.JButton;
+import javax.swing.JPanel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jdesktop.swingx.JXList;
-import org.jphototagger.domain.event.listener.ThumbnailsPanelListener;
+import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.program.resource.GUI;
@@ -17,8 +20,7 @@ import org.jphototagger.program.resource.GUI;
  *
  * @author Elmar Baumann
  */
-public class MetaDataTemplatesPanel extends javax.swing.JPanel
-        implements ListSelectionListener, ThumbnailsPanelListener {
+public class MetaDataTemplatesPanel extends JPanel implements ListSelectionListener {
     private static final long serialVersionUID = 1760177225644789506L;
 
     public MetaDataTemplatesPanel() {
@@ -28,11 +30,8 @@ public class MetaDataTemplatesPanel extends javax.swing.JPanel
 
     private void postInitComponents() {
         list.addListSelectionListener(this);
-        // Can be null if created via GUI editor (Matisse)
-        if (GUI.getAppPanel() != null) {
-            GUI.getThumbnailsPanel().addThumbnailsPanelListener(this);
-        }
         MnemonicUtil.setMnemonics((Container) this);
+        AnnotationProcessor.process(this);
     }
 
     public JXList getList() {
@@ -72,8 +71,8 @@ public class MetaDataTemplatesPanel extends javax.swing.JPanel
         }
     }
 
-    @Override
-    public void thumbnailsSelectionChanged() {
+    @EventSubscriber(eventClass=ThumbnailsSelectionChangedEvent.class)
+    public void thumbnailsSelectionChanged(final ThumbnailsSelectionChangedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
@@ -83,12 +82,6 @@ public class MetaDataTemplatesPanel extends javax.swing.JPanel
                 buttonAddToSelImages.setEnabled((list.getSelectedIndex() >= 0) && tnPanel.isAFileSelected());
             }
         });
-    }
-
-    @Override
-    public void thumbnailsChanged() {
-
-        // ignore
     }
 
     /**

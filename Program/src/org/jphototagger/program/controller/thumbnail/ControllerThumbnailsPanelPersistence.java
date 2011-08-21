@@ -11,7 +11,8 @@ import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.core.Storage;
 import org.jphototagger.domain.event.AppWillExitEvent;
-import org.jphototagger.domain.event.listener.ThumbnailsPanelListener;
+import org.jphototagger.domain.thumbnails.event.ThumbnailsChangedEvent;
+import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.comparator.ComparatorFilesNoSort;
 import org.jphototagger.lib.comparator.FileSort;
@@ -26,7 +27,7 @@ import org.openide.util.Lookup;
  *
  * @author Elmar Baumann
  */
-public final class ControllerThumbnailsPanelPersistence implements ThumbnailsPanelListener {
+public final class ControllerThumbnailsPanelPersistence {
 
     private static final String KEY_SELECTED_FILES = "org.jphototagger.program.view.controller.ControllerThumbnailsPanelPersistence.SelectedFiles";
     private static final String KEY_SORT = "org.jphototagger.program.view.controller.ControllerThumbnailsPanelPersistence.Sort";
@@ -40,17 +41,16 @@ public final class ControllerThumbnailsPanelPersistence implements ThumbnailsPan
     }
 
     private void listen() {
-        GUI.getThumbnailsPanel().addThumbnailsPanelListener(this);
         AnnotationProcessor.process(this);
     }
 
-    @Override
-    public void thumbnailsSelectionChanged() {
-        writeSelectionToProperties();
+    @EventSubscriber(eventClass = ThumbnailsSelectionChangedEvent.class)
+    public void thumbnailsSelectionChanged(final ThumbnailsSelectionChangedEvent evt) {
+        writeSelectionToProperties(evt.getSelectedImageFiles());
     }
 
-    @Override
-    public void thumbnailsChanged() {
+    @EventSubscriber(eventClass = ThumbnailsChangedEvent.class)
+    public void thumbnailsChanged(final ThumbnailsChangedEvent evt) {
         checkFirstChange();
     }
 
@@ -73,9 +73,10 @@ public final class ControllerThumbnailsPanelPersistence implements ThumbnailsPan
         });
     }
 
-    private void writeSelectionToProperties() {
-        UserSettings.INSTANCE.getSettings().setStringCollection(
-                KEY_SELECTED_FILES, FileUtil.getAbsolutePathnames(GUI.getSelectedImageFiles()));
+    private void writeSelectionToProperties(List<File> selectedImageFiles) {
+        List<String> absolutePathnames = FileUtil.getAbsolutePathnames(selectedImageFiles);
+
+        UserSettings.INSTANCE.getSettings().setStringCollection(KEY_SELECTED_FILES, absolutePathnames);
         UserSettings.INSTANCE.writeToFile();
     }
 

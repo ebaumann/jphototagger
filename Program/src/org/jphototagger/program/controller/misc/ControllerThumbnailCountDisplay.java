@@ -1,12 +1,14 @@
 package org.jphototagger.program.controller.misc;
 
-
 import javax.swing.JLabel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import org.jphototagger.domain.event.listener.ThumbnailsPanelListener;
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.domain.thumbnails.event.ThumbnailsChangedEvent;
+import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
@@ -16,7 +18,8 @@ import org.jphototagger.program.resource.GUI;
  *
  * @author Elmar Baumann
  */
-public final class ControllerThumbnailCountDisplay implements ThumbnailsPanelListener, ChangeListener {
+public final class ControllerThumbnailCountDisplay implements ChangeListener {
+
     private int thumbnailZoom;
     private int thumbnailCount;
     private int selectionCount;
@@ -27,22 +30,22 @@ public final class ControllerThumbnailCountDisplay implements ThumbnailsPanelLis
     }
 
     private void listen() {
-        GUI.getThumbnailsPanel().addThumbnailsPanelListener(this);
         getSlider().addChangeListener(this);
+        AnnotationProcessor.process(this);
     }
 
     private JSlider getSlider() {
         return GUI.getAppPanel().getSliderThumbnailSize();
     }
 
-    @Override
-    public void thumbnailsSelectionChanged() {
-        selectionCount = GUI.getThumbnailsPanel().getSelectionCount();
+    @EventSubscriber(eventClass = ThumbnailsSelectionChangedEvent.class)
+    public void thumbnailsSelectionChanged(final ThumbnailsSelectionChangedEvent evt) {
+        selectionCount = evt.getSelectionCount();
         setCount();
     }
 
-    @Override
-    public void thumbnailsChanged() {
+    @EventSubscriber(eventClass = ThumbnailsChangedEvent.class)
+    public void thumbnailsChanged(final ThumbnailsChangedEvent evt) {
         setCount();
     }
 
@@ -63,6 +66,7 @@ public final class ControllerThumbnailCountDisplay implements ThumbnailsPanelLis
 
     private void setLabel() {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 JLabel label = GUI.getAppPanel().getLabelThumbnailInfo();

@@ -3,7 +3,7 @@ package org.jphototagger.program.controller.imagecollection;
 import org.jphototagger.program.controller.filesystem.ControllerDeleteFiles;
 import org.jphototagger.program.helper.ImageCollectionsHelper;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.types.Content;
+import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
 import java.awt.event.ActionEvent;
@@ -44,7 +44,7 @@ public final class ControllerDeleteFromImageCollection implements ActionListener
     private void delete() {
         ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
-        if (tnPanel.getContent().equals(Content.IMAGE_COLLECTION) && (tnPanel.isAFileSelected())) {
+        if (tnPanel.getContent().equals(TypeOfDisplayedImages.IMAGE_COLLECTION) && (tnPanel.isAFileSelected())) {
             ImageCollectionsHelper.deleteSelectedFiles();
         }
     }

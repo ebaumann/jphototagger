@@ -37,7 +37,7 @@ import org.jphototagger.program.event.listener.RefreshListener;
 import org.jphototagger.program.helper.AutocompleteHelper;
 import org.jphototagger.program.model.ComboBoxModelFastSearch;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.types.Content;
+import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.program.view.WaitDisplay;
 
 /**
@@ -84,7 +84,7 @@ public final class ControllerFastSearch implements ActionListener, RefreshListen
         });
         getSearchButton().addActionListener(this);
         getSearchComboBox().addActionListener(this);
-        GUI.getThumbnailsPanel().addRefreshListener(this, Content.FAST_SEARCH);
+        GUI.getThumbnailsPanel().addRefreshListener(this, TypeOfDisplayedImages.FAST_SEARCH);
     }
 
     public void setAutocomplete(boolean ac) {
@@ -155,7 +155,7 @@ public final class ControllerFastSearch implements ActionListener, RefreshListen
                         setTitle(userInput);
                         GUI.getAppFrame().selectMenuItemUnsorted();
                         ControllerSortThumbnails.setLastSort();
-                        GUI.getThumbnailsPanel().setFiles(imageFiles, Content.SAVED_SEARCH);
+                        GUI.getThumbnailsPanel().setFiles(imageFiles, TypeOfDisplayedImages.SAVED_SEARCH);
                     }
 
                     WaitDisplay.hide();

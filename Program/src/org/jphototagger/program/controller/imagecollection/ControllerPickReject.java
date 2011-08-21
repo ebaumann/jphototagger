@@ -15,7 +15,7 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.database.DatabaseImageCollections;
 import org.jphototagger.program.model.ListModelImageCollections;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.types.Content;
+import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
 
@@ -91,7 +91,7 @@ public final class ControllerPickReject implements ActionListener, KeyListener {
     }
 
     private boolean isCollection(String collection) {
-        if (!GUI.getThumbnailsPanel().getContent().equals(Content.IMAGE_COLLECTION)) {
+        if (!GUI.getThumbnailsPanel().getContent().equals(TypeOfDisplayedImages.IMAGE_COLLECTION)) {
             return false;
         }
 

@@ -7,7 +7,9 @@ import java.awt.event.KeyListener;
 
 import javax.swing.JMenuItem;
 
-import org.jphototagger.domain.event.listener.ThumbnailsPanelListener;
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.event.util.KeyEventUtil;
@@ -26,7 +28,7 @@ import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
  *
  * @author Elmar Baumann
  */
-public final class ControllerCopyPasteMetadata implements ActionListener, KeyListener, ThumbnailsPanelListener {
+public final class ControllerCopyPasteMetadata implements ActionListener, KeyListener {
     private Xmp xmp;
 
     public ControllerCopyPasteMetadata() {
@@ -36,8 +38,8 @@ public final class ControllerCopyPasteMetadata implements ActionListener, KeyLis
     private void listen() {
         getCopyItem().addActionListener(this);
         getPasteItem().addActionListener(this);
-        GUI.getThumbnailsPanel().addThumbnailsPanelListener(this);
         GUI.getThumbnailsPanel().addKeyListener(this);
+        AnnotationProcessor.process(this);
     }
 
     private JMenuItem getCopyItem() {
@@ -111,20 +113,17 @@ public final class ControllerCopyPasteMetadata implements ActionListener, KeyLis
         return true;
     }
 
-    @Override
-    public void thumbnailsSelectionChanged() {
+    @EventSubscriber(eventClass=ThumbnailsSelectionChangedEvent.class)
+    public void thumbnailsSelectionChanged(final ThumbnailsSelectionChangedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
-                getCopyItem().setEnabled(GUI.getThumbnailsPanel().isAFileSelected());
+                boolean aFileIsSelected = evt.isAFileSelected();
+                JMenuItem copyItem = getCopyItem();
+
+                copyItem.setEnabled(aFileIsSelected);
             }
         });
-    }
-
-    @Override
-    public void thumbnailsChanged() {
-
-        // ignore
     }
 
     @Override

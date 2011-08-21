@@ -15,7 +15,7 @@ import org.jphototagger.program.data.SavedSearch;
 import org.jphototagger.program.database.DatabaseFind;
 import org.jphototagger.program.helper.SavedSearchesHelper;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.types.Content;
+import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.program.view.WaitDisplay;
 import org.jphototagger.program.view.dialogs.AdvancedSearchDialog;
 import org.jphototagger.program.view.panels.AdvancedSearchPanel;
@@ -54,7 +54,7 @@ public final class ControllerAdvancedSearch implements ActionListener {
 
                 setTitle(savedSearch.getName());
                 SavedSearchesHelper.setSort(savedSearch);
-                GUI.getThumbnailsPanel().setFiles(imageFiles, Content.SAVED_SEARCH);
+                GUI.getThumbnailsPanel().setFiles(imageFiles, TypeOfDisplayedImages.SAVED_SEARCH);
                 WaitDisplay.hide();
             }
 
