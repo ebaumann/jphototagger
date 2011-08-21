@@ -13,28 +13,29 @@ import org.jphototagger.lib.io.FileUtil;
 public final class ExifSupport {
 
     public static final ExifSupport INSTANCE = new ExifSupport();
-    private static final Set<String> SUPPORTED_SUFFIXES = new HashSet<String>();
+    private static final Set<String> SUPPORTED_SUFFIXES_LOWERCASE = new HashSet<String>();
 
     static {
-        SUPPORTED_SUFFIXES.add("arw");
-        SUPPORTED_SUFFIXES.add("crw");
-        SUPPORTED_SUFFIXES.add("cr2");
-        SUPPORTED_SUFFIXES.add("dcr");
-        SUPPORTED_SUFFIXES.add("dng");
-        SUPPORTED_SUFFIXES.add("jpg");
-        SUPPORTED_SUFFIXES.add("jpeg");
-        SUPPORTED_SUFFIXES.add("mrw");
-        SUPPORTED_SUFFIXES.add("nef");
-        SUPPORTED_SUFFIXES.add("thm");
-        SUPPORTED_SUFFIXES.add("tif");
-        SUPPORTED_SUFFIXES.add("tiff");
-        SUPPORTED_SUFFIXES.add("srw");
+        SUPPORTED_SUFFIXES_LOWERCASE.add("arw");
+        SUPPORTED_SUFFIXES_LOWERCASE.add("crw");
+        SUPPORTED_SUFFIXES_LOWERCASE.add("cr2");
+        SUPPORTED_SUFFIXES_LOWERCASE.add("dcr");
+        SUPPORTED_SUFFIXES_LOWERCASE.add("dng");
+        SUPPORTED_SUFFIXES_LOWERCASE.add("jpg");
+        SUPPORTED_SUFFIXES_LOWERCASE.add("jpeg");
+        SUPPORTED_SUFFIXES_LOWERCASE.add("mrw");
+        SUPPORTED_SUFFIXES_LOWERCASE.add("nef");
+        SUPPORTED_SUFFIXES_LOWERCASE.add("thm");
+        SUPPORTED_SUFFIXES_LOWERCASE.add("tif");
+        SUPPORTED_SUFFIXES_LOWERCASE.add("tiff");
+        SUPPORTED_SUFFIXES_LOWERCASE.add("srw");
     }
 
     public boolean canReadExif(File file) {
         String suffix = FileUtil.getSuffix(file);
+        String suffixLowerCase = suffix.toLowerCase();
 
-        return SUPPORTED_SUFFIXES.contains(suffix);
+        return SUPPORTED_SUFFIXES_LOWERCASE.contains(suffixLowerCase);
     }
 
     private ExifSupport() {
