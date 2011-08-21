@@ -1,24 +1,28 @@
 package org.jphototagger.program.controller.metadata;
 
-import org.jphototagger.domain.event.listener.EditMetadataPanelsListener;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.AppPanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.domain.metadata.edit.EditMetadataPanelsEditDisabledEvent;
+import org.jphototagger.domain.metadata.edit.EditMetadataPanelsEditEnabledEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  *
  * @author Elmar Baumann
  */
-public final class ControllerEnableInsertMetadataTemplate implements EditMetadataPanelsListener, ActionListener {
+public final class ControllerEnableInsertMetadataTemplate implements ActionListener {
+
     public ControllerEnableInsertMetadataTemplate() {
         listen();
     }
 
     private void listen() {
-        GUI.getEditPanel().addEditMetadataPanelsListener(this);
+        AnnotationProcessor.process(this);
         GUI.getAppPanel().getComboBoxMetadataTemplates().addActionListener(this);
     }
 
@@ -36,9 +40,10 @@ public final class ControllerEnableInsertMetadataTemplate implements EditMetadat
         button.setEnabled(editable && (selected));
     }
 
-    @Override
-    public void editEnabled() {
+    @EventSubscriber(eventClass = EditMetadataPanelsEditEnabledEvent.class)
+    public void editEnabled(final EditMetadataPanelsEditEnabledEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 setButtonEnabled();
@@ -46,9 +51,10 @@ public final class ControllerEnableInsertMetadataTemplate implements EditMetadat
         });
     }
 
-    @Override
-    public void editDisabled() {
+    @EventSubscriber(eventClass = EditMetadataPanelsEditDisabledEvent.class)
+    public void editDisabled(final EditMetadataPanelsEditDisabledEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 setButtonEnabled();

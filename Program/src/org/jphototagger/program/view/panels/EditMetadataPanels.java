@@ -25,14 +25,15 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import org.bushe.swing.event.EventBus;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.domain.database.Column;
 import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
 import org.jphototagger.domain.database.xmp.ColumnXmpRating;
 import org.jphototagger.domain.event.AppWillExitEvent;
-import org.jphototagger.domain.event.listener.EditMetadataPanelsListener;
-import org.jphototagger.domain.event.listener.impl.EditMetadataPanelsListenerSupport;
+import org.jphototagger.domain.metadata.edit.EditMetadataPanelsEditDisabledEvent;
+import org.jphototagger.domain.metadata.edit.EditMetadataPanelsEditEnabledEvent;
 import org.jphototagger.domain.repository.event.XmpDeletedEvent;
 import org.jphototagger.domain.repository.event.XmpInsertedEvent;
 import org.jphototagger.domain.repository.event.XmpUpdatedEvent;
@@ -66,7 +67,6 @@ public final class EditMetadataPanels implements FocusListener {
     private final List<FileXmp> imageFilesXmp = new ArrayList<FileXmp>();
     private boolean editable = true;
     private WatchDifferentValues watchDifferentValues = new WatchDifferentValues();
-    private final EditMetadataPanelsListenerSupport ls = new EditMetadataPanelsListenerSupport();
     private JComponent container;
     private EditMetadataActionsPanel editActionsPanel;
     private Component lastFocussedEditControl;
@@ -140,9 +140,9 @@ public final class EditMetadataPanels implements FocusListener {
                 }
 
                 if (editable) {
-                    ls.notifyEditEnabled();
+                    EventBus.publish(new EditMetadataPanelsEditEnabledEvent(this));
                 } else {
-                    ls.notifyEditDisabled();
+                    EventBus.publish(new EditMetadataPanelsEditDisabledEvent(this));
                 }
             }
         });
@@ -996,22 +996,6 @@ public final class EditMetadataPanels implements FocusListener {
         if (UserSettings.INSTANCE.isSaveInputEarly() && isDirty()) {
             save();
         }
-    }
-
-    public void addEditMetadataPanelsListener(EditMetadataPanelsListener listener) {
-        if (listener == null) {
-            throw new NullPointerException("listener == null");
-        }
-
-        ls.add(listener);
-    }
-
-    public void removeEditMetadataPanelsListener(EditMetadataPanelsListener listener) {
-        if (listener == null) {
-            throw new NullPointerException("listener == null");
-        }
-
-        ls.remove(listener);
     }
 
     @EventSubscriber(eventClass = XmpInsertedEvent.class)
