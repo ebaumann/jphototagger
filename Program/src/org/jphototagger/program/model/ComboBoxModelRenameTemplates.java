@@ -3,8 +3,12 @@ package org.jphototagger.program.model;
 import org.jphototagger.domain.templates.RenameTemplate;
 import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseRenameTemplates;
-import org.jphototagger.domain.event.listener.DatabaseRenameTemplatesListener;
 import javax.swing.DefaultComboBoxModel;
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.domain.repository.event.renametemplates.RenameTemplateDeletedEvent;
+import org.jphototagger.domain.repository.event.renametemplates.RenameTemplateInsertedEvent;
+import org.jphototagger.domain.repository.event.renametemplates.RenameTemplateUpdatedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
@@ -12,13 +16,13 @@ import org.jphototagger.lib.awt.EventQueueUtil;
  *
  * @author Elmar Baumann
  */
-public final class ComboBoxModelRenameTemplates extends DefaultComboBoxModel
-        implements DatabaseRenameTemplatesListener {
+public final class ComboBoxModelRenameTemplates extends DefaultComboBoxModel {
+
     private static final long serialVersionUID = -5081726761734936168L;
 
     public ComboBoxModelRenameTemplates() {
         addElements();
-        DatabaseRenameTemplates.INSTANCE.addListener(this);
+        AnnotationProcessor.process(this);
     }
 
     private void addElements() {
@@ -49,32 +53,35 @@ public final class ComboBoxModelRenameTemplates extends DefaultComboBoxModel
         removeElement(template);
     }
 
-    @Override
-    public void templateDeleted(final RenameTemplate template) {
+    @EventSubscriber(eventClass = RenameTemplateDeletedEvent.class)
+    public void templateDeleted(final RenameTemplateDeletedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                deleteTemplate(template);
+                deleteTemplate(evt.getTemplate());
             }
         });
     }
 
-    @Override
-    public void templateInserted(final RenameTemplate template) {
+    @EventSubscriber(eventClass = RenameTemplateInsertedEvent.class)
+    public void templateInserted(final RenameTemplateInsertedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                insertTemplate(template);
+                insertTemplate(evt.getTemplate());
             }
         });
     }
 
-    @Override
-    public void templateUpdated(final RenameTemplate template) {
+    @EventSubscriber(eventClass = RenameTemplateUpdatedEvent.class)
+    public void templateUpdated(final RenameTemplateUpdatedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                updateTemplate(template);
+                updateTemplate(evt.getTemplate());
             }
         });
     }
