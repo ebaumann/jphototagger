@@ -1,8 +1,6 @@
 package org.jphototagger.program.database;
 
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
-import org.jphototagger.domain.event.listener.DatabaseUserDefinedFileFiltersListener;
-import org.jphototagger.domain.event.listener.impl.ListenerSupport;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,6 +10,10 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.bushe.swing.event.EventBus;
+import org.jphototagger.domain.repository.event.userdefinedfilefilters.UserDefinedFileFilterDeletedEvent;
+import org.jphototagger.domain.repository.event.userdefinedfilefilters.UserDefinedFileFilterInsertedEvent;
+import org.jphototagger.domain.repository.event.userdefinedfilefilters.UserDefinedFileFilterUpdatedEvent;
 
 /**
  *
@@ -19,9 +21,8 @@ import java.util.logging.Logger;
  * @author Elmar Baumann
  */
 public final class DatabaseUserDefinedFileFilters extends Database {
+
     public static final DatabaseUserDefinedFileFilters INSTANCE = new DatabaseUserDefinedFileFilters();
-    private final ListenerSupport<DatabaseUserDefinedFileFiltersListener> ls =
-        new ListenerSupport<DatabaseUserDefinedFileFiltersListener>();
 
     private String getInsertSql() {
         return "INSERT INTO user_defined_file_filters" + " (is_not, type, name, expression) VALUES (?, ?, ?, ?)";
@@ -222,7 +223,7 @@ public final class DatabaseUserDefinedFileFilters extends Database {
 
         try {
             String sql = "SELECT id, is_not, type, name, expression FROM"
-                         + " user_defined_file_filters ORDER BY name ASC";
+                    + " user_defined_file_filters ORDER BY name ASC";
 
             con = getConnection();
             stmt = con.createStatement();
@@ -249,39 +250,18 @@ public final class DatabaseUserDefinedFileFilters extends Database {
         return filter;
     }
 
-    public void addListener(DatabaseUserDefinedFileFiltersListener listener) {
-        if (listener == null) {
-            throw new NullPointerException("listener == null");
-        }
-
-        ls.add(listener);
-    }
-
-    public void removeListener(DatabaseUserDefinedFileFiltersListener listener) {
-        if (listener == null) {
-            throw new NullPointerException("listener == null");
-        }
-
-        ls.remove(listener);
-    }
-
     private void notifyInserted(UserDefinedFileFilter filter) {
-        for (DatabaseUserDefinedFileFiltersListener listener : ls.get()) {
-            listener.filterInserted(filter);
-        }
+        EventBus.publish(new UserDefinedFileFilterInsertedEvent(this, filter));
     }
 
     private void notifyDeleted(UserDefinedFileFilter filter) {
-        for (DatabaseUserDefinedFileFiltersListener listener : ls.get()) {
-            listener.filterDeleted(filter);
-        }
+        EventBus.publish(new UserDefinedFileFilterDeletedEvent(this, filter));
     }
 
     private void notifyUpdated(UserDefinedFileFilter filter) {
-        for (DatabaseUserDefinedFileFiltersListener listener : ls.get()) {
-            listener.filterUpdated(filter);
-        }
+        EventBus.publish(new UserDefinedFileFilterUpdatedEvent(this, filter));
     }
 
-    private DatabaseUserDefinedFileFilters() {}
+    private DatabaseUserDefinedFileFilters() {
+    }
 }
