@@ -9,9 +9,11 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.domain.event.listener.DatabaseUserDefinedFileTypesListener;
-import org.jphototagger.domain.event.listener.impl.ListenerSupport;
+import org.bushe.swing.event.EventBus;
 import org.jphototagger.domain.filetypes.UserDefinedFileType;
+import org.jphototagger.domain.repository.event.userdefinedfiletypes.UserDefinedFileTypeDeletedEvent;
+import org.jphototagger.domain.repository.event.userdefinedfiletypes.UserDefinedFileTypeInsertedEvent;
+import org.jphototagger.domain.repository.event.userdefinedfiletypes.UserDefinedFileTypeUpdatedEvent;
 
 /**
  *
@@ -21,7 +23,6 @@ import org.jphototagger.domain.filetypes.UserDefinedFileType;
 public final class DatabaseUserDefinedFileTypes extends Database {
 
     public static final DatabaseUserDefinedFileTypes INSTANCE = new DatabaseUserDefinedFileTypes();
-    private final ListenerSupport<DatabaseUserDefinedFileTypesListener> ls = new ListenerSupport<DatabaseUserDefinedFileTypesListener>();
 
     public int insert(UserDefinedFileType fileType) {
         if (fileType == null) {
@@ -286,39 +287,18 @@ public final class DatabaseUserDefinedFileTypes extends Database {
         return id;
     }
 
-    public void addListener(DatabaseUserDefinedFileTypesListener listener) {
-        if (listener == null) {
-            throw new NullPointerException("listener == null");
-        }
-
-        ls.add(listener);
-    }
-
-    public void removeListener(DatabaseUserDefinedFileTypesListener listener) {
-        if (listener == null) {
-            throw new NullPointerException("listener == null");
-        }
-
-        ls.remove(listener);
-    }
-
     private void notifyFileTypeInserted(UserDefinedFileType fileType) {
-        for (DatabaseUserDefinedFileTypesListener listener : ls.get()) {
-            listener.fileTypeInserted(fileType);
-        }
+        EventBus.publish(new UserDefinedFileTypeInsertedEvent(this, fileType));
     }
 
     private void notifyFileTypeDeleted(UserDefinedFileType fileType) {
-        for (DatabaseUserDefinedFileTypesListener listener : ls.get()) {
-            listener.fileTypeDeleted(fileType);
-        }
+        EventBus.publish(new UserDefinedFileTypeDeletedEvent(this, fileType));
     }
 
     private void notifyFileTypeUpdated(UserDefinedFileType oldFileType, UserDefinedFileType newFileType) {
-        for (DatabaseUserDefinedFileTypesListener listener : ls.get()) {
-            listener.fileTypeUpdated(oldFileType, newFileType);
-        }
+        EventBus.publish(new UserDefinedFileTypeUpdatedEvent(this, oldFileType, newFileType));
     }
 
-    private DatabaseUserDefinedFileTypes() {}
+    private DatabaseUserDefinedFileTypes() {
+    }
 }
