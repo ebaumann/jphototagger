@@ -14,8 +14,8 @@ import javax.swing.JButton;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-import org.jphototagger.domain.event.UpdateMetadataCheckEvent;
-import org.jphototagger.domain.event.UpdateMetadataCheckEvent.Type;
+import org.jphototagger.domain.metadata.event.UpdateMetadataCheckEvent;
+import org.jphototagger.domain.metadata.event.UpdateMetadataCheckEvent.Type;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.concurrent.SerialExecutor;
 import org.jphototagger.lib.util.Bundle;
