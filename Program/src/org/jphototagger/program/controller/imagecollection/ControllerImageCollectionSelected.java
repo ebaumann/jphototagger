@@ -15,7 +15,7 @@ import org.jphototagger.program.database.DatabaseImageCollections;
 import org.jphototagger.program.event.RefreshEvent;
 import org.jphototagger.program.event.listener.RefreshListener;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.types.Content;
+import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.program.view.WaitDisplay;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 
@@ -36,7 +36,7 @@ public final class ControllerImageCollectionSelected implements ListSelectionLis
 
     private void listen() {
         GUI.getImageCollectionsList().addListSelectionListener(this);
-        GUI.getThumbnailsPanel().addRefreshListener(this, Content.IMAGE_COLLECTION);
+        GUI.getThumbnailsPanel().addRefreshListener(this, TypeOfDisplayedImages.IMAGE_COLLECTION);
     }
 
     @Override
@@ -83,7 +83,7 @@ public final class ControllerImageCollectionSelected implements ListSelectionLis
 
                 setTitle();
                 tnPanel.setFileSortComparator(FileSort.NO_SORT.getComparator());
-                tnPanel.setFiles(imageFiles, Content.IMAGE_COLLECTION);
+                tnPanel.setFiles(imageFiles, TypeOfDisplayedImages.IMAGE_COLLECTION);
                 tnPanel.apply(settings);
                 WaitDisplay.hide();
             }

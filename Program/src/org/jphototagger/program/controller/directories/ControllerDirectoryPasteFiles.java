@@ -5,7 +5,7 @@ import org.jphototagger.lib.datatransfer.TransferUtil.FilenameDelimiter;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.datatransfer.TransferHandlerDirectoryTree;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.types.Content;
+import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.program.types.FileAction;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.ViewUtil;
@@ -74,8 +74,8 @@ public final class ControllerDirectoryPasteFiles implements KeyListener {
         return action.equals(FileAction.COPY) || action.equals(FileAction.CUT);
     }
 
-    private boolean isSingleDirectory(Content content) {
-        return content.equals(Content.DIRECTORY) || content.equals(Content.FAVORITE);
+    private boolean isSingleDirectory(TypeOfDisplayedImages content) {
+        return content.equals(TypeOfDisplayedImages.DIRECTORY) || content.equals(TypeOfDisplayedImages.FAVORITE);
     }
 
     @Override

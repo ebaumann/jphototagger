@@ -32,7 +32,7 @@ import org.jphototagger.program.io.ImageFileFilterer;
 import org.jphototagger.program.io.ImageUtil;
 import org.jphototagger.program.io.ImageUtil.ConfirmOverwrite;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.types.Content;
+import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.program.types.ContentUtil;
 import org.jphototagger.program.view.ViewUtil;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
@@ -74,7 +74,7 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
     }
 
     private java.awt.datatransfer.DataFlavor[] getFlavors(JComponent c) {
-        return ((ThumbnailsPanel) c).getContent().equals(Content.IMAGE_COLLECTION)
+        return ((ThumbnailsPanel) c).getContent().equals(TypeOfDisplayedImages.IMAGE_COLLECTION)
                ? new java.awt.datatransfer.DataFlavor[] { Flavor.THUMBNAILS_PANEL, Flavor.FILE_LIST_FLAVOR,
                 Flavor.URI_LIST, Flavor.IMAGE_COLLECTION }
                : new java.awt.datatransfer.DataFlavor[] { Flavor.THUMBNAILS_PANEL, Flavor.FILE_LIST_FLAVOR,
@@ -120,7 +120,7 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
             throw new NullPointerException("panel == null");
         }
 
-        return panel.getContent().equals(Content.IMAGE_COLLECTION);
+        return panel.getContent().equals(TypeOfDisplayedImages.IMAGE_COLLECTION);
     }
 
     @Override

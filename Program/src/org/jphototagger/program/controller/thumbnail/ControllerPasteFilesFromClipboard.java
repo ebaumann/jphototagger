@@ -5,9 +5,8 @@ import org.jphototagger.lib.datatransfer.TransferUtil;
 import org.jphototagger.lib.datatransfer.TransferUtil.FilenameDelimiter;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.datatransfer.TransferHandlerDirectoryTree;
-import org.jphototagger.domain.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.types.Content;
+import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
 import org.jphototagger.program.view.ViewUtil;
@@ -23,6 +22,9 @@ import javax.swing.event.MenuListener;
 import javax.swing.JMenuItem;
 import javax.swing.JTree;
 import javax.swing.TransferHandler;
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.domain.thumbnails.event.ThumbnailsChangedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
@@ -34,8 +36,7 @@ import org.jphototagger.lib.awt.EventQueueUtil;
  *
  * @author Elmar Baumann
  */
-public final class ControllerPasteFilesFromClipboard
-        implements ActionListener, KeyListener, MenuListener, ThumbnailsPanelListener {
+public final class ControllerPasteFilesFromClipboard implements ActionListener, KeyListener, MenuListener {
     public ControllerPasteFilesFromClipboard() {
         listen();
     }
@@ -44,9 +45,9 @@ public final class ControllerPasteFilesFromClipboard
         ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
         getPasteItem().addActionListener(this);
-        tnPanel.addThumbnailsPanelListener(this);
         GUI.getAppFrame().getMenuEdit().addMenuListener(this);
         tnPanel.addKeyListener(this);
+        AnnotationProcessor.process(this);
     }
 
     private JMenuItem getPasteItem() {
@@ -87,11 +88,11 @@ public final class ControllerPasteFilesFromClipboard
     }
 
     private File getDirectory() {
-        Content content = GUI.getThumbnailsPanel().getContent();
+        TypeOfDisplayedImages content = GUI.getThumbnailsPanel().getContent();
 
-        if (content.equals(Content.DIRECTORY)) {
+        if (content.equals(TypeOfDisplayedImages.DIRECTORY)) {
             return ViewUtil.getSelectedFile(GUI.getDirectoriesTree());
-        } else if (content.equals(Content.FAVORITE)) {
+        } else if (content.equals(TypeOfDisplayedImages.FAVORITE)) {
             return ViewUtil.getSelectedFile(GUI.getFavoritesTree());
         }
 
@@ -124,18 +125,15 @@ public final class ControllerPasteFilesFromClipboard
         });
     }
 
-    @Override
-    public void thumbnailsSelectionChanged() {
-
-        // ignore
-    }
-
-    @Override
-    public void thumbnailsChanged() {
+    @EventSubscriber(eventClass=ThumbnailsChangedEvent.class)
+    public void thumbnailsChanged(final ThumbnailsChangedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
-                getPasteItem().setEnabled(canPasteFiles());
+                boolean canPasteFiles = canPasteFiles();
+                JMenuItem pasteItem = getPasteItem();
+
+                pasteItem.setEnabled(canPasteFiles);
             }
         });
     }

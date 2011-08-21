@@ -1,7 +1,6 @@
 package org.jphototagger.program.controller.thumbnail;
 
 import org.jphototagger.lib.event.util.KeyEventUtil;
-import org.jphototagger.domain.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.domain.event.UserPropertyChangedEvent;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.UserSettings;
@@ -14,6 +13,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.JSlider;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.domain.thumbnails.event.ThumbnailsChangedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
@@ -21,7 +21,7 @@ import org.jphototagger.lib.awt.EventQueueUtil;
  *
  * @author Elmar Baumann
  */
-public final class ControllerSliderThumbnailSize implements AWTEventListener, ChangeListener, ThumbnailsPanelListener {
+public final class ControllerSliderThumbnailSize implements AWTEventListener, ChangeListener {
 
     private static final int STEP_WIDTH = 1;
     private static final int LARGER_STEP_WIDTH = 10;
@@ -36,7 +36,6 @@ public final class ControllerSliderThumbnailSize implements AWTEventListener, Ch
     }
 
     private void listen() {
-        GUI.getThumbnailsPanel().addThumbnailsPanelListener(this);
         getSlider().addChangeListener(this);
         AnnotationProcessor.process(this);
         Toolkit.getDefaultToolkit().addAWTEventListener(this, AWTEvent.KEY_EVENT_MASK);
@@ -101,14 +100,8 @@ public final class ControllerSliderThumbnailSize implements AWTEventListener, Ch
         slider.setValue(newValue);
     }
 
-    @Override
-    public void thumbnailsSelectionChanged() {
-
-        // ignore
-    }
-
-    @Override
-    public void thumbnailsChanged() {
+    @EventSubscriber(eventClass=ThumbnailsChangedEvent.class)
+    public void thumbnailsChanged(final ThumbnailsChangedEvent evt) {
         setThumbnailWidth();
     }
 

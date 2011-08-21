@@ -1,20 +1,23 @@
 package org.jphototagger.program.controller.thumbnail;
 
+import java.io.File;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.domain.database.InsertIntoDatabase;
-import org.jphototagger.domain.event.listener.ThumbnailsPanelListener;
+import org.jphototagger.domain.thumbnails.event.ThumbnailsChangedEvent;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.tasks.AutomaticTask;
 import org.jphototagger.program.view.panels.ProgressBarUpdater;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 
 /**
  * Listens to the {@link ThumbnailsPanel} and when the displayed
- * thumbnails were changed ({@link ThumbnailsPanelListener#thumbnailsChanged()})
+ * thumbnails were changed
  * this controller gives the new displayed files to an
  * {@link InsertImageFilesIntoDatabase} object which updates the database when
  * the displayed image files or XMP sidecar files are newer than their
@@ -25,7 +28,7 @@ import org.jphototagger.program.view.panels.ThumbnailsPanel;
  *
  * @author Elmar Baumann
  */
-public final class ControllerCreateMetadataOfDisplayedThumbnails implements ThumbnailsPanelListener {
+public final class ControllerCreateMetadataOfDisplayedThumbnails {
 
     private static final Logger LOGGER = Logger.getLogger(ControllerCreateMetadataOfDisplayedThumbnails.class.getName());
 
@@ -34,27 +37,21 @@ public final class ControllerCreateMetadataOfDisplayedThumbnails implements Thum
     }
 
     private void listen() {
-        GUI.getThumbnailsPanel().addThumbnailsPanelListener(this);
+        AnnotationProcessor.process(this);
     }
 
-    @Override
-    public synchronized void thumbnailsChanged() {
-        updateMetadata();
+    @EventSubscriber(eventClass = ThumbnailsChangedEvent.class)
+    public void thumbnailsChanged(final ThumbnailsChangedEvent evt) {
+        updateMetadata(evt.getImageFiles());
     }
 
-    private synchronized void updateMetadata() {
+    private synchronized void updateMetadata(List<File> imageFiles) {
         LOGGER.log(Level.INFO, "Synchronizing displayed thumbnails with the database");
 
-        InsertImageFilesIntoDatabase inserter = new InsertImageFilesIntoDatabase(GUI.getThumbnailsPanel().getFiles(), InsertIntoDatabase.OUT_OF_DATE);
+        InsertImageFilesIntoDatabase inserter = new InsertImageFilesIntoDatabase(imageFiles, InsertIntoDatabase.OUT_OF_DATE);
         String pBarString = Bundle.getString(ControllerCreateMetadataOfDisplayedThumbnails.class, "ControllerCreateMetadataOfDisplayedThumbnails.ProgressBar.String");
 
         inserter.addProgressListener(new ProgressBarUpdater(inserter, pBarString));
         AutomaticTask.INSTANCE.setTask(inserter);
-    }
-
-    @Override
-    public void thumbnailsSelectionChanged() {
-
-        // ignore
     }
 }

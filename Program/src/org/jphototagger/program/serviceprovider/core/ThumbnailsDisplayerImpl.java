@@ -6,7 +6,7 @@ import java.util.Collection;
 import org.jphototagger.api.image.ThumbnailsDisplayer;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.types.Content;
+import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.openide.util.lookup.ServiceProvider;
 
@@ -37,7 +37,7 @@ public final class ThumbnailsDisplayerImpl implements ThumbnailsDisplayer {
         public void run() {
             ThumbnailsPanel thumbnailsPanel = GUI.getThumbnailsPanel();
 
-            thumbnailsPanel.setFiles(imageFiles, Content.UNDEFINED);
+            thumbnailsPanel.setFiles(imageFiles, TypeOfDisplayedImages.UNDEFINED);
         }
     }
 }

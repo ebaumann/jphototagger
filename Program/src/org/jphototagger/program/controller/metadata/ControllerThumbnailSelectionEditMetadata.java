@@ -5,7 +5,9 @@ import java.util.List;
 
 import javax.swing.JLabel;
 
-import org.jphototagger.domain.event.listener.ThumbnailsPanelListener;
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
@@ -23,23 +25,18 @@ import org.jphototagger.xmp.XmpMetadata;
  *
  * @author Elmar Baumann
  */
-public final class ControllerThumbnailSelectionEditMetadata implements ThumbnailsPanelListener {
+public final class ControllerThumbnailSelectionEditMetadata {
 
     public ControllerThumbnailSelectionEditMetadata() {
         listen();
     }
 
     private void listen() {
-        GUI.getThumbnailsPanel().addThumbnailsPanelListener(this);
+        AnnotationProcessor.process(this);
     }
 
-    @Override
-    public void thumbnailsChanged() {
-        // ignore
-    }
-
-    @Override
-    public void thumbnailsSelectionChanged() {
+    @EventSubscriber(eventClass = ThumbnailsSelectionChangedEvent.class)
+    public void thumbnailsSelectionChanged(final ThumbnailsSelectionChangedEvent evt) {
         handleSelectionChanged();
     }
 

@@ -16,7 +16,7 @@ import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.event.RefreshEvent;
 import org.jphototagger.program.event.listener.RefreshListener;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.types.Content;
+import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.program.view.WaitDisplay;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 
@@ -31,7 +31,7 @@ public final class ControllerMiscMetadataItemSelected implements TreeSelectionLi
 
     private void listen() {
         GUI.getMiscMetadataTree().addTreeSelectionListener(this);
-        GUI.getThumbnailsPanel().addRefreshListener(this, Content.MISC_METADATA);
+        GUI.getThumbnailsPanel().addRefreshListener(this, TypeOfDisplayedImages.MISC_METADATA);
     }
 
     @Override
@@ -90,7 +90,7 @@ public final class ControllerMiscMetadataItemSelected implements TreeSelectionLi
                     setTitle(column, userObject);
                     ControllerSortThumbnails.setLastSort();
                     tnPanel.setFiles(DatabaseImageFiles.INSTANCE.getImageFilesWithColumnContent(column,
-                            userObject.toString()), Content.MISC_METADATA);
+                            userObject.toString()), TypeOfDisplayedImages.MISC_METADATA);
                     tnPanel.apply(tnPanelSettings);
                 } else {
                     setTitle();
@@ -100,11 +100,11 @@ public final class ControllerMiscMetadataItemSelected implements TreeSelectionLi
 
                 setTitle(column);
                 ControllerSortThumbnails.setLastSort();
-                tnPanel.setFiles(DatabaseImageFiles.INSTANCE.getFilesNotNullIn(column), Content.MISC_METADATA);
+                tnPanel.setFiles(DatabaseImageFiles.INSTANCE.getFilesNotNullIn(column), TypeOfDisplayedImages.MISC_METADATA);
                 tnPanel.apply(tnPanelSettings);
             } else {
                 ControllerSortThumbnails.setLastSort();
-                tnPanel.setFiles(new ArrayList<File>(), Content.MISC_METADATA);
+                tnPanel.setFiles(new ArrayList<File>(), TypeOfDisplayedImages.MISC_METADATA);
                 tnPanel.apply(tnPanelSettings);
                 setTitle();
             }

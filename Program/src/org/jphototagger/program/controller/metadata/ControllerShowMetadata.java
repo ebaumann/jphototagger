@@ -20,7 +20,6 @@ import javax.swing.event.ChangeListener;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-import org.jphototagger.domain.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.domain.repository.event.XmpInsertedEvent;
 import org.jphototagger.domain.repository.event.XmpUpdatedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
@@ -45,6 +44,7 @@ import com.adobe.xmp.properties.XMPPropertyInfo;
 import org.jphototagger.domain.repository.event.ExifInsertedEvent;
 import org.jphototagger.domain.repository.event.ExifUpdatedEvent;
 import org.jphototagger.domain.repository.event.XmpDeletedEvent;
+import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
 
 /**
  * Listens for selection changes in the {@link ThumbnailsPanel} and
@@ -57,7 +57,7 @@ import org.jphototagger.domain.repository.event.XmpDeletedEvent;
  *
  * @author Elmar Baumann
  */
-public final class ControllerShowMetadata implements ChangeListener, ThumbnailsPanelListener {
+public final class ControllerShowMetadata implements ChangeListener {
 
     private static final Logger LOGGER = Logger.getLogger(ControllerShowMetadata.class.getName());
     private final Map<TableModelXmp, String[]> namespacesOfXmpTableModel = new HashMap<TableModelXmp, String[]>();
@@ -83,7 +83,6 @@ public final class ControllerShowMetadata implements ChangeListener, ThumbnailsP
 
     private void listen() {
         AnnotationProcessor.process(this);
-        GUI.getThumbnailsPanel().addThumbnailsPanelListener(this);
         metadataPane.addChangeListener(this);
     }
 
@@ -160,16 +159,11 @@ public final class ControllerShowMetadata implements ChangeListener, ThumbnailsP
         showUpdates(evt.getImageFile(), Collections.singleton(Metadata.EXIF));
     }
 
-    @Override
-    public void thumbnailsSelectionChanged() {
+    @EventSubscriber(eventClass=ThumbnailsSelectionChangedEvent.class)
+    public void thumbnailsSelectionChanged(final ThumbnailsSelectionChangedEvent evt) {
         setSelectedImageFileUndefined();
         removeMetadataFromTables(EnumSet.allOf(Metadata.class));
-        showMetadataOfSelectedThumbnails();
-    }
-
-    @Override
-    public void thumbnailsChanged() {
-        // ignore
+        showMetadataOfSelectedThumbnails(evt.getSelectedImageFiles());
     }
 
     @Override
@@ -206,9 +200,7 @@ public final class ControllerShowMetadata implements ChangeListener, ThumbnailsP
                 && appPanel.isTabMetadataXmpSelected();
     }
 
-    private void showMetadataOfSelectedThumbnails() {
-        List<File> selectedFiles = thumbnailsPanel.getSelectedFiles();
-
+    private void showMetadataOfSelectedThumbnails(List<File> selectedFiles) {
         if (selectedFiles.size() == 1) {
             selectedImageFile = selectedFiles.get(0);
             EventQueueUtil.invokeInDispatchThread(new ShowMetadata(EnumSet.allOf(Metadata.class)));

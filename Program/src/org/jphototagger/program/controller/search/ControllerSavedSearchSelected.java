@@ -15,7 +15,7 @@ import org.jphototagger.program.event.RefreshEvent;
 import org.jphototagger.program.event.listener.RefreshListener;
 import org.jphototagger.program.helper.SavedSearchesHelper;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.types.Content;
+import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.program.view.WaitDisplay;
 
 /**
@@ -30,7 +30,7 @@ public final class ControllerSavedSearchSelected implements ListSelectionListene
 
     private void listen() {
         GUI.getSavedSearchesList().addListSelectionListener(this);
-        GUI.getThumbnailsPanel().addRefreshListener(this, Content.SAVED_SEARCH);
+        GUI.getThumbnailsPanel().addRefreshListener(this, TypeOfDisplayedImages.SAVED_SEARCH);
     }
 
     @Override
@@ -85,7 +85,7 @@ public final class ControllerSavedSearchSelected implements ListSelectionListene
             List<File> imageFiles = DatabaseFind.INSTANCE.findImageFiles(stmt);
 
             setTitle(name);
-            GUI.getThumbnailsPanel().setFiles(imageFiles, Content.SAVED_SEARCH);
+            GUI.getThumbnailsPanel().setFiles(imageFiles, TypeOfDisplayedImages.SAVED_SEARCH);
         }
 
         private void setTitle(String name) {

@@ -9,7 +9,7 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.types.Content;
+import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.program.view.WaitDisplay;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 
@@ -52,7 +52,7 @@ public final class ShowThumbnailsContainingAllKeywords2 implements Runnable {
         List<File> imageFiles = getImageFilesOfKeywords();
 
         ControllerSortThumbnails.setLastSort();
-        GUI.getThumbnailsPanel().setFiles(imageFiles, Content.KEYWORD);
+        GUI.getThumbnailsPanel().setFiles(imageFiles, TypeOfDisplayedImages.KEYWORD);
     }
 
     private List<File> getImageFilesOfKeywords() {

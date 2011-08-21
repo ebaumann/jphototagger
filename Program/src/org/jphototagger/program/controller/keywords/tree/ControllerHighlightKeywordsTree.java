@@ -1,7 +1,6 @@
 package org.jphototagger.program.controller.keywords.tree;
 
 import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.domain.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.xmp.XmpMetadata;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.KeywordsPanel;
@@ -13,7 +12,10 @@ import java.util.Collection;
 import java.util.List;
 import javax.swing.JTree;
 import javax.swing.tree.TreeCellRenderer;
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jdesktop.swingx.JXTree;
+import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
@@ -22,32 +24,30 @@ import org.jphototagger.lib.awt.EventQueueUtil;
  *
  * @author Elmar Baumann
  */
-public final class ControllerHighlightKeywordsTree implements ThumbnailsPanelListener {
+public final class ControllerHighlightKeywordsTree {
     public ControllerHighlightKeywordsTree() {
         listen();
     }
 
     private void listen() {
-        GUI.getThumbnailsPanel().addThumbnailsPanelListener(this);
+        AnnotationProcessor.process(this);
     }
 
-    @Override
-    public void thumbnailsSelectionChanged() {
+    @EventSubscriber(eventClass=ThumbnailsSelectionChangedEvent.class)
+    public void thumbnailsSelectionChanged(final ThumbnailsSelectionChangedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
-                applyCurrentSelection();
+                applyCurrentSelection(evt);
             }
         });
     }
 
-    private void applyCurrentSelection() {
+    private void applyCurrentSelection(ThumbnailsSelectionChangedEvent evt) {
         removeKeywords();
 
-        ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
-
-        if (tnPanel.getSelectionCount() == 1) {
-            List<File> selFiles = tnPanel.getSelectedFiles();
+        if (evt.getSelectionCount() == 1) {
+            List<File> selFiles = evt.getSelectedImageFiles();
 
             if ((selFiles.size() == 1) && hasSidecarFile(selFiles)) {
                 Collection<String> keywords = DatabaseImageFiles.INSTANCE.getDcSubjectsOf(selFiles.get(0));
@@ -81,11 +81,5 @@ public final class ControllerHighlightKeywordsTree implements ThumbnailsPanelLis
         assert selFile.size() == 1 : "Size < 1: " + selFile.size() + " - " + selFile;
 
         return XmpMetadata.hasImageASidecarFile(selFile.get(0));
-    }
-
-    @Override
-    public void thumbnailsChanged() {
-
-        // ignore
     }
 }

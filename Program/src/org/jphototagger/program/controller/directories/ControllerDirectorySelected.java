@@ -14,7 +14,7 @@ import org.jphototagger.program.event.RefreshEvent;
 import org.jphototagger.program.event.listener.RefreshListener;
 import org.jphototagger.program.io.ImageFileFilterer;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.types.Content;
+import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.program.view.WaitDisplay;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuDirectories;
@@ -33,7 +33,7 @@ public final class ControllerDirectorySelected implements TreeSelectionListener,
 
     private void listen() {
         GUI.getDirectoriesTree().addTreeSelectionListener(this);
-        GUI.getThumbnailsPanel().addRefreshListener(this, Content.DIRECTORY);
+        GUI.getThumbnailsPanel().addRefreshListener(this, TypeOfDisplayedImages.DIRECTORY);
     }
 
     @Override
@@ -78,7 +78,7 @@ public final class ControllerDirectorySelected implements TreeSelectionListener,
 
                 setTitle(selectedDirectory);
                 ControllerSortThumbnails.setLastSort();
-                GUI.getThumbnailsPanel().setFiles(files, Content.DIRECTORY);
+                GUI.getThumbnailsPanel().setFiles(files, TypeOfDisplayedImages.DIRECTORY);
                 GUI.getThumbnailsPanel().apply(panelSettings);
                 setMetadataEditable();
                 WaitDisplay.hide();

@@ -1,36 +1,39 @@
 package org.jphototagger.program.controller.metadata;
 
-import org.jphototagger.domain.event.listener.ThumbnailsPanelListener;
+import javax.swing.JButton;
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.program.view.panels.AppPanel;
 
 /**
  *
  * @author Elmar Baumann
  */
-public final class ControllerEnableCreateMetadataTemplate implements ThumbnailsPanelListener {
+public final class ControllerEnableCreateMetadataTemplate {
+
     public ControllerEnableCreateMetadataTemplate() {
         listen();
     }
 
     private void listen() {
-        GUI.getThumbnailsPanel().addThumbnailsPanelListener(this);
+        AnnotationProcessor.process(this);
     }
 
-    @Override
-    public void thumbnailsSelectionChanged() {
+    @EventSubscriber(eventClass = ThumbnailsSelectionChangedEvent.class)
+    public void thumbnailsSelectionChanged(final ThumbnailsSelectionChangedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                GUI.getAppPanel().getButtonMetadataTemplateCreate().setEnabled(
-                    GUI.getThumbnailsPanel().isAFileSelected());
+                AppPanel appPanel = GUI.getAppPanel();
+                JButton buttonMetadataTemplateCreate = appPanel.getButtonMetadataTemplateCreate();
+                boolean aFileIsSelected = evt.isAFileSelected();
+
+                buttonMetadataTemplateCreate.setEnabled(aFileIsSelected);
             }
         });
-    }
-
-    @Override
-    public void thumbnailsChanged() {
-
-        // ignore
     }
 }

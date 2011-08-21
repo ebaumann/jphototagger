@@ -10,7 +10,7 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.types.Content;
+import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.program.view.WaitDisplay;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 
@@ -58,7 +58,7 @@ public final class ShowThumbnailsContainingKeywords implements Runnable {
             ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
             ControllerSortThumbnails.setLastSort();
-            tnPanel.setFiles(imageFiles, Content.KEYWORD);
+            tnPanel.setFiles(imageFiles, TypeOfDisplayedImages.KEYWORD);
             tnPanel.apply(tnPanelSettings);
         }
     }

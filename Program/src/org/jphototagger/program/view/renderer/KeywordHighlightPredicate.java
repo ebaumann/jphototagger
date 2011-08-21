@@ -4,15 +4,17 @@ import java.awt.Color;
 import java.io.File;
 import org.jdesktop.swingx.decorator.ComponentAdapter;
 import org.jdesktop.swingx.decorator.HighlightPredicate;
-import org.jphototagger.domain.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jdesktop.swingx.decorator.ColorHighlighter;
 import org.jdesktop.swingx.decorator.Highlighter;
+import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.database.DatabaseImageFiles;
 
@@ -21,7 +23,8 @@ import org.jphototagger.program.database.DatabaseImageFiles;
  *
  * @author Elmar Baumann
  */
-public final class KeywordHighlightPredicate implements HighlightPredicate, ThumbnailsPanelListener {
+public final class KeywordHighlightPredicate implements HighlightPredicate {
+
     private List<String> keywordsOfSelectedImage = new ArrayList<String>();
     private static final Highlighter HIGHLIGHTER = createHighlighter();
 
@@ -30,9 +33,7 @@ public final class KeywordHighlightPredicate implements HighlightPredicate, Thum
     }
 
     private void listen() {
-        ThumbnailsPanel thumbnailsPanel = GUI.getThumbnailsPanel();
-
-        thumbnailsPanel.addThumbnailsPanelListener(this);
+        AnnotationProcessor.process(this);
     }
 
     private static Highlighter createHighlighter() {
@@ -60,8 +61,8 @@ public final class KeywordHighlightPredicate implements HighlightPredicate, Thum
         Object value = adapter.getValue();
 
         return (value == null)
-               ? false
-               : keywordsOfSelectedImage.contains(value.toString());
+                ? false
+                : keywordsOfSelectedImage.contains(value.toString());
     }
 
     private boolean isTemporarySelection(Component renderer, int row) {
@@ -74,23 +75,16 @@ public final class KeywordHighlightPredicate implements HighlightPredicate, Thum
         return false;
     }
 
-    @Override
-    public void thumbnailsSelectionChanged() {
-        ThumbnailsPanel thumbnailsPanel = GUI.getThumbnailsPanel();
-        List<File> selectedFiles = thumbnailsPanel.getSelectedFiles();
+    @EventSubscriber(eventClass = ThumbnailsSelectionChangedEvent.class)
+    public void thumbnailsSelectionChanged(final ThumbnailsSelectionChangedEvent evt) {
 
         keywordsOfSelectedImage.clear();
 
-        if (selectedFiles.size() == 1) {
+        if (evt.getSelectionCount() == 1) {
+            List<File> selectedFiles = evt.getSelectedImageFiles();
             Collection<String> keywordsOfSelectedFile = DatabaseImageFiles.INSTANCE.getDcSubjectsOf(selectedFiles.get(0));
 
             keywordsOfSelectedImage.addAll(keywordsOfSelectedFile);
         }
-    }
-
-    @Override
-    public void thumbnailsChanged() {
-
-        // ignore
     }
 }
