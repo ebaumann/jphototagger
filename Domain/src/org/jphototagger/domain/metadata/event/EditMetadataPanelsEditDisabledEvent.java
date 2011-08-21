@@ -1,15 +1,15 @@
-package org.jphototagger.domain.metadata.edit;
+package org.jphototagger.domain.metadata.event;
 
 /**
  *
  *
  * @author Elmar Baumann
  */
-public final class EditMetadataPanelsEditEnabledEvent {
+public final class EditMetadataPanelsEditDisabledEvent {
 
     private final Object source;
 
-    public EditMetadataPanelsEditEnabledEvent(Object source) {
+    public EditMetadataPanelsEditDisabledEvent(Object source) {
         this.source = source;
     }
 
