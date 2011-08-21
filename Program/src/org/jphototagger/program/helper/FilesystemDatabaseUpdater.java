@@ -1,30 +1,25 @@
 package org.jphototagger.program.helper;
 
 import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.lib.event.listener.FileSystemListener;
 import org.jphototagger.domain.database.InsertIntoDatabase;
 import org.jphototagger.program.io.ImageFileFilterer;
 import org.jphototagger.program.tasks.UserTasks;
 import java.io.File;
 import java.util.Arrays;
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.api.file.event.FileCopiedEvent;
+import org.jphototagger.api.file.event.FileDeletedEvent;
+import org.jphototagger.api.file.event.FileMovedEvent;
+import org.jphototagger.api.file.event.FileRenamedEvent;
 
 /**
  * Updates the database on file system events.
  *
- * <strong>Usage:</strong> Create an instance and register it as
- * {@link FileSystemListener} to a process copying/renaming/deleting
- * files. Example:
- *
- * {@code
- * CopyToDirectoryDialog dialog = new CopyToDirectoryDialog();
- * dialog.setSourceFiles(files);
- * dialog.addFileSystemListener(new FilesystemDatabaseUpdater());
- * dialog.setVisible(true);
- * }
- *
  * @author Elmar Baumann
  */
-public final class FilesystemDatabaseUpdater implements FileSystemListener {
+public final class FilesystemDatabaseUpdater {
+
     private volatile boolean wait;
 
     /**
@@ -35,12 +30,13 @@ public final class FilesystemDatabaseUpdater implements FileSystemListener {
      */
     public FilesystemDatabaseUpdater(boolean wait) {
         this.wait = wait;
+        AnnotationProcessor.process(this);
     }
 
     private void insertFileIntoDatabase(File file) {
         if (ImageFileFilterer.isImageFile(file)) {
             InsertImageFilesIntoDatabase inserter = new InsertImageFilesIntoDatabase(Arrays.asList(file),
-                                                        InsertIntoDatabase.OUT_OF_DATE);
+                    InsertIntoDatabase.OUT_OF_DATE);
 
             if (wait) {
                 inserter.run();    // run in this thread!
@@ -60,31 +56,41 @@ public final class FilesystemDatabaseUpdater implements FileSystemListener {
         }
     }
 
-    @Override
-    public void fileCopied(File source, File target) {
-        if (ImageFileFilterer.isImageFile(target)) {
-            insertFileIntoDatabase(target);
+    @EventSubscriber(eventClass = FileCopiedEvent.class)
+    public void fileCopied(FileCopiedEvent evt) {
+        File targetFile = evt.getTargetFile();
+
+        if (ImageFileFilterer.isImageFile(targetFile)) {
+            insertFileIntoDatabase(targetFile);
         }
     }
 
-    @Override
-    public void fileDeleted(File file) {
+    @EventSubscriber(eventClass = FileDeletedEvent.class)
+    public void fileDeleted(FileDeletedEvent evt) {
+        File file = evt.getFile();
+
         if (ImageFileFilterer.isImageFile(file)) {
             removeFileFromDatabase(file);
         }
     }
 
-    @Override
-    public void fileMoved(File source, File target) {
-        if (ImageFileFilterer.isImageFile(source) && ImageFileFilterer.isImageFile(target)) {
-            DatabaseImageFiles.INSTANCE.updateRename(source, target);
+    @EventSubscriber(eventClass = FileMovedEvent.class)
+    public void fileMoved(FileMovedEvent evt) {
+        File sourceFile = evt.getSourceFile();
+        File targetFile = evt.getTargetFile();
+
+        if (ImageFileFilterer.isImageFile(sourceFile) && ImageFileFilterer.isImageFile(targetFile)) {
+            DatabaseImageFiles.INSTANCE.updateRename(sourceFile, targetFile);
         }
     }
 
-    @Override
-    public void fileRenamed(File source, File target) {
-        if (ImageFileFilterer.isImageFile(source) && ImageFileFilterer.isImageFile(target)) {
-            DatabaseImageFiles.INSTANCE.updateRename(source, target);
+    @EventSubscriber(eventClass = FileRenamedEvent.class)
+    public void fileRenamed(final FileRenamedEvent evt) {
+        File sourceFile = evt.getSourceFile();
+        File targetFile = evt.getTargetFile();
+
+        if (ImageFileFilterer.isImageFile(sourceFile) && ImageFileFilterer.isImageFile(targetFile)) {
+            DatabaseImageFiles.INSTANCE.updateRename(sourceFile, targetFile);
         }
     }
 }

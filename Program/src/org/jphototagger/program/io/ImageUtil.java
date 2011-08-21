@@ -11,7 +11,6 @@ import org.jphototagger.program.UserSettings;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.controller.filesystem.ControllerMoveFiles;
 import org.jphototagger.program.factory.ControllerFactory;
-import org.jphototagger.program.helper.FilesystemDatabaseUpdater;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.CopyToDirectoryDialog;
 import org.jphototagger.program.view.dialogs.MoveToDirectoryDialog;
@@ -70,7 +69,6 @@ public final class ImageUtil {
 
         dlg.setTargetDirectory(targetDirectory);
         dlg.setSourceFiles(sourceFiles);
-        dlg.addFileSystemActionListener(new FilesystemDatabaseUpdater(true));
         addProgressListener(dlg);
         dlg.copy(true, UserSettings.INSTANCE.getCopyMoveFilesOptions());
     }
