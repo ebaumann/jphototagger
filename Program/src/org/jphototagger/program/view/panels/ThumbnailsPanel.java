@@ -41,7 +41,6 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.domain.event.AppWillExitEvent;
 import org.jphototagger.domain.event.ThumbnailUpdateEvent;
 import org.jphototagger.domain.event.UserPropertyChangedEvent;
-import org.jphototagger.domain.event.listener.DatabaseUserDefinedFileFiltersListener;
 import org.jphototagger.domain.event.listener.ThumbnailUpdateListener;
 import org.jphototagger.domain.event.listener.ThumbnailsPanelListener;
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
@@ -51,6 +50,7 @@ import org.jphototagger.domain.repository.event.ImageFileMovedEvent;
 import org.jphototagger.domain.repository.event.XmpDeletedEvent;
 import org.jphototagger.domain.repository.event.XmpInsertedEvent;
 import org.jphototagger.domain.repository.event.XmpUpdatedEvent;
+import org.jphototagger.domain.repository.event.userdefinedfilefilters.UserDefinedFileFilterUpdatedEvent;
 import org.jphototagger.domain.thumbnails.ThumbnailFlag;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.comparator.FileSort;
@@ -62,7 +62,6 @@ import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.program.cache.RenderedThumbnailCache;
 import org.jphototagger.program.controller.thumbnail.ControllerThumbnailDoubleklick;
-import org.jphototagger.program.database.DatabaseUserDefinedFileFilters;
 import org.jphototagger.program.datatransfer.TransferHandlerThumbnailsPanel;
 import org.jphototagger.program.event.RefreshEvent;
 import org.jphototagger.program.event.listener.RefreshListener;
@@ -79,8 +78,7 @@ import org.jphototagger.xmp.XmpMetadata;
  * @author Elmar Baumann, Tobias Stening
  */
 public class ThumbnailsPanel extends JPanel
-        implements ComponentListener, MouseListener, MouseMotionListener, KeyListener, ThumbnailUpdateListener,
-        DatabaseUserDefinedFileFiltersListener {
+        implements ComponentListener, MouseListener, MouseMotionListener, KeyListener, ThumbnailUpdateListener {
 
     private static final String KEY_THUMBNAIL_WIDTH = "ThumbnailsPanel.ThumbnailWidth";
     private static final long serialVersionUID = 1034671645083632578L;
@@ -126,7 +124,6 @@ public class ThumbnailsPanel extends JPanel
 
     private void listen() {
         renderedThumbnailCache.addThumbnailUpdateListener(this);
-        DatabaseUserDefinedFileFilters.INSTANCE.addListener(this);
         AnnotationProcessor.process(this);
         addComponentListener(this);
         addMouseListener(this);
@@ -1663,13 +1660,13 @@ public class ThumbnailsPanel extends JPanel
         setToolTipText(tooltipText);
     }
 
-    @Override
-    public synchronized void filterUpdated(final UserDefinedFileFilter filter) {
+    @EventSubscriber(eventClass = UserDefinedFileFilterUpdatedEvent.class)
+    public synchronized void filterUpdated(final UserDefinedFileFilterUpdatedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
             public void run() {
-                updateFilter(filter);
+                updateFilter(evt.getFilter());
             }
         });
     }
@@ -1682,11 +1679,6 @@ public class ThumbnailsPanel extends JPanel
         }
     }
 
-    @Override
-    public void filterInserted(UserDefinedFileFilter filter) {
-        // ignore
-    }
-
     private synchronized void updateViaFileFilter(File file) {
 
         // Insertion can't be decided because we don't know whether the image
@@ -1695,11 +1687,6 @@ public class ThumbnailsPanel extends JPanel
         if (!fileFilter.accept(file) && files.contains(file)) {
             removeFiles(Collections.singleton(file));
         }
-    }
-
-    @Override
-    public void filterDeleted(UserDefinedFileFilter filter) {
-        // ignore
     }
 
     @EventSubscriber(eventClass = ImageFileInsertedEvent.class)

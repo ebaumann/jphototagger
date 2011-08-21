@@ -3,8 +3,12 @@ package org.jphototagger.program.model;
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
 import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseUserDefinedFileFilters;
-import org.jphototagger.domain.event.listener.DatabaseUserDefinedFileFiltersListener;
 import javax.swing.DefaultListModel;
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.domain.repository.event.userdefinedfilefilters.UserDefinedFileFilterDeletedEvent;
+import org.jphototagger.domain.repository.event.userdefinedfilefilters.UserDefinedFileFilterInsertedEvent;
+import org.jphototagger.domain.repository.event.userdefinedfilefilters.UserDefinedFileFilterUpdatedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
@@ -12,13 +16,13 @@ import org.jphototagger.lib.awt.EventQueueUtil;
  *
  * @author Elmar Baumann
  */
-public final class ListModelUserDefinedFileFilter extends DefaultListModel
-        implements DatabaseUserDefinedFileFiltersListener {
+public final class ListModelUserDefinedFileFilter extends DefaultListModel {
+
     private static final long serialVersionUID = 6723254193291648654L;
 
     public ListModelUserDefinedFileFilter() {
         addElements();
-        DatabaseUserDefinedFileFilters.INSTANCE.addListener(this);
+        AnnotationProcessor.process(this);
     }
 
     private void addElements() {
@@ -48,32 +52,35 @@ public final class ListModelUserDefinedFileFilter extends DefaultListModel
         addElement(filter);
     }
 
-    @Override
-    public void filterInserted(final UserDefinedFileFilter filter) {
+    @EventSubscriber(eventClass = UserDefinedFileFilterInsertedEvent.class)
+    public void filterInserted(final UserDefinedFileFilterInsertedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                insertFilter(filter);
+                insertFilter(evt.getFilter());
             }
         });
     }
 
-    @Override
-    public void filterDeleted(final UserDefinedFileFilter filter) {
+    @EventSubscriber(eventClass = UserDefinedFileFilterDeletedEvent.class)
+    public void filterDeleted(final UserDefinedFileFilterDeletedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                deleteFilter(filter);
+                deleteFilter(evt.getFilter());
             }
         });
     }
 
-    @Override
-    public void filterUpdated(final UserDefinedFileFilter filter) {
+    @EventSubscriber(eventClass = UserDefinedFileFilterUpdatedEvent.class)
+    public synchronized void filterUpdated(final UserDefinedFileFilterUpdatedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                updateFilter(filter);
+                updateFilter(evt.getFilter());
             }
         });
     }
