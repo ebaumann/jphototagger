@@ -40,7 +40,7 @@ import org.bushe.swing.event.EventBus;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.domain.event.AppWillExitEvent;
-import org.jphototagger.domain.event.ThumbnailUpdateEvent;
+import org.jphototagger.domain.thumbnails.event.ThumbnailUpdateEvent;
 import org.jphototagger.domain.event.UserPropertyChangedEvent;
 import org.jphototagger.domain.event.listener.ThumbnailUpdateListener;
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;

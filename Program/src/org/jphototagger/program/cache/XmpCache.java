@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-import org.jphototagger.domain.event.ThumbnailUpdateEvent;
+import org.jphototagger.domain.thumbnails.event.ThumbnailUpdateEvent;
 import org.jphototagger.domain.event.listener.ThumbnailUpdateListener;
 import org.jphototagger.domain.repository.event.XmpDeletedEvent;
 import org.jphototagger.domain.repository.event.XmpInsertedEvent;
