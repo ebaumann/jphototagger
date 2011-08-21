@@ -1,9 +1,9 @@
-package org.jphototagger.domain.repository.event.editmetadatapanels;
+package org.jphototagger.domain.metadata.edit;
 
 /**
  *
  *
- * @author  Elmar Baumann
+ * @author Elmar Baumann
  */
 public final class EditMetadataPanelsEditEnabledEvent {
 
