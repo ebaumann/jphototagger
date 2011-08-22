@@ -4,13 +4,14 @@ import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.jphototagger.api.core.UserFilesProvider;
 import org.jphototagger.domain.event.listener.impl.ProgressListenerSupport;
 import org.jphototagger.lib.event.ProgressEvent;
 import org.jphototagger.lib.event.listener.ProgressListener;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.database.DatabaseMaintainance;
-import org.jphototagger.program.types.Filename;
+import org.jphototagger.api.file.Filename;
+import org.openide.util.Lookup;
 
 /**
  * Compresses the database.
@@ -18,6 +19,7 @@ import org.jphototagger.program.types.Filename;
  * @author Elmar Baumann
  */
 public final class CompressDatabase implements Runnable {
+
     private final ProgressListenerSupport listenerSupport = new ProgressListenerSupport();
     private boolean success = false;
     private long sizeBefore;
@@ -73,7 +75,8 @@ public final class CompressDatabase implements Runnable {
         logCompressDatabase();
         notifyStarted();
 
-        File dbFile = new File(UserSettings.INSTANCE.getDatabaseFileName(Filename.FULL_PATH));
+        UserFilesProvider provider = Lookup.getDefault().lookup(UserFilesProvider.class);
+        File dbFile = new File(provider.getDatabaseFileName(Filename.FULL_PATH));
 
         sizeBefore = dbFile.length();
         success = DatabaseMaintainance.INSTANCE.compressDatabase();
@@ -99,10 +102,10 @@ public final class CompressDatabase implements Runnable {
 
     private Object getEndMessage() {
         double mb = 1024 * 1024;
-        Object[] params = { success
-                            ? Bundle.getString(CompressDatabase.class, "CompressDatabase.End.Success.True")
-                            : Bundle.getString(CompressDatabase.class, "CompressDatabase.End.Success.False"), sizeBefore,
-                            new Double(sizeBefore / mb), sizeAfter, new Double(sizeAfter / mb) };
+        Object[] params = {success
+            ? Bundle.getString(CompressDatabase.class, "CompressDatabase.End.Success.True")
+            : Bundle.getString(CompressDatabase.class, "CompressDatabase.End.Success.False"), sizeBefore,
+            new Double(sizeBefore / mb), sizeAfter, new Double(sizeAfter / mb)};
 
         return Bundle.getString(CompressDatabase.class, "CompressDatabase.End", params);
     }

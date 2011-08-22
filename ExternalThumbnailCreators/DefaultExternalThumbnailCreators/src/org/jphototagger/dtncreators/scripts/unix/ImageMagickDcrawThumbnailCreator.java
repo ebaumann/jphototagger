@@ -7,11 +7,13 @@ import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 
+import org.jphototagger.api.core.UserFilesProvider;
 import org.jphototagger.api.image.ExternalThumbnailCreator;
 import org.jphototagger.dtncreators.Util;
 import org.jphototagger.dtncreators.scripts.ScriptWriter;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.system.SystemUtil;
+import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
 /**
@@ -57,7 +59,8 @@ public final class ImageMagickDcrawThumbnailCreator implements ExternalThumbnail
             return null;
         }
 
-        File userDirectory = Util.lookupUserDirectory();
+        UserFilesProvider provider = Lookup.getDefault().lookup(UserFilesProvider.class);
+        File userDirectory = provider.getPluginSettingsDirectory();
 
         if (userDirectory == null) {
             errorMessageUserDirectory();

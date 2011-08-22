@@ -14,7 +14,7 @@ import javax.swing.JRadioButton;
 
 import org.jphototagger.api.image.ExternalThumbnailCreator;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.program.image.thumbnail.ThumbnailCreationStrategy;
 import org.jphototagger.program.types.Persistence;
 import org.openide.util.Lookup;
@@ -59,7 +59,7 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
     }
 
     private void setSelectedRadioButtons() {
-        ThumbnailCreationStrategy creator = UserSettings.INSTANCE.getThumbnailCreator();
+        ThumbnailCreationStrategy creator = UserSettings.INSTANCE.getThumbnailCreationStrategy();
 
         for (JRadioButton radioButton : radioButtonOfThumbnailCreator.values()) {
             JRadioButton radioButtonOfCreator = radioButtonOfThumbnailCreator.get(creator);
@@ -69,7 +69,7 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
     }
 
     private void setExternalThumbnailAppEnabled() {
-        boolean isCreatorExternalApp = UserSettings.INSTANCE.getThumbnailCreator().equals(ThumbnailCreationStrategy.EXTERNAL_APP);
+        boolean isCreatorExternalApp = UserSettings.INSTANCE.getThumbnailCreationStrategy().equals(ThumbnailCreationStrategy.EXTERNAL_APP);
 
         textFieldExternalThumbnailCreationCommand.setEnabled(isCreatorExternalApp);
         buttonChooseExternalThumbnailCreator.setEnabled(isCreatorExternalApp);
@@ -135,7 +135,7 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
     }
 
     private void setThumbnailCreator(JRadioButton radioButton) {
-        UserSettings.INSTANCE.setThumbnailCreator(thumbnailCreatorOfRadioButton.get(radioButton));
+        UserSettings.INSTANCE.setThumbnailCreationStrategy(thumbnailCreatorOfRadioButton.get(radioButton));
         boolean selected = radioButtonCreateThumbnailsWithExternalApp.isSelected();
 
         textFieldExternalThumbnailCreationCommand.setEnabled(selected);

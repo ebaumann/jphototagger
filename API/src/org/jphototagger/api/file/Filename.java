@@ -1,7 +1,7 @@
-package org.jphototagger.program.types;
+package org.jphototagger.api.file;
 
 /**
- * Token of a filename.
+ * Tokens of a filename.
  *
  * @author Elmar Baumann
  */

@@ -1,4 +1,4 @@
-package org.jphototagger.program;
+package org.jphototagger.program.settings;
 
 import java.awt.Component;
 

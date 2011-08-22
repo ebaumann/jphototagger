@@ -15,10 +15,10 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.jphototagger.api.core.UserFilesProvider;
 import org.jphototagger.domain.keywords.Keyword;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.SplashScreen;
 import org.jphototagger.program.database.Database;
 import org.jphototagger.program.database.DatabaseKeywords;
@@ -26,22 +26,23 @@ import org.jphototagger.program.database.DatabaseMetadata;
 import org.jphototagger.program.helper.KeywordsHelper;
 import org.jphototagger.program.io.CharEncoding;
 import org.jphototagger.program.io.FilenameSuffixes;
+import org.openide.util.Lookup;
 
 //Unproper handling if only one of the two actions completed
-
 /**
  *
  *
  * @author Elmar Baumann
  */
 final class UpdateTablesDropCategories {
+
     private static final Logger LOGGER = Logger.getLogger(UpdateTablesDropCategories.class.getName());
 
     void update(Connection con) throws SQLException {
         startMessage();
 
         if (DatabaseMetadata.INSTANCE.existsTable(con, "xmp_photoshop_supplementalcategories")
-                &&!categoriesAlreadyDropped(con) && saveCategoriesToFile(con)) {
+                && !categoriesAlreadyDropped(con) && saveCategoriesToFile(con)) {
             updateDatabase(con);
             fixSavedSearches(con);
         }
@@ -51,14 +52,14 @@ final class UpdateTablesDropCategories {
 
     private boolean categoriesAlreadyDropped(Connection con) throws SQLException {
         return !DatabaseMetadata.INSTANCE.existsColumn(con, "xmp", "photoshop_category")
-               ||!DatabaseMetadata.INSTANCE.existsColumn(con, "xmp_photoshop_supplementalcategories",
-                   "supplementalcategory");
+                || !DatabaseMetadata.INSTANCE.existsColumn(con, "xmp_photoshop_supplementalcategories",
+                "supplementalcategory");
     }
 
     private boolean saveCategoriesToFile(Connection con) throws SQLException {
         String sql = " SELECT DISTINCT photoshop_category FROM xmp" + " WHERE photoshop_category IS NOT NULL UNION ALL"
-                     + " SELECT DISTINCT supplementalcategory" + " FROM xmp_photoshop_supplementalcategories"
-                     + " WHERE supplementalcategory IS NOT NULL" + " ORDER BY 1 ASC";
+                + " SELECT DISTINCT supplementalcategory" + " FROM xmp_photoshop_supplementalcategories"
+                + " WHERE supplementalcategory IS NOT NULL" + " ORDER BY 1 ASC";
         Writer writer = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -93,8 +94,10 @@ final class UpdateTablesDropCategories {
     }
 
     private String getFilename() {
-        return UserSettings.INSTANCE.getSettingsDirectoryName() + File.separator + "SavedCategories."
-               + FilenameSuffixes.LIGHTROOM_KEYWORDS;
+        UserFilesProvider provider = Lookup.getDefault().lookup(UserFilesProvider.class);
+        String userDirectory = provider.getUserSettingsDirectory().getAbsolutePath();
+
+        return userDirectory + File.separator + "SavedCategories." + FilenameSuffixes.LIGHTROOM_KEYWORDS;
     }
 
     private void fixSavedSearches(Connection con) throws SQLException {
@@ -163,7 +166,8 @@ final class UpdateTablesDropCategories {
             } finally {
                 try {
                     reader.close();
-                } catch (Exception ex) {}
+                } catch (Exception ex) {
+                }
             }
         }
     }

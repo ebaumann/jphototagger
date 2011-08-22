@@ -16,10 +16,12 @@ import java.util.logging.XMLFormatter;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.api.core.UserFilesProvider;
 import org.jphototagger.domain.event.UserPropertyChangedEvent;
 import org.jphototagger.lib.dialog.LogfileDialog;
 import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.settings.UserSettings;
+import org.openide.util.Lookup;
 
 /**
  * Logging system of the application.
@@ -37,7 +39,7 @@ public final class AppLoggingSystem {
 
     private static final int LOGFILE_ROTATE_COUNT = 5;
     private static final int MAX_LOGFILE_SIZE_IN_BYTES = (int) LogfileDialog.DEFAULT_MAX_BYTES;
-    private static final String LOGFILE_PATH_DIR = UserSettings.INSTANCE.getSettingsDirectoryName();
+    private static final String LOGFILE_PATH_DIR;
     // INSTANCE exists only for applying user settings!
     private static final AppLoggingSystem INSTANCE = new AppLoggingSystem();
     private static final List<Handler> HANDLERS = new ArrayList<Handler>();
@@ -47,6 +49,13 @@ public final class AppLoggingSystem {
     private static Handler fileHandlerImportant;
     private static boolean init;
     private static Handler systemOutHandler;
+
+    static {
+        UserFilesProvider provider = Lookup.getDefault().lookup(UserFilesProvider.class);
+        File userDirectory = provider.getUserSettingsDirectory();
+
+        LOGFILE_PATH_DIR = userDirectory.getAbsolutePath();
+    }
 
     public enum HandlerType {
 
@@ -83,7 +92,9 @@ public final class AppLoggingSystem {
 
     private static void ensureLogDirectoryExists() {
         try {
-            String settingsDirectoryName = UserSettings.INSTANCE.getSettingsDirectoryName();
+            UserFilesProvider provider = Lookup.getDefault().lookup(UserFilesProvider.class);
+            File userDirectory = provider.getUserSettingsDirectory();
+            String settingsDirectoryName = userDirectory.getAbsolutePath();
             File settingsDirectory = new File(settingsDirectoryName);
 
             FileUtil.ensureDirectoryExists(settingsDirectory);

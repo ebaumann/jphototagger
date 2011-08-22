@@ -6,7 +6,7 @@ import javax.swing.JTabbedPane;
 import org.jphototagger.domain.event.UserPropertyChangedEvent;
 import org.jphototagger.program.model.TableModelIptc;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import java.awt.event.MouseAdapter;

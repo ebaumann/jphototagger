@@ -1,6 +1,6 @@
 package org.jphototagger.program.view.panels;
 
-import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.domain.text.TextEntry;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.domain.database.Column;

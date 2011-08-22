@@ -3,7 +3,7 @@ package org.jphototagger.program.app.update.tables;
 import org.jphototagger.lib.util.Version;
 import org.jphototagger.program.app.update.tables.v0.UpdateTablesV0;
 import org.jphototagger.program.database.DatabaseMetadata;
-import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.settings.UserSettings;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;

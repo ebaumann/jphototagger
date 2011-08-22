@@ -6,9 +6,10 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.jphototagger.api.core.UserFilesProvider;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.UserSettings;
+import org.openide.util.Lookup;
 
 /**
  * Creates an application lock file to prevent multiple instances. Uses
@@ -18,10 +19,19 @@ import org.jphototagger.program.UserSettings;
  * @author Elmar Baumann
  */
 public final class AppLock {
-    private static final String LOCKFILE_NAME = UserSettings.INSTANCE.getDatabaseDirectoryName() + File.separator
-                                                + AppInfo.PROJECT_NAME + ".lck";
 
-    private AppLock() {}
+    private static final String LOCKFILE_NAME;
+
+    static {
+        UserFilesProvider provider = Lookup.getDefault().lookup(UserFilesProvider.class);
+        File databaseDirectory = provider.getDatabaseDirectory();
+        String databaseDirectoryName = databaseDirectory.getAbsolutePath();
+
+        LOCKFILE_NAME = databaseDirectoryName + File.separator + AppInfo.PROJECT_NAME + ".lck";
+    }
+
+    private AppLock() {
+    }
 
     /**
      * Returns whether the application ist locked.

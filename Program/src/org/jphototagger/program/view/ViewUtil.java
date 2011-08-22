@@ -15,11 +15,11 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
 import org.jphototagger.api.core.Storage;
+import org.jphototagger.api.core.UserFilesProvider;
 import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.UserSettings;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
@@ -31,7 +31,9 @@ import org.openide.util.Lookup;
  * @author Elmar Baumann
  */
 public class ViewUtil {
-    private ViewUtil() {}
+
+    private ViewUtil() {
+    }
 
     /**
      * Returns the selected file in a {@link JTree} if the selected node is a
@@ -104,9 +106,11 @@ public class ViewUtil {
 
         Storage storage = Lookup.getDefault().lookup(Storage.class);
         String prevCurrentDir = storage.getString(keyCurrentDir);
+        UserFilesProvider provider = Lookup.getDefault().lookup(UserFilesProvider.class);
+        String userDirectory = provider.getUserSettingsDirectory().getAbsolutePath();
         File currentDir = new File(prevCurrentDir.isEmpty()
-                                   ? UserSettings.INSTANCE.getSettingsDirectoryName()
-                                   : prevCurrentDir);
+                ? userDirectory
+                : prevCurrentDir);
         JFileChooser fc = new JFileChooser(currentDir);
 
         if (filter != null) {

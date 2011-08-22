@@ -3,7 +3,7 @@ package org.jphototagger.program.controller.thumbnail;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.domain.event.UserPropertyChangedEvent;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.settings.UserSettings;
 import java.awt.AWTEvent;
 import java.awt.event.AWTEventListener;
 import java.awt.event.KeyEvent;

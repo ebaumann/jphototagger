@@ -9,12 +9,14 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.jphototagger.api.core.UserFilesProvider;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.program.app.AppLifeCycle;
 import org.jphototagger.program.app.AppLifeCycle.FinalTaskListener;
 import org.jphototagger.program.helper.BackupDatabase;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -123,7 +125,11 @@ public final class ScheduledTaskBackupDatabase implements FinalTaskListener {
     }
 
     private static String getInfoFileName() {
-        return UserSettings.INSTANCE.getDatabaseDirectoryName() + File.separator + FILENAME_LAST_BACKUP;
+        UserFilesProvider provider = Lookup.getDefault().lookup(UserFilesProvider.class);
+        File databaseDirectory = provider.getDatabaseDirectory();
+        String databaseDirectoryName = databaseDirectory.getAbsolutePath();
+
+        return databaseDirectoryName + File.separator + FILENAME_LAST_BACKUP;
     }
 
     // Whole days ellapsed

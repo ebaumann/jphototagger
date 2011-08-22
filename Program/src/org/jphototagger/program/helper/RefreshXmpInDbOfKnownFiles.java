@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.xmp.XmpMetadata;
 

@@ -9,17 +9,21 @@ import javax.swing.filechooser.FileSystemView;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.api.core.Storage;
+import org.jphototagger.api.core.UserFilesProvider;
 import org.jphototagger.domain.event.UserPropertyChangedEvent;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.DirectoryChooser;
 import org.jphototagger.lib.dialog.DirectoryChooser.Option;
-import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.program.controller.misc.ControllerUpdateCheck;
 import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.helper.CopyFiles;
+import org.jphototagger.program.helper.CopyFiles.Options;
 import org.jphototagger.program.model.IptcCharsetComboBoxModel;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.types.Persistence;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -51,30 +55,50 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
     }
 
     private void handleActionPerformedCheckBoxIsAcceptHiddenDirectories() {
-        UserSettings.INSTANCE.setAcceptHiddenDirectories(checkBoxIsAcceptHiddenDirectories.isSelected());
+        setAcceptHiddenDirectories(checkBoxIsAcceptHiddenDirectories.isSelected());
     }
 
     private void handleActionPerformedChooseDatabaseDirectory(boolean backupDir) {
-        File file = chooseDirectory(new File(
-                            backupDir
-                            ? UserSettings.INSTANCE.getDatabaseBackupDirectoryName()
-                            : UserSettings.INSTANCE.getDatabaseDirectoryName()));
+        UserFilesProvider provider = Lookup.getDefault().lookup(UserFilesProvider.class);
+        File databaseDirectory = provider.getDatabaseDirectory();
+        File databaseBackupDirectory = provider.getDatabaseBackupDirectory();
+        File fileChooserDir = backupDir ? databaseBackupDirectory : databaseDirectory;
+
+        File file = chooseDirectory(fileChooserDir);
 
         if (file != null) {
             setDatabaseDirectoryName(file.getAbsolutePath(), backupDir);
         }
+    }
+    private void setAcceptHiddenDirectories(boolean accept) {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.setBoolean(Storage.KEY_ACCEPT_HIDDEN_DIRECTORIES, accept);
     }
 
     private void setDatabaseDirectoryName(String directoryName, boolean backupDir) {
         setIconDatabaseDirectory(backupDir);
         if (backupDir) {
             labelDatabaseBackupDirectory.setText(directoryName);
-            UserSettings.INSTANCE.setDatabaseBackupDirectoryName(directoryName);
+            persistDatabaseBackupDirectoryName(directoryName);
         } else {
             labelDatabaseDirectory.setText(directoryName);
-            UserSettings.INSTANCE.setDatabaseDirectoryName(directoryName);
+            setDatabaseDirectoryName(directoryName);
         }
     }
+
+    private void persistDatabaseBackupDirectoryName(String directoryName) {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.setString(Storage.KEY_DATABASE_BACKUP_DIRECTORY, directoryName);
+    }
+
+    private void setDatabaseDirectoryName(String directoryName) {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.setString(Storage.KEY_DATABASE_DIRECTORY, directoryName);
+    }
+
 
     private void setIconDatabaseDirectory(boolean backupDir) {
         File dir = new File(labelDatabaseDirectory.getText());
@@ -90,8 +114,9 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
     }
 
     private void handleActionPerformedSetStandardDatabaseDirectory() {
-        setDatabaseDirectoryName(
-            UserSettings.INSTANCE.getDefaultDatabaseDirectoryName(), false);
+        UserFilesProvider provider = Lookup.getDefault().lookup(UserFilesProvider.class);
+
+        setDatabaseDirectoryName(provider.getDefaultDatabaseDirectory().getAbsolutePath(), false);
     }
 
     private void handleActionPerformedCheckBoxDisplaySearchButton() {
@@ -105,12 +130,21 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
     }
 
     private void handleActionPerformedCopyMoveFiles() {
-        UserSettings.INSTANCE.setCopyMoveFilesOptions(
-            radioButtonCopyMoveFileConfirmOverwrite.isSelected()
-            ? CopyFiles.Options.CONFIRM_OVERWRITE
-            : radioButtonCopyMoveFileRenameIfExists.isSelected()
-              ? CopyFiles.Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS
-              : CopyFiles.Options.CONFIRM_OVERWRITE);
+        boolean isConfirmOverwrite = radioButtonCopyMoveFileConfirmOverwrite.isSelected();
+        boolean renameSourceFileIfTargetFileExists = radioButtonCopyMoveFileRenameIfExists.isSelected();
+        Options options = isConfirmOverwrite
+                          ? CopyFiles.Options.CONFIRM_OVERWRITE
+                          : renameSourceFileIfTargetFileExists
+                            ? CopyFiles.Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS
+                            : CopyFiles.Options.CONFIRM_OVERWRITE;
+
+        setCopyMoveFilesOptions(options);
+    }
+
+    private void setCopyMoveFilesOptions(Options options) {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.setInt(Storage.KEY_OPTIONS_COPY_MOVE_FILES, options.getInt());
     }
 
     private void handleActionPerformedAutoDownload() {
@@ -149,6 +183,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
         checkLogLevel();
 
         UserSettings settings = UserSettings.INSTANCE;
+        UserFilesProvider provider = Lookup.getDefault().lookup(UserFilesProvider.class);
 
         checkBoxAutoDownloadCheck.setSelected(settings.isCheckForUpdates());
         checkBoxDisplaySearchButton.setSelected(UserSettings.INSTANCE.isDisplaySearchButton());
@@ -156,8 +191,8 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
         checkBoxAddFilenameToGpsLocationExport.setSelected(settings.isAddFilenameToGpsLocationExport());
         setIptcCharsetFromUserSettings();
         comboBoxLogLevel.setSelectedItem(settings.getLogLevel().getLocalizedName());
-        labelDatabaseDirectory.setText(UserSettings.INSTANCE.getDatabaseDirectoryName());
-        labelDatabaseBackupDirectory.setText(UserSettings.INSTANCE.getDatabaseBackupDirectoryName());
+        labelDatabaseDirectory.setText(provider.getDatabaseDirectory().getAbsolutePath());
+        labelDatabaseBackupDirectory.setText(provider.getDatabaseBackupDirectory().getAbsolutePath());
         radioButtonCopyMoveFileConfirmOverwrite.setSelected(settings.getCopyMoveFilesOptions().equals(CopyFiles.Options.CONFIRM_OVERWRITE));
         radioButtonCopyMoveFileRenameIfExists.setSelected(settings.getCopyMoveFilesOptions().equals(CopyFiles.Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS));
         setIconDatabaseDirectory(true);
