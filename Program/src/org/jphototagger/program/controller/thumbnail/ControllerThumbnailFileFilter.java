@@ -1,10 +1,8 @@
 package org.jphototagger.program.controller.thumbnail;
 
-import org.jphototagger.lib.util.Settings;
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
 import org.jphototagger.program.model.ComboBoxModelFileFilters;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.view.dialogs.UserDefinedFileFilterDialog;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.WaitDisplay;
@@ -14,6 +12,8 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.FileFilter;
 import javax.swing.JComboBox;
+import org.jphototagger.api.core.Storage;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -21,6 +21,7 @@ import javax.swing.JComboBox;
  * @author Elmar Baumann
  */
 public final class ControllerThumbnailFileFilter implements ActionListener, ItemListener {
+
     public ControllerThumbnailFileFilter() {
         getFileFilterComboBox().addItemListener(this);
         GUI.getAppFrame().getMenuItemUserDefinedFileFilter().addActionListener(this);
@@ -53,9 +54,8 @@ public final class ControllerThumbnailFileFilter implements ActionListener, Item
     }
 
     private void writeSettings() {
-        Settings settings = UserSettings.INSTANCE.getSettings();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
 
-        settings.set(ComboBoxModelFileFilters.SETTINGS_KEY_SEL_INDEX, getFileFilterComboBox().getSelectedIndex());
-        UserSettings.INSTANCE.writeToFile();
+        storage.setInt(ComboBoxModelFileFilters.SETTINGS_KEY_SEL_INDEX, getFileFilterComboBox().getSelectedIndex());
     }
 }

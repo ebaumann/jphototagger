@@ -1,7 +1,8 @@
 package org.jphototagger.program.controller.thumbnail;
 
+import javax.swing.JCheckBoxMenuItem;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.view.frames.AppFrame;
 import org.jphototagger.program.view.panels.AppPanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,6 +15,7 @@ import org.openide.util.Lookup;
  * @author  Martin Pohlack
  */
 public final class ControllerToggleKeywordOverlay implements ActionListener {
+
     private static final String KEY_SHOW_METADATA_OVERLAY = "UserSettings.ShowMetadataOverlay";
 
     public ControllerToggleKeywordOverlay() {
@@ -52,7 +54,10 @@ public final class ControllerToggleKeywordOverlay implements ActionListener {
 
     private void writePersistent() {
         Storage storage = Lookup.getDefault().lookup(Storage.class);
-        storage.setBoolean(KEY_SHOW_METADATA_OVERLAY, GUI.getAppFrame().getCheckBoxMenuItemKeywordOverlay().isSelected());
-        UserSettings.INSTANCE.writeToFile();
+        AppFrame appFrame = GUI.getAppFrame();
+        JCheckBoxMenuItem checkBoxMenuItemKeywordOverlay = appFrame.getCheckBoxMenuItemKeywordOverlay();
+        boolean selected = checkBoxMenuItemKeywordOverlay.isSelected();
+
+        storage.setBoolean(KEY_SHOW_METADATA_OVERLAY, selected);
     }
 }

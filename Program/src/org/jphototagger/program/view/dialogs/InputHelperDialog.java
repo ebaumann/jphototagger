@@ -2,6 +2,7 @@ package org.jphototagger.program.view.dialogs;
 
 import javax.swing.ListModel;
 
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.lib.componentutil.TabbedPaneUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.util.Settings;
@@ -11,6 +12,7 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.KeywordsPanel;
 import org.jphototagger.program.view.panels.MetaDataTemplatesPanel;
 import org.jphototagger.program.view.panels.MiscXmpMetadataPanel;
+import org.openide.util.Lookup;
 
 /**
  * Dialog for input assistance.
@@ -55,12 +57,12 @@ public class InputHelperDialog extends Dialog {
     }
 
     private void readProperties() {
-        Settings settings = UserSettings.INSTANCE.getSettings();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
 
         panelKeywords.readProperties();
-        settings.applySettings(KEY_TREE_MISC_XMP, panelMiscXmpMetadata.getTree());
+        storage.applyTreeSettings(KEY_TREE_MISC_XMP, panelMiscXmpMetadata.getTree());
 
-        int selIndexTabbedPane = settings.getInt(KEY_SEL_INDEX_TABBED_PANE);
+        int selIndexTabbedPane = storage.getInt(KEY_SEL_INDEX_TABBED_PANE);
 
         if ((selIndexTabbedPane >= 0) && (selIndexTabbedPane < tabbedPane.getTabCount())) {
             tabbedPane.setSelectedIndex(selIndexTabbedPane);
@@ -68,12 +70,11 @@ public class InputHelperDialog extends Dialog {
     }
 
     private void writeProperties() {
-        Settings settings = UserSettings.INSTANCE.getSettings();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
 
-        settings.set(KEY_SEL_INDEX_TABBED_PANE, tabbedPane.getSelectedIndex());
-        settings.set(KEY_TREE_MISC_XMP, panelMiscXmpMetadata.getTree());
+        storage.setInt(KEY_SEL_INDEX_TABBED_PANE, tabbedPane.getSelectedIndex());
+        storage.setTree(KEY_TREE_MISC_XMP, panelMiscXmpMetadata.getTree());
         panelKeywords.writeProperties();
-        UserSettings.INSTANCE.writeToFile();
     }
 
     @Override

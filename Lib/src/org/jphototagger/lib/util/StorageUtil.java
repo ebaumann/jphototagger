@@ -15,9 +15,9 @@ public final class StorageUtil {
      * @param storage
      * @param key        key
      * @param file       file or null. If the file is not a directory, it's
-     *                   parent file will be set. If the file is a directory, it
-     *                   will be set. If the file is null, nothing will be set.
-     * @return           true if the directory path name was set
+     *                   parent file will be setTree. If the file is a directory, it
+     *                   will be setTree. If the file is null, nothing will be setTree.
+     * @return           true if the directory path name was setTree
      */
     public static boolean setDirectory(Storage storage, String key, File file) {
         if (storage == null) {

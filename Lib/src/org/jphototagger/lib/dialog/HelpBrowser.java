@@ -129,7 +129,7 @@ public final class HelpBrowser extends Dialog implements ActionListener, Hyperli
 
     /**
      * Sets the URL of the page to be initial displayed. It has to be relative
-     * and exist in the contents XML-File set with
+     * and exist in the contents XML-File setTree with
      * {@link #setDisplayUrl(java.lang.String)}.
      *
      * @param url  URL, eg. <code>firststeps.html</code>

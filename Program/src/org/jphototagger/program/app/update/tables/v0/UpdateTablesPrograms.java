@@ -5,13 +5,13 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.lib.util.Settings;
-import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.SplashScreen;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.program.database.Database;
 import org.jphototagger.program.database.DatabasePrograms;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -19,10 +19,12 @@ import org.jphototagger.program.database.DatabasePrograms;
  * @author Elmar Baumann
  */
 final class UpdateTablesPrograms extends Database {
+
     private static final String KEY_OTHER_IMAGE_OPEN_APPS = "UserSettings.OtherImageOpenApps";
     private static final String KEY_DEFAULT_IMAGE_OPEN_APP = "UserSettings.DefaultImageOpenApp";
 
-    UpdateTablesPrograms() {}
+    UpdateTablesPrograms() {
+    }
 
     void update(Connection con) throws SQLException {
         startMessage();
@@ -32,10 +34,10 @@ final class UpdateTablesPrograms extends Database {
     }
 
     private void moveDefaultImageOpenApp() {
-        Settings settings = UserSettings.INSTANCE.getSettings();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
 
-        if (settings.containsKey(KEY_DEFAULT_IMAGE_OPEN_APP)) {
-            String defaultApp = settings.getString(KEY_DEFAULT_IMAGE_OPEN_APP).trim();
+        if (storage.containsKey(KEY_DEFAULT_IMAGE_OPEN_APP)) {
+            String defaultApp = storage.getString(KEY_DEFAULT_IMAGE_OPEN_APP).trim();
 
             if (!defaultApp.isEmpty()) {
                 File file = new File(defaultApp);
@@ -44,8 +46,7 @@ final class UpdateTablesPrograms extends Database {
                 defaultIoApp.setSequenceNumber(0);
 
                 if (DatabasePrograms.INSTANCE.insert(defaultIoApp)) {
-                    settings.removeKey(KEY_DEFAULT_IMAGE_OPEN_APP);
-                    UserSettings.INSTANCE.writeToFile();
+                    storage.removeKey(KEY_DEFAULT_IMAGE_OPEN_APP);
 
                     List<Program> programs = DatabasePrograms.INSTANCE.getAll(DatabasePrograms.Type.PROGRAM);
                     int sequenceNo = 0;
@@ -64,7 +65,8 @@ final class UpdateTablesPrograms extends Database {
     }
 
     private void moveOtherImageOpenApps() {
-        List<String> filepaths = UserSettings.INSTANCE.getSettings().getStringCollection(KEY_OTHER_IMAGE_OPEN_APPS);
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        List<String> filepaths = storage.getStringCollection(KEY_OTHER_IMAGE_OPEN_APPS);
 
         if (filepaths.size() > 0) {
             DatabasePrograms db = DatabasePrograms.INSTANCE;
@@ -75,8 +77,7 @@ final class UpdateTablesPrograms extends Database {
                 db.insert(new Program(file, file.getName()));
             }
 
-            UserSettings.INSTANCE.getSettings().removeStringCollection(KEY_OTHER_IMAGE_OPEN_APPS);
-            UserSettings.INSTANCE.writeToFile();
+            storage.removeStringCollection(KEY_OTHER_IMAGE_OPEN_APPS);
         }
     }
 

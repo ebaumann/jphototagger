@@ -14,6 +14,7 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
@@ -22,6 +23,7 @@ import org.jphototagger.program.UserSettings;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -100,7 +102,8 @@ public class ViewUtil {
             throw new NullPointerException("keyCurrentDir == null");
         }
 
-        String prevCurrentDir = UserSettings.INSTANCE.getSettings().getString(keyCurrentDir);
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        String prevCurrentDir = storage.getString(keyCurrentDir);
         File currentDir = new File(prevCurrentDir.isEmpty()
                                    ? UserSettings.INSTANCE.getSettingsDirectoryName()
                                    : prevCurrentDir);
@@ -119,7 +122,7 @@ public class ViewUtil {
         if (fc.showOpenDialog(parentComp) == JFileChooser.APPROVE_OPTION) {
             File selFile = fc.getSelectedFile();
 
-            UserSettings.INSTANCE.getSettings().set(keyCurrentDir, selFile.getAbsolutePath());
+            storage.setString(keyCurrentDir, selFile.getAbsolutePath());
 
             return selFile;
         }

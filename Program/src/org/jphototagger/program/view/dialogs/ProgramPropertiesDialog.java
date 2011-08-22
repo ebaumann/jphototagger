@@ -11,6 +11,7 @@ import javax.swing.JFileChooser;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.lib.component.TabOrEnterLeavingTextArea;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.LookAndFeelUtil;
@@ -18,12 +19,11 @@ import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.lib.util.Settings;
 import org.jphototagger.lib.util.StringUtil;
-import org.jphototagger.program.UserSettings;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.program.resource.GUI;
+import org.openide.util.Lookup;
 
 /**
  * Modal Dialog to change or define the properties of a program which can
@@ -39,8 +39,8 @@ public final class ProgramPropertiesDialog extends Dialog {
     private static final java.util.ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/dialogs/Bundle"); // NOI18N
     private static final String BUTTON_TEXT_TOGGLE_TO_EXPERT_SETTINGS = BUNDLE.getString("ProgramPropertiesDialog.ButtonText.ExpertSettings");
     private static final String BUTTON_TEXT_TOGGLE_TO_SIMPLE_SETTINGS = BUNDLE.getString("ProgramPropertiesDialog.ButtonText.SimpleSettings");
-    private static final Settings SETTINGS = UserSettings.INSTANCE.getSettings();
-    private File lastDir = new File(SETTINGS.getString(KEY_LAST_DIR));
+    private static final Storage STORAGE = Lookup.getDefault().lookup(Storage.class);
+    private File lastDir = new File(STORAGE.getString(KEY_LAST_DIR));
     private File file;
     private boolean accecpted = false;
     private boolean action;
@@ -249,8 +249,7 @@ public final class ProgramPropertiesDialog extends Dialog {
             return;
         }
 
-        SETTINGS.set(KEY_LAST_DIR, dir.getAbsolutePath());
-        UserSettings.INSTANCE.writeToFile();
+        STORAGE.setString(KEY_LAST_DIR, dir.getAbsolutePath());
         lastDir = dir;
     }
 
@@ -309,8 +308,7 @@ public final class ProgramPropertiesDialog extends Dialog {
             removeExpertSettings();
         }
 
-        SETTINGS.set(KEY_EXPERT_SETTINGS, isExpertSettings);
-        UserSettings.INSTANCE.writeToFile();
+        STORAGE.setBoolean(KEY_EXPERT_SETTINGS, isExpertSettings);
         pack();
         ComponentUtil.forceRepaint(this);
     }
@@ -354,7 +352,7 @@ public final class ProgramPropertiesDialog extends Dialog {
     }
 
     private void addExperSettingBasedOnUserSettings() {
-        boolean isExpertSettings = SETTINGS.getBoolean(KEY_EXPERT_SETTINGS);
+        boolean isExpertSettings = STORAGE.getBoolean(KEY_EXPERT_SETTINGS);
 
         if (isExpertSettings) {
             addExpertSettingsPanel();
@@ -821,12 +819,14 @@ public final class ProgramPropertiesDialog extends Dialog {
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 ProgramPropertiesDialog dialog =
-                    new ProgramPropertiesDialog(true);
+                        new ProgramPropertiesDialog(true);
 
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
@@ -836,7 +836,6 @@ public final class ProgramPropertiesDialog extends Dialog {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCancel;
     private javax.swing.JButton buttonChooseFile;

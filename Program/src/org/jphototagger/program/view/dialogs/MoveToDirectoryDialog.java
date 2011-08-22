@@ -10,6 +10,7 @@ import javax.swing.filechooser.FileSystemView;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.api.file.event.FileMovedEvent;
 import org.jphototagger.domain.event.listener.impl.ProgressListenerSupport;
 import org.jphototagger.lib.awt.EventQueueUtil;
@@ -29,6 +30,7 @@ import org.jphototagger.program.io.FileSystemMove;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.SelectRootFilesPanel;
 import org.jphototagger.xmp.XmpMetadata;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -214,7 +216,8 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
     }
 
     private void setTargetDirectory() {
-        targetDirectory = new File(UserSettings.INSTANCE.getSettings().getString(KEY_TARGET_DIRECTORY));
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        targetDirectory = new File(storage.getString(KEY_TARGET_DIRECTORY));
 
         if (targetDirectory.exists()) {
             labelDirectoryName.setText(targetDirectory.getAbsolutePath());
@@ -224,8 +227,9 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
     }
 
     private void targetDirectoryToSettings() {
-        UserSettings.INSTANCE.getSettings().set(KEY_TARGET_DIRECTORY, targetDirectory.getAbsolutePath());
-        UserSettings.INSTANCE.writeToFile();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.setString(KEY_TARGET_DIRECTORY, targetDirectory.getAbsolutePath());
     }
 
     private void checkCancel(ProgressEvent evt) {

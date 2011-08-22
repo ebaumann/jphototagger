@@ -7,7 +7,6 @@ import java.util.Set;
 
 import org.jphototagger.api.core.Storage;
 import org.jphototagger.api.plugin.Plugin;
-import org.jphototagger.program.UserSettings;
 import org.openide.util.Lookup;
 
 /**
@@ -90,8 +89,6 @@ public class PluginManager<T extends Plugin> {
             ENABLED_PLUGINS.remove(plugin);
             storage.setString(key, PROPERTY_STRING_VALUE_FALSE);
         }
-
-        UserSettings.INSTANCE.writeToFile();
     }
 
     public boolean hasEnabledPlugins() {

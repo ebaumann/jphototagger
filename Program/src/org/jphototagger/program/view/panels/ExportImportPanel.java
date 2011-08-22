@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.domain.event.listener.impl.ListenerSupport;
 import org.jphototagger.lib.component.SelectObjectsPanel;
 import org.jphototagger.lib.component.SelectObjectsPanel.SelectionEvent;
@@ -21,6 +22,7 @@ import org.jphototagger.program.exporter.JptExporters;
 import org.jphototagger.program.importer.Importer;
 import org.jphototagger.program.importer.JptImporters;
 import org.jphototagger.program.resource.GUI;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -63,8 +65,8 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
 
     private void postInitComponents() {
         MnemonicUtil.setMnemonics((Container) this);
-        dir = new File(
-            UserSettings.INSTANCE.getSettings().getString(KEY_LAST_DIR));
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        dir = new File(storage.getString(KEY_LAST_DIR));
 
         if (dir.isDirectory()) {
             setDirLabel();
@@ -143,8 +145,8 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
 
         if (dlg.isAccepted()) {
             dir = dlg.getSelectedDirectories().get(0);
-            UserSettings.INSTANCE.getSettings().set(KEY_LAST_DIR, dir.getAbsolutePath());
-            UserSettings.INSTANCE.writeToFile();
+            Storage storage = Lookup.getDefault().lookup(Storage.class);
+            storage.setString(KEY_LAST_DIR, dir.getAbsolutePath());
             setDirLabel();
             setEnabledButtons();
         }
@@ -402,7 +404,6 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
     private void buttonSelectNoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSelectNoneActionPerformed
         setSelectedAll(false);
     }//GEN-LAST:event_buttonSelectNoneActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonExportImport;
     private javax.swing.JButton buttonSelDir;

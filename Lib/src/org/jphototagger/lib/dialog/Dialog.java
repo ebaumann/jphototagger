@@ -146,7 +146,7 @@ public class Dialog extends JDialog implements WindowListener {
     /**
      * This dialog persists size and location if a {@link Storage} implementation
      * is present, by default it uses the class' name as key, here a different
-     * key can be set. This makes sense if the same dialog is used whithin different
+     * key can be setTree. This makes sense if the same dialog is used whithin different
      * contexts.
      *
      * @param storageKey key

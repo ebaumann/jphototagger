@@ -33,6 +33,7 @@ import javax.swing.tree.TreeSelectionModel;
 
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.JXTree;
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.api.windows.AppWindow;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.component.ImageTextArea;
@@ -64,6 +65,7 @@ import org.jphototagger.program.view.renderer.TableCellRendererIptc;
 import org.jphototagger.program.view.renderer.TableCellRendererXmp;
 import org.jphototagger.program.view.renderer.TreeCellRendererMiscMetadata;
 import org.jphototagger.program.view.renderer.TreeCellRendererTimeline;
+import org.openide.util.Lookup;
 
 /**
  * Panel der Anwendung.
@@ -233,8 +235,8 @@ public final class AppPanel extends javax.swing.JPanel {
     }
 
     private int getDividerLocationMain() {
-        int location = UserSettings.INSTANCE.getSettings().getInt(
-                           KEY_DIVIDER_LOCATION_MAIN);
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        int location = storage.getInt(KEY_DIVIDER_LOCATION_MAIN);
 
         return (location >= 0)
                ? location
@@ -286,8 +288,8 @@ public final class AppPanel extends javax.swing.JPanel {
     }
 
     private int getDividerLocationThumbnails() {
-        int location = UserSettings.INSTANCE.getSettings().getInt(
-                           KEY_DIVIDER_LOCATION_THUMBNAILS);
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        int location = storage.getInt(KEY_DIVIDER_LOCATION_THUMBNAILS);
 
         return (location >= 0)
                ? location

@@ -8,6 +8,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.SpinnerNumberModel;
 
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.DirectoryChooser;
 import org.jphototagger.lib.dialog.DirectoryChooser.Option;
@@ -22,6 +23,7 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.tasks.ScheduledTaskBackupDatabase;
 import org.jphototagger.program.tasks.ScheduledTaskBackupDatabase.Interval;
 import org.jphototagger.program.types.Persistence;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -53,11 +55,12 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel implem
 
     @Override
     public void readProperties() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
         UserSettings settings = UserSettings.INSTANCE;
 
         spinnerMinutesToStartScheduledTasks.setValue(settings.getMinutesToStartScheduledTasks());
         checkBoxIsAutoscanIncludeSubdirectories.setSelected(settings.isAutoscanIncludeSubdirectories());
-        lastSelectedAutoscanDirectory = settings.getSettings().getString(KEY_LAST_SELECTED_AUTOSCAN_DIRECTORY);
+        lastSelectedAutoscanDirectory = storage.getString(KEY_LAST_SELECTED_AUTOSCAN_DIRECTORY);
         checkBoxScheduledBackupDb.setSelected(UserSettings.INSTANCE.isScheduledBackupDb());
 
         Interval interval = Interval.fromDays(UserSettings.INSTANCE.getScheduledBackupDbInterval());
@@ -76,8 +79,9 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel implem
 
     @Override
     public void writeProperties() {
-        UserSettings.INSTANCE.getSettings().set(KEY_LAST_SELECTED_AUTOSCAN_DIRECTORY, lastSelectedAutoscanDirectory);
-        UserSettings.INSTANCE.writeToFile();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.setString(KEY_LAST_SELECTED_AUTOSCAN_DIRECTORY, lastSelectedAutoscanDirectory);
     }
 
     private void addAutoscanDirectories() {
@@ -159,7 +163,6 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel implem
     private void handleCheckBoxBackupDbActionPerformed() {
         boolean backup = checkBoxScheduledBackupDb.isSelected();
         UserSettings.INSTANCE.setScheduledBackupDb(backup);
-        UserSettings.INSTANCE.writeToFile();
         backupDbIntervalToSettings();
         comboBoxScheduledBackupDb.setEnabled(backup);
         ScheduledTaskBackupDatabase.INSTANCE.setBackup();
@@ -170,7 +173,6 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel implem
         if (selItem instanceof Interval) {
             Interval interval = (Interval) selItem;
             UserSettings.INSTANCE.setScheduledBackupDbInterval(interval.getDays());
-            UserSettings.INSTANCE.writeToFile();
         }
     }
 

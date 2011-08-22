@@ -10,6 +10,7 @@ import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.DirectoryChooser;
 import org.jphototagger.lib.dialog.DirectoryChooser.Option;
@@ -17,11 +18,11 @@ import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.filefilter.RegexFileFilter;
 import org.jphototagger.lib.renderer.ListCellRendererFileSystem;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.lib.util.Settings;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.types.FileEditor;
+import org.openide.util.Lookup;
 
 /**
  * Panel to select files for a {@link org.jphototagger.program.types.FileEditor}.
@@ -256,22 +257,21 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     }
 
     public void readProperties() {
-        Settings settings = UserSettings.INSTANCE.getSettings();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
 
-        prevSelectedDirectory = new File(UserSettings.INSTANCE.getSettings().getString(KEY_DIRECTORY_NAME));
-        settings.applySettings(this, null);
-        checkBoxIncludeSubdirectories.setSelected(settings.getBoolean(KEY_INCLUDE_SUBDIRS));
-        checkBoxReplaceExistingFiles.setSelected(settings.getBoolean(KEY_REPLACE_EXISTING_FILES));
+        prevSelectedDirectory = new File(storage.getString(KEY_DIRECTORY_NAME));
+        storage.applyComponentSettings(this, null);
+        checkBoxIncludeSubdirectories.setSelected(storage.getBoolean(KEY_INCLUDE_SUBDIRS));
+        checkBoxReplaceExistingFiles.setSelected(storage.getBoolean(KEY_REPLACE_EXISTING_FILES));
     }
 
     public void writeProperties() {
-        Settings settings = UserSettings.INSTANCE.getSettings();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
 
-        settings.set(this, null);
-        settings.set(KEY_DIRECTORY_NAME, prevSelectedDirectory.getAbsolutePath());
-        settings.set(KEY_INCLUDE_SUBDIRS, checkBoxIncludeSubdirectories);
-        settings.set(KEY_REPLACE_EXISTING_FILES, checkBoxReplaceExistingFiles);
-        UserSettings.INSTANCE.writeToFile();
+        storage.setComponent(this, null);
+        storage.setString(KEY_DIRECTORY_NAME, prevSelectedDirectory.getAbsolutePath());
+        storage.setToggleButton(KEY_INCLUDE_SUBDIRS, checkBoxIncludeSubdirectories);
+        storage.setToggleButton(KEY_REPLACE_EXISTING_FILES, checkBoxReplaceExistingFiles);
     }
 
     private class EditThread implements Runnable {

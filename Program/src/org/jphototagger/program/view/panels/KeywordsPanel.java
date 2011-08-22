@@ -14,7 +14,6 @@ import org.jphototagger.api.core.Storage;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.controller.actions.SearchInJxListAction;
 import org.jphototagger.program.controller.actions.SearchInJxTreeAction;
 import org.jphototagger.program.datatransfer.TransferHandlerDragListItems;
@@ -90,7 +89,9 @@ public class KeywordsPanel extends javax.swing.JPanel {
      * Reads the persistent properties, currently the selected tree node.
      */
     public void readProperties() {
-        UserSettings.INSTANCE.getSettings().applySettings(keyTree, tree);
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.applyTreeSettings(keyTree, tree);
         readCardProperties();
     }
 
@@ -99,7 +100,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
         Storage storage = Lookup.getDefault().lookup(Storage.class);
 
         if (storage.containsKey(keyCard)) {
-            String s = UserSettings.INSTANCE.getSettings().getString(keyCard);
+            String s = storage.getString(keyCard);
 
             if (s.equals("Tree") || s.equals("List")) {
                 name = s;
@@ -111,18 +112,19 @@ public class KeywordsPanel extends javax.swing.JPanel {
 
     private void displayCard(String name) {
         CardLayout cl = (CardLayout) (getLayout());
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
 
         cl.show(this, name);
-        UserSettings.INSTANCE.getSettings().set(keyCard, name);
-        UserSettings.INSTANCE.writeToFile();
+        storage.setString(keyCard, name);
     }
 
     /**
      * Writes the persistent properties, currently the selected tree node.
      */
     public void writeProperties() {
-        UserSettings.INSTANCE.getSettings().set(keyTree, tree);
-        UserSettings.INSTANCE.writeToFile();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.setTree(keyTree, tree);
     }
 
     /**

@@ -1,19 +1,19 @@
 package org.jphototagger.program.model;
 
-import org.jphototagger.lib.util.Settings;
 import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
 import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseUserDefinedFileFilters;
-import org.jphototagger.program.UserSettings;
 import java.io.FileFilter;
 import javax.swing.DefaultComboBoxModel;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.domain.repository.event.userdefinedfilefilters.UserDefinedFileFilterDeletedEvent;
 import org.jphototagger.domain.repository.event.userdefinedfilefilters.UserDefinedFileFilterInsertedEvent;
 import org.jphototagger.domain.repository.event.userdefinedfilefilters.UserDefinedFileFilterUpdatedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -62,10 +62,10 @@ public final class ComboBoxModelFileFilters extends DefaultComboBoxModel {
     }
 
     private void selectItem() {
-        Settings settings = UserSettings.INSTANCE.getSettings();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
 
-        if (settings.containsKey(SETTINGS_KEY_SEL_INDEX)) {
-            int index = settings.getInt(SETTINGS_KEY_SEL_INDEX);
+        if (storage.containsKey(SETTINGS_KEY_SEL_INDEX)) {
+            int index = storage.getInt(SETTINGS_KEY_SEL_INDEX);
 
             if ((index >= 0) && (index < getSize())) {
                 setSelectedItem(getElementAt(index));

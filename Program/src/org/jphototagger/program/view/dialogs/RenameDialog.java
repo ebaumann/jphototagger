@@ -17,6 +17,7 @@ import javax.swing.event.ListDataListener;
 import javax.swing.filechooser.FileSystemView;
 
 import org.bushe.swing.event.EventBus;
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.api.file.event.FileRenamedEvent;
 import org.jphototagger.domain.templates.RenameTemplate;
 import org.jphototagger.image.FileType;
@@ -40,6 +41,7 @@ import org.jphototagger.program.image.thumbnail.ThumbnailUtil;
 import org.jphototagger.program.model.ComboBoxModelRenameTemplates;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.xmp.XmpMetadata;
+import org.openide.util.Lookup;
 
 /**
  * Dialog for renaming filenames.
@@ -399,22 +401,24 @@ public final class RenameDialog extends Dialog implements ListDataListener {
             readProperties();
             setExampleFilename();
         } else {
-            UserSettings.INSTANCE.getSettings().set(this, UserSettings.SET_TABBED_PANE_SETTINGS);
+            Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+            storage.setComponent(this, UserSettings.SET_TABBED_PANE_SETTINGS);
         }
 
         super.setVisible(visible);
     }
 
     private void readProperties() {
-        Settings settings = UserSettings.INSTANCE.getSettings();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
 
-        settings.applySettings(this, UserSettings.SET_TABBED_PANE_SETTINGS);
+        storage.applyComponentSettings(this, UserSettings.SET_TABBED_PANE_SETTINGS);
 
         if (!tabbedPane.isEnabledAt(1)) {
             tabbedPane.setSelectedComponent(panelInputName);
         }
 
-        settings.applySelectedIndex(KEY_SEL_TEMPLATE, comboBoxRenameTemplates);
+        storage.applySelectedIndex(KEY_SEL_TEMPLATE, comboBoxRenameTemplates);
     }
 
     private void setEnabledConstantTextFields() {
@@ -584,8 +588,9 @@ public final class RenameDialog extends Dialog implements ListDataListener {
 
     private void handleComboBoxRenameTemplatesActionPerformed() {
         if (listen) {
-            UserSettings.INSTANCE.getSettings().setSelectedIndex(KEY_SEL_TEMPLATE, comboBoxRenameTemplates);
-            UserSettings.INSTANCE.writeToFile();
+            Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+            storage.setSelectedIndex(KEY_SEL_TEMPLATE, comboBoxRenameTemplates);
             setRenameTemplate();
             setEnabledRenameTemplateButtons();
         }

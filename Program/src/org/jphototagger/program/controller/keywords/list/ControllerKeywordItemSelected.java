@@ -11,7 +11,6 @@ import javax.swing.event.ListSelectionListener;
 import org.jdesktop.swingx.JXList;
 import org.jphototagger.api.core.Storage;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.event.RefreshEvent;
 import org.jphototagger.program.event.listener.RefreshListener;
 import org.jphototagger.program.helper.KeywordsHelper;
@@ -109,6 +108,5 @@ public final class ControllerKeywordItemSelected implements ActionListener, List
         storage.setInt(KEY_RADIO_BUTTON, isAllKeywords()
                 ? 0
                 : 1);
-        UserSettings.INSTANCE.writeToFile();
     }
 }

@@ -13,8 +13,10 @@ import javax.swing.event.ChangeListener;
 import javax.swing.JSlider;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsChangedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.openide.util.Lookup;
 
 /**
  * Controls the slider which changes the size of the thumbnails
@@ -100,7 +102,7 @@ public final class ControllerSliderThumbnailSize implements AWTEventListener, Ch
         slider.setValue(newValue);
     }
 
-    @EventSubscriber(eventClass=ThumbnailsChangedEvent.class)
+    @EventSubscriber(eventClass = ThumbnailsChangedEvent.class)
     public void thumbnailsChanged(final ThumbnailsChangedEvent evt) {
         setThumbnailWidth();
     }
@@ -124,7 +126,8 @@ public final class ControllerSliderThumbnailSize implements AWTEventListener, Ch
     }
 
     private void readProperties() {
-        Integer value = UserSettings.INSTANCE.getSettings().getInt(KEY_SLIDER_VALUE);
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Integer value = storage.getInt(KEY_SLIDER_VALUE);
 
         if (!value.equals(Integer.MIN_VALUE)) {
             currentValue = value;
@@ -133,6 +136,7 @@ public final class ControllerSliderThumbnailSize implements AWTEventListener, Ch
 
     private void setThumbnailWidth() {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 int width = (int) ((double) getMaxTnWidth() * ((double) currentValue / 100.0));
@@ -143,7 +147,7 @@ public final class ControllerSliderThumbnailSize implements AWTEventListener, Ch
     }
 
     private void writeProperties() {
-        UserSettings.INSTANCE.getSettings().set(KEY_SLIDER_VALUE, currentValue);
-        UserSettings.INSTANCE.writeToFile();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        storage.setInt(KEY_SLIDER_VALUE, currentValue);
     }
 }

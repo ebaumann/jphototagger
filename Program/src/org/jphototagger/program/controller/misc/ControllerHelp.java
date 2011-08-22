@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 
 import javax.swing.JMenuItem;
 
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.dialog.HelpBrowser;
 import org.jphototagger.lib.dialog.MessageDisplayer;
@@ -22,10 +23,10 @@ import org.jphototagger.lib.event.HelpBrowserEvent;
 import org.jphototagger.lib.event.listener.HelpBrowserListener;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.Main;
-import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.AppInfo;
 import org.jphototagger.program.app.logging.AppLoggingSystem;
 import org.jphototagger.program.resource.GUI;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -35,7 +36,7 @@ import org.jphototagger.program.resource.GUI;
 public final class ControllerHelp implements ActionListener, HelpBrowserListener {
     private static final String HELP_CONTENTS_URL = "/org/jphototagger/program/resource/doc/de/contents.xml";
     private static final String KEY_CURRENT_URL = ControllerHelp.class.getName() + ".CurrentURL";
-    private String currentUrl = UserSettings.INSTANCE.getSettings().getString(KEY_CURRENT_URL);
+    private String currentUrl = Lookup.getDefault().lookup(Storage.class).getString(KEY_CURRENT_URL);
     private static final Logger LOGGER = Logger.getLogger(ControllerHelp.class.getName());
 
     public ControllerHelp() {
@@ -124,8 +125,10 @@ public final class ControllerHelp implements ActionListener, HelpBrowserListener
 
         if (!url.getProtocol().startsWith("http")) {
             currentUrl = HelpBrowser.getLastPathComponent(url);
-            UserSettings.INSTANCE.getSettings().set(KEY_CURRENT_URL, currentUrl);
-            UserSettings.INSTANCE.writeToFile();
+
+            Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+            storage.setString(KEY_CURRENT_URL, currentUrl);
         }
     }
 

@@ -9,12 +9,13 @@ import java.util.Map;
 
 import javax.swing.JButton;
 
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.lib.componentutil.TabbedPaneUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.util.StringUtil;
-import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.types.Persistence;
+import org.openide.util.Lookup;
 
 /**
  * Modaler Dialog für Anwendungseinstellungen.
@@ -118,8 +119,12 @@ public final class SettingsDialog extends Dialog {
     }
 
     private void readProperties() {
-        UserSettings.INSTANCE.getSettings().applySizeAndLocation(this);
-        UserSettings.INSTANCE.getSettings().applySettings(KEY_INDEX_TABBED_PANE, tabbedPane, null);
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        String key = getClass().getName();
+
+        storage.applySize(key, this);
+        storage.applyLocation(key, this);
+        storage.applyTabbedPaneSettings(KEY_INDEX_TABBED_PANE, tabbedPane, null);
 
         for (Persistence panel : persistentPanels) {
             panel.readProperties();
@@ -127,13 +132,13 @@ public final class SettingsDialog extends Dialog {
     }
 
     private void writeProperties() {
-        UserSettings.INSTANCE.getSettings().set(KEY_INDEX_TABBED_PANE, tabbedPane, null);
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.setTabbedPane(KEY_INDEX_TABBED_PANE, tabbedPane, null);
 
         for (Persistence panel : persistentPanels) {
             panel.writeProperties();
         }
-
-        UserSettings.INSTANCE.writeToFile();
     }
 
     @Override
@@ -254,11 +259,13 @@ public final class SettingsDialog extends Dialog {
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 SettingsDialog dialog = SettingsDialog.INSTANCE;
 
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
@@ -268,7 +275,6 @@ public final class SettingsDialog extends Dialog {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jphototagger.program.view.panels.SettingsActionsPanel panelActions;
     private org.jphototagger.program.view.panels.SettingsFileExcludePatternsPanel panelFileExcludePatterns;

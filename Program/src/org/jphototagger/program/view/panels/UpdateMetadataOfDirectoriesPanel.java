@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.domain.database.InsertIntoDatabase;
 import org.jphototagger.domain.metadata.event.UpdateMetadataCheckEvent;
 import org.jphototagger.domain.metadata.event.UpdateMetadataCheckEvent.Type;
@@ -29,11 +30,11 @@ import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter.Option;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.CollectionUtil;
-import org.jphototagger.lib.util.Settings;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
 import org.jphototagger.program.io.ImageFileDirectory;
 import org.jphototagger.program.resource.GUI;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -166,15 +167,16 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
     }
 
     private void readProperties() {
-        Settings settings = UserSettings.INSTANCE.getSettings();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
 
-        settings.applySettings(KEY_FORCE, checkBoxForce);
-        settings.applySettings(KEY_SUBDIRECTORIES, checkBoxIncludeSubdirectories);
+        storage.applyToggleButtonSettings(KEY_FORCE, checkBoxForce);
+        storage.applyToggleButtonSettings(KEY_SUBDIRECTORIES, checkBoxIncludeSubdirectories);
         readLastDirectoryFromProperties();
     }
 
     private void readLastDirectoryFromProperties() {
-        String lastDirectoryName = UserSettings.INSTANCE.getSettings().getString(KEY_LAST_DIRECTORY);
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        String lastDirectoryName = storage.getString(KEY_LAST_DIRECTORY);
 
         if (!lastDirectoryName.isEmpty()) {
             File directory = new File(lastDirectoryName);
@@ -186,12 +188,11 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
     }
 
     private void writeProperties() {
-        Settings settings = UserSettings.INSTANCE.getSettings();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
 
-        settings.set(KEY_FORCE, checkBoxForce);
-        settings.set(KEY_SUBDIRECTORIES, checkBoxIncludeSubdirectories);
-        settings.set(KEY_LAST_DIRECTORY, lastDirectory.getAbsolutePath());
-        UserSettings.INSTANCE.writeToFile();
+        storage.setToggleButton(KEY_FORCE, checkBoxForce);
+        storage.setToggleButton(KEY_SUBDIRECTORIES, checkBoxIncludeSubdirectories);
+        storage.setString(KEY_LAST_DIRECTORY, lastDirectory.getAbsolutePath());
     }
 
     /**

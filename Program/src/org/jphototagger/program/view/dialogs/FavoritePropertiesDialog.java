@@ -5,18 +5,19 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.List;
 
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.dialog.DirectoryChooser;
 import org.jphototagger.lib.dialog.DirectoryChooser.Option;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.lib.util.Settings;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.database.DatabaseFavorites;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.SelectRootFilesPanel;
+import org.openide.util.Lookup;
 
 
 /**
@@ -175,10 +176,10 @@ public final class FavoritePropertiesDialog extends Dialog {
     }
 
     private void directoryFromSettings() {
-        Settings settings = UserSettings.INSTANCE.getSettings();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
 
-        if (settings.containsKey(KEY_LAST_DIRECTORY)) {
-            dir = new File(settings.getString(KEY_LAST_DIRECTORY));
+        if (storage.containsKey(KEY_LAST_DIRECTORY)) {
+            dir = new File(storage.getString(KEY_LAST_DIRECTORY));
         }
     }
 
@@ -187,8 +188,9 @@ public final class FavoritePropertiesDialog extends Dialog {
     }
 
     private void directoryToSettings() {
-        UserSettings.INSTANCE.getSettings().set(KEY_LAST_DIRECTORY, dir.getAbsolutePath());
-        UserSettings.INSTANCE.writeToFile();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.setString(KEY_LAST_DIRECTORY, dir.getAbsolutePath());
     }
 
     @Override
@@ -352,12 +354,14 @@ public final class FavoritePropertiesDialog extends Dialog {
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 FavoritePropertiesDialog dialog =
-                    new FavoritePropertiesDialog();
+                        new FavoritePropertiesDialog();
 
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
@@ -367,7 +371,6 @@ public final class FavoritePropertiesDialog extends Dialog {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCancel;
     private javax.swing.JButton buttonChooseDirectory;

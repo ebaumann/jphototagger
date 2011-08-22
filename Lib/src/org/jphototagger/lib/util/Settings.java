@@ -1,5 +1,6 @@
 package org.jphototagger.lib.util;
 
+import org.jphototagger.api.core.StorageHints;
 import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.lib.componentutil.TreeUtil;
 import java.awt.Component;
@@ -92,7 +93,7 @@ public final class Settings {
      * @param component
      * @param hints     hints or null
      */
-    public void applySettings(Component component, SettingsHints hints) {
+    public void applySettings(Component component, StorageHints hints) {
         if (component == null) {
             throw new NullPointerException("component == null");
         }
@@ -342,7 +343,7 @@ public final class Settings {
      * @param key   key
      * @param hints hints or null
      */
-    public void applySettings(String key, JTabbedPane pane, SettingsHints hints) {
+    public void applySettings(String key, JTabbedPane pane, StorageHints hints) {
         if (pane == null) {
             throw new NullPointerException("pane == null");
         }
@@ -365,7 +366,7 @@ public final class Settings {
             }
         }
 
-        if ((hints != null) && hints.isOption(SettingsHints.Option.SET_TABBED_PANE_CONTENT)) {
+        if ((hints != null) && hints.isOption(StorageHints.Option.SET_TABBED_PANE_CONTENT)) {
             int componentCount = pane.getComponentCount();
 
             for (int index = 0; index < componentCount; index++) {
@@ -580,7 +581,7 @@ public final class Settings {
      * @param component
      * @param hints     hints or null
      */
-    public void set(Component component, SettingsHints hints) {
+    public void set(Component component, StorageHints hints) {
         if (component == null) {
             throw new NullPointerException("component == null");
         }
@@ -671,7 +672,7 @@ public final class Settings {
      * @param key
      * @param hints hints or null
      */
-    public void set(String key, JTabbedPane pane, SettingsHints hints) {
+    public void set(String key, JTabbedPane pane, StorageHints hints) {
         if (pane == null) {
             throw new NullPointerException("pane == null");
         }
@@ -685,7 +686,7 @@ public final class Settings {
 
             properties.setProperty(key, Integer.toString(index));
 
-            if ((hints != null) && hints.isOption(SettingsHints.Option.SET_TABBED_PANE_CONTENT)) {
+            if ((hints != null) && hints.isOption(StorageHints.Option.SET_TABBED_PANE_CONTENT)) {
                 int componentCount = pane.getComponentCount();
 
                 for (int i = 0; i < componentCount; i++) {

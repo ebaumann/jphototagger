@@ -39,6 +39,7 @@ import javax.swing.TransferHandler;
 import org.bushe.swing.event.EventBus;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.domain.event.AppWillExitEvent;
 import org.jphototagger.domain.thumbnails.event.ThumbnailUpdateEvent;
 import org.jphototagger.domain.event.UserPropertyChangedEvent;
@@ -74,6 +75,7 @@ import org.jphototagger.program.types.SizeUnit;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
 import org.jphototagger.program.view.renderer.ThumbnailPanelRenderer;
 import org.jphototagger.xmp.XmpMetadata;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -839,8 +841,9 @@ public class ThumbnailsPanel extends JPanel
 
     @EventSubscriber(eventClass = AppWillExitEvent.class)
     public void appWillExit(AppWillExitEvent evt) {
-        UserSettings.INSTANCE.getSettings().set(ThumbnailsPanel.KEY_THUMBNAIL_WIDTH, getThumbnailWidth());
-        UserSettings.INSTANCE.writeToFile();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.setInt(ThumbnailsPanel.KEY_THUMBNAIL_WIDTH, getThumbnailWidth());
     }
 
     private String createTooltipTextForIndex(int index) {
@@ -884,7 +887,7 @@ public class ThumbnailsPanel extends JPanel
      * Returns the file action.
      *
      * <em>This class is not responsible to take care of the file action! I.e.
-     * if the action is not longer valid, the caller must set it to a valid
+     * if the action is not longer valid, the caller must setTree it to a valid
      * action type.</em>
      *
      * @return file action
@@ -1023,7 +1026,8 @@ public class ThumbnailsPanel extends JPanel
     }
 
     private void readProperties() {
-        int tnWidth = UserSettings.INSTANCE.getSettings().getInt(ThumbnailsPanel.KEY_THUMBNAIL_WIDTH);
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        int tnWidth = storage.getInt(ThumbnailsPanel.KEY_THUMBNAIL_WIDTH);
 
         if (tnWidth > 0) {
             setThumbnailWidth(tnWidth);
@@ -1047,8 +1051,8 @@ public class ThumbnailsPanel extends JPanel
         evt.setSelThumbnails(new ArrayList<Integer>(selectedThumbnailIndices));
         notifyRefreshListeners(evt);
 
-        // viewport position has to be set by the refresh listeners because they
-        // usually set new files in a *thread* so that setting the viewport has
+        // viewport position has to be setTree by the refresh listeners because they
+        // usually setTree new files in a *thread* so that setting the viewport has
         // no effect
     }
 
@@ -1420,7 +1424,7 @@ public class ThumbnailsPanel extends JPanel
 
     /**
      * Sets the viewport. Have to be called before adding files.
-     * If a viewport ist set, some additional functions supported, e.g.
+     * If a viewport ist setTree, some additional functions supported, e.g.
      * special keyboard keys that are not handled through the viewport
      * and a scroll pane.
      *
@@ -1578,7 +1582,7 @@ public class ThumbnailsPanel extends JPanel
     }
 
     /**
-     * @param keywordsOverlay the keywordsOverlay to set
+     * @param keywordsOverlay the keywordsOverlay to setTree
      */
     public synchronized void setKeywordsOverlay(boolean keywordsOverlay) {
         this.keywordsOverlay = keywordsOverlay;

@@ -34,8 +34,9 @@ public class ImportImageFilesDialog extends Dialog {
     private static final String KEY_LAST_TARGET_DIR = "ImportImageFiles.LastTargetDir";
     private static final String KEY_DEL_SRC_AFTER_COPY = "ImportImageFiles.DelSrcAfterCopy";
     private final FileSystemView fileSystemView = FileSystemView.getFileSystemView();
-    private File sourceDir = new File(UserSettings.INSTANCE.getSettings().getString(KEY_LAST_SRC_DIR));
-    private File targetDir = new File(UserSettings.INSTANCE.getSettings().getString(KEY_LAST_TARGET_DIR));
+    private final Storage storage = Lookup.getDefault().lookup(Storage.class);
+    private File sourceDir = new File(storage.getString(KEY_LAST_SRC_DIR));
+    private File targetDir = new File(storage.getString(KEY_LAST_TARGET_DIR));
     private final List<File> sourceFiles = new ArrayList<File>();
     private boolean filesChoosed;
     private boolean accepted;
@@ -71,7 +72,7 @@ public class ImportImageFilesDialog extends Dialog {
 
     private void initDeleteSrcFilesAfterCopying() {
         listenToCheckBox = false;
-        checkBoxDeleteAfterCopy.setSelected(UserSettings.INSTANCE.getSettings().getBoolean(KEY_DEL_SRC_AFTER_COPY));
+        checkBoxDeleteAfterCopy.setSelected(storage.getBoolean(KEY_DEL_SRC_AFTER_COPY));
         deleteSrcFilesAfterCopying = checkBoxDeleteAfterCopy.isSelected();
         listenToCheckBox = true;
     }
@@ -220,7 +221,6 @@ public class ImportImageFilesDialog extends Dialog {
     }
 
     private void toSettings(String key, File dir) {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
         storage.setString(key, dir.getAbsolutePath());
     }
 
@@ -309,8 +309,7 @@ public class ImportImageFilesDialog extends Dialog {
         }
 
         deleteSrcFilesAfterCopying = selected;
-        UserSettings.INSTANCE.getSettings().set(KEY_DEL_SRC_AFTER_COPY, deleteSrcFilesAfterCopying);
-        UserSettings.INSTANCE.writeToFile();
+        storage.setBoolean(KEY_DEL_SRC_AFTER_COPY, deleteSrcFilesAfterCopying);
     }
 
     /**
@@ -511,11 +510,13 @@ public class ImportImageFilesDialog extends Dialog {
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 ImportImageFilesDialog dialog = new ImportImageFilesDialog();
 
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
@@ -525,7 +526,6 @@ public class ImportImageFilesDialog extends Dialog {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCancel;
     private javax.swing.JButton buttonChooseFiles;
