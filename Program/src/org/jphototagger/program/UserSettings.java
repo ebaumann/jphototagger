@@ -32,27 +32,27 @@ import org.jphototagger.program.types.Filename;
 public final class UserSettings {
 
     private static final int DEFAULT_MINUTES_TO_START_SCHEDULED_TASKS = 5;
-    private static final String DOMAIN_NAME = "de.elmar_baumann"; // When changing see comment for AppInfo.PROJECT_NAME
-    private static final String KEY_ACCEPT_HIDDEN_DIRECTORIES = "UserSettings.IsAcceptHiddenDirectories";
-    private static final String KEY_AUTO_SCAN_INCLUDE_SUBDIRECTORIES = "UserSettings.IsAutoscanIncludeSubdirectories";
-    private static final String KEY_DATABASE_BACKUP_DIRECTORY = "UserSettings.DatabaseBackupDirectoryName";
-    private static final String KEY_DATABASE_BACKUP_INTERVAL = "UserSettings.DbBackupInterval";
-    private static final String KEY_DATABASE_DIRECTORY = "UserSettings.DatabaseDirectoryName";
-    private static final String KEY_DATABASE_SCHEDULED_BACKUP = "UserSettings.DbScheduledBackup";
-    private static final String KEY_DISPLAY_SEARCH_BUTTON = "UserSettings.DisplaySearchButton";
-    private static final String KEY_ENABLE_AUTOCOMPLETE = "UserSettings.EnableAutoComplete";
-    private static final String KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS = "UserSettings.ExecuteActionsAfterImageChangeInDbAlways";
-    private static final String KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP = "UserSettings.ExecuteActionsAfterImageChangeInDbIfImageHasXmp";
-    private static final String KEY_EXTERNAL_THUMBNAIL_CREATION_COMMAND = "UserSettings.ExternalThumbnailCreationCommand";
-    private static final String KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS = "UserSettings.MaximumSecondsToTerminateExternalPrograms";
-    private static final String KEY_MINUTES_TO_START_SCHEDULED_TASKS = "UserSettings.MinutesToStartScheduledTasks";
-    private static final String KEY_OPTIONS_COPY_MOVE_FILES = "UserSettings.CopyMoveFiles";
-    private static final String KEY_SAVE_INPUT_EARLY = "UserSettings.SaveInputEarly";
-    private static final String KEY_SCAN_FOR_EMBEDDED_XMP = "UserSettings.ScanForEmbeddedXmp";
-    private static final String KEY_THUMBNAIL_CREATOR = "UserSettings.ThumbnailCreator";
-    private static final String KEY_UPDATE_AUTOCOMPLETE = "UserSettings.UpdateAutocomplete";
-    private static final String KEY_ADD_FILENAME_TO_GPS_LOCATION_EXPORT = "UserSettings.AddFilenameToGpsLocationExport";
-    private static final String KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE = "UserSettings.Autocomplete.IgnoreCase";
+    public static final String DOMAIN_NAME = "de.elmar_baumann"; // When changing see comment for AppInfo.PROJECT_NAME
+    public static final String KEY_ACCEPT_HIDDEN_DIRECTORIES = "UserSettings.IsAcceptHiddenDirectories";
+    public static final String KEY_AUTO_SCAN_INCLUDE_SUBDIRECTORIES = "UserSettings.IsAutoscanIncludeSubdirectories";
+    public static final String KEY_DATABASE_BACKUP_DIRECTORY = "UserSettings.DatabaseBackupDirectoryName";
+    public static final String KEY_DATABASE_BACKUP_INTERVAL = "UserSettings.DbBackupInterval";
+    public static final String KEY_DATABASE_DIRECTORY = "UserSettings.DatabaseDirectoryName";
+    public static final String KEY_DATABASE_SCHEDULED_BACKUP = "UserSettings.DbScheduledBackup";
+    public static final String KEY_DISPLAY_SEARCH_BUTTON = "UserSettings.DisplaySearchButton";
+    public static final String KEY_ENABLE_AUTOCOMPLETE = "UserSettings.EnableAutoComplete";
+    public static final String KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS = "UserSettings.ExecuteActionsAfterImageChangeInDbAlways";
+    public static final String KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP = "UserSettings.ExecuteActionsAfterImageChangeInDbIfImageHasXmp";
+    public static final String KEY_EXTERNAL_THUMBNAIL_CREATION_COMMAND = "UserSettings.ExternalThumbnailCreationCommand";
+    public static final String KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS = "UserSettings.MaximumSecondsToTerminateExternalPrograms";
+    public static final String KEY_MINUTES_TO_START_SCHEDULED_TASKS = "UserSettings.MinutesToStartScheduledTasks";
+    public static final String KEY_OPTIONS_COPY_MOVE_FILES = "UserSettings.CopyMoveFiles";
+    public static final String KEY_SAVE_INPUT_EARLY = "UserSettings.SaveInputEarly";
+    public static final String KEY_SCAN_FOR_EMBEDDED_XMP = "UserSettings.ScanForEmbeddedXmp";
+    public static final String KEY_THUMBNAIL_CREATOR = "UserSettings.ThumbnailCreator";
+    public static final String KEY_UPDATE_AUTOCOMPLETE = "UserSettings.UpdateAutocomplete";
+    public static final String KEY_ADD_FILENAME_TO_GPS_LOCATION_EXPORT = "UserSettings.AddFilenameToGpsLocationExport";
+    public static final String KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE = "UserSettings.Autocomplete.IgnoreCase";
     public static final String KEY_HIDE_ROOT_FILES_FROM_DIRECTORIES_TAB = "UserSettings.HideRootFilesFromDirectoriesTab";
     public static final int MIN_THUMBNAIL_WIDTH = 50;
     public static final int MAX_THUMBNAIL_WIDTH = 400;
@@ -122,8 +122,14 @@ public final class UserSettings {
             throw new NullPointerException("directoryName == null");
         }
 
-        settings.set(KEY_DATABASE_DIRECTORY, directoryName);
-        writeToFile();
+        String oldValue = getDatabaseDirectoryName();
+
+        if (!directoryName.equals(oldValue)) {
+            settings.set(KEY_DATABASE_DIRECTORY, directoryName);
+            writeToFile();
+            EventBus.publish(new UserPropertyChangedEvent(this, KEY_DATABASE_DIRECTORY, oldValue, directoryName));
+        }
+
     }
 
     /**
@@ -149,8 +155,13 @@ public final class UserSettings {
             throw new NullPointerException("directoryName == null");
         }
 
-        settings.set(KEY_DATABASE_BACKUP_DIRECTORY, directoryName);
-        writeToFile();
+        String oldValue = getDatabaseBackupDirectoryName();
+
+        if (!directoryName.equals(oldValue)) {
+            settings.set(KEY_DATABASE_BACKUP_DIRECTORY, directoryName);
+            writeToFile();
+            EventBus.publish(new UserPropertyChangedEvent(this, KEY_DATABASE_BACKUP_DIRECTORY, oldValue, directoryName));
+        }
     }
 
     /**
@@ -266,8 +277,13 @@ public final class UserSettings {
             throw new NullPointerException("creator == null");
         }
 
-        properties.put(KEY_THUMBNAIL_CREATOR, creator.name());
-        writeToFile();
+        ThumbnailCreationStrategy oldValue = getThumbnailCreator();
+
+        if (!creator.equals(oldValue)) {
+            properties.put(KEY_THUMBNAIL_CREATOR, creator.name());
+            writeToFile();
+            EventBus.publish(new UserPropertyChangedEvent(this, KEY_THUMBNAIL_CREATOR, oldValue, creator));
+        }
     }
 
     /**
@@ -293,8 +309,13 @@ public final class UserSettings {
             throw new NullPointerException("command == null");
         }
 
-        settings.set(KEY_EXTERNAL_THUMBNAIL_CREATION_COMMAND, command);
-        writeToFile();
+        String oldValue = getExternalThumbnailCreationCommand();
+
+        if (!command.equals(oldValue)) {
+            settings.set(KEY_EXTERNAL_THUMBNAIL_CREATION_COMMAND, command);
+            writeToFile();
+            EventBus.publish(new UserPropertyChangedEvent(this, KEY_EXTERNAL_THUMBNAIL_CREATION_COMMAND, oldValue, command));
+        }
     }
 
     /**
@@ -318,6 +339,7 @@ public final class UserSettings {
         }
 
         Level oldValue = getLogLevel();
+
         if (!logLevel.equals(oldValue)) {
             settings.set(UserPropertyChangedEvent.PROPERTY_LOG_LEVEL, logLevel.toString());
             writeToFile();
@@ -359,8 +381,13 @@ public final class UserSettings {
      * @param display true, if the search button shall be displayed
      */
     public void setDisplaySearchButton(boolean display) {
-        settings.set(KEY_DISPLAY_SEARCH_BUTTON, display);
-        writeToFile();
+        boolean oldValue = isDisplaySearchButton();
+
+        if (display != oldValue) {
+            settings.set(KEY_DISPLAY_SEARCH_BUTTON, display);
+            writeToFile();
+            EventBus.publish(new UserPropertyChangedEvent(this, KEY_DISPLAY_SEARCH_BUTTON, oldValue, display));
+        }
     }
 
     /**
@@ -381,8 +408,13 @@ public final class UserSettings {
      * @param scan true, when to scan image files for embedded XMP metadata
      */
     public void setScanForEmbeddedXmp(boolean scan) {
-        settings.set(KEY_SCAN_FOR_EMBEDDED_XMP, scan);
-        writeToFile();
+        boolean oldValue = isScanForEmbeddedXmp();
+
+        if (scan != oldValue) {
+            settings.set(KEY_SCAN_FOR_EMBEDDED_XMP, scan);
+            writeToFile();
+            EventBus.publish(new UserPropertyChangedEvent(this, KEY_SCAN_FOR_EMBEDDED_XMP, oldValue, scan));
+        }
     }
 
     /**
@@ -408,8 +440,13 @@ public final class UserSettings {
             throw new NullPointerException("options == null");
         }
 
-        settings.set(KEY_OPTIONS_COPY_MOVE_FILES, options.getInt());
-        writeToFile();
+        Options oldValue = getCopyMoveFilesOptions();
+
+        if (!options.equals(oldValue)) {
+            settings.set(KEY_OPTIONS_COPY_MOVE_FILES, options.getInt());
+            writeToFile();
+            EventBus.publish(new UserPropertyChangedEvent(this, KEY_OPTIONS_COPY_MOVE_FILES, oldValue, options));
+        }
     }
 
     /**
@@ -431,9 +468,16 @@ public final class UserSettings {
      * @param set true when the actions shall be executed always
      */
     public void setExecuteActionsAfterImageChangeInDbAlways(boolean set) {
-        settings.set(KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS, set);
-        settings.set(KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP, !set);
-        writeToFile();
+        boolean oldValueAlways = isExecuteActionsAfterImageChangeInDbAlways();
+        boolean oldValueXmp = isExecuteActionsAfterImageChangeInDbIfImageHasXmp();
+
+        if (set != oldValueAlways) {
+            settings.set(KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS, set);
+            settings.set(KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP, !set);
+            writeToFile();
+            EventBus.publish(new UserPropertyChangedEvent(set, KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS, oldValueAlways, set));
+            EventBus.publish(new UserPropertyChangedEvent(set, KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP, oldValueXmp, !set));
+        }
     }
 
     /**
@@ -458,9 +502,16 @@ public final class UserSettings {
      *            has embedded XMP metadata
      */
     public void setExecuteActionsAfterImageChangeInDbIfImageHasXmp(boolean set) {
-        settings.set(KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS, !set);
-        settings.set(KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP, set);
-        writeToFile();
+        boolean oldValueAlways = isExecuteActionsAfterImageChangeInDbAlways();
+        boolean oldValueXmp = isExecuteActionsAfterImageChangeInDbIfImageHasXmp();
+
+        if (set != oldValueXmp) {
+            settings.set(KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS, !set);
+            settings.set(KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP, set);
+            writeToFile();
+            EventBus.publish(new UserPropertyChangedEvent(set, KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS, oldValueAlways, !set));
+            EventBus.publish(new UserPropertyChangedEvent(set, KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP, oldValueXmp, set));
+        }
     }
 
     /**
@@ -488,6 +539,7 @@ public final class UserSettings {
         }
 
         String oldValue = getIptcCharset();
+
         if (!charset.equals(oldValue)) {
             settings.set(UserPropertyChangedEvent.PROPERTY_IPTC_CHARSET, charset);
             writeToFile();
@@ -515,8 +567,13 @@ public final class UserSettings {
      * @param include true if include subdirectories
      */
     public void setAutoscanIncludeSubdirectories(boolean include) {
-        settings.set(KEY_AUTO_SCAN_INCLUDE_SUBDIRECTORIES, include);
-        writeToFile();
+        boolean oldValue = isAutoscanIncludeSubdirectories();
+
+        if (include != oldValue) {
+            settings.set(KEY_AUTO_SCAN_INCLUDE_SUBDIRECTORIES, include);
+            writeToFile();
+            EventBus.publish(new UserPropertyChangedEvent(this, KEY_AUTO_SCAN_INCLUDE_SUBDIRECTORIES, oldValue, include));
+        }
     }
 
     /**
@@ -550,8 +607,13 @@ public final class UserSettings {
      * @param early true if input shall be saved early. Default: true.
      */
     public void setSaveInputEarly(boolean early) {
-        settings.set(KEY_SAVE_INPUT_EARLY, early);
-        writeToFile();
+        boolean oldValue = isSaveInputEarly();
+
+        if (early != oldValue) {
+            settings.set(KEY_SAVE_INPUT_EARLY, early);
+            writeToFile();
+            EventBus.publish(new UserPropertyChangedEvent(this, KEY_SAVE_INPUT_EARLY, oldValue, early));
+        }
     }
 
     /**
@@ -561,8 +623,17 @@ public final class UserSettings {
      * @param minutes minutes
      */
     public void setMinutesToStartScheduledTasks(int minutes) {
-        settings.set(KEY_MINUTES_TO_START_SCHEDULED_TASKS, Integer.toString(minutes));
-        writeToFile();
+        if (minutes < 0) {
+            throw new IllegalArgumentException("Invalid minutes to start scheduled tasks: " + minutes);
+        }
+
+        int oldValue = getMinutesToStartScheduledTasks();
+
+        if (minutes != oldValue) {
+            settings.set(KEY_MINUTES_TO_START_SCHEDULED_TASKS, Integer.toString(minutes));
+            writeToFile();
+            EventBus.publish(new UserPropertyChangedEvent(this, KEY_MINUTES_TO_START_SCHEDULED_TASKS, oldValue, minutes));
+        }
     }
 
     /**
@@ -586,7 +657,12 @@ public final class UserSettings {
      * @param width length in pixel
      */
     public void setMaxThumbnailWidth(int width) {
+        if (width <= 0) {
+            throw new IllegalArgumentException("Illegal thumbnail width: " + width);
+        }
+
         int oldValue = getMaxThumbnailWidth();
+
         if (width != oldValue) {
             settings.set(UserPropertyChangedEvent.PROPERTY_MAX_THUMBNAIL_WIDTH, Integer.toString(width));
             writeToFile();
@@ -622,8 +698,13 @@ public final class UserSettings {
             throw new IllegalArgumentException("Invalid time: " + seconds.intValue());
         }
 
-        settings.set(KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS, seconds);
-        writeToFile();
+        Integer oldValue = getMaxSecondsToTerminateExternalPrograms();
+
+        if (!seconds.equals(oldValue)) {
+            settings.set(KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS, seconds);
+            writeToFile();
+            EventBus.publish(new UserPropertyChangedEvent(this, KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS, oldValue, seconds));
+        }
     }
 
     /**
@@ -644,8 +725,13 @@ public final class UserSettings {
      * @param accept true, if accepted
      */
     public void setAcceptHiddenDirectories(boolean accept) {
-        settings.set(KEY_ACCEPT_HIDDEN_DIRECTORIES, accept);
-        writeToFile();
+        boolean oldValue = isAcceptHiddenDirectories();
+
+        if (accept != oldValue) {
+            settings.set(KEY_ACCEPT_HIDDEN_DIRECTORIES, accept);
+            writeToFile();
+            EventBus.publish(new UserPropertyChangedEvent(this, KEY_ACCEPT_HIDDEN_DIRECTORIES, oldValue, accept));
+        }
     }
 
     /**
@@ -668,6 +754,7 @@ public final class UserSettings {
      */
     public void setCheckForUpdates(boolean auto) {
         boolean oldValue = isCheckForUpdates();
+
         if (auto != oldValue) {
             settings.set(UserPropertyChangedEvent.PROPERTY_CHECK_FOR_UPDATES, auto);
             writeToFile();
@@ -693,6 +780,7 @@ public final class UserSettings {
      */
     public void setDisplayIptc(boolean display) {
         boolean oldValue = isDisplayIptc();
+
         if (display != oldValue) {
             settings.set(UserPropertyChangedEvent.PROPERTY_DISPLAY_IPTC, display);
             writeToFile();
@@ -718,8 +806,17 @@ public final class UserSettings {
      * @param interval days
      */
     public void setScheduledBackupDbInterval(int interval) {
-        settings.set(KEY_DATABASE_BACKUP_INTERVAL, interval);
-        writeToFile();
+        if (interval < 0) {
+            throw new IllegalArgumentException("Invalid interval for scheduled database backup: " + interval);
+        }
+
+        int oldValue = getScheduledBackupDbInterval();
+
+        if (interval != oldValue) {
+            settings.set(KEY_DATABASE_BACKUP_INTERVAL, interval);
+            writeToFile();
+            EventBus.publish(new UserPropertyChangedEvent(this, KEY_DATABASE_BACKUP_INTERVAL, oldValue, interval));
+        }
     }
 
     /**
@@ -739,8 +836,13 @@ public final class UserSettings {
      * @param scheduled true, if automized backups shall be scheduled
      */
     public void setScheduledBackupDb(boolean scheduled) {
-        settings.set(KEY_DATABASE_SCHEDULED_BACKUP, scheduled);
-        writeToFile();
+        boolean oldValue = isScheduledBackupDb();
+
+        if (scheduled != oldValue) {
+            settings.set(KEY_DATABASE_SCHEDULED_BACKUP, scheduled);
+            writeToFile();
+            EventBus.publish(new UserPropertyChangedEvent(this, KEY_DATABASE_SCHEDULED_BACKUP, oldValue, scheduled));
+        }
     }
 
     /**
@@ -755,8 +857,13 @@ public final class UserSettings {
     }
 
     public void setAddFilenameToGpsLocationExport(boolean add) {
-        settings.set(KEY_ADD_FILENAME_TO_GPS_LOCATION_EXPORT, add);
-        writeToFile();
+        boolean oldValue = isAddFilenameToGpsLocationExport();
+
+        if (add != oldValue) {
+            settings.set(KEY_ADD_FILENAME_TO_GPS_LOCATION_EXPORT, add);
+            writeToFile();
+            EventBus.publish(new UserPropertyChangedEvent(this, KEY_ADD_FILENAME_TO_GPS_LOCATION_EXPORT, oldValue, add));
+        }
     }
 
     public boolean isAddFilenameToGpsLocationExport() {
@@ -771,8 +878,13 @@ public final class UserSettings {
      * @param enable true, if autocomplete shall be enabled.
      */
     public void setEnableAutocomplete(boolean enable) {
-        settings.set(KEY_ENABLE_AUTOCOMPLETE, enable);
-        writeToFile();
+        boolean oldValue = isAutocomplete();
+
+        if (enable != oldValue) {
+            settings.set(KEY_ENABLE_AUTOCOMPLETE, enable);
+            writeToFile();
+            EventBus.publish(new UserPropertyChangedEvent(this, KEY_ENABLE_AUTOCOMPLETE, oldValue, enable));
+        }
     }
 
     /**
@@ -792,8 +904,13 @@ public final class UserSettings {
      * @param update true if update permanently
      */
     public void setUpdateAutocomplete(boolean update) {
-        settings.set(KEY_UPDATE_AUTOCOMPLETE, update);
-        writeToFile();
+        boolean oldValue = isUpdateAutocomplete();
+
+        if (update != oldValue) {
+            settings.set(KEY_UPDATE_AUTOCOMPLETE, update);
+            writeToFile();
+            EventBus.publish(new UserPropertyChangedEvent(this, KEY_UPDATE_AUTOCOMPLETE, oldValue, update));
+        }
     }
 
     /**
@@ -808,8 +925,13 @@ public final class UserSettings {
     }
 
     public void setAutocompleteFastSearchIgnoreCase(boolean ignore) {
-        settings.set(KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE, ignore);
-        writeToFile();
+        boolean oldValue = isAutocompleteFastSearchIgnoreCase();
+
+        if (ignore != oldValue) {
+            settings.set(KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE, ignore);
+            writeToFile();
+            EventBus.publish(new UserPropertyChangedEvent(this, KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE, oldValue, ignore));
+        }
     }
 
     public boolean isAutocompleteFastSearchIgnoreCase() {
@@ -830,6 +952,7 @@ public final class UserSettings {
 
     public void setDisplayThumbnailTooltip(boolean display) {
         boolean oldValue = isDisplayThumbnailTooltip();
+
         if (display != oldValue) {
             settings.set(UserPropertyChangedEvent.PROPERTY_DISPLAY_THUMBNAIL_TOOLTIP, display);
             writeToFile();
