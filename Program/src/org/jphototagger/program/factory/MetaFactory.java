@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 
 import org.jphototagger.api.modules.Module;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.program.app.AppWindowPersistence;
 import org.jphototagger.program.app.update.UpdateDownload;
 import org.jphototagger.program.tasks.ScheduledTaskBackupDatabase;

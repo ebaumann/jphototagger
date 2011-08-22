@@ -22,7 +22,7 @@ import org.jphototagger.lib.io.CancelRequest;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter.Option;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.helper.ConvertIptcToXmp;
 import org.jphototagger.program.io.ImageFileFilterer;
@@ -82,7 +82,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
     }
 
     private void chooseDirectory() {
-        List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(UserSettings.KEY_HIDE_ROOT_FILES_FROM_DIRECTORIES_TAB);
+        List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(Storage.KEY_HIDE_ROOT_FILES_FROM_DIRECTORIES_TAB);
         DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), directory, hideRootFiles, UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
 
         dlg.setStorageKey("IptcToXmpDialog.DirChooser");

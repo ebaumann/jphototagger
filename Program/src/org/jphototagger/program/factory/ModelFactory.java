@@ -14,10 +14,11 @@ import javax.swing.tree.TreeModel;
 
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.sort.ListSortController;
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.model.TreeModelAllSystemDirectories;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.program.app.AppWindowPersistence;
 import org.jphototagger.program.model.ComboBoxModelFileFilters;
 import org.jphototagger.program.model.ComboBoxModelMetadataTemplates;
@@ -425,7 +426,7 @@ public final class ModelFactory {
 
                 final JTree tree = appPanel.getTreeDirectories();
                 final Cursor treeCursor = setWaitCursor(tree);
-                List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(UserSettings.KEY_HIDE_ROOT_FILES_FROM_DIRECTORIES_TAB);
+                List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(Storage.KEY_HIDE_ROOT_FILES_FROM_DIRECTORIES_TAB);
                 final TreeModel model = new TreeModelAllSystemDirectories(tree, hideRootFiles, UserSettings.INSTANCE.getDirFilterOptionShowHiddenFiles());
 
                 support.add(model);

@@ -6,7 +6,7 @@ import org.jphototagger.domain.database.Column;
 import org.jphototagger.program.database.metadata.selections.AutoCompleteData;
 import org.jphototagger.program.database.metadata.selections.AutoCompleteDataOfColumn;
 import org.jphototagger.program.database.metadata.selections.FastSearchColumns;
-import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.settings.UserSettings;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;

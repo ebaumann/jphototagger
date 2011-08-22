@@ -6,7 +6,7 @@ import org.jphototagger.api.core.Storage;
 import org.jphototagger.lib.componentutil.TabbedPaneUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.util.Settings;
-import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.program.datatransfer.TransferHandlerDragListItems;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.KeywordsPanel;

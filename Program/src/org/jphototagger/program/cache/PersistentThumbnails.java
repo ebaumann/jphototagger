@@ -10,11 +10,12 @@ import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
 
+import org.jphototagger.api.core.UserFilesProvider;
 import org.jphototagger.image.util.ImageUtil;
 import org.jphototagger.lib.io.FileLock;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.IoUtil;
-import org.jphototagger.program.UserSettings;
+import org.openide.util.Lookup;
 
 /**
  * Persistent stored (cached) thumbnails.
@@ -24,6 +25,14 @@ import org.jphototagger.program.UserSettings;
 public final class PersistentThumbnails {
 
     private static final Logger LOGGER = Logger.getLogger(PersistentThumbnails.class.getName());
+    private static final String THUMBNAILS_DIRECTORY_NAME;
+
+    static {
+        UserFilesProvider provider = Lookup.getDefault().lookup(UserFilesProvider.class);
+        File thumbnailsDirectory = provider.getThumbnailsDirectory();
+
+        THUMBNAILS_DIRECTORY_NAME = thumbnailsDirectory.getAbsolutePath();
+    }
 
     private PersistentThumbnails() {
     }
@@ -196,9 +205,7 @@ public final class PersistentThumbnails {
      * @return             thumbnail file
      */
     private static File getThumbnailfile(String md5Filename) {
-        String dir = UserSettings.INSTANCE.getThumbnailsDirectoryName();
-
-        return new File(dir + File.separator + md5Filename + ".jpeg");
+        return new File(THUMBNAILS_DIRECTORY_NAME + File.separator + md5Filename + ".jpeg");
     }
 
     public static boolean renameThumbnail(File fromImageFile, File toImageFile) {

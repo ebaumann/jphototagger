@@ -20,7 +20,7 @@ import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.io.IoUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StorageUtil;
-import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.program.helper.HelperThread;
 import org.jphototagger.program.tasks.UserTasks;
 import org.openide.util.Lookup;

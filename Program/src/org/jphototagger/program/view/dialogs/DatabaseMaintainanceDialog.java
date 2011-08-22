@@ -4,7 +4,7 @@ import org.jphototagger.api.core.Storage;
 import org.jphototagger.lib.componentutil.TabbedPaneUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.resource.GUI;
 import org.openide.util.Lookup;

@@ -27,7 +27,7 @@ import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.runtime.External;
 import org.jphototagger.lib.runtime.ExternalOutput;
-import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.settings.UserSettings;
 import org.openide.util.Lookup;
 
 import com.imagero.reader.IOParameterBlock;
@@ -47,7 +47,7 @@ public final class ThumbnailUtil {
 
     /**
      * Returns a thumbnail created with
-     * {@link UserSettings#setThumbnailCreator(org.jphototagger.program.image.thumbnail.ThumbnailCreationStrategy)}.
+     * {@link UserSettings#setThumbnailCreationStrategy(org.jphototagger.program.image.thumbnail.ThumbnailCreationStrategy)}.
      * <p>
      * If the creator did not create a thumbnail, this method tries to get an
      * embedded thumbnail.
@@ -68,7 +68,7 @@ public final class ThumbnailUtil {
             return getUserDefinedThumbnail(file);
         }
 
-        ThumbnailCreationStrategy creationStrategy = UserSettings.INSTANCE.getThumbnailCreator();
+        ThumbnailCreationStrategy creationStrategy = UserSettings.INSTANCE.getThumbnailCreationStrategy();
         int maxLength = UserSettings.INSTANCE.getMaxThumbnailWidth();
         boolean isRawImage = FileType.isRawFile(file.getName());
         boolean canCreateImage = !isRawImage || (isRawImage && creationStrategy.equals(ThumbnailCreationStrategy.EXTERNAL_APP));

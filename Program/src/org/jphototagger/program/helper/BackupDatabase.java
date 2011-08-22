@@ -12,15 +12,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
+import org.jphototagger.api.core.UserFilesProvider;
 import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.event.ProgressEvent;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.filefilter.RegexFileFilter;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.AppLifeCycle;
 import org.jphototagger.program.view.panels.ProgressBarUpdater;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -28,13 +29,15 @@ import org.jphototagger.program.view.panels.ProgressBarUpdater;
  * @author Elmar Baumann
  */
 public final class BackupDatabase extends AppLifeCycle.FinalTask implements Runnable, Cancelable {
+
     public static final BackupDatabase INSTANCE = new BackupDatabase();
     private volatile int currentFileIndex = 0;
     private volatile int filecount = 0;
     private volatile boolean cancel;
     private ProgressBarUpdater progressBarUpdater;
 
-    private BackupDatabase() {}
+    private BackupDatabase() {
+    }
 
     @Override
     public void run() {
@@ -65,14 +68,15 @@ public final class BackupDatabase extends AppLifeCycle.FinalTask implements Runn
                 return;
             }
 
-            File tnBackupDir = new File(backupDir.getAbsolutePath() + File.separator + UserSettings.getThumbnailDirBasename());
+            UserFilesProvider provider = Lookup.getDefault().lookup(UserFilesProvider.class);
+            File tnBackupDir = new File(backupDir.getAbsolutePath() + File.separator + provider.getThumbnailsDirectoryBasename());
             String pBarString = Bundle.getString(BackupDatabase.class, "BackupDatabase.ProgressBar.String");
 
             progressBarUpdater = new ProgressBarUpdater(this, pBarString);
             filecount = dbFiles.size() + tnFiles.size();
             notifyProgressStarted();
 
-            if (backup(dbFiles, backupDir) &&!cancel) {
+            if (backup(dbFiles, backupDir) && !cancel) {
                 backup(tnFiles, tnBackupDir);
             }
 
@@ -106,8 +110,9 @@ public final class BackupDatabase extends AppLifeCycle.FinalTask implements Runn
     }
 
     private List<File> getDbFiles() {
-        File dbDir = new File(UserSettings.INSTANCE.getDefaultDatabaseDirectoryName());
-        String dbPattern = Pattern.quote(UserSettings.getDatabaseBasename()) + ".*";
+        UserFilesProvider provider = Lookup.getDefault().lookup(UserFilesProvider.class);
+        File dbDir = provider.getDefaultDatabaseDirectory();
+        String dbPattern = Pattern.quote(provider.getDatabaseBasename()) + ".*";
         File[] dbFileArray = dbDir.listFiles(new RegexFileFilter(dbPattern, ""));
 
         if (dbFileArray == null) {
@@ -119,7 +124,8 @@ public final class BackupDatabase extends AppLifeCycle.FinalTask implements Runn
 
     private List<File> getTnFiles() {
         String tnPattern = ".*\\.jpeg";
-        File tnDir = new File(UserSettings.INSTANCE.getThumbnailsDirectoryName());
+        UserFilesProvider provider = Lookup.getDefault().lookup(UserFilesProvider.class);
+        File tnDir = provider.getThumbnailsDirectory();
         File[] tnFileArray = tnDir.listFiles(new RegexFileFilter(tnPattern, ""));
 
         if (tnFileArray == null) {
@@ -131,10 +137,11 @@ public final class BackupDatabase extends AppLifeCycle.FinalTask implements Runn
 
     private File getBackupDir() {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd_kk-mm-ss");
-        String dirname = UserSettings.INSTANCE.getDatabaseBackupDirectoryName() + File.separator
-                         + df.format(new Date());
+        UserFilesProvider provider = Lookup.getDefault().lookup(UserFilesProvider.class);
+        String backupDirname = provider.getDatabaseBackupDirectory().getAbsolutePath();
+        String dirname = backupDirname + File.separator + df.format(new Date());
         File dir = new File(dirname);
-        File tnDir = new File(dirname + File.separator + UserSettings.getThumbnailDirBasename());
+        File tnDir = new File(dirname + File.separator + provider.getThumbnailsDirectoryBasename());
 
         if (dir.mkdir() && tnDir.mkdir()) {
             return dir;

@@ -6,14 +6,15 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.jphototagger.api.core.UserFilesProvider;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.Database;
 import org.jphototagger.program.database.DatabaseMetadata;
 import org.jphototagger.program.database.DatabaseTables;
+import org.openide.util.Lookup;
 
 /**
  * Initializes the application's database.
@@ -21,9 +22,11 @@ import org.jphototagger.program.database.DatabaseTables;
  * @author Elmar Baumann
  */
 public final class AppDatabase {
+
     private static boolean init;
 
-    private AppDatabase() {}
+    private AppDatabase() {
+    }
 
     public synchronized static void init() {
         assert !init;
@@ -56,8 +59,8 @@ public final class AppDatabase {
     }
 
     private static void ensureThumbnailDirExists() {
-        String directoryName = UserSettings.INSTANCE.getThumbnailsDirectoryName();
-        File directory = new File(directoryName);
+        UserFilesProvider provider = Lookup.getDefault().lookup(UserFilesProvider.class);
+        File directory = provider.getThumbnailsDirectory();
 
         try {
             FileUtil.ensureDirectoryExists(directory);

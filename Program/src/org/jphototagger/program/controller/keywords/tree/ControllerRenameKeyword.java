@@ -14,7 +14,7 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.dialog.InputDialog;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
-import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.database.DatabaseKeywords;
 import org.jphototagger.program.factory.ModelFactory;

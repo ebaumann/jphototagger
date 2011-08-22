@@ -15,17 +15,18 @@ import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
 
+import org.jphototagger.api.core.UserFilesProvider;
 import org.jphototagger.image.util.ImageUtil;
 import org.jphototagger.lib.io.FileLock;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.filefilter.RegexFileFilter;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.SplashScreen;
 import org.jphototagger.program.cache.PersistentThumbnails;
 import org.jphototagger.program.database.Database;
 import org.jphototagger.program.database.DatabaseApplicationProperties;
 import org.jphototagger.program.database.DatabaseMaintainance;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -33,6 +34,7 @@ import org.jphototagger.program.database.DatabaseMaintainance;
  * @author Elmar Baumann
  */
 final class UpdateTablesThumbnails extends Database {
+
     private static final int FETCH_MAX_ROWS = 1000;
     private static final String KEY_UPATED_THUMBNAILS_NAMES_HASH_1 = "Updated_Thumbnails_Names_Hash_1";    // Never change this!
     private static final Logger LOGGER = Logger.getLogger(UpdateTablesThumbnails.class.getName());
@@ -209,7 +211,8 @@ final class UpdateTablesThumbnails extends Database {
     }
 
     private File[] getThumbnailFiles() {
-        File dir = new File(UserSettings.INSTANCE.getThumbnailsDirectoryName());
+        UserFilesProvider provider = Lookup.getDefault().lookup(UserFilesProvider.class);
+        File dir = provider.getThumbnailsDirectory();
 
         if (!dir.isDirectory()) {
             return new File[0];
@@ -219,7 +222,8 @@ final class UpdateTablesThumbnails extends Database {
     }
 
     private File getOldThumbnailFile(long id) {
-        String directoryName = UserSettings.INSTANCE.getThumbnailsDirectoryName();
+        UserFilesProvider provider = Lookup.getDefault().lookup(UserFilesProvider.class);
+        String directoryName = provider.getThumbnailsDirectory().getAbsolutePath();
 
         try {
             FileUtil.ensureDirectoryExists(new File(directoryName));
@@ -239,7 +243,7 @@ final class UpdateTablesThumbnails extends Database {
 
         File oldTnFile = getOldThumbnailFile(oldId);
 
-        if ((oldTnFile == null) ||!oldTnFile.exists()) {
+        if ((oldTnFile == null) || !oldTnFile.exists()) {
             return;
         }
 

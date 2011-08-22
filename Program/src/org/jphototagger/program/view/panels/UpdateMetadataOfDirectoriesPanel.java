@@ -30,7 +30,7 @@ import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter.Option;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.CollectionUtil;
-import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
 import org.jphototagger.program.io.ImageFileDirectory;
 import org.jphototagger.program.resource.GUI;
@@ -273,7 +273,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
     }
 
     private void chooseDirectories() {
-        List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(UserSettings.KEY_HIDE_ROOT_FILES_FROM_DIRECTORIES_TAB);
+        List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(Storage.KEY_HIDE_ROOT_FILES_FROM_DIRECTORIES_TAB);
         DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), lastDirectory, hideRootFiles, UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
 
         buttonChooseDirectories.setEnabled(false);

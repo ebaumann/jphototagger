@@ -3,7 +3,7 @@ package org.jphototagger.program.view.panels;
 import java.awt.Container;
 
 import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.program.types.Persistence;
 
 /**

@@ -26,7 +26,7 @@ import org.jphototagger.lib.componentutil.Autocomplete;
 import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
 import org.jphototagger.program.database.DatabaseFind;
 import org.jphototagger.program.database.DatabaseImageFiles;

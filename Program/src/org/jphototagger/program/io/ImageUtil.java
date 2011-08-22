@@ -7,7 +7,7 @@ import java.util.List;
 import org.jphototagger.lib.event.ProgressEvent;
 import org.jphototagger.lib.event.listener.ProgressListener;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.controller.filesystem.ControllerMoveFiles;
 import org.jphototagger.program.factory.ControllerFactory;

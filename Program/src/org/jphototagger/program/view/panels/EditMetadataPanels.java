@@ -44,7 +44,7 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.program.controller.keywords.tree.SuggestKeywords;
 import org.jphototagger.program.helper.SaveXmp;
 import org.jphototagger.program.resource.GUI;

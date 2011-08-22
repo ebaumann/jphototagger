@@ -9,7 +9,7 @@ import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.domain.event.UserPropertyChangedEvent;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.program.helper.UpdateAllThumbnails;
 import org.jphototagger.program.types.Persistence;
 

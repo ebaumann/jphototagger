@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 
 import javax.swing.JProgressBar;
 
+import org.jphototagger.api.core.UserFilesProvider;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.lib.dialog.MessageDisplayer;
@@ -19,12 +20,13 @@ import org.jphototagger.lib.net.NetVersion;
 import org.jphototagger.lib.system.SystemUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.Version;
-import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.program.app.AppInfo;
 import org.jphototagger.program.app.AppLifeCycle;
 import org.jphototagger.program.database.DatabaseApplicationProperties;
 import org.jphototagger.program.helper.FinalExecutable;
 import org.jphototagger.program.view.panels.ProgressBar;
+import org.openide.util.Lookup;
 
 /**
  * Checks for newer versions of JPhotoTagger and downloads them depending
@@ -179,15 +181,17 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
 
     private String getDownloadUrl() {
         return SystemUtil.isWindows()
-               ? URL_WIN_INSTALLER
-               : URL_ZIP;
+                ? URL_WIN_INSTALLER
+                : URL_ZIP;
     }
 
     private File getDownloadFile() {
-        String dirname = UserSettings.INSTANCE.getSettingsDirectoryName() + File.separator;
+        UserFilesProvider provider = Lookup.getDefault().lookup(UserFilesProvider.class);
+        String userDirectory = provider.getUserSettingsDirectory().getAbsolutePath();
+        String dirname = userDirectory;
         String filename = SystemUtil.isWindows()
-                          ? FILENAME_WINDOWS
-                          : FILENAME_ZIP;
+                ? FILENAME_WINDOWS
+                : FILENAME_ZIP;
 
         return new File(dirname + File.separator + filename);
     }

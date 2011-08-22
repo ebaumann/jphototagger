@@ -16,7 +16,7 @@ import org.jphototagger.lib.dialog.DirectoryChooser;
 import org.jphototagger.lib.dialog.DirectoryChooser.Option;
 import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.program.exporter.Exporter;
 import org.jphototagger.program.exporter.JptExporters;
 import org.jphototagger.program.importer.Importer;

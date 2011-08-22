@@ -2,11 +2,12 @@ package org.jphototagger.program.view.panels;
 
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
+import org.jphototagger.api.core.UserFilesProvider;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.model.TableModelDatabaseInfo;
-import org.jphototagger.program.types.Filename;
+import org.jphototagger.api.file.Filename;
 import org.jphototagger.program.view.renderer.TableCellRendererDatabaseInfoColumns;
+import org.openide.util.Lookup;
 
 /**
  * Dislplays the database record count total and of specific columns.
@@ -39,7 +40,8 @@ public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
     private void setLabelFilename() {
         ResourceBundle bundle = ResourceBundle.getBundle("org/jphototagger/program/view/panels/Bundle"); // NOI18N
         String pattern = bundle.getString("DatabaseInfoCountPanel.labelFilename.Filename");
-        String databaseFileName = UserSettings.INSTANCE.getDatabaseFileName(Filename.FULL_PATH);
+        UserFilesProvider provider = Lookup.getDefault().lookup(UserFilesProvider.class);
+        String databaseFileName = provider.getDatabaseFileName(Filename.FULL_PATH);
         String message = MessageFormat.format(pattern, databaseFileName);
 
         labelFilename.setText(message);

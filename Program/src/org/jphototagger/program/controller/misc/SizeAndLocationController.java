@@ -1,7 +1,7 @@
 package org.jphototagger.program.controller.misc;
 
 import java.awt.Component;
-import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.settings.UserSettings;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import org.jphototagger.api.core.Storage;

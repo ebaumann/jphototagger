@@ -1,4 +1,4 @@
-package org.jphototagger.program;
+package org.jphototagger.program.settings;
 
 import java.io.File;
 import java.util.Properties;
@@ -6,6 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.bushe.swing.event.EventBus;
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.domain.event.UserPropertyChangedEvent;
 import org.jphototagger.lib.dialog.DirectoryChooser;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
@@ -15,45 +16,18 @@ import org.jphototagger.api.core.StorageHints;
 import org.jphototagger.program.app.AppInfo;
 import org.jphototagger.program.app.update.UpdateUserSettings;
 import org.jphototagger.program.helper.CopyFiles;
-import org.jphototagger.program.helper.CopyFiles.Options;
 import org.jphototagger.program.image.thumbnail.ThumbnailCreationStrategy;
-import org.jphototagger.program.types.Filename;
+import org.jphototagger.api.file.Filename;
 
 /**
  * Stores user settings in a single {@link java.util.Properties} instance.
- * <p>
- * To make changes permanent the application has to call {@link #writeToFile()}.
- * <p>
- * Getters and setters in this class are used by multiple classes, else a
- * class should use {@link #getSettings()}.
  *
  * @author Elmar Baumann
  */
 public final class UserSettings {
 
     private static final int DEFAULT_MINUTES_TO_START_SCHEDULED_TASKS = 5;
-    public static final String DOMAIN_NAME = "de.elmar_baumann"; // When changing see comment for AppInfo.PROJECT_NAME
-    public static final String KEY_ACCEPT_HIDDEN_DIRECTORIES = "UserSettings.IsAcceptHiddenDirectories";
-    public static final String KEY_AUTO_SCAN_INCLUDE_SUBDIRECTORIES = "UserSettings.IsAutoscanIncludeSubdirectories";
-    public static final String KEY_DATABASE_BACKUP_DIRECTORY = "UserSettings.DatabaseBackupDirectoryName";
-    public static final String KEY_DATABASE_BACKUP_INTERVAL = "UserSettings.DbBackupInterval";
-    public static final String KEY_DATABASE_DIRECTORY = "UserSettings.DatabaseDirectoryName";
-    public static final String KEY_DATABASE_SCHEDULED_BACKUP = "UserSettings.DbScheduledBackup";
-    public static final String KEY_DISPLAY_SEARCH_BUTTON = "UserSettings.DisplaySearchButton";
-    public static final String KEY_ENABLE_AUTOCOMPLETE = "UserSettings.EnableAutoComplete";
-    public static final String KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS = "UserSettings.ExecuteActionsAfterImageChangeInDbAlways";
-    public static final String KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP = "UserSettings.ExecuteActionsAfterImageChangeInDbIfImageHasXmp";
-    public static final String KEY_EXTERNAL_THUMBNAIL_CREATION_COMMAND = "UserSettings.ExternalThumbnailCreationCommand";
-    public static final String KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS = "UserSettings.MaximumSecondsToTerminateExternalPrograms";
-    public static final String KEY_MINUTES_TO_START_SCHEDULED_TASKS = "UserSettings.MinutesToStartScheduledTasks";
-    public static final String KEY_OPTIONS_COPY_MOVE_FILES = "UserSettings.CopyMoveFiles";
-    public static final String KEY_SAVE_INPUT_EARLY = "UserSettings.SaveInputEarly";
-    public static final String KEY_SCAN_FOR_EMBEDDED_XMP = "UserSettings.ScanForEmbeddedXmp";
-    public static final String KEY_THUMBNAIL_CREATOR = "UserSettings.ThumbnailCreator";
-    public static final String KEY_UPDATE_AUTOCOMPLETE = "UserSettings.UpdateAutocomplete";
-    public static final String KEY_ADD_FILENAME_TO_GPS_LOCATION_EXPORT = "UserSettings.AddFilenameToGpsLocationExport";
-    public static final String KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE = "UserSettings.Autocomplete.IgnoreCase";
-    public static final String KEY_HIDE_ROOT_FILES_FROM_DIRECTORIES_TAB = "UserSettings.HideRootFilesFromDirectoriesTab";
+    private static final String DOMAIN_NAME = "de.elmar_baumann"; // When changing see comment for AppInfo.PROJECT_NAME
     public static final int MIN_THUMBNAIL_WIDTH = 50;
     public static final int MAX_THUMBNAIL_WIDTH = 400;
     public static final int DEFAULT_THUMBNAIL_WIDTH = 150;
@@ -76,13 +50,6 @@ public final class UserSettings {
         return settings;
     }
 
-    /**
-     * Writes the properties of this settings to a file.
-     * <p>
-     * The setters of this class always calling this method after updating the
-     * properties.
-     *
-     */
     void writeToFile() {
         try {
             propertiesFile.writeToFile();
@@ -91,142 +58,52 @@ public final class UserSettings {
         }
     }
 
-    /**
-     * Returns directory name of the properties file of this settings.
-     *
-     * @return directory name
-     */
-    public String getSettingsDirectoryName() {
+    String getSettingsDirectoryName() {
         return propertiesFile.getDirectoryName();
     }
 
-    /**
-     * Sets the name of the directory where the database files are stored.
-     *
-     *
-     * @param directoryName directory name
-     */
-    public void setDatabaseDirectoryName(String directoryName) {
-        if (directoryName == null) {
-            throw new NullPointerException("directoryName == null");
-        }
-
-        String oldValue = getDatabaseDirectoryName();
-
-        if (!directoryName.equals(oldValue)) {
-            settings.set(KEY_DATABASE_DIRECTORY, directoryName);
-            writeToFile();
-            EventBus.publish(new UserPropertyChangedEvent(this, KEY_DATABASE_DIRECTORY, oldValue, directoryName));
-        }
-
-    }
-
-    /**
-     * Returns the name of the directory where the database files are stored.
-     *
-     * @return directory name.
-     *         Default: {@link #getDefaultDatabaseDirectoryName()}.
-     */
-    public String getDatabaseDirectoryName() {
-        return properties.containsKey(KEY_DATABASE_DIRECTORY)
-                ? settings.getString(KEY_DATABASE_DIRECTORY)
+    String getDatabaseDirectoryName() {
+        return properties.containsKey(Storage.KEY_DATABASE_DIRECTORY)
+                ? settings.getString(Storage.KEY_DATABASE_DIRECTORY)
                 : getDefaultDatabaseDirectoryName();
     }
 
-    /**
-     * Sets the parent directory name of the directories, where the database
-     * will be backed up.
-     *
-     * @param directoryName directory name
-     */
-    public void setDatabaseBackupDirectoryName(String directoryName) {
-        if (directoryName == null) {
-            throw new NullPointerException("directoryName == null");
-        }
-
-        String oldValue = getDatabaseBackupDirectoryName();
-
-        if (!directoryName.equals(oldValue)) {
-            settings.set(KEY_DATABASE_BACKUP_DIRECTORY, directoryName);
-            writeToFile();
-            EventBus.publish(new UserPropertyChangedEvent(this, KEY_DATABASE_BACKUP_DIRECTORY, oldValue, directoryName));
-        }
-    }
-
-    /**
-     * Returns the parent directory name of the directories, where the database
-     * will be backed up.
-     *
-     * @return directory name. Default: {@link #getDatabaseDirectoryName()}.
-     */
-    public String getDatabaseBackupDirectoryName() {
-        return properties.containsKey(KEY_DATABASE_BACKUP_DIRECTORY)
-                ? settings.getString(KEY_DATABASE_BACKUP_DIRECTORY)
+    String getDatabaseBackupDirectoryName() {
+        return properties.containsKey(Storage.KEY_DATABASE_BACKUP_DIRECTORY)
+                ? settings.getString(Storage.KEY_DATABASE_BACKUP_DIRECTORY)
                 : getDatabaseDirectoryName();
     }
 
-    /**
-     * Returns the default name of the directory where the database file is
-     * located.
-     * <p>
-     * When the user doesn't change the directory, the database file is
-     * in the same directory as the properties file.
-     *
-     * @return directory name
-     */
-    public String getDefaultDatabaseDirectoryName() {
+    String getDefaultDatabaseDirectoryName() {
         return getSettingsDirectoryName();
     }
 
-    /**
-     * Returns the filename of the database.
-     *
-     * @param  name name token. Has to be {@link Filename#FULL_PATH} or
-     *              {@link Filename#FULL_PATH_NO_SUFFIX}.
-     * @return      filename
-     */
-    public String getDatabaseFileName(Filename name) {
+    String getDatabaseFileName(Filename name) {
         if (name == null) {
             throw new NullPointerException("name == null");
         }
 
-        assert name.equals(Filename.FULL_PATH) || name.equals(Filename.FULL_PATH_NO_SUFFIX) : name;
+        if (!name.equals(Filename.FULL_PATH) && !name.equals(Filename.FULL_PATH_NO_SUFFIX)) {
+            throw new IllegalArgumentException("Illegal argument: " + name);
+        }
 
-        return getDatabaseDirectoryName() + File.separator + getDatabaseBasename() + (name.equals(Filename.FULL_PATH)
-                ? ".data"
-                : "");
+        String directoryName = getDatabaseDirectoryName();
+        String fileBasename = getDatabaseBasename();
+        boolean isFullPath = name.equals(Filename.FULL_PATH);
+        String suffix = isFullPath ? ".data" : "";
+
+        return directoryName + File.separator + fileBasename + suffix;
     }
 
-    /**
-     * Returns the basename of the database directory: The directory where the
-     * database files are stored. The basename is the directory name without its
-     * parent names.
-     *
-     * @return basename of the database directory
-     */
-    public static String getDatabaseBasename() {
+    static String getDatabaseBasename() {
         return "database";
     }
 
-    /**
-     * Returns the directory name where the thumbnails are located.
-     * <p>
-     * This is a directory below the database directory.
-     *
-     * @return directory name
-     */
-    public String getThumbnailsDirectoryName() {
-        return getDatabaseDirectoryName() + File.separator + getThumbnailDirBasename();
+    String getThumbnailsDirectoryName() {
+        return getDatabaseDirectoryName() + File.separator + getThumbnailsDirectoryBasename();
     }
 
-    /**
-     * Returns the basename of the thumbnails directory: A subdirectory of the
-     * database location where the thumbnails are stored. The basename is the
-     * directory name without its parent names.
-     *
-     * @return basename of the thumbnails directory
-     */
-    public static String getThumbnailDirBasename() {
+    static String getThumbnailsDirectoryBasename() {
         return "thumbnails";
     }
 
@@ -257,21 +134,44 @@ public final class UserSettings {
     }
 
     /**
+     * Returns whether directory choosers and -trees shall show hidden
+     * directories and if directory scans shall include them.
+     *
+     * @return true, if accepted. Default: false.
+     */
+    public boolean isAcceptHiddenDirectories() {
+        return properties.containsKey(Storage.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+                ? settings.getBoolean(Storage.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+                : false;
+    }
+
+    /**
+     * Returns the options when copying or moving files.
+     *
+     * @return options. Default: CONFIRM_OVERWRITE.
+     */
+    public CopyFiles.Options getCopyMoveFilesOptions() {
+        return properties.containsKey(Storage.KEY_OPTIONS_COPY_MOVE_FILES)
+                ? CopyFiles.Options.fromInt(settings.getInt(Storage.KEY_OPTIONS_COPY_MOVE_FILES))
+                : CopyFiles.Options.CONFIRM_OVERWRITE;
+    }
+
+    /**
      * Sets the thumbnail creator.
      *
      * @param creator thumbnail creator
      */
-    public void setThumbnailCreator(ThumbnailCreationStrategy creator) {
+    public void setThumbnailCreationStrategy(ThumbnailCreationStrategy creator) {
         if (creator == null) {
             throw new NullPointerException("creator == null");
         }
 
-        ThumbnailCreationStrategy oldValue = getThumbnailCreator();
+        ThumbnailCreationStrategy oldValue = getThumbnailCreationStrategy();
 
         if (!creator.equals(oldValue)) {
-            properties.put(KEY_THUMBNAIL_CREATOR, creator.name());
+            properties.put(Storage.KEY_THUMBNAIL_CREATOR, creator.name());
             writeToFile();
-            EventBus.publish(new UserPropertyChangedEvent(this, KEY_THUMBNAIL_CREATOR, oldValue, creator));
+            EventBus.publish(new UserPropertyChangedEvent(this, Storage.KEY_THUMBNAIL_CREATOR, oldValue, creator));
         }
     }
 
@@ -281,9 +181,9 @@ public final class UserSettings {
      * @return thumbnail creator.
      *                   Default: {@link ThumbnailCreationStrategy#JAVA_IMAGE_IO}.
      */
-    public ThumbnailCreationStrategy getThumbnailCreator() {
-        return properties.containsKey(KEY_THUMBNAIL_CREATOR)
-                ? ThumbnailCreationStrategy.valueOf(properties.getProperty(KEY_THUMBNAIL_CREATOR))
+    public ThumbnailCreationStrategy getThumbnailCreationStrategy() {
+        return properties.containsKey(Storage.KEY_THUMBNAIL_CREATOR)
+                ? ThumbnailCreationStrategy.valueOf(properties.getProperty(Storage.KEY_THUMBNAIL_CREATOR))
                 : ThumbnailCreationStrategy.JAVA_IMAGE_IO;
     }
 
@@ -301,9 +201,9 @@ public final class UserSettings {
         String oldValue = getExternalThumbnailCreationCommand();
 
         if (!command.equals(oldValue)) {
-            settings.set(KEY_EXTERNAL_THUMBNAIL_CREATION_COMMAND, command);
+            settings.set(Storage.KEY_EXTERNAL_THUMBNAIL_CREATION_COMMAND, command);
             writeToFile();
-            EventBus.publish(new UserPropertyChangedEvent(this, KEY_EXTERNAL_THUMBNAIL_CREATION_COMMAND, oldValue, command));
+            EventBus.publish(new UserPropertyChangedEvent(this, Storage.KEY_EXTERNAL_THUMBNAIL_CREATION_COMMAND, oldValue, command));
         }
     }
 
@@ -314,7 +214,7 @@ public final class UserSettings {
      * @return command line or empty string when not defined
      */
     public String getExternalThumbnailCreationCommand() {
-        return settings.getString(KEY_EXTERNAL_THUMBNAIL_CREATION_COMMAND);
+        return settings.getString(Storage.KEY_EXTERNAL_THUMBNAIL_CREATION_COMMAND);
     }
 
     /**
@@ -373,9 +273,9 @@ public final class UserSettings {
         boolean oldValue = isDisplaySearchButton();
 
         if (display != oldValue) {
-            settings.set(KEY_DISPLAY_SEARCH_BUTTON, display);
+            settings.set(Storage.KEY_DISPLAY_SEARCH_BUTTON, display);
             writeToFile();
-            EventBus.publish(new UserPropertyChangedEvent(this, KEY_DISPLAY_SEARCH_BUTTON, oldValue, display));
+            EventBus.publish(new UserPropertyChangedEvent(this, Storage.KEY_DISPLAY_SEARCH_BUTTON, oldValue, display));
         }
     }
 
@@ -385,8 +285,8 @@ public final class UserSettings {
      * @return true, if the search button shall be displayed. Default: true.
      */
     public boolean isDisplaySearchButton() {
-        return properties.containsKey(KEY_DISPLAY_SEARCH_BUTTON)
-                ? settings.getBoolean(KEY_DISPLAY_SEARCH_BUTTON)
+        return properties.containsKey(Storage.KEY_DISPLAY_SEARCH_BUTTON)
+                ? settings.getBoolean(Storage.KEY_DISPLAY_SEARCH_BUTTON)
                 : true;
     }
 
@@ -400,9 +300,9 @@ public final class UserSettings {
         boolean oldValue = isScanForEmbeddedXmp();
 
         if (scan != oldValue) {
-            settings.set(KEY_SCAN_FOR_EMBEDDED_XMP, scan);
+            settings.set(Storage.KEY_SCAN_FOR_EMBEDDED_XMP, scan);
             writeToFile();
-            EventBus.publish(new UserPropertyChangedEvent(this, KEY_SCAN_FOR_EMBEDDED_XMP, oldValue, scan));
+            EventBus.publish(new UserPropertyChangedEvent(this, Storage.KEY_SCAN_FOR_EMBEDDED_XMP, oldValue, scan));
         }
     }
 
@@ -414,39 +314,9 @@ public final class UserSettings {
      *         Default: false.
      */
     public boolean isScanForEmbeddedXmp() {
-        return properties.containsKey(KEY_SCAN_FOR_EMBEDDED_XMP)
-                ? settings.getBoolean(KEY_SCAN_FOR_EMBEDDED_XMP)
+        return properties.containsKey(Storage.KEY_SCAN_FOR_EMBEDDED_XMP)
+                ? settings.getBoolean(Storage.KEY_SCAN_FOR_EMBEDDED_XMP)
                 : false;
-    }
-
-    /**
-     * Sets the options when copying or moving files.
-     *
-     * @param options options
-     */
-    public void setCopyMoveFilesOptions(Options options) {
-        if (options == null) {
-            throw new NullPointerException("options == null");
-        }
-
-        Options oldValue = getCopyMoveFilesOptions();
-
-        if (!options.equals(oldValue)) {
-            settings.set(KEY_OPTIONS_COPY_MOVE_FILES, options.getInt());
-            writeToFile();
-            EventBus.publish(new UserPropertyChangedEvent(this, KEY_OPTIONS_COPY_MOVE_FILES, oldValue, options));
-        }
-    }
-
-    /**
-     * Returns the options when copying or moving files.
-     *
-     * @return options. Default: CONFIRM_OVERWRITE.
-     */
-    public CopyFiles.Options getCopyMoveFilesOptions() {
-        return properties.containsKey(KEY_OPTIONS_COPY_MOVE_FILES)
-                ? CopyFiles.Options.fromInt(settings.getInt(KEY_OPTIONS_COPY_MOVE_FILES))
-                : CopyFiles.Options.CONFIRM_OVERWRITE;
     }
 
     /**
@@ -461,11 +331,11 @@ public final class UserSettings {
         boolean oldValueXmp = isExecuteActionsAfterImageChangeInDbIfImageHasXmp();
 
         if (set != oldValueAlways) {
-            settings.set(KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS, set);
-            settings.set(KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP, !set);
+            settings.set(Storage.KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS, set);
+            settings.set(Storage.KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP, !set);
             writeToFile();
-            EventBus.publish(new UserPropertyChangedEvent(set, KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS, oldValueAlways, set));
-            EventBus.publish(new UserPropertyChangedEvent(set, KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP, oldValueXmp, !set));
+            EventBus.publish(new UserPropertyChangedEvent(set, Storage.KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS, oldValueAlways, set));
+            EventBus.publish(new UserPropertyChangedEvent(set, Storage.KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP, oldValueXmp, !set));
         }
     }
 
@@ -478,8 +348,8 @@ public final class UserSettings {
      * @see    #isExecuteActionsAfterImageChangeInDbIfImageHasXmp()
      */
     public boolean isExecuteActionsAfterImageChangeInDbAlways() {
-        return properties.containsKey(KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS)
-                ? settings.getBoolean(KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS)
+        return properties.containsKey(Storage.KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS)
+                ? settings.getBoolean(Storage.KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS)
                 : false;
     }
 
@@ -495,11 +365,11 @@ public final class UserSettings {
         boolean oldValueXmp = isExecuteActionsAfterImageChangeInDbIfImageHasXmp();
 
         if (set != oldValueXmp) {
-            settings.set(KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS, !set);
-            settings.set(KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP, set);
+            settings.set(Storage.KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS, !set);
+            settings.set(Storage.KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP, set);
             writeToFile();
-            EventBus.publish(new UserPropertyChangedEvent(set, KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS, oldValueAlways, !set));
-            EventBus.publish(new UserPropertyChangedEvent(set, KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP, oldValueXmp, set));
+            EventBus.publish(new UserPropertyChangedEvent(set, Storage.KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS, oldValueAlways, !set));
+            EventBus.publish(new UserPropertyChangedEvent(set, Storage.KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP, oldValueXmp, set));
         }
     }
 
@@ -512,8 +382,8 @@ public final class UserSettings {
      * @see    #isExecuteActionsAfterImageChangeInDbAlways()
      */
     public boolean isExecuteActionsAfterImageChangeInDbIfImageHasXmp() {
-        return properties.containsKey(KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP)
-                ? settings.getBoolean(KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP)
+        return properties.containsKey(Storage.KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP)
+                ? settings.getBoolean(Storage.KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP)
                 : false;
     }
 
@@ -559,9 +429,9 @@ public final class UserSettings {
         boolean oldValue = isAutoscanIncludeSubdirectories();
 
         if (include != oldValue) {
-            settings.set(KEY_AUTO_SCAN_INCLUDE_SUBDIRECTORIES, include);
+            settings.set(Storage.KEY_AUTO_SCAN_INCLUDE_SUBDIRECTORIES, include);
             writeToFile();
-            EventBus.publish(new UserPropertyChangedEvent(this, KEY_AUTO_SCAN_INCLUDE_SUBDIRECTORIES, oldValue, include));
+            EventBus.publish(new UserPropertyChangedEvent(this, Storage.KEY_AUTO_SCAN_INCLUDE_SUBDIRECTORIES, oldValue, include));
         }
     }
 
@@ -572,8 +442,8 @@ public final class UserSettings {
      * @return true if include subdirectories. Default: true.
      */
     public boolean isAutoscanIncludeSubdirectories() {
-        return properties.containsKey(KEY_AUTO_SCAN_INCLUDE_SUBDIRECTORIES)
-                ? settings.getBoolean(KEY_AUTO_SCAN_INCLUDE_SUBDIRECTORIES)
+        return properties.containsKey(Storage.KEY_AUTO_SCAN_INCLUDE_SUBDIRECTORIES)
+                ? settings.getBoolean(Storage.KEY_AUTO_SCAN_INCLUDE_SUBDIRECTORIES)
                 : true;
     }
 
@@ -584,8 +454,8 @@ public final class UserSettings {
      * @return true if input shall be saved early
      */
     public boolean isSaveInputEarly() {
-        return properties.containsKey(KEY_SAVE_INPUT_EARLY)
-                ? settings.getBoolean(KEY_SAVE_INPUT_EARLY)
+        return properties.containsKey(Storage.KEY_SAVE_INPUT_EARLY)
+                ? settings.getBoolean(Storage.KEY_SAVE_INPUT_EARLY)
                 : true;
     }
 
@@ -599,9 +469,9 @@ public final class UserSettings {
         boolean oldValue = isSaveInputEarly();
 
         if (early != oldValue) {
-            settings.set(KEY_SAVE_INPUT_EARLY, early);
+            settings.set(Storage.KEY_SAVE_INPUT_EARLY, early);
             writeToFile();
-            EventBus.publish(new UserPropertyChangedEvent(this, KEY_SAVE_INPUT_EARLY, oldValue, early));
+            EventBus.publish(new UserPropertyChangedEvent(this, Storage.KEY_SAVE_INPUT_EARLY, oldValue, early));
         }
     }
 
@@ -619,9 +489,9 @@ public final class UserSettings {
         int oldValue = getMinutesToStartScheduledTasks();
 
         if (minutes != oldValue) {
-            settings.set(KEY_MINUTES_TO_START_SCHEDULED_TASKS, Integer.toString(minutes));
+            settings.set(Storage.KEY_MINUTES_TO_START_SCHEDULED_TASKS, Integer.toString(minutes));
             writeToFile();
-            EventBus.publish(new UserPropertyChangedEvent(this, KEY_MINUTES_TO_START_SCHEDULED_TASKS, oldValue, minutes));
+            EventBus.publish(new UserPropertyChangedEvent(this, Storage.KEY_MINUTES_TO_START_SCHEDULED_TASKS, oldValue, minutes));
         }
     }
 
@@ -633,7 +503,7 @@ public final class UserSettings {
      *         <code>DEFAULT_MINUTES_TO_START_SCHEDULED_TASKS</code>
      */
     public int getMinutesToStartScheduledTasks() {
-        int minutes = settings.getInt(KEY_MINUTES_TO_START_SCHEDULED_TASKS);
+        int minutes = settings.getInt(Storage.KEY_MINUTES_TO_START_SCHEDULED_TASKS);
 
         return (minutes > 0)
                 ? minutes
@@ -690,9 +560,9 @@ public final class UserSettings {
         Integer oldValue = getMaxSecondsToTerminateExternalPrograms();
 
         if (!seconds.equals(oldValue)) {
-            settings.set(KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS, seconds);
+            settings.set(Storage.KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS, seconds);
             writeToFile();
-            EventBus.publish(new UserPropertyChangedEvent(this, KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS, oldValue, seconds));
+            EventBus.publish(new UserPropertyChangedEvent(this, Storage.KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS, oldValue, seconds));
         }
     }
 
@@ -702,37 +572,9 @@ public final class UserSettings {
      * @return time in seconds. Default: 60.
      */
     public int getMaxSecondsToTerminateExternalPrograms() {
-        return properties.containsKey(KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS)
-                ? settings.getInt(KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS)
+        return properties.containsKey(Storage.KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS)
+                ? settings.getInt(Storage.KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS)
                 : 60;
-    }
-
-    /**
-     * Sets, whether directory choosers and -trees shall show hidden
-     * directories and if directory scans shall include them.
-     *
-     * @param accept true, if accepted
-     */
-    public void setAcceptHiddenDirectories(boolean accept) {
-        boolean oldValue = isAcceptHiddenDirectories();
-
-        if (accept != oldValue) {
-            settings.set(KEY_ACCEPT_HIDDEN_DIRECTORIES, accept);
-            writeToFile();
-            EventBus.publish(new UserPropertyChangedEvent(this, KEY_ACCEPT_HIDDEN_DIRECTORIES, oldValue, accept));
-        }
-    }
-
-    /**
-     * Returns whether directory choosers and -trees shall show hidden
-     * directories and if directory scans shall include them.
-     *
-     * @return true, if accepted. Default: false.
-     */
-    public boolean isAcceptHiddenDirectories() {
-        return properties.containsKey(KEY_ACCEPT_HIDDEN_DIRECTORIES)
-                ? settings.getBoolean(KEY_ACCEPT_HIDDEN_DIRECTORIES)
-                : false;
     }
 
     /**
@@ -802,9 +644,9 @@ public final class UserSettings {
         int oldValue = getScheduledBackupDbInterval();
 
         if (interval != oldValue) {
-            settings.set(KEY_DATABASE_BACKUP_INTERVAL, interval);
+            settings.set(Storage.KEY_DATABASE_BACKUP_INTERVAL, interval);
             writeToFile();
-            EventBus.publish(new UserPropertyChangedEvent(this, KEY_DATABASE_BACKUP_INTERVAL, oldValue, interval));
+            EventBus.publish(new UserPropertyChangedEvent(this, Storage.KEY_DATABASE_BACKUP_INTERVAL, oldValue, interval));
         }
     }
 
@@ -814,8 +656,8 @@ public final class UserSettings {
      * @return days or -1 if not set. Default: -1
      */
     public int getScheduledBackupDbInterval() {
-        return properties.containsKey(KEY_DATABASE_BACKUP_INTERVAL)
-                ? settings.getInt(KEY_DATABASE_BACKUP_INTERVAL)
+        return properties.containsKey(Storage.KEY_DATABASE_BACKUP_INTERVAL)
+                ? settings.getInt(Storage.KEY_DATABASE_BACKUP_INTERVAL)
                 : -1;
     }
 
@@ -828,9 +670,9 @@ public final class UserSettings {
         boolean oldValue = isScheduledBackupDb();
 
         if (scheduled != oldValue) {
-            settings.set(KEY_DATABASE_SCHEDULED_BACKUP, scheduled);
+            settings.set(Storage.KEY_DATABASE_SCHEDULED_BACKUP, scheduled);
             writeToFile();
-            EventBus.publish(new UserPropertyChangedEvent(this, KEY_DATABASE_SCHEDULED_BACKUP, oldValue, scheduled));
+            EventBus.publish(new UserPropertyChangedEvent(this, Storage.KEY_DATABASE_SCHEDULED_BACKUP, oldValue, scheduled));
         }
     }
 
@@ -840,8 +682,8 @@ public final class UserSettings {
      * @return true, if automized backups shall be scheduled. Default: false.
      */
     public boolean isScheduledBackupDb() {
-        return properties.containsKey(KEY_DATABASE_SCHEDULED_BACKUP)
-                ? settings.getBoolean(KEY_DATABASE_SCHEDULED_BACKUP)
+        return properties.containsKey(Storage.KEY_DATABASE_SCHEDULED_BACKUP)
+                ? settings.getBoolean(Storage.KEY_DATABASE_SCHEDULED_BACKUP)
                 : false;
     }
 
@@ -849,15 +691,15 @@ public final class UserSettings {
         boolean oldValue = isAddFilenameToGpsLocationExport();
 
         if (add != oldValue) {
-            settings.set(KEY_ADD_FILENAME_TO_GPS_LOCATION_EXPORT, add);
+            settings.set(Storage.KEY_ADD_FILENAME_TO_GPS_LOCATION_EXPORT, add);
             writeToFile();
-            EventBus.publish(new UserPropertyChangedEvent(this, KEY_ADD_FILENAME_TO_GPS_LOCATION_EXPORT, oldValue, add));
+            EventBus.publish(new UserPropertyChangedEvent(this, Storage.KEY_ADD_FILENAME_TO_GPS_LOCATION_EXPORT, oldValue, add));
         }
     }
 
     public boolean isAddFilenameToGpsLocationExport() {
-        return properties.containsKey(KEY_ADD_FILENAME_TO_GPS_LOCATION_EXPORT)
-                ? settings.getBoolean(KEY_ADD_FILENAME_TO_GPS_LOCATION_EXPORT)
+        return properties.containsKey(Storage.KEY_ADD_FILENAME_TO_GPS_LOCATION_EXPORT)
+                ? settings.getBoolean(Storage.KEY_ADD_FILENAME_TO_GPS_LOCATION_EXPORT)
                 : false;
     }
 
@@ -870,9 +712,9 @@ public final class UserSettings {
         boolean oldValue = isAutocomplete();
 
         if (enable != oldValue) {
-            settings.set(KEY_ENABLE_AUTOCOMPLETE, enable);
+            settings.set(Storage.KEY_ENABLE_AUTOCOMPLETE, enable);
             writeToFile();
-            EventBus.publish(new UserPropertyChangedEvent(this, KEY_ENABLE_AUTOCOMPLETE, oldValue, enable));
+            EventBus.publish(new UserPropertyChangedEvent(this, Storage.KEY_ENABLE_AUTOCOMPLETE, oldValue, enable));
         }
     }
 
@@ -882,8 +724,8 @@ public final class UserSettings {
      * @return true, if autocomplete shall be enabled. Default: true.
      */
     public boolean isAutocomplete() {
-        return settings.containsKey(KEY_ENABLE_AUTOCOMPLETE)
-                ? settings.getBoolean(KEY_ENABLE_AUTOCOMPLETE)
+        return settings.containsKey(Storage.KEY_ENABLE_AUTOCOMPLETE)
+                ? settings.getBoolean(Storage.KEY_ENABLE_AUTOCOMPLETE)
                 : true;
     }
 
@@ -896,9 +738,9 @@ public final class UserSettings {
         boolean oldValue = isUpdateAutocomplete();
 
         if (update != oldValue) {
-            settings.set(KEY_UPDATE_AUTOCOMPLETE, update);
+            settings.set(Storage.KEY_UPDATE_AUTOCOMPLETE, update);
             writeToFile();
-            EventBus.publish(new UserPropertyChangedEvent(this, KEY_UPDATE_AUTOCOMPLETE, oldValue, update));
+            EventBus.publish(new UserPropertyChangedEvent(this, Storage.KEY_UPDATE_AUTOCOMPLETE, oldValue, update));
         }
     }
 
@@ -908,8 +750,8 @@ public final class UserSettings {
      * @return true if update permanently
      */
     public boolean isUpdateAutocomplete() {
-        return settings.containsKey(KEY_UPDATE_AUTOCOMPLETE)
-                ? settings.getBoolean(KEY_UPDATE_AUTOCOMPLETE)
+        return settings.containsKey(Storage.KEY_UPDATE_AUTOCOMPLETE)
+                ? settings.getBoolean(Storage.KEY_UPDATE_AUTOCOMPLETE)
                 : true;
     }
 
@@ -917,15 +759,15 @@ public final class UserSettings {
         boolean oldValue = isAutocompleteFastSearchIgnoreCase();
 
         if (ignore != oldValue) {
-            settings.set(KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE, ignore);
+            settings.set(Storage.KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE, ignore);
             writeToFile();
-            EventBus.publish(new UserPropertyChangedEvent(this, KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE, oldValue, ignore));
+            EventBus.publish(new UserPropertyChangedEvent(this, Storage.KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE, oldValue, ignore));
         }
     }
 
     public boolean isAutocompleteFastSearchIgnoreCase() {
-        return settings.containsKey(KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
-                ? settings.getBoolean(KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
+        return settings.containsKey(Storage.KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
+                ? settings.getBoolean(Storage.KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
                 : false;
     }
 

@@ -18,7 +18,7 @@ import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.filefilter.RegexFileFilter;
 import org.jphototagger.lib.renderer.ListCellRendererFileSystem;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.types.FileEditor;
@@ -213,7 +213,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     }
 
     private void selectDirectories() {
-        List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(UserSettings.KEY_HIDE_ROOT_FILES_FROM_DIRECTORIES_TAB);
+        List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(Storage.KEY_HIDE_ROOT_FILES_FROM_DIRECTORIES_TAB);
         DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), prevSelectedDirectory, hideRootFiles, getDirChooserOptions());
 
         dlg.setStorageKey("FileEditorPanel.DirChooser");

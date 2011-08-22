@@ -8,7 +8,7 @@ import java.util.List;
 import org.jphototagger.domain.database.InsertIntoDatabase;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.program.database.DatabaseAutoscanDirectories;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
 import org.jphototagger.program.io.ImageFileFilterer;

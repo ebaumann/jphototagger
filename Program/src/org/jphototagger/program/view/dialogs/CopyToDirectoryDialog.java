@@ -22,7 +22,7 @@ import org.jphototagger.lib.event.listener.ProgressListener;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.SourceTargetFile;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.helper.CopyFiles;
 import org.jphototagger.program.helper.CopyFiles.Options;
@@ -145,7 +145,7 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
     }
 
     private void chooseTargetDirectory() {
-        List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(UserSettings.KEY_HIDE_ROOT_FILES_FROM_DIRECTORIES_TAB);
+        List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(Storage.KEY_HIDE_ROOT_FILES_FROM_DIRECTORIES_TAB);
         DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), targetDirectory, hideRootFiles, UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
 
         dlg.setStorageKey("CopyToDirectoryDialog.DirChooser");

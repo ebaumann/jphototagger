@@ -19,7 +19,7 @@ import org.jphototagger.domain.metadata.event.UpdateMetadataCheckEvent.Type;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.concurrent.SerialExecutor;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
 import org.jphototagger.program.view.dialogs.SettingsDialog;

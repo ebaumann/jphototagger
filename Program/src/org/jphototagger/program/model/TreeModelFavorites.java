@@ -34,7 +34,7 @@ import org.jphototagger.lib.io.TreeFileSystemDirectories;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
 import org.jphototagger.lib.model.TreeNodeSortedChildren;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.program.database.DatabaseFavorites;
 import org.openide.util.Lookup;
 

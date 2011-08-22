@@ -8,8 +8,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.program.UserSettings;
-import org.jphototagger.program.types.Filename;
+import org.jphototagger.api.core.UserFilesProvider;
+import org.jphototagger.api.file.Filename;
+import org.openide.util.Lookup;
 
 /**
  * A class for preallocating, recycling, and managing
@@ -32,57 +33,50 @@ import org.jphototagger.program.types.Filename;
  * @author Tobias Stening
  */
 public final class ConnectionPool implements Runnable {
+
     public static final ConnectionPool INSTANCE = new ConnectionPool();
     private boolean connectionPending = false;
-
     /**
      * The list of available connections
      */
     private LinkedList<Connection> availableConnections;
-
     /**
      * The list of busy connections
      */
     private LinkedList<Connection> busyConnections;
-
     /**
      * The name of the JDBC-Driver.
      */
     private String driver;
     private volatile boolean init;
-
     /**
      * The maximum number of connections.
      */
     private static final int MAX_CONNECTIONS = 15;
-
     /**
      * Number of initial connections.
      */
     private static final int INITIAL_CONNECTIONS = 3;
-
     /**
      * The database password.
      */
     private String password;
-
     /**
      * The URL of the database.
      */
     private String url;
-
     /**
      * The database username.
      */
     private String username;
-
     /**
      * Indicates, if the connection pool should wait for
      * a free connection, if all connections are busy.
      */
     private boolean waitIfBusy;
 
-    private ConnectionPool() {}
+    private ConnectionPool() {
+    }
 
     public synchronized boolean isInit() {
         return init;
@@ -97,7 +91,8 @@ public final class ConnectionPool implements Runnable {
 
         init = true;
 
-        String file = UserSettings.INSTANCE.getDatabaseFileName(Filename.FULL_PATH_NO_SUFFIX);
+        UserFilesProvider provider = Lookup.getDefault().lookup(UserFilesProvider.class);
+        String file = provider.getDatabaseFileName(Filename.FULL_PATH_NO_SUFFIX);
 
         url = "jdbc:hsqldb:file:" + file + ";shutdown=true";
         driver = "org.hsqldb.jdbcDriver";
@@ -150,7 +145,7 @@ public final class ConnectionPool implements Runnable {
             // 3) You reached maxConnections limit and waitIfBusy
             // flag is true. Then do the same thing as in second
             // part of step 1: wait for next available connection.
-            if ((totalConnections() < MAX_CONNECTIONS) &&!connectionPending) {
+            if ((totalConnections() < MAX_CONNECTIONS) && !connectionPending) {
                 makeBackgroundConnection();
             } else if (!waitIfBusy) {
                 throw new SQLException("Connection limit reached");
@@ -183,7 +178,6 @@ public final class ConnectionPool implements Runnable {
      * is established or if someone finishes with an existing
      * connection.
      */
-
     /**
      * This method starts a thread for creating a connection
      * in the background.
@@ -196,7 +190,6 @@ public final class ConnectionPool implements Runnable {
 
             connectThread.start();
         } catch (OutOfMemoryError oome) {
-
             // Give up on new connection
         }
     }
@@ -303,7 +296,6 @@ public final class ConnectionPool implements Runnable {
                 }
             }
         } catch (Exception sqle) {
-
             // Ignore errors; garbage collect anyhow
         }
     }
@@ -316,8 +308,8 @@ public final class ConnectionPool implements Runnable {
         StringBuilder info = new StringBuilder();
 
         info.append("ConnectionPool(").append(url).append(",").append(username).append(")").append(
-            ", available=").append(availableConnections.size()).append(", busy=").append(busyConnections.size()).append(
-            ", max=").append(MAX_CONNECTIONS);
+                ", available=").append(availableConnections.size()).append(", busy=").append(busyConnections.size()).append(
+                ", max=").append(MAX_CONNECTIONS);
 
         return info.toString();
     }

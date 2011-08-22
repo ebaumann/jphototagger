@@ -6,15 +6,17 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.jphototagger.api.core.UserFilesProvider;
 import org.jphototagger.domain.event.listener.impl.ProgressListenerSupport;
 import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.lib.event.ProgressEvent;
 import org.jphototagger.lib.event.listener.ProgressListener;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.openide.util.Lookup;
 
 /**
  * Deletes thumbnails without an image file in the database.
@@ -26,6 +28,7 @@ import org.jphototagger.program.view.panels.ThumbnailsPanel;
  * @author Elmar Baumann
  */
 public final class DeleteOrphanedThumbnails implements Runnable, Cancelable {
+
     private final ProgressListenerSupport ls = new ProgressListenerSupport();
     private int countFilesInDir = 0;
     private int countDeleted = 0;
@@ -53,7 +56,8 @@ public final class DeleteOrphanedThumbnails implements Runnable, Cancelable {
     @Override
     public void run() {
         Set<File> imageFilesExisting = DatabaseImageFiles.INSTANCE.getAllThumbnailFiles();
-        File[] filesInDir = new File(UserSettings.INSTANCE.getThumbnailsDirectoryName()).listFiles();
+        UserFilesProvider provider = Lookup.getDefault().lookup(UserFilesProvider.class);
+        File[] filesInDir = provider.getThumbnailsDirectory().listFiles();
         ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
         boolean isDelete = false;
         File fileInDir = null;

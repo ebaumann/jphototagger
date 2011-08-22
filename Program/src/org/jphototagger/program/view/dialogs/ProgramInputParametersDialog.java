@@ -5,7 +5,7 @@ import java.awt.Container;
 import org.jphototagger.api.core.Storage;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
-import org.jphototagger.program.UserSettings;
+import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.program.resource.GUI;
 import org.openide.util.Lookup;
 
