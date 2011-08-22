@@ -1,4 +1,4 @@
-package org.jphototagger.lib.util;
+package org.jphototagger.api.core;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7,15 +7,10 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Hints for the class {@link Settings}.
- *
- * All functions with object-reference-parameters are throwing a
- * <code>NullPointerException</code> if an object reference is null and it is
- * not documentet that it can be null.
  *
  * @author Elmar Baumann
  */
-public final class SettingsHints {
+public final class StorageHints {
     private final List<String> excludedKeys = new ArrayList<String>();
     private final Set<Option> options;
 
@@ -28,11 +23,11 @@ public final class SettingsHints {
         SET_TABBED_PANE_CONTENT,
     }
 
-    public SettingsHints() {
+    public StorageHints() {
         options = EnumSet.noneOf(Option.class);
     }
 
-    public SettingsHints(Option... options) {
+    public StorageHints(Option... options) {
         if (options == null) {
             throw new NullPointerException("options == null");
         }
@@ -58,7 +53,7 @@ public final class SettingsHints {
         excludedKeys.remove(key);
     }
 
-    boolean isSet(String key) {
+    public boolean isSet(String key) {
         if (key == null) {
             throw new NullPointerException("key == null");
         }
@@ -66,7 +61,7 @@ public final class SettingsHints {
         return !excludedKeys.contains(key);
     }
 
-    boolean isOption(Option option) {
+    public boolean isOption(Option option) {
         if (option == null) {
             throw new NullPointerException("option == null");
         }

@@ -1,8 +1,9 @@
 package org.jphototagger.program.view.dialogs;
 
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.lib.dialog.Dialog;
-import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.resource.GUI;
+import org.openide.util.Lookup;
 
 /**
  * Holds a {@link org.jphototagger.program.view.panels.RenameFilenamesInDbPanel}.
@@ -20,7 +21,12 @@ public class RenameFilenamesInDbDialog extends Dialog {
 
     private void postInitComponents() {
         setHelpPage();
-        UserSettings.INSTANCE.getSettings().applySizeAndLocation(this);
+
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        String key = RenameFilenamesInDbDialog.class.getName();
+
+        storage.applySize(key, this);
+        storage.applyLocation(key, this);
     }
 
     private void setHelpPage() {
@@ -100,12 +106,14 @@ public class RenameFilenamesInDbDialog extends Dialog {
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 RenameFilenamesInDbDialog dialog =
-                    new RenameFilenamesInDbDialog();
+                        new RenameFilenamesInDbDialog();
 
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
@@ -115,7 +123,6 @@ public class RenameFilenamesInDbDialog extends Dialog {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jphototagger.program.view.panels.RenameFilenamesInDbPanel panelDbFilenameReplace;
     // End of variables declaration//GEN-END:variables

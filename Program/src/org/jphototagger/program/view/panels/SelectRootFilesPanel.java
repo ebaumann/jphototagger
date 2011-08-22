@@ -14,9 +14,9 @@ import java.util.logging.Logger;
 
 import javax.swing.JCheckBox;
 
-import org.jphototagger.lib.util.Settings;
-import org.jphototagger.program.UserSettings;
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.program.types.Persistence;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -24,6 +24,7 @@ import org.jphototagger.program.types.Persistence;
  * @author Elmar Baumann
  */
 public class SelectRootFilesPanel extends javax.swing.JPanel implements Persistence {
+
     private static final long serialVersionUID = 1L;
     private final Map<JCheckBox, File> ROOT_FILE_OF_CHECKBOX = new HashMap<JCheckBox, File>();
     private String persistenceKey = "SelectRootFilesPanel";
@@ -91,8 +92,8 @@ public class SelectRootFilesPanel extends javax.swing.JPanel implements Persiste
 
     public static List<File> readPersistentRootFiles(String key) {
         List<File> rootFiles = new ArrayList<File>();
-        Settings settings = UserSettings.INSTANCE.getSettings();
-        List<String> rootFilePaths = settings.getStringCollection(key);
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        List<String> rootFilePaths = storage.getStringCollection(key);
 
         for (String rootFilePath : rootFilePaths) {
             File rootFile = new File(rootFilePath);
@@ -105,8 +106,8 @@ public class SelectRootFilesPanel extends javax.swing.JPanel implements Persiste
 
     @Override
     public void readProperties() {
-        Settings settings = UserSettings.INSTANCE.getSettings();
-        List<String> rootFilePaths = settings.getStringCollection(persistenceKey);
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        List<String> rootFilePaths = storage.getStringCollection(persistenceKey);
         Set<JCheckBox> checkBoxes = ROOT_FILE_OF_CHECKBOX.keySet();
 
         boolean prevListenToCheckBoxSelection = listenToCheckBoxSelection;
@@ -123,18 +124,17 @@ public class SelectRootFilesPanel extends javax.swing.JPanel implements Persiste
 
     @Override
     public void writeProperties() {
-        Settings settings = UserSettings.INSTANCE.getSettings();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
         List<File> selectedRootFiles = getSelectedRootFiles();
         List<String> selectedRootFilePaths = new ArrayList<String>(selectedRootFiles.size());
 
-        settings.removeKey(persistenceKey);
+        storage.removeKey(persistenceKey);
 
         for (File selectedRootFile : selectedRootFiles) {
             selectedRootFilePaths.add(selectedRootFile.getAbsolutePath());
         }
 
-        settings.setStringCollection(persistenceKey, selectedRootFilePaths);
-        UserSettings.INSTANCE.writeToFile();
+        storage.setStringCollection(persistenceKey, selectedRootFilePaths);
     }
 
     private class CheckBoxSelectionListener implements ActionListener {
@@ -151,7 +151,6 @@ public class SelectRootFilesPanel extends javax.swing.JPanel implements Persiste
                 writeProperties();
             }
         }
-
     }
 
     /** This method is called from within the constructor to
@@ -167,5 +166,4 @@ public class SelectRootFilesPanel extends javax.swing.JPanel implements Persiste
     }//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
-
 }

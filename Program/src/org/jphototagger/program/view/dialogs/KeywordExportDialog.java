@@ -5,15 +5,15 @@ import java.io.File;
 
 import javax.swing.JFileChooser;
 
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.lib.util.Settings;
-import org.jphototagger.program.UserSettings;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.exporter.Exporter;
 import org.jphototagger.program.model.ComboBoxModelKeywordsExporters;
 import org.jphototagger.program.resource.GUI;
+import org.openide.util.Lookup;
 
 /**
  * Modal dialog for exporting keywords.
@@ -123,11 +123,11 @@ public class KeywordExportDialog extends Dialog {
     }
 
     private void readProperties() {
-        Settings settings = UserSettings.INSTANCE.getSettings();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
 
-        settings.applySelectedIndex(KEY_SEL_EXPORTER_INDEX, comboBoxExporter);
+        storage.applySelectedIndex(KEY_SEL_EXPORTER_INDEX, comboBoxExporter);
 
-        File prevExpFile = new File(settings.getString(KEY_PREV_EXPORT_FILE));
+        File prevExpFile = new File(storage.getString(KEY_PREV_EXPORT_FILE));
 
         if ((prevExpFile.getParentFile() != null) && prevExpFile.getParentFile().isDirectory()) {
             file = prevExpFile;
@@ -137,12 +137,12 @@ public class KeywordExportDialog extends Dialog {
     }
 
     private void writeProperties() {
-        Settings settings = UserSettings.INSTANCE.getSettings();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
 
-        settings.setSelectedIndex(KEY_SEL_EXPORTER_INDEX, comboBoxExporter);
+        storage.setSelectedIndex(KEY_SEL_EXPORTER_INDEX, comboBoxExporter);
 
         if ((file != null) && file.isFile()) {
-            settings.set(KEY_PREV_EXPORT_FILE, file.getAbsolutePath());
+            storage.setString(KEY_PREV_EXPORT_FILE, file.getAbsolutePath());
         }
     }
 

@@ -583,8 +583,6 @@ public final class TreeModelFavorites extends DefaultTreeModel implements TreeWi
             storage.removeKey(KEY_SELECTED_DIR);
             storage.removeKey(KEY_SELECTED_FAV_NAME);
         }
-
-        UserSettings.INSTANCE.writeToFile();
     }
 
     private Favorite getParentFavDir(DefaultMutableTreeNode childNode) {

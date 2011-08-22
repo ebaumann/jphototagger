@@ -178,7 +178,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
         Storage storage = Lookup.getDefault().lookup(Storage.class);
 
         if (storage.containsKey(KEY_SELECTED_TAB_INDEX)) {
-            tabbedPane.setSelectedIndex(UserSettings.INSTANCE.getSettings().getInt(KEY_SELECTED_TAB_INDEX));
+            tabbedPane.setSelectedIndex(storage.getInt(KEY_SELECTED_TAB_INDEX));
         }
     }
 

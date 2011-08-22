@@ -129,7 +129,7 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
     }
 
     /**
-     * Returns the "real" object count (i.e. <em>not</em> the object count set
+     * Returns the "real" object count (i.e. <em>not</em> the object count setTree
      * via {@link #setObjectCount(int)}).
      *
      * @return object count
@@ -175,7 +175,7 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
      * Sets, how often {@link #add(java.lang.Object, java.lang.String)} will be
      * called.
      * <p>
-     * If set, the layout manager ensures, that the check boxes are not
+     * If setTree, the layout manager ensures, that the check boxes are not
      * centered within this panel but aligned to the top left edge of this
      * panel.
      * <p>
@@ -225,7 +225,7 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
     }
 
     /**
-     * Selects all check boxes if their index is in the properties set via
+     * Selects all check boxes if their index is in the properties setTree via
      * {@link SelectObjectsPanel#SelectObjectsPanel(Properties, String)}
      */
     public void applyPropertiesSelectedIndices() {

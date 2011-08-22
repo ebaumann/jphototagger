@@ -2,10 +2,12 @@ package org.jphototagger.program.view.dialogs;
 
 import java.awt.Container;
 
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.resource.GUI;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -51,10 +53,12 @@ public final class ProgramInputParametersDialog extends Dialog {
 
     @Override
     public void setVisible(boolean visible) {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
         if (visible) {
-            UserSettings.INSTANCE.getSettings().applySettings(this, UserSettings.SET_TABBED_PANE_SETTINGS);
+            storage.applyComponentSettings(this, UserSettings.SET_TABBED_PANE_SETTINGS);
         } else {
-            UserSettings.INSTANCE.getSettings().set(this, UserSettings.SET_TABBED_PANE_SETTINGS);
+            storage.setComponent(this, UserSettings.SET_TABBED_PANE_SETTINGS);
         }
 
         super.setVisible(visible);

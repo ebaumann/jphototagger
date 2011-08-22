@@ -1,8 +1,11 @@
 package org.jphototagger.program.controller.misc;
 
+import java.awt.Component;
 import org.jphototagger.program.UserSettings;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import org.jphototagger.api.core.Storage;
+import org.openide.util.Lookup;
 
 /**
  * Listens to <code>windowOpend()</code> and <code>windowClosing()</code> and
@@ -15,14 +18,24 @@ import java.awt.event.WindowEvent;
  * @author Elmar Baumann
  */
 public final class SizeAndLocationController extends WindowAdapter {
+
     @Override
     public void windowOpened(WindowEvent evt) {
-        UserSettings.INSTANCE.getSettings().applySizeAndLocation(evt.getComponent());
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Component component = evt.getComponent();
+        String key = component.getClass().getName();
+
+        storage.applySize(key, component);
+        storage.applyLocation(key, component);
     }
 
     @Override
     public void windowClosing(WindowEvent evt) {
-        UserSettings.INSTANCE.getSettings().setSizeAndLocation(evt.getComponent());
-        UserSettings.INSTANCE.writeToFile();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Component component = evt.getComponent();
+        String key = component.getClass().getName();
+
+        storage.setSize(key, component);
+        storage.setLocation(key, component);
     }
 }

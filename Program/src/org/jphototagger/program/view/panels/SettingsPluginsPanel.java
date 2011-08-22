@@ -14,15 +14,16 @@ import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.HelpBrowser;
 import org.jphototagger.plugin.AbstractFileProcessorPlugin;
-import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.factory.FileProcessorPluginManager;
 import org.jphototagger.program.factory.PluginManager;
 import org.jphototagger.program.types.Persistence;
 import org.jphototagger.api.plugin.Plugin;
+import org.openide.util.Lookup;
 
 /**
  * Dynamically adds panels of plugins ({@link AbstractFileProcessorPlugin#getSettingsComponent()}).
@@ -114,13 +115,16 @@ public class SettingsPluginsPanel extends javax.swing.JPanel implements ChangeLi
 
     @Override
     public void readProperties() {
-        UserSettings.INSTANCE.getSettings().applySettings(KEY_TABBED_PANE, tabbedPane, null);
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.applyTabbedPaneSettings(KEY_TABBED_PANE, tabbedPane, null);
     }
 
     @Override
     public void writeProperties() {
-        UserSettings.INSTANCE.getSettings().set(KEY_TABBED_PANE, tabbedPane, null);
-        UserSettings.INSTANCE.writeToFile();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.setTabbedPane(KEY_TABBED_PANE, tabbedPane, null);
     }
 
     private static class ActionExcludePlugin<T extends Plugin> extends AbstractAction {

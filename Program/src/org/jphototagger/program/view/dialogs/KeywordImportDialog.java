@@ -5,13 +5,13 @@ import java.io.File;
 
 import javax.swing.JFileChooser;
 
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
-import org.jphototagger.lib.util.Settings;
-import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.importer.KeywordsImporter;
 import org.jphototagger.program.model.ComboBoxModelKeywordsImporters;
 import org.jphototagger.program.resource.GUI;
+import org.openide.util.Lookup;
 
 /**
  * Modal dialog for importing keywords.
@@ -123,11 +123,11 @@ public class KeywordImportDialog extends Dialog {
     }
 
     private void readProperties() {
-        Settings settings = UserSettings.INSTANCE.getSettings();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
 
-        settings.applySelectedIndex(KEY_SEL_IMPORTER_INDEX, comboBoxImporter);
+        storage.applySelectedIndex(KEY_SEL_IMPORTER_INDEX, comboBoxImporter);
 
-        File prevImpFile = new File(settings.getString(KEY_PREV_IMPORT_FILE));
+        File prevImpFile = new File(storage.getString(KEY_PREV_IMPORT_FILE));
 
         if (prevImpFile.isFile()) {
             file = prevImpFile;
@@ -137,12 +137,12 @@ public class KeywordImportDialog extends Dialog {
     }
 
     private void writeProperties() {
-        Settings settings = UserSettings.INSTANCE.getSettings();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
 
-        settings.setSelectedIndex(KEY_SEL_IMPORTER_INDEX, comboBoxImporter);
+        storage.setSelectedIndex(KEY_SEL_IMPORTER_INDEX, comboBoxImporter);
 
         if ((file != null) && file.isFile()) {
-            settings.set(KEY_PREV_IMPORT_FILE, file.getAbsolutePath());
+            storage.setString(KEY_PREV_IMPORT_FILE, file.getAbsolutePath());
         }
     }
 

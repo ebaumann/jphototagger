@@ -15,8 +15,7 @@ import org.jphototagger.api.core.Storage;
 import org.jphototagger.domain.event.AppWillExitEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.ComponentUtil;
-import org.jphototagger.lib.util.Settings;
-import org.jphototagger.lib.util.SettingsHints;
+import org.jphototagger.api.core.StorageHints;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.frames.AppFrame;
@@ -74,8 +73,9 @@ public final class AppWindowPersistence implements ComponentListener {
         assert isSelKeywordsCard && knownCardName : c;
 
         if (isSelKeywordsCard && knownCardName) {
-            UserSettings.INSTANCE.getSettings().set(KEY_KEYWORDS_VIEW, NAME_OF_CARD.get(c));
-            UserSettings.INSTANCE.writeToFile();
+            Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+            storage.setString(KEY_KEYWORDS_VIEW, NAME_OF_CARD.get(c));
         }
     }
 
@@ -85,9 +85,14 @@ public final class AppWindowPersistence implements ComponentListener {
 
     public void readAppFrameFromProperties() {
         final AppFrame appFrame = GUI.getAppFrame();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        String key = appFrame.getClass().getName();
 
-        UserSettings.INSTANCE.getSettings().applySizeAndLocation(appFrame);
+        storage.applySize(key, appFrame);
+        storage.applyLocation(key, appFrame);
+
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 appFrame.pack();
@@ -97,11 +102,13 @@ public final class AppWindowPersistence implements ComponentListener {
 
     public void readAppPanelFromProperties() {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 AppPanel appPanel = GUI.getAppPanel();
+                Storage storage = Lookup.getDefault().lookup(Storage.class);
 
-                UserSettings.INSTANCE.getSettings().applySettings(appPanel, getAppPanelSettingsHints());
+                storage.applyComponentSettings(appPanel, getAppPanelSettingsHints());
                 appPanel.setEnabledIptcTab(UserSettings.INSTANCE.isDisplayIptc());
                 setInitKeywordsView(appPanel);
                 selectFastSearch(appPanel);
@@ -109,16 +116,16 @@ public final class AppWindowPersistence implements ComponentListener {
         });
     }
 
-    private static SettingsHints getAppPanelSettingsHints() {
-        SettingsHints hints = new SettingsHints();
+    private static StorageHints getAppPanelSettingsHints() {
+        StorageHints hints = new StorageHints();
 
-        // Lists set by readList...() / writeListProperties() or other classes
+        // Lists setTree by readList...() / writeListProperties() or other classes
         hints.addKeyToExclude(AppPersistenceKeys.APP_PANEL_LIST_IMAGE_COLLECTIONS);
         hints.addKeyToExclude(AppPersistenceKeys.APP_PANEL_LIST_NO_METADATA);
         hints.addKeyToExclude(AppPersistenceKeys.APP_PANEL_LIST_SAVED_SEARCHES);
         hints.addKeyToExclude(AppPersistenceKeys.APP_PANEL_LIST_SEL_KEYWORDS);
 
-        // Trees set by readTree...() / writeTreeProperties() or other classes
+        // Trees setTree by readTree...() / writeTreeProperties() or other classes
         hints.addKeyToExclude(AppPersistenceKeys.APP_PANEL_TREE_DIRECTORIES);
         hints.addKeyToExclude(AppPersistenceKeys.APP_PANEL_TREE_EDIT_KEYWORDS);
         hints.addKeyToExclude(AppPersistenceKeys.APP_PANEL_TREE_FAVORITES);
@@ -172,17 +179,16 @@ public final class AppWindowPersistence implements ComponentListener {
 
     private void writeAppProperties() {
         AppPanel appPanel = GUI.getAppPanel();
-        Settings settings = UserSettings.INSTANCE.getSettings();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
 
-        settings.set(appPanel, getAppPanelSettingsHints());
-        settings.set(KEY_DIVIDER_LOCATION_MAIN, appPanel.getSplitPaneMain().getDividerLocation());
-        settings.set(KEY_DIVIDER_LOCATION_THUMBNAILS, appPanel.getSplitPaneThumbnailsMetadata().getDividerLocation());
+        storage.setComponent(appPanel, getAppPanelSettingsHints());
+        storage.setInt(KEY_DIVIDER_LOCATION_MAIN, appPanel.getSplitPaneMain().getDividerLocation());
+        storage.setInt(KEY_DIVIDER_LOCATION_THUMBNAILS, appPanel.getSplitPaneThumbnailsMetadata().getDividerLocation());
         appPanel.getPanelEditKeywords().writeProperties();
 
-        // Later than settings.set(appPanel, null)!
+        // Later than settings.setTree(appPanel, null)!
         writeTreeProperties(appPanel);
         writeListProperties(appPanel);
-        UserSettings.INSTANCE.writeToFile();
     }
 
     /**
@@ -249,11 +255,15 @@ public final class AppWindowPersistence implements ComponentListener {
     }
 
     private static void read(JTree tree, String key) {
-        UserSettings.INSTANCE.getSettings().applySettings(key, tree);
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.applyTreeSettings(key, tree);
     }
 
     private static void read(JList list, String key) {
-        UserSettings.INSTANCE.getSettings().applySelectedIndices(key, list);
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.applySelectedIndices(key, list);
     }
 
     // Independent from renamings
@@ -275,28 +285,29 @@ public final class AppWindowPersistence implements ComponentListener {
     }
 
     private void write(JTree tree, String key) {
-        UserSettings.INSTANCE.getSettings().set(key, tree);
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.setTree(key, tree);
     }
 
     private void write(JList list, String key) {
-        UserSettings.INSTANCE.getSettings().setSelectedIndices(key, list);
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.setSelectedIndices(key, list);
     }
 
     @Override
     public void componentResized(ComponentEvent evt) {
-
         // ignore
     }
 
     @Override
     public void componentMoved(ComponentEvent evt) {
-
         // ignore
     }
 
     @Override
     public void componentHidden(ComponentEvent evt) {
-
         // ignore
     }
 }

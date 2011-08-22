@@ -11,7 +11,7 @@ import org.jphototagger.lib.dialog.DirectoryChooser;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
 import org.jphototagger.lib.util.PropertiesFile;
 import org.jphototagger.lib.util.Settings;
-import org.jphototagger.lib.util.SettingsHints;
+import org.jphototagger.api.core.StorageHints;
 import org.jphototagger.program.app.AppInfo;
 import org.jphototagger.program.app.update.UpdateUserSettings;
 import org.jphototagger.program.helper.CopyFiles;
@@ -59,7 +59,7 @@ public final class UserSettings {
     public static final int DEFAULT_THUMBNAIL_WIDTH = 150;
     // NEVER CHANGE PROPERTIES_FILENAME!
     private static final String PROPERTIES_FILENAME = "Settings.properties";
-    public static final SettingsHints SET_TABBED_PANE_SETTINGS = new SettingsHints(SettingsHints.Option.SET_TABBED_PANE_CONTENT);
+    public static final StorageHints SET_TABBED_PANE_SETTINGS = new StorageHints(StorageHints.Option.SET_TABBED_PANE_CONTENT);
     public static final UserSettings INSTANCE = new UserSettings();
     private final Properties properties = new Properties();
     private final PropertiesFile propertiesFile = new PropertiesFile(DOMAIN_NAME, AppInfo.PROJECT_NAME, PROPERTIES_FILENAME, properties);
@@ -72,18 +72,7 @@ public final class UserSettings {
         writeToFile();
     }
 
-    /**
-     * Returns the settings object instanciated with the properties file of
-     * this class.
-     * <p>
-     * If You are modifying the properties through the settings (calling a
-     * setter of the class <code>Settings</code>) rather than through a setter
-     * of this class, You have to call {@link #writeToFile()} to make the
-     * changes persistent.
-     *
-     * @return settings
-     */
-    public Settings getSettings() {
+    Settings getSettings() {
         return settings;
     }
 
@@ -94,7 +83,7 @@ public final class UserSettings {
      * properties.
      *
      */
-    public void writeToFile() {
+    void writeToFile() {
         try {
             propertiesFile.writeToFile();
         } catch (Exception ex) {

@@ -167,9 +167,7 @@ public final class GPSLocationExportUtil {
     private static synchronized void setCurrentDir(File dir) {
         Storage storage = Lookup.getDefault().lookup(Storage.class);
 
-        if (StorageUtil.setDirectory(storage, KEY_CURRENT_DIR, dir)) {
-            UserSettings.INSTANCE.writeToFile();
-        }
+        StorageUtil.setDirectory(storage, KEY_CURRENT_DIR, dir);
     }
 
     private GPSLocationExportUtil() {

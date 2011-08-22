@@ -10,12 +10,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.bushe.swing.event.EventBus;
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.api.modules.Module;
 import org.jphototagger.domain.event.AppWillExitEvent;
 import org.jphototagger.domain.event.listener.impl.ListenerSupport;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.database.DatabaseMaintainance;
 import org.jphototagger.program.factory.MetaFactory;
 import org.jphototagger.program.helper.Cleanup;
@@ -268,8 +268,11 @@ public final class AppLifeCycle {
     }
 
     private void writeProperties() {
-        UserSettings.INSTANCE.getSettings().setSizeAndLocation(appFrame);
-        UserSettings.INSTANCE.writeToFile();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        String key = appFrame.getClass().getName();
+
+        storage.setSize(key, appFrame);
+        storage.setLocation(key, appFrame);
     }
 
     public interface FinalTaskListener {

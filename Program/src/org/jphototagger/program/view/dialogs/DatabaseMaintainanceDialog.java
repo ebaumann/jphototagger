@@ -1,11 +1,13 @@
 package org.jphototagger.program.view.dialogs;
 
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.lib.componentutil.TabbedPaneUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.resource.GUI;
+import org.openide.util.Lookup;
 
 /**
  * Modaler Dialog zur Wartung der Thumbnaildatenbank.
@@ -31,10 +33,12 @@ public final class DatabaseMaintainanceDialog extends Dialog {
 
     @Override
     public void setVisible(boolean visible) {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
         if (visible) {
-            UserSettings.INSTANCE.getSettings().applySettings(this, UserSettings.SET_TABBED_PANE_SETTINGS);
+            storage.applyComponentSettings(this, UserSettings.SET_TABBED_PANE_SETTINGS);
         } else {
-            UserSettings.INSTANCE.getSettings().set(this, UserSettings.SET_TABBED_PANE_SETTINGS);
+            storage.setComponent(this, UserSettings.SET_TABBED_PANE_SETTINGS);
         }
 
         panelMaintainance.getsVisible(visible);
@@ -44,7 +48,9 @@ public final class DatabaseMaintainanceDialog extends Dialog {
 
     private void close() {
         if (panelMaintainance.canClose()) {
-            UserSettings.INSTANCE.getSettings().set(this, UserSettings.SET_TABBED_PANE_SETTINGS);
+            Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+            storage.setComponent(this, UserSettings.SET_TABBED_PANE_SETTINGS);
             setVisible(false);
         } else {
             String message = Bundle.getString(DatabaseMaintainanceDialog.class, "DatabaseMaintainanceDialog.Error.WaitBeforeClose");

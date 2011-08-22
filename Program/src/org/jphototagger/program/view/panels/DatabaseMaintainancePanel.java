@@ -13,13 +13,12 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.lib.event.ProgressEvent;
 import org.jphototagger.lib.event.listener.ProgressListener;
-import org.jphototagger.lib.util.Settings;
-import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.helper.CompressDatabase;
@@ -27,6 +26,7 @@ import org.jphototagger.program.helper.DeleteNotReferenced1n;
 import org.jphototagger.program.helper.DeleteOrphanedThumbnails;
 import org.jphototagger.program.helper.DeleteOrphanedXmp;
 import org.jphototagger.program.helper.DeleteUnusedKeywords;
+import org.openide.util.Lookup;
 
 /**
  * Database maintainance tasks.
@@ -77,13 +77,13 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
         labelOfCheckBox.put(checkBoxDeleteUnusedKeywords, labelFinishedDeleteUnusedKeywords);
         labelOfCheckBox.put(checkBoxDeleteNotReferenced1n, labelFinishedDeleteNotReferenced1n);
 
-        Settings settings = UserSettings.INSTANCE.getSettings();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
 
-        checkBoxCompressDatabase.setSelected(settings.getBoolean(KEY_COMPRESS_DB));
-        checkBoxDeleteOrphanedThumbnails.setSelected(settings.getBoolean(KEY_DEL_ORPHANED_THUMBS));
-        checkBoxDeleteRecordsOfNotExistingFilesInDatabase.setSelected(settings.getBoolean(KEY_DEL_RECORDS_OF_NOT_EX_FILES));
-        checkBoxDeleteUnusedKeywords.setSelected(settings.getBoolean(KEY_DEL_UNUSED_KEYWORDS));
-        checkBoxDeleteNotReferenced1n.setSelected(settings.getBoolean(KEY_DEL_NOT_REF_1_N));
+        checkBoxCompressDatabase.setSelected(storage.getBoolean(KEY_COMPRESS_DB));
+        checkBoxDeleteOrphanedThumbnails.setSelected(storage.getBoolean(KEY_DEL_ORPHANED_THUMBS));
+        checkBoxDeleteRecordsOfNotExistingFilesInDatabase.setSelected(storage.getBoolean(KEY_DEL_RECORDS_OF_NOT_EX_FILES));
+        checkBoxDeleteUnusedKeywords.setSelected(storage.getBoolean(KEY_DEL_UNUSED_KEYWORDS));
+        checkBoxDeleteNotReferenced1n.setSelected(storage.getBoolean(KEY_DEL_NOT_REF_1_N));
     }
 
     private void setProgressbarStart(ProgressEvent evt) {
@@ -558,16 +558,16 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
     }//GEN-END:initComponents
 
     private void checkBoxDeleteRecordsOfNotExistingFilesInDatabaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDeleteRecordsOfNotExistingFilesInDatabaseActionPerformed
-        UserSettings.INSTANCE.getSettings().set(
-            KEY_DEL_RECORDS_OF_NOT_EX_FILES, checkBoxDeleteRecordsOfNotExistingFilesInDatabase.isSelected());
-        UserSettings.INSTANCE.writeToFile();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.setBoolean(KEY_DEL_RECORDS_OF_NOT_EX_FILES, checkBoxDeleteRecordsOfNotExistingFilesInDatabase.isSelected());
         checkCheckboxes();
     }//GEN-LAST:event_checkBoxDeleteRecordsOfNotExistingFilesInDatabaseActionPerformed
 
     private void checkBoxCompressDatabaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxCompressDatabaseActionPerformed
-        UserSettings.INSTANCE.getSettings().set(
-            KEY_COMPRESS_DB, checkBoxCompressDatabase.isSelected());
-        UserSettings.INSTANCE.writeToFile();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.setBoolean(KEY_COMPRESS_DB, checkBoxCompressDatabase.isSelected());
         checkCheckboxes();
     }//GEN-LAST:event_checkBoxCompressDatabaseActionPerformed
 
@@ -584,26 +584,25 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
     }//GEN-LAST:event_buttonDeleteMessagesActionPerformed
 
     private void checkBoxDeleteOrphanedThumbnailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDeleteOrphanedThumbnailsActionPerformed
-        UserSettings.INSTANCE.getSettings().set(
-            KEY_DEL_ORPHANED_THUMBS, checkBoxDeleteOrphanedThumbnails.isSelected());
-        UserSettings.INSTANCE.writeToFile();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.setBoolean(KEY_DEL_ORPHANED_THUMBS, checkBoxDeleteOrphanedThumbnails.isSelected());
         checkCheckboxes();
     }//GEN-LAST:event_checkBoxDeleteOrphanedThumbnailsActionPerformed
 
     private void checkBoxDeleteUnusedKeywordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDeleteUnusedKeywordsActionPerformed
-        UserSettings.INSTANCE.getSettings().set(
-            KEY_DEL_UNUSED_KEYWORDS, checkBoxDeleteUnusedKeywords.isSelected());
-        UserSettings.INSTANCE.writeToFile();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.setBoolean(KEY_DEL_UNUSED_KEYWORDS, checkBoxDeleteUnusedKeywords.isSelected());
         checkCheckboxes();
     }//GEN-LAST:event_checkBoxDeleteUnusedKeywordsActionPerformed
 
     private void checkBoxDeleteNotReferenced1nActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDeleteNotReferenced1nActionPerformed
-        UserSettings.INSTANCE.getSettings().set(
-            KEY_DEL_NOT_REF_1_N, checkBoxDeleteNotReferenced1n.isSelected());
-        UserSettings.INSTANCE.writeToFile();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.setBoolean(KEY_DEL_NOT_REF_1_N, checkBoxDeleteNotReferenced1n.isSelected());
         checkCheckboxes();
     }//GEN-LAST:event_checkBoxDeleteNotReferenced1nActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCancelAction;
     private javax.swing.JButton buttonDeleteMessages;

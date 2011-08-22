@@ -1,9 +1,7 @@
 package org.jphototagger.program.app.update.tables;
 
 import org.jphototagger.lib.util.Version;
-import org.jphototagger.program.app.AppInfo;
 import org.jphototagger.program.app.update.tables.v0.UpdateTablesV0;
-import org.jphototagger.program.database.DatabaseApplicationProperties;
 import org.jphototagger.program.database.DatabaseMetadata;
 import org.jphototagger.program.UserSettings;
 import java.sql.Connection;
@@ -11,6 +9,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
+import org.jphototagger.api.core.Storage;
+import org.openide.util.Lookup;
 
 /**
  * Creates updaters for updating an older database version and let them updatePostCreation
@@ -19,6 +19,7 @@ import java.util.logging.Level;
  * @author Elmar Baumann
  */
 public final class UpdateTablesFactory {
+
     public static final UpdateTablesFactory INSTANCE = new UpdateTablesFactory();
     private final List<Updater> allUpdaters = new ArrayList<Updater>();
     private final List<Updater> runningUpdaters = new ArrayList<Updater>();
@@ -84,8 +85,8 @@ public final class UpdateTablesFactory {
          * info into the database. In that case, every upater has to be created.
          */
         return (dbVersion == null)
-               ? true
-               : version >= Version.parseVersion(dbVersion, ".").getMajor();
+                ? true
+                : version >= Version.parseVersion(dbVersion, ".").getMajor();
     }
 
     /**
@@ -97,7 +98,9 @@ public final class UpdateTablesFactory {
      * @return true, if an updatePostCreation shall be forced
      */
     private static boolean isForceUpdate() {
-        return UserSettings.INSTANCE.getSettings().getBoolean("UdateTables.ForceUpdate");
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.getBoolean("UdateTables.ForceUpdate");
     }
 
     /**

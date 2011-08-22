@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.JScrollPane;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.core.Storage;
@@ -17,8 +18,8 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.comparator.ComparatorFilesNoSort;
 import org.jphototagger.lib.comparator.FileSort;
 import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.openide.util.Lookup;
 
@@ -75,9 +76,9 @@ public final class ControllerThumbnailsPanelPersistence {
 
     private void writeSelectionToProperties(List<File> selectedImageFiles) {
         List<String> absolutePathnames = FileUtil.getAbsolutePathnames(selectedImageFiles);
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
 
-        UserSettings.INSTANCE.getSettings().setStringCollection(KEY_SELECTED_FILES, absolutePathnames);
-        UserSettings.INSTANCE.writeToFile();
+        storage.setStringCollection(KEY_SELECTED_FILES, absolutePathnames);
     }
 
     private void readSelectedFilesFromProperties() {
@@ -96,8 +97,9 @@ public final class ControllerThumbnailsPanelPersistence {
     }
 
     private void readProperties() {
-        persistentSelectedFiles =
-                FileUtil.getStringsAsFiles(UserSettings.INSTANCE.getSettings().getStringCollection(KEY_SELECTED_FILES));
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        persistentSelectedFiles = FileUtil.getStringsAsFiles(storage.getStringCollection(KEY_SELECTED_FILES));
         readSortFromProperties();
     }
 
@@ -110,7 +112,9 @@ public final class ControllerThumbnailsPanelPersistence {
         Class<?> sortClass = cmp.getClass();
 
         if (!sortClass.equals(ComparatorFilesNoSort.class)) {
-            UserSettings.INSTANCE.getSettings().set(KEY_SORT, sortClass.getName());
+            Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+            storage.setString(KEY_SORT, sortClass.getName());
         }
     }
 
@@ -125,7 +129,7 @@ public final class ControllerThumbnailsPanelPersistence {
         Storage storage = Lookup.getDefault().lookup(Storage.class);
         if (storage.containsKey(KEY_SORT)) {
             try {
-                String className = UserSettings.INSTANCE.getSettings().getString(KEY_SORT);
+                String className = storage.getString(KEY_SORT);
 
                 return (Comparator<File>) Class.forName(className).newInstance();
             } catch (Exception ex) {
@@ -153,8 +157,11 @@ public final class ControllerThumbnailsPanelPersistence {
 
                     @Override
                     public void run() {
-                        UserSettings.INSTANCE.getSettings().applySettings(
-                                KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION, GUI.getAppPanel().getScrollPaneThumbnailsPanel());
+                        Storage storage = Lookup.getDefault().lookup(Storage.class);
+                        AppPanel appPanel = GUI.getAppPanel();
+                        JScrollPane scrollPaneThumbnailsPanel = appPanel.getScrollPaneThumbnailsPanel();
+
+                        storage.applyScrollPaneSettings(KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION, scrollPaneThumbnailsPanel);
                     }
                 });
             }
@@ -167,7 +174,8 @@ public final class ControllerThumbnailsPanelPersistence {
     }
 
     private void writeViewportViewPositionToProperties() {
-        UserSettings.INSTANCE.getSettings().set(KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION, GUI.getAppPanel().getScrollPaneThumbnailsPanel());
-        UserSettings.INSTANCE.writeToFile();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.setScrollPane(KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION, GUI.getAppPanel().getScrollPaneThumbnailsPanel());
     }
 }

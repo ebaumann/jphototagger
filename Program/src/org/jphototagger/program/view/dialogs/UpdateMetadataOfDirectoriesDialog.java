@@ -1,7 +1,6 @@
 package org.jphototagger.program.view.dialogs;
 
 import org.jphototagger.lib.dialog.Dialog;
-import org.jphototagger.program.UserSettings;
 import org.jphototagger.program.resource.GUI;
 
 /**
@@ -27,7 +26,6 @@ public final class UpdateMetadataOfDirectoriesDialog extends Dialog {
     }
 
     private void endDialog() {
-        UserSettings.INSTANCE.writeToFile();
         panel.willDispose();
         setVisible(false);
     }
@@ -90,12 +88,14 @@ public final class UpdateMetadataOfDirectoriesDialog extends Dialog {
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 UpdateMetadataOfDirectoriesDialog dialog =
-                    new UpdateMetadataOfDirectoriesDialog();
+                        new UpdateMetadataOfDirectoriesDialog();
 
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
@@ -105,7 +105,6 @@ public final class UpdateMetadataOfDirectoriesDialog extends Dialog {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jphototagger.program.view.panels.UpdateMetadataOfDirectoriesPanel panel;
     // End of variables declaration//GEN-END:variables

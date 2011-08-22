@@ -10,6 +10,7 @@ import javax.swing.filechooser.FileSystemView;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.domain.event.UserPropertyChangedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
@@ -21,7 +22,6 @@ import org.jphototagger.lib.io.CancelRequest;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter.Option;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.lib.util.Settings;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.helper.ConvertIptcToXmp;
@@ -29,6 +29,7 @@ import org.jphototagger.program.io.ImageFileFilterer;
 import org.jphototagger.program.model.IptcCharsetComboBoxModel;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.SelectRootFilesPanel;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -59,7 +60,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
 
     /**
      * Setting files to process rather than letting the user choose a directory.
-     * When set, {@link #setVisible(boolean)} starts processing the images.
+     * When setTree, {@link #setVisible(boolean)} starts processing the images.
      *
      * @param files image files to extract IPTC and write them as or into
      *              XMP sidecar files
@@ -124,22 +125,21 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
     }
 
     private void readProperties() {
-        Settings settings = UserSettings.INSTANCE.getSettings();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
 
-        settings.applySettings(this, UserSettings.SET_TABBED_PANE_SETTINGS);
-        checkBoxIncludeSubdirectories.setSelected(settings.getBoolean(KEY_INCLUDE_SUBDIRS));
+        storage.applyComponentSettings(this, UserSettings.SET_TABBED_PANE_SETTINGS);
+        checkBoxIncludeSubdirectories.setSelected(storage.getBoolean(KEY_INCLUDE_SUBDIRS));
         setIptcCharsetFromUserSettings();
-        directory = new File(UserSettings.INSTANCE.getSettings().getString(KEY_DIRECTORY_NAME));
+        directory = new File(storage.getString(KEY_DIRECTORY_NAME));
         setIconToDirectoryLabel();
     }
 
     private void writeProperties() {
-        Settings settings = UserSettings.INSTANCE.getSettings();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
 
-        settings.set(this, UserSettings.SET_TABBED_PANE_SETTINGS);
-        settings.set(KEY_DIRECTORY_NAME, directory.getAbsolutePath());
-        settings.set(KEY_INCLUDE_SUBDIRS, checkBoxIncludeSubdirectories.isSelected());
-        UserSettings.INSTANCE.writeToFile();
+        storage.setComponent(this, UserSettings.SET_TABBED_PANE_SETTINGS);
+        storage.setString(KEY_DIRECTORY_NAME, directory.getAbsolutePath());
+        storage.setBoolean(KEY_INCLUDE_SUBDIRS, checkBoxIncludeSubdirectories.isSelected());
     }
 
     private void setIconToDirectoryLabel() {
@@ -460,11 +460,13 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 IptcToXmpDialog dialog = new IptcToXmpDialog();
 
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
@@ -474,7 +476,6 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCancel;
     private javax.swing.JButton buttonChooseDirectory;

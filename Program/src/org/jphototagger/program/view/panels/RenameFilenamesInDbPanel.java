@@ -4,16 +4,16 @@ import java.awt.Container;
 
 import javax.swing.JPanel;
 
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.event.ProgressEvent;
 import org.jphototagger.lib.event.listener.ProgressListener;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.lib.util.Settings;
-import org.jphototagger.program.UserSettings;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.types.Persistence;
+import org.openide.util.Lookup;
 
 /**
  * Uses
@@ -34,7 +34,9 @@ public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener
     }
 
     private void postInitComponents() {
-        UserSettings.INSTANCE.getSettings().applySettings(this, null);
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.applyComponentSettings(this, null);
         setButtonReplaceEnabled();
         MnemonicUtil.setMnemonics((Container) this);
     }
@@ -129,10 +131,10 @@ public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener
             throw new NullPointerException("this == null");
         }
 
-        Settings settings = UserSettings.INSTANCE.getSettings();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
 
-        textFieldSearch.setText(settings.getString(KEY_SEARCH));
-        textFieldReplacement.setText(settings.getString(KEY_REPLACEMENT));
+        textFieldSearch.setText(storage.getString(KEY_SEARCH));
+        textFieldReplacement.setText(storage.getString(KEY_REPLACEMENT));
     }
 
     @Override
@@ -141,11 +143,10 @@ public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener
             throw new NullPointerException("this == null");
         }
 
-        Settings settings = UserSettings.INSTANCE.getSettings();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
 
-        settings.set(KEY_SEARCH, textFieldSearch.getText());
-        settings.set(KEY_REPLACEMENT, textFieldReplacement.getText());
-        UserSettings.INSTANCE.writeToFile();
+        storage.setString(KEY_SEARCH, textFieldSearch.getText());
+        storage.setString(KEY_REPLACEMENT, textFieldReplacement.getText());
     }
 
     /**

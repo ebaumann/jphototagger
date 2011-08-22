@@ -9,6 +9,7 @@ import java.util.List;
 import javax.swing.filechooser.FileSystemView;
 
 import org.bushe.swing.event.EventBus;
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.api.file.event.FileCopiedEvent;
 import org.jphototagger.domain.event.listener.impl.ProgressListenerSupport;
 import org.jphototagger.lib.awt.EventQueueUtil;
@@ -21,7 +22,6 @@ import org.jphototagger.lib.event.listener.ProgressListener;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.SourceTargetFile;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.lib.util.Settings;
 import org.jphototagger.program.UserSettings;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.helper.CopyFiles;
@@ -30,6 +30,7 @@ import org.jphototagger.program.helper.FilesystemDatabaseUpdater;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.SelectRootFilesPanel;
 import org.jphototagger.xmp.XmpMetadata;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -209,9 +210,9 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
     }
 
     /**
-     * Makes this dialog visible and copies the files set with
+     * Makes this dialog visible and copies the files setToggleButton with
      * {@link #setSourceFiles(Collection)} if not empty into the directory
-     * set with {@link #setTargetDirectory(java.io.File)} if exists.
+     * setToggleButton with {@link #setTargetDirectory(java.io.File)} if exists.
      *
      * @param addXmp  true if copy XMP sidecar files too
      * @param options copy options
@@ -268,11 +269,11 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
     }
 
     private void readProperties() {
-        Settings settings = UserSettings.INSTANCE.getSettings();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
 
-        settings.applySettings(KEY_COPY_XMP, checkBoxCopyXmp);
+        storage.applyToggleButtonSettings(KEY_COPY_XMP, checkBoxCopyXmp);
 
-        File directory = new File(UserSettings.INSTANCE.getSettings().getString(KEY_LAST_DIRECTORY));
+        File directory = new File(storage.getString(KEY_LAST_DIRECTORY));
 
         if (directory.isDirectory()) {
             targetDirectory = directory;
@@ -280,11 +281,10 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
     }
 
     private void writeProperties() {
-        Settings settings = UserSettings.INSTANCE.getSettings();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
 
-        settings.set(KEY_LAST_DIRECTORY, targetDirectory.getAbsolutePath());
-        settings.set(KEY_COPY_XMP, checkBoxCopyXmp);
-        UserSettings.INSTANCE.writeToFile();
+        storage.setString(KEY_LAST_DIRECTORY, targetDirectory.getAbsolutePath());
+        storage.setToggleButton(KEY_COPY_XMP, checkBoxCopyXmp);
     }
 
     private void initDirectory() {

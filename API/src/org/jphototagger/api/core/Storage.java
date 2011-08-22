@@ -1,6 +1,14 @@
 package org.jphototagger.api.core;
 
 import java.awt.Component;
+import java.util.Collection;
+import java.util.List;
+import javax.swing.JComboBox;
+import javax.swing.JList;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JToggleButton;
+import javax.swing.JTree;
 
 /**
  *
@@ -17,19 +25,53 @@ public interface Storage {
 
     boolean getBoolean(String key);
 
+    void setStringCollection(String key, Collection<? extends String> stringCollection);
+
     int getInt(String key);
 
     void setInt(String key, int value);
+
+    void setTree(String key, JTree tree);
+
+    void setScrollPane(String key, JScrollPane scrollPane);
+
+    void setToggleButton(String key, JToggleButton button);
+
+    void setTabbedPane(String key, JTabbedPane pane, StorageHints hints);
+
+    void setComponent(Component component, StorageHints hints);
+
+    void setSelectedIndex(String key, JComboBox comboBox);
+
+    void setSelectedIndices(String key, JList list);
 
     boolean containsKey(String key);
 
     void removeKey(String key);
 
+    void removeStringCollection(String key);
+
     void setSize(String key, Component component);
 
     void applySize(String key, Component component);
 
+    void applyTreeSettings(String key, JTree tree);
+
+    void applyScrollPaneSettings(String key, JScrollPane scrollPane);
+
+    void applyToggleButtonSettings(String key, JToggleButton button);
+
+    void applyTabbedPaneSettings(String key, JTabbedPane pane, StorageHints hints);
+
+    void applyComponentSettings(Component component, StorageHints hints);
+
+    void applySelectedIndex(String key, JComboBox comboBox);
+
+    void applySelectedIndices(String key, JList list);
+
     void setLocation(String key, Component component);
 
     void applyLocation(String key, Component component);
+
+    List<String> getStringCollection(String key);
 }
