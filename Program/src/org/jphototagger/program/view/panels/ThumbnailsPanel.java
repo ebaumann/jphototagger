@@ -60,7 +60,6 @@ import org.jphototagger.lib.event.util.MouseEventUtil;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.MathUtil;
-import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.program.cache.RenderedThumbnailCache;
 import org.jphototagger.program.controller.thumbnail.ControllerThumbnailDoubleklick;
@@ -94,7 +93,7 @@ public class ThumbnailsPanel extends JPanel
     private final List<Integer> selectedThumbnailIndices = new ArrayList<Integer>();
     private int thumbnailCountPerRow = 0;
     private boolean dragThumbnailsEnabled = false;
-    private boolean isDisplayThumbnailTooltip = UserSettings.INSTANCE.isDisplayThumbnailTooltip();
+    private boolean isDisplayThumbnailTooltip = getPersistedDisplayThumbnailTooltip();
     private boolean transferDataOfDraggedThumbnails = false;
     private final ThumbnailPanelRenderer renderer = new ThumbnailPanelRenderer(this);
     private final transient RenderedThumbnailCache renderedThumbnailCache = RenderedThumbnailCache.INSTANCE;
@@ -124,6 +123,14 @@ public class ThumbnailsPanel extends JPanel
         renderedThumbnailCache.setRenderer(renderer);
         setBackground(COLOR_BACKGROUND_PANEL);
         listen();
+    }
+
+    private boolean getPersistedDisplayThumbnailTooltip() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_DISPLAY_THUMBNAIL_TOOLTIP)
+                ? storage.getBoolean(Storage.KEY_DISPLAY_THUMBNAIL_TOOLTIP)
+                : true;
     }
 
     private void listen() {
@@ -1708,7 +1715,7 @@ public class ThumbnailsPanel extends JPanel
 
     @EventSubscriber(eventClass = UserPropertyChangedEvent.class)
     public void applySettings(UserPropertyChangedEvent evt) {
-        if (UserPropertyChangedEvent.PROPERTY_DISPLAY_THUMBNAIL_TOOLTIP.equals(evt.getProperty())) {
+        if (Storage.KEY_DISPLAY_THUMBNAIL_TOOLTIP.equals(evt.getPropertyKey())) {
             boolean displayThumbnailTooltip = (Boolean) evt.getNewValue();
 
             isDisplayThumbnailTooltip = displayThumbnailTooltip;

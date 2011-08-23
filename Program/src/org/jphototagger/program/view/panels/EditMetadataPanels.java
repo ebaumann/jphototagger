@@ -28,6 +28,7 @@ import javax.swing.JTextField;
 import org.bushe.swing.event.EventBus;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.domain.database.Column;
 import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
 import org.jphototagger.domain.database.xmp.ColumnXmpRating;
@@ -44,7 +45,6 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.program.controller.keywords.tree.SuggestKeywords;
 import org.jphototagger.program.helper.SaveXmp;
 import org.jphototagger.program.resource.GUI;
@@ -55,6 +55,7 @@ import org.jphototagger.xmp.EditHints;
 import org.jphototagger.xmp.EditHints.SizeEditField;
 import org.jphototagger.xmp.FileXmp;
 import org.jphototagger.xmp.XmpMetadata;
+import org.openide.util.Lookup;
 
 /**
  * Panels mit Edit-Feldern zum Bearbeiten von Metadaten.
@@ -863,7 +864,7 @@ public final class EditMetadataPanels implements FocusListener {
     }
 
     public void setAutocomplete() {
-        if (UserSettings.INSTANCE.isAutocomplete()) {
+        if (isAutocomplete()) {
             EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
                 @Override
@@ -878,6 +879,14 @@ public final class EditMetadataPanels implements FocusListener {
                 }
             });
         }
+    }
+
+    private boolean isAutocomplete() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_ENABLE_AUTOCOMPLETE)
+                ? storage.getBoolean(Storage.KEY_ENABLE_AUTOCOMPLETE)
+                : true;
     }
 
     public void emptyPanels(final boolean dirty) {
@@ -993,9 +1002,17 @@ public final class EditMetadataPanels implements FocusListener {
             return;
         }
 
-        if (UserSettings.INSTANCE.isSaveInputEarly() && isDirty()) {
+        if (isSaveInputEarly() && isDirty()) {
             save();
         }
+    }
+
+    private boolean isSaveInputEarly() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_SAVE_INPUT_EARLY)
+                ? storage.getBoolean(Storage.KEY_SAVE_INPUT_EARLY)
+                : true;
     }
 
     @EventSubscriber(eventClass = XmpInsertedEvent.class)

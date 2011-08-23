@@ -9,10 +9,10 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.api.core.UserFilesProvider;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.program.app.AppLifeCycle;
 import org.jphototagger.program.app.AppLifeCycle.FinalTaskListener;
 import org.jphototagger.program.helper.BackupDatabase;
@@ -31,15 +31,15 @@ public final class ScheduledTaskBackupDatabase implements FinalTaskListener {
     private static final long MILLISECONDS_PER_DAY = 86400000;
     public static final ScheduledTaskBackupDatabase INSTANCE = new ScheduledTaskBackupDatabase();
 
-    private ScheduledTaskBackupDatabase() {}
+    private ScheduledTaskBackupDatabase() {
+    }
 
     public enum Interval {
+
         PER_SESSION(0, Bundle.getString(Interval.class, "ScheduledTaskBackupDatabase.Interval.Session")),
         PER_DAY(1, Bundle.getString(Interval.class, "ScheduledTaskBackupDatabase.Interval.Day")),
         PER_WEEK(7, Bundle.getString(Interval.class, "ScheduledTaskBackupDatabase.Interval.Week")),
-        PER_MONTH(30, Bundle.getString(Interval.class, "ScheduledTaskBackupDatabase.Interval.Month")),
-        ;
-
+        PER_MONTH(30, Bundle.getString(Interval.class, "ScheduledTaskBackupDatabase.Interval.Month")),;
         private final int days;
         private final String displayName;
 
@@ -111,17 +111,33 @@ public final class ScheduledTaskBackupDatabase implements FinalTaskListener {
     }
 
     private static boolean isUpdate() {
-        if (!UserSettings.INSTANCE.isScheduledBackupDb()) {
+        if (!isScheduledBackupDb()) {
             return false;
         }
 
         String infoFileName = getInfoFileName();
 
         if (FileUtil.existsFile(new File(infoFileName))) {
-            return getDaysEllapsed(new File(infoFileName)) >= UserSettings.INSTANCE.getScheduledBackupDbInterval();
+            return getDaysEllapsed(new File(infoFileName)) >= getScheduledBackupDbInterval();
         } else {
             return true;
         }
+    }
+
+    private static boolean isScheduledBackupDb() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_DATABASE_SCHEDULED_BACKUP)
+                ? storage.getBoolean(Storage.KEY_DATABASE_SCHEDULED_BACKUP)
+                : false;
+    }
+
+    private static int getScheduledBackupDbInterval() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_DATABASE_BACKUP_INTERVAL)
+                ? storage.getInt(Storage.KEY_DATABASE_BACKUP_INTERVAL)
+                : -1;
     }
 
     private static String getInfoFileName() {

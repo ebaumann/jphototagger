@@ -5,14 +5,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.domain.database.InsertIntoDatabase;
 import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.lib.io.filefilter.DirectoryFilter;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.program.database.DatabaseAutoscanDirectories;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
 import org.jphototagger.program.io.ImageFileFilterer;
 import org.jphototagger.program.view.panels.ProgressBarUpdater;
+import org.openide.util.Lookup;
 
 /**
  * Creates a {@link InsertImageFilesIntoDatabase} instance for the image files
@@ -75,7 +77,7 @@ public final class ScheduledTaskInsertImageFilesIntoDatabase {
     private static void addSubdirectories(List<File> directories) {
         List<File> subdirectories = new ArrayList<File>();
 
-        if (UserSettings.INSTANCE.isAutoscanIncludeSubdirectories()) {
+        if (isAutoscanIncludeSubdirectories()) {
             for (File directory : directories) {
                 subdirectories.addAll(getAllSubdirectories(directory));
             }
@@ -84,8 +86,30 @@ public final class ScheduledTaskInsertImageFilesIntoDatabase {
         }
     }
 
+    private static boolean isAutoscanIncludeSubdirectories() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_AUTO_SCAN_INCLUDE_SUBDIRECTORIES)
+                ? storage.getBoolean(Storage.KEY_AUTO_SCAN_INCLUDE_SUBDIRECTORIES)
+                : true;
+    }
+
     private static List<File> getAllSubdirectories(File directory) {
-        return FileUtil.getSubDirectoriesRecursive(directory, null, UserSettings.INSTANCE.getDirFilterOptionShowHiddenFiles());
+        return FileUtil.getSubDirectoriesRecursive(directory, null, getDirFilterOptionShowHiddenFiles());
+    }
+
+    private static DirectoryFilter.Option getDirFilterOptionShowHiddenFiles() {
+        return isAcceptHiddenDirectories()
+                ? DirectoryFilter.Option.ACCEPT_HIDDEN_FILES
+                : DirectoryFilter.Option.NO_OPTION;
+    }
+
+    private static boolean isAcceptHiddenDirectories() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+                ? storage.getBoolean(Storage.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+                : false;
     }
 
     private static boolean isSystemDirectory(String directoryName) {

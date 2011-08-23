@@ -4,6 +4,7 @@ import java.awt.Container;
 import java.io.File;
 import java.util.logging.Level;
 
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.filechooser.FileSystemView;
 
@@ -15,7 +16,6 @@ import org.jphototagger.domain.event.UserPropertyChangedEvent;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.DirectoryChooser;
 import org.jphototagger.lib.dialog.DirectoryChooser.Option;
-import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.program.controller.misc.ControllerUpdateCheck;
 import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.helper.CopyFiles;
@@ -41,7 +41,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
 
     private File chooseDirectory(File startDirectory) {
         File dir = null;
-        Option showHiddenDirs = UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs();
+        Option showHiddenDirs = getDirChooserOptionShowHiddenDirs();
         DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), startDirectory, showHiddenDirs);
 
         dlg.setStorageKey("SettingsMiscPanel.DirChooser");
@@ -52,6 +52,20 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
         }
 
         return dir;
+    }
+
+    private DirectoryChooser.Option getDirChooserOptionShowHiddenDirs() {
+        return isAcceptHiddenDirectories()
+                ? DirectoryChooser.Option.DISPLAY_HIDDEN_DIRECTORIES
+                : DirectoryChooser.Option.NO_OPTION;
+    }
+
+    private boolean isAcceptHiddenDirectories() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+                ? storage.getBoolean(Storage.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+                : false;
     }
 
     private void handleActionPerformedCheckBoxIsAcceptHiddenDirectories() {
@@ -120,13 +134,23 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
     }
 
     private void handleActionPerformedCheckBoxDisplaySearchButton() {
-        UserSettings.INSTANCE.setDisplaySearchButton(
-            checkBoxDisplaySearchButton.isSelected());
+        setDisplaySearchButton(checkBoxDisplaySearchButton.isSelected());
+    }
+
+    private void setDisplaySearchButton(boolean display) {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.setBoolean(Storage.KEY_DISPLAY_SEARCH_BUTTON, display);
     }
 
     private void handleActionPerformedComboBoxLogLevel() {
-        UserSettings.INSTANCE.setLogLevel(
-            Level.parse(comboBoxLogLevel.getSelectedItem().toString()));
+        setLogLevel(Level.parse(comboBoxLogLevel.getSelectedItem().toString()));
+    }
+
+    private void setLogLevel(Level logLevel) {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.setString(Storage.KEY_LOG_LEVEL, logLevel.toString());
     }
 
     private void handleActionPerformedCopyMoveFiles() {
@@ -148,15 +172,33 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
     }
 
     private void handleActionPerformedAutoDownload() {
-        UserSettings.INSTANCE.setCheckForUpdates(checkBoxAutoDownloadCheck.isSelected());
+        setCheckForUpdates(checkBoxAutoDownloadCheck.isSelected());
+    }
+
+    private void setCheckForUpdates(boolean auto) {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.setBoolean(Storage.KEY_CHECK_FOR_UPDATES, auto);
     }
 
     private void handleActionComboBoxIptcCharset() {
-        UserSettings.INSTANCE.setIptcCharset(comboBoxIptcCharset.getSelectedItem().toString());
+        setIptcCharset(comboBoxIptcCharset.getSelectedItem().toString());
+    }
+
+    private void setIptcCharset(String charset) {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.setString(Storage.KEY_IPTC_CHARSET, charset);
     }
 
     private void handleActionPerformedCheckBoxAddFilenameToGpsLocationExport() {
-        UserSettings.INSTANCE.setAddFilenameToGpsLocationExport(checkBoxAddFilenameToGpsLocationExport.isSelected());
+        setAddFilenameToGpsLocationExport(checkBoxAddFilenameToGpsLocationExport.isSelected());
+    }
+
+    private void setAddFilenameToGpsLocationExport(boolean add) {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.setBoolean(Storage.KEY_ADD_FILENAME_TO_GPS_LOCATION_EXPORT, add);
     }
 
     private void checkLogLevel() {
@@ -167,36 +209,97 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
 
     @EventSubscriber(eventClass = UserPropertyChangedEvent.class)
     public void applySettings(UserPropertyChangedEvent evt) {
-        if (UserPropertyChangedEvent.PROPERTY_CHECK_FOR_UPDATES.equals(evt.getProperty())) {
+        if (Storage.KEY_CHECK_FOR_UPDATES.equals(evt.getPropertyKey())) {
             checkBoxAutoDownloadCheck.setSelected((Boolean)evt.getNewValue());
-        } else if (UserPropertyChangedEvent.PROPERTY_IPTC_CHARSET.equals(evt.getProperty())) {
+        } else if (Storage.KEY_IPTC_CHARSET.equals(evt.getPropertyKey())) {
             setIptcCharsetFromUserSettings();
         }
     }
 
     private void setIptcCharsetFromUserSettings() {
-        comboBoxIptcCharset.getModel().setSelectedItem(UserSettings.INSTANCE.getIptcCharset());
+        comboBoxIptcCharset.getModel().setSelectedItem(getIptcCharset());
+    }
+
+    private String getIptcCharset() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        String charset = storage.getString(Storage.KEY_IPTC_CHARSET);
+
+        return charset.isEmpty()
+                ? "ISO-8859-1"
+                : charset;
     }
 
     @Override
     public void readProperties() {
         checkLogLevel();
 
-        UserSettings settings = UserSettings.INSTANCE;
         UserFilesProvider provider = Lookup.getDefault().lookup(UserFilesProvider.class);
 
-        checkBoxAutoDownloadCheck.setSelected(settings.isCheckForUpdates());
-        checkBoxDisplaySearchButton.setSelected(UserSettings.INSTANCE.isDisplaySearchButton());
-        checkBoxIsAcceptHiddenDirectories.setSelected(settings.isAcceptHiddenDirectories());
-        checkBoxAddFilenameToGpsLocationExport.setSelected(settings.isAddFilenameToGpsLocationExport());
+        checkBoxAutoDownloadCheck.setSelected(isCheckForUpdates());
+        checkBoxDisplaySearchButton.setSelected(isDisplaySearchButton());
+        checkBoxIsAcceptHiddenDirectories.setSelected(isAcceptHiddenDirectories());
+        checkBoxAddFilenameToGpsLocationExport.setSelected(isAddFilenameToGpsLocationExport());
         setIptcCharsetFromUserSettings();
-        comboBoxLogLevel.setSelectedItem(settings.getLogLevel().getLocalizedName());
+        comboBoxLogLevel.setSelectedItem(getLogLevel().getLocalizedName());
         labelDatabaseDirectory.setText(provider.getDatabaseDirectory().getAbsolutePath());
         labelDatabaseBackupDirectory.setText(provider.getDatabaseBackupDirectory().getAbsolutePath());
-        radioButtonCopyMoveFileConfirmOverwrite.setSelected(settings.getCopyMoveFilesOptions().equals(CopyFiles.Options.CONFIRM_OVERWRITE));
-        radioButtonCopyMoveFileRenameIfExists.setSelected(settings.getCopyMoveFilesOptions().equals(CopyFiles.Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS));
+        radioButtonCopyMoveFileConfirmOverwrite.setSelected(getCopyMoveFilesOptions().equals(CopyFiles.Options.CONFIRM_OVERWRITE));
+        radioButtonCopyMoveFileRenameIfExists.setSelected(getCopyMoveFilesOptions().equals(CopyFiles.Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS));
         setIconDatabaseDirectory(true);
         setIconDatabaseDirectory(false);
+    }
+
+    private static boolean isAddFilenameToGpsLocationExport() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_ADD_FILENAME_TO_GPS_LOCATION_EXPORT)
+                ? storage.getBoolean(Storage.KEY_ADD_FILENAME_TO_GPS_LOCATION_EXPORT)
+                : false;
+    }
+
+    private boolean isCheckForUpdates() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_CHECK_FOR_UPDATES)
+                ? storage.getBoolean(Storage.KEY_CHECK_FOR_UPDATES)
+                : true;
+    }
+
+    private boolean isDisplaySearchButton() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_DISPLAY_SEARCH_BUTTON)
+                ? storage.getBoolean(Storage.KEY_DISPLAY_SEARCH_BUTTON)
+                : true;
+    }
+
+    private CopyFiles.Options getCopyMoveFilesOptions() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_OPTIONS_COPY_MOVE_FILES)
+                ? CopyFiles.Options.fromInt(storage.getInt(Storage.KEY_OPTIONS_COPY_MOVE_FILES))
+                : CopyFiles.Options.CONFIRM_OVERWRITE;
+    }
+
+    private static Level getLogLevel() {
+        Level level = null;
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        if (storage.containsKey(Storage.KEY_LOG_LEVEL)) {
+            String levelString = storage.getString(Storage.KEY_LOG_LEVEL);
+
+            try {
+                level = Level.parse(levelString);
+            } catch (Exception ex) {
+                Logger.getLogger(SettingsMiscPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        if (level == null) {
+            storage.setString(Storage.KEY_LOG_LEVEL, Level.INFO.getLocalizedName());
+        }
+
+        return level == null ? Level.INFO : level;
     }
 
     @Override

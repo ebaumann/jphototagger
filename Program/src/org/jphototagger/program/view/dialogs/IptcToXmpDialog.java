@@ -11,6 +11,7 @@ import javax.swing.filechooser.FileSystemView;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.core.Storage;
+import org.jphototagger.api.core.StorageHints;
 import org.jphototagger.domain.event.UserPropertyChangedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
@@ -22,8 +23,8 @@ import org.jphototagger.lib.io.CancelRequest;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter.Option;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.lib.io.filefilter.DirectoryFilter;
 import org.jphototagger.program.helper.ConvertIptcToXmp;
 import org.jphototagger.program.io.ImageFileFilterer;
 import org.jphototagger.program.model.IptcCharsetComboBoxModel;
@@ -83,7 +84,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
 
     private void chooseDirectory() {
         List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(Storage.KEY_HIDE_ROOT_FILES_FROM_DIRECTORIES_TAB);
-        DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), directory, hideRootFiles, UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
+        DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), directory, hideRootFiles, getDirChooserOptionShowHiddenDirs());
 
         dlg.setStorageKey("IptcToXmpDialog.DirChooser");
         dlg.setVisible(true);
@@ -96,6 +97,20 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
             buttonStart.setEnabled(true);
         }
     }
+    private DirectoryChooser.Option getDirChooserOptionShowHiddenDirs() {
+        return isAcceptHiddenDirectories()
+                ? DirectoryChooser.Option.DISPLAY_HIDDEN_DIRECTORIES
+                : DirectoryChooser.Option.NO_OPTION;
+    }
+
+    private boolean isAcceptHiddenDirectories() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+                ? storage.getBoolean(Storage.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+                : false;
+    }
+
 
     private void errorMessageWaitBeforeClose() {
         String message = Bundle.getString(IptcToXmpDialog.class, "IptcToXmpDialog.Error.CancelBeforeClose");
@@ -121,13 +136,22 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
     }
 
     private void setIptcCharsetFromUserSettings() {
-        comboBoxIptcCharset.getModel().setSelectedItem(UserSettings.INSTANCE.getIptcCharset());
+        comboBoxIptcCharset.getModel().setSelectedItem(getIptcCharset());
+    }
+
+    private String getIptcCharset() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        String charset = storage.getString(Storage.KEY_IPTC_CHARSET);
+
+        return charset.isEmpty()
+                ? "ISO-8859-1"
+                : charset;
     }
 
     private void readProperties() {
         Storage storage = Lookup.getDefault().lookup(Storage.class);
 
-        storage.applyComponentSettings(this, UserSettings.SET_TABBED_PANE_SETTINGS);
+        storage.applyComponentSettings(this, new StorageHints(StorageHints.Option.SET_TABBED_PANE_CONTENT));
         checkBoxIncludeSubdirectories.setSelected(storage.getBoolean(KEY_INCLUDE_SUBDIRS));
         setIptcCharsetFromUserSettings();
         directory = new File(storage.getString(KEY_DIRECTORY_NAME));
@@ -137,7 +161,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
     private void writeProperties() {
         Storage storage = Lookup.getDefault().lookup(Storage.class);
 
-        storage.setComponent(this, UserSettings.SET_TABBED_PANE_SETTINGS);
+        storage.setComponent(this, new StorageHints(StorageHints.Option.SET_TABBED_PANE_CONTENT));
         storage.setString(KEY_DIRECTORY_NAME, directory.getAbsolutePath());
         storage.setBoolean(KEY_INCLUDE_SUBDIRS, checkBoxIncludeSubdirectories.isSelected());
     }
@@ -164,12 +188,18 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
     }
 
     private void setIptcCharset() {
-        UserSettings.INSTANCE.setIptcCharset(comboBoxIptcCharset.getSelectedItem().toString());
+        setIptcCharset(comboBoxIptcCharset.getSelectedItem().toString());
+    }
+
+    private void setIptcCharset(String charset) {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.setString(Storage.KEY_IPTC_CHARSET, charset);
     }
 
     @EventSubscriber(eventClass = UserPropertyChangedEvent.class)
     public void applySettings(UserPropertyChangedEvent evt) {
-        if (UserPropertyChangedEvent.PROPERTY_IPTC_CHARSET.equals(evt.getProperty())) {
+        if (Storage.KEY_IPTC_CHARSET.equals(evt.getPropertyKey())) {
             setIptcCharsetFromUserSettings();
         }
     }
@@ -212,7 +242,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
             directories.add(directory);
 
             if (checkBoxIncludeSubdirectories.isSelected()) {
-                Option showHiddenFiles = UserSettings.INSTANCE.getDirFilterOptionShowHiddenFiles();
+                Option showHiddenFiles = getDirFilterOptionShowHiddenFiles();
                 directories.addAll(FileUtil.getSubDirectoriesRecursive(directory, cancelChooseRequest, showHiddenFiles));
             }
 
@@ -220,6 +250,12 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
         } else {
             return Collections.unmodifiableList(files);
         }
+    }
+
+    private DirectoryFilter.Option getDirFilterOptionShowHiddenFiles() {
+        return isAcceptHiddenDirectories()
+                ? DirectoryFilter.Option.ACCEPT_HIDDEN_FILES
+                : DirectoryFilter.Option.NO_OPTION;
     }
 
     private void setEnabledButtons() {

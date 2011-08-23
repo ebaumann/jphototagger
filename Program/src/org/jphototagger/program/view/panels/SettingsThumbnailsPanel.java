@@ -12,10 +12,11 @@ import javax.swing.Action;
 import javax.swing.JPopupMenu;
 import javax.swing.JRadioButton;
 
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.api.image.ExternalThumbnailCreator;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.program.settings.UserSettings;
-import org.jphototagger.program.image.thumbnail.ThumbnailCreationStrategy;
+import org.jphototagger.api.image.ThumbnailCreationStrategy;
+import org.jphototagger.api.image.ThumbnailCreationStrategyProvider;
 import org.jphototagger.program.types.Persistence;
 import org.openide.util.Lookup;
 
@@ -51,25 +52,43 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
         setSelectedRadioButtons();
         setExternalThumbnailAppEnabled();
         panelSettingsThumbnailDimensions.readProperties();
+        textFieldExternalThumbnailCreationCommand.setText(getExternalThumbnailCreationCommand());
+        checkBoxDisplayThumbnailTooltip.setSelected(isDisplayThumbnailTooltip());
+    }
 
-        UserSettings settings = UserSettings.INSTANCE;
+    private boolean isDisplayThumbnailTooltip() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
 
-        textFieldExternalThumbnailCreationCommand.setText(settings.getExternalThumbnailCreationCommand());
-        checkBoxDisplayThumbnailTooltip.setSelected(settings.isDisplayThumbnailTooltip());
+        return storage.containsKey(Storage.KEY_DISPLAY_THUMBNAIL_TOOLTIP)
+                ? storage.getBoolean(Storage.KEY_DISPLAY_THUMBNAIL_TOOLTIP)
+                : true;
+    }
+
+    private String getExternalThumbnailCreationCommand() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.getString(Storage.KEY_EXTERNAL_THUMBNAIL_CREATION_COMMAND);
     }
 
     private void setSelectedRadioButtons() {
-        ThumbnailCreationStrategy creator = UserSettings.INSTANCE.getThumbnailCreationStrategy();
+        ThumbnailCreationStrategy strategy = getThumbnailCreationStrategy();
 
         for (JRadioButton radioButton : radioButtonOfThumbnailCreator.values()) {
-            JRadioButton radioButtonOfCreator = radioButtonOfThumbnailCreator.get(creator);
+            JRadioButton radioButtonOfCreator = radioButtonOfThumbnailCreator.get(strategy);
 
             radioButton.setSelected(radioButtonOfCreator == radioButton);
         }
     }
 
+    private ThumbnailCreationStrategy getThumbnailCreationStrategy() {
+        ThumbnailCreationStrategyProvider provider = Lookup.getDefault().lookup(ThumbnailCreationStrategyProvider.class);
+
+        return provider.getThumbnailCreationStrategy();
+    }
+
     private void setExternalThumbnailAppEnabled() {
-        boolean isCreatorExternalApp = UserSettings.INSTANCE.getThumbnailCreationStrategy().equals(ThumbnailCreationStrategy.EXTERNAL_APP);
+        ThumbnailCreationStrategy strategy = getThumbnailCreationStrategy();
+        boolean isCreatorExternalApp = strategy.equals(ThumbnailCreationStrategy.EXTERNAL_APP);
 
         textFieldExternalThumbnailCreationCommand.setEnabled(isCreatorExternalApp);
         buttonChooseExternalThumbnailCreator.setEnabled(isCreatorExternalApp);
@@ -115,31 +134,49 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
 
             if (thumbnailCreationCommand != null) {
                 textFieldExternalThumbnailCreationCommand.setText(thumbnailCreationCommand);
-                UserSettings.INSTANCE.setExternalThumbnailCreationCommand(thumbnailCreationCommand);
+                setExternalThumbnailCreationCommand(thumbnailCreationCommand);
             }
         }
 
     }
 
+    private void setExternalThumbnailCreationCommand(String command) {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.setString(Storage.KEY_EXTERNAL_THUMBNAIL_CREATION_COMMAND, command);
+    }
+
     private void setDisplayThumbnailTooltip() {
         boolean isDisplayThumbnailTooltip = checkBoxDisplayThumbnailTooltip.isSelected();
 
-        UserSettings.INSTANCE.setDisplayThumbnailTooltip(isDisplayThumbnailTooltip);
+        setDisplayThumbnailTooltip(isDisplayThumbnailTooltip);
+    }
+
+    private void setDisplayThumbnailTooltip(boolean display) {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.setBoolean(Storage.KEY_DISPLAY_THUMBNAIL_TOOLTIP, display);
     }
 
     @Override
     public void writeProperties() {}
 
     private void handleTextFieldExternalThumbnailCreationCommandKeyReleased() {
-        UserSettings.INSTANCE.setExternalThumbnailCreationCommand(textFieldExternalThumbnailCreationCommand.getText());
+        setExternalThumbnailCreationCommand(textFieldExternalThumbnailCreationCommand.getText());
     }
 
     private void setThumbnailCreator(JRadioButton radioButton) {
-        UserSettings.INSTANCE.setThumbnailCreationStrategy(thumbnailCreatorOfRadioButton.get(radioButton));
+        setThumbnailCreationStrategy(thumbnailCreatorOfRadioButton.get(radioButton));
         boolean selected = radioButtonCreateThumbnailsWithExternalApp.isSelected();
 
         textFieldExternalThumbnailCreationCommand.setEnabled(selected);
         buttonChooseExternalThumbnailCreator.setEnabled(selected);
+    }
+
+    private void setThumbnailCreationStrategy(ThumbnailCreationStrategy creator) {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.setString(Storage.KEY_THUMBNAIL_CREATOR, creator.name());
     }
 
     /**

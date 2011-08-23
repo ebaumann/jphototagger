@@ -12,7 +12,6 @@ import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.dialog.DirectoryChooser;
 import org.jphototagger.lib.dialog.DirectoryChooser.Option;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.database.DatabaseFavorites;
 import org.jphototagger.program.resource.GUI;
@@ -47,7 +46,7 @@ public final class FavoritePropertiesDialog extends Dialog {
     }
 
     private void chooseDirectory() {
-        Option showHiddenDirs = UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs();
+        Option showHiddenDirs = getDirChooserOptionShowHiddenDirs();
         List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(Storage.KEY_HIDE_ROOT_FILES_FROM_DIRECTORIES_TAB);
         DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), dir, hideRootFiles, showHiddenDirs);
 
@@ -59,6 +58,20 @@ public final class FavoritePropertiesDialog extends Dialog {
         }
 
         setOkEnabled();
+    }
+
+    private DirectoryChooser.Option getDirChooserOptionShowHiddenDirs() {
+        return isAcceptHiddenDirectories()
+                ? DirectoryChooser.Option.DISPLAY_HIDDEN_DIRECTORIES
+                : DirectoryChooser.Option.NO_OPTION;
+    }
+
+    private boolean isAcceptHiddenDirectories() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+                ? storage.getBoolean(Storage.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+                : false;
     }
 
     public boolean isEqualsTo(Favorite favorite) {

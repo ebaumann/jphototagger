@@ -10,12 +10,12 @@ import javax.swing.event.ListDataListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.program.database.ConnectionPool;
@@ -28,6 +28,7 @@ import org.jphototagger.program.types.Persistence;
 import org.jphototagger.program.view.dialogs.ActionsDialog;
 import org.jphototagger.program.view.dialogs.ProgramSelectDialog;
 import org.jphototagger.program.view.renderer.ListCellRendererActions;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -161,22 +162,47 @@ public class SettingsActionsPanel extends javax.swing.JPanel
     }
 
     private void executeActionsAlways() {
-        UserSettings.INSTANCE.setExecuteActionsAfterImageChangeInDbAlways(
-            radioButtonExecuteAlways.isSelected());
+        setExecuteActionsAfterImageChangeInDbAlways(radioButtonExecuteAlways.isSelected());
+    }
+
+    private void setExecuteActionsAfterImageChangeInDbAlways(boolean set) {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.setBoolean(Storage.KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS, set);
+        storage.setBoolean(Storage.KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP, !set);
     }
 
     private void executeActionsIfXmpExists() {
-        UserSettings.INSTANCE.setExecuteActionsAfterImageChangeInDbIfImageHasXmp(
-                radioButtonExecuteIfImageHasXmp.isSelected());
+        setExecuteActionsAfterImageChangeInDbIfImageHasXmp(radioButtonExecuteIfImageHasXmp.isSelected());
+    }
+
+    private void setExecuteActionsAfterImageChangeInDbIfImageHasXmp(boolean set) {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.setBoolean(Storage.KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS, !set);
+        storage.setBoolean(Storage.KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP, set);
     }
 
     @Override
     public void readProperties() {
-        UserSettings settings = UserSettings.INSTANCE;
+        radioButtonExecuteAlways.setSelected(isExecuteActionsAfterImageChangeInDbAlways());
+        radioButtonExecuteIfImageHasXmp.setSelected(isExecuteActionsAfterImageChangeInDbIfImageHasXmp());
+    }
 
-        radioButtonExecuteAlways.setSelected(settings.isExecuteActionsAfterImageChangeInDbAlways());
-        radioButtonExecuteIfImageHasXmp.setSelected(
-                settings.isExecuteActionsAfterImageChangeInDbIfImageHasXmp());
+    private boolean isExecuteActionsAfterImageChangeInDbIfImageHasXmp() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP)
+                ? storage.getBoolean(Storage.KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP)
+                : false;
+    }
+
+    private boolean isExecuteActionsAfterImageChangeInDbAlways() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS)
+                ? storage.getBoolean(Storage.KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS)
+                : false;
     }
 
     @Override
@@ -548,7 +574,6 @@ public class SettingsActionsPanel extends javax.swing.JPanel
     private void menuItemShowActionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemShowActionsActionPerformed
         showActions();
     }//GEN-LAST:event_menuItemShowActionsActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAddAction;
     private javax.swing.JButton buttonDeleteAction;

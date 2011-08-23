@@ -27,10 +27,10 @@ import org.jphototagger.lib.event.ProgressEvent;
 import org.jphototagger.lib.event.listener.ProgressListener;
 import org.jphototagger.lib.io.CancelRequest;
 import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.lib.io.filefilter.DirectoryFilter;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter.Option;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.CollectionUtil;
-import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
 import org.jphototagger.program.io.ImageFileDirectory;
 import org.jphototagger.program.resource.GUI;
@@ -274,7 +274,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
 
     private void chooseDirectories() {
         List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(Storage.KEY_HIDE_ROOT_FILES_FROM_DIRECTORIES_TAB);
-        DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), lastDirectory, hideRootFiles, UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
+        DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), lastDirectory, hideRootFiles, getDirChooserOptionShowHiddenDirs());
 
         buttonChooseDirectories.setEnabled(false);
         dlg.setStorageKey("UpdateMetadataOfDirectoriesPanel.DirChooser");
@@ -293,6 +293,20 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
         } else {
             buttonChooseDirectories.setEnabled(true);
         }
+    }
+
+    private DirectoryChooser.Option getDirChooserOptionShowHiddenDirs() {
+        return isAcceptHiddenDirectories()
+                ? DirectoryChooser.Option.DISPLAY_HIDDEN_DIRECTORIES
+                : DirectoryChooser.Option.NO_OPTION;
+    }
+
+    private boolean isAcceptHiddenDirectories() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+                ? storage.getBoolean(Storage.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+                : false;
     }
 
     private class AddNotContainedDirectories extends Thread {
@@ -368,7 +382,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
 
     private void addSubdirectories(List<File> directories) {
         List<File> subdirectories = new ArrayList<File>();
-        Option showHiddenFiles = UserSettings.INSTANCE.getDirFilterOptionShowHiddenFiles();
+        Option showHiddenFiles = getDirFilterOptionShowHiddenFiles();
 
         for (File dir : directories) {
             if (cancelChooseDirectories) {
@@ -381,6 +395,12 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
 
         LOGGER.log(Level.INFO, "Adding from {0} not previously added directories to {1}", new Object[]{subdirectories, directories});
         CollectionUtil.addNotContainedElements(subdirectories, directories);
+    }
+
+    private DirectoryFilter.Option getDirFilterOptionShowHiddenFiles() {
+        return isAcceptHiddenDirectories()
+                ? DirectoryFilter.Option.ACCEPT_HIDDEN_FILES
+                : DirectoryFilter.Option.NO_OPTION;
     }
 
     private static class CancelChooseRequest implements CancelRequest {

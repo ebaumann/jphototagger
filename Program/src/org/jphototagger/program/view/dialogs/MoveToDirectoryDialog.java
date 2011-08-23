@@ -22,7 +22,6 @@ import org.jphototagger.lib.event.listener.ProgressListener;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.SourceTargetFile;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.helper.CopyFiles;
 import org.jphototagger.program.helper.CopyFiles.Options;
@@ -110,7 +109,7 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
 
     private void start() {
         reset();
-        Options copyMoveFilesOptions = UserSettings.INSTANCE.getCopyMoveFilesOptions();
+        Options copyMoveFilesOptions = getCopyMoveFilesOptions();
         boolean renameIfTargetFileExists = copyMoveFilesOptions.equals(CopyFiles.Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS);
         moveTask = new FileSystemMove(sourceFiles, targetDirectory, renameIfTargetFileExists);
         addListenerToMoveTask();
@@ -119,6 +118,14 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
 
         thread.start();
         runs = true;
+    }
+
+    private CopyFiles.Options getCopyMoveFilesOptions() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_OPTIONS_COPY_MOVE_FILES)
+                ? CopyFiles.Options.fromInt(storage.getInt(Storage.KEY_OPTIONS_COPY_MOVE_FILES))
+                : CopyFiles.Options.CONFIRM_OVERWRITE;
     }
 
     private String getMoveThreadName() {
@@ -135,7 +142,7 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
 
     private void chooseTargetDirectory() {
         List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(Storage.KEY_HIDE_ROOT_FILES_FROM_DIRECTORIES_TAB);
-        DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), targetDirectory, hideRootFiles, UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs());
+        DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), targetDirectory, hideRootFiles, getDirChooserOptionShowHiddenDirs());
 
         dlg.setStorageKey("MoveToDirectoriesDialog.DirChooser");
         dlg.setVisible(true);
@@ -160,6 +167,20 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
 
             buttonStart.setEnabled(FileUtil.isWritableDirectory(dir));
         }
+    }
+
+    private DirectoryChooser.Option getDirChooserOptionShowHiddenDirs() {
+        return isAcceptHiddenDirectories()
+                ? DirectoryChooser.Option.DISPLAY_HIDDEN_DIRECTORIES
+                : DirectoryChooser.Option.NO_OPTION;
+    }
+
+    private boolean isAcceptHiddenDirectories() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+                ? storage.getBoolean(Storage.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+                : false;
     }
 
     private void setIconToLabelTargetDirectory() {

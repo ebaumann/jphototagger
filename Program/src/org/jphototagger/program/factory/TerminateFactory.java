@@ -8,14 +8,15 @@ import org.jphototagger.program.helper.ImportImageFiles;
 import org.jphototagger.program.model.ComboBoxModelFileFilters;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.tasks.ScheduledTasks;
-import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
 import java.io.File;
 import java.io.FileFilter;
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -53,13 +54,21 @@ public final class TerminateFactory {
     }
 
     private void setAutocomplete() {
-        if (UserSettings.INSTANCE.isAutocomplete()) {
+        if (isAutocomplete()) {
             ControllerFastSearch controller = ControllerFactory.INSTANCE.getController(ControllerFastSearch.class);
 
             if (controller != null) {
                 controller.setAutocomplete(true);
             }
         }
+    }
+
+    private boolean isAutocomplete() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_ENABLE_AUTOCOMPLETE)
+                ? storage.getBoolean(Storage.KEY_ENABLE_AUTOCOMPLETE)
+                : true;
     }
 
     private void checkImportImageFiles() {

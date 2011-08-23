@@ -1,5 +1,6 @@
 package org.jphototagger.program.image.thumbnail;
 
+import org.jphototagger.api.image.ThumbnailCreationStrategy;
 import java.awt.Container;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -27,7 +28,6 @@ import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.runtime.External;
 import org.jphototagger.lib.runtime.ExternalOutput;
-import org.jphototagger.program.settings.UserSettings;
 import org.openide.util.Lookup;
 
 import com.imagero.reader.IOParameterBlock;
@@ -36,6 +36,9 @@ import com.imagero.reader.ImageReader;
 import com.imagero.reader.Imagero;
 import com.imagero.reader.ReaderFactory;
 import com.imagero.reader.tiff.TiffReader;
+import org.jphototagger.api.core.Storage;
+import org.jphototagger.api.image.ThumbnailCreationStrategyProvider;
+import org.jphototagger.api.image.ThumbnailProvider;
 
 /**
  *
@@ -68,14 +71,14 @@ public final class ThumbnailUtil {
             return getUserDefinedThumbnail(file);
         }
 
-        ThumbnailCreationStrategy creationStrategy = UserSettings.INSTANCE.getThumbnailCreationStrategy();
-        int maxLength = UserSettings.INSTANCE.getMaxThumbnailWidth();
+        ThumbnailCreationStrategy creationStrategy = getThumbnailCreationStrategy();
+        int maxLength = getMaxThumbnailWidth();
         boolean isRawImage = FileType.isRawFile(file.getName());
         boolean canCreateImage = !isRawImage || (isRawImage && creationStrategy.equals(ThumbnailCreationStrategy.EXTERNAL_APP));
         Image thumbnail = null;
 
         if (creationStrategy.equals(ThumbnailCreationStrategy.EXTERNAL_APP)) {    // has to be 1st.
-            String createCommand = UserSettings.INSTANCE.getExternalThumbnailCreationCommand();
+            String createCommand = getExternalThumbnailCreationCommand();
             thumbnail = getThumbnailFromExternalApplication(file, createCommand, maxLength);
         } else if (!canCreateImage || creationStrategy.equals(ThumbnailCreationStrategy.EMBEDDED)) {
             thumbnail = ThumbnailUtil.getEmbeddedThumbnailRotated(file);
@@ -94,6 +97,27 @@ public final class ThumbnailUtil {
         return thumbnail;
     }
 
+    private static int getMaxThumbnailWidth() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        int width = storage.getInt(Storage.KEY_MAX_THUMBNAIL_WIDTH);
+
+        return (width != Integer.MIN_VALUE)
+                ? width
+                : ThumbnailProvider.DEFAULT_THUMBNAIL_WIDTH;
+    }
+
+    private static String getExternalThumbnailCreationCommand() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.getString(Storage.KEY_EXTERNAL_THUMBNAIL_CREATION_COMMAND);
+    }
+
+    private static ThumbnailCreationStrategy getThumbnailCreationStrategy() {
+        ThumbnailCreationStrategyProvider provider = Lookup.getDefault().lookup(ThumbnailCreationStrategyProvider.class);
+
+        return provider.getThumbnailCreationStrategy();
+    }
+
     private static boolean isUserDefinedFileType(File file) {
         String suffix = FileUtil.getSuffix(file);
         UserDefinedFileTypesRepository repo = Lookup.getDefault().lookup(UserDefinedFileTypesRepository.class);
@@ -109,8 +133,8 @@ public final class ThumbnailUtil {
         if (fileType == null || !fileType.isExternalThumbnailCreator()) {
             return IconUtil.getIconImage("/org/jphototagger/program/resource/images/user_defined_file_type.jpg");
         } else {
-            int maxLength = UserSettings.INSTANCE.getMaxThumbnailWidth();
-            String createCommand = UserSettings.INSTANCE.getExternalThumbnailCreationCommand();
+            int maxLength = getMaxThumbnailWidth();
+            String createCommand = getExternalThumbnailCreationCommand();
 
             return getThumbnailFromExternalApplication(file, createCommand, maxLength);
         }
@@ -307,7 +331,7 @@ public final class ThumbnailUtil {
 
         LOGGER.log(Level.FINEST, "Creating thumbnail with external application. Command: ''{0}''", cmd);
 
-        ExternalOutput output = External.executeGetOutput(cmd, UserSettings.INSTANCE.getMaxSecondsToTerminateExternalPrograms() * 1000);
+        ExternalOutput output = External.executeGetOutput(cmd, getMaxSecondsToTerminateExternalPrograms() * 1000);
 
         if (output == null) {
             return null;
@@ -328,6 +352,14 @@ public final class ThumbnailUtil {
         }
 
         return image;
+    }
+
+    private static int getMaxSecondsToTerminateExternalPrograms() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS)
+                ? storage.getInt(Storage.KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS)
+                : 60;
     }
 
     /**

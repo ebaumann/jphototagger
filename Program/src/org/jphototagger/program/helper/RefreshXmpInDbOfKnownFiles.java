@@ -6,11 +6,12 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.xmp.XmpMetadata;
+import org.openide.util.Lookup;
 
 /**
  * Refreshes the XMP metadata of all known imagesfiles whithout time stamp
@@ -43,7 +44,7 @@ public final class RefreshXmpInDbOfKnownFiles extends HelperThread {
             try {
                 xmp = XmpMetadata.hasImageASidecarFile(imageFile)
                       ? XmpMetadata.getXmpFromSidecarFileOf(imageFile)
-                      : UserSettings.INSTANCE.isScanForEmbeddedXmp()
+                      : isScanForEmbeddedXmp()
                         ? XmpMetadata.getEmbeddedXmp(imageFile)
                         : null;
             } catch (IOException ex) {
@@ -58,6 +59,14 @@ public final class RefreshXmpInDbOfKnownFiles extends HelperThread {
         }
 
         progressEnded(null);
+    }
+
+    private boolean isScanForEmbeddedXmp() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_SCAN_FOR_EMBEDDED_XMP)
+                ? storage.getBoolean(Storage.KEY_SCAN_FOR_EMBEDDED_XMP)
+                : false;
     }
 
     @Override

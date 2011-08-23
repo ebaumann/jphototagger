@@ -26,7 +26,6 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.TableUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.database.metadata.selections.MetadataTableModels;
 import org.jphototagger.program.model.TableModelExif;
@@ -41,10 +40,12 @@ import org.jphototagger.xmp.XmpMetadata;
 
 import com.adobe.xmp.XMPConst;
 import com.adobe.xmp.properties.XMPPropertyInfo;
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.domain.repository.event.ExifInsertedEvent;
 import org.jphototagger.domain.repository.event.ExifUpdatedEvent;
 import org.jphototagger.domain.repository.event.XmpDeletedEvent;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
+import org.openide.util.Lookup;
 
 /**
  * Listens for selection changes in the {@link ThumbnailsPanel} and
@@ -159,7 +160,7 @@ public final class ControllerShowMetadata implements ChangeListener {
         showUpdates(evt.getImageFile(), Collections.singleton(Metadata.EXIF));
     }
 
-    @EventSubscriber(eventClass=ThumbnailsSelectionChangedEvent.class)
+    @EventSubscriber(eventClass = ThumbnailsSelectionChangedEvent.class)
     public void thumbnailsSelectionChanged(final ThumbnailsSelectionChangedEvent evt) {
         setSelectedImageFileUndefined();
         removeMetadataFromTables(EnumSet.allOf(Metadata.class));
@@ -191,7 +192,15 @@ public final class ControllerShowMetadata implements ChangeListener {
         return metadata.contains(Metadata.IPTC)
                 && !iptcReadFromImageFile
                 && appPanel.isTabMetadataIptcSelected()
-                && UserSettings.INSTANCE.isDisplayIptc();
+                && isDisplayIptc();
+    }
+
+    private boolean isDisplayIptc() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_DISPLAY_IPTC)
+                ? storage.getBoolean(Storage.KEY_DISPLAY_IPTC)
+                : false;
     }
 
     private boolean isUpdateXmp(Collection<? extends Metadata> metadata) {
@@ -349,7 +358,7 @@ public final class ControllerShowMetadata implements ChangeListener {
             try {
                 allInfos = (sidecarFile != null)
                         ? XmpMetadata.getPropertyInfosOfSidecarFile(sidecarFile)
-                        : UserSettings.INSTANCE.isScanForEmbeddedXmp()
+                        : isScanForEmbeddedXmp()
                         ? EmbeddedXmpCache.INSTANCE.getXmpPropertyInfos(imageFile)
                         : null;
                 xmpReadFromImageFile = true;
@@ -362,6 +371,14 @@ public final class ControllerShowMetadata implements ChangeListener {
                     setPropertyInfosToXmpTableModel(imageFile, model, allInfos, namespacesOfXmpTableModel.get(model));
                 }
             }
+        }
+
+        private boolean isScanForEmbeddedXmp() {
+            Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+            return storage.containsKey(Storage.KEY_SCAN_FOR_EMBEDDED_XMP)
+                    ? storage.getBoolean(Storage.KEY_SCAN_FOR_EMBEDDED_XMP)
+                    : false;
         }
 
         private void setPropertyInfosToXmpTableModel(File imageFile, TableModelXmp model, List<XMPPropertyInfo> allInfos, String[] namespaces) {

@@ -28,7 +28,6 @@ import org.jphototagger.lib.component.TabOrEnterLeavingTextArea;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.controller.search.ControllerAdvancedSearch;
 import org.jphototagger.program.data.SavedSearch;
@@ -83,9 +82,17 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
 
 
     private void setAutocomplete() {
-        if (UserSettings.INSTANCE.isAutocomplete()) {
+        if (isAutocomplete()) {
             panelKeywordsInput.setAutocomplete();
         }
+    }
+
+    private boolean isAutocomplete() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_ENABLE_AUTOCOMPLETE)
+                ? storage.getBoolean(Storage.KEY_ENABLE_AUTOCOMPLETE)
+                : true;
     }
 
     private void setDefaultInputOfComponent() {

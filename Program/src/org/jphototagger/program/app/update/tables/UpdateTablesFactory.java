@@ -3,12 +3,12 @@ package org.jphototagger.program.app.update.tables;
 import org.jphototagger.lib.util.Version;
 import org.jphototagger.program.app.update.tables.v0.UpdateTablesV0;
 import org.jphototagger.program.database.DatabaseMetadata;
-import org.jphototagger.program.settings.UserSettings;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.jphototagger.api.core.Storage;
 import org.openide.util.Lookup;
 
@@ -45,25 +45,52 @@ public final class UpdateTablesFactory {
 
     public void updatePreCreation(Connection con) throws SQLException {
         if (isUpdate()) {
-            Level defaultLogLevel = UserSettings.INSTANCE.getLogLevel();
+            Level defaultLogLevel = getLogLevel();
 
-            UserSettings.INSTANCE.setLogLevel(Level.FINEST);
+            setLogLevel(Level.FINEST);
 
             try {
                 for (Updater updater : runningUpdaters) {
                     updater.updatePreCreation(con);
                 }
             } finally {
-                UserSettings.INSTANCE.setLogLevel(defaultLogLevel);
+                setLogLevel(defaultLogLevel);
             }
         }
     }
 
+    private Level getLogLevel() {
+        Level level = null;
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        if (storage.containsKey(Storage.KEY_LOG_LEVEL)) {
+            String levelString = storage.getString(Storage.KEY_LOG_LEVEL);
+
+            try {
+                level = Level.parse(levelString);
+            } catch (Exception ex) {
+                Logger.getLogger(UpdateTablesFactory.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        if (level == null) {
+            storage.setString(Storage.KEY_LOG_LEVEL, Level.INFO.getLocalizedName());
+        }
+
+        return level == null ? Level.INFO : level;
+    }
+
+    private void setLogLevel(Level logLevel) {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.setString(Storage.KEY_LOG_LEVEL, logLevel.toString());
+    }
+
     public void updatePostCreation(Connection con) throws SQLException {
         if (isUpdate()) {
-            Level defaultLogLevel = UserSettings.INSTANCE.getLogLevel();
+            Level defaultLogLevel = getLogLevel();
 
-            UserSettings.INSTANCE.setLogLevel(Level.FINEST);
+            setLogLevel(Level.FINEST);
 
             try {
                 for (Updater updater : runningUpdaters) {
@@ -72,7 +99,7 @@ public final class UpdateTablesFactory {
 
                 DatabaseMetadata.setCurrentAppVersionToDatabase();
             } finally {
-                UserSettings.INSTANCE.setLogLevel(defaultLogLevel);
+                setLogLevel(defaultLogLevel);
             }
         }
     }

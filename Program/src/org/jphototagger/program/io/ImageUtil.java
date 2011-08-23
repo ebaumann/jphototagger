@@ -4,17 +4,18 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.lib.event.ProgressEvent;
 import org.jphototagger.lib.event.listener.ProgressListener;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.controller.filesystem.ControllerMoveFiles;
 import org.jphototagger.program.factory.ControllerFactory;
+import org.jphototagger.program.helper.CopyFiles;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.CopyToDirectoryDialog;
-import org.jphototagger.program.view.dialogs.MoveToDirectoryDialog;
 import org.jphototagger.xmp.XmpMetadata;
+import org.openide.util.Lookup;
 
 /**
  * Utilities for images.
@@ -22,9 +23,12 @@ import org.jphototagger.xmp.XmpMetadata;
  * @author Elmar Baumann
  */
 public final class ImageUtil {
-    private ImageUtil() {}
+
+    private ImageUtil() {
+    }
 
     public enum ConfirmOverwrite {
+
         YES, NO;
 
         public boolean yes() {
@@ -33,8 +37,8 @@ public final class ImageUtil {
 
         public static ConfirmOverwrite fromBoolean(boolean b) {
             return b
-                   ? YES
-                   : NO;
+                    ? YES
+                    : NO;
         }
     }
 
@@ -61,7 +65,7 @@ public final class ImageUtil {
 
         String message = Bundle.getString(ImageUtil.class, "ImageUtil.Confirm.Copy", sourceFiles.size(), targetDirectory.getAbsolutePath());
 
-        if (confirm.yes() &&!confirmFileAction(message)) {
+        if (confirm.yes() && !confirmFileAction(message)) {
             return;
         }
 
@@ -70,7 +74,15 @@ public final class ImageUtil {
         dlg.setTargetDirectory(targetDirectory);
         dlg.setSourceFiles(sourceFiles);
         addProgressListener(dlg);
-        dlg.copy(true, UserSettings.INSTANCE.getCopyMoveFilesOptions());
+        dlg.copy(true, getCopyMoveFilesOptions());
+    }
+
+    private static CopyFiles.Options getCopyMoveFilesOptions() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_OPTIONS_COPY_MOVE_FILES)
+                ? CopyFiles.Options.fromInt(storage.getInt(Storage.KEY_OPTIONS_COPY_MOVE_FILES))
+                : CopyFiles.Options.CONFIRM_OVERWRITE;
     }
 
     /**
@@ -84,7 +96,7 @@ public final class ImageUtil {
     public static void moveImageFiles(List<File> sourceFiles, File targetDirectory, ConfirmOverwrite confirm) {
         String message = Bundle.getString(ImageUtil.class, "ImageUtil.Confirm.Move", sourceFiles.size(), targetDirectory.getAbsolutePath());
 
-        if (confirm.yes() &&!confirmFileAction(message)) {
+        if (confirm.yes() && !confirmFileAction(message)) {
             return;
         }
 
@@ -102,16 +114,17 @@ public final class ImageUtil {
 
     private synchronized static void addProgressListener(CopyToDirectoryDialog dlg) {
         dlg.addProgressListener(new ProgressListener() {
+
             @Override
             public void progressStarted(ProgressEvent evt) {
-
                 // ignore
             }
+
             @Override
             public void progressPerformed(ProgressEvent evt) {
-
                 // ignore
             }
+
             @Override
             public void progressEnded(ProgressEvent evt) {
                 GUI.refreshThumbnailsPanel();

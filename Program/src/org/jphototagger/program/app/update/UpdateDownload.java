@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 
 import javax.swing.JProgressBar;
 
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.api.core.UserFilesProvider;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.concurrent.Cancelable;
@@ -20,7 +21,6 @@ import org.jphototagger.lib.net.NetVersion;
 import org.jphototagger.lib.system.SystemUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.Version;
-import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.program.app.AppInfo;
 import org.jphototagger.program.app.AppLifeCycle;
 import org.jphototagger.program.database.DatabaseApplicationProperties;
@@ -101,7 +101,7 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
                         String message = Bundle.getString(UpdateDownload.class, "UpdateDownload.Confirm.CheckForNewerVersion");
                         boolean isAutoDownload = MessageDisplayer.confirmYesNo(null, message);
 
-                        UserSettings.INSTANCE.setCheckForUpdates(isAutoDownload);
+                        setCheckForUpdates(isAutoDownload);
                         DatabaseApplicationProperties.INSTANCE.setBoolean(KEY_ASK_ONCE_CHECK_FOR_NEWER_VERSION, true);
                     }
                 });
@@ -109,6 +109,12 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
                 Logger.getLogger(UpdateDownload.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+
+    private static void setCheckForUpdates(boolean auto) {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.setBoolean(Storage.KEY_CHECK_FOR_UPDATES, auto);
     }
 
     @Override

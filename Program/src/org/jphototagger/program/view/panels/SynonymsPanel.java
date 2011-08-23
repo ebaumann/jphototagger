@@ -9,16 +9,17 @@ import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
 import org.jphototagger.lib.componentutil.Autocomplete;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.event.util.MouseEventUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.database.metadata.selections.AutoCompleteDataOfColumn;
 import org.jphototagger.program.model.ListModelSynonyms;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -48,10 +49,26 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
     }
 
     private void setAutocomplete() {
-        if (UserSettings.INSTANCE.isAutocomplete()) {
-            autocomplete = new Autocomplete(UserSettings.INSTANCE.isAutocompleteFastSearchIgnoreCase());
+        if (isAutocomplete()) {
+            autocomplete = new Autocomplete(isAutocompleteFastSearchIgnoreCase());
             autocomplete.decorate(textAreaWords, AutoCompleteDataOfColumn.INSTANCE.get(ColumnXmpDcSubjectsSubject.INSTANCE).get(), true);
         }
+    }
+
+    private boolean isAutocompleteFastSearchIgnoreCase() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
+                ? storage.getBoolean(Storage.KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
+                : false;
+    }
+
+    private boolean isAutocomplete() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_ENABLE_AUTOCOMPLETE)
+                ? storage.getBoolean(Storage.KEY_ENABLE_AUTOCOMPLETE)
+                : true;
     }
 
     @Override

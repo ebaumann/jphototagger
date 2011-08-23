@@ -4,9 +4,9 @@ import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.api.modules.Module;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.program.app.AppWindowPersistence;
 import org.jphototagger.program.app.update.UpdateDownload;
 import org.jphototagger.program.tasks.ScheduledTaskBackupDatabase;
@@ -60,7 +60,7 @@ public final class MetaFactory implements Runnable {
 
     private void checkForDownload() {
         UpdateDownload.askOnceCheckForNewerVersion();
-        if (UserSettings.INSTANCE.isCheckForUpdates()) {
+        if (isCheckForUpdates()) {
 
             // Returning immediately
             new Thread(new Runnable() {
@@ -75,6 +75,14 @@ public final class MetaFactory implements Runnable {
                 }
             }, "JPhotoTagger: Checking for a newer version").start();
         }
+    }
+
+    private boolean isCheckForUpdates() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_CHECK_FOR_UPDATES)
+                ? storage.getBoolean(Storage.KEY_CHECK_FOR_UPDATES)
+                : true;
     }
 
     private void installModules() {

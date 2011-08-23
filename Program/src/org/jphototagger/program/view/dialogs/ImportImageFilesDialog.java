@@ -17,7 +17,6 @@ import org.jphototagger.lib.dialog.DirectoryChooser;
 import org.jphototagger.lib.dialog.DirectoryChooser.Option;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
-import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.ImagePreviewPanel;
@@ -225,7 +224,7 @@ public class ImportImageFilesDialog extends Dialog {
     }
 
     private File chooseDir(File startDir) {
-        Option showHiddenDirs = UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs();
+        Option showHiddenDirs = getDirChooserOptionShowHiddenDirs();
         DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), startDir, showHiddenDirs);
 
         dlg.setStorageKey("ImportImageFilesDialog.DirChooser");
@@ -234,6 +233,18 @@ public class ImportImageFilesDialog extends Dialog {
         return dlg.isAccepted()
                ? dlg.getSelectedDirectories().get(0)
                : null;
+    }
+
+    private DirectoryChooser.Option getDirChooserOptionShowHiddenDirs() {
+        return isAcceptHiddenDirectories()
+                ? DirectoryChooser.Option.DISPLAY_HIDDEN_DIRECTORIES
+                : DirectoryChooser.Option.NO_OPTION;
+    }
+
+    private boolean isAcceptHiddenDirectories() {
+        return storage.containsKey(Storage.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+                ? storage.getBoolean(Storage.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+                : false;
     }
 
     private void setDirLabel(JLabel label, File dir) {

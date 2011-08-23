@@ -34,7 +34,6 @@ import org.jphototagger.lib.io.TreeFileSystemDirectories;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
 import org.jphototagger.lib.model.TreeNodeSortedChildren;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.program.database.DatabaseFavorites;
 import org.openide.util.Lookup;
 
@@ -285,7 +284,7 @@ public final class TreeModelFavorites extends DefaultTreeModel implements TreeWi
 
         LOGGER.log(Level.FINEST, "Lese Unterverzeichnisse von ''{0}'' ein'...", dir);
 
-        File[] subdirs = dir.listFiles(new DirectoryFilter(UserSettings.INSTANCE.getDirFilterOptionShowHiddenFiles()));
+        File[] subdirs = dir.listFiles(new DirectoryFilter(getDirFilterOptionShowHiddenFiles()));
 
         LOGGER.log(Level.FINEST, "Unterverzeichnisse von ''{0}'' wurden eingelesen", dir);
 
@@ -318,6 +317,20 @@ public final class TreeModelFavorites extends DefaultTreeModel implements TreeWi
                 fireTreeNodesInserted(this, parentNode.getPath(), new int[]{childIndex}, new Object[]{newChild});
             }
         }
+    }
+
+    private DirectoryFilter.Option getDirFilterOptionShowHiddenFiles() {
+        return isAcceptHiddenDirectories()
+                ? DirectoryFilter.Option.ACCEPT_HIDDEN_FILES
+                : DirectoryFilter.Option.NO_OPTION;
+    }
+
+    private boolean isAcceptHiddenDirectories() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+                ? storage.getBoolean(Storage.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+                : false;
     }
 
     /**

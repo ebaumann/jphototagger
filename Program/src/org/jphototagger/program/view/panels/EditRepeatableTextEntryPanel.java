@@ -27,6 +27,7 @@ import javax.swing.event.ListSelectionEvent;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jdesktop.swingx.JXList;
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.domain.database.Column;
 import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
 import org.jphototagger.domain.event.listener.TextEntryListener;
@@ -42,10 +43,10 @@ import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.program.database.metadata.selections.AutoCompleteDataOfColumn;
 import org.jphototagger.program.helper.AutocompleteHelper;
 import org.jphototagger.program.types.Suggest;
+import org.openide.util.Lookup;
 
 /**
  * Panel with an input text field an a list. The list contains multiple words,
@@ -111,7 +112,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
 
     @Override
     public void setAutocomplete() {
-        if (UserSettings.INSTANCE.isAutocomplete()) {
+        if (getPersistedAutocomplete()) {
             synchronized (this) {
                 if (autocomplete != null) {
                     return;
@@ -121,6 +122,14 @@ public final class EditRepeatableTextEntryPanel extends JPanel
             autocomplete.setTransferFocusForward(false);
             autocomplete.decorate(textAreaInput, AutoCompleteDataOfColumn.INSTANCE.get(column).get(), true);
         }
+    }
+
+    private boolean getPersistedAutocomplete() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_ENABLE_AUTOCOMPLETE)
+                ? storage.getBoolean(Storage.KEY_ENABLE_AUTOCOMPLETE)
+                : true;
     }
 
     /**
@@ -487,7 +496,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
                 }
             }
 
-            if (autocomplete != null && UserSettings.INSTANCE.isAutocomplete()) {
+            if (autocomplete != null && getPersistedAutocomplete()) {
                 AutocompleteHelper.addAutocompleteData(column, autocomplete, texts);
             }
         }
@@ -645,7 +654,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
     }
 
     private boolean isAutocomplete() {
-        return autocomplete != null && UserSettings.INSTANCE.isAutocomplete();
+        return autocomplete != null && getPersistedAutocomplete();
     }
 
     private void addToAutocomplete(Xmp xmp) {

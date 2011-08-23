@@ -20,7 +20,6 @@ import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.io.IoUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StorageUtil;
-import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.program.helper.HelperThread;
 import org.jphototagger.program.tasks.UserTasks;
 import org.openide.util.Lookup;
@@ -47,11 +46,19 @@ public final class GPSLocationExportUtil {
             throw new NullPointerException("file == null");
         }
 
-        if (UserSettings.INSTANCE.isAddFilenameToGpsLocationExport()) {
+        if (isAddFilenameToGpsLocationExport()) {
             return " [" + file.getName() + "]";
         }
 
         return "";
+    }
+
+    private static boolean isAddFilenameToGpsLocationExport() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_ADD_FILENAME_TO_GPS_LOCATION_EXPORT)
+                ? storage.getBoolean(Storage.KEY_ADD_FILENAME_TO_GPS_LOCATION_EXPORT)
+                : false;
     }
 
     private static class Exporter extends HelperThread {

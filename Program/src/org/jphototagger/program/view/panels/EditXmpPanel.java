@@ -1,6 +1,5 @@
 package org.jphototagger.program.view.panels;
 
-import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.domain.text.TextEntry;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.domain.database.Column;
@@ -27,6 +26,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import javax.swing.text.JTextComponent;
+import org.jphototagger.api.core.Storage;
+import org.openide.util.Lookup;
 
 /**
  * Edits a {@link Xmp} object.
@@ -92,11 +93,19 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
     }
 
     private void setAutocomplete() {
-        if (UserSettings.INSTANCE.isAutocomplete()) {
+        if (isAutocomplete()) {
             for (TextEntry textEntry : textEntries) {
                 textEntry.setAutocomplete();
             }
         }
+    }
+
+    private boolean isAutocomplete() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_ENABLE_AUTOCOMPLETE)
+                ? storage.getBoolean(Storage.KEY_ENABLE_AUTOCOMPLETE)
+                : true;
     }
 
     public void focusLastFocuessedComponent() {

@@ -2,9 +2,11 @@ package org.jphototagger.program.view.panels;
 
 import java.awt.Container;
 
+import javax.swing.SpinnerModel;
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.program.types.Persistence;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -20,46 +22,145 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
     }
 
     private void setMaximumSecondsToTerminateExternalPrograms() {
-        UserSettings.INSTANCE.setMaxSecondsToTerminateExternalPrograms((Integer) spinnerMaximumSecondsToTerminateExternalPrograms.getModel().getValue());
+        SpinnerModel model = spinnerMaximumSecondsToTerminateExternalPrograms.getModel();
+        Integer seconds = (Integer) model.getValue();
+
+        setMaxSecondsToTerminateExternalPrograms(seconds);
+    }
+
+    private void setMaxSecondsToTerminateExternalPrograms(Integer seconds) {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.setInt(Storage.KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS, seconds);
     }
 
     private void setScanForEmbeddedXmp() {
-        UserSettings.INSTANCE.setScanForEmbeddedXmp(checkBoxScanForEmbeddedXmp.isSelected());
+        setScanForEmbeddedXmp(checkBoxScanForEmbeddedXmp.isSelected());
+    }
+
+    private void setScanForEmbeddedXmp(boolean scan) {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.setBoolean(Storage.KEY_SCAN_FOR_EMBEDDED_XMP, scan);
     }
 
     private void setSaveEarly() {
-        UserSettings.INSTANCE.setSaveInputEarly(checkBoxSaveInputEarly.isSelected());
+        setSaveInputEarly(checkBoxSaveInputEarly.isSelected());
+    }
+
+    private void setSaveInputEarly(boolean early) {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.setBoolean(Storage.KEY_SAVE_INPUT_EARLY, early);
     }
 
     private void setDisplayIptc() {
-        UserSettings.INSTANCE.setDisplayIptc(checkBoxDisplayIptc.isSelected());
+        setDisplayIptc(checkBoxDisplayIptc.isSelected());
+    }
+
+    private void setDisplayIptc(boolean display) {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.setBoolean(Storage.KEY_DISPLAY_IPTC, display);
     }
 
     private void setEnableAutocomplete() {
-        UserSettings.INSTANCE.setEnableAutocomplete(checkBoxEnableAutocomplete.isSelected());
+        setEnableAutocomplete(checkBoxEnableAutocomplete.isSelected());
         setEnabledCheckBoxUpdateAutocomplete();
     }
 
+    private void setEnableAutocomplete(boolean enable) {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.setBoolean(Storage.KEY_ENABLE_AUTOCOMPLETE, enable);
+    }
+
     private void setUpdateAutocomplete() {
-        UserSettings.INSTANCE.setUpdateAutocomplete(checkBoxUpdateAutocomplete.isSelected());
+        setUpdateAutocomplete(checkBoxUpdateAutocomplete.isSelected());
+    }
+
+    private void setUpdateAutocomplete(boolean update) {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.setBoolean(Storage.KEY_UPDATE_AUTOCOMPLETE, update);
     }
 
     private void setAutocompleteIgnoreCase() {
-        UserSettings.INSTANCE.setAutocompleteFastSearchIgnoreCase(checkBoxAutocompleteIgnoreCase.isSelected());
+        setAutocompleteFastSearchIgnoreCase(checkBoxAutocompleteIgnoreCase.isSelected());
+    }
+
+    private void setAutocompleteFastSearchIgnoreCase(boolean ignore) {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.setBoolean(Storage.KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE, ignore);
     }
 
     @Override
     public void readProperties() {
-        UserSettings settings = UserSettings.INSTANCE;
-
-        checkBoxDisplayIptc.setSelected(settings.isDisplayIptc());
-        checkBoxScanForEmbeddedXmp.setSelected(settings.isScanForEmbeddedXmp());
-        checkBoxSaveInputEarly.setSelected(settings.isSaveInputEarly());
-        spinnerMaximumSecondsToTerminateExternalPrograms.getModel().setValue(settings.getMaxSecondsToTerminateExternalPrograms());
-        checkBoxEnableAutocomplete.setSelected(settings.isAutocomplete());
-        checkBoxUpdateAutocomplete.setSelected(settings.isUpdateAutocomplete());
-        checkBoxAutocompleteIgnoreCase.setSelected(settings.isAutocompleteFastSearchIgnoreCase());
+        checkBoxDisplayIptc.setSelected(isDisplayIptc());
+        checkBoxScanForEmbeddedXmp.setSelected(isScanForEmbeddedXmp());
+        checkBoxSaveInputEarly.setSelected(isSaveInputEarly());
+        spinnerMaximumSecondsToTerminateExternalPrograms.getModel().setValue(getMaxSecondsToTerminateExternalPrograms());
+        checkBoxEnableAutocomplete.setSelected(isAutocomplete());
+        checkBoxUpdateAutocomplete.setSelected(isUpdateAutocomplete());
+        checkBoxAutocompleteIgnoreCase.setSelected(isAutocompleteFastSearchIgnoreCase());
         setEnabledCheckBoxUpdateAutocomplete();
+    }
+
+    private boolean isAutocompleteFastSearchIgnoreCase() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
+                ? storage.getBoolean(Storage.KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
+                : false;
+    }
+
+    private boolean isUpdateAutocomplete() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_UPDATE_AUTOCOMPLETE)
+                ? storage.getBoolean(Storage.KEY_UPDATE_AUTOCOMPLETE)
+                : true;
+    }
+
+    private boolean isAutocomplete() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_ENABLE_AUTOCOMPLETE)
+                ? storage.getBoolean(Storage.KEY_ENABLE_AUTOCOMPLETE)
+                : true;
+    }
+
+    private boolean isDisplayIptc() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_DISPLAY_IPTC)
+                ? storage.getBoolean(Storage.KEY_DISPLAY_IPTC)
+                : false;
+    }
+
+    private int getMaxSecondsToTerminateExternalPrograms() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS)
+                ? storage.getInt(Storage.KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS)
+                : 60;
+    }
+
+    private boolean isSaveInputEarly() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_SAVE_INPUT_EARLY)
+                ? storage.getBoolean(Storage.KEY_SAVE_INPUT_EARLY)
+                : true;
+    }
+
+    private boolean isScanForEmbeddedXmp() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_SCAN_FOR_EMBEDDED_XMP)
+                ? storage.getBoolean(Storage.KEY_SCAN_FOR_EMBEDDED_XMP)
+                : false;
     }
 
     private void setEnabledCheckBoxUpdateAutocomplete() {
@@ -241,7 +342,6 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel
     private void checkBoxAutocompleteIgnoreCaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAutocompleteIgnoreCaseActionPerformed
         setAutocompleteIgnoreCase();
     }//GEN-LAST:event_checkBoxAutocompleteIgnoreCaseActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox checkBoxAutocompleteIgnoreCase;
     private javax.swing.JCheckBox checkBoxDisplayIptc;

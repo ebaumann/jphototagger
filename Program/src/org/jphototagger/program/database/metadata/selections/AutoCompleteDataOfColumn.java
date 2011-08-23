@@ -1,7 +1,6 @@
 package org.jphototagger.program.database.metadata.selections;
 
 import org.jphototagger.domain.database.Column;
-import org.jphototagger.program.settings.UserSettings;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,11 +11,13 @@ import java.util.Map;
  * @author Elmar Baumann
  */
 public final class AutoCompleteDataOfColumn {
+
     public static final AutoCompleteDataOfColumn INSTANCE = new AutoCompleteDataOfColumn();
     private static final AutoCompleteData FAST_SEARCH_DATA = new AutoCompleteData(FastSearchColumns.get());
     private static final Map<Column, AutoCompleteData> DATA_OF_COLUMN = new HashMap<Column, AutoCompleteData>();
 
-    private AutoCompleteDataOfColumn() {}
+    private AutoCompleteDataOfColumn() {
+    }
 
     /**
      * Returns the autocomplete data of a specific column.
@@ -28,8 +29,6 @@ public final class AutoCompleteDataOfColumn {
         if (column == null) {
             throw new NullPointerException("column == null");
         }
-
-        assert UserSettings.INSTANCE.isAutocomplete();
 
         synchronized (DATA_OF_COLUMN) {
             AutoCompleteData data = DATA_OF_COLUMN.get(column);
@@ -44,8 +43,6 @@ public final class AutoCompleteDataOfColumn {
     }
 
     public AutoCompleteData getFastSearchData() {
-        assert UserSettings.INSTANCE.isAutocomplete();
-
         return FAST_SEARCH_DATA;
     }
 }

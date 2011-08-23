@@ -16,7 +16,6 @@ import org.jphototagger.domain.event.AppWillExitEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.api.core.StorageHints;
-import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.frames.AppFrame;
 import org.jphototagger.program.view.panels.AppPanel;
@@ -109,11 +108,19 @@ public final class AppWindowPersistence implements ComponentListener {
                 Storage storage = Lookup.getDefault().lookup(Storage.class);
 
                 storage.applyComponentSettings(appPanel, getAppPanelSettingsHints());
-                appPanel.setEnabledIptcTab(UserSettings.INSTANCE.isDisplayIptc());
+                appPanel.setEnabledIptcTab(isDisplayIptc());
                 setInitKeywordsView(appPanel);
                 selectFastSearch(appPanel);
             }
         });
+    }
+
+    private boolean isDisplayIptc() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_DISPLAY_IPTC)
+                ? storage.getBoolean(Storage.KEY_DISPLAY_IPTC)
+                : false;
     }
 
     private static StorageHints getAppPanelSettingsHints() {

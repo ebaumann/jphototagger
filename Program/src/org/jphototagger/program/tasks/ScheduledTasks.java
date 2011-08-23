@@ -14,15 +14,16 @@ import javax.swing.JButton;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.domain.metadata.event.UpdateMetadataCheckEvent;
 import org.jphototagger.domain.metadata.event.UpdateMetadataCheckEvent.Type;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.concurrent.SerialExecutor;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
 import org.jphototagger.program.view.dialogs.SettingsDialog;
+import org.openide.util.Lookup;
 
 /**
  * Runs scheduled tasks after
@@ -34,12 +35,13 @@ import org.jphototagger.program.view.dialogs.SettingsDialog;
  */
 public final class ScheduledTasks implements ActionListener {
 
+    private static final int DEFAULT_MINUTES_TO_START_SCHEDULED_TASKS = 5;
     private static final Map<ButtonState, Icon> ICON_OF_BUTTON_STATE = new EnumMap<ButtonState, Icon>(ButtonState.class);
     private static final Map<ButtonState, String> TOOLTIP_TEXT_OF_BUTTON_STATE = new EnumMap<ButtonState, String>(ButtonState.class);
     public static final ScheduledTasks INSTANCE = new ScheduledTasks();
     private final SerialExecutor executor = new SerialExecutor(Executors.newCachedThreadPool());
     private final JButton button = SettingsDialog.INSTANCE.getButtonScheduledTasks();
-    private final long MINUTES_WAIT_BEFORE_PERFORM = UserSettings.INSTANCE.getMinutesToStartScheduledTasks();
+    private final long MINUTES_WAIT_BEFORE_PERFORM = getMinutesToStartScheduledTasks();
     private volatile boolean isRunning;
     private volatile boolean runnedManual;
 
@@ -59,6 +61,15 @@ public final class ScheduledTasks implements ActionListener {
         TOOLTIP_TEXT_OF_BUTTON_STATE.put(ButtonState.CANCEL, Bundle.getString(ScheduledTasks.class, "ScheduledTasks.TooltipText.Cancel"));
         ICON_OF_BUTTON_STATE.put(ButtonState.START, AppLookAndFeel.ICON_START);
         ICON_OF_BUTTON_STATE.put(ButtonState.CANCEL, AppLookAndFeel.ICON_CANCEL);
+    }
+
+    public static int getMinutesToStartScheduledTasks() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        int minutes = storage.getInt(Storage.KEY_MINUTES_TO_START_SCHEDULED_TASKS);
+
+        return (minutes > 0)
+                ? minutes
+                : DEFAULT_MINUTES_TO_START_SCHEDULED_TASKS;
     }
 
     /**
