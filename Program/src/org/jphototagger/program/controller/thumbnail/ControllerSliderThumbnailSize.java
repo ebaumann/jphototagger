@@ -3,7 +3,6 @@ package org.jphototagger.program.controller.thumbnail;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.domain.event.UserPropertyChangedEvent;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.settings.UserSettings;
 import java.awt.AWTEvent;
 import java.awt.event.AWTEventListener;
 import java.awt.event.KeyEvent;
@@ -14,6 +13,7 @@ import javax.swing.JSlider;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.core.Storage;
+import org.jphototagger.api.image.ThumbnailProvider;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsChangedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.openide.util.Lookup;
@@ -48,7 +48,12 @@ public final class ControllerSliderThumbnailSize implements AWTEventListener, Ch
     }
 
     private int getMaxTnWidth() {
-        return UserSettings.INSTANCE.getMaxThumbnailWidth();
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        int width = storage.getInt(Storage.KEY_MAX_THUMBNAIL_WIDTH);
+
+        return (width != Integer.MIN_VALUE)
+                ? width
+                : ThumbnailProvider.DEFAULT_THUMBNAIL_WIDTH;
     }
 
     private void initSlider() {
@@ -109,7 +114,7 @@ public final class ControllerSliderThumbnailSize implements AWTEventListener, Ch
 
     @EventSubscriber(eventClass = UserPropertyChangedEvent.class)
     public void applySettings(UserPropertyChangedEvent evt) {
-        if (UserPropertyChangedEvent.PROPERTY_MAX_THUMBNAIL_WIDTH.equals(evt.getProperty())) {
+        if (Storage.KEY_MAX_THUMBNAIL_WIDTH.equals(evt.getPropertyKey())) {
             setThumbnailWidth();
         }
     }

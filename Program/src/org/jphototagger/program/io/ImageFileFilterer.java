@@ -5,11 +5,13 @@ import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.util.RegexUtil;
 import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.program.database.DatabaseFileExcludePatterns;
-import org.jphototagger.program.settings.UserSettings;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import org.jphototagger.api.core.Storage;
+import org.jphototagger.lib.io.filefilter.DirectoryFilter;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -76,12 +78,25 @@ public final class ImageFileFilterer {
             throw new NullPointerException("dir == null");
         }
 
-        List<File> dirAndSubdirs = FileUtil.getSubDirectoriesRecursive(dir, null,
-                                       UserSettings.INSTANCE.getDirFilterOptionShowHiddenFiles());
+        List<File> dirAndSubdirs = FileUtil.getSubDirectoriesRecursive(dir, null, getDirFilterOptionShowHiddenFiles());
 
         dirAndSubdirs.add(dir);
 
         return getImageFilesOfDirectories(dirAndSubdirs);
+    }
+
+    private static DirectoryFilter.Option getDirFilterOptionShowHiddenFiles() {
+        return isAcceptHiddenDirectories()
+                ? DirectoryFilter.Option.ACCEPT_HIDDEN_FILES
+                : DirectoryFilter.Option.NO_OPTION;
+    }
+
+    private static boolean isAcceptHiddenDirectories() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+                ? storage.getBoolean(Storage.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+                : false;
     }
 
     /**
@@ -143,5 +158,6 @@ public final class ImageFileFilterer {
         return imageFiles;
     }
 
-    private ImageFileFilterer() {}
+    private ImageFileFilterer() {
+    }
 }

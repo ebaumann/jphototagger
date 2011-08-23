@@ -18,6 +18,7 @@ import javax.swing.filechooser.FileSystemView;
 
 import org.bushe.swing.event.EventBus;
 import org.jphototagger.api.core.Storage;
+import org.jphototagger.api.core.StorageHints;
 import org.jphototagger.api.file.event.FileRenamedEvent;
 import org.jphototagger.domain.templates.RenameTemplate;
 import org.jphototagger.image.FileType;
@@ -25,8 +26,6 @@ import org.jphototagger.lib.componentutil.ComboBoxUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.lib.util.Settings;
-import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.controller.filesystem.FilenameFormat;
 import org.jphototagger.program.controller.filesystem.FilenameFormatArray;
@@ -403,7 +402,7 @@ public final class RenameDialog extends Dialog implements ListDataListener {
         } else {
             Storage storage = Lookup.getDefault().lookup(Storage.class);
 
-            storage.setComponent(this, UserSettings.SET_TABBED_PANE_SETTINGS);
+            storage.setComponent(this, new StorageHints(StorageHints.Option.SET_TABBED_PANE_CONTENT));
         }
 
         super.setVisible(visible);
@@ -412,7 +411,7 @@ public final class RenameDialog extends Dialog implements ListDataListener {
     private void readProperties() {
         Storage storage = Lookup.getDefault().lookup(Storage.class);
 
-        storage.applyComponentSettings(this, UserSettings.SET_TABBED_PANE_SETTINGS);
+        storage.applyComponentSettings(this, new StorageHints(StorageHints.Option.SET_TABBED_PANE_CONTENT));
 
         if (!tabbedPane.isEnabledAt(1)) {
             tabbedPane.setSelectedComponent(panelInputName);

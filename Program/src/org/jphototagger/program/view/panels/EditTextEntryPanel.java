@@ -13,6 +13,7 @@ import javax.swing.event.DocumentListener;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.domain.database.Column;
 import org.jphototagger.domain.database.xmp.ColumnXmpDcTitle;
 import org.jphototagger.domain.event.listener.TextEntryListener;
@@ -23,9 +24,9 @@ import org.jphototagger.domain.repository.event.XmpUpdatedEvent;
 import org.jphototagger.domain.text.TextEntry;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.componentutil.Autocomplete;
-import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.program.database.metadata.selections.AutoCompleteDataOfColumn;
 import org.jphototagger.program.helper.AutocompleteHelper;
+import org.openide.util.Lookup;
 
 /**
  * Panel zum Eingeben einzeiliger Texte.
@@ -117,7 +118,7 @@ public final class EditTextEntryPanel extends JPanel implements TextEntry, Docum
 
     @Override
     public void setAutocomplete() {
-        if (UserSettings.INSTANCE.isAutocomplete()) {
+        if (getPersistedAutocomplete()) {
             synchronized (this) {
                 if (autocomplete != null) {
                     return;
@@ -129,8 +130,16 @@ public final class EditTextEntryPanel extends JPanel implements TextEntry, Docum
         }
     }
 
+    private boolean getPersistedAutocomplete() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_ENABLE_AUTOCOMPLETE)
+                ? storage.getBoolean(Storage.KEY_ENABLE_AUTOCOMPLETE)
+                : true;
+    }
+
     private boolean isAutocomplete() {
-        return autocomplete != null && UserSettings.INSTANCE.isAutocomplete();
+        return autocomplete != null && getPersistedAutocomplete();
     }
 
     private void addToAutocomplete(Xmp xmp) {

@@ -15,10 +15,10 @@ import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.DirectoryChooser;
 import org.jphototagger.lib.dialog.DirectoryChooser.Option;
 import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.lib.io.filefilter.DirectoryFilter;
 import org.jphototagger.lib.io.filefilter.RegexFileFilter;
 import org.jphototagger.lib.renderer.ListCellRendererFileSystem;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.types.FileEditor;
@@ -152,8 +152,22 @@ public final class FileEditorPanel extends javax.swing.JPanel {
 
     private Option[] getDirChooserOptions() {
         return new Option[] {
-            UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs(),
+            getDirChooserOptionShowHiddenDirs(),
             DirectoryChooser.Option.MULTI_SELECTION };
+    }
+
+    private DirectoryChooser.Option getDirChooserOptionShowHiddenDirs() {
+        return isAcceptHiddenDirectories()
+                ? DirectoryChooser.Option.DISPLAY_HIDDEN_DIRECTORIES
+                : DirectoryChooser.Option.NO_OPTION;
+    }
+
+    private boolean isAcceptHiddenDirectories() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+                ? storage.getBoolean(Storage.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+                : false;
     }
 
     private List<File> getFilesOfDirectories(List<File> selectedDirectories) {
@@ -179,11 +193,17 @@ public final class FileEditorPanel extends javax.swing.JPanel {
             allDirs.add(dir);
 
             if (includeSubDirs) {
-                allDirs.addAll(FileUtil.getSubDirectoriesRecursive(dir, null, UserSettings.INSTANCE.getDirFilterOptionShowHiddenFiles()));
+                allDirs.addAll(FileUtil.getSubDirectoriesRecursive(dir, null, getDirFilterOptionShowHiddenFiles()));
             }
         }
 
         return allDirs;
+    }
+
+    private DirectoryFilter.Option getDirFilterOptionShowHiddenFiles() {
+        return isAcceptHiddenDirectories()
+                ? DirectoryFilter.Option.ACCEPT_HIDDEN_FILES
+                : DirectoryFilter.Option.NO_OPTION;
     }
 
     private void handleSelectFilesActionPerformed() {

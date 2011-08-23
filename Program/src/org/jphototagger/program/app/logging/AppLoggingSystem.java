@@ -16,11 +16,11 @@ import java.util.logging.XMLFormatter;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.api.core.UserFilesProvider;
 import org.jphototagger.domain.event.UserPropertyChangedEvent;
 import org.jphototagger.lib.dialog.LogfileDialog;
 import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.program.settings.UserSettings;
 import org.openide.util.Lookup;
 
 /**
@@ -59,8 +59,7 @@ public final class AppLoggingSystem {
 
     public enum HandlerType {
 
-        SYSTEM_OUT, FILE,
-    }
+        SYSTEM_OUT, FILE,}
 
     private AppLoggingSystem() {
         AnnotationProcessor.process(this);
@@ -116,9 +115,30 @@ public final class AppLoggingSystem {
     }
 
     private static void setLevelsToHandlers() throws SecurityException {
-        systemOutHandler.setLevel(UserSettings.INSTANCE.getLogLevel());
+        systemOutHandler.setLevel(getLogLevel());
         fileHandlerImportant.setLevel(Level.WARNING);
         fileHandlerAllMsgs.setLevel(Level.ALL);
+    }
+
+    private static Level getLogLevel() {
+        Level level = null;
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        if (storage.containsKey(Storage.KEY_LOG_LEVEL)) {
+            String levelString = storage.getString(Storage.KEY_LOG_LEVEL);
+
+            try {
+                level = Level.parse(levelString);
+            } catch (Exception ex) {
+                Logger.getLogger(AppLoggingSystem.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        if (level == null) {
+            storage.setString(Storage.KEY_LOG_LEVEL, Level.INFO.getLocalizedName());
+        }
+
+        return level == null ? Level.INFO : level;
     }
 
     private static void setFormattersToFileHandlers() {
@@ -157,7 +177,7 @@ public final class AppLoggingSystem {
 
     @EventSubscriber(eventClass = UserPropertyChangedEvent.class)
     public void applySettings(UserPropertyChangedEvent evt) {
-        if (appLogger != null && UserPropertyChangedEvent.PROPERTY_LOG_LEVEL.equals(evt.getProperty())) {
+        if (appLogger != null && Storage.KEY_LOG_LEVEL.equals(evt.getPropertyKey())) {
             systemOutHandler.setLevel((Level) evt.getNewValue());
         }
     }

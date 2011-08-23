@@ -6,7 +6,6 @@ import javax.swing.JTabbedPane;
 import org.jphototagger.domain.event.UserPropertyChangedEvent;
 import org.jphototagger.program.model.TableModelIptc;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import java.awt.event.MouseAdapter;
@@ -15,9 +14,11 @@ import java.util.List;
 import javax.swing.table.TableModel;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -39,7 +40,7 @@ public final class ControllerDisplayIptcUserSettings extends MouseAdapter {
 
     @EventSubscriber(eventClass = UserPropertyChangedEvent.class)
     public void applySettings(UserPropertyChangedEvent evt) {
-        if (UserPropertyChangedEvent.PROPERTY_DISPLAY_IPTC.equals(evt.getProperty())) {
+        if (Storage.KEY_DISPLAY_IPTC.equals(evt.getPropertyKey())) {
             boolean displayIptc = (Boolean) evt.getNewValue();
 
             setEnabledIptcTab(displayIptc);
@@ -86,14 +87,27 @@ public final class ControllerDisplayIptcUserSettings extends MouseAdapter {
     }
 
     private void checkDisplayIptc() {
-        boolean isDisplayIptc = UserSettings.INSTANCE.isDisplayIptc();
+        boolean isDisplayIptc = isDisplayIptc();
         Component parentComponent = null;
         String message = Bundle.getString(ControllerDisplayIptcUserSettings.class, "ControllerDisplayIptcUserSettings.Confirm.DisplayIptc");
 
-        if (!isDisplayIptc
-                && MessageDisplayer.confirmYesNo(parentComponent, message)) {
-            UserSettings.INSTANCE.setDisplayIptc(true);
+        if (!isDisplayIptc && MessageDisplayer.confirmYesNo(parentComponent, message)) {
+            setDisplayIptc(true);
         }
+    }
+
+    private boolean isDisplayIptc() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_DISPLAY_IPTC)
+                ? storage.getBoolean(Storage.KEY_DISPLAY_IPTC)
+                : false;
+    }
+
+    private void setDisplayIptc(boolean display) {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.setBoolean(Storage.KEY_DISPLAY_IPTC, display);
     }
 
     @Override

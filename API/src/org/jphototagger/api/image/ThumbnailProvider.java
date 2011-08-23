@@ -10,6 +10,10 @@ import java.io.File;
  */
 public interface ThumbnailProvider {
 
+    public static final int MIN_THUMBNAIL_WIDTH = 50;
+    public static final int MAX_THUMBNAIL_WIDTH = 400;
+    public static final int DEFAULT_THUMBNAIL_WIDTH = 150;
+
     /**
      *
      * @param  imageFile

@@ -7,11 +7,13 @@ import javax.swing.SpinnerNumberModel;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.api.core.Storage;
+import org.jphototagger.api.image.ThumbnailProvider;
 import org.jphototagger.domain.event.UserPropertyChangedEvent;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.program.helper.UpdateAllThumbnails;
 import org.jphototagger.program.types.Persistence;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -35,7 +37,13 @@ public class SettingsThumbnailDimensionsPanel extends javax.swing.JPanel impleme
     }
 
     private void handleStateChangedSpinnerMaxThumbnailWidth() {
-        UserSettings.INSTANCE.setMaxThumbnailWidth((Integer) spinnerMaxThumbnailWidth.getValue());
+        setMaxThumbnailWidth((Integer) spinnerMaxThumbnailWidth.getValue());
+    }
+
+    private void setMaxThumbnailWidth(int width) {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.setString(Storage.KEY_MAX_THUMBNAIL_WIDTH, Integer.toString(width));
     }
 
     private void updateAllThumbnails() {
@@ -52,7 +60,16 @@ public class SettingsThumbnailDimensionsPanel extends javax.swing.JPanel impleme
 
     @Override
     public void readProperties() {
-        spinnerMaxThumbnailWidth.setValue(UserSettings.INSTANCE.getMaxThumbnailWidth());
+        spinnerMaxThumbnailWidth.setValue(getMaxThumbnailWidth());
+    }
+
+    private int getMaxThumbnailWidth() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        int width = storage.getInt(Storage.KEY_MAX_THUMBNAIL_WIDTH);
+
+        return (width != Integer.MIN_VALUE)
+                ? width
+                : ThumbnailProvider.DEFAULT_THUMBNAIL_WIDTH;
     }
 
     @Override
@@ -71,7 +88,7 @@ public class SettingsThumbnailDimensionsPanel extends javax.swing.JPanel impleme
 
     @EventSubscriber(eventClass = UserPropertyChangedEvent.class)
     public void applySettings(UserPropertyChangedEvent evt) {
-        if (UserPropertyChangedEvent.PROPERTY_MAX_THUMBNAIL_WIDTH.equals(evt.getProperty())) {
+        if (Storage.KEY_MAX_THUMBNAIL_WIDTH.equals(evt.getPropertyKey())) {
             listenToMaxThumbnailWidthChanges = false;
             spinnerMaxThumbnailWidth.setValue((Integer) evt.getNewValue());
             listenToMaxThumbnailWidthChanges = true;
@@ -106,7 +123,7 @@ public class SettingsThumbnailDimensionsPanel extends javax.swing.JPanel impleme
         gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 0);
         add(labelMaxThumbnailWidth, gridBagConstraints);
 
-        spinnerMaxThumbnailWidth.setModel(new SpinnerNumberModel(UserSettings.DEFAULT_THUMBNAIL_WIDTH, UserSettings.MIN_THUMBNAIL_WIDTH, UserSettings.MAX_THUMBNAIL_WIDTH, 50));
+        spinnerMaxThumbnailWidth.setModel(new SpinnerNumberModel(ThumbnailProvider.DEFAULT_THUMBNAIL_WIDTH, ThumbnailProvider.MIN_THUMBNAIL_WIDTH, ThumbnailProvider.MAX_THUMBNAIL_WIDTH, 50));
         spinnerMaxThumbnailWidth.setName("spinnerMaxThumbnailWidth"); // NOI18N
         spinnerMaxThumbnailWidth.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {

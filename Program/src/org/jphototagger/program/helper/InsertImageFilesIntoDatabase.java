@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.bushe.swing.event.EventBus;
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.domain.database.InsertIntoDatabase;
 import org.jphototagger.domain.database.xmp.ColumnXmpIptc4XmpCoreDateCreated;
 import org.jphototagger.domain.database.xmp.ColumnXmpLastModified;
@@ -28,7 +29,6 @@ import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.lib.event.ProgressEvent;
 import org.jphototagger.lib.event.listener.ProgressListener;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.cache.PersistentThumbnails;
@@ -37,6 +37,7 @@ import org.jphototagger.program.database.DatabaseActionsAfterDbInsertion;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.image.thumbnail.ThumbnailUtil;
 import org.jphototagger.xmp.XmpMetadata;
+import org.openide.util.Lookup;
 
 /**
  * Inserts or updates image file metadata - EXIF, thumbnail, XMP - into the
@@ -175,8 +176,16 @@ public final class InsertImageFilesIntoDatabase extends Thread implements Cancel
         File xmpFile = XmpMetadata.getSidecarFile(imageFile);
 
         return (xmpFile == null)
-                ? UserSettings.INSTANCE.isScanForEmbeddedXmp() && isEmbeddedXmpUpToDate(imageFile)
+                ? isScanForEmbeddedXmp() && isEmbeddedXmpUpToDate(imageFile)
                 : isXmpSidecarFileUpToDate(imageFile, xmpFile);
+    }
+
+    private boolean isScanForEmbeddedXmp() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_SCAN_FOR_EMBEDDED_XMP)
+                ? storage.getBoolean(Storage.KEY_SCAN_FOR_EMBEDDED_XMP)
+                : false;
     }
 
     private boolean isXmpSidecarFileUpToDate(File imageFile, File sidecarFile) {
@@ -239,7 +248,7 @@ public final class InsertImageFilesIntoDatabase extends Thread implements Cancel
         try {
             xmp = XmpMetadata.hasImageASidecarFile(imgFile)
                     ? XmpMetadata.getXmpFromSidecarFileOf(imgFile)
-                    : UserSettings.INSTANCE.isScanForEmbeddedXmp()
+                    : isScanForEmbeddedXmp()
                     ? XmpMetadata.getEmbeddedXmp(imgFile)
                     : null;
         } catch (IOException ex) {
@@ -302,10 +311,24 @@ public final class InsertImageFilesIntoDatabase extends Thread implements Cancel
     }
 
     private boolean isRunActionsAfterInserting(ImageFile imageFile) {
-        UserSettings settings = UserSettings.INSTANCE;
+        return isExecuteActionsAfterImageChangeInDbAlways()
+                || (isExecuteActionsAfterImageChangeInDbIfImageHasXmp() && (imageFile.getXmp() != null));
+    }
 
-        return settings.isExecuteActionsAfterImageChangeInDbAlways()
-                || (settings.isExecuteActionsAfterImageChangeInDbIfImageHasXmp() && (imageFile.getXmp() != null));
+    private boolean isExecuteActionsAfterImageChangeInDbIfImageHasXmp() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP)
+                ? storage.getBoolean(Storage.KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP)
+                : false;
+    }
+
+    private boolean isExecuteActionsAfterImageChangeInDbAlways() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS)
+                ? storage.getBoolean(Storage.KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS)
+                : false;
     }
 
     /**

@@ -16,9 +16,9 @@ import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.sort.ListSortController;
 import org.jphototagger.api.core.Storage;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.io.filefilter.DirectoryFilter;
 import org.jphototagger.lib.model.TreeModelAllSystemDirectories;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.program.app.AppWindowPersistence;
 import org.jphototagger.program.model.ComboBoxModelFileFilters;
 import org.jphototagger.program.model.ComboBoxModelMetadataTemplates;
@@ -43,6 +43,7 @@ import org.jphototagger.program.view.renderer.KeywordHighlightPredicate;
 import org.jphototagger.program.view.renderer.TableCellRendererExif;
 import org.jphototagger.program.view.renderer.TableCellRendererIptc;
 import org.jphototagger.program.view.renderer.TableCellRendererXmp;
+import org.openide.util.Lookup;
 
 /**
  * Erzeugt die Models und verbindet sie mit den GUI-Elementen.
@@ -50,6 +51,7 @@ import org.jphototagger.program.view.renderer.TableCellRendererXmp;
  * @author Elmar Baumann
  */
 public final class ModelFactory {
+
     public static final ModelFactory INSTANCE = new ModelFactory();
     private final Support support = new Support();
     private volatile boolean init;
@@ -64,6 +66,7 @@ public final class ModelFactory {
         }
 
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 AppPanel appPanel = GUI.getAppPanel();
@@ -113,6 +116,7 @@ public final class ModelFactory {
 
     private void setListModelSavedSearches(final AppPanel appPanel) {
         new Thread(new Runnable() {
+
             @Override
             public void run() {
                 String message = Bundle.getString(ModelFactory.class, "ModelFactory.Starting.ListModelSavedSearches");
@@ -124,6 +128,7 @@ public final class ModelFactory {
 
                 support.add(model);
                 EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
                     @Override
                     public void run() {
                         list.setModel(model);
@@ -141,6 +146,7 @@ public final class ModelFactory {
 
     private void setListModelImageCollections(final AppPanel appPanel) {
         new Thread(new Runnable() {
+
             @Override
             public void run() {
                 String message = Bundle.getString(ModelFactory.class, "ModelFactory.Starting.ListModelImageCollections");
@@ -152,6 +158,7 @@ public final class ModelFactory {
 
                 support.add(model);
                 EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
                     @Override
                     public void run() {
                         list.setModel(model);
@@ -171,6 +178,7 @@ public final class ModelFactory {
 
     private void setListModelKeywords(final AppPanel appPanel) {
         new Thread(new Runnable() {
+
             @Override
             public void run() {
                 String message = Bundle.getString(ModelFactory.class, "ModelFactory.Starting.ListModelKeywords");
@@ -183,6 +191,7 @@ public final class ModelFactory {
 
                 support.add(modelKeywords);
                 EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
                     @Override
                     public void run() {
                         listSelectedKeywords.setModel(modelKeywords);
@@ -266,7 +275,7 @@ public final class ModelFactory {
     }
 
     private void setXmpTableComparator(JTable xmpTable) {
-        TableRowSorter<?> rowSorter = (TableRowSorter<?>)xmpTable.getRowSorter();
+        TableRowSorter<?> rowSorter = (TableRowSorter<?>) xmpTable.getRowSorter();
         Comparator<?> column0Comparator = TableCellRendererXmp.createColumn0Comparator();
         Comparator<?> column1Comparator = TableCellRendererXmp.createColumn1Comparator();
 
@@ -275,7 +284,7 @@ public final class ModelFactory {
     }
 
     private void setIptcTableComparator(JTable iptcTabe) {
-        TableRowSorter<?> rowSorter = (TableRowSorter<?>)iptcTabe.getRowSorter();
+        TableRowSorter<?> rowSorter = (TableRowSorter<?>) iptcTabe.getRowSorter();
         Comparator<?> column0Comparator = TableCellRendererIptc.createColumn0Comparator();
         Comparator<?> column1Comparator = TableCellRendererIptc.createColumn1Comparator();
         Comparator<?> column2Comparator = TableCellRendererIptc.createColumn2Comparator();
@@ -286,7 +295,7 @@ public final class ModelFactory {
     }
 
     private void setExifTableComparator(JTable exif) {
-        TableRowSorter<?> rowSorter = (TableRowSorter<?>)exif.getRowSorter();
+        TableRowSorter<?> rowSorter = (TableRowSorter<?>) exif.getRowSorter();
         Comparator<?> column0Comparator = TableCellRendererExif.createColumn0Comparator();
         Comparator<?> column1Comparator = TableCellRendererExif.createColumn1Comparator();
 
@@ -304,6 +313,7 @@ public final class ModelFactory {
 
     private void setTreeModelKeywords(final AppPanel appPanel) {
         new Thread(new Runnable() {
+
             @Override
             public void run() {
                 String message = Bundle.getString(ModelFactory.class, "ModelFactory.Starting.TreeModelKeywords");
@@ -315,6 +325,7 @@ public final class ModelFactory {
                 support.add(treeModelKeywords);
                 support.add(listModelTemplates);
                 EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
                     @Override
                     public void run() {
                         JTree treeSelKeywords = appPanel.getTreeSelKeywords();
@@ -338,6 +349,7 @@ public final class ModelFactory {
 
     private void setTreeModelMiscMetadata(final AppPanel appPanel) {
         new Thread(new Runnable() {
+
             @Override
             public void run() {
                 String message = Bundle.getString(ModelFactory.class, "ModelFactory.Starting.TreeModelMiscMetadata");
@@ -351,6 +363,7 @@ public final class ModelFactory {
                 support.add(modelApp);
                 support.add(modelInputHelper);
                 EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
                     @Override
                     public void run() {
                         InputHelperDialog.INSTANCE.getPanelMiscXmpMetadata().getTree().setModel(modelInputHelper);
@@ -367,6 +380,7 @@ public final class ModelFactory {
 
     private void setTreeModelTimeline(final AppPanel appPanel) {
         new Thread(new Runnable() {
+
             @Override
             public void run() {
                 String message = Bundle.getString(ModelFactory.class, "ModelFactory.Starting.TreeModelTimeline");
@@ -378,6 +392,7 @@ public final class ModelFactory {
 
                 support.add(model);
                 EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
                     @Override
                     public void run() {
                         tree.setModel(model);
@@ -393,6 +408,7 @@ public final class ModelFactory {
 
     private void setTreeModelFavorites(final AppPanel appPanel) {
         new Thread(new Runnable() {
+
             @Override
             public void run() {
                 String message = Bundle.getString(ModelFactory.class, "ModelFactory.Starting.TreeModelFavorites");
@@ -403,6 +419,7 @@ public final class ModelFactory {
                 final TreeModelFavorites model = new TreeModelFavorites(tree);
 
                 EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
                     @Override
                     public void run() {
                         support.add(model);
@@ -419,6 +436,7 @@ public final class ModelFactory {
 
     private void setTreeModelDirectories(final AppPanel appPanel) {
         new Thread(new Runnable() {
+
             @Override
             public void run() {
                 String message = Bundle.getString(ModelFactory.class, "ModelFactory.Starting.TreeModelDirectories");
@@ -427,10 +445,11 @@ public final class ModelFactory {
                 final JTree tree = appPanel.getTreeDirectories();
                 final Cursor treeCursor = setWaitCursor(tree);
                 List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(Storage.KEY_HIDE_ROOT_FILES_FROM_DIRECTORIES_TAB);
-                final TreeModel model = new TreeModelAllSystemDirectories(tree, hideRootFiles, UserSettings.INSTANCE.getDirFilterOptionShowHiddenFiles());
+                final TreeModel model = new TreeModelAllSystemDirectories(tree, hideRootFiles, getDirFilterOptionShowHiddenFiles());
 
                 support.add(model);
                 EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
                     @Override
                     public void run() {
                         tree.setModel(model);
@@ -442,6 +461,20 @@ public final class ModelFactory {
                 });
             }
         }, "JPhotoTagger: Creating Directories Tree").start();
+    }
+
+    private DirectoryFilter.Option getDirFilterOptionShowHiddenFiles() {
+        return isAcceptHiddenDirectories()
+                ? DirectoryFilter.Option.ACCEPT_HIDDEN_FILES
+                : DirectoryFilter.Option.NO_OPTION;
+    }
+
+    private boolean isAcceptHiddenDirectories() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+                ? storage.getBoolean(Storage.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+                : false;
     }
 
     /**

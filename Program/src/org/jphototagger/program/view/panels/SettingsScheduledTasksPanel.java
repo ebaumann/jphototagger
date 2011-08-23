@@ -14,7 +14,6 @@ import org.jphototagger.lib.dialog.DirectoryChooser;
 import org.jphototagger.lib.dialog.DirectoryChooser.Option;
 import org.jphototagger.lib.renderer.ListCellRendererFileSystem;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.database.DatabaseAutoscanDirectories;
 import org.jphototagger.program.model.ComboBoxModelScheduledTaskBackupDatabase;
@@ -22,6 +21,7 @@ import org.jphototagger.program.model.ListModelAutoscanDirectories;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.tasks.ScheduledTaskBackupDatabase;
 import org.jphototagger.program.tasks.ScheduledTaskBackupDatabase.Interval;
+import org.jphototagger.program.tasks.ScheduledTasks;
 import org.jphototagger.program.types.Persistence;
 import org.openide.util.Lookup;
 
@@ -56,20 +56,43 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel implem
     @Override
     public void readProperties() {
         Storage storage = Lookup.getDefault().lookup(Storage.class);
-        UserSettings settings = UserSettings.INSTANCE;
 
-        spinnerMinutesToStartScheduledTasks.setValue(settings.getMinutesToStartScheduledTasks());
-        checkBoxIsAutoscanIncludeSubdirectories.setSelected(settings.isAutoscanIncludeSubdirectories());
+        spinnerMinutesToStartScheduledTasks.setValue(ScheduledTasks.getMinutesToStartScheduledTasks());
+        checkBoxIsAutoscanIncludeSubdirectories.setSelected(isAutoscanIncludeSubdirectories());
         lastSelectedAutoscanDirectory = storage.getString(KEY_LAST_SELECTED_AUTOSCAN_DIRECTORY);
-        checkBoxScheduledBackupDb.setSelected(UserSettings.INSTANCE.isScheduledBackupDb());
+        checkBoxScheduledBackupDb.setSelected(isScheduledBackupDb());
 
-        Interval interval = Interval.fromDays(UserSettings.INSTANCE.getScheduledBackupDbInterval());
+        Interval interval = Interval.fromDays(getScheduledBackupDbInterval());
         if (interval != null) {
             comboBoxScheduledBackupDb.setSelectedItem(interval);
         }
         comboBoxScheduledBackupDb.setEnabled(checkBoxScheduledBackupDb.isSelected());
         setEnabledCheckBoxSubdirs();
 
+    }
+
+    private boolean isScheduledBackupDb() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_DATABASE_SCHEDULED_BACKUP)
+                ? storage.getBoolean(Storage.KEY_DATABASE_SCHEDULED_BACKUP)
+                : false;
+    }
+
+    private int getScheduledBackupDbInterval() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_DATABASE_BACKUP_INTERVAL)
+                ? storage.getInt(Storage.KEY_DATABASE_BACKUP_INTERVAL)
+                : -1;
+    }
+
+    private boolean isAutoscanIncludeSubdirectories() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_AUTO_SCAN_INCLUDE_SUBDIRECTORIES)
+                ? storage.getBoolean(Storage.KEY_AUTO_SCAN_INCLUDE_SUBDIRECTORIES)
+                : true;
     }
 
     private void setEnabledCheckBoxSubdirs() {
@@ -85,7 +108,7 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel implem
     }
 
     private void addAutoscanDirectories() {
-        Option showHiddenDirs = UserSettings.INSTANCE.getDirChooserOptionShowHiddenDirs();
+        Option showHiddenDirs = getDirChooserOptionShowHiddenDirs();
         List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(Storage.KEY_HIDE_ROOT_FILES_FROM_DIRECTORIES_TAB);
         DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), new File(lastSelectedAutoscanDirectory), hideRootFiles, showHiddenDirs);
 
@@ -109,6 +132,20 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel implem
         }
 
         setEnabled();
+    }
+
+    private DirectoryChooser.Option getDirChooserOptionShowHiddenDirs() {
+        return isAcceptHiddenDirectories()
+                ? DirectoryChooser.Option.DISPLAY_HIDDEN_DIRECTORIES
+                : DirectoryChooser.Option.NO_OPTION;
+    }
+
+    private boolean isAcceptHiddenDirectories() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+                ? storage.getBoolean(Storage.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+                : false;
     }
 
     private void removeSelectedAutoscanDirectories() {
@@ -144,12 +181,23 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel implem
     }
 
     private void handleStateChangedSpinnerMinutesToStartScheduledTasks() {
-        UserSettings.INSTANCE.setMinutesToStartScheduledTasks(
-            (Integer) spinnerMinutesToStartScheduledTasks.getValue());
+        setMinutesToStartScheduledTasks((Integer) spinnerMinutesToStartScheduledTasks.getValue());
+    }
+
+    private void setMinutesToStartScheduledTasks(int minutes) {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.setString(Storage.KEY_MINUTES_TO_START_SCHEDULED_TASKS, Integer.toString(minutes));
     }
 
     private void handleActionCheckBoxIsAutoscanIncludeSubdirectories() {
-        UserSettings.INSTANCE.setAutoscanIncludeSubdirectories(checkBoxIsAutoscanIncludeSubdirectories.isSelected());
+        setAutoscanIncludeSubdirectories(checkBoxIsAutoscanIncludeSubdirectories.isSelected());
+    }
+
+    private void setAutoscanIncludeSubdirectories(boolean include) {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.setBoolean(Storage.KEY_AUTO_SCAN_INCLUDE_SUBDIRECTORIES, include);
     }
 
     private void setEnabledButtonRemoveAutoscanDirectory() {
@@ -162,18 +210,30 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel implem
 
     private void handleCheckBoxBackupDbActionPerformed() {
         boolean backup = checkBoxScheduledBackupDb.isSelected();
-        UserSettings.INSTANCE.setScheduledBackupDb(backup);
+        setScheduledBackupDb(backup);
         backupDbIntervalToSettings();
         comboBoxScheduledBackupDb.setEnabled(backup);
         ScheduledTaskBackupDatabase.INSTANCE.setBackup();
+    }
+
+    private void setScheduledBackupDb(boolean scheduled) {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.setBoolean(Storage.KEY_DATABASE_SCHEDULED_BACKUP, scheduled);
     }
 
     private void backupDbIntervalToSettings() {
         Object selItem = comboBoxScheduledBackupDb.getSelectedItem();
         if (selItem instanceof Interval) {
             Interval interval = (Interval) selItem;
-            UserSettings.INSTANCE.setScheduledBackupDbInterval(interval.getDays());
+            setScheduledBackupDbInterval(interval.getDays());
         }
+    }
+
+    private void setScheduledBackupDbInterval(int interval) {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        storage.setInt(Storage.KEY_DATABASE_BACKUP_INTERVAL, interval);
     }
 
     private void handleComboBoxScheduledBackupDbActionPerformed() {
@@ -417,7 +477,6 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel implem
     private void comboBoxScheduledBackupDbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxScheduledBackupDbActionPerformed
         handleComboBoxScheduledBackupDbActionPerformed();
     }//GEN-LAST:event_comboBoxScheduledBackupDbActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAddAutoscanDirectories;
     private javax.swing.JButton buttonRemoveAutoscanDirectories;

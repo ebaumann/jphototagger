@@ -3,7 +3,6 @@ package org.jphototagger.program.database.metadata.selections;
 import org.jphototagger.lib.util.CollectionUtil;
 import org.jphototagger.program.database.DatabaseContent;
 import org.jphototagger.domain.database.Column;
-import org.jphototagger.program.settings.UserSettings;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -11,6 +10,8 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import org.jphototagger.api.core.Storage;
+import org.openide.util.Lookup;
 
 /**
  * Contains autocomplete data (words, terms).
@@ -18,19 +19,18 @@ import java.util.Set;
  * @author Elmar Baumann
  */
 public final class AutoCompleteData {
+
     private final DatabaseContent db = DatabaseContent.INSTANCE;
     private final LinkedList<String> words = new LinkedList<String>();
     private final Set<Column> columns;
 
     AutoCompleteData(Collection<? extends Column> columns) {
-        assert UserSettings.INSTANCE.isAutocomplete();
         this.columns = new LinkedHashSet<Column>(getAutocompleteColumnsOf(columns));
         words.addAll(db.getDistinctValuesOf(this.columns));
         Collections.sort(words);
     }
 
     AutoCompleteData(Column column) {
-        assert UserSettings.INSTANCE.isAutocomplete();
         this.columns = new LinkedHashSet<Column>(getAutocompleteColumnsOf(Collections.singleton(column)));
         words.addAll(db.getDistinctValuesOf(column));    // already sorted
     }
@@ -60,12 +60,10 @@ public final class AutoCompleteData {
             throw new NullPointerException("word == null");
         }
 
-        assert UserSettings.INSTANCE.isAutocomplete();
-
-        if (UserSettings.INSTANCE.isUpdateAutocomplete()) {
-            String lcWord = UserSettings.INSTANCE.isAutocompleteFastSearchIgnoreCase()
-                            ? word.toLowerCase()
-                            : word;
+        if (isUpdateAutocomplete()) {
+            String lcWord = isAutocompleteFastSearchIgnoreCase()
+                    ? word.toLowerCase()
+                    : word;
 
             synchronized (words) {
                 if (Collections.binarySearch(words, lcWord) < 0) {
@@ -77,6 +75,22 @@ public final class AutoCompleteData {
         }
 
         return false;
+    }
+
+    private boolean isAutocompleteFastSearchIgnoreCase() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
+                ? storage.getBoolean(Storage.KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
+                : false;
+    }
+
+    private boolean isUpdateAutocomplete() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_UPDATE_AUTOCOMPLETE)
+                ? storage.getBoolean(Storage.KEY_UPDATE_AUTOCOMPLETE)
+                : true;
     }
 
     /**

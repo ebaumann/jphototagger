@@ -15,6 +15,7 @@ import javax.swing.JComboBox;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.api.core.Storage;
 import org.jphototagger.domain.database.Column;
 import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
 import org.jphototagger.domain.repository.event.XmpDeletedEvent;
@@ -26,7 +27,6 @@ import org.jphototagger.lib.componentutil.Autocomplete;
 import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.settings.UserSettings;
 import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
 import org.jphototagger.program.database.DatabaseFind;
 import org.jphototagger.program.database.DatabaseImageFiles;
@@ -39,6 +39,7 @@ import org.jphototagger.program.model.ComboBoxModelFastSearch;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.program.view.WaitDisplay;
+import org.openide.util.Lookup;
 
 /**
  * Kontrolliert die Aktion: Schnellsuche durchführen.
@@ -52,8 +53,8 @@ public final class ControllerFastSearch implements ActionListener, RefreshListen
     private boolean isAutocomplete;
 
     public ControllerFastSearch() {
-        if (UserSettings.INSTANCE.isAutocomplete()) {
-            autocomplete = new Autocomplete(UserSettings.INSTANCE.isAutocompleteFastSearchIgnoreCase());
+        if (getPersistedAutocomplete()) {
+            autocomplete = new Autocomplete(isAutocompleteFastSearchIgnoreCase());
             autocomplete.setTransferFocusForward(false);
         } else {
             autocomplete = null;
@@ -61,6 +62,22 @@ public final class ControllerFastSearch implements ActionListener, RefreshListen
         }
 
         listen();
+    }
+
+    private boolean isAutocompleteFastSearchIgnoreCase() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
+                ? storage.getBoolean(Storage.KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
+                : false;
+    }
+
+    private boolean getPersistedAutocomplete() {
+        Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        return storage.containsKey(Storage.KEY_ENABLE_AUTOCOMPLETE)
+                ? storage.getBoolean(Storage.KEY_ENABLE_AUTOCOMPLETE)
+                : true;
     }
 
     private JButton getSearchButton() {
@@ -88,8 +105,6 @@ public final class ControllerFastSearch implements ActionListener, RefreshListen
     }
 
     public void setAutocomplete(boolean ac) {
-        assert UserSettings.INSTANCE.isAutocomplete();
-
         if (autocomplete == null) {
             return;
         }
@@ -113,7 +128,7 @@ public final class ControllerFastSearch implements ActionListener, RefreshListen
     }
 
     private void decorateTextFieldSearch() {
-        if ((autocomplete == null) || !UserSettings.INSTANCE.isAutocomplete()) {
+        if (autocomplete == null || !getPersistedAutocomplete()) {
             return;
         }
 
@@ -245,7 +260,7 @@ public final class ControllerFastSearch implements ActionListener, RefreshListen
     }
 
     private void addAutocompleteWordsOf(Xmp xmp) {
-        if (!isAutocomplete()) {
+        if (!getPersistedAutocomplete()) {
             return;
         }
 
@@ -257,7 +272,7 @@ public final class ControllerFastSearch implements ActionListener, RefreshListen
     }
 
     private boolean isAutocomplete() {
-        return (autocomplete != null) && UserSettings.INSTANCE.isAutocomplete();
+        return autocomplete != null && getPersistedAutocomplete();
     }
 
     @EventSubscriber(eventClass = XmpInsertedEvent.class)
