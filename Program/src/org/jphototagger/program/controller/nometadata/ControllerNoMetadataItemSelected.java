@@ -43,7 +43,7 @@ public final class ControllerNoMetadataItemSelected implements ListSelectionList
         Object selValue = GUI.getNoMetadataList().getSelectedValue();
 
         if (selValue instanceof Column) {
-            List<File> imageFiles = DatabaseImageFiles.INSTANCE.getImageFilesWithoutMetadataIn((Column) selValue);
+            List<File> imageFiles = DatabaseImageFiles.INSTANCE.getImageFilesWithoutMetadataInColumn((Column) selValue);
 
             setTitle((Column) selValue);
 

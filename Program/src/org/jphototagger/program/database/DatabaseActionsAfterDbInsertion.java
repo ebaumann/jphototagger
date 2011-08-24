@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.domain.event.listener.impl.ListenerSupport;
+import org.jphototagger.domain.event.listener.ListenerSupport;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.program.event.listener.DatabaseActionsAfterDbInsertionListener;
 

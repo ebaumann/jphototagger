@@ -11,10 +11,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.bushe.swing.event.EventBus;
-import org.jphototagger.domain.repository.event.FileExcludePatternDeletedEvent;
-import org.jphototagger.domain.repository.event.FileExcludePatternInsertedEvent;
-import org.jphototagger.lib.event.ProgressEvent;
-import org.jphototagger.lib.event.listener.ProgressListener;
+import org.jphototagger.domain.repository.event.fileexcludepattern.FileExcludePatternDeletedEvent;
+import org.jphototagger.domain.repository.event.fileexcludepattern.FileExcludePatternInsertedEvent;
+import org.jphototagger.api.event.ProgressEvent;
+import org.jphototagger.api.event.ProgressListener;
 import org.jphototagger.program.cache.PersistentThumbnails;
 
 /**
@@ -33,7 +33,7 @@ public final class DatabaseFileExcludePatterns extends Database {
      *
      * @param  pattern  pattern
      * @return true if inserted
-     * @see    #exists(java.lang.String)
+     * @see    #existsValueInColumn(java.lang.String)
      */
     public boolean insert(String pattern) {
         if (pattern == null) {

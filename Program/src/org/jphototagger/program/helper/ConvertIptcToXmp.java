@@ -8,13 +8,13 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.domain.database.InsertIntoDatabase;
+import org.jphototagger.domain.repository.InsertIntoRepository;
 import org.jphototagger.domain.iptc.Iptc;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.iptc.IptcMetadata;
 import org.jphototagger.lib.concurrent.Cancelable;
-import org.jphototagger.lib.event.ProgressEvent;
-import org.jphototagger.lib.event.listener.ProgressListener;
+import org.jphototagger.api.event.ProgressEvent;
+import org.jphototagger.api.event.ProgressListener;
 import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.xmp.XmpMetadata;
 
@@ -94,7 +94,7 @@ public final class ConvertIptcToXmp implements Runnable, Cancelable {
     }
 
     private void updateDatabase(File imageFile) {
-        InsertImageFilesIntoDatabase insert = new InsertImageFilesIntoDatabase(Arrays.asList(imageFile), InsertIntoDatabase.XMP);
+        InsertImageFilesIntoDatabase insert = new InsertImageFilesIntoDatabase(Arrays.asList(imageFile), InsertIntoRepository.XMP);
 
         insert.run();    // run in this thread!
     }

@@ -8,17 +8,17 @@ import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.domain.database.xmp.ColumnXmpIptc4XmpCoreDateCreated;
 import org.jphototagger.domain.exif.Exif;
-import org.jphototagger.domain.repository.event.ExifDeletedEvent;
-import org.jphototagger.domain.repository.event.ExifInsertedEvent;
-import org.jphototagger.domain.repository.event.ExifUpdatedEvent;
-import org.jphototagger.domain.repository.event.XmpDeletedEvent;
-import org.jphototagger.domain.repository.event.XmpInsertedEvent;
-import org.jphototagger.domain.repository.event.XmpUpdatedEvent;
+import org.jphototagger.domain.repository.event.exif.ExifDeletedEvent;
+import org.jphototagger.domain.repository.event.exif.ExifInsertedEvent;
+import org.jphototagger.domain.repository.event.exif.ExifUpdatedEvent;
+import org.jphototagger.domain.repository.event.xmp.XmpDeletedEvent;
+import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
+import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.model.TreeModelUpdateInfo;
-import org.jphototagger.program.data.Timeline;
-import org.jphototagger.program.data.Timeline.Date;
+import org.jphototagger.domain.timeline.Timeline;
+import org.jphototagger.domain.timeline.Timeline.Date;
 import org.jphototagger.program.database.DatabaseImageFiles;
 
 /**

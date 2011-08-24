@@ -12,7 +12,7 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableStringConverter;
 
-import org.jphototagger.domain.database.xmp.XmpInDatabase;
+import org.jphototagger.domain.repository.xmp.XmpInRepository;
 import org.jphototagger.lib.componentutil.TableUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
@@ -60,7 +60,7 @@ public final class TableCellRendererXmp extends FormatterLabelMetadata implement
     }
 
     private void setIsStoredInDatabaseColor(JLabel cellLabel, XMPPropertyInfo xmpPropertyInfo, boolean isSel) {
-        if (XmpInDatabase.isInDatabase(xmpPropertyInfo.getPath())) {
+        if (XmpInRepository.isInDatabase(xmpPropertyInfo.getPath())) {
             setIsStoredInDatabaseColors(cellLabel, isSel);
             cellLabel.setToolTipText(Bundle.getString(TableCellRendererXmp.class, "TableCellRendererXmp.ToolTipText.CellLabelStoredInDatabase"));
         }

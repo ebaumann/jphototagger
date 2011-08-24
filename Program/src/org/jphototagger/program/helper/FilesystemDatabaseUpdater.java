@@ -1,7 +1,7 @@
 package org.jphototagger.program.helper;
 
 import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.domain.database.InsertIntoDatabase;
+import org.jphototagger.domain.repository.InsertIntoRepository;
 import org.jphototagger.program.io.ImageFileFilterer;
 import org.jphototagger.program.tasks.UserTasks;
 import java.io.File;
@@ -36,7 +36,7 @@ public final class FilesystemDatabaseUpdater {
     private void insertFileIntoDatabase(File file) {
         if (ImageFileFilterer.isImageFile(file)) {
             InsertImageFilesIntoDatabase inserter = new InsertImageFilesIntoDatabase(Arrays.asList(file),
-                    InsertIntoDatabase.OUT_OF_DATE);
+                    InsertIntoRepository.OUT_OF_DATE);
 
             if (wait) {
                 inserter.run();    // run in this thread!
@@ -50,8 +50,8 @@ public final class FilesystemDatabaseUpdater {
         if (ImageFileFilterer.isImageFile(file)) {
             DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
 
-            if (db.exists(file)) {
-                db.delete(Arrays.asList(file));
+            if (db.existsImageFile(file)) {
+                db.deleteImageFiles(Arrays.asList(file));
             }
         }
     }
@@ -80,7 +80,7 @@ public final class FilesystemDatabaseUpdater {
         File targetFile = evt.getTargetFile();
 
         if (ImageFileFilterer.isImageFile(sourceFile) && ImageFileFilterer.isImageFile(targetFile)) {
-            DatabaseImageFiles.INSTANCE.updateRename(sourceFile, targetFile);
+            DatabaseImageFiles.INSTANCE.updateRenameImageFile(sourceFile, targetFile);
         }
     }
 
@@ -90,7 +90,7 @@ public final class FilesystemDatabaseUpdater {
         File targetFile = evt.getTargetFile();
 
         if (ImageFileFilterer.isImageFile(sourceFile) && ImageFileFilterer.isImageFile(targetFile)) {
-            DatabaseImageFiles.INSTANCE.updateRename(sourceFile, targetFile);
+            DatabaseImageFiles.INSTANCE.updateRenameImageFile(sourceFile, targetFile);
         }
     }
 }

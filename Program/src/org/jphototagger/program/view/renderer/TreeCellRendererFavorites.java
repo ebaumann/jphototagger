@@ -12,7 +12,7 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 
 import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.data.Timeline;
+import org.jphototagger.domain.timeline.Timeline;
 
 /**
  * Renders items and text for {@link org.jphototagger.program.data.Timeline} nodes.

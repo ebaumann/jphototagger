@@ -1,11 +1,10 @@
-package org.jphototagger.domain.database;
+package org.jphototagger.domain.repository;
 
 /**
- * Metadata to insert into the database.
  *
  * @author Elmar Baumann
  */
-public enum InsertIntoDatabase {
+public enum InsertIntoRepository {
 
     /**
      * Insert or update EXIF, thumbnail and XMP against these rules:

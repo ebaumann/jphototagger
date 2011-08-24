@@ -1,4 +1,4 @@
-package org.jphototagger.program.serviceprovider.repository;
+package org.jphototagger.program.database;
 
 import java.util.List;
 

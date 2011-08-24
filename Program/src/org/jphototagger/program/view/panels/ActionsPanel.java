@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JProgressBar;
 
-import org.jphototagger.domain.event.listener.impl.ListenerSupport;
+import org.jphototagger.domain.event.listener.ListenerSupport;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.event.util.MouseEventUtil;

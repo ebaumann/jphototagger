@@ -5,9 +5,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.jphototagger.api.core.UserFilesProvider;
-import org.jphototagger.domain.event.listener.impl.ProgressListenerSupport;
-import org.jphototagger.lib.event.ProgressEvent;
-import org.jphototagger.lib.event.listener.ProgressListener;
+import org.jphototagger.domain.event.listener.ProgressListenerSupport;
+import org.jphototagger.api.event.ProgressEvent;
+import org.jphototagger.api.event.ProgressListener;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.database.DatabaseMaintainance;
 import org.jphototagger.api.file.Filename;

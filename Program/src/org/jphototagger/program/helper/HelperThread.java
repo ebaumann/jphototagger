@@ -1,8 +1,8 @@
 package org.jphototagger.program.helper;
 
 import org.jphototagger.lib.concurrent.Cancelable;
-import org.jphototagger.lib.event.listener.ProgressListener;
-import org.jphototagger.lib.event.ProgressEvent;
+import org.jphototagger.api.event.ProgressListener;
+import org.jphototagger.api.event.ProgressEvent;
 import org.jphototagger.program.view.panels.ProgressBar;
 import java.util.HashSet;
 import java.util.Set;

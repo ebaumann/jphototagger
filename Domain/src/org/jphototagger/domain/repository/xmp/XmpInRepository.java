@@ -1,4 +1,4 @@
-package org.jphototagger.domain.database.xmp;
+package org.jphototagger.domain.repository.xmp;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -8,7 +8,7 @@ import java.util.Set;
  *
  * @author Elmar Baumann
  */
-public final class XmpInDatabase {
+public final class XmpInRepository {
     private static final Set<String> STORED_PATHS_PREFIXES = new HashSet<String>();
 
     static {
@@ -64,5 +64,5 @@ public final class XmpInDatabase {
         return new HashSet<String>(STORED_PATHS_PREFIXES);
     }
 
-    private XmpInDatabase() {}
+    private XmpInRepository() {}
 }

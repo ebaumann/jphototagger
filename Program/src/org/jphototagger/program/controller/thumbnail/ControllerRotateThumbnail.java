@@ -80,7 +80,7 @@ public final class ControllerRotateThumbnail implements ActionListener {
 
                         if (rotatedTn != null) {
 
-                            // should fire an update caught by cache
+                            // should fire an updateImageFile caught by cache
                             db.updateThumbnail(imageFile, rotatedTn);
                         }
                     }

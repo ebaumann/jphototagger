@@ -71,11 +71,11 @@ public final class ShowThumbnailsContainingKeywords implements Runnable {
         if (keywords.size() == 1) {
             setTitle(keywords.get(0));
 
-            return db.getImageFilesOfDcSubject(keywords.get(0));
+            return db.getImageFilesContainingDcSubject(keywords.get(0), false);
         } else if (keywords.size() > 1) {
             setTitle(keywords);
 
-            return db.getImageFilesOfDcSubjects(keywords);
+            return db.getImageFilesContainingSomeOfDcSubjects(keywords);
         }
 
         return null;

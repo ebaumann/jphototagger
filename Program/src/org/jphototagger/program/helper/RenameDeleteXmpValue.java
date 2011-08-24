@@ -8,13 +8,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.jphototagger.domain.database.Column;
-import org.jphototagger.domain.database.InsertIntoDatabase;
+import org.jphototagger.domain.repository.InsertIntoRepository;
 import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
 import org.jphototagger.domain.database.xmp.XmpColumns;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.lib.event.ProgressEvent;
+import org.jphototagger.api.event.ProgressEvent;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.tasks.UserTasks;
@@ -135,7 +135,7 @@ public final class RenameDeleteXmpValue {
 
         @Override
         public void run() {
-            List<File> imageFiles = DatabaseImageFiles.INSTANCE.getImageFilesWithColumnContent(column, oldValue);
+            List<File> imageFiles = DatabaseImageFiles.INSTANCE.getImageFilesWhereColumnHasExactValue(column, oldValue);
             int size = imageFiles.size();
             int value = 0;
 
@@ -159,7 +159,7 @@ public final class RenameDeleteXmpValue {
 
                     if (XmpMetadata.writeXmpToSidecarFile(xmp, XmpMetadata.suggestSidecarFile(imageFile))) {
                         new InsertImageFilesIntoDatabase(Collections.singletonList(imageFile),
-                                                         InsertIntoDatabase.XMP).run();    // run in this thread!
+                                                         InsertIntoRepository.XMP).run();    // run in this thread!
                     }
                 }
 

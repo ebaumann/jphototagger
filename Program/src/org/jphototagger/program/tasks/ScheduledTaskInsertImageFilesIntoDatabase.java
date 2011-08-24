@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.jphototagger.api.core.Storage;
-import org.jphototagger.domain.database.InsertIntoDatabase;
+import org.jphototagger.domain.repository.InsertIntoRepository;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
 import org.jphototagger.lib.util.Bundle;
@@ -52,7 +52,7 @@ public final class ScheduledTaskInsertImageFilesIntoDatabase {
             }
         }
 
-        InsertImageFilesIntoDatabase inserter = new InsertImageFilesIntoDatabase(imageFiles, InsertIntoDatabase.OUT_OF_DATE);
+        InsertImageFilesIntoDatabase inserter = new InsertImageFilesIntoDatabase(imageFiles, InsertIntoRepository.OUT_OF_DATE);
         String pBarString = Bundle.getString(ScheduledTaskInsertImageFilesIntoDatabase.class, "ScheduledTaskInsertImageFilesIntoDatabase.ProgressBar.String");
 
         inserter.addProgressListener(new ProgressBarUpdater(inserter, pBarString));

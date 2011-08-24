@@ -11,7 +11,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.domain.thumbnails.event.ThumbnailUpdateEvent;
+import org.jphototagger.domain.thumbnails.event.TypedThumbnailUpdateEvent;
 import org.jphototagger.domain.event.listener.ThumbnailUpdateListener;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.image.util.IconUtil;
@@ -185,10 +185,10 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
             throw new NullPointerException("file == null");
         }
 
-        notifyUpdate(new ThumbnailUpdateEvent(file, ThumbnailUpdateEvent.Type.RENDERED_THUMBNAIL_UPDATE));
+        notifyUpdate(new TypedThumbnailUpdateEvent(file, TypedThumbnailUpdateEvent.Type.RENDERED_THUMBNAIL_UPDATE));
     }
 
-    public void notifyUpdate(ThumbnailUpdateEvent evt) {
+    public void notifyUpdate(TypedThumbnailUpdateEvent evt) {
         if (evt == null) {
             throw new NullPointerException("evt == null");
         }
@@ -324,12 +324,12 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
     }
 
     @Override
-    public void thumbnailUpdated(ThumbnailUpdateEvent event) {
+    public void thumbnailUpdated(TypedThumbnailUpdateEvent event) {
         RenderedThumbnailCacheIndirection ci;
 
         // drop event if we got an empty xmp update for an image without
         // keywords, because it would not change
-        if ((event.getType() == ThumbnailUpdateEvent.Type.XMP_EMPTY_UPDATE)
+        if ((event.getType() == TypedThumbnailUpdateEvent.Type.XMP_EMPTY_UPDATE)
                 && (ci = fileCache.get(event.getSource())) != null && (ci.hasKeywords == false)) {
             return;
         }

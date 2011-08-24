@@ -1,4 +1,4 @@
-package org.jphototagger.domain.event.listener.impl;
+package org.jphototagger.domain.event.listener;
 
 import java.util.Collections;
 import java.util.concurrent.CopyOnWriteArraySet;

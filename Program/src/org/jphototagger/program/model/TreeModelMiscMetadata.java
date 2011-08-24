@@ -22,14 +22,14 @@ import org.jphototagger.domain.database.xmp.ColumnXmpIptc4xmpcoreLocation;
 import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopSource;
 import org.jphototagger.domain.database.xmp.ColumnXmpRating;
 import org.jphototagger.domain.exif.Exif;
-import org.jphototagger.domain.repository.event.DcSubjectDeletedEvent;
-import org.jphototagger.domain.repository.event.DcSubjectInsertedEvent;
-import org.jphototagger.domain.repository.event.ExifDeletedEvent;
-import org.jphototagger.domain.repository.event.ExifInsertedEvent;
-import org.jphototagger.domain.repository.event.ExifUpdatedEvent;
-import org.jphototagger.domain.repository.event.XmpDeletedEvent;
-import org.jphototagger.domain.repository.event.XmpInsertedEvent;
-import org.jphototagger.domain.repository.event.XmpUpdatedEvent;
+import org.jphototagger.domain.repository.event.dcsubjects.DcSubjectDeletedEvent;
+import org.jphototagger.domain.repository.event.dcsubjects.DcSubjectInsertedEvent;
+import org.jphototagger.domain.repository.event.exif.ExifDeletedEvent;
+import org.jphototagger.domain.repository.event.exif.ExifInsertedEvent;
+import org.jphototagger.domain.repository.event.exif.ExifUpdatedEvent;
+import org.jphototagger.domain.repository.event.xmp.XmpDeletedEvent;
+import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
+import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.TreeUtil;
@@ -112,7 +112,7 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel {
         for (Column column : columns) {
             DefaultMutableTreeNode columnNode = new DefaultMutableTreeNode(column);
 
-            addChildren(columnNode, DatabaseImageFiles.INSTANCE.getAllDistinctValuesOf(column), column.getDataType());
+            addChildren(columnNode, DatabaseImageFiles.INSTANCE.getAllDistinctValuesOfColumn(column), column.getDataType());
             node.add(columnNode);
         }
 
@@ -178,7 +178,7 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel {
     private void checkDeleted(Column column, Object userObject) {
         DefaultMutableTreeNode node = findNodeWithUserObject(ROOT, column);
 
-        if ((node != null) && !DatabaseImageFiles.INSTANCE.exists(column, userObject)) {
+        if ((node != null) && !DatabaseImageFiles.INSTANCE.existsValueInColumn(userObject, column)) {
             DefaultMutableTreeNode child = findNodeWithUserObject(node, userObject);
 
             if (child != null) {

@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.filechooser.FileFilter;
 
-import org.jphototagger.domain.database.InsertIntoDatabase;
+import org.jphototagger.domain.repository.InsertIntoRepository;
 import org.jphototagger.domain.imagecollections.ImageCollection;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.ListUtil;
@@ -111,7 +111,7 @@ public final class ImageCollectionsImporter implements Importer {
 
         private void insertIntoDbMissingFiles(ImageCollection imageCollection) {
             InsertImageFilesIntoDatabase inserter = new InsertImageFilesIntoDatabase(imageCollection.getFiles(),
-                                                        InsertIntoDatabase.OUT_OF_DATE);
+                                                        InsertIntoRepository.OUT_OF_DATE);
 
             inserter.addProgressListener(new ProgressBarUpdater(inserter,
                     Bundle.getString(ImportThread.class, "ImageCollectionsImporter.ProgressBar.String")));

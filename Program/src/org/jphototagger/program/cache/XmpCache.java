@@ -7,15 +7,15 @@ import java.util.List;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-import org.jphototagger.domain.thumbnails.event.ThumbnailUpdateEvent;
+import org.jphototagger.domain.thumbnails.event.TypedThumbnailUpdateEvent;
 import org.jphototagger.domain.event.listener.ThumbnailUpdateListener;
-import org.jphototagger.domain.repository.event.XmpDeletedEvent;
-import org.jphototagger.domain.repository.event.XmpInsertedEvent;
-import org.jphototagger.domain.repository.event.XmpUpdatedEvent;
+import org.jphototagger.domain.repository.event.xmp.XmpDeletedEvent;
+import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
+import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.database.DatabaseImageFiles;
-import org.jphototagger.xmp.FileXmp;
+import org.jphototagger.domain.xmp.FileXmp;
 
 /**
  *
@@ -182,7 +182,7 @@ public final class XmpCache extends Cache<XmpCacheIndirection> {
                 @Override
                 public void run() {
                     if (xmp.isEmpty()) {
-                        notifyUpdate(file, ThumbnailUpdateEvent.Type.XMP_EMPTY_UPDATE);
+                        notifyUpdate(file, TypedThumbnailUpdateEvent.Type.XMP_EMPTY_UPDATE);
                     } else {
                         notifyUpdate(file);
                     }
@@ -221,7 +221,7 @@ public final class XmpCache extends Cache<XmpCacheIndirection> {
         return ci.xmp;
     }
 
-    public void notifyUpdate(File file, ThumbnailUpdateEvent.Type type) {
+    public void notifyUpdate(File file, TypedThumbnailUpdateEvent.Type type) {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
@@ -231,7 +231,7 @@ public final class XmpCache extends Cache<XmpCacheIndirection> {
         }
 
         for (ThumbnailUpdateListener l : updateListeners) {
-            l.thumbnailUpdated(new ThumbnailUpdateEvent(file, type));
+            l.thumbnailUpdated(new TypedThumbnailUpdateEvent(file, type));
         }
     }
 
@@ -242,7 +242,7 @@ public final class XmpCache extends Cache<XmpCacheIndirection> {
         }
 
         for (ThumbnailUpdateListener l : updateListeners) {
-            l.thumbnailUpdated(new ThumbnailUpdateEvent(file, ThumbnailUpdateEvent.Type.XMP_UPDATE));
+            l.thumbnailUpdated(new TypedThumbnailUpdateEvent(file, TypedThumbnailUpdateEvent.Type.XMP_UPDATE));
         }
     }
 }

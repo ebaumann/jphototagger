@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-import org.jphototagger.domain.database.InsertIntoDatabase;
+import org.jphototagger.domain.repository.InsertIntoRepository;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsChangedEvent;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
@@ -48,7 +48,7 @@ public final class ControllerCreateMetadataOfDisplayedThumbnails {
     private synchronized void updateMetadata(List<File> imageFiles) {
         LOGGER.log(Level.INFO, "Synchronizing displayed thumbnails with the database");
 
-        InsertImageFilesIntoDatabase inserter = new InsertImageFilesIntoDatabase(imageFiles, InsertIntoDatabase.OUT_OF_DATE);
+        InsertImageFilesIntoDatabase inserter = new InsertImageFilesIntoDatabase(imageFiles, InsertIntoRepository.OUT_OF_DATE);
         String pBarString = Bundle.getString(ControllerCreateMetadataOfDisplayedThumbnails.class, "ControllerCreateMetadataOfDisplayedThumbnails.ProgressBar.String");
 
         inserter.addProgressListener(new ProgressBarUpdater(inserter, pBarString));

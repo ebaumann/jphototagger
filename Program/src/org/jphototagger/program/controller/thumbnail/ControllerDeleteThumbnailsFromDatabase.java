@@ -41,7 +41,7 @@ public final class ControllerDeleteThumbnailsFromDatabase implements ActionListe
                 public void run() {
                     List<File> selFiles = GUI.getSelectedImageFiles();
                     int countFiles = selFiles.size();
-                    int countDeleted = DatabaseImageFiles.INSTANCE.delete(selFiles);
+                    int countDeleted = DatabaseImageFiles.INSTANCE.deleteImageFiles(selFiles);
 
                     if (countDeleted != countFiles) {
                         errorMessageDeleteImageFiles(countFiles, countDeleted);
@@ -59,7 +59,7 @@ public final class ControllerDeleteThumbnailsFromDatabase implements ActionListe
         DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
 
         for (File file : files) {
-            if (!db.exists(file)) {
+            if (!db.existsImageFile(file)) {
                 deleted.add(file);
             }
         }

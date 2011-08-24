@@ -20,7 +20,7 @@ import org.jphototagger.domain.database.ColumnStringValue;
 import org.jphototagger.domain.database.xmp.XmpColumns;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.xmp.FileXmp;
+import org.jphototagger.domain.xmp.FileXmp;
 import org.jphototagger.xmp.XmpMetadata;
 import org.jphototagger.program.io.ImageUtil;
 import org.jphototagger.program.resource.GUI;

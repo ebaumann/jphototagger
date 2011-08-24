@@ -64,11 +64,11 @@ public final class ShowThumbnailsContainingAllKeywords2 implements Runnable {
             // Faster when using 2 different DB queries if only 1 keyword is
             // selected
             if (keywords.size() == 1) {
-                imageFiles.addAll(db.getImageFilesOfDcSubject(keywords.get(0)));
+                imageFiles.addAll(db.getImageFilesContainingDcSubject(keywords.get(0), false));
                 setTitle(keywords.get(0));
             } else if (keywords.size() > 1) {
                 setTitle(keywords);
-                imageFiles.addAll(db.getImageFilesOfAllDcSubjects(keywords));
+                imageFiles.addAll(db.getImageFilesContainingAllDcSubjects(keywords));
             }
         }
 

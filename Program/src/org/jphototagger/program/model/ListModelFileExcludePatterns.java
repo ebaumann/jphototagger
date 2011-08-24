@@ -7,8 +7,8 @@ import javax.swing.DefaultListModel;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-import org.jphototagger.domain.repository.event.FileExcludePatternDeletedEvent;
-import org.jphototagger.domain.repository.event.FileExcludePatternInsertedEvent;
+import org.jphototagger.domain.repository.event.fileexcludepattern.FileExcludePatternDeletedEvent;
+import org.jphototagger.domain.repository.event.fileexcludepattern.FileExcludePatternInsertedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;

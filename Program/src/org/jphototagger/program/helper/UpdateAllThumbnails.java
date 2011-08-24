@@ -9,8 +9,8 @@ import java.util.logging.Logger;
 
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.dialog.ProgressDialog;
-import org.jphototagger.lib.event.ProgressEvent;
-import org.jphototagger.lib.event.listener.ProgressListener;
+import org.jphototagger.api.event.ProgressEvent;
+import org.jphototagger.api.event.ProgressListener;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.controller.misc.SizeAndLocationController;
 import org.jphototagger.program.database.DatabaseImageFiles;
@@ -57,7 +57,7 @@ public final class UpdateAllThumbnails implements Runnable, ProgressListener, Ac
 
     private void checkCancel(ProgressEvent evt) {
         if (cancel) {
-            evt.cancel();
+            evt.setCancel(true);
         }
     }
 

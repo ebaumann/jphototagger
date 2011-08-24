@@ -1,4 +1,4 @@
-package org.jphototagger.program.data;
+package org.jphototagger.domain.timeline;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;

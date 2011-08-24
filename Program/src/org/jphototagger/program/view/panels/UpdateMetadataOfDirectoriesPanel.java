@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.core.Storage;
-import org.jphototagger.domain.database.InsertIntoDatabase;
+import org.jphototagger.domain.repository.InsertIntoRepository;
 import org.jphototagger.domain.metadata.event.UpdateMetadataCheckEvent;
 import org.jphototagger.domain.metadata.event.UpdateMetadataCheckEvent.Type;
 import org.jphototagger.lib.awt.EventQueueUtil;
@@ -23,8 +23,8 @@ import org.jphototagger.lib.comparator.FileSort;
 import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.DirectoryChooser;
-import org.jphototagger.lib.event.ProgressEvent;
-import org.jphototagger.lib.event.listener.ProgressListener;
+import org.jphototagger.api.event.ProgressEvent;
+import org.jphototagger.api.event.ProgressListener;
 import org.jphototagger.lib.io.CancelRequest;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
@@ -127,16 +127,16 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
     }
 
     private void createImageFileInserter(List<File> selectedImageFiles) {
-        InsertIntoDatabase[] insertIntoDatabase = getWhatToInsertIntoDatabase();
+        InsertIntoRepository[] insertIntoDatabase = getWhatToInsertIntoDatabase();
 
         imageFileInserter = new InsertImageFilesIntoDatabase(selectedImageFiles, insertIntoDatabase);
         imageFileInserter.addProgressListener(this);
     }
 
-    private InsertIntoDatabase[] getWhatToInsertIntoDatabase() {
+    private InsertIntoRepository[] getWhatToInsertIntoDatabase() {
         return checkBoxForce.isSelected()
-               ? new InsertIntoDatabase[] { InsertIntoDatabase.EXIF, InsertIntoDatabase.THUMBNAIL, InsertIntoDatabase.XMP }
-               : new InsertIntoDatabase[] { InsertIntoDatabase.OUT_OF_DATE };
+               ? new InsertIntoRepository[] { InsertIntoRepository.EXIF, InsertIntoRepository.THUMBNAIL, InsertIntoRepository.XMP }
+               : new InsertIntoRepository[] { InsertIntoRepository.OUT_OF_DATE };
     }
 
     private void cancelUpdate() {

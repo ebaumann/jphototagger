@@ -1,4 +1,4 @@
-package org.jphototagger.xmp;
+package org.jphototagger.domain.xmp;
 
 import java.io.File;
 import org.jphototagger.domain.xmp.Xmp;
