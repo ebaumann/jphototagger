@@ -5,11 +5,11 @@ import java.util.Collections;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-import org.jphototagger.domain.repository.event.ImageFileDeletedEvent;
-import org.jphototagger.domain.repository.event.ThumbnailUpdatedEvent;
-import org.jphototagger.domain.repository.event.XmpDeletedEvent;
-import org.jphototagger.domain.repository.event.XmpInsertedEvent;
-import org.jphototagger.domain.repository.event.XmpUpdatedEvent;
+import org.jphototagger.domain.repository.event.imagefiles.ImageFileDeletedEvent;
+import org.jphototagger.domain.thumbnails.event.ThumbnailUpdatedEvent;
+import org.jphototagger.domain.repository.event.xmp.XmpDeletedEvent;
+import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
+import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.cache.ThumbnailCache;
 import org.jphototagger.program.cache.XmpCache;

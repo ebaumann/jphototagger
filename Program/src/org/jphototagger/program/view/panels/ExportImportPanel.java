@@ -8,7 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.jphototagger.api.core.Storage;
-import org.jphototagger.domain.event.listener.impl.ListenerSupport;
+import org.jphototagger.domain.event.listener.ListenerSupport;
 import org.jphototagger.lib.component.SelectObjectsPanel;
 import org.jphototagger.lib.component.SelectObjectsPanel.SelectionEvent;
 import org.jphototagger.lib.componentutil.MnemonicUtil;

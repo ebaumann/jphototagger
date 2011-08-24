@@ -11,7 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.jphototagger.domain.database.search.ParamStatement;
-import org.jphototagger.domain.event.listener.impl.ListenerSupport;
+import org.jphototagger.domain.event.listener.ListenerSupport;
 import org.jphototagger.program.data.SavedSearch;
 import org.jphototagger.program.data.SavedSearchPanel;
 import org.jphototagger.program.event.listener.DatabaseSavedSearchesListener;

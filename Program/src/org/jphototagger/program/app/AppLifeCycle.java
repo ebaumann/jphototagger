@@ -13,7 +13,7 @@ import org.bushe.swing.event.EventBus;
 import org.jphototagger.api.core.Storage;
 import org.jphototagger.api.modules.Module;
 import org.jphototagger.domain.event.AppWillExitEvent;
-import org.jphototagger.domain.event.listener.impl.ListenerSupport;
+import org.jphototagger.domain.event.listener.ListenerSupport;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.database.DatabaseMaintainance;

@@ -10,8 +10,8 @@ import javax.swing.event.ListSelectionListener;
 import org.jphototagger.api.core.Storage;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.event.ProgressEvent;
-import org.jphototagger.lib.event.listener.ProgressListener;
+import org.jphototagger.api.event.ProgressEvent;
+import org.jphototagger.api.event.ProgressListener;
 import org.jphototagger.program.database.DatabaseFileExcludePatterns;
 import org.jphototagger.program.model.ListModelFileExcludePatterns;
 import org.jphototagger.program.types.Persistence;
@@ -145,7 +145,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
 
     private void checkCancel(ProgressEvent evt) {
         if (cancel) {
-            evt.cancel();
+            evt.setCancel(true);
         }
     }
 

@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.domain.database.InsertIntoDatabase;
+import org.jphototagger.domain.repository.InsertIntoRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.event.ProgressEvent;
-import org.jphototagger.lib.event.listener.ProgressListener;
+import org.jphototagger.api.event.ProgressEvent;
+import org.jphototagger.api.event.ProgressListener;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.SourceTargetFile;
 import org.jphototagger.lib.util.Bundle;
@@ -145,7 +145,7 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
     }
 
     private void insertCopiedFilesIntoDb() {
-        InsertImageFilesIntoDatabase inserter = new InsertImageFilesIntoDatabase(copiedTargetFiles, InsertIntoDatabase.OUT_OF_DATE);
+        InsertImageFilesIntoDatabase inserter = new InsertImageFilesIntoDatabase(copiedTargetFiles, InsertIntoRepository.OUT_OF_DATE);
         ProgressBarUpdater pBarUpdater = new ProgressBarUpdater(inserter, progressBarString);
 
         inserter.addProgressListener(pBarUpdater);

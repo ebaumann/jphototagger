@@ -7,7 +7,7 @@ import java.util.Collection;
 
 import javax.swing.JProgressBar;
 
-import org.jphototagger.domain.database.InsertIntoDatabase;
+import org.jphototagger.domain.repository.InsertIntoRepository;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.concurrent.Cancelable;
@@ -15,7 +15,7 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppLifeCycle;
 import org.jphototagger.program.tasks.UserTasks;
 import org.jphototagger.program.view.panels.ProgressBar;
-import org.jphototagger.xmp.FileXmp;
+import org.jphototagger.domain.xmp.FileXmp;
 import org.jphototagger.xmp.XmpMetadata;
 
 /**
@@ -75,7 +75,7 @@ public final class SaveXmp extends Thread implements Cancelable {
     }
 
     private void updateDatabase(File imageFile) {
-        InsertImageFilesIntoDatabase updater = new InsertImageFilesIntoDatabase(Arrays.asList(imageFile), InsertIntoDatabase.XMP);
+        InsertImageFilesIntoDatabase updater = new InsertImageFilesIntoDatabase(Arrays.asList(imageFile), InsertIntoRepository.XMP);
 
         updater.run();    // run in this thread!
     }

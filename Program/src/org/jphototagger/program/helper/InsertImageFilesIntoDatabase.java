@@ -14,20 +14,20 @@ import java.util.logging.Logger;
 
 import org.bushe.swing.event.EventBus;
 import org.jphototagger.api.core.Storage;
-import org.jphototagger.domain.database.InsertIntoDatabase;
+import org.jphototagger.domain.repository.InsertIntoRepository;
 import org.jphototagger.domain.database.xmp.ColumnXmpIptc4XmpCoreDateCreated;
 import org.jphototagger.domain.database.xmp.ColumnXmpLastModified;
 import org.jphototagger.domain.metadata.event.UpdateMetadataCheckEvent;
 import org.jphototagger.domain.metadata.event.UpdateMetadataCheckEvent.Type;
-import org.jphototagger.domain.event.listener.impl.ProgressListenerSupport;
+import org.jphototagger.domain.event.listener.ProgressListenerSupport;
 import org.jphototagger.domain.exif.Exif;
 import org.jphototagger.domain.image.ImageFile;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.exif.ExifMetadata;
 import org.jphototagger.exif.cache.ExifCache;
 import org.jphototagger.lib.concurrent.Cancelable;
-import org.jphototagger.lib.event.ProgressEvent;
-import org.jphototagger.lib.event.listener.ProgressListener;
+import org.jphototagger.api.event.ProgressEvent;
+import org.jphototagger.api.event.ProgressListener;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.program.app.AppLookAndFeel;
@@ -50,7 +50,7 @@ public final class InsertImageFilesIntoDatabase extends Thread implements Cancel
     private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
     private final ProgressListenerSupport pls = new ProgressListenerSupport();
     private ProgressEvent progressEvent = new ProgressEvent(this, null);
-    private final Set<InsertIntoDatabase> what = new HashSet<InsertIntoDatabase>();
+    private final Set<InsertIntoRepository> what = new HashSet<InsertIntoRepository>();
     private final List<File> imageFiles;
     private boolean cancel;
     private static final Logger LOGGER = Logger.getLogger(InsertImageFilesIntoDatabase.class.getName());
@@ -62,7 +62,7 @@ public final class InsertImageFilesIntoDatabase extends Thread implements Cancel
      *                   updated
      * @param what       metadata to insert
      */
-    public InsertImageFilesIntoDatabase(List<File> imageFiles, InsertIntoDatabase... what) {
+    public InsertImageFilesIntoDatabase(List<File> imageFiles, InsertIntoRepository... what) {
         super("JPhotoTagger: Inserting image files into database");
 
         if (imageFiles == null) {
@@ -97,7 +97,7 @@ public final class InsertImageFilesIntoDatabase extends Thread implements Cancel
                 if (isUpdate(imageFile)) {
                     setExifDateToXmpDateCreated(imageFile);
                     logInsertImageFile(imageFile);
-                    db.insertOrUpdate(imageFile);
+                    db.insertOrUpdateImageFile(imageFile);
                     runActionsAfterInserting(imageFile);
                 }
             }
@@ -117,17 +117,17 @@ public final class InsertImageFilesIntoDatabase extends Thread implements Cancel
         imageFile.setLastmodified(imgFile.lastModified());
 
         if (isUpdateThumbnail(imgFile)) {
-            imageFile.addInsertIntoDb(InsertIntoDatabase.THUMBNAIL);
+            imageFile.addInsertIntoDb(InsertIntoRepository.THUMBNAIL);
             createAndSetThumbnail(imageFile);
         }
 
         if (isUpdateXmp(imgFile)) {
-            imageFile.addInsertIntoDb(InsertIntoDatabase.XMP);
+            imageFile.addInsertIntoDb(InsertIntoRepository.XMP);
             setXmp(imageFile);
         }
 
         if (isUpdateExif(imgFile)) {
-            imageFile.addInsertIntoDb(InsertIntoDatabase.EXIF);
+            imageFile.addInsertIntoDb(InsertIntoRepository.EXIF);
             setExif(imageFile);
         }
 
@@ -135,8 +135,8 @@ public final class InsertImageFilesIntoDatabase extends Thread implements Cancel
     }
 
     private boolean isUpdateThumbnail(File imageFile) {
-        return what.contains(InsertIntoDatabase.THUMBNAIL)
-                || (what.contains(InsertIntoDatabase.OUT_OF_DATE)
+        return what.contains(InsertIntoRepository.THUMBNAIL)
+                || (what.contains(InsertIntoRepository.OUT_OF_DATE)
                 && (!existsThumbnail(imageFile) || !isThumbnailUpToDate(imageFile)));
     }
 
@@ -145,15 +145,15 @@ public final class InsertImageFilesIntoDatabase extends Thread implements Cancel
     }
 
     private boolean isUpdateExif(File imageFile) {
-        return what.contains(InsertIntoDatabase.EXIF) || (what.contains(InsertIntoDatabase.OUT_OF_DATE) && !isImageFileUpToDate(imageFile));
+        return what.contains(InsertIntoRepository.EXIF) || (what.contains(InsertIntoRepository.OUT_OF_DATE) && !isImageFileUpToDate(imageFile));
     }
 
     private boolean isUpdateXmp(File imageFile) {
-        return what.contains(InsertIntoDatabase.XMP) || (what.contains(InsertIntoDatabase.OUT_OF_DATE) && !isXmpUpToDate(imageFile));
+        return what.contains(InsertIntoRepository.XMP) || (what.contains(InsertIntoRepository.OUT_OF_DATE) && !isXmpUpToDate(imageFile));
     }
 
     private boolean isImageFileUpToDate(File imageFile) {
-        long dbTime = db.getImageFileLastModified(imageFile);
+        long dbTime = db.getImageFilesLastModifiedTimestamp(imageFile);
         long fileTime = imageFile.lastModified();
 
         return fileTime == dbTime;
@@ -189,14 +189,14 @@ public final class InsertImageFilesIntoDatabase extends Thread implements Cancel
     }
 
     private boolean isXmpSidecarFileUpToDate(File imageFile, File sidecarFile) {
-        long dbTime = db.getLastModifiedXmp(imageFile);
+        long dbTime = db.getXmpFilesLastModifiedTimestamp(imageFile);
         long fileTime = sidecarFile.lastModified();
 
         return fileTime == dbTime;
     }
 
     private boolean isEmbeddedXmpUpToDate(File imageFile) {
-        long dbTime = db.getLastModifiedXmp(imageFile);
+        long dbTime = db.getXmpFilesLastModifiedTimestamp(imageFile);
         long fileTime = imageFile.lastModified();
 
         if (dbTime == fileTime) {
@@ -207,7 +207,7 @@ public final class InsertImageFilesIntoDatabase extends Thread implements Cancel
         boolean hasEmbeddedXmp = XmpMetadata.getEmbeddedXmp(imageFile) != null;
 
         if (!hasEmbeddedXmp) {    // Avoid unneccesary 2nd calls
-            db.setLastModifiedXmp(imageFile, fileTime);
+            db.setLastModifiedToXmpSidecarFileOfImageFile(imageFile, fileTime);
         }
 
         return !hasEmbeddedXmp;

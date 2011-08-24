@@ -40,30 +40,29 @@ import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopSource;
 import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopState;
 import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopTransmissionReference;
 import org.jphototagger.domain.database.xmp.ColumnXmpRating;
-import org.jphototagger.domain.repository.event.ImageFileInsertedEvent;
-import org.jphototagger.domain.repository.event.ImageFileMovedEvent;
-import org.jphototagger.domain.repository.event.ImageFileDeletedEvent;
+import org.jphototagger.domain.repository.event.imagefiles.ImageFileInsertedEvent;
+import org.jphototagger.domain.repository.event.imagefiles.ImageFileMovedEvent;
+import org.jphototagger.domain.repository.event.imagefiles.ImageFileDeletedEvent;
 import org.jphototagger.domain.exif.Exif;
 import org.jphototagger.domain.image.ImageFile;
-import org.jphototagger.domain.repository.event.DcSubjectDeletedEvent;
-import org.jphototagger.domain.repository.event.DcSubjectInsertedEvent;
-import org.jphototagger.domain.repository.event.ExifDeletedEvent;
-import org.jphototagger.domain.repository.event.ExifInsertedEvent;
-import org.jphototagger.domain.repository.event.ExifUpdatedEvent;
-import org.jphototagger.domain.repository.event.ThumbnailUpdatedEvent;
-import org.jphototagger.domain.repository.event.XmpDeletedEvent;
-import org.jphototagger.domain.repository.event.XmpInsertedEvent;
-import org.jphototagger.domain.repository.event.XmpUpdatedEvent;
+import org.jphototagger.domain.repository.event.dcsubjects.DcSubjectDeletedEvent;
+import org.jphototagger.domain.repository.event.dcsubjects.DcSubjectInsertedEvent;
+import org.jphototagger.domain.repository.event.exif.ExifDeletedEvent;
+import org.jphototagger.domain.repository.event.exif.ExifInsertedEvent;
+import org.jphototagger.domain.repository.event.exif.ExifUpdatedEvent;
+import org.jphototagger.domain.thumbnails.event.ThumbnailUpdatedEvent;
+import org.jphototagger.domain.repository.event.xmp.XmpDeletedEvent;
+import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
+import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.domain.xmp.Xmp;
-import org.jphototagger.lib.event.ProgressEvent;
-import org.jphototagger.lib.event.listener.ProgressListener;
+import org.jphototagger.api.event.ProgressEvent;
+import org.jphototagger.api.event.ProgressListener;
 import org.jphototagger.program.cache.PersistentThumbnails;
-import org.jphototagger.program.data.Timeline;
-import org.jphototagger.program.database.DatabaseImageFiles.DcSubjectOption;
+import org.jphototagger.domain.timeline.Timeline;
 import org.jphototagger.program.database.metadata.Join;
 import org.jphototagger.program.database.metadata.Join.Type;
 import org.jphototagger.program.image.thumbnail.ThumbnailUtil;
-import org.jphototagger.xmp.FileXmp;
+import org.jphototagger.domain.xmp.FileXmp;
 import org.jphototagger.xmp.XmpMetadata;
 
 /**
@@ -74,7 +73,7 @@ import org.jphototagger.xmp.XmpMetadata;
 public final class DatabaseImageFiles extends Database {
     public static final DatabaseImageFiles INSTANCE = new DatabaseImageFiles();
 
-    public enum DcSubjectOption { INCLUDE_SYNONYMS }
+    private enum DcSubjectOption { INCLUDE_SYNONYMS }
 
     private DatabaseImageFiles() {}
 
@@ -85,7 +84,7 @@ public final class DatabaseImageFiles extends Database {
      * @param  toImageFile   new renamed image file
      * @return               count of renamed files (0 or 1)
      */
-    public int updateRename(File fromImageFile, File toImageFile) {
+    public int updateRenameImageFile(File fromImageFile, File toImageFile) {
         if (fromImageFile == null) {
             throw new NullPointerException("fromImageFile == null");
         }
@@ -330,7 +329,7 @@ public final class DatabaseImageFiles extends Database {
             }
 
             insertOrUpdateXmp(con, imageFile, idFile, xmp);
-            setLastModifiedXmp(imageFile, xmp.contains(ColumnXmpLastModified.INSTANCE)
+            setLastModifiedToXmpSidecarFileOfImageFile(imageFile, xmp.contains(ColumnXmpLastModified.INSTANCE)
                                           ? (Long) xmp.getValue(ColumnXmpLastModified.INSTANCE)
                                           : -1);
         } catch (Exception ex) {
@@ -359,15 +358,15 @@ public final class DatabaseImageFiles extends Database {
      * @param  imageFile image
      * @return           true if inserted
      */
-    public synchronized boolean insertOrUpdate(ImageFile imageFile) {
+    public synchronized boolean insertOrUpdateImageFile(ImageFile imageFile) {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
 
         boolean success = false;
 
-        if (exists(imageFile.getFile())) {
-            return update(imageFile);
+        if (existsImageFile(imageFile.getFile())) {
+            return updateImageFile(imageFile);
         }
 
         Connection con = null;
@@ -424,30 +423,24 @@ public final class DatabaseImageFiles extends Database {
         return success;
     }
 
-    /**
-     * Returns an image file.
-     *
-     * @param  imgFile image file
-     * @return         image file
-     */
-    public ImageFile getImageFile(File imgFile) {
-        if (imgFile == null) {
+    public ImageFile getImageFileOfFile(File file) {
+        if (file == null) {
             throw new NullPointerException("imgFile == null");
         }
 
         ImageFile imageFile = new ImageFile();
 
-        imageFile.setExif(getExifOfImageFile(imgFile));
-        imageFile.setFile(imgFile);
-        imageFile.setLastmodified(getImageFileLastModified(imgFile));
+        imageFile.setExif(getExifOfImageFile(file));
+        imageFile.setFile(file);
+        imageFile.setLastmodified(getImageFilesLastModifiedTimestamp(file));
 
-        Image thumbnail = PersistentThumbnails.getThumbnail(imgFile);
+        Image thumbnail = PersistentThumbnails.getThumbnail(file);
 
         if (thumbnail != null) {
             imageFile.setThumbnail(thumbnail);
         }
 
-        imageFile.setXmp(getXmpOfImageFile(imgFile));
+        imageFile.setXmp(getXmpOfImageFile(file));
 
         return imageFile;
     }
@@ -467,7 +460,7 @@ public final class DatabaseImageFiles extends Database {
      * @param imageFile Bild
      * @return          true bei Erfolg
      */
-    public boolean update(ImageFile imageFile) {
+    public boolean updateImageFile(ImageFile imageFile) {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
@@ -630,7 +623,7 @@ public final class DatabaseImageFiles extends Database {
      * @return           time in milliseconds since 1970 or -1 if the file is
      *                   not in the database or when errors occured
      */
-    public long getImageFileLastModified(File imageFile) {
+    public long getImageFilesLastModifiedTimestamp(File imageFile) {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
@@ -660,13 +653,7 @@ public final class DatabaseImageFiles extends Database {
         return lastModified;
     }
 
-    /**
-     * Returns whether an image file is stored in the database.
-     *
-     * @param  imageFile file
-     * @return           true if exists
-     */
-    public boolean exists(File imageFile) {
+    public boolean existsImageFile(File imageFile) {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
@@ -696,12 +683,7 @@ public final class DatabaseImageFiles extends Database {
         return exists;
     }
 
-    /**
-     *
-     * @param  imageFiles
-     * @return            count of deleted files
-     */
-    public int delete(List<File> imageFiles) {
+    public int deleteImageFiles(List<File> imageFiles) {
         if (imageFiles == null) {
             throw new NullPointerException("files == null");
         }
@@ -749,23 +731,7 @@ public final class DatabaseImageFiles extends Database {
         return countDeleted;
     }
 
-    /**
-     * Löscht aus der Datenbank alle Datensätze mit Bildern, die nicht
-     * mehr im Dateisystem existieren.
-     *
-     * @param listener Listener oder null, falls kein Interesse am Fortschritt.
-     *                 {@link ProgressListener#progressEnded(ProgressEvent)}
-     *                 liefert ein
-     *                 {@link org.jphototagger.program.event.ProgressEvent}-Objekt,
-     *                 das mit
-     *                 {@link ProgressEvent#getInfo()}
-     *                 ein Int-Objekt liefert mit der Anzahl der gelöschten
-     *                 Datensätze.
-     *                 {@link org.jphototagger.program.event.ProgressEvent#isCancel()}
-     *                 wird ausgewertet (Abbruch des Löschens).
-     * @return         Anzahl gelöschter Datensätze
-     */
-    public int deleteNotExistingImageFiles(ProgressListener listener) {
+    public int deleteAbsentImageFiles(ProgressListener listener) {
         int countDeleted = 0;
         ProgressEvent event = new ProgressEvent(this, 0, DatabaseStatistics.INSTANCE.getFileCount(), 0, null);
         Connection con = null;
@@ -853,7 +819,7 @@ public final class DatabaseImageFiles extends Database {
      * @return               last modification time in milliseconds since 1970
      *                       or -1 if not defined
      */
-    public long getLastModifiedXmp(File imageFile) {
+    public long getXmpFilesLastModifiedTimestamp(File imageFile) {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
@@ -890,7 +856,7 @@ public final class DatabaseImageFiles extends Database {
      * @param  time      milliseconds since 1970
      * @return           true if set
      */
-    public boolean setLastModifiedXmp(File imageFile, long time) {
+    public boolean setLastModifiedToXmpSidecarFileOfImageFile(File imageFile, long time) {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
@@ -1012,7 +978,7 @@ public final class DatabaseImageFiles extends Database {
     /**
      * Inserts a Dublin core subject.
      * <p>
-     * Does <em>not</em> check whether it already exists. In that case an
+     * Does <em>not</em> check whether it already existsValueInColumn. In that case an
      * {@link SQLException} will be thrown and caught by this method.
      *
      * @param  dcSubject subject
@@ -1168,14 +1134,7 @@ public final class DatabaseImageFiles extends Database {
         }
     }
 
-    /**
-     * Deletes XMP-Data of image files when a XMP sidecar file does not
-     * exist but in the database is XMP data for this image file.
-     *
-     * @param  listener  progress listener or null
-     * @return           count of deleted XMP data (one per image file)
-     */
-    public int deleteOrphanedXmp(ProgressListener listener) {
+    public int deleteAbsentXmp(ProgressListener listener) {
         int countDeleted = 0;
         ProgressEvent progressEvent = new ProgressEvent(this, 0, DatabaseStatistics.INSTANCE.getXmpCount(), 0, null);
         Connection con = null;
@@ -1557,11 +1516,6 @@ public final class DatabaseImageFiles extends Database {
         return ref;
     }
 
-    /**
-     * Returns the dublin core subjects (keywords).
-     *
-     * @return dc subjects distinct ordererd ascending
-     */
     public Set<String> getAllDcSubjects() {
         Set<String> dcSubjects = new LinkedHashSet<String>();
         Connection con = null;
@@ -1590,13 +1544,7 @@ public final class DatabaseImageFiles extends Database {
         return dcSubjects;
     }
 
-    /**
-     * Returns all dublin core subjects (keywords) of a image file.
-     *
-     * @param  imageFile image file
-     * @return           dc subjects (keywords) ordered ascending
-     */
-    public List<String> getDcSubjectsOf(File imageFile) {
+    public List<String> getDcSubjectsOfImageFile(File imageFile) {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
@@ -1636,29 +1584,18 @@ public final class DatabaseImageFiles extends Database {
         return dcSubjects;
     }
 
-    /**
-     * Returns the filenames within a specific dublin core subject (keyword).
-     *
-     * @param  dcSubject subject
-     * @param options    options
-     * @return           filenames
-     */
-    public Set<File> getImageFilesOfDcSubject(String dcSubject, DcSubjectOption... options) {
+    public Set<File> getImageFilesContainingDcSubject(String dcSubject, boolean includeSynonyms) {
         if (dcSubject == null) {
             throw new NullPointerException("dcSubject == null");
-        }
-
-        if (options == null) {
-            throw new NullPointerException("options == null");
         }
 
         Set<File> imageFiles = new LinkedHashSet<File>();
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        Set<DcSubjectOption> opts = ((options == null) || (options.length == 0))
-                                    ? EnumSet.noneOf(DcSubjectOption.class)
-                                    : EnumSet.<DcSubjectOption>copyOf(Arrays.asList(options));
+        Set<DcSubjectOption> opts = includeSynonyms
+                                    ? EnumSet.<DcSubjectOption>copyOf(Arrays.asList(DcSubjectOption.INCLUDE_SYNONYMS))
+                                    : EnumSet.noneOf(DcSubjectOption.class);
 
         try {
             con = getConnection();
@@ -1719,13 +1656,13 @@ public final class DatabaseImageFiles extends Database {
      * a car the list contains these three words.
      *
      * Because it's faster, call
-     * {@link #getImageFilesOfDcSubject(String, DcSubjectOption[])}
+     * {@link #getImageFilesContainingDcSubject(String, DcSubjectOption[])}
      * if You are searching for only one subject.
      *
      * @param  dcSubjects subjects
      * @return            images containing all of these subjects
      */
-    public Set<File> getImageFilesOfAllDcSubjects(List<? extends String> dcSubjects) {
+    public Set<File> getImageFilesContainingAllDcSubjects(List<? extends String> dcSubjects) {
         if (dcSubjects == null) {
             throw new NullPointerException("dcSubjects == null");
         }
@@ -1767,17 +1704,7 @@ public final class DatabaseImageFiles extends Database {
         return imageFiles;
     }
 
-    /**
-     * Returns all images which have at least one of subjects in a list.
-     *
-     * Because it's faster, call
-     * {@link #getImageFilesOfDcSubject(String, DcSubjectOption[])}
-     * if You are searching for only one subject.
-     *
-     * @param  dcSubjects subjects
-     * @return            images containing one or more of these subjects
-     */
-    public Set<File> getImageFilesOfDcSubjects(List<? extends String> dcSubjects) {
+    public Set<File> getImageFilesContainingSomeOfDcSubjects(List<? extends String> dcSubjects) {
         if (dcSubjects == null) {
             throw new NullPointerException("dcSubjects == null");
         }
@@ -1828,7 +1755,7 @@ public final class DatabaseImageFiles extends Database {
      *                through a column <code>id_file</code>!
      * @return        images containing all of these terms in that column
      */
-    public Set<File> getImageFilesOfAll(Column column, List<? extends String> words) {
+    public Set<File> getImageFilesContainingAllWordsInColumn(List<? extends String> words, Column column) {
         if (column == null) {
             throw new NullPointerException("column == null");
         }
@@ -1999,7 +1926,7 @@ public final class DatabaseImageFiles extends Database {
                 timeline.add(cal);
             }
 
-            addXmpDateCreated(con, timeline);
+            addXmpDateCreatedToTimeline(con, timeline);
             timeline.addUnknownNode();
         } catch (Exception ex) {
             Logger.getLogger(DatabaseImageFiles.class.getName()).log(Level.SEVERE, null, ex);
@@ -2011,7 +1938,7 @@ public final class DatabaseImageFiles extends Database {
         return timeline;
     }
 
-    private void addXmpDateCreated(Connection con, Timeline timeline) throws SQLException {
+    private void addXmpDateCreatedToTimeline(Connection con, Timeline timeline) throws SQLException {
         Statement stmt = null;
         ResultSet rs = null;
         String sql = "SELECT iptc4xmpcore_datecreated FROM xmp WHERE iptc4xmpcore_datecreated IS NOT NULL";
@@ -2045,7 +1972,7 @@ public final class DatabaseImageFiles extends Database {
      *               month should be returned
      * @return       image files taken on that date
      */
-    public Set<File> getFilesOf(int year, int month, int day) {
+    public Set<File> getImageFilesOfDateTaken(int year, int month, int day) {
         Set<File> files = new HashSet<File>();
         Connection con = null;
         PreparedStatement stmt = null;
@@ -2147,13 +2074,7 @@ public final class DatabaseImageFiles extends Database {
                : "0";
     }
 
-    /**
-     * Returns image files without EXIF date time taken or without XMP date
-     * created.
-     *
-     * @return image files
-     */
-    public List<File> getFilesOfUnknownDate() {
+    public List<File> getImageFilesOfUnknownDateTaken() {
         List<File> files = new ArrayList<File>();
         Connection con = null;
         Statement stmt = null;
@@ -2187,7 +2108,7 @@ public final class DatabaseImageFiles extends Database {
         return files;
     }
 
-    public Set<String> getAllDistinctValuesOf(Column column) {
+    public Set<String> getAllDistinctValuesOfColumn(Column column) {
         if (column == null) {
             throw new NullPointerException("column == null");
         }
@@ -2234,16 +2155,7 @@ public final class DatabaseImageFiles extends Database {
                  + " ORDER BY files.filename ASC";
     }
 
-    /**
-     * Returns files with specific values (where the column is not null), e.g.
-     * files with ISO speed ratings in the EXIF table.
-     *
-     * @param  column column of a table which can be joined through a column
-     *                named <code>id_file</code> with the table files, column
-     *                <code>id</code>
-     * @return        all distinct files with values in that column
-     */
-    public List<File> getFilesNotNullIn(Column column) {
+    public List<File> getImageFilesContainingAVauleInColumn(Column column) {
         if (column == null) {
             throw new NullPointerException("column == null");
         }
@@ -2295,7 +2207,7 @@ public final class DatabaseImageFiles extends Database {
      * @param  exactValue exact value of the column content
      * @return            files
      */
-    public List<File> getImageFilesWithColumnContent(Column column, String exactValue) {
+    public List<File> getImageFilesWhereColumnHasExactValue(Column column, String exactValue) {
         if (column == null) {
             throw new NullPointerException("column == null");
         }
@@ -2346,13 +2258,6 @@ public final class DatabaseImageFiles extends Database {
                + " WHERE files.filename = ?";
     }
 
-    /**
-     * Returns exif metadata of a specific file.
-     *
-     * @param  imageFile image file
-     * @return           EXIF metadata or null if that image file has no EXIF
-     *                   metadata
-     */
     public Exif getExifOfImageFile(File imageFile) {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
@@ -2462,14 +2367,7 @@ public final class DatabaseImageFiles extends Database {
         return exists;
     }
 
-    /**
-     * Returns wheter a specific value existsValueIn in a table.
-     *
-     * @param  column column of the table, where the value shall exist
-     * @param  value  value
-     * @return        true if the value exists
-     */
-    public boolean exists(Column column, Object value) {
+    public boolean existsValueInColumn(Object value, Column column) {
         if (column == null) {
             throw new NullPointerException("column == null");
         }
@@ -2520,7 +2418,7 @@ public final class DatabaseImageFiles extends Database {
      *                 or table <code>"xmp"</code>
      * @return         image files without metadata for that column
      */
-    public List<File> getImageFilesWithoutMetadataIn(Column column) {
+    public List<File> getImageFilesWithoutMetadataInColumn(Column column) {
         if (column == null) {
             throw new NullPointerException("column == null");
         }
@@ -2585,11 +2483,6 @@ public final class DatabaseImageFiles extends Database {
         return id;
     }
 
-    /**
-     * Returns all thumbnail files.
-     *
-     * @return files
-     */
     public Set<File> getAllThumbnailFiles() {
         Set<File> tnFiles = new HashSet<File>();
         Connection con = null;

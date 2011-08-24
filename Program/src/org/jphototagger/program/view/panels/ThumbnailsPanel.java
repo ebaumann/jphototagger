@@ -41,16 +41,16 @@ import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.core.Storage;
 import org.jphototagger.domain.event.AppWillExitEvent;
-import org.jphototagger.domain.thumbnails.event.ThumbnailUpdateEvent;
+import org.jphototagger.domain.thumbnails.event.TypedThumbnailUpdateEvent;
 import org.jphototagger.domain.event.UserPropertyChangedEvent;
 import org.jphototagger.domain.event.listener.ThumbnailUpdateListener;
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
-import org.jphototagger.domain.repository.event.ImageFileDeletedEvent;
-import org.jphototagger.domain.repository.event.ImageFileInsertedEvent;
-import org.jphototagger.domain.repository.event.ImageFileMovedEvent;
-import org.jphototagger.domain.repository.event.XmpDeletedEvent;
-import org.jphototagger.domain.repository.event.XmpInsertedEvent;
-import org.jphototagger.domain.repository.event.XmpUpdatedEvent;
+import org.jphototagger.domain.repository.event.imagefiles.ImageFileDeletedEvent;
+import org.jphototagger.domain.repository.event.imagefiles.ImageFileInsertedEvent;
+import org.jphototagger.domain.repository.event.imagefiles.ImageFileMovedEvent;
+import org.jphototagger.domain.repository.event.xmp.XmpDeletedEvent;
+import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
+import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.domain.repository.event.userdefinedfilefilters.UserDefinedFileFilterUpdatedEvent;
 import org.jphototagger.domain.thumbnails.ThumbnailFlag;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
@@ -314,7 +314,7 @@ public class ThumbnailsPanel extends JPanel
     }
 
     @Override
-    public synchronized void thumbnailUpdated(final ThumbnailUpdateEvent event) {
+    public synchronized void thumbnailUpdated(final TypedThumbnailUpdateEvent event) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override

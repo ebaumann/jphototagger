@@ -50,7 +50,7 @@ public final class ControllerHighlightKeywordsTree {
             List<File> selFiles = evt.getSelectedImageFiles();
 
             if ((selFiles.size() == 1) && hasSidecarFile(selFiles)) {
-                Collection<String> keywords = DatabaseImageFiles.INSTANCE.getDcSubjectsOf(selFiles.get(0));
+                Collection<String> keywords = DatabaseImageFiles.INSTANCE.getDcSubjectsOfImageFile(selFiles.get(0));
 
                 setKeywords(GUI.getEditKeywordsTree(), keywords);
                 setKeywords(GUI.getInputHelperKeywordsTree(), keywords);

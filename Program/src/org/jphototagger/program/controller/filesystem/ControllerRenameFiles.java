@@ -60,7 +60,7 @@ public final class ControllerRenameFiles implements ActionListener, KeyListener 
 
     private void renameFile(final File fromFile, final File toFile) {
         LOGGER.log(Level.INFO, "Rename in the database file ''{0}'' to ''{1}''", new Object[]{fromFile, toFile});
-        DatabaseImageFiles.INSTANCE.updateRename(fromFile, toFile);
+        DatabaseImageFiles.INSTANCE.updateRenameImageFile(fromFile, toFile);
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override

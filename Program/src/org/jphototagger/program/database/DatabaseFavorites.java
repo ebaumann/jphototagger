@@ -12,9 +12,9 @@ import java.util.logging.Logger;
 
 import org.bushe.swing.event.EventBus;
 import org.jphototagger.domain.favorites.Favorite;
-import org.jphototagger.domain.repository.event.FavoriteDeletedEvent;
-import org.jphototagger.domain.repository.event.FavoriteInsertedEvent;
-import org.jphototagger.domain.repository.event.FavoriteUpdatedEvent;
+import org.jphototagger.domain.repository.event.favorites.FavoriteDeletedEvent;
+import org.jphototagger.domain.repository.event.favorites.FavoriteInsertedEvent;
+import org.jphototagger.domain.repository.event.favorites.FavoriteUpdatedEvent;
 
 /**
  *

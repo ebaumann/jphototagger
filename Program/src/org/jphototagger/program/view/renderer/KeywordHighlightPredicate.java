@@ -82,7 +82,7 @@ public final class KeywordHighlightPredicate implements HighlightPredicate {
 
         if (evt.getSelectionCount() == 1) {
             List<File> selectedFiles = evt.getSelectedImageFiles();
-            Collection<String> keywordsOfSelectedFile = DatabaseImageFiles.INSTANCE.getDcSubjectsOf(selectedFiles.get(0));
+            Collection<String> keywordsOfSelectedFile = DatabaseImageFiles.INSTANCE.getDcSubjectsOfImageFile(selectedFiles.get(0));
 
             keywordsOfSelectedImage.addAll(keywordsOfSelectedFile);
         }

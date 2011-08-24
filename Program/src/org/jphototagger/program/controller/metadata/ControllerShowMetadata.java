@@ -20,8 +20,8 @@ import javax.swing.event.ChangeListener;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-import org.jphototagger.domain.repository.event.XmpInsertedEvent;
-import org.jphototagger.domain.repository.event.XmpUpdatedEvent;
+import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
+import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.TableUtil;
@@ -41,9 +41,9 @@ import org.jphototagger.xmp.XmpMetadata;
 import com.adobe.xmp.XMPConst;
 import com.adobe.xmp.properties.XMPPropertyInfo;
 import org.jphototagger.api.core.Storage;
-import org.jphototagger.domain.repository.event.ExifInsertedEvent;
-import org.jphototagger.domain.repository.event.ExifUpdatedEvent;
-import org.jphototagger.domain.repository.event.XmpDeletedEvent;
+import org.jphototagger.domain.repository.event.exif.ExifInsertedEvent;
+import org.jphototagger.domain.repository.event.exif.ExifUpdatedEvent;
+import org.jphototagger.domain.repository.event.xmp.XmpDeletedEvent;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
 import org.openide.util.Lookup;
 

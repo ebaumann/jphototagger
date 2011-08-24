@@ -13,10 +13,10 @@ import java.util.logging.Logger;
 
 import org.bushe.swing.event.EventBus;
 import org.jphototagger.domain.imagecollections.ImageCollection;
-import org.jphototagger.domain.repository.event.ImageCollectionDeletedEvent;
-import org.jphototagger.domain.repository.event.ImageCollectionImagesInsertedEvent;
-import org.jphototagger.domain.repository.event.ImageCollectionInsertedEvent;
-import org.jphototagger.domain.repository.event.ImageCollectionRenamedEvent;
+import org.jphototagger.domain.repository.event.imagecollections.ImageCollectionDeletedEvent;
+import org.jphototagger.domain.repository.event.imagecollections.ImageCollectionImagesInsertedEvent;
+import org.jphototagger.domain.repository.event.imagecollections.ImageCollectionInsertedEvent;
+import org.jphototagger.domain.repository.event.imagecollections.ImageCollectionRenamedEvent;
 
 /**
  *
@@ -164,13 +164,13 @@ public final class DatabaseImageCollections extends Database {
     /**
      * Inserts an image collection into the database.
      * <p>
-     * If an image collection of that name already exists, it will be deleted
+     * If an image collection of that name already existsValueInColumn, it will be deleted
      * before insertion.
      *
      * @param collectionName name of the image collection
      * @param imageFiles     ordered image files
      * @return               true if successfully inserted
-     * @see                  #exists(java.lang.String)
+     * @see                  #existsValueInColumn(java.lang.String)
      */
     public boolean insert(String collectionName, List<File> imageFiles) {
         if (collectionName == null) {
@@ -208,7 +208,7 @@ public final class DatabaseImageCollections extends Database {
             for (File imageFile : imageFiles) {
                 long idImageFile = DatabaseImageFiles.INSTANCE.findIdImageFile(con, imageFile);
 
-                if (!DatabaseImageFiles.INSTANCE.exists(imageFile)) {
+                if (!DatabaseImageFiles.INSTANCE.existsImageFile(imageFile)) {
                     LOGGER.log(Level.WARNING, "File ''{0}'' is not in the database! No photo album will be created!", imageFile);
                     rollback(con);
 
@@ -277,7 +277,7 @@ public final class DatabaseImageCollections extends Database {
      * Deletes image files from an image collection.
      *
      * @param collectionName name of the image collection
-     * @param imageFiles     image files to delete
+     * @param imageFiles     image files to deleteImageFiles
      * @return               count of deleted images
      */
     public int deleteImagesFrom(String collectionName, List<File> imageFiles) {
@@ -457,7 +457,7 @@ public final class DatabaseImageCollections extends Database {
      * Returns whether an image collection of a specific name does exist.
      *
      * @param collectionName name of the image collection
-     * @return               true if an image collection of that name exists
+     * @return               true if an image collection of that name existsValueInColumn
      */
     public boolean exists(String collectionName) {
         if (collectionName == null) {

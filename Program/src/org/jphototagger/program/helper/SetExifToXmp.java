@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.domain.database.InsertIntoDatabase;
+import org.jphototagger.domain.repository.InsertIntoRepository;
 import org.jphototagger.domain.database.xmp.ColumnXmpIptc4XmpCoreDateCreated;
 import org.jphototagger.domain.database.xmp.ColumnXmpLastModified;
 import org.jphototagger.domain.exif.Exif;
@@ -147,8 +147,8 @@ public final class SetExifToXmp extends HelperThread {
                     imageFile.setLastmodified(imgFile.lastModified());
                     imageFile.setFile(imgFile);
                     imageFile.setXmp(xmp);
-                    imageFile.addInsertIntoDb(InsertIntoDatabase.XMP);
-                    DatabaseImageFiles.INSTANCE.insertOrUpdate(imageFile);
+                    imageFile.addInsertIntoDb(InsertIntoRepository.XMP);
+                    DatabaseImageFiles.INSTANCE.insertOrUpdateImageFile(imageFile);
                 }
             }
         }

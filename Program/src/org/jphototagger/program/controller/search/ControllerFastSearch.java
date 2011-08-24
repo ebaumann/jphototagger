@@ -18,9 +18,9 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.core.Storage;
 import org.jphototagger.domain.database.Column;
 import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
-import org.jphototagger.domain.repository.event.XmpDeletedEvent;
-import org.jphototagger.domain.repository.event.XmpInsertedEvent;
-import org.jphototagger.domain.repository.event.XmpUpdatedEvent;
+import org.jphototagger.domain.repository.event.xmp.XmpDeletedEvent;
+import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
+import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.Autocomplete;
@@ -197,19 +197,15 @@ public final class ControllerFastSearch implements ActionListener, RefreshListen
 
                     if (searchWords.size() == 1) {
                         if (isKeywordSearch) {
-                            return new ArrayList<File>(
-                                    DatabaseImageFiles.INSTANCE.getImageFilesOfDcSubject(
-                                    searchWords.get(0), DatabaseImageFiles.DcSubjectOption.INCLUDE_SYNONYMS));
+                            return new ArrayList<File>(DatabaseImageFiles.INSTANCE.getImageFilesContainingDcSubject(searchWords.get(0), true));
                         } else {
                             return DatabaseFind.INSTANCE.findImageFilesLikeOr(Arrays.asList(searchColumn), userInput);
                         }
                     } else if (searchWords.size() > 1) {
                         if (isKeywordSearch) {
-                            return new ArrayList<File>(
-                                    DatabaseImageFiles.INSTANCE.getImageFilesOfAllDcSubjects(searchWords));
+                            return new ArrayList<File>(DatabaseImageFiles.INSTANCE.getImageFilesContainingAllDcSubjects(searchWords));
                         } else {
-                            return new ArrayList<File>(DatabaseImageFiles.INSTANCE.getImageFilesOfAll(searchColumn,
-                                    searchWords));
+                            return new ArrayList<File>(DatabaseImageFiles.INSTANCE.getImageFilesContainingAllWordsInColumn(searchWords, searchColumn));
                         }
                     } else {
                         return null;

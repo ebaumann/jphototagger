@@ -1,4 +1,4 @@
-package org.jphototagger.domain.event.listener.impl;
+package org.jphototagger.domain.event.listener;
 
 import org.jphototagger.domain.database.Column;
 import org.jphototagger.domain.event.listener.TextEntryListener;

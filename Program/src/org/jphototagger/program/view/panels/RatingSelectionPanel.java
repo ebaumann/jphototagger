@@ -22,7 +22,7 @@ import javax.swing.JPanel;
 import org.jphototagger.domain.database.Column;
 import org.jphototagger.domain.database.xmp.ColumnXmpRating;
 import org.jphototagger.domain.event.listener.TextEntryListener;
-import org.jphototagger.domain.event.listener.impl.TextEntryListenerSupport;
+import org.jphototagger.domain.event.listener.TextEntryListenerSupport;
 import org.jphototagger.domain.text.TextEntry;
 import org.jphototagger.program.app.AppLookAndFeel;
 

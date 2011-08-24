@@ -18,7 +18,7 @@ import javax.swing.tree.TreePath;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
-import org.jphototagger.program.data.Timeline;
+import org.jphototagger.domain.timeline.Timeline;
 import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.event.RefreshEvent;
 import org.jphototagger.program.event.listener.RefreshListener;
@@ -90,7 +90,7 @@ public final class ControllerTimelineItemSelected implements TreeSelectionListen
         if (node.equals(Timeline.getUnknownNode())) {
             setTitle();
             ControllerSortThumbnails.setLastSort();
-            GUI.getThumbnailsPanel().setFiles(DatabaseImageFiles.INSTANCE.getFilesOfUnknownDate(), TypeOfDisplayedImages.TIMELINE);
+            GUI.getThumbnailsPanel().setFiles(DatabaseImageFiles.INSTANCE.getImageFilesOfUnknownDateTaken(), TypeOfDisplayedImages.TIMELINE);
         } else if (userObject instanceof Timeline.Date) {
             Timeline.Date date = (Timeline.Date) userObject;
             DefaultMutableTreeNode parent = (DefaultMutableTreeNode) node.getParent();
@@ -107,7 +107,7 @@ public final class ControllerTimelineItemSelected implements TreeSelectionListen
 
                 setTitle(isYear, date.year, isMonth, month, date);
 
-                List<File> files = new ArrayList<File>(DatabaseImageFiles.INSTANCE.getFilesOf(date.year, month, day));
+                List<File> files = new ArrayList<File>(DatabaseImageFiles.INSTANCE.getImageFilesOfDateTaken(date.year, month, day));
 
                 ControllerSortThumbnails.setLastSort();
                 GUI.getThumbnailsPanel().setFiles(files, TypeOfDisplayedImages.TIMELINE);

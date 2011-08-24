@@ -44,7 +44,7 @@ public final class FileSystemDirectories {
 
                     FileUtil.deleteDirectoryRecursive(directory);
 
-                    int count = DatabaseImageFiles.INSTANCE.delete(imageFiles);
+                    int count = DatabaseImageFiles.INSTANCE.deleteImageFiles(imageFiles);
 
                     logDelete(directory, count);
 

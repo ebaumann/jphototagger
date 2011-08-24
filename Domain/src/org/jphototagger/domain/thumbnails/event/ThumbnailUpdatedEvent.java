@@ -1,35 +1,24 @@
-package org.jphototagger.domain.repository.event;
+package org.jphototagger.domain.thumbnails.event;
 
 import java.io.File;
-import org.jphototagger.domain.exif.Exif;
 
 /**
  *
  *
  * @author Elmar Baumann
  */
-public final class ExifInsertedEvent {
+public final class ThumbnailUpdatedEvent {
 
     private final Object source;
     private final File imageFile;
-    private final Exif exif;
 
-    public ExifInsertedEvent(Object source, File imageFile, Exif exif) {
+    public ThumbnailUpdatedEvent(Object source, File imageFile) {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
 
-        if (exif == null) {
-            throw new NullPointerException("exif == null");
-        }
-
         this.source = source;
         this.imageFile = imageFile;
-        this.exif = exif;
-    }
-
-    public Exif getExif() {
-        return exif;
     }
 
     public File getImageFile() {

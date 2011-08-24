@@ -62,14 +62,14 @@ public class RepositoryImageFileInfo {
     }
 
     private void setImageFileTimeStamps() {
-        long repoTimestamp = imageFileRepository.getRepositoryImageFileTimestamp(imageFile);
+        long repoTimestamp = imageFileRepository.getImageFilesLastModifiedTimestamp(imageFile);
         timeImageFileInRepository = createDateStringOfTimestamp(repoTimestamp);
         timeImageFileInFileSystem = createDateStringOfFile(imageFile);
         setTimeImageFileWarning(repoTimestamp);
     }
 
     private void setXmpFileTimeStamps() {
-        long repoTimestamp = imageFileRepository.getRepositoryXmpFileTimestamp(imageFile);
+        long repoTimestamp = imageFileRepository.getXmpFilesLastModifiedTimestamp(imageFile);
         timeXmpFileInRepository = createDateStringOfTimestamp(repoTimestamp);
         File xmpFile = resolveXmpFile(imageFile);
         timeXmpFileInFileSystem = createDateStringOfFile(xmpFile);

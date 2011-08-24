@@ -20,7 +20,7 @@ import javax.swing.tree.TreePath;
 
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.JXTree;
-import org.jphototagger.domain.database.InsertIntoDatabase;
+import org.jphototagger.domain.repository.InsertIntoRepository;
 import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
 import org.jphototagger.domain.database.xmp.ColumnXmpLastModified;
 import org.jphototagger.domain.image.ImageFile;
@@ -42,7 +42,7 @@ import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
 import org.jphototagger.program.view.renderer.TreeCellRendererKeywords;
-import org.jphototagger.xmp.FileXmp;
+import org.jphototagger.domain.xmp.FileXmp;
 import org.jphototagger.xmp.XmpMetadata;
 
 /**
@@ -454,8 +454,8 @@ public final class KeywordsHelper {
             imageFile.setLastmodified(imgFile.lastModified());
             xmp.setValue(ColumnXmpLastModified.INSTANCE, sidecarFile.lastModified());
             imageFile.setXmp(xmp);
-            imageFile.addInsertIntoDb(InsertIntoDatabase.XMP);
-            DatabaseImageFiles.INSTANCE.insertOrUpdate(imageFile);
+            imageFile.addInsertIntoDb(InsertIntoRepository.XMP);
+            DatabaseImageFiles.INSTANCE.insertOrUpdateImageFile(imageFile);
         }
     }
 
@@ -472,8 +472,7 @@ public final class KeywordsHelper {
 
         @Override
         public void run() {
-            List<File> imageFiles =
-                    new ArrayList<File>(DatabaseImageFiles.INSTANCE.getImageFilesOfDcSubject(dcSubject));
+            List<File> imageFiles = new ArrayList<File>(DatabaseImageFiles.INSTANCE.getImageFilesContainingDcSubject(dcSubject, false));
 
             logStartDelete(dcSubject);
             progressStarted(0, 0, imageFiles.size(), null);
@@ -535,7 +534,7 @@ public final class KeywordsHelper {
 
         @Override
         public void run() {
-            List<File> imageFiles = new ArrayList<File>(DatabaseImageFiles.INSTANCE.getImageFilesOfDcSubject(fromName));
+            List<File> imageFiles = new ArrayList<File>(DatabaseImageFiles.INSTANCE.getImageFilesContainingDcSubject(fromName, false));
 
             logStartRename(fromName, toName);
             progressStarted(0, 0, imageFiles.size(), null);

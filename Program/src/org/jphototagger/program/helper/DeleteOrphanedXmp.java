@@ -4,9 +4,9 @@ import java.text.MessageFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.domain.event.listener.impl.ProgressListenerSupport;
-import org.jphototagger.lib.event.ProgressEvent;
-import org.jphototagger.lib.event.listener.ProgressListener;
+import org.jphototagger.domain.event.listener.ProgressListenerSupport;
+import org.jphototagger.api.event.ProgressEvent;
+import org.jphototagger.api.event.ProgressListener;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.database.DatabaseImageFiles;
 
@@ -14,7 +14,7 @@ import org.jphototagger.program.database.DatabaseImageFiles;
  * Löscht in der Datenbank Datensätze mit Dateien, die nicht mehr existieren.
  *
  * @author Elmar Baumann
- * @see     DatabaseImageFiles#deleteOrphanedXmp(ProgressListener)
+ * @see     DatabaseImageFiles#deleteAbsentXmp(ProgressListener)
  */
 public final class DeleteOrphanedXmp implements Runnable, ProgressListener {
     private final ProgressListenerSupport ls = new ProgressListenerSupport();
@@ -32,12 +32,12 @@ public final class DeleteOrphanedXmp implements Runnable, ProgressListener {
 
         DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
 
-        db.deleteNotExistingImageFiles(this);
+        db.deleteAbsentImageFiles(this);
 
         if (!cancel) {
             setMessagesXmp();
             notifyProgressEnded = true;    // called before last action
-            db.deleteOrphanedXmp(this);
+            db.deleteAbsentXmp(this);
         }
     }
 
@@ -47,7 +47,7 @@ public final class DeleteOrphanedXmp implements Runnable, ProgressListener {
 
     /**
      * Fügt einen Fortschrittsbeobachter hinzu. Delegiert an diesen Aufrufe
-     * von Database.deleteNotExistingImageFiles().
+     * von Database.deleteAbsentImageFiles().
      *
      * @param listener Fortschrittsbeobachter
      */

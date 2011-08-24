@@ -17,8 +17,8 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.dialog.DirectoryChooser;
-import org.jphototagger.lib.event.ProgressEvent;
-import org.jphototagger.lib.event.listener.ProgressListener;
+import org.jphototagger.api.event.ProgressEvent;
+import org.jphototagger.api.event.ProgressListener;
 import org.jphototagger.lib.io.CancelRequest;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter.Option;
@@ -267,7 +267,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
 
     private void checkCancel(ProgressEvent evt) {
         if (cancel) {
-            evt.cancel();
+            evt.setCancel(true);
         }
     }
 

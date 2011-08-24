@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 
 import javax.swing.JProgressBar;
 
-import org.jphototagger.domain.database.InsertIntoDatabase;
+import org.jphototagger.domain.repository.InsertIntoRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.runtime.External;
 import org.jphototagger.lib.runtime.External.ProcessResult;
@@ -258,7 +258,7 @@ public final class StartPrograms {
 
         private void updateDatabase() {
             if (program.isChangeFile()) {
-                InsertImageFilesIntoDatabase updater = new InsertImageFilesIntoDatabase(imageFiles, InsertIntoDatabase.OUT_OF_DATE);
+                InsertImageFilesIntoDatabase updater = new InsertImageFilesIntoDatabase(imageFiles, InsertIntoRepository.OUT_OF_DATE);
 
                 updater.run();    // run in this thread!
             }

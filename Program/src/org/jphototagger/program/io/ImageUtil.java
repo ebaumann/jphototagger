@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jphototagger.api.core.Storage;
-import org.jphototagger.lib.event.ProgressEvent;
-import org.jphototagger.lib.event.listener.ProgressListener;
+import org.jphototagger.api.event.ProgressEvent;
+import org.jphototagger.api.event.ProgressListener;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.controller.filesystem.ControllerMoveFiles;

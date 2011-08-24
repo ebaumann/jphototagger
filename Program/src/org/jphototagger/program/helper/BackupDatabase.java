@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 import org.jphototagger.api.core.UserFilesProvider;
 import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.lib.event.ProgressEvent;
+import org.jphototagger.api.event.ProgressEvent;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.filefilter.RegexFileFilter;
 import org.jphototagger.lib.util.Bundle;

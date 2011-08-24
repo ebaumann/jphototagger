@@ -89,7 +89,7 @@ public final class ControllerMiscMetadataItemSelected implements TreeSelectionLi
 
                     setTitle(column, userObject);
                     ControllerSortThumbnails.setLastSort();
-                    tnPanel.setFiles(DatabaseImageFiles.INSTANCE.getImageFilesWithColumnContent(column,
+                    tnPanel.setFiles(DatabaseImageFiles.INSTANCE.getImageFilesWhereColumnHasExactValue(column,
                             userObject.toString()), TypeOfDisplayedImages.MISC_METADATA);
                     tnPanel.apply(tnPanelSettings);
                 } else {
@@ -100,7 +100,7 @@ public final class ControllerMiscMetadataItemSelected implements TreeSelectionLi
 
                 setTitle(column);
                 ControllerSortThumbnails.setLastSort();
-                tnPanel.setFiles(DatabaseImageFiles.INSTANCE.getFilesNotNullIn(column), TypeOfDisplayedImages.MISC_METADATA);
+                tnPanel.setFiles(DatabaseImageFiles.INSTANCE.getImageFilesContainingAVauleInColumn(column), TypeOfDisplayedImages.MISC_METADATA);
                 tnPanel.apply(tnPanelSettings);
             } else {
                 ControllerSortThumbnails.setLastSort();

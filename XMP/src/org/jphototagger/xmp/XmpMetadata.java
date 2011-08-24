@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 
 import org.jphototagger.domain.database.Column;
 import org.jphototagger.domain.database.xmp.ColumnXmpLastModified;
-import org.jphototagger.domain.database.xmp.XmpInDatabase;
+import org.jphototagger.domain.repository.xmp.XmpInRepository;
 import org.jphototagger.domain.metadata.mapping.IptcEntryXmpPathStartMapping;
 import org.jphototagger.domain.metadata.mapping.XmpColumnNamespaceUriMapping;
 import org.jphototagger.domain.metadata.mapping.XmpColumnXmpArrayNameMapping;
@@ -569,7 +569,7 @@ public final class XmpMetadata {
 
     /**
      * Puts into a map property infos where the map key is a string of
-     * {@link XmpInDatabase#getPathPrefixes()}. The values are
+     * {@link XmpInRepository#getPathPrefixes()}. The values are
      * {@link XMPPropertyInfo} instances with path prefixes matching the key.
      *
      * @param  xmpPropertyInfos unordered property infos
@@ -582,7 +582,7 @@ public final class XmpMetadata {
         }
 
         Map<String, List<XMPPropertyInfo>> propertyInfoWithPathStart = new HashMap<String, List<XMPPropertyInfo>>();
-        Set<String> pathPrefixes = XmpInDatabase.getPathPrefixes();
+        Set<String> pathPrefixes = XmpInRepository.getPathPrefixes();
 
         for (String pathPrefix : pathPrefixes) {
             for (XMPPropertyInfo propertyInfo : xmpPropertyInfos) {

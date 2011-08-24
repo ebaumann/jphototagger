@@ -85,7 +85,7 @@ public final class ControllerMoveFiles implements ActionListener {
         File targetFile = evt.getTargetFile();
 
         if (!isXmpFile(sourceFile)) {
-            DatabaseImageFiles.INSTANCE.updateRename(sourceFile, targetFile);
+            DatabaseImageFiles.INSTANCE.updateRenameImageFile(sourceFile, targetFile);
         }
     }
 }

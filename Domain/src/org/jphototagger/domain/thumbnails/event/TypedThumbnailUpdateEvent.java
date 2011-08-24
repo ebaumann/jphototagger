@@ -9,7 +9,7 @@ import java.io.File;
  *
  * @author  Martin Pohlack
  */
-public final class ThumbnailUpdateEvent {
+public final class TypedThumbnailUpdateEvent {
 
     private final Type type;
     private final File source;
@@ -25,7 +25,7 @@ public final class ThumbnailUpdateEvent {
         /** New rendered thumbnail data available */
         RENDERED_THUMBNAIL_UPDATE,};
 
-    public ThumbnailUpdateEvent(File _file, Type _type) {
+    public TypedThumbnailUpdateEvent(File _file, Type _type) {
         if (_file == null) {
             throw new NullPointerException("_file == null");
         }

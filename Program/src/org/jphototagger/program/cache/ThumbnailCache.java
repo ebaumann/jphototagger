@@ -7,12 +7,12 @@ import java.util.logging.Logger;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-import org.jphototagger.domain.thumbnails.event.ThumbnailUpdateEvent;
+import org.jphototagger.domain.thumbnails.event.TypedThumbnailUpdateEvent;
 import org.jphototagger.domain.event.listener.ThumbnailUpdateListener;
-import org.jphototagger.domain.repository.event.ImageFileDeletedEvent;
-import org.jphototagger.domain.repository.event.ImageFileInsertedEvent;
-import org.jphototagger.domain.repository.event.ImageFileMovedEvent;
-import org.jphototagger.domain.repository.event.ThumbnailUpdatedEvent;
+import org.jphototagger.domain.repository.event.imagefiles.ImageFileDeletedEvent;
+import org.jphototagger.domain.repository.event.imagefiles.ImageFileInsertedEvent;
+import org.jphototagger.domain.repository.event.imagefiles.ImageFileMovedEvent;
+import org.jphototagger.domain.thumbnails.event.ThumbnailUpdatedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.lib.util.Bundle;
@@ -133,7 +133,7 @@ public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection> {
         }
 
         for (ThumbnailUpdateListener l : updateListeners) {
-            l.thumbnailUpdated(new ThumbnailUpdateEvent(file, ThumbnailUpdateEvent.Type.THUMBNAIL_UPDATE));
+            l.thumbnailUpdated(new TypedThumbnailUpdateEvent(file, TypedThumbnailUpdateEvent.Type.THUMBNAIL_UPDATE));
         }
     }
 
