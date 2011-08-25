@@ -9,13 +9,14 @@ import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.domain.thumbnails.event.TypedThumbnailUpdateEvent;
 import org.jphototagger.domain.event.listener.ThumbnailUpdateListener;
+import org.jphototagger.domain.repository.ImageFileRepository;
 import org.jphototagger.domain.repository.event.xmp.XmpDeletedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.domain.xmp.FileXmp;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -24,7 +25,6 @@ import org.jphototagger.domain.xmp.FileXmp;
 public final class XmpCache extends Cache<XmpCacheIndirection> {
 
     public static final XmpCache INSTANCE = new XmpCache();
-    private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
 
     private XmpCache() {
         AnnotationProcessor.process(this);
@@ -55,7 +55,7 @@ public final class XmpCache extends Cache<XmpCacheIndirection> {
 
     private static class XmpFetcher implements Runnable {
 
-        private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
+        private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
         private WorkQueue<XmpCacheIndirection> wq;
         private XmpCache cache;
 
@@ -102,7 +102,7 @@ public final class XmpCache extends Cache<XmpCacheIndirection> {
                         }
                     }
 
-                    List<FileXmp> res = db.getXmpOfImageFiles(imageFiles);
+                    List<FileXmp> res = repo.getXmpOfImageFiles(imageFiles);
                     boolean repaint = true;
 
                     // send updates to request results

@@ -1,7 +1,6 @@
 package org.jphototagger.program.controller.filesystem;
 
 import org.jphototagger.program.controller.imagecollection.ControllerDeleteFromImageCollection;
-import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.helper.DeleteImageFiles;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
@@ -14,7 +13,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
 import java.util.List;
+import org.jphototagger.domain.repository.ImageFileRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.openide.util.Lookup;
 
 /**
  * Listens to key events of {@link ThumbnailsPanel} and when the
@@ -26,6 +27,9 @@ import org.jphototagger.lib.awt.EventQueueUtil;
  * @see     ControllerDeleteFromImageCollection
  */
 public final class ControllerDeleteFiles implements ActionListener, KeyListener {
+
+    private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
+
     public ControllerDeleteFiles() {
         listen();
     }
@@ -56,6 +60,7 @@ public final class ControllerDeleteFiles implements ActionListener, KeyListener 
 
         if ((tnPanel.isAFileSelected()) && tnPanel.getContent().canDeleteImagesFromFileSystem()) {
             EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
                 @Override
                 public void run() {
                     deleteSelectedFiles();
@@ -66,23 +71,21 @@ public final class ControllerDeleteFiles implements ActionListener, KeyListener 
 
     private void deleteSelectedFiles() {
         List<File> deletedImageFiles = DeleteImageFiles.delete(GUI.getSelectedImageFiles(),
-                                           DeleteOption.CONFIRM_DELETE, DeleteOption.MESSAGES_ON_FAILURES);
+                DeleteOption.CONFIRM_DELETE, DeleteOption.MESSAGES_ON_FAILURES);
 
         if (!deletedImageFiles.isEmpty()) {
-            DatabaseImageFiles.INSTANCE.deleteImageFiles(deletedImageFiles);
+            repo.deleteImageFiles(deletedImageFiles);
             GUI.getThumbnailsPanel().removeFiles(deletedImageFiles);
         }
     }
 
     @Override
     public void keyTyped(KeyEvent evt) {
-
         // ignore
     }
 
     @Override
     public void keyReleased(KeyEvent evt) {
-
         // ignore
     }
 }

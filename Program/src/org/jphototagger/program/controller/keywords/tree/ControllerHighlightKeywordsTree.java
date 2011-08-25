@@ -1,6 +1,5 @@
 package org.jphototagger.program.controller.keywords.tree;
 
-import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.xmp.XmpMetadata;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.KeywordsPanel;
@@ -15,8 +14,10 @@ import javax.swing.tree.TreeCellRenderer;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jdesktop.swingx.JXTree;
+import org.jphototagger.domain.repository.ImageFileRepository;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.openide.util.Lookup;
 
 /**
  * Listens to a {@link ThumbnailsPanel} and highlights in the tree
@@ -25,6 +26,9 @@ import org.jphototagger.lib.awt.EventQueueUtil;
  * @author Elmar Baumann
  */
 public final class ControllerHighlightKeywordsTree {
+
+    private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
+
     public ControllerHighlightKeywordsTree() {
         listen();
     }
@@ -33,9 +37,10 @@ public final class ControllerHighlightKeywordsTree {
         AnnotationProcessor.process(this);
     }
 
-    @EventSubscriber(eventClass=ThumbnailsSelectionChangedEvent.class)
+    @EventSubscriber(eventClass = ThumbnailsSelectionChangedEvent.class)
     public void thumbnailsSelectionChanged(final ThumbnailsSelectionChangedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 applyCurrentSelection(evt);
@@ -50,7 +55,7 @@ public final class ControllerHighlightKeywordsTree {
             List<File> selFiles = evt.getSelectedImageFiles();
 
             if ((selFiles.size() == 1) && hasSidecarFile(selFiles)) {
-                Collection<String> keywords = DatabaseImageFiles.INSTANCE.getDcSubjectsOfImageFile(selFiles.get(0));
+                Collection<String> keywords = repo.getDcSubjectsOfImageFile(selFiles.get(0));
 
                 setKeywords(GUI.getEditKeywordsTree(), keywords);
                 setKeywords(GUI.getInputHelperKeywordsTree(), keywords);
@@ -62,7 +67,7 @@ public final class ControllerHighlightKeywordsTree {
         TreeCellRenderer treeCellRenderer = tree.getCellRenderer();
 
         if (treeCellRenderer instanceof JXTree.DelegatingRenderer) {
-            treeCellRenderer = ((JXTree.DelegatingRenderer)treeCellRenderer).getDelegateRenderer();
+            treeCellRenderer = ((JXTree.DelegatingRenderer) treeCellRenderer).getDelegateRenderer();
 
         }
 

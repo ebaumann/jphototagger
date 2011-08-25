@@ -22,6 +22,7 @@ import org.jphototagger.domain.database.xmp.ColumnXmpIptc4xmpcoreLocation;
 import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopSource;
 import org.jphototagger.domain.database.xmp.ColumnXmpRating;
 import org.jphototagger.domain.exif.Exif;
+import org.jphototagger.domain.repository.ImageFileRepository;
 import org.jphototagger.domain.repository.event.dcsubjects.DcSubjectDeletedEvent;
 import org.jphototagger.domain.repository.event.dcsubjects.DcSubjectInsertedEvent;
 import org.jphototagger.domain.repository.event.exif.ExifDeletedEvent;
@@ -34,7 +35,7 @@ import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.database.DatabaseImageFiles;
+import org.openide.util.Lookup;
 
 /**
  * This model contains distinct values of specific EXIF and XMP database
@@ -76,6 +77,7 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel {
     }
     private final boolean onlyXmp;
     private final DefaultMutableTreeNode ROOT;
+    private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
 
     public TreeModelMiscMetadata(boolean onlyXmp) {
         super(new DefaultMutableTreeNode(Bundle.getString(TreeModelMiscMetadata.class, "TreeModelMiscMetadata.Root.DisplayName")));
@@ -112,7 +114,7 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel {
         for (Column column : columns) {
             DefaultMutableTreeNode columnNode = new DefaultMutableTreeNode(column);
 
-            addChildren(columnNode, DatabaseImageFiles.INSTANCE.getAllDistinctValuesOfColumn(column), column.getDataType());
+            addChildren(columnNode, repo.getAllDistinctValuesOfColumn(column), column.getDataType());
             node.add(columnNode);
         }
 
@@ -178,7 +180,7 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel {
     private void checkDeleted(Column column, Object userObject) {
         DefaultMutableTreeNode node = findNodeWithUserObject(ROOT, column);
 
-        if ((node != null) && !DatabaseImageFiles.INSTANCE.existsValueInColumn(userObject, column)) {
+        if ((node != null) && !repo.existsValueInColumn(userObject, column)) {
             DefaultMutableTreeNode child = findNodeWithUserObject(node, userObject);
 
             if (child != null) {

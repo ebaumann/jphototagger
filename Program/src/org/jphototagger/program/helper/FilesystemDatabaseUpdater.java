@@ -1,6 +1,5 @@
 package org.jphototagger.program.helper;
 
-import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.domain.repository.InsertIntoRepository;
 import org.jphototagger.program.io.ImageFileFilterer;
 import org.jphototagger.program.tasks.UserTasks;
@@ -12,6 +11,8 @@ import org.jphototagger.api.file.event.FileCopiedEvent;
 import org.jphototagger.api.file.event.FileDeletedEvent;
 import org.jphototagger.api.file.event.FileMovedEvent;
 import org.jphototagger.api.file.event.FileRenamedEvent;
+import org.jphototagger.domain.repository.ImageFileRepository;
+import org.openide.util.Lookup;
 
 /**
  * Updates the database on file system events.
@@ -20,6 +21,7 @@ import org.jphototagger.api.file.event.FileRenamedEvent;
  */
 public final class FilesystemDatabaseUpdater {
 
+    private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
     private volatile boolean wait;
 
     /**
@@ -48,10 +50,9 @@ public final class FilesystemDatabaseUpdater {
 
     private void removeFileFromDatabase(File file) {
         if (ImageFileFilterer.isImageFile(file)) {
-            DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
 
-            if (db.existsImageFile(file)) {
-                db.deleteImageFiles(Arrays.asList(file));
+            if (repo.existsImageFile(file)) {
+                repo.deleteImageFiles(Arrays.asList(file));
             }
         }
     }
@@ -80,7 +81,7 @@ public final class FilesystemDatabaseUpdater {
         File targetFile = evt.getTargetFile();
 
         if (ImageFileFilterer.isImageFile(sourceFile) && ImageFileFilterer.isImageFile(targetFile)) {
-            DatabaseImageFiles.INSTANCE.updateRenameImageFile(sourceFile, targetFile);
+            repo.updateRenameImageFile(sourceFile, targetFile);
         }
     }
 
@@ -90,7 +91,7 @@ public final class FilesystemDatabaseUpdater {
         File targetFile = evt.getTargetFile();
 
         if (ImageFileFilterer.isImageFile(sourceFile) && ImageFileFilterer.isImageFile(targetFile)) {
-            DatabaseImageFiles.INSTANCE.updateRenameImageFile(sourceFile, targetFile);
+            repo.updateRenameImageFile(sourceFile, targetFile);
         }
     }
 }

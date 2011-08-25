@@ -225,4 +225,29 @@ public final class ImageFileRepositoryImpl implements ImageFileRepository {
     public boolean updateThumbnail(File imageFile, Image thumbnail) {
         return db.updateThumbnail(imageFile, thumbnail);
     }
+
+    @Override
+    public Long getIdDcSubject(String dcSubject) {
+        return db.getIdDcSubject(dcSubject);
+    }
+
+    @Override
+    public boolean existsXmpDcSubjectsLink(long idXmp, long idDcSubject) {
+        return db.existsXmpDcSubjectsLink(idXmp, idDcSubject);
+    }
+
+    @Override
+    public int updateAllThumbnails(ProgressListener listener) {
+        return db.updateAllThumbnails(listener);
+    }
+
+    @Override
+    public int updateRenameFilenamesStartingWith(String before, String after, ProgressListener progressListener) {
+        return db.updateRenameFilenamesStartingWith(before, after, progressListener);
+    }
+
+    @Override
+    public boolean insertOrUpdateXmpOfImageFile(File imageFile, Xmp xmp) {
+        return insertOrUpdateXmpOfImageFile(imageFile, xmp);
+    }
 }

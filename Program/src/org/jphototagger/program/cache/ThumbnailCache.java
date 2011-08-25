@@ -16,7 +16,6 @@ import org.jphototagger.domain.thumbnails.event.ThumbnailUpdatedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.database.DatabaseImageFiles;
 
 /**
  *
@@ -26,7 +25,6 @@ public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection> {
 
     public static final ThumbnailCache INSTANCE = new ThumbnailCache();
     private Image noPreviewThumbnail = IconUtil.getIconImage(Bundle.getString(ThumbnailCache.class, "ThumbnailCache.Path.NoPreviewThumbnail"));
-    private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
     private static final Logger LOGGER = Logger.getLogger(ThumbnailCache.class.getName());
 
     private ThumbnailCache() {

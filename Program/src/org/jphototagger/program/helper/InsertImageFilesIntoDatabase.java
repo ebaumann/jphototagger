@@ -28,13 +28,13 @@ import org.jphototagger.exif.cache.ExifCache;
 import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.api.event.ProgressEvent;
 import org.jphototagger.api.event.ProgressListener;
+import org.jphototagger.domain.repository.ImageFileRepository;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.cache.PersistentThumbnails;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.program.database.DatabaseActionsAfterDbInsertion;
-import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.image.thumbnail.ThumbnailUtil;
 import org.jphototagger.xmp.XmpMetadata;
 import org.openide.util.Lookup;
@@ -47,7 +47,7 @@ import org.openide.util.Lookup;
  */
 public final class InsertImageFilesIntoDatabase extends Thread implements Cancelable {
 
-    private final DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
+    private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
     private final ProgressListenerSupport pls = new ProgressListenerSupport();
     private ProgressEvent progressEvent = new ProgressEvent(this, null);
     private final Set<InsertIntoRepository> what = new HashSet<InsertIntoRepository>();
@@ -97,7 +97,7 @@ public final class InsertImageFilesIntoDatabase extends Thread implements Cancel
                 if (isUpdate(imageFile)) {
                     setExifDateToXmpDateCreated(imageFile);
                     logInsertImageFile(imageFile);
-                    db.insertOrUpdateImageFile(imageFile);
+                    repo.insertOrUpdateImageFile(imageFile);
                     runActionsAfterInserting(imageFile);
                 }
             }
@@ -153,7 +153,7 @@ public final class InsertImageFilesIntoDatabase extends Thread implements Cancel
     }
 
     private boolean isImageFileUpToDate(File imageFile) {
-        long dbTime = db.getImageFilesLastModifiedTimestamp(imageFile);
+        long dbTime = repo.getImageFilesLastModifiedTimestamp(imageFile);
         long fileTime = imageFile.lastModified();
 
         return fileTime == dbTime;
@@ -189,14 +189,14 @@ public final class InsertImageFilesIntoDatabase extends Thread implements Cancel
     }
 
     private boolean isXmpSidecarFileUpToDate(File imageFile, File sidecarFile) {
-        long dbTime = db.getXmpFilesLastModifiedTimestamp(imageFile);
+        long dbTime = repo.getXmpFilesLastModifiedTimestamp(imageFile);
         long fileTime = sidecarFile.lastModified();
 
         return fileTime == dbTime;
     }
 
     private boolean isEmbeddedXmpUpToDate(File imageFile) {
-        long dbTime = db.getXmpFilesLastModifiedTimestamp(imageFile);
+        long dbTime = repo.getXmpFilesLastModifiedTimestamp(imageFile);
         long fileTime = imageFile.lastModified();
 
         if (dbTime == fileTime) {
@@ -207,7 +207,7 @@ public final class InsertImageFilesIntoDatabase extends Thread implements Cancel
         boolean hasEmbeddedXmp = XmpMetadata.getEmbeddedXmp(imageFile) != null;
 
         if (!hasEmbeddedXmp) {    // Avoid unneccesary 2nd calls
-            db.setLastModifiedToXmpSidecarFileOfImageFile(imageFile, fileTime);
+            repo.setLastModifiedToXmpSidecarFileOfImageFile(imageFile, fileTime);
         }
 
         return !hasEmbeddedXmp;

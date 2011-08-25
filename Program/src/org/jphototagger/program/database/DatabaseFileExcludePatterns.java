@@ -15,7 +15,10 @@ import org.jphototagger.domain.repository.event.fileexcludepattern.FileExcludePa
 import org.jphototagger.domain.repository.event.fileexcludepattern.FileExcludePatternInsertedEvent;
 import org.jphototagger.api.event.ProgressEvent;
 import org.jphototagger.api.event.ProgressListener;
+import org.jphototagger.domain.repository.ImageFileRepository;
+import org.jphototagger.domain.repository.event.imagefiles.ImageFileDeletedEvent;
 import org.jphototagger.program.cache.PersistentThumbnails;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -25,8 +28,10 @@ import org.jphototagger.program.cache.PersistentThumbnails;
 public final class DatabaseFileExcludePatterns extends Database {
 
     public static final DatabaseFileExcludePatterns INSTANCE = new DatabaseFileExcludePatterns();
+    private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
 
-    private DatabaseFileExcludePatterns() {}
+    private DatabaseFileExcludePatterns() {
+    }
 
     /**
      * Inserts a file exclude pattern.
@@ -214,7 +219,7 @@ public final class DatabaseFileExcludePatterns extends Database {
             int patternCount = patterns.size();
             int progress = 0;
             ProgressEvent event = new ProgressEvent(this, 0, DatabaseStatistics.INSTANCE.getFileCount() * patternCount,
-                                      0, null);
+                    0, null);
 
             notifyProgressListenerStart(listener, event);
 
@@ -241,7 +246,7 @@ public final class DatabaseFileExcludePatterns extends Database {
                             File imageFile = getFile(filepath);
 
                             PersistentThumbnails.deleteThumbnail(imageFile);
-                            DatabaseImageFiles.INSTANCE.notifyImageFileDeleted(imageFile);
+                            EventBus.publish(new ImageFileDeletedEvent(this, imageFile));
                         }
 
                         cancel = event.isCancel();

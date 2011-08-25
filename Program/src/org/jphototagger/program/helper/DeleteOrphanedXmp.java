@@ -7,8 +7,9 @@ import java.util.logging.Logger;
 import org.jphototagger.domain.event.listener.ProgressListenerSupport;
 import org.jphototagger.api.event.ProgressEvent;
 import org.jphototagger.api.event.ProgressListener;
+import org.jphototagger.domain.repository.ImageFileRepository;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.database.DatabaseImageFiles;
+import org.openide.util.Lookup;
 
 /**
  * Löscht in der Datenbank Datensätze mit Dateien, die nicht mehr existieren.
@@ -17,6 +18,7 @@ import org.jphototagger.program.database.DatabaseImageFiles;
  * @see     DatabaseImageFiles#deleteAbsentXmp(ProgressListener)
  */
 public final class DeleteOrphanedXmp implements Runnable, ProgressListener {
+
     private final ProgressListenerSupport ls = new ProgressListenerSupport();
     private volatile boolean notifyProgressEnded;
     private volatile boolean cancel;
@@ -24,20 +26,19 @@ public final class DeleteOrphanedXmp implements Runnable, ProgressListener {
     private String startMessage;
     private String endMessage;
     private static final Logger LOGGER = Logger.getLogger(DeleteOrphanedXmp.class.getName());
+    private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
 
     @Override
     public void run() {
         setMessagesFiles();
         logDeleteRecords();
 
-        DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
-
-        db.deleteAbsentImageFiles(this);
+        repo.deleteAbsentImageFiles(this);
 
         if (!cancel) {
             setMessagesXmp();
             notifyProgressEnded = true;    // called before last action
-            db.deleteAbsentXmp(this);
+            repo.deleteAbsentXmp(this);
         }
     }
 
@@ -107,11 +108,11 @@ public final class DeleteOrphanedXmp implements Runnable, ProgressListener {
             throw new NullPointerException("evt == null");
         }
 
-        return new MessageFormat(startMessage).format(new Object[] { evt.getMaximum() });
+        return new MessageFormat(startMessage).format(new Object[]{evt.getMaximum()});
     }
 
     private Object getEndMessage() {
-        return new MessageFormat(endMessage).format(new Object[] { countDeleted });
+        return new MessageFormat(endMessage).format(new Object[]{countDeleted});
     }
 
     private void logDeleteRecords() {

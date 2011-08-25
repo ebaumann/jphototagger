@@ -9,8 +9,9 @@ import org.jphototagger.domain.event.listener.ProgressListenerSupport;
 import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.api.event.ProgressEvent;
 import org.jphototagger.api.event.ProgressListener;
+import org.jphototagger.domain.repository.ImageFileRepository;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.database.DatabaseImageFiles;
+import org.openide.util.Lookup;
 
 /**
  * Deletes from the database keywords not contained in any image file.
@@ -18,10 +19,12 @@ import org.jphototagger.program.database.DatabaseImageFiles;
  * @author Elmar Baumann
  */
 public final class DeleteUnusedKeywords implements Runnable, Cancelable {
+
     private volatile boolean cancel;
     private final ProgressListenerSupport ls = new ProgressListenerSupport();
     private volatile int countDeleted = 0;
     private static final Logger LOGGER = Logger.getLogger(DeleteUnusedKeywords.class.getName());
+    private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
 
     public synchronized void addProgressListener(ProgressListener listener) {
         if (listener == null) {
@@ -37,8 +40,7 @@ public final class DeleteUnusedKeywords implements Runnable, Cancelable {
 
     @Override
     public void run() {
-        DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
-        List<String> keywords = new ArrayList<String>(db.getNotReferencedDcSubjects());
+        List<String> keywords = new ArrayList<String>(repo.getNotReferencedDcSubjects());
         int size = keywords.size();
 
         notifyProgressStarted(size);
@@ -46,7 +48,7 @@ public final class DeleteUnusedKeywords implements Runnable, Cancelable {
         for (int i = 0; !cancel && (i < size); i++) {
             String keyword = keywords.get(i);
 
-            db.deleteDcSubject(keyword);
+            repo.deleteDcSubject(keyword);
             countDeleted++;
             notifyProgressPerformed(i + 1, countDeleted, keyword);
         }

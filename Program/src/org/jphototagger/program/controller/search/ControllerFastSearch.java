@@ -18,6 +18,7 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.core.Storage;
 import org.jphototagger.domain.database.Column;
 import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.domain.repository.ImageFileRepository;
 import org.jphototagger.domain.repository.event.xmp.XmpDeletedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
@@ -29,7 +30,6 @@ import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
 import org.jphototagger.program.database.DatabaseFind;
-import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.database.metadata.selections.AutoCompleteDataOfColumn;
 import org.jphototagger.program.database.metadata.selections.FastSearchColumns;
 import org.jphototagger.program.event.RefreshEvent;
@@ -156,6 +156,8 @@ public final class ControllerFastSearch implements ActionListener, RefreshListen
     private void search(final String searchText) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
+            private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
+
             @Override
             public void run() {
                 String userInput = searchText.trim();
@@ -197,15 +199,15 @@ public final class ControllerFastSearch implements ActionListener, RefreshListen
 
                     if (searchWords.size() == 1) {
                         if (isKeywordSearch) {
-                            return new ArrayList<File>(DatabaseImageFiles.INSTANCE.getImageFilesContainingDcSubject(searchWords.get(0), true));
+                            return new ArrayList<File>(repo.getImageFilesContainingDcSubject(searchWords.get(0), true));
                         } else {
                             return DatabaseFind.INSTANCE.findImageFilesLikeOr(Arrays.asList(searchColumn), userInput);
                         }
                     } else if (searchWords.size() > 1) {
                         if (isKeywordSearch) {
-                            return new ArrayList<File>(DatabaseImageFiles.INSTANCE.getImageFilesContainingAllDcSubjects(searchWords));
+                            return new ArrayList<File>(repo.getImageFilesContainingAllDcSubjects(searchWords));
                         } else {
-                            return new ArrayList<File>(DatabaseImageFiles.INSTANCE.getImageFilesContainingAllWordsInColumn(searchWords, searchColumn));
+                            return new ArrayList<File>(repo.getImageFilesContainingAllWordsInColumn(searchWords, searchColumn));
                         }
                     } else {
                         return null;

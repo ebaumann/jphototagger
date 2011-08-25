@@ -15,7 +15,6 @@ import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.SourceTargetFile;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.database.DatabaseImageCollections;
-import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.io.ImageFileFilterer;
 import org.jphototagger.program.model.ListModelImageCollections;
 import org.jphototagger.program.resource.GUI;

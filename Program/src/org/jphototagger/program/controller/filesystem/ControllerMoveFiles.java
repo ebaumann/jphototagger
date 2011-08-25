@@ -10,10 +10,11 @@ import java.util.logging.Logger;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.file.event.FileMovedEvent;
-import org.jphototagger.program.database.DatabaseImageFiles;
+import org.jphototagger.domain.repository.ImageFileRepository;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.MoveToDirectoryDialog;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
+import org.openide.util.Lookup;
 
 /**
  * Renames files in the file system.
@@ -23,6 +24,7 @@ import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
 public final class ControllerMoveFiles implements ActionListener {
 
     private static final Logger LOGGER = Logger.getLogger(ControllerMoveFiles.class.getName());
+    private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
 
     public ControllerMoveFiles() {
         listen();
@@ -85,7 +87,7 @@ public final class ControllerMoveFiles implements ActionListener {
         File targetFile = evt.getTargetFile();
 
         if (!isXmpFile(sourceFile)) {
-            DatabaseImageFiles.INSTANCE.updateRenameImageFile(sourceFile, targetFile);
+            repo.updateRenameImageFile(sourceFile, targetFile);
         }
     }
 }

@@ -7,13 +7,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.jphototagger.domain.repository.ImageFileRepository;
 import org.jphototagger.lib.util.Bundle;
 
 import org.jphototagger.program.app.SplashScreen;
 import org.jphototagger.program.database.Database;
-import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.database.DatabaseMetadata;
 import org.jphototagger.program.database.DatabaseSavedSearches;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -22,6 +23,7 @@ import org.jphototagger.program.database.DatabaseSavedSearches;
  */
 final class UpdateTablesXmpDcSubjects {
     private static final Logger LOGGER = Logger.getLogger(UpdateTablesXmpDcSubjects.class.getName());
+    private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
 
     void update(Connection con) throws SQLException {
         startMessage();
@@ -54,7 +56,7 @@ final class UpdateTablesXmpDcSubjects {
             while (rs.next()) {
                 subject = rs.getString(1);
 
-                if (!DatabaseImageFiles.INSTANCE.existsDcSubject(subject)) {
+                if (!repo.existsDcSubject(subject)) {
                     insertSubject(con, subject);
                 }
             }
@@ -90,10 +92,10 @@ final class UpdateTablesXmpDcSubjects {
             while (rs.next()) {
                 long idXmp = rs.getLong(1);
                 String dcSubject = rs.getString(2);
-                Long idDcSubject = DatabaseImageFiles.INSTANCE.getIdDcSubject(dcSubject);
+                Long idDcSubject = repo.getIdDcSubject(dcSubject);
 
                 if ((idDcSubject != null) && existsIdXmp(con, idXmp)) {
-                    if (!DatabaseImageFiles.INSTANCE.existsXmpDcSubjectsLink(idXmp, idDcSubject)) {
+                    if (!repo.existsXmpDcSubjectsLink(idXmp, idDcSubject)) {
                         insertIntoLinkTable(con, idXmp, idDcSubject);
                     }
                 }
@@ -125,7 +127,7 @@ final class UpdateTablesXmpDcSubjects {
     }
 
     private void insertIntoLinkTable(Connection con, long idXmp, long idDcSubject) throws SQLException {
-        if (!DatabaseImageFiles.INSTANCE.existsXmpDcSubjectsLink(idXmp, idDcSubject)) {
+        if (!repo.existsXmpDcSubjectsLink(idXmp, idDcSubject)) {
             String sql = "INSERT INTO xmp_dc_subject (id_xmp, id_dc_subject)" + " VALUES (?, ?)";
             PreparedStatement stmt = null;
 

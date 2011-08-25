@@ -52,6 +52,10 @@ public interface ImageFileRepository {
 
     Exif getExifOfImageFile(File imageFile);
 
+    Long getIdDcSubject(String dcSubject);
+
+    boolean existsXmpDcSubjectsLink(long idXmp, long idDcSubject);
+
     ImageFile getImageFileOfFile(File file);
 
     Set<File> getImageFilesContainingAllDcSubjects(List<? extends String> dcSubjects);
@@ -90,6 +94,8 @@ public interface ImageFileRepository {
 
     boolean insertOrUpdateImageFile(ImageFile imageFile);
 
+    boolean insertOrUpdateXmpOfImageFile(File imageFile, Xmp xmp);
+
     boolean isDcSubjectReferenced(String dcSubject);
 
     boolean setLastModifiedToXmpSidecarFileOfImageFile(File imageFile, long time);
@@ -99,4 +105,8 @@ public interface ImageFileRepository {
     int updateRenameImageFile(File fromImageFile, File toImageFile);
 
     boolean updateThumbnail(File imageFile, Image thumbnail);
+
+    int updateAllThumbnails(ProgressListener listener);
+
+    int updateRenameFilenamesStartingWith(final String before, final String after, final ProgressListener progressListener);
 }

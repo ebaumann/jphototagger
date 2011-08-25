@@ -11,12 +11,12 @@ import javax.swing.event.ListSelectionListener;
 
 import org.jphototagger.api.core.Storage;
 import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.domain.repository.ImageFileRepository;
 import org.jphototagger.lib.componentutil.Autocomplete;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.event.util.MouseEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.database.metadata.selections.AutoCompleteDataOfColumn;
 import org.jphototagger.program.model.ListModelSynonyms;
 import org.openide.util.Lookup;
@@ -32,6 +32,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
     private ListModelSynonyms modelSynonyms = new ListModelSynonyms(ListModelSynonyms.Role.SYNONYMS);
     private Autocomplete autocomplete;
     private boolean listenToDocuments = true;
+    private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
 
     public SynonymsPanel() {
         initComponents();
@@ -241,7 +242,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
     }
 
     private void addAllKeywords() {
-        for (String word : DatabaseImageFiles.INSTANCE.getAllDcSubjects()) {
+        for (String word : repo.getAllDcSubjects()) {
             modelWords.addWord(word);
         }
 
@@ -756,7 +757,6 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
     private void menuItemChangeSynonymActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemChangeSynonymActionPerformed
         changeSynonym();
     }//GEN-LAST:event_menuItemChangeSynonymActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAddAllKeywords;
     private javax.swing.JButton buttonAddSynonym;

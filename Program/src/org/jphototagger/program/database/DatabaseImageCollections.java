@@ -27,8 +27,10 @@ public final class DatabaseImageCollections extends Database {
 
     public static final DatabaseImageCollections INSTANCE = new DatabaseImageCollections();
     private static final Logger LOGGER = Logger.getLogger(DatabaseImageCollections.class.getName());
+    private final DatabaseImageFiles repo = DatabaseImageFiles.INSTANCE;
 
-    private DatabaseImageCollections() {}
+    private DatabaseImageCollections() {
+    }
 
     /**
      * Returns the names of all image collections.
@@ -130,11 +132,11 @@ public final class DatabaseImageCollections extends Database {
         try {
             con = getConnection();
             stmt = con.prepareStatement("SELECT files.filename FROM"
-                                        + " collections INNER JOIN collection_names"
-                                        + " ON collections.id_collectionnname = collection_names.id"
-                                        + " INNER JOIN files ON collections.id_file = files.id"
-                                        + " WHERE collection_names.name = ?"
-                                        + " ORDER BY collections.sequence_number ASC");
+                    + " collections INNER JOIN collection_names"
+                    + " ON collections.id_collectionnname = collection_names.id"
+                    + " INNER JOIN files ON collections.id_file = files.id"
+                    + " WHERE collection_names.name = ?"
+                    + " ORDER BY collections.sequence_number ASC");
             stmt.setString(1, collectionName);
             logFinest(stmt);
             rs = stmt.executeQuery();
@@ -196,8 +198,8 @@ public final class DatabaseImageCollections extends Database {
             con.setAutoCommit(false);
             stmtName = con.prepareStatement("INSERT INTO collection_names (name) VALUES (?)");
             stmtColl = con.prepareStatement("INSERT INTO collections"
-                                            + " (id_collectionnname, id_file, sequence_number)"
-                                            + " VALUES (?, ?, ?)");
+                    + " (id_collectionnname, id_file, sequence_number)"
+                    + " VALUES (?, ?, ?)");
             stmtName.setString(1, collectionName);
             logFiner(stmtName);
             stmtName.executeUpdate();
@@ -206,9 +208,9 @@ public final class DatabaseImageCollections extends Database {
             int sequence_number = 0;
 
             for (File imageFile : imageFiles) {
-                long idImageFile = DatabaseImageFiles.INSTANCE.findIdImageFile(con, imageFile);
+                long idImageFile = repo.findIdImageFile(con, imageFile);
 
-                if (!DatabaseImageFiles.INSTANCE.existsImageFile(imageFile)) {
+                if (!repo.existsImageFile(imageFile)) {
                     LOGGER.log(Level.WARNING, "File ''{0}'' is not in the database! No photo album will be created!", imageFile);
                     rollback(con);
 
@@ -299,7 +301,7 @@ public final class DatabaseImageCollections extends Database {
             for (File imageFile : imageFiles) {
                 int prevDelCount = delCount;
                 long idCollectionName = findId(con, collectionName);
-                long idFile = DatabaseImageFiles.INSTANCE.findIdImageFile(con, imageFile);
+                long idFile = repo.findIdImageFile(con, imageFile);
 
                 stmt.setLong(1, idCollectionName);
                 stmt.setLong(2, idFile);
@@ -353,8 +355,8 @@ public final class DatabaseImageCollections extends Database {
                 con = getConnection();
                 con.setAutoCommit(false);
                 stmt = con.prepareStatement("INSERT INTO collections"
-                                            + " (id_file, id_collectionnname, sequence_number)"
-                                            + " VALUES (?, ?, ?)");
+                        + " (id_file, id_collectionnname, sequence_number)"
+                        + " VALUES (?, ?, ?)");
 
                 long idCollectionNames = findId(con, collectionName);
                 int sequence_number = getMaxSequenceNumber(con, collectionName) + 1;
@@ -362,7 +364,7 @@ public final class DatabaseImageCollections extends Database {
 
                 for (File imageFile : imageFiles) {
                     if (!isImageIn(con, collectionName, imageFile)) {
-                        long idFiles = DatabaseImageFiles.INSTANCE.findIdImageFile(con, imageFile);
+                        long idFiles = repo.findIdImageFile(con, imageFile);
 
                         stmt.setLong(1, idFiles);
                         stmt.setLong(2, idCollectionNames);
@@ -399,9 +401,9 @@ public final class DatabaseImageCollections extends Database {
 
         try {
             stmt = con.prepareStatement("SELECT MAX(collections.sequence_number)"
-                                        + " FROM collections INNER JOIN collection_names"
-                                        + " ON collections.id_collectionnname = collection_names.id"
-                                        + " AND collection_names.name = ?");
+                    + " FROM collections INNER JOIN collection_names"
+                    + " ON collections.id_collectionnname = collection_names.id"
+                    + " AND collection_names.name = ?");
             stmt.setString(1, collectionName);
             logFinest(stmt);
             rs = stmt.executeQuery();
@@ -424,7 +426,7 @@ public final class DatabaseImageCollections extends Database {
 
         try {
             stmtIdFiles = con.prepareStatement("SELECT id_file FROM collections WHERE id_collectionnname = ?"
-                                               + " ORDER BY collections.sequence_number ASC");
+                    + " ORDER BY collections.sequence_number ASC");
             stmtIdFiles.setLong(1, idCollectionName);
             logFinest(stmtIdFiles);
             rs = stmtIdFiles.executeQuery();
@@ -436,7 +438,7 @@ public final class DatabaseImageCollections extends Database {
             }
 
             stmt = con.prepareStatement("UPDATE collections SET sequence_number = ?"
-                                        + " WHERE id_collectionnname = ? AND id_file = ?");
+                    + " WHERE id_collectionnname = ? AND id_file = ?");
 
             int sequenceNumer = 0;
 
@@ -562,10 +564,10 @@ public final class DatabaseImageCollections extends Database {
 
         try {
             stmt = con.prepareStatement("SELECT COUNT(*) FROM"
-                                        + " collections INNER JOIN collection_names"
-                                        + " ON collections.id_collectionnname = collection_names.id"
-                                        + " INNER JOIN files on collections.id_file = files.id"
-                                        + " WHERE collection_names.name = ? AND files.filename = ?");
+                    + " collections INNER JOIN collection_names"
+                    + " ON collections.id_collectionnname = collection_names.id"
+                    + " INNER JOIN files on collections.id_file = files.id"
+                    + " WHERE collection_names.name = ? AND files.filename = ?");
             stmt.setString(1, collectionName);
             stmt.setString(2, getFilePath(imageFile));
             logFinest(stmt);

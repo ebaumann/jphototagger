@@ -11,8 +11,8 @@ import org.jphototagger.domain.event.listener.ProgressListenerSupport;
 import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.api.event.ProgressEvent;
 import org.jphototagger.api.event.ProgressListener;
+import org.jphototagger.domain.repository.ImageFileRepository;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.openide.util.Lookup;
@@ -34,6 +34,7 @@ public final class DeleteOrphanedThumbnails implements Runnable, Cancelable {
     private int currentFileIndex = 0;
     private volatile boolean cancel;
     private static final Logger LOGGER = Logger.getLogger(DeleteOrphanedThumbnails.class.getName());
+    private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
 
     public synchronized void addProgressListener(ProgressListener l) {
         if (l == null) {
@@ -54,7 +55,7 @@ public final class DeleteOrphanedThumbnails implements Runnable, Cancelable {
 
     @Override
     public void run() {
-        Set<File> imageFilesExisting = DatabaseImageFiles.INSTANCE.getAllThumbnailFiles();
+        Set<File> imageFilesExisting = repo.getAllThumbnailFiles();
         UserFilesProvider provider = Lookup.getDefault().lookup(UserFilesProvider.class);
         File[] filesInDir = provider.getThumbnailsDirectory().listFiles();
         ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
