@@ -25,6 +25,7 @@ import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
 import org.jphototagger.domain.database.xmp.ColumnXmpLastModified;
 import org.jphototagger.domain.image.ImageFile;
 import org.jphototagger.domain.keywords.Keyword;
+import org.jphototagger.domain.repository.ImageFileRepository;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.ListUtil;
@@ -32,7 +33,6 @@ import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.ArrayUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.database.DatabaseKeywords;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.model.TreeModelKeywords;
@@ -44,6 +44,7 @@ import org.jphototagger.program.view.panels.EditMetadataPanels;
 import org.jphototagger.program.view.renderer.TreeCellRendererKeywords;
 import org.jphototagger.domain.xmp.FileXmp;
 import org.jphototagger.xmp.XmpMetadata;
+import org.openide.util.Lookup;
 
 /**
  * Helper for hierarchical keywords and Dublin Core subjects ("flat" keywords).
@@ -56,6 +57,7 @@ import org.jphototagger.xmp.XmpMetadata;
 public final class KeywordsHelper {
 
     private static final Logger LOGGER = Logger.getLogger(KeywordsHelper.class.getName());
+    private static final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
 
     private KeywordsHelper() {
     }
@@ -99,8 +101,8 @@ public final class KeywordsHelper {
      * @param dcSubject subject
      */
     public static void insertDcSubject(String dcSubject) {
-        if (!DatabaseImageFiles.INSTANCE.existsDcSubject(dcSubject)) {
-            DatabaseImageFiles.INSTANCE.insertDcSubject(dcSubject);
+        if (!repo.existsDcSubject(dcSubject)) {
+            repo.insertDcSubject(dcSubject);
         }
     }
 
@@ -113,7 +115,7 @@ public final class KeywordsHelper {
         String dcSubject = MessageDisplayer.input(info, input);
 
         if ((dcSubject != null) && checkExistsDcSubject(dcSubject)) {
-            if (DatabaseImageFiles.INSTANCE.insertDcSubject(dcSubject)) {
+            if (repo.insertDcSubject(dcSubject)) {
                 insertDcSubjectAsKeyword(dcSubject);
             } else {
                 String message = Bundle.getString(KeywordsHelper.class, "KeywordsHelper.Error.InsertDcSubject", dcSubject);
@@ -129,7 +131,7 @@ public final class KeywordsHelper {
     }
 
     private static boolean checkExistsDcSubject(String dcSubject) {
-        if (DatabaseImageFiles.INSTANCE.existsDcSubject(dcSubject)) {
+        if (repo.existsDcSubject(dcSubject)) {
             String message = Bundle.getString(KeywordsHelper.class, "KeywordsHelper.Error.DcSubjectExists", dcSubject);
             MessageDisplayer.error(null, message);
 
@@ -455,7 +457,7 @@ public final class KeywordsHelper {
             xmp.setValue(ColumnXmpLastModified.INSTANCE, sidecarFile.lastModified());
             imageFile.setXmp(xmp);
             imageFile.addInsertIntoDb(InsertIntoRepository.XMP);
-            DatabaseImageFiles.INSTANCE.insertOrUpdateImageFile(imageFile);
+            repo.insertOrUpdateImageFile(imageFile);
         }
     }
 
@@ -472,7 +474,7 @@ public final class KeywordsHelper {
 
         @Override
         public void run() {
-            List<File> imageFiles = new ArrayList<File>(DatabaseImageFiles.INSTANCE.getImageFilesContainingDcSubject(dcSubject, false));
+            List<File> imageFiles = new ArrayList<File>(repo.getImageFilesContainingDcSubject(dcSubject, false));
 
             logStartDelete(dcSubject);
             progressStarted(0, 0, imageFiles.size(), null);
@@ -513,8 +515,8 @@ public final class KeywordsHelper {
         }
 
         private void checkDatabase() {
-            if (DatabaseImageFiles.INSTANCE.existsDcSubject(dcSubject)) {
-                DatabaseImageFiles.INSTANCE.deleteDcSubject(dcSubject);
+            if (repo.existsDcSubject(dcSubject)) {
+                repo.deleteDcSubject(dcSubject);
             }
         }
     }
@@ -534,7 +536,7 @@ public final class KeywordsHelper {
 
         @Override
         public void run() {
-            List<File> imageFiles = new ArrayList<File>(DatabaseImageFiles.INSTANCE.getImageFilesContainingDcSubject(fromName, false));
+            List<File> imageFiles = new ArrayList<File>(repo.getImageFilesContainingDcSubject(fromName, false));
 
             logStartRename(fromName, toName);
             progressStarted(0, 0, imageFiles.size(), null);
@@ -567,10 +569,8 @@ public final class KeywordsHelper {
         }
 
         private void deleteKeyword() {
-            DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
-
-            if (!db.isDcSubjectReferenced(fromName)) {
-                db.deleteDcSubject(fromName);
+            if (!repo.isDcSubjectReferenced(fromName)) {
+                repo.deleteDcSubject(fromName);
             }
         }
 

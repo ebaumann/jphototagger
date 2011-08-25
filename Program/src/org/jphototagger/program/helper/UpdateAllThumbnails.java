@@ -11,10 +11,11 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.dialog.ProgressDialog;
 import org.jphototagger.api.event.ProgressEvent;
 import org.jphototagger.api.event.ProgressListener;
+import org.jphototagger.domain.repository.ImageFileRepository;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.controller.misc.SizeAndLocationController;
-import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.resource.GUI;
+import org.openide.util.Lookup;
 
 /**
  * Updates all Thumbnails in the database with the current settings.
@@ -27,6 +28,7 @@ public final class UpdateAllThumbnails implements Runnable, ProgressListener, Ac
     private boolean cancel;
     private final Set<ActionListener> actionListeners = new HashSet<ActionListener>();
     private static final Logger LOGGER = Logger.getLogger(UpdateAllThumbnails.class.getName());
+    private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
 
     /**
      * Adds an action listener. It will be notified when the work is done.
@@ -39,11 +41,10 @@ public final class UpdateAllThumbnails implements Runnable, ProgressListener, Ac
 
     @Override
     public void run() {
-        DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
 
         initProgressDialog();
         logUpdateAllThumbnails();
-        db.updateAllThumbnails(this);
+        repo.updateAllThumbnails(this);
     }
 
     private void initProgressDialog() {
@@ -64,6 +65,7 @@ public final class UpdateAllThumbnails implements Runnable, ProgressListener, Ac
     @Override
     public void progressStarted(final ProgressEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 setProgressDialogStarted(evt);
@@ -75,6 +77,7 @@ public final class UpdateAllThumbnails implements Runnable, ProgressListener, Ac
     @Override
     public void progressPerformed(final ProgressEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 setProgressDialogPerformed(evt);
@@ -91,6 +94,7 @@ public final class UpdateAllThumbnails implements Runnable, ProgressListener, Ac
 
     private void setProgressDialogEnded(final ProgressEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 progressDialog.setValue(evt.getValue());
@@ -102,6 +106,7 @@ public final class UpdateAllThumbnails implements Runnable, ProgressListener, Ac
 
     private void setProgressDialogPerformed(final ProgressEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 progressDialog.setValue(evt.getValue());
@@ -112,6 +117,7 @@ public final class UpdateAllThumbnails implements Runnable, ProgressListener, Ac
 
     private void setProgressDialogStarted(final ProgressEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 progressDialog.setMinimum(evt.getMinimum());

@@ -9,16 +9,17 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
 import org.jphototagger.domain.database.Column;
+import org.jphototagger.domain.repository.ImageFileRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
-import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.event.RefreshEvent;
 import org.jphototagger.program.event.listener.RefreshListener;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.program.view.WaitDisplay;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -49,6 +50,7 @@ public final class ControllerMiscMetadataItemSelected implements TreeSelectionLi
     }
 
     private class ShowThumbnails implements Runnable {
+        private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
         private final ThumbnailsPanel.Settings tnPanelSettings;
         private final TreePath treePath;
 
@@ -89,7 +91,7 @@ public final class ControllerMiscMetadataItemSelected implements TreeSelectionLi
 
                     setTitle(column, userObject);
                     ControllerSortThumbnails.setLastSort();
-                    tnPanel.setFiles(DatabaseImageFiles.INSTANCE.getImageFilesWhereColumnHasExactValue(column,
+                    tnPanel.setFiles(repo.getImageFilesWhereColumnHasExactValue(column,
                             userObject.toString()), TypeOfDisplayedImages.MISC_METADATA);
                     tnPanel.apply(tnPanelSettings);
                 } else {
@@ -100,7 +102,7 @@ public final class ControllerMiscMetadataItemSelected implements TreeSelectionLi
 
                 setTitle(column);
                 ControllerSortThumbnails.setLastSort();
-                tnPanel.setFiles(DatabaseImageFiles.INSTANCE.getImageFilesContainingAVauleInColumn(column), TypeOfDisplayedImages.MISC_METADATA);
+                tnPanel.setFiles(repo.getImageFilesContainingAVauleInColumn(column), TypeOfDisplayedImages.MISC_METADATA);
                 tnPanel.apply(tnPanelSettings);
             } else {
                 ControllerSortThumbnails.setLastSort();

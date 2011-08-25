@@ -5,9 +5,10 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.jphototagger.domain.repository.ImageFileRepository;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.TreeFileSystemDirectories;
-import org.jphototagger.program.database.DatabaseImageFiles;
+import org.openide.util.Lookup;
 
 /**
  * Renames or deletes a directory from the file system and updates the database
@@ -18,6 +19,7 @@ import org.jphototagger.program.database.DatabaseImageFiles;
 public final class FileSystemDirectories {
 
     private static final Logger LOGGER = Logger.getLogger(FileSystemDirectories.class.getName());
+    private static final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
 
     private FileSystemDirectories() {
     }
@@ -44,7 +46,7 @@ public final class FileSystemDirectories {
 
                     FileUtil.deleteDirectoryRecursive(directory);
 
-                    int count = DatabaseImageFiles.INSTANCE.deleteImageFiles(imageFiles);
+                    int count = repo.deleteImageFiles(imageFiles);
 
                     logDelete(directory, count);
 
@@ -75,7 +77,7 @@ public final class FileSystemDirectories {
         if (directory.isDirectory()) {
             String newDirectoryName = TreeFileSystemDirectories.getNewName(directory);
 
-            if ((newDirectoryName != null) &&!newDirectoryName.trim().isEmpty()) {
+            if ((newDirectoryName != null) && !newDirectoryName.trim().isEmpty()) {
                 File newDirectory = new File(directory.getParentFile(), newDirectoryName);
 
                 if (TreeFileSystemDirectories.checkDoesNotExist(newDirectory)) {
@@ -83,8 +85,7 @@ public final class FileSystemDirectories {
                         if (directory.renameTo(newDirectory)) {
                             String oldParentDir = directory.getAbsolutePath() + File.separator;
                             String newParentDir = newDirectory.getAbsolutePath() + File.separator;
-                            int dbCount = DatabaseImageFiles.INSTANCE.updateRenameFilenamesStartingWith(oldParentDir,
-                                              newParentDir, null);
+                            int dbCount = repo.updateRenameFilenamesStartingWith(oldParentDir, newParentDir, null);
 
                             logInfoRenamed(directory, newDirectory, dbCount);
 

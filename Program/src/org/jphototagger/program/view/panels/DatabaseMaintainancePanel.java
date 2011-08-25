@@ -19,8 +19,8 @@ import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.api.event.ProgressEvent;
 import org.jphototagger.api.event.ProgressListener;
+import org.jphototagger.domain.repository.ImageFileRepository;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.helper.CompressDatabase;
 import org.jphototagger.program.helper.DeleteNotReferenced1n;
 import org.jphototagger.program.helper.DeleteOrphanedThumbnails;
@@ -56,7 +56,7 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
 
     private void postInitComponents() {
         finishedLabelOfRunnable.put(CompressDatabase.class, labelFinishedCompressDatabase);
-        finishedLabelOfRunnable.put(DatabaseImageFiles.class, labelFinishedDeleteRecordsOfNotExistingFilesInDatabase);
+        finishedLabelOfRunnable.put(ImageFileRepository.class, labelFinishedDeleteRecordsOfNotExistingFilesInDatabase);
         finishedLabelOfRunnable.put(DeleteOrphanedThumbnails.class, labelFinishedDeleteOrphanedThumbnails);
         finishedLabelOfRunnable.put(DeleteOrphanedThumbnails.class, labelFinishedDeleteOrphanedThumbnails);
         finishedLabelOfRunnable.put(DeleteUnusedKeywords.class, labelFinishedDeleteUnusedKeywords);

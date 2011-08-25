@@ -6,12 +6,13 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jphototagger.domain.repository.ImageFileRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
+import org.openide.util.Lookup;
 
 /**
  * Kontrolliert die Aktion: Lösche selektierte Thumbnails,
@@ -21,6 +22,9 @@ import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
  * @author Elmar Baumann
  */
 public final class ControllerDeleteThumbnailsFromDatabase implements ActionListener {
+
+    private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
+
     public ControllerDeleteThumbnailsFromDatabase() {
         listen();
     }
@@ -37,11 +41,14 @@ public final class ControllerDeleteThumbnailsFromDatabase implements ActionListe
     private void deleteSelectedThumbnails() {
         if (confirmDelete()) {
             EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
+                private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
+
                 @Override
                 public void run() {
                     List<File> selFiles = GUI.getSelectedImageFiles();
                     int countFiles = selFiles.size();
-                    int countDeleted = DatabaseImageFiles.INSTANCE.deleteImageFiles(selFiles);
+                    int countDeleted = repo.deleteImageFiles(selFiles);
 
                     if (countDeleted != countFiles) {
                         errorMessageDeleteImageFiles(countFiles, countDeleted);
@@ -56,10 +63,9 @@ public final class ControllerDeleteThumbnailsFromDatabase implements ActionListe
 
     private void repaint(final List<File> files) {
         List<File> deleted = new ArrayList<File>(files.size());
-        DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
 
         for (File file : files) {
-            if (!db.existsImageFile(file)) {
+            if (!repo.existsImageFile(file)) {
                 deleted.add(file);
             }
         }

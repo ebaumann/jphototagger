@@ -4,14 +4,15 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jphototagger.domain.repository.ImageFileRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
-import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.program.view.WaitDisplay;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.openide.util.Lookup;
 
 /**
  * Displays in the {@link ThumbnailsPanel} thumbnails of images containing all
@@ -20,7 +21,9 @@ import org.jphototagger.program.view.panels.ThumbnailsPanel;
  * @author Elmar Baumann
  */
 public final class ShowThumbnailsContainingAllKeywords2 implements Runnable {
+
     private final List<List<String>> keywordLists;
+    private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
 
     /**
      * Creates a new instance of this class.
@@ -38,6 +41,7 @@ public final class ShowThumbnailsContainingAllKeywords2 implements Runnable {
     @Override
     public void run() {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 WaitDisplay.show();
@@ -59,16 +63,15 @@ public final class ShowThumbnailsContainingAllKeywords2 implements Runnable {
         List<File> imageFiles = new ArrayList<File>();
 
         for (List<String> keywords : keywordLists) {
-            DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
 
             // Faster when using 2 different DB queries if only 1 keyword is
             // selected
             if (keywords.size() == 1) {
-                imageFiles.addAll(db.getImageFilesContainingDcSubject(keywords.get(0), false));
+                imageFiles.addAll(repo.getImageFilesContainingDcSubject(keywords.get(0), false));
                 setTitle(keywords.get(0));
             } else if (keywords.size() > 1) {
                 setTitle(keywords);
-                imageFiles.addAll(db.getImageFilesContainingAllDcSubjects(keywords));
+                imageFiles.addAll(repo.getImageFilesContainingAllDcSubjects(keywords));
             }
         }
 

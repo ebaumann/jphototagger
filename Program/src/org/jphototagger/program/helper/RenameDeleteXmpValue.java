@@ -15,11 +15,12 @@ import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.api.event.ProgressEvent;
+import org.jphototagger.domain.repository.ImageFileRepository;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.tasks.UserTasks;
 import org.jphototagger.program.view.panels.ProgressBarUpdater;
 import org.jphototagger.xmp.XmpMetadata;
+import org.openide.util.Lookup;
 
 /**
  * Renames or deletes values in XMP sidecar files.
@@ -27,7 +28,9 @@ import org.jphototagger.xmp.XmpMetadata;
  * @author Elmar Baumann
  */
 public final class RenameDeleteXmpValue {
-    private RenameDeleteXmpValue() {}
+
+    private RenameDeleteXmpValue() {
+    }
 
     /**
      * Renames a XMP value in all XMP sidecar files containing that value in
@@ -115,11 +118,13 @@ public final class RenameDeleteXmpValue {
     }
 
     private static class Rename extends Thread implements Cancelable {
+
         private ProgressBarUpdater pb = new ProgressBarUpdater(this, Bundle.getString(Rename.class, "RenameXmpValue.ProgressBar.String"));
         private final Column column;
         private final String newValue;
         private final String oldValue;
         private volatile boolean cancel;
+        private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
 
         Rename(Column column, String oldValue, String newValue) {
             super("JPhotoTagger: Renaming XMP value");
@@ -135,7 +140,7 @@ public final class RenameDeleteXmpValue {
 
         @Override
         public void run() {
-            List<File> imageFiles = DatabaseImageFiles.INSTANCE.getImageFilesWhereColumnHasExactValue(column, oldValue);
+            List<File> imageFiles = repo.getImageFilesWhereColumnHasExactValue(column, oldValue);
             int size = imageFiles.size();
             int value = 0;
 
@@ -159,14 +164,14 @@ public final class RenameDeleteXmpValue {
 
                     if (XmpMetadata.writeXmpToSidecarFile(xmp, XmpMetadata.suggestSidecarFile(imageFile))) {
                         new InsertImageFilesIntoDatabase(Collections.singletonList(imageFile),
-                                                         InsertIntoRepository.XMP).run();    // run in this thread!
+                                InsertIntoRepository.XMP).run();    // run in this thread!
                     }
                 }
 
                 notifyPerformed(++value, size);
             }
 
-            DatabaseImageFiles.INSTANCE.deleteValueOfJoinedColumn(column, oldValue);
+            repo.deleteValueOfJoinedColumn(column, oldValue);
             MiscMetadataHelper.removeChildValueFrom(column, oldValue);
             notifyEnded(value, size);
         }

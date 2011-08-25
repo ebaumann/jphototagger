@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.io.File;
 import org.jdesktop.swingx.decorator.ComponentAdapter;
 import org.jdesktop.swingx.decorator.HighlightPredicate;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,9 +12,10 @@ import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jdesktop.swingx.decorator.ColorHighlighter;
 import org.jdesktop.swingx.decorator.Highlighter;
+import org.jphototagger.domain.repository.ImageFileRepository;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.database.DatabaseImageFiles;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -27,6 +26,7 @@ public final class KeywordHighlightPredicate implements HighlightPredicate {
 
     private List<String> keywordsOfSelectedImage = new ArrayList<String>();
     private static final Highlighter HIGHLIGHTER = createHighlighter();
+    private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
 
     public KeywordHighlightPredicate() {
         listen();
@@ -82,7 +82,7 @@ public final class KeywordHighlightPredicate implements HighlightPredicate {
 
         if (evt.getSelectionCount() == 1) {
             List<File> selectedFiles = evt.getSelectedImageFiles();
-            Collection<String> keywordsOfSelectedFile = DatabaseImageFiles.INSTANCE.getDcSubjectsOfImageFile(selectedFiles.get(0));
+            Collection<String> keywordsOfSelectedFile = repo.getDcSubjectsOfImageFile(selectedFiles.get(0));
 
             keywordsOfSelectedImage.addAll(keywordsOfSelectedFile);
         }

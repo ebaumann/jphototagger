@@ -15,23 +15,27 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
+import org.jphototagger.domain.repository.ImageFileRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
 import org.jphototagger.domain.timeline.Timeline;
-import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.event.RefreshEvent;
 import org.jphototagger.program.event.listener.RefreshListener;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.program.view.WaitDisplay;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.openide.util.Lookup;
 
 /**
  *
  * @author Elmar Baumann
  */
 public final class ControllerTimelineItemSelected implements TreeSelectionListener, RefreshListener {
+
+    private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
+
     public ControllerTimelineItemSelected() {
         listen();
     }
@@ -58,11 +62,13 @@ public final class ControllerTimelineItemSelected implements TreeSelectionListen
     private void setFilesOfTreePathToThumbnailsPanel(final TreePath path, final ThumbnailsPanel.Settings settings) {
         if (path != null) {
             Thread thread = new Thread(new Runnable() {
+
                 @Override
                 public void run() {
                     final Object lastPathComponent = path.getLastPathComponent();
 
                     EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
                         @Override
                         public void run() {
                             WaitDisplay.show();
@@ -90,7 +96,7 @@ public final class ControllerTimelineItemSelected implements TreeSelectionListen
         if (node.equals(Timeline.getUnknownNode())) {
             setTitle();
             ControllerSortThumbnails.setLastSort();
-            GUI.getThumbnailsPanel().setFiles(DatabaseImageFiles.INSTANCE.getImageFilesOfUnknownDateTaken(), TypeOfDisplayedImages.TIMELINE);
+            GUI.getThumbnailsPanel().setFiles(repo.getImageFilesOfUnknownDateTaken(), TypeOfDisplayedImages.TIMELINE);
         } else if (userObject instanceof Timeline.Date) {
             Timeline.Date date = (Timeline.Date) userObject;
             DefaultMutableTreeNode parent = (DefaultMutableTreeNode) node.getParent();
@@ -99,15 +105,15 @@ public final class ControllerTimelineItemSelected implements TreeSelectionListen
                 boolean isYear = parent.equals(node.getRoot());
                 boolean isMonth = !isYear && (node.getChildCount() > 0);
                 int month = isYear
-                            ? -1
-                            : date.month;
+                        ? -1
+                        : date.month;
                 int day = isMonth
-                          ? -1
-                          : date.day;
+                        ? -1
+                        : date.day;
 
                 setTitle(isYear, date.year, isMonth, month, date);
 
-                List<File> files = new ArrayList<File>(DatabaseImageFiles.INSTANCE.getImageFilesOfDateTaken(date.year, month, day));
+                List<File> files = new ArrayList<File>(repo.getImageFilesOfDateTaken(date.year, month, day));
 
                 ControllerSortThumbnails.setLastSort();
                 GUI.getThumbnailsPanel().setFiles(files, TypeOfDisplayedImages.TIMELINE);
@@ -128,7 +134,7 @@ public final class ControllerTimelineItemSelected implements TreeSelectionListen
 
             try {
                 d = df.parse(Integer.toString(date.year) + "-" + Integer.toString(date.month) + "-"
-                             + Integer.toString(date.day));
+                        + Integer.toString(date.day));
             } catch (Exception ex) {
                 Logger.getLogger(ControllerTimelineItemSelected.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -138,12 +144,12 @@ public final class ControllerTimelineItemSelected implements TreeSelectionListen
         DateFormat mf = new SimpleDateFormat("MMMMM");
         DateFormat df = DateFormat.getDateInstance(DateFormat.LONG);
         Object fDate = isYear
-                       ? yf.format(year)
-                       : isMonth
-                         ? mf.format(month) + " " + yf.format(year)
-                         : (d == null)
-                           ? ""
-                           : df.format(d);
+                ? yf.format(year)
+                : isMonth
+                ? mf.format(month) + " " + yf.format(year)
+                : (d == null)
+                ? ""
+                : df.format(d);
 
         GUI.getAppFrame().setTitle(
                 Bundle.getString(ControllerTimelineItemSelected.class, "ControllerTimelineItemSelected.AppFrame.Title.Timeline.Date", fDate));

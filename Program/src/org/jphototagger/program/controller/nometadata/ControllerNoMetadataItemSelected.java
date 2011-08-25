@@ -1,7 +1,6 @@
 package org.jphototagger.program.controller.nometadata;
 
 import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
-import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.domain.database.Column;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
@@ -12,7 +11,9 @@ import java.io.File;
 import java.util.List;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import org.jphototagger.domain.repository.ImageFileRepository;
 import org.jphototagger.lib.util.Bundle;
+import org.openide.util.Lookup;
 
 /**
  * Listens to selections within the list {@link AppPanel#getListNoMetadata()}
@@ -22,6 +23,9 @@ import org.jphototagger.lib.util.Bundle;
  * @author Elmar Baumann Elmar Baumann
  */
 public final class ControllerNoMetadataItemSelected implements ListSelectionListener {
+
+    private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
+
     public ControllerNoMetadataItemSelected() {
         listen();
     }
@@ -43,7 +47,7 @@ public final class ControllerNoMetadataItemSelected implements ListSelectionList
         Object selValue = GUI.getNoMetadataList().getSelectedValue();
 
         if (selValue instanceof Column) {
-            List<File> imageFiles = DatabaseImageFiles.INSTANCE.getImageFilesWithoutMetadataInColumn((Column) selValue);
+            List<File> imageFiles = repo.getImageFilesWithoutMetadataInColumn((Column) selValue);
 
             setTitle((Column) selValue);
 

@@ -9,20 +9,17 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.api.event.ProgressEvent;
 import org.jphototagger.api.event.ProgressListener;
+import org.jphototagger.domain.repository.ImageFileRepository;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.types.Persistence;
 import org.openide.util.Lookup;
 
 /**
- * Uses
- * {@link DatabaseImageFiles#updateRenameFilenamesStartingWith(java.lang.String, java.lang.String, org.jphototagger.program.event.listener.ProgressListener)}
- * to replace substrings in filenames.
- *
  * @author Elmar Baumann
  */
 public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener, Persistence {
+
     private static final long serialVersionUID = -4207218985613254920L;
     private static final String KEY_SEARCH = "RenameFilenamesInDbPanel.Search";
     private static final String KEY_REPLACEMENT = "RenameFilenamesInDbPanel.Replacement";
@@ -51,11 +48,12 @@ public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener
             setInputEnabled(false);
 
             Thread thread = new Thread(new Runnable() {
+                private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
                 @Override
                 public void run() {
                     String searchText = textFieldSearch.getText();
                     String replacementText = textFieldReplacement.getText();
-                    int count = DatabaseImageFiles.INSTANCE.updateRenameFilenamesStartingWith(searchText, replacementText, progressListener);
+                    int count = repo.updateRenameFilenamesStartingWith(searchText, replacementText, progressListener);
                     String message = Bundle.getString(RenameFilenamesInDbPanel.class, "RenameFilenamesInDbPanel.Info.Count", count);
 
                     MessageDisplayer.information(null, message);

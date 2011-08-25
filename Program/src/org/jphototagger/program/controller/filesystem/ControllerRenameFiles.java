@@ -13,15 +13,16 @@ import java.util.logging.Logger;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.file.event.FileRenamedEvent;
+import org.jphototagger.domain.repository.ImageFileRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.cache.RenderedThumbnailCache;
 import org.jphototagger.program.cache.ThumbnailCache;
 import org.jphototagger.program.cache.XmpCache;
-import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.RenameDialog;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
+import org.openide.util.Lookup;
 
 /**
  * Listens to key events of {@link ThumbnailsPanel} and when
@@ -33,6 +34,7 @@ import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
 public final class ControllerRenameFiles implements ActionListener, KeyListener {
 
     private static final Logger LOGGER = Logger.getLogger(ControllerRenameFiles.class.getName());
+    private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
 
     public ControllerRenameFiles() {
         listen();
@@ -60,7 +62,7 @@ public final class ControllerRenameFiles implements ActionListener, KeyListener 
 
     private void renameFile(final File fromFile, final File toFile) {
         LOGGER.log(Level.INFO, "Rename in the database file ''{0}'' to ''{1}''", new Object[]{fromFile, toFile});
-        DatabaseImageFiles.INSTANCE.updateRenameImageFile(fromFile, toFile);
+        repo.updateRenameImageFile(fromFile, toFile);
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override

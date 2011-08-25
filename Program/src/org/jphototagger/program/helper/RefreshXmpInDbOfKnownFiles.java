@@ -7,9 +7,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.jphototagger.api.core.Storage;
+import org.jphototagger.domain.repository.ImageFileRepository;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.database.DatabaseImageFiles;
 import org.jphototagger.xmp.XmpMetadata;
 import org.openide.util.Lookup;
 
@@ -20,7 +20,9 @@ import org.openide.util.Lookup;
  * @author Elmar Baumann
  */
 public final class RefreshXmpInDbOfKnownFiles extends HelperThread {
+
     private volatile boolean cancel;
+    private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
 
     public RefreshXmpInDbOfKnownFiles() {
         super("JPhotoTagger: Refreshing XMP in the database of known files");
@@ -29,22 +31,21 @@ public final class RefreshXmpInDbOfKnownFiles extends HelperThread {
 
     @Override
     public void run() {
-        DatabaseImageFiles db = DatabaseImageFiles.INSTANCE;
-        List<File> imageFiles = db.getAllImageFiles();
+        List<File> imageFiles = repo.getAllImageFiles();
         int fileCount = imageFiles.size();
 
         progressStarted(0, 0, fileCount, (fileCount > 0)
-                                         ? imageFiles.get(0)
-                                         : null);
+                ? imageFiles.get(0)
+                : null);
 
-        for (int i = 0; !cancel &&!isInterrupted() && (i < fileCount); i++) {
+        for (int i = 0; !cancel && !isInterrupted() && (i < fileCount); i++) {
             File imageFile = imageFiles.get(i);
             Xmp xmp = null;
 
             try {
                 xmp = XmpMetadata.hasImageASidecarFile(imageFile)
-                      ? XmpMetadata.getXmpFromSidecarFileOf(imageFile)
-                      : isScanForEmbeddedXmp()
+                        ? XmpMetadata.getXmpFromSidecarFileOf(imageFile)
+                        : isScanForEmbeddedXmp()
                         ? XmpMetadata.getEmbeddedXmp(imageFile)
                         : null;
             } catch (IOException ex) {
@@ -52,7 +53,7 @@ public final class RefreshXmpInDbOfKnownFiles extends HelperThread {
             }
 
             if (xmp != null) {
-                db.insertOrUpdateXmp(imageFile, xmp);
+                repo.insertOrUpdateXmpOfImageFile(imageFile, xmp);
             }
 
             progressPerformed(i + 1, imageFile);
