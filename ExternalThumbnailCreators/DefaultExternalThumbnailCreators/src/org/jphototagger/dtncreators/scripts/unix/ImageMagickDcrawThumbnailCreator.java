@@ -1,7 +1,6 @@
 package org.jphototagger.dtncreators.scripts.unix;
 
 import java.io.File;
-import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -9,10 +8,10 @@ import javax.swing.JOptionPane;
 
 import org.jphototagger.api.core.UserFilesProvider;
 import org.jphototagger.api.image.ExternalThumbnailCreator;
-import org.jphototagger.dtncreators.Util;
 import org.jphototagger.dtncreators.scripts.ScriptWriter;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.system.SystemUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
@@ -23,8 +22,6 @@ import org.openide.util.lookup.ServiceProvider;
  */
 @ServiceProvider(service = ExternalThumbnailCreator.class)
 public final class ImageMagickDcrawThumbnailCreator implements ExternalThumbnailCreator {
-
-    private final ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/dtncreators/scripts/unix/Bundle");
 
     @Override
     public String getThumbnailCreationCommand() {
@@ -46,7 +43,7 @@ public final class ImageMagickDcrawThumbnailCreator implements ExternalThumbnail
 
     @Override
     public String getDisplayName() {
-        return bundle.getString("ImageMagickDcrawThumbnailCreator.DisplayName");
+        return Bundle.getString(ImageMagickDcrawThumbnailCreator.class, "ImageMagickDcrawThumbnailCreator.DisplayName");
     }
 
     @Override
@@ -106,15 +103,15 @@ public final class ImageMagickDcrawThumbnailCreator implements ExternalThumbnail
     }
 
     private void errorMessageUserDirectory() {
-        String message = bundle.getString("ImageMagickDcrawThumbnailCreator.Error.UserDirectory");
-        String title = bundle.getString("ImageMagickDcrawThumbnailCreator.Error.Title");
+        String message = Bundle.getString(ImageMagickDcrawThumbnailCreator.class, "ImageMagickDcrawThumbnailCreator.Error.UserDirectory");
+        String title = Bundle.getString(ImageMagickDcrawThumbnailCreator.class, "ImageMagickDcrawThumbnailCreator.Error.Title");
 
         JOptionPane.showMessageDialog(null, message, title, JOptionPane.ERROR_MESSAGE);
     }
 
     private void errorMessageGetScript() {
-        String message = bundle.getString("ImageMagickDcrawThumbnailCreator.Error.GetScript");
-        String title = bundle.getString("ImageMagickDcrawThumbnailCreator.Error.Title");
+        String message = Bundle.getString(ImageMagickDcrawThumbnailCreator.class, "ImageMagickDcrawThumbnailCreator.Error.GetScript");
+        String title = Bundle.getString(ImageMagickDcrawThumbnailCreator.class, "ImageMagickDcrawThumbnailCreator.Error.Title");
 
         JOptionPane.showMessageDialog(null, message, title, JOptionPane.ERROR_MESSAGE);
     }

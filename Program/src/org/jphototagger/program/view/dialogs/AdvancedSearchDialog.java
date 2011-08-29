@@ -1,6 +1,7 @@
 package org.jphototagger.program.view.dialogs;
 
 import org.jphototagger.lib.dialog.Dialog;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.AdvancedSearchPanel;
 
@@ -65,9 +66,7 @@ public final class AdvancedSearchDialog extends Dialog
     }
 
     private void setSearchName(String name) {
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/dialogs/Bundle"); // NOI18N
-
-        setTitle(bundle.getString("AdvancedSearchDialog.TitlePrefix") + ": " + name);
+        setTitle(Bundle.getString(AdvancedSearchDialog.class, "AdvancedSearchDialog.TitlePrefix") + ": " + name);
     }
 
     /**
@@ -120,11 +119,13 @@ public final class AdvancedSearchDialog extends Dialog
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 AdvancedSearchDialog dialog = new AdvancedSearchDialog(true);
 
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
@@ -134,7 +135,6 @@ public final class AdvancedSearchDialog extends Dialog
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jphototagger.program.view.panels.AdvancedSearchPanel panel;
     // End of variables declaration//GEN-END:variables

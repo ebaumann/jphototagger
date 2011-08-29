@@ -1,23 +1,21 @@
-package org.jphototagger.program.helper;
+package org.jphototagger.program.database;
 
 import java.text.MessageFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.domain.event.listener.ProgressListenerSupport;
 import org.jphototagger.api.event.ProgressEvent;
 import org.jphototagger.api.event.ProgressListener;
+import org.jphototagger.domain.event.listener.ProgressListenerSupport;
 import org.jphototagger.domain.repository.ImageFileRepository;
 import org.jphototagger.lib.util.Bundle;
 import org.openide.util.Lookup;
 
 /**
- * Löscht in der Datenbank Datensätze mit Dateien, die nicht mehr existieren.
  *
  * @author Elmar Baumann
- * @see     DatabaseImageFiles#deleteAbsentXmp(ProgressListener)
  */
-public final class DeleteOrphanedXmp implements Runnable, ProgressListener {
+final class DeleteOrphanedXmp implements Runnable, ProgressListener {
 
     private final ProgressListenerSupport ls = new ProgressListenerSupport();
     private volatile boolean notifyProgressEnded;

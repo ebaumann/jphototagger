@@ -10,8 +10,9 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JOptionPane;
 
-import org.jphototagger.domain.repository.UserDefinedFileTypesRepository;
 import org.jphototagger.domain.filetypes.UserDefinedFileType;
+import org.jphototagger.domain.repository.UserDefinedFileTypesRepository;
+import org.jphototagger.lib.util.Bundle;
 import org.openide.util.Lookup;
 
 /**
@@ -27,15 +28,15 @@ public final class SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction extends A
     public static final SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction INSTANCE = new SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction();
 
     {
-        VIDEO_FILES.add(createUserDefinedFileType("avi", BUNDLE.getString("FileType.avi.Description")));
-        VIDEO_FILES.add(createUserDefinedFileType("m2ts", BUNDLE.getString("FileType.m2ts.Description")));
-        VIDEO_FILES.add(createUserDefinedFileType("mov", BUNDLE.getString("FileType.mov.Description")));
-        VIDEO_FILES.add(createUserDefinedFileType("mp2", BUNDLE.getString("FileType.mp2.Description")));
-        VIDEO_FILES.add(createUserDefinedFileType("mp4", BUNDLE.getString("FileType.mp4.Description")));
-        VIDEO_FILES.add(createUserDefinedFileType("mpeg", BUNDLE.getString("FileType.mpeg.Description")));
-        VIDEO_FILES.add(createUserDefinedFileType("mpg", BUNDLE.getString("FileType.mpg.Description")));
-        VIDEO_FILES.add(createUserDefinedFileType("mts", BUNDLE.getString("FileType.mts.Description")));
-        VIDEO_FILES.add(createUserDefinedFileType("wmv", BUNDLE.getString("FileType.wmv.Description")));
+        VIDEO_FILES.add(createUserDefinedFileType("avi", Bundle.getString(SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction.class, "FileType.avi.Description")));
+        VIDEO_FILES.add(createUserDefinedFileType("m2ts", Bundle.getString(SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction.class, "FileType.m2ts.Description")));
+        VIDEO_FILES.add(createUserDefinedFileType("mov", Bundle.getString(SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction.class, "FileType.mov.Description")));
+        VIDEO_FILES.add(createUserDefinedFileType("mp2", Bundle.getString(SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction.class, "FileType.mp2.Description")));
+        VIDEO_FILES.add(createUserDefinedFileType("mp4", Bundle.getString(SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction.class, "FileType.mp4.Description")));
+        VIDEO_FILES.add(createUserDefinedFileType("mpeg", Bundle.getString(SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction.class, "FileType.mpeg.Description")));
+        VIDEO_FILES.add(createUserDefinedFileType("mpg", Bundle.getString(SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction.class, "FileType.mpg.Description")));
+        VIDEO_FILES.add(createUserDefinedFileType("mts", Bundle.getString(SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction.class, "FileType.mts.Description")));
+        VIDEO_FILES.add(createUserDefinedFileType("wmv", Bundle.getString(SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction.class, "FileType.wmv.Description")));
     }
 
     private static UserDefinedFileType createUserDefinedFileType(String suffix, String description) {
@@ -49,7 +50,7 @@ public final class SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction extends A
     }
 
     private SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction() {
-        putValue(Action.NAME, BUNDLE.getString("SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction.Name"));
+        putValue(Action.NAME, Bundle.getString(SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction.class, "SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction.Name"));
     }
 
     @Override
@@ -70,16 +71,16 @@ public final class SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction extends A
     }
 
     private boolean confirmSave() {
-        String message = BUNDLE.getString("SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction.ConfirmSave.Message");
-        String title = BUNDLE.getString("SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction.ConfirmSave.Title");
+        String message = Bundle.getString(SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction.class, "SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction.ConfirmSave.Message");
+        String title = Bundle.getString(SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction.class, "SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction.ConfirmSave.Title");
         int result = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
 
         return result == JOptionPane.YES_OPTION;
     }
 
     private void showInfoAfterSave(int saveCount) {
-        String pattern = BUNDLE.getString("SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction.InfoAfterSave.MessageTemplate");
-        String title = BUNDLE.getString("SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction.InfoAfterSave.Title");
+        String pattern = Bundle.getString(SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction.class, "SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction.InfoAfterSave.MessageTemplate");
+        String title = Bundle.getString(SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction.class, "SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction.InfoAfterSave.Title");
         String message = MessageFormat.format(pattern, saveCount);
         int messageType = JOptionPane.INFORMATION_MESSAGE;
 

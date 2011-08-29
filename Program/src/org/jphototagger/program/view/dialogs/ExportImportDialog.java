@@ -1,6 +1,7 @@
 package org.jphototagger.program.view.dialogs;
 
 import org.jphototagger.lib.dialog.Dialog;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.ExportImportPanel;
 import org.jphototagger.program.view.panels.ExportImportPanel.ExportImportListener;
@@ -35,11 +36,9 @@ public class ExportImportDialog extends Dialog implements ExportImportListener {
     }
 
     private void setTitle() {
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/dialogs/Bundle"); // NOI18N
-
         setTitle(context.equals(ExportImportPanel.Context.EXPORT)
-                 ? bundle.getString("ExportImportDialog.Title.Export")
-                 : bundle.getString("ExportImportDialog.Title.Import"));
+                 ? Bundle.getString(ExportImportDialog.class, "ExportImportDialog.Title.Export")
+                 : Bundle.getString(ExportImportDialog.class, "ExportImportDialog.Title.Import"));
     }
 
     private void setHelpPage() {
@@ -97,12 +96,14 @@ public class ExportImportDialog extends Dialog implements ExportImportListener {
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 ExportImportDialog dialog =
-                    new ExportImportDialog(ExportImportPanel.Context.EXPORT);
+                        new ExportImportDialog(ExportImportPanel.Context.EXPORT);
 
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
@@ -112,7 +113,6 @@ public class ExportImportDialog extends Dialog implements ExportImportListener {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jphototagger.program.view.panels.ExportImportPanel panelExportImport;
     // End of variables declaration//GEN-END:variables

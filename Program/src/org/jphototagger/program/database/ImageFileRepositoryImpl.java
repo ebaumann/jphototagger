@@ -248,6 +248,6 @@ public final class ImageFileRepositoryImpl implements ImageFileRepository {
 
     @Override
     public boolean insertOrUpdateXmpOfImageFile(File imageFile, Xmp xmp) {
-        return insertOrUpdateXmpOfImageFile(imageFile, xmp);
+        return db.insertOrUpdateXmpOfImageFile(imageFile, xmp);
     }
 }

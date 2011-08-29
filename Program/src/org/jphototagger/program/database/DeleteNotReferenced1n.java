@@ -1,13 +1,12 @@
-package org.jphototagger.program.helper;
+package org.jphototagger.program.database;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.domain.event.listener.ProgressListenerSupport;
 import org.jphototagger.api.event.ProgressEvent;
 import org.jphototagger.api.event.ProgressListener;
+import org.jphototagger.domain.event.listener.ProgressListenerSupport;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.database.DatabaseMaintainance;
 
 /**
  * Deletes from the database records in 1:n tables not referenced by another
@@ -15,7 +14,7 @@ import org.jphototagger.program.database.DatabaseMaintainance;
  *
  * @author Elmar Baumann
  */
-public final class DeleteNotReferenced1n implements Runnable {
+final class DeleteNotReferenced1n implements Runnable {
 
     private final ProgressListenerSupport ls = new ProgressListenerSupport();
     private volatile int countDeleted = 0;

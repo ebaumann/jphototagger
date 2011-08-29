@@ -1,4 +1,4 @@
-package org.jphototagger.program.helper;
+package org.jphototagger.program.database;
 
 import java.io.File;
 import java.util.Arrays;
@@ -7,11 +7,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.jphototagger.api.core.UserFilesProvider;
-import org.jphototagger.domain.event.listener.ProgressListenerSupport;
-import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.api.event.ProgressEvent;
 import org.jphototagger.api.event.ProgressListener;
+import org.jphototagger.domain.event.listener.ProgressListenerSupport;
 import org.jphototagger.domain.repository.ImageFileRepository;
+import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
@@ -26,7 +26,7 @@ import org.openide.util.Lookup;
  *
  * @author Elmar Baumann
  */
-public final class DeleteOrphanedThumbnails implements Runnable, Cancelable {
+final class DeleteOrphanedThumbnails implements Runnable, Cancelable {
 
     private final ProgressListenerSupport ls = new ProgressListenerSupport();
     private int countFilesInDir = 0;

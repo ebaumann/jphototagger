@@ -75,9 +75,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
     }
 
     private void setUndefinedSearchName() {
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/panels/Bundle"); // NOI18N;
-
-        setSearchName(bundle.getString("AdvancedSearchPanel.UndefinedName"));
+        setSearchName(Bundle.getString(AdvancedSearchPanel.class, "AdvancedSearchPanel.UndefinedName"));
     }
 
 

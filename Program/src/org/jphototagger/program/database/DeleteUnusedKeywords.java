@@ -1,15 +1,15 @@
-package org.jphototagger.program.helper;
+package org.jphototagger.program.database;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.domain.event.listener.ProgressListenerSupport;
-import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.api.event.ProgressEvent;
 import org.jphototagger.api.event.ProgressListener;
+import org.jphototagger.domain.event.listener.ProgressListenerSupport;
 import org.jphototagger.domain.repository.ImageFileRepository;
+import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.lib.util.Bundle;
 import org.openide.util.Lookup;
 
@@ -18,7 +18,7 @@ import org.openide.util.Lookup;
  *
  * @author Elmar Baumann
  */
-public final class DeleteUnusedKeywords implements Runnable, Cancelable {
+final class DeleteUnusedKeywords implements Runnable, Cancelable {
 
     private volatile boolean cancel;
     private final ProgressListenerSupport ls = new ProgressListenerSupport();

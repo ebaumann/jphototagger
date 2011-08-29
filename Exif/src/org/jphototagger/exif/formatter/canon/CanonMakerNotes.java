@@ -9,6 +9,7 @@ import org.jphototagger.exif.ExifIfdType;
 import org.jphototagger.exif.ExifMakerNotes;
 import org.jphototagger.exif.ExifTag;
 import org.jphototagger.exif.ExifTags;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  *
@@ -52,7 +53,7 @@ public final class CanonMakerNotes implements ExifMakerNotes {
 
     static void addTag(ExifTags exifTags, int tagId, String nameBundleKey, String value) {
         try {
-            exifTags.addMakerNoteTag(new ExifTag(tagId, -1, -1, -1, null, value, -1, BUNDLE.getString(nameBundleKey), ExifIfdType.MAKER_NOTE));
+            exifTags.addMakerNoteTag(new ExifTag(tagId, -1, -1, -1, null, value, -1, Bundle.getString(CanonMakerNotes.class, nameBundleKey), ExifIfdType.MAKER_NOTE));
         } catch (Exception ex) {
             Logger.getLogger(CanonMakerNotes.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -7,7 +7,7 @@
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="1"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="true"/>
-    <AuxValue name="FormSettings_formBundle" type="java.lang.String" value="org/jphototagger/program/view/panels/Bundle"/>
+    <AuxValue name="FormSettings_formBundle" type="java.lang.String" value="org/jphototagger/program/database/Bundle"/>
     <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="true"/>
@@ -134,7 +134,7 @@
         <Component class="javax.swing.JCheckBox" name="checkBoxDeleteRecordsOfNotExistingFilesInDatabase">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="DatabaseMaintainancePanel.checkBoxDeleteRecordsOfNotExistingFilesInDatabase.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/database/Bundle.properties" key="DatabaseMaintainancePanel.checkBoxDeleteRecordsOfNotExistingFilesInDatabase.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="name" type="java.lang.String" value="checkBoxDeleteRecordsOfNotExistingFilesInDatabase" noResource="true"/>
           </Properties>
@@ -159,7 +159,7 @@
         <Component class="javax.swing.JCheckBox" name="checkBoxCompressDatabase">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="DatabaseMaintainancePanel.checkBoxCompressDatabase.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/database/Bundle.properties" key="DatabaseMaintainancePanel.checkBoxCompressDatabase.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="name" type="java.lang.String" value="checkBoxCompressDatabase" noResource="true"/>
           </Properties>
@@ -184,7 +184,7 @@
         <Component class="javax.swing.JCheckBox" name="checkBoxDeleteOrphanedThumbnails">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="DatabaseMaintainancePanel.checkBoxDeleteOrphanedThumbnails.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/database/Bundle.properties" key="DatabaseMaintainancePanel.checkBoxDeleteOrphanedThumbnails.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="name" type="java.lang.String" value="checkBoxDeleteOrphanedThumbnails" noResource="true"/>
           </Properties>
@@ -209,7 +209,7 @@
         <Component class="javax.swing.JCheckBox" name="checkBoxDeleteUnusedKeywords">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="DatabaseMaintainancePanel.checkBoxDeleteUnusedKeywords.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/database/Bundle.properties" key="DatabaseMaintainancePanel.checkBoxDeleteUnusedKeywords.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="name" type="java.lang.String" value="checkBoxDeleteUnusedKeywords" noResource="true"/>
           </Properties>
@@ -234,7 +234,7 @@
         <Component class="javax.swing.JCheckBox" name="checkBoxDeleteNotReferenced1n">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="DatabaseMaintainancePanel.checkBoxDeleteNotReferenced1n.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/database/Bundle.properties" key="DatabaseMaintainancePanel.checkBoxDeleteNotReferenced1n.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="name" type="java.lang.String" value="checkBoxDeleteNotReferenced1n" noResource="true"/>
           </Properties>
@@ -262,7 +262,7 @@
               <Color blue="ff" green="0" red="0" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="DatabaseMaintainancePanel.labelMessages.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/database/Bundle.properties" key="DatabaseMaintainancePanel.labelMessages.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="name" type="java.lang.String" value="labelMessages" noResource="true"/>
           </Properties>
@@ -300,7 +300,7 @@
               <Color blue="ff" green="0" red="0" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="DatabaseMaintainancePanel.buttonDeleteMessages.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/database/Bundle.properties" key="DatabaseMaintainancePanel.buttonDeleteMessages.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="enabled" type="boolean" value="false"/>
             <Property name="name" type="java.lang.String" value="buttonDeleteMessages" noResource="true"/>
@@ -312,7 +312,7 @@
         <Component class="javax.swing.JButton" name="buttonCancelAction">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="DatabaseMaintainancePanel.buttonCancelAction.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/database/Bundle.properties" key="DatabaseMaintainancePanel.buttonCancelAction.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="enabled" type="boolean" value="false"/>
             <Property name="name" type="java.lang.String" value="buttonCancelAction" noResource="true"/>
@@ -324,7 +324,7 @@
         <Component class="javax.swing.JButton" name="buttonStartMaintain">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="DatabaseMaintainancePanel.buttonStartMaintain.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/database/Bundle.properties" key="DatabaseMaintainancePanel.buttonStartMaintain.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="enabled" type="boolean" value="false"/>
             <Property name="name" type="java.lang.String" value="buttonStartMaintain" noResource="true"/>

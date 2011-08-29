@@ -1,7 +1,6 @@
 package org.jphototagger.dtncreators.scripts.unix;
 
 import java.io.File;
-import java.util.ResourceBundle;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -12,6 +11,7 @@ import org.jphototagger.dtncreators.SaveMPlayerFileSuffixesAsUserDefinedFileType
 import org.jphototagger.dtncreators.Util;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
+import org.jphototagger.lib.util.Bundle;
 import org.openide.util.Lookup;
 
 /**
@@ -112,37 +112,33 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
     }
 
     private FileChooser createDcrawFileChooser() {
-        ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/dtncreators/scripts/unix/Bundle");
         String filename = "dcraw";
-        String fileDescription = bundle.getString("ImageMagickDcrawThumbnailCreatorDialog.Dcraw.FileChooser.Description");
-        String fileChooserTitle = bundle.getString("ImageMagickDcrawThumbnailCreatorDialog.Dcraw.FileChooser.Title");
+        String fileDescription = Bundle.getString(ImageMagickDcrawThumbnailCreatorDialog.class, "ImageMagickDcrawThumbnailCreatorDialog.Dcraw.FileChooser.Description");
+        String fileChooserTitle = Bundle.getString(ImageMagickDcrawThumbnailCreatorDialog.class, "ImageMagickDcrawThumbnailCreatorDialog.Dcraw.FileChooser.Title");
 
         return createFileChooser(filename, fileDescription, fileChooserTitle);
     }
 
     private FileChooser createConvertFileChooser() {
-        ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/dtncreators/scripts/unix/Bundle");
         String filename = "convert";
-        String fileDescription = bundle.getString("ImageMagickDcrawThumbnailCreatorDialog.Convert.FileChooser.Description");
-        String fileChooserTitle = bundle.getString("ImageMagickDcrawThumbnailCreatorDialog.Convert.FileChooser.Title");
+        String fileDescription = Bundle.getString(ImageMagickDcrawThumbnailCreatorDialog.class, "ImageMagickDcrawThumbnailCreatorDialog.Convert.FileChooser.Description");
+        String fileChooserTitle = Bundle.getString(ImageMagickDcrawThumbnailCreatorDialog.class, "ImageMagickDcrawThumbnailCreatorDialog.Convert.FileChooser.Title");
 
         return createFileChooser(filename, fileDescription, fileChooserTitle);
     }
 
     private FileChooser createIdentifyFileChooser() {
-        ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/dtncreators/scripts/unix/Bundle");
         String filename = "identify";
-        String fileDescription = bundle.getString("ImageMagickDcrawThumbnailCreatorDialog.Identify.FileChooser.Description");
-        String fileChooserTitle = bundle.getString("ImageMagickDcrawThumbnailCreatorDialog.Identify.FileChooser.Title");
+        String fileDescription = Bundle.getString(ImageMagickDcrawThumbnailCreatorDialog.class, "ImageMagickDcrawThumbnailCreatorDialog.Identify.FileChooser.Description");
+        String fileChooserTitle = Bundle.getString(ImageMagickDcrawThumbnailCreatorDialog.class, "ImageMagickDcrawThumbnailCreatorDialog.Identify.FileChooser.Title");
 
         return createFileChooser(filename, fileDescription, fileChooserTitle);
     }
 
     private FileChooser createMPlayerFileChooser() {
-        ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/dtncreators/scripts/unix/Bundle");
         String filename = "mplayer";
-        String fileDescription = bundle.getString("ImageMagickDcrawThumbnailCreatorDialog.MPlayer.FileChooser.Description");
-        String fileChooserTitle = bundle.getString("ImageMagickDcrawThumbnailCreatorDialog.MPlayer.FileChooser.Title");
+        String fileDescription = Bundle.getString(ImageMagickDcrawThumbnailCreatorDialog.class, "ImageMagickDcrawThumbnailCreatorDialog.MPlayer.FileChooser.Description");
+        String fileChooserTitle = Bundle.getString(ImageMagickDcrawThumbnailCreatorDialog.class, "ImageMagickDcrawThumbnailCreatorDialog.MPlayer.FileChooser.Title");
 
         return createFileChooser(filename, fileDescription, fileChooserTitle);
     }

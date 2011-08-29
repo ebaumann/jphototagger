@@ -1,4 +1,4 @@
-package org.jphototagger.program.view.panels;
+package org.jphototagger.program.database;
 
 import java.awt.Container;
 import java.awt.event.ActionEvent;
@@ -12,14 +12,13 @@ import javax.swing.AbstractButton;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
+import org.jphototagger.api.event.ProgressEvent;
+import org.jphototagger.api.event.ProgressListener;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.api.event.ProgressEvent;
-import org.jphototagger.api.event.ProgressListener;
-import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.program.database.DatabaseKeywords;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.helper.HelperThread;
 import org.jphototagger.program.helper.InsertKeywords;
@@ -38,8 +37,7 @@ import org.jphototagger.program.view.dialogs.RenameFilenamesInDbDialog;
 public class DatabaseUpdatePanel extends JPanel implements ActionListener, ProgressListener {
 
     private static final long serialVersionUID = 3148751698141558616L;
-    private static final java.util.ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/panels/Bundle"); // NOI18N
-    private static final String BUTTON_TEXT_CANCEL = BUNDLE.getString("DatabaseUpdatePanel.DisplayName.Cancel");
+    private static final String BUTTON_TEXT_CANCEL = Bundle.getString(DatabaseUpdatePanel.class, "DatabaseUpdatePanel.DisplayName.Cancel");
     private transient UpdateAllThumbnails thumbnailUpdater;
     private final AbstractButton[] buttons;
     private volatile boolean cancel;
@@ -47,9 +45,13 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
     public DatabaseUpdatePanel() {
         initComponents();
         buttons = new AbstractButton[] {
-            buttonCopyKeywordsToKeywordsTree, buttonRenameFiles,
-            buttonUpdateThumbnails, toggleButtonRefreshExif,
-            toggleButtonRefreshXmp, toggleButtonExifDateToXmpDateCreated,
+            toggleButtonRefreshExif,
+            toggleButtonRefreshXmp,
+            buttonUpdateThumbnails,
+            buttonRenameFiles,
+            buttonCopyKeywordsToKeywordsTree,
+            buttonDeleteKeywordsTree,
+            toggleButtonExifDateToXmpDateCreated,
         };
         MnemonicUtil.setMnemonics((Container) this);
     }
@@ -99,12 +101,12 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
     }
 
     private void setStartButtonTexts() {
-        toggleButtonRefreshExif.setText(BUNDLE.getString("DatabaseUpdatePanel.toggleButtonRefreshExif.text"));
-        toggleButtonRefreshXmp.setText(BUNDLE.getString("DatabaseUpdatePanel.toggleButtonRefreshXmp.text"));
-        buttonUpdateThumbnails.setText(BUNDLE.getString("DatabaseUpdatePanel.buttonUpdateThumbnails.text"));
-        buttonRenameFiles.setText(BUNDLE.getString("DatabaseUpdatePanel.buttonRenameFiles.text"));
-        buttonCopyKeywordsToKeywordsTree.setText(BUNDLE.getString("DatabaseUpdatePanel.buttonCopyKeywordsToKeywordsTree.text"));
-        toggleButtonExifDateToXmpDateCreated.setText(BUNDLE.getString("DatabaseUpdatePanel.toggleButtonExifDateToXmpDateCreated.text"));
+        toggleButtonRefreshExif.setText(Bundle.getString(DatabaseUpdatePanel.class, "DatabaseUpdatePanel.toggleButtonRefreshExif.text"));
+        toggleButtonRefreshXmp.setText(Bundle.getString(DatabaseUpdatePanel.class, "DatabaseUpdatePanel.toggleButtonRefreshXmp.text"));
+        buttonUpdateThumbnails.setText(Bundle.getString(DatabaseUpdatePanel.class, "DatabaseUpdatePanel.buttonUpdateThumbnails.text"));
+        buttonRenameFiles.setText(Bundle.getString(DatabaseUpdatePanel.class, "DatabaseUpdatePanel.buttonRenameFiles.text"));
+        buttonCopyKeywordsToKeywordsTree.setText(Bundle.getString(DatabaseUpdatePanel.class, "DatabaseUpdatePanel.buttonCopyKeywordsToKeywordsTree.text"));
+        toggleButtonExifDateToXmpDateCreated.setText(Bundle.getString(DatabaseUpdatePanel.class, "DatabaseUpdatePanel.toggleButtonExifDateToXmpDateCreated.text"));
         MnemonicUtil.setMnemonics((Container) this);
     }
 
@@ -252,7 +254,7 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
         setName("Form"); // NOI18N
 
         labelRefreshExif.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_exif.png"))); // NOI18N
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/panels/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/database/Bundle"); // NOI18N
         labelRefreshExif.setText(bundle.getString("DatabaseUpdatePanel.labelRefreshExif.text")); // NOI18N
         labelRefreshExif.setName("labelRefreshExif"); // NOI18N
 

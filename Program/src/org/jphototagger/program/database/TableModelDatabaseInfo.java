@@ -1,4 +1,4 @@
-package org.jphototagger.program.model;
+package org.jphototagger.program.database;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -19,7 +19,6 @@ import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.model.TableModelExt;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.database.DatabaseStatistics;
 import org.jphototagger.program.database.metadata.selections.DatabaseInfoRecordCountColumns;
 
 /**

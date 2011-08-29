@@ -1,24 +1,22 @@
-package org.jphototagger.program.helper;
+package org.jphototagger.program.database;
 
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.jphototagger.api.core.UserFilesProvider;
-import org.jphototagger.domain.event.listener.ProgressListenerSupport;
 import org.jphototagger.api.event.ProgressEvent;
 import org.jphototagger.api.event.ProgressListener;
-import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.database.DatabaseMaintainance;
 import org.jphototagger.api.file.Filename;
+import org.jphototagger.domain.event.listener.ProgressListenerSupport;
+import org.jphototagger.lib.util.Bundle;
 import org.openide.util.Lookup;
 
 /**
- * Compresses the database.
  *
  * @author Elmar Baumann
  */
-public final class CompressDatabase implements Runnable {
+final class CompressDatabase implements Runnable {
 
     private final ProgressListenerSupport listenerSupport = new ProgressListenerSupport();
     private boolean success = false;
