@@ -1049,9 +1049,7 @@ public final class EditMetadataPanels implements FocusListener {
                 if (entry instanceof RatingSelectionPanel) {
                     // Text not parsable as number leads to an exception
                 } else {
-                    java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/panels/Bundle"); // NOI18N
-                    entry.setText(
-                            bundle.getString("EditMetadataPanels.DisableIfMultipleValues.Info.TextEntry"));
+                    entry.setText(Bundle.getString(EditMetadataPanels.class, "EditMetadataPanels.DisableIfMultipleValues.Info.TextEntry"));
                 }
 
                 entry.addMouseListenerToInputComponents(this);

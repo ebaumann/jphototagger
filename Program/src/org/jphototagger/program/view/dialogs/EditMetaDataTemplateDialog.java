@@ -64,9 +64,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
     }
 
     private void setTitle() {
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/dialogs/Bundle"); // NOI18N
-
-        setTitle(bundle.getString(templateHasName()
+        setTitle(Bundle.getString(EditMetaDataTemplateDialog.class, templateHasName()
                 ? "EditMetaDataTemplateDialog.Title.Edit"
                 : "EditMetaDataTemplateDialog.Title.New"));
     }

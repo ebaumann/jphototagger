@@ -7,7 +7,7 @@
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="1"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="true"/>
-    <AuxValue name="FormSettings_formBundle" type="java.lang.String" value="org/jphototagger/program/view/panels/Bundle"/>
+    <AuxValue name="FormSettings_formBundle" type="java.lang.String" value="org/jphototagger/program/database/Bundle"/>
     <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="true"/>
@@ -49,7 +49,7 @@
     <Component class="javax.swing.JLabel" name="labelTable">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="DatabaseInfoCountPanel.labelTable.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/program/database/Bundle.properties" key="DatabaseInfoCountPanel.labelTable.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="name" type="java.lang.String" value="labelTable" noResource="true"/>
       </Properties>
@@ -74,7 +74,7 @@
     <Component class="javax.swing.JLabel" name="labelFilename">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="DatabaseInfoCountPanel.labelFilename.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/program/database/Bundle.properties" key="DatabaseInfoCountPanel.labelFilename.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="name" type="java.lang.String" value="labelFilename" noResource="true"/>
       </Properties>

@@ -1,12 +1,11 @@
-package org.jphototagger.program.view.panels;
+package org.jphototagger.program.database;
 
 import java.text.MessageFormat;
-import java.util.ResourceBundle;
+
 import org.jphototagger.api.core.UserFilesProvider;
-import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.program.model.TableModelDatabaseInfo;
 import org.jphototagger.api.file.Filename;
-import org.jphototagger.program.view.renderer.TableCellRendererDatabaseInfoColumns;
+import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.openide.util.Lookup;
 
 /**
@@ -38,13 +37,15 @@ public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
     }
 
     private void setLabelFilename() {
-        ResourceBundle bundle = ResourceBundle.getBundle("org/jphototagger/program/view/panels/Bundle"); // NOI18N
-        String pattern = bundle.getString("DatabaseInfoCountPanel.labelFilename.Filename");
+        String pattern = Bundle.getString(DatabaseInfoCountPanel.class, "DatabaseInfoCountPanel.labelFilename.Filename");
         UserFilesProvider provider = Lookup.getDefault().lookup(UserFilesProvider.class);
-        String databaseFileName = provider.getDatabaseFileName(Filename.FULL_PATH);
-        String message = MessageFormat.format(pattern, databaseFileName);
 
-        labelFilename.setText(message);
+        if (provider != null) {
+            String databaseFileName = provider.getDatabaseFileName(Filename.FULL_PATH);
+            String message = MessageFormat.format(pattern, databaseFileName);
+
+            labelFilename.setText(message);
+        }
     }
 
     private void setModelDatabaseInfo() {
@@ -90,7 +91,7 @@ public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
 
         setName("Form"); // NOI18N
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/panels/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/database/Bundle"); // NOI18N
         labelTable.setText(bundle.getString("DatabaseInfoCountPanel.labelTable.text")); // NOI18N
         labelTable.setName("labelTable"); // NOI18N
 

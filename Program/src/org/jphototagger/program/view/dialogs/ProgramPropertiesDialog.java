@@ -37,8 +37,8 @@ public final class ProgramPropertiesDialog extends Dialog {
     private static final String KEY_LAST_DIR = "ProgramPropertiesDialog.LastDirectory";
     private static final String KEY_EXPERT_SETTINGS = "ProgramPropertiesDialog.ExpertSettings";
     private static final java.util.ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/dialogs/Bundle"); // NOI18N
-    private static final String BUTTON_TEXT_TOGGLE_TO_EXPERT_SETTINGS = BUNDLE.getString("ProgramPropertiesDialog.ButtonText.ExpertSettings");
-    private static final String BUTTON_TEXT_TOGGLE_TO_SIMPLE_SETTINGS = BUNDLE.getString("ProgramPropertiesDialog.ButtonText.SimpleSettings");
+    private static final String BUTTON_TEXT_TOGGLE_TO_EXPERT_SETTINGS = Bundle.getString(ProgramPropertiesDialog.class, "ProgramPropertiesDialog.ButtonText.ExpertSettings");
+    private static final String BUTTON_TEXT_TOGGLE_TO_SIMPLE_SETTINGS = Bundle.getString(ProgramPropertiesDialog.class, "ProgramPropertiesDialog.ButtonText.SimpleSettings");
     private static final Storage STORAGE = Lookup.getDefault().lookup(Storage.class);
     private File lastDir = new File(STORAGE.getString(KEY_LAST_DIR));
     private File file;
@@ -96,7 +96,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         if (exists) {
             labelErrorFileDoesNotExist.setText("<html> </html>");
         } else {
-            labelErrorFileDoesNotExist.setText(BUNDLE.getString("ProgramPropertiesDialog.LabelErrorFileDoesNotExist.ErrorText"));
+            labelErrorFileDoesNotExist.setText(Bundle.getString(ProgramPropertiesDialog.class, "ProgramPropertiesDialog.LabelErrorFileDoesNotExist.ErrorText"));
         }
 
         labelFile.setForeground(exists
@@ -148,9 +148,9 @@ public final class ProgramPropertiesDialog extends Dialog {
     }
 
     private void setActionTexts() {
-        setTitle(BUNDLE.getString("ProgramPropertiesDialog.title.Action"));
-        labelFilePrompt.setText(BUNDLE.getString("ProgramPropertiesDialog.labelFilePrompt.text.Action"));
-        labelAlias.setText(BUNDLE.getString("ProgramPropertiesDialog.labelAlias.text.Action"));
+        setTitle(Bundle.getString(ProgramPropertiesDialog.class, "ProgramPropertiesDialog.title.Action"));
+        labelFilePrompt.setText(Bundle.getString(ProgramPropertiesDialog.class, "ProgramPropertiesDialog.labelFilePrompt.text.Action"));
+        labelAlias.setText(Bundle.getString(ProgramPropertiesDialog.class, "ProgramPropertiesDialog.labelAlias.text.Action"));
     }
 
     private void setProgramIcon() {

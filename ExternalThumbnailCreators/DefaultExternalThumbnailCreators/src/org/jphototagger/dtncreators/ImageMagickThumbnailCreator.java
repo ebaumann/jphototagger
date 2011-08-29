@@ -1,10 +1,10 @@
 package org.jphototagger.dtncreators;
 
 import java.io.File;
-import java.util.ResourceBundle;
 
 import org.jphototagger.api.image.ExternalThumbnailCreator;
 import org.jphototagger.lib.system.SystemUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.openide.util.lookup.ServiceProvider;
 
 /**
@@ -16,7 +16,6 @@ import org.openide.util.lookup.ServiceProvider;
 public final class ImageMagickThumbnailCreator implements ExternalThumbnailCreator {
 
     private static final String COMMANDLINE_PARAMETERS = "-thumbnail %ix%i -auto-orient \"%s\" jpg:-";
-    private final ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/dtncreators/Bundle");
     private final FileChooser fileChooser = createFileChooser();
 
     @Override
@@ -39,7 +38,7 @@ public final class ImageMagickThumbnailCreator implements ExternalThumbnailCreat
 
     @Override
     public String getDisplayName() {
-        return bundle.getString("ImageMagickThumbnailCreator.DisplayName");
+        return Bundle.getString(ImageMagickThumbnailCreator.class, "ImageMagickThumbnailCreator.DisplayName");
     }
 
     @Override
@@ -59,7 +58,7 @@ public final class ImageMagickThumbnailCreator implements ExternalThumbnailCreat
     private FileChooser createFileChooser() {
         String convertFileName = getConvertFileName();
         String convertFileDescription = getConvertFileDescription();
-        String fileChooserTitle = bundle.getString("ImageMagickThumbnailCreator.ChooseFile.Dialogtitle");
+        String fileChooserTitle = Bundle.getString(ImageMagickThumbnailCreator.class, "ImageMagickThumbnailCreator.ChooseFile.Dialogtitle");
 
         return new FileChooser.Builder(convertFileName).fileChooserTitle(fileChooserTitle).fileDescription(convertFileDescription).build();
     }
@@ -73,6 +72,6 @@ public final class ImageMagickThumbnailCreator implements ExternalThumbnailCreat
                 ? "ImageMagickThumbnailCreator.FileFilter.Description.Windows"
                 : "ImageMagickThumbnailCreator.FileFilter.Description.OtherOS";
 
-        return bundle.getString(bundleKeyDescription);
+        return Bundle.getString(ImageMagickThumbnailCreator.class, bundleKeyDescription);
     }
 }

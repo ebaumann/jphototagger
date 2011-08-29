@@ -3,7 +3,6 @@ package org.jphototagger.plugin.cftc;
 import java.awt.Component;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.ResourceBundle;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
@@ -11,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 
 import org.jphototagger.api.core.Storage;
+import org.jphototagger.lib.util.Bundle;
 import org.openide.util.Lookup;
 
 /**
@@ -43,7 +43,6 @@ public class SettingsPanel extends javax.swing.JPanel {
 
     private static class DelimiterModel extends DefaultComboBoxModel {
         private static final long serialVersionUID = 78207540460538249L;
-        private final ResourceBundle rb = ResourceBundle.getBundle("org/jphototagger/plugin/cftc/Bundle");
         private final Map<String, String> descriptionOfDelimiter = new LinkedHashMap<String, String>();
 
         DelimiterModel() {
@@ -51,11 +50,11 @@ public class SettingsPanel extends javax.swing.JPanel {
         }
 
         private void addElements() {
-            descriptionOfDelimiter.put("\n", rb.getString("DelimiterModel.Description.Newline"));
-            descriptionOfDelimiter.put(" ", rb.getString("DelimiterModel.Description.Space"));
-            descriptionOfDelimiter.put("\t", rb.getString("DelimiterModel.Description.Tab"));
-            descriptionOfDelimiter.put(";", rb.getString("DelimiterModel.Description.Semicolon"));
-            descriptionOfDelimiter.put(":", rb.getString("DelimiterModel.Description.Colon"));
+            descriptionOfDelimiter.put("\n", Bundle.getString(SettingsPanel.class, "DelimiterModel.Description.Newline"));
+            descriptionOfDelimiter.put(" ", Bundle.getString(SettingsPanel.class, "DelimiterModel.Description.Space"));
+            descriptionOfDelimiter.put("\t", Bundle.getString(SettingsPanel.class, "DelimiterModel.Description.Tab"));
+            descriptionOfDelimiter.put(";", Bundle.getString(SettingsPanel.class, "DelimiterModel.Description.Semicolon"));
+            descriptionOfDelimiter.put(":", Bundle.getString(SettingsPanel.class, "DelimiterModel.Description.Colon"));
 
             for (String key : descriptionOfDelimiter.keySet()) {
                 addElement(key);

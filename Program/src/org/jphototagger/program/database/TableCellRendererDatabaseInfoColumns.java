@@ -1,25 +1,25 @@
-package org.jphototagger.program.view.renderer;
+package org.jphototagger.program.database;
 
-import org.jphototagger.domain.database.Column;
 import java.awt.Component;
+
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 
+import org.jphototagger.domain.database.Column;
+import org.jphototagger.program.view.renderer.FormatterLabelTableColumn;
+
 /**
- * Rendert die Tabellenzellen der Datenbankinformation über die Anzahl der
- * Datensätze bezogen auf eine bestimmte Tabellenspalte.
  *
  * @author Elmar Baumann
  */
 public final class TableCellRendererDatabaseInfoColumns implements TableCellRenderer {
+
     private static final String PADDING_LEFT = "  ";
+    private final JLabel cellLabel = new JLabel();
 
     @Override
-    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
-            int row, int column) {
-        JLabel cellLabel = new JLabel();
-
+    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         if (column == 0) {
             FormatterLabelTableColumn.setLabelText(cellLabel, (Column) value);
         } else {

@@ -1,7 +1,6 @@
 package org.jphototagger.dtncreators.scripts.windows;
 
 import java.io.File;
-import java.util.ResourceBundle;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -12,6 +11,7 @@ import org.jphototagger.dtncreators.SaveMPlayerFileSuffixesAsUserDefinedFileType
 import org.jphototagger.dtncreators.Util;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
+import org.jphototagger.lib.util.Bundle;
 import org.openide.util.Lookup;
 
 /**
@@ -95,28 +95,25 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
     }
 
     private FileChooser createDcrawFileChooser() {
-        ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/dtncreators/scripts/windows/Bundle");
         String filename = "dcraw.exe";
-        String fileDescription = bundle.getString("ImageMagickDcrawThumbnailCreatorDialog.Dcraw.FileChooser.Description");
-        String fileChooserTitle = bundle.getString("ImageMagickDcrawThumbnailCreatorDialog.Dcraw.FileChooser.Title");
+        String fileDescription = Bundle.getString(ImageMagickDcrawThumbnailCreatorDialog.class, "ImageMagickDcrawThumbnailCreatorDialog.Dcraw.FileChooser.Description");
+        String fileChooserTitle = Bundle.getString(ImageMagickDcrawThumbnailCreatorDialog.class, "ImageMagickDcrawThumbnailCreatorDialog.Dcraw.FileChooser.Title");
 
         return createFileChooser(filename, fileDescription, fileChooserTitle);
     }
 
     private FileChooser createConvertFileChooser() {
-        ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/dtncreators/scripts/windows/Bundle");
         String filename = "convert.exe";
-        String fileDescription = bundle.getString("ImageMagickDcrawThumbnailCreatorDialog.Convert.FileChooser.Description");
-        String fileChooserTitle = bundle.getString("ImageMagickDcrawThumbnailCreatorDialog.Convert.FileChooser.Title");
+        String fileDescription = Bundle.getString(ImageMagickDcrawThumbnailCreatorDialog.class, "ImageMagickDcrawThumbnailCreatorDialog.Convert.FileChooser.Description");
+        String fileChooserTitle = Bundle.getString(ImageMagickDcrawThumbnailCreatorDialog.class, "ImageMagickDcrawThumbnailCreatorDialog.Convert.FileChooser.Title");
 
         return createFileChooser(filename, fileDescription, fileChooserTitle);
     }
 
     private FileChooser createMPlayerFileChooser() {
-        ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/dtncreators/scripts/windows/Bundle");
         String filename = "mplayer.exe";
-        String fileDescription = bundle.getString("ImageMagickDcrawThumbnailCreatorDialog.MPlayer.FileChooser.Description");
-        String fileChooserTitle = bundle.getString("ImageMagickDcrawThumbnailCreatorDialog.MPlayer.FileChooser.Title");
+        String fileDescription = Bundle.getString(ImageMagickDcrawThumbnailCreatorDialog.class, "ImageMagickDcrawThumbnailCreatorDialog.MPlayer.FileChooser.Description");
+        String fileChooserTitle = Bundle.getString(ImageMagickDcrawThumbnailCreatorDialog.class, "ImageMagickDcrawThumbnailCreatorDialog.MPlayer.FileChooser.Title");
 
         return createFileChooser(filename, fileDescription, fileChooserTitle);
     }

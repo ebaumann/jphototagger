@@ -2,10 +2,10 @@ package org.jphototagger.program.view.dialogs;
 
 import java.awt.Container;
 import java.awt.event.MouseEvent;
-import java.util.ResourceBundle;
 
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.data.Program;
 import org.jphototagger.program.database.DatabasePrograms.Type;
 import org.jphototagger.program.model.ListModelPrograms;
@@ -43,9 +43,8 @@ public class ProgramSelectDialog extends Dialog {
     }
 
     private void setTitle() {
-        ResourceBundle bundle = ResourceBundle.getBundle("org/jphototagger/program/view/dialogs/Bundle"); // NOI18N
-        String actionsTitle = bundle.getString("ProgramSelectDialog.Title.Actions"); // NOI18N
-        String programsTitle = bundle.getString("ProgramSelectDialog.Title.Programs"); // NOI18N
+        String actionsTitle = Bundle.getString(ProgramSelectDialog.class, "ProgramSelectDialog.Title.Actions"); // NOI18N
+        String programsTitle = Bundle.getString(ProgramSelectDialog.class, "ProgramSelectDialog.Title.Programs"); // NOI18N
 
         setTitle(type.equals(Type.ACTION) ? actionsTitle : programsTitle);
     }
@@ -194,12 +193,14 @@ public class ProgramSelectDialog extends Dialog {
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 ProgramSelectDialog dialog =
-                    new ProgramSelectDialog(Type.PROGRAM);
+                        new ProgramSelectDialog(Type.PROGRAM);
 
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
@@ -209,7 +210,6 @@ public class ProgramSelectDialog extends Dialog {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonSelect;
     private org.jdesktop.swingx.JXList listPrograms;

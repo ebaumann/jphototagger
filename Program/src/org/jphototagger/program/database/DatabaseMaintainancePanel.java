@@ -1,4 +1,4 @@
-package org.jphototagger.program.view.panels;
+package org.jphototagger.program.database;
 
 import java.awt.Container;
 import java.lang.reflect.Method;
@@ -14,18 +14,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.jphototagger.api.core.Storage;
+import org.jphototagger.api.event.ProgressEvent;
+import org.jphototagger.api.event.ProgressListener;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.concurrent.Cancelable;
-import org.jphototagger.api.event.ProgressEvent;
-import org.jphototagger.api.event.ProgressListener;
-import org.jphototagger.domain.repository.ImageFileRepository;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.helper.CompressDatabase;
-import org.jphototagger.program.helper.DeleteNotReferenced1n;
-import org.jphototagger.program.helper.DeleteOrphanedThumbnails;
-import org.jphototagger.program.helper.DeleteOrphanedXmp;
-import org.jphototagger.program.helper.DeleteUnusedKeywords;
 import org.openide.util.Lookup;
 
 /**
@@ -56,7 +50,7 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
 
     private void postInitComponents() {
         finishedLabelOfRunnable.put(CompressDatabase.class, labelFinishedCompressDatabase);
-        finishedLabelOfRunnable.put(ImageFileRepository.class, labelFinishedDeleteRecordsOfNotExistingFilesInDatabase);
+        finishedLabelOfRunnable.put(DatabaseImageFiles.class, labelFinishedDeleteRecordsOfNotExistingFilesInDatabase);
         finishedLabelOfRunnable.put(DeleteOrphanedThumbnails.class, labelFinishedDeleteOrphanedThumbnails);
         finishedLabelOfRunnable.put(DeleteOrphanedThumbnails.class, labelFinishedDeleteOrphanedThumbnails);
         finishedLabelOfRunnable.put(DeleteUnusedKeywords.class, labelFinishedDeleteUnusedKeywords);
@@ -79,11 +73,13 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
 
         Storage storage = Lookup.getDefault().lookup(Storage.class);
 
-        checkBoxCompressDatabase.setSelected(storage.getBoolean(KEY_COMPRESS_DB));
-        checkBoxDeleteOrphanedThumbnails.setSelected(storage.getBoolean(KEY_DEL_ORPHANED_THUMBS));
-        checkBoxDeleteRecordsOfNotExistingFilesInDatabase.setSelected(storage.getBoolean(KEY_DEL_RECORDS_OF_NOT_EX_FILES));
-        checkBoxDeleteUnusedKeywords.setSelected(storage.getBoolean(KEY_DEL_UNUSED_KEYWORDS));
-        checkBoxDeleteNotReferenced1n.setSelected(storage.getBoolean(KEY_DEL_NOT_REF_1_N));
+        if (storage != null) {
+            checkBoxCompressDatabase.setSelected(storage.getBoolean(KEY_COMPRESS_DB));
+            checkBoxDeleteOrphanedThumbnails.setSelected(storage.getBoolean(KEY_DEL_ORPHANED_THUMBS));
+            checkBoxDeleteRecordsOfNotExistingFilesInDatabase.setSelected(storage.getBoolean(KEY_DEL_RECORDS_OF_NOT_EX_FILES));
+            checkBoxDeleteUnusedKeywords.setSelected(storage.getBoolean(KEY_DEL_UNUSED_KEYWORDS));
+            checkBoxDeleteNotReferenced1n.setSelected(storage.getBoolean(KEY_DEL_NOT_REF_1_N));
+        }
     }
 
     private void setProgressbarStart(ProgressEvent evt) {
@@ -352,7 +348,7 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
 
         panelContent.setName("panelContent"); // NOI18N
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/panels/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/database/Bundle"); // NOI18N
         checkBoxDeleteRecordsOfNotExistingFilesInDatabase.setText(bundle.getString("DatabaseMaintainancePanel.checkBoxDeleteRecordsOfNotExistingFilesInDatabase.text")); // NOI18N
         checkBoxDeleteRecordsOfNotExistingFilesInDatabase.setName("checkBoxDeleteRecordsOfNotExistingFilesInDatabase"); // NOI18N
         checkBoxDeleteRecordsOfNotExistingFilesInDatabase.addActionListener(new java.awt.event.ActionListener() {

@@ -1,16 +1,15 @@
-package org.jphototagger.program.view.dialogs;
+package org.jphototagger.program.database;
 
 import org.jphototagger.api.core.Storage;
 import org.jphototagger.api.core.StorageHints;
+import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.TabbedPaneUtil;
 import org.jphototagger.lib.dialog.Dialog;
-import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.program.resource.GUI;
+import org.jphototagger.lib.util.Bundle;
 import org.openide.util.Lookup;
 
 /**
- * Modaler Dialog zur Wartung der Thumbnaildatenbank.
  *
  * @author Elmar Baumann
  */
@@ -19,7 +18,7 @@ public final class DatabaseMaintainanceDialog extends Dialog {
     public static final DatabaseMaintainanceDialog INSTANCE = new DatabaseMaintainanceDialog();
 
     private DatabaseMaintainanceDialog() {
-        super(GUI.getAppFrame(), false);
+        super(ComponentUtil.getFrameWithIcon(), false);
         initComponents();
         setHelpPage();
         TabbedPaneUtil.setMnemonics(tabbedPane);
@@ -74,12 +73,12 @@ public final class DatabaseMaintainanceDialog extends Dialog {
     private void initComponents() {//GEN-BEGIN:initComponents
 
         tabbedPane = new javax.swing.JTabbedPane();
-        panelCount = new org.jphototagger.program.view.panels.DatabaseInfoCountPanel();
-        panelMaintainance = new org.jphototagger.program.view.panels.DatabaseMaintainancePanel();
-        panelDatabaseUpdate = new org.jphototagger.program.view.panels.DatabaseUpdatePanel();
+        panelCount = new org.jphototagger.program.database.DatabaseInfoCountPanel();
+        panelMaintainance = new org.jphototagger.program.database.DatabaseMaintainancePanel();
+        panelDatabaseUpdate = new org.jphototagger.program.database.DatabaseUpdatePanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/dialogs/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/database/Bundle"); // NOI18N
         setTitle(bundle.getString("DatabaseMaintainanceDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -145,9 +144,9 @@ public final class DatabaseMaintainanceDialog extends Dialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private org.jphototagger.program.view.panels.DatabaseInfoCountPanel panelCount;
-    private org.jphototagger.program.view.panels.DatabaseUpdatePanel panelDatabaseUpdate;
-    private org.jphototagger.program.view.panels.DatabaseMaintainancePanel panelMaintainance;
+    private org.jphototagger.program.database.DatabaseInfoCountPanel panelCount;
+    private org.jphototagger.program.database.DatabaseUpdatePanel panelDatabaseUpdate;
+    private org.jphototagger.program.database.DatabaseMaintainancePanel panelMaintainance;
     private javax.swing.JTabbedPane tabbedPane;
     // End of variables declaration//GEN-END:variables
 }
