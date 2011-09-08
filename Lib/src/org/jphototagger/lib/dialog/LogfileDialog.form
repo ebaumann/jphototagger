@@ -32,14 +32,15 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="tabbedPane" alignment="0" pref="511" max="32767" attributes="0"/>
+                  <Component id="tabbedPane" alignment="0" pref="721" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="panelSearchSimple" pref="439" max="32767" attributes="0"/>
+                      <Component id="panelSearchSimple" pref="649" max="32767" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="buttonReload" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="buttonExit" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <Component id="labelLogfileName" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -49,7 +50,9 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="tabbedPane" pref="304" max="32767" attributes="0"/>
+              <Component id="labelLogfileName" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="tabbedPane" pref="520" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="buttonExit" min="-2" max="-2" attributes="0"/>
@@ -62,6 +65,14 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
+    <Component class="javax.swing.JLabel" name="labelLogfileName">
+      <Properties>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="org/jphototagger/lib/dialog/Bundle.properties" key="LogfileDialog.labelLogfileName.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
+        <Property name="name" type="java.lang.String" value="labelLogfileName" noResource="true"/>
+      </Properties>
+    </Component>
     <Container class="javax.swing.JTabbedPane" name="tabbedPane">
       <Properties>
         <Property name="name" type="java.lang.String" value="tabbedPane" noResource="true"/>
@@ -89,9 +100,9 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneTableLogfileRecords" alignment="1" pref="486" max="32767" attributes="2"/>
+                          <Component id="scrollPaneTableLogfileRecords" alignment="1" pref="692" max="32767" attributes="2"/>
                           <Component id="panelFilter" alignment="1" max="32767" attributes="1"/>
-                          <Component id="scrollPaneTextPaneDetails" alignment="0" pref="486" max="32767" attributes="2"/>
+                          <Component id="scrollPaneTextPaneDetails" alignment="0" pref="692" max="32767" attributes="2"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -102,9 +113,9 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="panelFilter" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="scrollPaneTableLogfileRecords" pref="77" max="32767" attributes="0"/>
+                      <Component id="scrollPaneTableLogfileRecords" pref="184" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="scrollPaneTextPaneDetails" pref="68" max="32767" attributes="0"/>
+                      <Component id="scrollPaneTextPaneDetails" pref="177" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -130,7 +141,7 @@
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="panelSearchXml" alignment="0" max="32767" attributes="2"/>
-                              <Component id="panelFilterCheckBoxes" alignment="0" pref="452" max="32767" attributes="1"/>
+                              <Component id="panelFilterCheckBoxes" alignment="0" pref="658" max="32767" attributes="1"/>
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -355,7 +366,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="labelSearch" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="textFieldSearch" pref="393" max="32767" attributes="0"/>
+                              <Component id="textFieldSearch" pref="599" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -453,7 +464,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="scrollPanePanelSimple" pref="482" max="32767" attributes="0"/>
+                      <Component id="scrollPanePanelSimple" pref="692" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -462,7 +473,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="scrollPanePanelSimple" pref="253" max="32767" attributes="0"/>
+                      <Component id="scrollPanePanelSimple" pref="469" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
