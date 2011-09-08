@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -35,13 +36,8 @@ import org.jphototagger.lib.util.logging.LogfileParser;
 import org.jphototagger.lib.util.logging.LogfileRecord;
 
 /**
- * Nichtmodaler Dialog zum Anzeigen einer Logdatei geschrieben von einem
- * <code>java.util.logging.Logger</code>-Objekt. Das XML-Format muss validieren
- * gegen die <code>logger.dtd</code>.
- *
- * All functions with object-reference-parameters are throwing a
- * <code>NullPointerException</code> if an object reference is null and it is
- * not documentet that it can be null.
+ * Non modal dialog to display a logfile written by a
+ * <code>java.util.logging.Logger</code>. The XML format has to validate against <code>logger.dtd</code>.
  *
  * @author Elmar Baumann
  */
@@ -57,18 +53,6 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
     private Class<?> formatterClass;
     private String logfilename;
 
-    private void initPaneIndexOfLogfileType() {
-        paneIndexOfFormatterClass.put(XMLFormatter.class, 0);
-        paneIndexOfFormatterClass.put(SimpleFormatter.class, 1);
-    }
-
-    /**
-     * Konstruktor.
-     *
-     * @param parent          Elternframe
-     * @param logfilename     Name der anzuzeigenden Logdatei
-     * @param formatterClass  Formatierer der Logdatei
-     */
     public LogfileDialog(Frame parent, String logfilename, Class<?> formatterClass) {
         super(parent, false);
 
@@ -87,11 +71,23 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
         postInitComponents();
     }
 
+    private void initPaneIndexOfLogfileType() {
+        paneIndexOfFormatterClass.put(XMLFormatter.class, 0);
+        paneIndexOfFormatterClass.put(SimpleFormatter.class, 1);
+    }
+
     private void postInitComponents() {
+        setLogfileNameLabelText();
         initTextPaneDetails();
         initTableLogfileRecords();
         initLevelOfCheckbox();
         listenToCheckboxes();
+    }
+
+    private void setLogfileNameLabelText() {
+        String pattern = labelLogfileName.getText();
+
+        labelLogfileName.setText(MessageFormat.format(pattern, logfilename));
     }
 
     private void initTextPaneDetails() {
@@ -196,8 +192,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
      * <p>
      * Otherwise the dialog does not open the log file.
      *
-     * @param maxBytes maximum amount of bytes.
-     *                 Default: {@link #DEFAULT_MAX_BYTES}.
+     * @param maxBytes maximum amount of bytes. Default: {@link #DEFAULT_MAX_BYTES}.
      */
     public void setMaxBytes(long maxBytes) {
         this.maxBytes = maxBytes;
@@ -435,6 +430,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
 
     private void initComponents() {//GEN-BEGIN:initComponents
 
+        labelLogfileName = new javax.swing.JLabel();
         tabbedPane = new javax.swing.JTabbedPane();
         panelXml = new javax.swing.JPanel();
         panelFilter = new javax.swing.JPanel();
@@ -476,6 +472,9 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
                 formWindowClosing(evt);
             }
         });
+
+        labelLogfileName.setText(bundle.getString("LogfileDialog.labelLogfileName.text")); // NOI18N
+        labelLogfileName.setName("labelLogfileName"); // NOI18N
 
         tabbedPane.setName("tabbedPane"); // NOI18N
 
@@ -616,7 +615,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
             .addGroup(panelSearchXmlLayout.createSequentialGroup()
                 .addComponent(labelSearch)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textFieldSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 393, Short.MAX_VALUE))
+                .addComponent(textFieldSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE))
         );
         panelSearchXmlLayout.setVerticalGroup(
             panelSearchXmlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -633,7 +632,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
                 .addContainerGap()
                 .addGroup(panelFilterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(panelSearchXml, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelFilterCheckBoxes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE))
+                    .addComponent(panelFilterCheckBoxes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 658, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelFilterLayout.setVerticalGroup(
@@ -667,9 +666,9 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
             .addGroup(panelXmlLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelXmlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPaneTableLogfileRecords, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
+                    .addComponent(scrollPaneTableLogfileRecords, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 692, Short.MAX_VALUE)
                     .addComponent(panelFilter, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(scrollPaneTextPaneDetails, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE))
+                    .addComponent(scrollPaneTextPaneDetails, javax.swing.GroupLayout.DEFAULT_SIZE, 692, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelXmlLayout.setVerticalGroup(
@@ -677,9 +676,9 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
             .addGroup(panelXmlLayout.createSequentialGroup()
                 .addComponent(panelFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneTableLogfileRecords, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
+                .addComponent(scrollPaneTableLogfileRecords, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneTextPaneDetails, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
+                .addComponent(scrollPaneTextPaneDetails, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -700,14 +699,14 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
             panelSimpleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelSimpleLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollPanePanelSimple, javax.swing.GroupLayout.DEFAULT_SIZE, 482, Short.MAX_VALUE)
+                .addComponent(scrollPanePanelSimple, javax.swing.GroupLayout.DEFAULT_SIZE, 692, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelSimpleLayout.setVerticalGroup(
             panelSimpleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelSimpleLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollPanePanelSimple, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
+                .addComponent(scrollPanePanelSimple, javax.swing.GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -742,20 +741,23 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(tabbedPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)
+                    .addComponent(tabbedPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 721, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(panelSearchSimple, javax.swing.GroupLayout.DEFAULT_SIZE, 439, Short.MAX_VALUE)
+                        .addComponent(panelSearchSimple, javax.swing.GroupLayout.DEFAULT_SIZE, 649, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(buttonReload)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(buttonExit)))
+                        .addComponent(buttonExit))
+                    .addComponent(labelLogfileName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
+                .addComponent(labelLogfileName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(buttonExit)
@@ -788,13 +790,15 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 LogfileDialog dialog =
-                    new LogfileDialog(new javax.swing.JFrame(), "",
-                                      XMLFormatter.class);
+                        new LogfileDialog(new javax.swing.JFrame(), "",
+                        XMLFormatter.class);
 
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
@@ -804,7 +808,6 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonExit;
     private javax.swing.JButton buttonReload;
@@ -822,6 +825,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
     private javax.swing.JLabel labelIconInfo;
     private javax.swing.JLabel labelIconSevere;
     private javax.swing.JLabel labelIconWarning;
+    private javax.swing.JLabel labelLogfileName;
     private javax.swing.JLabel labelSearch;
     private javax.swing.JPanel panelFilter;
     private javax.swing.JPanel panelFilterCheckBoxes;
