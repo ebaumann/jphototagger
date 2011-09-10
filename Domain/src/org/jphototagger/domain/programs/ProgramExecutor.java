@@ -1,4 +1,4 @@
-package org.jphototagger.program.event.listener;
+package org.jphototagger.domain.programs;
 
 import org.jphototagger.domain.database.programs.Program;
 
@@ -6,6 +6,7 @@ import org.jphototagger.domain.database.programs.Program;
  *
  * @author Elmar Baumann
  */
-public interface ProgramExecutionListener {
+public interface ProgramExecutor {
+
     void execute(Program program);
 }
