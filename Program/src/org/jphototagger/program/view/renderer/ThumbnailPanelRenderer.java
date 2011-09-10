@@ -5,8 +5,8 @@ import org.jphototagger.program.cache.ThumbnailRenderer;
 import org.jphototagger.program.cache.XmpCache;
 import org.jphototagger.domain.thumbnails.ThumbnailFlag;
 import org.jphototagger.domain.xmp.Xmp;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
-import org.jphototagger.domain.database.xmp.ColumnXmpRating;
+import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpRatingMetaDataValue;
 import org.jphototagger.program.datatransfer.Flavor;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import java.awt.Color;
@@ -479,11 +479,11 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
 
             Xmp xmp = xmpCache.getXmp(file);
 
-            if ((xmp == null) ||!xmp.contains(ColumnXmpDcSubjectsSubject.INSTANCE)) {
+            if ((xmp == null) ||!xmp.contains(XmpDcSubjectsSubjectMetaDataValue.INSTANCE)) {
                 return null;
             }
 
-            return (List<String>) xmp.getValue(ColumnXmpDcSubjectsSubject.INSTANCE);
+            return (List<String>) xmp.getValue(XmpDcSubjectsSubjectMetaDataValue.INSTANCE);
         }
     }
 
@@ -505,8 +505,8 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
                 return 0;
             }
 
-            Long rating = xmp.contains(ColumnXmpRating.INSTANCE)
-                          ? (Long) xmp.getValue(ColumnXmpRating.INSTANCE)
+            Long rating = xmp.contains(XmpRatingMetaDataValue.INSTANCE)
+                          ? (Long) xmp.getValue(XmpRatingMetaDataValue.INSTANCE)
                           : null;
 
             if (rating == null) {

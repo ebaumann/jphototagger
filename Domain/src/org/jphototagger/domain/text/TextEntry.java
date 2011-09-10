@@ -1,12 +1,12 @@
 package org.jphototagger.domain.text;
 
-import org.jphototagger.domain.database.Column;
+import org.jphototagger.domain.metadata.MetaDataValue;
 import java.awt.Component;
 import java.awt.event.MouseListener;
 import java.util.List;
 
 /**
- * Text as value of a {@link Column}.
+ * Text as value of a {@link MetaDataValue}.
  *
  * @author Elmar Baumann
  */
@@ -23,7 +23,7 @@ public interface TextEntry {
      */
     void empty(boolean dirty);
 
-    Column getColumn();
+    MetaDataValue getMetaDataValue();
 
     /**
      * Requests the focus to the text input field.

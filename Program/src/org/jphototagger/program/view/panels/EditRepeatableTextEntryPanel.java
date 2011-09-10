@@ -28,10 +28,10 @@ import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jdesktop.swingx.JXList;
 import org.jphototagger.api.core.Storage;
-import org.jphototagger.domain.database.Column;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
 import org.jphototagger.domain.event.listener.TextEntryListener;
 import org.jphototagger.domain.event.listener.TextEntryListenerSupport;
+import org.jphototagger.domain.metadata.MetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.repository.event.dcsubjects.DcSubjectInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
@@ -43,7 +43,7 @@ import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.database.metadata.selections.AutoCompleteDataOfColumn;
+import org.jphototagger.program.database.metadata.selections.AutoCompleteDataOfMetaDataValue;
 import org.jphototagger.program.helper.AutocompleteHelper;
 import org.jphototagger.program.types.Suggest;
 import org.openide.util.Lookup;
@@ -62,7 +62,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
     private static final long serialVersionUID = -5581799743101447535L;
     private String bundleKeyPosRenameDialog;
     private final DefaultListModel model = new DefaultListModel();
-    private transient Column column = ColumnXmpDcSubjectsSubject.INSTANCE;
+    private transient MetaDataValue metaDataValue = XmpDcSubjectsSubjectMetaDataValue.INSTANCE;
     private boolean editable = true;
     private boolean dirty = false;
     private Suggest suggest;
@@ -76,28 +76,28 @@ public final class EditRepeatableTextEntryPanel extends JPanel
         postInitComponents();
     }
 
-    public EditRepeatableTextEntryPanel(Column column) {
-        if (column == null) {
-            throw new NullPointerException("column == null");
+    public EditRepeatableTextEntryPanel(MetaDataValue metaDataValue) {
+        if (metaDataValue == null) {
+            throw new NullPointerException("metaDataValue == null");
         }
 
-        this.column = column;
+        this.metaDataValue = metaDataValue;
         initComponents();
         postInitComponents();
     }
 
     private void postInitComponents() {
         editBackground = textAreaInput.getBackground();
-        textAreaInput.setInputVerifier(column.getInputVerifier());
+        textAreaInput.setInputVerifier(metaDataValue.getInputVerifier());
         textAreaInput.getDocument().addDocumentListener(this);
         model.addListDataListener(this);
         AnnotationProcessor.process(this);
         setPropmt();
-        textAreaInput.setName("JPhotoTagger Text Area for " + column.getDescription());
+        textAreaInput.setName("JPhotoTagger Text Area for " + metaDataValue.getDescription());
     }
 
     private void setPropmt() {
-        labelPrompt.setText(column.getDescription());
+        labelPrompt.setText(metaDataValue.getDescription());
         labelPrompt.setLabelFor(textAreaInput);
     }
 
@@ -120,7 +120,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
             }
             autocomplete = new Autocomplete(false);
             autocomplete.setTransferFocusForward(false);
-            autocomplete.decorate(textAreaInput, AutoCompleteDataOfColumn.INSTANCE.get(column).get(), true);
+            autocomplete.decorate(textAreaInput, AutoCompleteDataOfMetaDataValue.INSTANCE.get(metaDataValue).get(), true);
         }
     }
 
@@ -247,7 +247,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
         }
 
         model.removeElement(text);
-        notifyTextRemoved(column, text);
+        notifyTextRemoved(metaDataValue, text);
         dirty = true;
     }
 
@@ -272,8 +272,8 @@ public final class EditRepeatableTextEntryPanel extends JPanel
     }
 
     @Override
-    public Column getColumn() {
-        return column;
+    public MetaDataValue getMetaDataValue() {
+        return metaDataValue;
     }
 
     /**
@@ -326,7 +326,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
 
             for (Object value : values) {
                 model.removeElement(value);
-                notifyTextRemoved(column, value.toString());
+                notifyTextRemoved(metaDataValue, value.toString());
                 dirty = true;
             }
 
@@ -469,7 +469,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
     }
 
     private int addToList(Collection<String> texts) {
-        if (!column.getInputVerifier().verify(textAreaInput)) {
+        if (!metaDataValue.getInputVerifier().verify(textAreaInput)) {
             return 0;
         }
 
@@ -483,7 +483,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
             if (!trimmedText.isEmpty() &&!model.contains(trimmedText)) {
                 model.addElement(trimmedText);
                 countAdded++;
-                notifyTextAdded(column, trimmedText);
+                notifyTextAdded(metaDataValue, trimmedText);
             }
         }
 
@@ -497,7 +497,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
             }
 
             if (autocomplete != null && getPersistedAutocomplete()) {
-                AutocompleteHelper.addAutocompleteData(column, autocomplete, texts);
+                AutocompleteHelper.addAutocompleteData(metaDataValue, autocomplete, texts);
             }
         }
 
@@ -549,7 +549,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
         if (toName != null) {
             model.set(modelIndex, toName);
             dirty = true;
-            notifyTextChanged(column, fromName, toName);
+            notifyTextChanged(metaDataValue, fromName, toName);
         }
     }
 
@@ -580,16 +580,16 @@ public final class EditRepeatableTextEntryPanel extends JPanel
         textEntryListenerSupport.remove(listener);
     }
 
-    private void notifyTextRemoved(Column column, String removedText) {
-        textEntryListenerSupport.notifyTextRemoved(column, removedText);
+    private void notifyTextRemoved(MetaDataValue value, String removedText) {
+        textEntryListenerSupport.notifyTextRemoved(value, removedText);
     }
 
-    private void notifyTextAdded(Column column, String addedText) {
-        textEntryListenerSupport.notifyTextAdded(column, addedText);
+    private void notifyTextAdded(MetaDataValue value, String addedText) {
+        textEntryListenerSupport.notifyTextAdded(value, addedText);
     }
 
-    private void notifyTextChanged(Column column, String oldText, String newText) {
-        textEntryListenerSupport.notifyTextChanged(column, oldText, newText);
+    private void notifyTextChanged(MetaDataValue value, String oldText, String newText) {
+        textEntryListenerSupport.notifyTextChanged(value, oldText, newText);
     }
 
     @Override
@@ -603,7 +603,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
         int index1 = evt.getIndex1();
 
         for (int i = index0; i <= index1; i++) {
-            notifyTextAdded(column, model.get(i).toString());
+            notifyTextAdded(metaDataValue, model.get(i).toString());
             dirty = true;
         }
     }
@@ -659,7 +659,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
 
     private void addToAutocomplete(Xmp xmp) {
         if (isAutocomplete()) {
-            AutocompleteHelper.addAutocompleteData(column, autocomplete, xmp);
+            AutocompleteHelper.addAutocompleteData(metaDataValue, autocomplete, xmp);
         }
     }
 
@@ -676,7 +676,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
     @EventSubscriber(eventClass = DcSubjectInsertedEvent.class)
     public void dcSubjectInserted(DcSubjectInsertedEvent evt) {
         if (isAutocomplete()) {
-            AutocompleteHelper.addAutocompleteData(ColumnXmpDcSubjectsSubject.INSTANCE, autocomplete, Collections.singleton(evt.getDcSubject()));
+            AutocompleteHelper.addAutocompleteData(XmpDcSubjectsSubjectMetaDataValue.INSTANCE, autocomplete, Collections.singleton(evt.getDcSubject()));
         }
     }
 
@@ -731,7 +731,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
         setLayout(new java.awt.GridBagLayout());
 
         labelPrompt.setText("Prompt:"); // NOI18N
-        labelPrompt.setToolTipText(column.getLongerDescription());
+        labelPrompt.setToolTipText(metaDataValue.getLongerDescription());
         labelPrompt.setName("labelPrompt"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;

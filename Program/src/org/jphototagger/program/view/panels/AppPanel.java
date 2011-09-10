@@ -54,7 +54,7 @@ import org.jphototagger.program.model.ListModelWait;
 import org.jphototagger.program.model.TreeModelWait;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.SettingsThumbnailDimensionsDialog;
-import org.jphototagger.program.view.renderer.ListCellRendererFastSearchColumns;
+import org.jphototagger.program.view.renderer.ListCellRendererFastSearchMetaDataValues;
 import org.jphototagger.program.view.renderer.ListCellRendererFileFilters;
 import org.jphototagger.program.view.renderer.ListCellRendererImageCollections;
 import org.jphototagger.program.view.renderer.ListCellRendererKeywords;
@@ -885,7 +885,7 @@ public final class AppPanel extends javax.swing.JPanel {
 
         comboBoxFastSearch.setModel(new ComboBoxModelFastSearch());
         comboBoxFastSearch.setName("comboBoxFastSearch"); // NOI18N
-        comboBoxFastSearch.setRenderer(new ListCellRendererFastSearchColumns());
+        comboBoxFastSearch.setRenderer(new ListCellRendererFastSearchMetaDataValues());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;

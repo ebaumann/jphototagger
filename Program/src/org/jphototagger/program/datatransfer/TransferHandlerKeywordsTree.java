@@ -13,8 +13,8 @@ import javax.swing.TransferHandler;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
-import org.jphototagger.domain.database.ColumnData;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.domain.metadata.MetaDataValueData;
+import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.keywords.Keyword;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.datatransfer.TransferUtil;
@@ -132,10 +132,10 @@ public final class TransferHandlerKeywordsTree extends TransferHandler {
             return false;
         }
 
-        List<ColumnData> cd = new ArrayList<ColumnData>(keywords.size());
+        List<MetaDataValueData> cd = new ArrayList<MetaDataValueData>(keywords.size());
 
         for (Keyword keyword : keywords) {
-            cd.add(new ColumnData(ColumnXmpDcSubjectsSubject.INSTANCE, keyword.getName()));
+            cd.add(new MetaDataValueData(XmpDcSubjectsSubjectMetaDataValue.INSTANCE, keyword.getName()));
         }
 
         List<File> imageFiles = Support.getImageFiles(support);

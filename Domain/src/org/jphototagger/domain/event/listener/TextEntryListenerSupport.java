@@ -1,7 +1,6 @@
 package org.jphototagger.domain.event.listener;
 
-import org.jphototagger.domain.database.Column;
-import org.jphototagger.domain.event.listener.TextEntryListener;
+import org.jphototagger.domain.metadata.MetaDataValue;
 
 /**
  * Support to add, remove and notify {@link TextEntryListener}s.
@@ -10,9 +9,9 @@ import org.jphototagger.domain.event.listener.TextEntryListener;
  */
 public final class TextEntryListenerSupport extends ListenerSupport<TextEntryListener> {
 
-    public void notifyTextRemoved(Column column, String removedText) {
-        if (column == null) {
-            throw new NullPointerException("column == null");
+    public void notifyTextRemoved(MetaDataValue metaDataValue, String removedText) {
+        if (metaDataValue == null) {
+            throw new NullPointerException("metaDataValue == null");
         }
 
         if (removedText == null) {
@@ -20,13 +19,13 @@ public final class TextEntryListenerSupport extends ListenerSupport<TextEntryLis
         }
 
         for (TextEntryListener listener : listeners) {
-            listener.textRemoved(column, removedText);
+            listener.textRemoved(metaDataValue, removedText);
         }
     }
 
-    public void notifyTextAdded(Column column, String addedText) {
-        if (column == null) {
-            throw new NullPointerException("column == null");
+    public void notifyTextAdded(MetaDataValue metaDataValue, String addedText) {
+        if (metaDataValue == null) {
+            throw new NullPointerException("metaDataValue == null");
         }
 
         if (addedText == null) {
@@ -34,13 +33,13 @@ public final class TextEntryListenerSupport extends ListenerSupport<TextEntryLis
         }
 
         for (TextEntryListener listener : listeners) {
-            listener.textAdded(column, addedText);
+            listener.textAdded(metaDataValue, addedText);
         }
     }
 
-    public void notifyTextChanged(Column column, String oldText, String newText) {
-        if (column == null) {
-            throw new NullPointerException("column == null");
+    public void notifyTextChanged(MetaDataValue metaDataValue, String oldText, String newText) {
+        if (metaDataValue == null) {
+            throw new NullPointerException("metaDataValue == null");
         }
 
         if (oldText == null) {
@@ -52,7 +51,7 @@ public final class TextEntryListenerSupport extends ListenerSupport<TextEntryLis
         }
 
         for (TextEntryListener listener : listeners) {
-            listener.textChanged(column, oldText, newText);
+            listener.textChanged(metaDataValue, oldText, newText);
         }
     }
 }

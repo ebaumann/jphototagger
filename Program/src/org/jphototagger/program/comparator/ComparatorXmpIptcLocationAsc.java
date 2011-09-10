@@ -2,7 +2,7 @@ package org.jphototagger.program.comparator;
 
 import org.jphototagger.lib.util.ClassEquality;
 import org.jphototagger.domain.xmp.Xmp;
-import org.jphototagger.domain.database.xmp.ColumnXmpIptc4xmpcoreLocation;
+import org.jphototagger.domain.metadata.xmp.XmpIptc4xmpcoreLocationMetaDataValue;
 import java.io.File;
 import java.io.Serializable;
 import java.text.Collator;
@@ -26,10 +26,10 @@ public final class ComparatorXmpIptcLocationAsc extends ClassEquality implements
         Xmp xmpRight = repo.getXmpOfImageFile(fileRight);
         Object locLeft = (xmpLeft == null)
                 ? null
-                : xmpLeft.getValue(ColumnXmpIptc4xmpcoreLocation.INSTANCE);
+                : xmpLeft.getValue(XmpIptc4xmpcoreLocationMetaDataValue.INSTANCE);
         Object locRight = (xmpRight == null)
                 ? null
-                : xmpRight.getValue(ColumnXmpIptc4xmpcoreLocation.INSTANCE);
+                : xmpRight.getValue(XmpIptc4xmpcoreLocationMetaDataValue.INSTANCE);
 
         return ((locLeft == null) && (locRight == null))
                 ? 0

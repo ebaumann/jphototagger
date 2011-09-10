@@ -7,7 +7,7 @@ import java.util.List;
 
 import javax.swing.JButton;
 
-import org.jphototagger.domain.database.search.ParamStatement;
+import org.jphototagger.domain.metadata.search.ParamStatement;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.lib.util.Bundle;

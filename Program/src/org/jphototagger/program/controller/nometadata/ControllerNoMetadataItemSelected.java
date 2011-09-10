@@ -1,18 +1,20 @@
 package org.jphototagger.program.controller.nometadata;
 
-import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
-import org.jphototagger.domain.database.Column;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
-import org.jphototagger.program.view.panels.AppPanel;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
-import org.jphototagger.program.view.WaitDisplay;
 import java.io.File;
 import java.util.List;
+
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+
+import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.repository.ImageFileRepository;
+import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.view.WaitDisplay;
+import org.jphototagger.program.view.panels.AppPanel;
+import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.openide.util.Lookup;
 
 /**
@@ -46,10 +48,10 @@ public final class ControllerNoMetadataItemSelected implements ListSelectionList
 
         Object selValue = GUI.getNoMetadataList().getSelectedValue();
 
-        if (selValue instanceof Column) {
-            List<File> imageFiles = repo.getImageFilesWithoutMetadataInColumn((Column) selValue);
+        if (selValue instanceof MetaDataValue) {
+            List<File> imageFiles = repo.getImageFilesWithoutDataValue((MetaDataValue) selValue);
 
-            setTitle((Column) selValue);
+            setTitle((MetaDataValue) selValue);
 
             ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
@@ -59,9 +61,9 @@ public final class ControllerNoMetadataItemSelected implements ListSelectionList
         }
     }
 
-    private void setTitle(Column column) {
+    private void setTitle(MetaDataValue mdValue) {
         GUI.getAppFrame().setTitle(
                 Bundle.getString(ControllerNoMetadataItemSelected.class,
-                "ControllerNoMetadataItemSelected.AppFrame.Title.WithoutMetadata", column.getDescription()));
+                "ControllerNoMetadataItemSelected.AppFrame.Title.WithoutMetadata", mdValue.getDescription()));
     }
 }

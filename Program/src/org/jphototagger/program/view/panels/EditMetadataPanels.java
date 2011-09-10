@@ -29,17 +29,18 @@ import org.bushe.swing.event.EventBus;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.core.Storage;
-import org.jphototagger.domain.database.Column;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
-import org.jphototagger.domain.database.xmp.ColumnXmpRating;
 import org.jphototagger.domain.event.AppWillExitEvent;
+import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.event.EditMetadataPanelsEditDisabledEvent;
 import org.jphototagger.domain.metadata.event.EditMetadataPanelsEditEnabledEvent;
+import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpRatingMetaDataValue;
 import org.jphototagger.domain.repository.event.xmp.XmpDeletedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.domain.text.TextEntry;
+import org.jphototagger.domain.xmp.FileXmp;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
@@ -50,10 +51,9 @@ import org.jphototagger.program.helper.SaveXmp;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.ViewUtil;
 import org.jphototagger.program.view.WaitDisplay;
-import org.jphototagger.xmp.EditColumns;
 import org.jphototagger.xmp.EditHints;
 import org.jphototagger.xmp.EditHints.SizeEditField;
-import org.jphototagger.domain.xmp.FileXmp;
+import org.jphototagger.xmp.EditMetaDataValues;
 import org.jphototagger.xmp.XmpMetadata;
 import org.openide.util.Lookup;
 
@@ -243,19 +243,19 @@ public final class EditMetadataPanels implements FocusListener {
     }
 
     /**
-     * Returns an edit panel for a specific column.
+     * Returns an edit panel for a specific metadata value.
      *
-     * @param  column column
-     * @return        panel or null if for that column an edit panel doesn't
+     * @param  value
+     * @return        panel or null if for that metadata value an edit panel doesn't
      *                exist
      */
-    public JPanel getEditPanel(Column column) {
-        if (column == null) {
-            throw new NullPointerException("column == null");
+    public JPanel getEditPanel(MetaDataValue value) {
+        if (value == null) {
+            throw new NullPointerException("value == null");
         }
 
         for (JPanel panel : panels) {
-            if (((TextEntry) panel).getColumn().equals(column)) {
+            if (((TextEntry) panel).getMetaDataValue().equals(value)) {
                 return panel;
             }
         }
@@ -268,12 +268,12 @@ public final class EditMetadataPanels implements FocusListener {
      * {@link EditRepeatableTextEntryPanel} and if {@link #isEditable()} is
      * true.
      *
-     * @param column column
+     * @param value
      * @param text   text to add
      */
-    public void addText(final Column column, final String text) {
-        if (column == null) {
-            throw new NullPointerException("column == null");
+    public void addText(final MetaDataValue value, final String text) {
+        if (value == null) {
+            throw new NullPointerException("value == null");
         }
 
         if (text == null) {
@@ -294,7 +294,7 @@ public final class EditMetadataPanels implements FocusListener {
                 for (int i = 0; (panelAdd == null) && (i < size); i++) {
                     JPanel panel = panels.get(i);
 
-                    if (((TextEntry) panel).getColumn().equals(column)) {
+                    if (((TextEntry) panel).getMetaDataValue().equals(value)) {
                         panelAdd = panel;
                     }
                 }
@@ -313,9 +313,9 @@ public final class EditMetadataPanels implements FocusListener {
         });
     }
 
-    public void removeText(final Column column, final String text) {
-        if (column == null) {
-            throw new NullPointerException("column == null");
+    public void removeText(final MetaDataValue value, final String text) {
+        if (value == null) {
+            throw new NullPointerException("value == null");
         }
 
         if (text == null) {
@@ -337,7 +337,7 @@ public final class EditMetadataPanels implements FocusListener {
                 for (int i = 0; (panelRemove == null) && (i < size); i++) {
                     JPanel panel = panels.get(i);
 
-                    if (((TextEntry) panel).getColumn().equals(column)) {
+                    if (((TextEntry) panel).getMetaDataValue().equals(value)) {
                         panelRemove = panel;
                     }
                 }
@@ -368,15 +368,15 @@ public final class EditMetadataPanels implements FocusListener {
             if (panel instanceof EditTextEntryPanel) {
                 EditTextEntryPanel p = (EditTextEntryPanel) panel;
 
-                xmp.setValue(p.getColumn(), p.getText());
+                xmp.setValue(p.getMetaDataValue(), p.getText());
             } else if (panel instanceof EditRepeatableTextEntryPanel) {
                 EditRepeatableTextEntryPanel p = (EditRepeatableTextEntryPanel) panel;
-                Column column = p.getColumn();
+                MetaDataValue value = p.getMetaDataValue();
 
-                xmp.setValue(column, p.getText());
+                xmp.setValue(value, p.getText());
 
                 for (String text : p.getRepeatableText()) {
-                    xmp.setValue(column, text);
+                    xmp.setValue(value, text);
                 }
             } else if (panel instanceof RatingSelectionPanel) {
                 RatingSelectionPanel p = (RatingSelectionPanel) panel;
@@ -387,7 +387,7 @@ public final class EditMetadataPanels implements FocusListener {
                     String s = p.getText();
 
                     if ((s != null) && !s.isEmpty()) {
-                        xmp.setValue(ColumnXmpRating.INSTANCE, Long.getLong(s));
+                        xmp.setValue(XmpRatingMetaDataValue.INSTANCE, Long.getLong(s));
                     }
                 } catch (Exception ex) {
                     Logger.getLogger(EditMetadataPanels.class.getName()).log(Level.SEVERE, null, ex);
@@ -422,7 +422,7 @@ public final class EditMetadataPanels implements FocusListener {
                 for (JPanel panel : panels) {
                     if (panel instanceof EditTextEntryPanel) {
                         EditTextEntryPanel p = (EditTextEntryPanel) panel;
-                        Object value = xmp.getValue(p.getColumn());
+                        Object value = xmp.getValue(p.getMetaDataValue());
 
                         if (value != null) {
                             p.setText(value.toString());
@@ -430,8 +430,8 @@ public final class EditMetadataPanels implements FocusListener {
                         }
                     } else if (panel instanceof EditRepeatableTextEntryPanel) {
                         EditRepeatableTextEntryPanel p = (EditRepeatableTextEntryPanel) panel;
-                        Column column = p.getColumn();
-                        Object value = xmp.getValue(column);
+                        MetaDataValue mdValue = p.getMetaDataValue();
+                        Object value = xmp.getValue(mdValue);
 
                         if (value instanceof Collection<?>) {
                             Collection<?> collection = (Collection<?>) value;
@@ -443,8 +443,8 @@ public final class EditMetadataPanels implements FocusListener {
                         }
                     } else if (panel instanceof RatingSelectionPanel) {
                         RatingSelectionPanel p = (RatingSelectionPanel) panel;
-                        Long rating = xmp.contains(ColumnXmpRating.INSTANCE)
-                                ? (Long) xmp.getValue(ColumnXmpRating.INSTANCE)
+                        Long rating = xmp.contains(XmpRatingMetaDataValue.INSTANCE)
+                                ? (Long) xmp.getValue(XmpRatingMetaDataValue.INSTANCE)
                                 : null;
 
                         if (rating != null) {
@@ -483,7 +483,7 @@ public final class EditMetadataPanels implements FocusListener {
                 for (int i = 0; (panelToSet == null) && (i < size); i++) {
                     JPanel panel = panels.get(i);
 
-                    if (((TextEntry) panel).getColumn().equals(ColumnXmpRating.INSTANCE)) {
+                    if (((TextEntry) panel).getMetaDataValue().equals(XmpRatingMetaDataValue.INSTANCE)) {
                         panelToSet = panel;
                     }
                 }
@@ -518,7 +518,7 @@ public final class EditMetadataPanels implements FocusListener {
             public void run() {
                 for (JPanel panel : panels) {
                     TextEntry textEntry = (TextEntry) panel;
-                    Object value = template.getValueOfColumn(textEntry.getColumn());
+                    Object value = template.getMetaDataValue(textEntry.getMetaDataValue());
 
                     if (value instanceof String) {
                         String string = (String) value;
@@ -543,7 +543,7 @@ public final class EditMetadataPanels implements FocusListener {
      * Liefert ein Metadaten-Edit-Template mit den Daten der Panels.
      *
      * @return Template <em>ohne</em> Name
-     *        ({@link org.jphototagger.program.data.MetadataTemplate#getName()})
+     *        ({@link org.jphototagger.program.data.MetadataTemplate#getValueName()})
      */
     public MetadataTemplate getMetadataTemplate() {
         MetadataTemplate template = new MetadataTemplate();
@@ -554,12 +554,12 @@ public final class EditMetadataPanels implements FocusListener {
             if (textEntry instanceof EditRepeatableTextEntryPanel) {
                 EditRepeatableTextEntryPanel repeatableEntry = (EditRepeatableTextEntryPanel) textEntry;
 
-                template.setValueOfColumn(textEntry.getColumn(), repeatableEntry.getRepeatableText());
+                template.setMetaDataValue(textEntry.getMetaDataValue(), repeatableEntry.getRepeatableText());
             } else {
                 String value = textEntry.getText();
 
                 if ((value != null) && !value.trim().isEmpty()) {
-                    template.setValueOfColumn(textEntry.getColumn(), value.trim());
+                    template.setMetaDataValue(textEntry.getMetaDataValue(), value.trim());
                 }
             }
         }
@@ -596,18 +596,18 @@ public final class EditMetadataPanels implements FocusListener {
 
         for (JPanel panel : panels) {
             TextEntry textEntry = (TextEntry) panel;
-            Column xmpColumn = textEntry.getColumn();
+            MetaDataValue xmpValue = textEntry.getMetaDataValue();
 
             if (textEntry instanceof EditRepeatableTextEntryPanel) {
                 EditRepeatableTextEntryPanel editPanel = (EditRepeatableTextEntryPanel) textEntry;
 
-                editPanel.setText(getCommonXmpCollection(xmpColumn));
+                editPanel.setText(getCommonXmpCollection(xmpValue));
             } else {
-                String commonText = getCommonXmpString(xmpColumn);
+                String commonText = getCommonXmpString(xmpValue);
 
                 textEntry.setText(commonText);
 
-                if (multipleFiles() && commonText.isEmpty() && hasValue(xmpColumn)) {
+                if (multipleFiles() && commonText.isEmpty() && hasValue(xmpValue)) {
                     watchEntries.add(textEntry);
                 }
             }
@@ -626,11 +626,11 @@ public final class EditMetadataPanels implements FocusListener {
     }
 
     @SuppressWarnings("unchecked")
-    private Collection<String> getCommonXmpCollection(Column column) {
+    private Collection<String> getCommonXmpCollection(MetaDataValue mdValue) {
         assert imageFilesXmp.size() >= 1 : "No files!";
 
         if (imageFilesXmp.size() == 1) {
-            Object value = imageFilesXmp.get(0).getXmp().getValue(column);
+            Object value = imageFilesXmp.get(0).getXmp().getValue(mdValue);
 
             if (value instanceof List<?>) {
                 return (List<String>) value;
@@ -644,7 +644,7 @@ public final class EditMetadataPanels implements FocusListener {
 
         for (FileXmp imageFileXmp : imageFilesXmp) {
             Xmp xmp = imageFileXmp.getXmp();
-            Object value = xmp.getValue(column);
+            Object value = xmp.getValue(mdValue);
 
             if (value instanceof List<?>) {
                 lists.push((List<String>) value);
@@ -666,11 +666,11 @@ public final class EditMetadataPanels implements FocusListener {
         return coll;
     }
 
-    private String getCommonXmpString(Column column) {
+    private String getCommonXmpString(MetaDataValue mdValue) {
         assert imageFilesXmp.size() >= 1 : "No files!";
 
         if (imageFilesXmp.size() == 1) {
-            String value = toString(imageFilesXmp.get(0).getXmp().getValue(column));
+            String value = toString(imageFilesXmp.get(0).getXmp().getValue(mdValue));
 
             return (value == null)
                     ? ""
@@ -682,7 +682,7 @@ public final class EditMetadataPanels implements FocusListener {
 
         for (FileXmp imageFileXmp : imageFilesXmp) {
             Xmp xmp = imageFileXmp.getXmp();
-            String value = toString(xmp.getValue(column));
+            String value = toString(xmp.getValue(mdValue));
 
             if (value != null) {
                 strings.push(value.trim());
@@ -704,10 +704,10 @@ public final class EditMetadataPanels implements FocusListener {
         return string;
     }
 
-    private boolean hasValue(Column column) {
+    private boolean hasValue(MetaDataValue mdValue) {
         for (FileXmp imageFileXmp : imageFilesXmp) {
             Xmp xmp = imageFileXmp.getXmp();
-            String value = toString(xmp.getValue(column));
+            String value = toString(xmp.getValue(mdValue));
 
             if ((value != null) && !value.trim().isEmpty()) {
                 return true;
@@ -823,27 +823,27 @@ public final class EditMetadataPanels implements FocusListener {
     }
 
     private void createEditPanels() {
-        List<Column> columns = EditColumns.get();
+        List<MetaDataValue> mdValues = EditMetaDataValues.get();
 
-        for (Column column : columns) {
-            EditHints editHints = EditColumns.getEditHints(column);
+        for (MetaDataValue mdValue : mdValues) {
+            EditHints editHints = EditMetaDataValues.getEditHints(mdValue);
             boolean large = editHints.getSizeEditField().equals(SizeEditField.LARGE);
             boolean isRepeatable = editHints.isRepeatable();
 
             if (isRepeatable) {
-                EditRepeatableTextEntryPanel panel = new EditRepeatableTextEntryPanel(column);
+                EditRepeatableTextEntryPanel panel = new EditRepeatableTextEntryPanel(mdValue);
 
                 panel.textAreaInput.addFocusListener(this);
 
-                if (column.equals(ColumnXmpDcSubjectsSubject.INSTANCE)) {
+                if (mdValue.equals(XmpDcSubjectsSubjectMetaDataValue.INSTANCE)) {
                     panel.setSuggest(new SuggestKeywords());
                     panel.setBundleKeyPosRenameDialog("EditMetadataPanels.Keywords.RenameDialog.Pos");
                 }
 
                 panels.add(panel);
             } else {
-                if (column.equals(ColumnXmpRating.INSTANCE)) {
-                    RatingSelectionPanel panel = new RatingSelectionPanel(column);
+                if (mdValue.equals(XmpRatingMetaDataValue.INSTANCE)) {
+                    RatingSelectionPanel panel = new RatingSelectionPanel(mdValue);
 
                     for (Component c : panel.getInputComponents()) {
                         c.addFocusListener(this);
@@ -851,7 +851,7 @@ public final class EditMetadataPanels implements FocusListener {
 
                     panels.add(panel);
                 } else {
-                    EditTextEntryPanel panel = new EditTextEntryPanel(column);
+                    EditTextEntryPanel panel = new EditTextEntryPanel(mdValue);
 
                     panel.textAreaEdit.addFocusListener(this);
                     panel.textAreaEdit.setRows(large

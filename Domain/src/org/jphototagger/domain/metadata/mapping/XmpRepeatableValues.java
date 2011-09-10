@@ -1,76 +1,69 @@
 package org.jphototagger.domain.metadata.mapping;
 
-import org.jphototagger.domain.database.Column;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcCreator;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcDescription;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcRights;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcTitle;
-import org.jphototagger.domain.database.xmp.ColumnXmpIptc4XmpCoreDateCreated;
-import org.jphototagger.domain.database.xmp.ColumnXmpIptc4xmpcoreLocation;
-import org.jphototagger.domain.database.xmp.ColumnXmpLastModified;
-import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopAuthorsposition;
-import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopCaptionwriter;
-import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopCity;
-import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopCountry;
-import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopCredit;
-import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopHeadline;
-import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopInstructions;
-import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopSource;
-import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopState;
-import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopTransmissionReference;
-import org.jphototagger.domain.database.xmp.ColumnXmpRating;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.jphototagger.domain.metadata.MetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpDcCreatorMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpDcDescriptionMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpDcRightsMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpDcTitleMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpIptc4XmpCoreDateCreatedMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpIptc4xmpcoreLocationMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpLastModifiedMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopAuthorspositionMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopCaptionwriterMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopCityMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopCountryMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopCreditMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopHeadlineMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopInstructionsMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopSourceMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopStateMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopTransmissionReferenceMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpRatingMetaDataValue;
+
 /**
- * Returns, whether a XMP column has repeatable values.
+ * Returns, whether a XMP metadata value is repeatable.
  *
  * @author Elmar Baumann
  */
 public final class XmpRepeatableValues {
 
-    private static final Map<Column, Boolean> IS_REPEATABLE = new HashMap<Column, Boolean>();
+    private static final Map<MetaDataValue, Boolean> IS_REPEATABLE = new HashMap<MetaDataValue, Boolean>();
 
     static {
-        IS_REPEATABLE.put(ColumnXmpDcCreator.INSTANCE, false);
-        IS_REPEATABLE.put(ColumnXmpDcDescription.INSTANCE, false);
-        IS_REPEATABLE.put(ColumnXmpDcRights.INSTANCE, false);
-        IS_REPEATABLE.put(ColumnXmpDcSubjectsSubject.INSTANCE, true);
-        IS_REPEATABLE.put(ColumnXmpDcTitle.INSTANCE, false);
-        IS_REPEATABLE.put(ColumnXmpIptc4xmpcoreLocation.INSTANCE, false);
-        IS_REPEATABLE.put(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE, false);
-        IS_REPEATABLE.put(ColumnXmpPhotoshopAuthorsposition.INSTANCE, false);
-        IS_REPEATABLE.put(ColumnXmpPhotoshopCaptionwriter.INSTANCE, false);
-        IS_REPEATABLE.put(ColumnXmpPhotoshopCity.INSTANCE, false);
-        IS_REPEATABLE.put(ColumnXmpPhotoshopCountry.INSTANCE, false);
-        IS_REPEATABLE.put(ColumnXmpPhotoshopCredit.INSTANCE, false);
-        IS_REPEATABLE.put(ColumnXmpPhotoshopHeadline.INSTANCE, false);
-        IS_REPEATABLE.put(ColumnXmpPhotoshopInstructions.INSTANCE, false);
-        IS_REPEATABLE.put(ColumnXmpPhotoshopSource.INSTANCE, false);
-        IS_REPEATABLE.put(ColumnXmpPhotoshopState.INSTANCE, false);
-        IS_REPEATABLE.put(ColumnXmpPhotoshopTransmissionReference.INSTANCE, false);
-        IS_REPEATABLE.put(ColumnXmpLastModified.INSTANCE, false);
-        IS_REPEATABLE.put(ColumnXmpRating.INSTANCE, false);
+        IS_REPEATABLE.put(XmpDcCreatorMetaDataValue.INSTANCE, false);
+        IS_REPEATABLE.put(XmpDcDescriptionMetaDataValue.INSTANCE, false);
+        IS_REPEATABLE.put(XmpDcRightsMetaDataValue.INSTANCE, false);
+        IS_REPEATABLE.put(XmpDcSubjectsSubjectMetaDataValue.INSTANCE, true);
+        IS_REPEATABLE.put(XmpDcTitleMetaDataValue.INSTANCE, false);
+        IS_REPEATABLE.put(XmpIptc4xmpcoreLocationMetaDataValue.INSTANCE, false);
+        IS_REPEATABLE.put(XmpIptc4XmpCoreDateCreatedMetaDataValue.INSTANCE, false);
+        IS_REPEATABLE.put(XmpPhotoshopAuthorspositionMetaDataValue.INSTANCE, false);
+        IS_REPEATABLE.put(XmpPhotoshopCaptionwriterMetaDataValue.INSTANCE, false);
+        IS_REPEATABLE.put(XmpPhotoshopCityMetaDataValue.INSTANCE, false);
+        IS_REPEATABLE.put(XmpPhotoshopCountryMetaDataValue.INSTANCE, false);
+        IS_REPEATABLE.put(XmpPhotoshopCreditMetaDataValue.INSTANCE, false);
+        IS_REPEATABLE.put(XmpPhotoshopHeadlineMetaDataValue.INSTANCE, false);
+        IS_REPEATABLE.put(XmpPhotoshopInstructionsMetaDataValue.INSTANCE, false);
+        IS_REPEATABLE.put(XmpPhotoshopSourceMetaDataValue.INSTANCE, false);
+        IS_REPEATABLE.put(XmpPhotoshopStateMetaDataValue.INSTANCE, false);
+        IS_REPEATABLE.put(XmpPhotoshopTransmissionReferenceMetaDataValue.INSTANCE, false);
+        IS_REPEATABLE.put(XmpLastModifiedMetaDataValue.INSTANCE, false);
+        IS_REPEATABLE.put(XmpRatingMetaDataValue.INSTANCE, false);
     }
 
-    /**
-     * Returns, whether a XMP column has repeatable values.
-     *
-     * @param  xmpColumn  XMP column
-     * @return true if the column contains repeatable values
-     * @throws IllegalArgumentException if there is no information whether
-     *         the column has repeatable values
-     */
-    public static boolean isRepeatable(Column xmpColumn) {
-        if (xmpColumn == null) {
-            throw new NullPointerException("xmpColumn == null");
+    public static boolean isRepeatable(MetaDataValue value) {
+        if (value == null) {
+            throw new NullPointerException("value == null");
         }
 
-        Boolean repeatable = IS_REPEATABLE.get(xmpColumn);
+        Boolean repeatable = IS_REPEATABLE.get(value);
 
         if (repeatable == null) {
-            throw new IllegalArgumentException("Unknown column: " + xmpColumn);
+            throw new IllegalArgumentException("Unknown value: " + value);
         }
 
         return repeatable;

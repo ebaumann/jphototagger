@@ -1,6 +1,6 @@
 package org.jphototagger.domain.event.listener;
 
-import org.jphototagger.domain.database.Column;
+import org.jphototagger.domain.metadata.MetaDataValue;
 
 /**
  * Listens to an {@link org.jphototagger.program.data.TextEntry}.
@@ -12,25 +12,25 @@ public interface TextEntryListener {
     /**
      * Text was removed from a repeatable text entry.
      *
-     * @param column      column
+     * @param metaDataValue
      * @param removedText removed text
      */
-    void textRemoved(Column column, String removedText);
+    void textRemoved(MetaDataValue metaDataValue, String removedText);
 
     /**
      * Text was added to a repeatable text entry.
      *
-     * @param column    column
+     * @param metaDataValue
      * @param addedText added text
      */
-    void textAdded(Column column, String addedText);
+    void textAdded(MetaDataValue metaDataValue, String addedText);
 
     /**
      * Text has been changed.
      *
-     * @param column  column
+     * @param metaDataValue
      * @param oldText old text
      * @param newText new text
      */
-    void textChanged(Column column, String oldText, String newText);
+    void textChanged(MetaDataValue metaDataValue, String oldText, String newText);
 }

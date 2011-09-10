@@ -21,8 +21,8 @@ import javax.swing.tree.TreePath;
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.JXTree;
 import org.jphototagger.domain.repository.InsertIntoRepository;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
-import org.jphototagger.domain.database.xmp.ColumnXmpLastModified;
+import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpLastModifiedMetaDataValue;
 import org.jphototagger.domain.image.ImageFile;
 import org.jphototagger.domain.keywords.Keyword;
 import org.jphototagger.domain.repository.ImageFileRepository;
@@ -82,7 +82,7 @@ public final class KeywordsHelper {
                 List<String> keywordStrings = getKeywordStrings(node, true);
 
                 for (String keyword : keywordStrings) {
-                    editPanels.addText(ColumnXmpDcSubjectsSubject.INSTANCE, keyword);
+                    editPanels.addText(XmpDcSubjectsSubjectMetaDataValue.INSTANCE, keyword);
                 }
 
                 if (keywordStrings.size() > 1) {
@@ -167,8 +167,8 @@ public final class KeywordsHelper {
         }
 
         for (String keyword : keywordStrings) {
-            if (!xmp.containsValue(ColumnXmpDcSubjectsSubject.INSTANCE, keyword)) {
-                xmp.setValue(ColumnXmpDcSubjectsSubject.INSTANCE, keyword);
+            if (!xmp.containsValue(XmpDcSubjectsSubjectMetaDataValue.INSTANCE, keyword)) {
+                xmp.setValue(XmpDcSubjectsSubjectMetaDataValue.INSTANCE, keyword);
             }
         }
 
@@ -454,7 +454,7 @@ public final class KeywordsHelper {
 
             imageFile.setFile(imgFile);
             imageFile.setLastmodified(imgFile.lastModified());
-            xmp.setValue(ColumnXmpLastModified.INSTANCE, sidecarFile.lastModified());
+            xmp.setValue(XmpLastModifiedMetaDataValue.INSTANCE, sidecarFile.lastModified());
             imageFile.setXmp(xmp);
             imageFile.addInsertIntoDb(InsertIntoRepository.XMP);
             repo.insertOrUpdateImageFile(imageFile);
@@ -494,7 +494,7 @@ public final class KeywordsHelper {
                 }
 
                 if (xmp != null) {
-                    xmp.removeValue(ColumnXmpDcSubjectsSubject.INSTANCE, dcSubject);
+                    xmp.removeValue(XmpDcSubjectsSubjectMetaDataValue.INSTANCE, dcSubject);
                     updateXmp(xmp, imageFile, sidecarFile);
                 }
 
@@ -556,8 +556,8 @@ public final class KeywordsHelper {
                 }
 
                 if (xmp != null) {
-                    xmp.removeValue(ColumnXmpDcSubjectsSubject.INSTANCE, fromName);
-                    xmp.setValue(ColumnXmpDcSubjectsSubject.INSTANCE, toName);
+                    xmp.removeValue(XmpDcSubjectsSubjectMetaDataValue.INSTANCE, fromName);
+                    xmp.setValue(XmpDcSubjectsSubjectMetaDataValue.INSTANCE, toName);
                     updateXmp(xmp, imageFile, sidecarFile);
                 }
 

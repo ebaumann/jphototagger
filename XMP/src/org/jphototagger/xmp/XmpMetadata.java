@@ -12,14 +12,14 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.domain.database.Column;
-import org.jphototagger.domain.database.xmp.ColumnXmpLastModified;
-import org.jphototagger.domain.repository.xmp.XmpInRepository;
+import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.mapping.IptcEntryXmpPathStartMapping;
-import org.jphototagger.domain.metadata.mapping.XmpColumnNamespaceUriMapping;
-import org.jphototagger.domain.metadata.mapping.XmpColumnXmpArrayNameMapping;
-import org.jphototagger.domain.metadata.mapping.XmpColumnXmpDataTypeMapping;
-import org.jphototagger.domain.metadata.mapping.XmpColumnXmpDataTypeMapping.XmpValueType;
+import org.jphototagger.domain.metadata.mapping.XmpMetaDataValueXmpArrayNameMapping;
+import org.jphototagger.domain.metadata.mapping.XmpMetaDataValueXmpValueTypeMapping;
+import org.jphototagger.domain.metadata.mapping.XmpMetaDataValueXmpValueTypeMapping.XmpValueType;
+import org.jphototagger.domain.metadata.mapping.XmpMetaDataValuesNamespaceUriMapping;
+import org.jphototagger.domain.metadata.xmp.XmpLastModifiedMetaDataValue;
+import org.jphototagger.domain.repository.xmp.XmpInRepository;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.io.FileLock;
 import org.jphototagger.lib.io.FileUtil;
@@ -374,11 +374,11 @@ public final class XmpMetadata {
     }
 
     private static void setMetadata(Xmp fromXmp, XMPMeta toXmpMeta) throws XMPException {
-        for (Column column : EditColumns.get()) {
-            String namespaceUri = XmpColumnNamespaceUriMapping.getNamespaceUriOfColumn(column);
-            String arrayName = XmpColumnXmpArrayNameMapping.getXmpArrayNameOfColumn(column);
+        for (MetaDataValue metaDataValue : EditMetaDataValues.get()) {
+            String namespaceUri = XmpMetaDataValuesNamespaceUriMapping.getNamespaceUriOfXmpMetaDataValue(metaDataValue);
+            String arrayName = XmpMetaDataValueXmpArrayNameMapping.getXmpArrayNameOfXmpMetaDataValue(metaDataValue);
 
-            copyMetadata(fromXmp, toXmpMeta, column, namespaceUri, arrayName);
+            copyMetadata(fromXmp, toXmpMeta, metaDataValue, namespaceUri, arrayName);
         }
     }
 
@@ -400,11 +400,11 @@ public final class XmpMetadata {
      * @param toXmpMeta XMP metadata
      */
     private static void deleteAllEditableMetadataFrom(XMPMeta xmpMeta) {
-        List<Column> editableXmpColumns = EditColumns.get();
+        List<MetaDataValue> editableXmpMetaDataValues = EditMetaDataValues.get();
 
-        for (Column editableColumn : editableXmpColumns) {
-            String namespaceUri = XmpColumnNamespaceUriMapping.getNamespaceUriOfColumn(editableColumn);
-            String propertyName = XmpColumnXmpArrayNameMapping.getXmpArrayNameOfColumn(editableColumn);
+        for (MetaDataValue editableValue : editableXmpMetaDataValues) {
+            String namespaceUri = XmpMetaDataValuesNamespaceUriMapping.getNamespaceUriOfXmpMetaDataValue(editableValue);
+            String propertyName = XmpMetaDataValueXmpArrayNameMapping.getXmpArrayNameOfXmpMetaDataValue(editableValue);
 
             xmpMeta.deleteProperty(namespaceUri, propertyName);
         }
@@ -413,17 +413,16 @@ public final class XmpMetadata {
     /**
      * Sets metadata of a {@link Xmp} instance to a {@link XMPMeta} instance.
      *
-     * @param column        part of data to set
+     * @param mdValue        part of data to set
      * @param fromXmp       <code>Xmp</code> metadata to set from
      * @param toXmpMeta     <code>XMPMeta</code> metadata to set to
      * @param namespaceUri  URI of namespase in <code>XMPMeta</code> to set
      * @param propertyName     array name to set within the URI
      * @throws XMPException if the namespace or uri or data is invalid
      */
-    private static void copyMetadata(Xmp fromXmp, XMPMeta toXmpMeta, Column column, String namespaceUri,
-            String arrayName)
+    private static void copyMetadata(Xmp fromXmp, XMPMeta toXmpMeta, MetaDataValue mdValue, String namespaceUri, String arrayName)
             throws XMPException {
-        Object xmpValue = fromXmp.getValue(column);
+        Object xmpValue = fromXmp.getValue(mdValue);
 
         if (xmpValue != null) {
             if (xmpValue instanceof String) {
@@ -431,9 +430,9 @@ public final class XmpMetadata {
 
                 // 2009-08-02: No side effects if value is clear
                 // ("orphaned data"), because previous metadata was deleted
-                if (XmpColumnXmpDataTypeMapping.isText(column) && !value.trim().isEmpty()) {
+                if (XmpMetaDataValueXmpValueTypeMapping.isText(mdValue) && !value.trim().isEmpty()) {
                     toXmpMeta.setProperty(namespaceUri, arrayName, value);
-                } else if (XmpColumnXmpDataTypeMapping.isLanguageAlternative(column)) {
+                } else if (XmpMetaDataValueXmpValueTypeMapping.isLanguageAlternative(mdValue)) {
                     toXmpMeta.setLocalizedText(namespaceUri, arrayName, "", "x-default", value);
                 }
             } else if (xmpValue instanceof List<?>) {
@@ -445,7 +444,7 @@ public final class XmpMetadata {
                     String trimmedValue = value.trim();
 
                     if (!doesArrayItemExist(toXmpMeta, namespaceUri, arrayName, trimmedValue)) {
-                        toXmpMeta.appendArrayItem(namespaceUri, arrayName, getArrayPropertyOptionsOf(column),
+                        toXmpMeta.appendArrayItem(namespaceUri, arrayName, getArrayPropertyOptionsOf(mdValue),
                                 trimmedValue, null);
                     }
                 }
@@ -482,8 +481,8 @@ public final class XmpMetadata {
         return false;
     }
 
-    private static PropertyOptions getArrayPropertyOptionsOf(Column xmpColumn) {
-        XmpValueType valueType = XmpColumnXmpDataTypeMapping.getXmpValueTypeOfColumn(xmpColumn);
+    private static PropertyOptions getArrayPropertyOptionsOf(MetaDataValue mdValue) {
+        XmpValueType valueType = XmpMetaDataValueXmpValueTypeMapping.getXmpValueType(mdValue);
 
         if (valueType.equals(XmpValueType.BAG_TEXT)) {
             return new PropertyOptions().setArray(true);
@@ -603,8 +602,7 @@ public final class XmpMetadata {
         return propertyInfoWithPathStart;
     }
 
-    private static Xmp getXmp(List<XMPPropertyInfo> xmpPropertyInfos, File areFromXmpImageFile,
-            XmpLocation xmpLocation) {
+    private static Xmp getXmp(List<XMPPropertyInfo> xmpPropertyInfos, File areFromXmpImageFile, XmpLocation xmpLocation) {
         Xmp xmp = null;
 
         if (xmpPropertyInfos != null) {
@@ -613,11 +611,11 @@ public final class XmpMetadata {
             for (XMPPropertyInfo xmpPropertyInfo : xmpPropertyInfos) {
                 String path = xmpPropertyInfo.getPath();
                 Object value = xmpPropertyInfo.getValue();
-                Column column = XmpColumnXmpArrayNameMapping.findColumn(path);
+                MetaDataValue mdValue = XmpMetaDataValueXmpArrayNameMapping.findXmpMetaDataValue(path);
 
-                if ((value != null) && (column != null) && (column.getDataType() != null)) {
+                if ((value != null) && (mdValue != null) && (mdValue.getValueType() != null)) {
                     try {
-                        xmp.setValue(column, column.getDataType().parseString(value.toString()));
+                        xmp.setValue(mdValue, mdValue.getValueType().parseString(value.toString()));
                     } catch (Exception ex) {
                         LOGGER.log(Level.SEVERE, null, ex);
                     }
@@ -634,9 +632,9 @@ public final class XmpMetadata {
         File sidecarFile = getSidecarFile(imageFile);
 
         if (xmpType.equals(XmpLocation.SIDECAR_FILE) && (sidecarFile != null)) {
-            xmp.setValue(ColumnXmpLastModified.INSTANCE, sidecarFile.lastModified());
+            xmp.setValue(XmpLastModifiedMetaDataValue.INSTANCE, sidecarFile.lastModified());
         } else if (xmpType.equals(XmpLocation.EMBEDDED) && imageFile.exists()) {
-            xmp.setValue(ColumnXmpLastModified.INSTANCE, imageFile.lastModified());
+            xmp.setValue(XmpLastModifiedMetaDataValue.INSTANCE, imageFile.lastModified());
         }
     }
 

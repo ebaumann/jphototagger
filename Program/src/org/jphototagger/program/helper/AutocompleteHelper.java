@@ -1,15 +1,16 @@
 package org.jphototagger.program.helper;
 
-import org.jphototagger.lib.componentutil.Autocomplete;
-import org.jphototagger.domain.xmp.Xmp;
-import org.jphototagger.domain.database.Column;
-import org.jphototagger.program.database.metadata.selections.AutoCompleteData;
-import org.jphototagger.program.database.metadata.selections.AutoCompleteDataOfColumn;
-import org.jphototagger.program.database.metadata.selections.FastSearchColumns;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
 import org.jphototagger.api.core.Storage;
+import org.jphototagger.domain.metadata.MetaDataValue;
+import org.jphototagger.domain.xmp.Xmp;
+import org.jphototagger.lib.componentutil.Autocomplete;
+import org.jphototagger.program.database.metadata.selections.AutoCompleteData;
+import org.jphototagger.program.database.metadata.selections.AutoCompleteDataOfMetaDataValue;
+import org.jphototagger.program.database.metadata.selections.FastSearchMetaDataValues;
 import org.openide.util.Lookup;
 
 /**
@@ -22,9 +23,9 @@ public final class AutocompleteHelper {
     private AutocompleteHelper() {
     }
 
-    public static void addAutocompleteData(Column column, Autocomplete ac, Xmp xmp) {
-        if (column == null) {
-            throw new NullPointerException("column == null");
+    public static void addAutocompleteData(MetaDataValue value, Autocomplete ac, Xmp xmp) {
+        if (value == null) {
+            throw new NullPointerException("value == null");
         }
 
         if (ac == null) {
@@ -35,13 +36,13 @@ public final class AutocompleteHelper {
             throw new NullPointerException("xmp == null");
         }
 
-        AutoCompleteData acData = AutoCompleteDataOfColumn.INSTANCE.get(column);
+        AutoCompleteData acData = AutoCompleteDataOfMetaDataValue.INSTANCE.get(value);
 
         if ((acData == null) || !isUpdateAutocomplete()) {
             return;
         }
 
-        add(column, acData, ac, xmp);
+        add(value, acData, ac, xmp);
     }
 
     private static boolean isUpdateAutocomplete() {
@@ -61,21 +62,21 @@ public final class AutocompleteHelper {
             throw new NullPointerException("xmp == null");
         }
 
-        AutoCompleteData acData = AutoCompleteDataOfColumn.INSTANCE.getFastSearchData();
+        AutoCompleteData acData = AutoCompleteDataOfMetaDataValue.INSTANCE.getFastSearchData();
 
         if ((acData == null) || !isUpdateAutocomplete()) {
             return;
         }
 
-        for (Column column : FastSearchColumns.get()) {
-            add(column, acData, ac, xmp);
+        for (MetaDataValue vaue : FastSearchMetaDataValues.get()) {
+            add(vaue, acData, ac, xmp);
         }
     }
 
     // Consider to do that in a separate thread
     @SuppressWarnings("unchecked")
-    private static void add(Column column, AutoCompleteData acData, Autocomplete ac, Xmp xmp) {
-        Object xmpValue = xmp.getValue(column);
+    private static void add(MetaDataValue value, AutoCompleteData acData, Autocomplete ac, Xmp xmp) {
+        Object xmpValue = xmp.getValue(value);
 
         if ((xmpValue == null) || !isUpdateAutocomplete()) {
             return;
@@ -103,9 +104,9 @@ public final class AutocompleteHelper {
     }
 
     // Consider to do that in a separate thread
-    public static void addAutocompleteData(Column column, Autocomplete ac, Collection<String> words) {
-        if (column == null) {
-            throw new NullPointerException("column == null");
+    public static void addAutocompleteData(MetaDataValue value, Autocomplete ac, Collection<String> words) {
+        if (value == null) {
+            throw new NullPointerException("value == null");
         }
 
         if (ac == null) {
@@ -116,7 +117,7 @@ public final class AutocompleteHelper {
             throw new NullPointerException("words == null");
         }
 
-        AutoCompleteData acData = AutoCompleteDataOfColumn.INSTANCE.get(column);
+        AutoCompleteData acData = AutoCompleteDataOfMetaDataValue.INSTANCE.get(value);
 
         if ((acData == null) || !isUpdateAutocomplete()) {
             return;

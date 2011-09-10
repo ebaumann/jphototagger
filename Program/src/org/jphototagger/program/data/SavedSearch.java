@@ -9,10 +9,10 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.jphototagger.domain.database.Column;
-import org.jphototagger.domain.database.file.ColumnFilesFilename;
-import org.jphototagger.domain.database.search.ParamStatement;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.domain.metadata.MetaDataValue;
+import org.jphototagger.domain.metadata.file.FilesFilenameMetaDataValue;
+import org.jphototagger.domain.metadata.search.ParamStatement;
+import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.program.database.metadata.Join;
 import org.jphototagger.program.database.metadata.Util;
 
@@ -31,7 +31,7 @@ public final class SavedSearch {
     @XmlElement(type = String.class)
     private List<String> keywords = new ArrayList<String>();
     /**
-     * Column panels if type equals KEYWORDS_AND_PANELS
+     * MetaDataValue panels if type equals KEYWORDS_AND_PANELS
      */
     @XmlElementWrapper(name = "Panels")
     @XmlElement(type = SavedSearchPanel.class)
@@ -378,15 +378,15 @@ public final class SavedSearch {
     }
 
     private StringBuilder getStartSelectFrom() {
-        Column columnFilename = ColumnFilesFilename.INSTANCE;
-        String columnNameFilename = columnFilename.getName();
-        String tableNameFiles = columnFilename.getTablename();
+        MetaDataValue columnFilename = FilesFilenameMetaDataValue.INSTANCE;
+        String columnNameFilename = columnFilename.getValueName();
+        String tableNameFiles = columnFilename.getCategory();
 
         return new StringBuilder("SELECT DISTINCT " + tableNameFiles + "." + columnNameFilename + " FROM");
     }
 
-    private synchronized List<Column> getColumns() {
-        List<Column> columns = new ArrayList<Column>();
+    private synchronized List<MetaDataValue> getColumns() {
+        List<MetaDataValue> columns = new ArrayList<MetaDataValue>();
         int index = 0;
 
         if (panels != null) {
@@ -398,7 +398,7 @@ public final class SavedSearch {
         }
 
         if (!keywords.isEmpty()) {
-            columns.add(ColumnXmpDcSubjectsSubject.INSTANCE);
+            columns.add(XmpDcSubjectsSubjectMetaDataValue.INSTANCE);
         }
 
         return columns;

@@ -6,7 +6,7 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 
-import org.jphototagger.domain.database.Column;
+import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.program.view.renderer.FormatterLabelTableColumn;
 
 /**
@@ -21,7 +21,7 @@ public final class TableCellRendererDatabaseInfoColumns implements TableCellRend
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         if (column == 0) {
-            FormatterLabelTableColumn.setLabelText(cellLabel, (Column) value);
+            FormatterLabelTableColumn.setLabelText(cellLabel, (MetaDataValue) value);
         } else {
             cellLabel.setText(PADDING_LEFT + value.toString());
         }

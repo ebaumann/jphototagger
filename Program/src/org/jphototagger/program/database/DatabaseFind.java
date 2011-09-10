@@ -11,9 +11,9 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.domain.database.Column;
-import org.jphototagger.domain.database.search.ParamStatement;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.domain.metadata.MetaDataValue;
+import org.jphototagger.domain.metadata.search.ParamStatement;
+import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.program.database.metadata.Join;
 import org.jphototagger.program.database.metadata.Join.Type;
 import org.jphototagger.program.database.metadata.Util;
@@ -78,7 +78,7 @@ public final class DatabaseFind extends Database {
      * @param searchString  Suchteilzeichenkette
      * @return              Alle gefundenen Dateien
      */
-    public List<File> findImageFilesLikeOr(List<Column> searchColumns, String searchString) {
+    public List<File> findImageFilesLikeOr(List<MetaDataValue> searchColumns, String searchString) {
         if (searchColumns == null) {
             throw new NullPointerException("searchColumns == null");
         }
@@ -88,7 +88,7 @@ public final class DatabaseFind extends Database {
         }
 
         List<File> imageFiles = new ArrayList<File>();
-        Map<String, List<Column>> columnsOfTable = Util.getColumnsSeparatedByTables(searchColumns);
+        Map<String, List<MetaDataValue>> columnsOfTable = Util.getColumnsSeparatedByTables(searchColumns);
 
         for (String tablename : columnsOfTable.keySet()) {
             addImageFilesSearchImageFilesLikeOr(columnsOfTable.get(tablename), searchString, imageFiles, tablename);
@@ -97,7 +97,7 @@ public final class DatabaseFind extends Database {
         return imageFiles;
     }
 
-    private void addImageFilesSearchImageFilesLikeOr(List<Column> searchColumns, String searchString,
+    private void addImageFilesSearchImageFilesLikeOr(List<MetaDataValue> searchColumns, String searchString,
             List<File> imageFiles, String tablename) {
         if (searchColumns.size() > 0) {
             Connection con = null;
@@ -135,9 +135,9 @@ public final class DatabaseFind extends Database {
         }
     }
 
-    private void addSynonyms(List<Column> searchColumns, String searchString, PreparedStatement stmt)
+    private void addSynonyms(List<MetaDataValue> searchColumns, String searchString, PreparedStatement stmt)
             throws SQLException {
-        if (searchColumns.contains(ColumnXmpDcSubjectsSubject.INSTANCE)) {
+        if (searchColumns.contains(XmpDcSubjectsSubjectMetaDataValue.INSTANCE)) {
             int paramIndex = searchColumns.size() + 1;
 
             for (String synonym : DatabaseSynonyms.INSTANCE.getSynonymsOf(searchString)) {
@@ -146,21 +146,21 @@ public final class DatabaseFind extends Database {
         }
     }
 
-    private String getSqlFindImageFilesLikeOr(List<Column> searchColumns, String tablename, String searchString) {
+    private String getSqlFindImageFilesLikeOr(List<MetaDataValue> searchColumns, String tablename, String searchString) {
         StringBuilder sql = new StringBuilder("SELECT DISTINCT files.filename FROM ");
 
         sql.append("files").append(Join.getJoinToFiles(tablename, Type.INNER)).append(" WHERE ");
 
         boolean isFirstColumn = true;
 
-        for (Column column : searchColumns) {
+        for (MetaDataValue column : searchColumns) {
             sql.append(!isFirstColumn
                        ? " OR "
-                       : "").append(column.getTablename()).append(".").append(column.getName()).append(" LIKE ?");
+                       : "").append(column.getCategory()).append(".").append(column.getValueName()).append(" LIKE ?");
             isFirstColumn = false;
         }
 
-        if (searchColumns.contains(ColumnXmpDcSubjectsSubject.INSTANCE)) {
+        if (searchColumns.contains(XmpDcSubjectsSubjectMetaDataValue.INSTANCE)) {
             addSynonyms(sql, searchString);
         }
 
@@ -171,8 +171,8 @@ public final class DatabaseFind extends Database {
 
     private void addSynonyms(StringBuilder sb, String searchString) {
         int count = DatabaseSynonyms.INSTANCE.getSynonymsOf(searchString).size();
-        String colName = ColumnXmpDcSubjectsSubject.INSTANCE.getTablename() + "."
-                         + ColumnXmpDcSubjectsSubject.INSTANCE.getName();
+        String colName = XmpDcSubjectsSubjectMetaDataValue.INSTANCE.getCategory() + "."
+                         + XmpDcSubjectsSubjectMetaDataValue.INSTANCE.getValueName();
 
         for (int i = 0; i < count; i++) {
             sb.append(" OR ");

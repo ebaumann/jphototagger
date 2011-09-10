@@ -8,7 +8,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.repository.event.dcsubjects.DcSubjectInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
@@ -35,7 +35,7 @@ public final class ControllerKeywordsDbUpdates {
 
     @SuppressWarnings("unchecked")
     private void addNotExistingKeywords(Xmp xmp) {
-        Object o = xmp.getValue(ColumnXmpDcSubjectsSubject.INSTANCE);
+        Object o = xmp.getValue(XmpDcSubjectsSubjectMetaDataValue.INSTANCE);
 
         if (o instanceof List<?>) {
             addNotExistingKeywords((List<String>) o);

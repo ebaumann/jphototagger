@@ -1,32 +1,34 @@
 package org.jphototagger.program.view.panels;
 
-import org.jphototagger.domain.text.TextEntry;
-import org.jphototagger.domain.xmp.Xmp;
-import org.jphototagger.domain.database.Column;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcCreator;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcDescription;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcRights;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcTitle;
-import org.jphototagger.domain.database.xmp.ColumnXmpIptc4XmpCoreDateCreated;
-import org.jphototagger.domain.database.xmp.ColumnXmpIptc4xmpcoreLocation;
-import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopAuthorsposition;
-import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopCaptionwriter;
-import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopCity;
-import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopCountry;
-import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopCredit;
-import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopHeadline;
-import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopInstructions;
-import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopSource;
-import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopState;
-import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopTransmissionReference;
 import java.awt.Component;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
 import javax.swing.text.JTextComponent;
+
 import org.jphototagger.api.core.Storage;
+import org.jphototagger.domain.metadata.MetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpDcCreatorMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpDcDescriptionMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpDcRightsMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpDcTitleMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpIptc4XmpCoreDateCreatedMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpIptc4xmpcoreLocationMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopAuthorspositionMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopCaptionwriterMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopCityMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopCountryMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopCreditMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopHeadlineMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopInstructionsMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopSourceMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopStateMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopTransmissionReferenceMetaDataValue;
+import org.jphototagger.domain.text.TextEntry;
+import org.jphototagger.domain.xmp.Xmp;
 import org.openide.util.Lookup;
 
 /**
@@ -55,7 +57,7 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
 
     private void init() {
         initComponents();
-        setColumns();
+        setMetaDataValues();
         addTextEntries();
         setAutocomplete();
         addAsFocusListener();
@@ -65,23 +67,23 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
         panelDcSubjects.setBundleKeyPosRenameDialog("EditXmpPanel.Keywords.RenameDialog.Pos");
     }
 
-    private void setColumns() {
-        panelDcTitle.setColumn(ColumnXmpDcTitle.INSTANCE);
-        panelDcDescription.setColumn(ColumnXmpDcDescription.INSTANCE);
-        panelPhotoshopHeadline.setColumn(ColumnXmpPhotoshopHeadline.INSTANCE);
-        panelIptc4xmpcoreLocation.setColumn(ColumnXmpIptc4xmpcoreLocation.INSTANCE);
-        panelIptc4XmpCoreDateCreated.setColumn(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE);
-        panelPhotoshopAuthorsposition.setColumn(ColumnXmpPhotoshopAuthorsposition.INSTANCE);
-        panelDcCreator.setColumn(ColumnXmpDcCreator.INSTANCE);
-        panelPhotoshopCity.setColumn(ColumnXmpPhotoshopCity.INSTANCE);
-        panelPhotoshopState.setColumn(ColumnXmpPhotoshopState.INSTANCE);
-        panelPhotoshopCountry.setColumn(ColumnXmpPhotoshopCountry.INSTANCE);
-        panelDcRights.setColumn(ColumnXmpDcRights.INSTANCE);
-        panelPhotoshopCredit.setColumn(ColumnXmpPhotoshopCredit.INSTANCE);
-        panelPhotoshopSource.setColumn(ColumnXmpPhotoshopSource.INSTANCE);
-        panelPhotoshopTransmissionReference.setColumn(ColumnXmpPhotoshopTransmissionReference.INSTANCE);
-        panelPhotoshopInstructions.setColumn(ColumnXmpPhotoshopInstructions.INSTANCE);
-        panelPhotoshopCaptionwriter.setColumn(ColumnXmpPhotoshopCaptionwriter.INSTANCE);
+    private void setMetaDataValues() {
+        panelDcTitle.setMetaDataValue(XmpDcTitleMetaDataValue.INSTANCE);
+        panelDcDescription.setMetaDataValue(XmpDcDescriptionMetaDataValue.INSTANCE);
+        panelPhotoshopHeadline.setMetaDataValue(XmpPhotoshopHeadlineMetaDataValue.INSTANCE);
+        panelIptc4xmpcoreLocation.setMetaDataValue(XmpIptc4xmpcoreLocationMetaDataValue.INSTANCE);
+        panelIptc4XmpCoreDateCreated.setMetaDataValue(XmpIptc4XmpCoreDateCreatedMetaDataValue.INSTANCE);
+        panelPhotoshopAuthorsposition.setMetaDataValue(XmpPhotoshopAuthorspositionMetaDataValue.INSTANCE);
+        panelDcCreator.setMetaDataValue(XmpDcCreatorMetaDataValue.INSTANCE);
+        panelPhotoshopCity.setMetaDataValue(XmpPhotoshopCityMetaDataValue.INSTANCE);
+        panelPhotoshopState.setMetaDataValue(XmpPhotoshopStateMetaDataValue.INSTANCE);
+        panelPhotoshopCountry.setMetaDataValue(XmpPhotoshopCountryMetaDataValue.INSTANCE);
+        panelDcRights.setMetaDataValue(XmpDcRightsMetaDataValue.INSTANCE);
+        panelPhotoshopCredit.setMetaDataValue(XmpPhotoshopCreditMetaDataValue.INSTANCE);
+        panelPhotoshopSource.setMetaDataValue(XmpPhotoshopSourceMetaDataValue.INSTANCE);
+        panelPhotoshopTransmissionReference.setMetaDataValue(XmpPhotoshopTransmissionReferenceMetaDataValue.INSTANCE);
+        panelPhotoshopInstructions.setMetaDataValue(XmpPhotoshopInstructionsMetaDataValue.INSTANCE);
+        panelPhotoshopCaptionwriter.setMetaDataValue(XmpPhotoshopCaptionwriterMetaDataValue.INSTANCE);
     }
 
     private void addTextEntries() {
@@ -127,16 +129,16 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
         xmp.clear();
 
         for (TextEntry textEntry : textEntries) {
-            Column column = textEntry.getColumn();
+            MetaDataValue value = textEntry.getMetaDataValue();
 
             if (textEntry instanceof EditRepeatableTextEntryPanel) {
                 for (String text : ((EditRepeatableTextEntryPanel) textEntry).getRepeatableText()) {
-                    xmp.setValue(column, text);
+                    xmp.setValue(value, text);
                 }
 
-                xmp.setValue(column, textEntry.getText());
+                xmp.setValue(value, textEntry.getText());
             } else {
-                xmp.setValue(column, textEntry.getText());
+                xmp.setValue(value, textEntry.getText());
             }
         }
     }
@@ -144,7 +146,7 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
     @SuppressWarnings("unchecked")
     private void setXmpToInputComponents() {
         for (TextEntry textEntry : textEntries) {
-            Object value = xmp.getValue(textEntry.getColumn());
+            Object value = xmp.getValue(textEntry.getMetaDataValue());
 
             if (value != null) {
                 if (textEntry instanceof EditRepeatableTextEntryPanel) {
@@ -355,7 +357,6 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
                 .addComponent(panelPhotoshopCaptionwriter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }//GEN-END:initComponents
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jphototagger.program.view.panels.EditTextEntryPanel panelDcCreator;
     private org.jphototagger.program.view.panels.EditTextEntryPanel panelDcDescription;

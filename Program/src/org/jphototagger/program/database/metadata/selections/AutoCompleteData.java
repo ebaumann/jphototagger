@@ -1,8 +1,5 @@
 package org.jphototagger.program.database.metadata.selections;
 
-import org.jphototagger.lib.util.CollectionUtil;
-import org.jphototagger.program.database.DatabaseContent;
-import org.jphototagger.domain.database.Column;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -10,7 +7,11 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+
 import org.jphototagger.api.core.Storage;
+import org.jphototagger.domain.metadata.MetaDataValue;
+import org.jphototagger.lib.util.CollectionUtil;
+import org.jphototagger.program.database.DatabaseContent;
 import org.openide.util.Lookup;
 
 /**
@@ -22,32 +23,31 @@ public final class AutoCompleteData {
 
     private final DatabaseContent db = DatabaseContent.INSTANCE;
     private final LinkedList<String> words = new LinkedList<String>();
-    private final Set<Column> columns;
+    private final Set<MetaDataValue> metaDataValues;
 
-    AutoCompleteData(Collection<? extends Column> columns) {
-        this.columns = new LinkedHashSet<Column>(getAutocompleteColumnsOf(columns));
-        words.addAll(db.getDistinctValuesOf(this.columns));
+    AutoCompleteData(Collection<? extends MetaDataValue> values) {
+        this.metaDataValues = new LinkedHashSet<MetaDataValue>(getAutocompleteMetaDataValuesOf(values));
+        words.addAll(db.getDistinctValuesOf(this.metaDataValues));
         Collections.sort(words);
     }
 
-    AutoCompleteData(Column column) {
-        this.columns = new LinkedHashSet<Column>(getAutocompleteColumnsOf(Collections.singleton(column)));
-        words.addAll(db.getDistinctValuesOf(column));    // already sorted
+    AutoCompleteData(MetaDataValue value) {
+        this.metaDataValues = new LinkedHashSet<MetaDataValue>(getAutocompleteMetaDataValuesOf(Collections.singleton(value)));
+        words.addAll(db.getDistinctValuesOf(value));    // already sorted
     }
 
     /**
-     * Removes from a collection of columns all columns which shouldn't be
-     * auto completed.
+     * Removes from a collection of values which shouldn't be auto completed.
      *
-     * @param  columns columns
-     * @return         autocomplete columns or empty set
+     * @param  values
+     * @return         autocomplete values or empty set
      */
-    private Set<Column> getAutocompleteColumnsOf(Collection<? extends Column> columns) {
-        Set<Column> cols = new HashSet<Column>(columns.size());
+    private Set<MetaDataValue> getAutocompleteMetaDataValuesOf(Collection<? extends MetaDataValue> values) {
+        Set<MetaDataValue> cols = new HashSet<MetaDataValue>(values.size());
 
-        for (Column column : columns) {
-            if (AutocompleteColumns.contains(column)) {
-                cols.add(column);
+        for (MetaDataValue value : values) {
+            if (AutocompleteMetaDataValues.contains(value)) {
+                cols.add(value);
             }
         }
 

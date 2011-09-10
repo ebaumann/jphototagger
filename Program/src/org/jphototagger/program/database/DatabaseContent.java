@@ -8,7 +8,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.domain.database.Column;
+import org.jphototagger.domain.metadata.MetaDataValue;
 
 /**
  *
@@ -26,7 +26,7 @@ public final class DatabaseContent extends Database {
      * @param  column column
      * @return        distinct sorted values of that column
      */
-    public Set<String> getDistinctValuesOf(Column column) {
+    public Set<String> getDistinctValuesOf(MetaDataValue column) {
         if (column == null) {
             throw new NullPointerException("column == null");
         }
@@ -39,12 +39,12 @@ public final class DatabaseContent extends Database {
         try {
             con = getConnection();
 
-            String columnName = column.getName();
+            String columnName = column.getValueName();
 
             stmt = con.createStatement();
 
             String sql = "SELECT DISTINCT " + columnName
-                         + " FROM " + column.getTablename()
+                         + " FROM " + column.getCategory()
                          + " WHERE " + columnName
                          + " IS NOT NULL ORDER BY 1 ASC";
 
@@ -67,19 +67,19 @@ public final class DatabaseContent extends Database {
 
     /**
      * Collects for each column of a set the results of
-     * {@link #getDistinctValuesOf(Column)}.
+     * {@link #getDistinctValuesOf(MetaDataValue)}.
      *
      * @param  columns columns
      * @return         distinct values of columns (not sorted)
      */
-    public Set<String> getDistinctValuesOf(Set<Column> columns) {
+    public Set<String> getDistinctValuesOf(Set<MetaDataValue> columns) {
         if (columns == null) {
             throw new NullPointerException("columns == null");
         }
 
         Set<String> content = new LinkedHashSet<String>();
 
-        for (Column column : columns) {
+        for (MetaDataValue column : columns) {
             content.addAll(getDistinctValuesOf(column));
         }
 

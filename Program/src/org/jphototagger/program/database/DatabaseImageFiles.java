@@ -20,26 +20,26 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.bushe.swing.event.EventBus;
-import org.jphototagger.domain.database.Column;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcCreator;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcDescription;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcRights;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcTitle;
-import org.jphototagger.domain.database.xmp.ColumnXmpIptc4XmpCoreDateCreated;
-import org.jphototagger.domain.database.xmp.ColumnXmpIptc4xmpcoreLocation;
-import org.jphototagger.domain.database.xmp.ColumnXmpLastModified;
-import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopAuthorsposition;
-import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopCaptionwriter;
-import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopCity;
-import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopCountry;
-import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopCredit;
-import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopHeadline;
-import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopInstructions;
-import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopSource;
-import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopState;
-import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopTransmissionReference;
-import org.jphototagger.domain.database.xmp.ColumnXmpRating;
+import org.jphototagger.domain.metadata.MetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpDcCreatorMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpDcDescriptionMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpDcRightsMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpDcTitleMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpIptc4XmpCoreDateCreatedMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpIptc4xmpcoreLocationMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpLastModifiedMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopAuthorspositionMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopCaptionwriterMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopCityMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopCountryMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopCreditMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopHeadlineMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopInstructionsMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopSourceMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopStateMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopTransmissionReferenceMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpRatingMetaDataValue;
 import org.jphototagger.domain.repository.event.imagefiles.ImageFileInsertedEvent;
 import org.jphototagger.domain.repository.event.imagefiles.ImageFileMovedEvent;
 import org.jphototagger.domain.repository.event.imagefiles.ImageFileDeletedEvent;
@@ -333,8 +333,8 @@ final class DatabaseImageFiles extends Database {
             }
 
             insertOrUpdateXmp(con, imageFile, idFile, xmp);
-            setLastModifiedToXmpSidecarFileOfImageFile(imageFile, xmp.contains(ColumnXmpLastModified.INSTANCE)
-                    ? (Long) xmp.getValue(ColumnXmpLastModified.INSTANCE)
+            setLastModifiedToXmpSidecarFileOfImageFile(imageFile, xmp.contains(XmpLastModifiedMetaDataValue.INSTANCE)
+                    ? (Long) xmp.getValue(XmpLastModifiedMetaDataValue.INSTANCE)
                     : -1);
         } catch (Exception ex) {
             Logger.getLogger(DatabaseImageFiles.class.getName()).log(Level.SEVERE, null, ex);
@@ -895,8 +895,8 @@ final class DatabaseImageFiles extends Database {
 
         return (xmp == null)
                 ? -1
-                : xmp.contains(ColumnXmpLastModified.INSTANCE)
-                ? (Long) xmp.getValue(ColumnXmpLastModified.INSTANCE)
+                : xmp.contains(XmpLastModifiedMetaDataValue.INSTANCE)
+                ? (Long) xmp.getValue(XmpLastModifiedMetaDataValue.INSTANCE)
                 : -1;
     }
 
@@ -913,8 +913,8 @@ final class DatabaseImageFiles extends Database {
 
                 long idXmp = findIdXmpOfIdFile(con, idImageFile);
 
-                if (xmp.contains(ColumnXmpDcSubjectsSubject.INSTANCE)) {
-                    insertXmpDcSubjects(con, idXmp, (List<String>) xmp.getValue(ColumnXmpDcSubjectsSubject.INSTANCE));
+                if (xmp.contains(XmpDcSubjectsSubjectMetaDataValue.INSTANCE)) {
+                    insertXmpDcSubjects(con, idXmp, (List<String>) xmp.getValue(XmpDcSubjectsSubjectMetaDataValue.INSTANCE));
                 }
 
                 notifyXmpInserted(imageFile, xmp);
@@ -1063,33 +1063,33 @@ final class DatabaseImageFiles extends Database {
 
     private void setXmpValues(PreparedStatement stmt, long idImageFile, Xmp xmp) throws SQLException {
         stmt.setLong(1, idImageFile);
-        setLong(ensureValueExists("dc_creators", "creator", (String) xmp.getValue(ColumnXmpDcCreator.INSTANCE)), stmt,
+        setLong(ensureValueExists("dc_creators", "creator", (String) xmp.getValue(XmpDcCreatorMetaDataValue.INSTANCE)), stmt,
                 2);
-        setString(xmp.getValue(ColumnXmpDcDescription.INSTANCE), stmt, 3);
-        setLong(ensureValueExists("dc_rights", "rights", (String) xmp.getValue(ColumnXmpDcRights.INSTANCE)), stmt, 4);
-        setString(xmp.getValue(ColumnXmpDcTitle.INSTANCE), stmt, 5);
+        setString(xmp.getValue(XmpDcDescriptionMetaDataValue.INSTANCE), stmt, 3);
+        setLong(ensureValueExists("dc_rights", "rights", (String) xmp.getValue(XmpDcRightsMetaDataValue.INSTANCE)), stmt, 4);
+        setString(xmp.getValue(XmpDcTitleMetaDataValue.INSTANCE), stmt, 5);
         setLong(ensureValueExists("iptc4xmpcore_locations", "location",
-                (String) xmp.getValue(ColumnXmpIptc4xmpcoreLocation.INSTANCE)), stmt, 6);
+                (String) xmp.getValue(XmpIptc4xmpcoreLocationMetaDataValue.INSTANCE)), stmt, 6);
         setLong(ensureValueExists("photoshop_authorspositions", "authorsposition",
-                (String) xmp.getValue(ColumnXmpPhotoshopAuthorsposition.INSTANCE)), stmt, 7);
+                (String) xmp.getValue(XmpPhotoshopAuthorspositionMetaDataValue.INSTANCE)), stmt, 7);
         setLong(ensureValueExists("photoshop_captionwriters", "captionwriter",
-                (String) xmp.getValue(ColumnXmpPhotoshopCaptionwriter.INSTANCE)), stmt, 8);
-        setLong(ensureValueExists("photoshop_cities", "city", (String) xmp.getValue(ColumnXmpPhotoshopCity.INSTANCE)),
+                (String) xmp.getValue(XmpPhotoshopCaptionwriterMetaDataValue.INSTANCE)), stmt, 8);
+        setLong(ensureValueExists("photoshop_cities", "city", (String) xmp.getValue(XmpPhotoshopCityMetaDataValue.INSTANCE)),
                 stmt, 9);
         setLong(ensureValueExists("photoshop_countries", "country",
-                (String) xmp.getValue(ColumnXmpPhotoshopCountry.INSTANCE)), stmt, 10);
+                (String) xmp.getValue(XmpPhotoshopCountryMetaDataValue.INSTANCE)), stmt, 10);
         setLong(ensureValueExists("photoshop_credits", "credit",
-                (String) xmp.getValue(ColumnXmpPhotoshopCredit.INSTANCE)), stmt, 11);
-        setString(xmp.getValue(ColumnXmpPhotoshopHeadline.INSTANCE), stmt, 12);
-        setString(xmp.getValue(ColumnXmpPhotoshopInstructions.INSTANCE), stmt, 13);
+                (String) xmp.getValue(XmpPhotoshopCreditMetaDataValue.INSTANCE)), stmt, 11);
+        setString(xmp.getValue(XmpPhotoshopHeadlineMetaDataValue.INSTANCE), stmt, 12);
+        setString(xmp.getValue(XmpPhotoshopInstructionsMetaDataValue.INSTANCE), stmt, 13);
         setLong(ensureValueExists("photoshop_sources", "source",
-                (String) xmp.getValue(ColumnXmpPhotoshopSource.INSTANCE)), stmt, 14);
+                (String) xmp.getValue(XmpPhotoshopSourceMetaDataValue.INSTANCE)), stmt, 14);
         setLong(ensureValueExists("photoshop_states", "state",
-                (String) xmp.getValue(ColumnXmpPhotoshopState.INSTANCE)), stmt, 15);
-        setString(xmp.getValue(ColumnXmpPhotoshopTransmissionReference.INSTANCE), stmt, 16);
-        setLongMinMax(xmp.getValue(ColumnXmpRating.INSTANCE), ColumnXmpRating.getMinValue(),
-                ColumnXmpRating.getMaxValue(), stmt, 17);
-        setString(xmp.getValue(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE), stmt, 18);
+                (String) xmp.getValue(XmpPhotoshopStateMetaDataValue.INSTANCE)), stmt, 15);
+        setString(xmp.getValue(XmpPhotoshopTransmissionReferenceMetaDataValue.INSTANCE), stmt, 16);
+        setLongMinMax(xmp.getValue(XmpRatingMetaDataValue.INSTANCE), XmpRatingMetaDataValue.getMinValue(),
+                XmpRatingMetaDataValue.getMaxValue(), stmt, 17);
+        setString(xmp.getValue(XmpIptc4XmpCoreDateCreatedMetaDataValue.INSTANCE), stmt, 18);
     }
 
     @SuppressWarnings("unchecked")
@@ -1110,9 +1110,9 @@ final class DatabaseImageFiles extends Database {
                     stmt.executeUpdate();
                     deleteXmpDcSubjects(con, idXmp);
 
-                    if (xmp.contains(ColumnXmpDcSubjectsSubject.INSTANCE)) {
+                    if (xmp.contains(XmpDcSubjectsSubjectMetaDataValue.INSTANCE)) {
                         insertXmpDcSubjects(con, idXmp,
-                                (List<String>) xmp.getValue(ColumnXmpDcSubjectsSubject.INSTANCE));
+                                (List<String>) xmp.getValue(XmpDcSubjectsSubjectMetaDataValue.INSTANCE));
                     }
 
                     notifyXmpUpdated(imageFile, oldXmp, xmp);
@@ -1288,31 +1288,31 @@ final class DatabaseImageFiles extends Database {
                     xmp = new Xmp();
                 }
 
-                xmp.setValue(ColumnXmpDcCreator.INSTANCE, getString(rs, 2));
-                xmp.setValue(ColumnXmpDcDescription.INSTANCE, getString(rs, 3));
-                xmp.setValue(ColumnXmpDcRights.INSTANCE, getString(rs, 4));
-                xmp.setValue(ColumnXmpDcTitle.INSTANCE, getString(rs, 5));
-                xmp.setValue(ColumnXmpIptc4xmpcoreLocation.INSTANCE, getString(rs, 6));
-                xmp.setValue(ColumnXmpPhotoshopAuthorsposition.INSTANCE, getString(rs, 7));
-                xmp.setValue(ColumnXmpPhotoshopCaptionwriter.INSTANCE, getString(rs, 8));
-                xmp.setValue(ColumnXmpPhotoshopCity.INSTANCE, getString(rs, 9));
-                xmp.setValue(ColumnXmpPhotoshopCountry.INSTANCE, getString(rs, 10));
-                xmp.setValue(ColumnXmpPhotoshopCredit.INSTANCE, getString(rs, 11));
-                xmp.setValue(ColumnXmpPhotoshopHeadline.INSTANCE, getString(rs, 12));
-                xmp.setValue(ColumnXmpPhotoshopInstructions.INSTANCE, getString(rs, 13));
-                xmp.setValue(ColumnXmpPhotoshopSource.INSTANCE, getString(rs, 14));
-                xmp.setValue(ColumnXmpPhotoshopState.INSTANCE, getString(rs, 15));
-                xmp.setValue(ColumnXmpPhotoshopTransmissionReference.INSTANCE, getString(rs, 16));
+                xmp.setValue(XmpDcCreatorMetaDataValue.INSTANCE, getString(rs, 2));
+                xmp.setValue(XmpDcDescriptionMetaDataValue.INSTANCE, getString(rs, 3));
+                xmp.setValue(XmpDcRightsMetaDataValue.INSTANCE, getString(rs, 4));
+                xmp.setValue(XmpDcTitleMetaDataValue.INSTANCE, getString(rs, 5));
+                xmp.setValue(XmpIptc4xmpcoreLocationMetaDataValue.INSTANCE, getString(rs, 6));
+                xmp.setValue(XmpPhotoshopAuthorspositionMetaDataValue.INSTANCE, getString(rs, 7));
+                xmp.setValue(XmpPhotoshopCaptionwriterMetaDataValue.INSTANCE, getString(rs, 8));
+                xmp.setValue(XmpPhotoshopCityMetaDataValue.INSTANCE, getString(rs, 9));
+                xmp.setValue(XmpPhotoshopCountryMetaDataValue.INSTANCE, getString(rs, 10));
+                xmp.setValue(XmpPhotoshopCreditMetaDataValue.INSTANCE, getString(rs, 11));
+                xmp.setValue(XmpPhotoshopHeadlineMetaDataValue.INSTANCE, getString(rs, 12));
+                xmp.setValue(XmpPhotoshopInstructionsMetaDataValue.INSTANCE, getString(rs, 13));
+                xmp.setValue(XmpPhotoshopSourceMetaDataValue.INSTANCE, getString(rs, 14));
+                xmp.setValue(XmpPhotoshopStateMetaDataValue.INSTANCE, getString(rs, 15));
+                xmp.setValue(XmpPhotoshopTransmissionReferenceMetaDataValue.INSTANCE, getString(rs, 16));
 
                 String dcSubject = getString(rs, 17);
 
                 if (dcSubject != null) {
-                    xmp.setValue(ColumnXmpDcSubjectsSubject.INSTANCE, dcSubject);
+                    xmp.setValue(XmpDcSubjectsSubjectMetaDataValue.INSTANCE, dcSubject);
                 }
 
-                xmp.setValue(ColumnXmpRating.INSTANCE,
-                        getLongMinMax(rs, 18, ColumnXmpRating.getMinValue(), ColumnXmpRating.getMaxValue()));
-                xmp.setValue(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE, getString(rs, 19));
+                xmp.setValue(XmpRatingMetaDataValue.INSTANCE,
+                        getLongMinMax(rs, 18, XmpRatingMetaDataValue.getMinValue(), XmpRatingMetaDataValue.getMaxValue()));
+                xmp.setValue(XmpIptc4XmpCoreDateCreatedMetaDataValue.INSTANCE, getString(rs, 19));
 
                 if (!filepath.equals(prevFilepath)) {
                     File file = getFile(filepath);
@@ -1418,31 +1418,31 @@ final class DatabaseImageFiles extends Database {
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                xmp.setValue(ColumnXmpDcCreator.INSTANCE, getString(rs, 1));
-                xmp.setValue(ColumnXmpDcDescription.INSTANCE, getString(rs, 2));
-                xmp.setValue(ColumnXmpDcRights.INSTANCE, getString(rs, 3));
-                xmp.setValue(ColumnXmpDcTitle.INSTANCE, getString(rs, 4));
-                xmp.setValue(ColumnXmpIptc4xmpcoreLocation.INSTANCE, getString(rs, 5));
-                xmp.setValue(ColumnXmpPhotoshopAuthorsposition.INSTANCE, getString(rs, 6));
-                xmp.setValue(ColumnXmpPhotoshopCaptionwriter.INSTANCE, getString(rs, 7));
-                xmp.setValue(ColumnXmpPhotoshopCity.INSTANCE, getString(rs, 8));
-                xmp.setValue(ColumnXmpPhotoshopCountry.INSTANCE, getString(rs, 9));
-                xmp.setValue(ColumnXmpPhotoshopCredit.INSTANCE, getString(rs, 10));
-                xmp.setValue(ColumnXmpPhotoshopHeadline.INSTANCE, getString(rs, 11));
-                xmp.setValue(ColumnXmpPhotoshopInstructions.INSTANCE, getString(rs, 12));
-                xmp.setValue(ColumnXmpPhotoshopSource.INSTANCE, getString(rs, 13));
-                xmp.setValue(ColumnXmpPhotoshopState.INSTANCE, getString(rs, 14));
-                xmp.setValue(ColumnXmpPhotoshopTransmissionReference.INSTANCE, getString(rs, 15));
+                xmp.setValue(XmpDcCreatorMetaDataValue.INSTANCE, getString(rs, 1));
+                xmp.setValue(XmpDcDescriptionMetaDataValue.INSTANCE, getString(rs, 2));
+                xmp.setValue(XmpDcRightsMetaDataValue.INSTANCE, getString(rs, 3));
+                xmp.setValue(XmpDcTitleMetaDataValue.INSTANCE, getString(rs, 4));
+                xmp.setValue(XmpIptc4xmpcoreLocationMetaDataValue.INSTANCE, getString(rs, 5));
+                xmp.setValue(XmpPhotoshopAuthorspositionMetaDataValue.INSTANCE, getString(rs, 6));
+                xmp.setValue(XmpPhotoshopCaptionwriterMetaDataValue.INSTANCE, getString(rs, 7));
+                xmp.setValue(XmpPhotoshopCityMetaDataValue.INSTANCE, getString(rs, 8));
+                xmp.setValue(XmpPhotoshopCountryMetaDataValue.INSTANCE, getString(rs, 9));
+                xmp.setValue(XmpPhotoshopCreditMetaDataValue.INSTANCE, getString(rs, 10));
+                xmp.setValue(XmpPhotoshopHeadlineMetaDataValue.INSTANCE, getString(rs, 11));
+                xmp.setValue(XmpPhotoshopInstructionsMetaDataValue.INSTANCE, getString(rs, 12));
+                xmp.setValue(XmpPhotoshopSourceMetaDataValue.INSTANCE, getString(rs, 13));
+                xmp.setValue(XmpPhotoshopStateMetaDataValue.INSTANCE, getString(rs, 14));
+                xmp.setValue(XmpPhotoshopTransmissionReferenceMetaDataValue.INSTANCE, getString(rs, 15));
 
                 String dcSubject = getString(rs, 16);
 
                 if (dcSubject != null) {
-                    xmp.setValue(ColumnXmpDcSubjectsSubject.INSTANCE, dcSubject);
+                    xmp.setValue(XmpDcSubjectsSubjectMetaDataValue.INSTANCE, dcSubject);
                 }
 
-                xmp.setValue(ColumnXmpRating.INSTANCE,
-                        getLongMinMax(rs, 17, ColumnXmpRating.getMinValue(), ColumnXmpRating.getMaxValue()));
-                xmp.setValue(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE, getString(rs, 18));
+                xmp.setValue(XmpRatingMetaDataValue.INSTANCE,
+                        getLongMinMax(rs, 17, XmpRatingMetaDataValue.getMinValue(), XmpRatingMetaDataValue.getMaxValue()));
+                xmp.setValue(XmpIptc4XmpCoreDateCreatedMetaDataValue.INSTANCE, getString(rs, 18));
             }
         } catch (Exception ex) {
             Logger.getLogger(DatabaseImageFiles.class.getName()).log(Level.SEVERE, null, ex);
@@ -1759,7 +1759,7 @@ final class DatabaseImageFiles extends Database {
      *                through a column <code>id_file</code>!
      * @return        images containing all of these terms in that column
      */
-    public Set<File> getImageFilesContainingAllWordsInColumn(List<? extends String> words, Column column) {
+    public Set<File> getImageFilesContainingAllWordsInColumn(List<? extends String> words, MetaDataValue column) {
         if (column == null) {
             throw new NullPointerException("column == null");
         }
@@ -1776,8 +1776,8 @@ final class DatabaseImageFiles extends Database {
         try {
             con = getConnection();
 
-            String tableName = column.getTablename();
-            String columnName = column.getName();
+            String tableName = column.getCategory();
+            String columnName = column.getValueName();
             int count = words.size();
             String sql = " SELECT files.filename FROM files"
                     + Join.getJoinToFiles(tableName, Type.INNER)
@@ -2111,7 +2111,7 @@ final class DatabaseImageFiles extends Database {
         return files;
     }
 
-    public Set<String> getAllDistinctValuesOfColumn(Column column) {
+    public Set<String> getAllDistinctValuesOfColumn(MetaDataValue column) {
         if (column == null) {
             throw new NullPointerException("column == null");
         }
@@ -2124,10 +2124,10 @@ final class DatabaseImageFiles extends Database {
         try {
             con = getConnection();
 
-            String sql = "SELECT DISTINCT " + column.getName()
-                    + " FROM " + column.getTablename()
-                    + " WHERE " + column.getName() + " IS NOT NULL"
-                    + " ORDER BY " + column.getName();
+            String sql = "SELECT DISTINCT " + column.getValueName()
+                    + " FROM " + column.getCategory()
+                    + " WHERE " + column.getValueName() + " IS NOT NULL"
+                    + " ORDER BY " + column.getValueName();
 
             stmt = con.createStatement();
             logFinest(sql);
@@ -2158,7 +2158,7 @@ final class DatabaseImageFiles extends Database {
                 + " ORDER BY files.filename ASC";
     }
 
-    public List<File> getImageFilesContainingAVauleInColumn(Column column) {
+    public List<File> getImageFilesContainingAVauleInColumn(MetaDataValue column) {
         if (column == null) {
             throw new NullPointerException("column == null");
         }
@@ -2171,8 +2171,8 @@ final class DatabaseImageFiles extends Database {
         try {
             con = getConnection();
 
-            String tablename = column.getTablename();
-            String columnName = column.getName();
+            String tablename = column.getCategory();
+            String columnName = column.getValueName();
             String sql = getFilesNotNullInSql(tablename, columnName);
 
             stmt = con.createStatement();
@@ -2210,7 +2210,7 @@ final class DatabaseImageFiles extends Database {
      * @param  exactValue exact value of the column content
      * @return            files
      */
-    public List<File> getImageFilesWhereColumnHasExactValue(Column column, String exactValue) {
+    public List<File> getImageFilesWhereColumnHasExactValue(MetaDataValue column, String exactValue) {
         if (column == null) {
             throw new NullPointerException("column == null");
         }
@@ -2219,8 +2219,8 @@ final class DatabaseImageFiles extends Database {
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        String tableName = column.getTablename();
-        String columnName = column.getName();
+        String tableName = column.getCategory();
+        String columnName = column.getValueName();
 
         try {
             con = getConnection();
@@ -2370,7 +2370,7 @@ final class DatabaseImageFiles extends Database {
         return exists;
     }
 
-    public boolean existsValueInColumn(Object value, Column column) {
+    public boolean existsValueInColumn(Object value, MetaDataValue column) {
         if (column == null) {
             throw new NullPointerException("column == null");
         }
@@ -2383,7 +2383,7 @@ final class DatabaseImageFiles extends Database {
         try {
             con = getConnection();
 
-            String sql = "SELECT COUNT(*) FROM " + column.getTablename() + " WHERE " + column.getName() + " = ?";
+            String sql = "SELECT COUNT(*) FROM " + column.getCategory() + " WHERE " + column.getValueName() + " = ?";
 
             stmt = con.prepareStatement(sql);
             logFinest(stmt);
@@ -2421,7 +2421,7 @@ final class DatabaseImageFiles extends Database {
      *                 or table <code>"xmp"</code>
      * @return         image files without metadata for that column
      */
-    public List<File> getImageFilesWithoutMetadataInColumn(Column column) {
+    public List<File> getImageFilesWithoutMetadataInColumn(MetaDataValue column) {
         if (column == null) {
             throw new NullPointerException("column == null");
         }
@@ -2434,8 +2434,8 @@ final class DatabaseImageFiles extends Database {
         try {
             con = getConnection();
 
-            String columnName = column.getName();
-            String tablename = column.getTablename();
+            String columnName = column.getValueName();
+            String tablename = column.getCategory();
             String sql = getFilenamesWithoutMetadataInSql(tablename, columnName);
 
             stmt = con.prepareStatement(sql);
@@ -2520,7 +2520,7 @@ final class DatabaseImageFiles extends Database {
         return tnFiles;
     }
 
-    public void deleteValueOfJoinedColumn(Column column, String value) {
+    public void deleteValueOfJoinedColumn(MetaDataValue column, String value) {
         if (column == null) {
             throw new NullPointerException("column == null");
         }
@@ -2529,7 +2529,7 @@ final class DatabaseImageFiles extends Database {
             throw new NullPointerException("value == null");
         }
 
-        String sql = Join.getDeleteSql(column.getTablename());
+        String sql = Join.getDeleteSql(column.getCategory());
         Connection con = null;
         PreparedStatement stmt = null;
 

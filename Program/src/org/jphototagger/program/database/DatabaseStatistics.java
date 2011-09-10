@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.domain.database.Column;
+import org.jphototagger.domain.metadata.MetaDataValue;
 
 /**
  *
@@ -28,7 +28,7 @@ public final class DatabaseStatistics extends Database {
      * @return count count of records in the column's table where
      * <code>column</code> is not null
      */
-    public int getTotalRecordCountOf(Column column) {
+    public int getTotalRecordCountOf(MetaDataValue column) {
         if (column == null) {
             throw new NullPointerException("column == null");
         }
@@ -42,8 +42,8 @@ public final class DatabaseStatistics extends Database {
             con = getConnection();
             stmt = con.createStatement();
 
-            String sql = "SELECT COUNT(*) FROM " + column.getTablename()
-                         + " WHERE " + column.getName() + " IS NOT NULL";
+            String sql = "SELECT COUNT(*) FROM " + column.getCategory()
+                         + " WHERE " + column.getValueName() + " IS NOT NULL";
 
             logFinest(sql);
             rs = stmt.executeQuery(sql);
@@ -134,7 +134,7 @@ public final class DatabaseStatistics extends Database {
      * @param  value    value
      * @return true if the value existsValueIn into the column
      */
-    public boolean existsValueIn(List<Column> columns, String value) {
+    public boolean existsValueIn(List<MetaDataValue> columns, String value) {
         if (columns == null) {
             throw new NullPointerException("columns == null");
         }
@@ -150,10 +150,10 @@ public final class DatabaseStatistics extends Database {
             int size = columns.size();
 
             for (int i = 0; !exists && (i < size); i++) {
-                Column column = columns.get(i);
+                MetaDataValue column = columns.get(i);
 
-                stmt = con.prepareStatement("SELECT COUNT(*) FROM " + column.getTablename()
-                                            + " WHERE " + column.getName() + " = ?");
+                stmt = con.prepareStatement("SELECT COUNT(*) FROM " + column.getCategory()
+                                            + " WHERE " + column.getValueName() + " = ?");
                 stmt.setString(1, value);
                 logFinest(stmt);
                 rs = stmt.executeQuery();
@@ -182,7 +182,7 @@ public final class DatabaseStatistics extends Database {
      * @param  value   value
      * @return true if the value existsValueIn in the column
      */
-    public boolean existsValueIn(Column column, String value) {
+    public boolean existsValueIn(MetaDataValue column, String value) {
         if (column == null) {
             throw new NullPointerException("column == null");
         }
@@ -194,8 +194,8 @@ public final class DatabaseStatistics extends Database {
 
         try {
             con = getConnection();
-            stmt = con.prepareStatement("SELECT COUNT(*) FROM " + column.getTablename()
-                                        + " WHERE " + column.getName() + " = ?");
+            stmt = con.prepareStatement("SELECT COUNT(*) FROM " + column.getCategory()
+                                        + " WHERE " + column.getValueName() + " = ?");
             stmt.setString(1, value);
             logFinest(stmt);
             rs = stmt.executeQuery();

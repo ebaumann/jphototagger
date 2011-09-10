@@ -11,8 +11,8 @@ import javax.swing.JComponent;
 import javax.swing.TransferHandler;
 
 import org.jdesktop.swingx.JXList;
-import org.jphototagger.domain.database.ColumnData;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.domain.metadata.MetaDataValueData;
+import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.lib.datatransfer.TransferUtil;
 import org.jphototagger.lib.datatransfer.TransferableObject;
 import org.jphototagger.lib.util.Bundle;
@@ -55,7 +55,7 @@ public final class TransferHandlerKeywordsList extends TransferHandler {
             int fileCount = imageFiles.size();
 
             if ((fileCount > 0) && confirmImport(keyword, fileCount)) {
-                ColumnData cd = new ColumnData(ColumnXmpDcSubjectsSubject.INSTANCE, value);
+                MetaDataValueData cd = new MetaDataValueData(XmpDcSubjectsSubjectMetaDataValue.INSTANCE, value);
 
                 MiscMetadataHelper.saveToImageFiles(Collections.singletonList(cd), imageFiles);
 

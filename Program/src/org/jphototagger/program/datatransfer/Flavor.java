@@ -1,11 +1,13 @@
 package org.jphototagger.program.datatransfer;
 
-import org.jphototagger.lib.datatransfer.TransferUtil;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.TransferHandler.TransferSupport;
+
+import org.jphototagger.lib.datatransfer.TransferUtil;
 
 /**
  * Data flavors supported in JPhotoTagger.
@@ -18,67 +20,58 @@ public final class Flavor {
      * A reference to {@link DataFlavor#javaFileListFlavor}
      */
     public static final DataFlavor FILE_LIST_FLAVOR = DataFlavor.javaFileListFlavor;
-
     /**
      * A reference to {@link TransferUtil#getUriListFlavor()}
      */
     public static final DataFlavor URI_LIST = TransferUtil.getUriListFlavor();
-
     /**
      * A {@link java.util.Collection} of {@link java.io.File}s: The selected
      * image files and their XMP sidecar files
      */
     public static final DataFlavor THUMBNAILS_PANEL = new DataFlavor(THUMBNAILS_PANEL.class, null);
-
     /**
      * The selected list values as an array of {@link Object}s
      */
     public static final DataFlavor METADATA_TEMPLATES = new DataFlavor(METADATA_TEMPLATES.class, null);
-
     /**
-     * All metadata data flavors such as keywords or column data
+     * All metadata data flavors such as keywords or metadata value data
      */
     private static final List<DataFlavor> METADATA_FLAVORS = new ArrayList<DataFlavor>();
-
     /**
      * A {@link java.util.Collection} of
      * {@link javax.swing.tree.DefaultMutableTreeNode}s: The selected tree nodes
      */
     public static final DataFlavor KEYWORDS_TREE = new DataFlavor(KEYWORDS_TREE.class, null);
-
     /**
      * The selected list values as an array of {@link Object}s
      */
     public static final DataFlavor KEYWORDS_LIST = new DataFlavor(KEYWORDS_LIST.class, null);
-
     /**
      * A {@link java.util.Collection} of {@link java.io.File}s: The selected
      * image files and their XMP sidecar files
      */
     public static final DataFlavor IMAGE_COLLECTION = new DataFlavor(IMAGE_COLLECTION.class, null);
-
     /**
      * Contains {@link #URI_LIST} and {@link #FILE_LIST_FLAVOR }
      */
-    static final DataFlavor[] FILE_FLAVORS = new DataFlavor[] { FILE_LIST_FLAVOR, URI_LIST };
-
+    static final DataFlavor[] FILE_FLAVORS = new DataFlavor[]{FILE_LIST_FLAVOR, URI_LIST};
     /**
-     * A {@link java.util.Collection} of
-     * {@link org.jphototagger.program.data.ColumnData} objects
+     * A {@link java.util.Collection} of metadata value objects
      */
-    public static final DataFlavor COLUMN_DATA = new DataFlavor(COLUMN_DATA.class, null);
+    public static final DataFlavor META_DATA_VALUE = new DataFlavor(META_DATA_VALUE.class, null);
 
     static {
         METADATA_FLAVORS.add(KEYWORDS_TREE);
         METADATA_FLAVORS.add(KEYWORDS_LIST);
         METADATA_FLAVORS.add(METADATA_TEMPLATES);
-        METADATA_FLAVORS.add(COLUMN_DATA);
+        METADATA_FLAVORS.add(META_DATA_VALUE);
     }
 
-    private Flavor() {}
+    private Flavor() {
+    }
 
     /**
-     * Returns whether metadata is transferred, e.g. keywords or column data
+     * Returns whether metadata is transferred, e.g. keywords or metadata value
      *
      * @param  t tranferable
      * @return   true if metadata is transferred
@@ -137,12 +130,12 @@ public final class Flavor {
         return support.isDataFlavorSupported(METADATA_TEMPLATES);
     }
 
-    public static boolean hasColumnData(TransferSupport support) {
+    public static boolean hasMetaDataValue(TransferSupport support) {
         if (support == null) {
             throw new NullPointerException("support == null");
         }
 
-        return support.isDataFlavorSupported(COLUMN_DATA);
+        return support.isDataFlavorSupported(META_DATA_VALUE);
     }
 
     /**
@@ -161,38 +154,27 @@ public final class Flavor {
         return support.isDataFlavorSupported(KEYWORDS_TREE);
     }
 
-    private final class COLUMN_DATA {
-
+    private final class META_DATA_VALUE {
         // Empty
     }
-
 
     private final class IMAGE_COLLECTION {
-
         // Empty
     }
-
 
     private final class KEYWORDS_LIST {
-
         // Empty
     }
-
 
     private final class KEYWORDS_TREE {
-
         // Empty
     }
-
 
     private final class METADATA_TEMPLATES {
-
         // Empty
     }
 
-
     private final class THUMBNAILS_PANEL {
-
         // Empty
     }
 }

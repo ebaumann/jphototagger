@@ -22,7 +22,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import org.jphototagger.api.core.Storage;
-import org.jphototagger.domain.database.search.ParamStatement;
+import org.jphototagger.domain.metadata.search.ParamStatement;
 import org.jphototagger.domain.event.listener.ListenerSupport;
 import org.jphototagger.lib.component.TabOrEnterLeavingTextArea;
 import org.jphototagger.lib.componentutil.ComponentUtil;

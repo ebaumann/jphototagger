@@ -14,17 +14,17 @@ import javax.swing.event.DocumentListener;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.core.Storage;
-import org.jphototagger.domain.database.Column;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcTitle;
 import org.jphototagger.domain.event.listener.TextEntryListener;
 import org.jphototagger.domain.event.listener.TextEntryListenerSupport;
+import org.jphototagger.domain.metadata.MetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpDcTitleMetaDataValue;
 import org.jphototagger.domain.repository.event.dcsubjects.DcSubjectInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.domain.text.TextEntry;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.componentutil.Autocomplete;
-import org.jphototagger.program.database.metadata.selections.AutoCompleteDataOfColumn;
+import org.jphototagger.program.database.metadata.selections.AutoCompleteDataOfMetaDataValue;
 import org.jphototagger.program.helper.AutocompleteHelper;
 import org.openide.util.Lookup;
 
@@ -36,47 +36,47 @@ import org.openide.util.Lookup;
 public final class EditTextEntryPanel extends JPanel implements TextEntry, DocumentListener {
     private static final Color EDITABLE_COLOR = Color.WHITE;
     private static final long serialVersionUID = -6455550547873630461L;
-    private transient Column column;
+    private transient MetaDataValue metaDataValue;
     private boolean dirty = false;
     private boolean editable;
     private transient TextEntryListenerSupport textEntryListenerSupport = new TextEntryListenerSupport();
     private Autocomplete autocomplete;
 
     public EditTextEntryPanel() {
-        column = ColumnXmpDcTitle.INSTANCE;
+        metaDataValue = XmpDcTitleMetaDataValue.INSTANCE;
         initComponents();
         AnnotationProcessor.process(this);
     }
 
-    public EditTextEntryPanel(Column column) {
-        if (column == null) {
-            throw new NullPointerException("column == null");
+    public EditTextEntryPanel(MetaDataValue metaDataValue) {
+        if (metaDataValue == null) {
+            throw new NullPointerException("metaDataValue == null");
         }
 
-        this.column = column;
+        this.metaDataValue = metaDataValue;
         initComponents();
-        postSetColumn();
+        postSetMetaDataValue();
         AnnotationProcessor.process(this);
     }
 
-    private void postSetColumn() {
+    private void postSetMetaDataValue() {
         setPropmt();
-        textAreaEdit.setInputVerifier(column.getInputVerifier());
+        textAreaEdit.setInputVerifier(metaDataValue.getInputVerifier());
         textAreaEdit.getDocument().addDocumentListener(this);
-        textAreaEdit.setName("JPhotoTagger text area for " + column.getDescription());
+        textAreaEdit.setName("JPhotoTagger text area for " + metaDataValue.getDescription());
     }
 
-    public void setColumn(Column column) {
-        if (column == null) {
-            throw new NullPointerException("column == null");
+    public void setMetaDataValue(MetaDataValue metaDataValue) {
+        if (metaDataValue == null) {
+            throw new NullPointerException("metaDataValue == null");
         }
 
-        this.column = column;
-        postSetColumn();
+        this.metaDataValue = metaDataValue;
+        postSetMetaDataValue();
     }
 
     private void setPropmt() {
-        labelPrompt.setText(column.getDescription());
+        labelPrompt.setText(metaDataValue.getDescription());
         labelPrompt.setLabelFor(textAreaEdit);
     }
 
@@ -112,8 +112,8 @@ public final class EditTextEntryPanel extends JPanel implements TextEntry, Docum
     }
 
     @Override
-    public Column getColumn() {
-        return column;
+    public MetaDataValue getMetaDataValue() {
+        return metaDataValue;
     }
 
     @Override
@@ -126,7 +126,7 @@ public final class EditTextEntryPanel extends JPanel implements TextEntry, Docum
             }
 
             autocomplete = new Autocomplete(false);
-            autocomplete.decorate(textAreaEdit, AutoCompleteDataOfColumn.INSTANCE.get(column).get(), true);
+            autocomplete.decorate(textAreaEdit, AutoCompleteDataOfMetaDataValue.INSTANCE.get(metaDataValue).get(), true);
         }
     }
 
@@ -144,7 +144,7 @@ public final class EditTextEntryPanel extends JPanel implements TextEntry, Docum
 
     private void addToAutocomplete(Xmp xmp) {
         if (isAutocomplete()) {
-            AutocompleteHelper.addAutocompleteData(column, autocomplete, xmp);
+            AutocompleteHelper.addAutocompleteData(metaDataValue, autocomplete, xmp);
         }
     }
 
@@ -161,7 +161,7 @@ public final class EditTextEntryPanel extends JPanel implements TextEntry, Docum
     @EventSubscriber(eventClass = DcSubjectInsertedEvent.class)
     public void dcSubjectInserted(DcSubjectInsertedEvent evt) {
         if (isAutocomplete()) {
-            AutocompleteHelper.addAutocompleteData(column, autocomplete, Collections.singleton(evt.getDcSubject()));
+            AutocompleteHelper.addAutocompleteData(metaDataValue, autocomplete, Collections.singleton(evt.getDcSubject()));
         }
     }
 
@@ -192,19 +192,19 @@ public final class EditTextEntryPanel extends JPanel implements TextEntry, Docum
 
     @Override
     public void insertUpdate(DocumentEvent evt) {
-        notifyTextChanged(column, "", textAreaEdit.getText());
+        notifyTextChanged(metaDataValue, "", textAreaEdit.getText());
         dirty = true;
     }
 
     @Override
     public void removeUpdate(DocumentEvent evt) {
-        notifyTextChanged(column, "", textAreaEdit.getText());
+        notifyTextChanged(metaDataValue, "", textAreaEdit.getText());
         dirty = true;
     }
 
     @Override
     public void changedUpdate(DocumentEvent evt) {
-        notifyTextChanged(column, "", textAreaEdit.getText());
+        notifyTextChanged(metaDataValue, "", textAreaEdit.getText());
         dirty = true;
     }
 
@@ -224,8 +224,8 @@ public final class EditTextEntryPanel extends JPanel implements TextEntry, Docum
         textEntryListenerSupport.remove(listener);
     }
 
-    private void notifyTextChanged(Column column, String oldText, String newText) {
-        textEntryListenerSupport.notifyTextChanged(column, oldText, newText);
+    private void notifyTextChanged(MetaDataValue value, String oldText, String newText) {
+        textEntryListenerSupport.notifyTextChanged(value, oldText, newText);
     }
 
     @Override
@@ -278,7 +278,7 @@ public final class EditTextEntryPanel extends JPanel implements TextEntry, Docum
         setLayout(new java.awt.GridBagLayout());
 
         labelPrompt.setText("Prompt:"); // NOI18N
-        labelPrompt.setToolTipText(column.getLongerDescription());
+        labelPrompt.setToolTipText(metaDataValue.getLongerDescription());
         labelPrompt.setName("labelPrompt"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;

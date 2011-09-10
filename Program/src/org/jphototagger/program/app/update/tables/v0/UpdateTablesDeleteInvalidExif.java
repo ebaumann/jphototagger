@@ -5,10 +5,10 @@ import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.jphototagger.domain.database.Column;
-import org.jphototagger.domain.database.exif.ColumnExifFocalLength;
-import org.jphototagger.domain.database.exif.ColumnExifIsoSpeedRatings;
-import org.jphototagger.domain.database.exif.ColumnExifRecordingEquipment;
+import org.jphototagger.domain.metadata.MetaDataValue;
+import org.jphototagger.domain.metadata.exif.ExifFocalLengthMetaDataValue;
+import org.jphototagger.domain.metadata.exif.ExifIsoSpeedRatingsMetaDataValue;
+import org.jphototagger.domain.metadata.exif.ExifRecordingEquipmentMetaDataValue;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.SplashScreen;
 import org.jphototagger.program.database.Database;
@@ -20,12 +20,13 @@ import org.jphototagger.program.database.DatabaseApplicationProperties;
  * @author Elmar Baumann
  */
 final class UpdateTablesDeleteInvalidExif {
+
     private static final String KEY_REMOVED_INVALID_EXIF = "Removed_Invalid_EXIF_1";    // Never change this!
-    private static final Set<Column> COLUMNS_NOT_POSITIVE = new HashSet<Column>();
+    private static final Set<MetaDataValue> META_DATA_VALUES_NOT_POSITIVE = new HashSet<MetaDataValue>();
 
     static {
-        COLUMNS_NOT_POSITIVE.add(ColumnExifFocalLength.INSTANCE);
-        COLUMNS_NOT_POSITIVE.add(ColumnExifIsoSpeedRatings.INSTANCE);
+        META_DATA_VALUES_NOT_POSITIVE.add(ExifFocalLengthMetaDataValue.INSTANCE);
+        META_DATA_VALUES_NOT_POSITIVE.add(ExifIsoSpeedRatingsMetaDataValue.INSTANCE);
     }
 
     void update(Connection con) throws SQLException {
@@ -40,25 +41,25 @@ final class UpdateTablesDeleteInvalidExif {
     }
 
     private void setNull(Connection con) throws SQLException {
-        for (Column column : COLUMNS_NOT_POSITIVE) {
-            setNullIfNotPositiv(con, column);
+        for (MetaDataValue mdValue : META_DATA_VALUES_NOT_POSITIVE) {
+            setNullIfNotPositiv(con, mdValue);
         }
 
         checkRecordingEquipment(con);
     }
 
-    private void setNullIfNotPositiv(Connection con, Column column) throws SQLException {
+    private void setNullIfNotPositiv(Connection con, MetaDataValue mdValue) throws SQLException {
         Database.execute(con,
-                         "UPDATE " + column.getTablename() + " SET " + column.getName() + " = NULL WHERE "
-                         + column.getName() + " <= 0");
+                "UPDATE " + mdValue.getCategory() + " SET " + mdValue.getValueName() + " = NULL WHERE "
+                + mdValue.getValueName() + " <= 0");
     }
 
     private void checkRecordingEquipment(Connection con) throws SQLException {
-        Column column = ColumnExifRecordingEquipment.INSTANCE;
+        MetaDataValue mdValue = ExifRecordingEquipmentMetaDataValue.INSTANCE;
 
         Database.execute(con,
-                         "UPDATE " + column.getTablename() + " SET " + column.getName() + " = NULL WHERE "
-                         + column.getName() + " = '0'");
+                "UPDATE " + mdValue.getCategory() + " SET " + mdValue.getValueName() + " = NULL WHERE "
+                + mdValue.getValueName() + " = '0'");
     }
 
     private void startMessage() {

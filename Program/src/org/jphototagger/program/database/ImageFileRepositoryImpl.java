@@ -6,10 +6,11 @@ import java.sql.Date;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+
 import org.jphototagger.api.event.ProgressListener;
-import org.jphototagger.domain.database.Column;
 import org.jphototagger.domain.exif.Exif;
 import org.jphototagger.domain.image.ImageFile;
+import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.repository.ImageFileRepository;
 import org.jphototagger.domain.timeline.Timeline;
 import org.jphototagger.domain.xmp.FileXmp;
@@ -62,8 +63,8 @@ public final class ImageFileRepositoryImpl implements ImageFileRepository {
     }
 
     @Override
-    public void deleteValueOfJoinedColumn(Column column, String value) {
-        db.deleteValueOfJoinedColumn(column, value);
+    public void deleteValueOfJoinedMetaDataValue(MetaDataValue mdValue, String value) {
+        db.deleteValueOfJoinedColumn(mdValue, value);
     }
 
     @Override
@@ -82,8 +83,8 @@ public final class ImageFileRepositoryImpl implements ImageFileRepository {
     }
 
     @Override
-    public boolean existsValueInColumn(Object value, Column column) {
-        return db.existsValueInColumn(value, column);
+    public boolean existsMetaDataValue(Object value, MetaDataValue mdValue) {
+        return db.existsValueInColumn(value, mdValue);
     }
 
     @Override
@@ -97,8 +98,8 @@ public final class ImageFileRepositoryImpl implements ImageFileRepository {
     }
 
     @Override
-    public Set<String> getAllDistinctValuesOfColumn(Column column) {
-        return db.getAllDistinctValuesOfColumn(column);
+    public Set<String> getAllDistinctMetaDataValues(MetaDataValue mdValue) {
+        return db.getAllDistinctValuesOfColumn(mdValue);
     }
 
     @Override
@@ -137,13 +138,13 @@ public final class ImageFileRepositoryImpl implements ImageFileRepository {
     }
 
     @Override
-    public Set<File> getImageFilesContainingAllWordsInColumn(List<? extends String> words, Column column) {
-        return db.getImageFilesContainingAllWordsInColumn(words, column);
+    public Set<File> getImageFilesContainingAllWordsInMetaDataValue(List<? extends String> words, MetaDataValue mdValue) {
+        return db.getImageFilesContainingAllWordsInColumn(words, mdValue);
     }
 
     @Override
-    public List<File> getImageFilesContainingAVauleInColumn(Column column) {
-        return db.getImageFilesContainingAVauleInColumn(column);
+    public List<File> getImageFilesContainingAVauleInMetaDataValue(MetaDataValue mdValue) {
+        return db.getImageFilesContainingAVauleInColumn(mdValue);
     }
 
     @Override
@@ -157,13 +158,13 @@ public final class ImageFileRepositoryImpl implements ImageFileRepository {
     }
 
     @Override
-    public List<File> getImageFilesWhereColumnHasExactValue(Column column, String exactValue) {
-        return db.getImageFilesWhereColumnHasExactValue(column, exactValue);
+    public List<File> getImageFilesWhereMetaDataValueHasExactValue(MetaDataValue mdValue, String exactValue) {
+        return db.getImageFilesWhereColumnHasExactValue(mdValue, exactValue);
     }
 
     @Override
-    public List<File> getImageFilesWithoutMetadataInColumn(Column column) {
-        return db.getImageFilesWithoutMetadataInColumn(column);
+    public List<File> getImageFilesWithoutDataValue(MetaDataValue mdValue) {
+        return db.getImageFilesWithoutMetadataInColumn(mdValue);
     }
 
     @Override

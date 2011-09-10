@@ -13,24 +13,24 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.bushe.swing.event.EventBus;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcCreator;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcDescription;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcRights;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcTitle;
-import org.jphototagger.domain.database.xmp.ColumnXmpIptc4XmpCoreDateCreated;
-import org.jphototagger.domain.database.xmp.ColumnXmpIptc4xmpcoreLocation;
-import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopAuthorsposition;
-import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopCaptionwriter;
-import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopCity;
-import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopCountry;
-import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopCredit;
-import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopHeadline;
-import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopInstructions;
-import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopSource;
-import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopState;
-import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopTransmissionReference;
-import org.jphototagger.domain.database.xmp.ColumnXmpRating;
+import org.jphototagger.domain.metadata.xmp.XmpDcCreatorMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpDcDescriptionMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpDcRightsMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpDcTitleMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpIptc4XmpCoreDateCreatedMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpIptc4xmpcoreLocationMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopAuthorspositionMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopCaptionwriterMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopCityMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopCountryMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopCreditMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopHeadlineMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopInstructionsMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopSourceMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopStateMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopTransmissionReferenceMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpRatingMetaDataValue;
 import org.jphototagger.domain.repository.event.metadatatemplates.MetadataTemplateDeletedEvent;
 import org.jphototagger.domain.repository.event.metadatatemplates.MetadataTemplateInsertedEvent;
 import org.jphototagger.domain.repository.event.metadatatemplates.MetadataTemplateRenamedEvent;
@@ -117,64 +117,64 @@ public final class DatabaseMetadataTemplates extends Database {
     @SuppressWarnings("unchecked")
     private void set(PreparedStatement stmt, MetadataTemplate template) throws SQLException {
         stmt.setString(1, template.getName());
-        stmt.setBytes(2, (template.getValueOfColumn(ColumnXmpDcSubjectsSubject.INSTANCE) == null)
+        stmt.setBytes(2, (template.getMetaDataValue(XmpDcSubjectsSubjectMetaDataValue.INSTANCE) == null)
                 ? null
                 : fromRepeatable(
-                (Collection<String>) template.getValueOfColumn(
-                ColumnXmpDcSubjectsSubject.INSTANCE)).getBytes());
-        stmt.setBytes(3, (template.getValueOfColumn(ColumnXmpDcTitle.INSTANCE) == null)
+                (Collection<String>) template.getMetaDataValue(
+                XmpDcSubjectsSubjectMetaDataValue.INSTANCE)).getBytes());
+        stmt.setBytes(3, (template.getMetaDataValue(XmpDcTitleMetaDataValue.INSTANCE) == null)
                 ? null
-                : ((String) template.getValueOfColumn(ColumnXmpDcTitle.INSTANCE)).getBytes());
-        stmt.setBytes(4, (template.getValueOfColumn(ColumnXmpPhotoshopHeadline.INSTANCE) == null)
+                : ((String) template.getMetaDataValue(XmpDcTitleMetaDataValue.INSTANCE)).getBytes());
+        stmt.setBytes(4, (template.getMetaDataValue(XmpPhotoshopHeadlineMetaDataValue.INSTANCE) == null)
                 ? null
-                : ((String) template.getValueOfColumn(ColumnXmpPhotoshopHeadline.INSTANCE)).getBytes());
-        stmt.setBytes(5, (template.getValueOfColumn(ColumnXmpDcDescription.INSTANCE) == null)
+                : ((String) template.getMetaDataValue(XmpPhotoshopHeadlineMetaDataValue.INSTANCE)).getBytes());
+        stmt.setBytes(5, (template.getMetaDataValue(XmpDcDescriptionMetaDataValue.INSTANCE) == null)
                 ? null
-                : ((String) template.getValueOfColumn(ColumnXmpDcDescription.INSTANCE)).getBytes());
-        stmt.setBytes(6, (template.getValueOfColumn(ColumnXmpPhotoshopCaptionwriter.INSTANCE) == null)
+                : ((String) template.getMetaDataValue(XmpDcDescriptionMetaDataValue.INSTANCE)).getBytes());
+        stmt.setBytes(6, (template.getMetaDataValue(XmpPhotoshopCaptionwriterMetaDataValue.INSTANCE) == null)
                 ? null
-                : ((String) template.getValueOfColumn(ColumnXmpPhotoshopCaptionwriter.INSTANCE)).getBytes());
-        stmt.setBytes(7, (template.getValueOfColumn(ColumnXmpIptc4xmpcoreLocation.INSTANCE) == null)
+                : ((String) template.getMetaDataValue(XmpPhotoshopCaptionwriterMetaDataValue.INSTANCE)).getBytes());
+        stmt.setBytes(7, (template.getMetaDataValue(XmpIptc4xmpcoreLocationMetaDataValue.INSTANCE) == null)
                 ? null
-                : ((String) template.getValueOfColumn(ColumnXmpIptc4xmpcoreLocation.INSTANCE)).getBytes());
-        stmt.setBytes(8, (template.getValueOfColumn(ColumnXmpDcRights.INSTANCE) == null)
+                : ((String) template.getMetaDataValue(XmpIptc4xmpcoreLocationMetaDataValue.INSTANCE)).getBytes());
+        stmt.setBytes(8, (template.getMetaDataValue(XmpDcRightsMetaDataValue.INSTANCE) == null)
                 ? null
-                : ((String) template.getValueOfColumn(ColumnXmpDcRights.INSTANCE)).getBytes());
-        stmt.setBytes(9, (template.getValueOfColumn(ColumnXmpDcCreator.INSTANCE) == null)
+                : ((String) template.getMetaDataValue(XmpDcRightsMetaDataValue.INSTANCE)).getBytes());
+        stmt.setBytes(9, (template.getMetaDataValue(XmpDcCreatorMetaDataValue.INSTANCE) == null)
                 ? null
-                : ((String) template.getValueOfColumn(ColumnXmpDcCreator.INSTANCE)).getBytes());
-        stmt.setBytes(10, (template.getValueOfColumn(ColumnXmpPhotoshopAuthorsposition.INSTANCE) == null)
+                : ((String) template.getMetaDataValue(XmpDcCreatorMetaDataValue.INSTANCE)).getBytes());
+        stmt.setBytes(10, (template.getMetaDataValue(XmpPhotoshopAuthorspositionMetaDataValue.INSTANCE) == null)
                 ? null
-                : ((String) template.getValueOfColumn(
-                ColumnXmpPhotoshopAuthorsposition.INSTANCE)).getBytes());
-        stmt.setBytes(11, (template.getValueOfColumn(ColumnXmpPhotoshopCity.INSTANCE) == null)
+                : ((String) template.getMetaDataValue(
+                XmpPhotoshopAuthorspositionMetaDataValue.INSTANCE)).getBytes());
+        stmt.setBytes(11, (template.getMetaDataValue(XmpPhotoshopCityMetaDataValue.INSTANCE) == null)
                 ? null
-                : ((String) template.getValueOfColumn(ColumnXmpPhotoshopCity.INSTANCE)).getBytes());
-        stmt.setBytes(12, (template.getValueOfColumn(ColumnXmpPhotoshopState.INSTANCE) == null)
+                : ((String) template.getMetaDataValue(XmpPhotoshopCityMetaDataValue.INSTANCE)).getBytes());
+        stmt.setBytes(12, (template.getMetaDataValue(XmpPhotoshopStateMetaDataValue.INSTANCE) == null)
                 ? null
-                : ((String) template.getValueOfColumn(ColumnXmpPhotoshopState.INSTANCE)).getBytes());
-        stmt.setBytes(13, (template.getValueOfColumn(ColumnXmpPhotoshopCountry.INSTANCE) == null)
+                : ((String) template.getMetaDataValue(XmpPhotoshopStateMetaDataValue.INSTANCE)).getBytes());
+        stmt.setBytes(13, (template.getMetaDataValue(XmpPhotoshopCountryMetaDataValue.INSTANCE) == null)
                 ? null
-                : ((String) template.getValueOfColumn(ColumnXmpPhotoshopCountry.INSTANCE)).getBytes());
-        stmt.setBytes(14, (template.getValueOfColumn(ColumnXmpPhotoshopTransmissionReference.INSTANCE) == null)
+                : ((String) template.getMetaDataValue(XmpPhotoshopCountryMetaDataValue.INSTANCE)).getBytes());
+        stmt.setBytes(14, (template.getMetaDataValue(XmpPhotoshopTransmissionReferenceMetaDataValue.INSTANCE) == null)
                 ? null
-                : ((String) template.getValueOfColumn(
-                ColumnXmpPhotoshopTransmissionReference.INSTANCE)).getBytes());
-        stmt.setBytes(15, (template.getValueOfColumn(ColumnXmpPhotoshopInstructions.INSTANCE) == null)
+                : ((String) template.getMetaDataValue(
+                XmpPhotoshopTransmissionReferenceMetaDataValue.INSTANCE)).getBytes());
+        stmt.setBytes(15, (template.getMetaDataValue(XmpPhotoshopInstructionsMetaDataValue.INSTANCE) == null)
                 ? null
-                : ((String) template.getValueOfColumn(ColumnXmpPhotoshopInstructions.INSTANCE)).getBytes());
-        stmt.setBytes(16, (template.getValueOfColumn(ColumnXmpPhotoshopCredit.INSTANCE) == null)
+                : ((String) template.getMetaDataValue(XmpPhotoshopInstructionsMetaDataValue.INSTANCE)).getBytes());
+        stmt.setBytes(16, (template.getMetaDataValue(XmpPhotoshopCreditMetaDataValue.INSTANCE) == null)
                 ? null
-                : ((String) template.getValueOfColumn(ColumnXmpPhotoshopCredit.INSTANCE)).getBytes());
-        stmt.setBytes(17, (template.getValueOfColumn(ColumnXmpPhotoshopSource.INSTANCE) == null)
+                : ((String) template.getMetaDataValue(XmpPhotoshopCreditMetaDataValue.INSTANCE)).getBytes());
+        stmt.setBytes(17, (template.getMetaDataValue(XmpPhotoshopSourceMetaDataValue.INSTANCE) == null)
                 ? null
-                : ((String) template.getValueOfColumn(ColumnXmpPhotoshopSource.INSTANCE)).getBytes());
-        stmt.setBytes(18, (template.getValueOfColumn(ColumnXmpRating.INSTANCE) == null)
+                : ((String) template.getMetaDataValue(XmpPhotoshopSourceMetaDataValue.INSTANCE)).getBytes());
+        stmt.setBytes(18, (template.getMetaDataValue(XmpRatingMetaDataValue.INSTANCE) == null)
                 ? null
-                : ((String) template.getValueOfColumn(ColumnXmpRating.INSTANCE)).getBytes());
-        stmt.setBytes(19, (template.getValueOfColumn(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE) == null)
+                : ((String) template.getMetaDataValue(XmpRatingMetaDataValue.INSTANCE)).getBytes());
+        stmt.setBytes(19, (template.getMetaDataValue(XmpIptc4XmpCoreDateCreatedMetaDataValue.INSTANCE) == null)
                 ? null
-                : ((String) template.getValueOfColumn(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE)).getBytes());
+                : ((String) template.getMetaDataValue(XmpIptc4XmpCoreDateCreatedMetaDataValue.INSTANCE)).getBytes());
     }
 
     private String fromRepeatable(Collection<String> strings) {
@@ -306,75 +306,75 @@ public final class DatabaseMetadataTemplates extends Database {
 
         template.setName(rs.getString(1));
         bytes = rs.getBytes(2);
-        template.setValueOfColumn(ColumnXmpDcSubjectsSubject.INSTANCE, rs.wasNull()
+        template.setMetaDataValue(XmpDcSubjectsSubjectMetaDataValue.INSTANCE, rs.wasNull()
                 ? null
                 : toRepeatable(new String(bytes)));
         bytes = rs.getBytes(3);
-        template.setValueOfColumn(ColumnXmpDcTitle.INSTANCE, rs.wasNull()
+        template.setMetaDataValue(XmpDcTitleMetaDataValue.INSTANCE, rs.wasNull()
                 ? null
                 : new String(bytes));
         bytes = rs.getBytes(4);
-        template.setValueOfColumn(ColumnXmpPhotoshopHeadline.INSTANCE, rs.wasNull()
+        template.setMetaDataValue(XmpPhotoshopHeadlineMetaDataValue.INSTANCE, rs.wasNull()
                 ? null
                 : new String(bytes));
         bytes = rs.getBytes(5);
-        template.setValueOfColumn(ColumnXmpDcDescription.INSTANCE, rs.wasNull()
+        template.setMetaDataValue(XmpDcDescriptionMetaDataValue.INSTANCE, rs.wasNull()
                 ? null
                 : new String(bytes));
         bytes = rs.getBytes(6);
-        template.setValueOfColumn(ColumnXmpPhotoshopCaptionwriter.INSTANCE, rs.wasNull()
+        template.setMetaDataValue(XmpPhotoshopCaptionwriterMetaDataValue.INSTANCE, rs.wasNull()
                 ? null
                 : new String(bytes));
         bytes = rs.getBytes(7);
-        template.setValueOfColumn(ColumnXmpIptc4xmpcoreLocation.INSTANCE, rs.wasNull()
+        template.setMetaDataValue(XmpIptc4xmpcoreLocationMetaDataValue.INSTANCE, rs.wasNull()
                 ? null
                 : new String(bytes));
         bytes = rs.getBytes(8);
-        template.setValueOfColumn(ColumnXmpDcRights.INSTANCE, rs.wasNull()
+        template.setMetaDataValue(XmpDcRightsMetaDataValue.INSTANCE, rs.wasNull()
                 ? null
                 : new String(bytes));
         bytes = rs.getBytes(9);
-        template.setValueOfColumn(ColumnXmpDcCreator.INSTANCE, rs.wasNull()
+        template.setMetaDataValue(XmpDcCreatorMetaDataValue.INSTANCE, rs.wasNull()
                 ? null
                 : new String(bytes));
         bytes = rs.getBytes(10);
-        template.setValueOfColumn(ColumnXmpPhotoshopAuthorsposition.INSTANCE, rs.wasNull()
+        template.setMetaDataValue(XmpPhotoshopAuthorspositionMetaDataValue.INSTANCE, rs.wasNull()
                 ? null
                 : new String(bytes));
         bytes = rs.getBytes(11);
-        template.setValueOfColumn(ColumnXmpPhotoshopCity.INSTANCE, rs.wasNull()
+        template.setMetaDataValue(XmpPhotoshopCityMetaDataValue.INSTANCE, rs.wasNull()
                 ? null
                 : new String(bytes));
         bytes = rs.getBytes(12);
-        template.setValueOfColumn(ColumnXmpPhotoshopState.INSTANCE, rs.wasNull()
+        template.setMetaDataValue(XmpPhotoshopStateMetaDataValue.INSTANCE, rs.wasNull()
                 ? null
                 : new String(bytes));
         bytes = rs.getBytes(13);
-        template.setValueOfColumn(ColumnXmpPhotoshopCountry.INSTANCE, rs.wasNull()
+        template.setMetaDataValue(XmpPhotoshopCountryMetaDataValue.INSTANCE, rs.wasNull()
                 ? null
                 : new String(bytes));
         bytes = rs.getBytes(14);
-        template.setValueOfColumn(ColumnXmpPhotoshopTransmissionReference.INSTANCE, rs.wasNull()
+        template.setMetaDataValue(XmpPhotoshopTransmissionReferenceMetaDataValue.INSTANCE, rs.wasNull()
                 ? null
                 : new String(bytes));
         bytes = rs.getBytes(15);
-        template.setValueOfColumn(ColumnXmpPhotoshopInstructions.INSTANCE, rs.wasNull()
+        template.setMetaDataValue(XmpPhotoshopInstructionsMetaDataValue.INSTANCE, rs.wasNull()
                 ? null
                 : new String(bytes));
         bytes = rs.getBytes(16);
-        template.setValueOfColumn(ColumnXmpPhotoshopCredit.INSTANCE, rs.wasNull()
+        template.setMetaDataValue(XmpPhotoshopCreditMetaDataValue.INSTANCE, rs.wasNull()
                 ? null
                 : new String(bytes));
         bytes = rs.getBytes(17);
-        template.setValueOfColumn(ColumnXmpPhotoshopSource.INSTANCE, rs.wasNull()
+        template.setMetaDataValue(XmpPhotoshopSourceMetaDataValue.INSTANCE, rs.wasNull()
                 ? null
                 : new String(bytes));
         bytes = rs.getBytes(18);
-        template.setValueOfColumn(ColumnXmpRating.INSTANCE, rs.wasNull()
+        template.setMetaDataValue(XmpRatingMetaDataValue.INSTANCE, rs.wasNull()
                 ? null
                 : new String(bytes));
         bytes = rs.getBytes(19);
-        template.setValueOfColumn(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE, rs.wasNull()
+        template.setMetaDataValue(XmpIptc4XmpCoreDateCreatedMetaDataValue.INSTANCE, rs.wasNull()
                 ? null
                 : new String(bytes));
     }

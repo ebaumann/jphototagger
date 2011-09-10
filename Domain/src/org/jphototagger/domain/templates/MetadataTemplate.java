@@ -1,10 +1,11 @@
 package org.jphototagger.domain.templates;
 
-import org.jphototagger.domain.database.Column;
-import org.jphototagger.domain.xmp.Xmp;
-import org.jphototagger.domain.database.xmp.XmpColumns;
 import java.util.HashMap;
 import java.util.Set;
+
+import org.jphototagger.domain.metadata.MetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpMetaDataValues;
+import org.jphototagger.domain.xmp.Xmp;
 
 /**
  * Holds the data of a metadata edit template.
@@ -14,7 +15,7 @@ import java.util.Set;
 public final class MetadataTemplate {
 
     private String name;
-    private final HashMap<Column, Object> fieldOfColumn = new HashMap<Column, Object>();
+    private final HashMap<MetaDataValue, Object> fieldOfMetaDataValue = new HashMap<MetaDataValue, Object>();
 
     /**
      * Returns the template's name.
@@ -40,34 +41,32 @@ public final class MetadataTemplate {
     }
 
     /**
-     * Returns a value of a XMP column.
      *
-     * @param  column column
-     * @return        value or null if the column has no value
+     * @param  value
+     * @return        value or null
      */
-    public Object getValueOfColumn(Column column) {
-        if (column == null) {
-            throw new NullPointerException("column == null");
+    public Object getMetaDataValue(MetaDataValue value) {
+        if (value == null) {
+            throw new NullPointerException("value == null");
         }
 
-        return fieldOfColumn.get(column);
+        return fieldOfMetaDataValue.get(value);
     }
 
     /**
-     * Setzt den Wert einer XMP-Spalte.
      *
-     * @param column  Spalte
-     * @param data    Wert
+     * @param value  Spalte
+     * @param data
      */
-    public void setValueOfColumn(Column column, Object data) {
-        if (column == null) {
-            throw new NullPointerException("column == null");
+    public void setMetaDataValue(MetaDataValue value, Object data) {
+        if (value == null) {
+            throw new NullPointerException("value == null");
         }
 
         if (data == null) {
-            fieldOfColumn.remove(column);
+            fieldOfMetaDataValue.remove(value);
         } else {
-            fieldOfColumn.put(column, data);
+            fieldOfMetaDataValue.put(value, data);
         }
     }
 
@@ -114,12 +113,12 @@ public final class MetadataTemplate {
             throw new NullPointerException("xmp == null");
         }
 
-        for (Column column : XmpColumns.get()) {
-            fieldOfColumn.put(column, xmp.getValue(column));
+        for (MetaDataValue value : XmpMetaDataValues.get()) {
+            fieldOfMetaDataValue.put(value, xmp.getValue(value));
         }
     }
 
-    public Set<Column> getColumns() {
-        return fieldOfColumn.keySet();
+    public Set<MetaDataValue> getMetaDataValues() {
+        return fieldOfMetaDataValue.keySet();
     }
 }

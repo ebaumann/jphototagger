@@ -8,8 +8,8 @@ import java.util.List;
 import javax.swing.JTree;
 import javax.swing.tree.TreePath;
 
-import org.jphototagger.domain.database.Column;
-import org.jphototagger.domain.database.ColumnStringValue;
+import org.jphototagger.domain.metadata.MetaDataStringValue;
+import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.lib.event.listener.PopupMenuTree;
 import org.jphototagger.program.controller.Controller;
 import org.jphototagger.program.helper.MiscMetadataHelper;
@@ -21,18 +21,19 @@ import org.jphototagger.program.resource.GUI;
  * @author Elmar Baumann
  */
 public abstract class ControllerMiscMetadata extends Controller implements PopupMenuTree.Listener {
+
     protected ControllerMiscMetadata() {
         listenToKeyEventsOf(GUI.getMiscMetadataTree());
     }
 
-    protected abstract void action(Column column, String value);
+    protected abstract void action(MetaDataValue mdValue, String value);
 
-    private void action(List<ColumnStringValue> columnStringValues) {
-        for (ColumnStringValue columnStringValue : columnStringValues) {
-            Column column = columnStringValue.getColumn();
-            String value = columnStringValue.getValue();
+    private void action(List<MetaDataStringValue> mdStringValues) {
+        for (MetaDataStringValue mdStringValue : mdStringValues) {
+            MetaDataValue mdValue = mdStringValue.getMetaDataValue();
+            String value = mdStringValue.getValue();
 
-            action(column, value);
+            action(mdValue, value);
         }
     }
 

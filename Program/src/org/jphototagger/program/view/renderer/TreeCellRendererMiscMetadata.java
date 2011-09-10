@@ -11,12 +11,12 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
 
-import org.jphototagger.domain.database.Column;
-import org.jphototagger.domain.database.exif.ColumnExifFocalLength;
-import org.jphototagger.domain.database.xmp.ColumnXmpRating;
+import org.jphototagger.domain.metadata.MetaDataValue;
+import org.jphototagger.domain.metadata.exif.ExifFocalLengthMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpRatingMetaDataValue;
 import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.database.metadata.selections.ColumnIcons;
+import org.jphototagger.program.database.metadata.selections.MetaDataValueIcons;
 import org.jphototagger.program.model.TreeModelMiscMetadata;
 
 /**
@@ -24,20 +24,21 @@ import org.jphototagger.program.model.TreeModelMiscMetadata;
  * @author Elmar Baumann
  */
 public final class TreeCellRendererMiscMetadata extends TreeCellRendererExt {
+
     private static final ImageIcon ICON_MISC_METADATA = IconUtil.getImageIcon("/org/jphototagger/program/resource/icons/icon_misc_metadata.png");
     private static final ImageIcon ICON_EXIF = IconUtil.getImageIcon("/org/jphototagger/program/resource/icons/icon_exif.png");
     private static final ImageIcon ICON_XMP = IconUtil.getImageIcon("/org/jphototagger/program/resource/icons/icon_xmp.png");
     private static final ImageIcon ICON_DETAIL = IconUtil.getImageIcon("/org/jphototagger/program/resource/icons/icon_misc_metadata_detail.png");
-    private static final Map<Column, ImageIcon> ICON_OF_COLUMN = new HashMap<Column, ImageIcon>();
+    private static final Map<MetaDataValue, ImageIcon> ICON_OF_META_DATA_VALUE = new HashMap<MetaDataValue, ImageIcon>();
     private static final long serialVersionUID = 4497836207990199053L;
 
     static {
-        for (Column exifColumn : TreeModelMiscMetadata.getExifColumns()) {
-            ICON_OF_COLUMN.put(exifColumn, ICON_EXIF);
+        for (MetaDataValue exifMetaDataValue : TreeModelMiscMetadata.getExifMetaDataValues()) {
+            ICON_OF_META_DATA_VALUE.put(exifMetaDataValue, ICON_EXIF);
         }
 
-        for (Column xmpColumn : TreeModelMiscMetadata.getXmpColumns()) {
-            ICON_OF_COLUMN.put(xmpColumn, ICON_XMP);
+        for (MetaDataValue xmpMetaDataValue : TreeModelMiscMetadata.getXmpMetaDataValues()) {
+            ICON_OF_META_DATA_VALUE.put(xmpMetaDataValue, ICON_XMP);
         }
     }
 
@@ -60,9 +61,9 @@ public final class TreeCellRendererMiscMetadata extends TreeCellRendererExt {
     }
 
     private void setIcon(Object userObject, Object parentUserObject, DefaultMutableTreeNode parentNode, TreeNode root,
-                         boolean leaf) {
-        if (userObject instanceof Column) {
-            setColumnIcon((Column) userObject);
+            boolean leaf) {
+        if (userObject instanceof MetaDataValue) {
+            setMetaDataValueIcon((MetaDataValue) userObject);
         } else if (leaf) {
             Icon iconDetail = getIconDetail(parentUserObject);
 
@@ -75,18 +76,18 @@ public final class TreeCellRendererMiscMetadata extends TreeCellRendererExt {
     }
 
     private Icon getIconDetail(Object userObject) {
-        if (userObject instanceof Column) {
-            return ColumnIcons.getIcon((Column) userObject);
+        if (userObject instanceof MetaDataValue) {
+            return MetaDataValueIcons.getIcon((MetaDataValue) userObject);
         }
 
         return null;
     }
 
-    private void setColumnIcon(Column column) {
-        if (column != null) {
-            ImageIcon icon = ICON_OF_COLUMN.get(column);
+    private void setMetaDataValueIcon(MetaDataValue metaDataValue) {
+        if (metaDataValue != null) {
+            ImageIcon icon = ICON_OF_META_DATA_VALUE.get(metaDataValue);
 
-            assert icon != null : "No icon defined for column: " + column;
+            assert icon != null : "No icon defined for metadata value: " + metaDataValue;
 
             if (icon != null) {
                 setIcon(icon);
@@ -102,8 +103,8 @@ public final class TreeCellRendererMiscMetadata extends TreeCellRendererExt {
         DecimalFormat shortFormat = new DecimalFormat("#");
         DecimalFormat doubleFormat = new DecimalFormat("#.#");
 
-        if (userObject instanceof Column) {
-            Column col = (Column) (userObject);
+        if (userObject instanceof MetaDataValue) {
+            MetaDataValue col = (MetaDataValue) (userObject);
 
             setText(col.getDescription());
         } else if (userObject instanceof String) {
@@ -120,13 +121,13 @@ public final class TreeCellRendererMiscMetadata extends TreeCellRendererExt {
     }
 
     private String getTextPostfix(Object userObject) {
-        if (userObject instanceof Column) {
-            Column column = (Column) userObject;
+        if (userObject instanceof MetaDataValue) {
+            MetaDataValue metaDataValue = (MetaDataValue) userObject;
 
-            if (column.equals(ColumnExifFocalLength.INSTANCE)) {
+            if (metaDataValue.equals(ExifFocalLengthMetaDataValue.INSTANCE)) {
                 return " mm";
-            } else if (column.equals(ColumnXmpRating.INSTANCE)) {
-                return Bundle.getString(TreeCellRendererMiscMetadata.class, "TreeCellRendererMiscMetadata.PostfixColumnXmpRating");
+            } else if (metaDataValue.equals(XmpRatingMetaDataValue.INSTANCE)) {
+                return Bundle.getString(TreeCellRendererMiscMetadata.class, "TreeCellRendererMiscMetadata.PostfixXmpRatingMetaDataValue");
             }
         }
 

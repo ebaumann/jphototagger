@@ -65,7 +65,7 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Prompt:" noResource="true"/>
         <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="column.getLongerDescription()" type="code"/>
+          <Connection code="metaDataValue.getLongerDescription()" type="code"/>
         </Property>
         <Property name="name" type="java.lang.String" value="labelPrompt" noResource="true"/>
       </Properties>

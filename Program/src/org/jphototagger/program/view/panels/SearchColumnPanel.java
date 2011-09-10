@@ -8,17 +8,17 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 
-import org.jphototagger.domain.database.Column;
-import org.jphototagger.domain.database.exif.ColumnExifDateTimeOriginal;
-import org.jphototagger.domain.database.search.AdvancedSearchColumns;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
-import org.jphototagger.domain.database.xmp.ColumnXmpIptc4XmpCoreDateCreated;
+import org.jphototagger.domain.metadata.MetaDataValue;
+import org.jphototagger.domain.metadata.exif.ExifDateTimeOriginalMetaDataValue;
+import org.jphototagger.domain.metadata.search.AdvancedSearchMetaDataValues;
+import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpIptc4XmpCoreDateCreatedMetaDataValue;
 import org.jphototagger.lib.thirdparty.DateChooserDialog;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.data.SavedSearchPanel;
 import org.jphototagger.program.database.metadata.Comparator;
 import org.jphototagger.program.database.metadata.Operator;
-import org.jphototagger.program.database.metadata.selections.ColumnIds;
+import org.jphototagger.program.database.metadata.selections.MetaDataValueIds;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.renderer.ListCellRendererTableColumns;
 
@@ -35,7 +35,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
     private static final String SEL_RIGHT_BRACKET = "<html><font size=\"+1\" color=\"#000000\"><b>)</b></font></html>";
     private static final String NOT_SEL_RIGHT_BRACKET = "<html><font size=\"+1\" color=\"#dddddd\"><b>)</b></font></html>";
     private final ListCellRendererTableColumns columnRenderer = new ListCellRendererTableColumns();
-    private Column.DataType  prevColumnDataType;
+    private MetaDataValue.ValueType  prevColumnDataType;
     private boolean isOperatorsEnabled = true;
     private boolean listenToActions = true;
     private boolean changed;
@@ -72,8 +72,8 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
     // data type is equal to the previous column data type
     private void setFormatter() {
         String value = textFieldValue.getText();
-        Column column = getColumn();
-        Column.DataType columnDataType = column.getDataType();
+        MetaDataValue column = getColumn();
+        MetaDataValue.ValueType columnDataType = column.getValueType();
 
         textFieldValue.setFormatterFactory(column.getFormatterFactory());
 
@@ -81,15 +81,15 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
             textFieldValue.setText(value);
         }
 
-        prevColumnDataType = column.getDataType();
+        prevColumnDataType = column.getValueType();
     }
 
     private void setInputVerifier() {
         textFieldValue.setInputVerifier(getColumn().getInputVerifier());
     }
 
-    private Column getColumn() {
-        return (Column) comboBoxColumns.getSelectedItem();
+    private MetaDataValue getColumn() {
+        return (MetaDataValue) comboBoxColumns.getSelectedItem();
     }
 
     private void checkToggleButtons() {
@@ -178,7 +178,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         SavedSearchPanel savedSearchPanel = new SavedSearchPanel();
 
         savedSearchPanel.setBracketRightSelected(toggleButtonBracketRight.isSelected());
-        savedSearchPanel.setColumnId(ColumnIds.getId((Column) comboBoxColumns.getModel().getSelectedItem()));
+        savedSearchPanel.setColumnId(MetaDataValueIds.getId((MetaDataValue) comboBoxColumns.getModel().getSelectedItem()));
         savedSearchPanel.setComparatorId(((Comparator) comboBoxComparators.getModel().getSelectedItem()).getId());
         savedSearchPanel.setBracketLeft1Selected(toggleButtonBracketLeft1.isSelected());
         savedSearchPanel.setBracketLeft2Selected(toggleButtonBracketLeft2.isSelected());
@@ -201,7 +201,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
 
         listenToActions = false;
         toggleButtonBracketRight.setSelected(savedSearchPanel.isBracketRightSelected());
-        comboBoxColumns.getModel().setSelectedItem(ColumnIds.getColumn(savedSearchPanel.getColumnId()));
+        comboBoxColumns.getModel().setSelectedItem(MetaDataValueIds.getMetaDataValue(savedSearchPanel.getColumnId()));
         comboBoxComparators.getModel().setSelectedItem(Comparator.get(savedSearchPanel.getComparatorId()));
         toggleButtonBracketLeft1.setSelected(savedSearchPanel.isBracketLeft1Selected());
         toggleButtonBracketLeft2.setSelected(savedSearchPanel.isBracketLeft2Selected());
@@ -303,12 +303,12 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
     private void setEnabledCalendarButton() {
         Object selItem = comboBoxColumns.getModel().getSelectedItem();
         buttonCalendar.setEnabled(
-            selItem.equals(ColumnExifDateTimeOriginal.INSTANCE)
-            || selItem.equals(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE));
+            selItem.equals(ExifDateTimeOriginalMetaDataValue.INSTANCE)
+            || selItem.equals(XmpIptc4XmpCoreDateCreatedMetaDataValue.INSTANCE));
     }
 
     private void showInputHelpers() {
-        if (listenToActions && getColumn().equals(ColumnXmpDcSubjectsSubject.INSTANCE)) {
+        if (listenToActions && getColumn().equals(XmpDcSubjectsSubjectMetaDataValue.INSTANCE)) {
             GUI.getAppFrame().getMenuItemInputHelper().doClick();
         }
     }
@@ -385,7 +385,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
         add(toggleButtonBracketLeft2, gridBagConstraints);
 
-        comboBoxColumns.setModel(new DefaultComboBoxModel(AdvancedSearchColumns.get().toArray()));
+        comboBoxColumns.setModel(new DefaultComboBoxModel(AdvancedSearchMetaDataValues.get().toArray()));
         comboBoxColumns.setName("comboBoxColumns"); // NOI18N
         comboBoxColumns.setRenderer(columnRenderer);
         comboBoxColumns.addActionListener(new java.awt.event.ActionListener() {

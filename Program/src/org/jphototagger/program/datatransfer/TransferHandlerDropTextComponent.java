@@ -62,8 +62,8 @@ public final class TransferHandlerDropTextComponent extends TransferHandler {
             string = getStrings(Support.getKeywords(transferable));
         } else if (Flavor.hasKeywordsFromTree(support)) {
             string = getStrings(Support.getKeywordNodes(transferable));
-        } else if (Flavor.hasColumnData(support)) {
-            string = Support.getStringFromColumnData(Support.getColumnData(transferable));
+        } else if (Flavor.hasMetaDataValue(support)) {
+            string = Support.getStringFromMetaDataValueData(Support.getMetaDataValueData(transferable));
         } else if (Flavor.hasMetadataTemplate(support)) {
             MetadataTemplateSupport.setTemplate(support);
 

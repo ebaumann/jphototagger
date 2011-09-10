@@ -13,10 +13,10 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
-import org.jphototagger.domain.database.Column;
-import org.jphototagger.domain.database.ColumnData;
-import org.jphototagger.domain.database.ColumnStringValue;
-import org.jphototagger.domain.database.xmp.XmpColumns;
+import org.jphototagger.domain.metadata.MetaDataValue;
+import org.jphototagger.domain.metadata.MetaDataValueData;
+import org.jphototagger.domain.metadata.MetaDataStringValue;
+import org.jphototagger.domain.metadata.xmp.XmpMetaDataValues;
 import org.jphototagger.lib.datatransfer.TransferUtil;
 import org.jphototagger.lib.datatransfer.TransferableObject;
 import org.jphototagger.lib.util.Bundle;
@@ -31,7 +31,7 @@ import org.jphototagger.program.helper.MiscMetadataHelper;
 public final class TransferHandlerMiscMetadataTree extends TransferHandler {
 
     private static final long serialVersionUID = -260820309332646425L;
-    private static final List<Column> XMP_COLS = XmpColumns.get();
+    private static final List<MetaDataValue> XMP_COLS = XmpMetaDataValues.get();
 
     @Override
     public boolean canImport(TransferSupport support) {
@@ -45,7 +45,7 @@ public final class TransferHandlerMiscMetadataTree extends TransferHandler {
 
         DefaultMutableTreeNode dropNode = TransferUtil.getTreeDropNode(support);
 
-        return (dropNode != null) && MiscMetadataHelper.isParentUserObjectAColumnOf(dropNode, XMP_COLS);
+        return (dropNode != null) && MiscMetadataHelper.isParentUserObjectAMetaDataValue(dropNode, XMP_COLS);
     }
 
     @Override
@@ -60,7 +60,7 @@ public final class TransferHandlerMiscMetadataTree extends TransferHandler {
             return false;
         }
 
-        ColumnStringValue colValue = MiscMetadataHelper.getColValueFrom(dropNode);
+        MetaDataStringValue colValue = MiscMetadataHelper.getColValueFrom(dropNode);
 
         if (colValue == null) {
             return false;
@@ -70,7 +70,7 @@ public final class TransferHandlerMiscMetadataTree extends TransferHandler {
         String value = colValue.getValue();
 
         if (!imageFiles.isEmpty() && confirmImport(value, imageFiles.size())) {
-            ColumnData cd = new ColumnData(colValue.getColumn(), value);
+            MetaDataValueData cd = new MetaDataValueData(colValue.getMetaDataValue(), value);
 
             MiscMetadataHelper.saveToImageFiles(Collections.singletonList(cd), imageFiles);
 
@@ -92,7 +92,7 @@ public final class TransferHandlerMiscMetadataTree extends TransferHandler {
         TreePath[] selPaths = t.getSelectionPaths();
 
         if (selPaths != null) {
-            List<ColumnData> colData = new ArrayList<ColumnData>(selPaths.length);
+            List<MetaDataValueData> colData = new ArrayList<MetaDataValueData>(selPaths.length);
 
             for (TreePath selPath : selPaths) {
                 Object lpc = selPath.getLastPathComponent();
@@ -100,18 +100,18 @@ public final class TransferHandlerMiscMetadataTree extends TransferHandler {
                 if (lpc instanceof DefaultMutableTreeNode) {
                     DefaultMutableTreeNode node = (DefaultMutableTreeNode) lpc;
 
-                    if (MiscMetadataHelper.isParentUserObjectAColumnOf(node, XMP_COLS)) {
+                    if (MiscMetadataHelper.isParentUserObjectAMetaDataValue(node, XMP_COLS)) {
                         Object nodeUserObject = node.getUserObject();
                         TreeNode parent = node.getParent();
                         Object parentUserObject = ((DefaultMutableTreeNode) parent).getUserObject();
 
-                        colData.add(new ColumnData((Column) parentUserObject, nodeUserObject));
+                        colData.add(new MetaDataValueData((MetaDataValue) parentUserObject, nodeUserObject));
                     }
                 }
             }
 
             if (!colData.isEmpty()) {
-                return new TransferableObject(colData, Flavor.COLUMN_DATA);
+                return new TransferableObject(colData, Flavor.META_DATA_VALUE);
             }
         }
 

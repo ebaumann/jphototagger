@@ -6,7 +6,7 @@ import java.util.Set;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-import org.jphototagger.domain.database.Column;
+import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.repository.event.dcsubjects.DcSubjectDeletedEvent;
 import org.jphototagger.domain.repository.event.dcsubjects.DcSubjectInsertedEvent;
 import org.jphototagger.domain.repository.event.exif.ExifDeletedEvent;
@@ -22,7 +22,7 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.database.metadata.selections.DatabaseInfoRecordCountColumns;
 
 /**
- * Elements are {@link Column}s retrieved through
+ * Elements are {@link MetaDataValue}s retrieved through
  * {@link DatabaseInfoRecordCountColumns#get()}.
  *
  * This model contains information about the database content, currently the
@@ -34,21 +34,21 @@ import org.jphototagger.program.database.metadata.selections.DatabaseInfoRecordC
 public final class TableModelDatabaseInfo extends TableModelExt {
 
     private static final long serialVersionUID = 1974343527501774916L;
-    private final LinkedHashMap<Column, StringBuffer> bufferOfColumn = new LinkedHashMap<Column, StringBuffer>();
+    private final LinkedHashMap<MetaDataValue, StringBuffer> bufferOfMetaDataValue = new LinkedHashMap<MetaDataValue, StringBuffer>();
     private boolean listenToDatabase;
 
     public TableModelDatabaseInfo() {
-        initBufferOfColumn();
+        initBufferOfMetaDataValue();
         addColumnHeaders();
         addRows();
         AnnotationProcessor.process(this);
     }
 
-    private void initBufferOfColumn() {
-        List<Column> columns = DatabaseInfoRecordCountColumns.get();
+    private void initBufferOfMetaDataValue() {
+        List<MetaDataValue> metaDataValues = DatabaseInfoRecordCountColumns.get();
 
-        for (Column column : columns) {
-            bufferOfColumn.put(column, new StringBuffer());
+        for (MetaDataValue mdValue : metaDataValues) {
+            bufferOfMetaDataValue.put(mdValue, new StringBuffer());
         }
     }
 
@@ -73,14 +73,14 @@ public final class TableModelDatabaseInfo extends TableModelExt {
     }
 
     private void addRows() {
-        Set<Column> columns = bufferOfColumn.keySet();
+        Set<MetaDataValue> columns = bufferOfMetaDataValue.keySet();
 
-        for (Column column : columns) {
-            addRow(getRow(column, bufferOfColumn.get(column)));
+        for (MetaDataValue column : columns) {
+            addRow(getRow(column, bufferOfMetaDataValue.get(column)));
         }
     }
 
-    private Object[] getRow(Column rowHeader, StringBuffer bufferDifferent) {
+    private Object[] getRow(MetaDataValue rowHeader, StringBuffer bufferDifferent) {
         return new Object[]{rowHeader, bufferDifferent};
     }
 
@@ -146,8 +146,8 @@ public final class TableModelDatabaseInfo extends TableModelExt {
 
         @Override
         public void run() {
-            for (Column column : bufferOfColumn.keySet()) {
-                setCountToBuffer(bufferOfColumn.get(column), DatabaseStatistics.INSTANCE.getTotalRecordCountOf(column));
+            for (MetaDataValue mdValue : bufferOfMetaDataValue.keySet()) {
+                setCountToBuffer(bufferOfMetaDataValue.get(mdValue), DatabaseStatistics.INSTANCE.getTotalRecordCountOf(mdValue));
             }
 
             EventQueueUtil.invokeInDispatchThread(new Runnable() {
