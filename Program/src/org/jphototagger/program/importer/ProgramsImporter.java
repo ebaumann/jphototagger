@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.filechooser.FileFilter;
 
-import org.jphototagger.domain.database.programs.Program;
+import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.repository.Importer;
 import org.jphototagger.lib.xml.bind.XmlObjectImporter;
 import org.jphototagger.program.app.AppLookAndFeel;

@@ -1,4 +1,4 @@
-package org.jphototagger.domain.database.programs;
+package org.jphototagger.domain.programs;
 
 import org.jphototagger.lib.runtime.RuntimeUtil;
 import java.io.File;

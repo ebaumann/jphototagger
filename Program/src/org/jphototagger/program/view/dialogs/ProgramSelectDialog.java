@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.domain.database.programs.Program;
+import org.jphototagger.domain.programs.Program;
 import org.jphototagger.program.database.DatabasePrograms.Type;
 import org.jphototagger.program.model.ListModelPrograms;
 import org.jphototagger.program.resource.GUI;

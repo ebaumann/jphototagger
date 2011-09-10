@@ -33,7 +33,7 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.cache.PersistentThumbnails;
-import org.jphototagger.domain.database.programs.Program;
+import org.jphototagger.domain.programs.Program;
 import org.jphototagger.program.database.DatabaseActionsAfterDbInsertion;
 import org.jphototagger.program.image.thumbnail.ThumbnailUtil;
 import org.jphototagger.xmp.XmpMetadata;

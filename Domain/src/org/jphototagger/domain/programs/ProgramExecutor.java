@@ -1,7 +1,5 @@
 package org.jphototagger.domain.programs;
 
-import org.jphototagger.domain.database.programs.Program;
-
 /**
  *
  * @author Elmar Baumann

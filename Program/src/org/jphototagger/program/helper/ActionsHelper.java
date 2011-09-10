@@ -1,7 +1,7 @@
 package org.jphototagger.program.helper;
 
 import org.jphototagger.lib.image.util.IconUtil;
-import org.jphototagger.domain.database.programs.Program;
+import org.jphototagger.domain.programs.Program;
 import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.ProgressBar;

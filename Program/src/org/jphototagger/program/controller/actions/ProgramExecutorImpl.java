@@ -2,7 +2,7 @@ package org.jphototagger.program.controller.actions;
 
 import javax.swing.JProgressBar;
 
-import org.jphototagger.domain.database.programs.Program;
+import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.programs.ProgramExecutor;
 import org.jphototagger.program.helper.StartPrograms;
 import org.jphototagger.program.resource.GUI;

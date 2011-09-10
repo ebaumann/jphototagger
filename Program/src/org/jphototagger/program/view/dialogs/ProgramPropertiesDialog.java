@@ -21,7 +21,7 @@ import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.domain.database.programs.Program;
+import org.jphototagger.domain.programs.Program;
 import org.jphototagger.program.resource.GUI;
 import org.openide.util.Lookup;
 

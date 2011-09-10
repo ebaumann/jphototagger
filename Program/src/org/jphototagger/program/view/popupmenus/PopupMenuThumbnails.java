@@ -25,7 +25,7 @@ import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.controller.metadata.ControllerExportGPSToKML;
 import org.jphototagger.program.controller.plugin.PluginAction;
 import org.jphototagger.program.controller.programs.ControllerAddProgram;
-import org.jphototagger.domain.database.programs.Program;
+import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.repository.event.programs.ProgramDeletedEvent;
 import org.jphototagger.domain.repository.event.programs.ProgramInsertedEvent;
 import org.jphototagger.domain.repository.event.programs.ProgramUpdatedEvent;
