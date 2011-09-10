@@ -12,13 +12,13 @@ import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.event.util.MouseEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.program.controller.actions.ProgramExecutor;
+import org.jphototagger.program.controller.actions.ProgramExecutorImpl;
 import org.jphototagger.domain.database.programs.Program;
 import org.jphototagger.program.database.DatabaseActionsAfterDbInsertion;
 import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.database.DatabasePrograms.Type;
 import org.jphototagger.program.datatransfer.TransferHandlerReorderListItems;
-import org.jphototagger.program.event.listener.ProgramExecutionListener;
+import org.jphototagger.domain.programs.ProgramExecutor;
 import org.jphototagger.program.helper.ProgramsHelper;
 import org.jphototagger.program.helper.ProgramsHelper.ReorderListener;
 import org.jphototagger.program.model.ListModelPrograms;
@@ -32,7 +32,7 @@ import org.jphototagger.program.view.renderer.ListCellRendererActions;
 public final class ActionsPanel extends javax.swing.JPanel {
     private static final long serialVersionUID = 8875330844851092391L;
     private final ListModelPrograms model = new ListModelPrograms(Type.ACTION);
-    private final ListenerSupport<ProgramExecutionListener> ls = new ListenerSupport<ProgramExecutionListener>();
+    private final ListenerSupport<ProgramExecutor> ls = new ListenerSupport<ProgramExecutor>();
     private Object progressBarOwner;
     private final ReorderListener reorderListener = new ProgramsHelper.ReorderListener(model);
 
@@ -45,7 +45,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
         MnemonicUtil.setMnemonics((Container) this);
         setAccelerators();
         selectFirstItem();
-        addListener(new ProgramExecutor(progressBar, true));
+        addListener(new ProgramExecutorImpl(progressBar, true));
     }
 
     private void selectFirstItem() {
@@ -207,7 +207,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
                : MessageDisplayer.confirmYesNo(this, messageExists);
     }
 
-    public synchronized void addListener(ProgramExecutionListener l) {
+    public synchronized void addListener(ProgramExecutor l) {
         if (l == null) {
             throw new NullPointerException("l == null");
         }
@@ -216,7 +216,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
     }
 
     private synchronized void notifyProgramExecuted(Program program) {
-        for (ProgramExecutionListener listener : ls.get()) {
+        for (ProgramExecutor listener : ls.get()) {
             listener.execute(program);
         }
     }
