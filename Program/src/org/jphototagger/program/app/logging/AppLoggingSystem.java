@@ -85,6 +85,7 @@ public final class AppLoggingSystem {
             } finally {
                 createAppLogger();
                 addHandlersToLogger(appLogger);
+                Logger.getLogger("").addHandler(fileHandlerImportant);
             }
         }
     }
@@ -98,7 +99,7 @@ public final class AppLoggingSystem {
 
             FileUtil.ensureDirectoryExists(settingsDirectory);
         } catch (Exception ex) {
-            ex.printStackTrace();
+            ex.printStackTrace(); // indented (Loggers, Handlers etc. may not be work)
         }
     }
 
@@ -163,7 +164,7 @@ public final class AppLoggingSystem {
             appLogger.setUseParentHandlers(false);
             LogManager.getLogManager().addLogger(appLogger);
         } catch (Exception ex) {
-            ex.printStackTrace();
+            ex.printStackTrace(); // indented (Loggers, Handlers etc. may not be work)
         }
     }
 
