@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +35,7 @@ import org.jphototagger.lib.util.logging.ExceptionLogfileRecord;
 import org.jphototagger.lib.util.logging.FrameLogfileRecord;
 import org.jphototagger.lib.util.logging.LogfileParser;
 import org.jphototagger.lib.util.logging.LogfileRecord;
+import org.jphototagger.lib.util.logging.LogfileRecordComparatorDescendingByTime;
 
 /**
  * Non modal dialog to display a logfile written by a
@@ -319,6 +321,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
             TableModelLogfiles model = new TableModelLogfiles(filterString, visibleLevels);
 
             tableLogfileRecords.setModel(model);
+            Collections.sort(logfileRecords, LogfileRecordComparatorDescendingByTime.INSTANCE);
             model.setRecords(logfileRecords);
             setColumnWidths();
             scrollPaneTableLogfileRecords.getViewport().setViewPosition(new Point(0, 0));
