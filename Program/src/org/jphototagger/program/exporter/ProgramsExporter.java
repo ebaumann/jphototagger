@@ -18,7 +18,7 @@ import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.xml.bind.XmlObjectExporter;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.data.Program;
+import org.jphototagger.domain.database.programs.Program;
 import org.jphototagger.program.database.DatabasePrograms;
 
 /**

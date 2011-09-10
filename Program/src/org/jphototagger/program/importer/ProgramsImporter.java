@@ -9,7 +9,7 @@ import javax.swing.filechooser.FileFilter;
 
 import org.jphototagger.lib.xml.bind.XmlObjectImporter;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.data.Program;
+import org.jphototagger.domain.database.programs.Program;
 import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.exporter.ProgramsExporter;
 import org.jphototagger.program.exporter.ProgramsExporter.CollectionWrapper;

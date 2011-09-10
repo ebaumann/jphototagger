@@ -13,7 +13,7 @@ import org.jphototagger.lib.event.util.MouseEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.controller.actions.ProgramExecutor;
-import org.jphototagger.program.data.Program;
+import org.jphototagger.domain.database.programs.Program;
 import org.jphototagger.program.database.DatabaseActionsAfterDbInsertion;
 import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.database.DatabasePrograms.Type;
@@ -198,7 +198,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
 
     private boolean confirmDelete(Program program) {
         String  programName = program.getAlias();
-        boolean existsInActionsAfterDbInsertion = DatabaseActionsAfterDbInsertion.INSTANCE.exists(program);
+        boolean existsInActionsAfterDbInsertion = DatabaseActionsAfterDbInsertion.INSTANCE.existsAction(program);
         String messageExistsInOtherDb = Bundle.getString(ActionsPanel.class, "ActionsPanel.Confirm.Delete.ExistsInOtherDb", programName);
         String messageExists = Bundle.getString(ActionsPanel.class, "ActionsPanel.Confirm.Delete", programName);
 

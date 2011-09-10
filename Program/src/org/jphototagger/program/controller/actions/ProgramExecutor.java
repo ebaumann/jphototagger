@@ -1,6 +1,6 @@
 package org.jphototagger.program.controller.actions;
 
-import org.jphototagger.program.data.Program;
+import org.jphototagger.domain.database.programs.Program;
 import org.jphototagger.program.event.listener.ProgramExecutionListener;
 import org.jphototagger.program.helper.StartPrograms;
 import org.jphototagger.program.resource.GUI;

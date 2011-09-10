@@ -14,6 +14,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JPopupMenu.Separator;
 
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.plugin.FileProcessorPlugin;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.event.util.KeyEventUtil;
@@ -23,10 +25,12 @@ import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.controller.metadata.ControllerExportGPSToKML;
 import org.jphototagger.program.controller.plugin.PluginAction;
 import org.jphototagger.program.controller.programs.ControllerAddProgram;
-import org.jphototagger.program.data.Program;
+import org.jphototagger.domain.database.programs.Program;
+import org.jphototagger.domain.repository.event.programs.ProgramDeletedEvent;
+import org.jphototagger.domain.repository.event.programs.ProgramInsertedEvent;
+import org.jphototagger.domain.repository.event.programs.ProgramUpdatedEvent;
 import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.database.DatabasePrograms.Type;
-import org.jphototagger.program.event.listener.DatabaseProgramsListener;
 import org.jphototagger.program.factory.FileProcessorPluginManager;
 import org.jphototagger.program.helper.ActionsHelper;
 
@@ -35,7 +39,7 @@ import org.jphototagger.program.helper.ActionsHelper;
  *
  * @author Elmar Baumann, Tobias Stening
  */
-public final class PopupMenuThumbnails extends JPopupMenu implements DatabaseProgramsListener {
+public final class PopupMenuThumbnails extends JPopupMenu {
 
     public static final PopupMenuThumbnails INSTANCE = new PopupMenuThumbnails();
     private static final long serialVersionUID = 1415777088897583494L;
@@ -210,35 +214,35 @@ public final class PopupMenuThumbnails extends JPopupMenu implements DatabasePro
         return ACTION_OF_ITEM.get(item);
     }
 
-    @Override
-    public void programDeleted(final Program program) {
+    @EventSubscriber(eventClass = ProgramDeletedEvent.class)
+    public void programDeleted(final ProgramDeletedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
             public void run() {
-                updatePrograms(program);
+                updatePrograms(evt.getProgram());
             }
         });
     }
 
-    @Override
-    public void programInserted(final Program program) {
+    @EventSubscriber(eventClass = ProgramInsertedEvent.class)
+    public void programInserted(final ProgramInsertedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
             public void run() {
-                updatePrograms(program);
+                updatePrograms(evt.getProgram());
             }
         });
     }
 
-    @Override
-    public void programUpdated(final Program program) {
+    @EventSubscriber(eventClass = ProgramUpdatedEvent.class)
+    public void programUpdated(final ProgramUpdatedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
             public void run() {
-                updatePrograms(program);
+                updatePrograms(evt.getProgram());
             }
         });
     }
@@ -447,7 +451,7 @@ public final class PopupMenuThumbnails extends JPopupMenu implements DatabasePro
         addItems();
         itemDeleteFromImageCollection.setEnabled(false);
         setAccelerators();
-        DatabasePrograms.INSTANCE.addListener(this);
+        AnnotationProcessor.process(this);
     }
 
     private void setAccelerators() {

@@ -1,12 +1,17 @@
 package org.jphototagger.program.controller.actions;
 
-import org.jphototagger.program.data.Program;
+import javax.swing.JMenu;
+
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.domain.database.programs.Program;
+import org.jphototagger.domain.repository.event.programs.ProgramDeletedEvent;
+import org.jphototagger.domain.repository.event.programs.ProgramInsertedEvent;
+import org.jphototagger.domain.repository.event.programs.ProgramUpdatedEvent;
+import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.database.DatabasePrograms;
-import org.jphototagger.program.event.listener.DatabaseProgramsListener;
 import org.jphototagger.program.helper.ActionsHelper;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
-import javax.swing.JMenu;
-import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Listens to {@link DatabasePrograms} events and inserts or removes actions
@@ -14,19 +19,22 @@ import org.jphototagger.lib.awt.EventQueueUtil;
  *
  * @author Elmar Baumann
  */
-public final class ActionsMenuUpdater implements DatabaseProgramsListener {
+public final class ActionsMenuUpdater {
+
     public ActionsMenuUpdater() {
         listen();
     }
 
     private void listen() {
-        DatabasePrograms.INSTANCE.addListener(this);
+        AnnotationProcessor.process(this);
     }
 
-    @Override
-    public void programDeleted(final Program program) {
+    @EventSubscriber(eventClass = ProgramDeletedEvent.class)
+    public void programDeleted(final ProgramDeletedEvent evt) {
+        final Program program = evt.getProgram();
         if (program.isAction()) {
             EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
                 @Override
                 public void run() {
                     JMenu actionMenu = PopupMenuThumbnails.INSTANCE.getMenuActions();
@@ -37,10 +45,13 @@ public final class ActionsMenuUpdater implements DatabaseProgramsListener {
         }
     }
 
-    @Override
-    public void programInserted(final Program program) {
+    @EventSubscriber(eventClass = ProgramInsertedEvent.class)
+    public void programInserted(final ProgramInsertedEvent evt) {
+        final Program program = evt.getProgram();
+
         if (program.isAction()) {
             EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
                 @Override
                 public void run() {
                     JMenu actionMenu = PopupMenuThumbnails.INSTANCE.getMenuActions();
@@ -51,10 +62,13 @@ public final class ActionsMenuUpdater implements DatabaseProgramsListener {
         }
     }
 
-    @Override
-    public void programUpdated(final Program program) {
+    @EventSubscriber(eventClass = ProgramUpdatedEvent.class)
+    public void programUpdated(final ProgramUpdatedEvent evt) {
+        final Program program = evt.getProgram();
+
         if (program.isAction()) {
             EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
                 @Override
                 public void run() {
                     JMenu actionMenu = PopupMenuThumbnails.INSTANCE.getMenuActions();

@@ -1,10 +1,11 @@
 package org.jphototagger.program.view.dialogs;
 
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.domain.repository.event.programs.ProgramInsertedEvent;
+import org.jphototagger.domain.repository.event.programs.ProgramUpdatedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.dialog.Dialog;
-import org.jphototagger.program.data.Program;
-import org.jphototagger.program.database.DatabasePrograms;
-import org.jphototagger.program.event.listener.DatabaseProgramsListener;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.ActionsPanel;
 
@@ -14,7 +15,7 @@ import org.jphototagger.program.view.panels.ActionsPanel;
  *
  * @author Elmar Baumann
  */
-public final class ActionsDialog extends Dialog implements DatabaseProgramsListener {
+public final class ActionsDialog extends Dialog {
     public static final ActionsDialog INSTANCE = new ActionsDialog();
     private static final long serialVersionUID = -2671488119703014515L;
 
@@ -26,7 +27,7 @@ public final class ActionsDialog extends Dialog implements DatabaseProgramsListe
 
     private void postInitComponents() {
         setHelpPage();
-        DatabasePrograms.INSTANCE.addListener(this);
+        AnnotationProcessor.process(this);
     }
 
     private void setHelpPage() {
@@ -54,14 +55,8 @@ public final class ActionsDialog extends Dialog implements DatabaseProgramsListe
         }
     }
 
-    @Override
-    public void programDeleted(Program program) {
-
-        // ignore
-    }
-
-    @Override
-    public void programInserted(Program program) {
+    @EventSubscriber(eventClass = ProgramInsertedEvent.class)
+    public void programInserted(final ProgramInsertedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
@@ -71,8 +66,8 @@ public final class ActionsDialog extends Dialog implements DatabaseProgramsListe
         });
     }
 
-    @Override
-    public void programUpdated(Program program) {
+    @EventSubscriber(eventClass = ProgramUpdatedEvent.class)
+    public void programUpdated(final ProgramUpdatedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
@@ -120,11 +115,13 @@ public final class ActionsDialog extends Dialog implements DatabaseProgramsListe
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 ActionsDialog dialog = new ActionsDialog();
 
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
@@ -134,7 +131,6 @@ public final class ActionsDialog extends Dialog implements DatabaseProgramsListe
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jphototagger.program.view.panels.ActionsPanel panelActions;
     // End of variables declaration//GEN-END:variables

@@ -10,19 +10,22 @@ import javax.swing.event.ListDataListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.core.Storage;
+import org.jphototagger.domain.database.programs.Program;
+import org.jphototagger.domain.repository.event.programs.ProgramDeletedEvent;
+import org.jphototagger.domain.repository.event.programs.ProgramInsertedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.program.data.Program;
 import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseActionsAfterDbInsertion;
 import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.database.DatabasePrograms.Type;
-import org.jphototagger.program.event.listener.DatabaseProgramsListener;
 import org.jphototagger.program.model.ListModelActionsAfterDbInsertion;
 import org.jphototagger.program.types.Persistence;
 import org.jphototagger.program.view.dialogs.ActionsDialog;
@@ -34,8 +37,7 @@ import org.openide.util.Lookup;
  *
  * @author Elmar Baumann
  */
-public class SettingsActionsPanel extends javax.swing.JPanel
-        implements DatabaseProgramsListener, ListSelectionListener, Persistence {
+public class SettingsActionsPanel extends javax.swing.JPanel implements ListSelectionListener, Persistence {
     private static final long serialVersionUID = 6440789488453905704L;
     private final ListModelActionsAfterDbInsertion model = new ListModelActionsAfterDbInsertion();
     private volatile boolean listenToModel = true;
@@ -51,7 +53,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel
         addAccelerators();
         setEnabled();
         listenToModel();
-        DatabasePrograms.INSTANCE.addListener(this);
+        AnnotationProcessor.process(this);
     }
 
     private void addAccelerators() {
@@ -263,11 +265,13 @@ public class SettingsActionsPanel extends javax.swing.JPanel
             programs.add((Program) model.get(i));
         }
 
-        DatabaseActionsAfterDbInsertion.INSTANCE.setOrder(programs, 0);
+        DatabaseActionsAfterDbInsertion.INSTANCE.setActionOrder(programs, 0);
     }
 
-    @Override
-    public void programInserted(Program program) {
+    @EventSubscriber(eventClass = ProgramInsertedEvent.class)
+    public void programInserted(final ProgramInsertedEvent evt) {
+        final Program program = evt.getProgram();
+
         if (program.isAction()) {
             EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
@@ -279,8 +283,9 @@ public class SettingsActionsPanel extends javax.swing.JPanel
     }
     }
 
-    @Override
-    public void programDeleted(Program program) {
+    @EventSubscriber(eventClass = ProgramDeletedEvent.class)
+    public void programDeleted(ProgramDeletedEvent evt) {
+        Program program = evt.getProgram();
         if (program.isAction()) {
             EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
@@ -290,12 +295,6 @@ public class SettingsActionsPanel extends javax.swing.JPanel
                 }
             });
     }
-    }
-
-    @Override
-    public void programUpdated(Program program) {
-
-        // ignore
     }
 
     /**
