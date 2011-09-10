@@ -25,7 +25,6 @@ public interface Storage {
     public static final String KEY_DATABASE_BACKUP_DIRECTORY = "UserSettings.DatabaseBackupDirectoryName";
     public static final String KEY_DATABASE_BACKUP_INTERVAL = "UserSettings.DbBackupInterval";
     public static final String KEY_DATABASE_DIRECTORY = "UserSettings.DatabaseDirectoryName";
-    public static final String KEY_DATABASE_SCHEDULED_BACKUP = "UserSettings.DbScheduledBackup";
     public static final String KEY_DISPLAY_IPTC = "UserSettings.DisplayIptc";
     public static final String KEY_DISPLAY_SEARCH_BUTTON = "UserSettings.DisplaySearchButton";
     public static final String KEY_DISPLAY_THUMBNAIL_TOOLTIP = "UserSettings.DisplayThumbnailTooltip";

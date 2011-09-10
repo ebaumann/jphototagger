@@ -9,7 +9,6 @@ import org.jphototagger.api.modules.Module;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.app.AppWindowPersistence;
 import org.jphototagger.program.app.update.UpdateDownload;
-import org.jphototagger.program.tasks.ScheduledTaskBackupDatabase;
 import org.openide.util.Lookup;
 
 /**
@@ -19,6 +18,7 @@ import org.openide.util.Lookup;
  * @author Elmar Baumann
  */
 public final class MetaFactory implements Runnable {
+
     public static final MetaFactory INSTANCE = new MetaFactory();
     private boolean init = false;
 
@@ -47,6 +47,7 @@ public final class MetaFactory implements Runnable {
 
         // No other factory after:
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 TerminateFactory.INSTANCE.init();
@@ -55,7 +56,6 @@ public final class MetaFactory implements Runnable {
         });
         installModules();
         checkForDownload();
-        ScheduledTaskBackupDatabase.INSTANCE.setBackup();
     }
 
     private void checkForDownload() {
@@ -64,6 +64,7 @@ public final class MetaFactory implements Runnable {
 
             // Returning immediately
             new Thread(new Runnable() {
+
                 @Override
                 public void run() {
                     try {
