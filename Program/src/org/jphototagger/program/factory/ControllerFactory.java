@@ -73,7 +73,6 @@ import org.jphototagger.program.controller.metadatatemplates.ControllerMetadataT
 import org.jphototagger.program.controller.metadatatemplates.ControllerMetadataTemplateRename;
 import org.jphototagger.program.controller.metadatatemplates.ControllerMetadataTemplateSetToSelImages;
 import org.jphototagger.program.controller.misc.ControllerAboutApp;
-import org.jphototagger.program.controller.misc.ControllerBackupDatabase;
 import org.jphototagger.program.controller.misc.ControllerGoTo;
 import org.jphototagger.program.controller.misc.ControllerHelp;
 import org.jphototagger.program.controller.misc.ControllerItemsMutualExcludeSelection;
@@ -190,7 +189,6 @@ public final class ControllerFactory {
         support.add(new ControllerShowAdvancedSearchDialog());
         support.add(new ControllerShowSynonymsDialog());
         support.add(new ControllerEditKeywordSynonyms());
-        support.add(new ControllerBackupDatabase());
     }
 
     private void addAppWindowSelectionControllers() {
