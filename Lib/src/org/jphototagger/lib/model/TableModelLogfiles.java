@@ -10,15 +10,11 @@ import org.jphototagger.lib.util.CollectionUtil;
 import org.jphototagger.lib.util.logging.LogfileRecord;
 
 /**
- * Datensätze mit ausgewählten Spalten einer Logdatei.
- *
- * All functions with object-reference-parameters are throwing a
- * <code>NullPointerException</code> if an object reference is null and it is
- * not documentet that it can be null.
  *
  * @author Elmar Baumann
  */
 public final class TableModelLogfiles extends TableModelExt {
+
     private static final long serialVersionUID = -7886614829435568257L;
     private final List<LogfileRecord> records = new ArrayList<LogfileRecord>();
     private final List<Level> visibleLevels;
@@ -38,12 +34,7 @@ public final class TableModelLogfiles extends TableModelExt {
         addColumns();
     }
 
-    /**
-     * Fügt einen Logfiledatensatz hinzu.
-     *
-     * @param record Datensatz
-     */
-    public void addRecord(LogfileRecord record) {
+    private void addRecord(LogfileRecord record) {
         if (record == null) {
             throw new NullPointerException("record == null");
         }
@@ -65,13 +56,6 @@ public final class TableModelLogfiles extends TableModelExt {
         }
     }
 
-    /**
-     * Liefert einen Logfiledatensatz.
-     *
-     * @param  index  Index des Datensatzes
-     * @return Datensatz
-     * @throws IllegalArgumentException if the index is not valid
-     */
     public LogfileRecord getLogfileRecord(int index) {
         if (!CollectionUtil.isValidIndex(records, index)) {
             throw new IllegalArgumentException("Invalid index: " + index + " element count: " + records.size());
@@ -86,11 +70,6 @@ public final class TableModelLogfiles extends TableModelExt {
         addColumn(Bundle.getString(TableModelLogfiles.class, "TableModelLogfiles.HeaderColumn.3"));
     }
 
-    /**
-     * Setzt Datensätze einer Logdatei.
-     *
-     * @param records Datensätze
-     */
     public void setRecords(List<LogfileRecord> records) {
         if (records == null) {
             throw new NullPointerException("records == null");
