@@ -8,26 +8,34 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.jphototagger.domain.repository.Exporter;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.xml.bind.XmlObjectExporter;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.database.DatabaseFileExcludePatterns;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  *
  *
  * @author Elmar Baumann
  */
+@ServiceProvider(service = Exporter.class)
 public final class FileExcludePatternsExporter implements Exporter {
+
+    public static final String DEFAULT_FILENAME = "JptFileExludePatterns.xml";
+    public static final String DISPLAY_NAME = Bundle.getString(FileExcludePatternsExporter.class, "FileExcludePatternsExporter.DisplayName");
     public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(FileExcludePatternsExporter.class, "FileExcludePatternsExporter.DisplayName.FileFilter"), "xml");
-    public static final FileExcludePatternsExporter INSTANCE = new FileExcludePatternsExporter();
+    public static final ImageIcon ICON = AppLookAndFeel.getIcon("icon_export.png");
+    public static final int POSITION = 100;
 
     @Override
     public void exportFile(File file) {
@@ -53,26 +61,28 @@ public final class FileExcludePatternsExporter implements Exporter {
 
     @Override
     public String getDisplayName() {
-        return Bundle.getString(FileExcludePatternsExporter.class, "FileExcludePatternsExporter.DisplayName");
+        return DISPLAY_NAME;
     }
 
     @Override
     public Icon getIcon() {
-        return AppLookAndFeel.getIcon("icon_export.png");
+        return ICON;
     }
 
     @Override
     public String getDefaultFilename() {
-        return "JptFileExludePatterns.xml";
+        return DEFAULT_FILENAME;
     }
 
     @XmlRootElement
     public static class CollectionWrapper {
+
         @XmlElementWrapper(name = "FileExludePatterns")
         @XmlElement(type = StringWrapper.class)
         private final ArrayList<StringWrapper> collection = new ArrayList<StringWrapper>();
 
-        public CollectionWrapper() {}
+        public CollectionWrapper() {
+        }
 
         public CollectionWrapper(Collection<StringWrapper> collection) {
             this.collection.addAll(collection);
@@ -83,6 +93,13 @@ public final class FileExcludePatternsExporter implements Exporter {
         }
     }
 
+    @Override
+    public boolean isJPhotoTaggerData() {
+        return true;
+    }
 
-    private FileExcludePatternsExporter() {}
+    @Override
+    public int getPosition() {
+        return POSITION;
+    }
 }

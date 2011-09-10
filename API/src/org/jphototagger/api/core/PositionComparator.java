@@ -1,5 +1,6 @@
-package org.jphototagger.api.plugin;
+package org.jphototagger.api.core;
 
+import org.jphototagger.api.core.PositionProvider;
 import java.util.Comparator;
 
 /**

@@ -105,17 +105,6 @@
                     <Property name="name" type="java.lang.String" value="menuItemExportJptMisc" noResource="true"/>
                   </Properties>
                 </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="menuItemExportKeywords">
-                  <Properties>
-                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_keyword.png"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuItemExportKeywords.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                    </Property>
-                    <Property name="name" type="java.lang.String" value="menuItemExportKeywords" noResource="true"/>
-                  </Properties>
-                </MenuItem>
               </SubComponents>
             </Menu>
             <Menu class="javax.swing.JMenu" name="menuImport">
@@ -141,17 +130,6 @@
                       <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuItemImportJptMisc.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                     <Property name="name" type="java.lang.String" value="menuItemImportJptMisc" noResource="true"/>
-                  </Properties>
-                </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="menuItemImportKeywords">
-                  <Properties>
-                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_keyword.png"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="org/jphototagger/program/view/frames/Bundle.properties" key="AppFrame.menuItemImportKeywords.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                    </Property>
-                    <Property name="name" type="java.lang.String" value="menuItemImportKeywords" noResource="true"/>
                   </Properties>
                 </MenuItem>
               </SubComponents>

@@ -1,16 +1,18 @@
-package org.jphototagger.program.exporter;
+package org.jphototagger.domain.repository;
 
 import java.io.File;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.Icon;
+import org.jphototagger.api.core.PositionProvider;
 
 /**
  *
  *
  * @author Elmar Baumann
  */
-public interface Exporter {
-    void exportFile(File file);
+public interface Importer extends PositionProvider {
+
+    void importFile(File file);
 
     FileFilter getFileFilter();
 
@@ -19,4 +21,6 @@ public interface Exporter {
     Icon getIcon();
 
     String getDefaultFilename();
+
+    boolean isJPhotoTaggerData();
 }

@@ -7,20 +7,22 @@ import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.filechooser.FileFilter;
 
+import org.jphototagger.domain.repository.Importer;
 import org.jphototagger.lib.xml.bind.XmlObjectImporter;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.database.DatabaseFileExcludePatterns;
 import org.jphototagger.program.exporter.FileExcludePatternsExporter;
 import org.jphototagger.program.exporter.FileExcludePatternsExporter.CollectionWrapper;
 import org.jphototagger.program.exporter.StringWrapper;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  *
  *
  * @author Elmar Baumann
  */
+@ServiceProvider(service = Importer.class)
 public final class FileExcludePatternsImporter implements Importer {
-    public static final FileExcludePatternsImporter INSTANCE = new FileExcludePatternsImporter();
 
     @Override
     public void importFile(File file) {
@@ -30,7 +32,7 @@ public final class FileExcludePatternsImporter implements Importer {
 
         try {
             FileExcludePatternsExporter.CollectionWrapper wrapper =
-                (CollectionWrapper) XmlObjectImporter.importObject(file,
+                    (CollectionWrapper) XmlObjectImporter.importObject(file,
                     FileExcludePatternsExporter.CollectionWrapper.class);
 
             for (StringWrapper stringWrapper : wrapper.getCollection()) {
@@ -45,12 +47,12 @@ public final class FileExcludePatternsImporter implements Importer {
 
     @Override
     public FileFilter getFileFilter() {
-        return FileExcludePatternsExporter.INSTANCE.getFileFilter();
+        return FileExcludePatternsExporter.FILE_FILTER;
     }
 
     @Override
     public String getDisplayName() {
-        return FileExcludePatternsExporter.INSTANCE.getDisplayName();
+        return FileExcludePatternsExporter.DISPLAY_NAME;
     }
 
     @Override
@@ -60,8 +62,16 @@ public final class FileExcludePatternsImporter implements Importer {
 
     @Override
     public String getDefaultFilename() {
-        return FileExcludePatternsExporter.INSTANCE.getDefaultFilename();
+        return FileExcludePatternsExporter.DEFAULT_FILENAME;
     }
 
-    private FileExcludePatternsImporter() {}
+    @Override
+    public int getPosition() {
+        return FileExcludePatternsExporter.POSITION;
+    }
+
+    @Override
+    public boolean isJPhotoTaggerData() {
+        return true;
+    }
 }

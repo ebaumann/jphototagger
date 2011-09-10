@@ -7,22 +7,22 @@ import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.filechooser.FileFilter;
 
+import org.jphototagger.domain.repository.Importer;
 import org.jphototagger.lib.xml.bind.XmlObjectImporter;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.database.DatabaseAutoscanDirectories;
 import org.jphototagger.program.exporter.AutoscanDirectoriesExporter;
 import org.jphototagger.program.exporter.AutoscanDirectoriesExporter.CollectionWrapper;
 import org.jphototagger.program.exporter.StringWrapper;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  *
  *
  * @author Elmar Baumann
  */
+@ServiceProvider(service = Importer.class)
 public final class AutoscanDirectoriesImporter implements Importer {
-    public static final AutoscanDirectoriesImporter INSTANCE = new AutoscanDirectoriesImporter();
-
-    private AutoscanDirectoriesImporter() {}
 
     @Override
     public void importFile(File file) {
@@ -32,7 +32,7 @@ public final class AutoscanDirectoriesImporter implements Importer {
 
         try {
             AutoscanDirectoriesExporter.CollectionWrapper wrapper =
-                (CollectionWrapper) XmlObjectImporter.importObject(file,
+                    (CollectionWrapper) XmlObjectImporter.importObject(file,
                     AutoscanDirectoriesExporter.CollectionWrapper.class);
 
             for (StringWrapper stringWrapper : wrapper.getCollection()) {
@@ -47,12 +47,12 @@ public final class AutoscanDirectoriesImporter implements Importer {
 
     @Override
     public FileFilter getFileFilter() {
-        return AutoscanDirectoriesExporter.INSTANCE.getFileFilter();
+        return AutoscanDirectoriesExporter.FILE_FILTER;
     }
 
     @Override
     public String getDisplayName() {
-        return AutoscanDirectoriesExporter.INSTANCE.getDisplayName();
+        return AutoscanDirectoriesExporter.DISPLAY_NAME;
     }
 
     @Override
@@ -62,6 +62,16 @@ public final class AutoscanDirectoriesImporter implements Importer {
 
     @Override
     public String getDefaultFilename() {
-        return AutoscanDirectoriesExporter.INSTANCE.getDefaultFilename();
+        return AutoscanDirectoriesExporter.DEFAULT_FILENAME;
+    }
+
+    @Override
+    public int getPosition() {
+        return AutoscanDirectoriesExporter.POSITION;
+    }
+
+    @Override
+    public boolean isJPhotoTaggerData() {
+        return true;
     }
 }

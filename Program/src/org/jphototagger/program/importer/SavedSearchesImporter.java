@@ -7,20 +7,22 @@ import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.filechooser.FileFilter;
 
+import org.jphototagger.domain.repository.Importer;
 import org.jphototagger.lib.xml.bind.XmlObjectImporter;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.data.SavedSearch;
 import org.jphototagger.program.database.DatabaseSavedSearches;
 import org.jphototagger.program.exporter.SavedSearchesExporter;
 import org.jphototagger.program.exporter.SavedSearchesExporter.CollectionWrapper;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  *
  *
  * @author Elmar Baumann
  */
+@ServiceProvider(service = Importer.class)
 public final class SavedSearchesImporter implements Importer {
-    public static final SavedSearchesImporter INSTANCE = new SavedSearchesImporter();
 
     @Override
     public void importFile(File file) {
@@ -30,10 +32,10 @@ public final class SavedSearchesImporter implements Importer {
 
         try {
             SavedSearchesExporter.CollectionWrapper wrapper = (CollectionWrapper) XmlObjectImporter.importObject(file,
-                                                                  SavedSearchesExporter.CollectionWrapper.class);
+                    SavedSearchesExporter.CollectionWrapper.class);
 
             for (SavedSearch savedSearch : wrapper.getCollection()) {
-                if (savedSearch.isValid() &&!DatabaseSavedSearches.INSTANCE.exists(savedSearch.getName())) {
+                if (savedSearch.isValid() && !DatabaseSavedSearches.INSTANCE.exists(savedSearch.getName())) {
                     DatabaseSavedSearches.INSTANCE.insert(savedSearch);
                 }
             }
@@ -44,12 +46,12 @@ public final class SavedSearchesImporter implements Importer {
 
     @Override
     public FileFilter getFileFilter() {
-        return SavedSearchesExporter.INSTANCE.getFileFilter();
+        return SavedSearchesExporter.FILE_FILTER;
     }
 
     @Override
     public String getDisplayName() {
-        return SavedSearchesExporter.INSTANCE.getDisplayName();
+        return SavedSearchesExporter.DISPLAY_NAME;
     }
 
     @Override
@@ -59,8 +61,16 @@ public final class SavedSearchesImporter implements Importer {
 
     @Override
     public String getDefaultFilename() {
-        return SavedSearchesExporter.INSTANCE.getDefaultFilename();
+        return SavedSearchesExporter.DEFAULT_FILENAME;
     }
 
-    private SavedSearchesImporter() {}
+    @Override
+    public int getPosition() {
+        return SavedSearchesExporter.POSITION;
+    }
+
+    @Override
+    public boolean isJPhotoTaggerData() {
+        return true;
+    }
 }

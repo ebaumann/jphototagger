@@ -14,9 +14,11 @@ import javax.swing.filechooser.FileFilter;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.jphototagger.domain.repository.Importer;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.database.DatabaseSynonyms;
 import org.jphototagger.program.exporter.SynonymsExporter;
+import org.openide.util.lookup.ServiceProvider;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -29,8 +31,9 @@ import org.xml.sax.SAXException;
  *
  * @author Elmar Baumann
  */
+@ServiceProvider(service = Importer.class)
 public final class SynonymsImporter implements Importer, EntityResolver {
-    public static final SynonymsImporter INSTANCE = new SynonymsImporter();
+
     private static final long serialVersionUID = 1L;
 
     @Override
@@ -103,18 +106,18 @@ public final class SynonymsImporter implements Importer, EntityResolver {
         }
 
         return (stream == null)
-               ? null
-               : new InputSource(new InputStreamReader(stream));
+                ? null
+                : new InputSource(new InputStreamReader(stream));
     }
 
     @Override
     public FileFilter getFileFilter() {
-        return SynonymsExporter.INSTANCE.getFileFilter();
+        return SynonymsExporter.FILE_FILTER;
     }
 
     @Override
     public String getDisplayName() {
-        return SynonymsExporter.INSTANCE.getDisplayName();
+        return SynonymsExporter.DISPLAY_NAME;
     }
 
     @Override
@@ -124,8 +127,16 @@ public final class SynonymsImporter implements Importer, EntityResolver {
 
     @Override
     public String getDefaultFilename() {
-        return SynonymsExporter.INSTANCE.getDefaultFilename();
+        return SynonymsExporter.DEFAULT_FILENAME;
     }
 
-    private SynonymsImporter() {}
+    @Override
+    public int getPosition() {
+        return SynonymsExporter.POSITION;
+    }
+
+    @Override
+    public boolean isJPhotoTaggerData() {
+        return true;
+    }
 }

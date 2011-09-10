@@ -16,17 +16,19 @@ import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.filechooser.FileFilter;
 
+import org.jphototagger.domain.repository.Importer;
 import org.jphototagger.program.exporter.KeywordsExporterLightroom;
 import org.jphototagger.program.io.CharEncoding;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * Imports keywords exported by <strong>Adobe Photoshop Lightroom</strong>.
  *
  * @author Elmar Baumann
  */
-public final class KeywordsImporterLightroom extends KeywordsImporter {
+@ServiceProvider(service = Importer.class)
+public final class KeywordsImporterLightroom extends KeywordsImporter implements Importer {
 
-    public static final KeywordsImporterLightroom INSTANCE = new KeywordsImporterLightroom();
     /**
      * Lightroom exports keywords within {} - constant if changed in later
      * Lightroom versions
@@ -173,27 +175,32 @@ public final class KeywordsImporterLightroom extends KeywordsImporter {
 
     @Override
     public FileFilter getFileFilter() {
-        return KeywordsExporterLightroom.INSTANCE.getFileFilter();
+        return KeywordsExporterLightroom.FILE_FILTER;
     }
 
     @Override
     public String getDisplayName() {
-        return KeywordsExporterLightroom.INSTANCE.getDisplayName();
+        return KeywordsExporterLightroom.DISPLAY_NAME;
     }
 
     @Override
     public Icon getIcon() {
-        return KeywordsExporterLightroom.INSTANCE.getIcon();
+        return KeywordsExporterLightroom.ICON;
     }
 
     @Override
     public String getDefaultFilename() {
-        return KeywordsExporterLightroom.INSTANCE.getDefaultFilename();
+        return KeywordsExporterLightroom.DEFAULT_FILENAME;
     }
 
     @Override
     public String toString() {
         return getDisplayName();
+    }
+
+    @Override
+    public void importFile(File file) {
+        importKeywordsFile(file);
     }
 
     private class Node {
@@ -278,6 +285,13 @@ public final class KeywordsImporterLightroom extends KeywordsImporter {
         }
     }
 
-    private KeywordsImporterLightroom() {
+    @Override
+    public int getPosition() {
+        return KeywordsExporterLightroom.POSITION;
+    }
+
+    @Override
+    public boolean isJPhotoTaggerData() {
+        return false;
     }
 }

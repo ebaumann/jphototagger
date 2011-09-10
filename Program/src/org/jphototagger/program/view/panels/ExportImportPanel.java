@@ -3,12 +3,17 @@ package org.jphototagger.program.view.panels;
 import java.awt.Container;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.jphototagger.api.core.PositionComparator;
 import org.jphototagger.api.core.Storage;
 import org.jphototagger.domain.event.listener.ListenerSupport;
+import org.jphototagger.domain.repository.Exporter;
+import org.jphototagger.domain.repository.Importer;
 import org.jphototagger.lib.component.SelectObjectsPanel;
 import org.jphototagger.lib.component.SelectObjectsPanel.SelectionEvent;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
@@ -16,10 +21,6 @@ import org.jphototagger.lib.dialog.DirectoryChooser;
 import org.jphototagger.lib.dialog.DirectoryChooser.Option;
 import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.exporter.Exporter;
-import org.jphototagger.program.exporter.JptExporters;
-import org.jphototagger.program.importer.Importer;
-import org.jphototagger.program.importer.JptImporters;
 import org.jphototagger.program.resource.GUI;
 import org.openide.util.Lookup;
 
@@ -114,7 +115,7 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
     }
 
     private void setExportCheckBoxes() {
-        List<Exporter> exporters = JptExporters.get();
+        List<Exporter> exporters = getJptExporters();
 
         panelSelectObjects.removeAll();
         panelSelectObjects.setObjectCount(exporters.size());
@@ -124,8 +125,23 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
         }
     }
 
+    private List<Exporter> getJptExporters() {
+        Collection<? extends Exporter> allExporters = Lookup.getDefault().lookupAll(Exporter.class);
+        List<Exporter> jptExporters = new ArrayList<Exporter>(allExporters.size());
+
+        for (Exporter exporter : allExporters) {
+            if (exporter.isJPhotoTaggerData()) {
+                jptExporters.add(exporter);
+            }
+        }
+
+        Collections.sort(jptExporters, PositionComparator.INSTANCE);
+
+        return jptExporters;
+    }
+
     private void setImportCheckBoxes() {
-        List<Importer> importers = JptImporters.get();
+        List<Importer> importers = getJptImporters();
 
         panelSelectObjects.removeAll();
         panelSelectObjects.setObjectCount(importers.size());
@@ -133,6 +149,21 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
         for (Importer importer : importers) {
             panelSelectObjects.add(importer, importer.getDisplayName());
         }
+    }
+
+    private List<Importer> getJptImporters() {
+        Collection<? extends Importer> allImporters = Lookup.getDefault().lookupAll(Importer.class);
+        List<Importer> jptImporters = new ArrayList<Importer>(allImporters.size());
+
+        for (Importer importer : allImporters) {
+            if (importer.isJPhotoTaggerData()) {
+                jptImporters.add(importer);
+            }
+        }
+
+        Collections.sort(jptImporters, PositionComparator.INSTANCE);
+
+        return jptImporters;
     }
 
     private void selectDirectory() {

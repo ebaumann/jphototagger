@@ -7,20 +7,22 @@ import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.filechooser.FileFilter;
 
+import org.jphototagger.domain.repository.Importer;
 import org.jphototagger.domain.templates.RenameTemplate;
 import org.jphototagger.lib.xml.bind.XmlObjectImporter;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.database.DatabaseRenameTemplates;
 import org.jphototagger.program.exporter.RenameTemplatesExporter;
 import org.jphototagger.program.exporter.RenameTemplatesExporter.CollectionWrapper;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  *
  *
  * @author Elmar Baumann
  */
+@ServiceProvider(service = Importer.class)
 public final class RenameTemplatesImporter implements Importer {
-    public static final RenameTemplatesImporter INSTANCE = new RenameTemplatesImporter();
 
     @Override
     public void importFile(File file) {
@@ -30,7 +32,7 @@ public final class RenameTemplatesImporter implements Importer {
 
         try {
             RenameTemplatesExporter.CollectionWrapper wrapper =
-                (CollectionWrapper) XmlObjectImporter.importObject(file,
+                    (CollectionWrapper) XmlObjectImporter.importObject(file,
                     RenameTemplatesExporter.CollectionWrapper.class);
 
             for (RenameTemplate template : wrapper.getCollection()) {
@@ -45,12 +47,12 @@ public final class RenameTemplatesImporter implements Importer {
 
     @Override
     public FileFilter getFileFilter() {
-        return RenameTemplatesExporter.INSTANCE.getFileFilter();
+        return RenameTemplatesExporter.FILE_FILTER;
     }
 
     @Override
     public String getDisplayName() {
-        return RenameTemplatesExporter.INSTANCE.getDisplayName();
+        return RenameTemplatesExporter.DISPLAY_NAME;
     }
 
     @Override
@@ -60,8 +62,16 @@ public final class RenameTemplatesImporter implements Importer {
 
     @Override
     public String getDefaultFilename() {
-        return RenameTemplatesExporter.INSTANCE.getDefaultFilename();
+        return RenameTemplatesExporter.DEFAULT_FILENAME;
     }
 
-    private RenameTemplatesImporter() {}
+    @Override
+    public int getPosition() {
+        return RenameTemplatesExporter.POSITION;
+    }
+
+    @Override
+    public boolean isJPhotoTaggerData() {
+        return true;
+    }
 }

@@ -17,27 +17,33 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
 
 import org.jphototagger.domain.keywords.Keyword;
+import org.jphototagger.domain.repository.Exporter;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.io.CharEncoding;
 import org.jphototagger.program.io.FilenameSuffixes;
 import org.jphototagger.program.model.TreeModelKeywords;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * Imports keywords exported by <strong>Adobe Photoshop Lightroom</strong>.
  *
  * @author Elmar Baumann
  */
+@ServiceProvider(service = Exporter.class)
 public final class KeywordsExporterLightroom implements Exporter {
-    public static final KeywordsExporterLightroom INSTANCE = new KeywordsExporterLightroom();
-    private static final Icon ICON = AppLookAndFeel.getIcon("icon_lightroom.png");
 
+    public static final String DEFAULT_FILENAME = "LightroomKeywords.txt";
+    public static final String DISPLAY_NAME = Bundle.getString(KeywordsExporterLightroom.class, "KeywordExporterLightroom.DisplayName");
+    public static final Icon ICON = AppLookAndFeel.getIcon("icon_lightroom.png");
+    public static final int POSITION = 10000;
     /**
      * Lightroom exports keywords within {} - constant if changed in later
      * Lightroom versions
      */
     private static final String CHILD_START_CHAR = "\t";
+    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(DISPLAY_NAME, FilenameSuffixes.LIGHTROOM_KEYWORDS);
 
     @Override
     public void exportFile(File file) {
@@ -74,7 +80,7 @@ public final class KeywordsExporterLightroom implements Exporter {
     }
 
     private void addChildrenToRoot(DefaultMutableTreeNode root, Writer writer) throws IOException {
-        for (Enumeration<?> e = root.children(); e.hasMoreElements(); ) {
+        for (Enumeration<?> e = root.children(); e.hasMoreElements();) {
             Object el = e.nextElement();
 
             if (el instanceof DefaultMutableTreeNode) {
@@ -97,10 +103,10 @@ public final class KeywordsExporterLightroom implements Exporter {
             }
         }
 
-        for (Enumeration<DefaultMutableTreeNode> e = node.children(); e.hasMoreElements(); ) {
+        for (Enumeration<DefaultMutableTreeNode> e = node.children(); e.hasMoreElements();) {
             addChildren(e.nextElement(), appended
-                                         ? level + 1
-                                         : level, writer);    // recursive
+                    ? level + 1
+                    : level, writer);    // recursive
         }
     }
 
@@ -120,7 +126,7 @@ public final class KeywordsExporterLightroom implements Exporter {
 
     @Override
     public String getDisplayName() {
-        return Bundle.getString(KeywordsExporterLightroom.class, "KeywordExporterLightroom.DisplayName");
+        return DISPLAY_NAME;
     }
 
     @Override
@@ -130,12 +136,12 @@ public final class KeywordsExporterLightroom implements Exporter {
 
     @Override
     public FileFilter getFileFilter() {
-        return new FileNameExtensionFilter(getDisplayName(), FilenameSuffixes.LIGHTROOM_KEYWORDS);
+        return FILE_FILTER;
     }
 
     @Override
     public String getDefaultFilename() {
-        return "LightroomKeywords.txt";
+        return DEFAULT_FILENAME;
     }
 
     @Override
@@ -143,5 +149,13 @@ public final class KeywordsExporterLightroom implements Exporter {
         return getDisplayName();
     }
 
-    private KeywordsExporterLightroom() {}
+    @Override
+    public boolean isJPhotoTaggerData() {
+        return false;
+    }
+
+    @Override
+    public int getPosition() {
+        return POSITION;
+    }
 }
