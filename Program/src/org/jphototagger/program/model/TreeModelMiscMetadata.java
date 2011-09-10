@@ -10,18 +10,18 @@ import javax.swing.tree.DefaultTreeModel;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-import org.jphototagger.domain.database.Column;
-import org.jphototagger.domain.database.exif.ColumnExifFocalLength;
-import org.jphototagger.domain.database.exif.ColumnExifIsoSpeedRatings;
-import org.jphototagger.domain.database.exif.ColumnExifLens;
-import org.jphototagger.domain.database.exif.ColumnExifRecordingEquipment;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcCreator;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcRights;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
-import org.jphototagger.domain.database.xmp.ColumnXmpIptc4xmpcoreLocation;
-import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopSource;
-import org.jphototagger.domain.database.xmp.ColumnXmpRating;
 import org.jphototagger.domain.exif.Exif;
+import org.jphototagger.domain.metadata.MetaDataValue;
+import org.jphototagger.domain.metadata.exif.ExifFocalLengthMetaDataValue;
+import org.jphototagger.domain.metadata.exif.ExifIsoSpeedRatingsMetaDataValue;
+import org.jphototagger.domain.metadata.exif.ExifLensMetaDataValue;
+import org.jphototagger.domain.metadata.exif.ExifRecordingEquipmentMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpDcCreatorMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpDcRightsMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpIptc4xmpcoreLocationMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopSourceMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpRatingMetaDataValue;
 import org.jphototagger.domain.repository.ImageFileRepository;
 import org.jphototagger.domain.repository.event.dcsubjects.DcSubjectDeletedEvent;
 import org.jphototagger.domain.repository.event.dcsubjects.DcSubjectInsertedEvent;
@@ -46,9 +46,9 @@ import org.openide.util.Lookup;
  *
  * <ul>
  * <li>The root user object is a {@link String}</li>
- * <li>User objects direct below the root are {@link Column}s</li>
+ * <li>User objects direct below the root are {@link MetaDataValue}s</li>
  * <li>User objects below the columns having the data type of the column
- *    ({@link Column#getDataType()}</li>
+ *    ({@link MetaDataValue#getValueType()}</li>
  * </ul>
  *
  * @author Elmar Baumann
@@ -58,22 +58,22 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel {
     private static final Object EXIF_USER_OBJECT = Bundle.getString(TreeModelMiscMetadata.class, "TreeModelMiscMetadata.ExifNode.DisplayName");
     private static final long serialVersionUID = 2498087635943355657L;
     private static final Object XMP_USER_OBJECT = Bundle.getString(TreeModelMiscMetadata.class, "TreeModelMiscMetadata.XmpNode.DisplayName");
-    private static final Set<Column> XMP_COLUMNS = new LinkedHashSet<Column>();
-    private static final Set<Column> EXIF_COLUMNS = new LinkedHashSet<Column>();
-    private static final Set<Object> COLUMN_USER_OBJECTS = new LinkedHashSet<Object>();
+    private static final Set<MetaDataValue> XMP_META_DATA_VALUES = new LinkedHashSet<MetaDataValue>();
+    private static final Set<MetaDataValue> EXIF_META_DATA_VALUES = new LinkedHashSet<MetaDataValue>();
+    private static final Set<Object> META_DATA_VALUES_USER_OBJECTS = new LinkedHashSet<Object>();
 
     static {
-        EXIF_COLUMNS.add(ColumnExifRecordingEquipment.INSTANCE);
-        EXIF_COLUMNS.add(ColumnExifFocalLength.INSTANCE);
-        EXIF_COLUMNS.add(ColumnExifLens.INSTANCE);
-        EXIF_COLUMNS.add(ColumnExifIsoSpeedRatings.INSTANCE);
-        XMP_COLUMNS.add(ColumnXmpIptc4xmpcoreLocation.INSTANCE);
-        XMP_COLUMNS.add(ColumnXmpDcCreator.INSTANCE);
-        XMP_COLUMNS.add(ColumnXmpDcRights.INSTANCE);
-        XMP_COLUMNS.add(ColumnXmpPhotoshopSource.INSTANCE);
-        XMP_COLUMNS.add(ColumnXmpRating.INSTANCE);
-        COLUMN_USER_OBJECTS.add(EXIF_USER_OBJECT);
-        COLUMN_USER_OBJECTS.add(XMP_USER_OBJECT);
+        EXIF_META_DATA_VALUES.add(ExifRecordingEquipmentMetaDataValue.INSTANCE);
+        EXIF_META_DATA_VALUES.add(ExifFocalLengthMetaDataValue.INSTANCE);
+        EXIF_META_DATA_VALUES.add(ExifLensMetaDataValue.INSTANCE);
+        EXIF_META_DATA_VALUES.add(ExifIsoSpeedRatingsMetaDataValue.INSTANCE);
+        XMP_META_DATA_VALUES.add(XmpIptc4xmpcoreLocationMetaDataValue.INSTANCE);
+        XMP_META_DATA_VALUES.add(XmpDcCreatorMetaDataValue.INSTANCE);
+        XMP_META_DATA_VALUES.add(XmpDcRightsMetaDataValue.INSTANCE);
+        XMP_META_DATA_VALUES.add(XmpPhotoshopSourceMetaDataValue.INSTANCE);
+        XMP_META_DATA_VALUES.add(XmpRatingMetaDataValue.INSTANCE);
+        META_DATA_VALUES_USER_OBJECTS.add(EXIF_USER_OBJECT);
+        META_DATA_VALUES_USER_OBJECTS.add(XMP_USER_OBJECT);
     }
     private final boolean onlyXmp;
     private final DefaultMutableTreeNode ROOT;
@@ -85,10 +85,10 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel {
         this.ROOT = (DefaultMutableTreeNode) getRoot();
 
         if (!onlyXmp) {
-            addColumnNodes(EXIF_USER_OBJECT, EXIF_COLUMNS);
+            addMetaDataValueNodes(EXIF_USER_OBJECT, EXIF_META_DATA_VALUES);
         }
 
-        addColumnNodes(XMP_USER_OBJECT, XMP_COLUMNS);
+        addMetaDataValueNodes(XMP_USER_OBJECT, XMP_META_DATA_VALUES);
         listen();
     }
 
@@ -100,38 +100,38 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel {
         return onlyXmp;
     }
 
-    public static Set<Column> getExifColumns() {
-        return new LinkedHashSet<Column>(EXIF_COLUMNS);
+    public static Set<MetaDataValue> getExifMetaDataValues() {
+        return new LinkedHashSet<MetaDataValue>(EXIF_META_DATA_VALUES);
     }
 
-    public static Set<Column> getXmpColumns() {
-        return new LinkedHashSet<Column>(XMP_COLUMNS);
+    public static Set<MetaDataValue> getXmpMetaDataValues() {
+        return new LinkedHashSet<MetaDataValue>(XMP_META_DATA_VALUES);
     }
 
-    private void addColumnNodes(Object userObject, Set<Column> columns) {
+    private void addMetaDataValueNodes(Object userObject, Set<MetaDataValue> metaDataValues) {
         DefaultMutableTreeNode node = new DefaultMutableTreeNode(userObject);
 
-        for (Column column : columns) {
-            DefaultMutableTreeNode columnNode = new DefaultMutableTreeNode(column);
+        for (MetaDataValue mdValue : metaDataValues) {
+            DefaultMutableTreeNode mdValueNode = new DefaultMutableTreeNode(mdValue);
 
-            addChildren(columnNode, repo.getAllDistinctValuesOfColumn(column), column.getDataType());
-            node.add(columnNode);
+            addChildren(mdValueNode, repo.getAllDistinctMetaDataValues(mdValue), mdValue.getValueType());
+            node.add(mdValueNode);
         }
 
         ROOT.add(node);
     }
 
-    private void addChildren(DefaultMutableTreeNode parentNode, Set<String> data, Column.DataType dataType) {
+    private void addChildren(DefaultMutableTreeNode parentNode, Set<String> data, MetaDataValue.ValueType dataType) {
         for (String string : data) {
             DefaultMutableTreeNode node = new DefaultMutableTreeNode();
 
-            if (dataType.equals(Column.DataType.STRING)) {
+            if (dataType.equals(MetaDataValue.ValueType.STRING)) {
                 node.setUserObject(string);
-            } else if (dataType.equals(Column.DataType.SMALLINT)) {
+            } else if (dataType.equals(MetaDataValue.ValueType.SMALLINT)) {
                 node.setUserObject(Short.valueOf(string));
-            } else if (dataType.equals(Column.DataType.REAL)) {
+            } else if (dataType.equals(MetaDataValue.ValueType.REAL)) {
                 node.setUserObject(Double.valueOf(string));
-            } else if (dataType.equals(Column.DataType.BIGINT)) {
+            } else if (dataType.equals(MetaDataValue.ValueType.BIGINT)) {
                 node.setUserObject(Long.valueOf(string));
             } else {
                 assert false : "Unregognized data type: " + dataType;
@@ -142,11 +142,11 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel {
     }
 
     private void checkDeleted(Xmp xmp) {
-        for (Column xmpColumn : XMP_COLUMNS) {
-            Object value = xmp.getValue(xmpColumn);
+        for (MetaDataValue xmpMdValue : XMP_META_DATA_VALUES) {
+            Object value = xmp.getValue(xmpMdValue);
 
             if (value != null) {
-                checkDeleted(xmpColumn, value);
+                checkDeleted(xmpMdValue, value);
             }
         }
     }
@@ -155,32 +155,32 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel {
         String recordingEquipment = exif.getRecordingEquipment();
 
         if (recordingEquipment != null) {
-            checkDeleted(ColumnExifRecordingEquipment.INSTANCE, recordingEquipment);
+            checkDeleted(ExifRecordingEquipmentMetaDataValue.INSTANCE, recordingEquipment);
         }
 
         short iso = exif.getIsoSpeedRatings();
 
         if (iso > 0) {
-            checkDeleted(ColumnExifIsoSpeedRatings.INSTANCE, Short.valueOf(iso));
+            checkDeleted(ExifIsoSpeedRatingsMetaDataValue.INSTANCE, Short.valueOf(iso));
         }
 
         double f = exif.getFocalLength();
 
         if (f > 0) {
-            checkDeleted(ColumnExifFocalLength.INSTANCE, Double.valueOf(f));
+            checkDeleted(ExifFocalLengthMetaDataValue.INSTANCE, Double.valueOf(f));
         }
 
         String lens = exif.getLens();
 
         if (lens != null) {
-            checkDeleted(ColumnExifLens.INSTANCE, lens);
+            checkDeleted(ExifLensMetaDataValue.INSTANCE, lens);
         }
     }
 
-    private void checkDeleted(Column column, Object userObject) {
-        DefaultMutableTreeNode node = findNodeWithUserObject(ROOT, column);
+    private void checkDeleted(MetaDataValue mdValue, Object userObject) {
+        DefaultMutableTreeNode node = findNodeWithUserObject(ROOT, mdValue);
 
-        if ((node != null) && !repo.existsValueInColumn(userObject, column)) {
+        if ((node != null) && !repo.existsMetaDataValue(userObject, mdValue)) {
             DefaultMutableTreeNode child = findNodeWithUserObject(node, userObject);
 
             if (child != null) {
@@ -193,11 +193,11 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel {
     }
 
     private void checkInserted(Xmp xmp) {
-        for (Column xmpColumn : XMP_COLUMNS) {
-            Object value = xmp.getValue(xmpColumn);
+        for (MetaDataValue xmpMdValue : XMP_META_DATA_VALUES) {
+            Object value = xmp.getValue(xmpMdValue);
 
             if (value != null) {
-                checkInserted(xmpColumn, value);
+                checkInserted(xmpMdValue, value);
             }
         }
     }
@@ -206,30 +206,30 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel {
         String recordingEquipment = exif.getRecordingEquipment();
 
         if (recordingEquipment != null) {
-            checkInserted(ColumnExifRecordingEquipment.INSTANCE, recordingEquipment);
+            checkInserted(ExifRecordingEquipmentMetaDataValue.INSTANCE, recordingEquipment);
         }
 
         short iso = exif.getIsoSpeedRatings();
 
         if (iso > 0) {
-            checkInserted(ColumnExifIsoSpeedRatings.INSTANCE, Short.valueOf(iso));
+            checkInserted(ExifIsoSpeedRatingsMetaDataValue.INSTANCE, Short.valueOf(iso));
         }
 
         double f = exif.getFocalLength();
 
         if (f > 0) {
-            checkInserted(ColumnExifFocalLength.INSTANCE, Double.valueOf(f));
+            checkInserted(ExifFocalLengthMetaDataValue.INSTANCE, Double.valueOf(f));
         }
 
         String lens = exif.getLens();
 
         if (lens != null) {
-            checkInserted(ColumnExifLens.INSTANCE, lens);
+            checkInserted(ExifLensMetaDataValue.INSTANCE, lens);
         }
     }
 
-    private void checkInserted(Column column, Object userObject) {
-        DefaultMutableTreeNode node = findNodeWithUserObject(ROOT, column);
+    private void checkInserted(MetaDataValue mdValue, Object userObject) {
+        DefaultMutableTreeNode node = findNodeWithUserObject(ROOT, mdValue);
 
         if (node != null) {
             DefaultMutableTreeNode child = findNodeWithUserObject(node, userObject);
@@ -293,7 +293,7 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel {
 
             @Override
             public void run() {
-                checkDeleted(ColumnXmpDcSubjectsSubject.INSTANCE, evt.getDcSubject());
+                checkDeleted(XmpDcSubjectsSubjectMetaDataValue.INSTANCE, evt.getDcSubject());
             }
         });
     }
@@ -304,7 +304,7 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel {
 
             @Override
             public void run() {
-                checkInserted(ColumnXmpDcSubjectsSubject.INSTANCE, evt.getDcSubject());
+                checkInserted(XmpDcSubjectsSubjectMetaDataValue.INSTANCE, evt.getDcSubject());
             }
         });
     }

@@ -1,6 +1,6 @@
 package org.jphototagger.program.database.metadata;
 
-import org.jphototagger.domain.database.Column;
+import org.jphototagger.domain.metadata.MetaDataValue;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -25,19 +25,19 @@ public final class Util {
      * @return         columns separated by tables: The collection of a
      *                 tablename are (only) columns within this table
      */
-    public static Map<String, List<Column>> getColumnsSeparatedByTables(Collection<? extends Column> columns) {
+    public static Map<String, List<MetaDataValue>> getColumnsSeparatedByTables(Collection<? extends MetaDataValue> columns) {
         if (columns == null) {
             throw new NullPointerException("columns == null");
         }
 
-        Map<String, List<Column>> columnsOfTable = new HashMap<String, List<Column>>();
+        Map<String, List<MetaDataValue>> columnsOfTable = new HashMap<String, List<MetaDataValue>>();
 
-        for (Column col : columns) {
-            String tablename = col.getTablename();
-            List<Column> cols = columnsOfTable.get(tablename);
+        for (MetaDataValue col : columns) {
+            String tablename = col.getCategory();
+            List<MetaDataValue> cols = columnsOfTable.get(tablename);
 
             if (cols == null) {
-                cols = new ArrayList<Column>();
+                cols = new ArrayList<MetaDataValue>();
             }
 
             cols.add(col);
@@ -53,15 +53,15 @@ public final class Util {
      * @param columns Spalten
      * @return        Tabellen
      */
-    public static Set<String> getDistinctTablenamesOfColumns(Collection<? extends Column> columns) {
+    public static Set<String> getDistinctTablenamesOfColumns(Collection<? extends MetaDataValue> columns) {
         if (columns == null) {
             throw new NullPointerException("columns == null");
         }
 
         Set<String> tablenames = new HashSet<String>();
 
-        for (Column column : columns) {
-            tablenames.add(column.getTablename());
+        for (MetaDataValue column : columns) {
+            tablenames.add(column.getCategory());
         }
 
         return tablenames;

@@ -16,8 +16,8 @@ import javax.swing.JComboBox;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.core.Storage;
-import org.jphototagger.domain.database.Column;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.domain.metadata.MetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.repository.ImageFileRepository;
 import org.jphototagger.domain.repository.event.xmp.XmpDeletedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
@@ -32,8 +32,8 @@ import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
 import org.jphototagger.program.database.DatabaseFind;
-import org.jphototagger.program.database.metadata.selections.AutoCompleteDataOfColumn;
-import org.jphototagger.program.database.metadata.selections.FastSearchColumns;
+import org.jphototagger.program.database.metadata.selections.AutoCompleteDataOfMetaDataValue;
+import org.jphototagger.program.database.metadata.selections.FastSearchMetaDataValues;
 import org.jphototagger.program.helper.AutocompleteHelper;
 import org.jphototagger.program.model.ComboBoxModelFastSearch;
 import org.jphototagger.program.resource.GUI;
@@ -134,9 +134,9 @@ public final class ControllerFastSearch implements ActionListener {
 
             @Override
             public void run() {
-                autocomplete.decorate(GUI.getSearchTextArea(), isSearchAllDefinedColumns()
-                        ? AutoCompleteDataOfColumn.INSTANCE.getFastSearchData().get()
-                        : AutoCompleteDataOfColumn.INSTANCE.get(getSearchColumn()).get(), true);
+                autocomplete.decorate(GUI.getSearchTextArea(), isSearchAllDefinedMetaDataValues()
+                        ? AutoCompleteDataOfMetaDataValue.INSTANCE.getFastSearchData().get()
+                        : AutoCompleteDataOfMetaDataValue.INSTANCE.get(getSearchMetaDataValue()).get(), true);
             }
         }, "JPhotoTagger: Updating autocomplete for search text field").start();
     }
@@ -183,29 +183,29 @@ public final class ControllerFastSearch implements ActionListener {
             }
 
             private List<File> searchFiles(String userInput) {
-                if (isSearchAllDefinedColumns()) {
-                    return DatabaseFind.INSTANCE.findImageFilesLikeOr(FastSearchColumns.get(), userInput);
+                if (isSearchAllDefinedMetaDataValues()) {
+                    return DatabaseFind.INSTANCE.findImageFilesLikeOr(FastSearchMetaDataValues.get(), userInput);
                 } else {
                     List<String> searchWords = getSearchWords(userInput);
-                    Column searchColumn = getSearchColumn();
+                    MetaDataValue searchValue = getSearchMetaDataValue();
 
-                    if (searchColumn == null) {
+                    if (searchValue == null) {
                         return null;
                     }
 
-                    boolean isKeywordSearch = searchColumn.equals(ColumnXmpDcSubjectsSubject.INSTANCE);
+                    boolean isKeywordSearch = searchValue.equals(XmpDcSubjectsSubjectMetaDataValue.INSTANCE);
 
                     if (searchWords.size() == 1) {
                         if (isKeywordSearch) {
                             return new ArrayList<File>(repo.getImageFilesContainingDcSubject(searchWords.get(0), true));
                         } else {
-                            return DatabaseFind.INSTANCE.findImageFilesLikeOr(Arrays.asList(searchColumn), userInput);
+                            return DatabaseFind.INSTANCE.findImageFilesLikeOr(Arrays.asList(searchValue), userInput);
                         }
                     } else if (searchWords.size() > 1) {
                         if (isKeywordSearch) {
                             return new ArrayList<File>(repo.getImageFilesContainingAllDcSubjects(searchWords));
                         } else {
-                            return new ArrayList<File>(repo.getImageFilesContainingAllWordsInColumn(searchWords, searchColumn));
+                            return new ArrayList<File>(repo.getImageFilesContainingAllWordsInMetaDataValue(searchWords, searchValue));
                         }
                     } else {
                         return null;
@@ -226,14 +226,14 @@ public final class ControllerFastSearch implements ActionListener {
         return words;
     }
 
-    private Column getSearchColumn() {
-        assert !isSearchAllDefinedColumns() : "More than one search column!";
+    private MetaDataValue getSearchMetaDataValue() {
+        assert !isSearchAllDefinedMetaDataValues() : "More than one search value!";
 
-        if (isSearchAllDefinedColumns()) {
+        if (isSearchAllDefinedMetaDataValues()) {
             return null;
         }
 
-        return (Column) getSearchComboBox().getSelectedItem();
+        return (MetaDataValue) getSearchComboBox().getSelectedItem();
     }
 
     @EventSubscriber(eventClass = ThumbnailsPanelRefreshEvent.class)
@@ -253,10 +253,10 @@ public final class ControllerFastSearch implements ActionListener {
         }
     }
 
-    private boolean isSearchAllDefinedColumns() {
+    private boolean isSearchAllDefinedMetaDataValues() {
         Object selItem = getSearchComboBox().getSelectedItem();
 
-        return (selItem != null) && selItem.equals(ComboBoxModelFastSearch.ALL_DEFINED_COLUMNS);
+        return (selItem != null) && selItem.equals(ComboBoxModelFastSearch.ALL_DEFINED_META_DATA_VALUES);
     }
 
     private void addAutocompleteWordsOf(Xmp xmp) {
@@ -264,10 +264,10 @@ public final class ControllerFastSearch implements ActionListener {
             return;
         }
 
-        if (isSearchAllDefinedColumns()) {
+        if (isSearchAllDefinedMetaDataValues()) {
             AutocompleteHelper.addFastSearchAutocompleteData(autocomplete, xmp);
         } else {
-            AutocompleteHelper.addAutocompleteData(getSearchColumn(), autocomplete, xmp);
+            AutocompleteHelper.addAutocompleteData(getSearchMetaDataValue(), autocomplete, xmp);
         }
     }
 

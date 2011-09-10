@@ -1,15 +1,17 @@
 package org.jphototagger.program.datatransfer;
 
-import org.jphototagger.domain.database.ColumnData;
-import org.jphototagger.domain.keywords.Keyword;
-import org.jphototagger.program.helper.KeywordsHelper;
 import java.awt.datatransfer.Transferable;
 import java.util.Collection;
 import java.util.List;
+
 import javax.swing.DefaultListModel;
-import org.jdesktop.swingx.JXList;
 import javax.swing.TransferHandler;
 import javax.swing.tree.DefaultMutableTreeNode;
+
+import org.jdesktop.swingx.JXList;
+import org.jphototagger.domain.keywords.Keyword;
+import org.jphototagger.domain.metadata.MetaDataValueData;
+import org.jphototagger.program.helper.KeywordsHelper;
 
 /**
  * Imports into a {@link DefaultListModel} of strings strings exported via a
@@ -25,6 +27,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * @author Elmar Baumann
  */
 public final class TransferHandlerDropList extends TransferHandler {
+
     private static final long serialVersionUID = -3654778661471221382L;
 
     @Override
@@ -46,8 +49,8 @@ public final class TransferHandlerDropList extends TransferHandler {
             return importKeywords(transferable, listModel);
         } else if (Flavor.hasKeywordsFromTree(support)) {
             return importKeywords(listModel, transferable);
-        } else if (Flavor.hasColumnData(support)) {
-            return importColumnData(listModel, transferable);
+        } else if (Flavor.hasMetaDataValue(support)) {
+            return importMetaDataValue(listModel, transferable);
         } else if (Flavor.hasMetadataTemplate(support)) {
             MetadataTemplateSupport.setTemplate(support);
 
@@ -57,12 +60,12 @@ public final class TransferHandlerDropList extends TransferHandler {
         return false;
     }
 
-    private boolean importColumnData(DefaultListModel listModel, Transferable transferable) {
-        Collection<? extends ColumnData> columnData = Support.getColumnData(transferable);
+    private boolean importMetaDataValue(DefaultListModel listModel, Transferable transferable) {
+        Collection<? extends MetaDataValueData> metaDataValues = Support.getMetaDataValueData(transferable);
 
-        if (columnData != null) {
-            for (ColumnData data : columnData) {
-                listModel.addElement(data.getData());
+        if (metaDataValues != null) {
+            for (MetaDataValueData metaDataValue : metaDataValues) {
+                listModel.addElement(metaDataValue.getData());
             }
         }
 

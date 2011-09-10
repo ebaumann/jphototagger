@@ -1,6 +1,6 @@
 package org.jphototagger.program.view.renderer;
 
-import org.jphototagger.domain.database.Column;
+import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.program.database.metadata.selections.TableIcons;
 import javax.swing.JLabel;
 
@@ -17,7 +17,7 @@ public final class FormatterLabelTableColumn {
      * @param label   Label
      * @param column  Tabellenspalte
      */
-    public static void setLabelText(JLabel label, Column column) {
+    public static void setLabelText(JLabel label, MetaDataValue column) {
         if (label == null) {
             throw new NullPointerException("label == null");
         }
@@ -26,7 +26,7 @@ public final class FormatterLabelTableColumn {
             throw new NullPointerException("column == null");
         }
 
-        label.setIcon(TableIcons.getIcon(column.getTablename()));
+        label.setIcon(TableIcons.getIcon(column.getCategory()));
         label.setText(column.getDescription());
     }
 

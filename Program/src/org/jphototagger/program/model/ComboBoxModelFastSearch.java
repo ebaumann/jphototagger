@@ -1,21 +1,23 @@
 package org.jphototagger.program.model;
 
-import org.jphototagger.domain.database.Column;
-import org.jphototagger.program.database.metadata.selections.FastSearchColumns;
 import javax.swing.DefaultComboBoxModel;
 
+import org.jphototagger.domain.metadata.MetaDataValue;
+import org.jphototagger.program.database.metadata.selections.FastSearchMetaDataValues;
+
 /**
- * Elements are the columns for the fast search - instances of
- * {@link org.jphototagger.program.database.metadata.Column} - and a string.
+ * Elements are the metadata values for the fast search - instances of
+ * {@link org.jphototagger.program.database.metadata.MetaDataValue} - and a string.
  *
- * The elements retrieved through {@link FastSearchColumns#get()}. The string is
- * {@link #ALL_DEFINED_COLUMNS} and means, the fast search shall search
- * in all columns, else only in the selected column.
+ * The elements retrieved through {@link FastSearchMetaDataValues#get()}. The string is
+ * {@link #ALL_DEFINED_META_DATA_VALUES} and means, the fast search shall search
+ * in all metadata values, else only in the selected metadata value.
  *
  * @author Elmar Baumann
  */
 public final class ComboBoxModelFastSearch extends DefaultComboBoxModel {
-    public static final String ALL_DEFINED_COLUMNS = "AllDefined";
+
+    public static final String ALL_DEFINED_META_DATA_VALUES = "AllDefined";
     private static final long serialVersionUID = -705435864208734028L;
 
     public ComboBoxModelFastSearch() {
@@ -23,10 +25,10 @@ public final class ComboBoxModelFastSearch extends DefaultComboBoxModel {
     }
 
     private void addElements() {
-        addElement(ALL_DEFINED_COLUMNS);
+        addElement(ALL_DEFINED_META_DATA_VALUES);
 
-        for (Column column : FastSearchColumns.get()) {
-            addElement(column);
+        for (MetaDataValue value : FastSearchMetaDataValues.get()) {
+            addElement(value);
         }
     }
 }

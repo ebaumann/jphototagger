@@ -1,7 +1,7 @@
 package org.jphototagger.program.controller.keywords.list;
 
 import org.jphototagger.lib.event.util.KeyEventUtil;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
 import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsList;
@@ -34,7 +34,7 @@ public final class ControllerAddKeywordsToEditPanel extends ControllerKeywords {
 
         if (editPanels.isEditable()) {
             for (String keyword : keywords) {
-                editPanels.addText(ColumnXmpDcSubjectsSubject.INSTANCE, keyword);
+                editPanels.addText(XmpDcSubjectsSubjectMetaDataValue.INSTANCE, keyword);
             }
         }
     }

@@ -10,7 +10,7 @@ import javax.swing.DefaultListModel;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.repository.ImageFileRepository;
 import org.jphototagger.domain.repository.event.dcsubjects.DcSubjectDeletedEvent;
 import org.jphototagger.domain.repository.event.dcsubjects.DcSubjectInsertedEvent;
@@ -66,15 +66,15 @@ public final class ListModelKeywords extends DefaultListModel {
     }
 
     boolean databaseHasKeyword(String keyword) {
-        return DatabaseStatistics.INSTANCE.existsValueIn(ColumnXmpDcSubjectsSubject.INSTANCE, keyword);
+        return DatabaseStatistics.INSTANCE.existsValueIn(XmpDcSubjectsSubjectMetaDataValue.INSTANCE, keyword);
     }
 
     @SuppressWarnings("unchecked")
     private List<String> getKeywords(Xmp xmp) {
         List<String> keywords = new ArrayList<String>();
 
-        if (xmp.contains(ColumnXmpDcSubjectsSubject.INSTANCE)) {
-            keywords.addAll((List<String>) xmp.getValue(ColumnXmpDcSubjectsSubject.INSTANCE));
+        if (xmp.contains(XmpDcSubjectsSubjectMetaDataValue.INSTANCE)) {
+            keywords.addAll((List<String>) xmp.getValue(XmpDcSubjectsSubjectMetaDataValue.INSTANCE));
         }
 
         return keywords;

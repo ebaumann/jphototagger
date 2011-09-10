@@ -10,7 +10,7 @@ import javax.swing.tree.TreePath;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-import org.jphototagger.domain.database.Column;
+import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.repository.ImageFileRepository;
 import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
 import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
@@ -94,23 +94,23 @@ public final class ControllerMiscMetadataItemSelected implements TreeSelectionLi
             if (node.isLeaf()) {
                 Object parentUserObject = ((DefaultMutableTreeNode) node.getParent()).getUserObject();
 
-                if (parentUserObject instanceof Column) {
-                    Column column = (Column) parentUserObject;
+                if (parentUserObject instanceof MetaDataValue) {
+                    MetaDataValue mdValue = (MetaDataValue) parentUserObject;
 
-                    setTitle(column, userObject);
+                    setTitle(mdValue, userObject);
                     ControllerSortThumbnails.setLastSort();
-                    tnPanel.setFiles(repo.getImageFilesWhereColumnHasExactValue(column,
+                    tnPanel.setFiles(repo.getImageFilesWhereMetaDataValueHasExactValue(mdValue,
                             userObject.toString()), TypeOfDisplayedImages.MISC_METADATA);
                     tnPanel.apply(tnPanelSettings);
                 } else {
                     setTitle();
                 }
-            } else if (userObject instanceof Column) {
-                Column column = (Column) userObject;
+            } else if (userObject instanceof MetaDataValue) {
+                MetaDataValue mdValue = (MetaDataValue) userObject;
 
-                setTitle(column);
+                setTitle(mdValue);
                 ControllerSortThumbnails.setLastSort();
-                tnPanel.setFiles(repo.getImageFilesContainingAVauleInColumn(column), TypeOfDisplayedImages.MISC_METADATA);
+                tnPanel.setFiles(repo.getImageFilesContainingAVauleInMetaDataValue(mdValue), TypeOfDisplayedImages.MISC_METADATA);
                 tnPanel.apply(tnPanelSettings);
             } else {
                 ControllerSortThumbnails.setLastSort();
@@ -126,14 +126,12 @@ public final class ControllerMiscMetadataItemSelected implements TreeSelectionLi
                     Bundle.getString(ShowThumbnails.class, "ControllerMiscMetadataItemSelected.AppFrame.Title.Metadata"));
         }
 
-        private void setTitle(Column column) {
-            GUI.getAppFrame().setTitle(
-                    Bundle.getString(ShowThumbnails.class, "ControllerMiscMetadataItemSelected.AppFrame.Title.Metadata.Column", column.getDescription()));
+        private void setTitle(MetaDataValue mdValue) {
+            GUI.getAppFrame().setTitle(Bundle.getString(ShowThumbnails.class, "ControllerMiscMetadataItemSelected.AppFrame.Title.Metadata.Value", mdValue.getDescription()));
         }
 
-        private void setTitle(Column column, Object userObject) {
-            GUI.getAppFrame().setTitle(Bundle.getString(ShowThumbnails.class,
-                    "ControllerMiscMetadataItemSelected.AppFrame.Title.Metadata.Object", column.getDescription(), userObject.toString()));
+        private void setTitle(MetaDataValue mdValue, Object userObject) {
+            GUI.getAppFrame().setTitle(Bundle.getString(ShowThumbnails.class, "ControllerMiscMetadataItemSelected.AppFrame.Title.Metadata.Object", mdValue.getDescription(), userObject.toString()));
         }
     }
 }

@@ -9,8 +9,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.jphototagger.domain.repository.InsertIntoRepository;
-import org.jphototagger.domain.database.xmp.ColumnXmpIptc4XmpCoreDateCreated;
-import org.jphototagger.domain.database.xmp.ColumnXmpLastModified;
+import org.jphototagger.domain.metadata.xmp.XmpIptc4XmpCoreDateCreatedMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpLastModifiedMetaDataValue;
 import org.jphototagger.domain.exif.Exif;
 import org.jphototagger.domain.image.ImageFile;
 import org.jphototagger.domain.repository.ImageFileRepository;
@@ -144,7 +144,7 @@ public final class SetExifToXmp extends HelperThread {
                 if (XmpMetadata.writeXmpToSidecarFile(xmp, xmpFile)) {
                     ImageFile imageFile = new ImageFile();
 
-                    xmp.setValue(ColumnXmpLastModified.INSTANCE, xmpFile.lastModified());
+                    xmp.setValue(XmpLastModifiedMetaDataValue.INSTANCE, xmpFile.lastModified());
 
                     // Avoiding re-reading thumbnails
                     imageFile.setLastmodified(imgFile.lastModified());
@@ -158,7 +158,7 @@ public final class SetExifToXmp extends HelperThread {
     }
 
     private static boolean isSet(Xmp xmp, boolean replaceExistingXmpData) {
-        return replaceExistingXmpData || !xmp.contains(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE);
+        return replaceExistingXmpData || !xmp.contains(XmpIptc4XmpCoreDateCreatedMetaDataValue.INSTANCE);
     }
 
     public static boolean exifHasValues(Exif exif) {
@@ -179,7 +179,7 @@ public final class SetExifToXmp extends HelperThread {
         }
 
         if (exif.getDateTimeOriginal() != null) {
-            xmp.setValue(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE, exif.getXmpDateCreated());
+            xmp.setValue(XmpIptc4XmpCoreDateCreatedMetaDataValue.INSTANCE, exif.getXmpDateCreated());
         }
     }
 

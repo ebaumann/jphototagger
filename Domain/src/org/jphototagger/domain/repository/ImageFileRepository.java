@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import org.jphototagger.api.event.ProgressListener;
-import org.jphototagger.domain.database.Column;
+import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.exif.Exif;
 import org.jphototagger.domain.image.ImageFile;
 import org.jphototagger.domain.timeline.Timeline;
@@ -28,7 +28,7 @@ public interface ImageFileRepository {
 
     int deleteAbsentXmp(ProgressListener listener);
 
-    void deleteValueOfJoinedColumn(Column column, String value);
+    void deleteValueOfJoinedMetaDataValue(MetaDataValue mdValue, String value);
 
     public boolean existsImageFile(File imageFile);
 
@@ -36,13 +36,13 @@ public interface ImageFileRepository {
 
     boolean existsExifDate(java.sql.Date date);
 
-    boolean existsValueInColumn(Object value, Column column);
+    boolean existsMetaDataValue(Object value, MetaDataValue mdValue);
 
     boolean existsXMPDateCreated(String date);
 
     Set<String> getAllDcSubjects();
 
-    Set<String> getAllDistinctValuesOfColumn(Column column);
+    Set<String> getAllDistinctMetaDataValues(MetaDataValue value);
 
     List<File> getAllImageFiles();
 
@@ -64,9 +64,9 @@ public interface ImageFileRepository {
 
     Set<File> getImageFilesContainingSomeOfDcSubjects(List<? extends String> dcSubjects);
 
-    Set<File> getImageFilesContainingAllWordsInColumn(List<? extends String> words, Column column);
+    Set<File> getImageFilesContainingAllWordsInMetaDataValue(List<? extends String> words, MetaDataValue value);
 
-    List<File> getImageFilesContainingAVauleInColumn(Column column);
+    List<File> getImageFilesContainingAVauleInMetaDataValue(MetaDataValue value);
 
     long getImageFilesLastModifiedTimestamp(File imageFile);
 
@@ -74,9 +74,9 @@ public interface ImageFileRepository {
 
     List<File> getImageFilesOfUnknownDateTaken();
 
-    List<File> getImageFilesWhereColumnHasExactValue(Column column, String exactValue);
+    List<File> getImageFilesWhereMetaDataValueHasExactValue(MetaDataValue value, String exactValue);
 
-    List<File> getImageFilesWithoutMetadataInColumn(Column column);
+    List<File> getImageFilesWithoutDataValue(MetaDataValue value);
 
     Set<String> getNotReferencedDcSubjects();
 

@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
 
-import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.keywords.Keyword;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.event.util.KeyEventUtil;
@@ -68,7 +68,7 @@ public class ControllerAddKeywordsToEditPanel extends ControllerKeywords impleme
 
     private void addToEditPanel(List<String> keywordNames) {
         EditMetadataPanels editPanels = GUI.getAppPanel().getEditMetadataPanels();
-        JPanel panel = editPanels.getEditPanel(ColumnXmpDcSubjectsSubject.INSTANCE);
+        JPanel panel = editPanels.getEditPanel(XmpDcSubjectsSubjectMetaDataValue.INSTANCE);
 
         if (panel instanceof EditRepeatableTextEntryPanel) {
             EditRepeatableTextEntryPanel editPanel = (EditRepeatableTextEntryPanel) panel;

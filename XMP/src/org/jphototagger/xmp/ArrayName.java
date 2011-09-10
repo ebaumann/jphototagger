@@ -1,7 +1,7 @@
 package org.jphototagger.xmp;
 
 import com.adobe.xmp.options.PropertyOptions;
-import org.jphototagger.domain.metadata.mapping.XmpColumnXmpDataTypeMapping.XmpValueType;
+import org.jphototagger.domain.metadata.mapping.XmpMetaDataValueXmpValueTypeMapping.XmpValueType;
 
 /**
  *

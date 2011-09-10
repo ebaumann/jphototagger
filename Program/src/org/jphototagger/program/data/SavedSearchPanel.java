@@ -4,10 +4,10 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.jphototagger.domain.database.Column;
+import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.program.database.metadata.Comparator;
 import org.jphototagger.program.database.metadata.Operator;
-import org.jphototagger.program.database.metadata.selections.ColumnIds;
+import org.jphototagger.program.database.metadata.selections.MetaDataValueIds;
 
 /**
  *
@@ -72,8 +72,8 @@ public final class SavedSearchPanel {
         return columnId;
     }
 
-    public Column getColumn() {
-        return ColumnIds.getColumn(columnId);
+    public MetaDataValue getColumn() {
+        return MetaDataValueIds.getMetaDataValue(columnId);
     }
 
     public void setColumnId(int id) {
@@ -145,7 +145,7 @@ public final class SavedSearchPanel {
     public String getSqlString(boolean isFirst) {
         if (hasSql(isFirst)) {
             Operator operator = getOperator();
-            Column column = getColumn();
+            MetaDataValue column = getColumn();
             Comparator comparator = getComparator();
             StringBuilder sb = new StringBuilder();
 
@@ -159,7 +159,7 @@ public final class SavedSearchPanel {
             sb.append(bracketLeft2Selected
                     ? " ("
                     : "");
-            sb.append(" ").append(column.getTablename()).append(".").append(column.getName());
+            sb.append(" ").append(column.getCategory()).append(".").append(column.getValueName());
             sb.append(" ").append(comparator.toSqlString());
             sb.append(" ?");
             sb.append(bracketRightSelected

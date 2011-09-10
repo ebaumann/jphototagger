@@ -5,7 +5,7 @@ import javax.swing.tree.DefaultTreeModel;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-import org.jphototagger.domain.database.xmp.ColumnXmpIptc4XmpCoreDateCreated;
+import org.jphototagger.domain.metadata.xmp.XmpIptc4XmpCoreDateCreatedMetaDataValue;
 import org.jphototagger.domain.exif.Exif;
 import org.jphototagger.domain.repository.ImageFileRepository;
 import org.jphototagger.domain.repository.event.exif.ExifDeletedEvent;
@@ -54,10 +54,10 @@ public final class TreeModelTimeline extends DefaultTreeModel {
     }
 
     private void checkDeleted(Xmp xmp) {
-        Object o = xmp.getValue(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE);
+        Object o = xmp.getValue(XmpIptc4XmpCoreDateCreatedMetaDataValue.INSTANCE);
         String xmpDate = (o == null)
                 ? null
-                : (String) xmp.getValue(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE);
+                : (String) xmp.getValue(XmpIptc4XmpCoreDateCreatedMetaDataValue.INSTANCE);
         boolean xmpDateExists = (xmpDate != null) && repo.existsXMPDateCreated(xmpDate);
 
         if (!xmpDateExists && (xmpDate != null)) {
@@ -85,8 +85,8 @@ public final class TreeModelTimeline extends DefaultTreeModel {
     }
 
     private void checkInserted(Xmp xmp) {
-        if (xmp.contains(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE)) {
-            String xmpDate = (String) xmp.getValue(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE);
+        if (xmp.contains(XmpIptc4XmpCoreDateCreatedMetaDataValue.INSTANCE)) {
+            String xmpDate = (String) xmp.getValue(XmpIptc4XmpCoreDateCreatedMetaDataValue.INSTANCE);
             Timeline.Date date = new Timeline.Date(-1, -1, -1);
 
             date.setXmpDateCreated(xmpDate);

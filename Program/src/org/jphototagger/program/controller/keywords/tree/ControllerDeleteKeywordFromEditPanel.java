@@ -2,7 +2,7 @@ package org.jphototagger.program.controller.keywords.tree;
 
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.domain.keywords.Keyword;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.program.helper.KeywordsHelper;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
@@ -67,7 +67,7 @@ public class ControllerDeleteKeywordFromEditPanel extends ControllerKeywords imp
 
     public void removeFromEditPanel(String keyword) {
         EditMetadataPanels editPanels = GUI.getAppPanel().getEditMetadataPanels();
-        JPanel panel = editPanels.getEditPanel(ColumnXmpDcSubjectsSubject.INSTANCE);
+        JPanel panel = editPanels.getEditPanel(XmpDcSubjectsSubjectMetaDataValue.INSTANCE);
 
         if (panel instanceof EditRepeatableTextEntryPanel) {
             EditRepeatableTextEntryPanel editPanel = (EditRepeatableTextEntryPanel) panel;

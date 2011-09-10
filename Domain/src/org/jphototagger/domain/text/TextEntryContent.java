@@ -1,28 +1,29 @@
 package org.jphototagger.domain.text;
 
-import org.jphototagger.domain.database.Column;
 import java.awt.Component;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jphototagger.domain.metadata.MetaDataValue;
+
 /**
- * Text entry with text and column.
+ * Text entry with text and metadata value.
  *
  * @author Elmar Baumann
  */
 public final class TextEntryContent implements TextEntry {
 
     private String text;
-    private Column column;
+    private MetaDataValue metaDataValue;
 
-    public TextEntryContent(String text, Column column) {
-        if (column == null) {
-            throw new NullPointerException("column == null");
+    public TextEntryContent(String text, MetaDataValue metaDataValue) {
+        if (metaDataValue == null) {
+            throw new NullPointerException("metaDataValue == null");
         }
 
         this.text = text;
-        this.column = column;
+        this.metaDataValue = metaDataValue;
     }
 
     @Override
@@ -36,8 +37,8 @@ public final class TextEntryContent implements TextEntry {
     }
 
     @Override
-    public Column getColumn() {
-        return column;
+    public MetaDataValue getMetaDataValue() {
+        return metaDataValue;
     }
 
     /**
@@ -124,6 +125,6 @@ public final class TextEntryContent implements TextEntry {
 
     @Override
     public String toString() {
-        return column + "=" + text;
+        return metaDataValue + "=" + text;
     }
 }

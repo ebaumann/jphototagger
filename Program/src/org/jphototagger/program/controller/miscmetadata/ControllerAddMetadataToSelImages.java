@@ -1,11 +1,13 @@
 package org.jphototagger.program.controller.miscmetadata;
 
+import java.awt.event.KeyEvent;
+
+import javax.swing.JMenuItem;
+
+import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.lib.event.util.KeyEventUtil;
-import org.jphototagger.domain.database.Column;
 import org.jphototagger.program.helper.MiscMetadataHelper;
 import org.jphototagger.program.view.popupmenus.PopupMenuMiscMetadata;
-import java.awt.event.KeyEvent;
-import javax.swing.JMenuItem;
 
 /**
  *
@@ -13,6 +15,7 @@ import javax.swing.JMenuItem;
  * @author Elmar Baumann
  */
 public final class ControllerAddMetadataToSelImages extends ControllerMiscMetadata {
+
     private final JMenuItem itemAdd;
 
     public ControllerAddMetadataToSelImages(PopupMenuMiscMetadata popup) {
@@ -34,11 +37,11 @@ public final class ControllerAddMetadataToSelImages extends ControllerMiscMetada
     }
 
     @Override
-    protected void action(Column column, String value) {
+    protected void action(MetaDataValue mdValue, String value) {
         if (value == null) {
             throw new NullPointerException("value == null");
         }
 
-        MiscMetadataHelper.addMetadataToSelectedImages(column, value);
+        MiscMetadataHelper.addMetadataToSelectedImages(mdValue, value);
     }
 }

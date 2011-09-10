@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 import javax.swing.TransferHandler.TransferSupport;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import org.jphototagger.domain.database.ColumnData;
+import org.jphototagger.domain.metadata.MetaDataValueData;
 import org.jphototagger.lib.datatransfer.TransferUtil;
 import org.jphototagger.program.io.ImageFileFilterer;
 
@@ -21,7 +21,9 @@ import org.jphototagger.program.io.ImageFileFilterer;
  * @author Elmar Baumann
  */
 public final class Support {
-    private Support() {}
+
+    private Support() {
+    }
 
     /**
      * Returns the transferred keywords.
@@ -46,19 +48,19 @@ public final class Support {
     }
 
     /**
-     * Returns from a transferable a collection of column data.
+     * Returns from a transferable a collection of metadata value data.
      *
-     * @param  transferable transferable supporting {@link Flavor#COLUMN_DATA}
+     * @param  transferable transferable supporting {@link Flavor#META_DATA_VALUE}
      * @return              collection or null on errors
      */
     @SuppressWarnings("unchecked")
-    public static Collection<? extends ColumnData> getColumnData(Transferable transferable) {
+    public static Collection<? extends MetaDataValueData> getMetaDataValueData(Transferable transferable) {
         if (transferable == null) {
             throw new NullPointerException("transferable == null");
         }
 
         try {
-            return (Collection<? extends ColumnData>) transferable.getTransferData(Flavor.COLUMN_DATA);
+            return (Collection<? extends MetaDataValueData>) transferable.getTransferData(Flavor.META_DATA_VALUE);
         } catch (Exception ex) {
             Logger.getLogger(Support.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -91,18 +93,18 @@ public final class Support {
 
     /**
      *
-     * @param  columnData can be null
+     * @param  mdValueData can be null
      * @return            string, can be empty
      */
-    public static String getStringFromColumnData(Collection<? extends ColumnData> columnData) {
-        if (columnData != null) {
+    public static String getStringFromMetaDataValueData(Collection<? extends MetaDataValueData> mdValueData) {
+        if (mdValueData != null) {
             StringBuilder sb = new StringBuilder();
             int index = 0;
 
-            for (ColumnData data : columnData) {
+            for (MetaDataValueData data : mdValueData) {
                 sb.append((index++ == 0)
-                          ? ""
-                          : ";");
+                        ? ""
+                        : ";");
                 sb.append(data.getData().toString());
             }
 

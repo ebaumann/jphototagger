@@ -72,7 +72,7 @@
                     </Property>
                     <Property name="name" type="java.lang.String" value="comboBoxFastSearch" noResource="true"/>
                     <Property name="renderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="new ListCellRendererFastSearchColumns()" type="code"/>
+                      <Connection code="new org.jphototagger.program.view.renderer.ListCellRendererFastSearchMetaDataValues()" type="code"/>
                     </Property>
                   </Properties>
                   <Constraints>

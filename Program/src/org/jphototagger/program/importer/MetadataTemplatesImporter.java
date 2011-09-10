@@ -17,13 +17,13 @@ import javax.swing.filechooser.FileFilter;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.jphototagger.domain.database.Column;
+import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.repository.Importer;
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.database.DatabaseMetadataTemplates;
 import org.jphototagger.program.exporter.MetadataTemplatesExporter;
-import org.jphototagger.xmp.EditColumns;
+import org.jphototagger.xmp.EditMetaDataValues;
 import org.openide.util.lookup.ServiceProvider;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
@@ -42,11 +42,11 @@ import org.xml.sax.SAXException;
 public final class MetadataTemplatesImporter implements Importer, EntityResolver {
 
     private static final long serialVersionUID = 1L;
-    private static final Map<String, Column> COLUMN_OF_CLASSNAME = new HashMap<String, Column>();
+    private static final Map<String, MetaDataValue> META_DATA_VALUE_OF_CLASSNAME = new HashMap<String, MetaDataValue>();
 
     static {
-        for (Column column : EditColumns.get()) {
-            COLUMN_OF_CLASSNAME.put(column.getClass().getName(), column);
+        for (MetaDataValue mdValue : EditMetaDataValues.get()) {
+            META_DATA_VALUE_OF_CLASSNAME.put(mdValue.getClass().getName(), mdValue);
         }
     }
 
@@ -95,13 +95,12 @@ public final class MetadataTemplatesImporter implements Importer, EntityResolver
                                 attrMap.getNamedItem(MetadataTemplatesExporter.ATTR_NAME_VALUE).getNodeValue().trim();
 
                         if (!valueStr.isEmpty() && !valueStr.equals(MetadataTemplatesExporter.NULL)) {
-                            String columnClassName =
-                                    attrMap.getNamedItem(MetadataTemplatesExporter.ATTR_NAME_COLUMN).getNodeValue().trim();
+                            String mdClassName = attrMap.getNamedItem(MetadataTemplatesExporter.ATTR_NAME_META_DATA_VALUE).getNodeValue().trim();
                             String valueType =
                                     attrMap.getNamedItem(
                                     MetadataTemplatesExporter.ATTR_NAME_VALUE_TYPE).getNodeValue().trim();
 
-                            insert(columnClassName, valueType, valueStr, template);
+                            insert(mdClassName, valueType, valueStr, template);
                         }
                     }
                 }
@@ -113,11 +112,11 @@ public final class MetadataTemplatesImporter implements Importer, EntityResolver
         }
     }
 
-    private void insert(String columnClassName, String valueType, String valueStr, MetadataTemplate template) {
-        Column column = COLUMN_OF_CLASSNAME.get(columnClassName);
+    private void insert(String mdClassName, String valueType, String valueStr, MetadataTemplate template) {
+        MetaDataValue mdValue = META_DATA_VALUE_OF_CLASSNAME.get(mdClassName);
 
-        assert column != null;
-        template.setValueOfColumn(column, getValue(valueType, valueStr));
+        assert mdValue != null;
+        template.setMetaDataValue(mdValue, getValue(valueType, valueStr));
     }
 
     private Object getValue(String valueType, String valueStr) {

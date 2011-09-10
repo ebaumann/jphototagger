@@ -1,20 +1,20 @@
 package org.jphototagger.program.database.metadata.selections;
 
-import org.jphototagger.domain.database.Column;
-import org.jphototagger.domain.database.exif.ColumnExifLens;
-import org.jphototagger.domain.database.exif.ColumnExifRecordingEquipment;
-import org.jphototagger.domain.database.file.ColumnFilesFilename;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcCreator;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcRights;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
-import org.jphototagger.domain.database.xmp.ColumnXmpIptc4xmpcoreLocation;
-import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopAuthorsposition;
-import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopCaptionwriter;
-import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopCity;
-import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopCountry;
-import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopCredit;
-import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopSource;
-import org.jphototagger.domain.database.xmp.ColumnXmpPhotoshopState;
+import org.jphototagger.domain.metadata.MetaDataValue;
+import org.jphototagger.domain.metadata.exif.ExifLensMetaDataValue;
+import org.jphototagger.domain.metadata.exif.ExifRecordingEquipmentMetaDataValue;
+import org.jphototagger.domain.metadata.file.FilesFilenameMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpDcCreatorMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpDcRightsMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpIptc4xmpcoreLocationMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopAuthorspositionMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopCaptionwriterMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopCityMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopCountryMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopCreditMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopSourceMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopStateMetaDataValue;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,27 +24,27 @@ import java.util.List;
  * @author Elmar Baumann
  */
 public final class DatabaseInfoRecordCountColumns {
-    private static final List<Column> COLUMNS = new ArrayList<Column>();
+    private static final List<MetaDataValue> COLUMNS = new ArrayList<MetaDataValue>();
 
     static {
-        COLUMNS.add(ColumnFilesFilename.INSTANCE);
-        COLUMNS.add(ColumnXmpDcSubjectsSubject.INSTANCE);
-        COLUMNS.add(ColumnXmpIptc4xmpcoreLocation.INSTANCE);
-        COLUMNS.add(ColumnXmpPhotoshopAuthorsposition.INSTANCE);
-        COLUMNS.add(ColumnXmpDcCreator.INSTANCE);
-        COLUMNS.add(ColumnXmpPhotoshopCity.INSTANCE);
-        COLUMNS.add(ColumnXmpPhotoshopState.INSTANCE);
-        COLUMNS.add(ColumnXmpPhotoshopCountry.INSTANCE);
-        COLUMNS.add(ColumnXmpDcRights.INSTANCE);
-        COLUMNS.add(ColumnXmpPhotoshopCredit.INSTANCE);
-        COLUMNS.add(ColumnXmpPhotoshopSource.INSTANCE);
-        COLUMNS.add(ColumnXmpPhotoshopCaptionwriter.INSTANCE);
-        COLUMNS.add(ColumnExifRecordingEquipment.INSTANCE);
-        COLUMNS.add(ColumnExifLens.INSTANCE);
+        COLUMNS.add(FilesFilenameMetaDataValue.INSTANCE);
+        COLUMNS.add(XmpDcSubjectsSubjectMetaDataValue.INSTANCE);
+        COLUMNS.add(XmpIptc4xmpcoreLocationMetaDataValue.INSTANCE);
+        COLUMNS.add(XmpPhotoshopAuthorspositionMetaDataValue.INSTANCE);
+        COLUMNS.add(XmpDcCreatorMetaDataValue.INSTANCE);
+        COLUMNS.add(XmpPhotoshopCityMetaDataValue.INSTANCE);
+        COLUMNS.add(XmpPhotoshopStateMetaDataValue.INSTANCE);
+        COLUMNS.add(XmpPhotoshopCountryMetaDataValue.INSTANCE);
+        COLUMNS.add(XmpDcRightsMetaDataValue.INSTANCE);
+        COLUMNS.add(XmpPhotoshopCreditMetaDataValue.INSTANCE);
+        COLUMNS.add(XmpPhotoshopSourceMetaDataValue.INSTANCE);
+        COLUMNS.add(XmpPhotoshopCaptionwriterMetaDataValue.INSTANCE);
+        COLUMNS.add(ExifRecordingEquipmentMetaDataValue.INSTANCE);
+        COLUMNS.add(ExifLensMetaDataValue.INSTANCE);
     }
 
-    public static List<Column> get() {
-        return new ArrayList<Column>(COLUMNS);
+    public static List<MetaDataValue> get() {
+        return new ArrayList<MetaDataValue>(COLUMNS);
     }
 
     private DatabaseInfoRecordCountColumns() {}

@@ -15,7 +15,7 @@ import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 
 import org.jdesktop.swingx.JXList;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.lib.dialog.InputDialog;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
@@ -47,7 +47,7 @@ public final class ControllerEditKeywordSynonyms extends ControllerKeywords impl
 
     private EditRepeatableTextEntryPanel getKeywordsPanel() {
         return (EditRepeatableTextEntryPanel) GUI.getAppPanel().getEditMetadataPanels().getEditPanel(
-            ColumnXmpDcSubjectsSubject.INSTANCE);
+            XmpDcSubjectsSubjectMetaDataValue.INSTANCE);
     }
 
     private JXList getKeywordsList() {

@@ -15,15 +15,16 @@ import javax.swing.TransferHandler;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.jdesktop.swingx.JXList;
-import org.jphototagger.domain.database.Column;
-import org.jphototagger.domain.database.ColumnData;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
+import org.jphototagger.domain.metadata.MetaDataValue;
+import org.jphototagger.domain.metadata.MetaDataValueData;
+import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.templates.MetadataTemplate;
+import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.lib.datatransfer.TransferUtil;
 import org.jphototagger.lib.datatransfer.TransferUtil.FilenameDelimiter;
 import org.jphototagger.lib.datatransfer.TransferableObject;
-import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.database.DatabaseImageCollections;
 import org.jphototagger.program.helper.FavoritesHelper;
 import org.jphototagger.program.helper.KeywordsHelper;
@@ -32,7 +33,6 @@ import org.jphototagger.program.io.ImageFileFilterer;
 import org.jphototagger.program.io.ImageUtil;
 import org.jphototagger.program.io.ImageUtil.ConfirmOverwrite;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.program.types.ContentUtil;
 import org.jphototagger.program.view.ViewUtil;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
@@ -48,6 +48,7 @@ import org.jphototagger.program.view.panels.ThumbnailsPanel;
  * @author Elmar Baumann
  */
 public final class TransferHandlerThumbnailsPanel extends TransferHandler {
+
     private static final long serialVersionUID = 1831860682951562565L;
 
     @Override
@@ -55,8 +56,8 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
         ThumbnailsPanel tnPanel = (ThumbnailsPanel) support.getComponent();
 
         return isMetadataDrop(support) || isImageCollection(tnPanel)
-               || (!support.isDataFlavorSupported(Flavor.THUMBNAILS_PANEL) && canImportFiles(tnPanel)
-                   && Flavor.hasFiles(support.getTransferable()));
+                || (!support.isDataFlavorSupported(Flavor.THUMBNAILS_PANEL) && canImportFiles(tnPanel)
+                && Flavor.hasFiles(support.getTransferable()));
     }
 
     private boolean canImportFiles(ThumbnailsPanel tnPanel) {
@@ -70,15 +71,15 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
     @Override
     protected Transferable createTransferable(JComponent c) {
         return new TransferableObject(ImageUtil.addSidecarFiles(((ThumbnailsPanel) c).getSelectedFiles()),
-                                      getFlavors(c));
+                getFlavors(c));
     }
 
     private java.awt.datatransfer.DataFlavor[] getFlavors(JComponent c) {
         return ((ThumbnailsPanel) c).getContent().equals(TypeOfDisplayedImages.IMAGE_COLLECTION)
-               ? new java.awt.datatransfer.DataFlavor[] { Flavor.THUMBNAILS_PANEL, Flavor.FILE_LIST_FLAVOR,
-                Flavor.URI_LIST, Flavor.IMAGE_COLLECTION }
-               : new java.awt.datatransfer.DataFlavor[] { Flavor.THUMBNAILS_PANEL, Flavor.FILE_LIST_FLAVOR,
-                Flavor.URI_LIST };
+                ? new java.awt.datatransfer.DataFlavor[]{Flavor.THUMBNAILS_PANEL, Flavor.FILE_LIST_FLAVOR,
+                    Flavor.URI_LIST, Flavor.IMAGE_COLLECTION}
+                : new java.awt.datatransfer.DataFlavor[]{Flavor.THUMBNAILS_PANEL, Flavor.FILE_LIST_FLAVOR,
+                    Flavor.URI_LIST};
     }
 
     @Override
@@ -125,7 +126,6 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
 
     @Override
     protected void exportDone(JComponent c, Transferable data, int action) {
-
         // ignore, moving removes files from source directory
     }
 
@@ -153,8 +153,8 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
         }
 
         return (selElement == null)
-               ? null
-               : selElement.toString();
+                ? null
+                : selElement.toString();
     }
 
     private boolean insertMetadata(TransferSupport support) {
@@ -170,8 +170,8 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
             insertHierarchicalKeywords(t, dropOverSelectedThumbnail, imageFile);
         } else if (Flavor.hasMetadataTemplate(support)) {
             insertTemplates(selected, support);
-        } else if (Flavor.hasColumnData(support)) {
-            importColumnData(support, dropOverSelectedThumbnail, imageFile);
+        } else if (Flavor.hasMetaDataValue(support)) {
+            importMetaDataValueData(support, dropOverSelectedThumbnail, imageFile);
         } else {
             return false;
         }
@@ -215,7 +215,7 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
      * @param imageFile
      */
     public void importStrings(DataFlavor dataFlavor, Object[] strings, boolean dropOverSelectedThumbnail,
-                              File imageFile) {
+            File imageFile) {
         if (dataFlavor == null) {
             throw new NullPointerException("dataFlavor == null");
         }
@@ -236,9 +236,9 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
 
         if (dropOverSelectedThumbnail) {
             EditMetadataPanels editPanels = GUI.getAppPanel().getEditMetadataPanels();
-            Column column = dataFlavor.equals(Flavor.KEYWORDS_LIST)
-                            ? ColumnXmpDcSubjectsSubject.INSTANCE
-                            : null;
+            MetaDataValue column = dataFlavor.equals(Flavor.KEYWORDS_LIST)
+                    ? XmpDcSubjectsSubjectMetaDataValue.INSTANCE
+                    : null;
 
             for (String keyword : keywords) {
                 editPanels.addText(column, keyword);
@@ -329,9 +329,9 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
     }
 
     @SuppressWarnings(value = "unchecked")
-    private void importColumnData(TransferSupport support, boolean dropOverSelectedThumbnail, File imageFile) {
+    private void importMetaDataValueData(TransferSupport support, boolean dropOverSelectedThumbnail, File imageFile) {
         try {
-            List<ColumnData> colData = (List<ColumnData>) support.getTransferable().getTransferData(Flavor.COLUMN_DATA);
+            List<MetaDataValueData> mdValueData = (List<MetaDataValueData>) support.getTransferable().getTransferData(Flavor.META_DATA_VALUE);
 
             if (dropOverSelectedThumbnail) {
                 if (!ViewUtil.checkSelImagesEditable(true)) {
@@ -340,11 +340,11 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
 
                 EditMetadataPanels ep = GUI.getAppPanel().getEditMetadataPanels();
 
-                for (ColumnData data : colData) {
-                    ep.addText(data.getColumn(), (String) data.getData());
+                for (MetaDataValueData data : mdValueData) {
+                    ep.addText(data.getMetaDataValue(), (String) data.getData());
                 }
             } else {
-                MiscMetadataHelper.saveToImageFile(colData, imageFile);
+                MiscMetadataHelper.saveToImageFile(mdValueData, imageFile);
             }
         } catch (Exception ex) {
             Logger.getLogger(TransferHandlerThumbnailsPanel.class.getName()).log(Level.SEVERE, null, ex);

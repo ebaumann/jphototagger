@@ -15,8 +15,8 @@ import java.util.logging.Logger;
 import org.bushe.swing.event.EventBus;
 import org.jphototagger.api.core.Storage;
 import org.jphototagger.domain.repository.InsertIntoRepository;
-import org.jphototagger.domain.database.xmp.ColumnXmpIptc4XmpCoreDateCreated;
-import org.jphototagger.domain.database.xmp.ColumnXmpLastModified;
+import org.jphototagger.domain.metadata.xmp.XmpIptc4XmpCoreDateCreatedMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpLastModifiedMetaDataValue;
 import org.jphototagger.domain.metadata.event.UpdateMetadataCheckEvent;
 import org.jphototagger.domain.metadata.event.UpdateMetadataCheckEvent.Type;
 import org.jphototagger.domain.event.listener.ProgressListenerSupport;
@@ -269,20 +269,20 @@ public final class InsertImageFilesIntoDatabase extends Thread implements Cancel
         Xmp xmp = imageFile.getXmp();
         boolean hasExif = exif != null;
         boolean hasXmp = xmp != null;
-        boolean hasXmpDateCreated = hasXmp && xmp.contains(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE);
+        boolean hasXmpDateCreated = hasXmp && xmp.contains(XmpIptc4XmpCoreDateCreatedMetaDataValue.INSTANCE);
         boolean hasExifDate = hasExif && (exif.getDateTimeOriginal() != null);
 
         if (hasXmpDateCreated || !hasXmp || !hasExif || !hasExifDate) {
             return;
         }
 
-        xmp.setValue(ColumnXmpIptc4XmpCoreDateCreated.INSTANCE, exif.getXmpDateCreated());
+        xmp.setValue(XmpIptc4XmpCoreDateCreatedMetaDataValue.INSTANCE, exif.getXmpDateCreated());
 
         File sidecarFile = XmpMetadata.suggestSidecarFile(imageFile.getFile());
 
         if (sidecarFile.canWrite()) {
             XmpMetadata.writeXmpToSidecarFile(xmp, sidecarFile);
-            xmp.setValue(ColumnXmpLastModified.INSTANCE, sidecarFile.lastModified());
+            xmp.setValue(XmpLastModifiedMetaDataValue.INSTANCE, sidecarFile.lastModified());
         }
     }
 

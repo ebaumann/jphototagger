@@ -18,7 +18,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import org.jphototagger.domain.database.Column;
+import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.repository.Exporter;
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.lib.util.Bundle;
@@ -50,7 +50,7 @@ public final class MetadataTemplatesExporter implements Exporter {
     public static final String TAGNAME_TEMPLATE = "template";
     public static final String TAGNAME_ENTRY = "entry";
     public static final String ATTR_NAME_TEMPLATE_NAME = "name";
-    public static final String ATTR_NAME_COLUMN = "column";
+    public static final String ATTR_NAME_META_DATA_VALUE = "column";
     public static final String ATTR_NAME_VALUE_TYPE = "valuetype";
     public static final String ATTR_NAME_VALUE = "value";
     public static final String COLLECTION_DELIM = "|";
@@ -87,11 +87,11 @@ public final class MetadataTemplatesExporter implements Exporter {
 
             templateElement.setAttribute(ATTR_NAME_TEMPLATE_NAME, template.getName());
 
-            for (Column column : template.getColumns()) {
+            for (MetaDataValue mdValue : template.getMetaDataValues()) {
                 Element entryElement = doc.createElement(TAGNAME_ENTRY);
 
-                entryElement.setAttribute(ATTR_NAME_COLUMN, column.getClass().getName());
-                setEntryValue(template.getValueOfColumn(column), entryElement);
+                entryElement.setAttribute(ATTR_NAME_META_DATA_VALUE, mdValue.getClass().getName());
+                setEntryValue(template.getMetaDataValue(mdValue), entryElement);
                 templateElement.appendChild(entryElement);
             }
 

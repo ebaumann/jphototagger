@@ -7,15 +7,15 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.domain.database.Column;
+import org.jphototagger.api.event.ProgressEvent;
+import org.jphototagger.domain.metadata.MetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpMetaDataValues;
+import org.jphototagger.domain.repository.ImageFileRepository;
 import org.jphototagger.domain.repository.InsertIntoRepository;
-import org.jphototagger.domain.database.xmp.ColumnXmpDcSubjectsSubject;
-import org.jphototagger.domain.database.xmp.XmpColumns;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.api.event.ProgressEvent;
-import org.jphototagger.domain.repository.ImageFileRepository;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.tasks.UserTasks;
 import org.jphototagger.program.view.panels.ProgressBarUpdater;
@@ -34,28 +34,27 @@ public final class RenameDeleteXmpValue {
 
     /**
      * Renames a XMP value in all XMP sidecar files containing that value in
-     * associated with a specific column.
+     * associated with a specific metadata value.
      * <p>
      * If renamed successfully, the database will be updated.
      *
-     * @param column   XMP column, <em>not</em>
-     *                 {@link ColumnXmpDcSubjectsSubject}
+     * @param metaDataValue   XMP metadata value, <em>not</em> {@link XmpDcSubjectsSubjectMetaDataValue}
      * @param oldValue old value, will be trimmed
      * @throws         NullPointerException if one of the parameters is null
-     * @throws         IllegalArgumentException if column is not a XMP column,
-     *                 see {@link XmpColumns#get()}, or is
-     *                 {@link ColumnXmpDcSubjectsSubject}
+     * @throws         IllegalArgumentException if the metadata value is not a XMP metacata value,
+     *                 see {@link XmpMetaDataValues#get()}, or is
+     *                 {@link XmpDcSubjectsSubjectMetaDataValue}
      */
-    public static void rename(Column column, String oldValue) {
-        if (column == null) {
-            throw new NullPointerException("column == null");
+    public static void rename(MetaDataValue metaDataValue, String oldValue) {
+        if (metaDataValue == null) {
+            throw new NullPointerException("metaDataValue == null");
         }
 
         if (oldValue == null) {
             throw new NullPointerException("oldValue == null");
         }
 
-        checkColumn(column);
+        checkMetaDataValue(metaDataValue);
         String info = Bundle.getString(RenameDeleteXmpValue.class, "RenameXmpValue.Input.NewValue");
         String input = oldValue;
         String newValue = MessageDisplayer.input(info, input);
@@ -67,34 +66,34 @@ public final class RenameDeleteXmpValue {
                 String message = Bundle.getString(RenameDeleteXmpValue.class, "RenameXmpValue.Error.ValuesEquals");
                 MessageDisplayer.error(null, message);
             } else {
-                UserTasks.INSTANCE.add(new Rename(column, oldValue, newValue));
+                UserTasks.INSTANCE.add(new Rename(metaDataValue, oldValue, newValue));
             }
         }
     }
 
     /**
      * Deletes a XMP value from all XMP sidecar files containing that value in
-     * associated with a specific column.
+     * associated with a specific metadata value.
      * <p>
      * If renamed successfully, the database will be updated.
      *
-     * @param column XMP column, <em>not</em> {@link ColumnXmpDcSubjectsSubject}
+     * @param mdValue XMP metadata value, <em>not</em> {@link XmpDcSubjectsSubjectMetaDataValue}
      * @param value  value to be deleted
      * @throws       NullPointerException if one of the parameters is null
-     * @throws       IllegalArgumentException if column is not a XMP column,
-     *               see {@link XmpColumns#get()}, or is
-     *               {@link ColumnXmpDcSubjectsSubject}
+     * @throws       IllegalArgumentException if mdValue is not a XMP metadata value,
+     *               see {@link XmpMetaDataValues#get()}, or is
+     *               {@link XmpDcSubjectsSubjectMetaDataValue}
      */
-    public static void delete(Column column, String value) {
-        if (column == null) {
-            throw new NullPointerException("column == null");
+    public static void delete(MetaDataValue mdValue, String value) {
+        if (mdValue == null) {
+            throw new NullPointerException("mdValue == null");
         }
 
         if (value == null) {
             throw new NullPointerException("value == null");
         }
 
-        checkColumn(column);
+        checkMetaDataValue(mdValue);
 
         if (value.trim().isEmpty()) {
             return;
@@ -103,16 +102,16 @@ public final class RenameDeleteXmpValue {
         String message = Bundle.getString(RenameDeleteXmpValue.class, "RenameXmpValue.Confirm.Delete", value);
 
         if (MessageDisplayer.confirmYesNo(null, message)) {
-            UserTasks.INSTANCE.add(new Rename(column, value, ""));
+            UserTasks.INSTANCE.add(new Rename(mdValue, value, ""));
         }
     }
 
-    private static void checkColumn(Column column) {
-        if (!XmpColumns.get().contains(column)) {
-            throw new IllegalArgumentException("Not a XMP column: " + column);
+    private static void checkMetaDataValue(MetaDataValue mdValue) {
+        if (!XmpMetaDataValues.get().contains(mdValue)) {
+            throw new IllegalArgumentException("Not a XMP metadata value: " + mdValue);
         }
 
-        if (column.equals(ColumnXmpDcSubjectsSubject.INSTANCE)) {
+        if (mdValue.equals(XmpDcSubjectsSubjectMetaDataValue.INSTANCE)) {
             throw new IllegalArgumentException("DC subjects are invalid!");
         }
     }
@@ -120,15 +119,15 @@ public final class RenameDeleteXmpValue {
     private static class Rename extends Thread implements Cancelable {
 
         private ProgressBarUpdater pb = new ProgressBarUpdater(this, Bundle.getString(Rename.class, "RenameXmpValue.ProgressBar.String"));
-        private final Column column;
+        private final MetaDataValue metaDataValue;
         private final String newValue;
         private final String oldValue;
         private volatile boolean cancel;
         private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
 
-        Rename(Column column, String oldValue, String newValue) {
+        Rename(MetaDataValue metaDataValue, String oldValue, String newValue) {
             super("JPhotoTagger: Renaming XMP value");
-            this.column = column;
+            this.metaDataValue = metaDataValue;
             this.oldValue = oldValue.trim();
             this.newValue = newValue.trim();
         }
@@ -140,7 +139,7 @@ public final class RenameDeleteXmpValue {
 
         @Override
         public void run() {
-            List<File> imageFiles = repo.getImageFilesWhereColumnHasExactValue(column, oldValue);
+            List<File> imageFiles = repo.getImageFilesWhereMetaDataValueHasExactValue(metaDataValue, oldValue);
             int size = imageFiles.size();
             int value = 0;
 
@@ -171,13 +170,13 @@ public final class RenameDeleteXmpValue {
                 notifyPerformed(++value, size);
             }
 
-            repo.deleteValueOfJoinedColumn(column, oldValue);
-            MiscMetadataHelper.removeChildValueFrom(column, oldValue);
+            repo.deleteValueOfJoinedMetaDataValue(metaDataValue, oldValue);
+            MiscMetadataHelper.removeChildValueFrom(metaDataValue, oldValue);
             notifyEnded(value, size);
         }
 
         private void rename(Xmp xmp) {
-            xmp.setValue(column, newValue);
+            xmp.setValue(metaDataValue, newValue);
         }
 
         private void notifyStarted(int count) {

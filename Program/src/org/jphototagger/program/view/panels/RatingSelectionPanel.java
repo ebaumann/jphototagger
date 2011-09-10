@@ -19,10 +19,10 @@ import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import org.jphototagger.domain.database.Column;
-import org.jphototagger.domain.database.xmp.ColumnXmpRating;
 import org.jphototagger.domain.event.listener.TextEntryListener;
 import org.jphototagger.domain.event.listener.TextEntryListenerSupport;
+import org.jphototagger.domain.metadata.MetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpRatingMetaDataValue;
 import org.jphototagger.domain.text.TextEntry;
 import org.jphototagger.program.app.AppLookAndFeel;
 
@@ -31,14 +31,13 @@ import org.jphototagger.program.app.AppLookAndFeel;
 *
 * @author  Martin Pohlack
  */
-public class RatingSelectionPanel extends JPanel
-        implements TextEntry, FocusListener, KeyListener {
+public class RatingSelectionPanel extends JPanel implements TextEntry, FocusListener, KeyListener {
     private static final long serialVersionUID = -7955649305451645120L;
     private final Icon star = AppLookAndFeel.getIcon("icon_xmp_rating_set.png");
     private final Icon dark_star = AppLookAndFeel.getIcon("icon_xmp_rating_not_set.png");;
     private final Icon icon_rating_remove = AppLookAndFeel.getIcon("icon_xmp_rating_remove.png");
     private final Icon icon_rating_remove_not_set = AppLookAndFeel.getIcon("icon_xmp_rating_remove_not_set.png");
-    private final transient Column column;
+    private final transient MetaDataValue metaDataValue;
     private boolean editable;
     private boolean dirty = false;
     private int value = 0;
@@ -47,17 +46,17 @@ public class RatingSelectionPanel extends JPanel
     private transient TextEntryListenerSupport textEntryListenerSupport = new TextEntryListenerSupport();
     private final Map<JButton, String> textOfButton = new HashMap<JButton, String>();
 
-    public RatingSelectionPanel(Column column) {
-        if (column == null) {
-            throw new NullPointerException("column == null");
+    public RatingSelectionPanel(MetaDataValue metaDataValue) {
+        if (metaDataValue == null) {
+            throw new NullPointerException("metaDataValue == null");
         }
 
-        this.column = column;
+        this.metaDataValue = metaDataValue;
         init();
     }
 
     public RatingSelectionPanel() {
-        this.column = ColumnXmpRating.INSTANCE;
+        this.metaDataValue = XmpRatingMetaDataValue.INSTANCE;
         init();
     }
 
@@ -93,7 +92,7 @@ public class RatingSelectionPanel extends JPanel
     }
 
     private void setPropmt() {
-        labelPrompt.setText(column.getDescription());
+        labelPrompt.setText(metaDataValue.getDescription());
         labelPrompt.setLabelFor(buttonNoRating);
     }
 
@@ -158,12 +157,12 @@ public class RatingSelectionPanel extends JPanel
 
         setText(text);
         dirty = true;
-        notifyTextChanged(column, oldText, text);
+        notifyTextChanged(metaDataValue, oldText, text);
     }
 
     @Override
-    public Column getColumn() {
-        return column;
+    public MetaDataValue getMetaDataValue() {
+        return metaDataValue;
     }
 
     @Override
@@ -217,9 +216,8 @@ public class RatingSelectionPanel extends JPanel
         textEntryListenerSupport.remove(listener);
     }
 
-    private void notifyTextChanged(Column column, String oldText,
-                                   String newText) {
-        textEntryListenerSupport.notifyTextChanged(column, oldText, newText);
+    private void notifyTextChanged(MetaDataValue mdValue, String oldText, String newText) {
+        textEntryListenerSupport.notifyTextChanged(mdValue, oldText, newText);
     }
 
     @Override
@@ -276,7 +274,7 @@ public class RatingSelectionPanel extends JPanel
 
         setText(textOfButton.get(button));
         dirty = true;
-        notifyTextChanged(column, oldVal, getText());
+        notifyTextChanged(metaDataValue, oldVal, getText());
     }
 
     @Override
@@ -348,7 +346,7 @@ public class RatingSelectionPanel extends JPanel
         setLayout(new java.awt.GridBagLayout());
 
         labelPrompt.setText("Prompt:"); // NOI18N
-        labelPrompt.setToolTipText(column.getLongerDescription());
+        labelPrompt.setToolTipText(metaDataValue.getLongerDescription());
         labelPrompt.setName("labelPrompt"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;

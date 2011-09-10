@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 
 import javax.swing.TransferHandler.TransferSupport;
 
-import org.jphototagger.domain.database.Column;
+import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.domain.text.TextEntry;
 import org.jphototagger.program.view.panels.EditRepeatableTextEntryPanel;
@@ -18,16 +18,17 @@ import org.jphototagger.program.view.panels.EditRepeatableTextEntryPanel;
  * @author Elmar Baumann
  */
 final class MetadataTemplateSupport {
-    @SuppressWarnings({ "unchecked", "unchecked" })
+
+    @SuppressWarnings({"unchecked", "unchecked"})
     public static void setTemplate(TransferSupport support) {
         try {
             Object[] selTemplates = (Object[]) support.getTransferable().getTransferData(Flavor.METADATA_TEMPLATES);
             TextEntry textEntry = findParentTextEntry(support.getComponent());
 
             if ((selTemplates != null) && (textEntry != null)) {
-                Column column = textEntry.getColumn();
+                MetaDataValue mdValue = textEntry.getMetaDataValue();
                 MetadataTemplate template = (MetadataTemplate) selTemplates[0];
-                Object value = template.getValueOfColumn(column);
+                Object value = template.getMetaDataValue(mdValue);
 
                 if (value instanceof String) {
                     textEntry.setText((String) value);
@@ -76,5 +77,6 @@ final class MetadataTemplateSupport {
         return null;
     }
 
-    private MetadataTemplateSupport() {}
+    private MetadataTemplateSupport() {
+    }
 }

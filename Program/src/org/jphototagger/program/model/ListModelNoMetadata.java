@@ -1,24 +1,26 @@
 package org.jphototagger.program.model;
 
-import org.jphototagger.domain.database.Column;
-import org.jphototagger.program.database.metadata.selections.NoMetadataColumns;
 import javax.swing.DefaultListModel;
 
+import org.jphototagger.domain.metadata.MetaDataValue;
+import org.jphototagger.program.database.metadata.selections.NoMetadataValues;
+
 /**
- * Elements are {@link Column}s retrieved through {@link NoMetadataColumns#get()}.
+ * Elements are {@link MetaDataValue}s retrieved through {@link NoMetadataValues#get()}.
  *
  * @author Elmar Baumann
  */
 public final class ListModelNoMetadata extends DefaultListModel {
+
     private static final long serialVersionUID = -1610826692746882410L;
 
     public ListModelNoMetadata() {
-        addColumns();
+        addMetaDataValues();
     }
 
-    private void addColumns() {
-        for (Column column : NoMetadataColumns.get()) {
-            addElement(column);
+    private void addMetaDataValues() {
+        for (MetaDataValue value : NoMetadataValues.get()) {
+            addElement(value);
         }
     }
 }
