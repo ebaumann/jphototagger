@@ -1,6 +1,6 @@
 package org.jphototagger.domain.repository.event.programs;
 
-import org.jphototagger.domain.database.programs.Program;
+import org.jphototagger.domain.programs.Program;
 
 /**
  *

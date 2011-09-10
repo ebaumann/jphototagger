@@ -1,7 +1,7 @@
 package org.jphototagger.program.controller.actions;
 
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.domain.database.programs.Program;
+import org.jphototagger.domain.programs.Program;
 import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.view.dialogs.ProgramPropertiesDialog;
 import java.awt.event.ActionEvent;

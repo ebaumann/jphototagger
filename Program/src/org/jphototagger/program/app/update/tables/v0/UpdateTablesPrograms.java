@@ -8,7 +8,7 @@ import java.util.List;
 import org.jphototagger.api.core.Storage;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.SplashScreen;
-import org.jphototagger.domain.database.programs.Program;
+import org.jphototagger.domain.programs.Program;
 import org.jphototagger.program.database.Database;
 import org.jphototagger.program.database.DatabasePrograms;
 import org.openide.util.Lookup;

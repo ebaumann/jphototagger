@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.domain.database.programs.Program;
+import org.jphototagger.domain.programs.Program;
 import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.helper.ProgramsHelper;
 import org.jphototagger.program.helper.StartPrograms;
