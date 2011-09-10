@@ -33,7 +33,7 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.cache.PersistentThumbnails;
-import org.jphototagger.program.data.Program;
+import org.jphototagger.domain.database.programs.Program;
 import org.jphototagger.program.database.DatabaseActionsAfterDbInsertion;
 import org.jphototagger.program.image.thumbnail.ThumbnailUtil;
 import org.jphototagger.xmp.XmpMetadata;
@@ -60,7 +60,7 @@ public final class InsertImageFilesIntoDatabase extends Thread implements Cancel
      *
      * @param imageFiles image files, whoes metadatada shall be inserted or
      *                   updated
-     * @param what       metadata to insert
+     * @param what       metadata to insertAction
      */
     public InsertImageFilesIntoDatabase(List<File> imageFiles, InsertIntoRepository... what) {
         super("JPhotoTagger: Inserting image files into database");
@@ -301,7 +301,7 @@ public final class InsertImageFilesIntoDatabase extends Thread implements Cancel
         }
 
         File imgFile = imageFile.getFile();
-        List<Program> actions = DatabaseActionsAfterDbInsertion.INSTANCE.getAll();
+        List<Program> actions = DatabaseActionsAfterDbInsertion.INSTANCE.getAllActions();
 
         for (Program action : actions) {
             StartPrograms programStarter = new StartPrograms(null);

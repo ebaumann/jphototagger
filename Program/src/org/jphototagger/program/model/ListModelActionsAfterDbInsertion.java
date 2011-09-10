@@ -5,19 +5,21 @@ import java.util.List;
 
 import javax.swing.DefaultListModel;
 
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.domain.database.programs.Program;
+import org.jphototagger.domain.repository.event.programs.ProgramDeletedEvent;
+import org.jphototagger.domain.repository.event.programs.ProgramUpdatedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.ListUtil;
-import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.program.data.Program;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabaseActionsAfterDbInsertion;
-import org.jphototagger.program.database.DatabasePrograms;
-import org.jphototagger.program.event.listener.DatabaseProgramsListener;
 
 /**
  * Elements are {@link Program}s retrieved through
- * {@link DatabaseActionsAfterDbInsertion#getAll()}.
+ * {@link DatabaseActionsAfterDbInsertion#getAllActions()}.
  *
  * The programs are actions, {@link Program#isAction()} is true for every
  * element in this model. All actions shall be executed after inserting metadata
@@ -25,12 +27,13 @@ import org.jphototagger.program.event.listener.DatabaseProgramsListener;
  *
  * @author Elmar Baumann
  */
-public final class ListModelActionsAfterDbInsertion extends DefaultListModel implements DatabaseProgramsListener {
+public final class ListModelActionsAfterDbInsertion extends DefaultListModel {
+
     private static final long serialVersionUID = -6490813457178023686L;
 
     public ListModelActionsAfterDbInsertion() {
         addElements();
-        DatabasePrograms.INSTANCE.addListener(this);
+        AnnotationProcessor.process(this);
     }
 
     public void insert(final Program action) {
@@ -40,7 +43,7 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel imp
 
         assert action.isAction() : action;
 
-        if (!contains(action) && DatabaseActionsAfterDbInsertion.INSTANCE.insert(action, getSize())) {
+        if (!contains(action) && DatabaseActionsAfterDbInsertion.INSTANCE.insertAction(action, getSize())) {
             addElement(action);
         } else {
             errorMessageInsert(action);
@@ -83,7 +86,7 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel imp
             fireContentsChanged(this, indexFirstElement, indexFirstElement);
             fireContentsChanged(this, indexSecondElement, indexSecondElement);
 
-            if (!DatabaseActionsAfterDbInsertion.INSTANCE.setOrder(getActions(), 0)) {
+            if (!DatabaseActionsAfterDbInsertion.INSTANCE.setActionOrder(getActions(), 0)) {
                 errorMessageSwap(indexFirstElement);
             }
         }
@@ -94,7 +97,7 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel imp
             throw new NullPointerException("action == null");
         }
 
-        if (contains(action) && DatabaseActionsAfterDbInsertion.INSTANCE.delete(action)) {
+        if (contains(action) && DatabaseActionsAfterDbInsertion.INSTANCE.deleteAction(action)) {
             removeElement(action);
         } else {
             errorMessageDelete(action);
@@ -124,7 +127,7 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel imp
             return;
         }
 
-        List<Program> actions = DatabaseActionsAfterDbInsertion.INSTANCE.getAll();
+        List<Program> actions = DatabaseActionsAfterDbInsertion.INSTANCE.getAllActions();
 
         for (Program action : actions) {
             addElement(action);
@@ -147,28 +150,24 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel imp
         MessageDisplayer.error(null, message);
     }
 
-    @Override
-    public void programDeleted(final Program program) {
+    @EventSubscriber(eventClass = ProgramDeletedEvent.class)
+    public void programDeleted(final ProgramDeletedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                deleteProgram(program);
+                deleteProgram(evt.getProgram());
             }
         });
     }
 
-    @Override
-    public void programInserted(Program program) {
-
-        // ignore
-    }
-
-    @Override
-    public void programUpdated(final Program program) {
+    @EventSubscriber(eventClass = ProgramUpdatedEvent.class)
+    public void programUpdated(final ProgramUpdatedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                updateProgram(program);
+                updateProgram(evt.getProgram());
             }
         });
     }

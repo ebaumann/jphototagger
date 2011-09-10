@@ -1,4 +1,4 @@
-package org.jphototagger.program.io;
+package org.jphototagger.lib.runtime;
 
 import java.io.File;
 import java.util.Arrays;
@@ -7,7 +7,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.lib.runtime.External;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 
@@ -170,10 +169,7 @@ public final class RuntimeUtil {
         String name = FileUtil.getPrefix(file);
         String extension = FileUtil.getSuffix(file);
 
-        return pattern.replace(PATTERN_FS_DIR_PATH, dirPath)
-                .replace(PATTERN_FS_FILE_EXT, extension)
-                .replace(PATTERN_FS_FILE_NAME, name)
-                .replace(PATTERN_FS_PATH,
+        return pattern.replace(PATTERN_FS_DIR_PATH, dirPath).replace(PATTERN_FS_FILE_EXT, extension).replace(PATTERN_FS_FILE_NAME, name).replace(PATTERN_FS_PATH,
                 path).replace(PATTERN_FS_ROOT, root);
     }
 

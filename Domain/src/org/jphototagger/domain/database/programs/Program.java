@@ -1,17 +1,15 @@
-package org.jphototagger.program.data;
+package org.jphototagger.domain.database.programs;
 
-import org.jphototagger.program.io.RuntimeUtil;
+import org.jphototagger.lib.runtime.RuntimeUtil;
 import java.io.File;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import org.jphototagger.program.database.DatabasePrograms;
 
 /**
- * External program to start within the application. It is written persistent
- * into the database {@link DatabasePrograms}.
+ * External program to start within the application.
  *
  * @author Elmar Baumann
  */

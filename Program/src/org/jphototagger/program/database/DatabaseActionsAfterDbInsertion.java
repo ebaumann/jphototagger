@@ -9,9 +9,11 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.domain.event.listener.ListenerSupport;
-import org.jphototagger.program.data.Program;
-import org.jphototagger.program.event.listener.DatabaseActionsAfterDbInsertionListener;
+import org.bushe.swing.event.EventBus;
+import org.jphototagger.domain.database.programs.Program;
+import org.jphototagger.domain.repository.event.repoupdates.ActionAfterRepoUpdateDeletedEvent;
+import org.jphototagger.domain.repository.event.repoupdates.ActionAfterRepoUpdateInsertedEvent;
+import org.jphototagger.domain.repository.event.repoupdates.ActionsAfterRepoUpdateReorderedEvent;
 
 /**
  * Contains (links to) external Programs to execute after inserting metadata
@@ -20,11 +22,12 @@ import org.jphototagger.program.event.listener.DatabaseActionsAfterDbInsertionLi
  * @author Elmar Baumann
  */
 public final class DatabaseActionsAfterDbInsertion extends Database {
-    private final ListenerSupport<DatabaseActionsAfterDbInsertionListener> ls = new ListenerSupport<DatabaseActionsAfterDbInsertionListener>();
+
     private static final Logger LOGGER = Logger.getLogger(DatabaseActionsAfterDbInsertion.class.getName());
     public static final DatabaseActionsAfterDbInsertion INSTANCE = new DatabaseActionsAfterDbInsertion();
 
-    private DatabaseActionsAfterDbInsertion() {}
+    private DatabaseActionsAfterDbInsertion() {
+    }
 
     /**
      * Inserts a new action. Prevoius You should call
@@ -34,7 +37,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
      * @param order   order of the action
      * @return        true if inserted
      */
-    public boolean insert(Program program, int order) {
+    public boolean insertAction(Program program, int order) {
         if (program == null) {
             throw new NullPointerException("action == null");
         }
@@ -47,7 +50,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             con = getConnection();
             con.setAutoCommit(false);
             stmt = con.prepareStatement("INSERT INTO actions_after_db_insertion"
-                                        + " (id_program, action_order) VALUES (?, ?)");
+                    + " (id_program, action_order) VALUES (?, ?)");
             stmt.setLong(1, program.getId());
             stmt.setInt(2, order);
             logFiner(stmt);
@@ -55,7 +58,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             con.commit();
 
             if (countAffectedRows > 0) {
-                notifyInserted(program);
+                EventBus.publish(new ActionAfterRepoUpdateInsertedEvent(this, program));
             }
         } catch (Exception ex) {
             Logger.getLogger(DatabaseActionsAfterDbInsertion.class.getName()).log(Level.SEVERE, null, ex);
@@ -71,10 +74,10 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
     /**
      * Deletes an action. <em>The ID {@link Program#getId()} must exist!</em>
      *
-     * @param  program action to delete
+     * @param  program action to deleteAction
      * @return         true if deleted
      */
-    public boolean delete(Program program) {
+    public boolean deleteAction(Program program) {
         if (program == null) {
             throw new NullPointerException("action == null");
         }
@@ -93,7 +96,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             con.commit();
 
             if (countAffectedRows > 0) {
-                notifyDeleted(program);
+                EventBus.publish(new ActionAfterRepoUpdateDeletedEvent(this, program));
             }
         } catch (Exception ex) {
             Logger.getLogger(DatabaseActionsAfterDbInsertion.class.getName()).log(Level.SEVERE, null, ex);
@@ -111,7 +114,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
      *
      * @return programs sorted ascending by their order
      */
-    public List<Program> getAll() {
+    public List<Program> getAllActions() {
         List<Program> programs = new LinkedList<Program>();
         Connection con = null;
         Statement stmt = null;
@@ -149,12 +152,12 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
     }
 
     /**
-     * Returns whether an action exists in this database.
+     * Returns whether an action existsAction in this database.
      *
      * @param  action  action
-     * @return true if the action exists
+     * @return true if the action existsAction
      */
-    public boolean exists(Program action) {
+    public boolean existsAction(Program action) {
         if (action == null) {
             throw new NullPointerException("action == null");
         }
@@ -167,7 +170,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
         try {
             con = getConnection();
             stmt = con.prepareStatement("SELECT COUNT(*) FROM actions_after_db_insertion"
-                                        + " WHERE id_program = ?");
+                    + " WHERE id_program = ?");
             stmt.setLong(1, action.getId());
             logFinest(stmt);
             rs = stmt.executeQuery();
@@ -185,7 +188,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
         return exists;
     }
 
-    public int getCount() {
+    public int getActionCount() {
         int count = 0;
         Connection con = null;
         Statement stmt = null;
@@ -222,7 +225,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
      *                    actions is this index plus their list index
      * @return            true if reordered all actions
      */
-    public boolean setOrder(List<Program> actions, int startIndex) {
+    public boolean setActionOrder(List<Program> actions, int startIndex) {
         if (actions == null) {
             throw new NullPointerException("actions == null");
         }
@@ -235,7 +238,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             con = getConnection();
             con.setAutoCommit(false);
             stmt = con.prepareStatement("UPDATE actions_after_db_insertion SET action_order = ?"
-                                        + " WHERE id_program = ?");
+                    + " WHERE id_program = ?");
 
             int index = startIndex;
             int countAffected = 0;
@@ -251,7 +254,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
             allReordered = countAffected == actions.size();
 
             if (allReordered) {
-                notifyReordered();
+                EventBus.publish(new ActionsAfterRepoUpdateReorderedEvent(this, actions));
             }
         } catch (Exception ex) {
             Logger.getLogger(DatabaseActionsAfterDbInsertion.class.getName()).log(Level.SEVERE, null, ex);
@@ -262,31 +265,5 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
         }
 
         return allReordered;
-    }
-
-    public void addListener(DatabaseActionsAfterDbInsertionListener listener) {
-        ls.add(listener);
-    }
-
-    public void removeListener(DatabaseActionsAfterDbInsertionListener listener) {
-        ls.remove(listener);
-    }
-
-    private void notifyInserted(Program program) {
-        for (DatabaseActionsAfterDbInsertionListener listener : ls.get()) {
-            listener.programInserted(program);
-        }
-    }
-
-    private void notifyDeleted(Program program) {
-        for (DatabaseActionsAfterDbInsertionListener listener : ls.get()) {
-            listener.programDeleted(program);
-        }
-    }
-
-    private void notifyReordered() {
-        for (DatabaseActionsAfterDbInsertionListener listener : ls.get()) {
-            listener.programsReordered();
-        }
     }
 }

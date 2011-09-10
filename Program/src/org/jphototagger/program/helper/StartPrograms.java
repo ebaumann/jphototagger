@@ -17,8 +17,8 @@ import org.jphototagger.lib.runtime.External;
 import org.jphototagger.lib.runtime.External.ProcessResult;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.program.data.Program;
-import org.jphototagger.program.io.RuntimeUtil;
+import org.jphototagger.domain.database.programs.Program;
+import org.jphototagger.lib.runtime.RuntimeUtil;
 import org.jphototagger.program.view.dialogs.ProgramInputParametersDialog;
 
 /**

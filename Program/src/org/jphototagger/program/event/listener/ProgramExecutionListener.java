@@ -1,6 +1,6 @@
 package org.jphototagger.program.event.listener;
 
-import org.jphototagger.program.data.Program;
+import org.jphototagger.domain.database.programs.Program;
 
 /**
  *

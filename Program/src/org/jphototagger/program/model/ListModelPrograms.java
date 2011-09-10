@@ -1,13 +1,19 @@
 package org.jphototagger.program.model;
 
-import org.jphototagger.program.data.Program;
+import java.util.List;
+
+import javax.swing.DefaultListModel;
+
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.domain.database.programs.Program;
+import org.jphototagger.domain.repository.event.programs.ProgramDeletedEvent;
+import org.jphototagger.domain.repository.event.programs.ProgramInsertedEvent;
+import org.jphototagger.domain.repository.event.programs.ProgramUpdatedEvent;
+import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.database.DatabasePrograms.Type;
-import org.jphototagger.program.event.listener.DatabaseProgramsListener;
-import java.util.List;
-import javax.swing.DefaultListModel;
-import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Contains {@link Program}s retrieved through
@@ -19,7 +25,8 @@ import org.jphototagger.lib.awt.EventQueueUtil;
  *
  * @author Elmar Baumann
  */
-public final class ListModelPrograms extends DefaultListModel implements DatabaseProgramsListener {
+public final class ListModelPrograms extends DefaultListModel {
+
     private static final long serialVersionUID = 1107244876982338977L;
     private boolean listen = true;
     private Type type;
@@ -31,7 +38,7 @@ public final class ListModelPrograms extends DefaultListModel implements Databas
 
         this.type = type;
         addElements();
-        DatabasePrograms.INSTANCE.addListener(this);
+        AnnotationProcessor.process(this);
     }
 
     private void addElements() {
@@ -60,7 +67,7 @@ public final class ListModelPrograms extends DefaultListModel implements Databas
 
             if (!validSeqNumber) {
                 throw new IllegalArgumentException("Invalid sequence number. Size: " + getSize()
-                                                   + ". Sequence number: " + sequenceNumber);
+                        + ". Sequence number: " + sequenceNumber);
             }
 
             if (index == sequenceNumber) {
@@ -73,14 +80,17 @@ public final class ListModelPrograms extends DefaultListModel implements Databas
         listen = true;
     }
 
-    @Override
-    public void programDeleted(final Program program) {
+    @EventSubscriber(eventClass = ProgramDeletedEvent.class)
+    public void programDeleted(final ProgramDeletedEvent evt) {
         if (!listen) {
             return;
         }
 
+        final Program program = evt.getProgram();
+
         if (isAppropriateProgramType(program)) {
             EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
                 @Override
                 public void run() {
                     removeElement(program);
@@ -89,14 +99,17 @@ public final class ListModelPrograms extends DefaultListModel implements Databas
         }
     }
 
-    @Override
-    public void programInserted(final Program program) {
+    @EventSubscriber(eventClass = ProgramInsertedEvent.class)
+    public void programInserted(final ProgramInsertedEvent evt) {
         if (!listen) {
             return;
         }
 
+        final Program program = evt.getProgram();
+
         if (isAppropriateProgramType(program)) {
             EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
                 @Override
                 public void run() {
                     addElement(program);
@@ -105,14 +118,17 @@ public final class ListModelPrograms extends DefaultListModel implements Databas
         }
     }
 
-    @Override
-    public void programUpdated(final Program program) {
+    @EventSubscriber(eventClass = ProgramUpdatedEvent.class)
+    public void programUpdated(final ProgramUpdatedEvent evt) {
         if (!listen) {
             return;
         }
 
+        final Program program = evt.getProgram();
+
         if (isAppropriateProgramType(program)) {
             EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
                 @Override
                 public void run() {
                     updateProgram(program);
