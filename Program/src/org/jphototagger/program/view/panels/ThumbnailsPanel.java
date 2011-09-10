@@ -22,7 +22,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -41,19 +40,23 @@ import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.core.Storage;
 import org.jphototagger.domain.event.AppWillExitEvent;
-import org.jphototagger.domain.thumbnails.event.TypedThumbnailUpdateEvent;
 import org.jphototagger.domain.event.UserPropertyChangedEvent;
 import org.jphototagger.domain.event.listener.ThumbnailUpdateListener;
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
 import org.jphototagger.domain.repository.event.imagefiles.ImageFileDeletedEvent;
 import org.jphototagger.domain.repository.event.imagefiles.ImageFileInsertedEvent;
 import org.jphototagger.domain.repository.event.imagefiles.ImageFileMovedEvent;
+import org.jphototagger.domain.repository.event.userdefinedfilefilters.UserDefinedFileFilterUpdatedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpDeletedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
-import org.jphototagger.domain.repository.event.userdefinedfilefilters.UserDefinedFileFilterUpdatedEvent;
 import org.jphototagger.domain.thumbnails.ThumbnailFlag;
+import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
+import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
+import org.jphototagger.domain.thumbnails.event.ThumbnailsChangedEvent;
+import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
+import org.jphototagger.domain.thumbnails.event.TypedThumbnailUpdateEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.comparator.FileSort;
 import org.jphototagger.lib.event.util.MouseEventUtil;
@@ -64,11 +67,7 @@ import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.program.cache.RenderedThumbnailCache;
 import org.jphototagger.program.controller.thumbnail.ControllerThumbnailDoubleklick;
 import org.jphototagger.program.datatransfer.TransferHandlerThumbnailsPanel;
-import org.jphototagger.program.event.RefreshEvent;
-import org.jphototagger.program.event.listener.RefreshListener;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
-import org.jphototagger.domain.thumbnails.event.ThumbnailsChangedEvent;
 import org.jphototagger.program.types.FileAction;
 import org.jphototagger.program.types.SizeUnit;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
@@ -97,13 +96,12 @@ public class ThumbnailsPanel extends JPanel
     private boolean transferDataOfDraggedThumbnails = false;
     private final ThumbnailPanelRenderer renderer = new ThumbnailPanelRenderer(this);
     private final transient RenderedThumbnailCache renderedThumbnailCache = RenderedThumbnailCache.INSTANCE;
-    private final EnumMap<TypeOfDisplayedImages, List<RefreshListener>> refreshListenersOf = new EnumMap<TypeOfDisplayedImages, List<RefreshListener>>(TypeOfDisplayedImages.class);
     private final PopupMenuThumbnails popupMenu = PopupMenuThumbnails.INSTANCE;
     private Comparator<File> fileSortComparator = FileSort.NAMES_ASCENDING.getComparator();
     private FileFilter fileFilter = AppFileFilters.INSTANCE.getAllAcceptedImageFilesFilter();
     private final List<File> files = Collections.synchronizedList(new ArrayList<File>());
     private FileAction fileAction = FileAction.UNDEFINED;
-    private TypeOfDisplayedImages content = TypeOfDisplayedImages.UNDEFINED;
+    private TypeOfDisplayedImages typeOfDisplayedImages = TypeOfDisplayedImages.UNDEFINED;
     private final transient ControllerThumbnailDoubleklick ctrlDoubleklick;
     private boolean drag;
     private boolean keywordsOverlay;
@@ -115,7 +113,6 @@ public class ThumbnailsPanel extends JPanel
     private final Object thumbnailsChangedNotifyMonitor = new Object();
 
     public ThumbnailsPanel() {
-        initRefreshListeners();
         ctrlDoubleklick = new ControllerThumbnailDoubleklick(this);
         setDragEnabled(true);
         setTransferHandler(new TransferHandlerThumbnailsPanel());
@@ -826,26 +823,6 @@ public class ThumbnailsPanel extends JPanel
         }
     }
 
-    /**
-     * Adds a refresh listener for a specific content.
-     *
-     * @param listener  listener
-     * @param content   content
-     */
-    public void addRefreshListener(RefreshListener listener, TypeOfDisplayedImages content) {
-        if (listener == null) {
-            throw new NullPointerException("listener == null");
-        }
-
-        if (content == null) {
-            throw new NullPointerException("content == null");
-        }
-
-        synchronized (refreshListenersOf) {
-            refreshListenersOf.get(content).add(listener);
-        }
-    }
-
     @EventSubscriber(eventClass = AppWillExitEvent.class)
     public void appWillExit(AppWillExitEvent evt) {
         Storage storage = Lookup.getDefault().lookup(Storage.class);
@@ -887,7 +864,7 @@ public class ThumbnailsPanel extends JPanel
     }
 
     public synchronized TypeOfDisplayedImages getContent() {
-        return content;
+        return typeOfDisplayedImages;
     }
 
     /**
@@ -965,14 +942,6 @@ public class ThumbnailsPanel extends JPanel
         return fileSortComparator;
     }
 
-    private void initRefreshListeners() {
-        synchronized (refreshListenersOf) {
-            for (TypeOfDisplayedImages c : TypeOfDisplayedImages.values()) {
-                refreshListenersOf.put(c, new ArrayList<RefreshListener>());
-            }
-        }
-    }
-
     /**
      * Returns wheter an index of a file is valid.
      *
@@ -1017,18 +986,14 @@ public class ThumbnailsPanel extends JPanel
         repaint();
     }
 
-    private void notifyRefreshListeners(RefreshEvent evt) {
-        synchronized (refreshListenersOf) {
-            if (!notifyRefresh) {
-                notifyRefresh = true;
-                LOGGER.log(Level.INFO, "Refreshing thumbnails view");
+    private void notifyRefreshListeners(ThumbnailsPanelRefreshEvent evt) {
+        if (!notifyRefresh) {
+            notifyRefresh = true;
+            LOGGER.log(Level.INFO, "Refreshing thumbnails view");
 
-                for (RefreshListener listener : refreshListenersOf.get(content)) {
-                    listener.refresh(evt);
-                }
+            EventBus.publish(evt);
 
-                notifyRefresh = false;
-            }
+            notifyRefresh = false;
         }
     }
 
@@ -1053,9 +1018,9 @@ public class ThumbnailsPanel extends JPanel
             viewportPosition = vp.getViewPosition();
         }
 
-        RefreshEvent evt = new RefreshEvent(this, viewportPosition);
+        ThumbnailsPanelRefreshEvent evt = new ThumbnailsPanelRefreshEvent(this, typeOfDisplayedImages, viewportPosition);
 
-        evt.setSelThumbnails(new ArrayList<Integer>(selectedThumbnailIndices));
+        evt.setSelectedThumbnailIndices(new ArrayList<Integer>(selectedThumbnailIndices));
         notifyRefreshListeners(evt);
 
         // viewport position has to be setTree by the refresh listeners because they
@@ -1068,7 +1033,7 @@ public class ThumbnailsPanel extends JPanel
      *
      * @param settings can be null (won't be applied in that case)
      */
-    public void apply(Settings settings) {
+    public void apply(ThumbnailsPanelSettings settings) {
         if (settings == null) {
             return;
         }
@@ -1131,7 +1096,7 @@ public class ThumbnailsPanel extends JPanel
 
             Point viewPos = getViewPosition();
 
-            setFiles(files, content);
+            setFiles(files, typeOfDisplayedImages);
             setViewPosition(viewPos);
             renderedThumbnailCache.remove(filesToRemove);
             refresh();
@@ -1234,7 +1199,7 @@ public class ThumbnailsPanel extends JPanel
             Collections.sort(filteredFiles, fileSortComparator);
             this.files.clear();
             this.files.addAll(filteredFiles);
-            this.content = content;
+            this.typeOfDisplayedImages = content;
             scrollToTop();
             setMissingFilesFlags();
         }
@@ -1284,10 +1249,10 @@ public class ThumbnailsPanel extends JPanel
      * @see #setFileSortComparator(java.util.Comparator)
      */
     public synchronized void sort() {
-        if (!content.equals(TypeOfDisplayedImages.IMAGE_COLLECTION)) {
+        if (!typeOfDisplayedImages.equals(TypeOfDisplayedImages.IMAGE_COLLECTION)) {
             List<File> selFiles = getSelectedFiles();
 
-            setFiles(new ArrayList<File>(files), content);
+            setFiles(new ArrayList<File>(files), typeOfDisplayedImages);
             setSelectedIndices(getIndicesOfFiles(selFiles, true));
         }
     }
@@ -1332,7 +1297,7 @@ public class ThumbnailsPanel extends JPanel
             if (!notifyTnsChanged) {
                 notifyTnsChanged = true;
 
-                EventBus.publish(new ThumbnailsChangedEvent(this, content, files));
+                EventBus.publish(new ThumbnailsChangedEvent(this, typeOfDisplayedImages, files));
 
                 notifyTnsChanged = false;
             }
@@ -1723,41 +1688,6 @@ public class ThumbnailsPanel extends JPanel
             if (!displayThumbnailTooltip) {
                 setToolTipText(null);
             }
-        }
-    }
-
-    public static class Settings {
-
-        private final List<Integer> selThumbnails;
-        private final Point viewPosition;
-
-        public Settings(Point viewPosition, List<Integer> selThumbnails) {
-            if (viewPosition == null) {
-                throw new NullPointerException("viewPosition == null");
-            }
-
-            if (selThumbnails == null) {
-                throw new NullPointerException("selThumbnails == null");
-            }
-
-            this.viewPosition = viewPosition;
-            this.selThumbnails = selThumbnails;
-        }
-
-        public List<Integer> getSelThumbnails() {
-            return Collections.unmodifiableList(selThumbnails);
-        }
-
-        public Point getViewPosition() {
-            return viewPosition;
-        }
-
-        public boolean hasSelThumbnails() {
-            return selThumbnails != null;
-        }
-
-        public boolean hasViewPosition() {
-            return viewPosition != null;
         }
     }
 }

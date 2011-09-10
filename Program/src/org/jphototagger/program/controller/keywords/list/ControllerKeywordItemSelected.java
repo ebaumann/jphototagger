@@ -8,14 +8,15 @@ import javax.swing.JRadioButton;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jdesktop.swingx.JXList;
 import org.jphototagger.api.core.Storage;
+import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
+import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.program.event.RefreshEvent;
-import org.jphototagger.program.event.listener.RefreshListener;
 import org.jphototagger.program.helper.KeywordsHelper;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.openide.util.Lookup;
 
 /**
@@ -23,7 +24,7 @@ import org.openide.util.Lookup;
  *
  * @author Elmar Baumann
  */
-public final class ControllerKeywordItemSelected implements ActionListener, ListSelectionListener, RefreshListener {
+public final class ControllerKeywordItemSelected implements ActionListener, ListSelectionListener {
 
     private static final String KEY_RADIO_BUTTON = "ControllerKeywordItemSelected.RadioButton";
 
@@ -33,10 +34,10 @@ public final class ControllerKeywordItemSelected implements ActionListener, List
     }
 
     private void listen() {
+        AnnotationProcessor.process(this);
         GUI.getSelKeywordsList().addListSelectionListener(this);
         getRadioButtonAllKeywords().addActionListener(this);
         getRadioButtonOneKeyword().addActionListener(this);
-        GUI.getThumbnailsPanel().addRefreshListener(this, TypeOfDisplayedImages.KEYWORD);
     }
 
     private JRadioButton getRadioButtonAllKeywords() {
@@ -55,10 +56,14 @@ public final class ControllerKeywordItemSelected implements ActionListener, List
         }
     }
 
-    @Override
-    public void refresh(RefreshEvent evt) {
+    @EventSubscriber(eventClass = ThumbnailsPanelRefreshEvent.class)
+    public void refresh(ThumbnailsPanelRefreshEvent evt) {
         if (GUI.getSelKeywordsList().getSelectedIndex() >= 0) {
-            update(evt);
+            TypeOfDisplayedImages typeOfDisplayedImages = evt.getTypeOfDisplayedImages();
+
+            if (TypeOfDisplayedImages.KEYWORD.equals(typeOfDisplayedImages)) {
+                update(evt);
+            }
         }
     }
 
@@ -69,16 +74,16 @@ public final class ControllerKeywordItemSelected implements ActionListener, List
         }
     }
 
-    private void update(RefreshEvent evt) {
+    private void update(ThumbnailsPanelRefreshEvent evt) {
         List<String> selKeywords = getSelectedKeywords();
 
         EventQueueUtil.invokeInDispatchThread(isAllKeywords()
                 ? new ShowThumbnailsContainingAllKeywords(selKeywords, (evt == null)
                 ? null
-                : evt.getSettings())
+                : evt.getThumbnailsPanelSettings())
                 : new ShowThumbnailsContainingKeywords(selKeywords, (evt == null)
                 ? null
-                : evt.getSettings()));
+                : evt.getThumbnailsPanelSettings()));
     }
 
     private List<String> getSelectedKeywords() {

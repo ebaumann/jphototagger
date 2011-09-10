@@ -1,12 +1,14 @@
 package org.jphototagger.program.controller.favorites;
 
-import org.jphototagger.program.event.listener.RefreshListener;
-import org.jphototagger.program.event.RefreshEvent;
-import org.jphototagger.program.helper.FavoritesHelper;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
+
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
+import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
+import org.jphototagger.program.helper.FavoritesHelper;
+import org.jphototagger.program.resource.GUI;
 
 /**
  * Listens for selections of items in the favorite directories tree view. A tree
@@ -15,14 +17,15 @@ import javax.swing.event.TreeSelectionListener;
  *
  * @author Elmar Baumann
  */
-public final class ControllerFavoriteSelected implements TreeSelectionListener, RefreshListener {
+public final class ControllerFavoriteSelected implements TreeSelectionListener {
+
     public ControllerFavoriteSelected() {
         listen();
     }
 
     private void listen() {
+        AnnotationProcessor.process(this);
         GUI.getFavoritesTree().getSelectionModel().addTreeSelectionListener(this);
-        GUI.getThumbnailsPanel().addRefreshListener(this, TypeOfDisplayedImages.FAVORITE);
     }
 
     @Override
@@ -32,10 +35,14 @@ public final class ControllerFavoriteSelected implements TreeSelectionListener, 
         }
     }
 
-    @Override
-    public void refresh(RefreshEvent evt) {
+    @EventSubscriber(eventClass = ThumbnailsPanelRefreshEvent.class)
+    public void refresh(ThumbnailsPanelRefreshEvent evt) {
         if (GUI.getFavoritesTree().getSelectionCount() > 0) {
-            FavoritesHelper.setFilesToThumbnailPanel(FavoritesHelper.getFilesOfSelectedtDirectory(), evt.getSettings());
+            TypeOfDisplayedImages typeOfDisplayedImages = evt.getTypeOfDisplayedImages();
+
+            if (TypeOfDisplayedImages.FAVORITE.equals(typeOfDisplayedImages)) {
+                FavoritesHelper.setFilesToThumbnailPanel(FavoritesHelper.getFilesOfSelectedtDirectory(), evt.getThumbnailsPanelSettings());
+            }
         }
     }
 }
