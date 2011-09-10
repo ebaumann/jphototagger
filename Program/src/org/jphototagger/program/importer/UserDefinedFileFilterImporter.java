@@ -8,19 +8,21 @@ import javax.swing.Icon;
 import javax.swing.filechooser.FileFilter;
 
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
+import org.jphototagger.domain.repository.Importer;
 import org.jphototagger.lib.xml.bind.XmlObjectImporter;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.database.DatabaseUserDefinedFileFilters;
 import org.jphototagger.program.exporter.UserDefinedFileFilterExporter;
 import org.jphototagger.program.exporter.UserDefinedFileFilterExporter.CollectionWrapper;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  *
  *
  * @author Elmar Baumann
  */
+@ServiceProvider(service = Importer.class)
 public final class UserDefinedFileFilterImporter implements Importer {
-    public static final UserDefinedFileFilterImporter INSTANCE = new UserDefinedFileFilterImporter();
 
     @Override
     public void importFile(File file) {
@@ -30,7 +32,7 @@ public final class UserDefinedFileFilterImporter implements Importer {
 
         try {
             CollectionWrapper wrapper = (CollectionWrapper) XmlObjectImporter.importObject(file,
-                                            UserDefinedFileFilterExporter.CollectionWrapper.class);
+                    UserDefinedFileFilterExporter.CollectionWrapper.class);
 
             for (UserDefinedFileFilter filter : wrapper.getCollection()) {
                 if (!DatabaseUserDefinedFileFilters.INSTANCE.exists(filter.getName())) {
@@ -44,12 +46,12 @@ public final class UserDefinedFileFilterImporter implements Importer {
 
     @Override
     public FileFilter getFileFilter() {
-        return UserDefinedFileFilterExporter.INSTANCE.getFileFilter();
+        return UserDefinedFileFilterExporter.FILE_FILTER;
     }
 
     @Override
     public String getDisplayName() {
-        return UserDefinedFileFilterExporter.INSTANCE.getDisplayName();
+        return UserDefinedFileFilterExporter.DISPLAY_NAME;
     }
 
     @Override
@@ -59,8 +61,16 @@ public final class UserDefinedFileFilterImporter implements Importer {
 
     @Override
     public String getDefaultFilename() {
-        return UserDefinedFileFilterExporter.INSTANCE.getDefaultFilename();
+        return UserDefinedFileFilterExporter.DEFAULT_FILENAME;
     }
 
-    private UserDefinedFileFilterImporter() {}
+    @Override
+    public int getPosition() {
+        return UserDefinedFileFilterExporter.POSITION;
+    }
+
+    @Override
+    public boolean isJPhotoTaggerData() {
+        return true;
+    }
 }

@@ -1,5 +1,6 @@
 package org.jphototagger.program.exporter;
 
+import org.jphototagger.domain.repository.Exporter;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -19,18 +20,20 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.xml.bind.XmlObjectExporter;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.database.DatabaseAutoscanDirectories;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  *
  *
  * @author Elmar Baumann
  */
+@ServiceProvider(service = Exporter.class)
 public final class AutoscanDirectoriesExporter implements Exporter {
-    public static final FileFilter FILE_FILTER =
-        new FileNameExtensionFilter(Bundle.getString(AutoscanDirectoriesExporter.class, "AutoscanDirectoriesExporter.DisplayName.FileFilter"), "xml");
-    public static final AutoscanDirectoriesExporter INSTANCE = new AutoscanDirectoriesExporter();
 
-    private AutoscanDirectoriesExporter() {}
+    public static final String DEFAULT_FILENAME = "JptAutoscanDirectories.xml";
+    public static final String DISPLAY_NAME = Bundle.getString(AutoscanDirectoriesExporter.class, "AutoscanDirectoriesExporter.DisplayName");
+    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(AutoscanDirectoriesExporter.class, "AutoscanDirectoriesExporter.DisplayName.FileFilter"), "xml");
+    public static final int POSITION = 90;
 
     @Override
     public void exportFile(File file) {
@@ -56,7 +59,7 @@ public final class AutoscanDirectoriesExporter implements Exporter {
 
     @Override
     public String getDisplayName() {
-        return Bundle.getString(AutoscanDirectoriesExporter.class, "AutoscanDirectoriesExporter.DisplayName");
+        return DISPLAY_NAME;
     }
 
     @Override
@@ -66,16 +69,18 @@ public final class AutoscanDirectoriesExporter implements Exporter {
 
     @Override
     public String getDefaultFilename() {
-        return "JptAutoscanDirectories.xml";
+        return DEFAULT_FILENAME;
     }
 
     @XmlRootElement
     public static class CollectionWrapper {
+
         @XmlElementWrapper(name = "AutoscanDirectories")
         @XmlElement(type = StringWrapper.class)
         private final ArrayList<StringWrapper> collection = new ArrayList<StringWrapper>();
 
-        public CollectionWrapper() {}
+        public CollectionWrapper() {
+        }
 
         public CollectionWrapper(Collection<StringWrapper> collection) {
             this.collection.addAll(collection);
@@ -84,5 +89,15 @@ public final class AutoscanDirectoriesExporter implements Exporter {
         public List<StringWrapper> getCollection() {
             return new ArrayList<StringWrapper>(collection);
         }
+    }
+
+    @Override
+    public boolean isJPhotoTaggerData() {
+        return true;
+    }
+
+    @Override
+    public int getPosition() {
+        return POSITION;
     }
 }

@@ -7,20 +7,22 @@ import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.filechooser.FileFilter;
 
+import org.jphototagger.domain.database.programs.Program;
+import org.jphototagger.domain.repository.Importer;
 import org.jphototagger.lib.xml.bind.XmlObjectImporter;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.domain.database.programs.Program;
 import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.exporter.ProgramsExporter;
 import org.jphototagger.program.exporter.ProgramsExporter.CollectionWrapper;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  *
  *
  * @author Elmar Baumann
  */
+@ServiceProvider(service = Importer.class)
 public final class ProgramsImporter implements Importer {
-    public static final ProgramsImporter INSTANCE = new ProgramsImporter();
 
     @Override
     public void importFile(File file) {
@@ -30,7 +32,7 @@ public final class ProgramsImporter implements Importer {
 
         try {
             ProgramsExporter.CollectionWrapper wrapper = (CollectionWrapper) XmlObjectImporter.importObject(file,
-                                                             ProgramsExporter.CollectionWrapper.class);
+                    ProgramsExporter.CollectionWrapper.class);
 
             for (Program program : wrapper.getCollection()) {
                 if (!DatabasePrograms.INSTANCE.exists(program)) {
@@ -44,12 +46,12 @@ public final class ProgramsImporter implements Importer {
 
     @Override
     public FileFilter getFileFilter() {
-        return ProgramsExporter.INSTANCE.getFileFilter();
+        return ProgramsExporter.FILE_FILTER;
     }
 
     @Override
     public String getDisplayName() {
-        return ProgramsExporter.INSTANCE.getDisplayName();
+        return ProgramsExporter.DISPLAY_NAME;
     }
 
     @Override
@@ -59,8 +61,16 @@ public final class ProgramsImporter implements Importer {
 
     @Override
     public String getDefaultFilename() {
-        return ProgramsExporter.INSTANCE.getDefaultFilename();
+        return ProgramsExporter.DEFAULT_FILENAME;
     }
 
-    private ProgramsImporter() {}
+    @Override
+    public int getPosition() {
+        return ProgramsExporter.POSITION;
+    }
+
+    @Override
+    public boolean isJPhotoTaggerData() {
+        return true;
+    }
 }

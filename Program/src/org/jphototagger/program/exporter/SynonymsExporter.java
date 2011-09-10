@@ -5,6 +5,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.xml.parsers.DocumentBuilder;
@@ -15,11 +16,13 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import org.jphototagger.lib.util.Bundle;
 
+import org.jphototagger.domain.repository.Exporter;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.database.DatabaseSynonyms;
 import org.jphototagger.program.io.CharEncoding;
+import org.openide.util.lookup.ServiceProvider;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -29,10 +32,15 @@ import org.w3c.dom.Element;
  *
  * @author Elmar Baumann
  */
+@ServiceProvider(service = Exporter.class)
 public final class SynonymsExporter implements Exporter {
+
+    public static final String DEFAULT_FILENAME = "JptSynonyms.xml";
+    public static final String DISPLAY_NAME = Bundle.getString(SynonymsExporter.class, "SynonymsExporter.DisplayName");
+    public static final ImageIcon ICON = AppLookAndFeel.getIcon("icon_export.png");
+    public static final int POSITION = 20;
     private static final long serialVersionUID = 1L;
-    private static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(SynonymsExporter.class, "SynonymsExporter.DisplayName.FileFilter"), "xml");
-    public static final SynonymsExporter INSTANCE = new SynonymsExporter();
+    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(SynonymsExporter.class, "SynonymsExporter.DisplayName.FileFilter"), "xml");
     public static final String DTD = "synonyms.dtd";
     public static final String TAGNAME_ROOT = "synonyms";
     public static final String TAGNAME_ENTRY = "entry";
@@ -108,18 +116,26 @@ public final class SynonymsExporter implements Exporter {
 
     @Override
     public String getDisplayName() {
-        return Bundle.getString(SynonymsExporter.class, "SynonymsExporter.DisplayName");
+        return DISPLAY_NAME;
     }
 
     @Override
     public Icon getIcon() {
-        return AppLookAndFeel.getIcon("icon_export.png");
+        return ICON;
     }
 
     @Override
     public String getDefaultFilename() {
-        return "JptSynonyms.xml";
+        return DEFAULT_FILENAME;
     }
 
-    private SynonymsExporter() {}
+    @Override
+    public boolean isJPhotoTaggerData() {
+        return true;
+    }
+
+    @Override
+    public int getPosition() {
+        return POSITION;
+    }
 }

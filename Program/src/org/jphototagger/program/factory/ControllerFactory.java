@@ -45,9 +45,7 @@ import org.jphototagger.program.controller.keywords.list.ControllerRenameKeyword
 import org.jphototagger.program.controller.keywords.tree.ControllerAddKeyword;
 import org.jphototagger.program.controller.keywords.tree.ControllerCopyCutPasteKeyword;
 import org.jphototagger.program.controller.keywords.tree.ControllerDeleteKeywordFromEditPanel;
-import org.jphototagger.program.controller.keywords.tree.ControllerExportKeywords;
 import org.jphototagger.program.controller.keywords.tree.ControllerHighlightKeywordsTree;
-import org.jphototagger.program.controller.keywords.tree.ControllerImportKeywords;
 import org.jphototagger.program.controller.keywords.tree.ControllerKeywordsDbUpdates;
 import org.jphototagger.program.controller.keywords.tree.ControllerKeywordsDisplayImages;
 import org.jphototagger.program.controller.keywords.tree.ControllerKeywordsSelection;
@@ -179,8 +177,6 @@ public final class ControllerFactory {
         support.add(new ControllerImportImageFiles());
         support.add(new ControllerExtractEmbeddedXmp());
         support.add(new ControllerShowSystemOutput());
-        support.add(new ControllerImportKeywords());
-        support.add(new ControllerExportKeywords());
         support.add(new ControllerAboutApp());
         support.add(new ControllerHelp());
         support.add(new ControllerMaintainDatabase());

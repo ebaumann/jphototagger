@@ -20,11 +20,10 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.ProgressBar;
 
 /**
- * Imports keywords.
  *
  * @author Elmar Baumann
  */
-public abstract class KeywordsImporter implements Importer {
+public abstract class KeywordsImporter {
 
     private static final String PROGRESSBAR_STRING = Bundle.getString(KeywordsImporter.class, "KeywordImporter.ProgressBar.String");
 
@@ -59,8 +58,7 @@ public abstract class KeywordsImporter implements Importer {
      */
     public abstract Collection<List<KeywordString>> getPaths(File file);
 
-    @Override
-    public void importFile(File file) {
+    protected void importKeywordsFile(File file) {
         if (file == null) {
             throw new NullPointerException("file == null");
         }

@@ -18,11 +18,13 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.jphototagger.domain.database.Column;
+import org.jphototagger.domain.repository.Importer;
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.database.DatabaseMetadataTemplates;
 import org.jphototagger.program.exporter.MetadataTemplatesExporter;
 import org.jphototagger.xmp.EditColumns;
+import org.openide.util.lookup.ServiceProvider;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -36,8 +38,9 @@ import org.xml.sax.SAXException;
  *
  * @author Elmar Baumann
  */
+@ServiceProvider(service = Importer.class)
 public final class MetadataTemplatesImporter implements Importer, EntityResolver {
-    public static final MetadataTemplatesImporter INSTANCE = new MetadataTemplatesImporter();
+
     private static final long serialVersionUID = 1L;
     private static final Map<String, Column> COLUMN_OF_CLASSNAME = new HashMap<String, Column>();
 
@@ -80,7 +83,7 @@ public final class MetadataTemplatesImporter implements Importer, EntityResolver
                 MetadataTemplate template = new MetadataTemplate();
 
                 template.setName(
-                    templateNode.getAttributes().getNamedItem(
+                        templateNode.getAttributes().getNamedItem(
                         MetadataTemplatesExporter.ATTR_NAME_TEMPLATE_NAME).getNodeValue().trim());
 
                 for (int j = 0; j < entryCount; j++) {
@@ -89,13 +92,13 @@ public final class MetadataTemplatesImporter implements Importer, EntityResolver
                     if (entryNode.getNodeName().equals(MetadataTemplatesExporter.TAGNAME_ENTRY)) {
                         NamedNodeMap attrMap = entryNode.getAttributes();
                         String valueStr =
-                            attrMap.getNamedItem(MetadataTemplatesExporter.ATTR_NAME_VALUE).getNodeValue().trim();
+                                attrMap.getNamedItem(MetadataTemplatesExporter.ATTR_NAME_VALUE).getNodeValue().trim();
 
-                        if (!valueStr.isEmpty() &&!valueStr.equals(MetadataTemplatesExporter.NULL)) {
+                        if (!valueStr.isEmpty() && !valueStr.equals(MetadataTemplatesExporter.NULL)) {
                             String columnClassName =
-                                attrMap.getNamedItem(MetadataTemplatesExporter.ATTR_NAME_COLUMN).getNodeValue().trim();
+                                    attrMap.getNamedItem(MetadataTemplatesExporter.ATTR_NAME_COLUMN).getNodeValue().trim();
                             String valueType =
-                                attrMap.getNamedItem(
+                                    attrMap.getNamedItem(
                                     MetadataTemplatesExporter.ATTR_NAME_VALUE_TYPE).getNodeValue().trim();
 
                             insert(columnClassName, valueType, valueStr, template);
@@ -103,7 +106,7 @@ public final class MetadataTemplatesImporter implements Importer, EntityResolver
                     }
                 }
 
-                if ((template.getName() != null) &&!DatabaseMetadataTemplates.INSTANCE.exists(template.getName())) {
+                if ((template.getName() != null) && !DatabaseMetadataTemplates.INSTANCE.exists(template.getName())) {
                     DatabaseMetadataTemplates.INSTANCE.insertOrUpdate(template);
                 }
             }
@@ -155,18 +158,18 @@ public final class MetadataTemplatesImporter implements Importer, EntityResolver
         }
 
         return (stream == null)
-               ? null
-               : new InputSource(new InputStreamReader(stream));
+                ? null
+                : new InputSource(new InputStreamReader(stream));
     }
 
     @Override
     public FileFilter getFileFilter() {
-        return MetadataTemplatesExporter.INSTANCE.getFileFilter();
+        return MetadataTemplatesExporter.FILE_FILTER;
     }
 
     @Override
     public String getDisplayName() {
-        return MetadataTemplatesExporter.INSTANCE.getDisplayName();
+        return MetadataTemplatesExporter.DISPLAY_NAME;
     }
 
     @Override
@@ -176,8 +179,16 @@ public final class MetadataTemplatesImporter implements Importer, EntityResolver
 
     @Override
     public String getDefaultFilename() {
-        return MetadataTemplatesExporter.INSTANCE.getDefaultFilename();
+        return MetadataTemplatesExporter.DEFAULT_FILENAME;
     }
 
-    private MetadataTemplatesImporter() {}
+    @Override
+    public int getPosition() {
+        return MetadataTemplatesExporter.POSITION;
+    }
+
+    @Override
+    public boolean isJPhotoTaggerData() {
+        return true;
+    }
 }

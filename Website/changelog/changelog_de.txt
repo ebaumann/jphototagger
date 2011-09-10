@@ -8,6 +8,7 @@ Changelog JPhotoTagger http://jphototagger.org/
 
 * Neu: Fenster > Datenbankbrowser
 * "Datenbank automatisch sichern" entfernt
+* Export und Import des Lightroom-Stichwortbaums entfernt
 * "Experimentelle Dateiformate" werden zukünftig automatisch
   aktiviert nach einem Test (keine Option mehr im
   Einstellungen-Dialog)

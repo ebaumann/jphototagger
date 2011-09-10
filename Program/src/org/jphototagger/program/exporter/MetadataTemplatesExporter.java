@@ -6,6 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.xml.parsers.DocumentBuilder;
@@ -18,11 +19,13 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.jphototagger.domain.database.Column;
+import org.jphototagger.domain.repository.Exporter;
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.database.DatabaseMetadataTemplates;
 import org.jphototagger.program.io.CharEncoding;
+import org.openide.util.lookup.ServiceProvider;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
@@ -33,10 +36,15 @@ import org.w3c.dom.Element;
  *
  * @author Elmar Baumann
  */
+@ServiceProvider(service = Exporter.class)
 public final class MetadataTemplatesExporter implements Exporter {
+
+    public static final String DEFAULT_FILENAME = "JptMetadataTemplates.xml";
+    public static final String DISPLAY_NAME = Bundle.getString(MetadataTemplatesExporter.class, "MetadataTemplatesExporter.DisplayName");
+    public static final ImageIcon ICON = AppLookAndFeel.getIcon("icon_export.png");
+    public static final int POSITION = 60;
     private static final long serialVersionUID = 1L;
-    private static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(MetadataTemplatesExporter.class, "MetadataTemplatesExporter.DisplayName.FileFilter"), "xml");
-    public static final MetadataTemplatesExporter INSTANCE = new MetadataTemplatesExporter();
+    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(MetadataTemplatesExporter.class, "MetadataTemplatesExporter.DisplayName.FileFilter"), "xml");
     public static final String DTD = "metadatatemplates.dtd";
     public static final String TAGNAME_ROOT = "templates";
     public static final String TAGNAME_TEMPLATE = "template";
@@ -99,8 +107,8 @@ public final class MetadataTemplatesExporter implements Exporter {
             for (Object o : (Collection<?>) value) {
                 assert o instanceof String : o;
                 sb.append((index++ == 0)
-                          ? ""
-                          : COLLECTION_DELIM);
+                        ? ""
+                        : COLLECTION_DELIM);
                 sb.append(o.toString());
             }
 
@@ -141,18 +149,26 @@ public final class MetadataTemplatesExporter implements Exporter {
 
     @Override
     public String getDisplayName() {
-        return Bundle.getString(MetadataTemplatesExporter.class, "MetadataTemplatesExporter.DisplayName");
+        return DISPLAY_NAME;
     }
 
     @Override
     public Icon getIcon() {
-        return AppLookAndFeel.getIcon("icon_export.png");
+        return ICON;
     }
 
     @Override
     public String getDefaultFilename() {
-        return "JptMetadataTemplates.xml";
+        return DEFAULT_FILENAME;
     }
 
-    private MetadataTemplatesExporter() {}
+    @Override
+    public boolean isJPhotoTaggerData() {
+        return true;
+    }
+
+    @Override
+    public int getPosition() {
+        return POSITION;
+    }
 }

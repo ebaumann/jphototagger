@@ -218,14 +218,6 @@ public final class AppFrame extends javax.swing.JFrame {
         return menuItemInputHelper;
     }
 
-    public JMenuItem getMenuItemImportKeywords() {
-        return menuItemImportKeywords;
-    }
-
-    public JMenuItem getMenuItemExportKeywords() {
-        return menuItemExportKeywords;
-    }
-
     public JMenuItem getMenuItemExit() {
         return menuItemExit;
     }
@@ -365,10 +357,8 @@ public final class AppFrame extends javax.swing.JFrame {
         sep2 = new javax.swing.JPopupMenu.Separator();
         menuExport = new javax.swing.JMenu();
         menuItemExportJptMisc = new javax.swing.JMenuItem();
-        menuItemExportKeywords = new javax.swing.JMenuItem();
         menuImport = new javax.swing.JMenu();
         menuItemImportJptMisc = new javax.swing.JMenuItem();
-        menuItemImportKeywords = new javax.swing.JMenuItem();
         sep3 = new javax.swing.JPopupMenu.Separator();
         menuItemExit = new javax.swing.JMenuItem();
         menuEdit = new javax.swing.JMenu();
@@ -507,11 +497,6 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemExportJptMisc.setName("menuItemExportJptMisc"); // NOI18N
         menuExport.add(menuItemExportJptMisc);
 
-        menuItemExportKeywords.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_keyword.png"))); // NOI18N
-        menuItemExportKeywords.setText(bundle.getString("AppFrame.menuItemExportKeywords.text")); // NOI18N
-        menuItemExportKeywords.setName("menuItemExportKeywords"); // NOI18N
-        menuExport.add(menuItemExportKeywords);
-
         menuFile.add(menuExport);
 
         menuImport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_import.png"))); // NOI18N
@@ -523,11 +508,6 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemImportJptMisc.setText(bundle.getString("AppFrame.menuItemImportJptMisc.text")); // NOI18N
         menuItemImportJptMisc.setName("menuItemImportJptMisc"); // NOI18N
         menuImport.add(menuItemImportJptMisc);
-
-        menuItemImportKeywords.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_keyword.png"))); // NOI18N
-        menuItemImportKeywords.setText(bundle.getString("AppFrame.menuItemImportKeywords.text")); // NOI18N
-        menuItemImportKeywords.setName("menuItemImportKeywords"); // NOI18N
-        menuImport.add(menuItemImportKeywords);
 
         menuFile.add(menuImport);
 
@@ -991,7 +971,6 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemDisplayLogfile;
     private javax.swing.JMenuItem menuItemExit;
     private javax.swing.JMenuItem menuItemExportJptMisc;
-    private javax.swing.JMenuItem menuItemExportKeywords;
     private javax.swing.JMenuItem menuItemExtractEmbeddedXmp;
     private javax.swing.JMenuItem menuItemGotoCollections;
     private javax.swing.JMenuItem menuItemGotoDirectories;
@@ -1010,7 +989,6 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemGotoXmpMetadata;
     private javax.swing.JMenuItem menuItemHelp;
     private javax.swing.JMenuItem menuItemImportJptMisc;
-    private javax.swing.JMenuItem menuItemImportKeywords;
     private javax.swing.JMenuItem menuItemInputHelper;
     private javax.swing.JMenuItem menuItemMaintainDatabase;
     private javax.swing.JMenuItem menuItemMaintainance;

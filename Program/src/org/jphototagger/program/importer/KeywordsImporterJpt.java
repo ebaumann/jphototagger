@@ -16,7 +16,9 @@ import javax.swing.filechooser.FileFilter;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.jphototagger.domain.repository.Importer;
 import org.jphototagger.program.exporter.KeywordsExporterJpt;
+import org.openide.util.lookup.ServiceProvider;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -30,9 +32,8 @@ import org.xml.sax.SAXException;
  *
  * @author Elmar Baumann
  */
-public final class KeywordsImporterJpt extends KeywordsImporter implements EntityResolver {
-
-    public static final KeywordsImporterJpt INSTANCE = new KeywordsImporterJpt();
+@ServiceProvider(service = Importer.class)
+public final class KeywordsImporterJpt extends KeywordsImporter implements Importer, EntityResolver {
 
     @Override
     public Collection<List<KeywordString>> getPaths(File file) {
@@ -135,22 +136,22 @@ public final class KeywordsImporterJpt extends KeywordsImporter implements Entit
 
     @Override
     public FileFilter getFileFilter() {
-        return KeywordsExporterJpt.INSTANCE.getFileFilter();
+        return KeywordsExporterJpt.FILE_FILTER;
     }
 
     @Override
     public String getDisplayName() {
-        return KeywordsExporterJpt.INSTANCE.getDisplayName();
+        return KeywordsExporterJpt.DISPLAY_NAME;
     }
 
     @Override
     public Icon getIcon() {
-        return KeywordsExporterJpt.INSTANCE.getIcon();
+        return KeywordsExporterJpt.ICON;
     }
 
     @Override
     public String getDefaultFilename() {
-        return KeywordsExporterJpt.INSTANCE.getDefaultFilename();
+        return KeywordsExporterJpt.DEFAULT_FILENAME;
     }
 
     @Override
@@ -174,6 +175,18 @@ public final class KeywordsImporterJpt extends KeywordsImporter implements Entit
                 : new InputSource(new InputStreamReader(stream));
     }
 
-    private KeywordsImporterJpt() {
+    @Override
+    public int getPosition() {
+        return KeywordsExporterJpt.POSITION;
+    }
+
+    @Override
+    public boolean isJPhotoTaggerData() {
+        return true;
+    }
+
+    @Override
+    public void importFile(File file) {
+        importKeywordsFile(file);
     }
 }

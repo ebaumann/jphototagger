@@ -8,27 +8,35 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.jphototagger.domain.repository.Exporter;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.xml.bind.XmlObjectExporter;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.data.SavedSearch;
 import org.jphototagger.program.database.DatabaseSavedSearches;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  *
  *
  * @author Elmar Baumann
  */
+@ServiceProvider(service = Exporter.class)
 public final class SavedSearchesExporter implements Exporter {
+
+    public static final String DEFAULT_FILENAME = "JptSavedSearches.xml";
+    public static final String DISPLAY_NAME = Bundle.getString(SavedSearchesExporter.class, "SavedSearchesExporter.DisplayName");
     public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(SavedSearchesExporter.class, "SavedSearchesExporter.DisplayName.FileFilter"), "xml");
-    public static final SavedSearchesExporter INSTANCE = new SavedSearchesExporter();
+    public static final ImageIcon ICON = AppLookAndFeel.getIcon("icon_export.png");
+    public static final int POSITION = 40;
 
     @Override
     public void exportFile(File file) {
@@ -54,26 +62,28 @@ public final class SavedSearchesExporter implements Exporter {
 
     @Override
     public String getDisplayName() {
-        return Bundle.getString(SavedSearchesExporter.class, "SavedSearchesExporter.DisplayName");
+        return DISPLAY_NAME;
     }
 
     @Override
     public Icon getIcon() {
-        return AppLookAndFeel.getIcon("icon_export.png");
+        return ICON;
     }
 
     @Override
     public String getDefaultFilename() {
-        return "JptSavedSearches.xml";
+        return DEFAULT_FILENAME;
     }
 
     @XmlRootElement
     public static class CollectionWrapper {
+
         @XmlElementWrapper(name = "SavedSearches")
         @XmlElement(type = SavedSearch.class)
         private final ArrayList<SavedSearch> collection = new ArrayList<SavedSearch>();
 
-        public CollectionWrapper() {}
+        public CollectionWrapper() {
+        }
 
         public CollectionWrapper(Collection<SavedSearch> collection) {
             this.collection.addAll(collection);
@@ -84,6 +94,13 @@ public final class SavedSearchesExporter implements Exporter {
         }
     }
 
+    @Override
+    public boolean isJPhotoTaggerData() {
+        return true;
+    }
 
-    private SavedSearchesExporter() {}
+    @Override
+    public int getPosition() {
+        return POSITION;
+    }
 }

@@ -8,8 +8,9 @@ import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.filechooser.FileFilter;
 
-import org.jphototagger.domain.repository.InsertIntoRepository;
 import org.jphototagger.domain.imagecollections.ImageCollection;
+import org.jphototagger.domain.repository.Importer;
+import org.jphototagger.domain.repository.InsertIntoRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.lib.util.Bundle;
@@ -23,16 +24,15 @@ import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
 import org.jphototagger.program.model.ListModelImageCollections;
 import org.jphototagger.program.view.panels.ProgressBarUpdater;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  *
  *
  * @author Elmar Baumann
  */
+@ServiceProvider(service = Importer.class)
 public final class ImageCollectionsImporter implements Importer {
-    public static final ImageCollectionsImporter INSTANCE = new ImageCollectionsImporter();
-
-    private ImageCollectionsImporter() {}
 
     @Override
     public void importFile(File file) {
@@ -42,7 +42,7 @@ public final class ImageCollectionsImporter implements Importer {
 
         try {
             ImageCollectionsExporter.CollectionWrapper wrapper =
-                (CollectionWrapper) XmlObjectImporter.importObject(file,
+                    (CollectionWrapper) XmlObjectImporter.importObject(file,
                     ImageCollectionsExporter.CollectionWrapper.class);
 
             new ImportThread(wrapper.getCollection()).start();
@@ -53,12 +53,12 @@ public final class ImageCollectionsImporter implements Importer {
 
     @Override
     public FileFilter getFileFilter() {
-        return ImageCollectionsExporter.INSTANCE.getFileFilter();
+        return ImageCollectionsExporter.FILE_FILTER;
     }
 
     @Override
     public String getDisplayName() {
-        return ImageCollectionsExporter.INSTANCE.getDisplayName();
+        return ImageCollectionsExporter.DISPLAY_NAME;
     }
 
     @Override
@@ -68,10 +68,11 @@ public final class ImageCollectionsImporter implements Importer {
 
     @Override
     public String getDefaultFilename() {
-        return ImageCollectionsExporter.INSTANCE.getDefaultFilename();
+        return ImageCollectionsExporter.DEFAULT_FILENAME;
     }
 
     private static class ImportThread extends Thread {
+
         private final List<ImageCollection> imageCollections;
 
         ImportThread(List<ImageCollection> imageCollections) {
@@ -99,23 +100,34 @@ public final class ImageCollectionsImporter implements Importer {
 
         private void updateImageCollectionList(final ImageCollection imageCollection) {
             EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
                 @Override
                 public void run() {
                     ListModelImageCollections model = ModelFactory.INSTANCE.getModel(ListModelImageCollections.class);
 
                     ListUtil.insertSorted(model, imageCollection.getName(), ComparatorStringAscending.INSTANCE,
-                                          ListModelImageCollections.getSpecialCollectionCount(), model.getSize() - 1);
+                            ListModelImageCollections.getSpecialCollectionCount(), model.getSize() - 1);
                 }
             });
         }
 
         private void insertIntoDbMissingFiles(ImageCollection imageCollection) {
             InsertImageFilesIntoDatabase inserter = new InsertImageFilesIntoDatabase(imageCollection.getFiles(),
-                                                        InsertIntoRepository.OUT_OF_DATE);
+                    InsertIntoRepository.OUT_OF_DATE);
 
             inserter.addProgressListener(new ProgressBarUpdater(inserter,
                     Bundle.getString(ImportThread.class, "ImageCollectionsImporter.ProgressBar.String")));
             inserter.run();    // run in this thread!
         }
+    }
+
+    @Override
+    public int getPosition() {
+        return ImageCollectionsExporter.POSITION;
+    }
+
+    @Override
+    public boolean isJPhotoTaggerData() {
+        return true;
     }
 }

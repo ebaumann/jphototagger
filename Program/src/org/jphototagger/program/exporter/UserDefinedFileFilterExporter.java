@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.xml.bind.annotation.XmlElement;
@@ -16,20 +17,27 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
+import org.jphototagger.domain.repository.Exporter;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.xml.bind.XmlObjectExporter;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.database.DatabaseUserDefinedFileFilters;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  *
  *
  * @author Elmar Baumann
  */
+@ServiceProvider(service = Exporter.class)
 public final class UserDefinedFileFilterExporter implements Exporter {
+
+    public static final String DEFAULT_FILENAME = "JptFileFilters.xml";
+    public static final String DISPLAY_NAME = Bundle.getString(UserDefinedFileFilterExporter.class, "UserDefinedFileFilterExporter.DisplayName");
     public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(UserDefinedFileFilterExporter.class, "UserDefinedFileFilterExporter.DisplayName"), "xml");
-    public static final UserDefinedFileFilterExporter INSTANCE = new UserDefinedFileFilterExporter();
+    public static final ImageIcon ICON = AppLookAndFeel.getIcon("icon_export.png");
+    public static final int POSITION = 110;
 
     @Override
     public void exportFile(File file) {
@@ -55,26 +63,28 @@ public final class UserDefinedFileFilterExporter implements Exporter {
 
     @Override
     public String getDisplayName() {
-        return Bundle.getString(UserDefinedFileFilterExporter.class, "UserDefinedFileFilterExporter.DisplayName");
+        return DISPLAY_NAME;
     }
 
     @Override
     public Icon getIcon() {
-        return AppLookAndFeel.getIcon("icon_export.png");
+        return ICON;
     }
 
     @Override
     public String getDefaultFilename() {
-        return "JptFileFilters.xml";
+        return DEFAULT_FILENAME;
     }
 
     @XmlRootElement
     public static class CollectionWrapper {
+
         @XmlElementWrapper(name = "FileFilter")
         @XmlElement(type = UserDefinedFileFilter.class)
         private final ArrayList<UserDefinedFileFilter> collection = new ArrayList<UserDefinedFileFilter>();
 
-        public CollectionWrapper() {}
+        public CollectionWrapper() {
+        }
 
         public CollectionWrapper(Collection<UserDefinedFileFilter> collection) {
             this.collection.addAll(collection);
@@ -85,6 +95,13 @@ public final class UserDefinedFileFilterExporter implements Exporter {
         }
     }
 
+    @Override
+    public boolean isJPhotoTaggerData() {
+        return true;
+    }
 
-    private UserDefinedFileFilterExporter() {}
+    @Override
+    public int getPosition() {
+        return POSITION;
+    }
 }

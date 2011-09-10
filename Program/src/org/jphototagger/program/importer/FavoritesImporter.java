@@ -8,19 +8,21 @@ import javax.swing.Icon;
 import javax.swing.filechooser.FileFilter;
 
 import org.jphototagger.domain.favorites.Favorite;
+import org.jphototagger.domain.repository.Importer;
 import org.jphototagger.lib.xml.bind.XmlObjectImporter;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.database.DatabaseFavorites;
 import org.jphototagger.program.exporter.FavoritesExporter;
 import org.jphototagger.program.exporter.FavoritesExporter.CollectionWrapper;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  *
  *
  * @author Elmar Baumann
  */
+@ServiceProvider(service = Importer.class)
 public final class FavoritesImporter implements Importer {
-    public static final FavoritesImporter INSTANCE = new FavoritesImporter();
 
     @Override
     public void importFile(File file) {
@@ -30,7 +32,7 @@ public final class FavoritesImporter implements Importer {
 
         try {
             FavoritesExporter.CollectionWrapper wrapper = (CollectionWrapper) XmlObjectImporter.importObject(file,
-                                                              FavoritesExporter.CollectionWrapper.class);
+                    FavoritesExporter.CollectionWrapper.class);
 
             for (Favorite favorite : wrapper.getCollection()) {
                 if (!DatabaseFavorites.INSTANCE.exists(favorite.getName())) {
@@ -44,12 +46,12 @@ public final class FavoritesImporter implements Importer {
 
     @Override
     public FileFilter getFileFilter() {
-        return FavoritesExporter.INSTANCE.getFileFilter();
+        return FavoritesExporter.FILE_FILTER;
     }
 
     @Override
     public String getDisplayName() {
-        return FavoritesExporter.INSTANCE.getDisplayName();
+        return FavoritesExporter.DISPLAY_NAME;
     }
 
     @Override
@@ -59,8 +61,16 @@ public final class FavoritesImporter implements Importer {
 
     @Override
     public String getDefaultFilename() {
-        return FavoritesExporter.INSTANCE.getDefaultFilename();
+        return FavoritesExporter.DEFAULT_FILENAME;
     }
 
-    private FavoritesImporter() {}
+    @Override
+    public int getPosition() {
+        return FavoritesExporter.POSITION;
+    }
+
+    @Override
+    public boolean isJPhotoTaggerData() {
+        return true;
+    }
 }

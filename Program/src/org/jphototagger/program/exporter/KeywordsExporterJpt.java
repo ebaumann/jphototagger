@@ -20,12 +20,14 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.jphototagger.domain.keywords.Keyword;
+import org.jphototagger.domain.repository.Exporter;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.io.CharEncoding;
 import org.jphototagger.program.io.FilenameSuffixes;
 import org.jphototagger.program.model.TreeModelKeywords;
+import org.openide.util.lookup.ServiceProvider;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
@@ -36,50 +38,43 @@ import org.w3c.dom.Element;
  *
  * @author Elmar Baumann
  */
+@ServiceProvider(service = Exporter.class)
 public final class KeywordsExporterJpt implements Exporter {
-    public static final KeywordsExporterJpt INSTANCE = new KeywordsExporterJpt();
 
+    public static final String DEFAULT_FILENAME = "JptKeywords.xml";
     /**
      * DTD of the exported file
      */
     public static final String DTD = "keywords.dtd";
-
+    public static final int POSITION = 10;
     /**
      * Name of the root tag in the exported file. The root tag isn't a keyword,
      * but all it's children are keywords and the keyword's children are
      * keywords
      */
     public static final String TAGNAME_ROOT = "keywords";
-
     /**
      * Name of a keyword tag in the exported file
      */
     public static final String TAGNAME_KEYWORD = "keyword";
-
     /**
      * Name of the attribute containing the keyword type - real or helper -
      * within the keyword tag
      */
     public static final String ATTRIBUTE_TYPE = "type";
-
     /**
      * String values of the two possible values of {@link #ATTRIBUTE_TYPE},
      * <code>true</code> for a real keyword and <code>false</code> for a helper
      * keyword
      */
     public static final Map<Boolean, String> VALUE_OF_ATTRIBUTE_TYPE = new HashMap<Boolean, String>();
-
     /**
      * Name of the attribute containing the keyword name within the keyword tag
      */
     public static final String ATTRIBUTE_NAME = "name";
-
-    /**
-     * Icon returned by {@link #getIcon()}
-     */
-    private static final Icon ICON = AppLookAndFeel.getIcon("icon_app_small.png");
-    private static final String DISPLAY_NAME = Bundle.getString(KeywordsExporterJpt.class, "KeywordExporterJpt.DisplayName");
-    private static final FileFilter FILE_FILTER = new FileNameExtensionFilter(DISPLAY_NAME, "xml");
+    public static final Icon ICON = AppLookAndFeel.getIcon("icon_app_small.png");
+    public static final String DISPLAY_NAME = Bundle.getString(KeywordsExporterJpt.class, "KeywordExporterJpt.DisplayName");
+    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(DISPLAY_NAME, "xml");
 
     static {
         VALUE_OF_ATTRIBUTE_TYPE.put(true, "real");
@@ -178,13 +173,21 @@ public final class KeywordsExporterJpt implements Exporter {
 
     @Override
     public String getDefaultFilename() {
-        return "JptKeywords.xml";
+        return DEFAULT_FILENAME;
+    }
+
+    @Override
+    public boolean isJPhotoTaggerData() {
+        return true;
+    }
+
+    @Override
+    public int getPosition() {
+        return POSITION;
     }
 
     @Override
     public String toString() {
         return getDisplayName();
     }
-
-    private KeywordsExporterJpt() {}
 }
