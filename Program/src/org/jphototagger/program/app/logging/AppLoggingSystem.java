@@ -40,6 +40,7 @@ public final class AppLoggingSystem {
     private static final int LOGFILE_ROTATE_COUNT = 5;
     private static final int MAX_LOGFILE_SIZE_IN_BYTES = (int) LogfileDialog.DEFAULT_MAX_BYTES;
     private static final String LOGFILE_PATH_DIR;
+    static final Level IMPORTANT_LEVEL = Level.WARNING;
     // INSTANCE exists only for applying user settings!
     private static final AppLoggingSystem INSTANCE = new AppLoggingSystem();
     private static final List<Handler> HANDLERS = new ArrayList<Handler>();
@@ -117,7 +118,7 @@ public final class AppLoggingSystem {
 
     private static void setLevelsToHandlers() throws SecurityException {
         systemOutHandler.setLevel(getLogLevel());
-        fileHandlerImportant.setLevel(Level.WARNING);
+        fileHandlerImportant.setLevel(IMPORTANT_LEVEL);
         fileHandlerAllMsgs.setLevel(Level.ALL);
     }
 

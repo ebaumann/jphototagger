@@ -22,6 +22,7 @@ import java.util.logging.SimpleFormatter;
 import java.util.logging.XMLFormatter;
 
 import javax.swing.JCheckBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -39,15 +40,18 @@ import org.jphototagger.lib.util.logging.LogfileRecordComparatorDescendingByTime
 
 /**
  * Non modal dialog to display a logfile written by a
- * <code>java.util.logging.Logger</code>. The XML format has to validate against <code>logger.dtd</code>.
+ * <code>java.util.logging.Logger</code>.
+ * The XML format has to validate against <code>logger.dtd</code>.
  *
  * @author Elmar Baumann
  */
 public final class LogfileDialog extends Dialog implements ListSelectionListener, ActionListener {
+
     private static final long serialVersionUID  = 1L;
     public static final long  DEFAULT_MAX_BYTES = 10 * 1024 * 1024;
     private long maxBytes = DEFAULT_MAX_BYTES;
     private final Map<JCheckBox, Level> levelOfCheckBox = new HashMap<JCheckBox, Level>();
+    private final Map<JCheckBox, JLabel> iconLabelOfCheckBox = new HashMap<JCheckBox, JLabel>();
     private final Map<Class<?>, Integer> paneIndexOfFormatterClass = new HashMap<Class<?>, Integer>();
     private final List<Level> visibleLevels = new ArrayList<Level>();
     private String filterString;
@@ -111,6 +115,13 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
         levelOfCheckBox.put(checkBoxInfo, Level.INFO);
         levelOfCheckBox.put(checkBoxSevere, Level.SEVERE);
         levelOfCheckBox.put(checkBoxWarning, Level.WARNING);
+        iconLabelOfCheckBox.put(checkBoxConfig, labelIconConfig);
+        iconLabelOfCheckBox.put(checkBoxFine, labelIconFine);
+        iconLabelOfCheckBox.put(checkBoxFiner, labelIconFiner);
+        iconLabelOfCheckBox.put(checkBoxFinest, labelIconFinest);
+        iconLabelOfCheckBox.put(checkBoxInfo, labelIconInfo);
+        iconLabelOfCheckBox.put(checkBoxSevere, labelIconSevere);
+        iconLabelOfCheckBox.put(checkBoxWarning, labelIconWarning);
     }
 
     private void listenToCheckboxes() {
@@ -198,6 +209,20 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
      */
     public void setMaxBytes(long maxBytes) {
         this.maxBytes = maxBytes;
+    }
+
+    public void setFilterableMinIntValue(int intValue) {
+        for (JCheckBox levelCheckBox : levelOfCheckBox.keySet()) {
+            Level level = levelOfCheckBox.get(levelCheckBox);
+            int levelIntValue = level.intValue();
+
+            if (levelIntValue < intValue) {
+                JLabel iconLabel = iconLabelOfCheckBox.get(levelCheckBox);
+
+                panelFilterCheckBoxes.remove(iconLabel);
+                panelFilterCheckBoxes.remove(levelCheckBox);
+            }
+        }
     }
 
     private void readLogfileRecords() {
@@ -371,6 +396,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
             if (xmlFormatter) {
                 readXml();
                 panelSearchXml.requestFocusInWindow();
+                remove(panelSearchSimple);
             } else if (simpleFormatter) {
                 readSimple();
                 panelSearchSimple.focusTextInput();
@@ -432,6 +458,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
     @SuppressWarnings("unchecked")
 
     private void initComponents() {//GEN-BEGIN:initComponents
+        java.awt.GridBagConstraints gridBagConstraints;
 
         labelLogfileName = new javax.swing.JLabel();
         tabbedPane = new javax.swing.JTabbedPane();
@@ -482,127 +509,142 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
         tabbedPane.setName("tabbedPane"); // NOI18N
 
         panelXml.setName("panelXml"); // NOI18N
+        panelXml.setLayout(new java.awt.GridBagLayout());
 
         panelFilter.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("LogfileDialog.panelFilter.border.title"))); // NOI18N
         panelFilter.setName("panelFilter"); // NOI18N
+        panelFilter.setLayout(new java.awt.GridBagLayout());
 
         panelFilterCheckBoxes.setName("panelFilterCheckBoxes"); // NOI18N
+        panelFilterCheckBoxes.setLayout(new java.awt.GridBagLayout());
 
         labelIconSevere.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/lib/resource/icons/icon_logfiledialog_severe.png"))); // NOI18N
         labelIconSevere.setName("labelIconSevere"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        panelFilterCheckBoxes.add(labelIconSevere, gridBagConstraints);
 
         checkBoxSevere.setSelected(true);
         checkBoxSevere.setText(Level.SEVERE.getLocalizedName());
         checkBoxSevere.setName("checkBoxSevere"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        panelFilterCheckBoxes.add(checkBoxSevere, gridBagConstraints);
 
         labelIconWarning.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/lib/resource/icons/icon_logfiledialog_warning.png"))); // NOI18N
         labelIconWarning.setName("labelIconWarning"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 0);
+        panelFilterCheckBoxes.add(labelIconWarning, gridBagConstraints);
 
         checkBoxWarning.setSelected(true);
         checkBoxWarning.setText(Level.WARNING.getLocalizedName());
         checkBoxWarning.setName("checkBoxWarning"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        panelFilterCheckBoxes.add(checkBoxWarning, gridBagConstraints);
 
         labelIconInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/lib/resource/icons/icon_logfiledialog_info.png"))); // NOI18N
         labelIconInfo.setName("labelIconInfo"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 0);
+        panelFilterCheckBoxes.add(labelIconInfo, gridBagConstraints);
 
         checkBoxInfo.setSelected(true);
         checkBoxInfo.setText(Level.INFO.getLocalizedName());
         checkBoxInfo.setName("checkBoxInfo"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        panelFilterCheckBoxes.add(checkBoxInfo, gridBagConstraints);
 
         labelIconConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/lib/resource/icons/icon_logfiledialog_config.png"))); // NOI18N
         labelIconConfig.setName("labelIconConfig"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 0);
+        panelFilterCheckBoxes.add(labelIconConfig, gridBagConstraints);
 
         checkBoxConfig.setSelected(true);
         checkBoxConfig.setText(Level.CONFIG.getLocalizedName());
         checkBoxConfig.setName("checkBoxConfig"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        panelFilterCheckBoxes.add(checkBoxConfig, gridBagConstraints);
 
         labelIconFine.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/lib/resource/icons/icon_logfiledialog_fine.png"))); // NOI18N
         labelIconFine.setName("labelIconFine"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
+        panelFilterCheckBoxes.add(labelIconFine, gridBagConstraints);
 
         checkBoxFine.setSelected(true);
         checkBoxFine.setText(Level.FINE.getLocalizedName());
         checkBoxFine.setName("checkBoxFine"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
+        panelFilterCheckBoxes.add(checkBoxFine, gridBagConstraints);
 
         labelIconFiner.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/lib/resource/icons/icon_logfiledialog_finer.png"))); // NOI18N
         labelIconFiner.setName("labelIconFiner"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(3, 3, 0, 0);
+        panelFilterCheckBoxes.add(labelIconFiner, gridBagConstraints);
 
         checkBoxFiner.setSelected(true);
         checkBoxFiner.setText(Level.FINER.getLocalizedName());
         checkBoxFiner.setName("checkBoxFiner"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
+        panelFilterCheckBoxes.add(checkBoxFiner, gridBagConstraints);
 
         labelIconFinest.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/lib/resource/icons/icon_logfiledialog_finest.png"))); // NOI18N
         labelIconFinest.setName("labelIconFinest"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(3, 3, 0, 0);
+        panelFilterCheckBoxes.add(labelIconFinest, gridBagConstraints);
 
         checkBoxFinest.setSelected(true);
         checkBoxFinest.setText(Level.FINEST.getLocalizedName());
         checkBoxFinest.setName("checkBoxFinest"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
+        panelFilterCheckBoxes.add(checkBoxFinest, gridBagConstraints);
 
-        javax.swing.GroupLayout panelFilterCheckBoxesLayout = new javax.swing.GroupLayout(panelFilterCheckBoxes);
-        panelFilterCheckBoxes.setLayout(panelFilterCheckBoxesLayout);
-        panelFilterCheckBoxesLayout.setHorizontalGroup(
-            panelFilterCheckBoxesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelFilterCheckBoxesLayout.createSequentialGroup()
-                .addGroup(panelFilterCheckBoxesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelIconSevere)
-                    .addComponent(labelIconFine))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelFilterCheckBoxesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(checkBoxSevere)
-                    .addComponent(checkBoxFine))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelFilterCheckBoxesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelIconWarning)
-                    .addComponent(labelIconFiner))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelFilterCheckBoxesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(checkBoxWarning)
-                    .addComponent(checkBoxFiner))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelFilterCheckBoxesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelIconInfo)
-                    .addComponent(labelIconFinest))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelFilterCheckBoxesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(checkBoxInfo)
-                    .addComponent(checkBoxFinest))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelIconConfig)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(checkBoxConfig))
-        );
-
-        panelFilterCheckBoxesLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {labelIconConfig, labelIconFine, labelIconFiner, labelIconFinest, labelIconInfo, labelIconSevere, labelIconWarning});
-
-        panelFilterCheckBoxesLayout.setVerticalGroup(
-            panelFilterCheckBoxesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelFilterCheckBoxesLayout.createSequentialGroup()
-                .addGroup(panelFilterCheckBoxesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(checkBoxConfig)
-                    .addComponent(labelIconConfig)
-                    .addComponent(checkBoxInfo)
-                    .addComponent(labelIconInfo)
-                    .addComponent(checkBoxWarning)
-                    .addComponent(labelIconWarning)
-                    .addComponent(checkBoxSevere)
-                    .addComponent(labelIconSevere))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelFilterCheckBoxesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(checkBoxFinest)
-                    .addComponent(labelIconFinest)
-                    .addComponent(checkBoxFiner)
-                    .addComponent(labelIconFiner)
-                    .addComponent(checkBoxFine)))
-            .addGroup(panelFilterCheckBoxesLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(labelIconFine))
-        );
-
-        panelFilterCheckBoxesLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelIconConfig, labelIconFine, labelIconFiner, labelIconFinest, labelIconInfo, labelIconSevere, labelIconWarning});
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        panelFilter.add(panelFilterCheckBoxes, gridBagConstraints);
 
         panelSearchXml.setName("panelSearchXml"); // NOI18N
+        panelSearchXml.setLayout(new java.awt.GridBagLayout());
 
         labelSearch.setText(bundle.getString("LogfileDialog.labelSearch.text")); // NOI18N
         labelSearch.setName("labelSearch"); // NOI18N
+        panelSearchXml.add(labelSearch, new java.awt.GridBagConstraints());
 
         textFieldSearch.setName("textFieldSearch"); // NOI18N
         textFieldSearch.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -610,44 +652,30 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
                 textFieldSearchKeyReleased(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 0);
+        panelSearchXml.add(textFieldSearch, gridBagConstraints);
 
-        javax.swing.GroupLayout panelSearchXmlLayout = new javax.swing.GroupLayout(panelSearchXml);
-        panelSearchXml.setLayout(panelSearchXmlLayout);
-        panelSearchXmlLayout.setHorizontalGroup(
-            panelSearchXmlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelSearchXmlLayout.createSequentialGroup()
-                .addComponent(labelSearch)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textFieldSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE))
-        );
-        panelSearchXmlLayout.setVerticalGroup(
-            panelSearchXmlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelSearchXmlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                .addComponent(labelSearch)
-                .addComponent(textFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        panelFilter.add(panelSearchXml, gridBagConstraints);
 
-        javax.swing.GroupLayout panelFilterLayout = new javax.swing.GroupLayout(panelFilter);
-        panelFilter.setLayout(panelFilterLayout);
-        panelFilterLayout.setHorizontalGroup(
-            panelFilterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelFilterLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelFilterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(panelSearchXml, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelFilterCheckBoxes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 658, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        panelFilterLayout.setVerticalGroup(
-            panelFilterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelFilterLayout.createSequentialGroup()
-                .addComponent(panelFilterCheckBoxes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelSearchXml, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
+        panelXml.add(panelFilter, gridBagConstraints);
 
         scrollPaneTableLogfileRecords.setName("scrollPaneTableLogfileRecords"); // NOI18N
+        scrollPaneTableLogfileRecords.setPreferredSize(new java.awt.Dimension(50, 50));
 
         tableLogfileRecords.setAutoCreateRowSorter(true);
         tableLogfileRecords.setModel(new TableModelLogfiles("", Arrays.asList(Level.ALL)));
@@ -656,38 +684,35 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
         tableLogfileRecords.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scrollPaneTableLogfileRecords.setViewportView(tableLogfileRecords);
 
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 0.6;
+        gridBagConstraints.insets = new java.awt.Insets(3, 5, 0, 5);
+        panelXml.add(scrollPaneTableLogfileRecords, gridBagConstraints);
+
         scrollPaneTextPaneDetails.setName("scrollPaneTextPaneDetails"); // NOI18N
+        scrollPaneTextPaneDetails.setPreferredSize(new java.awt.Dimension(50, 50));
 
         textPaneDetails.setEditable(false);
         textPaneDetails.setName("textPaneDetails"); // NOI18N
         scrollPaneTextPaneDetails.setViewportView(textPaneDetails);
 
-        javax.swing.GroupLayout panelXmlLayout = new javax.swing.GroupLayout(panelXml);
-        panelXml.setLayout(panelXmlLayout);
-        panelXmlLayout.setHorizontalGroup(
-            panelXmlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelXmlLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelXmlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPaneTableLogfileRecords, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 692, Short.MAX_VALUE)
-                    .addComponent(panelFilter, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(scrollPaneTextPaneDetails, javax.swing.GroupLayout.DEFAULT_SIZE, 692, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        panelXmlLayout.setVerticalGroup(
-            panelXmlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelXmlLayout.createSequentialGroup()
-                .addComponent(panelFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneTableLogfileRecords, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneTextPaneDetails, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 0.4;
+        gridBagConstraints.insets = new java.awt.Insets(3, 5, 5, 5);
+        panelXml.add(scrollPaneTextPaneDetails, gridBagConstraints);
 
         tabbedPane.addTab(bundle.getString("LogfileDialog.panelXml.TabConstraints.tabTitle"), panelXml); // NOI18N
 
         panelSimple.setName("panelSimple"); // NOI18N
+        panelSimple.setLayout(new java.awt.GridBagLayout());
 
         scrollPanePanelSimple.setName("scrollPanePanelSimple"); // NOI18N
 
@@ -696,22 +721,16 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
         textAreaSimple.setName("textAreaSimple"); // NOI18N
         scrollPanePanelSimple.setViewportView(textAreaSimple);
 
-        javax.swing.GroupLayout panelSimpleLayout = new javax.swing.GroupLayout(panelSimple);
-        panelSimple.setLayout(panelSimpleLayout);
-        panelSimpleLayout.setHorizontalGroup(
-            panelSimpleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelSimpleLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(scrollPanePanelSimple, javax.swing.GroupLayout.DEFAULT_SIZE, 692, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        panelSimpleLayout.setVerticalGroup(
-            panelSimpleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelSimpleLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(scrollPanePanelSimple, javax.swing.GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        panelSimple.add(scrollPanePanelSimple, gridBagConstraints);
 
         tabbedPane.addTab(bundle.getString("LogfileDialog.panelSimple.TabConstraints.tabTitle"), panelSimple); // NOI18N
 
@@ -744,7 +763,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(tabbedPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 721, Short.MAX_VALUE)
+                    .addComponent(tabbedPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 721, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(panelSearchSimple, javax.swing.GroupLayout.DEFAULT_SIZE, 649, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -760,7 +779,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
                 .addContainerGap()
                 .addComponent(labelLogfileName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE)
+                .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 520, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(buttonExit)

@@ -104,9 +104,10 @@ public final class ErrorLogHandler extends Handler implements ActionListener, Mo
     }
 
     private void showLogfileDialog(String logfilename, Class<?> formatterClass) {
-        LogfileDialog dlg = new LogfileDialog(GUI.getAppFrame(), logfilename, formatterClass);
+        LogfileDialog dialog = new LogfileDialog(GUI.getAppFrame(), logfilename, formatterClass);
 
-        dlg.setVisible(true);
+        dialog.setFilterableMinIntValue(AppLoggingSystem.IMPORTANT_LEVEL.intValue());
+        dialog.setVisible(true);
     }
 
     @Override
