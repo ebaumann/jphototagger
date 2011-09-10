@@ -15,24 +15,25 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.domain.repository.ImageFileRepository;
+import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
+import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
+import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
+import org.jphototagger.domain.timeline.Timeline;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
-import org.jphototagger.domain.timeline.Timeline;
-import org.jphototagger.program.event.RefreshEvent;
-import org.jphototagger.program.event.listener.RefreshListener;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.program.view.WaitDisplay;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.openide.util.Lookup;
 
 /**
  *
  * @author Elmar Baumann
  */
-public final class ControllerTimelineItemSelected implements TreeSelectionListener, RefreshListener {
+public final class ControllerTimelineItemSelected implements TreeSelectionListener {
 
     private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
 
@@ -41,14 +42,18 @@ public final class ControllerTimelineItemSelected implements TreeSelectionListen
     }
 
     private void listen() {
+        AnnotationProcessor.process(this);
         GUI.getTimelineTree().addTreeSelectionListener(this);
-        GUI.getThumbnailsPanel().addRefreshListener(this, TypeOfDisplayedImages.TIMELINE);
     }
 
-    @Override
-    public void refresh(RefreshEvent evt) {
+    @EventSubscriber(eventClass = ThumbnailsPanelRefreshEvent.class)
+    public void refresh(ThumbnailsPanelRefreshEvent evt) {
         if (GUI.getTimelineTree().getSelectionCount() == 1) {
-            setFilesOfTreePathToThumbnailsPanel(GUI.getTimelineTree().getSelectionPath(), evt.getSettings());
+            TypeOfDisplayedImages typeOfDisplayedImages = evt.getTypeOfDisplayedImages();
+
+            if (TypeOfDisplayedImages.TIMELINE.equals(typeOfDisplayedImages)) {
+                setFilesOfTreePathToThumbnailsPanel(GUI.getTimelineTree().getSelectionPath(), evt.getThumbnailsPanelSettings());
+            }
         }
     }
 
@@ -59,7 +64,7 @@ public final class ControllerTimelineItemSelected implements TreeSelectionListen
         }
     }
 
-    private void setFilesOfTreePathToThumbnailsPanel(final TreePath path, final ThumbnailsPanel.Settings settings) {
+    private void setFilesOfTreePathToThumbnailsPanel(final TreePath path, final ThumbnailsPanelSettings settings) {
         if (path != null) {
             Thread thread = new Thread(new Runnable() {
 

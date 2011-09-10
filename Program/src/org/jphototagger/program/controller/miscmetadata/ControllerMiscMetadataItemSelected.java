@@ -8,15 +8,17 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.domain.database.Column;
 import org.jphototagger.domain.repository.ImageFileRepository;
+import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
+import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
+import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
-import org.jphototagger.program.event.RefreshEvent;
-import org.jphototagger.program.event.listener.RefreshListener;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.program.view.WaitDisplay;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.openide.util.Lookup;
@@ -25,14 +27,15 @@ import org.openide.util.Lookup;
  *
  * @author Elmar Baumann
  */
-public final class ControllerMiscMetadataItemSelected implements TreeSelectionListener, RefreshListener {
+public final class ControllerMiscMetadataItemSelected implements TreeSelectionListener {
+
     public ControllerMiscMetadataItemSelected() {
         listen();
     }
 
     private void listen() {
+        AnnotationProcessor.process(this);
         GUI.getMiscMetadataTree().addTreeSelectionListener(this);
-        GUI.getThumbnailsPanel().addRefreshListener(this, TypeOfDisplayedImages.MISC_METADATA);
     }
 
     @Override
@@ -42,19 +45,24 @@ public final class ControllerMiscMetadataItemSelected implements TreeSelectionLi
         }
     }
 
-    @Override
-    public void refresh(RefreshEvent evt) {
+    @EventSubscriber(eventClass = ThumbnailsPanelRefreshEvent.class)
+    public void refresh(ThumbnailsPanelRefreshEvent evt) {
         if (GUI.getMiscMetadataTree().getSelectionCount() == 1) {
-            EventQueueUtil.invokeInDispatchThread(new ShowThumbnails(GUI.getMiscMetadataTree().getSelectionPath(), evt.getSettings()));
+            TypeOfDisplayedImages typeOfDisplayedImages = evt.getTypeOfDisplayedImages();
+
+            if (TypeOfDisplayedImages.MISC_METADATA.equals(typeOfDisplayedImages)) {
+                EventQueueUtil.invokeInDispatchThread(new ShowThumbnails(GUI.getMiscMetadataTree().getSelectionPath(), evt.getThumbnailsPanelSettings()));
+            }
         }
     }
 
     private class ShowThumbnails implements Runnable {
+
         private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
-        private final ThumbnailsPanel.Settings tnPanelSettings;
+        private final ThumbnailsPanelSettings tnPanelSettings;
         private final TreePath treePath;
 
-        ShowThumbnails(TreePath treePath, ThumbnailsPanel.Settings settings) {
+        ShowThumbnails(TreePath treePath, ThumbnailsPanelSettings settings) {
             if (treePath == null) {
                 throw new NullPointerException("treePath == null");
             }

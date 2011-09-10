@@ -22,6 +22,8 @@ import org.jphototagger.domain.repository.ImageFileRepository;
 import org.jphototagger.domain.repository.event.xmp.XmpDeletedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
+import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
+import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.Autocomplete;
@@ -32,12 +34,9 @@ import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
 import org.jphototagger.program.database.DatabaseFind;
 import org.jphototagger.program.database.metadata.selections.AutoCompleteDataOfColumn;
 import org.jphototagger.program.database.metadata.selections.FastSearchColumns;
-import org.jphototagger.program.event.RefreshEvent;
-import org.jphototagger.program.event.listener.RefreshListener;
 import org.jphototagger.program.helper.AutocompleteHelper;
 import org.jphototagger.program.model.ComboBoxModelFastSearch;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.program.view.WaitDisplay;
 import org.openide.util.Lookup;
 
@@ -46,7 +45,7 @@ import org.openide.util.Lookup;
  *
  * @author Elmar Baumann
  */
-public final class ControllerFastSearch implements ActionListener, RefreshListener {
+public final class ControllerFastSearch implements ActionListener {
 
     private static final String DELIMITER_SEARCH_WORDS = ";";
     private final Autocomplete autocomplete;
@@ -101,7 +100,6 @@ public final class ControllerFastSearch implements ActionListener, RefreshListen
         });
         getSearchButton().addActionListener(this);
         getSearchComboBox().addActionListener(this);
-        GUI.getThumbnailsPanel().addRefreshListener(this, TypeOfDisplayedImages.FAST_SEARCH);
     }
 
     public void setAutocomplete(boolean ac) {
@@ -238,10 +236,14 @@ public final class ControllerFastSearch implements ActionListener, RefreshListen
         return (Column) getSearchComboBox().getSelectedItem();
     }
 
-    @Override
-    public void refresh(RefreshEvent evt) {
+    @EventSubscriber(eventClass = ThumbnailsPanelRefreshEvent.class)
+    public void refresh(ThumbnailsPanelRefreshEvent evt) {
         if (GUI.getSearchTextArea().isEnabled()) {
-            search(GUI.getSearchTextArea().getText());
+            TypeOfDisplayedImages typeOfDisplayedImages = evt.getTypeOfDisplayedImages();
+
+            if (TypeOfDisplayedImages.FAST_SEARCH.equals(typeOfDisplayedImages)) {
+                search(GUI.getSearchTextArea().getText());
+            }
         }
     }
 

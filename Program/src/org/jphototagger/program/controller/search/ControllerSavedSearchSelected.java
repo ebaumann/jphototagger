@@ -6,16 +6,17 @@ import java.util.List;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.domain.database.search.ParamStatement;
+import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
+import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.data.SavedSearch;
 import org.jphototagger.program.database.DatabaseFind;
-import org.jphototagger.program.event.RefreshEvent;
-import org.jphototagger.program.event.listener.RefreshListener;
 import org.jphototagger.program.helper.SavedSearchesHelper;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.program.view.WaitDisplay;
 
 /**
@@ -23,14 +24,15 @@ import org.jphototagger.program.view.WaitDisplay;
  *
  * @author Elmar Baumann
  */
-public final class ControllerSavedSearchSelected implements ListSelectionListener, RefreshListener {
+public final class ControllerSavedSearchSelected implements ListSelectionListener {
+
     public ControllerSavedSearchSelected() {
         listen();
     }
 
     private void listen() {
+        AnnotationProcessor.process(this);
         GUI.getSavedSearchesList().addListSelectionListener(this);
-        GUI.getThumbnailsPanel().addRefreshListener(this, TypeOfDisplayedImages.SAVED_SEARCH);
     }
 
     @Override
@@ -40,9 +42,13 @@ public final class ControllerSavedSearchSelected implements ListSelectionListene
         }
     }
 
-    @Override
-    public void refresh(RefreshEvent evt) {
-        search();
+    @EventSubscriber(eventClass = ThumbnailsPanelRefreshEvent.class)
+    public void refresh(ThumbnailsPanelRefreshEvent evt) {
+        TypeOfDisplayedImages typeOfDisplayedImages = evt.getTypeOfDisplayedImages();
+
+        if (TypeOfDisplayedImages.SAVED_SEARCH.equals(typeOfDisplayedImages)) {
+            search();
+        }
     }
 
     private void search() {
@@ -52,6 +58,7 @@ public final class ControllerSavedSearchSelected implements ListSelectionListene
     }
 
     private class ShowThumbnails implements Runnable {
+
         @Override
         public void run() {
             Object selectedValue = GUI.getSavedSearchesList().getSelectedValue();
@@ -95,6 +102,7 @@ public final class ControllerSavedSearchSelected implements ListSelectionListene
 
         private void setMetadataEditable() {
             EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
                 @Override
                 public void run() {
                     if (!GUI.getThumbnailsPanel().isAFileSelected()) {

@@ -24,7 +24,8 @@ import org.jphototagger.program.view.dialogs.FavoritePropertiesDialog;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
-import org.jphototagger.program.view.panels.ThumbnailsPanel.Settings;
+import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
+import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
 
 /**
  *
@@ -189,7 +190,7 @@ public final class FavoritesHelper {
      * @param files
      * @param settings can be null
      */
-    public static void setFilesToThumbnailPanel(List<File> files, ThumbnailsPanel.Settings settings) {
+    public static void setFilesToThumbnailPanel(List<File> files, ThumbnailsPanelSettings settings) {
         if (files == null) {
             throw new NullPointerException("files == null");
         }
@@ -202,9 +203,9 @@ public final class FavoritesHelper {
         private final ThumbnailsPanel tnPanel = appPanel.getPanelThumbnails();
         private final EditMetadataPanels editPanels = appPanel.getEditMetadataPanels();
         private final List<File> files;
-        private final ThumbnailsPanel.Settings tnPanelSettings;
+        private final ThumbnailsPanelSettings tnPanelSettings;
 
-        SetFiles(List<File> files, Settings settings) {
+        SetFiles(List<File> files, ThumbnailsPanelSettings settings) {
             if (files == null) {
                 throw new NullPointerException("files == null");
             }

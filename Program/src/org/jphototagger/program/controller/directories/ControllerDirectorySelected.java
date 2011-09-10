@@ -7,16 +7,17 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.TreePath;
 
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
+import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
+import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
-import org.jphototagger.program.event.RefreshEvent;
-import org.jphototagger.program.event.listener.RefreshListener;
 import org.jphototagger.program.io.ImageFileFilterer;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.program.view.WaitDisplay;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuDirectories;
 
 /**
@@ -26,42 +27,49 @@ import org.jphototagger.program.view.popupmenus.PopupMenuDirectories;
  *
  * @author Elmar Baumann
  */
-public final class ControllerDirectorySelected implements TreeSelectionListener, RefreshListener {
+public final class ControllerDirectorySelected implements TreeSelectionListener {
+
     public ControllerDirectorySelected() {
         listen();
     }
 
     private void listen() {
         GUI.getDirectoriesTree().addTreeSelectionListener(this);
-        GUI.getThumbnailsPanel().addRefreshListener(this, TypeOfDisplayedImages.DIRECTORY);
+        AnnotationProcessor.process(this);
     }
 
     @Override
     public void valueChanged(TreeSelectionEvent evt) {
-        if (evt.isAddedPath() &&!PopupMenuDirectories.INSTANCE.isTreeSelected()) {
+        if (evt.isAddedPath() && !PopupMenuDirectories.INSTANCE.isTreeSelected()) {
             setFilesToThumbnailsPanel(null);
         }
     }
 
-    @Override
-    public void refresh(RefreshEvent evt) {
-        setFilesToThumbnailsPanel(evt.getSettings());
+    @EventSubscriber(eventClass = ThumbnailsPanelRefreshEvent.class)
+    public void refresh(ThumbnailsPanelRefreshEvent evt) {
+        TypeOfDisplayedImages typeOfDisplayedImages = evt.getTypeOfDisplayedImages();
+
+        if (TypeOfDisplayedImages.DIRECTORY.equals(typeOfDisplayedImages)) {
+            setFilesToThumbnailsPanel(evt.getThumbnailsPanelSettings());
+        }
     }
 
-    private void setFilesToThumbnailsPanel(ThumbnailsPanel.Settings settings) {
+    private void setFilesToThumbnailsPanel(ThumbnailsPanelSettings settings) {
         EventQueueUtil.invokeInDispatchThread(new ShowThumbnails(settings));
     }
 
     private class ShowThumbnails implements Runnable {
-        private final ThumbnailsPanel.Settings panelSettings;
 
-        ShowThumbnails(ThumbnailsPanel.Settings settings) {
+        private final ThumbnailsPanelSettings panelSettings;
+
+        ShowThumbnails(ThumbnailsPanelSettings settings) {
             panelSettings = settings;
         }
 
         @Override
         public void run() {
             EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
                 @Override
                 public void run() {
                     showThumbnails();

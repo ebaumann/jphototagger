@@ -13,6 +13,7 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.program.view.WaitDisplay;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
 import org.openide.util.Lookup;
 
 /**
@@ -24,7 +25,7 @@ import org.openide.util.Lookup;
 public final class ShowThumbnailsContainingAllKeywords implements Runnable {
 
     private final List<String> keywords;
-    private final ThumbnailsPanel.Settings tnPanelSettings;
+    private final ThumbnailsPanelSettings tnPanelSettings;
     private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
 
     /**
@@ -33,7 +34,7 @@ public final class ShowThumbnailsContainingAllKeywords implements Runnable {
      * @param keywords all keywords a image must have to be displayed
      * @param settings
      */
-    public ShowThumbnailsContainingAllKeywords(List<String> keywords, ThumbnailsPanel.Settings settings) {
+    public ShowThumbnailsContainingAllKeywords(List<String> keywords, ThumbnailsPanelSettings settings) {
         if (keywords == null) {
             throw new NullPointerException("keywords == null");
         }
