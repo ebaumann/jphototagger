@@ -19,7 +19,7 @@ import org.openide.util.Lookup;
 
 /**
  * Creates a {@link InsertImageFilesIntoDatabase} instance for the image files
- * in the directroies defined in {@link DatabaseAutoscanDirectories#getAllDirectories()}
+ * in the directroies defined in {@link DatabaseAutoscanDirectories#getAllAutoscanDirectories()}
  * and their subdirectories if
  * {@link UserSettings#isAutoscanIncludeSubdirectories()} is true.
  *
@@ -38,7 +38,7 @@ public final class ScheduledTaskInsertImageFilesIntoDatabase {
     /**
      * Returns the inserter thread.
      *
-     * @return inserter thread or null if no image file is to insertDirectory into the
+     * @return inserter thread or null if no image file is to insertAutoscanDirectory into the
      *         database
      */
     static InsertImageFilesIntoDatabase getThread() {
@@ -67,7 +67,7 @@ public final class ScheduledTaskInsertImageFilesIntoDatabase {
 
     private static List<File> getDirectories() {
         AutoscanDirectoriesRepository repo = Lookup.getDefault().lookup(AutoscanDirectoriesRepository.class);
-        List<File> directories = repo.getAllDirectories();
+        List<File> directories = repo.getAllAutoscanDirectories();
 
         addSubdirectories(directories);
         Collections.sort(directories);

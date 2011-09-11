@@ -10,11 +10,11 @@ import java.util.List;
  */
 public interface AutoscanDirectoriesRepository {
 
-    boolean deleteDirectory(File directory);
+    boolean deleteAutoscanDirectory(File directory);
 
-    boolean existsDirectory(File directory);
+    boolean existsAutoscanDirectory(File directory);
 
-    List<File> getAllDirectories();
+    List<File> getAllAutoscanDirectories();
 
-    boolean insertDirectory(File directory);
+    boolean insertAutoscanDirectory(File directory);
 }

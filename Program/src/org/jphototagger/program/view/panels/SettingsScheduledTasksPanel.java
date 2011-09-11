@@ -98,8 +98,8 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel implem
                 if (!modelAutoscanDirectories.contains(directory)) {
                     lastSelectedAutoscanDirectory = directory.getAbsolutePath();
 
-                    if (!repo.existsDirectory(directory)) {
-                        if (!repo.insertDirectory(directory)) {
+                    if (!repo.existsAutoscanDirectory(directory)) {
+                        if (!repo.insertAutoscanDirectory(directory)) {
                             errorMessageInsertAutoscanDirectory(directory);
                         }
                     }
@@ -130,8 +130,8 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel implem
         for (int i = 0; i < values.length; i++) {
             File   directory     = (File) values[i];
 
-            if (repo.existsDirectory(directory)) {
-                if (!repo.deleteDirectory(directory)) {
+            if (repo.existsAutoscanDirectory(directory)) {
+                if (!repo.deleteAutoscanDirectory(directory)) {
                     errorMessageDeleteAutoscanDirectory(directory);
                 }
             }
