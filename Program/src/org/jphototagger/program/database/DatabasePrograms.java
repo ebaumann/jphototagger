@@ -13,9 +13,11 @@ import java.util.logging.Logger;
 
 import org.bushe.swing.event.EventBus;
 import org.jphototagger.domain.programs.Program;
+import org.jphototagger.domain.repository.ActionsAfterRepoUpdatesRepository;
 import org.jphototagger.domain.repository.event.programs.ProgramDeletedEvent;
 import org.jphototagger.domain.repository.event.programs.ProgramInsertedEvent;
 import org.jphototagger.domain.repository.event.programs.ProgramUpdatedEvent;
+import org.openide.util.Lookup;
 
 /**
  * Contains external Programs to start within the application. The primary
@@ -27,6 +29,7 @@ import org.jphototagger.domain.repository.event.programs.ProgramUpdatedEvent;
 public final class DatabasePrograms extends Database {
 
     public static final DatabasePrograms INSTANCE = new DatabasePrograms();
+    private final ActionsAfterRepoUpdatesRepository repo = Lookup.getDefault().lookup(ActionsAfterRepoUpdatesRepository.class);
 
     /**
      *
@@ -253,7 +256,7 @@ public final class DatabasePrograms extends Database {
             con.commit();
 
             // Hack because of dirty design of this table (no cascade possible)
-            DatabaseActionsAfterDbInsertion.INSTANCE.deleteAction(program);
+            repo.deleteAction(program);
             notifyDeleted(program);
         } catch (Exception ex) {
             Logger.getLogger(DatabasePrograms.class.getName()).log(Level.SEVERE, null, ex);

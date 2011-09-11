@@ -37,7 +37,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
      * @param order   order of the action
      * @return        true if inserted
      */
-    public boolean insertAction(Program program, int order) {
+    boolean insertAction(Program program, int order) {
         if (program == null) {
             throw new NullPointerException("action == null");
         }
@@ -77,7 +77,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
      * @param  program action to deleteAction
      * @return         true if deleted
      */
-    public boolean deleteAction(Program program) {
+    boolean deleteAction(Program program) {
         if (program == null) {
             throw new NullPointerException("action == null");
         }
@@ -114,7 +114,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
      *
      * @return programs sorted ascending by their order
      */
-    public List<Program> getAllActions() {
+    List<Program> getAllActions() {
         List<Program> programs = new LinkedList<Program>();
         Connection con = null;
         Statement stmt = null;
@@ -157,7 +157,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
      * @param  action  action
      * @return true if the action existsAction
      */
-    public boolean existsAction(Program action) {
+    boolean existsAction(Program action) {
         if (action == null) {
             throw new NullPointerException("action == null");
         }
@@ -188,7 +188,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
         return exists;
     }
 
-    public int getActionCount() {
+    int getActionCount() {
         int count = 0;
         Connection con = null;
         Statement stmt = null;
@@ -225,7 +225,7 @@ public final class DatabaseActionsAfterDbInsertion extends Database {
      *                    actions is this index plus their list index
      * @return            true if reordered all actions
      */
-    public boolean setActionOrder(List<Program> actions, int startIndex) {
+    boolean setActionOrder(List<Program> actions, int startIndex) {
         if (actions == null) {
             throw new NullPointerException("actions == null");
         }
