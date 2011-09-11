@@ -16,11 +16,12 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.jphototagger.domain.repository.Exporter;
+import org.jphototagger.domain.repository.FileExcludePatternRepository;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.xml.bind.XmlObjectExporter;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.database.DatabaseFileExcludePatterns;
+import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
 /**
@@ -36,6 +37,7 @@ public final class FileExcludePatternsExporter implements Exporter {
     public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(FileExcludePatternsExporter.class, "FileExcludePatternsExporter.DisplayName.FileFilter"), "xml");
     public static final ImageIcon ICON = AppLookAndFeel.getIcon("icon_export.png");
     public static final int POSITION = 100;
+    private final FileExcludePatternRepository repo = Lookup.getDefault().lookup(FileExcludePatternRepository.class);
 
     @Override
     public void exportFile(File file) {
@@ -46,7 +48,7 @@ public final class FileExcludePatternsExporter implements Exporter {
         File xmlFile = FileUtil.ensureSuffix(file, ".xml");
 
         try {
-            List<String> patterns = DatabaseFileExcludePatterns.INSTANCE.getAll();
+            List<String> patterns = repo.getAllFileExcludePatterns();
 
             XmlObjectExporter.export(new CollectionWrapper(StringWrapper.getWrappedStrings(patterns)), xmlFile);
         } catch (Exception ex) {

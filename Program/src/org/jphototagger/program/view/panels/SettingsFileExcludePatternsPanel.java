@@ -8,25 +8,25 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import org.jphototagger.api.core.Storage;
-import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.api.event.ProgressEvent;
 import org.jphototagger.api.event.ProgressListener;
-import org.jphototagger.program.database.DatabaseFileExcludePatterns;
+import org.jphototagger.domain.repository.FileExcludePatternRepository;
+import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.program.model.ListModelFileExcludePatterns;
 import org.jphototagger.program.types.Persistence;
+import org.openide.util.Lookup;
 
 /**
  *
  * @author Elmar Baumann
  */
-public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
-        implements ProgressListener, Persistence, ListSelectionListener {
+public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel implements ProgressListener, Persistence, ListSelectionListener {
     private static final long serialVersionUID = -3083582823254767001L;
-    private final transient DatabaseFileExcludePatterns db = DatabaseFileExcludePatterns.INSTANCE;
     private final ListModelFileExcludePatterns model = new ListModelFileExcludePatterns();
     private boolean isUpdateDatabase = false;
     private boolean cancel = false;
+    private final FileExcludePatternRepository repo = Lookup.getDefault().lookup(FileExcludePatternRepository.class);
 
     public SettingsFileExcludePatternsPanel() {
         initComponents();
@@ -135,7 +135,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel
             isUpdateDatabase = true;
             cancel = false;
             setEnabled();
-            db.deleteMatchingFiles(patterns, this);
+            repo.deleteMatchingFiles(patterns, this);
         }
     }
 
