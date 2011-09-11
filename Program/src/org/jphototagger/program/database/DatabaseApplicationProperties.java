@@ -29,7 +29,7 @@ public final class DatabaseApplicationProperties extends Database {
      * @param  key key
      * @return     true if the key exists
      */
-    public boolean existsKey(String key) {
+    boolean existsKey(String key) {
         if (key == null) {
             throw new NullPointerException("key == null");
         }
@@ -70,7 +70,7 @@ public final class DatabaseApplicationProperties extends Database {
      *
      * @param key key to delete
      */
-    public void deleteKey(String key) {
+    void deleteKey(String key) {
         if (key == null) {
             throw new NullPointerException("key == null");
         }
@@ -104,7 +104,7 @@ public final class DatabaseApplicationProperties extends Database {
      *             the key does not exist. You can check for the existence of
      *             a key with {@link #existsKey(String)}.
      */
-    public boolean getBoolean(String key) {
+    boolean getBoolean(String key) {
         if (key == null) {
             throw new NullPointerException("key == null");
         }
@@ -122,7 +122,7 @@ public final class DatabaseApplicationProperties extends Database {
      * @param key   key
      * @param value value to set
      */
-    public void setBoolean(String key, boolean value) {
+    void setBoolean(String key, boolean value) {
         if (key == null) {
             throw new NullPointerException("key == null");
         }
@@ -146,7 +146,7 @@ public final class DatabaseApplicationProperties extends Database {
      * @param key    key
      * @param string string to set
      */
-    public void setString(String key, String string) {
+    void setString(String key, String string) {
         if (key == null) {
             throw new NullPointerException("key == null");
         }
@@ -181,7 +181,7 @@ public final class DatabaseApplicationProperties extends Database {
      * @return     string or null if there is no such key in the database,
      *             the inserted string was null or on database errors
      */
-    public String getString(String key) {
+    String getString(String key) {
         if (key == null) {
             throw new NullPointerException("key == null");
         }

@@ -9,10 +9,11 @@ import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.exif.ExifFocalLengthMetaDataValue;
 import org.jphototagger.domain.metadata.exif.ExifIsoSpeedRatingsMetaDataValue;
 import org.jphototagger.domain.metadata.exif.ExifRecordingEquipmentMetaDataValue;
+import org.jphototagger.domain.repository.ApplicationPropertiesRepository;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.SplashScreen;
 import org.jphototagger.program.database.Database;
-import org.jphototagger.program.database.DatabaseApplicationProperties;
+import org.openide.util.Lookup;
 
 /**
  * Removes invalid EXIF metadata (Bugfix).
@@ -23,6 +24,7 @@ final class UpdateTablesDeleteInvalidExif {
 
     private static final String KEY_REMOVED_INVALID_EXIF = "Removed_Invalid_EXIF_1";    // Never change this!
     private static final Set<MetaDataValue> META_DATA_VALUES_NOT_POSITIVE = new HashSet<MetaDataValue>();
+    private final ApplicationPropertiesRepository appPropertiesRepo = Lookup.getDefault().lookup(ApplicationPropertiesRepository.class);
 
     static {
         META_DATA_VALUES_NOT_POSITIVE.add(ExifFocalLengthMetaDataValue.INSTANCE);
@@ -32,9 +34,9 @@ final class UpdateTablesDeleteInvalidExif {
     void update(Connection con) throws SQLException {
         startMessage();
 
-        if (!DatabaseApplicationProperties.INSTANCE.getBoolean(KEY_REMOVED_INVALID_EXIF)) {
+        if (!appPropertiesRepo.getBoolean(KEY_REMOVED_INVALID_EXIF)) {
             setNull(con);
-            DatabaseApplicationProperties.INSTANCE.setBoolean(KEY_REMOVED_INVALID_EXIF, true);
+            appPropertiesRepo.setBoolean(KEY_REMOVED_INVALID_EXIF, true);
         }
 
         SplashScreen.INSTANCE.removeMessage();

@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
 import org.jphototagger.api.core.UserFilesProvider;
+import org.jphototagger.domain.repository.ApplicationPropertiesRepository;
 import org.jphototagger.image.util.ImageUtil;
 import org.jphototagger.lib.io.FileLock;
 import org.jphototagger.lib.io.FileUtil;
@@ -24,7 +25,6 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.SplashScreen;
 import org.jphototagger.program.cache.PersistentThumbnails;
 import org.jphototagger.program.database.Database;
-import org.jphototagger.program.database.DatabaseApplicationProperties;
 import org.jphototagger.program.database.DatabaseMaintainance;
 import org.openide.util.Lookup;
 
@@ -38,6 +38,7 @@ final class UpdateTablesThumbnails extends Database {
     private static final int FETCH_MAX_ROWS = 1000;
     private static final String KEY_UPATED_THUMBNAILS_NAMES_HASH_1 = "Updated_Thumbnails_Names_Hash_1";    // Never change this!
     private static final Logger LOGGER = Logger.getLogger(UpdateTablesThumbnails.class.getName());
+    private final ApplicationPropertiesRepository appPropertiesRepo = Lookup.getDefault().lookup(ApplicationPropertiesRepository.class);
     private int count;
 
     void update(Connection con) throws SQLException {
@@ -167,7 +168,7 @@ final class UpdateTablesThumbnails extends Database {
         ResultSet rs = null;
 
         try {
-            if (DatabaseApplicationProperties.INSTANCE.getBoolean(KEY_UPATED_THUMBNAILS_NAMES_HASH_1)) {
+            if (appPropertiesRepo.getBoolean(KEY_UPATED_THUMBNAILS_NAMES_HASH_1)) {
                 return;
             }
 
@@ -202,7 +203,7 @@ final class UpdateTablesThumbnails extends Database {
                 }
             }
 
-            DatabaseApplicationProperties.INSTANCE.setBoolean(KEY_UPATED_THUMBNAILS_NAMES_HASH_1, true);
+            appPropertiesRepo.setBoolean(KEY_UPATED_THUMBNAILS_NAMES_HASH_1, true);
         } catch (Exception ex) {
             Logger.getLogger(UpdateTablesThumbnails.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
