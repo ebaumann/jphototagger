@@ -10,8 +10,8 @@ import java.util.Set;
 
 import org.jphototagger.api.core.Storage;
 import org.jphototagger.domain.metadata.MetaDataValue;
+import org.jphototagger.domain.repository.MetaDataValuesRepository;
 import org.jphototagger.lib.util.CollectionUtil;
-import org.jphototagger.program.database.DatabaseContent;
 import org.openide.util.Lookup;
 
 /**
@@ -21,19 +21,19 @@ import org.openide.util.Lookup;
  */
 public final class AutoCompleteData {
 
-    private final DatabaseContent db = DatabaseContent.INSTANCE;
     private final LinkedList<String> words = new LinkedList<String>();
     private final Set<MetaDataValue> metaDataValues;
+    private final MetaDataValuesRepository repo = Lookup.getDefault().lookup(MetaDataValuesRepository.class);
 
     AutoCompleteData(Collection<? extends MetaDataValue> values) {
         this.metaDataValues = new LinkedHashSet<MetaDataValue>(getAutocompleteMetaDataValuesOf(values));
-        words.addAll(db.getDistinctValuesOf(this.metaDataValues));
+        words.addAll(repo.getDistinctMetaDataValues(this.metaDataValues));
         Collections.sort(words);
     }
 
     AutoCompleteData(MetaDataValue value) {
         this.metaDataValues = new LinkedHashSet<MetaDataValue>(getAutocompleteMetaDataValuesOf(Collections.singleton(value)));
-        words.addAll(db.getDistinctValuesOf(value));    // already sorted
+        words.addAll(repo.getDistinctMetaDataValues(value));    // already sorted
     }
 
     /**
@@ -101,7 +101,7 @@ public final class AutoCompleteData {
      */
     public List<String> get() {
 
-        // Due performance as reference
+        // No list copy due performance
         return words;
     }
 }
