@@ -15,19 +15,19 @@ import org.jphototagger.domain.metadata.MetaDataValue;
  *
  * @author Elmar Baumann
  */
-public final class DatabaseContent extends Database {
-    public static final DatabaseContent INSTANCE = new DatabaseContent();
+public final class DatabaseMetaDataValues extends Database {
+    public static final DatabaseMetaDataValues INSTANCE = new DatabaseMetaDataValues();
 
-    private DatabaseContent() {}
+    private DatabaseMetaDataValues() {}
 
     /**
      * Returns the distinct ascending sorted values of a database column.
      *
-     * @param  column column
-     * @return        distinct sorted values of that column
+     * @param  metaDataValue
+     * @return        distinct sorted values
      */
-    public Set<String> getDistinctValuesOf(MetaDataValue column) {
-        if (column == null) {
+    Set<String> getDistinctMetaDataValues(MetaDataValue metaDataValue) {
+        if (metaDataValue == null) {
             throw new NullPointerException("column == null");
         }
 
@@ -39,12 +39,12 @@ public final class DatabaseContent extends Database {
         try {
             con = getConnection();
 
-            String columnName = column.getValueName();
+            String columnName = metaDataValue.getValueName();
 
             stmt = con.createStatement();
 
             String sql = "SELECT DISTINCT " + columnName
-                         + " FROM " + column.getCategory()
+                         + " FROM " + metaDataValue.getCategory()
                          + " WHERE " + columnName
                          + " IS NOT NULL ORDER BY 1 ASC";
 
@@ -55,7 +55,7 @@ public final class DatabaseContent extends Database {
                 content.add(rs.getString(1));
             }
         } catch (Exception ex) {
-            Logger.getLogger(DatabaseContent.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DatabaseMetaDataValues.class.getName()).log(Level.SEVERE, null, ex);
             content.clear();
         } finally {
             close(rs, stmt);
@@ -67,20 +67,20 @@ public final class DatabaseContent extends Database {
 
     /**
      * Collects for each column of a set the results of
-     * {@link #getDistinctValuesOf(MetaDataValue)}.
+     * {@link #getDistinctMetaDataValues(MetaDataValue)}.
      *
-     * @param  columns columns
-     * @return         distinct values of columns (not sorted)
+     * @param  metaDataValues
+     * @return         distinct values (not sorted)
      */
-    public Set<String> getDistinctValuesOf(Set<MetaDataValue> columns) {
-        if (columns == null) {
+    Set<String> getDistinctMetaDataValues(Set<MetaDataValue> metaDataValues) {
+        if (metaDataValues == null) {
             throw new NullPointerException("columns == null");
         }
 
         Set<String> content = new LinkedHashSet<String>();
 
-        for (MetaDataValue column : columns) {
-            content.addAll(getDistinctValuesOf(column));
+        for (MetaDataValue column : metaDataValues) {
+            content.addAll(getDistinctMetaDataValues(column));
         }
 
         return content;
