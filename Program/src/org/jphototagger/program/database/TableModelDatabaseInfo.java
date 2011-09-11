@@ -7,6 +7,7 @@ import java.util.Set;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.domain.metadata.MetaDataValue;
+import org.jphototagger.domain.repository.RepositoryStatistics;
 import org.jphototagger.domain.repository.event.dcsubjects.DcSubjectDeletedEvent;
 import org.jphototagger.domain.repository.event.dcsubjects.DcSubjectInsertedEvent;
 import org.jphototagger.domain.repository.event.exif.ExifDeletedEvent;
@@ -20,6 +21,7 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.model.TableModelExt;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.database.metadata.selections.DatabaseInfoRecordCountColumns;
+import org.openide.util.Lookup;
 
 /**
  * Elements are {@link MetaDataValue}s retrieved through
@@ -36,6 +38,7 @@ public final class TableModelDatabaseInfo extends TableModelExt {
     private static final long serialVersionUID = 1974343527501774916L;
     private final LinkedHashMap<MetaDataValue, StringBuffer> bufferOfMetaDataValue = new LinkedHashMap<MetaDataValue, StringBuffer>();
     private boolean listenToDatabase;
+    private final RepositoryStatistics repo = Lookup.getDefault().lookup(RepositoryStatistics.class);
 
     public TableModelDatabaseInfo() {
         initBufferOfMetaDataValue();
@@ -147,7 +150,7 @@ public final class TableModelDatabaseInfo extends TableModelExt {
         @Override
         public void run() {
             for (MetaDataValue mdValue : bufferOfMetaDataValue.keySet()) {
-                setCountToBuffer(bufferOfMetaDataValue.get(mdValue), DatabaseStatistics.INSTANCE.getTotalRecordCountOf(mdValue));
+                setCountToBuffer(bufferOfMetaDataValue.get(mdValue), repo.getCountOfMetaDataValue(mdValue));
             }
 
             EventQueueUtil.invokeInDispatchThread(new Runnable() {
