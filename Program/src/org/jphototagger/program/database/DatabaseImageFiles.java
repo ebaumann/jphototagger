@@ -58,6 +58,7 @@ import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.api.event.ProgressEvent;
 import org.jphototagger.api.event.ProgressListener;
 import org.jphototagger.domain.repository.RepositoryStatistics;
+import org.jphototagger.domain.repository.SynonymsRepository;
 import org.jphototagger.program.cache.PersistentThumbnails;
 import org.jphototagger.domain.timeline.Timeline;
 import org.jphototagger.program.database.metadata.Join;
@@ -1633,8 +1634,9 @@ final class DatabaseImageFiles extends Database {
 
         if (options.contains(DcSubjectOption.INCLUDE_SYNONYMS)) {
             int paramIndex = 2;
+            SynonymsRepository synonymsRepo = Lookup.getDefault().lookup(SynonymsRepository.class);
 
-            for (String synonym : DatabaseSynonyms.INSTANCE.getSynonymsOf(dcSubject)) {
+            for (String synonym : synonymsRepo.getSynonymsOfWord(dcSubject)) {
                 stmt.setString(paramIndex++, synonym);
             }
         }
@@ -1649,7 +1651,8 @@ final class DatabaseImageFiles extends Database {
                 + " WHERE dc_subjects.subject = ?");
 
         if (options.contains(DcSubjectOption.INCLUDE_SYNONYMS)) {
-            int size = DatabaseSynonyms.INSTANCE.getSynonymsOf(dcSubject).size();
+            SynonymsRepository synonymsRepo = Lookup.getDefault().lookup(SynonymsRepository.class);
+            int size = synonymsRepo.getSynonymsOfWord(dcSubject).size();
 
             for (int i = 0; i < size; i++) {
                 sql.append(" OR dc_subjects.subject = ?");

@@ -18,10 +18,11 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.jphototagger.domain.repository.Exporter;
+import org.jphototagger.domain.repository.SynonymsRepository;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.database.DatabaseSynonyms;
 import org.jphototagger.program.io.CharEncoding;
+import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
@@ -46,6 +47,7 @@ public final class SynonymsExporter implements Exporter {
     public static final String TAGNAME_ENTRY = "entry";
     public static final String TAGNAME_WORD = "word";
     public static final String TAGNAME_SYNONYM = "synonym";
+    private final SynonymsRepository repo = Lookup.getDefault().lookup(SynonymsRepository.class);
 
     @Override
     public void exportFile(File file) {
@@ -73,14 +75,14 @@ public final class SynonymsExporter implements Exporter {
 
         doc.appendChild(rootElement);
 
-        for (String word : DatabaseSynonyms.INSTANCE.getAllWords()) {
+        for (String word : repo.getAllWords()) {
             Element entryElement = doc.createElement(TAGNAME_ENTRY);
             Element wordElement = doc.createElement(TAGNAME_WORD);
 
             wordElement.setTextContent(word);
             entryElement.appendChild(wordElement);
 
-            for (String synonym : DatabaseSynonyms.INSTANCE.getSynonymsOf(word)) {
+            for (String synonym : repo.getSynonymsOfWord(word)) {
                 Element synonymElement = doc.createElement(TAGNAME_SYNONYM);
 
                 synonymElement.setTextContent(synonym);

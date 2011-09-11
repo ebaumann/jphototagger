@@ -14,9 +14,11 @@ import java.util.logging.Logger;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.search.ParamStatement;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
+import org.jphototagger.domain.repository.SynonymsRepository;
 import org.jphototagger.program.database.metadata.Join;
 import org.jphototagger.program.database.metadata.Join.Type;
 import org.jphototagger.program.database.metadata.Util;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -137,12 +139,12 @@ final class DatabaseFind extends Database {
         }
     }
 
-    private void addSynonyms(List<MetaDataValue> searchColumns, String searchString, PreparedStatement stmt)
-            throws SQLException {
+    private void addSynonyms(List<MetaDataValue> searchColumns, String searchString, PreparedStatement stmt) throws SQLException {
         if (searchColumns.contains(XmpDcSubjectsSubjectMetaDataValue.INSTANCE)) {
             int paramIndex = searchColumns.size() + 1;
+            SynonymsRepository synonymsRepo = Lookup.getDefault().lookup(SynonymsRepository.class);
 
-            for (String synonym : DatabaseSynonyms.INSTANCE.getSynonymsOf(searchString)) {
+            for (String synonym : synonymsRepo.getSynonymsOfWord(searchString)) {
                 stmt.setString(paramIndex++, synonym);
             }
         }
@@ -172,7 +174,8 @@ final class DatabaseFind extends Database {
     }
 
     private void addSynonyms(StringBuilder sb, String searchString) {
-        int count = DatabaseSynonyms.INSTANCE.getSynonymsOf(searchString).size();
+        SynonymsRepository synonymsRepo = Lookup.getDefault().lookup(SynonymsRepository.class);
+        int count = synonymsRepo.getSynonymsOfWord(searchString).size();
         String colName = XmpDcSubjectsSubjectMetaDataValue.INSTANCE.getCategory() + "."
                 + XmpDcSubjectsSubjectMetaDataValue.INSTANCE.getValueName();
 

@@ -15,9 +15,10 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.jphototagger.domain.repository.Importer;
+import org.jphototagger.domain.repository.SynonymsRepository;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.database.DatabaseSynonyms;
 import org.jphototagger.program.exporter.SynonymsExporter;
+import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -35,6 +36,7 @@ import org.xml.sax.SAXException;
 public final class SynonymsImporter implements Importer, EntityResolver {
 
     private static final long serialVersionUID = 1L;
+    private final SynonymsRepository repo = Lookup.getDefault().lookup(SynonymsRepository.class);
 
     @Override
     public void importFile(File file) {
@@ -83,7 +85,7 @@ public final class SynonymsImporter implements Importer, EntityResolver {
                 }
 
                 for (String synonym : synonyms) {
-                    DatabaseSynonyms.INSTANCE.insert(word, synonym);
+                    repo.insertSynonym(word, synonym);
                 }
             }
         }
