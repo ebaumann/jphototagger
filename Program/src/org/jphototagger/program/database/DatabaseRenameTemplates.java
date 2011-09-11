@@ -21,14 +21,14 @@ import org.jphototagger.domain.templates.RenameTemplate;
  *
  * @author Elmar Baumann
  */
-public final class DatabaseRenameTemplates extends Database {
+final class DatabaseRenameTemplates extends Database {
 
-    public static final DatabaseRenameTemplates INSTANCE = new DatabaseRenameTemplates();
+    static final DatabaseRenameTemplates INSTANCE = new DatabaseRenameTemplates();
 
     private DatabaseRenameTemplates() {
     }
 
-    private String getInsertSql() {    // On updates update getUpdateSql()!
+    private String getInsertSql() {    // On updates updateRenameTemplate getUpdateSql()!
         return "INSERT INTO rename_templates (name" // 1
                 + ", start_number" // 2
                 + ", step_width" // 3
@@ -61,7 +61,7 @@ public final class DatabaseRenameTemplates extends Database {
         setString(template.getTextAtEnd(), stmt, 13);
     }
 
-    public boolean insert(RenameTemplate template) {
+    boolean insertRenameTemplate(RenameTemplate template) {
         if (template == null) {
             throw new NullPointerException("template == null");
         }
@@ -114,7 +114,7 @@ public final class DatabaseRenameTemplates extends Database {
                 + " WHERE id = ?";    // 14
     }
 
-    public boolean update(RenameTemplate template) {
+    boolean updateRenameTemplate(RenameTemplate template) {
         if (template == null) {
             throw new NullPointerException("template == null");
         }
@@ -147,7 +147,7 @@ public final class DatabaseRenameTemplates extends Database {
         return count == 1;
     }
 
-    public int delete(String name) {
+    int deleteRenameTemplate(String name) {
         if (name == null) {
             throw new NullPointerException("name == null");
         }
@@ -157,7 +157,7 @@ public final class DatabaseRenameTemplates extends Database {
         int count = 0;
 
         try {
-            RenameTemplate delTemplate = find(name);
+            RenameTemplate delTemplate = findRenameTemplate(name);
 
             con = getConnection();
             con.setAutoCommit(false);
@@ -220,7 +220,7 @@ public final class DatabaseRenameTemplates extends Database {
         return template;
     }
 
-    public Set<RenameTemplate> getAll() {
+    Set<RenameTemplate> getAllRenameTemplates() {
         Set<RenameTemplate> templates = new LinkedHashSet<RenameTemplate>();
         Connection con = null;
         Statement stmt = null;
@@ -274,7 +274,7 @@ public final class DatabaseRenameTemplates extends Database {
      * @param  name name
      * @return      template or null if not found
      */
-    public RenameTemplate find(String name) {
+    RenameTemplate findRenameTemplate(String name) {
         if (name == null) {
             throw new NullPointerException("name == null");
         }
@@ -304,7 +304,7 @@ public final class DatabaseRenameTemplates extends Database {
         return template;
     }
 
-    public boolean exists(String name) {
+    boolean existsRenameTemplate(String name) {
         if (name == null) {
             throw new NullPointerException("name == null");
         }

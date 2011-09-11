@@ -8,12 +8,13 @@ import javax.swing.Icon;
 import javax.swing.filechooser.FileFilter;
 
 import org.jphototagger.domain.repository.Importer;
+import org.jphototagger.domain.repository.RenameTemplatesRepository;
 import org.jphototagger.domain.templates.RenameTemplate;
 import org.jphototagger.lib.xml.bind.XmlObjectImporter;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.database.DatabaseRenameTemplates;
 import org.jphototagger.program.exporter.RenameTemplatesExporter;
 import org.jphototagger.program.exporter.RenameTemplatesExporter.CollectionWrapper;
+import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
 /**
@@ -23,6 +24,8 @@ import org.openide.util.lookup.ServiceProvider;
  */
 @ServiceProvider(service = Importer.class)
 public final class RenameTemplatesImporter implements Importer {
+
+    private final RenameTemplatesRepository repo = Lookup.getDefault().lookup(RenameTemplatesRepository.class);
 
     @Override
     public void importFile(File file) {
@@ -36,8 +39,8 @@ public final class RenameTemplatesImporter implements Importer {
                     RenameTemplatesExporter.CollectionWrapper.class);
 
             for (RenameTemplate template : wrapper.getCollection()) {
-                if (!DatabaseRenameTemplates.INSTANCE.exists(template.getName())) {
-                    DatabaseRenameTemplates.INSTANCE.insert(template);
+                if (!repo.existsRenameTemplate(template.getName())) {
+                    repo.insertRenameTemplate(template);
                 }
             }
         } catch (Exception ex) {

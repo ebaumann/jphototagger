@@ -1,14 +1,16 @@
 package org.jphototagger.program.database;
 
-import org.jphototagger.program.app.SplashScreen;
+import java.util.Set;
+
+import org.jphototagger.domain.repository.RenameTemplatesRepository;
+import org.jphototagger.domain.repository.RepositoryMaintainance;
 import org.jphototagger.domain.templates.RenameTemplate;
+import org.jphototagger.program.app.SplashScreen;
 import org.jphototagger.program.data.RenameTemplateTest;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import java.util.Set;
-import org.jphototagger.domain.repository.RepositoryMaintainance;
 import org.openide.util.Lookup;
 
 /**
@@ -17,7 +19,7 @@ import org.openide.util.Lookup;
  */
 public class DatabaseRenameTemplatesTest {
 
-    private final DatabaseRenameTemplates db = DatabaseRenameTemplates.INSTANCE;
+    private final RenameTemplatesRepository repo = Lookup.getDefault().lookup(RenameTemplatesRepository.class);
 
     public DatabaseRenameTemplatesTest() {
     }
@@ -27,65 +29,65 @@ public class DatabaseRenameTemplatesTest {
         SplashScreen.INSTANCE.init();
         ConnectionPool.INSTANCE.init();
         DatabaseTables.INSTANCE.createTables();
-        DatabaseRenameTemplates.INSTANCE.delete(RenameTemplateTest.createTemplate().getName());
+        DatabaseRenameTemplates.INSTANCE.deleteRenameTemplate(RenameTemplateTest.createTemplate().getName());
     }
 
     @AfterClass
     public static void tearDownClass() throws Exception {
-        DatabaseRenameTemplates.INSTANCE.delete(RenameTemplateTest.createTemplate().getName());
-        DatabaseRenameTemplates.INSTANCE.delete("New name");
+        DatabaseRenameTemplates.INSTANCE.deleteRenameTemplate(RenameTemplateTest.createTemplate().getName());
+        DatabaseRenameTemplates.INSTANCE.deleteRenameTemplate("New name");
         Lookup.getDefault().lookup(RepositoryMaintainance.class).shutdownRepository();
     }
 
     /**
-     * Test of insert method, of class DatabaseRenameTemplates.
+     * Test of insertRenameTemplate method, of class DatabaseRenameTemplates.
      */
     @Test
     public void testInsert() {
         RenameTemplate template = RenameTemplateTest.createTemplate();
 
         template.setId(null);
-        db.insert(template);
+        repo.insertRenameTemplate(template);
         assertNotNull(template.getId());
-        template = db.find(template.getName());
+        template = repo.findRenameTemplate(template.getName());
         template.setId(Long.valueOf(0));
         RenameTemplateTest.assertEqualsCreated(template);
-        db.delete(template.getName());
+        repo.deleteRenameTemplate(template.getName());
     }
 
     /**
-     * Test of update method, of class DatabaseRenameTemplates.
+     * Test of updateRenameTemplate method, of class DatabaseRenameTemplates.
      */
     @Test
     public void testUpdate() {
         RenameTemplate template = RenameTemplateTest.createTemplate();
 
         template.setId(null);
-        db.insert(template);
+        repo.insertRenameTemplate(template);
         template.setName("New name");
-        db.update(template);
+        repo.updateRenameTemplate(template);
 
-        RenameTemplate tmpl = db.find(template.getName());
+        RenameTemplate tmpl = repo.findRenameTemplate(template.getName());
 
         assertEquals(template.getName(), tmpl.getName());
-        db.delete("New name");
+        repo.deleteRenameTemplate("New name");
     }
 
     /**
-     * Test of delete method, of class DatabaseRenameTemplates.
+     * Test of deleteRenameTemplate method, of class DatabaseRenameTemplates.
      */
     @Test
     public void testDelete() {
         RenameTemplate template = RenameTemplateTest.createTemplate();
 
         template.setId(null);
-        db.insert(template);
-        db.delete(template.getName());
-        assertNull(db.find(template.getName()));
+        repo.insertRenameTemplate(template);
+        repo.deleteRenameTemplate(template.getName());
+        assertNull(repo.findRenameTemplate(template.getName()));
     }
 
     /**
-     * Test of getAll method, of class DatabaseRenameTemplates.
+     * Test of getAllRenameTemplates method, of class DatabaseRenameTemplates.
      */
     @Test
     public void testGetAll() {
@@ -95,43 +97,43 @@ public class DatabaseRenameTemplatesTest {
         template1.setName("quaffel@buffel");
         template2.setName("XYZ@@yyy");
         template1.setId(null);
-        db.insert(template1);
+        repo.insertRenameTemplate(template1);
         template2.setId(null);
-        db.insert(template2);
+        repo.insertRenameTemplate(template2);
 
-        Set<RenameTemplate> all = db.getAll();
+        Set<RenameTemplate> all = repo.getAllRenameTemplates();
 
-        db.delete(template1.getName());
-        db.delete(template2.getName());
+        repo.deleteRenameTemplate(template1.getName());
+        repo.deleteRenameTemplate(template2.getName());
         assertTrue(all.contains(template1));
         assertTrue(all.contains(template2));
     }
 
     /**
-     * Test of find method, of class DatabaseRenameTemplates.
+     * Test of findRenameTemplate method, of class DatabaseRenameTemplates.
      */
     @Test
     public void testFind() {
         RenameTemplate template = RenameTemplateTest.createTemplate();
 
-        db.delete(template.getName());
+        repo.deleteRenameTemplate(template.getName());
         template.setId(null);
-        db.insert(template);
-        assertEquals(template.getName(), db.find(template.getName()).getName());
-        db.delete(template.getName());
+        repo.insertRenameTemplate(template);
+        assertEquals(template.getName(), repo.findRenameTemplate(template.getName()).getName());
+        repo.deleteRenameTemplate(template.getName());
     }
 
     /**
-     * Test of exists method, of class DatabaseRenameTemplates.
+     * Test of existsRenameTemplate method, of class DatabaseRenameTemplates.
      */
     @Test
     public void testExists() {
         RenameTemplate template = RenameTemplateTest.createTemplate();
 
-        db.delete(template.getName());
+        repo.deleteRenameTemplate(template.getName());
         template.setId(null);
-        db.insert(template);
-        assertTrue(db.exists(template.getName()));
-        db.delete(template.getName());
+        repo.insertRenameTemplate(template);
+        assertTrue(repo.existsRenameTemplate(template.getName()));
+        repo.deleteRenameTemplate(template.getName());
     }
 }

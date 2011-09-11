@@ -2,11 +2,12 @@ package org.jphototagger.program.helper;
 
 import java.awt.Component;
 
+import org.jphototagger.domain.repository.RenameTemplatesRepository;
 import org.jphototagger.domain.templates.RenameTemplate;
 import org.jphototagger.lib.dialog.InputDialog;
-import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.program.database.DatabaseRenameTemplates;
+import org.jphototagger.lib.util.Bundle;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -31,8 +32,9 @@ public final class RenameTemplateHelper {
 
         if (name != null) {
             template.setName(name);
+            RenameTemplatesRepository repo = Lookup.getDefault().lookup(RenameTemplatesRepository.class);
 
-            if (!DatabaseRenameTemplates.INSTANCE.insert(template)) {
+            if (!repo.insertRenameTemplate(template)) {
                 String message = Bundle.getString(RenameTemplateHelper.class, "RenameTemplateHelper.Error.Insert", template);
                 MessageDisplayer.error(null, message);
             }
@@ -46,7 +48,9 @@ public final class RenameTemplateHelper {
 
         assert template.getId() != null : template.getId();
 
-        if (!DatabaseRenameTemplates.INSTANCE.update(template)) {
+        RenameTemplatesRepository repo = Lookup.getDefault().lookup(RenameTemplatesRepository.class);
+
+        if (!repo.updateRenameTemplate(template)) {
             String message = Bundle.getString(RenameTemplateHelper.class, "RenameTemplateHelper.Error.Update", template);
             MessageDisplayer.error(null, message);
         }
@@ -76,9 +80,10 @@ public final class RenameTemplateHelper {
 
         Component parentComponent = null;
         String message = Bundle.getString(RenameTemplateHelper.class, "RenameTemplateHelper.Confirm.Delete", template);
+        RenameTemplatesRepository repo = Lookup.getDefault().lookup(RenameTemplatesRepository.class);
 
         if (MessageDisplayer.confirmYesNo(parentComponent, message)) {
-            if (DatabaseRenameTemplates.INSTANCE.delete(template.getName()) != 1) {
+            if (repo.deleteRenameTemplate(template.getName()) != 1) {
                 message = Bundle.getString(RenameTemplateHelper.class, "RenameTemplateHelper.Error.Delete", template);
                 MessageDisplayer.error(null, message);
             }
@@ -92,6 +97,7 @@ public final class RenameTemplateHelper {
 
         dlg.setVisible(true);
 
+        RenameTemplatesRepository repo = Lookup.getDefault().lookup(RenameTemplatesRepository.class);
         boolean unique = false;
 
         while (!unique && dlg.isAccepted()) {
@@ -101,7 +107,7 @@ public final class RenameTemplateHelper {
                 return null;
             }
 
-            unique = !DatabaseRenameTemplates.INSTANCE.exists(name);
+            unique = !repo.existsRenameTemplate(name);
             Component parentComponent = null;
             String message = Bundle.getString(RenameTemplateHelper.class, "RenameTemplateHelper.Confirm.InputUniqueName", name);
 
@@ -118,5 +124,5 @@ public final class RenameTemplateHelper {
     }
 
     private RenameTemplateHelper() {
-}
+    }
 }
