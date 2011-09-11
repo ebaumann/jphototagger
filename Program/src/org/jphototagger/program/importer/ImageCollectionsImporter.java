@@ -9,6 +9,7 @@ import javax.swing.Icon;
 import javax.swing.filechooser.FileFilter;
 
 import org.jphototagger.domain.imagecollections.ImageCollection;
+import org.jphototagger.domain.repository.ImageCollectionsRepository;
 import org.jphototagger.domain.repository.Importer;
 import org.jphototagger.domain.repository.InsertIntoRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
@@ -17,13 +18,13 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.xml.bind.XmlObjectImporter;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.comparator.ComparatorStringAscending;
-import org.jphototagger.program.database.DatabaseImageCollections;
 import org.jphototagger.program.exporter.ImageCollectionsExporter;
 import org.jphototagger.program.exporter.ImageCollectionsExporter.CollectionWrapper;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
 import org.jphototagger.program.model.ListModelImageCollections;
 import org.jphototagger.program.view.panels.ProgressBarUpdater;
+import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
 /**
@@ -87,11 +88,13 @@ public final class ImageCollectionsImporter implements Importer {
 
         @Override
         public void run() {
+            ImageCollectionsRepository repo = Lookup.getDefault().lookup(ImageCollectionsRepository.class);
+
             for (ImageCollection imageCollection : imageCollections) {
-                if (!DatabaseImageCollections.INSTANCE.exists(imageCollection.getName())) {
+                if (!repo.existsImageCollection(imageCollection.getName())) {
                     insertIntoDbMissingFiles(imageCollection);
 
-                    if (DatabaseImageCollections.INSTANCE.insert(imageCollection)) {
+                    if (repo.insertImageCollection(imageCollection)) {
                         updateImageCollectionList(imageCollection);
                     }
                 }

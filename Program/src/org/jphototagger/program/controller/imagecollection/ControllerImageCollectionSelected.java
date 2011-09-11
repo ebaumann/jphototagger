@@ -10,16 +10,17 @@ import javax.swing.event.ListSelectionListener;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.domain.repository.ImageCollectionsRepository;
 import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
 import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.comparator.FileSort;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.database.DatabaseImageCollections;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.WaitDisplay;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.openide.util.Lookup;
 
 /**
  * Kontrolliert die Aktion: Eine Bildsammlung wurde ausgewählt.
@@ -31,6 +32,7 @@ import org.jphototagger.program.view.panels.ThumbnailsPanel;
 public final class ControllerImageCollectionSelected implements ListSelectionListener {
 
     private static final Logger LOGGER = Logger.getLogger(ControllerImageCollectionSelected.class.getName());
+    private final ImageCollectionsRepository repo = Lookup.getDefault().lookup(ImageCollectionsRepository.class);
 
     public ControllerImageCollectionSelected() {
         listen();
@@ -86,7 +88,7 @@ public final class ControllerImageCollectionSelected implements ListSelectionLis
             public void run() {
                 WaitDisplay.show();
 
-                List<File> imageFiles = DatabaseImageCollections.INSTANCE.getImageFilesOf(collectionName);
+                List<File> imageFiles = repo.getImageFilesOfImageCollection(collectionName);
                 ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
                 setTitle();

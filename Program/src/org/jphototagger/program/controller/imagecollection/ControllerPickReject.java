@@ -10,20 +10,24 @@ import java.util.List;
 import javax.swing.JMenuItem;
 
 import org.jdesktop.swingx.JXList;
+import org.jphototagger.domain.repository.ImageCollectionsRepository;
+import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.lib.componentutil.MessageLabel;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.database.DatabaseImageCollections;
 import org.jphototagger.program.model.ListModelImageCollections;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
+import org.openide.util.Lookup;
 
 /**
  *
  * @author Elmar Baumann
  */
 public final class ControllerPickReject implements ActionListener, KeyListener {
+
+    private final ImageCollectionsRepository repo = Lookup.getDefault().lookup(ImageCollectionsRepository.class);
+
     public ControllerPickReject() {
         listen();
     }
@@ -64,13 +68,13 @@ public final class ControllerPickReject implements ActionListener, KeyListener {
 
             GUI.getAppPanel().setStatusbarText(getPopupMessage(pick), MessageLabel.MessageType.INFO, 1000);
             addToCollection(pick
-                            ? ListModelImageCollections.NAME_IMAGE_COLLECTION_PICKED
-                            : ListModelImageCollections.NAME_IMAGE_COLLECTION_REJECTED, selFiles);
+                    ? ListModelImageCollections.NAME_IMAGE_COLLECTION_PICKED
+                    : ListModelImageCollections.NAME_IMAGE_COLLECTION_REJECTED, selFiles);
 
             if ((pick && isRejectCollection()) || (!pick && isPickCollection())) {
                 deleteFromCollection(pick
-                                     ? ListModelImageCollections.NAME_IMAGE_COLLECTION_REJECTED
-                                     : ListModelImageCollections.NAME_IMAGE_COLLECTION_PICKED, selFiles);
+                        ? ListModelImageCollections.NAME_IMAGE_COLLECTION_REJECTED
+                        : ListModelImageCollections.NAME_IMAGE_COLLECTION_PICKED, selFiles);
                 panelThumbnails.removeFiles(selFiles);
             }
         }
@@ -78,8 +82,8 @@ public final class ControllerPickReject implements ActionListener, KeyListener {
 
     private String getPopupMessage(boolean pick) {
         return pick
-               ? Bundle.getString(ControllerPickReject.class, "ControllerPickReject.Info.Pick")
-               : Bundle.getString(ControllerPickReject.class, "ControllerPickReject.Info.Reject");
+                ? Bundle.getString(ControllerPickReject.class, "ControllerPickReject.Info.Pick")
+                : Bundle.getString(ControllerPickReject.class, "ControllerPickReject.Info.Reject");
     }
 
     private boolean isPickCollection() {
@@ -105,22 +109,20 @@ public final class ControllerPickReject implements ActionListener, KeyListener {
     }
 
     private void addToCollection(String collection, List<File> files) {
-        DatabaseImageCollections.INSTANCE.insertImagesInto(collection, files);
+        repo.insertImagesIntoImageCollection(collection, files);
     }
 
     private void deleteFromCollection(String collection, List<File> files) {
-        DatabaseImageCollections.INSTANCE.deleteImagesFrom(collection, files);
+        repo.deleteImagesFromImageCollection(collection, files);
     }
 
     @Override
     public void keyTyped(KeyEvent evt) {
-
         // ignore
     }
 
     @Override
     public void keyReleased(KeyEvent evt) {
-
         // ignore
     }
 

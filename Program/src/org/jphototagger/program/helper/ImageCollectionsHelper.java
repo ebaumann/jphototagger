@@ -6,13 +6,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.jdesktop.swingx.JXList;
+import org.jphototagger.domain.repository.ImageCollectionsRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.program.database.DatabaseImageCollections;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.model.ListModelImageCollections;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -28,6 +29,7 @@ public final class ImageCollectionsHelper {
      */
     public static void deleteSelectedFiles() {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 Object selectedValue = getSelectedCollection();
@@ -60,7 +62,7 @@ public final class ImageCollectionsHelper {
     /**
      * Inserts a new image collection, prompts the user for the name.
      *
-     * @param imageFiles image files to insert
+     * @param imageFiles image files to insertImageCollection
      * @return           name of the collection or null, if no image collection
      *                   was created
      */
@@ -71,10 +73,10 @@ public final class ImageCollectionsHelper {
 
         String name = inputCollectionName("");
 
-        if ((name != null) &&!name.isEmpty()) {
+        if ((name != null) && !name.isEmpty()) {
             logAddImageCollection(name);
-
-            if (!DatabaseImageCollections.INSTANCE.insert(name, imageFiles)) {
+            ImageCollectionsRepository repo = Lookup.getDefault().lookup(ImageCollectionsRepository.class);
+            if (!repo.insertImageCollection(name, imageFiles)) {
                 errorMessageAddImageCollection(name);
 
                 return null;
@@ -103,8 +105,9 @@ public final class ImageCollectionsHelper {
         String message = Bundle.getString(ImageCollectionsHelper.class, "ImageCollectionsHelper.Confirm.DeleteSelectedFiles", collectionName);
 
         if (confirmDelete(message)) {
-            boolean removed = DatabaseImageCollections.INSTANCE.deleteImagesFrom(collectionName, imageFiles)
-                              == imageFiles.size();
+            ImageCollectionsRepository repo = Lookup.getDefault().lookup(ImageCollectionsRepository.class);
+            boolean removed = repo.deleteImagesFromImageCollection(collectionName, imageFiles)
+                    == imageFiles.size();
 
             if (!removed) {
                 errorMessageDeleteImagesFromCollection(collectionName);
@@ -131,7 +134,8 @@ public final class ImageCollectionsHelper {
         String message = Bundle.getString(ImageCollectionsHelper.class, "ImageCollectionsHelper.Confirm.DeleteCollection", collectionName);
 
         if (confirmDelete(message)) {
-            deleted = DatabaseImageCollections.INSTANCE.delete(collectionName);
+            ImageCollectionsRepository repo = Lookup.getDefault().lookup(ImageCollectionsRepository.class);
+            deleted = repo.deleteImageCollection(collectionName);
 
             if (!deleted) {
                 errorMessageDeleteImageCollection(collectionName);
@@ -157,7 +161,8 @@ public final class ImageCollectionsHelper {
             throw new NullPointerException("imageFiles == null");
         }
 
-        boolean added = DatabaseImageCollections.INSTANCE.insertImagesInto(collectionName, imageFiles);
+        ImageCollectionsRepository repo = Lookup.getDefault().lookup(ImageCollectionsRepository.class);
+        boolean added = repo.insertImagesIntoImageCollection(collectionName, imageFiles);
 
         if (!added) {
             errorMessageAddImagesToCollection(collectionName);
@@ -180,8 +185,9 @@ public final class ImageCollectionsHelper {
 
         String newName = inputCollectionName(fromName);
 
-        if ((newName != null) &&!newName.isEmpty()) {
-            boolean renamed = DatabaseImageCollections.INSTANCE.updateRename(fromName, newName) > 0;
+        if ((newName != null) && !newName.isEmpty()) {
+            ImageCollectionsRepository repo = Lookup.getDefault().lookup(ImageCollectionsRepository.class);
+            boolean renamed = repo.updateRenameImageCollection(fromName, newName) > 0;
 
             if (renamed) {
                 return newName;
@@ -263,8 +269,9 @@ public final class ImageCollectionsHelper {
             willAdd = false;
 
             String nameNextTry = name;
+            ImageCollectionsRepository repo = Lookup.getDefault().lookup(ImageCollectionsRepository.class);
 
-            if (DatabaseImageCollections.INSTANCE.exists(name) ||!checkIsValidName(name)) {
+            if (repo.existsImageCollection(name) || !checkIsValidName(name)) {
                 String message = Bundle.getString(ImageCollectionsHelper.class, "ImageCollectionsHelper.Confirm.InputNewCollectionName", name);
                 willAdd = MessageDisplayer.confirmYesNo(null, message);
                 name = null;
@@ -294,5 +301,6 @@ public final class ImageCollectionsHelper {
         return name;
     }
 
-    private ImageCollectionsHelper() {}
+    private ImageCollectionsHelper() {
+    }
 }

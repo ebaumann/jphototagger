@@ -23,9 +23,9 @@ import org.jphototagger.domain.repository.event.imagecollections.ImageCollection
  *
  * @author Elmar Baumann
  */
-public final class DatabaseImageCollections extends Database {
+final class DatabaseImageCollections extends Database {
 
-    public static final DatabaseImageCollections INSTANCE = new DatabaseImageCollections();
+    static final DatabaseImageCollections INSTANCE = new DatabaseImageCollections();
     private static final Logger LOGGER = Logger.getLogger(DatabaseImageCollections.class.getName());
     private final DatabaseImageFiles repo = DatabaseImageFiles.INSTANCE;
 
@@ -37,7 +37,7 @@ public final class DatabaseImageCollections extends Database {
      *
      * @return names
      */
-    public List<String> getAll() {
+    List<String> getAllImageCollectionNames() {
         List<String> names = new ArrayList<String>();
         Connection con = null;
         Statement stmt = null;
@@ -66,12 +66,12 @@ public final class DatabaseImageCollections extends Database {
         return names;
     }
 
-    public List<ImageCollection> getAll2() {
-        List<String> names = getAll();
+    List<ImageCollection> getAllImageCollections() {
+        List<String> names = getAllImageCollectionNames();
         List<ImageCollection> collections = new ArrayList<ImageCollection>(names.size());
 
         for (String name : names) {
-            collections.add(new ImageCollection(name, getImageFilesOf(name)));
+            collections.add(new ImageCollection(name, getImageFilesOfImageCollection(name)));
         }
 
         return collections;
@@ -84,7 +84,7 @@ public final class DatabaseImageCollections extends Database {
      * @param toName   new name
      * @return         count of renamed image collections (0 or 1)
      */
-    public int updateRename(String fromName, String toName) {
+    int updateRenameImageCollection(String fromName, String toName) {
         if (fromName == null) {
             throw new NullPointerException("fromName == null");
         }
@@ -119,7 +119,7 @@ public final class DatabaseImageCollections extends Database {
         return count;
     }
 
-    public List<File> getImageFilesOf(String collectionName) {
+    List<File> getImageFilesOfImageCollection(String collectionName) {
         if (collectionName == null) {
             throw new NullPointerException("collectionName == null");
         }
@@ -155,12 +155,12 @@ public final class DatabaseImageCollections extends Database {
         return imageFiles;
     }
 
-    public boolean insert(ImageCollection collection) {
+    boolean insertImageCollection(ImageCollection collection) {
         if (collection == null) {
             throw new NullPointerException("collection == null");
         }
 
-        return insert(collection.getName(), collection.getFiles());
+        return insertImageCollection(collection.getName(), collection.getFiles());
     }
 
     /**
@@ -174,7 +174,7 @@ public final class DatabaseImageCollections extends Database {
      * @return               true if successfully inserted
      * @see                  #existsValueInColumn(java.lang.String)
      */
-    public boolean insert(String collectionName, List<File> imageFiles) {
+    boolean insertImageCollection(String collectionName, List<File> imageFiles) {
         if (collectionName == null) {
             throw new NullPointerException("collectionName == null");
         }
@@ -185,8 +185,8 @@ public final class DatabaseImageCollections extends Database {
 
         boolean added = false;
 
-        if (exists(collectionName)) {
-            delete(collectionName);
+        if (existsImageCollection(collectionName)) {
+            deleteImageCollection(collectionName);
         }
 
         Connection con = null;
@@ -245,7 +245,7 @@ public final class DatabaseImageCollections extends Database {
      * @param collectioNname name of the image collection
      * @return               true if successfully deleted
      */
-    public boolean delete(String collectioNname) {
+    boolean deleteImageCollection(String collectioNname) {
         if (collectioNname == null) {
             throw new NullPointerException("collectioNname == null");
         }
@@ -255,7 +255,7 @@ public final class DatabaseImageCollections extends Database {
         PreparedStatement stmt = null;
 
         try {
-            List<File> delFiles = getImageFilesOf(collectioNname);
+            List<File> delFiles = getImageFilesOfImageCollection(collectioNname);
 
             con = getConnection();
             con.setAutoCommit(true);
@@ -282,7 +282,7 @@ public final class DatabaseImageCollections extends Database {
      * @param imageFiles     image files to deleteImageFiles
      * @return               count of deleted images
      */
-    public int deleteImagesFrom(String collectionName, List<File> imageFiles) {
+    int deleteImagesFromImageCollection(String collectionName, List<File> imageFiles) {
         if (imageFiles == null) {
             throw new NullPointerException("imageFiles == null");
         }
@@ -337,7 +337,7 @@ public final class DatabaseImageCollections extends Database {
      *                       contains a file, it will not be added
      * @return               true if successfully inserted
      */
-    public boolean insertImagesInto(String collectionName, List<File> imageFiles) {
+    boolean insertImagesIntoImageCollection(String collectionName, List<File> imageFiles) {
         if (collectionName == null) {
             throw new NullPointerException("collectionName == null");
         }
@@ -351,7 +351,7 @@ public final class DatabaseImageCollections extends Database {
         PreparedStatement stmt = null;
 
         try {
-            if (exists(collectionName)) {
+            if (existsImageCollection(collectionName)) {
                 con = getConnection();
                 con.setAutoCommit(false);
                 stmt = con.prepareStatement("INSERT INTO collections"
@@ -378,7 +378,7 @@ public final class DatabaseImageCollections extends Database {
                 reorderSequenceNumber(con, collectionName);
                 notifyImagesInserted(collectionName, insertedFiles);
             } else {
-                return insert(collectionName, imageFiles);
+                return insertImageCollection(collectionName, imageFiles);
             }
 
             con.commit();
@@ -461,7 +461,7 @@ public final class DatabaseImageCollections extends Database {
      * @param collectionName name of the image collection
      * @return               true if an image collection of that name existsValueInColumn
      */
-    public boolean exists(String collectionName) {
+    boolean existsImageCollection(String collectionName) {
         if (collectionName == null) {
             throw new NullPointerException("collectionName == null");
         }
@@ -496,7 +496,7 @@ public final class DatabaseImageCollections extends Database {
      *
      * @return count or -1 on database errors
      */
-    public int getCount() {
+    int getImageCollectionCount() {
         int count = -1;
         Connection con = null;
         Statement stmt = null;
@@ -529,7 +529,7 @@ public final class DatabaseImageCollections extends Database {
      *
      * @return count or -1 on database errors
      */
-    public int getTotalImageCount() {
+    int getImageCountOfAllImageCollections() {
         int count = -1;
         Connection con = null;
         Statement stmt = null;

@@ -18,6 +18,7 @@ import org.jdesktop.swingx.JXList;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.MetaDataValueData;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
+import org.jphototagger.domain.repository.ImageCollectionsRepository;
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.lib.datatransfer.TransferUtil;
@@ -25,7 +26,6 @@ import org.jphototagger.lib.datatransfer.TransferUtil.FilenameDelimiter;
 import org.jphototagger.lib.datatransfer.TransferableObject;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.database.DatabaseImageCollections;
 import org.jphototagger.program.helper.FavoritesHelper;
 import org.jphototagger.program.helper.KeywordsHelper;
 import org.jphototagger.program.helper.MiscMetadataHelper;
@@ -37,6 +37,7 @@ import org.jphototagger.program.types.ContentUtil;
 import org.jphototagger.program.view.ViewUtil;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.openide.util.Lookup;
 
 /**
  * Handler for <strong>copying</strong> or <strong>moving</strong> a list of
@@ -135,9 +136,10 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
         panel.moveSelectedToIndex(panel.getImageMoveDropIndex(dropPoint.x, dropPoint.y));
 
         String imageCollectionName = getImageCollectionName();
+        ImageCollectionsRepository repo = Lookup.getDefault().lookup(ImageCollectionsRepository.class);
 
         if (imageCollectionName != null) {
-            DatabaseImageCollections.INSTANCE.insert(imageCollectionName, panel.getFiles());
+            repo.insertImageCollection(imageCollectionName, panel.getFiles());
         }
     }
 
