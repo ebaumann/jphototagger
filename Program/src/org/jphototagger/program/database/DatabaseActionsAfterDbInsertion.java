@@ -11,9 +11,11 @@ import java.util.logging.Logger;
 
 import org.bushe.swing.event.EventBus;
 import org.jphototagger.domain.programs.Program;
+import org.jphototagger.domain.repository.ProgramsRepository;
 import org.jphototagger.domain.repository.event.repoupdates.ActionAfterRepoUpdateDeletedEvent;
 import org.jphototagger.domain.repository.event.repoupdates.ActionAfterRepoUpdateInsertedEvent;
 import org.jphototagger.domain.repository.event.repoupdates.ActionsAfterRepoUpdateReorderedEvent;
+import org.openide.util.Lookup;
 
 /**
  * Contains (links to) external Programs to execute after inserting metadata
@@ -25,6 +27,7 @@ final class DatabaseActionsAfterDbInsertion extends Database {
 
     private static final Logger LOGGER = Logger.getLogger(DatabaseActionsAfterDbInsertion.class.getName());
     static final DatabaseActionsAfterDbInsertion INSTANCE = new DatabaseActionsAfterDbInsertion();
+    private final ProgramsRepository programsRepo = Lookup.getDefault().lookup(ProgramsRepository.class);
 
     private DatabaseActionsAfterDbInsertion() {
     }
@@ -131,7 +134,7 @@ final class DatabaseActionsAfterDbInsertion extends Database {
 
             while (rs.next()) {
                 long idProgram = rs.getLong(1);
-                Program program = DatabasePrograms.INSTANCE.find(idProgram);
+                Program program = programsRepo.findProgram(idProgram);
 
                 if (program == null) {
                     LOGGER.log(Level.WARNING,

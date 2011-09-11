@@ -7,17 +7,18 @@ import javax.swing.DefaultListModel;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.domain.programs.Program;
+import org.jphototagger.domain.repository.ProgramType;
+import org.jphototagger.domain.repository.ProgramsRepository;
 import org.jphototagger.domain.repository.event.programs.ProgramDeletedEvent;
 import org.jphototagger.domain.repository.event.programs.ProgramInsertedEvent;
 import org.jphototagger.domain.repository.event.programs.ProgramUpdatedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.database.ConnectionPool;
-import org.jphototagger.program.database.DatabasePrograms;
-import org.jphototagger.program.database.DatabasePrograms.Type;
+import org.openide.util.Lookup;
 
 /**
  * Contains {@link Program}s retrieved through
- * {@link DatabasePrograms#getAll(DatabasePrograms.Type)}.
+ * {@link DatabasePrograms#getAllPrograms(ProgramType)}.
  *
  * All programs in this model are actions, where
  * {@link org.jphototagger.program.data.Program#isAction()} is true, <em>or</em>
@@ -29,9 +30,10 @@ public final class ListModelPrograms extends DefaultListModel {
 
     private static final long serialVersionUID = 1107244876982338977L;
     private boolean listen = true;
-    private Type type;
+    private ProgramType type;
+    private final ProgramsRepository repo = Lookup.getDefault().lookup(ProgramsRepository.class);
 
-    public ListModelPrograms(Type type) {
+    public ListModelPrograms(ProgramType type) {
         if (type == null) {
             throw new NullPointerException("type == null");
         }
@@ -46,7 +48,7 @@ public final class ListModelPrograms extends DefaultListModel {
             return;
         }
 
-        List<Program> programs = DatabasePrograms.INSTANCE.getAll(type);
+        List<Program> programs = repo.getAllPrograms(type);
 
         for (Program program : programs) {
             addElement(program);
@@ -54,7 +56,7 @@ public final class ListModelPrograms extends DefaultListModel {
     }
 
     private boolean isAppropriateProgramType(Program program) {
-        return (program.isAction() && type.equals(Type.ACTION)) || (!program.isAction() && type.equals(Type.PROGRAM));
+        return (program.isAction() && type.equals(ProgramType.ACTION)) || (!program.isAction() && type.equals(ProgramType.PROGRAM));
     }
 
     private void updateProgram(Program program) throws IllegalArgumentException {

@@ -4,14 +4,14 @@ import java.awt.Container;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
+import org.jphototagger.domain.programs.Program;
+import org.jphototagger.domain.repository.ProgramType;
+import org.jphototagger.domain.repository.ProgramsRepository;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.event.util.MouseEventUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.domain.programs.Program;
-import org.jphototagger.program.database.DatabasePrograms;
-import org.jphototagger.program.database.DatabasePrograms.Type;
 import org.jphototagger.program.datatransfer.TransferHandlerReorderListItems;
 import org.jphototagger.program.helper.ProgramsHelper;
 import org.jphototagger.program.helper.ProgramsHelper.ReorderListener;
@@ -19,6 +19,7 @@ import org.jphototagger.program.model.ListModelPrograms;
 import org.jphototagger.program.types.Persistence;
 import org.jphototagger.program.view.dialogs.ProgramPropertiesDialog;
 import org.jphototagger.program.view.renderer.ListCellRendererPrograms;
+import org.openide.util.Lookup;
 
 
 
@@ -28,8 +29,9 @@ import org.jphototagger.program.view.renderer.ListCellRendererPrograms;
  */
 public final class SettingsProgramsPanel extends javax.swing.JPanel implements Persistence {
     private static final long serialVersionUID = 6156362511361451187L;
-    private final ListModelPrograms model = new ListModelPrograms(Type.PROGRAM);
+    private final ListModelPrograms model = new ListModelPrograms(ProgramType.PROGRAM);
     private final ReorderListener reorderListener  = new ProgramsHelper.ReorderListener(model);
+    private final ProgramsRepository repo = Lookup.getDefault().lookup(ProgramsRepository.class);
 
     public SettingsProgramsPanel() {
         initComponents();
@@ -62,7 +64,7 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel implements P
         dlg.setVisible(true);
 
         if (dlg.isAccepted()) {
-            DatabasePrograms.INSTANCE.insert(dlg.getProgram());
+            repo.insertProgram(dlg.getProgram());
         }
     }
 
@@ -74,7 +76,7 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel implements P
             dlg.setVisible(true);
 
             if (dlg.isAccepted()) {
-                DatabasePrograms.INSTANCE.update(dlg.getProgram());
+                repo.updateProgram(dlg.getProgram());
             }
         }
     }
@@ -84,7 +86,7 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel implements P
         int modelIndex = listPrograms.convertIndexToModel(selectedIndex);
 
         if ((selectedIndex >= 0) && askRemove(model.getElementAt(modelIndex).toString())) {
-            DatabasePrograms.INSTANCE.delete((Program) model.get(modelIndex));
+            repo.deleteProgram((Program) model.get(modelIndex));
             setEnabled();
         }
     }
@@ -425,7 +427,6 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel implements P
     private void listProgramsKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_listProgramsKeyPressed
         handleListProgramsKeyPressed(evt);
     }//GEN-LAST:event_listProgramsKeyPressed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAddProgram;
     private javax.swing.JButton buttonEditProgram;

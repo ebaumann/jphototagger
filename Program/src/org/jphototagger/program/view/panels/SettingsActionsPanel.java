@@ -15,6 +15,8 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.core.Storage;
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.repository.ActionsAfterRepoUpdatesRepository;
+import org.jphototagger.domain.repository.ProgramType;
+import org.jphototagger.domain.repository.ProgramsRepository;
 import org.jphototagger.domain.repository.event.programs.ProgramDeletedEvent;
 import org.jphototagger.domain.repository.event.programs.ProgramInsertedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
@@ -24,8 +26,6 @@ import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.database.ConnectionPool;
-import org.jphototagger.program.database.DatabasePrograms;
-import org.jphototagger.program.database.DatabasePrograms.Type;
 import org.jphototagger.program.model.ListModelActionsAfterDbInsertion;
 import org.jphototagger.program.types.Persistence;
 import org.jphototagger.program.view.dialogs.ActionsDialog;
@@ -40,7 +40,8 @@ import org.openide.util.Lookup;
 public class SettingsActionsPanel extends javax.swing.JPanel implements ListSelectionListener, Persistence {
     private static final long serialVersionUID = 6440789488453905704L;
     private final ListModelActionsAfterDbInsertion model = new ListModelActionsAfterDbInsertion();
-    private final ActionsAfterRepoUpdatesRepository repo = Lookup.getDefault().lookup(ActionsAfterRepoUpdatesRepository.class);
+    private final ActionsAfterRepoUpdatesRepository actionsAfterRepoUpdatesRepo = Lookup.getDefault().lookup(ActionsAfterRepoUpdatesRepository.class);
+    private final ProgramsRepository programsRepo = Lookup.getDefault().lookup(ProgramsRepository.class);
     private volatile boolean listenToModel = true;
 
     public SettingsActionsPanel() {
@@ -81,7 +82,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel implements ListSele
         boolean hasActions = false;
 
         if (ConnectionPool.INSTANCE.isInit()) {
-            hasActions = DatabasePrograms.INSTANCE.getCount(true) > 0;
+            hasActions = programsRepo.getProgramCount(true) > 0;
         }
 
         buttonAddAction.setEnabled(hasActions);
@@ -117,7 +118,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel implements ListSele
     }
 
     private void addAction() {
-        ProgramSelectDialog dlg = new ProgramSelectDialog(Type.ACTION);
+        ProgramSelectDialog dlg = new ProgramSelectDialog(ProgramType.ACTION);
 
         dlg.setVisible(true);
 
@@ -266,7 +267,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel implements ListSele
             programs.add((Program) model.get(i));
         }
 
-        repo.setActionOrder(programs, 0);
+        actionsAfterRepoUpdatesRepo.setActionOrder(programs, 0);
     }
 
     @EventSubscriber(eventClass = ProgramInsertedEvent.class)

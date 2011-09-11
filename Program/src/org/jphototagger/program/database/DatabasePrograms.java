@@ -1,5 +1,6 @@
 package org.jphototagger.program.database;
 
+import org.jphototagger.domain.repository.ProgramType;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -26,18 +27,10 @@ import org.openide.util.Lookup;
  *
  * @author Elmar Baumann
  */
-public final class DatabasePrograms extends Database {
+final class DatabasePrograms extends Database {
 
-    public static final DatabasePrograms INSTANCE = new DatabasePrograms();
+    static final DatabasePrograms INSTANCE = new DatabasePrograms();
     private final ActionsAfterRepoUpdatesRepository repo = Lookup.getDefault().lookup(ActionsAfterRepoUpdatesRepository.class);
-
-    /**
-     *
-     */
-    public enum Type {
-
-        ACTION, PROGRAM
-    }
 
     private enum WhereFilter {
 
@@ -53,7 +46,7 @@ public final class DatabasePrograms extends Database {
      * @param  program  program
      * @return true if inserted
      */
-    public boolean insert(Program program) {
+    boolean insertProgram(Program program) {
         if (program == null) {
             throw new NullPointerException("program == null");
         }
@@ -156,7 +149,7 @@ public final class DatabasePrograms extends Database {
      * @param   program  program
      * @return  true if updated
      */
-    public boolean update(Program program) {
+    boolean updateProgram(Program program) {
         if (program == null) {
             throw new NullPointerException("program == null");
         }
@@ -237,7 +230,7 @@ public final class DatabasePrograms extends Database {
      * @param  program program
      * @return         true if deleted
      */
-    public boolean delete(Program program) {
+    boolean deleteProgram(Program program) {
         if (program == null) {
             throw new NullPointerException("program == null");
         }
@@ -275,7 +268,7 @@ public final class DatabasePrograms extends Database {
      * @param  type program type
      * @return      programs
      */
-    public List<Program> getAll(Type type) {
+    List<Program> getAllPrograms(ProgramType type) {
         if (type == null) {
             throw new NullPointerException("type == null");
         }
@@ -288,7 +281,7 @@ public final class DatabasePrograms extends Database {
         try {
             con = getConnection();
             stmt = con.prepareStatement(getSelectProgramSql(WhereFilter.ACTION));
-            stmt.setBoolean(1, type.equals(Type.ACTION));
+            stmt.setBoolean(1, type.equals(ProgramType.ACTION));
             logFinest(stmt);
             rs = stmt.executeQuery();
 
@@ -378,7 +371,7 @@ public final class DatabasePrograms extends Database {
      *
      * @return program or null if the database has no program or on errors
      */
-    public Program getDefaultImageOpenProgram() {
+    Program getDefaultImageOpenProgram() {
         Program program = null;
         Connection con = null;
         Statement stmt = null;
@@ -414,7 +407,7 @@ public final class DatabasePrograms extends Database {
      * @param  program program
      * @return         true if the program does exist
      */
-    public boolean exists(Program program) {
+    boolean existsProgram(Program program) {
         if (program == null) {
             throw new NullPointerException("program == null");
         }
@@ -453,7 +446,7 @@ public final class DatabasePrograms extends Database {
      * @param  id  the program's ID
      * @return Program or null if no program has this ID
      */
-    public Program find(long id) {
+    Program findProgram(long id) {
         Program program = null;
         Connection con = null;
         PreparedStatement stmt = null;
@@ -485,7 +478,7 @@ public final class DatabasePrograms extends Database {
      *
      * @return true if at least one program (ore more) existsAction
      */
-    public boolean hasProgram() {
+    boolean hasProgram() {
         return has(false);
     }
 
@@ -495,7 +488,7 @@ public final class DatabasePrograms extends Database {
      *
      * @return true if at least one action (ore more) existsAction
      */
-    public boolean hasAction() {
+    boolean hasAction() {
         return has(true);
     }
 
@@ -546,7 +539,7 @@ public final class DatabasePrograms extends Database {
      *                 if the number of actions shall be returned
      * @return         number of programs or actions
      */
-    public int getCount(boolean actions) {
+    int getProgramCount(boolean actions) {
         int count = 0;
         Connection con = null;
         PreparedStatement stmt = null;
@@ -578,7 +571,7 @@ public final class DatabasePrograms extends Database {
             return;
         }
 
-        int count = getCount(program.isAction());
+        int count = getProgramCount(program.isAction());
 
         if (count <= 0) {
             program.setSequenceNumber(0);

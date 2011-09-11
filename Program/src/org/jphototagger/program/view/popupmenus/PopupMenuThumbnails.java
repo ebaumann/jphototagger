@@ -17,6 +17,12 @@ import javax.swing.JPopupMenu.Separator;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.plugin.FileProcessorPlugin;
+import org.jphototagger.domain.programs.Program;
+import org.jphototagger.domain.repository.ProgramType;
+import org.jphototagger.domain.repository.ProgramsRepository;
+import org.jphototagger.domain.repository.event.programs.ProgramDeletedEvent;
+import org.jphototagger.domain.repository.event.programs.ProgramInsertedEvent;
+import org.jphototagger.domain.repository.event.programs.ProgramUpdatedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.image.util.IconUtil;
@@ -25,14 +31,9 @@ import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.controller.metadata.ControllerExportGPSToKML;
 import org.jphototagger.program.controller.plugin.PluginAction;
 import org.jphototagger.program.controller.programs.ControllerAddProgram;
-import org.jphototagger.domain.programs.Program;
-import org.jphototagger.domain.repository.event.programs.ProgramDeletedEvent;
-import org.jphototagger.domain.repository.event.programs.ProgramInsertedEvent;
-import org.jphototagger.domain.repository.event.programs.ProgramUpdatedEvent;
-import org.jphototagger.program.database.DatabasePrograms;
-import org.jphototagger.program.database.DatabasePrograms.Type;
 import org.jphototagger.program.factory.FileProcessorPluginManager;
 import org.jphototagger.program.helper.ActionsHelper;
+import org.openide.util.Lookup;
 
 /**
  * Popup menu of the thumbnails panel.
@@ -186,7 +187,8 @@ public final class PopupMenuThumbnails extends JPopupMenu {
         menuPrograms.removeAll();
         programOfMenuItem.clear();
 
-        List<Program> programs = DatabasePrograms.INSTANCE.getAll(Type.PROGRAM);
+        ProgramsRepository repo = Lookup.getDefault().lookup(ProgramsRepository.class);
+        List<Program> programs = repo.getAllPrograms(ProgramType.PROGRAM);
 
         if (!programs.isEmpty()) {
             for (Program program : programs) {

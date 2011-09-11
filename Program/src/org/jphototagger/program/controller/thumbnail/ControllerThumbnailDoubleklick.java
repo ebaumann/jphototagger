@@ -2,13 +2,14 @@ package org.jphototagger.program.controller.thumbnail;
 
 import java.util.Arrays;
 
-import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.domain.programs.Program;
-import org.jphototagger.program.database.DatabasePrograms;
+import org.jphototagger.domain.repository.ProgramsRepository;
+import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.helper.ProgramsHelper;
 import org.jphototagger.program.helper.StartPrograms;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.openide.util.Lookup;
 
 /**
  * Kontroller für die Aktion: Doppelklick auf ein Thumbnail ausgelöst von
@@ -17,6 +18,7 @@ import org.jphototagger.program.view.panels.ThumbnailsPanel;
  * @author Elmar Baumann
  */
 public final class ControllerThumbnailDoubleklick {
+
     private final ThumbnailsPanel panel;
 
     public ControllerThumbnailDoubleklick(ThumbnailsPanel panel) {
@@ -33,7 +35,8 @@ public final class ControllerThumbnailDoubleklick {
 
     private void openImageAtIndex(int index) {
         if (panel.isIndex(index)) {
-            Program program = DatabasePrograms.INSTANCE.getDefaultImageOpenProgram();
+            ProgramsRepository repo = Lookup.getDefault().lookup(ProgramsRepository.class);
+            Program program = repo.getDefaultImageOpenProgram();
 
             if (program == null) {
                 String message = Bundle.getString(ControllerThumbnailDoubleklick.class, "ControllerOpenFilesWithStandardApp.Info.DefineOpenApp");
