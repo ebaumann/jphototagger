@@ -1,6 +1,5 @@
 package org.jphototagger.program.exporter;
 
-import org.jphototagger.domain.repository.Exporter;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -15,11 +14,13 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.jphototagger.domain.repository.AutoscanDirectoriesRepository;
+import org.jphototagger.domain.repository.Exporter;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.xml.bind.XmlObjectExporter;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.database.DatabaseAutoscanDirectories;
+import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
 /**
@@ -34,6 +35,7 @@ public final class AutoscanDirectoriesExporter implements Exporter {
     public static final String DISPLAY_NAME = Bundle.getString(AutoscanDirectoriesExporter.class, "AutoscanDirectoriesExporter.DisplayName");
     public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(AutoscanDirectoriesExporter.class, "AutoscanDirectoriesExporter.DisplayName.FileFilter"), "xml");
     public static final int POSITION = 90;
+    private final AutoscanDirectoriesRepository repo = Lookup.getDefault().lookup(AutoscanDirectoriesRepository.class);
 
     @Override
     public void exportFile(File file) {
@@ -44,7 +46,7 @@ public final class AutoscanDirectoriesExporter implements Exporter {
         File xmlFile = FileUtil.ensureSuffix(file, ".xml");
 
         try {
-            List<String> directories = FileUtil.getAbsolutePathnames(DatabaseAutoscanDirectories.INSTANCE.getAll());
+            List<String> directories = FileUtil.getAbsolutePathnames(repo.getAllDirectories());
 
             XmlObjectExporter.export(new CollectionWrapper(StringWrapper.getWrappedStrings(directories)), xmlFile);
         } catch (Exception ex) {

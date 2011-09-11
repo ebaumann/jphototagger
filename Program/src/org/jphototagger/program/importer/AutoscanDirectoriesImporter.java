@@ -7,13 +7,14 @@ import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.filechooser.FileFilter;
 
+import org.jphototagger.domain.repository.AutoscanDirectoriesRepository;
 import org.jphototagger.domain.repository.Importer;
 import org.jphototagger.lib.xml.bind.XmlObjectImporter;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.database.DatabaseAutoscanDirectories;
 import org.jphototagger.program.exporter.AutoscanDirectoriesExporter;
 import org.jphototagger.program.exporter.AutoscanDirectoriesExporter.CollectionWrapper;
 import org.jphototagger.program.exporter.StringWrapper;
+import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
 /**
@@ -23,6 +24,8 @@ import org.openide.util.lookup.ServiceProvider;
  */
 @ServiceProvider(service = Importer.class)
 public final class AutoscanDirectoriesImporter implements Importer {
+
+    private final AutoscanDirectoriesRepository repo = Lookup.getDefault().lookup(AutoscanDirectoriesRepository.class);
 
     @Override
     public void importFile(File file) {
@@ -36,8 +39,8 @@ public final class AutoscanDirectoriesImporter implements Importer {
                     AutoscanDirectoriesExporter.CollectionWrapper.class);
 
             for (StringWrapper stringWrapper : wrapper.getCollection()) {
-                if (!DatabaseAutoscanDirectories.INSTANCE.exists(new File(stringWrapper.getString()))) {
-                    DatabaseAutoscanDirectories.INSTANCE.insert(new File(stringWrapper.getString()));
+                if (!repo.existsDirectory(new File(stringWrapper.getString()))) {
+                    repo.insertDirectory(new File(stringWrapper.getString()));
                 }
             }
         } catch (Exception ex) {

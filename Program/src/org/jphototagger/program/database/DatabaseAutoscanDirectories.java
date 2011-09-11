@@ -26,14 +26,14 @@ public final class DatabaseAutoscanDirectories extends Database {
     private DatabaseAutoscanDirectories() {
     }
 
-    public boolean insert(File directory) {
+    boolean insertDirectory(File directory) {
         if (directory == null) {
             throw new NullPointerException("directory == null");
         }
 
         boolean inserted = false;
 
-        if (!exists(directory)) {
+        if (!existsDirectory(directory)) {
             Connection con = null;
             PreparedStatement stmt = null;
 
@@ -62,7 +62,7 @@ public final class DatabaseAutoscanDirectories extends Database {
         return inserted;
     }
 
-    public boolean delete(File directory) {
+    boolean deleteDirectory(File directory) {
         if (directory == null) {
             throw new NullPointerException("directory == null");
         }
@@ -95,7 +95,7 @@ public final class DatabaseAutoscanDirectories extends Database {
         return deleted;
     }
 
-    public boolean exists(File directory) {
+    boolean existsDirectory(File directory) {
         if (directory == null) {
             throw new NullPointerException("directory == null");
         }
@@ -125,7 +125,7 @@ public final class DatabaseAutoscanDirectories extends Database {
         return exists;
     }
 
-    public List<File> getAll() {
+    List<File> getAllDirectories() {
         List<File> directories = new ArrayList<File>();
         Connection con = null;
         Statement stmt = null;
