@@ -8,6 +8,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import java.util.Set;
+import org.jphototagger.domain.repository.RepositoryMaintainance;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -32,7 +34,7 @@ public class DatabaseRenameTemplatesTest {
     public static void tearDownClass() throws Exception {
         DatabaseRenameTemplates.INSTANCE.delete(RenameTemplateTest.createTemplate().getName());
         DatabaseRenameTemplates.INSTANCE.delete("New name");
-        DatabaseMaintainance.INSTANCE.shutdown();
+        Lookup.getDefault().lookup(RepositoryMaintainance.class).shutdownRepository();
     }
 
     /**

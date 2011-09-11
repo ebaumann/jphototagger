@@ -9,14 +9,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.jphototagger.domain.repository.RepositoryMaintainance;
 import org.jphototagger.lib.util.Bundle;
 
 import org.jphototagger.program.app.SplashScreen;
 import org.jphototagger.program.app.update.tables.ColumnInfo;
 import org.jphototagger.program.database.Database;
-import org.jphototagger.program.database.DatabaseMaintainance;
 import org.jphototagger.program.database.DatabaseMetadata;
 import org.jphototagger.program.database.DatabaseSavedSearches;
+import org.openide.util.Lookup;
 
 /**
  * Moves content of a table column into another table related 1:n (one to many)
@@ -27,37 +28,39 @@ import org.jphototagger.program.database.DatabaseSavedSearches;
  * @author Elmar Baumann
  */
 public final class UpdateTablesMake1n {
+
     private static final Map<ColumnInfo, ColumnInfo> TARGET_COL_OF = new HashMap<ColumnInfo, ColumnInfo>();
     private static final Logger LOGGER = Logger.getLogger(UpdateTablesMake1n.class.getName());
 
     static {
         TARGET_COL_OF.put(new ColumnInfo("exif", "exif_recording_equipment", null, null),
-                          new ColumnInfo("exif_recording_equipment", "equipment", null, null));
+                new ColumnInfo("exif_recording_equipment", "equipment", null, null));
         TARGET_COL_OF.put(new ColumnInfo("exif", "exif_lens", null, null),
-                          new ColumnInfo("exif_lenses", "lens", null, null));
+                new ColumnInfo("exif_lenses", "lens", null, null));
         TARGET_COL_OF.put(new ColumnInfo("xmp", "dc_creator", null, null),
-                          new ColumnInfo("dc_creators", "creator", null, null));
+                new ColumnInfo("dc_creators", "creator", null, null));
         TARGET_COL_OF.put(new ColumnInfo("xmp", "dc_rights", null, null),
-                          new ColumnInfo("dc_rights", "rights", null, null));
+                new ColumnInfo("dc_rights", "rights", null, null));
         TARGET_COL_OF.put(new ColumnInfo("xmp", "iptc4xmpcore_location", null, null),
-                          new ColumnInfo("iptc4xmpcore_locations", "location", null, null));
+                new ColumnInfo("iptc4xmpcore_locations", "location", null, null));
         TARGET_COL_OF.put(new ColumnInfo("xmp", "photoshop_authorsposition", null, null),
-                          new ColumnInfo("photoshop_authorspositions", "authorsposition", null, null));
+                new ColumnInfo("photoshop_authorspositions", "authorsposition", null, null));
         TARGET_COL_OF.put(new ColumnInfo("xmp", "photoshop_captionwriter", null, null),
-                          new ColumnInfo("photoshop_captionwriters", "captionwriter", null, null));
+                new ColumnInfo("photoshop_captionwriters", "captionwriter", null, null));
         TARGET_COL_OF.put(new ColumnInfo("xmp", "photoshop_city", null, null),
-                          new ColumnInfo("photoshop_cities", "city", null, null));
+                new ColumnInfo("photoshop_cities", "city", null, null));
         TARGET_COL_OF.put(new ColumnInfo("xmp", "photoshop_country", null, null),
-                          new ColumnInfo("photoshop_countries", "country", null, null));
+                new ColumnInfo("photoshop_countries", "country", null, null));
         TARGET_COL_OF.put(new ColumnInfo("xmp", "photoshop_credit", null, null),
-                          new ColumnInfo("photoshop_credits", "credit", null, null));
+                new ColumnInfo("photoshop_credits", "credit", null, null));
         TARGET_COL_OF.put(new ColumnInfo("xmp", "photoshop_source", null, null),
-                          new ColumnInfo("photoshop_sources", "source", null, null));
+                new ColumnInfo("photoshop_sources", "source", null, null));
         TARGET_COL_OF.put(new ColumnInfo("xmp", "photoshop_state", null, null),
-                          new ColumnInfo("photoshop_states", "state", null, null));
+                new ColumnInfo("photoshop_states", "state", null, null));
     }
 
-    UpdateTablesMake1n() {}
+    UpdateTablesMake1n() {
+    }
 
     void update(Connection con) throws SQLException {
         startMessage();
@@ -111,7 +114,9 @@ public final class UpdateTablesMake1n {
         }
 
         if (compress) {
-            DatabaseMaintainance.INSTANCE.compressDatabase();
+            RepositoryMaintainance repo = Lookup.getDefault().lookup(RepositoryMaintainance.class);
+
+            repo.compressRepository();
         }
     }
 
@@ -143,7 +148,7 @@ public final class UpdateTablesMake1n {
                 stmt.executeUpdate(sqlAddColumn);
 
                 String sqlAddForeignKey = "ALTER TABLE " + sourceTable + " ADD FOREIGN KEY (" + newColumn
-                                          + ") REFERENCES " + targetTable + "(id) ON DELETE SET NULL";
+                        + ") REFERENCES " + targetTable + "(id) ON DELETE SET NULL";
 
                 LOGGER.log(Level.FINER, sqlAddForeignKey);
                 stmt.executeUpdate(sqlAddForeignKey);
@@ -217,7 +222,7 @@ public final class UpdateTablesMake1n {
     }
 
     private void createLink(Connection con, String sourceTable, String linkColumn, String targetTable,
-                            String targetColumn, String targetValue, Long sourceId)
+            String targetColumn, String targetValue, Long sourceId)
             throws SQLException {
         PreparedStatement stmt = null;
 

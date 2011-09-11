@@ -6,7 +6,9 @@ import java.util.logging.Logger;
 import org.jphototagger.api.event.ProgressEvent;
 import org.jphototagger.api.event.ProgressListener;
 import org.jphototagger.domain.event.listener.ProgressListenerSupport;
+import org.jphototagger.domain.repository.RepositoryMaintainance;
 import org.jphototagger.lib.util.Bundle;
+import org.openide.util.Lookup;
 
 /**
  * Deletes from the database records in 1:n tables not referenced by another
@@ -35,7 +37,8 @@ final class DeleteNotReferenced1n implements Runnable {
     @Override
     public void run() {
         notifyProgressStarted();
-        countDeleted = DatabaseMaintainance.INSTANCE.deleteNotReferenced1n();
+        RepositoryMaintainance repo = Lookup.getDefault().lookup(RepositoryMaintainance.class);
+        countDeleted = repo.deleteNotReferenced1n();
         notifyProgressEnded();
     }
 

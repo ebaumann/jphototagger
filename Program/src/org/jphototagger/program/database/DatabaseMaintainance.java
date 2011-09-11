@@ -16,9 +16,9 @@ import org.jphototagger.lib.dialog.MessageDisplayer;
  *
  * @author Elmar Baumann
  */
-public final class DatabaseMaintainance extends Database {
+final class DatabaseMaintainance extends Database {
 
-    public static final DatabaseMaintainance INSTANCE = new DatabaseMaintainance();
+    static final DatabaseMaintainance INSTANCE = new DatabaseMaintainance();
     private static final Logger LOGGER = Logger.getLogger(DatabaseMaintainance.class.getName());
 
     private DatabaseMaintainance() {}
@@ -26,7 +26,7 @@ public final class DatabaseMaintainance extends Database {
     /**
      * Shuts down the database.
      */
-    public void shutdown() {
+    void shutdown() {
         Connection con = null;
         Statement stmt = null;
 
@@ -51,7 +51,7 @@ public final class DatabaseMaintainance extends Database {
      *
      * @return true, wenn die Datenbank erfolgreich komprimiert wurde
      */
-    public boolean compressDatabase() {
+    boolean compressDatabase() {
         boolean success = false;
         Connection con = null;
         Statement stmt = null;
@@ -120,7 +120,7 @@ public final class DatabaseMaintainance extends Database {
      *
      * @return count of deleted records
      */
-    public int deleteNotReferenced1n() {
+    int deleteNotReferenced1n() {
         String sqlTemplate = "DELETE FROM {0} WHERE ID NOT IN (SELECT DISTINCT {1} from {2})";
         Connection con = null;
         Statement stmt = null;
