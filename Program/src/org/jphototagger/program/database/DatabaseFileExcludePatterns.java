@@ -25,9 +25,9 @@ import org.openide.util.Lookup;
  *
  * @author Elmar Baumann
  */
-public final class DatabaseFileExcludePatterns extends Database {
+final class DatabaseFileExcludePatterns extends Database {
 
-    public static final DatabaseFileExcludePatterns INSTANCE = new DatabaseFileExcludePatterns();
+    static final DatabaseFileExcludePatterns INSTANCE = new DatabaseFileExcludePatterns();
     private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
 
     private DatabaseFileExcludePatterns() {
@@ -40,7 +40,7 @@ public final class DatabaseFileExcludePatterns extends Database {
      * @return true if inserted
      * @see    #existsValueInColumn(java.lang.String)
      */
-    public boolean insert(String pattern) {
+    boolean insertFileExcludePattern(String pattern) {
         if (pattern == null) {
             throw new NullPointerException("pattern == null");
         }
@@ -81,7 +81,7 @@ public final class DatabaseFileExcludePatterns extends Database {
      * @param  pattern  pattern
      * @return true if deleted
      */
-    public boolean delete(String pattern) {
+    boolean deleteFileExcludePattern(String pattern) {
         if (pattern == null) {
             throw new NullPointerException("pattern == null");
         }
@@ -122,7 +122,7 @@ public final class DatabaseFileExcludePatterns extends Database {
      * @param  pattern pattern
      * @return true if existsValueIn
      */
-    public boolean exists(String pattern) {
+    boolean existsFileExcludePattern(String pattern) {
         if (pattern == null) {
             throw new NullPointerException("pattern == null");
         }
@@ -157,7 +157,7 @@ public final class DatabaseFileExcludePatterns extends Database {
      *
      * @return patterns
      */
-    public List<String> getAll() {
+    List<String> getAllFileExcludePatterns() {
         List<String> patterns = new LinkedList<String>();
         Connection con = null;
         Statement stmt = null;
@@ -192,7 +192,7 @@ public final class DatabaseFileExcludePatterns extends Database {
      * @param   listener  progress listener or null, can cancel the action
      * @return  count of deleted files
      */
-    public int deleteMatchingFiles(List<String> patterns, ProgressListener listener) {
+    int deleteMatchingFiles(List<String> patterns, ProgressListener listener) {
         if (patterns == null) {
             throw new NullPointerException("patterns == null");
         }

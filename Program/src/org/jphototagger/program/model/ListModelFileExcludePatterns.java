@@ -7,17 +7,18 @@ import javax.swing.DefaultListModel;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.domain.repository.FileExcludePatternRepository;
 import org.jphototagger.domain.repository.event.fileexcludepattern.FileExcludePatternDeletedEvent;
 import org.jphototagger.domain.repository.event.fileexcludepattern.FileExcludePatternInsertedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.database.ConnectionPool;
-import org.jphototagger.program.database.DatabaseFileExcludePatterns;
+import org.openide.util.Lookup;
 
 /**
  * Element are {@link String}s retrieved through
- * {@link DatabaseFileExcludePatterns#getAll()}.
+ * {@link DatabaseFileExcludePatterns#getAllFileExcludePatterns()}.
  *
  * Filenames matching these patterns (strings) shall not be handled by
  * <strong>JPhotoTagger</strong>.
@@ -29,6 +30,7 @@ public final class ListModelFileExcludePatterns extends DefaultListModel {
     private static final long serialVersionUID = -8337739189362442866L;
     private volatile transient boolean listenToDb = true;
     private List<String> patterns;
+    private final FileExcludePatternRepository repo = Lookup.getDefault().lookup(FileExcludePatternRepository.class);
 
     public ListModelFileExcludePatterns() {
         addElements();
@@ -48,13 +50,13 @@ public final class ListModelFileExcludePatterns extends DefaultListModel {
 
         String trimmedPattern = pattern.trim();
 
-        if (DatabaseFileExcludePatterns.INSTANCE.exists(trimmedPattern)) {
+        if (repo.existsFileExcludePattern(trimmedPattern)) {
             errorMessageExists(trimmedPattern);
 
             return;
         }
 
-        if (DatabaseFileExcludePatterns.INSTANCE.insert(trimmedPattern)) {
+        if (repo.insertFileExcludePattern(trimmedPattern)) {
             addElement(trimmedPattern);
             patterns.add(trimmedPattern);
         } else {
@@ -73,7 +75,7 @@ public final class ListModelFileExcludePatterns extends DefaultListModel {
 
         String trimmedPattern = pattern.trim();
 
-        if (DatabaseFileExcludePatterns.INSTANCE.delete(trimmedPattern)) {
+        if (repo.deleteFileExcludePattern(trimmedPattern)) {
             removeElement(trimmedPattern);
             patterns.remove(trimmedPattern);
         } else {
@@ -88,7 +90,7 @@ public final class ListModelFileExcludePatterns extends DefaultListModel {
             return;
         }
 
-        patterns = DatabaseFileExcludePatterns.INSTANCE.getAll();
+        patterns = repo.getAllFileExcludePatterns();
 
         for (String pattern : patterns) {
             addElement(pattern);

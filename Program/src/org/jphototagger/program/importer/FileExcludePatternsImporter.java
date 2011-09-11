@@ -7,13 +7,14 @@ import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.filechooser.FileFilter;
 
+import org.jphototagger.domain.repository.FileExcludePatternRepository;
 import org.jphototagger.domain.repository.Importer;
 import org.jphototagger.lib.xml.bind.XmlObjectImporter;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.database.DatabaseFileExcludePatterns;
 import org.jphototagger.program.exporter.FileExcludePatternsExporter;
 import org.jphototagger.program.exporter.FileExcludePatternsExporter.CollectionWrapper;
 import org.jphototagger.program.exporter.StringWrapper;
+import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
 /**
@@ -23,6 +24,8 @@ import org.openide.util.lookup.ServiceProvider;
  */
 @ServiceProvider(service = Importer.class)
 public final class FileExcludePatternsImporter implements Importer {
+
+    private final FileExcludePatternRepository repo = Lookup.getDefault().lookup(FileExcludePatternRepository.class);
 
     @Override
     public void importFile(File file) {
@@ -36,8 +39,8 @@ public final class FileExcludePatternsImporter implements Importer {
                     FileExcludePatternsExporter.CollectionWrapper.class);
 
             for (StringWrapper stringWrapper : wrapper.getCollection()) {
-                if (!DatabaseFileExcludePatterns.INSTANCE.exists(stringWrapper.getString())) {
-                    DatabaseFileExcludePatterns.INSTANCE.insert(stringWrapper.getString());
+                if (!repo.existsFileExcludePattern(stringWrapper.getString())) {
+                    repo.insertFileExcludePattern(stringWrapper.getString());
                 }
             }
         } catch (Exception ex) {
