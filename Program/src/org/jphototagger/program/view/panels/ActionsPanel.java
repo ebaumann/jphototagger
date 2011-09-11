@@ -7,23 +7,24 @@ import java.awt.event.MouseEvent;
 import javax.swing.JProgressBar;
 
 import org.jphototagger.domain.event.listener.ListenerSupport;
+import org.jphototagger.domain.programs.Program;
+import org.jphototagger.domain.programs.ProgramExecutor;
+import org.jphototagger.domain.repository.ActionsAfterRepoUpdatesRepository;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.event.util.MouseEventUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.controller.actions.ProgramExecutorImpl;
-import org.jphototagger.domain.programs.Program;
-import org.jphototagger.program.database.DatabaseActionsAfterDbInsertion;
 import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.database.DatabasePrograms.Type;
 import org.jphototagger.program.datatransfer.TransferHandlerReorderListItems;
-import org.jphototagger.domain.programs.ProgramExecutor;
 import org.jphototagger.program.helper.ProgramsHelper;
 import org.jphototagger.program.helper.ProgramsHelper.ReorderListener;
 import org.jphototagger.program.model.ListModelPrograms;
 import org.jphototagger.program.view.dialogs.ProgramPropertiesDialog;
 import org.jphototagger.program.view.renderer.ListCellRendererActions;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -35,6 +36,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
     private final ListenerSupport<ProgramExecutor> ls = new ListenerSupport<ProgramExecutor>();
     private Object progressBarOwner;
     private final ReorderListener reorderListener = new ProgramsHelper.ReorderListener(model);
+    private final ActionsAfterRepoUpdatesRepository repo = Lookup.getDefault().lookup(ActionsAfterRepoUpdatesRepository.class);
 
     public ActionsPanel() {
         initComponents();
@@ -198,7 +200,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
 
     private boolean confirmDelete(Program program) {
         String  programName = program.getAlias();
-        boolean existsInActionsAfterDbInsertion = DatabaseActionsAfterDbInsertion.INSTANCE.existsAction(program);
+        boolean existsInActionsAfterDbInsertion = repo.existsAction(program);
         String messageExistsInOtherDb = Bundle.getString(ActionsPanel.class, "ActionsPanel.Confirm.Delete.ExistsInOtherDb", programName);
         String messageExists = Bundle.getString(ActionsPanel.class, "ActionsPanel.Confirm.Delete", programName);
 

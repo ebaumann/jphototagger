@@ -8,6 +8,7 @@ import javax.swing.DefaultListModel;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.domain.programs.Program;
+import org.jphototagger.domain.repository.ActionsAfterRepoUpdatesRepository;
 import org.jphototagger.domain.repository.event.programs.ProgramDeletedEvent;
 import org.jphototagger.domain.repository.event.programs.ProgramUpdatedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
@@ -15,12 +16,9 @@ import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.database.ConnectionPool;
-import org.jphototagger.program.database.DatabaseActionsAfterDbInsertion;
+import org.openide.util.Lookup;
 
 /**
- * Elements are {@link Program}s retrieved through
- * {@link DatabaseActionsAfterDbInsertion#getAllActions()}.
- *
  * The programs are actions, {@link Program#isAction()} is true for every
  * element in this model. All actions shall be executed after inserting metadata
  * into the database.
@@ -30,6 +28,7 @@ import org.jphototagger.program.database.DatabaseActionsAfterDbInsertion;
 public final class ListModelActionsAfterDbInsertion extends DefaultListModel {
 
     private static final long serialVersionUID = -6490813457178023686L;
+    private final ActionsAfterRepoUpdatesRepository repo = Lookup.getDefault().lookup(ActionsAfterRepoUpdatesRepository.class);
 
     public ListModelActionsAfterDbInsertion() {
         addElements();
@@ -43,7 +42,7 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel {
 
         assert action.isAction() : action;
 
-        if (!contains(action) && DatabaseActionsAfterDbInsertion.INSTANCE.insertAction(action, getSize())) {
+        if (!contains(action) && repo.insertAction(action, getSize())) {
             addElement(action);
         } else {
             errorMessageInsert(action);
@@ -86,7 +85,7 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel {
             fireContentsChanged(this, indexFirstElement, indexFirstElement);
             fireContentsChanged(this, indexSecondElement, indexSecondElement);
 
-            if (!DatabaseActionsAfterDbInsertion.INSTANCE.setActionOrder(getActions(), 0)) {
+            if (!repo.setActionOrder(getActions(), 0)) {
                 errorMessageSwap(indexFirstElement);
             }
         }
@@ -97,7 +96,7 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel {
             throw new NullPointerException("action == null");
         }
 
-        if (contains(action) && DatabaseActionsAfterDbInsertion.INSTANCE.deleteAction(action)) {
+        if (contains(action) && repo.deleteAction(action)) {
             removeElement(action);
         } else {
             errorMessageDelete(action);
@@ -127,7 +126,7 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel {
             return;
         }
 
-        List<Program> actions = DatabaseActionsAfterDbInsertion.INSTANCE.getAllActions();
+        List<Program> actions = repo.getAllActions();
 
         for (Program action : actions) {
             addElement(action);

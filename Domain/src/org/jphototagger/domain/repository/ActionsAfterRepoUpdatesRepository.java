@@ -1,5 +1,9 @@
 package org.jphototagger.domain.repository;
 
+import java.util.List;
+
+import org.jphototagger.domain.programs.Program;
+
 /**
  *
  *
@@ -7,4 +11,15 @@ package org.jphototagger.domain.repository;
  */
 public interface ActionsAfterRepoUpdatesRepository {
 
+    boolean deleteAction(Program program);
+
+    boolean existsAction(Program action);
+
+    int getActionCount();
+
+    List<Program> getAllActions();
+
+    boolean insertAction(Program program, int order);
+
+    boolean setActionOrder(List<Program> actions, int startIndex);
 }
