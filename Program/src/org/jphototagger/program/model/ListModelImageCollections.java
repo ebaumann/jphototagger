@@ -7,34 +7,34 @@ import java.util.Map;
 
 import javax.swing.DefaultListModel;
 
+import org.jphototagger.domain.repository.ImageCollectionsRepository;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.database.ConnectionPool;
-import org.jphototagger.program.database.DatabaseImageCollections;
+import org.openide.util.Lookup;
 
 /**
  * Elements are {@link String}s with all names of image collections retrieved
- * through {@link DatabaseImageCollections#getAll()}.
+ * through {@link DatabaseImageCollections#getAllImageCollectionNames()}.
  *
  * @author Elmar Baumann, Tobias Stening
  */
 public final class ListModelImageCollections extends DefaultListModel {
+
     private static final long serialVersionUID = -929229489709109467L;
     private static final Map<String, Integer> SORT_ORDER_OF_SPECIAL_COLLECTION = new LinkedHashMap<String, Integer>();
-
+    private final ImageCollectionsRepository repo = Lookup.getDefault().lookup(ImageCollectionsRepository.class);
     /**
      * Name of the image collection which contains the previous imported
      * image files
      */
     public static final String NAME_IMAGE_COLLECTION_PREV_IMPORT =
             Bundle.getString(ListModelImageCollections.class, "ListModelImageCollections.DisplayName.ItemImageCollections.LastImport");
-
     /**
      * Name of the image collection which contains picked images
      */
     public static final String NAME_IMAGE_COLLECTION_PICKED =
             Bundle.getString(ListModelImageCollections.class, "ListModelImageCollections.DisplayName.ItemImageCollections.Picked");
-
     /**
      * Name of the image collection which contains rejected images
      */
@@ -80,8 +80,7 @@ public final class ListModelImageCollections extends DefaultListModel {
             return;
         }
 
-        DatabaseImageCollections db = DatabaseImageCollections.INSTANCE;
-        List<String> collections = db.getAll();
+        List<String> collections = repo.getAllImageCollectionNames();
 
         addSpecialCollections();
 
@@ -188,6 +187,5 @@ public final class ListModelImageCollections extends DefaultListModel {
         private boolean isSpecialCollection(String o) {
             return SORT_ORDER_OF_SPECIAL_COLLECTION.containsKey(o);
         }
-
     }
 }

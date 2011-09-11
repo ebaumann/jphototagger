@@ -7,14 +7,14 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.domain.repository.InsertIntoRepository;
-import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.api.event.ProgressEvent;
 import org.jphototagger.api.event.ProgressListener;
+import org.jphototagger.domain.repository.ImageCollectionsRepository;
+import org.jphototagger.domain.repository.InsertIntoRepository;
+import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.SourceTargetFile;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.database.DatabaseImageCollections;
 import org.jphototagger.program.io.ImageFileFilterer;
 import org.jphototagger.program.model.ListModelImageCollections;
 import org.jphototagger.program.resource.GUI;
@@ -22,6 +22,7 @@ import org.jphototagger.program.tasks.UserTasks;
 import org.jphototagger.program.view.dialogs.ImportImageFilesDialog;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.ProgressBarUpdater;
+import org.openide.util.Lookup;
 
 /**
  * Imports image files from a source directory to a target directory.
@@ -153,11 +154,11 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
 
     private void insertCopiedFilesAsCollectionIntoDb() {
         String collectionName = ListModelImageCollections.NAME_IMAGE_COLLECTION_PREV_IMPORT;
-        DatabaseImageCollections db = DatabaseImageCollections.INSTANCE;
-        List<File> prevCollectionFiles = db.getImageFilesOf(collectionName);
+        ImageCollectionsRepository repo = Lookup.getDefault().lookup(ImageCollectionsRepository.class);
+        List<File> prevCollectionFiles = repo.getImageFilesOfImageCollection(collectionName);
 
         if (!prevCollectionFiles.isEmpty()) {
-            int delCount = db.deleteImagesFrom(collectionName, prevCollectionFiles);
+            int delCount = repo.deleteImagesFromImageCollection(collectionName, prevCollectionFiles);
 
             if (delCount != prevCollectionFiles.size()) {
                 LOGGER.log(Level.WARNING, "Could not delete all images from ''{0}''!", collectionName);
@@ -166,7 +167,7 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
             }
         }
 
-        db.insert(collectionName, copiedTargetFiles);
+        repo.insertImageCollection(collectionName, copiedTargetFiles);
     }
 
     private void selectPrevImportCollection() {

@@ -17,11 +17,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.jphototagger.domain.imagecollections.ImageCollection;
 import org.jphototagger.domain.repository.Exporter;
+import org.jphototagger.domain.repository.ImageCollectionsRepository;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.xml.bind.XmlObjectExporter;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.database.DatabaseImageCollections;
+import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
 /**
@@ -37,6 +38,7 @@ public final class ImageCollectionsExporter implements Exporter {
     public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(ImageCollectionsExporter.class, "ImageCollectionsExporter.DisplayName.FileFilter"), "xml");
     public static final ImageIcon ICON = AppLookAndFeel.getIcon("icon_export.png");
     public static final int POSITION = 50;
+    private final ImageCollectionsRepository repo = Lookup.getDefault().lookup(ImageCollectionsRepository.class);
 
     @Override
     public void exportFile(File file) {
@@ -47,7 +49,7 @@ public final class ImageCollectionsExporter implements Exporter {
         File xmlFile = FileUtil.ensureSuffix(file, ".xml");
 
         try {
-            List<ImageCollection> templates = DatabaseImageCollections.INSTANCE.getAll2();
+            List<ImageCollection> templates = repo.getAllImageCollections();
 
             XmlObjectExporter.export(new CollectionWrapper(templates), xmlFile);
         } catch (Exception ex) {
