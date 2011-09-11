@@ -8,12 +8,13 @@ import javax.swing.Icon;
 import javax.swing.filechooser.FileFilter;
 
 import org.jphototagger.domain.favorites.Favorite;
+import org.jphototagger.domain.repository.FavoritesRepository;
 import org.jphototagger.domain.repository.Importer;
 import org.jphototagger.lib.xml.bind.XmlObjectImporter;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.database.DatabaseFavorites;
 import org.jphototagger.program.exporter.FavoritesExporter;
 import org.jphototagger.program.exporter.FavoritesExporter.CollectionWrapper;
+import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
 /**
@@ -23,6 +24,8 @@ import org.openide.util.lookup.ServiceProvider;
  */
 @ServiceProvider(service = Importer.class)
 public final class FavoritesImporter implements Importer {
+
+    private final FavoritesRepository repo = Lookup.getDefault().lookup(FavoritesRepository.class);
 
     @Override
     public void importFile(File file) {
@@ -35,8 +38,8 @@ public final class FavoritesImporter implements Importer {
                     FavoritesExporter.CollectionWrapper.class);
 
             for (Favorite favorite : wrapper.getCollection()) {
-                if (!DatabaseFavorites.INSTANCE.exists(favorite.getName())) {
-                    DatabaseFavorites.INSTANCE.insertOrUpdate(favorite);
+                if (!repo.existsFavorite(favorite.getName())) {
+                    repo.insertOrUpdateFavorite(favorite);
                 }
             }
         } catch (Exception ex) {

@@ -19,9 +19,9 @@ import org.jphototagger.domain.repository.event.autoscandirectories.AutoscanDire
  *
  * @author Elmar Baumann
  */
-public final class DatabaseAutoscanDirectories extends Database {
+final class DatabaseAutoscanDirectories extends Database {
 
-    public static final DatabaseAutoscanDirectories INSTANCE = new DatabaseAutoscanDirectories();
+    static final DatabaseAutoscanDirectories INSTANCE = new DatabaseAutoscanDirectories();
 
     private DatabaseAutoscanDirectories() {
     }

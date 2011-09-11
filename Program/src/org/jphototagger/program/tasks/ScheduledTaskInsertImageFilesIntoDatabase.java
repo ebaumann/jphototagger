@@ -11,7 +11,6 @@ import org.jphototagger.domain.repository.InsertIntoRepository;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.database.DatabaseAutoscanDirectories;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
 import org.jphototagger.program.io.ImageFileFilterer;
 import org.jphototagger.program.view.panels.ProgressBarUpdater;

@@ -24,7 +24,6 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.Version;
 import org.jphototagger.program.app.AppInfo;
 import org.jphototagger.program.app.AppLifeCycle;
-import org.jphototagger.program.database.DatabaseApplicationProperties;
 import org.jphototagger.program.helper.FinalExecutable;
 import org.jphototagger.program.view.panels.ProgressBar;
 import org.openide.util.Lookup;

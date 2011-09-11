@@ -23,6 +23,7 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.core.Storage;
 import org.jphototagger.domain.event.AppWillExitEvent;
 import org.jphototagger.domain.favorites.Favorite;
+import org.jphototagger.domain.repository.FavoritesRepository;
 import org.jphototagger.domain.repository.event.favorites.FavoriteDeletedEvent;
 import org.jphototagger.domain.repository.event.favorites.FavoriteInsertedEvent;
 import org.jphototagger.domain.repository.event.favorites.FavoriteUpdatedEvent;
@@ -34,7 +35,6 @@ import org.jphototagger.lib.io.TreeFileSystemDirectories;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
 import org.jphototagger.lib.model.TreeNodeSortedChildren;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.database.DatabaseFavorites;
 import org.openide.util.Lookup;
 
 /**
@@ -44,7 +44,7 @@ import org.openide.util.Lookup;
  * <ul>
  * <li>The root user object is a {@link String}</li>
  * <li>All user objects in the first level below the root are
- *     {@link Favorite}s retrieved through {@link DatabaseFavorites#getAll()}
+ *     {@link Favorite}s retrieved through {@link DatabaseFavorites#getAllFavorites()}
  * </li>
  * <li>User objects below the favorites are directory {@link File}s</li>
  * </ul>
@@ -61,6 +61,7 @@ public final class TreeModelFavorites extends DefaultTreeModel implements TreeWi
     private final DefaultMutableTreeNode rootNode;
     private final JTree tree;
     private static final Logger LOGGER = Logger.getLogger(TreeModelFavorites.class.getName());
+    private final FavoritesRepository repo = Lookup.getDefault().lookup(FavoritesRepository.class);
 
     public TreeModelFavorites(JTree tree) {
         super(new DefaultMutableTreeNode(Bundle.getString(TreeModelFavorites.class, "TreeModelFavorites.Root.DisplayName")));
@@ -86,11 +87,10 @@ public final class TreeModelFavorites extends DefaultTreeModel implements TreeWi
             favorite.setIndex(getNextNewFavoriteIndex());
 
             if (!existsFavoriteDirectory(favorite)) {
-                if (DatabaseFavorites.INSTANCE.insertOrUpdate(favorite)) {
+                if (repo.insertOrUpdateFavorite(favorite)) {
                     addFavorite(favorite);
                 } else {
-                    errorMessage(favorite.getName(),
-                            Bundle.getString(TreeModelFavorites.class, "TreeModelFavorites.Error.ParamInsert"));
+                    errorMessage(favorite.getName(), Bundle.getString(TreeModelFavorites.class, "TreeModelFavorites.Error.ParamInsert"));
                 }
             }
 
@@ -108,7 +108,7 @@ public final class TreeModelFavorites extends DefaultTreeModel implements TreeWi
 
             DefaultMutableTreeNode favNode = getNode(favorite);
 
-            if ((favNode != null) && DatabaseFavorites.INSTANCE.delete(favorite.getName())) {
+            if ((favNode != null) && repo.deleteFavorite(favorite.getName())) {
                 removeNodeFromParent(favNode);
                 resetFavoriteIndices();
             } else {
@@ -138,7 +138,7 @@ public final class TreeModelFavorites extends DefaultTreeModel implements TreeWi
                 Favorite fav = (Favorite) userObject;
 
                 fav.setIndex(newIndex++);
-                DatabaseFavorites.INSTANCE.update(fav);
+                repo.updateFavorite(fav);
             }
         }
     }
@@ -232,14 +232,14 @@ public final class TreeModelFavorites extends DefaultTreeModel implements TreeWi
 
             favorite.setIndex(newIndex);
 
-            return DatabaseFavorites.INSTANCE.update(favorite);
+            return repo.updateFavorite(favorite);
         }
 
         return false;
     }
 
     private void addFavorites() {
-        List<Favorite> directories = DatabaseFavorites.INSTANCE.getAll();
+        List<Favorite> directories = repo.getAllFavorites();
 
         for (Favorite directory : directories) {
             if (directory.getDirectory().isDirectory()) {
@@ -364,7 +364,7 @@ public final class TreeModelFavorites extends DefaultTreeModel implements TreeWi
             Object userObject = childNodeToRemove.getUserObject();
 
             if (userObject instanceof Favorite) {
-                DatabaseFavorites.INSTANCE.delete(((Favorite) userObject).getName());
+                repo.deleteFavorite(((Favorite) userObject).getName());
             }
 
             removeNodeFromParent(childNodeToRemove);

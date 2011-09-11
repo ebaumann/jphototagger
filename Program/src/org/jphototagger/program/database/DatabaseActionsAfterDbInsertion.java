@@ -21,10 +21,10 @@ import org.jphototagger.domain.repository.event.repoupdates.ActionsAfterRepoUpda
  *
  * @author Elmar Baumann
  */
-public final class DatabaseActionsAfterDbInsertion extends Database {
+final class DatabaseActionsAfterDbInsertion extends Database {
 
     private static final Logger LOGGER = Logger.getLogger(DatabaseActionsAfterDbInsertion.class.getName());
-    public static final DatabaseActionsAfterDbInsertion INSTANCE = new DatabaseActionsAfterDbInsertion();
+    static final DatabaseActionsAfterDbInsertion INSTANCE = new DatabaseActionsAfterDbInsertion();
 
     private DatabaseActionsAfterDbInsertion() {
     }

@@ -7,13 +7,13 @@ import java.util.List;
 
 import org.jphototagger.api.core.Storage;
 import org.jphototagger.domain.favorites.Favorite;
+import org.jphototagger.domain.repository.FavoritesRepository;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.dialog.DirectoryChooser;
 import org.jphototagger.lib.dialog.DirectoryChooser.Option;
-import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.program.database.DatabaseFavorites;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.SelectRootFilesPanel;
 import org.openide.util.Lookup;
@@ -27,7 +27,7 @@ import org.openide.util.Lookup;
 public final class FavoritePropertiesDialog extends Dialog {
     private static final String KEY_LAST_DIRECTORY = "org.jphototagger.program.view.dialogs.FavoriteDirectoryPropertiesDialog.LastDirectory";
     private static final long serialVersionUID = 750583413264344283L;
-    private final transient DatabaseFavorites db = DatabaseFavorites.INSTANCE;
+    private final FavoritesRepository repo = Lookup.getDefault().lookup(FavoritesRepository.class);
     private File dir = new File("");
     private boolean accepted;
     private boolean update;
@@ -147,7 +147,7 @@ public final class FavoritePropertiesDialog extends Dialog {
     private void exitIfOk() {
         if (checkValuesOk()) {
             String favoriteName = textFieldFavoriteName.getText().trim();
-            boolean exists = db.exists(favoriteName);
+            boolean exists = repo.existsFavorite(favoriteName);
 
             if (!update && exists) {
                 String message = Bundle.getString(FavoritePropertiesDialog.class, "FavoritePropertiesDialog.Error.FavoriteExists", favoriteName);
