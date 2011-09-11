@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.SpinnerNumberModel;
 
 import org.jphototagger.api.core.Storage;
+import org.jphototagger.domain.repository.AutoscanDirectoriesRepository;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.DirectoryChooser;
 import org.jphototagger.lib.dialog.DirectoryChooser.Option;
@@ -32,6 +33,7 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel implem
     private final transient DatabaseAutoscanDirectories db = DatabaseAutoscanDirectories.INSTANCE;
     private ListModelAutoscanDirectories modelAutoscanDirectories = new ListModelAutoscanDirectories();
     private String lastSelectedAutoscanDirectory = "";
+    private final AutoscanDirectoriesRepository repo = Lookup.getDefault().lookup(AutoscanDirectoriesRepository.class);
 
     public SettingsScheduledTasksPanel() {
         initComponents();
@@ -96,8 +98,8 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel implem
                 if (!modelAutoscanDirectories.contains(directory)) {
                     lastSelectedAutoscanDirectory = directory.getAbsolutePath();
 
-                    if (!db.exists(directory)) {
-                        if (!db.insert(directory)) {
+                    if (!repo.existsDirectory(directory)) {
+                        if (!repo.insertDirectory(directory)) {
                             errorMessageInsertAutoscanDirectory(directory);
                         }
                     }
@@ -128,8 +130,8 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel implem
         for (int i = 0; i < values.length; i++) {
             File   directory     = (File) values[i];
 
-            if (db.exists(directory)) {
-                if (!db.delete(directory)) {
+            if (repo.existsDirectory(directory)) {
+                if (!repo.deleteDirectory(directory)) {
                     errorMessageDeleteAutoscanDirectory(directory);
                 }
             }

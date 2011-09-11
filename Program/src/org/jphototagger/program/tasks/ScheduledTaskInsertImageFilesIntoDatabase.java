@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.jphototagger.api.core.Storage;
+import org.jphototagger.domain.repository.AutoscanDirectoriesRepository;
 import org.jphototagger.domain.repository.InsertIntoRepository;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
@@ -18,7 +19,7 @@ import org.openide.util.Lookup;
 
 /**
  * Creates a {@link InsertImageFilesIntoDatabase} instance for the image files
- * in the directroies defined in {@link DatabaseAutoscanDirectories#getAll()}
+ * in the directroies defined in {@link DatabaseAutoscanDirectories#getAllDirectories()}
  * and their subdirectories if
  * {@link UserSettings#isAutoscanIncludeSubdirectories()} is true.
  *
@@ -37,7 +38,7 @@ public final class ScheduledTaskInsertImageFilesIntoDatabase {
     /**
      * Returns the inserter thread.
      *
-     * @return inserter thread or null if no image file is to insert into the
+     * @return inserter thread or null if no image file is to insertDirectory into the
      *         database
      */
     static InsertImageFilesIntoDatabase getThread() {
@@ -65,7 +66,8 @@ public final class ScheduledTaskInsertImageFilesIntoDatabase {
     }
 
     private static List<File> getDirectories() {
-        List<File> directories = DatabaseAutoscanDirectories.INSTANCE.getAll();
+        AutoscanDirectoriesRepository repo = Lookup.getDefault().lookup(AutoscanDirectoriesRepository.class);
+        List<File> directories = repo.getAllDirectories();
 
         addSubdirectories(directories);
         Collections.sort(directories);
