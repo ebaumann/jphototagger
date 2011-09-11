@@ -5,16 +5,17 @@ import java.awt.event.ActionListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.jphototagger.domain.repository.MetadataTemplateRepository;
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.program.database.DatabaseMetadataTemplates;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.model.ComboBoxModelMetadataTemplates;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.EditMetaDataTemplateDialog;
 import org.jphototagger.program.view.panels.AppPanel;
+import org.openide.util.Lookup;
 
 /**
  * Kontrolliert Eingaben bezüglich Metadaten-Templates.
@@ -24,6 +25,7 @@ import org.jphototagger.program.view.panels.AppPanel;
 public final class ControllerMetadataTemplates implements ActionListener {
 
     private static final Logger LOGGER = Logger.getLogger(ControllerMetadataTemplates.class.getName());
+    private final MetadataTemplateRepository repo = Lookup.getDefault().lookup(MetadataTemplateRepository.class);
 
     public ControllerMetadataTemplates() {
         listen();
@@ -190,13 +192,12 @@ public final class ControllerMetadataTemplates implements ActionListener {
         boolean exists = true;
         boolean cancel = false;
         String name = oldName;
-        DatabaseMetadataTemplates db = DatabaseMetadataTemplates.INSTANCE;
 
         while (exists && !cancel) {
             String info = Bundle.getString(ControllerMetadataTemplates.class, "ControllerMetadataTemplates.Input.TemplateName");
             String input = name;
             name = MessageDisplayer.input(info, input);
-            exists = (name != null) && db.exists(name);
+            exists = (name != null) && repo.existsMetadataTemplate(name);
 
             if (exists) {
                 cancel = rejectOverride(name);

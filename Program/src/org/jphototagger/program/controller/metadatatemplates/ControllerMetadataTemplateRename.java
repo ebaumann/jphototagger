@@ -5,13 +5,14 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 
+import org.jphototagger.domain.repository.MetadataTemplateRepository;
 import org.jphototagger.domain.templates.MetadataTemplate;
-import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.program.database.DatabaseMetadataTemplates;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.helper.MetadataTemplateHelper;
 import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.popupmenus.PopupMenuMetadataTemplates;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -19,6 +20,9 @@ import org.jphototagger.program.view.popupmenus.PopupMenuMetadataTemplates;
  * @author Elmar Baumann
  */
 public final class ControllerMetadataTemplateRename extends ControllerMetadataTemplate {
+
+    private final MetadataTemplateRepository repo = Lookup.getDefault().lookup(MetadataTemplateRepository.class);
+
     public ControllerMetadataTemplateRename() {
         listen();
     }
@@ -69,7 +73,7 @@ public final class ControllerMetadataTemplateRename extends ControllerMetadataTe
         String toName = MetadataTemplateHelper.getNewTemplateName(fromName);
 
         if (toName != null) {
-            if (!DatabaseMetadataTemplates.INSTANCE.updateRename(fromName, toName)) {
+            if (!repo.updateRenameMetadataTemplate(fromName, toName)) {
                 String message = Bundle.getString(ControllerMetadataTemplateRename.class, "ControllerMetadataTemplateRename.Error", fromName);
                 MessageDisplayer.error(null, message);
             }
