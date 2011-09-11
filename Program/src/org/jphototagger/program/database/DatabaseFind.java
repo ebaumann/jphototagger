@@ -23,12 +23,14 @@ import org.jphototagger.program.database.metadata.Util;
  *
  * @author Elmar Baumann
  */
-public final class DatabaseFind extends Database {
-    public static final DatabaseFind INSTANCE = new DatabaseFind();
+final class DatabaseFind extends Database {
 
-    private DatabaseFind() {}
+    static final DatabaseFind INSTANCE = new DatabaseFind();
 
-    public List<File> findImageFiles(ParamStatement paramStatement) {
+    private DatabaseFind() {
+    }
+
+    List<File> findImageFiles(ParamStatement paramStatement) {
         if (paramStatement == null) {
             throw new NullPointerException("paramStatement == null");
         }
@@ -78,7 +80,7 @@ public final class DatabaseFind extends Database {
      * @param searchString  Suchteilzeichenkette
      * @return              Alle gefundenen Dateien
      */
-    public List<File> findImageFilesLikeOr(List<MetaDataValue> searchColumns, String searchString) {
+    List<File> findImageFilesLikeOr(List<MetaDataValue> searchColumns, String searchString) {
         if (searchColumns == null) {
             throw new NullPointerException("searchColumns == null");
         }
@@ -155,8 +157,8 @@ public final class DatabaseFind extends Database {
 
         for (MetaDataValue column : searchColumns) {
             sql.append(!isFirstColumn
-                       ? " OR "
-                       : "").append(column.getCategory()).append(".").append(column.getValueName()).append(" LIKE ?");
+                    ? " OR "
+                    : "").append(column.getCategory()).append(".").append(column.getValueName()).append(" LIKE ?");
             isFirstColumn = false;
         }
 
@@ -172,7 +174,7 @@ public final class DatabaseFind extends Database {
     private void addSynonyms(StringBuilder sb, String searchString) {
         int count = DatabaseSynonyms.INSTANCE.getSynonymsOf(searchString).size();
         String colName = XmpDcSubjectsSubjectMetaDataValue.INSTANCE.getCategory() + "."
-                         + XmpDcSubjectsSubjectMetaDataValue.INSTANCE.getValueName();
+                + XmpDcSubjectsSubjectMetaDataValue.INSTANCE.getValueName();
 
         for (int i = 0; i < count; i++) {
             sb.append(" OR ");

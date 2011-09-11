@@ -8,17 +8,18 @@ import java.util.List;
 import javax.swing.JButton;
 
 import org.jphototagger.domain.metadata.search.ParamStatement;
+import org.jphototagger.domain.repository.FindRepository;
+import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.data.SavedSearch;
-import org.jphototagger.program.database.DatabaseFind;
 import org.jphototagger.program.helper.SavedSearchesHelper;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.program.view.WaitDisplay;
 import org.jphototagger.program.view.dialogs.AdvancedSearchDialog;
 import org.jphototagger.program.view.panels.AdvancedSearchPanel;
+import org.openide.util.Lookup;
 
 /**
  * Kontrolliert die Aktionen: Erweiterter Suchdialog soll angezeigt werden sowie
@@ -27,6 +28,9 @@ import org.jphototagger.program.view.panels.AdvancedSearchPanel;
  * @author Elmar Baumann
  */
 public final class ControllerAdvancedSearch implements ActionListener {
+
+    private final FindRepository repo = Lookup.getDefault().lookup(FindRepository.class);
+
     public ControllerAdvancedSearch() {
         getSearchButton().addActionListener(this);
     }
@@ -41,6 +45,7 @@ public final class ControllerAdvancedSearch implements ActionListener {
 
     private void applySavedSearch(final SavedSearch savedSearch) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 assert savedSearch.isValid() : savedSearch;
@@ -50,7 +55,7 @@ public final class ControllerAdvancedSearch implements ActionListener {
 
                 TreeUtil.clearSelection(GUI.getAppPanel().getSelectionTrees());
 
-                List<File> imageFiles = DatabaseFind.INSTANCE.findImageFiles(stmt);
+                List<File> imageFiles = repo.findImageFiles(stmt);
 
                 setTitle(savedSearch.getName());
                 SavedSearchesHelper.setSort(savedSearch);
@@ -60,7 +65,7 @@ public final class ControllerAdvancedSearch implements ActionListener {
 
             private void setTitle(String name) {
                 String titleAdvancedSearch = Bundle.getString(ControllerAdvancedSearch.class, "ControllerAdvancedSearch.AppFrame.Title.AdvancedSearch");
-                String titleSavedSearch = Bundle.getString(ControllerAdvancedSearch.class,  "ControllerAdvancedSearch.AppFrame.Title.AdvancedSearch.Saved", name);
+                String titleSavedSearch = Bundle.getString(ControllerAdvancedSearch.class, "ControllerAdvancedSearch.AppFrame.Title.AdvancedSearch.Saved", name);
                 GUI.getAppFrame().setTitle(name == null ? titleAdvancedSearch : titleSavedSearch);
             }
         });

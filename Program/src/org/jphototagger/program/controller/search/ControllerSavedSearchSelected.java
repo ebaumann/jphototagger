@@ -9,15 +9,16 @@ import javax.swing.event.ListSelectionListener;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.domain.metadata.search.ParamStatement;
+import org.jphototagger.domain.repository.FindRepository;
 import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.data.SavedSearch;
-import org.jphototagger.program.database.DatabaseFind;
 import org.jphototagger.program.helper.SavedSearchesHelper;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.WaitDisplay;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -25,6 +26,8 @@ import org.jphototagger.program.view.WaitDisplay;
  * @author Elmar Baumann
  */
 public final class ControllerSavedSearchSelected implements ListSelectionListener {
+
+    private final FindRepository repo = Lookup.getDefault().lookup(FindRepository.class);
 
     public ControllerSavedSearchSelected() {
         listen();
@@ -89,7 +92,7 @@ public final class ControllerSavedSearchSelected implements ListSelectionListene
         }
 
         private void searchParamStatement(ParamStatement stmt, String name) {
-            List<File> imageFiles = DatabaseFind.INSTANCE.findImageFiles(stmt);
+            List<File> imageFiles = repo.findImageFiles(stmt);
 
             setTitle(name);
             GUI.getThumbnailsPanel().setFiles(imageFiles, TypeOfDisplayedImages.SAVED_SEARCH);

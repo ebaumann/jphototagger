@@ -18,6 +18,7 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.core.Storage;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
+import org.jphototagger.domain.repository.FindRepository;
 import org.jphototagger.domain.repository.ImageFileRepository;
 import org.jphototagger.domain.repository.event.xmp.XmpDeletedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
@@ -31,7 +32,6 @@ import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
-import org.jphototagger.program.database.DatabaseFind;
 import org.jphototagger.program.database.metadata.selections.AutoCompleteDataOfMetaDataValue;
 import org.jphototagger.program.database.metadata.selections.FastSearchMetaDataValues;
 import org.jphototagger.program.helper.AutocompleteHelper;
@@ -50,6 +50,7 @@ public final class ControllerFastSearch implements ActionListener {
     private static final String DELIMITER_SEARCH_WORDS = ";";
     private final Autocomplete autocomplete;
     private boolean isAutocomplete;
+    private final FindRepository findRepo = Lookup.getDefault().lookup(FindRepository.class);
 
     public ControllerFastSearch() {
         if (getPersistedAutocomplete()) {
@@ -154,7 +155,7 @@ public final class ControllerFastSearch implements ActionListener {
     private void search(final String searchText) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
-            private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
+            private final ImageFileRepository imageFileRepo = Lookup.getDefault().lookup(ImageFileRepository.class);
 
             @Override
             public void run() {
@@ -184,7 +185,7 @@ public final class ControllerFastSearch implements ActionListener {
 
             private List<File> searchFiles(String userInput) {
                 if (isSearchAllDefinedMetaDataValues()) {
-                    return DatabaseFind.INSTANCE.findImageFilesLikeOr(FastSearchMetaDataValues.get(), userInput);
+                    return findRepo.findImageFilesLikeOr(FastSearchMetaDataValues.get(), userInput);
                 } else {
                     List<String> searchWords = getSearchWords(userInput);
                     MetaDataValue searchValue = getSearchMetaDataValue();
@@ -197,15 +198,15 @@ public final class ControllerFastSearch implements ActionListener {
 
                     if (searchWords.size() == 1) {
                         if (isKeywordSearch) {
-                            return new ArrayList<File>(repo.getImageFilesContainingDcSubject(searchWords.get(0), true));
+                            return new ArrayList<File>(imageFileRepo.getImageFilesContainingDcSubject(searchWords.get(0), true));
                         } else {
-                            return DatabaseFind.INSTANCE.findImageFilesLikeOr(Arrays.asList(searchValue), userInput);
+                            return findRepo.findImageFilesLikeOr(Arrays.asList(searchValue), userInput);
                         }
                     } else if (searchWords.size() > 1) {
                         if (isKeywordSearch) {
-                            return new ArrayList<File>(repo.getImageFilesContainingAllDcSubjects(searchWords));
+                            return new ArrayList<File>(imageFileRepo.getImageFilesContainingAllDcSubjects(searchWords));
                         } else {
-                            return new ArrayList<File>(repo.getImageFilesContainingAllWordsInMetaDataValue(searchWords, searchValue));
+                            return new ArrayList<File>(imageFileRepo.getImageFilesContainingAllWordsInMetaDataValue(searchWords, searchValue));
                         }
                     } else {
                         return null;
