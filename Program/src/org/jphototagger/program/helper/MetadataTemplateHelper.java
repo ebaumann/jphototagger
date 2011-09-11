@@ -1,11 +1,12 @@
 package org.jphototagger.program.helper;
 
+import org.jphototagger.domain.repository.MetadataTemplateRepository;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.dialog.InputDialog;
-import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.program.database.DatabaseMetadataTemplates;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.view.dialogs.InputHelperDialog;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -32,6 +33,8 @@ public final class MetadataTemplateHelper {
             dlg.setInput(fromName);
         }
 
+        MetadataTemplateRepository repo = Lookup.getDefault().lookup(MetadataTemplateRepository.class);
+
         while (true) {
             ComponentUtil.show(dlg);
 
@@ -55,7 +58,7 @@ public final class MetadataTemplateHelper {
                 }
             }
 
-            if (!namesEqual && DatabaseMetadataTemplates.INSTANCE.exists(name)) {
+            if (!namesEqual && repo.existsMetadataTemplate(name)) {
                 String message = Bundle.getString(MetadataTemplateHelper.class, "MetadataTemplateHelper.Error.NameExists", name);
 
                 if (!MessageDisplayer.confirmYesNo(null, message)) {
@@ -68,5 +71,5 @@ public final class MetadataTemplateHelper {
     }
 
     private MetadataTemplateHelper() {
-}
+    }
 }

@@ -15,8 +15,8 @@ import org.jphototagger.domain.metadata.MetaDataValue;
  *
  * @author Elmar Baumann
  */
-public final class DatabaseMetaDataValues extends Database {
-    public static final DatabaseMetaDataValues INSTANCE = new DatabaseMetaDataValues();
+final class DatabaseMetaDataValues extends Database {
+    static final DatabaseMetaDataValues INSTANCE = new DatabaseMetaDataValues();
 
     private DatabaseMetaDataValues() {}
 

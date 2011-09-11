@@ -6,6 +6,7 @@ import javax.swing.DefaultComboBoxModel;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.domain.repository.MetadataTemplateRepository;
 import org.jphototagger.domain.repository.event.metadatatemplates.MetadataTemplateDeletedEvent;
 import org.jphototagger.domain.repository.event.metadatatemplates.MetadataTemplateInsertedEvent;
 import org.jphototagger.domain.repository.event.metadatatemplates.MetadataTemplateRenamedEvent;
@@ -15,17 +16,18 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.database.ConnectionPool;
-import org.jphototagger.program.database.DatabaseMetadataTemplates;
+import org.openide.util.Lookup;
 
 /**
  * Elements are instances of {@link MetadataTemplate}s retrieved through
- * {@link DatabaseMetadataTemplates#getAll()}.
+ * {@link DatabaseMetadataTemplates#getAllMetadataTemplates()}.
  *
  * @author Elmar Baumann, Tobias Stening
  */
 public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel {
 
     private static final long serialVersionUID = 7895253533969078904L;
+    private final MetadataTemplateRepository repo = Lookup.getDefault().lookup(MetadataTemplateRepository.class);
 
     public ComboBoxModelMetadataTemplates() {
         addElements();
@@ -42,7 +44,7 @@ public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel {
             throw new NullPointerException("template == null");
         }
 
-        if ((getIndexOf(template) >= 0) && DatabaseMetadataTemplates.INSTANCE.delete(template.getName())) {
+        if ((getIndexOf(template) >= 0) && repo.deleteMetadataTemplate(template.getName())) {
             removeElement(template);
         } else {
             errorMessage(template.getName(), Bundle.getString(ComboBoxModelMetadataTemplates.class, "ComboBoxModelMetadataTemplates.Error.ParamDelete"));
@@ -63,7 +65,7 @@ public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel {
             return;
         }
 
-        if (DatabaseMetadataTemplates.INSTANCE.insertOrUpdate(template)) {
+        if (repo.insertOrUpdateMetadataTemplate(template)) {
             addElement(template);
             setSelectedItem(template);
         } else {
@@ -84,7 +86,7 @@ public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel {
 
         int index = getIndexOf(template);
 
-        if ((index >= 0) && DatabaseMetadataTemplates.INSTANCE.update(template)) {
+        if ((index >= 0) && repo.updateMetadataTemplate(template)) {
             removeElementAt(index);
             insertElementAt(template, index);
             setSelectedItem(template);
@@ -111,7 +113,7 @@ public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel {
 
         int index = getIndexOf(template);
 
-        if ((index >= 0) && DatabaseMetadataTemplates.INSTANCE.updateRename(template.getName(), newName)) {
+        if ((index >= 0) && repo.updateRenameMetadataTemplate(template.getName(), newName)) {
             template.setName(newName);
             removeElementAt(index);
             insertElementAt(template, index);
@@ -146,7 +148,7 @@ public final class ComboBoxModelMetadataTemplates extends DefaultComboBoxModel {
             return;
         }
 
-        List<MetadataTemplate> templates = DatabaseMetadataTemplates.INSTANCE.getAll();
+        List<MetadataTemplate> templates = repo.getAllMetadataTemplates();
 
         for (MetadataTemplate template : templates) {
             addElement(template);

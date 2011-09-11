@@ -5,12 +5,13 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 
+import org.jphototagger.domain.repository.MetadataTemplateRepository;
 import org.jphototagger.domain.templates.MetadataTemplate;
-import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.program.database.DatabaseMetadataTemplates;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.popupmenus.PopupMenuMetadataTemplates;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -18,6 +19,9 @@ import org.jphototagger.program.view.popupmenus.PopupMenuMetadataTemplates;
  * @author Elmar Baumann
  */
 public final class ControllerMetadataTemplateDelete extends ControllerMetadataTemplate {
+
+    private final MetadataTemplateRepository repo = Lookup.getDefault().lookup(MetadataTemplateRepository.class);
+
     public ControllerMetadataTemplateDelete() {
         listen();
     }
@@ -68,7 +72,7 @@ public final class ControllerMetadataTemplateDelete extends ControllerMetadataTe
         String message = Bundle.getString(ControllerMetadataTemplateDelete.class, "ControllerMetadataTemplateDelete.Confirm", name);
 
         if (MessageDisplayer.confirmYesNo(InputHelperDialog.INSTANCE, message)) {
-            if (!DatabaseMetadataTemplates.INSTANCE.delete(name)) {
+            if (!repo.deleteMetadataTemplate(name)) {
                 message = Bundle.getString(ControllerMetadataTemplateDelete.class, "ControllerMetadataTemplateDelete.Error", name);
                 MessageDisplayer.error(InputHelperDialog.INSTANCE, message);
             }

@@ -20,11 +20,12 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.repository.Exporter;
+import org.jphototagger.domain.repository.MetadataTemplateRepository;
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.database.DatabaseMetadataTemplates;
 import org.jphototagger.program.io.CharEncoding;
+import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.DOMImplementation;
@@ -55,6 +56,7 @@ public final class MetadataTemplatesExporter implements Exporter {
     public static final String ATTR_NAME_VALUE = "value";
     public static final String COLLECTION_DELIM = "|";
     public static final String NULL = "null";
+    private final MetadataTemplateRepository repo = Lookup.getDefault().lookup(MetadataTemplateRepository.class);
 
     @Override
     public void exportFile(File file) {
@@ -82,7 +84,7 @@ public final class MetadataTemplatesExporter implements Exporter {
 
         doc.appendChild(rootElement);
 
-        for (MetadataTemplate template : DatabaseMetadataTemplates.INSTANCE.getAll()) {
+        for (MetadataTemplate template : repo.getAllMetadataTemplates()) {
             Element templateElement = doc.createElement(TAGNAME_TEMPLATE);
 
             templateElement.setAttribute(ATTR_NAME_TEMPLATE_NAME, template.getName());

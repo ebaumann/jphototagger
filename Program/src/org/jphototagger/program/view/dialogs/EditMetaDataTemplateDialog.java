@@ -2,14 +2,15 @@ package org.jphototagger.program.view.dialogs;
 
 import java.awt.Container;
 
+import org.jphototagger.domain.repository.MetadataTemplateRepository;
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
-import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.program.database.DatabaseMetadataTemplates;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.view.ViewUtil;
+import org.openide.util.Lookup;
 
 /**
  * Modal dialog for modifying and saving a {@link MetadataTemplate} into the
@@ -25,6 +26,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
     private static final long serialVersionUID = -6621176928237283620L;
     private transient MetadataTemplate template;
     private transient Xmp xmp = new Xmp();
+    private final MetadataTemplateRepository repo = Lookup.getDefault().lookup(MetadataTemplateRepository.class);
 
     public EditMetaDataTemplateDialog() {
         super(InputHelperDialog.INSTANCE, true);
@@ -108,7 +110,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
             panelXmpEdit.setInputToXmp();
             template.setXmp(xmp);
 
-            if (DatabaseMetadataTemplates.INSTANCE.insertOrUpdate(template)) {
+            if (repo.insertOrUpdateMetadataTemplate(template)) {
                 panelXmpEdit.setDirty(false);
             } else {
                 String message = Bundle.getString(EditMetaDataTemplateDialog.class, "EditMetaDataTemplateDialog.Error.Save");
@@ -125,7 +127,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
             boolean textfieldHasName = (name != null) &&!name.trim().isEmpty();
 
             if (textfieldHasName) {
-                if (DatabaseMetadataTemplates.INSTANCE.exists(name)) {
+                if (repo.existsMetadataTemplate(name)) {
                     String message = Bundle.getString(EditMetaDataTemplateDialog.class, "EditMetaDataTemplateDialog.Error.NameExists", name);
                     MessageDisplayer.error(this, message);
                     textFieldName.requestFocusInWindow();
@@ -282,12 +284,14 @@ public class EditMetaDataTemplateDialog extends Dialog {
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 EditMetaDataTemplateDialog dialog =
-                    new EditMetaDataTemplateDialog();
+                        new EditMetaDataTemplateDialog();
 
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
@@ -297,7 +301,6 @@ public class EditMetaDataTemplateDialog extends Dialog {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCancel;
     private javax.swing.JButton buttonSave;

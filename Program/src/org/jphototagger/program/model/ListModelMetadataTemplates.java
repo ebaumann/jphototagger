@@ -1,26 +1,29 @@
 package org.jphototagger.program.model;
 
-import org.jphototagger.domain.templates.MetadataTemplate;
-import org.jphototagger.program.database.ConnectionPool;
-import org.jphototagger.program.database.DatabaseMetadataTemplates;
 import javax.swing.DefaultListModel;
+
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.domain.repository.MetadataTemplateRepository;
 import org.jphototagger.domain.repository.event.metadatatemplates.MetadataTemplateDeletedEvent;
 import org.jphototagger.domain.repository.event.metadatatemplates.MetadataTemplateInsertedEvent;
 import org.jphototagger.domain.repository.event.metadatatemplates.MetadataTemplateRenamedEvent;
 import org.jphototagger.domain.repository.event.metadatatemplates.MetadataTemplateUpdatedEvent;
+import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.program.database.ConnectionPool;
+import org.openide.util.Lookup;
 
 /**
  * Elements are {@link MetadataTemplate}s retrieved through
- * {@link DatabaseMetadataTemplates#getAll()}.
+ * {@link DatabaseMetadataTemplates#getAllMetadataTemplates()}.
  *
  * @author Elmar Baumann
  */
 public final class ListModelMetadataTemplates extends DefaultListModel {
 
     private static final long serialVersionUID = -1726658041913008196L;
+    private final MetadataTemplateRepository repo = Lookup.getDefault().lookup(MetadataTemplateRepository.class);
 
     public ListModelMetadataTemplates() {
         addElements();
@@ -32,7 +35,7 @@ public final class ListModelMetadataTemplates extends DefaultListModel {
             return;
         }
 
-        for (MetadataTemplate t : DatabaseMetadataTemplates.INSTANCE.getAll()) {
+        for (MetadataTemplate t : repo.getAllMetadataTemplates()) {
             addElement(t);
         }
     }

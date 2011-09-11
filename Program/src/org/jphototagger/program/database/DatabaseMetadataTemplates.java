@@ -42,10 +42,10 @@ import org.jphototagger.domain.templates.MetadataTemplate;
  *
  * @author Elmar Baumann
  */
-public final class DatabaseMetadataTemplates extends Database {
+final class DatabaseMetadataTemplates extends Database {
 
     private static final String DELIM_REPEATABLE_STRINGS = "\t";
-    public static final DatabaseMetadataTemplates INSTANCE = new DatabaseMetadataTemplates();
+    static final DatabaseMetadataTemplates INSTANCE = new DatabaseMetadataTemplates();
 
     private DatabaseMetadataTemplates() {
     }
@@ -57,13 +57,13 @@ public final class DatabaseMetadataTemplates extends Database {
      * @param  template  Template
      * @return           true bei Erfolg
      */
-    public boolean insertOrUpdate(MetadataTemplate template) {
+    boolean insertOrUpdateMetadataTemplate(MetadataTemplate template) {
         if (template == null) {
             throw new NullPointerException("template == null");
         }
 
-        if (exists(template.getName())) {
-            return update(template);
+        if (existsMetadataTemplate(template.getName())) {
+            return updateMetadataTemplate(template);
         }
 
         boolean inserted = false;
@@ -208,7 +208,7 @@ public final class DatabaseMetadataTemplates extends Database {
      * @param  name template name
      * @return      template or null if no template has that name or on errors
      */
-    public MetadataTemplate find(String name) {
+    MetadataTemplate findMetadataTemplate(String name) {
         if (name == null) {
             throw new NullPointerException("name == null");
         }
@@ -247,7 +247,7 @@ public final class DatabaseMetadataTemplates extends Database {
      *
      * @return Templates
      */
-    public List<MetadataTemplate> getAll() {
+    List<MetadataTemplate> getAllMetadataTemplates() {
         List<MetadataTemplate> templates = new ArrayList<MetadataTemplate>();
         Connection con = null;
         Statement stmt = null;
@@ -385,7 +385,7 @@ public final class DatabaseMetadataTemplates extends Database {
      * @param  template  Template
      * @return true bei Erfolg
      */
-    public boolean update(MetadataTemplate template) {
+    boolean updateMetadataTemplate(MetadataTemplate template) {
         if (template == null) {
             throw new NullPointerException("template == null");
         }
@@ -419,7 +419,7 @@ public final class DatabaseMetadataTemplates extends Database {
             con = getConnection();
             con.setAutoCommit(false);
 
-            MetadataTemplate oldTemplate = find(template.getName());
+            MetadataTemplate oldTemplate = findMetadataTemplate(template.getName());
 
             stmt = con.prepareStatement(sql);
             set(stmt, template);
@@ -445,7 +445,7 @@ public final class DatabaseMetadataTemplates extends Database {
         return updated;
     }
 
-    public boolean updateRename(String fromName, String toName) {
+    boolean updateRenameMetadataTemplate(String fromName, String toName) {
         if (toName == null) {
             throw new NullPointerException("toName == null");
         }
@@ -487,7 +487,7 @@ public final class DatabaseMetadataTemplates extends Database {
      * @param  name  Name des Templates
      * @return true bei Erfolg
      */
-    public boolean delete(String name) {
+    boolean deleteMetadataTemplate(String name) {
         if (name == null) {
             throw new NullPointerException("name == null");
         }
@@ -500,7 +500,7 @@ public final class DatabaseMetadataTemplates extends Database {
             con = getConnection();
             con.setAutoCommit(false);
 
-            MetadataTemplate template = find(name);
+            MetadataTemplate template = findMetadataTemplate(name);
 
             stmt = con.prepareStatement("DELETE FROM metadata_edit_templates WHERE name = ?");
             stmt.setString(1, name);
@@ -525,7 +525,7 @@ public final class DatabaseMetadataTemplates extends Database {
         return deleted;
     }
 
-    public boolean exists(String name) {
+    boolean existsMetadataTemplate(String name) {
         if (name == null) {
             throw new NullPointerException("name == null");
         }
