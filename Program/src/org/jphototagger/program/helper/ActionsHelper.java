@@ -1,19 +1,23 @@
 package org.jphototagger.program.helper;
 
-import org.jphototagger.lib.image.util.IconUtil;
-import org.jphototagger.domain.programs.Program;
-import org.jphototagger.program.database.DatabasePrograms;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.panels.ProgressBar;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import java.awt.event.ActionEvent;
 import java.util.List;
+
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+
+import org.jphototagger.domain.programs.Program;
+import org.jphototagger.domain.repository.ProgramType;
+import org.jphototagger.domain.repository.ProgramsRepository;
+import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.controller.actions.AddProgramAction;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.view.panels.ProgressBar;
+import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -25,7 +29,8 @@ public final class ActionsHelper {
     private static final JMenuItem ADD_ACTION_MENU_ITEM = new JMenuItem(new AddProgramAction());
 
     public static JMenu actionsAsMenu() {
-        List<Program> actions = DatabasePrograms.INSTANCE.getAll(DatabasePrograms.Type.ACTION);
+        ProgramsRepository repo = Lookup.getDefault().lookup(ProgramsRepository.class);
+        List<Program> actions = repo.getAllPrograms(ProgramType.ACTION);
         JMenu menu = new JMenu(Bundle.getString(ActionsHelper.class, "ActionsHelper.ActionMenu.DisplayName"));
 
         for (Program action : actions) {
@@ -39,8 +44,9 @@ public final class ActionsHelper {
 
     private static void reorderActions(JMenu actionsMenu) {
         actionsMenu.removeAll();
+        ProgramsRepository repo = Lookup.getDefault().lookup(ProgramsRepository.class);
 
-        List<Program> actions = DatabasePrograms.INSTANCE.getAll(DatabasePrograms.Type.ACTION);
+        List<Program> actions = repo.getAllPrograms(ProgramType.ACTION);
 
         for (Program action : actions) {
             actionsMenu.add(new JMenuItem(new ActionStarter(action, action)));
@@ -144,6 +150,7 @@ public final class ActionsHelper {
     }
 
     private static class ActionStarter extends AbstractAction {
+
         private static final long serialVersionUID = 1L;
         private final transient Program action;
         private final Object pBarOwner;
@@ -173,6 +180,6 @@ public final class ActionsHelper {
         }
     }
 
-
-    private ActionsHelper() {}
+    private ActionsHelper() {
+    }
 }

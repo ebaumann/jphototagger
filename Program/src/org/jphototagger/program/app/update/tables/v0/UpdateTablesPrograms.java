@@ -6,11 +6,12 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.jphototagger.api.core.Storage;
+import org.jphototagger.domain.programs.Program;
+import org.jphototagger.domain.repository.ProgramType;
+import org.jphototagger.domain.repository.ProgramsRepository;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.SplashScreen;
-import org.jphototagger.domain.programs.Program;
 import org.jphototagger.program.database.Database;
-import org.jphototagger.program.database.DatabasePrograms;
 import org.openide.util.Lookup;
 
 /**
@@ -22,6 +23,7 @@ final class UpdateTablesPrograms extends Database {
 
     private static final String KEY_OTHER_IMAGE_OPEN_APPS = "UserSettings.OtherImageOpenApps";
     private static final String KEY_DEFAULT_IMAGE_OPEN_APP = "UserSettings.DefaultImageOpenApp";
+    private final ProgramsRepository repo = Lookup.getDefault().lookup(ProgramsRepository.class);
 
     UpdateTablesPrograms() {
     }
@@ -45,16 +47,16 @@ final class UpdateTablesPrograms extends Database {
 
                 defaultIoApp.setSequenceNumber(0);
 
-                if (DatabasePrograms.INSTANCE.insert(defaultIoApp)) {
+                if (repo.insertProgram(defaultIoApp)) {
                     storage.removeKey(KEY_DEFAULT_IMAGE_OPEN_APP);
 
-                    List<Program> programs = DatabasePrograms.INSTANCE.getAll(DatabasePrograms.Type.PROGRAM);
+                    List<Program> programs = repo.getAllPrograms(ProgramType.PROGRAM);
                     int sequenceNo = 0;
 
                     for (Program program : programs) {
                         if (sequenceNo > 0) {
                             program.setSequenceNumber(sequenceNo);
-                            DatabasePrograms.INSTANCE.update(program);
+                            repo.updateProgram(program);
                         }
 
                         sequenceNo++;
@@ -69,12 +71,11 @@ final class UpdateTablesPrograms extends Database {
         List<String> filepaths = storage.getStringCollection(KEY_OTHER_IMAGE_OPEN_APPS);
 
         if (filepaths.size() > 0) {
-            DatabasePrograms db = DatabasePrograms.INSTANCE;
 
             for (String filepath : filepaths) {
                 File file = new File(filepath);
 
-                db.insert(new Program(file, file.getName()));
+                repo.insertProgram(new Program(file, file.getName()));
             }
 
             storage.removeStringCollection(KEY_OTHER_IMAGE_OPEN_APPS);

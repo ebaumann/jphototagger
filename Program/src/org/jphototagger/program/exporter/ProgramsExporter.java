@@ -17,11 +17,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.repository.Exporter;
+import org.jphototagger.domain.repository.ProgramType;
+import org.jphototagger.domain.repository.ProgramsRepository;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.xml.bind.XmlObjectExporter;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.database.DatabasePrograms;
+import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
 /**
@@ -37,6 +39,7 @@ public final class ProgramsExporter implements Exporter {
     public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(ProgramsExporter.class, "ProgramsExporter.DisplayName.FileFilter"), "xml");
     public static final ImageIcon ICON = AppLookAndFeel.getIcon("icon_export.png");
     public static final int POSITION = 70;
+    private final ProgramsRepository repo = Lookup.getDefault().lookup(ProgramsRepository.class);
 
     @Override
     public void exportFile(File file) {
@@ -47,9 +50,9 @@ public final class ProgramsExporter implements Exporter {
         File xmlFile = FileUtil.ensureSuffix(file, ".xml");
 
         try {
-            List<Program> programs = DatabasePrograms.INSTANCE.getAll(DatabasePrograms.Type.ACTION);
+            List<Program> programs = repo.getAllPrograms(ProgramType.ACTION);
 
-            programs.addAll(DatabasePrograms.INSTANCE.getAll(DatabasePrograms.Type.PROGRAM));
+            programs.addAll(repo.getAllPrograms(ProgramType.PROGRAM));
             XmlObjectExporter.export(new CollectionWrapper(programs), xmlFile);
         } catch (Exception ex) {
             Logger.getLogger(ProgramsExporter.class.getName()).log(Level.SEVERE, null, ex);

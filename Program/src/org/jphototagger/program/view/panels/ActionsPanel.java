@@ -10,14 +10,14 @@ import org.jphototagger.domain.event.listener.ListenerSupport;
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.programs.ProgramExecutor;
 import org.jphototagger.domain.repository.ActionsAfterRepoUpdatesRepository;
+import org.jphototagger.domain.repository.ProgramType;
+import org.jphototagger.domain.repository.ProgramsRepository;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.event.util.MouseEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.controller.actions.ProgramExecutorImpl;
-import org.jphototagger.program.database.DatabasePrograms;
-import org.jphototagger.program.database.DatabasePrograms.Type;
 import org.jphototagger.program.datatransfer.TransferHandlerReorderListItems;
 import org.jphototagger.program.helper.ProgramsHelper;
 import org.jphototagger.program.helper.ProgramsHelper.ReorderListener;
@@ -32,11 +32,12 @@ import org.openide.util.Lookup;
  */
 public final class ActionsPanel extends javax.swing.JPanel {
     private static final long serialVersionUID = 8875330844851092391L;
-    private final ListModelPrograms model = new ListModelPrograms(Type.ACTION);
+    private final ListModelPrograms model = new ListModelPrograms(ProgramType.ACTION);
     private final ListenerSupport<ProgramExecutor> ls = new ListenerSupport<ProgramExecutor>();
     private Object progressBarOwner;
     private final ReorderListener reorderListener = new ProgramsHelper.ReorderListener(model);
-    private final ActionsAfterRepoUpdatesRepository repo = Lookup.getDefault().lookup(ActionsAfterRepoUpdatesRepository.class);
+    private final ActionsAfterRepoUpdatesRepository actionsAfterRepoUpdatesRepo = Lookup.getDefault().lookup(ActionsAfterRepoUpdatesRepository.class);
+    private final ProgramsRepository programsRepo = Lookup.getDefault().lookup(ProgramsRepository.class);
 
     public ActionsPanel() {
         initComponents();
@@ -126,7 +127,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
         if (dlg.isAccepted()) {
             Program program = dlg.getProgram();
 
-            if (DatabasePrograms.INSTANCE.insert(program)) {
+            if (programsRepo.insertProgram(program)) {
                 selectLastListItem();
             }
         }
@@ -151,7 +152,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
             dlg.setVisible(true);
 
             if (dlg.isAccepted()) {
-                DatabasePrograms.INSTANCE.update(program);
+                programsRepo.updateProgram(program);
             }
         }
 
@@ -190,7 +191,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
             Program program = getSelectedAction();
 
             if (confirmDelete(program)) {
-                DatabasePrograms.INSTANCE.delete(program);
+                programsRepo.deleteProgram(program);
             }
 
             setEnabled();
@@ -200,7 +201,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
 
     private boolean confirmDelete(Program program) {
         String  programName = program.getAlias();
-        boolean existsInActionsAfterDbInsertion = repo.existsAction(program);
+        boolean existsInActionsAfterDbInsertion = actionsAfterRepoUpdatesRepo.existsAction(program);
         String messageExistsInOtherDb = Bundle.getString(ActionsPanel.class, "ActionsPanel.Confirm.Delete.ExistsInOtherDb", programName);
         String messageExists = Bundle.getString(ActionsPanel.class, "ActionsPanel.Confirm.Delete", programName);
 
@@ -496,7 +497,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_buttonExecuteActionPerformed
 
     private void menuItemExecuteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemExecuteActionPerformed
-       executeAction();
+        executeAction();
     }//GEN-LAST:event_menuItemExecuteActionPerformed
 
     private void menuItemEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemEditActionPerformed
@@ -522,7 +523,6 @@ public final class ActionsPanel extends javax.swing.JPanel {
     private void menuItemMoveActionDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemMoveActionDownActionPerformed
         moveActionDown();
 }//GEN-LAST:event_menuItemMoveActionDownActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCreate;
     private javax.swing.JButton buttonDelete;

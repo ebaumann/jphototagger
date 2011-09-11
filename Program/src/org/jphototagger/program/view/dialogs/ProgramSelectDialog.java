@@ -7,7 +7,7 @@ import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.domain.programs.Program;
-import org.jphototagger.program.database.DatabasePrograms.Type;
+import org.jphototagger.domain.repository.ProgramType;
 import org.jphototagger.program.model.ListModelPrograms;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.renderer.ListCellRendererActions;
@@ -21,10 +21,10 @@ import org.jphototagger.program.view.renderer.ListCellRendererPrograms;
 public class ProgramSelectDialog extends Dialog {
     private static final long serialVersionUID = -8970433115513988650L;
     private final ListModelPrograms model;
-    private final Type type;
+    private final ProgramType type;
     private boolean accepted;
 
-    public ProgramSelectDialog(Type type) {
+    public ProgramSelectDialog(ProgramType type) {
         super(GUI.getAppFrame(), true);
 
         if (type == null) {
@@ -46,7 +46,7 @@ public class ProgramSelectDialog extends Dialog {
         String actionsTitle = Bundle.getString(ProgramSelectDialog.class, "ProgramSelectDialog.Title.Actions"); // NOI18N
         String programsTitle = Bundle.getString(ProgramSelectDialog.class, "ProgramSelectDialog.Title.Programs"); // NOI18N
 
-        setTitle(type.equals(Type.ACTION) ? actionsTitle : programsTitle);
+        setTitle(type.equals(ProgramType.ACTION) ? actionsTitle : programsTitle);
     }
 
     /**
@@ -130,7 +130,7 @@ public class ProgramSelectDialog extends Dialog {
 
         listPrograms.setModel(model);
         listPrograms.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        listPrograms.setCellRenderer(type.equals(Type.ACTION) ? new ListCellRendererActions() : new ListCellRendererPrograms());
+        listPrograms.setCellRenderer(type.equals(ProgramType.ACTION) ? new ListCellRendererActions() : new ListCellRendererPrograms());
         listPrograms.setName("listPrograms"); // NOI18N
         listPrograms.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -197,7 +197,7 @@ public class ProgramSelectDialog extends Dialog {
             @Override
             public void run() {
                 ProgramSelectDialog dialog =
-                        new ProgramSelectDialog(Type.PROGRAM);
+                        new ProgramSelectDialog(ProgramType.PROGRAM);
 
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 

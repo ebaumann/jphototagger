@@ -9,7 +9,6 @@ import org.jphototagger.domain.repository.event.programs.ProgramDeletedEvent;
 import org.jphototagger.domain.repository.event.programs.ProgramInsertedEvent;
 import org.jphototagger.domain.repository.event.programs.ProgramUpdatedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.helper.ActionsHelper;
 import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
 

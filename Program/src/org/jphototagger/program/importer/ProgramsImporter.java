@@ -9,11 +9,12 @@ import javax.swing.filechooser.FileFilter;
 
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.repository.Importer;
+import org.jphototagger.domain.repository.ProgramsRepository;
 import org.jphototagger.lib.xml.bind.XmlObjectImporter;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.database.DatabasePrograms;
 import org.jphototagger.program.exporter.ProgramsExporter;
 import org.jphototagger.program.exporter.ProgramsExporter.CollectionWrapper;
+import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
 /**
@@ -23,6 +24,8 @@ import org.openide.util.lookup.ServiceProvider;
  */
 @ServiceProvider(service = Importer.class)
 public final class ProgramsImporter implements Importer {
+
+    private final ProgramsRepository repo = Lookup.getDefault().lookup(ProgramsRepository.class);
 
     @Override
     public void importFile(File file) {
@@ -35,8 +38,8 @@ public final class ProgramsImporter implements Importer {
                     ProgramsExporter.CollectionWrapper.class);
 
             for (Program program : wrapper.getCollection()) {
-                if (!DatabasePrograms.INSTANCE.exists(program)) {
-                    DatabasePrograms.INSTANCE.insert(program);
+                if (!repo.existsProgram(program)) {
+                    repo.insertProgram(program);
                 }
             }
         } catch (Exception ex) {

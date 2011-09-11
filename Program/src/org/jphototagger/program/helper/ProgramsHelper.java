@@ -1,16 +1,19 @@
 package org.jphototagger.program.helper;
 
-import org.jphototagger.lib.componentutil.ListUtil;
-import org.jphototagger.domain.programs.Program;
-import org.jphototagger.program.database.DatabasePrograms;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.dialogs.ProgramPropertiesDialog;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.DefaultListModel;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
+
 import org.jdesktop.swingx.JXList;
+import org.jphototagger.domain.programs.Program;
+import org.jphototagger.domain.repository.ProgramsRepository;
+import org.jphototagger.lib.componentutil.ListUtil;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.view.dialogs.ProgramPropertiesDialog;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -97,12 +100,15 @@ public final class ProgramsHelper {
             programs.add(program);
         }
 
+        ProgramsRepository repo = Lookup.getDefault().lookup(ProgramsRepository.class);
+
         for (Program program : programs) {
-            DatabasePrograms.INSTANCE.update(program);
+            repo.updateProgram(program);
         }
     }
 
     public static class ReorderListener implements ListDataListener {
+
         private volatile boolean listenToModel = true;
         private final DefaultListModel model;
 
@@ -150,8 +156,9 @@ public final class ProgramsHelper {
 
         if (dlg.isAccepted()) {
             Program program = dlg.getProgram();
+            ProgramsRepository repo = Lookup.getDefault().lookup(ProgramsRepository.class);
 
-            DatabasePrograms.INSTANCE.insert(program);
+            repo.insertProgram(program);
 
             return program;
         }
@@ -170,5 +177,6 @@ public final class ProgramsHelper {
         }
     }
 
-    private ProgramsHelper() {}
+    private ProgramsHelper() {
+    }
 }
