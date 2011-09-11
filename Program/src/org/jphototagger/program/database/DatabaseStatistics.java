@@ -15,22 +15,24 @@ import org.jphototagger.domain.metadata.MetaDataValue;
  *
  * @author Elmar Baumann
  */
-public final class DatabaseStatistics extends Database {
-    public static final DatabaseStatistics INSTANCE = new DatabaseStatistics();
+final class DatabaseStatistics extends Database {
 
-    private DatabaseStatistics() {}
+    static final DatabaseStatistics INSTANCE = new DatabaseStatistics();
+
+    private DatabaseStatistics() {
+    }
 
     /**
      * Returns the count of records in a table of specific column (where
      * the column value is not NULL).
      *
-     * @param  column  column
+     * @param  metaDataValue  column
      * @return count count of records in the column's table where
      * <code>column</code> is not null
      */
-    public int getTotalRecordCountOf(MetaDataValue column) {
-        if (column == null) {
-            throw new NullPointerException("column == null");
+    int getCountOfMetaDataValue(MetaDataValue metaDataValue) {
+        if (metaDataValue == null) {
+            throw new NullPointerException("metaDataValue == null");
         }
 
         int count = -1;
@@ -42,8 +44,8 @@ public final class DatabaseStatistics extends Database {
             con = getConnection();
             stmt = con.createStatement();
 
-            String sql = "SELECT COUNT(*) FROM " + column.getCategory()
-                         + " WHERE " + column.getValueName() + " IS NOT NULL";
+            String sql = "SELECT COUNT(*) FROM " + metaDataValue.getCategory()
+                    + " WHERE " + metaDataValue.getValueName() + " IS NOT NULL";
 
             logFinest(sql);
             rs = stmt.executeQuery(sql);
@@ -66,7 +68,7 @@ public final class DatabaseStatistics extends Database {
      *
      * @return Dateianzahl oder -1 bei Fehlern
      */
-    public int getFileCount() {
+    int getFileCount() {
         int count = -1;
         Connection con = null;
         Statement stmt = null;
@@ -99,7 +101,7 @@ public final class DatabaseStatistics extends Database {
      *
      * @return Dateianzahl oder -1 bei Fehlern
      */
-    public int getXmpCount() {
+    int getXmpCount() {
         int count = -1;
         Connection con = null;
         Statement stmt = null;
@@ -130,12 +132,12 @@ public final class DatabaseStatistics extends Database {
     /**
      * Returns whether one column in a list of columns has at least one value.
      *
-     * @param  columns  columns
+     * @param  metaDataValues
      * @param  value    value
-     * @return true if the value existsValueIn into the column
+     * @return true if the value existsValueInMetaDataValues into the column
      */
-    public boolean existsValueIn(List<MetaDataValue> columns, String value) {
-        if (columns == null) {
+    boolean existsValueInMetaDataValues(String value, List<MetaDataValue> metaDataValues) {
+        if (metaDataValues == null) {
             throw new NullPointerException("columns == null");
         }
 
@@ -147,13 +149,13 @@ public final class DatabaseStatistics extends Database {
         try {
             con = getConnection();
 
-            int size = columns.size();
+            int size = metaDataValues.size();
 
             for (int i = 0; !exists && (i < size); i++) {
-                MetaDataValue column = columns.get(i);
+                MetaDataValue column = metaDataValues.get(i);
 
                 stmt = con.prepareStatement("SELECT COUNT(*) FROM " + column.getCategory()
-                                            + " WHERE " + column.getValueName() + " = ?");
+                        + " WHERE " + column.getValueName() + " = ?");
                 stmt.setString(1, value);
                 logFinest(stmt);
                 rs = stmt.executeQuery();
@@ -178,13 +180,13 @@ public final class DatabaseStatistics extends Database {
     /**
      * Returns whether a column has at least one value.
      *
-     * @param  column  column
+     * @param  metaDataValue  column
      * @param  value   value
-     * @return true if the value existsValueIn in the column
+     * @return true if the value existsValueInMetaDataValues in the column
      */
-    public boolean existsValueIn(MetaDataValue column, String value) {
-        if (column == null) {
-            throw new NullPointerException("column == null");
+    boolean existsMetaDataValue(MetaDataValue metaDataValue, String value) {
+        if (metaDataValue == null) {
+            throw new NullPointerException("metaDataValue == null");
         }
 
         int count = 0;
@@ -194,8 +196,8 @@ public final class DatabaseStatistics extends Database {
 
         try {
             con = getConnection();
-            stmt = con.prepareStatement("SELECT COUNT(*) FROM " + column.getCategory()
-                                        + " WHERE " + column.getValueName() + " = ?");
+            stmt = con.prepareStatement("SELECT COUNT(*) FROM " + metaDataValue.getCategory()
+                    + " WHERE " + metaDataValue.getValueName() + " = ?");
             stmt.setString(1, value);
             logFinest(stmt);
             rs = stmt.executeQuery();

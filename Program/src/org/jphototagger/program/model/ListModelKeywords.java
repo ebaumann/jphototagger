@@ -12,6 +12,7 @@ import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.repository.ImageFileRepository;
+import org.jphototagger.domain.repository.RepositoryStatistics;
 import org.jphototagger.domain.repository.event.dcsubjects.DcSubjectDeletedEvent;
 import org.jphototagger.domain.repository.event.dcsubjects.DcSubjectInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpDeletedEvent;
@@ -20,7 +21,6 @@ import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.database.ConnectionPool;
-import org.jphototagger.program.database.DatabaseStatistics;
 import org.openide.util.Lookup;
 
 /**
@@ -66,7 +66,9 @@ public final class ListModelKeywords extends DefaultListModel {
     }
 
     boolean databaseHasKeyword(String keyword) {
-        return DatabaseStatistics.INSTANCE.existsValueIn(XmpDcSubjectsSubjectMetaDataValue.INSTANCE, keyword);
+        RepositoryStatistics repoStatistics = Lookup.getDefault().lookup(RepositoryStatistics.class);
+
+        return repoStatistics.existsMetaDataValue(XmpDcSubjectsSubjectMetaDataValue.INSTANCE, keyword);
     }
 
     @SuppressWarnings("unchecked")

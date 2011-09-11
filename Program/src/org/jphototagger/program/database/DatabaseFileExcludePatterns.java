@@ -16,6 +16,7 @@ import org.jphototagger.domain.repository.event.fileexcludepattern.FileExcludePa
 import org.jphototagger.api.event.ProgressEvent;
 import org.jphototagger.api.event.ProgressListener;
 import org.jphototagger.domain.repository.ImageFileRepository;
+import org.jphototagger.domain.repository.RepositoryStatistics;
 import org.jphototagger.domain.repository.event.imagefiles.ImageFileDeletedEvent;
 import org.jphototagger.program.cache.PersistentThumbnails;
 import org.openide.util.Lookup;
@@ -117,10 +118,10 @@ final class DatabaseFileExcludePatterns extends Database {
     }
 
     /**
-     * Returns wheter a file exclude pattern existsValueIn.
+     * Returns wheter a file exclude pattern existsValueInMetaDataValues.
      *
      * @param  pattern pattern
-     * @return true if existsValueIn
+     * @return true if existsValueInMetaDataValues
      */
     boolean existsFileExcludePattern(String pattern) {
         if (pattern == null) {
@@ -218,8 +219,8 @@ final class DatabaseFileExcludePatterns extends Database {
 
             int patternCount = patterns.size();
             int progress = 0;
-            ProgressEvent event = new ProgressEvent(this, 0, DatabaseStatistics.INSTANCE.getFileCount() * patternCount,
-                    0, null);
+            RepositoryStatistics repoStatistics = Lookup.getDefault().lookup(RepositoryStatistics.class);
+            ProgressEvent event = new ProgressEvent(this, 0, repoStatistics.getFileCount() * patternCount, 0, null);
 
             notifyProgressListenerStart(listener, event);
 

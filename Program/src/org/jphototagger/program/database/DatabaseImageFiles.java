@@ -57,6 +57,7 @@ import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.api.event.ProgressEvent;
 import org.jphototagger.api.event.ProgressListener;
+import org.jphototagger.domain.repository.RepositoryStatistics;
 import org.jphototagger.program.cache.PersistentThumbnails;
 import org.jphototagger.domain.timeline.Timeline;
 import org.jphototagger.program.database.metadata.Join;
@@ -64,6 +65,7 @@ import org.jphototagger.program.database.metadata.Join.Type;
 import org.jphototagger.program.image.thumbnail.ThumbnailUtil;
 import org.jphototagger.domain.xmp.FileXmp;
 import org.jphototagger.xmp.XmpMetadata;
+import org.openide.util.Lookup;
 
 /**
  * Database containing metadata of image files.
@@ -348,7 +350,7 @@ final class DatabaseImageFiles extends Database {
 
     /**
      * Inserts an image file into the databse. If the image already
-     * existsValueIn it's data will be updated.
+     * existsValueInMetaDataValues it's data will be updated.
      * <p>
      * Inserts or updates this metadata:
      *
@@ -537,9 +539,11 @@ final class DatabaseImageFiles extends Database {
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
+        RepositoryStatistics repoStatistics = Lookup.getDefault().lookup(RepositoryStatistics.class);
+
 
         try {
-            int filecount = DatabaseStatistics.INSTANCE.getFileCount();
+            int filecount = repoStatistics.getFileCount();
             ProgressEvent progressEvent = new ProgressEvent(this, 0, filecount, 0, "");
 
             con = getConnection();
@@ -737,7 +741,8 @@ final class DatabaseImageFiles extends Database {
 
     public int deleteAbsentImageFiles(ProgressListener listener) {
         int countDeleted = 0;
-        ProgressEvent event = new ProgressEvent(this, 0, DatabaseStatistics.INSTANCE.getFileCount(), 0, null);
+        RepositoryStatistics repoStatistics = Lookup.getDefault().lookup(RepositoryStatistics.class);
+        ProgressEvent event = new ProgressEvent(this, 0, repoStatistics.getFileCount(), 0, null);
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -1140,7 +1145,8 @@ final class DatabaseImageFiles extends Database {
 
     public int deleteAbsentXmp(ProgressListener listener) {
         int countDeleted = 0;
-        ProgressEvent progressEvent = new ProgressEvent(this, 0, DatabaseStatistics.INSTANCE.getXmpCount(), 0, null);
+        RepositoryStatistics repoStatistics = Lookup.getDefault().lookup(RepositoryStatistics.class);
+        ProgressEvent progressEvent = new ProgressEvent(this, 0, repoStatistics.getXmpCount(), 0, null);
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
