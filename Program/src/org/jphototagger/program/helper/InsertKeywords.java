@@ -1,15 +1,18 @@
 package org.jphototagger.program.helper;
 
-import org.jphototagger.program.database.DatabaseKeywords;
-import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.program.model.TreeModelKeywords;
-import org.jphototagger.program.resource.GUI;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
+
+import org.jphototagger.domain.repository.KeywordsRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.program.factory.ModelFactory;
+import org.jphototagger.program.model.TreeModelKeywords;
+import org.jphototagger.program.resource.GUI;
+import org.openide.util.Lookup;
 
 /**
  * Inserts a list of Strings into the keywords root.
@@ -17,7 +20,9 @@ import org.jphototagger.lib.awt.EventQueueUtil;
  * @author Elmar Baumann
  */
 public final class InsertKeywords extends Thread {
+
     private final List<String> keywords;
+    private final KeywordsRepository repo = Lookup.getDefault().lookup(KeywordsRepository.class);
 
     public InsertKeywords(List<String> keywords) {
         super("JPhotoTagger: Inserting string list into keywords");
@@ -36,6 +41,7 @@ public final class InsertKeywords extends Thread {
 
     private void copy() {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 TreeModelKeywords model = ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
@@ -49,11 +55,10 @@ public final class InsertKeywords extends Thread {
     }
 
     private void insertKeywords(DefaultMutableTreeNode rootHk, TreeModelKeywords modelHk) {
-        DatabaseKeywords db = DatabaseKeywords.INSTANCE;
         boolean inserted = false;
 
         for (String keyword : keywords) {
-            if (!db.existsRootKeyword(keyword)) {
+            if (!repo.existsRootKeyword(keyword)) {
                 modelHk.insert(rootHk, keyword, true, true);
                 inserted = true;
             }

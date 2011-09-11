@@ -9,14 +9,15 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
+import org.jphototagger.domain.repository.KeywordsRepository;
 import org.jphototagger.domain.repository.event.dcsubjects.DcSubjectInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.program.database.DatabaseKeywords;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.model.TreeModelKeywords;
+import org.openide.util.Lookup;
 
 /**
  * Listens to database updates and adds not existing keywords.
@@ -24,6 +25,8 @@ import org.jphototagger.program.model.TreeModelKeywords;
  * @author Elmar Baumann
  */
 public final class ControllerKeywordsDbUpdates {
+
+    private final KeywordsRepository repo = Lookup.getDefault().lookup(KeywordsRepository.class);
 
     public ControllerKeywordsDbUpdates() {
         listen();
@@ -44,7 +47,7 @@ public final class ControllerKeywordsDbUpdates {
 
     private void addNotExistingKeywords(Collection<? extends String> keywords) {
         for (String keyword : keywords) {
-            if (!DatabaseKeywords.INSTANCE.exists(keyword)) {
+            if (!repo.existsKeyword(keyword)) {
                 addKeyword(keyword);
             }
         }

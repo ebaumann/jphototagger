@@ -10,18 +10,19 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.jphototagger.domain.keywords.Keyword;
+import org.jphototagger.domain.repository.KeywordsRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.dialog.InputDialog;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
-import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.program.database.DatabaseKeywords;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.model.TreeModelKeywords;
 import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.panels.KeywordsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsTree;
+import org.openide.util.Lookup;
 
 /**
  * Listens to the menu item {@link PopupMenuKeywordsTree#getItemAdd()}
@@ -108,6 +109,7 @@ public class ControllerAddKeyword extends ControllerKeywords implements ActionLi
         String newName = null;
         InputDialog inputDialog = createInputDialog();
         boolean input = true;
+        KeywordsRepository repo = Lookup.getDefault().lookup(KeywordsRepository.class);
 
         while (input) {
             inputDialog.setVisible(true);
@@ -124,7 +126,7 @@ public class ControllerAddKeyword extends ControllerKeywords implements ActionLi
 
             Keyword newKeyword = createKeywordFromExistingKeyword(keyword, newName);
 
-            if (DatabaseKeywords.INSTANCE.hasParentChildWithEqualName(newKeyword)) {
+            if (repo.hasParentChildKeywordWithEqualName(newKeyword)) {
                 newName = null;
                 String message = Bundle.getString(ControllerAddKeyword.class, "ControllerAddKeyword.Confirm.Exists", newKeyword);
                 input = MessageDisplayer.confirmYesNo(null, message);

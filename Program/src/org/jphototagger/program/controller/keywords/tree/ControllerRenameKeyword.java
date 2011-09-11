@@ -9,17 +9,18 @@ import javax.swing.JDialog;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.jphototagger.domain.keywords.Keyword;
+import org.jphototagger.domain.repository.KeywordsRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.dialog.InputDialog;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
-import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.program.database.DatabaseKeywords;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.model.TreeModelKeywords;
 import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.panels.KeywordsPanel;
 import org.jphototagger.program.view.popupmenus.PopupMenuKeywordsTree;
+import org.openide.util.Lookup;
 
 /**
  * Listens to the menu item {@link PopupMenuKeywordsTree#getItemRename()}
@@ -89,6 +90,7 @@ public class ControllerRenameKeyword extends ControllerKeywords implements Actio
         String fromName = keyword.getName();
         InputDialog inputDialog = createInputDialog(fromName);
         boolean input = true;
+        KeywordsRepository repo = Lookup.getDefault().lookup(KeywordsRepository.class);
 
         while (input) {
             inputDialog.setVisible(true);
@@ -111,7 +113,7 @@ public class ControllerRenameKeyword extends ControllerKeywords implements Actio
 
             Keyword newKeyword = createKeywordFromExistingKeyword(keyword, toName);
 
-            if (DatabaseKeywords.INSTANCE.hasParentChildWithEqualName(newKeyword)) {
+            if (repo.hasParentChildKeywordWithEqualName(newKeyword)) {
                 toName = null;
                 String message = Bundle.getString(ControllerRenameKeyword.class, "ControllerRenameKeyword.Confirm.Exists", newKeyword);
                 input = MessageDisplayer.confirmYesNo(null, message);
