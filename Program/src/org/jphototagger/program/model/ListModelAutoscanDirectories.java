@@ -12,7 +12,6 @@ import org.jphototagger.domain.repository.event.autoscandirectories.AutoscanDire
 import org.jphototagger.domain.repository.event.autoscandirectories.AutoscanDirectoryInsertedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.database.ConnectionPool;
-import org.jphototagger.program.database.DatabaseAutoscanDirectories;
 import org.openide.util.Lookup;
 
 /**

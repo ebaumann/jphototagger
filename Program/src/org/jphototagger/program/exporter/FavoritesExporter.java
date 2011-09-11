@@ -17,11 +17,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.domain.repository.Exporter;
+import org.jphototagger.domain.repository.FavoritesRepository;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.xml.bind.XmlObjectExporter;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.database.DatabaseFavorites;
+import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
 /**
@@ -37,6 +38,7 @@ public final class FavoritesExporter implements Exporter {
     public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(FavoritesExporter.class, "FavoritesExporter.DisplayName.FileFilter"), "xml");
     public static final ImageIcon ICON = AppLookAndFeel.getIcon("icon_export.png");
     public static final int POSITION = 80;
+    private final FavoritesRepository repo = Lookup.getDefault().lookup(FavoritesRepository.class);
 
     @Override
     public void exportFile(File file) {
@@ -47,7 +49,7 @@ public final class FavoritesExporter implements Exporter {
         File xmlFile = FileUtil.ensureSuffix(file, ".xml");
 
         try {
-            List<Favorite> templates = DatabaseFavorites.INSTANCE.getAll();
+            List<Favorite> templates = repo.getAllFavorites();
 
             XmlObjectExporter.export(new CollectionWrapper(templates), xmlFile);
         } catch (Exception ex) {

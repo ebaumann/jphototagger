@@ -21,13 +21,13 @@ import org.jphototagger.domain.repository.event.favorites.FavoriteUpdatedEvent;
  *
  * @author Elmar Baumann
  */
-public final class DatabaseFavorites extends Database {
+final class DatabaseFavorites extends Database {
 
-    public static final DatabaseFavorites INSTANCE = new DatabaseFavorites();
+    static final DatabaseFavorites INSTANCE = new DatabaseFavorites();
 
     private DatabaseFavorites() {}
 
-    public boolean insertOrUpdate(Favorite favorite) {
+    boolean insertOrUpdateFavorite(Favorite favorite) {
         if (favorite == null) {
             throw new NullPointerException("favorite == null");
         }
@@ -37,8 +37,8 @@ public final class DatabaseFavorites extends Database {
         PreparedStatement stmt = null;
 
         try {
-            if (exists(favorite.getName())) {
-                return update(favorite);
+            if (existsFavorite(favorite.getName())) {
+                return updateFavorite(favorite);
             }
 
             con = getConnection();
@@ -71,7 +71,7 @@ public final class DatabaseFavorites extends Database {
         return inserted;
     }
 
-    public boolean delete(String favoriteName) {
+    boolean deleteFavorite(String favoriteName) {
         if (favoriteName == null) {
             throw new NullPointerException("favoriteName == null");
         }
@@ -108,7 +108,7 @@ public final class DatabaseFavorites extends Database {
         return deleted;
     }
 
-    public boolean updateRename(String fromFavoriteName, String toFavoriteName) {
+    boolean updateRenameFavorite(String fromFavoriteName, String toFavoriteName) {
         if (fromFavoriteName == null) {
             throw new NullPointerException("fromFavoriteName == null");
         }
@@ -152,12 +152,12 @@ public final class DatabaseFavorites extends Database {
      * updated <em>with exception of the favorite name</em>
      * ({@link Favorite#getName()}).
      * <p>
-     * To rename a favorite, call {@link #updateRename(String, String)}.
+     * To rename a favorite, call {@link #updateRenameFavorite(String, String)}.
      *
      * @param  favorite favorite
      * @return          true if updated
      */
-    public boolean update(Favorite favorite) {
+    boolean updateFavorite(Favorite favorite) {
         if (favorite == null) {
             throw new NullPointerException("favorite == null");
         }
@@ -200,7 +200,7 @@ public final class DatabaseFavorites extends Database {
         return updated;
     }
 
-    public List<Favorite> getAll() {
+    List<Favorite> getAllFavorites() {
         List<Favorite> favorites = new ArrayList<Favorite>();
         Connection con = null;
         Statement stmt = null;
@@ -324,7 +324,7 @@ public final class DatabaseFavorites extends Database {
         return id;
     }
 
-    public boolean exists(String favoriteName) {
+    boolean existsFavorite(String favoriteName) {
         if (favoriteName == null) {
             throw new NullPointerException("favoriteName == null");
         }

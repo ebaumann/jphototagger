@@ -9,23 +9,23 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
 import org.jphototagger.domain.favorites.Favorite;
+import org.jphototagger.domain.repository.FavoritesRepository;
+import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
+import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
-import org.jphototagger.program.database.DatabaseFavorites;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.io.ImageFileFilterer;
 import org.jphototagger.program.model.TreeModelFavorites;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.program.view.WaitDisplay;
 import org.jphototagger.program.view.dialogs.FavoritePropertiesDialog;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
-import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
-import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -33,7 +33,9 @@ import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
  * @author Elmar Baumann
  */
 public final class FavoritesHelper {
-    private FavoritesHelper() {}
+
+    private FavoritesHelper() {
+    }
 
     public static void updateFavorite(final Favorite favorite) {
         if (favorite == null) {
@@ -46,7 +48,7 @@ public final class FavoritesHelper {
         dlg.setDirectory(favorite.getDirectory());
         dlg.setVisible(true);
 
-        if (dlg.isAccepted() &&!dlg.isEqualsTo(favorite)) {
+        if (dlg.isAccepted() && !dlg.isEqualsTo(favorite)) {
             File oldDir = favorite.getDirectory();
 
             favorite.setName(dlg.getFavoriteName());
@@ -55,11 +57,12 @@ public final class FavoritesHelper {
             final boolean dirChanged = !favorite.getDirectory().equals(oldDir);
 
             EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
                 @Override
                 public void run() {
-                    DatabaseFavorites db = DatabaseFavorites.INSTANCE;
+                    FavoritesRepository repo = Lookup.getDefault().lookup(FavoritesRepository.class);
 
-                    if (db.update(favorite)) {
+                    if (repo.updateFavorite(favorite)) {
                         if (dirChanged) {
                             GUI.refreshThumbnailsPanel();
                         }
@@ -81,6 +84,7 @@ public final class FavoritesHelper {
 
         if (confirmDelete(favorite.getName())) {
             EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
                 @Override
                 public void run() {
                     ModelFactory.INSTANCE.getModel(TreeModelFavorites.class).delete(favorite);
@@ -199,6 +203,7 @@ public final class FavoritesHelper {
     }
 
     private static class SetFiles implements Runnable {
+
         private final AppPanel appPanel = GUI.getAppPanel();
         private final ThumbnailsPanel tnPanel = appPanel.getPanelThumbnails();
         private final EditMetadataPanels editPanels = appPanel.getEditMetadataPanels();

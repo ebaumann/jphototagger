@@ -16,7 +16,6 @@ import org.jphototagger.lib.dialog.DirectoryChooser.Option;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.renderer.ListCellRendererFileSystem;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.database.DatabaseAutoscanDirectories;
 import org.jphototagger.program.model.ListModelAutoscanDirectories;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.tasks.ScheduledTasks;
@@ -30,7 +29,6 @@ import org.openide.util.Lookup;
 public final class SettingsScheduledTasksPanel extends javax.swing.JPanel implements Persistence {
     private static final long serialVersionUID = -5964543997343669428L;
     private static final String KEY_LAST_SELECTED_AUTOSCAN_DIRECTORY = "UserSettingsDialog.keyLastSelectedAutoscanDirectory";
-    private final transient DatabaseAutoscanDirectories db = DatabaseAutoscanDirectories.INSTANCE;
     private ListModelAutoscanDirectories modelAutoscanDirectories = new ListModelAutoscanDirectories();
     private String lastSelectedAutoscanDirectory = "";
     private final AutoscanDirectoriesRepository repo = Lookup.getDefault().lookup(AutoscanDirectoriesRepository.class);

@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 /**
  * Database for the application's usage.
  *
@@ -16,12 +15,14 @@ import java.util.logging.Logger;
  *
  * @author Elmar Baumann
  */
-public final class DatabaseApplicationProperties extends Database {
-    public static final DatabaseApplicationProperties INSTANCE = new DatabaseApplicationProperties();
+final class DatabaseApplicationProperties extends Database {
+
+    static final DatabaseApplicationProperties INSTANCE = new DatabaseApplicationProperties();
     private static final String VALUE_FALSE = "0";    // Never change that!
     private static final String VALUE_TRUE = "1";    // Never change that!
 
-    private DatabaseApplicationProperties() {}
+    private DatabaseApplicationProperties() {
+    }
 
     /**
      * Returns whether a key exists.
@@ -112,8 +113,8 @@ public final class DatabaseApplicationProperties extends Database {
         String value = getString(key);
 
         return (value == null)
-               ? false
-               : value.equals(VALUE_TRUE);
+                ? false
+                : value.equals(VALUE_TRUE);
     }
 
     /**
@@ -128,8 +129,8 @@ public final class DatabaseApplicationProperties extends Database {
         }
 
         setString(key, value
-                       ? VALUE_TRUE
-                       : VALUE_FALSE);
+                ? VALUE_TRUE
+                : VALUE_FALSE);
     }
 
     private String getInsertOrUpdateStmt(String key) {
