@@ -6,10 +6,12 @@ import java.util.HashSet;
 import java.util.List;
 
 import org.jphototagger.domain.keywords.Keyword;
+import org.jphototagger.domain.repository.KeywordsRepository;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.database.DatabaseKeywords;
+import org.jphototagger.domain.repository.KeywordsSelect;
 import org.jphototagger.program.types.Suggest;
 import org.jphototagger.program.view.dialogs.PathSelectionDialog;
+import org.openide.util.Lookup;
 
 /**
  * Suggest keywords.
@@ -17,6 +19,9 @@ import org.jphototagger.program.view.dialogs.PathSelectionDialog;
  * @author Elmar Baumann
  */
 public class SuggestionKeywords implements Suggest {
+
+    private final KeywordsRepository repo = Lookup.getDefault().lookup(KeywordsRepository.class);
+
     @Override
     public Collection<String> suggest(String keywordName) {
         if (keywordName == null) {
@@ -24,8 +29,7 @@ public class SuggestionKeywords implements Suggest {
         }
 
         List<String> parentKeywordNames = new ArrayList<String>();
-        Collection<Collection<Keyword>> parentKeywords = DatabaseKeywords.INSTANCE.getParents(keywordName,
-                                                             DatabaseKeywords.Select.REAL_KEYWORDS);
+        Collection<Collection<Keyword>> parentKeywords = repo.getParentKeywords(keywordName, KeywordsSelect.REAL_KEYWORDS);
 
         parentKeywordNames.addAll(chooseParentKeywords(keywordName, toStringCollection(parentKeywords)));
 
@@ -37,7 +41,7 @@ public class SuggestionKeywords implements Suggest {
 
         if (parentKeywords.size() > 0) {
             PathSelectionDialog dlg = new PathSelectionDialog(parentKeywords,
-                                          PathSelectionDialog.Mode.DISTINCT_ELEMENTS);
+                    PathSelectionDialog.Mode.DISTINCT_ELEMENTS);
 
             dlg.setInfoMessage(Bundle.getString(SuggestionKeywords.class, "SuggestKeywords.Info", keywordName));
             dlg.setVisible(true);

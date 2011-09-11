@@ -17,11 +17,11 @@ import java.util.logging.Logger;
 
 import org.jphototagger.api.core.UserFilesProvider;
 import org.jphototagger.domain.keywords.Keyword;
+import org.jphototagger.domain.repository.KeywordsRepository;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.SplashScreen;
 import org.jphototagger.program.database.Database;
-import org.jphototagger.program.database.DatabaseKeywords;
 import org.jphototagger.program.database.DatabaseMetadata;
 import org.jphototagger.program.helper.KeywordsHelper;
 import org.jphototagger.program.io.CharEncoding;
@@ -141,6 +141,7 @@ final class UpdateTablesDropCategories {
     private void importCategories() {
         String filename = getFilename();
         String message = Bundle.getString(UpdateTablesDropCategories.class, "UpdateTablesDropCategories.Confirm.Import", filename);
+        KeywordsRepository repo = Lookup.getDefault().lookup(KeywordsRepository.class);
 
         if (MessageDisplayer.confirmYesNo(null, message)) {
             BufferedReader reader = null;
@@ -149,14 +150,13 @@ final class UpdateTablesDropCategories {
                 reader = new BufferedReader(new InputStreamReader(new FileInputStream(new File(filename)),
                         CharEncoding.LIGHTROOM_KEYWORDS));
 
-                DatabaseKeywords db = DatabaseKeywords.INSTANCE;
                 String line = null;
 
                 while ((line = reader.readLine()) != null) {
                     String kw = line.trim();
 
                     if (!kw.isEmpty()) {
-                        db.insert(new Keyword(null, null, kw, true));
+                        repo.insertKeyword(new Keyword(null, null, kw, true));
                         KeywordsHelper.insertDcSubject(kw);
                     }
                 }

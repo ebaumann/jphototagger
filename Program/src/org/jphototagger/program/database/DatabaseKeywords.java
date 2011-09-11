@@ -13,43 +13,31 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.jphototagger.domain.keywords.Keyword;
+import org.jphototagger.domain.repository.KeywordsSelect;
 
 //Handling null:
 //ID: Can never be null
 //ID parent: Can be null, must be handle when setting and getting
 //Keyword: Can never be null
 //Real: Can be null but it's ok to use false when reading and writing if null
-
 /**
  * Contains keywords.
  *
  * @author Elmar Baumann
  */
-public final class DatabaseKeywords extends Database {
-    public static final DatabaseKeywords INSTANCE = new DatabaseKeywords();
+final class DatabaseKeywords extends Database {
 
-    public enum Select {
+    static final DatabaseKeywords INSTANCE = new DatabaseKeywords();
 
-        /**
-         * Select all keywords
-         */
-        ALL_KEYWORDS,
-
-        /**
-         * Select (only) real keywords. Real keywords are keywords where
-         * {@link Keyword#isReal()} returns true or null.
-         */
-        REAL_KEYWORDS,
+    private DatabaseKeywords() {
     }
-
-    private DatabaseKeywords() {}
 
     /**
      * Returns all keywords.
      *
      * @return all keywords
      */
-    public Collection<Keyword> getAll() {
+    Collection<Keyword> getAllKeywords() {
         List<Keyword> keywords = new ArrayList<Keyword>();
         Connection con = null;
         Statement stmt = null;
@@ -90,7 +78,7 @@ public final class DatabaseKeywords extends Database {
      * @param  keyword keyword
      * @return         true if updated
      */
-    public boolean update(Keyword keyword) {
+    boolean updateKeyword(Keyword keyword) {
         if (keyword == null) {
             throw new NullPointerException("keyword == null");
         }
@@ -105,8 +93,8 @@ public final class DatabaseKeywords extends Database {
             con = getConnection();
             con.setAutoCommit(true);
             stmt = con.prepareStatement("UPDATE hierarchical_subjects"
-                                        + " SET id_parent = ?, subject = ?, real = ?"
-                                        + " WHERE id = ?");
+                    + " SET id_parent = ?, subject = ?, real = ?"
+                    + " WHERE id = ?");
 
             if (keyword.getIdParent() == null) {
                 stmt.setNull(1, java.sql.Types.BIGINT);
@@ -145,7 +133,7 @@ public final class DatabaseKeywords extends Database {
      * @param  keyword keyword
      * @return         true if updated
      */
-    public boolean insert(Keyword keyword) {
+    boolean insertKeyword(Keyword keyword) {
         if (keyword == null) {
             throw new NullPointerException("keyword == null");
         }
@@ -155,7 +143,7 @@ public final class DatabaseKeywords extends Database {
         assert keyword.getName() != null : "Keyword is null!";
         assert !keyword.getName().trim().isEmpty() : "Keyword is empty!";
 
-        if (hasParentChildWithEqualName(keyword)) {
+        if (hasParentChildKeywordWithEqualName(keyword)) {
             return false;
         }
 
@@ -167,7 +155,7 @@ public final class DatabaseKeywords extends Database {
             con.setAutoCommit(true);
 
             String sql = "INSERT INTO hierarchical_subjects"
-                         + " (id, id_parent, subject, real) VALUES (?, ?, ?, ?)";
+                    + " (id, id_parent, subject, real) VALUES (?, ?, ?, ?)";
 
             stmt = con.prepareStatement(sql);
 
@@ -210,7 +198,7 @@ public final class DatabaseKeywords extends Database {
      *
      * @return count of deleted keywords
      */
-    public int deleteAllKeywords() {
+    int deleteAllKeywords() {
         Connection con = null;
         PreparedStatement stmt = null;
         int countAffected = 0;
@@ -241,7 +229,7 @@ public final class DatabaseKeywords extends Database {
      * @param  keywords keywords
      * @return          true if successfull
      */
-    public boolean delete(Collection<Keyword> keywords) {
+    boolean deleteKeywords(Collection<Keyword> keywords) {
         if (keywords == null) {
             throw new NullPointerException("keywords == null");
         }
@@ -281,7 +269,7 @@ public final class DatabaseKeywords extends Database {
 
         try {
             String sql = "SELECT id, id_parent, subject, real"
-                         + " FROM hierarchical_subjects WHERE id = ?";
+                    + " FROM hierarchical_subjects WHERE id = ?";
 
             stmt = con.prepareStatement(sql);
             stmt.setLong(1, id);
@@ -310,7 +298,7 @@ public final class DatabaseKeywords extends Database {
      * @param  keyword keyword
      * @return         Parents or empty List if the keyword has no parent
      */
-    public List<Keyword> getParents(Keyword keyword) {
+    List<Keyword> getParentKeywords(Keyword keyword) {
         if (keyword == null) {
             throw new NullPointerException("keyword == null");
         }
@@ -345,7 +333,7 @@ public final class DatabaseKeywords extends Database {
      * @return          children or empty collection if that parent has no
      *                  children
      */
-    public Collection<Keyword> getChildren(long idParent) {
+    Collection<Keyword> getChildKeywords(long idParent) {
         Collection<Keyword> children = new ArrayList<Keyword>();
         Connection con = null;
         PreparedStatement stmt = null;
@@ -355,8 +343,8 @@ public final class DatabaseKeywords extends Database {
             con = getConnection();
 
             String sql = "SELECT id, id_parent, subject, real"
-                         + " FROM hierarchical_subjects"
-                         + " WHERE id_parent = ? ORDER BY subject ASC";
+                    + " FROM hierarchical_subjects"
+                    + " WHERE id_parent = ? ORDER BY subject ASC";
 
             stmt = con.prepareStatement(sql);
             stmt.setLong(1, idParent);
@@ -387,7 +375,7 @@ public final class DatabaseKeywords extends Database {
      *
      * @return keyword with no parents ordered ascending by their keyword
      */
-    public Collection<Keyword> getRoots() {
+    Collection<Keyword> getRootKeywords() {
         Collection<Keyword> children = new ArrayList<Keyword>();
         Connection con = null;
         PreparedStatement stmt = null;
@@ -397,8 +385,8 @@ public final class DatabaseKeywords extends Database {
             con = getConnection();
 
             String sql = "SELECT id, id_parent, subject, real"
-                         + " FROM hierarchical_subjects"
-                         + " WHERE id_parent IS NULL ORDER BY subject ASC";
+                    + " FROM hierarchical_subjects"
+                    + " WHERE id_parent IS NULL ORDER BY subject ASC";
 
             stmt = con.prepareStatement(sql);
             logFinest(stmt);
@@ -451,9 +439,9 @@ public final class DatabaseKeywords extends Database {
      * {@link Keyword#getId()} will not be compared.
      *
      * @param  keyword keyword
-     * @return         true if the keyword exists
+     * @return         true if the keyword existsKeyword
      */
-    public boolean hasParentChildWithEqualName(Keyword keyword) {
+    boolean hasParentChildKeywordWithEqualName(Keyword keyword) {
         if (keyword == null) {
             throw new NullPointerException("keyword == null");
         }
@@ -475,8 +463,8 @@ public final class DatabaseKeywords extends Database {
             con = getConnection();
 
             String sql = parentIsRoot
-                         ? "SELECT COUNT(*) FROM hierarchical_subjects WHERE id_parent IS NULL AND subject = ?"
-                         : "SELECT COUNT(*) FROM hierarchical_subjects WHERE id_parent = ? AND subject = ?";
+                    ? "SELECT COUNT(*) FROM hierarchical_subjects WHERE id_parent IS NULL AND subject = ?"
+                    : "SELECT COUNT(*) FROM hierarchical_subjects WHERE id_parent = ? AND subject = ?";
 
             stmt = con.prepareStatement(sql);
 
@@ -485,8 +473,8 @@ public final class DatabaseKeywords extends Database {
             }
 
             stmt.setString(parentIsRoot
-                           ? 1
-                           : 2, keyword.getName());
+                    ? 1
+                    : 2, keyword.getName());
             logFinest(stmt);
             rs = stmt.executeQuery();
 
@@ -504,12 +492,12 @@ public final class DatabaseKeywords extends Database {
     }
 
     /**
-     * Returns whether a specific root keyword exists.
+     * Returns whether a specific root keyword existsKeyword.
      *
      * @param  keyword keyword
-     * @return         true if that keyword exists
+     * @return         true if that keyword existsKeyword
      */
-    public boolean existsRootKeyword(String keyword) {
+    boolean existsRootKeyword(String keyword) {
         if (keyword == null) {
             throw new NullPointerException("keyword == null");
         }
@@ -542,7 +530,7 @@ public final class DatabaseKeywords extends Database {
         return exists;
     }
 
-    public boolean exists(String keyword) {
+    boolean existsKeyword(String keyword) {
         if (keyword == null) {
             throw new NullPointerException("keyword == null");
         }
@@ -583,7 +571,7 @@ public final class DatabaseKeywords extends Database {
      * @param  toName   new name
      * @return          count of renamed subjects
      */
-    public int updateRenameAll(String fromName, String toName) {
+    int updateRenameAllKeywords(String fromName, String toName) {
         if (fromName == null) {
             throw new NullPointerException("fromName == null");
         }
@@ -629,7 +617,7 @@ public final class DatabaseKeywords extends Database {
      *                     parents. The keywords ordered by their path, the
      *                     leftmost keyword is the root keyword.
      */
-    public Collection<Collection<Keyword>> getParents(String keywordName, Select select) {
+    Collection<Collection<Keyword>> getParentKeywords(String keywordName, KeywordsSelect select) {
         if (keywordName == null) {
             throw new NullPointerException("keywordName == null");
         }
@@ -674,14 +662,14 @@ public final class DatabaseKeywords extends Database {
         return paths;
     }
 
-    private void addPathToRoot(Collection<Keyword> path, long idParent, Select select, Connection con)
+    private void addPathToRoot(Collection<Keyword> path, long idParent, KeywordsSelect select, Connection con)
             throws SQLException {
         Keyword keyword = findKeyword(idParent, con);
 
         if (keyword != null) {
             Boolean real = keyword.isReal() || (keyword.isReal() == null);
 
-            if (select.equals(Select.ALL_KEYWORDS) || (select.equals(Select.REAL_KEYWORDS) && real)) {
+            if (select.equals(KeywordsSelect.ALL_KEYWORDS) || (select.equals(KeywordsSelect.REAL_KEYWORDS) && real)) {
                 path.add(keyword);
             }
 

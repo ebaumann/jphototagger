@@ -14,6 +14,7 @@ import javax.swing.JToggleButton;
 
 import org.jphototagger.api.event.ProgressEvent;
 import org.jphototagger.api.event.ProgressListener;
+import org.jphototagger.domain.repository.KeywordsRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
@@ -29,6 +30,7 @@ import org.jphototagger.program.helper.UpdateAllThumbnails;
 import org.jphototagger.program.model.ListModelKeywords;
 import org.jphototagger.program.model.TreeModelKeywords;
 import org.jphototagger.program.view.dialogs.RenameFilenamesInDbDialog;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -156,9 +158,10 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
         String message = Bundle.getString(DatabaseUpdatePanel.class, "DatabaseUpdatePanel.Confirm.DeleteAllKeywordsFromKeywordsTree");
 
         if (MessageDisplayer.confirmYesNo(this, message)) {
+            KeywordsRepository repo = Lookup.getDefault().lookup(KeywordsRepository.class);
 
             setEnabledAllButtons(false);
-            int count = DatabaseKeywords.INSTANCE.deleteAllKeywords();
+            int count = repo.deleteAllKeywords();
 
             if (count > 0) {
                  Collection<TreeModelKeywords> models =

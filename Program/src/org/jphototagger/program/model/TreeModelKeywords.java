@@ -12,12 +12,13 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
 
 import org.jphototagger.domain.keywords.Keyword;
+import org.jphototagger.domain.repository.KeywordsRepository;
 import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.model.TreeNodeSortedChildren;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.database.DatabaseKeywords;
 import org.jphototagger.program.helper.KeywordsHelper;
+import org.openide.util.Lookup;
 
 /**
  * Elements are {@link DefaultMutableTreeNode}s with the user objects listed
@@ -34,6 +35,7 @@ public final class TreeModelKeywords extends DefaultTreeModel {
 
     private static final long serialVersionUID = -1044898256327030256L;
     private static final Logger LOGGER = Logger.getLogger(TreeModelKeywords.class.getName());
+    private final KeywordsRepository repo = Lookup.getDefault().lookup(KeywordsRepository.class);
     private final DefaultMutableTreeNode ROOT;
 
     public TreeModelKeywords() {
@@ -60,7 +62,7 @@ public final class TreeModelKeywords extends DefaultTreeModel {
             throw new NullPointerException("name == null");
         }
 
-        for (Enumeration<DefaultMutableTreeNode> e = parent.children(); e.hasMoreElements(); ) {
+        for (Enumeration<DefaultMutableTreeNode> e = parent.children(); e.hasMoreElements();) {
             DefaultMutableTreeNode child = e.nextElement();
             Object userObject = child.getUserObject();
 
@@ -81,7 +83,7 @@ public final class TreeModelKeywords extends DefaultTreeModel {
      * @param  keyword             keyword to add
      * @param  real                true if the keyword is a real keyword
      * @param errorMessageIfExists true, if to display an error message if the
-     *                             keyword already exists
+     *                             keyword already existsKeyword
      * @return                     inserted node or null if no node was inserted
      */
     public synchronized DefaultMutableTreeNode insert(DefaultMutableTreeNode parentNode, String keyword, boolean real,
@@ -105,11 +107,11 @@ public final class TreeModelKeywords extends DefaultTreeModel {
 
         if (parentIsRoot || (userObject instanceof Keyword)) {
             Long idParent = parentIsRoot
-                            ? null
-                            : ((Keyword) userObject).getId();
+                    ? null
+                    : ((Keyword) userObject).getId();
             Keyword child = new Keyword(null, idParent, keyword, real);
 
-            if (DatabaseKeywords.INSTANCE.insert(child)) {
+            if (repo.insertKeyword(child)) {
                 KeywordsHelper.insertDcSubject(keyword);
 
                 TreeNodeSortedChildren node = new TreeNodeSortedChildren(child);
@@ -136,7 +138,7 @@ public final class TreeModelKeywords extends DefaultTreeModel {
         }
 
         if (!ensureIsNotChild(target, source.getUserObject().toString(), true)
-                ||!ensureTargetIsNotBelowSource(source, target)) {
+                || !ensureTargetIsNotBelowSource(source, target)) {
             return;
         }
 
@@ -147,7 +149,7 @@ public final class TreeModelKeywords extends DefaultTreeModel {
     private synchronized void cpySubtree(DefaultMutableTreeNode source, DefaultMutableTreeNode target) {
         DefaultMutableTreeNode newTarget = deepCopy(source, target);
 
-        for (Enumeration<DefaultMutableTreeNode> e = source.children(); e.hasMoreElements(); ) {
+        for (Enumeration<DefaultMutableTreeNode> e = source.children(); e.hasMoreElements();) {
             cpySubtree(e.nextElement(), newTarget);    // Recursive
         }
     }
@@ -157,13 +159,13 @@ public final class TreeModelKeywords extends DefaultTreeModel {
         Keyword targetKeyword = (Keyword) target.getUserObject();
         Keyword keyword = new Keyword(null, targetKeyword.getId(), srcKeyword.getName(), srcKeyword.isReal());
 
-        if (DatabaseKeywords.INSTANCE.insert(keyword)) {
+        if (repo.insertKeyword(keyword)) {
             KeywordsHelper.insertDcSubject(keyword.getName());
 
             DefaultMutableTreeNode node = new TreeNodeSortedChildren(keyword);
 
             target.add(node);
-            fireTreeNodesInserted(this, target.getPath(), new int[] { target.getIndex(node) }, new Object[] { node });
+            fireTreeNodesInserted(this, target.getPath(), new int[]{target.getIndex(node)}, new Object[]{node});
 
             return node;
         } else {
@@ -179,7 +181,7 @@ public final class TreeModelKeywords extends DefaultTreeModel {
 
         int childIndex = parent.getIndex(child);
 
-        fireTreeNodesInserted(this, parent.getPath(), new int[] { childIndex }, new Object[] { child });
+        fireTreeNodesInserted(this, parent.getPath(), new int[]{childIndex}, new Object[]{child});
         KeywordsHelper.expandAllTreesTo(child);
     }
 
@@ -210,7 +212,7 @@ public final class TreeModelKeywords extends DefaultTreeModel {
     }
 
     private boolean childHasKeyword(DefaultMutableTreeNode parentNode, String keyword) {
-        for (Enumeration<?> children = parentNode.children(); children.hasMoreElements(); ) {
+        for (Enumeration<?> children = parentNode.children(); children.hasMoreElements();) {
             Object o = children.nextElement();
 
             if (o instanceof DefaultMutableTreeNode) {
@@ -236,7 +238,7 @@ public final class TreeModelKeywords extends DefaultTreeModel {
 
         List<Keyword> delKeywords = new ArrayList<Keyword>();
 
-        for (Enumeration<?> e = keywordNode.preorderEnumeration(); e.hasMoreElements(); ) {
+        for (Enumeration<?> e = keywordNode.preorderEnumeration(); e.hasMoreElements();) {
             Object el = e.nextElement();
 
             if (el instanceof DefaultMutableTreeNode) {
@@ -248,7 +250,7 @@ public final class TreeModelKeywords extends DefaultTreeModel {
             }
         }
 
-        if (DatabaseKeywords.INSTANCE.delete(delKeywords)) {
+        if (repo.deleteKeywords(delKeywords)) {
             removeNodeFromParent(keywordNode);
         } else {
             String message = Bundle.getString(TreeModelKeywords.class, "TreeModelKeywords.Error.DbRemove", keywordNode.toString());
@@ -279,11 +281,11 @@ public final class TreeModelKeywords extends DefaultTreeModel {
         TreeNode parent = node.getParent();
 
         if (parent instanceof DefaultMutableTreeNode) {
-            if (DatabaseKeywords.INSTANCE.update(keyword)) {
+            if (repo.updateKeyword(keyword)) {
                 DefaultMutableTreeNode parentNode = (DefaultMutableTreeNode) parent;
 
-                fireTreeNodesChanged(src, parentNode.getPath(), new int[] { parentNode.getIndex(node) },
-                                     new Object[] { node });
+                fireTreeNodesChanged(src, parentNode.getPath(), new int[]{parentNode.getIndex(node)},
+                        new Object[]{node});
             } else {
                 String message = Bundle.getString(TreeModelKeywords.class, "TreeModelKeywords.Error.DbUpdate", keyword);
                 MessageDisplayer.error(null, message);
@@ -313,7 +315,7 @@ public final class TreeModelKeywords extends DefaultTreeModel {
 
         if (ensureIsNotChild(target, keyword.getName(), true) && ensureTargetIsNotBelowSource(source, target)
                 && setIdParent(keyword, target)) {
-            if (DatabaseKeywords.INSTANCE.update(keyword)) {
+            if (repo.updateKeyword(keyword)) {
                 DefaultMutableTreeNode removeNode = TreeUtil.findNodeWithUserObject(ROOT, source.getUserObject());
 
                 if (removeNode != null) {
@@ -346,7 +348,7 @@ public final class TreeModelKeywords extends DefaultTreeModel {
     }
 
     private void createTree() {
-        Collection<Keyword> roots = DatabaseKeywords.INSTANCE.getRoots();
+        Collection<Keyword> roots = repo.getRootKeywords();
 
         for (Keyword rootKeyword : roots) {
             DefaultMutableTreeNode rootNode = new TreeNodeSortedChildren(rootKeyword);
@@ -358,7 +360,7 @@ public final class TreeModelKeywords extends DefaultTreeModel {
 
     private void insertChildren(DefaultMutableTreeNode parentNode) {
         Keyword parent = (Keyword) parentNode.getUserObject();
-        Collection<Keyword> children = DatabaseKeywords.INSTANCE.getChildren(parent.getId());
+        Collection<Keyword> children = repo.getChildKeywords(parent.getId());
 
         for (Keyword child : children) {
             DefaultMutableTreeNode childNode = new TreeNodeSortedChildren(child);
