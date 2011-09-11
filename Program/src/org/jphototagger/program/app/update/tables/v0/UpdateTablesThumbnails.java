@@ -17,6 +17,7 @@ import javax.swing.ImageIcon;
 
 import org.jphototagger.api.core.UserFilesProvider;
 import org.jphototagger.domain.repository.ApplicationPropertiesRepository;
+import org.jphototagger.domain.repository.RepositoryMaintainance;
 import org.jphototagger.image.util.ImageUtil;
 import org.jphototagger.lib.io.FileLock;
 import org.jphototagger.lib.io.FileUtil;
@@ -25,7 +26,6 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.SplashScreen;
 import org.jphototagger.program.cache.PersistentThumbnails;
 import org.jphototagger.program.database.Database;
-import org.jphototagger.program.database.DatabaseMaintainance;
 import org.openide.util.Lookup;
 
 /**
@@ -58,7 +58,9 @@ final class UpdateTablesThumbnails extends Database {
         }
 
         if (count > 0) {
-            DatabaseMaintainance.INSTANCE.compressDatabase();
+            RepositoryMaintainance repo = Lookup.getDefault().lookup(RepositoryMaintainance.class);
+
+            repo.compressRepository();
         }
     }
 

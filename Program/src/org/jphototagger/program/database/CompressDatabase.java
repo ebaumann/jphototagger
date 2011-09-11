@@ -9,6 +9,7 @@ import org.jphototagger.api.event.ProgressEvent;
 import org.jphototagger.api.event.ProgressListener;
 import org.jphototagger.api.file.Filename;
 import org.jphototagger.domain.event.listener.ProgressListenerSupport;
+import org.jphototagger.domain.repository.RepositoryMaintainance;
 import org.jphototagger.lib.util.Bundle;
 import org.openide.util.Lookup;
 
@@ -75,9 +76,10 @@ final class CompressDatabase implements Runnable {
 
         UserFilesProvider provider = Lookup.getDefault().lookup(UserFilesProvider.class);
         File dbFile = new File(provider.getDatabaseFileName(Filename.FULL_PATH));
+        RepositoryMaintainance repo = Lookup.getDefault().lookup(RepositoryMaintainance.class);
 
         sizeBefore = dbFile.length();
-        success = DatabaseMaintainance.INSTANCE.compressDatabase();
+        success = repo.compressRepository();
         sizeAfter = dbFile.length();
         notifyEnded();
     }

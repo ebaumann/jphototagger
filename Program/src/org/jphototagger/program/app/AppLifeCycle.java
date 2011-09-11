@@ -14,9 +14,9 @@ import org.jphototagger.api.core.Storage;
 import org.jphototagger.api.modules.Module;
 import org.jphototagger.domain.event.AppWillExitEvent;
 import org.jphototagger.domain.event.listener.ListenerSupport;
+import org.jphototagger.domain.repository.RepositoryMaintainance;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.database.DatabaseMaintainance;
 import org.jphototagger.program.factory.MetaFactory;
 import org.jphototagger.program.helper.Cleanup;
 import org.jphototagger.program.resource.GUI;
@@ -166,7 +166,9 @@ public final class AppLifeCycle {
             writeProperties();
             checkDataToSave();
             Cleanup.shutdown();
-            DatabaseMaintainance.INSTANCE.shutdown();
+            RepositoryMaintainance repo = Lookup.getDefault().lookup(RepositoryMaintainance.class);
+
+            repo.shutdownRepository();
 
             synchronized (finalTasks) {
                 if (finalTasks.isEmpty()) {
@@ -187,7 +189,7 @@ public final class AppLifeCycle {
     }
 
     public static void quitBeforeGuiWasCreated() {
-        DatabaseMaintainance.INSTANCE.shutdown();
+        Lookup.getDefault().lookup(RepositoryMaintainance.class).shutdownRepository();
         AppLock.unlock();
         System.exit(1);
     }
