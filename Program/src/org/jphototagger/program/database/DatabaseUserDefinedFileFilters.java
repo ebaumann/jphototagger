@@ -20,21 +20,21 @@ import org.jphototagger.domain.repository.event.userdefinedfilefilters.UserDefin
  *
  * @author Elmar Baumann
  */
-public final class DatabaseUserDefinedFileFilters extends Database {
+final class DatabaseUserDefinedFileFilters extends Database {
 
-    public static final DatabaseUserDefinedFileFilters INSTANCE = new DatabaseUserDefinedFileFilters();
+    static final DatabaseUserDefinedFileFilters INSTANCE = new DatabaseUserDefinedFileFilters();
 
     private String getInsertSql() {
         return "INSERT INTO user_defined_file_filters" + " (is_not, type, name, expression) VALUES (?, ?, ?, ?)";
     }
 
-    public boolean insert(UserDefinedFileFilter filter) {
+    boolean insertUserDefinedFileFilter(UserDefinedFileFilter filter) {
         if (filter == null) {
             throw new NullPointerException("filter == null");
         }
 
-        if (exists(filter.getName())) {
-            return update(filter);
+        if (existsUserDefinedFileFilter(filter.getName())) {
+            return updateUserDefinedFileFilter(filter);
         }
 
         checkFilter(filter, false);
@@ -113,7 +113,7 @@ public final class DatabaseUserDefinedFileFilters extends Database {
                 + " name = ?, expression = ? WHERE id = ?";
     }
 
-    public boolean update(UserDefinedFileFilter filter) {
+    boolean updateUserDefinedFileFilter(UserDefinedFileFilter filter) {
         checkFilter(filter, true);
 
         int count = 0;
@@ -152,7 +152,7 @@ public final class DatabaseUserDefinedFileFilters extends Database {
         return "DELETE FROM user_defined_file_filters WHERE id = ?";
     }
 
-    public boolean delete(UserDefinedFileFilter filter) {
+    boolean deleteUserDefinedFileFilter(UserDefinedFileFilter filter) {
         checkFilter(filter, true);
 
         int count = 0;
@@ -183,7 +183,7 @@ public final class DatabaseUserDefinedFileFilters extends Database {
         return count == 1;
     }
 
-    public boolean exists(String name) {
+    boolean existsUserDefinedFileFilter(String name) {
         if (name == null) {
             throw new NullPointerException("name == null");
         }
@@ -215,7 +215,7 @@ public final class DatabaseUserDefinedFileFilters extends Database {
         return count > 0;
     }
 
-    public Set<UserDefinedFileFilter> getAll() {
+    Set<UserDefinedFileFilter> getAllUserDefinedFileFilters() {
         Set<UserDefinedFileFilter> filter = new LinkedHashSet<UserDefinedFileFilter>();
         Connection con = null;
         Statement stmt = null;

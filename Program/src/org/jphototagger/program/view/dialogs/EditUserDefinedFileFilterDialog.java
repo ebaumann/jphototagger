@@ -3,15 +3,16 @@ package org.jphototagger.program.view.dialogs;
 import java.awt.Container;
 
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
+import org.jphototagger.domain.repository.UserDefinedFileFiltersRepository;
 import org.jphototagger.lib.beansbinding.MaxLengthValidator;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
-import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.program.database.DatabaseUserDefinedFileFilters;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.model.ComboBoxModelUserDefinedFileFilterType;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.renderer.ListCellRendererUserDefinedFileFilterType;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -23,6 +24,7 @@ public class EditUserDefinedFileFilterDialog extends Dialog {
     private static final long serialVersionUID = 9122178822987764160L;
     private boolean accepted;
     private final UserDefinedFileFilter udf = new UserDefinedFileFilter();
+    private final UserDefinedFileFiltersRepository repo = Lookup.getDefault().lookup(UserDefinedFileFiltersRepository.class);
 
     public EditUserDefinedFileFilterDialog() {
         super(GUI.getAppFrame(), true);
@@ -73,7 +75,7 @@ public class EditUserDefinedFileFilterDialog extends Dialog {
     }
 
     private boolean checkName(String name) {
-        if (DatabaseUserDefinedFileFilters.INSTANCE.exists(name)) {
+        if (repo.existsUserDefinedFileFilter(name)) {
             String message = Bundle.getString(EditUserDefinedFileFilterDialog.class, "EditUserDefinedFileFilterDialog.Error.NameExists", name);
             MessageDisplayer.error(this, message);
             return false;

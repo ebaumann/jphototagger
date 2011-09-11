@@ -9,11 +9,12 @@ import javax.swing.filechooser.FileFilter;
 
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
 import org.jphototagger.domain.repository.Importer;
+import org.jphototagger.domain.repository.UserDefinedFileFiltersRepository;
 import org.jphototagger.lib.xml.bind.XmlObjectImporter;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.database.DatabaseUserDefinedFileFilters;
 import org.jphototagger.program.exporter.UserDefinedFileFilterExporter;
 import org.jphototagger.program.exporter.UserDefinedFileFilterExporter.CollectionWrapper;
+import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
 /**
@@ -23,6 +24,8 @@ import org.openide.util.lookup.ServiceProvider;
  */
 @ServiceProvider(service = Importer.class)
 public final class UserDefinedFileFilterImporter implements Importer {
+
+    private final UserDefinedFileFiltersRepository repo = Lookup.getDefault().lookup(UserDefinedFileFiltersRepository.class);
 
     @Override
     public void importFile(File file) {
@@ -35,8 +38,8 @@ public final class UserDefinedFileFilterImporter implements Importer {
                     UserDefinedFileFilterExporter.CollectionWrapper.class);
 
             for (UserDefinedFileFilter filter : wrapper.getCollection()) {
-                if (!DatabaseUserDefinedFileFilters.INSTANCE.exists(filter.getName())) {
-                    DatabaseUserDefinedFileFilters.INSTANCE.insert(filter);
+                if (!repo.existsUserDefinedFileFilter(filter.getName())) {
+                    repo.insertUserDefinedFileFilter(filter);
                 }
             }
         } catch (Exception ex) {

@@ -18,11 +18,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
 import org.jphototagger.domain.repository.Exporter;
+import org.jphototagger.domain.repository.UserDefinedFileFiltersRepository;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.xml.bind.XmlObjectExporter;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.database.DatabaseUserDefinedFileFilters;
+import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
 /**
@@ -38,6 +39,7 @@ public final class UserDefinedFileFilterExporter implements Exporter {
     public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(UserDefinedFileFilterExporter.class, "UserDefinedFileFilterExporter.DisplayName"), "xml");
     public static final ImageIcon ICON = AppLookAndFeel.getIcon("icon_export.png");
     public static final int POSITION = 110;
+    private final UserDefinedFileFiltersRepository repo = Lookup.getDefault().lookup(UserDefinedFileFiltersRepository.class);
 
     @Override
     public void exportFile(File file) {
@@ -48,7 +50,7 @@ public final class UserDefinedFileFilterExporter implements Exporter {
         File xmpFile = FileUtil.ensureSuffix(file, ".xml");
 
         try {
-            Set<UserDefinedFileFilter> filter = DatabaseUserDefinedFileFilters.INSTANCE.getAll();
+            Set<UserDefinedFileFilter> filter = repo.getAllUserDefinedFileFilters();
 
             XmlObjectExporter.export(new CollectionWrapper(filter), xmpFile);
         } catch (Exception ex) {
