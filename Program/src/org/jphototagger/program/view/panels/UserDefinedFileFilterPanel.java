@@ -10,13 +10,14 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
+import org.jphototagger.domain.repository.UserDefinedFileFiltersRepository;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.event.util.MouseEventUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.program.database.DatabaseUserDefinedFileFilters;
 import org.jphototagger.program.model.ListModelUserDefinedFileFilter;
 import org.jphototagger.program.view.dialogs.EditUserDefinedFileFilterDialog;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -24,11 +25,13 @@ import org.jphototagger.program.view.dialogs.EditUserDefinedFileFilterDialog;
  * @author Elmar Baumann
  */
 public class UserDefinedFileFilterPanel extends javax.swing.JPanel implements ListSelectionListener {
+
     private static final long serialVersionUID = 4313288636752584356L;
+    private final UserDefinedFileFiltersRepository repo = Lookup.getDefault().lookup(UserDefinedFileFiltersRepository.class);
 
     public UserDefinedFileFilterPanel() {
         initComponents();
-        MnemonicUtil.setMnemonics((Container)this);
+        MnemonicUtil.setMnemonics((Container) this);
         list.addListSelectionListener(this);
     }
 
@@ -39,7 +42,7 @@ public class UserDefinedFileFilterPanel extends javax.swing.JPanel implements Li
 
         if (dlg.isAccepted()) {
             UserDefinedFileFilter newFilter = dlg.getFilter();
-            if (!DatabaseUserDefinedFileFilters.INSTANCE.insert(newFilter)) {
+            if (!repo.insertUserDefinedFileFilter(newFilter)) {
                 errorMessageInsert(newFilter);
             }
         }
@@ -59,7 +62,7 @@ public class UserDefinedFileFilterPanel extends javax.swing.JPanel implements Li
 
             if (dlg.isAccepted()) {
                 UserDefinedFileFilter updatedFilter = dlg.getFilter();
-                if (!DatabaseUserDefinedFileFilters.INSTANCE.update(updatedFilter)) {
+                if (!repo.updateUserDefinedFileFilter(updatedFilter)) {
                     errorMessageUpdate(updatedFilter);
                 }
             }
@@ -75,7 +78,7 @@ public class UserDefinedFileFilterPanel extends javax.swing.JPanel implements Li
     private void deleteFilter() {
         if (confirmDelete()) {
             for (UserDefinedFileFilter filter : getSelectedFilters()) {
-                if (!DatabaseUserDefinedFileFilters.INSTANCE.delete(filter)) {
+                if (!repo.deleteUserDefinedFileFilter(filter)) {
                     errorMessageDelete(filter);
                 }
             }
@@ -313,8 +316,6 @@ public class UserDefinedFileFilterPanel extends javax.swing.JPanel implements Li
     private void listKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_listKeyPressed
         handleListKeyPressed(evt);
     }//GEN-LAST:event_listKeyPressed
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonDelete;
     private javax.swing.JButton buttonInsert;

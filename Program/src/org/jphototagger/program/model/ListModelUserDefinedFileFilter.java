@@ -1,15 +1,17 @@
 package org.jphototagger.program.model;
 
-import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
-import org.jphototagger.program.database.ConnectionPool;
-import org.jphototagger.program.database.DatabaseUserDefinedFileFilters;
 import javax.swing.DefaultListModel;
+
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
+import org.jphototagger.domain.repository.UserDefinedFileFiltersRepository;
 import org.jphototagger.domain.repository.event.userdefinedfilefilters.UserDefinedFileFilterDeletedEvent;
 import org.jphototagger.domain.repository.event.userdefinedfilefilters.UserDefinedFileFilterInsertedEvent;
 import org.jphototagger.domain.repository.event.userdefinedfilefilters.UserDefinedFileFilterUpdatedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.program.database.ConnectionPool;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -19,6 +21,7 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 public final class ListModelUserDefinedFileFilter extends DefaultListModel {
 
     private static final long serialVersionUID = 6723254193291648654L;
+    private final UserDefinedFileFiltersRepository repo = Lookup.getDefault().lookup(UserDefinedFileFiltersRepository.class);
 
     public ListModelUserDefinedFileFilter() {
         addElements();
@@ -30,7 +33,7 @@ public final class ListModelUserDefinedFileFilter extends DefaultListModel {
             return;
         }
 
-        for (UserDefinedFileFilter filter : DatabaseUserDefinedFileFilters.INSTANCE.getAll()) {
+        for (UserDefinedFileFilter filter : repo.getAllUserDefinedFileFilters()) {
             addElement(filter);
         }
     }
