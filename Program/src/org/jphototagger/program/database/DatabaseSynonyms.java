@@ -22,11 +22,11 @@ import org.jphototagger.domain.repository.event.synonyms.WordRenamedEvent;
  *
  * @author Elmar Baumann
  */
-public final class DatabaseSynonyms extends Database {
+final class DatabaseSynonyms extends Database {
 
-    public static final DatabaseSynonyms INSTANCE = new DatabaseSynonyms();
+    static final DatabaseSynonyms INSTANCE = new DatabaseSynonyms();
 
-    public int updateSynonymOf(String word, String oldSynonym, String newSynonym) {
+    int updateSynonymOfWord(String word, String oldSynonym, String newSynonym) {
         if (word == null) {
             throw new NullPointerException("word == null");
         }
@@ -69,7 +69,7 @@ public final class DatabaseSynonyms extends Database {
         return count;
     }
 
-    public int updateWord(String oldWord, String newWord) {
+    int updateWord(String oldWord, String newWord) {
         if (oldWord == null) {
             throw new NullPointerException("oldWord == null");
         }
@@ -107,7 +107,7 @@ public final class DatabaseSynonyms extends Database {
         return count;
     }
 
-    public int updateSynonym(String oldSynonym, String newSynonym) {
+    int updateSynonym(String oldSynonym, String newSynonym) {
         if (oldSynonym == null) {
             throw new NullPointerException("oldSynonym == null");
         }
@@ -145,7 +145,7 @@ public final class DatabaseSynonyms extends Database {
         return count;
     }
 
-    public boolean existsWord(String word) {
+    boolean existsWord(String word) {
         if (word == null) {
             throw new NullPointerException("word == null");
         }
@@ -180,7 +180,7 @@ public final class DatabaseSynonyms extends Database {
         return count > 0;
     }
 
-    public boolean exists(String word, String synonym) {
+    boolean existsSynonym(String word, String synonym) {
         if (word == null) {
             throw new NullPointerException("word == null");
         }
@@ -220,7 +220,7 @@ public final class DatabaseSynonyms extends Database {
         return count == 1;
     }
 
-    public int insert(String word, String synonym) {
+    int insertSynonym(String word, String synonym) {
         if (word == null) {
             throw new NullPointerException("word == null");
         }
@@ -229,7 +229,7 @@ public final class DatabaseSynonyms extends Database {
             throw new NullPointerException("synonym == null");
         }
 
-        if (exists(word, synonym)) {
+        if (existsSynonym(word, synonym)) {
             return 0;
         }
 
@@ -262,7 +262,7 @@ public final class DatabaseSynonyms extends Database {
         return count;
     }
 
-    public int delete(String word, String synonym) {
+    int deleteSynonym(String word, String synonym) {
         if (word == null) {
             throw new NullPointerException("word == null");
         }
@@ -306,7 +306,7 @@ public final class DatabaseSynonyms extends Database {
      * @param  word word
      * @return      count of deleted word synonym pairs
      */
-    public int deleteWord(String word) {
+    int deleteWord(String word) {
         if (word == null) {
             throw new NullPointerException("word == null");
         }
@@ -351,7 +351,7 @@ public final class DatabaseSynonyms extends Database {
      * @param  word word
      * @return      synonyms or empty set
      */
-    public Set<String> getSynonymsOf(String word) {
+    Set<String> getSynonymsOfWord(String word) {
         if (word == null) {
             throw new NullPointerException("word == null");
         }
@@ -382,7 +382,7 @@ public final class DatabaseSynonyms extends Database {
         return synonyms;
     }
 
-    public Set<String> getAllWords() {
+    Set<String> getAllWords() {
         Set<String> words = new LinkedHashSet<String>();
         Connection con = null;
         Statement stmt = null;
