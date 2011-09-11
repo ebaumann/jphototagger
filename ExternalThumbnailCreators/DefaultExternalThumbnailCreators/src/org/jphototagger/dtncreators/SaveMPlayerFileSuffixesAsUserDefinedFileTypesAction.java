@@ -60,8 +60,8 @@ public final class SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction extends A
             int saveCount = 0;
 
             for (UserDefinedFileType userDefinedFileType : VIDEO_FILES) {
-                if (!repo.existsFileTypeWithSuffix(userDefinedFileType.getSuffix())) {
-                    repo.save(userDefinedFileType);
+                if (!repo.existsUserDefinedFileTypeWithSuffix(userDefinedFileType.getSuffix())) {
+                    repo.saveUserDefinedFileType(userDefinedFileType);
                     saveCount++;
                 }
             }

@@ -18,12 +18,12 @@ public final class UserDefinedFileTypeRepositoryImpl implements UserDefinedFileT
     private final DatabaseUserDefinedFileTypes db = DatabaseUserDefinedFileTypes.INSTANCE;
 
     @Override
-    public void save(UserDefinedFileType userDefinedFileType) {
+    public void saveUserDefinedFileType(UserDefinedFileType userDefinedFileType) {
         db.insert(userDefinedFileType);
     }
 
     @Override
-    public void update(UserDefinedFileType userDefinedFileType) {
+    public void updateUserDefinedFileType(UserDefinedFileType userDefinedFileType) {
         String suffix = userDefinedFileType.getSuffix();
         UserDefinedFileType oldUserDefinedFileType = db.findBySuffix(suffix);
 
@@ -31,34 +31,34 @@ public final class UserDefinedFileTypeRepositoryImpl implements UserDefinedFileT
     }
 
     @Override
-    public void saveOrUpdate(UserDefinedFileType userDefinedFileType) {
+    public void saveOrUpdateUserDefinedFileType(UserDefinedFileType userDefinedFileType) {
         String suffix = userDefinedFileType.getSuffix();
 
         if (db.existsSuffix(suffix)) {
-            update(userDefinedFileType);
+            updateUserDefinedFileType(userDefinedFileType);
         } else {
-            save(userDefinedFileType);
+            saveUserDefinedFileType(userDefinedFileType);
         }
 
     }
 
     @Override
-    public void remove(UserDefinedFileType serDefinedFileType) {
+    public void deleteUserDefinedFileType(UserDefinedFileType serDefinedFileType) {
         db.delete(serDefinedFileType);
     }
 
     @Override
-    public List<UserDefinedFileType> findAll() {
+    public List<UserDefinedFileType> findAllUserDefinedFileTypes() {
         return db.getAll();
     }
 
     @Override
-    public boolean existsFileTypeWithSuffix(String suffix) {
+    public boolean existsUserDefinedFileTypeWithSuffix(String suffix) {
         return db.existsSuffix(suffix);
     }
 
     @Override
-    public UserDefinedFileType findBySuffix(String suffix) {
+    public UserDefinedFileType findUserDefinedFileTypeBySuffix(String suffix) {
         return DatabaseUserDefinedFileTypes.INSTANCE.findBySuffix(suffix);
     }
 }

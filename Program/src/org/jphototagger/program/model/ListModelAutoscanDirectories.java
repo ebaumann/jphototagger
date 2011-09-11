@@ -17,7 +17,7 @@ import org.openide.util.Lookup;
 
 /**
  * Elements are directory {@link File}s retrieved through
- * {@link DatabaseAutoscanDirectories#getAllDirectories()}.
+ * {@link DatabaseAutoscanDirectories#getAllAutoscanDirectories()}.
  *
  * These directorys shall be scanned automatically for updates.
  *
@@ -38,7 +38,7 @@ public final class ListModelAutoscanDirectories extends DefaultListModel {
             return;
         }
 
-        List<File> directories = repo.getAllDirectories();
+        List<File> directories = repo.getAllAutoscanDirectories();
 
         for (File directory : directories) {
             if (directory.isDirectory() && directory.exists()) {

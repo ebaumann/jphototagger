@@ -9,17 +9,17 @@ import org.jphototagger.domain.filetypes.UserDefinedFileType;
  */
 public interface UserDefinedFileTypesRepository {
 
-    void save(UserDefinedFileType userDefinedFileType);
+    void saveUserDefinedFileType(UserDefinedFileType userDefinedFileType);
 
-    void update(UserDefinedFileType userDefinedFileType);
+    void updateUserDefinedFileType(UserDefinedFileType userDefinedFileType);
 
-    void saveOrUpdate(UserDefinedFileType userDefinedFileType);
+    void saveOrUpdateUserDefinedFileType(UserDefinedFileType userDefinedFileType);
 
-    void remove(UserDefinedFileType serDefinedFileType);
+    void deleteUserDefinedFileType(UserDefinedFileType serDefinedFileType);
 
-    boolean existsFileTypeWithSuffix(String suffix);
+    boolean existsUserDefinedFileTypeWithSuffix(String suffix);
 
-    List<UserDefinedFileType> findAll();
+    List<UserDefinedFileType> findAllUserDefinedFileTypes();
 
-    UserDefinedFileType findBySuffix(String suffix);
+    UserDefinedFileType findUserDefinedFileTypeBySuffix(String suffix);
 }

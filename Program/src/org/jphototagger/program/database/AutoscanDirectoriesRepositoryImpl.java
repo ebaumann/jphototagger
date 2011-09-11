@@ -17,22 +17,22 @@ public final class AutoscanDirectoriesRepositoryImpl implements AutoscanDirector
     private final DatabaseAutoscanDirectories db = DatabaseAutoscanDirectories.INSTANCE;
 
     @Override
-    public boolean deleteDirectory(File directory) {
+    public boolean deleteAutoscanDirectory(File directory) {
         return db.deleteDirectory(directory);
     }
 
     @Override
-    public boolean existsDirectory(File directory) {
+    public boolean existsAutoscanDirectory(File directory) {
         return db.existsDirectory(directory);
     }
 
     @Override
-    public List<File> getAllDirectories() {
+    public List<File> getAllAutoscanDirectories() {
         return db.getAllDirectories();
     }
 
     @Override
-    public boolean insertDirectory(File directory) {
+    public boolean insertAutoscanDirectory(File directory) {
         return db.insertDirectory(directory);
     }
 }

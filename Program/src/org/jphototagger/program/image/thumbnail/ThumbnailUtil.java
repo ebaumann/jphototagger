@@ -122,13 +122,13 @@ public final class ThumbnailUtil {
         String suffix = FileUtil.getSuffix(file);
         UserDefinedFileTypesRepository repo = Lookup.getDefault().lookup(UserDefinedFileTypesRepository.class);
 
-        return repo.existsFileTypeWithSuffix(suffix);
+        return repo.existsUserDefinedFileTypeWithSuffix(suffix);
     }
 
     private static Image getUserDefinedThumbnail(File file) {
         String suffix = FileUtil.getSuffix(file);
         UserDefinedFileTypesRepository repo = Lookup.getDefault().lookup(UserDefinedFileTypesRepository.class);
-        UserDefinedFileType fileType = repo.findBySuffix(suffix);
+        UserDefinedFileType fileType = repo.findUserDefinedFileTypeBySuffix(suffix);
 
         if (fileType == null || !fileType.isExternalThumbnailCreator()) {
             return IconUtil.getIconImage("/org/jphototagger/program/resource/images/user_defined_file_type.jpg");

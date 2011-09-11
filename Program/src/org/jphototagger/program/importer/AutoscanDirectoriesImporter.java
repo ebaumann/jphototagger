@@ -39,8 +39,8 @@ public final class AutoscanDirectoriesImporter implements Importer {
                     AutoscanDirectoriesExporter.CollectionWrapper.class);
 
             for (StringWrapper stringWrapper : wrapper.getCollection()) {
-                if (!repo.existsDirectory(new File(stringWrapper.getString()))) {
-                    repo.insertDirectory(new File(stringWrapper.getString()));
+                if (!repo.existsAutoscanDirectory(new File(stringWrapper.getString()))) {
+                    repo.insertAutoscanDirectory(new File(stringWrapper.getString()));
                 }
             }
         } catch (Exception ex) {
