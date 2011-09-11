@@ -1,15 +1,18 @@
 package org.jphototagger.program.model;
 
-import org.jphototagger.domain.templates.RenameTemplate;
-import org.jphototagger.program.database.ConnectionPool;
-import org.jphototagger.program.database.DatabaseRenameTemplates;
+
 import javax.swing.DefaultComboBoxModel;
+
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.domain.repository.RenameTemplatesRepository;
 import org.jphototagger.domain.repository.event.renametemplates.RenameTemplateDeletedEvent;
 import org.jphototagger.domain.repository.event.renametemplates.RenameTemplateInsertedEvent;
 import org.jphototagger.domain.repository.event.renametemplates.RenameTemplateUpdatedEvent;
+import org.jphototagger.domain.templates.RenameTemplate;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.program.database.ConnectionPool;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -19,6 +22,7 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 public final class ComboBoxModelRenameTemplates extends DefaultComboBoxModel {
 
     private static final long serialVersionUID = -5081726761734936168L;
+    private final RenameTemplatesRepository repo = Lookup.getDefault().lookup(RenameTemplatesRepository.class);
 
     public ComboBoxModelRenameTemplates() {
         addElements();
@@ -30,7 +34,7 @@ public final class ComboBoxModelRenameTemplates extends DefaultComboBoxModel {
             return;
         }
 
-        for (RenameTemplate template : DatabaseRenameTemplates.INSTANCE.getAll()) {
+        for (RenameTemplate template : repo.getAllRenameTemplates()) {
             addElement(template);
         }
     }
