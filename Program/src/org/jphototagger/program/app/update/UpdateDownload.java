@@ -12,6 +12,7 @@ import javax.swing.JProgressBar;
 
 import org.jphototagger.api.core.Storage;
 import org.jphototagger.api.core.UserFilesProvider;
+import org.jphototagger.domain.repository.ApplicationPropertiesRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.lib.dialog.MessageDisplayer;
@@ -92,7 +93,9 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
      * {@link UserSettings#setCheckForUpdates(boolean)}-
      */
     public static void askOnceCheckForNewerVersion() {
-        if (!DatabaseApplicationProperties.INSTANCE.getBoolean(KEY_ASK_ONCE_CHECK_FOR_NEWER_VERSION)) {
+        final ApplicationPropertiesRepository appPropertiesRepo = Lookup.getDefault().lookup(ApplicationPropertiesRepository.class);
+
+        if (!appPropertiesRepo.getBoolean(KEY_ASK_ONCE_CHECK_FOR_NEWER_VERSION)) {
             try {
                 EventQueue.invokeAndWait(new Runnable() {
 
@@ -102,7 +105,7 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
                         boolean isAutoDownload = MessageDisplayer.confirmYesNo(null, message);
 
                         setCheckForUpdates(isAutoDownload);
-                        DatabaseApplicationProperties.INSTANCE.setBoolean(KEY_ASK_ONCE_CHECK_FOR_NEWER_VERSION, true);
+                        appPropertiesRepo.setBoolean(KEY_ASK_ONCE_CHECK_FOR_NEWER_VERSION, true);
                     }
                 });
             } catch (Exception ex) {

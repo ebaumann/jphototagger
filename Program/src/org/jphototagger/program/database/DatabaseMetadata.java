@@ -1,7 +1,5 @@
 package org.jphototagger.program.database;
 
-import org.jphototagger.lib.util.Version;
-import org.jphototagger.program.app.AppInfo;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
@@ -11,16 +9,23 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jphototagger.domain.repository.ApplicationPropertiesRepository;
+import org.jphototagger.lib.util.Version;
+import org.jphototagger.program.app.AppInfo;
+import org.openide.util.Lookup;
+
 /**
  *
  *
  * @author Elmar Baumann
  */
 public final class DatabaseMetadata extends Database {
+
     public static final DatabaseMetadata INSTANCE = new DatabaseMetadata();
     private static final String KEY_JPT_APP_DB_VERSION = "VersionLastDbUpdate";
 
-    private DatabaseMetadata() {}
+    private DatabaseMetadata() {
+    }
 
     /**
      * Returns, whether the database is the database of a newer JPhotoTagger
@@ -29,7 +34,8 @@ public final class DatabaseMetadata extends Database {
      * @return true, if the database is for a newer version
      */
     public static boolean isDatabaseOfNewerVersion() {
-        String dbVersion = DatabaseApplicationProperties.INSTANCE.getString(KEY_JPT_APP_DB_VERSION);
+        ApplicationPropertiesRepository appPropertiesRepo = Lookup.getDefault().lookup(ApplicationPropertiesRepository.class);
+        String dbVersion = appPropertiesRepo.getString(KEY_JPT_APP_DB_VERSION);
 
         // Only older JPhotoTagger versions did not write that key
         if (dbVersion == null) {
@@ -49,11 +55,12 @@ public final class DatabaseMetadata extends Database {
      * @return true, if the database is from this version
      */
     public static boolean isDatabaseOfCurrentVersion() {
-        String dbVersion = DatabaseApplicationProperties.INSTANCE.getString(KEY_JPT_APP_DB_VERSION);
+        ApplicationPropertiesRepository appPropertiesRepo = Lookup.getDefault().lookup(ApplicationPropertiesRepository.class);
+        String dbVersion = appPropertiesRepo.getString(KEY_JPT_APP_DB_VERSION);
 
         return (dbVersion == null)
-               ? false
-               : dbVersion.equals(AppInfo.APP_VERSION);
+                ? false
+                : dbVersion.equals(AppInfo.APP_VERSION);
     }
 
     /**
@@ -63,7 +70,8 @@ public final class DatabaseMetadata extends Database {
      * @return true, if the database is from an older version
      */
     public static boolean isDatabaseOfOlderVersion() {
-        String dbVersion = DatabaseApplicationProperties.INSTANCE.getString(KEY_JPT_APP_DB_VERSION);
+        ApplicationPropertiesRepository appPropertiesRepo = Lookup.getDefault().lookup(ApplicationPropertiesRepository.class);
+        String dbVersion = appPropertiesRepo.getString(KEY_JPT_APP_DB_VERSION);
 
         // Only older JPhotoTagger versions did not write that key
         if (dbVersion == null) {
@@ -83,7 +91,9 @@ public final class DatabaseMetadata extends Database {
      * @return version string or null if not written
      */
     public static String getDatabaseAppVersion() {
-        return DatabaseApplicationProperties.INSTANCE.getString(KEY_JPT_APP_DB_VERSION);
+        ApplicationPropertiesRepository appPropertiesRepo = Lookup.getDefault().lookup(ApplicationPropertiesRepository.class);
+
+        return appPropertiesRepo.getString(KEY_JPT_APP_DB_VERSION);
     }
 
     /**
@@ -94,7 +104,9 @@ public final class DatabaseMetadata extends Database {
      * version!</em>
      */
     public static void setCurrentAppVersionToDatabase() {
-        DatabaseApplicationProperties.INSTANCE.setString(KEY_JPT_APP_DB_VERSION, AppInfo.APP_VERSION);
+        ApplicationPropertiesRepository appPropertiesRepo = Lookup.getDefault().lookup(ApplicationPropertiesRepository.class);
+
+        appPropertiesRepo.setString(KEY_JPT_APP_DB_VERSION, AppInfo.APP_VERSION);
     }
 
     public boolean existsTable(Connection con, String tablename) throws SQLException {
@@ -108,7 +120,7 @@ public final class DatabaseMetadata extends Database {
 
         boolean exists = false;
         DatabaseMetaData dbm = con.getMetaData();
-        String[] names = { "TABLE" };
+        String[] names = {"TABLE"};
         ResultSet rs = dbm.getTables(null, "%", "%", names);
 
         while (!exists && rs.next()) {
@@ -266,6 +278,7 @@ public final class DatabaseMetadata extends Database {
      * {@code DatabaseMetaData#getColumns()}.
      */
     public static class ColumnInfo {
+
         public int CHAR_OCTET_LENGTH;
         public String COLUMN_DEF;
         public String COLUMN_NAME;
