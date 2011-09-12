@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>How to implement something (&quot;Best practices&quot;)</title>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+        <meta name="date" content="2010-01-29T19:00:15+01:00" />
+        <meta http-equiv="content-language" content="en" />
+        <link rel="stylesheet" media="screen" type="text/css" href="../css/standard.css" />
+        <link rel="shortcut icon" href="../favicon.ico" />
+        <style type="text/css">
+            #content ol, #content ul { margin-top: 0.75em; margin-left: 0.75em; padding-left: 0.75em; }
+            #content ul { list-style-type: square; }
+        </style>
+    </head>
+    <body>
+
+        <div id="page">
+            <div id="sitenav">
+                <h2>Navigate</h2>
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../download.html">Download</a></li>
+                    <li><a href="../features.html">Features</a></li>
+                    <li><a href="../system_req.html">System requirements</a></li>
+                    <li><a href="../screenshots/index.html">Screenshots</a></li>
+                    <li><a href="../usr/index.html">Users</a></li>
+                    <li><a href="index.html">Developers</a></li>
+                </ul>
+                <h2>Discussion</h2>
+                <ul>
+                    <li><a href="http://groups.google.de/group/jphototagger-benutzer">Deutsche Benutzer</a></li>
+                    <li><a href="http://groups.google.de/group/jphototagger-developers">Developers</a></li>
+                </ul>
+                <h2>Tracking</h2>
+                <ul>
+                    <li><a href="http://code.google.com/p/jphototagger/issues/list">Bugs, Issues</a></li>
+                </ul>
+                <h2>Repository</h2>
+                <ul>
+                    <li><a href="http://code.google.com/p/jphototagger/source/checkout">Source Code</a></li>
+                </ul>
+            </div><!--sitenav-->
+            <div id="content">
+
+                <h1>How to implement something (&quot;Best practices&quot;)</h1>
+
+                <p><em>Do not repeat bad code</em> in (hopefully) old parts of <strong>JPhotoTagger</strong>! For example
+                    do <em>not</em> implement <code>ActionListener</code>s, use <code>Actions</code> instead.
+                </p>
+
+                <p><em>Do not add code to the </em> <strong>Program</strong> project. There should be only
+                    bugs fixed, code refactored or the functionality be enhanced (only if not possible via the
+                    Java Service Interface).
+                </p>
+
+                <p><strong>Open a new project for adding features.</strong> Refactorings are always welcome,
+                    if they (really) improve the design.
+                </p>
+
+                <p>Don't hesitate to fix bugs. Write tests for every method, <strong>NetBeans</strong>
+                    automatically generates test classes and method skeletons.
+                </p>
+
+                <h2>Use the API and Domain Projects (Java Service Provider Interface in general)</h2>
+
+                <p>Do not use implementations, use interfaces. We are using the Java Service Provider Interface to get
+                    implementations. With that lines of code you get an implementation:
+                </p>
+
+                <pre>
+MyInterfaceImplementation implementation = Lookup.getDefault().lookup(MyInterface.class);
+
+implementation.doSomething();
+                </pre>
+
+                <p>As an example: The currently used &quot;Database&quot; implements <code>Repository</code> interfaces.
+                    To use a different database and/or the JPA instead of JDBC, only the project implementing these
+                    interfaces has to be replaced and no other code has to be changed. Currently the implementation
+                    project is <strong>HsqlDatabase</strong>.
+                </p>
+
+                <p>Another example: <strong>JPhotoTagger</strong> has limited capabilities to generate thumbnails
+                    of different camera image file (media) formats. You can add an implementation of
+                    <code>ThumbnailCreator</code> in a separate project, e.g. for your special camera RAW format, and
+                    it will be automatically used (if no thumbnail could be created by the default implementation).
+                </p>
+
+                <p>Do <em>not</em> create files in <code>META-INF/services</code> for your service providers. This is
+                    very error prone on Move/Rename refactorings. Use the <code>@ServiceProvider</code> annotation
+                    instead, grep the source code for examples.
+                </p>
+
+                <h2>Extending JPhotoTagger</h2>
+
+                <h3>Extensions processing files</h3>
+
+                <p>If the thumbnails panel shall offer a menu entry for processing selected files, implement in
+                    a separate project the interface <code>FileProcessorPlugin</code>. Examples may be a HTML Gallery
+                    generator or FTP upload. Existing example implementations are the projects <strong>Copy Filenames
+                    To Clipboard</strong> (easy and a good starting point to learn) or <strong>Flickr Upload</strong>.
+                </p>
+
+                <h3>Complex extensions</h3>
+
+                <p>A complex extension implements <code>Module</code>. Modules will be initialized during the
+                    application startup without user interaction (file processors will be invoked only if the user
+                    calls them).
+                </p>
+
+                <h3>Remarks</h3>
+
+                <p>You can add menu entries, panels etc. to the application window, getting thumbnails etc. &ndash;
+                    take a look into the API project. For querying or modifying the repository (database), have also
+                    a look into the Domain project.
+                </p>
+
+                <h2>Commit and push changes</h2>
+
+                <p>Use <strong>Mercurial</strong>'s commit and push command to share your code. I don't want spent time
+                    to integrate patches sent by e mail.
+                </p>
+
+                <p><strong>Author:</strong> Elmar Baumann
+                    <br /><a href="mailto:info@jphototagger.org?subject=JPhotoTagger%20How%20implement%20something">Write e-Mail</a>
+                    <br /><strong>Status of this document:</strong> 2011-09-12
+                </p>
+
+            </div><!--content-->
+        </div><!--page-->
+    </body>
+</html>
