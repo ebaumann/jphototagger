@@ -5,7 +5,7 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 
-import org.jphototagger.domain.repository.MetadataTemplateRepository;
+import org.jphototagger.domain.repository.MetadataTemplatesRepository;
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
@@ -20,7 +20,7 @@ import org.openide.util.Lookup;
  */
 public final class ControllerMetadataTemplateDelete extends ControllerMetadataTemplate {
 
-    private final MetadataTemplateRepository repo = Lookup.getDefault().lookup(MetadataTemplateRepository.class);
+    private final MetadataTemplatesRepository repo = Lookup.getDefault().lookup(MetadataTemplatesRepository.class);
 
     public ControllerMetadataTemplateDelete() {
         listen();

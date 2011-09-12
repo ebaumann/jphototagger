@@ -139,7 +139,7 @@ public final class TransferHandlerThumbnailsPanel extends TransferHandler {
         ImageCollectionsRepository repo = Lookup.getDefault().lookup(ImageCollectionsRepository.class);
 
         if (imageCollectionName != null) {
-            repo.insertImageCollection(imageCollectionName, panel.getFiles());
+            repo.saveImageCollection(imageCollectionName, panel.getFiles());
         }
     }
 

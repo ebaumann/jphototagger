@@ -144,7 +144,7 @@ public final class ControllerEditKeywordSynonyms extends ControllerKeywords impl
     }
 
     private void editSynonyms(String keyword) {
-        Set<String> oldSynonyms = repo.getSynonymsOfWord(keyword);
+        Set<String> oldSynonyms = repo.findSynonymsOfWord(keyword);
         InputHelperDialog owner = InputHelperDialog.INSTANCE;
         String info = Bundle.getString(ControllerEditKeywordSynonyms.class, "ControllerEditKeywordSynonyms.Info.Input", keyword, DELIM);
         String input = catSynonyms(oldSynonyms);
@@ -158,7 +158,7 @@ public final class ControllerEditKeywordSynonyms extends ControllerKeywords impl
             Set<String> newSynonyms = splitSynonyms(synonyms);
 
             for (String synonym : newSynonyms) {
-                repo.insertSynonym(keyword, synonym);
+                repo.saveSynonym(keyword, synonym);
             }
 
             SynonymsRepository synonymsRepo = Lookup.getDefault().lookup(SynonymsRepository.class);

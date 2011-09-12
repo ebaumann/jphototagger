@@ -50,9 +50,9 @@ public final class ProgramsExporter implements Exporter {
         File xmlFile = FileUtil.ensureSuffix(file, ".xml");
 
         try {
-            List<Program> programs = repo.getAllPrograms(ProgramType.ACTION);
+            List<Program> programs = repo.findAllPrograms(ProgramType.ACTION);
 
-            programs.addAll(repo.getAllPrograms(ProgramType.PROGRAM));
+            programs.addAll(repo.findAllPrograms(ProgramType.PROGRAM));
             XmlObjectExporter.export(new CollectionWrapper(programs), xmlFile);
         } catch (Exception ex) {
             Logger.getLogger(ProgramsExporter.class.getName()).log(Level.SEVERE, null, ex);

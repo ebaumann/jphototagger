@@ -44,7 +44,7 @@ import org.jphototagger.api.image.ThumbnailProvider;
  *
  * @author Elmar Baumann, Tobias Stening
  */
-public final class ThumbnailUtil {
+final class ThumbnailUtil {
 
     private static final Logger LOGGER = Logger.getLogger(ThumbnailUtil.class.getName());
 
@@ -58,7 +58,7 @@ public final class ThumbnailUtil {
      * @param  file file
      * @return      thumbnail or null on errors
      */
-    public static Image getThumbnail(File file) {
+    static Image getThumbnail(File file) {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
@@ -148,7 +148,7 @@ public final class ThumbnailUtil {
      * @param  maxLength  maximum length of the image
      * @return            thumbnail or null if errors occured
      */
-    public static Image getThumbnailFromImagero(File file, int maxLength) {
+    private static Image getThumbnailFromImagero(File file, int maxLength) {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
@@ -164,7 +164,7 @@ public final class ThumbnailUtil {
         return getScaledImageImagero(file, maxLength);
     }
 
-    public static Image getThumbnailFromJavaImageIo(File file, int maxLength) {
+    private static Image getThumbnailFromJavaImageIo(File file, int maxLength) {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
@@ -195,7 +195,7 @@ public final class ThumbnailUtil {
      * @param file file
      * @return     thumbnail or null on errors
      */
-    public static Image getEmbeddedThumbnail(File file) {
+    static Image getEmbeddedThumbnail(File file) {
         if (file == null) {
             throw new NullPointerException("file == null");
         }

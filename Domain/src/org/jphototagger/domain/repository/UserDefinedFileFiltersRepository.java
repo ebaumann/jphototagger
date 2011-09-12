@@ -15,9 +15,9 @@ public interface UserDefinedFileFiltersRepository {
 
     boolean existsUserDefinedFileFilter(String name);
 
-    Set<UserDefinedFileFilter> getAllUserDefinedFileFilters();
+    Set<UserDefinedFileFilter> findAllUserDefinedFileFilters();
 
-    boolean insertUserDefinedFileFilter(UserDefinedFileFilter filter);
+    boolean saveUserDefinedFileFilter(UserDefinedFileFilter filter);
 
     boolean updateUserDefinedFileFilter(UserDefinedFileFilter filter);
 }

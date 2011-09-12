@@ -7,18 +7,17 @@ import javax.swing.DefaultListModel;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-import org.jphototagger.domain.repository.FileExcludePatternRepository;
+import org.jphototagger.domain.repository.FileExcludePatternsRepository;
+import org.jphototagger.domain.repository.Repository;
 import org.jphototagger.domain.repository.event.fileexcludepattern.FileExcludePatternDeletedEvent;
 import org.jphototagger.domain.repository.event.fileexcludepattern.FileExcludePatternInsertedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.database.ConnectionPool;
 import org.openide.util.Lookup;
 
 /**
- * Element are {@link String}s retrieved through
- * {@link DatabaseFileExcludePatterns#getAllFileExcludePatterns()}.
+ * Element are {@link String}s.
  *
  * Filenames matching these patterns (strings) shall not be handled by
  * <strong>JPhotoTagger</strong>.
@@ -30,7 +29,7 @@ public final class ListModelFileExcludePatterns extends DefaultListModel {
     private static final long serialVersionUID = -8337739189362442866L;
     private volatile transient boolean listenToDb = true;
     private List<String> patterns;
-    private final FileExcludePatternRepository repo = Lookup.getDefault().lookup(FileExcludePatternRepository.class);
+    private final FileExcludePatternsRepository fepRepo = Lookup.getDefault().lookup(FileExcludePatternsRepository.class);
 
     public ListModelFileExcludePatterns() {
         addElements();
@@ -50,13 +49,13 @@ public final class ListModelFileExcludePatterns extends DefaultListModel {
 
         String trimmedPattern = pattern.trim();
 
-        if (repo.existsFileExcludePattern(trimmedPattern)) {
+        if (fepRepo.existsFileExcludePattern(trimmedPattern)) {
             errorMessageExists(trimmedPattern);
 
             return;
         }
 
-        if (repo.insertFileExcludePattern(trimmedPattern)) {
+        if (fepRepo.saveFileExcludePattern(trimmedPattern)) {
             addElement(trimmedPattern);
             patterns.add(trimmedPattern);
         } else {
@@ -75,7 +74,7 @@ public final class ListModelFileExcludePatterns extends DefaultListModel {
 
         String trimmedPattern = pattern.trim();
 
-        if (repo.deleteFileExcludePattern(trimmedPattern)) {
+        if (fepRepo.deleteFileExcludePattern(trimmedPattern)) {
             removeElement(trimmedPattern);
             patterns.remove(trimmedPattern);
         } else {
@@ -86,11 +85,13 @@ public final class ListModelFileExcludePatterns extends DefaultListModel {
     }
 
     private void addElements() {
-        if (!ConnectionPool.INSTANCE.isInit()) {
+        Repository repo = Lookup.getDefault().lookup(Repository.class);
+
+        if (repo == null || !repo.isInit()) {
             return;
         }
 
-        patterns = repo.getAllFileExcludePatterns();
+        patterns = fepRepo.findAllFileExcludePatterns();
 
         for (String pattern : patterns) {
             addElement(pattern);

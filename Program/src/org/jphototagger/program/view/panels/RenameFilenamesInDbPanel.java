@@ -9,7 +9,7 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.api.event.ProgressEvent;
 import org.jphototagger.api.event.ProgressListener;
-import org.jphototagger.domain.repository.ImageFileRepository;
+import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.types.Persistence;
@@ -48,7 +48,7 @@ public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener
             setInputEnabled(false);
 
             Thread thread = new Thread(new Runnable() {
-                private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
+                private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
                 @Override
                 public void run() {
                     String searchText = textFieldSearch.getText();

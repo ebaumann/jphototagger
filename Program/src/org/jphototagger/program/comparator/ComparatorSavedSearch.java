@@ -1,6 +1,6 @@
 package org.jphototagger.program.comparator;
 
-import org.jphototagger.program.data.SavedSearch;
+import org.jphototagger.domain.metadata.search.SavedSearch;
 import java.util.Comparator;
 
 /**

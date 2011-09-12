@@ -20,13 +20,14 @@ import org.bushe.swing.event.EventBus;
 import org.jphototagger.api.core.Storage;
 import org.jphototagger.api.core.StorageHints;
 import org.jphototagger.api.file.event.FileRenamedEvent;
+import org.jphototagger.api.image.ThumbnailProvider;
 import org.jphototagger.domain.templates.RenameTemplate;
 import org.jphototagger.image.FileType;
 import org.jphototagger.lib.componentutil.ComboBoxUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
-import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.controller.filesystem.FilenameFormat;
 import org.jphototagger.program.controller.filesystem.FilenameFormatArray;
 import org.jphototagger.program.controller.filesystem.FilenameFormatConstantString;
@@ -36,7 +37,6 @@ import org.jphototagger.program.controller.filesystem.FilenameFormatFileName;
 import org.jphototagger.program.controller.filesystem.FilenameFormatFilenamePostfix;
 import org.jphototagger.program.controller.filesystem.FilenameFormatNumberSequence;
 import org.jphototagger.program.helper.RenameTemplateHelper;
-import org.jphototagger.program.image.thumbnail.ThumbnailUtil;
 import org.jphototagger.program.model.ComboBoxModelRenameTemplates;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.xmp.XmpMetadata;
@@ -58,6 +58,7 @@ public final class RenameDialog extends Dialog implements ListDataListener {
     private boolean lockClose = false;
     private boolean cancel = false;
     private transient boolean listen = true;
+    private final ThumbnailProvider tnProvider = Lookup.getDefault().lookup(ThumbnailProvider.class);
 
     public RenameDialog() {
         super(GUI.getAppFrame(), true);
@@ -375,7 +376,7 @@ public final class RenameDialog extends Dialog implements ListDataListener {
         Image thumbnail = null;
 
         if (FileType.isJpegFile(file.getName())) {
-            thumbnail = ThumbnailUtil.getThumbnailFromJavaImageIo(file, panelThumbnail.getWidth());
+            thumbnail = tnProvider.getThumbnail(file);
         }
 
         if (thumbnail != null) {

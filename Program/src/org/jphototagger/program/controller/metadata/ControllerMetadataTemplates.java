@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.domain.repository.MetadataTemplateRepository;
+import org.jphototagger.domain.repository.MetadataTemplatesRepository;
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
@@ -25,7 +25,7 @@ import org.openide.util.Lookup;
 public final class ControllerMetadataTemplates implements ActionListener {
 
     private static final Logger LOGGER = Logger.getLogger(ControllerMetadataTemplates.class.getName());
-    private final MetadataTemplateRepository repo = Lookup.getDefault().lookup(MetadataTemplateRepository.class);
+    private final MetadataTemplatesRepository repo = Lookup.getDefault().lookup(MetadataTemplatesRepository.class);
 
     public ControllerMetadataTemplates() {
         listen();

@@ -11,7 +11,7 @@ import org.jphototagger.domain.metadata.MetaDataValue;
  */
 public interface MetaDataValuesRepository {
 
-    Set<String> getDistinctMetaDataValues(Set<MetaDataValue> metaDataValues);
+    Set<String> findDistinctMetaDataValues(Set<MetaDataValue> metaDataValues);
 
-    Set<String> getDistinctMetaDataValues(MetaDataValue metaDataValue);
+    Set<String> findDistinctMetaDataValues(MetaDataValue metaDataValue);
 }

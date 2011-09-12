@@ -22,7 +22,7 @@ import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpIptc4xmpcoreLocationMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpPhotoshopSourceMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpRatingMetaDataValue;
-import org.jphototagger.domain.repository.ImageFileRepository;
+import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.repository.event.dcsubjects.DcSubjectDeletedEvent;
 import org.jphototagger.domain.repository.event.dcsubjects.DcSubjectInsertedEvent;
 import org.jphototagger.domain.repository.event.exif.ExifDeletedEvent;
@@ -77,7 +77,7 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel {
     }
     private final boolean onlyXmp;
     private final DefaultMutableTreeNode ROOT;
-    private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
+    private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
 
     public TreeModelMiscMetadata(boolean onlyXmp) {
         super(new DefaultMutableTreeNode(Bundle.getString(TreeModelMiscMetadata.class, "TreeModelMiscMetadata.Root.DisplayName")));
@@ -114,7 +114,7 @@ public final class TreeModelMiscMetadata extends DefaultTreeModel {
         for (MetaDataValue mdValue : metaDataValues) {
             DefaultMutableTreeNode mdValueNode = new DefaultMutableTreeNode(mdValue);
 
-            addChildren(mdValueNode, repo.getAllDistinctMetaDataValues(mdValue), mdValue.getValueType());
+            addChildren(mdValueNode, repo.findAllDistinctMetaDataValues(mdValue), mdValue.getValueType());
             node.add(mdValueNode);
         }
 

@@ -5,7 +5,7 @@ import org.jphototagger.domain.exif.Exif;
 import java.io.File;
 import java.io.Serializable;
 import java.util.Comparator;
-import org.jphototagger.domain.repository.ImageFileRepository;
+import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.openide.util.Lookup;
 
 /**
@@ -15,12 +15,12 @@ import org.openide.util.Lookup;
 public final class ComparatorExifIsoSpeedRatingAsc extends ClassEquality implements Comparator<File>, Serializable {
 
     private static final long serialVersionUID = -253958191545167782L;
-    private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
+    private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
 
     @Override
     public int compare(File fileLeft, File fileRight) {
-        Exif exifLeft = repo.getExifOfImageFile(fileLeft);
-        Exif exifRight = repo.getExifOfImageFile(fileRight);
+        Exif exifLeft = repo.findExifOfImageFile(fileLeft);
+        Exif exifRight = repo.findExifOfImageFile(fileRight);
 
         return ((exifLeft == null) && (exifRight == null))
                 ? 0

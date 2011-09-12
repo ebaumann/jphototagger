@@ -8,15 +8,13 @@ import javax.swing.DefaultListModel;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.domain.repository.AutoscanDirectoriesRepository;
+import org.jphototagger.domain.repository.Repository;
 import org.jphototagger.domain.repository.event.autoscandirectories.AutoscanDirectoryDeletedEvent;
 import org.jphototagger.domain.repository.event.autoscandirectories.AutoscanDirectoryInsertedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.program.database.ConnectionPool;
 import org.openide.util.Lookup;
 
 /**
- * Elements are directory {@link File}s retrieved through
- * {@link DatabaseAutoscanDirectories#getAllAutoscanDirectories()}.
  *
  * These directorys shall be scanned automatically for updates.
  *
@@ -25,7 +23,7 @@ import org.openide.util.Lookup;
 public final class ListModelAutoscanDirectories extends DefaultListModel {
 
     private static final long serialVersionUID = 5568827666022563702L;
-    private final AutoscanDirectoriesRepository repo = Lookup.getDefault().lookup(AutoscanDirectoriesRepository.class);
+    private final AutoscanDirectoriesRepository autoscanDirsRepo = Lookup.getDefault().lookup(AutoscanDirectoriesRepository.class);
 
     public ListModelAutoscanDirectories() {
         addElements();
@@ -33,11 +31,13 @@ public final class ListModelAutoscanDirectories extends DefaultListModel {
     }
 
     private void addElements() {
-        if (!ConnectionPool.INSTANCE.isInit()) {
+        Repository repo = Lookup.getDefault().lookup(Repository.class);
+
+        if (repo == null || !repo.isInit()) {
             return;
         }
 
-        List<File> directories = repo.getAllAutoscanDirectories();
+        List<File> directories = autoscanDirsRepo.findAllAutoscanDirectories();
 
         for (File directory : directories) {
             if (directory.isDirectory() && directory.exists()) {

@@ -1,29 +1,40 @@
 package org.jphototagger.program.model;
 
-import org.jphototagger.program.data.SavedSearch;
-import org.jphototagger.program.database.ConnectionPool;
-import org.jphototagger.program.database.DatabaseSavedSearches;
-import org.jphototagger.program.event.listener.DatabaseSavedSearchesListener;
-import org.jphototagger.program.helper.SavedSearchesHelper;
 import java.util.List;
+
 import javax.swing.DefaultListModel;
+
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.domain.metadata.search.SavedSearch;
+import org.jphototagger.domain.repository.Repository;
+import org.jphototagger.domain.repository.event.search.SavedSearchDeletedEvent;
+import org.jphototagger.domain.repository.event.search.SavedSearchInsertedEvent;
+import org.jphototagger.domain.repository.event.search.SavedSearchRenamedEvent;
+import org.jphototagger.domain.repository.event.search.SavedSearchUpdatedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.repository.hsqldb.DatabaseSavedSearches;
+import org.jphototagger.program.helper.SavedSearchesHelper;
+import org.openide.util.Lookup;
 
 /**
  * Elements are {@link SavedSearch}es.
  *
  * @author Elmar Baumann
  */
-public final class ListModelSavedSearches extends DefaultListModel implements DatabaseSavedSearchesListener {
+public final class ListModelSavedSearches extends DefaultListModel {
+
     private static final long serialVersionUID = 1979666986802551310L;
 
     public ListModelSavedSearches() {
         addElements();
-        DatabaseSavedSearches.INSTANCE.addListener(this);
+        AnnotationProcessor.process(this);
     }
 
     private void addElements() {
-        if (!ConnectionPool.INSTANCE.isInit()) {
+        Repository repo = Lookup.getDefault().lookup(Repository.class);
+
+        if (repo == null || !repo.isInit()) {
             return;
         }
 
@@ -73,41 +84,48 @@ public final class ListModelSavedSearches extends DefaultListModel implements Da
         }
     }
 
-    @Override
-    public void searchInserted(final SavedSearch savedSearch) {
+    @EventSubscriber(eventClass = SavedSearchInsertedEvent.class)
+    public void searchInserted(final SavedSearchInsertedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                insertSearch(savedSearch);
+                insertSearch(evt.getSavedSearch());
             }
         });
     }
 
-    @Override
-    public void searchUpdated(final SavedSearch savedSearch) {
+    @EventSubscriber(eventClass = SavedSearchUpdatedEvent.class)
+    public void searchUpdated(final SavedSearchUpdatedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                updateSearch(savedSearch);
+                updateSearch(evt.getSavedSearch());
             }
         });
     }
 
-    @Override
-    public void searchDeleted(final String name) {
+    @EventSubscriber(eventClass = SavedSearchDeletedEvent.class)
+    public void searchDeleted(final SavedSearchDeletedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                deleteSearch(name);
+                deleteSearch(evt.getSearchName());
             }
         });
     }
 
-    @Override
-    public void searchRenamed(final String fromName, final String toName) {
+    @EventSubscriber(eventClass = SavedSearchRenamedEvent.class)
+    public void searchRenamed(final SavedSearchRenamedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
+                String fromName = evt.getFromName();
+                String toName = evt.getToName();
+
                 renameSearch(fromName, toName);
             }
         });

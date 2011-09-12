@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.List;
 
 import org.jphototagger.domain.exif.Exif;
-import org.jphototagger.domain.repository.ImageFileRepository;
+import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.exif.ExifMetadata;
 import org.jphototagger.exif.cache.ExifCache;
 import org.jphototagger.lib.util.Bundle;
@@ -20,7 +20,7 @@ import org.openide.util.Lookup;
 public final class RefreshExifInDbOfKnownFiles extends HelperThread {
 
     private volatile boolean cancel;
-    private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
+    private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
 
     public RefreshExifInDbOfKnownFiles() {
         super("JPhotoTagger: Refreshing EXIF in the database of known files");
@@ -29,7 +29,7 @@ public final class RefreshExifInDbOfKnownFiles extends HelperThread {
 
     @Override
     public void run() {
-        List<File> imageFiles = repo.getAllImageFiles();
+        List<File> imageFiles = repo.findAllImageFiles();
         int fileCount = imageFiles.size();
 
         progressStarted(0, 0, fileCount, (fileCount > 0)
@@ -46,7 +46,7 @@ public final class RefreshExifInDbOfKnownFiles extends HelperThread {
             }
 
             if (exif != null) {
-                repo.insertOrUpdateExif(imageFile, exif);
+                repo.saveOrUpdateExif(imageFile, exif);
             }
 
             progressPerformed(i + 1, imageFile);

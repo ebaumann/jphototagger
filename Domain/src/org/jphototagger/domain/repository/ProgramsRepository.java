@@ -17,9 +17,9 @@ public interface ProgramsRepository {
 
     Program findProgram(long id);
 
-    List<Program> getAllPrograms(ProgramType type);
+    List<Program> findAllPrograms(ProgramType type);
 
-    Program getDefaultImageOpenProgram();
+    Program findDefaultImageOpenProgram();
 
     int getProgramCount(boolean actions);
 
@@ -27,7 +27,7 @@ public interface ProgramsRepository {
 
     boolean hasProgram();
 
-    boolean insertProgram(Program program);
+    boolean saveProgram(Program program);
 
     boolean updateProgram(Program program);
 }

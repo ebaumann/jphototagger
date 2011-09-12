@@ -9,13 +9,13 @@ import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.repository.ActionsAfterRepoUpdatesRepository;
+import org.jphototagger.domain.repository.Repository;
 import org.jphototagger.domain.repository.event.programs.ProgramDeletedEvent;
 import org.jphototagger.domain.repository.event.programs.ProgramUpdatedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.database.ConnectionPool;
 import org.openide.util.Lookup;
 
 /**
@@ -28,7 +28,7 @@ import org.openide.util.Lookup;
 public final class ListModelActionsAfterDbInsertion extends DefaultListModel {
 
     private static final long serialVersionUID = -6490813457178023686L;
-    private final ActionsAfterRepoUpdatesRepository repo = Lookup.getDefault().lookup(ActionsAfterRepoUpdatesRepository.class);
+    private final ActionsAfterRepoUpdatesRepository actionsRepo = Lookup.getDefault().lookup(ActionsAfterRepoUpdatesRepository.class);
 
     public ListModelActionsAfterDbInsertion() {
         addElements();
@@ -42,7 +42,7 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel {
 
         assert action.isAction() : action;
 
-        if (!contains(action) && repo.insertAction(action, getSize())) {
+        if (!contains(action) && actionsRepo.saveAction(action, getSize())) {
             addElement(action);
         } else {
             errorMessageInsert(action);
@@ -85,7 +85,7 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel {
             fireContentsChanged(this, indexFirstElement, indexFirstElement);
             fireContentsChanged(this, indexSecondElement, indexSecondElement);
 
-            if (!repo.setActionOrder(getActions(), 0)) {
+            if (!actionsRepo.setActionOrder(getActions(), 0)) {
                 errorMessageSwap(indexFirstElement);
             }
         }
@@ -96,7 +96,7 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel {
             throw new NullPointerException("action == null");
         }
 
-        if (contains(action) && repo.deleteAction(action)) {
+        if (contains(action) && actionsRepo.deleteAction(action)) {
             removeElement(action);
         } else {
             errorMessageDelete(action);
@@ -122,11 +122,13 @@ public final class ListModelActionsAfterDbInsertion extends DefaultListModel {
     }
 
     private void addElements() {
-        if (!ConnectionPool.INSTANCE.isInit()) {
+        Repository repo = Lookup.getDefault().lookup(Repository.class);
+
+        if (repo == null || !repo.isInit()) {
             return;
         }
 
-        List<Program> actions = repo.getAllActions();
+        List<Program> actions = actionsRepo.findAllActions();
 
         for (Program action : actions) {
             addElement(action);

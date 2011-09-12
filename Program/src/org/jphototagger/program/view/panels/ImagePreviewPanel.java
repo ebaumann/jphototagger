@@ -1,10 +1,5 @@
 package org.jphototagger.program.view.panels;
 
-import org.jphototagger.lib.io.filefilter.FileChooserFilter;
-import org.jphototagger.lib.io.filefilter.RegexFileFilter;
-import org.jphototagger.program.app.AppFileFilters;
-import org.jphototagger.program.image.thumbnail.ThumbnailUtil;
-import org.jphototagger.program.io.ImageFileFilterer;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -13,18 +8,27 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.FileFilter;
+
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
+
+import org.jphototagger.api.image.ThumbnailCreator;
+import org.jphototagger.api.image.ThumbnailProvider;
+import org.jphototagger.lib.io.filefilter.FileChooserFilter;
+import org.jphototagger.lib.io.filefilter.RegexFileFilter;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.app.AppFileFilters;
+import org.jphototagger.program.io.ImageFileFilterer;
+import org.openide.util.Lookup;
 
 //Code based on http://www.javalobby.org/java/forums/t49462.html
-
 /**
  *
  *
  * @author Elmar Baumann
  */
 public class ImagePreviewPanel extends JPanel implements PropertyChangeListener {
+
     private static final long serialVersionUID = 574676806606408192L;
     private static final int SIZE = 155;
     private static final int PADDING = 5;
@@ -32,6 +36,8 @@ public class ImagePreviewPanel extends JPanel implements PropertyChangeListener 
     private int height;
     private Image image;
     private Color bg;
+    private final ThumbnailCreator tnCreator = Lookup.getDefault().lookup(ThumbnailCreator.class);
+    private final ThumbnailProvider tnProvider = Lookup.getDefault().lookup(ThumbnailProvider.class);
 
     public ImagePreviewPanel() {
         setPreferredSize(new Dimension(SIZE, -1));
@@ -46,21 +52,18 @@ public class ImagePreviewPanel extends JPanel implements PropertyChangeListener 
 
         File selFile = (File) evt.getNewValue();
 
-        if ((selFile == null) ||!ImageFileFilterer.isImageFile(selFile)) {
+        if ((selFile == null) || !ImageFileFilterer.isImageFile(selFile)) {
             image = null;
             repaint();
 
             return;
         }
 
-        image = ThumbnailUtil.getEmbeddedThumbnail(selFile);
+
+        image = tnProvider.getThumbnail(selFile);
 
         if (image == null) {
-            image = ThumbnailUtil.getThumbnailFromJavaImageIo(selFile, SIZE);
-        }
-
-        if (image == null) {
-            image = ThumbnailUtil.getThumbnailFromImagero(selFile, SIZE);
+            image = tnCreator.createFromEmbeddedThumbnail(selFile);
         }
 
         if (image != null) {
@@ -115,6 +118,7 @@ public class ImagePreviewPanel extends JPanel implements PropertyChangeListener 
     }
 
     private static class ImageFileFilter implements FileFilter {
+
         private static final String DESCRIPTION = Bundle.getString(ImagePreviewPanel.class, "ImagePreviewPanel.ImageFileFilter.Description");
         private static final RegexFileFilter FILE_FILTER = AppFileFilters.INSTANCE.getAllAcceptedImageFilesFilter();
         private static final ImageFileFilter INSTANCE = new ImageFileFilter();
@@ -128,6 +132,7 @@ public class ImagePreviewPanel extends JPanel implements PropertyChangeListener 
             return new FileChooserFilter(INSTANCE, DESCRIPTION);
         }
 
-        private ImageFileFilter() {}
+        private ImageFileFilter() {
+        }
     }
 }

@@ -155,7 +155,7 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
     private void insertCopiedFilesAsCollectionIntoDb() {
         String collectionName = ListModelImageCollections.NAME_IMAGE_COLLECTION_PREV_IMPORT;
         ImageCollectionsRepository repo = Lookup.getDefault().lookup(ImageCollectionsRepository.class);
-        List<File> prevCollectionFiles = repo.getImageFilesOfImageCollection(collectionName);
+        List<File> prevCollectionFiles = repo.findImageFilesOfImageCollection(collectionName);
 
         if (!prevCollectionFiles.isEmpty()) {
             int delCount = repo.deleteImagesFromImageCollection(collectionName, prevCollectionFiles);
@@ -167,7 +167,7 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
             }
         }
 
-        repo.insertImageCollection(collectionName, copiedTargetFiles);
+        repo.saveImageCollection(collectionName, copiedTargetFiles);
     }
 
     private void selectPrevImportCollection() {

@@ -12,13 +12,14 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 
 import org.jphototagger.domain.filetypes.UserDefinedFileType;
+import org.jphototagger.domain.repository.UserDefinedFileTypesRepository;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppFileFilters;
-import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.program.database.DatabaseUserDefinedFileTypes;
 import org.jphototagger.program.resource.GUI;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -31,6 +32,7 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
     private UserDefinedFileType userDefinedFileType = new UserDefinedFileType();
     private boolean changed;
     private boolean inAddNew = true;
+    private final UserDefinedFileTypesRepository repo = Lookup.getDefault().lookup((UserDefinedFileTypesRepository.class));
 
     public EditUserDefinedFileTypeDialog() {
         super(GUI.getAppFrame(), true);
@@ -121,9 +123,9 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
             int countUpdated = 0;
 
             if (inAddNew) {
-                countUpdated = DatabaseUserDefinedFileTypes.INSTANCE.insert(userDefinedFileType);
+                countUpdated = repo.saveUserDefinedFileType(userDefinedFileType);
             } else {
-                countUpdated = DatabaseUserDefinedFileTypes.INSTANCE.update(oldUserDefinedFileType, userDefinedFileType);
+                countUpdated = repo.updateUserDefinedFileType(oldUserDefinedFileType, userDefinedFileType);
             }
 
             if (countUpdated > 0) {
@@ -174,7 +176,7 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
         }
 
         String suffix = getSuffix();
-        boolean suffixExists = DatabaseUserDefinedFileTypes.INSTANCE.existsSuffix(suffix);
+        boolean suffixExists = repo.existsUserDefinedFileTypeWithSuffix(suffix);
 
         if (suffixExists) {
             String message = Bundle.getString(EditUserDefinedFileTypeDialog.class, "EditUserDefinedFileTypeDialog.Error.SuffixExists", suffix);
@@ -226,7 +228,13 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
     private class SuffixDocumentFilter extends javax.swing.text.DocumentFilter {
 
         private static final String VALID_REGEX_PATTERN = "[A-Za-z0-9]+";
-        private final int maxLength = DatabaseUserDefinedFileTypes.getMaxLengthSuffix();
+        private final int maxLength;
+
+        SuffixDocumentFilter() {
+            UserDefinedFileTypesRepository repo = Lookup.getDefault().lookup(UserDefinedFileTypesRepository.class);
+
+            maxLength = repo == null ? 45 : repo.getMaxLengthSuffix();
+        }
 
         @Override
         public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {

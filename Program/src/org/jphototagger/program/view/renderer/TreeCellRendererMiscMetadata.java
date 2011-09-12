@@ -16,7 +16,6 @@ import org.jphototagger.domain.metadata.exif.ExifFocalLengthMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpRatingMetaDataValue;
 import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.database.metadata.selections.MetaDataValueIcons;
 import org.jphototagger.program.model.TreeModelMiscMetadata;
 
 /**

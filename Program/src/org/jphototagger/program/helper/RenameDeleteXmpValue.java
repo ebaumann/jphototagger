@@ -11,7 +11,7 @@ import org.jphototagger.api.event.ProgressEvent;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpMetaDataValues;
-import org.jphototagger.domain.repository.ImageFileRepository;
+import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.repository.InsertIntoRepository;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.concurrent.Cancelable;
@@ -123,7 +123,7 @@ public final class RenameDeleteXmpValue {
         private final String newValue;
         private final String oldValue;
         private volatile boolean cancel;
-        private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
+        private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
 
         Rename(MetaDataValue metaDataValue, String oldValue, String newValue) {
             super("JPhotoTagger: Renaming XMP value");
@@ -139,7 +139,7 @@ public final class RenameDeleteXmpValue {
 
         @Override
         public void run() {
-            List<File> imageFiles = repo.getImageFilesWhereMetaDataValueHasExactValue(metaDataValue, oldValue);
+            List<File> imageFiles = repo.findImageFilesWhereMetaDataValueHasExactValue(metaDataValue, oldValue);
             int size = imageFiles.size();
             int value = 0;
 

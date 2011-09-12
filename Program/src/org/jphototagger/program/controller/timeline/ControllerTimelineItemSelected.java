@@ -17,7 +17,7 @@ import javax.swing.tree.TreePath;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-import org.jphototagger.domain.repository.ImageFileRepository;
+import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
 import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
@@ -35,7 +35,7 @@ import org.openide.util.Lookup;
  */
 public final class ControllerTimelineItemSelected implements TreeSelectionListener {
 
-    private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
+    private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
 
     public ControllerTimelineItemSelected() {
         listen();
@@ -101,7 +101,7 @@ public final class ControllerTimelineItemSelected implements TreeSelectionListen
         if (node.equals(Timeline.getUnknownNode())) {
             setTitle();
             ControllerSortThumbnails.setLastSort();
-            GUI.getThumbnailsPanel().setFiles(repo.getImageFilesOfUnknownDateTaken(), TypeOfDisplayedImages.TIMELINE);
+            GUI.getThumbnailsPanel().setFiles(repo.findImageFilesOfUnknownDateTaken(), TypeOfDisplayedImages.TIMELINE);
         } else if (userObject instanceof Timeline.Date) {
             Timeline.Date date = (Timeline.Date) userObject;
             DefaultMutableTreeNode parent = (DefaultMutableTreeNode) node.getParent();
@@ -118,7 +118,7 @@ public final class ControllerTimelineItemSelected implements TreeSelectionListen
 
                 setTitle(isYear, date.year, isMonth, month, date);
 
-                List<File> files = new ArrayList<File>(repo.getImageFilesOfDateTaken(date.year, month, day));
+                List<File> files = new ArrayList<File>(repo.findImageFilesOfDateTaken(date.year, month, day));
 
                 ControllerSortThumbnails.setLastSort();
                 GUI.getThumbnailsPanel().setFiles(files, TypeOfDisplayedImages.TIMELINE);

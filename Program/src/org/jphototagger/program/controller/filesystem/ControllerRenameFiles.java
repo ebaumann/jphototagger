@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.file.event.FileRenamedEvent;
-import org.jphototagger.domain.repository.ImageFileRepository;
+import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.cache.RenderedThumbnailCache;
 import org.jphototagger.program.cache.ThumbnailCache;
@@ -34,7 +34,7 @@ import org.openide.util.Lookup;
 public final class ControllerRenameFiles implements ActionListener, KeyListener {
 
     private static final Logger LOGGER = Logger.getLogger(ControllerRenameFiles.class.getName());
-    private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
+    private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
 
     public ControllerRenameFiles() {
         listen();

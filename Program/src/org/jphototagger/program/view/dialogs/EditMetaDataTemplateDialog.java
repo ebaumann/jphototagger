@@ -2,7 +2,7 @@ package org.jphototagger.program.view.dialogs;
 
 import java.awt.Container;
 
-import org.jphototagger.domain.repository.MetadataTemplateRepository;
+import org.jphototagger.domain.repository.MetadataTemplatesRepository;
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
@@ -26,7 +26,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
     private static final long serialVersionUID = -6621176928237283620L;
     private transient MetadataTemplate template;
     private transient Xmp xmp = new Xmp();
-    private final MetadataTemplateRepository repo = Lookup.getDefault().lookup(MetadataTemplateRepository.class);
+    private final MetadataTemplatesRepository repo = Lookup.getDefault().lookup(MetadataTemplatesRepository.class);
 
     public EditMetaDataTemplateDialog() {
         super(InputHelperDialog.INSTANCE, true);
@@ -110,7 +110,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
             panelXmpEdit.setInputToXmp();
             template.setXmp(xmp);
 
-            if (repo.insertOrUpdateMetadataTemplate(template)) {
+            if (repo.saveOrUpdateMetadataTemplate(template)) {
                 panelXmpEdit.setDirty(false);
             } else {
                 String message = Bundle.getString(EditMetaDataTemplateDialog.class, "EditMetaDataTemplateDialog.Error.Save");

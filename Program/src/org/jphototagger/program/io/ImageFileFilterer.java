@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.jphototagger.api.core.Storage;
-import org.jphototagger.domain.repository.FileExcludePatternRepository;
+import org.jphototagger.domain.repository.FileExcludePatternsRepository;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
 import org.jphototagger.lib.io.filefilter.RegexFileFilter;
@@ -32,8 +32,8 @@ public final class ImageFileFilterer {
         }
 
         File[] filteredFiles = directory.listFiles(AppFileFilters.INSTANCE.getAllAcceptedImageFilesFilter());
-        FileExcludePatternRepository repo = Lookup.getDefault().lookup(FileExcludePatternRepository.class);
-        List<String> excludePatterns = repo.getAllFileExcludePatterns();
+        FileExcludePatternsRepository repo = Lookup.getDefault().lookup(FileExcludePatternsRepository.class);
+        List<String> excludePatterns = repo.findAllFileExcludePatterns();
         List<File> files = new ArrayList<File>();
 
         if (filteredFiles != null) {

@@ -8,9 +8,9 @@ import org.jphototagger.api.core.Storage;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.componentutil.Autocomplete;
-import org.jphototagger.program.database.metadata.selections.AutoCompleteData;
-import org.jphototagger.program.database.metadata.selections.AutoCompleteDataOfMetaDataValue;
-import org.jphototagger.program.database.metadata.selections.FastSearchMetaDataValues;
+import org.jphototagger.domain.metadata.selections.AutoCompleteData;
+import org.jphototagger.domain.metadata.selections.AutoCompleteDataOfMetaDataValue;
+import org.jphototagger.domain.metadata.selections.FastSearchMetaDataValues;
 import org.openide.util.Lookup;
 
 /**

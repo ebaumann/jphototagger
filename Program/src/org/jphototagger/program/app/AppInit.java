@@ -1,6 +1,5 @@
 package org.jphototagger.program.app;
 
-import org.jphototagger.lib.dialog.MessageDisplayer;
 import java.awt.Toolkit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -9,7 +8,9 @@ import javax.swing.SwingUtilities;
 
 import org.bushe.swing.event.EventBus;
 import org.jphototagger.domain.event.AppWillInitEvent;
+import org.jphototagger.domain.repository.Repository;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.dialog.SystemOutputDialog;
 import org.jphototagger.lib.system.SystemUtil;
 import org.jphototagger.lib.util.Bundle;
@@ -20,6 +21,7 @@ import org.jphototagger.program.app.logging.AppLoggingSystem;
 import org.jphototagger.program.cache.CacheUtil;
 import org.jphototagger.program.resource.ImageProperties;
 import org.jphototagger.program.view.frames.AppFrame;
+import org.openide.util.Lookup;
 
 import com.imagero.reader.AbstractImageReader;
 
@@ -60,21 +62,28 @@ public final class AppInit {
     }
 
     private void init() {
-        AppLookAndFeel.set();
-        captureOutput();    // Has to be called before AppLoggingSystem.init()!
-        AppLoggingSystem.init();
-        AppLogUtil.logSystemInfo();
-        checkJavaVersion();
-        lock();
-        showSplashScreen();
-        EventBus.publish(new AppWillInitEvent(this));
-        CacheUtil.initCaches();
-        AppDatabase.init();
-        SplashScreen.INSTANCE.setProgress(75);
-        AbstractImageReader.install(ImageProperties.class);
-        hideSplashScreen();
-        showMainWindow();
-        setJptEventQueue();
+        try {
+            AppLookAndFeel.set();
+            captureOutput();    // Has to be called before AppLoggingSystem.init()!
+            AppLoggingSystem.init();
+            AppLogUtil.logSystemInfo();
+            checkJavaVersion();
+            lock();
+            showSplashScreen();
+            EventBus.publish(new AppWillInitEvent(this));
+            CacheUtil.initCaches();
+            SplashScreen.INSTANCE.setMessage(Bundle.getString(AppInit.class, "AppInit.Info.ConnectToDatabase"));
+            Lookup.getDefault().lookup(Repository.class).init();
+            SplashScreen.INSTANCE.setProgress(75);
+            AbstractImageReader.install(ImageProperties.class);
+            hideSplashScreen();
+            showMainWindow();
+            setJptEventQueue();
+        } catch (Throwable t) {
+            AppLifeCycle.quitBeforeGuiWasCreated();
+        } finally {
+            SplashScreen.INSTANCE.removeMessage();
+        }
     }
 
     private void hideSplashScreen() {

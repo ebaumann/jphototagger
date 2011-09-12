@@ -50,7 +50,7 @@ public final class RenameTemplatesExporter implements Exporter {
         File xmlFile = FileUtil.ensureSuffix(file, ".xml");
 
         try {
-            Set<RenameTemplate> templates = repo.getAllRenameTemplates();
+            Set<RenameTemplate> templates = repo.findAllRenameTemplates();
 
             XmlObjectExporter.export(new CollectionWrapper(templates), xmlFile);
         } catch (Exception ex) {

@@ -17,9 +17,9 @@ public interface RenameTemplatesRepository {
 
     RenameTemplate findRenameTemplate(String name);
 
-    Set<RenameTemplate> getAllRenameTemplates();
+    Set<RenameTemplate> findAllRenameTemplates();
 
-    boolean insertRenameTemplate(RenameTemplate template);
+    boolean saveRenameTemplate(RenameTemplate template);
 
     boolean updateRenameTemplate(RenameTemplate template);
 }

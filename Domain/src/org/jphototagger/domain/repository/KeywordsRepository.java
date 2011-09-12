@@ -21,19 +21,19 @@ public interface KeywordsRepository {
 
     boolean existsRootKeyword(String keyword);
 
-    Collection<Keyword> getAllKeywords();
+    Collection<Keyword> findAllKeywords();
 
-    Collection<Keyword> getChildKeywords(long idParent);
+    Collection<Keyword> findChildKeywords(long idParent);
 
-    Collection<Collection<Keyword>> getParentKeywords(String keywordName, KeywordsSelect select);
+    Collection<Collection<Keyword>> findParentKeywords(String keywordName, KeywordsType select);
 
-    List<Keyword> getParentKeywords(Keyword keyword);
+    List<Keyword> findParentKeywords(Keyword keyword);
 
-    Collection<Keyword> getRootKeywords();
+    Collection<Keyword> findRootKeywords();
 
     boolean hasParentChildKeywordWithEqualName(Keyword keyword);
 
-    boolean insertKeyword(Keyword keyword);
+    boolean saveKeyword(Keyword keyword);
 
     boolean updateKeyword(Keyword keyword);
 

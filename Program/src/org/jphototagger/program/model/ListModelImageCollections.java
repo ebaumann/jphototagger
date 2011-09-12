@@ -8,14 +8,12 @@ import java.util.Map;
 import javax.swing.DefaultListModel;
 
 import org.jphototagger.domain.repository.ImageCollectionsRepository;
+import org.jphototagger.domain.repository.Repository;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.database.ConnectionPool;
 import org.openide.util.Lookup;
 
 /**
- * Elements are {@link String}s with all names of image collections retrieved
- * through {@link DatabaseImageCollections#getAllImageCollectionNames()}.
  *
  * @author Elmar Baumann, Tobias Stening
  */
@@ -23,7 +21,7 @@ public final class ListModelImageCollections extends DefaultListModel {
 
     private static final long serialVersionUID = -929229489709109467L;
     private static final Map<String, Integer> SORT_ORDER_OF_SPECIAL_COLLECTION = new LinkedHashMap<String, Integer>();
-    private final ImageCollectionsRepository repo = Lookup.getDefault().lookup(ImageCollectionsRepository.class);
+    private final ImageCollectionsRepository imageCollectionsRepo = Lookup.getDefault().lookup(ImageCollectionsRepository.class);
     /**
      * Name of the image collection which contains the previous imported
      * image files
@@ -76,11 +74,13 @@ public final class ListModelImageCollections extends DefaultListModel {
     }
 
     private void addElements() {
-        if (!ConnectionPool.INSTANCE.isInit()) {
+        Repository repo = Lookup.getDefault().lookup(Repository.class);
+
+        if (repo == null || !repo.isInit()) {
             return;
         }
 
-        List<String> collections = repo.getAllImageCollectionNames();
+        List<String> collections = imageCollectionsRepo.findAllImageCollectionNames();
 
         addSpecialCollections();
 

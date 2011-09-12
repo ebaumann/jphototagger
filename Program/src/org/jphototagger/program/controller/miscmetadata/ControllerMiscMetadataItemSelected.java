@@ -11,7 +11,7 @@ import javax.swing.tree.TreePath;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.domain.metadata.MetaDataValue;
-import org.jphototagger.domain.repository.ImageFileRepository;
+import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
 import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
@@ -58,7 +58,7 @@ public final class ControllerMiscMetadataItemSelected implements TreeSelectionLi
 
     private class ShowThumbnails implements Runnable {
 
-        private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
+        private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
         private final ThumbnailsPanelSettings tnPanelSettings;
         private final TreePath treePath;
 
@@ -99,7 +99,7 @@ public final class ControllerMiscMetadataItemSelected implements TreeSelectionLi
 
                     setTitle(mdValue, userObject);
                     ControllerSortThumbnails.setLastSort();
-                    tnPanel.setFiles(repo.getImageFilesWhereMetaDataValueHasExactValue(mdValue,
+                    tnPanel.setFiles(repo.findImageFilesWhereMetaDataValueHasExactValue(mdValue,
                             userObject.toString()), TypeOfDisplayedImages.MISC_METADATA);
                     tnPanel.apply(tnPanelSettings);
                 } else {
@@ -110,7 +110,7 @@ public final class ControllerMiscMetadataItemSelected implements TreeSelectionLi
 
                 setTitle(mdValue);
                 ControllerSortThumbnails.setLastSort();
-                tnPanel.setFiles(repo.getImageFilesContainingAVauleInMetaDataValue(mdValue), TypeOfDisplayedImages.MISC_METADATA);
+                tnPanel.setFiles(repo.findImageFilesContainingAVauleInMetaDataValue(mdValue), TypeOfDisplayedImages.MISC_METADATA);
                 tnPanel.apply(tnPanelSettings);
             } else {
                 ControllerSortThumbnails.setLastSort();

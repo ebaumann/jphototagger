@@ -19,7 +19,7 @@ import javax.swing.JOptionPane;
 import org.jphototagger.api.image.ThumbnailProvider;
 import org.jphototagger.api.plugin.FileProcessorPlugin;
 import org.jphototagger.api.plugin.FileProcessorPluginEvent;
-import org.jphototagger.image.util.ImageUtil;
+import org.jphototagger.lib.image.util.ImageUtil;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.lib.io.IoUtil;

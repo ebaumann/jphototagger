@@ -17,11 +17,11 @@ public interface SynonymsRepository {
 
     boolean existsWord(String word);
 
-    Set<String> getAllWords();
+    Set<String> findAllWords();
 
-    Set<String> getSynonymsOfWord(String word);
+    Set<String> findSynonymsOfWord(String word);
 
-    int insertSynonym(String word, String synonym);
+    int saveSynonym(String word, String synonym);
 
     int updateSynonym(String oldSynonym, String newSynonym);
 

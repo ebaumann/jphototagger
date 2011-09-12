@@ -158,7 +158,7 @@ public final class ProgramsHelper {
             Program program = dlg.getProgram();
             ProgramsRepository repo = Lookup.getDefault().lookup(ProgramsRepository.class);
 
-            repo.insertProgram(program);
+            repo.saveProgram(program);
 
             return program;
         }

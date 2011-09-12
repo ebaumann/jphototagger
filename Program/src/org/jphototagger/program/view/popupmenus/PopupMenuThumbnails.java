@@ -188,7 +188,7 @@ public final class PopupMenuThumbnails extends JPopupMenu {
         programOfMenuItem.clear();
 
         ProgramsRepository repo = Lookup.getDefault().lookup(ProgramsRepository.class);
-        List<Program> programs = repo.getAllPrograms(ProgramType.PROGRAM);
+        List<Program> programs = repo.findAllPrograms(ProgramType.PROGRAM);
 
         if (!programs.isEmpty()) {
             for (Program program : programs) {

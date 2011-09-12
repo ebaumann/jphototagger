@@ -49,7 +49,7 @@ public final class FavoritesExporter implements Exporter {
         File xmlFile = FileUtil.ensureSuffix(file, ".xml");
 
         try {
-            List<Favorite> templates = repo.getAllFavorites();
+            List<Favorite> templates = repo.findAllFavorites();
 
             XmlObjectExporter.export(new CollectionWrapper(templates), xmlFile);
         } catch (Exception ex) {

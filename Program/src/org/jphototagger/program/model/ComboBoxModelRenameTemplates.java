@@ -1,17 +1,16 @@
 package org.jphototagger.program.model;
 
-
 import javax.swing.DefaultComboBoxModel;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.domain.repository.RenameTemplatesRepository;
+import org.jphototagger.domain.repository.Repository;
 import org.jphototagger.domain.repository.event.renametemplates.RenameTemplateDeletedEvent;
 import org.jphototagger.domain.repository.event.renametemplates.RenameTemplateInsertedEvent;
 import org.jphototagger.domain.repository.event.renametemplates.RenameTemplateUpdatedEvent;
 import org.jphototagger.domain.templates.RenameTemplate;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.program.database.ConnectionPool;
 import org.openide.util.Lookup;
 
 /**
@@ -22,7 +21,7 @@ import org.openide.util.Lookup;
 public final class ComboBoxModelRenameTemplates extends DefaultComboBoxModel {
 
     private static final long serialVersionUID = -5081726761734936168L;
-    private final RenameTemplatesRepository repo = Lookup.getDefault().lookup(RenameTemplatesRepository.class);
+    private final RenameTemplatesRepository renameTemplatesRepo = Lookup.getDefault().lookup(RenameTemplatesRepository.class);
 
     public ComboBoxModelRenameTemplates() {
         addElements();
@@ -30,11 +29,13 @@ public final class ComboBoxModelRenameTemplates extends DefaultComboBoxModel {
     }
 
     private void addElements() {
-        if (!ConnectionPool.INSTANCE.isInit()) {
+        Repository repo = Lookup.getDefault().lookup(Repository.class);
+
+        if (repo == null || !repo.isInit()) {
             return;
         }
 
-        for (RenameTemplate template : repo.getAllRenameTemplates()) {
+        for (RenameTemplate template : renameTemplatesRepo.findAllRenameTemplates()) {
             addElement(template);
         }
     }

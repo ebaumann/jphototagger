@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.domain.repository.ImageFileRepository;
+import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.TreeFileSystemDirectories;
 import org.openide.util.Lookup;
@@ -19,7 +19,7 @@ import org.openide.util.Lookup;
 public final class FileSystemDirectories {
 
     private static final Logger LOGGER = Logger.getLogger(FileSystemDirectories.class.getName());
-    private static final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
+    private static final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
 
     private FileSystemDirectories() {
     }

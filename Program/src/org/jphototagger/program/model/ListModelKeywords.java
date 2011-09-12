@@ -11,7 +11,8 @@ import javax.swing.DefaultListModel;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
-import org.jphototagger.domain.repository.ImageFileRepository;
+import org.jphototagger.domain.repository.ImageFilesRepository;
+import org.jphototagger.domain.repository.Repository;
 import org.jphototagger.domain.repository.RepositoryStatistics;
 import org.jphototagger.domain.repository.event.dcsubjects.DcSubjectDeletedEvent;
 import org.jphototagger.domain.repository.event.dcsubjects.DcSubjectInsertedEvent;
@@ -20,7 +21,6 @@ import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.program.database.ConnectionPool;
 import org.openide.util.Lookup;
 
 /**
@@ -30,7 +30,7 @@ import org.openide.util.Lookup;
 public final class ListModelKeywords extends DefaultListModel {
 
     private static final long serialVersionUID = -9181622876402951455L;
-    private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
+    private final ImageFilesRepository imageFileRepo = Lookup.getDefault().lookup(ImageFilesRepository.class);
 
     public ListModelKeywords() {
         addElements();
@@ -38,11 +38,13 @@ public final class ListModelKeywords extends DefaultListModel {
     }
 
     private void addElements() {
-        if (!ConnectionPool.INSTANCE.isInit()) {
+        Repository repo = Lookup.getDefault().lookup(Repository.class);
+
+        if (repo == null || !repo.isInit()) {
             return;
         }
 
-        Set<String> keywords = repo.getAllDcSubjects();
+        Set<String> keywords = imageFileRepo.findAllDcSubjects();
 
         for (String keyword : keywords) {
             addElement(keyword);

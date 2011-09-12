@@ -15,9 +15,9 @@ public interface FavoritesRepository {
 
     boolean existsFavorite(String favoriteName);
 
-    List<Favorite> getAllFavorites();
+    List<Favorite> findAllFavorites();
 
-    boolean insertOrUpdateFavorite(Favorite favorite);
+    boolean saveOrUpdateFavorite(Favorite favorite);
 
     boolean updateFavorite(Favorite favorite);
 

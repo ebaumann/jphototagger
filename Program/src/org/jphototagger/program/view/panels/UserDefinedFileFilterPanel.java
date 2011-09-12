@@ -42,7 +42,7 @@ public class UserDefinedFileFilterPanel extends javax.swing.JPanel implements Li
 
         if (dlg.isAccepted()) {
             UserDefinedFileFilter newFilter = dlg.getFilter();
-            if (!repo.insertUserDefinedFileFilter(newFilter)) {
+            if (!repo.saveUserDefinedFileFilter(newFilter)) {
                 errorMessageInsert(newFilter);
             }
         }

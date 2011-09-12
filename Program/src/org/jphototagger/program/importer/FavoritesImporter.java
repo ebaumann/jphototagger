@@ -39,7 +39,7 @@ public final class FavoritesImporter implements Importer {
 
             for (Favorite favorite : wrapper.getCollection()) {
                 if (!repo.existsFavorite(favorite.getName())) {
-                    repo.insertOrUpdateFavorite(favorite);
+                    repo.saveOrUpdateFavorite(favorite);
                 }
             }
         } catch (Exception ex) {

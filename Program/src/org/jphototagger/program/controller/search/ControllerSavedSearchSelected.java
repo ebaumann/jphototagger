@@ -14,7 +14,7 @@ import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.data.SavedSearch;
+import org.jphototagger.domain.metadata.search.SavedSearch;
 import org.jphototagger.program.helper.SavedSearchesHelper;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.WaitDisplay;

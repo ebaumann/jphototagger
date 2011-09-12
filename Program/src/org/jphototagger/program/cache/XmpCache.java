@@ -9,7 +9,7 @@ import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.domain.thumbnails.event.TypedThumbnailUpdateEvent;
 import org.jphototagger.domain.event.listener.ThumbnailUpdateListener;
-import org.jphototagger.domain.repository.ImageFileRepository;
+import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.repository.event.xmp.XmpDeletedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
@@ -55,7 +55,7 @@ public final class XmpCache extends Cache<XmpCacheIndirection> {
 
     private static class XmpFetcher implements Runnable {
 
-        private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
+        private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
         private WorkQueue<XmpCacheIndirection> wq;
         private XmpCache cache;
 
@@ -102,7 +102,7 @@ public final class XmpCache extends Cache<XmpCacheIndirection> {
                         }
                     }
 
-                    List<FileXmp> res = repo.getXmpOfImageFiles(imageFiles);
+                    List<FileXmp> res = repo.findXmpOfImageFiles(imageFiles);
                     boolean repaint = true;
 
                     // send updates to request results

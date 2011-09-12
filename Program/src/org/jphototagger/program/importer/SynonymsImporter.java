@@ -85,7 +85,7 @@ public final class SynonymsImporter implements Importer, EntityResolver {
                 }
 
                 for (String synonym : synonyms) {
-                    repo.insertSynonym(word, synonym);
+                    repo.saveSynonym(word, synonym);
                 }
             }
         }

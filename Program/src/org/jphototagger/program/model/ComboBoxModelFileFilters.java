@@ -8,13 +8,13 @@ import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.core.Storage;
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
+import org.jphototagger.domain.repository.Repository;
 import org.jphototagger.domain.repository.UserDefinedFileFiltersRepository;
 import org.jphototagger.domain.repository.event.userdefinedfilefilters.UserDefinedFileFilterDeletedEvent;
 import org.jphototagger.domain.repository.event.userdefinedfilefilters.UserDefinedFileFilterInsertedEvent;
 import org.jphototagger.domain.repository.event.userdefinedfilefilters.UserDefinedFileFilterUpdatedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.app.AppFileFilters;
-import org.jphototagger.program.database.ConnectionPool;
 import org.openide.util.Lookup;
 
 /**
@@ -26,7 +26,7 @@ public final class ComboBoxModelFileFilters extends DefaultComboBoxModel {
 
     private static final long serialVersionUID = -7792330718447905417L;
     public static final String SETTINGS_KEY_SEL_INDEX = "ComboBoxModelFileFilters.SelIndex";
-    private final UserDefinedFileFiltersRepository repo = Lookup.getDefault().lookup(UserDefinedFileFiltersRepository.class);
+    private final UserDefinedFileFiltersRepository udffRepo = Lookup.getDefault().lookup(UserDefinedFileFiltersRepository.class);
 
     public ComboBoxModelFileFilters() {
         insertElements();
@@ -34,7 +34,9 @@ public final class ComboBoxModelFileFilters extends DefaultComboBoxModel {
     }
 
     private void insertElements() {
-        if (!ConnectionPool.INSTANCE.isInit()) {
+        Repository repo = Lookup.getDefault().lookup(Repository.class);
+
+        if (repo == null || !repo.isInit()) {
             return;
         }
 
@@ -57,7 +59,7 @@ public final class ComboBoxModelFileFilters extends DefaultComboBoxModel {
         addElement(AppFileFilters.XMP_RATING_4_STARS);
         addElement(AppFileFilters.XMP_RATING_5_STARS);
 
-        for (UserDefinedFileFilter filter : repo.getAllUserDefinedFileFilters()) {
+        for (UserDefinedFileFilter filter : udffRepo.findAllUserDefinedFileFilters()) {
             addElement(filter);
         }
 

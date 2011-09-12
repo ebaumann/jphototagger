@@ -97,7 +97,7 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel implem
                     lastSelectedAutoscanDirectory = directory.getAbsolutePath();
 
                     if (!repo.existsAutoscanDirectory(directory)) {
-                        if (!repo.insertAutoscanDirectory(directory)) {
+                        if (!repo.saveAutoscanDirectory(directory)) {
                             errorMessageInsertAutoscanDirectory(directory);
                         }
                     }

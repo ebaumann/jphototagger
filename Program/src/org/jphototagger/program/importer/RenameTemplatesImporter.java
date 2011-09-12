@@ -40,7 +40,7 @@ public final class RenameTemplatesImporter implements Importer {
 
             for (RenameTemplate template : wrapper.getCollection()) {
                 if (!repo.existsRenameTemplate(template.getName())) {
-                    repo.insertRenameTemplate(template);
+                    repo.saveRenameTemplate(template);
                 }
             }
         } catch (Exception ex) {

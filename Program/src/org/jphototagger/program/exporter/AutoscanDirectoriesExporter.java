@@ -46,7 +46,7 @@ public final class AutoscanDirectoriesExporter implements Exporter {
         File xmlFile = FileUtil.ensureSuffix(file, ".xml");
 
         try {
-            List<String> directories = FileUtil.getAbsolutePathnames(repo.getAllAutoscanDirectories());
+            List<String> directories = FileUtil.getAbsolutePathnames(repo.findAllAutoscanDirectories());
 
             XmlObjectExporter.export(new CollectionWrapper(StringWrapper.getWrappedStrings(directories)), xmlFile);
         } catch (Exception ex) {

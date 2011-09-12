@@ -111,7 +111,7 @@ public final class TreeModelKeywords extends DefaultTreeModel {
                     : ((Keyword) userObject).getId();
             Keyword child = new Keyword(null, idParent, keyword, real);
 
-            if (repo.insertKeyword(child)) {
+            if (repo.saveKeyword(child)) {
                 KeywordsHelper.insertDcSubject(keyword);
 
                 TreeNodeSortedChildren node = new TreeNodeSortedChildren(child);
@@ -159,7 +159,7 @@ public final class TreeModelKeywords extends DefaultTreeModel {
         Keyword targetKeyword = (Keyword) target.getUserObject();
         Keyword keyword = new Keyword(null, targetKeyword.getId(), srcKeyword.getName(), srcKeyword.isReal());
 
-        if (repo.insertKeyword(keyword)) {
+        if (repo.saveKeyword(keyword)) {
             KeywordsHelper.insertDcSubject(keyword.getName());
 
             DefaultMutableTreeNode node = new TreeNodeSortedChildren(keyword);
@@ -348,7 +348,7 @@ public final class TreeModelKeywords extends DefaultTreeModel {
     }
 
     private void createTree() {
-        Collection<Keyword> roots = repo.getRootKeywords();
+        Collection<Keyword> roots = repo.findRootKeywords();
 
         for (Keyword rootKeyword : roots) {
             DefaultMutableTreeNode rootNode = new TreeNodeSortedChildren(rootKeyword);
@@ -360,7 +360,7 @@ public final class TreeModelKeywords extends DefaultTreeModel {
 
     private void insertChildren(DefaultMutableTreeNode parentNode) {
         Keyword parent = (Keyword) parentNode.getUserObject();
-        Collection<Keyword> children = repo.getChildKeywords(parent.getId());
+        Collection<Keyword> children = repo.findChildKeywords(parent.getId());
 
         for (Keyword child : children) {
             DefaultMutableTreeNode childNode = new TreeNodeSortedChildren(child);

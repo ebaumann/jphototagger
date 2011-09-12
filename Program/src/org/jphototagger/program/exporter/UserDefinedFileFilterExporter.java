@@ -50,7 +50,7 @@ public final class UserDefinedFileFilterExporter implements Exporter {
         File xmpFile = FileUtil.ensureSuffix(file, ".xml");
 
         try {
-            Set<UserDefinedFileFilter> filter = repo.getAllUserDefinedFileFilters();
+            Set<UserDefinedFileFilter> filter = repo.findAllUserDefinedFileFilters();
 
             XmlObjectExporter.export(new CollectionWrapper(filter), xmpFile);
         } catch (Exception ex) {

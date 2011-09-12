@@ -17,9 +17,9 @@ public interface ActionsAfterRepoUpdatesRepository {
 
     int getActionCount();
 
-    List<Program> getAllActions();
+    List<Program> findAllActions();
 
-    boolean insertAction(Program program, int order);
+    boolean saveAction(Program program, int order);
 
     boolean setActionOrder(List<Program> actions, int startIndex);
 }

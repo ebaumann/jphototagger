@@ -49,7 +49,7 @@ public final class ImageCollectionsExporter implements Exporter {
         File xmlFile = FileUtil.ensureSuffix(file, ".xml");
 
         try {
-            List<ImageCollection> templates = repo.getAllImageCollections();
+            List<ImageCollection> templates = repo.findAllImageCollections();
 
             XmlObjectExporter.export(new CollectionWrapper(templates), xmlFile);
         } catch (Exception ex) {

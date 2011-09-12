@@ -39,7 +39,7 @@ public final class ProgramsImporter implements Importer {
 
             for (Program program : wrapper.getCollection()) {
                 if (!repo.existsProgram(program)) {
-                    repo.insertProgram(program);
+                    repo.saveProgram(program);
                 }
             }
         } catch (Exception ex) {

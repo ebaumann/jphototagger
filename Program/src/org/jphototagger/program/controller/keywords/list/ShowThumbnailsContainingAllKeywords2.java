@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jphototagger.domain.repository.ImageFileRepository;
+import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
@@ -23,7 +23,7 @@ import org.openide.util.Lookup;
 public final class ShowThumbnailsContainingAllKeywords2 implements Runnable {
 
     private final List<List<String>> keywordLists;
-    private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
+    private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
 
     /**
      * Creates a new instance of this class.
@@ -67,11 +67,11 @@ public final class ShowThumbnailsContainingAllKeywords2 implements Runnable {
             // Faster when using 2 different DB queries if only 1 keyword is
             // selected
             if (keywords.size() == 1) {
-                imageFiles.addAll(repo.getImageFilesContainingDcSubject(keywords.get(0), false));
+                imageFiles.addAll(repo.findImageFilesContainingDcSubject(keywords.get(0), false));
                 setTitle(keywords.get(0));
             } else if (keywords.size() > 1) {
                 setTitle(keywords);
-                imageFiles.addAll(repo.getImageFilesContainingAllDcSubjects(keywords));
+                imageFiles.addAll(repo.findImageFilesContainingAllDcSubjects(keywords));
             }
         }
 

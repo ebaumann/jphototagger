@@ -18,19 +18,19 @@ public interface ImageCollectionsRepository {
 
     boolean existsImageCollection(String collectionName);
 
-    List<String> getAllImageCollectionNames();
+    List<String> findAllImageCollectionNames();
 
-    List<ImageCollection> getAllImageCollections();
+    List<ImageCollection> findAllImageCollections();
 
     int getImageCollectionCount();
 
     int getImageCountOfAllImageCollections();
 
-    List<File> getImageFilesOfImageCollection(String collectionName);
+    List<File> findImageFilesOfImageCollection(String collectionName);
 
-    boolean insertImageCollection(String collectionName, List<File> imageFiles);
+    boolean saveImageCollection(String collectionName, List<File> imageFiles);
 
-    boolean insertImageCollection(ImageCollection collection);
+    boolean saveImageCollection(ImageCollection collection);
 
     boolean insertImagesIntoImageCollection(String collectionName, List<File> imageFiles);
 

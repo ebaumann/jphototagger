@@ -127,7 +127,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
         if (dlg.isAccepted()) {
             Program program = dlg.getProgram();
 
-            if (programsRepo.insertProgram(program)) {
+            if (programsRepo.saveProgram(program)) {
                 selectLastListItem();
             }
         }

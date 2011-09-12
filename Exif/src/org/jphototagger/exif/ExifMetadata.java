@@ -6,7 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.jphototagger.domain.exif.Exif;
-import org.jphototagger.domain.repository.ImageFileRepository;
+import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.exif.cache.ExifCache;
 import org.jphototagger.image.FileType;
 import org.openide.util.Lookup;
@@ -278,8 +278,8 @@ public final class ExifMetadata {
             throw new NullPointerException("imageFile == null");
         }
 
-        ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
-        Exif exif = repo.getExifOfImageFile(imageFile);
+        ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
+        Exif exif = repo.findExifOfImageFile(imageFile);
 
         if ((exif == null) || (exif.getDateTimeOriginal() == null)) {
             return imageFile.lastModified();
