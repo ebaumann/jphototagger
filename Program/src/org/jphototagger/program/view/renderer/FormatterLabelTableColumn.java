@@ -1,7 +1,6 @@
 package org.jphototagger.program.view.renderer;
 
 import org.jphototagger.domain.metadata.MetaDataValue;
-import org.jphototagger.program.database.metadata.selections.TableIcons;
 import javax.swing.JLabel;
 
 /**

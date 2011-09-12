@@ -4,6 +4,7 @@ import javax.swing.DefaultListModel;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.domain.repository.Repository;
 import org.jphototagger.domain.repository.SynonymsRepository;
 import org.jphototagger.domain.repository.event.synonyms.SynonymInsertedEvent;
 import org.jphototagger.domain.repository.event.synonyms.SynonymOfWordDeletedEvent;
@@ -14,7 +15,6 @@ import org.jphototagger.domain.repository.event.synonyms.WordRenamedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.database.ConnectionPool;
 import org.openide.util.Lookup;
 
 /**
@@ -28,7 +28,7 @@ public final class ListModelSynonyms extends DefaultListModel {
     private boolean listen = true;
     private final Role role;
     private String word;
-    private final SynonymsRepository repo = Lookup.getDefault().lookup(SynonymsRepository.class);
+    private final SynonymsRepository synonymsRepo = Lookup.getDefault().lookup(SynonymsRepository.class);
 
     public enum Role {
 
@@ -74,7 +74,7 @@ public final class ListModelSynonyms extends DefaultListModel {
 
         if (role.equals(Role.WORDS) && contains(word)) {
             listen = false;
-            repo.deleteWord(word);
+            synonymsRepo.deleteWord(word);
             listen = true;
             removeElement(word);
         }
@@ -93,7 +93,7 @@ public final class ListModelSynonyms extends DefaultListModel {
 
         if (role.equals(Role.WORDS) && contains(oldWord)) {
             listen = false;
-            repo.updateWord(oldWord, newWord);
+            synonymsRepo.updateWord(oldWord, newWord);
             listen = true;
             setElementAt(newWord, indexOf(oldWord));
         }
@@ -109,7 +109,7 @@ public final class ListModelSynonyms extends DefaultListModel {
         if (role.equals(Role.SYNONYMS) && (word != null) && !contains(synonym)) {
             listen = false;
 
-            if (repo.insertSynonym(word, synonym) == 1) {
+            if (synonymsRepo.saveSynonym(word, synonym) == 1) {
                 addElement(synonym);
             } else {
                 String message = Bundle.getString(ListModelSynonyms.class, "ListModelSynonyms.Error.AddSynonym", word, synonym);
@@ -131,7 +131,7 @@ public final class ListModelSynonyms extends DefaultListModel {
         if (role.equals(Role.SYNONYMS) && (word != null) && contains(synonym)) {
             listen = false;
 
-            if (repo.deleteSynonym(word, synonym) == 1) {
+            if (synonymsRepo.deleteSynonym(word, synonym) == 1) {
                 removeElement(synonym);
             }
 
@@ -153,7 +153,7 @@ public final class ListModelSynonyms extends DefaultListModel {
         if (role.equals(Role.SYNONYMS) && (word != null) && contains(oldSynonym)) {
             listen = false;
 
-            if (repo.updateSynonymOfWord(word, oldSynonym, newSynonym) == 1) {
+            if (synonymsRepo.updateSynonymOfWord(word, oldSynonym, newSynonym) == 1) {
                 setElementAt(newSynonym, indexOf(oldSynonym));
             }
 
@@ -177,7 +177,9 @@ public final class ListModelSynonyms extends DefaultListModel {
     }
 
     private void addElements() {
-        if (!ConnectionPool.INSTANCE.isInit()) {
+        Repository repo = Lookup.getDefault().lookup(Repository.class);
+
+        if (repo == null || !repo.isInit()) {
             return;
         }
 
@@ -185,11 +187,11 @@ public final class ListModelSynonyms extends DefaultListModel {
         listen = false;
 
         if (role.equals(Role.WORDS)) {
-            for (String w : repo.getAllWords()) {
+            for (String w : synonymsRepo.findAllWords()) {
                 addElement(w);
             }
         } else if (role.equals(Role.SYNONYMS) && (word != null)) {
-            for (String s : repo.getSynonymsOfWord(word)) {
+            for (String s : synonymsRepo.findSynonymsOfWord(word)) {
                 addElement(s);
             }
         }
@@ -208,7 +210,7 @@ public final class ListModelSynonyms extends DefaultListModel {
     private void deleteSynonymOfWord(String word, String synonym) {
         if (listen && isRoleSynonymForWord(word) && contains(synonym)) {
             removeElement(synonym);
-        } else if (listen && role.equals(Role.WORDS) && contains(word) && !repo.existsWord(word)) {
+        } else if (listen && role.equals(Role.WORDS) && contains(word) && !synonymsRepo.existsWord(word)) {
             removeElement(word);
         }
     }

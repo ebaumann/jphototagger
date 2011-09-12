@@ -7,8 +7,8 @@ import org.jphototagger.lib.comparator.FileSort;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
-import org.jphototagger.program.data.SavedSearch;
-import org.jphototagger.program.database.DatabaseSavedSearches;
+import org.jphototagger.domain.metadata.search.SavedSearch;
+import org.jphototagger.repository.hsqldb.DatabaseSavedSearches;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 

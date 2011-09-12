@@ -7,7 +7,7 @@ import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.domain.metadata.xmp.XmpIptc4XmpCoreDateCreatedMetaDataValue;
 import org.jphototagger.domain.exif.Exif;
-import org.jphototagger.domain.repository.ImageFileRepository;
+import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.repository.event.exif.ExifDeletedEvent;
 import org.jphototagger.domain.repository.event.exif.ExifInsertedEvent;
 import org.jphototagger.domain.repository.event.exif.ExifUpdatedEvent;
@@ -24,7 +24,7 @@ import org.openide.util.Lookup;
 /**
  *
  * The model contains a {@link Timeline} retrieved through
- * {@link DatabaseImageFiles#getTimeline()}.
+ * {@link DatabaseImageFiles#findTimeline()}.
  *
  * Elements are {@link DefaultMutableTreeNode}s with the user objects listed
  * below.
@@ -39,12 +39,12 @@ import org.openide.util.Lookup;
 public final class TreeModelTimeline extends DefaultTreeModel {
 
     private static final long serialVersionUID = 3932797263824188655L;
-    private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
+    private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
     private final transient Timeline timeline;
 
     public TreeModelTimeline() {
         super(new DefaultMutableTreeNode());
-        timeline = repo.getTimeline();
+        timeline = repo.findTimeline();
         setRoot(timeline.getRoot());
         listen();
     }

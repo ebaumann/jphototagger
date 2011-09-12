@@ -11,13 +11,13 @@ import javax.swing.event.ListSelectionListener;
 
 import org.jphototagger.api.core.Storage;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
-import org.jphototagger.domain.repository.ImageFileRepository;
+import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.lib.componentutil.Autocomplete;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.event.util.MouseEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.program.database.metadata.selections.AutoCompleteDataOfMetaDataValue;
+import org.jphototagger.domain.metadata.selections.AutoCompleteDataOfMetaDataValue;
 import org.jphototagger.program.model.ListModelSynonyms;
 import org.openide.util.Lookup;
 
@@ -32,7 +32,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
     private ListModelSynonyms modelSynonyms = new ListModelSynonyms(ListModelSynonyms.Role.SYNONYMS);
     private Autocomplete autocomplete;
     private boolean listenToDocuments = true;
-    private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
+    private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
 
     public SynonymsPanel() {
         initComponents();
@@ -242,7 +242,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
     }
 
     private void addAllKeywords() {
-        for (String word : repo.getAllDcSubjects()) {
+        for (String word : repo.findAllDcSubjects()) {
             modelWords.addWord(word);
         }
 

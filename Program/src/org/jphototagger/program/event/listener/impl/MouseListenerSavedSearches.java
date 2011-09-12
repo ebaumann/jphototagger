@@ -2,7 +2,7 @@ package org.jphototagger.program.event.listener.impl;
 
 import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.lib.event.util.MouseEventUtil;
-import org.jphototagger.program.data.SavedSearch;
+import org.jphototagger.domain.metadata.search.SavedSearch;
 import org.jphototagger.program.view.popupmenus.PopupMenuSavedSearches;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;

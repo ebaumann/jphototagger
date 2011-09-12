@@ -14,7 +14,7 @@ import javax.swing.tree.TreeCellRenderer;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jdesktop.swingx.JXTree;
-import org.jphototagger.domain.repository.ImageFileRepository;
+import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.openide.util.Lookup;
@@ -27,7 +27,7 @@ import org.openide.util.Lookup;
  */
 public final class ControllerHighlightKeywordsTree {
 
-    private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
+    private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
 
     public ControllerHighlightKeywordsTree() {
         listen();
@@ -55,7 +55,7 @@ public final class ControllerHighlightKeywordsTree {
             List<File> selFiles = evt.getSelectedImageFiles();
 
             if ((selFiles.size() == 1) && hasSidecarFile(selFiles)) {
-                Collection<String> keywords = repo.getDcSubjectsOfImageFile(selFiles.get(0));
+                Collection<String> keywords = repo.findDcSubjectsOfImageFile(selFiles.get(0));
 
                 setKeywords(GUI.getEditKeywordsTree(), keywords);
                 setKeywords(GUI.getInputHelperKeywordsTree(), keywords);

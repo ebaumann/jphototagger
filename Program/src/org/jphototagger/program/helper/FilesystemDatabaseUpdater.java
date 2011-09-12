@@ -11,7 +11,7 @@ import org.jphototagger.api.file.event.FileCopiedEvent;
 import org.jphototagger.api.file.event.FileDeletedEvent;
 import org.jphototagger.api.file.event.FileMovedEvent;
 import org.jphototagger.api.file.event.FileRenamedEvent;
-import org.jphototagger.domain.repository.ImageFileRepository;
+import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.openide.util.Lookup;
 
 /**
@@ -21,7 +21,7 @@ import org.openide.util.Lookup;
  */
 public final class FilesystemDatabaseUpdater {
 
-    private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
+    private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
     private volatile boolean wait;
 
     /**

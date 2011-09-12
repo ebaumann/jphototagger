@@ -9,13 +9,14 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import org.jphototagger.domain.filetypes.UserDefinedFileType;
+import org.jphototagger.domain.repository.UserDefinedFileTypesRepository;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.event.util.MouseEventUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.program.database.DatabaseUserDefinedFileTypes;
 import org.jphototagger.program.model.ListModelUserDefinedFileTypes;
 import org.jphototagger.program.view.dialogs.EditUserDefinedFileTypeDialog;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -23,6 +24,7 @@ import org.jphototagger.program.view.dialogs.EditUserDefinedFileTypeDialog;
  * @author Elmar Baumann
  */
 public class UserDefinedFileTypesPanel extends javax.swing.JPanel {
+
     private static final long serialVersionUID = -7747694022574930356L;
 
     public UserDefinedFileTypesPanel() {
@@ -57,9 +59,10 @@ public class UserDefinedFileTypesPanel extends javax.swing.JPanel {
 
         if (MessageDisplayer.confirmYesNo(this, message)) {
             List<UserDefinedFileType> fileTypes = getSelectedUserDefinedFileTypes();
+            UserDefinedFileTypesRepository repo = Lookup.getDefault().lookup(UserDefinedFileTypesRepository.class);
 
             for (UserDefinedFileType fileType : fileTypes) {
-                DatabaseUserDefinedFileTypes.INSTANCE.delete(fileType);
+                repo.deleteUserDefinedFileType(fileType);
             }
         }
     }
@@ -105,7 +108,6 @@ public class UserDefinedFileTypesPanel extends javax.swing.JPanel {
                 buttonEdit.setEnabled(itemSelected);
             }
         }
-
     }
 
     /** This method is called from within the constructor to
@@ -215,8 +217,6 @@ public class UserDefinedFileTypesPanel extends javax.swing.JPanel {
     private void listMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listMouseClicked
         editClickedUserDefinedFileType(evt);
     }//GEN-LAST:event_listMouseClicked
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAdd;
     private javax.swing.JButton buttonDelete;

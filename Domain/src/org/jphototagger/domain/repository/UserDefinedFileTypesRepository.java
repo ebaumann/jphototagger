@@ -9,12 +9,6 @@ import org.jphototagger.domain.filetypes.UserDefinedFileType;
  */
 public interface UserDefinedFileTypesRepository {
 
-    void saveUserDefinedFileType(UserDefinedFileType userDefinedFileType);
-
-    void updateUserDefinedFileType(UserDefinedFileType userDefinedFileType);
-
-    void saveOrUpdateUserDefinedFileType(UserDefinedFileType userDefinedFileType);
-
     void deleteUserDefinedFileType(UserDefinedFileType serDefinedFileType);
 
     boolean existsUserDefinedFileTypeWithSuffix(String suffix);
@@ -22,4 +16,10 @@ public interface UserDefinedFileTypesRepository {
     List<UserDefinedFileType> findAllUserDefinedFileTypes();
 
     UserDefinedFileType findUserDefinedFileTypeBySuffix(String suffix);
+
+    int getMaxLengthSuffix();
+
+    int saveUserDefinedFileType(UserDefinedFileType userDefinedFileType);
+
+    int updateUserDefinedFileType(UserDefinedFileType oldUserDefinedFileType, UserDefinedFileType newUserDefinedFileType);
 }

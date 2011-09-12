@@ -6,7 +6,7 @@ import org.jphototagger.domain.metadata.xmp.XmpRatingMetaDataValue;
 import java.io.File;
 import java.io.Serializable;
 import java.util.Comparator;
-import org.jphototagger.domain.repository.ImageFileRepository;
+import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.openide.util.Lookup;
 
 /**
@@ -16,12 +16,12 @@ import org.openide.util.Lookup;
 public final class ComparatorXmpRatingDesc extends ClassEquality implements Comparator<File>, Serializable {
 
     private static final long serialVersionUID = -6367296007733860352L;
-    private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
+    private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
 
     @Override
     public int compare(File fileLeft, File fileRight) {
-        Xmp xmpLeft = repo.getXmpOfImageFile(fileLeft);
-        Xmp xmpRight = repo.getXmpOfImageFile(fileRight);
+        Xmp xmpLeft = repo.findXmpOfImageFile(fileLeft);
+        Xmp xmpRight = repo.findXmpOfImageFile(fileRight);
         Long ratingLeft = xmpLeft.contains(XmpRatingMetaDataValue.INSTANCE)
                 ? (Long) xmpLeft.getValue(XmpRatingMetaDataValue.INSTANCE)
                 : null;

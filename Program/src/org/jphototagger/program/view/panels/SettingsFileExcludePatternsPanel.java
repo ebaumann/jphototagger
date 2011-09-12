@@ -10,7 +10,7 @@ import javax.swing.event.ListSelectionListener;
 import org.jphototagger.api.core.Storage;
 import org.jphototagger.api.event.ProgressEvent;
 import org.jphototagger.api.event.ProgressListener;
-import org.jphototagger.domain.repository.FileExcludePatternRepository;
+import org.jphototagger.domain.repository.FileExcludePatternsRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.program.model.ListModelFileExcludePatterns;
@@ -26,7 +26,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel i
     private final ListModelFileExcludePatterns model = new ListModelFileExcludePatterns();
     private boolean isUpdateDatabase = false;
     private boolean cancel = false;
-    private final FileExcludePatternRepository repo = Lookup.getDefault().lookup(FileExcludePatternRepository.class);
+    private final FileExcludePatternsRepository repo = Lookup.getDefault().lookup(FileExcludePatternsRepository.class);
 
     public SettingsFileExcludePatternsPanel() {
         initComponents();

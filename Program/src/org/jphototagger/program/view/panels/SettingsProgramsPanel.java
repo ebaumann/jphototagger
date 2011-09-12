@@ -64,7 +64,7 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel implements P
         dlg.setVisible(true);
 
         if (dlg.isAccepted()) {
-            repo.insertProgram(dlg.getProgram());
+            repo.saveProgram(dlg.getProgram());
         }
     }
 

@@ -94,7 +94,7 @@ public final class ImageCollectionsImporter implements Importer {
                 if (!repo.existsImageCollection(imageCollection.getName())) {
                     insertIntoDbMissingFiles(imageCollection);
 
-                    if (repo.insertImageCollection(imageCollection)) {
+                    if (repo.saveImageCollection(imageCollection)) {
                         updateImageCollectionList(imageCollection);
                     }
                 }

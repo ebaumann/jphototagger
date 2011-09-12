@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.Serializable;
 import java.text.Collator;
 import java.util.Comparator;
-import org.jphototagger.domain.repository.ImageFileRepository;
+import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.openide.util.Lookup;
 
 /**
@@ -17,12 +17,12 @@ public final class ComparatorExifRecordingEquipmentDesc extends ClassEquality im
 
     private static final long serialVersionUID = -4021823021223274217L;
     private transient Collator collator = Collator.getInstance();
-    private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
+    private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
 
     @Override
     public int compare(File fileLeft, File fileRight) {
-        Exif exifLeft = repo.getExifOfImageFile(fileLeft);
-        Exif exifRight = repo.getExifOfImageFile(fileRight);
+        Exif exifLeft = repo.findExifOfImageFile(fileLeft);
+        Exif exifRight = repo.findExifOfImageFile(fileRight);
         String eqipLeft = (exifLeft == null)
                 ? null
                 : exifLeft.getRecordingEquipment();

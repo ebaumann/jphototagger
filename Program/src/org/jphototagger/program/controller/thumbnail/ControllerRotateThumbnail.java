@@ -1,19 +1,21 @@
 package org.jphototagger.program.controller.thumbnail;
 
-import org.jphototagger.image.util.ImageTransform;
-import org.jphototagger.program.cache.PersistentThumbnails;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.Image;
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.swing.JMenuItem;
-import org.jphototagger.domain.repository.ImageFileRepository;
+
+import org.jphototagger.domain.repository.ImageFilesRepository;
+import org.jphototagger.domain.repository.ThumbnailsRepository;
+import org.jphototagger.image.util.ImageTransform;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
 import org.openide.util.Lookup;
 
 /**
@@ -26,6 +28,7 @@ import org.openide.util.Lookup;
 public final class ControllerRotateThumbnail implements ActionListener {
 
     private final Map<JMenuItem, Float> angleOfItem = new HashMap<JMenuItem, Float>();
+    private final ThumbnailsRepository tnRepo = Lookup.getDefault().lookup(ThumbnailsRepository.class);
 
     public ControllerRotateThumbnail() {
         initAngleOfItem();
@@ -70,14 +73,14 @@ public final class ControllerRotateThumbnail implements ActionListener {
     private void rotateSelectedImages(final float rotateAngle) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
-            private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
+            private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
 
             @Override
             public void run() {
                 List<File> selFiles = GUI.getSelectedImageFiles();
 
                 for (File imageFile : selFiles) {
-                    final Image unrotatedTn = PersistentThumbnails.getThumbnail(imageFile);
+                    final Image unrotatedTn = tnRepo.findThumbnail(imageFile);
 
                     if (unrotatedTn != null) {
                         Image rotatedTn = ImageTransform.rotate(unrotatedTn, rotateAngle);

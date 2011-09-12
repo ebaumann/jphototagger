@@ -19,7 +19,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.repository.Importer;
-import org.jphototagger.domain.repository.MetadataTemplateRepository;
+import org.jphototagger.domain.repository.MetadataTemplatesRepository;
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.exporter.MetadataTemplatesExporter;
@@ -44,7 +44,7 @@ public final class MetadataTemplatesImporter implements Importer, EntityResolver
 
     private static final long serialVersionUID = 1L;
     private static final Map<String, MetaDataValue> META_DATA_VALUE_OF_CLASSNAME = new HashMap<String, MetaDataValue>();
-    private final MetadataTemplateRepository repo = Lookup.getDefault().lookup(MetadataTemplateRepository.class);
+    private final MetadataTemplatesRepository repo = Lookup.getDefault().lookup(MetadataTemplatesRepository.class);
 
     static {
         for (MetaDataValue mdValue : EditMetaDataValues.get()) {
@@ -108,7 +108,7 @@ public final class MetadataTemplatesImporter implements Importer, EntityResolver
                 }
 
                 if ((template.getName() != null) && !repo.existsMetadataTemplate(template.getName())) {
-                    repo.insertOrUpdateMetadataTemplate(template);
+                    repo.saveOrUpdateMetadataTemplate(template);
                 }
             }
         }

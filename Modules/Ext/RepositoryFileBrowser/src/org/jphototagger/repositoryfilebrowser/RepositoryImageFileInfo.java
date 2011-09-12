@@ -6,7 +6,7 @@ import java.text.DateFormat;
 import java.util.Date;
 import javax.swing.Icon;
 import org.jphototagger.api.image.ThumbnailProvider;
-import org.jphototagger.domain.repository.ImageFileRepository;
+import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.lib.util.Bundle;
 import org.openide.util.Lookup;
 
@@ -29,7 +29,7 @@ public class RepositoryImageFileInfo {
     private String timeImageFileWarning;
     private String timeXmpFileWarning;
     private String thumbnailSizeInfo;
-    private final ImageFileRepository imageFileRepository = Lookup.getDefault().lookup(ImageFileRepository.class);
+    private final ImageFilesRepository imageFileRepository = Lookup.getDefault().lookup(ImageFilesRepository.class);
     private static final DateFormat DATE_FORMAT = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM);
     private static final String TIME_WARNING_STRING = Bundle.getString(RepositoryImageFileInfo.class, "RepositoryImageFileInfo.TimeWarningString");
 
@@ -62,14 +62,14 @@ public class RepositoryImageFileInfo {
     }
 
     private void setImageFileTimeStamps() {
-        long repoTimestamp = imageFileRepository.getImageFilesLastModifiedTimestamp(imageFile);
+        long repoTimestamp = imageFileRepository.findImageFilesLastModifiedTimestamp(imageFile);
         timeImageFileInRepository = createDateStringOfTimestamp(repoTimestamp);
         timeImageFileInFileSystem = createDateStringOfFile(imageFile);
         setTimeImageFileWarning(repoTimestamp);
     }
 
     private void setXmpFileTimeStamps() {
-        long repoTimestamp = imageFileRepository.getXmpFilesLastModifiedTimestamp(imageFile);
+        long repoTimestamp = imageFileRepository.findXmpFilesLastModifiedTimestamp(imageFile);
         timeXmpFileInRepository = createDateStringOfTimestamp(repoTimestamp);
         File xmpFile = resolveXmpFile(imageFile);
         timeXmpFileInFileSystem = createDateStringOfFile(xmpFile);

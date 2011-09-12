@@ -3,7 +3,7 @@ package org.jphototagger.program.model;
 import javax.swing.DefaultListModel;
 
 import org.jphototagger.domain.metadata.MetaDataValue;
-import org.jphototagger.program.database.metadata.selections.NoMetadataValues;
+import org.jphototagger.domain.metadata.selections.NoMetadataValues;
 
 /**
  * Elements are {@link MetaDataValue}s retrieved through {@link NoMetadataValues#get()}.

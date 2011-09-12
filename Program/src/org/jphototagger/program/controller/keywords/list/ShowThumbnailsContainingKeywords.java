@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import org.jphototagger.domain.repository.ImageFileRepository;
+import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
@@ -23,7 +23,7 @@ import org.openide.util.Lookup;
  */
 public final class ShowThumbnailsContainingKeywords implements Runnable {
 
-    private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
+    private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
     private final List<String> keywords;
     private final ThumbnailsPanelSettings tnPanelSettings;
 
@@ -74,11 +74,11 @@ public final class ShowThumbnailsContainingKeywords implements Runnable {
         if (keywords.size() == 1) {
             setTitle(keywords.get(0));
 
-            return repo.getImageFilesContainingDcSubject(keywords.get(0), false);
+            return repo.findImageFilesContainingDcSubject(keywords.get(0), false);
         } else if (keywords.size() > 1) {
             setTitle(keywords);
 
-            return repo.getImageFilesContainingSomeOfDcSubjects(keywords);
+            return repo.findImageFilesContainingSomeOfDcSubjects(keywords);
         }
 
         return null;

@@ -24,7 +24,7 @@ import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.domain.text.TextEntry;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.componentutil.Autocomplete;
-import org.jphototagger.program.database.metadata.selections.AutoCompleteDataOfMetaDataValue;
+import org.jphototagger.domain.metadata.selections.AutoCompleteDataOfMetaDataValue;
 import org.jphototagger.program.helper.AutocompleteHelper;
 import org.openide.util.Lookup;
 

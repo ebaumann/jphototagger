@@ -1,6 +1,6 @@
 package org.jphototagger.program.helper;
 
-import org.jphototagger.domain.repository.MetadataTemplateRepository;
+import org.jphototagger.domain.repository.MetadataTemplatesRepository;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.dialog.InputDialog;
 import org.jphototagger.lib.dialog.MessageDisplayer;
@@ -33,7 +33,7 @@ public final class MetadataTemplateHelper {
             dlg.setInput(fromName);
         }
 
-        MetadataTemplateRepository repo = Lookup.getDefault().lookup(MetadataTemplateRepository.class);
+        MetadataTemplatesRepository repo = Lookup.getDefault().lookup(MetadataTemplatesRepository.class);
 
         while (true) {
             ComponentUtil.show(dlg);

@@ -62,7 +62,7 @@ public final class ImageCollectionsHelper {
     /**
      * Inserts a new image collection, prompts the user for the name.
      *
-     * @param imageFiles image files to insertImageCollection
+     * @param imageFiles image files to saveImageCollection
      * @return           name of the collection or null, if no image collection
      *                   was created
      */
@@ -76,7 +76,7 @@ public final class ImageCollectionsHelper {
         if ((name != null) && !name.isEmpty()) {
             logAddImageCollection(name);
             ImageCollectionsRepository repo = Lookup.getDefault().lookup(ImageCollectionsRepository.class);
-            if (!repo.insertImageCollection(name, imageFiles)) {
+            if (!repo.saveImageCollection(name, imageFiles)) {
                 errorMessageAddImageCollection(name);
 
                 return null;

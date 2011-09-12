@@ -39,7 +39,7 @@ public final class UserDefinedFileFilterImporter implements Importer {
 
             for (UserDefinedFileFilter filter : wrapper.getCollection()) {
                 if (!repo.existsUserDefinedFileFilter(filter.getName())) {
-                    repo.insertUserDefinedFileFilter(filter);
+                    repo.saveUserDefinedFileFilter(filter);
                 }
             }
         } catch (Exception ex) {

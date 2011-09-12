@@ -20,7 +20,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.repository.Exporter;
-import org.jphototagger.domain.repository.MetadataTemplateRepository;
+import org.jphototagger.domain.repository.MetadataTemplatesRepository;
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppLookAndFeel;
@@ -56,7 +56,7 @@ public final class MetadataTemplatesExporter implements Exporter {
     public static final String ATTR_NAME_VALUE = "value";
     public static final String COLLECTION_DELIM = "|";
     public static final String NULL = "null";
-    private final MetadataTemplateRepository repo = Lookup.getDefault().lookup(MetadataTemplateRepository.class);
+    private final MetadataTemplatesRepository repo = Lookup.getDefault().lookup(MetadataTemplatesRepository.class);
 
     @Override
     public void exportFile(File file) {
@@ -84,7 +84,7 @@ public final class MetadataTemplatesExporter implements Exporter {
 
         doc.appendChild(rootElement);
 
-        for (MetadataTemplate template : repo.getAllMetadataTemplates()) {
+        for (MetadataTemplate template : repo.findAllMetadataTemplates()) {
             Element templateElement = doc.createElement(TAGNAME_TEMPLATE);
 
             templateElement.setAttribute(ATTR_NAME_TEMPLATE_NAME, template.getName());

@@ -7,7 +7,6 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 
 import org.jphototagger.domain.metadata.MetaDataValue;
-import org.jphototagger.program.database.metadata.selections.TableIcons;
 import org.jphototagger.program.model.ListModelNoMetadata;
 
 /**

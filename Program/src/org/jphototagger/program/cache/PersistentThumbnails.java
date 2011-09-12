@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
 import org.jphototagger.api.core.UserFilesProvider;
-import org.jphototagger.image.util.ImageUtil;
+import org.jphototagger.lib.image.util.ImageUtil;
 import org.jphototagger.lib.io.FileLock;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.IoUtil;
@@ -22,7 +22,7 @@ import org.openide.util.Lookup;
  *
  * @author  Martin Pohlack, Elmar Baumann
  */
-public final class PersistentThumbnails {
+final class PersistentThumbnails {
 
     private static final Logger LOGGER = Logger.getLogger(PersistentThumbnails.class.getName());
     private static final String THUMBNAILS_DIRECTORY_NAME;
@@ -43,7 +43,7 @@ public final class PersistentThumbnails {
      * @param thumbnail thumbnail
      * @param imageFile image file
      */
-    public static void writeThumbnail(Image thumbnail, File imageFile) {
+    static void writeThumbnail(Image thumbnail, File imageFile) {
         if (thumbnail == null) {
             throw new NullPointerException("thumbnail == null");
         }
@@ -89,7 +89,7 @@ public final class PersistentThumbnails {
         LOGGER.log(Level.INFO, "Writing thumbnail ''{0}''", tnFile);
     }
 
-    public static boolean deleteThumbnail(File imageFile) {
+    static boolean deleteThumbnail(File imageFile) {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
@@ -151,7 +151,7 @@ public final class PersistentThumbnails {
      * @param  imageFile image file
      * @return           thumbnail or null if the thumbnail does not exist
      */
-    public static Image getThumbnail(File imageFile) {
+    static Image getThumbnail(File imageFile) {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
@@ -168,7 +168,7 @@ public final class PersistentThumbnails {
      * @return           thumbnail file or null on errors. The file may not
      *                   exists, {@link File#exists()} can be false.
      */
-    public static File getThumbnailFile(File imageFile) {
+    static File getThumbnailFile(File imageFile) {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
@@ -186,7 +186,7 @@ public final class PersistentThumbnails {
      * @param  imageFile image file
      * @return           true if the image file has a thumbnail
      */
-    public static boolean existsThumbnail(File imageFile) {
+    static boolean existsThumbnail(File imageFile) {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
@@ -208,7 +208,7 @@ public final class PersistentThumbnails {
         return new File(THUMBNAILS_DIRECTORY_NAME + File.separator + md5Filename + ".jpeg");
     }
 
-    public static boolean renameThumbnail(File fromImageFile, File toImageFile) {
+    static boolean renameThumbnail(File fromImageFile, File toImageFile) {
         if (fromImageFile == null) {
             throw new NullPointerException("fromImageFile == null");
         }

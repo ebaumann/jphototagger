@@ -19,7 +19,7 @@ import org.jphototagger.api.core.Storage;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.repository.FindRepository;
-import org.jphototagger.domain.repository.ImageFileRepository;
+import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.repository.event.xmp.XmpDeletedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
@@ -32,8 +32,8 @@ import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
-import org.jphototagger.program.database.metadata.selections.AutoCompleteDataOfMetaDataValue;
-import org.jphototagger.program.database.metadata.selections.FastSearchMetaDataValues;
+import org.jphototagger.domain.metadata.selections.AutoCompleteDataOfMetaDataValue;
+import org.jphototagger.domain.metadata.selections.FastSearchMetaDataValues;
 import org.jphototagger.program.helper.AutocompleteHelper;
 import org.jphototagger.program.model.ComboBoxModelFastSearch;
 import org.jphototagger.program.resource.GUI;
@@ -155,7 +155,7 @@ public final class ControllerFastSearch implements ActionListener {
     private void search(final String searchText) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
-            private final ImageFileRepository imageFileRepo = Lookup.getDefault().lookup(ImageFileRepository.class);
+            private final ImageFilesRepository imageFileRepo = Lookup.getDefault().lookup(ImageFilesRepository.class);
 
             @Override
             public void run() {
@@ -198,15 +198,15 @@ public final class ControllerFastSearch implements ActionListener {
 
                     if (searchWords.size() == 1) {
                         if (isKeywordSearch) {
-                            return new ArrayList<File>(imageFileRepo.getImageFilesContainingDcSubject(searchWords.get(0), true));
+                            return new ArrayList<File>(imageFileRepo.findImageFilesContainingDcSubject(searchWords.get(0), true));
                         } else {
                             return findRepo.findImageFilesLikeOr(Arrays.asList(searchValue), userInput);
                         }
                     } else if (searchWords.size() > 1) {
                         if (isKeywordSearch) {
-                            return new ArrayList<File>(imageFileRepo.getImageFilesContainingAllDcSubjects(searchWords));
+                            return new ArrayList<File>(imageFileRepo.findImageFilesContainingAllDcSubjects(searchWords));
                         } else {
-                            return new ArrayList<File>(imageFileRepo.getImageFilesContainingAllWordsInMetaDataValue(searchWords, searchValue));
+                            return new ArrayList<File>(imageFileRepo.findImageFilesContainingAllWordsInMetaDataValue(searchWords, searchValue));
                         }
                     } else {
                         return null;

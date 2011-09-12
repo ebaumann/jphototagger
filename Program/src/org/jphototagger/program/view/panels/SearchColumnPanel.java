@@ -15,10 +15,10 @@ import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpIptc4XmpCoreDateCreatedMetaDataValue;
 import org.jphototagger.lib.thirdparty.DateChooserDialog;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.data.SavedSearchPanel;
-import org.jphototagger.program.database.metadata.Comparator;
-import org.jphototagger.program.database.metadata.Operator;
-import org.jphototagger.program.database.metadata.selections.MetaDataValueIds;
+import org.jphototagger.domain.metadata.search.SavedSearchPanel;
+import org.jphototagger.domain.metadata.search.Comparator;
+import org.jphototagger.domain.metadata.search.Operator;
+import org.jphototagger.domain.metadata.MetaDataValueIds;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.renderer.ListCellRendererTableColumns;
 

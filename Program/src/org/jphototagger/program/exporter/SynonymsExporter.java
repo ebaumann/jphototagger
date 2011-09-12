@@ -75,14 +75,14 @@ public final class SynonymsExporter implements Exporter {
 
         doc.appendChild(rootElement);
 
-        for (String word : repo.getAllWords()) {
+        for (String word : repo.findAllWords()) {
             Element entryElement = doc.createElement(TAGNAME_ENTRY);
             Element wordElement = doc.createElement(TAGNAME_WORD);
 
             wordElement.setTextContent(word);
             entryElement.appendChild(wordElement);
 
-            for (String synonym : repo.getSynonymsOfWord(word)) {
+            for (String synonym : repo.findSynonymsOfWord(word)) {
                 Element synonymElement = doc.createElement(TAGNAME_SYNONYM);
 
                 synonymElement.setTextContent(synonym);

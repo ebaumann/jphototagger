@@ -7,11 +7,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.jphototagger.domain.filetypes.UserDefinedFileType;
+import org.jphototagger.domain.repository.UserDefinedFileTypesRepository;
 import org.jphototagger.lib.io.filefilter.RegexFileFilter;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.database.DatabaseUserDefinedFileTypes;
 import org.jphototagger.program.filefilter.NoXmpFileFilter;
 import org.jphototagger.program.filefilter.XmpRatingFileFilter;
+import org.openide.util.Lookup;
 
 /**
  * Special file filters used in the application.
@@ -52,7 +53,7 @@ public final class AppFileFilters {
 
     private RegexFileFilter createAllAcceptedImagesFileFilter() {
         return new RegexFileFilter(
-                  ".*\\.[aA][rR][wW];" // Sony (Alpha) RAW
+                ".*\\.[aA][rR][wW];" // Sony (Alpha) RAW
                 + ".*\\.[cC][rR][wW];" // Canon RAW
                 + ".*\\.[cC][rR]2;" // Canon RAW 2
                 + ".*\\.[dD][cC][rR];" // Kodak RAW
@@ -70,7 +71,7 @@ public final class AppFileFilters {
 
     private RegexFileFilter createAcceptedRawFilesFiter() {
         return new RegexFileFilter(
-                  ".*\\.[aA][rR][wW];" // Sony (Alpha) RAW
+                ".*\\.[aA][rR][wW];" // Sony (Alpha) RAW
                 + ".*\\.[cC][rR][wW];" // Canon RAW
                 + ".*\\.[cC][rR]2;" // Canon RAW 2
                 + ".*\\.[dD][cC][rR];" // Kodak RAW
@@ -101,7 +102,8 @@ public final class AppFileFilters {
     }
 
     private RegexFileFilter createUserDefindedFileTypesFilter() {
-        List<UserDefinedFileType> fileTypes = DatabaseUserDefinedFileTypes.INSTANCE.getAll();
+        UserDefinedFileTypesRepository repo = Lookup.getDefault().lookup(UserDefinedFileTypesRepository.class);
+        List<UserDefinedFileType> fileTypes = repo.findAllUserDefinedFileTypes();
 
         if (fileTypes.isEmpty()) {
             return null;

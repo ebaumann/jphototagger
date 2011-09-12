@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.filechooser.FileFilter;
 
-import org.jphototagger.domain.repository.FileExcludePatternRepository;
+import org.jphototagger.domain.repository.FileExcludePatternsRepository;
 import org.jphototagger.domain.repository.Importer;
 import org.jphototagger.lib.xml.bind.XmlObjectImporter;
 import org.jphototagger.program.app.AppLookAndFeel;
@@ -25,7 +25,7 @@ import org.openide.util.lookup.ServiceProvider;
 @ServiceProvider(service = Importer.class)
 public final class FileExcludePatternsImporter implements Importer {
 
-    private final FileExcludePatternRepository repo = Lookup.getDefault().lookup(FileExcludePatternRepository.class);
+    private final FileExcludePatternsRepository repo = Lookup.getDefault().lookup(FileExcludePatternsRepository.class);
 
     @Override
     public void importFile(File file) {
@@ -40,7 +40,7 @@ public final class FileExcludePatternsImporter implements Importer {
 
             for (StringWrapper stringWrapper : wrapper.getCollection()) {
                 if (!repo.existsFileExcludePattern(stringWrapper.getString())) {
-                    repo.insertFileExcludePattern(stringWrapper.getString());
+                    repo.saveFileExcludePattern(stringWrapper.getString());
                 }
             }
         } catch (Exception ex) {

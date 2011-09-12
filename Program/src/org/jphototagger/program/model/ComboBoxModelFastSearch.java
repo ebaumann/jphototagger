@@ -3,7 +3,7 @@ package org.jphototagger.program.model;
 import javax.swing.DefaultComboBoxModel;
 
 import org.jphototagger.domain.metadata.MetaDataValue;
-import org.jphototagger.program.database.metadata.selections.FastSearchMetaDataValues;
+import org.jphototagger.domain.metadata.selections.FastSearchMetaDataValues;
 
 /**
  * Elements are the metadata values for the fast search - instances of

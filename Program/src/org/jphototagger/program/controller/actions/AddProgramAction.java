@@ -40,7 +40,7 @@ public final class AddProgramAction extends AbstractAction {
         if (dlg.isAccepted()) {
             Program program = dlg.getProgram();
 
-            repo.insertProgram(program);
+            repo.saveProgram(program);
         }
     }
 }

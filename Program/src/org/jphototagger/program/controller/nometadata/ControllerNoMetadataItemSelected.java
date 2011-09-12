@@ -7,7 +7,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import org.jphototagger.domain.metadata.MetaDataValue;
-import org.jphototagger.domain.repository.ImageFileRepository;
+import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
@@ -26,7 +26,7 @@ import org.openide.util.Lookup;
  */
 public final class ControllerNoMetadataItemSelected implements ListSelectionListener {
 
-    private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
+    private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
 
     public ControllerNoMetadataItemSelected() {
         listen();
@@ -49,7 +49,7 @@ public final class ControllerNoMetadataItemSelected implements ListSelectionList
         Object selValue = GUI.getNoMetadataList().getSelectedValue();
 
         if (selValue instanceof MetaDataValue) {
-            List<File> imageFiles = repo.getImageFilesWithoutDataValue((MetaDataValue) selValue);
+            List<File> imageFiles = repo.findImageFilesWithoutDataValue((MetaDataValue) selValue);
 
             setTitle((MetaDataValue) selValue);
 

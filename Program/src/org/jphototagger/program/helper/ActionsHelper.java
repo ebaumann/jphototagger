@@ -30,7 +30,7 @@ public final class ActionsHelper {
 
     public static JMenu actionsAsMenu() {
         ProgramsRepository repo = Lookup.getDefault().lookup(ProgramsRepository.class);
-        List<Program> actions = repo.getAllPrograms(ProgramType.ACTION);
+        List<Program> actions = repo.findAllPrograms(ProgramType.ACTION);
         JMenu menu = new JMenu(Bundle.getString(ActionsHelper.class, "ActionsHelper.ActionMenu.DisplayName"));
 
         for (Program action : actions) {
@@ -46,7 +46,7 @@ public final class ActionsHelper {
         actionsMenu.removeAll();
         ProgramsRepository repo = Lookup.getDefault().lookup(ProgramsRepository.class);
 
-        List<Program> actions = repo.getAllPrograms(ProgramType.ACTION);
+        List<Program> actions = repo.findAllPrograms(ProgramType.ACTION);
 
         for (Program action : actions) {
             actionsMenu.add(new JMenuItem(new ActionStarter(action, action)));

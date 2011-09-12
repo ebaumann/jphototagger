@@ -9,16 +9,14 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.repository.ProgramType;
 import org.jphototagger.domain.repository.ProgramsRepository;
+import org.jphototagger.domain.repository.Repository;
 import org.jphototagger.domain.repository.event.programs.ProgramDeletedEvent;
 import org.jphototagger.domain.repository.event.programs.ProgramInsertedEvent;
 import org.jphototagger.domain.repository.event.programs.ProgramUpdatedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.program.database.ConnectionPool;
 import org.openide.util.Lookup;
 
 /**
- * Contains {@link Program}s retrieved through
- * {@link DatabasePrograms#getAllPrograms(ProgramType)}.
  *
  * All programs in this model are actions, where
  * {@link org.jphototagger.program.data.Program#isAction()} is true, <em>or</em>
@@ -31,7 +29,7 @@ public final class ListModelPrograms extends DefaultListModel {
     private static final long serialVersionUID = 1107244876982338977L;
     private boolean listen = true;
     private ProgramType type;
-    private final ProgramsRepository repo = Lookup.getDefault().lookup(ProgramsRepository.class);
+    private final ProgramsRepository programsRepo = Lookup.getDefault().lookup(ProgramsRepository.class);
 
     public ListModelPrograms(ProgramType type) {
         if (type == null) {
@@ -44,11 +42,13 @@ public final class ListModelPrograms extends DefaultListModel {
     }
 
     private void addElements() {
-        if (!ConnectionPool.INSTANCE.isInit()) {
+        Repository repo = Lookup.getDefault().lookup(Repository.class);
+
+        if (repo == null || !repo.isInit()) {
             return;
         }
 
-        List<Program> programs = repo.getAllPrograms(type);
+        List<Program> programs = programsRepo.findAllPrograms(type);
 
         for (Program program : programs) {
             addElement(program);

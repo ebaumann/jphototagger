@@ -1,15 +1,18 @@
 package org.jphototagger.program.model;
 
 import java.util.List;
+
 import javax.swing.DefaultListModel;
+
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.domain.filetypes.UserDefinedFileType;
-import org.jphototagger.program.database.DatabaseUserDefinedFileTypes;
+import org.jphototagger.domain.repository.UserDefinedFileTypesRepository;
 import org.jphototagger.domain.repository.event.userdefinedfiletypes.UserDefinedFileTypeDeletedEvent;
 import org.jphototagger.domain.repository.event.userdefinedfiletypes.UserDefinedFileTypeInsertedEvent;
 import org.jphototagger.domain.repository.event.userdefinedfiletypes.UserDefinedFileTypeUpdatedEvent;
+import org.jphototagger.lib.awt.EventQueueUtil;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -19,6 +22,7 @@ import org.jphototagger.domain.repository.event.userdefinedfiletypes.UserDefined
 public final class ListModelUserDefinedFileTypes extends DefaultListModel {
 
     private static final long serialVersionUID = -4247494897388012534L;
+    private final UserDefinedFileTypesRepository repo = Lookup.getDefault().lookup(UserDefinedFileTypesRepository.class);
 
     public ListModelUserDefinedFileTypes() {
         addElements();
@@ -26,7 +30,7 @@ public final class ListModelUserDefinedFileTypes extends DefaultListModel {
     }
 
     private void addElements() {
-        List<UserDefinedFileType> fileTypes = DatabaseUserDefinedFileTypes.INSTANCE.getAll();
+        List<UserDefinedFileType> fileTypes = repo.findAllUserDefinedFileTypes();
 
         for (UserDefinedFileType fileType : fileTypes) {
             addElement(fileType);

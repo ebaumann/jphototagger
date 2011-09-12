@@ -88,7 +88,7 @@ public final class ControllerImageCollectionSelected implements ListSelectionLis
             public void run() {
                 WaitDisplay.show();
 
-                List<File> imageFiles = repo.getImageFilesOfImageCollection(collectionName);
+                List<File> imageFiles = repo.findImageFilesOfImageCollection(collectionName);
                 ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
                 setTitle();

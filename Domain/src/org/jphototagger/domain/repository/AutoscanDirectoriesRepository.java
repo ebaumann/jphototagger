@@ -14,7 +14,7 @@ public interface AutoscanDirectoriesRepository {
 
     boolean existsAutoscanDirectory(File directory);
 
-    List<File> getAllAutoscanDirectories();
+    List<File> findAllAutoscanDirectories();
 
-    boolean insertAutoscanDirectory(File directory);
+    boolean saveAutoscanDirectory(File directory);
 }

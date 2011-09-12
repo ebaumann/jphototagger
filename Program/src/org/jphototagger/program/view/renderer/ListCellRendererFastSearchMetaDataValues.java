@@ -8,7 +8,6 @@ import javax.swing.JList;
 
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.database.metadata.selections.MetaDataValueIcons;
 import org.jphototagger.program.model.ComboBoxModelFastSearch;
 
 /**

@@ -11,7 +11,7 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.dialog.ProgressDialog;
 import org.jphototagger.api.event.ProgressEvent;
 import org.jphototagger.api.event.ProgressListener;
-import org.jphototagger.domain.repository.ImageFileRepository;
+import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.controller.misc.SizeAndLocationController;
 import org.jphototagger.program.resource.GUI;
@@ -28,7 +28,7 @@ public final class UpdateAllThumbnails implements Runnable, ProgressListener, Ac
     private boolean cancel;
     private final Set<ActionListener> actionListeners = new HashSet<ActionListener>();
     private static final Logger LOGGER = Logger.getLogger(UpdateAllThumbnails.class.getName());
-    private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
+    private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
 
     /**
      * Adds an action listener. It will be notified when the work is done.

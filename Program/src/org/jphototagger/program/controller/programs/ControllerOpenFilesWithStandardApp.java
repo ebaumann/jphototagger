@@ -35,7 +35,7 @@ public final class ControllerOpenFilesWithStandardApp implements ActionListener 
     }
 
     private void openSelectedImages() {
-        Program program = repo.getDefaultImageOpenProgram();
+        Program program = repo.findDefaultImageOpenProgram();
 
         if (program == null) {
             String message = Bundle.getString(ControllerOpenFilesWithOtherApp.class, "ControllerOpenFilesWithStandardApp.Info.DefineOpenApp");

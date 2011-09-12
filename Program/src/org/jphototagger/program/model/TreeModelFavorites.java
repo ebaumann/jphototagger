@@ -44,7 +44,7 @@ import org.openide.util.Lookup;
  * <ul>
  * <li>The root user object is a {@link String}</li>
  * <li>All user objects in the first level below the root are
- *     {@link Favorite}s retrieved through {@link DatabaseFavorites#getAllFavorites()}
+ *     {@link Favorite}s retrieved through {@link DatabaseFavorites#findAllFavorites()}
  * </li>
  * <li>User objects below the favorites are directory {@link File}s</li>
  * </ul>
@@ -87,7 +87,7 @@ public final class TreeModelFavorites extends DefaultTreeModel implements TreeWi
             favorite.setIndex(getNextNewFavoriteIndex());
 
             if (!existsFavoriteDirectory(favorite)) {
-                if (repo.insertOrUpdateFavorite(favorite)) {
+                if (repo.saveOrUpdateFavorite(favorite)) {
                     addFavorite(favorite);
                 } else {
                     errorMessage(favorite.getName(), Bundle.getString(TreeModelFavorites.class, "TreeModelFavorites.Error.ParamInsert"));
@@ -239,7 +239,7 @@ public final class TreeModelFavorites extends DefaultTreeModel implements TreeWi
     }
 
     private void addFavorites() {
-        List<Favorite> directories = repo.getAllFavorites();
+        List<Favorite> directories = repo.findAllFavorites();
 
         for (Favorite directory : directories) {
             if (directory.getDirectory().isDirectory()) {

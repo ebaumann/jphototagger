@@ -8,7 +8,7 @@ import javax.swing.JPopupMenu;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.data.SavedSearch;
+import org.jphototagger.domain.metadata.search.SavedSearch;
 
 /**
  * Do not use this class as template for implemention! Instead extend

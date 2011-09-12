@@ -9,7 +9,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import org.jphototagger.api.core.Branding;
 import org.jphototagger.api.core.Storage;
-import org.jphototagger.domain.repository.ImageFileRepository;
+import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
@@ -87,8 +87,8 @@ public class RepositoryFileBrowserDialog extends Dialog {
 
         @Override
         protected Void doInBackground() throws Exception {
-            ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
-            Collection<? extends File> imageFiles = repo.getAllImageFiles();
+            ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
+            Collection<? extends File> imageFiles = repo.findAllImageFiles();
 
             for (File imageFile : imageFiles) {
                 FileNode node = new FileNode(imageFile);

@@ -16,6 +16,7 @@ import org.bushe.swing.event.EventBus;
 import org.jphototagger.api.core.Storage;
 import org.jphototagger.api.event.ProgressEvent;
 import org.jphototagger.api.event.ProgressListener;
+import org.jphototagger.api.image.ThumbnailCreator;
 import org.jphototagger.domain.event.listener.ProgressListenerSupport;
 import org.jphototagger.domain.exif.Exif;
 import org.jphototagger.domain.image.ImageFile;
@@ -25,8 +26,9 @@ import org.jphototagger.domain.metadata.xmp.XmpIptc4XmpCoreDateCreatedMetaDataVa
 import org.jphototagger.domain.metadata.xmp.XmpLastModifiedMetaDataValue;
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.repository.ActionsAfterRepoUpdatesRepository;
-import org.jphototagger.domain.repository.ImageFileRepository;
+import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.repository.InsertIntoRepository;
+import org.jphototagger.domain.repository.ThumbnailsRepository;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.exif.ExifMetadata;
 import org.jphototagger.exif.cache.ExifCache;
@@ -34,8 +36,6 @@ import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.cache.PersistentThumbnails;
-import org.jphototagger.program.image.thumbnail.ThumbnailUtil;
 import org.jphototagger.xmp.XmpMetadata;
 import org.openide.util.Lookup;
 
@@ -47,7 +47,7 @@ import org.openide.util.Lookup;
  */
 public final class InsertImageFilesIntoDatabase extends Thread implements Cancelable {
 
-    private final ImageFileRepository imageFileRepo = Lookup.getDefault().lookup(ImageFileRepository.class);
+    private final ImageFilesRepository imageFileRepo = Lookup.getDefault().lookup(ImageFilesRepository.class);
     private final ActionsAfterRepoUpdatesRepository actionsAfterRepoUpdatesRepo = Lookup.getDefault().lookup(ActionsAfterRepoUpdatesRepository.class);
     private final ProgressListenerSupport pls = new ProgressListenerSupport();
     private ProgressEvent progressEvent = new ProgressEvent(this, null);
@@ -55,13 +55,15 @@ public final class InsertImageFilesIntoDatabase extends Thread implements Cancel
     private final List<File> imageFiles;
     private boolean cancel;
     private static final Logger LOGGER = Logger.getLogger(InsertImageFilesIntoDatabase.class.getName());
+    private final ThumbnailsRepository tnRepo = Lookup.getDefault().lookup(ThumbnailsRepository.class);
+    private final ThumbnailCreator tnCreator = Lookup.getDefault().lookup(ThumbnailCreator.class);
 
     /**
      * Constructor.
      *
      * @param imageFiles image files, whoes metadatada shall be inserted or
      *                   updated
-     * @param what       metadata to insertAction
+     * @param what       metadata to saveAction
      */
     public InsertImageFilesIntoDatabase(List<File> imageFiles, InsertIntoRepository... what) {
         super("JPhotoTagger: Inserting image files into database");
@@ -98,7 +100,7 @@ public final class InsertImageFilesIntoDatabase extends Thread implements Cancel
                 if (isUpdate(imageFile)) {
                     setExifDateToXmpDateCreated(imageFile);
                     logInsertImageFile(imageFile);
-                    imageFileRepo.insertOrUpdateImageFile(imageFile);
+                    imageFileRepo.saveOrUpdateImageFile(imageFile);
                     runActionsAfterInserting(imageFile);
                 }
             }
@@ -142,7 +144,7 @@ public final class InsertImageFilesIntoDatabase extends Thread implements Cancel
     }
 
     private boolean existsThumbnail(File imageFile) {
-        return PersistentThumbnails.existsThumbnail(imageFile);
+        return tnRepo.existsThumbnail(imageFile);
     }
 
     private boolean isUpdateExif(File imageFile) {
@@ -154,14 +156,14 @@ public final class InsertImageFilesIntoDatabase extends Thread implements Cancel
     }
 
     private boolean isImageFileUpToDate(File imageFile) {
-        long dbTime = imageFileRepo.getImageFilesLastModifiedTimestamp(imageFile);
+        long dbTime = imageFileRepo.findImageFilesLastModifiedTimestamp(imageFile);
         long fileTime = imageFile.lastModified();
 
         return fileTime == dbTime;
     }
 
     private boolean isThumbnailUpToDate(File imageFile) {
-        File tnFile = PersistentThumbnails.getThumbnailFile(imageFile);
+        File tnFile = tnRepo.findThumbnailFile(imageFile);
 
         if ((tnFile == null) || !tnFile.exists()) {
             return false;
@@ -190,14 +192,14 @@ public final class InsertImageFilesIntoDatabase extends Thread implements Cancel
     }
 
     private boolean isXmpSidecarFileUpToDate(File imageFile, File sidecarFile) {
-        long dbTime = imageFileRepo.getXmpFilesLastModifiedTimestamp(imageFile);
+        long dbTime = imageFileRepo.findXmpFilesLastModifiedTimestamp(imageFile);
         long fileTime = sidecarFile.lastModified();
 
         return fileTime == dbTime;
     }
 
     private boolean isEmbeddedXmpUpToDate(File imageFile) {
-        long dbTime = imageFileRepo.getXmpFilesLastModifiedTimestamp(imageFile);
+        long dbTime = imageFileRepo.findXmpFilesLastModifiedTimestamp(imageFile);
         long fileTime = imageFile.lastModified();
 
         if (dbTime == fileTime) {
@@ -216,7 +218,7 @@ public final class InsertImageFilesIntoDatabase extends Thread implements Cancel
 
     private void createAndSetThumbnail(ImageFile imageFile) {
         File file = imageFile.getFile();
-        Image thumbnail = ThumbnailUtil.getThumbnail(file);
+        Image thumbnail = tnCreator.createThumbnail(file);
 
         imageFile.setThumbnail(thumbnail);
 
@@ -302,7 +304,7 @@ public final class InsertImageFilesIntoDatabase extends Thread implements Cancel
         }
 
         File imgFile = imageFile.getFile();
-        List<Program> actions = actionsAfterRepoUpdatesRepo.getAllActions();
+        List<Program> actions = actionsAfterRepoUpdatesRepo.findAllActions();
 
         for (Program action : actions) {
             StartPrograms programStarter = new StartPrograms(null);

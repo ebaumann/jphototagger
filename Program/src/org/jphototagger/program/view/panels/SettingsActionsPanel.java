@@ -17,6 +17,7 @@ import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.repository.ActionsAfterRepoUpdatesRepository;
 import org.jphototagger.domain.repository.ProgramType;
 import org.jphototagger.domain.repository.ProgramsRepository;
+import org.jphototagger.domain.repository.Repository;
 import org.jphototagger.domain.repository.event.programs.ProgramDeletedEvent;
 import org.jphototagger.domain.repository.event.programs.ProgramInsertedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
@@ -25,7 +26,6 @@ import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.database.ConnectionPool;
 import org.jphototagger.program.model.ListModelActionsAfterDbInsertion;
 import org.jphototagger.program.types.Persistence;
 import org.jphototagger.program.view.dialogs.ActionsDialog;
@@ -81,7 +81,9 @@ public class SettingsActionsPanel extends javax.swing.JPanel implements ListSele
     private void setEnabledAddAction() {
         boolean hasActions = false;
 
-        if (ConnectionPool.INSTANCE.isInit()) {
+        Repository repo = Lookup.getDefault().lookup(Repository.class);
+
+        if (repo != null && repo.isInit()) {
             hasActions = programsRepo.getProgramCount(true) > 0;
         }
 

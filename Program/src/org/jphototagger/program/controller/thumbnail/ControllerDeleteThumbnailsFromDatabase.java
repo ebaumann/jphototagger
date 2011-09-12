@@ -6,7 +6,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jphototagger.domain.repository.ImageFileRepository;
+import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.dialog.MessageDisplayer;
@@ -23,7 +23,7 @@ import org.openide.util.Lookup;
  */
 public final class ControllerDeleteThumbnailsFromDatabase implements ActionListener {
 
-    private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
+    private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
 
     public ControllerDeleteThumbnailsFromDatabase() {
         listen();
@@ -42,7 +42,7 @@ public final class ControllerDeleteThumbnailsFromDatabase implements ActionListe
         if (confirmDelete()) {
             EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
-                private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
+                private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
 
                 @Override
                 public void run() {

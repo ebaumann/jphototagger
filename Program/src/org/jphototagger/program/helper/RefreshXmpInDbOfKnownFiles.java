@@ -7,7 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.jphototagger.api.core.Storage;
-import org.jphototagger.domain.repository.ImageFileRepository;
+import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.xmp.XmpMetadata;
@@ -22,7 +22,7 @@ import org.openide.util.Lookup;
 public final class RefreshXmpInDbOfKnownFiles extends HelperThread {
 
     private volatile boolean cancel;
-    private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
+    private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
 
     public RefreshXmpInDbOfKnownFiles() {
         super("JPhotoTagger: Refreshing XMP in the database of known files");
@@ -31,7 +31,7 @@ public final class RefreshXmpInDbOfKnownFiles extends HelperThread {
 
     @Override
     public void run() {
-        List<File> imageFiles = repo.getAllImageFiles();
+        List<File> imageFiles = repo.findAllImageFiles();
         int fileCount = imageFiles.size();
 
         progressStarted(0, 0, fileCount, (fileCount > 0)
@@ -53,7 +53,7 @@ public final class RefreshXmpInDbOfKnownFiles extends HelperThread {
             }
 
             if (xmp != null) {
-                repo.insertOrUpdateXmpOfImageFile(imageFile, xmp);
+                repo.saveOrUpdateXmpOfImageFile(imageFile, xmp);
             }
 
             progressPerformed(i + 1, imageFile);

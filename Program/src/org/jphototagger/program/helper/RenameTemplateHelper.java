@@ -34,7 +34,7 @@ public final class RenameTemplateHelper {
             template.setName(name);
             RenameTemplatesRepository repo = Lookup.getDefault().lookup(RenameTemplatesRepository.class);
 
-            if (!repo.insertRenameTemplate(template)) {
+            if (!repo.saveRenameTemplate(template)) {
                 String message = Bundle.getString(RenameTemplateHelper.class, "RenameTemplateHelper.Error.Insert", template);
                 MessageDisplayer.error(null, message);
             }

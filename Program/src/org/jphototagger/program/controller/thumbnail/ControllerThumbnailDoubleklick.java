@@ -36,7 +36,7 @@ public final class ControllerThumbnailDoubleklick {
     private void openImageAtIndex(int index) {
         if (panel.isIndex(index)) {
             ProgramsRepository repo = Lookup.getDefault().lookup(ProgramsRepository.class);
-            Program program = repo.getDefaultImageOpenProgram();
+            Program program = repo.findDefaultImageOpenProgram();
 
             if (program == null) {
                 String message = Bundle.getString(ControllerThumbnailDoubleklick.class, "ControllerOpenFilesWithStandardApp.Info.DefineOpenApp");

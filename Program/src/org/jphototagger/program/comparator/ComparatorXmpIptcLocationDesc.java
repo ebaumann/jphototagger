@@ -7,7 +7,7 @@ import java.io.File;
 import java.io.Serializable;
 import java.text.Collator;
 import java.util.Comparator;
-import org.jphototagger.domain.repository.ImageFileRepository;
+import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.openide.util.Lookup;
 
 /**
@@ -18,12 +18,12 @@ public final class ComparatorXmpIptcLocationDesc extends ClassEquality implement
 
     private static final long serialVersionUID = -3947931666327801561L;
     private transient Collator collator = Collator.getInstance();
-    private final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
+    private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
 
     @Override
     public int compare(File fileLeft, File fileRight) {
-        Xmp xmpLeft = repo.getXmpOfImageFile(fileLeft);
-        Xmp xmpRight = repo.getXmpOfImageFile(fileRight);
+        Xmp xmpLeft = repo.findXmpOfImageFile(fileLeft);
+        Xmp xmpRight = repo.findXmpOfImageFile(fileRight);
         Object locLeft = (xmpLeft == null)
                 ? null
                 : xmpLeft.getValue(XmpIptc4xmpcoreLocationMetaDataValue.INSTANCE);

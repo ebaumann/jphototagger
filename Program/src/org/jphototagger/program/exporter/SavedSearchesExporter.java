@@ -20,8 +20,8 @@ import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.xml.bind.XmlObjectExporter;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.data.SavedSearch;
-import org.jphototagger.program.database.DatabaseSavedSearches;
+import org.jphototagger.domain.metadata.search.SavedSearch;
+import org.jphototagger.repository.hsqldb.DatabaseSavedSearches;
 import org.openide.util.lookup.ServiceProvider;
 
 /**

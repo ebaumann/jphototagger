@@ -13,7 +13,7 @@ import org.jphototagger.domain.metadata.xmp.XmpIptc4XmpCoreDateCreatedMetaDataVa
 import org.jphototagger.domain.metadata.xmp.XmpLastModifiedMetaDataValue;
 import org.jphototagger.domain.exif.Exif;
 import org.jphototagger.domain.image.ImageFile;
-import org.jphototagger.domain.repository.ImageFileRepository;
+import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.exif.ExifMetadata;
 import org.jphototagger.lib.util.Bundle;
@@ -29,7 +29,7 @@ import org.openide.util.Lookup;
  */
 public final class SetExifToXmp extends HelperThread {
 
-    private static final ImageFileRepository repo = Lookup.getDefault().lookup(ImageFileRepository.class);
+    private static final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
     private List<File> files;
     private final boolean replaceExistingXmpData;
     private volatile boolean cancel;
@@ -82,7 +82,7 @@ public final class SetExifToXmp extends HelperThread {
     @Override
     public void run() {
         List<File> imgFiles = (files == null)
-                ? repo.getAllImageFiles()
+                ? repo.findAllImageFiles()
                 : files;
         int fileCount = imgFiles.size();
 
@@ -151,7 +151,7 @@ public final class SetExifToXmp extends HelperThread {
                     imageFile.setFile(imgFile);
                     imageFile.setXmp(xmp);
                     imageFile.addInsertIntoDb(InsertIntoRepository.XMP);
-                    repo.insertOrUpdateImageFile(imageFile);
+                    repo.saveOrUpdateImageFile(imageFile);
                 }
             }
         }
