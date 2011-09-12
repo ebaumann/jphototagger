@@ -45,11 +45,11 @@
                 <h1>How to implement something (&quot;Best practices&quot;)</h1>
 
                 <p><em>Do not repeat bad code</em> in (hopefully) old parts of <strong>JPhotoTagger</strong>! For example
-                    do <em>not</em> implement <code>ActionListener</code>s, use <code>Actions</code> instead.
+                    do <em>not</em> implement <code>ActionListener</code>s, use <code>Action</code>s instead.
                 </p>
 
                 <p><em>Do not add code to the </em> <strong>Program</strong> project. There should be only
-                    bugs fixed, code refactored or the functionality be enhanced (only if not possible via the
+                    bugs fixed, code refactored or the functionality enhanced (only if not possible via the
                     Java Service Interface).
                 </p>
 
@@ -57,14 +57,14 @@
                     if they (really) improve the design.
                 </p>
 
-                <p>Don't hesitate to fix bugs. Write tests for every method, <strong>NetBeans</strong>
-                    automatically generates test classes and method skeletons.
+                <p>Don't hesitate to fix bugs in code written by others. Write tests for every method,
+                    <strong>NetBeans</strong> automatically generates test classes and method skeletons.
                 </p>
 
-                <h2>Use the API and Domain Projects (Java Service Provider Interface in general)</h2>
+                <h2>Use JPhotoTagger's API and Domain Projects (Java Service Provider Interface in general)</h2>
 
-                <p>Do not use implementations, use interfaces. We are using the Java Service Provider Interface to get
-                    implementations. With that lines of code you get an implementation:
+                <p>Do not use implementations, use interfaces. We are using the <strong>Java Service Provider
+                   Interface</strong> to get implementations. With that lines of code you get an implementation:
                 </p>
 
                 <pre>
@@ -73,16 +73,18 @@ MyInterfaceImplementation implementation = Lookup.getDefault().lookup(MyInterfac
 implementation.doSomething();
                 </pre>
 
-                <p>As an example: The currently used &quot;Database&quot; implements <code>Repository</code> interfaces.
+                <p>As an example, the currently used database implements <code>Repository</code> interfaces.
                     To use a different database and/or the JPA instead of JDBC, only the project implementing these
-                    interfaces has to be replaced and no other code has to be changed. Currently the implementation
-                    project is <strong>HsqlDatabase</strong>.
+                    interfaces has to be replaced and no other code has to be changed. Ideally the user does not
+                    recognize any change. Currently the repositories implementation project is
+                    <strong>HsqlDatabase</strong>.
                 </p>
 
                 <p>Another example: <strong>JPhotoTagger</strong> has limited capabilities to generate thumbnails
-                    of different camera image file (media) formats. You can add an implementation of
-                    <code>ThumbnailCreator</code> in a separate project, e.g. for your special camera RAW format, and
-                    it will be automatically used (if no thumbnail could be created by the default implementation).
+                    of different camera image file formats or other media formats such as videos. You can add an
+                    implementation of <code>ThumbnailCreator</code> in a separate project, e.g. for your special
+                    camera RAW format, and it will be automatically used (if no thumbnail could be created by the
+                    default implementation).
                 </p>
 
                 <p>Do <em>not</em> create files in <code>META-INF/services</code> for your service providers. This is
@@ -109,7 +111,7 @@ implementation.doSomething();
 
                 <h3>Remarks</h3>
 
-                <p>You can add menu entries, panels etc. to the application window, getting thumbnails etc. &ndash;
+                <p>You can add menu entries, panels etc. to the application window, get thumbnails etc. &ndash;
                     take a look into the API project. For querying or modifying the repository (database), have also
                     a look into the Domain project.
                 </p>
