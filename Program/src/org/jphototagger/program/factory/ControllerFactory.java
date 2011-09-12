@@ -3,7 +3,6 @@ package org.jphototagger.program.factory;
 import java.util.List;
 
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.dialog.SystemOutputDialog;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.logging.ErrorLogHandler;
 import org.jphototagger.program.controller.actions.ActionsMenuUpdater;
@@ -77,11 +76,9 @@ import org.jphototagger.program.controller.misc.ControllerItemsMutualExcludeSele
 import org.jphototagger.program.controller.misc.ControllerMaintainDatabase;
 import org.jphototagger.program.controller.misc.ControllerMenuItemEnabler;
 import org.jphototagger.program.controller.misc.ControllerShowSynonymsDialog;
-import org.jphototagger.program.controller.misc.ControllerShowSystemOutput;
 import org.jphototagger.program.controller.misc.ControllerShowUserSettingsDialog;
 import org.jphototagger.program.controller.misc.ControllerThumbnailCountDisplay;
 import org.jphototagger.program.controller.misc.ControllerUpdateCheck;
-import org.jphototagger.program.controller.misc.SizeAndLocationController;
 import org.jphototagger.program.controller.miscmetadata.ControllerAddMetadataToSelImages;
 import org.jphototagger.program.controller.miscmetadata.ControllerDeleteMiscMetadata;
 import org.jphototagger.program.controller.miscmetadata.ControllerMiscMetadataItemSelected;
@@ -160,7 +157,6 @@ public final class ControllerFactory {
                 addMiscMetadataControllers();
                 addKeywordsControllers();
                 addMiscControllers();
-                addSizeAndLocationController();
                 message = Bundle.getString(ControllerFactory.class, "ControllerFactory.Init.Finished");
                 Support.setStatusbarInfo(message);
             }
@@ -176,7 +172,6 @@ public final class ControllerFactory {
         support.add(new ControllerSortThumbnails());
         support.add(new ControllerImportImageFiles());
         support.add(new ControllerExtractEmbeddedXmp());
-        support.add(new ControllerShowSystemOutput());
         support.add(new ControllerAboutApp());
         support.add(new ControllerHelp());
         support.add(new ControllerMaintainDatabase());
@@ -336,12 +331,6 @@ public final class ControllerFactory {
 
     private void addMiscControllers() {
         support.add(new ControllerFileProcessorPlugins());
-    }
-
-    private void addSizeAndLocationController() {
-        SizeAndLocationController sizeLocCtrl = new SizeAndLocationController();
-
-        SystemOutputDialog.INSTANCE.addWindowListener(sizeLocCtrl);
     }
 
     /**

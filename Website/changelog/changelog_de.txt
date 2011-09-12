@@ -7,6 +7,8 @@ Changelog JPhotoTagger http://jphototagger.org/
 ----------------
 
 * Neu: Fenster > Datenbankbrowser
+* "Experimentelle Dateiformate" werden zukünftig automatisch aktiviert nach
+  einem Test, es gibt keine Option mehr im Einstellungen-Dialog
 * "Datenbank automatisch sichern" entfernt:
   * Ein Backup sollte nicht Aufgabe (vieler verschiedener) Anwendungsprogramme
     sein, die (nur) ihre Daten sichern, vielmehr sollte eine "Strategie"
@@ -30,8 +32,11 @@ Changelog JPhotoTagger http://jphototagger.org/
     darüber hinwegtäuschen
   * Das Dateiformat des Lightroom-Stichwortbaums ist fehleranfällig
     (kein XML)
-* "Experimentelle Dateiformate" werden zukünftig automatisch aktiviert nach
-  einem Test, es gibt keine Option mehr im Einstellungen-Dialog
+* "Fenster > Programm-Ausgaben" entfernt: Die Programmausgaben können über
+  "Fenster > Protokoll mit allen Ausgaben" angeschaut werden, Entwickler sehen
+  diese im Ausgabefenster der IDE. Damit wurde die Einstellung der
+  Protokolltiefe (INFO, FEIN etc.) hinfällig und entfernt aus dem
+  Einstellungsdialog
 * Architektur signifikant gändert, damit zukünftige Erweiterungen einfacher
   sind
 

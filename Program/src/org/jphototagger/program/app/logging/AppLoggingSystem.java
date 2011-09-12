@@ -117,7 +117,7 @@ public final class AppLoggingSystem {
     }
 
     private static void setLevelsToHandlers() throws SecurityException {
-        systemOutHandler.setLevel(getLogLevel());
+        systemOutHandler.setLevel(getLogLevel()); // Usage now only for developers, "UserSettings.LogLevel", e.g. "INFO"
         fileHandlerImportant.setLevel(IMPORTANT_LEVEL);
         fileHandlerAllMsgs.setLevel(Level.ALL);
     }

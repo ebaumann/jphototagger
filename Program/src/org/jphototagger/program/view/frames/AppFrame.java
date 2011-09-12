@@ -226,10 +226,6 @@ public final class AppFrame extends javax.swing.JFrame {
         return menuItemAcceleratorKeys;
     }
 
-    public JMenuItem getMenuItemOutputWindow() {
-        return menuItemOutputWindow;
-    }
-
     public JMenuItem getMenuItemDisplayLogfile() {
         return menuItemDisplayLogfile;
     }
@@ -428,8 +424,6 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemSynonyms = new javax.swing.JMenuItem();
         menuItemUserDefinedFileFilter = new javax.swing.JMenuItem();
         menuItemUserDefinedFileType = new JMenuItem(new EditUserDefinedFileTypesAction());
-        sep19 = new javax.swing.JPopupMenu.Separator();
-        menuItemOutputWindow = new javax.swing.JMenuItem();
         sep20 = new javax.swing.JPopupMenu.Separator();
         menuItemDisplayLogfile = new javax.swing.JMenuItem();
         menuItemDisplayAllLogfile = new javax.swing.JMenuItem();
@@ -848,15 +842,6 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemUserDefinedFileType.setName("menuItemUserDefinedFileType"); // NOI18N
         menuWindow.add(menuItemUserDefinedFileType);
 
-        sep19.setName("sep19"); // NOI18N
-        menuWindow.add(sep19);
-
-        menuItemOutputWindow.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_T));
-        menuItemOutputWindow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_view_logfile.png"))); // NOI18N
-        menuItemOutputWindow.setText(bundle.getString("AppFrame.menuItemOutputWindow.text")); // NOI18N
-        menuItemOutputWindow.setName("menuItemOutputWindow"); // NOI18N
-        menuWindow.add(menuItemOutputWindow);
-
         sep20.setName("sep20"); // NOI18N
         menuWindow.add(sep20);
 
@@ -993,7 +978,6 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemMaintainDatabase;
     private javax.swing.JMenuItem menuItemMaintainance;
     private javax.swing.JMenuItem menuItemOpenPdfUserManual;
-    private javax.swing.JMenuItem menuItemOutputWindow;
     private javax.swing.JMenuItem menuItemScanDirectory;
     private javax.swing.JMenuItem menuItemSearch;
     private javax.swing.JMenuItem menuItemSendBugMail;
@@ -1038,7 +1022,6 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator sep16;
     private javax.swing.JPopupMenu.Separator sep17;
     private javax.swing.JPopupMenu.Separator sep18;
-    private javax.swing.JPopupMenu.Separator sep19;
     private javax.swing.JPopupMenu.Separator sep2;
     private javax.swing.JPopupMenu.Separator sep20;
     private javax.swing.JPopupMenu.Separator sep21;
