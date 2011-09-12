@@ -14,7 +14,9 @@ dist_files/.*
 \.orig$
 \.orig\..*$
 .*/private/.*
-^Program/src/org/jphototagger/program/resource/doc/de/index\.html
+^Program/src/org/jphototagger/program/resource/doc/.*/index\.html
+^Program/src/org/jphototagger/program/resource/doc/.*/doc\.html
+^Program/src/org/jphototagger/program/resource/doc/.*/doc_iso.*\.html
 \.rej$
 ^Support/.*
 ^Website/manual/.*
