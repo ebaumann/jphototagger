@@ -2,9 +2,7 @@ package org.jphototagger.program.view.panels;
 
 import java.awt.Container;
 import java.io.File;
-import java.util.logging.Level;
 
-import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.filechooser.FileSystemView;
 
@@ -143,16 +141,6 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
         storage.setBoolean(Storage.KEY_DISPLAY_SEARCH_BUTTON, display);
     }
 
-    private void handleActionPerformedComboBoxLogLevel() {
-        setLogLevel(Level.parse(comboBoxLogLevel.getSelectedItem().toString()));
-    }
-
-    private void setLogLevel(Level logLevel) {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
-
-        storage.setString(Storage.KEY_LOG_LEVEL, logLevel.toString());
-    }
-
     private void handleActionPerformedCopyMoveFiles() {
         boolean isConfirmOverwrite = radioButtonCopyMoveFileConfirmOverwrite.isSelected();
         boolean renameSourceFileIfTargetFileExists = radioButtonCopyMoveFileRenameIfExists.isSelected();
@@ -201,12 +189,6 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
         storage.setBoolean(Storage.KEY_ADD_FILENAME_TO_GPS_LOCATION_EXPORT, add);
     }
 
-    private void checkLogLevel() {
-        if (comboBoxLogLevel.getSelectedIndex() < 0) {
-            comboBoxLogLevel.setSelectedIndex(0);
-        }
-    }
-
     @EventSubscriber(eventClass = UserPropertyChangedEvent.class)
     public void applySettings(UserPropertyChangedEvent evt) {
         if (Storage.KEY_CHECK_FOR_UPDATES.equals(evt.getPropertyKey())) {
@@ -231,8 +213,6 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
 
     @Override
     public void readProperties() {
-        checkLogLevel();
-
         UserFilesProvider provider = Lookup.getDefault().lookup(UserFilesProvider.class);
 
         checkBoxAutoDownloadCheck.setSelected(isCheckForUpdates());
@@ -240,7 +220,6 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
         checkBoxIsAcceptHiddenDirectories.setSelected(isAcceptHiddenDirectories());
         checkBoxAddFilenameToGpsLocationExport.setSelected(isAddFilenameToGpsLocationExport());
         setIptcCharsetFromUserSettings();
-        comboBoxLogLevel.setSelectedItem(getLogLevel().getLocalizedName());
         labelDatabaseDirectory.setText(provider.getDatabaseDirectory().getAbsolutePath());
         labelDatabaseBackupDirectory.setText(provider.getDatabaseBackupDirectory().getAbsolutePath());
         radioButtonCopyMoveFileConfirmOverwrite.setSelected(getCopyMoveFilesOptions().equals(CopyFiles.Options.CONFIRM_OVERWRITE));
@@ -281,27 +260,6 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
                 : CopyFiles.Options.CONFIRM_OVERWRITE;
     }
 
-    private static Level getLogLevel() {
-        Level level = null;
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
-
-        if (storage.containsKey(Storage.KEY_LOG_LEVEL)) {
-            String levelString = storage.getString(Storage.KEY_LOG_LEVEL);
-
-            try {
-                level = Level.parse(levelString);
-            } catch (Exception ex) {
-                Logger.getLogger(SettingsMiscPanel.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
-        if (level == null) {
-            storage.setString(Storage.KEY_LOG_LEVEL, Level.INFO.getLocalizedName());
-        }
-
-        return level == null ? Level.INFO : level;
-    }
-
     @Override
     public void writeProperties() {
     }
@@ -332,8 +290,6 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
         radioButtonCopyMoveFileRenameIfExists = new javax.swing.JRadioButton();
         labelIptcCharset = new javax.swing.JLabel();
         comboBoxIptcCharset = new javax.swing.JComboBox();
-        labelLogLevel = new javax.swing.JLabel();
-        comboBoxLogLevel = new javax.swing.JComboBox();
         panelDatabaseDirectory = new javax.swing.JPanel();
         labelInfoDatabaseDirectory = new javax.swing.JLabel();
         buttonSetStandardDatabaseDirectoryName = new javax.swing.JButton();
@@ -439,18 +395,6 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
             }
         });
 
-        labelLogLevel.setLabelFor(comboBoxLogLevel);
-        labelLogLevel.setText(bundle.getString("SettingsMiscPanel.labelLogLevel.text")); // NOI18N
-        labelLogLevel.setName("labelLogLevel"); // NOI18N
-
-        comboBoxLogLevel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { java.util.logging.Level.WARNING.getLocalizedName(), java.util.logging.Level.SEVERE.getLocalizedName(), java.util.logging.Level.INFO.getLocalizedName(), java.util.logging.Level.CONFIG.getLocalizedName(), java.util.logging.Level.FINE.getLocalizedName(), java.util.logging.Level.FINER.getLocalizedName(), java.util.logging.Level.FINEST.getLocalizedName() }));
-        comboBoxLogLevel.setName("comboBoxLogLevel"); // NOI18N
-        comboBoxLogLevel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboBoxLogLevelActionPerformed(evt);
-            }
-        });
-
         panelDatabaseDirectory.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("SettingsMiscPanel.panelDatabaseDirectory.border.title"))); // NOI18N
         panelDatabaseDirectory.setName("panelDatabaseDirectory"); // NOI18N
 
@@ -546,16 +490,12 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
                     .addComponent(checkBoxDisplaySearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(checkBoxAddFilenameToGpsLocationExport)
                     .addComponent(checkBoxIsAcceptHiddenDirectories)
-                    .addComponent(panelDatabaseDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelCopyMoveFiles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(labelLogLevel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(comboBoxLogLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labelIptcCharset)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(comboBoxIptcCharset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(comboBoxIptcCharset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelDatabaseDirectory, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -578,10 +518,6 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
                     .addComponent(labelIptcCharset)
                     .addComponent(comboBoxIptcCharset, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelLogLevel)
-                    .addComponent(comboBoxLogLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelDatabaseDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -602,10 +538,6 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
     private void checkBoxIsAcceptHiddenDirectoriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxIsAcceptHiddenDirectoriesActionPerformed
         handleActionPerformedCheckBoxIsAcceptHiddenDirectories();
     }//GEN-LAST:event_checkBoxIsAcceptHiddenDirectoriesActionPerformed
-
-    private void comboBoxLogLevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxLogLevelActionPerformed
-        handleActionPerformedComboBoxLogLevel();
-    }//GEN-LAST:event_comboBoxLogLevelActionPerformed
 
     private void buttonChooseDatabaseDirectoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseDatabaseDirectoryActionPerformed
         handleActionPerformedChooseDatabaseDirectory(false);
@@ -645,12 +577,10 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
     private javax.swing.JCheckBox checkBoxDisplaySearchButton;
     private javax.swing.JCheckBox checkBoxIsAcceptHiddenDirectories;
     private javax.swing.JComboBox comboBoxIptcCharset;
-    private javax.swing.JComboBox comboBoxLogLevel;
     private javax.swing.JLabel labelDatabaseBackupDirectory;
     private javax.swing.JLabel labelDatabaseDirectory;
     private javax.swing.JLabel labelInfoDatabaseDirectory;
     private javax.swing.JLabel labelIptcCharset;
-    private javax.swing.JLabel labelLogLevel;
     private javax.swing.JLabel labelPromptDatabaseBackupDirectory;
     private javax.swing.JPanel panelCopyMoveFiles;
     private javax.swing.JPanel panelDatabaseDirectory;

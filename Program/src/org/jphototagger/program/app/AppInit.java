@@ -1,17 +1,12 @@
 package org.jphototagger.program.app;
 
 import java.awt.Toolkit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import javax.swing.SwingUtilities;
 
 import org.bushe.swing.event.EventBus;
 import org.jphototagger.domain.event.AppWillInitEvent;
 import org.jphototagger.domain.repository.Repository;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.lib.dialog.SystemOutputDialog;
 import org.jphototagger.lib.system.SystemUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.CommandLineParser;
@@ -64,7 +59,6 @@ public final class AppInit {
     private void init() {
         try {
             AppLookAndFeel.set();
-            captureOutput();    // Has to be called before AppLoggingSystem.init()!
             AppLoggingSystem.init();
             AppLogUtil.logSystemInfo();
             checkJavaVersion();
@@ -107,22 +101,6 @@ public final class AppInit {
 
     public AppCommandLineOptions getCommandLineOptions() {
         return commandLineOptions;
-    }
-
-    private void captureOutput() {
-        if (commandLineOptions.isCaptureOutput()) {
-            try {
-                SwingUtilities.invokeAndWait(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        SystemOutputDialog.INSTANCE.captureOutput();
-                    }
-                });
-            } catch (Exception ex) {
-                Logger.getLogger(AppInit.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
     }
 
     private static void lock() {

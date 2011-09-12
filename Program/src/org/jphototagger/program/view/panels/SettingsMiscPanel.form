@@ -35,18 +35,13 @@
                   <Component id="checkBoxDisplaySearchButton" alignment="0" min="-2" pref="367" max="-2" attributes="0"/>
                   <Component id="checkBoxAddFilenameToGpsLocationExport" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="checkBoxIsAcceptHiddenDirectories" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="panelDatabaseDirectory" alignment="0" max="32767" attributes="2"/>
                   <Component id="panelCopyMoveFiles" alignment="0" min="-2" max="-2" attributes="1"/>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="labelLogLevel" min="-2" max="-2" attributes="2"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="comboBoxLogLevel" min="-2" max="-2" attributes="0"/>
-                  </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="labelIptcCharset" min="-2" max="-2" attributes="2"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="comboBoxIptcCharset" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <Component id="panelDatabaseDirectory" alignment="1" max="32767" attributes="2"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -72,11 +67,6 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="labelIptcCharset" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="comboBoxIptcCharset" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="labelLogLevel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="comboBoxLogLevel" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="panelDatabaseDirectory" min="-2" max="-2" attributes="0"/>
@@ -228,28 +218,6 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboBoxIptcCharsetActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JLabel" name="labelLogLevel">
-      <Properties>
-        <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="comboBoxLogLevel"/>
-        </Property>
-        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="SettingsMiscPanel.labelLogLevel.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-        </Property>
-        <Property name="name" type="java.lang.String" value="labelLogLevel" noResource="true"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JComboBox" name="comboBoxLogLevel">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { java.util.logging.Level.WARNING.getLocalizedName(), java.util.logging.Level.SEVERE.getLocalizedName(), java.util.logging.Level.INFO.getLocalizedName(), java.util.logging.Level.CONFIG.getLocalizedName(), java.util.logging.Level.FINE.getLocalizedName(), java.util.logging.Level.FINER.getLocalizedName(), java.util.logging.Level.FINEST.getLocalizedName() })" type="code"/>
-        </Property>
-        <Property name="name" type="java.lang.String" value="comboBoxLogLevel" noResource="true"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboBoxLogLevelActionPerformed"/>
       </Events>
     </Component>
     <Container class="javax.swing.JPanel" name="panelDatabaseDirectory">
