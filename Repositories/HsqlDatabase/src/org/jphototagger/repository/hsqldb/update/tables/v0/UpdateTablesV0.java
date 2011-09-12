@@ -33,7 +33,7 @@ public final class UpdateTablesV0 implements Updater {
         new UpdateTablesPrograms().update(con);
         new UpdateTablesDeleteInvalidExif().update(con);
         new UpdateTablesThumbnails().update(con);
-        //new UpdateTablesDropCategories().update(con);
+        new UpdateTablesDropCategories().update(con);
         new UpdateTablesXmpDcSubjects().update(con);
         new UpdateTablesMake1n().update(con);
     }
