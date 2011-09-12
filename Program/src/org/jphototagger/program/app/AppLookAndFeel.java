@@ -1,8 +1,5 @@
 package org.jphototagger.program.app;
 
-import org.jphototagger.lib.componentutil.LookAndFeelUtil;
-import org.jphototagger.lib.dialog.HelpBrowser;
-import org.jphototagger.lib.image.util.IconUtil;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
@@ -10,10 +7,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.plaf.FontUIResource;
 import javax.swing.UIManager;
+import javax.swing.plaf.FontUIResource;
+
+import org.jphototagger.lib.componentutil.LookAndFeelUtil;
+import org.jphototagger.lib.dialog.HelpBrowser;
+import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.lib.util.Bundle;
 
 /**
@@ -21,6 +23,7 @@ import org.jphototagger.lib.util.Bundle;
  * @author Elmar Baumann
  */
 public final class AppLookAndFeel {
+
     private static final String ICONS_PATH = "/org/jphototagger/program/resource/icons";
     public static final String TABLE_CELL_CSS = "margin-left:3px;margin-right:3px;";
     public static final int TABLE_MAX_CHARS_CELL = 45;
@@ -73,7 +76,8 @@ public final class AppLookAndFeel {
         APP_ICONS.add(IconUtil.getIconImage(MEDIUM_APP_ICON_PATH));
     }
 
-    private AppLookAndFeel() {}
+    private AppLookAndFeel() {
+    }
 
     public static List<Image> getAppIcons() {
         return Collections.unmodifiableList(APP_ICONS);
@@ -111,8 +115,8 @@ public final class AppLookAndFeel {
         int lastPathDelim = path.lastIndexOf('/');
 
         return (lastPathDelim >= 0)
-               ? path.substring(0, lastPathDelim + 1) + lang + "/" + path.substring(lastPathDelim + 1)
-               : lang + "/" + path;
+                ? path.substring(0, lastPathDelim + 1) + lang + "/" + path.substring(lastPathDelim + 1)
+                : lang + "/" + path;
     }
 
     /**
@@ -290,8 +294,8 @@ public final class AppLookAndFeel {
     private static void setBoldFont(String key, boolean bold) {
         Font defaultFont = UIManager.getFont(key);
         int weight = bold
-                     ? Font.BOLD
-                     : Font.PLAIN;
+                ? Font.BOLD
+                : Font.PLAIN;
 
         if (defaultFont != null) {
             Font plainFont = new Font(defaultFont.getName(), defaultFont.isItalic()
