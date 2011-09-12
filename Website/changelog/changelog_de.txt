@@ -3,16 +3,37 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
-0.9.0 2011-08-
+0.9.0 2011-09-12
 ----------------
 
 * Neu: Fenster > Datenbankbrowser
-* "Datenbank automatisch sichern" entfernt
+* "Datenbank automatisch sichern" entfernt:
+  * Ein Backup sollte nicht Aufgabe (vieler verschiedener) Anwendungsprogramme
+    sein, die (nur) ihre Daten sichern, vielmehr sollte eine "Strategie"
+    eingeführt werden wie "dedizierte" Backup-Programme und (temporär mit dem
+    Computer verbundene) Backupmedien, z.B. externe Festplatten, die alles
+    sichern, was dem Benutzer wichtig ist
+  * Der Benutzer soll nicht in der falschen Annahme gewogen werden, er
+    sichere damit auch seine Fotos
+  * Bis auf einige Benutzerdaten ist die Datenbank nur ein Cache, die Datenbank
+    wird automatisch erneuert beim Auswählen eines Ordners mit Bildern
+    anhand der XMP-Filialdateien. Die Benuterdaten können exportiert und
+    re-importiert werden über "Datei > Exportieren > JPhotoTagger-Daten"
+    und "Datei > Importieren > JPhotoTagger-Daten"
+  * Das Sichern der Datenbank ist auch so möglich, falls erwünscht, z.B.
+    durch eine Batch-Datei (Skript): Der Speicherort wird angezeigt (z.B.)
+    unter "Datei > Datenbank", Kartenreiter "Info". Der Ordner inklusive
+    Unterordnern kopiert, sichert die Datenbank mit.
 * Export und Import des Lightroom-Stichwortbaums entfernt
-* "Experimentelle Dateiformate" werden zukünftig automatisch
-  aktiviert nach einem Test (keine Option mehr im
-  Einstellungen-Dialog)
-* Architektur signifikant gändert
+  * JPhotoTagger benutzt den Stichwortbaum nur als Eingabehilfe, nicht
+    zur Strukturierung/Kategorisierung, ein extra Menüeintrag könnte
+    darüber hinwegtäuschen
+  * Das Dateiformat des Lightroom-Stichwortbaums ist fehleranfällig
+    (kein XML)
+* "Experimentelle Dateiformate" werden zukünftig automatisch aktiviert nach
+  einem Test, es gibt keine Option mehr im Einstellungen-Dialog
+* Architektur signifikant gändert, damit zukünftige Erweiterungen einfacher
+  sind
 
 0.8.90 2011-07-28
 -----------------
