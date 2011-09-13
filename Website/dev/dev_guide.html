@@ -64,7 +64,7 @@
                 <h2>Use JPhotoTagger's API and Domain Projects (Java Service Provider Interface in general)</h2>
 
                 <p>Do not use implementations, use interfaces. We are using the <strong>Java Service Provider
-                   Interface</strong> to get implementations. With that lines of code you get an implementation:
+                   Interface (SPI)</strong> to get implementations. With that lines of code you get an implementation:
                 </p>
 
                 <pre>
@@ -115,6 +115,32 @@ implementation.doSomething();
                     take a look into the API project. For querying or modifying the repository (database), have also
                     a look into the Domain project.
                 </p>
+				
+				<h2>Events</h2>
+				
+				<p>JPhotoTagger publishes many events through <a href="http://eventbus.org/">EventBus</a>. 
+				Events are defined in the API and Domain projects. If you are interested into an event, 
+				e.g. if the user selects an image, you can do something like that:
+				</p>
+				
+<pre>
+public final class MyImageProcessor {
+
+    public MyImageProcessor() {
+        // Registering to EventBus
+        AnnotationProcessor.process(this);
+    }
+
+    @EventSubscriber(eventClass = ThumbnailsSelectionChangedEvent.class)
+    public void thumbnailsSelectionChanged(ThumbnailsSelectionChangedEvent event) {
+        List<File> selectedImageFiles = event.getSelectedImageFiles();
+	
+	    for (File imageFile : selectedImageFiles) {
+                processImageFile(imageFile);
+        }
+    }
+}
+</pre>
 
                 <h2>Commit and push changes</h2>
 
