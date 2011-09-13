@@ -112,7 +112,7 @@ final class ThumbnailUtil {
         return storage.getString(Storage.KEY_EXTERNAL_THUMBNAIL_CREATION_COMMAND);
     }
 
-    private static ThumbnailCreationStrategy getThumbnailCreationStrategy() {
+    static ThumbnailCreationStrategy getThumbnailCreationStrategy() {
         ThumbnailCreationStrategyProvider provider = Lookup.getDefault().lookup(ThumbnailCreationStrategyProvider.class);
 
         return provider.getThumbnailCreationStrategy();
