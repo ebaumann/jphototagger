@@ -67,11 +67,11 @@
                    Interface (SPI)</strong> to get implementations. With that lines of code you get an implementation:
                 </p>
 
-                <pre>
+<pre>
 MyInterfaceImplementation implementation = Lookup.getDefault().lookup(MyInterface.class);
 
 implementation.doSomething();
-                </pre>
+</pre>
 
                 <p>As an example, the currently used database implements <code>Repository</code> interfaces.
                     To use a different database and/or the JPA instead of JDBC, only the project implementing these
@@ -115,14 +115,14 @@ implementation.doSomething();
                     take a look into the API project. For querying or modifying the repository (database), have also
                     a look into the Domain project.
                 </p>
-				
+
 				<h2>Events</h2>
-				
-				<p>JPhotoTagger publishes many events through <a href="http://eventbus.org/">EventBus</a>. 
-				Events are defined in the API and Domain projects. If you are interested into an event, 
+
+				<p>JPhotoTagger publishes many events through <a href="http://eventbus.org/">EventBus</a>.
+				Events are defined in the API and Domain projects. If you are interested into an event,
 				e.g. if the user selects an image, you can do something like that:
 				</p>
-				
+
 <pre>
 public final class MyImageProcessor {
 
@@ -133,14 +133,39 @@ public final class MyImageProcessor {
 
     @EventSubscriber(eventClass = ThumbnailsSelectionChangedEvent.class)
     public void thumbnailsSelectionChanged(ThumbnailsSelectionChangedEvent event) {
-        List<File> selectedImageFiles = event.getSelectedImageFiles();
-	
+        List&lt;File&gt; selectedImageFiles = event.getSelectedImageFiles();
+
 	    for (File imageFile : selectedImageFiles) {
                 processImageFile(imageFile);
         }
     }
 }
 </pre>
+
+                <h2>Persist Settings</h2>
+
+                <p>Settings can stored and retrieved through <code>Storage</code>:
+                </p>
+<pre>
+private void writeSettings() {
+    Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+    storage.setString("MyModule.PreviousDirectory", directory.getAbsolutePath());
+    storage.setBoolean("MyModule.DeleteAlways", deleteAlways);
+    storage.setLocation("MyModule.MyDialogLocation", dialog);
+}
+
+private void readSettings() {
+    Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+    String previousDirectory = storage.getString("MyModule.PreviousDirectory");
+    boolean deleteAlways = storage.getBoolean("MyModule.DeleteAlways");
+    storage.applyLocation("MyModule.MyDialogLocation", dialog);
+}
+</pre>
+                <p>If you want react immediately to changes in user settings, subscribe to the
+                    <code>Eventbus</code> (see obove), you will get an <code>UserPropertyChangedEvent</code>.
+                </p>
 
                 <h2>Commit and push changes</h2>
 
