@@ -2,10 +2,14 @@ package org.jphototagger.program.app;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import org.jphototagger.api.image.ThumbnailCreator;
 import org.jphototagger.domain.filetypes.UserDefinedFileType;
 import org.jphototagger.domain.repository.UserDefinedFileTypesRepository;
 import org.jphototagger.lib.io.filefilter.RegexFileFilter;
@@ -34,6 +38,7 @@ public final class AppFileFilters {
     private final RegexFileFilter acceptedJpegFilesFilter;
     private final RegexFileFilter acceptedTiffFilesFilter;
     private final RegexFileFilter userDefinedFileTypesFilter;
+    private final RegexFileFilter servicesFileFilter;
     public static final AppFileFilters INSTANCE = new AppFileFilters();
 
     private AppFileFilters() {
@@ -43,14 +48,18 @@ public final class AppFileFilters {
         acceptedJpegFilesFilter = createAcceptedJpegFilesFiter();
         acceptedTiffFilesFilter = createAcceptedTiffFilesFiter();
         userDefinedFileTypesFilter = createUserDefindedFileTypesFilter();
+        servicesFileFilter = createServicesFileFilter();
 
         if (userDefinedFileTypesFilter != null) {
             allAcceptedImageFilesFilter.addAcceptPatternsOf(userDefinedFileTypesFilter);
         }
 
+        allAcceptedImageFilesFilter.addAcceptPatternsOf(servicesFileFilter);
+
         initDisplaynames();
     }
 
+    // Shall not differ from ThumbnailSupport!
     private RegexFileFilter createAllAcceptedImagesFileFilter() {
         return new RegexFileFilter(
                 ".*\\.[aA][rR][wW];" // Sony (Alpha) RAW
@@ -101,6 +110,21 @@ public final class AppFileFilters {
                 , ";");
     }
 
+    private RegexFileFilter createServicesFileFilter() {
+        List<String> suffixes = new ArrayList<String>();
+        Collection<? extends ThumbnailCreator> tnCreators = Lookup.getDefault().lookupAll(ThumbnailCreator.class);
+
+        for (ThumbnailCreator tnCreator : tnCreators) {
+            Set<String> tnCreatorSuffixes = tnCreator.getSupportedFileTypeSuffixes();
+
+            for (String suffix : tnCreatorSuffixes) {
+                suffixes.add(suffix);
+            }
+        }
+
+        return suffixesToRegexFileFilter(suffixes);
+    }
+
     private RegexFileFilter createUserDefindedFileTypesFilter() {
         UserDefinedFileTypesRepository repo = Lookup.getDefault().lookup(UserDefinedFileTypesRepository.class);
         List<UserDefinedFileType> fileTypes = repo.findAllUserDefinedFileTypes();
@@ -109,12 +133,22 @@ public final class AppFileFilters {
             return null;
         }
 
+        List<String> suffixes = new ArrayList<String>(fileTypes.size());
+
+        for (UserDefinedFileType fileType : fileTypes) {
+            suffixes.add(fileType.getSuffix());
+        }
+
+        return suffixesToRegexFileFilter(suffixes);
+    }
+
+    private RegexFileFilter suffixesToRegexFileFilter(Collection<String> suffixes) {
         StringBuilder sb = new StringBuilder();
         String delimiter = ";";
         boolean isFirst = true;
 
-        for (UserDefinedFileType fileType : fileTypes) {
-            String ignoreCaseuffix = toIgnoreCasePattern(fileType.getSuffix());
+        for (String suffix : suffixes) {
+            String ignoreCaseuffix = toIgnoreCasePattern(suffix);
 
             sb.append(isFirst ? "" : ";").append(".*\\.").append(ignoreCaseuffix);
             isFirst = false;
