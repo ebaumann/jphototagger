@@ -395,7 +395,7 @@ public final class InsertImageFilesIntoDatabase extends Thread implements Cancel
     }
 
     private void errorMessageNullThumbnail(File file) {
-        LOGGER.log(Level.WARNING, "Thumbnail couldn't be created for image file ''{0}''", file);
+        LOGGER.log(Level.WARNING, "Thumbnail couldn''t be created for image file ''{0}''", file);
     }
 
     private void informationMessagePerformed(File file) {
