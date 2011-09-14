@@ -8,12 +8,6 @@ import java.util.StringTokenizer;
 import org.jphototagger.lib.renderer.DisplayNameProvider;
 
 /**
- * Filter für Dateien, Verzeichnisse werden abgelehnt. Akzeptiert
- * reguläre Ausdrücke als Match-Pattern.
- *
- * All functions with object-reference-parameters are throwing a
- * <code>NullPointerException</code> if an object reference is null and it is
- * not documentet that it can be null.
  *
  * @author Elmar Baumann
  */
@@ -24,10 +18,15 @@ public final class RegexFileFilter implements java.io.FileFilter, Serializable, 
     private String displayname;
 
     public RegexFileFilter(RegexFileFilter other) {
+        set(other);
+    }
+
+    public void set(RegexFileFilter other) {
         if (other == null) {
             throw new NullPointerException("other == null");
         }
 
+        acceptedPatterns.clear();
         displayname = other.displayname;
         acceptedPatterns.addAll(other.acceptedPatterns);
     }
