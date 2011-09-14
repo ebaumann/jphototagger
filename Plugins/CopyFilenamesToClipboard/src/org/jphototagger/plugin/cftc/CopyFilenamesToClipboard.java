@@ -9,9 +9,12 @@ import java.util.Collection;
 
 import javax.swing.Icon;
 
+import org.bushe.swing.event.EventBus;
 import org.jphototagger.api.core.Storage;
-import org.jphototagger.api.plugin.FileProcessorPlugin;
-import org.jphototagger.api.plugin.FileProcessorPluginEvent;
+import org.jphototagger.api.plugin.fileprocessor.FileProcessedEvent;
+import org.jphototagger.api.plugin.fileprocessor.FileProcessingFinishedEvent;
+import org.jphototagger.api.plugin.fileprocessor.FileProcessingStartedEvent;
+import org.jphototagger.api.plugin.fileprocessor.FileProcessorPlugin;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.plugin.AbstractFileProcessorPlugin;
 import org.openide.util.Lookup;
@@ -61,7 +64,7 @@ public final class CopyFilenamesToClipboard extends AbstractFileProcessorPlugin 
 
     @Override
     public void processFiles(Collection<? extends File> files) {
-        notifyFileProcessorPluginListeners(new FileProcessorPluginEvent(FileProcessorPluginEvent.Type.PROCESSING_STARTED));
+        EventBus.publish(new FileProcessingStartedEvent(this));
         setDelimiter();
 
         StringBuilder sb = new StringBuilder();
@@ -71,18 +74,13 @@ public final class CopyFilenamesToClipboard extends AbstractFileProcessorPlugin 
             sb.append(index == 0
                     ? ""
                     : fileNameDelimiter).append(file.getAbsolutePath());
+            EventBus.publish(new FileProcessedEvent(this, file, false));
             index++;
         }
 
         Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(sb.toString()), null);
-        notifyFinished(files);
-    }
-
-    private void notifyFinished(Collection<? extends File> files) {
-        FileProcessorPluginEvent evt = new FileProcessorPluginEvent(FileProcessorPluginEvent.Type.PROCESSING_FINISHED_SUCCESS);
-
-        evt.setProcessedFiles(files);
-        notifyFileProcessorPluginListeners(evt);
+        EventBus.publish(new FileProcessingFinishedEvent(this, true));
+        releaseProgressBar();
     }
 
     private void setDelimiter() {

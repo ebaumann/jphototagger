@@ -1,17 +1,20 @@
 package org.jphototagger.program.controller.plugin;
 
-import org.jphototagger.api.plugin.FileProcessorPluginEvent;
-import org.jphototagger.api.plugin.FileProcessorPluginListener;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.List;
+
 import javax.swing.Action;
 import javax.swing.JMenuItem;
-import org.jphototagger.api.plugin.FileProcessorPlugin;
+
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.plugin.Plugin;
+import org.jphototagger.api.plugin.fileprocessor.FileProcessedEvent;
+import org.jphototagger.api.plugin.fileprocessor.FileProcessorPlugin;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
 
 /**
  * Listens to items of {@link PopupMenuThumbnails#getMenuPlugins()} and sets
@@ -26,13 +29,10 @@ public final class ControllerFileProcessorPlugins implements ActionListener {
     }
 
     private void listen() {
+        AnnotationProcessor.process(this);
+
         for (JMenuItem item : PopupMenuThumbnails.INSTANCE.getFileProcessorPluginMenuItems()) {
             item.addActionListener(this);
-
-            FileProcessorPlugin plugin = PopupMenuThumbnails.INSTANCE.getFileProcessorPluginOfItem(item);
-            Listener pluginListener = new Listener();
-
-            plugin.addFileProcessorPluginListener(pluginListener);
         }
     }
 
@@ -58,22 +58,10 @@ public final class ControllerFileProcessorPlugins implements ActionListener {
         }
     }
 
-    private static class Listener implements FileProcessorPluginListener {
-
-        Listener() {
-        }
-
-        @Override
-        public void action(FileProcessorPluginEvent evt) {
-            if (evt == null) {
-                throw new NullPointerException("evt == null");
-            }
-
-            if (evt.filesChanged()) {
-                for (File changedFile : evt.getChangedFiles()) {
-                    GUI.getThumbnailsPanel().repaintFile(changedFile);
-                }
-            }
+    @EventSubscriber(eventClass = FileProcessedEvent.class)
+    public void fileProcessed(FileProcessedEvent evt) {
+        if (evt.isFileChanged()) {
+            GUI.getThumbnailsPanel().repaintFile(evt.getFile());
         }
     }
 }

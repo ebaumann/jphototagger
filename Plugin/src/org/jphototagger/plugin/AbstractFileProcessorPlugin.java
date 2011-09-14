@@ -1,13 +1,8 @@
 package org.jphototagger.plugin;
 
-import java.util.Set;
-import java.util.concurrent.CopyOnWriteArraySet;
-
 import javax.swing.JProgressBar;
 
-import org.jphototagger.api.plugin.FileProcessorPlugin;
-import org.jphototagger.api.plugin.FileProcessorPluginEvent;
-import org.jphototagger.api.plugin.FileProcessorPluginListener;
+import org.jphototagger.api.plugin.fileprocessor.FileProcessorPlugin;
 import org.jphototagger.api.windows.ProgressBarProvider;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.openide.util.Lookup;
@@ -21,39 +16,6 @@ public abstract class AbstractFileProcessorPlugin implements FileProcessorPlugin
 
     private JProgressBar progressBar;
     private boolean progressBarIsStringPainted;
-    private final Set<FileProcessorPluginListener> fileProcessorPluginListeners = new CopyOnWriteArraySet<FileProcessorPluginListener>();
-
-    public void addFileProcessorPluginListener(FileProcessorPluginListener listener) {
-        if (listener == null) {
-            throw new NullPointerException("listener == null");
-        }
-
-        fileProcessorPluginListeners.add(listener);
-    }
-
-    public void removeFileProcessorPluginListener(FileProcessorPluginListener listener) {
-        if (listener == null) {
-            throw new NullPointerException("listener == null");
-        }
-
-        fileProcessorPluginListeners.remove(listener);
-    }
-
-    protected void notifyFileProcessorPluginListeners(FileProcessorPluginEvent event) {
-        if (event == null) {
-            throw new NullPointerException("event == null");
-        }
-
-        if (fileProcessorPluginListeners.size() > 0) {
-            for (FileProcessorPluginListener listener : fileProcessorPluginListeners) {
-                listener.action(event);
-            }
-        }
-
-        if (event.getType().isFinished()) {
-            releaseProgressBar();
-        }
-    }
 
     private void getProgressBarFromService() {
         if (progressBar != null) {
@@ -67,7 +29,7 @@ public abstract class AbstractFileProcessorPlugin implements FileProcessorPlugin
         }
     }
 
-    private void releaseProgressBar() {
+    protected void releaseProgressBar() {
         if (progressBar == null) {
             return;
         }

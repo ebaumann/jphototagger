@@ -16,7 +16,7 @@ import javax.swing.JPopupMenu.Separator;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-import org.jphototagger.api.plugin.FileProcessorPlugin;
+import org.jphototagger.api.plugin.fileprocessor.FileProcessorPlugin;
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.repository.ProgramType;
 import org.jphototagger.domain.repository.ProgramsRepository;
