@@ -15,6 +15,8 @@ public interface ThumbnailProvider {
     public static final int DEFAULT_THUMBNAIL_WIDTH = 150;
 
     /**
+     * Returns an usually already created thumbnail (in opposite to a
+     * {@link ThumbnailCreator}, which creates a new/fresh thumbnail).
      *
      * @param  imageFile
      * @return           thumbnail of the image file or null
