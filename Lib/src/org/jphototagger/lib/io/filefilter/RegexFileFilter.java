@@ -2,8 +2,8 @@ package org.jphototagger.lib.io.filefilter;
 
 import java.io.File;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 /**
@@ -18,7 +18,7 @@ import java.util.StringTokenizer;
  */
 public final class RegexFileFilter implements java.io.FileFilter, Serializable {
     private static final long serialVersionUID = 5995205186843465364L;
-    private List<String> acceptedPatterns = new ArrayList<String>();
+    private Set<String> acceptedPatterns = new HashSet<String>();
 
     public RegexFileFilter(RegexFileFilter other) {
         if (other == null) {
@@ -120,8 +120,8 @@ public final class RegexFileFilter implements java.io.FileFilter, Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
+        if (obj == this) {
+            return true;
         }
 
         if (!(obj instanceof RegexFileFilter)) {
