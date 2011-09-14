@@ -16,8 +16,6 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 import org.jphototagger.api.core.Storage;
-import org.jphototagger.api.image.ThumbnailCreationStrategy;
-import org.jphototagger.api.image.ThumbnailCreationStrategyProvider;
 import org.jphototagger.domain.filetypes.UserDefinedFileType;
 import org.jphototagger.domain.repository.UserDefinedFileTypesRepository;
 import org.jphototagger.exif.ExifMetadata;

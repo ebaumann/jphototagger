@@ -1,8 +1,8 @@
 package org.jphototagger.program.view.panels;
 
 import org.jphototagger.api.core.Storage;
-import org.jphototagger.api.image.ThumbnailCreationStrategy;
-import org.jphototagger.api.image.ThumbnailCreationStrategyProvider;
+import org.jphototagger.program.image.thumbnail.ThumbnailCreationStrategy;
+import org.jphototagger.program.image.thumbnail.ThumbnailCreationStrategyProvider;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 

@@ -15,8 +15,8 @@ import javax.swing.JRadioButton;
 import org.jphototagger.api.core.Storage;
 import org.jphototagger.api.image.ExternalThumbnailCreationCommand;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.api.image.ThumbnailCreationStrategy;
-import org.jphototagger.api.image.ThumbnailCreationStrategyProvider;
+import org.jphototagger.program.image.thumbnail.ThumbnailCreationStrategy;
+import org.jphototagger.program.image.thumbnail.ThumbnailCreationStrategyProvider;
 import org.jphototagger.program.types.Persistence;
 import org.openide.util.Lookup;
 

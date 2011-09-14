@@ -4,7 +4,6 @@ import java.awt.Image;
 import java.io.File;
 import java.util.Set;
 
-import org.jphototagger.api.image.ThumbnailCreationStrategy;
 import org.jphototagger.api.image.ThumbnailCreator;
 import org.openide.util.lookup.ServiceProvider;
 

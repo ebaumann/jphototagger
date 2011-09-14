@@ -1,4 +1,4 @@
-package org.jphototagger.api.image;
+package org.jphototagger.program.image.thumbnail;
 
 /**
  * How to create humbnails.
