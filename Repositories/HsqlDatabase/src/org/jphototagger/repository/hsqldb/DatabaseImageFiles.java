@@ -22,7 +22,6 @@ import java.util.logging.Logger;
 import org.bushe.swing.event.EventBus;
 import org.jphototagger.api.event.ProgressEvent;
 import org.jphototagger.api.event.ProgressListener;
-import org.jphototagger.api.image.ThumbnailCreator;
 import org.jphototagger.domain.exif.Exif;
 import org.jphototagger.domain.image.ImageFile;
 import org.jphototagger.domain.metadata.MetaDataValue;
@@ -65,6 +64,7 @@ import org.jphototagger.domain.xmp.FileXmp;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.domain.metadata.search.Join;
 import org.jphototagger.domain.metadata.search.Join.Type;
+import org.jphototagger.lib.image.util.ThumbnailCreatorService;
 import org.jphototagger.xmp.XmpMetadata;
 import org.openide.util.Lookup;
 
@@ -77,7 +77,6 @@ final class DatabaseImageFiles extends Database {
 
     static final DatabaseImageFiles INSTANCE = new DatabaseImageFiles();
     private final ThumbnailsRepository tnRepo = Lookup.getDefault().lookup(ThumbnailsRepository.class);
-    private final ThumbnailCreator tnCreator = Lookup.getDefault().lookup(ThumbnailCreator.class);
 
     private enum DcSubjectOption {
 
@@ -564,7 +563,7 @@ final class DatabaseImageFiles extends Database {
 
             while (!progressEvent.isCancel() && rs.next()) {
                 File imgFile = getFile(rs.getString(1));
-                Image thumbnail = tnCreator.createThumbnail(imgFile);
+                Image thumbnail = ThumbnailCreatorService.INSTANCE.createScaledOrFromEmbeddedThumbnail(imgFile);
 
                 if (thumbnail != null) {
                     updateThumbnailFile(imgFile, thumbnail);

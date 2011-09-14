@@ -52,5 +52,7 @@ public interface ThumbnailCreator {
      *
      * @return suffixes without leading dot, e.g. "cr2", "nef"
      */
-    Set<String> getSupportedFileTypeSuffixes();
+    Set<String> getAllSupportedFileTypeSuffixes();
+
+    Set<String> getSupportedRawFormatFileTypeSuffixes();
 }

@@ -2,9 +2,9 @@ package org.jphototagger.program.app;
 
 import java.io.File;
 import java.io.FileFilter;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -32,62 +32,35 @@ public final class AppFileFilters {
     public static final FileFilter XMP_RATING_4_STARS = new XmpRatingFileFilter(4);
     public static final FileFilter XMP_RATING_5_STARS = new XmpRatingFileFilter(5);
     private final Map<FileFilter, String> displayNameOfFilter = new HashMap<FileFilter, String>();
+    private final Set<String> allAcceptedSuffixes = new HashSet<String>();
+    private final Set<String> acceptedRawSuffixes = new HashSet<String>();
+    private final Set<String> userDefinedFileTypesSuffixes = new HashSet<String>();
     private final RegexFileFilter allAcceptedImageFilesFilter;
     private final RegexFileFilter acceptedRawFilesFilter;
     private final RegexFileFilter acceptedDngFilesFilter;
     private final RegexFileFilter acceptedJpegFilesFilter;
     private final RegexFileFilter acceptedTiffFilesFilter;
     private final RegexFileFilter userDefinedFileTypesFilter;
-    private final RegexFileFilter servicesFileFilter;
     public static final AppFileFilters INSTANCE = new AppFileFilters();
 
     private AppFileFilters() {
-        allAcceptedImageFilesFilter = createAllAcceptedImagesFileFilter();
-        acceptedRawFilesFilter = createAcceptedRawFilesFiter();
         acceptedDngFilesFilter = createAcceptedDngFilesFiter();
         acceptedJpegFilesFilter = createAcceptedJpegFilesFiter();
         acceptedTiffFilesFilter = createAcceptedTiffFilesFiter();
-        userDefinedFileTypesFilter = createUserDefindedFileTypesFilter();
-        servicesFileFilter = createServicesFileFilter();
 
-        if (userDefinedFileTypesFilter != null) {
-            allAcceptedImageFilesFilter.addAcceptPatternsOf(userDefinedFileTypesFilter);
-        }
+        setAcceptedRawFilesFiter();
+        acceptedRawFilesFilter = createRegexFileFilterFromSuffixes(acceptedRawSuffixes);
 
-        allAcceptedImageFilesFilter.addAcceptPatternsOf(servicesFileFilter);
+        setUserDefindedFileTypesSuffixes();
+        userDefinedFileTypesFilter = userDefinedFileTypesSuffixes.isEmpty()
+                ? null
+                : createRegexFileFilterFromSuffixes(userDefinedFileTypesSuffixes);
+
+        // Has invoked after all others!
+        setAllAcceptedImagesFileFilter();
+        allAcceptedImageFilesFilter = createRegexFileFilterFromSuffixes(allAcceptedSuffixes);
 
         initDisplaynames();
-    }
-
-    // Shall not differ from ThumbnailSupport!
-    private RegexFileFilter createAllAcceptedImagesFileFilter() {
-        return new RegexFileFilter(
-                ".*\\.[aA][rR][wW];" // Sony (Alpha) RAW
-                + ".*\\.[cC][rR][wW];" // Canon RAW
-                + ".*\\.[cC][rR]2;" // Canon RAW 2
-                + ".*\\.[dD][cC][rR];" // Kodak RAW
-                + ".*\\.[dD][nN][gG];" // Digal Negative
-                + ".*\\.[jJ][pP][gG];" // Joint Photographic Experts Group
-                + ".*\\.[jJ][pP][eE][gG];" // Joint Photographic Experts Group
-                + ".*\\.[mM][rR][wW];" // Minolta RAW
-                + ".*\\.[nN][eE][fF];" // Nikon RAW
-                + ".*\\.[sS][rR][wW];" // Samsung RAW
-                + ".*\\.[tT][hH][mM];" // EXIF Info
-                + ".*\\.[tT][iI][fF];" // Tagged Image File Format
-                + ".*\\.[tT][iI][fF][fF];" // Tagged Image File Format
-                , ";");
-    }
-
-    private RegexFileFilter createAcceptedRawFilesFiter() {
-        return new RegexFileFilter(
-                ".*\\.[aA][rR][wW];" // Sony (Alpha) RAW
-                + ".*\\.[cC][rR][wW];" // Canon RAW
-                + ".*\\.[cC][rR]2;" // Canon RAW 2
-                + ".*\\.[dD][cC][rR];" // Kodak RAW
-                + ".*\\.[mM][rR][wW];" // Minolta RAW
-                + ".*\\.[nN][eE][fF];" // Nikon RAW
-                + ".*\\.[sS][rR][wW];" // Samsung RAW
-                , ";");
     }
 
     private RegexFileFilter createAcceptedDngFilesFiter() {
@@ -110,39 +83,38 @@ public final class AppFileFilters {
                 , ";");
     }
 
-    private RegexFileFilter createServicesFileFilter() {
-        List<String> suffixes = new ArrayList<String>();
+    private void setAcceptedRawFilesFiter() {
         Collection<? extends ThumbnailCreator> tnCreators = Lookup.getDefault().lookupAll(ThumbnailCreator.class);
 
         for (ThumbnailCreator tnCreator : tnCreators) {
-            Set<String> tnCreatorSuffixes = tnCreator.getSupportedFileTypeSuffixes();
+            Set<String> tnCreatorSuffixes = tnCreator.getSupportedRawFormatFileTypeSuffixes();
 
-            for (String suffix : tnCreatorSuffixes) {
-                suffixes.add(suffix);
+            acceptedRawSuffixes.addAll(tnCreatorSuffixes);
             }
         }
 
-        return suffixesToRegexFileFilter(suffixes);
-    }
-
-    private RegexFileFilter createUserDefindedFileTypesFilter() {
+    private void setUserDefindedFileTypesSuffixes() {
         UserDefinedFileTypesRepository repo = Lookup.getDefault().lookup(UserDefinedFileTypesRepository.class);
         List<UserDefinedFileType> fileTypes = repo.findAllUserDefinedFileTypes();
 
-        if (fileTypes.isEmpty()) {
-            return null;
-        }
-
-        List<String> suffixes = new ArrayList<String>(fileTypes.size());
-
         for (UserDefinedFileType fileType : fileTypes) {
-            suffixes.add(fileType.getSuffix());
+            userDefinedFileTypesSuffixes.add(fileType.getSuffix());
         }
-
-        return suffixesToRegexFileFilter(suffixes);
     }
 
-    private RegexFileFilter suffixesToRegexFileFilter(Collection<String> suffixes) {
+    private void setAllAcceptedImagesFileFilter() {
+        Collection<? extends ThumbnailCreator> tnCreators = Lookup.getDefault().lookupAll(ThumbnailCreator.class);
+
+        for (ThumbnailCreator tnCreator : tnCreators) {
+            Set<String> tnCreatorSuffixes = tnCreator.getAllSupportedFileTypeSuffixes();
+
+            allAcceptedSuffixes.addAll(tnCreatorSuffixes);
+        }
+
+        allAcceptedSuffixes.addAll(userDefinedFileTypesSuffixes);
+    }
+
+    private RegexFileFilter createRegexFileFilterFromSuffixes(Collection<? extends String> suffixes) {
         StringBuilder sb = new StringBuilder();
         String delimiter = ";";
         boolean isFirst = true;

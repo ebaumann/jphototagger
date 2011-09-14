@@ -16,7 +16,6 @@ import org.bushe.swing.event.EventBus;
 import org.jphototagger.api.core.Storage;
 import org.jphototagger.api.event.ProgressEvent;
 import org.jphototagger.api.event.ProgressListener;
-import org.jphototagger.api.image.ThumbnailCreator;
 import org.jphototagger.domain.event.listener.ProgressListenerSupport;
 import org.jphototagger.domain.exif.Exif;
 import org.jphototagger.domain.image.ImageFile;
@@ -33,6 +32,7 @@ import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.exif.ExifMetadata;
 import org.jphototagger.exif.cache.ExifCache;
 import org.jphototagger.lib.concurrent.Cancelable;
+import org.jphototagger.lib.image.util.ThumbnailCreatorService;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.program.app.AppLookAndFeel;
@@ -56,7 +56,6 @@ public final class InsertImageFilesIntoDatabase extends Thread implements Cancel
     private boolean cancel;
     private static final Logger LOGGER = Logger.getLogger(InsertImageFilesIntoDatabase.class.getName());
     private final ThumbnailsRepository tnRepo = Lookup.getDefault().lookup(ThumbnailsRepository.class);
-    private final ThumbnailCreator tnCreator = Lookup.getDefault().lookup(ThumbnailCreator.class);
 
     /**
      * Constructor.
@@ -218,7 +217,7 @@ public final class InsertImageFilesIntoDatabase extends Thread implements Cancel
 
     private void createAndSetThumbnail(ImageFile imageFile) {
         File file = imageFile.getFile();
-        Image thumbnail = tnCreator.createThumbnail(file);
+        Image thumbnail = ThumbnailCreatorService.INSTANCE.createScaledOrFromEmbeddedThumbnail(file);
 
         imageFile.setThumbnail(thumbnail);
 
