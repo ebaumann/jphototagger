@@ -5,7 +5,7 @@ package org.jphototagger.api.image;
  *
  * @author Elmar Baumann
  */
-public interface ExternalThumbnailCreator {
+public interface ExternalThumbnailCreationCommand {
 
     /**
      *

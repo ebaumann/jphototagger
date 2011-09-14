@@ -13,7 +13,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JRadioButton;
 
 import org.jphototagger.api.core.Storage;
-import org.jphototagger.api.image.ExternalThumbnailCreator;
+import org.jphototagger.api.image.ExternalThumbnailCreationCommand;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.api.image.ThumbnailCreationStrategy;
 import org.jphototagger.api.image.ThumbnailCreationStrategyProvider;
@@ -106,9 +106,9 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
 
     private JPopupMenu createExternalThumbnailCreatorPopupMenu() {
         JPopupMenu popupMenu = new JPopupMenu();
-        Collection<? extends ExternalThumbnailCreator> externalThumbnailCreators = Lookup.getDefault().lookupAll(ExternalThumbnailCreator.class);
+        Collection<? extends ExternalThumbnailCreationCommand> externalThumbnailCreators = Lookup.getDefault().lookupAll(ExternalThumbnailCreationCommand.class);
 
-        for (ExternalThumbnailCreator externalThumbnailCreator : externalThumbnailCreators) {
+        for (ExternalThumbnailCreationCommand externalThumbnailCreator : externalThumbnailCreators) {
             if (externalThumbnailCreator.isEnabled()) {
                 ExternalThumbnailCreatorAction action = new ExternalThumbnailCreatorAction(externalThumbnailCreator);
 
@@ -121,9 +121,9 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
 
     private class ExternalThumbnailCreatorAction extends AbstractAction {
         private static final long serialVersionUID = 1L;
-        private final ExternalThumbnailCreator externalThumbnailCreator;
+        private final ExternalThumbnailCreationCommand externalThumbnailCreator;
 
-        private ExternalThumbnailCreatorAction(ExternalThumbnailCreator externalThumbnailCreator) {
+        private ExternalThumbnailCreatorAction(ExternalThumbnailCreationCommand externalThumbnailCreator) {
             putValue(Action.NAME, externalThumbnailCreator.getDisplayName());
             this.externalThumbnailCreator = externalThumbnailCreator;
         }
