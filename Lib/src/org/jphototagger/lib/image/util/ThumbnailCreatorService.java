@@ -85,7 +85,7 @@ public final class ThumbnailCreatorService {
 
         return (width != Integer.MIN_VALUE)
                 ? width
-                : ThumbnailProvider.DEFAULT_THUMBNAIL_WIDTH;
+                : 150;
     }
 
     private ThumbnailCreatorService() {

@@ -1,21 +1,23 @@
 package org.jphototagger.program.controller.thumbnail;
 
-import org.jphototagger.lib.event.util.KeyEventUtil;
-import org.jphototagger.domain.event.UserPropertyChangedEvent;
-import org.jphototagger.program.resource.GUI;
 import java.awt.AWTEvent;
+import java.awt.Toolkit;
 import java.awt.event.AWTEventListener;
 import java.awt.event.KeyEvent;
-import java.awt.Toolkit;
+
+import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.JSlider;
+
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.core.Storage;
-import org.jphototagger.api.image.ThumbnailProvider;
+import org.jphototagger.domain.event.UserPropertyChangedEvent;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsChangedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.event.util.KeyEventUtil;
+import org.jphototagger.program.image.thumbnail.ThumbnailDefaults;
+import org.jphototagger.program.resource.GUI;
 import org.openide.util.Lookup;
 
 /**
@@ -53,7 +55,7 @@ public final class ControllerSliderThumbnailSize implements AWTEventListener, Ch
 
         return (width != Integer.MIN_VALUE)
                 ? width
-                : ThumbnailProvider.DEFAULT_THUMBNAIL_WIDTH;
+                : ThumbnailDefaults.DEFAULT_THUMBNAIL_WIDTH;
     }
 
     private void initSlider() {
