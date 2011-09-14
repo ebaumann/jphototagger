@@ -16,12 +16,15 @@ import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.JOptionPane;
 
+import org.bushe.swing.event.EventBus;
 import org.jphototagger.api.image.ThumbnailProvider;
-import org.jphototagger.api.plugin.FileProcessorPlugin;
-import org.jphototagger.api.plugin.FileProcessorPluginEvent;
-import org.jphototagger.lib.image.util.ImageUtil;
+import org.jphototagger.api.plugin.fileprocessor.FileProcessedEvent;
+import org.jphototagger.api.plugin.fileprocessor.FileProcessingFinishedEvent;
+import org.jphototagger.api.plugin.fileprocessor.FileProcessingStartedEvent;
+import org.jphototagger.api.plugin.fileprocessor.FileProcessorPlugin;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.image.util.IconUtil;
+import org.jphototagger.lib.image.util.ImageUtil;
 import org.jphototagger.lib.io.IoUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.plugin.AbstractFileProcessorPlugin;
@@ -111,9 +114,8 @@ public final class FlickrUpload extends AbstractFileProcessorPlugin implements S
             int index = 0;
             FileInputStream is = null;
             boolean success = true;
-            List<File> processedFiles = new ArrayList<File>(size);
 
-            notifyFileProcessorPluginListeners(new FileProcessorPluginEvent(FileProcessorPluginEvent.Type.PROCESSING_STARTED));
+            EventBus.publish(new FileProcessingStartedEvent(this));
             progressStarted(0, size, 0, PROGRESS_BAR_STRING);
 
             File imageFile = null;
@@ -124,7 +126,7 @@ public final class FlickrUpload extends AbstractFileProcessorPlugin implements S
                     is = new FileInputStream(imageFile);
                     uploader.upload(is, getUploadMetaData(imageInfo));
                     is.close();
-                    processedFiles.add(imageFile);
+                    EventBus.publish(new FileProcessedEvent(this, imageFile, false));
                     progressPerformed(0, size, ++index, PROGRESS_BAR_STRING);
                 } catch (Exception ex) {
                     logDisplayUploadException(ex, imageFile);
@@ -136,31 +138,23 @@ public final class FlickrUpload extends AbstractFileProcessorPlugin implements S
                 }
             }
 
-            uploadFinished(index, processedFiles, success);
+            uploadFinished(index, success);
         }
 
         private Uploader createUploader() {
             return new Uploader("1efba3cf4198b683047512bec1429f19", "b58bc39d8aedd4c5");
         }
 
-        private void uploadFinished(int index, List<File> processedFiles, boolean success) throws HeadlessException {
+        private void uploadFinished(int uploadCount, boolean success) throws HeadlessException {
             progressEnded();
-            JOptionPane.showMessageDialog(ComponentUtil.getFrameWithIcon(), Bundle.getString(FlickrUpload.class, "FlickrUpload.Info.UploadCount", index));
-            notifyFinished(processedFiles, success);
+            JOptionPane.showMessageDialog(ComponentUtil.getFrameWithIcon(), Bundle.getString(FlickrUpload.class, "FlickrUpload.Info.UploadCount", uploadCount));
+            EventBus.publish(new FileProcessingFinishedEvent(this, success));
+            releaseProgressBar();
         }
 
         private void logDisplayUploadException(Exception ex, File imageFile) throws HeadlessException {
             Logger.getLogger(FlickrUpload.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(ComponentUtil.getFrameWithIcon(), Bundle.getString(FlickrUpload.class, "FlickrUpload.Error.Upload", imageFile));
-        }
-
-        private void notifyFinished(List<File> processedFiles, boolean success) {
-            FileProcessorPluginEvent evt = new FileProcessorPluginEvent(success
-                    ? FileProcessorPluginEvent.Type.PROCESSING_FINISHED_SUCCESS
-                    : FileProcessorPluginEvent.Type.PROCESSING_FINISHED_ERRORS);
-
-            evt.setProcessedFiles(processedFiles);
-            notifyFileProcessorPluginListeners(evt);
         }
 
         private UploadMetaData getUploadMetaData(ImageInfo imageInfo) {

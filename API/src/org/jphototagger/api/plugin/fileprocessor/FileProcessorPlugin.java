@@ -1,8 +1,9 @@
-package org.jphototagger.api.plugin;
+package org.jphototagger.api.plugin.fileprocessor;
 
 import java.io.File;
 import java.util.Collection;
 import java.util.List;
+import org.jphototagger.api.plugin.Plugin;
 
 /**
  * A Plugin processing in the UI selected files. JPhotoTagger presents the
@@ -15,6 +16,4 @@ import java.util.List;
 public interface FileProcessorPlugin extends Plugin {
 
     void processFiles(Collection<? extends File> files);
-    void addFileProcessorPluginListener(FileProcessorPluginListener listener);
-    void removeFileProcessorPluginListener(FileProcessorPluginListener listener);
 }
