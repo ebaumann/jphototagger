@@ -8,10 +8,10 @@ import javax.swing.SpinnerNumberModel;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.core.Storage;
-import org.jphototagger.api.image.ThumbnailProvider;
 import org.jphototagger.domain.event.UserPropertyChangedEvent;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.program.helper.UpdateAllThumbnails;
+import org.jphototagger.program.image.thumbnail.ThumbnailDefaults;
 import org.jphototagger.program.types.Persistence;
 import org.openide.util.Lookup;
 
@@ -69,7 +69,7 @@ public class SettingsThumbnailDimensionsPanel extends javax.swing.JPanel impleme
 
         return (width != Integer.MIN_VALUE)
                 ? width
-                : ThumbnailProvider.DEFAULT_THUMBNAIL_WIDTH;
+                : ThumbnailDefaults.DEFAULT_THUMBNAIL_WIDTH;
     }
 
     @Override
@@ -123,7 +123,7 @@ public class SettingsThumbnailDimensionsPanel extends javax.swing.JPanel impleme
         gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 0);
         add(labelMaxThumbnailWidth, gridBagConstraints);
 
-        spinnerMaxThumbnailWidth.setModel(new SpinnerNumberModel(ThumbnailProvider.DEFAULT_THUMBNAIL_WIDTH, ThumbnailProvider.MIN_THUMBNAIL_WIDTH, ThumbnailProvider.MAX_THUMBNAIL_WIDTH, 50));
+        spinnerMaxThumbnailWidth.setModel(new SpinnerNumberModel(ThumbnailDefaults.DEFAULT_THUMBNAIL_WIDTH, ThumbnailDefaults.MIN_THUMBNAIL_WIDTH, ThumbnailDefaults.MAX_THUMBNAIL_WIDTH, 50));
         spinnerMaxThumbnailWidth.setName("spinnerMaxThumbnailWidth"); // NOI18N
         spinnerMaxThumbnailWidth.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
