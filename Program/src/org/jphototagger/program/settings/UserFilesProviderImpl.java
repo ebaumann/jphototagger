@@ -5,7 +5,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.jphototagger.api.core.UserFilesProvider;
-import org.jphototagger.api.file.Filename;
+import org.jphototagger.api.file.FilenameTokens;
 import org.openide.util.lookup.ServiceProvider;
 
 /**
@@ -67,7 +67,7 @@ public final class UserFilesProviderImpl implements UserFilesProvider {
     }
 
     @Override
-    public String getDatabaseFileName(Filename name) {
+    public String getDatabaseFileName(FilenameTokens name) {
         return UserSettings.INSTANCE.getDatabaseFileName(name);
     }
 

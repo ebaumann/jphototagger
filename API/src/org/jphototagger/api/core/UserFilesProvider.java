@@ -1,7 +1,7 @@
 package org.jphototagger.api.core;
 
 import java.io.File;
-import org.jphototagger.api.file.Filename;
+import org.jphototagger.api.file.FilenameTokens;
 
 /**
  *
@@ -19,7 +19,7 @@ public interface UserFilesProvider {
 
     File getDatabaseBackupDirectory();
 
-    String getDatabaseFileName(Filename name);
+    String getDatabaseFileName(FilenameTokens name);
 
     String getDatabaseBasename();
 

@@ -5,7 +5,7 @@ package org.jphototagger.api.file;
  *
  * @author Elmar Baumann
  */
-public enum Filename {
+public enum FilenameTokens {
 
     /**
      * The prefix of a filename without it's parent directories
