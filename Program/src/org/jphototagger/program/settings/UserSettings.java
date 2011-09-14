@@ -10,7 +10,7 @@ import org.jphototagger.lib.util.PropertiesFile;
 import org.jphototagger.lib.util.Settings;
 import org.jphototagger.program.app.AppInfo;
 import org.jphototagger.program.app.update.UpdateUserSettings;
-import org.jphototagger.api.file.Filename;
+import org.jphototagger.api.file.FilenameTokens;
 
 /**
  * Stores user settings in a single {@link java.util.Properties} instance.
@@ -66,18 +66,18 @@ final class UserSettings {
         return getSettingsDirectoryName();
     }
 
-    String getDatabaseFileName(Filename name) {
+    String getDatabaseFileName(FilenameTokens name) {
         if (name == null) {
             throw new NullPointerException("name == null");
         }
 
-        if (!name.equals(Filename.FULL_PATH) && !name.equals(Filename.FULL_PATH_NO_SUFFIX)) {
+        if (!name.equals(FilenameTokens.FULL_PATH) && !name.equals(FilenameTokens.FULL_PATH_NO_SUFFIX)) {
             throw new IllegalArgumentException("Illegal argument: " + name);
         }
 
         String directoryName = getDatabaseDirectoryName();
         String fileBasename = getDatabaseBasename();
-        boolean isFullPath = name.equals(Filename.FULL_PATH);
+        boolean isFullPath = name.equals(FilenameTokens.FULL_PATH);
         String suffix = isFullPath ? ".data" : "";
 
         return directoryName + File.separator + fileBasename + suffix;

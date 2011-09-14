@@ -9,7 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.jphototagger.api.core.UserFilesProvider;
-import org.jphototagger.api.file.Filename;
+import org.jphototagger.api.file.FilenameTokens;
 import org.openide.util.Lookup;
 
 /**
@@ -92,7 +92,7 @@ public final class ConnectionPool implements Runnable {
         init = true;
 
         UserFilesProvider provider = Lookup.getDefault().lookup(UserFilesProvider.class);
-        String file = provider.getDatabaseFileName(Filename.FULL_PATH_NO_SUFFIX);
+        String file = provider.getDatabaseFileName(FilenameTokens.FULL_PATH_NO_SUFFIX);
 
         url = "jdbc:hsqldb:file:" + file + ";shutdown=true";
         driver = "org.hsqldb.jdbcDriver";

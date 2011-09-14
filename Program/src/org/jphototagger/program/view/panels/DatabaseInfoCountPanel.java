@@ -3,7 +3,7 @@ package org.jphototagger.program.view.panels;
 import java.text.MessageFormat;
 
 import org.jphototagger.api.core.UserFilesProvider;
-import org.jphototagger.api.file.Filename;
+import org.jphototagger.api.file.FilenameTokens;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.view.renderer.TableCellRendererDatabaseInfoColumns;
@@ -43,7 +43,7 @@ public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
         UserFilesProvider provider = Lookup.getDefault().lookup(UserFilesProvider.class);
 
         if (provider != null) {
-            String databaseFileName = provider.getDatabaseFileName(Filename.FULL_PATH);
+            String databaseFileName = provider.getDatabaseFileName(FilenameTokens.FULL_PATH);
             String message = MessageFormat.format(pattern, databaseFileName);
 
             labelFilename.setText(message);
