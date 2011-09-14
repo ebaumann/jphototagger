@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.StringTokenizer;
+import org.jphototagger.lib.renderer.DisplayNameProvider;
 
 /**
  * Filter für Dateien, Verzeichnisse werden abgelehnt. Akzeptiert
@@ -16,15 +17,18 @@ import java.util.StringTokenizer;
  *
  * @author Elmar Baumann
  */
-public final class RegexFileFilter implements java.io.FileFilter, Serializable {
+public final class RegexFileFilter implements java.io.FileFilter, Serializable, DisplayNameProvider {
+
     private static final long serialVersionUID = 5995205186843465364L;
-    private Set<String> acceptedPatterns = new HashSet<String>();
+    private final Set<String> acceptedPatterns = new HashSet<String>();
+    private String displayname;
 
     public RegexFileFilter(RegexFileFilter other) {
         if (other == null) {
             throw new NullPointerException("other == null");
         }
 
+        displayname = other.displayname;
         acceptedPatterns.addAll(other.acceptedPatterns);
     }
 
@@ -108,6 +112,17 @@ public final class RegexFileFilter implements java.io.FileFilter, Serializable {
         return false;
     }
 
+    public void setDisplayname(String displayname) {
+        this.displayname = displayname;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return displayname == null
+                ? acceptedPatterns.toString()
+                : displayname;
+    }
+
     /**
      * Returns a file filter for f file chooser.
      *
@@ -116,6 +131,11 @@ public final class RegexFileFilter implements java.io.FileFilter, Serializable {
      */
     public javax.swing.filechooser.FileFilter forFileChooser(String description) {
         return new FileChooserFilter(this, description);
+    }
+
+    @Override
+    public String toString() {
+        return getDisplayName();
     }
 
     @Override
