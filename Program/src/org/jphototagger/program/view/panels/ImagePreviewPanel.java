@@ -12,8 +12,8 @@ import java.io.FileFilter;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 
-import org.jphototagger.api.image.ThumbnailCreator;
 import org.jphototagger.api.image.ThumbnailProvider;
+import org.jphototagger.lib.image.util.ThumbnailCreatorService;
 import org.jphototagger.lib.io.filefilter.FileChooserFilter;
 import org.jphototagger.lib.io.filefilter.RegexFileFilter;
 import org.jphototagger.lib.util.Bundle;
@@ -36,7 +36,6 @@ public class ImagePreviewPanel extends JPanel implements PropertyChangeListener 
     private int height;
     private Image image;
     private Color bg;
-    private final ThumbnailCreator tnCreator = Lookup.getDefault().lookup(ThumbnailCreator.class);
     private final ThumbnailProvider tnProvider = Lookup.getDefault().lookup(ThumbnailProvider.class);
 
     public ImagePreviewPanel() {
@@ -63,7 +62,7 @@ public class ImagePreviewPanel extends JPanel implements PropertyChangeListener 
         image = tnProvider.getThumbnail(selFile);
 
         if (image == null) {
-            image = tnCreator.createFromEmbeddedThumbnail(selFile);
+            image = ThumbnailCreatorService.INSTANCE.createScaledOrFromEmbeddedThumbnail(selFile);
         }
 
         if (image != null) {

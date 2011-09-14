@@ -1,6 +1,5 @@
 package org.jphototagger.program.image.thumbnail;
 
-import org.jphototagger.api.image.ThumbnailCreationStrategy;
 import java.awt.Container;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -16,15 +15,18 @@ import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 
-import org.jphototagger.domain.repository.UserDefinedFileTypesRepository;
+import org.jphototagger.api.core.Storage;
+import org.jphototagger.api.image.ThumbnailCreationStrategy;
+import org.jphototagger.api.image.ThumbnailCreationStrategyProvider;
 import org.jphototagger.domain.filetypes.UserDefinedFileType;
+import org.jphototagger.domain.repository.UserDefinedFileTypesRepository;
 import org.jphototagger.exif.ExifMetadata;
 import org.jphototagger.exif.ExifTag;
 import org.jphototagger.exif.ExifTags;
 import org.jphototagger.exif.ExifThumbnailUtil;
-import org.jphototagger.image.FileType;
 import org.jphototagger.image.util.ImageTransform;
 import org.jphototagger.lib.image.util.IconUtil;
+import org.jphototagger.lib.image.util.ThumbnailCreatorService;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.runtime.External;
 import org.jphototagger.lib.runtime.ExternalOutput;
@@ -36,9 +38,6 @@ import com.imagero.reader.ImageReader;
 import com.imagero.reader.Imagero;
 import com.imagero.reader.ReaderFactory;
 import com.imagero.reader.tiff.TiffReader;
-import org.jphototagger.api.core.Storage;
-import org.jphototagger.api.image.ThumbnailCreationStrategyProvider;
-import org.jphototagger.api.image.ThumbnailProvider;
 
 /**
  *
@@ -48,16 +47,6 @@ final class ThumbnailUtil {
 
     private static final Logger LOGGER = Logger.getLogger(ThumbnailUtil.class.getName());
 
-    /**
-     * Returns a thumbnail created with
-     * {@link UserSettings#setThumbnailCreationStrategy(org.jphototagger.program.image.thumbnail.ThumbnailCreationStrategy)}.
-     * <p>
-     * If the creator did not create a thumbnail, this method tries to get an
-     * embedded thumbnail.
-     *
-     * @param  file file
-     * @return      thumbnail or null on errors
-     */
     static Image getThumbnail(File file) {
         if (file == null) {
             throw new NullPointerException("file == null");
@@ -72,38 +61,20 @@ final class ThumbnailUtil {
         }
 
         ThumbnailCreationStrategy creationStrategy = getThumbnailCreationStrategy();
-        int maxLength = getMaxThumbnailWidth();
-        boolean isRawImage = FileType.isRawFile(file.getName());
-        boolean canCreateImage = !isRawImage || (isRawImage && creationStrategy.equals(ThumbnailCreationStrategy.EXTERNAL_APP));
-        Image thumbnail = null;
+        int maxLength = ThumbnailCreatorService.readMaxThumbnailWidthFromStorage();
 
-        if (creationStrategy.equals(ThumbnailCreationStrategy.EXTERNAL_APP)) {    // has to be 1st.
+        if (creationStrategy.equals(ThumbnailCreationStrategy.EXTERNAL_APP)) {
             String createCommand = getExternalThumbnailCreationCommand();
-            thumbnail = getThumbnailFromExternalApplication(file, createCommand, maxLength);
-        } else if (!canCreateImage || creationStrategy.equals(ThumbnailCreationStrategy.EMBEDDED)) {
-            thumbnail = ThumbnailUtil.getEmbeddedThumbnailRotated(file);
+            return getThumbnailFromExternalApplication(file, createCommand, maxLength);
+        } else if (creationStrategy.equals(ThumbnailCreationStrategy.EMBEDDED)) {
+            return ThumbnailUtil.getEmbeddedThumbnailRotated(file);
         } else if (creationStrategy.equals(ThumbnailCreationStrategy.IMAGERO)) {
-            thumbnail = getScaledImageImagero(file, maxLength);
+            return getScaledImageImagero(file, maxLength);
         } else if (creationStrategy.equals(ThumbnailCreationStrategy.JAVA_IMAGE_IO)) {
-            thumbnail = getThumbnailFromJavaImageIo(file, maxLength);
+            return getThumbnailFromJavaImageIo(file, maxLength);
         } else {
             return null;
         }
-
-        if (thumbnail == null) {
-            thumbnail = getEmbeddedThumbnailRotated(file);
-        }
-
-        return thumbnail;
-    }
-
-    private static int getMaxThumbnailWidth() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
-        int width = storage.getInt(Storage.KEY_MAX_THUMBNAIL_WIDTH);
-
-        return (width != Integer.MIN_VALUE)
-                ? width
-                : ThumbnailProvider.DEFAULT_THUMBNAIL_WIDTH;
     }
 
     private static String getExternalThumbnailCreationCommand() {
@@ -133,35 +104,11 @@ final class ThumbnailUtil {
         if (fileType == null || !fileType.isExternalThumbnailCreator()) {
             return IconUtil.getIconImage("/org/jphototagger/program/resource/images/user_defined_file_type.jpg");
         } else {
-            int maxLength = getMaxThumbnailWidth();
+            int maxLength = ThumbnailCreatorService.readMaxThumbnailWidthFromStorage();
             String createCommand = getExternalThumbnailCreationCommand();
 
             return getThumbnailFromExternalApplication(file, createCommand, maxLength);
         }
-    }
-
-    /**
-     * Returns a thumbnail of an image file. If the preferred method fails -
-     * ebeddded or scaled - the other method will be used.
-     *
-     * @param  file       file
-     * @param  maxLength  maximum length of the image
-     * @return            thumbnail or null if errors occured
-     */
-    private static Image getThumbnailFromImagero(File file, int maxLength) {
-        if (file == null) {
-            throw new NullPointerException("file == null");
-        }
-
-        if (maxLength < 0) {
-            throw new IllegalArgumentException("Invalid length: " + maxLength);
-        }
-
-        if (isUserDefinedFileType(file)) {
-            return null;
-        }
-
-        return getScaledImageImagero(file, maxLength);
     }
 
     private static Image getThumbnailFromJavaImageIo(File file, int maxLength) {
