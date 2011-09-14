@@ -90,11 +90,16 @@ public final class AppFileFilters {
             Set<String> tnCreatorSuffixes = tnCreator.getSupportedRawFormatFileTypeSuffixes();
 
             acceptedRawSuffixes.addAll(tnCreatorSuffixes);
-            }
         }
+    }
 
     private void setUserDefindedFileTypesSuffixes() {
         UserDefinedFileTypesRepository repo = Lookup.getDefault().lookup(UserDefinedFileTypesRepository.class);
+
+        if (repo == null) {
+            return;
+        }
+
         List<UserDefinedFileType> fileTypes = repo.findAllUserDefinedFileTypes();
 
         for (UserDefinedFileType fileType : fileTypes) {

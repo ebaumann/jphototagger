@@ -29,12 +29,15 @@ public final class ActionsHelper {
     private static final JMenuItem ADD_ACTION_MENU_ITEM = new JMenuItem(new AddProgramAction());
 
     public static JMenu actionsAsMenu() {
-        ProgramsRepository repo = Lookup.getDefault().lookup(ProgramsRepository.class);
-        List<Program> actions = repo.findAllPrograms(ProgramType.ACTION);
         JMenu menu = new JMenu(Bundle.getString(ActionsHelper.class, "ActionsHelper.ActionMenu.DisplayName"));
+        ProgramsRepository repo = Lookup.getDefault().lookup(ProgramsRepository.class);
 
-        for (Program action : actions) {
-            menu.add(new JMenuItem(new ActionStarter(action, action)));
+        if (repo != null) {
+            List<Program> actions = repo.findAllPrograms(ProgramType.ACTION);
+
+            for (Program action : actions) {
+                menu.add(new JMenuItem(new ActionStarter(action, action)));
+            }
         }
 
         menu.add(ADD_ACTION_MENU_ITEM);
