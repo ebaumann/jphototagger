@@ -33,8 +33,7 @@ public final class UserDefinedFileFilter implements Serializable {
         STARTS_WITH(0, Bundle.getString(UserDefinedFileFilter.class, "UserDefinedFileFilter.DisplayName.StartsWith")),
         CONTAINS(1, Bundle.getString(UserDefinedFileFilter.class, "UserDefinedFileFilter.DisplayName.Contains")),
         ENDS_WITH(2, Bundle.getString(UserDefinedFileFilter.class, "UserDefinedFileFilter.DisplayName.EndsWith")),
-        REGEX(3, Bundle.getString(UserDefinedFileFilter.class, "UserDefinedFileFilter.DisplayName.Regex")),
-        ;
+        REGEX(3, Bundle.getString(UserDefinedFileFilter.class, "UserDefinedFileFilter.DisplayName.Regex")),;
         private final int value;
         private final String displayName;
 
@@ -221,7 +220,7 @@ public final class UserDefinedFileFilter implements Serializable {
      * @return       true, if both file filters were created by equal instances
      *               of this class
      */
-    public boolean filterEquals(RegexFileFilter left, RegexFileFilter right) {
+    public boolean filtersEquals(RegexFileFilter left, RegexFileFilter right) {
         if (left == null) {
             throw new NullPointerException("left == null");
         }

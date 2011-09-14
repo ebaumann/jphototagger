@@ -30,6 +30,10 @@ public final class ListModelUserDefinedFileTypes extends DefaultListModel {
     }
 
     private void addElements() {
+        if (repo == null) {
+            return;
+        }
+
         List<UserDefinedFileType> fileTypes = repo.findAllUserDefinedFileTypes();
 
         for (UserDefinedFileType fileType : fileTypes) {

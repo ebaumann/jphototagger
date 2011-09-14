@@ -1,7 +1,5 @@
 package org.jphototagger.program.model;
 
-import java.io.FileFilter;
-
 import javax.swing.DefaultComboBoxModel;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
@@ -13,7 +11,11 @@ import org.jphototagger.domain.repository.UserDefinedFileFiltersRepository;
 import org.jphototagger.domain.repository.event.userdefinedfilefilters.UserDefinedFileFilterDeletedEvent;
 import org.jphototagger.domain.repository.event.userdefinedfilefilters.UserDefinedFileFilterInsertedEvent;
 import org.jphototagger.domain.repository.event.userdefinedfilefilters.UserDefinedFileFilterUpdatedEvent;
+import org.jphototagger.domain.repository.event.userdefinedfiletypes.UserDefinedFileTypeDeletedEvent;
+import org.jphototagger.domain.repository.event.userdefinedfiletypes.UserDefinedFileTypeInsertedEvent;
+import org.jphototagger.domain.repository.event.userdefinedfiletypes.UserDefinedFileTypeUpdatedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.io.filefilter.RegexFileFilter;
 import org.jphototagger.program.app.AppFileFilters;
 import org.openide.util.Lookup;
 
@@ -26,6 +28,8 @@ public final class ComboBoxModelFileFilters extends DefaultComboBoxModel {
 
     private static final long serialVersionUID = -7792330718447905417L;
     public static final String SETTINGS_KEY_SEL_INDEX = "ComboBoxModelFileFilters.SelIndex";
+    private RegexFileFilter allAcceptedFileImageFilesFilter;
+    private RegexFileFilter userDefinedFileTypesFilter;
     private final UserDefinedFileFiltersRepository udffRepo = Lookup.getDefault().lookup(UserDefinedFileFiltersRepository.class);
 
     public ComboBoxModelFileFilters() {
@@ -40,13 +44,15 @@ public final class ComboBoxModelFileFilters extends DefaultComboBoxModel {
             return;
         }
 
-        addElement(AppFileFilters.INSTANCE.getAllAcceptedImageFilesFilter());
+        allAcceptedFileImageFilesFilter = AppFileFilters.INSTANCE.getAllAcceptedImageFilesFilter();
+
+        addElement(allAcceptedFileImageFilesFilter);
         addElement(AppFileFilters.INSTANCE.getAcceptedJpegFilesFilter());
         addElement(AppFileFilters.INSTANCE.getAcceptedTiffFilesFilter());
         addElement(AppFileFilters.INSTANCE.getAcceptedRawFilesFilter());
         addElement(AppFileFilters.INSTANCE.getAcceptedDngFilesFilter());
 
-        FileFilter userDefinedFileTypesFilter = AppFileFilters.INSTANCE.getUserDefinedFileTypesFilter();
+        userDefinedFileTypesFilter = AppFileFilters.INSTANCE.getUserDefinedFileTypesFilter();
 
         if (userDefinedFileTypesFilter != null) {
             addElement(userDefinedFileTypesFilter);
@@ -96,7 +102,7 @@ public final class ComboBoxModelFileFilters extends DefaultComboBoxModel {
     }
 
     @EventSubscriber(eventClass = UserDefinedFileFilterInsertedEvent.class)
-    public void filterInserted(final UserDefinedFileFilterInsertedEvent evt) {
+    public void userDefinedFileFilterInserted(final UserDefinedFileFilterInsertedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
@@ -107,7 +113,7 @@ public final class ComboBoxModelFileFilters extends DefaultComboBoxModel {
     }
 
     @EventSubscriber(eventClass = UserDefinedFileFilterDeletedEvent.class)
-    public void filterDeleted(final UserDefinedFileFilterDeletedEvent evt) {
+    public void userDefinedFileFilterDeleted(final UserDefinedFileFilterDeletedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
@@ -118,12 +124,56 @@ public final class ComboBoxModelFileFilters extends DefaultComboBoxModel {
     }
 
     @EventSubscriber(eventClass = UserDefinedFileFilterUpdatedEvent.class)
-    public synchronized void filterUpdated(final UserDefinedFileFilterUpdatedEvent evt) {
+    public void userDefinedFileFilterUpdated(final UserDefinedFileFilterUpdatedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
             public void run() {
                 updateFilter(evt.getFilter());
+            }
+        });
+    }
+
+    @EventSubscriber(eventClass = UserDefinedFileTypeInsertedEvent.class)
+    public void userDefinedFileTypeUpdated(UserDefinedFileTypeInsertedEvent evt) {
+        replaceUserDefinedFileTypesFilter();
+    }
+
+    @EventSubscriber(eventClass = UserDefinedFileTypeUpdatedEvent.class)
+    public void userDefinedFileTypeUpdated(UserDefinedFileTypeUpdatedEvent evt) {
+        replaceUserDefinedFileTypesFilter();
+    }
+
+    @EventSubscriber(eventClass = UserDefinedFileTypeDeletedEvent.class)
+    public void userDefinedFileTypeUpdated(UserDefinedFileTypeDeletedEvent evt) {
+        replaceUserDefinedFileTypesFilter();
+    }
+
+    private void replaceUserDefinedFileTypesFilter() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
+            @Override
+            public void run() {
+                int index = userDefinedFileTypesFilter == null ? -1 : getIndexOf(userDefinedFileTypesFilter);
+                RegexFileFilter newUserDefinedFileTypesFilter = AppFileFilters.INSTANCE.createUserDefinedFileFilter();
+
+                if (index >= 0) {
+                    if (newUserDefinedFileTypesFilter == null) {
+                        removeElementAt(index);
+                    } else {
+                        userDefinedFileTypesFilter.set(newUserDefinedFileTypesFilter);
+                    }
+                    fireContentsChanged(this, index, index);
+                } else {
+                    if (newUserDefinedFileTypesFilter != null) {
+                        userDefinedFileTypesFilter = newUserDefinedFileTypesFilter;
+                        addElement(userDefinedFileTypesFilter);
+                    }
+                }
+
+                index = getIndexOf(allAcceptedFileImageFilesFilter);
+                allAcceptedFileImageFilesFilter.set(AppFileFilters.INSTANCE.createAllAcceptedImagesFileFilter());
+                fireContentsChanged(this, index, index);
             }
         });
     }

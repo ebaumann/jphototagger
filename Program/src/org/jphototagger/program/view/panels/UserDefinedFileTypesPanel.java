@@ -117,13 +117,16 @@ public class UserDefinedFileTypesPanel extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     private void initComponents() {//GEN-BEGIN:initComponents
+        java.awt.GridBagConstraints gridBagConstraints;
 
         scrollPane = new javax.swing.JScrollPane();
         list = new org.jdesktop.swingx.JXList();
-        labelInfo = new javax.swing.JLabel();
+        panelButtons = new javax.swing.JPanel();
         buttonAdd = new javax.swing.JButton();
         buttonEdit = new javax.swing.JButton();
         buttonDelete = new javax.swing.JButton();
+
+        setLayout(new java.awt.GridBagLayout());
 
         list.setModel(new ListModelUserDefinedFileTypes());
         list.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -138,16 +141,24 @@ public class UserDefinedFileTypesPanel extends javax.swing.JPanel {
         });
         scrollPane.setViewportView(list);
 
-        labelInfo.setForeground(new java.awt.Color(255, 0, 0));
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/panels/Bundle"); // NOI18N
-        labelInfo.setText(bundle.getString("UserDefinedFileTypesPanel.labelInfo.text")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        add(scrollPane, gridBagConstraints);
 
+        panelButtons.setLayout(new java.awt.GridLayout(1, 0, 3, 0));
+
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/panels/Bundle"); // NOI18N
         buttonAdd.setText(bundle.getString("UserDefinedFileTypesPanel.buttonAdd.text")); // NOI18N
         buttonAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAddActionPerformed(evt);
             }
         });
+        panelButtons.add(buttonAdd);
 
         buttonEdit.setText(bundle.getString("UserDefinedFileTypesPanel.buttonEdit.text")); // NOI18N
         buttonEdit.setEnabled(false);
@@ -156,6 +167,7 @@ public class UserDefinedFileTypesPanel extends javax.swing.JPanel {
                 buttonEditActionPerformed(evt);
             }
         });
+        panelButtons.add(buttonEdit);
 
         buttonDelete.setText(bundle.getString("UserDefinedFileTypesPanel.buttonDelete.text")); // NOI18N
         buttonDelete.setEnabled(false);
@@ -164,38 +176,15 @@ public class UserDefinedFileTypesPanel extends javax.swing.JPanel {
                 buttonDeleteActionPerformed(evt);
             }
         });
+        panelButtons.add(buttonDelete);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(buttonAdd)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonEdit)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonDelete))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(labelInfo)
-                .addContainerGap())
-            .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE)
-        );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonAdd, buttonDelete, buttonEdit});
-
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelInfo)
-                .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonAdd)
-                    .addComponent(buttonEdit)
-                    .addComponent(buttonDelete)))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        add(panelButtons, gridBagConstraints);
     }//GEN-END:initComponents
 
     private void buttonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddActionPerformed
@@ -221,8 +210,8 @@ public class UserDefinedFileTypesPanel extends javax.swing.JPanel {
     private javax.swing.JButton buttonAdd;
     private javax.swing.JButton buttonDelete;
     private javax.swing.JButton buttonEdit;
-    private javax.swing.JLabel labelInfo;
     private org.jdesktop.swingx.JXList list;
+    private javax.swing.JPanel panelButtons;
     private javax.swing.JScrollPane scrollPane;
     // End of variables declaration//GEN-END:variables
 }

@@ -43,6 +43,7 @@ import org.jphototagger.domain.event.AppWillExitEvent;
 import org.jphototagger.domain.event.UserPropertyChangedEvent;
 import org.jphototagger.domain.event.listener.ThumbnailUpdateListener;
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
+import org.jphototagger.domain.filefilter.UserDefinedFileFilter.RegexFileFilter;
 import org.jphototagger.domain.repository.event.imagefiles.ImageFileDeletedEvent;
 import org.jphototagger.domain.repository.event.imagefiles.ImageFileInsertedEvent;
 import org.jphototagger.domain.repository.event.imagefiles.ImageFileMovedEvent;
@@ -1242,10 +1243,8 @@ public class ThumbnailsPanel extends JPanel
             throw new NullPointerException("filter == null");
         }
 
-        if (!fileFilter.equals(filter)) {
-            fileFilter = filter;
-            refresh();
-        }
+        fileFilter = filter;
+        refresh();
     }
 
     /**
@@ -1624,20 +1623,22 @@ public class ThumbnailsPanel extends JPanel
     }
 
     @EventSubscriber(eventClass = UserDefinedFileFilterUpdatedEvent.class)
-    public synchronized void filterUpdated(final UserDefinedFileFilterUpdatedEvent evt) {
+    public synchronized void userDefinedFilterUpdated(final UserDefinedFileFilterUpdatedEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
             public void run() {
-                updateFilter(evt.getFilter());
+                updateUserDefinedFileFilter(evt.getFilter());
             }
         });
     }
 
-    private void updateFilter(UserDefinedFileFilter filter) {
-        if ((fileFilter instanceof UserDefinedFileFilter.RegexFileFilter)
-                && filter.filterEquals(filter.getFileFilter(), (UserDefinedFileFilter.RegexFileFilter) fileFilter)) {
-            fileFilter = filter.getFileFilter();
+    private void updateUserDefinedFileFilter(UserDefinedFileFilter userDefinedFileFilter) {
+        boolean fileFilterIsRegex = fileFilter instanceof UserDefinedFileFilter.RegexFileFilter;
+        RegexFileFilter updatedFilter = userDefinedFileFilter.getFileFilter();
+        if (fileFilterIsRegex
+                && userDefinedFileFilter.filtersEquals(updatedFilter, (UserDefinedFileFilter.RegexFileFilter) fileFilter)) {
+            fileFilter = userDefinedFileFilter.getFileFilter();
             refresh();
         }
     }
