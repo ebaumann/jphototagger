@@ -125,9 +125,9 @@ public class ThumbnailsPanel extends JPanel
     private boolean getPersistedDisplayThumbnailTooltip() {
         Storage storage = Lookup.getDefault().lookup(Storage.class);
 
-        return storage.containsKey(Storage.KEY_DISPLAY_THUMBNAIL_TOOLTIP)
-                ? storage.getBoolean(Storage.KEY_DISPLAY_THUMBNAIL_TOOLTIP)
-                : true;
+        return storage == null || !storage.containsKey(Storage.KEY_DISPLAY_THUMBNAIL_TOOLTIP)
+                ? true
+                : storage.getBoolean(Storage.KEY_DISPLAY_THUMBNAIL_TOOLTIP);
     }
 
     private void listen() {
@@ -999,6 +999,11 @@ public class ThumbnailsPanel extends JPanel
 
     private void readProperties() {
         Storage storage = Lookup.getDefault().lookup(Storage.class);
+
+        if (storage == null) {
+            return;
+        }
+
         int tnWidth = storage.getInt(ThumbnailsPanel.KEY_THUMBNAIL_WIDTH);
 
         if (tnWidth > 0) {
