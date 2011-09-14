@@ -43,6 +43,14 @@
                 <id>jar</id>
             </reference>
             <reference>
+                <foreign-project>JPhotoTagger__External_Thumbnail_Creation_Commands__Default</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>build.xml</script>
+                <target>jar</target>
+                <clean-target>clean</clean-target>
+                <id>jar</id>
+            </reference>
+            <reference>
                 <foreign-project>JPhotoTagger__IPTC</foreign-project>
                 <artifact-type>jar</artifact-type>
                 <script>build.xml</script>
@@ -108,14 +116,6 @@
             </reference>
             <reference>
                 <foreign-project>JPhotoTagger__Repository__HsqlDatabase</foreign-project>
-                <artifact-type>jar</artifact-type>
-                <script>build.xml</script>
-                <target>jar</target>
-                <clean-target>clean</clean-target>
-                <id>jar</id>
-            </reference>
-            <reference>
-                <foreign-project>JPhotoTagger__Thumbnail_Creator__Default_External_Thumbnail_Creators</foreign-project>
                 <artifact-type>jar</artifact-type>
                 <script>build.xml</script>
                 <target>jar</target>

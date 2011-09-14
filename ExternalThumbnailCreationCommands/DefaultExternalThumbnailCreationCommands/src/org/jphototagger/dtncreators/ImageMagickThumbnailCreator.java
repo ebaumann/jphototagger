@@ -2,7 +2,7 @@ package org.jphototagger.dtncreators;
 
 import java.io.File;
 
-import org.jphototagger.api.image.ExternalThumbnailCreator;
+import org.jphototagger.api.image.ExternalThumbnailCreationCommand;
 import org.jphototagger.lib.system.SystemUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.openide.util.lookup.ServiceProvider;
@@ -12,8 +12,8 @@ import org.openide.util.lookup.ServiceProvider;
  *
  * @author Elmar Baumann
  */
-@ServiceProvider(service = ExternalThumbnailCreator.class)
-public final class ImageMagickThumbnailCreator implements ExternalThumbnailCreator {
+@ServiceProvider(service = ExternalThumbnailCreationCommand.class)
+public final class ImageMagickThumbnailCreator implements ExternalThumbnailCreationCommand {
 
     private static final String COMMANDLINE_PARAMETERS = "-thumbnail %ix%i -auto-orient \"%s\" jpg:-";
     private final FileChooser fileChooser = createFileChooser();

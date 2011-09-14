@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 import org.jphototagger.api.core.UserFilesProvider;
-import org.jphototagger.api.image.ExternalThumbnailCreator;
+import org.jphototagger.api.image.ExternalThumbnailCreationCommand;
 import org.jphototagger.dtncreators.scripts.ScriptWriter;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.system.SystemUtil;
@@ -20,8 +20,8 @@ import org.openide.util.lookup.ServiceProvider;
  *
  * @author Elmar Baumann
  */
-@ServiceProvider(service = ExternalThumbnailCreator.class)
-public final class ImageMagickDcrawThumbnailCreator implements ExternalThumbnailCreator {
+@ServiceProvider(service = ExternalThumbnailCreationCommand.class)
+public final class ImageMagickDcrawThumbnailCreator implements ExternalThumbnailCreationCommand {
 
     @Override
     public String getThumbnailCreationCommand() {
