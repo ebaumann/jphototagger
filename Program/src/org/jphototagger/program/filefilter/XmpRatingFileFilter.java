@@ -1,21 +1,37 @@
 package org.jphototagger.program.filefilter;
 
-import org.jphototagger.domain.xmp.Xmp;
-import org.jphototagger.domain.metadata.xmp.XmpRatingMetaDataValue;
-import org.jphototagger.xmp.XmpMetadata;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.jphototagger.domain.metadata.xmp.XmpRatingMetaDataValue;
+import org.jphototagger.domain.xmp.Xmp;
+import org.jphototagger.lib.renderer.DisplayNameProvider;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.xmp.XmpMetadata;
 
 /**
  *
  *
  * @author Elmar Baumann
  */
-public final class XmpRatingFileFilter implements FileFilter {
+public final class XmpRatingFileFilter implements FileFilter, DisplayNameProvider {
+
     private final int rating;
+    private static final String DISPLAY_NAME_UNDEFINED = Bundle.getString(XmpRatingFileFilter.class, "XmpRatingFileFilter.DisplayName.Undefined");
+    private static final Map<Integer, String> DISPLAY_NAME_OF_RATING = new HashMap<Integer, String>();
+
+    static {
+        DISPLAY_NAME_OF_RATING.put(1, Bundle.getString(XmpRatingFileFilter.class, "XmpRatingFileFilter.DisplayName.1Star"));
+        DISPLAY_NAME_OF_RATING.put(2, Bundle.getString(XmpRatingFileFilter.class, "XmpRatingFileFilter.DisplayName.2Stars"));
+        DISPLAY_NAME_OF_RATING.put(3, Bundle.getString(XmpRatingFileFilter.class, "XmpRatingFileFilter.DisplayName.3Stars"));
+        DISPLAY_NAME_OF_RATING.put(4, Bundle.getString(XmpRatingFileFilter.class, "XmpRatingFileFilter.DisplayName.4Stars"));
+        DISPLAY_NAME_OF_RATING.put(5, Bundle.getString(XmpRatingFileFilter.class, "XmpRatingFileFilter.DisplayName.5Stars"));
+    }
 
     /**
      * Creates a new instance.
@@ -90,5 +106,14 @@ public final class XmpRatingFileFilter implements FileFilter {
         hash = 89 * hash + this.rating;
 
         return hash;
+    }
+
+    @Override
+    public String getDisplayName() {
+        String displayName = DISPLAY_NAME_OF_RATING.get(rating);
+
+        return displayName == null
+                ? DISPLAY_NAME_UNDEFINED
+                : displayName;
     }
 }
