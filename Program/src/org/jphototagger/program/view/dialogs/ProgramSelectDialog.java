@@ -3,15 +3,15 @@ package org.jphototagger.program.view.dialogs;
 import java.awt.Container;
 import java.awt.event.MouseEvent;
 
+import org.jphototagger.domain.programs.Program;
+import org.jphototagger.domain.programs.ProgramType;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.domain.programs.Program;
-import org.jphototagger.domain.programs.ProgramType;
-import org.jphototagger.program.model.ListModelPrograms;
+import org.jphototagger.program.model.ProgramsListModel;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.renderer.ListCellRendererActions;
-import org.jphototagger.program.view.renderer.ListCellRendererPrograms;
+import org.jphototagger.program.view.renderer.ActionsListCellRenderer;
+import org.jphototagger.program.view.renderer.ProgramsListCellRenderer;
 
 /**
  * Dialog to select an {@link org.jphototagger.program.data.Program}.
@@ -20,7 +20,7 @@ import org.jphototagger.program.view.renderer.ListCellRendererPrograms;
  */
 public class ProgramSelectDialog extends Dialog {
     private static final long serialVersionUID = -8970433115513988650L;
-    private final ListModelPrograms model;
+    private final ProgramsListModel model;
     private final ProgramType type;
     private boolean accepted;
 
@@ -32,7 +32,7 @@ public class ProgramSelectDialog extends Dialog {
         }
 
         this.type = type;
-        model = new ListModelPrograms(type);
+        model = new ProgramsListModel(type);
         initComponents();
         postInitComponents();
     }
@@ -130,7 +130,7 @@ public class ProgramSelectDialog extends Dialog {
 
         listPrograms.setModel(model);
         listPrograms.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        listPrograms.setCellRenderer(type.equals(ProgramType.ACTION) ? new ListCellRendererActions() : new ListCellRendererPrograms());
+        listPrograms.setCellRenderer(type.equals(ProgramType.ACTION) ? new ActionsListCellRenderer() : new ProgramsListCellRenderer());
         listPrograms.setName("listPrograms"); // NOI18N
         listPrograms.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

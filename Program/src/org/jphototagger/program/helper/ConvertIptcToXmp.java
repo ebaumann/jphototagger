@@ -8,13 +8,13 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.domain.repository.InsertIntoRepository;
-import org.jphototagger.domain.iptc.Iptc;
-import org.jphototagger.domain.xmp.Xmp;
-import org.jphototagger.iptc.IptcMetadata;
 import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
+import org.jphototagger.domain.iptc.Iptc;
+import org.jphototagger.domain.repository.InsertIntoRepository;
+import org.jphototagger.domain.xmp.Xmp;
+import org.jphototagger.iptc.IptcMetadata;
 import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.xmp.XmpMetadata;
 
@@ -24,6 +24,7 @@ import org.jphototagger.xmp.XmpMetadata;
  * @author Elmar Baumann
  */
 public final class ConvertIptcToXmp implements Runnable, Cancelable {
+
     private final List<ProgressListener> prLs = new ArrayList<ProgressListener>();
     private final List<File> imageFiles;
     private boolean cancel;

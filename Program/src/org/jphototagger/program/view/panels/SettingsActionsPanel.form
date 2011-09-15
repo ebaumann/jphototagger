@@ -204,7 +204,7 @@
             </Property>
             <Property name="selectionMode" type="int" value="0"/>
             <Property name="cellRenderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new ListCellRendererActions()" type="code"/>
+              <Connection code="new org.jphototagger.program.view.renderer.ActionsListCellRenderer()" type="code"/>
             </Property>
             <Property name="componentPopupMenu" type="javax.swing.JPopupMenu" editor="org.netbeans.modules.form.ComponentChooserEditor">
               <ComponentRef name="popupMenu"/>

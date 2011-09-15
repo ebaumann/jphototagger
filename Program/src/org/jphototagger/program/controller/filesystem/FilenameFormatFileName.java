@@ -8,14 +8,15 @@ import org.jphototagger.lib.util.Bundle;
  * @author Elmar Baumann
  */
 public final class FilenameFormatFileName extends FilenameFormat {
+
     @Override
     public String format() {
         String filename = getFile().getName();
         int index = filename.lastIndexOf('.');
 
         return (index > 0)
-               ? filename.substring(0, index)
-               : filename;
+                ? filename.substring(0, index)
+                : filename;
     }
 
     @Override

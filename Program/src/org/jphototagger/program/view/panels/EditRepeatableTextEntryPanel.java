@@ -31,6 +31,7 @@ import org.jphototagger.api.storage.Storage;
 import org.jphototagger.domain.event.listener.TextEntryListener;
 import org.jphototagger.domain.event.listener.TextEntryListenerSupport;
 import org.jphototagger.domain.metadata.MetaDataValue;
+import org.jphototagger.domain.metadata.selections.AutoCompleteDataOfMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.repository.event.dcsubjects.DcSubjectInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
@@ -43,7 +44,6 @@ import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.domain.metadata.selections.AutoCompleteDataOfMetaDataValue;
 import org.jphototagger.program.helper.AutocompleteHelper;
 import org.jphototagger.program.types.Suggest;
 import org.openide.util.Lookup;
@@ -744,7 +744,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
 
         list.setModel(model);
         list.setToolTipText(bundle.getString("EditRepeatableTextEntryPanel.list.toolTipText")); // NOI18N
-        list.setCellRenderer(new org.jphototagger.program.view.renderer.ListCellRendererKeywordsEditPanel());
+        list.setCellRenderer(new org.jphototagger.program.view.renderer.KeywordsEditPanelListCellRenderer());
         list.setComponentPopupMenu(popupMenuList);
         list.setDragEnabled(true);
         list.setDropMode(javax.swing.DropMode.INSERT);
@@ -762,7 +762,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel
             }
         });
         scrollPaneList.setViewportView(list);
-        list.setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerDropList());
+        list.setTransferHandler(new org.jphototagger.program.datatransfer.DropListTransferHandler());
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;

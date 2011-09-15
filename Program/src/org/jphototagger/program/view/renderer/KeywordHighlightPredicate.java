@@ -1,16 +1,17 @@
 package org.jphototagger.program.view.renderer;
 
 import java.awt.Color;
-import java.io.File;
-import org.jdesktop.swingx.decorator.ComponentAdapter;
-import org.jdesktop.swingx.decorator.HighlightPredicate;
 import java.awt.Component;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jdesktop.swingx.decorator.ColorHighlighter;
+import org.jdesktop.swingx.decorator.ComponentAdapter;
+import org.jdesktop.swingx.decorator.HighlightPredicate;
 import org.jdesktop.swingx.decorator.Highlighter;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
@@ -66,8 +67,8 @@ public final class KeywordHighlightPredicate implements HighlightPredicate {
     }
 
     private boolean isTemporarySelection(Component renderer, int row) {
-        if (renderer instanceof ListCellRendererKeywords) {
-            int tempSelectionRow = ((ListCellRendererKeywords) renderer).getTempSelectionRow();
+        if (renderer instanceof KeywordsListCellRenderer) {
+            int tempSelectionRow = ((KeywordsListCellRenderer) renderer).getTempSelectionRow();
 
             return tempSelectionRow == row;
         }

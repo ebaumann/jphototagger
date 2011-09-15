@@ -1,7 +1,8 @@
 package org.jphototagger.program.tasks;
 
-import org.jphototagger.lib.concurrent.SerialExecutor;
 import java.util.concurrent.Executors;
+
+import org.jphototagger.lib.concurrent.SerialExecutor;
 
 /**
  * Queues user tasks and starts them as thread after the previous user task has
@@ -10,6 +11,7 @@ import java.util.concurrent.Executors;
  * @author Elmar Baumann
  */
 public final class UserTasks {
+
     public static final UserTasks INSTANCE = new UserTasks();
     private final SerialExecutor executor = new SerialExecutor(Executors.newCachedThreadPool());
 
@@ -48,5 +50,6 @@ public final class UserTasks {
         executor.cancel();
     }
 
-    private UserTasks() {}
+    private UserTasks() {
+    }
 }

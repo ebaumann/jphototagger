@@ -3,10 +3,12 @@ package org.jphototagger.program.view.dialogs;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ResourceBundle;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JTabbedPane;
 import javax.swing.WindowConstants;
+
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.MaintainanceCachesPanel;

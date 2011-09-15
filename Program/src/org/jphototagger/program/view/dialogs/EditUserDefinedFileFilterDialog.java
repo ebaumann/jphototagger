@@ -9,9 +9,9 @@ import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.model.ComboBoxModelUserDefinedFileFilterType;
+import org.jphototagger.program.model.UserDefinedFileFilterTypeComboBoxModel;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.renderer.ListCellRendererUserDefinedFileFilterType;
+import org.jphototagger.program.view.renderer.UserDefinedFileFilterTypeListCellRenderer;
 import org.openide.util.Lookup;
 
 /**
@@ -118,9 +118,9 @@ public class EditUserDefinedFileFilterDialog extends Dialog {
         binding.setValidator(new MaxLengthValidator(45));
         bindingGroup.addBinding(binding);
 
-        comboBoxType.setModel(new ComboBoxModelUserDefinedFileFilterType());
+        comboBoxType.setModel(new UserDefinedFileFilterTypeComboBoxModel());
         comboBoxType.setName("comboBoxType"); // NOI18N
-        comboBoxType.setRenderer(new ListCellRendererUserDefinedFileFilterType());
+        comboBoxType.setRenderer(new UserDefinedFileFilterTypeListCellRenderer());
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, filter, org.jdesktop.beansbinding.ELProperty.create("${type}"), comboBoxType, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
         bindingGroup.addBinding(binding);

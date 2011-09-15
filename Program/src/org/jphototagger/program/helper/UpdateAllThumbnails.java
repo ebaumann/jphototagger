@@ -7,11 +7,11 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.dialog.ProgressDialog;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.domain.repository.ImageFilesRepository;
+import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.dialog.ProgressDialog;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.controller.misc.SizeAndLocationController;
 import org.jphototagger.program.resource.GUI;

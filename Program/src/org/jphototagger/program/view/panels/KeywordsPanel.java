@@ -13,15 +13,15 @@ import org.jdesktop.swingx.JXTree;
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.componentutil.TreeUtil;
+import org.jphototagger.lib.swingx.ListTextFilter;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.controller.actions.SearchInJxListAction;
 import org.jphototagger.program.controller.actions.SearchInJxTreeAction;
-import org.jphototagger.program.datatransfer.TransferHandlerDragListItems;
-import org.jphototagger.lib.swingx.ListTextFilter;
-import org.jphototagger.program.model.ListModelWait;
-import org.jphototagger.program.model.TreeModelWait;
+import org.jphototagger.program.datatransfer.DragListItemsTransferHandler;
+import org.jphototagger.program.model.WaitListModel;
+import org.jphototagger.program.model.WaitTreeModel;
 import org.jphototagger.program.view.renderer.KeywordHighlightPredicate;
-import org.jphototagger.program.view.renderer.ListCellRendererKeywords;
+import org.jphototagger.program.view.renderer.KeywordsListCellRenderer;
 import org.openide.util.Lookup;
 
 /**
@@ -184,7 +184,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
         textFieldListFilter = new javax.swing.JTextField();
         scrollPaneList = new javax.swing.JScrollPane();
         list = new JXList();
-        list.setTransferHandler(new TransferHandlerDragListItems(org.jphototagger.program.datatransfer.Flavor.KEYWORDS_LIST));
+        list.setTransferHandler(new DragListItemsTransferHandler(org.jphototagger.program.datatransfer.Flavor.KEYWORDS_LIST));
         buttonSearchInList = new javax.swing.JButton();
         buttonAsTree = new javax.swing.JButton();
 
@@ -196,12 +196,12 @@ public class KeywordsPanel extends javax.swing.JPanel {
 
         scrollPaneTree.setName("scrollPaneTree"); // NOI18N
 
-        tree.setModel(TreeModelWait.INSTANCE);
-        tree.setCellRenderer(new org.jphototagger.program.view.renderer.TreeCellRendererKeywords());
+        tree.setModel(WaitTreeModel.INSTANCE);
+        tree.setCellRenderer(new org.jphototagger.program.view.renderer.KeywordsTreeCellRenderer());
         tree.setDragEnabled(true);
         tree.setName("tree"); // NOI18N
         scrollPaneTree.setViewportView(tree);
-        tree.setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerKeywordsTree());
+        tree.setTransferHandler(new org.jphototagger.program.datatransfer.KeywordsTreeTransferHandler());
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -299,8 +299,8 @@ public class KeywordsPanel extends javax.swing.JPanel {
 
         scrollPaneList.setName("scrollPaneList"); // NOI18N
 
-        list.setModel(ListModelWait.INSTANCE);
-        list.setCellRenderer(new ListCellRendererKeywords());
+        list.setModel(WaitListModel.INSTANCE);
+        list.setCellRenderer(new KeywordsListCellRenderer());
         list.setDragEnabled(true);
         list.setName("list"); // NOI18N
         scrollPaneList.setViewportView(list);

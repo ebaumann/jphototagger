@@ -1,8 +1,8 @@
 package org.jphototagger.program.view.panels;
 
 import javax.swing.JTree;
-import org.jphototagger.program.datatransfer.TransferHandlerMiscMetadataTree;
-import org.jphototagger.program.view.renderer.TreeCellRendererMiscMetadata;
+import org.jphototagger.program.datatransfer.MiscMetadataTreeTransferHandler;
+import org.jphototagger.program.view.renderer.MiscMetadataTreeCellRenderer;
 
 /**
  *
@@ -31,7 +31,7 @@ public class MiscXmpMetadataPanel extends javax.swing.JPanel {
 
         scrollPane = new javax.swing.JScrollPane();
         tree = new javax.swing.JTree();
-        tree.setTransferHandler(new TransferHandlerMiscMetadataTree());
+        tree.setTransferHandler(new MiscMetadataTreeTransferHandler());
         tree.setShowsRootHandles(true);
 
         setName("Form"); // NOI18N
@@ -40,7 +40,7 @@ public class MiscXmpMetadataPanel extends javax.swing.JPanel {
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
         tree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-        tree.setCellRenderer(new TreeCellRendererMiscMetadata());
+        tree.setCellRenderer(new MiscMetadataTreeCellRenderer());
         tree.setDragEnabled(true);
         tree.setName("tree"); // NOI18N
         tree.setRootVisible(false);

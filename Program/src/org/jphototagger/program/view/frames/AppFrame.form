@@ -94,7 +94,7 @@
                 <MenuItem class="javax.swing.JMenuItem" name="menuItemExportJptMisc">
                   <Properties>
                     <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="org.jphototagger.program.exporter.JptExportAction.INSTANCE" type="code"/>
+                      <Connection code="org.jphototagger.program.repository.exporter.JptExportAction.INSTANCE" type="code"/>
                     </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_app_small.png"/>
@@ -121,7 +121,7 @@
                 <MenuItem class="javax.swing.JMenuItem" name="menuItemImportJptMisc">
                   <Properties>
                     <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="org.jphototagger.program.importer.JptImportAction.INSTANCE" type="code"/>
+                      <Connection code="org.jphototagger.program.repository.importer.JptImportAction.INSTANCE" type="code"/>
                     </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_app_small.png"/>

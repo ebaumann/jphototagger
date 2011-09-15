@@ -1,16 +1,18 @@
 package org.jphototagger.program.resource;
 
+import java.io.File;
+import java.util.List;
+
+import javax.swing.JTextArea;
+import javax.swing.JTree;
+
+import org.jdesktop.swingx.JXList;
+import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.frames.AppFrame;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
-import java.io.File;
-import java.util.List;
-import org.jdesktop.swingx.JXList;
-import javax.swing.JTextArea;
-import javax.swing.JTree;
-import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Provides access to GUI elements.
@@ -18,6 +20,7 @@ import org.jphototagger.lib.awt.EventQueueUtil;
  * @author Elmar Baumann
  */
 public final class GUI {
+
     private static AppPanel appPanel;
     private static AppFrame appFrame;
 
@@ -71,6 +74,7 @@ public final class GUI {
      */
     public static void refreshThumbnailsPanel() {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 getThumbnailsPanel().refresh();
@@ -130,5 +134,6 @@ public final class GUI {
         return appPanel.getTreeTimeline();
     }
 
-    private GUI() {}
+    private GUI() {
+    }
 }

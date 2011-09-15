@@ -10,11 +10,11 @@ import org.jphototagger.domain.repository.event.programs.ProgramInsertedEvent;
 import org.jphototagger.domain.repository.event.programs.ProgramUpdatedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.helper.ActionsHelper;
-import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
+import org.jphototagger.program.view.popupmenus.ThumbnailsPopupMenu;
 
 /**
  * Listens to {@link DatabasePrograms} events and inserts or removes actions
- * from the {@link PopupMenuThumbnails#getMenuActions()}.
+ * from the {@link ThumbnailsPopupMenu#getMenuActions()}.
  *
  * @author Elmar Baumann
  */
@@ -36,7 +36,7 @@ public final class ActionsMenuUpdater {
 
                 @Override
                 public void run() {
-                    JMenu actionMenu = PopupMenuThumbnails.INSTANCE.getMenuActions();
+                    JMenu actionMenu = ThumbnailsPopupMenu.INSTANCE.getMenuActions();
 
                     ActionsHelper.removeAction(actionMenu, program);
                 }
@@ -53,7 +53,7 @@ public final class ActionsMenuUpdater {
 
                 @Override
                 public void run() {
-                    JMenu actionMenu = PopupMenuThumbnails.INSTANCE.getMenuActions();
+                    JMenu actionMenu = ThumbnailsPopupMenu.INSTANCE.getMenuActions();
 
                     ActionsHelper.addAction(actionMenu, program);
                 }
@@ -70,7 +70,7 @@ public final class ActionsMenuUpdater {
 
                 @Override
                 public void run() {
-                    JMenu actionMenu = PopupMenuThumbnails.INSTANCE.getMenuActions();
+                    JMenu actionMenu = ThumbnailsPopupMenu.INSTANCE.getMenuActions();
 
                     ActionsHelper.updateAction(actionMenu, program);
                 }

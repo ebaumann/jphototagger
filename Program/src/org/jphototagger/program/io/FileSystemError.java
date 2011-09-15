@@ -7,6 +7,7 @@ import org.jphototagger.lib.util.Bundle;
  * @author Elmar Baumann
  */
 public enum FileSystemError {
+
     LOCKED(Bundle.getString(FileSystemError.class, "FileSystemError.LOCKED")),
     MISSING_PRIVILEGES(Bundle.getString(FileSystemError.class, "FileSystemError.MISSING_PRIVILEGES")),
     MOVE_RENAME_EXISTS(Bundle.getString(FileSystemError.class, "FileSystemError.MOVE_RENAME_EXISTS")),

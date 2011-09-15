@@ -1,21 +1,22 @@
 package org.jphototagger.program.factory;
 
+import java.io.File;
+import java.io.FileFilter;
+
+import org.jphototagger.api.storage.Storage;
+import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
+import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppCommandLineOptions;
 import org.jphototagger.program.app.AppInit;
-import org.jphototagger.program.controller.search.ControllerFastSearch;
-import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
+import org.jphototagger.program.controller.search.FastSearchController;
 import org.jphototagger.program.helper.ImportImageFiles;
-import org.jphototagger.program.model.ComboBoxModelFileFilters;
+import org.jphototagger.program.model.FileFiltersComboBoxModel;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.tasks.ScheduledTasks;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
-import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
-import java.io.File;
-import java.io.FileFilter;
-import org.jphototagger.api.storage.Storage;
-import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.view.popupmenus.ThumbnailsPopupMenu;
 import org.openide.util.Lookup;
 
 /**
@@ -23,6 +24,7 @@ import org.openide.util.Lookup;
  * @author Elmar Baumann
  */
 public final class TerminateFactory {
+
     static final TerminateFactory INSTANCE = new TerminateFactory();
     private volatile boolean init = false;
 
@@ -36,13 +38,14 @@ public final class TerminateFactory {
         }
 
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 AppPanel appPanel = GUI.getAppPanel();
                 String message = Bundle.getString(TerminateFactory.class, "MiscFactory.Init.Start");
                 Support.setStatusbarInfo(message);
                 appPanel.getEditMetadataPanels().setAutocomplete();
-                PopupMenuThumbnails.INSTANCE.setOtherPrograms();
+                ThumbnailsPopupMenu.INSTANCE.setOtherPrograms();
                 ScheduledTasks.INSTANCE.run();
                 checkImportImageFiles();
                 setAutocomplete();
@@ -55,7 +58,7 @@ public final class TerminateFactory {
 
     private void setAutocomplete() {
         if (isAutocomplete()) {
-            ControllerFastSearch controller = ControllerFactory.INSTANCE.getController(ControllerFastSearch.class);
+            FastSearchController controller = ControllerFactory.INSTANCE.getController(FastSearchController.class);
 
             if (controller != null) {
                 controller.setAutocomplete(true);
@@ -87,7 +90,7 @@ public final class TerminateFactory {
     }
 
     private void setTnPanelFileFilter() {
-        ComboBoxModelFileFilters model = ModelFactory.INSTANCE.getModel(ComboBoxModelFileFilters.class);
+        FileFiltersComboBoxModel model = ModelFactory.INSTANCE.getModel(FileFiltersComboBoxModel.class);
         Object selItem = model.getSelectedItem();
         ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 

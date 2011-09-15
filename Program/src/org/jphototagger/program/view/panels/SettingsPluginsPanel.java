@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import org.jphototagger.api.plugin.Plugin;
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
@@ -22,7 +23,6 @@ import org.jphototagger.plugin.AbstractFileProcessorPlugin;
 import org.jphototagger.program.factory.FileProcessorPluginManager;
 import org.jphototagger.program.factory.PluginManager;
 import org.jphototagger.program.types.Persistence;
-import org.jphototagger.api.plugin.Plugin;
 import org.openide.util.Lookup;
 
 /**

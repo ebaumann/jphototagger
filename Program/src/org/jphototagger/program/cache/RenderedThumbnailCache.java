@@ -11,8 +11,8 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.domain.thumbnails.event.TypedThumbnailUpdateEvent;
 import org.jphototagger.domain.event.listener.ThumbnailUpdateListener;
+import org.jphototagger.domain.thumbnails.event.TypedThumbnailUpdateEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
@@ -28,6 +28,7 @@ import org.jphototagger.program.view.renderer.ThumbnailPanelRenderer;
  * @author Martin Pohlack
  */
 public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
+
     public static final RenderedThumbnailCache INSTANCE = new RenderedThumbnailCache();
     private final int MAX_ENTRIES = 1500;
     private static int currentAge = 0;
@@ -37,7 +38,6 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
     private XmpCache xmpCache = XmpCache.INSTANCE;
     private Image scaledDummyThumbnail = null;
     private Image dummyThumbnail = IconUtil.getIconImage(Bundle.getString(RenderedThumbnailCache.class, "RenderedThumbnailCache.Path.DummyThumbnail"));
-
     /**
      * Mapping from file to all kinds of cached data
      */
@@ -71,6 +71,7 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
 
         if (repaint) {
             EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
                 @Override
                 public void run() {
                     notifyUpdate(file);
@@ -101,7 +102,7 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
                 continue;
             }
 
-            if (!overlay && (ci != null) &&!ci.hasKeywords) {
+            if (!overlay && (ci != null) && !ci.hasKeywords) {
                 skipped++;
 
                 continue;
@@ -112,6 +113,7 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
     }
 
     private static class ThumbnailRenderer implements Runnable {
+
         private WorkQueue<RenderedThumbnailCacheIndirection> wq;
         private final RenderedThumbnailCache cache;
 
@@ -127,13 +129,13 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
 
                 try {
                     rtci = wq.fetch();
-                    assert(rtci.file != null);
+                    assert (rtci.file != null);
 
                     Image im = cache.thumbCache.getThumbnail(rtci.file);
 
                     if (im == null) {    // no data available yet
                         if ((cache.scaledDummyThumbnail == null)
-                                ||!cache.correctlyScaled(cache.scaledDummyThumbnail, rtci.length)) {
+                                || !cache.correctlyScaled(cache.scaledDummyThumbnail, rtci.length)) {
                             cache.scaledDummyThumbnail = cache.computeScaled(cache.dummyThumbnail, rtci.length);
                         }
 
@@ -238,8 +240,8 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
         // exact match
         if ((ci.thumbnail == null)
                 || ((ci.length == length)
-                    && (((overlay == false) && (ci.hasKeywords == false))
-                        || ((overlay == true) && (ci.renderedForKeywords == true))))) {
+                && (((overlay == false) && (ci.hasKeywords == false))
+                || ((overlay == true) && (ci.renderedForKeywords == true))))) {
             return ci.thumbnail;    // we may return null, or the correct image
         }
 
@@ -299,8 +301,8 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
         int width = image.getWidth(null);
         int height = image.getHeight(null);
         double longer = (width > height)
-                        ? width
-                        : height;
+                ? width
+                : height;
 
         if (longer == length) {
             return image;
@@ -308,11 +310,11 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
 
         double scaleFactor = (double) length / longer;
         int tw = (width > height)
-                 ? length
-                 : (int) ((double) width * scaleFactor + 0.5);
+                ? length
+                : (int) ((double) width * scaleFactor + 0.5);
         int th = (height > width)
-                 ? length
-                 : (int) ((double) height * scaleFactor + 0.5);
+                ? length
+                : (int) ((double) height * scaleFactor + 0.5);
         BufferedImage scaled = new BufferedImage(tw, th, BufferedImage.TYPE_INT_RGB);
         Graphics2D g2 = scaled.createGraphics();
 
@@ -372,8 +374,8 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
         int width = image.getWidth(null);
         int height = image.getHeight(null);
         int longer = (width > height)
-                     ? width
-                     : height;
+                ? width
+                : height;
 
         return longer == length;
     }

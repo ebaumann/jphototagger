@@ -10,7 +10,6 @@ import java.util.logging.Logger;
 
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.MessageLabel;
-import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
 
 /**
@@ -33,8 +32,8 @@ final class Support {
         List<T> instances = (List<T>) OBJECT_INSTANCES_OF_CLASS.get(clazz);
 
         return (instances == null)
-               ? null
-               : instances.get(0);
+                ? null
+                : instances.get(0);
     }
 
     synchronized void add(Object instance) {
@@ -50,6 +49,7 @@ final class Support {
 
     static void setStatusbarInfo(final String message) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 GUI.getAppPanel().setStatusbarText(message, MessageLabel.MessageType.INFO, 2000);

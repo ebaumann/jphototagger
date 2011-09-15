@@ -27,8 +27,8 @@ import org.jphototagger.program.helper.RefreshExifInDbOfKnownFiles;
 import org.jphototagger.program.helper.RefreshXmpInDbOfKnownFiles;
 import org.jphototagger.program.helper.SetExifToXmp;
 import org.jphototagger.program.helper.UpdateAllThumbnails;
-import org.jphototagger.program.model.ListModelKeywords;
-import org.jphototagger.program.model.TreeModelKeywords;
+import org.jphototagger.program.model.KeywordsListModel;
+import org.jphototagger.program.model.KeywordsTreeModel;
 import org.jphototagger.program.view.dialogs.RenameFilenamesInDbDialog;
 import org.openide.util.Lookup;
 
@@ -143,7 +143,7 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
     }
 
     private void copyKeywordsToKeywordsTree() {
-        List<String> keywords = ListUtil.toStringList(ModelFactory.INSTANCE.getModel(ListModelKeywords.class));
+        List<String> keywords = ListUtil.toStringList(ModelFactory.INSTANCE.getModel(KeywordsListModel.class));
 
         if (keywords.size() > 0) {
             setEnabledAllButtons(false);
@@ -164,11 +164,11 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
             int count = repo.deleteAllKeywords();
 
             if (count > 0) {
-                 Collection<TreeModelKeywords> models =
-                       ModelFactory.INSTANCE.getModels(TreeModelKeywords.class);
+                 Collection<KeywordsTreeModel> models =
+                       ModelFactory.INSTANCE.getModels(KeywordsTreeModel.class);
 
                  if (models != null) {
-                     for (final TreeModelKeywords model : models) {
+                     for (final KeywordsTreeModel model : models) {
                         EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
                             @Override

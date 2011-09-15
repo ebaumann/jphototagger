@@ -23,11 +23,11 @@ import org.jphototagger.exif.ExifTag;
 import org.jphototagger.exif.ExifTags;
 import org.jphototagger.exif.ExifThumbnailUtil;
 import org.jphototagger.image.util.ImageTransform;
-import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.image.util.ThumbnailCreatorService;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.runtime.External;
 import org.jphototagger.lib.runtime.ExternalOutput;
+import org.jphototagger.lib.swing.IconUtil;
 import org.openide.util.Lookup;
 
 import com.imagero.reader.IOParameterBlock;

@@ -22,16 +22,16 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import org.jphototagger.api.storage.Storage;
-import org.jphototagger.domain.metadata.search.ParamStatement;
 import org.jphototagger.domain.event.listener.ListenerSupport;
+import org.jphototagger.domain.metadata.search.ParamStatement;
+import org.jphototagger.domain.metadata.search.SavedSearch;
+import org.jphototagger.domain.metadata.search.SavedSearchPanel;
 import org.jphototagger.lib.component.TabOrEnterLeavingTextArea;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.program.controller.search.ControllerAdvancedSearch;
-import org.jphototagger.domain.metadata.search.SavedSearch;
-import org.jphototagger.domain.metadata.search.SavedSearchPanel;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.controller.search.AdvancedSearchController;
 import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.helper.SavedSearchesHelper;
 import org.jphototagger.program.types.Persistence;
@@ -242,7 +242,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
 
     private void search() {
         if (checkIsSearchValid()) {
-            ControllerFactory.INSTANCE.getController(ControllerAdvancedSearch.class).actionPerformed(null);
+            ControllerFactory.INSTANCE.getController(AdvancedSearchController.class).actionPerformed(null);
         }
     }
 
@@ -620,8 +620,8 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
         labelInfoKeywords = new javax.swing.JLabel();
         panelKeywordsInput = new org.jphototagger.program.view.panels.EditRepeatableTextEntryPanel();
         panelKeywordsInput.setPrompt("");
-        panelKeywordsInput.getTextArea().setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerDropTextComponent());
-        panelKeywordsInput.getList().setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerDropList());
+        panelKeywordsInput.getTextArea().setTransferHandler(new org.jphototagger.program.datatransfer.DropTextComponentTransferHandler());
+        panelKeywordsInput.getList().setTransferHandler(new org.jphototagger.program.datatransfer.DropListTransferHandler());
         panelSimpleSql = new javax.swing.JPanel();
         scrollPaneColumns = new javax.swing.JScrollPane();
         panelColumns = new javax.swing.JPanel();
@@ -631,7 +631,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
         labelCustomSqlInfo = new javax.swing.JLabel();
         scrollPaneCustomSqlQuery = new javax.swing.JScrollPane();
         textAreaCustomSqlQuery = new TabOrEnterLeavingTextArea();
-        textAreaCustomSqlQuery.setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerDropTextComponent());
+        textAreaCustomSqlQuery.setTransferHandler(new org.jphototagger.program.datatransfer.DropTextComponentTransferHandler());
         textAreaCustomSqlQuery.getDocument().addDocumentListener(new CustomSqlChangeListener());
         panelButtons = new javax.swing.JPanel();
         buttonSaveSearch = new javax.swing.JButton();

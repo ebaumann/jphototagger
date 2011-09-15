@@ -24,18 +24,18 @@ import org.jphototagger.lib.system.SystemUtil;
 import org.jphototagger.program.app.AppInfo;
 import org.jphototagger.program.app.AppLifeCycle;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.comparator.ComparatorExifDateTimeOriginalAsc;
-import org.jphototagger.program.comparator.ComparatorExifDateTimeOriginalDesc;
-import org.jphototagger.program.comparator.ComparatorExifFocalLengthAsc;
-import org.jphototagger.program.comparator.ComparatorExifFocalLengthDesc;
-import org.jphototagger.program.comparator.ComparatorExifIsoSpeedRatingAsc;
-import org.jphototagger.program.comparator.ComparatorExifIsoSpeedRatingDesc;
-import org.jphototagger.program.comparator.ComparatorExifRecordingEquipmentAsc;
-import org.jphototagger.program.comparator.ComparatorExifRecordingEquipmentDesc;
-import org.jphototagger.program.comparator.ComparatorXmpIptcLocationAsc;
-import org.jphototagger.program.comparator.ComparatorXmpIptcLocationDesc;
-import org.jphototagger.program.comparator.ComparatorXmpRatingAsc;
-import org.jphototagger.program.comparator.ComparatorXmpRatingDesc;
+import org.jphototagger.program.comparator.ExifDateTimeOriginalAscendingComparator;
+import org.jphototagger.program.comparator.ExifDateTimeOriginalDescendingComparator;
+import org.jphototagger.program.comparator.ExifFocalLengthAscendingComparator;
+import org.jphototagger.program.comparator.ExifFocalLengthDescendingComparator;
+import org.jphototagger.program.comparator.ExifIsoSpeedRatingAscendingComparator;
+import org.jphototagger.program.comparator.ExifIsoSpeedRatingDescendingComparator;
+import org.jphototagger.program.comparator.ExifRecordingEquipmentAscendingComparator;
+import org.jphototagger.program.comparator.ExifRecordingEquipmentDescendingComparator;
+import org.jphototagger.program.comparator.XmpIptcLocationAscendingComparator;
+import org.jphototagger.program.comparator.XmpIptcLocationDescendingComparator;
+import org.jphototagger.program.comparator.XmpRatingAscendingComparator;
+import org.jphototagger.program.comparator.XmpRatingDescendingComparator;
 import org.jphototagger.program.controller.actions.EditUserDefinedFileTypesAction;
 import org.jphototagger.program.controller.actions.ShowActionDialogAction;
 import org.jphototagger.program.resource.GUI;
@@ -64,18 +64,18 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemOfSortCmp.put(FileSort.TYPES_ASCENDING.getComparator(), radioButtonMenuItemSortFileTypeAscending);
         menuItemOfSortCmp.put(FileSort.TYPES_DESCENDING.getComparator(), radioButtonMenuItemSortFileTypeDescending);
         menuItemOfSortCmp.put(FileSort.NO_SORT.getComparator(), radioButtonMenuItemSortNone);
-        menuItemOfSortCmp.put(new ComparatorExifDateTimeOriginalAsc(), radioButtonMenuItemSortExifDateTimeOriginalAscending);
-        menuItemOfSortCmp.put(new ComparatorExifDateTimeOriginalDesc(), radioButtonMenuItemSortExifDateTimeOriginalDescending);
-        menuItemOfSortCmp.put(new ComparatorExifFocalLengthAsc(), radioButtonMenuItemSortExifFocalLengthAscending);
-        menuItemOfSortCmp.put(new ComparatorExifFocalLengthDesc(), radioButtonMenuItemSortExifFocalLengthDescending);
-        menuItemOfSortCmp.put(new ComparatorExifIsoSpeedRatingAsc(), radioButtonMenuItemSortExifIsoSpeedRatingAscending);
-        menuItemOfSortCmp.put(new ComparatorExifIsoSpeedRatingDesc(), radioButtonMenuItemSortExifIsoSpeedRatingDescending);
-        menuItemOfSortCmp.put(new ComparatorExifRecordingEquipmentAsc(), radioButtonMenuItemSortExifRecordingEquipmentAscending);
-        menuItemOfSortCmp.put(new ComparatorExifRecordingEquipmentDesc(), radioButtonMenuItemSortExifRecordingEquipmentDescending);
-        menuItemOfSortCmp.put(new ComparatorXmpRatingAsc(), radioButtonMenuItemSortXmpRatingAscending);
-        menuItemOfSortCmp.put(new ComparatorXmpRatingDesc(), radioButtonMenuItemSortXmpRatingDescending);
-        menuItemOfSortCmp.put(new ComparatorXmpIptcLocationAsc(), radioButtonMenuItemSortXmpIptcLocationAscending);
-        menuItemOfSortCmp.put(new ComparatorXmpIptcLocationDesc(), radioButtonMenuItemSortXmpIptcLocationDescending);
+        menuItemOfSortCmp.put(new ExifDateTimeOriginalAscendingComparator(), radioButtonMenuItemSortExifDateTimeOriginalAscending);
+        menuItemOfSortCmp.put(new ExifDateTimeOriginalDescendingComparator(), radioButtonMenuItemSortExifDateTimeOriginalDescending);
+        menuItemOfSortCmp.put(new ExifFocalLengthAscendingComparator(), radioButtonMenuItemSortExifFocalLengthAscending);
+        menuItemOfSortCmp.put(new ExifFocalLengthDescendingComparator(), radioButtonMenuItemSortExifFocalLengthDescending);
+        menuItemOfSortCmp.put(new ExifIsoSpeedRatingAscendingComparator(), radioButtonMenuItemSortExifIsoSpeedRatingAscending);
+        menuItemOfSortCmp.put(new ExifIsoSpeedRatingDescendingComparator(), radioButtonMenuItemSortExifIsoSpeedRatingDescending);
+        menuItemOfSortCmp.put(new ExifRecordingEquipmentAscendingComparator(), radioButtonMenuItemSortExifRecordingEquipmentAscending);
+        menuItemOfSortCmp.put(new ExifRecordingEquipmentDescendingComparator(), radioButtonMenuItemSortExifRecordingEquipmentDescending);
+        menuItemOfSortCmp.put(new XmpRatingAscendingComparator(), radioButtonMenuItemSortXmpRatingAscending);
+        menuItemOfSortCmp.put(new XmpRatingDescendingComparator(), radioButtonMenuItemSortXmpRatingDescending);
+        menuItemOfSortCmp.put(new XmpIptcLocationAscendingComparator(), radioButtonMenuItemSortXmpIptcLocationAscending);
+        menuItemOfSortCmp.put(new XmpIptcLocationDescendingComparator(), radioButtonMenuItemSortXmpIptcLocationDescending);
 
         for (Comparator<File> comparator : menuItemOfSortCmp.keySet()) {
             sortCmpOfMenuItem.put(menuItemOfSortCmp.get(comparator), comparator);
@@ -485,7 +485,7 @@ public final class AppFrame extends javax.swing.JFrame {
         menuExport.setText(bundle.getString("AppFrame.menuExport.text")); // NOI18N
         menuExport.setName("menuExport"); // NOI18N
 
-        menuItemExportJptMisc.setAction(org.jphototagger.program.exporter.JptExportAction.INSTANCE);
+        menuItemExportJptMisc.setAction(org.jphototagger.program.repository.exporter.JptExportAction.INSTANCE);
         menuItemExportJptMisc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_app_small.png"))); // NOI18N
         menuItemExportJptMisc.setText(bundle.getString("AppFrame.menuItemExportJptMisc.text")); // NOI18N
         menuItemExportJptMisc.setName("menuItemExportJptMisc"); // NOI18N
@@ -497,7 +497,7 @@ public final class AppFrame extends javax.swing.JFrame {
         menuImport.setText(bundle.getString("AppFrame.menuImport.text")); // NOI18N
         menuImport.setName("menuImport"); // NOI18N
 
-        menuItemImportJptMisc.setAction(org.jphototagger.program.importer.JptImportAction.INSTANCE);
+        menuItemImportJptMisc.setAction(org.jphototagger.program.repository.importer.JptImportAction.INSTANCE);
         menuItemImportJptMisc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_app_small.png"))); // NOI18N
         menuItemImportJptMisc.setText(bundle.getString("AppFrame.menuItemImportJptMisc.text")); // NOI18N
         menuItemImportJptMisc.setName("menuItemImportJptMisc"); // NOI18N

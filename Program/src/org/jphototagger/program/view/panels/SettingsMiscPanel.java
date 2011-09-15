@@ -14,7 +14,7 @@ import org.jphototagger.domain.event.UserPropertyChangedEvent;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.DirectoryChooser;
 import org.jphototagger.lib.dialog.DirectoryChooser.Option;
-import org.jphototagger.program.controller.misc.ControllerUpdateCheck;
+import org.jphototagger.program.controller.misc.UpdateCheckController;
 import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.helper.CopyFiles;
 import org.jphototagger.program.helper.CopyFiles.Options;
@@ -266,7 +266,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
 
     private void checkDownload() {
         ControllerFactory.INSTANCE.getController(
-                ControllerUpdateCheck.class).actionPerformed(null);
+                UpdateCheckController.class).actionPerformed(null);
     }
 
     /**

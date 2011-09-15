@@ -8,6 +8,7 @@ import java.io.File;
  * @author Martin Pohlack
  */
 public abstract class CacheIndirection {
+
     public int usageTime;
     public File file;
 

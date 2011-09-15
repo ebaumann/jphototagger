@@ -10,6 +10,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JToggleButton;
 import javax.swing.JTree;
+
 import org.bushe.swing.event.EventBus;
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.api.storage.StorageHints;

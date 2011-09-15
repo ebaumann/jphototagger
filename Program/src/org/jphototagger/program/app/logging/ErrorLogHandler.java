@@ -42,7 +42,7 @@ public final class ErrorLogHandler extends Handler implements ActionListener, Mo
         getItemAllLogfile().addActionListener(this);
         GUI.getAppPanel().getLabelError().addMouseListener(this);
         Logger.getLogger("").addHandler(this);
-         // Separately from Root Logger "" because JPhotoTagger's logging system doesn't use parent handlers
+        // Separately from Root Logger "" because JPhotoTagger's logging system doesn't use parent handlers
         Logger.getLogger("org.jphototagger").addHandler(this);
     }
 

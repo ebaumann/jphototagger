@@ -15,6 +15,7 @@ import java.util.Map.Entry;
  */
 public class CacheIndirectionAgeComparator<C extends CacheIndirection>
         implements Comparator<Entry<File, SoftReference<C>>>, Serializable {
+
     private static final long serialVersionUID = 712279209565326209L;
 
     @Override
@@ -41,7 +42,7 @@ public class CacheIndirectionAgeComparator<C extends CacheIndirection>
         return ((t1 < t2)
                 ? -1
                 : ((t1 == t2)
-                   ? 0
-                   : 1));
+                ? 0
+                : 1));
     }
 }

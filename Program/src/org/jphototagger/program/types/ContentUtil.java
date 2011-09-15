@@ -1,8 +1,9 @@
 package org.jphototagger.program.types;
 
-import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 
 /**
  * Utils for {@link TypeOfDisplayedImages}.
@@ -10,6 +11,7 @@ import java.util.List;
  * @author Elmar Baumann
  */
 public final class ContentUtil {
+
     private static final List<TypeOfDisplayedImages> CONTENT_IS_A_FILESYSTEM_DIRECTORY = new ArrayList<TypeOfDisplayedImages>();
 
     static {
@@ -31,5 +33,6 @@ public final class ContentUtil {
         return CONTENT_IS_A_FILESYSTEM_DIRECTORY.contains(content);
     }
 
-    private ContentUtil() {}
+    private ContentUtil() {
+    }
 }

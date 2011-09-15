@@ -9,18 +9,18 @@ import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 
 import org.jphototagger.domain.metadata.MetaDataValue;
+import org.jphototagger.domain.metadata.MetaDataValueIds;
 import org.jphototagger.domain.metadata.exif.ExifDateTimeOriginalMetaDataValue;
 import org.jphototagger.domain.metadata.search.AdvancedSearchMetaDataValues;
+import org.jphototagger.domain.metadata.search.Comparator;
+import org.jphototagger.domain.metadata.search.Operator;
+import org.jphototagger.domain.metadata.search.SavedSearchPanel;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpIptc4XmpCoreDateCreatedMetaDataValue;
 import org.jphototagger.lib.thirdparty.DateChooserDialog;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.domain.metadata.search.SavedSearchPanel;
-import org.jphototagger.domain.metadata.search.Comparator;
-import org.jphototagger.domain.metadata.search.Operator;
-import org.jphototagger.domain.metadata.MetaDataValueIds;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.renderer.ListCellRendererTableColumns;
+import org.jphototagger.program.view.renderer.TableColumnsListCellRenderer;
 
 /**
  * Panel mit einer Suchspalte und deren möglichen Verknüpfungen, Operatoren
@@ -34,7 +34,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
     private static final String NOT_SEL_LEFT_BRACKET = "<html><font size=\"+1\" color=\"#dddddd\"><b>(</b></font></html>";
     private static final String SEL_RIGHT_BRACKET = "<html><font size=\"+1\" color=\"#000000\"><b>)</b></font></html>";
     private static final String NOT_SEL_RIGHT_BRACKET = "<html><font size=\"+1\" color=\"#dddddd\"><b>)</b></font></html>";
-    private final ListCellRendererTableColumns columnRenderer = new ListCellRendererTableColumns();
+    private final TableColumnsListCellRenderer columnRenderer = new TableColumnsListCellRenderer();
     private MetaDataValue.ValueType  prevColumnDataType;
     private boolean isOperatorsEnabled = true;
     private boolean listenToActions = true;
@@ -330,7 +330,7 @@ public final class SearchColumnPanel extends javax.swing.JPanel {
         comboBoxColumns = new javax.swing.JComboBox();
         comboBoxComparators = new javax.swing.JComboBox();
         textFieldValue = new javax.swing.JFormattedTextField();
-        textFieldValue.setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerDropTextComponent());
+        textFieldValue.setTransferHandler(new org.jphototagger.program.datatransfer.DropTextComponentTransferHandler());
         toggleButtonBracketRight = new javax.swing.JToggleButton();
         buttonCalendar = new javax.swing.JButton();
         buttonRemoveColumn = new javax.swing.JButton();

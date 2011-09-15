@@ -10,7 +10,7 @@ import org.jphototagger.domain.repository.ImageCollectionsRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.model.ListModelImageCollections;
+import org.jphototagger.program.model.ImageCollectionsListModel;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.openide.util.Lookup;
@@ -203,7 +203,7 @@ public final class ImageCollectionsHelper {
 
     /**
      * Returns wether a name is valid. This is true if the name is not equals
-     * to {@link ListModelImageCollections#NAME_IMAGE_COLLECTION_PREV_IMPORT}
+     * to {@link ImageCollectionsListModel#NAME_IMAGE_COLLECTION_PREV_IMPORT}
      * ignoring the case.
      *
      * @param  name name
@@ -214,7 +214,7 @@ public final class ImageCollectionsHelper {
             throw new NullPointerException("name == null");
         }
 
-        return !name.trim().equalsIgnoreCase(ListModelImageCollections.NAME_IMAGE_COLLECTION_PREV_IMPORT);
+        return !name.trim().equalsIgnoreCase(ImageCollectionsListModel.NAME_IMAGE_COLLECTION_PREV_IMPORT);
     }
 
     private static boolean checkIsValidName(String name) {

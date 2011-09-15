@@ -20,29 +20,29 @@ import org.jphototagger.lib.io.filefilter.DirectoryFilter;
 import org.jphototagger.lib.model.AllSystemDirectoriesTreeModel;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppWindowPersistence;
-import org.jphototagger.program.model.ComboBoxModelFileFilters;
-import org.jphototagger.program.model.ComboBoxModelMetadataTemplates;
-import org.jphototagger.program.model.ListModelImageCollections;
-import org.jphototagger.program.model.ListModelKeywords;
-import org.jphototagger.program.model.ListModelMetadataTemplates;
-import org.jphototagger.program.model.ListModelNoMetadata;
-import org.jphototagger.program.model.ListModelSavedSearches;
-import org.jphototagger.program.model.TableModelExif;
-import org.jphototagger.program.model.TableModelIptc;
-import org.jphototagger.program.model.TableModelXmp;
-import org.jphototagger.program.model.TreeModelFavorites;
-import org.jphototagger.program.model.TreeModelKeywords;
-import org.jphototagger.program.model.TreeModelMiscMetadata;
-import org.jphototagger.program.model.TreeModelTimeline;
+import org.jphototagger.program.model.ExifTableModel;
+import org.jphototagger.program.model.FavoritesTreeModel;
+import org.jphototagger.program.model.FileFiltersComboBoxModel;
+import org.jphototagger.program.model.ImageCollectionsListModel;
+import org.jphototagger.program.model.IptcTableModel;
+import org.jphototagger.program.model.KeywordsListModel;
+import org.jphototagger.program.model.KeywordsTreeModel;
+import org.jphototagger.program.model.MetadataTemplatesComboBoxModel;
+import org.jphototagger.program.model.MetadataTemplatesListModel;
+import org.jphototagger.program.model.MiscMetadataTreeModel;
+import org.jphototagger.program.model.NoMetadataListModel;
+import org.jphototagger.program.model.SavedSearchesListModel;
+import org.jphototagger.program.model.TimelineTreeModel;
+import org.jphototagger.program.model.XmpTableModel;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.KeywordsPanel;
 import org.jphototagger.program.view.panels.SelectRootFilesPanel;
+import org.jphototagger.program.view.renderer.ExifTableCellRenderer;
+import org.jphototagger.program.view.renderer.IptcTableCellRenderer;
 import org.jphototagger.program.view.renderer.KeywordHighlightPredicate;
-import org.jphototagger.program.view.renderer.TableCellRendererExif;
-import org.jphototagger.program.view.renderer.TableCellRendererIptc;
-import org.jphototagger.program.view.renderer.TableCellRendererXmp;
+import org.jphototagger.program.view.renderer.XmpTableCellRenderer;
 import org.openide.util.Lookup;
 
 /**
@@ -89,7 +89,7 @@ public final class ModelFactory {
     }
 
     private void setComboBoxModelFileFilters() {
-        ComboBoxModelFileFilters model = new ComboBoxModelFileFilters();
+        FileFiltersComboBoxModel model = new FileFiltersComboBoxModel();
 
         support.add(model);
         GUI.getAppPanel().getComboBoxFileFilters().setModel(model);
@@ -99,7 +99,7 @@ public final class ModelFactory {
         String message = Bundle.getString(ModelFactory.class, "ModelFactory.Starting.ComboBoxModelMetadataTemplates");
         Support.setStatusbarInfo(message);
 
-        ComboBoxModelMetadataTemplates model = new ComboBoxModelMetadataTemplates();
+        MetadataTemplatesComboBoxModel model = new MetadataTemplatesComboBoxModel();
 
         support.add(model);
         appPanel.getPanelEditMetadataActions().getComboBoxMetadataTemplates().setModel(model);
@@ -124,7 +124,7 @@ public final class ModelFactory {
 
                 final JXList list = appPanel.getListSavedSearches();
                 final Cursor listCursor = setWaitCursor(list);
-                final ListModelSavedSearches model = new ListModelSavedSearches();
+                final SavedSearchesListModel model = new SavedSearchesListModel();
 
                 support.add(model);
                 EventQueueUtil.invokeInDispatchThread(new Runnable() {
@@ -154,7 +154,7 @@ public final class ModelFactory {
 
                 final JXList list = appPanel.getListImageCollections();
                 final Cursor listCursor = setWaitCursor(list);
-                final ListModelImageCollections model = new ListModelImageCollections();
+                final ImageCollectionsListModel model = new ImageCollectionsListModel();
 
                 support.add(model);
                 EventQueueUtil.invokeInDispatchThread(new Runnable() {
@@ -162,7 +162,7 @@ public final class ModelFactory {
                     @Override
                     public void run() {
                         list.setModel(model);
-                        ListSortController<ListModelImageCollections> sorter = new ListSortController<ListModelImageCollections>(model);
+                        ListSortController<ImageCollectionsListModel> sorter = new ListSortController<ImageCollectionsListModel>(model);
                         sorter.setComparator(0, model.createAscendingSortComparator());
                         list.setRowSorter(sorter);
                         list.setSortOrder(SortOrder.ASCENDING);
@@ -187,7 +187,7 @@ public final class ModelFactory {
                 final JXList listSelectedKeywords = appPanel.getListSelKeywords();
                 final KeywordsPanel panelEditKeywords = appPanel.getPanelEditKeywords();
                 final Cursor listCursor = setWaitCursor(listSelectedKeywords);
-                final ListModelKeywords modelKeywords = new ListModelKeywords();
+                final KeywordsListModel modelKeywords = new KeywordsListModel();
 
                 support.add(modelKeywords);
                 EventQueueUtil.invokeInDispatchThread(new Runnable() {
@@ -214,7 +214,7 @@ public final class ModelFactory {
         String message = Bundle.getString(ModelFactory.class, "ModelFactory.Starting.ListModelNoMetadata");
         Support.setStatusbarInfo(message);
 
-        ListModelNoMetadata model = new ListModelNoMetadata();
+        NoMetadataListModel model = new NoMetadataListModel();
 
         support.add(model);
         appPanel.getListNoMetadata().setModel(model);
@@ -226,16 +226,16 @@ public final class ModelFactory {
         String message = Bundle.getString(ModelFactory.class, "ModelFactory.Starting.TableModels");
         Support.setStatusbarInfo(message);
 
-        TableModelIptc modelIptc = new TableModelIptc();
-        TableModelXmp modelXmp1 = new TableModelXmp();
-        TableModelXmp modelXmp2 = new TableModelXmp();
-        TableModelXmp modelXmp3 = new TableModelXmp();
-        TableModelXmp modelXmp4 = new TableModelXmp();
-        TableModelXmp modelXmp5 = new TableModelXmp();
-        TableModelXmp modelXmp6 = new TableModelXmp();
-        TableModelXmp modelXmp7 = new TableModelXmp();
-        TableModelXmp modelXmp8 = new TableModelXmp();
-        TableModelExif modelExif = new TableModelExif();
+        IptcTableModel modelIptc = new IptcTableModel();
+        XmpTableModel modelXmp1 = new XmpTableModel();
+        XmpTableModel modelXmp2 = new XmpTableModel();
+        XmpTableModel modelXmp3 = new XmpTableModel();
+        XmpTableModel modelXmp4 = new XmpTableModel();
+        XmpTableModel modelXmp5 = new XmpTableModel();
+        XmpTableModel modelXmp6 = new XmpTableModel();
+        XmpTableModel modelXmp7 = new XmpTableModel();
+        XmpTableModel modelXmp8 = new XmpTableModel();
+        ExifTableModel modelExif = new ExifTableModel();
 
         support.add(modelIptc);
         support.add(modelXmp1);
@@ -276,8 +276,8 @@ public final class ModelFactory {
 
     private void setXmpTableComparator(JTable xmpTable) {
         TableRowSorter<?> rowSorter = (TableRowSorter<?>) xmpTable.getRowSorter();
-        Comparator<?> column0Comparator = TableCellRendererXmp.createColumn0Comparator();
-        Comparator<?> column1Comparator = TableCellRendererXmp.createColumn1Comparator();
+        Comparator<?> column0Comparator = XmpTableCellRenderer.createColumn0Comparator();
+        Comparator<?> column1Comparator = XmpTableCellRenderer.createColumn1Comparator();
 
         rowSorter.setComparator(0, column0Comparator);
         rowSorter.setComparator(1, column1Comparator);
@@ -285,9 +285,9 @@ public final class ModelFactory {
 
     private void setIptcTableComparator(JTable iptcTabe) {
         TableRowSorter<?> rowSorter = (TableRowSorter<?>) iptcTabe.getRowSorter();
-        Comparator<?> column0Comparator = TableCellRendererIptc.createColumn0Comparator();
-        Comparator<?> column1Comparator = TableCellRendererIptc.createColumn1Comparator();
-        Comparator<?> column2Comparator = TableCellRendererIptc.createColumn2Comparator();
+        Comparator<?> column0Comparator = IptcTableCellRenderer.createColumn0Comparator();
+        Comparator<?> column1Comparator = IptcTableCellRenderer.createColumn1Comparator();
+        Comparator<?> column2Comparator = IptcTableCellRenderer.createColumn2Comparator();
 
         rowSorter.setComparator(0, column0Comparator);
         rowSorter.setComparator(1, column1Comparator);
@@ -296,8 +296,8 @@ public final class ModelFactory {
 
     private void setExifTableComparator(JTable exif) {
         TableRowSorter<?> rowSorter = (TableRowSorter<?>) exif.getRowSorter();
-        Comparator<?> column0Comparator = TableCellRendererExif.createColumn0Comparator();
-        Comparator<?> column1Comparator = TableCellRendererExif.createColumn1Comparator();
+        Comparator<?> column0Comparator = ExifTableCellRenderer.createColumn0Comparator();
+        Comparator<?> column1Comparator = ExifTableCellRenderer.createColumn1Comparator();
 
         rowSorter.setComparator(0, column0Comparator);
         rowSorter.setComparator(1, column1Comparator);
@@ -319,8 +319,8 @@ public final class ModelFactory {
                 String message = Bundle.getString(ModelFactory.class, "ModelFactory.Starting.TreeModelKeywords");
                 Support.setStatusbarInfo(message);
 
-                final TreeModel treeModelKeywords = new TreeModelKeywords();
-                final ListModelMetadataTemplates listModelTemplates = new ListModelMetadataTemplates();
+                final TreeModel treeModelKeywords = new KeywordsTreeModel();
+                final MetadataTemplatesListModel listModelTemplates = new MetadataTemplatesListModel();
 
                 support.add(treeModelKeywords);
                 support.add(listModelTemplates);
@@ -357,8 +357,8 @@ public final class ModelFactory {
 
                 final JTree tree = appPanel.getTreeMiscMetadata();
                 final Cursor treeCursor = setWaitCursor(tree);
-                final TreeModel modelApp = new TreeModelMiscMetadata(false);
-                final TreeModel modelInputHelper = new TreeModelMiscMetadata(true);
+                final TreeModel modelApp = new MiscMetadataTreeModel(false);
+                final TreeModel modelInputHelper = new MiscMetadataTreeModel(true);
 
                 support.add(modelApp);
                 support.add(modelInputHelper);
@@ -388,7 +388,7 @@ public final class ModelFactory {
 
                 final JTree tree = appPanel.getTreeTimeline();
                 final Cursor treeCursor = setWaitCursor(tree);
-                final TreeModel model = new TreeModelTimeline();
+                final TreeModel model = new TimelineTreeModel();
 
                 support.add(model);
                 EventQueueUtil.invokeInDispatchThread(new Runnable() {
@@ -416,7 +416,7 @@ public final class ModelFactory {
 
                 final JTree tree = appPanel.getTreeFavorites();
                 final Cursor treeCursor = setWaitCursor(tree);
-                final TreeModelFavorites model = new TreeModelFavorites(tree);
+                final FavoritesTreeModel model = new FavoritesTreeModel(tree);
 
                 EventQueueUtil.invokeInDispatchThread(new Runnable() {
 

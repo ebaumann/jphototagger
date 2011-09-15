@@ -66,12 +66,12 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.MathUtil;
 import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.program.cache.RenderedThumbnailCache;
-import org.jphototagger.program.controller.thumbnail.ControllerThumbnailDoubleklick;
-import org.jphototagger.program.datatransfer.TransferHandlerThumbnailsPanel;
+import org.jphototagger.program.controller.thumbnail.ThumbnailDoubleklickController;
+import org.jphototagger.program.datatransfer.ThumbnailsPanelTransferHandler;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.types.FileAction;
 import org.jphototagger.program.types.SizeUnit;
-import org.jphototagger.program.view.popupmenus.PopupMenuThumbnails;
+import org.jphototagger.program.view.popupmenus.ThumbnailsPopupMenu;
 import org.jphototagger.program.view.renderer.ThumbnailPanelRenderer;
 import org.jphototagger.xmp.XmpMetadata;
 import org.openide.util.Lookup;
@@ -97,13 +97,13 @@ public class ThumbnailsPanel extends JPanel
     private boolean transferDataOfDraggedThumbnails = false;
     private final ThumbnailPanelRenderer renderer = new ThumbnailPanelRenderer(this);
     private final transient RenderedThumbnailCache renderedThumbnailCache = RenderedThumbnailCache.INSTANCE;
-    private final PopupMenuThumbnails popupMenu = PopupMenuThumbnails.INSTANCE;
+    private final ThumbnailsPopupMenu popupMenu = ThumbnailsPopupMenu.INSTANCE;
     private Comparator<File> fileSortComparator = FileSort.NAMES_ASCENDING.getComparator();
     private FileFilter fileFilter = AppFileFilters.INSTANCE.getAllAcceptedImageFilesFilter();
     private final List<File> files = Collections.synchronizedList(new ArrayList<File>());
     private FileAction fileAction = FileAction.UNDEFINED;
     private TypeOfDisplayedImages typeOfDisplayedImages = TypeOfDisplayedImages.UNDEFINED;
-    private final transient ControllerThumbnailDoubleklick ctrlDoubleklick;
+    private final transient ThumbnailDoubleklickController ctrlDoubleklick;
     private boolean drag;
     private boolean keywordsOverlay;
     private volatile boolean notifySelChanged;
@@ -114,9 +114,9 @@ public class ThumbnailsPanel extends JPanel
     private final Object thumbnailsChangedNotifyMonitor = new Object();
 
     public ThumbnailsPanel() {
-        ctrlDoubleklick = new ControllerThumbnailDoubleklick(this);
+        ctrlDoubleklick = new ThumbnailDoubleklickController(this);
         setDragEnabled(true);
-        setTransferHandler(new TransferHandlerThumbnailsPanel());
+        setTransferHandler(new ThumbnailsPanelTransferHandler());
         readProperties();
         renderedThumbnailCache.setRenderer(renderer);
         setBackground(COLOR_BACKGROUND_PANEL);

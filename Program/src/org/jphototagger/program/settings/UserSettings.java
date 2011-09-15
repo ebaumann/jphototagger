@@ -5,12 +5,12 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.jphototagger.api.file.FilenameTokens;
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.lib.util.PropertiesFile;
 import org.jphototagger.lib.util.Settings;
 import org.jphototagger.program.app.AppInfo;
 import org.jphototagger.program.app.update.UpdateUserSettings;
-import org.jphototagger.api.file.FilenameTokens;
 
 /**
  * Stores user settings in a single {@link java.util.Properties} instance.

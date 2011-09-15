@@ -15,6 +15,7 @@ import org.jphototagger.program.app.AppFileFilters;
  * @author Elmar Baumann
  */
 public final class FilenameFormatDate extends FilenameFormat {
+
     private String delimiter;
     private String name;
 
@@ -95,5 +96,6 @@ public final class FilenameFormatDate extends FilenameFormat {
         return Bundle.getString(FilenameFormatDate.class, "FilenameFormatDate.String");
     }
 
-    private FilenameFormatDate() {}
+    private FilenameFormatDate() {
+    }
 }

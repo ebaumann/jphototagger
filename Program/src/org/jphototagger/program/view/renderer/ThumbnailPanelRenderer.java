@@ -1,34 +1,36 @@
 package org.jphototagger.program.view.renderer;
 
-import org.jphototagger.program.cache.RenderedThumbnailCacheIndirection;
-import org.jphototagger.program.cache.ThumbnailRenderer;
-import org.jphototagger.program.cache.XmpCache;
-import org.jphototagger.domain.thumbnails.ThumbnailFlag;
-import org.jphototagger.domain.xmp.Xmp;
-import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
-import org.jphototagger.domain.metadata.xmp.XmpRatingMetaDataValue;
-import org.jphototagger.program.datatransfer.Flavor;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.Polygon;
+import java.awt.RenderingHints;
 import java.awt.datatransfer.Transferable;
 import java.awt.dnd.DropTargetDragEvent;
 import java.awt.dnd.DropTargetDropEvent;
 import java.awt.dnd.DropTargetEvent;
 import java.awt.dnd.DropTargetListener;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.awt.image.ConvolveOp;
 import java.awt.image.Kernel;
-import java.awt.Point;
-import java.awt.Polygon;
-import java.awt.RenderingHints;
 import java.io.File;
 import java.util.Iterator;
 import java.util.List;
+
 import javax.swing.ImageIcon;
+
+import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpRatingMetaDataValue;
+import org.jphototagger.domain.thumbnails.ThumbnailFlag;
+import org.jphototagger.domain.xmp.Xmp;
+import org.jphototagger.program.cache.RenderedThumbnailCacheIndirection;
+import org.jphototagger.program.cache.ThumbnailRenderer;
+import org.jphototagger.program.cache.XmpCache;
+import org.jphototagger.program.datatransfer.Flavor;
+import org.jphototagger.program.view.panels.ThumbnailsPanel;
 
 /**
  *
@@ -40,55 +42,45 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
      * Width of a thumbnail flag in pixel
      */
     private static final int FLAG_WIDTH = 10;
-
     /**
      * Height of a thumbnail flag in pixel
      */
     private static final int FLAG_HEIGHT = 10;
-
     /**
      * Height of the text font for text below the thumbnails in points
      */
     private static final int FONT_HEIGHT = 10;
-
     /**
      * Font of the text below the thumbnails
      */
     private static final Font FONT = new Font("Arial", Font.PLAIN, FONT_HEIGHT);
-
     /**
      * Height of the text font for text below the thumbnails in pixels,
      * computed from FONT_HEIGHT.
      */
     private static int FONT_PIXEL_HEIGHT = -1;
     private static int FONT_PIXEL_DESCENT = -1;
-
     /**
      * Color of the text below the thumbnails
      */
     private static final Color COLOR_TEXT = Color.lightGray;
-
     /**
      * Background color of the space between a thumbnail and it's border
      */
     private static final Color COLOR_BACKGROUND_PADDING_THUMBNAIL = new Color(0, 0, 0);
-
     /**
      * Color of the border surrounding the thumbnails
      */
     private static final Color COLOR_BORDER_THUMBNAIL = new Color(64, 64, 64);
-
     /**
      * Color of the text below the thumbnails of a higlighted thumbnail. Depends
      * on {@link #COLOR_BACKGROUND_PADDING_THUMBNAIL_HIGHLIGHTED}
      */
     private static final Color COLOR_TEXT_HIGHLIGHTED = new Color(255, 255, 168);
-
     /**
      * Background color behind the keywords overlay.
      */
     private static final Color COLOR_TEXT_BACKGROUND = new Color(0, 0, 128);
-
     /**
      * Color of the background surrounding a highlighted thumbnail. When
      * changing, look for {@link #COLOR_TEXT_HIGHLIGHTED}.
@@ -96,39 +88,32 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
     private static final Color COLOR_BACKGROUND_PADDING_THUMBNAIL_HIGHLIGHTED = new Color(112, 122, 148);
     private static final Color COLOR_BACKGROUND_PADDING_THUMBNAIL_DRAG_OVER = new Color(169, 171, 176);
     private static final Color COLOR_DROP_MARKER = new Color(225, 225, 225);
-
     /**
      * Color of the border surrounding the highlighted thumbnails.
      */
     private static final Color COLOR_BORDER_THUMBNAIL_HIGHLIGHTED = new Color(128, 128, 164);
-
     /**
      * Maximum character count of the text below a thumbnail
      */
     private int maxCharCountText = 35;
-
     /**
      * Empty space surrounding a thumbnail within the border (space between
      * the thumbnail's image and the border) in pixel
      */
     private static final int MARGIN_THUMBNAIL = 3;
-
     /**
      * Width of the border surrounding the thumbnails in pixel
      */
     private static final int WIDHT_BORDER_THUMBNAIL = 1;
-
     /**
      * Maximimum character count of the text below the thumbnails when the
      * width of a thumbnail is 150 pixels
      */
     private static final int MAX_CHAR_COUNT_PER_150_PX = 30;
-
     /**
      * Width of a thumbnail
      */
     private int thumbnailWidth = 0;
-
     // Render sources while dragging
     private int dragIndex = -1;
     private int dropIndex = -1;
@@ -156,7 +141,7 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
     private void loadRatingImages() {
         for (int i = 0; i < STAR_COUNT; i++) {
             starImage[i] =
-                new ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_xmp_rating_"
+                    new ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_xmp_rating_"
                     + Integer.toString(i) + ".png")).getImage();
         }
     }
@@ -187,8 +172,8 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
             int sw = scaled.getWidth(null);
             int sh = scaled.getHeight(null);
             int length = (sw > sh)
-                         ? sw
-                         : sh;
+                    ? sw
+                    : sh;
             int w = length + 2 * MARGIN_THUMBNAIL + 2 * WIDHT_BORDER_THUMBNAIL;
             int h = w + FONT_PIXEL_HEIGHT;
             BufferedImage bi = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
@@ -228,23 +213,23 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
 
     private void paintThumbnailBackground(Graphics2D g, boolean isSelected, boolean isDrag) {
         Color backgroundColor = isSelected
-                                ? COLOR_BACKGROUND_PADDING_THUMBNAIL_HIGHLIGHTED
-                                : isDrag
-                                  ? COLOR_BACKGROUND_PADDING_THUMBNAIL_DRAG_OVER
-                                  : COLOR_BACKGROUND_PADDING_THUMBNAIL;
+                ? COLOR_BACKGROUND_PADDING_THUMBNAIL_HIGHLIGHTED
+                : isDrag
+                ? COLOR_BACKGROUND_PADDING_THUMBNAIL_DRAG_OVER
+                : COLOR_BACKGROUND_PADDING_THUMBNAIL;
         Color borderColor = isSelected
-                            ? COLOR_BORDER_THUMBNAIL_HIGHLIGHTED
-                            : COLOR_BORDER_THUMBNAIL;
+                ? COLOR_BORDER_THUMBNAIL_HIGHLIGHTED
+                : COLOR_BORDER_THUMBNAIL;
         Color oldColor = g.getColor();
 
         g.setColor(backgroundColor);
         g.fillRoundRect(0, 0, thumbnailWidth + 2 * MARGIN_THUMBNAIL + WIDHT_BORDER_THUMBNAIL,
-                        thumbnailWidth + 2 * MARGIN_THUMBNAIL + WIDHT_BORDER_THUMBNAIL, MARGIN_THUMBNAIL * 2,
-                        MARGIN_THUMBNAIL * 2);
+                thumbnailWidth + 2 * MARGIN_THUMBNAIL + WIDHT_BORDER_THUMBNAIL, MARGIN_THUMBNAIL * 2,
+                MARGIN_THUMBNAIL * 2);
         g.setColor(borderColor);
         g.drawRoundRect(0, 0, thumbnailWidth + 2 * MARGIN_THUMBNAIL + WIDHT_BORDER_THUMBNAIL,
-                        thumbnailWidth + 2 * MARGIN_THUMBNAIL + WIDHT_BORDER_THUMBNAIL, MARGIN_THUMBNAIL * 2,
-                        MARGIN_THUMBNAIL * 2);
+                thumbnailWidth + 2 * MARGIN_THUMBNAIL + WIDHT_BORDER_THUMBNAIL, MARGIN_THUMBNAIL * 2,
+                MARGIN_THUMBNAIL * 2);
         g.setColor(oldColor);
     }
 
@@ -256,7 +241,7 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
 
             g.setColor(flag.getColor());
             g.fillRect(thumbnailWidth + 2 * MARGIN_THUMBNAIL - FLAG_WIDTH,
-                       thumbnailWidth + 2 * MARGIN_THUMBNAIL - FLAG_HEIGHT, FLAG_WIDTH, FLAG_HEIGHT);
+                    thumbnailWidth + 2 * MARGIN_THUMBNAIL - FLAG_HEIGHT, FLAG_WIDTH, FLAG_HEIGHT);
             g.setColor(oldColor);
         }
     }
@@ -286,8 +271,8 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
     private Polygon getDropMarkerTriangle(int xCenter, int y, int halfTopWidth, int height) {
 
         // top left                 top right      bottom center
-        int[] xs = { xCenter - halfTopWidth, xCenter + halfTopWidth, xCenter };
-        int[] ys = { y, y, y + height };
+        int[] xs = {xCenter - halfTopWidth, xCenter + halfTopWidth, xCenter};
+        int[] ys = {y, y, y + height};
 
         return new Polygon(xs, ys, xs.length);
     }
@@ -305,13 +290,13 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
         int lenTitle = g.getFontMetrics().stringWidth(text);
         int space = width - lenTitle;
         int xText = (space > 0)
-                    ? (space + 1) / 2
-                    : 0;
+                ? (space + 1) / 2
+                : 0;
         Color oldColor = g.getColor();
 
         g.setColor(panel.isFileSelected(file)
-                   ? COLOR_TEXT_HIGHLIGHTED
-                   : COLOR_TEXT);
+                ? COLOR_TEXT_HIGHLIGHTED
+                : COLOR_TEXT);
         g.drawString(text, xText, getThumbnailAreaHeight() - FONT_PIXEL_DESCENT);
         g.setColor(oldColor);
     }
@@ -368,7 +353,7 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
 
         for (int i = 0; is.hasNext(); i++) {
             g2.drawString(is.next(), WIDHT_BORDER_THUMBNAIL,
-                          WIDHT_BORDER_THUMBNAIL + (i + 1) * FONT_PIXEL_HEIGHT - FONT_PIXEL_DESCENT);
+                    WIDHT_BORDER_THUMBNAIL + (i + 1) * FONT_PIXEL_HEIGHT - FONT_PIXEL_DESCENT);
         }
 
         g2.dispose();
@@ -479,7 +464,7 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
 
             Xmp xmp = xmpCache.getXmp(file);
 
-            if ((xmp == null) ||!xmp.contains(XmpDcSubjectsSubjectMetaDataValue.INSTANCE)) {
+            if ((xmp == null) || !xmp.contains(XmpDcSubjectsSubjectMetaDataValue.INSTANCE)) {
                 return null;
             }
 
@@ -506,8 +491,8 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
             }
 
             Long rating = xmp.contains(XmpRatingMetaDataValue.INSTANCE)
-                          ? (Long) xmp.getValue(XmpRatingMetaDataValue.INSTANCE)
-                          : null;
+                    ? (Long) xmp.getValue(XmpRatingMetaDataValue.INSTANCE)
+                    : null;
 
             if (rating == null) {
                 return 0;
@@ -592,13 +577,11 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
 
     @Override
     public void dragEnter(DropTargetDragEvent dtde) {
-
         // ignore
     }
 
     @Override
     public void dropActionChanged(DropTargetDragEvent dtde) {
-
         // ignore
     }
 }

@@ -204,7 +204,7 @@
             </Property>
             <Property name="selectionMode" type="int" value="0"/>
             <Property name="cellRenderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new ListCellRendererPrograms()" type="code"/>
+              <Connection code="new org.jphototagger.program.view.renderer.ProgramsListCellRenderer()" type="code"/>
             </Property>
             <Property name="componentPopupMenu" type="javax.swing.JPopupMenu" editor="org.netbeans.modules.form.ComponentChooserEditor">
               <ComponentRef name="popupMenu"/>
@@ -221,7 +221,7 @@
             <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="listProgramsKeyPressed"/>
           </Events>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="listPrograms.setTransferHandler(new TransferHandlerReorderListItems(listPrograms));"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="listPrograms.setTransferHandler(new org.jphototagger.program.datatransfer.ReorderListItemsTransferHandler(listPrograms));"/>
           </AuxValues>
         </Component>
       </SubComponents>

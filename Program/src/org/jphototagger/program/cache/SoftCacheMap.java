@@ -17,6 +17,7 @@ import java.util.TreeSet;
  * @author Martin Pohlack
  */
 public class SoftCacheMap<C extends CacheIndirection> {
+
     private HashMap<File, SoftReference<C>> _map = new HashMap<File, SoftReference<C>>();
     private final int MAX_ENTRIES;
     final WorkQueue<C> w;
@@ -114,7 +115,7 @@ public class SoftCacheMap<C extends CacheIndirection> {
         }
 
         NavigableSet<Entry<File, SoftReference<C>>> removes =
-            new TreeSet<Entry<File, SoftReference<C>>>(new CacheIndirectionAgeComparator<C>());
+                new TreeSet<Entry<File, SoftReference<C>>>(new CacheIndirectionAgeComparator<C>());
 
         removes.addAll(_map.entrySet());
 

@@ -14,7 +14,7 @@ import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.event.util.MouseEventUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.model.ListModelUserDefinedFileTypes;
+import org.jphototagger.program.model.UserDefinedFileTypesListModel;
 import org.jphototagger.program.view.dialogs.EditUserDefinedFileTypeDialog;
 import org.openide.util.Lookup;
 
@@ -128,7 +128,7 @@ public class UserDefinedFileTypesPanel extends javax.swing.JPanel {
 
         setLayout(new java.awt.GridBagLayout());
 
-        list.setModel(new ListModelUserDefinedFileTypes());
+        list.setModel(new UserDefinedFileTypesListModel());
         list.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listMouseClicked(evt);

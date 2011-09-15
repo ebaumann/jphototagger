@@ -8,6 +8,7 @@ import java.util.List;
  * @author Martin Pohlack
  */
 public class SubjectCacheIndirection extends CacheIndirection {
+
     List<String> subjects;
 
     public SubjectCacheIndirection(File _file) {
