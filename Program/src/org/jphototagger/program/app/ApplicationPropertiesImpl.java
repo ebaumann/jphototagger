@@ -1,6 +1,6 @@
 package org.jphototagger.program.app;
 
-import org.jphototagger.api.core.ApplicationProperties;
+import org.jphototagger.api.branding.ApplicationProperties;
 import org.openide.util.lookup.ServiceProvider;
 
 /**

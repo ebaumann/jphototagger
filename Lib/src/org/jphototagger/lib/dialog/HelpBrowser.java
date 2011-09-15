@@ -21,7 +21,7 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
-import org.jphototagger.api.core.Storage;
+import org.jphototagger.api.storage.Storage;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.event.HelpBrowserEvent;
 import org.jphototagger.lib.event.listener.HelpBrowserListener;

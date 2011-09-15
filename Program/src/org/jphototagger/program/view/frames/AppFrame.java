@@ -15,7 +15,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu.Separator;
 import javax.swing.JRadioButtonMenuItem;
 
-import org.jphototagger.api.windows.AppMenuAction;
+import org.jphototagger.api.windows.MainWindowMenuAction;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.comparator.FileSort;
 import org.jphototagger.lib.componentutil.MenuUtil;
@@ -283,35 +283,35 @@ public final class AppFrame extends javax.swing.JFrame {
         }
     }
 
-    void addToFileMenu(AppMenuAction appMenuAction) {
+    void addToFileMenu(MainWindowMenuAction appMenuAction) {
         addToMenu(appMenuAction, menuFile);
     }
 
-    void addToEditMenu(AppMenuAction appMenuAction) {
+    void addToEditMenu(MainWindowMenuAction appMenuAction) {
         addToMenu(appMenuAction, menuEdit);
     }
 
-    void addToViewMenu(AppMenuAction appMenuAction) {
+    void addToViewMenu(MainWindowMenuAction appMenuAction) {
         addToMenu(appMenuAction, menuView);
     }
 
-    void addToGotoMenu(AppMenuAction appMenuAction) {
+    void addToGotoMenu(MainWindowMenuAction appMenuAction) {
         addToMenu(appMenuAction, menuGoto);
     }
 
-    void addToToolsMenu(AppMenuAction appMenuAction) {
+    void addToToolsMenu(MainWindowMenuAction appMenuAction) {
         addToMenu(appMenuAction, menuTools);
     }
 
-    void addToWindowMenu(AppMenuAction appMenuAction) {
+    void addToWindowMenu(MainWindowMenuAction appMenuAction) {
         addToMenu(appMenuAction, menuWindow);
     }
 
-    void addToHelpMenu(AppMenuAction appMenuAction) {
+    void addToHelpMenu(MainWindowMenuAction appMenuAction) {
         addToMenu(appMenuAction, menuHelp);
     }
 
-    private void addToMenu(final AppMenuAction appMenuAction, final JMenu menu) {
+    private void addToMenu(final MainWindowMenuAction appMenuAction, final JMenu menu) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override

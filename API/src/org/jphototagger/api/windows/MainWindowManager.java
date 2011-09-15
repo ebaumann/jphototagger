@@ -5,19 +5,19 @@ package org.jphototagger.api.windows;
  *
  * @author Elmar Baumann
  */
-public interface WindowManager {
+public interface MainWindowManager {
 
     /**
      * The selection window is left used to select directories, keywords etc.
      *
      * @param appWindow
      */
-    void dockIntoSelectionWindow(AppWindow appWindow);
+    void dockIntoSelectionWindow(MainWindowComponent appWindow);
 
     /**
      * The edit window is right used to edit metadata.
      *
      * @param appWindow
      */
-    void dockIntoEditWindow(AppWindow appWindow);
+    void dockIntoEditWindow(MainWindowComponent appWindow);
 }

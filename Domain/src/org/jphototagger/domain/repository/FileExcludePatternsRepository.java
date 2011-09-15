@@ -2,7 +2,7 @@ package org.jphototagger.domain.repository;
 
 import java.util.List;
 
-import org.jphototagger.api.event.ProgressListener;
+import org.jphototagger.api.progress.ProgressListener;
 
 /**
  *

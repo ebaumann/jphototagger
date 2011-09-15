@@ -27,7 +27,7 @@ import javax.swing.event.ListSelectionEvent;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jdesktop.swingx.JXList;
-import org.jphototagger.api.core.Storage;
+import org.jphototagger.api.storage.Storage;
 import org.jphototagger.domain.event.listener.TextEntryListener;
 import org.jphototagger.domain.event.listener.TextEntryListenerSupport;
 import org.jphototagger.domain.metadata.MetaDataValue;

@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 
 import javax.swing.JFileChooser;
 
-import org.jphototagger.api.core.Storage;
+import org.jphototagger.api.storage.Storage;
 import org.jphototagger.exif.ExifMetadata;
 import org.jphototagger.exif.ExifTags;
 import org.jphototagger.exif.tag.ExifGpsMetadata;

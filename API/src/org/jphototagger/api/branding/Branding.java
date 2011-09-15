@@ -1,4 +1,4 @@
-package org.jphototagger.api.core;
+package org.jphototagger.api.branding;
 
 import java.awt.Image;
 import java.util.List;

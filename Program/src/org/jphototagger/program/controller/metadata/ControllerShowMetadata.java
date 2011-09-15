@@ -39,7 +39,7 @@ import org.jphototagger.xmp.XmpMetadata;
 
 import com.adobe.xmp.XMPConst;
 import com.adobe.xmp.properties.XMPPropertyInfo;
-import org.jphototagger.api.core.Storage;
+import org.jphototagger.api.storage.Storage;
 import org.jphototagger.domain.repository.event.exif.ExifInsertedEvent;
 import org.jphototagger.domain.repository.event.exif.ExifUpdatedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpDeletedEvent;

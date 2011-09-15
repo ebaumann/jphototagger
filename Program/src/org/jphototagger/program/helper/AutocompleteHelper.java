@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.jphototagger.api.core.Storage;
+import org.jphototagger.api.storage.Storage;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.componentutil.Autocomplete;

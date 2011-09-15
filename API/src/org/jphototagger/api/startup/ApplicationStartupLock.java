@@ -1,11 +1,11 @@
-package org.jphototagger.api.core;
+package org.jphototagger.api.startup;
 
 /**
  *
  *
  * @author Elmar Baumann
  */
-public interface ApplicationLock {
+public interface ApplicationStartupLock {
 
     boolean forceLock();
 

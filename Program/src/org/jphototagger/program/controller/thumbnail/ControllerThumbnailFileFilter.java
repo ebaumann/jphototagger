@@ -16,7 +16,7 @@ import java.awt.event.ItemListener;
 import java.io.FileFilter;
 import javax.swing.JComboBox;
 import javax.swing.event.ListDataListener;
-import org.jphototagger.api.core.Storage;
+import org.jphototagger.api.storage.Storage;
 import org.openide.util.Lookup;
 
 /**

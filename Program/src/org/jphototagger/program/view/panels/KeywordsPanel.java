@@ -10,7 +10,7 @@ import javax.swing.tree.TreeSelectionModel;
 
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.JXTree;
-import org.jphototagger.api.core.Storage;
+import org.jphototagger.api.storage.Storage;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.lib.util.Bundle;

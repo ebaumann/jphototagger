@@ -17,10 +17,10 @@ import javax.swing.event.ListDataListener;
 import javax.swing.filechooser.FileSystemView;
 
 import org.bushe.swing.event.EventBus;
-import org.jphototagger.api.core.Storage;
-import org.jphototagger.api.core.StorageHints;
+import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.StorageHints;
 import org.jphototagger.api.file.event.FileRenamedEvent;
-import org.jphototagger.api.image.ThumbnailProvider;
+import org.jphototagger.api.image.thumbnails.ThumbnailProvider;
 import org.jphototagger.domain.templates.RenameTemplate;
 import org.jphototagger.image.FileType;
 import org.jphototagger.lib.componentutil.ComboBoxUtil;

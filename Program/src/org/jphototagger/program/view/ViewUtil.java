@@ -14,8 +14,8 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
-import org.jphototagger.api.core.Storage;
-import org.jphototagger.api.core.UserFilesProvider;
+import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.UserFilesProvider;
 import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;

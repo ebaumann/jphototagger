@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 
-import org.jphototagger.api.core.Storage;
+import org.jphototagger.api.storage.Storage;
 import org.jphototagger.domain.filetypes.UserDefinedFileType;
 import org.jphototagger.domain.repository.UserDefinedFileTypesRepository;
 import org.jphototagger.exif.ExifMetadata;

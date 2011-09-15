@@ -4,15 +4,9 @@ import java.awt.Component;
 import javax.swing.Icon;
 
 /**
- * Extensions for JPhotoTagger.
+ * Extensions for JPhotoTagger invoked on demand.
  * <p>
- * Plugins acting as service provider, see the JDK documentation for
- * <a href="http://java.sun.com/j2se/1.4.2/docs/guide/jar/jar.html#Service%20Provider">Service Provider</a>.
- * <p>
- * <strong>Important notice:</strong> A plugin shall use interfaces and Java Services.
- *  E.g. if a subproject can deliver thumbnails, it implements a thumbnail provider, publish it
- * in the <code>META-INF.services</code> folder and the plugin asks for an implementation of the
- * thumbnail provider interface.
+ * Plugins will be invoked through the Java Service Provider Interface.
  *
  * @author Elmar Baumann
  */

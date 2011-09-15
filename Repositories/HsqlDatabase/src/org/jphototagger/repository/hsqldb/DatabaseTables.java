@@ -6,7 +6,7 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.api.core.ApplicationLock;
+import org.jphototagger.api.startup.ApplicationStartupLock;
 import org.jphototagger.repository.hsqldb.update.tables.UpdateTablesFactory;
 import org.openide.util.Lookup;
 
@@ -94,7 +94,7 @@ public final class DatabaseTables extends Database {
             }
 
             close(stmt);
-            Lookup.getDefault().lookup(ApplicationLock.class).unlockApplication();
+            Lookup.getDefault().lookup(ApplicationStartupLock.class).unlockApplication();
             System.exit(0);
         } finally {
             close(stmt);

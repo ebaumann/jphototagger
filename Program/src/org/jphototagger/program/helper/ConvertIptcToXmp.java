@@ -13,8 +13,8 @@ import org.jphototagger.domain.iptc.Iptc;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.iptc.IptcMetadata;
 import org.jphototagger.lib.concurrent.Cancelable;
-import org.jphototagger.api.event.ProgressEvent;
-import org.jphototagger.api.event.ProgressListener;
+import org.jphototagger.api.progress.ProgressEvent;
+import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.xmp.XmpMetadata;
 

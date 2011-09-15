@@ -20,7 +20,7 @@ import javax.swing.tree.TreePath;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-import org.jphototagger.api.core.Storage;
+import org.jphototagger.api.storage.Storage;
 import org.jphototagger.domain.event.AppWillExitEvent;
 import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.domain.repository.FavoritesRepository;

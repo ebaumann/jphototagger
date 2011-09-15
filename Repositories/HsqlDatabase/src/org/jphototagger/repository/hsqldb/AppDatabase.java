@@ -6,8 +6,8 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.api.core.ApplicationProperties;
-import org.jphototagger.api.core.UserFilesProvider;
+import org.jphototagger.api.branding.ApplicationProperties;
+import org.jphototagger.api.storage.UserFilesProvider;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.util.Bundle;

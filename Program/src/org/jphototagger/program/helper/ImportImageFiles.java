@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.api.event.ProgressEvent;
-import org.jphototagger.api.event.ProgressListener;
+import org.jphototagger.api.progress.ProgressEvent;
+import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.domain.repository.ImageCollectionsRepository;
 import org.jphototagger.domain.repository.InsertIntoRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;

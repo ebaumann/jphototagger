@@ -1,4 +1,4 @@
-package org.jphototagger.api.core;
+package org.jphototagger.api.storage;
 
 import java.io.File;
 import org.jphototagger.api.file.FilenameTokens;

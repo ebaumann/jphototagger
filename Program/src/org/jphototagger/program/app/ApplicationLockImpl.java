@@ -1,6 +1,6 @@
 package org.jphototagger.program.app;
 
-import org.jphototagger.api.core.ApplicationLock;
+import org.jphototagger.api.startup.ApplicationStartupLock;
 import org.openide.util.lookup.ServiceProvider;
 
 /**
@@ -8,8 +8,8 @@ import org.openide.util.lookup.ServiceProvider;
  *
  * @author Elmar Baumann
  */
-@ServiceProvider(service = ApplicationLock.class)
-public final class ApplicationLockImpl implements ApplicationLock {
+@ServiceProvider(service = ApplicationStartupLock.class)
+public final class ApplicationLockImpl implements ApplicationStartupLock {
 
     @Override
     public boolean forceLock() {

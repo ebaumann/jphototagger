@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 
 import javax.swing.JCheckBox;
 
-import org.jphototagger.api.core.Storage;
+import org.jphototagger.api.storage.Storage;
 import org.jphototagger.program.types.Persistence;
 import org.openide.util.Lookup;
 

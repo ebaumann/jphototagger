@@ -8,7 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import org.jphototagger.api.core.Storage;
+import org.jphototagger.api.storage.Storage;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.repository.MetaDataValuesRepository;
 import org.jphototagger.lib.util.CollectionUtil;

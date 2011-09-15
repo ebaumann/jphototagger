@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.api.core.Storage;
+import org.jphototagger.api.storage.Storage;
 import org.jphototagger.lib.util.Version;
 import org.jphototagger.repository.hsqldb.DatabaseMetadata;
 import org.jphototagger.repository.hsqldb.update.tables.v0.UpdateTablesV0;

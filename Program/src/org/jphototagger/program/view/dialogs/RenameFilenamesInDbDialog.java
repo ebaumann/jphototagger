@@ -1,6 +1,6 @@
 package org.jphototagger.program.view.dialogs;
 
-import org.jphototagger.api.core.Storage;
+import org.jphototagger.api.storage.Storage;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.program.resource.GUI;
 import org.openide.util.Lookup;

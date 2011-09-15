@@ -1,6 +1,6 @@
 package org.jphototagger.lib.util;
 
-import org.jphototagger.api.core.StorageHints;
+import org.jphototagger.api.storage.StorageHints;
 import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.lib.componentutil.TreeUtil;
 import java.awt.Component;

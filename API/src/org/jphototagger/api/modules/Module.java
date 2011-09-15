@@ -1,7 +1,14 @@
 package org.jphototagger.api.modules;
 
+import org.jphototagger.api.plugin.Plugin;
+
 /**
- *
+ * A module will be automatically initialized by the application
+ * (through calling {@link #start()}) in opposite to a
+ * {@link Plugin} which will be invoked only on demand.
+ * <p>
+ * Modules will be collected through the Java Service Provider
+ * Interface.
  *
  * @author Elmar Baumann
  */

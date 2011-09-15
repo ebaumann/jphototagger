@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.jphototagger.api.core.Storage;
+import org.jphototagger.api.storage.Storage;
 import org.jphototagger.domain.repository.AutoscanDirectoriesRepository;
 import org.jphototagger.domain.repository.InsertIntoRepository;
 import org.jphototagger.lib.io.FileUtil;

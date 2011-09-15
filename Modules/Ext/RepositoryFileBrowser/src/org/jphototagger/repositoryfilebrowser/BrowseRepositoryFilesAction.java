@@ -3,7 +3,7 @@ package org.jphototagger.repositoryfilebrowser;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
-import org.jphototagger.api.windows.AppMenuAction;
+import org.jphototagger.api.windows.MainWindowMenuAction;
 import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.lib.util.Bundle;
 
@@ -12,7 +12,7 @@ import org.jphototagger.lib.util.Bundle;
  *
  * @author Elmar Baumann
  */
-public final class BrowseRepositoryFilesAction extends AbstractAction implements AppMenuAction {
+public final class BrowseRepositoryFilesAction extends AbstractAction implements MainWindowMenuAction {
 
     private static final long serialVersionUID = 1L;
     public static final BrowseRepositoryFilesAction INSTANCE = new BrowseRepositoryFilesAction();

@@ -5,7 +5,7 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.List;
 
-import org.jphototagger.api.core.Storage;
+import org.jphototagger.api.storage.Storage;
 import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.domain.repository.FavoritesRepository;
 import org.jphototagger.lib.componentutil.MnemonicUtil;

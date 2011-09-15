@@ -1,9 +1,8 @@
-package org.jphototagger.api.core;
+package org.jphototagger.api.storage;
 
 import java.io.File;
 
 /**
- * The cache directory is the directory for JPhotoTagger's and it's plugins cache.
  *
  * @author Elmar Baumann
  */

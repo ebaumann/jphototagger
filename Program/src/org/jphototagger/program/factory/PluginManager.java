@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import org.jphototagger.api.core.Storage;
+import org.jphototagger.api.storage.Storage;
 import org.jphototagger.api.plugin.Plugin;
 import org.openide.util.Lookup;
 

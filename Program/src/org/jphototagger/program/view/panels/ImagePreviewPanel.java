@@ -12,7 +12,7 @@ import java.io.FileFilter;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 
-import org.jphototagger.api.image.ThumbnailProvider;
+import org.jphototagger.api.image.thumbnails.ThumbnailProvider;
 import org.jphototagger.lib.image.util.ThumbnailCreatorService;
 import org.jphototagger.lib.io.filefilter.FileChooserFilter;
 import org.jphototagger.lib.io.filefilter.RegexFileFilter;

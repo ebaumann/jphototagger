@@ -7,9 +7,9 @@ import java.util.List;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import org.jphototagger.api.core.Storage;
-import org.jphototagger.api.event.ProgressEvent;
-import org.jphototagger.api.event.ProgressListener;
+import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.progress.ProgressEvent;
+import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.domain.repository.FileExcludePatternsRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
