@@ -8,7 +8,6 @@
 .*desktop.ini
 .*\.directory
 .*/dist/.*
-dist_files/.*
 \.fuse.*
 \.htaccess
 \.orig$
@@ -18,5 +17,4 @@ dist_files/.*
 ^Program/src/org/jphototagger/program/resource/doc/.*/doc\.html
 ^Program/src/org/jphototagger/program/resource/doc/.*/doc_iso.*\.html
 \.rej$
-^Support/.*
 ^Website/manual/.*
