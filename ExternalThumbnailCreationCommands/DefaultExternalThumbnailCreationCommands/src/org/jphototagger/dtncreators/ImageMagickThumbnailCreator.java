@@ -2,7 +2,7 @@ package org.jphototagger.dtncreators;
 
 import java.io.File;
 
-import org.jphototagger.api.image.ExternalThumbnailCreationCommand;
+import org.jphototagger.api.image.thumbnails.ExternalThumbnailCreationCommand;
 import org.jphototagger.lib.system.SystemUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.openide.util.lookup.ServiceProvider;

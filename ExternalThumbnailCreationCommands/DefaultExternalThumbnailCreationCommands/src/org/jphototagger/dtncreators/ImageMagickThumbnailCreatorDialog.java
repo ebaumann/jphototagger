@@ -1,6 +1,6 @@
 package org.jphototagger.dtncreators;
 
-import org.jphototagger.api.core.Branding;
+import org.jphototagger.api.branding.Branding;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.openide.util.Lookup;
