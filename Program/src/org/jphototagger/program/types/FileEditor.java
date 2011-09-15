@@ -8,6 +8,7 @@ import java.io.File;
  * @author Elmar Baumann
  */
 public class FileEditor {
+
     private volatile boolean confirmOverwrite;
 
     public void setConfirmOverwrite(boolean overwrite) {
@@ -23,5 +24,6 @@ public class FileEditor {
      *
      * @param file  file to edit
      */
-    public void edit(File file) {}
+    public void edit(File file) {
+    }
 }

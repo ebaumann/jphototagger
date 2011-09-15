@@ -6,9 +6,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.jphototagger.lib.util.Bundle;
 
 import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.types.DeleteOption;
 import org.jphototagger.xmp.ImageFileSidecarFile;
 import org.jphototagger.xmp.XmpMetadata;

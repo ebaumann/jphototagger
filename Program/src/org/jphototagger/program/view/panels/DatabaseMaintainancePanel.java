@@ -13,12 +13,12 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
+import org.jphototagger.api.storage.Storage;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.repository.actions.CompressDatabase;
 import org.jphototagger.program.repository.actions.DeleteNotReferenced1n;

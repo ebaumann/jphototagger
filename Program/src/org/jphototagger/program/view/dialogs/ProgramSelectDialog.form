@@ -73,7 +73,7 @@
             </Property>
             <Property name="selectionMode" type="int" value="0"/>
             <Property name="cellRenderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="type.equals(ProgramType.ACTION) ? new ListCellRendererActions() : new ListCellRendererPrograms()" type="code"/>
+              <Connection code="type.equals(ProgramType.ACTION) ? new org.jphototagger.program.view.renderer.ActionsListCellRenderer() : new org.jphototagger.program.view.renderer.ProgramsListCellRenderer()" type="code"/>
             </Property>
             <Property name="name" type="java.lang.String" value="listPrograms" noResource="true"/>
           </Properties>

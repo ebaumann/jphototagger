@@ -1,16 +1,15 @@
 package org.jphototagger.program.helper;
 
-
 import javax.swing.DefaultListModel;
 
-import org.jphototagger.lib.comparator.FileSort;
-import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
 import org.jphototagger.domain.metadata.search.SavedSearch;
-import org.jphototagger.repository.hsqldb.DatabaseSavedSearches;
+import org.jphototagger.lib.comparator.FileSort;
+import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.controller.thumbnail.SortThumbnailsController;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.jphototagger.repository.hsqldb.DatabaseSavedSearches;
 
 /**
  *
@@ -167,7 +166,7 @@ public final class SavedSearchesHelper {
             GUI.getThumbnailsPanel().setFileSortComparator(FileSort.NO_SORT.getComparator());
             GUI.getAppFrame().selectMenuItemUnsorted();
         } else {
-            ControllerSortThumbnails.setLastSort();
+            SortThumbnailsController.setLastSort();
         }
     }
 
@@ -234,5 +233,6 @@ public final class SavedSearchesHelper {
         return true;
     }
 
-    private SavedSearchesHelper() {}
+    private SavedSearchesHelper() {
+    }
 }

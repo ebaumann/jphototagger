@@ -9,6 +9,7 @@ import org.jphototagger.api.concurrent.Cancelable;
  * @author Elmar Baumann
  */
 public final class AutomaticTask {
+
     public static final AutomaticTask INSTANCE = new AutomaticTask();
     private Runnable runnable;
 
@@ -56,6 +57,7 @@ public final class AutomaticTask {
 
     private void startTask(final Runnable runnable) {
         Thread t = new Thread(new Runnable() {
+
             @Override
             public void run() {
                 runnable.run();
@@ -73,5 +75,6 @@ public final class AutomaticTask {
         return "JPhotoTagger: Automatic task @ " + runnable.getClass().getSimpleName();
     }
 
-    private AutomaticTask() {}
+    private AutomaticTask() {
+    }
 }

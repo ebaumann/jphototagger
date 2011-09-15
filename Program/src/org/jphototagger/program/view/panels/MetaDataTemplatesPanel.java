@@ -111,7 +111,7 @@ public class MetaDataTemplatesPanel extends JPanel implements ListSelectionListe
         scrollPane.setName("scrollPane"); // NOI18N
 
         list.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        list.setCellRenderer(new org.jphototagger.program.view.renderer.ListCellRendererMetadataTemplates());
+        list.setCellRenderer(new org.jphototagger.program.view.renderer.MetadataTemplatesListCellRenderer());
         list.setDragEnabled(true);
         list.setName("list"); // NOI18N
         scrollPane.setViewportView(list);

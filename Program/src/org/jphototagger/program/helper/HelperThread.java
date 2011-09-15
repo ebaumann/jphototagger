@@ -1,13 +1,15 @@
 package org.jphototagger.program.helper;
 
-import org.jphototagger.api.concurrent.Cancelable;
-import org.jphototagger.api.progress.ProgressListener;
-import org.jphototagger.api.progress.ProgressEvent;
-import org.jphototagger.program.view.panels.ProgressBar;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.swing.JProgressBar;
+
+import org.jphototagger.api.concurrent.Cancelable;
+import org.jphototagger.api.progress.ProgressEvent;
+import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.program.view.panels.ProgressBar;
 
 /**
  * Base class for helper threads managing progress listeners and providing a
@@ -16,6 +18,7 @@ import org.jphototagger.lib.awt.EventQueueUtil;
  * @author Elmar Baumann
  */
 public abstract class HelperThread extends Thread implements Cancelable {
+
     private String info;
     private final Set<ProgressListener> prLs = new HashSet<ProgressListener>();
     private JProgressBar progressBar;
@@ -25,7 +28,8 @@ public abstract class HelperThread extends Thread implements Cancelable {
     private volatile int maximum;
     private final Object pBarOwner = this;
 
-    public HelperThread() {}
+    public HelperThread() {
+    }
 
     public HelperThread(String name) {
         super(name);
@@ -135,6 +139,7 @@ public abstract class HelperThread extends Thread implements Cancelable {
 
     private void getProgressBar() {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 if (progressBar == null) {
@@ -151,6 +156,7 @@ public abstract class HelperThread extends Thread implements Cancelable {
     private void setProgressBar(final int value) {
         getProgressBar();
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 if (progressBar != null) {
@@ -213,6 +219,7 @@ public abstract class HelperThread extends Thread implements Cancelable {
     protected void progressEnded(Object info) {
         notifyProgressEnded(progressEvent(0, info));
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 if (progressBar != null) {

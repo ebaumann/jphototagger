@@ -12,13 +12,13 @@ import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.event.util.MouseEventUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.datatransfer.TransferHandlerReorderListItems;
+import org.jphototagger.program.datatransfer.ReorderListItemsTransferHandler;
 import org.jphototagger.program.helper.ProgramsHelper;
 import org.jphototagger.program.helper.ProgramsHelper.ReorderListener;
-import org.jphototagger.program.model.ListModelPrograms;
+import org.jphototagger.program.model.ProgramsListModel;
 import org.jphototagger.program.types.Persistence;
 import org.jphototagger.program.view.dialogs.ProgramPropertiesDialog;
-import org.jphototagger.program.view.renderer.ListCellRendererPrograms;
+import org.jphototagger.program.view.renderer.ProgramsListCellRenderer;
 import org.openide.util.Lookup;
 
 
@@ -29,7 +29,7 @@ import org.openide.util.Lookup;
  */
 public final class SettingsProgramsPanel extends javax.swing.JPanel implements Persistence {
     private static final long serialVersionUID = 6156362511361451187L;
-    private final ListModelPrograms model = new ListModelPrograms(ProgramType.PROGRAM);
+    private final ProgramsListModel model = new ProgramsListModel(ProgramType.PROGRAM);
     private final ReorderListener reorderListener  = new ProgramsHelper.ReorderListener(model);
     private final ProgramsRepository repo = Lookup.getDefault().lookup(ProgramsRepository.class);
 
@@ -258,12 +258,12 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel implements P
 
         listPrograms.setModel(model);
         listPrograms.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        listPrograms.setCellRenderer(new ListCellRendererPrograms());
+        listPrograms.setCellRenderer(new ProgramsListCellRenderer());
         listPrograms.setComponentPopupMenu(popupMenu);
         listPrograms.setDragEnabled(true);
         listPrograms.setDropMode(javax.swing.DropMode.INSERT);
         listPrograms.setName("listPrograms"); // NOI18N
-        listPrograms.setTransferHandler(new TransferHandlerReorderListItems(listPrograms));
+        listPrograms.setTransferHandler(new ReorderListItemsTransferHandler(listPrograms));
         listPrograms.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listProgramsMouseClicked(evt);

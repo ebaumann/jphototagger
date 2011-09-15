@@ -5,7 +5,7 @@ import javax.swing.ListModel;
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.lib.componentutil.TabbedPaneUtil;
 import org.jphototagger.lib.dialog.Dialog;
-import org.jphototagger.program.datatransfer.TransferHandlerDragListItems;
+import org.jphototagger.program.datatransfer.DragListItemsTransferHandler;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.KeywordsPanel;
 import org.jphototagger.program.view.panels.MetaDataTemplatesPanel;
@@ -117,7 +117,7 @@ public class InputHelperDialog extends Dialog {
         panelKeywords = new org.jphototagger.program.view.panels.KeywordsPanel();
         panelMiscXmpMetadata = new org.jphototagger.program.view.panels.MiscXmpMetadataPanel();
         panelMetaDataTemplates = new org.jphototagger.program.view.panels.MetaDataTemplatesPanel();
-        panelMetaDataTemplates.getList().setTransferHandler(new TransferHandlerDragListItems(org.jphototagger.program.datatransfer.Flavor.METADATA_TEMPLATES));
+        panelMetaDataTemplates.getList().setTransferHandler(new DragListItemsTransferHandler(org.jphototagger.program.datatransfer.Flavor.METADATA_TEMPLATES));
         labelInfo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);

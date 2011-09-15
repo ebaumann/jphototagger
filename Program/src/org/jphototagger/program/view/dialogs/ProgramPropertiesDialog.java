@@ -12,16 +12,16 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import org.jphototagger.api.storage.Storage;
+import org.jphototagger.domain.programs.Program;
 import org.jphototagger.lib.component.TabOrEnterLeavingTextArea;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.LookAndFeelUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
-import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.domain.programs.Program;
 import org.jphototagger.program.resource.GUI;
 import org.openide.util.Lookup;
 

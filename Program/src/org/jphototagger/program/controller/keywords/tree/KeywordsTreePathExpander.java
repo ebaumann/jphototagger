@@ -1,9 +1,10 @@
 package org.jphototagger.program.controller.keywords.tree;
 
-import org.jphototagger.program.view.panels.KeywordsPanel;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
+
+import org.jphototagger.program.view.panels.KeywordsPanel;
 
 /**
  * Expands the path of all {@link KeywordsPanel}s trees.
@@ -11,6 +12,7 @@ import javax.swing.tree.TreePath;
  * @author Elmar Baumann
  */
 public final class KeywordsTreePathExpander {
+
     public static void expand(JTree tree, DefaultMutableTreeNode node) {
         if (tree == null) {
             throw new NullPointerException("tree == null");
@@ -25,5 +27,6 @@ public final class KeywordsTreePathExpander {
         tree.expandPath(path);
     }
 
-    private KeywordsTreePathExpander() {}
+    private KeywordsTreePathExpander() {
+    }
 }

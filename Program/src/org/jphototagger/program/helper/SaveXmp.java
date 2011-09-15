@@ -7,15 +7,15 @@ import java.util.Collection;
 
 import javax.swing.JProgressBar;
 
+import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.domain.repository.InsertIntoRepository;
+import org.jphototagger.domain.xmp.FileXmp;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppLifeCycle;
 import org.jphototagger.program.tasks.UserTasks;
 import org.jphototagger.program.view.panels.ProgressBar;
-import org.jphototagger.domain.xmp.FileXmp;
 import org.jphototagger.xmp.XmpMetadata;
 
 /**
@@ -25,6 +25,7 @@ import org.jphototagger.xmp.XmpMetadata;
  * @author Elmar Baumann
  */
 public final class SaveXmp extends Thread implements Cancelable {
+
     private static final String PROGRESSBAR_STRING = Bundle.getString(SaveXmp.class, "SaveXmp.ProgressBar.String");
     private final Collection<FileXmp> imageFilesXmp;
     private JProgressBar progressBar;
@@ -91,6 +92,7 @@ public final class SaveXmp extends Thread implements Cancelable {
     private void updateProgressBar(final int value) {
         getProgressBar();
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 if (progressBar != null) {
@@ -112,6 +114,7 @@ public final class SaveXmp extends Thread implements Cancelable {
 
     private void releaseProgressBar() {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 if (progressBar != null) {

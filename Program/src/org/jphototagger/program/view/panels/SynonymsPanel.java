@@ -10,15 +10,15 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import org.jphototagger.api.storage.Storage;
+import org.jphototagger.domain.metadata.selections.AutoCompleteDataOfMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.lib.componentutil.Autocomplete;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.event.util.MouseEventUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.domain.metadata.selections.AutoCompleteDataOfMetaDataValue;
-import org.jphototagger.program.model.ListModelSynonyms;
+import org.jphototagger.program.model.SynonymsListModel;
 import org.openide.util.Lookup;
 
 /**
@@ -28,8 +28,8 @@ import org.openide.util.Lookup;
  */
 public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionListener, DocumentListener {
     private static final long serialVersionUID = 8012368048974373352L;
-    private ListModelSynonyms modelWords = new ListModelSynonyms(ListModelSynonyms.Role.WORDS);
-    private ListModelSynonyms modelSynonyms = new ListModelSynonyms(ListModelSynonyms.Role.SYNONYMS);
+    private SynonymsListModel modelWords = new SynonymsListModel(SynonymsListModel.Role.WORDS);
+    private SynonymsListModel modelSynonyms = new SynonymsListModel(SynonymsListModel.Role.SYNONYMS);
     private Autocomplete autocomplete;
     private boolean listenToDocuments = true;
     private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
@@ -313,7 +313,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         labelTextAreaWord = new javax.swing.JLabel();
         scrollPaneTextAreaWords = new javax.swing.JScrollPane();
         textAreaWords = new javax.swing.JTextArea();
-        textAreaWords.setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerDropTextComponent());
+        textAreaWords.setTransferHandler(new org.jphototagger.program.datatransfer.DropTextComponentTransferHandler());
         buttonAddWord = new javax.swing.JButton();
         panelAddedWords = new javax.swing.JPanel();
         labelListWords = new javax.swing.JLabel();
@@ -326,7 +326,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         panelEditInputSynonyms = new javax.swing.JPanel();
         labelTextFieldSynonym = new javax.swing.JLabel();
         textFieldSynonyms = new javax.swing.JTextField();
-        textFieldSynonyms.setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerDropTextComponent());
+        textFieldSynonyms.setTransferHandler(new org.jphototagger.program.datatransfer.DropTextComponentTransferHandler());
         buttonAddSynonym = new javax.swing.JButton();
         panelAddedSynonyms = new javax.swing.JPanel();
         labelListSynonyms = new javax.swing.JLabel();

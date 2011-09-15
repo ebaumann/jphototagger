@@ -8,9 +8,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.jphototagger.domain.repository.InsertIntoRepository;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.io.FileLock;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.program.types.FileEditor;
 import org.jphototagger.xmp.XmpFileReader;
 import org.jphototagger.xmp.XmpMetadata;
@@ -21,6 +21,7 @@ import org.jphototagger.xmp.XmpMetadata;
  * @author Elmar Baumann
  */
 public final class ExtractEmbeddedXmp extends FileEditor {
+
     @Override
     public void edit(File file) {
         if (file == null) {
@@ -33,7 +34,7 @@ public final class ExtractEmbeddedXmp extends FileEditor {
 
         File sidecarFile = XmpMetadata.getSidecarFile(file);
 
-        if ((sidecarFile != null) &&!confirmRemove(sidecarFile)) {
+        if ((sidecarFile != null) && !confirmRemove(sidecarFile)) {
             return;
         }
 

@@ -1,8 +1,8 @@
 package org.jphototagger.program.cache;
 
-import org.jphototagger.xmp.EmbeddedXmpCache;
-import org.jphototagger.iptc.IptcIgnoreCache;
 import org.jphototagger.exif.cache.ExifCache;
+import org.jphototagger.iptc.IptcIgnoreCache;
+import org.jphototagger.xmp.EmbeddedXmpCache;
 
 /**
  *

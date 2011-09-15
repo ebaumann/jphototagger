@@ -45,5 +45,6 @@ public final class Cleanup {
         }
     }
 
-    private Cleanup() {}
+    private Cleanup() {
+    }
 }

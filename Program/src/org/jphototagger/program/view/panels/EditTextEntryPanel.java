@@ -17,6 +17,7 @@ import org.jphototagger.api.storage.Storage;
 import org.jphototagger.domain.event.listener.TextEntryListener;
 import org.jphototagger.domain.event.listener.TextEntryListenerSupport;
 import org.jphototagger.domain.metadata.MetaDataValue;
+import org.jphototagger.domain.metadata.selections.AutoCompleteDataOfMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpDcTitleMetaDataValue;
 import org.jphototagger.domain.repository.event.dcsubjects.DcSubjectInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
@@ -24,7 +25,6 @@ import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.domain.text.TextEntry;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.componentutil.Autocomplete;
-import org.jphototagger.domain.metadata.selections.AutoCompleteDataOfMetaDataValue;
 import org.jphototagger.program.helper.AutocompleteHelper;
 import org.openide.util.Lookup;
 
@@ -295,7 +295,7 @@ public final class EditTextEntryPanel extends JPanel implements TextEntry, Docum
         textAreaEdit.setWrapStyleWord(true);
         textAreaEdit.setName("textAreaEdit"); // NOI18N
         scrollPane.setViewportView(textAreaEdit);
-        textAreaEdit.setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerDropTextComponent());
+        textAreaEdit.setTransferHandler(new org.jphototagger.program.datatransfer.DropTextComponentTransferHandler());
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;

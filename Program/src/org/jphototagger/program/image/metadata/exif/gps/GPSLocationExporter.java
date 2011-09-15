@@ -7,7 +7,6 @@ import java.util.Collection;
 
 import javax.swing.filechooser.FileFilter;
 
-
 /**
  * Exports GPS metadata into a specefic format.
  *

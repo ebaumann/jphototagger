@@ -7,13 +7,13 @@ import java.util.List;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import org.jphototagger.api.storage.Storage;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
+import org.jphototagger.api.storage.Storage;
 import org.jphototagger.domain.repository.FileExcludePatternsRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.program.model.ListModelFileExcludePatterns;
+import org.jphototagger.program.model.FileExcludePatternsListModel;
 import org.jphototagger.program.types.Persistence;
 import org.openide.util.Lookup;
 
@@ -23,7 +23,7 @@ import org.openide.util.Lookup;
  */
 public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel implements ProgressListener, Persistence, ListSelectionListener {
     private static final long serialVersionUID = -3083582823254767001L;
-    private final ListModelFileExcludePatterns model = new ListModelFileExcludePatterns();
+    private final FileExcludePatternsListModel model = new FileExcludePatternsListModel();
     private boolean isUpdateDatabase = false;
     private boolean cancel = false;
     private final FileExcludePatternsRepository repo = Lookup.getDefault().lookup(FileExcludePatternsRepository.class);
@@ -474,7 +474,6 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel i
     private void textFieldInputPatternFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textFieldInputPatternFocusGained
         textFieldInputPattern.selectAll();
     }//GEN-LAST:event_textFieldInputPatternFocusGained
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCancelUpdateDatabase;
     private javax.swing.JButton buttonDeletePattern;

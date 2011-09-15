@@ -6,11 +6,11 @@ import java.util.List;
 
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.domain.metadata.MetaDataValue;
-import org.jphototagger.domain.xmp.Xmp;
-import org.jphototagger.lib.componentutil.Autocomplete;
 import org.jphototagger.domain.metadata.selections.AutoCompleteData;
 import org.jphototagger.domain.metadata.selections.AutoCompleteDataOfMetaDataValue;
 import org.jphototagger.domain.metadata.selections.FastSearchMetaDataValues;
+import org.jphototagger.domain.xmp.Xmp;
+import org.jphototagger.lib.componentutil.Autocomplete;
 import org.openide.util.Lookup;
 
 /**

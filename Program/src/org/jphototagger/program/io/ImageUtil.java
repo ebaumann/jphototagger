@@ -4,12 +4,12 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jphototagger.api.storage.Storage;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
-import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.api.storage.Storage;
 import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.program.controller.filesystem.ControllerMoveFiles;
+import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.controller.filesystem.MoveFilesController;
 import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.helper.CopyFiles;
 import org.jphototagger.program.resource.GUI;
@@ -100,7 +100,7 @@ public final class ImageUtil {
             return;
         }
 
-        ControllerMoveFiles ctrl = ControllerFactory.INSTANCE.getController(ControllerMoveFiles.class);
+        MoveFilesController ctrl = ControllerFactory.INSTANCE.getController(MoveFilesController.class);
 
         if (ctrl != null) {
             ctrl.moveFiles(sourceFiles, targetDirectory);

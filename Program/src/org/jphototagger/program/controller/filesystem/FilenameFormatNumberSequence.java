@@ -9,6 +9,7 @@ import org.jphototagger.lib.util.Bundle;
  * @author Elmar Baumann
  */
 public final class FilenameFormatNumberSequence extends FilenameFormat {
+
     private int current;
     private int start;
     private int increment;
@@ -74,5 +75,6 @@ public final class FilenameFormatNumberSequence extends FilenameFormat {
         return Bundle.getString(FilenameFormatNumberSequence.class, "FilenameFormatNumberSequence.String");
     }
 
-    private FilenameFormatNumberSequence() {}
+    private FilenameFormatNumberSequence() {
+    }
 }

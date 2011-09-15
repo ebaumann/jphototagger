@@ -39,31 +39,31 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.component.ImageTextArea;
 import org.jphototagger.lib.componentutil.MessageLabel;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
+import org.jphototagger.lib.swingx.ListTextFilter;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.controller.actions.SearchInJxListAction;
 import org.jphototagger.program.controller.actions.SearchInJxTreeAction;
 import org.jphototagger.program.controller.actions.TreeExpandCollapseAllAction;
-import org.jphototagger.program.datatransfer.TransferHandlerKeywordsList;
-import org.jphototagger.program.datatransfer.TransferHandlerKeywordsTree;
-import org.jphototagger.program.datatransfer.TransferHandlerMiscMetadataTree;
-import org.jphototagger.lib.swingx.ListTextFilter;
+import org.jphototagger.program.datatransfer.KeywordsListTransferHandler;
+import org.jphototagger.program.datatransfer.KeywordsTreeTransferHandler;
+import org.jphototagger.program.datatransfer.MiscMetadataTreeTransferHandler;
 import org.jphototagger.program.helper.TableTextFilter;
-import org.jphototagger.program.model.ComboBoxModelFastSearch;
-import org.jphototagger.program.model.ListModelWait;
-import org.jphototagger.program.model.TreeModelWait;
+import org.jphototagger.program.model.FastSearchComboBoxModel;
+import org.jphototagger.program.model.WaitListModel;
+import org.jphototagger.program.model.WaitTreeModel;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.SettingsThumbnailDimensionsDialog;
-import org.jphototagger.program.view.renderer.ListCellRendererFastSearchMetaDataValues;
-import org.jphototagger.program.view.renderer.ListCellRendererFileFilters;
-import org.jphototagger.program.view.renderer.ListCellRendererImageCollections;
-import org.jphototagger.program.view.renderer.ListCellRendererKeywords;
-import org.jphototagger.program.view.renderer.ListCellRendererSavedSearches;
-import org.jphototagger.program.view.renderer.TableCellRendererExif;
-import org.jphototagger.program.view.renderer.TableCellRendererIptc;
-import org.jphototagger.program.view.renderer.TableCellRendererXmp;
-import org.jphototagger.program.view.renderer.TreeCellRendererMiscMetadata;
-import org.jphototagger.program.view.renderer.TreeCellRendererTimeline;
+import org.jphototagger.program.view.renderer.ExifTableCellRenderer;
+import org.jphototagger.program.view.renderer.FastSearchMetaDataValuesListCellRenderer;
+import org.jphototagger.program.view.renderer.FileFiltersListCellRenderer;
+import org.jphototagger.program.view.renderer.ImageCollectionsListCellRenderer;
+import org.jphototagger.program.view.renderer.IptcTableCellRenderer;
+import org.jphototagger.program.view.renderer.KeywordsListCellRenderer;
+import org.jphototagger.program.view.renderer.MiscMetadataTreeCellRenderer;
+import org.jphototagger.program.view.renderer.SavedSearchesListCellRenderer;
+import org.jphototagger.program.view.renderer.TimelineTreeCellRenderer;
+import org.jphototagger.program.view.renderer.XmpTableCellRenderer;
 import org.openide.util.Lookup;
 
 /**
@@ -144,7 +144,7 @@ public final class AppPanel extends javax.swing.JPanel {
 
     private void setExifTableTextFilter() {
         TableRowSorter<?> rowSorter = (TableRowSorter<?>) tableExif.getRowSorter();
-        TableStringConverter stringConverter = TableCellRendererExif.createTableStringConverter();
+        TableStringConverter stringConverter = ExifTableCellRenderer.createTableStringConverter();
         Document document = textFieldTableExifFilter.getDocument();
         TableTextFilter tableTextFilter = new TableTextFilter(tableExif, stringConverter);
 
@@ -154,7 +154,7 @@ public final class AppPanel extends javax.swing.JPanel {
 
     private void setIptcTableTextFilter() {
         TableRowSorter<?> rowSorter = (TableRowSorter<?>) tableIptc.getRowSorter();
-        TableStringConverter stringConverter = TableCellRendererIptc.createTableStringConverter();
+        TableStringConverter stringConverter = IptcTableCellRenderer.createTableStringConverter();
         Document document = textFieldTableIptcFilter.getDocument();
         TableTextFilter tableTextFilter = new TableTextFilter(tableIptc, stringConverter);
 
@@ -164,7 +164,7 @@ public final class AppPanel extends javax.swing.JPanel {
 
     private void setXmpTableTextFilter(JTextComponent filterTextComponent, JTable xmpTable) {
         TableRowSorter<?> rowSorter = (TableRowSorter<?>) xmpTable.getRowSorter();
-        TableStringConverter stringConverter = TableCellRendererXmp.createTableStringConverter();
+        TableStringConverter stringConverter = XmpTableCellRenderer.createTableStringConverter();
         Document document = filterTextComponent.getDocument();
         TableTextFilter tableTextFilter = new TableTextFilter(xmpTable, stringConverter);
 
@@ -744,14 +744,14 @@ public final class AppPanel extends javax.swing.JPanel {
         panelFavorites = new javax.swing.JPanel();
         scrollPaneFavorites = new javax.swing.JScrollPane();
         treeFavorites = new JXTree();
-        treeFavorites.setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerDirectoryTree());
+        treeFavorites.setTransferHandler(new org.jphototagger.program.datatransfer.DirectoryTreeTransferHandler());
         treeFavorites.setShowsRootHandles(true);
         buttonSearchInTreeFavorites = new javax.swing.JButton();
         panelSelKeywords = new javax.swing.JPanel();
         panelSelKeywordsTree = new javax.swing.JPanel();
         scrollPaneSelKeywordsTree = new javax.swing.JScrollPane();
         treeSelKeywords = new JXTree();
-        treeSelKeywords.setTransferHandler(new TransferHandlerKeywordsTree());
+        treeSelKeywords.setTransferHandler(new KeywordsTreeTransferHandler());
         treeSelKeywords.setShowsRootHandles(true);
         buttonDisplaySelKeywordsList = new javax.swing.JButton();
         toggleButtonExpandAllNodesSelKeywords = new javax.swing.JToggleButton();
@@ -762,7 +762,7 @@ public final class AppPanel extends javax.swing.JPanel {
         textFieldListSelKeywordsFilter = new javax.swing.JTextField();
         scrollPaneSelKeywordsList = new javax.swing.JScrollPane();
         listSelKeywords = new JXList();
-        listSelKeywords.setTransferHandler(new TransferHandlerKeywordsList());
+        listSelKeywords.setTransferHandler(new KeywordsListTransferHandler());
         panelSelKeywordsListMultipleSelection = new javax.swing.JPanel();
         radioButtonSelKeywordsMultipleSelAll = new javax.swing.JRadioButton();
         radioButtonSelKeywordsMultipleSelOne = new javax.swing.JRadioButton();
@@ -777,7 +777,7 @@ public final class AppPanel extends javax.swing.JPanel {
         panelMiscMetadata = new javax.swing.JPanel();
         scrollPaneMiscMetadata = new javax.swing.JScrollPane();
         treeMiscMetadata = new JXTree();
-        treeMiscMetadata.setTransferHandler(new TransferHandlerMiscMetadataTree());
+        treeMiscMetadata.setTransferHandler(new MiscMetadataTreeTransferHandler());
         treeMiscMetadata.setShowsRootHandles(true);
         toggleButtonExpandCollapseTreeMiscMetadata = new javax.swing.JToggleButton();
         buttonSearchInTreeMiscMetadata = new javax.swing.JButton();
@@ -883,9 +883,9 @@ public final class AppPanel extends javax.swing.JPanel {
         panelSearch.setName("panelSearch"); // NOI18N
         panelSearch.setLayout(new java.awt.GridBagLayout());
 
-        comboBoxFastSearch.setModel(new ComboBoxModelFastSearch());
+        comboBoxFastSearch.setModel(new FastSearchComboBoxModel());
         comboBoxFastSearch.setName("comboBoxFastSearch"); // NOI18N
-        comboBoxFastSearch.setRenderer(new ListCellRendererFastSearchMetaDataValues());
+        comboBoxFastSearch.setRenderer(new FastSearchMetaDataValuesListCellRenderer());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -937,7 +937,7 @@ public final class AppPanel extends javax.swing.JPanel {
         panelSearch.add(labelFileFilters, gridBagConstraints);
 
         comboBoxFileFilters.setName("comboBoxFileFilters"); // NOI18N
-        comboBoxFileFilters.setRenderer(new ListCellRendererFileFilters());
+        comboBoxFileFilters.setRenderer(new FileFiltersListCellRenderer());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
@@ -962,13 +962,13 @@ public final class AppPanel extends javax.swing.JPanel {
 
         scrollPaneDirectories.setName("scrollPaneDirectories"); // NOI18N
 
-        treeDirectories.setModel(TreeModelWait.INSTANCE);
+        treeDirectories.setModel(WaitTreeModel.INSTANCE);
         treeDirectories.setCellRenderer(new org.jphototagger.lib.renderer.AllSystemDirectoriesTreeCellRenderer());
         treeDirectories.setDragEnabled(true);
         treeDirectories.setName("treeDirectories"); // NOI18N
         treeDirectories.setRootVisible(false);
         scrollPaneDirectories.setViewportView(treeDirectories);
-        treeDirectories.setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerDirectoryTree());
+        treeDirectories.setTransferHandler(new org.jphototagger.program.datatransfer.DirectoryTreeTransferHandler());
         treeDirectories.setShowsRootHandles(true);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -1030,9 +1030,9 @@ public final class AppPanel extends javax.swing.JPanel {
 
         scrollPaneSavedSearches.setName("scrollPaneSavedSearches"); // NOI18N
 
-        listSavedSearches.setModel(ListModelWait.INSTANCE);
+        listSavedSearches.setModel(WaitListModel.INSTANCE);
         listSavedSearches.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        listSavedSearches.setCellRenderer(new ListCellRendererSavedSearches());
+        listSavedSearches.setCellRenderer(new SavedSearchesListCellRenderer());
         listSavedSearches.setName("listSavedSearches"); // NOI18N
         scrollPaneSavedSearches.setViewportView(listSavedSearches);
 
@@ -1096,13 +1096,13 @@ public final class AppPanel extends javax.swing.JPanel {
 
         scrollPaneImageCollections.setName("scrollPaneImageCollections"); // NOI18N
 
-        listImageCollections.setModel(ListModelWait.INSTANCE);
+        listImageCollections.setModel(WaitListModel.INSTANCE);
         listImageCollections.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        listImageCollections.setCellRenderer(new ListCellRendererImageCollections());
+        listImageCollections.setCellRenderer(new ImageCollectionsListCellRenderer());
         listImageCollections.setDragEnabled(true);
         listImageCollections.setName("listImageCollections"); // NOI18N
         scrollPaneImageCollections.setViewportView(listImageCollections);
-        listImageCollections.setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerImageCollectionsList());
+        listImageCollections.setTransferHandler(new org.jphototagger.program.datatransfer.ImageCollectionsListTransferHandler());
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -1132,8 +1132,8 @@ public final class AppPanel extends javax.swing.JPanel {
 
         scrollPaneFavorites.setName("scrollPaneFavorites"); // NOI18N
 
-        treeFavorites.setModel(TreeModelWait.INSTANCE);
-        treeFavorites.setCellRenderer(new org.jphototagger.program.view.renderer.TreeCellRendererFavorites());
+        treeFavorites.setModel(WaitTreeModel.INSTANCE);
+        treeFavorites.setCellRenderer(new org.jphototagger.program.view.renderer.FavoritesTreeCellRenderer());
         treeFavorites.setDragEnabled(true);
         treeFavorites.setName("treeFavorites"); // NOI18N
         treeFavorites.setRootVisible(false);
@@ -1169,8 +1169,8 @@ public final class AppPanel extends javax.swing.JPanel {
 
         scrollPaneSelKeywordsTree.setName("scrollPaneSelKeywordsTree"); // NOI18N
 
-        treeSelKeywords.setModel(TreeModelWait.INSTANCE);
-        treeSelKeywords.setCellRenderer(new org.jphototagger.program.view.renderer.TreeCellRendererKeywords());
+        treeSelKeywords.setModel(WaitTreeModel.INSTANCE);
+        treeSelKeywords.setCellRenderer(new org.jphototagger.program.view.renderer.KeywordsTreeCellRenderer());
         treeSelKeywords.setName("treeSelKeywords"); // NOI18N
         treeSelKeywords.setRootVisible(false);
         scrollPaneSelKeywordsTree.setViewportView(treeSelKeywords);
@@ -1259,12 +1259,12 @@ public final class AppPanel extends javax.swing.JPanel {
 
         scrollPaneSelKeywordsList.setName("scrollPaneSelKeywordsList"); // NOI18N
 
-        listSelKeywords.setModel(ListModelWait.INSTANCE);
-        listSelKeywords.setCellRenderer(new ListCellRendererKeywords());
+        listSelKeywords.setModel(WaitListModel.INSTANCE);
+        listSelKeywords.setCellRenderer(new KeywordsListCellRenderer());
         listSelKeywords.setDragEnabled(true);
         listSelKeywords.setName("listSelKeywords"); // NOI18N
         scrollPaneSelKeywordsList.setViewportView(listSelKeywords);
-        listSelKeywords.setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerKeywordsList());
+        listSelKeywords.setTransferHandler(new org.jphototagger.program.datatransfer.KeywordsListTransferHandler());
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -1347,8 +1347,8 @@ public final class AppPanel extends javax.swing.JPanel {
 
         scrollPaneTimeline.setName("scrollPaneTimeline"); // NOI18N
 
-        treeTimeline.setModel(TreeModelWait.INSTANCE);
-        treeTimeline.setCellRenderer(new TreeCellRendererTimeline());
+        treeTimeline.setModel(WaitTreeModel.INSTANCE);
+        treeTimeline.setCellRenderer(new TimelineTreeCellRenderer());
         treeTimeline.setName("treeTimeline"); // NOI18N
         treeTimeline.setRootVisible(false);
         scrollPaneTimeline.setViewportView(treeTimeline);
@@ -1392,8 +1392,8 @@ public final class AppPanel extends javax.swing.JPanel {
 
         scrollPaneMiscMetadata.setName("scrollPaneMiscMetadata"); // NOI18N
 
-        treeMiscMetadata.setModel(TreeModelWait.INSTANCE);
-        treeMiscMetadata.setCellRenderer(new TreeCellRendererMiscMetadata());
+        treeMiscMetadata.setModel(WaitTreeModel.INSTANCE);
+        treeMiscMetadata.setCellRenderer(new MiscMetadataTreeCellRenderer());
         treeMiscMetadata.setDragEnabled(true);
         treeMiscMetadata.setName("treeMiscMetadata"); // NOI18N
         treeMiscMetadata.setRootVisible(false);
@@ -1437,9 +1437,9 @@ public final class AppPanel extends javax.swing.JPanel {
 
         scrollPaneNoMetadata.setName("scrollPaneNoMetadata"); // NOI18N
 
-        listNoMetadata.setModel(ListModelWait.INSTANCE);
+        listNoMetadata.setModel(WaitListModel.INSTANCE);
         listNoMetadata.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        listNoMetadata.setCellRenderer(new org.jphototagger.program.view.renderer.ListCellRendererNoMetadata());
+        listNoMetadata.setCellRenderer(new org.jphototagger.program.view.renderer.NoMetadataListCellRenderer());
         listNoMetadata.setName("listNoMetadata"); // NOI18N
         scrollPaneNoMetadata.setViewportView(listNoMetadata);
 

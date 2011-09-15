@@ -1,8 +1,8 @@
 package org.jphototagger.program.io;
 
-import org.jphototagger.domain.event.listener.ProgressListenerSupport;
-import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.api.progress.ProgressEvent;
+import org.jphototagger.api.progress.ProgressListener;
+import org.jphototagger.domain.event.listener.ProgressListenerSupport;
 
 /**
  * Base class for file system actions. Provides registering and notifying

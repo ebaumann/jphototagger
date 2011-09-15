@@ -14,8 +14,8 @@ import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.domain.programs.Program;
-import org.jphototagger.domain.repository.ActionsAfterRepoUpdatesRepository;
 import org.jphototagger.domain.programs.ProgramType;
+import org.jphototagger.domain.repository.ActionsAfterRepoUpdatesRepository;
 import org.jphototagger.domain.repository.ProgramsRepository;
 import org.jphototagger.domain.repository.Repository;
 import org.jphototagger.domain.repository.event.programs.ProgramDeletedEvent;
@@ -26,11 +26,11 @@ import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.model.ListModelActionsAfterDbInsertion;
+import org.jphototagger.program.model.ActionsAfterDbInsertionListModel;
 import org.jphototagger.program.types.Persistence;
 import org.jphototagger.program.view.dialogs.ActionsDialog;
 import org.jphototagger.program.view.dialogs.ProgramSelectDialog;
-import org.jphototagger.program.view.renderer.ListCellRendererActions;
+import org.jphototagger.program.view.renderer.ActionsListCellRenderer;
 import org.openide.util.Lookup;
 
 /**
@@ -39,7 +39,7 @@ import org.openide.util.Lookup;
  */
 public class SettingsActionsPanel extends javax.swing.JPanel implements ListSelectionListener, Persistence {
     private static final long serialVersionUID = 6440789488453905704L;
-    private final ListModelActionsAfterDbInsertion model = new ListModelActionsAfterDbInsertion();
+    private final ActionsAfterDbInsertionListModel model = new ActionsAfterDbInsertionListModel();
     private final ActionsAfterRepoUpdatesRepository actionsAfterRepoUpdatesRepo = Lookup.getDefault().lookup(ActionsAfterRepoUpdatesRepository.class);
     private final ProgramsRepository programsRepo = Lookup.getDefault().lookup(ProgramsRepository.class);
     private volatile boolean listenToModel = true;
@@ -400,7 +400,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel implements ListSele
 
         list.setModel(model);
         list.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        list.setCellRenderer(new ListCellRendererActions());
+        list.setCellRenderer(new ActionsListCellRenderer());
         list.setComponentPopupMenu(popupMenu);
         list.setName("list"); // NOI18N
         list.addKeyListener(new java.awt.event.KeyAdapter() {

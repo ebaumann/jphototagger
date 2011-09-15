@@ -11,14 +11,14 @@ import java.util.logging.Logger;
 
 import javax.swing.JProgressBar;
 
+import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.repository.InsertIntoRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.runtime.External;
 import org.jphototagger.lib.runtime.External.ProcessResult;
-import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.domain.programs.Program;
 import org.jphototagger.lib.runtime.RuntimeUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.view.dialogs.ProgramInputParametersDialog;
 
 /**
@@ -75,6 +75,7 @@ public final class StartPrograms {
     }
 
     private class Execute extends Thread {
+
         private final ProgramInputParametersDialog dlg = new ProgramInputParametersDialog();
         private final List<File> imageFiles;
         private final Program program;
@@ -138,21 +139,21 @@ public final class StartPrograms {
 
         private void logError(String command, ProcessResult result) {
             LOGGER.log(Level.WARNING, "Error executing command  ''{0}'': {1}!", new Object[]{command, (result == null)
-                    ? "?"
-                    : result.getErrorStreamAsString()});
+                        ? "?"
+                        : result.getErrorStreamAsString()});
         }
 
         private String getProcessPatternCommand(File file) {
             return RuntimeUtil.quoteForCommandLine(program.getFile()) + RuntimeUtil.getDefaultCommandLineSeparator()
-                   + RuntimeUtil.substitudePattern(file, getPattern());
+                    + RuntimeUtil.substitudePattern(file, getPattern());
         }
 
         private String getPattern() {
             String pattern = program.getPattern();
 
-            return (program.isUsePattern() && (pattern != null) &&!pattern.isEmpty())
-                   ? program.getPattern()
-                   : RuntimeUtil.PATTERN_FS_PATH;
+            return (program.isUsePattern() && (pattern != null) && !pattern.isEmpty())
+                    ? program.getPattern()
+                    : RuntimeUtil.PATTERN_FS_PATH;
         }
 
         private void processAll() {
@@ -172,9 +173,9 @@ public final class StartPrograms {
 
         private String getProcessAllCommand() {
             return RuntimeUtil.quoteForCommandLine(program.getFile()) + RuntimeUtil.getDefaultCommandLineSeparator()
-                   + program.getCommandlineParameters(imageFiles,
-                       getAdditionalParameters(Bundle.getString(Execute.class, "StartPrograms.GetInput.Title"), 2),
-                       dlg.isParametersBeforeFilename());
+                    + program.getCommandlineParameters(imageFiles,
+                    getAdditionalParameters(Bundle.getString(Execute.class, "StartPrograms.GetInput.Title"), 2),
+                    dlg.isParametersBeforeFilename());
         }
 
         private void processSingle() {
@@ -198,8 +199,8 @@ public final class StartPrograms {
 
         private String getProcessSingleCommand(File file, int count) {
             return RuntimeUtil.quoteForCommandLine(program.getFile()) + RuntimeUtil.getDefaultCommandLineSeparator()
-                   + program.getCommandlineParameters(Arrays.asList(file),
-                       getAdditionalParameters(file.getAbsolutePath(), count + 1), dlg.isParametersBeforeFilename());
+                    + program.getCommandlineParameters(Arrays.asList(file),
+                    getAdditionalParameters(file.getAbsolutePath(), count + 1), dlg.isParametersBeforeFilename());
         }
 
         private String getAdditionalParameters(String filename, int count) {
@@ -234,6 +235,7 @@ public final class StartPrograms {
 
         private void initProgressBar() {
             EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
                 @Override
                 public void run() {
                     if (progressBar != null) {
@@ -247,6 +249,7 @@ public final class StartPrograms {
 
         private void setValueToProgressBar(final int value) {
             EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
                 @Override
                 public void run() {
                     if (progressBar != null) {

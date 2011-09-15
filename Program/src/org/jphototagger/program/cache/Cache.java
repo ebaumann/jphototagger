@@ -1,9 +1,10 @@
 package org.jphototagger.program.cache;
 
-import org.jphototagger.domain.event.listener.ThumbnailUpdateListener;
 import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
+
+import org.jphototagger.domain.event.listener.ThumbnailUpdateListener;
 
 /**
  *
@@ -11,17 +12,18 @@ import java.util.Set;
  * @author Martin Pohlack
  */
 public abstract class Cache<CI extends CacheIndirection> {
+
     static int currentAge = 0;
     private static final int MAX_ENTRIES = 1500;
     final Set<ThumbnailUpdateListener> updateListeners = new HashSet<ThumbnailUpdateListener>();
     protected WorkQueue<CI> workQueue = new WorkQueue<CI>();
-
     /**
      * Mapping from file to all kinds of cached data
      */
     protected final SoftCacheMap<CI> fileCache = new SoftCacheMap<CI>(MAX_ENTRIES, workQueue);
 
-    Cache() {}
+    Cache() {
+    }
 
     protected void updateUsageTime(CacheIndirection ci) {
         if (ci == null) {

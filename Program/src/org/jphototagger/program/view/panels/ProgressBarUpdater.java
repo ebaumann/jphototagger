@@ -1,8 +1,9 @@
 package org.jphototagger.program.view.panels;
 
-import org.jphototagger.api.progress.ProgressListener;
-import org.jphototagger.api.progress.ProgressEvent;
 import javax.swing.JProgressBar;
+
+import org.jphototagger.api.progress.ProgressEvent;
+import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
@@ -11,6 +12,7 @@ import org.jphototagger.lib.awt.EventQueueUtil;
  * @author Elmar Baumann
  */
 public final class ProgressBarUpdater implements ProgressListener {
+
     private final String progressBarString;
     private JProgressBar progressBar;
     private final Object pBarOwner;
@@ -40,6 +42,7 @@ public final class ProgressBarUpdater implements ProgressListener {
     private synchronized void updateProgressBar(final ProgressEvent evt) {
         getProgressBar();
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 if (progressBar != null) {
@@ -47,11 +50,11 @@ public final class ProgressBarUpdater implements ProgressListener {
                     progressBar.setMaximum(evt.getMaximum());
                     progressBar.setValue(evt.getValue());
 
-                    if ((progressBarString != null) &&!progressBar.isStringPainted()) {
+                    if ((progressBarString != null) && !progressBar.isStringPainted()) {
                         progressBar.setStringPainted(true);
                     }
 
-                    if ((progressBarString != null) &&!progressBarString.equals(progressBar.getString())) {
+                    if ((progressBarString != null) && !progressBarString.equals(progressBar.getString())) {
                         progressBar.setString(progressBarString);
                     }
                 }
@@ -72,6 +75,7 @@ public final class ProgressBarUpdater implements ProgressListener {
     @Override
     public synchronized void progressEnded(final ProgressEvent evt) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 if (progressBar != null) {

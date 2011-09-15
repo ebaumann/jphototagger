@@ -89,7 +89,7 @@
                 <Property name="name" type="java.lang.String" value="panelKeywordsInput" noResource="true"/>
               </Properties>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="panelKeywordsInput.setPrompt(&quot;&quot;);&#xa;panelKeywordsInput.getTextArea().setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerDropTextComponent());&#xa;panelKeywordsInput.getList().setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerDropList());"/>
+                <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="panelKeywordsInput.setPrompt(&quot;&quot;);&#xa;panelKeywordsInput.getTextArea().setTransferHandler(new org.jphototagger.program.datatransfer.DropTextComponentTransferHandler());&#xa;panelKeywordsInput.getList().setTransferHandler(new org.jphototagger.program.datatransfer.DropListTransferHandler());"/>
               </AuxValues>
             </Component>
           </SubComponents>
@@ -238,7 +238,7 @@
                   </Properties>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new TabOrEnterLeavingTextArea()"/>
-                    <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="textAreaCustomSqlQuery.setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerDropTextComponent());&#xa;textAreaCustomSqlQuery.getDocument().addDocumentListener(new CustomSqlChangeListener());"/>
+                    <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="textAreaCustomSqlQuery.setTransferHandler(new org.jphototagger.program.datatransfer.DropTextComponentTransferHandler());&#xa;textAreaCustomSqlQuery.getDocument().addDocumentListener(new CustomSqlChangeListener());"/>
                   </AuxValues>
                 </Component>
               </SubComponents>

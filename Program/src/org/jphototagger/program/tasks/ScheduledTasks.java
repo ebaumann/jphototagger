@@ -133,7 +133,7 @@ public final class ScheduledTasks implements ActionListener {
 
             @Override
             public void run() {
-                InsertImageFilesIntoDatabase inserter = ScheduledTaskInsertImageFilesIntoDatabase.getThread();
+                InsertImageFilesIntoDatabase inserter = InsertImageFilesIntoDatabaseScheduledTask.getThread();
 
                 if (inserter != null) {
                     executor.execute(inserter);

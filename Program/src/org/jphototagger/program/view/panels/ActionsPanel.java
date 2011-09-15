@@ -9,8 +9,8 @@ import javax.swing.JProgressBar;
 import org.jphototagger.domain.event.listener.ListenerSupport;
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.programs.ProgramExecutor;
-import org.jphototagger.domain.repository.ActionsAfterRepoUpdatesRepository;
 import org.jphototagger.domain.programs.ProgramType;
+import org.jphototagger.domain.repository.ActionsAfterRepoUpdatesRepository;
 import org.jphototagger.domain.repository.ProgramsRepository;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
@@ -18,12 +18,12 @@ import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.event.util.MouseEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.controller.actions.ProgramExecutorImpl;
-import org.jphototagger.program.datatransfer.TransferHandlerReorderListItems;
+import org.jphototagger.program.datatransfer.ReorderListItemsTransferHandler;
 import org.jphototagger.program.helper.ProgramsHelper;
 import org.jphototagger.program.helper.ProgramsHelper.ReorderListener;
-import org.jphototagger.program.model.ListModelPrograms;
+import org.jphototagger.program.model.ProgramsListModel;
 import org.jphototagger.program.view.dialogs.ProgramPropertiesDialog;
-import org.jphototagger.program.view.renderer.ListCellRendererActions;
+import org.jphototagger.program.view.renderer.ActionsListCellRenderer;
 import org.openide.util.Lookup;
 
 /**
@@ -32,7 +32,7 @@ import org.openide.util.Lookup;
  */
 public final class ActionsPanel extends javax.swing.JPanel {
     private static final long serialVersionUID = 8875330844851092391L;
-    private final ListModelPrograms model = new ListModelPrograms(ProgramType.ACTION);
+    private final ProgramsListModel model = new ProgramsListModel(ProgramType.ACTION);
     private final ListenerSupport<ProgramExecutor> ls = new ListenerSupport<ProgramExecutor>();
     private Object progressBarOwner;
     private final ReorderListener reorderListener = new ProgramsHelper.ReorderListener(model);
@@ -356,12 +356,12 @@ public final class ActionsPanel extends javax.swing.JPanel {
 
         list.setModel(model);
         list.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        list.setCellRenderer(new ListCellRendererActions());
+        list.setCellRenderer(new ActionsListCellRenderer());
         list.setComponentPopupMenu(popupMenu);
         list.setDragEnabled(true);
         list.setDropMode(javax.swing.DropMode.INSERT);
         list.setName("list"); // NOI18N
-        list.setTransferHandler(new TransferHandlerReorderListItems(list));
+        list.setTransferHandler(new ReorderListItemsTransferHandler(list));
         list.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listMouseClicked(evt);

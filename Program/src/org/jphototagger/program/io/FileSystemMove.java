@@ -7,10 +7,10 @@ import java.util.List;
 import org.bushe.swing.event.EventBus;
 import org.jphototagger.api.file.event.FileMovedEvent;
 import org.jphototagger.api.progress.ProgressEvent;
+import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.SourceTargetFile;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.lib.dialog.MessageDisplayer;
 
 /**
  * Moves files to a target directory. The info object in

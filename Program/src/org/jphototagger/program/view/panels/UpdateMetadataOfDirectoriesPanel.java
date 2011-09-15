@@ -14,18 +14,18 @@ import javax.swing.JPanel;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.api.concurrent.CancelRequest;
+import org.jphototagger.api.progress.ProgressEvent;
+import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.api.storage.Storage;
-import org.jphototagger.domain.repository.InsertIntoRepository;
 import org.jphototagger.domain.metadata.event.UpdateMetadataCheckEvent;
 import org.jphototagger.domain.metadata.event.UpdateMetadataCheckEvent.Type;
+import org.jphototagger.domain.repository.InsertIntoRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.comparator.FileSort;
 import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.DirectoryChooser;
-import org.jphototagger.api.progress.ProgressEvent;
-import org.jphototagger.api.progress.ProgressListener;
-import org.jphototagger.api.concurrent.CancelRequest;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter.Option;
@@ -482,7 +482,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
         scrollPane.setName("scrollPane"); // NOI18N
 
         list.setModel(listModelDirectories);
-        list.setCellRenderer(new org.jphototagger.program.view.renderer.ListCellRendererDirectories());
+        list.setCellRenderer(new org.jphototagger.program.view.renderer.DirectoriesListCellRenderer());
         list.setComponentPopupMenu(popupMenu);
         list.setName("list"); // NOI18N
         list.addKeyListener(new java.awt.event.KeyAdapter() {

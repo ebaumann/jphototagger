@@ -311,14 +311,15 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
-                @SuppressWarnings(
-                    "unchecked") PathSelectionDialog dialog =
+                @SuppressWarnings("unchecked") PathSelectionDialog dialog =
                         new PathSelectionDialog(
-                            new ArrayList(new ArrayList<String>()), Mode.PATHS);
+                        new ArrayList(new ArrayList<String>()), Mode.PATHS);
 
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
@@ -328,7 +329,6 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonSelectAll;
     private javax.swing.JButton buttonSelectNothing;

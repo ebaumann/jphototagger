@@ -2,12 +2,12 @@ package org.jphototagger.program.view.panels;
 
 import java.text.MessageFormat;
 
-import org.jphototagger.api.storage.UserFilesProvider;
 import org.jphototagger.api.file.FilenameTokens;
+import org.jphototagger.api.storage.UserFilesProvider;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.view.renderer.TableCellRendererDatabaseInfoColumns;
-import org.jphototagger.program.model.TableModelDatabaseInfo;
+import org.jphototagger.program.model.DatabaseInfoTableModel;
+import org.jphototagger.program.view.renderer.DatabaseInfoColumnsTableCellRenderer;
 import org.openide.util.Lookup;
 
 /**
@@ -17,12 +17,12 @@ import org.openide.util.Lookup;
  */
 public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
     private static final long  serialVersionUID = -8537559082830438692L;
-    private TableModelDatabaseInfo modelDatabaseInfo;
+    private DatabaseInfoTableModel modelDatabaseInfo;
     private volatile boolean listenToDbChanges;
 
     public DatabaseInfoCountPanel() {
         initComponents();
-        table.setDefaultRenderer(Object.class, new TableCellRendererDatabaseInfoColumns());
+        table.setDefaultRenderer(Object.class, new DatabaseInfoColumnsTableCellRenderer());
         setLabelFilename();
     }
 
@@ -60,7 +60,7 @@ public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
 
                         @Override
                         public void run() {
-                            modelDatabaseInfo = new TableModelDatabaseInfo();
+                            modelDatabaseInfo = new DatabaseInfoTableModel();
                             modelDatabaseInfo.setListenToDatabase(listenToDbChanges);
                             table.setModel(modelDatabaseInfo);
                             modelDatabaseInfo.update();

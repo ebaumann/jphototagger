@@ -1,8 +1,10 @@
 package org.jphototagger.program.view.renderer;
 
-import org.jphototagger.program.app.AppLookAndFeel;
 import java.awt.Font;
+
 import javax.swing.JLabel;
+
+import org.jphototagger.program.app.AppLookAndFeel;
 
 /**
  * Basisklasse für Renderer, die Metadaten darstellen.
@@ -10,6 +12,7 @@ import javax.swing.JLabel;
  * @author Elmar Baumann
  */
 public class FormatterLabelMetadata {
+
     private Font headerFont = null;
     private Font contentFont = null;
 
@@ -25,11 +28,11 @@ public class FormatterLabelMetadata {
         }
 
         cellLabel.setForeground(isSelected
-                                ? AppLookAndFeel.getTableSelectionForeground()
-                                : AppLookAndFeel.getTableForeground());
+                ? AppLookAndFeel.getTableSelectionForeground()
+                : AppLookAndFeel.getTableForeground());
         cellLabel.setBackground(isSelected
-                                ? AppLookAndFeel.getTableSelectionBackground()
-                                : AppLookAndFeel.getTableBackground());
+                ? AppLookAndFeel.getTableSelectionBackground()
+                : AppLookAndFeel.getTableBackground());
         cellLabel.setOpaque(true);
     }
 
@@ -74,11 +77,11 @@ public class FormatterLabelMetadata {
         }
 
         cellLabel.setForeground(isSelected
-                                ? AppLookAndFeel.getTableSelectionForeground()
-                                : AppLookAndFeel.getTableStoredInDatabaseForeground());
+                ? AppLookAndFeel.getTableSelectionForeground()
+                : AppLookAndFeel.getTableStoredInDatabaseForeground());
         cellLabel.setBackground(isSelected
-                                ? AppLookAndFeel.getTableSelectionBackground()
-                                : AppLookAndFeel.getTableStoredInDatabaseBackground());
+                ? AppLookAndFeel.getTableSelectionBackground()
+                : AppLookAndFeel.getTableStoredInDatabaseBackground());
     }
 
     protected void setIsExifMakerNoteColors(JLabel cellLabel, boolean isSelected) {
@@ -87,11 +90,11 @@ public class FormatterLabelMetadata {
         }
 
         cellLabel.setForeground(isSelected
-                                ? AppLookAndFeel.getTableSelectionForeground()
-                                : AppLookAndFeel.getTableExifMakerNoteForeground());
+                ? AppLookAndFeel.getTableSelectionForeground()
+                : AppLookAndFeel.getTableExifMakerNoteForeground());
         cellLabel.setBackground(isSelected
-                                ? AppLookAndFeel.getTableSelectionBackground()
-                                : AppLookAndFeel.getTableExifMakerNoteBackground());
+                ? AppLookAndFeel.getTableSelectionBackground()
+                : AppLookAndFeel.getTableExifMakerNoteBackground());
     }
 
     private void initFonts(JLabel cellLabel) {

@@ -1,11 +1,12 @@
 package org.jphototagger.program.view;
 
-import org.jphototagger.program.resource.GUI;
 import java.awt.Component;
 import java.awt.Cursor;
-import java.awt.event.MouseAdapter;
 import java.awt.EventQueue;
+import java.awt.event.MouseAdapter;
+
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.program.resource.GUI;
 
 /**
  * Displays on the (entire) application frame a wait symbol (currently a
@@ -14,8 +15,9 @@ import org.jphototagger.lib.awt.EventQueueUtil;
  * @author Elmar Baumann
  */
 public final class WaitDisplay {
-    private static final MouseAdapter ma = new MouseAdapter() {}
-    ;
+
+    private static final MouseAdapter ma = new MouseAdapter() {
+    };
     private static final Cursor WAIT_CURSOR = Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR);
     private static final Cursor DEFAULT_CURSOR = Cursor.getDefaultCursor();
     private static volatile boolean mlAdded;
@@ -57,6 +59,7 @@ public final class WaitDisplay {
             }
         } else {
             EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
                 @Override
                 public void run() {
                     synchronized (LOCK) {
@@ -76,5 +79,6 @@ public final class WaitDisplay {
         }
     }
 
-    private WaitDisplay() {}
+    private WaitDisplay() {
+    }
 }

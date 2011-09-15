@@ -60,7 +60,8 @@ public final class AppLoggingSystem {
 
     public enum HandlerType {
 
-        SYSTEM_OUT, FILE,}
+        SYSTEM_OUT, FILE,
+    }
 
     private AppLoggingSystem() {
         AnnotationProcessor.process(this);

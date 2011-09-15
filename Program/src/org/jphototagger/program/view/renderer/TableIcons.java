@@ -1,9 +1,11 @@
 package org.jphototagger.program.view.renderer;
 
-import org.jphototagger.program.app.AppLookAndFeel;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.swing.Icon;
+
+import org.jphototagger.program.app.AppLookAndFeel;
 
 /**
  * Liefert Icons für Tabellen.
@@ -11,6 +13,7 @@ import javax.swing.Icon;
  * @author Elmar Baumann
  */
 public final class TableIcons {
+
     private static final Icon ICON_UNDEFINED = AppLookAndFeel.getIcon("icon_table_undefined.png");
     private static final Icon ICON_FILES = AppLookAndFeel.getIcon("icon_file.png");
     private static final Icon ICON_EXIF = AppLookAndFeel.getIcon("icon_exif.png");
@@ -36,7 +39,8 @@ public final class TableIcons {
         ICON_OF_TABLENAME.put("dc_subjects", ICON_XMP);
     }
 
-    private TableIcons() {}
+    private TableIcons() {
+    }
 
     public static Icon getIcon(String tablename) {
         if (tablename == null) {
@@ -46,7 +50,7 @@ public final class TableIcons {
         Icon icon = ICON_OF_TABLENAME.get(tablename);
 
         return (icon == null)
-               ? ICON_UNDEFINED
-               : icon;
+                ? ICON_UNDEFINED
+                : icon;
     }
 }

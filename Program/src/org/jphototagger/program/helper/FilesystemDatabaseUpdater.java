@@ -1,10 +1,8 @@
 package org.jphototagger.program.helper;
 
-import org.jphototagger.domain.repository.InsertIntoRepository;
-import org.jphototagger.program.io.ImageFileFilterer;
-import org.jphototagger.program.tasks.UserTasks;
 import java.io.File;
 import java.util.Arrays;
+
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.file.event.FileCopiedEvent;
@@ -12,6 +10,9 @@ import org.jphototagger.api.file.event.FileDeletedEvent;
 import org.jphototagger.api.file.event.FileMovedEvent;
 import org.jphototagger.api.file.event.FileRenamedEvent;
 import org.jphototagger.domain.repository.ImageFilesRepository;
+import org.jphototagger.domain.repository.InsertIntoRepository;
+import org.jphototagger.program.io.ImageFileFilterer;
+import org.jphototagger.program.tasks.UserTasks;
 import org.openide.util.Lookup;
 
 /**

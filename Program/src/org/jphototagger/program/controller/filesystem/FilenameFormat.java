@@ -8,6 +8,7 @@ import java.io.File;
  * @author Elmar Baumann
  */
 public abstract class FilenameFormat {
+
     private File file;
     private File prevFile;
     private String format;
@@ -71,7 +72,6 @@ public abstract class FilenameFormat {
      * nothing.
      */
     public void next() {
-
         // ignore
     }
 

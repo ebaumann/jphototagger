@@ -15,7 +15,7 @@ import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.event.util.MouseEventUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.model.ListModelUserDefinedFileFilter;
+import org.jphototagger.program.model.UserDefinedFileFilterListModel;
 import org.jphototagger.program.view.dialogs.EditUserDefinedFileFilterDialog;
 import org.openide.util.Lookup;
 
@@ -215,7 +215,7 @@ public class UserDefinedFileFilterPanel extends javax.swing.JPanel implements Li
 
         scrollPane.setName("scrollPane"); // NOI18N
 
-        list.setModel(new ListModelUserDefinedFileFilter());
+        list.setModel(new UserDefinedFileFilterListModel());
         list.setComponentPopupMenu(popupMenu);
         list.setName("list"); // NOI18N
         list.addMouseListener(new java.awt.event.MouseAdapter() {

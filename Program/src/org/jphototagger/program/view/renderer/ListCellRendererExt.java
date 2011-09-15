@@ -1,9 +1,11 @@
 package org.jphototagger.program.view.renderer;
 
 import java.awt.Color;
-import org.jphototagger.program.app.AppLookAndFeel;
+
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;
+
+import org.jphototagger.program.app.AppLookAndFeel;
 
 /**
  *
@@ -11,6 +13,7 @@ import javax.swing.JLabel;
  * @author Elmar Baumann
  */
 public class ListCellRendererExt extends DefaultListCellRenderer {
+
     private static final Color LIST_FOREGROUND = AppLookAndFeel.getListForeground();
     private static final Color LIST_BACKGROUND = AppLookAndFeel.getListBackground();
     private static final Color LIST_SELECTION_FOREGROUND = AppLookAndFeel.getListSelectionForeground();
@@ -28,15 +31,15 @@ public class ListCellRendererExt extends DefaultListCellRenderer {
         boolean isTempSelRow = index == tempSelectionRow;
         boolean tempSelExists = tempSelectionRow >= 0;
         boolean isSelection = isTempSelRow
-                                  || (!tempSelExists && itemAtIndexIsSelected)
-                                  || (tempSelExists && !isTempSelRow && itemAtIndexIsSelected && tempSelRowIsSelected);
+                || (!tempSelExists && itemAtIndexIsSelected)
+                || (tempSelExists && !isTempSelRow && itemAtIndexIsSelected && tempSelRowIsSelected);
 
         label.setForeground(isSelection
-                            ? LIST_SELECTION_FOREGROUND
-                            : LIST_FOREGROUND);
+                ? LIST_SELECTION_FOREGROUND
+                : LIST_FOREGROUND);
         label.setBackground(isSelection
-                            ? LIST_SELECTION_BACKGROUND
-                            : LIST_BACKGROUND);
+                ? LIST_SELECTION_BACKGROUND
+                : LIST_BACKGROUND);
     }
 
     public int getTempSelectionRow() {

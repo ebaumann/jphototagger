@@ -10,6 +10,7 @@ import java.util.List;
  * @author Elmar Baumann
  */
 public final class FilenameFormatArray {
+
     private final List<FilenameFormat> formats = new ArrayList<FilenameFormat>();
 
     /**

@@ -6,14 +6,14 @@ import java.util.List;
 import java.util.Set;
 
 import org.jphototagger.domain.repository.ImageFilesRepository;
+import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
+import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
+import org.jphototagger.program.controller.thumbnail.SortThumbnailsController;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.program.view.WaitDisplay;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
-import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
 import org.openide.util.Lookup;
 
 /**
@@ -62,7 +62,7 @@ public final class ShowThumbnailsContainingKeywords implements Runnable {
         if (imageFiles != null) {
             ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
-            ControllerSortThumbnails.setLastSort();
+            SortThumbnailsController.setLastSort();
             tnPanel.setFiles(imageFiles, TypeOfDisplayedImages.KEYWORD);
             tnPanel.apply(tnPanelSettings);
         }
@@ -87,7 +87,7 @@ public final class ShowThumbnailsContainingKeywords implements Runnable {
     private void setTitle(List<String> keywords) {
         GUI.getAppFrame().setTitle(
                 Bundle.getString(ShowThumbnailsContainingKeywords.class,
-                "ShowThumbnailsContainingKeywords.AppFrame.Title.Keywords.Path", Util.keywordPathString(keywords)));
+                "ShowThumbnailsContainingKeywords.AppFrame.Title.Keywords.Path", KeywordControllerUtil.keywordPathString(keywords)));
     }
 
     private void setTitle(String keyword) {

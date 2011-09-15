@@ -1,7 +1,8 @@
 package org.jphototagger.program.view.renderer;
 
-import org.jphototagger.domain.metadata.MetaDataValue;
 import javax.swing.JLabel;
+
+import org.jphototagger.domain.metadata.MetaDataValue;
 
 /**
  * Renderd eine Tabellenspalte.
@@ -29,5 +30,6 @@ public final class FormatterLabelTableColumn {
         label.setText(column.getDescription());
     }
 
-    protected FormatterLabelTableColumn() {}
+    protected FormatterLabelTableColumn() {
+    }
 }

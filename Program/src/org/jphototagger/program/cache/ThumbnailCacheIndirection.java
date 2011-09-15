@@ -8,6 +8,7 @@ import java.io.File;
  * @author Martin Pohlack
  */
 public class ThumbnailCacheIndirection extends CacheIndirection {
+
     Image thumbnail;
 
     public ThumbnailCacheIndirection(File _file) {

@@ -10,29 +10,30 @@ import java.util.Set;
  * @author Elmar Baumann
  */
 public final class MetadataTableModels {
-    private TableModelIptc iptcTableModel;
-    private TableModelExif exifTableModel;
-    private TableModelXmp xmpTableModelDc;
-    private TableModelXmp xmpTableModelExif;
-    private TableModelXmp xmpTableModelIptc;
-    private TableModelXmp xmpTableModelLightroom;
-    private TableModelXmp xmpTableModelPhotoshop;
-    private TableModelXmp xmpTableModelTiff;
-    private TableModelXmp xmpTableModelCameraRawSettings;
-    private TableModelXmp xmpTableModelXap;
-    private Set<TableModelXmp> xmpTableModels;
+
+    private IptcTableModel iptcTableModel;
+    private ExifTableModel exifTableModel;
+    private XmpTableModel xmpTableModelDc;
+    private XmpTableModel xmpTableModelExif;
+    private XmpTableModel xmpTableModelIptc;
+    private XmpTableModel xmpTableModelLightroom;
+    private XmpTableModel xmpTableModelPhotoshop;
+    private XmpTableModel xmpTableModelTiff;
+    private XmpTableModel xmpTableModelCameraRawSettings;
+    private XmpTableModel xmpTableModelXap;
+    private Set<XmpTableModel> xmpTableModels;
 
     /**
      * @return the iptcTableModel
      */
-    public TableModelIptc getIptcTableModel() {
+    public IptcTableModel getIptcTableModel() {
         return iptcTableModel;
     }
 
     /**
      * @param iptcTableModel the iptcTableModel to set
      */
-    public void setIptcTableModel(TableModelIptc iptcTableModel) {
+    public void setIptcTableModel(IptcTableModel iptcTableModel) {
         if (iptcTableModel == null) {
             throw new NullPointerException("iptcTableModel == null");
         }
@@ -43,14 +44,14 @@ public final class MetadataTableModels {
     /**
      * @return the exifTableModel
      */
-    public TableModelExif getExifTableModel() {
+    public ExifTableModel getExifTableModel() {
         return exifTableModel;
     }
 
     /**
      * @param exifTableModel the exifTableModel to set
      */
-    public void setExifTableModel(TableModelExif exifTableModel) {
+    public void setExifTableModel(ExifTableModel exifTableModel) {
         if (exifTableModel == null) {
             throw new NullPointerException("exifTableModel == null");
         }
@@ -61,14 +62,14 @@ public final class MetadataTableModels {
     /**
      * @return the xmpTableModelDc
      */
-    public TableModelXmp getXmpTableModelDc() {
+    public XmpTableModel getXmpTableModelDc() {
         return xmpTableModelDc;
     }
 
     /**
      * @param xmpTableModelDc the xmpTableModelDc to set
      */
-    public void setXmpTableModelDc(TableModelXmp xmpTableModelDc) {
+    public void setXmpTableModelDc(XmpTableModel xmpTableModelDc) {
         if (xmpTableModelDc == null) {
             throw new NullPointerException("xmpTableModelDc == null");
         }
@@ -79,14 +80,14 @@ public final class MetadataTableModels {
     /**
      * @return the xmpTableModelExif
      */
-    public TableModelXmp getXmpTableModelExif() {
+    public XmpTableModel getXmpTableModelExif() {
         return xmpTableModelExif;
     }
 
     /**
      * @param xmpTableModelExif the xmpTableModelExif to set
      */
-    public void setXmpTableModelExif(TableModelXmp xmpTableModelExif) {
+    public void setXmpTableModelExif(XmpTableModel xmpTableModelExif) {
         if (xmpTableModelExif == null) {
             throw new NullPointerException("xmpTableModelExif == null");
         }
@@ -97,14 +98,14 @@ public final class MetadataTableModels {
     /**
      * @return the xmpTableModelIptc
      */
-    public TableModelXmp getXmpTableModelIptc() {
+    public XmpTableModel getXmpTableModelIptc() {
         return xmpTableModelIptc;
     }
 
     /**
      * @param xmpTableModelIptc the xmpTableModelIptc to set
      */
-    public void setXmpTableModelIptc(TableModelXmp xmpTableModelIptc) {
+    public void setXmpTableModelIptc(XmpTableModel xmpTableModelIptc) {
         if (xmpTableModelIptc == null) {
             throw new NullPointerException("xmpTableModelIptc == null");
         }
@@ -115,14 +116,14 @@ public final class MetadataTableModels {
     /**
      * @return the xmpTableModelLightroom
      */
-    public TableModelXmp getXmpTableModelLightroom() {
+    public XmpTableModel getXmpTableModelLightroom() {
         return xmpTableModelLightroom;
     }
 
     /**
      * @param xmpTableModelLightroom the xmpTableModelLightroom to set
      */
-    public void setXmpTableModelLightroom(TableModelXmp xmpTableModelLightroom) {
+    public void setXmpTableModelLightroom(XmpTableModel xmpTableModelLightroom) {
         if (xmpTableModelLightroom == null) {
             throw new NullPointerException("xmpTableModelLightroom == null");
         }
@@ -133,14 +134,14 @@ public final class MetadataTableModels {
     /**
      * @return the xmpTableModelPhotoshop
      */
-    public TableModelXmp getXmpTableModelPhotoshop() {
+    public XmpTableModel getXmpTableModelPhotoshop() {
         return xmpTableModelPhotoshop;
     }
 
     /**
      * @param xmpTableModelPhotoshop the xmpTableModelPhotoshop to set
      */
-    public void setXmpTableModelPhotoshop(TableModelXmp xmpTableModelPhotoshop) {
+    public void setXmpTableModelPhotoshop(XmpTableModel xmpTableModelPhotoshop) {
         if (xmpTableModelPhotoshop == null) {
             throw new NullPointerException("xmpTableModelPhotoshop == null");
         }
@@ -151,14 +152,14 @@ public final class MetadataTableModels {
     /**
      * @return the xmpTableModelTiff
      */
-    public TableModelXmp getXmpTableModelTiff() {
+    public XmpTableModel getXmpTableModelTiff() {
         return xmpTableModelTiff;
     }
 
     /**
      * @param xmpTableModelTiff the xmpTableModelTiff to set
      */
-    public void setXmpTableModelTiff(TableModelXmp xmpTableModelTiff) {
+    public void setXmpTableModelTiff(XmpTableModel xmpTableModelTiff) {
         if (xmpTableModelTiff == null) {
             throw new NullPointerException("xmpTableModelTiff == null");
         }
@@ -169,7 +170,7 @@ public final class MetadataTableModels {
     /**
      * @return the xmpTableModelCameraRawSettings
      */
-    public TableModelXmp getXmpTableModelCameraRawSettings() {
+    public XmpTableModel getXmpTableModelCameraRawSettings() {
         return xmpTableModelCameraRawSettings;
     }
 
@@ -177,7 +178,7 @@ public final class MetadataTableModels {
      * @param xmpTableModelCameraRawSettings the xmpTableModelCameraRawSettings
      *        to set
      */
-    public void setXmpTableModelCameraRawSettings(TableModelXmp xmpTableModelCameraRawSettings) {
+    public void setXmpTableModelCameraRawSettings(XmpTableModel xmpTableModelCameraRawSettings) {
         if (xmpTableModelCameraRawSettings == null) {
             throw new NullPointerException("xmpTableModelCameraRawSettings == null");
         }
@@ -188,14 +189,14 @@ public final class MetadataTableModels {
     /**
      * @return the xmpTableModelXap
      */
-    public TableModelXmp getXmpTableModelXap() {
+    public XmpTableModel getXmpTableModelXap() {
         return xmpTableModelXap;
     }
 
     /**
      * @param xmpTableModelXap the xmpTableModelXap to set
      */
-    public void setXmpTableModelXap(TableModelXmp xmpTableModelXap) {
+    public void setXmpTableModelXap(XmpTableModel xmpTableModelXap) {
         if (xmpTableModelXap == null) {
             throw new NullPointerException("xmpTableModelXap == null");
         }
@@ -206,18 +207,18 @@ public final class MetadataTableModels {
     /**
      * @return the xmpTableModels
      */
-    public Set<TableModelXmp> getXmpTableModels() {
+    public Set<XmpTableModel> getXmpTableModels() {
         return Collections.unmodifiableSet(xmpTableModels);
     }
 
     /**
      * @param xmpTableModels the xmpTableModels to set
      */
-    public void setXmpTableModels(Set<TableModelXmp> xmpTableModels) {
+    public void setXmpTableModels(Set<XmpTableModel> xmpTableModels) {
         if (xmpTableModels == null) {
             throw new NullPointerException("xmpTableModels == null");
         }
 
-        this.xmpTableModels = new HashSet<TableModelXmp>(xmpTableModels);
+        this.xmpTableModels = new HashSet<XmpTableModel>(xmpTableModels);
     }
 }

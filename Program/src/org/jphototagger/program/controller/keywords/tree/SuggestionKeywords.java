@@ -6,9 +6,9 @@ import java.util.HashSet;
 import java.util.List;
 
 import org.jphototagger.domain.keywords.Keyword;
+import org.jphototagger.domain.keywords.KeywordType;
 import org.jphototagger.domain.repository.KeywordsRepository;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.domain.keywords.KeywordType;
 import org.jphototagger.program.types.Suggest;
 import org.jphototagger.program.view.dialogs.PathSelectionDialog;
 import org.openide.util.Lookup;

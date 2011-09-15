@@ -1,7 +1,7 @@
 package org.jphototagger.program.view.dialogs;
 
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.lib.dialog.Dialog;
+import org.jphototagger.program.resource.GUI;
 
 /**
  *
@@ -73,11 +73,13 @@ public class SynonymsDialog extends Dialog {
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 SynonymsDialog dialog = new SynonymsDialog();
 
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
@@ -87,7 +89,6 @@ public class SynonymsDialog extends Dialog {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jphototagger.program.view.panels.SynonymsPanel synonymsPanel1;
     // End of variables declaration//GEN-END:variables

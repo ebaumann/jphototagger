@@ -10,7 +10,7 @@ import javax.swing.tree.TreePath;
 import org.jphototagger.domain.repository.KeywordsRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.program.model.TreeModelKeywords;
+import org.jphototagger.program.model.KeywordsTreeModel;
 import org.jphototagger.program.resource.GUI;
 import org.openide.util.Lookup;
 
@@ -44,7 +44,7 @@ public final class InsertKeywords extends Thread {
 
             @Override
             public void run() {
-                TreeModelKeywords model = ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
+                KeywordsTreeModel model = ModelFactory.INSTANCE.getModel(KeywordsTreeModel.class);
                 Object root = model.getRoot();
 
                 if (root instanceof DefaultMutableTreeNode) {
@@ -54,7 +54,7 @@ public final class InsertKeywords extends Thread {
         });
     }
 
-    private void insertKeywords(DefaultMutableTreeNode rootHk, TreeModelKeywords modelHk) {
+    private void insertKeywords(DefaultMutableTreeNode rootHk, KeywordsTreeModel modelHk) {
         boolean inserted = false;
 
         for (String keyword : keywords) {

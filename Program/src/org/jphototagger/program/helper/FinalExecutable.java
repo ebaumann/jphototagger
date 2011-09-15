@@ -13,6 +13,7 @@ import org.jphototagger.program.app.AppLifeCycle.FinalTask;
  * @author Elmar Baumann
  */
 public final class FinalExecutable extends FinalTask {
+
     private String executable;
 
     public FinalExecutable(String executable) {

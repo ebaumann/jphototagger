@@ -17,10 +17,10 @@ import javax.swing.event.ListDataListener;
 import javax.swing.filechooser.FileSystemView;
 
 import org.bushe.swing.event.EventBus;
-import org.jphototagger.api.storage.Storage;
-import org.jphototagger.api.storage.StorageHints;
 import org.jphototagger.api.file.event.FileRenamedEvent;
 import org.jphototagger.api.image.thumbnails.ThumbnailProvider;
+import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.StorageHints;
 import org.jphototagger.domain.templates.RenameTemplate;
 import org.jphototagger.image.ImageFileType;
 import org.jphototagger.lib.componentutil.ComboBoxUtil;
@@ -37,7 +37,7 @@ import org.jphototagger.program.controller.filesystem.FilenameFormatFileName;
 import org.jphototagger.program.controller.filesystem.FilenameFormatFilenamePostfix;
 import org.jphototagger.program.controller.filesystem.FilenameFormatNumberSequence;
 import org.jphototagger.program.helper.RenameTemplateHelper;
-import org.jphototagger.program.model.ComboBoxModelRenameTemplates;
+import org.jphototagger.program.model.RenameTemplatesComboBoxModel;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.xmp.XmpMetadata;
 import org.openide.util.Lookup;
@@ -1158,7 +1158,7 @@ public final class RenameDialog extends Dialog implements ListDataListener {
         panelRenameTemplates.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("RenameDialog.panelRenameTemplates.border.title"))); // NOI18N
         panelRenameTemplates.setName("panelRenameTemplates"); // NOI18N
 
-        comboBoxRenameTemplates.setModel(new ComboBoxModelRenameTemplates());
+        comboBoxRenameTemplates.setModel(new RenameTemplatesComboBoxModel());
         comboBoxRenameTemplates.setName("comboBoxRenameTemplates"); // NOI18N
         comboBoxRenameTemplates.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -104,7 +104,7 @@ public final class AppInit {
     }
 
     private static void lock() {
-        if (!AppLock.lock() && !AppLock.forceLock()) {
+        if (!AppStartupLock.lock() && !AppStartupLock.forceLock()) {
             System.exit(1);
         }
     }

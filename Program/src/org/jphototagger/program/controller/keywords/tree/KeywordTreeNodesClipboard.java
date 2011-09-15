@@ -11,8 +11,11 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * @author Elmar Baumann
  */
 public final class KeywordTreeNodesClipboard {
-    public enum Action { COPY, MOVE, UNKNOWN }
 
+    public enum Action {
+
+        COPY, MOVE, UNKNOWN
+    }
     public static final KeywordTreeNodesClipboard INSTANCE = new KeywordTreeNodesClipboard();
     private Action action = Action.UNKNOWN;
     private final List<DefaultMutableTreeNode> nodes = new ArrayList<DefaultMutableTreeNode>();
@@ -70,5 +73,6 @@ public final class KeywordTreeNodesClipboard {
         return action.equals(Action.COPY);
     }
 
-    private KeywordTreeNodesClipboard() {}
+    private KeywordTreeNodesClipboard() {
+    }
 }

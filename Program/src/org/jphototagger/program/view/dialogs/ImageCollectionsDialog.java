@@ -8,9 +8,9 @@ import javax.swing.ListModel;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.program.model.ListModelImageCollections;
+import org.jphototagger.program.model.ImageCollectionsListModel;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.renderer.ListCellRendererImageCollections;
+import org.jphototagger.program.view.renderer.ImageCollectionsListCellRenderer;
 
 /**
  * Dialog zum Anzeigen und Auswählen der Namen von Bildsammlungen.
@@ -95,9 +95,9 @@ public final class ImageCollectionsDialog extends Dialog {
 
         scrollPaneImageCollectionNames.setName("scrollPaneImageCollectionNames"); // NOI18N
 
-        listImageCollectionNames.setModel(ModelFactory.INSTANCE.getModel(ListModelImageCollections.class));
+        listImageCollectionNames.setModel(ModelFactory.INSTANCE.getModel(ImageCollectionsListModel.class));
         listImageCollectionNames.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        listImageCollectionNames.setCellRenderer(new ListCellRendererImageCollections());
+        listImageCollectionNames.setCellRenderer(new ImageCollectionsListCellRenderer());
         listImageCollectionNames.setName("listImageCollectionNames"); // NOI18N
         listImageCollectionNames.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

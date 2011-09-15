@@ -16,7 +16,7 @@ import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.SourceTargetFile;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.io.ImageFileFilterer;
-import org.jphototagger.program.model.ListModelImageCollections;
+import org.jphototagger.program.model.ImageCollectionsListModel;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.tasks.UserTasks;
 import org.jphototagger.program.view.dialogs.ImportImageFilesDialog;
@@ -29,7 +29,7 @@ import org.openide.util.Lookup;
  *
  * Does not import XMP sidecar files. After import the images will be inserted
  * into the {@link DatabaseImageFiles} and set as image collection
- * {@link ListModelImageCollections#NAME_IMAGE_COLLECTION_PREV_IMPORT}.
+ * {@link ImageCollectionsListModel#NAME_IMAGE_COLLECTION_PREV_IMPORT}.
  *
  * @author Elmar Baumann
  */
@@ -153,7 +153,7 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
     }
 
     private void insertCopiedFilesAsCollectionIntoDb() {
-        String collectionName = ListModelImageCollections.NAME_IMAGE_COLLECTION_PREV_IMPORT;
+        String collectionName = ImageCollectionsListModel.NAME_IMAGE_COLLECTION_PREV_IMPORT;
         ImageCollectionsRepository repo = Lookup.getDefault().lookup(ImageCollectionsRepository.class);
         List<File> prevCollectionFiles = repo.findImageFilesOfImageCollection(collectionName);
 
@@ -179,7 +179,7 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
 
                 appPanel.getTabbedPaneSelection().setSelectedComponent(appPanel.getTabSelectionImageCollections());
                 GUI.getAppPanel().getListImageCollections().setSelectedValue(
-                        ListModelImageCollections.NAME_IMAGE_COLLECTION_PREV_IMPORT, true);
+                        ImageCollectionsListModel.NAME_IMAGE_COLLECTION_PREV_IMPORT, true);
             }
         });
     }

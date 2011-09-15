@@ -4,14 +4,14 @@ import java.awt.Container;
 
 import javax.swing.JPanel;
 
-import org.jphototagger.api.storage.Storage;
-import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
+import org.jphototagger.api.storage.Storage;
 import org.jphototagger.domain.repository.ImageFilesRepository;
-import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.types.Persistence;
 import org.openide.util.Lookup;
 

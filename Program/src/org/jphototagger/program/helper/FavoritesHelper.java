@@ -15,10 +15,10 @@ import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.controller.thumbnail.ControllerSortThumbnails;
+import org.jphototagger.program.controller.thumbnail.SortThumbnailsController;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.io.ImageFileFilterer;
-import org.jphototagger.program.model.TreeModelFavorites;
+import org.jphototagger.program.model.FavoritesTreeModel;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.WaitDisplay;
 import org.jphototagger.program.view.dialogs.FavoritePropertiesDialog;
@@ -87,7 +87,7 @@ public final class FavoritesHelper {
 
                 @Override
                 public void run() {
-                    ModelFactory.INSTANCE.getModel(TreeModelFavorites.class).delete(favorite);
+                    ModelFactory.INSTANCE.getModel(FavoritesTreeModel.class).delete(favorite);
                 }
             });
         }
@@ -222,7 +222,7 @@ public final class FavoritesHelper {
         @Override
         public void run() {
             WaitDisplay.show();
-            ControllerSortThumbnails.setLastSort();
+            SortThumbnailsController.setLastSort();
             setTitle();
             tnPanel.setFiles(files, TypeOfDisplayedImages.FAVORITE);
             tnPanel.apply(tnPanelSettings);

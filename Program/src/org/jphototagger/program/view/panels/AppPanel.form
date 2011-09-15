@@ -68,11 +68,11 @@
                 <Component class="javax.swing.JComboBox" name="comboBoxFastSearch">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="new ComboBoxModelFastSearch()" type="code"/>
+                      <Connection code="new org.jphototagger.program.model.FastSearchComboBoxModel()" type="code"/>
                     </Property>
                     <Property name="name" type="java.lang.String" value="comboBoxFastSearch" noResource="true"/>
                     <Property name="renderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="new org.jphototagger.program.view.renderer.ListCellRendererFastSearchMetaDataValues()" type="code"/>
+                      <Connection code="new org.jphototagger.program.view.renderer.FastSearchMetaDataValuesListCellRenderer()" type="code"/>
                     </Property>
                   </Properties>
                   <Constraints>
@@ -149,7 +149,7 @@
                   <Properties>
                     <Property name="name" type="java.lang.String" value="comboBoxFileFilters" noResource="true"/>
                     <Property name="renderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="new ListCellRendererFileFilters()" type="code"/>
+                      <Connection code="new org.jphototagger.program.view.renderer.FileFiltersListCellRenderer()" type="code"/>
                     </Property>
                   </Properties>
                   <Constraints>
@@ -209,7 +209,7 @@
                         <Component class="javax.swing.JTree" name="treeDirectories">
                           <Properties>
                             <Property name="model" type="javax.swing.tree.TreeModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                              <Connection code="TreeModelWait.INSTANCE" type="code"/>
+                              <Connection code="org.jphototagger.program.model.WaitTreeModel.INSTANCE" type="code"/>
                             </Property>
                             <Property name="cellRenderer" type="javax.swing.tree.TreeCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                               <Connection code="new org.jphototagger.lib.renderer.AllSystemDirectoriesTreeCellRenderer()" type="code"/>
@@ -221,7 +221,7 @@
                           <AuxValues>
                             <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JXTree()"/>
                             <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="treeDirectories.setShowsRootHandles(true);"/>
-                            <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="treeDirectories.setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerDirectoryTree());&#xd;&#xa;treeDirectories.setShowsRootHandles(true);"/>
+                            <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="treeDirectories.setTransferHandler(new org.jphototagger.program.datatransfer.DirectoryTreeTransferHandler());&#xd;&#xa;treeDirectories.setShowsRootHandles(true);"/>
                           </AuxValues>
                         </Component>
                       </SubComponents>
@@ -324,11 +324,11 @@
                         <Component class="org.jdesktop.swingx.JXList" name="listSavedSearches">
                           <Properties>
                             <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                              <Connection code="ListModelWait.INSTANCE" type="code"/>
+                              <Connection code="org.jphototagger.program.model.WaitListModel.INSTANCE" type="code"/>
                             </Property>
                             <Property name="selectionMode" type="int" value="0"/>
                             <Property name="cellRenderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                              <Connection code="new ListCellRendererSavedSearches()" type="code"/>
+                              <Connection code="new org.jphototagger.program.view.renderer.SavedSearchesListCellRenderer()" type="code"/>
                             </Property>
                             <Property name="name" type="java.lang.String" value="listSavedSearches" noResource="true"/>
                           </Properties>
@@ -436,18 +436,18 @@
                         <Component class="org.jdesktop.swingx.JXList" name="listImageCollections">
                           <Properties>
                             <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                              <Connection code="ListModelWait.INSTANCE" type="code"/>
+                              <Connection code="org.jphototagger.program.model.WaitListModel.INSTANCE" type="code"/>
                             </Property>
                             <Property name="selectionMode" type="int" value="0"/>
                             <Property name="cellRenderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                              <Connection code="new ListCellRendererImageCollections()" type="code"/>
+                              <Connection code="new org.jphototagger.program.view.renderer.ImageCollectionsListCellRenderer()" type="code"/>
                             </Property>
                             <Property name="dragEnabled" type="boolean" value="true"/>
                             <Property name="name" type="java.lang.String" value="listImageCollections" noResource="true"/>
                           </Properties>
                           <AuxValues>
                             <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JXList()"/>
-                            <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="listImageCollections.setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerImageCollectionsList());"/>
+                            <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="listImageCollections.setTransferHandler(new org.jphototagger.program.datatransfer.ImageCollectionsListTransferHandler());"/>
                           </AuxValues>
                         </Component>
                       </SubComponents>
@@ -510,10 +510,10 @@
                         <Component class="javax.swing.JTree" name="treeFavorites">
                           <Properties>
                             <Property name="model" type="javax.swing.tree.TreeModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                              <Connection code="TreeModelWait.INSTANCE" type="code"/>
+                              <Connection code="org.jphototagger.program.model.WaitTreeModel.INSTANCE" type="code"/>
                             </Property>
                             <Property name="cellRenderer" type="javax.swing.tree.TreeCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                              <Connection code="new org.jphototagger.program.view.renderer.TreeCellRendererFavorites()" type="code"/>
+                              <Connection code="new org.jphototagger.program.view.renderer.FavoritesTreeCellRenderer()" type="code"/>
                             </Property>
                             <Property name="dragEnabled" type="boolean" value="true"/>
                             <Property name="name" type="java.lang.String" value="treeFavorites" noResource="true"/>
@@ -521,7 +521,7 @@
                           </Properties>
                           <AuxValues>
                             <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JXTree()"/>
-                            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="treeFavorites.setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerDirectoryTree());&#xd;&#xa;treeFavorites.setShowsRootHandles(true);"/>
+                            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="treeFavorites.setTransferHandler(new org.jphototagger.program.datatransfer.DirectoryTreeTransferHandler());&#xd;&#xa;treeFavorites.setShowsRootHandles(true);"/>
                           </AuxValues>
                         </Component>
                       </SubComponents>
@@ -596,17 +596,17 @@
                             <Component class="javax.swing.JTree" name="treeSelKeywords">
                               <Properties>
                                 <Property name="model" type="javax.swing.tree.TreeModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                                  <Connection code="TreeModelWait.INSTANCE" type="code"/>
+                                  <Connection code="org.jphototagger.program.model.WaitTreeModel.INSTANCE" type="code"/>
                                 </Property>
                                 <Property name="cellRenderer" type="javax.swing.tree.TreeCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                                  <Connection code="new org.jphototagger.program.view.renderer.TreeCellRendererKeywords()" type="code"/>
+                                  <Connection code="new org.jphototagger.program.view.renderer.KeywordsTreeCellRenderer()" type="code"/>
                                 </Property>
                                 <Property name="name" type="java.lang.String" value="treeSelKeywords" noResource="true"/>
                                 <Property name="rootVisible" type="boolean" value="false"/>
                               </Properties>
                               <AuxValues>
                                 <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JXTree()"/>
-                                <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="treeSelKeywords.setTransferHandler(new TransferHandlerKeywordsTree());&#xa;treeSelKeywords.setShowsRootHandles(true);"/>
+                                <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="treeSelKeywords.setTransferHandler(new org.jphototagger.program.datatransfer.KeywordsTreeTransferHandler());&#xa;treeSelKeywords.setShowsRootHandles(true);"/>
                               </AuxValues>
                             </Component>
                           </SubComponents>
@@ -737,18 +737,18 @@
                             <Component class="org.jdesktop.swingx.JXList" name="listSelKeywords">
                               <Properties>
                                 <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                                  <Connection code="ListModelWait.INSTANCE" type="code"/>
+                                  <Connection code="org.jphototagger.program.model.WaitListModel.INSTANCE" type="code"/>
                                 </Property>
                                 <Property name="cellRenderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                                  <Connection code="new ListCellRendererKeywords()" type="code"/>
+                                  <Connection code="new org.jphototagger.program.view.renderer.KeywordsListCellRenderer()" type="code"/>
                                 </Property>
                                 <Property name="dragEnabled" type="boolean" value="true"/>
                                 <Property name="name" type="java.lang.String" value="listSelKeywords" noResource="true"/>
                               </Properties>
                               <AuxValues>
                                 <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JXList()"/>
-                                <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="listSelKeywords.setTransferHandler(new TransferHandlerKeywordsList());"/>
-                                <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="listSelKeywords.setTransferHandler(new org.jphototagger.program.datatransfer.TransferHandlerKeywordsList());"/>
+                                <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="listSelKeywords.setTransferHandler(new org.jphototagger.program.datatransfer.KeywordsListTransferHandler());"/>
+                                <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="listSelKeywords.setTransferHandler(new org.jphototagger.program.datatransfer.KeywordsListTransferHandler());"/>
                               </AuxValues>
                             </Component>
                           </SubComponents>
@@ -885,10 +885,10 @@
                         <Component class="javax.swing.JTree" name="treeTimeline">
                           <Properties>
                             <Property name="model" type="javax.swing.tree.TreeModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                              <Connection code="TreeModelWait.INSTANCE" type="code"/>
+                              <Connection code="org.jphototagger.program.model.WaitTreeModel.INSTANCE" type="code"/>
                             </Property>
                             <Property name="cellRenderer" type="javax.swing.tree.TreeCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                              <Connection code="new TreeCellRendererTimeline()" type="code"/>
+                              <Connection code="new org.jphototagger.program.view.renderer.TimelineTreeCellRenderer()" type="code"/>
                             </Property>
                             <Property name="name" type="java.lang.String" value="treeTimeline" noResource="true"/>
                             <Property name="rootVisible" type="boolean" value="false"/>
@@ -977,10 +977,10 @@
                         <Component class="javax.swing.JTree" name="treeMiscMetadata">
                           <Properties>
                             <Property name="model" type="javax.swing.tree.TreeModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                              <Connection code="TreeModelWait.INSTANCE" type="code"/>
+                              <Connection code="org.jphototagger.program.model.WaitTreeModel.INSTANCE" type="code"/>
                             </Property>
                             <Property name="cellRenderer" type="javax.swing.tree.TreeCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                              <Connection code="new TreeCellRendererMiscMetadata()" type="code"/>
+                              <Connection code="new org.jphototagger.program.view.renderer.MiscMetadataTreeCellRenderer()" type="code"/>
                             </Property>
                             <Property name="dragEnabled" type="boolean" value="true"/>
                             <Property name="name" type="java.lang.String" value="treeMiscMetadata" noResource="true"/>
@@ -988,7 +988,7 @@
                           </Properties>
                           <AuxValues>
                             <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JXTree()"/>
-                            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="treeMiscMetadata.setTransferHandler(new TransferHandlerMiscMetadataTree());&#xa;treeMiscMetadata.setShowsRootHandles(true);"/>
+                            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="treeMiscMetadata.setTransferHandler(new org.jphototagger.program.datatransfer.MiscMetadataTreeTransferHandler());&#xa;treeMiscMetadata.setShowsRootHandles(true);"/>
                           </AuxValues>
                         </Component>
                       </SubComponents>
@@ -1082,11 +1082,11 @@
                         <Component class="org.jdesktop.swingx.JXList" name="listNoMetadata">
                           <Properties>
                             <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                              <Connection code="ListModelWait.INSTANCE" type="code"/>
+                              <Connection code="org.jphototagger.program.model.WaitListModel.INSTANCE" type="code"/>
                             </Property>
                             <Property name="selectionMode" type="int" value="0"/>
                             <Property name="cellRenderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                              <Connection code="new org.jphototagger.program.view.renderer.ListCellRendererNoMetadata()" type="code"/>
+                              <Connection code="new org.jphototagger.program.view.renderer.NoMetadataListCellRenderer()" type="code"/>
                             </Property>
                             <Property name="name" type="java.lang.String" value="listNoMetadata" noResource="true"/>
                           </Properties>

@@ -9,13 +9,13 @@ import java.awt.Rectangle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 /**
  * The application's splashscreen.
  *
  * @author Elmar Baumann
  */
 public final class SplashScreen {
+
     private static final int MESSAGE_X = 10;
     private static final Color MESSAGE_COLOR = Color.BLACK;
     private static final int MESSAGE_FONT_SIZE = 12;
@@ -73,7 +73,7 @@ public final class SplashScreen {
     public void setProgress(int value) {
         assert init;
 
-        assert(value >= 0) && (value <= 100) : value;
+        assert (value >= 0) && (value <= 100) : value;
 
         if ((value >= 0) && (value <= 100)) {
             progressValue = value;
@@ -137,7 +137,7 @@ public final class SplashScreen {
 
         graphics.setColor(BACKGROUND_COLOR);
         graphics.fillRect(MESSAGE_X, getMessageY() - messageHeight, splashBounds.width - MESSAGE_X - 1,
-                          messageHeight + 5);    // +5: descending
+                messageHeight + 5);    // +5: descending
     }
 
     private int getMessageY() {
@@ -169,5 +169,6 @@ public final class SplashScreen {
         graphics.drawString(AppInfo.APP_DESCRIPTION, MESSAGE_X, y + boldFontHeight);
     }
 
-    private SplashScreen() {}
+    private SplashScreen() {
+    }
 }

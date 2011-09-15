@@ -36,13 +36,13 @@ import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.ArrayUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.program.model.TreeModelKeywords;
+import org.jphototagger.program.model.KeywordsTreeModel;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.tasks.UserTasks;
 import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
-import org.jphototagger.program.view.renderer.TreeCellRendererKeywords;
+import org.jphototagger.program.view.renderer.KeywordsTreeCellRenderer;
 import org.jphototagger.xmp.XmpMetadata;
 import org.openide.util.Lookup;
 
@@ -237,7 +237,7 @@ public final class KeywordsHelper {
      * Selects in {@link AppPanel#getTreeSelKeywords()} a node with a specific
      * keyword.
      *
-     * @param tree    tree with {@link TreeModelKeywords} and all
+     * @param tree    tree with {@link KeywordsTreeModel} and all
      *                nodes of the type {@link DefaultMutableTreeNode}
      * @param keyword keyword to select
      */
@@ -255,7 +255,7 @@ public final class KeywordsHelper {
 
             @Override
             public void run() {
-                TreeModelKeywords model = ModelFactory.INSTANCE.getModel(TreeModelKeywords.class);
+                KeywordsTreeModel model = ModelFactory.INSTANCE.getModel(KeywordsTreeModel.class);
                 DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
                 DefaultMutableTreeNode selNode = null;
 
@@ -312,7 +312,7 @@ public final class KeywordsHelper {
 
             @Override
             public void run() {
-                for (TreeCellRendererKeywords treeCellRendererKeywords : getCellRenderer()) {
+                for (KeywordsTreeCellRenderer treeCellRendererKeywords : getCellRenderer()) {
                     treeCellRendererKeywords.addSelImgKeywords(keywords);
                 }
             }
@@ -324,15 +324,15 @@ public final class KeywordsHelper {
 
             @Override
             public void run() {
-                for (TreeCellRendererKeywords treeCellRendererKeywords : getCellRenderer()) {
+                for (KeywordsTreeCellRenderer treeCellRendererKeywords : getCellRenderer()) {
                     treeCellRendererKeywords.removeSelImgKeyword(keyword);
                 }
             }
         });
     }
 
-    private static List<TreeCellRendererKeywords> getCellRenderer() {
-        List<TreeCellRendererKeywords> renderer = new ArrayList<TreeCellRendererKeywords>();
+    private static List<KeywordsTreeCellRenderer> getCellRenderer() {
+        List<KeywordsTreeCellRenderer> renderer = new ArrayList<KeywordsTreeCellRenderer>();
 
         for (JTree tree : getKeywordTrees()) {
             TreeCellRenderer treeCellRenderer = tree.getCellRenderer();
@@ -342,8 +342,8 @@ public final class KeywordsHelper {
 
             }
 
-            if (treeCellRenderer instanceof TreeCellRendererKeywords) {
-                renderer.add((TreeCellRendererKeywords) treeCellRenderer);
+            if (treeCellRenderer instanceof KeywordsTreeCellRenderer) {
+                renderer.add((KeywordsTreeCellRenderer) treeCellRenderer);
             }
         }
 

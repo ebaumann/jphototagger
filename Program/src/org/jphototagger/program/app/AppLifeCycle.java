@@ -10,8 +10,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.bushe.swing.event.EventBus;
-import org.jphototagger.api.storage.Storage;
 import org.jphototagger.api.modules.Module;
+import org.jphototagger.api.storage.Storage;
 import org.jphototagger.domain.event.AppWillExitEvent;
 import org.jphototagger.domain.event.listener.ListenerSupport;
 import org.jphototagger.domain.repository.RepositoryMaintainance;
@@ -190,13 +190,13 @@ public final class AppLifeCycle {
 
     public static void quitBeforeGuiWasCreated() {
         Lookup.getDefault().lookup(RepositoryMaintainance.class).shutdownRepository();
-        AppLock.unlock();
+        AppStartupLock.unlock();
         System.exit(1);
     }
 
     private void quitVm() {
         appFrame.dispose();
-        AppLock.unlock();
+        AppStartupLock.unlock();
         System.exit(0);
     }
 

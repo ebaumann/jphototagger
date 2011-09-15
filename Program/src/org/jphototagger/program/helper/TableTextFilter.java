@@ -2,17 +2,19 @@ package org.jphototagger.program.helper;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
+
 import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.RowFilter.Entry;
 import javax.swing.RowSorter;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import javax.swing.table.TableStringConverter;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
+
 import org.jphototagger.lib.util.StringUtil;
 
 /**
@@ -92,6 +94,7 @@ public final class TableTextFilter implements DocumentListener {
     }
 
     private class ContainsStringRowFilter extends RowFilter<TableModel, Integer> {
+
         private final String string;
 
         ContainsStringRowFilter(String string) {
