@@ -1,6 +1,6 @@
 package org.jphototagger.program.tasks;
 
-import org.jphototagger.lib.concurrent.Cancelable;
+import org.jphototagger.api.concurrent.Cancelable;
 
 /**
  * An automatic task is a background task running as long as the next task

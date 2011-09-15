@@ -112,12 +112,12 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="org.jphototagger.lib.lookup.NodeLookupList" name="listFiles">
+            <Component class="org.jphototagger.lib.lookup.NodesLookupList" name="listFiles">
               <Properties>
                 <Property name="selectionMode" type="int" value="0"/>
                 <Property name="autoCreateRowSorter" type="boolean" value="true"/>
                 <Property name="cellRenderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="new NodeListCellRenderer()" type="code"/>
+                  <Connection code="new org.jphototagger.lib.lookup.NodesListCellRenderer()" type="code"/>
                 </Property>
                 <Property name="comparator" type="java.util.Comparator" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="FileNodeComparator.INSTANCE" type="code"/>

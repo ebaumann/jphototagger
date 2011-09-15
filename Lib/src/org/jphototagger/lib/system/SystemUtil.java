@@ -1,10 +1,11 @@
 package org.jphototagger.lib.system;
 
-import org.jphototagger.lib.util.Version;
 import java.awt.Desktop;
+import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.StringTokenizer;
+
+import org.jphototagger.lib.util.Version;
 
 /**
  *
@@ -12,7 +13,6 @@ import java.util.StringTokenizer;
  * @author Elmar Baumann
  */
 public final class SystemUtil {
-    private SystemUtil() {}
 
     /**
      * Returns the Version of the JVM.
@@ -122,5 +122,8 @@ public final class SystemUtil {
         String os = System.getProperty("os.name").toLowerCase();
 
         return os.contains("mac");
+    }
+
+    private SystemUtil() {
     }
 }

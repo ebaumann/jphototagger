@@ -12,8 +12,8 @@ import java.util.logging.Logger;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
 
-import org.jphototagger.lib.model.TreeModelUpdateInfo;
-import org.jphototagger.lib.model.TreeNodeSortedChildren;
+import org.jphototagger.lib.model.UpdateInfoTreeModel;
+import org.jphototagger.lib.model.SortedChildrenTreeNode;
 import org.jphototagger.lib.util.Bundle;
 
 /**
@@ -26,8 +26,8 @@ import org.jphototagger.lib.util.Bundle;
  * @author Elmar Baumann
  */
 public final class Timeline {
-    private final DefaultMutableTreeNode ROOT_NODE = new TreeNodeSortedChildren(Bundle.getString(Timeline.class, "Timeline.RootNode.DisplayName"));
-    private static final DefaultMutableTreeNode UNKNOWN_NODE = new TreeNodeSortedChildren(Bundle.getString(Timeline.class, "Timeline.UnknownNode.DisplayName"));
+    private final DefaultMutableTreeNode ROOT_NODE = new SortedChildrenTreeNode(Bundle.getString(Timeline.class, "Timeline.RootNode.DisplayName"));
+    private static final DefaultMutableTreeNode UNKNOWN_NODE = new SortedChildrenTreeNode(Bundle.getString(Timeline.class, "Timeline.UnknownNode.DisplayName"));
     private boolean unknownNode;
 
     /**
@@ -56,12 +56,12 @@ public final class Timeline {
      *            recognized
      * @return    information about the inserted children
      */
-    public synchronized TreeModelUpdateInfo.NodesAndChildIndices add(Calendar cal) {
+    public synchronized UpdateInfoTreeModel.NodesAndChildIndices add(Calendar cal) {
         if (cal == null) {
             throw new NullPointerException("cal == null");
         }
 
-        TreeModelUpdateInfo.NodesAndChildIndices info = new TreeModelUpdateInfo.NodesAndChildIndices();
+        UpdateInfoTreeModel.NodesAndChildIndices info = new UpdateInfoTreeModel.NodesAndChildIndices();
         Date date = new Date(cal);
 
         insertDayNode(insertMonthNode(insertYearNode(date, info), date, info), date, info);
@@ -76,7 +76,7 @@ public final class Timeline {
      *             ({@link Date#isValid()}
      * @return     information about the inserted children
      */
-    public synchronized TreeModelUpdateInfo.NodesAndChildIndices add(Date date) {
+    public synchronized UpdateInfoTreeModel.NodesAndChildIndices add(Date date) {
         if (date == null) {
             throw new NullPointerException("date == null");
         }
@@ -85,7 +85,7 @@ public final class Timeline {
             throw new IllegalArgumentException("Illegal date: " + date);
         }
 
-        TreeModelUpdateInfo.NodesAndChildIndices info = new TreeModelUpdateInfo.NodesAndChildIndices();
+        UpdateInfoTreeModel.NodesAndChildIndices info = new UpdateInfoTreeModel.NodesAndChildIndices();
         DefaultMutableTreeNode yearNode = insertYearNode(date, info);
 
         if (date.hasMonth()) {
@@ -106,12 +106,12 @@ public final class Timeline {
      *             compared
      * @return     update information
      */
-    public synchronized TreeModelUpdateInfo.NodeAndChild removeDay(Date date) {
+    public synchronized UpdateInfoTreeModel.NodeAndChild removeDay(Date date) {
         if (date == null) {
             throw new NullPointerException("date == null");
         }
 
-        TreeModelUpdateInfo.NodeAndChild info = new TreeModelUpdateInfo.NodeAndChild();
+        UpdateInfoTreeModel.NodeAndChild info = new UpdateInfoTreeModel.NodeAndChild();
         DefaultMutableTreeNode dayNode = getNodeOfDay(date);
 
         if (dayNode != null) {
@@ -128,7 +128,7 @@ public final class Timeline {
         return info;
     }
 
-    private void removeIfEmpty(DefaultMutableTreeNode node, TreeModelUpdateInfo.NodeAndChild info) {
+    private void removeIfEmpty(DefaultMutableTreeNode node, UpdateInfoTreeModel.NodeAndChild info) {
         if (node.getChildCount() <= 0) {
             DefaultMutableTreeNode parent = (DefaultMutableTreeNode) node.getParent();
 
@@ -255,21 +255,21 @@ public final class Timeline {
         return yearNodeOfCal;
     }
 
-    private DefaultMutableTreeNode insertYearNode(Date date, TreeModelUpdateInfo.NodesAndChildIndices info) {
+    private DefaultMutableTreeNode insertYearNode(Date date, UpdateInfoTreeModel.NodesAndChildIndices info) {
         int indexYearNode = indexOfYearNode(date);
         DefaultMutableTreeNode yearNode;
 
         if (indexYearNode >= 0) {
             yearNode = (DefaultMutableTreeNode) ROOT_NODE.getChildAt(indexYearNode);
         } else {
-            yearNode = new TreeNodeSortedChildren(new Date(date.year, 0, 0));
+            yearNode = new SortedChildrenTreeNode(new Date(date.year, 0, 0));
             insertYearNode(yearNode, info);
         }
 
         return yearNode;
     }
 
-    private void insertYearNode(DefaultMutableTreeNode yearNode, TreeModelUpdateInfo.NodesAndChildIndices info) {
+    private void insertYearNode(DefaultMutableTreeNode yearNode, UpdateInfoTreeModel.NodesAndChildIndices info) {
         int childCount = ROOT_NODE.getChildCount();
         boolean inserted = false;
         int index = 0;
@@ -293,7 +293,7 @@ public final class Timeline {
     }
 
     private DefaultMutableTreeNode insertMonthNode(DefaultMutableTreeNode yearNode, Date date,
-            TreeModelUpdateInfo.NodesAndChildIndices info) {
+            UpdateInfoTreeModel.NodesAndChildIndices info) {
         DefaultMutableTreeNode monthNode = null;
         int childCount = yearNode.getChildCount();
         boolean inserted = false;
@@ -315,7 +315,7 @@ public final class Timeline {
         }
 
         if (!inserted) {
-            monthNode = new TreeNodeSortedChildren(new Date(date.year, date.month, 0));
+            monthNode = new SortedChildrenTreeNode(new Date(date.year, date.month, 0));
             yearNode.add(monthNode);
             info.addNode(yearNode, yearNode.getIndex(monthNode));
         }
@@ -324,7 +324,7 @@ public final class Timeline {
     }
 
     private void insertDayNode(DefaultMutableTreeNode monthNode, Date date,
-                               TreeModelUpdateInfo.NodesAndChildIndices info) {
+                               UpdateInfoTreeModel.NodesAndChildIndices info) {
         if (monthNode == null) {
             return;
         }
@@ -350,7 +350,7 @@ public final class Timeline {
         }
 
         if (!inserted) {
-            dayNode = new TreeNodeSortedChildren(date);
+            dayNode = new SortedChildrenTreeNode(date);
             monthNode.add(dayNode);
             info.addNode(monthNode, monthNode.getIndex(dayNode));
         }

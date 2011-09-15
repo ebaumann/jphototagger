@@ -1,7 +1,7 @@
 package org.jphototagger.program.controller.directories;
 
 import org.jphototagger.lib.io.TreeFileSystemDirectories;
-import org.jphototagger.lib.model.TreeModelAllSystemDirectories;
+import org.jphototagger.lib.model.AllSystemDirectoriesTreeModel;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.io.FileSystemDirectories;
 import org.jphototagger.program.view.popupmenus.PopupMenuDirectories;
@@ -61,7 +61,7 @@ public final class ControllerRenameDirectory extends ControllerDirectory {
                     public void run() {
                         node.setUserObject(newDir);
                         TreeFileSystemDirectories.updateInTreeModel(
-                            ModelFactory.INSTANCE.getModel(TreeModelAllSystemDirectories.class), node);
+                            ModelFactory.INSTANCE.getModel(AllSystemDirectoriesTreeModel.class), node);
                     }
                 });
             }

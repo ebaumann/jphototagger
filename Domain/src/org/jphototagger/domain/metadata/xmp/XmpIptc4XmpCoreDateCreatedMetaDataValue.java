@@ -5,8 +5,8 @@ import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 
 import org.jphototagger.domain.metadata.MetaDataValue;
-import org.jphototagger.lib.inputverifier.InputVerifierEmpty;
-import org.jphototagger.lib.inputverifier.InputVerifierStringPattern;
+import org.jphototagger.lib.inputverifier.EmptyInputVerifier;
+import org.jphototagger.lib.inputverifier.StringPatternInputVerifier;
 import org.jphototagger.lib.inputverifier.InputVerifiersOr;
 import org.jphototagger.lib.util.Bundle;
 
@@ -41,10 +41,10 @@ public final class XmpIptc4XmpCoreDateCreatedMetaDataValue extends MetaDataValue
         private final InputVerifiersOr inputVerifiersOr = new InputVerifiersOr();
 
         InputVerifierDateCreated() {
-            InputVerifierEmpty inputVerifierEmpty = new InputVerifierEmpty(true);
-            InputVerifierStringPattern inputVerifierY = new InputVerifierStringPattern("[0-9][0-9][0-9][0-9]");
-            InputVerifierStringPattern inputVerifierYM = new InputVerifierStringPattern("[0-9][0-9][0-9][0-9]-[0-1][0-9]");
-            InputVerifierStringPattern inputVerifierYMD = new InputVerifierStringPattern("[0-9][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9]");
+            EmptyInputVerifier inputVerifierEmpty = new EmptyInputVerifier(true);
+            StringPatternInputVerifier inputVerifierY = new StringPatternInputVerifier("[0-9][0-9][0-9][0-9]");
+            StringPatternInputVerifier inputVerifierYM = new StringPatternInputVerifier("[0-9][0-9][0-9][0-9]-[0-1][0-9]");
+            StringPatternInputVerifier inputVerifierYMD = new StringPatternInputVerifier("[0-9][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9]");
 
             inputVerifiersOr.addVerifier(inputVerifierEmpty);
             inputVerifiersOr.addVerifier(inputVerifierY);

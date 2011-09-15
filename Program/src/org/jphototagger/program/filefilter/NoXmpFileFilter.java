@@ -3,7 +3,7 @@ package org.jphototagger.program.filefilter;
 import java.io.File;
 import java.io.FileFilter;
 
-import org.jphototagger.lib.renderer.DisplayNameProvider;
+import org.jphototagger.api.component.DisplayNameProvider;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.xmp.XmpMetadata;
 

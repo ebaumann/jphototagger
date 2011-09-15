@@ -13,7 +13,7 @@ import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
-import org.jphototagger.lib.lookup.NodeListCellRenderer;
+import org.jphototagger.lib.lookup.NodesListCellRenderer;
 import org.jphototagger.lib.swingx.ListTextFilter;
 import org.openide.util.Lookup;
 
@@ -157,7 +157,7 @@ public class RepositoryFileBrowserDialog extends Dialog {
         textFieldFilter = new javax.swing.JTextField();
         buttonApplyFilter = new javax.swing.JButton();
         scrollPaneFiles = new javax.swing.JScrollPane();
-        listFiles = new org.jphototagger.lib.lookup.NodeLookupList();
+        listFiles = new org.jphototagger.lib.lookup.NodesLookupList();
         panelListInfo = new javax.swing.JPanel();
         labelSelectedFilepathPrompt = new javax.swing.JLabel();
         labelSelectedFilepath = new javax.swing.JLabel();
@@ -234,7 +234,7 @@ public class RepositoryFileBrowserDialog extends Dialog {
 
         listFiles.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         listFiles.setAutoCreateRowSorter(true);
-        listFiles.setCellRenderer(new NodeListCellRenderer());
+        listFiles.setCellRenderer(new NodesListCellRenderer());
         listFiles.setComparator(FileNodeComparator.INSTANCE);
         listFiles.setName("listFiles"); // NOI18N
         listFiles.setSortOrder(javax.swing.SortOrder.ASCENDING);
@@ -594,7 +594,7 @@ public class RepositoryFileBrowserDialog extends Dialog {
     private javax.swing.JLabel labelimeImageFileInFileSystemPrompt;
     private javax.swing.JLabel labelimeImageFileInRepository;
     private javax.swing.JLabel labelimeImageFileInRepositoryPrompt;
-    private org.jphototagger.lib.lookup.NodeLookupList listFiles;
+    private org.jphototagger.lib.lookup.NodesLookupList listFiles;
     private javax.swing.JPanel panelContent;
     private javax.swing.JPanel panelDetails;
     private javax.swing.JPanel panelFilter;

@@ -16,7 +16,7 @@ import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.model.TreeModelUpdateInfo;
+import org.jphototagger.lib.model.UpdateInfoTreeModel;
 import org.jphototagger.domain.timeline.Timeline;
 import org.jphototagger.domain.timeline.Timeline.Date;
 import org.openide.util.Lookup;
@@ -108,16 +108,16 @@ public final class TreeModelTimeline extends DefaultTreeModel {
     }
 
     private void delete(Date date) {
-        TreeModelUpdateInfo.NodeAndChild info = timeline.removeDay(date);
+        UpdateInfoTreeModel.NodeAndChild info = timeline.removeDay(date);
 
         nodesWereRemoved(info.getNode(), info.getUpdatedChildIndex(), info.getUpdatedChild());
     }
 
     private void insert(Date date) {
         if (!timeline.existsDate(date)) {
-            TreeModelUpdateInfo.NodesAndChildIndices info = timeline.add(date);
+            UpdateInfoTreeModel.NodesAndChildIndices info = timeline.add(date);
 
-            for (TreeModelUpdateInfo.NodeAndChildIndices node : info.getInfo()) {
+            for (UpdateInfoTreeModel.NodeAndChildIndices node : info.getInfo()) {
                 nodesWereInserted(node.getNode(), node.getChildIndices());
             }
         }

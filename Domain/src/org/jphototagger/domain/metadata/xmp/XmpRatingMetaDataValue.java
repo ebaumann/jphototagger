@@ -4,7 +4,7 @@ import javax.swing.InputVerifier;
 
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.MetaDataValue.ValueType;
-import org.jphototagger.lib.inputverifier.InputVerifierNumberRange;
+import org.jphototagger.lib.inputverifier.NumberRangeInputVerifier;
 import org.jphototagger.lib.util.Bundle;
 
 /**
@@ -45,6 +45,6 @@ public final class XmpRatingMetaDataValue extends MetaDataValue {
 
     @Override
     public InputVerifier getInputVerifier() {
-        return new InputVerifierNumberRange(1, 5);
+        return new NumberRangeInputVerifier(1, 5);
     }
 }

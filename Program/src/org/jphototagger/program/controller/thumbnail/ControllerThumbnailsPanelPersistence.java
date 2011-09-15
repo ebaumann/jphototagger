@@ -15,7 +15,7 @@ import org.jphototagger.domain.event.AppWillExitEvent;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsChangedEvent;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.comparator.ComparatorFilesNoSort;
+import org.jphototagger.lib.comparator.FileUnsortedComparator;
 import org.jphototagger.lib.comparator.FileSort;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.resource.GUI;
@@ -111,7 +111,7 @@ public final class ControllerThumbnailsPanelPersistence {
     public void setFileSortComparator(Comparator<File> cmp) {
         Class<?> sortClass = cmp.getClass();
 
-        if (!sortClass.equals(ComparatorFilesNoSort.class)) {
+        if (!sortClass.equals(FileUnsortedComparator.class)) {
             Storage storage = Lookup.getDefault().lookup(Storage.class);
 
             storage.setString(KEY_SORT, sortClass.getName());

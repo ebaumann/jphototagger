@@ -33,7 +33,7 @@ import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.TreeFileSystemDirectories;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
-import org.jphototagger.lib.model.TreeNodeSortedChildren;
+import org.jphototagger.lib.model.SortedChildrenTreeNode;
 import org.jphototagger.lib.util.Bundle;
 import org.openide.util.Lookup;
 
@@ -254,7 +254,7 @@ public final class TreeModelFavorites extends DefaultTreeModel implements TreeWi
         DefaultMutableTreeNode dirNode = getNode(directory);
 
         if (dirNode == null) {
-            DefaultMutableTreeNode node = new TreeNodeSortedChildren(directory);
+            DefaultMutableTreeNode node = new SortedChildrenTreeNode(directory);
 
             insertNodeInto(node, rootNode, rootNode.getChildCount());
             addChildren(node);
@@ -308,7 +308,7 @@ public final class TreeModelFavorites extends DefaultTreeModel implements TreeWi
             File subdir = subdirs[i];
 
             if (!nodeChildrenDirs.contains(subdir)) {
-                DefaultMutableTreeNode newChild = new TreeNodeSortedChildren(subdirs[i]);
+                DefaultMutableTreeNode newChild = new SortedChildrenTreeNode(subdirs[i]);
 
                 parentNode.insert(newChild, childCount++);
 
@@ -424,7 +424,7 @@ public final class TreeModelFavorites extends DefaultTreeModel implements TreeWi
             File newDir = TreeFileSystemDirectories.createDirectoryIn(dirOfParentNode);
 
             if (newDir != null) {
-                TreeNodeSortedChildren newDirNode = new TreeNodeSortedChildren(newDir);
+                SortedChildrenTreeNode newDirNode = new SortedChildrenTreeNode(newDir);
 
                 parentNode.add(newDirNode);
 

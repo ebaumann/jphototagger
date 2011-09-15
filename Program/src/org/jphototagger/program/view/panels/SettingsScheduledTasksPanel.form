@@ -120,7 +120,7 @@
                   <Connection code="modelAutoscanDirectories" type="code"/>
                 </Property>
                 <Property name="cellRenderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="new ListCellRendererFileSystem(true)" type="code"/>
+                  <Connection code="new org.jphototagger.lib.renderer.FileSystemListCellRenderer(true)" type="code"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="listAutoscanDirectories" noResource="true"/>
               </Properties>

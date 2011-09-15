@@ -6,6 +6,8 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import org.jphototagger.api.concurrent.CancelRequest;
+
 /**
  * Utils for the Hypertext Transfer Protocol.
  *
@@ -47,8 +49,8 @@ public final class HttpUtil {
             for (int singleByte = inputStream.read(); !cancel && (singleByte != -1); singleByte = inputStream.read()) {
                 target.write(singleByte);
                 cancel = (cancelRequest == null)
-                         ? false
-                         : cancelRequest.isCancel();
+                        ? false
+                        : cancelRequest.isCancel();
             }
         } finally {
             if (inputStream != null) {
@@ -66,5 +68,6 @@ public final class HttpUtil {
         }
     }
 
-    private HttpUtil() {}
+    private HttpUtil() {
+    }
 }

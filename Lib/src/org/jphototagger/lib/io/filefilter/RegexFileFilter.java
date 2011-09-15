@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.StringTokenizer;
-import org.jphototagger.lib.renderer.DisplayNameProvider;
+import org.jphototagger.api.component.DisplayNameProvider;
 
 /**
  *

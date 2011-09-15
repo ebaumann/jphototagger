@@ -1,5 +1,6 @@
 package org.jphototagger.lib.concurrent;
 
+import org.jphototagger.api.concurrent.Cancelable;
 import java.util.ArrayDeque;
 import java.util.concurrent.Executor;
 import java.util.Queue;

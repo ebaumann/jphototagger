@@ -7,7 +7,7 @@ import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JList;
 
-import org.jphototagger.lib.renderer.DisplayNameProvider;
+import org.jphototagger.api.component.DisplayNameProvider;
 import org.jphototagger.program.app.AppLookAndFeel;
 
 /**

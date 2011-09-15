@@ -29,8 +29,8 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.text.html.HTMLDocument;
 
 import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.lib.model.TableModelLogfiles;
-import org.jphototagger.lib.renderer.TableCellRendererLogfileDialog;
+import org.jphototagger.lib.model.LogfilesTableModel;
+import org.jphototagger.lib.renderer.LogfileDialogTableCellRenderer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.logging.ExceptionLogfileRecord;
 import org.jphototagger.lib.util.logging.FrameLogfileRecord;
@@ -104,7 +104,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
     private void initTableLogfileRecords() {
         tableLogfileRecords.getSelectionModel().addListSelectionListener(this);
         tableLogfileRecords.getColumnModel().getSelectionModel().addListSelectionListener(this);
-        tableLogfileRecords.setDefaultRenderer(Object.class, new TableCellRendererLogfileDialog());
+        tableLogfileRecords.setDefaultRenderer(Object.class, new LogfileDialogTableCellRenderer());
     }
 
     private void initLevelOfCheckbox() {
@@ -249,7 +249,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
     }
 
     private void showDetails() {
-        TableModelLogfiles model = (TableModelLogfiles) tableLogfileRecords.getModel();
+        LogfilesTableModel model = (LogfilesTableModel) tableLogfileRecords.getModel();
         int selectedRowIndex = tableLogfileRecords.getSelectedRow();
 
         if (selectedRowIndex >= 0) {
@@ -343,7 +343,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
 
     private void setTable() {
         if ((logfilename != null) &&!logfilename.isEmpty()) {
-            TableModelLogfiles model = new TableModelLogfiles(filterString, visibleLevels);
+            LogfilesTableModel model = new LogfilesTableModel(filterString, visibleLevels);
 
             tableLogfileRecords.setModel(model);
             Collections.sort(logfileRecords, LogfileRecordComparatorDescendingByTime.INSTANCE);
@@ -678,7 +678,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
         scrollPaneTableLogfileRecords.setPreferredSize(new java.awt.Dimension(50, 50));
 
         tableLogfileRecords.setAutoCreateRowSorter(true);
-        tableLogfileRecords.setModel(new TableModelLogfiles("", Arrays.asList(Level.ALL)));
+        tableLogfileRecords.setModel(new LogfilesTableModel("", Arrays.asList(Level.ALL)));
         tableLogfileRecords.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         tableLogfileRecords.setName("tableLogfileRecords"); // NOI18N
         tableLogfileRecords.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);

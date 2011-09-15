@@ -963,7 +963,7 @@ public final class AppPanel extends javax.swing.JPanel {
         scrollPaneDirectories.setName("scrollPaneDirectories"); // NOI18N
 
         treeDirectories.setModel(TreeModelWait.INSTANCE);
-        treeDirectories.setCellRenderer(new org.jphototagger.lib.renderer.TreeCellRendererAllSystemDirectories());
+        treeDirectories.setCellRenderer(new org.jphototagger.lib.renderer.AllSystemDirectoriesTreeCellRenderer());
         treeDirectories.setDragEnabled(true);
         treeDirectories.setName("treeDirectories"); // NOI18N
         treeDirectories.setRootVisible(false);
