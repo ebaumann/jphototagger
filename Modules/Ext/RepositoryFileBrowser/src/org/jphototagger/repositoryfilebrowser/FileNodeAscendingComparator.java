@@ -7,9 +7,9 @@ import java.util.Comparator;
  *
  * @author Elmar Baumann
  */
-public final class FileNodeComparator implements Comparator<FileNode> {
+public final class FileNodeAscendingComparator implements Comparator<FileNode> {
 
-    public static final FileNodeComparator INSTANCE = new FileNodeComparator();
+    public static final FileNodeAscendingComparator INSTANCE = new FileNodeAscendingComparator();
 
     @Override
     public int compare(FileNode o1, FileNode o2) {
@@ -20,7 +20,7 @@ public final class FileNodeComparator implements Comparator<FileNode> {
 
     }
 
-    private FileNodeComparator() {
+    private FileNodeAscendingComparator() {
     }
 
 }
