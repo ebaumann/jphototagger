@@ -1,5 +1,6 @@
 package org.jphototagger.domain.repository;
 
+import org.jphototagger.domain.keywords.KeywordType;
 import java.util.Collection;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public interface KeywordsRepository {
 
     Collection<Keyword> findChildKeywords(long idParent);
 
-    Collection<Collection<Keyword>> findParentKeywords(String keywordName, KeywordsType select);
+    Collection<Collection<Keyword>> findParentKeywords(String keywordName, KeywordType select);
 
     List<Keyword> findParentKeywords(Keyword keyword);
 

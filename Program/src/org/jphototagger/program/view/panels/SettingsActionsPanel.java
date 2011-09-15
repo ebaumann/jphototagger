@@ -15,7 +15,7 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.repository.ActionsAfterRepoUpdatesRepository;
-import org.jphototagger.domain.repository.ProgramType;
+import org.jphototagger.domain.programs.ProgramType;
 import org.jphototagger.domain.repository.ProgramsRepository;
 import org.jphototagger.domain.repository.Repository;
 import org.jphototagger.domain.repository.event.programs.ProgramDeletedEvent;

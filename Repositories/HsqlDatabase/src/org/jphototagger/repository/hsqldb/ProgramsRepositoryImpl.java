@@ -2,7 +2,7 @@ package org.jphototagger.repository.hsqldb;
 
 import java.util.List;
 import org.jphototagger.domain.programs.Program;
-import org.jphototagger.domain.repository.ProgramType;
+import org.jphototagger.domain.programs.ProgramType;
 import org.jphototagger.domain.repository.ProgramsRepository;
 import org.openide.util.lookup.ServiceProvider;
 

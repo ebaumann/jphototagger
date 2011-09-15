@@ -17,7 +17,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import org.jphototagger.domain.repository.Exporter;
+import org.jphototagger.domain.repository.RepositoryDataExporter;
 import org.jphototagger.domain.repository.SynonymsRepository;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppLookAndFeel;
@@ -33,8 +33,8 @@ import org.w3c.dom.Element;
  *
  * @author Elmar Baumann
  */
-@ServiceProvider(service = Exporter.class)
-public final class SynonymsExporter implements Exporter {
+@ServiceProvider(service = RepositoryDataExporter.class)
+public final class SynonymsExporter implements RepositoryDataExporter {
 
     public static final String DEFAULT_FILENAME = "JptSynonyms.xml";
     public static final String DISPLAY_NAME = Bundle.getString(SynonymsExporter.class, "SynonymsExporter.DisplayName");

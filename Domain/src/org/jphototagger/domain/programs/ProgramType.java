@@ -1,4 +1,4 @@
-package org.jphototagger.domain.repository;
+package org.jphototagger.domain.programs;
 
 /**
  *

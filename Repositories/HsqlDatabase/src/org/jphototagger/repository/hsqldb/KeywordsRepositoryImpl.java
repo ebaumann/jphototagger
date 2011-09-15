@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.jphototagger.domain.keywords.Keyword;
 import org.jphototagger.domain.repository.KeywordsRepository;
-import org.jphototagger.domain.repository.KeywordsType;
+import org.jphototagger.domain.keywords.KeywordType;
 import org.openide.util.lookup.ServiceProvider;
 
 /**
@@ -49,7 +49,7 @@ public final class KeywordsRepositoryImpl implements KeywordsRepository {
     }
 
     @Override
-    public Collection<Collection<Keyword>> findParentKeywords(String keywordName, KeywordsType select) {
+    public Collection<Collection<Keyword>> findParentKeywords(String keywordName, KeywordType select) {
         return db.getParentKeywords(keywordName, select);
     }
 

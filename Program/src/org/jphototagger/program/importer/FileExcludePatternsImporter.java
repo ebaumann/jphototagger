@@ -8,7 +8,7 @@ import javax.swing.Icon;
 import javax.swing.filechooser.FileFilter;
 
 import org.jphototagger.domain.repository.FileExcludePatternsRepository;
-import org.jphototagger.domain.repository.Importer;
+import org.jphototagger.domain.repository.RepositoryDataImporter;
 import org.jphototagger.lib.xml.bind.XmlObjectImporter;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.exporter.FileExcludePatternsExporter;
@@ -22,8 +22,8 @@ import org.openide.util.lookup.ServiceProvider;
  *
  * @author Elmar Baumann
  */
-@ServiceProvider(service = Importer.class)
-public final class FileExcludePatternsImporter implements Importer {
+@ServiceProvider(service = RepositoryDataImporter.class)
+public final class FileExcludePatternsImporter implements RepositoryDataImporter {
 
     private final FileExcludePatternsRepository repo = Lookup.getDefault().lookup(FileExcludePatternsRepository.class);
 

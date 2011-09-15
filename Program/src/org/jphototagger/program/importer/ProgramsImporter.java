@@ -8,7 +8,7 @@ import javax.swing.Icon;
 import javax.swing.filechooser.FileFilter;
 
 import org.jphototagger.domain.programs.Program;
-import org.jphototagger.domain.repository.Importer;
+import org.jphototagger.domain.repository.RepositoryDataImporter;
 import org.jphototagger.domain.repository.ProgramsRepository;
 import org.jphototagger.lib.xml.bind.XmlObjectImporter;
 import org.jphototagger.program.app.AppLookAndFeel;
@@ -22,8 +22,8 @@ import org.openide.util.lookup.ServiceProvider;
  *
  * @author Elmar Baumann
  */
-@ServiceProvider(service = Importer.class)
-public final class ProgramsImporter implements Importer {
+@ServiceProvider(service = RepositoryDataImporter.class)
+public final class ProgramsImporter implements RepositoryDataImporter {
 
     private final ProgramsRepository repo = Lookup.getDefault().lookup(ProgramsRepository.class);
 

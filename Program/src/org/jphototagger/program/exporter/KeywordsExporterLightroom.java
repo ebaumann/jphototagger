@@ -17,7 +17,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
 
 import org.jphototagger.domain.keywords.Keyword;
-import org.jphototagger.domain.repository.Exporter;
+import org.jphototagger.domain.repository.RepositoryDataExporter;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.factory.ModelFactory;
@@ -31,8 +31,8 @@ import org.openide.util.lookup.ServiceProvider;
  *
  * @author Elmar Baumann
  */
-@ServiceProvider(service = Exporter.class)
-public final class KeywordsExporterLightroom implements Exporter {
+@ServiceProvider(service = RepositoryDataExporter.class)
+public final class KeywordsExporterLightroom implements RepositoryDataExporter {
 
     public static final String DEFAULT_FILENAME = "LightroomKeywords.txt";
     public static final String DISPLAY_NAME = Bundle.getString(KeywordsExporterLightroom.class, "KeywordExporterLightroom.DisplayName");

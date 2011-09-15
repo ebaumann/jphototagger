@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.filechooser.FileFilter;
 
-import org.jphototagger.domain.repository.Importer;
+import org.jphototagger.domain.repository.RepositoryDataImporter;
 import org.jphototagger.program.exporter.KeywordsExporterLightroom;
 import org.jphototagger.program.io.CharEncoding;
 import org.openide.util.lookup.ServiceProvider;
@@ -26,8 +26,8 @@ import org.openide.util.lookup.ServiceProvider;
  *
  * @author Elmar Baumann
  */
-@ServiceProvider(service = Importer.class)
-public final class KeywordsImporterLightroom extends KeywordsImporter implements Importer {
+@ServiceProvider(service = RepositoryDataImporter.class)
+public final class KeywordsImporterLightroom extends KeywordsImporter implements RepositoryDataImporter {
 
     /**
      * Lightroom exports keywords within {} - constant if changed in later

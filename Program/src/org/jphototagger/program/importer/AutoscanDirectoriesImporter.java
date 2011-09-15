@@ -8,7 +8,7 @@ import javax.swing.Icon;
 import javax.swing.filechooser.FileFilter;
 
 import org.jphototagger.domain.repository.AutoscanDirectoriesRepository;
-import org.jphototagger.domain.repository.Importer;
+import org.jphototagger.domain.repository.RepositoryDataImporter;
 import org.jphototagger.lib.xml.bind.XmlObjectImporter;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.exporter.AutoscanDirectoriesExporter;
@@ -22,8 +22,8 @@ import org.openide.util.lookup.ServiceProvider;
  *
  * @author Elmar Baumann
  */
-@ServiceProvider(service = Importer.class)
-public final class AutoscanDirectoriesImporter implements Importer {
+@ServiceProvider(service = RepositoryDataImporter.class)
+public final class AutoscanDirectoriesImporter implements RepositoryDataImporter {
 
     private final AutoscanDirectoriesRepository repo = Lookup.getDefault().lookup(AutoscanDirectoriesRepository.class);
 

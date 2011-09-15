@@ -16,7 +16,7 @@ import javax.swing.filechooser.FileFilter;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.jphototagger.domain.repository.Importer;
+import org.jphototagger.domain.repository.RepositoryDataImporter;
 import org.jphototagger.program.exporter.KeywordsExporterJpt;
 import org.openide.util.lookup.ServiceProvider;
 import org.w3c.dom.Document;
@@ -32,8 +32,8 @@ import org.xml.sax.SAXException;
  *
  * @author Elmar Baumann
  */
-@ServiceProvider(service = Importer.class)
-public final class KeywordsImporterJpt extends KeywordsImporter implements Importer, EntityResolver {
+@ServiceProvider(service = RepositoryDataImporter.class)
+public final class KeywordsImporterJpt extends KeywordsImporter implements RepositoryDataImporter, EntityResolver {
 
     @Override
     public Collection<List<KeywordString>> getPaths(File file) {

@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.jphototagger.domain.repository.Exporter;
+import org.jphototagger.domain.repository.RepositoryDataExporter;
 import org.jphototagger.domain.repository.RenameTemplatesRepository;
 import org.jphototagger.domain.templates.RenameTemplate;
 import org.jphototagger.lib.io.FileUtil;
@@ -31,8 +31,8 @@ import org.openide.util.lookup.ServiceProvider;
  *
  * @author Elmar Baumann
  */
-@ServiceProvider(service = Exporter.class)
-public final class RenameTemplatesExporter implements Exporter {
+@ServiceProvider(service = RepositoryDataExporter.class)
+public final class RenameTemplatesExporter implements RepositoryDataExporter {
 
     public static final String DEFAULT_FILENAME = "JptRenameTemplates.xml";
     public static final String DISPLAY_NAME = Bundle.getString(RenameTemplatesExporter.class, "RenameTemplatesExporter.DisplayName");

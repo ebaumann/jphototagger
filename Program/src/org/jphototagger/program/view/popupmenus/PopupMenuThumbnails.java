@@ -18,7 +18,7 @@ import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessorPlugin;
 import org.jphototagger.domain.programs.Program;
-import org.jphototagger.domain.repository.ProgramType;
+import org.jphototagger.domain.programs.ProgramType;
 import org.jphototagger.domain.repository.ProgramsRepository;
 import org.jphototagger.domain.repository.event.programs.ProgramDeletedEvent;
 import org.jphototagger.domain.repository.event.programs.ProgramInsertedEvent;

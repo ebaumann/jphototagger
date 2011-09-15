@@ -1,8 +1,10 @@
 package org.jphototagger.domain.repository;
 
 import java.io.File;
-import javax.swing.filechooser.FileFilter;
+
 import javax.swing.Icon;
+import javax.swing.filechooser.FileFilter;
+
 import org.jphototagger.api.collections.PositionProvider;
 
 /**
@@ -10,9 +12,9 @@ import org.jphototagger.api.collections.PositionProvider;
  *
  * @author Elmar Baumann
  */
-public interface Importer extends PositionProvider {
+public interface RepositoryDataExporter extends PositionProvider {
 
-    void importFile(File file);
+    void exportFile(File file);
 
     FileFilter getFileFilter();
 

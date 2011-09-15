@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.filechooser.FileFilter;
 
-import org.jphototagger.domain.repository.Importer;
+import org.jphototagger.domain.repository.RepositoryDataImporter;
 import org.jphototagger.lib.xml.bind.XmlObjectImporter;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.domain.metadata.search.SavedSearch;
@@ -21,8 +21,8 @@ import org.openide.util.lookup.ServiceProvider;
  *
  * @author Elmar Baumann
  */
-@ServiceProvider(service = Importer.class)
-public final class SavedSearchesImporter implements Importer {
+@ServiceProvider(service = RepositoryDataImporter.class)
+public final class SavedSearchesImporter implements RepositoryDataImporter {
 
     @Override
     public void importFile(File file) {

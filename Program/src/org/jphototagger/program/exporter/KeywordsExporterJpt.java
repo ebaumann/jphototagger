@@ -20,7 +20,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.jphototagger.domain.keywords.Keyword;
-import org.jphototagger.domain.repository.Exporter;
+import org.jphototagger.domain.repository.RepositoryDataExporter;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.factory.ModelFactory;
@@ -38,8 +38,8 @@ import org.w3c.dom.Element;
  *
  * @author Elmar Baumann
  */
-@ServiceProvider(service = Exporter.class)
-public final class KeywordsExporterJpt implements Exporter {
+@ServiceProvider(service = RepositoryDataExporter.class)
+public final class KeywordsExporterJpt implements RepositoryDataExporter {
 
     public static final String DEFAULT_FILENAME = "JptKeywords.xml";
     /**
