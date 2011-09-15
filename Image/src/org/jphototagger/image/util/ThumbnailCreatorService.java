@@ -1,11 +1,11 @@
-package org.jphototagger.lib.image.util;
+package org.jphototagger.image.util;
 
 import java.awt.Image;
 import java.io.File;
 import java.util.Collection;
-import org.jphototagger.api.storage.Storage;
+
 import org.jphototagger.api.image.thumbnails.ThumbnailCreator;
-import org.jphototagger.api.image.thumbnails.ThumbnailProvider;
+import org.jphototagger.api.storage.Storage;
 import org.openide.util.Lookup;
 
 /**

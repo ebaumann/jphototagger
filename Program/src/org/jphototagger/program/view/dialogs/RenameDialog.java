@@ -22,7 +22,7 @@ import org.jphototagger.api.storage.StorageHints;
 import org.jphototagger.api.file.event.FileRenamedEvent;
 import org.jphototagger.api.image.thumbnails.ThumbnailProvider;
 import org.jphototagger.domain.templates.RenameTemplate;
-import org.jphototagger.image.FileType;
+import org.jphototagger.image.ImageFileType;
 import org.jphototagger.lib.componentutil.ComboBoxUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
@@ -375,7 +375,7 @@ public final class RenameDialog extends Dialog implements ListDataListener {
     private synchronized void setThumbnail(File file) {
         Image thumbnail = null;
 
-        if (FileType.isJpegFile(file.getName())) {
+        if (ImageFileType.isJpegFile(file.getName())) {
             thumbnail = tnProvider.getThumbnail(file);
         }
 

@@ -11,7 +11,7 @@ import javax.swing.JMenuItem;
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.programs.ProgramType;
 import org.jphototagger.domain.repository.ProgramsRepository;
-import org.jphototagger.lib.image.util.IconUtil;
+import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.controller.actions.AddProgramAction;
 import org.jphototagger.program.resource.GUI;

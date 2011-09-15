@@ -1,4 +1,4 @@
-package org.jphototagger.lib.image.util;
+package org.jphototagger.lib.swing;
 
 import java.awt.Image;
 import java.io.File;

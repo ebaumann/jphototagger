@@ -1,6 +1,6 @@
 package org.jphototagger.program.view.renderer;
 
-import org.jphototagger.lib.image.util.IconUtil;
+import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.domain.timeline.Timeline;
 import java.awt.Component;
 import javax.swing.ImageIcon;

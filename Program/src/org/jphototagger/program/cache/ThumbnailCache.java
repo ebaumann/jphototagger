@@ -14,7 +14,7 @@ import org.jphototagger.domain.repository.event.imagefiles.ImageFileInsertedEven
 import org.jphototagger.domain.repository.event.imagefiles.ImageFileMovedEvent;
 import org.jphototagger.domain.thumbnails.event.ThumbnailUpdatedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.image.util.IconUtil;
+import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
 
 /**

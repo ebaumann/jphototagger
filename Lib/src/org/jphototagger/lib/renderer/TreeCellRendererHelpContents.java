@@ -1,6 +1,6 @@
 package org.jphototagger.lib.renderer;
 
-import org.jphototagger.lib.image.util.IconUtil;
+import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.help.HelpNode;
 import org.jphototagger.lib.util.help.HelpPage;
 import java.awt.Component;

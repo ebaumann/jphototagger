@@ -32,7 +32,7 @@ import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.exif.ExifMetadata;
 import org.jphototagger.exif.cache.ExifCache;
 import org.jphototagger.lib.concurrent.Cancelable;
-import org.jphototagger.lib.image.util.ThumbnailCreatorService;
+import org.jphototagger.image.util.ThumbnailCreatorService;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.program.app.AppLookAndFeel;

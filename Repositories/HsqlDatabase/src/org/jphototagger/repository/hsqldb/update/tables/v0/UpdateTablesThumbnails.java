@@ -19,7 +19,7 @@ import org.jphototagger.api.storage.UserFilesProvider;
 import org.jphototagger.domain.repository.ApplicationPropertiesRepository;
 import org.jphototagger.domain.repository.RepositoryMaintainance;
 import org.jphototagger.domain.repository.ThumbnailsRepository;
-import org.jphototagger.lib.image.util.ImageUtil;
+import org.jphototagger.image.util.ImageUtil;
 import org.jphototagger.lib.io.FileLock;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.filefilter.RegexFileFilter;

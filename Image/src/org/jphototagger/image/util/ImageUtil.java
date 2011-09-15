@@ -1,18 +1,19 @@
-package org.jphototagger.lib.image.util;
+package org.jphototagger.image.util;
 
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.awt.MediaTracker;
 import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.imageio.ImageIO;
 
 /**
@@ -46,7 +47,7 @@ public final class ImageUtil {
 
         try {
             BufferedImage bufferedImage = new BufferedImage(image.getWidth(null), image.getHeight(null),
-                                              BufferedImage.TYPE_INT_RGB);
+                    BufferedImage.TYPE_INT_RGB);
             Graphics graphics = bufferedImage.getGraphics();
 
             graphics.drawImage(image, 0, 0, null);
@@ -85,7 +86,7 @@ public final class ImageUtil {
         int width = img.getWidth();
         int height = img.getHeight();
 
-        assert(width > 0) && (height > 0) : "Width " + width + " height " + height + " have to be > 0!";
+        assert (width > 0) && (height > 0) : "Width " + width + " height " + height + " have to be > 0!";
 
         if ((width <= 0) || (height <= 0)) {
             return null;
@@ -94,16 +95,16 @@ public final class ImageUtil {
         boolean isLandscape = width > height;
         double aspectRatio = (double) width / (double) height;
         int lenOtherSide = isLandscape
-                           ? (int) ((double) maxWidth / aspectRatio + 0.5)
-                           : (int) ((double) maxWidth * aspectRatio + 0.5);
+                ? (int) ((double) maxWidth / aspectRatio + 0.5)
+                : (int) ((double) maxWidth * aspectRatio + 0.5);
         int newWidth = isLandscape
-                       ? maxWidth
-                       : lenOtherSide;
+                ? maxWidth
+                : lenOtherSide;
         int newHeight = isLandscape
-                        ? lenOtherSide
-                        : maxWidth;
+                ? lenOtherSide
+                : maxWidth;
 
-        assert(newWidth > 0) && (newHeight > 0) : "Width " + newWidth + " height " + newHeight + " have to be > 0!";
+        assert (newWidth > 0) && (newHeight > 0) : "Width " + newWidth + " height " + newHeight + " have to be > 0!";
 
         if ((newWidth <= 0) || (newHeight <= 0)) {
             return null;
@@ -137,7 +138,7 @@ public final class ImageUtil {
             return image;
         } else {
             return image.getScaledInstance((int) (width / scaleFactor + 0.5), (int) (height / scaleFactor + 0.5),
-                                           Image.SCALE_DEFAULT);
+                    Image.SCALE_DEFAULT);
         }
     }
 
@@ -202,8 +203,8 @@ public final class ImageUtil {
 
     private static double getScaleFactor(int width, int height, int maxWidth) {
         double longer = (width > height)
-                        ? width
-                        : height;
+                ? width
+                : height;
 
         return longer / (double) maxWidth;
     }
@@ -237,5 +238,6 @@ public final class ImageUtil {
         return image;
     }
 
-    private ImageUtil() {}
+    private ImageUtil() {
+    }
 }

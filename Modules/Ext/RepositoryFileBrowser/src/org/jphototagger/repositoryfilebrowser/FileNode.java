@@ -7,7 +7,7 @@ import java.util.Collections;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import org.jphototagger.api.nodes.AbstractNode;
-import org.jphototagger.lib.image.util.IconUtil;
+import org.jphototagger.lib.swing.IconUtil;
 
 /**
  *
