@@ -235,7 +235,7 @@ public class RepositoryFileBrowserDialog extends Dialog {
         listFiles.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         listFiles.setAutoCreateRowSorter(true);
         listFiles.setCellRenderer(new NodesListCellRenderer());
-        listFiles.setComparator(FileNodeComparator.INSTANCE);
+        listFiles.setComparator(FileNodeAscendingComparator.INSTANCE);
         listFiles.setName("listFiles"); // NOI18N
         listFiles.setSortOrder(javax.swing.SortOrder.ASCENDING);
         scrollPaneFiles.setViewportView(listFiles);

@@ -120,7 +120,7 @@
                   <Connection code="new org.jphototagger.lib.lookup.NodesListCellRenderer()" type="code"/>
                 </Property>
                 <Property name="comparator" type="java.util.Comparator" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="FileNodeComparator.INSTANCE" type="code"/>
+                  <Connection code="org.jphototagger.repositoryfilebrowser.FileNodeAscendingComparator.INSTANCE" type="code"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="listFiles" noResource="true"/>
                 <Property name="sortOrder" type="javax.swing.SortOrder" editor="org.netbeans.modules.form.editors.EnumEditor">
