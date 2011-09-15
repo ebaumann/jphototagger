@@ -17,11 +17,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.jphototagger.domain.metadata.search.SavedSearch;
 import org.jphototagger.domain.repository.RepositoryDataExporter;
+import org.jphototagger.domain.repository.SavedSearchesRepository;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.xml.bind.XmlObjectExporter;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.repository.hsqldb.DatabaseSavedSearches;
+import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
 /**
@@ -37,6 +38,7 @@ public final class SavedSearchesExporter implements RepositoryDataExporter {
     public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(SavedSearchesExporter.class, "SavedSearchesExporter.DisplayName.FileFilter"), "xml");
     public static final ImageIcon ICON = AppLookAndFeel.getIcon("icon_export.png");
     public static final int POSITION = 40;
+    private final SavedSearchesRepository repo = Lookup.getDefault().lookup(SavedSearchesRepository.class);
 
     @Override
     public void exportFile(File file) {
@@ -47,7 +49,7 @@ public final class SavedSearchesExporter implements RepositoryDataExporter {
         File xmlFile = FileUtil.ensureSuffix(file, ".xml");
 
         try {
-            List<SavedSearch> savedSearches = DatabaseSavedSearches.INSTANCE.getAll();
+            List<SavedSearch> savedSearches = repo.findAllSavedSearches();
 
             XmlObjectExporter.export(new CollectionWrapper(savedSearches), xmlFile);
         } catch (Exception ex) {

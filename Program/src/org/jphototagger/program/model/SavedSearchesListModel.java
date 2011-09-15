@@ -8,13 +8,13 @@ import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.domain.metadata.search.SavedSearch;
 import org.jphototagger.domain.repository.Repository;
+import org.jphototagger.domain.repository.SavedSearchesRepository;
 import org.jphototagger.domain.repository.event.search.SavedSearchDeletedEvent;
 import org.jphototagger.domain.repository.event.search.SavedSearchInsertedEvent;
 import org.jphototagger.domain.repository.event.search.SavedSearchRenamedEvent;
 import org.jphototagger.domain.repository.event.search.SavedSearchUpdatedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.helper.SavedSearchesHelper;
-import org.jphototagger.repository.hsqldb.DatabaseSavedSearches;
 import org.openide.util.Lookup;
 
 /**
@@ -25,6 +25,7 @@ import org.openide.util.Lookup;
 public final class SavedSearchesListModel extends DefaultListModel {
 
     private static final long serialVersionUID = 1979666986802551310L;
+    private final SavedSearchesRepository savedSearchRepo = Lookup.getDefault().lookup(SavedSearchesRepository.class);
 
     public SavedSearchesListModel() {
         addElements();
@@ -38,7 +39,7 @@ public final class SavedSearchesListModel extends DefaultListModel {
             return;
         }
 
-        List<SavedSearch> savedSearches = DatabaseSavedSearches.INSTANCE.getAll();
+        List<SavedSearch> savedSearches = savedSearchRepo.findAllSavedSearches();
 
         for (SavedSearch savedSearch : savedSearches) {
             addElement(savedSearch);
