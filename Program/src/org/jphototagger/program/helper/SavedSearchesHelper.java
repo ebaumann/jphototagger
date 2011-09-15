@@ -3,13 +3,14 @@ package org.jphototagger.program.helper;
 import javax.swing.DefaultListModel;
 
 import org.jphototagger.domain.metadata.search.SavedSearch;
+import org.jphototagger.domain.repository.SavedSearchesRepository;
 import org.jphototagger.lib.comparator.FileSort;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.controller.thumbnail.SortThumbnailsController;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
-import org.jphototagger.repository.hsqldb.DatabaseSavedSearches;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -71,7 +72,9 @@ public final class SavedSearchesHelper {
         }
 
         if (ensureNotOverwrite(savedSearch.getName())) {
-            if (DatabaseSavedSearches.INSTANCE.insert(savedSearch)) {
+            SavedSearchesRepository repo = Lookup.getDefault().lookup(SavedSearchesRepository.class);
+
+            if (repo.saveSavedSearch(savedSearch)) {
                 return true;
             } else {
                 String message = Bundle.getString(SavedSearchesHelper.class, "SavedSearchesHelper.Error.Insert", savedSearch);
@@ -85,7 +88,7 @@ public final class SavedSearchesHelper {
     /**
      * Inserts a saved search and displays errors.
      *
-     * @param  savedSearch saved search to update
+     * @param  savedSearch saved search to updateSavedSearch
      * @return             true if updated
      */
     public static boolean update(SavedSearch savedSearch) {
@@ -93,7 +96,9 @@ public final class SavedSearchesHelper {
             throw new NullPointerException("savedSearch == null");
         }
 
-        if (DatabaseSavedSearches.INSTANCE.update(savedSearch)) {
+        SavedSearchesRepository repo = Lookup.getDefault().lookup(SavedSearchesRepository.class);
+
+        if (repo.updateSavedSearch(savedSearch)) {
             return true;
         } else {
             String message = Bundle.getString(SavedSearchesHelper.class, "SavedSearchesHelper.Error.Update", savedSearch);
@@ -116,7 +121,9 @@ public final class SavedSearchesHelper {
         String searchName = savedSearch.getName();
 
         if (confirmDelete(searchName)) {
-            if (!DatabaseSavedSearches.INSTANCE.delete(searchName)) {
+            SavedSearchesRepository repo = Lookup.getDefault().lookup(SavedSearchesRepository.class);
+
+            if (!repo.deleteSavedSearch(searchName)) {
                 String message = Bundle.getString(SavedSearchesHelper.class, "SavedSearchesHelper.Error.Delete");
                 MessageDisplayer.error(null, message);
             }
@@ -143,7 +150,9 @@ public final class SavedSearchesHelper {
         String toName = getNotExistingName(fromName);
 
         if (toName != null) {
-            if (!DatabaseSavedSearches.INSTANCE.updateRename(fromName, toName)) {
+            SavedSearchesRepository repo = Lookup.getDefault().lookup(SavedSearchesRepository.class);
+
+            if (!repo.updateRenameSavedSearch(fromName, toName)) {
                 String message = Bundle.getString(SavedSearchesHelper.class, "SavedSearchesHelper.Error.Rename", fromName);
                 MessageDisplayer.error(null, message);
             }
@@ -184,12 +193,13 @@ public final class SavedSearchesHelper {
         boolean wantInput = true;
         String input = null;
         String suggest = suggestName;
+        SavedSearchesRepository repo = Lookup.getDefault().lookup(SavedSearchesRepository.class);
 
         while (wantInput) {
             wantInput = false;
             input = getInput(suggest);
 
-            if ((input != null) && DatabaseSavedSearches.INSTANCE.exists(input)) {
+            if ((input != null) && repo.existsSavedSearch(input)) {
                 wantInput = confirmInputNotExistingName(input);
 
                 if (wantInput) {
@@ -223,7 +233,9 @@ public final class SavedSearchesHelper {
     }
 
     private static boolean ensureNotOverwrite(String name) {
-        if (DatabaseSavedSearches.INSTANCE.exists(name)) {
+        SavedSearchesRepository repo = Lookup.getDefault().lookup(SavedSearchesRepository.class);
+
+        if (repo.existsSavedSearch(name)) {
             String message = Bundle.getString(SavedSearchesHelper.class, "SavedSearchesHelper.Error.Exists", name);
             MessageDisplayer.error(null, message);
 

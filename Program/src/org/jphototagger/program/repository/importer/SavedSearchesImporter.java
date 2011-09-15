@@ -9,11 +9,12 @@ import javax.swing.filechooser.FileFilter;
 
 import org.jphototagger.domain.metadata.search.SavedSearch;
 import org.jphototagger.domain.repository.RepositoryDataImporter;
+import org.jphototagger.domain.repository.SavedSearchesRepository;
 import org.jphototagger.lib.xml.bind.XmlObjectImporter;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.repository.exporter.SavedSearchesExporter;
 import org.jphototagger.program.repository.exporter.SavedSearchesExporter.CollectionWrapper;
-import org.jphototagger.repository.hsqldb.DatabaseSavedSearches;
+import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
 /**
@@ -23,6 +24,8 @@ import org.openide.util.lookup.ServiceProvider;
  */
 @ServiceProvider(service = RepositoryDataImporter.class)
 public final class SavedSearchesImporter implements RepositoryDataImporter {
+
+    private final SavedSearchesRepository repo = Lookup.getDefault().lookup(SavedSearchesRepository.class);
 
     @Override
     public void importFile(File file) {
@@ -35,8 +38,8 @@ public final class SavedSearchesImporter implements RepositoryDataImporter {
                     SavedSearchesExporter.CollectionWrapper.class);
 
             for (SavedSearch savedSearch : wrapper.getCollection()) {
-                if (savedSearch.isValid() && !DatabaseSavedSearches.INSTANCE.exists(savedSearch.getName())) {
-                    DatabaseSavedSearches.INSTANCE.insert(savedSearch);
+                if (savedSearch.isValid() && !repo.existsSavedSearch(savedSearch.getName())) {
+                    repo.saveSavedSearch(savedSearch);
                 }
             }
         } catch (Exception ex) {
