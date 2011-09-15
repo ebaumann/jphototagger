@@ -1,4 +1,4 @@
-package org.jphototagger.dtncreators.scripts.windows;
+package org.jphototagger.ttc.def.scripts.unix;
 
 import java.io.File;
 import java.util.logging.Level;
@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 
 import org.jphototagger.api.image.thumbnails.ExternalThumbnailCreationCommand;
 import org.jphototagger.api.storage.UserFilesProvider;
-import org.jphototagger.dtncreators.scripts.ScriptWriter;
+import org.jphototagger.tcc.def.scripts.ScriptWriter;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.system.SystemUtil;
 import org.jphototagger.lib.util.Bundle;
@@ -31,10 +31,11 @@ public final class ImageMagickDcrawThumbnailCreator implements ExternalThumbnail
 
         if (dialog.isAccepted()) {
             File dcraw = dialog.getDcraw();
+            File identify = dialog.getIdentify();
             File convert = dialog.getConvert();
             File mplayer = dialog.getMplayer();
 
-            return createCommand(dcraw, convert, mplayer);
+            return createCommand(dcraw, identify, convert, mplayer);
         }
 
         return null;
@@ -47,11 +48,11 @@ public final class ImageMagickDcrawThumbnailCreator implements ExternalThumbnail
 
     @Override
     public boolean isEnabled() {
-        return SystemUtil.isWindows();
+        return !SystemUtil.isWindows();
     }
 
-    private String createCommand(File dcraw, File convert, File mplayer) {
-        if (dcraw == null || convert == null) {
+    private String createCommand(File dcraw, File identify, File convert, File mplayer) {
+        if (dcraw == null || identify == null || convert == null) {
             return null;
         }
 
@@ -64,11 +65,11 @@ public final class ImageMagickDcrawThumbnailCreator implements ExternalThumbnail
         }
 
         ScriptWriter scriptWriter = new ScriptWriter();
-        String scriptName = mplayer == null ? "image_magick_dcraw.bat" : "image_magick_dcraw_mplayer.bat";
+        String scriptName = mplayer == null ? "image_magick_dcraw.sh" : "image_magick_dcraw_mplayer.sh";
         String scriptPath = userDirectory.getAbsolutePath() + File.separator + scriptName;
 
         try {
-            setReplace(scriptWriter, dcraw, convert, mplayer);
+            setReplace(scriptWriter, dcraw, identify, convert, mplayer);
             writeScript(scriptName, scriptWriter, new File(scriptPath));
 
             return "\"" + scriptPath + "\" \"%s\" %i";
@@ -78,21 +79,23 @@ public final class ImageMagickDcrawThumbnailCreator implements ExternalThumbnail
         }
     }
 
-    private void setReplace(ScriptWriter scriptWriter, File dcraw, File convert, File mplayer) {
-        scriptWriter.addReplace("${dcraw.exe}", dcraw.getAbsolutePath());
-        scriptWriter.addReplace("${convert.exe}", convert.getAbsolutePath());
+    private void setReplace(ScriptWriter scriptWriter, File dcraw, File identify, File convert, File mplayer) {
+        scriptWriter.addReplace("${dcraw}", dcraw.getAbsolutePath());
+        scriptWriter.addReplace("${identify}", identify.getAbsolutePath());
+        scriptWriter.addReplace("${convert}", convert.getAbsolutePath());
 
         if (mplayer != null) {
-            scriptWriter.addReplace("${mplayer.exe}", mplayer.getAbsolutePath());
+            scriptWriter.addReplace("${mplayer}", mplayer.getAbsolutePath());
         }
     }
 
     private void writeScript(String templateName, ScriptWriter scriptWriter, File scriptFile) throws Exception {
         try {
-            String readScript = scriptWriter.readScript("/org/jphototagger/dtncreators/scripts/windows/" + templateName);
+            String readScript = scriptWriter.readScript("/org/jphototagger/tcc/def/scripts/unix/" + templateName);
 
             readScript = scriptWriter.replaceIn(readScript);
             FileUtil.writeStringAsFile(readScript, scriptFile);
+            scriptFile.setExecutable(true);
         } catch (Exception ex) {
             errorMessageGetScript();
             throw ex;

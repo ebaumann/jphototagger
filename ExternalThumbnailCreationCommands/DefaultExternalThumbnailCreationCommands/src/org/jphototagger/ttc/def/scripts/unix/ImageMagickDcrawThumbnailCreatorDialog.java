@@ -1,4 +1,4 @@
-package org.jphototagger.dtncreators.scripts.unix;
+package org.jphototagger.ttc.def.scripts.unix;
 
 import java.io.File;
 
@@ -6,9 +6,9 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 import org.jphototagger.api.branding.Branding;
-import org.jphototagger.dtncreators.FileChooser;
-import org.jphototagger.dtncreators.SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction;
-import org.jphototagger.dtncreators.Util;
+import org.jphototagger.tcc.def.FileChooser;
+import org.jphototagger.tcc.def.SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction;
+import org.jphototagger.tcc.def.Util;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.util.Bundle;
@@ -30,8 +30,8 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
     private final FileChooser convertFileChooser = createConvertFileChooser();
     private final FileChooser identifyFileChooser = createIdentifyFileChooser();
     private final FileChooser mplayerFileChooser = createMPlayerFileChooser();
-    private static final Icon OK_ICON = new ImageIcon(ImageMagickDcrawThumbnailCreatorDialog.class.getResource("/org/jphototagger/dtncreators/icons/icon_ok.png"));
-    private static final Icon ERROR_ICON = new ImageIcon(ImageMagickDcrawThumbnailCreatorDialog.class.getResource("/org/jphototagger/dtncreators/icons/icon_error.png"));
+    private static final Icon OK_ICON = new ImageIcon(ImageMagickDcrawThumbnailCreatorDialog.class.getResource("/org/jphototagger/tcc/def/icons/icon_ok.png"));
+    private static final Icon ERROR_ICON = new ImageIcon(ImageMagickDcrawThumbnailCreatorDialog.class.getResource("/org/jphototagger/tcc/def/icons/icon_error.png"));
     private boolean accepted;
 
     public ImageMagickDcrawThumbnailCreatorDialog() {
@@ -179,7 +179,7 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
         buttonOk = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/dtncreators/scripts/unix/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/ttc/def/scripts/unix/Bundle"); // NOI18N
         setTitle(bundle.getString("ImageMagickDcrawThumbnailCreatorDialog.title")); // NOI18N
         setIconImages(Lookup.getDefault().lookup(Branding.class).getAppIcons());
         getContentPane().setLayout(new java.awt.GridBagLayout());

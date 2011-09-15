@@ -1,4 +1,4 @@
-package org.jphototagger.dtncreators;
+package org.jphototagger.tcc.def;
 
 import org.jphototagger.api.branding.Branding;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
@@ -48,7 +48,7 @@ public class ImageMagickThumbnailCreatorDialog extends Dialog {
         buttonChooseConvert = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/dtncreators/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/tcc/def/Bundle"); // NOI18N
         setTitle(bundle.getString("ImageMagickThumbnailCreatorDialog.title")); // NOI18N
         setIconImages(Lookup.getDefault().lookup(Branding.class).getAppIcons());
 

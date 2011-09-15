@@ -1,4 +1,4 @@
-package org.jphototagger.dtncreators;
+package org.jphototagger.tcc.def;
 
 import java.io.File;
 

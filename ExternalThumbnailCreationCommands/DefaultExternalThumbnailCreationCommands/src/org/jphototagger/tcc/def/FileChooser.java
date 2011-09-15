@@ -1,4 +1,4 @@
-package org.jphototagger.dtncreators;
+package org.jphototagger.tcc.def;
 
 import java.io.File;
 import javax.swing.JFileChooser;
@@ -25,7 +25,7 @@ public final class FileChooser {
         fileChooserTitle = builder.fileChooserTitle;
         fileChooserDirPath = builder.fileChooserDirPath;
     }
-    
+
     public File chooseFileFixedName() {
         FileChooserProperties fcProps = new FileChooserProperties();
 
@@ -36,20 +36,20 @@ public final class FileChooser {
         fcProps.fileSelectionMode(JFileChooser.FILES_ONLY);
 
         File file = FileChooserHelper.chooseFile(fcProps);
-        
+
         if (file != null) {
             fileChooserDirPath = file.getParentFile().getAbsolutePath();
         }
-        
+
         return file;
     }
-    
+
     private FileFilter createFileFilter() {
         AcceptExactFilenameNameFileFilter filter = new AcceptExactFilenameNameFileFilter(fixedFileFilename);
 
         return filter.forFileChooser(fileDescription);
     }
-    
+
     public static class Builder {
         private final String fixedFileName;
         private String fileDescription = "";
@@ -60,7 +60,7 @@ public final class FileChooser {
             if (fixedFileName == null) {
                 throw new NullPointerException("fixedFileName == null");
             }
-            
+
             this.fixedFileName = fixedFileName;
         }
 
@@ -68,7 +68,7 @@ public final class FileChooser {
             if (fileChooserDirPath == null) {
                 throw new NullPointerException("fileChooserDirPath == null");
             }
-            
+
             this.fileChooserDirPath = fileChooserDirPath;
             return this;
         }
@@ -77,7 +77,7 @@ public final class FileChooser {
             if (fileChooserTitle == null) {
                 throw new NullPointerException("fileChooserTitle == null");
             }
-            
+
             this.fileChooserTitle = fileChooserTitle;
             return this;
         }
@@ -86,11 +86,11 @@ public final class FileChooser {
             if (fileDescription == null) {
                 throw new NullPointerException("fileDescription == null");
             }
-            
+
             this.fileDescription = fileDescription;
             return this;
         }
-        
+
         public FileChooser build() {
             return new FileChooser(this);
         }
