@@ -21,7 +21,7 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.io.TreeFileSystemDirectories;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
-import org.jphototagger.lib.model.TreeModelAllSystemDirectories;
+import org.jphototagger.lib.model.AllSystemDirectoriesTreeModel;
 import org.jphototagger.lib.util.Bundle;
 
 /**
@@ -35,7 +35,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
     private final File startDirectory;
     private final List<Option> directoryFilter;
     private boolean accepted;
-    private final TreeModelAllSystemDirectories model;
+    private final AllSystemDirectoriesTreeModel model;
 
     public enum Option {
 
@@ -76,7 +76,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
         this.startDirectory  = startDirectory;
         this.directoryFilter = Arrays.asList(options);
         initComponents();
-        this.model = new TreeModelAllSystemDirectories(tree, excludeRootDirectories, getIsShowHiddenDirsFilter());
+        this.model = new AllSystemDirectoriesTreeModel(tree, excludeRootDirectories, getIsShowHiddenDirsFilter());
         postInitComponents();
     }
 
@@ -366,7 +366,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
         tree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-        tree.setCellRenderer(new org.jphototagger.lib.renderer.TreeCellRendererAllSystemDirectories());
+        tree.setCellRenderer(new org.jphototagger.lib.renderer.AllSystemDirectoriesTreeCellRenderer());
         tree.setComponentPopupMenu(popupMenu);
         tree.setName("Tree directory chooser"); // NOI18N
         scrollPane.setViewportView(tree);

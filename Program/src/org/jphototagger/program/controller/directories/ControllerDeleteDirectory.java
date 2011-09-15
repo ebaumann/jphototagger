@@ -1,7 +1,7 @@
 package org.jphototagger.program.controller.directories;
 
 import org.jphototagger.lib.io.TreeFileSystemDirectories;
-import org.jphototagger.lib.model.TreeModelAllSystemDirectories;
+import org.jphototagger.lib.model.AllSystemDirectoriesTreeModel;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.io.FileSystemDirectories;
 import org.jphototagger.program.view.popupmenus.PopupMenuDirectories;
@@ -58,7 +58,7 @@ public final class ControllerDeleteDirectory extends ControllerDirectory {
                     @Override
                     public void run() {
                         TreeFileSystemDirectories.removeFromTreeModel(
-                            ModelFactory.INSTANCE.getModel(TreeModelAllSystemDirectories.class), node);
+                            ModelFactory.INSTANCE.getModel(AllSystemDirectoriesTreeModel.class), node);
                     }
                 });
             }

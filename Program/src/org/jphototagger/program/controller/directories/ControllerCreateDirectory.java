@@ -1,7 +1,7 @@
 package org.jphototagger.program.controller.directories;
 
 import org.jphototagger.lib.event.util.KeyEventUtil;
-import org.jphototagger.lib.model.TreeModelAllSystemDirectories;
+import org.jphototagger.lib.model.AllSystemDirectoriesTreeModel;
 import org.jphototagger.program.controller.favorites.ControllerFavoritesAddFilesystemFolder;
 import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.factory.ModelFactory;
@@ -54,7 +54,7 @@ public final class ControllerCreateDirectory extends ControllerDirectory {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
-                File dir = ModelFactory.INSTANCE.getModel(TreeModelAllSystemDirectories.class).createDirectoryIn(node);
+                File dir = ModelFactory.INSTANCE.getModel(AllSystemDirectoriesTreeModel.class).createDirectoryIn(node);
 
                 if (dir != null) {
                     ControllerFavoritesAddFilesystemFolder ctrl =

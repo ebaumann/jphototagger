@@ -14,7 +14,7 @@ import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.DirectoryChooser;
 import org.jphototagger.lib.dialog.DirectoryChooser.Option;
 import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.lib.renderer.ListCellRendererFileSystem;
+import org.jphototagger.lib.renderer.FileSystemListCellRenderer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.model.ListModelAutoscanDirectories;
 import org.jphototagger.program.resource.GUI;
@@ -241,7 +241,7 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel implem
         scrollPaneListAutoscanDirectories.setName("scrollPaneListAutoscanDirectories"); // NOI18N
 
         listAutoscanDirectories.setModel(modelAutoscanDirectories);
-        listAutoscanDirectories.setCellRenderer(new ListCellRendererFileSystem(true));
+        listAutoscanDirectories.setCellRenderer(new FileSystemListCellRenderer(true));
         listAutoscanDirectories.setName("listAutoscanDirectories"); // NOI18N
         listAutoscanDirectories.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {

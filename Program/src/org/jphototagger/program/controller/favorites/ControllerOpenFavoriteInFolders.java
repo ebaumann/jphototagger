@@ -1,7 +1,7 @@
 package org.jphototagger.program.controller.favorites;
 
 import org.jphototagger.lib.event.util.KeyEventUtil;
-import org.jphototagger.lib.model.TreeModelAllSystemDirectories;
+import org.jphototagger.lib.model.AllSystemDirectoriesTreeModel;
 import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.resource.GUI;
@@ -87,7 +87,7 @@ public final class ControllerOpenFavoriteInFolders implements ActionListener, Ke
 
                 GUI.getFavoritesTree().clearSelection();
                 tabbedPaneSelection.setSelectedComponent(tabTreeDirectories);
-                ModelFactory.INSTANCE.getModel(TreeModelAllSystemDirectories.class).expandToFile(dir, true);
+                ModelFactory.INSTANCE.getModel(AllSystemDirectoriesTreeModel.class).expandToFile(dir, true);
             }
         });
     }

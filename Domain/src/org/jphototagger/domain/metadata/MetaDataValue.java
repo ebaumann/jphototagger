@@ -7,10 +7,10 @@ import java.util.logging.Logger;
 import javax.swing.InputVerifier;
 import javax.swing.text.DefaultFormatterFactory;
 
-import org.jphototagger.lib.inputverifier.InputVerifierAlwaysTrue;
-import org.jphototagger.lib.inputverifier.InputVerifierDate;
-import org.jphototagger.lib.inputverifier.InputVerifierMaxLength;
-import org.jphototagger.lib.inputverifier.InputVerifierNumber;
+import org.jphototagger.lib.inputverifier.AlwaysTrueInputVerifier;
+import org.jphototagger.lib.inputverifier.DateInputVerifier;
+import org.jphototagger.lib.inputverifier.MaxLengthInputVerifier;
+import org.jphototagger.lib.inputverifier.NumberInputVerifier;
 
 /**
  *
@@ -49,19 +49,19 @@ public class MetaDataValue {
     public enum ValueType {
 
         /** Java type <code>byte[]</code> */
-        BINARY(InputVerifierAlwaysTrue.INSTANCE),
+        BINARY(AlwaysTrueInputVerifier.INSTANCE),
         /** Java type <code>java.sql.Date</code> */
-        DATE(new InputVerifierDate("yyyy-MM-dd")),
+        DATE(new DateInputVerifier("yyyy-MM-dd")),
         /** Java type <code>int</code> */
-        INTEGER(InputVerifierNumber.INSTANCE),
+        INTEGER(NumberInputVerifier.INSTANCE),
         /** Java type <code>long</code> */
-        BIGINT(InputVerifierNumber.INSTANCE),
+        BIGINT(NumberInputVerifier.INSTANCE),
         /** Java type <code>double</code> */
-        REAL(InputVerifierNumber.INSTANCE),
+        REAL(NumberInputVerifier.INSTANCE),
         /** Java type <code>short</code> */
-        SMALLINT(InputVerifierNumber.INSTANCE),
+        SMALLINT(NumberInputVerifier.INSTANCE),
         /** Java type <code>java.lang.String</code> */
-        STRING(InputVerifierAlwaysTrue.INSTANCE);
+        STRING(AlwaysTrueInputVerifier.INSTANCE);
         private final InputVerifier defaultInputVerifier;
 
         private ValueType(InputVerifier inputVerifier) {
@@ -226,7 +226,7 @@ public class MetaDataValue {
      */
     public InputVerifier getInputVerifier() {
         return valueType.equals(ValueType.STRING)
-                ? new InputVerifierMaxLength(valueLength)
+                ? new MaxLengthInputVerifier(valueLength)
                 : valueType.defaultInputVerifier;
     }
 

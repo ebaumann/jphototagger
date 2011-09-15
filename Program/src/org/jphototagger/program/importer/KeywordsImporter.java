@@ -12,7 +12,7 @@ import javax.swing.tree.TreePath;
 
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.MessageLabel.MessageType;
-import org.jphototagger.lib.concurrent.Cancelable;
+import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.model.TreeModelKeywords;

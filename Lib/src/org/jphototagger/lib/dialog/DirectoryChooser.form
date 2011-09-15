@@ -145,7 +145,7 @@
               <TreeModel code=""/>
             </Property>
             <Property name="cellRenderer" type="javax.swing.tree.TreeCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new org.jphototagger.lib.renderer.TreeCellRendererAllSystemDirectories()" type="code"/>
+              <Connection code="new org.jphototagger.lib.renderer.AllSystemDirectoriesTreeCellRenderer()" type="code"/>
             </Property>
             <Property name="componentPopupMenu" type="javax.swing.JPopupMenu" editor="org.netbeans.modules.form.ComponentChooserEditor">
               <ComponentRef name="popupMenu"/>

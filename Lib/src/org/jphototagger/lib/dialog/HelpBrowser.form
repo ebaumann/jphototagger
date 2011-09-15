@@ -106,7 +106,7 @@
                       <ComponentRef name="null"/>
                     </Property>
                     <Property name="cellRenderer" type="javax.swing.tree.TreeCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="new TreeCellRendererHelpContents()" type="code"/>
+                      <Connection code="new org.jphototagger.lib.renderer.HelpContentsTreeCellRenderer()" type="code"/>
                     </Property>
                     <Property name="name" type="java.lang.String" value="tree" noResource="true"/>
                   </Properties>

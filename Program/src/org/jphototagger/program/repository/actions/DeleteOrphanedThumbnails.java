@@ -11,7 +11,7 @@ import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.domain.event.listener.ProgressListenerSupport;
 import org.jphototagger.domain.repository.ImageFilesRepository;
-import org.jphototagger.lib.concurrent.Cancelable;
+import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;

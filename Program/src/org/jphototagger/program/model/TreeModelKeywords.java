@@ -15,7 +15,7 @@ import org.jphototagger.domain.keywords.Keyword;
 import org.jphototagger.domain.repository.KeywordsRepository;
 import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.lib.model.TreeNodeSortedChildren;
+import org.jphototagger.lib.model.SortedChildrenTreeNode;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.helper.KeywordsHelper;
 import org.openide.util.Lookup;
@@ -39,7 +39,7 @@ public final class TreeModelKeywords extends DefaultTreeModel {
     private final DefaultMutableTreeNode ROOT;
 
     public TreeModelKeywords() {
-        super(new TreeNodeSortedChildren(Bundle.getString(TreeModelKeywords.class, "TreeModelKeywords.DisplayName.Root")));
+        super(new SortedChildrenTreeNode(Bundle.getString(TreeModelKeywords.class, "TreeModelKeywords.DisplayName.Root")));
         ROOT = (DefaultMutableTreeNode) getRoot();
         createTree();
     }
@@ -114,7 +114,7 @@ public final class TreeModelKeywords extends DefaultTreeModel {
             if (repo.saveKeyword(child)) {
                 KeywordsHelper.insertDcSubject(keyword);
 
-                TreeNodeSortedChildren node = new TreeNodeSortedChildren(child);
+                SortedChildrenTreeNode node = new SortedChildrenTreeNode(child);
 
                 insertNode(parentNode, node);
 
@@ -162,7 +162,7 @@ public final class TreeModelKeywords extends DefaultTreeModel {
         if (repo.saveKeyword(keyword)) {
             KeywordsHelper.insertDcSubject(keyword.getName());
 
-            DefaultMutableTreeNode node = new TreeNodeSortedChildren(keyword);
+            DefaultMutableTreeNode node = new SortedChildrenTreeNode(keyword);
 
             target.add(node);
             fireTreeNodesInserted(this, target.getPath(), new int[]{target.getIndex(node)}, new Object[]{node});
@@ -351,7 +351,7 @@ public final class TreeModelKeywords extends DefaultTreeModel {
         Collection<Keyword> roots = repo.findRootKeywords();
 
         for (Keyword rootKeyword : roots) {
-            DefaultMutableTreeNode rootNode = new TreeNodeSortedChildren(rootKeyword);
+            DefaultMutableTreeNode rootNode = new SortedChildrenTreeNode(rootKeyword);
 
             insertNode(ROOT, rootNode);
             insertChildren(rootNode);
@@ -363,7 +363,7 @@ public final class TreeModelKeywords extends DefaultTreeModel {
         Collection<Keyword> children = repo.findChildKeywords(parent.getId());
 
         for (Keyword child : children) {
-            DefaultMutableTreeNode childNode = new TreeNodeSortedChildren(child);
+            DefaultMutableTreeNode childNode = new SortedChildrenTreeNode(child);
 
             insertNode(parentNode, childNode);
             insertChildren(childNode);    // recursive

@@ -25,8 +25,8 @@ import org.jphototagger.api.storage.Storage;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.event.HelpBrowserEvent;
 import org.jphototagger.lib.event.listener.HelpBrowserListener;
-import org.jphototagger.lib.model.TreeModelHelpContents;
-import org.jphototagger.lib.renderer.TreeCellRendererHelpContents;
+import org.jphototagger.lib.model.HelpContentsTreeModel;
+import org.jphototagger.lib.renderer.HelpContentsTreeCellRenderer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.help.HelpNode;
 import org.jphototagger.lib.util.help.HelpPage;
@@ -157,7 +157,7 @@ public final class HelpBrowser extends Dialog implements ActionListener, Hyperli
 
         contentsUrl = url;
         urlHistory.clear();
-        tree.setModel(new TreeModelHelpContents(url));
+        tree.setModel(new HelpContentsTreeModel(url));
         setBaseUrl(url);
     }
 
@@ -409,7 +409,7 @@ public final class HelpBrowser extends Dialog implements ActionListener, Hyperli
         scrollPaneTree.setName("scrollPaneTree"); // NOI18N
 
         tree.setModel(null);
-        tree.setCellRenderer(new TreeCellRendererHelpContents());
+        tree.setCellRenderer(new HelpContentsTreeCellRenderer());
         tree.setName("tree"); // NOI18N
         scrollPaneTree.setViewportView(tree);
 

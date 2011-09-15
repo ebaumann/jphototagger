@@ -10,13 +10,13 @@ import java.util.logging.Logger;
 
 import javax.swing.JProgressBar;
 
+import org.jphototagger.api.concurrent.CancelRequest;
+import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.api.storage.UserFilesProvider;
 import org.jphototagger.domain.repository.ApplicationPropertiesRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.concurrent.Cancelable;
 import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.lib.net.CancelRequest;
 import org.jphototagger.lib.net.HttpUtil;
 import org.jphototagger.lib.net.NetVersion;
 import org.jphototagger.lib.system.SystemUtil;
@@ -29,8 +29,7 @@ import org.jphototagger.program.view.panels.ProgressBar;
 import org.openide.util.Lookup;
 
 /**
- * Checks for newer versions of JPhotoTagger and downloads them depending
- * on {@link UserSettings#isCheckForUpdates()}.
+ * Checks for newer versions of JPhotoTagger and downloads them depending.
  *
  * @author Elmar Baumann
  */
@@ -84,12 +83,6 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
     /**
      * Asks via a confirmation dialog exactly once whether to check
      * automatically for updates.
-     * <p>
-     * Once asked, the ask property in {@link DatabaseApplicationProperties} is
-     * set to true and calling this method again does nothing.
-     * <p>
-     * The answer will be stored in
-     * {@link UserSettings#setCheckForUpdates(boolean)}-
      */
     public static void askOnceCheckForNewerVersion() {
         final ApplicationPropertiesRepository appPropertiesRepo = Lookup.getDefault().lookup(ApplicationPropertiesRepository.class);

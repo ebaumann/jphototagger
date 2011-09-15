@@ -17,7 +17,7 @@ import org.jphototagger.lib.dialog.DirectoryChooser.Option;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
 import org.jphototagger.lib.io.filefilter.RegexFileFilter;
-import org.jphototagger.lib.renderer.ListCellRendererFileSystem;
+import org.jphototagger.lib.renderer.FileSystemListCellRenderer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.program.resource.GUI;
@@ -414,7 +414,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
 
         scrollPaneListFiles.setName("scrollPaneListFiles"); // NOI18N
 
-        listFiles.setCellRenderer(new ListCellRendererFileSystem(true));
+        listFiles.setCellRenderer(new FileSystemListCellRenderer(true));
         listFiles.setEnabled(false);
         listFiles.setName("listFiles"); // NOI18N
         scrollPaneListFiles.setViewportView(listFiles);
