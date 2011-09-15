@@ -20,8 +20,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.bushe.swing.event.EventBus;
-import org.jphototagger.api.event.ProgressEvent;
-import org.jphototagger.api.event.ProgressListener;
+import org.jphototagger.api.progress.ProgressEvent;
+import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.domain.exif.Exif;
 import org.jphototagger.domain.image.ImageFile;
 import org.jphototagger.domain.metadata.MetaDataValue;

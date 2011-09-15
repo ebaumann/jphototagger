@@ -2,14 +2,13 @@ package org.jphototagger.api.plugin.fileprocessor;
 
 import java.io.File;
 import java.util.Collection;
-import java.util.List;
 import org.jphototagger.api.plugin.Plugin;
 
 /**
- * A Plugin processing in the UI selected files. JPhotoTagger presents the
- * capability of this plugin to the user if files are selected and calls
- * {@link #processFiles(List)}. Examples are transferring images to a web service
- * or converting image files into other file formats.
+ * A Plugin processing a collection of files.
+ * <p>
+ * Examples: Transferring images to a web service,
+ * converting image files into other file formats.
  *
  * @author Elmar Baumann
  */

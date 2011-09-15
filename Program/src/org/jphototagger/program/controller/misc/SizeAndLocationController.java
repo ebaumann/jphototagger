@@ -3,7 +3,7 @@ package org.jphototagger.program.controller.misc;
 import java.awt.Component;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import org.jphototagger.api.core.Storage;
+import org.jphototagger.api.storage.Storage;
 import org.openide.util.Lookup;
 
 /**

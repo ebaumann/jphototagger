@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 
 import javax.swing.JMenuItem;
 
-import org.jphototagger.api.core.Storage;
+import org.jphototagger.api.storage.Storage;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.dialog.HelpBrowser;
 import org.jphototagger.lib.dialog.MessageDisplayer;

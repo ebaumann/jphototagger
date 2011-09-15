@@ -10,7 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.bushe.swing.event.EventBus;
-import org.jphototagger.api.core.Storage;
+import org.jphototagger.api.storage.Storage;
 import org.jphototagger.api.modules.Module;
 import org.jphototagger.domain.event.AppWillExitEvent;
 import org.jphototagger.domain.event.listener.ListenerSupport;

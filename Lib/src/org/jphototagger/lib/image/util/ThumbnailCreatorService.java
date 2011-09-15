@@ -3,9 +3,9 @@ package org.jphototagger.lib.image.util;
 import java.awt.Image;
 import java.io.File;
 import java.util.Collection;
-import org.jphototagger.api.core.Storage;
-import org.jphototagger.api.image.ThumbnailCreator;
-import org.jphototagger.api.image.ThumbnailProvider;
+import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.image.thumbnails.ThumbnailCreator;
+import org.jphototagger.api.image.thumbnails.ThumbnailProvider;
 import org.openide.util.Lookup;
 
 /**
@@ -50,7 +50,7 @@ public final class ThumbnailCreatorService {
     public Image createFromEmbeddedThumbnail(File file) {
 
         for (ThumbnailCreator tnCreator : thumbnailCreators) {
-            if (tnCreator.canCreateEmbeddedThumbnail(file)) {
+            if (tnCreator.canCreateFromEmbeddedThumbnail(file)) {
                 Image thumbnail = tnCreator.createFromEmbeddedThumbnail(file);
 
                 if (thumbnail != null) {

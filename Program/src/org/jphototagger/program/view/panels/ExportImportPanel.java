@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.api.core.PositionComparator;
-import org.jphototagger.api.core.Storage;
+import org.jphototagger.api.collections.PositionComparatorAscendingOrder;
+import org.jphototagger.api.storage.Storage;
 import org.jphototagger.domain.event.listener.ListenerSupport;
 import org.jphototagger.domain.repository.Exporter;
 import org.jphototagger.domain.repository.Importer;
@@ -135,7 +135,7 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
             }
         }
 
-        Collections.sort(jptExporters, PositionComparator.INSTANCE);
+        Collections.sort(jptExporters, PositionComparatorAscendingOrder.INSTANCE);
 
         return jptExporters;
     }
@@ -161,7 +161,7 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
             }
         }
 
-        Collections.sort(jptImporters, PositionComparator.INSTANCE);
+        Collections.sort(jptImporters, PositionComparatorAscendingOrder.INSTANCE);
 
         return jptImporters;
     }

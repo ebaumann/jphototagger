@@ -1,4 +1,4 @@
-package org.jphototagger.api.event;
+package org.jphototagger.api.progress;
 
 /**
  *

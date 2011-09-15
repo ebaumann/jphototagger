@@ -8,7 +8,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.SpinnerNumberModel;
 
-import org.jphototagger.api.core.Storage;
+import org.jphototagger.api.storage.Storage;
 import org.jphototagger.domain.repository.AutoscanDirectoriesRepository;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.DirectoryChooser;

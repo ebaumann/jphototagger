@@ -3,7 +3,7 @@ package org.jphototagger.program.serviceprovider.core;
 import java.awt.Image;
 import java.util.List;
 
-import org.jphototagger.api.core.Branding;
+import org.jphototagger.api.branding.Branding;
 import org.jphototagger.lib.image.util.IconUtil;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.openide.util.lookup.ServiceProvider;

@@ -1,4 +1,4 @@
-package org.jphototagger.api.image;
+package org.jphototagger.api.image.thumbnails;
 
 import java.awt.Image;
 import java.io.File;
@@ -30,7 +30,7 @@ public interface ThumbnailCreator {
      * @param file create thumbnail from this file
      * @return
      */
-    boolean canCreateEmbeddedThumbnail(File file);
+    boolean canCreateFromEmbeddedThumbnail(File file);
 
     /**
      * Scales down a (huge) image.
@@ -50,7 +50,7 @@ public interface ThumbnailCreator {
     /**
      * Suffixes for both embedded or scaled thumbnails.
      *
-     * @return suffixes without leading dot, e.g. "cr2", "nef"
+     * @return suffixes without leading dot, e.g. "jpg", "cr2", "nef"
      */
     Set<String> getAllSupportedFileTypeSuffixes();
 

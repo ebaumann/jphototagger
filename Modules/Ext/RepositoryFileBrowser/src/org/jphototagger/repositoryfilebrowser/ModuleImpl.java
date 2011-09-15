@@ -1,7 +1,7 @@
 package org.jphototagger.repositoryfilebrowser;
 
 import org.jphototagger.api.modules.Module;
-import org.jphototagger.api.windows.MainMenuManger;
+import org.jphototagger.api.windows.MainWindowMenuManager;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
@@ -15,7 +15,7 @@ public final class ModuleImpl implements Module {
 
     @Override
     public void start() {
-        MainMenuManger menuManager = Lookup.getDefault().lookup(MainMenuManger.class);
+        MainWindowMenuManager menuManager = Lookup.getDefault().lookup(MainWindowMenuManager.class);
 
         menuManager.addToWindowMenu(BrowseRepositoryFilesAction.INSTANCE);
     }

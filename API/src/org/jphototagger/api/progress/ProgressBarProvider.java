@@ -1,4 +1,4 @@
-package org.jphototagger.api.windows;
+package org.jphototagger.api.progress;
 
 import javax.swing.JProgressBar;
 

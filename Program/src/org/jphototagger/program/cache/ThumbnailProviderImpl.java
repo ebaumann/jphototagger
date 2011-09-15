@@ -3,7 +3,7 @@ package org.jphototagger.program.cache;
 import java.awt.Image;
 import java.io.File;
 
-import org.jphototagger.api.image.ThumbnailProvider;
+import org.jphototagger.api.image.thumbnails.ThumbnailProvider;
 import org.openide.util.lookup.ServiceProvider;
 
 /**

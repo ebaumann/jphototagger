@@ -4,7 +4,7 @@ import java.awt.Image;
 import java.io.File;
 import java.util.Set;
 
-import org.jphototagger.api.image.ThumbnailCreator;
+import org.jphototagger.api.image.thumbnails.ThumbnailCreator;
 import org.openide.util.lookup.ServiceProvider;
 
 /**
@@ -37,7 +37,7 @@ public final class ThumbnailCreatorImpl implements ThumbnailCreator {
     }
 
     @Override
-    public boolean canCreateEmbeddedThumbnail(File file) {
+    public boolean canCreateFromEmbeddedThumbnail(File file) {
         return ThumbnailSupport.INSTANCE.canCreateEmbeddedThumbnail(file);
     }
 

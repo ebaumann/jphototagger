@@ -7,13 +7,13 @@ import javax.swing.Action;
  *
  * @author Elmar Baumann
  */
-public interface AppMenuAction {
+public interface MainWindowMenuAction {
 
     Action getAction();
 
     /**
      *
-     * @return netative value f not present
+     * @return netative value if not important
      */
     int getPosition();
 

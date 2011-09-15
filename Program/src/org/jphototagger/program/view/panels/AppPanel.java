@@ -33,8 +33,8 @@ import javax.swing.tree.TreeSelectionModel;
 
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.JXTree;
-import org.jphototagger.api.core.Storage;
-import org.jphototagger.api.windows.AppWindow;
+import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.windows.MainWindowComponent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.component.ImageTextArea;
 import org.jphototagger.lib.componentutil.MessageLabel;
@@ -668,15 +668,15 @@ public final class AppPanel extends javax.swing.JPanel {
         return splitPaneThumbnailsMetadata;
     }
 
-    void dockIntoSelectionWindow(AppWindow appWindow) {
+    void dockIntoSelectionWindow(MainWindowComponent appWindow) {
         dockIntoTabbedPane(appWindow, tabbedPaneSelection);
     }
 
-    void dockIntoEditWindow(AppWindow appWindow) {
+    void dockIntoEditWindow(MainWindowComponent appWindow) {
         dockIntoTabbedPane(appWindow, tabbedPaneSelection);
     }
 
-    private void dockIntoTabbedPane(final AppWindow appWindow, final JTabbedPane tabbedPane) {
+    private void dockIntoTabbedPane(final MainWindowComponent appWindow, final JTabbedPane tabbedPane) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override

@@ -6,7 +6,7 @@ import org.jphototagger.program.view.frames.AppFrame;
 import org.jphototagger.program.view.panels.AppPanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import org.jphototagger.api.core.Storage;
+import org.jphototagger.api.storage.Storage;
 import org.openide.util.Lookup;
 
 /**

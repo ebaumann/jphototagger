@@ -3,7 +3,7 @@ package org.jphototagger.program.serviceprovider.core;
 import java.io.File;
 import java.util.Collection;
 
-import org.jphototagger.api.image.ThumbnailsDisplayer;
+import org.jphototagger.api.image.thumbnails.ThumbnailsDisplayer;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
@@ -19,7 +19,7 @@ import org.openide.util.lookup.ServiceProvider;
 public final class ThumbnailsDisplayerImpl implements ThumbnailsDisplayer {
 
     @Override
-    public void displayThumbnailsOfImageFiles(Collection<? extends File> imageFiles) {
+    public void displayThumbnailsOfFiles(Collection<? extends File> imageFiles) {
         ThumbnailsDisplayer thumbnailsDisplayer = new ThumbnailsDisplayer(imageFiles);
 
         EventQueueUtil.invokeInDispatchThread(thumbnailsDisplayer);

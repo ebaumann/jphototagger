@@ -2,8 +2,8 @@ package org.jphototagger.program.view.dialogs;
 
 import java.awt.Container;
 
-import org.jphototagger.api.core.Storage;
-import org.jphototagger.api.core.StorageHints;
+import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.StorageHints;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.program.resource.GUI;

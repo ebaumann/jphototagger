@@ -1,7 +1,7 @@
 package org.jphototagger.program.view.dialogs;
 
-import org.jphototagger.api.core.Storage;
-import org.jphototagger.api.core.StorageHints;
+import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.StorageHints;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.TabbedPaneUtil;
 import org.jphototagger.lib.dialog.Dialog;

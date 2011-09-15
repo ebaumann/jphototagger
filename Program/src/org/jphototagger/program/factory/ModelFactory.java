@@ -14,7 +14,7 @@ import javax.swing.tree.TreeModel;
 
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.sort.ListSortController;
-import org.jphototagger.api.core.Storage;
+import org.jphototagger.api.storage.Storage;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
 import org.jphototagger.lib.model.TreeModelAllSystemDirectories;

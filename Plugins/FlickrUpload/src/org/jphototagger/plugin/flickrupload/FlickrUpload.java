@@ -17,7 +17,7 @@ import javax.swing.Icon;
 import javax.swing.JOptionPane;
 
 import org.bushe.swing.event.EventBus;
-import org.jphototagger.api.image.ThumbnailProvider;
+import org.jphototagger.api.image.thumbnails.ThumbnailProvider;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessedEvent;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessingFinishedEvent;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessingStartedEvent;

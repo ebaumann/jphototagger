@@ -8,7 +8,7 @@ import javax.swing.Icon;
  *
  * @author Elmar Baumann
  */
-public interface AppWindow {
+public interface MainWindowComponent {
 
     Component getComponent();
 

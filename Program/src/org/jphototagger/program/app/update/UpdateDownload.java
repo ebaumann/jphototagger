@@ -10,8 +10,8 @@ import java.util.logging.Logger;
 
 import javax.swing.JProgressBar;
 
-import org.jphototagger.api.core.Storage;
-import org.jphototagger.api.core.UserFilesProvider;
+import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.UserFilesProvider;
 import org.jphototagger.domain.repository.ApplicationPropertiesRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.concurrent.Cancelable;

@@ -3,7 +3,7 @@ package org.jphototagger.program.view.panels;
 import java.awt.Container;
 
 import javax.swing.SpinnerModel;
-import org.jphototagger.api.core.Storage;
+import org.jphototagger.api.storage.Storage;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.program.types.Persistence;
 import org.openide.util.Lookup;

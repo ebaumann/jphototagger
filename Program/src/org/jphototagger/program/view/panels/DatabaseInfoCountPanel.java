@@ -2,7 +2,7 @@ package org.jphototagger.program.view.panels;
 
 import java.text.MessageFormat;
 
-import org.jphototagger.api.core.UserFilesProvider;
+import org.jphototagger.api.storage.UserFilesProvider;
 import org.jphototagger.api.file.FilenameTokens;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;

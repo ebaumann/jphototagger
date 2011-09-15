@@ -4,8 +4,8 @@ import java.text.MessageFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.api.event.ProgressEvent;
-import org.jphototagger.api.event.ProgressListener;
+import org.jphototagger.api.progress.ProgressEvent;
+import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.domain.event.listener.ProgressListenerSupport;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.lib.util.Bundle;

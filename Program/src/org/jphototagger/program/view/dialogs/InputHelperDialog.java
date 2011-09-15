@@ -2,7 +2,7 @@ package org.jphototagger.program.view.dialogs;
 
 import javax.swing.ListModel;
 
-import org.jphototagger.api.core.Storage;
+import org.jphototagger.api.storage.Storage;
 import org.jphototagger.lib.componentutil.TabbedPaneUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.program.datatransfer.TransferHandlerDragListItems;

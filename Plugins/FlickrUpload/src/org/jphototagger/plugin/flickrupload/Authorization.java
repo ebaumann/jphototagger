@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 
-import org.jphototagger.api.core.Storage;
+import org.jphototagger.api.storage.Storage;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.openide.util.Lookup;

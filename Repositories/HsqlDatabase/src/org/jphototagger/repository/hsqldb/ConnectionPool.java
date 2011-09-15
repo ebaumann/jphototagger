@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.api.core.UserFilesProvider;
+import org.jphototagger.api.storage.UserFilesProvider;
 import org.jphototagger.api.file.FilenameTokens;
 import org.openide.util.Lookup;
 

@@ -8,7 +8,7 @@ import org.openide.util.Lookup;
 
 import com.imagero.reader.iptc.IPTCEntry;
 import com.imagero.reader.iptc.IPTCEntryMeta;
-import org.jphototagger.api.core.Storage;
+import org.jphototagger.api.storage.Storage;
 import org.jphototagger.lib.util.StringUtil;
 
 /**
