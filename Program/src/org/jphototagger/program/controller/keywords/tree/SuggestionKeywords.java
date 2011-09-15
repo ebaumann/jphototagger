@@ -8,7 +8,7 @@ import java.util.List;
 import org.jphototagger.domain.keywords.Keyword;
 import org.jphototagger.domain.repository.KeywordsRepository;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.domain.repository.KeywordsType;
+import org.jphototagger.domain.keywords.KeywordType;
 import org.jphototagger.program.types.Suggest;
 import org.jphototagger.program.view.dialogs.PathSelectionDialog;
 import org.openide.util.Lookup;
@@ -29,7 +29,7 @@ public class SuggestionKeywords implements Suggest {
         }
 
         List<String> parentKeywordNames = new ArrayList<String>();
-        Collection<Collection<Keyword>> parentKeywords = repo.findParentKeywords(keywordName, KeywordsType.REAL_KEYWORDS);
+        Collection<Collection<Keyword>> parentKeywords = repo.findParentKeywords(keywordName, KeywordType.REAL_KEYWORD);
 
         parentKeywordNames.addAll(chooseParentKeywords(keywordName, toStringCollection(parentKeywords)));
 

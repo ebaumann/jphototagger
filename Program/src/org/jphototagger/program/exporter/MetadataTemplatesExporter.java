@@ -19,7 +19,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.jphototagger.domain.metadata.MetaDataValue;
-import org.jphototagger.domain.repository.Exporter;
+import org.jphototagger.domain.repository.RepositoryDataExporter;
 import org.jphototagger.domain.repository.MetadataTemplatesRepository;
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.lib.util.Bundle;
@@ -37,8 +37,8 @@ import org.w3c.dom.Element;
  *
  * @author Elmar Baumann
  */
-@ServiceProvider(service = Exporter.class)
-public final class MetadataTemplatesExporter implements Exporter {
+@ServiceProvider(service = RepositoryDataExporter.class)
+public final class MetadataTemplatesExporter implements RepositoryDataExporter {
 
     public static final String DEFAULT_FILENAME = "JptMetadataTemplates.xml";
     public static final String DISPLAY_NAME = Bundle.getString(MetadataTemplatesExporter.class, "MetadataTemplatesExporter.DisplayName");

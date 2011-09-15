@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.jphototagger.domain.favorites.Favorite;
-import org.jphototagger.domain.repository.Exporter;
+import org.jphototagger.domain.repository.RepositoryDataExporter;
 import org.jphototagger.domain.repository.FavoritesRepository;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.util.Bundle;
@@ -30,8 +30,8 @@ import org.openide.util.lookup.ServiceProvider;
  *
  * @author Elmar Baumann
  */
-@ServiceProvider(service = Exporter.class)
-public final class FavoritesExporter implements Exporter {
+@ServiceProvider(service = RepositoryDataExporter.class)
+public final class FavoritesExporter implements RepositoryDataExporter {
 
     public static final String DEFAULT_FILENAME = "JptFavorites.xml";
     public static final String DISPLAY_NAME = Bundle.getString(FavoritesExporter.class, "FavoritesExporter.DisplayName");

@@ -1,5 +1,6 @@
 package org.jphototagger.domain.repository;
 
+import org.jphototagger.domain.programs.ProgramType;
 import java.util.List;
 
 import org.jphototagger.domain.programs.Program;

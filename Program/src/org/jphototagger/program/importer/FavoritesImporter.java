@@ -9,7 +9,7 @@ import javax.swing.filechooser.FileFilter;
 
 import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.domain.repository.FavoritesRepository;
-import org.jphototagger.domain.repository.Importer;
+import org.jphototagger.domain.repository.RepositoryDataImporter;
 import org.jphototagger.lib.xml.bind.XmlObjectImporter;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.exporter.FavoritesExporter;
@@ -22,8 +22,8 @@ import org.openide.util.lookup.ServiceProvider;
  *
  * @author Elmar Baumann
  */
-@ServiceProvider(service = Importer.class)
-public final class FavoritesImporter implements Importer {
+@ServiceProvider(service = RepositoryDataImporter.class)
+public final class FavoritesImporter implements RepositoryDataImporter {
 
     private final FavoritesRepository repo = Lookup.getDefault().lookup(FavoritesRepository.class);
 

@@ -10,7 +10,7 @@ import org.jphototagger.domain.event.listener.ListenerSupport;
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.programs.ProgramExecutor;
 import org.jphototagger.domain.repository.ActionsAfterRepoUpdatesRepository;
-import org.jphototagger.domain.repository.ProgramType;
+import org.jphototagger.domain.programs.ProgramType;
 import org.jphototagger.domain.repository.ProgramsRepository;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;

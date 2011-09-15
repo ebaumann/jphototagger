@@ -10,7 +10,7 @@ import javax.swing.filechooser.FileFilter;
 
 import org.jphototagger.domain.imagecollections.ImageCollection;
 import org.jphototagger.domain.repository.ImageCollectionsRepository;
-import org.jphototagger.domain.repository.Importer;
+import org.jphototagger.domain.repository.RepositoryDataImporter;
 import org.jphototagger.domain.repository.InsertIntoRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.ListUtil;
@@ -32,8 +32,8 @@ import org.openide.util.lookup.ServiceProvider;
  *
  * @author Elmar Baumann
  */
-@ServiceProvider(service = Importer.class)
-public final class ImageCollectionsImporter implements Importer {
+@ServiceProvider(service = RepositoryDataImporter.class)
+public final class ImageCollectionsImporter implements RepositoryDataImporter {
 
     @Override
     public void importFile(File file) {

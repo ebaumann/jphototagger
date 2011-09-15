@@ -14,7 +14,7 @@ import javax.swing.filechooser.FileFilter;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.jphototagger.domain.repository.Importer;
+import org.jphototagger.domain.repository.RepositoryDataImporter;
 import org.jphototagger.domain.repository.SynonymsRepository;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.exporter.SynonymsExporter;
@@ -32,8 +32,8 @@ import org.xml.sax.SAXException;
  *
  * @author Elmar Baumann
  */
-@ServiceProvider(service = Importer.class)
-public final class SynonymsImporter implements Importer, EntityResolver {
+@ServiceProvider(service = RepositoryDataImporter.class)
+public final class SynonymsImporter implements RepositoryDataImporter, EntityResolver {
 
     private static final long serialVersionUID = 1L;
     private final SynonymsRepository repo = Lookup.getDefault().lookup(SynonymsRepository.class);

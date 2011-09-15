@@ -13,7 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.jphototagger.domain.keywords.Keyword;
-import org.jphototagger.domain.repository.KeywordsType;
+import org.jphototagger.domain.keywords.KeywordType;
 
 //Handling null:
 //ID: Can never be null
@@ -617,7 +617,7 @@ final class DatabaseKeywords extends Database {
      *                     parents. The keywords ordered by their path, the
      *                     leftmost keyword is the root keyword.
      */
-    Collection<Collection<Keyword>> getParentKeywords(String keywordName, KeywordsType select) {
+    Collection<Collection<Keyword>> getParentKeywords(String keywordName, KeywordType select) {
         if (keywordName == null) {
             throw new NullPointerException("keywordName == null");
         }
@@ -662,14 +662,14 @@ final class DatabaseKeywords extends Database {
         return paths;
     }
 
-    private void addPathToRoot(Collection<Keyword> path, long idParent, KeywordsType select, Connection con)
+    private void addPathToRoot(Collection<Keyword> path, long idParent, KeywordType select, Connection con)
             throws SQLException {
         Keyword keyword = findKeyword(idParent, con);
 
         if (keyword != null) {
             Boolean real = keyword.isReal() || (keyword.isReal() == null);
 
-            if (select.equals(KeywordsType.ALL_KEYWORDS) || (select.equals(KeywordsType.REAL_KEYWORDS) && real)) {
+            if (select.equals(KeywordType.REAL_OR_HELPER_KEYWORD) || (select.equals(KeywordType.REAL_KEYWORD) && real)) {
                 path.add(keyword);
             }
 

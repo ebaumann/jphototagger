@@ -7,7 +7,7 @@ import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.domain.programs.Program;
-import org.jphototagger.domain.repository.ProgramType;
+import org.jphototagger.domain.programs.ProgramType;
 import org.jphototagger.program.model.ListModelPrograms;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.renderer.ListCellRendererActions;

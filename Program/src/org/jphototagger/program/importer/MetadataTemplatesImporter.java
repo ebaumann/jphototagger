@@ -18,7 +18,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.jphototagger.domain.metadata.MetaDataValue;
-import org.jphototagger.domain.repository.Importer;
+import org.jphototagger.domain.repository.RepositoryDataImporter;
 import org.jphototagger.domain.repository.MetadataTemplatesRepository;
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.program.app.AppLookAndFeel;
@@ -39,8 +39,8 @@ import org.xml.sax.SAXException;
  *
  * @author Elmar Baumann
  */
-@ServiceProvider(service = Importer.class)
-public final class MetadataTemplatesImporter implements Importer, EntityResolver {
+@ServiceProvider(service = RepositoryDataImporter.class)
+public final class MetadataTemplatesImporter implements RepositoryDataImporter, EntityResolver {
 
     private static final long serialVersionUID = 1L;
     private static final Map<String, MetaDataValue> META_DATA_VALUE_OF_CLASSNAME = new HashMap<String, MetaDataValue>();

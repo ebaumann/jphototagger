@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.jphototagger.domain.repository.Exporter;
+import org.jphototagger.domain.repository.RepositoryDataExporter;
 import org.jphototagger.domain.repository.FileExcludePatternsRepository;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.util.Bundle;
@@ -29,8 +29,8 @@ import org.openide.util.lookup.ServiceProvider;
  *
  * @author Elmar Baumann
  */
-@ServiceProvider(service = Exporter.class)
-public final class FileExcludePatternsExporter implements Exporter {
+@ServiceProvider(service = RepositoryDataExporter.class)
+public final class FileExcludePatternsExporter implements RepositoryDataExporter {
 
     public static final String DEFAULT_FILENAME = "JptFileExludePatterns.xml";
     public static final String DISPLAY_NAME = Bundle.getString(FileExcludePatternsExporter.class, "FileExcludePatternsExporter.DisplayName");
