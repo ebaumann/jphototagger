@@ -1,5 +1,6 @@
 package org.jphototagger.dtncreators.scripts;
 
+import org.jphototagger.tcc.def.scripts.ScriptWriter;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -8,7 +9,7 @@ import static org.junit.Assert.*;
  * @author Elmar Baumann
  */
 public class ScriptWriterTest {
-    
+
     @Test
     public void testSetReplace() throws Exception {
         ScriptWriter scriptWriter = new ScriptWriter();
@@ -16,7 +17,7 @@ public class ScriptWriterTest {
         String replacement = "C:\\Program Files\\GIMP\\gimp.exe";
         String scriptSourcePath = "/org/jphototagger/dtncreators/scripts/windows/ScriptWriterTest.bat";
         String readScript = scriptWriter.readScript(scriptSourcePath);
-        
+
         assertFalse(readScript.contains(replacement));
         scriptWriter.addReplace(replace, replacement);
         String scriptWithReplaced = scriptWriter.replaceIn(readScript);
@@ -28,7 +29,7 @@ public class ScriptWriterTest {
         ScriptWriter scriptWriter = new ScriptWriter();
         String scriptSourcePath = "/org/jphototagger/dtncreators/scripts/windows/ScriptWriterTest.bat";
         String readScript = scriptWriter.readScript(scriptSourcePath);
-        
+
         assertTrue(readScript.contains("@echo off"));
         assertTrue(readScript.contains("${program} ${parameters}"));
     }

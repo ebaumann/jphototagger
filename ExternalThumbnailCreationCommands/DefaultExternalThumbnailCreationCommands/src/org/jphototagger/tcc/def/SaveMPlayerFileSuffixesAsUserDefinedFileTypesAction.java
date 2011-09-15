@@ -1,10 +1,9 @@
-package org.jphototagger.dtncreators;
+package org.jphototagger.tcc.def;
 
 import java.awt.event.ActionEvent;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.ResourceBundle;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -23,7 +22,6 @@ import org.openide.util.Lookup;
 public final class SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction extends AbstractAction {
 
     private static final long serialVersionUID = 1L;
-    private static final ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle("org/jphototagger/dtncreators/Bundle"); // NOI18N;
     private static final Collection<UserDefinedFileType> VIDEO_FILES = new ArrayList<UserDefinedFileType>(10);
     public static final SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction INSTANCE = new SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction();
 
