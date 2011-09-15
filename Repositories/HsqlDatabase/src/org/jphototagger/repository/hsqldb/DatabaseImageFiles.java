@@ -64,7 +64,7 @@ import org.jphototagger.domain.xmp.FileXmp;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.domain.metadata.search.Join;
 import org.jphototagger.domain.metadata.search.Join.Type;
-import org.jphototagger.lib.image.util.ThumbnailCreatorService;
+import org.jphototagger.image.util.ThumbnailCreatorService;
 import org.jphototagger.xmp.XmpMetadata;
 import org.openide.util.Lookup;
 

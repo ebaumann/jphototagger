@@ -8,7 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.jphototagger.exif.datatype.ExifDatatypeUtil;
-import org.jphototagger.image.FileType;
+import org.jphototagger.image.ImageFileType;
 import org.jphototagger.lib.thirdparty.KMPMatch;
 import org.jphototagger.lib.util.ByteUtil;
 
@@ -33,7 +33,7 @@ public final class CanonMakerNote {
             return null;
         }
 
-        if (FileType.isJpegFile(file.getName())) {
+        if (ImageFileType.isJpegFile(file.getName())) {
             return rawValueFromJpeg(file, entry);
         } else {
             return rawValueFromTiff(file, entry);

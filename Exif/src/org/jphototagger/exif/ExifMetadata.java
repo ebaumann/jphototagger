@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 import org.jphototagger.domain.exif.Exif;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.exif.cache.ExifCache;
-import org.jphototagger.image.FileType;
+import org.jphototagger.image.ImageFileType;
 import org.openide.util.Lookup;
 
 import com.imagero.reader.ImageReader;
@@ -60,7 +60,7 @@ public final class ExifMetadata {
     private static void addExifTags(File imageFile, ExifTags exifTags) throws IOException {
         ImageReader imageReader = null;
 
-        if (FileType.isJpegFile(imageFile.getName())) {
+        if (ImageFileType.isJpegFile(imageFile.getName())) {
             LOGGER.log(Level.INFO, "Reading EXIF metadata of file ''{0}'''' with JPEG reader", imageFile);
             imageReader = new JpegReader(imageFile);
             addAllExifTags((JpegReader) imageReader, exifTags);

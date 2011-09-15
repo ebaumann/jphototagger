@@ -5,7 +5,7 @@ package org.jphototagger.image;
  *
  * @author Elmar Baumann
  */
-public final class FileType {
+public final class ImageFileType {
 
     /**
      * Liefert, ob eine Datei eine JPEG-Datei ist. Es wird lediglich der Name
@@ -44,5 +44,5 @@ public final class FileType {
         return !isCommonImageFile;
     }
 
-    private FileType() {}
+    private ImageFileType() {}
 }

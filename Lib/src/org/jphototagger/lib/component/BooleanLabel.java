@@ -3,7 +3,7 @@ package org.jphototagger.lib.component;
 import javax.swing.Icon;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
-import org.jphototagger.lib.image.util.IconUtil;
+import org.jphototagger.lib.swing.IconUtil;
 
 /**
  * Displays special icons and/or texts indicating whether something is true
