@@ -5,7 +5,7 @@ import java.io.File;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
-import org.jphototagger.api.core.Branding;
+import org.jphototagger.api.branding.Branding;
 import org.jphototagger.dtncreators.FileChooser;
 import org.jphototagger.dtncreators.SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction;
 import org.jphototagger.dtncreators.Util;
