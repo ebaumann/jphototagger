@@ -7,7 +7,7 @@ import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
- * Adds, removes and notifies {@link ProgressListener} instances.
+ * Adds, removes and notifies {@code ProgressListener} instances.
  *
  * @author Elmar Baumann
  */
@@ -15,7 +15,7 @@ public final class ProgressListenerSupport extends ListenerSupport<ProgressListe
 
     /**
      * Calls on every added progress listener
-     * {@link ProgressListener#progressStarted(ProgressEvent)}.
+     * {@code ProgressListener#progressStarted(ProgressEvent)}.
      *
      * @param event progress event
      */
@@ -41,11 +41,11 @@ public final class ProgressListenerSupport extends ListenerSupport<ProgressListe
 
     /**
      * Calls on every added progress listener
-     * {@link ProgressListener#progressPerformed(ProgressEvent)}.
+     * {@code ProgressListener#progressPerformed(ProgressEvent)}.
      *
      * @param  event progress event
      * @return       true if one of the of the events returns
-     *               {@link ProgressEvent#isCancel()}
+     *               {@code ProgressEvent#isCancel()}
      */
     public boolean notifyPerformed(final ProgressEvent event) {
         if (event == null) {
@@ -73,7 +73,7 @@ public final class ProgressListenerSupport extends ListenerSupport<ProgressListe
 
     /**
      * Calls on every added progress listener
-     * {@link ProgressListener#progressEnded(ProgressEvent)}.
+     * {@code ProgressListener#progressEnded(ProgressEvent)}.
      *
      * @param event progress event
      */

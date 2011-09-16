@@ -3,7 +3,7 @@ package org.jphototagger.lib.event;
 import java.net.URL;
 
 /**
- * Action of an {@link org.jphototagger.lib.dialog.HelpBrowser} instance.
+ * Action of an {@code org.jphototagger.lib.dialog.HelpBrowser} instance.
  *
  * All functions with object-reference-parameters are throwing a
  * <code>NullPointerException</code> if an object reference is null and it is
@@ -53,7 +53,7 @@ public final class HelpBrowserEvent {
     }
 
     /**
-     * Returns the url if the action was {@link Type#URL_CHANGED}.
+     * Returns the url if the action was {@code Type#URL_CHANGED}.
      *
      * @return URL or null if unaprobriate action
      */
@@ -63,7 +63,7 @@ public final class HelpBrowserEvent {
 
     /**
      * Returns the source of the action, usually an instance of
-     * {@link org.jphototagger.lib.dialog.HelpBrowser}
+     * {@code org.jphototagger.lib.dialog.HelpBrowser}
      *
      * @return instance
      */

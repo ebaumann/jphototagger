@@ -6,7 +6,7 @@ import org.jphototagger.program.view.popupmenus.KeywordsListPopupMenu;
 
 /**
  * Do not use this class as a template for other implementations! Instead extend
- * a popup menu from {@link org.jphototagger.lib.event.listener.PopupMenuList}.
+ * a popup menu from {@code org.jphototagger.lib.event.listener.PopupMenuList}.
  *
  * @author Elmar Baumann
  */

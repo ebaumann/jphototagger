@@ -19,7 +19,7 @@ import org.jphototagger.program.view.panels.ProgressBar;
 import org.jphototagger.xmp.XmpMetadata;
 
 /**
- * Writes {@link Xmp} objects to XMP files and inserts or updates them into the
+ * Writes {@code Xmp} objects to XMP files and inserts or updates them into the
  * database.
  *
  * @author Elmar Baumann

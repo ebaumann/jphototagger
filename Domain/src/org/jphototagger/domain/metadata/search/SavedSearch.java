@@ -127,8 +127,8 @@ public final class SavedSearch {
 
     /**
      * A search is valid if it has a name, a type, its type is
-     * {@link Type#CUSTOM_SQL} and {@link #getCustomSql()} is a not empty string
-     * or if its type is {@link Type#KEYWORDS_AND_PANELS} and it has panels
+     * {@code Type#CUSTOM_SQL} and {@code #getCustomSql()} is a not empty string
+     * or if its type is {@code Type#KEYWORDS_AND_PANELS} and it has panels
      * and/or keywords.
      *
      * @return true if this search is valid

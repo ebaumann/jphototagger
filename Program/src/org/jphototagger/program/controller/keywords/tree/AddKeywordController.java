@@ -23,10 +23,9 @@ import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.model.KeywordsTreeModel;
 import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.panels.KeywordsPanel;
-import org.jphototagger.program.view.popupmenus.KeywordsTreePopupMenu;
 
 /**
- * Listens to the menu item {@link KeywordsTreePopupMenu#getItemAdd()}
+ * Listens to the menu item {@code KeywordsTreePopupMenu#getItemAdd()}
  * and on action adds a new keyword below the selected keyword.
  *
  * Also listens to key events into the tree and adds a new keyword below the

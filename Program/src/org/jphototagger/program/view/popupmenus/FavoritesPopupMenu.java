@@ -14,8 +14,8 @@ import org.jphototagger.program.app.AppLookAndFeel;
 
 /**
  * Do not use this class as template for implemention! Instead extend
- * {@link org.jphototagger.lib.event.listener.PopupMenuTree} as e.g.
- * {@link org.jphototagger.program.view.popupmenus.MiscMetadataPopupMenu} does.
+ * {@code org.jphototagger.lib.event.listener.PopupMenuTree} as e.g.
+ * {@code org.jphototagger.program.view.popupmenus.MiscMetadataPopupMenu} does.
  *
  * @author Elmar Baumann
  */

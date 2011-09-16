@@ -27,10 +27,9 @@ import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.helper.KeywordsHelper;
 import org.jphototagger.program.helper.MiscMetadataHelper;
 import org.jphototagger.program.model.KeywordsTreeModel;
-import org.jphototagger.program.view.panels.KeywordsPanel;
 
 /**
- * Handles drags and drops for a {@link KeywordsPanel}'s tree.
+ * Handles drags and drops for a {@code KeywordsPanel}'s tree.
  *
  * @author Elmar Baumann
  */

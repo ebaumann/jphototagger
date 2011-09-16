@@ -19,7 +19,7 @@ import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 
 /**
- * Element are {@link String}s.
+ * Element are {@code String}s.
  *
  * Filenames matching these patterns (strings) shall not be handled by
  * <strong>JPhotoTagger</strong>.

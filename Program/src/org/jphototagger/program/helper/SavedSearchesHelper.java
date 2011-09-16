@@ -11,7 +11,6 @@ import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.controller.thumbnail.SortThumbnailsController;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
 
 /**
  *
@@ -161,7 +160,7 @@ public final class SavedSearchesHelper {
     }
 
     /**
-     * Calls {@link ThumbnailsPanel#setFileSortComparator(java.util.Comparator)}
+     * Calls {@code ThumbnailsPanel#setFileSortComparator(java.util.Comparator)}
      * with no sort order if the search uses custom SQL or the last used sort
      * order.
      *

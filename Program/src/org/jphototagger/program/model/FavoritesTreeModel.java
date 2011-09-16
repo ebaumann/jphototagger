@@ -40,15 +40,15 @@ import org.jphototagger.lib.model.SortedChildrenTreeNode;
 import org.jphototagger.lib.util.Bundle;
 
 /**
- * Elements are {@link DefaultMutableTreeNode}s with the user objects listed
+ * Elements are {@code DefaultMutableTreeNode}s with the user objects listed
  * below.
  *
  * <ul>
- * <li>The root user object is a {@link String}</li>
+ * <li>The root user object is a {@code String}</li>
  * <li>All user objects in the first level below the root are
- *     {@link Favorite}s retrieved through {@link DatabaseFavorites#findAllFavorites()}
+ *     {@code Favorite}s retrieved through {@code DatabaseFavorites#findAllFavorites()}
  * </li>
- * <li>User objects below the favorites are directory {@link File}s</li>
+ * <li>User objects below the favorites are directory {@code File}s</li>
  * </ul>
  *
  * @author Elmar Baumann

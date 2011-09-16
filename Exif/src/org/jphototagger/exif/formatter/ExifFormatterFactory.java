@@ -7,7 +7,7 @@ import org.jphototagger.exif.ExifIfdType;
 import org.jphototagger.exif.ExifTag;
 
 /**
- * Creates instances of {@link ExifFormatter}.
+ * Creates instances of {@code ExifFormatter}.
  *
  * @author Elmar Baumann
  */

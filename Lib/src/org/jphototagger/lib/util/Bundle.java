@@ -1,7 +1,6 @@
 package org.jphototagger.lib.util;
 
 import java.text.MessageFormat;
-import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,11 +13,11 @@ public class Bundle {
 
     /**
      * Returns a string from the resource bundle {@code Bundle.properties} within the same package
-     * and logs {@link MissingResourceException}s rather than throwing it.
+     * and logs {@code MissingResourceException}s rather than throwing it.
      *
      * @param clazz
      * @param key
-     * @param params optional params as described in the {@link MessageFormat} class documentation
+     * @param params optional params as described in the {@code MessageFormat} class documentation
      * @return       Localized String in {@code Bundle.properties} in the same package as {@code clazz}
      */
     public static String getString(Class<?> clazz, String key, Object... params) {

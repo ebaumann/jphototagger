@@ -16,7 +16,7 @@ import javax.swing.TransferHandler;
 import org.jphototagger.lib.datatransfer.TransferableObject;
 
 /**
- * Reorders in a list with a {@link DefaultListModel} dragged and dropped items
+ * Reorders in a list with a {@code DefaultListModel} dragged and dropped items
  * from the drag location to the drop location.
  *
  * @author Elmar Baumann

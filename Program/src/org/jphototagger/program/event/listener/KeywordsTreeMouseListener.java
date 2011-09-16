@@ -9,16 +9,15 @@ import javax.swing.tree.TreePath;
 import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.lib.event.util.MouseEventUtil;
 import org.jphototagger.program.controller.keywords.tree.KeywordTreeNodesClipboard;
-import org.jphototagger.program.view.panels.KeywordsPanel;
 import org.jphototagger.program.view.popupmenus.KeywordsTreePopupMenu;
 
 /**
  * Do not use this class! Instead extend
- * {@link org.jphototagger.lib.event.listener.PopupMenuTree} as e.g.
- * {@link org.jphototagger.program.view.popupmenus.PopupMenuMiscMetadata} does.
+ * {@code org.jphototagger.lib.event.listener.PopupMenuTree} as e.g.
+ * {@code org.jphototagger.program.view.popupmenus.PopupMenuMiscMetadata} does.
  *
- * Listens to mouse events in a {@link KeywordsPanel}'s tree and
- * shows the {@link KeywordsTreePopupMenu} when the popup trigger mouse
+ * Listens to mouse events in a {@code KeywordsPanel}'s tree and
+ * shows the {@code KeywordsTreePopupMenu} when the popup trigger mouse
  * button is pressed.
  *
  * Also sets the selected tree path.

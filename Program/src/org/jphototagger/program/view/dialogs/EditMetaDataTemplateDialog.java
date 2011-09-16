@@ -14,12 +14,12 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.view.ViewUtil;
 
 /**
- * Modal dialog for modifying and saving a {@link MetadataTemplate} into the
+ * Modal dialog for modifying and saving a {@code MetadataTemplate} into the
  * database.
  * <p>
  * You <strong>have to call</strong>
- * {@link #setTemplate(org.jphototagger.program.data.MetadataTemplate)} before
- * calling {@link #setVisible(boolean)}!
+ * {@code #setTemplate(org.jphototagger.program.data.MetadataTemplate)} before
+ * calling {@code #setVisible(boolean)}!
  *
  * @author Elmar Baumann
  */

@@ -6,7 +6,7 @@ import java.util.Map;
 import com.imagero.reader.iptc.IPTCEntryMeta;
 
 /**
- * Returns whether an {@link com.imagero.reader.iptc.IPTCEntryMeta} contains
+ * Returns whether an {@code com.imagero.reader.iptc.IPTCEntryMeta} contains
  * repeatable values.
  *
  * @author Elmar Baumann
@@ -36,7 +36,7 @@ public final class IptcRepeatableValues {
     }
 
     /**
-     * Returns whether an {@link com.imagero.reader.iptc.IPTCEntryMeta} contains
+     * Returns whether an {@code com.imagero.reader.iptc.IPTCEntryMeta} contains
      * repeatable values.
      *
      * @param  meta metadata

@@ -53,7 +53,6 @@ public final class IconUtil {
      *
      * @param  paths Pfade zu den Bildern
      * @return Bilder, die geladen werden konnten (ungleich null sind)
-     * @see    #getIconImage(java.lang.String)
      */
     public static List<Image> getIconImages(List<String> paths) {
         if (paths == null) {
@@ -101,7 +100,7 @@ public final class IconUtil {
      *
      * @param clazz Class within the same package as the icon
      * @param iconName e.g. "file.png"
-     * @return
+     * @return i
      */
     public static ImageIcon getImageIcon(Class<?> clazz, String iconName) {
         if (clazz == null) {
@@ -123,7 +122,6 @@ public final class IconUtil {
      * @param  paths Pfade zu den Icons
      * @return Icons des Typs <code>ImageIcon</code>, die geladen werden konnten
      *         (ungleich null sind)
-     * @see    #getImageIcon(java.lang.String)
      */
     public static List<ImageIcon> getImageIcons(List<String> paths) {
         if (paths == null) {

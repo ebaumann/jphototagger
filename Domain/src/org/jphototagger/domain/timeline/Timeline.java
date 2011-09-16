@@ -10,18 +10,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreeModel;
 
 import org.jphototagger.lib.model.SortedChildrenTreeNode;
 import org.jphototagger.lib.model.UpdateInfoTreeModel;
 import org.jphototagger.lib.util.Bundle;
 
 /**
- * Times when images are created for useage in a {@link TreeModel}.
+ * Times when images are created for useage in a {@code TreeModel}.
  *
  * All elements of a timeline are of the type
- * {@link DefaultMutableTreeNode}. The nodes has user objects of the type
- * {@link java.util.Calendar}.
+ * {@code DefaultMutableTreeNode}. The nodes has user objects of the type
+ * {@code java.util.Calendar}.
  *
  * @author Elmar Baumann
  */
@@ -74,7 +73,7 @@ public final class Timeline {
      * Adds a date.
      *
      * @param date date taken of the image, must be valid
-     *             ({@link Date#isValid()}
+     *             ({@code Date#isValid()}
      * @return     information about the inserted children
      */
     public synchronized UpdateInfoTreeModel.NodesAndChildIndices add(Date date) {

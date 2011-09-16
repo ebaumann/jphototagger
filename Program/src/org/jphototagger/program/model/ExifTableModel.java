@@ -29,8 +29,8 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.view.renderer.ExifTableCellRenderer;
 
 /**
- * Elements are {@link ExifTag}s ore {@link String}s in case of GPS information
- * retrieved through {@link ExifMetadata#getExifTags(java.io.File)}.
+ * Elements are {@code ExifTag}s ore {@code String}s in case of GPS information
+ * retrieved through {@code ExifMetadata#getExifTags(java.io.File)}.
  *
  * This model displays EXIF information of <em>one</em> image file.
  *

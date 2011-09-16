@@ -20,7 +20,7 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.helper.SavedSearchesHelper;
 
 /**
- * Elements are {@link SavedSearch}es.
+ * Elements are {@code SavedSearch}es.
  *
  * @author Elmar Baumann
  */

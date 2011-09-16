@@ -17,20 +17,20 @@ import org.jphototagger.lib.datatransfer.TransferUtil;
 public final class Flavor {
 
     /**
-     * A reference to {@link DataFlavor#javaFileListFlavor}
+     * A reference to {@code DataFlavor#javaFileListFlavor}
      */
     public static final DataFlavor FILE_LIST_FLAVOR = DataFlavor.javaFileListFlavor;
     /**
-     * A reference to {@link TransferUtil#getUriListFlavor()}
+     * A reference to {@code TransferUtil#getUriListFlavor()}
      */
     public static final DataFlavor URI_LIST = TransferUtil.getUriListFlavor();
     /**
-     * A {@link java.util.Collection} of {@link java.io.File}s: The selected
+     * A {@code java.util.Collection} of {@code java.io.File}s: The selected
      * image files and their XMP sidecar files
      */
     public static final DataFlavor THUMBNAILS_PANEL = new DataFlavor(THUMBNAILS_PANEL.class, null);
     /**
-     * The selected list values as an array of {@link Object}s
+     * The selected list values as an array of {@code Object}s
      */
     public static final DataFlavor METADATA_TEMPLATES = new DataFlavor(METADATA_TEMPLATES.class, null);
     /**
@@ -38,25 +38,25 @@ public final class Flavor {
      */
     private static final List<DataFlavor> METADATA_FLAVORS = new ArrayList<DataFlavor>();
     /**
-     * A {@link java.util.Collection} of
-     * {@link javax.swing.tree.DefaultMutableTreeNode}s: The selected tree nodes
+     * A {@code java.util.Collection} of
+     * {@code javax.swing.tree.DefaultMutableTreeNode}s: The selected tree nodes
      */
     public static final DataFlavor KEYWORDS_TREE = new DataFlavor(KEYWORDS_TREE.class, null);
     /**
-     * The selected list values as an array of {@link Object}s
+     * The selected list values as an array of {@code Object}s
      */
     public static final DataFlavor KEYWORDS_LIST = new DataFlavor(KEYWORDS_LIST.class, null);
     /**
-     * A {@link java.util.Collection} of {@link java.io.File}s: The selected
+     * A {@code java.util.Collection} of {@code java.io.File}s: The selected
      * image files and their XMP sidecar files
      */
     public static final DataFlavor IMAGE_COLLECTION = new DataFlavor(IMAGE_COLLECTION.class, null);
     /**
-     * Contains {@link #URI_LIST} and {@link #FILE_LIST_FLAVOR }
+     * Contains {@code #URI_LIST} and {@code #FILE_LIST_FLAVOR }
      */
     static final DataFlavor[] FILE_FLAVORS = new DataFlavor[]{FILE_LIST_FLAVOR, URI_LIST};
     /**
-     * A {@link java.util.Collection} of metadata value objects
+     * A {@code java.util.Collection} of metadata value objects
      */
     public static final DataFlavor META_DATA_VALUE = new DataFlavor(META_DATA_VALUE.class, null);
 
@@ -92,11 +92,11 @@ public final class Flavor {
 
     /**
      * Returns whether a transferable supports the data flavor
-     * {@link #FILE_FLAVORS}.
+     * {@code #FILE_FLAVORS}.
      *
      * @param  transferable transferable
      * @return              true if the transferable supports the data flavor
-     *                      {@link #FILE_FLAVORS} is supported
+     *                      {@code #FILE_FLAVORS} is supported
      */
     public static boolean hasFiles(Transferable transferable) {
         if (transferable == null) {
@@ -107,12 +107,12 @@ public final class Flavor {
     }
 
     /**
-     * Returns whether the data flavor {@link #KEYWORDS_LIST}
+     * Returns whether the data flavor {@code #KEYWORDS_LIST}
      * is supported.
      *
      * @param  support transfer support
      * @return                 true if the data flavor
-     *                         {@link #KEYWORDS_LIST} is supported
+     *                         {@code #KEYWORDS_LIST} is supported
      */
     public static boolean hasKeywordsFromList(TransferSupport support) {
         if (support == null) {
@@ -139,11 +139,11 @@ public final class Flavor {
     }
 
     /**
-     * Returns whether the data flavor {@link #KEYWORDS_TREE}
+     * Returns whether the data flavor {@code #KEYWORDS_TREE}
      * is supported.
      *
      * @param  support transfer support
-     * @return         true if the data flavor {@link #KEYWORDS_TREE} is
+     * @return         true if the data flavor {@code #KEYWORDS_TREE} is
      *                 supported
      */
     public static boolean hasKeywordsFromTree(TransferSupport support) {

@@ -25,14 +25,14 @@ import org.jphototagger.program.view.dialogs.ProgramPropertiesDialog;
 public final class ProgramsHelper {
 
     /**
-     * Moves in a list with {@link Program}s the selected progam up and reorders
+     * Moves in a list with {@code Program}s the selected progam up and reorders
      * all program's sequence numbers in the database.
      * <p>
      * Does nothing if the program can't be moved: No list item or the first
      * list item is selected.
      *
-     * @param listPrograms list with {@link DefaultListModel} as model and
-     *                     {@link Program} as values
+     * @param listPrograms list with {@code DefaultListModel} as model and
+     *                     {@code Program} as values
      */
     public static void moveProgramUp(JXList listPrograms) {
         if (listPrograms == null) {
@@ -53,14 +53,14 @@ public final class ProgramsHelper {
     }
 
     /**
-     * Moves in a list with {@link Program}s the selected progam down and
+     * Moves in a list with {@code Program}s the selected progam down and
      * reorders all program's sequence numbers in the database.
      * <p>
      * Does nothing if the program can't be moved: No list item or the last
      * list item is selected.
      *
-     * @param listPrograms list with {@link DefaultListModel} as model and
-     *                     {@link Program} as values
+     * @param listPrograms list with {@code DefaultListModel} as model and
+     *                     {@code Program} as values
      */
     public static void moveProgramDown(JXList listPrograms) {
         if (listPrograms == null) {
@@ -85,7 +85,7 @@ public final class ProgramsHelper {
      * Reorders in the database the programs sequence number to match their
      * order a list model.
      *
-     * @param model model with {@link Program}s as elements
+     * @param model model with {@code Program}s as elements
      */
     public static void reorderPrograms(DefaultListModel model) {
         if (model == null) {

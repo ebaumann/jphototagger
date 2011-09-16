@@ -59,7 +59,7 @@ public interface Plugin {
      * user see calls the plugin's help.
      *
      * The help page is a file in the same directory as
-     * {@link #getHelpContentsPath()}.
+     * {@code #getHelpContentsPath()}.
      *
      * @return help page name, e.g. <code>"index.html"</code> or null if the
      *         plugin does not provide help

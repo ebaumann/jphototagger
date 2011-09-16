@@ -7,7 +7,7 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 
 /**
- * Properties for using a {@link FileChooserExt}.
+ * Properties for using a {@code FileChooserExt}.
  *
  * @author Elmar Baumann
  */
@@ -32,7 +32,7 @@ public final class FileChooserProperties {
 
     /**
      * Sets the prefix of the key for storing size and current directory
-     * path in {@link #getProperties()}.
+     * path in {@code #getProperties()}.
      *
      * @param  propertyKeyPrefix prefix or null
      * @return                   this instance (for cascade settings)
@@ -131,7 +131,6 @@ public final class FileChooserProperties {
      * @param  confirmOverwrite true if the user has to confirm overwriting
      *                          existing files in save mode
      * @return                  this instance (for cascade settings)
-     * @see    FileChooserExt#saveFilenameExtension(java.lang.String)
      */
     public FileChooserProperties confirmOverwrite(boolean confirmOverwrite) {
         this.confirmOverwrite = confirmOverwrite;
@@ -144,7 +143,6 @@ public final class FileChooserProperties {
      *
      * @param   saveFilenameExtension extension, e.g. <code>".txt"</code>
      * @return                        this instance (for cascade settings)
-     * @see     FileChooserExt#saveFilenameExtension(java.lang.String)
      */
     public FileChooserProperties saveFilenameExtension(String saveFilenameExtension) {
         this.saveFilenameExtension = saveFilenameExtension;
@@ -153,7 +151,7 @@ public final class FileChooserProperties {
 
     /**
      *
-     * @param fileSelectionMode Default: {@link JFileChooser#FILES_AND_DIRECTORIES}
+     * @param fileSelectionMode Default: {@code JFileChooser#FILES_AND_DIRECTORIES}
      */
     public void fileSelectionMode(int fileSelectionMode) {
         this.fileSelectionMode = fileSelectionMode;

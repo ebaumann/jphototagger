@@ -28,7 +28,7 @@ public interface ThumbnailCreator {
     /**
      *
      * @param file create thumbnail from this file
-     * @return
+     * @return true if the creator can create
      */
     boolean canCreateFromEmbeddedThumbnail(File file);
 
@@ -43,7 +43,7 @@ public interface ThumbnailCreator {
     /**
      *
      * @param file create thumbnail from this file
-     * @return
+     * @return true if the creator can create
      */
     boolean canCreateThumbnail(File file);
 

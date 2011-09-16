@@ -21,11 +21,11 @@ import org.jphototagger.program.view.panels.EditMetadataPanels;
 import org.jphototagger.program.view.popupmenus.ThumbnailsPopupMenu;
 
 /**
- * Listens to the menu items {@link ThumbnailsPopupMenu#getItemCopyMetadata()} and
- * {@link ThumbnailsPopupMenu#getItemPasteMetadata()} and on action performed copies
- * XMP metadata of the {@link EditMetadataPanels} or paste it via
- * {@link EditMetadataPanels#getXmp()} or
- * {@link EditMetadataPanels#setXmp(org.jphototagger.program.data.Xmp)}.
+ * Listens to the menu items {@code ThumbnailsPopupMenu#getItemCopyMetadata()} and
+ * {@code ThumbnailsPopupMenu#getItemPasteMetadata()} and on action performed copies
+ * XMP metadata of the {@code EditMetadataPanels} or paste it via
+ * {@code EditMetadataPanels#getXmp()} or
+ * {@code EditMetadataPanels#setXmp(org.jphototagger.program.data.Xmp)}.
  *
  * @author Elmar Baumann
  */

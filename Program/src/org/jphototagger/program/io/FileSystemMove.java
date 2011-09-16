@@ -15,8 +15,8 @@ import org.jphototagger.lib.util.Bundle;
 
 /**
  * Moves files to a target directory. The info object in
- * {@link org.jphototagger.program.event.ProgressEvent#getInfo()} is a
- * {@link SourceTargetFile}.
+ * {@code org.jphototagger.program.event.ProgressEvent#getInfo()} is a
+ * {@code SourceTargetFile}.
  *
  * @author Elmar Baumann
  */

@@ -17,7 +17,7 @@ import org.jphototagger.lib.componentutil.MnemonicUtil;
 /**
  * Writes an the system's standard output to a text area.
  *
- * Starts after calling {@link #caputure()}.
+ * Starts after calling {@code #caputure()}.
  *
  * @author Elmar Baumann
  */
@@ -30,7 +30,7 @@ public class SystemOutputPanel extends JPanel {
     /**
      * Default constructor.
      *
-     * Call later {@link #caputure()}.
+     * Call later {@code #caputure()}.
      */
     public SystemOutputPanel() {
         initComponents();
@@ -39,8 +39,8 @@ public class SystemOutputPanel extends JPanel {
 
     /**
      * Starts to capture the system's standard output and standard error stream.
-     * Redirects it via {@link System#setOut(java.io.PrintStream)} and
-     * {@link System#setErr(java.io.PrintStream)}.
+     * Redirects it via {@code System#setOut(java.io.PrintStream)} and
+     * {@code System#setErr(java.io.PrintStream)}.
      */
     public synchronized void caputure() {
         if (!capture) {

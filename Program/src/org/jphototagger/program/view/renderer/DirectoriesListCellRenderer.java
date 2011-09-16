@@ -18,7 +18,6 @@ import org.jphototagger.program.io.ImageFileDirectory;
  * den Verzeichnisnamen an.
  *
  * @author Elmar Baumann
- * @see     org.jphototagger.program.view.dialogs.UpdateMetadataOfDirectoriesDialog
  */
 public final class DirectoriesListCellRenderer extends DefaultListCellRenderer {
 

@@ -142,13 +142,13 @@ public final class External {
      * @param  maxMilliseconds  Maximum time in milliseconds to wait for closing
      *                          the process' streams. If this time is exceeded,
      *                          the process streams will be closed. In this case
-     *                          {@link ExternalOutput#getErrorStream()} contains an error
+     *                          {@code ExternalOutput#getErrorStream()} contains an error
      *                          message that the stream was closed.
      * @return         Bytes written by the program or null if errors
-     *                 occured. {@link ExternalOutput#getOutputStream()} is null if the
+     *                 occured. {@code ExternalOutput#getOutputStream()} is null if the
      *                 program didn't write anything to the system's standard
      *                 output or the bytes the program has written to the
-     *                 system's standard output. The {@link ExternalOutput#getErrorStream()}
+     *                 system's standard output. The {@code ExternalOutput#getErrorStream()}
      *                 is null if the program didn't write anything to the
      *                 system's standard error output or the bytes the program
      *                 has written to the system's standard error output.

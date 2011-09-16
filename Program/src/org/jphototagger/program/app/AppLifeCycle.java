@@ -44,7 +44,7 @@ public final class AppLifeCycle {
     }
 
     /**
-     * Has be to called <em>once</em> after the {@link AppFrame} has been
+     * Has be to called <em>once</em> after the {@code AppFrame} has been
      * created.
      *
      * @param appFrame the application's frame
@@ -106,7 +106,7 @@ public final class AppLifeCycle {
      * data is to save, the app does not exit.
      *
      * <em>Do not forget removing a save object via
-     * {@link #removeSaveObject(java.lang.Object)}, otherwise the app terminates
+     * {@code #removeSaveObject(java.lang.Object)}, otherwise the app terminates
      * after a timeout and does not know wheter data was saved!</em>
      *
      * @param saveObject object that saves data.
@@ -122,7 +122,7 @@ public final class AppLifeCycle {
     }
 
     /**
-     * Removes a save object added via {@link #addSaveObject(java.lang.Object)}.
+     * Removes a save object added via {@code #addSaveObject(java.lang.Object)}.
      *
      * @param saveObject save object to remove
      */

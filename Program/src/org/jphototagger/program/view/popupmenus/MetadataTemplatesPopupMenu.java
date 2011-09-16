@@ -7,13 +7,12 @@ import javax.swing.JPopupMenu;
 import javax.swing.JPopupMenu.Separator;
 
 import org.jdesktop.swingx.JXList;
-import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppLookAndFeel;
 
 /**
- * Popup menu for {@link MetadataTemplate}s.
+ * Popup menu for {@code MetadataTemplate}s.
  *
  * @author Elmar Baumann
  */

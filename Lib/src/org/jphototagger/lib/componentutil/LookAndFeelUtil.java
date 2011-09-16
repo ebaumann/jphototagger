@@ -18,7 +18,7 @@ import javax.swing.UIManager;
 public final class LookAndFeelUtil {
 
     /**
-     * Returns a color from the {@link UIManager}.
+     * Returns a color from the {@code UIManager}.
      *
      * Some renderers, e.g. <code>DefaultTreeCellRenderer</code> are setting
      * <code>null</code> as background color if the color is an instance of

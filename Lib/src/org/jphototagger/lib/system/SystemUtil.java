@@ -39,10 +39,10 @@ public final class SystemUtil {
     }
 
     /**
-     * Returns whether {@link Desktop#mail(java.net.URI)} can be called.
+     * Returns whether {@code Desktop#mail(java.net.URI)} can be called.
      * <p>
-     * Shorthand for {@link Desktop#isDesktopSupported()} &amp;&amp;
-     * {@link Desktop#isSupported(Desktop.Action)}.
+     * Shorthand for {@code Desktop#isDesktopSupported()} &amp;&amp;
+     * {@code Desktop#isSupported(Desktop.Action)}.
      *
      * @return true, if mailing is possible
      */
@@ -51,10 +51,10 @@ public final class SystemUtil {
     }
 
     /**
-     * Returns whether {@link Desktop#browse(java.net.URI)} can be called.
+     * Returns whether {@code Desktop#browse(java.net.URI)} can be called.
      * <p>
-     * Shorthand for {@link Desktop#isDesktopSupported()} &amp;&amp;
-     * {@link Desktop#isSupported(Desktop.Action)}.
+     * Shorthand for {@code Desktop#isDesktopSupported()} &amp;&amp;
+     * {@code Desktop#isSupported(Desktop.Action)}.
      *
      * @return true, if browsing is possible
      */
@@ -63,10 +63,10 @@ public final class SystemUtil {
     }
 
     /**
-     * Returns whether {@link Desktop#open(java.io.File)} can be called.
+     * Returns whether {@code Desktop#open(java.io.File)} can be called.
      * <p>
-     * Shorthand for {@link Desktop#isDesktopSupported()} &amp;&amp;
-     * {@link Desktop#isSupported(Desktop.Action)}.
+     * Shorthand for {@code Desktop#isDesktopSupported()} &amp;&amp;
+     * {@code Desktop#isSupported(Desktop.Action)}.
      *
      * @return true, if opening is possible
      */
@@ -75,10 +75,10 @@ public final class SystemUtil {
     }
 
     /**
-     * Returns whether {@link Desktop#edit(java.io.File)} can be called.
+     * Returns whether {@code Desktop#edit(java.io.File)} can be called.
      * <p>
-     * Shorthand for {@link Desktop#isDesktopSupported()} &amp;&amp;
-     * {@link Desktop#isSupported(Desktop.Action)}.
+     * Shorthand for {@code Desktop#isDesktopSupported()} &amp;&amp;
+     * {@code Desktop#isSupported(Desktop.Action)}.
      *
      * @return true, if editing is possible
      */
@@ -87,10 +87,10 @@ public final class SystemUtil {
     }
 
     /**
-     * Returns whether {@link Desktop#print(java.io.File)} can be called.
+     * Returns whether {@code Desktop#print(java.io.File)} can be called.
      * <p>
-     * Shorthand for {@link Desktop#isDesktopSupported()} &amp;&amp;
-     * {@link Desktop#isSupported(Desktop.Action)}.
+     * Shorthand for {@code Desktop#isDesktopSupported()} &amp;&amp;
+     * {@code Desktop#isSupported(Desktop.Action)}.
      *
      * @return true, if editing is possible
      */

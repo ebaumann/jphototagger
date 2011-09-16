@@ -22,7 +22,7 @@ import org.jphototagger.program.view.popupmenus.ThumbnailsPopupMenu;
 /**
  * Kontrolliert die Aktion: Rotiere ein Thumbnail,
  * ausgelöst von
- * {@link org.jphototagger.program.view.popupmenus.ThumbnailsPopupMenu}.
+ * {@code org.jphototagger.program.view.popupmenus.ThumbnailsPopupMenu}.
  *
  * @author Elmar Baumann
  */

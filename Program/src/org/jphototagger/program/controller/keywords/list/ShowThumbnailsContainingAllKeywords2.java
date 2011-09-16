@@ -13,10 +13,9 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.controller.thumbnail.SortThumbnailsController;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.WaitDisplay;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
 
 /**
- * Displays in the {@link ThumbnailsPanel} thumbnails of images containing all
+ * Displays in the {@code ThumbnailsPanel} thumbnails of images containing all
  * specific keywords.
  *
  * @author Elmar Baumann

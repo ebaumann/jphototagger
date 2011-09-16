@@ -31,7 +31,6 @@ public final class LogfileRecord {
      * des Loggers.
      *
      * @return Name des Resource-Bundles oder null, falls nicht gesetzt
-     * @see    #hasCatalog()
      */
     public String getCatalog() {
         return catalog;
@@ -52,8 +51,6 @@ public final class LogfileRecord {
      * zum Laden aus der Properties-Datei.
      *
      * @return Schlüssel oder null, falls nicht gesetzt
-     * @see    #getMessage()
-     * @see    #hasKey()
      */
     public String getKey() {
         return key;
@@ -63,7 +60,6 @@ public final class LogfileRecord {
      * Setzt bei lokalisierten Nachrichten den Schlüssel der Nachricht.
      *
      * @param key Schlüssel
-     * @see       #setMessage(java.lang.String)
      */
     public void setKey(String key) {
         this.key = key;
@@ -93,7 +89,6 @@ public final class LogfileRecord {
      * Liefert den Namen der Klasse, die den Logeintrag veranlasste.
      *
      * @return className Klassenname oder null, falls nicht gesetzt
-     * @see              #hasClassname()
      */
     public String getClassname() {
         return classname;
@@ -151,7 +146,6 @@ public final class LogfileRecord {
      * Liefert den Namen des Logger-Objekts.
      *
      * @return Name des Logger-Objekts oder null, falls nicht gesetzt
-     * @see    #hasLogger()
      */
     public String getLogger() {
         return logger;
@@ -191,7 +185,6 @@ public final class LogfileRecord {
      * <code>fred(int,String)</code>.
      *
      * @return Methodenname oder null, falls nicht gesetzt
-     * @see #hasMethodname()
      */
     public String getMethodname() {
         return methodname;
@@ -235,7 +228,6 @@ public final class LogfileRecord {
      * Liefert die ID des Threads.
      *
      * @return Thread-ID (Integer) oder null, falls nicht gesetzt
-     * @see    #hasThread()
      */
     public String getThread() {
         return thread;
@@ -256,8 +248,6 @@ public final class LogfileRecord {
      * Logdatensatz-Parameters.
      *
      * @return Parameter oder null, falls nicht gesetzt
-     * @see    #getMessage()
-     * @see    #hasParams()
      */
     public List<String> getParams() {
         return Collections.unmodifiableList(params);
@@ -269,7 +259,6 @@ public final class LogfileRecord {
      * Logdatensatz-Parameters.
      *
      * @param params Parameter
-     * @see          #setMessage(java.lang.String)
      */
     public void setParams(List<String> params) {
         this.params = new ArrayList<String>(params);
@@ -281,7 +270,6 @@ public final class LogfileRecord {
      * Logdatensatz-Parameters hinzu.
      *
      * @param param Parameter
-     * @see         #setMessage(java.lang.String)
      */
     public void addParam(String param) {
         if (param == null) {
@@ -299,7 +287,6 @@ public final class LogfileRecord {
      * Liefert eine Ausnahme.
      *
      * @return Ausnahme oder null, falls nicht gesetzt
-     * @see    #hasException()
      */
     public ExceptionLogfileRecord getException() {
         return exception;

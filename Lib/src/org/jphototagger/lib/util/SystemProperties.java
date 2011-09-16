@@ -4,7 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.OutputStreamWriter;
 
 /**
- * Encapsulates {@link System.getProperty()} keys.
+ * Encapsulates {@code  System.getProperty()} keys.
  *
  * @author  Elmar Baumann
  */

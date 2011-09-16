@@ -48,7 +48,7 @@ public final class UpdateMetadataCheckEvent {
     /**
      * Returns the file that will be checked for update.
      *
-     * @return file or null when the event is not {@link Type#CHECKING_FILE}
+     * @return file or null when the event is not {@code Type#CHECKING_FILE}
      */
     public File getImageFile() {
         return imageFile;

@@ -36,14 +36,14 @@ import org.jphototagger.lib.util.StringUtil;
  * <code>JCheckBox</code>es, <strong>JRadioButton</strong>s and
  * <code>TitledBorder</code>s will be grabbed automatically. For every tab
  * additional words can be added through
- * {@link #addSearchWordsTo(java.util.Collection, java.awt.Component)}.
+ * {@code #addSearchWordsTo(java.util.Collection, java.awt.Component)}.
  * <p>
  * <em>All labels, checkboxes and radio buttons within a tab have to be
  * horizontally resizable because their content will be replaced temporarily
  * with HTML text to highlight all matching words!</em>
  * <p>
  * Usage: Add this panel to a container with a <code>JTabbedPane</code> through
- * {@link #setParentPane(javax.swing.JTabbedPane)}. If the tabbed pane contains
+ * {@code #setParentPane(javax.swing.JTabbedPane)}. If the tabbed pane contains
  * other tabbed panes, they will be recognized too.
  * <p>
  * Bugs: Words in HTML texts containing tags will not be highlighted and HTML

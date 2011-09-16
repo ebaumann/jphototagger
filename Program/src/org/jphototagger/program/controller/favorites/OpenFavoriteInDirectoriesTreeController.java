@@ -8,7 +8,6 @@ import java.awt.event.KeyListener;
 import java.io.File;
 
 import javax.swing.JTabbedPane;
-import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
@@ -22,11 +21,11 @@ import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.popupmenus.FavoritesPopupMenu;
 
 /**
- * Listens to the {@link FavoritesPopupMenu} and opens the
+ * Listens to the {@code FavoritesPopupMenu} and opens the
  * selected favorite directory in the folder panel when the special menu item
  * was clicked.
  *
- * Also listens to the {@link JTree}'s key events and opens the selected folder
+ * Also listens to the {@code JTree}'s key events and opens the selected folder
  * in the directorie's tree if the keys <code>Ctrl+O</code> were pressed.
  *
  * @author Elmar Baumann

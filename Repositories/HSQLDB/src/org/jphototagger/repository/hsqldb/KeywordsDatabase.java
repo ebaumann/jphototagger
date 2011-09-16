@@ -125,9 +125,9 @@ final class KeywordsDatabase extends Database {
 
     /**
      * Inserts a keyword. If successfully inserted the keyword
-     * has a value for it's id ({@link Keyword#getId()}.
+     * has a value for it's id ({@code Keyword#getId()}.
      *
-     * <em>The keyword ({@link Keyword#getName()}) must have
+     * <em>The keyword ({@code Keyword#getName()}) must have
      * a not empty string!</em>
      *
      * @param  keyword keyword
@@ -434,9 +434,9 @@ final class KeywordsDatabase extends Database {
 
     /**
      * Returns whether a parent has a child with a specific
-     * {@link Keyword#getName()}. The parent's ID is
-     * {@link Keyword#getIdParent()}. The keyword's ID
-     * {@link Keyword#getId()} will not be compared.
+     * {@code Keyword#getName()}. The parent's ID is
+     * {@code Keyword#getIdParent()}. The keyword's ID
+     * {@code Keyword#getId()} will not be compared.
      *
      * @param  keyword keyword
      * @return         true if the keyword existsKeyword

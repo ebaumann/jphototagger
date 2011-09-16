@@ -28,17 +28,17 @@ public final class DateInputVerifier extends InputVerifier implements Serializab
     private final String pattern;
 
     /**
-     * Verifies via {@link DateFormat#getInstance()}.
+     * Verifies via {@code DateFormat#getInstance()}.
      */
     public DateInputVerifier() {
         pattern = null;
     }
 
     /**
-     * Uses a {@link SimpleDateFormat} object.
+     * Uses a {@code SimpleDateFormat} object.
      *
      * @param pattern pattern as described in
-     *              {@link SimpleDateFormat#SimpleDateFormat(java.lang.String)}
+     *              {@code SimpleDateFormat#SimpleDateFormat(java.lang.String)}
      */
     public DateInputVerifier(String pattern) {
         this.pattern = pattern;

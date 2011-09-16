@@ -12,7 +12,6 @@ import org.jphototagger.domain.metadata.MetaDataValue;
  * Renderer für Tabellenspaltenbeschreibungen.
  *
  * @author Elmar Baumann
- * @see     org.jphototagger.program.database.metadata.MetaDataValue#getDescription()
  */
 public final class TableColumnsListCellRenderer extends DefaultListCellRenderer {
 

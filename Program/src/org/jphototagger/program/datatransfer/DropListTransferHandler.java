@@ -9,18 +9,17 @@ import javax.swing.TransferHandler;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.jdesktop.swingx.JXList;
-import org.jphototagger.domain.keywords.Keyword;
 import org.jphototagger.domain.metadata.MetaDataValueData;
 import org.jphototagger.program.helper.KeywordsHelper;
 
 /**
- * Imports into a {@link DefaultListModel} of strings strings exported via a
- * {@link TransferHandlerDragListItems} or from a
- * {@link DefaultMutableTreeNode} with an {@link Keyword} as user
+ * Imports into a {@code DefaultListModel} of strings strings exported via a
+ * {@code TransferHandlerDragListItems} or from a
+ * {@code DefaultMutableTreeNode} with an {@code Keyword} as user
  * object.
  *
- * The list model has to be <em>of the type {@link DefaultListModel}</em> and
- * it's elements {@link String}s.
+ * The list model has to be <em>of the type {@code DefaultListModel}</em> and
+ * it's elements {@code String}s.
  *
  * Does <em>not</em> support moving data.
  *

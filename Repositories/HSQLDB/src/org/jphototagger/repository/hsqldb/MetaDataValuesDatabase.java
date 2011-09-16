@@ -69,7 +69,7 @@ final class MetaDataValuesDatabase extends Database {
 
     /**
      * Collects for each column of a set the results of
-     * {@link #getDistinctMetaDataValues(MetaDataValue)}.
+     * {@code #getDistinctMetaDataValues(MetaDataValue)}.
      *
      * @param  metaDataValues
      * @return         distinct values (not sorted)

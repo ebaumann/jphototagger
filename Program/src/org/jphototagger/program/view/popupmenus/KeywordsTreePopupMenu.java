@@ -12,14 +12,13 @@ import javax.swing.tree.TreePath;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.view.panels.KeywordsPanel;
 
 /**
  * Do not use this class as template for implemention! Instead extend
- * {@link org.jphototagger.lib.event.listener.PopupMenuTree} as e.g.
- * {@link org.jphototagger.program.view.popupmenus.MiscMetadataPopupMenu} does.
+ * {@code org.jphototagger.lib.event.listener.PopupMenuTree} as e.g.
+ * {@code org.jphototagger.program.view.popupmenus.MiscMetadataPopupMenu} does.
  *
- * Popup menu for the tree in a {@link KeywordsPanel}.
+ * Popup menu for the tree in a {@code KeywordsPanel}.
  *
  * @author Elmar Baumann
  */

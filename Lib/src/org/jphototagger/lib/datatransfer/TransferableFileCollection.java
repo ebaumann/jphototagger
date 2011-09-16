@@ -6,13 +6,12 @@ import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * Transferable with a collection of files.
  *
- * Supports {@link DataFlavor#javaFileListFlavor} and
- * {@link TransferUtil#getUriListFlavor()}.
+ * Supports {@code DataFlavor#javaFileListFlavor} and
+ * {@code TransferUtil#getUriListFlavor()}.
  *
  * @author Elmar Baumann
  */
@@ -52,8 +51,8 @@ public final class TransferableFileCollection implements Transferable {
     /**
      * Returns the supported flavors.
      *
-     * @return {@link DataFlavor#javaFileListFlavor} and
-     *         {@link TransferUtil#getUriListFlavor()}
+     * @return {@code DataFlavor#javaFileListFlavor} and
+     *         {@code TransferUtil#getUriListFlavor()}
      */
     @Override
     public DataFlavor[] getTransferDataFlavors() {
@@ -65,8 +64,8 @@ public final class TransferableFileCollection implements Transferable {
      *
      * @param  flavor flavor
      * @return        true, if the flavor is
-     *                {@link DataFlavor#javaFileListFlavor} or
-     *                {@link TransferUtil#getUriListFlavor()}
+     *                {@code DataFlavor#javaFileListFlavor} or
+     *                {@code TransferUtil#getUriListFlavor()}
      */
     @Override
     public boolean isDataFlavorSupported(DataFlavor flavor) {
@@ -80,9 +79,9 @@ public final class TransferableFileCollection implements Transferable {
     /**
      * Returns a list of files or a token string with file URIs.
      *
-     * @param  flavor {@link DataFlavor#javaFileListFlavor} if a {@link List} of
-     *                {@link File} shall be returned or
-     *                {@link TransferUtil#getUriListFlavor()} if a file URI
+     * @param  flavor {@code DataFlavor#javaFileListFlavor} if a {@code List} of
+     *                {@code File} shall be returned or
+     *                {@code TransferUtil#getUriListFlavor()} if a file URI
      *                token string shall be returned: The string contains names
      *                of files, every name is prepended by <code>file://</code>,
      *                the names are delimited by "\r\n"

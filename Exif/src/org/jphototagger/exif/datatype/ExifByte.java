@@ -19,7 +19,7 @@ public final class ExifByte {
      *
      * @param  rawValue
      * @throws IllegalArgumentException if the raw value byte count is not
-     *         equals to {@link #getRawValueByteCount()} or negative
+     *         equals to {@code #getRawValueByteCount()} or negative
      */
     public ExifByte(byte[] rawValue) {
         if (rawValue == null) {

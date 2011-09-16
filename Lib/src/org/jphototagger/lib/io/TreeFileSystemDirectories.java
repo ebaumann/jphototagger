@@ -161,7 +161,7 @@ public final class TreeFileSystemDirectories {
 
     /**
      * Updates a node into a model if the model has the type
-     * {@link DefaultTreeModel}.
+     * {@code DefaultTreeModel}.
      *
      * @param model  model
      * @param node   updated node
@@ -182,13 +182,13 @@ public final class TreeFileSystemDirectories {
 
     /**
      * Inserts into a model a file if the model has the type
-     * {@link DefaultTreeModel}.
+     * {@code DefaultTreeModel}.
      *
      * @param model      model
      * @param parentNode parent node
      * @param file       file to insert as user object in a
      *                   <code>DefaultMutableTreeNode</code> as the user object
-     *                   of a {@link DefaultMutableTreeNode}
+     *                   of a {@code DefaultMutableTreeNode}
      */
     public static void insertIntoTreeModel(TreeModel model, DefaultMutableTreeNode parentNode, File file) {
         if (parentNode == null) {
@@ -207,8 +207,8 @@ public final class TreeFileSystemDirectories {
 
     /**
      * Deletes from a model a tree node if the model's type is
-     * {@link DefaultTreeModel} and all it's nodes of the type
-     * {@link MutableTreeNode}.
+     * {@code DefaultTreeModel} and all it's nodes of the type
+     * {@code MutableTreeNode}.
      *
      * @param model model
      * @param node  node to delete

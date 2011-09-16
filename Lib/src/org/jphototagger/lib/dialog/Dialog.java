@@ -62,10 +62,9 @@ public class Dialog extends JDialog implements WindowListener {
 
     /**
      * Sets the contents URL of the help and must be called <em>before</em>
-     * {@link #help(java.lang.String)}.
+     * {@code #help(java.lang.String)}.
      *
      * @param url  contents URL
-     * @see HelpBrowser#setContentsUrl(java.lang.String)
      */
     protected void setHelpContentsUrl(String url) {
         if (url == null) {
@@ -90,10 +89,10 @@ public class Dialog extends JDialog implements WindowListener {
 
     /**
      * This method will be called if the user presses F1. If
-     * {@link #setHelpPageUrl(java.lang.String)} was called,
-     * {@link #help(java.lang.String)} will be called.
+     * {@code #setHelpPageUrl(java.lang.String)} was called,
+     * {@code #help(java.lang.String)} will be called.
      *
-     * Specialized classes can call {@link #help(java.lang.String)}
+     * Specialized classes can call {@code #help(java.lang.String)}
      * with an appropriate URL.
      */
     protected void help() {
@@ -104,9 +103,9 @@ public class Dialog extends JDialog implements WindowListener {
 
     /**
      * Shows the help dialog with an specific URL. Previous to this call once
-     * {@link #setHelpContentsUrl(java.lang.String)} have to be called.
+     * {@code #setHelpContentsUrl(java.lang.String)} have to be called.
      *
-     * The dialog is an instance of {@link HelpBrowser}.
+     * The dialog is an instance of {@code HelpBrowser}.
      *
      * @param url  URL to display
      */
@@ -148,7 +147,7 @@ public class Dialog extends JDialog implements WindowListener {
     }
 
     /**
-     * This dialog persists size and location if a {@link Storage} implementation
+     * This dialog persists size and location if a {@code Storage} implementation
      * is present, by default it uses the class' name as key, here a different
      * key can be setTree. This makes sense if the same dialog is used whithin different
      * contexts.

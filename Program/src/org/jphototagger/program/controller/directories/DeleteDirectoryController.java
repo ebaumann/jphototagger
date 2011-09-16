@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
 
-import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.jphototagger.lib.awt.EventQueueUtil;
@@ -15,10 +14,10 @@ import org.jphototagger.program.io.FileSystemDirectories;
 import org.jphototagger.program.view.popupmenus.DirectoriesPopupMenu;
 
 /**
- * Listens to {@link DirectoriesPopupMenu#getItemDeleteDirectory()} and
+ * Listens to {@code DirectoriesPopupMenu#getItemDeleteDirectory()} and
  * deletes a directory when the action fires.
  *
- * Also listens to the directorie's {@link JTree} key events and deletes the
+ * Also listens to the directorie's {@code JTree} key events and deletes the
  * selected directory if the delete key was typed.
  *
  * @author Elmar Baumann

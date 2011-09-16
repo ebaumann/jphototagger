@@ -22,8 +22,8 @@ import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.ThumbnailsPopupMenu;
 
 /**
- * Listens to {@link ThumbnailsPopupMenu#getItemCopyToClipboard()},
- * {@link ThumbnailsPopupMenu#getItemCutToClipboard()} and on action
+ * Listens to {@code ThumbnailsPopupMenu#getItemCopyToClipboard()},
+ * {@code ThumbnailsPopupMenu#getItemCutToClipboard()} and on action
  * performed this class copies or cuts the selected files into the clipboard.
  *
  * Enables or disables that menu items based on selection.

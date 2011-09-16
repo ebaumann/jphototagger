@@ -205,7 +205,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
      * <p>
      * Otherwise the dialog does not open the log file.
      *
-     * @param maxBytes maximum amount of bytes. Default: {@link #DEFAULT_MAX_BYTES}.
+     * @param maxBytes maximum amount of bytes. Default: {@code #DEFAULT_MAX_BYTES}.
      */
     public void setMaxBytes(long maxBytes) {
         this.maxBytes = maxBytes;

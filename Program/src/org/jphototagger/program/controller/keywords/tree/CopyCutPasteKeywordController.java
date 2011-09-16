@@ -31,8 +31,8 @@ import org.jphototagger.program.view.popupmenus.KeywordsTreePopupMenu;
 //the popup menu may not be the selected nodes as expected by the panel's
 //transfer handler.
 /**
- * Listens to the menu items {@link KeywordsTreePopupMenu#getItemCut()},
- * {@link KeywordsTreePopupMenu#getItemPaste()} and on action
+ * Listens to the menu items {@code KeywordsTreePopupMenu#getItemCut()},
+ * {@code KeywordsTreePopupMenu#getItemPaste()} and on action
  * cuts a keyword to the clipboard or pastes a cutted item.
  *
  * The key action Ctrl+X and Ctrl+V are handled by the JTree.

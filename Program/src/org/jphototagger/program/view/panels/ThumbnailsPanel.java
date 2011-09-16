@@ -281,7 +281,7 @@ public class ThumbnailsPanel extends JPanel
 
     /**
      * Enables the Drag gesture whithin the thumbnails panel. Whitout calling
-     * this, {@link #handleMouseDragged(java.awt.event.MouseEvent)} will never
+     * this, {@code #handleMouseDragged(java.awt.event.MouseEvent)} will never
      * called.
      *
      * @param enabled true if enabled. Default: false
@@ -1016,7 +1016,7 @@ public class ThumbnailsPanel extends JPanel
 
     /**
      * Calls <code>refresh()</code> by all added
-     * {@link org.jphototagger.program.event.listener.RefreshListener} objects.
+     * {@code org.jphototagger.program.event.listener.RefreshListener} objects.
      */
     public void refresh() {
         JViewport vp = getViewport();
@@ -1180,7 +1180,7 @@ public class ThumbnailsPanel extends JPanel
 
     /**
      * Color of the background surrounding a highlighted thumbnail. When
-     * changing, look for {@link #COLOR_TEXT_HIGHLIGHTED}.
+     * changing, look for {@code #COLOR_TEXT_HIGHLIGHTED}.
      */
     /**
      * Sets the files to display. Previous desplayed files will be hidden.
@@ -1228,7 +1228,7 @@ public class ThumbnailsPanel extends JPanel
 
     /**
      * Sets a file sort comparator, does <em>not</em> sort.
-     * This is done via {@link #sort()}.
+     * This is done via {@code #sort()}.
      *
      * @param comparator comparator
      */
@@ -1249,11 +1249,6 @@ public class ThumbnailsPanel extends JPanel
         refresh();
     }
 
-    /**
-     * Sorts the files.
-     *
-     * @see #setFileSortComparator(java.util.Comparator)
-     */
     public synchronized void sort() {
         if (!typeOfDisplayedImages.equals(TypeOfDisplayedImages.IMAGE_COLLECTION)) {
             List<File> selFiles = getSelectedFiles();
@@ -1588,7 +1583,6 @@ public class ThumbnailsPanel extends JPanel
      *
      * @param  index index
      * @return file or null if the index is invalid
-     * @see    #isIndex(int)
      */
     public synchronized File getFileAtIndex(int index) {
         return isIndex(index)

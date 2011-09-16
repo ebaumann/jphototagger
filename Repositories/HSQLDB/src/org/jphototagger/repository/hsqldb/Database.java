@@ -69,7 +69,7 @@ public class Database {
     /**
      * Returns the path of file as it will be stored into the database.
      * <p>
-     * This maybe differend from {@link File#getAbsolutePath()}.
+     * This maybe differend from {@code File#getAbsolutePath()}.
      *
      * @param  file file
      * @return      path as stored in the database
@@ -85,7 +85,7 @@ public class Database {
     /**
      * Returns a file from a file path as stored into the database.
      *
-     * @param  filePath path as returned from {@link #getFilePath(File)}
+     * @param  filePath path as returned from {@code #getFilePath(File)}
      * @return file
      */
     public static File getFile(String filePath) {
@@ -774,7 +774,7 @@ public class Database {
      *
      * @param  listener listener, can be null
      * @param  event     event
-     * @return          {@link ProgressEvent#isCancel()}
+     * @return          {@code ProgressEvent#isCancel()}
      */
     protected boolean notifyProgressListenerStart(ProgressListener listener, ProgressEvent event) {
         if (listener != null) {
@@ -791,7 +791,7 @@ public class Database {
      *
      * @param  listener listener, can be null
      * @param  event     event
-     * @return          {@link ProgressEvent#isCancel()}
+     * @return          {@code ProgressEvent#isCancel()}
      */
     protected boolean notifyProgressListenerPerformed(ProgressListener listener, ProgressEvent event) {
         if (listener != null) {

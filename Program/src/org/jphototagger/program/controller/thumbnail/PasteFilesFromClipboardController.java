@@ -31,7 +31,7 @@ import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.ThumbnailsPopupMenu;
 
 /**
- * Listens to {@link ThumbnailsPopupMenu#getItemPasteFromClipboard()} and on action
+ * Listens to {@code ThumbnailsPopupMenu#getItemPasteFromClipboard()} and on action
  * performed this class pastes the images in the clipboard into the current
  * directory.
  *

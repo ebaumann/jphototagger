@@ -14,8 +14,8 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppFileFilters;
 
 /**
- * All elements are {@link IptcEntry}s of <em>one</em> image file retrieved
- * through {@link IptcMetadata#getIptcEntries(java.io.File)}.
+ * All elements are {@code IptcEntry}s of <em>one</em> image file retrieved
+ * through {@code IptcMetadata#getIptcEntries(java.io.File)}.
  *
  * @author Elmar Baumann, Tobias Stening
  */

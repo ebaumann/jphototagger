@@ -15,7 +15,7 @@ public final class MouseEventUtil {
 
     /**
      * Workaround for some operating systems where
-     * {@link java.awt.event.MouseEvent#isPopupTrigger()} does not return true
+     * {@code java.awt.event.MouseEvent#isPopupTrigger()} does not return true
      * if the user clicked down the right mouse button.
      *
      * @param  evt  mouse event
@@ -31,7 +31,7 @@ public final class MouseEventUtil {
 
     /**
      * A more descriptive variant of
-     * {@link java.awt.event.MouseEvent#getClickCount()} == 2.
+     * {@code java.awt.event.MouseEvent#getClickCount()} == 2.
      *
      * @param  evt  mouse event
      * @return true, if the user clicked twice or more often

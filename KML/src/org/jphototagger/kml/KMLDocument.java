@@ -43,7 +43,7 @@ public final class KMLDocument {
      *
      * @param  element element
      * @throws         IllegalArgumentException if not
-     *                 {@link KMLElement#isTopLevelElement()}
+     *                 {@code KMLElement#isTopLevelElement()}
      */
     public void addElement(KMLElement element) {
         if (element == null) {
@@ -64,7 +64,7 @@ public final class KMLDocument {
      * @param  os output stream
      * @throws    UnsupportedEncodingException if the system does not support
      *            UTF-8 strings
-     * @throws IOException thrown through {@link OutputStream#write(byte[])}
+     * @throws IOException thrown through {@code OutputStream#write(byte[])}
      */
     public void write(OutputStream os) throws UnsupportedEncodingException, IOException {
         writeHeader(os);

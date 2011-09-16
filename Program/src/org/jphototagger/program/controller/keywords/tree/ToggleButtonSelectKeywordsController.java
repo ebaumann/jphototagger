@@ -8,10 +8,9 @@ import javax.swing.JToggleButton;
 import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.panels.AppPanel;
 
 /**
- * Listens to {@link AppPanel#getToggleButtonSelKeywords()} and expands or
+ * Listens to {@code AppPanel#getToggleButtonSelKeywords()} and expands or
  * collapses all keyword nodes on action.
  *
  * @author Elmar Baumann

@@ -324,7 +324,7 @@ public final class XmpProperties {
     }
 
     /**
-     * Calls {@link #getPropertyValuesFrom(java.util.Collection, org.jphototagger.lib.image.metadata.xmp.XmpProperties.PropertyValue)}
+     * Calls {@code #getPropertyValuesFrom(java.util.Collection, org.jphototagger.lib.image.metadata.xmp.XmpProperties.PropertyValue)}
      * and returns the first value.
      * <p>
      * Usage for not repeatable values.

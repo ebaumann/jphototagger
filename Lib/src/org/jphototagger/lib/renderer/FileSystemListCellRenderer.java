@@ -12,8 +12,8 @@ import javax.swing.filechooser.FileSystemView;
 
 /**
  * Renders an file specific icon for cell values that are an instance of
- * {@link java.io.File}. Uses
- * {@link javax.swing.filechooser.FileSystemView#getSystemIcon(java.io.File)}.
+ * {@code java.io.File}. Uses
+ * {@code javax.swing.filechooser.FileSystemView#getSystemIcon(java.io.File)}.
  *
  * @author Elmar Baumann
  */

@@ -47,7 +47,7 @@ public abstract class LookupAction<T> extends AbstractAction implements LookupLi
      * Subclasses can decide whether this action is enabled based on the Lookup's content.
      *
      * @param lookupContent
-     * @return
+     * @return b
      */
     protected abstract boolean isEnabled(Collection<? extends T> lookupContent);
 
@@ -93,7 +93,7 @@ public abstract class LookupAction<T> extends AbstractAction implements LookupLi
     }
 
     /**
-     * Will be called through {@link #actionPerformed(java.awt.event.ActionEvent)} with the Lookup's content.
+     * Will be called through {@code #actionPerformed(java.awt.event.ActionEvent)} with the Lookup's content.
      *
      * @param lookupContent
      */

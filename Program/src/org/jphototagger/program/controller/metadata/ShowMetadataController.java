@@ -49,12 +49,12 @@ import org.jphototagger.xmp.EmbeddedXmpCache;
 import org.jphototagger.xmp.XmpMetadata;
 
 /**
- * Listens for selection changes in the {@link ThumbnailsPanel} and
+ * Listens for selection changes in the {@code ThumbnailsPanel} and
  * displays metadata in the metadata tables if <strong>one</strong> thumbnail
  * was selected. If multiple thumbnails or no thumbnail were selected, this
  * controller empties the metadata tables.
  *
- * Listens also to the {@link DatabaseImageFiles} and refreshes the displayed
+ * Listens also to the {@code DatabaseImageFiles} and refreshes the displayed
  * metadata of a file if that file was changed in the database.
  *
  * @author Elmar Baumann

@@ -36,7 +36,7 @@ final class ActionsAfterDbInsertionDatabase extends Database {
 
     /**
      * Inserts a new action. Prevoius You should call
-     * {@link DatabasePrograms#hasProgram()}.
+     * {@code DatabasePrograms#hasProgram()}.
      *
      * @param program action
      * @param order   order of the action
@@ -77,7 +77,7 @@ final class ActionsAfterDbInsertionDatabase extends Database {
     }
 
     /**
-     * Deletes an action. <em>The ID {@link Program#getId()} must exist!</em>
+     * Deletes an action. <em>The ID {@code Program#getId()} must exist!</em>
      *
      * @param  program action to deleteAction
      * @return         true if deleted

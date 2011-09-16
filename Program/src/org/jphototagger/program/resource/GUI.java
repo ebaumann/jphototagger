@@ -71,7 +71,7 @@ public final class GUI {
     }
 
     /**
-     * Calls {@link ThumbnailsPanel#refresh()}.
+     * Calls {@code ThumbnailsPanel#refresh()}.
      */
     public static void refreshThumbnailsPanel() {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {

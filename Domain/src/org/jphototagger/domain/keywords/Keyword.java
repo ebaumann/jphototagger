@@ -6,8 +6,6 @@ import java.io.Serializable;
  * A keyword is a keyword (Dublin core subject) with one or zero parents.
  * Because every keyword can have a parent deep are possible.
  *
- * Persistent instances resists in the {@link DatabaseKeywords}.
- *
  * @author Elmar Baumann
  */
 public final class Keyword implements Comparable<Keyword>, Serializable {
@@ -21,9 +19,7 @@ public final class Keyword implements Comparable<Keyword>, Serializable {
     /**
      * Creates a new instance of this class.
      *
-     * @param id        database ID. <em>Only
-     *                  {@link DatabaseKeywords}</em> shall set this
-     *                  ID. Ohter callers shall set null
+     * @param id        database ID.
      * @param idParent  database ID of the keyword's parent
      * @param name      keyword name
      * @param real      true if this keyword is a real keyword
@@ -55,8 +51,7 @@ public final class Keyword implements Comparable<Keyword>, Serializable {
     }
 
     /**
-     * Sets the database ID. <em>Only {@link DatabaseKeywords}</em>
-     * shall call this mehtod!
+     * Sets the database ID.
      *
      * @param id ID. Default: null.
      */

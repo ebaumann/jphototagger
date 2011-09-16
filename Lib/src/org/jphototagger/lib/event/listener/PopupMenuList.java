@@ -23,7 +23,7 @@ import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.lib.event.util.MouseEventUtil;
 
 /**
- * Popup menu listening to a {@link JList} and handling temporary selections:
+ * Popup menu listening to a {@code JList} and handling temporary selections:
  * Right mouse clicks over a not selected list item.
  * <p>
  * If the click is a popup trigger the popup menu will be displayed.
@@ -34,7 +34,7 @@ import org.jphototagger.lib.event.util.MouseEventUtil;
  * under the mouse cursor and the previos selected list item seeming to be
  * deselected, but this is only rendered in that way.
  * <p>
- * {@link Listener}s are getting the rendered selection rather than the
+ * {@code Listener}s are getting the rendered selection rather than the
  * "real" list selection.
  *
  * @author Elmar Baumann
@@ -86,7 +86,7 @@ public abstract class PopupMenuList extends JPopupMenu implements ActionListener
      *
      * @param menuItem menu item
      * @param listener listener for that item; will be called if that item
-     *                 was selected, see {@link Listener#action(JList, List)}
+     *                 was selected, see {@code Listener#action(JList, List)}
      */
     public void addListener(JMenuItem menuItem, Listener listener) {
         if (menuItem == null) {
@@ -114,7 +114,7 @@ public abstract class PopupMenuList extends JPopupMenu implements ActionListener
      *
      * @param menuItem menu item
      * @param listener listener added via
-     *                 {@link #addListener(JMenuItem, PopupMenuList.Listener)}
+     *                 {@code #addListener(JMenuItem, PopupMenuList.Listener)}
      */
     public void removeListener(JMenuItem menuItem, Listener listener) {
         if (menuItem == null) {

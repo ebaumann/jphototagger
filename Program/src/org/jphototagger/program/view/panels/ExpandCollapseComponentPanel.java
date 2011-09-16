@@ -20,7 +20,7 @@ import org.jphototagger.lib.util.Bundle;
 
 /**
  * Contains a button which expands or collapses a component. If the component
- * has a {@link javax.swing.JLabel} the label's text is shown when collapsed.
+ * has a {@code javax.swing.JLabel} the label's text is shown when collapsed.
  *
  * @author Elmar Baumann
  */

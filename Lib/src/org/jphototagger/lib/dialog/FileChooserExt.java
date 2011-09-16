@@ -9,20 +9,20 @@ import javax.swing.filechooser.FileSystemView;
 import org.jphototagger.lib.util.Bundle;
 
 /**
- * {@link JFileChooser} with the following extensions (<strong>Save
- * Mode</strong> means, {@link #getDialogType()} is
- * {@link JFileChooser#SAVE_DIALOG}):
+ * {@code JFileChooser} with the following extensions (<strong>Save
+ * Mode</strong> means, {@code #getDialogType()} is
+ * {@code JFileChooser#SAVE_DIALOG}):
  *
  * <ul>
  * <li>If an extension, e.g. <code>".xml"</code>, was set through
- *     {@link #setSaveFilenameExtension(String)}, in <strong>Save Mode</strong>,
- *     files returned from {@link #getSelectedFile()} or
- *     {@link #getSelectedFiles()} are having that extension if the user did not
+ *     {@code #setSaveFilenameExtension(String)}, in <strong>Save Mode</strong>,
+ *     files returned from {@code #getSelectedFile()} or
+ *     {@code #getSelectedFiles()} are having that extension if the user did not
  *     input it
  * </li>
  * <li>In <strong>Save Mode</strong>, the user can be forced to
  *     <strong>confirm</strong> overwriting existing files through
- *     {@link #setConfirmOverwrite(boolean)}
+ *     {@code #setConfirmOverwrite(boolean)}
  * </li>
  * </ul>
  * <p>
@@ -62,7 +62,6 @@ public final class FileChooserExt extends JFileChooser {
      * Returns, whether to confirm overwrite existing files in Save Mode.
      *
      * @return true, if the user has to confirm overwrite existing files
-     * @see    #setConfirmOverwrite(boolean)
      */
     public boolean isConfirmOverwrite() {
         return confirmOverwrite;
@@ -82,7 +81,7 @@ public final class FileChooserExt extends JFileChooser {
      * Sets an extension which shall be added to files in Save Mode if the user
      * did not input that extension.
      * <p>
-     * {@link #getSelectedFile()} or {@link #getSelectedFiles()} are returning
+     * {@code #getSelectedFile()} or {@code #getSelectedFiles()} are returning
      * files having that extension in Save Mode.
      * <p>
      * Extensions are treated as <strong>case insensitive</strong> because some
@@ -173,10 +172,10 @@ public final class FileChooserExt extends JFileChooser {
 
     /**
      * Ensures in Save Mode - if set through
-     * {@link #setSaveFilenameExtension(String)} - that all selected files are
+     * {@code #setSaveFilenameExtension(String)} - that all selected files are
      * having the set extension.
      * <p>
-     * If not {@link #isMultiSelectionEnabled()} and a file was selected that is
+     * If not {@code #isMultiSelectionEnabled()} and a file was selected that is
      * in the returned file array.
      *
      * @return selected files
@@ -209,7 +208,7 @@ public final class FileChooserExt extends JFileChooser {
 
     /**
      * Ensures in Save Mode - if set through
-     * {@link #setSaveFilenameExtension(String)} - that the selected file has
+     * {@code #setSaveFilenameExtension(String)} - that the selected file has
      * the set extension.
      *
      * @return selected file

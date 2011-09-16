@@ -41,10 +41,10 @@ public final class UserTasks {
      * Removes all added user tasks.
      * <p>
      * If the active runnable implements
-     * {@link org.jphototagger.lib.concurrent.}, its method
-     * {@link org.jphototagger.lib.concurrent.Cancelable#cancel()} will be
+     * {@code org.jphototagger.lib.concurrent.}, its method
+     * {@code org.jphototagger.lib.concurrent.Cancelable#cancel()} will be
      * called. If it does not implement that interface and it is an instance of
-     * {@link Thread}, {@link Thread#interrupt()} will be called.
+     * {@code Thread}, {@code Thread#interrupt()} will be called.
      */
     public void cancelCurrentTasks() {
         executor.cancel();

@@ -26,9 +26,6 @@ import org.jphototagger.domain.metadata.xmp.XmpPhotoshopTransmissionReferenceMet
 import org.jphototagger.domain.metadata.xmp.XmpRatingMetaDataValue;
 
 /**
- * Mapping zwischen
- * {@link org.jphototagger.program.database.metadata.MetaDataValue} und
- * einem Namespace-URI
  *
  * @author Elmar Baumann
  */

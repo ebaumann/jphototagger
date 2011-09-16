@@ -27,7 +27,7 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppInfo;
 
 /**
- * Exports GPS metadata into an {@link KMLDocument}.
+ * Exports GPS metadata into an {@code KMLDocument}.
  *
  * @author Elmar Baumann
  */

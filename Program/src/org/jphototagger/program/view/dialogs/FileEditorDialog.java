@@ -7,7 +7,7 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.FileEditorPanel;
 
 /**
- * Dialog with a {@link org.jphototagger.program.view.panels.FileEditorPanel}.
+ * Dialog with a {@code org.jphototagger.program.view.panels.FileEditorPanel}.
  * Closing is disabled as long as the file editor runs.
  *
  * @author Elmar Baumann

@@ -25,15 +25,15 @@ import org.jphototagger.lib.model.UpdateInfoTreeModel;
 
 /**
  *
- * The model contains a {@link Timeline} retrieved through
- * {@link DatabaseImageFiles#findTimeline()}.
+ * The model contains a {@code Timeline} retrieved through
+ * {@code DatabaseImageFiles#findTimeline()}.
  *
- * Elements are {@link DefaultMutableTreeNode}s with the user objects listed
+ * Elements are {@code DefaultMutableTreeNode}s with the user objects listed
  * below.
  *
  * <ul>
- * <li>The root user object is a {@link String}</li>
- * <li>All other user objects are {@link Date} objects</li>
+ * <li>The root user object is a {@code String}</li>
+ * <li>All other user objects are {@code Date} objects</li>
  * </ul>
  *
  * @author Elmar Baumann

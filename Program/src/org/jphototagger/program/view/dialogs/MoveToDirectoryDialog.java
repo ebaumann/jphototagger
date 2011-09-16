@@ -205,7 +205,7 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
 
     /**
      * Sets the target directory. If it exists, move will done after calling
-     * {@link #setVisible(boolean)} with <code>true</code> as argument whitout
+     * {@code #setVisible(boolean)} with <code>true</code> as argument whitout
      * user interaction.
      *
      * @param directory  target directory

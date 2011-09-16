@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * Tests the class {@link org.jphototagger.lib.util.RegexUtil}.
+ * Tests the class {@code org.jphototagger.lib.util.RegexUtil}.
  *
  * @author Elmar Baumann
  */

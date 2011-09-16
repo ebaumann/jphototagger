@@ -43,10 +43,10 @@ import org.jphototagger.program.view.panels.ThumbnailsPanel;
 
 /**
  * Handler for <strong>copying</strong> or <strong>moving</strong> a list of
- * thumbnails from the {@link ThumbnailsPanel}.
+ * thumbnails from the {@code ThumbnailsPanel}.
  *
  * The selected files will be transferred as
- * {@link DataFlavor#javaFileListFlavor}.
+ * {@code DataFlavor#javaFileListFlavor}.
  *
  * @author Elmar Baumann
  */

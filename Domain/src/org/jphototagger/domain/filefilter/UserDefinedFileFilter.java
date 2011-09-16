@@ -186,7 +186,7 @@ public final class UserDefinedFileFilter implements Serializable {
     }
 
     /**
-     * Two file filters are equals if their IDs ({@link #getId()}) are equals.
+     * Two file filters are equals if their IDs ({@code #getId()}) are equals.
      *
      * @param  obj other object
      * @return     if the other object is of this type and has the same ID
@@ -212,7 +212,7 @@ public final class UserDefinedFileFilter implements Serializable {
 
     /**
      * Filters are equals if they were created by an equal instance of this
-     * class, that means, the IDs ({@link #getId()}) of the objects, which
+     * class, that means, the IDs ({@code #getId()}) of the objects, which
      * created the file filters, are equal.
      *
      * @param  left  left file filter

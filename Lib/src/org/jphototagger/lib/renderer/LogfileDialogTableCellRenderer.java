@@ -18,8 +18,8 @@ import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
 
 /**
- * Renders the {@link java.util.logging.Level} icons displayed in the GUI of
- * {@link org.jphototagger.lib.dialog.LogfileDialog}. Also formats dates and
+ * Renders the {@code java.util.logging.Level} icons displayed in the GUI of
+ * {@code org.jphototagger.lib.dialog.LogfileDialog}. Also formats dates and
  * selected table rows.
  *
  * @author Elmar Baumann

@@ -9,7 +9,7 @@ import org.jphototagger.xmp.XmpMetadata;
 
 /**
  * Accepts files with no sidecar files
- * ({@link XmpMetadata#hasImageASidecarFile(File)} == false).
+ * ({@code XmpMetadata#hasImageASidecarFile(File)} == false).
  *
  * @author Elmar Baumann
  */

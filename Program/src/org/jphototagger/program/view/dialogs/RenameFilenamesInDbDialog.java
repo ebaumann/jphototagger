@@ -7,7 +7,7 @@ import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.program.resource.GUI;
 
 /**
- * Holds a {@link org.jphototagger.program.view.panels.RenameFilenamesInDbPanel}.
+ * Holds a {@code org.jphototagger.program.view.panels.RenameFilenamesInDbPanel}.
  *
  * @author Elmar Baumann
  */

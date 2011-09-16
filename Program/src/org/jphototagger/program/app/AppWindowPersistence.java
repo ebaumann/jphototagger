@@ -25,8 +25,8 @@ import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.KeywordsPanel;
 
 /**
- * Reads and writes persistent important settings of {@link AppPanel} and
- * {@link AppFrame}.
+ * Reads and writes persistent important settings of {@code AppPanel} and
+ * {@code AppFrame}.
  *
  * @author Elmar Baumann
  */

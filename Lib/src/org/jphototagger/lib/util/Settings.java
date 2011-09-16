@@ -37,8 +37,8 @@ import org.jphototagger.lib.componentutil.TreeUtil;
 
 /**
  * A settings object writes the state of several objects to a
- * {@link java.util.Properties} instance and resets the state of these objects
- * from an {@link java.util.Properties} instance.
+ * {@code java.util.Properties} instance and resets the state of these objects
+ * from an {@code java.util.Properties} instance.
  *
  * All functions with object-reference-parameters are throwing a
  * <code>NullPointerException</code> if an object reference is null and it is
@@ -907,8 +907,6 @@ public final class Settings {
      * class name as key. If the key does not exist, nothing will be done.
      *
      * @param component component
-     * @see             #applySize(java.awt.Component)
-     * @see             #applyLocation(java.awt.Component)
      */
     public void applySizeAndLocation(Component component) {
         if (component == null) {
@@ -1033,8 +1031,6 @@ public final class Settings {
      * class name as key.
      *
      * @param component component
-     * @see             #setSize(java.awt.Component)
-     * @see             #setLocation(java.awt.Component)
      */
     public void setSizeAndLocation(Component component) {
         if (component == null) {

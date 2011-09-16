@@ -18,7 +18,7 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.popupmenus.ThumbnailsPopupMenu;
 
 /**
- * Listens to items of {@link ThumbnailsPopupMenu#getMenuPlugins()} and sets
+ * Listens to items of {@code ThumbnailsPopupMenu#getMenuPlugins()} and sets
  * resources on action.
  *
  * @author Elmar Baumann

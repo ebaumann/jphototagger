@@ -52,11 +52,10 @@ public final class ComponentUtil {
     }
 
     /**
-     * Finds frames with an icon: Frames of {@link Frame#getFrames()} where
-     * {@link Frame#getIconImage()} returns not null.
+     * Finds frames with an icon: Frames of {@code Frame#getFrames()} where
+     * {@code Frame#getIconImage()} returns not null.
      *
      * @return frames with an icon or an empty list
-     * @see    #getFrameWithIcon()
      */
     public static List<Frame> findFramesWithIcons() {
         List<Frame> frames = new ArrayList<Frame>();
@@ -72,7 +71,7 @@ public final class ComponentUtil {
     }
 
     /**
-     * Returns the first found frame of {@link #findFramesWithIcons()}.
+     * Returns the first found frame of {@code #findFramesWithIcons()}.
      * <p>
      * Especially for usage in a <code>JOptionPane#show...Dialog()</code>
      * instead of null. Then in the dialog frame an icon will be displayed

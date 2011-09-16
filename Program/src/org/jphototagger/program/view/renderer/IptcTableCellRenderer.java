@@ -17,7 +17,7 @@ import org.jphototagger.program.app.AppLookAndFeel;
 
 /**
  * Rendert Tabellen mit
- * {@link com.imagero.reader.iptc.IPTCEntryMeta}-Spaltenobjekten.
+ * {@code com.imagero.reader.iptc.IPTCEntryMeta}-Spaltenobjekten.
  *
  * @author Elmar Baumann
  */

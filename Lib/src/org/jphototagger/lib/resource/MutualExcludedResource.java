@@ -6,17 +6,17 @@ import java.util.logging.Logger;
 /**
  * Resource that should't be used by two different objects at the same time. The
  * owner gets the resource only <em>once</em> by calling
- * {@link #getResource(java.lang.Object)}. After that call the resource is
- * locked until {@link #releaseResource(java.lang.Object)} will be called.
+ * {@code #getResource(java.lang.Object)}. After that call the resource is
+ * locked until {@code #releaseResource(java.lang.Object)} will be called.
  *
  * <em>The protection of the object is very weak! An object that keeps a
  * reference to the resource can do anything with it. That means, You have
- * to call {@link #isAvailable()} every time before using the resource,
+ * to call {@code #isAvailable()} every time before using the resource,
  * even if You got previously a reference to it or You set the reference to
- * null before You call {@link #releaseResource(java.lang.Object)}!</em>
+ * null before You call {@code #releaseResource(java.lang.Object)}!</em>
  *
  * Specialized classes are singletons and set spezialized objects
- * through {@link #setResource(java.lang.Object)}.
+ * through {@code #setResource(java.lang.Object)}.
  *
  * All functions with object-reference-parameters are throwing a
  * <code>NullPointerException</code> if an object reference is null and it is
@@ -46,13 +46,12 @@ public class MutualExcludedResource<T> {
      * Returns the resource, locks it and sets the owner of the resource.
      *
      * <em>If the resource isn't needed anymore, it has to be released with
-     * {@link #releaseResource(java.lang.Object)}!</em>
+     * {@code #releaseResource(java.lang.Object)}!</em>
      *
      * @param  owner  owner. Only the owner can unlock the resource an has to
      *                do that!
      * @return Resource or null, if not available. If the returned resource
-     *         is not null, {@link #isAvailable()} returns <code>false</code>.
-     * @see #isAvailable()
+     *         is not null, {@code #isAvailable()} returns <code>false</code>.
      */
     public synchronized T getResource(Object owner) {
         if (owner == null) {
@@ -85,7 +84,7 @@ public class MutualExcludedResource<T> {
      * @param  owner owner of the resource. Only the owner can release the
      *               resource.
      * @return true, if released. If the return value is true,
-     *         {@link #isAvailable()} returns <code>true</code>.
+     *         {@code #isAvailable()} returns <code>true</code>.
      */
     public synchronized boolean releaseResource(Object owner) {
         if (owner == null) {
@@ -114,7 +113,7 @@ public class MutualExcludedResource<T> {
 
     /**
      * Sets the ressource. Until this method is called,
-     * {@link #isAvailable()} will be <code>false</code>.
+     * {@code #isAvailable()} will be <code>false</code>.
      *
      * @param resource resource
      */
@@ -138,7 +137,7 @@ public class MutualExcludedResource<T> {
 
     /**
      * Returns, whether the resource is locked. Does not test, whether the
-     * resource exists (is not null) contrary to {@link #isAvailable()}.
+     * resource exists (is not null) contrary to {@code #isAvailable()}.
      *
      * @return true, if the resource is locked
      */

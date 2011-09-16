@@ -1,7 +1,7 @@
 package org.jphototagger.kml;
 
 /**
- * A point within a {@link KMLDocument}.
+ * A point within a {@code KMLDocument}.
  * <p>
  * Doc: http://code.google.com/intl/de/apis/kml/documentation/kmlreference.html
  *
@@ -69,7 +69,7 @@ public final class KMLPoint implements KMLElement {
      * Returns the altitude if this point contains an altitude.
      *
      * @return altitude
-     * @throws IllegalStateException if {@link #hasAltitude()} is false
+     * @throws IllegalStateException if {@code #hasAltitude()} is false
      */
     public double getAltitude() {
         if (!hasAltitude()) {

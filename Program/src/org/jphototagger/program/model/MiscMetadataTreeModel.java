@@ -43,14 +43,14 @@ import org.jphototagger.lib.util.Bundle;
  * This model contains distinct values of specific EXIF and XMP database
  * columns.
  *
- * Elements are {@link DefaultMutableTreeNode}s with the user objects listed
+ * Elements are {@code DefaultMutableTreeNode}s with the user objects listed
  * below.
  *
  * <ul>
- * <li>The root user object is a {@link String}</li>
- * <li>User objects direct below the root are {@link MetaDataValue}s</li>
+ * <li>The root user object is a {@code String}</li>
+ * <li>User objects direct below the root are {@code MetaDataValue}s</li>
  * <li>User objects below the columns having the data type of the column
- *    ({@link MetaDataValue#getValueType()}</li>
+ *    ({@code MetaDataValue#getValueType()}</li>
  * </ul>
  *
  * @author Elmar Baumann

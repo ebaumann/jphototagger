@@ -3,14 +3,13 @@ package org.jphototagger.domain.metadata.mapping;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.adobe.xmp.properties.XMPPropertyInfo;
 import com.imagero.reader.iptc.IPTCEntryMeta;
 
 /**
  * Mapping zwischen
- * {@link com.imagero.reader.iptc.IPTCEntryMeta}
+ * {@code com.imagero.reader.iptc.IPTCEntryMeta}
  * und dem Start eines
- * {@link com.adobe.xmp.properties.XMPPropertyInfo#getPath()}.
+ * {@code com.adobe.xmp.properties.XMPPropertyInfo#getPath()}.
  *
  * Das Adobe-SDK fügt bei mehrfach vorkommenden Properties einen Index in
  * eckigen Klammern an, weshalb es keine vollständige Abdeckung geben kann.

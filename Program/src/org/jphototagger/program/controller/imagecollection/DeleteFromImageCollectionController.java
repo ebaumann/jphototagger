@@ -6,19 +6,17 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
-import org.jphototagger.program.controller.filesystem.DeleteFilesController;
 import org.jphototagger.program.helper.ImageCollectionsHelper;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.ThumbnailsPopupMenu;
 
 /**
- * Listens to key events of {@link ThumbnailsPanel} and when the
+ * Listens to key events of {@code ThumbnailsPanel} and when the
  * <code>DEL</code> key was pressed deletes the selected files from the
  * image collection.
  *
  * @author Elmar Baumann
- * @see     DeleteFilesController
  */
 public final class DeleteFromImageCollectionController implements ActionListener, KeyListener {
 

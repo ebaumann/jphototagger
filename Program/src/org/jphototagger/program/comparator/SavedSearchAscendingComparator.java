@@ -5,8 +5,8 @@ import java.util.Comparator;
 import org.jphototagger.domain.metadata.search.SavedSearch;
 
 /**
- * Compares {@link org.jphototagger.program.data.SavedSearch} objects. Only the
- * names ({@link org.jphototagger.program.data.SavedSearch#getName()})
+ * Compares {@code org.jphototagger.program.data.SavedSearch} objects. Only the
+ * names ({@code org.jphototagger.program.data.SavedSearch#getName()})
  * will be compared.
  *
  * @author Elmar Baumann

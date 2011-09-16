@@ -39,7 +39,6 @@ final class FileExcludePatternsDatabase extends Database {
      *
      * @param  pattern  pattern
      * @return true if inserted
-     * @see    #existsValueInColumn(java.lang.String)
      */
     boolean insertFileExcludePattern(String pattern) {
         if (pattern == null) {

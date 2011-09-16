@@ -19,8 +19,8 @@ public interface ProgressBarProvider {
     /**
      *
      * @param  progressBar
-     * @param  owner       only the owner got that progress bar can release the progress bar
-     * @return
+     * @param  owner only the owner got that progress bar can release the progress bar
+     * @return true if released
      */
     boolean releaseProgressBar(JProgressBar progressBar, Object owner);
 }

@@ -8,7 +8,6 @@ import java.util.logging.Logger;
 import com.imagero.reader.ImageReader;
 import com.imagero.reader.MetadataUtils;
 import com.imagero.reader.jpeg.JpegReader;
-import com.imagero.reader.tiff.EXIF;
 import com.imagero.reader.tiff.IFDEntry;
 import com.imagero.reader.tiff.ImageFileDirectory;
 import com.imagero.reader.tiff.TiffReader;
@@ -21,8 +20,8 @@ import org.jphototagger.exif.cache.ExifCache;
 import org.jphototagger.image.ImageFileType;
 
 /**
- * Extracts EXIF metadata from images as {@link ExifTag} and
- * {@link EXIF} objects.
+ * Extracts EXIF metadata from images as {@code ExifTag} and
+ * {@code EXIF} objects.
  *
  * @author Elmar Baumann, Tobias Stening
  */
@@ -34,7 +33,7 @@ public final class ExifMetadata {
     }
 
     /**
-     * Returns {@link ExifTag} instances of an image file.
+     * Returns {@code ExifTag} instances of an image file.
      *
      * @param  imageFile image file or null
      * @return           EXIF entries or null if errors occured

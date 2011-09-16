@@ -205,7 +205,7 @@ public final class ImageCollectionsHelper {
 
     /**
      * Returns wether a name is valid. This is true if the name is not equals
-     * to {@link ImageCollectionsListModel#NAME_IMAGE_COLLECTION_PREV_IMPORT}
+     * to {@code ImageCollectionsListModel#NAME_IMAGE_COLLECTION_PREV_IMPORT}
      * ignoring the case.
      *
      * @param  name name

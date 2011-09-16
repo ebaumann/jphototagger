@@ -54,7 +54,7 @@ public final class Ensure {
     /**
      * Ensures that a getTagId is zero or zeroOrPositive.
      *
-     * @param  getTagId getTagId
+     * @param  value value
      * @throws       IllegalArgumentException if the getTagId is negative
      */
     public static void zeroOrPositive(long value) throws IllegalArgumentException {

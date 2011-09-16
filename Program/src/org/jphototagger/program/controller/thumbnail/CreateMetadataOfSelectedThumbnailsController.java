@@ -18,7 +18,7 @@ import org.jphototagger.program.view.popupmenus.ThumbnailsPopupMenu;
 /**
  * Kontrolliert die Aktion: Metadaten erzeugen für ausgewählte Bilder,
  * ausgelöst von
- * {@link org.jphototagger.program.view.popupmenus.ThumbnailsPopupMenu}.
+ * {@code org.jphototagger.program.view.popupmenus.ThumbnailsPopupMenu}.
  *
  * <em>Nur eine Instanz erzeugen!</em>
  *

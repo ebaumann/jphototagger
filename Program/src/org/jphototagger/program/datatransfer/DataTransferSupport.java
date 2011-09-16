@@ -28,7 +28,7 @@ public final class DataTransferSupport {
     /**
      * Returns the transferred keywords.
      *
-     * <em>The data flavor has to be {@link Flavor#KEYWORDS_LIST}!</em>
+     * <em>The data flavor has to be {@code Flavor#KEYWORDS_LIST}!</em>
      *
      * @param  transferable transferable
      * @return              keywords or null on errors
@@ -50,7 +50,7 @@ public final class DataTransferSupport {
     /**
      * Returns from a transferable a collection of metadata value data.
      *
-     * @param  transferable transferable supporting {@link Flavor#META_DATA_VALUE}
+     * @param  transferable transferable supporting {@code Flavor#META_DATA_VALUE}
      * @return              collection or null on errors
      */
     @SuppressWarnings("unchecked")
@@ -71,7 +71,7 @@ public final class DataTransferSupport {
     /**
      * Returns the transferred keyword node.
      *
-     * <em>The data flavor has to be {@link Flavor#KEYWORDS_TREE}!</em>
+     * <em>The data flavor has to be {@code Flavor#KEYWORDS_TREE}!</em>
      *
      * @param  transferable transferable
      * @return              keyword node or null on errors
@@ -117,7 +117,7 @@ public final class DataTransferSupport {
     /**
      * Returns a transferred string.
      *
-     * <em>The data flavor has to be {@link DataFlavor#stringFlavor}!</em>
+     * <em>The data flavor has to be {@code DataFlavor#stringFlavor}!</em>
      *
      * @param  transferable transferable
      * @return              string or null on errors

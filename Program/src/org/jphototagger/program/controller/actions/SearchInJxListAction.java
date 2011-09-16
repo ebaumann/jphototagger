@@ -11,7 +11,7 @@ import org.jdesktop.swingx.JXList;
 import org.jphototagger.lib.util.Bundle;
 
 /**
- * Performs the action "find" of a {@link JXList}'s action map.
+ * Performs the action "find" of a {@code JXList}'s action map.
  *
  * @author Elmar Baumann
  */

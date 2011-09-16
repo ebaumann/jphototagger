@@ -21,10 +21,9 @@ import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.model.KeywordsTreeModel;
 import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.panels.KeywordsPanel;
-import org.jphototagger.program.view.popupmenus.KeywordsTreePopupMenu;
 
 /**
- * Listens to the menu item {@link KeywordsTreePopupMenu#getItemRename()}
+ * Listens to the menu item {@code KeywordsTreePopupMenu#getItemRename()}
  * and on action renames in the tree the selected keyword.
  *
  * Also listens to key events into the tree and renames the selected

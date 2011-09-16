@@ -36,7 +36,7 @@ public final class GPSLocationExportUtil {
 
     /**
      * Returns the filename depending on
-     * {@link UserSettings#isAddFilenameToGpsLocationExport()}.
+     * {@code UserSettings#isAddFilenameToGpsLocationExport()}.
      *
      * @param  file file
      * @return      filename in the format <code>" [name]"</code> or empty

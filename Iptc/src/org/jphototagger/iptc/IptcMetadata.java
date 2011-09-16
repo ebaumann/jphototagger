@@ -25,7 +25,7 @@ public final class IptcMetadata {
     private static final Logger LOGGER = Logger.getLogger(IptcMetadata.class.getName());
 
     /**
-     * Returns {@link IptcEntry} instances of an image file.
+     * Returns {@code IptcEntry} instances of an image file.
      *
      * @param  imageFile image file or null
      * @return           Metadata or empty list if the image has no IPTC
@@ -111,7 +111,7 @@ public final class IptcMetadata {
     }
 
     /**
-     * Returns a {@link Iptc} instance of an image file.
+     * Returns a {@code Iptc} instance of an image file.
      *
      * @param  imageFile image file or null
      * @return           IPTC of that image file or null if the image has no

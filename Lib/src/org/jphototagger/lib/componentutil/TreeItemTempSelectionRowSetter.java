@@ -17,7 +17,7 @@ import org.jdesktop.swingx.JXTree;
 import org.jphototagger.lib.event.util.MouseEventUtil;
 
 /**
- * Listens in a {@link JTree} for popup triggers and sets to the tree cell
+ * Listens in a {@code JTree} for popup triggers and sets to the tree cell
  * renderer of that tree the row index below the mouse location.
  *
  * If the popup menu becomes invisible, the row index will be set to -1.

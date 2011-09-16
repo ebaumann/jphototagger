@@ -125,7 +125,7 @@ public final class ThumbnailsPanelPersistenceController {
      * Returns the file sort comparator from the user settings.
      *
      * @return sort comparator or if not defined the comparator of
-     *         {@link FileSort#NAMES_ASCENDING}
+     *         {@code FileSort#NAMES_ASCENDING}
      */
     @SuppressWarnings("unchecked")
     public static Comparator<File> getFileSortComparator() {

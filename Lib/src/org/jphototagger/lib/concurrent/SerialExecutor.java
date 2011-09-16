@@ -30,10 +30,10 @@ public final class SerialExecutor implements Executor {
     /**
      * Empties the queue and interrupts the current active runnable.
      *
-     * If the active runnable implements {@link Cancelable}, its method
-     * {@link Cancelable#cancel()} will be called. If it does not implement
-     * that interface and it is an instance of {@link Thread},
-     * {@link Thread#interrupt()} will be called.
+     * If the active runnable implements {@code Cancelable}, its method
+     * {@code Cancelable#cancel()} will be called. If it does not implement
+     * that interface and it is an instance of {@code Thread},
+     * {@code Thread#interrupt()} will be called.
      */
     public synchronized void cancel() {
         runnables.clear();

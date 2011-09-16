@@ -17,7 +17,7 @@ import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
- * Elements are {@link MetadataTemplate}s.
+ * Elements are {@code MetadataTemplate}s.
  *
  * @author Elmar Baumann
  */

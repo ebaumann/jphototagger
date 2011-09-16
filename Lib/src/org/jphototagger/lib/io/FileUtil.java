@@ -121,7 +121,7 @@ public final class FileUtil {
 
     /**
      * Returns whether a file exists and is <em>not</em> a directory (weaker
-     * than {@link File#isFile()}).
+     * than {@code File#isFile()}).
      *
      * @param file file
      * @return     true if the file exists and is not a directory
@@ -216,7 +216,7 @@ public final class FileUtil {
      * Returns the path to a file up to it's root file.
      * <p>
      * Every stack element obove another stack element is the parent file
-     * ({@link File#getParentFile()}) of the element below it. The top of the
+     * ({@code File#getParentFile()}) of the element below it. The top of the
      * stack is the root file.
      *
      * @param  file file
@@ -289,7 +289,7 @@ public final class FileUtil {
     }
 
     /**
-     * Returns the absolute path names ({@link File#getAbsolutePath()} of a
+     * Returns the absolute path names ({@code File#getAbsolutePath()} of a
      * collection of files.
      *
      * @param  files files

@@ -21,7 +21,7 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 /**
  *
  * All programs in this model are actions, where
- * {@link org.jphototagger.program.data.Program#isAction()} is true, <em>or</em>
+ * {@code org.jphototagger.program.data.Program#isAction()} is true, <em>or</em>
  * programs, where that method returns <code>false</code>.
  *
  * @author Elmar Baumann

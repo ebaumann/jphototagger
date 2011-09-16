@@ -4,8 +4,8 @@ import java.io.File;
 import java.io.Serializable;
 
 /**
- * Filter for {@link javax.swing.JFileChooser} created from a
- * {@link java.io.FileFilter}.
+ * Filter for {@code javax.swing.JFileChooser} created from a
+ * {@code java.io.FileFilter}.
  *
  * @author Elmar Baumann
  */
@@ -21,7 +21,7 @@ public final class FileChooserFilter extends javax.swing.filechooser.FileFilter 
     }
 
     /**
-     * Returns {@link java.io.FileFilter#accept(java.io.File)} from this
+     * Returns {@code java.io.FileFilter#accept(java.io.File)} from this
      * instance.
      *
      * @param  f  file

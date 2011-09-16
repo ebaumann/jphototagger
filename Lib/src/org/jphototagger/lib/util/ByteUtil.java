@@ -96,7 +96,7 @@ public final class ByteUtil {
      *
      * @param  a1 can be null
      * @param  a2 can be null
-     * @return
+     * @return b
      */
     public static boolean equals(byte[] a1, byte[] a2) {
         if (a1 == null && a2 == null) {

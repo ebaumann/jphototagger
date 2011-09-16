@@ -4,10 +4,9 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
-import org.jphototagger.program.view.panels.KeywordsPanel;
 
 /**
- * Expands the path of all {@link KeywordsPanel}s trees.
+ * Expands the path of all {@code KeywordsPanel}s trees.
  *
  * @author Elmar Baumann
  */

@@ -21,7 +21,7 @@ import org.jphototagger.program.view.panels.SelectRootFilesPanel;
 
 
 /**
- * Changes the properties of a {@link org.jphototagger.program.data.Favorite}.
+ * Changes the properties of a {@code org.jphototagger.program.data.Favorite}.
  *
  * @author Elmar Baumann
  */

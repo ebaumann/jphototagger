@@ -6,8 +6,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
 
-import javax.swing.JTree;
-
 import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.event.util.KeyEventUtil;
@@ -19,10 +17,10 @@ import org.jphototagger.program.view.popupmenus.DirectoriesPopupMenu;
 import org.jphototagger.program.view.popupmenus.FavoritesPopupMenu;
 
 /**
- * Listens to the {@link FavoritesPopupMenu} and inserts a
+ * Listens to the {@code FavoritesPopupMenu} and inserts a
  * new favorite directory when the special menu item was clicked.
  *
- * Also listens to the {@link JTree}'s key events and inserts a new favorite if
+ * Also listens to the {@code JTree}'s key events and inserts a new favorite if
  * the keys <code>Ctrl+I</code> were pressed.
  *
  * @author Elmar Baumann

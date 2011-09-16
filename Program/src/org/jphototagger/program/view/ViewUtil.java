@@ -37,9 +37,9 @@ public class ViewUtil {
     }
 
     /**
-     * Returns the selected file in a {@link JTree} if the selected node is a
-     * {@link DefaultMutableTreeNode} and it's user object is a {@link File} or
-     * a {@link Favorite}.
+     * Returns the selected file in a {@code JTree} if the selected node is a
+     * {@code DefaultMutableTreeNode} and it's user object is a {@code File} or
+     * a {@code Favorite}.
      *
      * @param  tree a tree
      * @return      file or null if no node with a file user object is selected

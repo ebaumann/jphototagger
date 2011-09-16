@@ -73,7 +73,7 @@ public final class XmpMetadata {
     }
 
     /**
-     * Returns all {@link XMPPropertyInfo}s of a specific namespace.
+     * Returns all {@code XMPPropertyInfo}s of a specific namespace.
      *
      * @param propertyInfos XMP property infos of arbitrary namespaces
      * @param namespace     namespace
@@ -135,7 +135,7 @@ public final class XmpMetadata {
     /**
      *
      * @param xmpAsString can be null
-     * @return
+     * @return l
      */
     public static List<XMPPropertyInfo> getPropertyInfosOfXmpString(String xmpAsString) {
         List<XMPPropertyInfo> propertyInfos = new ArrayList<XMPPropertyInfo>();
@@ -278,7 +278,7 @@ public final class XmpMetadata {
     }
 
     /**
-     * Returns all {@link XMPPropertyInfo}s matching a {@link IPTCEntryMeta}.
+     * Returns all {@code XMPPropertyInfo}s matching a {@code IPTCEntryMeta}.
      *
      * @param  matchingIptcEntryMeta IPTC entry metadata
      * @param  propertyInfos      arbitrary property infos
@@ -343,7 +343,7 @@ public final class XmpMetadata {
     }
 
     /**
-     * Writes the values of a {@link Xmp} instance as or into a XMP sidecar
+     * Writes the values of a {@code Xmp} instance as or into a XMP sidecar
      * file.
      *
      * @param  fromXmp       XMP metadata
@@ -411,7 +411,7 @@ public final class XmpMetadata {
     }
 
     /**
-     * Sets metadata of a {@link Xmp} instance to a {@link XMPMeta} instance.
+     * Sets metadata of a {@code Xmp} instance to a {@code XMPMeta} instance.
      *
      * @param mdValue        part of data to set
      * @param fromXmp       <code>Xmp</code> metadata to set from
@@ -568,8 +568,8 @@ public final class XmpMetadata {
 
     /**
      * Puts into a map property infos where the map key is a string of
-     * {@link XmpInRepository#getPathPrefixes()}. The values are
-     * {@link XMPPropertyInfo} instances with path prefixes matching the key.
+     * {@code XmpInRepository#getPathPrefixes()}. The values are
+     * {@code XMPPropertyInfo} instances with path prefixes matching the key.
      *
      * @param  xmpPropertyInfos unordered property infos
      * @return                   ordered property infos
@@ -643,7 +643,7 @@ public final class XmpMetadata {
      *
      * @param  imageFiles image files
      * @return            image files with their corresponding sidecar files.
-     *                    {@link ImageFileSidecarFile#getSidecarFile()}
+     *                    {@code ImageFileSidecarFile#getSidecarFile()}
      *                    returns null if the image file has no sidecar file.
      */
     public static List<ImageFileSidecarFile> getImageFilesWithSidecarFiles(List<File> imageFiles) {

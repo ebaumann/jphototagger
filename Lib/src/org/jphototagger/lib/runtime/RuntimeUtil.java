@@ -87,7 +87,7 @@ public final class RuntimeUtil {
     }
 
     /**
-     * Quotes a string and a file with {@link #getDefaultCommandlineQuote()} and
+     * Quotes a string and a file with {@code #getDefaultCommandlineQuote()} and
      * separates them with a space character.
      *
      * @param  string  usually the program path
@@ -110,7 +110,7 @@ public final class RuntimeUtil {
     }
 
     /**
-     * Quotes each file with {@link #getDefaultCommandlineQuote()} and separates
+     * Quotes each file with {@code #getDefaultCommandlineQuote()} and separates
      * them with a space character.
      *
      * @param  files files
@@ -127,7 +127,7 @@ public final class RuntimeUtil {
 
     /**
      * Quotes each file of a collection with
-     * {@link #getDefaultCommandlineQuote()} and separates them with a space character.
+     * {@code #getDefaultCommandlineQuote()} and separates them with a space character.
      *
      * @param  files files
      * @return       quoted string
@@ -144,10 +144,10 @@ public final class RuntimeUtil {
      * Substitudes in a string placeholders with portions of a filename:
      * <ul>
      * <li>%s with the absolute path of the file</li>
-     * <li>%d with {@link FileUtil#getRootName(java.lang.String)}</li>
-     * <li>%p with {@link FileUtil#getDirPath(java.io.File)}</li>
-     * <li>%n with {@link FileUtil#getPrefix(java.lang.String)}</li>
-     * <li>%x with {@link FileUtil#getSuffix(java.lang.String)}</li>
+     * <li>%d with {@code  FileUtil#getRoot(java.io.File)}</li>
+     * <li>%p with {@code FileUtil#getDirectoryPath(java.io.File)}</li>
+     * <li>%n with {@code FileUtil#getPrefix(java.lang.String)}</li>
+     * <li>%x with {@code FileUtil#getSuffix(java.lang.String)}</li>
      * </ul>
      *
      * @param  file    file

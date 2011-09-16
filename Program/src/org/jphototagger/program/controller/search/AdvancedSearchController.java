@@ -79,7 +79,7 @@ public final class AdvancedSearchController implements ActionListener {
     }
 
     /**
-     * Takes a search via {@link AdvancedSearchPanel#createSavedSearch()} and
+     * Takes a search via {@code AdvancedSearchPanel#createSavedSearch()} and
      * performs it (searches).
      *
      * @param evt can be null

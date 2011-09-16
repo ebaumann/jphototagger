@@ -22,7 +22,7 @@ public final class ExifLong {
      * @param  rawValue
      * @param  byteOrder
      * @throws IllegalArgumentException if the length of the raw value is not
-     *         equals to {@link #getRawValueByteCount()} or if the value is negative
+     *         equals to {@code #getRawValueByteCount()} or if the value is negative
      */
     public ExifLong(byte[] rawValue, ByteOrder byteOrder) {
         if (rawValue == null) {

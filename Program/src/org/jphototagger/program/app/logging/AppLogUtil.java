@@ -16,8 +16,8 @@ public final class AppLogUtil {
     private static final String LINE_SEP = System.getProperty("line.separator");
 
     /**
-     * Returns {@link Throwable#getLocalizedMessage()} prepended by
-     * {@link AppInfo#APP_NAME} and {@link AppInfo#APP_VERSION}.
+     * Returns {@code Throwable#getLocalizedMessage()} prepended by
+     * {@code AppInfo#APP_NAME} and {@code AppInfo#APP_VERSION}.
      *
      * @param  t throwable
      * @return   message

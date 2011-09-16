@@ -25,10 +25,10 @@ import org.jphototagger.api.storage.Storage;
 /**
  * Panel to select objects from a collection of objects.
  * <p>
- * Contains {@link JCheckBox}es to select the objects.
+ * Contains {@code JCheckBox}es to select the objects.
  * <p>
  * <em>If a GUI builder sets a layout to this panel, ensure that it's
- * {@link GridBagLayout}!</em>
+ * {@code GridBagLayout}!</em>
  *
  * @author Elmar Baumann
  */
@@ -51,12 +51,11 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
      * <p>
      * Usage only, if the count and order of objects is always the same. The
      * order is defined through the order of
-     * {@link #add(java.lang.Object, java.lang.String)} calls.
+     * {@code #add(java.lang.Object, java.lang.String)} calls.
      *
      * @param properties    properties
      * @param keySelIndices key in <code>properties</code> for setting and
      *                      getting the selected indices
-     * @see                 #applyPropertiesSelectedIndices()
      */
     public SelectObjectsPanel(Properties properties, String keySelIndices) {
         if (properties == null) {
@@ -120,7 +119,7 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
 
     /**
      * Removes all components and clears the component count. Do <em>not</em>
-     * call {@link #removeAll()}!
+     * call {@code #removeAll()}!
      */
     public void clear() {
         removeAll();
@@ -131,7 +130,7 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
 
     /**
      * Returns the "real" object count (i.e. <em>not</em> the object count setTree
-     * via {@link #setObjectCount(int)}).
+     * via {@code #setObjectCount(int)}).
      *
      * @return object count
      */
@@ -173,7 +172,7 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
     }
 
     /**
-     * Sets, how often {@link #add(java.lang.Object, java.lang.String)} will be
+     * Sets, how often {@code #add(java.lang.Object, java.lang.String)} will be
      * called.
      * <p>
      * If setTree, the layout manager ensures, that the check boxes are not
@@ -227,7 +226,7 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
 
     /**
      * Selects all check boxes if their index is in the properties setTree via
-     * {@link SelectObjectsPanel#SelectObjectsPanel(Properties, String)}
+     * {@code SelectObjectsPanel#SelectObjectsPanel(Properties, String)}
      */
     public void applyPropertiesSelectedIndices() {
         Storage storage = Lookup.getDefault().lookup(Storage.class);

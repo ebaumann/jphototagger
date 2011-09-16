@@ -18,14 +18,13 @@ import org.jphototagger.lib.datatransfer.TransferableObject;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.helper.MiscMetadataHelper;
-import org.jphototagger.program.view.panels.KeywordsPanel;
 
 /**
- * Transfer handler for {@link KeywordsPanel#getList()}.
+ * Transfer handler for {@code KeywordsPanel#getList()}.
  *
- * Creates a {@link Transferable} with selected keywords as content. The
- * transferable is a {@link TransferableObject} instance which supports the data
- * flavor {@link Flavor#KEYWORDS_LIST}.
+ * Creates a {@code Transferable} with selected keywords as content. The
+ * transferable is a {@code TransferableObject} instance which supports the data
+ * flavor {@code Flavor#KEYWORDS_LIST}.
  *
  * @author Elmar Baumann
  */
@@ -77,7 +76,7 @@ public final class KeywordsListTransferHandler extends TransferHandler {
      * Returns the keywords in a transferable object.
      *
      * <em>The transferable has to support the data flavor
-     * {@link Flavor#KEYWORDS_LIST}!</em>
+     * {@code Flavor#KEYWORDS_LIST}!</em>
      *
      * @param  transferable transferable object
      * @return              keywords or null on errors

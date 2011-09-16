@@ -1,9 +1,7 @@
 package org.jphototagger.program.view.panels;
 
-import javax.swing.Popup;
-
 /**
- * Panel for usage as {@link Popup}.
+ * Panel for usage as {@code Popup}.
  *
  * @author Elmar Baumann
  */

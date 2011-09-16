@@ -11,7 +11,7 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.model.FastSearchComboBoxModel;
 
 /**
- * Renders elements of a {@link FastSearchComboBoxModel}.
+ * Renders elements of a {@code FastSearchComboBoxModel}.
  *
  * @author Elmar Baumann
  */

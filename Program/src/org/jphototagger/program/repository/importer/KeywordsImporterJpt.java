@@ -30,7 +30,7 @@ import org.jphototagger.domain.repository.RepositoryDataImporter;
 import org.jphototagger.program.repository.exporter.KeywordsExporterJpt;
 
 /**
- * Imports Keywords exported by {@link KeywordsExporterJpt}.
+ * Imports Keywords exported by {@code KeywordsExporterJpt}.
  *
  * @author Elmar Baumann
  */

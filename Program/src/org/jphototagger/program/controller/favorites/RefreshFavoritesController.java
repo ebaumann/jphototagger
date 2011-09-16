@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import javax.swing.JTree;
 
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.factory.ModelFactory;
@@ -17,7 +16,7 @@ import org.jphototagger.program.view.popupmenus.FavoritesPopupMenu;
  * Refreshes the favorite directories tree: Adds new folders and removes
  * deleted.
  *
- * Also listens to the {@link JTree}'s key events and refreshes the view if
+ * Also listens to the {@code JTree}'s key events and refreshes the view if
  * the key <code>F5</code> was pressed.
  *
  * @author Elmar Baumann

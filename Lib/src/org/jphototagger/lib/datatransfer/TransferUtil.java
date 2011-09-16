@@ -24,7 +24,7 @@ import javax.swing.tree.TreePath;
  * Utilities for data transfer.
  *
  * All functions with object reference parameters are throwing a
- * {@link NullPointerException} if an object reference is null and it is
+ * {@code NullPointerException} if an object reference is null and it is
  * not documentet that it can be null.
  *
  * @author Elmar Baumann
@@ -70,12 +70,12 @@ public final class TransferUtil {
     }
 
     /**
-     * Returns the selected items in a {@link JList} as a token string within a
-     * {@link java.awt.datatransfer.StringSelection}.
+     * Returns the selected items in a {@code JList} as a token string within a
+     * {@code java.awt.datatransfer.StringSelection}.
      *
      * @param  objects    objects
      * @param  delimiter  delimiter between the item strings
-     * @return            {@link StringSelection}: selected items as strings
+     * @return            {@code StringSelection}: selected items as strings
      *                    separated by <code>delimiter</code>
      */
     public static Transferable getSelectedItemStringsTransferable(JList objects, String delimiter) {
@@ -106,13 +106,13 @@ public final class TransferUtil {
 
     /**
      * Returns the Integers of a list in a
-     * {@link java.awt.datatransfer.StringSelection}.
+     * {@code java.awt.datatransfer.StringSelection}.
      *
      * Each integer is separated by a delimiter.
      *
      * @param  integers  integers
      * @param  delimiter delimiter
-     * @return           {@link StringSelection}: A String within integer token
+     * @return           {@code StringSelection}: A String within integer token
      *                   separated by <code>delimiter</code>
      */
     public static Transferable getIntegerListTransferable(List<Integer> integers, String delimiter) {
@@ -141,7 +141,7 @@ public final class TransferUtil {
 
     /**
      * Returns the Strings of a list in a
-     * {@link java.awt.datatransfer.StringSelection}.
+     * {@code java.awt.datatransfer.StringSelection}.
      *
      * Each string is separated by a delimiter.
      *
@@ -176,7 +176,7 @@ public final class TransferUtil {
 
     /**
      * Returns the flavor of a string with a URI list, needed to get files from
-     * {@link #getFilesFromUriList(java.awt.datatransfer.Transferable)}.
+     * {@code #getFilesFromUriList(java.awt.datatransfer.Transferable)}.
      *
      * @return flavor
      */
@@ -254,7 +254,7 @@ public final class TransferUtil {
 
     /**
      * Returns a list of files in a transferable which supports
-     * {@link java.awt.datatransfer.DataFlavor#javaFileListFlavor}.
+     * {@code java.awt.datatransfer.DataFlavor#javaFileListFlavor}.
      *
      * @param   transferable transferable
      * @return               list of files
@@ -419,7 +419,7 @@ public final class TransferUtil {
     /**
      * Returns whether to copy dropped data.
      * <p>
-     * {@link TransferSupport#isDrop()} has to be true when calling this method!
+     * {@code TransferSupport#isDrop()} has to be true when calling this method!
      *
      * @param  support transfer support
      * @return         true if the data shall be copied
@@ -439,7 +439,7 @@ public final class TransferUtil {
     /**
      * Returns whether to move dropped data.
      * <p>
-     * {@link TransferSupport#isDrop()} has to be true when calling this method!
+     * {@code TransferSupport#isDrop()} has to be true when calling this method!
      *
      * @param  support transfer support
      * @return         true if the data shall be moved
@@ -459,7 +459,7 @@ public final class TransferUtil {
     /**
      * Returns whether to link dropped data.
      * <p>
-     * {@link TransferSupport#isDrop()} has to be true when calling this method!
+     * {@code TransferSupport#isDrop()} has to be true when calling this method!
      *
      * @param  support transfer support
      * @return         true if the data shall be linked
@@ -478,7 +478,7 @@ public final class TransferUtil {
 
     /**
      * Returns the index of the drop location where the <em>target has to be an
-     * instance of {@link JList}</em>.
+     * instance of {@code JList}</em>.
      *
      * @param  support transfer support
      * @return         index or -1 if the drop location is not over a list item
@@ -506,7 +506,7 @@ public final class TransferUtil {
 
     /**
      * Returns the drop node where <em>the target has to be an instance of
-     * {@link JTree} and its nodes {@link DefaultMutableTreeNode}s</em>.
+     * {@code JTree} and its nodes {@code DefaultMutableTreeNode}s</em>.
      *
      * @param  support transfer support
      * @return         node or null if the last path component of the drop is

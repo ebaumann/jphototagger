@@ -19,7 +19,7 @@ public final class MenuUtil {
     }
 
     /**
-     * Calls {@link #setMnemonics(javax.swing.JMenuItem)} for every menu in a
+     * Calls {@code #setMnemonics(javax.swing.JMenuItem)} for every menu in a
      * menu bar and for all it's items.
      * <p>
      * According to <a href="http://developer.apple.com/mac/library/documentation/Java/Conceptual/Java14Development/07-NativePlatformIntegration/NativePlatformIntegration.html">Mac OS X Integration for Java</a>
@@ -44,7 +44,7 @@ public final class MenuUtil {
     }
 
     /**
-     * Calls {@link #setMnemonics(javax.swing.JMenuItem)} to a menu and all it's
+     * Calls {@code #setMnemonics(javax.swing.JMenuItem)} to a menu and all it's
      * items.
      * <p>
      * According to <a href="http://developer.apple.com/mac/library/documentation/Java/Conceptual/Java14Development/07-NativePlatformIntegration/NativePlatformIntegration.html">Mac OS X Integration for Java</a>
