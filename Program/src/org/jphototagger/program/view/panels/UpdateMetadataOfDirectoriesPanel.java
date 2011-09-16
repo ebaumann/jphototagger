@@ -14,6 +14,8 @@ import javax.swing.JPanel;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.concurrent.CancelRequest;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
@@ -34,7 +36,6 @@ import org.jphototagger.lib.util.CollectionUtil;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
 import org.jphototagger.program.io.ImageFileDirectory;
 import org.jphototagger.program.resource.GUI;
-import org.openide.util.Lookup;
 
 /**
  *
@@ -169,9 +170,11 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
     private void readProperties() {
         Storage storage = Lookup.getDefault().lookup(Storage.class);
 
-        storage.applyToggleButtonSettings(KEY_FORCE, checkBoxForce);
-        storage.applyToggleButtonSettings(KEY_SUBDIRECTORIES, checkBoxIncludeSubdirectories);
-        readLastDirectoryFromProperties();
+        if (storage != null) {
+            storage.applyToggleButtonSettings(KEY_FORCE, checkBoxForce);
+            storage.applyToggleButtonSettings(KEY_SUBDIRECTORIES, checkBoxIncludeSubdirectories);
+            readLastDirectoryFromProperties();
+        }
     }
 
     private void readLastDirectoryFromProperties() {

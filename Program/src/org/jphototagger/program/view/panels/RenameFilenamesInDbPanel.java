@@ -4,6 +4,8 @@ import java.awt.Container;
 
 import javax.swing.JPanel;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.api.storage.Storage;
@@ -13,7 +15,6 @@ import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.types.Persistence;
-import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann
@@ -33,7 +34,10 @@ public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener
     private void postInitComponents() {
         Storage storage = Lookup.getDefault().lookup(Storage.class);
 
-        storage.applyComponentSettings(this, null);
+        if (storage != null) {
+            storage.applyComponentSettings(this, null);
+        }
+
         setButtonReplaceEnabled();
         MnemonicUtil.setMnemonics((Container) this);
     }

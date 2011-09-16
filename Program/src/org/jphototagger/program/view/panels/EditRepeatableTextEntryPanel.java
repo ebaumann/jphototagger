@@ -57,8 +57,7 @@ import org.openide.util.Lookup;
  *
  * @author Elmar Baumann
  */
-public final class EditRepeatableTextEntryPanel extends JPanel
-        implements TextEntry, ActionListener, DocumentListener, ListDataListener {
+public final class EditRepeatableTextEntryPanel extends JPanel implements TextEntry, ActionListener, DocumentListener, ListDataListener {
     private static final long serialVersionUID = -5581799743101447535L;
     private String bundleKeyPosRenameDialog;
     private final DefaultListModel model = new DefaultListModel();
@@ -127,7 +126,9 @@ public final class EditRepeatableTextEntryPanel extends JPanel
     private boolean getPersistedAutocomplete() {
         Storage storage = Lookup.getDefault().lookup(Storage.class);
 
-        return storage.containsKey(Storage.KEY_ENABLE_AUTOCOMPLETE)
+        return storage == null
+                ? false
+                : storage.containsKey(Storage.KEY_ENABLE_AUTOCOMPLETE)
                 ? storage.getBoolean(Storage.KEY_ENABLE_AUTOCOMPLETE)
                 : true;
     }

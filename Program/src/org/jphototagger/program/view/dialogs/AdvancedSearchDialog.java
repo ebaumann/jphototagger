@@ -10,8 +10,7 @@ import org.jphototagger.program.view.panels.AdvancedSearchPanel;
  *
  * @author Elmar Baumann
  */
-public final class AdvancedSearchDialog extends Dialog
-        implements AdvancedSearchPanel.NameListener {
+public final class AdvancedSearchDialog extends Dialog implements AdvancedSearchPanel.NameListener {
     public static final AdvancedSearchDialog INSTANCE = new AdvancedSearchDialog(false);
     private static final long serialVersionUID = -7381253840654600441L;
 

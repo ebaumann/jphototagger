@@ -88,7 +88,9 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
     private boolean isAutocomplete() {
         Storage storage = Lookup.getDefault().lookup(Storage.class);
 
-        return storage.containsKey(Storage.KEY_ENABLE_AUTOCOMPLETE)
+        return storage == null
+                ? true
+                : storage.containsKey(Storage.KEY_ENABLE_AUTOCOMPLETE)
                 ? storage.getBoolean(Storage.KEY_ENABLE_AUTOCOMPLETE)
                 : true;
     }
@@ -781,6 +783,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
         add(tabbedPane, gridBagConstraints);
 
         panelButtons.setName("panelButtons"); // NOI18N
+        panelButtons.setLayout(new java.awt.GridLayout(1, 0, 3, 0));
 
         buttonSaveSearch.setText(bundle.getString("AdvancedSearchPanel.buttonSaveSearch.text")); // NOI18N
         buttonSaveSearch.setName("buttonSaveSearch"); // NOI18N
@@ -789,6 +792,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
                 buttonSaveSearchActionPerformed(evt);
             }
         });
+        panelButtons.add(buttonSaveSearch);
 
         buttonSaveAs.setText(bundle.getString("AdvancedSearchPanel.buttonSaveAs.text")); // NOI18N
         buttonSaveAs.setName("buttonSaveAs"); // NOI18N
@@ -797,6 +801,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
                 buttonSaveAsActionPerformed(evt);
             }
         });
+        panelButtons.add(buttonSaveAs);
 
         buttonResetColumns.setText(bundle.getString("AdvancedSearchPanel.buttonResetColumns.text")); // NOI18N
         buttonResetColumns.setName("buttonResetColumns"); // NOI18N
@@ -805,37 +810,17 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
                 buttonResetColumnsActionPerformed(evt);
             }
         });
+        panelButtons.add(buttonResetColumns);
 
         buttonSearch.setText(bundle.getString("AdvancedSearchPanel.buttonSearch.text")); // NOI18N
         buttonSearch.setName("buttonSearch"); // NOI18N
-
-        javax.swing.GroupLayout panelButtonsLayout = new javax.swing.GroupLayout(panelButtons);
-        panelButtons.setLayout(panelButtonsLayout);
-        panelButtonsLayout.setHorizontalGroup(
-            panelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelButtonsLayout.createSequentialGroup()
-                .addComponent(buttonSaveSearch)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonSaveAs)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonResetColumns)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonSearch))
-        );
-        panelButtonsLayout.setVerticalGroup(
-            panelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(buttonSaveSearch)
-                .addComponent(buttonSaveAs)
-                .addComponent(buttonResetColumns)
-                .addComponent(buttonSearch))
-        );
+        panelButtons.add(buttonSearch);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 10, 5);
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 10, 0);
         add(panelButtons, gridBagConstraints);
     }//GEN-END:initComponents
 
