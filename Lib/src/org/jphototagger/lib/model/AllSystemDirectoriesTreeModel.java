@@ -27,7 +27,7 @@ import org.jphototagger.lib.util.StringUtil;
 
 /**
  * Tree model for all directories of a file system. All nodes have the type
- * {@link DefaultMutableTreeNode} and their user object is a file with exception
+ * {@code DefaultMutableTreeNode} and their user object is a file with exception
  * of the root directory.
  *
  * @author Elmar Baumann

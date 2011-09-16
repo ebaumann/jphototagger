@@ -26,7 +26,7 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.types.FileEditor;
 
 /**
- * Panel to select files for a {@link org.jphototagger.program.types.FileEditor}.
+ * Panel to select files for a {@code org.jphototagger.program.types.FileEditor}.
  * Starts a thread, let the editor edit all selected files and displays the
  * progress.
  *

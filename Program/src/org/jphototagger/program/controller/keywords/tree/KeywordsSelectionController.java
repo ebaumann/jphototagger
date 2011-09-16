@@ -12,10 +12,9 @@ import org.jphototagger.domain.keywords.Keyword;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.controller.keywords.list.ShowThumbnailsContainingAllKeywords2;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.panels.AppPanel;
 
 /**
- * Listens to {@link AppPanel#getTreeSelKeywords()} and on selection
+ * Listens to {@code AppPanel#getTreeSelKeywords()} and on selection
  * shows thumbnails of the selected keyword and all it's
  *
  * @author Elmar Baumann

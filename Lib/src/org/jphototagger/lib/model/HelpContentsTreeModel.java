@@ -10,7 +10,7 @@ import org.jphototagger.lib.util.help.HelpPage;
 
 /**
  * Contains the help index of an application's help, the root node of an
- * {@link org.jphototagger.lib.util.help.HelpNode} object.
+ * {@code org.jphototagger.lib.util.help.HelpNode} object.
  *
  * All functions with object-reference-parameters are throwing a
  * <code>NullPointerException</code> if an object reference is null and it is

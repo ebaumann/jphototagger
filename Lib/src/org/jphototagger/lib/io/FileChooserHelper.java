@@ -6,7 +6,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Properties;
 
 import javax.swing.JFileChooser;
 
@@ -21,9 +20,9 @@ import org.jphototagger.lib.util.Settings;
 public final class FileChooserHelper {
 
     /**
-     * Displays a {@link FileChooserExt} for choosing files to open or save.
+     * Displays a {@code FileChooserExt} for choosing files to open or save.
      * <p>
-     * If <code>fcProperties</code> containing a {@link Properties} object and
+     * If <code>fcProperties</code> containing a {@code Properties} object and
      * a key prefix, the size and current directory of the file chooser will be
      * applied before displaying the file chooser and written into the
      * properties object after displaying the file chooser.
@@ -168,7 +167,7 @@ public final class FileChooserHelper {
     }
 
     /**
-     * Calls {@link #chooseFiles(FileChooserProperties)}, where the user can
+     * Calls {@code #chooseFiles(FileChooserProperties)}, where the user can
      * select only one file.
      *
      * @param  fcProperties properties or null

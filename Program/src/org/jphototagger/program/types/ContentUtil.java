@@ -6,7 +6,7 @@ import java.util.List;
 import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 
 /**
- * Utils for {@link TypeOfDisplayedImages}.
+ * Utils for {@code TypeOfDisplayedImages}.
  *
  * @author Elmar Baumann
  */

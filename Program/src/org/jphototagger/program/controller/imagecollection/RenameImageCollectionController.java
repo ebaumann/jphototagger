@@ -7,7 +7,6 @@ import java.awt.event.KeyListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.swing.JTree;
 
 import org.jdesktop.swingx.JXList;
 
@@ -22,9 +21,9 @@ import org.jphototagger.program.view.popupmenus.ImageCollectionsPopupMenu;
 
 /**
  * Renames the selected image collection when the
- * {@link org.jphototagger.program.view.popupmenus.ImageCollectionsPopupMenu} fires.
+ * {@code org.jphototagger.program.view.popupmenus.ImageCollectionsPopupMenu} fires.
  *
- * Also listenes to the {@link JTree}'s key events and renames the selected
+ * Also listenes to the {@code JTree}'s key events and renames the selected
  * image collection when the keys <code>Ctrl+R</code> or <code>F2</code> were
  * pressed.
  *

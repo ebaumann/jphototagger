@@ -90,7 +90,7 @@ public final class DatabaseMetadata extends Database {
 
     /**
      * Returns the application version written by
-     * {@link #setCurrentAppVersionToDatabase()}.
+     * {@code #setCurrentAppVersionToDatabase()}.
      *
      * @return version string or null if not written
      */

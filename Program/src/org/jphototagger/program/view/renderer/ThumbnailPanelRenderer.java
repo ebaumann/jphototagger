@@ -74,7 +74,7 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
     private static final Color COLOR_BORDER_THUMBNAIL = new Color(64, 64, 64);
     /**
      * Color of the text below the thumbnails of a higlighted thumbnail. Depends
-     * on {@link #COLOR_BACKGROUND_PADDING_THUMBNAIL_HIGHLIGHTED}
+     * on {@code #COLOR_BACKGROUND_PADDING_THUMBNAIL_HIGHLIGHTED}
      */
     private static final Color COLOR_TEXT_HIGHLIGHTED = new Color(255, 255, 168);
     /**
@@ -83,7 +83,7 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
     private static final Color COLOR_TEXT_BACKGROUND = new Color(0, 0, 128);
     /**
      * Color of the background surrounding a highlighted thumbnail. When
-     * changing, look for {@link #COLOR_TEXT_HIGHLIGHTED}.
+     * changing, look for {@code #COLOR_TEXT_HIGHLIGHTED}.
      */
     private static final Color COLOR_BACKGROUND_PADDING_THUMBNAIL_HIGHLIGHTED = new Color(112, 122, 148);
     private static final Color COLOR_BACKGROUND_PADDING_THUMBNAIL_DRAG_OVER = new Color(169, 171, 176);

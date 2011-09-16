@@ -11,8 +11,8 @@ import org.jphototagger.program.view.dialogs.FileEditorDialog;
 import org.jphototagger.program.view.panels.FileEditorPanel;
 
 /**
- * Starts a {@link org.jphototagger.program.view.dialogs.FileEditorDialog} with
- * an {@link org.jphototagger.program.helper.ExtractEmbeddedXmp} editor.
+ * Starts a {@code org.jphototagger.program.view.dialogs.FileEditorDialog} with
+ * an {@code org.jphototagger.program.helper.ExtractEmbeddedXmp} editor.
  *
  * @author Elmar Baumann
  */

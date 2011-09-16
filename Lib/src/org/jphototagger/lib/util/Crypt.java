@@ -12,7 +12,7 @@ import org.jphototagger.lib.thirdparty.Base64;
 /**
  * En- and decrypts strings with <code>DESede</code> and <code>Base64</code> so
  * that the encrypted string can be stored into a plain text file, e.g. a
- * {@link java.util.Properties} file.
+ * {@code java.util.Properties} file.
  * <p>
  * Usage example:
  * <pre>

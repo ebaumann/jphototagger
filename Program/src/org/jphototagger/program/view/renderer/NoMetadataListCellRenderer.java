@@ -7,10 +7,9 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 
 import org.jphototagger.domain.metadata.MetaDataValue;
-import org.jphototagger.program.model.NoMetadataListModel;
 
 /**
- * Renders list items of {@link NoMetadataListModel}.
+ * Renders list items of {@code NoMetadataListModel}.
  *
  * @author Elmar Baumann
  */

@@ -1,7 +1,7 @@
 package org.jphototagger.kml;
 
 /**
- * A placemark within a {@link KMLDocument}.
+ * A placemark within a {@code KMLDocument}.
  * <p>
  * Doc: http://code.google.com/intl/de/apis/kml/documentation/kmlreference.html
  *
@@ -46,7 +46,7 @@ public final class KMLPlacemark implements KMLElement {
      * Returns the XML representation of a placemark.
      *
      * @return <code>"&lt;Placemark&gt;[&lt;name&gt;Name&lt;/name&gt;]point&lt;/Placemark&gt;"</code>
-     *         where point is {@link KMLPoint#toXML()}
+     *         where point is {@code KMLPoint#toXML()}
      */
     @Override
     public String toXML() {

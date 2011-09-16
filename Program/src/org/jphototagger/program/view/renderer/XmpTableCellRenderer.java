@@ -24,7 +24,7 @@ import org.jphototagger.xmp.XmpMetadata;
 
 /**
  * Rendert Tabellen mit
- * {@link com.adobe.xmp.properties.XMPPropertyInfo}-Spaltenobjekten.
+ * {@code com.adobe.xmp.properties.XMPPropertyInfo}-Spaltenobjekten.
  *
  * @author Elmar Baumann
  */

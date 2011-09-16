@@ -23,12 +23,11 @@ import org.jphototagger.program.cache.ThumbnailCache;
 import org.jphototagger.program.cache.XmpCache;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.RenameDialog;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.ThumbnailsPopupMenu;
 
 /**
- * Listens to key events of {@link ThumbnailsPanel} and when
- * <code>F2</code> was pressed shows the {@link RenameDialog} to renameFile the
+ * Listens to key events of {@code ThumbnailsPanel} and when
+ * <code>F2</code> was pressed shows the {@code RenameDialog} to renameFile the
  * selected files.
  *
  * @author Elmar Baumann

@@ -15,7 +15,7 @@ import javax.swing.ListModel;
 import org.jdesktop.swingx.JXList;
 
 /**
- * Utils for {@link javax.swing.JList}.
+ * Utils for {@code javax.swing.JList}.
  *
  * All functions with object-reference-parameters are throwing a
  * <code>NullPointerException</code> if an object reference is null and it is
@@ -176,7 +176,7 @@ public final class ListUtil {
     }
 
     /**
-     * Swaps two list elements into a {@link javax.swing.DefaultListModel}.
+     * Swaps two list elements into a {@code javax.swing.DefaultListModel}.
      *
      * @param  model               model with the elements
      * @param  indexFirstElement   index of the first element
@@ -207,7 +207,7 @@ public final class ListUtil {
 
     /**
      * Returns wheter a list model contains a string. Uses the
-     * {@link java.lang.Object#toString()} method for comparison.
+     * {@code java.lang.Object#toString()} method for comparison.
      *
      * @param model   model
      * @param string  string to find
@@ -238,7 +238,7 @@ public final class ListUtil {
     /**
      * Returns the item index below a mouse position got by a mouse event.
      *
-     * @param  evt mouse event within a {@link JList}
+     * @param  evt mouse event within a {@code JList}
      * @return   item index below the mouse position or -1 if below the mouse
      *           position isn't an item
      */

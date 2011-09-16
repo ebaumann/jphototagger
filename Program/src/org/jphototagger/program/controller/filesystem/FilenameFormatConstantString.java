@@ -23,7 +23,7 @@ public final class FilenameFormatConstantString extends FilenameFormat {
     }
 
     /**
-     * Returns {@link FilenameFormat#getFormat()} (the string set in the
+     * Returns {@code FilenameFormat#getFormat()} (the string set in the
      * constructor).
      *
      * @return format

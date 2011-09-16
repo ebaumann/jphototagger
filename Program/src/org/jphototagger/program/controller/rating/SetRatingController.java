@@ -11,15 +11,14 @@ import javax.swing.JMenuItem;
 
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.ThumbnailsPopupMenu;
 
 /**
- * Listens to key events in {@link ThumbnailsPanel} and if a key
+ * Listens to key events in {@code ThumbnailsPanel} and if a key
  * between the range 0..5 was pressed set's the rating to the
- * {@link EditMetadataPanels}.
+ * {@code EditMetadataPanels}.
  * <p>
- * Also listens to the rating items in the {@link ThumbnailsPopupMenu} and
+ * Also listens to the rating items in the {@code ThumbnailsPopupMenu} and
  * rates an action performed.
  *
  * @author Elmar Baumann

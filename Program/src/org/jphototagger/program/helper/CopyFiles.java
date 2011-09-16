@@ -90,17 +90,17 @@ public final class CopyFiles implements Runnable, Cancelable {
 
     /**
      * Fügt einen Aktionsbeobachter hinzu.
-     * {@link ProgressListener#progressPerformed(ProgressEvent)}
+     * {@code ProgressListener#progressPerformed(ProgressEvent)}
      * liefert ein
-     * {@link  org.jphototagger.program.event.ProgressEvent}-Objekt,
-     * das mit {@link  org.jphototagger.program.event.ProgressEvent#getInfo()}
-     * ein {@link SourceTargetFile}-Objekt liefert.
+     * {@code  org.jphototagger.program.event.ProgressEvent}-Objekt,
+     * das mit {@code  org.jphototagger.program.event.ProgressEvent#getInfo()}
+     * ein {@code SourceTargetFile}-Objekt liefert.
      *
-     * {@link ProgressListener#progressEnded(ProgressEvent)}
+     * {@code ProgressListener#progressEnded(ProgressEvent)}
      * liefert ein
-     * {@link  org.jphototagger.program.event.ProgressEvent}-Objekt,
-     * das mit {@link  ProgressEvent#getInfo()}
-     * ein {@link java.util.List}-Objekt mit den Dateinamen der Dateien, die
+     * {@code  org.jphototagger.program.event.ProgressEvent}-Objekt,
+     * das mit {@code  ProgressEvent#getInfo()}
+     * ein {@code java.util.List}-Objekt mit den Dateinamen der Dateien, die
      * nicht kopiert werden konnten.
      *
      * @param listener  Beobachter

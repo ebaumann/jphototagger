@@ -10,7 +10,7 @@ public final class NumberUtil {
     /**
      *
      * @param  string may be null
-     * @return
+     * @return b
      */
     public static boolean isShort(String string) {
         if (string == null) {
@@ -28,7 +28,7 @@ public final class NumberUtil {
     /**
      *
      * @param  string may be null
-     * @return
+     * @return b
      */
     public static boolean isLong(String string) {
         if (string == null) {
@@ -46,7 +46,7 @@ public final class NumberUtil {
     /**
      *
      * @param  string may be null
-     * @return
+     * @return b
      */
     public static boolean isInteger(String string) {
         if (string == null) {
@@ -64,7 +64,7 @@ public final class NumberUtil {
     /**
      *
      * @param  string may be null
-     * @return
+     * @return b
      */
     public static boolean isFloat(String string) {
         if (string == null) {
@@ -82,7 +82,7 @@ public final class NumberUtil {
     /**
      *
      * @param  string may be null
-     * @return
+     * @return b
      */
     public static boolean isDouble(String string) {
         if (string == null) {

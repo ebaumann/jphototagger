@@ -1,14 +1,13 @@
 package org.jphototagger.lib.component;
 
 import javax.swing.Icon;
-import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 
 import org.jphototagger.lib.swing.IconUtil;
 
 /**
  * Displays special icons and/or texts indicating whether something is true
- * and shall be a repacement for a {@link JCheckBox} which is used only for
+ * and shall be a repacement for a {@code JCheckBox} which is used only for
  * that approach (in it's disabled state the text is greyed out).
  *
  * @author Elmar Baumann
@@ -75,7 +74,7 @@ public final class BooleanLabel extends JLabel {
     }
 
     /**
-     * Will be used only if {@link #getFalseText()} is not null.
+     * Will be used only if {@code #getFalseText()} is not null.
      *
      * @param trueText
      */
@@ -92,7 +91,7 @@ public final class BooleanLabel extends JLabel {
     }
 
     /**
-     * Will be used only if {@link #getTrueText()} is not null.
+     * Will be used only if {@code #getTrueText()} is not null.
      *
      * @param falseText
      */

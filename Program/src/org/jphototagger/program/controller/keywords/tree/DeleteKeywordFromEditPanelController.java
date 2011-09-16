@@ -18,11 +18,10 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
 import org.jphototagger.program.view.panels.EditRepeatableTextEntryPanel;
 import org.jphototagger.program.view.panels.KeywordsPanel;
-import org.jphototagger.program.view.popupmenus.KeywordsTreePopupMenu;
 
 /**
  * Listens to the menu item
- * {@link KeywordsTreePopupMenu#getItemRemoveFromEditPanel()} and on action
+ * {@code KeywordsTreePopupMenu#getItemRemoveFromEditPanel()} and on action
  * removes the selected keyword from the edit panel.  If a keyword was already
  * present it is removed again.
  *

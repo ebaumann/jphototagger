@@ -39,12 +39,12 @@ public final class RenameDeleteXmpValue {
      * <p>
      * If renamed successfully, the database will be updated.
      *
-     * @param metaDataValue   XMP metadata value, <em>not</em> {@link XmpDcSubjectsSubjectMetaDataValue}
+     * @param metaDataValue   XMP metadata value, <em>not</em> {@code XmpDcSubjectsSubjectMetaDataValue}
      * @param oldValue old value, will be trimmed
      * @throws         NullPointerException if one of the parameters is null
      * @throws         IllegalArgumentException if the metadata value is not a XMP metacata value,
-     *                 see {@link XmpMetaDataValues#get()}, or is
-     *                 {@link XmpDcSubjectsSubjectMetaDataValue}
+     *                 see {@code XmpMetaDataValues#get()}, or is
+     *                 {@code XmpDcSubjectsSubjectMetaDataValue}
      */
     public static void rename(MetaDataValue metaDataValue, String oldValue) {
         if (metaDataValue == null) {
@@ -78,12 +78,12 @@ public final class RenameDeleteXmpValue {
      * <p>
      * If renamed successfully, the database will be updated.
      *
-     * @param mdValue XMP metadata value, <em>not</em> {@link XmpDcSubjectsSubjectMetaDataValue}
+     * @param mdValue XMP metadata value, <em>not</em> {@code XmpDcSubjectsSubjectMetaDataValue}
      * @param value  value to be deleted
      * @throws       NullPointerException if one of the parameters is null
      * @throws       IllegalArgumentException if mdValue is not a XMP metadata value,
-     *               see {@link XmpMetaDataValues#get()}, or is
-     *               {@link XmpDcSubjectsSubjectMetaDataValue}
+     *               see {@code XmpMetaDataValues#get()}, or is
+     *               {@code XmpDcSubjectsSubjectMetaDataValue}
      */
     public static void delete(MetaDataValue mdValue, String value) {
         if (mdValue == null) {

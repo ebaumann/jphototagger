@@ -62,7 +62,7 @@ public final class ExifGpsDateStamp {
      *
      * @return day
      * @throws IllegalStateException if the date couldn't be set properly
-     *         ({@link #isValid()} returns false)
+     *         ({@code #isValid()} returns false)
      */
     public int getDay() {
         if (!isValid()) {
@@ -77,7 +77,7 @@ public final class ExifGpsDateStamp {
      *
      * @return month
      * @throws IllegalStateException if the date couldn't be set properly
-     *         ({@link #isValid()} returns false)
+     *         ({@code #isValid()} returns false)
      */
     public int getMonth() {
         if (!isValid()) {
@@ -92,7 +92,7 @@ public final class ExifGpsDateStamp {
      *
      * @return year
      * @throws IllegalStateException if the date couldn't be set properly
-     *         ({@link #isValid()} returns false)
+     *         ({@code #isValid()} returns false)
      */
     public int getYear() {
         if (!isValid()) {

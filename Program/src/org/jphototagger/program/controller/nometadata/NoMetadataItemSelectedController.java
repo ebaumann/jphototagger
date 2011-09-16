@@ -15,11 +15,10 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.controller.thumbnail.SortThumbnailsController;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.WaitDisplay;
-import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 
 /**
- * Listens to selections within the list {@link AppPanel#getListNoMetadata()}
+ * Listens to selections within the list {@code AppPanel#getListNoMetadata()}
  * and when an item was selected, sets files without metadata related to the
  * selected item to the thumbnails panel.
  *

@@ -30,9 +30,9 @@ import org.jphototagger.lib.io.FileUtil;
  * <p>
  * Contains theses handlers:
  * <ul>
- * <li>System output handler, level {@link UserSettings#getLogLevel()}</li>
- * <li>File handler for all messages, level {@link Level#ALL}</li>
- * <li>File handler for warning messages, level {@link Level#WARNING}</li>
+ * <li>System output handler, level {@code UserSettings#getLogLevel()}</li>
+ * <li>File handler for all messages, level {@code Level#ALL}</li>
+ * <li>File handler for warning messages, level {@code Level#WARNING}</li>
  * </ul>
  *
  * @author Elmar Baumann

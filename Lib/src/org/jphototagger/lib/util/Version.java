@@ -53,7 +53,7 @@ public final class Version implements Comparable<Version> {
     }
 
     /**
-     * Creates a {@link Version} object from a string.
+     * Creates a {@code Version} object from a string.
      *
      * @param version   version string: 2 up to 4 delimited <em>integer numbers</em>,
      *                  e.g. <code>"0.9.1.5"</code>

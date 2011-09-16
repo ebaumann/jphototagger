@@ -26,12 +26,12 @@ import org.jphototagger.lib.model.TableModelExt;
 import org.jphototagger.lib.util.Bundle;
 
 /**
- * Elements are {@link MetaDataValue}s retrieved through
- * {@link DatabaseInfoRecordCountColumns#get()}.
+ * Elements are {@code MetaDataValue}s retrieved through
+ * {@code DatabaseInfoRecordCountColumns#get()}.
  *
  * This model contains information about the database content, currently the
  * count of table rows. If the database content changes, this model updates
- * itself if set through {@link #setListenToDatabase(boolean)}.
+ * itself if set through {@code #setListenToDatabase(boolean)}.
  *
  * @author Elmar Baumann, Tobias Stening
  */

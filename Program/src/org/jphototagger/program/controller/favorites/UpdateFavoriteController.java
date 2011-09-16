@@ -3,7 +3,6 @@ package org.jphototagger.program.controller.favorites;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
-import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.jphototagger.domain.favorites.Favorite;
@@ -12,11 +11,11 @@ import org.jphototagger.program.helper.FavoritesHelper;
 import org.jphototagger.program.view.popupmenus.FavoritesPopupMenu;
 
 /**
- * Listens to the {@link FavoritesPopupMenu} and let's edit the selected
+ * Listens to the {@code FavoritesPopupMenu} and let's edit the selected
  * favorite directory: Rename or set's a different directory when the
  * special menu item was clicked.
  *
- * Also listens to the {@link JTree}'s key events and let's edit the selected
+ * Also listens to the {@code JTree}'s key events and let's edit the selected
  * file favorite directory if the keys <code>Strg+E</code> were pressed.
  *
  * @author Elmar Baumann

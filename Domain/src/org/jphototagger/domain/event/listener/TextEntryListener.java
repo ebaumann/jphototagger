@@ -3,7 +3,6 @@ package org.jphototagger.domain.event.listener;
 import org.jphototagger.domain.metadata.MetaDataValue;
 
 /**
- * Listens to an {@link org.jphototagger.program.data.TextEntry}.
  *
  * @author Elmar Baumann
  */

@@ -29,8 +29,8 @@ import org.jphototagger.program.view.panels.ProgressBarUpdater;
  * Imports image files from a source directory to a target directory.
  *
  * Does not import XMP sidecar files. After import the images will be inserted
- * into the {@link DatabaseImageFiles} and set as image collection
- * {@link ImageCollectionsListModel#NAME_IMAGE_COLLECTION_PREV_IMPORT}.
+ * into the {@code DatabaseImageFiles} and set as image collection
+ * {@code ImageCollectionsListModel#NAME_IMAGE_COLLECTION_PREV_IMPORT}.
  *
  * @author Elmar Baumann
  */

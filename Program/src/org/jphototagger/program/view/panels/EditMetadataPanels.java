@@ -267,7 +267,7 @@ public final class EditMetadataPanels implements FocusListener {
 
     /**
      * Adds text to a panel if it's an instance of
-     * {@link EditRepeatableTextEntryPanel} and if {@link #isEditable()} is
+     * {@code EditRepeatableTextEntryPanel} and if {@code #isEditable()} is
      * true.
      *
      * @param value
@@ -545,7 +545,7 @@ public final class EditMetadataPanels implements FocusListener {
      * Liefert ein Metadaten-Edit-Template mit den Daten der Panels.
      *
      * @return Template <em>ohne</em> Name
-     *        ({@link org.jphototagger.program.data.MetadataTemplate#getValueName()})
+     *        ({@code org.jphototagger.program.data.MetadataTemplate#getValueName()})
      */
     public MetadataTemplate getMetadataTemplate() {
         MetadataTemplate template = new MetadataTemplate();

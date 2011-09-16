@@ -18,7 +18,7 @@ public final class CollectionUtil {
     /**
      * Inserts into an ascending sorted list an element.
      *
-     * Preconditions: The element has to implement the {@link Comparable}
+     * Preconditions: The element has to implement the {@code Comparable}
      * interface and the list have to be sorted ascending. Both conditions will
      * not be checked: At runtime a class cast exception will be thrown
      * if the element does not implement the comparable interface and and if the
@@ -193,7 +193,7 @@ public final class CollectionUtil {
      * Inserts into one collection all elements of another collection not
      * contained in that collection.
      * <p>
-     * Uses {@link Collection#contains(java.lang.Object)} to compare elements.
+     * Uses {@code Collection#contains(java.lang.Object)} to compare elements.
      *
      * @param <T>    the collection's element type
      * @param src    source collection to get elements from
@@ -212,7 +212,7 @@ public final class CollectionUtil {
     }
 
     /**
-     * Returns a token string from a collection. Uses {@link Object#toString()}
+     * Returns a token string from a collection. Uses {@code Object#toString()}
      * to get the collection elements strings.
      *
      * @param collection           collection

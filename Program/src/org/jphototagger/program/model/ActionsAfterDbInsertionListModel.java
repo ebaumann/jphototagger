@@ -21,7 +21,7 @@ import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 
 /**
- * The programs are actions, {@link Program#isAction()} is true for every
+ * The programs are actions, {@code Program#isAction()} is true for every
  * element in this model. All actions shall be executed after inserting metadata
  * into the database.
  *

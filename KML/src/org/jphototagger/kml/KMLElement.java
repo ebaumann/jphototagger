@@ -1,7 +1,7 @@
 package org.jphototagger.kml;
 
 /**
- * An element in a {@link KMLDocument}.
+ * An element in a {@code KMLDocument}.
  *
  * @author Elmar Baumann
  */

@@ -7,10 +7,10 @@ import org.jphototagger.domain.metadata.selections.FastSearchMetaDataValues;
 
 /**
  * Elements are the metadata values for the fast search - instances of
- * {@link org.jphototagger.program.database.metadata.MetaDataValue} - and a string.
+ * {@code org.jphototagger.program.database.metadata.MetaDataValue} - and a string.
  *
- * The elements retrieved through {@link FastSearchMetaDataValues#get()}. The string is
- * {@link #ALL_DEFINED_META_DATA_VALUES} and means, the fast search shall search
+ * The elements retrieved through {@code FastSearchMetaDataValues#get()}. The string is
+ * {@code #ALL_DEFINED_META_DATA_VALUES} and means, the fast search shall search
  * in all metadata values, else only in the selected metadata value.
  *
  * @author Elmar Baumann

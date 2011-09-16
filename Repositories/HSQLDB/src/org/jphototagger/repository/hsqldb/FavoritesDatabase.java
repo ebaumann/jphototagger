@@ -152,9 +152,9 @@ final class FavoritesDatabase extends Database {
     /**
      * Calling if - <em>and only if</em> - some data in the favorite has been
      * updated <em>with exception of the favorite name</em>
-     * ({@link Favorite#getName()}).
+     * ({@code Favorite#getName()}).
      * <p>
-     * To rename a favorite, call {@link #updateRenameFavorite(String, String)}.
+     * To rename a favorite, call {@code #updateRenameFavorite(String, String)}.
      *
      * @param  favorite favorite
      * @return          true if updated

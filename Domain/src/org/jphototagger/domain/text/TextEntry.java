@@ -7,7 +7,7 @@ import java.util.List;
 import org.jphototagger.domain.metadata.MetaDataValue;
 
 /**
- * Text as value of a {@link MetaDataValue}.
+ * Text as value of a {@code MetaDataValue}.
  *
  * @author Elmar Baumann
  */
@@ -44,7 +44,7 @@ public interface TextEntry {
 
     /**
      * Returns whether the text has been changed since the last call
-     * to {@link #setText(java.lang.String)}.
+     * to {@code #setText(java.lang.String)}.
      *
      * @return true if changed
      */
@@ -52,7 +52,7 @@ public interface TextEntry {
 
     /**
      * Sets how the entry shall behave like changes since last call to
-     * {@link #setText(java.lang.String)}.
+     * {@code #setText(java.lang.String)}.
      *
      * @param dirty  true if the text was changed
      */

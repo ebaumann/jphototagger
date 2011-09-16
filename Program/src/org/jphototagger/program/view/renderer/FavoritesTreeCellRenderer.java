@@ -14,7 +14,7 @@ import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.program.app.AppLookAndFeel;
 
 /**
- * Renders items and text for {@link org.jphototagger.program.data.Timeline} nodes.
+ * Renders items and text for {@code org.jphototagger.program.data.Timeline} nodes.
  *
  * @author Elmar Baumann
  */

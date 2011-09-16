@@ -66,7 +66,7 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
     }
 
     /**
-     * Checks for a newer version if not {@link #isCheckPending()}.
+     * Checks for a newer version if not {@code #isCheckPending()}.
      */
     public static void checkForNewerVersion() {
         synchronized (UpdateDownload.class) {

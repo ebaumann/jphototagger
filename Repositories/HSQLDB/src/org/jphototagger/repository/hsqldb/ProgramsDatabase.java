@@ -25,7 +25,7 @@ import org.jphototagger.domain.repository.event.programs.ProgramUpdatedEvent;
 /**
  * Contains external Programs to start within the application. The primary
  * key of a program is it's <strong>ID</strong>
- * ({@link org.jphototagger.program.data.Program#getId()}).
+ * ({@code org.jphototagger.program.data.Program#getId()}).
  *
  * @author Elmar Baumann
  */
@@ -43,7 +43,7 @@ final class ProgramsDatabase extends Database {
     }
 
     /**
-     * Inserts a new program. Prevoius You should call {@link #hasProgram()}.
+     * Inserts a new program. Prevoius You should call {@code #hasProgram()}.
      *
      * @param  program  program
      * @return true if inserted

@@ -12,7 +12,7 @@ public final class EventQueueUtil {
     /**
      * If the calling thread is the current AWT {@code EventQueue}'s dispatch thread,
      * the {@code Runnable}'s {@code run()} will be called, else the {@code Runnable}
-     * will be invoked through {@link EventQueue#invokeLater(java.lang.Runnable)}.
+     * will be invoked through {@code EventQueue#invokeLater(java.lang.Runnable)}.
      *
      * @param runnable
      */

@@ -1,14 +1,13 @@
 package org.jphototagger.program.helper;
 
 import org.jphototagger.lib.runtime.External;
-import org.jphototagger.program.app.AppLifeCycle;
 import org.jphototagger.program.app.AppLifeCycle.FinalTask;
 
 /**
  * Executable command that can be called before JPhotoTaggers quits.
  * <p>
  * Usage: Create an instance and add it to
- * {@link AppLifeCycle#addFinalTask(org.jphototagger.program.app.AppLifeCycle.FinalTask)}
+ * {@code AppLifeCycle#addFinalTask(org.jphototagger.program.app.AppLifeCycle.FinalTask)}
  *
  * @author Elmar Baumann
  */

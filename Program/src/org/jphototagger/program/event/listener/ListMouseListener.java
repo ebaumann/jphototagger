@@ -10,7 +10,7 @@ import org.jphototagger.lib.event.util.MouseEventUtil;
 
 /**
  * Do not use this class! Instead extend a popup menu from
- * {@link org.jphototagger.lib.event.listener.PopupMenuList}.
+ * {@code org.jphototagger.lib.event.listener.PopupMenuList}.
  *
  * @author Elmar Baumann
  */

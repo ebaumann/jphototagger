@@ -68,7 +68,6 @@ public final class MnemonicUtil {
      * @param  c character in range [A-Z,0-9]
      * @return   mnemonic
      * @throws   IllegalArgumentException if <code>c</code> is not in range
-     * @see      #isInRange(char)
      */
     public static int getMnemonicOf(char c) {
         if (!isInRange(c)) {
@@ -91,11 +90,11 @@ public final class MnemonicUtil {
      * <em>The valid range of mnemonic characters is [A-Za-z0-9]</em>.
      *
      * @param   string masked string or string without an ampersand
-     * @return         {@link MnemonicIndexString#index} ist -1 if the
+     * @return         {@code MnemonicIndexString#index} ist -1 if the
      *                 string does not contain an ampersand or the mnemonic
-     *                 character is invalid. {@link MnemonicIndexString#string} is
+     *                 character is invalid. {@code MnemonicIndexString#string} is
      *                 the string without the mask, or the string itself if
-     *                 {@link MnemonicIndexString#index} is -1.
+     *                 {@code MnemonicIndexString#index} is -1.
      * @throws NullPointerException if <code>string</code> is null
      */
     static MnemonicIndexString getMnemonic(String string) {
@@ -190,11 +189,11 @@ public final class MnemonicUtil {
      * the first ampersand (&amp;):
      *
      * <ul>
-     * <li>{@link JLabel#setDisplayedMnemonic(int)} (Do not forget to call
-     *     {@link JLabel#setLabelFor(java.awt.Component)})
+     * <li>{@code JLabel#setDisplayedMnemonic(int)} (Do not forget to call
+     *     {@code JLabel#setLabelFor(java.awt.Component)})
      * </li>
-     * <li>{@link AbstractButton#setMnemonic(int)}</li>
-     * <li>{@link JTabbedPane#setMnemonicAt(int, int)}</li>
+     * <li>{@code AbstractButton#setMnemonic(int)}</li>
+     * <li>{@code JTabbedPane#setMnemonicAt(int, int)}</li>
      * </ul>
      *
      * <em>The valid range of mnemonic characters is [A-Za-z0-9]</em>.
@@ -229,11 +228,11 @@ public final class MnemonicUtil {
      * the first ampersand (&amp;):
      *
      * <ul>
-     * <li>{@link JLabel#setDisplayedMnemonic(int)} (Do not forget to call
-     *     {@link JLabel#setLabelFor(java.awt.Component)})
+     * <li>{@code JLabel#setDisplayedMnemonic(int)} (Do not forget to call
+     *     {@code JLabel#setLabelFor(java.awt.Component)})
      * </li>
-     * <li>{@link AbstractButton#setMnemonic(int)}</li>
-     * <li>{@link JTabbedPane#setMnemonicAt(int, int)}</li>
+     * <li>{@code AbstractButton#setMnemonic(int)}</li>
+     * <li>{@code JTabbedPane#setMnemonicAt(int, int)}</li>
      * </ul>
      *
      * <em>The valid range of mnemonic characters is [A-Za-z0-9]</em>.
@@ -285,7 +284,7 @@ public final class MnemonicUtil {
     /**
      * Returns the mnemonic characters of an collection of components.
      *
-     * @param  components {@link JButton}s and {@link JLabel} will be queried
+     * @param  components {@code JButton}s and {@code JLabel} will be queried
      * @return            mnemonics
      */
     public static List<Character> getMnemonicCharsOf(Collection<? extends Component> components) {

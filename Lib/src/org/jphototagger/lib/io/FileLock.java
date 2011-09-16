@@ -54,10 +54,10 @@ public final class FileLock {
      * Locks <em>internally</em> a file (other applications doesn't regognize
      * the lock) and logs a warning if the file couldn't be locked.
      * <p>
-     * If a file couldn't be locked a message with {@link Level#WARNING} will be
-     * logged with this class' {@link Logger}.
+     * If a file couldn't be locked a message with {@code Level#WARNING} will be
+     * logged with this class' {@code Logger}.
      * <p>
-     * <em>The caller has to call {@link FileLock#unlock(java.io.File, java.lang.Object)}
+     * <em>The caller has to call {@code FileLock#unlock(java.io.File, java.lang.Object)}
      * after using the file!</em>
      *
      * @param  file  file to lock

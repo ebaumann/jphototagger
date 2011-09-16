@@ -3,7 +3,7 @@ package org.jphototagger.domain.event.listener;
 import org.jphototagger.domain.metadata.MetaDataValue;
 
 /**
- * Support to add, remove and notify {@link TextEntryListener}s.
+ * Support to add, remove and notify {@code TextEntryListener}s.
  *
  * @author Elmar Baumann
  */

@@ -13,7 +13,7 @@ import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.resource.GUI;
 
 /**
- * Synchronized access to {@link AppPanel#getProgressBar()}.
+ * Synchronized access to {@code AppPanel#getProgressBar()}.
  *
  * @author Elmar Baumann
  */
@@ -34,7 +34,7 @@ public final class ProgressBar extends MutualExcludedResource<JProgressBar> impl
 
     /**
      * Enables or disables a cancel button if the owner implements
-     * {@link Cancelable}.
+     * {@code Cancelable}.
      *
      * @param owner   owner
      * @param enabled true if enable a cancel button. Default: true.
@@ -47,7 +47,7 @@ public final class ProgressBar extends MutualExcludedResource<JProgressBar> impl
 
     /**
      * Returns the progress bar and offers a cancel button if the owner
-     * implements {@link Cancelable}.
+     * implements {@code Cancelable}.
      *
      * @param  owner
      * @return       progress bar or null if locked through another owner

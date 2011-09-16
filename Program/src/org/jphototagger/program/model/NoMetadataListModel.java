@@ -6,7 +6,7 @@ import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.selections.NoMetadataValues;
 
 /**
- * Elements are {@link MetaDataValue}s retrieved through {@link NoMetadataValues#get()}.
+ * Elements are {@code MetaDataValue}s retrieved through {@code NoMetadataValues#get()}.
  *
  * @author Elmar Baumann
  */

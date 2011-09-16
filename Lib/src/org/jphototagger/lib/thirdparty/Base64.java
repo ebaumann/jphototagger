@@ -44,14 +44,14 @@ package org.jphototagger.lib.thirdparty;
  *  <li>v2.3.6 - Fixed bug when breaking lines and the final byte of the encoded
  *   string ended in the last column; the buffer was not properly shrunk and
  *   contained an extra (null) byte that made it into the string.</li>
- *  <li>v2.3.5 - Fixed bug in {@link #encodeFromFile} where estimated buffer size
+ *  <li>v2.3.5 - Fixed bug in {@code #encodeFromFile} where estimated buffer size
  *   was wrong for files of size 31, 34, and 37 bytes.</li>
  *  <li>v2.3.4 - Fixed bug when working with gzipped streams whereby flushing
  *   the Base64.OutputStream closed the Base64 encoding (by padding with equals
  *   signs) too soon. Also added an option to suppress the automatic decoding
  *   of gzipped streams. Also added experimental support for specifying a
  *   class loader when using the
- *   {@link #decodeToObject(java.lang.String, int, java.lang.ClassLoader)}
+ *   {@code #decodeToObject(java.lang.String, int, java.lang.ClassLoader)}
  *   method.</li>
  *  <li>v2.3.3 - Changed default char encoding to US-ASCII which reduces the internal Java
  *   footprint with its CharEncoders and so forth. Fixed some javadocs that were
@@ -60,9 +60,9 @@ package org.jphototagger.lib.thirdparty;
  *  <li>v2.3.2 - Reduced memory footprint! Finally refined the "guessing" of how big the
  *   final encoded data will be so that the code doesn't have to create two output
  *   arrays: an oversized initial one and then a final, exact-sized one. Big win
- *   when using the {@link #encodeBytesToBytes(byte[])} family of methods (and not
+ *   when using the {@code #encodeBytesToBytes(byte[])} family of methods (and not
  *   using the gzip options which uses a different mechanism with streams and stuff).</li>
- *  <li>v2.3.1 - Added {@link #encodeBytesToBytes(byte[], int, int, int)} and some
+ *  <li>v2.3.1 - Added {@code #encodeBytesToBytes(byte[], int, int, int)} and some
  *   similar helper methods to be more efficient with memory by not returning a
  *   String but just a byte array.</li>
  *  <li>v2.3 - <strong>This is not a drop-in replacement!</strong> This is two years of comments
@@ -499,8 +499,8 @@ public class Base64 {
      * Performs Base64 encoding on the <code>raw</code> ByteBuffer,
      * writing it to the <code>encoded</code> ByteBuffer.
      * This is an experimental feature. Currently it does not
-     * pass along any options (such as {@link #DO_BREAK_LINES}
-     * or {@link #GZIP}.
+     * pass along any options (such as {@code #DO_BREAK_LINES}
+     * or {@code #GZIP}.
      *
      * @param raw input buffer
      * @param encoded output buffer
@@ -523,8 +523,8 @@ public class Base64 {
      * Performs Base64 encoding on the <code>raw</code> ByteBuffer,
      * writing it to the <code>encoded</code> CharBuffer.
      * This is an experimental feature. Currently it does not
-     * pass along any options (such as {@link #DO_BREAK_LINES}
-     * or {@link #GZIP}.
+     * pass along any options (such as {@code #DO_BREAK_LINES}
+     * or {@code #GZIP}.
      *
      * @param raw input buffer
      * @param encoded output buffer
@@ -807,7 +807,7 @@ public class Base64 {
     }    // end encodeBytes
 
     /**
-     * Similar to {@link #encodeBytes(byte[])} but returns
+     * Similar to {@code #encodeBytes(byte[])} but returns
      * a byte array instead of instantiating a String. This is more efficient
      * if you're working with I/O streams and have large data sets to encode.
      *
@@ -830,7 +830,7 @@ public class Base64 {
     }
 
     /**
-     * Similar to {@link #encodeBytes(byte[], int, int, int)} but returns
+     * Similar to {@code #encodeBytes(byte[], int, int, int)} but returns
      * a byte array instead of instantiating a String. This is more efficient
      * if you're working with I/O streams and have large data sets to encode.
      *
@@ -1603,7 +1603,7 @@ public class Base64 {
 
     /* ********  I N N E R   C L A S S   I N P U T S T R E A M  ******** */
     /**
-     * A {@link Base64.InputStream} will read data from another
+     * A {@code Base64.InputStream} will read data from another
      * <tt>java.io.InputStream</tt>, given in the constructor,
      * and encode/decode to/from Base64 notation on the fly.
      *
@@ -1623,7 +1623,7 @@ public class Base64 {
         private byte[] decodabet;    // Local copies to avoid extra method calls
 
         /**
-         * Constructs a {@link Base64.InputStream} in DECODE mode.
+         * Constructs a {@code Base64.InputStream} in DECODE mode.
          *
          * @param in the <tt>java.io.InputStream</tt> from which to read data.
          * @since 1.3
@@ -1633,7 +1633,7 @@ public class Base64 {
         }    // end constructor
 
         /**
-         * Constructs a {@link Base64.InputStream} in
+         * Constructs a {@code Base64.InputStream} in
          * either ENCODE or DECODE mode.
          * <p>
          * Valid options:<pre>
@@ -1775,7 +1775,7 @@ public class Base64 {
         }    // end read
 
         /**
-         * Calls {@link #read()} repeatedly until the end of stream
+         * Calls {@code #read()} repeatedly until the end of stream
          * is reached or <var>len</var> bytes are read.
          * Returns number of bytes read into array or -1 if
          * end of stream is encountered.
@@ -1810,7 +1810,7 @@ public class Base64 {
 
     /* ********  I N N E R   C L A S S   O U T P U T S T R E A M  ******** */
     /**
-     * A {@link Base64.OutputStream} will write data to another
+     * A {@code Base64.OutputStream} will write data to another
      * <tt>java.io.OutputStream</tt>, given in the constructor,
      * and encode/decode to/from Base64 notation on the fly.
      *
@@ -1831,7 +1831,7 @@ public class Base64 {
         private byte[] decodabet;    // Local copies to avoid extra method calls
 
         /**
-         * Constructs a {@link Base64.OutputStream} in ENCODE mode.
+         * Constructs a {@code Base64.OutputStream} in ENCODE mode.
          *
          * @param out the <tt>java.io.OutputStream</tt> to which data will be written.
          * @since 1.3
@@ -1841,7 +1841,7 @@ public class Base64 {
         }    // end constructor
 
         /**
-         * Constructs a {@link Base64.OutputStream} in
+         * Constructs a {@code Base64.OutputStream} in
          * either ENCODE or DECODE mode.
          * <p>
          * Valid options:<pre>
@@ -1934,7 +1934,7 @@ public class Base64 {
         }    // end write
 
         /**
-         * Calls {@link #write(int)} repeatedly until <var>len</var>
+         * Calls {@code #write(int)} repeatedly until <var>len</var>
          * bytes are written.
          *
          * @param theBytes array from which to read bytes

@@ -27,7 +27,7 @@ public final class FileSystemDirectories {
 
     /**
      * Deletes a directory from the file system and updates the
-     * {@link DatabaseImageFiles}: Deletes from the database the deleted files.
+     * {@code DatabaseImageFiles}: Deletes from the database the deleted files.
      * Let's the user confirm deletion.
      *
      * @param  directory directory
@@ -64,7 +64,7 @@ public final class FileSystemDirectories {
 
     /**
      * Renames a directory into the file system and updates the
-     * {@link DatabaseImageFiles}: Sets the directory to the new name.
+     * {@code DatabaseImageFiles}: Sets the directory to the new name.
      *
      * @param  directory directory
      * @return           new file or null if not renamed

@@ -18,7 +18,7 @@ import org.jdesktop.swingx.JXList;
 import org.jphototagger.lib.event.util.MouseEventUtil;
 
 /**
- * Listens in a {@link JList} for popup triggers and sets to the list cell
+ * Listens in a {@code JList} for popup triggers and sets to the list cell
  * renderer of that list the row index below the mouse location.
  *
  * If the popup menu becomes invisible, the row index will be set to -1.

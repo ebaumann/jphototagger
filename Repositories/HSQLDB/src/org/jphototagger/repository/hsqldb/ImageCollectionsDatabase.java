@@ -173,7 +173,6 @@ final class ImageCollectionsDatabase extends Database {
      * @param collectionName name of the image collection
      * @param imageFiles     ordered image files
      * @return               true if successfully inserted
-     * @see                  #existsValueInColumn(java.lang.String)
      */
     boolean insertImageCollection(String collectionName, List<File> imageFiles) {
         if (collectionName == null) {

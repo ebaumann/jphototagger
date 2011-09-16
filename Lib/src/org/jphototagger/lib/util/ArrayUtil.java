@@ -49,7 +49,7 @@ public final class ArrayUtil {
      *
      * @param  <T> type of the collection's elements
      * @param  c   collection
-     * @return     array with the length of {@link Collection#size()}
+     * @return     array with the length of {@code Collection#size()}
      */
     public static <T> int[] toIntArray(Collection<? extends Integer> c) {
         if (c == null) {

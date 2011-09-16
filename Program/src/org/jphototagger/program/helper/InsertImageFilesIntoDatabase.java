@@ -353,7 +353,7 @@ public final class InsertImageFilesIntoDatabase extends Thread implements Cancel
     /**
      * Adds a progress listener.
      *
-     * {@link ProgressEvent#getInfo()} contains a {@code java.lang.String} of
+     * {@code ProgressEvent#getInfo()} contains a {@code java.lang.String} of
      * the updated
      * @param listener
      */

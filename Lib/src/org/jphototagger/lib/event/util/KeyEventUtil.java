@@ -22,7 +22,7 @@ public final class KeyEventUtil {
 
     /**
      * Returns whether to copy, i.e. that the key combination of
-     * {@link #getMenuShortcutMask()} and the character <code>C</code>.
+     * {@code #getMenuShortcutMask()} and the character <code>C</code>.
      *
      * @param  evt key event
      * @return     true if copy
@@ -37,7 +37,7 @@ public final class KeyEventUtil {
 
     /**
      * Returns whether to cut, i.e. that the key combination of
-     * {@link #getMenuShortcutMask()} and the character <code>X</code>.
+     * {@code #getMenuShortcutMask()} and the character <code>X</code>.
      *
      * @param  evt key event
      * @return     true if cut
@@ -52,7 +52,7 @@ public final class KeyEventUtil {
 
     /**
      * Returns whether to paste, i.e. that the key combination of
-     * {@link #getMenuShortcutMask()} and the character <code>V</code>.
+     * {@code #getMenuShortcutMask()} and the character <code>V</code>.
      *
      * @param  evt key event
      * @return     true if paste
@@ -77,7 +77,7 @@ public final class KeyEventUtil {
 
     /**
      * Returns, whether the key event is a menu shortcut: A key in combination
-     * with {@link #getMenuShortcutMask()} and the ALT key down.
+     * with {@code #getMenuShortcutMask()} and the ALT key down.
      *
      * @param evt     key event
      * @param keyCode key code
@@ -97,7 +97,7 @@ public final class KeyEventUtil {
 
     /**
      * Returns, whether the key event is a menu shortcut: A key in combination
-     * with {@link #getMenuShortcutMask()} and the shift key down.
+     * with {@code #getMenuShortcutMask()} and the shift key down.
      *
      * @param evt     key event
      * @param keyCode key code
@@ -117,7 +117,7 @@ public final class KeyEventUtil {
 
     /**
      * Returns, whether the key event is a menu shortcut: A key in combination
-     * with {@link #getMenuShortcutMask()}.
+     * with {@code #getMenuShortcutMask()}.
      *
      * @param evt     key event
      * @param keyCode key code
@@ -132,7 +132,7 @@ public final class KeyEventUtil {
     }
 
     /**
-     * The same as {@link Toolkit#getMenuShortcutKeyMask()}.
+     * The same as {@code Toolkit#getMenuShortcutKeyMask()}.
      *
      * @return mask
      */
@@ -151,7 +151,7 @@ public final class KeyEventUtil {
     }
 
     /**
-     * Returns a key stroke with the modifier {@link #getMenuShortcutMask()}.
+     * Returns a key stroke with the modifier {@code #getMenuShortcutMask()}.
      *
      * @param  keyCode key code
      * @return         key stroke
@@ -161,7 +161,7 @@ public final class KeyEventUtil {
     }
 
     /**
-     * Returns a key stroke with the modifiers {@link #getMenuShortcutMask()}
+     * Returns a key stroke with the modifiers {@code #getMenuShortcutMask()}
      * and ALT down.
      *
      * @param  keyCode key code
@@ -172,7 +172,7 @@ public final class KeyEventUtil {
     }
 
     /**
-     * Returns a key stroke with the modifiers {@link #getMenuShortcutMask()}
+     * Returns a key stroke with the modifiers {@code #getMenuShortcutMask()}
      * and SHIFT down.
      *
      * @param  keyCode key code
@@ -183,7 +183,7 @@ public final class KeyEventUtil {
     }
 
     /**
-     * Returns a key stroke with the modifiers {@link #getMenuShortcutMask()}
+     * Returns a key stroke with the modifiers {@code #getMenuShortcutMask()}
      * and ALT down.
      *
      * @param  keyCode key code

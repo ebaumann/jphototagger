@@ -15,10 +15,9 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.model.KeywordsTreeModel;
 import org.jphototagger.program.view.panels.KeywordsPanel;
-import org.jphototagger.program.view.popupmenus.KeywordsTreePopupMenu;
 
 /**
- * Listens to the menu item {@link KeywordsTreePopupMenu#getItemToggleReal()}
+ * Listens to the menu item {@code KeywordsTreePopupMenu#getItemToggleReal()}
  * and toggles the real property of a keyword.
  *
  * @author  Martin Pohlack

@@ -15,7 +15,7 @@ import javax.swing.text.Highlighter;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 
 /**
- * Enhances a {@link JTextArea} with search capabilities.
+ * Enhances a {@code JTextArea} with search capabilities.
  *
  * @author Elmar Baumann
  */

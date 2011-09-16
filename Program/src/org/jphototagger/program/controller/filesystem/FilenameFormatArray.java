@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Array of {@link FilenameFormat} objects.
+ * Array of {@code FilenameFormat} objects.
  *
  * @author Elmar Baumann
  */
@@ -14,7 +14,7 @@ public final class FilenameFormatArray {
     private final List<FilenameFormat> formats = new ArrayList<FilenameFormat>();
 
     /**
-     * Adds a format. {@link #format()} returns the filename built in the
+     * Adds a format. {@code #format()} returns the filename built in the
      * same order of the calls to this function.
      *
      * @param format  format
@@ -30,7 +30,7 @@ public final class FilenameFormatArray {
     }
 
     /**
-     * Calls to every format {@link FilenameFormat#next()}
+     * Calls to every format {@code FilenameFormat#next()}
      */
     public void notifyNext() {
         synchronized (formats) {
@@ -51,7 +51,7 @@ public final class FilenameFormatArray {
 
     /**
      * Returns the formatted filename: the appended strings of all formats
-     * ({@link FilenameFormat#format()}).
+     * ({@code FilenameFormat#format()}).
      *
      * @return filename
      */

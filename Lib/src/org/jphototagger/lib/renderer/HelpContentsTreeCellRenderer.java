@@ -13,8 +13,8 @@ import org.jphototagger.lib.util.help.HelpPage;
 /**
  * Renders items and text for a tree displaying help contents for values that
  * are an instance of
- * {@link org.jphototagger.lib.util.help.HelpNode} and
- * {@link org.jphototagger.lib.util.help.HelpPage}.
+ * {@code org.jphototagger.lib.util.help.HelpNode} and
+ * {@code org.jphototagger.lib.util.help.HelpPage}.
  *
  * @author Elmar Baumann
  */

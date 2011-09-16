@@ -181,7 +181,6 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
      * Does nothing but removing the dirty flag. Don't call this!
      *
      * @param text ignroed
-     * @see        #addText(java.lang.String)
      */
     @Override
     public void setText(String text) {

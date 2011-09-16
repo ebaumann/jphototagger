@@ -14,13 +14,13 @@ import org.jphototagger.lib.system.SystemUtil;
 import org.jphototagger.lib.util.Content;
 
 /**
- * Contains whatever is selected in a {@link JTree}.
+ * Contains whatever is selected in a {@code JTree}.
  * <p>
  * Handles temporary mouse selections (left click on a not selected tree item),
  * if the tree has a popup menu
- * ({@link javax.swing.JComponent#getComponentPopupMenu()}).
+ * ({@code javax.swing.JComponent#getComponentPopupMenu()}).
  * <p>
- * The content are arrays of {@link TreePath} instances or null.
+ * The content are arrays of {@code TreePath} instances or null.
  *
  * @author Elmar Baumann
  */

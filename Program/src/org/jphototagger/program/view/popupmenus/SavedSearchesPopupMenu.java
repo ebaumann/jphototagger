@@ -12,7 +12,7 @@ import org.jphototagger.program.app.AppLookAndFeel;
 
 /**
  * Do not use this class as template for implemention! Instead extend
- * {@link org.jphototagger.lib.event.listener.PopupMenuList}.
+ * {@code org.jphototagger.lib.event.listener.PopupMenuList}.
  *
  * @author Elmar Baumann
  */

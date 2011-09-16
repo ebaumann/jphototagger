@@ -1,13 +1,14 @@
 package org.jphototagger.program.app;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
 import java.util.Locale;
 
+import org.junit.AfterClass;
+import static org.junit.Assert.*;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
 /**
- * Tests the Class {@link org.jphototagger.program.app.AppLookAndFeel}.
+ * Tests the Class {@code org.jphototagger.program.app.AppLookAndFeel}.
  *
  * @author Elmar Baumann
  */

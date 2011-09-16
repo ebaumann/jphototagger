@@ -1,13 +1,12 @@
 package org.jphototagger.lib.dialog;
 
-import org.jphototagger.lib.component.SystemOutputPanel;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 
 /**
- * Contains a {@link org.jphototagger.lib.component.SystemOutputPanel}.
+ * Contains a {@code org.jphototagger.lib.component.SystemOutputPanel}.
  *
  * This dialog is a singleton. It starts to capture output after calling
- * {@link #captureOutput()}.
+ * {@code #captureOutput()}.
  *
  * @author Elmar Baumann
  */
@@ -21,7 +20,7 @@ public class SystemOutputDialog extends Dialog {
     }
 
     /**
-     * Starts to capture the output. Calls {@link SystemOutputPanel#caputure()}.
+     * Starts to capture the output. Calls {@code SystemOutputPanel#caputure()}.
      */
     public void captureOutput() {
         panelSystemOutput.caputure();

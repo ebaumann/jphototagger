@@ -13,7 +13,7 @@ import org.jphototagger.program.model.FavoritesTreeModel;
 import org.jphototagger.program.view.popupmenus.FavoritesPopupMenu;
 
 /**
- * Listens to the {@link FavoritesPopupMenu} and moves in the list
+ * Listens to the {@code FavoritesPopupMenu} and moves in the list
  * up or down the selected favorite directory when the special menu item was
  * clicked.
  *

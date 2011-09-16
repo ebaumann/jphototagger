@@ -4,7 +4,7 @@ import org.jphototagger.lib.event.HelpBrowserEvent;
 
 /**
  * Listens to actions of
- * {@link org.jphototagger.lib.dialog.HelpBrowser}.
+ * {@code org.jphototagger.lib.dialog.HelpBrowser}.
  *
  * @author Elmar Baumann
  */

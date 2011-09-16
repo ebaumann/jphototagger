@@ -30,10 +30,6 @@ import org.jphototagger.lib.util.RegexUtil;
  * Gathers information from a property file, which format is described in the
  * text file
  * <code>org/jphototagger/program/resource/properties/ExifMakerNote-Property-File-Format.txt</code>.
- * <p>
- * Picks from a list of maker note {@link ExifTag}s all listed in that file and
- * formats the raw values so that {@link ExifTag#stringValue()} returns a
- * displayable string and {@link ExifTag#name()} can be displayed as description.
  *
  * @author Elmar Baumann
  */

@@ -114,7 +114,6 @@ public class ImportImageFilesDialog extends Dialog {
      * rather than separate files.
      *
      * @return source directory
-     * @see    #filesChoosed()
      */
     public File getSourceDir() {
         return sourceDir;
@@ -184,7 +183,7 @@ public class ImportImageFilesDialog extends Dialog {
     /**
      * Returns the choosen files.
      * <p>
-     * <em>Verify, that {@link #filesChoosed()} returns true!</em>
+     * <em>Verify, that {@code #filesChoosed()} returns true!</em>
      *
      * @return choosen files
      */
@@ -195,10 +194,9 @@ public class ImportImageFilesDialog extends Dialog {
     /**
      * Returns, whether the user choosed files rather than a source directory.
      * <p>
-     * In this case, {@link #getSourceFiles()} return the choosen files.
+     * In this case, {@code #getSourceFiles()} return the choosen files.
      *
      * @return true if files choosen
-     * @see    #getSourceDir()
      */
     public boolean filesChoosed() {
         return filesChoosed;

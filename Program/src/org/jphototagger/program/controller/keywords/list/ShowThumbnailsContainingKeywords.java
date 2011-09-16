@@ -18,7 +18,7 @@ import org.jphototagger.program.view.WaitDisplay;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 
 /**
- * Displays in the {@link ThumbnailsPanel} thumbnails with specific keywords.
+ * Displays in the {@code ThumbnailsPanel} thumbnails with specific keywords.
  *
  * @author Elmar Baumann
  */

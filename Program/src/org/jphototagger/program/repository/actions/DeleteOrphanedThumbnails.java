@@ -21,9 +21,9 @@ import org.jphototagger.program.view.panels.ThumbnailsPanel;
 /**
  * Deletes thumbnails without an image file in the database.
  * <p>
- * Uses {@link DatabaseImageFiles#findAllThumbnailFiles()} to determine valid
+ * Uses {@code DatabaseImageFiles#findAllThumbnailFiles()} to determine valid
  * thumbnail files. Then deletes all other files in the directory
- * {@link UserSettings#getThumbnailsDirectoryName()}.
+ * {@code UserSettings#getThumbnailsDirectoryName()}.
  *
  * @author Elmar Baumann
  */

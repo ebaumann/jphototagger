@@ -14,14 +14,13 @@ import javax.swing.TransferHandler;
 import javax.swing.text.JTextComponent;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import org.jphototagger.domain.keywords.Keyword;
 import org.jphototagger.program.helper.KeywordsHelper;
 
 /**
- * Imports into an {@link JTextField} and {@link JTextArea} strings exported via
- * a {@link TransferHandlerDragListItems} or from a
- * {@link DefaultMutableTreeNode} with an {@link Keyword} as user
- * object when it's data flavor is {@link DataFlavor#stringFlavor}.
+ * Imports into an {@code JTextField} and {@code JTextArea} strings exported via
+ * a {@code TransferHandlerDragListItems} or from a
+ * {@code DefaultMutableTreeNode} with an {@code Keyword} as user
+ * object when it's data flavor is {@code DataFlavor#stringFlavor}.
  *
  * When multiple items exported, only the first will be inserted.
  *

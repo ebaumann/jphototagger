@@ -42,7 +42,6 @@ public final class ExceptionLogfileRecord {
      * Liefert die Nachricht der Ausnahme.
      *
      * @return Nachricht oder null, falls nicht existent
-     * @see    #hasMessage()
      */
     public String getMessage() {
         return message;

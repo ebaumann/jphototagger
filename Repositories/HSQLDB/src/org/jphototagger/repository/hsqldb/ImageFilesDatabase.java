@@ -190,7 +190,7 @@ final class ImageFilesDatabase extends Database {
      * @param  after           new start substring
      * @param progressListener null or progress listener. The progress listener
      *                         can cancel renaming via
-     *                         {@link ProgressEvent#setCancel(boolean)}
+     *                         {@code ProgressEvent#setCancel(boolean)}
      *                         (no rollback).
      * @return                 count of renamed files
      */
@@ -359,9 +359,9 @@ final class ImageFilesDatabase extends Database {
      * Inserts or updates this metadata:
      *
      * <ul>
-     * <li>EXIF when {@link ImageFile#isInsertExifIntoDb()} is true</li>
-     * <li>XMP when {@link ImageFile#isInsertXmpIntoDb()} is true</li>
-     * <li>Thumbnail when {@link ImageFile#isInsertThumbnailIntoDb()} is true
+     * <li>EXIF when {@code ImageFile#isInsertExifIntoDb()} is true</li>
+     * <li>XMP when {@code ImageFile#isInsertXmpIntoDb()} is true</li>
+     * <li>Thumbnail when {@code ImageFile#isInsertThumbnailIntoDb()} is true
      * </li>
      * </ul>
      *
@@ -461,9 +461,9 @@ final class ImageFilesDatabase extends Database {
      * Updates this metadata:
      *
      * <ul>
-     * <li>EXIF when {@link ImageFile#isInsertExifIntoDb()} is true</li>
-     * <li>XMP when {@link ImageFile#isInsertXmpIntoDb()} is true</li>
-     * <li>Thumbnail when {@link ImageFile#isInsertThumbnailIntoDb()} is true
+     * <li>EXIF when {@code ImageFile#isInsertExifIntoDb()} is true</li>
+     * <li>XMP when {@code ImageFile#isInsertXmpIntoDb()} is true</li>
+     * <li>Thumbnail when {@code ImageFile#isInsertThumbnailIntoDb()} is true
      * </li>
      * </ul>
      *
@@ -992,11 +992,10 @@ final class ImageFilesDatabase extends Database {
      * Inserts a Dublin core subject.
      * <p>
      * Does <em>not</em> check whether it already existsValueInColumn. In that case an
-     * {@link SQLException} will be thrown and caught by this method.
+     * {@code SQLException} will be thrown and caught by this method.
      *
      * @param  dcSubject subject
      * @return           true if inserted
-     * @see              #existsDcSubject(java.lang.String)
      */
     public boolean insertDcSubject(String dcSubject) {
         if (dcSubject == null) {
@@ -1264,8 +1263,8 @@ final class ImageFilesDatabase extends Database {
      * Returns XMP metadata of image files.
      *
      * @param imageFiles image files
-     * @return           XMP metadata where {@link FileXmp#getFile()} is the
-     *                   image file and {@link FileXmp#getXmp()} the XMP metadata of that
+     * @return           XMP metadata where {@code FileXmp#getFile()} is the
+     *                   image file and {@code FileXmp#getXmp()} the XMP metadata of that
      *                   image file
      */
     public List<FileXmp> getXmpOfImageFiles(Collection<? extends File> imageFiles) {
@@ -1672,7 +1671,7 @@ final class ImageFilesDatabase extends Database {
      * a car the list contains these three words.
      *
      * Because it's faster, call
-     * {@link #getImageFilesContainingDcSubject(String, DcSubjectOption[])}
+     * {@code #getImageFilesContainingDcSubject(String, DcSubjectOption[])}
      * if You are searching for only one subject.
      *
      * @param  dcSubjects subjects

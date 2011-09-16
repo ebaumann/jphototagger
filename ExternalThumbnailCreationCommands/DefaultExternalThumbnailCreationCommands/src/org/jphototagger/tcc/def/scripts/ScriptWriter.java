@@ -67,7 +67,7 @@ public final class ScriptWriter {
     /**
      *
      * @param scriptSourcePath e.g. "/org/jphotoTagger/resource/myscript.sh"
-     * @return
+     * @return b
      * @throws IOException
      */
     public String readScript(String scriptSourcePath) throws IOException {
@@ -99,7 +99,7 @@ public final class ScriptWriter {
     }
 
     /**
-     * Uses replacements in {@link #addReplace(java.lang.String, java.lang.String)}.
+     * Uses replacements in {@code #addReplace(java.lang.String, java.lang.String)}.
      *
      * @param s
      * @return s with replaced substrings

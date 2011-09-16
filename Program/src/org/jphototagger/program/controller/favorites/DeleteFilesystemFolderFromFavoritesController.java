@@ -18,10 +18,10 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.popupmenus.FavoritesPopupMenu;
 
 /**
- * Listens to {@link FavoritesPopupMenu#getItemDeleteFilesystemFolder()} and
+ * Listens to {@code FavoritesPopupMenu#getItemDeleteFilesystemFolder()} and
  * deletes a directory in the file system when the action fires.
  *
- * Also listens to the {@link JTree}'s key events and deletes the selected
+ * Also listens to the {@code JTree}'s key events and deletes the selected
  * file system directory if the <code>DEL</code> key was pressed.
  *
  * @author Elmar Baumann

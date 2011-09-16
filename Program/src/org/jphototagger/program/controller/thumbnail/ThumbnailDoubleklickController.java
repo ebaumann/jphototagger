@@ -14,7 +14,7 @@ import org.jphototagger.program.view.panels.ThumbnailsPanel;
 
 /**
  * Kontroller für die Aktion: Doppelklick auf ein Thumbnail ausgelöst von
- * {@link org.jphototagger.program.view.panels.ThumbnailsPanel}.
+ * {@code org.jphototagger.program.view.panels.ThumbnailsPanel}.
  *
  * @author Elmar Baumann
  */

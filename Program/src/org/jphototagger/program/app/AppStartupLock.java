@@ -14,7 +14,7 @@ import org.jphototagger.lib.util.Bundle;
 
 /**
  * Creates an application lock file to prevent multiple instances. Uses
- * {@link org.jphototagger.program.UserSettings#getSettingsDirectoryName()}
+ * {@code org.jphototagger.program.UserSettings#getSettingsDirectoryName()}
  * to get the setting's directory where the lock file will be created.
  *
  * @author Elmar Baumann

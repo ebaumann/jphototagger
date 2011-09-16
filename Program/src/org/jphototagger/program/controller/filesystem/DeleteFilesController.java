@@ -12,7 +12,6 @@ import org.openide.util.Lookup;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.program.controller.imagecollection.DeleteFromImageCollectionController;
 import org.jphototagger.program.helper.DeleteImageFiles;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.types.DeleteOption;
@@ -20,13 +19,12 @@ import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.ThumbnailsPopupMenu;
 
 /**
- * Listens to key events of {@link ThumbnailsPanel} and when the
+ * Listens to key events of {@code ThumbnailsPanel} and when the
  * <code>DEL</code> key was pressed deletes the selected files from the
  * file system if the panel's content is <em>not</em>
- * {@link TypeOfDisplayedImages#IMAGE_COLLECTION}.
+ * {@code TypeOfDisplayedImages#IMAGE_COLLECTION}.
  *
  * @author Elmar Baumann
- * @see     DeleteFromImageCollectionController
  */
 public final class DeleteFilesController implements ActionListener, KeyListener {
 

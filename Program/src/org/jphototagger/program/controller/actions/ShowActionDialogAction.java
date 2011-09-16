@@ -6,11 +6,10 @@ import javax.swing.AbstractAction;
 
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.program.view.dialogs.ActionsDialog;
-import org.jphototagger.program.view.frames.AppFrame;
 
 /**
- * Displays the dialog {@link ActionsDialog} when the menu item
- * {@link AppFrame#getMenuItemActions()} was klicked or the accelerator key
+ * Displays the dialog {@code ActionsDialog} when the menu item
+ * {@code AppFrame#getMenuItemActions()} was klicked or the accelerator key
  * F4 was pressed.
  *
  * @author Elmar Baumann

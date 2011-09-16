@@ -11,7 +11,7 @@ import org.jdesktop.swingx.JXList;
 import org.jphototagger.lib.datatransfer.TransferableObject;
 
 /**
- * Creates a {@link TransferableObject} with selected list items as object array.
+ * Creates a {@code TransferableObject} with selected list items as object array.
  *
  * @author Elmar Baumann
  */

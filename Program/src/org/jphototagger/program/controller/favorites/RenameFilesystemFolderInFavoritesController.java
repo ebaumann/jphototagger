@@ -20,10 +20,10 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.popupmenus.FavoritesPopupMenu;
 
 /**
- * Listens to {@link FavoritesPopupMenu#getItemRenameFilesystemFolder()} and
+ * Listens to {@code FavoritesPopupMenu#getItemRenameFilesystemFolder()} and
  * renames a directory in the file system when the action fires.
  *
- * Also listens to the {@link JTree}'s key events and renames the selected
+ * Also listens to the {@code JTree}'s key events and renames the selected
  * file system directory if the keys <code>Strg+R</code> or <code>F2</code> were
  * pressed.
  *

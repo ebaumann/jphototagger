@@ -15,7 +15,7 @@ import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.xmp.XmpMetadata;
 
 /**
- * Listens to the {@link ThumbnailsPanel} for thumbnail selections.
+ * Listens to the {@code ThumbnailsPanel} for thumbnail selections.
  * If one or more thumbnails were selected, this controller enables or disables
  * edit metadata of the selcted thumbnails depending on write privileges in the
  * filesystem.

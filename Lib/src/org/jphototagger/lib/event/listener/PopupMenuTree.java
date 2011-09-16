@@ -24,7 +24,7 @@ import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.lib.event.util.MouseEventUtil;
 
 /**
- * Popup menu listening to a {@link JTree} and handling temporary selections:
+ * Popup menu listening to a {@code JTree} and handling temporary selections:
  * Right mouse clicks over a not selected tree item.
  * <p>
  * If the click is a popup trigger the popup menu will be displayed.
@@ -35,7 +35,7 @@ import org.jphototagger.lib.event.util.MouseEventUtil;
  * under the mouse cursor and the previos selected tree item seeming to be
  * deselected, but this is only rendered in that way.
  * <p>
- * {@link Listener}s are getting the rendered selection rather than the
+ * {@code Listener}s are getting the rendered selection rather than the
  * "real" tree selection.
  *
  * @author Elmar Baumann
@@ -89,7 +89,7 @@ public abstract class PopupMenuTree extends JPopupMenu implements ActionListener
      *
      * @param menuItem menu item
      * @param listener listener for that item; will be called if that item
-     *                 was selected, see {@link Listener#action(JTree, List)}
+     *                 was selected, see {@code Listener#action(JTree, List)}
      */
     public void addListener(JMenuItem menuItem, Listener listener) {
         if (menuItem == null) {
@@ -117,7 +117,7 @@ public abstract class PopupMenuTree extends JPopupMenu implements ActionListener
      *
      * @param menuItem menu item
      * @param listener listener added via
-     *                 {@link #addListener(JMenuItem, PopupMenuTree.Listener)}
+     *                 {@code #addListener(JMenuItem, PopupMenuTree.Listener)}
      */
     public void removeListener(JMenuItem menuItem, Listener listener) {
         if (menuItem == null) {

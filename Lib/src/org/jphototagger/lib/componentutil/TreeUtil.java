@@ -334,7 +334,7 @@ public final class TreeUtil {
     /**
      * Returns the tree path below a mouse position got by a mouse event.
      *
-     * @param  evt mouse event within a {@link JTree}
+     * @param  evt mouse event within a {@code JTree}
      * @return   tree path below the mouse position or null if below the mouse
      *           position isn't a tree path
      */
@@ -360,7 +360,7 @@ public final class TreeUtil {
      * (child) file of a file.
      *
      * <em>Expects that the nodes of the tree having the type
-     * {@link DefaultMutableTreeNode}!</em>
+     * {@code DefaultMutableTreeNode}!</em>
      *
      * @param  file   file
      * @param  model  model when the root is not a file, else null

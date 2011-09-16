@@ -6,10 +6,10 @@ import java.util.logging.XMLFormatter;
 import javax.swing.DefaultComboBoxModel;
 
 /**
- * Elements are the <strong>{@link Class} objects</strong> of specialized
- * {@link java.util.logging.Formatter}s.
+ * Elements are the <strong>{@code Class} objects</strong> of specialized
+ * {@code java.util.logging.Formatter}s.
  *
- * These formatters can be used for formatting {@link java.util.logging.Logger}
+ * These formatters can be used for formatting {@code java.util.logging.Logger}
  * output.
  *
  * @author Elmar Baumann

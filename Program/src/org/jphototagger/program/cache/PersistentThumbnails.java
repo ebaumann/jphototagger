@@ -111,7 +111,7 @@ final class PersistentThumbnails {
     /**
      * Returns an existing thumbnail.
      *
-     * @param  md5Filename name returned by {@link #getMd5FilenameOfAbsolutePath(File) }
+     * @param  md5Filename name returned by {@code #getMd5FilenameOfAbsolutePath(File) }
      * @return             thumbnail if the thumbnail file exists and was read
      */
     private static Image getThumbnail(String md5Filename) {
@@ -167,7 +167,7 @@ final class PersistentThumbnails {
      *
      * @param  imageFile image file
      * @return           thumbnail file or null on errors. The file may not
-     *                   exists, {@link File#exists()} can be false.
+     *                   exists, {@code File#exists()} can be false.
      */
     static File getThumbnailFile(File imageFile) {
         if (imageFile == null) {

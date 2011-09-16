@@ -11,7 +11,7 @@ public abstract class AbstractNode implements Node {
 
     /**
      *
-     * @return {@link #getDisplayName()} whithin HTML tags
+     * @return {@code #getDisplayName()} whithin HTML tags
      *          <em>Override this implementation, if the display name can contain special HTML characters!</em>
      */
     @Override

@@ -20,7 +20,7 @@ public final class ThumbnailCreatorService {
     private final Collection<? extends ThumbnailCreator> thumbnailCreators = Lookup.getDefault().lookupAll(ThumbnailCreator.class);
 
     /**
-     * Queries all {@link ThumbnailCreator} implementations and returns
+     * Queries all {@code ThumbnailCreator} implementations and returns
      * a thumbnail from the first implementation capable of creating it.
      *
      * @param file
@@ -42,7 +42,7 @@ public final class ThumbnailCreatorService {
     }
 
     /**
-     * Queries all {@link ThumbnailCreator} implementations and returns
+     * Queries all {@code ThumbnailCreator} implementations and returns
      * a thumbnail from the first implementation capable of creating it.
      *
      * @param file
@@ -64,8 +64,8 @@ public final class ThumbnailCreatorService {
     }
 
     /**
-     * Calls {@link #createThumbnail(java.io.File)} and if not successful
-     * {@link #createFromEmbeddedThumbnail(java.io.File)}.
+     * Calls {@code #createThumbnail(java.io.File)} and if not successful
+     * {@code #createFromEmbeddedThumbnail(java.io.File)}.
      *
      * @param file
      * @return Thumbnail or null

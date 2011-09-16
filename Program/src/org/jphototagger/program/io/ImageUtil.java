@@ -44,11 +44,11 @@ public final class ImageUtil {
     }
 
     /**
-     * Copies image files to a directory with the {@link CopyToDirectoryDialog}.
+     * Copies image files to a directory with the {@code CopyToDirectoryDialog}.
      *
      * @param sourceFiles     source files
      * @param targetDirectory target directory
-     * @param confirm         {@link ConfirmOverwrite#YES} if the user must
+     * @param confirm         {@code ConfirmOverwrite#YES} if the user must
      *                        confirm overwrite existing files
      */
     public static void copyImageFiles(List<File> sourceFiles, File targetDirectory, ConfirmOverwrite confirm) {
@@ -87,11 +87,11 @@ public final class ImageUtil {
     }
 
     /**
-     * Moves image files to a directory with the {@link MoveToDirectoryDialog}.
+     * Moves image files to a directory with the {@code MoveToDirectoryDialog}.
      *
      * @param sourceFiles     source files
      * @param targetDirectory target directory
-     * @param confirm         {@link ConfirmOverwrite#YES} if the user must
+     * @param confirm         {@code ConfirmOverwrite#YES} if the user must
      *                        confirm overwrite existing files
      */
     public static void moveImageFiles(List<File> sourceFiles, File targetDirectory, ConfirmOverwrite confirm) {
@@ -170,7 +170,6 @@ public final class ImageUtil {
      *
      * @param  imageFile image file
      * @return           true if a sidecar file can be written.
-     * @see              XmpMetadata#canWriteSidecarFileForImageFile(File)
      */
     public static boolean checkImageEditable(File imageFile) {
         if (imageFile == null) {

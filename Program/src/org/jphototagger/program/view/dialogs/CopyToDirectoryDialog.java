@@ -226,8 +226,8 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
 
     /**
      * Makes this dialog visible and copies the files setToggleButton with
-     * {@link #setSourceFiles(Collection)} if not empty into the directory
-     * setToggleButton with {@link #setTargetDirectory(java.io.File)} if exists.
+     * {@code #setSourceFiles(Collection)} if not empty into the directory
+     * setToggleButton with {@code #setTargetDirectory(java.io.File)} if exists.
      *
      * @param addXmp  true if copy XMP sidecar files too
      * @param options copy options

@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
 
-import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.jphototagger.lib.awt.EventQueueUtil;
@@ -16,10 +15,10 @@ import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.view.popupmenus.DirectoriesPopupMenu;
 
 /**
- * Listens to {@link DirectoriesPopupMenu#getItemCreateDirectory()} and
+ * Listens to {@code DirectoriesPopupMenu#getItemCreateDirectory()} and
  * creates a directory when the action fires.
  *
- * Also listens to the {@link JTree}'s key events and creates a new directory
+ * Also listens to the {@code JTree}'s key events and creates a new directory
  * into the selected directory when the keys <code>Ctrl+N</code> was pressed.
  *
  * @author Elmar Baumann

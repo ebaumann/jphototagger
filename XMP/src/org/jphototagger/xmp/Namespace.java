@@ -1,7 +1,7 @@
 package org.jphototagger.xmp;
 
 /**
- * Namespaces not existing in {@link com.adobe.xmp.XMPConst}.
+ * Namespaces not existing in {@code com.adobe.xmp.XMPConst}.
  *
  * @author Elmar Baumann
  */

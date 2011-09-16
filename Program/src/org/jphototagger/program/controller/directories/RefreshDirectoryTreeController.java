@@ -3,7 +3,6 @@ package org.jphototagger.program.controller.directories;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
-import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.jphototagger.lib.model.AllSystemDirectoriesTreeModel;
@@ -11,10 +10,10 @@ import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.view.popupmenus.DirectoriesPopupMenu;
 
 /**
- * Listens to {@link DirectoriesPopupMenu#getItemRefresh()} and
+ * Listens to {@code DirectoriesPopupMenu#getItemRefresh()} and
  * refreshes the directory tree when the action fires.
  *
- * Also listens to the {@link JTree}'s key events and refreshes the tree
+ * Also listens to the {@code JTree}'s key events and refreshes the tree
  * when <code>F5</code> was pressed.
  *
  * @author Elmar Baumann

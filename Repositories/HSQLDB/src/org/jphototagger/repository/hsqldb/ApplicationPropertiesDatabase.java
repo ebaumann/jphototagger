@@ -103,7 +103,7 @@ final class ApplicationPropertiesDatabase extends Database {
      * @param  key key
      * @return     true if the value is true or false if the value is false or
      *             the key does not exist. You can check for the existence of
-     *             a key with {@link #existsKey(String)}.
+     *             a key with {@code #existsKey(String)}.
      */
     boolean getBoolean(String key) {
         if (key == null) {

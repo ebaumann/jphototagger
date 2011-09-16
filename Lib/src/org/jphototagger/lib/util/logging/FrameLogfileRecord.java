@@ -35,7 +35,6 @@ public final class FrameLogfileRecord {
      * Liefert die Zeilennummer innerhalb der Quellcodedatei der Klasse.
      *
      * @return Zeilennummer (Integer) oder null, falls nicht existent
-     * @see    #hasLine()
      */
     public String getLine() {
         return line;

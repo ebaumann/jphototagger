@@ -69,7 +69,7 @@ public final class KeywordsHelper {
      * and all it's parents to the metadata edit panel.
      *
      * @param node node with keyword. <em>All parents of that node have to be an
-     *             instance of {@link DefaultMutableTreeNode}!</em>
+     *             instance of {@code DefaultMutableTreeNode}!</em>
      */
     public static void addKeywordsToEditPanel(final DefaultMutableTreeNode node) {
         if (node == null) {
@@ -187,7 +187,7 @@ public final class KeywordsHelper {
      * node - and all it's parents.
      *
      * @param node node with keyword. <em>All parents of that node have to be
-     *             instances of {@link DefaultMutableTreeNode}!</em>
+     *             instances of {@code DefaultMutableTreeNode}!</em>
      * @param real true if only real keywords shall be added
      * @return     all keywords or empty list
      */
@@ -221,7 +221,7 @@ public final class KeywordsHelper {
      * node - and all it's parents as a list of strings.
      *
      * @param node node with keyword. <em>All parents of that node have to be
-     *             instances of {@link DefaultMutableTreeNode}!</em>
+     *             instances of {@code DefaultMutableTreeNode}!</em>
      * @param real true if only real keywords shall be added
      * @return     all keywords as strings
      */
@@ -236,11 +236,11 @@ public final class KeywordsHelper {
     }
 
     /**
-     * Selects in {@link AppPanel#getTreeSelKeywords()} a node with a specific
+     * Selects in {@code AppPanel#getTreeSelKeywords()} a node with a specific
      * keyword.
      *
-     * @param tree    tree with {@link KeywordsTreeModel} and all
-     *                nodes of the type {@link DefaultMutableTreeNode}
+     * @param tree    tree with {@code KeywordsTreeModel} and all
+     *                nodes of the type {@code DefaultMutableTreeNode}
      * @param keyword keyword to select
      */
     @SuppressWarnings("unchecked")

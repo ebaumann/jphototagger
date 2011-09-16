@@ -22,12 +22,12 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.helper.KeywordsHelper;
 
 /**
- * Elements are {@link DefaultMutableTreeNode}s with the user objects listed
+ * Elements are {@code DefaultMutableTreeNode}s with the user objects listed
  * below.
  *
  * <ul>
- * <li>The root user object is a {@link String}</li>
- * <li>All other user objects are {@link Keyword}s</li>
+ * <li>The root user object is a {@code String}</li>
+ * <li>All other user objects are {@code Keyword}s</li>
  * </ul>
  *
  * @author Elmar Baumann
@@ -46,7 +46,7 @@ public final class KeywordsTreeModel extends DefaultTreeModel {
     }
 
     /**
-     * Returns a child with a specific name ({@link Keyword#getName()}.
+     * Returns a child with a specific name ({@code Keyword#getName()}.
      *
      * @param  parent parent node
      * @param  name   name

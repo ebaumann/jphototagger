@@ -85,7 +85,7 @@ public final class HelpNode {
      * @param  index the child's index {@code >= 0}
      *
      * @return child: an object of the type
-     *         {@link HelpNode} or {@link HelpPage}
+     *         {@code HelpNode} or {@code HelpPage}
      *         or null if the index is invalid
      * @throws IndexOutOfBoundsException if
      *                                  {@code index < 0 || index >= childCount}

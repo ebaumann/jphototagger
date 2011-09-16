@@ -14,7 +14,7 @@ import org.jphototagger.lib.event.util.MouseEventUtil;
 
 /**
  * Do not use this class as template for implemention! Instead extend
- * {@link org.jphototagger.lib.event.listener.PopupMenuTree}.
+ * {@code org.jphototagger.lib.event.listener.PopupMenuTree}.
  *
  * @author Elmar Baumann
  */

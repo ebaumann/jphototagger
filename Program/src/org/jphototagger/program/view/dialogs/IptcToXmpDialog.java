@@ -63,7 +63,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
 
     /**
      * Setting files to process rather than letting the user choose a directory.
-     * When setTree, {@link #setVisible(boolean)} starts processing the images.
+     * When setTree, {@code #setVisible(boolean)} starts processing the images.
      *
      * @param files image files to extract IPTC and write them as or into
      *              XMP sidecar files

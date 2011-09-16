@@ -18,7 +18,7 @@ import org.jphototagger.program.view.popupmenus.KeywordsTreePopupMenu;
 
 /**
  * Listens to the menu item
- * {@link KeywordsTreePopupMenu#getItemDisplayImages()} and on
+ * {@code KeywordsTreePopupMenu#getItemDisplayImages()} and on
  * action displays images with the selected keyword.
  *
  * @author Elmar Baumann

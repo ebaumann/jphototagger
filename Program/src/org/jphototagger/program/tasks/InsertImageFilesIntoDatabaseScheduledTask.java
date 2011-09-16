@@ -18,10 +18,10 @@ import org.jphototagger.program.io.ImageFileFilterer;
 import org.jphototagger.program.view.panels.ProgressBarUpdater;
 
 /**
- * Creates a {@link InsertImageFilesIntoDatabase} instance for the image files
- * in the directroies defined in {@link DatabaseAutoscanDirectories#findAllAutoscanDirectories()}
+ * Creates a {@code InsertImageFilesIntoDatabase} instance for the image files
+ * in the directroies defined in {@code DatabaseAutoscanDirectories#findAllAutoscanDirectories()}
  * and their subdirectories if
- * {@link UserSettings#isAutoscanIncludeSubdirectories()} is true.
+ * {@code UserSettings#isAutoscanIncludeSubdirectories()} is true.
  *
  * @author Elmar Baumann
  */

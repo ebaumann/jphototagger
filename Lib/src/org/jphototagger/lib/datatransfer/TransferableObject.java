@@ -2,13 +2,12 @@ package org.jphototagger.lib.datatransfer;
 
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
-import java.io.Serializable;
 import java.util.Arrays;
 
 /**
  * Transferable for objects of an arbitrary type.
  *
- * <em>The objects have to implement the Interface {@link Serializable}!</em>
+ * <em>The objects have to implement the Interface {@code Serializable}!</em>
  *
  * @author Elmar Baumann
  */
@@ -21,11 +20,11 @@ public final class TransferableObject implements Transferable {
      * Creates a new instance of this class.
      *
      * @param data        data object returned by
-     *               {@link #getTransferData(java.awt.datatransfer.DataFlavor)}.
+     *               {@code #getTransferData(java.awt.datatransfer.DataFlavor)}.
      *                    The object has to implement the Interface
-     *                    {@link Serializable}!
+     *                    {@code Serializable}!
      * @param dataFlavors data flavors supported data flavors of that object
-     *                    This class creates too {@link DataFlavor} with
+     *                    This class creates too {@code DataFlavor} with
      *                    the class of that object as representation class and
      *                    <code>application/x-java-serialized-object</code> as
      *                    MIME type

@@ -15,7 +15,7 @@ import org.jphototagger.api.storage.Storage;
 import org.jphototagger.lib.util.Bundle;
 
 /**
- * Settings for {@link CopyFilenamesToClipboard}.
+ * Settings for {@code CopyFilenamesToClipboard}.
  *
  * @author Elmar Baumann
  */

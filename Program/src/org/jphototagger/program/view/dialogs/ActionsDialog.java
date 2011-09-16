@@ -11,8 +11,8 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.ActionsPanel;
 
 /**
- * Non modal dialog for actions: {@link org.jphototagger.program.data.Program}
- * where {@link org.jphototagger.program.data.Program#isAction()} is true.
+ * Non modal dialog for actions: {@code org.jphototagger.program.data.Program}
+ * where {@code org.jphototagger.program.data.Program#isAction()} is true.
  *
  * @author Elmar Baumann
  */

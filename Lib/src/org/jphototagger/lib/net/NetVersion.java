@@ -21,7 +21,7 @@ public final class NetVersion {
      * of the substring <code>&lt;span class="version"&gt;</code> and grabs
      * the version string until the next <code>&lt;/span&gt;</code>. This
      * string must be parsable by
-     * {@link Version#parseVersion(java.lang.String, java.lang.String)}.
+     * {@code Version#parseVersion(java.lang.String, java.lang.String)}.
      *
      * @param httpUrl          HTTP URL, e.g.
      *                         <code>http://mysite.com/version.html</code>

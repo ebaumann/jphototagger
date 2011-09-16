@@ -24,10 +24,10 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.popupmenus.FavoritesPopupMenu;
 
 /**
- * Listens to {@link FavoritesPopupMenu#getItemAddFilesystemFolder()} and
+ * Listens to {@code FavoritesPopupMenu#getItemAddFilesystemFolder()} and
  * creates a directory into the file system when the action fires.
  *
- * Also listens to the {@link JTree}'s key events and inserts a new directory
+ * Also listens to the {@code JTree}'s key events and inserts a new directory
  * into the selected file system directory if the keys <code>Ctrl+N</code> were
  * pressed.
  *

@@ -9,7 +9,7 @@ package org.jphototagger.program.comparator;
 final class NumberAscendingCompare {
 
     /**
-     * Compares two {@link java.lang.Long} values.
+     * Compares two {@code java.lang.Long} values.
      *
      * @param l1 long value 1
      * @param l2 long value 2

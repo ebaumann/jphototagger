@@ -3,7 +3,6 @@ package org.jphototagger.program.controller.favorites;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
-import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.jphototagger.domain.favorites.Favorite;
@@ -11,10 +10,10 @@ import org.jphototagger.program.helper.FavoritesHelper;
 import org.jphototagger.program.view.popupmenus.FavoritesPopupMenu;
 
 /**
- * Listens to the {@link FavoritesPopupMenu} and deletes a
+ * Listens to the {@code FavoritesPopupMenu} and deletes a
  * selected favorite directory when the delete item was clicked.
  *
- * Also listens to the {@link JTree}'s key events and deletes the selected
+ * Also listens to the {@code JTree}'s key events and deletes the selected
  * favorite if the <code>DEL</code> key was pressed.
  *
  * @author Elmar Baumann

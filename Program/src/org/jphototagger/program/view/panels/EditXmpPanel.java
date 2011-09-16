@@ -33,13 +33,13 @@ import org.jphototagger.domain.text.TextEntry;
 import org.jphototagger.domain.xmp.Xmp;
 
 /**
- * Edits a {@link Xmp} object.
+ * Edits a {@code Xmp} object.
  * <p>
- * To get a new XMP object, call {@link #getXmp()}.
+ * To get a new XMP object, call {@code #getXmp()}.
  * <p>
  * To modify an existing XMP object set it through
- * {@link #setXmp(org.jphototagger.program.data.Xmp)} and call
- * {@link #setXmpToInputComponents()} and {@link #setInputToXmp()} to write
+ * {@code #setXmp(org.jphototagger.program.data.Xmp)} and call
+ * {@code #setXmpToInputComponents()} and {@code #setInputToXmp()} to write
  * the input values into the referenced XMP object.
  *
  * @author Elmar Baumann

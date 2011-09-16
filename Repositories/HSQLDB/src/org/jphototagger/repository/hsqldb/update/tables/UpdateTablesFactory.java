@@ -135,10 +135,10 @@ public final class UpdateTablesFactory {
     /**
      * Returns whether to updatePostCreation the database.
      *
-     * @return true if {@link #isForceUpdate()} or the current application
-     *         version {@link AppInfo#APP_VERSION} is different from the
+     * @return true if {@code #isForceUpdate()} or the current application
+     *         version {@code AppInfo#APP_VERSION} is different from the
      *         last updatePostCreation. This info will be written into the
-     *         {@link DatabaseApplicationProperties} after an successful updatePostCreation.
+     *         {@code DatabaseApplicationProperties} after an successful updatePostCreation.
      */
     private boolean isUpdate() {
         return isForceUpdate() || DatabaseMetadata.isDatabaseOfOlderVersion();

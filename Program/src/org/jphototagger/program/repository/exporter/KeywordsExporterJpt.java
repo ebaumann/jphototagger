@@ -65,7 +65,7 @@ public final class KeywordsExporterJpt implements RepositoryDataExporter {
      */
     public static final String ATTRIBUTE_TYPE = "type";
     /**
-     * String values of the two possible values of {@link #ATTRIBUTE_TYPE},
+     * String values of the two possible values of {@code #ATTRIBUTE_TYPE},
      * <code>true</code> for a real keyword and <code>false</code> for a helper
      * keyword
      */

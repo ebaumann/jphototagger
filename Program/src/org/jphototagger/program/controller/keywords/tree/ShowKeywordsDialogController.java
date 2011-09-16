@@ -6,11 +6,10 @@ import java.awt.event.ActionListener;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.InputHelperDialog;
-import org.jphototagger.program.view.frames.AppFrame;
 
 /**
- * Listens to the menu item {@link AppFrame#getMenuItemInputHelper()}
- * and shows the {@link InputHelperDialog} on action performed.
+ * Listens to the menu item {@code AppFrame#getMenuItemInputHelper()}
+ * and shows the {@code InputHelperDialog} on action performed.
  *
  * @author Elmar Baumann
  */

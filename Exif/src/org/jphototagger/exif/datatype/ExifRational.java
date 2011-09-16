@@ -11,7 +11,6 @@ import org.jphototagger.exif.Ensure;
  * denominator.
  *
  * @author Elmar Baumann
- * @see ExifLong
  */
 public final class ExifRational {
 
@@ -24,7 +23,7 @@ public final class ExifRational {
      * @param  rawValue   raw value
      * @param  byteOrder  byte order
      * @throws IllegalArgumentException if the length of the raw value is not
-     *         equals to {@link #getRawValueByteCount()} or if the result is negative or if the denominator is zero
+     *         equals to {@code #getRawValueByteCount()} or if the result is negative or if the denominator is zero
      */
     public ExifRational(byte[] rawValue, ByteOrder byteOrder) {
         Ensure.length(rawValue, getRawValueByteCount());

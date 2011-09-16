@@ -10,7 +10,7 @@ import org.jphototagger.domain.repository.RepositoryDataExporter;
 import org.jphototagger.domain.repository.RepositoryDataImporter;
 
 /**
- * Renders lists with {@link RepositoryDataImporter}s and {@link RepositoryDataExporter}s for keywords.
+ * Renders lists with {@code RepositoryDataImporter}s and {@code RepositoryDataExporter}s for keywords.
  *
  * @author Elmar Baumann
  */

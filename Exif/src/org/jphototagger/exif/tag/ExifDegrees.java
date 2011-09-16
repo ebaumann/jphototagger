@@ -22,7 +22,7 @@ public final class ExifDegrees {
      *
      * @param  rawValue
      * @param  byteOrder
-     * @throws IllegalArgumentException if the length of raw value is not equals to {@link #getRawValueByteCount()}
+     * @throws IllegalArgumentException if the length of raw value is not equals to {@code #getRawValueByteCount()}
      */
     public ExifDegrees(byte[] rawValue, ByteOrder byteOrder) {
         if (rawValue == null) {

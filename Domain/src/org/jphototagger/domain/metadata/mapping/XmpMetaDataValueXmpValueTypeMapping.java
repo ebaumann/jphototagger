@@ -24,9 +24,6 @@ import org.jphototagger.domain.metadata.xmp.XmpPhotoshopTransmissionReferenceMet
 import org.jphototagger.domain.metadata.xmp.XmpRatingMetaDataValue;
 
 /**
- * Mapping zwischen einer XMP-Spalte
- * {@link org.jphototagger.program.database.metadata.MetaDataValue}
- * und einem XMP-Datentyp.
  *
  * @author Elmar Baumann
  */
@@ -130,8 +127,6 @@ public final class XmpMetaDataValueXmpValueTypeMapping {
 
     /**
      * Liefert, ob eine Spalte den Wert einer alternativen Sprache enthält.
-     * Dies impliziert, dass für die Spalte gilt:
-     * {@link #isArray(org.jphototagger.program.database.metadata.MetaDataValue)}.
      *
      * @param   value Spalte
      * @return  true, wenn der Spaltenwert für eine alternative Sprache gilt

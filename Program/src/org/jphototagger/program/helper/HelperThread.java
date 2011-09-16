@@ -38,13 +38,13 @@ public abstract class HelperThread extends Thread implements Cancelable {
     /**
      * Adds a progress listener.
      * <p>
-     * On {@link #progressStarted(int, int, int, java.lang.Object)},
-     * {@link #progressPerformed(int, java.lang.Object)} and
-     * {@link #progressEnded(java.lang.Object)} all progress listeners will
+     * On {@code #progressStarted(int, int, int, java.lang.Object)},
+     * {@code #progressPerformed(int, java.lang.Object)} and
+     * {@code #progressEnded(java.lang.Object)} all progress listeners will
      * be notified through the apporpriate progress listener interface method.
      * <p>
-     * If a progress listener calls {@link ProgressEvent#cancel()},
-     * {@link #cancel()} will called.
+     * If a progress listener calls {@code ProgressEvent#cancel()},
+     * {@code #cancel()} will called.
      *
      * @param listener progress listener
      */
@@ -61,7 +61,7 @@ public abstract class HelperThread extends Thread implements Cancelable {
     /**
      * Sets a custom progress bar.
      * <p>
-     * If no progress bar is set, {@link ProgressBar} will be used.
+     * If no progress bar is set, {@code ProgressBar} will be used.
      *
      * @param progressBar progress bar
      */
@@ -191,7 +191,7 @@ public abstract class HelperThread extends Thread implements Cancelable {
      * @param value   current value
      * @param maximum maximum value
      * @param info    null or object set as
-     *                {@link ProgressEvent#setInfo(Object)}
+     *                {@code ProgressEvent#setInfo(Object)}
      */
     protected void progressStarted(int minimum, int value, int maximum, Object info) {
         this.minimum = minimum;
@@ -204,7 +204,7 @@ public abstract class HelperThread extends Thread implements Cancelable {
      * updates the progress bar.
      *
      * @param value current value
-     * @param info  null or object set as {@link ProgressEvent#setInfo(Object)}
+     * @param info  null or object set as {@code ProgressEvent#setInfo(Object)}
      */
     protected void progressPerformed(int value, Object info) {
         notifyProgressPerformed(progressEvent(value, info));
@@ -214,7 +214,7 @@ public abstract class HelperThread extends Thread implements Cancelable {
      * Notifies all progress listeners that the progress has been ended and
      * updates the progress bar.
      *
-     * @param info null or object set as {@link ProgressEvent#setInfo(Object)}
+     * @param info null or object set as {@code ProgressEvent#setInfo(Object)}
      */
     protected void progressEnded(Object info) {
         notifyProgressEnded(progressEvent(0, info));

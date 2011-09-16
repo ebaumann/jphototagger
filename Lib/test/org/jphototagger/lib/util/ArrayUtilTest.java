@@ -12,7 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Tests the Class {@link org.jphototagger.lib.util.ArrayUtil}.
+ * Tests the Class {@code org.jphototagger.lib.util.ArrayUtil}.
  *
  * @author Elmar Baumann
  */

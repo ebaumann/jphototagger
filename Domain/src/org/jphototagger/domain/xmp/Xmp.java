@@ -24,7 +24,7 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * XMP metadata of an image file. The <code>see</code> sections of the method
- * documentation links to the corresponding {@link Iptc} method.
+ * documentation links to the corresponding {@code Iptc} method.
  *
  * @author Elmar Baumann
  */

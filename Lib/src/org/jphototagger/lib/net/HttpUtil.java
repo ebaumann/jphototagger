@@ -22,7 +22,7 @@ public final class HttpUtil {
      * @param  target       buffer for writing the content of
      *                      <code>source</code>
      * @param cancelRequest canel request or null. If not null, reading will be
-     *                      terminated if {@link CancelRequest#isCancel()}
+     *                      terminated if {@code CancelRequest#isCancel()}
      *                      returns true
      * @throws IOException on read/write errors
      */

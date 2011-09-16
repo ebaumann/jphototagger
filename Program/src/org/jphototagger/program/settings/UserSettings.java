@@ -13,7 +13,7 @@ import org.jphototagger.program.app.AppInfo;
 import org.jphototagger.program.app.update.UpdateUserSettings;
 
 /**
- * Stores user settings in a single {@link java.util.Properties} instance.
+ * Stores user settings in a single {@code java.util.Properties} instance.
  *
  * @author Elmar Baumann
  */

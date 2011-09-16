@@ -21,13 +21,12 @@ import org.jphototagger.api.storage.Storage;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.HelpBrowser;
-import org.jphototagger.plugin.AbstractFileProcessorPlugin;
 import org.jphototagger.program.factory.FileProcessorPluginManager;
 import org.jphototagger.program.factory.PluginManager;
 import org.jphototagger.program.types.Persistence;
 
 /**
- * Dynamically adds panels of plugins ({@link AbstractFileProcessorPlugin#getSettingsComponent()}).
+ * Dynamically adds panels of plugins ({@code AbstractFileProcessorPlugin#getSettingsComponent()}).
  *
  * @author Elmar Baumann
  */

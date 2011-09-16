@@ -10,7 +10,7 @@ import org.jphototagger.api.storage.Storage;
 
 /**
  * Listens to <code>windowOpend()</code> and <code>windowClosing()</code> and
- * reads and writes the size and location of a component to {@link UserSettings}.
+ * reads and writes the size and location of a component to {@code UserSettings}.
  * <p>
  * Usage: Bevor setting a component visible, call
  * <code>Component#addWindowListener(new SizeAndLocationController())</code> or

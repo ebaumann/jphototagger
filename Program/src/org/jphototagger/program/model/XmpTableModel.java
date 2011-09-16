@@ -11,7 +11,7 @@ import org.jphototagger.lib.util.Bundle;
 
 /**
  * Alle elements are {@code XMPPropertyInfo} instances retrieved through
- * {@link #setPropertyInfosOfFile(File, List)}.
+ * {@code #setPropertyInfosOfFile(File, List)}.
  *
  * @author Elmar Baumann, Tobias Stening
  */
@@ -53,7 +53,7 @@ public final class XmpTableModel extends TableModelExt {
      *
      * @return Dateiname oder null, wenn die Property-Infos entfernt wurden
      *         oder null gesetzt wurde mit
-     *         {@link #setPropertyInfosOfFile(File, List) }
+     *         {@code #setPropertyInfosOfFile(File, List) }
      */
     public File getFile() {
         return file;

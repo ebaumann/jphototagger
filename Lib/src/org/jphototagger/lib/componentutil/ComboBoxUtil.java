@@ -22,7 +22,6 @@ public final class ComboBoxUtil {
      * @param comboBox Combobox
      * @param string   Gesuchter String
      * @return         true, wenn die Combobox das Element enthält
-     * @see            #getItem(ComboBoxModel, String)
      */
     public static boolean hasItem(ComboBoxModel comboBox, String string) {
         if (comboBox == null) {
@@ -51,7 +50,6 @@ public final class ComboBoxUtil {
      * @param comboBoxModel Model
      * @param string        Gesuchter String
      * @return              Element oder null, falls keines gefunden wurde
-     * @see                 #hasItem(ComboBoxModel, String)
      */
     public static Object getItem(ComboBoxModel comboBoxModel, String string) {
         if (comboBoxModel == null) {

@@ -22,7 +22,7 @@ public final class StringUtil {
     private static final String WORD_DELIMITER = " \t\n\r";
 
     /**
-     * Calls {@link #wrapWords(java.lang.String, int, java.lang.String)} with
+     * Calls {@code #wrapWords(java.lang.String, int, java.lang.String)} with
      * predefined word delimiter.
      *
      * @param text            text
@@ -249,7 +249,7 @@ public final class StringUtil {
      *
      * @param  is          input stream
      * @param  charsetName encoding of the characters in the stream
-     * @return
+     * @return s
      * @throws IOException
      */
     public static String convertStreamToString(InputStream is, String charsetName) throws IOException {

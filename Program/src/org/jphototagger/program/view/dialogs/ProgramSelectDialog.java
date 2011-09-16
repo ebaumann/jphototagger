@@ -14,7 +14,7 @@ import org.jphototagger.program.view.renderer.ActionsListCellRenderer;
 import org.jphototagger.program.view.renderer.ProgramsListCellRenderer;
 
 /**
- * Dialog to select an {@link org.jphototagger.program.data.Program}.
+ * Dialog to select an {@code org.jphototagger.program.data.Program}.
  *
  * @author Elmar Baumann
  */
@@ -63,7 +63,7 @@ public class ProgramSelectDialog extends Dialog {
      * Returns the selected program.
      *
      * @return program or null if no program was selected. You can determine
-     *         whether an program was selected through {@link #isAccepted()}.
+     *         whether an program was selected through {@code #isAccepted()}.
      */
     public Program getSelectedProgram() {
         Program program  = null;

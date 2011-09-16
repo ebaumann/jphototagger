@@ -29,9 +29,9 @@ import org.jphototagger.program.view.dialogs.SettingsDialog;
 
 /**
  * Runs scheduled tasks after
- * {@link UserSettings#getMinutesToStartScheduledTasks()}.
+ * {@code UserSettings#getMinutesToStartScheduledTasks()}.
  *
- * To work initially, {@link #run()} has to be called.
+ * To work initially, {@code #run()} has to be called.
  *
  * @author Elmar Baumann
  */
@@ -76,7 +76,7 @@ public final class ScheduledTasks implements ActionListener {
 
     /**
      * Runs the tasks after
-     * {@link UserSettings#getMinutesToStartScheduledTasks()}.
+     * {@code UserSettings#getMinutesToStartScheduledTasks()}.
      */
     public synchronized void run() {
         if (isRunning || runnedManual || (MINUTES_WAIT_BEFORE_PERFORM <= 0)) {
@@ -116,10 +116,10 @@ public final class ScheduledTasks implements ActionListener {
      * Removes all added user tasks.
      * <p>
      * If the active runnable implements
-     * {@link org.jphototagger.lib.concurrent.Cancelable}, its method
-     * {@link org.jphototagger.lib.concurrent.Cancelable#cancel()} will be
+     * {@code org.jphototagger.lib.concurrent.Cancelable}, its method
+     * {@code org.jphototagger.lib.concurrent.Cancelable#cancel()} will be
      * called. If it does not implement that interface and it is an instance of
-     * {@link Thread}, {@link Thread#interrupt()} will be called.
+     * {@code Thread}, {@code Thread#interrupt()} will be called.
      */
     public void cancelCurrentTasks() {
         executor.cancel();

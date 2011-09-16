@@ -116,7 +116,7 @@ public final class ExifTag {
          * Returns an tag id with a specific integer getTagId.
          *
          * @param  tagId tag ID
-         * @return       Id or {@link Id#UNKNOWN} if no tag has such getTagId
+         * @return       Id or {@code Id#UNKNOWN} if no tag has such getTagId
          */
         public static Id convertTagIdToId(int tagId) {
             for (Id id : Id.values()) {
@@ -325,7 +325,7 @@ public final class ExifTag {
     /**
      *
      * @param  obj
-     * @return     true, if IFD type {@link #getIfdType()} and tag ID {@link #getTagId()} both equals
+     * @return     true, if IFD type {@code #getIfdType()} and tag ID {@code #getTagId()} both equals
      */
     @Override
     public boolean equals(Object obj) {

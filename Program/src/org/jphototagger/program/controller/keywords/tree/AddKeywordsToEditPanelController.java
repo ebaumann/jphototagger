@@ -21,11 +21,10 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
 import org.jphototagger.program.view.panels.EditRepeatableTextEntryPanel;
 import org.jphototagger.program.view.panels.KeywordsPanel;
-import org.jphototagger.program.view.popupmenus.KeywordsTreePopupMenu;
 
 /**
  * Listens to the menu item
- * {@link KeywordsTreePopupMenu#getItemAddToEditPanel()}
+ * {@code KeywordsTreePopupMenu#getItemAddToEditPanel()}
  * and on action inserts the selected keyword and it's real parents into the
  * edit panel.
  *
