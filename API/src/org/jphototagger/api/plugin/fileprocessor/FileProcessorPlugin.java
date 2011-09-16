@@ -2,6 +2,7 @@ package org.jphototagger.api.plugin.fileprocessor;
 
 import java.io.File;
 import java.util.Collection;
+
 import org.jphototagger.api.plugin.Plugin;
 
 /**

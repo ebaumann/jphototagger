@@ -16,26 +16,28 @@ import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.JOptionPane;
 
+import com.adobe.xmp.properties.XMPPropertyInfo;
+import com.aetrion.flickr.uploader.UploadMetaData;
+import com.aetrion.flickr.uploader.Uploader;
+
 import org.bushe.swing.event.EventBus;
+
+import org.openide.util.Lookup;
+import org.openide.util.lookup.ServiceProvider;
+
 import org.jphototagger.api.image.thumbnails.ThumbnailProvider;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessedEvent;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessingFinishedEvent;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessingStartedEvent;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessorPlugin;
-import org.jphototagger.lib.componentutil.ComponentUtil;
-import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.image.util.ImageUtil;
+import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.io.IoUtil;
+import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.plugin.AbstractFileProcessorPlugin;
 import org.jphototagger.plugin.flickrupload.FlickrImageInfoPanel.ImageInfo;
 import org.jphototagger.xmp.XmpProperties;
-import org.openide.util.Lookup;
-import org.openide.util.lookup.ServiceProvider;
-
-import com.adobe.xmp.properties.XMPPropertyInfo;
-import com.aetrion.flickr.uploader.UploadMetaData;
-import com.aetrion.flickr.uploader.Uploader;
 
 /**
  *

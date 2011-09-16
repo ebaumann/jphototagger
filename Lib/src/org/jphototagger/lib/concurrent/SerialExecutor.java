@@ -1,12 +1,12 @@
 package org.jphototagger.lib.concurrent;
 
-import org.jphototagger.api.concurrent.Cancelable;
 import java.util.ArrayDeque;
-import java.util.concurrent.Executor;
 import java.util.Queue;
+import java.util.concurrent.Executor;
+
+import org.jphototagger.api.concurrent.Cancelable;
 
 //Code from java.util.concurrent.Executor javadoc. Added cancel()
-
 /**
  * Executes runnables serial: The next runnable will be executed when the
  * previous has finished.
@@ -14,6 +14,7 @@ import java.util.Queue;
  * @author Elmar Baumann
  */
 public final class SerialExecutor implements Executor {
+
     private final Queue<Exec> runnables = new ArrayDeque<Exec>();
     private final Executor executor;
     private Exec active;
@@ -58,8 +59,8 @@ public final class SerialExecutor implements Executor {
      */
     public synchronized int getCount() {
         int activeCount = (active == null)
-                          ? 0
-                          : 1;
+                ? 0
+                : 1;
 
         return activeCount + runnables.size();
     }
@@ -80,6 +81,7 @@ public final class SerialExecutor implements Executor {
     }
 
     private class Exec implements Runnable {
+
         final Runnable r;
 
         Exec(Runnable r) {

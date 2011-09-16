@@ -9,6 +9,7 @@ import org.jphototagger.program.resource.GUI;
  * @author Elmar Baumann
  */
 public class UserDefinedFileFilterDialog extends Dialog {
+
     private static final long serialVersionUID = -1671508580095511987L;
 
     public UserDefinedFileFilterDialog() {
@@ -65,14 +66,16 @@ public class UserDefinedFileFilterDialog extends Dialog {
     }//GEN-END:initComponents
 
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 UserDefinedFileFilterDialog dialog = new UserDefinedFileFilterDialog();
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
@@ -82,9 +85,7 @@ public class UserDefinedFileFilterDialog extends Dialog {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jphototagger.program.view.panels.UserDefinedFileFilterPanel panel;
     // End of variables declaration//GEN-END:variables
-
 }

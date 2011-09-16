@@ -12,6 +12,9 @@ import javax.swing.event.ListSelectionListener;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.programs.ProgramType;
@@ -31,7 +34,6 @@ import org.jphototagger.program.types.Persistence;
 import org.jphototagger.program.view.dialogs.ActionsDialog;
 import org.jphototagger.program.view.dialogs.ProgramSelectDialog;
 import org.jphototagger.program.view.renderer.ActionsListCellRenderer;
-import org.openide.util.Lookup;
 
 /**
  *

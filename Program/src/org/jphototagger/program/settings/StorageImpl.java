@@ -1,9 +1,9 @@
 package org.jphototagger.program.settings;
 
 import java.awt.Component;
-
 import java.util.Collection;
 import java.util.List;
+
 import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
@@ -12,12 +12,14 @@ import javax.swing.JToggleButton;
 import javax.swing.JTree;
 
 import org.bushe.swing.event.EventBus;
+
+import org.openide.util.lookup.ServiceProvider;
+
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.api.storage.StorageHints;
 import org.jphototagger.domain.event.UserPropertyChangedEvent;
 import org.jphototagger.lib.util.ObjectUtil;
 import org.jphototagger.lib.util.Settings;
-import org.openide.util.lookup.ServiceProvider;
 
 /**
  *

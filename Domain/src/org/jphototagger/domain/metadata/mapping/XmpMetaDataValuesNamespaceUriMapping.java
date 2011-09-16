@@ -3,6 +3,8 @@ package org.jphototagger.domain.metadata.mapping;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.adobe.xmp.XMPConst;
+
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpDcCreatorMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpDcDescriptionMetaDataValue;
@@ -22,8 +24,6 @@ import org.jphototagger.domain.metadata.xmp.XmpPhotoshopSourceMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpPhotoshopStateMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpPhotoshopTransmissionReferenceMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpRatingMetaDataValue;
-
-import com.adobe.xmp.XMPConst;
 
 /**
  * Mapping zwischen

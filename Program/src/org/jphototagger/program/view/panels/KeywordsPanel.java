@@ -10,6 +10,9 @@ import javax.swing.tree.TreeSelectionModel;
 
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.JXTree;
+
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.componentutil.TreeUtil;
@@ -22,7 +25,6 @@ import org.jphototagger.program.model.WaitListModel;
 import org.jphototagger.program.model.WaitTreeModel;
 import org.jphototagger.program.view.renderer.KeywordHighlightPredicate;
 import org.jphototagger.program.view.renderer.KeywordsListCellRenderer;
-import org.openide.util.Lookup;
 
 /**
  *

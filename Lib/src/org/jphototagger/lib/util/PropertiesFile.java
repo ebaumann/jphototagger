@@ -1,13 +1,14 @@
 package org.jphototagger.lib.util;
 
-import org.jphototagger.lib.io.FileUtil;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.Properties;
+
+import org.jphototagger.lib.io.FileUtil;
 
 /**
  * Reads from and writes to a file values of an
@@ -20,6 +21,7 @@ import java.util.Properties;
  * @author Elmar Baumann
  */
 public final class PropertiesFile {
+
     private final String filename;
     private final String domainName;
     private final Properties properties;

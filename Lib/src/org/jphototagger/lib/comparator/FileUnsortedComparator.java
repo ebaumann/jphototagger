@@ -1,9 +1,10 @@
 package org.jphototagger.lib.comparator;
 
-import org.jphototagger.lib.util.ClassEquality;
 import java.io.File;
 import java.io.Serializable;
 import java.util.Comparator;
+
+import org.jphototagger.lib.util.ClassEquality;
 
 /**
  * Does not change the sort order.
@@ -11,6 +12,7 @@ import java.util.Comparator;
  * @author Elmar Baumann
  */
 public final class FileUnsortedComparator extends ClassEquality implements Comparator<File>, Serializable {
+
     private static final long serialVersionUID = 6632501783143748216L;
 
     /**

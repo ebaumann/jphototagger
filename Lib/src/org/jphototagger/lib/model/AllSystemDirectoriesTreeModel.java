@@ -1,10 +1,5 @@
 package org.jphototagger.lib.model;
 
-import org.jphototagger.lib.componentutil.TreeUtil;
-import org.jphototagger.lib.io.filefilter.DirectoryFilter;
-import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.lib.io.TreeFileSystemDirectories;
-import org.jphototagger.lib.util.StringUtil;
 import java.awt.Cursor;
 import java.io.File;
 import java.util.ArrayList;
@@ -12,16 +7,23 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.Stack;
+
+import javax.swing.JTree;
 import javax.swing.event.TreeExpansionEvent;
 import javax.swing.event.TreeWillExpandListener;
-import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.ExpandVetoException;
 import javax.swing.tree.TreePath;
+
+import org.jphototagger.lib.componentutil.TreeUtil;
+import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.lib.io.TreeFileSystemDirectories;
+import org.jphototagger.lib.io.filefilter.DirectoryFilter;
+import org.jphototagger.lib.util.StringUtil;
 
 /**
  * Tree model for all directories of a file system. All nodes have the type
@@ -31,6 +33,7 @@ import javax.swing.tree.TreePath;
  * @author Elmar Baumann
  */
 public final class AllSystemDirectoriesTreeModel extends DefaultTreeModel implements TreeWillExpandListener {
+
     private static final long serialVersionUID = 8297582930734874242L;
     private final transient DirectoryFilter directoryFilter;
     private final DefaultMutableTreeNode rootNode;
@@ -79,21 +82,21 @@ public final class AllSystemDirectoriesTreeModel extends DefaultTreeModel implem
             boolean isExclude = excludeRootDirectories.contains(existingRootDirectory);
 
             if (!isExclude) {
-            DefaultMutableTreeNode rootDirectoryNode = new SortedChildrenTreeNode(existingRootDirectory);
+                DefaultMutableTreeNode rootDirectoryNode = new SortedChildrenTreeNode(existingRootDirectory);
 
-            insertNodeInto(rootDirectoryNode, rootNode, rootNode.getChildCount());
-            addChildren(rootDirectoryNode);
+                insertNodeInto(rootDirectoryNode, rootNode, rootNode.getChildCount());
+                addChildren(rootDirectoryNode);
+            }
         }
-    }
     }
 
     private void addChildren(DefaultMutableTreeNode parentNode) {
         Object parentNodeUserObject = parentNode.getUserObject();
         File parentDirectory = (parentNodeUserObject instanceof File)
-                   ? (File) parentNodeUserObject
-                   : null;
+                ? (File) parentNodeUserObject
+                : null;
 
-        if ((parentDirectory == null) ||!parentDirectory.isDirectory()) {
+        if ((parentDirectory == null) || !parentDirectory.isDirectory()) {
             return;
         }
 
@@ -102,7 +105,7 @@ public final class AllSystemDirectoriesTreeModel extends DefaultTreeModel implem
         File[] existingSubdirectories = parentDirectory.listFiles(directoryFilter);
 
         LOGGER.log(Level.FINEST, "Subdirectories of ''{0}'' have been read: {1}",
-                new Object[] { parentDirectory, StringUtil.toString(existingSubdirectories) });
+                new Object[]{parentDirectory, StringUtil.toString(existingSubdirectories)});
 
         if (existingSubdirectories == null) {
             return;
@@ -125,7 +128,7 @@ public final class AllSystemDirectoriesTreeModel extends DefaultTreeModel implem
 
             if (!parentNodeChildDirectories.contains(existingSubdirectory)) {
                 LOGGER.log(Level.FINEST, "Adding subdirectory ''{0}'' to node ''{1}''",
-                           new Object[] { existingSubdirectory, parentNode });
+                        new Object[]{existingSubdirectory, parentNode});
 
                 DefaultMutableTreeNode newChildNode = new SortedChildrenTreeNode(existingSubdirectory);
 
@@ -133,9 +136,9 @@ public final class AllSystemDirectoriesTreeModel extends DefaultTreeModel implem
 
                 int newChildIndex = parentNode.getIndex(newChildNode);
 
-                fireTreeNodesInserted(this, parentNode.getPath(), new int[] { newChildIndex }, new Object[] { newChildNode });
+                fireTreeNodesInserted(this, parentNode.getPath(), new int[]{newChildIndex}, new Object[]{newChildNode});
                 LOGGER.log(Level.FINEST, "Subdirectory ''{0}'' has been added to node ''{1}''",
-                           new Object[] { existingSubdirectory, parentNode });
+                        new Object[]{existingSubdirectory, parentNode});
             }
         }
     }
@@ -160,10 +163,10 @@ public final class AllSystemDirectoriesTreeModel extends DefaultTreeModel implem
 
         for (DefaultMutableTreeNode childNodeToRemove : nodesToRemove) {
             LOGGER.log(Level.FINEST, "Removing child node ''{0}'' from parent node ''{1}''...",
-                       new Object[] { childNodeToRemove, parentNode });
+                    new Object[]{childNodeToRemove, parentNode});
             removeNodeFromParent(childNodeToRemove);
             LOGGER.log(Level.FINEST, "Child node ''{0}'' has been removed from parent node ''{1}''",
-                       new Object[] { childNodeToRemove, parentNode });
+                    new Object[]{childNodeToRemove, parentNode});
         }
 
         return nodesToRemove.size();
@@ -178,8 +181,8 @@ public final class AllSystemDirectoriesTreeModel extends DefaultTreeModel implem
      */
     public File createDirectoryIn(DefaultMutableTreeNode parentNode) {
         File parentNodeDirectory = (parentNode == null)
-                         ? null
-                         : TreeFileSystemDirectories.getFile(parentNode);
+                ? null
+                : TreeFileSystemDirectories.getFile(parentNode);
 
         if (parentNodeDirectory != null) {
             File createdDirectory = TreeFileSystemDirectories.createDirectoryIn(parentNodeDirectory);
@@ -191,7 +194,7 @@ public final class AllSystemDirectoriesTreeModel extends DefaultTreeModel implem
 
                 int childIndex = parentNode.getIndex(createdDirNode);
 
-                fireTreeNodesInserted(this, parentNode.getPath(), new int[] { childIndex }, new Object[] { createdDirNode });
+                fireTreeNodesInserted(this, parentNode.getPath(), new int[]{childIndex}, new Object[]{createdDirNode});
 
                 return createdDirectory;
             }
@@ -210,7 +213,7 @@ public final class AllSystemDirectoriesTreeModel extends DefaultTreeModel implem
         Stack<File> filePath = FileUtil.getPathFromRoot(file);
         DefaultMutableTreeNode node = rootNode;
 
-        while ((node != null) &&!filePath.isEmpty()) {
+        while ((node != null) && !filePath.isEmpty()) {
             node = TreeUtil.findChildNodeWithFile(node, filePath.pop());
 
             if ((node != null) && (node.getChildCount() <= 0)) {
@@ -291,7 +294,6 @@ public final class AllSystemDirectoriesTreeModel extends DefaultTreeModel implem
 
     @Override
     public void treeWillCollapse(TreeExpansionEvent event) throws ExpandVetoException {
-
         // ignore
     }
 }

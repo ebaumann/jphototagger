@@ -14,6 +14,7 @@ import org.jphototagger.exif.Ensure;
  * @see ExifLong
  */
 public final class ExifRational {
+
     private final int numerator;
     private final int denominator;
 
@@ -75,7 +76,7 @@ public final class ExifRational {
         return rawValue == null
                 ? false
                 : rawValue.length == getRawValueByteCount();
-        }
+    }
 
     /**
      * Returns the denominator.

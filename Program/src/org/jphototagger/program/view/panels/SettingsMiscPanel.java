@@ -8,6 +8,9 @@ import javax.swing.filechooser.FileSystemView;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.api.storage.UserFilesProvider;
 import org.jphototagger.domain.event.UserPropertyChangedEvent;
@@ -21,7 +24,6 @@ import org.jphototagger.program.helper.CopyFiles.Options;
 import org.jphototagger.program.model.IptcCharsetComboBoxModel;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.types.Persistence;
-import org.openide.util.Lookup;
 
 /**
  *

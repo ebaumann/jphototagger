@@ -58,5 +58,6 @@ public final class MouseEventUtil {
         return evt.getButton() == MouseEvent.BUTTON1;
     }
 
-    private MouseEventUtil() {}
+    private MouseEventUtil() {
+    }
 }

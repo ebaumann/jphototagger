@@ -1,12 +1,13 @@
 package org.jphototagger.program.helper;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.domain.repository.MetadataTemplatesRepository;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.dialog.InputDialog;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.view.dialogs.InputHelperDialog;
-import org.openide.util.Lookup;
 
 /**
  *

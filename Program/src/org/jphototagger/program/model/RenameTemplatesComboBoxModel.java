@@ -4,6 +4,9 @@ import javax.swing.DefaultComboBoxModel;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+
+import org.openide.util.Lookup;
+
 import org.jphototagger.domain.repository.RenameTemplatesRepository;
 import org.jphototagger.domain.repository.Repository;
 import org.jphototagger.domain.repository.event.renametemplates.RenameTemplateDeletedEvent;
@@ -11,7 +14,6 @@ import org.jphototagger.domain.repository.event.renametemplates.RenameTemplateIn
 import org.jphototagger.domain.repository.event.renametemplates.RenameTemplateUpdatedEvent;
 import org.jphototagger.domain.templates.RenameTemplate;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.openide.util.Lookup;
 
 /**
  *

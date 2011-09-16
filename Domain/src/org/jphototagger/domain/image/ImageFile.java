@@ -1,12 +1,13 @@
 package org.jphototagger.domain.image;
 
-import org.jphototagger.domain.repository.InsertIntoRepository;
-import org.jphototagger.domain.xmp.Xmp;
-import org.jphototagger.domain.exif.Exif;
 import java.awt.Image;
 import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
+
+import org.jphototagger.domain.exif.Exif;
+import org.jphototagger.domain.repository.InsertIntoRepository;
+import org.jphototagger.domain.xmp.Xmp;
 
 /**
  *

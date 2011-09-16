@@ -4,10 +4,11 @@ import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.api.storage.CacheDirectoryProvider;
-import org.jphototagger.api.storage.UserFilesProvider;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
+
+import org.jphototagger.api.storage.CacheDirectoryProvider;
+import org.jphototagger.api.storage.UserFilesProvider;
 
 /**
  *

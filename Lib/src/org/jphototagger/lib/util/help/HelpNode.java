@@ -16,6 +16,7 @@ import java.util.Stack;
  * @author Elmar Baumann
  */
 public final class HelpNode {
+
     private String title;
     private List<Object> children = new ArrayList<Object>();
     private HelpNode parent;
@@ -138,8 +139,8 @@ public final class HelpNode {
         findPath(url, found);
 
         return (found.size() > 0)
-               ? found.toArray()
-               : null;
+                ? found.toArray()
+                : null;
     }
 
     private void findPath(String url, List<Object> found) {

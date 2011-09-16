@@ -3,6 +3,8 @@ package org.jphototagger.program.controller.programs;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.repository.ProgramsRepository;
 import org.jphototagger.lib.dialog.MessageDisplayer;
@@ -11,7 +13,6 @@ import org.jphototagger.program.helper.ProgramsHelper;
 import org.jphototagger.program.helper.StartPrograms;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.popupmenus.ThumbnailsPopupMenu;
-import org.openide.util.Lookup;
 
 /**
  *

@@ -22,10 +22,12 @@ import org.jphototagger.lib.util.Bundle;
  * @author Elmar Baumann
  */
 public final class NumberInputVerifier extends InputVerifier implements Serializable {
+
     public static final NumberInputVerifier INSTANCE = new NumberInputVerifier();
     private static final long serialVersionUID = -7544590339781154133L;
 
-    private NumberInputVerifier() {}
+    private NumberInputVerifier() {
+    }
 
     /**
      * Verifies the input.
@@ -48,9 +50,9 @@ public final class NumberInputVerifier extends InputVerifier implements Serializ
 
     private void errorMessage() throws HeadlessException {
         JOptionPane.showMessageDialog(ComponentUtil.getFrameWithIcon(),
-                                      Bundle.getString(NumberInputVerifier.class, "NumberInputVerifier.Error.NaN"),
-                                      Bundle.getString(NumberInputVerifier.class, "NumberInputVerifier.Error.NaN.Title"),
-                                      JOptionPane.ERROR_MESSAGE);
+                Bundle.getString(NumberInputVerifier.class, "NumberInputVerifier.Error.NaN"),
+                Bundle.getString(NumberInputVerifier.class, "NumberInputVerifier.Error.NaN.Title"),
+                JOptionPane.ERROR_MESSAGE);
     }
 
     private boolean isValid(JTextComponent textComponent) {

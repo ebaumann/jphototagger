@@ -1,6 +1,7 @@
 package org.jphototagger.lib.inputverifier;
 
 import java.io.Serializable;
+
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import javax.swing.text.JTextComponent;
@@ -11,6 +12,7 @@ import javax.swing.text.JTextComponent;
  * @author Elmar Baumann
  */
 public final class EmptyInputVerifier extends InputVerifier implements Serializable {
+
     private static final long serialVersionUID = -7155052662328216344L;
     private final boolean trim;
 
@@ -34,8 +36,8 @@ public final class EmptyInputVerifier extends InputVerifier implements Serializa
             String text = ((JTextComponent) input).getText();
 
             return trim
-                   ? text.trim().isEmpty()
-                   : text.isEmpty();
+                    ? text.trim().isEmpty()
+                    : text.isEmpty();
         }
 
         return false;

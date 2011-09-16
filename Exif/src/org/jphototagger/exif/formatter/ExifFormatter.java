@@ -13,6 +13,7 @@ import org.jphototagger.lib.util.Translation;
  * @author Elmar Baumann
  */
 public abstract class ExifFormatter {
+
     private static final Map<ExifIfdType, Translation> TRANSLATION_OF_IFD = new EnumMap<ExifIfdType, Translation>(ExifIfdType.class);
 
     static {
@@ -40,7 +41,7 @@ public abstract class ExifFormatter {
         Translation translation = TRANSLATION_OF_IFD.get(ifdType);
 
         return (translation == null)
-               ? "?"
-               : translation.translate(propertyKey);
+                ? "?"
+                : translation.translate(propertyKey);
     }
 }

@@ -1,25 +1,26 @@
 package org.jphototagger.lib.componentutil;
 
-import org.jphototagger.lib.util.CollectionUtil;
-import java.awt.event.ActionEvent;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import javax.swing.InputMap;
 import javax.swing.JTextArea;
 import javax.swing.KeyStroke;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
+import org.jphototagger.lib.util.CollectionUtil;
 
 //Base code: http://java.sun.com/docs/books/tutorial/uiswing/examples/components/TextAreaDemoProject/src/components/TextAreaDemo.java
 //           http://java.sun.com/docs/books/tutorial/uiswing/components/textarea.html
-
 /**
  * Autocomplete for a <code>JTextArea</code>.
  *
@@ -30,6 +31,7 @@ import javax.swing.KeyStroke;
  * @author Elmar Baumann
  */
 public final class Autocomplete implements DocumentListener, Serializable {
+
     private static final String COMMIT_ACTION = "commit";
     private static final String FOCUS_BACKWARD_ACTION = "focus_backward";
     private static final String FOCUS_FORWARD_ACTION = "focus_forward";
@@ -41,9 +43,11 @@ public final class Autocomplete implements DocumentListener, Serializable {
     private JTextArea textArea;
     private final boolean ignoreCase;
 
-    private static enum Mode { INSERT, COMPLETION }
+    private static enum Mode {
 
-    ;
+        INSERT, COMPLETION
+    };
+
     public Autocomplete(boolean ignoreCase) {
         this.ignoreCase = ignoreCase;
     }
@@ -64,9 +68,9 @@ public final class Autocomplete implements DocumentListener, Serializable {
         }
 
         Logger.getLogger(Autocomplete.class.getName()).log(Level.FINEST,
-                         "Autocomplete: Will decorating text area named ''{0}'' with {1} new words...",
-                         new Object[] { textArea.getName(),
-                                        words.size() });
+                "Autocomplete: Will decorating text area named ''{0}'' with {1} new words...",
+                new Object[]{textArea.getName(),
+                    words.size()});
 
         synchronized (this.words) {
             this.words.clear();
@@ -81,9 +85,9 @@ public final class Autocomplete implements DocumentListener, Serializable {
         }
 
         Logger.getLogger(Autocomplete.class.getName()).log(Level.FINEST,
-                         "Autocomplete: Decorated text area named ''{0}'' with {1} new words...",
-                         new Object[] { textArea.getName(),
-                                        words.size() });
+                "Autocomplete: Decorated text area named ''{0}'' with {1} new words...",
+                new Object[]{textArea.getName(),
+                    words.size()});
         init(sorted);
     }
 
@@ -131,8 +135,8 @@ public final class Autocomplete implements DocumentListener, Serializable {
         synchronized (words) {
             if (!contains(word)) {
                 String lcWord = ignoreCase
-                                ? word.toLowerCase()
-                                : word;
+                        ? word.toLowerCase()
+                        : word;
 
                 CollectionUtil.binaryInsert(words, lcWord);
             }
@@ -146,18 +150,20 @@ public final class Autocomplete implements DocumentListener, Serializable {
 
         synchronized (words) {
             String lcWord = ignoreCase
-                            ? word.toLowerCase()
-                            : word;
+                    ? word.toLowerCase()
+                    : word;
 
             return Collections.binarySearch(words, lcWord) >= 0;
         }
     }
 
     @Override
-    public void changedUpdate(DocumentEvent ev) {}
+    public void changedUpdate(DocumentEvent ev) {
+    }
 
     @Override
-    public void removeUpdate(DocumentEvent ev) {}
+    public void removeUpdate(DocumentEvent ev) {
+    }
 
     @Override
     public void insertUpdate(DocumentEvent ev) {
@@ -219,6 +225,7 @@ public final class Autocomplete implements DocumentListener, Serializable {
     }
 
     private class CommitAction extends AbstractAction {
+
         private static final long serialVersionUID = 1L;
 
         @Override
@@ -239,8 +246,8 @@ public final class Autocomplete implements DocumentListener, Serializable {
         }
     }
 
-
     private class CompletionTask implements Runnable {
+
         private String completion;
         private int position;
 
@@ -258,8 +265,8 @@ public final class Autocomplete implements DocumentListener, Serializable {
         }
     }
 
-
     private class FocusBackwardAction extends AbstractAction {
+
         private static final long serialVersionUID = 1L;
 
         @Override
@@ -268,8 +275,8 @@ public final class Autocomplete implements DocumentListener, Serializable {
         }
     }
 
-
     private class FocusForwardAction extends AbstractAction {
+
         private static final long serialVersionUID = 1L;
 
         @Override

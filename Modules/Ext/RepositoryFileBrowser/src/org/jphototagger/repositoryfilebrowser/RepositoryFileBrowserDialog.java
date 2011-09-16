@@ -3,10 +3,14 @@ package org.jphototagger.repositoryfilebrowser;
 import java.io.File;
 import java.util.Collection;
 import java.util.List;
+
 import javax.swing.ListModel;
 import javax.swing.SwingWorker;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.branding.Branding;
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.domain.repository.ImageFilesRepository;
@@ -15,7 +19,6 @@ import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.lookup.NodesListCellRenderer;
 import org.jphototagger.lib.swingx.ListTextFilter;
-import org.openide.util.Lookup;
 
 /**
  *

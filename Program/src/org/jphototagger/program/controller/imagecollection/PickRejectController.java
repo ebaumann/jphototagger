@@ -10,6 +10,9 @@ import java.util.List;
 import javax.swing.JMenuItem;
 
 import org.jdesktop.swingx.JXList;
+
+import org.openide.util.Lookup;
+
 import org.jphototagger.domain.repository.ImageCollectionsRepository;
 import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.lib.componentutil.MessageLabel;
@@ -18,7 +21,6 @@ import org.jphototagger.program.model.ImageCollectionsListModel;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.ThumbnailsPopupMenu;
-import org.openide.util.Lookup;
 
 /**
  *

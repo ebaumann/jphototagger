@@ -7,6 +7,8 @@ import java.awt.event.KeyListener;
 import java.io.File;
 import java.util.List;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.lib.awt.EventQueueUtil;
@@ -16,7 +18,6 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.types.DeleteOption;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.ThumbnailsPopupMenu;
-import org.openide.util.Lookup;
 
 /**
  * Listens to key events of {@link ThumbnailsPanel} and when the

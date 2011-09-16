@@ -8,11 +8,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.repository.MetaDataValuesRepository;
 import org.jphototagger.lib.util.CollectionUtil;
-import org.openide.util.Lookup;
 
 /**
  * Contains autocomplete data (words, terms).

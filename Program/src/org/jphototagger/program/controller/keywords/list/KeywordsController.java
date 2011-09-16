@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.jdesktop.swingx.JXList;
+
 import org.jphototagger.program.controller.Controller;
 import org.jphototagger.program.helper.KeywordsHelper;
 import org.jphototagger.program.model.KeywordsListModel;

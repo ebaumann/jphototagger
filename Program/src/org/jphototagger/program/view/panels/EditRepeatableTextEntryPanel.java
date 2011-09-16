@@ -26,7 +26,11 @@ import javax.swing.event.ListSelectionEvent;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+
 import org.jdesktop.swingx.JXList;
+
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.domain.event.listener.TextEntryListener;
 import org.jphototagger.domain.event.listener.TextEntryListenerSupport;
@@ -46,7 +50,6 @@ import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.helper.AutocompleteHelper;
 import org.jphototagger.program.types.Suggest;
-import org.openide.util.Lookup;
 
 /**
  * Panel with an input text field an a list. The list contains multiple words,

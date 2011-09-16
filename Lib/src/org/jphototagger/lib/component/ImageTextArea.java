@@ -1,11 +1,13 @@
 package org.jphototagger.lib.component;
 
-import org.jphototagger.lib.swing.IconUtil;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 import javax.swing.JTextArea;
+
+import org.jphototagger.lib.swing.IconUtil;
 
 /**
  * Textfield displaying an (background) image.
@@ -22,6 +24,7 @@ import javax.swing.JTextArea;
  * @author Elmar Baumann
  */
 public final class ImageTextArea extends JTextArea implements KeyListener {
+
     private static final long serialVersionUID = -3386009175292905714L;
     private boolean consumeEnter;
     private Image image;
@@ -90,8 +93,8 @@ public final class ImageTextArea extends JTextArea implements KeyListener {
             int imgHeight = image.getHeight(this);
             int thisHeight = getHeight();
             int imgY = (imgHeight >= thisHeight)
-                       ? 0
-                       : (int) (((double) (thisHeight - imgHeight)) / 2.0 + 0.5);
+                    ? 0
+                    : (int) (((double) (thisHeight - imgHeight)) / 2.0 + 0.5);
 
             g.drawImage(image, 0, imgY, this);
         }
@@ -99,7 +102,6 @@ public final class ImageTextArea extends JTextArea implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent evt) {
-
         // ignore
     }
 
@@ -111,7 +113,6 @@ public final class ImageTextArea extends JTextArea implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent evt) {
-
         // ignore
     }
 

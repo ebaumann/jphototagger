@@ -16,6 +16,9 @@ import javax.swing.JPopupMenu.Separator;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.plugin.fileprocessor.FileProcessorPlugin;
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.programs.ProgramType;
@@ -33,7 +36,6 @@ import org.jphototagger.program.controller.plugin.PluginAction;
 import org.jphototagger.program.controller.programs.AddProgramController;
 import org.jphototagger.program.factory.FileProcessorPluginManager;
 import org.jphototagger.program.helper.ActionsHelper;
-import org.openide.util.Lookup;
 
 /**
  * Popup menu of the thumbnails panel.

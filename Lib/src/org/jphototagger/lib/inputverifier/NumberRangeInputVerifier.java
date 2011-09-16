@@ -3,10 +3,12 @@ package org.jphototagger.lib.inputverifier;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.text.JTextComponent;
+
 import org.jphototagger.lib.util.Bundle;
 
 /**
@@ -16,6 +18,7 @@ import org.jphototagger.lib.util.Bundle;
  * @author Elmar Baumann
  */
 public final class NumberRangeInputVerifier extends InputVerifier implements Serializable {
+
     private static final long serialVersionUID = -8805199830659169644L;
     private final double min;
     private final double max;
@@ -97,8 +100,8 @@ public final class NumberRangeInputVerifier extends InputVerifier implements Ser
         }
 
         JOptionPane.showMessageDialog(input,
-                                      Bundle.getString(NumberRangeInputVerifier.class, "NumberRangeInputVerifier.ErrorMessage", min, max),
-                                      Bundle.getString(NumberRangeInputVerifier.class, "NumberRangeInputVerifier.Error.Title"),
-                                      JOptionPane.ERROR_MESSAGE);
+                Bundle.getString(NumberRangeInputVerifier.class, "NumberRangeInputVerifier.ErrorMessage", min, max),
+                Bundle.getString(NumberRangeInputVerifier.class, "NumberRangeInputVerifier.Error.Title"),
+                JOptionPane.ERROR_MESSAGE);
     }
 }

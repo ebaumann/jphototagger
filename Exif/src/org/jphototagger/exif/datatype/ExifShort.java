@@ -51,7 +51,7 @@ public final class ExifShort {
     public static boolean isRawValueZeroOrPositive(byte[] rawValue, ByteOrder byteOrder) {
         if (rawValue == null) {
             throw new NullPointerException("rawValue == null");
-    }
+        }
 
         if (byteOrder == null) {
             throw new NullPointerException("byteOrder == null");
@@ -73,7 +73,7 @@ public final class ExifShort {
         return rawValue == null
                 ? false
                 : rawValue.length == getRawValueByteCount();
-        }
+    }
 
     public static ExifDataType getExifDataType() {
         return ExifDataType.SHORT;

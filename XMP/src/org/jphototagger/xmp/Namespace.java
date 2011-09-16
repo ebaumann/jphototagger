@@ -6,9 +6,9 @@ package org.jphototagger.xmp;
  * @author Elmar Baumann
  */
 public enum Namespace {
+
     LIGHTROOM("http://ns.adobe.com/lightroom/1.0/", "lr"),
     ;
-
     private final String uri;
     private final String prefix;
 

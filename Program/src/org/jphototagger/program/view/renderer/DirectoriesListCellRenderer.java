@@ -9,8 +9,8 @@ import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.filechooser.FileSystemView;
-import org.jphototagger.lib.util.Bundle;
 
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.io.ImageFileDirectory;
 
 /**

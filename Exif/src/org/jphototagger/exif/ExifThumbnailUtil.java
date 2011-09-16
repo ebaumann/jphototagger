@@ -9,6 +9,7 @@ import java.util.Map;
  * @author Elmar Baumann
  */
 public final class ExifThumbnailUtil {
+
     private static final Map<String, Double> ROTATION_ANGLE_OF_STRING = new HashMap<String, Double>();
 
     static {
@@ -29,7 +30,7 @@ public final class ExifThumbnailUtil {
      * @return         rotation angle
      */
     public static double getThumbnailRotationAngle(ExifTag exifTag) {
-        assert(exifTag == null) || (exifTag.getTagId() == 274);
+        assert (exifTag == null) || (exifTag.getTagId() == 274);
 
         if (exifTag != null) {
             Double angle = ROTATION_ANGLE_OF_STRING.get(exifTag.getStringValue());
@@ -44,5 +45,6 @@ public final class ExifThumbnailUtil {
         return 0;
     }
 
-    private ExifThumbnailUtil() {}
+    private ExifThumbnailUtil() {
+    }
 }

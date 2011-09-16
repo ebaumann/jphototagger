@@ -3,6 +3,8 @@ package org.jphototagger.program.factory;
 import java.io.File;
 import java.io.FileFilter;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
 import org.jphototagger.lib.awt.EventQueueUtil;
@@ -17,7 +19,6 @@ import org.jphototagger.program.tasks.ScheduledTasks;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.ThumbnailsPopupMenu;
-import org.openide.util.Lookup;
 
 /**
  *

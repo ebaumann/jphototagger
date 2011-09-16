@@ -18,8 +18,11 @@ import org.jphototagger.lib.util.ByteUtil;
  * @author Elmar Baumann
  */
 public final class ExifGpsAltitude {
-    public enum Ref { OBOVE_SEA_LEVEL, BELOW_SEA_LEVEL }
 
+    public enum Ref {
+
+        OBOVE_SEA_LEVEL, BELOW_SEA_LEVEL
+    }
     private static final Map<Integer, Ref> REF_OF_INTEGER = new HashMap<Integer, Ref>();
     private static final Map<Ref, String> LOCALIZED_STRING_OF_REF = new EnumMap<Ref, String>(Ref.class);
 
@@ -29,7 +32,6 @@ public final class ExifGpsAltitude {
         LOCALIZED_STRING_OF_REF.put(Ref.OBOVE_SEA_LEVEL, Bundle.getString(ExifGpsAltitude.class, "ExifGpsAltitudeRefOboveSeaLevel"));
         LOCALIZED_STRING_OF_REF.put(Ref.BELOW_SEA_LEVEL, Bundle.getString(ExifGpsAltitude.class, "ExifGpsAltitudeRefBelowSeaLevel"));
     }
-
     private Ref ref;
     private ExifRational value;
 
@@ -73,7 +75,7 @@ public final class ExifGpsAltitude {
         return rawValue == null
                 ? false
                 : rawValue.length == getRawValueByteCount();
-        }
+    }
 
     public static boolean isRefByteCountOk(byte[] rawValue) {
         return rawValue == null
@@ -88,7 +90,7 @@ public final class ExifGpsAltitude {
     public String getLocalizedString() {
         MessageFormat msg = new MessageFormat("{0} m {1}");
 
-        return msg.format(new Object[] { ExifDatatypeUtil.convertExifRationalToLong(value), LOCALIZED_STRING_OF_REF.get(ref) });
+        return msg.format(new Object[]{ExifDatatypeUtil.convertExifRationalToLong(value), LOCALIZED_STRING_OF_REF.get(ref)});
     }
 
     public Ref getRef() {

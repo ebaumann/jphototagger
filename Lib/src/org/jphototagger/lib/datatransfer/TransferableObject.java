@@ -13,6 +13,7 @@ import java.util.Arrays;
  * @author Elmar Baumann
  */
 public final class TransferableObject implements Transferable {
+
     private final Object data;
     private final DataFlavor[] dataFlavors;
 

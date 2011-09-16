@@ -7,6 +7,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
+import org.openide.util.lookup.ServiceProvider;
+
 import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.domain.exif.Exif;
 import org.jphototagger.domain.image.ImageFile;
@@ -15,7 +17,6 @@ import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.timeline.Timeline;
 import org.jphototagger.domain.xmp.FileXmp;
 import org.jphototagger.domain.xmp.Xmp;
-import org.openide.util.lookup.ServiceProvider;
 
 /**
  *

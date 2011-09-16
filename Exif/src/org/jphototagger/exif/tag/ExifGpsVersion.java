@@ -9,6 +9,7 @@ import org.jphototagger.lib.util.ByteUtil;
  * @author Elmar Baumann
  */
 public final class ExifGpsVersion {
+
     private int first = Integer.MIN_VALUE;
     private int second = Integer.MIN_VALUE;
     private int third = Integer.MIN_VALUE;
@@ -42,7 +43,7 @@ public final class ExifGpsVersion {
         return rawValue == null
                 ? false
                 : rawValue.length == getRawValueByteCount();
-        }
+    }
 
     public int first() {
         return first;

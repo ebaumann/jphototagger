@@ -25,6 +25,7 @@ import org.jphototagger.domain.metadata.xmp.XmpPhotoshopStateMetaDataValue;
  * @author Elmar Baumann
  */
 public final class DatabaseInfoRecordCountColumns {
+
     private static final List<MetaDataValue> COLUMNS = new ArrayList<MetaDataValue>();
 
     static {
@@ -48,5 +49,6 @@ public final class DatabaseInfoRecordCountColumns {
         return new ArrayList<MetaDataValue>(COLUMNS);
     }
 
-    private DatabaseInfoRecordCountColumns() {}
+    private DatabaseInfoRecordCountColumns() {
+    }
 }

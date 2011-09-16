@@ -11,6 +11,7 @@ import org.jphototagger.exif.datatype.ExifDataType;
  * @author Elmar Baumann
  */
 public final class ExifFormatterAscii extends ExifFormatter {
+
     public static final ExifFormatterAscii INSTANCE = new ExifFormatterAscii();
 
     @Override

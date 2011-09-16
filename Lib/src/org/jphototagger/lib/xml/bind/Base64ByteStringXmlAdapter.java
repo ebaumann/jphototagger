@@ -1,7 +1,8 @@
 package org.jphototagger.lib.xml.bind;
 
-import org.jphototagger.lib.thirdparty.Base64;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
+
+import org.jphototagger.lib.thirdparty.Base64;
 
 /**
  * For strings containing "\000".

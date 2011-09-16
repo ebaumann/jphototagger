@@ -1,15 +1,16 @@
 package org.jphototagger.lib.clipboard;
 
-import org.jphototagger.lib.datatransfer.TransferableFileCollection;
-import org.jphototagger.lib.datatransfer.TransferUtil;
+import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.ClipboardOwner;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
-import java.awt.Toolkit;
 import java.io.File;
 import java.util.List;
+
+import org.jphototagger.lib.datatransfer.TransferUtil;
+import org.jphototagger.lib.datatransfer.TransferableFileCollection;
 
 /**
  *
@@ -20,6 +21,7 @@ import java.util.List;
  * @author Elmar Baumann
  */
 public final class ClipboardUtil {
+
     private static final DataFlavor STRING_FLAVOR = DataFlavor.stringFlavor;
     private static final DataFlavor FILE_LIST_FLAVOR = DataFlavor.javaFileListFlavor;
     private static final DataFlavor URI_LIST_FLAVOR = TransferUtil.getUriListFlavor();
@@ -117,5 +119,6 @@ public final class ClipboardUtil {
         return files;
     }
 
-    private ClipboardUtil() {}
+    private ClipboardUtil() {
+    }
 }

@@ -8,6 +8,7 @@ import java.util.List;
  * @author Elmar Baumann
  */
 final class KeywordControllerUtil {
+
     public static String keywordPathString(List<String> keywords) {
         if (keywords == null) {
             throw new NullPointerException("keywords == null");
@@ -18,13 +19,14 @@ final class KeywordControllerUtil {
 
         for (String keyword : keywords) {
             sb.append((index++ == 0)
-                      ? ""
-                      : " / ");
+                    ? ""
+                    : " / ");
             sb.append(keyword);
         }
 
         return sb.toString();
     }
 
-    private KeywordControllerUtil() {}
+    private KeywordControllerUtil() {
+    }
 }

@@ -21,6 +21,8 @@ import javax.swing.ListModel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.domain.event.listener.ListenerSupport;
 import org.jphototagger.domain.metadata.search.ParamStatement;
@@ -35,7 +37,6 @@ import org.jphototagger.program.controller.search.AdvancedSearchController;
 import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.helper.SavedSearchesHelper;
 import org.jphototagger.program.types.Persistence;
-import org.openide.util.Lookup;
 
 /**
  *

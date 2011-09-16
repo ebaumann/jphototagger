@@ -2,7 +2,12 @@ package org.jphototagger.program.app;
 
 import java.awt.Toolkit;
 
+import com.imagero.reader.AbstractImageReader;
+
 import org.bushe.swing.event.EventBus;
+
+import org.openide.util.Lookup;
+
 import org.jphototagger.domain.event.AppWillInitEvent;
 import org.jphototagger.domain.repository.Repository;
 import org.jphototagger.lib.awt.EventQueueUtil;
@@ -16,9 +21,6 @@ import org.jphototagger.program.app.logging.AppLoggingSystem;
 import org.jphototagger.program.cache.CacheUtil;
 import org.jphototagger.program.resource.ImageProperties;
 import org.jphototagger.program.view.frames.AppFrame;
-import org.openide.util.Lookup;
-
-import com.imagero.reader.AbstractImageReader;
 
 /**
  * Initializes the application.

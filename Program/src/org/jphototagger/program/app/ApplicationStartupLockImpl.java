@@ -1,7 +1,8 @@
 package org.jphototagger.program.app;
 
-import org.jphototagger.api.startup.ApplicationStartupLock;
 import org.openide.util.lookup.ServiceProvider;
+
+import org.jphototagger.api.startup.ApplicationStartupLock;
 
 /**
  *

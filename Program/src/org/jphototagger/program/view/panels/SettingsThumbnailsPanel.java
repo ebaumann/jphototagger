@@ -12,13 +12,14 @@ import javax.swing.Action;
 import javax.swing.JPopupMenu;
 import javax.swing.JRadioButton;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.image.thumbnails.ExternalThumbnailCreationCommand;
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.program.image.thumbnail.ThumbnailCreationStrategy;
 import org.jphototagger.program.image.thumbnail.ThumbnailCreationStrategyProvider;
 import org.jphototagger.program.types.Persistence;
-import org.openide.util.Lookup;
 
 /**
  *

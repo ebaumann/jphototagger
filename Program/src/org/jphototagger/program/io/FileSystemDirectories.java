@@ -5,10 +5,11 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.TreeFileSystemDirectories;
-import org.openide.util.Lookup;
 
 /**
  * Renames or deletes a directory from the file system and updates the database

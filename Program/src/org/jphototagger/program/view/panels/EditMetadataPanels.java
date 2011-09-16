@@ -28,6 +28,9 @@ import javax.swing.JTextField;
 import org.bushe.swing.event.EventBus;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.domain.event.AppWillExitEvent;
 import org.jphototagger.domain.metadata.MetaDataValue;
@@ -55,7 +58,6 @@ import org.jphototagger.xmp.EditHints;
 import org.jphototagger.xmp.EditHints.SizeEditField;
 import org.jphototagger.xmp.EditMetaDataValues;
 import org.jphototagger.xmp.XmpMetadata;
-import org.openide.util.Lookup;
 
 /**
  * Panels mit Edit-Feldern zum Bearbeiten von Metadaten.

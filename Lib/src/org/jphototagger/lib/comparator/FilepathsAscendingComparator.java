@@ -1,9 +1,10 @@
 package org.jphototagger.lib.comparator;
 
-import org.jphototagger.lib.util.ClassEquality;
 import java.io.File;
 import java.io.Serializable;
 import java.util.Comparator;
+
+import org.jphototagger.lib.util.ClassEquality;
 
 /**
  * Compares the absolute path names of two files ascending case sensitive.
@@ -11,6 +12,7 @@ import java.util.Comparator;
  * @author Elmar Baumann
  */
 public final class FilepathsAscendingComparator extends ClassEquality implements Comparator<File>, Serializable {
+
     private static final long serialVersionUID = 8731853438844814710L;
 
     @Override

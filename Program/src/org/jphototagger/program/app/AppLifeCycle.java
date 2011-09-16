@@ -10,6 +10,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.bushe.swing.event.EventBus;
+
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.modules.Module;
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.domain.event.AppWillExitEvent;
@@ -22,7 +25,6 @@ import org.jphototagger.program.helper.Cleanup;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.tasks.UserTasks;
 import org.jphototagger.program.view.frames.AppFrame;
-import org.openide.util.Lookup;
 
 /**
  * Life cycle of the application.

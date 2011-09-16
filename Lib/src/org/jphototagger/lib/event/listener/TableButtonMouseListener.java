@@ -11,6 +11,7 @@ import javax.swing.SwingUtilities;
  *
  */
 public final class TableButtonMouseListener implements MouseListener {
+
     private final JTable table;
 
     private void forwardEventToButton(MouseEvent evt) {

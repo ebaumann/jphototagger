@@ -8,6 +8,7 @@ import javax.swing.ActionMap;
 
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.JXTree;
+
 import org.jphototagger.lib.util.Bundle;
 
 /**
@@ -16,6 +17,7 @@ import org.jphototagger.lib.util.Bundle;
  * @author Elmar Baumann
  */
 public final class SearchInJxTreeAction extends AbstractAction {
+
     private static final long serialVersionUID = 5922964998600398364L;
     private final JXTree tree;
 

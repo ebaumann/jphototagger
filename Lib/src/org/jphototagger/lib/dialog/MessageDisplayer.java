@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.JOptionPane;
-import org.jphototagger.lib.componentutil.ComponentUtil;
 
+import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 
 /**
@@ -18,14 +18,10 @@ public final class MessageDisplayer {
     private static final Map<Integer, String> TITLE_OF_MESSAGE_TYPE = new HashMap<Integer, String>(4);
 
     static {
-        TITLE_OF_MESSAGE_TYPE.put(JOptionPane.ERROR_MESSAGE,
-                Bundle.getString(MessageDisplayer.class, "MessageDisplayer.DefaultTitle.ErrorMessage"));
-        TITLE_OF_MESSAGE_TYPE.put(JOptionPane.WARNING_MESSAGE,
-                Bundle.getString(MessageDisplayer.class, "MessageDisplayer.DefaultTitle.WarningMessage"));
-        TITLE_OF_MESSAGE_TYPE.put(JOptionPane.INFORMATION_MESSAGE,
-                Bundle.getString(MessageDisplayer.class, "MessageDisplayer.DefaultTitle.Info"));
-        TITLE_OF_MESSAGE_TYPE.put(JOptionPane.QUESTION_MESSAGE,
-                Bundle.getString(MessageDisplayer.class, "MessageDisplayer.DefaultTitle.QuestionMessage"));
+        TITLE_OF_MESSAGE_TYPE.put(JOptionPane.ERROR_MESSAGE, Bundle.getString(MessageDisplayer.class, "MessageDisplayer.DefaultTitle.ErrorMessage"));
+        TITLE_OF_MESSAGE_TYPE.put(JOptionPane.WARNING_MESSAGE, Bundle.getString(MessageDisplayer.class, "MessageDisplayer.DefaultTitle.WarningMessage"));
+        TITLE_OF_MESSAGE_TYPE.put(JOptionPane.INFORMATION_MESSAGE, Bundle.getString(MessageDisplayer.class, "MessageDisplayer.DefaultTitle.Info"));
+        TITLE_OF_MESSAGE_TYPE.put(JOptionPane.QUESTION_MESSAGE, Bundle.getString(MessageDisplayer.class, "MessageDisplayer.DefaultTitle.QuestionMessage"));
     }
 
     private MessageDisplayer() {
@@ -47,8 +43,8 @@ public final class MessageDisplayer {
         boolean accepted = inputDialog.isAccepted();
 
         return accepted
-               ? inputDialog.getInput()
-               : null;
+                ? inputDialog.getInput()
+                : null;
     }
 
     /**
@@ -92,6 +88,7 @@ public final class MessageDisplayer {
     }
 
     public enum ConfirmAction {
+
         YES,
         NO,
         CANCEL;
@@ -109,10 +106,10 @@ public final class MessageDisplayer {
         int option = JOptionPane.showConfirmDialog(parent, message, title, optionType);
 
         return option == JOptionPane.YES_OPTION
-               ? ConfirmAction.YES
+                ? ConfirmAction.YES
                 : option == JOptionPane.NO_OPTION
-                 ? ConfirmAction.NO
-                 : ConfirmAction.CANCEL;
+                ? ConfirmAction.NO
+                : ConfirmAction.CANCEL;
     }
 
     public static boolean confirmYesNo(Component parentComponent, String message) {

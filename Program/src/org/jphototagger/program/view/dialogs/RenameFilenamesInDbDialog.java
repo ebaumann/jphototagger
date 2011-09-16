@@ -1,9 +1,10 @@
 package org.jphototagger.program.view.dialogs;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.program.resource.GUI;
-import org.openide.util.Lookup;
 
 /**
  * Holds a {@link org.jphototagger.program.view.panels.RenameFilenamesInDbPanel}.

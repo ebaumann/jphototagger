@@ -15,6 +15,9 @@ import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 
 import org.jdesktop.swingx.JXList;
+
+import org.openide.util.Lookup;
+
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.repository.SynonymsRepository;
 import org.jphototagger.lib.dialog.InputDialog;
@@ -24,7 +27,6 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.panels.EditRepeatableTextEntryPanel;
 import org.jphototagger.program.view.popupmenus.KeywordsListPopupMenu;
-import org.openide.util.Lookup;
 
 /**
  *

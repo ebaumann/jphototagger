@@ -5,15 +5,19 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
+
 import javax.swing.DefaultListModel;
 import javax.swing.ListModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+
 import org.jdesktop.swingx.JXList;
-import org.jphototagger.api.nodes.Node;
+
 import org.openide.util.Lookup;
 import org.openide.util.lookup.AbstractLookup;
 import org.openide.util.lookup.InstanceContent;
+
+import org.jphototagger.api.nodes.Node;
 
 /**
  * List which puts selected list items into a Lookup. The item type

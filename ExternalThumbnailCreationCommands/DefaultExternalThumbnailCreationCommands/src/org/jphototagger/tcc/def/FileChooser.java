@@ -2,7 +2,9 @@ package org.jphototagger.tcc.def;
 
 import java.io.File;
 import javax.swing.JFileChooser;
+
 import javax.swing.filechooser.FileFilter;
+
 import org.jphototagger.lib.io.FileChooserHelper;
 import org.jphototagger.lib.io.FileChooserProperties;
 import org.jphototagger.lib.io.filefilter.AcceptExactFilenameNameFileFilter;
@@ -51,6 +53,7 @@ public final class FileChooser {
     }
 
     public static class Builder {
+
         private final String fixedFileName;
         private String fileDescription = "";
         private String fileChooserTitle = "";

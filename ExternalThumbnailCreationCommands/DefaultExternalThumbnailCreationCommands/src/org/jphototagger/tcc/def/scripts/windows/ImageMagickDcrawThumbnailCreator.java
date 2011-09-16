@@ -6,14 +6,15 @@ import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 
+import org.openide.util.Lookup;
+import org.openide.util.lookup.ServiceProvider;
+
 import org.jphototagger.api.image.thumbnails.ExternalThumbnailCreationCommand;
 import org.jphototagger.api.storage.UserFilesProvider;
-import org.jphototagger.tcc.def.scripts.ScriptWriter;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.system.SystemUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.openide.util.Lookup;
-import org.openide.util.lookup.ServiceProvider;
+import org.jphototagger.tcc.def.scripts.ScriptWriter;
 
 /**
  *

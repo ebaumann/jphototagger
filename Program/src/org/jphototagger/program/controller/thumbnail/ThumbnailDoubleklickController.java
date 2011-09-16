@@ -2,6 +2,8 @@ package org.jphototagger.program.controller.thumbnail;
 
 import java.util.Arrays;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.repository.ProgramsRepository;
 import org.jphototagger.lib.dialog.MessageDisplayer;
@@ -9,7 +11,6 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.helper.ProgramsHelper;
 import org.jphototagger.program.helper.StartPrograms;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
-import org.openide.util.Lookup;
 
 /**
  * Kontroller für die Aktion: Doppelklick auf ein Thumbnail ausgelöst von

@@ -6,17 +6,18 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.adobe.xmp.properties.XMPPropertyInfo;
+
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.storage.CacheDirectoryProvider;
-import org.jphototagger.domain.repository.event.imagefiles.ImageFileMovedEvent;
 import org.jphototagger.domain.repository.event.imagefiles.ImageFileDeletedEvent;
+import org.jphototagger.domain.repository.event.imagefiles.ImageFileMovedEvent;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.IoUtil;
 import org.jphototagger.lib.util.StringUtil;
-import org.openide.util.Lookup;
-
-import com.adobe.xmp.properties.XMPPropertyInfo;
 
 /**
  *

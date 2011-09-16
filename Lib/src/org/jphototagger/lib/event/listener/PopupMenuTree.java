@@ -1,8 +1,5 @@
 package org.jphototagger.lib.event.listener;
 
-import org.jphototagger.lib.componentutil.TreeItemTempSelectionRowSetter;
-import org.jphototagger.lib.componentutil.TreeUtil;
-import org.jphototagger.lib.event.util.MouseEventUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -15,11 +12,16 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JTree;
 import javax.swing.MenuElement;
 import javax.swing.tree.TreePath;
+
+import org.jphototagger.lib.componentutil.TreeItemTempSelectionRowSetter;
+import org.jphototagger.lib.componentutil.TreeUtil;
+import org.jphototagger.lib.event.util.MouseEventUtil;
 
 /**
  * Popup menu listening to a {@link JTree} and handling temporary selections:
@@ -39,6 +41,7 @@ import javax.swing.tree.TreePath;
  * @author Elmar Baumann
  */
 public abstract class PopupMenuTree extends JPopupMenu implements ActionListener, MouseListener {
+
     private static final long serialVersionUID = 378844650671466081L;
     private final Map<JMenuItem, Collection<Listener>> listenersOfItem = new HashMap<JMenuItem, Collection<Listener>>();
     private JMenuItem itemCollapseExpandAllSubItems;
@@ -231,7 +234,6 @@ public abstract class PopupMenuTree extends JPopupMenu implements ActionListener
      * @param selTreePaths selected treePaths
      */
     protected void setMenuItemsEnabled(List<TreePath> selTreePaths) {
-
         // ignore
     }
 
@@ -248,25 +250,21 @@ public abstract class PopupMenuTree extends JPopupMenu implements ActionListener
 
     @Override
     public void mouseClicked(MouseEvent evt) {
-
         // ignore
     }
 
     @Override
     public void mouseReleased(MouseEvent evt) {
-
         // ignore
     }
 
     @Override
     public void mouseEntered(MouseEvent evt) {
-
         // ignore
     }
 
     @Override
     public void mouseExited(MouseEvent evt) {
-
         // ignore
     }
 

@@ -14,6 +14,7 @@ import org.jphototagger.exif.datatype.ExifShort;
  * @author Elmar Baumann
  */
 public final class ExifFormatterContrast extends ExifFormatter {
+
     public static final ExifFormatterContrast INSTANCE = new ExifFormatterContrast();
     private static final Map<Integer, String> EXIF_KEY_OF_CONTRAST = new HashMap<Integer, String>();
 
@@ -43,5 +44,6 @@ public final class ExifFormatterContrast extends ExifFormatter {
         return "?";
     }
 
-    private ExifFormatterContrast() {}
+    private ExifFormatterContrast() {
+    }
 }

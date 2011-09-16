@@ -12,6 +12,7 @@ import org.jphototagger.exif.datatype.ExifDatatypeUtil;
  * @author Elmar Baumann
  */
 public final class CanonIfd {
+
     private final byte[] rawValue;
     private final ByteOrder byteOrder;
     private final int entryCount;
@@ -19,6 +20,7 @@ public final class CanonIfd {
     private final Map<Integer, Entry> entryOfTag = new HashMap<Integer, Entry>();
 
     public static class Entry {
+
         private final int tag;
         private final int fieldType;
         private final int valueNumber;
@@ -66,7 +68,6 @@ public final class CanonIfd {
         }
     }
 
-
     public CanonIfd(byte[] rawValue, ByteOrder byteOrder) {
         if (rawValue == null) {
             throw new NullPointerException("rawValue == null");
@@ -80,8 +81,8 @@ public final class CanonIfd {
         this.byteOrder = byteOrder;
         this.entryCount = entryCountFromRaw();
         this.entries = (entryCount > 0)
-                       ? new Entry[entryCount]
-                       : null;
+                ? new Entry[entryCount]
+                : null;
 
         if (canSetEntries()) {
             setEntries();
@@ -165,8 +166,8 @@ public final class CanonIfd {
         ExifDataType dataType = ExifDataType.convertIntegerValueToExifDataType(fieldType);
         int valueNumber = ExifDatatypeUtil.convertRawValueToInt(valueNumberBytes, byteOrder);
         int offsetBytes = (dataType.getBitCount() * valueNumber > 32)
-                          ? ExifDatatypeUtil.convertRawValueToInt(valueOffsetBytes, byteOrder)
-                          : -1;
+                ? ExifDatatypeUtil.convertRawValueToInt(valueOffsetBytes, byteOrder)
+                : -1;
 
         return new Entry(tag, fieldType, valueNumber, offsetBytes, raw);
     }

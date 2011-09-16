@@ -1,7 +1,8 @@
 package org.jphototagger.exif.tag;
 
-import org.jphototagger.exif.datatype.ExifRational;
 import java.text.MessageFormat;
+
+import org.jphototagger.exif.datatype.ExifRational;
 
 /**
  * The time as UTC (Coordinated Universal Time).

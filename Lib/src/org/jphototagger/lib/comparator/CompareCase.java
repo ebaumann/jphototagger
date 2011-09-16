@@ -5,4 +5,7 @@ package org.jphototagger.lib.comparator;
  *
  * @author Elmar Baumann
  */
-enum CompareCase { SENSITIVE, IGNORE; }
+enum CompareCase {
+
+    SENSITIVE, IGNORE;
+}

@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
 import org.jdesktop.swingx.JXList;
+
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.program.controller.Controller;
 import org.jphototagger.program.factory.ModelFactory;

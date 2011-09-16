@@ -11,6 +11,9 @@ import javax.swing.event.ChangeListener;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.domain.event.UserPropertyChangedEvent;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsChangedEvent;
@@ -18,7 +21,6 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.image.thumbnail.ThumbnailDefaults;
 import org.jphototagger.program.resource.GUI;
-import org.openide.util.Lookup;
 
 /**
  * Controls the slider which changes the size of the thumbnails

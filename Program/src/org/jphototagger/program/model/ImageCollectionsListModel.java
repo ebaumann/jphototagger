@@ -7,11 +7,12 @@ import java.util.Map;
 
 import javax.swing.DefaultListModel;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.domain.repository.ImageCollectionsRepository;
 import org.jphototagger.domain.repository.Repository;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.openide.util.Lookup;
 
 /**
  *

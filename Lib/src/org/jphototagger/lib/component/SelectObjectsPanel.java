@@ -18,8 +18,9 @@ import java.util.logging.Logger;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 
-import org.jphototagger.api.storage.Storage;
 import org.openide.util.Lookup;
+
+import org.jphototagger.api.storage.Storage;
 
 /**
  * Panel to select objects from a collection of objects.

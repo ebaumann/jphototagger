@@ -1,8 +1,5 @@
 package org.jphototagger.lib.event.listener;
 
-import org.jphototagger.lib.componentutil.ListItemTempSelectionRowSetter;
-import org.jphototagger.lib.componentutil.ListUtil;
-import org.jphototagger.lib.event.util.MouseEventUtil;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -15,10 +12,15 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+
 import javax.swing.JList;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.MenuElement;
+
+import org.jphototagger.lib.componentutil.ListItemTempSelectionRowSetter;
+import org.jphototagger.lib.componentutil.ListUtil;
+import org.jphototagger.lib.event.util.MouseEventUtil;
 
 /**
  * Popup menu listening to a {@link JList} and handling temporary selections:
@@ -38,6 +40,7 @@ import javax.swing.MenuElement;
  * @author Elmar Baumann
  */
 public abstract class PopupMenuList extends JPopupMenu implements ActionListener, MouseListener {
+
     private static final long serialVersionUID = 378844650671466081L;
     private final Map<JMenuItem, Collection<Listener>> listenersOfItem = new HashMap<JMenuItem, Collection<Listener>>();
     private List<Object> lastSelValues;
@@ -194,7 +197,6 @@ public abstract class PopupMenuList extends JPopupMenu implements ActionListener
      * @param selListValues selected list values
      */
     protected void setMenuItemsEnabled(List<Object> selListValues) {
-
         // ignore
     }
 
@@ -211,25 +213,21 @@ public abstract class PopupMenuList extends JPopupMenu implements ActionListener
 
     @Override
     public void mouseClicked(MouseEvent evt) {
-
         // ignore
     }
 
     @Override
     public void mouseReleased(MouseEvent evt) {
-
         // ignore
     }
 
     @Override
     public void mouseEntered(MouseEvent evt) {
-
         // ignore
     }
 
     @Override
     public void mouseExited(MouseEvent evt) {
-
         // ignore
     }
 

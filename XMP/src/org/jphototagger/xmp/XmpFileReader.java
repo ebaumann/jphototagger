@@ -24,6 +24,7 @@ import java.util.logging.Logger;
  * @author Elmar Baumann
  */
 public final class XmpFileReader {
+
     private static final byte[] XMP_BEGIN_MARKER = {
         0x3C, 0x78, 0x3A, 0x78, 0x6D, 0x70, 0x6D, 0x65, 0x74, 0x61
     };    // "<x:xmpmeta"
@@ -34,7 +35,8 @@ public final class XmpFileReader {
         0x3C, 0x3F, 0x78, 0x70, 0x61, 0x63, 0x6B, 0x65, 0x74, 0x20, 0x62, 0x65, 0x67, 0x69, 0x6E, 0x3D
     };    // "<?xpacket begin="
 
-    private XmpFileReader() {}
+    private XmpFileReader() {
+    }
 
     /**
      * Liest eine Datei und liefert einen String mit den XMP-Informationen.
@@ -67,7 +69,7 @@ public final class XmpFileReader {
 
             if (xmpPacketStartIndex >= 0) {
                 int xmpStartIndex = getMatchIndex(raf, xmpPacketStartIndex + XMP_PACKET_MARKER.length,
-                                                  XMP_BEGIN_MARKER);
+                        XMP_BEGIN_MARKER);
 
                 if (xmpStartIndex > 0) {
                     int xmpEndIndex = getMatchIndex(raf, xmpStartIndex + XMP_BEGIN_MARKER.length, XMP_END_MARKER);
@@ -89,7 +91,7 @@ public final class XmpFileReader {
     }
 
     private static String getXmp(File file, int xmpStartIndex, int xmpEndIndex) {
-        assert(xmpStartIndex >= 0) && (xmpStartIndex <= xmpEndIndex) : xmpStartIndex;
+        assert (xmpStartIndex >= 0) && (xmpStartIndex <= xmpEndIndex) : xmpStartIndex;
         assert xmpEndIndex >= xmpStartIndex : xmpEndIndex;
 
         RandomAccessFile raf = null;
@@ -161,10 +163,10 @@ public final class XmpFileReader {
         byte[] buffer = new byte[bufferSize];
         long bytesToRead = fileLength - startAtOffset + 1;
 
-        for (int offset = startAtOffset; offset < fileLength; ) {
+        for (int offset = startAtOffset; offset < fileLength;) {
             bytesToRead = (offset + bufferSize > fileLength)
-                          ? fileLength - offset + 1
-                          : bufferSize;
+                    ? fileLength - offset + 1
+                    : bufferSize;
             raf.seek(offset);
 
             int bytesRead = raf.read(buffer, 0, (int) bytesToRead);

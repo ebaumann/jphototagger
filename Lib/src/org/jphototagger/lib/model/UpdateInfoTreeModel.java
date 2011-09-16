@@ -1,11 +1,13 @@
 package org.jphototagger.lib.model;
 
-import org.jphototagger.lib.util.ArrayUtil;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
 import javax.swing.tree.TreeNode;
+
+import org.jphototagger.lib.util.ArrayUtil;
 
 /**
  * Update information of a tree model.
@@ -20,10 +22,12 @@ public final class UpdateInfoTreeModel {
      * @author Elmar Baumann
      */
     public static class NodeAndChildIndices {
+
         private TreeNode node;
         private List<Integer> childIndices = new ArrayList<Integer>();
 
-        public NodeAndChildIndices() {}
+        public NodeAndChildIndices() {
+        }
 
         /**
          * Constructor.
@@ -75,7 +79,6 @@ public final class UpdateInfoTreeModel {
         }
     }
 
-
     /**
      * Update info of a node with one child.
      *
@@ -86,6 +89,7 @@ public final class UpdateInfoTreeModel {
      * @author Elmar Baumann
      */
     public static class NodeAndChild {
+
         private TreeNode node;
         private Object[] updatedChildren = new Object[1];
         private int[] updatedChildIndices = new int[1];
@@ -128,13 +132,13 @@ public final class UpdateInfoTreeModel {
         }
     }
 
-
     /**
      * Contains multiple nodes with each can have multiple child indices.
      *
      * @author Elmar Baumann
      */
     public static class NodesAndChildIndices {
+
         private List<NodeAndChildIndices> info = new ArrayList<UpdateInfoTreeModel.NodeAndChildIndices>();
 
         /**

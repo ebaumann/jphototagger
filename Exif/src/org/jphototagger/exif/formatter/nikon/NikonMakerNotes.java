@@ -8,13 +8,13 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.imagero.reader.tiff.ImageFileDirectory;
+import com.imagero.reader.tiff.TiffReader;
+
 import org.jphototagger.exif.ExifIfdType;
 import org.jphototagger.exif.ExifMakerNotes;
 import org.jphototagger.exif.ExifTag;
 import org.jphototagger.exif.ExifTags;
-
-import com.imagero.reader.tiff.ImageFileDirectory;
-import com.imagero.reader.tiff.TiffReader;
 
 /**
  *

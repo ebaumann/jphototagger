@@ -3,6 +3,7 @@ package org.jphototagger.lib.component;
 import javax.swing.Icon;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+
 import org.jphototagger.lib.swing.IconUtil;
 
 /**

@@ -38,11 +38,12 @@ public final class ImageFileType {
 
         String filenameLowerCase = filename.toLowerCase();
         boolean isCommonImageFile = filenameLowerCase.endsWith("tif") || filenameLowerCase.endsWith("tiff")
-                                    || filenameLowerCase.endsWith("jpg") || filenameLowerCase.endsWith("jpeg")
-                                    || filenameLowerCase.endsWith("gif") || filenameLowerCase.endsWith("png");
+                || filenameLowerCase.endsWith("jpg") || filenameLowerCase.endsWith("jpeg")
+                || filenameLowerCase.endsWith("gif") || filenameLowerCase.endsWith("png");
 
         return !isCommonImageFile;
     }
 
-    private ImageFileType() {}
+    private ImageFileType() {
+    }
 }

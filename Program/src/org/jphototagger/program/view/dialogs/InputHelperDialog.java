@@ -2,6 +2,8 @@ package org.jphototagger.program.view.dialogs;
 
 import javax.swing.ListModel;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.lib.componentutil.TabbedPaneUtil;
 import org.jphototagger.lib.dialog.Dialog;
@@ -10,7 +12,6 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.KeywordsPanel;
 import org.jphototagger.program.view.panels.MetaDataTemplatesPanel;
 import org.jphototagger.program.view.panels.MiscXmpMetadataPanel;
-import org.openide.util.Lookup;
 
 /**
  * Dialog for input assistance.
@@ -179,11 +180,13 @@ public class InputHelperDialog extends Dialog {
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 InputHelperDialog dialog = new InputHelperDialog();
 
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
@@ -193,7 +196,6 @@ public class InputHelperDialog extends Dialog {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel labelInfo;
     private org.jphototagger.program.view.panels.KeywordsPanel panelKeywords;

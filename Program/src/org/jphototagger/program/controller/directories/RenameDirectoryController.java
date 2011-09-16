@@ -1,16 +1,18 @@
 package org.jphototagger.program.controller.directories;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.io.File;
+
+import javax.swing.JTree;
+import javax.swing.tree.DefaultMutableTreeNode;
+
+import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.io.TreeFileSystemDirectories;
 import org.jphototagger.lib.model.AllSystemDirectoriesTreeModel;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.io.FileSystemDirectories;
 import org.jphototagger.program.view.popupmenus.DirectoriesPopupMenu;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-import java.io.File;
-import javax.swing.JTree;
-import javax.swing.tree.DefaultMutableTreeNode;
-import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Listens to {@link DirectoriesPopupMenu#getItemRenameDirectory()} and
@@ -22,6 +24,7 @@ import org.jphototagger.lib.awt.EventQueueUtil;
  * @author Elmar Baumann
  */
 public final class RenameDirectoryController extends DirectoryController {
+
     public RenameDirectoryController() {
         listenToActionsOf(DirectoriesPopupMenu.INSTANCE.getItemRenameDirectory());
     }
@@ -57,11 +60,12 @@ public final class RenameDirectoryController extends DirectoryController {
 
             if (newDir != null) {
                 EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
                     @Override
                     public void run() {
                         node.setUserObject(newDir);
                         TreeFileSystemDirectories.updateInTreeModel(
-                            ModelFactory.INSTANCE.getModel(AllSystemDirectoriesTreeModel.class), node);
+                                ModelFactory.INSTANCE.getModel(AllSystemDirectoriesTreeModel.class), node);
                     }
                 });
             }

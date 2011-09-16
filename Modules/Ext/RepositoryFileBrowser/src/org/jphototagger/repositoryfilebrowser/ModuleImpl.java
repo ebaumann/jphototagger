@@ -1,9 +1,10 @@
 package org.jphototagger.repositoryfilebrowser;
 
-import org.jphototagger.api.modules.Module;
-import org.jphototagger.api.windows.MainWindowMenuManager;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
+
+import org.jphototagger.api.modules.Module;
+import org.jphototagger.api.windows.MainWindowMenuManager;
 
 /**
  *

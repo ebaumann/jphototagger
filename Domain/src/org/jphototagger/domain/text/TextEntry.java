@@ -1,9 +1,10 @@
 package org.jphototagger.domain.text;
 
-import org.jphototagger.domain.metadata.MetaDataValue;
 import java.awt.Component;
 import java.awt.event.MouseListener;
 import java.util.List;
+
+import org.jphototagger.domain.metadata.MetaDataValue;
 
 /**
  * Text as value of a {@link MetaDataValue}.

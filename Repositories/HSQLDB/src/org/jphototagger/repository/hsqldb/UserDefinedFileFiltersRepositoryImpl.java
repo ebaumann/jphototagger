@@ -2,9 +2,10 @@ package org.jphototagger.repository.hsqldb;
 
 import java.util.Set;
 
+import org.openide.util.lookup.ServiceProvider;
+
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
 import org.jphototagger.domain.repository.UserDefinedFileFiltersRepository;
-import org.openide.util.lookup.ServiceProvider;
 
 /**
  *

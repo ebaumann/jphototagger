@@ -12,8 +12,8 @@ import java.util.logging.Logger;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
 
-import org.jphototagger.lib.model.UpdateInfoTreeModel;
 import org.jphototagger.lib.model.SortedChildrenTreeNode;
+import org.jphototagger.lib.model.UpdateInfoTreeModel;
 import org.jphototagger.lib.util.Bundle;
 
 /**
@@ -26,6 +26,7 @@ import org.jphototagger.lib.util.Bundle;
  * @author Elmar Baumann
  */
 public final class Timeline {
+
     private final DefaultMutableTreeNode ROOT_NODE = new SortedChildrenTreeNode(Bundle.getString(Timeline.class, "Timeline.RootNode.DisplayName"));
     private static final DefaultMutableTreeNode UNKNOWN_NODE = new SortedChildrenTreeNode(Bundle.getString(Timeline.class, "Timeline.UnknownNode.DisplayName"));
     private boolean unknownNode;
@@ -324,7 +325,7 @@ public final class Timeline {
     }
 
     private void insertDayNode(DefaultMutableTreeNode monthNode, Date date,
-                               UpdateInfoTreeModel.NodesAndChildIndices info) {
+            UpdateInfoTreeModel.NodesAndChildIndices info) {
         if (monthNode == null) {
             return;
         }
@@ -370,8 +371,8 @@ public final class Timeline {
         }
 
         return yearExists
-               ? index - 1
-               : -1;
+                ? index - 1
+                : -1;
     }
 
     private int getYear(DefaultMutableTreeNode node) {
@@ -413,6 +414,7 @@ public final class Timeline {
      * @author Elmar Baumann
      */
     public static class Date implements Comparable<Date> {
+
         public int year;
         public int month;
         public int day;
@@ -592,11 +594,11 @@ public final class Timeline {
             }
 
             boolean greater = (year > o.year) || ((year == o.year) && (month > o.month))
-                              || ((year == o.year) && (month == o.month) && (day > o.day));
+                    || ((year == o.year) && (month == o.month) && (day > o.day));
 
             return greater
-                   ? 1
-                   : -1;
+                    ? 1
+                    : -1;
         }
     }
 }

@@ -1,5 +1,8 @@
 package org.jphototagger.domain.metadata.search;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.exif.ExifDateTimeOriginalMetaDataValue;
 import org.jphototagger.domain.metadata.exif.ExifFocalLengthMetaDataValue;
@@ -25,8 +28,6 @@ import org.jphototagger.domain.metadata.xmp.XmpPhotoshopSourceMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpPhotoshopStateMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpPhotoshopTransmissionReferenceMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpRatingMetaDataValue;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Spalten für die erweiterte Suche.
@@ -34,6 +35,7 @@ import java.util.List;
  * @author Elmar Baumann
  */
 public final class AdvancedSearchMetaDataValues {
+
     private static final List<MetaDataValue> VALUES = new ArrayList<MetaDataValue>();
 
     static {
@@ -72,5 +74,6 @@ public final class AdvancedSearchMetaDataValues {
         return new ArrayList<MetaDataValue>(VALUES);
     }
 
-    private AdvancedSearchMetaDataValues() {}
+    private AdvancedSearchMetaDataValues() {
+    }
 }

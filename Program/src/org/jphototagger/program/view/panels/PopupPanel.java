@@ -8,6 +8,7 @@ import javax.swing.Popup;
  * @author Elmar Baumann
  */
 public class PopupPanel extends javax.swing.JPanel {
+
     private static final long serialVersionUID = 697077008966184390L;
 
     /**
@@ -55,10 +56,7 @@ public class PopupPanel extends javax.swing.JPanel {
             .addComponent(labelMessage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }//GEN-END:initComponents
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel labelMessage;
     // End of variables declaration//GEN-END:variables
-
 }

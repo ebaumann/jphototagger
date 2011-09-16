@@ -8,6 +8,9 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+
+import org.openide.util.Lookup;
+
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.repository.KeywordsRepository;
 import org.jphototagger.domain.repository.event.dcsubjects.DcSubjectInsertedEvent;
@@ -17,7 +20,6 @@ import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.model.KeywordsTreeModel;
-import org.openide.util.Lookup;
 
 /**
  * Listens to database updates and adds not existing keywords.

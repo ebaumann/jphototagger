@@ -7,6 +7,7 @@ import javax.swing.Action;
 import javax.swing.ActionMap;
 
 import org.jdesktop.swingx.JXList;
+
 import org.jphototagger.lib.util.Bundle;
 
 /**
@@ -15,6 +16,7 @@ import org.jphototagger.lib.util.Bundle;
  * @author Elmar Baumann
  */
 public final class SearchInJxListAction extends AbstractAction {
+
     private static final long serialVersionUID = -1674416888249161901L;
     private final JXList list;
 

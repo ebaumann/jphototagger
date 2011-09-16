@@ -6,17 +6,17 @@ package org.jphototagger.lib.util;
  * @author Elmar Baumann
  */
 public final class NumberUtil {
-    
+
     /**
-     * 
+     *
      * @param  string may be null
-     * @return 
+     * @return
      */
     public static boolean isShort(String string) {
         if (string == null) {
             return false;
         }
-        
+
         try {
             Short.parseShort(string);
             return true;
@@ -26,15 +26,15 @@ public final class NumberUtil {
     }
 
     /**
-     * 
+     *
      * @param  string may be null
-     * @return 
+     * @return
      */
     public static boolean isLong(String string) {
         if (string == null) {
             return false;
         }
-        
+
         try {
             Long.parseLong(string);
             return true;
@@ -44,15 +44,15 @@ public final class NumberUtil {
     }
 
     /**
-     * 
+     *
      * @param  string may be null
-     * @return 
+     * @return
      */
     public static boolean isInteger(String string) {
         if (string == null) {
             return false;
         }
-        
+
         try {
             Integer.parseInt(string);
             return true;
@@ -62,15 +62,15 @@ public final class NumberUtil {
     }
 
     /**
-     * 
+     *
      * @param  string may be null
-     * @return 
+     * @return
      */
     public static boolean isFloat(String string) {
         if (string == null) {
             return false;
         }
-        
+
         try {
             Float.parseFloat(string);
             return true;
@@ -80,15 +80,15 @@ public final class NumberUtil {
     }
 
     /**
-     * 
+     *
      * @param  string may be null
-     * @return 
+     * @return
      */
     public static boolean isDouble(String string) {
         if (string == null) {
             return false;
         }
-        
+
         try {
             Double.parseDouble(string);
             return true;
@@ -96,8 +96,7 @@ public final class NumberUtil {
             return false;
         }
     }
-    
+
     private NumberUtil() {
     }
-
 }

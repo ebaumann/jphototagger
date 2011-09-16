@@ -14,6 +14,7 @@ import org.jphototagger.lib.util.Bundle;
  * @author Elmar Baumann
  */
 public final class ExifRecordingEquipmentMetaDataValue extends MetaDataValue {
+
     public static final ExifRecordingEquipmentMetaDataValue INSTANCE = new ExifRecordingEquipmentMetaDataValue();
 
     private ExifRecordingEquipmentMetaDataValue() {

@@ -1,6 +1,7 @@
 package org.jphototagger.api.nodes;
 
 import java.util.Collection;
+
 import javax.swing.Icon;
 
 /**

@@ -18,6 +18,7 @@ import java.util.StringTokenizer;
  * @author Elmar Baumann
  */
 public final class StringUtil {
+
     private static final String WORD_DELIMITER = " \t\n\r";
 
     /**
@@ -94,16 +95,16 @@ public final class StringUtil {
                     lineEndIndex = prevLineBreakCharIndex;
                 } else {
                     lineEndIndex = (lineBeginIndex == maxBreakIndex)
-                                   ? maxBreakIndex + 1
-                                   : maxBreakIndex;
+                            ? maxBreakIndex + 1
+                            : maxBreakIndex;
                 }
 
                 lines.add(text.substring(lineBeginIndex, lineEndIndex));
                 lineBeginIndex = isWordDelimiter(text.charAt((lineEndIndex < textLength)
                         ? lineEndIndex
                         : textLength - 1), wordDelimiter)
-                                 ? lineEndIndex + 1
-                                 : lineEndIndex;
+                        ? lineEndIndex + 1
+                        : lineEndIndex;
             }
 
             index++;
@@ -221,11 +222,11 @@ public final class StringUtil {
             Object object = objects[index];
 
             sb.append((index == 0)
-                      ? "'"
-                      : "', '");
+                    ? "'"
+                    : "', '");
             sb.append((object == null)
-                      ? "null"
-                      : object.toString());
+                    ? "null"
+                    : object.toString());
 
             if (index == objects.length - 1) {
                 sb.append("'");
@@ -285,5 +286,6 @@ public final class StringUtil {
         return string != null && !string.trim().isEmpty();
     }
 
-    private StringUtil() {}
+    private StringUtil() {
+    }
 }

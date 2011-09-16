@@ -3,17 +3,18 @@ package org.jphototagger.program.view.panels;
 import java.awt.Container;
 
 import javax.swing.SpinnerModel;
+
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.program.types.Persistence;
-import org.openide.util.Lookup;
 
 /**
  *
  * @author Elmar Baumann
  */
-public final class SettingsPerformancePanel extends javax.swing.JPanel
-        implements Persistence {
+public final class SettingsPerformancePanel extends javax.swing.JPanel implements Persistence {
     private static final long serialVersionUID = -422417143078270821L;
 
     public SettingsPerformancePanel() {

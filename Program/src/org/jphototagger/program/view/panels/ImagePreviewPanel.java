@@ -12,6 +12,8 @@ import java.io.FileFilter;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.image.thumbnails.ThumbnailProvider;
 import org.jphototagger.image.util.ThumbnailCreatorService;
 import org.jphototagger.lib.io.filefilter.FileChooserFilter;
@@ -19,7 +21,6 @@ import org.jphototagger.lib.io.filefilter.RegexFileFilter;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.program.io.ImageFileFilterer;
-import org.openide.util.Lookup;
 
 //Code based on http://www.javalobby.org/java/forums/t49462.html
 /**

@@ -2,8 +2,9 @@ package org.jphototagger.repository.hsqldb;
 
 import java.util.Set;
 
-import org.jphototagger.domain.repository.SynonymsRepository;
 import org.openide.util.lookup.ServiceProvider;
+
+import org.jphototagger.domain.repository.SynonymsRepository;
 
 /**
  *

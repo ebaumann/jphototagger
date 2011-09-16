@@ -4,6 +4,7 @@ import java.nio.ByteOrder;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
+
 import org.jphototagger.lib.util.Bundle;
 
 import org.jphototagger.lib.util.ByteUtil;
@@ -16,6 +17,7 @@ import org.jphototagger.lib.util.ByteUtil;
 public final class ExifGpsLongitude {
 
     public enum Ref {
+
         EAST,
         WEST;
 
@@ -27,7 +29,6 @@ public final class ExifGpsLongitude {
             return this.equals(EAST);
         }
     }
-
     private static final Map<String, Ref> REF_OF_STRING = new HashMap<String, Ref>();
     private static final Map<Ref, String> LOCALIZED_STRING_OF_REF = new EnumMap<Ref, String>(Ref.class);
 
@@ -37,7 +38,6 @@ public final class ExifGpsLongitude {
         LOCALIZED_STRING_OF_REF.put(Ref.EAST, Bundle.getString(ExifGpsLongitude.class, "ExifGpsLongitudeRefEast"));
         LOCALIZED_STRING_OF_REF.put(Ref.WEST, Bundle.getString(ExifGpsLongitude.class, "ExifGpsLongitudeRefWest"));
     }
-
     private Ref ref;
     private ExifDegrees degrees;
 
@@ -81,13 +81,13 @@ public final class ExifGpsLongitude {
         return rawValue == null
                 ? false
                 : rawValue.length == getRawValueByteCount();
-        }
+    }
 
     public static boolean refByteCountOk(byte[] rawValue) {
         return rawValue == null
                 ? false
                 : rawValue.length == getRefByteCount();
-        }
+    }
 
     public String toLocalizedString() {
         return ExifGpsUtil.getDegreesAsString(degrees) + " " + LOCALIZED_STRING_OF_REF.get(ref);

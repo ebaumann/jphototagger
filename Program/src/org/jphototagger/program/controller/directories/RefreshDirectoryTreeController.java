@@ -1,12 +1,14 @@
 package org.jphototagger.program.controller.directories;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+
+import javax.swing.JTree;
+import javax.swing.tree.DefaultMutableTreeNode;
+
 import org.jphototagger.lib.model.AllSystemDirectoriesTreeModel;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.view.popupmenus.DirectoriesPopupMenu;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-import javax.swing.JTree;
-import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
  * Listens to {@link DirectoriesPopupMenu#getItemRefresh()} and
@@ -18,6 +20,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * @author Elmar Baumann
  */
 public final class RefreshDirectoryTreeController extends DirectoryController {
+
     public RefreshDirectoryTreeController() {
         listenToActionsOf(DirectoriesPopupMenu.INSTANCE.getItemRefresh());
     }

@@ -12,6 +12,7 @@ import org.jphototagger.lib.util.Bundle;
  * @author Elmar Baumann
  */
 public final class ExifLensMetaDataValue extends MetaDataValue {
+
     public static final ExifLensMetaDataValue INSTANCE = new ExifLensMetaDataValue();
 
     private ExifLensMetaDataValue() {

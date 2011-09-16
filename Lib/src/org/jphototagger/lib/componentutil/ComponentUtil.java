@@ -48,7 +48,7 @@ public final class ComponentUtil {
         Rectangle frameBounds = window.getBounds();
 
         window.setLocation((screenDimension.width - frameBounds.width) / 2,
-                           (screenDimension.height - frameBounds.height) / 2);
+                (screenDimension.height - frameBounds.height) / 2);
     }
 
     /**
@@ -84,8 +84,8 @@ public final class ComponentUtil {
         List<Frame> frames = findFramesWithIcons();
 
         return (frames.isEmpty())
-               ? null
-               : frames.get(0);
+                ? null
+                : frames.get(0);
     }
 
     /**
@@ -151,5 +151,6 @@ public final class ComponentUtil {
         window.toFront();
     }
 
-    private ComponentUtil() {}
+    private ComponentUtil() {
+    }
 }

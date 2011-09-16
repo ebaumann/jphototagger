@@ -5,10 +5,11 @@ import java.io.File;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+
 import org.jphototagger.api.progress.ProgressListener;
-import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.exif.Exif;
 import org.jphototagger.domain.image.ImageFile;
+import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.timeline.Timeline;
 import org.jphototagger.domain.xmp.FileXmp;
 import org.jphototagger.domain.xmp.Xmp;

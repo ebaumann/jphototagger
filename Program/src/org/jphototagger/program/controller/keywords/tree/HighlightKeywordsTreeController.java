@@ -10,7 +10,11 @@ import javax.swing.tree.TreeCellRenderer;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+
 import org.jdesktop.swingx.JXTree;
+
+import org.openide.util.Lookup;
+
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
@@ -19,7 +23,6 @@ import org.jphototagger.program.view.panels.KeywordsPanel;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.renderer.KeywordsTreeCellRenderer;
 import org.jphototagger.xmp.XmpMetadata;
-import org.openide.util.Lookup;
 
 /**
  * Listens to a {@link ThumbnailsPanel} and highlights in the tree

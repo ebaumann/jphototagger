@@ -4,8 +4,9 @@ import java.awt.Component;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import org.jphototagger.api.storage.Storage;
 import org.openide.util.Lookup;
+
+import org.jphototagger.api.storage.Storage;
 
 /**
  * Listens to <code>windowOpend()</code> and <code>windowClosing()</code> and

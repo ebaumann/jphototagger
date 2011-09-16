@@ -3,13 +3,14 @@ package org.jphototagger.program.helper;
 import java.io.File;
 import java.util.List;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.domain.exif.Exif;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.exif.ExifMetadata;
 import org.jphototagger.exif.cache.ExifCache;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppFileFilters;
-import org.openide.util.Lookup;
 
 /**
  * Refreshes the EXIF metadata of all known imagesfiles whithout time stamp

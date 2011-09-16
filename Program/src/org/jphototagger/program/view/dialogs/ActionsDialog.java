@@ -2,6 +2,7 @@ package org.jphototagger.program.view.dialogs;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+
 import org.jphototagger.domain.repository.event.programs.ProgramInsertedEvent;
 import org.jphototagger.domain.repository.event.programs.ProgramUpdatedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
@@ -16,8 +17,8 @@ import org.jphototagger.program.view.panels.ActionsPanel;
  * @author Elmar Baumann
  */
 public final class ActionsDialog extends Dialog {
-    public static final ActionsDialog INSTANCE = new ActionsDialog();
     private static final long serialVersionUID = -2671488119703014515L;
+    public static final ActionsDialog INSTANCE = new ActionsDialog();
 
     private ActionsDialog() {
         super(GUI.getAppFrame(), false);

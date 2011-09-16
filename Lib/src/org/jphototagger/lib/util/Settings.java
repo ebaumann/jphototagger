@@ -1,8 +1,5 @@
 package org.jphototagger.lib.util;
 
-import org.jphototagger.api.storage.StorageHints;
-import org.jphototagger.lib.componentutil.ListUtil;
-import org.jphototagger.lib.componentutil.TreeUtil;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Point;
@@ -12,11 +9,12 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.Properties;
 import java.util.Set;
 import java.util.StringTokenizer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JComboBox;
@@ -33,6 +31,10 @@ import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import javax.swing.tree.TreePath;
 
+import org.jphototagger.api.storage.StorageHints;
+import org.jphototagger.lib.componentutil.ListUtil;
+import org.jphototagger.lib.componentutil.TreeUtil;
+
 /**
  * A settings object writes the state of several objects to a
  * {@link java.util.Properties} instance and resets the state of these objects
@@ -45,6 +47,7 @@ import javax.swing.tree.TreePath;
  * @author Elmar Baumann
  */
 public final class Settings {
+
     private final Properties properties;
     public static final String BOOLEAN_FALSE_STRING = "0";
     public static final String BOOLEAN_TRUE_STRING = "1";
@@ -152,7 +155,7 @@ public final class Settings {
         if (properties.containsKey(key)) {
             String textOfSelectedButton = properties.getProperty(key);
 
-            for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements(); ) {
+            for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
                 AbstractButton button = buttons.nextElement();
 
                 if (button.getText().equals(textOfSelectedButton)) {
@@ -210,8 +213,8 @@ public final class Settings {
         int length = path.length();
 
         return ((sepIndex >= 0) && (sepIndex < length - 1))
-               ? path.substring(0, sepIndex)
-               : path;
+                ? path.substring(0, sepIndex)
+                : path;
     }
 
     private boolean isSelected(String path) {
@@ -641,7 +644,7 @@ public final class Settings {
 
         String textOfSelectedButton = null;
 
-        for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements(); ) {
+        for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
             AbstractButton button = buttons.nextElement();
 
             if (button.isSelected()) {
@@ -649,7 +652,7 @@ public final class Settings {
             }
         }
 
-        if ((textOfSelectedButton != null) &&!textOfSelectedButton.isEmpty()) {
+        if ((textOfSelectedButton != null) && !textOfSelectedButton.isEmpty()) {
             properties.setProperty(key, textOfSelectedButton);
         }
     }
@@ -720,8 +723,8 @@ public final class Settings {
         }
 
         String status = button.isSelected()
-                        ? BOOLEAN_TRUE_STRING
-                        : BOOLEAN_FALSE_STRING;
+                ? BOOLEAN_TRUE_STRING
+                : BOOLEAN_FALSE_STRING;
 
         properties.setProperty(key, status);
     }
@@ -848,8 +851,8 @@ public final class Settings {
         }
 
         sb.append(selected
-                  ? BOOLEAN_TRUE_STRING
-                  : BOOLEAN_FALSE_STRING);
+                ? BOOLEAN_TRUE_STRING
+                : BOOLEAN_FALSE_STRING);
         properties.setProperty(key, sb.toString());
     }
 
@@ -885,8 +888,8 @@ public final class Settings {
         }
 
         return (getInt(key) == 1)
-               ? true
-               : false;
+                ? true
+                : false;
     }
 
     public void set(String key, boolean b) {
@@ -895,8 +898,8 @@ public final class Settings {
         }
 
         set(key, b
-            ? 1
-                 : 0);
+                ? 1
+                : 0);
     }
 
     /**

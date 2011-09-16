@@ -3,6 +3,7 @@ package org.jphototagger.api.storage;
 import java.awt.Component;
 import java.util.Collection;
 import java.util.List;
+
 import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.JScrollPane;

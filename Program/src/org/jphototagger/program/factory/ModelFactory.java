@@ -14,6 +14,9 @@ import javax.swing.tree.TreeModel;
 
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.sort.ListSortController;
+
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
@@ -43,7 +46,6 @@ import org.jphototagger.program.view.renderer.ExifTableCellRenderer;
 import org.jphototagger.program.view.renderer.IptcTableCellRenderer;
 import org.jphototagger.program.view.renderer.KeywordHighlightPredicate;
 import org.jphototagger.program.view.renderer.XmpTableCellRenderer;
-import org.openide.util.Lookup;
 
 /**
  * Erzeugt die Models und verbindet sie mit den GUI-Elementen.

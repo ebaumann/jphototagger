@@ -10,6 +10,7 @@ import org.jphototagger.lib.util.Bundle;
  * @author Elmar Baumann
  */
 public final class FilesLastModifiedMetaDataValue extends MetaDataValue {
+
     public static final FilesLastModifiedMetaDataValue INSTANCE = new FilesLastModifiedMetaDataValue();
 
     private FilesLastModifiedMetaDataValue() {

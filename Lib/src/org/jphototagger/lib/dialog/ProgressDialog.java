@@ -248,12 +248,14 @@ public final class ProgressDialog extends javax.swing.JDialog {
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 ProgressDialog dialog =
-                    new ProgressDialog(new javax.swing.JFrame());
+                        new ProgressDialog(new javax.swing.JFrame());
 
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
@@ -263,7 +265,6 @@ public final class ProgressDialog extends javax.swing.JDialog {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonStop;
     private javax.swing.JLabel labelInfo;

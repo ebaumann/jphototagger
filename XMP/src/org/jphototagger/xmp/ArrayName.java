@@ -1,6 +1,7 @@
 package org.jphototagger.xmp;
 
 import com.adobe.xmp.options.PropertyOptions;
+
 import org.jphototagger.domain.metadata.mapping.XmpMetaDataValueXmpValueTypeMapping.XmpValueType;
 
 /**
@@ -9,9 +10,8 @@ import org.jphototagger.domain.metadata.mapping.XmpMetaDataValueXmpValueTypeMapp
  * @author Elmar Baumann
  */
 public enum ArrayName {
-    LR_HIERARCHICAL_SUBJECTS("lr:hierarchicalSubject", Namespace.LIGHTROOM, XmpValueType.BAG_TEXT),
-    ;
 
+    LR_HIERARCHICAL_SUBJECTS("lr:hierarchicalSubject", Namespace.LIGHTROOM, XmpValueType.BAG_TEXT),;
     private final String name;
     private final Namespace namesapce;
     private final XmpValueType valueType;

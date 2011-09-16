@@ -7,6 +7,9 @@ import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.filechooser.FileFilter;
 
+import org.openide.util.Lookup;
+import org.openide.util.lookup.ServiceProvider;
+
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
 import org.jphototagger.domain.repository.RepositoryDataImporter;
 import org.jphototagger.domain.repository.UserDefinedFileFiltersRepository;
@@ -14,8 +17,6 @@ import org.jphototagger.lib.xml.bind.XmlObjectImporter;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.repository.exporter.UserDefinedFileFilterExporter;
 import org.jphototagger.program.repository.exporter.UserDefinedFileFilterExporter.CollectionWrapper;
-import org.openide.util.Lookup;
-import org.openide.util.lookup.ServiceProvider;
 
 /**
  *

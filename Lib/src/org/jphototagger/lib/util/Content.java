@@ -1,9 +1,9 @@
 package org.jphototagger.lib.util;
 
+import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.Set;
 
 /**
  * Content that can be set and removed. Notifies listeners on changes (settings
@@ -13,10 +13,14 @@ import java.util.Set;
  * @author    Elmar Baumann
  */
 public class Content<T> {
+
     private T content;
     private final Set<Listener<T>> listeners = new CopyOnWriteArraySet<Listener<T>>();
 
-    private enum Type { ADDED, REMOVED }
+    private enum Type {
+
+        ADDED, REMOVED
+    }
 
     /**
      * Adds a content listener.

@@ -13,6 +13,7 @@ import org.jphototagger.lib.util.Bundle;
  * @author Elmar Baumann
  */
 public final class ExifIsoSpeedRatingsMetaDataValue extends MetaDataValue {
+
     public static final ExifIsoSpeedRatingsMetaDataValue INSTANCE = new ExifIsoSpeedRatingsMetaDataValue();
 
     private ExifIsoSpeedRatingsMetaDataValue() {

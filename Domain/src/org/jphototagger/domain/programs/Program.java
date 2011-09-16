@@ -1,12 +1,14 @@
 package org.jphototagger.domain.programs;
 
-import org.jphototagger.lib.runtime.RuntimeUtil;
 import java.io.File;
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessorType;
+
 import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+
+import org.jphototagger.lib.runtime.RuntimeUtil;
 
 /**
  * External program to start within the application.
@@ -16,6 +18,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class Program {
+
     @XmlTransient
     private static final String EMPTY = "";
     private long id = Long.MIN_VALUE;
@@ -32,7 +35,8 @@ public final class Program {
     private boolean changeFile;
     private int sequenceNumber = Integer.MIN_VALUE;
 
-    public Program() {}
+    public Program() {
+    }
 
     public Program(File file, String alias) {
         this.file = file;
@@ -185,13 +189,13 @@ public final class Program {
 
         String sep = RuntimeUtil.getDefaultCommandLineSeparator();
         String parametersBefore = ((parametersBeforeFilename == null)
-                                   ? EMPTY
-                                   : parametersBeforeFilename) + (additionalParametersBeforeFilenames
+                ? EMPTY
+                : parametersBeforeFilename) + (additionalParametersBeforeFilenames
                 ? sep + additionalParameters
                 : EMPTY);
         String parametersAfter = ((parametersAfterFilename == null)
-                                  ? EMPTY
-                                  : parametersAfterFilename) + (additionalParametersBeforeFilenames
+                ? EMPTY
+                : parametersAfterFilename) + (additionalParametersBeforeFilenames
                 ? EMPTY
                 : sep + additionalParameters);
 

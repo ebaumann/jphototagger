@@ -10,6 +10,7 @@ import org.jphototagger.exif.tag.ExifCopyright;
  * @author Elmar Baumann
  */
 public final class ExifCopyrightFormatter extends ExifFormatter {
+
     public static final ExifCopyrightFormatter INSTANCE = new ExifCopyrightFormatter();
 
     @Override
@@ -23,5 +24,6 @@ public final class ExifCopyrightFormatter extends ExifFormatter {
         return ExifCopyright.convertRawValueToPhotographerCopyright(exifTag.getRawValue());
     }
 
-    private ExifCopyrightFormatter() {}
+    private ExifCopyrightFormatter() {
+    }
 }

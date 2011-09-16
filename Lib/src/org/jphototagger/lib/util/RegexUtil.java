@@ -74,5 +74,6 @@ public final class RegexUtil {
         return false;
     }
 
-    private RegexUtil() {}
+    private RegexUtil() {
+    }
 }

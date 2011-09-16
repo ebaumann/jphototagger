@@ -2,6 +2,7 @@ package org.jphototagger.lib.model;
 
 import java.text.Collator;
 import java.util.Collections;
+
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.MutableTreeNode;
 
@@ -13,10 +14,12 @@ import javax.swing.tree.MutableTreeNode;
  * @author Elmar Baumann
  */
 public final class SortedChildrenTreeNode extends DefaultMutableTreeNode implements Comparable<Object> {
+
     private static final long serialVersionUID = 5429135948886700418L;
     private static final Collator collator = Collator.getInstance();
 
-    public SortedChildrenTreeNode() {}
+    public SortedChildrenTreeNode() {
+    }
 
     public SortedChildrenTreeNode(Object userObject) {
         super(userObject);

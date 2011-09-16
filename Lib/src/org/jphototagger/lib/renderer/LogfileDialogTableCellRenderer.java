@@ -25,6 +25,7 @@ import org.jphototagger.lib.util.Bundle;
  * @author Elmar Baumann
  */
 public final class LogfileDialogTableCellRenderer implements TableCellRenderer {
+
     private static final Color SEL_BACKGROUND_COLOR = new Color(251, 225, 146);
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat(Bundle.getString(LogfileDialogTableCellRenderer.class, "LogfileDialogTableCellRenderer.DateFormat"));
     private static final Map<Level, ImageIcon> ICON_OF_LEVEL = new HashMap<Level, ImageIcon>();
@@ -40,8 +41,7 @@ public final class LogfileDialogTableCellRenderer implements TableCellRenderer {
     }
 
     @Override
-    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
-            int row, int column) {
+    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         JLabel cellLabel = new JLabel();
 
         if (value instanceof Level) {
@@ -60,8 +60,8 @@ public final class LogfileDialogTableCellRenderer implements TableCellRenderer {
     private void renderSelection(JLabel cellLabel, boolean isSelected) {
         cellLabel.setForeground(Color.BLACK);
         cellLabel.setBackground(isSelected
-                                ? SEL_BACKGROUND_COLOR
-                                : Color.WHITE);
+                ? SEL_BACKGROUND_COLOR
+                : Color.WHITE);
         cellLabel.setOpaque(true);
     }
 

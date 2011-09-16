@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.domain.repository.MetadataTemplatesRepository;
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.lib.awt.EventQueueUtil;
@@ -15,7 +17,6 @@ import org.jphototagger.program.model.MetadataTemplatesComboBoxModel;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.EditMetaDataTemplateDialog;
 import org.jphototagger.program.view.panels.AppPanel;
-import org.openide.util.Lookup;
 
 /**
  * Kontrolliert Eingaben bezüglich Metadaten-Templates.

@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.IoUtil;
 import org.jphototagger.lib.util.SystemProperties;
@@ -74,7 +75,7 @@ public final class ScriptWriter {
 
         try {
             InputStream is = ScriptWriter.class.getResourceAsStream(scriptSourcePath);
-            InputStreamReader  isr = new InputStreamReader(is);
+            InputStreamReader isr = new InputStreamReader(is);
             StringBuilder sb = new StringBuilder();
             String line = null;
             boolean isFirstLine = true;

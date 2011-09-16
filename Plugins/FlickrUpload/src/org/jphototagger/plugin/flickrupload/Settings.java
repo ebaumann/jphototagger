@@ -1,7 +1,8 @@
 package org.jphototagger.plugin.flickrupload;
 
-import org.jphototagger.api.storage.Storage;
 import org.openide.util.Lookup;
+
+import org.jphototagger.api.storage.Storage;
 
 /**
  *

@@ -11,6 +11,7 @@ import java.util.logging.Level;
  * @author Elmar Baumann
  */
 public final class LogfileRecord {
+
     private String date;
     private Long millis;
     private String sequence;
@@ -400,9 +401,9 @@ public final class LogfileRecord {
         }
 
         return containsSubstring(getMessage(), substring) || containsSubstring(getClassname(), substring)
-               || containsSubstring(getMethodname(), substring) || containsSubstring(getDate(), substring)
-               || containsSubstring(getLogger(), substring) || containsSubstring(getSequence(), substring)
-               || containsSubstring(getThread(), substring) || (hasException()
+                || containsSubstring(getMethodname(), substring) || containsSubstring(getDate(), substring)
+                || containsSubstring(getLogger(), substring) || containsSubstring(getSequence(), substring)
+                || containsSubstring(getThread(), substring) || (hasException()
                 ? getException().contains(substring)
                 : false);
     }

@@ -1,9 +1,10 @@
 package org.jphototagger.lib.componentutil;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.Map;
+
 import javax.swing.Action;
 
 /**
@@ -12,6 +13,7 @@ import javax.swing.Action;
  * @author Elmar Baumann
  */
 public class ActionMap {
+
     private final Map<Class<? extends Action>, Action> ACTION_OF = new HashMap<Class<? extends Action>, Action>();
 
     /**

@@ -5,6 +5,7 @@ package org.jphototagger.api.progress;
  * @author Elmar Baumann
  */
 public final class ProgressEvent {
+
     private final Object source;
     private int maximum;
     private int minimum;

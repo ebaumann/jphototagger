@@ -19,6 +19,7 @@ import org.jphototagger.program.view.frames.AppFrame;
  * @author Elmar Baumann
  */
 public final class AboutJPhotoTaggerController implements ActionListener {
+
     @Override
     public void actionPerformed(ActionEvent evt) {
         ImageIcon icon = AppLookAndFeel.getIcon("icon_logo.png");

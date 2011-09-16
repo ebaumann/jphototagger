@@ -13,6 +13,7 @@ import java.util.StringTokenizer;
  * @author Elmar Baumann
  */
 public final class CommandLineParser {
+
     private final Set<Option> options = new HashSet<Option>();
     private final String[] args;
     private final String optionsDelimiter;
@@ -87,7 +88,7 @@ public final class CommandLineParser {
                 delimitValuesFromName(arg, option);
                 options.add(option);
             } else {
-                for (int j = i + 1; (j < length) &&!isOption; j++) {
+                for (int j = i + 1; (j < length) && !isOption; j++) {
                     arg = args[j].trim();
                     isOption = isOption(arg);
 
@@ -110,8 +111,8 @@ public final class CommandLineParser {
 
     private String ensureOptionName(String arg, int argIndex) {
         String optionName = (arg.length() > 1)
-                            ? arg.substring(1)
-                            : null;
+                ? arg.substring(1)
+                : null;
 
         if ((optionName == null) || optionName.substring(0, 1).equals(optionsValuesDelimiter)) {
             throw new IllegalArgumentException("Invalid option for argument " + argIndex + ", " + arg);
@@ -141,7 +142,9 @@ public final class CommandLineParser {
     }
 
     public static class Option {
-        private final List<String> values = new ArrayList<String>();;
+
+        private final List<String> values = new ArrayList<String>();
+        ;
         private final String name;
 
         public Option(String name) {
@@ -173,12 +176,12 @@ public final class CommandLineParser {
             final Option other = (Option) obj;
 
             if ((this.name == null)
-                ? (other.name != null)
-                : !this.name.equals(other.name)) {
+                    ? (other.name != null)
+                    : !this.name.equals(other.name)) {
                 return false;
             }
 
-            if ((this.values != other.values) && ((this.values == null) ||!this.values.equals(other.values))) {
+            if ((this.values != other.values) && ((this.values == null) || !this.values.equals(other.values))) {
                 return false;
             }
 
@@ -190,11 +193,11 @@ public final class CommandLineParser {
             int hash = 5;
 
             hash = 89 * hash + ((this.name != null)
-                                ? this.name.hashCode()
-                                : 0);
+                    ? this.name.hashCode()
+                    : 0);
             hash = 89 * hash + ((this.values != null)
-                                ? this.values.hashCode()
-                                : 0);
+                    ? this.values.hashCode()
+                    : 0);
 
             return hash;
         }

@@ -11,6 +11,9 @@ import javax.swing.JTree;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.api.storage.StorageHints;
 import org.jphototagger.domain.event.AppWillExitEvent;
@@ -20,7 +23,6 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.frames.AppFrame;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.KeywordsPanel;
-import org.openide.util.Lookup;
 
 /**
  * Reads and writes persistent important settings of {@link AppPanel} and

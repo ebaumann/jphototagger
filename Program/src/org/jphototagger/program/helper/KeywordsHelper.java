@@ -20,6 +20,9 @@ import javax.swing.tree.TreePath;
 
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.JXTree;
+
+import org.openide.util.Lookup;
+
 import org.jphototagger.domain.image.ImageFile;
 import org.jphototagger.domain.keywords.Keyword;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
@@ -44,7 +47,6 @@ import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
 import org.jphototagger.program.view.renderer.KeywordsTreeCellRenderer;
 import org.jphototagger.xmp.XmpMetadata;
-import org.openide.util.Lookup;
 
 /**
  * Helper for hierarchical keywords and Dublin Core subjects ("flat" keywords).

@@ -4,8 +4,8 @@ import java.nio.ByteOrder;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
-import org.jphototagger.lib.util.Bundle;
 
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.ByteUtil;
 
 /**
@@ -19,6 +19,7 @@ public final class ExifGpsLatitude {
      * Indicates whether the latitude is north or south latitude.
      */
     public enum Ref {
+
         NORTH,
         SOUTH;
 
@@ -30,7 +31,6 @@ public final class ExifGpsLatitude {
             return this.equals(SOUTH);
         }
     }
-
     private static final Map<String, Ref> REF_OF_STRING = new HashMap<String, Ref>();
     private static final Map<Ref, String> LOCALIZED_STRING_OF_REF = new EnumMap<Ref, String>(Ref.class);
 
@@ -40,7 +40,6 @@ public final class ExifGpsLatitude {
         LOCALIZED_STRING_OF_REF.put(Ref.NORTH, Bundle.getString(ExifGpsLatitude.class, "ExifGpsLatitudeRefNorth"));
         LOCALIZED_STRING_OF_REF.put(Ref.SOUTH, Bundle.getString(ExifGpsLatitude.class, "ExifGpsLatitudeRefSouth"));
     }
-
     private Ref ref;
     private ExifDegrees degrees;
 
@@ -84,7 +83,7 @@ public final class ExifGpsLatitude {
         return rawValue == null
                 ? false
                 : rawValue.length == getRawValueByteCount();
-        }
+    }
 
     public static boolean isRefByteCountOk(byte[] rawValue) {
         return rawValue == null
@@ -94,7 +93,7 @@ public final class ExifGpsLatitude {
 
     public String getLocalizedString() {
         return ExifGpsUtil.getDegreesAsString(degrees) + " " + LOCALIZED_STRING_OF_REF.get(ref);
-        }
+    }
 
     public ExifDegrees getExifDegrees() {
         return degrees;

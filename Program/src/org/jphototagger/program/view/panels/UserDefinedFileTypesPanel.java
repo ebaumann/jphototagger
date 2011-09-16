@@ -8,6 +8,8 @@ import java.util.List;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.domain.filetypes.UserDefinedFileType;
 import org.jphototagger.domain.repository.UserDefinedFileTypesRepository;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
@@ -16,7 +18,6 @@ import org.jphototagger.lib.event.util.MouseEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.model.UserDefinedFileTypesListModel;
 import org.jphototagger.program.view.dialogs.EditUserDefinedFileTypeDialog;
-import org.openide.util.Lookup;
 
 /**
  *
