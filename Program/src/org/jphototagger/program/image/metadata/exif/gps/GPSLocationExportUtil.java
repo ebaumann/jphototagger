@@ -10,6 +10,8 @@ import java.util.logging.Logger;
 
 import javax.swing.JFileChooser;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.exif.ExifMetadata;
 import org.jphototagger.exif.ExifTags;
@@ -22,7 +24,6 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StorageUtil;
 import org.jphototagger.program.helper.HelperThread;
 import org.jphototagger.program.tasks.UserTasks;
-import org.openide.util.Lookup;
 
 /**
  * Utils for exporting GPS metadata.

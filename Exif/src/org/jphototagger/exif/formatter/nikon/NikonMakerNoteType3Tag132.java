@@ -14,6 +14,7 @@ import org.jphototagger.exif.formatter.ExifRawValueFormatter;
  * @author Elmar Baumann
  */
 public final class NikonMakerNoteType3Tag132 implements ExifRawValueFormatter {
+
     @Override
     public String format(ExifTag exifTag) {
         if (exifTag == null) {
@@ -49,11 +50,11 @@ public final class NikonMakerNoteType3Tag132 implements ExifRawValueFormatter {
         double maxFStop = ExifDatatypeUtil.convertExifRationalToDouble(maxFStopR);
         DecimalFormat df = new DecimalFormat("#.#");
         String focalLength = fixFocalLength
-                             ? df.format(minFocalLength) + " mm"
-                             : df.format(minFocalLength) + "-" + df.format(maxFocalLength) + " mm";
+                ? df.format(minFocalLength) + " mm"
+                : df.format(minFocalLength) + "-" + df.format(maxFocalLength) + " mm";
         String fStop = fixFStop
-                       ? " 1:" + df.format(minFStop)
-                       : " 1:" + df.format(minFStop) + "-" + df.format(maxFStop);
+                ? " 1:" + df.format(minFStop)
+                : " 1:" + df.format(minFStop) + "-" + df.format(maxFStop);
 
         return focalLength + fStop;
     }

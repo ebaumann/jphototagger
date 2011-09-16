@@ -2,8 +2,9 @@ package org.jphototagger.program.view.panels;
 
 import javax.swing.JProgressBar;
 
-import org.jphototagger.api.progress.ProgressBarProvider;
 import org.openide.util.lookup.ServiceProvider;
+
+import org.jphototagger.api.progress.ProgressBarProvider;
 
 /**
  *

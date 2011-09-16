@@ -16,7 +16,6 @@ public enum ExifDataType {
      * </ul>
      */
     BYTE(1, 8, "BYTE"),
-
     /**
      * An 8-bit byte containing one 7-bit ASCII code. The final byte is terminated with NULL.
      * <p>
@@ -26,7 +25,6 @@ public enum ExifDataType {
      * </ul>
      */
     ASCII(2, 8, "ASCII"),
-
     /**
      * A 16-bit (2-byte) unsigned integer.
      * <p>
@@ -36,7 +34,6 @@ public enum ExifDataType {
      * </ul>
      */
     SHORT(3, 16, "SHORT"),
-
     /**
      * A 32-bit (4-byte) unsigned integer,
      * <ul>
@@ -45,7 +42,6 @@ public enum ExifDataType {
      * </ul>
      */
     LONG(4, 32, "LONG"),
-
     /**
      * Two LONGs. The first LONG is the numerator and the second LONG expresses
      * thedenominator.
@@ -55,7 +51,6 @@ public enum ExifDataType {
      * </ul>
      */
     RATIONAL(5, 64, "RATIONAL"),
-
     /**
      * An 8-bit byte that can take any value depending on the field definition.
      * <ul>
@@ -64,7 +59,6 @@ public enum ExifDataType {
      * </ul>
      */
     UNDEFINED(7, 8, "UNDEFINED"),
-
     /**
      * A 32-bit (4-byte) signed integer (2's complement notation).
      * <ul>
@@ -73,7 +67,6 @@ public enum ExifDataType {
      * </ul>
      */
     SLONG(9, 32, "SLONG"),
-
     /**
      * Two SLONGs. The first SLONG is the numerator and the second SLONG is the
      * denominator.
@@ -83,7 +76,6 @@ public enum ExifDataType {
      * </ul>
      */
     SRATIONAL(10, 64, "SRATIONAL"),
-
     /**
      * JPhotoTagger internal.
      * <ul>
@@ -91,9 +83,7 @@ public enum ExifDataType {
      * <li>Bit Count: -1</li>
      * </ul>
      */
-    SHORT_OR_LONG(-1, -1, "SHORT_OR_LONG"),
-    ;
-
+    SHORT_OR_LONG(-1, -1, "SHORT_OR_LONG"),;
     private final int value;
     private final int bitCount;
     private final String valueAsString;

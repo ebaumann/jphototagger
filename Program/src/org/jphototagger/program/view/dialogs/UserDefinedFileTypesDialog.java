@@ -10,6 +10,7 @@ import org.jphototagger.program.resource.GUI;
  * @author Elmar Baumann
  */
 public class UserDefinedFileTypesDialog extends Dialog {
+
     private static final long serialVersionUID = -8265070403438909881L;
 
     public UserDefinedFileTypesDialog() {
@@ -73,14 +74,16 @@ public class UserDefinedFileTypesDialog extends Dialog {
     }//GEN-LAST:event_formWindowClosing
 
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 UserDefinedFileTypesDialog dialog = new UserDefinedFileTypesDialog();
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
@@ -90,9 +93,7 @@ public class UserDefinedFileTypesDialog extends Dialog {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jphototagger.program.view.panels.UserDefinedFileTypesPanel panelUserDefinedFileTypes;
     // End of variables declaration//GEN-END:variables
-
 }

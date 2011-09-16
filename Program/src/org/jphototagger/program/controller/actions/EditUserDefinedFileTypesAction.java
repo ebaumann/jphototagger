@@ -3,6 +3,7 @@ package org.jphototagger.program.controller.actions;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.view.dialogs.UserDefinedFileTypesDialog;
@@ -13,6 +14,7 @@ import org.jphototagger.program.view.dialogs.UserDefinedFileTypesDialog;
  * @author Elmar Baumann
  */
 public final class EditUserDefinedFileTypesAction extends AbstractAction {
+
     private static final long serialVersionUID = 3268061132637908576L;
 
     public EditUserDefinedFileTypesAction() {
@@ -26,5 +28,4 @@ public final class EditUserDefinedFileTypesAction extends AbstractAction {
 
         dlg.setVisible(true);
     }
-
 }

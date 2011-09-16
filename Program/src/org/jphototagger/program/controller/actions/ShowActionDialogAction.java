@@ -1,10 +1,12 @@
 package org.jphototagger.program.controller.actions;
 
+import java.awt.event.ActionEvent;
+
+import javax.swing.AbstractAction;
+
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.program.view.dialogs.ActionsDialog;
 import org.jphototagger.program.view.frames.AppFrame;
-import java.awt.event.ActionEvent;
-import javax.swing.AbstractAction;
 
 /**
  * Displays the dialog {@link ActionsDialog} when the menu item
@@ -14,6 +16,7 @@ import javax.swing.AbstractAction;
  * @author Elmar Baumann
  */
 public final class ShowActionDialogAction extends AbstractAction {
+
     private static final long serialVersionUID = -1527748280703337890L;
 
     @Override

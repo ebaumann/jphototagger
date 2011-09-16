@@ -2,6 +2,8 @@ package org.jphototagger.program.view.dialogs;
 
 import java.awt.Container;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.domain.repository.MetadataTemplatesRepository;
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.domain.xmp.Xmp;
@@ -10,7 +12,6 @@ import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.view.ViewUtil;
-import org.openide.util.Lookup;
 
 /**
  * Modal dialog for modifying and saving a {@link MetadataTemplate} into the

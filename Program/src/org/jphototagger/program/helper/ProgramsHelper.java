@@ -8,12 +8,14 @@ import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 
 import org.jdesktop.swingx.JXList;
+
+import org.openide.util.Lookup;
+
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.repository.ProgramsRepository;
 import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.ProgramPropertiesDialog;
-import org.openide.util.Lookup;
 
 /**
  *

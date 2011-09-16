@@ -5,6 +5,8 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.List;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.domain.repository.FavoritesRepository;
@@ -16,7 +18,6 @@ import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.SelectRootFilesPanel;
-import org.openide.util.Lookup;
 
 
 /**

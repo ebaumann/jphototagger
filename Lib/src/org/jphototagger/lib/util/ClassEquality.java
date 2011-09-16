@@ -10,6 +10,7 @@ package org.jphototagger.lib.util;
  * @author Elmar Baumann
  */
 public class ClassEquality {
+
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {

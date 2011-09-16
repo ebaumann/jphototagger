@@ -19,7 +19,6 @@ public enum FileSort {
     LAST_MODIFIED_ASCENDING(new FileLastModifiedAscendingComparator()),
     LAST_MODIFIED_DESCENDING(new FileLastModifiedDescendingComparator()),
     NO_SORT(new FileUnsortedComparator()),;
-
     private final Comparator<File> comparator;
 
     private FileSort(Comparator<File> comparator) {

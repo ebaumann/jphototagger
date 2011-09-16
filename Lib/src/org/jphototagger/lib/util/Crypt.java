@@ -1,13 +1,14 @@
 package org.jphototagger.lib.util;
 
-import org.jphototagger.lib.thirdparty.Base64;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 
-//Code based on: http://www.exampledepot.com/egs/javax.crypto/desstring.html
+import org.jphototagger.lib.thirdparty.Base64;
 
+//Code based on: http://www.exampledepot.com/egs/javax.crypto/desstring.html
 /**
  * En- and decrypts strings with <code>DESede</code> and <code>Base64</code> so
  * that the encrypted string can be stored into a plain text file, e.g. a
@@ -47,6 +48,7 @@ import javax.crypto.SecretKey;
  * @see     Base64
  */
 public final class Crypt {
+
     private Cipher ecipher;
     private Cipher dcipher;
 

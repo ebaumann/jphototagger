@@ -8,7 +8,6 @@ import java.beans.MethodDescriptor;
 import java.beans.PropertyDescriptor;
 import java.beans.SimpleBeanInfo;
 
-
 /**
  *
  * @author Elmar Baumann

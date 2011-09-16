@@ -15,6 +15,8 @@ import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.storage.UserFilesProvider;
 import org.jphototagger.domain.repository.ApplicationPropertiesRepository;
 import org.jphototagger.domain.repository.RepositoryMaintainance;
@@ -24,7 +26,6 @@ import org.jphototagger.lib.io.FileLock;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.filefilter.RegexFileFilter;
 import org.jphototagger.repository.hsqldb.Database;
-import org.openide.util.Lookup;
 
 /**
  *

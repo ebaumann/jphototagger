@@ -15,6 +15,8 @@ import java.util.logging.Logger;
 
 import javax.swing.JMenuItem;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.dialog.HelpBrowser;
@@ -26,7 +28,6 @@ import org.jphototagger.program.Main;
 import org.jphototagger.program.app.AppInfo;
 import org.jphototagger.program.app.logging.AppLoggingSystem;
 import org.jphototagger.program.resource.GUI;
-import org.openide.util.Lookup;
 
 /**
  *

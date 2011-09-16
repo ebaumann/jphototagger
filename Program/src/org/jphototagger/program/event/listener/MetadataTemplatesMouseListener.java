@@ -3,6 +3,7 @@ package org.jphototagger.program.event.listener;
 import javax.swing.ListSelectionModel;
 
 import org.jdesktop.swingx.JXList;
+
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.popupmenus.MetadataTemplatesPopupMenu;
 

@@ -1,12 +1,5 @@
 package org.jphototagger.xmp;
 
-import com.adobe.xmp.options.PropertyOptions;
-import com.adobe.xmp.properties.XMPPropertyInfo;
-import com.adobe.xmp.XMPConst;
-import com.adobe.xmp.XMPException;
-import com.adobe.xmp.XMPIterator;
-import com.adobe.xmp.XMPMeta;
-import com.adobe.xmp.XMPMetaFactory;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -15,6 +8,14 @@ import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.adobe.xmp.XMPConst;
+import com.adobe.xmp.XMPException;
+import com.adobe.xmp.XMPIterator;
+import com.adobe.xmp.XMPMeta;
+import com.adobe.xmp.XMPMetaFactory;
+import com.adobe.xmp.options.PropertyOptions;
+import com.adobe.xmp.properties.XMPPropertyInfo;
 
 /**
  * Methods for accessing XMP (Extensible Metadata Platform).
@@ -25,13 +26,13 @@ import java.util.logging.Logger;
  * @author Elmar Baumann
  */
 public final class XmpProperties {
+
     public enum Namespace {
+
         CAMERA_RAW(XMPConst.NS_CAMERARAW, "crs"), DUBLIN_CORE(XMPConst.NS_DC, "dc"), EXIF(XMPConst.NS_EXIF, "exif"),
         IPTC_CORE(XMPConst.NS_IPTCCORE, "Iptc4xmpCore"), LIGHTROOM("http://ns.adobe.com/lightroom/1.0/", "lr"),
         PHOTOSHOP(XMPConst.NS_PHOTOSHOP, "photoshop"), TIFF(XMPConst.NS_TIFF, "tiff"),
-        XMP_BASIC(XMPConst.NS_XMP, "xap"),
-        ;
-
+        XMP_BASIC(XMPConst.NS_XMP, "xap"),;
         private final String uri;
         private final String prefix;
 
@@ -50,9 +51,9 @@ public final class XmpProperties {
     }
 
     public enum PropertyValueType {
+
         BAG_TEXT, BOOLEAN, CLOSED_CHOICE, COLORANT, DATE, DIMENSIONS, FONT, INTEGER, LANG_ALT, LOCALE, MIME_TYPE,
-        PROPER_NAME, REAL, SEQ_PROPER_NAME, TEXT, THUMBNAIL, URI, URL, XPATH,
-        ;
+        PROPER_NAME, REAL, SEQ_PROPER_NAME, TEXT, THUMBNAIL, URI, URL, XPATH,;
 
         public boolean isBagText() {
             return this.equals(BAG_TEXT);
@@ -80,22 +81,23 @@ public final class XmpProperties {
 
         public PropertyOptions getArrayPropertyOptions() {
             switch (this) {
-            case BAG_TEXT :
-                return new PropertyOptions().setArray(true);
+                case BAG_TEXT:
+                    return new PropertyOptions().setArray(true);
 
-            case SEQ_PROPER_NAME :
-                return new PropertyOptions().setArrayOrdered(true);
+                case SEQ_PROPER_NAME:
+                    return new PropertyOptions().setArrayOrdered(true);
 
-            case LANG_ALT :
-                return new PropertyOptions().setArrayAlternate(true);
+                case LANG_ALT:
+                    return new PropertyOptions().setArrayAlternate(true);
 
-            default :
-                return null;
+                default:
+                    return null;
             }
         }
     }
 
     public enum PropertyValue {
+
         DC_CREATOR(Namespace.DUBLIN_CORE, "dc:creator", PropertyValueType.SEQ_PROPER_NAME),
         DC_DESCRIPTION(Namespace.DUBLIN_CORE, "dc:description", PropertyValueType.LANG_ALT),
         DC_RIGHTS(Namespace.DUBLIN_CORE, "dc:rights", PropertyValueType.LANG_ALT),
@@ -115,10 +117,8 @@ public final class XmpProperties {
         PHOTOSHOP_SOURCE(Namespace.PHOTOSHOP, "photoshop:Source", PropertyValueType.TEXT),
         PHOTOSHOP_STATE(Namespace.PHOTOSHOP, "photoshop:State", PropertyValueType.TEXT),
         PHOTOSHOP_TRANSMISSION_REFERENCE(Namespace.PHOTOSHOP, "photoshop:TransmissionReference",
-                                         PropertyValueType.TEXT), XAP_RATING(Namespace.XMP_BASIC, "xap:Rating",
-                                             PropertyValueType.CLOSED_CHOICE)
-        ;
-
+        PropertyValueType.TEXT), XAP_RATING(Namespace.XMP_BASIC, "xap:Rating",
+        PropertyValueType.CLOSED_CHOICE);
         private final String path;
         private final Namespace namesapce;
         private final PropertyValueType propertyValueType;
@@ -212,7 +212,7 @@ public final class XmpProperties {
                 return null;
             }
 
-            for (XMPIterator it = xmpMeta.iterator(); it.hasNext(); ) {
+            for (XMPIterator it = xmpMeta.iterator(); it.hasNext();) {
                 XMPPropertyInfo xmpPropertyInfo = (XMPPropertyInfo) it.next();
 
                 propertyInfos.add(xmpPropertyInfo);
@@ -255,7 +255,7 @@ public final class XmpProperties {
                 return null;
             }
 
-            for (XMPIterator it = xmpMeta.iterator(); it.hasNext(); ) {
+            for (XMPIterator it = xmpMeta.iterator(); it.hasNext();) {
                 XMPPropertyInfo xmpPropertyInfo = (XMPPropertyInfo) it.next();
 
                 propertyInfos.add(xmpPropertyInfo);
@@ -308,14 +308,14 @@ public final class XmpProperties {
         for (XMPPropertyInfo xmpPropertyInfo : xmpPropertyInfos) {
             Object value = xmpPropertyInfo.getValue();
             String stringValue = (value == null)
-                                 ? null
-                                 : value.toString().trim();
+                    ? null
+                    : value.toString().trim();
 
             if ((xmpPropertyInfo.getNamespace() != null) && (xmpPropertyInfo.getPath() != null)
-                    &&!xmpPropertyInfo.getOptions().isQualifier()
+                    && !xmpPropertyInfo.getOptions().isQualifier()
                     && xmpPropertyInfo.getNamespace().equals(propertyValue.getNamespace().getUri())
                     && xmpPropertyInfo.getPath().startsWith(propertyValue.getPath()) && (stringValue != null)
-                    &&!stringValue.isEmpty()) {
+                    && !stringValue.isEmpty()) {
                 values.add(stringValue);
             }
         }
@@ -352,9 +352,10 @@ public final class XmpProperties {
         List<String> values = getPropertyValuesFrom(xmpPropertyInfos, propertyValue);
 
         return values.isEmpty()
-               ? ""
-               : values.get(0);
+                ? ""
+                : values.get(0);
     }
 
-    private XmpProperties() {}
+    private XmpProperties() {
+    }
 }

@@ -1,22 +1,25 @@
 package org.jphototagger.lib.util.help;
 
-import org.w3c.dom.Document;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.w3c.dom.DOMException;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
 import org.xml.sax.EntityResolver;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
-import java.io.InputStream;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 /**
  * Reads the index file of the application's help: a XML file wich validates
@@ -127,10 +130,11 @@ public final class HelpIndexParser {
 
     private static void setEntityResolver(DocumentBuilder documentBuilder) {
         documentBuilder.setEntityResolver(new EntityResolver() {
+
             @Override
             public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
                 InputStream is =
-                    HelpIndexParser.class.getResourceAsStream("/org/jphototagger/lib/resource/dtd/helpindex.dtd");
+                        HelpIndexParser.class.getResourceAsStream("/org/jphototagger/lib/resource/dtd/helpindex.dtd");
                 InputSource ip = new InputSource(is);
 
                 ip.setSystemId("helpindex.dtd");
@@ -142,12 +146,16 @@ public final class HelpIndexParser {
 
     private static void setErrorHandler(DocumentBuilder documentBuilder) {
         documentBuilder.setErrorHandler(new ErrorHandler() {
+
             @Override
-            public void warning(SAXParseException exception) {}
+            public void warning(SAXParseException exception) {
+            }
+
             @Override
             public void error(SAXParseException exception) throws SAXException {
                 throw exception;
             }
+
             @Override
             public void fatalError(SAXParseException exception) throws SAXException {
                 throw exception;
@@ -155,5 +163,6 @@ public final class HelpIndexParser {
         });
     }
 
-    private HelpIndexParser() {}
+    private HelpIndexParser() {
+    }
 }

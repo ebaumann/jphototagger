@@ -7,6 +7,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTree;
 
 import org.jdesktop.swingx.JXList;
+
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.frames.AppFrame;

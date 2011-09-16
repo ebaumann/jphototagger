@@ -21,7 +21,8 @@ final class DatabaseMaintainance extends Database {
     static final DatabaseMaintainance INSTANCE = new DatabaseMaintainance();
     private static final Logger LOGGER = Logger.getLogger(DatabaseMaintainance.class.getName());
 
-    private DatabaseMaintainance() {}
+    private DatabaseMaintainance() {
+    }
 
     /**
      * Shuts down the database.
@@ -73,6 +74,7 @@ final class DatabaseMaintainance extends Database {
     }
 
     private static class Ref1nInfo {
+
         private final String table;
         private final String refTable;
         private final String refColumn;
@@ -95,8 +97,6 @@ final class DatabaseMaintainance extends Database {
             return table;
         }
     }
-
-
     private static final List<Ref1nInfo> REF_1_N_INFOS = new ArrayList<Ref1nInfo>();
 
     static {

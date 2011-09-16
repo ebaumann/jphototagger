@@ -9,6 +9,7 @@ import java.io.Serializable;
  * @author Elmar Baumann
  */
 public final class ExecutableFileFilter implements java.io.FileFilter, Serializable {
+
     private static final long serialVersionUID = -3143807596793335212L;
 
     @Override

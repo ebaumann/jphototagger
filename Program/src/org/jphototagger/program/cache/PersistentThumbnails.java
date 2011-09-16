@@ -10,12 +10,13 @@ import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.storage.UserFilesProvider;
 import org.jphototagger.image.util.ImageUtil;
 import org.jphototagger.lib.io.FileLock;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.IoUtil;
-import org.openide.util.Lookup;
 
 /**
  * Persistent stored (cached) thumbnails.

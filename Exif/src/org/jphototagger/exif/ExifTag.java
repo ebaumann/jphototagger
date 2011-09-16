@@ -1,6 +1,5 @@
 package org.jphototagger.exif;
 
-import org.jphototagger.exif.datatype.ExifDataType;
 import java.nio.ByteOrder;
 import java.text.MessageFormat;
 import java.util.Arrays;
@@ -17,10 +16,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import com.imagero.reader.tiff.IFDEntry;
+
+import org.jphototagger.exif.datatype.ExifDataType;
 import org.jphototagger.lib.xml.bind.Base64ByteArrayXmlAdapter;
 import org.jphototagger.lib.xml.bind.Base64ByteStringXmlAdapter;
-
-import com.imagero.reader.tiff.IFDEntry;
 
 /**
  *

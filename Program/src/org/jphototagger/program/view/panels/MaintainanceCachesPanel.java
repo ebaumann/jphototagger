@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import javax.swing.JButton;
 
 import org.jdesktop.swingx.JXLabel;
+
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.program.controller.maintainance.ClearExifCacheAction;
 import org.jphototagger.program.controller.maintainance.ClearIptcIgnoreCacheAction;
@@ -18,6 +19,7 @@ import org.jphototagger.program.controller.maintainance.ClearIptcIgnoreCacheActi
  * @author Elmar Baumann
  */
 public class MaintainanceCachesPanel extends javax.swing.JPanel {
+
     private static final long serialVersionUID = 1L;
 
     public MaintainanceCachesPanel() {

@@ -17,6 +17,7 @@ import java.util.List;
  * @author Elmar Baumann
  */
 public final class TransferableFileCollection implements Transferable {
+
     private static final DataFlavor FILE_LIST_FLAVOR = DataFlavor.javaFileListFlavor;
     private static final DataFlavor URI_LIST_FLAVOR = TransferUtil.getUriListFlavor();
     private static final DataFlavor[] FLAVORS;
@@ -26,7 +27,7 @@ public final class TransferableFileCollection implements Transferable {
     private String fileUris;
 
     static {
-        FLAVORS = new DataFlavor[] { FILE_LIST_FLAVOR, URI_LIST_FLAVOR };
+        FLAVORS = new DataFlavor[]{FILE_LIST_FLAVOR, URI_LIST_FLAVOR};
     }
 
     public TransferableFileCollection(Collection<? extends File> files) {

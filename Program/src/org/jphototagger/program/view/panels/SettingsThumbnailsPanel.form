@@ -30,7 +30,7 @@
                   <Component id="checkBoxDisplayThumbnailTooltip" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="panelSettingsThumbnailDimensions" alignment="0" max="32767" attributes="0"/>
                   <Component id="panelThumbnailCreator" alignment="0" max="32767" attributes="2"/>
-                  <Component id="panelExternalThumbnailApp" alignment="1" pref="995" max="32767" attributes="2"/>
+                  <Component id="panelExternalThumbnailApp" alignment="1" pref="1193" max="32767" attributes="2"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -88,12 +88,12 @@
                           <EmptySpace min="146" pref="146" max="146" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="radioButtonCreateThumbnailsWithImagero" pref="818" max="32767" attributes="0"/>
+                          <Component id="radioButtonCreateThumbnailsWithImagero" pref="1016" max="32767" attributes="0"/>
                           <EmptySpace min="159" pref="159" max="159" attributes="0"/>
                       </Group>
                       <Component id="radioButtonUseEmbeddedThumbnails" alignment="0" min="-2" max="-2" attributes="2"/>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="radioButtonCreateThumbnailsWithExternalApp" pref="866" max="32767" attributes="0"/>
+                          <Component id="radioButtonCreateThumbnailsWithExternalApp" pref="1064" max="32767" attributes="0"/>
                           <EmptySpace min="111" pref="111" max="111" attributes="0"/>
                       </Group>
                   </Group>

@@ -11,6 +11,9 @@ import javax.swing.table.TableModel;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.domain.event.UserPropertyChangedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
@@ -20,7 +23,6 @@ import org.jphototagger.program.model.IptcTableModel;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
-import org.openide.util.Lookup;
 
 /**
  *

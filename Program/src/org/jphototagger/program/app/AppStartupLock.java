@@ -5,11 +5,12 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.storage.UserFilesProvider;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.openide.util.Lookup;
 
 /**
  * Creates an application lock file to prevent multiple instances. Uses

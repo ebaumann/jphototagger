@@ -6,6 +6,9 @@ import javax.swing.DefaultListModel;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+
+import org.openide.util.Lookup;
+
 import org.jphototagger.domain.metadata.search.SavedSearch;
 import org.jphototagger.domain.repository.Repository;
 import org.jphototagger.domain.repository.SavedSearchesRepository;
@@ -15,7 +18,6 @@ import org.jphototagger.domain.repository.event.search.SavedSearchRenamedEvent;
 import org.jphototagger.domain.repository.event.search.SavedSearchUpdatedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.helper.SavedSearchesHelper;
-import org.openide.util.Lookup;
 
 /**
  * Elements are {@link SavedSearch}es.

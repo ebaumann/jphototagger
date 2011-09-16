@@ -1,6 +1,7 @@
 package org.jphototagger.lib.model;
 
 import java.util.Vector;
+
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -9,6 +10,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Elmar Baumann
  */
 public class TableModelExt extends DefaultTableModel {
+
     private static final long serialVersionUID = 8638294798660156999L;
 
     public TableModelExt(Object[][] data, Object[] columnNames) {
@@ -31,7 +33,8 @@ public class TableModelExt extends DefaultTableModel {
         super(rowCount, columnCount);
     }
 
-    public TableModelExt() {}
+    public TableModelExt() {
+    }
 
     public void removeAllRows() {
         Vector rows = getDataVector();

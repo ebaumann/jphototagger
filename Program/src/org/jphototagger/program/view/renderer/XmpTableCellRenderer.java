@@ -12,6 +12,8 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableStringConverter;
 
+import com.adobe.xmp.properties.XMPPropertyInfo;
+
 import org.jphototagger.domain.repository.xmp.XmpInRepository;
 import org.jphototagger.lib.componentutil.TableUtil;
 import org.jphototagger.lib.util.Bundle;
@@ -19,8 +21,6 @@ import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.lib.util.Translation;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.xmp.XmpMetadata;
-
-import com.adobe.xmp.properties.XMPPropertyInfo;
 
 /**
  * Rendert Tabellen mit

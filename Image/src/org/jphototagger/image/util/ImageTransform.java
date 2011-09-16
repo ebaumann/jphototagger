@@ -6,12 +6,13 @@ import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
+import java.awt.Transparency;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
 import java.awt.image.PixelGrabber;
-import java.awt.Transparency;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.ImageIcon;
 
 /**
@@ -131,9 +132,10 @@ public final class ImageTransform {
         ColorModel cm = pg.getColorModel();
 
         return (cm == null)
-               ? false
-               : cm.hasAlpha();
+                ? false
+                : cm.hasAlpha();
     }
 
-    private ImageTransform() {}
+    private ImageTransform() {
+    }
 }

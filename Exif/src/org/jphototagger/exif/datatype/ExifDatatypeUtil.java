@@ -67,5 +67,6 @@ public final class ExifDatatypeUtil {
         return buf;
     }
 
-    private ExifDatatypeUtil() {}
+    private ExifDatatypeUtil() {
+    }
 }

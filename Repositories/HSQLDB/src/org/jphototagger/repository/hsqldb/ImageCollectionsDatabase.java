@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.bushe.swing.event.EventBus;
+
 import org.jphototagger.domain.imagecollections.ImageCollection;
 import org.jphototagger.domain.repository.event.imagecollections.ImageCollectionDeletedEvent;
 import org.jphototagger.domain.repository.event.imagecollections.ImageCollectionImagesInsertedEvent;

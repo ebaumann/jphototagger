@@ -16,10 +16,11 @@ import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.filechooser.FileFilter;
 
+import org.openide.util.lookup.ServiceProvider;
+
 import org.jphototagger.domain.repository.RepositoryDataImporter;
 import org.jphototagger.program.io.CharEncoding;
 import org.jphototagger.program.repository.exporter.KeywordsExporterLightroom;
-import org.openide.util.lookup.ServiceProvider;
 
 /**
  * Imports keywords exported by <strong>Adobe Photoshop Lightroom</strong>.

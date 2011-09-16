@@ -16,6 +16,7 @@ import java.util.Comparator;
  * @see     IptcEntry
  */
 public final class IptcEntryComparator implements Comparator<IptcEntry> {
+
     public static final IptcEntryComparator INSTANCE = new IptcEntryComparator();
 
     @Override
@@ -41,5 +42,6 @@ public final class IptcEntryComparator implements Comparator<IptcEntry> {
         return o1.getData().compareTo(o2.getData());
     }
 
-    private IptcEntryComparator() {}
+    private IptcEntryComparator() {
+    }
 }

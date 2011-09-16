@@ -9,6 +9,7 @@ import java.util.StringTokenizer;
  * @author Elmar Baumann
  */
 public final class Version implements Comparable<Version> {
+
     private final int major;
     private final int minor1;
     private final int minor2;
@@ -81,28 +82,28 @@ public final class Version implements Comparable<Version> {
             int number = Integer.parseInt(st.nextToken().trim());
 
             switch (index++) {
-            case 0 :
-                major = number;
+                case 0:
+                    major = number;
 
-                break;
+                    break;
 
-            case 1 :
-                minor1 = number;
+                case 1:
+                    minor1 = number;
 
-                break;
+                    break;
 
-            case 2 :
-                minor2 = number;
+                case 2:
+                    minor2 = number;
 
-                break;
+                    break;
 
-            case 3 :
-                minor3 = number;
+                case 3:
+                    minor3 = number;
 
-                break;
+                    break;
 
-            default :
-                assert false;
+                default:
+                    assert false;
             }
         }
 
@@ -199,7 +200,7 @@ public final class Version implements Comparable<Version> {
      * @return version number <code>1.2</code>
      */
     public String toString2() {
-        return MessageFormat.format("{0}.{1}", new Object[] { major, minor1 });
+        return MessageFormat.format("{0}.{1}", new Object[]{major, minor1});
     }
 
     /**
@@ -208,7 +209,7 @@ public final class Version implements Comparable<Version> {
      * @return version number <code>1.2.3</code>
      */
     public String toString3() {
-        return MessageFormat.format("{0}.{1}.{2}", new Object[] { major, minor1, minor2 });
+        return MessageFormat.format("{0}.{1}.{2}", new Object[]{major, minor1, minor2});
     }
 
     /**
@@ -218,6 +219,6 @@ public final class Version implements Comparable<Version> {
      */
     @Override
     public String toString() {
-        return MessageFormat.format("{0}.{1}.{2}.{3}", new Object[] { major, minor1, minor2, minor3 });
+        return MessageFormat.format("{0}.{1}.{2}.{3}", new Object[]{major, minor1, minor2, minor3});
     }
 }

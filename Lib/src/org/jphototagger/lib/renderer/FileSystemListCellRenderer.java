@@ -4,10 +4,11 @@ import java.awt.Component;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.DefaultListCellRenderer;
-import javax.swing.filechooser.FileSystemView;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.filechooser.FileSystemView;
 
 /**
  * Renders an file specific icon for cell values that are an instance of
@@ -17,6 +18,7 @@ import javax.swing.JList;
  * @author Elmar Baumann
  */
 public final class FileSystemListCellRenderer extends DefaultListCellRenderer {
+
     private static final FileSystemView FILE_SYSTEM_VIEW = FileSystemView.getFileSystemView();
     private static final long serialVersionUID = 7162791469100194476L;
     private final boolean absolutePathName;
@@ -33,8 +35,7 @@ public final class FileSystemListCellRenderer extends DefaultListCellRenderer {
     }
 
     @Override
-    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
-            boolean cellHasFocus) {
+    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
         JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 
         if (value instanceof File) {
@@ -51,8 +52,8 @@ public final class FileSystemListCellRenderer extends DefaultListCellRenderer {
             }
 
             label.setText(absolutePathName
-                          ? file.getAbsolutePath()
-                          : file.getName());
+                    ? file.getAbsolutePath()
+                    : file.getName());
         }
 
         return label;

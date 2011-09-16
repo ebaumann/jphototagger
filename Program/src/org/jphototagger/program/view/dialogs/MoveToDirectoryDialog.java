@@ -10,6 +10,9 @@ import javax.swing.filechooser.FileSystemView;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.file.event.FileMovedEvent;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
@@ -29,7 +32,6 @@ import org.jphototagger.program.io.FileSystemMove;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.SelectRootFilesPanel;
 import org.jphototagger.xmp.XmpMetadata;
-import org.openide.util.Lookup;
 
 /**
  *

@@ -8,6 +8,8 @@ import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.domain.keywords.Keyword;
 import org.jphototagger.domain.repository.KeywordsRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
@@ -20,7 +22,6 @@ import org.jphototagger.program.model.KeywordsTreeModel;
 import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.panels.KeywordsPanel;
 import org.jphototagger.program.view.popupmenus.KeywordsTreePopupMenu;
-import org.openide.util.Lookup;
 
 /**
  * Listens to the menu item {@link KeywordsTreePopupMenu#getItemRename()}

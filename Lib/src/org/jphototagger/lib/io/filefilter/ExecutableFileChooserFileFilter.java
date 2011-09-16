@@ -2,7 +2,9 @@ package org.jphototagger.lib.io.filefilter;
 
 import java.io.File;
 import java.io.Serializable;
+
 import javax.swing.filechooser.FileFilter;
+
 import org.jphototagger.lib.util.Bundle;
 
 /**
@@ -11,6 +13,7 @@ import org.jphototagger.lib.util.Bundle;
  * @author Elmar Baumann
  */
 public final class ExecutableFileChooserFileFilter extends FileFilter implements Serializable {
+
     private static final long serialVersionUID = 8245956226000329520L;
 
     @Override

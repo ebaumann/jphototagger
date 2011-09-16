@@ -6,6 +6,8 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JProgressBar;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.domain.event.listener.ListenerSupport;
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.programs.ProgramExecutor;
@@ -24,7 +26,6 @@ import org.jphototagger.program.helper.ProgramsHelper.ReorderListener;
 import org.jphototagger.program.model.ProgramsListModel;
 import org.jphototagger.program.view.dialogs.ProgramPropertiesDialog;
 import org.jphototagger.program.view.renderer.ActionsListCellRenderer;
-import org.openide.util.Lookup;
 
 /**
  *

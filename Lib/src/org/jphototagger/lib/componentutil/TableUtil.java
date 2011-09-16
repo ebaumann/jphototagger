@@ -1,13 +1,15 @@
 package org.jphototagger.lib.componentutil;
 
-import org.jphototagger.lib.util.StringUtil;
 import java.awt.Component;
 import java.util.List;
+
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
+
+import org.jphototagger.lib.util.StringUtil;
 
 /**
  * Werkzeuge für Tabellen.
@@ -19,6 +21,7 @@ import javax.swing.table.TableModel;
  * @author Elmar Baumann
  */
 public final class TableUtil {
+
     private static final String HTML_LINE_BREAK = "<br />";
 
     /**
@@ -58,13 +61,13 @@ public final class TableUtil {
 
         List<String> lines = StringUtil.wrapWords(text, maxCharsPerLine);
         StringBuilder sb = new StringBuilder("<html><style type=\"text/css\">body { " + style
-                               + " }</style></head><body>");
+                + " }</style></head><body>");
         int lineCount = lines.size();
 
         for (int i = 0; i < lineCount; i++) {
             sb.append((i == 0)
-                      ? lines.get(i)
-                      : HTML_LINE_BREAK + lines.get(i));
+                    ? lines.get(i)
+                    : HTML_LINE_BREAK + lines.get(i));
         }
 
         sb.append("</body></html>");
@@ -106,8 +109,8 @@ public final class TableUtil {
                 }
 
                 Component cell =
-                    table.getDefaultRenderer(model.getColumnClass(colIndex)).getTableCellRendererComponent(table,
-                                             value, false, false, rowIndex, colIndex);
+                        table.getDefaultRenderer(model.getColumnClass(colIndex)).getTableCellRendererComponent(table,
+                        value, false, false, rowIndex, colIndex);
                 int width = cell.getPreferredSize().width;
 
                 if (width > longestCell) {
@@ -130,5 +133,6 @@ public final class TableUtil {
         column.setPreferredWidth(width);
     }
 
-    private TableUtil() {}
+    private TableUtil() {
+    }
 }

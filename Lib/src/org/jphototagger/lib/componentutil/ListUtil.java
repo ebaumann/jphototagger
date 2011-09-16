@@ -1,15 +1,17 @@
 package org.jphototagger.lib.componentutil;
 
-import java.awt.event.MouseEvent;
 import java.awt.Point;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.StringTokenizer;
+
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.ListModel;
+
 import org.jdesktop.swingx.JXList;
 
 /**
@@ -22,7 +24,9 @@ import org.jdesktop.swingx.JXList;
  * @author Elmar Baumann
  */
 public final class ListUtil {
-    private ListUtil() {}
+
+    private ListUtil() {
+    }
 
     /**
      * Clears alls selected items in all lists.
@@ -186,7 +190,7 @@ public final class ListUtil {
 
         int size = model.getSize();
         boolean canSwap = (indexFirstElement >= 0) && (indexFirstElement < size) && (indexSecondElement >= 0)
-                          && (indexSecondElement < size) && (indexSecondElement != indexFirstElement);
+                && (indexSecondElement < size) && (indexSecondElement != indexFirstElement);
 
         if (!canSwap) {
             return false;
@@ -273,7 +277,7 @@ public final class ListUtil {
             if (list instanceof JXList) {
                 modelIndex = ((JXList) list).convertIndexToModel(listIndex);
             }
-            
+
             Object o = list.getModel().getElementAt(modelIndex);
 
             if (o instanceof String) {

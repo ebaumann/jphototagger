@@ -3,11 +3,12 @@ package org.jphototagger.program.view.panels;
 import java.io.File;
 import java.util.Collection;
 
+import org.openide.util.lookup.ServiceProvider;
+
 import org.jphototagger.api.image.thumbnails.ThumbnailsDisplayer;
 import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.resource.GUI;
-import org.openide.util.lookup.ServiceProvider;
 
 /**
  *

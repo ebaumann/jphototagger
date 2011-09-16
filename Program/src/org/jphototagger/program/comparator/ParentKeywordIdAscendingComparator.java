@@ -1,8 +1,8 @@
 package org.jphototagger.program.comparator;
 
-import org.jphototagger.domain.keywords.Keyword;
-
 import java.util.Comparator;
+
+import org.jphototagger.domain.keywords.Keyword;
 
 /**
  * Compares {@link Keyword}s by the database ID of their parents.

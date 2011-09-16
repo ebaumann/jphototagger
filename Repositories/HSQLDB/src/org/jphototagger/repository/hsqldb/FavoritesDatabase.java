@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.bushe.swing.event.EventBus;
+
 import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.domain.repository.event.favorites.FavoriteDeletedEvent;
 import org.jphototagger.domain.repository.event.favorites.FavoriteInsertedEvent;
@@ -25,7 +26,8 @@ final class FavoritesDatabase extends Database {
 
     static final FavoritesDatabase INSTANCE = new FavoritesDatabase();
 
-    private FavoritesDatabase() {}
+    private FavoritesDatabase() {
+    }
 
     boolean insertOrUpdateFavorite(Favorite favorite) {
         if (favorite == null) {
@@ -44,8 +46,8 @@ final class FavoritesDatabase extends Database {
             con = getConnection();
             con.setAutoCommit(false);
             stmt = con.prepareStatement("INSERT INTO favorite_directories"
-                                        + " (favorite_name, directory_name, favorite_index)"
-                                        + " VALUES (?, ?, ?)");
+                    + " (favorite_name, directory_name, favorite_index)"
+                    + " VALUES (?, ?, ?)");
             stmt.setString(1, favorite.getName());
             stmt.setString(2, getFilePath(favorite.getDirectory()));
             stmt.setInt(3, favorite.getIndex());
@@ -173,8 +175,8 @@ final class FavoritesDatabase extends Database {
             Favorite oldFavorite = find(favorite.getId());
 
             stmt = con.prepareStatement("UPDATE favorite_directories SET"
-                                        + " favorite_name = ?, directory_name = ?, favorite_index = ?"
-                                        + " WHERE id = ?");
+                    + " favorite_name = ?, directory_name = ?, favorite_index = ?"
+                    + " WHERE id = ?");
             stmt.setString(1, favorite.getName());
             stmt.setString(2, getFilePath(favorite.getDirectory()));
             stmt.setInt(3, favorite.getIndex());
@@ -211,7 +213,7 @@ final class FavoritesDatabase extends Database {
             stmt = con.createStatement();
 
             String sql = "SELECT id, favorite_name, directory_name, favorite_index"
-                         + " FROM favorite_directories ORDER BY favorite_index ASC";
+                    + " FROM favorite_directories ORDER BY favorite_index ASC";
 
             logFinest(sql);
             rs = stmt.executeQuery(sql);
@@ -245,7 +247,7 @@ final class FavoritesDatabase extends Database {
         try {
             con = getConnection();
             stmt = con.prepareStatement("SELECT id, favorite_name, directory_name, favorite_index"
-                                        + " FROM favorite_directories WHERE id = ?");
+                    + " FROM favorite_directories WHERE id = ?");
             stmt.setLong(1, id);
             logFinest(stmt);
             rs = stmt.executeQuery();
@@ -276,7 +278,7 @@ final class FavoritesDatabase extends Database {
         try {
             con = getConnection();
             stmt = con.prepareStatement("SELECT id, favorite_name, directory_name, favorite_index"
-                                        + " FROM favorite_directories WHERE favorite_name = ?");
+                    + " FROM favorite_directories WHERE favorite_name = ?");
             stmt.setString(1, favoriteName);
             logFinest(stmt);
             rs = stmt.executeQuery();

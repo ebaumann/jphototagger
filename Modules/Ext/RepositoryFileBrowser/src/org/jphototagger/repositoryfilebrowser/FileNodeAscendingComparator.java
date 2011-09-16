@@ -22,5 +22,4 @@ public final class FileNodeAscendingComparator implements Comparator<FileNode> {
 
     private FileNodeAscendingComparator() {
     }
-
 }

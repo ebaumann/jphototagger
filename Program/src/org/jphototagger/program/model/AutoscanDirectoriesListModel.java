@@ -7,12 +7,14 @@ import javax.swing.DefaultListModel;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+
+import org.openide.util.Lookup;
+
 import org.jphototagger.domain.repository.AutoscanDirectoriesRepository;
 import org.jphototagger.domain.repository.Repository;
 import org.jphototagger.domain.repository.event.autoscandirectories.AutoscanDirectoryDeletedEvent;
 import org.jphototagger.domain.repository.event.autoscandirectories.AutoscanDirectoryInsertedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.openide.util.Lookup;
 
 /**
  *

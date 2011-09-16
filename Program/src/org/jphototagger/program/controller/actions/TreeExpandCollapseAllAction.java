@@ -15,6 +15,7 @@ import org.jphototagger.lib.util.Bundle;
  * @author Elmar Baumann
  */
 public final class TreeExpandCollapseAllAction extends AbstractAction {
+
     private static final long serialVersionUID = -2312693675896808948L;
     public static final String SELECTED_TEXT = Bundle.getString(TreeExpandCollapseAllAction.class, "TreeExpandCollapseAllAction.ToggleButton.Selected.Text");
     public static final String NOT_SELECTED_TEXT = Bundle.getString(TreeExpandCollapseAllAction.class, "TreeExpandCollapseAllAction.ToggleButton.NotSelected.Text");
@@ -42,7 +43,7 @@ public final class TreeExpandCollapseAllAction extends AbstractAction {
 
         TreeUtil.expandAll(tree, selected);
         toggleButton.setText(selected
-                             ? SELECTED_TEXT
-                             : NOT_SELECTED_TEXT);
+                ? SELECTED_TEXT
+                : NOT_SELECTED_TEXT);
     }
 }

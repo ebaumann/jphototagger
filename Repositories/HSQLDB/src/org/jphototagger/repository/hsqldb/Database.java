@@ -464,10 +464,10 @@ public class Database {
         }
 
         return (l < min)
-               ? min
-               : (l > max)
-                 ? max
-                 : l;
+                ? min
+                : (l > max)
+                ? max
+                : l;
     }
 
     protected String getString(ResultSet rs, int colIndex) throws SQLException {
@@ -726,10 +726,10 @@ public class Database {
             Long v = (Long) value;
 
             stmt.setLong(paramIndex, (v < min)
-                                     ? min
-                                     : (v > max)
-                                       ? max
-                                       : v);
+                    ? min
+                    : (v > max)
+                    ? max
+                    : v);
         }
     }
 

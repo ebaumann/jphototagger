@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 
 import org.jdesktop.beansbinding.Validator;
 import org.jdesktop.beansbinding.Validator.Result;
+
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 

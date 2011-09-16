@@ -10,6 +10,7 @@ import java.util.List;
  * @author Elmar Baumann
  */
 public final class ImageFileDirectory {
+
     private final File directory;
     private final List<File> imageFiles;
 
@@ -54,8 +55,8 @@ public final class ImageFileDirectory {
         int hash = 3;
 
         hash = 97 * hash + ((this.directory != null)
-                            ? this.directory.hashCode()
-                            : 0);
+                ? this.directory.hashCode()
+                : 0);
 
         return hash;
     }

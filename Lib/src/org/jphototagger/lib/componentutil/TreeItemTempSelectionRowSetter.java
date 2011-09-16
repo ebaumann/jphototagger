@@ -1,17 +1,20 @@
 package org.jphototagger.lib.componentutil;
 
-import org.jphototagger.lib.event.util.MouseEventUtil;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.lang.reflect.Method;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.event.PopupMenuEvent;
-import javax.swing.event.PopupMenuListener;
+
 import javax.swing.JPopupMenu;
 import javax.swing.JTree;
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
 import javax.swing.tree.TreeCellRenderer;
+
 import org.jdesktop.swingx.JXTree;
+
+import org.jphototagger.lib.event.util.MouseEventUtil;
 
 /**
  * Listens in a {@link JTree} for popup triggers and sets to the tree cell
@@ -26,6 +29,7 @@ import org.jdesktop.swingx.JXTree;
  * @author Elmar Baumann
  */
 public final class TreeItemTempSelectionRowSetter implements MouseListener, PopupMenuListener {
+
     private final JTree tree;
     private static final String TEMP_SEL_ROW_METHOD_NAME = "setTempSelectionRow";
 
@@ -103,37 +107,31 @@ public final class TreeItemTempSelectionRowSetter implements MouseListener, Popu
 
     @Override
     public void mouseClicked(MouseEvent evt) {
-
         // ignore
     }
 
     @Override
     public void mouseReleased(MouseEvent evt) {
-
         // ignore
     }
 
     @Override
     public void mouseEntered(MouseEvent evt) {
-
         // ignore
     }
 
     @Override
     public void mouseExited(MouseEvent evt) {
-
         // ignore
     }
 
     @Override
     public void popupMenuWillBecomeVisible(PopupMenuEvent evt) {
-
         // ignore
     }
 
     @Override
     public void popupMenuCanceled(PopupMenuEvent evt) {
-
         // ignore
     }
 }

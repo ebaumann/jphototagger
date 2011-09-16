@@ -33,6 +33,9 @@ import javax.swing.tree.TreeSelectionModel;
 
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.JXTree;
+
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.api.windows.MainWindowComponent;
 import org.jphototagger.lib.awt.EventQueueUtil;
@@ -64,7 +67,6 @@ import org.jphototagger.program.view.renderer.MiscMetadataTreeCellRenderer;
 import org.jphototagger.program.view.renderer.SavedSearchesListCellRenderer;
 import org.jphototagger.program.view.renderer.TimelineTreeCellRenderer;
 import org.jphototagger.program.view.renderer.XmpTableCellRenderer;
-import org.openide.util.Lookup;
 
 /**
  * Panel der Anwendung.

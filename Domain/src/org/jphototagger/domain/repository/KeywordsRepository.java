@@ -1,11 +1,10 @@
 package org.jphototagger.domain.repository;
 
-import org.jphototagger.domain.keywords.KeywordType;
 import java.util.Collection;
 import java.util.List;
 
 import org.jphototagger.domain.keywords.Keyword;
-
+import org.jphototagger.domain.keywords.KeywordType;
 
 /**
  *

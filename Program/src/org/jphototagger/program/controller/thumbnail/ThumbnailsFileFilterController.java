@@ -12,6 +12,8 @@ import javax.swing.JMenuItem;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
 import org.jphototagger.program.model.FileFiltersComboBoxModel;
@@ -19,7 +21,6 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.WaitDisplay;
 import org.jphototagger.program.view.dialogs.UserDefinedFileFilterDialog;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
-import org.openide.util.Lookup;
 
 /**
  *

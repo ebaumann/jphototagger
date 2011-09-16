@@ -15,6 +15,15 @@ import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 
+import com.imagero.reader.IOParameterBlock;
+import com.imagero.reader.ImageProcOptions;
+import com.imagero.reader.ImageReader;
+import com.imagero.reader.Imagero;
+import com.imagero.reader.ReaderFactory;
+import com.imagero.reader.tiff.TiffReader;
+
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.domain.filetypes.UserDefinedFileType;
 import org.jphototagger.domain.repository.UserDefinedFileTypesRepository;
@@ -28,14 +37,6 @@ import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.runtime.External;
 import org.jphototagger.lib.runtime.ExternalOutput;
 import org.jphototagger.lib.swing.IconUtil;
-import org.openide.util.Lookup;
-
-import com.imagero.reader.IOParameterBlock;
-import com.imagero.reader.ImageProcOptions;
-import com.imagero.reader.ImageReader;
-import com.imagero.reader.Imagero;
-import com.imagero.reader.ReaderFactory;
-import com.imagero.reader.tiff.TiffReader;
 
 /**
  *

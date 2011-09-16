@@ -9,6 +9,8 @@ import java.util.List;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
 import org.jphototagger.domain.repository.UserDefinedFileFiltersRepository;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
@@ -17,7 +19,6 @@ import org.jphototagger.lib.event.util.MouseEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.model.UserDefinedFileFilterListModel;
 import org.jphototagger.program.view.dialogs.EditUserDefinedFileFilterDialog;
-import org.openide.util.Lookup;
 
 /**
  *

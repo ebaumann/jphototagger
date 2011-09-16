@@ -4,6 +4,9 @@ import javax.swing.DefaultListModel;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+
+import org.openide.util.Lookup;
+
 import org.jphototagger.domain.repository.Repository;
 import org.jphototagger.domain.repository.SynonymsRepository;
 import org.jphototagger.domain.repository.event.synonyms.SynonymInsertedEvent;
@@ -15,7 +18,6 @@ import org.jphototagger.domain.repository.event.synonyms.WordRenamedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.openide.util.Lookup;
 
 /**
  *

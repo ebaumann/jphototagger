@@ -7,17 +7,18 @@ import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 
-import org.jphototagger.api.storage.Storage;
-import org.jphototagger.lib.componentutil.ComponentUtil;
-import org.jphototagger.lib.util.Bundle;
-import org.openide.util.Lookup;
-
 import com.aetrion.flickr.Flickr;
 import com.aetrion.flickr.REST;
 import com.aetrion.flickr.RequestContext;
 import com.aetrion.flickr.auth.Auth;
 import com.aetrion.flickr.auth.AuthInterface;
 import com.aetrion.flickr.auth.Permission;
+
+import org.openide.util.Lookup;
+
+import org.jphototagger.api.storage.Storage;
+import org.jphototagger.lib.componentutil.ComponentUtil;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  *

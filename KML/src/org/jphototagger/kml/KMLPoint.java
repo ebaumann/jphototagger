@@ -8,6 +8,7 @@ package org.jphototagger.kml;
  * @author Elmar Baumann
  */
 public final class KMLPoint implements KMLElement {
+
     private static final double VALUE_NO_ALTITUDE = Double.MIN_VALUE;
     private final double longitude;
     private final double latitude;

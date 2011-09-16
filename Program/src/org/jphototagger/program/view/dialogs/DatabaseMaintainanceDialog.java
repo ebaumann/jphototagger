@@ -1,5 +1,7 @@
 package org.jphototagger.program.view.dialogs;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.api.storage.StorageHints;
 import org.jphototagger.lib.componentutil.ComponentUtil;
@@ -7,7 +9,6 @@ import org.jphototagger.lib.componentutil.TabbedPaneUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.openide.util.Lookup;
 
 /**
  *

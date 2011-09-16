@@ -16,6 +16,7 @@ import org.jphototagger.lib.util.Bundle;
  * @author Elmar Baumann
  */
 public final class MaxLengthInputVerifier extends InputVerifier implements Serializable {
+
     private static final long serialVersionUID = 3511123914461892781L;
     private final int maxLength;
     private boolean message = true;
@@ -72,8 +73,8 @@ public final class MaxLengthInputVerifier extends InputVerifier implements Seria
         }
 
         JOptionPane.showMessageDialog(input,
-                                      Bundle.getString(MaxLengthInputVerifier.class, "MaxLengthInputVerifier.ErrorMessage", maxLength),
-                                      Bundle.getString(MaxLengthInputVerifier.class, "MaxLengthInputVerifier.Error.Title"),
-                                      JOptionPane.ERROR_MESSAGE);
+                Bundle.getString(MaxLengthInputVerifier.class, "MaxLengthInputVerifier.ErrorMessage", maxLength),
+                Bundle.getString(MaxLengthInputVerifier.class, "MaxLengthInputVerifier.Error.Title"),
+                JOptionPane.ERROR_MESSAGE);
     }
 }

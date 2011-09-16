@@ -7,6 +7,7 @@ import javax.swing.JButton;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+
 import org.jphototagger.domain.metadata.event.EditMetadataPanelsEditDisabledEvent;
 import org.jphototagger.domain.metadata.event.EditMetadataPanelsEditEnabledEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;

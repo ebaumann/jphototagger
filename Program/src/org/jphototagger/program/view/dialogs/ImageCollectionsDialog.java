@@ -154,11 +154,13 @@ public final class ImageCollectionsDialog extends Dialog {
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 ImageCollectionsDialog dialog = new ImageCollectionsDialog();
 
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
@@ -168,7 +170,6 @@ public final class ImageCollectionsDialog extends Dialog {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonOk;
     private javax.swing.JLabel labelSelectImageCollection;

@@ -10,6 +10,7 @@ import org.jphototagger.program.resource.GUI;
  * @author Elmar Baumann
  */
 public class SettingsThumbnailDimensionsDialog extends Dialog {
+
     private static final long serialVersionUID = -6371918482095310098L;
 
     public SettingsThumbnailDimensionsDialog() {
@@ -126,14 +127,16 @@ public class SettingsThumbnailDimensionsDialog extends Dialog {
     }//GEN-LAST:event_buttonFurtherSettingsActionPerformed
 
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 SettingsThumbnailDimensionsDialog dialog = new SettingsThumbnailDimensionsDialog();
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
@@ -143,7 +146,6 @@ public class SettingsThumbnailDimensionsDialog extends Dialog {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonClose;
     private javax.swing.JButton buttonFurtherSettings;

@@ -17,6 +17,9 @@ import javax.swing.event.ListDataListener;
 import javax.swing.filechooser.FileSystemView;
 
 import org.bushe.swing.event.EventBus;
+
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.file.event.FileRenamedEvent;
 import org.jphototagger.api.image.thumbnails.ThumbnailProvider;
 import org.jphototagger.api.storage.Storage;
@@ -40,7 +43,6 @@ import org.jphototagger.program.helper.RenameTemplateHelper;
 import org.jphototagger.program.model.RenameTemplatesComboBoxModel;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.xmp.XmpMetadata;
-import org.openide.util.Lookup;
 
 /**
  * Dialog for renaming filenames.

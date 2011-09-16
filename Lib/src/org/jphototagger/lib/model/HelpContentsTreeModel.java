@@ -1,11 +1,12 @@
 package org.jphototagger.lib.model;
 
-import org.jphototagger.lib.util.help.HelpIndexParser;
-import org.jphototagger.lib.util.help.HelpNode;
-import org.jphototagger.lib.util.help.HelpPage;
 import javax.swing.event.TreeModelListener;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
+
+import org.jphototagger.lib.util.help.HelpIndexParser;
+import org.jphototagger.lib.util.help.HelpNode;
+import org.jphototagger.lib.util.help.HelpPage;
 
 /**
  * Contains the help index of an application's help, the root node of an
@@ -18,6 +19,7 @@ import javax.swing.tree.TreePath;
  * @author Elmar Baumann
  */
 public final class HelpContentsTreeModel implements TreeModel {
+
     private HelpNode root = new HelpNode();
 
     @Override
@@ -47,19 +49,16 @@ public final class HelpContentsTreeModel implements TreeModel {
 
     @Override
     public void valueForPathChanged(TreePath path, Object newValue) {
-
         // ignore
     }
 
     @Override
     public void addTreeModelListener(TreeModelListener l) {
-
         // ignore
     }
 
     @Override
     public void removeTreeModelListener(TreeModelListener l) {
-
         // ignore
     }
 

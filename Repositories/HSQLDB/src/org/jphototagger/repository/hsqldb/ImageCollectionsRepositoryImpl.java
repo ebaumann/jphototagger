@@ -3,9 +3,10 @@ package org.jphototagger.repository.hsqldb;
 import java.io.File;
 import java.util.List;
 
+import org.openide.util.lookup.ServiceProvider;
+
 import org.jphototagger.domain.imagecollections.ImageCollection;
 import org.jphototagger.domain.repository.ImageCollectionsRepository;
-import org.openide.util.lookup.ServiceProvider;
 
 /**
  *

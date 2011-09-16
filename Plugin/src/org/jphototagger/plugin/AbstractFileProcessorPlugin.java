@@ -2,10 +2,11 @@ package org.jphototagger.plugin;
 
 import javax.swing.JProgressBar;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.plugin.fileprocessor.FileProcessorPlugin;
 import org.jphototagger.api.progress.ProgressBarProvider;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.openide.util.Lookup;
 
 /**
  * Handles Listeners and provides a progress bar.

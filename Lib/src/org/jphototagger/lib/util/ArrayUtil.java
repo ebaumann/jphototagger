@@ -108,5 +108,6 @@ public final class ArrayUtil {
         return true;
     }
 
-    private ArrayUtil() {}
+    private ArrayUtil() {
+    }
 }

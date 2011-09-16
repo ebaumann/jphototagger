@@ -6,12 +6,13 @@ import java.awt.Insets;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.plugin.flickrupload.FlickrImageInfoPanel.ImageInfo;
-import org.openide.util.Lookup;
 
 /**
  *

@@ -68,7 +68,7 @@ public final class TreeFileSystemDirectories {
         if (directory.isDirectory()) {
             String newDirectoryName = getNewName(directory);
 
-            if ((newDirectoryName != null) &&!newDirectoryName.trim().isEmpty()) {
+            if ((newDirectoryName != null) && !newDirectoryName.trim().isEmpty()) {
                 File newDirectory = new File(directory.getParentFile(), newDirectoryName);
 
                 if (checkDoesNotExist(newDirectory)) {
@@ -101,7 +101,7 @@ public final class TreeFileSystemDirectories {
         if (parentDirectory.isDirectory()) {
             String subdirectoryName = getSubDirectoryName();
 
-            if ((subdirectoryName != null) &&!subdirectoryName.trim().isEmpty()) {
+            if ((subdirectoryName != null) && !subdirectoryName.trim().isEmpty()) {
                 File subdirectory = new File(parentDirectory, subdirectoryName);
 
                 if (checkDoesNotExist(subdirectory)) {
@@ -315,5 +315,6 @@ public final class TreeFileSystemDirectories {
         return JOptionPane.showInputDialog(parentFrame, message);
     }
 
-    private TreeFileSystemDirectories() {}
+    private TreeFileSystemDirectories() {
+    }
 }

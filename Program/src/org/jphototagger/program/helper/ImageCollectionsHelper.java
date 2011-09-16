@@ -6,6 +6,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.jdesktop.swingx.JXList;
+
+import org.openide.util.Lookup;
+
 import org.jphototagger.domain.repository.ImageCollectionsRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
@@ -13,7 +16,6 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.model.ImageCollectionsListModel;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
-import org.openide.util.Lookup;
 
 /**
  *

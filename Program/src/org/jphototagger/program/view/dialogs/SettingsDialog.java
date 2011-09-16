@@ -9,6 +9,8 @@ import java.util.Map;
 
 import javax.swing.JButton;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.lib.componentutil.TabbedPaneUtil;
 import org.jphototagger.lib.dialog.Dialog;
@@ -16,7 +18,6 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.types.Persistence;
-import org.openide.util.Lookup;
 
 /**
  * Modaler Dialog für Anwendungseinstellungen.

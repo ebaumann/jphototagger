@@ -6,6 +6,7 @@ package org.jphototagger.xmp;
  * @author Elmar Baumann
  */
 public final class EditHints {
+
     private final boolean repeatable;
     private final SizeEditField sizeEditField;
 
@@ -18,12 +19,10 @@ public final class EditHints {
          * Kleines Feld reicht aus (einzeilig)
          */
         SMALL,
-
         /**
          * "Mittleres" Feld reicht aus (etwa drei Zeilen)
          */
         MEDIUM,
-
         /**
          * Größeres Feld
          */

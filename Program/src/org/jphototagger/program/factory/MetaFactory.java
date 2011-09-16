@@ -4,12 +4,13 @@ import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.modules.Module;
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.app.AppWindowPersistence;
 import org.jphototagger.program.app.update.UpdateDownload;
-import org.openide.util.Lookup;
 
 /**
  * Initalizes all other factories in the right order and sets the persistent

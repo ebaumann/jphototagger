@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
+
 import javax.swing.JFileChooser;
+
 import org.jphototagger.lib.dialog.FileChooserExt;
 import org.jphototagger.lib.util.Settings;
 
@@ -17,7 +19,7 @@ import org.jphototagger.lib.util.Settings;
  * @author Elmar Baumann
  */
 public final class FileChooserHelper {
-    
+
     /**
      * Displays a {@link FileChooserExt} for choosing files to open or save.
      * <p>
@@ -98,18 +100,18 @@ public final class FileChooserHelper {
 
     private static Component getParent(FileChooserProperties p) {
         return (p == null)
-               ? null
-               : p.getParent();
+                ? null
+                : p.getParent();
     }
 
     private static boolean isOpen(FileChooserProperties p) {
         return (p == null)
-               ? true
-               : p.isOpen();
+                ? true
+                : p.isOpen();
     }
 
     private static void writeCurrentDirectoryPath(List<File> files, FileChooserProperties p) {
-        if (canWriteProperties(p) &&!files.isEmpty()) {
+        if (canWriteProperties(p) && !files.isEmpty()) {
             p.getProperties().setProperty(getKeyCurrentDirectoryPath(p), files.get(0).getAbsolutePath());
         }
     }
@@ -180,8 +182,8 @@ public final class FileChooserHelper {
         List<File> files = chooseFiles(fcProperties);
 
         return files.isEmpty()
-               ? null
-               : files.get(0);
+                ? null
+                : files.get(0);
     }
 
     private FileChooserHelper() {

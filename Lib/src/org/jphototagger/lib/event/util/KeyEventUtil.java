@@ -1,8 +1,9 @@
 package org.jphototagger.lib.event.util;
 
+import java.awt.Toolkit;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-import java.awt.Toolkit;
+
 import javax.swing.KeyStroke;
 
 /**
@@ -15,7 +16,9 @@ import javax.swing.KeyStroke;
  * @author Elmar Baumann
  */
 public final class KeyEventUtil {
-    private KeyEventUtil() {}
+
+    private KeyEventUtil() {
+    }
 
     /**
      * Returns whether to copy, i.e. that the key combination of
@@ -88,8 +91,8 @@ public final class KeyEventUtil {
         int menuShortcutMask = getMenuShortcutMask();
 
         return isKeyCode(evt, keyCode)
-               && (isModifier(evt, menuShortcutMask | KeyEvent.ALT_DOWN_MASK)
-                   || isModifier(evt, menuShortcutMask | KeyEvent.ALT_MASK));
+                && (isModifier(evt, menuShortcutMask | KeyEvent.ALT_DOWN_MASK)
+                || isModifier(evt, menuShortcutMask | KeyEvent.ALT_MASK));
     }
 
     /**
@@ -108,8 +111,8 @@ public final class KeyEventUtil {
         int menuShortcutMask = getMenuShortcutMask();
 
         return isKeyCode(evt, keyCode)
-               && (isModifier(evt, menuShortcutMask | KeyEvent.SHIFT_DOWN_MASK)
-                   || isModifier(evt, menuShortcutMask | KeyEvent.SHIFT_MASK));
+                && (isModifier(evt, menuShortcutMask | KeyEvent.SHIFT_DOWN_MASK)
+                || isModifier(evt, menuShortcutMask | KeyEvent.SHIFT_MASK));
     }
 
     /**
@@ -188,6 +191,6 @@ public final class KeyEventUtil {
      */
     public static KeyStroke getKeyStrokeMenuShortcutWithShiftAltDown(int keyCode) {
         return KeyStroke.getKeyStroke(keyCode,
-                                      getMenuShortcutMask() | InputEvent.SHIFT_DOWN_MASK | InputEvent.ALT_DOWN_MASK);
+                getMenuShortcutMask() | InputEvent.SHIFT_DOWN_MASK | InputEvent.ALT_DOWN_MASK);
     }
 }

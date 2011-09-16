@@ -12,6 +12,7 @@ import java.net.URL;
  * @author Elmar Baumann
  */
 public final class HelpBrowserEvent {
+
     private final Object source;
     private final Type type;
     private final URL url;

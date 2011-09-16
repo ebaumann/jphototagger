@@ -8,6 +8,9 @@ import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.filechooser.FileFilter;
 
+import org.openide.util.Lookup;
+import org.openide.util.lookup.ServiceProvider;
+
 import org.jphototagger.domain.imagecollections.ImageCollection;
 import org.jphototagger.domain.repository.ImageCollectionsRepository;
 import org.jphototagger.domain.repository.InsertIntoRepository;
@@ -24,8 +27,6 @@ import org.jphototagger.program.model.ImageCollectionsListModel;
 import org.jphototagger.program.repository.exporter.ImageCollectionsExporter;
 import org.jphototagger.program.repository.exporter.ImageCollectionsExporter.CollectionWrapper;
 import org.jphototagger.program.view.panels.ProgressBarUpdater;
-import org.openide.util.Lookup;
-import org.openide.util.lookup.ServiceProvider;
 
 /**
  *

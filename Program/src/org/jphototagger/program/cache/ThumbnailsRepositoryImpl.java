@@ -3,8 +3,9 @@ package org.jphototagger.program.cache;
 import java.awt.Image;
 import java.io.File;
 
-import org.jphototagger.domain.repository.ThumbnailsRepository;
 import org.openide.util.lookup.ServiceProvider;
+
+import org.jphototagger.domain.repository.ThumbnailsRepository;
 
 /**
  *

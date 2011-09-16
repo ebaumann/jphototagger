@@ -11,6 +11,9 @@ import javax.swing.JScrollPane;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.domain.event.AppWillExitEvent;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsChangedEvent;
@@ -22,7 +25,6 @@ import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
-import org.openide.util.Lookup;
 
 /**
  * Applies persistent settings to the thumbnails panel.

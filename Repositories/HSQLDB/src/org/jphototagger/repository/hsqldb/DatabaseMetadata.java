@@ -9,10 +9,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.branding.ApplicationProperties;
 import org.jphototagger.domain.repository.ApplicationPropertiesRepository;
 import org.jphototagger.lib.util.Version;
-import org.openide.util.Lookup;
 
 /**
  *

@@ -6,6 +6,9 @@ import java.util.Set;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+
+import org.openide.util.Lookup;
+
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.selections.DatabaseInfoRecordCountColumns;
 import org.jphototagger.domain.repository.RepositoryStatistics;
@@ -21,7 +24,6 @@ import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.model.TableModelExt;
 import org.jphototagger.lib.util.Bundle;
-import org.openide.util.Lookup;
 
 /**
  * Elements are {@link MetaDataValue}s retrieved through

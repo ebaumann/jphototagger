@@ -1,9 +1,10 @@
 package org.jphototagger.lib.comparator;
 
-import org.jphototagger.lib.util.ClassEquality;
 import java.io.File;
 import java.io.Serializable;
 import java.util.Comparator;
+
+import org.jphototagger.lib.util.ClassEquality;
 
 /**
  * Compares the last modification time of two files descending.
@@ -11,6 +12,7 @@ import java.util.Comparator;
  * @author Elmar Baumann
  */
 public final class FileLastModifiedDescendingComparator extends ClassEquality implements Comparator<File>, Serializable {
+
     private static final long serialVersionUID = 5961294262855141993L;
 
     @Override
@@ -19,9 +21,9 @@ public final class FileLastModifiedDescendingComparator extends ClassEquality im
         long timeRight = fileRight.lastModified();
 
         return (timeLeft == timeRight)
-               ? 0
-               : (timeLeft > timeRight)
-                 ? -1
-                 : 1;
+                ? 0
+                : (timeLeft > timeRight)
+                ? -1
+                : 1;
     }
 }

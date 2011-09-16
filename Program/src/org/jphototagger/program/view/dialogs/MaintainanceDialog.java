@@ -19,6 +19,7 @@ import org.jphototagger.program.view.panels.MaintainanceCachesPanel;
  * @author Elmar Baumann
  */
 public class MaintainanceDialog extends Dialog {
+
     private static final long serialVersionUID = 1L;
 
     public MaintainanceDialog() {

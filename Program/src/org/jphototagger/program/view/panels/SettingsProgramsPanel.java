@@ -4,6 +4,8 @@ import java.awt.Container;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.programs.ProgramType;
 import org.jphototagger.domain.repository.ProgramsRepository;
@@ -19,7 +21,6 @@ import org.jphototagger.program.model.ProgramsListModel;
 import org.jphototagger.program.types.Persistence;
 import org.jphototagger.program.view.dialogs.ProgramPropertiesDialog;
 import org.jphototagger.program.view.renderer.ProgramsListCellRenderer;
-import org.openide.util.Lookup;
 
 
 

@@ -1,18 +1,21 @@
 package org.jphototagger.lib.dialog;
 
 import java.awt.Component;
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.awt.Frame;
+
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JRootPane;
 import javax.swing.KeyStroke;
-import org.jphototagger.api.storage.Storage;
+
 import org.openide.util.Lookup;
+
+import org.jphototagger.api.storage.Storage;
 
 /**
  * Dialog which can close by pressing the ESC key and showing the Help dialog
@@ -21,6 +24,7 @@ import org.openide.util.Lookup;
  * @author Elmar Baumann
  */
 public class Dialog extends JDialog implements WindowListener {
+
     private static final long serialVersionUID = 847375186274302816L;
     private transient ActionListener actionListenerEscape;
     private transient ActionListener actionListenerHelp;
@@ -111,7 +115,7 @@ public class Dialog extends JDialog implements WindowListener {
             throw new NullPointerException("url == null");
         }
 
-        if ((help.getContentsUrl() == null) ||!help.getContentsUrl().equals(helpContentsUrl)) {
+        if ((help.getContentsUrl() == null) || !help.getContentsUrl().equals(helpContentsUrl)) {
             help.setContentsUrl(helpContentsUrl);
         }
 
@@ -192,8 +196,8 @@ public class Dialog extends JDialog implements WindowListener {
 
     private String getSizeAndLocationKey() {
         return (storageKey == null)
-               ? getClass().getName()
-               : storageKey;
+                ? getClass().getName()
+                : storageKey;
     }
 
     private void registerKeyboardActions() {
@@ -212,12 +216,14 @@ public class Dialog extends JDialog implements WindowListener {
 
     private void createActionListener() {
         actionListenerEscape = new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 escape();
             }
         };
         actionListenerHelp = new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 help();
@@ -244,37 +250,31 @@ public class Dialog extends JDialog implements WindowListener {
 
     @Override
     public void windowOpened(WindowEvent evt) {
-
         // ignore
     }
 
     @Override
     public void windowClosed(WindowEvent evt) {
-
         // ignore
     }
 
     @Override
     public void windowIconified(WindowEvent evt) {
-
         // ignore
     }
 
     @Override
     public void windowDeiconified(WindowEvent evt) {
-
         // ignore
     }
 
     @Override
     public void windowActivated(WindowEvent evt) {
-
         // ignore
     }
 
     @Override
     public void windowDeactivated(WindowEvent evt) {
-
         // ignore
     }
 }

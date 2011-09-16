@@ -1,10 +1,11 @@
 package org.jphototagger.program.view.panels;
 
+import org.openide.util.Lookup;
+import org.openide.util.lookup.ServiceProvider;
+
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.program.image.thumbnail.ThumbnailCreationStrategy;
 import org.jphototagger.program.image.thumbnail.ThumbnailCreationStrategyProvider;
-import org.openide.util.Lookup;
-import org.openide.util.lookup.ServiceProvider;
 
 /**
  *

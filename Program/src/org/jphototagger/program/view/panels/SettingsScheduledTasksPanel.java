@@ -8,6 +8,8 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.SpinnerNumberModel;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.domain.repository.AutoscanDirectoriesRepository;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
@@ -20,7 +22,6 @@ import org.jphototagger.program.model.AutoscanDirectoriesListModel;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.tasks.ScheduledTasks;
 import org.jphototagger.program.types.Persistence;
-import org.openide.util.Lookup;
 
 /**
  *

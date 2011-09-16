@@ -16,6 +16,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
 
+import org.openide.util.lookup.ServiceProvider;
+
 import org.jphototagger.domain.keywords.Keyword;
 import org.jphototagger.domain.repository.RepositoryDataExporter;
 import org.jphototagger.lib.util.Bundle;
@@ -24,7 +26,6 @@ import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.io.CharEncoding;
 import org.jphototagger.program.io.FilenameSuffixes;
 import org.jphototagger.program.model.KeywordsTreeModel;
-import org.openide.util.lookup.ServiceProvider;
 
 /**
  * Imports keywords exported by <strong>Adobe Photoshop Lightroom</strong>.

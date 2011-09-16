@@ -13,6 +13,7 @@ import org.jphototagger.program.view.dialogs.MaintainanceDialog;
  * @author Elmar Baumann
  */
 public final class DisplayMaintainanceDialogAction extends AbstractAction {
+
     private static final long serialVersionUID = 1L;
     public static final DisplayMaintainanceDialogAction INSTANCE = new DisplayMaintainanceDialogAction();
 

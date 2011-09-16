@@ -2,6 +2,8 @@ package org.jphototagger.program.view.dialogs;
 
 import java.awt.Container;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
 import org.jphototagger.domain.repository.UserDefinedFileFiltersRepository;
 import org.jphototagger.lib.beansbinding.MaxLengthValidator;
@@ -12,7 +14,6 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.model.UserDefinedFileFilterTypeComboBoxModel;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.renderer.UserDefinedFileFilterTypeListCellRenderer;
-import org.openide.util.Lookup;
 
 /**
  *

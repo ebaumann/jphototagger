@@ -11,6 +11,7 @@ import java.util.List;
  * @author Elmar Baumann
  */
 public final class ExceptionLogfileRecord {
+
     private final List<FrameLogfileRecord> logfileRecordFrames = new ArrayList<FrameLogfileRecord>();
     private String message;
 

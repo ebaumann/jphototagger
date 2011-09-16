@@ -2,6 +2,7 @@ package org.jphototagger.lib.io;
 
 import java.awt.Component;
 import java.util.Properties;
+
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 
@@ -16,9 +17,10 @@ import javax.swing.filechooser.FileFilter;
  * @author Elmar Baumann
  */
 public final class FileChooserProperties {
+
     private String propertyKeyPrefix;
     private Properties properties;
-    private  Component parent;
+    private Component parent;
     private String currentDirectoryPath;
     private String dialogTitle;
     private javax.swing.filechooser.FileFilter fileFilter;

@@ -10,6 +10,8 @@ import java.util.logging.Logger;
 
 import javax.swing.JProgressBar;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.concurrent.CancelRequest;
 import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.api.storage.Storage;
@@ -26,7 +28,6 @@ import org.jphototagger.program.app.AppInfo;
 import org.jphototagger.program.app.AppLifeCycle;
 import org.jphototagger.program.helper.FinalExecutable;
 import org.jphototagger.program.view.panels.ProgressBar;
-import org.openide.util.Lookup;
 
 /**
  * Checks for newer versions of JPhotoTagger and downloads them depending.

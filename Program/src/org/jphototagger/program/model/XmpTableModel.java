@@ -4,10 +4,10 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.adobe.xmp.properties.XMPPropertyInfo;
+
 import org.jphototagger.lib.model.TableModelExt;
 import org.jphototagger.lib.util.Bundle;
-
-import com.adobe.xmp.properties.XMPPropertyInfo;
 
 /**
  * Alle elements are {@code XMPPropertyInfo} instances retrieved through

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.domain.repository.AutoscanDirectoriesRepository;
 import org.jphototagger.domain.repository.InsertIntoRepository;
@@ -14,7 +16,6 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
 import org.jphototagger.program.io.ImageFileFilterer;
 import org.jphototagger.program.view.panels.ProgressBarUpdater;
-import org.openide.util.Lookup;
 
 /**
  * Creates a {@link InsertImageFilesIntoDatabase} instance for the image files

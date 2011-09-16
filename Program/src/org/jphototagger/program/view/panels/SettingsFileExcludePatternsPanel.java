@@ -7,6 +7,8 @@ import java.util.List;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.api.storage.Storage;
@@ -15,7 +17,6 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.program.model.FileExcludePatternsListModel;
 import org.jphototagger.program.types.Persistence;
-import org.openide.util.Lookup;
 
 /**
  *

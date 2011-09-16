@@ -28,7 +28,8 @@ public final class UpdateMetadataCheckEvent {
         /**
          * Check has been finished
          */
-        CHECK_FINISHED,}
+        CHECK_FINISHED,
+    }
 
     /**
      *

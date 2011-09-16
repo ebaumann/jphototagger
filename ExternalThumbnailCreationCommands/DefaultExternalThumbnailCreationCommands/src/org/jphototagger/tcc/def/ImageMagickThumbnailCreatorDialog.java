@@ -1,9 +1,10 @@
 package org.jphototagger.tcc.def;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.branding.Branding;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
-import org.openide.util.Lookup;
 
 /**
  *

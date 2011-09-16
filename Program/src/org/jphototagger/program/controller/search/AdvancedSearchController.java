@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.swing.JButton;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.domain.metadata.search.ParamStatement;
 import org.jphototagger.domain.metadata.search.SavedSearch;
 import org.jphototagger.domain.repository.FindRepository;
@@ -19,7 +21,6 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.WaitDisplay;
 import org.jphototagger.program.view.dialogs.AdvancedSearchDialog;
 import org.jphototagger.program.view.panels.AdvancedSearchPanel;
-import org.openide.util.Lookup;
 
 /**
  * Kontrolliert die Aktionen: Erweiterter Suchdialog soll angezeigt werden sowie

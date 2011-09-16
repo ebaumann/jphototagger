@@ -1,9 +1,11 @@
 package org.jphototagger.lib.lookup;
 
 import java.awt.Component;
+
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;
 import javax.swing.JList;
+
 import org.jphototagger.api.nodes.Node;
 
 /**
@@ -12,6 +14,7 @@ import org.jphototagger.api.nodes.Node;
  * @author Elmar Baumann
  */
 public final class NodesListCellRenderer extends DefaultListCellRenderer {
+
     private static final long serialVersionUID = 1L;
 
     @Override
@@ -27,5 +30,4 @@ public final class NodesListCellRenderer extends DefaultListCellRenderer {
 
         return label;
     }
-
 }

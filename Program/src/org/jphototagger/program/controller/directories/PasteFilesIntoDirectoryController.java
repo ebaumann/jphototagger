@@ -1,19 +1,21 @@
 package org.jphototagger.program.controller.directories;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.io.File;
+import java.util.List;
+
+import javax.swing.JTree;
+
+import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.lib.clipboard.ClipboardUtil;
 import org.jphototagger.lib.datatransfer.TransferUtil.FilenameDelimiter;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.datatransfer.DirectoryTreeTransferHandler;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.program.types.FileAction;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.ViewUtil;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.io.File;
-import java.util.List;
-import javax.swing.JTree;
+import org.jphototagger.program.view.panels.ThumbnailsPanel;
 
 /**
  * Listens to keyboard actions whithin the directories tree and copies or
@@ -22,6 +24,7 @@ import javax.swing.JTree;
  * @author Elmar Baumann
  */
 public final class PasteFilesIntoDirectoryController implements KeyListener {
+
     public PasteFilesIntoDirectoryController() {
         listen();
     }
@@ -54,7 +57,7 @@ public final class PasteFilesIntoDirectoryController implements KeyListener {
         List<File> sourceFiles = ClipboardUtil.getFilesFromSystemClipboard(FilenameDelimiter.NEWLINE);
         File targetDirectory = ViewUtil.getSelectedFile(targetTree);
 
-        if ((targetDirectory != null) &&!sourceFiles.isEmpty()) {
+        if ((targetDirectory != null) && !sourceFiles.isEmpty()) {
             copyOrMoveFiles(sourceFiles, targetDirectory);
         }
     }
@@ -80,13 +83,11 @@ public final class PasteFilesIntoDirectoryController implements KeyListener {
 
     @Override
     public void keyTyped(KeyEvent evt) {
-
         // ignore
     }
 
     @Override
     public void keyReleased(KeyEvent evt) {
-
         // ignore
     }
 }

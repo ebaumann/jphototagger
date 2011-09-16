@@ -2,12 +2,13 @@ package org.jphototagger.program.helper;
 
 import java.awt.Component;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.domain.repository.RenameTemplatesRepository;
 import org.jphototagger.domain.templates.RenameTemplate;
 import org.jphototagger.lib.dialog.InputDialog;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.openide.util.Lookup;
 
 /**
  *

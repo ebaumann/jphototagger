@@ -9,6 +9,8 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.imagero.reader.iptc.IPTCEntryMeta;
+
 import org.jphototagger.domain.event.listener.TextEntryListener;
 import org.jphototagger.domain.iptc.Iptc;
 import org.jphototagger.domain.metadata.MetaDataValue;
@@ -19,8 +21,6 @@ import org.jphototagger.domain.metadata.xmp.XmpIptc4XmpCoreDateCreatedMetaDataVa
 import org.jphototagger.domain.metadata.xmp.XmpMetaDataValues;
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.lib.awt.EventQueueUtil;
-
-import com.imagero.reader.iptc.IPTCEntryMeta;
 
 /**
  * XMP metadata of an image file. The <code>see</code> sections of the method

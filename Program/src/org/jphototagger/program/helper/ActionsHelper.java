@@ -8,6 +8,8 @@ import javax.swing.Action;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.programs.ProgramType;
 import org.jphototagger.domain.repository.ProgramsRepository;
@@ -17,7 +19,6 @@ import org.jphototagger.program.controller.actions.AddProgramAction;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.ProgressBar;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
-import org.openide.util.Lookup;
 
 /**
  *

@@ -9,12 +9,14 @@ import java.util.logging.Logger;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.file.event.FileMovedEvent;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.MoveToDirectoryDialog;
 import org.jphototagger.program.view.popupmenus.ThumbnailsPopupMenu;
-import org.openide.util.Lookup;
 
 /**
  * Renames files in the file system.

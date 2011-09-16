@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.api.storage.Storage;
@@ -15,7 +17,6 @@ import org.jphototagger.program.helper.CopyFiles;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.CopyToDirectoryDialog;
 import org.jphototagger.xmp.XmpMetadata;
-import org.openide.util.Lookup;
 
 /**
  * Utilities for images.

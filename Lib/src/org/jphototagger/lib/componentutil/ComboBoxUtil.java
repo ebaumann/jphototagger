@@ -1,7 +1,7 @@
 package org.jphototagger.lib.componentutil;
 
-
 import javax.swing.ComboBoxModel;
+
 import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
@@ -92,6 +92,7 @@ public final class ComboBoxUtil {
         }
 
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 int size = model.getSize();
@@ -112,5 +113,6 @@ public final class ComboBoxUtil {
         });
     }
 
-    private ComboBoxUtil() {}
+    private ComboBoxUtil() {
+    }
 }

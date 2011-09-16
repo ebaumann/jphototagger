@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import org.jphototagger.repository.hsqldb.Database;
 import org.jphototagger.repository.hsqldb.DatabaseMetadata;
 import org.jphototagger.repository.hsqldb.update.tables.ColumnInfo;
@@ -33,18 +34,15 @@ final class UpdateTablesInsertColumns {
         columns.add(new ColumnInfo("programs", "use_pattern", "BOOLEAN", null));
         columns.add(new ColumnInfo("programs", "pattern", "BINARY", null));
         columns.add(new ColumnInfo("hierarchical_subjects", "real", "BOOLEAN",
-                new IndexOfColumn("hierarchical_subjects", "real", "idx_hierarchical_subjects_real",
-                false)));
+                new IndexOfColumn("hierarchical_subjects", "real", "idx_hierarchical_subjects_real", false)));
         columns.add(new ColumnInfo("xmp", "iptc4xmpcore_datecreated", "VARCHAR_IGNORECASE(32)",
-                new IndexOfColumn("xmp", "iptc4xmpcore_datecreated", "idx_iptc4xmpcore_datecreated",
-                false)));
+                new IndexOfColumn("xmp", "iptc4xmpcore_datecreated", "idx_iptc4xmpcore_datecreated", false)));
         columns.add(new ColumnInfo("metadata_edit_templates", "rating", "BINARY", null));
         columns.add(new ColumnInfo("metadata_edit_templates", "iptc4xmpcore_datecreated", "BINARY", null));
         columns.add(new ColumnInfo("exif", "exif_lens", "VARCHAR_IGNORECASE(256)",
                 new IndexOfColumn("exif", "exif_lens", "idx_exif_lens", false)));
         columns.add(new ColumnInfo("saved_searches", "search_type", "SMALLINT", null));
     }
-
     private final List<ColumnInfo> missingColumns = new ArrayList<ColumnInfo>();
 
     void update(Connection con) throws SQLException {

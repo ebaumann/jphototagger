@@ -10,6 +10,8 @@ import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.DirectoryChooser;
@@ -22,7 +24,6 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.types.FileEditor;
-import org.openide.util.Lookup;
 
 /**
  * Panel to select files for a {@link org.jphototagger.program.types.FileEditor}.

@@ -16,9 +16,11 @@ import org.jphototagger.domain.metadata.MetaDataValue;
  * @author Elmar Baumann
  */
 final class MetaDataValuesDatabase extends Database {
+
     static final MetaDataValuesDatabase INSTANCE = new MetaDataValuesDatabase();
 
-    private MetaDataValuesDatabase() {}
+    private MetaDataValuesDatabase() {
+    }
 
     /**
      * Returns the distinct ascending sorted values of a database column.
@@ -44,9 +46,9 @@ final class MetaDataValuesDatabase extends Database {
             stmt = con.createStatement();
 
             String sql = "SELECT DISTINCT " + columnName
-                         + " FROM " + metaDataValue.getCategory()
-                         + " WHERE " + columnName
-                         + " IS NOT NULL ORDER BY 1 ASC";
+                    + " FROM " + metaDataValue.getCategory()
+                    + " WHERE " + columnName
+                    + " IS NOT NULL ORDER BY 1 ASC";
 
             logFinest(sql);
             rs = stmt.executeQuery(sql);

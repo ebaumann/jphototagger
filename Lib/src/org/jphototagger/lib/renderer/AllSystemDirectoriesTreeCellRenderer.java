@@ -13,8 +13,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
 import org.jphototagger.lib.componentutil.LookAndFeelUtil;
-import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.model.AllSystemDirectoriesTreeModel;
+import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
 
 /**
@@ -24,6 +24,7 @@ import org.jphototagger.lib.util.Bundle;
  * @author Elmar Baumann
  */
 public final class AllSystemDirectoriesTreeCellRenderer extends DefaultTreeCellRenderer {
+
     private static final long serialVersionUID = -1995225344254643215L;
     private final FileSystemView fileSystemView = FileSystemView.getFileSystemView();
     private Icon rootIcon = IconUtil.getImageIcon("/org/jphototagger/lib/resource/icons/icon_workspace.png");
@@ -39,8 +40,7 @@ public final class AllSystemDirectoriesTreeCellRenderer extends DefaultTreeCellR
     }
 
     @Override
-    public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded,
-            boolean leaf, int row, boolean hasFocus) {
+    public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {
         super.getTreeCellRendererComponent(tree, value, sel, expanded, false, row, hasFocus);
 
         if (value == tree.getModel().getRoot()) {
@@ -60,7 +60,7 @@ public final class AllSystemDirectoriesTreeCellRenderer extends DefaultTreeCellR
                         setIcon(fileSystemView.getSystemIcon(file));
                     } catch (Exception ex) {
                         Logger.getLogger(AllSystemDirectoriesTreeCellRenderer.class.getName()).log(Level.WARNING, null,
-                                         ex);
+                                ex);
                     }
                 }
 
@@ -96,11 +96,11 @@ public final class AllSystemDirectoriesTreeCellRenderer extends DefaultTreeCellR
         boolean tempSelExists = tempSelRow >= 0;
         boolean isTempSelRow = row == tempSelRow;
 
-        setForeground((isTempSelRow || (selected &&!tempSelExists))
-                      ? TREE_SELECTION_FOREGROUND
-                      : TREE_TEXT_FOREGROUND);
-        setBackground((isTempSelRow || (selected &&!tempSelExists))
-                      ? TREE_SELECTION_BACKGROUND
-                      : TREE_TEXT_BACKGROUND);
+        setForeground((isTempSelRow || (selected && !tempSelExists))
+                ? TREE_SELECTION_FOREGROUND
+                : TREE_TEXT_FOREGROUND);
+        setBackground((isTempSelRow || (selected && !tempSelExists))
+                ? TREE_SELECTION_BACKGROUND
+                : TREE_TEXT_BACKGROUND);
     }
 }

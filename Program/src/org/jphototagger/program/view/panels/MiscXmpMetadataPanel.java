@@ -1,6 +1,7 @@
 package org.jphototagger.program.view.panels;
 
 import javax.swing.JTree;
+
 import org.jphototagger.program.datatransfer.MiscMetadataTreeTransferHandler;
 import org.jphototagger.program.view.renderer.MiscMetadataTreeCellRenderer;
 
@@ -10,6 +11,7 @@ import org.jphototagger.program.view.renderer.MiscMetadataTreeCellRenderer;
  * @author Elmar Baumann
  */
 public class MiscXmpMetadataPanel extends javax.swing.JPanel {
+
     private static final long serialVersionUID = -4474838462467326529L;
 
     public MiscXmpMetadataPanel() {
@@ -57,8 +59,6 @@ public class MiscXmpMetadataPanel extends javax.swing.JPanel {
             .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane scrollPane;
     private javax.swing.JTree tree;

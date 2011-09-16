@@ -4,8 +4,10 @@ import java.io.File;
 import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.Collections;
+
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+
 import org.jphototagger.api.nodes.AbstractNode;
 import org.jphototagger.lib.swing.IconUtil;
 
@@ -57,12 +59,7 @@ public final class FileNode extends AbstractNode {
     public String getHtmlDisplayName() {
         StringBuilder pattern = new StringBuilder("<html>");
 
-        pattern.append("<span style=\"background-color:#EAF5FF\">")
-                .append("{0}")
-                .append("</span>")
-                .append("&nbsp;&nbsp;&nbsp;")
-                .append("[{1}]")
-                .append("</html>");
+        pattern.append("<span style=\"background-color:#EAF5FF\">").append("{0}").append("</span>").append("&nbsp;&nbsp;&nbsp;").append("[{1}]").append("</html>");
 
         return MessageFormat.format(pattern.toString(), file.getName(), file.getAbsolutePath());
     }

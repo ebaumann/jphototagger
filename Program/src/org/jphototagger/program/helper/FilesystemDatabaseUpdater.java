@@ -5,6 +5,9 @@ import java.util.Arrays;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.file.event.FileCopiedEvent;
 import org.jphototagger.api.file.event.FileDeletedEvent;
 import org.jphototagger.api.file.event.FileMovedEvent;
@@ -13,7 +16,6 @@ import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.repository.InsertIntoRepository;
 import org.jphototagger.program.io.ImageFileFilterer;
 import org.jphototagger.program.tasks.UserTasks;
-import org.openide.util.Lookup;
 
 /**
  * Updates the database on file system events.

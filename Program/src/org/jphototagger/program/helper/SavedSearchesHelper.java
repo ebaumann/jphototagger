@@ -2,6 +2,8 @@ package org.jphototagger.program.helper;
 
 import javax.swing.DefaultListModel;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.domain.metadata.search.SavedSearch;
 import org.jphototagger.domain.repository.SavedSearchesRepository;
 import org.jphototagger.lib.comparator.FileSort;
@@ -10,7 +12,6 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.controller.thumbnail.SortThumbnailsController;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
-import org.openide.util.Lookup;
 
 /**
  *

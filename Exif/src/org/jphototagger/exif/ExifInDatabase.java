@@ -9,6 +9,7 @@ import java.util.List;
  * @author Elmar Baumann
  */
 public final class ExifInDatabase {
+
     private static final List<ExifTag.Id> STORED_TAG_IDS_EXIF_IFD = new ArrayList<ExifTag.Id>();
 
     static {
@@ -52,13 +53,14 @@ public final class ExifInDatabase {
         }
 
         switch (ifdType) {
-        case EXIF :
-            return STORED_TAG_IDS_EXIF_IFD.contains(id);
+            case EXIF:
+                return STORED_TAG_IDS_EXIF_IFD.contains(id);
 
-        default :
-            return false;
+            default:
+                return false;
         }
     }
 
-    private ExifInDatabase() {}
+    private ExifInDatabase() {
+    }
 }

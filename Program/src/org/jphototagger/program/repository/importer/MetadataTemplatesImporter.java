@@ -17,15 +17,6 @@ import javax.swing.filechooser.FileFilter;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.jphototagger.domain.metadata.MetaDataValue;
-import org.jphototagger.domain.repository.MetadataTemplatesRepository;
-import org.jphototagger.domain.repository.RepositoryDataImporter;
-import org.jphototagger.domain.templates.MetadataTemplate;
-import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.repository.exporter.MetadataTemplatesExporter;
-import org.jphototagger.xmp.EditMetaDataValues;
-import org.openide.util.Lookup;
-import org.openide.util.lookup.ServiceProvider;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -33,6 +24,17 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+
+import org.openide.util.Lookup;
+import org.openide.util.lookup.ServiceProvider;
+
+import org.jphototagger.domain.metadata.MetaDataValue;
+import org.jphototagger.domain.repository.MetadataTemplatesRepository;
+import org.jphototagger.domain.repository.RepositoryDataImporter;
+import org.jphototagger.domain.templates.MetadataTemplate;
+import org.jphototagger.program.app.AppLookAndFeel;
+import org.jphototagger.program.repository.exporter.MetadataTemplatesExporter;
+import org.jphototagger.xmp.EditMetaDataValues;
 
 /**
  *

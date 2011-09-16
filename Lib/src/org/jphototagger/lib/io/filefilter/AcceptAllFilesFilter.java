@@ -11,16 +11,18 @@ import org.jphototagger.lib.util.Bundle;
  * @author Elmar Baumann
  */
 public final class AcceptAllFilesFilter implements FileFilter, Serializable {
+
     public static final AcceptAllFilesFilter INSTANCE = new AcceptAllFilesFilter();
     private static final long serialVersionUID = 6297923800725402735L;
 
-    private AcceptAllFilesFilter() {}
+    private AcceptAllFilesFilter() {
+    }
 
     @Override
     public boolean accept(File pathname) {
         return pathname.isFile()
-               ? true
-               : false;
+                ? true
+                : false;
     }
 
     /**

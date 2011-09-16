@@ -1,8 +1,8 @@
 package org.jphototagger.domain.event.listener;
 
 import java.util.Collections;
-import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
  *

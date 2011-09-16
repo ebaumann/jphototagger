@@ -13,6 +13,7 @@ import org.jphototagger.lib.util.Bundle;
  * @author Elmar Baumann
  */
 public final class ExifFocalLengthMetaDataValue extends MetaDataValue {
+
     public static final ExifFocalLengthMetaDataValue INSTANCE = new ExifFocalLengthMetaDataValue();
 
     private ExifFocalLengthMetaDataValue() {

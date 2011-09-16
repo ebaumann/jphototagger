@@ -1,9 +1,11 @@
 package org.jphototagger.repository.hsqldb;
 
 import java.util.List;
+
+import org.openide.util.lookup.ServiceProvider;
+
 import org.jphototagger.domain.metadata.search.SavedSearch;
 import org.jphototagger.domain.repository.SavedSearchesRepository;
-import org.openide.util.lookup.ServiceProvider;
 
 /**
  *

@@ -12,25 +12,18 @@ public enum Comparator {
 
     /** SQL-Operator "=" */
     EQUALS(0, "=", Bundle.getString(Comparator.class, "Comparator.OperatorEquals")),
-
     /** SQL-Operator "LIKE" */
     LIKE(1, "LIKE", Bundle.getString(Comparator.class, "Comparator.OperatorLike")),
-
     /** SQL-Operator "<>" */
     NOT_EQUALS(2, "<>", Bundle.getString(Comparator.class, "Comparator.OperatorNotEquals")),
-
     /** SQL-Operator ">" */
     GREATER(3, ">", Bundle.getString(Comparator.class, "Comparator.OperatorGreaterThan")),
-
     /** SQL-Operator ">=" */
     GREATER_EQUALS(4, ">=", Bundle.getString(Comparator.class, "Comparator.OperatorGreaterEquals")),
-
     /** SQL-Operator "<" */
     LOWER(5, "<", Bundle.getString(Comparator.class, "Comparator.OperatorLessThan")),
-
     /** SQL-Operator "<=" */
     LOWER_EQUALS(6, "<=", Bundle.getString(Comparator.class, "Comparator.OperatorLessEquals"));
-
     private final int id;
     private final String sqlString;
     private final String localizedString;

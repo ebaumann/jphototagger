@@ -44,7 +44,7 @@ public final class ExifByte {
         return rawValue == null
                 ? false
                 : rawValue.length == getRawValueByteCount();
-        }
+    }
 
     public static ExifDataType getExifDataType() {
         return ExifDataType.BYTE;

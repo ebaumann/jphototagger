@@ -5,13 +5,14 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.domain.repository.MetadataTemplatesRepository;
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.popupmenus.MetadataTemplatesPopupMenu;
-import org.openide.util.Lookup;
 
 /**
  *

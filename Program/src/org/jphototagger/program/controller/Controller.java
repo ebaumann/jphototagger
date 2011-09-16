@@ -8,7 +8,6 @@ import java.lang.reflect.Method;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 /**
  * Controller base class.
  * <p>
@@ -76,7 +75,8 @@ public abstract class Controller implements ActionListener, KeyListener {
         }
     }
 
-    protected Controller() {}
+    protected Controller() {
+    }
 
     /**
      * Adds all objects with action events to listen to.
@@ -122,13 +122,11 @@ public abstract class Controller implements ActionListener, KeyListener {
 
     @Override
     public void keyTyped(KeyEvent evt) {
-
         // ignore
     }
 
     @Override
     public void keyReleased(KeyEvent evt) {
-
         // ignore
     }
 }

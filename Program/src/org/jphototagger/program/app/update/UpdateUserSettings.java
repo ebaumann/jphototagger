@@ -1,11 +1,12 @@
 package org.jphototagger.program.app.update;
 
-import org.jphototagger.program.image.thumbnail.ThumbnailCreationStrategy;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+
+import org.jphototagger.program.image.thumbnail.ThumbnailCreationStrategy;
 
 /**
  * Updates the user properties.
@@ -13,6 +14,7 @@ import java.util.Properties;
  * @author Elmar Baumann
  */
 public final class UpdateUserSettings {
+
     private static final Map<String, String> NEW_PATHNAME_START = new HashMap<String, String>();
     private static final List<String> REMOVE_KEY_PATTERNS = new ArrayList<String>();
 
@@ -55,7 +57,7 @@ public final class UpdateUserSettings {
     }
 
     private static void renamePathKeys(Properties properties, List<String> replaceKeys, String pathStart,
-                                       String replace) {
+            String replace) {
         for (String key : replaceKeys) {
             String renamedKey = replace + key.substring(pathStart.length());
 
@@ -92,24 +94,23 @@ public final class UpdateUserSettings {
             properties.remove(key);
         }
     }
-
     private static final String KEY_CREATE_THUMBNAILS_WITH_EXTERNAL_APP =
-        "UserSettings.IsCreateThumbnailsWithExternalApp";
+            "UserSettings.IsCreateThumbnailsWithExternalApp";
     private static final String KEY_USE_EMBEDDED_THUMBNAILS = "UserSettings.IsUseEmbeddedThumbnails";
     private static final String KEY_THUMBNAIL_CREATOR = "UserSettings.ThumbnailCreator";
 
     private static void setThumbnailCreator(Properties properties) {
         if (!properties.containsKey(KEY_CREATE_THUMBNAILS_WITH_EXTERNAL_APP)
-                &&!properties.containsKey(KEY_USE_EMBEDDED_THUMBNAILS)) {
+                && !properties.containsKey(KEY_USE_EMBEDDED_THUMBNAILS)) {
             return;
         }
 
         boolean externalApp = properties.containsKey(KEY_CREATE_THUMBNAILS_WITH_EXTERNAL_APP)
-                              ? properties.getProperty(KEY_CREATE_THUMBNAILS_WITH_EXTERNAL_APP).equals("1")
-                              : false;
+                ? properties.getProperty(KEY_CREATE_THUMBNAILS_WITH_EXTERNAL_APP).equals("1")
+                : false;
         boolean useEmbedded = properties.containsKey(KEY_USE_EMBEDDED_THUMBNAILS)
-                              ? properties.getProperty(KEY_USE_EMBEDDED_THUMBNAILS).equals("1")
-                              : false;
+                ? properties.getProperty(KEY_USE_EMBEDDED_THUMBNAILS).equals("1")
+                : false;
 
         if (externalApp && useEmbedded) {    // Should never be the case!
             useEmbedded = false;
@@ -120,9 +121,10 @@ public final class UpdateUserSettings {
         properties.put(KEY_THUMBNAIL_CREATOR, externalApp
                 ? ThumbnailCreationStrategy.EXTERNAL_APP.name()
                 : useEmbedded
-                  ? ThumbnailCreationStrategy.EMBEDDED.name()
-                  : ThumbnailCreationStrategy.JAVA_IMAGE_IO.name());
+                ? ThumbnailCreationStrategy.EMBEDDED.name()
+                : ThumbnailCreationStrategy.JAVA_IMAGE_IO.name());
     }
 
-    private UpdateUserSettings() {}
+    private UpdateUserSettings() {
+    }
 }

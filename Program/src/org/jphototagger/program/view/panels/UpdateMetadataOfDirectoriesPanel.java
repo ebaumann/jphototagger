@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.concurrent.CancelRequest;

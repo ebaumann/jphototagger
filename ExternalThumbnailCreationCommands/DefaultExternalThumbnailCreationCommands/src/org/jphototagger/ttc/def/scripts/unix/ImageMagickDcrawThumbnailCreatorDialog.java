@@ -5,14 +5,15 @@ import java.io.File;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.branding.Branding;
-import org.jphototagger.tcc.def.FileChooser;
-import org.jphototagger.tcc.def.SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction;
-import org.jphototagger.tcc.def.Util;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.util.Bundle;
-import org.openide.util.Lookup;
+import org.jphototagger.tcc.def.FileChooser;
+import org.jphototagger.tcc.def.SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction;
+import org.jphototagger.tcc.def.Util;
 
 /**
  *

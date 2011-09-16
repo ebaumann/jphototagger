@@ -1,18 +1,21 @@
 package org.jphototagger.lib.componentutil;
 
-import org.jphototagger.lib.event.util.MouseEventUtil;
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.Point;
 import java.lang.reflect.Method;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.event.PopupMenuEvent;
-import javax.swing.event.PopupMenuListener;
+
 import javax.swing.JList;
 import javax.swing.JPopupMenu;
 import javax.swing.ListCellRenderer;
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
+
 import org.jdesktop.swingx.JXList;
+
+import org.jphototagger.lib.event.util.MouseEventUtil;
 
 /**
  * Listens in a {@link JList} for popup triggers and sets to the list cell
@@ -27,6 +30,7 @@ import org.jdesktop.swingx.JXList;
  * @author Elmar Baumann
  */
 public final class ListItemTempSelectionRowSetter implements MouseListener, PopupMenuListener {
+
     private final JList list;
     private static final String TEMP_SEL_ROW_METHOD_NAME = "setTempSelectionRow";
 
@@ -103,37 +107,31 @@ public final class ListItemTempSelectionRowSetter implements MouseListener, Popu
 
     @Override
     public void mouseClicked(MouseEvent evt) {
-
         // ignore
     }
 
     @Override
     public void mouseReleased(MouseEvent evt) {
-
         // ignore
     }
 
     @Override
     public void mouseEntered(MouseEvent evt) {
-
         // ignore
     }
 
     @Override
     public void mouseExited(MouseEvent evt) {
-
         // ignore
     }
 
     @Override
     public void popupMenuWillBecomeVisible(PopupMenuEvent evt) {
-
         // ignore
     }
 
     @Override
     public void popupMenuCanceled(PopupMenuEvent evt) {
-
         // ignore
     }
 }

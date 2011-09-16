@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import javax.swing.JTree;
 
 import org.jdesktop.swingx.JXList;
+
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.lib.util.Bundle;

@@ -4,11 +4,12 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.Comparator;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.domain.metadata.xmp.XmpRatingMetaDataValue;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.util.ClassEquality;
-import org.openide.util.Lookup;
 
 /**
  *

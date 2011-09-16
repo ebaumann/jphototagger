@@ -1,17 +1,19 @@
 package org.jphototagger.program.controller.directories;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.io.File;
+
+import javax.swing.JTree;
+import javax.swing.tree.DefaultMutableTreeNode;
+
+import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.model.AllSystemDirectoriesTreeModel;
 import org.jphototagger.program.controller.favorites.AddFilesystemFolderToFavoritesController;
 import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.view.popupmenus.DirectoriesPopupMenu;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-import java.io.File;
-import javax.swing.JTree;
-import javax.swing.tree.DefaultMutableTreeNode;
-import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * Listens to {@link DirectoriesPopupMenu#getItemCreateDirectory()} and
@@ -23,6 +25,7 @@ import org.jphototagger.lib.awt.EventQueueUtil;
  * @author Elmar Baumann
  */
 public final class CreateDirectoryController extends DirectoryController {
+
     public CreateDirectoryController() {
         listenToActionsOf(DirectoriesPopupMenu.INSTANCE.getItemCreateDirectory());
     }
@@ -52,13 +55,14 @@ public final class CreateDirectoryController extends DirectoryController {
         }
 
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
                 File dir = ModelFactory.INSTANCE.getModel(AllSystemDirectoriesTreeModel.class).createDirectoryIn(node);
 
                 if (dir != null) {
                     AddFilesystemFolderToFavoritesController ctrl =
-                        ControllerFactory.INSTANCE.getController(AddFilesystemFolderToFavoritesController.class);
+                            ControllerFactory.INSTANCE.getController(AddFilesystemFolderToFavoritesController.class);
 
                     if (ctrl != null) {
                         ctrl.confirmMoveSelFilesInto(dir);

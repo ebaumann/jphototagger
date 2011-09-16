@@ -3,10 +3,11 @@ package org.jphototagger.repository.hsqldb;
 import java.io.File;
 import java.util.List;
 
+import org.openide.util.lookup.ServiceProvider;
+
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.search.ParamStatement;
 import org.jphototagger.domain.repository.FindRepository;
-import org.openide.util.lookup.ServiceProvider;
 
 /**
  *

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
+
 import javax.swing.filechooser.FileSystemView;
 
 /**
@@ -21,7 +22,6 @@ public final class DirectoryFilter implements java.io.FileFilter, Serializable {
      * Instance which accepts hidden files.
      */
     public static final DirectoryFilter ACCEPT_HIDDEN_FILES = new DirectoryFilter(Option.ACCEPT_HIDDEN_FILES);
-
     /**
      * Instance which rejects hidden files.
      */
@@ -35,8 +35,7 @@ public final class DirectoryFilter implements java.io.FileFilter, Serializable {
         /**
          * Accepting hidden files (Default: Do not accept hidden files)
          */
-        ACCEPT_HIDDEN_FILES, NO_OPTION
-        ;
+        ACCEPT_HIDDEN_FILES, NO_OPTION;
     }
 
     /**
@@ -57,8 +56,8 @@ public final class DirectoryFilter implements java.io.FileFilter, Serializable {
         boolean isDirectory = file.isDirectory();
 
         return options.contains(Option.ACCEPT_HIDDEN_FILES)
-               ? isDirectory
-               : isDirectory &&!FILE_SYSTEM_VIEW.isHiddenFile(file);
+                ? isDirectory
+                : isDirectory && !FILE_SYSTEM_VIEW.isHiddenFile(file);
     }
 
     /**

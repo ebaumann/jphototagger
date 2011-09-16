@@ -7,6 +7,7 @@ package org.jphototagger.lib.util.logging;
  * @author Elmar Baumann
  */
 public final class FrameLogfileRecord {
+
     private String className;
     private String methodName;
     private String line;
@@ -96,7 +97,7 @@ public final class FrameLogfileRecord {
         }
 
         return containsSubstring(getLine(), substring) || containsSubstring(getClassName(), substring)
-               || containsSubstring(getMethodName(), substring);
+                || containsSubstring(getMethodName(), substring);
     }
 
     private boolean containsSubstring(String string, String substring) {

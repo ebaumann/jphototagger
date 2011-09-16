@@ -2,7 +2,6 @@ package org.jphototagger.lib.thirdparty;
 
 //Code: http://stackoverflow.com/questions/1507780/searching-for-a-sequence-of-bytes-in-a-binary-file-with-java
 //"Master"-Source?: http://www.fmi.uni-sofia.bg/fmi/logic/vboutchkova/sources/KMPMatch_java.html
-
 /**
  * The Knuth-Morris-Pratt Algorithm for Pattern Matching modified for comparing
  * byte arrays.
@@ -72,5 +71,6 @@ public final class KMPMatch {
         return failure;
     }
 
-    private KMPMatch() {}
+    private KMPMatch() {
+    }
 }

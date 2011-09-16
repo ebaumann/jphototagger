@@ -4,9 +4,10 @@ import java.awt.Image;
 import java.io.File;
 import java.util.Collection;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.image.thumbnails.ThumbnailCreator;
 import org.jphototagger.api.storage.Storage;
-import org.openide.util.Lookup;
 
 /**
  *

@@ -3,6 +3,7 @@ package org.jphototagger.domain.thumbnails.event;
 import java.io.File;
 import java.util.Collections;
 import java.util.List;
+
 import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 
 /**

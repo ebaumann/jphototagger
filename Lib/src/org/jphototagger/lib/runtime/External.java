@@ -23,12 +23,13 @@ import org.jphototagger.lib.io.IoUtil;
 public final class External {
 
     private enum Stream {
+
         STANDARD_ERROR,
         STANDARD_IN,
-        STANDARD_OUT,
-    }
+        STANDARD_OUT,}
 
     public static class ProcessResult {
+
         private final int exitValue;
         private final String outputStream;
         private final String errorStream;
@@ -49,7 +50,7 @@ public final class External {
 
         public String getErrorStreamAsString() {
             return errorStream;
-    }
+        }
     }
 
     // Modified http://www.javaworld.com/javaworld/jw-12-2000/jw-1229-traps.html?page=4
@@ -83,8 +84,8 @@ public final class External {
                         sb.append(line);
                     }
                 } else {
-                while (br.readLine() != null) {
-                }
+                    while (br.readLine() != null) {
+                    }
                 }
             } catch (Throwable t) {
                 Logger.getLogger(External.class.getName()).log(Level.WARNING, null, t);
@@ -200,8 +201,8 @@ public final class External {
 
         try {
             InputStream stream = s.equals(Stream.STANDARD_OUT)
-                                 ? process.getInputStream()
-                                 : process.getErrorStream();
+                    ? process.getInputStream()
+                    : process.getErrorStream();
             byte[] buffer = new byte[buffersize];
             int bytesRead = -1;
             boolean finished = false;
@@ -239,6 +240,7 @@ public final class External {
     }
 
     private static class ProcessDestroyer implements Runnable {
+
         private final Process process;
         private final long millisecondsWait;
         private final String command;
@@ -264,7 +266,6 @@ public final class External {
             try {
                 Thread.sleep(millisecondsWait);
             } catch (InterruptedException ex) {
-
                 // ignore
             }
 
@@ -278,7 +279,6 @@ public final class External {
             }
         }
     }
-
 
     public static String[] parseQuotedCommandLine(String command) throws IOException {
         if (command == null) {
@@ -312,5 +312,6 @@ public final class External {
         return cmd_array;
     }
 
-    private External() {}
+    private External() {
+    }
 }

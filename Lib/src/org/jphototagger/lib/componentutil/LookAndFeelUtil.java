@@ -3,6 +3,7 @@ package org.jphototagger.lib.componentutil;
 import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.UIManager;
 
 /**
@@ -26,7 +27,6 @@ public final class LookAndFeelUtil {
      * @param  propertyKey property key
      * @return             color or null
      */
-
     //
     //
     public static Color getUiColor(String propertyKey) {
@@ -37,8 +37,8 @@ public final class LookAndFeelUtil {
         Color col = UIManager.getColor(propertyKey);
 
         return (col == null)
-               ? null
-               : new Color(col.getRGB());
+                ? null
+                : new Color(col.getRGB());
     }
 
     /**
@@ -53,5 +53,6 @@ public final class LookAndFeelUtil {
         }
     }
 
-    private LookAndFeelUtil() {}
+    private LookAndFeelUtil() {
+    }
 }

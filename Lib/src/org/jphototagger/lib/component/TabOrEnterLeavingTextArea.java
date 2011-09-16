@@ -1,6 +1,7 @@
 package org.jphototagger.lib.component;
 
 import java.awt.event.KeyEvent;
+
 import javax.swing.JTextArea;
 
 /**
@@ -12,6 +13,7 @@ import javax.swing.JTextArea;
  * @author Elmar Baumann
  */
 public final class TabOrEnterLeavingTextArea extends JTextArea {
+
     private static final long serialVersionUID = -6104921627665799043L;
 
     @Override

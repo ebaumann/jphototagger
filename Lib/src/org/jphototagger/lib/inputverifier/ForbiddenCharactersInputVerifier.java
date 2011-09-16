@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import javax.swing.text.JTextComponent;
@@ -13,6 +14,7 @@ import javax.swing.text.JTextComponent;
  * @author Elmar Baumann
  */
 public final class ForbiddenCharactersInputVerifier extends InputVerifier implements Serializable {
+
     private static final long serialVersionUID = -137243048239784843L;
     private final List<Character> forbiddenCharacters = new ArrayList<Character>();
 

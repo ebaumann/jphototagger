@@ -1,9 +1,10 @@
 package org.jphototagger.program.view.panels;
 
+import org.openide.util.lookup.ServiceProvider;
+
 import org.jphototagger.api.windows.MainWindowComponent;
 import org.jphototagger.api.windows.MainWindowManager;
 import org.jphototagger.program.resource.GUI;
-import org.openide.util.lookup.ServiceProvider;
 
 /**
  *

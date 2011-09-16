@@ -17,5 +17,6 @@ public final class MathUtil {
         return value - java.lang.Math.floor(value) == 0;
     }
 
-    private MathUtil() {}
+    private MathUtil() {
+    }
 }

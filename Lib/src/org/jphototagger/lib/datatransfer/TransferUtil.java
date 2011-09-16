@@ -1,17 +1,18 @@
 package org.jphototagger.lib.datatransfer;
 
+import java.awt.Toolkit;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
-import java.awt.Toolkit;
 import java.io.File;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.StringTokenizer;
+
 import javax.swing.JList;
 import javax.swing.JTree;
 import javax.swing.TransferHandler;
@@ -29,6 +30,7 @@ import javax.swing.tree.TreePath;
  * @author Elmar Baumann
  */
 public final class TransferUtil {
+
     private static final String MIME_TYPE_URI_LIST = "text/uri-list;class=java.lang.String";
     private static final DataFlavor STRING_FLAVOR = DataFlavor.stringFlavor;
     private static final DataFlavor FILE_LIST_FLAVOR = DataFlavor.javaFileListFlavor;
@@ -51,13 +53,10 @@ public final class TransferUtil {
          * Filenames are delimited by an empty string <code>""</code>
          */
         EMPTY(""),
-
         /**
          * Filenames are delimited by a newline string <code>"\n"</code>
          */
-        NEWLINE("\n"),
-        ;
-
+        NEWLINE("\n"),;
         private final String delimiter;
 
         private FilenameDelimiter(String delimiter) {
@@ -95,11 +94,11 @@ public final class TransferUtil {
             Object val = values[i];
 
             sb.append((val == null)
-                      ? ""
-                      : val.toString());
+                    ? ""
+                    : val.toString());
             sb.append((i != values.length - 1)
-                      ? delimiter
-                      : "");
+                    ? delimiter
+                    : "");
         }
 
         return new StringSelection(sb.toString());
@@ -133,8 +132,8 @@ public final class TransferUtil {
 
             sb.append(integer.toString());
             sb.append((i < size - 1)
-                      ? delimiter
-                      : "");
+                    ? delimiter
+                    : "");
         }
 
         return new StringSelection(sb.toString());
@@ -168,8 +167,8 @@ public final class TransferUtil {
 
             sb.append(string);
             sb.append((i < size - 1)
-                      ? delimiter
-                      : "");
+                    ? delimiter
+                    : "");
         }
 
         return new StringSelection(sb.toString());
@@ -203,7 +202,7 @@ public final class TransferUtil {
         try {
             String data = (String) transferable.getTransferData(URI_LIST_FLAVOR);
 
-            for (StringTokenizer st = new StringTokenizer(data, "\r\n"); st.hasMoreTokens(); ) {
+            for (StringTokenizer st = new StringTokenizer(data, "\r\n"); st.hasMoreTokens();) {
                 String token = st.nextToken().trim();
 
                 if (token.startsWith("file:")) {
@@ -242,7 +241,7 @@ public final class TransferUtil {
             if (o instanceof String) {
                 String data = (String) o;
 
-                for (StringTokenizer st = new StringTokenizer(data, delimiter.toString()); st.hasMoreTokens(); ) {
+                for (StringTokenizer st = new StringTokenizer(data, delimiter.toString()); st.hasMoreTokens();) {
                     files.add(new File(st.nextToken().trim()));
                 }
             }
@@ -269,7 +268,7 @@ public final class TransferUtil {
 
         try {
             @SuppressWarnings("unchecked") List<File> files =
-                (List<File>) transferable.getTransferData(FILE_LIST_FLAVOR);
+                    (List<File>) transferable.getTransferData(FILE_LIST_FLAVOR);
             Iterator<File> it = files.iterator();
 
             while (it.hasNext()) {
@@ -358,7 +357,7 @@ public final class TransferUtil {
     public static boolean systemClipboardMaybeContainFiles() {
         try {
             return maybeContainFileData(
-                Toolkit.getDefaultToolkit().getSystemClipboard().getContents(TransferUtil.class));
+                    Toolkit.getDefaultToolkit().getSystemClipboard().getContents(TransferUtil.class));
         } catch (Exception ex) {
             Logger.getLogger(TransferUtil.class.getName()).log(Level.SEVERE, "", ex);
         }
@@ -530,8 +529,8 @@ public final class TransferUtil {
             Object dropObject = dropLocation.getPath().getLastPathComponent();
 
             return (dropObject instanceof DefaultMutableTreeNode)
-                   ? (DefaultMutableTreeNode) dropObject
-                   : null;
+                    ? (DefaultMutableTreeNode) dropObject
+                    : null;
         }
 
         JTree tree = (JTree) support.getComponent();
@@ -548,5 +547,6 @@ public final class TransferUtil {
         return null;
     }
 
-    private TransferUtil() {}
+    private TransferUtil() {
+    }
 }

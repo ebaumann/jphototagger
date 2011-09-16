@@ -1,9 +1,10 @@
 package org.jphototagger.lib.componentutil;
 
-import org.jphototagger.lib.system.SystemUtil;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+
+import org.jphototagger.lib.system.SystemUtil;
 
 /**
  * Helper Methods for Menus.
@@ -11,9 +12,11 @@ import javax.swing.JMenuItem;
  * @author Elmar Baumann
  */
 public final class MenuUtil {
+
     private static final String AMPERSAND = "&";
 
-    private MenuUtil() {}
+    private MenuUtil() {
+    }
 
     /**
      * Calls {@link #setMnemonics(javax.swing.JMenuItem)} for every menu in a

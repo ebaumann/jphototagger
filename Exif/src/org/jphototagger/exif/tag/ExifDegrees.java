@@ -52,7 +52,7 @@ public final class ExifDegrees {
         return rawValue == null
                 ? false
                 : rawValue.length == getRawValueByteCount();
-        }
+    }
 
     public ExifRational getDegrees() {
         return degrees;

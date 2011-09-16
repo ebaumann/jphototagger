@@ -1,10 +1,11 @@
 package org.jphototagger.lib.net;
 
-import org.jphototagger.lib.util.Version;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+
+import org.jphototagger.lib.util.Version;
 
 /**
  * Grabs version information from the net.
@@ -36,8 +37,7 @@ public final class NetVersion {
      * @throws IllegalArgumentException  if the version does not contain 2 up to
      *                                   4 integer numbers
      */
-    public static Version getOverHttp(String httpUrl, String versionDelimiter)
-            throws MalformedURLException, IOException, NumberFormatException, IllegalArgumentException {
+    public static Version getOverHttp(String httpUrl, String versionDelimiter) throws MalformedURLException, IOException, NumberFormatException, IllegalArgumentException {
         if (httpUrl == null) {
             throw new NullPointerException("httpUrl == null");
         }
@@ -69,5 +69,6 @@ public final class NetVersion {
         return null;
     }
 
-    private NetVersion() {}
+    private NetVersion() {
+    }
 }

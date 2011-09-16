@@ -10,6 +10,7 @@ import org.jphototagger.lib.util.Bundle;
  * @author Elmar Baumann
  */
 public final class FilesFilenameMetaDataValue extends MetaDataValue {
+
     public static final FilesFilenameMetaDataValue INSTANCE = new FilesFilenameMetaDataValue();
 
     private FilesFilenameMetaDataValue() {

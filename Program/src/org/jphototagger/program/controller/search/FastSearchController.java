@@ -15,6 +15,9 @@ import javax.swing.JComboBox;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.selections.AutoCompleteDataOfMetaDataValue;
@@ -38,7 +41,6 @@ import org.jphototagger.program.helper.AutocompleteHelper;
 import org.jphototagger.program.model.FastSearchComboBoxModel;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.WaitDisplay;
-import org.openide.util.Lookup;
 
 /**
  * Kontrolliert die Aktion: Schnellsuche durchführen.

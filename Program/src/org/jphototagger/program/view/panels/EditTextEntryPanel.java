@@ -13,6 +13,9 @@ import javax.swing.event.DocumentListener;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.domain.event.listener.TextEntryListener;
 import org.jphototagger.domain.event.listener.TextEntryListenerSupport;
@@ -26,7 +29,6 @@ import org.jphototagger.domain.text.TextEntry;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.componentutil.Autocomplete;
 import org.jphototagger.program.helper.AutocompleteHelper;
-import org.openide.util.Lookup;
 
 /**
  * Panel zum Eingeben einzeiliger Texte.

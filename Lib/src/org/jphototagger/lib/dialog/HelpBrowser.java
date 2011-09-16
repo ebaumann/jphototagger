@@ -21,6 +21,8 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.event.HelpBrowserEvent;
@@ -30,7 +32,6 @@ import org.jphototagger.lib.renderer.HelpContentsTreeCellRenderer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.help.HelpNode;
 import org.jphototagger.lib.util.help.HelpPage;
-import org.openide.util.Lookup;
 
 /**
  * Browser for HTML help files. Usually those are packaged with the application
@@ -511,13 +512,13 @@ public final class HelpBrowser extends Dialog implements ActionListener, Hyperli
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 INSTANCE.setVisible(true);
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonNext;
     private javax.swing.JButton buttonPrevious;

@@ -7,11 +7,12 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.lib.util.Version;
 import org.jphototagger.repository.hsqldb.DatabaseMetadata;
 import org.jphototagger.repository.hsqldb.update.tables.v0.UpdateTablesV0;
-import org.openide.util.Lookup;
 
 /**
  * Creates updaters for updating an older database version and let them updatePostCreation

@@ -2,6 +2,7 @@ package org.jphototagger.program.helper;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import org.jphototagger.program.tasks.AutomaticTask;
 import org.jphototagger.program.tasks.ScheduledTasks;
 import org.jphototagger.program.tasks.UserTasks;

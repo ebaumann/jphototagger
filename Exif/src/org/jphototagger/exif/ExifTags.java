@@ -7,10 +7,12 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
+
 import org.jphototagger.lib.xml.bind.XmlObjectExporter;
 import org.jphototagger.lib.xml.bind.XmlObjectImporter;
 
@@ -25,22 +27,18 @@ import org.jphototagger.lib.xml.bind.XmlObjectImporter;
 public final class ExifTags {
 
     private String makerNoteDescription;
-
     /**
      * Tags of EXIF IFD
      */
     private Set<ExifTag> exifTags = new HashSet<ExifTag>();
-
     /**
      * Tags of GPS IFD
      */
     private Set<ExifTag> gpsTags = new HashSet<ExifTag>();
-
     /**
      * Tags of  Interoperability IFD
      */
     private Set<ExifTag> interoperabilityTags = new HashSet<ExifTag>();
-
     /**
      * Maker note tags of EXIF IFD
      */

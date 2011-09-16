@@ -8,6 +8,7 @@ import java.nio.ByteBuffer;
  * @author Elmar Baumann
  */
 public final class ByteUtil {
+
     public static int toInt(byte b) {
         int i = b;
 
@@ -58,8 +59,8 @@ public final class ByteUtil {
 
             for (int j = bits.length - 1; j >= 0; j--) {
                 out.print(bits[j]
-                          ? "1"
-                          : "0");
+                        ? "1"
+                        : "0");
             }
 
             out.print(" ");
@@ -92,35 +93,36 @@ public final class ByteUtil {
     }
 
     /**
-     * 
+     *
      * @param  a1 can be null
      * @param  a2 can be null
-     * @return 
+     * @return
      */
     public static boolean equals(byte[] a1, byte[] a2) {
         if (a1 == null && a2 == null) {
             return true;
         }
-        
+
         if (a1 == null || a2 == null) {
             return false;
         }
-        
+
         if (a1.length != a2.length) {
             return false;
         }
-        
+
         for (int i = 0; i < a1.length; i++) {
             byte b1 = a1[i];
             byte b2 = a2[i];
-            
+
             if (b1 != b2) {
                 return false;
             }
         }
-        
+
         return true;
     }
 
-    private ByteUtil() {}
+    private ByteUtil() {
+    }
 }

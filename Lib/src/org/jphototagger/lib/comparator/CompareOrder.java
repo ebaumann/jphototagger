@@ -5,4 +5,7 @@ package org.jphototagger.lib.comparator;
  *
  * @author Elmar Baumann
  */
-enum CompareOrder { ASCENDING, DESCENDING; }
+enum CompareOrder {
+
+    ASCENDING, DESCENDING;
+}

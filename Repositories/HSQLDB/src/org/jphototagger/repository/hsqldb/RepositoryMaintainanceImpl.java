@@ -1,14 +1,15 @@
 package org.jphototagger.repository.hsqldb;
 
-import org.jphototagger.domain.repository.RepositoryMaintainance;
 import org.openide.util.lookup.ServiceProvider;
+
+import org.jphototagger.domain.repository.RepositoryMaintainance;
 
 /**
  *
  *
  * @author Elmar Baumann
  */
-@ServiceProvider(service=RepositoryMaintainance.class)
+@ServiceProvider(service = RepositoryMaintainance.class)
 public final class RepositoryMaintainanceImpl implements RepositoryMaintainance {
 
     private DatabaseMaintainance db = DatabaseMaintainance.INSTANCE;
@@ -27,5 +28,4 @@ public final class RepositoryMaintainanceImpl implements RepositoryMaintainance 
     public void shutdownRepository() {
         db.shutdown();
     }
-
 }

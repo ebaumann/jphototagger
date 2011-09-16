@@ -6,9 +6,10 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.startup.ApplicationStartupLock;
 import org.jphototagger.repository.hsqldb.update.tables.UpdateTablesFactory;
-import org.openide.util.Lookup;
 
 /**
  * All database tables.

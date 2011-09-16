@@ -26,7 +26,9 @@ import javax.swing.tree.TreeSelectionModel;
  * @author Elmar Baumann
  */
 public final class TreeUtil {
-    private TreeUtil() {}
+
+    private TreeUtil() {
+    }
 
     /**
      *     Returns a node with a specific user object in the path below a node.
@@ -47,7 +49,7 @@ public final class TreeUtil {
             return null;
         }
 
-        for (Enumeration<Object> nodes = parent.preorderEnumeration(); nodes.hasMoreElements(); ) {
+        for (Enumeration<Object> nodes = parent.preorderEnumeration(); nodes.hasMoreElements();) {
             Object node = nodes.nextElement();
 
             if (node instanceof DefaultMutableTreeNode) {
@@ -134,8 +136,8 @@ public final class TreeUtil {
         int tokenNumber = 1;
         int tokenFoundCount = 0;
         Object[] path = new Object[(tokenCount > 0)
-                                   ? tokenCount
-                                   : 1];
+                ? tokenCount
+                : 1];
 
         if (tokenCount > 0) {
             path[0] = treeModel.getRoot();
@@ -152,7 +154,7 @@ public final class TreeUtil {
 
                 appended = false;
 
-                for (int index = 0; (index < childCount) &&!found; index++) {
+                for (int index = 0; (index < childCount) && !found; index++) {
                     childElement = treeModel.getChild(currentElement, index);
                     found = childElement.toString().equals(pathToken);
 
@@ -169,8 +171,8 @@ public final class TreeUtil {
         }
 
         return ((tokenCount > 0) && (tokenCount - 1 == tokenFoundCount))
-               ? new TreePath(path)
-               : null;
+                ? new TreePath(path)
+                : null;
     }
 
     /**
@@ -308,7 +310,7 @@ public final class TreeUtil {
             boolean ignoreCase) {
         assert toString != null;
 
-        for (Enumeration<?> e = parentNode.children(); e.hasMoreElements(); ) {
+        for (Enumeration<?> e = parentNode.children(); e.hasMoreElements();) {
             Object child = e.nextElement();
 
             if (child instanceof DefaultMutableTreeNode) {
@@ -317,8 +319,8 @@ public final class TreeUtil {
                 }
 
                 boolean exists = ignoreCase
-                                 ? child.toString().equalsIgnoreCase(toString)
-                                 : child.toString().equals(toString);
+                        ? child.toString().equalsIgnoreCase(toString)
+                        : child.toString().equals(toString);
 
                 if (exists) {
                     return (DefaultMutableTreeNode) child;
@@ -422,7 +424,7 @@ public final class TreeUtil {
         int foundNodeCount = foundNodes.size();
 
         for (Enumeration<DefaultMutableTreeNode> children = rootNode.children();
-                children.hasMoreElements() && (foundNodeCount <= maxCount); ) {
+                children.hasMoreElements() && (foundNodeCount <= maxCount);) {
             DefaultMutableTreeNode child = children.nextElement();
 
             if (userObject.equals(child.getUserObject())) {
@@ -476,7 +478,6 @@ public final class TreeUtil {
     }
 
     // Code: http://www.exampledepot.com/egs/javax.swing.tree/ExpandAll.html
-
     /**
      * If expand is true, expands all nodes in the tree.
      * Otherwise, collapses all nodes in the tree.
@@ -517,7 +518,7 @@ public final class TreeUtil {
         TreeNode node = (TreeNode) parent.getLastPathComponent();
 
         if (node.getChildCount() >= 0) {
-            for (Enumeration<TreeNode> e = node.children(); e.hasMoreElements(); ) {
+            for (Enumeration<TreeNode> e = node.children(); e.hasMoreElements();) {
                 TreeNode n = e.nextElement();
                 TreePath path = parent.pathByAddingChild(n);
 
@@ -650,11 +651,11 @@ public final class TreeUtil {
     public static List<TreeNode> getTreeNodeChildren(TreeNode node) {
         if (node == null) {
             throw new NullPointerException("node == null");
-}
+        }
 
         List<TreeNode> children = new ArrayList<TreeNode>(node.getChildCount());
 
-        for (Enumeration<?> enumeration = node.children(); enumeration.hasMoreElements(); ) {
+        for (Enumeration<?> enumeration = node.children(); enumeration.hasMoreElements();) {
             Object nextElement = enumeration.nextElement();
 
             if (nextElement instanceof TreeNode) {
@@ -672,7 +673,7 @@ public final class TreeUtil {
 
         List<DefaultMutableTreeNode> children = new ArrayList<DefaultMutableTreeNode>(node.getChildCount());
 
-        for (Enumeration<?> enumeration = node.children(); enumeration.hasMoreElements(); ) {
+        for (Enumeration<?> enumeration = node.children(); enumeration.hasMoreElements();) {
             Object nextElement = enumeration.nextElement();
 
             if (nextElement instanceof DefaultMutableTreeNode) {

@@ -4,11 +4,14 @@ import java.awt.Image;
 import java.io.File;
 import java.text.DateFormat;
 import java.util.Date;
+
 import javax.swing.Icon;
+
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.image.thumbnails.ThumbnailProvider;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.lib.util.Bundle;
-import org.openide.util.Lookup;
 
 /**
  *

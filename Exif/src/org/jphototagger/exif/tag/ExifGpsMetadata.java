@@ -12,39 +12,59 @@ public final class ExifGpsMetadata {
     /**
      * Status of the GPS receiver when the image is recorded
      */
-    public enum GpsStatus { MEASUREMENT_IS_IN_PROGRESS, MEASUREMENT_IS_INTEROPERABILITY }
+    public enum GpsStatus {
+
+        MEASUREMENT_IS_IN_PROGRESS, MEASUREMENT_IS_INTEROPERABILITY
+    }
 
     /**
      * GPS measurement mode
      */
-    public enum GpsMeasureMode { TWO_DIMENSIONAL, THREE_DIMENSIONAL }
+    public enum GpsMeasureMode {
+
+        TWO_DIMENSIONAL, THREE_DIMENSIONAL
+    }
 
     /**
      * Unit used to express the GPS receiver speed of movement
      */
-    public enum GpsSpeedRef { KILOMETERS_PER_HOUR, MILES_PER_HOUR, KNOTS }
+    public enum GpsSpeedRef {
+
+        KILOMETERS_PER_HOUR, MILES_PER_HOUR, KNOTS
+    }
 
     /**
      * Reference for giving the direction of GPS receiver movement
      */
-    public enum GpsTrackRef { TRUE_DIRECTION, MAGNETIC_DIRECTION }
+    public enum GpsTrackRef {
+
+        TRUE_DIRECTION, MAGNETIC_DIRECTION
+    }
 
     /**
      * Reference for giving the direction of the image when it is
      * captured
      */
-    public enum GpsImgDirectionRef { TRUE_DIRECTION, MAGNETIC_DIRECTION }
+    public enum GpsImgDirectionRef {
+
+        TRUE_DIRECTION, MAGNETIC_DIRECTION
+    }
 
     /**
      * Reference used for giving the bearing to the destination point
      */
-    public enum GpsDestBearingRef { TRUE_DIRECTION, MAGNETIC_DIRECTION }
+    public enum GpsDestBearingRef {
+
+        TRUE_DIRECTION, MAGNETIC_DIRECTION
+    }
 
     /**
      * Unit used to express the distance to the destination point
      */
-    public enum GpsDestDistanceRef { KILOMETERS, MILES, KNOTS }
+    public enum GpsDestDistanceRef {
 
+        KILOMETERS, MILES, KNOTS
+    }
     private ExifGpsVersion version;
     private ExifGpsLatitude latitude;
     private ExifGpsLongitude longitude;

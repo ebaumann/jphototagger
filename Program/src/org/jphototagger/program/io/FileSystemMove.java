@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bushe.swing.event.EventBus;
+
 import org.jphototagger.api.file.event.FileMovedEvent;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.lib.dialog.MessageDisplayer;

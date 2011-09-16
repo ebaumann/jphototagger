@@ -18,8 +18,14 @@ import javax.swing.JTable;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import com.adobe.xmp.XMPConst;
+import com.adobe.xmp.properties.XMPPropertyInfo;
+
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.domain.repository.event.exif.ExifInsertedEvent;
 import org.jphototagger.domain.repository.event.exif.ExifUpdatedEvent;
@@ -41,10 +47,6 @@ import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.xmp.EmbeddedXmpCache;
 import org.jphototagger.xmp.XmpMetadata;
-import org.openide.util.Lookup;
-
-import com.adobe.xmp.XMPConst;
-import com.adobe.xmp.properties.XMPPropertyInfo;
 
 /**
  * Listens for selection changes in the {@link ThumbnailsPanel} and

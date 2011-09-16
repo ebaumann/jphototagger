@@ -8,6 +8,7 @@ package org.jphototagger.kml;
  * @author Elmar Baumann
  */
 public final class KMLPlacemark implements KMLElement {
+
     private final KMLPoint point;
     private String name;
 
@@ -65,7 +66,7 @@ public final class KMLPlacemark implements KMLElement {
     }
 
     private void appendName(StringBuilder sb) {
-        if ((name != null) &&!name.trim().isEmpty()) {
+        if ((name != null) && !name.trim().isEmpty()) {
             sb.append("<name>");
             sb.append(name.trim());
             sb.append("</name>");

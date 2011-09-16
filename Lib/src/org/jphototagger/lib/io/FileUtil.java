@@ -1,7 +1,5 @@
 package org.jphototagger.lib.io;
 
-import org.jphototagger.api.concurrent.CancelRequest;
-import org.jphototagger.lib.io.filefilter.DirectoryFilter;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
@@ -16,6 +14,9 @@ import java.util.List;
 import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.jphototagger.api.concurrent.CancelRequest;
+import org.jphototagger.lib.io.filefilter.DirectoryFilter;
 
 /**
  * Utilities for Files.

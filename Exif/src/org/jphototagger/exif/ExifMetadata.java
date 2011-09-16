@@ -5,12 +5,6 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.domain.exif.Exif;
-import org.jphototagger.domain.repository.ImageFilesRepository;
-import org.jphototagger.exif.cache.ExifCache;
-import org.jphototagger.image.ImageFileType;
-import org.openide.util.Lookup;
-
 import com.imagero.reader.ImageReader;
 import com.imagero.reader.MetadataUtils;
 import com.imagero.reader.jpeg.JpegReader;
@@ -18,6 +12,13 @@ import com.imagero.reader.tiff.EXIF;
 import com.imagero.reader.tiff.IFDEntry;
 import com.imagero.reader.tiff.ImageFileDirectory;
 import com.imagero.reader.tiff.TiffReader;
+
+import org.openide.util.Lookup;
+
+import org.jphototagger.domain.exif.Exif;
+import org.jphototagger.domain.repository.ImageFilesRepository;
+import org.jphototagger.exif.cache.ExifCache;
+import org.jphototagger.image.ImageFileType;
 
 /**
  * Extracts EXIF metadata from images as {@link ExifTag} and

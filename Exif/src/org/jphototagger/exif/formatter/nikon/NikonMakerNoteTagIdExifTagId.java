@@ -22,5 +22,4 @@ final class NikonMakerNoteTagIdExifTagId {
     int getNikonMakerNoteTagId() {
         return nikonMakerNoteTagId;
     }
-
 }
