@@ -3,9 +3,13 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
-0.9.1 2011-09-
+0.9.1 2011-09-17
 ----------------
 
+* Bugfix: Deadlock sollte beseitigt sein: Stichwörter einblenden,
+  mehrere Vorschaubilder auswählen, Eingabehilfen-Dialog öffnen und
+  Stichwörter aus diesen Dialog auf die ausgewählten Vorschaubilder
+  ziehen
 * Wird ein benutzerdefinierter Dateityp hinzugefügt, modifiziert oder
   gelöscht, ist kein Neustart mehr erforderlich, damit JPhotoTagger
   diesen berücksichtigt
