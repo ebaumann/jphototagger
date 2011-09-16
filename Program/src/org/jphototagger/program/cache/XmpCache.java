@@ -157,7 +157,7 @@ public final class XmpCache extends Cache<XmpCacheIndirection> {
         }
     }
 
-    public synchronized void update(final Xmp xmp, final File file, boolean repaint) {
+    public void update(final Xmp xmp, final File file, boolean repaint) {
         if (xmp == null) {
             throw new NullPointerException("xmp == null");
         }
@@ -166,15 +166,17 @@ public final class XmpCache extends Cache<XmpCacheIndirection> {
             throw new NullPointerException("file == null");
         }
 
-        if (!fileCache.containsKey(file)) {
-            return;    // stale entry
+        synchronized (this) {
+            if (!fileCache.containsKey(file)) {
+                return;    // stale entry
+            }
+
+            XmpCacheIndirection ci = fileCache.get(file);
+
+            updateUsageTime(ci);
+            ci.xmp = xmp;
+            fileCache.maybeCleanupCache();
         }
-
-        XmpCacheIndirection ci = fileCache.get(file);
-
-        updateUsageTime(ci);
-        ci.xmp = xmp;
-        fileCache.maybeCleanupCache();
 
         if (repaint) {
             EventQueueUtil.invokeInDispatchThread(new Runnable() {
@@ -221,7 +223,7 @@ public final class XmpCache extends Cache<XmpCacheIndirection> {
         return ci.xmp;
     }
 
-    public void notifyUpdate(File file, TypedThumbnailUpdateEvent.Type type) {
+    private void notifyUpdate(File file, TypedThumbnailUpdateEvent.Type type) {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
