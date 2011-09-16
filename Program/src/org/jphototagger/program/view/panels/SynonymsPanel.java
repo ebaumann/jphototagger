@@ -9,6 +9,8 @@ import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.domain.metadata.selections.AutoCompleteDataOfMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
@@ -19,7 +21,6 @@ import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.event.util.MouseEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.model.SynonymsListModel;
-import org.openide.util.Lookup;
 
 /**
  *
@@ -67,7 +68,9 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
     private boolean isAutocomplete() {
         Storage storage = Lookup.getDefault().lookup(Storage.class);
 
-        return storage.containsKey(Storage.KEY_ENABLE_AUTOCOMPLETE)
+        return storage == null
+                ? false
+                : storage.containsKey(Storage.KEY_ENABLE_AUTOCOMPLETE)
                 ? storage.getBoolean(Storage.KEY_ENABLE_AUTOCOMPLETE)
                 : true;
     }

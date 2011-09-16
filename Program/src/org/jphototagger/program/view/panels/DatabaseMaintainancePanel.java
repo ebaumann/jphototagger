@@ -13,6 +13,8 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
@@ -25,7 +27,6 @@ import org.jphototagger.program.repository.actions.DeleteNotReferenced1n;
 import org.jphototagger.program.repository.actions.DeleteOrphanedThumbnails;
 import org.jphototagger.program.repository.actions.DeleteOrphanedXmp;
 import org.jphototagger.program.repository.actions.DeleteUnusedKeywords;
-import org.openide.util.Lookup;
 
 /**
  * Database maintainance tasks.

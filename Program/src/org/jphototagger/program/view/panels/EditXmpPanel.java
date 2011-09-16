@@ -9,6 +9,8 @@ import java.util.List;
 
 import javax.swing.text.JTextComponent;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpDcCreatorMetaDataValue;
@@ -29,7 +31,6 @@ import org.jphototagger.domain.metadata.xmp.XmpPhotoshopStateMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpPhotoshopTransmissionReferenceMetaDataValue;
 import org.jphototagger.domain.text.TextEntry;
 import org.jphototagger.domain.xmp.Xmp;
-import org.openide.util.Lookup;
 
 /**
  * Edits a {@link Xmp} object.
@@ -105,7 +106,9 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
     private boolean isAutocomplete() {
         Storage storage = Lookup.getDefault().lookup(Storage.class);
 
-        return storage.containsKey(Storage.KEY_ENABLE_AUTOCOMPLETE)
+        return storage == null
+                ? false
+                : storage.containsKey(Storage.KEY_ENABLE_AUTOCOMPLETE)
                 ? storage.getBoolean(Storage.KEY_ENABLE_AUTOCOMPLETE)
                 : true;
     }

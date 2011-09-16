@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.collections.PositionComparatorAscendingOrder;
 import org.jphototagger.api.storage.Storage;
 import org.jphototagger.domain.event.listener.ListenerSupport;
@@ -22,7 +24,6 @@ import org.jphototagger.lib.dialog.DirectoryChooser.Option;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
-import org.openide.util.Lookup;
 
 /**
  *
@@ -66,7 +67,8 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
     private void postInitComponents() {
         MnemonicUtil.setMnemonics((Container) this);
         Storage storage = Lookup.getDefault().lookup(Storage.class);
-        dir = new File(storage.getString(KEY_LAST_DIR));
+        String lastDirString = storage == null ? "" : storage.getString(KEY_LAST_DIR);
+        dir = new File(lastDirString);
 
         if (dir.isDirectory()) {
             setDirLabel();
