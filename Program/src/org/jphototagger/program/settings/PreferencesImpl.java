@@ -15,8 +15,8 @@ import org.bushe.swing.event.EventBus;
 
 import org.openide.util.lookup.ServiceProvider;
 
-import org.jphototagger.api.storage.Storage;
-import org.jphototagger.api.storage.StorageHints;
+import org.jphototagger.api.storage.Preferences;
+import org.jphototagger.api.storage.PreferencesHints;
 import org.jphototagger.domain.event.UserPropertyChangedEvent;
 import org.jphototagger.lib.util.ObjectUtil;
 import org.jphototagger.lib.util.Settings;
@@ -26,10 +26,10 @@ import org.jphototagger.lib.util.Settings;
  *
  * @author Elmar Baumann
  */
-@ServiceProvider(service = Storage.class)
-public final class StorageImpl implements Storage {
+@ServiceProvider(service = Preferences.class)
+public final class PreferencesImpl implements Preferences {
 
-    private Settings settings = UserSettings.INSTANCE.getSettings();
+    private Settings settings = UserPreferences.INSTANCE.getSettings();
 
     @Override
     public String getString(String key) {
@@ -111,7 +111,7 @@ public final class StorageImpl implements Storage {
     }
 
     private void writeToFile() {
-        UserSettings.INSTANCE.writeToFile();
+        UserPreferences.INSTANCE.writeToFile();
     }
 
     @Override
@@ -225,7 +225,7 @@ public final class StorageImpl implements Storage {
     }
 
     @Override
-    public void setTabbedPane(String key, JTabbedPane pane, StorageHints hints) {
+    public void setTabbedPane(String key, JTabbedPane pane, PreferencesHints hints) {
         if (key == null) {
             throw new NullPointerException("key == null");
         }
@@ -236,7 +236,7 @@ public final class StorageImpl implements Storage {
     }
 
     @Override
-    public void applyTabbedPaneSettings(String key, JTabbedPane pane, StorageHints hints) {
+    public void applyTabbedPaneSettings(String key, JTabbedPane pane, PreferencesHints hints) {
         if (key == null) {
             throw new NullPointerException("key == null");
         }
@@ -245,7 +245,7 @@ public final class StorageImpl implements Storage {
     }
 
     @Override
-    public void setComponent(Component component, StorageHints hints) {
+    public void setComponent(Component component, PreferencesHints hints) {
         if (component == null) {
             throw new NullPointerException("component == null");
         }
@@ -256,7 +256,7 @@ public final class StorageImpl implements Storage {
     }
 
     @Override
-    public void applyComponentSettings(Component component, StorageHints hints) {
+    public void applyComponentSettings(Component component, PreferencesHints hints) {
         if (component == null) {
             throw new NullPointerException("component == null");
         }

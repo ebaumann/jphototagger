@@ -23,7 +23,7 @@ import javax.swing.tree.TreeSelectionModel;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.event.HelpBrowserEvent;
 import org.jphototagger.lib.event.listener.HelpBrowserListener;
@@ -270,7 +270,7 @@ public final class HelpBrowser extends Dialog implements ActionListener, Hyperli
     }
 
     private void readDividerLocationFromProperties() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         if (storage != null && storage.containsKey(KEY_DIVIDER_LOCATION)) {
             splitPane.setDividerLocation(storage.getInt(KEY_DIVIDER_LOCATION));
@@ -278,7 +278,7 @@ public final class HelpBrowser extends Dialog implements ActionListener, Hyperli
     }
 
     private void writeDividerLocationToProperties() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         if (storage != null) {
             storage.setInt(KEY_DIVIDER_LOCATION, splitPane.getDividerLocation());

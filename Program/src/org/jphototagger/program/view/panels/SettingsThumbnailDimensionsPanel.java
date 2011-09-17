@@ -10,7 +10,7 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
 import org.jphototagger.domain.event.UserPropertyChangedEvent;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.program.helper.UpdateAllThumbnails;
@@ -43,9 +43,9 @@ public class SettingsThumbnailDimensionsPanel extends javax.swing.JPanel impleme
     }
 
     private void setMaxThumbnailWidth(int width) {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setString(Storage.KEY_MAX_THUMBNAIL_WIDTH, Integer.toString(width));
+        storage.setString(Preferences.KEY_MAX_THUMBNAIL_WIDTH, Integer.toString(width));
     }
 
     private void updateAllThumbnails() {
@@ -66,8 +66,8 @@ public class SettingsThumbnailDimensionsPanel extends javax.swing.JPanel impleme
     }
 
     private int getMaxThumbnailWidth() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
-        int width = storage.getInt(Storage.KEY_MAX_THUMBNAIL_WIDTH);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        int width = storage.getInt(Preferences.KEY_MAX_THUMBNAIL_WIDTH);
 
         return (width != Integer.MIN_VALUE)
                 ? width
@@ -90,7 +90,7 @@ public class SettingsThumbnailDimensionsPanel extends javax.swing.JPanel impleme
 
     @EventSubscriber(eventClass = UserPropertyChangedEvent.class)
     public void applySettings(UserPropertyChangedEvent evt) {
-        if (Storage.KEY_MAX_THUMBNAIL_WIDTH.equals(evt.getPropertyKey())) {
+        if (Preferences.KEY_MAX_THUMBNAIL_WIDTH.equals(evt.getPropertyKey())) {
             listenToMaxThumbnailWidthChanges = false;
             spinnerMaxThumbnailWidth.setValue((Integer) evt.getNewValue());
             listenToMaxThumbnailWidthChanges = true;

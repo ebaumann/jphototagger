@@ -15,7 +15,7 @@ import javax.swing.KeyStroke;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
 
 /**
  * Dialog which can close by pressing the ESC key and showing the Help dialog
@@ -147,7 +147,7 @@ public class Dialog extends JDialog implements WindowListener {
     }
 
     /**
-     * This dialog persists size and location if a {@code Storage} implementation
+     * This dialog persists size and location if a {@code Preferences} implementation
      * is present, by default it uses the class' name as key, here a different
      * key can be setTree. This makes sense if the same dialog is used whithin different
      * contexts.
@@ -163,7 +163,7 @@ public class Dialog extends JDialog implements WindowListener {
     }
 
     protected void setSizeAndLocation() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         if (ignoreSizeAndLocation || storage == null) {
             return;
@@ -180,7 +180,7 @@ public class Dialog extends JDialog implements WindowListener {
             return;
         }
 
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         if (storage == null) {
             setLocationRelativeTo(null);

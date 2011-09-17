@@ -12,7 +12,7 @@ import javax.swing.event.ListSelectionListener;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.branding.Branding;
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
@@ -132,14 +132,14 @@ public class RepositoryFileBrowserDialog extends Dialog {
 
     @Override
     protected void applySizeAndLocation() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
         storage.applySize(RepositoryFileBrowserDialog.class.getName(), this);
         storage.applyLocation(RepositoryFileBrowserDialog.class.getName(), this);
     }
 
     @Override
     protected void setSizeAndLocation() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
         storage.setSize(RepositoryFileBrowserDialog.class.getName(), this);
         storage.setLocation(RepositoryFileBrowserDialog.class.getName(), this);
     }

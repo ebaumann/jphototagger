@@ -2,23 +2,24 @@ package org.jphototagger.api.modules;
 
 /**
  * A module will be automatically initialized by the application
- * (through calling {@code #start()}) in opposite to a
+ * (through calling {@code #init()}) in opposite to a
  * {@code Plugin} which will be invoked only on demand.
  * <p>
- * Modules will be collected through the Java Service Provider
- * Interface.
+ * Modules will be picked up from the application through the
+ * Java Service Provider Interface (SPI).
  *
  * @author Elmar Baumann
  */
 public interface Module {
 
     /**
-     * Called from the Framework, initializes a module
+     * Called from the Framework, the module shall initialize itself.
      */
-    void start();
+    void init();
 
     /**
-     * Called from the Framework before the application exits or removes the module
+     * Called from the Framework if the module shall not longer be available,
+     * at least called before the application quits.
      */
-    void close();
+    void remove();
 }

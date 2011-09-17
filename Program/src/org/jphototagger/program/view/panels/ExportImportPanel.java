@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 import org.openide.util.Lookup;
 
 import org.jphototagger.lib.util.PositionComparatorAscendingOrder;
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
 import org.jphototagger.domain.event.listener.ListenerSupport;
 import org.jphototagger.domain.repository.RepositoryDataExporter;
 import org.jphototagger.domain.repository.RepositoryDataImporter;
@@ -66,7 +66,7 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
 
     private void postInitComponents() {
         MnemonicUtil.setMnemonics((Container) this);
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
         String lastDirString = storage == null ? "" : storage.getString(KEY_LAST_DIR);
         dir = new File(lastDirString);
 
@@ -177,7 +177,7 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
 
         if (dlg.isAccepted()) {
             dir = dlg.getSelectedDirectories().get(0);
-            Storage storage = Lookup.getDefault().lookup(Storage.class);
+            Preferences storage = Lookup.getDefault().lookup(Preferences.class);
             storage.setString(KEY_LAST_DIR, dir.getAbsolutePath());
             setDirLabel();
             setEnabledButtons();
@@ -191,10 +191,10 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
     }
 
     private boolean isAcceptHiddenDirectories() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(Storage.KEY_ACCEPT_HIDDEN_DIRECTORIES)
-                ? storage.getBoolean(Storage.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+        return storage.containsKey(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+                ? storage.getBoolean(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
                 : false;
     }
 

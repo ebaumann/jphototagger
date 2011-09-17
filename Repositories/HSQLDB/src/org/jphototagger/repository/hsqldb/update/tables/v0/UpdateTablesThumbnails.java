@@ -15,9 +15,9 @@ import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
 
+import org.jphototagger.api.storage.ThumbnailsDirectoryProvider;
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.UserFilesProvider;
 import org.jphototagger.domain.repository.ApplicationPropertiesRepository;
 import org.jphototagger.domain.repository.RepositoryMaintainance;
 import org.jphototagger.domain.repository.ThumbnailsRepository;
@@ -212,7 +212,7 @@ final class UpdateTablesThumbnails extends Database {
     }
 
     private File[] getThumbnailFiles() {
-        UserFilesProvider provider = Lookup.getDefault().lookup(UserFilesProvider.class);
+        ThumbnailsDirectoryProvider provider = Lookup.getDefault().lookup(ThumbnailsDirectoryProvider.class);
         File dir = provider.getThumbnailsDirectory();
 
         if (!dir.isDirectory()) {
@@ -223,7 +223,7 @@ final class UpdateTablesThumbnails extends Database {
     }
 
     private File getOldThumbnailFile(long id) {
-        UserFilesProvider provider = Lookup.getDefault().lookup(UserFilesProvider.class);
+        ThumbnailsDirectoryProvider provider = Lookup.getDefault().lookup(ThumbnailsDirectoryProvider.class);
         String directoryName = provider.getThumbnailsDirectory().getAbsolutePath();
 
         try {

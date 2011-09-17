@@ -7,8 +7,9 @@ import java.util.logging.Logger;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.modules.Module;
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.program.app.AppStorageKeys;
 import org.jphototagger.program.app.AppWindowPersistence;
 import org.jphototagger.program.app.update.UpdateDownload;
 
@@ -80,10 +81,10 @@ public final class MetaFactory implements Runnable {
     }
 
     private boolean isCheckForUpdates() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(Storage.KEY_CHECK_FOR_UPDATES)
-                ? storage.getBoolean(Storage.KEY_CHECK_FOR_UPDATES)
+        return storage.containsKey(AppStorageKeys.KEY_CHECK_FOR_UPDATES)
+                ? storage.getBoolean(AppStorageKeys.KEY_CHECK_FOR_UPDATES)
                 : true;
     }
 
@@ -91,7 +92,7 @@ public final class MetaFactory implements Runnable {
         Collection<? extends Module> modules = Lookup.getDefault().lookupAll(Module.class);
 
         for (Module module : modules) {
-            module.start();
+            module.init();
         }
     }
 }

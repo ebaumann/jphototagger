@@ -15,14 +15,14 @@ import org.jphototagger.api.windows.MainWindowMenuManager;
 public final class ModuleImpl implements Module {
 
     @Override
-    public void start() {
+    public void init() {
         MainWindowMenuManager menuManager = Lookup.getDefault().lookup(MainWindowMenuManager.class);
 
         menuManager.addToWindowMenu(BrowseRepositoryFilesAction.INSTANCE);
     }
 
     @Override
-    public void close() {
+    public void remove() {
         // Ignore
     }
 }

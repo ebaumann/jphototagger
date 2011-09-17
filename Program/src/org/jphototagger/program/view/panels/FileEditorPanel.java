@@ -12,7 +12,7 @@ import javax.swing.filechooser.FileFilter;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.DirectoryChooser;
 import org.jphototagger.lib.dialog.DirectoryChooser.Option;
@@ -22,6 +22,7 @@ import org.jphototagger.lib.io.filefilter.RegexFileFilter;
 import org.jphototagger.lib.renderer.FileSystemListCellRenderer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppFileFilters;
+import org.jphototagger.program.app.AppStorageKeys;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.types.FileEditor;
 
@@ -164,10 +165,10 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     }
 
     private boolean isAcceptHiddenDirectories() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(Storage.KEY_ACCEPT_HIDDEN_DIRECTORIES)
-                ? storage.getBoolean(Storage.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+        return storage.containsKey(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+                ? storage.getBoolean(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
                 : false;
     }
 
@@ -234,7 +235,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     }
 
     private void selectDirectories() {
-        List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(Storage.KEY_HIDE_ROOT_FILES_FROM_DIRECTORIES_TAB);
+        List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(AppStorageKeys.KEY_UI_DIRECTORIES_TAB_HIDE_ROOT_FILES);
         DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), prevSelectedDirectory, hideRootFiles, getDirChooserOptions());
 
         dlg.setStorageKey("FileEditorPanel.DirChooser");
@@ -278,7 +279,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     }
 
     public void readProperties() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         prevSelectedDirectory = new File(storage.getString(KEY_DIRECTORY_NAME));
         storage.applyComponentSettings(this, null);
@@ -287,7 +288,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     }
 
     public void writeProperties() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         storage.setComponent(this, null);
         storage.setString(KEY_DIRECTORY_NAME, prevSelectedDirectory.getAbsolutePath());

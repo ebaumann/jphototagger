@@ -14,7 +14,7 @@ import org.bushe.swing.event.EventBus;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.modules.Module;
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
 import org.jphototagger.domain.event.AppWillExitEvent;
 import org.jphototagger.domain.event.listener.ListenerSupport;
 import org.jphototagger.domain.repository.RepositoryMaintainance;
@@ -186,7 +186,7 @@ public final class AppLifeCycle {
         Collection<? extends Module> modules = Lookup.getDefault().lookupAll(Module.class);
 
         for (Module module : modules) {
-            module.close();
+            module.remove();
         }
     }
 
@@ -272,7 +272,7 @@ public final class AppLifeCycle {
     }
 
     private void writeProperties() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
         String key = appFrame.getClass().getName();
 
         storage.setSize(key, appFrame);

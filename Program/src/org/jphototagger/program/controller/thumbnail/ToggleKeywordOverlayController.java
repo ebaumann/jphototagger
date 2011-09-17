@@ -7,7 +7,7 @@ import javax.swing.JCheckBoxMenuItem;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.frames.AppFrame;
 import org.jphototagger.program.view.panels.AppPanel;
@@ -45,7 +45,7 @@ public final class ToggleKeywordOverlayController implements ActionListener {
     }
 
     private void readPersistent() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         if (storage.containsKey(KEY_SHOW_METADATA_OVERLAY)) {
             boolean wasSelected = storage.getBoolean(KEY_SHOW_METADATA_OVERLAY);
@@ -56,7 +56,7 @@ public final class ToggleKeywordOverlayController implements ActionListener {
     }
 
     private void writePersistent() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
         AppFrame appFrame = GUI.getAppFrame();
         JCheckBoxMenuItem checkBoxMenuItemKeywordOverlay = appFrame.getCheckBoxMenuItemKeywordOverlay();
         boolean selected = checkBoxMenuItemKeywordOverlay.isSelected();

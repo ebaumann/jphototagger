@@ -9,8 +9,8 @@ import org.openide.util.Lookup;
 import org.jphototagger.api.file.FilenameTokens;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
-import org.jphototagger.api.storage.UserFilesProvider;
 import org.jphototagger.domain.event.listener.ProgressListenerSupport;
+import org.jphototagger.domain.repository.FileRepositoryProvider;
 import org.jphototagger.domain.repository.RepositoryMaintainance;
 import org.jphototagger.lib.util.Bundle;
 
@@ -75,8 +75,8 @@ public final class CompressDatabase implements Runnable {
         logCompressDatabase();
         notifyStarted();
 
-        UserFilesProvider provider = Lookup.getDefault().lookup(UserFilesProvider.class);
-        File dbFile = new File(provider.getDatabaseFileName(FilenameTokens.FULL_PATH));
+        FileRepositoryProvider provider = Lookup.getDefault().lookup(FileRepositoryProvider.class);
+        File dbFile = new File(provider.getFileRepositoryFileName(FilenameTokens.FULL_PATH));
         RepositoryMaintainance repo = Lookup.getDefault().lookup(RepositoryMaintainance.class);
 
         sizeBefore = dbFile.length();

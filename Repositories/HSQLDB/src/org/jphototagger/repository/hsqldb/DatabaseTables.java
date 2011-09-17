@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.startup.ApplicationStartupLock;
+import org.jphototagger.api.startup.AppStartupLock;
 import org.jphototagger.repository.hsqldb.update.tables.UpdateTablesFactory;
 
 /**
@@ -95,7 +95,7 @@ final class DatabaseTables extends Database {
             }
 
             close(stmt);
-            Lookup.getDefault().lookup(ApplicationStartupLock.class).unlockApplication();
+            Lookup.getDefault().lookup(AppStartupLock.class).unlockStartup();
             System.exit(0);
         } finally {
             close(stmt);

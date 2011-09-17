@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
@@ -56,7 +56,7 @@ public class FlickrImageInfoDialog extends Dialog {
     }
 
     private void writePersistent() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         if (storage != null) {
             storage.setSize(FlickrImageInfoDialog.class.getName(), this);
@@ -65,7 +65,7 @@ public class FlickrImageInfoDialog extends Dialog {
     }
 
     private void readPersistent() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         if (storage != null) {
             storage.applySize(FlickrImageInfoDialog.class.getName(), this);

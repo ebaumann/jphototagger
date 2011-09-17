@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
 import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.domain.repository.FavoritesRepository;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
@@ -16,6 +16,7 @@ import org.jphototagger.lib.dialog.DirectoryChooser;
 import org.jphototagger.lib.dialog.DirectoryChooser.Option;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.app.AppStorageKeys;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.SelectRootFilesPanel;
 
@@ -48,7 +49,7 @@ public final class FavoritePropertiesDialog extends Dialog {
 
     private void chooseDirectory() {
         Option showHiddenDirs = getDirChooserOptionShowHiddenDirs();
-        List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(Storage.KEY_HIDE_ROOT_FILES_FROM_DIRECTORIES_TAB);
+        List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(AppStorageKeys.KEY_UI_DIRECTORIES_TAB_HIDE_ROOT_FILES);
         DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), dir, hideRootFiles, showHiddenDirs);
 
         dlg.setStorageKey("FavoritePropertiesDialog.DirChooser");
@@ -68,10 +69,10 @@ public final class FavoritePropertiesDialog extends Dialog {
     }
 
     private boolean isAcceptHiddenDirectories() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(Storage.KEY_ACCEPT_HIDDEN_DIRECTORIES)
-                ? storage.getBoolean(Storage.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+        return storage.containsKey(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+                ? storage.getBoolean(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
                 : false;
     }
 
@@ -190,7 +191,7 @@ public final class FavoritePropertiesDialog extends Dialog {
     }
 
     private void directoryFromSettings() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         if (storage.containsKey(KEY_LAST_DIRECTORY)) {
             dir = new File(storage.getString(KEY_LAST_DIRECTORY));
@@ -202,7 +203,7 @@ public final class FavoritePropertiesDialog extends Dialog {
     }
 
     private void directoryToSettings() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         storage.setString(KEY_LAST_DIRECTORY, dir.getAbsolutePath());
     }

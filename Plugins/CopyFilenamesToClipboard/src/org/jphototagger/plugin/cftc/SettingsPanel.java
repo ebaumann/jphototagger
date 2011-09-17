@@ -11,7 +11,7 @@ import javax.swing.JList;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
 import org.jphototagger.lib.util.Bundle;
 
 /**
@@ -23,7 +23,7 @@ public class SettingsPanel extends javax.swing.JPanel {
     private static final long serialVersionUID = -8198418342037889703L;
     private final DelimiterModel model = new DelimiterModel();
     private final DelimiterRenderer renderer = new DelimiterRenderer();
-    private final Storage storage = Lookup.getDefault().lookup(Storage.class);
+    private final Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
     public SettingsPanel() {
         initComponents();

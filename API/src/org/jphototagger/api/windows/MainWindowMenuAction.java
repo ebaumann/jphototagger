@@ -2,20 +2,16 @@ package org.jphototagger.api.windows;
 
 import javax.swing.Action;
 
+import org.jphototagger.api.collections.PositionProvider;
+
 /**
  *
  *
  * @author Elmar Baumann
  */
-public interface MainWindowMenuAction {
+public interface MainWindowMenuAction extends PositionProvider {
 
     Action getAction();
 
-    /**
-     *
-     * @return netative value if not important
-     */
-    int getPosition();
-
-    boolean isSeparatorBefore();
+    boolean isUsedInMenusSeparatorBefore();
 }

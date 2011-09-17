@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
 import org.jphototagger.lib.util.Version;
 import org.jphototagger.repository.hsqldb.DatabaseMetadata;
 import org.jphototagger.repository.hsqldb.update.tables.v0.UpdateTablesV0;
@@ -63,10 +63,10 @@ public final class UpdateTablesFactory {
 
     private Level getLogLevel() {
         Level level = null;
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        if (storage.containsKey(Storage.KEY_LOG_LEVEL)) {
-            String levelString = storage.getString(Storage.KEY_LOG_LEVEL);
+        if (storage.containsKey(Preferences.KEY_LOG_LEVEL)) {
+            String levelString = storage.getString(Preferences.KEY_LOG_LEVEL);
 
             try {
                 level = Level.parse(levelString);
@@ -76,16 +76,16 @@ public final class UpdateTablesFactory {
         }
 
         if (level == null) {
-            storage.setString(Storage.KEY_LOG_LEVEL, Level.INFO.getLocalizedName());
+            storage.setString(Preferences.KEY_LOG_LEVEL, Level.INFO.getLocalizedName());
         }
 
         return level == null ? Level.INFO : level;
     }
 
     private void setLogLevel(Level logLevel) {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setString(Storage.KEY_LOG_LEVEL, logLevel.toString());
+        storage.setString(Preferences.KEY_LOG_LEVEL, logLevel.toString());
     }
 
     public void updatePostCreation(Connection con) throws SQLException {
@@ -127,7 +127,7 @@ public final class UpdateTablesFactory {
      * @return true, if an updatePostCreation shall be forced
      */
     private static boolean isForceUpdate() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         return storage.getBoolean("UdateTables.ForceUpdate");
     }

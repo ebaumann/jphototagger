@@ -10,7 +10,7 @@ import javax.swing.SpinnerNumberModel;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
 import org.jphototagger.domain.repository.AutoscanDirectoriesRepository;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.DirectoryChooser;
@@ -18,6 +18,7 @@ import org.jphototagger.lib.dialog.DirectoryChooser.Option;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.renderer.FileSystemListCellRenderer;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.app.AppStorageKeys;
 import org.jphototagger.program.model.AutoscanDirectoriesListModel;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.tasks.ScheduledTasks;
@@ -53,7 +54,7 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel implem
 
     @Override
     public void readProperties() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         spinnerMinutesToStartScheduledTasks.setValue(ScheduledTasks.getMinutesToStartScheduledTasks());
         checkBoxIsAutoscanIncludeSubdirectories.setSelected(isAutoscanIncludeSubdirectories());
@@ -63,10 +64,10 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel implem
     }
 
     private boolean isAutoscanIncludeSubdirectories() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(Storage.KEY_AUTO_SCAN_INCLUDE_SUBDIRECTORIES)
-                ? storage.getBoolean(Storage.KEY_AUTO_SCAN_INCLUDE_SUBDIRECTORIES)
+        return storage.containsKey(AppStorageKeys.KEY_SCHEDULED_TASKS_AUTO_SCAN_INCLUDE_SUBDIRECTORIES)
+                ? storage.getBoolean(AppStorageKeys.KEY_SCHEDULED_TASKS_AUTO_SCAN_INCLUDE_SUBDIRECTORIES)
                 : true;
     }
 
@@ -77,14 +78,14 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel implem
 
     @Override
     public void writeProperties() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         storage.setString(KEY_LAST_SELECTED_AUTOSCAN_DIRECTORY, lastSelectedAutoscanDirectory);
     }
 
     private void addAutoscanDirectories() {
         Option showHiddenDirs = getDirChooserOptionShowHiddenDirs();
-        List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(Storage.KEY_HIDE_ROOT_FILES_FROM_DIRECTORIES_TAB);
+        List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(AppStorageKeys.KEY_UI_DIRECTORIES_TAB_HIDE_ROOT_FILES);
         DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), new File(lastSelectedAutoscanDirectory), hideRootFiles, showHiddenDirs);
 
         dlg.setStorageKey("SettingsScheduledTasksPanel.DirChooser");
@@ -116,10 +117,10 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel implem
     }
 
     private boolean isAcceptHiddenDirectories() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(Storage.KEY_ACCEPT_HIDDEN_DIRECTORIES)
-                ? storage.getBoolean(Storage.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+        return storage.containsKey(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+                ? storage.getBoolean(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
                 : false;
     }
 
@@ -160,9 +161,9 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel implem
     }
 
     private void setMinutesToStartScheduledTasks(int minutes) {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setString(Storage.KEY_MINUTES_TO_START_SCHEDULED_TASKS, Integer.toString(minutes));
+        storage.setString(AppStorageKeys.KEY_SCHEDULED_TASKS_MINUTES_TO_START_SCHEDULED_TASKS, Integer.toString(minutes));
     }
 
     private void handleActionCheckBoxIsAutoscanIncludeSubdirectories() {
@@ -170,9 +171,9 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel implem
     }
 
     private void setAutoscanIncludeSubdirectories(boolean include) {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setBoolean(Storage.KEY_AUTO_SCAN_INCLUDE_SUBDIRECTORIES, include);
+        storage.setBoolean(AppStorageKeys.KEY_SCHEDULED_TASKS_AUTO_SCAN_INCLUDE_SUBDIRECTORIES, include);
     }
 
     private void setEnabledButtonRemoveAutoscanDirectory() {

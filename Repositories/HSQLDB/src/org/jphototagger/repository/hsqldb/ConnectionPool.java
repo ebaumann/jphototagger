@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.file.FilenameTokens;
-import org.jphototagger.api.storage.UserFilesProvider;
+import org.jphototagger.domain.repository.FileRepositoryProvider;
 
 /**
  * A class for preallocating, recycling, and managing
@@ -92,8 +92,8 @@ public final class ConnectionPool implements Runnable {
 
         init = true;
 
-        UserFilesProvider provider = Lookup.getDefault().lookup(UserFilesProvider.class);
-        String file = provider.getDatabaseFileName(FilenameTokens.FULL_PATH_NO_SUFFIX);
+        FileRepositoryProvider provider = Lookup.getDefault().lookup(FileRepositoryProvider.class);
+        String file = provider.getFileRepositoryFileName(FilenameTokens.FULL_PATH_NO_SUFFIX);
 
         url = "jdbc:hsqldb:file:" + file + ";shutdown=true";
         driver = "org.hsqldb.jdbcDriver";

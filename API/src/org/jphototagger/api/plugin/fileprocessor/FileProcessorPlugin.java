@@ -7,9 +7,6 @@ import org.jphototagger.api.plugin.Plugin;
 
 /**
  * A Plugin processing a collection of files.
- * <p>
- * Examples: Transferring images to a web service,
- * converting image files into other file formats.
  *
  * @author Elmar Baumann
  */

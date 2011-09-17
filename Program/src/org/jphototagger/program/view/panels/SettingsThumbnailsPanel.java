@@ -15,8 +15,9 @@ import javax.swing.JRadioButton;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.image.thumbnails.ExternalThumbnailCreationCommand;
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
+import org.jphototagger.program.app.AppStorageKeys;
 import org.jphototagger.program.image.thumbnail.ThumbnailCreationStrategy;
 import org.jphototagger.program.image.thumbnail.ThumbnailCreationStrategyProvider;
 import org.jphototagger.program.types.Persistence;
@@ -58,17 +59,17 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
     }
 
     private boolean isDisplayThumbnailTooltip() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(Storage.KEY_DISPLAY_THUMBNAIL_TOOLTIP)
-                ? storage.getBoolean(Storage.KEY_DISPLAY_THUMBNAIL_TOOLTIP)
+        return storage.containsKey(AppStorageKeys.KEY_UI_DISPLAY_THUMBNAIL_TOOLTIP)
+                ? storage.getBoolean(AppStorageKeys.KEY_UI_DISPLAY_THUMBNAIL_TOOLTIP)
                 : true;
     }
 
     private String getExternalThumbnailCreationCommand() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.getString(Storage.KEY_EXTERNAL_THUMBNAIL_CREATION_COMMAND);
+        return storage.getString(AppStorageKeys.KEY_THUMBNAIL_CREATION_EXTERNAL_COMMAND);
     }
 
     private void setSelectedRadioButtons() {
@@ -142,9 +143,9 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
     }
 
     private void setExternalThumbnailCreationCommand(String command) {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setString(Storage.KEY_EXTERNAL_THUMBNAIL_CREATION_COMMAND, command);
+        storage.setString(AppStorageKeys.KEY_THUMBNAIL_CREATION_EXTERNAL_COMMAND, command);
     }
 
     private void setDisplayThumbnailTooltip() {
@@ -154,9 +155,9 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
     }
 
     private void setDisplayThumbnailTooltip(boolean display) {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setBoolean(Storage.KEY_DISPLAY_THUMBNAIL_TOOLTIP, display);
+        storage.setBoolean(AppStorageKeys.KEY_UI_DISPLAY_THUMBNAIL_TOOLTIP, display);
     }
 
     @Override
@@ -175,9 +176,9 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
     }
 
     private void setThumbnailCreationStrategy(ThumbnailCreationStrategy creator) {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setString(Storage.KEY_THUMBNAIL_CREATOR, creator.name());
+        storage.setString(AppStorageKeys.KEY_THUMBNAIL_CREATION_CREATOR, creator.name());
     }
 
     /**

@@ -16,7 +16,7 @@ import javax.swing.JCheckBox;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
 import org.jphototagger.program.types.Persistence;
 
 /**
@@ -93,7 +93,7 @@ public class SelectRootFilesPanel extends javax.swing.JPanel implements Persiste
 
     public static List<File> readPersistentRootFiles(String key) {
         List<File> rootFiles = new ArrayList<File>();
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
         List<String> rootFilePaths = storage.getStringCollection(key);
 
         for (String rootFilePath : rootFilePaths) {
@@ -107,7 +107,7 @@ public class SelectRootFilesPanel extends javax.swing.JPanel implements Persiste
 
     @Override
     public void readProperties() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
         List<String> rootFilePaths = storage.getStringCollection(persistenceKey);
         Set<JCheckBox> checkBoxes = ROOT_FILE_OF_CHECKBOX.keySet();
 
@@ -125,7 +125,7 @@ public class SelectRootFilesPanel extends javax.swing.JPanel implements Persiste
 
     @Override
     public void writeProperties() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
         List<File> selectedRootFiles = getSelectedRootFiles();
         List<String> selectedRootFilePaths = new ArrayList<String>(selectedRootFiles.size());
 

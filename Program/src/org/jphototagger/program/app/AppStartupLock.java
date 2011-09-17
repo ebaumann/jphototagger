@@ -5,9 +5,9 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.jphototagger.domain.repository.FileRepositoryProvider;
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.UserFilesProvider;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.util.Bundle;
@@ -24,8 +24,8 @@ public final class AppStartupLock {
     private static final String LOCKFILE_NAME;
 
     static {
-        UserFilesProvider provider = Lookup.getDefault().lookup(UserFilesProvider.class);
-        File databaseDirectory = provider.getDatabaseDirectory();
+        FileRepositoryProvider provider = Lookup.getDefault().lookup(FileRepositoryProvider.class);
+        File databaseDirectory = provider.getFileRepositoryDirectory();
         String databaseDirectoryName = databaseDirectory.getAbsolutePath();
 
         LOCKFILE_NAME = databaseDirectoryName + File.separator + AppInfo.PROJECT_NAME + ".lck";

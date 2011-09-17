@@ -14,8 +14,8 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.api.concurrent.CancelRequest;
 import org.jphototagger.api.concurrent.Cancelable;
-import org.jphototagger.api.storage.Storage;
-import org.jphototagger.api.storage.UserFilesProvider;
+import org.jphototagger.api.storage.Preferences;
+import org.jphototagger.api.storage.SettingsDirectoryProvider;
 import org.jphototagger.domain.repository.ApplicationPropertiesRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
@@ -26,6 +26,7 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.Version;
 import org.jphototagger.program.app.AppInfo;
 import org.jphototagger.program.app.AppLifeCycle;
+import org.jphototagger.program.app.AppStorageKeys;
 import org.jphototagger.program.helper.FinalExecutable;
 import org.jphototagger.program.view.panels.ProgressBar;
 
@@ -108,9 +109,9 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
     }
 
     private static void setCheckForUpdates(boolean auto) {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setBoolean(Storage.KEY_CHECK_FOR_UPDATES, auto);
+        storage.setBoolean(AppStorageKeys.KEY_CHECK_FOR_UPDATES, auto);
     }
 
     @Override
@@ -188,7 +189,7 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
     }
 
     private File getDownloadFile() {
-        UserFilesProvider provider = Lookup.getDefault().lookup(UserFilesProvider.class);
+        SettingsDirectoryProvider provider = Lookup.getDefault().lookup(SettingsDirectoryProvider.class);
         String userDirectory = provider.getUserSettingsDirectory().getAbsolutePath();
         String dirname = userDirectory;
         String filename = SystemUtil.isWindows()

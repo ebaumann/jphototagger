@@ -14,8 +14,9 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
 import org.jphototagger.domain.event.UserPropertyChangedEvent;
+import org.jphototagger.iptc.IptcStorageKeys;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
@@ -44,7 +45,7 @@ public final class DisplayIptcUserSettingsController extends MouseAdapter {
 
     @EventSubscriber(eventClass = UserPropertyChangedEvent.class)
     public void applySettings(UserPropertyChangedEvent evt) {
-        if (Storage.KEY_DISPLAY_IPTC.equals(evt.getPropertyKey())) {
+        if (IptcStorageKeys.KEY_DISPLAY_IPTC.equals(evt.getPropertyKey())) {
             boolean displayIptc = (Boolean) evt.getNewValue();
 
             setEnabledIptcTab(displayIptc);
@@ -101,17 +102,17 @@ public final class DisplayIptcUserSettingsController extends MouseAdapter {
     }
 
     private boolean isDisplayIptc() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(Storage.KEY_DISPLAY_IPTC)
-                ? storage.getBoolean(Storage.KEY_DISPLAY_IPTC)
+        return storage.containsKey(IptcStorageKeys.KEY_DISPLAY_IPTC)
+                ? storage.getBoolean(IptcStorageKeys.KEY_DISPLAY_IPTC)
                 : false;
     }
 
     private void setDisplayIptc(boolean display) {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setBoolean(Storage.KEY_DISPLAY_IPTC, display);
+        storage.setBoolean(IptcStorageKeys.KEY_DISPLAY_IPTC, display);
     }
 
     @Override

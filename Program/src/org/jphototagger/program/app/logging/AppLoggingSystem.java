@@ -19,8 +19,8 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Storage;
-import org.jphototagger.api.storage.UserFilesProvider;
+import org.jphototagger.api.storage.Preferences;
+import org.jphototagger.api.storage.SettingsDirectoryProvider;
 import org.jphototagger.domain.event.UserPropertyChangedEvent;
 import org.jphototagger.lib.dialog.LogfileDialog;
 import org.jphototagger.lib.io.FileUtil;
@@ -54,7 +54,7 @@ public final class AppLoggingSystem {
     private static Handler systemOutHandler;
 
     static {
-        UserFilesProvider provider = Lookup.getDefault().lookup(UserFilesProvider.class);
+        SettingsDirectoryProvider provider = Lookup.getDefault().lookup(SettingsDirectoryProvider.class);
         File userDirectory = provider.getUserSettingsDirectory();
 
         LOGFILE_PATH_DIR = userDirectory.getAbsolutePath();
@@ -95,7 +95,7 @@ public final class AppLoggingSystem {
 
     private static void ensureLogDirectoryExists() {
         try {
-            UserFilesProvider provider = Lookup.getDefault().lookup(UserFilesProvider.class);
+            SettingsDirectoryProvider provider = Lookup.getDefault().lookup(SettingsDirectoryProvider.class);
             File userDirectory = provider.getUserSettingsDirectory();
             String settingsDirectoryName = userDirectory.getAbsolutePath();
             File settingsDirectory = new File(settingsDirectoryName);
@@ -126,10 +126,10 @@ public final class AppLoggingSystem {
 
     private static Level getLogLevel() {
         Level level = null;
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        if (storage.containsKey(Storage.KEY_LOG_LEVEL)) {
-            String levelString = storage.getString(Storage.KEY_LOG_LEVEL);
+        if (storage.containsKey(Preferences.KEY_LOG_LEVEL)) {
+            String levelString = storage.getString(Preferences.KEY_LOG_LEVEL);
 
             try {
                 level = Level.parse(levelString);
@@ -139,7 +139,7 @@ public final class AppLoggingSystem {
         }
 
         if (level == null) {
-            storage.setString(Storage.KEY_LOG_LEVEL, Level.INFO.getLocalizedName());
+            storage.setString(Preferences.KEY_LOG_LEVEL, Level.INFO.getLocalizedName());
         }
 
         return level == null ? Level.INFO : level;
@@ -181,7 +181,7 @@ public final class AppLoggingSystem {
 
     @EventSubscriber(eventClass = UserPropertyChangedEvent.class)
     public void applySettings(UserPropertyChangedEvent evt) {
-        if (appLogger != null && Storage.KEY_LOG_LEVEL.equals(evt.getPropertyKey())) {
+        if (appLogger != null && Preferences.KEY_LOG_LEVEL.equals(evt.getPropertyKey())) {
             systemOutHandler.setLevel((Level) evt.getNewValue());
         }
     }

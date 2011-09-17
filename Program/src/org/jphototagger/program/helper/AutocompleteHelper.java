@@ -6,7 +6,8 @@ import java.util.List;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
+import org.jphototagger.domain.DomainStorageKeys;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.selections.AutoCompleteData;
 import org.jphototagger.domain.metadata.selections.AutoCompleteDataOfMetaDataValue;
@@ -47,10 +48,10 @@ public final class AutocompleteHelper {
     }
 
     private static boolean isUpdateAutocomplete() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(Storage.KEY_UPDATE_AUTOCOMPLETE)
-                ? storage.getBoolean(Storage.KEY_UPDATE_AUTOCOMPLETE)
+        return storage.containsKey(DomainStorageKeys.KEY_UPDATE_AUTOCOMPLETE)
+                ? storage.getBoolean(DomainStorageKeys.KEY_UPDATE_AUTOCOMPLETE)
                 : true;
     }
 

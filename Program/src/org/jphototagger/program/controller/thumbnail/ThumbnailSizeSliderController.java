@@ -14,7 +14,7 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
 import org.jphototagger.domain.event.UserPropertyChangedEvent;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsChangedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
@@ -52,8 +52,8 @@ public final class ThumbnailSizeSliderController implements AWTEventListener, Ch
     }
 
     private int getMaxTnWidth() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
-        int width = storage.getInt(Storage.KEY_MAX_THUMBNAIL_WIDTH);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        int width = storage.getInt(Preferences.KEY_MAX_THUMBNAIL_WIDTH);
 
         return (width != Integer.MIN_VALUE)
                 ? width
@@ -118,7 +118,7 @@ public final class ThumbnailSizeSliderController implements AWTEventListener, Ch
 
     @EventSubscriber(eventClass = UserPropertyChangedEvent.class)
     public void applySettings(UserPropertyChangedEvent evt) {
-        if (Storage.KEY_MAX_THUMBNAIL_WIDTH.equals(evt.getPropertyKey())) {
+        if (Preferences.KEY_MAX_THUMBNAIL_WIDTH.equals(evt.getPropertyKey())) {
             setThumbnailWidth();
         }
     }
@@ -135,7 +135,7 @@ public final class ThumbnailSizeSliderController implements AWTEventListener, Ch
     }
 
     private void readProperties() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
         Integer value = storage.getInt(KEY_SLIDER_VALUE);
 
         if (!value.equals(Integer.MIN_VALUE)) {
@@ -156,7 +156,7 @@ public final class ThumbnailSizeSliderController implements AWTEventListener, Ch
     }
 
     private void writeProperties() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
         storage.setInt(KEY_SLIDER_VALUE, currentValue);
     }
 }

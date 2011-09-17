@@ -8,7 +8,7 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
@@ -32,7 +32,7 @@ public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener
     }
 
     private void postInitComponents() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         if (storage != null) {
             storage.applyComponentSettings(this, null);
@@ -133,7 +133,7 @@ public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener
             throw new NullPointerException("this == null");
         }
 
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         textFieldSearch.setText(storage.getString(KEY_SEARCH));
         textFieldReplacement.setText(storage.getString(KEY_REPLACEMENT));
@@ -145,7 +145,7 @@ public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener
             throw new NullPointerException("this == null");
         }
 
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         storage.setString(KEY_SEARCH, textFieldSearch.getText());
         storage.setString(KEY_REPLACEMENT, textFieldReplacement.getText());

@@ -14,7 +14,7 @@ import javax.swing.event.ListDataListener;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
 import org.jphototagger.program.model.FileFiltersComboBoxModel;
 import org.jphototagger.program.resource.GUI;
@@ -74,7 +74,7 @@ public final class ThumbnailsFileFilterController implements ActionListener, Ite
     }
 
     private void writeSettings() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         storage.setInt(FileFiltersComboBoxModel.SETTINGS_KEY_SEL_INDEX, getFileFilterComboBox().getSelectedIndex());
     }

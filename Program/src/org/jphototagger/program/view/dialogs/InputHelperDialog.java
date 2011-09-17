@@ -4,7 +4,7 @@ import javax.swing.ListModel;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
 import org.jphototagger.lib.componentutil.TabbedPaneUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.program.datatransfer.DragListItemsTransferHandler;
@@ -56,7 +56,7 @@ public class InputHelperDialog extends Dialog {
     }
 
     private void readProperties() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         panelKeywords.readProperties();
         storage.applyTreeSettings(KEY_TREE_MISC_XMP, panelMiscXmpMetadata.getTree());
@@ -69,7 +69,7 @@ public class InputHelperDialog extends Dialog {
     }
 
     private void writeProperties() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         storage.setInt(KEY_SEL_INDEX_TABBED_PANE, tabbedPane.getSelectedIndex());
         storage.setTree(KEY_TREE_MISC_XMP, panelMiscXmpMetadata.getTree());

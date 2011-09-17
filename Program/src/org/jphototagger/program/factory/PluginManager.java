@@ -8,7 +8,7 @@ import java.util.Set;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.plugin.Plugin;
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
 
 /**
  *
@@ -41,7 +41,7 @@ public class PluginManager<T extends Plugin> {
     }
 
     private boolean isFlaggedAsEnabeld(T plugin) {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
         String key = getEnabledPropertyKeyForPlugin(plugin);
 
         if (!storage.containsKey(key)) {
@@ -80,7 +80,7 @@ public class PluginManager<T extends Plugin> {
             throw new NullPointerException("plugin == null");
         }
 
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
         String key = getEnabledPropertyKeyForPlugin(plugin);
 
         if (enabled) {

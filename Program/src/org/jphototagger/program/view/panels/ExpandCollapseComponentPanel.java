@@ -14,7 +14,7 @@ import javax.swing.text.JTextComponent;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
 
@@ -107,7 +107,7 @@ public class ExpandCollapseComponentPanel extends JPanel implements FocusListene
 
     private void writeExpandedState() {
         if (!keyPersistence.isEmpty()) {
-            Storage storage = Lookup.getDefault().lookup(Storage.class);
+            Preferences storage = Lookup.getDefault().lookup(Preferences.class);
             storage.setBoolean(keyPersistence, expanded);
         }
     }
@@ -117,7 +117,7 @@ public class ExpandCollapseComponentPanel extends JPanel implements FocusListene
      */
     public void readExpandedState() {
         if (!keyPersistence.isEmpty()) {
-            Storage storage = Lookup.getDefault().lookup(Storage.class);
+            Preferences storage = Lookup.getDefault().lookup(Preferences.class);
             if (storage.containsKey(keyPersistence)) {
                 expanded = storage.getBoolean(keyPersistence);
                 setExpanded();
