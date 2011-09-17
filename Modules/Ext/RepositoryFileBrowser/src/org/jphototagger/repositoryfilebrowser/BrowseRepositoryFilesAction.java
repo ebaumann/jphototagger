@@ -42,7 +42,7 @@ public final class BrowseRepositoryFilesAction extends AbstractAction implements
     }
 
     @Override
-    public boolean isUsedInMenusSeparatorBefore() {
+    public boolean whenUsedInMenusIsSeparatorBefore() {
         return true;
     }
 }

@@ -13,5 +13,5 @@ public interface MainWindowMenuAction extends PositionProvider {
 
     Action getAction();
 
-    boolean isUsedInMenusSeparatorBefore();
+    boolean whenUsedInMenusIsSeparatorBefore();
 }

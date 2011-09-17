@@ -9,5 +9,5 @@ import java.util.Collection;
  */
 public interface ThumbnailsDisplayer {
 
-    void displayThumbnailsOfFiles(Collection<? extends File> files);
+    void displayThumbnails(Collection<? extends File> files);
 }

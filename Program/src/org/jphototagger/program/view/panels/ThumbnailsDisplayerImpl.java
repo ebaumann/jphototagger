@@ -19,7 +19,7 @@ import org.jphototagger.program.resource.GUI;
 public final class ThumbnailsDisplayerImpl implements ThumbnailsDisplayer {
 
     @Override
-    public void displayThumbnailsOfFiles(Collection<? extends File> imageFiles) {
+    public void displayThumbnails(Collection<? extends File> imageFiles) {
         ThumbnailsDisplayer thumbnailsDisplayer = new ThumbnailsDisplayer(imageFiles);
 
         EventQueueUtil.invokeInDispatchThread(thumbnailsDisplayer);
