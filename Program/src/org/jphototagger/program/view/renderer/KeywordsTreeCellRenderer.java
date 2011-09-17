@@ -11,7 +11,7 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
-import org.jphototagger.domain.keywords.Keyword;
+import org.jphototagger.domain.metadata.keywords.Keyword;
 import org.jphototagger.program.app.AppLookAndFeel;
 
 /**

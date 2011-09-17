@@ -1,4 +1,4 @@
-package org.jphototagger.domain.xmp;
+package org.jphototagger.domain.metadata.xmp;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 import com.imagero.reader.iptc.IPTCEntryMeta;
 
 import org.jphototagger.domain.event.listener.TextEntryListener;
-import org.jphototagger.domain.iptc.Iptc;
+import org.jphototagger.domain.metadata.iptc.Iptc;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.mapping.IPTCEntryMetaDataValue;
 import org.jphototagger.domain.metadata.mapping.IptcXmpMapping;

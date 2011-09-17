@@ -10,7 +10,7 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.repository.ImageFilesRepository;
-import org.jphototagger.domain.xmp.Xmp;
+import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppPreferencesKeys;
 import org.jphototagger.xmp.XmpMetadata;

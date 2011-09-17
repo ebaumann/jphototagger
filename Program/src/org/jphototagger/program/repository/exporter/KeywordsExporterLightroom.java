@@ -18,7 +18,7 @@ import javax.swing.tree.TreeModel;
 
 import org.openide.util.lookup.ServiceProvider;
 
-import org.jphototagger.domain.keywords.Keyword;
+import org.jphototagger.domain.metadata.keywords.Keyword;
 import org.jphototagger.domain.repository.RepositoryDataExporter;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppLookAndFeel;

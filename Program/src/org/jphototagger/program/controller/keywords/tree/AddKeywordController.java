@@ -11,7 +11,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.domain.keywords.Keyword;
+import org.jphototagger.domain.metadata.keywords.Keyword;
 import org.jphototagger.domain.repository.KeywordsRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.dialog.InputDialog;

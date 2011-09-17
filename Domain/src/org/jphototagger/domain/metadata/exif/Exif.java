@@ -1,4 +1,4 @@
-package org.jphototagger.domain.exif;
+package org.jphototagger.domain.metadata.exif;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;

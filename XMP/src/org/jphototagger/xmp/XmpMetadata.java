@@ -30,7 +30,7 @@ import org.jphototagger.domain.metadata.mapping.XmpMetaDataValueXmpValueTypeMapp
 import org.jphototagger.domain.metadata.mapping.XmpMetaDataValuesNamespaceUriMapping;
 import org.jphototagger.domain.metadata.xmp.XmpLastModifiedMetaDataValue;
 import org.jphototagger.domain.repository.xmp.XmpInRepository;
-import org.jphototagger.domain.xmp.Xmp;
+import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.lib.io.FileLock;
 import org.jphototagger.lib.io.FileUtil;
 

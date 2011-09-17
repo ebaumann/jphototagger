@@ -9,8 +9,8 @@ import javax.swing.JProgressBar;
 
 import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.domain.repository.InsertIntoRepository;
-import org.jphototagger.domain.xmp.FileXmp;
-import org.jphototagger.domain.xmp.Xmp;
+import org.jphototagger.domain.metadata.xmp.FileXmp;
+import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppLifeCycle;

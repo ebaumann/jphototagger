@@ -1,4 +1,4 @@
-package org.jphototagger.domain.iptc;
+package org.jphototagger.domain.metadata.iptc;
 
 import java.util.ArrayList;
 import java.util.Collection;

@@ -25,7 +25,7 @@ import javax.swing.ImageIcon;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpRatingMetaDataValue;
 import org.jphototagger.domain.thumbnails.ThumbnailFlag;
-import org.jphototagger.domain.xmp.Xmp;
+import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.program.cache.RenderedThumbnailCacheIndirection;
 import org.jphototagger.program.cache.ThumbnailRenderer;
 import org.jphototagger.program.cache.XmpCache;

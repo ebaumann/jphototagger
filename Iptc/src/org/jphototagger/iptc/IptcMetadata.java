@@ -13,7 +13,7 @@ import com.imagero.reader.iptc.IPTCEntry;
 import com.imagero.reader.iptc.IPTCEntryCollection;
 import com.imagero.reader.iptc.IPTCEntryMeta;
 
-import org.jphototagger.domain.iptc.Iptc;
+import org.jphototagger.domain.metadata.iptc.Iptc;
 
 /**
  * IPTC metadata of an image file.

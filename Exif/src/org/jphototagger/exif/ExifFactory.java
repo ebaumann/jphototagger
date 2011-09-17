@@ -7,7 +7,7 @@ import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.domain.exif.Exif;
+import org.jphototagger.domain.metadata.exif.Exif;
 import org.jphototagger.lib.util.NumberUtil;
 
 /**

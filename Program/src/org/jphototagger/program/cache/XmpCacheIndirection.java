@@ -2,7 +2,7 @@ package org.jphototagger.program.cache;
 
 import java.io.File;
 
-import org.jphototagger.domain.xmp.Xmp;
+import org.jphototagger.domain.metadata.xmp.Xmp;
 
 /**
  *

@@ -31,7 +31,7 @@ import org.jphototagger.domain.metadata.xmp.XmpPhotoshopSourceMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpPhotoshopStateMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpPhotoshopTransmissionReferenceMetaDataValue;
 import org.jphototagger.domain.text.TextEntry;
-import org.jphototagger.domain.xmp.Xmp;
+import org.jphototagger.domain.metadata.xmp.Xmp;
 
 /**
  * Edits a {@code Xmp} object.
