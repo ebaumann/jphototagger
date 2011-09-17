@@ -2,8 +2,8 @@ package org.jphototagger.program.view.dialogs;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Storage;
-import org.jphototagger.api.storage.StorageHints;
+import org.jphototagger.api.storage.Preferences;
+import org.jphototagger.api.storage.PreferencesHints;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.TabbedPaneUtil;
 import org.jphototagger.lib.dialog.Dialog;
@@ -33,12 +33,12 @@ public final class DatabaseMaintainanceDialog extends Dialog {
 
     @Override
     public void setVisible(boolean visible) {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         if (visible) {
-            storage.applyComponentSettings(this, new StorageHints(StorageHints.Option.SET_TABBED_PANE_CONTENT));
+            storage.applyComponentSettings(this, new PreferencesHints(PreferencesHints.Option.SET_TABBED_PANE_CONTENT));
         } else {
-            storage.setComponent(this, new StorageHints(StorageHints.Option.SET_TABBED_PANE_CONTENT));
+            storage.setComponent(this, new PreferencesHints(PreferencesHints.Option.SET_TABBED_PANE_CONTENT));
         }
 
         panelMaintainance.getsVisible(visible);
@@ -48,9 +48,9 @@ public final class DatabaseMaintainanceDialog extends Dialog {
 
     private void close() {
         if (panelMaintainance.canClose()) {
-            Storage storage = Lookup.getDefault().lookup(Storage.class);
+            Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-            storage.setComponent(this, new StorageHints(StorageHints.Option.SET_TABBED_PANE_CONTENT));
+            storage.setComponent(this, new PreferencesHints(PreferencesHints.Option.SET_TABBED_PANE_CONTENT));
             setVisible(false);
         } else {
             String message = Bundle.getString(DatabaseMaintainanceDialog.class, "DatabaseMaintainanceDialog.Error.WaitBeforeClose");

@@ -14,7 +14,7 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
 import org.jphototagger.domain.event.AppWillExitEvent;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsChangedEvent;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
@@ -79,7 +79,7 @@ public final class ThumbnailsPanelPersistenceController {
 
     private void writeSelectionToProperties(List<File> selectedImageFiles) {
         List<String> absolutePathnames = FileUtil.getAbsolutePathnames(selectedImageFiles);
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         storage.setStringCollection(KEY_SELECTED_FILES, absolutePathnames);
     }
@@ -100,7 +100,7 @@ public final class ThumbnailsPanelPersistenceController {
     }
 
     private void readProperties() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         persistentSelectedFiles = FileUtil.getStringsAsFiles(storage.getStringCollection(KEY_SELECTED_FILES));
         readSortFromProperties();
@@ -115,7 +115,7 @@ public final class ThumbnailsPanelPersistenceController {
         Class<?> sortClass = cmp.getClass();
 
         if (!sortClass.equals(FileUnsortedComparator.class)) {
-            Storage storage = Lookup.getDefault().lookup(Storage.class);
+            Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
             storage.setString(KEY_SORT, sortClass.getName());
         }
@@ -129,7 +129,7 @@ public final class ThumbnailsPanelPersistenceController {
      */
     @SuppressWarnings("unchecked")
     public static Comparator<File> getFileSortComparator() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
         if (storage.containsKey(KEY_SORT)) {
             try {
                 String className = storage.getString(KEY_SORT);
@@ -160,7 +160,7 @@ public final class ThumbnailsPanelPersistenceController {
 
                     @Override
                     public void run() {
-                        Storage storage = Lookup.getDefault().lookup(Storage.class);
+                        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
                         AppPanel appPanel = GUI.getAppPanel();
                         JScrollPane scrollPaneThumbnailsPanel = appPanel.getScrollPaneThumbnailsPanel();
 
@@ -177,7 +177,7 @@ public final class ThumbnailsPanelPersistenceController {
     }
 
     private void writeViewportViewPositionToProperties() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         storage.setScrollPane(KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION, GUI.getAppPanel().getScrollPaneThumbnailsPanel());
     }

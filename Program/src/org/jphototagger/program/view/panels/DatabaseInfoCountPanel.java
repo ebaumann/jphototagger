@@ -5,7 +5,7 @@ import java.text.MessageFormat;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.file.FilenameTokens;
-import org.jphototagger.api.storage.UserFilesProvider;
+import org.jphototagger.domain.repository.FileRepositoryProvider;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.model.DatabaseInfoTableModel;
@@ -41,10 +41,10 @@ public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
 
     private void setLabelFilename() {
         String pattern = Bundle.getString(DatabaseInfoCountPanel.class, "DatabaseInfoCountPanel.labelFilename.Filename");
-        UserFilesProvider provider = Lookup.getDefault().lookup(UserFilesProvider.class);
+        FileRepositoryProvider provider = Lookup.getDefault().lookup(FileRepositoryProvider.class);
 
         if (provider != null) {
-            String databaseFileName = provider.getDatabaseFileName(FilenameTokens.FULL_PATH);
+            String databaseFileName = provider.getFileRepositoryFileName(FilenameTokens.FULL_PATH);
             String message = MessageFormat.format(pattern, databaseFileName);
 
             labelFilename.setText(message);

@@ -36,7 +36,7 @@ import org.jdesktop.swingx.JXTree;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
 import org.jphototagger.api.windows.MainWindowComponent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.component.ImageTextArea;
@@ -45,6 +45,7 @@ import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.swingx.ListTextFilter;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppLookAndFeel;
+import org.jphototagger.program.app.AppStorageKeys;
 import org.jphototagger.program.controller.actions.SearchInJxListAction;
 import org.jphototagger.program.controller.actions.SearchInJxTreeAction;
 import org.jphototagger.program.controller.actions.TreeExpandCollapseAllAction;
@@ -181,10 +182,10 @@ public final class AppPanel extends javax.swing.JPanel {
     }
 
     private boolean isDisplaySearchButton() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(Storage.KEY_DISPLAY_SEARCH_BUTTON)
-                ? storage.getBoolean(Storage.KEY_DISPLAY_SEARCH_BUTTON)
+        return storage.containsKey(AppStorageKeys.KEY_UI_DISPLAY_SEARCH_BUTTON)
+                ? storage.getBoolean(AppStorageKeys.KEY_UI_DISPLAY_SEARCH_BUTTON)
                 : true;
     }
 
@@ -244,7 +245,7 @@ public final class AppPanel extends javax.swing.JPanel {
     }
 
     private int getDividerLocationMain() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
         int location = storage.getInt(KEY_DIVIDER_LOCATION_MAIN);
 
         return (location >= 0)
@@ -297,7 +298,7 @@ public final class AppPanel extends javax.swing.JPanel {
     }
 
     private int getDividerLocationThumbnails() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
         int location = storage.getInt(KEY_DIVIDER_LOCATION_THUMBNAILS);
 
         return (location >= 0)
@@ -687,8 +688,8 @@ public final class AppPanel extends javax.swing.JPanel {
                 int appWindowPosition = appWindow.getPosition();
                 int tabIndex = appWindowPosition < 0 || appWindowPosition > tabCount ? tabCount : appWindowPosition;
                 Component component = appWindow.getComponent();
-                Icon icon = appWindow.getIcon();
-                String tip = appWindow.getTip();
+                Icon icon = appWindow.getSmallIcon();
+                String tip = appWindow.getTooltipText();
                 String title = appWindow.getTitle();
 
                 tabbedPane.insertTab(title, icon, component, tip, tabIndex);

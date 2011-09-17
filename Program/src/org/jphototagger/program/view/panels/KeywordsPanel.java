@@ -13,7 +13,7 @@ import org.jdesktop.swingx.JXTree;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.lib.swingx.ListTextFilter;
@@ -91,7 +91,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
      * Reads the persistent properties, currently the selected tree node.
      */
     public void readProperties() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         storage.applyTreeSettings(keyTree, tree);
         readCardProperties();
@@ -99,7 +99,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
 
     private void readCardProperties() {
         String name = "Tree";
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         if (storage.containsKey(keyCard)) {
             String s = storage.getString(keyCard);
@@ -114,7 +114,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
 
     private void displayCard(String name) {
         CardLayout cl = (CardLayout) (getLayout());
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         cl.show(this, name);
         storage.setString(keyCard, name);
@@ -124,7 +124,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
      * Writes the persistent properties, currently the selected tree node.
      */
     public void writeProperties() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         storage.setTree(keyTree, tree);
     }

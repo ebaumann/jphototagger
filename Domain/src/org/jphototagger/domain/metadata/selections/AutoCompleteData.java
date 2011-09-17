@@ -10,7 +10,8 @@ import java.util.Set;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
+import org.jphototagger.domain.DomainStorageKeys;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.repository.MetaDataValuesRepository;
 import org.jphototagger.lib.util.CollectionUtil;
@@ -79,18 +80,18 @@ public final class AutoCompleteData {
     }
 
     private boolean isAutocompleteFastSearchIgnoreCase() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(Storage.KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
-                ? storage.getBoolean(Storage.KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
+        return storage.containsKey(DomainStorageKeys.KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
+                ? storage.getBoolean(DomainStorageKeys.KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
                 : false;
     }
 
     private boolean isUpdateAutocomplete() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(Storage.KEY_UPDATE_AUTOCOMPLETE)
-                ? storage.getBoolean(Storage.KEY_UPDATE_AUTOCOMPLETE)
+        return storage.containsKey(DomainStorageKeys.KEY_UPDATE_AUTOCOMPLETE)
+                ? storage.getBoolean(DomainStorageKeys.KEY_UPDATE_AUTOCOMPLETE)
                 : true;
     }
 

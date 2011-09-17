@@ -11,7 +11,7 @@ import org.openide.util.Lookup;
 import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
-import org.jphototagger.api.storage.UserFilesProvider;
+import org.jphototagger.api.storage.ThumbnailsDirectoryProvider;
 import org.jphototagger.domain.event.listener.ProgressListenerSupport;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.lib.util.Bundle;
@@ -57,7 +57,7 @@ public final class DeleteOrphanedThumbnails implements Runnable, Cancelable {
     @Override
     public void run() {
         Set<File> imageFilesExisting = repo.findAllThumbnailFiles();
-        UserFilesProvider provider = Lookup.getDefault().lookup(UserFilesProvider.class);
+        ThumbnailsDirectoryProvider provider = Lookup.getDefault().lookup(ThumbnailsDirectoryProvider.class);
         File[] filesInDir = provider.getThumbnailsDirectory().listFiles();
         ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
         boolean isDelete = false;

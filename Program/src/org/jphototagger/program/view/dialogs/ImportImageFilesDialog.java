@@ -12,7 +12,7 @@ import javax.swing.filechooser.FileSystemView;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.dialog.DirectoryChooser;
@@ -34,7 +34,7 @@ public class ImportImageFilesDialog extends Dialog {
     private static final String KEY_LAST_TARGET_DIR = "ImportImageFiles.LastTargetDir";
     private static final String KEY_DEL_SRC_AFTER_COPY = "ImportImageFiles.DelSrcAfterCopy";
     private final FileSystemView fileSystemView = FileSystemView.getFileSystemView();
-    private final Storage storage = Lookup.getDefault().lookup(Storage.class);
+    private final Preferences storage = Lookup.getDefault().lookup(Preferences.class);
     private File sourceDir = new File(storage.getString(KEY_LAST_SRC_DIR));
     private File targetDir = new File(storage.getString(KEY_LAST_TARGET_DIR));
     private final List<File> sourceFiles = new ArrayList<File>();
@@ -241,8 +241,8 @@ public class ImportImageFilesDialog extends Dialog {
     }
 
     private boolean isAcceptHiddenDirectories() {
-        return storage.containsKey(Storage.KEY_ACCEPT_HIDDEN_DIRECTORIES)
-                ? storage.getBoolean(Storage.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+        return storage.containsKey(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+                ? storage.getBoolean(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
                 : false;
     }
 

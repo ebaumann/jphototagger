@@ -8,10 +8,11 @@ import java.util.logging.Logger;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.xmp.Xmp;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.app.AppStorageKeys;
 import org.jphototagger.xmp.XmpMetadata;
 
 /**
@@ -64,10 +65,10 @@ public final class RefreshXmpInDbOfKnownFiles extends HelperThread {
     }
 
     private boolean isScanForEmbeddedXmp() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(Storage.KEY_SCAN_FOR_EMBEDDED_XMP)
-                ? storage.getBoolean(Storage.KEY_SCAN_FOR_EMBEDDED_XMP)
+        return storage.containsKey(AppStorageKeys.KEY_SCAN_FOR_EMBEDDED_XMP)
+                ? storage.getBoolean(AppStorageKeys.KEY_SCAN_FOR_EMBEDDED_XMP)
                 : false;
     }
 

@@ -13,7 +13,7 @@ import javax.swing.event.DocumentListener;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.lib.component.TabOrEnterLeavingTextArea;
 import org.jphototagger.lib.componentutil.ComponentUtil;
@@ -40,7 +40,7 @@ public final class ProgramPropertiesDialog extends Dialog {
     private static final java.util.ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/dialogs/Bundle"); // NOI18N
     private static final String BUTTON_TEXT_TOGGLE_TO_EXPERT_SETTINGS = Bundle.getString(ProgramPropertiesDialog.class, "ProgramPropertiesDialog.ButtonText.ExpertSettings");
     private static final String BUTTON_TEXT_TOGGLE_TO_SIMPLE_SETTINGS = Bundle.getString(ProgramPropertiesDialog.class, "ProgramPropertiesDialog.ButtonText.SimpleSettings");
-    private static final Storage STORAGE = Lookup.getDefault().lookup(Storage.class);
+    private static final Preferences STORAGE = Lookup.getDefault().lookup(Preferences.class);
     private File lastDir = new File(STORAGE.getString(KEY_LAST_DIR));
     private File file;
     private boolean accecpted = false;

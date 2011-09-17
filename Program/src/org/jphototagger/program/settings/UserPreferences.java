@@ -6,7 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.jphototagger.api.file.FilenameTokens;
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.domain.repository.FileRepositoryProvider;
 import org.jphototagger.lib.util.PropertiesFile;
 import org.jphototagger.lib.util.Settings;
 import org.jphototagger.program.app.AppInfo;
@@ -17,7 +17,7 @@ import org.jphototagger.program.app.update.UpdateUserSettings;
  *
  * @author Elmar Baumann
  */
-final class UserSettings {
+final class UserPreferences {
 
     private static final String DOMAIN_NAME = "de.elmar_baumann"; // When changing see comment for AppInfo.PROJECT_NAME
     // NEVER CHANGE PROPERTIES_FILENAME!
@@ -25,9 +25,9 @@ final class UserSettings {
     private final Properties properties = new Properties();
     private final PropertiesFile propertiesFile = new PropertiesFile(DOMAIN_NAME, AppInfo.PROJECT_NAME, PROPERTIES_FILENAME, properties);
     private final Settings settings = new Settings(properties);
-    static final UserSettings INSTANCE = new UserSettings();
+    static final UserPreferences INSTANCE = new UserPreferences();
 
-    private UserSettings() {
+    private UserPreferences() {
         propertiesFile.readFromFile();
         UpdateUserSettings.update(properties);
         settings.removeKeysWithEmptyValues();
@@ -42,7 +42,7 @@ final class UserSettings {
         try {
             propertiesFile.writeToFile();
         } catch (Exception ex) {
-            Logger.getLogger(UserSettings.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserPreferences.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -51,15 +51,9 @@ final class UserSettings {
     }
 
     String getDatabaseDirectoryName() {
-        return properties.containsKey(Storage.KEY_DATABASE_DIRECTORY)
-                ? settings.getString(Storage.KEY_DATABASE_DIRECTORY)
+        return properties.containsKey(FileRepositoryProvider.KEY_FILE_REPOSITORY_DIRECTORY)
+                ? settings.getString(FileRepositoryProvider.KEY_FILE_REPOSITORY_DIRECTORY)
                 : getDefaultDatabaseDirectoryName();
-    }
-
-    String getDatabaseBackupDirectoryName() {
-        return properties.containsKey(Storage.KEY_DATABASE_BACKUP_DIRECTORY)
-                ? settings.getString(Storage.KEY_DATABASE_BACKUP_DIRECTORY)
-                : getDatabaseDirectoryName();
     }
 
     String getDefaultDatabaseDirectoryName() {

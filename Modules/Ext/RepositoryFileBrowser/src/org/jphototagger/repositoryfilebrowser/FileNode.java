@@ -8,7 +8,7 @@ import java.util.Collections;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
-import org.jphototagger.api.nodes.AbstractNode;
+import org.jphototagger.lib.nodes.AbstractNode;
 import org.jphototagger.lib.swing.IconUtil;
 
 /**
@@ -30,7 +30,7 @@ public final class FileNode extends AbstractNode {
     }
 
     @Override
-    public Collection<?> getLookupContent() {
+    public Collection<?> getContent() {
         return Collections.singleton(file);
     }
 

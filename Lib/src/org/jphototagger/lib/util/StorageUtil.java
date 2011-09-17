@@ -2,7 +2,7 @@ package org.jphototagger.lib.util;
 
 import java.io.File;
 
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
 
 /**
  *
@@ -20,7 +20,7 @@ public final class StorageUtil {
      *                   will be setTree. If the file is null, nothing will be setTree.
      * @return           true if the directory path name was setTree
      */
-    public static boolean setDirectory(Storage storage, String key, File file) {
+    public static boolean setDirectory(Preferences storage, String key, File file) {
         if (storage == null) {
             throw new NullPointerException("storage == null");
         }

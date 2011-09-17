@@ -7,7 +7,7 @@ import java.util.Collection;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.image.thumbnails.ThumbnailCreator;
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
 
 /**
  *
@@ -81,8 +81,8 @@ public final class ThumbnailCreatorService {
     }
 
     public static int readMaxThumbnailWidthFromStorage() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
-        int width = storage.getInt(Storage.KEY_MAX_THUMBNAIL_WIDTH);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        int width = storage.getInt(Preferences.KEY_MAX_THUMBNAIL_WIDTH);
 
         return (width != Integer.MIN_VALUE)
                 ? width

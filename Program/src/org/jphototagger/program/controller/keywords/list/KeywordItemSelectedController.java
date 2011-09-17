@@ -15,7 +15,7 @@ import org.jdesktop.swingx.JXList;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
 import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
@@ -100,7 +100,7 @@ public final class KeywordItemSelectedController implements ActionListener, List
     }
 
     private void readPersistent() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
         boolean radioButtonAll = true;
 
         if (storage.containsKey(KEY_RADIO_BUTTON)) {
@@ -112,7 +112,7 @@ public final class KeywordItemSelectedController implements ActionListener, List
     }
 
     private void writePersistent() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
         storage.setInt(KEY_RADIO_BUTTON, isAllKeywords()
                 ? 0
                 : 1);

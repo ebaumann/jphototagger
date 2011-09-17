@@ -2,7 +2,7 @@ package org.jphototagger.program.view.dialogs;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.program.resource.GUI;
 
@@ -23,7 +23,7 @@ public class RenameFilenamesInDbDialog extends Dialog {
     private void postInitComponents() {
         setHelpPage();
 
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
         String key = RenameFilenamesInDbDialog.class.getName();
 
         storage.applySize(key, this);

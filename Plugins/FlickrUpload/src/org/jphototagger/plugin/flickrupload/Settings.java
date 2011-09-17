@@ -2,7 +2,7 @@ package org.jphototagger.plugin.flickrupload;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
 
 /**
  *
@@ -16,7 +16,7 @@ public final class Settings {
     private static final String KEY_DC_SUBJECTS = "org.jphototagger.plugin.flickrupload.AddDcSubjects";
     private static final String VALUE_BOOLEAN_TRUE = "1";
     private static final String VALUE_BOOLEAN_FALSE = "0";
-    private final Storage storage = Lookup.getDefault().lookup(Storage.class);
+    private final Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
     public void setAddDcDescription(boolean add) {
         setBoolean(KEY_DC_DESCRIPTION, add);

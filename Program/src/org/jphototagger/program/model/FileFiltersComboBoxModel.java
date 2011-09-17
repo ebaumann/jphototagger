@@ -7,7 +7,7 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
 import org.jphototagger.domain.repository.Repository;
 import org.jphototagger.domain.repository.UserDefinedFileFiltersRepository;
@@ -75,7 +75,7 @@ public final class FileFiltersComboBoxModel extends DefaultComboBoxModel {
     }
 
     private void selectItem() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         if (storage.containsKey(SETTINGS_KEY_SEL_INDEX)) {
             int index = storage.getInt(SETTINGS_KEY_SEL_INDEX);

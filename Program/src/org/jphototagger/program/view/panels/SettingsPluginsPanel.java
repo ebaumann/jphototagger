@@ -17,7 +17,7 @@ import javax.swing.event.ChangeListener;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.plugin.Plugin;
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.HelpBrowser;
@@ -115,14 +115,14 @@ public class SettingsPluginsPanel extends javax.swing.JPanel implements ChangeLi
 
     @Override
     public void readProperties() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         storage.applyTabbedPaneSettings(KEY_TABBED_PANE, tabbedPane, null);
     }
 
     @Override
     public void writeProperties() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         storage.setTabbedPane(KEY_TABBED_PANE, tabbedPane, null);
     }

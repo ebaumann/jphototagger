@@ -17,7 +17,7 @@ import javax.swing.JMenuItem;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.dialog.HelpBrowser;
 import org.jphototagger.lib.dialog.MessageDisplayer;
@@ -38,7 +38,7 @@ public final class HelpController implements ActionListener, HelpBrowserListener
 
     private static final String HELP_CONTENTS_URL = "/org/jphototagger/program/resource/doc/de/contents.xml";
     private static final String KEY_CURRENT_URL = HelpController.class.getName() + ".CurrentURL";
-    private String currentUrl = Lookup.getDefault().lookup(Storage.class).getString(KEY_CURRENT_URL);
+    private String currentUrl = Lookup.getDefault().lookup(Preferences.class).getString(KEY_CURRENT_URL);
     private static final Logger LOGGER = Logger.getLogger(HelpController.class.getName());
 
     public HelpController() {
@@ -128,7 +128,7 @@ public final class HelpController implements ActionListener, HelpBrowserListener
         if (!url.getProtocol().startsWith("http")) {
             currentUrl = HelpBrowser.getLastPathComponent(url);
 
-            Storage storage = Lookup.getDefault().lookup(Storage.class);
+            Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
             storage.setString(KEY_CURRENT_URL, currentUrl);
         }

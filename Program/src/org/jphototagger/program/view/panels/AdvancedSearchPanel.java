@@ -23,7 +23,8 @@ import javax.swing.event.DocumentListener;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
+import org.jphototagger.domain.DomainStorageKeys;
 import org.jphototagger.domain.event.listener.ListenerSupport;
 import org.jphototagger.domain.metadata.search.ParamStatement;
 import org.jphototagger.domain.metadata.search.SavedSearch;
@@ -87,12 +88,12 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
     }
 
     private boolean isAutocomplete() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         return storage == null
                 ? true
-                : storage.containsKey(Storage.KEY_ENABLE_AUTOCOMPLETE)
-                ? storage.getBoolean(Storage.KEY_ENABLE_AUTOCOMPLETE)
+                : storage.containsKey(DomainStorageKeys.KEY_ENABLE_AUTOCOMPLETE)
+                ? storage.getBoolean(DomainStorageKeys.KEY_ENABLE_AUTOCOMPLETE)
                 : true;
     }
 
@@ -183,7 +184,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
 
     @Override
     public void readProperties() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         if (storage.containsKey(KEY_SELECTED_TAB_INDEX)) {
             tabbedPane.setSelectedIndex(storage.getInt(KEY_SELECTED_TAB_INDEX));
@@ -192,7 +193,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
 
     @Override
     public void writeProperties() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
         storage.setInt(KEY_SELECTED_TAB_INDEX, tabbedPane.getSelectedIndex());
     }
 

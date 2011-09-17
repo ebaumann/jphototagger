@@ -10,7 +10,8 @@ import java.util.Set;
  *
  * @author Elmar Baumann
  */
-public final class StorageHints {
+public final class PreferencesHints {
+
     private final List<String> excludedKeys = new ArrayList<String>();
     private final Set<Option> options;
 
@@ -20,21 +21,21 @@ public final class StorageHints {
          * All components of the tabbed pane shall be set recursively.
          * Default: false.
          */
-        SET_TABBED_PANE_CONTENT,
+        SET_TABBED_PANE_CONTENT,;
     }
 
-    public StorageHints() {
+    public PreferencesHints() {
         options = EnumSet.noneOf(Option.class);
     }
 
-    public StorageHints(Option... options) {
+    public PreferencesHints(Option... options) {
         if (options == null) {
             throw new NullPointerException("options == null");
         }
 
         this.options = (options.length == 0)
-                       ? EnumSet.noneOf(Option.class)
-                       : EnumSet.copyOf(Arrays.asList(options));
+                ? EnumSet.noneOf(Option.class)
+                : EnumSet.copyOf(Arrays.asList(options));
     }
 
     public void addKeyToExclude(String key) {
@@ -45,20 +46,12 @@ public final class StorageHints {
         excludedKeys.add(key);
     }
 
-    public void removeKeyFromExclude(String key) {
+    public boolean isExclude(String key) {
         if (key == null) {
             throw new NullPointerException("key == null");
         }
 
-        excludedKeys.remove(key);
-    }
-
-    public boolean isSet(String key) {
-        if (key == null) {
-            throw new NullPointerException("key == null");
-        }
-
-        return !excludedKeys.contains(key);
+        return excludedKeys.contains(key);
     }
 
     public boolean isOption(Option option) {

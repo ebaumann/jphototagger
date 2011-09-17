@@ -1,5 +1,8 @@
 package org.jphototagger.plugin;
 
+import java.awt.Component;
+
+import javax.swing.Icon;
 import javax.swing.JProgressBar;
 
 import org.openide.util.Lookup;
@@ -17,6 +20,42 @@ public abstract class AbstractFileProcessorPlugin implements FileProcessorPlugin
 
     private JProgressBar progressBar;
     private boolean progressBarIsStringPainted;
+
+    /**
+     *
+     * @return null
+     */
+    @Override
+    public Icon getLargeIcon() {
+        return null;
+    }
+
+    /**
+     *
+     * @return null
+     */
+    @Override
+    public Component getSettingsComponent() {
+        return null;
+    }
+
+    /**
+     *
+     * @return null
+     */
+    @Override
+    public String getHelpContentsPath() {
+        return null;
+    }
+
+    /**
+     *
+     * @return null
+     */
+    @Override
+    public String getFirstHelpPageName() {
+        return null;
+    }
 
     private void getProgressBarFromService() {
         if (progressBar != null) {

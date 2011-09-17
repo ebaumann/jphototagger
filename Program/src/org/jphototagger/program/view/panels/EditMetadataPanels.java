@@ -31,7 +31,8 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
+import org.jphototagger.domain.DomainStorageKeys;
 import org.jphototagger.domain.event.AppWillExitEvent;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.event.EditMetadataPanelsEditDisabledEvent;
@@ -49,6 +50,7 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.app.AppStorageKeys;
 import org.jphototagger.program.controller.keywords.tree.SuggestKeywords;
 import org.jphototagger.program.helper.SaveXmp;
 import org.jphototagger.program.resource.GUI;
@@ -884,10 +886,10 @@ public final class EditMetadataPanels implements FocusListener {
     }
 
     private boolean isAutocomplete() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(Storage.KEY_ENABLE_AUTOCOMPLETE)
-                ? storage.getBoolean(Storage.KEY_ENABLE_AUTOCOMPLETE)
+        return storage.containsKey(DomainStorageKeys.KEY_ENABLE_AUTOCOMPLETE)
+                ? storage.getBoolean(DomainStorageKeys.KEY_ENABLE_AUTOCOMPLETE)
                 : true;
     }
 
@@ -1010,10 +1012,10 @@ public final class EditMetadataPanels implements FocusListener {
     }
 
     private boolean isSaveInputEarly() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(Storage.KEY_SAVE_INPUT_EARLY)
-                ? storage.getBoolean(Storage.KEY_SAVE_INPUT_EARLY)
+        return storage.containsKey(AppStorageKeys.KEY_SAVE_INPUT_EARLY)
+                ? storage.getBoolean(AppStorageKeys.KEY_SAVE_INPUT_EARLY)
                 : true;
     }
 

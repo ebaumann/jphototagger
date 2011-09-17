@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.programs.ProgramType;
 import org.jphototagger.domain.repository.ProgramsRepository;
@@ -36,7 +36,7 @@ final class UpdateTablesPrograms extends Database {
     }
 
     private void moveDefaultImageOpenApp() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         if (storage.containsKey(KEY_DEFAULT_IMAGE_OPEN_APP)) {
             String defaultApp = storage.getString(KEY_DEFAULT_IMAGE_OPEN_APP).trim();
@@ -67,7 +67,7 @@ final class UpdateTablesPrograms extends Database {
     }
 
     private void moveOtherImageOpenApps() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
         List<String> filepaths = storage.getStringCollection(KEY_OTHER_IMAGE_OPEN_APPS);
 
         if (filepaths.size() > 0) {

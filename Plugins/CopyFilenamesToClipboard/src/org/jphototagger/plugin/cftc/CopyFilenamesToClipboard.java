@@ -18,7 +18,7 @@ import org.jphototagger.api.plugin.fileprocessor.FileProcessedEvent;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessingFinishedEvent;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessingStartedEvent;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessorPlugin;
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.plugin.AbstractFileProcessorPlugin;
 
@@ -60,7 +60,7 @@ public final class CopyFilenamesToClipboard extends AbstractFileProcessorPlugin 
         return "index.html";
     }
 
-    public Icon getIcon() {
+    public Icon getSmallIcon() {
         return null;
     }
 
@@ -86,7 +86,7 @@ public final class CopyFilenamesToClipboard extends AbstractFileProcessorPlugin 
     }
 
     private void setDelimiter() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         if (storage != null) {
             String delimiter = storage.getString(KEY_FILENAME_DELIMITER);

@@ -8,8 +8,8 @@ import java.util.logging.Logger;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.branding.ApplicationProperties;
-import org.jphototagger.api.storage.UserFilesProvider;
+import org.jphototagger.api.branding.AppProperties;
+import org.jphototagger.api.storage.ThumbnailsDirectoryProvider;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.util.Bundle;
@@ -46,7 +46,7 @@ final class AppDatabase {
 
     private static void checkDatabaseVersion() {
         if (DatabaseMetadata.isDatabaseOfNewerVersion()) {
-            String versionString = Lookup.getDefault().lookup(ApplicationProperties.class).getApplicationVersionString();
+            String versionString = Lookup.getDefault().lookup(AppProperties.class).getAppVersionString();
             String dbVersion = DatabaseMetadata.getDatabaseAppVersion();
             String message = Bundle.getString(AppDatabase.class, "AppDatabase.Error.NewerDbVersion", dbVersion, versionString);
 
@@ -56,7 +56,7 @@ final class AppDatabase {
     }
 
     private static void ensureThumbnailDirExists() {
-        UserFilesProvider provider = Lookup.getDefault().lookup(UserFilesProvider.class);
+        ThumbnailsDirectoryProvider provider = Lookup.getDefault().lookup(ThumbnailsDirectoryProvider.class);
         File directory = provider.getThumbnailsDirectory();
 
         try {

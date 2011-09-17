@@ -10,9 +10,9 @@ import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
 
+import org.jphototagger.api.storage.ThumbnailsDirectoryProvider;
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.UserFilesProvider;
 import org.jphototagger.image.util.ImageUtil;
 import org.jphototagger.lib.io.FileLock;
 import org.jphototagger.lib.io.FileUtil;
@@ -29,7 +29,7 @@ final class PersistentThumbnails {
     private static final String THUMBNAILS_DIRECTORY_NAME;
 
     static {
-        UserFilesProvider provider = Lookup.getDefault().lookup(UserFilesProvider.class);
+        ThumbnailsDirectoryProvider provider = Lookup.getDefault().lookup(ThumbnailsDirectoryProvider.class);
         File thumbnailsDirectory = provider.getThumbnailsDirectory();
 
         THUMBNAILS_DIRECTORY_NAME = thumbnailsDirectory.getAbsolutePath();

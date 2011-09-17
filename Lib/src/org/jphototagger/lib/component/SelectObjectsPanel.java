@@ -20,7 +20,7 @@ import javax.swing.JPanel;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
 
 /**
  * Panel to select objects from a collection of objects.
@@ -229,7 +229,7 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
      * {@code SelectObjectsPanel#SelectObjectsPanel(Properties, String)}
      */
     public void applyPropertiesSelectedIndices() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
         if ((storage == null) || !storage.containsKey(storageKey)) {
             return;
         }
@@ -281,7 +281,7 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
     }
 
     private void writeSelectedIndicesToProperties() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         if (storage == null) {
             return;

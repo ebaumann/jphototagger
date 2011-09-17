@@ -4,8 +4,8 @@ import java.awt.Container;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Storage;
-import org.jphototagger.api.storage.StorageHints;
+import org.jphototagger.api.storage.Preferences;
+import org.jphototagger.api.storage.PreferencesHints;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.program.resource.GUI;
@@ -54,12 +54,12 @@ public final class ProgramInputParametersDialog extends Dialog {
 
     @Override
     public void setVisible(boolean visible) {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         if (visible) {
-            storage.applyComponentSettings(this, new StorageHints(StorageHints.Option.SET_TABBED_PANE_CONTENT));
+            storage.applyComponentSettings(this, new PreferencesHints(PreferencesHints.Option.SET_TABBED_PANE_CONTENT));
         } else {
-            storage.setComponent(this, new StorageHints(StorageHints.Option.SET_TABBED_PANE_CONTENT));
+            storage.setComponent(this, new PreferencesHints(PreferencesHints.Option.SET_TABBED_PANE_CONTENT));
         }
 
         super.setVisible(visible);

@@ -41,7 +41,7 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
 import org.jphototagger.domain.event.AppWillExitEvent;
 import org.jphototagger.domain.event.UserPropertyChangedEvent;
 import org.jphototagger.domain.event.listener.ThumbnailUpdateListener;
@@ -68,6 +68,7 @@ import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.MathUtil;
 import org.jphototagger.program.app.AppFileFilters;
+import org.jphototagger.program.app.AppStorageKeys;
 import org.jphototagger.program.cache.RenderedThumbnailCache;
 import org.jphototagger.program.controller.thumbnail.ThumbnailDoubleklickController;
 import org.jphototagger.program.datatransfer.ThumbnailsPanelTransferHandler;
@@ -126,11 +127,11 @@ public class ThumbnailsPanel extends JPanel
     }
 
     private boolean getPersistedDisplayThumbnailTooltip() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage == null || !storage.containsKey(Storage.KEY_DISPLAY_THUMBNAIL_TOOLTIP)
+        return storage == null || !storage.containsKey(AppStorageKeys.KEY_UI_DISPLAY_THUMBNAIL_TOOLTIP)
                 ? true
-                : storage.getBoolean(Storage.KEY_DISPLAY_THUMBNAIL_TOOLTIP);
+                : storage.getBoolean(AppStorageKeys.KEY_UI_DISPLAY_THUMBNAIL_TOOLTIP);
     }
 
     private void listen() {
@@ -828,7 +829,7 @@ public class ThumbnailsPanel extends JPanel
 
     @EventSubscriber(eventClass = AppWillExitEvent.class)
     public void appWillExit(AppWillExitEvent evt) {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         storage.setInt(ThumbnailsPanel.KEY_THUMBNAIL_WIDTH, getThumbnailWidth());
     }
@@ -1001,7 +1002,7 @@ public class ThumbnailsPanel extends JPanel
     }
 
     private void readProperties() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         if (storage == null) {
             return;
@@ -1682,7 +1683,7 @@ public class ThumbnailsPanel extends JPanel
 
     @EventSubscriber(eventClass = UserPropertyChangedEvent.class)
     public void applySettings(UserPropertyChangedEvent evt) {
-        if (Storage.KEY_DISPLAY_THUMBNAIL_TOOLTIP.equals(evt.getPropertyKey())) {
+        if (AppStorageKeys.KEY_UI_DISPLAY_THUMBNAIL_TOOLTIP.equals(evt.getPropertyKey())) {
             boolean displayThumbnailTooltip = (Boolean) evt.getNewValue();
 
             isDisplayThumbnailTooltip = displayThumbnailTooltip;

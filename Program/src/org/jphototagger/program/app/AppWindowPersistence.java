@@ -14,9 +14,10 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Storage;
-import org.jphototagger.api.storage.StorageHints;
+import org.jphototagger.api.storage.Preferences;
+import org.jphototagger.api.storage.PreferencesHints;
 import org.jphototagger.domain.event.AppWillExitEvent;
+import org.jphototagger.iptc.IptcStorageKeys;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.program.resource.GUI;
@@ -74,7 +75,7 @@ public final class AppWindowPersistence implements ComponentListener {
         assert isSelKeywordsCard && knownCardName : c;
 
         if (isSelKeywordsCard && knownCardName) {
-            Storage storage = Lookup.getDefault().lookup(Storage.class);
+            Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
             storage.setString(KEY_KEYWORDS_VIEW, NAME_OF_CARD.get(c));
         }
@@ -86,7 +87,7 @@ public final class AppWindowPersistence implements ComponentListener {
 
     public void readAppFrameFromProperties() {
         final AppFrame appFrame = GUI.getAppFrame();
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
         String key = appFrame.getClass().getName();
 
         storage.applySize(key, appFrame);
@@ -107,7 +108,7 @@ public final class AppWindowPersistence implements ComponentListener {
             @Override
             public void run() {
                 AppPanel appPanel = GUI.getAppPanel();
-                Storage storage = Lookup.getDefault().lookup(Storage.class);
+                Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
                 storage.applyComponentSettings(appPanel, getAppPanelSettingsHints());
                 appPanel.setEnabledIptcTab(isDisplayIptc());
@@ -118,15 +119,15 @@ public final class AppWindowPersistence implements ComponentListener {
     }
 
     private boolean isDisplayIptc() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(Storage.KEY_DISPLAY_IPTC)
-                ? storage.getBoolean(Storage.KEY_DISPLAY_IPTC)
+        return storage.containsKey(IptcStorageKeys.KEY_DISPLAY_IPTC)
+                ? storage.getBoolean(IptcStorageKeys.KEY_DISPLAY_IPTC)
                 : false;
     }
 
-    private static StorageHints getAppPanelSettingsHints() {
-        StorageHints hints = new StorageHints();
+    private static PreferencesHints getAppPanelSettingsHints() {
+        PreferencesHints hints = new PreferencesHints();
 
         // Lists setTree by readList...() / writeListProperties() or other classes
         hints.addKeyToExclude(AppPersistenceKeys.APP_PANEL_LIST_IMAGE_COLLECTIONS);
@@ -160,7 +161,7 @@ public final class AppWindowPersistence implements ComponentListener {
         // Strings has to be equal to the card names in AppPanel
         // (errors on renamings)!
         String name = "keywordsTree";
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         if (storage.containsKey(KEY_KEYWORDS_VIEW)) {
             String s = storage.getString(KEY_KEYWORDS_VIEW);
@@ -188,7 +189,7 @@ public final class AppWindowPersistence implements ComponentListener {
 
     private void writeAppProperties() {
         AppPanel appPanel = GUI.getAppPanel();
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         storage.setComponent(appPanel, getAppPanelSettingsHints());
         storage.setInt(KEY_DIVIDER_LOCATION_MAIN, appPanel.getSplitPaneMain().getDividerLocation());
@@ -264,13 +265,13 @@ public final class AppWindowPersistence implements ComponentListener {
     }
 
     private static void read(JTree tree, String key) {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         storage.applyTreeSettings(key, tree);
     }
 
     private static void read(JList list, String key) {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         storage.applySelectedIndices(key, list);
     }
@@ -294,13 +295,13 @@ public final class AppWindowPersistence implements ComponentListener {
     }
 
     private void write(JTree tree, String key) {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         storage.setTree(key, tree);
     }
 
     private void write(JList list, String key) {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         storage.setSelectedIndices(key, list);
     }

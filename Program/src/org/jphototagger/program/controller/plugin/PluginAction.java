@@ -25,7 +25,7 @@ public final class PluginAction<T extends Plugin> extends AbstractAction {
         this.plugin = plugin;
 
         putValue(Action.NAME, plugin.getDisplayName());
-        putValue(Action.SMALL_ICON, plugin.getIcon());
+        putValue(Action.SMALL_ICON, plugin.getSmallIcon());
     }
 
     public T getPlugin() {

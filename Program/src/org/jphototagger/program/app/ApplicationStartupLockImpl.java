@@ -2,33 +2,31 @@ package org.jphototagger.program.app;
 
 import org.openide.util.lookup.ServiceProvider;
 
-import org.jphototagger.api.startup.ApplicationStartupLock;
-
 /**
  *
  *
  * @author Elmar Baumann
  */
-@ServiceProvider(service = ApplicationStartupLock.class)
-public final class ApplicationStartupLockImpl implements ApplicationStartupLock {
+@ServiceProvider(service = org.jphototagger.api.startup.AppStartupLock.class)
+public final class ApplicationStartupLockImpl implements org.jphototagger.api.startup.AppStartupLock {
 
     @Override
-    public boolean forceLock() {
+    public boolean forceStartupLock() {
         return AppStartupLock.forceLock();
     }
 
     @Override
-    public boolean isLocked() {
+    public boolean isStartupLocked() {
         return AppStartupLock.isLocked();
     }
 
     @Override
-    public boolean lockApplication() {
+    public boolean lockStartup() {
         return AppStartupLock.lock();
     }
 
     @Override
-    public boolean unlockApplication() {
+    public boolean unlockStartup() {
         return AppStartupLock.unlock();
     }
 }

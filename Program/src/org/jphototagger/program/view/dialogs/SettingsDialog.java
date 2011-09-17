@@ -11,7 +11,7 @@ import javax.swing.JButton;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
 import org.jphototagger.lib.componentutil.TabbedPaneUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.util.Bundle;
@@ -119,7 +119,7 @@ public final class SettingsDialog extends Dialog {
     }
 
     private void readProperties() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
         String key = getClass().getName();
 
         storage.applySize(key, this);
@@ -132,7 +132,7 @@ public final class SettingsDialog extends Dialog {
     }
 
     private void writeProperties() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         storage.setTabbedPane(KEY_INDEX_TABBED_PANE, tabbedPane, null);
 

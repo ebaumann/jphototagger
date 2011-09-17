@@ -11,7 +11,7 @@ import java.util.List;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.branding.ApplicationProperties;
+import org.jphototagger.api.branding.AppProperties;
 import org.jphototagger.domain.repository.ApplicationPropertiesRepository;
 import org.jphototagger.lib.util.Version;
 
@@ -43,7 +43,7 @@ public final class DatabaseMetadata extends Database {
             return false;
         }
 
-        String versionString = Lookup.getDefault().lookup(ApplicationProperties.class).getApplicationVersionString();
+        String versionString = Lookup.getDefault().lookup(AppProperties.class).getAppVersionString();
         Version db = Version.parseVersion(dbVersion, ".");
         Version current = Version.parseVersion(versionString, ".");
 
@@ -59,7 +59,7 @@ public final class DatabaseMetadata extends Database {
     public static boolean isDatabaseOfCurrentVersion() {
         ApplicationPropertiesRepository appPropertiesRepo = Lookup.getDefault().lookup(ApplicationPropertiesRepository.class);
         String dbVersion = appPropertiesRepo.getString(KEY_JPT_APP_DB_VERSION);
-        String versionString = Lookup.getDefault().lookup(ApplicationProperties.class).getApplicationVersionString();
+        String versionString = Lookup.getDefault().lookup(AppProperties.class).getAppVersionString();
 
         return (dbVersion == null)
                 ? false
@@ -81,7 +81,7 @@ public final class DatabaseMetadata extends Database {
             return true;
         }
 
-        String versionString = Lookup.getDefault().lookup(ApplicationProperties.class).getApplicationVersionString();
+        String versionString = Lookup.getDefault().lookup(AppProperties.class).getAppVersionString();
         Version db = Version.parseVersion(dbVersion, ".");
         Version current = Version.parseVersion(versionString, ".");
 
@@ -108,7 +108,7 @@ public final class DatabaseMetadata extends Database {
      */
     public static void setCurrentAppVersionToDatabase() {
         ApplicationPropertiesRepository appPropertiesRepo = Lookup.getDefault().lookup(ApplicationPropertiesRepository.class);
-        String versionString = Lookup.getDefault().lookup(ApplicationProperties.class).getApplicationVersionString();
+        String versionString = Lookup.getDefault().lookup(AppProperties.class).getAppVersionString();
 
         appPropertiesRepo.setString(KEY_JPT_APP_DB_VERSION, versionString);
     }

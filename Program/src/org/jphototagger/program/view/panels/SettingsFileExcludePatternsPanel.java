@@ -11,10 +11,10 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
-import org.jphototagger.api.storage.Storage;
 import org.jphototagger.domain.repository.FileExcludePatternsRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
+import org.jphototagger.program.app.AppStorageKeys;
 import org.jphototagger.program.model.FileExcludePatternsListModel;
 import org.jphototagger.program.types.Persistence;
 
@@ -37,7 +37,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel i
     private void postInitComponents() {
         textFieldInputPattern.requestFocusInWindow();
         MnemonicUtil.setMnemonics((Container) this);
-        panelSelectRootFiles.setPersistenceKey(Storage.KEY_HIDE_ROOT_FILES_FROM_DIRECTORIES_TAB);
+        panelSelectRootFiles.setPersistenceKey(AppStorageKeys.KEY_UI_DIRECTORIES_TAB_HIDE_ROOT_FILES);
     }
 
     @Override

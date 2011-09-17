@@ -16,7 +16,7 @@ import org.openide.util.Lookup;
 import org.jphototagger.api.file.event.FileMovedEvent;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
 import org.jphototagger.domain.event.listener.ProgressListenerSupport;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
@@ -26,6 +26,7 @@ import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.SourceTargetFile;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.app.AppStorageKeys;
 import org.jphototagger.program.helper.CopyFiles;
 import org.jphototagger.program.helper.CopyFiles.Options;
 import org.jphototagger.program.io.FileSystemMove;
@@ -123,10 +124,10 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
     }
 
     private CopyFiles.Options getCopyMoveFilesOptions() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(Storage.KEY_OPTIONS_COPY_MOVE_FILES)
-                ? CopyFiles.Options.fromInt(storage.getInt(Storage.KEY_OPTIONS_COPY_MOVE_FILES))
+        return storage.containsKey(AppStorageKeys.KEY_FILE_SYSTEM_OPERATIONS_OPTIONS_COPY_MOVE_FILES)
+                ? CopyFiles.Options.fromInt(storage.getInt(AppStorageKeys.KEY_FILE_SYSTEM_OPERATIONS_OPTIONS_COPY_MOVE_FILES))
                 : CopyFiles.Options.CONFIRM_OVERWRITE;
     }
 
@@ -143,7 +144,7 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
     }
 
     private void chooseTargetDirectory() {
-        List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(Storage.KEY_HIDE_ROOT_FILES_FROM_DIRECTORIES_TAB);
+        List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(AppStorageKeys.KEY_UI_DIRECTORIES_TAB_HIDE_ROOT_FILES);
         DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), targetDirectory, hideRootFiles, getDirChooserOptionShowHiddenDirs());
 
         dlg.setStorageKey("MoveToDirectoriesDialog.DirChooser");
@@ -178,10 +179,10 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
     }
 
     private boolean isAcceptHiddenDirectories() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(Storage.KEY_ACCEPT_HIDDEN_DIRECTORIES)
-                ? storage.getBoolean(Storage.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+        return storage.containsKey(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+                ? storage.getBoolean(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
                 : false;
     }
 
@@ -239,7 +240,7 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
     }
 
     private void setTargetDirectory() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
         targetDirectory = new File(storage.getString(KEY_TARGET_DIRECTORY));
 
         if (targetDirectory.exists()) {
@@ -250,7 +251,7 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
     }
 
     private void targetDirectoryToSettings() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         storage.setString(KEY_TARGET_DIRECTORY, targetDirectory.getAbsolutePath());
     }

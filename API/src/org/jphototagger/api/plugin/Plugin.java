@@ -2,38 +2,22 @@ package org.jphototagger.api.plugin;
 
 import java.awt.Component;
 
-import javax.swing.Icon;
+import org.jphototagger.api.component.DescriptionProvider;
+import org.jphototagger.api.component.DisplayNameProvider;
+import org.jphototagger.api.component.IconProvider;
 
 /**
  * Extensions for JPhotoTagger invoked on demand.
  * <p>
- * Plugins will be invoked through the Java Service Provider Interface.
+ * Plugins will be picked up through the Java Service Provider Interface (SPI).
  *
  * @author Elmar Baumann
  */
-public interface Plugin {
+public interface Plugin extends DescriptionProvider, DisplayNameProvider, IconProvider {
 
     /**
      *
-     * @return Localized display name
-     */
-    String getDisplayName();
-
-    /**
-     *
-     * @return Localized description
-     */
-    String getDescription();
-
-    /**
-     *
-     * @return Icon or null
-     */
-    Icon getIcon();
-
-    /**
-     *
-     * @return Component for JPhotoTagger's settings dialog or null
+     * @return Component for a settings dialog or null
      */
     Component getSettingsComponent();
 
@@ -52,7 +36,7 @@ public interface Plugin {
      *        <code>"/com/myname/jpt/plugin/doc/en/contents.xml"</code> or null
      *        the plugin has no help
      */
-    public String getHelpContentsPath();
+    String getHelpContentsPath();
 
     /**
      * Returns the Name of the first help page which will be selected if the

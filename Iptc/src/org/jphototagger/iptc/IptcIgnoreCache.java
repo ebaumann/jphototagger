@@ -10,7 +10,7 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.storage.CacheDirectoryProvider;
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
 import org.jphototagger.domain.repository.event.imagefiles.ImageFileDeletedEvent;
 import org.jphototagger.domain.repository.event.imagefiles.ImageFileMovedEvent;
 import org.jphototagger.lib.io.FileUtil;
@@ -46,9 +46,9 @@ public final class IptcIgnoreCache {
     }
 
     private boolean isDisplayIptc() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.getBoolean(Storage.KEY_DISPLAY_IPTC);
+        return storage.getBoolean(IptcStorageKeys.KEY_DISPLAY_IPTC);
     }
 
     public void setIgnore(File imageFile, boolean ignore) {

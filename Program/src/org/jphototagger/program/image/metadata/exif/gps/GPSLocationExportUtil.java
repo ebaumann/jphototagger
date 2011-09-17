@@ -12,7 +12,7 @@ import javax.swing.JFileChooser;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
 import org.jphototagger.exif.ExifMetadata;
 import org.jphototagger.exif.ExifTags;
 import org.jphototagger.exif.tag.ExifGpsMetadata;
@@ -22,6 +22,7 @@ import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.io.IoUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StorageUtil;
+import org.jphototagger.program.app.AppStorageKeys;
 import org.jphototagger.program.helper.HelperThread;
 import org.jphototagger.program.tasks.UserTasks;
 
@@ -55,10 +56,10 @@ public final class GPSLocationExportUtil {
     }
 
     private static boolean isAddFilenameToGpsLocationExport() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(Storage.KEY_ADD_FILENAME_TO_GPS_LOCATION_EXPORT)
-                ? storage.getBoolean(Storage.KEY_ADD_FILENAME_TO_GPS_LOCATION_EXPORT)
+        return storage.containsKey(AppStorageKeys.KEY_GPS_ADD_FILENAME_TO_GPS_LOCATION_EXPORT)
+                ? storage.getBoolean(AppStorageKeys.KEY_GPS_ADD_FILENAME_TO_GPS_LOCATION_EXPORT)
                 : false;
     }
 
@@ -166,14 +167,14 @@ public final class GPSLocationExportUtil {
     }
 
     private static synchronized File getCurrentDir() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
         String path = storage.getString(KEY_CURRENT_DIR);
 
         return new File(path == null ? "" : path);
     }
 
     private static synchronized void setCurrentDir(File dir) {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         StorageUtil.setDirectory(storage, KEY_CURRENT_DIR, dir);
     }

@@ -23,7 +23,7 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
 import org.jphototagger.domain.event.AppWillExitEvent;
 import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.domain.repository.FavoritesRepository;
@@ -328,10 +328,10 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
     }
 
     private boolean isAcceptHiddenDirectories() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(Storage.KEY_ACCEPT_HIDDEN_DIRECTORIES)
-                ? storage.getBoolean(Storage.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+        return storage.containsKey(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+                ? storage.getBoolean(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
                 : false;
     }
 
@@ -535,7 +535,7 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
     }
 
     public void readFromProperties() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
         String favname = storage.getString(KEY_SELECTED_FAV_NAME);
         String dirname = storage.getString(KEY_SELECTED_DIR);
 
@@ -578,7 +578,7 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
                     }
                 }
 
-                Storage storage = Lookup.getDefault().lookup(Storage.class);
+                Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
                 if (dirname == null) {
                     storage.removeKey(KEY_SELECTED_DIR);
@@ -593,7 +593,7 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
                 }
             }
         } else {
-            Storage storage = Lookup.getDefault().lookup(Storage.class);
+            Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
             storage.removeKey(KEY_SELECTED_DIR);
             storage.removeKey(KEY_SELECTED_FAV_NAME);

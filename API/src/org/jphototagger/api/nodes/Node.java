@@ -2,34 +2,19 @@ package org.jphototagger.api.nodes;
 
 import java.util.Collection;
 
-import javax.swing.Icon;
+import org.jphototagger.api.component.DisplayNameProvider;
+import org.jphototagger.api.component.IconProvider;
 
 /**
  * A GUI representant of data.
  *
  * @author Elmar Baumann
  */
-public interface Node {
+public interface Node extends DisplayNameProvider, IconProvider {
 
     /**
      *
-     * @return what maybe of interest for Lookup listeners, e.g. the represented data
+     * @return represented content, e.g. what maybe of interest for Lookup listeners
      */
-    Collection<?> getLookupContent();
-
-    String getDisplayName();
-
-    String getHtmlDisplayName();
-
-    /**
-     *
-     * @return maybe null
-     */
-    Icon getSmallIcon();
-
-    /**
-     *
-     * @return maybe null
-     */
-    Icon getLargeIcon();
+    Collection<?> getContent();
 }

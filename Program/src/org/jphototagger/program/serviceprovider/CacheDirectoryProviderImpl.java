@@ -8,7 +8,7 @@ import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
 import org.jphototagger.api.storage.CacheDirectoryProvider;
-import org.jphototagger.api.storage.UserFilesProvider;
+import org.jphototagger.api.storage.SettingsDirectoryProvider;
 
 /**
  *
@@ -22,7 +22,7 @@ public final class CacheDirectoryProviderImpl implements CacheDirectoryProvider 
     private static final Logger LOGGER = Logger.getLogger(CacheDirectoryProviderImpl.class.getName());
 
     static {
-        UserFilesProvider provider = Lookup.getDefault().lookup(UserFilesProvider.class);
+        SettingsDirectoryProvider provider = Lookup.getDefault().lookup(SettingsDirectoryProvider.class);
         File userDirectory = provider.getUserSettingsDirectory();
         CACHE_DIRECTORY = new File(userDirectory + File.separator + "cache");
     }

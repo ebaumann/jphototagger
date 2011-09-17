@@ -77,7 +77,7 @@ public final class FlickrUpload extends AbstractFileProcessorPlugin implements S
     }
 
     @Override
-    public Icon getIcon() {
+    public Icon getSmallIcon() {
         return icon;
     }
 

@@ -321,7 +321,7 @@ public final class AppFrame extends javax.swing.JFrame {
                 int itemCount = menu.getItemCount();
                 int index = position < 0 || position > itemCount ? itemCount : position;
 
-                if (appMenuAction.isSeparatorBefore()) {
+                if (appMenuAction.isUsedInMenusSeparatorBefore()) {
                     menu.add(new Separator(), index);
                     index++;
                 }

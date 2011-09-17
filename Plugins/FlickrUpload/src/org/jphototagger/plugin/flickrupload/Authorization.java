@@ -16,7 +16,7 @@ import com.aetrion.flickr.auth.Permission;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 
@@ -42,7 +42,7 @@ final class Authorization {
     }
 
     public void deleteToken() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         if (storage != null) {
             storage.removeKey(KEY_TOKEN);
@@ -50,7 +50,7 @@ final class Authorization {
     }
 
     private String getToken() {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         return storage == null
                 ? ""
@@ -58,7 +58,7 @@ final class Authorization {
     }
 
     private void setToken(String token) {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         if (storage != null) {
             storage.setString(KEY_TOKEN, token);

@@ -6,7 +6,7 @@ import java.awt.event.WindowEvent;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Storage;
+import org.jphototagger.api.storage.Preferences;
 
 /**
  * Listens to <code>windowOpend()</code> and <code>windowClosing()</code> and
@@ -22,7 +22,7 @@ public final class SizeAndLocationController extends WindowAdapter {
 
     @Override
     public void windowOpened(WindowEvent evt) {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
         Component component = evt.getComponent();
         String key = component.getClass().getName();
 
@@ -32,7 +32,7 @@ public final class SizeAndLocationController extends WindowAdapter {
 
     @Override
     public void windowClosing(WindowEvent evt) {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
         Component component = evt.getComponent();
         String key = component.getClass().getName();
 
