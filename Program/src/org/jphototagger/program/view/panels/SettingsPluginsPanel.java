@@ -61,11 +61,15 @@ public class SettingsPluginsPanel extends javax.swing.JPanel implements ChangeLi
 
     private <T extends Plugin> void addPlugins(PluginManager<T> pluginManager) {
         for (Plugin plugin : pluginManager.getEnabledPlugins()) {
-            addPluginSettingsComponent(plugin);
+            if (plugin.isAvailable()) {
+                addPluginSettingsComponent(plugin);
+            }
         }
 
         for (T plugin : pluginManager.getAllPlugins()) {
-            addPluginEnableCheckBox(pluginManager, plugin);
+            if (plugin.isAvailable()) {
+                addPluginEnableCheckBox(pluginManager, plugin);
+            }
         }
     }
 
