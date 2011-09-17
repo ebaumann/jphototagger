@@ -96,4 +96,9 @@ public final class CopyFilenamesToClipboard extends AbstractFileProcessorPlugin 
             }
         }
     }
+
+    @Override
+    public boolean isAvailable() {
+        return true;
+    }
 }

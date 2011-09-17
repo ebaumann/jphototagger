@@ -22,6 +22,13 @@ public interface Plugin extends DescriptionProvider, DisplayNameProvider, IconPr
     Component getSettingsComponent();
 
     /**
+     *
+     * @return true, if available, false if this plugin does not work under
+     * the current environmend, e.g. a "Windows only" plugin under a Unix system
+     */
+    boolean isAvailable();
+
+    /**
      * Returns the path to the XML contents file of the plugin's help.
      *
      * The contents file lists html filenames relative to itself following the

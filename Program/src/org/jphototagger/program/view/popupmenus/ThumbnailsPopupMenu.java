@@ -171,7 +171,9 @@ public final class ThumbnailsPopupMenu extends JPopupMenu {
         add(menuPlugins);
 
         for (FileProcessorPlugin plugin : FileProcessorPluginManager.INSTANCE.getEnabledPlugins()) {
-            addItemsOf(plugin);
+            if (plugin.isAvailable()) {
+                addItemsOf(plugin);
+            }
         }
     }
 
