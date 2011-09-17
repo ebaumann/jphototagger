@@ -13,7 +13,7 @@ import javax.swing.TransferHandler;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
-import org.jphototagger.domain.keywords.Keyword;
+import org.jphototagger.domain.metadata.keywords.Keyword;
 import org.jphototagger.domain.metadata.MetaDataValueData;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.lib.awt.EventQueueUtil;

@@ -16,7 +16,7 @@ import org.jphototagger.domain.repository.KeywordsRepository;
 import org.jphototagger.domain.repository.event.dcsubjects.DcSubjectInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
-import org.jphototagger.domain.xmp.Xmp;
+import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.model.KeywordsTreeModel;

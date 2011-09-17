@@ -8,7 +8,7 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
-import org.jphototagger.domain.keywords.Keyword;
+import org.jphototagger.domain.metadata.keywords.Keyword;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.controller.keywords.list.ShowThumbnailsContainingAllKeywords2;
 import org.jphototagger.program.resource.GUI;

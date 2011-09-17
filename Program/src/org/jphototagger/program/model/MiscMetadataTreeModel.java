@@ -13,7 +13,7 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.domain.exif.Exif;
+import org.jphototagger.domain.metadata.exif.Exif;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.exif.ExifFocalLengthMetaDataValue;
 import org.jphototagger.domain.metadata.exif.ExifIsoSpeedRatingsMetaDataValue;
@@ -34,7 +34,7 @@ import org.jphototagger.domain.repository.event.exif.ExifUpdatedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpDeletedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
-import org.jphototagger.domain.xmp.Xmp;
+import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.lib.util.Bundle;

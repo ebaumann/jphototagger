@@ -22,7 +22,7 @@ import org.jphototagger.domain.repository.event.dcsubjects.DcSubjectInsertedEven
 import org.jphototagger.domain.repository.event.xmp.XmpDeletedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
-import org.jphototagger.domain.xmp.Xmp;
+import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**

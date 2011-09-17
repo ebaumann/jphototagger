@@ -31,7 +31,7 @@ import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
-import org.jphototagger.domain.xmp.Xmp;
+import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.Autocomplete;
 import org.jphototagger.lib.componentutil.ListUtil;

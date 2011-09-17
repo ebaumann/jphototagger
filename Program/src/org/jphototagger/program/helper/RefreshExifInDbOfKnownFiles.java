@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.domain.exif.Exif;
+import org.jphototagger.domain.metadata.exif.Exif;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.exif.ExifMetadata;
 import org.jphototagger.exif.cache.ExifCache;

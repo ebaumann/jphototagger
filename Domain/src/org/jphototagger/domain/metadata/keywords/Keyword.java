@@ -1,4 +1,4 @@
-package org.jphototagger.domain.keywords;
+package org.jphototagger.domain.metadata.keywords;
 
 import java.io.Serializable;
 

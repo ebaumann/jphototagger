@@ -1,9 +1,9 @@
-package org.jphototagger.domain.xmp;
+package org.jphototagger.domain.metadata.xmp;
 
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.jphototagger.domain.iptc.Iptc;
+import org.jphototagger.domain.metadata.iptc.Iptc;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.mapping.IptcXmpMapping;
 import org.jphototagger.domain.metadata.xmp.XmpDcCreatorMetaDataValue;
@@ -14,7 +14,7 @@ import org.jphototagger.domain.metadata.xmp.XmpLastModifiedMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpPhotoshopAuthorspositionMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpPhotoshopCaptionwriterMetaDataValue;
 import org.jphototagger.domain.templates.MetadataTemplate;
-import org.jphototagger.domain.xmp.Xmp.SetIptc;
+import org.jphototagger.domain.metadata.xmp.Xmp.SetIptc;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;

@@ -4,7 +4,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.jphototagger.domain.exif.Exif;
+import org.jphototagger.domain.metadata.exif.Exif;
 import org.jphototagger.exif.ExifMetadata;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppFileFilters;

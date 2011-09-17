@@ -9,7 +9,7 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.domain.metadata.xmp.XmpIptc4xmpcoreLocationMetaDataValue;
 import org.jphototagger.domain.repository.ImageFilesRepository;
-import org.jphototagger.domain.xmp.Xmp;
+import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.lib.util.ClassEquality;
 
 /**

@@ -2,7 +2,7 @@ package org.jphototagger.program.comparator;
 
 import java.util.Comparator;
 
-import org.jphototagger.domain.keywords.Keyword;
+import org.jphototagger.domain.metadata.keywords.Keyword;
 
 /**
  * Compares {@code Keyword}s by their database ID.

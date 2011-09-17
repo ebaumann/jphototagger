@@ -27,7 +27,7 @@ import org.jphototagger.domain.repository.event.dcsubjects.DcSubjectInsertedEven
 import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.domain.text.TextEntry;
-import org.jphototagger.domain.xmp.Xmp;
+import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.lib.componentutil.Autocomplete;
 import org.jphototagger.program.helper.AutocompleteHelper;
 

@@ -25,7 +25,7 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
-import org.jphototagger.domain.exif.Exif;
+import org.jphototagger.domain.metadata.exif.Exif;
 import org.jphototagger.domain.image.ImageFile;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.search.Join;
@@ -65,8 +65,8 @@ import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.domain.thumbnails.event.ThumbnailUpdatedEvent;
 import org.jphototagger.domain.timeline.Timeline;
-import org.jphototagger.domain.xmp.FileXmp;
-import org.jphototagger.domain.xmp.Xmp;
+import org.jphototagger.domain.metadata.xmp.FileXmp;
+import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.image.util.ThumbnailCreatorService;
 import org.jphototagger.xmp.XmpMetadata;
 
