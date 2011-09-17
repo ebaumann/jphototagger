@@ -72,16 +72,14 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
         setAcceptHiddenDirectories(checkBoxIsAcceptHiddenDirectories.isSelected());
     }
 
-    private void handleActionPerformedChooseDatabaseDirectory(boolean backupDir) {
+    private void handleActionPerformedChooseDatabaseDirectory() {
         UserFilesProvider provider = Lookup.getDefault().lookup(UserFilesProvider.class);
         File databaseDirectory = provider.getDatabaseDirectory();
-        File databaseBackupDirectory = provider.getDatabaseBackupDirectory();
-        File fileChooserDir = backupDir ? databaseBackupDirectory : databaseDirectory;
 
-        File file = chooseDirectory(fileChooserDir);
+        File file = chooseDirectory(databaseDirectory);
 
         if (file != null) {
-            setDatabaseDirectoryName(file.getAbsolutePath(), backupDir);
+            setDatabaseDirectoryName(file.getAbsolutePath());
         }
     }
     private void setAcceptHiddenDirectories(boolean accept) {
@@ -90,47 +88,29 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
         storage.setBoolean(Storage.KEY_ACCEPT_HIDDEN_DIRECTORIES, accept);
     }
 
-    private void setDatabaseDirectoryName(String directoryName, boolean backupDir) {
-        setIconDatabaseDirectory(backupDir);
-        if (backupDir) {
-            labelDatabaseBackupDirectory.setText(directoryName);
-            persistDatabaseBackupDirectoryName(directoryName);
-        } else {
-            labelDatabaseDirectory.setText(directoryName);
-            setDatabaseDirectoryName(directoryName);
-        }
-    }
-
-    private void persistDatabaseBackupDirectoryName(String directoryName) {
-        Storage storage = Lookup.getDefault().lookup(Storage.class);
-
-        storage.setString(Storage.KEY_DATABASE_BACKUP_DIRECTORY, directoryName);
-    }
-
     private void setDatabaseDirectoryName(String directoryName) {
         Storage storage = Lookup.getDefault().lookup(Storage.class);
 
+        setIconDatabaseDirectory();
+        labelDatabaseDirectory.setText(directoryName);
+        setDatabaseDirectoryName(directoryName);
         storage.setString(Storage.KEY_DATABASE_DIRECTORY, directoryName);
     }
 
-
-    private void setIconDatabaseDirectory(boolean backupDir) {
+    private void setIconDatabaseDirectory() {
         File dir = new File(labelDatabaseDirectory.getText());
 
         if (dir.isDirectory()) {
             Icon icon = FileSystemView.getFileSystemView().getSystemIcon(dir);
-            if (backupDir) {
-                labelDatabaseBackupDirectory.setIcon(icon);
-            } else {
-                labelDatabaseDirectory.setIcon(icon);
-            }
+
+            labelDatabaseDirectory.setIcon(icon);
         }
     }
 
     private void handleActionPerformedSetStandardDatabaseDirectory() {
         UserFilesProvider provider = Lookup.getDefault().lookup(UserFilesProvider.class);
 
-        setDatabaseDirectoryName(provider.getDefaultDatabaseDirectory().getAbsolutePath(), false);
+        setDatabaseDirectoryName(provider.getDefaultDatabaseDirectory().getAbsolutePath());
     }
 
     private void handleActionPerformedCheckBoxDisplaySearchButton() {
@@ -223,11 +203,9 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
         checkBoxAddFilenameToGpsLocationExport.setSelected(isAddFilenameToGpsLocationExport());
         setIptcCharsetFromUserSettings();
         labelDatabaseDirectory.setText(provider.getDatabaseDirectory().getAbsolutePath());
-        labelDatabaseBackupDirectory.setText(provider.getDatabaseBackupDirectory().getAbsolutePath());
         radioButtonCopyMoveFileConfirmOverwrite.setSelected(getCopyMoveFilesOptions().equals(CopyFiles.Options.CONFIRM_OVERWRITE));
         radioButtonCopyMoveFileRenameIfExists.setSelected(getCopyMoveFilesOptions().equals(CopyFiles.Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS));
-        setIconDatabaseDirectory(true);
-        setIconDatabaseDirectory(false);
+        setIconDatabaseDirectory();
     }
 
     private static boolean isAddFilenameToGpsLocationExport() {
@@ -297,9 +275,6 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
         buttonSetStandardDatabaseDirectoryName = new javax.swing.JButton();
         buttonChooseDatabaseDirectory = new javax.swing.JButton();
         labelDatabaseDirectory = new javax.swing.JLabel();
-        labelPromptDatabaseBackupDirectory = new javax.swing.JLabel();
-        buttonChooseDatabaseBackupDirectory = new javax.swing.JButton();
-        labelDatabaseBackupDirectory = new javax.swing.JLabel();
 
         setName("Form"); // NOI18N
 
@@ -424,21 +399,6 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
         labelDatabaseDirectory.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         labelDatabaseDirectory.setName("labelDatabaseDirectory"); // NOI18N
 
-        labelPromptDatabaseBackupDirectory.setText(bundle.getString("SettingsMiscPanel.labelPromptDatabaseBackupDirectory.text")); // NOI18N
-        labelPromptDatabaseBackupDirectory.setName("labelPromptDatabaseBackupDirectory"); // NOI18N
-
-        buttonChooseDatabaseBackupDirectory.setText(bundle.getString("SettingsMiscPanel.buttonChooseDatabaseBackupDirectory.text")); // NOI18N
-        buttonChooseDatabaseBackupDirectory.setName("buttonChooseDatabaseBackupDirectory"); // NOI18N
-        buttonChooseDatabaseBackupDirectory.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonChooseDatabaseBackupDirectoryActionPerformed(evt);
-            }
-        });
-
-        labelDatabaseBackupDirectory.setForeground(new java.awt.Color(0, 0, 255));
-        labelDatabaseBackupDirectory.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        labelDatabaseBackupDirectory.setName("labelDatabaseBackupDirectory"); // NOI18N
-
         javax.swing.GroupLayout panelDatabaseDirectoryLayout = new javax.swing.GroupLayout(panelDatabaseDirectory);
         panelDatabaseDirectory.setLayout(panelDatabaseDirectoryLayout);
         panelDatabaseDirectoryLayout.setHorizontalGroup(
@@ -452,12 +412,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonSetStandardDatabaseDirectoryName)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonChooseDatabaseDirectory))
-                    .addGroup(panelDatabaseDirectoryLayout.createSequentialGroup()
-                        .addComponent(labelPromptDatabaseBackupDirectory)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonChooseDatabaseBackupDirectory))
-                    .addComponent(labelDatabaseBackupDirectory, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 627, Short.MAX_VALUE))
+                        .addComponent(buttonChooseDatabaseDirectory)))
                 .addContainerGap())
         );
         panelDatabaseDirectoryLayout.setVerticalGroup(
@@ -469,12 +424,6 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
                     .addComponent(buttonChooseDatabaseDirectory))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelDatabaseDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelDatabaseDirectoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelPromptDatabaseBackupDirectory)
-                    .addComponent(buttonChooseDatabaseBackupDirectory))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelDatabaseBackupDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -485,6 +434,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelDatabaseDirectory, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(checkBoxAutoDownloadCheck)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -496,8 +446,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labelIptcCharset)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(comboBoxIptcCharset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(panelDatabaseDirectory, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(comboBoxIptcCharset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -542,7 +491,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
     }//GEN-LAST:event_checkBoxIsAcceptHiddenDirectoriesActionPerformed
 
     private void buttonChooseDatabaseDirectoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseDatabaseDirectoryActionPerformed
-        handleActionPerformedChooseDatabaseDirectory(false);
+        handleActionPerformedChooseDatabaseDirectory();
     }//GEN-LAST:event_buttonChooseDatabaseDirectoryActionPerformed
 
     private void buttonSetStandardDatabaseDirectoryNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSetStandardDatabaseDirectoryNameActionPerformed
@@ -557,10 +506,6 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
         handleActionComboBoxIptcCharset();
     }//GEN-LAST:event_comboBoxIptcCharsetActionPerformed
 
-    private void buttonChooseDatabaseBackupDirectoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseDatabaseBackupDirectoryActionPerformed
-        handleActionPerformedChooseDatabaseDirectory(true);
-    }//GEN-LAST:event_buttonChooseDatabaseBackupDirectoryActionPerformed
-
     private void buttonCheckDownloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCheckDownloadActionPerformed
         checkDownload();
     }//GEN-LAST:event_buttonCheckDownloadActionPerformed
@@ -570,7 +515,6 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
     }//GEN-LAST:event_checkBoxAddFilenameToGpsLocationExportActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCheckDownload;
-    private javax.swing.JButton buttonChooseDatabaseBackupDirectory;
     private javax.swing.JButton buttonChooseDatabaseDirectory;
     private javax.swing.ButtonGroup buttonGroupCopyMoveFiles;
     private javax.swing.JButton buttonSetStandardDatabaseDirectoryName;
@@ -579,11 +523,9 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
     private javax.swing.JCheckBox checkBoxDisplaySearchButton;
     private javax.swing.JCheckBox checkBoxIsAcceptHiddenDirectories;
     private javax.swing.JComboBox comboBoxIptcCharset;
-    private javax.swing.JLabel labelDatabaseBackupDirectory;
     private javax.swing.JLabel labelDatabaseDirectory;
     private javax.swing.JLabel labelInfoDatabaseDirectory;
     private javax.swing.JLabel labelIptcCharset;
-    private javax.swing.JLabel labelPromptDatabaseBackupDirectory;
     private javax.swing.JPanel panelCopyMoveFiles;
     private javax.swing.JPanel panelDatabaseDirectory;
     private javax.swing.JRadioButton radioButtonCopyMoveFileConfirmOverwrite;
