@@ -11,8 +11,8 @@ import javax.swing.text.JTextComponent;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Preferences;
-import org.jphototagger.domain.DomainStorageKeys;
+import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.domain.DomainPreferencesKeys;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpDcCreatorMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpDcDescriptionMetaDataValue;
@@ -109,8 +109,8 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
 
         return storage == null
                 ? false
-                : storage.containsKey(DomainStorageKeys.KEY_ENABLE_AUTOCOMPLETE)
-                ? storage.getBoolean(DomainStorageKeys.KEY_ENABLE_AUTOCOMPLETE)
+                : storage.containsKey(DomainPreferencesKeys.KEY_ENABLE_AUTOCOMPLETE)
+                ? storage.getBoolean(DomainPreferencesKeys.KEY_ENABLE_AUTOCOMPLETE)
                 : true;
     }
 

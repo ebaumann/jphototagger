@@ -23,7 +23,7 @@ import javax.swing.tree.TreeSelectionModel;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Preferences;
+import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.event.HelpBrowserEvent;
 import org.jphototagger.lib.event.listener.HelpBrowserListener;

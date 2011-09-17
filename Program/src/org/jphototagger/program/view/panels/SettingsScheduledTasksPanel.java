@@ -10,7 +10,7 @@ import javax.swing.SpinnerNumberModel;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Preferences;
+import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.repository.AutoscanDirectoriesRepository;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.DirectoryChooser;
@@ -18,7 +18,7 @@ import org.jphototagger.lib.dialog.DirectoryChooser.Option;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.renderer.FileSystemListCellRenderer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.AppStorageKeys;
+import org.jphototagger.program.app.AppPreferencesKeys;
 import org.jphototagger.program.model.AutoscanDirectoriesListModel;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.tasks.ScheduledTasks;
@@ -66,8 +66,8 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel implem
     private boolean isAutoscanIncludeSubdirectories() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(AppStorageKeys.KEY_SCHEDULED_TASKS_AUTO_SCAN_INCLUDE_SUBDIRECTORIES)
-                ? storage.getBoolean(AppStorageKeys.KEY_SCHEDULED_TASKS_AUTO_SCAN_INCLUDE_SUBDIRECTORIES)
+        return storage.containsKey(AppPreferencesKeys.KEY_SCHEDULED_TASKS_AUTO_SCAN_INCLUDE_SUBDIRECTORIES)
+                ? storage.getBoolean(AppPreferencesKeys.KEY_SCHEDULED_TASKS_AUTO_SCAN_INCLUDE_SUBDIRECTORIES)
                 : true;
     }
 
@@ -85,7 +85,7 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel implem
 
     private void addAutoscanDirectories() {
         Option showHiddenDirs = getDirChooserOptionShowHiddenDirs();
-        List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(AppStorageKeys.KEY_UI_DIRECTORIES_TAB_HIDE_ROOT_FILES);
+        List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(AppPreferencesKeys.KEY_UI_DIRECTORIES_TAB_HIDE_ROOT_FILES);
         DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), new File(lastSelectedAutoscanDirectory), hideRootFiles, showHiddenDirs);
 
         dlg.setStorageKey("SettingsScheduledTasksPanel.DirChooser");
@@ -163,7 +163,7 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel implem
     private void setMinutesToStartScheduledTasks(int minutes) {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setString(AppStorageKeys.KEY_SCHEDULED_TASKS_MINUTES_TO_START_SCHEDULED_TASKS, Integer.toString(minutes));
+        storage.setString(AppPreferencesKeys.KEY_SCHEDULED_TASKS_MINUTES_TO_START_SCHEDULED_TASKS, Integer.toString(minutes));
     }
 
     private void handleActionCheckBoxIsAutoscanIncludeSubdirectories() {
@@ -173,7 +173,7 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel implem
     private void setAutoscanIncludeSubdirectories(boolean include) {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setBoolean(AppStorageKeys.KEY_SCHEDULED_TASKS_AUTO_SCAN_INCLUDE_SUBDIRECTORIES, include);
+        storage.setBoolean(AppPreferencesKeys.KEY_SCHEDULED_TASKS_AUTO_SCAN_INCLUDE_SUBDIRECTORIES, include);
     }
 
     private void setEnabledButtonRemoveAutoscanDirectory() {

@@ -16,7 +16,7 @@ import com.aetrion.flickr.auth.Permission;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Preferences;
+import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 

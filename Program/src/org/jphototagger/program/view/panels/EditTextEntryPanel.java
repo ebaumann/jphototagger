@@ -16,8 +16,8 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Preferences;
-import org.jphototagger.domain.DomainStorageKeys;
+import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.domain.DomainPreferencesKeys;
 import org.jphototagger.domain.event.listener.TextEntryListener;
 import org.jphototagger.domain.event.listener.TextEntryListenerSupport;
 import org.jphototagger.domain.metadata.MetaDataValue;
@@ -136,8 +136,8 @@ public final class EditTextEntryPanel extends JPanel implements TextEntry, Docum
     private boolean getPersistedAutocomplete() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(DomainStorageKeys.KEY_ENABLE_AUTOCOMPLETE)
-                ? storage.getBoolean(DomainStorageKeys.KEY_ENABLE_AUTOCOMPLETE)
+        return storage.containsKey(DomainPreferencesKeys.KEY_ENABLE_AUTOCOMPLETE)
+                ? storage.getBoolean(DomainPreferencesKeys.KEY_ENABLE_AUTOCOMPLETE)
                 : true;
     }
 

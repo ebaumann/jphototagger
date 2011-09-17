@@ -23,8 +23,8 @@ import javax.swing.event.DocumentListener;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Preferences;
-import org.jphototagger.domain.DomainStorageKeys;
+import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.domain.DomainPreferencesKeys;
 import org.jphototagger.domain.event.listener.ListenerSupport;
 import org.jphototagger.domain.metadata.search.ParamStatement;
 import org.jphototagger.domain.metadata.search.SavedSearch;
@@ -92,8 +92,8 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
 
         return storage == null
                 ? true
-                : storage.containsKey(DomainStorageKeys.KEY_ENABLE_AUTOCOMPLETE)
-                ? storage.getBoolean(DomainStorageKeys.KEY_ENABLE_AUTOCOMPLETE)
+                : storage.containsKey(DomainPreferencesKeys.KEY_ENABLE_AUTOCOMPLETE)
+                ? storage.getBoolean(DomainPreferencesKeys.KEY_ENABLE_AUTOCOMPLETE)
                 : true;
     }
 

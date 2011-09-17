@@ -16,7 +16,7 @@ import org.openide.util.Lookup;
 import org.jphototagger.api.file.event.FileMovedEvent;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
-import org.jphototagger.api.storage.Preferences;
+import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.event.listener.ProgressListenerSupport;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
@@ -26,7 +26,7 @@ import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.SourceTargetFile;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.AppStorageKeys;
+import org.jphototagger.program.app.AppPreferencesKeys;
 import org.jphototagger.program.helper.CopyFiles;
 import org.jphototagger.program.helper.CopyFiles.Options;
 import org.jphototagger.program.io.FileSystemMove;
@@ -126,8 +126,8 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
     private CopyFiles.Options getCopyMoveFilesOptions() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(AppStorageKeys.KEY_FILE_SYSTEM_OPERATIONS_OPTIONS_COPY_MOVE_FILES)
-                ? CopyFiles.Options.fromInt(storage.getInt(AppStorageKeys.KEY_FILE_SYSTEM_OPERATIONS_OPTIONS_COPY_MOVE_FILES))
+        return storage.containsKey(AppPreferencesKeys.KEY_FILE_SYSTEM_OPERATIONS_OPTIONS_COPY_MOVE_FILES)
+                ? CopyFiles.Options.fromInt(storage.getInt(AppPreferencesKeys.KEY_FILE_SYSTEM_OPERATIONS_OPTIONS_COPY_MOVE_FILES))
                 : CopyFiles.Options.CONFIRM_OVERWRITE;
     }
 
@@ -144,7 +144,7 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
     }
 
     private void chooseTargetDirectory() {
-        List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(AppStorageKeys.KEY_UI_DIRECTORIES_TAB_HIDE_ROOT_FILES);
+        List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(AppPreferencesKeys.KEY_UI_DIRECTORIES_TAB_HIDE_ROOT_FILES);
         DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), targetDirectory, hideRootFiles, getDirChooserOptionShowHiddenDirs());
 
         dlg.setStorageKey("MoveToDirectoriesDialog.DirChooser");

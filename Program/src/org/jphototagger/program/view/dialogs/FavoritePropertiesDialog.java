@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Preferences;
+import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.domain.repository.FavoritesRepository;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
@@ -16,7 +16,7 @@ import org.jphototagger.lib.dialog.DirectoryChooser;
 import org.jphototagger.lib.dialog.DirectoryChooser.Option;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.AppStorageKeys;
+import org.jphototagger.program.app.AppPreferencesKeys;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.SelectRootFilesPanel;
 
@@ -49,7 +49,7 @@ public final class FavoritePropertiesDialog extends Dialog {
 
     private void chooseDirectory() {
         Option showHiddenDirs = getDirChooserOptionShowHiddenDirs();
-        List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(AppStorageKeys.KEY_UI_DIRECTORIES_TAB_HIDE_ROOT_FILES);
+        List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(AppPreferencesKeys.KEY_UI_DIRECTORIES_TAB_HIDE_ROOT_FILES);
         DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), dir, hideRootFiles, showHiddenDirs);
 
         dlg.setStorageKey("FavoritePropertiesDialog.DirChooser");

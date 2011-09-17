@@ -4,8 +4,8 @@ import java.awt.Container;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Preferences;
-import org.jphototagger.api.storage.PreferencesHints;
+import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.api.preferences.PreferencesHints;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.program.resource.GUI;

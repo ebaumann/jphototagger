@@ -3,6 +3,7 @@ package org.jphototagger.program.view.panels;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.GridBagConstraints;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -31,21 +32,25 @@ import javax.swing.text.Document;
 import javax.swing.text.JTextComponent;
 import javax.swing.tree.TreeSelectionModel;
 
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.JXTree;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Preferences;
+import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.windows.MainWindowComponent;
+import org.jphototagger.domain.event.UserPropertyChangedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.component.ImageTextArea;
+import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.MessageLabel;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.swingx.ListTextFilter;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.app.AppStorageKeys;
+import org.jphototagger.program.app.AppPreferencesKeys;
 import org.jphototagger.program.controller.actions.SearchInJxListAction;
 import org.jphototagger.program.controller.actions.SearchInJxTreeAction;
 import org.jphototagger.program.controller.actions.TreeExpandCollapseAllAction;
@@ -102,7 +107,7 @@ public final class AppPanel extends javax.swing.JPanel {
         initComponents();
         messageLabel = new MessageLabel(labelStatusbarText);
         GUI.setAppPanel(this);
-        displaySearchButton();
+        toggleDisplaySearchButton();
         editMetadtaPanels = new EditMetadataPanels(panelEditMetadata);
         panelThumbnails.setViewport(scrollPaneThumbnails.getViewport());
         setBackgroundColorToTablesViewports();
@@ -112,6 +117,7 @@ public final class AppPanel extends javax.swing.JPanel {
         setMnemonics();
         initListTextFilters();
         setTableTextFilters();
+        AnnotationProcessor.process(this);
     }
 
     private void setMnemonics() {
@@ -175,18 +181,46 @@ public final class AppPanel extends javax.swing.JPanel {
         document.addDocumentListener(tableTextFilter);
     }
 
-    private void displaySearchButton() {
-        if (!isDisplaySearchButton()) {
+    private void toggleDisplaySearchButton() {
+        int zOrder = panelSearch.getComponentZOrder(buttonSearch);
+        boolean containsButton = zOrder >= 0;
+        boolean displaySearchButton = isDisplaySearchButton();
+        boolean toDo = containsButton && !displaySearchButton || !containsButton && displaySearchButton;
+
+        if (!toDo) {
+            return;
+        }
+
+        if (displaySearchButton) {
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.gridx = 1;
+            gbc.gridy = 1;
+            gbc.fill = java.awt.GridBagConstraints.BOTH;
+            gbc.weighty = 1.0;
+            gbc.insets = new java.awt.Insets(3, 3, 0, 0);
+            panelSearch.add(buttonSearch, gbc);
+        } else {
             panelSearch.remove(buttonSearch);
         }
+
+        ComponentUtil.forceRepaint(panelSearch);
     }
 
     private boolean isDisplaySearchButton() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(AppStorageKeys.KEY_UI_DISPLAY_SEARCH_BUTTON)
-                ? storage.getBoolean(AppStorageKeys.KEY_UI_DISPLAY_SEARCH_BUTTON)
+        return storage.containsKey(AppPreferencesKeys.KEY_UI_DISPLAY_SEARCH_BUTTON)
+                ? storage.getBoolean(AppPreferencesKeys.KEY_UI_DISPLAY_SEARCH_BUTTON)
                 : true;
+    }
+
+    @EventSubscriber(eventClass=UserPropertyChangedEvent.class)
+    public void userPropertyChanged(UserPropertyChangedEvent evt) {
+        String key = evt.getPropertyKey();
+
+        if (AppPreferencesKeys.KEY_UI_DISPLAY_SEARCH_BUTTON.equals(key)) {
+            toggleDisplaySearchButton();
+        }
     }
 
     private void initCollections() {

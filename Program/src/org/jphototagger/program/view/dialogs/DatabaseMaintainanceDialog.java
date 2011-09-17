@@ -2,8 +2,8 @@ package org.jphototagger.program.view.dialogs;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Preferences;
-import org.jphototagger.api.storage.PreferencesHints;
+import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.api.preferences.PreferencesHints;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.TabbedPaneUtil;
 import org.jphototagger.lib.dialog.Dialog;

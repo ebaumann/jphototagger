@@ -24,7 +24,7 @@ import com.imagero.reader.tiff.TiffReader;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Preferences;
+import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.filetypes.UserDefinedFileType;
 import org.jphototagger.domain.repository.UserDefinedFileTypesRepository;
 import org.jphototagger.exif.ExifMetadata;
@@ -37,7 +37,7 @@ import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.runtime.External;
 import org.jphototagger.lib.runtime.ExternalOutput;
 import org.jphototagger.lib.swing.IconUtil;
-import org.jphototagger.program.app.AppStorageKeys;
+import org.jphototagger.program.app.AppPreferencesKeys;
 
 /**
  *
@@ -80,7 +80,7 @@ final class ThumbnailUtil {
     private static String getExternalThumbnailCreationCommand() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.getString(AppStorageKeys.KEY_THUMBNAIL_CREATION_EXTERNAL_COMMAND);
+        return storage.getString(AppPreferencesKeys.KEY_THUMBNAIL_CREATION_EXTERNAL_COMMAND);
     }
 
     static ThumbnailCreationStrategy getThumbnailCreationStrategy() {
@@ -304,8 +304,8 @@ final class ThumbnailUtil {
     private static int getMaxSecondsToTerminateExternalPrograms() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(AppStorageKeys.KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS)
-                ? storage.getInt(AppStorageKeys.KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS)
+        return storage.containsKey(AppPreferencesKeys.KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS)
+                ? storage.getInt(AppPreferencesKeys.KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS)
                 : 60;
     }
 

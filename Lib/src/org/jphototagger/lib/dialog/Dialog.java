@@ -15,7 +15,7 @@ import javax.swing.KeyStroke;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Preferences;
+import org.jphototagger.api.preferences.Preferences;
 
 /**
  * Dialog which can close by pressing the ESC key and showing the Help dialog

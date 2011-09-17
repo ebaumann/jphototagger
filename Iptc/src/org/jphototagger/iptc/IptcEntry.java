@@ -9,7 +9,7 @@ import com.imagero.reader.iptc.IPTCEntryMeta;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Preferences;
+import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.lib.util.StringUtil;
 
 /**
@@ -108,7 +108,7 @@ public final class IptcEntry {
     private String getEncodedData() {
         try {
             Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-            String iptcCharset = storage.getString(IptcStorageKeys.KEY_IPTC_CHARSET);
+            String iptcCharset = storage.getString(IptcPreferencesKeys.KEY_IPTC_CHARSET);
             if (!StringUtil.hasContent(iptcCharset)) {
                 iptcCharset = "ISO-8859-1";
             }

@@ -31,7 +31,7 @@ import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import javax.swing.tree.TreePath;
 
-import org.jphototagger.api.storage.PreferencesHints;
+import org.jphototagger.api.preferences.PreferencesHints;
 import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.lib.componentutil.TreeUtil;
 

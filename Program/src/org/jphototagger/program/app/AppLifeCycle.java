@@ -14,7 +14,7 @@ import org.bushe.swing.event.EventBus;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.modules.Module;
-import org.jphototagger.api.storage.Preferences;
+import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.event.AppWillExitEvent;
 import org.jphototagger.domain.event.listener.ListenerSupport;
 import org.jphototagger.domain.repository.RepositoryMaintainance;

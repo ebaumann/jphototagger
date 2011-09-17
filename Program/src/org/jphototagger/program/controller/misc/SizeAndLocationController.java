@@ -6,7 +6,7 @@ import java.awt.event.WindowEvent;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Preferences;
+import org.jphototagger.api.preferences.Preferences;
 
 /**
  * Listens to <code>windowOpend()</code> and <code>windowClosing()</code> and

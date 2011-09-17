@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 import org.openide.util.Lookup;
 
 import org.jphototagger.lib.util.PositionComparatorAscendingOrder;
-import org.jphototagger.api.storage.Preferences;
+import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.event.listener.ListenerSupport;
 import org.jphototagger.domain.repository.RepositoryDataExporter;
 import org.jphototagger.domain.repository.RepositoryDataImporter;

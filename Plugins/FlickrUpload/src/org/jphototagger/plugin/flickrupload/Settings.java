@@ -2,7 +2,7 @@ package org.jphototagger.plugin.flickrupload;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Preferences;
+import org.jphototagger.api.preferences.Preferences;
 
 /**
  *

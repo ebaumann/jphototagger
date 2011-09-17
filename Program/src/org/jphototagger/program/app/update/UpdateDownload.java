@@ -14,7 +14,7 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.api.concurrent.CancelRequest;
 import org.jphototagger.api.concurrent.Cancelable;
-import org.jphototagger.api.storage.Preferences;
+import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.storage.SettingsDirectoryProvider;
 import org.jphototagger.domain.repository.ApplicationPropertiesRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
@@ -26,7 +26,7 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.Version;
 import org.jphototagger.program.app.AppInfo;
 import org.jphototagger.program.app.AppLifeCycle;
-import org.jphototagger.program.app.AppStorageKeys;
+import org.jphototagger.program.app.AppPreferencesKeys;
 import org.jphototagger.program.helper.FinalExecutable;
 import org.jphototagger.program.view.panels.ProgressBar;
 
@@ -111,7 +111,7 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
     private static void setCheckForUpdates(boolean auto) {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setBoolean(AppStorageKeys.KEY_CHECK_FOR_UPDATES, auto);
+        storage.setBoolean(AppPreferencesKeys.KEY_CHECK_FOR_UPDATES, auto);
     }
 
     @Override

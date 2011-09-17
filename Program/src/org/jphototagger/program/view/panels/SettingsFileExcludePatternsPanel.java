@@ -14,7 +14,7 @@ import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.domain.repository.FileExcludePatternsRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.program.app.AppStorageKeys;
+import org.jphototagger.program.app.AppPreferencesKeys;
 import org.jphototagger.program.model.FileExcludePatternsListModel;
 import org.jphototagger.program.types.Persistence;
 
@@ -37,7 +37,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel i
     private void postInitComponents() {
         textFieldInputPattern.requestFocusInWindow();
         MnemonicUtil.setMnemonics((Container) this);
-        panelSelectRootFiles.setPersistenceKey(AppStorageKeys.KEY_UI_DIRECTORIES_TAB_HIDE_ROOT_FILES);
+        panelSelectRootFiles.setPersistenceKey(AppPreferencesKeys.KEY_UI_DIRECTORIES_TAB_HIDE_ROOT_FILES);
     }
 
     @Override

@@ -20,7 +20,7 @@ import javax.swing.JPanel;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Preferences;
+import org.jphototagger.api.preferences.Preferences;
 
 /**
  * Panel to select objects from a collection of objects.

@@ -15,8 +15,8 @@ import org.bushe.swing.event.EventBus;
 
 import org.openide.util.lookup.ServiceProvider;
 
-import org.jphototagger.api.storage.Preferences;
-import org.jphototagger.api.storage.PreferencesHints;
+import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.api.preferences.PreferencesHints;
 import org.jphototagger.domain.event.UserPropertyChangedEvent;
 import org.jphototagger.lib.util.ObjectUtil;
 import org.jphototagger.lib.util.Settings;

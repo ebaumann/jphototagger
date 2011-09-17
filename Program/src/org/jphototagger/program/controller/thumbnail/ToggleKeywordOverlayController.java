@@ -7,7 +7,7 @@ import javax.swing.JCheckBoxMenuItem;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Preferences;
+import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.frames.AppFrame;
 import org.jphototagger.program.view.panels.AppPanel;

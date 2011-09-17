@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Preferences;
+import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.lib.util.Version;
 import org.jphototagger.repository.hsqldb.DatabaseMetadata;
 import org.jphototagger.repository.hsqldb.update.tables.v0.UpdateTablesV0;

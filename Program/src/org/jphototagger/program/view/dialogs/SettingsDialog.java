@@ -11,7 +11,7 @@ import javax.swing.JButton;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Preferences;
+import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.lib.componentutil.TabbedPaneUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.util.Bundle;
