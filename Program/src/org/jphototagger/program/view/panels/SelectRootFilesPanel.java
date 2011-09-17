@@ -16,7 +16,7 @@ import javax.swing.JCheckBox;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Preferences;
+import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.program.types.Persistence;
 
 /**

@@ -22,8 +22,8 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.api.file.event.FileRenamedEvent;
 import org.jphototagger.api.image.thumbnails.ThumbnailProvider;
-import org.jphototagger.api.storage.Preferences;
-import org.jphototagger.api.storage.PreferencesHints;
+import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.api.preferences.PreferencesHints;
 import org.jphototagger.domain.templates.RenameTemplate;
 import org.jphototagger.image.ImageFileType;
 import org.jphototagger.lib.componentutil.ComboBoxUtil;

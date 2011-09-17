@@ -33,7 +33,6 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="buttonCheckDownload" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="checkBoxDisplaySearchButton" alignment="0" min="-2" pref="367" max="-2" attributes="0"/>
                   <Component id="checkBoxAddFilenameToGpsLocationExport" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="checkBoxIsAcceptHiddenDirectories" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="panelCopyMoveFiles" alignment="0" min="-2" max="-2" attributes="1"/>
@@ -42,6 +41,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="comboBoxIptcCharset" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <Component id="checkBoxDisplaySearchButton" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>

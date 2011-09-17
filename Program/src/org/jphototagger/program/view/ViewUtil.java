@@ -16,7 +16,7 @@ import javax.swing.tree.TreePath;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Preferences;
+import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.storage.SettingsDirectoryProvider;
 import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.lib.componentutil.ComponentUtil;

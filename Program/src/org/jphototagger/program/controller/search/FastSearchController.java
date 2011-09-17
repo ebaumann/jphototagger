@@ -18,8 +18,8 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Preferences;
-import org.jphototagger.domain.DomainStorageKeys;
+import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.domain.DomainPreferencesKeys;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.selections.AutoCompleteDataOfMetaDataValue;
 import org.jphototagger.domain.metadata.selections.FastSearchMetaDataValues;
@@ -70,16 +70,16 @@ public final class FastSearchController implements ActionListener {
     private boolean isAutocompleteFastSearchIgnoreCase() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(DomainStorageKeys.KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
-                ? storage.getBoolean(DomainStorageKeys.KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
+        return storage.containsKey(DomainPreferencesKeys.KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
+                ? storage.getBoolean(DomainPreferencesKeys.KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
                 : false;
     }
 
     private boolean getPersistedAutocomplete() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(DomainStorageKeys.KEY_ENABLE_AUTOCOMPLETE)
-                ? storage.getBoolean(DomainStorageKeys.KEY_ENABLE_AUTOCOMPLETE)
+        return storage.containsKey(DomainPreferencesKeys.KEY_ENABLE_AUTOCOMPLETE)
+                ? storage.getBoolean(DomainPreferencesKeys.KEY_ENABLE_AUTOCOMPLETE)
                 : true;
     }
 

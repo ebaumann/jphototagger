@@ -11,8 +11,8 @@ import javax.swing.event.ListSelectionListener;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Preferences;
-import org.jphototagger.domain.DomainStorageKeys;
+import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.domain.DomainPreferencesKeys;
 import org.jphototagger.domain.metadata.selections.AutoCompleteDataOfMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.repository.ImageFilesRepository;
@@ -61,8 +61,8 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
     private boolean isAutocompleteFastSearchIgnoreCase() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(DomainStorageKeys.KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
-                ? storage.getBoolean(DomainStorageKeys.KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
+        return storage.containsKey(DomainPreferencesKeys.KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
+                ? storage.getBoolean(DomainPreferencesKeys.KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
                 : false;
     }
 
@@ -71,8 +71,8 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
 
         return storage == null
                 ? false
-                : storage.containsKey(DomainStorageKeys.KEY_ENABLE_AUTOCOMPLETE)
-                ? storage.getBoolean(DomainStorageKeys.KEY_ENABLE_AUTOCOMPLETE)
+                : storage.containsKey(DomainPreferencesKeys.KEY_ENABLE_AUTOCOMPLETE)
+                ? storage.getBoolean(DomainPreferencesKeys.KEY_ENABLE_AUTOCOMPLETE)
                 : true;
     }
 

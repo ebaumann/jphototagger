@@ -12,7 +12,7 @@ import javax.swing.filechooser.FileFilter;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Preferences;
+import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.DirectoryChooser;
 import org.jphototagger.lib.dialog.DirectoryChooser.Option;
@@ -22,7 +22,7 @@ import org.jphototagger.lib.io.filefilter.RegexFileFilter;
 import org.jphototagger.lib.renderer.FileSystemListCellRenderer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppFileFilters;
-import org.jphototagger.program.app.AppStorageKeys;
+import org.jphototagger.program.app.AppPreferencesKeys;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.types.FileEditor;
 
@@ -235,7 +235,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     }
 
     private void selectDirectories() {
-        List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(AppStorageKeys.KEY_UI_DIRECTORIES_TAB_HIDE_ROOT_FILES);
+        List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(AppPreferencesKeys.KEY_UI_DIRECTORIES_TAB_HIDE_ROOT_FILES);
         DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), prevSelectedDirectory, hideRootFiles, getDirChooserOptions());
 
         dlg.setStorageKey("FileEditorPanel.DirChooser");

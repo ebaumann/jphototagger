@@ -1,4 +1,4 @@
-package org.jphototagger.api.storage;
+package org.jphototagger.api.preferences;
 
 import java.awt.Component;
 import java.util.Collection;

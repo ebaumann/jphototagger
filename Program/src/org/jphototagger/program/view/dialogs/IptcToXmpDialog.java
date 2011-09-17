@@ -16,10 +16,10 @@ import org.openide.util.Lookup;
 import org.jphototagger.api.concurrent.CancelRequest;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
-import org.jphototagger.api.storage.Preferences;
-import org.jphototagger.api.storage.PreferencesHints;
+import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.api.preferences.PreferencesHints;
 import org.jphototagger.domain.event.UserPropertyChangedEvent;
-import org.jphototagger.iptc.IptcStorageKeys;
+import org.jphototagger.iptc.IptcPreferencesKeys;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
@@ -29,7 +29,7 @@ import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter.Option;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.AppStorageKeys;
+import org.jphototagger.program.app.AppPreferencesKeys;
 import org.jphototagger.program.helper.ConvertIptcToXmp;
 import org.jphototagger.program.io.ImageFileFilterer;
 import org.jphototagger.program.model.IptcCharsetComboBoxModel;
@@ -87,7 +87,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
     }
 
     private void chooseDirectory() {
-        List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(AppStorageKeys.KEY_UI_DIRECTORIES_TAB_HIDE_ROOT_FILES);
+        List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(AppPreferencesKeys.KEY_UI_DIRECTORIES_TAB_HIDE_ROOT_FILES);
         DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), directory, hideRootFiles, getDirChooserOptionShowHiddenDirs());
 
         dlg.setStorageKey("IptcToXmpDialog.DirChooser");
@@ -145,7 +145,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
 
     private String getIptcCharset() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-        String charset = storage.getString(IptcStorageKeys.KEY_IPTC_CHARSET);
+        String charset = storage.getString(IptcPreferencesKeys.KEY_IPTC_CHARSET);
 
         return charset.isEmpty()
                 ? "ISO-8859-1"
@@ -198,12 +198,12 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
     private void setIptcCharset(String charset) {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setString(IptcStorageKeys.KEY_IPTC_CHARSET, charset);
+        storage.setString(IptcPreferencesKeys.KEY_IPTC_CHARSET, charset);
     }
 
     @EventSubscriber(eventClass = UserPropertyChangedEvent.class)
     public void applySettings(UserPropertyChangedEvent evt) {
-        if (IptcStorageKeys.KEY_IPTC_CHARSET.equals(evt.getPropertyKey())) {
+        if (IptcPreferencesKeys.KEY_IPTC_CHARSET.equals(evt.getPropertyKey())) {
             setIptcCharsetFromUserSettings();
         }
     }

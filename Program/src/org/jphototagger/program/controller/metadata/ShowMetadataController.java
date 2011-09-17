@@ -26,19 +26,19 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Preferences;
+import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.repository.event.exif.ExifInsertedEvent;
 import org.jphototagger.domain.repository.event.exif.ExifUpdatedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpDeletedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
-import org.jphototagger.iptc.IptcStorageKeys;
+import org.jphototagger.iptc.IptcPreferencesKeys;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.TableUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.AppStorageKeys;
+import org.jphototagger.program.app.AppPreferencesKeys;
 import org.jphototagger.program.model.ExifTableModel;
 import org.jphototagger.program.model.IptcTableModel;
 import org.jphototagger.program.model.MetadataTableModels;
@@ -201,8 +201,8 @@ public final class ShowMetadataController implements ChangeListener {
     private boolean isDisplayIptc() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(IptcStorageKeys.KEY_DISPLAY_IPTC)
-                ? storage.getBoolean(IptcStorageKeys.KEY_DISPLAY_IPTC)
+        return storage.containsKey(IptcPreferencesKeys.KEY_DISPLAY_IPTC)
+                ? storage.getBoolean(IptcPreferencesKeys.KEY_DISPLAY_IPTC)
                 : false;
     }
 
@@ -379,8 +379,8 @@ public final class ShowMetadataController implements ChangeListener {
         private boolean isScanForEmbeddedXmp() {
             Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-            return storage.containsKey(AppStorageKeys.KEY_SCAN_FOR_EMBEDDED_XMP)
-                    ? storage.getBoolean(AppStorageKeys.KEY_SCAN_FOR_EMBEDDED_XMP)
+            return storage.containsKey(AppPreferencesKeys.KEY_SCAN_FOR_EMBEDDED_XMP)
+                    ? storage.getBoolean(AppPreferencesKeys.KEY_SCAN_FOR_EMBEDDED_XMP)
                     : false;
         }
 

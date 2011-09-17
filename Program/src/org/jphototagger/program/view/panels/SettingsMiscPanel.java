@@ -11,14 +11,14 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Preferences;
+import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.event.UserPropertyChangedEvent;
 import org.jphototagger.domain.repository.FileRepositoryProvider;
-import org.jphototagger.iptc.IptcStorageKeys;
+import org.jphototagger.iptc.IptcPreferencesKeys;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.DirectoryChooser;
 import org.jphototagger.lib.dialog.DirectoryChooser.Option;
-import org.jphototagger.program.app.AppStorageKeys;
+import org.jphototagger.program.app.AppPreferencesKeys;
 import org.jphototagger.program.controller.misc.UpdateCheckController;
 import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.helper.CopyFiles;
@@ -122,7 +122,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
     private void setDisplaySearchButton(boolean display) {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setBoolean(AppStorageKeys.KEY_UI_DISPLAY_SEARCH_BUTTON, display);
+        storage.setBoolean(AppPreferencesKeys.KEY_UI_DISPLAY_SEARCH_BUTTON, display);
     }
 
     private void handleActionPerformedCopyMoveFiles() {
@@ -140,7 +140,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
     private void setCopyMoveFilesOptions(Options options) {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setInt(AppStorageKeys.KEY_FILE_SYSTEM_OPERATIONS_OPTIONS_COPY_MOVE_FILES, options.getInt());
+        storage.setInt(AppPreferencesKeys.KEY_FILE_SYSTEM_OPERATIONS_OPTIONS_COPY_MOVE_FILES, options.getInt());
     }
 
     private void handleActionPerformedAutoDownload() {
@@ -150,7 +150,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
     private void setCheckForUpdates(boolean auto) {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setBoolean(AppStorageKeys.KEY_CHECK_FOR_UPDATES, auto);
+        storage.setBoolean(AppPreferencesKeys.KEY_CHECK_FOR_UPDATES, auto);
     }
 
     private void handleActionComboBoxIptcCharset() {
@@ -160,7 +160,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
     private void setIptcCharset(String charset) {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setString(IptcStorageKeys.KEY_IPTC_CHARSET, charset);
+        storage.setString(IptcPreferencesKeys.KEY_IPTC_CHARSET, charset);
     }
 
     private void handleActionPerformedCheckBoxAddFilenameToGpsLocationExport() {
@@ -170,14 +170,14 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
     private void setAddFilenameToGpsLocationExport(boolean add) {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setBoolean(AppStorageKeys.KEY_GPS_ADD_FILENAME_TO_GPS_LOCATION_EXPORT, add);
+        storage.setBoolean(AppPreferencesKeys.KEY_GPS_ADD_FILENAME_TO_GPS_LOCATION_EXPORT, add);
     }
 
     @EventSubscriber(eventClass = UserPropertyChangedEvent.class)
     public void applySettings(UserPropertyChangedEvent evt) {
-        if (AppStorageKeys.KEY_CHECK_FOR_UPDATES.equals(evt.getPropertyKey())) {
+        if (AppPreferencesKeys.KEY_CHECK_FOR_UPDATES.equals(evt.getPropertyKey())) {
             checkBoxAutoDownloadCheck.setSelected((Boolean)evt.getNewValue());
-        } else if (IptcStorageKeys.KEY_IPTC_CHARSET.equals(evt.getPropertyKey())) {
+        } else if (IptcPreferencesKeys.KEY_IPTC_CHARSET.equals(evt.getPropertyKey())) {
             setIptcCharsetFromUserSettings();
         }
     }
@@ -188,7 +188,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
 
     private String getIptcCharset() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-        String charset = storage.getString(IptcStorageKeys.KEY_IPTC_CHARSET);
+        String charset = storage.getString(IptcPreferencesKeys.KEY_IPTC_CHARSET);
 
         return charset.isEmpty()
                 ? "ISO-8859-1"
@@ -213,32 +213,32 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
     private static boolean isAddFilenameToGpsLocationExport() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(AppStorageKeys.KEY_GPS_ADD_FILENAME_TO_GPS_LOCATION_EXPORT)
-                ? storage.getBoolean(AppStorageKeys.KEY_GPS_ADD_FILENAME_TO_GPS_LOCATION_EXPORT)
+        return storage.containsKey(AppPreferencesKeys.KEY_GPS_ADD_FILENAME_TO_GPS_LOCATION_EXPORT)
+                ? storage.getBoolean(AppPreferencesKeys.KEY_GPS_ADD_FILENAME_TO_GPS_LOCATION_EXPORT)
                 : false;
     }
 
     private boolean isCheckForUpdates() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(AppStorageKeys.KEY_CHECK_FOR_UPDATES)
-                ? storage.getBoolean(AppStorageKeys.KEY_CHECK_FOR_UPDATES)
+        return storage.containsKey(AppPreferencesKeys.KEY_CHECK_FOR_UPDATES)
+                ? storage.getBoolean(AppPreferencesKeys.KEY_CHECK_FOR_UPDATES)
                 : true;
     }
 
     private boolean isDisplaySearchButton() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(AppStorageKeys.KEY_UI_DISPLAY_SEARCH_BUTTON)
-                ? storage.getBoolean(AppStorageKeys.KEY_UI_DISPLAY_SEARCH_BUTTON)
+        return storage.containsKey(AppPreferencesKeys.KEY_UI_DISPLAY_SEARCH_BUTTON)
+                ? storage.getBoolean(AppPreferencesKeys.KEY_UI_DISPLAY_SEARCH_BUTTON)
                 : true;
     }
 
     private CopyFiles.Options getCopyMoveFilesOptions() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(AppStorageKeys.KEY_FILE_SYSTEM_OPERATIONS_OPTIONS_COPY_MOVE_FILES)
-                ? CopyFiles.Options.fromInt(storage.getInt(AppStorageKeys.KEY_FILE_SYSTEM_OPERATIONS_OPTIONS_COPY_MOVE_FILES))
+        return storage.containsKey(AppPreferencesKeys.KEY_FILE_SYSTEM_OPERATIONS_OPTIONS_COPY_MOVE_FILES)
+                ? CopyFiles.Options.fromInt(storage.getInt(AppPreferencesKeys.KEY_FILE_SYSTEM_OPERATIONS_OPTIONS_COPY_MOVE_FILES))
                 : CopyFiles.Options.CONFIRM_OVERWRITE;
     }
 
@@ -441,14 +441,14 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
                         .addComponent(checkBoxAutoDownloadCheck)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(buttonCheckDownload))
-                    .addComponent(checkBoxDisplaySearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(checkBoxAddFilenameToGpsLocationExport)
                     .addComponent(checkBoxIsAcceptHiddenDirectories)
                     .addComponent(panelCopyMoveFiles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labelIptcCharset)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(comboBoxIptcCharset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(comboBoxIptcCharset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(checkBoxDisplaySearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(

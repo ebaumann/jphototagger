@@ -5,7 +5,7 @@ package org.jphototagger.program.app;
  *
  * @author Elmar Baumann
  */
-public interface AppStorageKeys {
+public interface AppPreferencesKeys {
 
     static final String KEY_CHECK_FOR_UPDATES = "UserSettings.AutoDownloadNewerVersions";
     static final String KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS = "UserSettings.ExecuteActionsAfterImageChangeInDbAlways";

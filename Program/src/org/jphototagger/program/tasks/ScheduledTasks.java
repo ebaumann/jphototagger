@@ -17,14 +17,14 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Preferences;
+import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.metadata.event.UpdateMetadataCheckEvent;
 import org.jphototagger.domain.metadata.event.UpdateMetadataCheckEvent.Type;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.concurrent.SerialExecutor;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.app.AppStorageKeys;
+import org.jphototagger.program.app.AppPreferencesKeys;
 import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
 import org.jphototagger.program.view.dialogs.SettingsDialog;
 
@@ -68,7 +68,7 @@ public final class ScheduledTasks implements ActionListener {
 
     public static int getMinutesToStartScheduledTasks() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-        int minutes = storage.getInt(AppStorageKeys.KEY_SCHEDULED_TASKS_MINUTES_TO_START_SCHEDULED_TASKS);
+        int minutes = storage.getInt(AppPreferencesKeys.KEY_SCHEDULED_TASKS_MINUTES_TO_START_SCHEDULED_TASKS);
 
         return (minutes > 0)
                 ? minutes

@@ -8,7 +8,7 @@ import java.util.Set;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.plugin.Plugin;
-import org.jphototagger.api.storage.Preferences;
+import org.jphototagger.api.preferences.Preferences;
 
 /**
  *

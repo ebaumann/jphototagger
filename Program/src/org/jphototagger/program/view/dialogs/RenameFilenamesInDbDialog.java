@@ -2,7 +2,7 @@ package org.jphototagger.program.view.dialogs;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Preferences;
+import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.program.resource.GUI;
 

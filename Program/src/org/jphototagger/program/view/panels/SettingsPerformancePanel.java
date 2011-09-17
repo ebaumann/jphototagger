@@ -6,11 +6,11 @@ import javax.swing.SpinnerModel;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Preferences;
-import org.jphototagger.domain.DomainStorageKeys;
-import org.jphototagger.iptc.IptcStorageKeys;
+import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.domain.DomainPreferencesKeys;
+import org.jphototagger.iptc.IptcPreferencesKeys;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.program.app.AppStorageKeys;
+import org.jphototagger.program.app.AppPreferencesKeys;
 import org.jphototagger.program.types.Persistence;
 
 /**
@@ -35,7 +35,7 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel implement
     private void setMaxSecondsToTerminateExternalPrograms(Integer seconds) {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setInt(AppStorageKeys.KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS, seconds);
+        storage.setInt(AppPreferencesKeys.KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS, seconds);
     }
 
     private void setScanForEmbeddedXmp() {
@@ -45,7 +45,7 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel implement
     private void setScanForEmbeddedXmp(boolean scan) {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setBoolean(AppStorageKeys.KEY_SCAN_FOR_EMBEDDED_XMP, scan);
+        storage.setBoolean(AppPreferencesKeys.KEY_SCAN_FOR_EMBEDDED_XMP, scan);
     }
 
     private void setSaveEarly() {
@@ -55,7 +55,7 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel implement
     private void setSaveInputEarly(boolean early) {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setBoolean(AppStorageKeys.KEY_SAVE_INPUT_EARLY, early);
+        storage.setBoolean(AppPreferencesKeys.KEY_SAVE_INPUT_EARLY, early);
     }
 
     private void setDisplayIptc() {
@@ -65,7 +65,7 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel implement
     private void setDisplayIptc(boolean display) {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setBoolean(IptcStorageKeys.KEY_DISPLAY_IPTC, display);
+        storage.setBoolean(IptcPreferencesKeys.KEY_DISPLAY_IPTC, display);
     }
 
     private void setEnableAutocomplete() {
@@ -76,7 +76,7 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel implement
     private void setEnableAutocomplete(boolean enable) {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setBoolean(DomainStorageKeys.KEY_ENABLE_AUTOCOMPLETE, enable);
+        storage.setBoolean(DomainPreferencesKeys.KEY_ENABLE_AUTOCOMPLETE, enable);
     }
 
     private void setUpdateAutocomplete() {
@@ -86,7 +86,7 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel implement
     private void setUpdateAutocomplete(boolean update) {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setBoolean(DomainStorageKeys.KEY_UPDATE_AUTOCOMPLETE, update);
+        storage.setBoolean(DomainPreferencesKeys.KEY_UPDATE_AUTOCOMPLETE, update);
     }
 
     private void setAutocompleteIgnoreCase() {
@@ -96,7 +96,7 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel implement
     private void setAutocompleteFastSearchIgnoreCase(boolean ignore) {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setBoolean(DomainStorageKeys.KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE, ignore);
+        storage.setBoolean(DomainPreferencesKeys.KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE, ignore);
     }
 
     @Override
@@ -114,56 +114,56 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel implement
     private boolean isAutocompleteFastSearchIgnoreCase() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(DomainStorageKeys.KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
-                ? storage.getBoolean(DomainStorageKeys.KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
+        return storage.containsKey(DomainPreferencesKeys.KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
+                ? storage.getBoolean(DomainPreferencesKeys.KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
                 : false;
     }
 
     private boolean isUpdateAutocomplete() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(DomainStorageKeys.KEY_UPDATE_AUTOCOMPLETE)
-                ? storage.getBoolean(DomainStorageKeys.KEY_UPDATE_AUTOCOMPLETE)
+        return storage.containsKey(DomainPreferencesKeys.KEY_UPDATE_AUTOCOMPLETE)
+                ? storage.getBoolean(DomainPreferencesKeys.KEY_UPDATE_AUTOCOMPLETE)
                 : true;
     }
 
     private boolean isAutocomplete() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(DomainStorageKeys.KEY_ENABLE_AUTOCOMPLETE)
-                ? storage.getBoolean(DomainStorageKeys.KEY_ENABLE_AUTOCOMPLETE)
+        return storage.containsKey(DomainPreferencesKeys.KEY_ENABLE_AUTOCOMPLETE)
+                ? storage.getBoolean(DomainPreferencesKeys.KEY_ENABLE_AUTOCOMPLETE)
                 : true;
     }
 
     private boolean isDisplayIptc() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(IptcStorageKeys.KEY_DISPLAY_IPTC)
-                ? storage.getBoolean(IptcStorageKeys.KEY_DISPLAY_IPTC)
+        return storage.containsKey(IptcPreferencesKeys.KEY_DISPLAY_IPTC)
+                ? storage.getBoolean(IptcPreferencesKeys.KEY_DISPLAY_IPTC)
                 : false;
     }
 
     private int getMaxSecondsToTerminateExternalPrograms() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(AppStorageKeys.KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS)
-                ? storage.getInt(AppStorageKeys.KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS)
+        return storage.containsKey(AppPreferencesKeys.KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS)
+                ? storage.getInt(AppPreferencesKeys.KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS)
                 : 60;
     }
 
     private boolean isSaveInputEarly() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(AppStorageKeys.KEY_SAVE_INPUT_EARLY)
-                ? storage.getBoolean(AppStorageKeys.KEY_SAVE_INPUT_EARLY)
+        return storage.containsKey(AppPreferencesKeys.KEY_SAVE_INPUT_EARLY)
+                ? storage.getBoolean(AppPreferencesKeys.KEY_SAVE_INPUT_EARLY)
                 : true;
     }
 
     private boolean isScanForEmbeddedXmp() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(AppStorageKeys.KEY_SCAN_FOR_EMBEDDED_XMP)
-                ? storage.getBoolean(AppStorageKeys.KEY_SCAN_FOR_EMBEDDED_XMP)
+        return storage.containsKey(AppPreferencesKeys.KEY_SCAN_FOR_EMBEDDED_XMP)
+                ? storage.getBoolean(AppPreferencesKeys.KEY_SCAN_FOR_EMBEDDED_XMP)
                 : false;
     }
 

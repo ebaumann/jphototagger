@@ -14,10 +14,10 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Preferences;
-import org.jphototagger.api.storage.PreferencesHints;
+import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.api.preferences.PreferencesHints;
 import org.jphototagger.domain.event.AppWillExitEvent;
-import org.jphototagger.iptc.IptcStorageKeys;
+import org.jphototagger.iptc.IptcPreferencesKeys;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.program.resource.GUI;
@@ -121,8 +121,8 @@ public final class AppWindowPersistence implements ComponentListener {
     private boolean isDisplayIptc() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(IptcStorageKeys.KEY_DISPLAY_IPTC)
-                ? storage.getBoolean(IptcStorageKeys.KEY_DISPLAY_IPTC)
+        return storage.containsKey(IptcPreferencesKeys.KEY_DISPLAY_IPTC)
+                ? storage.getBoolean(IptcPreferencesKeys.KEY_DISPLAY_IPTC)
                 : false;
     }
 

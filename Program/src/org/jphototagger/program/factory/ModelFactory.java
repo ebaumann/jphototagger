@@ -17,12 +17,12 @@ import org.jdesktop.swingx.sort.ListSortController;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Preferences;
+import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
 import org.jphototagger.lib.model.AllSystemDirectoriesTreeModel;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.AppStorageKeys;
+import org.jphototagger.program.app.AppPreferencesKeys;
 import org.jphototagger.program.app.AppWindowPersistence;
 import org.jphototagger.program.model.ExifTableModel;
 import org.jphototagger.program.model.FavoritesTreeModel;
@@ -447,7 +447,7 @@ public final class ModelFactory {
 
                 final JTree tree = appPanel.getTreeDirectories();
                 final Cursor treeCursor = setWaitCursor(tree);
-                List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(AppStorageKeys.KEY_UI_DIRECTORIES_TAB_HIDE_ROOT_FILES);
+                List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(AppPreferencesKeys.KEY_UI_DIRECTORIES_TAB_HIDE_ROOT_FILES);
                 final TreeModel model = new AllSystemDirectoriesTreeModel(tree, hideRootFiles, getDirFilterOptionShowHiddenFiles());
 
                 support.add(model);

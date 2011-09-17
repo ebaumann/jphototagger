@@ -12,7 +12,7 @@ import javax.swing.event.ListSelectionListener;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.branding.Branding;
-import org.jphototagger.api.storage.Preferences;
+import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;

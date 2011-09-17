@@ -12,7 +12,7 @@ import javax.swing.JFileChooser;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Preferences;
+import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.exif.ExifMetadata;
 import org.jphototagger.exif.ExifTags;
 import org.jphototagger.exif.tag.ExifGpsMetadata;
@@ -22,7 +22,7 @@ import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.io.IoUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StorageUtil;
-import org.jphototagger.program.app.AppStorageKeys;
+import org.jphototagger.program.app.AppPreferencesKeys;
 import org.jphototagger.program.helper.HelperThread;
 import org.jphototagger.program.tasks.UserTasks;
 
@@ -58,8 +58,8 @@ public final class GPSLocationExportUtil {
     private static boolean isAddFilenameToGpsLocationExport() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(AppStorageKeys.KEY_GPS_ADD_FILENAME_TO_GPS_LOCATION_EXPORT)
-                ? storage.getBoolean(AppStorageKeys.KEY_GPS_ADD_FILENAME_TO_GPS_LOCATION_EXPORT)
+        return storage.containsKey(AppPreferencesKeys.KEY_GPS_ADD_FILENAME_TO_GPS_LOCATION_EXPORT)
+                ? storage.getBoolean(AppPreferencesKeys.KEY_GPS_ADD_FILENAME_TO_GPS_LOCATION_EXPORT)
                 : false;
     }
 

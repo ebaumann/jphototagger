@@ -14,7 +14,7 @@ import javax.swing.event.ListDataListener;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.storage.Preferences;
+import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
 import org.jphototagger.program.model.FileFiltersComboBoxModel;
 import org.jphototagger.program.resource.GUI;
