@@ -33,7 +33,7 @@ import org.jphototagger.lib.util.Bundle;
 final class IrfanViewSlideshowCommand {
 
     private String irfanViewExecutablePath;
-    private String previousFileChooserDir = System.getenv("ProgramFiles");
+    private static final String PROGRAM_FILES_DIRECTORY_PATH = System.getenv("ProgramFiles");
     private boolean isReloadOnLoop;
     private static final Set<String> VALID_IRFAN_VIEW_EXECUTABLE_NAMES = new HashSet<String>();
 
@@ -127,7 +127,7 @@ final class IrfanViewSlideshowCommand {
         FileChooserProperties fcProps = new FileChooserProperties();
 
         fcProps.dialogTitle(Bundle.getString(IrfanViewSlideshowCommand.class, "IrfanViewSlideshowCommand.FileChooser.Title"));
-        fcProps.currentDirectoryPath(previousFileChooserDir);
+        fcProps.currentDirectoryPath(PROGRAM_FILES_DIRECTORY_PATH);
         fcProps.multiSelectionEnabled(false);
         fcProps.fileFilter(createFileFilter());
         fcProps.fileSelectionMode(JFileChooser.FILES_ONLY);
