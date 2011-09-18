@@ -21,7 +21,7 @@ public final class IrfanViewSlideshowModule implements Module {
     @Override
     public void remove() {
         if (SystemUtil.isWindows()) {
-            TemporaryStorage.INSTANE.cleanup();
+            TemporaryStorage.INSTANCE.cleanup();
         }
     }
 }
