@@ -3,9 +3,11 @@ package org.jphototagger.plugin.iviewsshow;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.storage.CacheDirectoryProvider;
 import org.jphototagger.lib.io.FileUtil;
-import org.openide.util.Lookup;
 
 /**
  *
@@ -55,7 +57,9 @@ final class TemporaryStorage {
         for (File file : files) {
             boolean deleted = file.delete();
 
-            if (!deleted) {
+            if (deleted) {
+                Logger.getLogger(TemporaryStorage.class.getName()).log(Level.INFO, "Deleted temporary slideshow file ''{0}''", file);
+            } else {
                 Logger.getLogger(TemporaryStorage.class.getName()).log(Level.WARNING, "Couldn''t delete temporary slideshow file ''{0}''", file);
             }
         }

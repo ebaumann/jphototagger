@@ -1,8 +1,9 @@
 package org.jphototagger.plugin.iviewsshow;
 
+import org.openide.util.lookup.ServiceProvider;
+
 import org.jphototagger.api.modules.Module;
 import org.jphototagger.lib.system.SystemUtil;
-import org.openide.util.lookup.ServiceProvider;
 
 /**
  *

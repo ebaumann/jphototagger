@@ -7,14 +7,14 @@ import java.io.FileWriter;
 import java.io.Serializable;
 import java.io.Writer;
 import java.util.Collection;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.Icon;
 
-import org.openide.util.lookup.ServiceProvider;
-
 import org.bushe.swing.event.EventBus;
+
+import org.openide.util.lookup.ServiceProvider;
 
 import org.jphototagger.api.plugin.fileprocessor.FileProcessingFinishedEvent;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessingStartedEvent;
@@ -70,15 +70,19 @@ public final class IrfanViewSlideshowPlugin extends AbstractFileProcessorPlugin 
         } else {
             StringBuilder sb = new StringBuilder();
             String lineSeparator = SystemProperties.getLineSeparator();
+
             for (File file : files) {
                 sb.append(file.getAbsolutePath());
                 sb.append(lineSeparator);
             }
+
             Writer writer = null;
+
             try {
                 writer = new BufferedWriter(new FileWriter(slideshowFile));
                 writer.write(sb.toString());
                 writer.flush();
+                Logger.getLogger(IrfanViewSlideshowPlugin.class.getName()).log(Level.INFO, "Calling IrfanView: ''{0}''", command);
                 Runtime.getRuntime().exec(command);
             } catch (Throwable t) {
                 Logger.getLogger(IrfanViewSlideshowPlugin.class.getName()).log(Level.SEVERE, null, t);
