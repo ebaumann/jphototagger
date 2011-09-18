@@ -26,6 +26,15 @@ public abstract class AbstractFileProcessorPlugin implements FileProcessorPlugin
      * @return null
      */
     @Override
+    public Icon getSmallIcon() {
+        return null;
+    }
+
+    /**
+     *
+     * @return null
+     */
+    @Override
     public Icon getLargeIcon() {
         return null;
     }
