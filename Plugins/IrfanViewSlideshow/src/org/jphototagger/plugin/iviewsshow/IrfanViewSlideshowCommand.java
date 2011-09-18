@@ -9,10 +9,10 @@ import java.util.Set;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 
-import org.openide.util.Lookup;
-
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+
+import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.event.UserPropertyChangedEvent;
