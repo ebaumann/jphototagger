@@ -7,7 +7,7 @@ import javax.swing.filechooser.FileFilter;
 
 import org.jphototagger.lib.io.FileChooserHelper;
 import org.jphototagger.lib.io.FileChooserProperties;
-import org.jphototagger.lib.io.filefilter.AcceptExactFilenameNameFileFilter;
+import org.jphototagger.lib.io.filefilter.AcceptExactFilenameFileFilter;
 
 /**
  *
@@ -47,7 +47,7 @@ public final class FileChooser {
     }
 
     private FileFilter createFileFilter() {
-        AcceptExactFilenameNameFileFilter filter = new AcceptExactFilenameNameFileFilter(fixedFileFilename);
+        AcceptExactFilenameFileFilter filter = new AcceptExactFilenameFileFilter(fixedFileFilename);
 
         return filter.forFileChooser(fileDescription);
     }

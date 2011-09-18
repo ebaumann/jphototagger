@@ -203,4 +203,25 @@ public class CollectionUtilTest {
         firstElement = CollectionUtil.getFirstElement(strings);
         assertEquals(pluto, firstElement);
     }
+
+    @Test
+    public void testContainsStringIgnoreCase() {
+        Collection<String> strings = Collections.emptyList();
+        String string = "bla";
+        boolean result = CollectionUtil.containsStringIgnoreCase(strings, string);
+        
+        assertFalse(result);
+        
+        strings = Arrays.asList("Bla");
+        result = CollectionUtil.containsStringIgnoreCase(strings, string);
+        assertTrue(result);
+        
+        strings = Arrays.asList("1", "bla", "2");
+        result = CollectionUtil.containsStringIgnoreCase(strings, string);
+        assertTrue(result);
+        
+        strings = Arrays.asList("1", "blubb", "2");
+        result = CollectionUtil.containsStringIgnoreCase(strings, string);
+        assertFalse(result);
+    }
 }

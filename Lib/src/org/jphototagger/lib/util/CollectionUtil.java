@@ -260,6 +260,24 @@ public final class CollectionUtil {
                 : null;
     }
 
+    public static boolean containsStringIgnoreCase(Collection<? extends String> strings, String string) {
+        if (strings == null) {
+            throw new NullPointerException("strings == null");
+        }
+
+        if (string == null) {
+            throw new NullPointerException("string == null");
+        }
+
+        for (String s : strings) {
+            if (string.equalsIgnoreCase(s)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     private CollectionUtil() {
     }
 }
