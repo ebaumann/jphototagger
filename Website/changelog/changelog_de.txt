@@ -3,8 +3,10 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
-0.9.2 2011-09-
+0.9.2 2011-09-18
 ----------------
+* Windows-Version hat ein neues Plugin: Diaschau mit IrfanView:
+  Ausgewählte Bilder werden mit IrfanView als Diaschau angezeigt
 * Wird die Schaltfläche "Suchen" im Einstellungen-Dialog zur
   Anzeige ausgewählt oder nicht, wirkt sich das sofort aus,
   es ist kein Neustart von JPhotoTagger mehr erforderlich
