@@ -27,7 +27,6 @@ import org.jphototagger.lib.util.SystemProperties;
 import org.jphototagger.plugin.AbstractFileProcessorPlugin;
 
 /**
- * Copies into the system clipboard names of files.
  *
  * @author Elmar Baumann
  */
