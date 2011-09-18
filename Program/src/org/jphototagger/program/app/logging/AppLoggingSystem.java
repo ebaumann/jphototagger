@@ -14,16 +14,11 @@ import java.util.logging.SimpleFormatter;
 import java.util.logging.StreamHandler;
 import java.util.logging.XMLFormatter;
 
-import org.bushe.swing.event.annotation.AnnotationProcessor;
-import org.bushe.swing.event.annotation.EventSubscriber;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.storage.SettingsDirectoryProvider;
-import org.jphototagger.domain.event.UserPropertyChangedEvent;
 import org.jphototagger.lib.dialog.LogfileDialog;
 import org.jphototagger.lib.io.FileUtil;
+import org.openide.util.Lookup;
 
 /**
  * Logging system of the application.
@@ -62,10 +57,10 @@ public final class AppLoggingSystem {
 
     public enum HandlerType {
 
-        SYSTEM_OUT, FILE,}
+        SYSTEM_OUT, FILE,
+    }
 
     private AppLoggingSystem() {
-        AnnotationProcessor.process(this);
     }
 
     /**
@@ -176,13 +171,6 @@ public final class AppLoggingSystem {
             for (Handler handler : HANDLERS) {
                 logger.addHandler(handler);
             }
-        }
-    }
-
-    @EventSubscriber(eventClass = UserPropertyChangedEvent.class)
-    public void applySettings(UserPropertyChangedEvent evt) {
-        if (appLogger != null && Preferences.KEY_LOG_LEVEL.equals(evt.getPropertyKey())) {
-            systemOutHandler.setLevel((Level) evt.getNewValue());
         }
     }
 
