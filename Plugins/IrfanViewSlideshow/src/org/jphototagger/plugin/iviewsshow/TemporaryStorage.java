@@ -17,7 +17,7 @@ import org.jphototagger.lib.io.FileUtil;
 final class TemporaryStorage {
 
     private final String cacheDirectoryPathname;
-    static final TemporaryStorage INSTANE = new TemporaryStorage();
+    static final TemporaryStorage INSTANCE = new TemporaryStorage();
 
     private TemporaryStorage() {
         cacheDirectoryPathname = getCacheDirectoryPathname();

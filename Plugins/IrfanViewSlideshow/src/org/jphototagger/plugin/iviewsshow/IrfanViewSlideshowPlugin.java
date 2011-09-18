@@ -60,7 +60,7 @@ public final class IrfanViewSlideshowPlugin extends AbstractFileProcessorPlugin 
     @Override
     public void processFiles(Collection<? extends File> files) {
         EventBus.publish(new FileProcessingStartedEvent(this));
-        File slideshowFile = TemporaryStorage.INSTANE.getNotExistingSlideshowFile();
+        File slideshowFile = TemporaryStorage.INSTANCE.getNotExistingSlideshowFile();
 
         String command = slideshowCommand.getCommandForFile(slideshowFile.getAbsolutePath());
 
