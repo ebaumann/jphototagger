@@ -137,6 +137,8 @@ public final class ThumbnailsPanelPersistenceController {
                 return (Comparator<File>) Class.forName(className).newInstance();
             } catch (Exception ex) {
                 Logger.getLogger(ThumbnailsPanelPersistenceController.class.getName()).log(Level.SEVERE, null, ex);
+                String cmpClassName = FileSort.NAMES_ASCENDING.getComparator().getClass().getName();
+                storage.setString(KEY_SORT, cmpClassName);
             }
         }
 
