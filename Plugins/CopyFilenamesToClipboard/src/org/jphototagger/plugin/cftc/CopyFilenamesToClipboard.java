@@ -19,6 +19,7 @@ import org.jphototagger.api.plugin.fileprocessor.FileProcessingFinishedEvent;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessingStartedEvent;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessorPlugin;
 import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.plugin.AbstractFileProcessorPlugin;
 
@@ -33,6 +34,7 @@ public final class CopyFilenamesToClipboard extends AbstractFileProcessorPlugin 
     private static final long serialVersionUID = 526527636923496736L;
     public static final String KEY_FILENAME_DELIMITER = CopyFilenamesToClipboard.class.getName() + ".KeyDelimiter";
     public static final String DEFAULT_FILENAME_DELIMITER = "\n";
+    private static final Icon ICON = IconUtil.getImageIcon("/org/jphototagger/plugin/cftc/icon.png");
     private String fileNameDelimiter = DEFAULT_FILENAME_DELIMITER;
 
     @Override
@@ -60,8 +62,9 @@ public final class CopyFilenamesToClipboard extends AbstractFileProcessorPlugin 
         return "index.html";
     }
 
+    @Override
     public Icon getSmallIcon() {
-        return null;
+        return ICON;
     }
 
     @Override
