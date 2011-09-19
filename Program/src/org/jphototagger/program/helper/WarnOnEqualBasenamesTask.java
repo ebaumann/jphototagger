@@ -22,7 +22,7 @@ public final class WarnOnEqualBasenamesTask extends Thread {
     private final String excludeSuffix = ".xmp";
 
     public WarnOnEqualBasenamesTask(Collection<? extends File> files) {
-        super("JPT: Warning on equal Basenames");
+        super("JPhotoTagger: Warning on equal Basenames");
 
         if (files == null) {
             throw new NullPointerException("files == null");
