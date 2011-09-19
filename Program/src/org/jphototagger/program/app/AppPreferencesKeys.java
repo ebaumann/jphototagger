@@ -8,6 +8,7 @@ package org.jphototagger.program.app;
 public interface AppPreferencesKeys {
 
     static final String KEY_CHECK_FOR_UPDATES = "UserSettings.AutoDownloadNewerVersions";
+    static final String KEY_DISPLAY_IN_FUTURE_WARN_ON_EQUAL_BASENAMES = "WarnOnEqualBasenamesTaskDialog.DisplayInFuture";
     static final String KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS = "UserSettings.ExecuteActionsAfterImageChangeInDbAlways";
     static final String KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP = "UserSettings.ExecuteActionsAfterImageChangeInDbIfImageHasXmp";
     static final String KEY_FILE_SYSTEM_OPERATIONS_OPTIONS_COPY_MOVE_FILES = "UserSettings.CopyMoveFiles";
