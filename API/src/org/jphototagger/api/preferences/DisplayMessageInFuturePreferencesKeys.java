@@ -1,6 +1,6 @@
 package org.jphototagger.api.preferences;
 
-import java.util.Set;
+import java.util.Collection;
 
 /**
  * Keys whith a boolean value of the meaning: Display that message
@@ -35,7 +35,31 @@ public interface DisplayMessageInFuturePreferencesKeys {
         public String getLocalizedDisplayName() {
             return localizedDisplayName;
         }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj == this) {
+                return true;
+            }
+
+            if (!(obj instanceof KeyInfo)) {
+                return false;
+            }
+
+            KeyInfo other = (KeyInfo) obj;
+
+            return key.equals(other.key);
+        }
+
+        @Override
+        public int hashCode() {
+            int hash = 7;
+
+            hash = 29 * hash + (this.key != null ? this.key.hashCode() : 0);
+
+            return hash;
+        }
     }
 
-    Set<KeyInfo> getKeyInfos();
+    Collection<? extends KeyInfo> getKeyInfos();
 }
