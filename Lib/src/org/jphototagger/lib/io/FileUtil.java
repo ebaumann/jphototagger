@@ -10,7 +10,9 @@ import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -526,6 +528,74 @@ public final class FileUtil {
         }
 
         return filename.substring(0, filename.lastIndexOf('.'));
+    }
+
+    /**
+     *
+     * @param absolutePath p
+     * @return "/a/b/c.txt" &gt; "/a/b/c"
+     */
+    public static String getAbsolutePathnamePrefix(String absolutePath) {
+        if (absolutePath == null) {
+            throw new NullPointerException("absolutePath == null");
+        }
+
+        int index = absolutePath.lastIndexOf('.');
+
+        return index > 0
+                ? absolutePath.substring(0, index)
+                : absolutePath;
+    }
+
+    /**
+     *
+     * @param files f
+     * @param excludeSuffix empty if no suffix shall be excluded
+     * @return f
+     */
+    static public List<File> getFilesWithEqualBasenames(Collection<File> files, String excludeSuffix) {
+        if (files == null) {
+            throw new NullPointerException("files == null");
+        }
+
+        if (excludeSuffix == null) {
+            throw new NullPointerException("excludeSuffix == null");
+        }
+
+        Map<String, List<File>> filesWithEqualPrefix = new HashMap<String, List<File>>();
+        String excludeSuffixLowercase = excludeSuffix.toLowerCase();
+
+        for (File file : files) {
+            String filePathLowercase = file.getAbsolutePath();
+
+            if (excludeSuffixLowercase.isEmpty() || !filePathLowercase.endsWith(excludeSuffixLowercase)) {
+                String absolutePath = file.getAbsolutePath();
+                String filePathPrefix = getAbsolutePathnamePrefix(absolutePath);
+                String filePathPrefixLowercase = filePathPrefix.toLowerCase();
+                List<File> fWithEqualPrefix = filesWithEqualPrefix.get(filePathPrefixLowercase);
+
+                if (fWithEqualPrefix == null) {
+                    fWithEqualPrefix = new ArrayList<File>(3);
+                    filesWithEqualPrefix.put(filePathPrefixLowercase, fWithEqualPrefix);
+                }
+
+                fWithEqualPrefix.add(file);
+            }
+        }
+
+        List<File> filesWithEqualBasenames = new ArrayList<File>();
+
+        for (List<File> fWithEqualBasenames : filesWithEqualPrefix.values()) {
+            int size = fWithEqualBasenames.size();
+
+            if (size > 1) {
+                for (File filepath : fWithEqualBasenames) {
+                    filesWithEqualBasenames.add(filepath);
+                }
+            }
+        }
+
+        return filesWithEqualBasenames;
     }
 
     /**
