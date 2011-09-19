@@ -72,6 +72,7 @@ import org.jphototagger.program.app.AppPreferencesKeys;
 import org.jphototagger.program.cache.RenderedThumbnailCache;
 import org.jphototagger.program.controller.thumbnail.ThumbnailDoubleklickController;
 import org.jphototagger.program.datatransfer.ThumbnailsPanelTransferHandler;
+import org.jphototagger.program.helper.WarnOnEqualBasenamesTask;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.types.FileAction;
 import org.jphototagger.program.types.SizeUnit;
@@ -1202,6 +1203,7 @@ public class ThumbnailsPanel extends JPanel
         synchronized (this) {
             Logger.getLogger(ThumbnailsPanel.class.getName()).log(Level.FINE, "{0} new files to display", files.size());
             clearSelectionAndFlags();
+            new WarnOnEqualBasenamesTask(files).start();
 
             List<File> filteredFiles = FileUtil.filterFiles(files, fileFilter);
 

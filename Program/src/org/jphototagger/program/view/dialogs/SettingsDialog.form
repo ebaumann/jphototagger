@@ -178,6 +178,20 @@
             </Constraint>
           </Constraints>
         </Component>
+        <Component class="org.jphototagger.program.view.panels.SettingsDisplayMessagesInFuturePanel" name="panelDisplayMessagesInFuture">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="panelDisplayMessagesInFuture" noResource="true"/>
+          </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+              <JTabbedPaneConstraints tabName="&amp;9. Nachrichten anzeigen">
+                <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="org/jphototagger/program/view/dialogs/Bundle.properties" key="SettingsDialog.panelDisplayMessagesInFuture.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
+              </JTabbedPaneConstraints>
+            </Constraint>
+          </Constraints>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>

@@ -42,6 +42,7 @@ public final class SettingsDialog extends Dialog {
         PROGRAMS,
         TASKS,
         THUMBNAILS,
+        DISPLAY_IN_FUTURE,
     }
 
     ;
@@ -69,6 +70,7 @@ public final class SettingsDialog extends Dialog {
         indexOfTab.put(Tab.MISC, 5);
         indexOfTab.put(Tab.ACTIONS, 6);
         indexOfTab.put(Tab.PLUGINS, 7);
+        indexOfTab.put(Tab.DISPLAY_IN_FUTURE, 8);
 
         for (Tab tab : indexOfTab.keySet()) {
             tabOfIndex.put(indexOfTab.get(tab), tab);
@@ -186,6 +188,7 @@ public final class SettingsDialog extends Dialog {
         panelMisc = new org.jphototagger.program.view.panels.SettingsMiscPanel();
         panelActions = new org.jphototagger.program.view.panels.SettingsActionsPanel();
         panelPlugins = new org.jphototagger.program.view.panels.SettingsPluginsPanel();
+        panelDisplayMessagesInFuture = new org.jphototagger.program.view.panels.SettingsDisplayMessagesInFuturePanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/dialogs/Bundle"); // NOI18N
@@ -225,6 +228,9 @@ public final class SettingsDialog extends Dialog {
 
         panelPlugins.setName("panelPlugins"); // NOI18N
         tabbedPane.addTab(bundle.getString("SettingsDialog.panelPlugins.TabConstraints.tabTitle"), panelPlugins); // NOI18N
+
+        panelDisplayMessagesInFuture.setName("panelDisplayMessagesInFuture"); // NOI18N
+        tabbedPane.addTab(bundle.getString("SettingsDialog.panelDisplayMessagesInFuture.TabConstraints.tabTitle"), panelDisplayMessagesInFuture); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -277,6 +283,7 @@ public final class SettingsDialog extends Dialog {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jphototagger.program.view.panels.SettingsActionsPanel panelActions;
+    private org.jphototagger.program.view.panels.SettingsDisplayMessagesInFuturePanel panelDisplayMessagesInFuture;
     private org.jphototagger.program.view.panels.SettingsFileExcludePatternsPanel panelFileExcludePatterns;
     private org.jphototagger.program.view.panels.SettingsMiscPanel panelMisc;
     private org.jphototagger.program.view.panels.SettingsPerformancePanel panelPerformance;
