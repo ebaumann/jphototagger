@@ -1,13 +1,15 @@
 package org.jphototagger.tcc.def;
 
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 import javax.swing.JFileChooser;
 
 import javax.swing.filechooser.FileFilter;
 
 import org.jphototagger.lib.io.FileChooserHelper;
 import org.jphototagger.lib.io.FileChooserProperties;
-import org.jphototagger.lib.io.filefilter.AcceptExactFilenameFileFilter;
+import org.jphototagger.lib.io.filefilter.AcceptExactFilenamesFileFilter;
 
 /**
  *
@@ -16,13 +18,13 @@ import org.jphototagger.lib.io.filefilter.AcceptExactFilenameFileFilter;
  */
 public final class FileChooser {
 
-    private final String fixedFileFilename;
+    private final Set<String> fixedFileNames;
     private final String fileDescription;
     private final String fileChooserTitle;
     private String fileChooserDirPath;
 
     private FileChooser(Builder builder) {
-        fixedFileFilename = builder.fixedFileName;
+        fixedFileNames = builder.fixedFileNames;
         fileDescription = builder.fileDescription;
         fileChooserTitle = builder.fileChooserTitle;
         fileChooserDirPath = builder.fileChooserDirPath;
@@ -47,24 +49,24 @@ public final class FileChooser {
     }
 
     private FileFilter createFileFilter() {
-        AcceptExactFilenameFileFilter filter = new AcceptExactFilenameFileFilter(fixedFileFilename);
+        AcceptExactFilenamesFileFilter filter = new AcceptExactFilenamesFileFilter(fixedFileNames);
 
         return filter.forFileChooser(fileDescription);
     }
 
     public static class Builder {
 
-        private final String fixedFileName;
+        private final Set<String> fixedFileNames;
         private String fileDescription = "";
         private String fileChooserTitle = "";
         private String fileChooserDirPath = "";
 
-        public Builder(String fixedFileName) {
-            if (fixedFileName == null) {
-                throw new NullPointerException("fixedFileName == null");
+        public Builder(Set<String> fixedFileNames) {
+            if (fixedFileNames == null) {
+                throw new NullPointerException("fixedFileNames == null");
             }
 
-            this.fixedFileName = fixedFileName;
+            this.fixedFileNames = new HashSet<String>(fixedFileNames);
         }
 
         public Builder fileChooserDirPath(String fileChooserDirPath) {

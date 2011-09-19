@@ -2,6 +2,9 @@ package org.jphototagger.ttc.def.scripts.unix;
 
 import java.io.File;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
@@ -117,7 +120,7 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
         String fileDescription = Bundle.getString(ImageMagickDcrawThumbnailCreatorDialog.class, "ImageMagickDcrawThumbnailCreatorDialog.Dcraw.FileChooser.Description");
         String fileChooserTitle = Bundle.getString(ImageMagickDcrawThumbnailCreatorDialog.class, "ImageMagickDcrawThumbnailCreatorDialog.Dcraw.FileChooser.Title");
 
-        return createFileChooser(filename, fileDescription, fileChooserTitle);
+        return createFileChooser(new HashSet<String>(Arrays.asList(filename)), fileDescription, fileChooserTitle);
     }
 
     private FileChooser createConvertFileChooser() {
@@ -125,7 +128,7 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
         String fileDescription = Bundle.getString(ImageMagickDcrawThumbnailCreatorDialog.class, "ImageMagickDcrawThumbnailCreatorDialog.Convert.FileChooser.Description");
         String fileChooserTitle = Bundle.getString(ImageMagickDcrawThumbnailCreatorDialog.class, "ImageMagickDcrawThumbnailCreatorDialog.Convert.FileChooser.Title");
 
-        return createFileChooser(filename, fileDescription, fileChooserTitle);
+        return createFileChooser(new HashSet<String>(Arrays.asList(filename)), fileDescription, fileChooserTitle);
     }
 
     private FileChooser createIdentifyFileChooser() {
@@ -133,7 +136,7 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
         String fileDescription = Bundle.getString(ImageMagickDcrawThumbnailCreatorDialog.class, "ImageMagickDcrawThumbnailCreatorDialog.Identify.FileChooser.Description");
         String fileChooserTitle = Bundle.getString(ImageMagickDcrawThumbnailCreatorDialog.class, "ImageMagickDcrawThumbnailCreatorDialog.Identify.FileChooser.Title");
 
-        return createFileChooser(filename, fileDescription, fileChooserTitle);
+        return createFileChooser(new HashSet<String>(Arrays.asList(filename)), fileDescription, fileChooserTitle);
     }
 
     private FileChooser createMPlayerFileChooser() {
@@ -141,12 +144,15 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
         String fileDescription = Bundle.getString(ImageMagickDcrawThumbnailCreatorDialog.class, "ImageMagickDcrawThumbnailCreatorDialog.MPlayer.FileChooser.Description");
         String fileChooserTitle = Bundle.getString(ImageMagickDcrawThumbnailCreatorDialog.class, "ImageMagickDcrawThumbnailCreatorDialog.MPlayer.FileChooser.Title");
 
-        return createFileChooser(filename, fileDescription, fileChooserTitle);
+        return createFileChooser(new HashSet<String>(Arrays.asList(filename)), fileDescription, fileChooserTitle);
     }
 
-    private FileChooser createFileChooser(String filename, String fileDescription, String fileChooserTitle) {
-
-        return new FileChooser.Builder(filename).fileChooserTitle(fileChooserTitle).fileChooserDirPath("/usr/bin").fileDescription(fileDescription).build();
+    private FileChooser createFileChooser(Set<String> filenames, String fileDescription, String fileChooserTitle) {
+        return new FileChooser.Builder(filenames)
+                .fileChooserTitle(fileChooserTitle)
+                .fileChooserDirPath("/usr/bin")
+                .fileDescription(fileDescription)
+                .build();
     }
 
     /** This method is called from within the constructor to
