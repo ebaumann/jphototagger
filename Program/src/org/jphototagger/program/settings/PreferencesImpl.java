@@ -1,6 +1,7 @@
 package org.jphototagger.program.settings;
 
 import java.awt.Component;
+import java.awt.Window;
 import java.util.Collection;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import org.openide.util.lookup.ServiceProvider;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesHints;
 import org.jphototagger.domain.event.UserPropertyChangedEvent;
+import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.util.ObjectUtil;
 import org.jphototagger.lib.util.Settings;
 
@@ -97,7 +99,11 @@ public final class PreferencesImpl implements Preferences {
 
     @Override
     public void applyLocation(String key, Component component) {
-        settings.applyLocation(key, component);
+        boolean applied = settings.applyLocation(key, component);
+
+        if (!applied && component instanceof Window) {
+            ComponentUtil.centerScreen((Window) component);
+        }
     }
 
     @Override
