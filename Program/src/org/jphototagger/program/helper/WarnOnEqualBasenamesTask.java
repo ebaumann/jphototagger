@@ -40,7 +40,7 @@ public final class WarnOnEqualBasenamesTask extends Thread {
         final List<File> filesWithEqualBasenames = FileUtil.getFilesWithEqualBasenames(files, excludeSuffix);
 
         if (!filesWithEqualBasenames.isEmpty()) {
-            Logger.getLogger(WarnOnEqualBasenamesTask.class.getName()).log(Level.INFO,
+            Logger.getLogger(WarnOnEqualBasenamesTask.class.getName()).log(Level.WARNING,
                     "Files with equal basenames will have the same XMP sidecar file: {0}", filesWithEqualBasenames);
 
             Collections.sort(filesWithEqualBasenames, new FilepathIgnoreCaseAscendingComparator());
