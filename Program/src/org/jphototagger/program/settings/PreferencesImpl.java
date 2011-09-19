@@ -41,7 +41,9 @@ public final class PreferencesImpl implements Preferences {
     @Override
     public void setString(String key, String value) {
         String oldValue = settings.getString(key);
-        if (!ObjectUtil.equals(value, oldValue)) {
+        boolean containsKey = settings.containsKey(key);
+        
+        if (!containsKey || !ObjectUtil.equals(value, oldValue)) {
             settings.set(key, value);
             writeToFile();
             EventBus.publish(new UserPropertyChangedEvent(this, key, oldValue, value));
@@ -57,7 +59,9 @@ public final class PreferencesImpl implements Preferences {
     @Override
     public void setBoolean(String key, boolean value) {
         boolean oldValue = settings.getBoolean(key);
-        if (value != oldValue) {
+        boolean containsKey = settings.containsKey(key);
+        
+        if (!containsKey || value != oldValue) {
             settings.set(key, value);
             writeToFile();
             EventBus.publish(new UserPropertyChangedEvent(this, key, oldValue, value));
@@ -72,8 +76,9 @@ public final class PreferencesImpl implements Preferences {
     @Override
     public void setInt(String key, int value) {
         int oldValue = settings.getInt(key);
+        boolean containsKey = settings.containsKey(key);
 
-        if (value != oldValue) {
+        if (!containsKey || value != oldValue) {
             settings.set(key, value);
             writeToFile();
             EventBus.publish(new UserPropertyChangedEvent(this, key, oldValue, value));
