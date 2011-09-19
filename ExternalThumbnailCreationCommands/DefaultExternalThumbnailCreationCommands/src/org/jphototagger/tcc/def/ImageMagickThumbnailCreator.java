@@ -2,6 +2,9 @@ package org.jphototagger.tcc.def;
 
 import java.io.File;
 
+import java.util.Arrays;
+import java.util.HashSet;
+
 import org.openide.util.lookup.ServiceProvider;
 
 import org.jphototagger.api.image.thumbnails.ExternalThumbnailCreationCommand;
@@ -61,7 +64,10 @@ public final class ImageMagickThumbnailCreator implements ExternalThumbnailCreat
         String convertFileDescription = getConvertFileDescription();
         String fileChooserTitle = Bundle.getString(ImageMagickThumbnailCreator.class, "ImageMagickThumbnailCreator.ChooseFile.Dialogtitle");
 
-        return new FileChooser.Builder(convertFileName).fileChooserTitle(fileChooserTitle).fileDescription(convertFileDescription).build();
+        return new FileChooser.Builder(new HashSet<String>(Arrays.asList(convertFileName)))
+                .fileChooserTitle(fileChooserTitle)
+                .fileDescription(convertFileDescription)
+                .build();
     }
 
     private String getConvertFileName() {
