@@ -6,6 +6,10 @@
         <title>Was erledigt dieses Programm?</title>
     </page>
     <page>
+        <url>when_not_use_jpt.html</url>
+        <title>Wann ist JPhotoTagger für Sie nicht geeignet?</title>
+    </page>
+    <page>
         <url>fiststeps.html</url>
         <title>Erste Schritte</title>
     </page>
