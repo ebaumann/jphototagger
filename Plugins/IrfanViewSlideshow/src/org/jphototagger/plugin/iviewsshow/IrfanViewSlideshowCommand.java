@@ -127,7 +127,7 @@ final class IrfanViewSlideshowCommand {
         FileChooserProperties fcProps = new FileChooserProperties();
 
         fcProps.dialogTitle(Bundle.getString(IrfanViewSlideshowCommand.class, "IrfanViewSlideshowCommand.FileChooser.Title"));
-        fcProps.currentDirectoryPath(PROGRAM_FILES_DIRECTORY_PATH);
+        fcProps.currentDirectoryPath(PROGRAM_FILES_DIRECTORY_PATH == null ? "" : PROGRAM_FILES_DIRECTORY_PATH);
         fcProps.multiSelectionEnabled(false);
         fcProps.fileFilter(createFileFilter());
         fcProps.fileSelectionMode(JFileChooser.FILES_ONLY);
