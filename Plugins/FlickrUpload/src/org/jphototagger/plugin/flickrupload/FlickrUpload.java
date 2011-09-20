@@ -35,7 +35,7 @@ import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.io.IoUtil;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.plugin.AbstractFileProcessorPlugin;
+import org.jphototagger.lib.plugin.AbstractFileProcessorPlugin;
 import org.jphototagger.plugin.flickrupload.FlickrImageInfoPanel.ImageInfo;
 import org.jphototagger.xmp.XmpProperties;
 
