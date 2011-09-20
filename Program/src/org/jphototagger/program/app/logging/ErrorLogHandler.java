@@ -73,7 +73,7 @@ public final class ErrorLogHandler extends Handler implements ActionListener, Mo
     @Override
     public void mouseClicked(MouseEvent evt) {
         if (MouseEventUtil.isLeftClick(evt) && getItemErrorLogfile().isEnabled()) {
-            showLogfileDialog(AppLoggingSystem.getLogfilePathErrorMessages(), XMLFormatter.class);
+            showLogfileDialog(AppLoggingSystem.getErrorMessagesLogfilePath(), XMLFormatter.class);
 
             JLabel labelError = GUI.getAppPanel().getLabelError();
 
@@ -97,16 +97,16 @@ public final class ErrorLogHandler extends Handler implements ActionListener, Mo
         Object source = evt.getSource();
 
         if (source == getItemErrorLogfile()) {
-            showLogfileDialog(AppLoggingSystem.getLogfilePathErrorMessages(), XMLFormatter.class);
+            showLogfileDialog(AppLoggingSystem.getErrorMessagesLogfilePath(), XMLFormatter.class);
         } else if (source == getItemAllLogfile()) {
-            showLogfileDialog(AppLoggingSystem.geLogfilePathAllMessages(), SimpleFormatter.class);
+            showLogfileDialog(AppLoggingSystem.getAllMessagesLogfilePath(), SimpleFormatter.class);
         }
     }
 
     private void showLogfileDialog(String logfilename, Class<?> formatterClass) {
         LogfileDialog dialog = new LogfileDialog(GUI.getAppFrame(), logfilename, formatterClass);
 
-        dialog.setFilterableMinIntValue(AppLoggingSystem.IMPORTANT_LEVEL.intValue());
+        dialog.setFilterableMinIntValue(Level.WARNING.intValue());
         dialog.setVisible(true);
     }
 

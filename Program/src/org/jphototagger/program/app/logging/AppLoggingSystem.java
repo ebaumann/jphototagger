@@ -2,11 +2,7 @@ package org.jphototagger.program.app.logging;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.FileHandler;
-import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
@@ -14,112 +10,95 @@ import java.util.logging.SimpleFormatter;
 import java.util.logging.StreamHandler;
 import java.util.logging.XMLFormatter;
 
-import org.jphototagger.api.preferences.Preferences;
-import org.jphototagger.api.storage.SettingsDirectoryProvider;
-import org.jphototagger.lib.dialog.LogfileDialog;
-import org.jphototagger.lib.io.FileUtil;
 import org.openide.util.Lookup;
 
+import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.api.storage.SettingsDirectoryProvider;
+import org.jphototagger.lib.io.FileUtil;
+
 /**
- * Logging system of the application.
- * <p>
- * Contains theses handlers:
- * <ul>
- * <li>System output handler, level {@code UserSettings#getLogLevel()}</li>
- * <li>File handler for all messages, level {@code Level#ALL}</li>
- * <li>File handler for warning messages, level {@code Level#WARNING}</li>
- * </ul>
  *
  * @author Elmar Baumann
  */
 public final class AppLoggingSystem {
 
-    private static final int LOGFILE_ROTATE_COUNT = 5;
-    private static final int MAX_LOGFILE_SIZE_IN_BYTES = (int) LogfileDialog.DEFAULT_MAX_BYTES;
-    private static final String LOGFILE_PATH_DIR;
-    static final Level IMPORTANT_LEVEL = Level.WARNING;
-    // INSTANCE exists only for applying user settings!
-    private static final AppLoggingSystem INSTANCE = new AppLoggingSystem();
-    private static final List<Handler> HANDLERS = new ArrayList<Handler>();
-    private static final boolean APPEND_OUTPUT_TO_LOGFILE = false;
-    private static Logger appLogger;
-    private static Handler fileHandlerAllMsgs;
-    private static Handler fileHandlerImportant;
+    private static final String ALL_MESSAGES_LOGFILE_PATH;
+    private static final String ERROR_MESSAGES_LOGFILE_PATH;
+    // Holding a Reference ensures not loosing the Handlers (LogManager stores Loggers as Weak References)
+    private static final Logger APP_LOGGER = Logger.getLogger("org.jphototagger");
     private static boolean init;
-    private static Handler systemOutHandler;
 
     static {
         SettingsDirectoryProvider provider = Lookup.getDefault().lookup(SettingsDirectoryProvider.class);
-        File userDirectory = provider.getUserSettingsDirectory();
+        File userSettingsDirectory = provider.getUserSettingsDirectory();
+        String userSettingsDirectoryPath = userSettingsDirectory.getAbsolutePath();
+        String logfilePathPrefix = userSettingsDirectoryPath + File.separator + "jphototagger-log";
 
-        LOGFILE_PATH_DIR = userDirectory.getAbsolutePath();
-    }
-
-    public enum HandlerType {
-
-        SYSTEM_OUT, FILE,
+        ALL_MESSAGES_LOGFILE_PATH = logfilePathPrefix + "-all.txt";
+        ERROR_MESSAGES_LOGFILE_PATH = logfilePathPrefix + "-errors.xml";
     }
 
     private AppLoggingSystem() {
     }
 
-    /**
-     * Initializes the application's logging system.
-     */
-    public synchronized static void init() {
-        assert !init;
-
-        if (!init) {
-            init = true;
-
-            try {
-                ensureLogDirectoryExists();
-                createHandlers();
-                setLevelsToHandlers();
-                setFormattersToFileHandlers();
-                setEncodingToFileHandlers();
-            } catch (Exception ex) {
-                Logger.getLogger(AppLoggingSystem.class.getName()).log(Level.SEVERE, null, ex);
-            } finally {
-                createAppLogger();
-                addHandlersToLogger(appLogger);
-                Logger.getLogger("").addHandler(fileHandlerImportant);
+    public static void init() {
+        synchronized (AppLoggingSystem.class) {
+            if (init) {
+                return;
             }
+            init = true;
+        }
+
+        try {
+            ensureLogDirectoryExists();
+            createAndAddHandlersToAppLogger();
+        } catch (Throwable t) {
+            Logger.getLogger(AppLoggingSystem.class.getName()).log(Level.SEVERE, null, t);
+        } finally {
+            APP_LOGGER.setLevel(Level.ALL); // Handlers are restricting the output
+            APP_LOGGER.setUseParentHandlers(false);
+            LogManager.getLogManager().addLogger(APP_LOGGER);
         }
     }
 
     private static void ensureLogDirectoryExists() {
+        SettingsDirectoryProvider provider = Lookup.getDefault().lookup(SettingsDirectoryProvider.class);
+        File userDirectory = provider.getUserSettingsDirectory();
+        String settingsDirectoryName = userDirectory.getAbsolutePath();
+        File settingsDirectory = new File(settingsDirectoryName);
+
         try {
-            SettingsDirectoryProvider provider = Lookup.getDefault().lookup(SettingsDirectoryProvider.class);
-            File userDirectory = provider.getUserSettingsDirectory();
-            String settingsDirectoryName = userDirectory.getAbsolutePath();
-            File settingsDirectory = new File(settingsDirectoryName);
-
             FileUtil.ensureDirectoryExists(settingsDirectory);
-        } catch (Exception ex) {
-            ex.printStackTrace(); // indented (Loggers, Handlers etc. may not be work)
+        } catch (Throwable t) {
+            Logger.getLogger(AppLoggingSystem.class.getName()).log(Level.SEVERE, null, t);
         }
     }
 
-    private static void createHandlers() throws IOException {
-        fileHandlerImportant = new FileHandler(getLogfilePathPatternErrorMessages(), MAX_LOGFILE_SIZE_IN_BYTES, LOGFILE_ROTATE_COUNT, APPEND_OUTPUT_TO_LOGFILE);
-        fileHandlerAllMsgs = new FileHandler(getLogfilePathPatternAllMessages(), MAX_LOGFILE_SIZE_IN_BYTES, LOGFILE_ROTATE_COUNT, APPEND_OUTPUT_TO_LOGFILE);
-        systemOutHandler = new StreamHandler(System.out, new SimpleFormatter());
+    private static void createAndAddHandlersToAppLogger() throws IOException {
+        FileHandler fileHandlerErrorMessages = new FileHandler(ERROR_MESSAGES_LOGFILE_PATH);
+        FileHandler fileHandlerAllMessages = new FileHandler(ALL_MESSAGES_LOGFILE_PATH);
+        StreamHandler systemOutHandler = new StreamHandler(System.out, new SimpleFormatter());
 
-        synchronized (HANDLERS) {
-            HANDLERS.add(systemOutHandler);
-            HANDLERS.add(fileHandlerImportant);
-            HANDLERS.add(fileHandlerAllMsgs);
-        }
+        systemOutHandler.setLevel(lookupLogLevel());
+
+        fileHandlerAllMessages.setLevel(Level.ALL);
+        fileHandlerAllMessages.setFormatter(new SimpleFormatter());
+        fileHandlerAllMessages.setEncoding("UTF-8");
+
+        fileHandlerErrorMessages.setLevel(Level.WARNING);
+        fileHandlerErrorMessages.setFormatter(new XMLFormatter());
+        fileHandlerErrorMessages.setEncoding("UTF-8");
+
+        APP_LOGGER.addHandler(systemOutHandler);
+        APP_LOGGER.addHandler(fileHandlerErrorMessages);
+        APP_LOGGER.addHandler(fileHandlerAllMessages);
+
+        // Writing errors of others to the error logfile
+        Logger.getLogger("").addHandler(fileHandlerErrorMessages);
     }
 
-    private static void setLevelsToHandlers() throws SecurityException {
-        systemOutHandler.setLevel(getLogLevel()); // Usage now only for developers, "UserSettings.LogLevel", e.g. "INFO"
-        fileHandlerImportant.setLevel(IMPORTANT_LEVEL);
-        fileHandlerAllMsgs.setLevel(Level.ALL);
-    }
-
-    private static Level getLogLevel() {
+    // Usage now only for developers, "UserSettings.LogLevel", e.g. "INFO"
+    private static Level lookupLogLevel() {
         Level level = null;
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
@@ -134,96 +113,25 @@ public final class AppLoggingSystem {
         }
 
         if (level == null) {
-            storage.setString(Preferences.KEY_LOG_LEVEL, Level.INFO.getLocalizedName());
+            storage.setString(Preferences.KEY_LOG_LEVEL, Level.ALL.getLocalizedName());
         }
 
-        return level == null ? Level.INFO : level;
-    }
-
-    private static void setFormattersToFileHandlers() {
-        fileHandlerImportant.setFormatter(new XMLFormatter());
-        fileHandlerAllMsgs.setFormatter(new SimpleFormatter());
-    }
-
-    // Else on Windows ANSII will be used
-    private static void setEncodingToFileHandlers() throws SecurityException, UnsupportedEncodingException {
-        fileHandlerImportant.setEncoding("UTF-8");
-        fileHandlerAllMsgs.setEncoding("UTF-8");
-    }
-
-    private static void createAppLogger() {
-        try {
-            appLogger = Logger.getLogger("org.jphototagger");
-
-            // Handlers are restricting the output
-            appLogger.setLevel(Level.ALL);
-
-            // Don't log info records twice
-            appLogger.setUseParentHandlers(false);
-            LogManager.getLogManager().addLogger(appLogger);
-        } catch (Exception ex) {
-            ex.printStackTrace(); // indented (Loggers, Handlers etc. may not be work)
-        }
-    }
-
-    private static void addHandlersToLogger(Logger logger) {
-        synchronized (HANDLERS) {
-            for (Handler handler : HANDLERS) {
-                logger.addHandler(handler);
-            }
-        }
-    }
-
-    public static void flush(HandlerType handler) {
-        switch (handler) {
-            case SYSTEM_OUT:
-                if (systemOutHandler != null) {
-                    systemOutHandler.flush();
-                }
-
-                break;
-
-            case FILE:
-                if (fileHandlerImportant != null) {
-                    fileHandlerImportant.flush();
-                }
-
-                if (fileHandlerAllMsgs != null) {
-                    fileHandlerAllMsgs.flush();
-                }
-
-                break;
-
-            default:
-                assert false;
-        }
+        return level == null ? Level.ALL : level;
     }
 
     /**
      *
      * @return full path name
      */
-    public static String getLogfilePathErrorMessages() {
-        return getLogfilePathPrefix() + "-error-0.xml";
+    public static String getErrorMessagesLogfilePath() {
+        return ERROR_MESSAGES_LOGFILE_PATH;
     }
 
     /**
      *
      * @return full path name
      */
-    public static String geLogfilePathAllMessages() {
-        return getLogfilePathPrefix() + "-all-0.txt";
-    }
-
-    private static String getLogfilePathPatternErrorMessages() {
-        return getLogfilePathPrefix() + "-error-%g.xml";
-    }
-
-    private static String getLogfilePathPatternAllMessages() {
-        return getLogfilePathPrefix() + "-all-%g.txt";
-    }
-
-    private static String getLogfilePathPrefix() {
-        return LOGFILE_PATH_DIR + File.separator + "jphototagger-log";
+    public static String getAllMessagesLogfilePath() {
+        return ALL_MESSAGES_LOGFILE_PATH;
     }
 }
