@@ -14,7 +14,7 @@ import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.event.UserPropertyChangedEvent;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.program.helper.UpdateAllThumbnails;
-import org.jphototagger.program.image.thumbnail.ThumbnailDefaults;
+import org.jphototagger.image.thumbnail.ThumbnailDefaults;
 import org.jphototagger.program.types.Persistence;
 
 /**

@@ -1,12 +1,12 @@
-package org.jphototagger.program.view.panels;
+package org.jphototagger.image.thumbnail;
 
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
+import org.jphototagger.image.thumbnail.ThumbnailCreationStrategy;
+import org.jphototagger.image.thumbnail.ThumbnailCreationStrategyProvider;
 import org.jphototagger.api.preferences.Preferences;
-import org.jphototagger.program.app.AppPreferencesKeys;
-import org.jphototagger.program.image.thumbnail.ThumbnailCreationStrategy;
-import org.jphototagger.program.image.thumbnail.ThumbnailCreationStrategyProvider;
+import org.jphototagger.image.ImagePreferencesKeys;
 
 /**
  *
@@ -21,8 +21,8 @@ public class ThumbnailCreationStrategyProviderImpl implements ThumbnailCreationS
     @Override
     public ThumbnailCreationStrategy getThumbnailCreationStrategy() {
 
-        return storage.containsKey(AppPreferencesKeys.KEY_THUMBNAIL_CREATION_CREATOR)
-                ? ThumbnailCreationStrategy.valueOf(storage.getString(AppPreferencesKeys.KEY_THUMBNAIL_CREATION_CREATOR))
+        return storage.containsKey(ImagePreferencesKeys.KEY_THUMBNAIL_CREATION_CREATOR)
+                ? ThumbnailCreationStrategy.valueOf(storage.getString(ImagePreferencesKeys.KEY_THUMBNAIL_CREATION_CREATOR))
                 : ThumbnailCreationStrategy.JAVA_IMAGE_IO;
     }
 }

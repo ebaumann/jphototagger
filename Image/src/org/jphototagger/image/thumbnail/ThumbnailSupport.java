@@ -1,4 +1,4 @@
-package org.jphototagger.program.image.thumbnail;
+package org.jphototagger.image.thumbnail;
 
 import java.io.File;
 import java.util.Collections;
@@ -12,9 +12,9 @@ import org.jphototagger.lib.io.FileUtil;
  *
  * @author Elmar Baumann
  */
-public final class ThumbnailSupport {
+final class ThumbnailSupport {
 
-    public static final ThumbnailSupport INSTANCE = new ThumbnailSupport();
+    static final ThumbnailSupport INSTANCE = new ThumbnailSupport();
     private static final Set<String> SUPPORTED_SUFFIXES_LOWERCASE = new HashSet<String>();
     private static final Set<String> SCALED_IMAGE_SUFFIXES_LOWERCASE = new HashSet<String>();
     private static final Set<String> EMBEDDED_THUMBNAILS_SUFFIXES_LOWERCASE = new HashSet<String>();

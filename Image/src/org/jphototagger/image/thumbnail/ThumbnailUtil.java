@@ -1,4 +1,4 @@
-package org.jphototagger.program.image.thumbnail;
+package org.jphototagger.image.thumbnail;
 
 import java.awt.Container;
 import java.awt.Graphics2D;
@@ -24,20 +24,17 @@ import com.imagero.reader.tiff.TiffReader;
 
 import org.openide.util.Lookup;
 
+import org.jphototagger.api.image.exif.ExifInfo;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.filetypes.UserDefinedFileType;
 import org.jphototagger.domain.repository.UserDefinedFileTypesRepository;
-import org.jphototagger.exif.ExifMetadata;
-import org.jphototagger.exif.ExifTag;
-import org.jphototagger.exif.ExifTags;
-import org.jphototagger.exif.ExifThumbnailUtil;
+import org.jphototagger.image.ImagePreferencesKeys;
 import org.jphototagger.image.util.ImageTransform;
 import org.jphototagger.image.util.ThumbnailCreatorService;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.runtime.External;
 import org.jphototagger.lib.runtime.ExternalOutput;
 import org.jphototagger.lib.swing.IconUtil;
-import org.jphototagger.program.app.AppPreferencesKeys;
 
 /**
  *
@@ -80,7 +77,7 @@ final class ThumbnailUtil {
     private static String getExternalThumbnailCreationCommand() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.getString(AppPreferencesKeys.KEY_THUMBNAIL_CREATION_EXTERNAL_COMMAND);
+        return storage.getString(ImagePreferencesKeys.KEY_THUMBNAIL_CREATION_EXTERNAL_COMMAND);
     }
 
     static ThumbnailCreationStrategy getThumbnailCreationStrategy() {
@@ -225,16 +222,8 @@ final class ThumbnailUtil {
         Image rotatedThumbnail = thumbnail;
 
         if (thumbnail != null) {
-            ExifTags exifTags = ExifMetadata.getCachedExifTags(file);
-            double rotateAngle = 0.0;
-
-            if (exifTags != null) {
-                ExifTag exifTag = exifTags.findExifTagByTagId(274);
-
-                if (exifTag != null) {
-                    rotateAngle = ExifThumbnailUtil.getThumbnailRotationAngle(exifTag);
-                }
-            }
+            ExifInfo exifInfo = Lookup.getDefault().lookup(ExifInfo.class);
+            double rotateAngle = exifInfo.getRotationAngleOfEmbeddedThumbnail(file);
 
             LOGGER.log(Level.INFO, "Rotating extracted thumbnail that was embedded file ''{0}''", file);
             rotatedThumbnail = ImageTransform.rotate(thumbnail, rotateAngle);
@@ -304,8 +293,8 @@ final class ThumbnailUtil {
     private static int getMaxSecondsToTerminateExternalPrograms() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(AppPreferencesKeys.KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS)
-                ? storage.getInt(AppPreferencesKeys.KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS)
+        return storage.containsKey(ImagePreferencesKeys.KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS)
+                ? storage.getInt(ImagePreferencesKeys.KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS)
                 : 60;
     }
 
