@@ -8,7 +8,7 @@ import org.openide.util.lookup.ServiceProvider;
  * @author Elmar Baumann
  */
 @ServiceProvider(service = org.jphototagger.api.startup.AppStartupLock.class)
-public final class ApplicationStartupLockImpl implements org.jphototagger.api.startup.AppStartupLock {
+public final class AppStartupLockImpl implements org.jphototagger.api.startup.AppStartupLock {
 
     @Override
     public boolean forceStartupLock() {
