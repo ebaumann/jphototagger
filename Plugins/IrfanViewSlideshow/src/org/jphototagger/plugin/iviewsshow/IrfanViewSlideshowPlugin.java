@@ -24,7 +24,7 @@ import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.system.SystemUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.SystemProperties;
-import org.jphototagger.plugin.AbstractFileProcessorPlugin;
+import org.jphototagger.lib.plugin.AbstractFileProcessorPlugin;
 
 /**
  *
