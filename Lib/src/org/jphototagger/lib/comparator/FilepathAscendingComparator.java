@@ -11,7 +11,7 @@ import org.jphototagger.lib.util.ClassEquality;
  *
  * @author Elmar Baumann
  */
-public final class FilepathsAscendingComparator extends ClassEquality implements Comparator<File>, Serializable {
+public final class FilepathAscendingComparator extends ClassEquality implements Comparator<File>, Serializable {
 
     private static final long serialVersionUID = 8731853438844814710L;
 
