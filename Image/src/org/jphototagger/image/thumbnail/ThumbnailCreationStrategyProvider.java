@@ -1,4 +1,4 @@
-package org.jphototagger.program.image.thumbnail;
+package org.jphototagger.image.thumbnail;
 
 /**
  *

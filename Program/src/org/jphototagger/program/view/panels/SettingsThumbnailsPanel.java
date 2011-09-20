@@ -15,11 +15,12 @@ import javax.swing.JRadioButton;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.image.thumbnails.ExternalThumbnailCreationCommand;
+import org.jphototagger.image.thumbnail.ThumbnailCreationStrategy;
 import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.image.ImagePreferencesKeys;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.program.app.AppPreferencesKeys;
-import org.jphototagger.program.image.thumbnail.ThumbnailCreationStrategy;
-import org.jphototagger.program.image.thumbnail.ThumbnailCreationStrategyProvider;
+import org.jphototagger.image.thumbnail.ThumbnailCreationStrategyProvider;
 import org.jphototagger.program.types.Persistence;
 
 /**
@@ -69,7 +70,7 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
     private String getExternalThumbnailCreationCommand() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.getString(AppPreferencesKeys.KEY_THUMBNAIL_CREATION_EXTERNAL_COMMAND);
+        return storage.getString(ImagePreferencesKeys.KEY_THUMBNAIL_CREATION_EXTERNAL_COMMAND);
     }
 
     private void setSelectedRadioButtons() {
@@ -145,7 +146,7 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
     private void setExternalThumbnailCreationCommand(String command) {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setString(AppPreferencesKeys.KEY_THUMBNAIL_CREATION_EXTERNAL_COMMAND, command);
+        storage.setString(ImagePreferencesKeys.KEY_THUMBNAIL_CREATION_EXTERNAL_COMMAND, command);
     }
 
     private void setDisplayThumbnailTooltip() {
@@ -178,7 +179,7 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
     private void setThumbnailCreationStrategy(ThumbnailCreationStrategy creator) {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setString(AppPreferencesKeys.KEY_THUMBNAIL_CREATION_CREATOR, creator.name());
+        storage.setString(ImagePreferencesKeys.KEY_THUMBNAIL_CREATION_CREATOR, creator.name());
     }
 
     /**

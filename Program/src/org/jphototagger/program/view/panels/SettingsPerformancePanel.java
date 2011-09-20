@@ -8,6 +8,7 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.DomainPreferencesKeys;
+import org.jphototagger.image.ImagePreferencesKeys;
 import org.jphototagger.iptc.IptcPreferencesKeys;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.program.app.AppPreferencesKeys;
@@ -35,7 +36,7 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel implement
     private void setMaxSecondsToTerminateExternalPrograms(Integer seconds) {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setInt(AppPreferencesKeys.KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS, seconds);
+        storage.setInt(ImagePreferencesKeys.KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS, seconds);
     }
 
     private void setScanForEmbeddedXmp() {
@@ -146,8 +147,8 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel implement
     private int getMaxSecondsToTerminateExternalPrograms() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(AppPreferencesKeys.KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS)
-                ? storage.getInt(AppPreferencesKeys.KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS)
+        return storage.containsKey(ImagePreferencesKeys.KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS)
+                ? storage.getInt(ImagePreferencesKeys.KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS)
                 : 60;
     }
 

@@ -19,7 +19,7 @@ import org.jphototagger.domain.event.UserPropertyChangedEvent;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsChangedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.event.util.KeyEventUtil;
-import org.jphototagger.program.image.thumbnail.ThumbnailDefaults;
+import org.jphototagger.image.thumbnail.ThumbnailDefaults;
 import org.jphototagger.program.resource.GUI;
 
 /**
