@@ -1,4 +1,4 @@
-package org.jphototagger.program.comparator;
+package org.jphototagger.exif.comparator;
 
 import java.io.File;
 import java.io.Serializable;

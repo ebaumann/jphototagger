@@ -1,4 +1,4 @@
-package org.jphototagger.program.comparator;
+package org.jphototagger.domain.comparator;
 
 import java.io.File;
 import java.io.Serializable;
@@ -14,9 +14,9 @@ import org.jphototagger.lib.util.ClassEquality;
  *
  * @author Elmar Baumann
  */
-public final class ExifFocalLengthDescendingComparator extends ClassEquality implements Comparator<File>, Serializable {
+public final class ExifFocalLengthAscendingComparator extends ClassEquality implements Comparator<File>, Serializable {
 
-    private static final long serialVersionUID = 8930101703487566400L;
+    private static final long serialVersionUID = -3547538589063666249L;
     private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
 
     @Override
@@ -27,12 +27,12 @@ public final class ExifFocalLengthDescendingComparator extends ClassEquality imp
         return ((exifLeft == null) && (exifRight == null))
                 ? 0
                 : ((exifLeft == null) && (exifRight != null))
-                ? 1
-                : ((exifLeft != null) && (exifRight == null))
                 ? -1
-                : (exifRight.getFocalLength() > exifLeft.getFocalLength())
+                : ((exifLeft != null) && (exifRight == null))
                 ? 1
-                : (exifRight.getFocalLength() == exifLeft.getFocalLength())
+                : (exifLeft.getFocalLength() > exifRight.getFocalLength())
+                ? 1
+                : (exifLeft.getFocalLength() == exifRight.getFocalLength())
                 ? 0
                 : -1;
     }
