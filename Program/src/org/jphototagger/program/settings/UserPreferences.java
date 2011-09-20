@@ -10,7 +10,6 @@ import org.jphototagger.domain.repository.FileRepositoryProvider;
 import org.jphototagger.lib.util.PropertiesFile;
 import org.jphototagger.lib.util.Settings;
 import org.jphototagger.program.app.AppInfo;
-import org.jphototagger.program.app.update.UpdateUserSettings;
 
 /**
  * Stores user settings in a single {@code java.util.Properties} instance.
@@ -29,7 +28,6 @@ final class UserPreferences {
 
     private UserPreferences() {
         propertiesFile.readFromFile();
-        UpdateUserSettings.update(properties);
         settings.removeKeysWithEmptyValues();
         writeToFile();
     }
