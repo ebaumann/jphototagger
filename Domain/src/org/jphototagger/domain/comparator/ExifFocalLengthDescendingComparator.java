@@ -1,4 +1,4 @@
-package org.jphototagger.program.comparator;
+package org.jphototagger.domain.comparator;
 
 import java.io.File;
 import java.io.Serializable;
@@ -14,9 +14,9 @@ import org.jphototagger.lib.util.ClassEquality;
  *
  * @author Elmar Baumann
  */
-public final class ExifIsoSpeedRatingDescendingComparator extends ClassEquality implements Comparator<File>, Serializable {
+public final class ExifFocalLengthDescendingComparator extends ClassEquality implements Comparator<File>, Serializable {
 
-    private static final long serialVersionUID = -3791741623919608627L;
+    private static final long serialVersionUID = 8930101703487566400L;
     private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
 
     @Override
@@ -30,6 +30,10 @@ public final class ExifIsoSpeedRatingDescendingComparator extends ClassEquality 
                 ? 1
                 : ((exifLeft != null) && (exifRight == null))
                 ? -1
-                : exifRight.getIsoSpeedRatings() - exifLeft.getIsoSpeedRatings();
+                : (exifRight.getFocalLength() > exifLeft.getFocalLength())
+                ? 1
+                : (exifRight.getFocalLength() == exifLeft.getFocalLength())
+                ? 0
+                : -1;
     }
 }

@@ -1,4 +1,4 @@
-package org.jphototagger.program.comparator;
+package org.jphototagger.domain.comparator;
 
 import java.io.File;
 import java.io.Serializable;
@@ -16,9 +16,9 @@ import org.jphototagger.lib.util.ClassEquality;
  *
  * @author Elmar Baumann
  */
-public final class XmpIptcLocationDescendingComparator extends ClassEquality implements Comparator<File>, Serializable {
+public final class XmpIptcLocationAscendingComparator extends ClassEquality implements Comparator<File>, Serializable {
 
-    private static final long serialVersionUID = -3947931666327801561L;
+    private static final long serialVersionUID = -6946394073635783198L;
     private transient Collator collator = Collator.getInstance();
     private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
 
@@ -36,9 +36,9 @@ public final class XmpIptcLocationDescendingComparator extends ClassEquality imp
         return ((locLeft == null) && (locRight == null))
                 ? 0
                 : ((locLeft == null) && (locRight != null))
-                ? 1
-                : ((locLeft != null) && (locRight == null))
                 ? -1
-                : collator.compare(locRight, locLeft);
+                : ((locLeft != null) && (locRight == null))
+                ? 1
+                : collator.compare(locLeft, locRight);
     }
 }

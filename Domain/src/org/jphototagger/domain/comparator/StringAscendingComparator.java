@@ -1,4 +1,4 @@
-package org.jphototagger.program.comparator;
+package org.jphototagger.domain.comparator;
 
 import java.text.Collator;
 import java.util.Comparator;

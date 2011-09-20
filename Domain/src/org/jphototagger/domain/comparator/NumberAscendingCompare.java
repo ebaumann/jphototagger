@@ -1,4 +1,4 @@
-package org.jphototagger.program.comparator;
+package org.jphototagger.domain.comparator;
 
 /**
  * Compares numbers that can be null. If a number is null, it is always lesser
