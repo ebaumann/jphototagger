@@ -160,7 +160,7 @@ public final class HelpController implements ActionListener, HelpBrowserListener
     private void sendBugMail() {
         String mailto = AppInfo.MAIL_TO_ADDRESS_BUGS;
         String subject = AppInfo.MAIL_SUBJECT_BUGS;
-        String message = Bundle.getString(HelpController.class, "SendMailController..Info.AttachLogfile", AppLoggingSystem.geLogfilePathAllMessages());
+        String message = Bundle.getString(HelpController.class, "SendMailController.Info.AttachLogfile", AppLoggingSystem.getAllMessagesLogfilePath());
 
         sendMail(mailto, subject, message);
     }
@@ -177,7 +177,7 @@ public final class HelpController implements ActionListener, HelpBrowserListener
             Desktop.getDesktop().mail(uri);
         } catch (Exception ex) {
             Logger.getLogger(HelpController.class.getName()).log(Level.SEVERE, null, ex);
-            String message = Bundle.getString(HelpController.class, "SendMailController..Error.SendMail");
+            String message = Bundle.getString(HelpController.class, "SendMailController.Error.SendMail");
             MessageDisplayer.error(null, message);
         }
     }
