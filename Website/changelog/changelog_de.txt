@@ -3,13 +3,11 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
-0.9.4 2011-09-
+0.9.4 2011-09-21
 ----------------
 * Protokolldateien werden nicht mehr rotiert. Die Logdatei mit
   allen Nachrichten heißt jetzt immer "jphototagger-log-all.txt" und
-  jene mit den Fehlern "jphototagger-log-errors". Die bisherigen
-  Protoklldateien gleichen Namens mit Bindestrich und Ziffern dahinter
-  können/sollten gelöscht werden.
+  jene mit den Fehlern "jphototagger-log-errors.xml".
 * Bugfix: Kurzinfo in E-Mail-Nachrichten erscheint wieder anstelle eines
   Bezeichners zwischen zwei Fragezeichen
 

@@ -7,7 +7,7 @@ package org.jphototagger.program.types;
  */
 public interface Persistence {
 
-    void readProperties();
+    void restore();
 
-    void writeProperties();
+    void persist();
 }

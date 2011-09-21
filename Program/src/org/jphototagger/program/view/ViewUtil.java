@@ -17,7 +17,7 @@ import javax.swing.tree.TreePath;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
-import org.jphototagger.api.storage.SettingsDirectoryProvider;
+import org.jphototagger.api.storage.PreferencesDirectoryProvider;
 import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
@@ -107,8 +107,8 @@ public class ViewUtil {
 
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
         String prevCurrentDir = storage.getString(keyCurrentDir);
-        SettingsDirectoryProvider provider = Lookup.getDefault().lookup(SettingsDirectoryProvider.class);
-        String userDirectory = provider.getUserSettingsDirectory().getAbsolutePath();
+        PreferencesDirectoryProvider provider = Lookup.getDefault().lookup(PreferencesDirectoryProvider.class);
+        String userDirectory = provider.getUserPreferencesDirectory().getAbsolutePath();
         File currentDir = new File(prevCurrentDir.isEmpty()
                 ? userDirectory
                 : prevCurrentDir);

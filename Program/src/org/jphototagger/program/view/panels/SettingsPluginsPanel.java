@@ -118,14 +118,14 @@ public class SettingsPluginsPanel extends javax.swing.JPanel implements ChangeLi
     }
 
     @Override
-    public void readProperties() {
+    public void restore() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         storage.applyTabbedPaneSettings(KEY_TABBED_PANE, tabbedPane, null);
     }
 
     @Override
-    public void writeProperties() {
+    public void persist() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         storage.setTabbedPane(KEY_TABBED_PANE, tabbedPane, null);

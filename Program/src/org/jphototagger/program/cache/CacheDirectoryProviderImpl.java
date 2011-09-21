@@ -6,7 +6,7 @@ import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
 import org.jphototagger.api.storage.CacheDirectoryProvider;
-import org.jphototagger.api.storage.SettingsDirectoryProvider;
+import org.jphototagger.api.storage.PreferencesDirectoryProvider;
 
 /**
  *
@@ -19,8 +19,8 @@ public final class CacheDirectoryProviderImpl implements CacheDirectoryProvider 
     private static final String CACHE_DIRECTORY_ROOT_PATHNAME;
 
     static {
-        SettingsDirectoryProvider provider = Lookup.getDefault().lookup(SettingsDirectoryProvider.class);
-        File userDirectory = provider.getUserSettingsDirectory();
+        PreferencesDirectoryProvider provider = Lookup.getDefault().lookup(PreferencesDirectoryProvider.class);
+        File userDirectory = provider.getUserPreferencesDirectory();
 
         CACHE_DIRECTORY_ROOT_PATHNAME = userDirectory + File.separator + "cache";
     }

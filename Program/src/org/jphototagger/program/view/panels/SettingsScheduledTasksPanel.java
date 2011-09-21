@@ -53,7 +53,7 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel implem
     }
 
     @Override
-    public void readProperties() {
+    public void restore() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         spinnerMinutesToStartScheduledTasks.setValue(ScheduledTasks.getMinutesToStartScheduledTasks());
@@ -77,7 +77,7 @@ public final class SettingsScheduledTasksPanel extends javax.swing.JPanel implem
     }
 
     @Override
-    public void writeProperties() {
+    public void persist() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         storage.setString(KEY_LAST_SELECTED_AUTOSCAN_DIRECTORY, lastSelectedAutoscanDirectory);

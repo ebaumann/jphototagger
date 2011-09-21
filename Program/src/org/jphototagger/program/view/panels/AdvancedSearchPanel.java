@@ -56,10 +56,6 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
     private final transient ListenerSupport<NameListener> ls = new ListenerSupport<NameListener>();
     private final JPanel panelPadding = new JPanel();
 
-    public interface NameListener {
-        void nameChanged(String newName);
-    }
-
     public AdvancedSearchPanel() {
         initComponents();
         postInitComponents();
@@ -183,7 +179,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
     }
 
     @Override
-    public void readProperties() {
+    public void restore() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         if (storage.containsKey(KEY_SELECTED_TAB_INDEX)) {
@@ -192,7 +188,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
     }
 
     @Override
-    public void writeProperties() {
+    public void persist() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
         storage.setInt(KEY_SELECTED_TAB_INDEX, tabbedPane.getSelectedIndex());
     }
@@ -210,7 +206,11 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
         int index = 0;
 
         while (!valid && (index < columnCount)) {
-            valid = !searchColumnPanels.get(index++).getValue().isEmpty();
+            SearchColumnPanel searchColumnPanel = searchColumnPanels.get(index);
+            String value = searchColumnPanel.getValue();
+            
+            valid = !value.isEmpty();
+            index++;
         }
 
         valid = valid && checkBrackets();
@@ -357,7 +357,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
 
     private void setSelectedComponent(Component c) {
         tabbedPane.setSelectedComponent(c);
-        writeProperties();
+        persist();
     }
 
     private boolean existsSimpleSqlValue() {

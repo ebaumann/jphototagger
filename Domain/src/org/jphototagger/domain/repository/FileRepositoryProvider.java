@@ -17,7 +17,5 @@ public interface FileRepositoryProvider {
 
     File getDefaultFileRepositoryDirectory();
 
-    String getFileRepositoryFileName(FilenameTokens name);
-
-    String getFileRepositoryFileBasename();
+    String getFileRepositoryFileName(FilenameTokens filenameTokens);
 }

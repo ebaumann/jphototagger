@@ -61,7 +61,7 @@ public class SettingsThumbnailDimensionsPanel extends javax.swing.JPanel impleme
     }
 
     @Override
-    public void readProperties() {
+    public void restore() {
         spinnerMaxThumbnailWidth.setValue(getMaxThumbnailWidth());
     }
 
@@ -75,7 +75,7 @@ public class SettingsThumbnailDimensionsPanel extends javax.swing.JPanel impleme
     }
 
     @Override
-    public void writeProperties() {
+    public void persist() {
         // ignore
     }
 

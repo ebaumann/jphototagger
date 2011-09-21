@@ -3,7 +3,6 @@ package org.jphototagger.program.types;
 import java.io.File;
 
 /**
- * Edits a file.
  *
  * @author Elmar Baumann
  */

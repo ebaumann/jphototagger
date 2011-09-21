@@ -52,11 +52,11 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel implements P
     }
 
     @Override
-    public void readProperties() {
+    public void restore() {
     }
 
     @Override
-    public void writeProperties() {
+    public void persist() {
     }
 
     private void addProgram() {

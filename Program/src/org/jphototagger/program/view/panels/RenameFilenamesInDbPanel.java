@@ -128,7 +128,7 @@ public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener
     }
 
     @Override
-    public void readProperties() {
+    public void restore() {
         if (this == null) {
             throw new NullPointerException("this == null");
         }
@@ -140,7 +140,7 @@ public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener
     }
 
     @Override
-    public void writeProperties() {
+    public void persist() {
         if (this == null) {
             throw new NullPointerException("this == null");
         }

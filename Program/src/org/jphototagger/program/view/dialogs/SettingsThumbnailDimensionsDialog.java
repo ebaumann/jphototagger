@@ -26,9 +26,9 @@ public class SettingsThumbnailDimensionsDialog extends Dialog {
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            panelSettingsThumbnailDimensions.readProperties();
+            panelSettingsThumbnailDimensions.restore();
         } else {
-            panelSettingsThumbnailDimensions.writeProperties();
+            panelSettingsThumbnailDimensions.persist();
         }
 
         super.setVisible(visible);

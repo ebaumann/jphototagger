@@ -45,9 +45,9 @@ public class RenameFilenamesInDbDialog extends Dialog {
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            panelDbFilenameReplace.readProperties();
+            panelDbFilenameReplace.restore();
         } else {
-            panelDbFilenameReplace.writeProperties();
+            panelDbFilenameReplace.persist();
         }
 
         super.setVisible(visible);

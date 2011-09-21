@@ -51,10 +51,10 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
     }
 
     @Override
-    public void readProperties() {
+    public void restore() {
         setSelectedRadioButtons();
         setExternalThumbnailAppEnabled();
-        panelSettingsThumbnailDimensions.readProperties();
+        panelSettingsThumbnailDimensions.restore();
         textFieldExternalThumbnailCreationCommand.setText(getExternalThumbnailCreationCommand());
         checkBoxDisplayThumbnailTooltip.setSelected(isDisplayThumbnailTooltip());
     }
@@ -162,7 +162,7 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
     }
 
     @Override
-    public void writeProperties() {}
+    public void persist() {}
 
     private void handleTextFieldExternalThumbnailCreationCommandKeyReleased() {
         setExternalThumbnailCreationCommand(textFieldExternalThumbnailCreationCommand.getText());

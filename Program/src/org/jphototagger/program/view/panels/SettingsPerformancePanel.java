@@ -101,7 +101,7 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel implement
     }
 
     @Override
-    public void readProperties() {
+    public void restore() {
         checkBoxDisplayIptc.setSelected(isDisplayIptc());
         checkBoxScanForEmbeddedXmp.setSelected(isScanForEmbeddedXmp());
         checkBoxSaveInputEarly.setSelected(isSaveInputEarly());
@@ -173,7 +173,7 @@ public final class SettingsPerformancePanel extends javax.swing.JPanel implement
     }
 
     @Override
-    public void writeProperties() {}
+    public void persist() {}
 
     /**
      * This method is called from within the constructor to
