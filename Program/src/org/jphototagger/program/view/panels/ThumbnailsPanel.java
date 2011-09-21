@@ -75,7 +75,7 @@ import org.jphototagger.program.datatransfer.ThumbnailsPanelTransferHandler;
 import org.jphototagger.program.helper.WarnOnEqualBasenamesTask;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.types.FileAction;
-import org.jphototagger.program.types.SizeUnit;
+import org.jphototagger.program.types.ByteSizeUnit;
 import org.jphototagger.program.view.popupmenus.ThumbnailsPopupMenu;
 import org.jphototagger.program.view.renderer.ThumbnailPanelRenderer;
 import org.jphototagger.xmp.XmpMetadata;
@@ -848,7 +848,7 @@ public class ThumbnailsPanel extends JPanel
                     ? ""
                     : flag.getString();
             long length = file.length();
-            SizeUnit unit = SizeUnit.unit(length);
+            ByteSizeUnit unit = ByteSizeUnit.unit(length);
             long unitLength = length / unit.bytes();
             Date date = new Date(file.lastModified());
             String unitString = unit.toString();

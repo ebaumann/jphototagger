@@ -15,7 +15,7 @@ import org.openide.util.Lookup;
 import org.jphototagger.api.concurrent.CancelRequest;
 import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.api.preferences.Preferences;
-import org.jphototagger.api.storage.SettingsDirectoryProvider;
+import org.jphototagger.api.storage.PreferencesDirectoryProvider;
 import org.jphototagger.domain.repository.ApplicationPropertiesRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
@@ -189,8 +189,8 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
     }
 
     private File getDownloadFile() {
-        SettingsDirectoryProvider provider = Lookup.getDefault().lookup(SettingsDirectoryProvider.class);
-        String userDirectory = provider.getUserSettingsDirectory().getAbsolutePath();
+        PreferencesDirectoryProvider provider = Lookup.getDefault().lookup(PreferencesDirectoryProvider.class);
+        String userDirectory = provider.getUserPreferencesDirectory().getAbsolutePath();
         String dirname = userDirectory;
         String filename = SystemUtil.isWindows()
                 ? FILENAME_WINDOWS

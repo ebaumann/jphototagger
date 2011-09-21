@@ -20,7 +20,6 @@ import org.jphototagger.program.view.dialogs.CopyToDirectoryDialog;
 import org.jphototagger.xmp.XmpMetadata;
 
 /**
- * Utilities for images.
  *
  * @author Elmar Baumann
  */

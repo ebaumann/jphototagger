@@ -10,7 +10,7 @@ import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
 import org.jphototagger.api.image.thumbnails.ExternalThumbnailCreationCommand;
-import org.jphototagger.api.storage.SettingsDirectoryProvider;
+import org.jphototagger.api.storage.PreferencesDirectoryProvider;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.system.SystemUtil;
 import org.jphototagger.lib.util.Bundle;
@@ -56,8 +56,8 @@ public final class ImageMagickDcrawThumbnailCreator implements ExternalThumbnail
             return null;
         }
 
-        SettingsDirectoryProvider provider = Lookup.getDefault().lookup(SettingsDirectoryProvider.class);
-        File userDirectory = provider.getPluginSettingsDirectory();
+        PreferencesDirectoryProvider provider = Lookup.getDefault().lookup(PreferencesDirectoryProvider.class);
+        File userDirectory = provider.getPluginPreferencesDirectory();
 
         if (userDirectory == null) {
             errorMessageUserDirectory();

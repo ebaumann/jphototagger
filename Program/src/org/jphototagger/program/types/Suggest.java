@@ -3,7 +3,6 @@ package org.jphototagger.program.types;
 import java.util.Collection;
 
 /**
- * Suggests text.
  *
  * @author Elmar Baumann
  */
@@ -12,10 +11,10 @@ public interface Suggest {
     /**
      * Suggests text.
      *
-     * @param  text text for searching suggestions
-     * @return      text suggestions for that text
+     * @param  input text for searching suggestions
+     * @return text suggestions for that text
      */
-    Collection<String> suggest(String text);
+    Collection<String> suggest(String input);
 
     /**
      * Returns a description what this class does.

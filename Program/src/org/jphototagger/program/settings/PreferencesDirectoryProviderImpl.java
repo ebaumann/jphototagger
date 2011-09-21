@@ -6,30 +6,30 @@ import java.util.logging.Logger;
 
 import org.openide.util.lookup.ServiceProvider;
 
-import org.jphototagger.api.storage.SettingsDirectoryProvider;
+import org.jphototagger.api.storage.PreferencesDirectoryProvider;
 
 /**
  *
  *
  * @author Elmar Baumann
  */
-@ServiceProvider(service = SettingsDirectoryProvider.class)
-public final class SettingsDirectoryProviderImpl implements SettingsDirectoryProvider {
+@ServiceProvider(service = PreferencesDirectoryProvider.class)
+public final class PreferencesDirectoryProviderImpl implements PreferencesDirectoryProvider {
 
     private static final String SETTINGS_DIRECTORY_NAME = UserPreferences.INSTANCE.getSettingsDirectoryName();
     private static final File USER_DIRECTORY = new File(SETTINGS_DIRECTORY_NAME);
     private static final File PLUGIN_USER_DIRECTORY = new File(SETTINGS_DIRECTORY_NAME + File.separator + "pluginsettings");
-    private static final Logger LOGGER = Logger.getLogger(SettingsDirectoryProviderImpl.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(PreferencesDirectoryProviderImpl.class.getName());
 
     @Override
-    public File getUserSettingsDirectory() {
+    public File getUserPreferencesDirectory() {
         ensureDirectoryExists(USER_DIRECTORY);
 
         return USER_DIRECTORY;
     }
 
     @Override
-    public File getPluginSettingsDirectory() {
+    public File getPluginPreferencesDirectory() {
         ensureDirectoryExists(PLUGIN_USER_DIRECTORY);
 
         return PLUGIN_USER_DIRECTORY;

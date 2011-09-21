@@ -30,12 +30,7 @@ public final class FileRepositoryProviderImpl implements FileRepositoryProvider 
     }
 
     @Override
-    public String getFileRepositoryFileName(FilenameTokens name) {
-        return UserPreferences.INSTANCE.getDatabaseFileName(name);
-    }
-
-    @Override
-    public String getFileRepositoryFileBasename() {
-        return UserPreferences.getDatabaseBasename();
+    public String getFileRepositoryFileName(FilenameTokens filenameTokens) {
+        return UserPreferences.INSTANCE.getDatabaseFileName(filenameTokens);
     }
 }

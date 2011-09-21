@@ -58,18 +58,18 @@ final class UserPreferences {
         return getSettingsDirectoryName();
     }
 
-    String getDatabaseFileName(FilenameTokens name) {
-        if (name == null) {
-            throw new NullPointerException("name == null");
+    String getDatabaseFileName(FilenameTokens filenameTokens) {
+        if (filenameTokens == null) {
+            throw new NullPointerException("filenameTokens == null");
         }
 
-        if (!name.equals(FilenameTokens.FULL_PATH) && !name.equals(FilenameTokens.FULL_PATH_NO_SUFFIX)) {
-            throw new IllegalArgumentException("Illegal argument: " + name);
+        if (!filenameTokens.equals(FilenameTokens.FULL_PATH) && !filenameTokens.equals(FilenameTokens.FULL_PATH_NO_SUFFIX)) {
+            throw new IllegalArgumentException("Illegal argument: " + filenameTokens);
         }
 
         String directoryName = getDatabaseDirectoryName();
         String fileBasename = getDatabaseBasename();
-        boolean isFullPath = name.equals(FilenameTokens.FULL_PATH);
+        boolean isFullPath = filenameTokens.equals(FilenameTokens.FULL_PATH);
         String suffix = isFullPath ? ".data" : "";
 
         return directoryName + File.separator + fileBasename + suffix;

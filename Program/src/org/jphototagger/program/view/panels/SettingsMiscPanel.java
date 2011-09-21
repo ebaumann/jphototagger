@@ -196,7 +196,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
     }
 
     @Override
-    public void readProperties() {
+    public void restore() {
         FileRepositoryProvider provider = Lookup.getDefault().lookup(FileRepositoryProvider.class);
 
         checkBoxAutoDownloadCheck.setSelected(isCheckForUpdates());
@@ -243,7 +243,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
     }
 
     @Override
-    public void writeProperties() {
+    public void persist() {
     }
 
     private void checkDownload() {

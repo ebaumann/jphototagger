@@ -4,19 +4,24 @@ import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.AdvancedSearchPanel;
+import org.jphototagger.program.view.panels.NameListener;
 
 /**
  * Nicht modaler Dialog für eine erweiterte Suche.
  *
  * @author Elmar Baumann
  */
-public final class AdvancedSearchDialog extends Dialog implements AdvancedSearchPanel.NameListener {
+public final class AdvancedSearchDialog extends Dialog implements NameListener {
     public static final AdvancedSearchDialog INSTANCE = new AdvancedSearchDialog(false);
     private static final long serialVersionUID = -7381253840654600441L;
 
     private AdvancedSearchDialog(boolean modal) {
         super(GUI.getAppFrame(), modal);
         initComponents();
+        postInitComponents();
+    }
+
+    private void postInitComponents() {
         panel.addNameListener(this);
         setHelpContentsUrl("/org/jphototagger/program/resource/doc/de/contents.xml");
     }
@@ -24,7 +29,7 @@ public final class AdvancedSearchDialog extends Dialog implements AdvancedSearch
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            panel.readProperties();
+            panel.restore();
             setSearchName(panel.getSearchName());
         }
 
@@ -32,7 +37,7 @@ public final class AdvancedSearchDialog extends Dialog implements AdvancedSearch
     }
 
     private void beforeWindowClosing() {
-        panel.writeProperties();
+        panel.persist();
         panel.willDispose();
         setVisible(false);
     }

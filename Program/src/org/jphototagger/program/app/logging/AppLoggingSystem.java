@@ -13,7 +13,7 @@ import java.util.logging.XMLFormatter;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
-import org.jphototagger.api.storage.SettingsDirectoryProvider;
+import org.jphototagger.api.storage.PreferencesDirectoryProvider;
 import org.jphototagger.lib.io.FileUtil;
 
 /**
@@ -31,8 +31,8 @@ public final class AppLoggingSystem {
     private static boolean init;
 
     static {
-        SettingsDirectoryProvider provider = Lookup.getDefault().lookup(SettingsDirectoryProvider.class);
-        File userSettingsDirectory = provider.getUserSettingsDirectory();
+        PreferencesDirectoryProvider provider = Lookup.getDefault().lookup(PreferencesDirectoryProvider.class);
+        File userSettingsDirectory = provider.getUserPreferencesDirectory();
 
         LOGFILE_DIR_PATHNAME = userSettingsDirectory.getAbsolutePath();
         LOGFILE_PATH_PREFIX = LOGFILE_DIR_PATHNAME + File.separator + "jphototagger-log";
@@ -83,8 +83,8 @@ public final class AppLoggingSystem {
     }
 
     private static void ensureLogDirectoryExists() {
-        SettingsDirectoryProvider provider = Lookup.getDefault().lookup(SettingsDirectoryProvider.class);
-        File userDirectory = provider.getUserSettingsDirectory();
+        PreferencesDirectoryProvider provider = Lookup.getDefault().lookup(PreferencesDirectoryProvider.class);
+        File userDirectory = provider.getUserPreferencesDirectory();
         String settingsDirectoryName = userDirectory.getAbsolutePath();
         File settingsDirectory = new File(settingsDirectoryName);
 

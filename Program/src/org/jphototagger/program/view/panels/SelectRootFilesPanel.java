@@ -106,7 +106,7 @@ public class SelectRootFilesPanel extends javax.swing.JPanel implements Persiste
     }
 
     @Override
-    public void readProperties() {
+    public void restore() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
         List<String> rootFilePaths = storage.getStringCollection(persistenceKey);
         Set<JCheckBox> checkBoxes = ROOT_FILE_OF_CHECKBOX.keySet();
@@ -124,7 +124,7 @@ public class SelectRootFilesPanel extends javax.swing.JPanel implements Persiste
     }
 
     @Override
-    public void writeProperties() {
+    public void persist() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
         List<File> selectedRootFiles = getSelectedRootFiles();
         List<String> selectedRootFilePaths = new ArrayList<String>(selectedRootFiles.size());
@@ -149,7 +149,7 @@ public class SelectRootFilesPanel extends javax.swing.JPanel implements Persiste
             Object source = e.getSource();
 
             if (source instanceof JCheckBox) {
-                writeProperties();
+                persist();
             }
         }
     }

@@ -28,8 +28,8 @@ public enum FileAction {
     }
 
     /**
-     * Returns whether this action is a {@code FileAction#COPY} or a
-     * {@code FileAction#MOVE}.
+     * Returns whether this action is a {@code FileAction.COPY} or a
+     * {@code FileAction.MOVE}.
      *
      * @return true if this action is a copy action or a move action
      */

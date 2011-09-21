@@ -129,7 +129,7 @@ public final class SettingsDialog extends Dialog {
         storage.applyTabbedPaneSettings(KEY_INDEX_TABBED_PANE, tabbedPane, null);
 
         for (Persistence panel : persistentPanels) {
-            panel.readProperties();
+            panel.restore();
         }
     }
 
@@ -139,7 +139,7 @@ public final class SettingsDialog extends Dialog {
         storage.setTabbedPane(KEY_INDEX_TABBED_PANE, tabbedPane, null);
 
         for (Persistence panel : persistentPanels) {
-            panel.writeProperties();
+            panel.persist();
         }
     }
 

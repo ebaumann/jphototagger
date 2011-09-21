@@ -191,13 +191,13 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel i
     }
 
     @Override
-    public void readProperties() {
-        panelSelectRootFiles.readProperties();
+    public void restore() {
+        panelSelectRootFiles.restore();
     }
 
     @Override
-    public void writeProperties() {
-        panelSelectRootFiles.writeProperties();
+    public void persist() {
+        panelSelectRootFiles.persist();
     }
 
     @Override

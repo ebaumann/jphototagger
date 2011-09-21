@@ -193,7 +193,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel implements ListSele
     }
 
     @Override
-    public void readProperties() {
+    public void restore() {
         radioButtonExecuteAlways.setSelected(isExecuteActionsAfterImageChangeInDbAlways());
         radioButtonExecuteIfImageHasXmp.setSelected(isExecuteActionsAfterImageChangeInDbIfImageHasXmp());
     }
@@ -215,7 +215,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel implements ListSele
     }
 
     @Override
-    public void writeProperties() {
+    public void persist() {
 
         // ignore
     }
