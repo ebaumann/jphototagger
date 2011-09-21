@@ -11,18 +11,21 @@ import java.util.logging.Logger;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.lib.util.PositionComparatorAscendingOrder;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.event.listener.ListenerSupport;
 import org.jphototagger.domain.repository.RepositoryDataExporter;
 import org.jphototagger.domain.repository.RepositoryDataImporter;
 import org.jphototagger.lib.component.SelectObjectsPanel;
 import org.jphototagger.lib.component.SelectObjectsPanel.SelectionEvent;
+import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.DirectoryChooser;
 import org.jphototagger.lib.dialog.DirectoryChooser.Option;
+import org.jphototagger.lib.dialog.LongMessageDialog;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.util.CollectionUtil;
+import org.jphototagger.lib.util.PositionComparatorAscendingOrder;
 import org.jphototagger.program.resource.GUI;
 
 /**
@@ -37,14 +40,9 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
     private static final String KEY_SEL_INDICES_EXPORT = "ExportImportPanel.Export.SelIndices";
     private static final String KEY_SEL_INDICES_IMPORT = "ExportImportPanel.Import.SelIndices";
     private static final String KEY_LAST_DIR = "ExportImportPanel.LastDirectory";
-    private Context context = Context.EXPORT;
+    private ExportImportContext context = ExportImportContext.EXPORT;
     private File dir;
     private final transient ListenerSupport<ExportImportListener> ls = new ListenerSupport<ExportImportListener>();
-
-    public enum Context {
-        EXPORT,
-        IMPORT
-    }
 
     public ExportImportPanel() {
         initComponents();
@@ -53,7 +51,7 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
         // Do not call addObjects()!
     }
 
-    public ExportImportPanel(Context context) {
+    public ExportImportPanel(ExportImportContext context) {
         if (context == null) {
             throw new NullPointerException("context == null");
         }
@@ -84,7 +82,7 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
                                 : Bundle.getString(ExportImportPanel.class, "ExportImportPanel.LabelSelectInfo.Text.Import"));
     }
 
-    public void setContext(Context context) {
+    public void setContext(ExportImportContext context) {
         if (context == null) {
             throw new NullPointerException("context == null");
         }
@@ -113,7 +111,7 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
     }
 
     private boolean isExport() {
-        return context.equals(Context.EXPORT);
+        return context.equals(ExportImportContext.EXPORT);
     }
 
     private void setExportCheckBoxes() {
@@ -204,7 +202,7 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
     }
 
     private void exportImport() {
-        if (context.equals(Context.EXPORT)) {
+        if (context.equals(ExportImportContext.EXPORT)) {
             exportFiles();
         } else {
             importFiles();
@@ -215,8 +213,7 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
 
     private void exportFiles() {
         List<Object> selectedObjects = panelSelectObjects.getSelectedObjects();
-        List<File>   exportedFiles   =
-            new ArrayList<File>(selectedObjects.size());
+        List<File> exportedFiles  = new ArrayList<File>(selectedObjects.size());
 
         for (Object o : selectedObjects) {
             if (o instanceof RepositoryDataExporter) {
@@ -226,6 +223,19 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
                 exporter.exportFile(exportFile);
                 exportedFiles.add(exportFile);
             }
+        }
+        
+        displayFiles(Bundle.getString(ExportImportPanel.class, "ExportImportPanel.Info.ExportedFiles"), exportedFiles);
+    }
+    
+    private void displayFiles(String shortMessage, Collection<? extends File> files) {
+        if (files.size() > 0) {
+            LongMessageDialog dialog = new LongMessageDialog(ComponentUtil.getFrameWithIcon(), true);
+            String filesString = CollectionUtil.toTokenString(files, "\n", "");
+            
+            dialog.setShortMessage(shortMessage);
+            dialog.setLongMessage(filesString);
+            dialog.setVisible(true);
         }
     }
 
@@ -255,6 +265,8 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
                 }
             }
         }
+        
+        displayFiles(Bundle.getString(ExportImportPanel.class, "ExportImportPanel.Info.ImportedFiles"), importedFiles);
     }
 
     private void logImport(RepositoryDataImporter importer, File importFile) {
