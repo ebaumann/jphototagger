@@ -31,7 +31,6 @@ import org.jphototagger.domain.repository.RepositoryDataExporter;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.program.io.CharEncoding;
 import org.jphototagger.program.io.FilenameSuffixes;
 import org.jphototagger.program.model.KeywordsTreeModel;
 
@@ -151,7 +150,7 @@ public final class KeywordsExporterJpt implements RepositoryDataExporter {
 
     private void initTransformer(Transformer trans) throws IllegalArgumentException {
         trans.setOutputProperty(OutputKeys.METHOD, "xml");
-        trans.setOutputProperty(OutputKeys.ENCODING, CharEncoding.JPT_KEYWORDS);
+        trans.setOutputProperty(OutputKeys.ENCODING, "UTF8");
         trans.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, DTD);
         trans.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
         trans.setOutputProperty(OutputKeys.INDENT, "yes");

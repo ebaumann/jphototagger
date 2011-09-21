@@ -43,6 +43,14 @@
                 <id>jar</id>
             </reference>
             <reference>
+                <foreign-project>JPhotoTagger__Exporters_Importers__JPhotoTagger</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>build.xml</script>
+                <target>jar</target>
+                <clean-target>clean</clean-target>
+                <id>jar</id>
+            </reference>
+            <reference>
                 <foreign-project>JPhotoTagger__External_Thumbnail_Creation_Commands__Default</foreign-project>
                 <artifact-type>jar</artifact-type>
                 <script>build.xml</script>

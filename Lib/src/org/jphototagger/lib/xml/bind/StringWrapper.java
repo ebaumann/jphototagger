@@ -1,4 +1,4 @@
-package org.jphototagger.program.repository.exporter;
+package org.jphototagger.lib.xml.bind;
 
 import java.util.ArrayList;
 import java.util.Collection;

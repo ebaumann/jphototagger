@@ -1,4 +1,4 @@
-package org.jphototagger.program.repository.exporter;
+package org.jphototagger.eximport.jpt.exporter;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -18,13 +18,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
-import org.jphototagger.domain.metadata.search.SavedSearch;
+import org.jphototagger.domain.favorites.Favorite;
+import org.jphototagger.domain.repository.FavoritesRepository;
 import org.jphototagger.domain.repository.RepositoryDataExporter;
-import org.jphototagger.domain.repository.SavedSearchesRepository;
 import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.xml.bind.XmlObjectExporter;
-import org.jphototagger.program.app.AppLookAndFeel;
 
 /**
  *
@@ -32,14 +32,14 @@ import org.jphototagger.program.app.AppLookAndFeel;
  * @author Elmar Baumann
  */
 @ServiceProvider(service = RepositoryDataExporter.class)
-public final class SavedSearchesExporter implements RepositoryDataExporter {
+public final class FavoritesExporter implements RepositoryDataExporter {
 
-    public static final String DEFAULT_FILENAME = "JptSavedSearches.xml";
-    public static final String DISPLAY_NAME = Bundle.getString(SavedSearchesExporter.class, "SavedSearchesExporter.DisplayName");
-    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(SavedSearchesExporter.class, "SavedSearchesExporter.DisplayName.FileFilter"), "xml");
-    public static final ImageIcon ICON = AppLookAndFeel.getIcon("icon_export.png");
-    public static final int POSITION = 40;
-    private final SavedSearchesRepository repo = Lookup.getDefault().lookup(SavedSearchesRepository.class);
+    public static final String DEFAULT_FILENAME = "JptFavorites.xml";
+    public static final String DISPLAY_NAME = Bundle.getString(FavoritesExporter.class, "FavoritesExporter.DisplayName");
+    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(FavoritesExporter.class, "FavoritesExporter.DisplayName.FileFilter"), "xml");
+    private static final ImageIcon ICON = IconUtil.getImageIcon("/org/jphototagger/eximport/jpt/icons/icon_export.png");
+    public static final int POSITION = 80;
+    private final FavoritesRepository repo = Lookup.getDefault().lookup(FavoritesRepository.class);
 
     @Override
     public void exportFile(File file) {
@@ -50,11 +50,11 @@ public final class SavedSearchesExporter implements RepositoryDataExporter {
         File xmlFile = FileUtil.ensureSuffix(file, ".xml");
 
         try {
-            List<SavedSearch> savedSearches = repo.findAllSavedSearches();
+            List<Favorite> templates = repo.findAllFavorites();
 
-            XmlObjectExporter.export(new CollectionWrapper(savedSearches), xmlFile);
+            XmlObjectExporter.export(new CollectionWrapper(templates), xmlFile);
         } catch (Exception ex) {
-            Logger.getLogger(SavedSearchesExporter.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FavoritesExporter.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -81,19 +81,19 @@ public final class SavedSearchesExporter implements RepositoryDataExporter {
     @XmlRootElement
     public static class CollectionWrapper {
 
-        @XmlElementWrapper(name = "SavedSearches")
-        @XmlElement(type = SavedSearch.class)
-        private final ArrayList<SavedSearch> collection = new ArrayList<SavedSearch>();
+        @XmlElementWrapper(name = "Favorites")
+        @XmlElement(type = Favorite.class)
+        private final ArrayList<Favorite> collection = new ArrayList<Favorite>();
 
         public CollectionWrapper() {
         }
 
-        public CollectionWrapper(Collection<SavedSearch> collection) {
+        public CollectionWrapper(Collection<Favorite> collection) {
             this.collection.addAll(collection);
         }
 
-        public List<SavedSearch> getCollection() {
-            return new ArrayList<SavedSearch>(collection);
+        public List<Favorite> getCollection() {
+            return new ArrayList<Favorite>(collection);
         }
     }
 

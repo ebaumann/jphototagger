@@ -1,10 +1,11 @@
-package org.jphototagger.program.repository.importer;
+package org.jphototagger.eximport.jpt.importer;
 
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.filechooser.FileFilter;
 
 import org.openide.util.Lookup;
@@ -14,9 +15,9 @@ import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.domain.repository.FavoritesRepository;
 import org.jphototagger.domain.repository.RepositoryDataImporter;
 import org.jphototagger.lib.xml.bind.XmlObjectImporter;
-import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.repository.exporter.FavoritesExporter;
-import org.jphototagger.program.repository.exporter.FavoritesExporter.CollectionWrapper;
+import org.jphototagger.eximport.jpt.exporter.FavoritesExporter;
+import org.jphototagger.eximport.jpt.exporter.FavoritesExporter.CollectionWrapper;
+import org.jphototagger.lib.swing.IconUtil;
 
 /**
  *
@@ -27,6 +28,7 @@ import org.jphototagger.program.repository.exporter.FavoritesExporter.Collection
 public final class FavoritesImporter implements RepositoryDataImporter {
 
     private final FavoritesRepository repo = Lookup.getDefault().lookup(FavoritesRepository.class);
+    private static final ImageIcon ICON = IconUtil.getImageIcon("/org/jphototagger/eximport/jpt/icons/icon_import.png");
 
     @Override
     public void importFile(File file) {
@@ -60,7 +62,7 @@ public final class FavoritesImporter implements RepositoryDataImporter {
 
     @Override
     public Icon getIcon() {
-        return AppLookAndFeel.getIcon("icon_import.png");
+        return ICON;
     }
 
     @Override

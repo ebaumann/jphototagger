@@ -1,10 +1,10 @@
-package org.jphototagger.program.repository.exporter;
+package org.jphototagger.eximport.jpt.exporter;
 
+import org.jphototagger.lib.xml.bind.StringWrapper;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,13 +19,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
-import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
+import org.jphototagger.domain.repository.FileExcludePatternsRepository;
 import org.jphototagger.domain.repository.RepositoryDataExporter;
-import org.jphototagger.domain.repository.UserDefinedFileFiltersRepository;
 import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.xml.bind.XmlObjectExporter;
-import org.jphototagger.program.app.AppLookAndFeel;
 
 /**
  *
@@ -33,14 +32,14 @@ import org.jphototagger.program.app.AppLookAndFeel;
  * @author Elmar Baumann
  */
 @ServiceProvider(service = RepositoryDataExporter.class)
-public final class UserDefinedFileFilterExporter implements RepositoryDataExporter {
+public final class FileExcludePatternsExporter implements RepositoryDataExporter {
 
-    public static final String DEFAULT_FILENAME = "JptFileFilters.xml";
-    public static final String DISPLAY_NAME = Bundle.getString(UserDefinedFileFilterExporter.class, "UserDefinedFileFilterExporter.DisplayName");
-    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(UserDefinedFileFilterExporter.class, "UserDefinedFileFilterExporter.DisplayName"), "xml");
-    public static final ImageIcon ICON = AppLookAndFeel.getIcon("icon_export.png");
-    public static final int POSITION = 110;
-    private final UserDefinedFileFiltersRepository repo = Lookup.getDefault().lookup(UserDefinedFileFiltersRepository.class);
+    public static final String DEFAULT_FILENAME = "JptFileExludePatterns.xml";
+    public static final String DISPLAY_NAME = Bundle.getString(FileExcludePatternsExporter.class, "FileExcludePatternsExporter.DisplayName");
+    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(FileExcludePatternsExporter.class, "FileExcludePatternsExporter.DisplayName.FileFilter"), "xml");
+    private static final ImageIcon ICON = IconUtil.getImageIcon("/org/jphototagger/eximport/jpt/icons/icon_export.png");
+    public static final int POSITION = 100;
+    private final FileExcludePatternsRepository repo = Lookup.getDefault().lookup(FileExcludePatternsRepository.class);
 
     @Override
     public void exportFile(File file) {
@@ -48,14 +47,14 @@ public final class UserDefinedFileFilterExporter implements RepositoryDataExport
             throw new NullPointerException("file == null");
         }
 
-        File xmpFile = FileUtil.ensureSuffix(file, ".xml");
+        File xmlFile = FileUtil.ensureSuffix(file, ".xml");
 
         try {
-            Set<UserDefinedFileFilter> filter = repo.findAllUserDefinedFileFilters();
+            List<String> patterns = repo.findAllFileExcludePatterns();
 
-            XmlObjectExporter.export(new CollectionWrapper(filter), xmpFile);
+            XmlObjectExporter.export(new CollectionWrapper(StringWrapper.getWrappedStrings(patterns)), xmlFile);
         } catch (Exception ex) {
-            Logger.getLogger(UserDefinedFileFilterExporter.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FileExcludePatternsExporter.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -82,19 +81,19 @@ public final class UserDefinedFileFilterExporter implements RepositoryDataExport
     @XmlRootElement
     public static class CollectionWrapper {
 
-        @XmlElementWrapper(name = "FileFilter")
-        @XmlElement(type = UserDefinedFileFilter.class)
-        private final ArrayList<UserDefinedFileFilter> collection = new ArrayList<UserDefinedFileFilter>();
+        @XmlElementWrapper(name = "FileExludePatterns")
+        @XmlElement(type = StringWrapper.class)
+        private final ArrayList<StringWrapper> collection = new ArrayList<StringWrapper>();
 
         public CollectionWrapper() {
         }
 
-        public CollectionWrapper(Collection<UserDefinedFileFilter> collection) {
+        public CollectionWrapper(Collection<StringWrapper> collection) {
             this.collection.addAll(collection);
         }
 
-        public List<UserDefinedFileFilter> getCollection() {
-            return new ArrayList<UserDefinedFileFilter>(collection);
+        public List<StringWrapper> getCollection() {
+            return new ArrayList<StringWrapper>(collection);
         }
     }
 
