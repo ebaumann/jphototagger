@@ -56,10 +56,10 @@ public final class ErrorLogHandler extends Handler implements ActionListener, Mo
 
     @Override
     public void publish(LogRecord record) {
-        int value = record.getLevel().intValue();
-        boolean isLog = value >= MIN_LOG_LEVEL_VALUE;
+        int recordLevelValue = record.getLevel().intValue();
+        boolean isError = recordLevelValue >= MIN_LOG_LEVEL_VALUE;
 
-        if (isLog) {
+        if (isError) {
             EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
                 @Override
