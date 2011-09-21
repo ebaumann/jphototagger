@@ -26,9 +26,8 @@ final class TemporaryStorage {
 
     private String getCacheDirectoryPathname() {
         CacheDirectoryProvider provider = Lookup.getDefault().lookup(CacheDirectoryProvider.class);
-        File cacheDirectory = provider.getCacheDirectory();
-
-        return cacheDirectory.getAbsolutePath() + File.separator + "IrfanViewSlideshow";
+        
+        return provider.getCacheDirectory("IrfanViewSlideshow").getAbsolutePath();
     }
 
     private void createCacheDirectoryIfAbsent() {

@@ -220,10 +220,8 @@ public final class EmbeddedXmpCache {
 
     private File lookupCacheDirectory() {
         CacheDirectoryProvider provider = Lookup.getDefault().lookup(CacheDirectoryProvider.class);
-        File cacheDirectory = provider.getCacheDirectory();
-        String cacheDirectoryPath = cacheDirectory.getAbsolutePath();
-
-        return new File(cacheDirectoryPath + File.separator + "EmbeddedXmpCache");
+        
+        return provider.getCacheDirectory("EmbeddedXmpCache");
     }
 
     private void ensureCacheDiretoryExists() {

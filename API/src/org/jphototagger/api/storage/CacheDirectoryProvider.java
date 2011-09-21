@@ -8,5 +8,5 @@ import java.io.File;
  */
 public interface CacheDirectoryProvider {
 
-    File getCacheDirectory();
+    File getCacheDirectory(String subdirectory);
 }
