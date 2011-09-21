@@ -1,4 +1,4 @@
-package org.jphototagger.program.repository.exporter;
+package org.jphototagger.eximport.jpt.exporter;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -8,6 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.xml.bind.annotation.XmlElement;
@@ -17,12 +18,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
-import org.jphototagger.domain.repository.AutoscanDirectoriesRepository;
+import org.jphototagger.domain.metadata.search.SavedSearch;
 import org.jphototagger.domain.repository.RepositoryDataExporter;
+import org.jphototagger.domain.repository.SavedSearchesRepository;
 import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.xml.bind.XmlObjectExporter;
-import org.jphototagger.program.app.AppLookAndFeel;
 
 /**
  *
@@ -30,13 +32,14 @@ import org.jphototagger.program.app.AppLookAndFeel;
  * @author Elmar Baumann
  */
 @ServiceProvider(service = RepositoryDataExporter.class)
-public final class AutoscanDirectoriesExporter implements RepositoryDataExporter {
+public final class SavedSearchesExporter implements RepositoryDataExporter {
 
-    public static final String DEFAULT_FILENAME = "JptAutoscanDirectories.xml";
-    public static final String DISPLAY_NAME = Bundle.getString(AutoscanDirectoriesExporter.class, "AutoscanDirectoriesExporter.DisplayName");
-    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(AutoscanDirectoriesExporter.class, "AutoscanDirectoriesExporter.DisplayName.FileFilter"), "xml");
-    public static final int POSITION = 90;
-    private final AutoscanDirectoriesRepository repo = Lookup.getDefault().lookup(AutoscanDirectoriesRepository.class);
+    public static final String DEFAULT_FILENAME = "JptSavedSearches.xml";
+    public static final String DISPLAY_NAME = Bundle.getString(SavedSearchesExporter.class, "SavedSearchesExporter.DisplayName");
+    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(SavedSearchesExporter.class, "SavedSearchesExporter.DisplayName.FileFilter"), "xml");
+    private static final ImageIcon ICON = IconUtil.getImageIcon("/org/jphototagger/eximport/jpt/icons/icon_export.png");
+    public static final int POSITION = 40;
+    private final SavedSearchesRepository repo = Lookup.getDefault().lookup(SavedSearchesRepository.class);
 
     @Override
     public void exportFile(File file) {
@@ -47,11 +50,11 @@ public final class AutoscanDirectoriesExporter implements RepositoryDataExporter
         File xmlFile = FileUtil.ensureSuffix(file, ".xml");
 
         try {
-            List<String> directories = FileUtil.getAbsolutePathnames(repo.findAllAutoscanDirectories());
+            List<SavedSearch> savedSearches = repo.findAllSavedSearches();
 
-            XmlObjectExporter.export(new CollectionWrapper(StringWrapper.getWrappedStrings(directories)), xmlFile);
+            XmlObjectExporter.export(new CollectionWrapper(savedSearches), xmlFile);
         } catch (Exception ex) {
-            Logger.getLogger(AutoscanDirectoriesExporter.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SavedSearchesExporter.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -67,7 +70,7 @@ public final class AutoscanDirectoriesExporter implements RepositoryDataExporter
 
     @Override
     public Icon getIcon() {
-        return AppLookAndFeel.getIcon("icon_export.png");
+        return ICON;
     }
 
     @Override
@@ -78,19 +81,19 @@ public final class AutoscanDirectoriesExporter implements RepositoryDataExporter
     @XmlRootElement
     public static class CollectionWrapper {
 
-        @XmlElementWrapper(name = "AutoscanDirectories")
-        @XmlElement(type = StringWrapper.class)
-        private final ArrayList<StringWrapper> collection = new ArrayList<StringWrapper>();
+        @XmlElementWrapper(name = "SavedSearches")
+        @XmlElement(type = SavedSearch.class)
+        private final ArrayList<SavedSearch> collection = new ArrayList<SavedSearch>();
 
         public CollectionWrapper() {
         }
 
-        public CollectionWrapper(Collection<StringWrapper> collection) {
+        public CollectionWrapper(Collection<SavedSearch> collection) {
             this.collection.addAll(collection);
         }
 
-        public List<StringWrapper> getCollection() {
-            return new ArrayList<StringWrapper>(collection);
+        public List<SavedSearch> getCollection() {
+            return new ArrayList<SavedSearch>(collection);
         }
     }
 

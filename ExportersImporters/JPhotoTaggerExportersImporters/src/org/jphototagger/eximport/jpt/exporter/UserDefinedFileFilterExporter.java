@@ -1,4 +1,4 @@
-package org.jphototagger.program.repository.exporter;
+package org.jphototagger.eximport.jpt.exporter;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -19,13 +19,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
-import org.jphototagger.domain.repository.RenameTemplatesRepository;
+import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
 import org.jphototagger.domain.repository.RepositoryDataExporter;
-import org.jphototagger.domain.templates.RenameTemplate;
+import org.jphototagger.domain.repository.UserDefinedFileFiltersRepository;
 import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.xml.bind.XmlObjectExporter;
-import org.jphototagger.program.app.AppLookAndFeel;
 
 /**
  *
@@ -33,14 +33,14 @@ import org.jphototagger.program.app.AppLookAndFeel;
  * @author Elmar Baumann
  */
 @ServiceProvider(service = RepositoryDataExporter.class)
-public final class RenameTemplatesExporter implements RepositoryDataExporter {
+public final class UserDefinedFileFilterExporter implements RepositoryDataExporter {
 
-    public static final String DEFAULT_FILENAME = "JptRenameTemplates.xml";
-    public static final String DISPLAY_NAME = Bundle.getString(RenameTemplatesExporter.class, "RenameTemplatesExporter.DisplayName");
-    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(RenameTemplatesExporter.class, "RenameTemplatesExporter.DisplayName.FileFilter"), "xml");
-    public static final ImageIcon ICON = AppLookAndFeel.getIcon("icon_export.png");
-    public static final int POSITION = 30;
-    private final RenameTemplatesRepository repo = Lookup.getDefault().lookup(RenameTemplatesRepository.class);
+    public static final String DEFAULT_FILENAME = "JptFileFilters.xml";
+    public static final String DISPLAY_NAME = Bundle.getString(UserDefinedFileFilterExporter.class, "UserDefinedFileFilterExporter.DisplayName");
+    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(UserDefinedFileFilterExporter.class, "UserDefinedFileFilterExporter.DisplayName"), "xml");
+    private static final ImageIcon ICON = IconUtil.getImageIcon("/org/jphototagger/eximport/jpt/icons/icon_export.png");
+    public static final int POSITION = 110;
+    private final UserDefinedFileFiltersRepository repo = Lookup.getDefault().lookup(UserDefinedFileFiltersRepository.class);
 
     @Override
     public void exportFile(File file) {
@@ -48,14 +48,14 @@ public final class RenameTemplatesExporter implements RepositoryDataExporter {
             throw new NullPointerException("file == null");
         }
 
-        File xmlFile = FileUtil.ensureSuffix(file, ".xml");
+        File xmpFile = FileUtil.ensureSuffix(file, ".xml");
 
         try {
-            Set<RenameTemplate> templates = repo.findAllRenameTemplates();
+            Set<UserDefinedFileFilter> filter = repo.findAllUserDefinedFileFilters();
 
-            XmlObjectExporter.export(new CollectionWrapper(templates), xmlFile);
+            XmlObjectExporter.export(new CollectionWrapper(filter), xmpFile);
         } catch (Exception ex) {
-            Logger.getLogger(RenameTemplatesExporter.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserDefinedFileFilterExporter.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -82,19 +82,19 @@ public final class RenameTemplatesExporter implements RepositoryDataExporter {
     @XmlRootElement
     public static class CollectionWrapper {
 
-        @XmlElementWrapper(name = "RenameTemplates")
-        @XmlElement(type = RenameTemplate.class)
-        private final ArrayList<RenameTemplate> collection = new ArrayList<RenameTemplate>();
+        @XmlElementWrapper(name = "FileFilter")
+        @XmlElement(type = UserDefinedFileFilter.class)
+        private final ArrayList<UserDefinedFileFilter> collection = new ArrayList<UserDefinedFileFilter>();
 
         public CollectionWrapper() {
         }
 
-        public CollectionWrapper(Collection<RenameTemplate> collection) {
+        public CollectionWrapper(Collection<UserDefinedFileFilter> collection) {
             this.collection.addAll(collection);
         }
 
-        public List<RenameTemplate> getCollection() {
-            return new ArrayList<RenameTemplate>(collection);
+        public List<UserDefinedFileFilter> getCollection() {
+            return new ArrayList<UserDefinedFileFilter>(collection);
         }
     }
 

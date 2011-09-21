@@ -1,4 +1,4 @@
-package org.jphototagger.program.repository.exporter;
+package org.jphototagger.eximport.jpt.exporter;
 
 import java.io.File;
 import java.util.Collection;
@@ -30,9 +30,8 @@ import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.repository.MetadataTemplatesRepository;
 import org.jphototagger.domain.repository.RepositoryDataExporter;
 import org.jphototagger.domain.templates.MetadataTemplate;
+import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.io.CharEncoding;
 
 /**
  *
@@ -44,7 +43,7 @@ public final class MetadataTemplatesExporter implements RepositoryDataExporter {
 
     public static final String DEFAULT_FILENAME = "JptMetadataTemplates.xml";
     public static final String DISPLAY_NAME = Bundle.getString(MetadataTemplatesExporter.class, "MetadataTemplatesExporter.DisplayName");
-    public static final ImageIcon ICON = AppLookAndFeel.getIcon("icon_export.png");
+    private static final ImageIcon ICON = IconUtil.getImageIcon("/org/jphototagger/eximport/jpt/icons/icon_export.png");
     public static final int POSITION = 60;
     private static final long serialVersionUID = 1L;
     public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(MetadataTemplatesExporter.class, "MetadataTemplatesExporter.DisplayName.FileFilter"), "xml");
@@ -139,7 +138,7 @@ public final class MetadataTemplatesExporter implements RepositoryDataExporter {
 
     private void initTransformer(Transformer trans) throws IllegalArgumentException {
         trans.setOutputProperty(OutputKeys.METHOD, "xml");
-        trans.setOutputProperty(OutputKeys.ENCODING, CharEncoding.JPT_KEYWORDS);
+        trans.setOutputProperty(OutputKeys.ENCODING, "UTF8");
         trans.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, DTD);
         trans.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
         trans.setOutputProperty(OutputKeys.INDENT, "yes");

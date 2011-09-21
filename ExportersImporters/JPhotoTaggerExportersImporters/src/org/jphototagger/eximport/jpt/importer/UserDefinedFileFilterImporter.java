@@ -1,10 +1,11 @@
-package org.jphototagger.program.repository.importer;
+package org.jphototagger.eximport.jpt.importer;
 
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.filechooser.FileFilter;
 
 import org.openide.util.Lookup;
@@ -13,10 +14,10 @@ import org.openide.util.lookup.ServiceProvider;
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
 import org.jphototagger.domain.repository.RepositoryDataImporter;
 import org.jphototagger.domain.repository.UserDefinedFileFiltersRepository;
+import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.xml.bind.XmlObjectImporter;
-import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.repository.exporter.UserDefinedFileFilterExporter;
-import org.jphototagger.program.repository.exporter.UserDefinedFileFilterExporter.CollectionWrapper;
+import org.jphototagger.eximport.jpt.exporter.UserDefinedFileFilterExporter;
+import org.jphototagger.eximport.jpt.exporter.UserDefinedFileFilterExporter.CollectionWrapper;
 
 /**
  *
@@ -27,6 +28,7 @@ import org.jphototagger.program.repository.exporter.UserDefinedFileFilterExporte
 public final class UserDefinedFileFilterImporter implements RepositoryDataImporter {
 
     private final UserDefinedFileFiltersRepository repo = Lookup.getDefault().lookup(UserDefinedFileFiltersRepository.class);
+    private static final ImageIcon ICON = IconUtil.getImageIcon("/org/jphototagger/eximport/jpt/icons/icon_import.png");
 
     @Override
     public void importFile(File file) {
@@ -60,7 +62,7 @@ public final class UserDefinedFileFilterImporter implements RepositoryDataImport
 
     @Override
     public Icon getIcon() {
-        return AppLookAndFeel.getIcon("icon_import.png");
+        return ICON;
     }
 
     @Override

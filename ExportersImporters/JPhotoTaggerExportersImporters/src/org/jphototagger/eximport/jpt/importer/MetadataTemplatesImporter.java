@@ -1,4 +1,4 @@
-package org.jphototagger.program.repository.importer;
+package org.jphototagger.eximport.jpt.importer;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.filechooser.FileFilter;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -32,8 +33,8 @@ import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.repository.MetadataTemplatesRepository;
 import org.jphototagger.domain.repository.RepositoryDataImporter;
 import org.jphototagger.domain.templates.MetadataTemplate;
-import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.repository.exporter.MetadataTemplatesExporter;
+import org.jphototagger.lib.swing.IconUtil;
+import org.jphototagger.eximport.jpt.exporter.MetadataTemplatesExporter;
 import org.jphototagger.xmp.EditMetaDataValues;
 
 /**
@@ -47,6 +48,7 @@ public final class MetadataTemplatesImporter implements RepositoryDataImporter, 
     private static final long serialVersionUID = 1L;
     private static final Map<String, MetaDataValue> META_DATA_VALUE_OF_CLASSNAME = new HashMap<String, MetaDataValue>();
     private final MetadataTemplatesRepository repo = Lookup.getDefault().lookup(MetadataTemplatesRepository.class);
+    private static final ImageIcon ICON = IconUtil.getImageIcon("/org/jphototagger/eximport/jpt/icons/icon_import.png");
 
     static {
         for (MetaDataValue mdValue : EditMetaDataValues.get()) {
@@ -177,7 +179,7 @@ public final class MetadataTemplatesImporter implements RepositoryDataImporter, 
 
     @Override
     public Icon getIcon() {
-        return AppLookAndFeel.getIcon("icon_import.png");
+        return ICON;
     }
 
     @Override

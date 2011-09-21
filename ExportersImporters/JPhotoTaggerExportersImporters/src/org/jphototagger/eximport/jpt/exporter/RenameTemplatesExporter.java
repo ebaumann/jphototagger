@@ -1,9 +1,10 @@
-package org.jphototagger.program.repository.exporter;
+package org.jphototagger.eximport.jpt.exporter;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,13 +19,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
-import org.jphototagger.domain.imagecollections.ImageCollection;
-import org.jphototagger.domain.repository.ImageCollectionsRepository;
+import org.jphototagger.domain.repository.RenameTemplatesRepository;
 import org.jphototagger.domain.repository.RepositoryDataExporter;
+import org.jphototagger.domain.templates.RenameTemplate;
 import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.xml.bind.XmlObjectExporter;
-import org.jphototagger.program.app.AppLookAndFeel;
 
 /**
  *
@@ -32,14 +33,14 @@ import org.jphototagger.program.app.AppLookAndFeel;
  * @author Elmar Baumann
  */
 @ServiceProvider(service = RepositoryDataExporter.class)
-public final class ImageCollectionsExporter implements RepositoryDataExporter {
+public final class RenameTemplatesExporter implements RepositoryDataExporter {
 
-    public static final String DEFAULT_FILENAME = "JptImageCollections.xml";
-    public static final String DISPLAY_NAME = Bundle.getString(ImageCollectionsExporter.class, "ExportImageCollections.DisplayName");
-    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(ImageCollectionsExporter.class, "ImageCollectionsExporter.DisplayName.FileFilter"), "xml");
-    public static final ImageIcon ICON = AppLookAndFeel.getIcon("icon_export.png");
-    public static final int POSITION = 50;
-    private final ImageCollectionsRepository repo = Lookup.getDefault().lookup(ImageCollectionsRepository.class);
+    public static final String DEFAULT_FILENAME = "JptRenameTemplates.xml";
+    public static final String DISPLAY_NAME = Bundle.getString(RenameTemplatesExporter.class, "RenameTemplatesExporter.DisplayName");
+    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(RenameTemplatesExporter.class, "RenameTemplatesExporter.DisplayName.FileFilter"), "xml");
+    private static final ImageIcon ICON = IconUtil.getImageIcon("/org/jphototagger/eximport/jpt/icons/icon_export.png");
+    public static final int POSITION = 30;
+    private final RenameTemplatesRepository repo = Lookup.getDefault().lookup(RenameTemplatesRepository.class);
 
     @Override
     public void exportFile(File file) {
@@ -50,11 +51,11 @@ public final class ImageCollectionsExporter implements RepositoryDataExporter {
         File xmlFile = FileUtil.ensureSuffix(file, ".xml");
 
         try {
-            List<ImageCollection> templates = repo.findAllImageCollections();
+            Set<RenameTemplate> templates = repo.findAllRenameTemplates();
 
             XmlObjectExporter.export(new CollectionWrapper(templates), xmlFile);
         } catch (Exception ex) {
-            Logger.getLogger(ImageCollectionsExporter.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RenameTemplatesExporter.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -81,19 +82,19 @@ public final class ImageCollectionsExporter implements RepositoryDataExporter {
     @XmlRootElement
     public static class CollectionWrapper {
 
-        @XmlElementWrapper(name = "ImageCollections")
-        @XmlElement(type = ImageCollection.class)
-        private final ArrayList<ImageCollection> collection = new ArrayList<ImageCollection>();
+        @XmlElementWrapper(name = "RenameTemplates")
+        @XmlElement(type = RenameTemplate.class)
+        private final ArrayList<RenameTemplate> collection = new ArrayList<RenameTemplate>();
 
         public CollectionWrapper() {
         }
 
-        public CollectionWrapper(Collection<ImageCollection> collection) {
+        public CollectionWrapper(Collection<RenameTemplate> collection) {
             this.collection.addAll(collection);
         }
 
-        public List<ImageCollection> getCollection() {
-            return new ArrayList<ImageCollection>(collection);
+        public List<RenameTemplate> getCollection() {
+            return new ArrayList<RenameTemplate>(collection);
         }
     }
 

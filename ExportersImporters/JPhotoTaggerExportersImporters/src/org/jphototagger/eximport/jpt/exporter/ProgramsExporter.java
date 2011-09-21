@@ -1,4 +1,4 @@
-package org.jphototagger.program.repository.exporter;
+package org.jphototagger.eximport.jpt.exporter;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -18,13 +18,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
-import org.jphototagger.domain.favorites.Favorite;
-import org.jphototagger.domain.repository.FavoritesRepository;
+import org.jphototagger.domain.programs.Program;
+import org.jphototagger.domain.programs.ProgramType;
+import org.jphototagger.domain.repository.ProgramsRepository;
 import org.jphototagger.domain.repository.RepositoryDataExporter;
 import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.xml.bind.XmlObjectExporter;
-import org.jphototagger.program.app.AppLookAndFeel;
 
 /**
  *
@@ -32,14 +33,14 @@ import org.jphototagger.program.app.AppLookAndFeel;
  * @author Elmar Baumann
  */
 @ServiceProvider(service = RepositoryDataExporter.class)
-public final class FavoritesExporter implements RepositoryDataExporter {
+public final class ProgramsExporter implements RepositoryDataExporter {
 
-    public static final String DEFAULT_FILENAME = "JptFavorites.xml";
-    public static final String DISPLAY_NAME = Bundle.getString(FavoritesExporter.class, "FavoritesExporter.DisplayName");
-    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(FavoritesExporter.class, "FavoritesExporter.DisplayName.FileFilter"), "xml");
-    public static final ImageIcon ICON = AppLookAndFeel.getIcon("icon_export.png");
-    public static final int POSITION = 80;
-    private final FavoritesRepository repo = Lookup.getDefault().lookup(FavoritesRepository.class);
+    public static final String DEFAULT_FILENAME = "JptPrograms.xml";
+    public static final String DISPLAY_NAME = Bundle.getString(ProgramsExporter.class, "ProgramsExporter.DisplayName");
+    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(ProgramsExporter.class, "ProgramsExporter.DisplayName.FileFilter"), "xml");
+    private static final ImageIcon ICON = IconUtil.getImageIcon("/org/jphototagger/eximport/jpt/icons/icon_export.png");
+    public static final int POSITION = 70;
+    private final ProgramsRepository repo = Lookup.getDefault().lookup(ProgramsRepository.class);
 
     @Override
     public void exportFile(File file) {
@@ -50,11 +51,12 @@ public final class FavoritesExporter implements RepositoryDataExporter {
         File xmlFile = FileUtil.ensureSuffix(file, ".xml");
 
         try {
-            List<Favorite> templates = repo.findAllFavorites();
+            List<Program> programs = repo.findAllPrograms(ProgramType.ACTION);
 
-            XmlObjectExporter.export(new CollectionWrapper(templates), xmlFile);
+            programs.addAll(repo.findAllPrograms(ProgramType.PROGRAM));
+            XmlObjectExporter.export(new CollectionWrapper(programs), xmlFile);
         } catch (Exception ex) {
-            Logger.getLogger(FavoritesExporter.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProgramsExporter.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -81,19 +83,19 @@ public final class FavoritesExporter implements RepositoryDataExporter {
     @XmlRootElement
     public static class CollectionWrapper {
 
-        @XmlElementWrapper(name = "Favorites")
-        @XmlElement(type = Favorite.class)
-        private final ArrayList<Favorite> collection = new ArrayList<Favorite>();
+        @XmlElementWrapper(name = "Programs")
+        @XmlElement(type = Program.class)
+        private final ArrayList<Program> collection = new ArrayList<Program>();
 
         public CollectionWrapper() {
         }
 
-        public CollectionWrapper(Collection<Favorite> collection) {
+        public CollectionWrapper(Collection<Program> collection) {
             this.collection.addAll(collection);
         }
 
-        public List<Favorite> getCollection() {
-            return new ArrayList<Favorite>(collection);
+        public List<Program> getCollection() {
+            return new ArrayList<Program>(collection);
         }
     }
 
