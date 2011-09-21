@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 
 import org.jphototagger.program.view.dialogs.ExportImportDialog;
-import org.jphototagger.program.view.panels.ExportImportPanel.Context;
+import org.jphototagger.program.view.panels.ExportImportContext;
 
 /**
  *
@@ -19,7 +19,7 @@ public final class JptImportAction extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        new ExportImportDialog(Context.IMPORT).setVisible(true);
+        new ExportImportDialog(ExportImportContext.IMPORT).setVisible(true);
     }
 
     private JptImportAction() {

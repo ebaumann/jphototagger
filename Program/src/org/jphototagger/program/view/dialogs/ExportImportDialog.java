@@ -3,6 +3,7 @@ package org.jphototagger.program.view.dialogs;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.view.panels.ExportImportContext;
 import org.jphototagger.program.view.panels.ExportImportPanel;
 import org.jphototagger.program.view.panels.ExportImportPanel.ExportImportListener;
 
@@ -12,9 +13,9 @@ import org.jphototagger.program.view.panels.ExportImportPanel.ExportImportListen
  */
 public class ExportImportDialog extends Dialog implements ExportImportListener {
     private static final long serialVersionUID = 8937656035473070405L;
-    private final ExportImportPanel.Context context;
+    private final ExportImportContext context;
 
-    public ExportImportDialog(ExportImportPanel.Context context) {
+    public ExportImportDialog(ExportImportContext context) {
         super(GUI.getAppFrame());
 
         setStorageKey("ExportImportDialog");
@@ -36,7 +37,7 @@ public class ExportImportDialog extends Dialog implements ExportImportListener {
     }
 
     private void setTitle() {
-        setTitle(context.equals(ExportImportPanel.Context.EXPORT)
+        setTitle(context.equals(ExportImportContext.EXPORT)
                  ? Bundle.getString(ExportImportDialog.class, "ExportImportDialog.Title.Export")
                  : Bundle.getString(ExportImportDialog.class, "ExportImportDialog.Title.Import"));
     }
@@ -44,7 +45,7 @@ public class ExportImportDialog extends Dialog implements ExportImportListener {
     private void setHelpPage() {
         // Has to be localized!
         setHelpContentsUrl("/org/jphototagger/program/resource/doc/de/contents.xml");
-        setHelpPageUrl(context.equals(ExportImportPanel.Context.EXPORT) ? "export_jpt.html" : "import_jpt.html");
+        setHelpPageUrl(context.equals(ExportImportContext.EXPORT) ? "export_jpt.html" : "import_jpt.html");
     }
 
     @Override
@@ -100,7 +101,7 @@ public class ExportImportDialog extends Dialog implements ExportImportListener {
             @Override
             public void run() {
                 ExportImportDialog dialog =
-                        new ExportImportDialog(ExportImportPanel.Context.EXPORT);
+                        new ExportImportDialog(ExportImportContext.EXPORT);
 
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 

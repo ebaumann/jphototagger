@@ -24,13 +24,13 @@
               <Component id="buttonSelectAll" linkSize="4" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="buttonSelectNone" linkSize="4" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="35" max="32767" attributes="0"/>
+              <EmptySpace pref="114" max="32767" attributes="0"/>
               <Component id="buttonExportImport" min="-2" max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <Component id="labelPromptDir" min="-2" max="-2" attributes="1"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="labelDir" pref="221" max="32767" attributes="0"/>
+              <Component id="labelDir" pref="264" max="32767" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="buttonSelDir" min="-2" max="-2" attributes="0"/>
           </Group>
