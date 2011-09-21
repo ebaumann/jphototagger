@@ -186,10 +186,8 @@ public final class IptcIgnoreCache {
 
     private File lookupCacheDirectory() {
         CacheDirectoryProvider provider = Lookup.getDefault().lookup(CacheDirectoryProvider.class);
-        File cacheDirectory = provider.getCacheDirectory();
-        String cacheDirectoryPath = cacheDirectory.getAbsolutePath();
-
-        return new File(cacheDirectoryPath + File.separator + "IptcIgnoreCache");
+        
+        return provider.getCacheDirectory("IptcIgnoreCache");
     }
 
     private void ensureCacheDiretoryExists() {

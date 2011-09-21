@@ -219,10 +219,8 @@ public final class ExifCache {
 
     private File lookupCacheDirectory() {
         CacheDirectoryProvider provider = Lookup.getDefault().lookup(CacheDirectoryProvider.class);
-        File cacheDirectory = provider.getCacheDirectory();
-        String cacheDirectoryPath = cacheDirectory.getAbsolutePath();
-
-        return new File(cacheDirectoryPath + File.separator + "ExifCache");
+        
+        return provider.getCacheDirectory("ExifCache");
     }
 
     private void ensureCacheDiretoryExists() {
