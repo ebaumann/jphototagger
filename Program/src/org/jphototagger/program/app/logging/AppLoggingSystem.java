@@ -24,6 +24,8 @@ public final class AppLoggingSystem {
 
     private static final String ALL_MESSAGES_LOGFILE_PATH;
     private static final String ERROR_MESSAGES_LOGFILE_PATH;
+    private static final String LOGFILE_DIR_PATHNAME;
+    private static final String LOGFILE_PATH_PREFIX;
     // Holding a Reference ensures not loosing the Handlers (LogManager stores Loggers as Weak References)
     private static final Logger APP_LOGGER = Logger.getLogger("org.jphototagger");
     private static boolean init;
@@ -31,14 +33,11 @@ public final class AppLoggingSystem {
     static {
         SettingsDirectoryProvider provider = Lookup.getDefault().lookup(SettingsDirectoryProvider.class);
         File userSettingsDirectory = provider.getUserSettingsDirectory();
-        String userSettingsDirectoryPath = userSettingsDirectory.getAbsolutePath();
-        String logfilePathPrefix = userSettingsDirectoryPath + File.separator + "jphototagger-log";
 
-        ALL_MESSAGES_LOGFILE_PATH = logfilePathPrefix + "-all.txt";
-        ERROR_MESSAGES_LOGFILE_PATH = logfilePathPrefix + "-errors.xml";
-    }
-
-    private AppLoggingSystem() {
+        LOGFILE_DIR_PATHNAME = userSettingsDirectory.getAbsolutePath();
+        LOGFILE_PATH_PREFIX = LOGFILE_DIR_PATHNAME + File.separator + "jphototagger-log";
+        ALL_MESSAGES_LOGFILE_PATH = LOGFILE_PATH_PREFIX + "-all.txt";
+        ERROR_MESSAGES_LOGFILE_PATH = LOGFILE_PATH_PREFIX + "-errors.xml";
     }
 
     public static void init() {
@@ -50,6 +49,7 @@ public final class AppLoggingSystem {
         }
 
         try {
+            deleteObsoleteLogfiles();
             ensureLogDirectoryExists();
             createAndAddHandlersToAppLogger();
         } catch (Throwable t) {
@@ -58,6 +58,27 @@ public final class AppLoggingSystem {
             APP_LOGGER.setLevel(Level.ALL); // Handlers are restricting the output
             APP_LOGGER.setUseParentHandlers(false);
             LogManager.getLogManager().addLogger(APP_LOGGER);
+        }
+    }
+
+    private static void deleteObsoleteLogfiles() {
+        File logfileDir = new File(LOGFILE_DIR_PATHNAME);
+        File[] dirFiles = logfileDir.listFiles();
+
+        for (File file : dirFiles) {
+            String filePathname = file.getAbsolutePath();
+            boolean isLogfile = filePathname.startsWith(LOGFILE_PATH_PREFIX);
+            boolean isLocked = filePathname.endsWith(".lck");
+
+            if (isLogfile && !isLocked) {
+                boolean logfileDeleted = file.delete();
+                
+                if (logfileDeleted) {
+                    APP_LOGGER.log(Level.INFO, "Deleted obsolete logfile ''{0}''", file);
+                } else {
+                    APP_LOGGER.log(Level.WARNING, "Can''t delete obsolete logfile ''{0}''", file);
+                }
+            }
         }
     }
 
@@ -133,5 +154,8 @@ public final class AppLoggingSystem {
      */
     public static String getAllMessagesLogfilePath() {
         return ALL_MESSAGES_LOGFILE_PATH;
+    }
+
+    private AppLoggingSystem() {
     }
 }
