@@ -58,6 +58,7 @@ public final class DeleteOutOfDateFiles {
                 }
             }
         }
+        LOGGER.log(Level.FINEST, "Deleted {0} files", countDeleted);
         return countDeleted;
     }
 }
