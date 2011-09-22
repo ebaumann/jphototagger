@@ -8,24 +8,13 @@ import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.swing.Action;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu.Separator;
 import javax.swing.JRadioButtonMenuItem;
 
-import org.jphototagger.api.windows.MainWindowMenuAction;
-import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.comparator.FileSort;
-import org.jphototagger.lib.componentutil.MenuUtil;
-import org.jphototagger.lib.event.util.KeyEventUtil;
-import org.jphototagger.lib.system.SystemUtil;
-import org.jphototagger.program.app.AppInfo;
-import org.jphototagger.program.app.AppLifeCycle;
-import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.exif.comparator.ExifDateTimeOriginalAscendingComparator;
-import org.jphototagger.exif.comparator.ExifDateTimeOriginalDescendingComparator;
+import org.jphototagger.api.windows.MainWindowMenuItem;
 import org.jphototagger.domain.comparator.ExifFocalLengthAscendingComparator;
 import org.jphototagger.domain.comparator.ExifFocalLengthDescendingComparator;
 import org.jphototagger.domain.comparator.ExifIsoSpeedRatingAscendingComparator;
@@ -36,6 +25,16 @@ import org.jphototagger.domain.comparator.XmpIptcLocationAscendingComparator;
 import org.jphototagger.domain.comparator.XmpIptcLocationDescendingComparator;
 import org.jphototagger.domain.comparator.XmpRatingAscendingComparator;
 import org.jphototagger.domain.comparator.XmpRatingDescendingComparator;
+import org.jphototagger.exif.comparator.ExifDateTimeOriginalAscendingComparator;
+import org.jphototagger.exif.comparator.ExifDateTimeOriginalDescendingComparator;
+import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.comparator.FileSort;
+import org.jphototagger.lib.componentutil.MenuUtil;
+import org.jphototagger.lib.event.util.KeyEventUtil;
+import org.jphototagger.lib.system.SystemUtil;
+import org.jphototagger.program.app.AppInfo;
+import org.jphototagger.program.app.AppLifeCycle;
+import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.controller.actions.EditUserDefinedFileTypesAction;
 import org.jphototagger.program.controller.actions.ShowActionDialogAction;
 import org.jphototagger.program.resource.GUI;
@@ -283,50 +282,50 @@ public final class AppFrame extends javax.swing.JFrame {
         }
     }
 
-    void addToFileMenu(MainWindowMenuAction appMenuAction) {
+    void addToFileMenu(MainWindowMenuItem appMenuAction) {
         addToMenu(appMenuAction, menuFile);
     }
 
-    void addToEditMenu(MainWindowMenuAction appMenuAction) {
+    void addToEditMenu(MainWindowMenuItem appMenuAction) {
         addToMenu(appMenuAction, menuEdit);
     }
 
-    void addToViewMenu(MainWindowMenuAction appMenuAction) {
+    void addToViewMenu(MainWindowMenuItem appMenuAction) {
         addToMenu(appMenuAction, menuView);
     }
 
-    void addToGotoMenu(MainWindowMenuAction appMenuAction) {
+    void addToGotoMenu(MainWindowMenuItem appMenuAction) {
         addToMenu(appMenuAction, menuGoto);
     }
 
-    void addToToolsMenu(MainWindowMenuAction appMenuAction) {
+    void addToToolsMenu(MainWindowMenuItem appMenuAction) {
         addToMenu(appMenuAction, menuTools);
     }
 
-    void addToWindowMenu(MainWindowMenuAction appMenuAction) {
+    void addToWindowMenu(MainWindowMenuItem appMenuAction) {
         addToMenu(appMenuAction, menuWindow);
     }
 
-    void addToHelpMenu(MainWindowMenuAction appMenuAction) {
+    void addToHelpMenu(MainWindowMenuItem appMenuAction) {
         addToMenu(appMenuAction, menuHelp);
     }
 
-    private void addToMenu(final MainWindowMenuAction appMenuAction, final JMenu menu) {
+    private void addToMenu(final MainWindowMenuItem appMenuAction, final JMenu menu) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
             public void run() {
                 int position = appMenuAction.getPosition();
-                Action action = appMenuAction.getAction();
+                JMenuItem menuItem = appMenuAction.getMenuItem();
                 int itemCount = menu.getItemCount();
                 int index = position < 0 || position > itemCount ? itemCount : position;
 
-                if (appMenuAction.whenUsedInMenusIsSeparatorBefore()) {
+                if (appMenuAction.isSeparatorBefore()) {
                     menu.add(new Separator(), index);
                     index++;
                 }
 
-                menu.add(new JMenuItem(action), index);
+                menu.add(menuItem, index);
 
             }
         });

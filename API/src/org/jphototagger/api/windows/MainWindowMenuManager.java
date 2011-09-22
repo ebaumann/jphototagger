@@ -7,17 +7,17 @@ package org.jphototagger.api.windows;
  */
 public interface MainWindowMenuManager {
 
-    void addToFileMenu(MainWindowMenuAction appMenuAction);
+    void addToFileMenu(MainWindowMenuItem appMenuAction);
 
-    void addToEditMenu(MainWindowMenuAction appMenuAction);
+    void addToEditMenu(MainWindowMenuItem appMenuAction);
 
-    void addToViewMenu(MainWindowMenuAction appMenuAction);
+    void addToViewMenu(MainWindowMenuItem appMenuAction);
 
-    void addToGotoMenu(MainWindowMenuAction appMenuAction);
+    void addToGotoMenu(MainWindowMenuItem appMenuAction);
 
-    void addToToolsMenu(MainWindowMenuAction appMenuAction);
+    void addToToolsMenu(MainWindowMenuItem appMenuAction);
 
-    void addToWindowMenu(MainWindowMenuAction appMenuAction);
+    void addToWindowMenu(MainWindowMenuItem appMenuAction);
 
-    void addToHelpMenu(MainWindowMenuAction appMenuAction);
+    void addToHelpMenu(MainWindowMenuItem appMenuAction);
 }

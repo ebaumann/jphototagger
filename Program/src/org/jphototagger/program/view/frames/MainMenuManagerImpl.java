@@ -2,7 +2,7 @@ package org.jphototagger.program.view.frames;
 
 import org.openide.util.lookup.ServiceProvider;
 
-import org.jphototagger.api.windows.MainWindowMenuAction;
+import org.jphototagger.api.windows.MainWindowMenuItem;
 import org.jphototagger.api.windows.MainWindowMenuManager;
 import org.jphototagger.program.resource.GUI;
 
@@ -15,37 +15,37 @@ import org.jphototagger.program.resource.GUI;
 public final class MainMenuManagerImpl implements MainWindowMenuManager {
 
     @Override
-    public void addToFileMenu(MainWindowMenuAction appMenuAction) {
+    public void addToFileMenu(MainWindowMenuItem appMenuAction) {
         GUI.getAppFrame().addToFileMenu(appMenuAction);
     }
 
     @Override
-    public void addToEditMenu(MainWindowMenuAction appMenuAction) {
+    public void addToEditMenu(MainWindowMenuItem appMenuAction) {
         GUI.getAppFrame().addToEditMenu(appMenuAction);
     }
 
     @Override
-    public void addToViewMenu(MainWindowMenuAction appMenuAction) {
+    public void addToViewMenu(MainWindowMenuItem appMenuAction) {
         GUI.getAppFrame().addToViewMenu(appMenuAction);
     }
 
     @Override
-    public void addToGotoMenu(MainWindowMenuAction appMenuAction) {
+    public void addToGotoMenu(MainWindowMenuItem appMenuAction) {
         GUI.getAppFrame().addToGotoMenu(appMenuAction);
     }
 
     @Override
-    public void addToToolsMenu(MainWindowMenuAction appMenuAction) {
+    public void addToToolsMenu(MainWindowMenuItem appMenuAction) {
         GUI.getAppFrame().addToToolsMenu(appMenuAction);
     }
 
     @Override
-    public void addToWindowMenu(MainWindowMenuAction appMenuAction) {
+    public void addToWindowMenu(MainWindowMenuItem appMenuAction) {
         GUI.getAppFrame().addToWindowMenu(appMenuAction);
     }
 
     @Override
-    public void addToHelpMenu(MainWindowMenuAction appMenuAction) {
+    public void addToHelpMenu(MainWindowMenuItem appMenuAction) {
         GUI.getAppFrame().addToHelpMenu(appMenuAction);
     }
 }

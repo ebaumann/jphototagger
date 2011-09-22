@@ -4,7 +4,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 
-import org.jphototagger.api.windows.MainWindowMenuAction;
+import javax.swing.JMenuItem;
+import org.jphototagger.api.windows.MainWindowMenuItem;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
 
@@ -13,10 +14,11 @@ import org.jphototagger.lib.util.Bundle;
  *
  * @author Elmar Baumann
  */
-public final class BrowseRepositoryFilesAction extends AbstractAction implements MainWindowMenuAction {
+public final class BrowseRepositoryFilesAction extends AbstractAction implements MainWindowMenuItem {
 
     private static final long serialVersionUID = 1L;
     public static final BrowseRepositoryFilesAction INSTANCE = new BrowseRepositoryFilesAction();
+    public static final JMenuItem MENU_ITEM = new JMenuItem(new BrowseRepositoryFilesAction());
 
     private BrowseRepositoryFilesAction() {
         super(Bundle.getString(BrowseRepositoryFilesAction.class, "DisplayFileBrowserAction.Name"));
@@ -32,8 +34,8 @@ public final class BrowseRepositoryFilesAction extends AbstractAction implements
     }
 
     @Override
-    public Action getAction() {
-        return INSTANCE;
+    public JMenuItem getMenuItem() {
+        return MENU_ITEM;
     }
 
     @Override
@@ -42,7 +44,7 @@ public final class BrowseRepositoryFilesAction extends AbstractAction implements
     }
 
     @Override
-    public boolean whenUsedInMenusIsSeparatorBefore() {
+    public boolean isSeparatorBefore() {
         return true;
     }
 }
