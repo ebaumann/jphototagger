@@ -71,17 +71,17 @@ public class FormatterLabelMetadata {
      * @param cellLabel Label  Label
      * @param isSelected
      */
-    protected void setIsStoredInDatabaseColors(JLabel cellLabel, boolean isSelected) {
+    protected void setIsStoredInRepositoryColors(JLabel cellLabel, boolean isSelected) {
         if (cellLabel == null) {
             throw new NullPointerException("cellLabel == null");
         }
 
         cellLabel.setForeground(isSelected
                 ? AppLookAndFeel.getTableSelectionForeground()
-                : AppLookAndFeel.getTableStoredInDatabaseForeground());
+                : AppLookAndFeel.getTableStoredInRepositoryForeground());
         cellLabel.setBackground(isSelected
                 ? AppLookAndFeel.getTableSelectionBackground()
-                : AppLookAndFeel.getTableStoredInDatabaseBackground());
+                : AppLookAndFeel.getTableStoredInRepositoryBackground());
     }
 
     protected void setIsExifMakerNoteColors(JLabel cellLabel, boolean isSelected) {

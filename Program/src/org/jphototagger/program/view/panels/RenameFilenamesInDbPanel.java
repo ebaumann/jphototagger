@@ -63,7 +63,7 @@ public class RenameFilenamesInDbPanel extends JPanel implements ProgressListener
                     MessageDisplayer.information(null, message);
                     runs = false;
                 }
-            }, "JPhotoTagger: Renaming files in database");
+            }, "JPhotoTagger: Renaming files in repository");
 
             thread.start();
         }

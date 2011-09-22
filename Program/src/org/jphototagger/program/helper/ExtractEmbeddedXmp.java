@@ -71,7 +71,7 @@ public final class ExtractEmbeddedXmp extends FileEditor {
                 fos.getChannel().lock();
                 fos.write(xmp.getBytes());
                 fos.flush();
-                updateDatabase(file);
+                updateRepository(file);
             } catch (Exception ex) {
                 Logger.getLogger(ExtractEmbeddedXmp.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
@@ -86,8 +86,8 @@ public final class ExtractEmbeddedXmp extends FileEditor {
         }
     }
 
-    private void updateDatabase(File imageFile) {
-        InsertImageFilesIntoDatabase insert = new InsertImageFilesIntoDatabase(Arrays.asList(imageFile), InsertIntoRepository.XMP);
+    private void updateRepository(File imageFile) {
+        InsertImageFilesIntoRepository insert = new InsertImageFilesIntoRepository(Arrays.asList(imageFile), InsertIntoRepository.XMP);
 
         insert.run();    // run in this thread!
     }

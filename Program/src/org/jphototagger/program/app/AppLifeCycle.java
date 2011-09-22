@@ -76,7 +76,7 @@ public final class AppLifeCycle {
      * Adds a thread that will be executed before the application window becomes
      * invisible and the application exists the VM.
      * <p>
-     * <em>At this time, the database has been shutdown, so that database
+     * <em>At this time, the repository has been shutdown, so that repository
      * operations are not possible!</em>
      *
      * @param task task

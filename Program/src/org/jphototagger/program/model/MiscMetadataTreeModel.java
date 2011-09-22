@@ -40,8 +40,7 @@ import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.lib.util.Bundle;
 
 /**
- * This model contains distinct values of specific EXIF and XMP database
- * columns.
+ * This model contains distinct values of specific EXIF and XMP repository metadata values.
  *
  * Elements are {@code DefaultMutableTreeNode}s with the user objects listed
  * below.

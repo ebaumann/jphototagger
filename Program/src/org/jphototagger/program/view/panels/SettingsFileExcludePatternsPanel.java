@@ -25,7 +25,7 @@ import org.jphototagger.program.types.Persistence;
 public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel implements ProgressListener, Persistence, ListSelectionListener {
     private static final long serialVersionUID = -3083582823254767001L;
     private final FileExcludePatternsListModel model = new FileExcludePatternsListModel();
-    private boolean isUpdateDatabase = false;
+    private boolean isUpdateRepository = false;
     private boolean cancel = false;
     private final FileExcludePatternsRepository repo = Lookup.getDefault().lookup(FileExcludePatternsRepository.class);
 
@@ -44,10 +44,10 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel i
     public void setVisible(boolean visible) {
         if (visible) {
             cancel = false;
-            isUpdateDatabase = false;
+            isUpdateRepository = false;
             setEnabled();
         } else {
-            cancelUpdateDatabase();
+            cancelUpdateRepository();
         }
 
         super.setVisible(visible);
@@ -117,8 +117,8 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel i
         setEnabledButtonInsertPattern();
         buttonDeletePattern.setEnabled(itemIsSelected);
         menuItemDeletePattern.setEnabled(itemIsSelected);
-        buttonUpdateDatabase.setEnabled((size > 0) &&!isUpdateDatabase);
-        buttonCancelUpdateDatabase.setEnabled(isUpdateDatabase);
+        buttonUpdateRepository.setEnabled((size > 0) &&!isUpdateRepository);
+        buttonCancelUpdateRepository.setEnabled(isUpdateRepository);
     }
 
     private void setSelectedPatternToInput() {
@@ -129,18 +129,18 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel i
         }
     }
 
-    private void updateDatabase() {
+    private void updateRepository() {
         List<String> patterns = model.getPatterns();
 
         if (patterns.size() > 0) {
-            isUpdateDatabase = true;
+            isUpdateRepository = true;
             cancel = false;
             setEnabled();
             repo.deleteMatchingFiles(patterns, this);
         }
     }
 
-    private void cancelUpdateDatabase() {
+    private void cancelUpdateRepository() {
         cancel = true;
     }
 
@@ -156,9 +156,9 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel i
 
             @Override
             public void run() {
-                progressBarUpdateDatabase.setMinimum(evt.getMinimum());
-                progressBarUpdateDatabase.setMaximum(evt.getMaximum());
-                progressBarUpdateDatabase.setValue(evt.getValue());
+                progressBarUpdateRepository.setMinimum(evt.getMinimum());
+                progressBarUpdateRepository.setMaximum(evt.getMaximum());
+                progressBarUpdateRepository.setValue(evt.getValue());
                 checkCancel(evt);
             }
         });
@@ -170,7 +170,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel i
 
             @Override
             public void run() {
-                progressBarUpdateDatabase.setValue(evt.getValue());
+                progressBarUpdateRepository.setValue(evt.getValue());
                 checkCancel(evt);
             }
         });
@@ -182,8 +182,8 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel i
 
             @Override
             public void run() {
-                progressBarUpdateDatabase.setValue(evt.getValue());
-                isUpdateDatabase = false;
+                progressBarUpdateRepository.setValue(evt.getValue());
+                isUpdateRepository = false;
                 cancel = false;
                 setEnabled();
             }
@@ -221,10 +221,10 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel i
         menuItemDeletePattern = new javax.swing.JMenuItem();
         tabbedPane = new javax.swing.JTabbedPane();
         panelFiles = new javax.swing.JPanel();
-        labelInfoDatabase = new javax.swing.JLabel();
-        progressBarUpdateDatabase = new javax.swing.JProgressBar();
-        buttonCancelUpdateDatabase = new javax.swing.JButton();
-        buttonUpdateDatabase = new javax.swing.JButton();
+        labelInfoRepository = new javax.swing.JLabel();
+        progressBarUpdateRepository = new javax.swing.JProgressBar();
+        buttonCancelUpdateRepository = new javax.swing.JButton();
+        buttonUpdateRepository = new javax.swing.JButton();
         labelTextFieldInputPattern = new javax.swing.JLabel();
         textFieldInputPattern = new javax.swing.JTextField();
         buttonDeletePattern = new javax.swing.JButton();
@@ -257,26 +257,26 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel i
 
         panelFiles.setName("panelFiles"); // NOI18N
 
-        labelInfoDatabase.setForeground(new java.awt.Color(0, 0, 255));
-        labelInfoDatabase.setText(bundle.getString("SettingsFileExcludePatternsPanel.labelInfoDatabase.text")); // NOI18N
-        labelInfoDatabase.setName("labelInfoDatabase"); // NOI18N
+        labelInfoRepository.setForeground(new java.awt.Color(0, 0, 255));
+        labelInfoRepository.setText(bundle.getString("SettingsFileExcludePatternsPanel.labelInfoRepository.text")); // NOI18N
+        labelInfoRepository.setName("labelInfoRepository"); // NOI18N
 
-        progressBarUpdateDatabase.setName("progressBarUpdateDatabase"); // NOI18N
+        progressBarUpdateRepository.setName("progressBarUpdateRepository"); // NOI18N
 
-        buttonCancelUpdateDatabase.setText(bundle.getString("SettingsFileExcludePatternsPanel.buttonCancelUpdateDatabase.text")); // NOI18N
-        buttonCancelUpdateDatabase.setEnabled(false);
-        buttonCancelUpdateDatabase.setName("buttonCancelUpdateDatabase"); // NOI18N
-        buttonCancelUpdateDatabase.addActionListener(new java.awt.event.ActionListener() {
+        buttonCancelUpdateRepository.setText(bundle.getString("SettingsFileExcludePatternsPanel.buttonCancelUpdateRepository.text")); // NOI18N
+        buttonCancelUpdateRepository.setEnabled(false);
+        buttonCancelUpdateRepository.setName("buttonCancelUpdateRepository"); // NOI18N
+        buttonCancelUpdateRepository.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonCancelUpdateDatabaseActionPerformed(evt);
+                buttonCancelUpdateRepositoryActionPerformed(evt);
             }
         });
 
-        buttonUpdateDatabase.setText(bundle.getString("SettingsFileExcludePatternsPanel.buttonUpdateDatabase.text")); // NOI18N
-        buttonUpdateDatabase.setName("buttonUpdateDatabase"); // NOI18N
-        buttonUpdateDatabase.addActionListener(new java.awt.event.ActionListener() {
+        buttonUpdateRepository.setText(bundle.getString("SettingsFileExcludePatternsPanel.buttonUpdateRepository.text")); // NOI18N
+        buttonUpdateRepository.setName("buttonUpdateRepository"); // NOI18N
+        buttonUpdateRepository.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonUpdateDatabaseActionPerformed(evt);
+                buttonUpdateRepositoryActionPerformed(evt);
             }
         });
 
@@ -353,12 +353,12 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel i
                             .addComponent(buttonDeletePattern)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(buttonInsertPattern))
-                        .addComponent(labelInfoDatabase, javax.swing.GroupLayout.DEFAULT_SIZE, 725, Short.MAX_VALUE)
-                        .addComponent(progressBarUpdateDatabase, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 725, Short.MAX_VALUE)
+                        .addComponent(labelInfoRepository, javax.swing.GroupLayout.DEFAULT_SIZE, 725, Short.MAX_VALUE)
+                        .addComponent(progressBarUpdateRepository, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 725, Short.MAX_VALUE)
                         .addGroup(panelFilesLayout.createSequentialGroup()
-                            .addComponent(buttonCancelUpdateDatabase)
+                            .addComponent(buttonCancelUpdateRepository)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(buttonUpdateDatabase))
+                            .addComponent(buttonUpdateRepository))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelFilesLayout.createSequentialGroup()
                             .addComponent(labelTextFieldInputPattern)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -383,13 +383,13 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel i
                         .addComponent(buttonInsertPattern)
                         .addComponent(buttonDeletePattern))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(labelInfoDatabase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelInfoRepository, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addComponent(progressBarUpdateDatabase, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(progressBarUpdateRepository, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addGroup(panelFilesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(buttonUpdateDatabase)
-                        .addComponent(buttonCancelUpdateDatabase))
+                        .addComponent(buttonUpdateRepository)
+                        .addComponent(buttonCancelUpdateRepository))
                     .addContainerGap()))
         );
 
@@ -448,17 +448,17 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel i
         handleTextFieldInputPatternKeyReleased(evt);
     }//GEN-LAST:event_textFieldInputPatternKeyReleased
 
-    private void buttonCancelUpdateDatabaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelUpdateDatabaseActionPerformed
-        cancelUpdateDatabase();
-    }//GEN-LAST:event_buttonCancelUpdateDatabaseActionPerformed
+    private void buttonCancelUpdateRepositoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelUpdateRepositoryActionPerformed
+        cancelUpdateRepository();
+    }//GEN-LAST:event_buttonCancelUpdateRepositoryActionPerformed
 
     private void buttonDeletePatternActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeletePatternActionPerformed
         deletePattern();
     }//GEN-LAST:event_buttonDeletePatternActionPerformed
 
-    private void buttonUpdateDatabaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpdateDatabaseActionPerformed
-        updateDatabase();
-    }//GEN-LAST:event_buttonUpdateDatabaseActionPerformed
+    private void buttonUpdateRepositoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpdateRepositoryActionPerformed
+        updateRepository();
+    }//GEN-LAST:event_buttonUpdateRepositoryActionPerformed
 
     private void buttonInsertPatternActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonInsertPatternActionPerformed
         insertPattern();
@@ -476,12 +476,12 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel i
         textFieldInputPattern.selectAll();
     }//GEN-LAST:event_textFieldInputPatternFocusGained
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonCancelUpdateDatabase;
+    private javax.swing.JButton buttonCancelUpdateRepository;
     private javax.swing.JButton buttonDeletePattern;
     private javax.swing.JButton buttonInsertPattern;
-    private javax.swing.JButton buttonUpdateDatabase;
-    private javax.swing.JLabel labelInfoDatabase;
+    private javax.swing.JButton buttonUpdateRepository;
     private javax.swing.JLabel labelInfoList;
+    private javax.swing.JLabel labelInfoRepository;
     private javax.swing.JLabel labelInfopanelDirectoryFolder;
     private javax.swing.JLabel labelTextFieldInputPattern;
     private org.jdesktop.swingx.JXList list;
@@ -490,7 +490,7 @@ public final class SettingsFileExcludePatternsPanel extends javax.swing.JPanel i
     private javax.swing.JPanel panelFiles;
     private org.jphototagger.program.view.panels.SelectRootFilesPanel panelSelectRootFiles;
     private javax.swing.JPopupMenu popupMenu;
-    private javax.swing.JProgressBar progressBarUpdateDatabase;
+    private javax.swing.JProgressBar progressBarUpdateRepository;
     private javax.swing.JScrollPane scrollPane;
     private javax.swing.JScrollPane scrollPanePanelDirectoryFolder;
     private javax.swing.JTabbedPane tabbedPane;

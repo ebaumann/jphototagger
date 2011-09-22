@@ -18,11 +18,11 @@ import org.jphototagger.program.io.ImageFileFilterer;
 import org.jphototagger.program.tasks.UserTasks;
 
 /**
- * Updates the database on file system events.
+ * Updates the repository on file system events.
  *
  * @author Elmar Baumann
  */
-public final class FilesystemDatabaseUpdater {
+public final class FilesystemRepositoryUpdater {
 
     private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
     private volatile boolean wait;
@@ -33,14 +33,14 @@ public final class FilesystemDatabaseUpdater {
      * @param wait if true, wait until completion. If false, start a new
      *             thread. Default: false (new thread)
      */
-    public FilesystemDatabaseUpdater(boolean wait) {
+    public FilesystemRepositoryUpdater(boolean wait) {
         this.wait = wait;
         AnnotationProcessor.process(this);
     }
 
-    private void insertFileIntoDatabase(File file) {
+    private void insertFileIntoRepository(File file) {
         if (ImageFileFilterer.isImageFile(file)) {
-            InsertImageFilesIntoDatabase inserter = new InsertImageFilesIntoDatabase(Arrays.asList(file),
+            InsertImageFilesIntoRepository inserter = new InsertImageFilesIntoRepository(Arrays.asList(file),
                     InsertIntoRepository.OUT_OF_DATE);
 
             if (wait) {
@@ -51,7 +51,7 @@ public final class FilesystemDatabaseUpdater {
         }
     }
 
-    private void removeFileFromDatabase(File file) {
+    private void removeFileFromRepository(File file) {
         if (ImageFileFilterer.isImageFile(file)) {
 
             if (repo.existsImageFile(file)) {
@@ -65,7 +65,7 @@ public final class FilesystemDatabaseUpdater {
         File targetFile = evt.getTargetFile();
 
         if (ImageFileFilterer.isImageFile(targetFile)) {
-            insertFileIntoDatabase(targetFile);
+            insertFileIntoRepository(targetFile);
         }
     }
 
@@ -74,7 +74,7 @@ public final class FilesystemDatabaseUpdater {
         File file = evt.getFile();
 
         if (ImageFileFilterer.isImageFile(file)) {
-            removeFileFromDatabase(file);
+            removeFileFromRepository(file);
         }
     }
 

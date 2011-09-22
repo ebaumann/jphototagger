@@ -24,7 +24,7 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.xml.bind.XmlObjectImporter;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
+import org.jphototagger.program.helper.InsertImageFilesIntoRepository;
 import org.jphototagger.program.model.ImageCollectionsListModel;
 import org.jphototagger.program.view.panels.ProgressBarUpdater;
 
@@ -116,7 +116,7 @@ public final class ImageCollectionsImporter implements RepositoryDataImporter {
         }
 
         private void insertIntoDbMissingFiles(ImageCollection imageCollection) {
-            InsertImageFilesIntoDatabase inserter = new InsertImageFilesIntoDatabase(imageCollection.getFiles(),
+            InsertImageFilesIntoRepository inserter = new InsertImageFilesIntoRepository(imageCollection.getFiles(),
                     InsertIntoRepository.OUT_OF_DATE);
 
             inserter.addProgressListener(new ProgressBarUpdater(inserter,

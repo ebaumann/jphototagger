@@ -25,10 +25,10 @@ public final class AppStartupLock {
 
     static {
         FileRepositoryProvider provider = Lookup.getDefault().lookup(FileRepositoryProvider.class);
-        File databaseDirectory = provider.getFileRepositoryDirectory();
-        String databaseDirectoryName = databaseDirectory.getAbsolutePath();
+        File repositoryDirectory = provider.getFileRepositoryDirectory();
+        String repositoryDirectoryName = repositoryDirectory.getAbsolutePath();
 
-        LOCKFILE_NAME = databaseDirectoryName + File.separator + AppInfo.PROJECT_NAME + ".lck";
+        LOCKFILE_NAME = repositoryDirectoryName + File.separator + AppInfo.PROJECT_NAME + ".lck";
     }
 
     private AppStartupLock() {

@@ -4,7 +4,7 @@
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="0"/>
     <Property name="title" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-      <ResourceString bundle="org/jphototagger/program/view/dialogs/Bundle.properties" key="DatabaseMaintainanceDialog.title" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+      <ResourceString bundle="org/jphototagger/program/view/dialogs/Bundle.properties" key="RepositoryMaintainanceDialog.title" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
     </Property>
     <Property name="name" type="java.lang.String" value="Form" noResource="true"/>
   </Properties>
@@ -55,7 +55,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
-        <Component class="org.jphototagger.program.view.panels.DatabaseInfoCountPanel" name="panelCount">
+        <Component class="org.jphototagger.program.view.panels.RepositoryInfoCountPanel" name="panelCount">
           <Properties>
             <Property name="name" type="java.lang.String" value="panelCount" noResource="true"/>
           </Properties>
@@ -63,13 +63,13 @@
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="&amp;Info">
                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/view/dialogs/Bundle.properties" key="DatabaseMaintainanceDialog.panelCount.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/dialogs/Bundle.properties" key="RepositoryMaintainanceDialog.panelCount.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="org.jphototagger.program.view.panels.DatabaseMaintainancePanel" name="panelMaintainance">
+        <Component class="org.jphototagger.program.view.panels.RepositoryMaintainancePanel" name="panelMaintainance">
           <Properties>
             <Property name="name" type="java.lang.String" value="panelMaintainance" noResource="true"/>
           </Properties>
@@ -77,21 +77,21 @@
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="&amp;Wartung">
                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/view/dialogs/Bundle.properties" key="DatabaseMaintainanceDialog.panelMaintainance.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/dialogs/Bundle.properties" key="RepositoryMaintainanceDialog.panelMaintainance.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="org.jphototagger.program.view.panels.DatabaseUpdatePanel" name="panelDatabaseUpdate">
+        <Component class="org.jphototagger.program.view.panels.RepositoryUpdatePanel" name="panelRepositoryUpdate">
           <Properties>
-            <Property name="name" type="java.lang.String" value="panelDatabaseUpdate" noResource="true"/>
+            <Property name="name" type="java.lang.String" value="panelRepositoryUpdate" noResource="true"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="&amp;Aktualisieren">
                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/view/dialogs/Bundle.properties" key="DatabaseMaintainanceDialog.panelDatabaseUpdate.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/dialogs/Bundle.properties" key="RepositoryMaintainanceDialog.panelRepositoryUpdate.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
               </JTabbedPaneConstraints>
             </Constraint>

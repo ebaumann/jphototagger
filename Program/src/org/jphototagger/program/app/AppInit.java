@@ -68,7 +68,7 @@ public final class AppInit {
             showSplashScreen();
             EventBus.publish(new AppWillInitEvent(this));
             CacheUtil.initCaches();
-            SplashScreen.INSTANCE.setMessage(Bundle.getString(AppInit.class, "AppInit.Info.ConnectToDatabase"));
+            SplashScreen.INSTANCE.setMessage(Bundle.getString(AppInit.class, "AppInit.Info.ConnectToRepository"));
             Lookup.getDefault().lookup(Repository.class).init();
             SplashScreen.INSTANCE.setProgress(75);
             AbstractImageReader.install(ImageProperties.class);

@@ -5,7 +5,6 @@ import java.util.Comparator;
 import org.jphototagger.domain.metadata.keywords.Keyword;
 
 /**
- * Compares {@code Keyword}s by the database ID of their parents.
  *
  * @author Elmar Baumann
  */

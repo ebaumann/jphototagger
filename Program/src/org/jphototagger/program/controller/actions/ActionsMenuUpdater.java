@@ -14,8 +14,6 @@ import org.jphototagger.program.helper.ActionsHelper;
 import org.jphototagger.program.view.popupmenus.ThumbnailsPopupMenu;
 
 /**
- * Listens to {@code DatabasePrograms} events and inserts or removes actions
- * from the {@code ThumbnailsPopupMenu#getMenuActions()}.
  *
  * @author Elmar Baumann
  */

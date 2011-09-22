@@ -193,8 +193,8 @@ public final class AppFrame extends javax.swing.JFrame {
         return menuItemOpenPdfUserManual;
     }
 
-    public JMenuItem getMenuItemMaintainDatabase() {
-        return menuItemMaintainDatabase;
+    public JMenuItem getMenuItemMaintainRepository() {
+        return menuItemMaintainRepository;
     }
 
     public JMenuItem getMenuItemScanDirectory() {
@@ -345,7 +345,7 @@ public final class AppFrame extends javax.swing.JFrame {
         menuBar = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         menuItemScanDirectory = new javax.swing.JMenuItem();
-        menuItemMaintainDatabase = new javax.swing.JMenuItem();
+        menuItemMaintainRepository = new javax.swing.JMenuItem();
         menuItemMaintainance = new JMenuItem(org.jphototagger.program.controller.maintainance.DisplayMaintainanceDialogAction.INSTANCE);
         sep1 = new javax.swing.JPopupMenu.Separator();
         menuImportImageFiles = new javax.swing.JMenuItem();
@@ -458,11 +458,11 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemScanDirectory.setName("menuItemScanDirectory"); // NOI18N
         menuFile.add(menuItemScanDirectory);
 
-        menuItemMaintainDatabase.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_D));
-        menuItemMaintainDatabase.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_database.png"))); // NOI18N
-        menuItemMaintainDatabase.setText(bundle.getString("AppFrame.menuItemMaintainDatabase.text")); // NOI18N
-        menuItemMaintainDatabase.setName("menuItemMaintainDatabase"); // NOI18N
-        menuFile.add(menuItemMaintainDatabase);
+        menuItemMaintainRepository.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_D));
+        menuItemMaintainRepository.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_database.png"))); // NOI18N
+        menuItemMaintainRepository.setText(bundle.getString("AppFrame.menuItemMaintainRepository.text")); // NOI18N
+        menuItemMaintainRepository.setName("menuItemMaintainRepository"); // NOI18N
+        menuFile.add(menuItemMaintainRepository);
 
         menuItemMaintainance.setText(bundle.getString("AppFrame.menuItemMaintainance.text")); // NOI18N
         menuItemMaintainance.setName("menuItemMaintainance"); // NOI18N
@@ -974,7 +974,7 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemHelp;
     private javax.swing.JMenuItem menuItemImportJptMisc;
     private javax.swing.JMenuItem menuItemInputHelper;
-    private javax.swing.JMenuItem menuItemMaintainDatabase;
+    private javax.swing.JMenuItem menuItemMaintainRepository;
     private javax.swing.JMenuItem menuItemMaintainance;
     private javax.swing.JMenuItem menuItemOpenPdfUserManual;
     private javax.swing.JMenuItem menuItemScanDirectory;

@@ -4,10 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import org.jphototagger.lib.componentutil.ComponentUtil;
-import org.jphototagger.program.view.dialogs.DatabaseMaintainanceDialog;
+import org.jphototagger.program.view.dialogs.RepositoryMaintainanceDialog;
 
 /**
- * Kontrolliert die Aktion: Datenbank warten.
  *
  * @author Elmar Baumann
  */
@@ -15,10 +14,10 @@ public final class MaintainRepositoryController implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        maintainDatabase();
+        maintainRepository();
     }
 
-    private void maintainDatabase() {
-        ComponentUtil.show(DatabaseMaintainanceDialog.INSTANCE);
+    private void maintainRepository() {
+        ComponentUtil.show(RepositoryMaintainanceDialog.INSTANCE);
     }
 }

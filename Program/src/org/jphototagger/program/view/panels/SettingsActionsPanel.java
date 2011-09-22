@@ -30,7 +30,7 @@ import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppPreferencesKeys;
-import org.jphototagger.program.model.ActionsAfterDbInsertionListModel;
+import org.jphototagger.program.model.ActionsAfterSavesOrUpdatesInRepositoryListModel;
 import org.jphototagger.program.types.Persistence;
 import org.jphototagger.program.view.dialogs.ActionsDialog;
 import org.jphototagger.program.view.dialogs.ProgramSelectDialog;
@@ -42,7 +42,7 @@ import org.jphototagger.program.view.renderer.ActionsListCellRenderer;
  */
 public class SettingsActionsPanel extends javax.swing.JPanel implements ListSelectionListener, Persistence {
     private static final long serialVersionUID = 6440789488453905704L;
-    private final ActionsAfterDbInsertionListModel model = new ActionsAfterDbInsertionListModel();
+    private final ActionsAfterSavesOrUpdatesInRepositoryListModel model = new ActionsAfterSavesOrUpdatesInRepositoryListModel();
     private final ActionsAfterRepoUpdatesRepository actionsAfterRepoUpdatesRepo = Lookup.getDefault().lookup(ActionsAfterRepoUpdatesRepository.class);
     private final ProgramsRepository programsRepo = Lookup.getDefault().lookup(ProgramsRepository.class);
     private volatile boolean listenToModel = true;
@@ -233,7 +233,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel implements ListSele
 
     private boolean confirmDelete(String actionName) {
         String message = Bundle.getString(SettingsActionsPanel.class,
-                "SettingsActionsPanel.Confirm.RemoveActionAfterDatabaseInsertion", actionName);
+                "SettingsActionsPanel.Confirm.RemoveAction", actionName);
 
         return MessageDisplayer.confirmYesNo(this, message);
     }

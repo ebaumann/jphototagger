@@ -21,18 +21,15 @@ import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 
 /**
- * The programs are actions, {@code Program#isAction()} is true for every
- * element in this model. All actions shall be executed after inserting metadata
- * into the database.
  *
  * @author Elmar Baumann
  */
-public final class ActionsAfterDbInsertionListModel extends DefaultListModel {
+public final class ActionsAfterSavesOrUpdatesInRepositoryListModel extends DefaultListModel {
 
     private static final long serialVersionUID = -6490813457178023686L;
     private final ActionsAfterRepoUpdatesRepository actionsRepo = Lookup.getDefault().lookup(ActionsAfterRepoUpdatesRepository.class);
 
-    public ActionsAfterDbInsertionListModel() {
+    public ActionsAfterSavesOrUpdatesInRepositoryListModel() {
         addElements();
         AnnotationProcessor.process(this);
     }
@@ -138,18 +135,18 @@ public final class ActionsAfterDbInsertionListModel extends DefaultListModel {
     }
 
     private void errorMessageDelete(Program action) {
-        String message = Bundle.getString(ActionsAfterDbInsertionListModel.class, "ActionsAfterDbInsertionListModel.Error.Remove", action);
+        String message = Bundle.getString(ActionsAfterSavesOrUpdatesInRepositoryListModel.class, "ActionsAfterSavesOrUpdatesInRepositoryListModel.Error.Remove", action);
         MessageDisplayer.error(null, message);
     }
 
     private void errorMessageSwap(int indexFirstElement) {
         Program program = (Program) get(indexFirstElement);
-        String message = Bundle.getString(ActionsAfterDbInsertionListModel.class, "ActionsAfterDbInsertionListModel.Error.Swap", program);
+        String message = Bundle.getString(ActionsAfterSavesOrUpdatesInRepositoryListModel.class, "ActionsAfterSavesOrUpdatesInRepositoryListModel.Error.Swap", program);
         MessageDisplayer.error(null, message);
     }
 
     private void errorMessageInsert(Program action) {
-        String message = Bundle.getString(ActionsAfterDbInsertionListModel.class, "ActionsAfterDbInsertionListModel.Error.Add", action);
+        String message = Bundle.getString(ActionsAfterSavesOrUpdatesInRepositoryListModel.class, "ActionsAfterSavesOrUpdatesInRepositoryListModel.Error.Add", action);
         MessageDisplayer.error(null, message);
     }
 

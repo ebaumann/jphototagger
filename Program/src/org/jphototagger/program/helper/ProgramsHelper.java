@@ -26,7 +26,7 @@ public final class ProgramsHelper {
 
     /**
      * Moves in a list with {@code Program}s the selected progam up and reorders
-     * all program's sequence numbers in the database.
+     * all program's sequence numbers in the repository.
      * <p>
      * Does nothing if the program can't be moved: No list item or the first
      * list item is selected.
@@ -54,7 +54,7 @@ public final class ProgramsHelper {
 
     /**
      * Moves in a list with {@code Program}s the selected progam down and
-     * reorders all program's sequence numbers in the database.
+     * reorders all program's sequence numbers in the repository.
      * <p>
      * Does nothing if the program can't be moved: No list item or the last
      * list item is selected.
@@ -82,7 +82,7 @@ public final class ProgramsHelper {
     }
 
     /**
-     * Reorders in the database the programs sequence number to match their
+     * Reorders in the repository the programs sequence number to match their
      * order a list model.
      *
      * @param model model with {@code Program}s as elements

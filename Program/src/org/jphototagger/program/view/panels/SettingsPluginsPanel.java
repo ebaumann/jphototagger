@@ -186,7 +186,7 @@ public class SettingsPluginsPanel extends javax.swing.JPanel implements ChangeLi
 
     private void initComponents() {//GEN-BEGIN:initComponents
 
-        buttonGroupActionsAfterDatabaseInsertion = new javax.swing.ButtonGroup();
+        buttonGroup = new javax.swing.ButtonGroup();
         tabbedPane = new javax.swing.JTabbedPane();
         panelExclude = new javax.swing.JPanel();
         labelInfoExclude = new javax.swing.JLabel();
@@ -268,7 +268,7 @@ public class SettingsPluginsPanel extends javax.swing.JPanel implements ChangeLi
         showHelp();
     }//GEN-LAST:event_buttonHelpPluginActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup buttonGroupActionsAfterDatabaseInsertion;
+    private javax.swing.ButtonGroup buttonGroup;
     private javax.swing.JButton buttonHelpPlugin;
     private javax.swing.JLabel labelInfoExclude;
     private javax.swing.JPanel panelExclude;

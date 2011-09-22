@@ -110,7 +110,7 @@ public final class StartPrograms {
             }
 
             setValueToProgressBar(0);
-            updateDatabase();
+            updateRepository();
             nextExecutor();
         }
 
@@ -259,9 +259,9 @@ public final class StartPrograms {
             });
         }
 
-        private void updateDatabase() {
+        private void updateRepository() {
             if (program.isChangeFile()) {
-                InsertImageFilesIntoDatabase updater = new InsertImageFilesIntoDatabase(imageFiles, InsertIntoRepository.OUT_OF_DATE);
+                InsertImageFilesIntoRepository updater = new InsertImageFilesIntoRepository(imageFiles, InsertIntoRepository.OUT_OF_DATE);
 
                 updater.run();    // run in this thread!
             }

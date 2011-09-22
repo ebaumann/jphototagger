@@ -231,7 +231,7 @@ public final class ImageCollectionsHelper {
     }
 
     private static void logAddImageCollection(String name) {
-        LOGGER.log(Level.INFO, "Insert photo album ''{0}'' into the database", name);
+        LOGGER.log(Level.INFO, "Insert photo album ''{0}'' into the repository", name);
     }
 
     private static void errorMessageAddImagesToCollection(String collectionName) {

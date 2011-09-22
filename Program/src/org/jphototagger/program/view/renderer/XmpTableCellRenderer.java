@@ -14,7 +14,7 @@ import javax.swing.table.TableStringConverter;
 
 import com.adobe.xmp.properties.XMPPropertyInfo;
 
-import org.jphototagger.domain.repository.xmp.XmpInRepository;
+import org.jphototagger.domain.repository.xmp.XmpToSaveInRepository;
 import org.jphototagger.lib.componentutil.TableUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
@@ -41,7 +41,7 @@ public final class XmpTableCellRenderer extends FormatterLabelMetadata implement
         XMPPropertyInfo xmpPropertyInfo = (XMPPropertyInfo) value;
 
         setDefaultCellColors(cellLabel, isSelected);
-        setIsStoredInDatabaseColor(cellLabel, xmpPropertyInfo, isSelected);
+        setIsStoredInRepositoryColor(cellLabel, xmpPropertyInfo, isSelected);
 
         if (column == 0) {
             setHeaderFont(cellLabel);
@@ -60,10 +60,10 @@ public final class XmpTableCellRenderer extends FormatterLabelMetadata implement
         return cellLabel;
     }
 
-    private void setIsStoredInDatabaseColor(JLabel cellLabel, XMPPropertyInfo xmpPropertyInfo, boolean isSel) {
-        if (XmpInRepository.isInDatabase(xmpPropertyInfo.getPath())) {
-            setIsStoredInDatabaseColors(cellLabel, isSel);
-            cellLabel.setToolTipText(Bundle.getString(XmpTableCellRenderer.class, "XmpTableCellRenderer.ToolTipText.CellLabelStoredInDatabase"));
+    private void setIsStoredInRepositoryColor(JLabel cellLabel, XMPPropertyInfo xmpPropertyInfo, boolean isSel) {
+        if (XmpToSaveInRepository.isSaveInRepository(xmpPropertyInfo.getPath())) {
+            setIsStoredInRepositoryColors(cellLabel, isSel);
+            cellLabel.setToolTipText(Bundle.getString(XmpTableCellRenderer.class, "XmpTableCellRenderer.ToolTipText.CellLabelStoredInRepository"));
         }
     }
 

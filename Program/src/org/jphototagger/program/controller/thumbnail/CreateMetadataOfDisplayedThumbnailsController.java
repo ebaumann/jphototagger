@@ -11,7 +11,7 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.domain.repository.InsertIntoRepository;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsChangedEvent;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
+import org.jphototagger.program.helper.InsertImageFilesIntoRepository;
 import org.jphototagger.program.tasks.AutomaticTask;
 import org.jphototagger.program.view.panels.ProgressBarUpdater;
 
@@ -19,9 +19,9 @@ import org.jphototagger.program.view.panels.ProgressBarUpdater;
  * Listens to the {@code ThumbnailsPanel} and when the displayed
  * thumbnails were changed
  * this controller gives the new displayed files to an
- * {@code InsertImageFilesIntoDatabase} object which updates the database when
+ * {@code InsertImageFilesIntoRepository} object which updates the repository when
  * the displayed image files or XMP sidecar files are newer than their
- * metadata and thumbnails stored in the database.
+ * metadata and thumbnails stored in the repository.
  *
  * Runs as a {@code AutomaticTask}, that means if an other automatic task is
  * started, the update will be cancelled.
@@ -46,9 +46,9 @@ public final class CreateMetadataOfDisplayedThumbnailsController {
     }
 
     private synchronized void updateMetadata(List<File> imageFiles) {
-        LOGGER.log(Level.INFO, "Synchronizing displayed thumbnails with the database");
+        LOGGER.log(Level.INFO, "Synchronizing displayed thumbnails with the repository");
 
-        InsertImageFilesIntoDatabase inserter = new InsertImageFilesIntoDatabase(imageFiles, InsertIntoRepository.OUT_OF_DATE);
+        InsertImageFilesIntoRepository inserter = new InsertImageFilesIntoRepository(imageFiles, InsertIntoRepository.OUT_OF_DATE);
         String pBarString = Bundle.getString(CreateMetadataOfDisplayedThumbnailsController.class, "CreateMetadataOfDisplayedThumbnailsController.ProgressBar.String");
 
         inserter.addProgressListener(new ProgressBarUpdater(inserter, pBarString));

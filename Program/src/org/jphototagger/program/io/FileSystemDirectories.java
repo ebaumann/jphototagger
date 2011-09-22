@@ -12,7 +12,7 @@ import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.TreeFileSystemDirectories;
 
 /**
- * Renames or deletes a directory from the file system and updates the database
+ * Renames or deletes a directory from the file system and updates the repository
  * when image files are affected. Let's confirm the user before acting.
  *
  * @author Elmar Baumann
@@ -27,7 +27,7 @@ public final class FileSystemDirectories {
 
     /**
      * Deletes a directory from the file system and updates the
-     * {@code DatabaseImageFiles}: Deletes from the database the deleted files.
+     * repository: Deletes from the repository the deleted files.
      * Let's the user confirm deletion.
      *
      * @param  directory directory
@@ -64,7 +64,7 @@ public final class FileSystemDirectories {
 
     /**
      * Renames a directory into the file system and updates the
-     * {@code DatabaseImageFiles}: Sets the directory to the new name.
+     * repository: Sets the directory to the new name.
      *
      * @param  directory directory
      * @return           new file or null if not renamed
@@ -102,15 +102,15 @@ public final class FileSystemDirectories {
         return null;
     }
 
-    private static void logDelete(File directory, int countDeletedInDatabase) {
+    private static void logDelete(File directory, int countDeletedInRepository) {
         LOGGER.log(Level.INFO,
-                "Deleted folder ''{0}''. {1} image files deleted from the database",
-                new Object[]{directory, countDeletedInDatabase});
+                "Deleted folder ''{0}''. {1} image files deleted from the repository",
+                new Object[]{directory, countDeletedInRepository});
     }
 
-    private static void logInfoRenamed(File directory, File newDirectory, int countRenamedInDatabase) {
+    private static void logInfoRenamed(File directory, File newDirectory, int countRenamedInRepository) {
         LOGGER.log(Level.INFO,
-                "Folder ''{0}'' was renamed to ''{1}''. Updated {2} image files in the database.",
-                new Object[]{directory, newDirectory, countRenamedInDatabase});
+                "Folder ''{0}'' was renamed to ''{1}''. Updated {2} image files in the repository.",
+                new Object[]{directory, newDirectory, countRenamedInRepository});
     }
 }

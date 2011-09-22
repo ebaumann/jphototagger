@@ -66,7 +66,7 @@ public final class ActionKeyListenerFactory {
 
         addActionListeners(AboutJPhotoTaggerController.class, appFrame.getMenuItemAbout());
         addActionListeners(HelpController.class, appFrame.getMenuItemHelp());
-        addActionListeners(MaintainRepositoryController.class, appFrame.getMenuItemMaintainDatabase());
+        addActionListeners(MaintainRepositoryController.class, appFrame.getMenuItemMaintainRepository());
         addActionListeners(ShowUpdateMetadataDialogController.class, appFrame.getMenuItemScanDirectory());
         addActionListeners(ShowUserSettingsDialogController.class, appFrame.getMenuItemSettings());
         addActionListeners(ShowAdvancedSearchDialogController.class, appFrame.getMenuItemSearch());

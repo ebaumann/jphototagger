@@ -264,7 +264,7 @@ public final class ExifMetadata {
     /**
      * Returns the milliseconds since 1970 of the time when the image was taken.
      * <p>
-     * Gets the EXIF information from the database. If in the database is no
+     * Gets the EXIF information from the repository. If in the repository is no
      * EXIF information, the file's timestamp will be used, regardless whether
      * the file contains EXIF information.
      *

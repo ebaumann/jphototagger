@@ -4,11 +4,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Liefert, welche XMP-Metadaten in die Datenbank gespeichert werden.
  *
  * @author Elmar Baumann
  */
-public final class XmpInRepository {
+public final class XmpToSaveInRepository {
     private static final Set<String> STORED_PATHS_PREFIXES = new HashSet<String>();
 
     static {
@@ -40,7 +39,7 @@ public final class XmpInRepository {
      * @param  path  Pfad
      * @return true, falls gespeichert
      */
-    public static boolean isInDatabase(String path) {
+    public static boolean isSaveInRepository(String path) {
         if (path == null) {
             throw new NullPointerException("path == null");
         }
@@ -56,7 +55,7 @@ public final class XmpInRepository {
 
     /**
      * Returns all path prefixes of XMP paths if the related XMP metadata is
-     * stored in the database.
+     * stored in the repository.
      *
      * @return path prefixes
      */
@@ -64,5 +63,5 @@ public final class XmpInRepository {
         return new HashSet<String>(STORED_PATHS_PREFIXES);
     }
 
-    private XmpInRepository() {}
+    private XmpToSaveInRepository() {}
 }

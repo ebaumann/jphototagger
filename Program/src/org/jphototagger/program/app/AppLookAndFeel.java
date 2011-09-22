@@ -29,8 +29,8 @@ public final class AppLookAndFeel {
     public static final int TABLE_MAX_CHARS_CELL = 45;
     public static final int TABLE_MAX_CHARS_ROW_HEADER = 40;
     public static final String TABLE_ROW_HEADER_CSS = "margin-left:3px;margin-right:3px;";
-    private static Color tableStoredInDatabaseForeground = Color.BLACK;
-    private static Color tableStoredInDatabaseBackground = new Color(251, 249, 241);
+    private static Color tableStoredInRepositoryForeground = Color.BLACK;
+    private static Color tableStoredInRepositoryBackground = new Color(251, 249, 241);
     private static Color tableSelectionForeground = Color.BLACK;
     private static Color tableSelectionBackground = new Color(226, 226, 255);
     private static Color tableForeground = Color.BLACK;
@@ -180,8 +180,8 @@ public final class AppLookAndFeel {
         tableBackground = LookAndFeelUtil.getUiColor("Table.background ");
         tableSelectionForeground = LookAndFeelUtil.getUiColor("Table.selectionForeground");
         tableSelectionBackground = LookAndFeelUtil.getUiColor("Table.selectionBackground ");
-        tableStoredInDatabaseForeground = new Color(0, 0, 200);
-        tableStoredInDatabaseBackground = tableBackground;
+        tableStoredInRepositoryForeground = new Color(0, 0, 200);
+        tableStoredInRepositoryBackground = tableBackground;
         tableExifMakerNoteForeground = new Color(0, 125, 0);
         tableExifMakerNoteBackground = tableBackground;
     }
@@ -218,12 +218,12 @@ public final class AppLookAndFeel {
         return treeTextForeground;
     }
 
-    public static Color getTableStoredInDatabaseForeground() {
-        return tableStoredInDatabaseForeground;
+    public static Color getTableStoredInRepositoryForeground() {
+        return tableStoredInRepositoryForeground;
     }
 
-    public static Color getTableStoredInDatabaseBackground() {
-        return tableStoredInDatabaseBackground;
+    public static Color getTableStoredInRepositoryBackground() {
+        return tableStoredInRepositoryBackground;
     }
 
     public static Color getTableExifMakerNoteForeground() {

@@ -10,7 +10,7 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 import org.openide.util.Lookup;
 
 import org.jphototagger.domain.metadata.MetaDataValue;
-import org.jphototagger.domain.metadata.selections.DatabaseInfoRecordCountColumns;
+import org.jphototagger.domain.metadata.selections.RepositoryInfoCountOfMetaDataValues;
 import org.jphototagger.domain.repository.RepositoryStatistics;
 import org.jphototagger.domain.repository.event.dcsubjects.DcSubjectDeletedEvent;
 import org.jphototagger.domain.repository.event.dcsubjects.DcSubjectInsertedEvent;
@@ -26,23 +26,17 @@ import org.jphototagger.lib.model.TableModelExt;
 import org.jphototagger.lib.util.Bundle;
 
 /**
- * Elements are {@code MetaDataValue}s retrieved through
- * {@code DatabaseInfoRecordCountColumns#get()}.
- *
- * This model contains information about the database content, currently the
- * count of table rows. If the database content changes, this model updates
- * itself if set through {@code #setListenToDatabase(boolean)}.
  *
  * @author Elmar Baumann, Tobias Stening
  */
-public final class DatabaseInfoTableModel extends TableModelExt {
+public final class RepositoryInfoTableModel extends TableModelExt {
 
     private static final long serialVersionUID = 1974343527501774916L;
     private final LinkedHashMap<MetaDataValue, StringBuffer> bufferOfMetaDataValue = new LinkedHashMap<MetaDataValue, StringBuffer>();
-    private boolean listenToDatabase;
+    private boolean listenToRepository;
     private final RepositoryStatistics repo = Lookup.getDefault().lookup(RepositoryStatistics.class);
 
-    public DatabaseInfoTableModel() {
+    public RepositoryInfoTableModel() {
         initBufferOfMetaDataValue();
         addColumnHeaders();
         addRows();
@@ -50,7 +44,7 @@ public final class DatabaseInfoTableModel extends TableModelExt {
     }
 
     private void initBufferOfMetaDataValue() {
-        List<MetaDataValue> metaDataValues = DatabaseInfoRecordCountColumns.get();
+        List<MetaDataValue> metaDataValues = RepositoryInfoCountOfMetaDataValues.get();
 
         for (MetaDataValue mdValue : metaDataValues) {
             bufferOfMetaDataValue.put(mdValue, new StringBuffer());
@@ -63,18 +57,18 @@ public final class DatabaseInfoTableModel extends TableModelExt {
     }
 
     public void update() {
-        if (listenToDatabase) {
+        if (listenToRepository) {
             setCount();
         }
     }
 
-    public void setListenToDatabase(boolean listen) {
-        listenToDatabase = listen;
+    public void setListenToRepository(boolean listen) {
+        listenToRepository = listen;
     }
 
     private void addColumnHeaders() {
-        addColumn(Bundle.getString(DatabaseInfoTableModel.class, "DatabaseInfoTableModel.HeaderColumn.1"));
-        addColumn(Bundle.getString(DatabaseInfoTableModel.class, "DatabaseInfoTableModel.HeaderColumn.2"));
+        addColumn(Bundle.getString(RepositoryInfoTableModel.class, "RepositoryInfoTableModel.HeaderColumn.1"));
+        addColumn(Bundle.getString(RepositoryInfoTableModel.class, "RepositoryInfoTableModel.HeaderColumn.2"));
     }
 
     private void addRows() {
@@ -145,7 +139,7 @@ public final class DatabaseInfoTableModel extends TableModelExt {
     private class SetCountThread extends Thread {
 
         SetCountThread() {
-            super("JPhotoTagger: Setting count in database info");
+            super("JPhotoTagger: Setting count in repository info");
             setPriority(MIN_PRIORITY);
         }
 

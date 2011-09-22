@@ -71,7 +71,7 @@ public final class DeleteImageCollectionController implements ActionListener, Ke
                 }
             });
         } else {
-            LOGGER.log(Level.WARNING, "Delete photo album: Couldn't find the selected photo album in the database!");
+            LOGGER.log(Level.WARNING, "Delete photo album: Couldn't find the selected photo album in the repository!");
         }
     }
 

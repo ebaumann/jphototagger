@@ -24,31 +24,31 @@ import org.jphototagger.domain.metadata.xmp.XmpPhotoshopStateMetaDataValue;
  *
  * @author Elmar Baumann
  */
-public final class DatabaseInfoRecordCountColumns {
+public final class RepositoryInfoCountOfMetaDataValues {
 
-    private static final List<MetaDataValue> COLUMNS = new ArrayList<MetaDataValue>();
+    private static final List<MetaDataValue> META_DATA_VALUES = new ArrayList<MetaDataValue>();
 
     static {
-        COLUMNS.add(FilesFilenameMetaDataValue.INSTANCE);
-        COLUMNS.add(XmpDcSubjectsSubjectMetaDataValue.INSTANCE);
-        COLUMNS.add(XmpIptc4xmpcoreLocationMetaDataValue.INSTANCE);
-        COLUMNS.add(XmpPhotoshopAuthorspositionMetaDataValue.INSTANCE);
-        COLUMNS.add(XmpDcCreatorMetaDataValue.INSTANCE);
-        COLUMNS.add(XmpPhotoshopCityMetaDataValue.INSTANCE);
-        COLUMNS.add(XmpPhotoshopStateMetaDataValue.INSTANCE);
-        COLUMNS.add(XmpPhotoshopCountryMetaDataValue.INSTANCE);
-        COLUMNS.add(XmpDcRightsMetaDataValue.INSTANCE);
-        COLUMNS.add(XmpPhotoshopCreditMetaDataValue.INSTANCE);
-        COLUMNS.add(XmpPhotoshopSourceMetaDataValue.INSTANCE);
-        COLUMNS.add(XmpPhotoshopCaptionwriterMetaDataValue.INSTANCE);
-        COLUMNS.add(ExifRecordingEquipmentMetaDataValue.INSTANCE);
-        COLUMNS.add(ExifLensMetaDataValue.INSTANCE);
+        META_DATA_VALUES.add(FilesFilenameMetaDataValue.INSTANCE);
+        META_DATA_VALUES.add(XmpDcSubjectsSubjectMetaDataValue.INSTANCE);
+        META_DATA_VALUES.add(XmpIptc4xmpcoreLocationMetaDataValue.INSTANCE);
+        META_DATA_VALUES.add(XmpPhotoshopAuthorspositionMetaDataValue.INSTANCE);
+        META_DATA_VALUES.add(XmpDcCreatorMetaDataValue.INSTANCE);
+        META_DATA_VALUES.add(XmpPhotoshopCityMetaDataValue.INSTANCE);
+        META_DATA_VALUES.add(XmpPhotoshopStateMetaDataValue.INSTANCE);
+        META_DATA_VALUES.add(XmpPhotoshopCountryMetaDataValue.INSTANCE);
+        META_DATA_VALUES.add(XmpDcRightsMetaDataValue.INSTANCE);
+        META_DATA_VALUES.add(XmpPhotoshopCreditMetaDataValue.INSTANCE);
+        META_DATA_VALUES.add(XmpPhotoshopSourceMetaDataValue.INSTANCE);
+        META_DATA_VALUES.add(XmpPhotoshopCaptionwriterMetaDataValue.INSTANCE);
+        META_DATA_VALUES.add(ExifRecordingEquipmentMetaDataValue.INSTANCE);
+        META_DATA_VALUES.add(ExifLensMetaDataValue.INSTANCE);
     }
 
     public static List<MetaDataValue> get() {
-        return new ArrayList<MetaDataValue>(COLUMNS);
+        return new ArrayList<MetaDataValue>(META_DATA_VALUES);
     }
 
-    private DatabaseInfoRecordCountColumns() {
+    private RepositoryInfoCountOfMetaDataValues() {
     }
 }

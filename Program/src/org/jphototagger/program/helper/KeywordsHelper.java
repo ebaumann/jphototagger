@@ -97,7 +97,7 @@ public final class KeywordsHelper {
     }
 
     /**
-     * Inserts into the database a dublin core subject if it does not already
+     * Inserts into the repository a dublin core subject if it does not already
      * exist.
      *
      * @param dcSubject subject
@@ -109,7 +109,7 @@ public final class KeywordsHelper {
     }
 
     /**
-     * Inserts into the Database a Dublin Core keyword via user input.
+     * Inserts into the repository a Dublin Core keyword via user input.
      */
     public static void insertDcSubject() {
         String info = Bundle.getString(KeywordsHelper.class, "KeywordsHelper.Input.InsertDcSubject");
@@ -419,7 +419,7 @@ public final class KeywordsHelper {
     }
 
     /**
-     * Renames in the database and all sidecar files a Dublin Core subject.
+     * Renames in the repository and all sidecar files a Dublin Core subject.
      *
      * @param fromName old name
      * @param toName   new name
@@ -441,7 +441,7 @@ public final class KeywordsHelper {
     }
 
     /**
-     * Renames in the database and all sidecar files a dublin core subject.
+     * Renames in the repository and all sidecar files a dublin core subject.
      *
      * @param keyword keyword
      */
@@ -461,7 +461,7 @@ public final class KeywordsHelper {
             imageFile.setLastmodified(imgFile.lastModified());
             xmp.setValue(XmpLastModifiedMetaDataValue.INSTANCE, sidecarFile.lastModified());
             imageFile.setXmp(xmp);
-            imageFile.addInsertIntoDb(InsertIntoRepository.XMP);
+            imageFile.addToSaveIntoRepository(InsertIntoRepository.XMP);
             imageFileRepo.saveOrUpdateImageFile(imageFile);
         }
     }
@@ -506,12 +506,12 @@ public final class KeywordsHelper {
                 progressPerformed(index, xmp);
             }
 
-            checkDatabase();
+            checkRepository();
             progressEnded(index);
         }
 
         private static void logStartDelete(String keyword) {
-            LOGGER.log(Level.INFO, "Deleting keyword ''{0}'' from the database and all XMP sidecar files", keyword);
+            LOGGER.log(Level.INFO, "Deleting keyword ''{0}'' from the repository and all XMP sidecar files", keyword);
         }
 
         @Override
@@ -519,7 +519,7 @@ public final class KeywordsHelper {
             cancel = true;
         }
 
-        private void checkDatabase() {
+        private void checkRepository() {
             if (imageFileRepo.existsDcSubject(dcSubject)) {
                 imageFileRepo.deleteDcSubject(dcSubject);
             }
@@ -581,7 +581,7 @@ public final class KeywordsHelper {
 
         private static void logStartRename(String fromName, String toName) {
             LOGGER.log(Level.INFO,
-                    "Rename keyword ''{0}'' into ''{1}'' in the database and all XMP sidecar files",
+                    "Rename keyword ''{0}'' into ''{1}'' in the repository and all XMP sidecar files",
                     new Object[]{fromName, toName});
         }
 

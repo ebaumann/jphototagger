@@ -202,11 +202,11 @@ public final class ActionsPanel extends javax.swing.JPanel {
 
     private boolean confirmDelete(Program program) {
         String  programName = program.getAlias();
-        boolean existsInActionsAfterDbInsertion = actionsAfterRepoUpdatesRepo.existsAction(program);
+        boolean existsInActionsAfterRepoUpdates = actionsAfterRepoUpdatesRepo.existsAction(program);
         String messageExistsInOtherDb = Bundle.getString(ActionsPanel.class, "ActionsPanel.Confirm.Delete.ExistsInOtherDb", programName);
         String messageExists = Bundle.getString(ActionsPanel.class, "ActionsPanel.Confirm.Delete", programName);
 
-        return existsInActionsAfterDbInsertion
+        return existsInActionsAfterRepoUpdates
                ? MessageDisplayer.confirmYesNo(this, messageExistsInOtherDb)
                : MessageDisplayer.confirmYesNo(this, messageExists);
     }

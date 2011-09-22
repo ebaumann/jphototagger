@@ -18,7 +18,7 @@ import org.jphototagger.lib.util.Bundle;
 public final class RenameTemplateHelper {
 
     /**
-     * Inserts a new rename template into the database.
+     * Inserts a new rename template into the repository.
      *
      * @param  template new template
      */

@@ -82,7 +82,7 @@ public final class ThumbnailsPopupMenu extends JPopupMenu {
     private final JMenuItem itemFileSystemDeleteFiles = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.FileSystemDeleteFiles"), AppLookAndFeel.ICON_DELETE);
     private final JMenuItem itemFileSystemCopyToDirectory = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.FileSystemCopyToDirectory"), AppLookAndFeel.ICON_COPY);
     private final JMenuItem itemExifToXmp = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.ExifToXmp"));
-    private final JMenuItem itemDeleteImageFromDatabase = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.DeleteImageFromDatabase"));
+    private final JMenuItem itemDeleteImageFromRepository = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.DeleteImageFromRepository"));
     private final JMenuItem itemDeleteFromImageCollection = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.DeleteFromImageCollection"), AppLookAndFeel.getIcon("icon_imagecollection_remove_from.png"));
     private final JMenuItem itemCutToClipboard = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.ItemCutToClipboard"), AppLookAndFeel.ICON_CUT);
     private final JMenuItem itemCreateImageCollection = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.CreateImageCollection"), AppLookAndFeel.getIcon("icon_imagecollection.png"));
@@ -112,7 +112,7 @@ public final class ThumbnailsPopupMenu extends JPopupMenu {
     private void addItems() {
         menuRefresh.add(itemUpdateThumbnail);
         menuRefresh.add(itemUpdateMetadata);
-        menuRefresh.add(itemDeleteImageFromDatabase);
+        menuRefresh.add(itemDeleteImageFromRepository);
         menuRefresh.add(itemRefresh);
         add(menuRefresh);
         menuRotateThumbnail.add(itemRotateThumbnail90);
@@ -275,8 +275,8 @@ public final class ThumbnailsPopupMenu extends JPopupMenu {
         return itemDeleteFromImageCollection;
     }
 
-    public JMenuItem getItemDeleteImageFromDatabase() {
-        return itemDeleteImageFromDatabase;
+    public JMenuItem getItemDeleteImageFromRepository() {
+        return itemDeleteImageFromRepository;
     }
 
     public JMenuItem getItemFileSystemDeleteFiles() {

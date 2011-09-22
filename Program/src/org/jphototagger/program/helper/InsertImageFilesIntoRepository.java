@@ -44,11 +44,11 @@ import org.jphototagger.xmp.XmpMetadata;
 
 /**
  * Inserts or updates image file metadata - EXIF, thumbnail, XMP - into the
- * database.
+ * repository.
  *
  * @author Elmar Baumann
  */
-public final class InsertImageFilesIntoDatabase extends Thread implements Cancelable {
+public final class InsertImageFilesIntoRepository extends Thread implements Cancelable {
 
     private final ImageFilesRepository imageFileRepo = Lookup.getDefault().lookup(ImageFilesRepository.class);
     private final ActionsAfterRepoUpdatesRepository actionsAfterRepoUpdatesRepo = Lookup.getDefault().lookup(ActionsAfterRepoUpdatesRepository.class);
@@ -57,7 +57,7 @@ public final class InsertImageFilesIntoDatabase extends Thread implements Cancel
     private final Set<InsertIntoRepository> what = new HashSet<InsertIntoRepository>();
     private final List<File> imageFiles;
     private boolean cancel;
-    private static final Logger LOGGER = Logger.getLogger(InsertImageFilesIntoDatabase.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(InsertImageFilesIntoRepository.class.getName());
     private final ThumbnailsRepository tnRepo = Lookup.getDefault().lookup(ThumbnailsRepository.class);
 
     /**
@@ -67,8 +67,8 @@ public final class InsertImageFilesIntoDatabase extends Thread implements Cancel
      *                   updated
      * @param what       metadata to saveAction
      */
-    public InsertImageFilesIntoDatabase(List<File> imageFiles, InsertIntoRepository... what) {
-        super("JPhotoTagger: Inserting image files into database");
+    public InsertImageFilesIntoRepository(List<File> imageFiles, InsertIntoRepository... what) {
+        super("JPhotoTagger: Inserting image files into repository");
 
         if (imageFiles == null) {
             throw new NullPointerException("imageFiles == null");
@@ -122,17 +122,17 @@ public final class InsertImageFilesIntoDatabase extends Thread implements Cancel
         imageFile.setLastmodified(imgFile.lastModified());
 
         if (isUpdateThumbnail(imgFile)) {
-            imageFile.addInsertIntoDb(InsertIntoRepository.THUMBNAIL);
+            imageFile.addToSaveIntoRepository(InsertIntoRepository.THUMBNAIL);
             createAndSetThumbnail(imageFile);
         }
 
         if (isUpdateXmp(imgFile)) {
-            imageFile.addInsertIntoDb(InsertIntoRepository.XMP);
+            imageFile.addToSaveIntoRepository(InsertIntoRepository.XMP);
             setXmp(imageFile);
         }
 
         if (isUpdateExif(imgFile)) {
-            imageFile.addInsertIntoDb(InsertIntoRepository.EXIF);
+            imageFile.addToSaveIntoRepository(InsertIntoRepository.EXIF);
             setExif(imageFile);
         }
 
@@ -257,7 +257,7 @@ public final class InsertImageFilesIntoDatabase extends Thread implements Cancel
                     ? XmpMetadata.getEmbeddedXmp(imgFile)
                     : null;
         } catch (IOException ex) {
-            Logger.getLogger(InsertImageFilesIntoDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(InsertImageFilesIntoRepository.class.getName()).log(Level.SEVERE, null, ex);
 
             return;
         }
@@ -401,16 +401,16 @@ public final class InsertImageFilesIntoDatabase extends Thread implements Cancel
     }
 
     private void informationMessagePerformed(File file) {
-        LOGGER.log(Level.FINEST, "Synchronizing ''{0}'' with the database", file);
+        LOGGER.log(Level.FINEST, "Synchronizing ''{0}'' with the repository", file);
     }
 
     private void informationMessageEnded(int filecount) {
-        LOGGER.log(Level.INFO, "Synchronized {0} image files with the database", filecount);
+        LOGGER.log(Level.INFO, "Synchronized {0} image files with the repository", filecount);
     }
 
     private boolean checkExists(File imageFile) {
         if (!imageFile.exists()) {
-            LOGGER.log(Level.WARNING, "Image file ''{0}'' does not (longer) exist and will not be updated in the database", imageFile);
+            LOGGER.log(Level.WARNING, "Image file ''{0}'' does not (longer) exist and will not be updated in the repository", imageFile);
 
             return false;
         }
@@ -420,13 +420,13 @@ public final class InsertImageFilesIntoDatabase extends Thread implements Cancel
 
     private void logInsertImageFile(ImageFile data) {
         Object[] params = {data.getFile().getAbsolutePath(), (data.getExif() == null)
-            ? Bundle.getString(InsertImageFilesIntoDatabase.class, "InsertImageFilesIntoDatabase.Info.StartInsert.No")
-            : Bundle.getString(InsertImageFilesIntoDatabase.class, "InsertImageFilesIntoDatabase.Info.StartInsert.Yes"), (data.getXmp() == null)
-            ? Bundle.getString(InsertImageFilesIntoDatabase.class, "InsertImageFilesIntoDatabase.Info.StartInsert.No")
-            : Bundle.getString(InsertImageFilesIntoDatabase.class, "InsertImageFilesIntoDatabase.Info.StartInsert.Yes"), (data.getThumbnail() == null)
-            ? Bundle.getString(InsertImageFilesIntoDatabase.class, "InsertImageFilesIntoDatabase.Info.StartInsert.No")
-            : Bundle.getString(InsertImageFilesIntoDatabase.class, "InsertImageFilesIntoDatabase.Info.StartInsert.Yes")};
+            ? Bundle.getString(InsertImageFilesIntoRepository.class, "InsertImageFilesIntoRepository.Info.StartInsert.No")
+            : Bundle.getString(InsertImageFilesIntoRepository.class, "InsertImageFilesIntoRepository.Info.StartInsert.Yes"), (data.getXmp() == null)
+            ? Bundle.getString(InsertImageFilesIntoRepository.class, "InsertImageFilesIntoRepository.Info.StartInsert.No")
+            : Bundle.getString(InsertImageFilesIntoRepository.class, "InsertImageFilesIntoRepository.Info.StartInsert.Yes"), (data.getThumbnail() == null)
+            ? Bundle.getString(InsertImageFilesIntoRepository.class, "InsertImageFilesIntoRepository.Info.StartInsert.No")
+            : Bundle.getString(InsertImageFilesIntoRepository.class, "InsertImageFilesIntoRepository.Info.StartInsert.Yes")};
 
-        LOGGER.log(Level.INFO, "Add metadata into the database of file ''{0}'': EXIF: {1}, XMP: {2}, Thumbnail: {3}", params);
+        LOGGER.log(Level.INFO, "Add metadata into the repository of file ''{0}'': EXIF: {1}, XMP: {2}, Thumbnail: {3}", params);
     }
 }

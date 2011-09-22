@@ -25,7 +25,7 @@ import org.jphototagger.lib.concurrent.SerialExecutor;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.app.AppPreferencesKeys;
-import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
+import org.jphototagger.program.helper.InsertImageFilesIntoRepository;
 import org.jphototagger.program.view.dialogs.SettingsDialog;
 
 /**
@@ -136,13 +136,13 @@ public final class ScheduledTasks implements ActionListener {
 
             @Override
             public void run() {
-                InsertImageFilesIntoDatabase inserter = InsertImageFilesIntoDatabaseScheduledTask.getThread();
+                InsertImageFilesIntoRepository inserter = InsertImageFilesIntoRepositoryScheduledTask.getThread();
 
                 if (inserter != null) {
                     executor.execute(inserter);
                 }
             }
-        }, "JPhotoTagger: Inserting image files into database").start();
+        }, "JPhotoTagger: Inserting image files into repository").start();
     }
 
     @EventSubscriber(eventClass = UpdateMetadataCheckEvent.class)

@@ -4,20 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Liefert, welche Exif-Metadaten in die Datenbank gespeichert werden.
  *
  * @author Elmar Baumann
  */
-public final class ExifInDatabase {
+public final class ExifToSaveInRepository {
 
-    private static final List<ExifTag.Id> STORED_TAG_IDS_EXIF_IFD = new ArrayList<ExifTag.Id>();
+    private static final List<ExifTag.Id> EXIF_TAG_IDS_TO_SAVE = new ArrayList<ExifTag.Id>();
 
     static {
-        STORED_TAG_IDS_EXIF_IFD.add(ExifTag.Id.DATE_TIME_ORIGINAL);
-        STORED_TAG_IDS_EXIF_IFD.add(ExifTag.Id.FOCAL_LENGTH);
-        STORED_TAG_IDS_EXIF_IFD.add(ExifTag.Id.ISO_SPEED_RATINGS);
-        STORED_TAG_IDS_EXIF_IFD.add(ExifTag.Id.MODEL);
-        STORED_TAG_IDS_EXIF_IFD.add(ExifTag.Id.MAKER_NOTE_LENS);
+        EXIF_TAG_IDS_TO_SAVE.add(ExifTag.Id.DATE_TIME_ORIGINAL);
+        EXIF_TAG_IDS_TO_SAVE.add(ExifTag.Id.FOCAL_LENGTH);
+        EXIF_TAG_IDS_TO_SAVE.add(ExifTag.Id.ISO_SPEED_RATINGS);
+        EXIF_TAG_IDS_TO_SAVE.add(ExifTag.Id.MODEL);
+        EXIF_TAG_IDS_TO_SAVE.add(ExifTag.Id.MAKER_NOTE_LENS);
     }
 
     /**
@@ -27,12 +26,12 @@ public final class ExifInDatabase {
      * @param  exifTagId Tag ID
      * @return           true, falls gespeichert
      */
-    public static boolean isInDatabase(ExifTag.Id exifTagId) {
+    public static boolean isSaveInRepository(ExifTag.Id exifTagId) {
         if (exifTagId == null) {
             throw new NullPointerException("exifTagId == null");
         }
 
-        return STORED_TAG_IDS_EXIF_IFD.contains(exifTagId);
+        return EXIF_TAG_IDS_TO_SAVE.contains(exifTagId);
     }
 
     /**
@@ -43,7 +42,7 @@ public final class ExifInDatabase {
      * @param id      id or null
      * @return        true, falls gespeichert
      */
-    public static boolean isInDatabase(ExifIfdType ifdType, ExifTag.Id id) {
+    public static boolean isSaveInRepository(ExifIfdType ifdType, ExifTag.Id id) {
         if (ifdType == null) {
             throw new NullPointerException("ifdType == null");
         }
@@ -54,13 +53,13 @@ public final class ExifInDatabase {
 
         switch (ifdType) {
             case EXIF:
-                return STORED_TAG_IDS_EXIF_IFD.contains(id);
+                return EXIF_TAG_IDS_TO_SAVE.contains(id);
 
             default:
                 return false;
         }
     }
 
-    private ExifInDatabase() {
+    private ExifToSaveInRepository() {
     }
 }

@@ -12,7 +12,7 @@ import org.jphototagger.domain.repository.RepositoryMaintainance;
 import org.jphototagger.lib.util.Bundle;
 
 /**
- * Deletes from the database records in 1:n tables not referenced by another
+ * Deletes from the repository records in 1:n tables not referenced by another
  * record.
  *
  * @author Elmar Baumann
@@ -46,7 +46,7 @@ public final class DeleteNotReferenced1n implements Runnable {
     public void notifyProgressStarted() {
         ProgressEvent evt = new ProgressEvent(this, 0, 1, 0, getStartMessage());
 
-        LOGGER.log(Level.INFO, "Deleting not referenced data from the database");
+        LOGGER.log(Level.INFO, "Deleting not referenced data from the repository");
         ls.notifyStarted(evt);
     }
 

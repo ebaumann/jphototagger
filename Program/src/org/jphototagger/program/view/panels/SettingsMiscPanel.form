@@ -27,7 +27,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="panelDatabaseDirectory" alignment="1" max="32767" attributes="2"/>
+                  <Component id="panelRepositoryDirectory" alignment="1" max="32767" attributes="2"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="checkBoxAutoDownloadCheck" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -69,7 +69,7 @@
                   <Component id="comboBoxIptcCharset" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="panelDatabaseDirectory" min="-2" max="-2" attributes="0"/>
+              <Component id="panelRepositoryDirectory" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -220,16 +220,16 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboBoxIptcCharsetActionPerformed"/>
       </Events>
     </Component>
-    <Container class="javax.swing.JPanel" name="panelDatabaseDirectory">
+    <Container class="javax.swing.JPanel" name="panelRepositoryDirectory">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
             <TitledBorder title="Datenbankordner">
-              <ResourceString PropertyName="titleX" bundle="org/jphototagger/program/view/panels/Bundle.properties" key="SettingsMiscPanel.panelDatabaseDirectory.border.title" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString PropertyName="titleX" bundle="org/jphototagger/program/view/panels/Bundle.properties" key="SettingsMiscPanel.panelRepositoryDirectory.border.title" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </TitledBorder>
           </Border>
         </Property>
-        <Property name="name" type="java.lang.String" value="panelDatabaseDirectory" noResource="true"/>
+        <Property name="name" type="java.lang.String" value="panelRepositoryDirectory" noResource="true"/>
       </Properties>
 
       <Layout>
@@ -238,13 +238,13 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="labelDatabaseDirectory" alignment="0" pref="627" max="32767" attributes="2"/>
+                      <Component id="labelRepositoryDirectory" alignment="0" pref="627" max="32767" attributes="2"/>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="labelInfoDatabaseDirectory" min="-2" max="-2" attributes="2"/>
+                          <Component id="labelInfoRepositoryDirectory" min="-2" max="-2" attributes="2"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="buttonSetStandardDatabaseDirectoryName" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonSetDefaultRepositoryDirectoryName" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="buttonChooseDatabaseDirectory" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonChooseRepositoryDirectory" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -255,52 +255,52 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="labelInfoDatabaseDirectory" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="buttonSetStandardDatabaseDirectoryName" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="buttonChooseDatabaseDirectory" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelInfoRepositoryDirectory" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="buttonSetDefaultRepositoryDirectoryName" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="buttonChooseRepositoryDirectory" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="labelDatabaseDirectory" min="-2" pref="23" max="-2" attributes="0"/>
+                  <Component id="labelRepositoryDirectory" min="-2" pref="23" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="labelInfoDatabaseDirectory">
+        <Component class="javax.swing.JLabel" name="labelInfoRepositoryDirectory">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="ff" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="SettingsMiscPanel.labelInfoDatabaseDirectory.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="SettingsMiscPanel.labelInfoRepositoryDirectory.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
-            <Property name="name" type="java.lang.String" value="labelInfoDatabaseDirectory" noResource="true"/>
+            <Property name="name" type="java.lang.String" value="labelInfoRepositoryDirectory" noResource="true"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="buttonSetStandardDatabaseDirectoryName">
+        <Component class="javax.swing.JButton" name="buttonSetDefaultRepositoryDirectoryName">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="SettingsMiscPanel.buttonSetStandardDatabaseDirectoryName.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="SettingsMiscPanel.buttonSetDefaultRepositoryDirectoryName.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
-            <Property name="name" type="java.lang.String" value="buttonSetStandardDatabaseDirectoryName" noResource="true"/>
+            <Property name="name" type="java.lang.String" value="buttonSetDefaultRepositoryDirectoryName" noResource="true"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSetStandardDatabaseDirectoryNameActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSetDefaultRepositoryDirectoryNameActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="buttonChooseDatabaseDirectory">
+        <Component class="javax.swing.JButton" name="buttonChooseRepositoryDirectory">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="SettingsMiscPanel.buttonChooseDatabaseDirectory.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="SettingsMiscPanel.buttonChooseRepositoryDirectory.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
-            <Property name="name" type="java.lang.String" value="buttonChooseDatabaseDirectory" noResource="true"/>
+            <Property name="name" type="java.lang.String" value="buttonChooseRepositoryDirectory" noResource="true"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonChooseDatabaseDirectoryActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonChooseRepositoryDirectoryActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="labelDatabaseDirectory">
+        <Component class="javax.swing.JLabel" name="labelRepositoryDirectory">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="0" red="0" type="rgb"/>
@@ -310,7 +310,7 @@
                 <EtchetBorder/>
               </Border>
             </Property>
-            <Property name="name" type="java.lang.String" value="labelDatabaseDirectory" noResource="true"/>
+            <Property name="name" type="java.lang.String" value="labelRepositoryDirectory" noResource="true"/>
           </Properties>
         </Component>
       </SubComponents>
