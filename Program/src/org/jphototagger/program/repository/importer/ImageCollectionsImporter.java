@@ -16,8 +16,6 @@ import org.jphototagger.domain.imagecollections.ImageCollection;
 import org.jphototagger.domain.repository.ImageCollectionsRepository;
 import org.jphototagger.domain.repository.InsertIntoRepository;
 import org.jphototagger.domain.repository.RepositoryDataImporter;
-import org.jphototagger.eximport.jpt.exporter.ImageCollectionsExporter;
-import org.jphototagger.eximport.jpt.exporter.ImageCollectionsExporter.CollectionWrapper;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.lib.util.Bundle;
@@ -26,6 +24,8 @@ import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.helper.InsertImageFilesIntoRepository;
 import org.jphototagger.program.model.ImageCollectionsListModel;
+import org.jphototagger.program.repository.exporter.ImageCollectionsExporter;
+import org.jphototagger.program.repository.exporter.ImageCollectionsExporter.CollectionWrapper;
 import org.jphototagger.program.view.panels.ProgressBarUpdater;
 
 /**
