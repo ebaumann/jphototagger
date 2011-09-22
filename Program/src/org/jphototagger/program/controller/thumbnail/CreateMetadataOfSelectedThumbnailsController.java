@@ -7,11 +7,13 @@ import java.util.Map;
 
 import javax.swing.JMenuItem;
 
+import org.openide.util.Lookup;
+
+import org.jphototagger.api.concurrent.SerialTaskExecutor;
 import org.jphototagger.domain.repository.InsertIntoRepository;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.helper.InsertImageFilesIntoRepository;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.tasks.UserTasks;
 import org.jphototagger.program.view.panels.ProgressBarUpdater;
 import org.jphototagger.program.view.popupmenus.ThumbnailsPopupMenu;
 
@@ -27,6 +29,7 @@ import org.jphototagger.program.view.popupmenus.ThumbnailsPopupMenu;
 public final class CreateMetadataOfSelectedThumbnailsController implements ActionListener {
 
     private final Map<JMenuItem, InsertIntoRepository[]> insertIntoRepositoryOfMenuItem = new HashMap<JMenuItem, InsertIntoRepository[]>();
+    private final SerialTaskExecutor executor = Lookup.getDefault().lookup(SerialTaskExecutor.class);
 
     /**
      * Konstruktor. <em>Nur eine Instanz erzeugen!</em>
@@ -70,6 +73,6 @@ public final class CreateMetadataOfSelectedThumbnailsController implements Actio
         String pBarString = Bundle.getString(CreateMetadataOfSelectedThumbnailsController.class, "CreateMetadataOfSelectedThumbnailsController.ProgressBar.String");
 
         inserter.addProgressListener(new ProgressBarUpdater(inserter, pBarString));
-        UserTasks.INSTANCE.add(inserter);
+        executor.addTask(inserter);
     }
 }

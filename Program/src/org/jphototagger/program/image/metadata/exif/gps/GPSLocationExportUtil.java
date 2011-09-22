@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 
 import javax.swing.JFileChooser;
 
+import org.jphototagger.api.concurrent.SerialTaskExecutor;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
@@ -24,7 +25,6 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StorageUtil;
 import org.jphototagger.program.app.AppPreferencesKeys;
 import org.jphototagger.program.helper.HelperThread;
-import org.jphototagger.program.tasks.UserTasks;
 
 /**
  * Utils for exporting GPS metadata.
@@ -112,11 +112,11 @@ public final class GPSLocationExportUtil {
     /**
      * Exports GPS metadata in image files into a file.
      *
-     * @param exporter   exporter for a specific file format
+     * @param gpsExporter   exporter for a specific file format
      * @param imageFiles image files with EXIF metadata containing GPS information
      */
-    public static void export(GPSLocationExporter exporter, Collection<? extends File> imageFiles) {
-        if (exporter == null) {
+    public static void export(GPSLocationExporter gpsExporter, Collection<? extends File> imageFiles) {
+        if (gpsExporter == null) {
             throw new NullPointerException("exporter == null");
         }
 
@@ -124,7 +124,10 @@ public final class GPSLocationExportUtil {
             throw new NullPointerException("imageFiles == null");
         }
 
-        UserTasks.INSTANCE.add(new Exporter(exporter, imageFiles));
+        SerialTaskExecutor executor = Lookup.getDefault().lookup(SerialTaskExecutor.class);
+        Exporter exporter = new Exporter(gpsExporter, imageFiles);
+
+        executor.addTask(exporter);
     }
 
     private static void export(GPSLocationExporter exporter, List<GPSImageInfo> gpsImageInfos) {

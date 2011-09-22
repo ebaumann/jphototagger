@@ -8,9 +8,9 @@ import org.jphototagger.api.concurrent.Cancelable;
  *
  * @author Elmar Baumann
  */
-public final class AutomaticTask {
+final class AutomaticTask {
 
-    public static final AutomaticTask INSTANCE = new AutomaticTask();
+    static final AutomaticTask INSTANCE = new AutomaticTask();
     private Runnable runnable;
 
     /**

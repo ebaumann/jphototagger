@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 import org.openide.util.Lookup;
 
+import org.jphototagger.api.concurrent.SerialTaskExecutor;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.domain.repository.ImageCollectionsRepository;
@@ -20,7 +21,6 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.io.ImageFileFilterer;
 import org.jphototagger.program.model.ImageCollectionsListModel;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.tasks.UserTasks;
 import org.jphototagger.program.view.dialogs.ImportImageFilesDialog;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.ProgressBarUpdater;
@@ -73,8 +73,11 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
 
     private static void copy(List<File> sourceImageFiles, File targetDir, boolean deleteScrFilesAfterCopying) {
         if (sourceImageFiles.size() > 0) {
-            UserTasks.INSTANCE.add(new ImportImageFiles(getSourceTargetFiles(sourceImageFiles, targetDir),
-                    deleteScrFilesAfterCopying));
+            SerialTaskExecutor executor = Lookup.getDefault().lookup(SerialTaskExecutor.class);
+            ImportImageFiles importImageFiles =
+                    new ImportImageFiles(getSourceTargetFiles(sourceImageFiles, targetDir), deleteScrFilesAfterCopying);
+
+            executor.addTask(importImageFiles);
         }
     }
 

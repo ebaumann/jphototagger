@@ -8,11 +8,13 @@ import java.util.logging.Logger;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 
+import org.openide.util.Lookup;
+
+import org.jphototagger.api.concurrent.ReplaceableTask;
 import org.jphototagger.domain.repository.InsertIntoRepository;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsChangedEvent;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.helper.InsertImageFilesIntoRepository;
-import org.jphototagger.program.tasks.AutomaticTask;
 import org.jphototagger.program.view.panels.ProgressBarUpdater;
 
 /**
@@ -23,14 +25,12 @@ import org.jphototagger.program.view.panels.ProgressBarUpdater;
  * the displayed image files or XMP sidecar files are newer than their
  * metadata and thumbnails stored in the repository.
  *
- * Runs as a {@code AutomaticTask}, that means if an other automatic task is
- * started, the update will be cancelled.
- *
  * @author Elmar Baumann
  */
 public final class CreateMetadataOfDisplayedThumbnailsController {
 
     private static final Logger LOGGER = Logger.getLogger(CreateMetadataOfDisplayedThumbnailsController.class.getName());
+    private final ReplaceableTask replaceableTask = Lookup.getDefault().lookup(ReplaceableTask.class);
 
     public CreateMetadataOfDisplayedThumbnailsController() {
         listen();
@@ -52,6 +52,6 @@ public final class CreateMetadataOfDisplayedThumbnailsController {
         String pBarString = Bundle.getString(CreateMetadataOfDisplayedThumbnailsController.class, "CreateMetadataOfDisplayedThumbnailsController.ProgressBar.String");
 
         inserter.addProgressListener(new ProgressBarUpdater(inserter, pBarString));
-        AutomaticTask.INSTANCE.setTask(inserter);
+        replaceableTask.replacePreviousTaskWith(inserter);
     }
 }

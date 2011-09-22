@@ -3,9 +3,11 @@ package org.jphototagger.program.helper;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.program.tasks.AutomaticTask;
+import org.openide.util.Lookup;
+
+import org.jphototagger.api.concurrent.ReplaceableTask;
+import org.jphototagger.api.concurrent.SerialTaskExecutor;
 import org.jphototagger.program.tasks.ScheduledTasks;
-import org.jphototagger.program.tasks.UserTasks;
 
 /**
  * Shuts down all Tasks. Should be called when the application exits.
@@ -25,11 +27,15 @@ public final class Cleanup {
      * Shuts down all Tasks.
      */
     public static void shutdown() {
-        ScheduledTasks.INSTANCE.cancelCurrentTasks();
-        AutomaticTask.INSTANCE.cancelCurrentTask();
-        UserTasks.INSTANCE.cancelCurrentTasks();
+        SerialTaskExecutor serialTaskExecutor = Lookup.getDefault().lookup(SerialTaskExecutor.class);
+        ReplaceableTask replaceableTask = Lookup.getDefault().lookup(ReplaceableTask.class);
 
-        boolean sleep = (ScheduledTasks.INSTANCE.getCount() > 0) || (UserTasks.INSTANCE.getCount() > 0);
+        ScheduledTasks.INSTANCE.cancelCurrentTasks();
+        replaceableTask.cancelRunningTask();
+        serialTaskExecutor.cancelAllTasks();
+
+        boolean serialTasksRunning = serialTaskExecutor.getTaskCount() > 0;
+        boolean sleep = (ScheduledTasks.INSTANCE.getCount() > 0) || serialTasksRunning;
 
         if (sleep) {
             sleep();

@@ -8,6 +8,7 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 
 import org.openide.util.Lookup;
 
+import org.jphototagger.api.concurrent.SerialTaskExecutor;
 import org.jphototagger.api.file.event.FileCopiedEvent;
 import org.jphototagger.api.file.event.FileDeletedEvent;
 import org.jphototagger.api.file.event.FileMovedEvent;
@@ -15,7 +16,6 @@ import org.jphototagger.api.file.event.FileRenamedEvent;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.repository.InsertIntoRepository;
 import org.jphototagger.program.io.ImageFileFilterer;
-import org.jphototagger.program.tasks.UserTasks;
 
 /**
  * Updates the repository on file system events.
@@ -25,6 +25,7 @@ import org.jphototagger.program.tasks.UserTasks;
 public final class FilesystemRepositoryUpdater {
 
     private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
+    private final SerialTaskExecutor executor = Lookup.getDefault().lookup(SerialTaskExecutor.class);
     private volatile boolean wait;
 
     /**
@@ -46,7 +47,7 @@ public final class FilesystemRepositoryUpdater {
             if (wait) {
                 inserter.run();    // run in this thread!
             } else {
-                UserTasks.INSTANCE.add(inserter);
+                executor.addTask(inserter);
             }
         }
     }
