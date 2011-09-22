@@ -1,4 +1,4 @@
-package org.jphototagger.eximport.jpt.exporter;
+package org.jphototagger.program.repository.exporter;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -8,7 +8,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.xml.bind.annotation.XmlElement;
@@ -22,9 +21,9 @@ import org.jphototagger.domain.imagecollections.ImageCollection;
 import org.jphototagger.domain.repository.ImageCollectionsRepository;
 import org.jphototagger.domain.repository.RepositoryDataExporter;
 import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.xml.bind.XmlObjectExporter;
+import org.jphototagger.program.app.AppLookAndFeel;
 
 /**
  *
@@ -37,7 +36,7 @@ public final class ImageCollectionsExporter implements RepositoryDataExporter {
     public static final String DEFAULT_FILENAME = "JptImageCollections.xml";
     public static final String DISPLAY_NAME = Bundle.getString(ImageCollectionsExporter.class, "ExportImageCollections.DisplayName");
     public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(ImageCollectionsExporter.class, "ImageCollectionsExporter.DisplayName.FileFilter"), "xml");
-    private static final ImageIcon ICON = IconUtil.getImageIcon("/org/jphototagger/eximport/jpt/icons/icon_export.png");
+    private static final Icon ICON = AppLookAndFeel.getIcon("icon_app_small.png");
     public static final int POSITION = 50;
     private final ImageCollectionsRepository repo = Lookup.getDefault().lookup(ImageCollectionsRepository.class);
 
