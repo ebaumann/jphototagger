@@ -14,19 +14,15 @@ import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppPreferencesKeys;
-import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
+import org.jphototagger.program.helper.InsertImageFilesIntoRepository;
 import org.jphototagger.program.io.ImageFileFilterer;
 import org.jphototagger.program.view.panels.ProgressBarUpdater;
 
 /**
- * Creates a {@code InsertImageFilesIntoDatabase} instance for the image files
- * in the directroies defined in {@code DatabaseAutoscanDirectories#findAllAutoscanDirectories()}
- * and their subdirectories if
- * {@code UserSettings#isAutoscanIncludeSubdirectories()} is true.
  *
  * @author Elmar Baumann
  */
-public final class InsertImageFilesIntoDatabaseScheduledTask {
+public final class InsertImageFilesIntoRepositoryScheduledTask {
 
     private static final List<String> SYSTEM_DIRECTORIES_SUBSTRINGS = new ArrayList<String>();
 
@@ -35,16 +31,16 @@ public final class InsertImageFilesIntoDatabaseScheduledTask {
         SYSTEM_DIRECTORIES_SUBSTRINGS.add("RECYCLER");
     }
 
-    private InsertImageFilesIntoDatabaseScheduledTask() {
+    private InsertImageFilesIntoRepositoryScheduledTask() {
     }
 
     /**
      * Returns the inserter thread.
      *
      * @return inserter thread or null if no image file is to saveAutoscanDirectory into the
-     *         database
+     *         repository
      */
-    static InsertImageFilesIntoDatabase getThread() {
+    static InsertImageFilesIntoRepository getThread() {
         List<File> directories = getDirectories();
         List<File> imageFiles = new ArrayList<File>(directories.size());
 
@@ -56,8 +52,8 @@ public final class InsertImageFilesIntoDatabaseScheduledTask {
             }
         }
 
-        InsertImageFilesIntoDatabase inserter = new InsertImageFilesIntoDatabase(imageFiles, InsertIntoRepository.OUT_OF_DATE);
-        String pBarString = Bundle.getString(InsertImageFilesIntoDatabaseScheduledTask.class, "InsertImageFilesIntoDatabaseScheduledTask.ProgressBar.String");
+        InsertImageFilesIntoRepository inserter = new InsertImageFilesIntoRepository(imageFiles, InsertIntoRepository.OUT_OF_DATE);
+        String pBarString = Bundle.getString(InsertImageFilesIntoRepositoryScheduledTask.class, "InsertImageFilesIntoRepositoryScheduledTask.ProgressBar.String");
 
         inserter.addProgressListener(new ProgressBarUpdater(inserter, pBarString));
 

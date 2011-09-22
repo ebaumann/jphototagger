@@ -28,10 +28,6 @@ import org.jphototagger.program.view.panels.ProgressBarUpdater;
 /**
  * Imports image files from a source directory to a target directory.
  *
- * Does not import XMP sidecar files. After import the images will be inserted
- * into the {@code DatabaseImageFiles} and set as image collection
- * {@code ImageCollectionsListModel#NAME_IMAGE_COLLECTION_PREV_IMPORT}.
- *
  * @author Elmar Baumann
  */
 public final class ImportImageFiles extends Thread implements ProgressListener {
@@ -146,7 +142,7 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
     }
 
     private void insertCopiedFilesIntoDb() {
-        InsertImageFilesIntoDatabase inserter = new InsertImageFilesIntoDatabase(copiedTargetFiles, InsertIntoRepository.OUT_OF_DATE);
+        InsertImageFilesIntoRepository inserter = new InsertImageFilesIntoRepository(copiedTargetFiles, InsertIntoRepository.OUT_OF_DATE);
         ProgressBarUpdater pBarUpdater = new ProgressBarUpdater(inserter, progressBarString);
 
         inserter.addProgressListener(pBarUpdater);

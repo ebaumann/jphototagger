@@ -12,7 +12,7 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableStringConverter;
 
 import org.jphototagger.exif.ExifIfdType;
-import org.jphototagger.exif.ExifInDatabase;
+import org.jphototagger.exif.ExifToSaveInRepository;
 import org.jphototagger.exif.ExifTag;
 import org.jphototagger.exif.ExifTag.Id;
 import org.jphototagger.exif.ExifTagValueFormatter;
@@ -50,7 +50,7 @@ public final class ExifTableCellRenderer extends FormatterLabelMetadata implemen
             ExifTag exifTag = (ExifTag) value;
 
             setIsMakerNoteTagColor(cellLabel, exifTag, isSelected);
-            setIsStoredInDatabaseColor(cellLabel, exifTag, isSelected);    // override maker note (more important)
+            setIsStoredInRepositoryColor(cellLabel, exifTag, isSelected);    // override maker note (more important)
 
             if (column == 0) {
                 String tagName = getTagName(exifTag);
@@ -111,13 +111,13 @@ public final class ExifTableCellRenderer extends FormatterLabelMetadata implemen
         }
     }
 
-    private void setIsStoredInDatabaseColor(JLabel cellLabel, ExifTag exifTag, boolean isSelected) {
+    private void setIsStoredInRepositoryColor(JLabel cellLabel, ExifTag exifTag, boolean isSelected) {
         ExifIfdType ifdType = exifTag.getIfdType();
         Id ExifTagId = exifTag.convertTagIdToEnumId();
 
-        if (ExifInDatabase.isInDatabase(ifdType, ExifTagId)) {
-            setIsStoredInDatabaseColors(cellLabel, isSelected);
-            cellLabel.setToolTipText(Bundle.getString(ExifTableCellRenderer.class, "ExifTableCellRenderer.ToolTipText.CellLabelStoredInDatabase"));
+        if (ExifToSaveInRepository.isSaveInRepository(ifdType, ExifTagId)) {
+            setIsStoredInRepositoryColors(cellLabel, isSelected);
+            cellLabel.setToolTipText(Bundle.getString(ExifTableCellRenderer.class, "ExifTableCellRenderer.ToolTipText.CellLabelStoredInRepository"));
         }
     }
 

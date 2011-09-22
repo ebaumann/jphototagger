@@ -52,7 +52,7 @@ public final class MenuItemEnablerController implements PopupMenuListener {
         contentsOfItemsRequiresSelImages.put(popupThumbnails.getItemDeleteFromImageCollection(), contents);
         itemsRequiresSelImages.add(popupThumbnails.getItemUpdateThumbnail());
         itemsRequiresSelImages.add(popupThumbnails.getItemUpdateMetadata());
-        itemsRequiresSelImages.add(popupThumbnails.getItemDeleteImageFromDatabase());
+        itemsRequiresSelImages.add(popupThumbnails.getItemDeleteImageFromRepository());
         itemsRequiresSelImages.add(popupThumbnails.getItemCreateImageCollection());
         itemsRequiresSelImages.add(popupThumbnails.getItemAddToImageCollection());
         itemsRequiresSelImages.add(popupThumbnails.getItemRotateThumbnail90());

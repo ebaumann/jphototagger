@@ -72,13 +72,13 @@ public final class ImageFile {
     }
 
     /**
-     * Returns wheter a specific metadadata is to insert into the database.
+     * Returns wheter a specific metadadata is to insert into the repository.
      *
      * @param  insert Is that to insert?
-     * @return        true if <code>insert</code> is to insert into the database
+     * @return        true if <code>insert</code> is to insert into the repository
      *
      */
-    public boolean isInsertIntoDb(InsertIntoRepository insert) {
+    public boolean isSaveInRepository(InsertIntoRepository insert) {
         return insertIntoDb.contains(insert);
     }
 
@@ -99,11 +99,11 @@ public final class ImageFile {
     }
 
     /**
-     * Adds metadata to add into the database.
+     * Adds metadata to add into the repository.
      *
      * @param insert metadata to insert
      */
-    public void addInsertIntoDb(InsertIntoRepository insert) {
+    public void addToSaveIntoRepository(InsertIntoRepository insert) {
         if (insert == null) {
             throw new NullPointerException("insert == null");
         }

@@ -28,7 +28,7 @@ public final class DeleteThumbnailsFromRepositoryController implements ActionLis
     }
 
     private void listen() {
-        ThumbnailsPopupMenu.INSTANCE.getItemDeleteImageFromDatabase().addActionListener(this);
+        ThumbnailsPopupMenu.INSTANCE.getItemDeleteImageFromRepository().addActionListener(this);
     }
 
     @Override

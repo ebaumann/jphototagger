@@ -14,9 +14,6 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.view.ViewUtil;
 
 /**
- * Modal dialog for modifying and saving a {@code MetadataTemplate} into the
- * database.
- * <p>
  * You <strong>have to call</strong>
  * {@code #setTemplate(org.jphototagger.program.data.MetadataTemplate)} before
  * calling {@code #setVisible(boolean)}!
@@ -46,7 +43,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
     /**
      * Sets a template and <strong>has to be called bevor getting visible!</strong>
      *
-     * @param template template, will be inserted or updated in the database on
+     * @param template template, will be inserted or updated in the repository on
      *                 save action
      */
     public void setTemplate(MetadataTemplate template) {

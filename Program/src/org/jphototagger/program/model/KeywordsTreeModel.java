@@ -262,7 +262,7 @@ public final class KeywordsTreeModel extends DefaultTreeModel {
     /**
      * Notifies this model that a keyword has been changed.
      *
-     * Updates the database and fires that nodes were changed.
+     * Updates the repository and fires that nodes were changed.
      *
      * @param node    node where the keyword was changed
      * @param keyword keyword that was changed

@@ -27,7 +27,7 @@ public final class RefreshXmpInDbOfKnownFiles extends HelperThread {
     private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
 
     public RefreshXmpInDbOfKnownFiles() {
-        super("JPhotoTagger: Refreshing XMP in the database of known files");
+        super("JPhotoTagger: Refreshing XMP in the repository of known files");
         setInfo(Bundle.getString(RefreshXmpInDbOfKnownFiles.class, "RefreshXmpInDbOfKnownFiles.Info"));
     }
 

@@ -103,7 +103,7 @@ public final class SetExifToXmp extends HelperThread {
 
     /**
      * Sets the EXIF metadata of an image file to the XMP sidecar file and
-     * updates the database.
+     * updates the repository.
      * <p>
      * If a XMP sidecar file does not exist, it will be created. If the image
      * file does not have EXIF metadata or the EXIF metadata does not have a
@@ -151,7 +151,7 @@ public final class SetExifToXmp extends HelperThread {
                     imageFile.setLastmodified(imgFile.lastModified());
                     imageFile.setFile(imgFile);
                     imageFile.setXmp(xmp);
-                    imageFile.addInsertIntoDb(InsertIntoRepository.XMP);
+                    imageFile.addToSaveIntoRepository(InsertIntoRepository.XMP);
                     repo.saveOrUpdateImageFile(imageFile);
                 }
             }

@@ -22,7 +22,7 @@ import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.model.KeywordsTreeModel;
 
 /**
- * Listens to database updates and adds not existing keywords.
+ * Listens to repository updates and adds not existing keywords.
  *
  * @author Elmar Baumann
  */

@@ -12,7 +12,7 @@ import org.jphototagger.domain.metadata.MetaDataValue;
  *
  * @author Elmar Baumann
  */
-public final class DatabaseInfoColumnsTableCellRenderer implements TableCellRenderer {
+public final class RepositoryInfoColumnsTableCellRenderer implements TableCellRenderer {
 
     private static final String PADDING_LEFT = "  ";
     private final JLabel cellLabel = new JLabel();

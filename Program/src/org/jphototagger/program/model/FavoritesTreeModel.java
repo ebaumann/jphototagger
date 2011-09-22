@@ -43,14 +43,6 @@ import org.jphototagger.lib.util.Bundle;
  * Elements are {@code DefaultMutableTreeNode}s with the user objects listed
  * below.
  *
- * <ul>
- * <li>The root user object is a {@code String}</li>
- * <li>All user objects in the first level below the root are
- *     {@code Favorite}s retrieved through {@code DatabaseFavorites#findAllFavorites()}
- * </li>
- * <li>User objects below the favorites are directory {@code File}s</li>
- * </ul>
- *
  * @author Elmar Baumann
  */
 public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWillExpandListener {

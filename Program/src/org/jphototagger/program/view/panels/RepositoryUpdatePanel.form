@@ -50,7 +50,7 @@
                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_exif.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="DatabaseUpdatePanel.labelRefreshExif.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="RepositoryUpdatePanel.labelRefreshExif.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="labelRefreshExif" noResource="true"/>
               </Properties>
@@ -63,7 +63,7 @@
             <Component class="javax.swing.JToggleButton" name="toggleButtonRefreshExif">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="DatabaseUpdatePanel.toggleButtonRefreshExif.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="RepositoryUpdatePanel.toggleButtonRefreshExif.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="2"/>
                 <Property name="name" type="java.lang.String" value="toggleButtonRefreshExif" noResource="true"/>
@@ -83,7 +83,7 @@
                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_xmp.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="DatabaseUpdatePanel.labelRefreshXmp.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="RepositoryUpdatePanel.labelRefreshXmp.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="labelRefreshXmp" noResource="true"/>
               </Properties>
@@ -96,7 +96,7 @@
             <Component class="javax.swing.JToggleButton" name="toggleButtonRefreshXmp">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="DatabaseUpdatePanel.toggleButtonRefreshXmp.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="RepositoryUpdatePanel.toggleButtonRefreshXmp.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="2"/>
                 <Property name="name" type="java.lang.String" value="toggleButtonRefreshXmp" noResource="true"/>
@@ -116,7 +116,7 @@
                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_image.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="DatabaseUpdatePanel.labelUpdateThumbnails.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="RepositoryUpdatePanel.labelUpdateThumbnails.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="labelUpdateThumbnails" noResource="true"/>
               </Properties>
@@ -129,7 +129,7 @@
             <Component class="javax.swing.JButton" name="buttonUpdateThumbnails">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="DatabaseUpdatePanel.buttonUpdateThumbnails.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="RepositoryUpdatePanel.buttonUpdateThumbnails.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="2"/>
                 <Property name="name" type="java.lang.String" value="buttonUpdateThumbnails" noResource="true"/>
@@ -149,7 +149,7 @@
                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_rename.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="DatabaseUpdatePanel.labelRenameFiles.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="RepositoryUpdatePanel.labelRenameFiles.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="labelRenameFiles" noResource="true"/>
               </Properties>
@@ -162,7 +162,7 @@
             <Component class="javax.swing.JButton" name="buttonRenameFiles">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="DatabaseUpdatePanel.buttonRenameFiles.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="RepositoryUpdatePanel.buttonRenameFiles.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="2"/>
                 <Property name="name" type="java.lang.String" value="buttonRenameFiles" noResource="true"/>
@@ -182,7 +182,7 @@
                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_tree.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="DatabaseUpdatePanel.labelCopyKeywordsToKeywordsTree.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="RepositoryUpdatePanel.labelCopyKeywordsToKeywordsTree.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="labelCopyKeywordsToKeywordsTree" noResource="true"/>
               </Properties>
@@ -195,7 +195,7 @@
             <Component class="javax.swing.JButton" name="buttonCopyKeywordsToKeywordsTree">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="DatabaseUpdatePanel.buttonCopyKeywordsToKeywordsTree.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="RepositoryUpdatePanel.buttonCopyKeywordsToKeywordsTree.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="2"/>
                 <Property name="name" type="java.lang.String" value="buttonCopyKeywordsToKeywordsTree" noResource="true"/>
@@ -215,7 +215,7 @@
                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_tree.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="DatabaseUpdatePanel.labelDeleteKeywordsTree.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="RepositoryUpdatePanel.labelDeleteKeywordsTree.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="labelDeleteKeywordsTree" noResource="true"/>
               </Properties>
@@ -228,7 +228,7 @@
             <Component class="javax.swing.JButton" name="buttonDeleteKeywordsTree">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="DatabaseUpdatePanel.buttonDeleteKeywordsTree.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="RepositoryUpdatePanel.buttonDeleteKeywordsTree.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="2"/>
                 <Property name="name" type="java.lang.String" value="buttonDeleteKeywordsTree" noResource="true"/>
@@ -248,7 +248,7 @@
                   <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_exif.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="DatabaseUpdatePanel.labelExifDateToXmpDateCreated.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="RepositoryUpdatePanel.labelExifDateToXmpDateCreated.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="labelExifDateToXmpDateCreated" noResource="true"/>
               </Properties>
@@ -261,7 +261,7 @@
             <Component class="javax.swing.JToggleButton" name="toggleButtonExifDateToXmpDateCreated">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="DatabaseUpdatePanel.toggleButtonExifDateToXmpDateCreated.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="RepositoryUpdatePanel.toggleButtonExifDateToXmpDateCreated.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="2"/>
                 <Property name="name" type="java.lang.String" value="toggleButtonExifDateToXmpDateCreated" noResource="true"/>

@@ -15,16 +15,15 @@ import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.lib.util.Bundle;
 
 /**
- * Deletes from the database keywords not contained in any image file.
  *
  * @author Elmar Baumann
  */
-public final class DeleteUnusedKeywords implements Runnable, Cancelable {
+public final class DeleteUnusedKeywordsFromRepository implements Runnable, Cancelable {
 
     private volatile boolean cancel;
     private final ProgressListenerSupport ls = new ProgressListenerSupport();
     private volatile int countDeleted = 0;
-    private static final Logger LOGGER = Logger.getLogger(DeleteUnusedKeywords.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(DeleteUnusedKeywordsFromRepository.class.getName());
     private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
 
     public synchronized void addProgressListener(ProgressListener listener) {
@@ -103,10 +102,10 @@ public final class DeleteUnusedKeywords implements Runnable, Cancelable {
     }
 
     private Object getEndMessage(int count, int countDeleted) {
-        return Bundle.getString(DeleteUnusedKeywords.class, "DeleteUnusedKeywords.Info.Finished", count, countDeleted);
+        return Bundle.getString(DeleteUnusedKeywordsFromRepository.class, "DeleteUnusedKeywords.Info.Finished", count, countDeleted);
     }
 
     private Object getStartMessage() {
-        return Bundle.getString(DeleteUnusedKeywords.class, "DeleteUnusedKeywords.Info.Start");
+        return Bundle.getString(DeleteUnusedKeywordsFromRepository.class, "DeleteUnusedKeywords.Info.Start");
     }
 }

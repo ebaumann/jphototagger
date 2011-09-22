@@ -29,7 +29,7 @@ import org.jphototagger.domain.metadata.mapping.XmpMetaDataValueXmpValueTypeMapp
 import org.jphototagger.domain.metadata.mapping.XmpMetaDataValueXmpValueTypeMapping.XmpValueType;
 import org.jphototagger.domain.metadata.mapping.XmpMetaDataValuesNamespaceUriMapping;
 import org.jphototagger.domain.metadata.xmp.XmpLastModifiedMetaDataValue;
-import org.jphototagger.domain.repository.xmp.XmpInRepository;
+import org.jphototagger.domain.repository.xmp.XmpToSaveInRepository;
 import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.lib.io.FileLock;
 import org.jphototagger.lib.io.FileUtil;
@@ -568,20 +568,19 @@ public final class XmpMetadata {
 
     /**
      * Puts into a map property infos where the map key is a string of
-     * {@code XmpInRepository#getPathPrefixes()}. The values are
+     * {@code XmpToSaveInRepository#getPathPrefixes()}. The values are
      * {@code XMPPropertyInfo} instances with path prefixes matching the key.
      *
      * @param  xmpPropertyInfos unordered property infos
      * @return                   ordered property infos
      */
-    public static Map<String, List<XMPPropertyInfo>> getOrderedPropertyInfosForDatabaseOf(
-            List<XMPPropertyInfo> xmpPropertyInfos) {
+    public static Map<String, List<XMPPropertyInfo>> getOrderedPropertyInfos(List<XMPPropertyInfo> xmpPropertyInfos) {
         if (xmpPropertyInfos == null) {
             throw new NullPointerException("xmpPropertyInfos == null");
         }
 
         Map<String, List<XMPPropertyInfo>> propertyInfoWithPathStart = new HashMap<String, List<XMPPropertyInfo>>();
-        Set<String> pathPrefixes = XmpInRepository.getPathPrefixes();
+        Set<String> pathPrefixes = XmpToSaveInRepository.getPathPrefixes();
 
         for (String pathPrefix : pathPrefixes) {
             for (XMPPropertyInfo propertyInfo : xmpPropertyInfos) {

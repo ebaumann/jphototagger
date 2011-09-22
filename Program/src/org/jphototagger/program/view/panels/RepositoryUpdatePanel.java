@@ -37,15 +37,15 @@ import org.jphototagger.program.view.dialogs.RenameFilenamesInDbDialog;
  *
  * @author Elmar Baumann
  */
-public class DatabaseUpdatePanel extends JPanel implements ActionListener, ProgressListener {
+public class RepositoryUpdatePanel extends JPanel implements ActionListener, ProgressListener {
 
     private static final long serialVersionUID = 3148751698141558616L;
-    private static final String BUTTON_TEXT_CANCEL = Bundle.getString(DatabaseUpdatePanel.class, "DatabaseUpdatePanel.DisplayName.Cancel");
+    private static final String BUTTON_TEXT_CANCEL = Bundle.getString(RepositoryUpdatePanel.class, "RepositoryUpdatePanel.DisplayName.Cancel");
     private transient UpdateAllThumbnails thumbnailUpdater;
     private final AbstractButton[] buttons;
     private volatile boolean cancel;
 
-    public DatabaseUpdatePanel() {
+    public RepositoryUpdatePanel() {
         initComponents();
         buttons = new AbstractButton[] {
             toggleButtonRefreshExif,
@@ -94,7 +94,7 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
                 helperThread.start();
                 button.setText(BUTTON_TEXT_CANCEL);
             } catch (Exception ex) {
-                Logger.getLogger(DatabaseUpdatePanel.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(RepositoryUpdatePanel.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
             cancel = true;
@@ -104,12 +104,12 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
     }
 
     private void setStartButtonTexts() {
-        toggleButtonRefreshExif.setText(Bundle.getString(DatabaseUpdatePanel.class, "DatabaseUpdatePanel.toggleButtonRefreshExif.text"));
-        toggleButtonRefreshXmp.setText(Bundle.getString(DatabaseUpdatePanel.class, "DatabaseUpdatePanel.toggleButtonRefreshXmp.text"));
-        buttonUpdateThumbnails.setText(Bundle.getString(DatabaseUpdatePanel.class, "DatabaseUpdatePanel.buttonUpdateThumbnails.text"));
-        buttonRenameFiles.setText(Bundle.getString(DatabaseUpdatePanel.class, "DatabaseUpdatePanel.buttonRenameFiles.text"));
-        buttonCopyKeywordsToKeywordsTree.setText(Bundle.getString(DatabaseUpdatePanel.class, "DatabaseUpdatePanel.buttonCopyKeywordsToKeywordsTree.text"));
-        toggleButtonExifDateToXmpDateCreated.setText(Bundle.getString(DatabaseUpdatePanel.class, "DatabaseUpdatePanel.toggleButtonExifDateToXmpDateCreated.text"));
+        toggleButtonRefreshExif.setText(Bundle.getString(RepositoryUpdatePanel.class, "RepositoryUpdatePanel.toggleButtonRefreshExif.text"));
+        toggleButtonRefreshXmp.setText(Bundle.getString(RepositoryUpdatePanel.class, "RepositoryUpdatePanel.toggleButtonRefreshXmp.text"));
+        buttonUpdateThumbnails.setText(Bundle.getString(RepositoryUpdatePanel.class, "RepositoryUpdatePanel.buttonUpdateThumbnails.text"));
+        buttonRenameFiles.setText(Bundle.getString(RepositoryUpdatePanel.class, "RepositoryUpdatePanel.buttonRenameFiles.text"));
+        buttonCopyKeywordsToKeywordsTree.setText(Bundle.getString(RepositoryUpdatePanel.class, "RepositoryUpdatePanel.buttonCopyKeywordsToKeywordsTree.text"));
+        toggleButtonExifDateToXmpDateCreated.setText(Bundle.getString(RepositoryUpdatePanel.class, "RepositoryUpdatePanel.toggleButtonExifDateToXmpDateCreated.text"));
         MnemonicUtil.setMnemonics((Container) this);
     }
 
@@ -149,14 +149,14 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
         if (keywords.size() > 0) {
             setEnabledAllButtons(false);
             new InsertKeywords(keywords).run();    // run in this thread!
-            String message = Bundle.getString(DatabaseUpdatePanel.class, "DatabaseUpdatePanel.Info.CopyKeywordsToTree");
+            String message = Bundle.getString(RepositoryUpdatePanel.class, "RepositoryUpdatePanel.Info.CopyKeywordsToTree");
             MessageDisplayer.information(this, message);
             setEnabledAllButtons(true);
         }
     }
 
     private void deleteAllKeywordsFromKeywordsTree() {
-        String message = Bundle.getString(DatabaseUpdatePanel.class, "DatabaseUpdatePanel.Confirm.DeleteAllKeywordsFromKeywordsTree");
+        String message = Bundle.getString(RepositoryUpdatePanel.class, "RepositoryUpdatePanel.Confirm.DeleteAllKeywordsFromKeywordsTree");
 
         if (MessageDisplayer.confirmYesNo(this, message)) {
             KeywordsRepository repo = Lookup.getDefault().lookup(KeywordsRepository.class);
@@ -180,7 +180,7 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
                      }
                  }
 
-                 message = Bundle.getString(DatabaseUpdatePanel.class, "DatabaseUpdatePanel.Info.DeletedKeywords", count);
+                 message = Bundle.getString(RepositoryUpdatePanel.class, "RepositoryUpdatePanel.Info.DeletedKeywords", count);
                  MessageDisplayer.information(this, message);
              }
 
@@ -269,7 +269,7 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
 
         labelRefreshExif.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_exif.png"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/panels/Bundle"); // NOI18N
-        labelRefreshExif.setText(bundle.getString("DatabaseUpdatePanel.labelRefreshExif.text")); // NOI18N
+        labelRefreshExif.setText(bundle.getString("RepositoryUpdatePanel.labelRefreshExif.text")); // NOI18N
         labelRefreshExif.setName("labelRefreshExif"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -280,7 +280,7 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
         gridBagConstraints.weightx = 1.0;
         panelTasks.add(labelRefreshExif, gridBagConstraints);
 
-        toggleButtonRefreshExif.setText(bundle.getString("DatabaseUpdatePanel.toggleButtonRefreshExif.text")); // NOI18N
+        toggleButtonRefreshExif.setText(bundle.getString("RepositoryUpdatePanel.toggleButtonRefreshExif.text")); // NOI18N
         toggleButtonRefreshExif.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         toggleButtonRefreshExif.setName("toggleButtonRefreshExif"); // NOI18N
         toggleButtonRefreshExif.addActionListener(new java.awt.event.ActionListener() {
@@ -298,7 +298,7 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
         panelTasks.add(toggleButtonRefreshExif, gridBagConstraints);
 
         labelRefreshXmp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_xmp.png"))); // NOI18N
-        labelRefreshXmp.setText(bundle.getString("DatabaseUpdatePanel.labelRefreshXmp.text")); // NOI18N
+        labelRefreshXmp.setText(bundle.getString("RepositoryUpdatePanel.labelRefreshXmp.text")); // NOI18N
         labelRefreshXmp.setName("labelRefreshXmp"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -310,7 +310,7 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
         gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
         panelTasks.add(labelRefreshXmp, gridBagConstraints);
 
-        toggleButtonRefreshXmp.setText(bundle.getString("DatabaseUpdatePanel.toggleButtonRefreshXmp.text")); // NOI18N
+        toggleButtonRefreshXmp.setText(bundle.getString("RepositoryUpdatePanel.toggleButtonRefreshXmp.text")); // NOI18N
         toggleButtonRefreshXmp.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         toggleButtonRefreshXmp.setName("toggleButtonRefreshXmp"); // NOI18N
         toggleButtonRefreshXmp.addActionListener(new java.awt.event.ActionListener() {
@@ -328,7 +328,7 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
         panelTasks.add(toggleButtonRefreshXmp, gridBagConstraints);
 
         labelUpdateThumbnails.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_image.png"))); // NOI18N
-        labelUpdateThumbnails.setText(bundle.getString("DatabaseUpdatePanel.labelUpdateThumbnails.text")); // NOI18N
+        labelUpdateThumbnails.setText(bundle.getString("RepositoryUpdatePanel.labelUpdateThumbnails.text")); // NOI18N
         labelUpdateThumbnails.setName("labelUpdateThumbnails"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -340,7 +340,7 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
         gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
         panelTasks.add(labelUpdateThumbnails, gridBagConstraints);
 
-        buttonUpdateThumbnails.setText(bundle.getString("DatabaseUpdatePanel.buttonUpdateThumbnails.text")); // NOI18N
+        buttonUpdateThumbnails.setText(bundle.getString("RepositoryUpdatePanel.buttonUpdateThumbnails.text")); // NOI18N
         buttonUpdateThumbnails.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         buttonUpdateThumbnails.setName("buttonUpdateThumbnails"); // NOI18N
         buttonUpdateThumbnails.addActionListener(new java.awt.event.ActionListener() {
@@ -358,7 +358,7 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
         panelTasks.add(buttonUpdateThumbnails, gridBagConstraints);
 
         labelRenameFiles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_rename.png"))); // NOI18N
-        labelRenameFiles.setText(bundle.getString("DatabaseUpdatePanel.labelRenameFiles.text")); // NOI18N
+        labelRenameFiles.setText(bundle.getString("RepositoryUpdatePanel.labelRenameFiles.text")); // NOI18N
         labelRenameFiles.setName("labelRenameFiles"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -370,7 +370,7 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
         gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
         panelTasks.add(labelRenameFiles, gridBagConstraints);
 
-        buttonRenameFiles.setText(bundle.getString("DatabaseUpdatePanel.buttonRenameFiles.text")); // NOI18N
+        buttonRenameFiles.setText(bundle.getString("RepositoryUpdatePanel.buttonRenameFiles.text")); // NOI18N
         buttonRenameFiles.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         buttonRenameFiles.setName("buttonRenameFiles"); // NOI18N
         buttonRenameFiles.addActionListener(new java.awt.event.ActionListener() {
@@ -388,7 +388,7 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
         panelTasks.add(buttonRenameFiles, gridBagConstraints);
 
         labelCopyKeywordsToKeywordsTree.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_tree.png"))); // NOI18N
-        labelCopyKeywordsToKeywordsTree.setText(bundle.getString("DatabaseUpdatePanel.labelCopyKeywordsToKeywordsTree.text")); // NOI18N
+        labelCopyKeywordsToKeywordsTree.setText(bundle.getString("RepositoryUpdatePanel.labelCopyKeywordsToKeywordsTree.text")); // NOI18N
         labelCopyKeywordsToKeywordsTree.setName("labelCopyKeywordsToKeywordsTree"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -400,7 +400,7 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
         gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
         panelTasks.add(labelCopyKeywordsToKeywordsTree, gridBagConstraints);
 
-        buttonCopyKeywordsToKeywordsTree.setText(bundle.getString("DatabaseUpdatePanel.buttonCopyKeywordsToKeywordsTree.text")); // NOI18N
+        buttonCopyKeywordsToKeywordsTree.setText(bundle.getString("RepositoryUpdatePanel.buttonCopyKeywordsToKeywordsTree.text")); // NOI18N
         buttonCopyKeywordsToKeywordsTree.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         buttonCopyKeywordsToKeywordsTree.setName("buttonCopyKeywordsToKeywordsTree"); // NOI18N
         buttonCopyKeywordsToKeywordsTree.addActionListener(new java.awt.event.ActionListener() {
@@ -418,7 +418,7 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
         panelTasks.add(buttonCopyKeywordsToKeywordsTree, gridBagConstraints);
 
         labelDeleteKeywordsTree.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_tree.png"))); // NOI18N
-        labelDeleteKeywordsTree.setText(bundle.getString("DatabaseUpdatePanel.labelDeleteKeywordsTree.text")); // NOI18N
+        labelDeleteKeywordsTree.setText(bundle.getString("RepositoryUpdatePanel.labelDeleteKeywordsTree.text")); // NOI18N
         labelDeleteKeywordsTree.setName("labelDeleteKeywordsTree"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -430,7 +430,7 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
         gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
         panelTasks.add(labelDeleteKeywordsTree, gridBagConstraints);
 
-        buttonDeleteKeywordsTree.setText(bundle.getString("DatabaseUpdatePanel.buttonDeleteKeywordsTree.text")); // NOI18N
+        buttonDeleteKeywordsTree.setText(bundle.getString("RepositoryUpdatePanel.buttonDeleteKeywordsTree.text")); // NOI18N
         buttonDeleteKeywordsTree.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         buttonDeleteKeywordsTree.setName("buttonDeleteKeywordsTree"); // NOI18N
         buttonDeleteKeywordsTree.addActionListener(new java.awt.event.ActionListener() {
@@ -448,7 +448,7 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
         panelTasks.add(buttonDeleteKeywordsTree, gridBagConstraints);
 
         labelExifDateToXmpDateCreated.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_exif.png"))); // NOI18N
-        labelExifDateToXmpDateCreated.setText(bundle.getString("DatabaseUpdatePanel.labelExifDateToXmpDateCreated.text")); // NOI18N
+        labelExifDateToXmpDateCreated.setText(bundle.getString("RepositoryUpdatePanel.labelExifDateToXmpDateCreated.text")); // NOI18N
         labelExifDateToXmpDateCreated.setName("labelExifDateToXmpDateCreated"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -459,7 +459,7 @@ public class DatabaseUpdatePanel extends JPanel implements ActionListener, Progr
         gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
         panelTasks.add(labelExifDateToXmpDateCreated, gridBagConstraints);
 
-        toggleButtonExifDateToXmpDateCreated.setText(bundle.getString("DatabaseUpdatePanel.toggleButtonExifDateToXmpDateCreated.text")); // NOI18N
+        toggleButtonExifDateToXmpDateCreated.setText(bundle.getString("RepositoryUpdatePanel.toggleButtonExifDateToXmpDateCreated.text")); // NOI18N
         toggleButtonExifDateToXmpDateCreated.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         toggleButtonExifDateToXmpDateCreated.setName("toggleButtonExifDateToXmpDateCreated"); // NOI18N
         toggleButtonExifDateToXmpDateCreated.addActionListener(new java.awt.event.ActionListener() {

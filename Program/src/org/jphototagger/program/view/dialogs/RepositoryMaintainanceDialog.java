@@ -14,11 +14,11 @@ import org.jphototagger.lib.util.Bundle;
  *
  * @author Elmar Baumann
  */
-public final class DatabaseMaintainanceDialog extends Dialog {
+public final class RepositoryMaintainanceDialog extends Dialog {
     private static final long serialVersionUID = -6775385212305459197L;
-    public static final DatabaseMaintainanceDialog INSTANCE = new DatabaseMaintainanceDialog();
+    public static final RepositoryMaintainanceDialog INSTANCE = new RepositoryMaintainanceDialog();
 
-    private DatabaseMaintainanceDialog() {
+    private RepositoryMaintainanceDialog() {
         super(ComponentUtil.getFrameWithIcon(), false);
         initComponents();
         setHelpPage();
@@ -42,7 +42,7 @@ public final class DatabaseMaintainanceDialog extends Dialog {
         }
 
         panelMaintainance.getsVisible(visible);
-        panelCount.listenToDatabaseChanges(visible);
+        panelCount.listenToRepositoryChanges(visible);
         super.setVisible(visible);
     }
 
@@ -53,7 +53,7 @@ public final class DatabaseMaintainanceDialog extends Dialog {
             storage.setComponent(this, new PreferencesHints(PreferencesHints.Option.SET_TABBED_PANE_CONTENT));
             setVisible(false);
         } else {
-            String message = Bundle.getString(DatabaseMaintainanceDialog.class, "DatabaseMaintainanceDialog.Error.WaitBeforeClose");
+            String message = Bundle.getString(RepositoryMaintainanceDialog.class, "RepositoryMaintainanceDialog.Error.WaitBeforeClose");
             MessageDisplayer.error(this, message);
         }
     }
@@ -74,13 +74,13 @@ public final class DatabaseMaintainanceDialog extends Dialog {
     private void initComponents() {//GEN-BEGIN:initComponents
 
         tabbedPane = new javax.swing.JTabbedPane();
-        panelCount = new org.jphototagger.program.view.panels.DatabaseInfoCountPanel();
-        panelMaintainance = new org.jphototagger.program.view.panels.DatabaseMaintainancePanel();
-        panelDatabaseUpdate = new org.jphototagger.program.view.panels.DatabaseUpdatePanel();
+        panelCount = new org.jphototagger.program.view.panels.RepositoryInfoCountPanel();
+        panelMaintainance = new org.jphototagger.program.view.panels.RepositoryMaintainancePanel();
+        panelRepositoryUpdate = new org.jphototagger.program.view.panels.RepositoryUpdatePanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/dialogs/Bundle"); // NOI18N
-        setTitle(bundle.getString("DatabaseMaintainanceDialog.title")); // NOI18N
+        setTitle(bundle.getString("RepositoryMaintainanceDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -91,13 +91,13 @@ public final class DatabaseMaintainanceDialog extends Dialog {
         tabbedPane.setName("tabbedPane"); // NOI18N
 
         panelCount.setName("panelCount"); // NOI18N
-        tabbedPane.addTab(bundle.getString("DatabaseMaintainanceDialog.panelCount.TabConstraints.tabTitle"), panelCount); // NOI18N
+        tabbedPane.addTab(bundle.getString("RepositoryMaintainanceDialog.panelCount.TabConstraints.tabTitle"), panelCount); // NOI18N
 
         panelMaintainance.setName("panelMaintainance"); // NOI18N
-        tabbedPane.addTab(bundle.getString("DatabaseMaintainanceDialog.panelMaintainance.TabConstraints.tabTitle"), panelMaintainance); // NOI18N
+        tabbedPane.addTab(bundle.getString("RepositoryMaintainanceDialog.panelMaintainance.TabConstraints.tabTitle"), panelMaintainance); // NOI18N
 
-        panelDatabaseUpdate.setName("panelDatabaseUpdate"); // NOI18N
-        tabbedPane.addTab(bundle.getString("DatabaseMaintainanceDialog.panelDatabaseUpdate.TabConstraints.tabTitle"), panelDatabaseUpdate); // NOI18N
+        panelRepositoryUpdate.setName("panelRepositoryUpdate"); // NOI18N
+        tabbedPane.addTab(bundle.getString("RepositoryMaintainanceDialog.panelRepositoryUpdate.TabConstraints.tabTitle"), panelRepositoryUpdate); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -131,8 +131,8 @@ public final class DatabaseMaintainanceDialog extends Dialog {
 
             @Override
             public void run() {
-                DatabaseMaintainanceDialog dialog =
-                        new DatabaseMaintainanceDialog();
+                RepositoryMaintainanceDialog dialog =
+                        new RepositoryMaintainanceDialog();
 
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
@@ -146,9 +146,9 @@ public final class DatabaseMaintainanceDialog extends Dialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private org.jphototagger.program.view.panels.DatabaseInfoCountPanel panelCount;
-    private org.jphototagger.program.view.panels.DatabaseUpdatePanel panelDatabaseUpdate;
-    private org.jphototagger.program.view.panels.DatabaseMaintainancePanel panelMaintainance;
+    private org.jphototagger.program.view.panels.RepositoryInfoCountPanel panelCount;
+    private org.jphototagger.program.view.panels.RepositoryMaintainancePanel panelMaintainance;
+    private org.jphototagger.program.view.panels.RepositoryUpdatePanel panelRepositoryUpdate;
     private javax.swing.JTabbedPane tabbedPane;
     // End of variables declaration//GEN-END:variables
 }

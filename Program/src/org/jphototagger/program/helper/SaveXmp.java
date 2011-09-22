@@ -20,7 +20,7 @@ import org.jphototagger.xmp.XmpMetadata;
 
 /**
  * Writes {@code Xmp} objects to XMP files and inserts or updates them into the
- * database.
+ * repository.
  *
  * @author Elmar Baumann
  */
@@ -65,7 +65,7 @@ public final class SaveXmp extends Thread implements Cancelable {
             File sidecarFile = XmpMetadata.suggestSidecarFile(imageFile);
 
             if (XmpMetadata.writeXmpToSidecarFile(xmp, sidecarFile)) {
-                updateDatabase(imageFile);
+                updateRepository(imageFile);
             }
 
             updateProgressBar(++fileIndex);
@@ -75,8 +75,8 @@ public final class SaveXmp extends Thread implements Cancelable {
         AppLifeCycle.INSTANCE.removeSaveObject(this);
     }
 
-    private void updateDatabase(File imageFile) {
-        InsertImageFilesIntoDatabase updater = new InsertImageFilesIntoDatabase(Arrays.asList(imageFile), InsertIntoRepository.XMP);
+    private void updateRepository(File imageFile) {
+        InsertImageFilesIntoRepository updater = new InsertImageFilesIntoRepository(Arrays.asList(imageFile), InsertIntoRepository.XMP);
 
         updater.run();    // run in this thread!
     }

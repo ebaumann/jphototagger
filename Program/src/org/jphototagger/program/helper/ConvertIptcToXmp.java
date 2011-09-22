@@ -84,7 +84,7 @@ public final class ConvertIptcToXmp implements Runnable, Cancelable {
                 logWriteXmpFile(imageFile);
 
                 if (XmpMetadata.writeXmpToSidecarFile(xmp, xmpFile)) {
-                    updateDatabase(imageFile);
+                    updateRepository(imageFile);
                 }
             }
 
@@ -94,8 +94,8 @@ public final class ConvertIptcToXmp implements Runnable, Cancelable {
         notifyEnd(index);
     }
 
-    private void updateDatabase(File imageFile) {
-        InsertImageFilesIntoDatabase insert = new InsertImageFilesIntoDatabase(Arrays.asList(imageFile), InsertIntoRepository.XMP);
+    private void updateRepository(File imageFile) {
+        InsertImageFilesIntoRepository insert = new InsertImageFilesIntoRepository(Arrays.asList(imageFile), InsertIntoRepository.XMP);
 
         insert.run();    // run in this thread!
     }

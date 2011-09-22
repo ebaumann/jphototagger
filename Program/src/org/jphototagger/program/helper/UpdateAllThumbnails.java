@@ -19,7 +19,6 @@ import org.jphototagger.program.controller.misc.SizeAndLocationController;
 import org.jphototagger.program.resource.GUI;
 
 /**
- * Updates all Thumbnails in the database with the current settings.
  *
  * @author Elmar Baumann
  */
@@ -134,7 +133,7 @@ public final class UpdateAllThumbnails implements Runnable, ProgressListener, Ac
     }
 
     private void logUpdateAllThumbnails() {
-        LOGGER.log(Level.INFO, "Updating all known thumbnails in the database");
+        LOGGER.log(Level.INFO, "Updating all known thumbnails");
     }
 
     private synchronized void notifyActionPerformed() {

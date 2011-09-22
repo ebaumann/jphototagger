@@ -17,20 +17,20 @@ public final class FileRepositoryProviderImpl implements FileRepositoryProvider 
 
     @Override
     public File getFileRepositoryDirectory() {
-        String databaseDirectoryName = UserPreferences.INSTANCE.getDatabaseDirectoryName();
+        String repositoryDirectoryName = UserPreferences.INSTANCE.getRepositoryDirectoryName();
 
-        return new File(databaseDirectoryName);
+        return new File(repositoryDirectoryName);
     }
 
     @Override
     public File getDefaultFileRepositoryDirectory() {
-        String defaultDatabaseDirectoryName = UserPreferences.INSTANCE.getDefaultDatabaseDirectoryName();
+        String defaultRepositoryDirectoryName = UserPreferences.INSTANCE.getDefaultRepositoryDirectoryName();
 
-        return new File(defaultDatabaseDirectoryName);
+        return new File(defaultRepositoryDirectoryName);
     }
 
     @Override
     public String getFileRepositoryFileName(FilenameTokens filenameTokens) {
-        return UserPreferences.INSTANCE.getDatabaseFileName(filenameTokens);
+        return UserPreferences.INSTANCE.getRepositoryFileName(filenameTokens);
     }
 }

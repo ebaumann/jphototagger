@@ -96,12 +96,12 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="buttonInsertPattern" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="labelInfoDatabase" alignment="1" pref="725" max="32767" attributes="0"/>
-                              <Component id="progressBarUpdateDatabase" alignment="0" pref="725" max="32767" attributes="0"/>
+                              <Component id="labelInfoRepository" alignment="1" pref="725" max="32767" attributes="0"/>
+                              <Component id="progressBarUpdateRepository" alignment="0" pref="725" max="32767" attributes="0"/>
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="buttonCancelUpdateDatabase" min="-2" max="-2" attributes="0"/>
+                                  <Component id="buttonCancelUpdateRepository" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="buttonUpdateDatabase" min="-2" max="-2" attributes="0"/>
+                                  <Component id="buttonUpdateRepository" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="labelTextFieldInputPattern" min="-2" max="-2" attributes="0"/>
@@ -122,7 +122,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="labelInfoList" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="scrollPane" pref="120" max="32767" attributes="0"/>
+                          <Component id="scrollPane" pref="105" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="textFieldInputPattern" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -134,13 +134,13 @@
                               <Component id="buttonDeletePattern" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="labelInfoDatabase" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelInfoRepository" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                          <Component id="progressBarUpdateDatabase" min="-2" pref="22" max="-2" attributes="0"/>
+                          <Component id="progressBarUpdateRepository" min="-2" pref="22" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="buttonUpdateDatabase" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="buttonCancelUpdateDatabase" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="buttonUpdateRepository" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="buttonCancelUpdateRepository" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -149,43 +149,43 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="labelInfoDatabase">
+            <Component class="javax.swing.JLabel" name="labelInfoRepository">
               <Properties>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="0" red="0" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="SettingsFileExcludePatternsPanel.labelInfoDatabase.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="SettingsFileExcludePatternsPanel.labelInfoRepository.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
-                <Property name="name" type="java.lang.String" value="labelInfoDatabase" noResource="true"/>
+                <Property name="name" type="java.lang.String" value="labelInfoRepository" noResource="true"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JProgressBar" name="progressBarUpdateDatabase">
+            <Component class="javax.swing.JProgressBar" name="progressBarUpdateRepository">
               <Properties>
-                <Property name="name" type="java.lang.String" value="progressBarUpdateDatabase" noResource="true"/>
+                <Property name="name" type="java.lang.String" value="progressBarUpdateRepository" noResource="true"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="buttonCancelUpdateDatabase">
+            <Component class="javax.swing.JButton" name="buttonCancelUpdateRepository">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="SettingsFileExcludePatternsPanel.buttonCancelUpdateDatabase.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="SettingsFileExcludePatternsPanel.buttonCancelUpdateRepository.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="enabled" type="boolean" value="false"/>
-                <Property name="name" type="java.lang.String" value="buttonCancelUpdateDatabase" noResource="true"/>
+                <Property name="name" type="java.lang.String" value="buttonCancelUpdateRepository" noResource="true"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonCancelUpdateDatabaseActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonCancelUpdateRepositoryActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="buttonUpdateDatabase">
+            <Component class="javax.swing.JButton" name="buttonUpdateRepository">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="SettingsFileExcludePatternsPanel.buttonUpdateDatabase.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="org/jphototagger/program/view/panels/Bundle.properties" key="SettingsFileExcludePatternsPanel.buttonUpdateRepository.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
-                <Property name="name" type="java.lang.String" value="buttonUpdateDatabase" noResource="true"/>
+                <Property name="name" type="java.lang.String" value="buttonUpdateRepository" noResource="true"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonUpdateDatabaseActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonUpdateRepositoryActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="labelTextFieldInputPattern">

@@ -37,7 +37,7 @@ public final class RenameDeleteXmpValue {
      * Renames a XMP value in all XMP sidecar files containing that value in
      * associated with a specific metadata value.
      * <p>
-     * If renamed successfully, the database will be updated.
+     * If renamed successfully, the repository will be updated.
      *
      * @param metaDataValue   XMP metadata value, <em>not</em> {@code XmpDcSubjectsSubjectMetaDataValue}
      * @param oldValue old value, will be trimmed
@@ -76,7 +76,7 @@ public final class RenameDeleteXmpValue {
      * Deletes a XMP value from all XMP sidecar files containing that value in
      * associated with a specific metadata value.
      * <p>
-     * If renamed successfully, the database will be updated.
+     * If renamed successfully, the repository will be updated.
      *
      * @param mdValue XMP metadata value, <em>not</em> {@code XmpDcSubjectsSubjectMetaDataValue}
      * @param value  value to be deleted
@@ -163,7 +163,7 @@ public final class RenameDeleteXmpValue {
                     rename(xmp);
 
                     if (XmpMetadata.writeXmpToSidecarFile(xmp, XmpMetadata.suggestSidecarFile(imageFile))) {
-                        new InsertImageFilesIntoDatabase(Collections.singletonList(imageFile),
+                        new InsertImageFilesIntoRepository(Collections.singletonList(imageFile),
                                 InsertIntoRepository.XMP).run();    // run in this thread!
                     }
                 }

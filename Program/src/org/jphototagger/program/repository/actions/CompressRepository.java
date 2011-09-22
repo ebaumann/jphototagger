@@ -18,13 +18,13 @@ import org.jphototagger.lib.util.Bundle;
  *
  * @author Elmar Baumann
  */
-public final class CompressDatabase implements Runnable {
+public final class CompressRepository implements Runnable {
 
     private final ProgressListenerSupport listenerSupport = new ProgressListenerSupport();
     private boolean success = false;
     private long sizeBefore;
     private long sizeAfter;
-    private static final Logger LOGGER = Logger.getLogger(CompressDatabase.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(CompressRepository.class.getName());
 
     public synchronized void addProgressListener(ProgressListener l) {
         if (l == null) {
@@ -34,19 +34,11 @@ public final class CompressDatabase implements Runnable {
         listenerSupport.add(l);
     }
 
-    /**
-     * Returns the success of the database operation.
-     *
-     * @return true if successfully compressed.
-     */
     public boolean getSuccess() {
         return success;
     }
 
     /**
-     * Returns the size of the database file in bytes before compressing.
-     *
-     * <em>The value is (only) valid after compressing the database file!</em>
      *
      * @return size in bytes
      */
@@ -55,9 +47,6 @@ public final class CompressDatabase implements Runnable {
     }
 
     /**
-     * Returns the size of the database file in bytes after compressing.
-     *
-     * <em>The value is (only) valid after compressing the database file!</em>
      *
      * @return size in bytes
      */
@@ -65,14 +54,9 @@ public final class CompressDatabase implements Runnable {
         return sizeBefore;
     }
 
-    /**
-     * Compresses the database. The process can't be cancelled and the progress
-     * values can't submitted to them. The listeners are only notified about
-     * the start and end of compressing.
-     */
     @Override
     public void run() {
-        logCompressDatabase();
+        LOGGER.log(Level.INFO, "Compressing repository");
         notifyStarted();
 
         FileRepositoryProvider provider = Lookup.getDefault().lookup(FileRepositoryProvider.class);
@@ -82,20 +66,17 @@ public final class CompressDatabase implements Runnable {
         sizeBefore = dbFile.length();
         success = repo.compressRepository();
         sizeAfter = dbFile.length();
-        notifyEnded();
+        notifyFinished();
+        LOGGER.log(Level.INFO, "Compressing repository finished");
     }
 
     private synchronized void notifyStarted() {
-        ProgressEvent evt = new ProgressEvent(this, Bundle.getString(CompressDatabase.class, "CompressDatabase.Start"));
+        ProgressEvent evt = new ProgressEvent(this, Bundle.getString(CompressRepository.class, "CompressRepository.Start"));
 
         listenerSupport.notifyStarted(evt);
     }
 
-    private void logCompressDatabase() {
-        LOGGER.log(Level.INFO, "Compressing database");
-    }
-
-    private synchronized void notifyEnded() {
+    private synchronized void notifyFinished() {
         ProgressEvent evt = new ProgressEvent(this, 0, 1, 1, getEndMessage());
 
         listenerSupport.notifyEnded(evt);
@@ -104,10 +85,10 @@ public final class CompressDatabase implements Runnable {
     private Object getEndMessage() {
         double mb = 1024 * 1024;
         Object[] params = {success
-            ? Bundle.getString(CompressDatabase.class, "CompressDatabase.End.Success.True")
-            : Bundle.getString(CompressDatabase.class, "CompressDatabase.End.Success.False"), sizeBefore,
+            ? Bundle.getString(CompressRepository.class, "CompressRepository.End.Success.True")
+            : Bundle.getString(CompressRepository.class, "CompressRepository.End.Success.False"), sizeBefore,
             new Double(sizeBefore / mb), sizeAfter, new Double(sizeAfter / mb)};
 
-        return Bundle.getString(CompressDatabase.class, "CompressDatabase.End", params);
+        return Bundle.getString(CompressRepository.class, "CompressRepository.End", params);
     }
 }

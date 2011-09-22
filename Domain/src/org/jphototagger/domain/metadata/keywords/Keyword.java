@@ -19,8 +19,8 @@ public final class Keyword implements Comparable<Keyword>, Serializable {
     /**
      * Creates a new instance of this class.
      *
-     * @param id        database ID.
-     * @param idParent  database ID of the keyword's parent
+     * @param id        repository ID.
+     * @param idParent  repository ID of the keyword's parent
      * @param name      keyword name
      * @param real      true if this keyword is a real keyword
      */
@@ -51,7 +51,6 @@ public final class Keyword implements Comparable<Keyword>, Serializable {
     }
 
     /**
-     * Sets the database ID.
      *
      * @param id ID. Default: null.
      */
@@ -60,27 +59,24 @@ public final class Keyword implements Comparable<Keyword>, Serializable {
     }
 
     /**
-     * Returns the dataase ID.
      *
-     * @return database ID
+     * @return repository ID
      */
     public Long getId() {
         return id;
     }
 
     /**
-     * Returns the database ID of the keyword's parent.
      *
-     * @return database ID of the parent or null if undefined
+     * @return repository ID of the parent or null if undefined
      */
     public Long getIdParent() {
         return idParent;
     }
 
     /**
-     * Sets the database ID of the keyword's parent.
      *
-     * @param idParent ID of the parent. Default: null.
+     * @param idParent repository ID of the parent. Default: null.
      */
     public void setIdParent(Long idParent) {
         this.idParent = idParent;

@@ -24,7 +24,7 @@ public final class RefreshExifInDbOfKnownFiles extends HelperThread {
     private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
 
     public RefreshExifInDbOfKnownFiles() {
-        super("JPhotoTagger: Refreshing EXIF in the database of known files");
+        super("JPhotoTagger: Refreshing EXIF in the repository of known files");
         setInfo(Bundle.getString(RefreshExifInDbOfKnownFiles.class, "RefreshExifInDbOfKnownFiles.Info"));
     }
 

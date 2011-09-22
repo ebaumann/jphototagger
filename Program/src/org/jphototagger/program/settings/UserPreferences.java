@@ -48,17 +48,17 @@ final class UserPreferences {
         return propertiesFile.getDirectoryName();
     }
 
-    String getDatabaseDirectoryName() {
+    String getRepositoryDirectoryName() {
         return properties.containsKey(FileRepositoryProvider.KEY_FILE_REPOSITORY_DIRECTORY)
                 ? settings.getString(FileRepositoryProvider.KEY_FILE_REPOSITORY_DIRECTORY)
-                : getDefaultDatabaseDirectoryName();
+                : getDefaultRepositoryDirectoryName();
     }
 
-    String getDefaultDatabaseDirectoryName() {
+    String getDefaultRepositoryDirectoryName() {
         return getSettingsDirectoryName();
     }
 
-    String getDatabaseFileName(FilenameTokens filenameTokens) {
+    String getRepositoryFileName(FilenameTokens filenameTokens) {
         if (filenameTokens == null) {
             throw new NullPointerException("filenameTokens == null");
         }
@@ -67,20 +67,20 @@ final class UserPreferences {
             throw new IllegalArgumentException("Illegal argument: " + filenameTokens);
         }
 
-        String directoryName = getDatabaseDirectoryName();
-        String fileBasename = getDatabaseBasename();
+        String directoryName = getRepositoryDirectoryName();
+        String fileBasename = getRepositoryBasename();
         boolean isFullPath = filenameTokens.equals(FilenameTokens.FULL_PATH);
         String suffix = isFullPath ? ".data" : "";
 
         return directoryName + File.separator + fileBasename + suffix;
     }
 
-    static String getDatabaseBasename() {
+    static String getRepositoryBasename() {
         return "database";
     }
 
     String getThumbnailsDirectoryName() {
-        return getDatabaseDirectoryName() + File.separator + getThumbnailsDirectoryBasename();
+        return getRepositoryDirectoryName() + File.separator + getThumbnailsDirectoryBasename();
     }
 
     static String getThumbnailsDirectoryBasename() {

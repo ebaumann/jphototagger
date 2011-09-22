@@ -29,7 +29,7 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppPreferencesKeys;
 import org.jphototagger.program.helper.CopyFiles;
 import org.jphototagger.program.helper.CopyFiles.Options;
-import org.jphototagger.program.helper.FilesystemDatabaseUpdater;
+import org.jphototagger.program.helper.FilesystemRepositoryUpdater;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.SelectRootFilesPanel;
 import org.jphototagger.xmp.XmpMetadata;
@@ -48,7 +48,7 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
     private boolean writeProperties = true;
     private Collection<File> sourceFiles;
     private File targetDirectory = new File("");
-    private final FilesystemDatabaseUpdater fileSystemDbUpdater = new FilesystemDatabaseUpdater(true); // Required!
+    private final FilesystemRepositoryUpdater fileSystemDbUpdater = new FilesystemRepositoryUpdater(true); // Required!
 
     public CopyToDirectoryDialog() {
         super(GUI.getAppFrame(), false);

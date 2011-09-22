@@ -8,51 +8,50 @@ import org.jphototagger.api.file.FilenameTokens;
 import org.jphototagger.domain.repository.FileRepositoryProvider;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.model.DatabaseInfoTableModel;
-import org.jphototagger.program.view.renderer.DatabaseInfoColumnsTableCellRenderer;
+import org.jphototagger.program.model.RepositoryInfoTableModel;
+import org.jphototagger.program.view.renderer.RepositoryInfoColumnsTableCellRenderer;
 
 /**
- * Dislplays the database record count total and of specific columns.
  *
  * @author Elmar Baumann
  */
-public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
+public final class RepositoryInfoCountPanel extends javax.swing.JPanel {
     private static final long  serialVersionUID = -8537559082830438692L;
-    private DatabaseInfoTableModel modelDatabaseInfo;
+    private RepositoryInfoTableModel repositoryInfoTableModel;
     private volatile boolean listenToDbChanges;
 
-    public DatabaseInfoCountPanel() {
+    public RepositoryInfoCountPanel() {
         initComponents();
-        table.setDefaultRenderer(Object.class, new DatabaseInfoColumnsTableCellRenderer());
+        table.setDefaultRenderer(Object.class, new RepositoryInfoColumnsTableCellRenderer());
         setLabelFilename();
     }
 
-    public void listenToDatabaseChanges(boolean listen) {
+    public void listenToRepositoryChanges(boolean listen) {
         listenToDbChanges = listen;
 
         if (listen) {
-            setModelDatabaseInfo();
+            setModelRepositoryInfo();
         }
 
-        if (modelDatabaseInfo != null) {
-            modelDatabaseInfo.setListenToDatabase(listen);
+        if (repositoryInfoTableModel != null) {
+            repositoryInfoTableModel.setListenToRepository(listen);
         }
     }
 
     private void setLabelFilename() {
-        String pattern = Bundle.getString(DatabaseInfoCountPanel.class, "DatabaseInfoCountPanel.labelFilename.Filename");
+        String pattern = Bundle.getString(RepositoryInfoCountPanel.class, "RepositoryInfoCountPanel.labelFilename.Filename");
         FileRepositoryProvider provider = Lookup.getDefault().lookup(FileRepositoryProvider.class);
 
         if (provider != null) {
-            String databaseFileName = provider.getFileRepositoryFileName(FilenameTokens.FULL_PATH);
-            String message = MessageFormat.format(pattern, databaseFileName);
+            String repositoryFileName = provider.getFileRepositoryFileName(FilenameTokens.FULL_PATH);
+            String message = MessageFormat.format(pattern, repositoryFileName);
 
             labelFilename.setText(message);
         }
     }
 
-    private void setModelDatabaseInfo() {
-        if (modelDatabaseInfo == null) {
+    private void setModelRepositoryInfo() {
+        if (repositoryInfoTableModel == null) {
             Thread thread = new Thread(new Runnable() {
 
                 @Override
@@ -61,19 +60,19 @@ public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
 
                         @Override
                         public void run() {
-                            modelDatabaseInfo = new DatabaseInfoTableModel();
-                            modelDatabaseInfo.setListenToDatabase(listenToDbChanges);
-                            table.setModel(modelDatabaseInfo);
-                            modelDatabaseInfo.update();
+                            repositoryInfoTableModel = new RepositoryInfoTableModel();
+                            repositoryInfoTableModel.setListenToRepository(listenToDbChanges);
+                            table.setModel(repositoryInfoTableModel);
+                            repositoryInfoTableModel.update();
                         }
                     });
                 }
-            }, "JPhotoTagger: Updating database info");
+            }, "JPhotoTagger: Updating repository info");
 
             thread.start();
         } else {
-            modelDatabaseInfo.setListenToDatabase(true);
-            modelDatabaseInfo.update();
+            repositoryInfoTableModel.setListenToRepository(true);
+            repositoryInfoTableModel.update();
         }
     }
 
@@ -97,7 +96,7 @@ public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
         setLayout(new java.awt.GridBagLayout());
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/panels/Bundle"); // NOI18N
-        labelTable.setText(bundle.getString("DatabaseInfoCountPanel.labelTable.text")); // NOI18N
+        labelTable.setText(bundle.getString("RepositoryInfoCountPanel.labelTable.text")); // NOI18N
         labelTable.setName("labelTable"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -122,7 +121,7 @@ public final class DatabaseInfoCountPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(6, 12, 0, 12);
         add(scrollPane, gridBagConstraints);
 
-        labelFilename.setText(bundle.getString("DatabaseInfoCountPanel.labelFilename.text")); // NOI18N
+        labelFilename.setText(bundle.getString("RepositoryInfoCountPanel.labelFilename.text")); // NOI18N
         labelFilename.setName("labelFilename"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;

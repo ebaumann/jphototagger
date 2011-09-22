@@ -25,8 +25,7 @@ import org.jphototagger.lib.model.UpdateInfoTreeModel;
 
 /**
  *
- * The model contains a {@code Timeline} retrieved through
- * {@code DatabaseImageFiles#findTimeline()}.
+ * The model contains a {@code Timeline} retrieved through the repository.
  *
  * Elements are {@code DefaultMutableTreeNode}s with the user objects listed
  * below.

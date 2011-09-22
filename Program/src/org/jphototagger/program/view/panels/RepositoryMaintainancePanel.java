@@ -16,31 +16,30 @@ import javax.swing.JPanel;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.concurrent.Cancelable;
+import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
-import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.repository.actions.CompressDatabase;
+import org.jphototagger.program.repository.actions.CompressRepository;
 import org.jphototagger.program.repository.actions.DeleteNotReferenced1n;
 import org.jphototagger.program.repository.actions.DeleteOrphanedThumbnails;
 import org.jphototagger.program.repository.actions.DeleteOrphanedXmp;
-import org.jphototagger.program.repository.actions.DeleteUnusedKeywords;
+import org.jphototagger.program.repository.actions.DeleteUnusedKeywordsFromRepository;
 
 /**
- * Database maintainance tasks.
  *
  * @author Elmar Baumann
  */
-public final class DatabaseMaintainancePanel extends JPanel implements ProgressListener {
+public final class RepositoryMaintainancePanel extends JPanel implements ProgressListener {
     private static final long serialVersionUID = -4557401822534070313L;
     private static final Icon ICON_FINISHED = AppLookAndFeel.getIcon("icon_finished.png");
-    private static final String KEY_DEL_RECORDS_OF_NOT_EX_FILES = "DatabaseMaintainancePanel.CheckBox.DeleteNotExistingFilesFromDb";
-    private static final String KEY_COMPRESS_DB = "DatabaseMaintainancePanel.CheckBox.CompressDb";
-    private static final String KEY_DEL_ORPHANED_THUMBS = "DatabaseMaintainancePanel.CheckBox.DeleteOrphanedThumbnails";
-    private String KEY_DEL_UNUSED_KEYWORDS = "DatabaseMaintainancePanel.CheckBox.DeleteUnusedKeywords";
-    private static final String KEY_DEL_NOT_REF_1_N = "DatabaseMaintainancePanel.CheckBox.DeleteNotRef1n";
+    private static final String KEY_DEL_RECORDS_OF_NOT_EX_FILES = "RepositoryMaintainancePanel.CheckBox.DeleteNotExistingFilesFromDb";
+    private static final String KEY_COMPRESS_DB = "RepositoryMaintainancePanel.CheckBox.CompressDb";
+    private static final String KEY_DEL_ORPHANED_THUMBS = "RepositoryMaintainancePanel.CheckBox.DeleteOrphanedThumbnails";
+    private String KEY_DEL_UNUSED_KEYWORDS = "RepositoryMaintainancePanel.CheckBox.DeleteUnusedKeywords";
+    private static final String KEY_DEL_NOT_REF_1_N = "RepositoryMaintainancePanel.CheckBox.DeleteNotRef1n";
     private final Stack<Runnable> runnables = new Stack<Runnable>();
     private final Map<Class<?>, JLabel> finishedLabelOfRunnable = new HashMap<Class<?>, JLabel>();
     private final Set<JCheckBox> checkBoxes = new HashSet<JCheckBox>();
@@ -49,39 +48,39 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
     private volatile boolean cancel;
     private volatile boolean canClose = true;
 
-    public DatabaseMaintainancePanel() {
+    public RepositoryMaintainancePanel() {
         initComponents();
         postInitComponents();
     }
 
     private void postInitComponents() {
-        finishedLabelOfRunnable.put(CompressDatabase.class, labelFinishedCompressDatabase);
-        finishedLabelOfRunnable.put(DeleteOrphanedXmp.class, labelFinishedDeleteRecordsOfNotExistingFilesInDatabase);
+        finishedLabelOfRunnable.put(CompressRepository.class, labelFinishedCompressRepository);
+        finishedLabelOfRunnable.put(DeleteOrphanedXmp.class, labelFinishedDeleteRecordsOfNotExistingFilesInRepository);
         finishedLabelOfRunnable.put(DeleteOrphanedThumbnails.class, labelFinishedDeleteOrphanedThumbnails);
-        finishedLabelOfRunnable.put(DeleteUnusedKeywords.class, labelFinishedDeleteUnusedKeywords);
+        finishedLabelOfRunnable.put(DeleteUnusedKeywordsFromRepository.class, labelFinishedDeleteUnusedKeywords);
         finishedLabelOfRunnable.put(DeleteNotReferenced1n.class, labelFinishedDeleteNotReferenced1n);
         initCheckBoxes();
         MnemonicUtil.setMnemonics((Container) this);
     }
 
     private void initCheckBoxes() {
-        checkBoxes.add(checkBoxCompressDatabase);
+        checkBoxes.add(checkBoxCompressRepository);
         checkBoxes.add(checkBoxDeleteOrphanedThumbnails);
-        checkBoxes.add(checkBoxDeleteRecordsOfNotExistingFilesInDatabase);
+        checkBoxes.add(checkBoxDeleteRecordsOfNotExistingFilesInRepository);
         checkBoxes.add(checkBoxDeleteUnusedKeywords);
         checkBoxes.add(checkBoxDeleteNotReferenced1n);
-        labelOfCheckBox.put(checkBoxCompressDatabase, labelFinishedCompressDatabase);
+        labelOfCheckBox.put(checkBoxCompressRepository, labelFinishedCompressRepository);
         labelOfCheckBox.put(checkBoxDeleteOrphanedThumbnails, labelFinishedDeleteOrphanedThumbnails);
-        labelOfCheckBox.put(checkBoxDeleteRecordsOfNotExistingFilesInDatabase, labelFinishedDeleteRecordsOfNotExistingFilesInDatabase);
+        labelOfCheckBox.put(checkBoxDeleteRecordsOfNotExistingFilesInRepository, labelFinishedDeleteRecordsOfNotExistingFilesInRepository);
         labelOfCheckBox.put(checkBoxDeleteUnusedKeywords, labelFinishedDeleteUnusedKeywords);
         labelOfCheckBox.put(checkBoxDeleteNotReferenced1n, labelFinishedDeleteNotReferenced1n);
 
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         if (storage != null) {
-            checkBoxCompressDatabase.setSelected(storage.getBoolean(KEY_COMPRESS_DB));
+            checkBoxCompressRepository.setSelected(storage.getBoolean(KEY_COMPRESS_DB));
             checkBoxDeleteOrphanedThumbnails.setSelected(storage.getBoolean(KEY_DEL_ORPHANED_THUMBS));
-            checkBoxDeleteRecordsOfNotExistingFilesInDatabase.setSelected(storage.getBoolean(KEY_DEL_RECORDS_OF_NOT_EX_FILES));
+            checkBoxDeleteRecordsOfNotExistingFilesInRepository.setSelected(storage.getBoolean(KEY_DEL_RECORDS_OF_NOT_EX_FILES));
             checkBoxDeleteUnusedKeywords.setSelected(storage.getBoolean(KEY_DEL_UNUSED_KEYWORDS));
             checkBoxDeleteNotReferenced1n.setSelected(storage.getBoolean(KEY_DEL_NOT_REF_1_N));
         }
@@ -113,8 +112,8 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
     }
 
     private void resetIcons() {
-        labelFinishedCompressDatabase.setIcon(null);
-        labelFinishedDeleteRecordsOfNotExistingFilesInDatabase.setIcon(null);
+        labelFinishedCompressRepository.setIcon(null);
+        labelFinishedDeleteRecordsOfNotExistingFilesInRepository.setIcon(null);
         labelFinishedDeleteOrphanedThumbnails.setIcon(null);
         progressBar.setValue(0);
     }
@@ -153,7 +152,7 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
     private synchronized void startNextThread() {
         if (runnables.size() > 0) {
             currentRunnable = runnables.pop();
-            String threadName = "JPhotoTagger: Database maintainance next task @ " + currentRunnable.getClass().getSimpleName();
+            String threadName = "JPhotoTagger: Repository maintainance next task @ " + currentRunnable.getClass().getSimpleName();
 
             Thread thread = new Thread(currentRunnable, threadName);
 
@@ -203,14 +202,14 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
             runnables.push(runnable);
         }
 
-        if (checkBoxCompressDatabase.isSelected()) {
-            CompressDatabase runnable = new CompressDatabase();
+        if (checkBoxCompressRepository.isSelected()) {
+            CompressRepository runnable = new CompressRepository();
 
             runnable.addProgressListener(this);
             runnables.push(runnable);
         }
 
-        if (checkBoxDeleteRecordsOfNotExistingFilesInDatabase.isSelected()) {
+        if (checkBoxDeleteRecordsOfNotExistingFilesInRepository.isSelected()) {
             DeleteOrphanedXmp runnable = new DeleteOrphanedXmp();
 
             runnable.addProgressListener(this);
@@ -218,7 +217,7 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
         }
 
         if (checkBoxDeleteUnusedKeywords.isSelected()) {
-            DeleteUnusedKeywords runnable = new DeleteUnusedKeywords();
+            DeleteUnusedKeywordsFromRepository runnable = new DeleteUnusedKeywordsFromRepository();
 
             runnable.addProgressListener(this);
             runnables.push(runnable);
@@ -256,7 +255,7 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
                 appendMessage(evt.getInfo().toString());
                 buttonDeleteMessages.setEnabled(false);
                 setProgressbarStart(evt);
-                buttonCancelAction.setEnabled(!(evt.getSource() instanceof CompressDatabase));
+                buttonCancelAction.setEnabled(!(evt.getSource() instanceof CompressRepository));
                 checkCancel(evt);
             }
         });
@@ -293,7 +292,7 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
                 if (labelFinished != null) {
                     labelFinished.setIcon(ICON_FINISHED);
                 } else if (sourceClass.getName().contains("DatabaseImageFiles")) {
-                    labelFinishedDeleteRecordsOfNotExistingFilesInDatabase.setIcon(ICON_FINISHED);
+                    labelFinishedDeleteRecordsOfNotExistingFilesInRepository.setIcon(ICON_FINISHED);
                 }
 
                 if (runnables.size() > 0) {
@@ -335,10 +334,10 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
 
         panelContent = new javax.swing.JPanel();
         panelTasks = new javax.swing.JPanel();
-        checkBoxDeleteRecordsOfNotExistingFilesInDatabase = new javax.swing.JCheckBox();
-        labelFinishedDeleteRecordsOfNotExistingFilesInDatabase = new javax.swing.JLabel();
-        checkBoxCompressDatabase = new javax.swing.JCheckBox();
-        labelFinishedCompressDatabase = new javax.swing.JLabel();
+        checkBoxDeleteRecordsOfNotExistingFilesInRepository = new javax.swing.JCheckBox();
+        labelFinishedDeleteRecordsOfNotExistingFilesInRepository = new javax.swing.JLabel();
+        checkBoxCompressRepository = new javax.swing.JCheckBox();
+        labelFinishedCompressRepository = new javax.swing.JLabel();
         checkBoxDeleteOrphanedThumbnails = new javax.swing.JCheckBox();
         labelFinishedDeleteOrphanedThumbnails = new javax.swing.JLabel();
         checkBoxDeleteUnusedKeywords = new javax.swing.JCheckBox();
@@ -364,51 +363,52 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
         panelTasks.setLayout(new java.awt.GridBagLayout());
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/panels/Bundle"); // NOI18N
-        checkBoxDeleteRecordsOfNotExistingFilesInDatabase.setText(bundle.getString("DatabaseMaintainancePanel.checkBoxDeleteRecordsOfNotExistingFilesInDatabase.text")); // NOI18N
-        checkBoxDeleteRecordsOfNotExistingFilesInDatabase.setName("checkBoxDeleteRecordsOfNotExistingFilesInDatabase"); // NOI18N
-        checkBoxDeleteRecordsOfNotExistingFilesInDatabase.addActionListener(new java.awt.event.ActionListener() {
+        checkBoxDeleteRecordsOfNotExistingFilesInRepository.setText(bundle.getString("RepositoryMaintainancePanel.checkBoxDeleteRecordsOfNotExistingFilesInRepository.text")); // NOI18N
+        checkBoxDeleteRecordsOfNotExistingFilesInRepository.setName("checkBoxDeleteRecordsOfNotExistingFilesInRepository"); // NOI18N
+        checkBoxDeleteRecordsOfNotExistingFilesInRepository.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkBoxDeleteRecordsOfNotExistingFilesInDatabaseActionPerformed(evt);
+                checkBoxDeleteRecordsOfNotExistingFilesInRepositoryActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        panelTasks.add(checkBoxDeleteRecordsOfNotExistingFilesInDatabase, gridBagConstraints);
+        panelTasks.add(checkBoxDeleteRecordsOfNotExistingFilesInRepository, gridBagConstraints);
 
-        labelFinishedDeleteRecordsOfNotExistingFilesInDatabase.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        labelFinishedDeleteRecordsOfNotExistingFilesInDatabase.setIconTextGap(0);
-        labelFinishedDeleteRecordsOfNotExistingFilesInDatabase.setName("labelFinishedDeleteRecordsOfNotExistingFilesInDatabase"); // NOI18N
-        labelFinishedDeleteRecordsOfNotExistingFilesInDatabase.setPreferredSize(new java.awt.Dimension(22, 22));
+        labelFinishedDeleteRecordsOfNotExistingFilesInRepository.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        labelFinishedDeleteRecordsOfNotExistingFilesInRepository.setIconTextGap(0);
+        labelFinishedDeleteRecordsOfNotExistingFilesInRepository.setName("labelFinishedDeleteRecordsOfNotExistingFilesInRepository"); // NOI18N
+        labelFinishedDeleteRecordsOfNotExistingFilesInRepository.setPreferredSize(new java.awt.Dimension(22, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        panelTasks.add(labelFinishedDeleteRecordsOfNotExistingFilesInDatabase, gridBagConstraints);
+        panelTasks.add(labelFinishedDeleteRecordsOfNotExistingFilesInRepository, gridBagConstraints);
 
-        checkBoxCompressDatabase.setText(bundle.getString("DatabaseMaintainancePanel.checkBoxCompressDatabase.text")); // NOI18N
-        checkBoxCompressDatabase.setName("checkBoxCompressDatabase"); // NOI18N
-        checkBoxCompressDatabase.addActionListener(new java.awt.event.ActionListener() {
+        checkBoxCompressRepository.setText(bundle.getString("RepositoryMaintainancePanel.checkBoxCompressRepository.text")); // NOI18N
+        checkBoxCompressRepository.setName("checkBoxCompressRepository"); // NOI18N
+        checkBoxCompressRepository.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkBoxCompressDatabaseActionPerformed(evt);
+                checkBoxCompressRepositoryActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
-        panelTasks.add(checkBoxCompressDatabase, gridBagConstraints);
+        panelTasks.add(checkBoxCompressRepository, gridBagConstraints);
 
-        labelFinishedCompressDatabase.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        labelFinishedCompressDatabase.setIconTextGap(0);
-        labelFinishedCompressDatabase.setName("labelFinishedCompressDatabase"); // NOI18N
-        labelFinishedCompressDatabase.setPreferredSize(new java.awt.Dimension(22, 22));
+        labelFinishedCompressRepository.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        labelFinishedCompressRepository.setIconTextGap(0);
+        labelFinishedCompressRepository.setName("labelFinishedCompressRepository"); // NOI18N
+        labelFinishedCompressRepository.setPreferredSize(new java.awt.Dimension(22, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
-        panelTasks.add(labelFinishedCompressDatabase, gridBagConstraints);
+        panelTasks.add(labelFinishedCompressRepository, gridBagConstraints);
 
-        checkBoxDeleteOrphanedThumbnails.setText(bundle.getString("DatabaseMaintainancePanel.checkBoxDeleteOrphanedThumbnails.text")); // NOI18N
+        checkBoxDeleteOrphanedThumbnails.setText(bundle.getString("RepositoryMaintainancePanel.checkBoxDeleteOrphanedThumbnails.text")); // NOI18N
         checkBoxDeleteOrphanedThumbnails.setName("checkBoxDeleteOrphanedThumbnails"); // NOI18N
         checkBoxDeleteOrphanedThumbnails.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -431,7 +431,7 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
         gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
         panelTasks.add(labelFinishedDeleteOrphanedThumbnails, gridBagConstraints);
 
-        checkBoxDeleteUnusedKeywords.setText(bundle.getString("DatabaseMaintainancePanel.checkBoxDeleteUnusedKeywords.text")); // NOI18N
+        checkBoxDeleteUnusedKeywords.setText(bundle.getString("RepositoryMaintainancePanel.checkBoxDeleteUnusedKeywords.text")); // NOI18N
         checkBoxDeleteUnusedKeywords.setName("checkBoxDeleteUnusedKeywords"); // NOI18N
         checkBoxDeleteUnusedKeywords.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -454,7 +454,7 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
         gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
         panelTasks.add(labelFinishedDeleteUnusedKeywords, gridBagConstraints);
 
-        checkBoxDeleteNotReferenced1n.setText(bundle.getString("DatabaseMaintainancePanel.checkBoxDeleteNotReferenced1n.text")); // NOI18N
+        checkBoxDeleteNotReferenced1n.setText(bundle.getString("RepositoryMaintainancePanel.checkBoxDeleteNotReferenced1n.text")); // NOI18N
         checkBoxDeleteNotReferenced1n.setName("checkBoxDeleteNotReferenced1n"); // NOI18N
         checkBoxDeleteNotReferenced1n.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -488,7 +488,7 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
         panelMessages.setLayout(new java.awt.GridBagLayout());
 
         labelMessages.setForeground(new java.awt.Color(0, 0, 255));
-        labelMessages.setText(bundle.getString("DatabaseMaintainancePanel.labelMessages.text")); // NOI18N
+        labelMessages.setText(bundle.getString("RepositoryMaintainancePanel.labelMessages.text")); // NOI18N
         labelMessages.setName("labelMessages"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -538,7 +538,7 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
         panelButtons.setLayout(new java.awt.GridBagLayout());
 
         buttonDeleteMessages.setForeground(new java.awt.Color(0, 0, 255));
-        buttonDeleteMessages.setText(bundle.getString("DatabaseMaintainancePanel.buttonDeleteMessages.text")); // NOI18N
+        buttonDeleteMessages.setText(bundle.getString("RepositoryMaintainancePanel.buttonDeleteMessages.text")); // NOI18N
         buttonDeleteMessages.setEnabled(false);
         buttonDeleteMessages.setName("buttonDeleteMessages"); // NOI18N
         buttonDeleteMessages.addActionListener(new java.awt.event.ActionListener() {
@@ -553,7 +553,7 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
         gridBagConstraints.weightx = 1.0;
         panelButtons.add(buttonDeleteMessages, gridBagConstraints);
 
-        buttonCancelAction.setText(bundle.getString("DatabaseMaintainancePanel.buttonCancelAction.text")); // NOI18N
+        buttonCancelAction.setText(bundle.getString("RepositoryMaintainancePanel.buttonCancelAction.text")); // NOI18N
         buttonCancelAction.setEnabled(false);
         buttonCancelAction.setName("buttonCancelAction"); // NOI18N
         buttonCancelAction.addActionListener(new java.awt.event.ActionListener() {
@@ -567,7 +567,7 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         panelButtons.add(buttonCancelAction, gridBagConstraints);
 
-        buttonStartMaintain.setText(bundle.getString("DatabaseMaintainancePanel.buttonStartMaintain.text")); // NOI18N
+        buttonStartMaintain.setText(bundle.getString("RepositoryMaintainancePanel.buttonStartMaintain.text")); // NOI18N
         buttonStartMaintain.setEnabled(false);
         buttonStartMaintain.setName("buttonStartMaintain"); // NOI18N
         buttonStartMaintain.addActionListener(new java.awt.event.ActionListener() {
@@ -604,24 +604,24 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelContent, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
+                .addComponent(panelContent, javax.swing.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }//GEN-END:initComponents
 
-    private void checkBoxDeleteRecordsOfNotExistingFilesInDatabaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDeleteRecordsOfNotExistingFilesInDatabaseActionPerformed
+    private void checkBoxDeleteRecordsOfNotExistingFilesInRepositoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDeleteRecordsOfNotExistingFilesInRepositoryActionPerformed
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setBoolean(KEY_DEL_RECORDS_OF_NOT_EX_FILES, checkBoxDeleteRecordsOfNotExistingFilesInDatabase.isSelected());
+        storage.setBoolean(KEY_DEL_RECORDS_OF_NOT_EX_FILES, checkBoxDeleteRecordsOfNotExistingFilesInRepository.isSelected());
         checkCheckboxes();
-    }//GEN-LAST:event_checkBoxDeleteRecordsOfNotExistingFilesInDatabaseActionPerformed
+    }//GEN-LAST:event_checkBoxDeleteRecordsOfNotExistingFilesInRepositoryActionPerformed
 
-    private void checkBoxCompressDatabaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxCompressDatabaseActionPerformed
+    private void checkBoxCompressRepositoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxCompressRepositoryActionPerformed
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setBoolean(KEY_COMPRESS_DB, checkBoxCompressDatabase.isSelected());
+        storage.setBoolean(KEY_COMPRESS_DB, checkBoxCompressRepository.isSelected());
         checkCheckboxes();
-    }//GEN-LAST:event_checkBoxCompressDatabaseActionPerformed
+    }//GEN-LAST:event_checkBoxCompressRepositoryActionPerformed
 
     private void buttonStartMaintainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonStartMaintainActionPerformed
         startMaintain();
@@ -659,15 +659,15 @@ public final class DatabaseMaintainancePanel extends JPanel implements ProgressL
     private javax.swing.JButton buttonCancelAction;
     private javax.swing.JButton buttonDeleteMessages;
     private javax.swing.JButton buttonStartMaintain;
-    private javax.swing.JCheckBox checkBoxCompressDatabase;
+    private javax.swing.JCheckBox checkBoxCompressRepository;
     private javax.swing.JCheckBox checkBoxDeleteNotReferenced1n;
     private javax.swing.JCheckBox checkBoxDeleteOrphanedThumbnails;
-    private javax.swing.JCheckBox checkBoxDeleteRecordsOfNotExistingFilesInDatabase;
+    private javax.swing.JCheckBox checkBoxDeleteRecordsOfNotExistingFilesInRepository;
     private javax.swing.JCheckBox checkBoxDeleteUnusedKeywords;
-    private javax.swing.JLabel labelFinishedCompressDatabase;
+    private javax.swing.JLabel labelFinishedCompressRepository;
     private javax.swing.JLabel labelFinishedDeleteNotReferenced1n;
     private javax.swing.JLabel labelFinishedDeleteOrphanedThumbnails;
-    private javax.swing.JLabel labelFinishedDeleteRecordsOfNotExistingFilesInDatabase;
+    private javax.swing.JLabel labelFinishedDeleteRecordsOfNotExistingFilesInRepository;
     private javax.swing.JLabel labelFinishedDeleteUnusedKeywords;
     private javax.swing.JLabel labelMessages;
     private javax.swing.JPanel panelButtons;

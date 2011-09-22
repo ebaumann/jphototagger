@@ -63,13 +63,13 @@ public final class KeywordsListModel extends DefaultListModel {
 
     private void removeKeywordsNotInDb(Collection<? extends String> keywords) {
         for (String keyword : keywords) {
-            if (contains(keyword) && !databaseHasKeyword(keyword)) {
+            if (contains(keyword) && !repositoryHasKeyword(keyword)) {
                 removeElement(keyword);
             }
         }
     }
 
-    boolean databaseHasKeyword(String keyword) {
+    boolean repositoryHasKeyword(String keyword) {
         RepositoryStatistics repoStatistics = Lookup.getDefault().lookup(RepositoryStatistics.class);
 
         return repoStatistics.existsMetaDataValue(XmpDcSubjectsSubjectMetaDataValue.INSTANCE, keyword);

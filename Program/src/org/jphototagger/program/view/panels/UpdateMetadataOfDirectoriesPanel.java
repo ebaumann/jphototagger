@@ -35,7 +35,7 @@ import org.jphototagger.lib.io.filefilter.DirectoryFilter.Option;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.CollectionUtil;
 import org.jphototagger.program.app.AppPreferencesKeys;
-import org.jphototagger.program.helper.InsertImageFilesIntoDatabase;
+import org.jphototagger.program.helper.InsertImageFilesIntoRepository;
 import org.jphototagger.program.io.ImageFileDirectory;
 import org.jphototagger.program.resource.GUI;
 
@@ -51,7 +51,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
     private final DefaultListModel listModelDirectories = new DefaultListModel();
     private File lastDirectory = new File("");
     private static final transient Logger LOGGER = Logger.getLogger(UpdateMetadataOfDirectoriesPanel.class.getName());
-    private transient InsertImageFilesIntoDatabase imageFileInserter;
+    private transient InsertImageFilesIntoRepository imageFileInserter;
     private transient volatile boolean cancelChooseDirectories;
     private final transient CancelChooseRequest cancelChooseRequest = new CancelChooseRequest();
 
@@ -130,13 +130,13 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
     }
 
     private void createImageFileInserter(List<File> selectedImageFiles) {
-        InsertIntoRepository[] insertIntoDatabase = getWhatToInsertIntoDatabase();
+        InsertIntoRepository[] insertIntoRepository = getWhatToInsertIntoRepository();
 
-        imageFileInserter = new InsertImageFilesIntoDatabase(selectedImageFiles, insertIntoDatabase);
+        imageFileInserter = new InsertImageFilesIntoRepository(selectedImageFiles, insertIntoRepository);
         imageFileInserter.addProgressListener(this);
     }
 
-    private InsertIntoRepository[] getWhatToInsertIntoDatabase() {
+    private InsertIntoRepository[] getWhatToInsertIntoRepository() {
         return checkBoxForce.isSelected()
                ? new InsertIntoRepository[] { InsertIntoRepository.EXIF, InsertIntoRepository.THUMBNAIL, InsertIntoRepository.XMP }
                : new InsertIntoRepository[] { InsertIntoRepository.OUT_OF_DATE };

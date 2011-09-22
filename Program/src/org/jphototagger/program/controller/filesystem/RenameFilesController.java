@@ -62,7 +62,7 @@ public final class RenameFilesController implements ActionListener, KeyListener 
     }
 
     private void renameFile(final File fromFile, final File toFile) {
-        LOGGER.log(Level.INFO, "Rename in the database file ''{0}'' to ''{1}''", new Object[]{fromFile, toFile});
+        LOGGER.log(Level.INFO, "Rename in the repository file ''{0}'' to ''{1}''", new Object[]{fromFile, toFile});
         repo.updateRenameImageFile(fromFile, toFile);
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
 

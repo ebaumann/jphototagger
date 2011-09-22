@@ -46,8 +46,6 @@ public final class DeleteOrphanedXmp implements Runnable, ProgressListener {
     }
 
     /**
-     * Fügt einen Fortschrittsbeobachter hinzu. Delegiert an diesen Aufrufe
-     * von Database.deleteAbsentImageFiles().
      *
      * @param listener Fortschrittsbeobachter
      */
@@ -115,7 +113,7 @@ public final class DeleteOrphanedXmp implements Runnable, ProgressListener {
     }
 
     private void logDeleteRecords() {
-        LOGGER.log(Level.INFO, "Delete from database records with not existing files");
+        LOGGER.log(Level.INFO, "Delete from repository records with not existing files");
     }
 
     private void setMessagesFiles() {
