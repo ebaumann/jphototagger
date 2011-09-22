@@ -13,7 +13,9 @@ import org.jphototagger.api.storage.CacheDirectoryProvider;
 import org.jphototagger.domain.repository.event.imagefiles.ImageFileDeletedEvent;
 import org.jphototagger.domain.repository.event.imagefiles.ImageFileMovedEvent;
 import org.jphototagger.exif.ExifTags;
+import org.jphototagger.lib.io.DeleteOutOfDateFilesInDirectoryThread;
 import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.lib.io.filefilter.AcceptAllFilesFilter;
 
 /**
  *
@@ -215,11 +217,12 @@ public final class ExifCache {
     private ExifCache() {
         CACHE_DIR = lookupCacheDirectory();
         ensureCacheDiretoryExists();
+        deleteOldCachedFiles();
     }
 
     private File lookupCacheDirectory() {
         CacheDirectoryProvider provider = Lookup.getDefault().lookup(CacheDirectoryProvider.class);
-        
+
         return provider.getCacheDirectory("ExifCache");
     }
 
@@ -232,5 +235,11 @@ public final class ExifCache {
                 LOGGER.log(Level.SEVERE, null, ex);
             }
         }
+    }
+
+    private void deleteOldCachedFiles() {
+        long dayInMilliseconds = 86400000;
+        long maxAgeInMilliseconds = 30 * dayInMilliseconds;
+        new DeleteOutOfDateFilesInDirectoryThread(CACHE_DIR, AcceptAllFilesFilter.INSTANCE, maxAgeInMilliseconds).start();
     }
 }
