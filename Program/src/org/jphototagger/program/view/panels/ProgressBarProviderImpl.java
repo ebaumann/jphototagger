@@ -4,15 +4,15 @@ import javax.swing.JProgressBar;
 
 import org.openide.util.lookup.ServiceProvider;
 
-import org.jphototagger.api.progress.ProgressBarProvider;
+import org.jphototagger.api.progress.MainWindowProgressBarProvider;
 
 /**
  *
  *
  * @author Elmar Baumann
  */
-@ServiceProvider(service = ProgressBarProvider.class)
-public final class ProgressBarProviderImpl implements ProgressBarProvider {
+@ServiceProvider(service = MainWindowProgressBarProvider.class)
+public final class ProgressBarProviderImpl implements MainWindowProgressBarProvider {
 
     @Override
     public JProgressBar getProgressBar(Object owner) {

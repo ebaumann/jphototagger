@@ -8,7 +8,7 @@ import javax.swing.JProgressBar;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.plugin.fileprocessor.FileProcessorPlugin;
-import org.jphototagger.api.progress.ProgressBarProvider;
+import org.jphototagger.api.progress.MainWindowProgressBarProvider;
 import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
@@ -71,7 +71,7 @@ public abstract class AbstractFileProcessorPlugin implements FileProcessorPlugin
             return;
         }
 
-        ProgressBarProvider progressBarProvider = Lookup.getDefault().lookup(ProgressBarProvider.class);
+        MainWindowProgressBarProvider progressBarProvider = Lookup.getDefault().lookup(MainWindowProgressBarProvider.class);
 
         if (progressBarProvider != null) {
             progressBar = progressBarProvider.getProgressBar(this);
@@ -83,7 +83,7 @@ public abstract class AbstractFileProcessorPlugin implements FileProcessorPlugin
             return;
         }
 
-        ProgressBarProvider progressBarProvider = Lookup.getDefault().lookup(ProgressBarProvider.class);
+        MainWindowProgressBarProvider progressBarProvider = Lookup.getDefault().lookup(MainWindowProgressBarProvider.class);
 
         if (progressBarProvider != null) {
             progressBarProvider.releaseProgressBar(progressBar, this);

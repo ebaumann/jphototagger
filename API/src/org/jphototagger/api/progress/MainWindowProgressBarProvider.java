@@ -7,7 +7,7 @@ import javax.swing.JProgressBar;
  *
  * @author Elmar Baumann
  */
-public interface ProgressBarProvider {
+public interface MainWindowProgressBarProvider {
 
     /**
      *
