@@ -10,16 +10,16 @@ import java.util.logging.Logger;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.concurrent.Cancelable;
+import org.jphototagger.api.concurrent.SerialTaskExecutor;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.domain.metadata.MetaDataValue;
+import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpMetaDataValues;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.repository.InsertIntoRepository;
-import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.tasks.UserTasks;
 import org.jphototagger.program.view.panels.ProgressBarUpdater;
 import org.jphototagger.xmp.XmpMetadata;
 
@@ -67,7 +67,10 @@ public final class RenameDeleteXmpValue {
                 String message = Bundle.getString(RenameDeleteXmpValue.class, "RenameXmpValue.Error.ValuesEquals");
                 MessageDisplayer.error(null, message);
             } else {
-                UserTasks.INSTANCE.add(new Rename(metaDataValue, oldValue, newValue));
+                SerialTaskExecutor executor = Lookup.getDefault().lookup(SerialTaskExecutor.class);
+                Rename rename = new Rename(metaDataValue, oldValue, newValue);
+
+                executor.addTask(rename);
             }
         }
     }
@@ -103,7 +106,10 @@ public final class RenameDeleteXmpValue {
         String message = Bundle.getString(RenameDeleteXmpValue.class, "RenameXmpValue.Confirm.Delete", value);
 
         if (MessageDisplayer.confirmYesNo(null, message)) {
-            UserTasks.INSTANCE.add(new Rename(mdValue, value, ""));
+            SerialTaskExecutor executor = Lookup.getDefault().lookup(SerialTaskExecutor.class);
+            Rename rename = new Rename(mdValue, value, "");
+
+            executor.addTask(rename);
         }
     }
 

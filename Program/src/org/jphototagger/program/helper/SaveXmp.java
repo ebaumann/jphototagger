@@ -7,14 +7,16 @@ import java.util.Collection;
 
 import javax.swing.JProgressBar;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.concurrent.Cancelable;
-import org.jphototagger.domain.repository.InsertIntoRepository;
+import org.jphototagger.api.concurrent.SerialTaskExecutor;
 import org.jphototagger.domain.metadata.xmp.FileXmp;
 import org.jphototagger.domain.metadata.xmp.Xmp;
+import org.jphototagger.domain.repository.InsertIntoRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppLifeCycle;
-import org.jphototagger.program.tasks.UserTasks;
 import org.jphototagger.program.view.panels.ProgressBar;
 import org.jphototagger.xmp.XmpMetadata;
 
@@ -46,7 +48,10 @@ public final class SaveXmp extends Thread implements Cancelable {
         final int fileCount = imageFilesXmp.size();
 
         if (fileCount >= 1) {
-            UserTasks.INSTANCE.add(new SaveXmp(imageFilesXmp));
+            SerialTaskExecutor executor = Lookup.getDefault().lookup(SerialTaskExecutor.class);
+            SaveXmp saveXmp = new SaveXmp(imageFilesXmp);
+
+            executor.addTask(saveXmp);
         }
     }
 

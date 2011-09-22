@@ -23,15 +23,16 @@ import org.jdesktop.swingx.JXTree;
 
 import org.openide.util.Lookup;
 
+import org.jphototagger.api.concurrent.SerialTaskExecutor;
 import org.jphototagger.domain.image.ImageFile;
 import org.jphototagger.domain.metadata.keywords.Keyword;
+import org.jphototagger.domain.metadata.xmp.FileXmp;
+import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpLastModifiedMetaDataValue;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.repository.InsertIntoRepository;
 import org.jphototagger.domain.repository.KeywordsRepository;
-import org.jphototagger.domain.metadata.xmp.FileXmp;
-import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.lib.componentutil.TreeUtil;
@@ -41,7 +42,6 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.model.KeywordsTreeModel;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.tasks.UserTasks;
 import org.jphototagger.program.view.dialogs.InputHelperDialog;
 import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
@@ -436,7 +436,10 @@ public final class KeywordsHelper {
         assert !fromName.equalsIgnoreCase(toName);
 
         if (!fromName.equalsIgnoreCase(toName)) {
-            UserTasks.INSTANCE.add(new RenameDcSubject(fromName, toName));
+            SerialTaskExecutor executor = Lookup.getDefault().lookup(SerialTaskExecutor.class);
+            RenameDcSubject renameDcSubject = new RenameDcSubject(fromName, toName);
+
+            executor.addTask(renameDcSubject);
         }
     }
 
@@ -450,7 +453,10 @@ public final class KeywordsHelper {
             throw new NullPointerException("keyword == null");
         }
 
-        UserTasks.INSTANCE.add(new DeleteDcSubject(keyword));
+        SerialTaskExecutor executor = Lookup.getDefault().lookup(SerialTaskExecutor.class);
+        DeleteDcSubject deleteDcSubject = new DeleteDcSubject(keyword);
+
+        executor.addTask(deleteDcSubject);
     }
 
     private static void updateXmp(Xmp xmp, File imgFile, File sidecarFile) {

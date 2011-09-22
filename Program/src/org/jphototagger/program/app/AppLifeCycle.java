@@ -13,6 +13,7 @@ import org.bushe.swing.event.EventBus;
 
 import org.openide.util.Lookup;
 
+import org.jphototagger.api.concurrent.SerialTaskExecutor;
 import org.jphototagger.api.modules.Module;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.event.AppWillExitEvent;
@@ -23,7 +24,6 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.factory.MetaFactory;
 import org.jphototagger.program.helper.Cleanup;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.tasks.UserTasks;
 import org.jphototagger.program.view.frames.AppFrame;
 
 /**
@@ -162,7 +162,7 @@ public final class AppLifeCycle {
      * Exits the VM.
      */
     public void quit() {
-        if (ensureUserTasksFinished()) {
+        if (ensureTasksFinished()) {
             EventBus.publish(new AppWillExitEvent(this));
             notifyModulesForClose();
             writeProperties();
@@ -228,8 +228,9 @@ public final class AppLifeCycle {
         }
     }
 
-    private boolean ensureUserTasksFinished() {
-        boolean finished = UserTasks.INSTANCE.getCount() <= 0;
+    private boolean ensureTasksFinished() {
+        SerialTaskExecutor executor = Lookup.getDefault().lookup(SerialTaskExecutor.class);
+        boolean finished = executor.getTaskCount() <= 0;
 
         if (finished) {
             return true;

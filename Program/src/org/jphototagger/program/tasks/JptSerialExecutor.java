@@ -10,9 +10,9 @@ import org.jphototagger.lib.concurrent.SerialExecutor;
  *
  * @author Elmar Baumann
  */
-public final class UserTasks {
+final class JptSerialExecutor {
 
-    public static final UserTasks INSTANCE = new UserTasks();
+    static final JptSerialExecutor INSTANCE = new JptSerialExecutor();
     private final SerialExecutor executor = new SerialExecutor(Executors.newCachedThreadPool());
 
     /**
@@ -50,6 +50,6 @@ public final class UserTasks {
         executor.cancel();
     }
 
-    private UserTasks() {
+    private JptSerialExecutor() {
     }
 }
