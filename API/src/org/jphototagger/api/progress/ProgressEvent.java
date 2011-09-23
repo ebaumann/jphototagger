@@ -14,6 +14,7 @@ public final class ProgressEvent {
     private Object info;
     private String stringToPaint;
     private boolean cancel;
+    private boolean stringPainted;
 
     private ProgressEvent(Builder builder) {
         this.source = builder.source;
@@ -21,6 +22,7 @@ public final class ProgressEvent {
         this.maximum = builder.maximum;
         this.value = builder.value;
         this.info = builder.info;
+        this.stringPainted = builder.stringPainted;
         this.stringToPaint = builder.stringToPaint;
         this.indeterminate = builder.indeterminate;
     }
@@ -47,6 +49,14 @@ public final class ProgressEvent {
 
     public Object getInfo() {
         return info;
+    }
+
+    public boolean isStringPainted() {
+        return stringPainted;
+    }
+
+    public void setStringPainted(boolean stringPainted) {
+        this.stringPainted = stringPainted;
     }
 
     public void setInfo(Object info) {
@@ -94,6 +104,7 @@ public final class ProgressEvent {
         private int value;
         private Object info;
         private String stringToPaint;
+        private boolean stringPainted;
 
         public Builder indeterminate(boolean indeterminate) {
             this.indeterminate = indeterminate;
@@ -122,6 +133,11 @@ public final class ProgressEvent {
 
         public Builder value(int value) {
             this.value = value;
+            return this;
+        }
+
+        public Builder stringPainted(boolean stringPainted) {
+            this.stringPainted = stringPainted;
             return this;
         }
 
