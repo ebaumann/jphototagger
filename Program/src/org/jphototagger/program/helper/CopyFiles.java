@@ -152,19 +152,36 @@ public final class CopyFiles implements Runnable, Cancelable {
     }
 
     private synchronized void notifyStart() {
-        ProgressEvent evt = new ProgressEvent(this, 0, sourceTargetFiles.size(), 0, null);
+        ProgressEvent evt = new ProgressEvent.Builder()
+                .source(this)
+                .minimum(0)
+                .maximum(sourceTargetFiles.size())
+                .value(0)
+                .build();
 
         ls.notifyStarted(evt);
     }
 
     private synchronized void notifyPerformed(int value, SourceTargetFile sourceTargetFile) {
-        ProgressEvent evt = new ProgressEvent(this, 0, sourceTargetFiles.size(), value, sourceTargetFile);
+        ProgressEvent evt = new ProgressEvent.Builder()
+                .source(this)
+                .minimum(0)
+                .maximum(sourceTargetFiles.size())
+                .value(value)
+                .info(sourceTargetFile)
+                .build();
 
         ls.notifyPerformed(evt);
     }
 
     private synchronized void notifyEnded() {
-        ProgressEvent evt = new ProgressEvent(this, 0, sourceTargetFiles.size(), sourceTargetFiles.size(), errorFiles);
+        ProgressEvent evt = new ProgressEvent.Builder()
+                .source(this)
+                .minimum(0)
+                .maximum(sourceTargetFiles.size())
+                .value(sourceTargetFiles.size())
+                .info(errorFiles)
+                .build();
 
         ls.notifyEnded(evt);
     }

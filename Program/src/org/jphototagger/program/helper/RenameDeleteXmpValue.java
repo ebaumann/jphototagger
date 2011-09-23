@@ -187,15 +187,33 @@ public final class RenameDeleteXmpValue {
         }
 
         private void notifyStarted(int count) {
-            pb.progressStarted(new ProgressEvent(this, 0, count, 0, null));
+            ProgressEvent evt = new ProgressEvent.Builder()
+                    .source(this)
+                    .minimum(0)
+                    .maximum(count)
+                    .value(0)
+                    .build();
+            pb.progressStarted(evt);
         }
 
         private void notifyPerformed(int value, int count) {
-            pb.progressPerformed(new ProgressEvent(this, 0, count, value, null));
+            ProgressEvent evt = new ProgressEvent.Builder()
+                    .source(this)
+                    .minimum(0)
+                    .maximum(count)
+                    .value(value)
+                    .build();
+            pb.progressPerformed(evt);
         }
 
         private void notifyEnded(int value, int count) {
-            pb.progressEnded(new ProgressEvent(this, 0, count, value, null));
+            ProgressEvent evt = new ProgressEvent.Builder()
+                    .source(this)
+                    .minimum(0)
+                    .maximum(count)
+                    .value(value)
+                    .build();
+            pb.progressEnded(evt);
         }
     }
 }

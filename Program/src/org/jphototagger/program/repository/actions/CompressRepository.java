@@ -71,13 +71,22 @@ public final class CompressRepository implements Runnable {
     }
 
     private synchronized void notifyStarted() {
-        ProgressEvent evt = new ProgressEvent(this, Bundle.getString(CompressRepository.class, "CompressRepository.Start"));
+        ProgressEvent evt = new ProgressEvent.Builder()
+                .source(this)
+                .info(Bundle.getString(CompressRepository.class, "CompressRepository.Start"))
+                .build();
 
         listenerSupport.notifyStarted(evt);
     }
 
     private synchronized void notifyFinished() {
-        ProgressEvent evt = new ProgressEvent(this, 0, 1, 1, getEndMessage());
+        ProgressEvent evt = new ProgressEvent.Builder()
+                .source(this)
+                .minimum(0)
+                .maximum(1)
+                .value(1)
+                .info(getEndMessage())
+                .build();
 
         listenerSupport.notifyEnded(evt);
     }

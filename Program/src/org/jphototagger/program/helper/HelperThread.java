@@ -179,8 +179,13 @@ public abstract class HelperThread extends Thread implements Cancelable {
 
     private ProgressEvent progressEvent(int value, Object info) {
         setProgressBar(value);
-
-        return new ProgressEvent(this, minimum, maximum, value, info);
+        return new ProgressEvent.Builder()
+                .source(this)
+                .minimum(minimum)
+                .maximum(maximum)
+                .value(value)
+                .info(info)
+                .build();
     }
 
     /**

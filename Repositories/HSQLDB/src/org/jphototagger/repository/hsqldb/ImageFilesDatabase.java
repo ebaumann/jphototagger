@@ -212,7 +212,12 @@ final class ImageFilesDatabase extends Database {
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        ProgressEvent progressEvent = new ProgressEvent(this, 0, 0, 0, null);
+        ProgressEvent progressEvent = new ProgressEvent.Builder()
+                .source(this)
+                .minimum(0)
+                .maximum(0)
+                .value(0)
+                .build();
 
         try {
             con = getConnection();
@@ -548,7 +553,13 @@ final class ImageFilesDatabase extends Database {
 
         try {
             int filecount = repoStatistics.getFileCount();
-            ProgressEvent progressEvent = new ProgressEvent(this, 0, filecount, 0, "");
+        ProgressEvent progressEvent = new ProgressEvent.Builder()
+                .source(this)
+                .minimum(0)
+                .maximum(filecount)
+                .value(0)
+                .info("")
+                .build();
 
             con = getConnection();
             con.setAutoCommit(true);
@@ -746,7 +757,12 @@ final class ImageFilesDatabase extends Database {
     public int deleteAbsentImageFiles(ProgressListener listener) {
         int countDeleted = 0;
         RepositoryStatistics repoStatistics = Lookup.getDefault().lookup(RepositoryStatistics.class);
-        ProgressEvent event = new ProgressEvent(this, 0, repoStatistics.getFileCount(), 0, null);
+        ProgressEvent event = new ProgressEvent.Builder()
+                .source(this)
+                .minimum(0)
+                .maximum(repoStatistics.getFileCount())
+                .value(0)
+                .build();
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -1149,7 +1165,12 @@ final class ImageFilesDatabase extends Database {
     public int deleteAbsentXmp(ProgressListener listener) {
         int countDeleted = 0;
         RepositoryStatistics repoStatistics = Lookup.getDefault().lookup(RepositoryStatistics.class);
-        ProgressEvent progressEvent = new ProgressEvent(this, 0, repoStatistics.getXmpCount(), 0, null);
+        ProgressEvent progressEvent = new ProgressEvent.Builder()
+                .source(this)
+                .minimum(0)
+                .maximum(repoStatistics.getXmpCount())
+                .value(0)
+                .build();
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;

@@ -44,14 +44,26 @@ public final class DeleteNotReferenced1n implements Runnable {
     }
 
     public void notifyProgressStarted() {
-        ProgressEvent evt = new ProgressEvent(this, 0, 1, 0, getStartMessage());
+        ProgressEvent evt = new ProgressEvent.Builder()
+                .source(this)
+                .minimum(0)
+                .maximum(1)
+                .value(0)
+                .info(getStartMessage())
+                .build();
 
         LOGGER.log(Level.INFO, "Deleting not referenced data from the repository");
         ls.notifyStarted(evt);
     }
 
     public void notifyProgressEnded() {
-        ProgressEvent evt = new ProgressEvent(this, 0, 1, 1, getEndMessage());
+        ProgressEvent evt = new ProgressEvent.Builder()
+                .source(this)
+                .minimum(0)
+                .maximum(1)
+                .value(1)
+                .info(getEndMessage())
+                .build();
 
         ls.notifyEnded(evt);
     }

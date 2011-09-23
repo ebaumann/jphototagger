@@ -12,26 +12,17 @@ public final class ProgressEvent {
     private boolean indeterminate;
     private int value;
     private Object info;
+    private String stringToPaint;
     private boolean cancel;
 
-    public ProgressEvent(Object source, int minimum, int maximum, int value, Object info) {
-        this.source = source;
-        this.minimum = minimum;
-        this.maximum = maximum;
-        this.value = value;
-        this.info = info;
-    }
-
-    /**
-     * Creates an interminate Event.
-     *
-     * @param source
-     * @param info
-     */
-    public ProgressEvent(Object source, Object info) {
-        this.source = source;
-        this.info = info;
-        indeterminate = true;
+    private ProgressEvent(Builder builder) {
+        this.source = builder.source;
+        this.minimum = builder.minimum;
+        this.maximum = builder.maximum;
+        this.value = builder.value;
+        this.info = builder.info;
+        this.stringToPaint = builder.stringToPaint;
+        this.indeterminate = builder.indeterminate;
     }
 
     public Object getSource() {
@@ -84,5 +75,63 @@ public final class ProgressEvent {
 
     public void setCancel(boolean cancel) {
         this.cancel = cancel;
+    }
+
+    public String getStringToPaint() {
+        return stringToPaint;
+    }
+
+    public void setStringToPaint(String stringToPaint) {
+        this.stringToPaint = stringToPaint;
+    }
+
+    public static class Builder {
+
+        private Object source;
+        private int maximum;
+        private int minimum;
+        private boolean indeterminate;
+        private int value;
+        private Object info;
+        private String stringToPaint;
+
+        public Builder indeterminate(boolean indeterminate) {
+            this.indeterminate = indeterminate;
+            return this;
+        }
+
+        public Builder info(Object info) {
+            this.info = info;
+            return this;
+        }
+
+        public Builder maximum(int maximum) {
+            this.maximum = maximum;
+            return this;
+        }
+
+        public Builder minimum(int minimum) {
+            this.minimum = minimum;
+            return this;
+        }
+
+        public Builder source(Object source) {
+            this.source = source;
+            return this;
+        }
+
+        public Builder value(int value) {
+            this.value = value;
+            return this;
+        }
+
+        public Builder stringToPaint(String stringToPaint) {
+            this.stringToPaint = stringToPaint;
+            return this;
+        }
+
+        public ProgressEvent build() {
+            return new ProgressEvent(this);
+        }
     }
 }
