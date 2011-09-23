@@ -88,7 +88,13 @@ public final class FileSystemMove extends FileSystem implements Runnable {
     @Override
     public void run() {
         int size = sourceFiles.size();
-        ProgressEvent progressEvent = new ProgressEvent(this, 0, size, 0, "");
+        ProgressEvent progressEvent = new ProgressEvent.Builder()
+                .source(this)
+                .minimum(0)
+                .maximum(size)
+                .value(0)
+                .info("")
+                .build();
 
         notifyProgressListenerStarted(progressEvent);
 

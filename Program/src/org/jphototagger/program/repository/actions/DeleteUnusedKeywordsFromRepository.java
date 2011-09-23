@@ -62,7 +62,13 @@ public final class DeleteUnusedKeywordsFromRepository implements Runnable, Cance
     }
 
     public void notifyProgressStarted(int count) {
-        ProgressEvent evt = new ProgressEvent(this, 0, count, 0, getStartMessage());
+        ProgressEvent evt = new ProgressEvent.Builder()
+                .source(this)
+                .minimum(0)
+                .maximum(count)
+                .value(0)
+                .info(getStartMessage())
+                .build();
 
         LOGGER.log(Level.INFO, "Deleting unused keywords");
 
@@ -80,7 +86,13 @@ public final class DeleteUnusedKeywordsFromRepository implements Runnable, Cance
     }
 
     private void notifyProgressPerformed(int count, int countDeleted, String keyword) {
-        ProgressEvent evt = new ProgressEvent(this, 0, count, countDeleted, keyword);
+        ProgressEvent evt = new ProgressEvent.Builder()
+                .source(this)
+                .minimum(0)
+                .maximum(count)
+                .value(countDeleted)
+                .info(keyword)
+                .build();
 
         // Catching cancellation request
         for (ProgressListener listener : ls.get()) {
@@ -96,7 +108,13 @@ public final class DeleteUnusedKeywordsFromRepository implements Runnable, Cance
     }
 
     public void notifyProgressEnded(int count, int countDeleted) {
-        ProgressEvent evt = new ProgressEvent(this, 0, count, countDeleted, getEndMessage(count, countDeleted));
+        ProgressEvent evt = new ProgressEvent.Builder()
+                .source(this)
+                .minimum(0)
+                .maximum(count)
+                .value(countDeleted)
+                .info(getEndMessage(count, countDeleted))
+                .build();
 
         ls.notifyEnded(evt);
     }

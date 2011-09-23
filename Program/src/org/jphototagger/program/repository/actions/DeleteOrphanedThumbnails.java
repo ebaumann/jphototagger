@@ -94,7 +94,13 @@ public final class DeleteOrphanedThumbnails implements Runnable, Cancelable {
     private synchronized void notifyStarted() {
         LOGGER.log(Level.INFO, "Verifying which of the {0} thumbnails are orphaned", fileCount);
 
-        ProgressEvent evt = new ProgressEvent(this, 0, fileCount, 0, getStartMessage());
+        ProgressEvent evt = new ProgressEvent.Builder()
+                .source(this)
+                .minimum(0)
+                .maximum(fileCount)
+                .value(0)
+                .info(getStartMessage())
+                .build();
 
         ls.notifyStarted(evt);
     }
@@ -102,13 +108,25 @@ public final class DeleteOrphanedThumbnails implements Runnable, Cancelable {
     private void notifyPerformed(File file) {
         LOGGER.log(Level.FINEST, "Verifying wheter thumbnail ''{0}'' is orphaned", file);
 
-        ProgressEvent evt = new ProgressEvent(this, 0, fileCount, currentFileIndex, getPerformedMessage(file));
+        ProgressEvent evt = new ProgressEvent.Builder()
+                .source(this)
+                .minimum(0)
+                .maximum(fileCount)
+                .value(currentFileIndex)
+                .info(getPerformedMessage(file))
+                .build();
 
         ls.notifyPerformed(evt);
     }
 
     private void notifyEnded() {
-        ProgressEvent evt = new ProgressEvent(this, 0, fileCount, currentFileIndex, getEndMessage());
+        ProgressEvent evt = new ProgressEvent.Builder()
+                .source(this)
+                .minimum(0)
+                .maximum(fileCount)
+                .value(currentFileIndex)
+                .info(getEndMessage())
+                .build();
 
         ls.notifyEnded(evt);
         LOGGER.log(Level.INFO, "Verifying of orphaned thumbnails finished. Deleted {0} thumbnails.", currentFileIndex);

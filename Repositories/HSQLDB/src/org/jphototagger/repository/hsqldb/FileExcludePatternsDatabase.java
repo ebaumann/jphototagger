@@ -219,7 +219,12 @@ final class FileExcludePatternsDatabase extends Database {
             int patternCount = patterns.size();
             int progress = 0;
             RepositoryStatistics repoStatistics = Lookup.getDefault().lookup(RepositoryStatistics.class);
-            ProgressEvent event = new ProgressEvent(this, 0, repoStatistics.getFileCount() * patternCount, 0, null);
+            ProgressEvent event = new ProgressEvent.Builder()
+                    .source(this)
+                    .minimum(0)
+                    .maximum(repoStatistics.getFileCount() * patternCount)
+                    .value(0)
+                    .build();
             ThumbnailsRepository tnRepo = Lookup.getDefault().lookup(ThumbnailsRepository.class);
 
             notifyProgressListenerStart(listener, event);

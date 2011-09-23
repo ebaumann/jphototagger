@@ -53,7 +53,7 @@ public final class InsertImageFilesIntoRepository extends Thread implements Canc
     private final ImageFilesRepository imageFileRepo = Lookup.getDefault().lookup(ImageFilesRepository.class);
     private final ActionsAfterRepoUpdatesRepository actionsAfterRepoUpdatesRepo = Lookup.getDefault().lookup(ActionsAfterRepoUpdatesRepository.class);
     private final ProgressListenerSupport pls = new ProgressListenerSupport();
-    private ProgressEvent progressEvent = new ProgressEvent(this, null);
+    private ProgressEvent progressEvent = new ProgressEvent.Builder().source(this).indeterminate(true).build();
     private final Set<InsertIntoRepository> what = new HashSet<InsertIntoRepository>();
     private final List<File> imageFiles;
     private boolean cancel;

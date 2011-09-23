@@ -12,8 +12,8 @@ import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.domain.metadata.iptc.Iptc;
-import org.jphototagger.domain.repository.InsertIntoRepository;
 import org.jphototagger.domain.metadata.xmp.Xmp;
+import org.jphototagger.domain.repository.InsertIntoRepository;
 import org.jphototagger.iptc.IptcMetadata;
 import org.jphototagger.program.app.AppFileFilters;
 import org.jphototagger.xmp.XmpMetadata;
@@ -112,9 +112,16 @@ public final class ConvertIptcToXmp implements Runnable, Cancelable {
 
     private synchronized void notifyStart() {
         int count = imageFiles.size();
-        ProgressEvent event = new ProgressEvent(this, 0, count, 0, (imageFiles.size() > 0)
+        Object info = imageFiles.size() > 0
                 ? imageFiles.get(0)
-                : "");
+                : "";
+        ProgressEvent event = new ProgressEvent.Builder()
+                .source(this)
+                .minimum(0)
+                .maximum(count)
+                .value(0)
+                .info(info)
+                .build();
 
         for (ProgressListener progressListener : prLs) {
             progressListener.progressStarted(event);
@@ -123,7 +130,13 @@ public final class ConvertIptcToXmp implements Runnable, Cancelable {
     }
 
     private synchronized void notifyPerformed(int index) {
-        ProgressEvent event = new ProgressEvent(this, 0, imageFiles.size(), index + 1, imageFiles.get(index));
+        ProgressEvent event = new ProgressEvent.Builder()
+                .source(this)
+                .minimum(0)
+                .maximum(imageFiles.size())
+                .value(index + 1)
+                .info(imageFiles.get(index))
+                .build();
 
         for (ProgressListener progressListener : prLs) {
             progressListener.progressPerformed(event);
@@ -132,7 +145,13 @@ public final class ConvertIptcToXmp implements Runnable, Cancelable {
     }
 
     private synchronized void notifyEnd(int index) {
-        ProgressEvent event = new ProgressEvent(this, 0, imageFiles.size(), index + 1, "");
+        ProgressEvent event = new ProgressEvent.Builder()
+                .source(this)
+                .minimum(0)
+                .maximum(imageFiles.size())
+                .value(index + 1)
+                .info("")
+                .build();
 
         for (ProgressListener progressListener : prLs) {
             progressListener.progressEnded(event);
