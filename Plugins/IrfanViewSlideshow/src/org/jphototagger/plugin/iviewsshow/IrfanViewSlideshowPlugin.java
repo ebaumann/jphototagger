@@ -91,7 +91,6 @@ public final class IrfanViewSlideshowPlugin extends AbstractFileProcessorPlugin 
         }
 
         EventBus.publish(new FileProcessingFinishedEvent(this, true));
-        releaseProgressBar();
     }
 
     @Override
