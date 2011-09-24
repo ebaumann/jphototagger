@@ -42,7 +42,7 @@ public final class DeleteFilesController implements ActionListener, KeyListener 
     @Override
     public void keyPressed(KeyEvent evt) {
         if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
-            if (GUI.getThumbnailsPanel().getContent().equals(OriginOfDisplayedThumbnails.FILES_OF_AN_IMAGE_COLLECTION)) {
+            if (GUI.getThumbnailsPanel().getOriginOfDisplayedThumbnails().equals(OriginOfDisplayedThumbnails.FILES_OF_AN_IMAGE_COLLECTION)) {
                 return;
             }
 
@@ -58,7 +58,7 @@ public final class DeleteFilesController implements ActionListener, KeyListener 
     private void delete() {
         ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
-        if ((tnPanel.isAFileSelected()) && tnPanel.getContent().canDeleteImagesFromFileSystem()) {
+        if ((tnPanel.isAFileSelected()) && tnPanel.getOriginOfDisplayedThumbnails().canDeleteImagesFromFileSystem()) {
             EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
                 @Override

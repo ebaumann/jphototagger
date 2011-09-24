@@ -64,7 +64,7 @@ public final class ThumbnailsPanelTransferHandler extends TransferHandler {
     }
 
     private boolean canImportFiles(ThumbnailsPanel tnPanel) {
-        return ContentUtil.isSingleDirectoryContent(tnPanel.getContent());
+        return ContentUtil.isSingleDirectoryContent(tnPanel.getOriginOfDisplayedThumbnails());
     }
 
     private boolean isMetadataDrop(TransferSupport support) {
@@ -78,7 +78,7 @@ public final class ThumbnailsPanelTransferHandler extends TransferHandler {
     }
 
     private java.awt.datatransfer.DataFlavor[] getFlavors(JComponent c) {
-        return ((ThumbnailsPanel) c).getContent().equals(OriginOfDisplayedThumbnails.FILES_OF_AN_IMAGE_COLLECTION)
+        return ((ThumbnailsPanel) c).getOriginOfDisplayedThumbnails().equals(OriginOfDisplayedThumbnails.FILES_OF_AN_IMAGE_COLLECTION)
                 ? new java.awt.datatransfer.DataFlavor[]{Flavor.THUMBNAILS_PANEL, Flavor.FILE_LIST_FLAVOR,
                     Flavor.URI_LIST, Flavor.IMAGE_COLLECTION}
                 : new java.awt.datatransfer.DataFlavor[]{Flavor.THUMBNAILS_PANEL, Flavor.FILE_LIST_FLAVOR,
@@ -124,7 +124,7 @@ public final class ThumbnailsPanelTransferHandler extends TransferHandler {
             throw new NullPointerException("panel == null");
         }
 
-        return panel.getContent().equals(OriginOfDisplayedThumbnails.FILES_OF_AN_IMAGE_COLLECTION);
+        return panel.getOriginOfDisplayedThumbnails().equals(OriginOfDisplayedThumbnails.FILES_OF_AN_IMAGE_COLLECTION);
     }
 
     @Override

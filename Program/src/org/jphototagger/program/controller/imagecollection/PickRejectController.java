@@ -99,7 +99,7 @@ public final class PickRejectController implements ActionListener, KeyListener {
     }
 
     private boolean isCollection(String collection) {
-        if (!GUI.getThumbnailsPanel().getContent().equals(OriginOfDisplayedThumbnails.FILES_OF_AN_IMAGE_COLLECTION)) {
+        if (!GUI.getThumbnailsPanel().getOriginOfDisplayedThumbnails().equals(OriginOfDisplayedThumbnails.FILES_OF_AN_IMAGE_COLLECTION)) {
             return false;
         }
 

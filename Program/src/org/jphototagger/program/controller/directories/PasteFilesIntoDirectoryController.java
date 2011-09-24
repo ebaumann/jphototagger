@@ -48,7 +48,7 @@ public final class PasteFilesIntoDirectoryController implements KeyListener {
     private void copyOrMovePastedFilesTo(JTree targetTree) {
         ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
-        if (isSingleDirectory(tnPanel.getContent()) && filesWereCopiedOrCutted(tnPanel.getFileAction())) {
+        if (isSingleDirectory(tnPanel.getOriginOfDisplayedThumbnails()) && filesWereCopiedOrCutted(tnPanel.getFileAction())) {
             insertFilesIntoSelectedDirectoryOf(targetTree);
         }
     }

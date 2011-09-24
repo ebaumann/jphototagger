@@ -6,7 +6,11 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jdesktop.swingx.JXList;
+import org.jphototagger.api.image.thumbnails.OriginOfDisplayedThumbnails;
+import org.jphototagger.domain.thumbnails.event.ThumbnailsChangedEvent;
 import org.jphototagger.program.resource.GUI;
 
 /**
@@ -29,6 +33,8 @@ public final class MaximumOneItemSelectedController implements TreeSelectionList
         for (JXList list : GUI.getAppPanel().getSelectionLists()) {
             list.addListSelectionListener(this);
         }
+
+        AnnotationProcessor.process(this);
     }
 
     @Override
@@ -96,6 +102,16 @@ public final class MaximumOneItemSelectedController implements TreeSelectionList
     private void clearSelectionAllLists() {
         for (JXList list : GUI.getAppPanel().getSelectionLists()) {
             list.clearSelection();
+        }
+    }
+
+    @EventSubscriber(eventClass=ThumbnailsChangedEvent.class)
+    public void thumbnailsChanged(ThumbnailsChangedEvent evt) {
+        OriginOfDisplayedThumbnails origin = evt.getOriginOfDisplayedThumbnails();
+
+        if (OriginOfDisplayedThumbnails.UNDEFINED_ORIGIN.equals(origin)) {
+            clearSelectionAllTrees();
+            clearSelectionAllLists();
         }
     }
 }
