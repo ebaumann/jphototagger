@@ -8,9 +8,10 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.componentutil.MessageLabel;
-import org.jphototagger.program.resource.GUI;
+import org.openide.util.Lookup;
+
+import org.jphototagger.api.messages.MessageType;
+import org.jphototagger.api.messages.StatusBarMessageDisplayer;
 
 /**
  *
@@ -48,13 +49,9 @@ final class Support {
     }
 
     static void setStatusbarInfo(final String message) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
+        StatusBarMessageDisplayer messageDisplayer = Lookup.getDefault().lookup(StatusBarMessageDisplayer.class);
 
-            @Override
-            public void run() {
-                GUI.getAppPanel().setStatusbarText(message, MessageLabel.MessageType.INFO, 2000);
-            }
-        });
+        messageDisplayer.setStatusbarText(message, MessageType.INFO, 2000);
     }
 
     /**

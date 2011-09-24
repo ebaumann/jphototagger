@@ -46,6 +46,7 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.component.ImageTextArea;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.MessageLabel;
+import org.jphototagger.api.messages.MessageType;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.swingx.ListTextFilter;
 import org.jphototagger.lib.util.Bundle;
@@ -375,7 +376,7 @@ public final class AppPanel extends javax.swing.JPanel {
      * @param milliseconds if greater than zero the message will be deleted
      *                     automatically after that time
      */
-    public void setStatusbarText(String text, MessageLabel.MessageType type, final long milliseconds) {
+    void setStatusbarText(String text, MessageType type, final long milliseconds) {
         if (text == null) {
             throw new NullPointerException("text == null");
         }

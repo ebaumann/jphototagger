@@ -15,7 +15,8 @@ import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.api.progress.MainWindowProgressBarProvider;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.componentutil.MessageLabel.MessageType;
+import org.jphototagger.api.messages.MessageType;
+import org.jphototagger.api.messages.StatusBarMessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.model.KeywordsTreeModel;
@@ -163,8 +164,9 @@ public abstract class KeywordsImporter {
 
         private void messageImported(int importCount) {
             String message = Bundle.getString(ImportTask.class, "ImportTask.Info.Imported", importCount);
+            StatusBarMessageDisplayer messageDisplayer = Lookup.getDefault().lookup(StatusBarMessageDisplayer.class);
 
-            GUI.getAppPanel().setStatusbarText(message, MessageType.INFO, 2000);
+            messageDisplayer.setStatusbarText(message, MessageType.INFO, 2000);
         }
     }
 }
