@@ -509,7 +509,7 @@ public final class KeywordsHelper {
                     updateXmp(xmp, imageFile, sidecarFile);
                 }
 
-                progressPerformed(index, xmp);
+                progressPerformed(index, sidecarFile.getName());
             }
 
             checkRepository();
@@ -572,7 +572,7 @@ public final class KeywordsHelper {
                     updateXmp(xmp, imageFile, sidecarFile);
                 }
 
-                progressPerformed(index + 1, xmp);
+                progressPerformed(index + 1, sidecarFile.getName());
             }
 
             deleteKeyword();

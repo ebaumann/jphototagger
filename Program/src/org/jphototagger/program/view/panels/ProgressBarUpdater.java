@@ -1,10 +1,10 @@
 package org.jphototagger.program.view.panels;
 
-import javax.swing.JProgressBar;
+import org.openide.util.Lookup;
 
+import org.jphototagger.api.progress.MainWindowProgressBarProvider;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
-import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  *
@@ -14,8 +14,8 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 public final class ProgressBarUpdater implements ProgressListener {
 
     private final String progressBarString;
-    private JProgressBar progressBar;
     private final Object pBarOwner;
+    private final MainWindowProgressBarProvider progressBarProvider = Lookup.getDefault().lookup(MainWindowProgressBarProvider.class);
 
     /**
      *
@@ -31,63 +31,26 @@ public final class ProgressBarUpdater implements ProgressListener {
         this.progressBarString = progressBarString;
     }
 
-    private synchronized void getProgressBar() {
-        if (progressBar != null) {
-            return;
-        }
-
-        progressBar = ProgressBar.INSTANCE.getResource(pBarOwner);
-    }
-
-    private synchronized void updateProgressBar(final ProgressEvent evt) {
-        getProgressBar();
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                if (progressBar != null) {
-                    progressBar.setMinimum(evt.getMinimum());
-                    progressBar.setMaximum(evt.getMaximum());
-                    progressBar.setValue(evt.getValue());
-
-                    if ((progressBarString != null) && !progressBar.isStringPainted()) {
-                        progressBar.setStringPainted(true);
-                    }
-
-                    if ((progressBarString != null) && !progressBarString.equals(progressBar.getString())) {
-                        progressBar.setString(progressBarString);
-                    }
-                }
-            }
-        });
+    private void modifyProgressEvent(ProgressEvent evt) {
+        evt.setSource(pBarOwner);
+        evt.setStringPainted(progressBarString != null);
+        evt.setStringToPaint(progressBarString);
     }
 
     @Override
     public void progressStarted(ProgressEvent evt) {
-        updateProgressBar(evt);
+        modifyProgressEvent(evt);
+        progressBarProvider.progressStarted(evt);
     }
 
     @Override
     public void progressPerformed(final ProgressEvent evt) {
-        updateProgressBar(evt);
+        modifyProgressEvent(evt);
+        progressBarProvider.progressPerformed(evt);
     }
 
     @Override
     public synchronized void progressEnded(final ProgressEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                if (progressBar != null) {
-                    if (progressBar.isStringPainted()) {
-                        progressBar.setString("");
-                    }
-
-                    progressBar.setValue(0);
-                    ProgressBar.INSTANCE.releaseResource(pBarOwner);
-                    progressBar = null;
-                }
-            }
-        });
+        progressBarProvider.progressEnded(pBarOwner);
     }
 }

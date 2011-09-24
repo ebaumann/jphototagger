@@ -6,7 +6,7 @@ package org.jphototagger.api.progress;
  */
 public final class ProgressEvent {
 
-    private final Object source;
+    private Object source;
     private int maximum;
     private int minimum;
     private boolean indeterminate;
@@ -25,6 +25,10 @@ public final class ProgressEvent {
         this.stringPainted = builder.stringPainted;
         this.stringToPaint = builder.stringToPaint;
         this.indeterminate = builder.indeterminate;
+    }
+
+    public void setSource(Object source) {
+        this.source = source;
     }
 
     public Object getSource() {

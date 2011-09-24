@@ -4,28 +4,28 @@ import java.io.File;
 import java.util.Collection;
 import java.util.List;
 
-import javax.swing.JProgressBar;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.concurrent.Cancelable;
+import org.jphototagger.api.progress.MainWindowProgressBarProvider;
+import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.MessageLabel.MessageType;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.model.KeywordsTreeModel;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.panels.ProgressBar;
 
 /**
  *
  * @author Elmar Baumann
  */
 public abstract class KeywordsImporter {
-
-    private static final String PROGRESSBAR_STRING = Bundle.getString(KeywordsImporter.class, "KeywordImporter.ProgressBar.String");
 
     /**
      * Returns all keyword paths to the leaf nodes.
@@ -74,9 +74,10 @@ public abstract class KeywordsImporter {
 
         private final Collection<List<KeywordString>> paths;
         private final TreeModel treeModel = ModelFactory.INSTANCE.getModel(KeywordsTreeModel.class);
-        private JProgressBar progressBar;
         private volatile boolean cancel;
         private final Object pBarOwner = this;
+        private static final String PROGRESSBAR_STRING = Bundle.getString(KeywordsImporter.class, "KeywordImporter.ProgressBar.String");
+        private final MainWindowProgressBarProvider progressBarProvider = Lookup.getDefault().lookup(MainWindowProgressBarProvider.class);
 
         ImportTask(Collection<List<KeywordString>> paths) {
             super("JPhotoTagger: Importing keywords");
@@ -91,14 +92,6 @@ public abstract class KeywordsImporter {
         @Override
         public void cancel() {
             cancel = true;
-        }
-
-        private void getProgressBar() {
-            if (progressBar != null) {
-                return;
-            }
-
-            progressBar = ProgressBar.INSTANCE.getResource(pBarOwner);
         }
 
         @Override
@@ -116,7 +109,7 @@ public abstract class KeywordsImporter {
             if (treeModel instanceof KeywordsTreeModel) {
                 KeywordsTreeModel model = (KeywordsTreeModel) treeModel;
 
-                updateProgressBar(0);
+                progressBarProvider.progressStarted(createProgressEventWithValue(0));
 
                 int progressValue = 0;
                 int importCount = 0;
@@ -140,10 +133,11 @@ public abstract class KeywordsImporter {
                         }
                     }
 
-                    updateProgressBar(++progressValue);
+                    progressValue++;
+                    progressBarProvider.progressPerformed(createProgressEventWithValue(progressValue));
                 }
 
-                releaseProgressBar();
+                 progressBarProvider.progressEnded(pBarOwner);
                 messageImported(importCount);
                 expandRootSelHk();
             }
@@ -156,46 +150,15 @@ public abstract class KeywordsImporter {
             tree.expandPath(new TreePath(((DefaultMutableTreeNode) root).getPath()));
         }
 
-        private void updateProgressBar(final int value) {
-            getProgressBar();
-            EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-                @Override
-                public void run() {
-                    if (progressBar != null) {
-                        progressBar.setMinimum(0);
-                        progressBar.setMaximum(paths.size());
-                        progressBar.setValue(value);
-
-                        if (!progressBar.isStringPainted()) {
-                            progressBar.setStringPainted(true);
-                        }
-
-                        if (!PROGRESSBAR_STRING.equals(progressBar.getString())) {
-                            progressBar.setString(PROGRESSBAR_STRING);
-                        }
-                    }
-                }
-            });
-        }
-
-        private void releaseProgressBar() {
-            EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-                @Override
-                public void run() {
-                    if (progressBar != null) {
-                        if (progressBar.isStringPainted()) {
-                            progressBar.setString("");
-                        }
-
-                        progressBar.setValue(0);
-                    }
-
-                    ProgressBar.INSTANCE.releaseResource(pBarOwner);
-                    progressBar = null;
-                }
-            });
+        private ProgressEvent createProgressEventWithValue(final int value) {
+            return new ProgressEvent.Builder()
+                   .source(pBarOwner)
+                   .minimum(0)
+                   .maximum(paths.size())
+                   .value(value)
+                   .stringPainted(true)
+                   .stringToPaint(PROGRESSBAR_STRING)
+                   .build();
         }
 
         private void messageImported(int importCount) {

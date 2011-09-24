@@ -17,9 +17,9 @@ import org.jphototagger.program.resource.GUI;
  *
  * @author Elmar Baumann
  */
-public final class ProgressBar extends MutualExcludedResource<JProgressBar> implements ActionListener {
+final class ProgressBar extends MutualExcludedResource<JProgressBar> implements ActionListener {
 
-    public static final ProgressBar INSTANCE = new ProgressBar();
+    static final ProgressBar INSTANCE = new ProgressBar();
     private final JButton buttonCancel;
     private volatile boolean cancelEnabled = true;
 
@@ -39,7 +39,7 @@ public final class ProgressBar extends MutualExcludedResource<JProgressBar> impl
      * @param owner   owner
      * @param enabled true if enable a cancel button. Default: true.
      */
-    public synchronized void setEnabledCancel(Object owner, boolean enabled) {
+    synchronized void setEnabledCancel(Object owner, boolean enabled) {
         if (owner == getOwner()) {
             cancelEnabled = enabled;
         }

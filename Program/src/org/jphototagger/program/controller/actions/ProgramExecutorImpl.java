@@ -1,7 +1,5 @@
 package org.jphototagger.program.controller.actions;
 
-import javax.swing.JProgressBar;
-
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.programs.ProgramExecutor;
 import org.jphototagger.program.helper.StartPrograms;
@@ -17,8 +15,8 @@ public final class ProgramExecutorImpl implements ProgramExecutor {
     private final StartPrograms programStarter;
     private final boolean waitForTermination;
 
-    public ProgramExecutorImpl(JProgressBar progressBar, boolean waitForTermination) {
-        programStarter = new StartPrograms(progressBar);
+    public ProgramExecutorImpl(boolean waitForTermination) {
+        programStarter = new StartPrograms();
         this.waitForTermination = waitForTermination;
     }
 

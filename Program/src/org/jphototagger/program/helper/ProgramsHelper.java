@@ -1,5 +1,6 @@
 package org.jphototagger.program.helper;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -175,7 +176,10 @@ public final class ProgramsHelper {
      */
     public static void openSelectedFilesWidth(Program program, boolean waitForTermination) {
         if (program != null) {
-            new StartPrograms(null).startProgram(program, GUI.getSelectedImageFiles(), waitForTermination);
+            StartPrograms startPrograms = new StartPrograms();
+            List<File> selectedImageFiles = GUI.getSelectedImageFiles();
+
+            startPrograms.startProgram(program, selectedImageFiles, waitForTermination);
         }
     }
 

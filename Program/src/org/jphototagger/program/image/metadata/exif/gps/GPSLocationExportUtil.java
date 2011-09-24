@@ -101,7 +101,7 @@ public final class GPSLocationExportUtil {
                     imageInfos.add(new GPSImageInfo(imageFile, gpsMetadata));
                 }
 
-                progressPerformed(i + 1, imageFile);
+                progressPerformed(i + 1, imageFile.getName());
             }
 
             export(exporter, imageInfos);

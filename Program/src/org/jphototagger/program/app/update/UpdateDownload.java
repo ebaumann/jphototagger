@@ -8,16 +8,16 @@ import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.swing.JProgressBar;
 
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.concurrent.CancelRequest;
 import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.api.progress.MainWindowProgressBarProvider;
+import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.storage.PreferencesDirectoryProvider;
 import org.jphototagger.domain.repository.ApplicationPropertiesRepository;
-import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.net.HttpUtil;
 import org.jphototagger.lib.net.NetVersion;
@@ -28,7 +28,6 @@ import org.jphototagger.program.app.AppInfo;
 import org.jphototagger.program.app.AppLifeCycle;
 import org.jphototagger.program.app.AppPreferencesKeys;
 import org.jphototagger.program.helper.FinalExecutable;
-import org.jphototagger.program.view.panels.ProgressBar;
 
 /**
  * Checks for newer versions of JPhotoTagger and downloads them depending.
@@ -45,11 +44,11 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
     private static final String VERSION_DELIMITER = ".";
     private Version currentVersion;
     private Version netVersion;
-    private JProgressBar progressBar;
     private volatile boolean cancel;
     private static boolean checkPending;
     private final Object pBarOwner = this;
     private static final Logger LOGGER = Logger.getLogger(UpdateDownload.class.getName());
+    private final MainWindowProgressBarProvider progressBarProvider = Lookup.getDefault().lookup(MainWindowProgressBarProvider.class);
 
     public UpdateDownload() {
         super("JPhotoTagger: Checking for and downloading newer version");
@@ -136,7 +135,7 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
         } catch (Exception ex) {
             LOGGER.log(Level.INFO, "The most recent version of JPhotoTagger couldn't be retrieved: {0}", ex.getLocalizedMessage());
         } finally {
-            releaseProgressBar();
+            progressBarProvider.progressEnded(pBarOwner);
 
             synchronized (UpdateDownload.class) {
                 checkPending = false;
@@ -200,46 +199,23 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
     }
 
     private void startProgressBar() {
-        progressBar = ProgressBar.INSTANCE.getResource(pBarOwner);
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                if (progressBar != null) {
-                    progressBar.setIndeterminate(true);
-                    progressBar.setStringPainted(true);
-                    progressBar.setString(Bundle.getString(UpdateDownload.class, "UpdateDownload.Info.ProgressBar"));
-                }
-            }
-        });
+        ProgressEvent evt = new ProgressEvent.Builder()
+                .source(pBarOwner)
+                .indeterminate(true)
+                .stringPainted(true)
+                .stringToPaint(Bundle.getString(UpdateDownload.class, "UpdateDownload.Info.ProgressBar"))
+                .build();
+        progressBarProvider.progressStarted(evt);
     }
 
     private void progressBarDownloadInfo() {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                if (progressBar != null) {
-                    progressBar.setString(Bundle.getString(UpdateDownload.class, "UpdateDownload.Info.ProgressBarDownload"));
-                }
-            }
-        });
-    }
-
-    private void releaseProgressBar() {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                if (progressBar != null) {
-                    progressBar.setIndeterminate(false);
-                    progressBar.setString("");
-                    progressBar.setStringPainted(false);
-                    ProgressBar.INSTANCE.releaseResource(pBarOwner);
-                    progressBar = null;
-                }
-            }
-        });
+        ProgressEvent evt = new ProgressEvent.Builder()
+                .source(pBarOwner)
+                .indeterminate(true)
+                .stringPainted(true)
+                .stringToPaint(Bundle.getString(UpdateDownload.class, "UpdateDownload.Info.ProgressBarDownload"))
+                .build();
+        progressBarProvider.progressStarted(evt);
     }
 
     private boolean hasNewerVersion() throws Exception {

@@ -58,7 +58,7 @@ public final class RefreshXmpInDbOfKnownFiles extends HelperThread {
                 repo.saveOrUpdateXmpOfImageFile(imageFile, xmp);
             }
 
-            progressPerformed(i + 1, imageFile);
+            progressPerformed(i + 1, imageFile.getName());
         }
 
         progressEnded(null);

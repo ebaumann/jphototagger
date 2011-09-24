@@ -9,11 +9,12 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.swing.JProgressBar;
+import org.openide.util.Lookup;
 
+import org.jphototagger.api.progress.MainWindowProgressBarProvider;
+import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.repository.InsertIntoRepository;
-import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.runtime.External;
 import org.jphototagger.lib.runtime.External.ProcessResult;
@@ -29,18 +30,8 @@ import org.jphototagger.program.view.dialogs.ProgramInputParametersDialog;
 public final class StartPrograms {
 
     private final Queue<Execute> queue = new ConcurrentLinkedQueue<Execute>();
-    private final JProgressBar progressBar;
     private static final Logger LOGGER = Logger.getLogger(StartPrograms.class.getName());
-
-    /**
-     * Constructor.
-     *
-     * @param progressBar  progressbar or null, if the progress shouldn't be
-     *                     displayed
-     */
-    public StartPrograms(JProgressBar progressBar) {
-        this.progressBar = progressBar;
-    }
+    private final MainWindowProgressBarProvider progressBarProvider = Lookup.getDefault().lookup(MainWindowProgressBarProvider.class);
 
     /**
      * Executes a program.
@@ -99,7 +90,7 @@ public final class StartPrograms {
 
         @Override
         public void run() {
-            initProgressBar();
+            progressStarted();
 
             if (program.isUsePattern()) {
                 processPattern();
@@ -109,7 +100,7 @@ public final class StartPrograms {
                 processAll();
             }
 
-            setValueToProgressBar(0);
+            progressBarProvider.progressEnded(this);
             updateRepository();
             nextExecutor();
         }
@@ -133,7 +124,7 @@ public final class StartPrograms {
                     logError(command, result);
                 }
 
-                setValueToProgressBar(++count);
+                progressPerformed(++count);
             }
         }
 
@@ -168,7 +159,7 @@ public final class StartPrograms {
                 logError(command, result);
             }
 
-            setValueToProgressBar(imageFiles.size());
+            progressPerformed(imageFiles.size());
         }
 
         private String getProcessAllCommand() {
@@ -193,7 +184,8 @@ public final class StartPrograms {
                     logError(command, result);
                 }
 
-                setValueToProgressBar(++count);
+                count++;
+                progressPerformed(count);
             }
         }
 
@@ -233,30 +225,24 @@ public final class StartPrograms {
             }
         }
 
-        private void initProgressBar() {
-            EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-                @Override
-                public void run() {
-                    if (progressBar != null) {
-                        progressBar.setMinimum(0);
-                        progressBar.setMaximum(imageFiles.size());
-                        progressBar.setValue(0);
-                    }
-                }
-            });
+        private void progressStarted() {
+            ProgressEvent evt = new ProgressEvent.Builder()
+                    .source(this)
+                    .minimum(0)
+                    .maximum(imageFiles.size())
+                    .value(0)
+                    .build();
+            progressBarProvider.progressStarted(evt);
         }
 
-        private void setValueToProgressBar(final int value) {
-            EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-                @Override
-                public void run() {
-                    if (progressBar != null) {
-                        progressBar.setValue(value);
-                    }
-                }
-            });
+        private void progressPerformed(int value) {
+            ProgressEvent evt = new ProgressEvent.Builder()
+                    .source(this)
+                    .minimum(0)
+                    .maximum(imageFiles.size())
+                    .value(value)
+                    .build();
+            progressBarProvider.progressPerformed(evt);
         }
 
         private void updateRepository() {

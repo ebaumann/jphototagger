@@ -95,7 +95,7 @@ public final class SetExifToXmp extends HelperThread {
             File imgFile = imgFiles.get(i);
 
             set(imgFile, replaceExistingXmpData);
-            progressPerformed(i + 1, imgFile);
+            progressPerformed(i + 1, imgFile.getName());
         }
 
         progressEnded(null);

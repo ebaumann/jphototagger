@@ -88,7 +88,6 @@ public class RepositoryUpdatePanel extends JPanel implements ActionListener, Pro
                 HelperThread helperThread = (HelperThread) helperThreadClass.newInstance();
 
                 disableOtherButtons(button);
-                helperThread.setProgressBar(progressBar);
                 helperThread.addProgressListener(this);
                 cancel = false;
                 helperThread.start();
@@ -256,7 +255,7 @@ public class RepositoryUpdatePanel extends JPanel implements ActionListener, Pro
         buttonDeleteKeywordsTree = new javax.swing.JButton();
         labelExifDateToXmpDateCreated = new javax.swing.JLabel();
         toggleButtonExifDateToXmpDateCreated = new javax.swing.JToggleButton();
-        progressBar = new javax.swing.JProgressBar();
+        panelPadding = new javax.swing.JPanel();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
@@ -277,7 +276,6 @@ public class RepositoryUpdatePanel extends JPanel implements ActionListener, Pro
         gridBagConstraints.gridwidth = 7;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
         panelTasks.add(labelRefreshExif, gridBagConstraints);
 
         toggleButtonRefreshExif.setText(bundle.getString("RepositoryUpdatePanel.toggleButtonRefreshExif.text")); // NOI18N
@@ -289,12 +287,10 @@ public class RepositoryUpdatePanel extends JPanel implements ActionListener, Pro
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 7;
-        gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
         panelTasks.add(toggleButtonRefreshExif, gridBagConstraints);
 
         labelRefreshXmp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_xmp.png"))); // NOI18N
@@ -302,11 +298,7 @@ public class RepositoryUpdatePanel extends JPanel implements ActionListener, Pro
         labelRefreshXmp.setName("labelRefreshXmp"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 6;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
         panelTasks.add(labelRefreshXmp, gridBagConstraints);
 
@@ -319,12 +311,10 @@ public class RepositoryUpdatePanel extends JPanel implements ActionListener, Pro
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 7;
-        gridBagConstraints.gridy = 2;
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(3, 5, 0, 0);
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(3, 10, 0, 0);
         panelTasks.add(toggleButtonRefreshXmp, gridBagConstraints);
 
         labelUpdateThumbnails.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_image.png"))); // NOI18N
@@ -332,11 +322,7 @@ public class RepositoryUpdatePanel extends JPanel implements ActionListener, Pro
         labelUpdateThumbnails.setName("labelUpdateThumbnails"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
         panelTasks.add(labelUpdateThumbnails, gridBagConstraints);
 
@@ -349,12 +335,10 @@ public class RepositoryUpdatePanel extends JPanel implements ActionListener, Pro
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 7;
-        gridBagConstraints.gridy = 4;
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(3, 5, 0, 0);
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(3, 10, 0, 0);
         panelTasks.add(buttonUpdateThumbnails, gridBagConstraints);
 
         labelRenameFiles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_rename.png"))); // NOI18N
@@ -362,11 +346,7 @@ public class RepositoryUpdatePanel extends JPanel implements ActionListener, Pro
         labelRenameFiles.setName("labelRenameFiles"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
         panelTasks.add(labelRenameFiles, gridBagConstraints);
 
@@ -379,12 +359,10 @@ public class RepositoryUpdatePanel extends JPanel implements ActionListener, Pro
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 7;
-        gridBagConstraints.gridy = 6;
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(3, 5, 0, 0);
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(3, 10, 0, 0);
         panelTasks.add(buttonRenameFiles, gridBagConstraints);
 
         labelCopyKeywordsToKeywordsTree.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_tree.png"))); // NOI18N
@@ -392,11 +370,7 @@ public class RepositoryUpdatePanel extends JPanel implements ActionListener, Pro
         labelCopyKeywordsToKeywordsTree.setName("labelCopyKeywordsToKeywordsTree"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.gridwidth = 4;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
         panelTasks.add(labelCopyKeywordsToKeywordsTree, gridBagConstraints);
 
@@ -409,12 +383,10 @@ public class RepositoryUpdatePanel extends JPanel implements ActionListener, Pro
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 7;
-        gridBagConstraints.gridy = 8;
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(3, 5, 0, 0);
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(3, 10, 0, 0);
         panelTasks.add(buttonCopyKeywordsToKeywordsTree, gridBagConstraints);
 
         labelDeleteKeywordsTree.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_tree.png"))); // NOI18N
@@ -422,11 +394,7 @@ public class RepositoryUpdatePanel extends JPanel implements ActionListener, Pro
         labelDeleteKeywordsTree.setName("labelDeleteKeywordsTree"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 10;
-        gridBagConstraints.gridwidth = 5;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
         panelTasks.add(labelDeleteKeywordsTree, gridBagConstraints);
 
@@ -439,12 +407,10 @@ public class RepositoryUpdatePanel extends JPanel implements ActionListener, Pro
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 7;
-        gridBagConstraints.gridy = 10;
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(3, 5, 0, 0);
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(3, 10, 0, 0);
         panelTasks.add(buttonDeleteKeywordsTree, gridBagConstraints);
 
         labelExifDateToXmpDateCreated.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_exif.png"))); // NOI18N
@@ -452,10 +418,7 @@ public class RepositoryUpdatePanel extends JPanel implements ActionListener, Pro
         labelExifDateToXmpDateCreated.setName("labelExifDateToXmpDateCreated"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 12;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
         panelTasks.add(labelExifDateToXmpDateCreated, gridBagConstraints);
 
@@ -468,32 +431,26 @@ public class RepositoryUpdatePanel extends JPanel implements ActionListener, Pro
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 7;
-        gridBagConstraints.gridy = 12;
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(3, 5, 0, 0);
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(3, 10, 0, 0);
         panelTasks.add(toggleButtonExifDateToXmpDateCreated, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         panelContent.add(panelTasks, gridBagConstraints);
 
-        progressBar.setName("progressBar"); // NOI18N
+        panelPadding.setName("panelPadding"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
-        panelContent.add(progressBar, gridBagConstraints);
+        panelContent.add(panelPadding, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -544,8 +501,8 @@ public class RepositoryUpdatePanel extends JPanel implements ActionListener, Pro
     private javax.swing.JLabel labelRenameFiles;
     private javax.swing.JLabel labelUpdateThumbnails;
     private javax.swing.JPanel panelContent;
+    private javax.swing.JPanel panelPadding;
     private javax.swing.JPanel panelTasks;
-    private javax.swing.JProgressBar progressBar;
     private javax.swing.JToggleButton toggleButtonExifDateToXmpDateCreated;
     private javax.swing.JToggleButton toggleButtonRefreshExif;
     private javax.swing.JToggleButton toggleButtonRefreshXmp;

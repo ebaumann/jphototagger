@@ -4,8 +4,6 @@ import java.awt.Container;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
-import javax.swing.JProgressBar;
-
 import org.openide.util.Lookup;
 
 import org.jphototagger.domain.event.listener.ListenerSupport;
@@ -20,12 +18,10 @@ import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.event.util.MouseEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.controller.actions.ProgramExecutorImpl;
-import org.jphototagger.program.datatransfer.ReorderListItemsTransferHandler;
 import org.jphototagger.program.helper.ProgramsHelper;
 import org.jphototagger.program.helper.ProgramsHelper.ReorderListener;
 import org.jphototagger.program.model.ProgramsListModel;
 import org.jphototagger.program.view.dialogs.ProgramPropertiesDialog;
-import org.jphototagger.program.view.renderer.ActionsListCellRenderer;
 
 /**
  *
@@ -35,7 +31,6 @@ public final class ActionsPanel extends javax.swing.JPanel {
     private static final long serialVersionUID = 8875330844851092391L;
     private final ProgramsListModel model = new ProgramsListModel(ProgramType.ACTION);
     private final ListenerSupport<ProgramExecutor> ls = new ListenerSupport<ProgramExecutor>();
-    private Object progressBarOwner;
     private final ReorderListener reorderListener = new ProgramsHelper.ReorderListener(model);
     private final ActionsAfterRepoUpdatesRepository actionsAfterRepoUpdatesRepo = Lookup.getDefault().lookup(ActionsAfterRepoUpdatesRepository.class);
     private final ProgramsRepository programsRepo = Lookup.getDefault().lookup(ProgramsRepository.class);
@@ -49,7 +44,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
         MnemonicUtil.setMnemonics((Container) this);
         setAccelerators();
         selectFirstItem();
-        addListener(new ProgramExecutorImpl(progressBar, true));
+        addListener(new ProgramExecutorImpl(true));
     }
 
     private void selectFirstItem() {
@@ -63,34 +58,6 @@ public final class ActionsPanel extends javax.swing.JPanel {
         menuItemEdit.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_E));
         menuItemMoveActionDown.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_DOWN));
         menuItemMoveActionUp.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_UP));
-    }
-
-    public synchronized JProgressBar getProgressBar(Object owner) {
-        if (owner == null) {
-            throw new NullPointerException("owner == null");
-        }
-
-        if (progressBarOwner == null) {
-            progressBarOwner = owner;
-
-            return progressBar;
-        }
-
-        return null;
-    }
-
-    public synchronized boolean isProgressBarAvailable() {
-        return progressBarOwner == null;
-    }
-
-    public synchronized void releaseProgressBar(Object owner) {
-        if (owner == null) {
-            throw new NullPointerException("owner == null");
-        }
-
-        if (progressBarOwner == owner) {
-            progressBarOwner = null;
-        }
     }
 
     public void setEnabled() {
@@ -260,7 +227,6 @@ public final class ActionsPanel extends javax.swing.JPanel {
         labelActionList = new javax.swing.JLabel();
         scrollPane = new javax.swing.JScrollPane();
         list = new org.jdesktop.swingx.JXList();
-        progressBar = new javax.swing.JProgressBar();
         panelButtons = new javax.swing.JPanel();
         buttonDelete = new javax.swing.JButton();
         buttonEdit = new javax.swing.JButton();
@@ -357,12 +323,12 @@ public final class ActionsPanel extends javax.swing.JPanel {
 
         list.setModel(model);
         list.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        list.setCellRenderer(new ActionsListCellRenderer());
+        list.setCellRenderer(new org.jphototagger.program.view.renderer.ActionsListCellRenderer());
         list.setComponentPopupMenu(popupMenu);
         list.setDragEnabled(true);
         list.setDropMode(javax.swing.DropMode.INSERT);
         list.setName("list"); // NOI18N
-        list.setTransferHandler(new ReorderListItemsTransferHandler(list));
+        list.setTransferHandler(new org.jphototagger.program.datatransfer.ReorderListItemsTransferHandler(list));
         list.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listMouseClicked(evt);
@@ -389,16 +355,6 @@ public final class ActionsPanel extends javax.swing.JPanel {
         gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
         add(scrollPane, gridBagConstraints);
-
-        progressBar.setToolTipText(bundle.getString("ActionsPanel.progressBar.toolTipText")); // NOI18N
-        progressBar.setName("progressBar"); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
-        add(progressBar, gridBagConstraints);
 
         panelButtons.setName("panelButtons"); // NOI18N
 
@@ -541,7 +497,6 @@ public final class ActionsPanel extends javax.swing.JPanel {
     private javax.swing.JMenuItem menuItemMoveActionUp;
     private javax.swing.JPanel panelButtons;
     private javax.swing.JPopupMenu popupMenu;
-    private javax.swing.JProgressBar progressBar;
     private javax.swing.JScrollPane scrollPane;
     // End of variables declaration//GEN-END:variables
 }
