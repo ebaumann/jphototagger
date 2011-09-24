@@ -1,5 +1,6 @@
 package org.jphototagger.program.view.panels;
 
+import java.awt.Component;
 import java.awt.Container;
 import java.io.File;
 
@@ -144,7 +145,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
     }
 
     private void setCheckForUpdates() {
-        setCheckForUpdates(checkBoxAutoDownloadCheck.isSelected());
+        setCheckForUpdates(checkBoxCheckForUpdates.isSelected());
     }
 
     private void setCheckForUpdates(boolean auto) {
@@ -176,7 +177,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
     @EventSubscriber(eventClass = UserPropertyChangedEvent.class)
     public void applySettings(UserPropertyChangedEvent evt) {
         if (AppPreferencesKeys.KEY_CHECK_FOR_UPDATES.equals(evt.getPropertyKey())) {
-            checkBoxAutoDownloadCheck.setSelected((Boolean)evt.getNewValue());
+            checkBoxCheckForUpdates.setSelected((Boolean)evt.getNewValue());
         } else if (IptcPreferencesKeys.KEY_IPTC_CHARSET.equals(evt.getPropertyKey())) {
             setIptcCharsetFromUserSettings();
         }
@@ -199,7 +200,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
     public void restore() {
         FileRepositoryProvider provider = Lookup.getDefault().lookup(FileRepositoryProvider.class);
 
-        checkBoxAutoDownloadCheck.setSelected(isCheckForUpdates());
+        checkBoxCheckForUpdates.setSelected(isCheckForUpdates());
         checkBoxDisplaySearchButton.setSelected(isDisplaySearchButton());
         checkBoxIsAcceptHiddenDirectories.setSelected(isAcceptHiddenDirectories());
         checkBoxAddFilenameToGpsLocationExport.setSelected(isAddFilenameToGpsLocationExport());
@@ -247,8 +248,21 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
     }
 
     private void checkDownload() {
-        ControllerFactory.INSTANCE.getController(
-                UpdateCheckController.class).actionPerformed(null);
+        UpdateCheckController updateCheckController = ControllerFactory.INSTANCE.getController(UpdateCheckController.class);
+
+        updateCheckController.actionPerformed(null);
+    }
+
+    public void addTab(Component component, String title) {
+        if (component == null) {
+            throw new NullPointerException("component == null");
+        }
+
+        if (title == null) {
+            throw new NullPointerException("title == null");
+        }
+
+        tabbedPane.add(title, component);
     }
 
     /**
@@ -260,16 +274,21 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
     @SuppressWarnings("unchecked")
 
     private void initComponents() {//GEN-BEGIN:initComponents
+        java.awt.GridBagConstraints gridBagConstraints;
 
         buttonGroupCopyMoveFiles = new javax.swing.ButtonGroup();
+        tabbedPane = new javax.swing.JTabbedPane();
+        panelDefault = new javax.swing.JPanel();
         checkBoxIsAcceptHiddenDirectories = new javax.swing.JCheckBox();
-        checkBoxAutoDownloadCheck = new javax.swing.JCheckBox();
-        buttonCheckDownload = new javax.swing.JButton();
+        panelCheckForUpdates = new javax.swing.JPanel();
+        checkBoxCheckForUpdates = new javax.swing.JCheckBox();
+        buttonCheckForUpdates = new javax.swing.JButton();
         checkBoxDisplaySearchButton = new javax.swing.JCheckBox();
         checkBoxAddFilenameToGpsLocationExport = new javax.swing.JCheckBox();
         panelCopyMoveFiles = new javax.swing.JPanel();
         radioButtonCopyMoveFileConfirmOverwrite = new javax.swing.JRadioButton();
         radioButtonCopyMoveFileRenameIfExists = new javax.swing.JRadioButton();
+        panelIptcCharset = new javax.swing.JPanel();
         labelIptcCharset = new javax.swing.JLabel();
         comboBoxIptcCharset = new javax.swing.JComboBox();
         panelRepositoryDirectory = new javax.swing.JPanel();
@@ -280,6 +299,10 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
 
         setName("Form"); // NOI18N
 
+        tabbedPane.setName("tabbedPane"); // NOI18N
+
+        panelDefault.setName("panelDefault"); // NOI18N
+
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/panels/Bundle"); // NOI18N
         checkBoxIsAcceptHiddenDirectories.setText(bundle.getString("SettingsMiscPanel.checkBoxIsAcceptHiddenDirectories.text")); // NOI18N
         checkBoxIsAcceptHiddenDirectories.setName("checkBoxIsAcceptHiddenDirectories"); // NOI18N
@@ -289,21 +312,34 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
             }
         });
 
-        checkBoxAutoDownloadCheck.setText(bundle.getString("SettingsMiscPanel.checkBoxAutoDownloadCheck.text")); // NOI18N
-        checkBoxAutoDownloadCheck.setName("checkBoxAutoDownloadCheck"); // NOI18N
-        checkBoxAutoDownloadCheck.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkBoxAutoDownloadCheckActionPerformed(evt);
-            }
-        });
+        panelCheckForUpdates.setName("panelCheckForUpdates"); // NOI18N
+        panelCheckForUpdates.setLayout(new java.awt.GridBagLayout());
 
-        buttonCheckDownload.setText(bundle.getString("SettingsMiscPanel.buttonCheckDownload.text")); // NOI18N
-        buttonCheckDownload.setName("buttonCheckDownload"); // NOI18N
-        buttonCheckDownload.addActionListener(new java.awt.event.ActionListener() {
+        checkBoxCheckForUpdates.setText(bundle.getString("SettingsMiscPanel.checkBoxCheckForUpdates.text")); // NOI18N
+        checkBoxCheckForUpdates.setName("checkBoxCheckForUpdates"); // NOI18N
+        checkBoxCheckForUpdates.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonCheckDownloadActionPerformed(evt);
+                checkBoxCheckForUpdatesActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        panelCheckForUpdates.add(checkBoxCheckForUpdates, gridBagConstraints);
+
+        buttonCheckForUpdates.setText(bundle.getString("SettingsMiscPanel.buttonCheckForUpdates.text")); // NOI18N
+        buttonCheckForUpdates.setName("buttonCheckForUpdates"); // NOI18N
+        buttonCheckForUpdates.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCheckForUpdatesActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelCheckForUpdates.add(buttonCheckForUpdates, gridBagConstraints);
 
         checkBoxDisplaySearchButton.setText(bundle.getString("SettingsMiscPanel.checkBoxDisplaySearchButton.text")); // NOI18N
         checkBoxDisplaySearchButton.setName("checkBoxDisplaySearchButton"); // NOI18N
@@ -362,9 +398,16 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
+        panelIptcCharset.setName("panelIptcCharset"); // NOI18N
+        panelIptcCharset.setLayout(new java.awt.GridBagLayout());
+
         labelIptcCharset.setLabelFor(comboBoxIptcCharset);
         labelIptcCharset.setText(bundle.getString("SettingsMiscPanel.labelIptcCharset.text")); // NOI18N
         labelIptcCharset.setName("labelIptcCharset"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        panelIptcCharset.add(labelIptcCharset, gridBagConstraints);
 
         comboBoxIptcCharset.setModel(new IptcCharsetComboBoxModel());
         comboBoxIptcCharset.setName("comboBoxIptcCharset"); // NOI18N
@@ -373,6 +416,12 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
                 comboBoxIptcCharsetActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelIptcCharset.add(comboBoxIptcCharset, gridBagConstraints);
 
         panelRepositoryDirectory.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("SettingsMiscPanel.panelRepositoryDirectory.border.title"))); // NOI18N
         panelRepositoryDirectory.setName("panelRepositoryDirectory"); // NOI18N
@@ -429,56 +478,65 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+        javax.swing.GroupLayout panelDefaultLayout = new javax.swing.GroupLayout(panelDefault);
+        panelDefault.setLayout(panelDefaultLayout);
+        panelDefaultLayout.setHorizontalGroup(
+            panelDefaultLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelDefaultLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelRepositoryDirectory, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(checkBoxAutoDownloadCheck)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(buttonCheckDownload))
-                    .addComponent(checkBoxAddFilenameToGpsLocationExport)
+                .addGroup(panelDefaultLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(checkBoxIsAcceptHiddenDirectories)
+                    .addComponent(panelRepositoryDirectory, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(checkBoxAddFilenameToGpsLocationExport)
                     .addComponent(panelCopyMoveFiles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(labelIptcCharset)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(comboBoxIptcCharset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(checkBoxDisplaySearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(checkBoxDisplaySearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelIptcCharset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelCheckForUpdates, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+        panelDefaultLayout.setVerticalGroup(
+            panelDefaultLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelDefaultLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(checkBoxIsAcceptHiddenDirectories)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(checkBoxAutoDownloadCheck)
-                    .addComponent(buttonCheckDownload))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelCheckForUpdates, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
                 .addComponent(checkBoxDisplaySearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(checkBoxAddFilenameToGpsLocationExport)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelCopyMoveFiles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelIptcCharset)
-                    .addComponent(comboBoxIptcCharset, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelIptcCharset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
                 .addComponent(panelRepositoryDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        tabbedPane.addTab(bundle.getString("SettingsMiscPanel.panelDefault.TabConstraints.tabTitle"), panelDefault); // NOI18N
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(tabbedPane)
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
+                .addContainerGap())
+        );
     }//GEN-END:initComponents
 
-    private void checkBoxAutoDownloadCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAutoDownloadCheckActionPerformed
+    private void checkBoxCheckForUpdatesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxCheckForUpdatesActionPerformed
         setCheckForUpdates();
-    }//GEN-LAST:event_checkBoxAutoDownloadCheckActionPerformed
+    }//GEN-LAST:event_checkBoxCheckForUpdatesActionPerformed
 
     private void radioButtonCopyMoveFileRenameIfExistsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonCopyMoveFileRenameIfExistsActionPerformed
         setCopyMoveFiles();
@@ -508,29 +566,33 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
         setIptcCharset();
     }//GEN-LAST:event_comboBoxIptcCharsetActionPerformed
 
-    private void buttonCheckDownloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCheckDownloadActionPerformed
+    private void buttonCheckForUpdatesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCheckForUpdatesActionPerformed
         checkDownload();
-    }//GEN-LAST:event_buttonCheckDownloadActionPerformed
+    }//GEN-LAST:event_buttonCheckForUpdatesActionPerformed
 
     private void checkBoxAddFilenameToGpsLocationExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAddFilenameToGpsLocationExportActionPerformed
         setAddFilenameToGpsLocationExport();
     }//GEN-LAST:event_checkBoxAddFilenameToGpsLocationExportActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonCheckDownload;
+    private javax.swing.JButton buttonCheckForUpdates;
     private javax.swing.JButton buttonChooseRepositoryDirectory;
     private javax.swing.ButtonGroup buttonGroupCopyMoveFiles;
     private javax.swing.JButton buttonSetDefaultRepositoryDirectoryName;
     private javax.swing.JCheckBox checkBoxAddFilenameToGpsLocationExport;
-    private javax.swing.JCheckBox checkBoxAutoDownloadCheck;
+    private javax.swing.JCheckBox checkBoxCheckForUpdates;
     private javax.swing.JCheckBox checkBoxDisplaySearchButton;
     private javax.swing.JCheckBox checkBoxIsAcceptHiddenDirectories;
     private javax.swing.JComboBox comboBoxIptcCharset;
     private javax.swing.JLabel labelInfoRepositoryDirectory;
     private javax.swing.JLabel labelIptcCharset;
     private javax.swing.JLabel labelRepositoryDirectory;
+    private javax.swing.JPanel panelCheckForUpdates;
     private javax.swing.JPanel panelCopyMoveFiles;
+    private javax.swing.JPanel panelDefault;
+    private javax.swing.JPanel panelIptcCharset;
     private javax.swing.JPanel panelRepositoryDirectory;
     private javax.swing.JRadioButton radioButtonCopyMoveFileConfirmOverwrite;
     private javax.swing.JRadioButton radioButtonCopyMoveFileRenameIfExists;
+    private javax.swing.JTabbedPane tabbedPane;
     // End of variables declaration//GEN-END:variables
 }
