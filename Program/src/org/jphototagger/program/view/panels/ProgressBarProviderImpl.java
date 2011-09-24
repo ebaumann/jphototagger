@@ -1,5 +1,10 @@
 package org.jphototagger.program.view.panels;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JProgressBar;
 
 import org.jphototagger.api.progress.ProgressEvent;
@@ -19,6 +24,15 @@ public final class ProgressBarProviderImpl implements MainWindowProgressBarProvi
     private Object progressBarOwner;
     private JProgressBar progressBar;
     private final Object monitor = new Object();
+    private long lastProgressBarAccessInMilliseconds;
+    private static final long WARN_ON_P_BAR_ACCESS_DELAY_IN_MILLISECONDS = 60000;
+    private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+    private static final Logger LOGGER = Logger.getLogger(ProgressBarProviderImpl.class.getName());
+
+    public ProgressBarProviderImpl() {
+        scheduler.scheduleWithFixedDelay(warnOnLongProgressBarAccessDelays, 0,
+                WARN_ON_P_BAR_ACCESS_DELAY_IN_MILLISECONDS, TimeUnit.MILLISECONDS);
+    }
 
     @Override
     public boolean isDisplayProgressOfSource(Object source) {
@@ -57,6 +71,7 @@ public final class ProgressBarProviderImpl implements MainWindowProgressBarProvi
                             progressBarOwner = null;
                             progressBar = null;
                             ProgressBar.INSTANCE.releaseResource(eventSource);
+                            lastProgressBarAccessInMilliseconds = System.currentTimeMillis();
                         }
                     }
                 });
@@ -109,9 +124,31 @@ public final class ProgressBarProviderImpl implements MainWindowProgressBarProvi
                         }
                         progressBar.setStringPainted(evt.isStringPainted());
                         progressBar.setString(evt.getStringToPaint());
+                        lastProgressBarAccessInMilliseconds = System.currentTimeMillis();
                     }
                 }
             });
         }
     }
+
+    private final Runnable warnOnLongProgressBarAccessDelays = new Runnable() {
+
+        @Override
+        public void run() {
+            synchronized(monitor) {
+                if (progressBarOwner == null) {
+                    return;
+                }
+
+                long nowInMilliseconds = System.currentTimeMillis();
+                long delayInMilliseconds = nowInMilliseconds - lastProgressBarAccessInMilliseconds;
+
+                if (delayInMilliseconds > WARN_ON_P_BAR_ACCESS_DELAY_IN_MILLISECONDS) {
+                    LOGGER.log(Level.WARNING,
+                            "Progress bar owner ''{0}'' last accessed the progressbar before {1} seconds",
+                            new Object[]{progressBarOwner, delayInMilliseconds / 1000});
+                }
+            }
+        }
+    };
 }
