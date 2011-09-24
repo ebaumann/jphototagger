@@ -5,7 +5,13 @@ package org.jphototagger.api.progress;
  *
  * @author Elmar Baumann
  */
-public interface MainWindowProgressBarProvider extends ProgressListener {
+public interface MainWindowProgressBarProvider {
 
-    boolean isDisplayProgressOfSource(Object source);
+    void progressStarted(ProgressEvent evt);
+
+    void progressPerformed(ProgressEvent evt);
+
+    void progressEnded(Object eventSource);
+
+    boolean isDisplayProgressOfSource(Object eventSource);
 }
