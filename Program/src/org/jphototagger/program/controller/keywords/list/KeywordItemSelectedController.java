@@ -16,7 +16,7 @@ import org.jdesktop.swingx.JXList;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
-import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
+import org.jphototagger.api.image.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.helper.KeywordsHelper;
@@ -62,9 +62,9 @@ public final class KeywordItemSelectedController implements ActionListener, List
     @EventSubscriber(eventClass = ThumbnailsPanelRefreshEvent.class)
     public void refresh(ThumbnailsPanelRefreshEvent evt) {
         if (GUI.getSelKeywordsList().getSelectedIndex() >= 0) {
-            TypeOfDisplayedImages typeOfDisplayedImages = evt.getTypeOfDisplayedImages();
+            OriginOfDisplayedThumbnails typeOfDisplayedImages = evt.getTypeOfDisplayedImages();
 
-            if (TypeOfDisplayedImages.KEYWORD.equals(typeOfDisplayedImages)) {
+            if (OriginOfDisplayedThumbnails.FILES_MATCHING_A_KEYWORD.equals(typeOfDisplayedImages)) {
                 update(evt);
             }
         }

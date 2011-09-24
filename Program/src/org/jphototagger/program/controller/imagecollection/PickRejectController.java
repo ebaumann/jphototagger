@@ -14,7 +14,7 @@ import org.jdesktop.swingx.JXList;
 import org.openide.util.Lookup;
 
 import org.jphototagger.domain.repository.ImageCollectionsRepository;
-import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
+import org.jphototagger.api.image.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.api.messages.MessageType;
 import org.jphototagger.api.messages.StatusBarMessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
@@ -99,7 +99,7 @@ public final class PickRejectController implements ActionListener, KeyListener {
     }
 
     private boolean isCollection(String collection) {
-        if (!GUI.getThumbnailsPanel().getContent().equals(TypeOfDisplayedImages.IMAGE_COLLECTION)) {
+        if (!GUI.getThumbnailsPanel().getContent().equals(OriginOfDisplayedThumbnails.FILES_OF_AN_IMAGE_COLLECTION)) {
             return false;
         }
 

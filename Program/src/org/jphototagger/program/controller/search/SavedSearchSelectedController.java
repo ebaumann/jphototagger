@@ -14,7 +14,7 @@ import org.openide.util.Lookup;
 import org.jphototagger.domain.metadata.search.ParamStatement;
 import org.jphototagger.domain.metadata.search.SavedSearch;
 import org.jphototagger.domain.repository.FindRepository;
-import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
+import org.jphototagger.api.image.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
@@ -49,9 +49,9 @@ public final class SavedSearchSelectedController implements ListSelectionListene
 
     @EventSubscriber(eventClass = ThumbnailsPanelRefreshEvent.class)
     public void refresh(ThumbnailsPanelRefreshEvent evt) {
-        TypeOfDisplayedImages typeOfDisplayedImages = evt.getTypeOfDisplayedImages();
+        OriginOfDisplayedThumbnails typeOfDisplayedImages = evt.getTypeOfDisplayedImages();
 
-        if (TypeOfDisplayedImages.SAVED_SEARCH.equals(typeOfDisplayedImages)) {
+        if (OriginOfDisplayedThumbnails.FILES_FOUND_BY_SAVED_SEARCH.equals(typeOfDisplayedImages)) {
             search();
         }
     }
@@ -97,7 +97,7 @@ public final class SavedSearchSelectedController implements ListSelectionListene
             List<File> imageFiles = repo.findImageFiles(stmt);
 
             setTitle(name);
-            GUI.getThumbnailsPanel().setFiles(imageFiles, TypeOfDisplayedImages.SAVED_SEARCH);
+            GUI.getThumbnailsPanel().setFiles(imageFiles, OriginOfDisplayedThumbnails.FILES_FOUND_BY_SAVED_SEARCH);
         }
 
         private void setTitle(String name) {

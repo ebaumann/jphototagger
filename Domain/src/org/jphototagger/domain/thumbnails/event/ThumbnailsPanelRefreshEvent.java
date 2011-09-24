@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
-import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
+import org.jphototagger.api.image.thumbnails.OriginOfDisplayedThumbnails;
 
 /**
  *
@@ -17,10 +17,10 @@ public final class ThumbnailsPanelRefreshEvent {
 
     private final Object source;
     private final Point currentViewPosition;
-    private final TypeOfDisplayedImages typeOfDisplayedImages;
+    private final OriginOfDisplayedThumbnails typeOfDisplayedImages;
     private List<Integer> selectedThumbnailIndices;
 
-    public ThumbnailsPanelRefreshEvent(Object source, TypeOfDisplayedImages typeOfDisplayedImages, Point currentViewPosition) {
+    public ThumbnailsPanelRefreshEvent(Object source, OriginOfDisplayedThumbnails typeOfDisplayedImages, Point currentViewPosition) {
         if (typeOfDisplayedImages == null) {
             throw new NullPointerException("typeOfDisplayedImages == null");
         }
@@ -62,7 +62,7 @@ public final class ThumbnailsPanelRefreshEvent {
         return new ThumbnailsPanelSettings(currentViewPosition, selectedThumbnailIndices);
     }
 
-    public TypeOfDisplayedImages getTypeOfDisplayedImages() {
+    public OriginOfDisplayedThumbnails getTypeOfDisplayedImages() {
         return typeOfDisplayedImages;
     }
 }

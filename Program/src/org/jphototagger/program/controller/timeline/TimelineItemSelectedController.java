@@ -22,7 +22,7 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
-import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
+import org.jphototagger.api.image.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
 import org.jphototagger.domain.timeline.Timeline;
 import org.jphototagger.lib.awt.EventQueueUtil;
@@ -51,9 +51,9 @@ public final class TimelineItemSelectedController implements TreeSelectionListen
     @EventSubscriber(eventClass = ThumbnailsPanelRefreshEvent.class)
     public void refresh(ThumbnailsPanelRefreshEvent evt) {
         if (GUI.getTimelineTree().getSelectionCount() == 1) {
-            TypeOfDisplayedImages typeOfDisplayedImages = evt.getTypeOfDisplayedImages();
+            OriginOfDisplayedThumbnails typeOfDisplayedImages = evt.getTypeOfDisplayedImages();
 
-            if (TypeOfDisplayedImages.TIMELINE.equals(typeOfDisplayedImages)) {
+            if (OriginOfDisplayedThumbnails.FILES_MATCHING_DATES_IN_A_TIMELINE.equals(typeOfDisplayedImages)) {
                 setFilesOfTreePathToThumbnailsPanel(GUI.getTimelineTree().getSelectionPath(), evt.getThumbnailsPanelSettings());
             }
         }
@@ -103,7 +103,7 @@ public final class TimelineItemSelectedController implements TreeSelectionListen
         if (node.equals(Timeline.getUnknownNode())) {
             setTitle();
             SortThumbnailsController.setLastSort();
-            GUI.getThumbnailsPanel().setFiles(repo.findImageFilesOfUnknownDateTaken(), TypeOfDisplayedImages.TIMELINE);
+            GUI.getThumbnailsPanel().setFiles(repo.findImageFilesOfUnknownDateTaken(), OriginOfDisplayedThumbnails.FILES_MATCHING_DATES_IN_A_TIMELINE);
         } else if (userObject instanceof Timeline.Date) {
             Timeline.Date date = (Timeline.Date) userObject;
             DefaultMutableTreeNode parent = (DefaultMutableTreeNode) node.getParent();
@@ -123,7 +123,7 @@ public final class TimelineItemSelectedController implements TreeSelectionListen
                 List<File> files = new ArrayList<File>(repo.findImageFilesOfDateTaken(date.year, month, day));
 
                 SortThumbnailsController.setLastSort();
-                GUI.getThumbnailsPanel().setFiles(files, TypeOfDisplayedImages.TIMELINE);
+                GUI.getThumbnailsPanel().setFiles(files, OriginOfDisplayedThumbnails.FILES_MATCHING_DATES_IN_A_TIMELINE);
             }
         }
     }

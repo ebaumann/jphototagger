@@ -17,7 +17,7 @@ import javax.swing.event.MenuListener;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 
-import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
+import org.jphototagger.api.image.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsChangedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.clipboard.ClipboardUtil;
@@ -92,11 +92,11 @@ public final class PasteFilesFromClipboardController implements ActionListener, 
     }
 
     private File getDirectory() {
-        TypeOfDisplayedImages content = GUI.getThumbnailsPanel().getContent();
+        OriginOfDisplayedThumbnails content = GUI.getThumbnailsPanel().getContent();
 
-        if (content.equals(TypeOfDisplayedImages.DIRECTORY)) {
+        if (content.equals(OriginOfDisplayedThumbnails.FILES_IN_SAME_DIRECTORY)) {
             return ViewUtil.getSelectedFile(GUI.getDirectoriesTree());
-        } else if (content.equals(TypeOfDisplayedImages.FAVORITE)) {
+        } else if (content.equals(OriginOfDisplayedThumbnails.FILES_IN_SAME_FAVORITE_DIRECTORY)) {
             return ViewUtil.getSelectedFile(GUI.getFavoritesTree());
         }
 

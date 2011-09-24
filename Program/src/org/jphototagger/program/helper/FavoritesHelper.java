@@ -13,7 +13,7 @@ import org.openide.util.Lookup;
 import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.domain.repository.FavoritesRepository;
 import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
-import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
+import org.jphototagger.api.image.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
@@ -225,7 +225,7 @@ public final class FavoritesHelper {
             WaitDisplay.show();
             SortThumbnailsController.setLastSort();
             setTitle();
-            tnPanel.setFiles(files, TypeOfDisplayedImages.FAVORITE);
+            tnPanel.setFiles(files, OriginOfDisplayedThumbnails.FILES_IN_SAME_FAVORITE_DIRECTORY);
             tnPanel.apply(tnPanelSettings);
             setMetadataEditable();
             WaitDisplay.hide();

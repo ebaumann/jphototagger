@@ -7,7 +7,7 @@ import java.util.List;
 
 import javax.swing.JTree;
 
-import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
+import org.jphototagger.api.image.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.lib.clipboard.ClipboardUtil;
 import org.jphototagger.lib.datatransfer.TransferUtil.FilenameDelimiter;
 import org.jphototagger.lib.event.util.KeyEventUtil;
@@ -77,8 +77,8 @@ public final class PasteFilesIntoDirectoryController implements KeyListener {
         return action.equals(FileAction.COPY) || action.equals(FileAction.CUT);
     }
 
-    private boolean isSingleDirectory(TypeOfDisplayedImages content) {
-        return content.equals(TypeOfDisplayedImages.DIRECTORY) || content.equals(TypeOfDisplayedImages.FAVORITE);
+    private boolean isSingleDirectory(OriginOfDisplayedThumbnails content) {
+        return content.equals(OriginOfDisplayedThumbnails.FILES_IN_SAME_DIRECTORY) || content.equals(OriginOfDisplayedThumbnails.FILES_IN_SAME_FAVORITE_DIRECTORY);
     }
 
     @Override

@@ -16,7 +16,7 @@ import org.openide.util.Lookup;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
-import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
+import org.jphototagger.api.image.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
@@ -50,9 +50,9 @@ public final class MiscMetadataItemSelectedController implements TreeSelectionLi
     @EventSubscriber(eventClass = ThumbnailsPanelRefreshEvent.class)
     public void refresh(ThumbnailsPanelRefreshEvent evt) {
         if (GUI.getMiscMetadataTree().getSelectionCount() == 1) {
-            TypeOfDisplayedImages typeOfDisplayedImages = evt.getTypeOfDisplayedImages();
+            OriginOfDisplayedThumbnails typeOfDisplayedImages = evt.getTypeOfDisplayedImages();
 
-            if (TypeOfDisplayedImages.MISC_METADATA.equals(typeOfDisplayedImages)) {
+            if (OriginOfDisplayedThumbnails.FILES_MATCHING_MISC_METADATA.equals(typeOfDisplayedImages)) {
                 EventQueueUtil.invokeInDispatchThread(new ShowThumbnails(GUI.getMiscMetadataTree().getSelectionPath(), evt.getThumbnailsPanelSettings()));
             }
         }
@@ -102,7 +102,7 @@ public final class MiscMetadataItemSelectedController implements TreeSelectionLi
                     setTitle(mdValue, userObject);
                     SortThumbnailsController.setLastSort();
                     tnPanel.setFiles(repo.findImageFilesWhereMetaDataValueHasExactValue(mdValue,
-                            userObject.toString()), TypeOfDisplayedImages.MISC_METADATA);
+                            userObject.toString()), OriginOfDisplayedThumbnails.FILES_MATCHING_MISC_METADATA);
                     tnPanel.apply(tnPanelSettings);
                 } else {
                     setTitle();
@@ -112,11 +112,11 @@ public final class MiscMetadataItemSelectedController implements TreeSelectionLi
 
                 setTitle(mdValue);
                 SortThumbnailsController.setLastSort();
-                tnPanel.setFiles(repo.findImageFilesContainingAVauleInMetaDataValue(mdValue), TypeOfDisplayedImages.MISC_METADATA);
+                tnPanel.setFiles(repo.findImageFilesContainingAVauleInMetaDataValue(mdValue), OriginOfDisplayedThumbnails.FILES_MATCHING_MISC_METADATA);
                 tnPanel.apply(tnPanelSettings);
             } else {
                 SortThumbnailsController.setLastSort();
-                tnPanel.setFiles(new ArrayList<File>(), TypeOfDisplayedImages.MISC_METADATA);
+                tnPanel.setFiles(new ArrayList<File>(), OriginOfDisplayedThumbnails.FILES_MATCHING_MISC_METADATA);
                 tnPanel.apply(tnPanelSettings);
                 setTitle();
             }

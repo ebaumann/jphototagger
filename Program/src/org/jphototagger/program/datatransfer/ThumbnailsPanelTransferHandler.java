@@ -23,7 +23,7 @@ import org.jphototagger.domain.metadata.MetaDataValueData;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.repository.ImageCollectionsRepository;
 import org.jphototagger.domain.templates.MetadataTemplate;
-import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
+import org.jphototagger.api.image.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.lib.datatransfer.TransferUtil;
 import org.jphototagger.lib.datatransfer.TransferUtil.FilenameDelimiter;
 import org.jphototagger.lib.datatransfer.TransferableObject;
@@ -78,7 +78,7 @@ public final class ThumbnailsPanelTransferHandler extends TransferHandler {
     }
 
     private java.awt.datatransfer.DataFlavor[] getFlavors(JComponent c) {
-        return ((ThumbnailsPanel) c).getContent().equals(TypeOfDisplayedImages.IMAGE_COLLECTION)
+        return ((ThumbnailsPanel) c).getContent().equals(OriginOfDisplayedThumbnails.FILES_OF_AN_IMAGE_COLLECTION)
                 ? new java.awt.datatransfer.DataFlavor[]{Flavor.THUMBNAILS_PANEL, Flavor.FILE_LIST_FLAVOR,
                     Flavor.URI_LIST, Flavor.IMAGE_COLLECTION}
                 : new java.awt.datatransfer.DataFlavor[]{Flavor.THUMBNAILS_PANEL, Flavor.FILE_LIST_FLAVOR,
@@ -124,7 +124,7 @@ public final class ThumbnailsPanelTransferHandler extends TransferHandler {
             throw new NullPointerException("panel == null");
         }
 
-        return panel.getContent().equals(TypeOfDisplayedImages.IMAGE_COLLECTION);
+        return panel.getContent().equals(OriginOfDisplayedThumbnails.FILES_OF_AN_IMAGE_COLLECTION);
     }
 
     @Override
