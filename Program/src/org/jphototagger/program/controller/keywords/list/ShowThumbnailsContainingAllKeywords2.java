@@ -7,7 +7,7 @@ import java.util.List;
 import org.openide.util.Lookup;
 
 import org.jphototagger.domain.repository.ImageFilesRepository;
-import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
+import org.jphototagger.api.image.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.controller.thumbnail.SortThumbnailsController;
@@ -56,7 +56,7 @@ public final class ShowThumbnailsContainingAllKeywords2 implements Runnable {
         List<File> imageFiles = getImageFilesOfKeywords();
 
         SortThumbnailsController.setLastSort();
-        GUI.getThumbnailsPanel().setFiles(imageFiles, TypeOfDisplayedImages.KEYWORD);
+        GUI.getThumbnailsPanel().setFiles(imageFiles, OriginOfDisplayedThumbnails.FILES_MATCHING_A_KEYWORD);
     }
 
     private List<File> getImageFilesOfKeywords() {

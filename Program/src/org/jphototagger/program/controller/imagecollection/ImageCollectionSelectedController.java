@@ -15,7 +15,7 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.domain.repository.ImageCollectionsRepository;
 import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
-import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
+import org.jphototagger.api.image.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.comparator.FileSort;
@@ -55,9 +55,9 @@ public final class ImageCollectionSelectedController implements ListSelectionLis
     @EventSubscriber(eventClass = ThumbnailsPanelRefreshEvent.class)
     public void refresh(ThumbnailsPanelRefreshEvent evt) {
         if (GUI.getImageCollectionsList().getSelectedIndex() >= 0) {
-            TypeOfDisplayedImages typeOfDisplayedImages = evt.getTypeOfDisplayedImages();
+            OriginOfDisplayedThumbnails typeOfDisplayedImages = evt.getTypeOfDisplayedImages();
 
-            if (TypeOfDisplayedImages.IMAGE_COLLECTION.equals(typeOfDisplayedImages)) {
+            if (OriginOfDisplayedThumbnails.FILES_OF_AN_IMAGE_COLLECTION.equals(typeOfDisplayedImages)) {
                 showImageCollection(evt.getThumbnailsPanelSettings());
             }
         }
@@ -95,7 +95,7 @@ public final class ImageCollectionSelectedController implements ListSelectionLis
 
                 setTitle();
                 tnPanel.setFileSortComparator(FileSort.NO_SORT.getComparator());
-                tnPanel.setFiles(imageFiles, TypeOfDisplayedImages.IMAGE_COLLECTION);
+                tnPanel.setFiles(imageFiles, OriginOfDisplayedThumbnails.FILES_OF_AN_IMAGE_COLLECTION);
                 tnPanel.apply(settings);
                 WaitDisplay.hide();
             }

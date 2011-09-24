@@ -11,7 +11,7 @@ import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 
 import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
-import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
+import org.jphototagger.api.image.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
@@ -48,9 +48,9 @@ public final class DirectorySelectedController implements TreeSelectionListener 
 
     @EventSubscriber(eventClass = ThumbnailsPanelRefreshEvent.class)
     public void refresh(ThumbnailsPanelRefreshEvent evt) {
-        TypeOfDisplayedImages typeOfDisplayedImages = evt.getTypeOfDisplayedImages();
+        OriginOfDisplayedThumbnails typeOfDisplayedImages = evt.getTypeOfDisplayedImages();
 
-        if (TypeOfDisplayedImages.DIRECTORY.equals(typeOfDisplayedImages)) {
+        if (OriginOfDisplayedThumbnails.FILES_IN_SAME_DIRECTORY.equals(typeOfDisplayedImages)) {
             setFilesToThumbnailsPanel(evt.getThumbnailsPanelSettings());
         }
     }
@@ -87,7 +87,7 @@ public final class DirectorySelectedController implements TreeSelectionListener 
 
                 setTitle(selectedDirectory);
                 SortThumbnailsController.setLastSort();
-                GUI.getThumbnailsPanel().setFiles(files, TypeOfDisplayedImages.DIRECTORY);
+                GUI.getThumbnailsPanel().setFiles(files, OriginOfDisplayedThumbnails.FILES_IN_SAME_DIRECTORY);
                 GUI.getThumbnailsPanel().apply(panelSettings);
                 setMetadataEditable();
                 WaitDisplay.hide();

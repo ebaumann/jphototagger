@@ -9,7 +9,7 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
-import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
+import org.jphototagger.api.image.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.controller.thumbnail.SortThumbnailsController;
@@ -65,7 +65,7 @@ public final class ShowThumbnailsContainingAllKeywords implements Runnable {
             ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
             SortThumbnailsController.setLastSort();
-            tnPanel.setFiles(imageFiles, TypeOfDisplayedImages.KEYWORD);
+            tnPanel.setFiles(imageFiles, OriginOfDisplayedThumbnails.FILES_MATCHING_A_KEYWORD);
             tnPanel.apply(tnPanelSettings);
         }
     }

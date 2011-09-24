@@ -6,7 +6,7 @@ import javax.swing.event.TreeSelectionListener;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 
-import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
+import org.jphototagger.api.image.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
 import org.jphototagger.program.helper.FavoritesHelper;
 import org.jphototagger.program.resource.GUI;
@@ -39,9 +39,9 @@ public final class FavoriteSelectedController implements TreeSelectionListener {
     @EventSubscriber(eventClass = ThumbnailsPanelRefreshEvent.class)
     public void refresh(ThumbnailsPanelRefreshEvent evt) {
         if (GUI.getFavoritesTree().getSelectionCount() > 0) {
-            TypeOfDisplayedImages typeOfDisplayedImages = evt.getTypeOfDisplayedImages();
+            OriginOfDisplayedThumbnails typeOfDisplayedImages = evt.getTypeOfDisplayedImages();
 
-            if (TypeOfDisplayedImages.FAVORITE.equals(typeOfDisplayedImages)) {
+            if (OriginOfDisplayedThumbnails.FILES_IN_SAME_FAVORITE_DIRECTORY.equals(typeOfDisplayedImages)) {
                 FavoritesHelper.setFilesToThumbnailPanel(FavoritesHelper.getFilesOfSelectedtDirectory(), evt.getThumbnailsPanelSettings());
             }
         }

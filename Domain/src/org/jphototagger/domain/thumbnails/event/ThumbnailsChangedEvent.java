@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.Collections;
 import java.util.List;
 
-import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
+import org.jphototagger.api.image.thumbnails.OriginOfDisplayedThumbnails;
 
 /**
  *
@@ -14,11 +14,11 @@ import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
 public final class ThumbnailsChangedEvent {
 
     private final Object source;
-    private final TypeOfDisplayedImages typeOfDisplayedImages;
+    private final OriginOfDisplayedThumbnails originOfDisplayedThumbnails;
     private final List<File> imageFiles;
 
-    public ThumbnailsChangedEvent(Object source, TypeOfDisplayedImages typeOfDisplayedImages, List<File> imageFiles) {
-        if (typeOfDisplayedImages == null) {
+    public ThumbnailsChangedEvent(Object source, OriginOfDisplayedThumbnails originOfDisplayedThumbnails, List<File> imageFiles) {
+        if (originOfDisplayedThumbnails == null) {
             throw new NullPointerException("typeOfDisplayedImages == null");
         }
 
@@ -27,7 +27,7 @@ public final class ThumbnailsChangedEvent {
         }
 
         this.source = source;
-        this.typeOfDisplayedImages = typeOfDisplayedImages;
+        this.originOfDisplayedThumbnails = originOfDisplayedThumbnails;
         this.imageFiles = imageFiles;
     }
 
@@ -47,7 +47,7 @@ public final class ThumbnailsChangedEvent {
         return imageFiles.size();
     }
 
-    public TypeOfDisplayedImages getTypeOfDisplayedImages() {
-        return typeOfDisplayedImages;
+    public OriginOfDisplayedThumbnails getOriginOfDisplayedThumbnails() {
+        return originOfDisplayedThumbnails;
     }
 }

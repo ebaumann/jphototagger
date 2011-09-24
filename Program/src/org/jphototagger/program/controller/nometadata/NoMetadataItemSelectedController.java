@@ -10,7 +10,7 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.repository.ImageFilesRepository;
-import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
+import org.jphototagger.api.image.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.controller.thumbnail.SortThumbnailsController;
 import org.jphototagger.program.resource.GUI;
@@ -56,7 +56,7 @@ public final class NoMetadataItemSelectedController implements ListSelectionList
             ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
             SortThumbnailsController.setLastSort();
-            tnPanel.setFiles(imageFiles, TypeOfDisplayedImages.MISSING_METADATA);
+            tnPanel.setFiles(imageFiles, OriginOfDisplayedThumbnails.FILES_MATCHING_MISSING_METADATA);
             WaitDisplay.hide();
         }
     }

@@ -56,7 +56,7 @@ import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.domain.thumbnails.ThumbnailFlag;
 import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
-import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
+import org.jphototagger.api.image.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsChangedEvent;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
@@ -106,7 +106,7 @@ public class ThumbnailsPanel extends JPanel
     private FileFilter fileFilter = AppFileFilters.INSTANCE.getAllAcceptedImageFilesFilter();
     private final List<File> files = Collections.synchronizedList(new ArrayList<File>());
     private FileAction fileAction = FileAction.UNDEFINED;
-    private TypeOfDisplayedImages typeOfDisplayedImages = TypeOfDisplayedImages.UNDEFINED;
+    private OriginOfDisplayedThumbnails typeOfDisplayedImages = OriginOfDisplayedThumbnails.UNDEFINED_ORIGIN;
     private final transient ThumbnailDoubleklickController ctrlDoubleklick;
     private boolean drag;
     private boolean keywordsOverlay;
@@ -868,7 +868,7 @@ public class ThumbnailsPanel extends JPanel
                 : sidecarFile.getAbsolutePath();
     }
 
-    public synchronized TypeOfDisplayedImages getContent() {
+    public synchronized OriginOfDisplayedThumbnails getContent() {
         return typeOfDisplayedImages;
     }
 
@@ -1191,7 +1191,7 @@ public class ThumbnailsPanel extends JPanel
      * @param files    files
      * @param content  content description of the files
      */
-    public synchronized void setFiles(Collection<? extends File> files, TypeOfDisplayedImages content) {
+    public synchronized void setFiles(Collection<? extends File> files, OriginOfDisplayedThumbnails content) {
         if (files == null) {
             throw new NullPointerException("files == null");
         }
@@ -1253,7 +1253,7 @@ public class ThumbnailsPanel extends JPanel
     }
 
     public synchronized void sort() {
-        if (!typeOfDisplayedImages.equals(TypeOfDisplayedImages.IMAGE_COLLECTION)) {
+        if (!typeOfDisplayedImages.equals(OriginOfDisplayedThumbnails.FILES_OF_AN_IMAGE_COLLECTION)) {
             List<File> selFiles = getSelectedFiles();
 
             setFiles(new ArrayList<File>(files), typeOfDisplayedImages);

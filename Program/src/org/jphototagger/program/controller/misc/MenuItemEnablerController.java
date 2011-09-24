@@ -12,7 +12,7 @@ import javax.swing.event.PopupMenuListener;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 
-import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
+import org.jphototagger.api.image.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsChangedEvent;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
@@ -27,7 +27,7 @@ import org.jphototagger.program.view.popupmenus.ThumbnailsPopupMenu;
  */
 public final class MenuItemEnablerController implements PopupMenuListener {
 
-    private final Map<JMenuItem, List<TypeOfDisplayedImages>> contentsOfItemsRequiresSelImages = new HashMap<JMenuItem, List<TypeOfDisplayedImages>>();
+    private final Map<JMenuItem, List<OriginOfDisplayedThumbnails>> contentsOfItemsRequiresSelImages = new HashMap<JMenuItem, List<OriginOfDisplayedThumbnails>>();
     private final List<JMenuItem> itemsRequiresSelImages = new ArrayList<JMenuItem>();
 
     public MenuItemEnablerController() {
@@ -41,14 +41,14 @@ public final class MenuItemEnablerController implements PopupMenuListener {
     }
 
     private void init() {
-        List<TypeOfDisplayedImages> contents = new ArrayList<TypeOfDisplayedImages>();
+        List<OriginOfDisplayedThumbnails> contents = new ArrayList<OriginOfDisplayedThumbnails>();
         ThumbnailsPopupMenu popupThumbnails = ThumbnailsPopupMenu.INSTANCE;
 
-        contents.add(TypeOfDisplayedImages.DIRECTORY);
-        contents.add(TypeOfDisplayedImages.FAVORITE);
+        contents.add(OriginOfDisplayedThumbnails.FILES_IN_SAME_DIRECTORY);
+        contents.add(OriginOfDisplayedThumbnails.FILES_IN_SAME_FAVORITE_DIRECTORY);
         contentsOfItemsRequiresSelImages.put(ThumbnailsPopupMenu.INSTANCE.getItemFileSystemMoveFiles(), contents);
-        contents = new ArrayList<TypeOfDisplayedImages>();
-        contents.add(TypeOfDisplayedImages.IMAGE_COLLECTION);
+        contents = new ArrayList<OriginOfDisplayedThumbnails>();
+        contents.add(OriginOfDisplayedThumbnails.FILES_OF_AN_IMAGE_COLLECTION);
         contentsOfItemsRequiresSelImages.put(popupThumbnails.getItemDeleteFromImageCollection(), contents);
         itemsRequiresSelImages.add(popupThumbnails.getItemUpdateThumbnail());
         itemsRequiresSelImages.add(popupThumbnails.getItemUpdateMetadata());
@@ -88,7 +88,7 @@ public final class MenuItemEnablerController implements PopupMenuListener {
             @Override
             public void run() {
                 ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
-                TypeOfDisplayedImages content = tnPanel.getContent();
+                OriginOfDisplayedThumbnails content = tnPanel.getContent();
                 boolean fileSelected = tnPanel.isAFileSelected();
 
                 for (JMenuItem item : itemsRequiresSelImages) {

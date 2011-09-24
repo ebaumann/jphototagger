@@ -3,20 +3,20 @@ package org.jphototagger.program.types;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
+import org.jphototagger.api.image.thumbnails.OriginOfDisplayedThumbnails;
 
 /**
- * Utils for {@code TypeOfDisplayedImages}.
+ * Utils for {@code OriginOfDisplayedThumbnails}.
  *
  * @author Elmar Baumann
  */
 public final class ContentUtil {
 
-    private static final List<TypeOfDisplayedImages> CONTENT_IS_A_FILESYSTEM_DIRECTORY = new ArrayList<TypeOfDisplayedImages>();
+    private static final List<OriginOfDisplayedThumbnails> CONTENT_IS_A_FILESYSTEM_DIRECTORY = new ArrayList<OriginOfDisplayedThumbnails>();
 
     static {
-        CONTENT_IS_A_FILESYSTEM_DIRECTORY.add(TypeOfDisplayedImages.DIRECTORY);
-        CONTENT_IS_A_FILESYSTEM_DIRECTORY.add(TypeOfDisplayedImages.FAVORITE);
+        CONTENT_IS_A_FILESYSTEM_DIRECTORY.add(OriginOfDisplayedThumbnails.FILES_IN_SAME_DIRECTORY);
+        CONTENT_IS_A_FILESYSTEM_DIRECTORY.add(OriginOfDisplayedThumbnails.FILES_IN_SAME_FAVORITE_DIRECTORY);
     }
 
     /**
@@ -25,7 +25,7 @@ public final class ContentUtil {
      * @param  content content
      * @return         true if the content is in a single directory
      */
-    public static boolean isSingleDirectoryContent(TypeOfDisplayedImages content) {
+    public static boolean isSingleDirectoryContent(OriginOfDisplayedThumbnails content) {
         if (content == null) {
             throw new NullPointerException("content == null");
         }
