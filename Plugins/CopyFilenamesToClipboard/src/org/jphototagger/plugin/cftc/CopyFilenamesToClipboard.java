@@ -85,7 +85,6 @@ public final class CopyFilenamesToClipboard extends AbstractFileProcessorPlugin 
 
         Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(sb.toString()), null);
         EventBus.publish(new FileProcessingFinishedEvent(this, true));
-        releaseProgressBar();
     }
 
     private void setDelimiter() {

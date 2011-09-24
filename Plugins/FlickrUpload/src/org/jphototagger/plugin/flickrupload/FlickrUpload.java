@@ -30,12 +30,14 @@ import org.jphototagger.api.plugin.fileprocessor.FileProcessedEvent;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessingFinishedEvent;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessingStartedEvent;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessorPlugin;
+import org.jphototagger.api.progress.MainWindowProgressBarProvider;
+import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.image.util.ImageUtil;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.io.IoUtil;
+import org.jphototagger.lib.plugin.AbstractFileProcessorPlugin;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.lib.plugin.AbstractFileProcessorPlugin;
 import org.jphototagger.plugin.flickrupload.FlickrImageInfoPanel.ImageInfo;
 import org.jphototagger.xmp.XmpProperties;
 
@@ -50,6 +52,7 @@ public final class FlickrUpload extends AbstractFileProcessorPlugin implements S
     private static final long serialVersionUID = -2935460271965834936L;
     private static final Icon icon = IconUtil.getImageIcon("/org/jphototagger/plugin/flickrupload/flickr.png");
     private static final String PROGRESS_BAR_STRING = Bundle.getString(FlickrUpload.class, "FlickrUpload.ProgressBar.String");
+    private final MainWindowProgressBarProvider progressBarProvider = Lookup.getDefault().lookup(MainWindowProgressBarProvider.class);
 
     @Override
     public String getDisplayName() {
@@ -112,13 +115,13 @@ public final class FlickrUpload extends AbstractFileProcessorPlugin implements S
             }
 
             List<ImageInfo> uploadImages = dlg.getUploadImages();
-            int size = uploadImages.size();
-            int index = 0;
+            int countOfImagesToUpload = uploadImages.size();
+            int countOfProcessedImages = 0;
             FileInputStream is = null;
             boolean success = true;
 
             EventBus.publish(new FileProcessingStartedEvent(this));
-            progressStarted(0, size, 0, PROGRESS_BAR_STRING);
+            progressBarProvider.progressStarted(createStartProgressEvent(countOfImagesToUpload));
 
             File imageFile = null;
 
@@ -129,7 +132,8 @@ public final class FlickrUpload extends AbstractFileProcessorPlugin implements S
                     uploader.upload(is, getUploadMetaData(imageInfo));
                     is.close();
                     EventBus.publish(new FileProcessedEvent(this, imageFile, false));
-                    progressPerformed(0, size, ++index, PROGRESS_BAR_STRING);
+                    countOfProcessedImages++;
+                    progressBarProvider.progressPerformed(createPerformedProgressEvent(countOfImagesToUpload, countOfProcessedImages));
                 } catch (Exception ex) {
                     logDisplayUploadException(ex, imageFile);
                     success = false;
@@ -140,18 +144,50 @@ public final class FlickrUpload extends AbstractFileProcessorPlugin implements S
                 }
             }
 
-            uploadFinished(index, success);
+            uploadFinished(countOfImagesToUpload, countOfProcessedImages, success);
         }
 
         private Uploader createUploader() {
             return new Uploader("1efba3cf4198b683047512bec1429f19", "b58bc39d8aedd4c5");
         }
 
-        private void uploadFinished(int uploadCount, boolean success) throws HeadlessException {
-            progressEnded();
-            JOptionPane.showMessageDialog(ComponentUtil.getFrameWithIcon(), Bundle.getString(FlickrUpload.class, "FlickrUpload.Info.UploadCount", uploadCount));
+        private ProgressEvent createStartProgressEvent(int maximum) {
+            return new ProgressEvent.Builder()
+                    .source(this)
+                    .minimum(0)
+                    .maximum(maximum)
+                    .value(0)
+                    .stringPainted(true)
+                    .stringToPaint(PROGRESS_BAR_STRING)
+                    .build();
+        }
+
+        private ProgressEvent createPerformedProgressEvent(int maximum, int value) {
+            return new ProgressEvent.Builder()
+                    .source(this)
+                    .minimum(0)
+                    .maximum(maximum)
+                    .value(value)
+                    .stringPainted(true)
+                    .stringToPaint(PROGRESS_BAR_STRING)
+                    .build();
+        }
+
+        private ProgressEvent createEndedProgressEvent(int maximum, int value) {
+            return new ProgressEvent.Builder()
+                    .source(this)
+                    .minimum(0)
+                    .maximum(maximum)
+                    .value(value)
+                    .stringPainted(true)
+                    .stringToPaint(PROGRESS_BAR_STRING)
+                    .build();
+        }
+
+        private void uploadFinished(int countOfImagesToUpload, int countOfUploadedImages, boolean success) throws HeadlessException {
+            progressBarProvider.progressEnded(createEndedProgressEvent(countOfImagesToUpload, countOfUploadedImages));
+            JOptionPane.showMessageDialog(ComponentUtil.getFrameWithIcon(), Bundle.getString(FlickrUpload.class, "FlickrUpload.Info.UploadCount", countOfUploadedImages));
             EventBus.publish(new FileProcessingFinishedEvent(this, success));
-            releaseProgressBar();
         }
 
         private void logDisplayUploadException(Exception ex, File imageFile) throws HeadlessException {
