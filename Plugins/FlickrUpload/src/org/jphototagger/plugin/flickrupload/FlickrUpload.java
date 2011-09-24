@@ -92,6 +92,7 @@ public final class FlickrUpload extends AbstractFileProcessorPlugin implements S
     private class Upload extends Thread {
 
         private final Collection<? extends File> files;
+        private final Object pBarOwner = this;
 
         Upload(Collection<? extends File> files) {
             this.files = new ArrayList<File>(files);
@@ -153,7 +154,7 @@ public final class FlickrUpload extends AbstractFileProcessorPlugin implements S
 
         private ProgressEvent createStartProgressEvent(int maximum) {
             return new ProgressEvent.Builder()
-                    .source(this)
+                    .source(pBarOwner)
                     .minimum(0)
                     .maximum(maximum)
                     .value(0)
@@ -164,18 +165,7 @@ public final class FlickrUpload extends AbstractFileProcessorPlugin implements S
 
         private ProgressEvent createPerformedProgressEvent(int maximum, int value) {
             return new ProgressEvent.Builder()
-                    .source(this)
-                    .minimum(0)
-                    .maximum(maximum)
-                    .value(value)
-                    .stringPainted(true)
-                    .stringToPaint(PROGRESS_BAR_STRING)
-                    .build();
-        }
-
-        private ProgressEvent createEndedProgressEvent(int maximum, int value) {
-            return new ProgressEvent.Builder()
-                    .source(this)
+                    .source(pBarOwner)
                     .minimum(0)
                     .maximum(maximum)
                     .value(value)
@@ -185,7 +175,7 @@ public final class FlickrUpload extends AbstractFileProcessorPlugin implements S
         }
 
         private void uploadFinished(int countOfImagesToUpload, int countOfUploadedImages, boolean success) throws HeadlessException {
-            progressBarProvider.progressEnded(createEndedProgressEvent(countOfImagesToUpload, countOfUploadedImages));
+            progressBarProvider.progressEnded(pBarOwner);
             JOptionPane.showMessageDialog(ComponentUtil.getFrameWithIcon(), Bundle.getString(FlickrUpload.class, "FlickrUpload.Info.UploadCount", countOfUploadedImages));
             EventBus.publish(new FileProcessingFinishedEvent(this, success));
         }
