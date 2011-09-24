@@ -42,9 +42,8 @@ public final class ProgressBarProviderImpl implements MainWindowProgressBarProvi
     }
 
     @Override
-    public void progressEnded(ProgressEvent evt) {
+    public void progressEnded(final Object eventSource) {
         synchronized (monitor) {
-            final Object eventSource = evt.getSource();
             if (eventSource == progressBarOwner) {
                 EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
