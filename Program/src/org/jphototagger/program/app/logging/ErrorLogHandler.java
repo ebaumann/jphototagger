@@ -15,12 +15,14 @@ import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.componentutil.MessageLabel;
+import org.jphototagger.api.messages.MessageType;
+import org.jphototagger.api.messages.StatusBarMessageDisplayer;
 import org.jphototagger.lib.dialog.LogfileDialog;
 import org.jphototagger.lib.event.util.MouseEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.resource.GUI;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -83,7 +85,9 @@ public final class ErrorLogHandler extends Handler implements ActionListener, Mo
     }
 
     private void showErrorLabel() {
-        GUI.getAppPanel().setStatusbarText(STATUSBAR_ERROR_TEXT, MessageLabel.MessageType.ERROR, MILLISECONDS_ERROR_DISPLAY);
+        StatusBarMessageDisplayer messageDisplayer = Lookup.getDefault().lookup(StatusBarMessageDisplayer.class);
+
+        messageDisplayer.setStatusbarText(STATUSBAR_ERROR_TEXT, MessageType.ERROR, MILLISECONDS_ERROR_DISPLAY);
         getItemErrorLogfile().setEnabled(true);
 
         JLabel labelError = GUI.getAppPanel().getLabelError();

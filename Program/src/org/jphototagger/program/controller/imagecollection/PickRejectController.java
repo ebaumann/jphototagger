@@ -15,7 +15,8 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.domain.repository.ImageCollectionsRepository;
 import org.jphototagger.domain.thumbnails.TypeOfDisplayedImages;
-import org.jphototagger.lib.componentutil.MessageLabel;
+import org.jphototagger.api.messages.MessageType;
+import org.jphototagger.api.messages.StatusBarMessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.model.ImageCollectionsListModel;
 import org.jphototagger.program.resource.GUI;
@@ -68,7 +69,8 @@ public final class PickRejectController implements ActionListener, KeyListener {
         if (panelThumbnails.isAFileSelected()) {
             List<File> selFiles = panelThumbnails.getSelectedFiles();
 
-            GUI.getAppPanel().setStatusbarText(getPopupMessage(pick), MessageLabel.MessageType.INFO, 1000);
+            StatusBarMessageDisplayer messageDisplayer = Lookup.getDefault().lookup(StatusBarMessageDisplayer.class);
+            messageDisplayer.setStatusbarText(getPopupMessage(pick), MessageType.INFO, 1000);
             addToCollection(pick
                     ? ImageCollectionsListModel.NAME_IMAGE_COLLECTION_PICKED
                     : ImageCollectionsListModel.NAME_IMAGE_COLLECTION_REJECTED, selFiles);

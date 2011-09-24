@@ -1,5 +1,6 @@
 package org.jphototagger.lib.componentutil;
 
+import org.jphototagger.api.messages.MessageType;
 import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,19 +24,6 @@ public final class MessageLabel {
         }
 
         this.label = label;
-    }
-
-    public enum MessageType {
-        INFO, ERROR
-        ;
-
-        public boolean isError() {
-            return this.equals(ERROR);
-        }
-
-        public boolean isInfo() {
-            return this.equals(INFO);
-        }
     }
 
     public void showMessage(final String message, final MessageType type, final long milliseconds) {
