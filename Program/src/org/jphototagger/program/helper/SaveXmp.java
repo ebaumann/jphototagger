@@ -5,19 +5,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
-import javax.swing.JProgressBar;
-
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.api.concurrent.SerialTaskExecutor;
+import org.jphototagger.api.progress.MainWindowProgressBarProvider;
+import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.domain.metadata.xmp.FileXmp;
 import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.repository.InsertIntoRepository;
-import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppLifeCycle;
-import org.jphototagger.program.view.panels.ProgressBar;
 import org.jphototagger.xmp.XmpMetadata;
 
 /**
@@ -30,9 +28,9 @@ public final class SaveXmp extends Thread implements Cancelable {
 
     private static final String PROGRESSBAR_STRING = Bundle.getString(SaveXmp.class, "SaveXmp.ProgressBar.String");
     private final Collection<FileXmp> imageFilesXmp;
-    private JProgressBar progressBar;
     private volatile boolean cancel;
     private final Object pBarOwner = this;
+    private final MainWindowProgressBarProvider progressBarProvider = Lookup.getDefault().lookup(MainWindowProgressBarProvider.class);
 
     private SaveXmp(Collection<FileXmp> imageFilesXmp) {
         super("JPhotoTagger: Saving XMP");
@@ -59,6 +57,7 @@ public final class SaveXmp extends Thread implements Cancelable {
     public void run() {
         int fileIndex = 0;
 
+        progressBarProvider.progressStarted(createProgressEvent(0));
         // Ignore isInterrupted() because saving user input has high priority
         for (FileXmp fileXmp : imageFilesXmp) {
             if (cancel) {
@@ -73,10 +72,11 @@ public final class SaveXmp extends Thread implements Cancelable {
                 updateRepository(imageFile);
             }
 
-            updateProgressBar(++fileIndex);
+            fileIndex++;
+            progressBarProvider.progressPerformed(createProgressEvent(fileIndex));
         }
 
-        releaseProgressBar();
+        progressBarProvider.progressEnded(pBarOwner);
         AppLifeCycle.INSTANCE.removeSaveObject(this);
     }
 
@@ -86,53 +86,15 @@ public final class SaveXmp extends Thread implements Cancelable {
         updater.run();    // run in this thread!
     }
 
-    private void getProgressBar() {
-        if (progressBar != null) {
-            return;
-        }
-
-        progressBar = ProgressBar.INSTANCE.getResource(pBarOwner);
-    }
-
-    private void updateProgressBar(final int value) {
-        getProgressBar();
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                if (progressBar != null) {
-                    progressBar.setMinimum(0);
-                    progressBar.setMaximum(imageFilesXmp.size());
-                    progressBar.setValue(value);
-
-                    if (!progressBar.isStringPainted()) {
-                        progressBar.setStringPainted(true);
-                    }
-
-                    if (!PROGRESSBAR_STRING.equals(progressBar.getString())) {
-                        progressBar.setString(PROGRESSBAR_STRING);
-                    }
-                }
-            }
-        });
-    }
-
-    private void releaseProgressBar() {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                if (progressBar != null) {
-                    if (progressBar.isStringPainted()) {
-                        progressBar.setString("");
-                    }
-
-                    progressBar.setValue(0);
-                    ProgressBar.INSTANCE.releaseResource(pBarOwner);
-                    progressBar = null;
-                }
-            }
-        });
+    private ProgressEvent createProgressEvent(int value) {
+        return new ProgressEvent.Builder()
+               .source(pBarOwner)
+                .stringPainted(true)
+                .stringToPaint(PROGRESSBAR_STRING)
+                .minimum(0)
+                .maximum(imageFilesXmp.size())
+                .value(value)
+                .build();
     }
 
     @Override

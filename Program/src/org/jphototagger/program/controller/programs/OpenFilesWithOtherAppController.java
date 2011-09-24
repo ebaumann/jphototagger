@@ -14,7 +14,7 @@ import org.jphototagger.program.view.popupmenus.ThumbnailsPopupMenu;
  */
 public final class OpenFilesWithOtherAppController implements ActionListener {
 
-    private final StartPrograms programStarter = new StartPrograms(null);
+    private final StartPrograms programStarter = new StartPrograms();
 
     public OpenFilesWithOtherAppController() {
         listen();

@@ -17,7 +17,6 @@ import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.controller.actions.AddProgramAction;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.panels.ProgressBar;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 
 /**
@@ -37,7 +36,7 @@ public final class ActionsHelper {
             List<Program> actions = repo.findAllPrograms(ProgramType.ACTION);
 
             for (Program action : actions) {
-                menu.add(new JMenuItem(new ActionStarter(action, action)));
+                menu.add(new JMenuItem(new ActionStarter(action)));
             }
         }
 
@@ -53,7 +52,7 @@ public final class ActionsHelper {
         List<Program> actions = repo.findAllPrograms(ProgramType.ACTION);
 
         for (Program action : actions) {
-            actionsMenu.add(new JMenuItem(new ActionStarter(action, action)));
+            actionsMenu.add(new JMenuItem(new ActionStarter(action)));
         }
 
         actionsMenu.add(ADD_ACTION_MENU_ITEM);
@@ -81,7 +80,7 @@ public final class ActionsHelper {
         }
 
         actionsMenu.remove(ADD_ACTION_MENU_ITEM);
-        actionsMenu.add(new ActionStarter(action, action));
+        actionsMenu.add(new ActionStarter(action));
         actionsMenu.add(ADD_ACTION_MENU_ITEM);
     }
 
@@ -157,11 +156,9 @@ public final class ActionsHelper {
 
         private static final long serialVersionUID = 1L;
         private final transient Program action;
-        private final Object pBarOwner;
 
-        ActionStarter(Program action, Object progressBarOwner) {
+        ActionStarter(Program action) {
             this.action = action;
-            this.pBarOwner = progressBarOwner;
             setNameAndIcon(this, action);
         }
 
@@ -177,10 +174,9 @@ public final class ActionsHelper {
                 return;
             }
 
-            StartPrograms starter = new StartPrograms(ProgressBar.INSTANCE.getResource(pBarOwner));
+            StartPrograms starter = new StartPrograms();
 
             starter.startProgram(action, tnPanel.getSelectedFiles(), true);
-            ProgressBar.INSTANCE.releaseResource(pBarOwner);
         }
     }
 

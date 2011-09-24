@@ -53,7 +53,7 @@ public final class InsertImageFilesIntoRepository extends Thread implements Canc
     private final ImageFilesRepository imageFileRepo = Lookup.getDefault().lookup(ImageFilesRepository.class);
     private final ActionsAfterRepoUpdatesRepository actionsAfterRepoUpdatesRepo = Lookup.getDefault().lookup(ActionsAfterRepoUpdatesRepository.class);
     private final ProgressListenerSupport pls = new ProgressListenerSupport();
-    private ProgressEvent progressEvent = new ProgressEvent.Builder().source(this).indeterminate(true).build();
+    private ProgressEvent progressEvent = new ProgressEvent.Builder().source(this).build();
     private final Set<InsertIntoRepository> what = new HashSet<InsertIntoRepository>();
     private final List<File> imageFiles;
     private boolean cancel;
@@ -225,7 +225,7 @@ public final class InsertImageFilesIntoRepository extends Thread implements Canc
         imageFile.setThumbnail(thumbnail);
 
         if (thumbnail == null) {
-            errorMessageNullThumbnail(file);
+            logErrorNullThumbnail(file);
             imageFile.setThumbnail(AppLookAndFeel.ERROR_THUMBNAIL);
         }
     }
@@ -309,7 +309,7 @@ public final class InsertImageFilesIntoRepository extends Thread implements Canc
         List<Program> actions = actionsAfterRepoUpdatesRepo.findAllActions();
 
         for (Program action : actions) {
-            StartPrograms programStarter = new StartPrograms(null);
+            StartPrograms programStarter = new StartPrograms();
 
             programStarter.startProgram(action, Collections.singletonList(imgFile), true);
         }
@@ -383,7 +383,7 @@ public final class InsertImageFilesIntoRepository extends Thread implements Canc
     }
 
     private void notifyPerformed(int value, File file) {
-        informationMessagePerformed(file);
+        logPerformed(file);
         notifyUpdateMetadataCheckListener(Type.CHECKING_FILE, file);
         progressEvent.setValue(value);
         progressEvent.setInfo(file);
@@ -391,20 +391,20 @@ public final class InsertImageFilesIntoRepository extends Thread implements Canc
     }
 
     private void notifyEnded(int filecount) {
-        informationMessageEnded(filecount);
+        logEnded(filecount);
         notifyUpdateMetadataCheckListener(Type.CHECK_FINISHED, null);
         pls.notifyEnded(progressEvent);
     }
 
-    private void errorMessageNullThumbnail(File file) {
+    private void logErrorNullThumbnail(File file) {
         LOGGER.log(Level.WARNING, "Thumbnail couldn''t be created for image file ''{0}''", file);
     }
 
-    private void informationMessagePerformed(File file) {
+    private void logPerformed(File file) {
         LOGGER.log(Level.FINEST, "Synchronizing ''{0}'' with the repository", file);
     }
 
-    private void informationMessageEnded(int filecount) {
+    private void logEnded(int filecount) {
         LOGGER.log(Level.INFO, "Synchronized {0} image files with the repository", filecount);
     }
 

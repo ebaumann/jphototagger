@@ -50,7 +50,7 @@ public final class RefreshExifInDbOfKnownFiles extends HelperThread {
                 repo.saveOrUpdateExif(imageFile, exif);
             }
 
-            progressPerformed(i + 1, imageFile);
+            progressPerformed(i + 1, imageFile.getName());
         }
 
         progressEnded(null);

@@ -3,6 +3,8 @@ package org.jphototagger.program.controller.programs;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import java.io.File;
+import java.util.List;
 import org.openide.util.Lookup;
 
 import org.jphototagger.domain.programs.Program;
@@ -43,7 +45,11 @@ public final class OpenFilesWithStandardAppController implements ActionListener 
             MessageDisplayer.information(null, message);
             ProgramsHelper.openSelectedFilesWidth(ProgramsHelper.addProgram(), false);
         } else {
-            new StartPrograms(null).startProgram(program, GUI.getSelectedImageFiles(), false);
+            StartPrograms startPrograms = new StartPrograms();
+            List<File> selectedImageFiles = GUI.getSelectedImageFiles();
+            boolean waitForTermination = false;
+
+            startPrograms.startProgram(program, selectedImageFiles, waitForTermination);
         }
     }
 }

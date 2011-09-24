@@ -1,5 +1,6 @@
 package org.jphototagger.program.controller.thumbnail;
 
+import java.io.File;
 import java.util.Arrays;
 
 import org.openide.util.Lookup;
@@ -46,7 +47,11 @@ public final class ThumbnailDoubleklickController {
                 MessageDisplayer.information(null, message);
                 ProgramsHelper.openSelectedFilesWidth(ProgramsHelper.addProgram(), false);
             } else {
-                new StartPrograms(null).startProgram(program, Arrays.asList(panel.getFileAtIndex(index)), false);
+                StartPrograms startPrograms = new StartPrograms();
+                File selectedFile = panel.getFileAtIndex(index);
+                boolean waitForTermination = false;
+
+                startPrograms.startProgram(program, Arrays.asList(selectedFile), waitForTermination);
             }
         }
     }
