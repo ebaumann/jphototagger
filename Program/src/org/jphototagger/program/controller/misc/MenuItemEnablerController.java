@@ -27,7 +27,7 @@ import org.jphototagger.program.view.popupmenus.ThumbnailsPopupMenu;
  */
 public final class MenuItemEnablerController implements PopupMenuListener {
 
-    private final Map<JMenuItem, List<OriginOfDisplayedThumbnails>> contentsOfItemsRequiresSelImages = new HashMap<JMenuItem, List<OriginOfDisplayedThumbnails>>();
+    private final Map<JMenuItem, List<OriginOfDisplayedThumbnails>> originsOfItemsRequiresSelImages = new HashMap<JMenuItem, List<OriginOfDisplayedThumbnails>>();
     private final List<JMenuItem> itemsRequiresSelImages = new ArrayList<JMenuItem>();
 
     public MenuItemEnablerController() {
@@ -46,10 +46,10 @@ public final class MenuItemEnablerController implements PopupMenuListener {
 
         contents.add(OriginOfDisplayedThumbnails.FILES_IN_SAME_DIRECTORY);
         contents.add(OriginOfDisplayedThumbnails.FILES_IN_SAME_FAVORITE_DIRECTORY);
-        contentsOfItemsRequiresSelImages.put(ThumbnailsPopupMenu.INSTANCE.getItemFileSystemMoveFiles(), contents);
+        originsOfItemsRequiresSelImages.put(ThumbnailsPopupMenu.INSTANCE.getItemFileSystemMoveFiles(), contents);
         contents = new ArrayList<OriginOfDisplayedThumbnails>();
         contents.add(OriginOfDisplayedThumbnails.FILES_OF_AN_IMAGE_COLLECTION);
-        contentsOfItemsRequiresSelImages.put(popupThumbnails.getItemDeleteFromImageCollection(), contents);
+        originsOfItemsRequiresSelImages.put(popupThumbnails.getItemDeleteFromImageCollection(), contents);
         itemsRequiresSelImages.add(popupThumbnails.getItemUpdateThumbnail());
         itemsRequiresSelImages.add(popupThumbnails.getItemUpdateMetadata());
         itemsRequiresSelImages.add(popupThumbnails.getItemDeleteImageFromRepository());
@@ -88,15 +88,15 @@ public final class MenuItemEnablerController implements PopupMenuListener {
             @Override
             public void run() {
                 ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
-                OriginOfDisplayedThumbnails content = tnPanel.getContent();
+                OriginOfDisplayedThumbnails originOfOfDisplayedThumbnails = tnPanel.getOriginOfDisplayedThumbnails();
                 boolean fileSelected = tnPanel.isAFileSelected();
 
                 for (JMenuItem item : itemsRequiresSelImages) {
                     item.setEnabled(fileSelected);
                 }
 
-                for (JMenuItem item : contentsOfItemsRequiresSelImages.keySet()) {
-                    item.setEnabled(fileSelected && contentsOfItemsRequiresSelImages.get(item).contains(content));
+                for (JMenuItem item : originsOfItemsRequiresSelImages.keySet()) {
+                    item.setEnabled(fileSelected && originsOfItemsRequiresSelImages.get(item).contains(originOfOfDisplayedThumbnails));
                 }
 
                 ThumbnailsPopupMenu.INSTANCE.getItemOpenFilesWithStandardApp().setEnabled(fileSelected);

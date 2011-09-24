@@ -84,7 +84,7 @@ public final class RenameFilesController implements ActionListener, KeyListener 
 
             Collections.sort(selFiles);
             dlg.setImageFiles(selFiles);
-            dlg.setEnabledTemplates(GUI.getThumbnailsPanel().getContent().isUniqueFileSystemDirectory());
+            dlg.setEnabledTemplates(GUI.getThumbnailsPanel().getOriginOfDisplayedThumbnails().isUniqueFileSystemDirectory());
             dlg.setVisible(true);
         }
     }

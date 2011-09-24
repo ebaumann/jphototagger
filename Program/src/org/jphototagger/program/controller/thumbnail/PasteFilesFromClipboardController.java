@@ -85,14 +85,14 @@ public final class PasteFilesFromClipboardController implements ActionListener, 
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        if (GUI.getThumbnailsPanel().getContent().canInsertImagesFromFileSystem()) {
+        if (GUI.getThumbnailsPanel().getOriginOfDisplayedThumbnails().canInsertImagesFromFileSystem()) {
             insertFiles(getDirectory());
             getPasteItem().setEnabled(false);
         }
     }
 
     private File getDirectory() {
-        OriginOfDisplayedThumbnails content = GUI.getThumbnailsPanel().getContent();
+        OriginOfDisplayedThumbnails content = GUI.getThumbnailsPanel().getOriginOfDisplayedThumbnails();
 
         if (content.equals(OriginOfDisplayedThumbnails.FILES_IN_SAME_DIRECTORY)) {
             return ViewUtil.getSelectedFile(GUI.getDirectoriesTree());
@@ -147,7 +147,7 @@ public final class PasteFilesFromClipboardController implements ActionListener, 
     }
 
     private boolean canPasteFiles() {
-        return GUI.getThumbnailsPanel().getContent().canInsertImagesFromFileSystem()
+        return GUI.getThumbnailsPanel().getOriginOfDisplayedThumbnails().canInsertImagesFromFileSystem()
                 && TransferUtil.systemClipboardMaybeContainFiles();
     }
 

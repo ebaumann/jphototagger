@@ -106,7 +106,7 @@ public class ThumbnailsPanel extends JPanel
     private FileFilter fileFilter = AppFileFilters.INSTANCE.getAllAcceptedImageFilesFilter();
     private final List<File> files = Collections.synchronizedList(new ArrayList<File>());
     private FileAction fileAction = FileAction.UNDEFINED;
-    private OriginOfDisplayedThumbnails typeOfDisplayedImages = OriginOfDisplayedThumbnails.UNDEFINED_ORIGIN;
+    private OriginOfDisplayedThumbnails originOfOfDisplayedThumbnails = OriginOfDisplayedThumbnails.UNDEFINED_ORIGIN;
     private final transient ThumbnailDoubleklickController ctrlDoubleklick;
     private boolean drag;
     private boolean keywordsOverlay;
@@ -868,8 +868,8 @@ public class ThumbnailsPanel extends JPanel
                 : sidecarFile.getAbsolutePath();
     }
 
-    public synchronized OriginOfDisplayedThumbnails getContent() {
-        return typeOfDisplayedImages;
+    public synchronized OriginOfDisplayedThumbnails getOriginOfDisplayedThumbnails() {
+        return originOfOfDisplayedThumbnails;
     }
 
     /**
@@ -1028,7 +1028,7 @@ public class ThumbnailsPanel extends JPanel
             viewportPosition = vp.getViewPosition();
         }
 
-        ThumbnailsPanelRefreshEvent evt = new ThumbnailsPanelRefreshEvent(this, typeOfDisplayedImages, viewportPosition);
+        ThumbnailsPanelRefreshEvent evt = new ThumbnailsPanelRefreshEvent(this, originOfOfDisplayedThumbnails, viewportPosition);
 
         evt.setSelectedThumbnailIndices(new ArrayList<Integer>(selectedThumbnailIndices));
         notifyRefreshListeners(evt);
@@ -1106,7 +1106,7 @@ public class ThumbnailsPanel extends JPanel
 
             Point viewPos = getViewPosition();
 
-            setFiles(files, typeOfDisplayedImages);
+            setFiles(files, originOfOfDisplayedThumbnails);
             setViewPosition(viewPos);
             renderedThumbnailCache.remove(filesToRemove);
             refresh();
@@ -1210,7 +1210,7 @@ public class ThumbnailsPanel extends JPanel
             Collections.sort(filteredFiles, fileSortComparator);
             this.files.clear();
             this.files.addAll(filteredFiles);
-            this.typeOfDisplayedImages = content;
+            this.originOfOfDisplayedThumbnails = content;
             scrollToTop();
             setMissingFilesFlags();
         }
@@ -1253,10 +1253,10 @@ public class ThumbnailsPanel extends JPanel
     }
 
     public synchronized void sort() {
-        if (!typeOfDisplayedImages.equals(OriginOfDisplayedThumbnails.FILES_OF_AN_IMAGE_COLLECTION)) {
+        if (!originOfOfDisplayedThumbnails.equals(OriginOfDisplayedThumbnails.FILES_OF_AN_IMAGE_COLLECTION)) {
             List<File> selFiles = getSelectedFiles();
 
-            setFiles(new ArrayList<File>(files), typeOfDisplayedImages);
+            setFiles(new ArrayList<File>(files), originOfOfDisplayedThumbnails);
             setSelectedIndices(getIndicesOfFiles(selFiles, true));
         }
     }
@@ -1301,7 +1301,7 @@ public class ThumbnailsPanel extends JPanel
             if (!notifyTnsChanged) {
                 notifyTnsChanged = true;
 
-                EventBus.publish(new ThumbnailsChangedEvent(this, typeOfDisplayedImages, files));
+                EventBus.publish(new ThumbnailsChangedEvent(this, originOfOfDisplayedThumbnails, files));
 
                 notifyTnsChanged = false;
             }
