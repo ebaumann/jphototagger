@@ -18,7 +18,7 @@ import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesHints;
-import org.jphototagger.domain.event.UserPropertyChangedEvent;
+import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.iptc.IptcPreferencesKeys;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
@@ -201,9 +201,9 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
         storage.setString(IptcPreferencesKeys.KEY_IPTC_CHARSET, charset);
     }
 
-    @EventSubscriber(eventClass = UserPropertyChangedEvent.class)
-    public void applySettings(UserPropertyChangedEvent evt) {
-        if (IptcPreferencesKeys.KEY_IPTC_CHARSET.equals(evt.getPropertyKey())) {
+    @EventSubscriber(eventClass = PreferencesChangedEvent.class)
+    public void applySettings(PreferencesChangedEvent evt) {
+        if (IptcPreferencesKeys.KEY_IPTC_CHARSET.equals(evt.getKey())) {
             setIptcCharsetFromUserSettings();
         }
     }

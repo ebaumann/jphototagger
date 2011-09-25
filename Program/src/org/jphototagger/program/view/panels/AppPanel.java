@@ -41,7 +41,7 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.windows.MainWindowComponent;
-import org.jphototagger.domain.event.UserPropertyChangedEvent;
+import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.component.ImageTextArea;
 import org.jphototagger.lib.componentutil.ComponentUtil;
@@ -215,9 +215,9 @@ public final class AppPanel extends javax.swing.JPanel {
                 : true;
     }
 
-    @EventSubscriber(eventClass=UserPropertyChangedEvent.class)
-    public void userPropertyChanged(UserPropertyChangedEvent evt) {
-        String key = evt.getPropertyKey();
+    @EventSubscriber(eventClass=PreferencesChangedEvent.class)
+    public void userPropertyChanged(PreferencesChangedEvent evt) {
+        String key = evt.getKey();
 
         if (AppPreferencesKeys.KEY_UI_DISPLAY_SEARCH_BUTTON.equals(key)) {
             toggleDisplaySearchButton();

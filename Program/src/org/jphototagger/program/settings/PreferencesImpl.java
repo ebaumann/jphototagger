@@ -18,7 +18,7 @@ import org.openide.util.lookup.ServiceProvider;
 
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesHints;
-import org.jphototagger.domain.event.UserPropertyChangedEvent;
+import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.util.ObjectUtil;
 import org.jphototagger.lib.util.Settings;
@@ -42,11 +42,11 @@ public final class PreferencesImpl implements Preferences {
     public void setString(String key, String value) {
         String oldValue = settings.getString(key);
         boolean containsKey = settings.containsKey(key);
-        
+
         if (!containsKey || !ObjectUtil.equals(value, oldValue)) {
             settings.set(key, value);
             writeToFile();
-            EventBus.publish(new UserPropertyChangedEvent(this, key, oldValue, value));
+            EventBus.publish(new PreferencesChangedEvent(this, key, oldValue, value));
         }
     }
 
@@ -60,11 +60,11 @@ public final class PreferencesImpl implements Preferences {
     public void setBoolean(String key, boolean value) {
         boolean oldValue = settings.getBoolean(key);
         boolean containsKey = settings.containsKey(key);
-        
+
         if (!containsKey || value != oldValue) {
             settings.set(key, value);
             writeToFile();
-            EventBus.publish(new UserPropertyChangedEvent(this, key, oldValue, value));
+            EventBus.publish(new PreferencesChangedEvent(this, key, oldValue, value));
         }
     }
 
@@ -81,7 +81,7 @@ public final class PreferencesImpl implements Preferences {
         if (!containsKey || value != oldValue) {
             settings.set(key, value);
             writeToFile();
-            EventBus.publish(new UserPropertyChangedEvent(this, key, oldValue, value));
+            EventBus.publish(new PreferencesChangedEvent(this, key, oldValue, value));
         }
     }
 
@@ -139,7 +139,7 @@ public final class PreferencesImpl implements Preferences {
 
         settings.setStringCollection(key, stringCollection);
         writeToFile();
-        EventBus.publish(new UserPropertyChangedEvent(this, key, oldValue, stringCollection));
+        EventBus.publish(new PreferencesChangedEvent(this, key, oldValue, stringCollection));
     }
 
     @Override
@@ -163,7 +163,7 @@ public final class PreferencesImpl implements Preferences {
 
         settings.set(key, tree);
         writeToFile();
-        EventBus.publish(new UserPropertyChangedEvent(this, key, null, tree));
+        EventBus.publish(new PreferencesChangedEvent(this, key, null, tree));
     }
 
     @Override
@@ -191,7 +191,7 @@ public final class PreferencesImpl implements Preferences {
 
         settings.set(key, scrollPane);
         writeToFile();
-        EventBus.publish(new UserPropertyChangedEvent(this, key, null, scrollPane));
+        EventBus.publish(new PreferencesChangedEvent(this, key, null, scrollPane));
     }
 
     @Override
@@ -219,7 +219,7 @@ public final class PreferencesImpl implements Preferences {
 
         settings.set(key, button);
         writeToFile();
-        EventBus.publish(new UserPropertyChangedEvent(this, key, null, button));
+        EventBus.publish(new PreferencesChangedEvent(this, key, null, button));
     }
 
     @Override
@@ -243,7 +243,7 @@ public final class PreferencesImpl implements Preferences {
 
         settings.set(key, pane, hints);
         writeToFile();
-        EventBus.publish(new UserPropertyChangedEvent(this, key, null, pane));
+        EventBus.publish(new PreferencesChangedEvent(this, key, null, pane));
     }
 
     @Override
@@ -263,7 +263,7 @@ public final class PreferencesImpl implements Preferences {
 
         settings.set(component, hints);
         writeToFile();
-        EventBus.publish(new UserPropertyChangedEvent(this, component.getClass().getName(), null, component));
+        EventBus.publish(new PreferencesChangedEvent(this, component.getClass().getName(), null, component));
     }
 
     @Override
@@ -287,7 +287,7 @@ public final class PreferencesImpl implements Preferences {
 
         settings.setSelectedIndex(key, comboBox);
         writeToFile();
-        EventBus.publish(new UserPropertyChangedEvent(this, key, null, comboBox));
+        EventBus.publish(new PreferencesChangedEvent(this, key, null, comboBox));
     }
 
     @Override
@@ -315,7 +315,7 @@ public final class PreferencesImpl implements Preferences {
 
         settings.setSelectedIndices(key, list);
         writeToFile();
-        EventBus.publish(new UserPropertyChangedEvent(this, key, null, list));
+        EventBus.publish(new PreferencesChangedEvent(this, key, null, list));
     }
 
     @Override
@@ -339,6 +339,6 @@ public final class PreferencesImpl implements Preferences {
 
         settings.removeStringCollection(key);
         writeToFile();
-        EventBus.publish(new UserPropertyChangedEvent(this, key, null, null));
+        EventBus.publish(new PreferencesChangedEvent(this, key, null, null));
     }
 }

@@ -1,17 +1,17 @@
-package org.jphototagger.domain.event;
+package org.jphototagger.api.preferences;
 
 /**
  *
  * @author Elmar Baumann
  */
-public final class UserPropertyChangedEvent {
+public final class PreferencesChangedEvent {
 
     private final Object source;
     private final String propertyKey;
     private final Object oldValue;
     private final Object newValue;
 
-    public UserPropertyChangedEvent(Object source, String propertyKey, Object oldValue, Object newValue) {
+    public PreferencesChangedEvent(Object source, String propertyKey, Object oldValue, Object newValue) {
         if (propertyKey == null) {
             throw new NullPointerException("propertyKey == null");
         }
@@ -26,7 +26,7 @@ public final class UserPropertyChangedEvent {
         return source;
     }
 
-    public String getPropertyKey() {
+    public String getKey() {
         return propertyKey;
     }
 

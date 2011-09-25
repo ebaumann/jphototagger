@@ -15,7 +15,7 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
-import org.jphototagger.domain.event.UserPropertyChangedEvent;
+import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.programs.ProgramType;
 import org.jphototagger.domain.repository.ProgramsRepository;
@@ -52,9 +52,9 @@ final class IrfanViewSlideshowCommand {
         isReloadOnLoop = prefs.getBoolean(IrfanViewSlideshowUserPreferencesKeys.KEY_RELOAD_ON_LOOP);
     }
 
-    @EventSubscriber(eventClass = UserPropertyChangedEvent.class)
-    public void userPropertyChanged(UserPropertyChangedEvent evt) {
-        String propertyKey = evt.getPropertyKey();
+    @EventSubscriber(eventClass = PreferencesChangedEvent.class)
+    public void userPropertyChanged(PreferencesChangedEvent evt) {
+        String propertyKey = evt.getKey();
 
         if (IrfanViewSlideshowUserPreferencesKeys.KEY_RELOAD_ON_LOOP.equals(propertyKey)) {
             isReloadOnLoop = (Boolean) evt.getNewValue();

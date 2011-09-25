@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.bushe.swing.event.EventBus;
+import org.jphototagger.api.file.event.FileDeletedEvent;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.types.DeleteOption;
@@ -49,6 +51,7 @@ public final class DeleteImageFiles {
                 File imageFile = imageFileSidecarFile.getImageFile();
 
                 if (imageFile.delete()) {
+                    EventBus.publish(new FileDeletedEvent(DeleteImageFiles.class, imageFile));
                     deleteSidecarFile(imageFileSidecarFile.getSidecarFile(), optionList);
                     deletedImageFiles.add(imageFile);
                 } else {
