@@ -141,7 +141,10 @@ public final class UpdateTablesFactory {
      *         {@code DatabaseApplicationProperties} after an successful updatePostCreation.
      */
     private boolean isUpdate() {
-        return isForceUpdate() || DatabaseMetadata.isDatabaseOfOlderVersion();
+        boolean forceUpdate = isForceUpdate();
+        boolean databaseStructureChanged = DatabaseMetadata.isDatabaseStructureChangedSinceLastUpdate();
+
+        return forceUpdate || databaseStructureChanged;
     }
 
     /**
