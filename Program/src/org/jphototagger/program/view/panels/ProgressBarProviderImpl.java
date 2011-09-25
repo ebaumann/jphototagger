@@ -2,6 +2,7 @@ package org.jphototagger.program.view.panels;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,7 +27,7 @@ public final class ProgressBarProviderImpl implements MainWindowProgressBarProvi
     private final Object monitor = new Object();
     private long lastProgressBarAccessInMilliseconds;
     private static final long WARN_ON_P_BAR_ACCESS_DELAY_IN_MILLISECONDS = 60000;
-    private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+    private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor(threadFactory);
     private static final Logger LOGGER = Logger.getLogger(ProgressBarProviderImpl.class.getName());
 
     public ProgressBarProviderImpl() {
@@ -149,6 +150,18 @@ public final class ProgressBarProviderImpl implements MainWindowProgressBarProvi
                             new Object[]{progressBarOwner, delayInMilliseconds / 1000});
                 }
             }
+        }
+    };
+
+    private static final ThreadFactory threadFactory = new ThreadFactory() {
+
+        @Override
+        public Thread newThread(Runnable r) {
+            Thread thread = new Thread(r);
+
+            thread.setName("JPhotoTagger: Progress Bar Blocking Check");
+
+            return thread;
         }
     };
 }
