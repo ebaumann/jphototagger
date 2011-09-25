@@ -172,7 +172,7 @@ public final class ExifCache {
             if (deleted) {
                 deleteCount++;
             } else {
-                LOGGER.log(Level.WARNING, "EXIF Cache: Couldn't delete cache file ''{0}''", cacheFile);
+                LOGGER.log(Level.WARNING, "EXIF Cache: Couldn''t delete cache file ''{0}''", cacheFile);
             }
         }
 

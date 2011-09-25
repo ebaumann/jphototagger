@@ -77,7 +77,7 @@ public final class DeleteOrphanedThumbnails implements Runnable, Cancelable {
                         tnPanel.removeFiles(Arrays.asList(fileInThumbnailDirectory));
                     }
                 } else {
-                    LOGGER.log(Level.WARNING, "Can't delete orphaned thumbnail ''{0}''!", fileInThumbnailDirectory);
+                    LOGGER.log(Level.WARNING, "Can''t delete orphaned thumbnail ''{0}''!", fileInThumbnailDirectory);
                 }
             }
 

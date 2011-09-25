@@ -725,6 +725,6 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
     }
 
     private void errorMessageAddDirectory(Favorite favorite) {
-        LOGGER.log(Level.WARNING, "The favorite ''{0}'' couldn't be read!", favorite.getDirectory());
+        LOGGER.log(Level.WARNING, "The favorite ''{0}'' couldn''t be read!", favorite.getDirectory());
     }
 }

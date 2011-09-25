@@ -162,7 +162,7 @@ public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection> {
                         File tnFile = PersistentThumbnails.getThumbnailFile(imageFile);
 
                         if (tnFile == null) {
-                            LOGGER.log(Level.WARNING, "Can't resolve thumnbail name for image file ''{0}''", imageFile);
+                            LOGGER.log(Level.WARNING, "Can''t resolve thumnbail name for image file ''{0}''", imageFile);
                         } else {
                             image = PersistentThumbnails.getThumbnail(imageFile);
                         }
