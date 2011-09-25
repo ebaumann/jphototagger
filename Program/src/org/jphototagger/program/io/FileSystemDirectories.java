@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.bushe.swing.event.EventBus;
+import org.jphototagger.api.file.event.FileRenamedEvent;
 import org.openide.util.Lookup;
 
 import org.jphototagger.domain.repository.ImageFilesRepository;
@@ -88,6 +90,7 @@ public final class FileSystemDirectories {
                             String newParentDir = newDirectory.getAbsolutePath() + File.separator;
                             int dbCount = repo.updateRenameFilenamesStartingWith(oldParentDir, newParentDir, null);
 
+                            EventBus.publish(new FileRenamedEvent(FileSystemDirectories.class, directory, newDirectory));
                             logInfoRenamed(directory, newDirectory, dbCount);
 
                             return newDirectory;
