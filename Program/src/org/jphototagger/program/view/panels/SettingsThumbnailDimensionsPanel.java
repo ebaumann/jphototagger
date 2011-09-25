@@ -11,7 +11,7 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
-import org.jphototagger.domain.event.UserPropertyChangedEvent;
+import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.program.helper.UpdateAllThumbnails;
 import org.jphototagger.image.thumbnail.ThumbnailDefaults;
@@ -88,9 +88,9 @@ public class SettingsThumbnailDimensionsPanel extends javax.swing.JPanel impleme
         }
     }
 
-    @EventSubscriber(eventClass = UserPropertyChangedEvent.class)
-    public void applySettings(UserPropertyChangedEvent evt) {
-        if (Preferences.KEY_MAX_THUMBNAIL_WIDTH.equals(evt.getPropertyKey())) {
+    @EventSubscriber(eventClass = PreferencesChangedEvent.class)
+    public void applySettings(PreferencesChangedEvent evt) {
+        if (Preferences.KEY_MAX_THUMBNAIL_WIDTH.equals(evt.getKey())) {
             listenToMaxThumbnailWidthChanges = false;
             spinnerMaxThumbnailWidth.setValue((Integer) evt.getNewValue());
             listenToMaxThumbnailWidthChanges = true;

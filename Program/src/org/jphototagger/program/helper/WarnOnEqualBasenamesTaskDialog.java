@@ -24,7 +24,7 @@ import org.jdesktop.swingx.JXList;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
-import org.jphototagger.domain.event.UserPropertyChangedEvent;
+import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.program.app.AppPreferencesKeys;
@@ -82,9 +82,9 @@ public class WarnOnEqualBasenamesTaskDialog extends Dialog {
         prefs.setBoolean(AppPreferencesKeys.KEY_DISPLAY_IN_FUTURE_WARN_ON_EQUAL_BASENAMES, isDisplayInFuture);
     }
 
-    @EventSubscriber(eventClass = UserPropertyChangedEvent.class)
-    public void userPropertyChanged(UserPropertyChangedEvent evt) {
-        String propertyKey = evt.getPropertyKey();
+    @EventSubscriber(eventClass = PreferencesChangedEvent.class)
+    public void userPropertyChanged(PreferencesChangedEvent evt) {
+        String propertyKey = evt.getKey();
 
         if (AppPreferencesKeys.KEY_DISPLAY_IN_FUTURE_WARN_ON_EQUAL_BASENAMES.equals(propertyKey)) {
             listenToDisplayInFutureCheckBox = false;

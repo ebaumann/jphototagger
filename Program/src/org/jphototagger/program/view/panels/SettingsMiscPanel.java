@@ -13,7 +13,7 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
-import org.jphototagger.domain.event.UserPropertyChangedEvent;
+import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.domain.repository.FileRepositoryProvider;
 import org.jphototagger.iptc.IptcPreferencesKeys;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
@@ -174,11 +174,11 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
         storage.setBoolean(AppPreferencesKeys.KEY_GPS_ADD_FILENAME_TO_GPS_LOCATION_EXPORT, add);
     }
 
-    @EventSubscriber(eventClass = UserPropertyChangedEvent.class)
-    public void applySettings(UserPropertyChangedEvent evt) {
-        if (AppPreferencesKeys.KEY_CHECK_FOR_UPDATES.equals(evt.getPropertyKey())) {
+    @EventSubscriber(eventClass = PreferencesChangedEvent.class)
+    public void applySettings(PreferencesChangedEvent evt) {
+        if (AppPreferencesKeys.KEY_CHECK_FOR_UPDATES.equals(evt.getKey())) {
             checkBoxCheckForUpdates.setSelected((Boolean)evt.getNewValue());
-        } else if (IptcPreferencesKeys.KEY_IPTC_CHARSET.equals(evt.getPropertyKey())) {
+        } else if (IptcPreferencesKeys.KEY_IPTC_CHARSET.equals(evt.getKey())) {
             setIptcCharsetFromUserSettings();
         }
     }

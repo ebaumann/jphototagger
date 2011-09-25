@@ -18,7 +18,7 @@ import org.openide.util.Lookup;
 import org.jphototagger.api.preferences.DisplayMessageInFuturePreferencesKeys;
 import org.jphototagger.api.preferences.DisplayMessageInFuturePreferencesKeys.KeyInfo;
 import org.jphototagger.api.preferences.Preferences;
-import org.jphototagger.domain.event.UserPropertyChangedEvent;
+import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.program.app.AppPreferencesKeys;
 
@@ -106,9 +106,9 @@ public class SettingsDisplayMessagesInFuturePanel extends javax.swing.JPanel {
         }
     }
 
-    @EventSubscriber(eventClass = UserPropertyChangedEvent.class)
-    public void userPropertyChanged(UserPropertyChangedEvent evt) {
-        String propertyKey = evt.getPropertyKey();
+    @EventSubscriber(eventClass = PreferencesChangedEvent.class)
+    public void userPropertyChanged(PreferencesChangedEvent evt) {
+        String propertyKey = evt.getKey();
 
         if (AppPreferencesKeys.KEY_DISPLAY_IN_FUTURE_WARN_ON_EQUAL_BASENAMES.equals(propertyKey)) {
             listenToCheckBox = false;

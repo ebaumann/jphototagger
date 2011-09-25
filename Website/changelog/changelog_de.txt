@@ -3,6 +3,13 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.10.0 2011-09-25
+-----------------
+* Neue Funktion: Datei-Hooks. Sollte sich selbst erklären
+  nach Öffnen von Bearbeitn > Einstellungen > Sonstiges > Datei-Hooks.
+  Einsatzmöglichkeit: Verschieben von Filialdateien, die andere Programme
+  erzeugen.
+
 0.9.4 2011-09-21
 ----------------
 * Protokolldateien werden nicht mehr rotiert. Die Logdatei mit

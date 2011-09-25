@@ -43,7 +43,7 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.event.AppWillExitEvent;
-import org.jphototagger.domain.event.UserPropertyChangedEvent;
+import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.domain.event.listener.ThumbnailUpdateListener;
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter.RegexFileFilter;
@@ -1683,9 +1683,9 @@ public class ThumbnailsPanel extends JPanel
         updateViaFileFilter(evt.getImageFile());
     }
 
-    @EventSubscriber(eventClass = UserPropertyChangedEvent.class)
-    public void applySettings(UserPropertyChangedEvent evt) {
-        if (AppPreferencesKeys.KEY_UI_DISPLAY_THUMBNAIL_TOOLTIP.equals(evt.getPropertyKey())) {
+    @EventSubscriber(eventClass = PreferencesChangedEvent.class)
+    public void applySettings(PreferencesChangedEvent evt) {
+        if (AppPreferencesKeys.KEY_UI_DISPLAY_THUMBNAIL_TOOLTIP.equals(evt.getKey())) {
             boolean displayThumbnailTooltip = (Boolean) evt.getNewValue();
 
             isDisplayThumbnailTooltip = displayThumbnailTooltip;

@@ -15,7 +15,7 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
-import org.jphototagger.domain.event.UserPropertyChangedEvent;
+import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsChangedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.event.util.KeyEventUtil;
@@ -116,9 +116,9 @@ public final class ThumbnailSizeSliderController implements AWTEventListener, Ch
         setThumbnailWidth();
     }
 
-    @EventSubscriber(eventClass = UserPropertyChangedEvent.class)
-    public void applySettings(UserPropertyChangedEvent evt) {
-        if (Preferences.KEY_MAX_THUMBNAIL_WIDTH.equals(evt.getPropertyKey())) {
+    @EventSubscriber(eventClass = PreferencesChangedEvent.class)
+    public void applySettings(PreferencesChangedEvent evt) {
+        if (Preferences.KEY_MAX_THUMBNAIL_WIDTH.equals(evt.getKey())) {
             setThumbnailWidth();
         }
     }

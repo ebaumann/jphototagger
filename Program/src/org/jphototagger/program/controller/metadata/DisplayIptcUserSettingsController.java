@@ -15,7 +15,7 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
-import org.jphototagger.domain.event.UserPropertyChangedEvent;
+import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.iptc.IptcPreferencesKeys;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
@@ -43,9 +43,9 @@ public final class DisplayIptcUserSettingsController extends MouseAdapter {
         metadataPane.addMouseListener(this);
     }
 
-    @EventSubscriber(eventClass = UserPropertyChangedEvent.class)
-    public void applySettings(UserPropertyChangedEvent evt) {
-        if (IptcPreferencesKeys.KEY_DISPLAY_IPTC.equals(evt.getPropertyKey())) {
+    @EventSubscriber(eventClass = PreferencesChangedEvent.class)
+    public void applySettings(PreferencesChangedEvent evt) {
+        if (IptcPreferencesKeys.KEY_DISPLAY_IPTC.equals(evt.getKey())) {
             boolean displayIptc = (Boolean) evt.getNewValue();
 
             setEnabledIptcTab(displayIptc);
