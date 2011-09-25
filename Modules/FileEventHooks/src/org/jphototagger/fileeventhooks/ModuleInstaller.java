@@ -3,7 +3,7 @@ package org.jphototagger.fileeventhooks;
 import org.openide.util.lookup.ServiceProvider;
 
 import org.jphototagger.api.modules.Module;
-import org.jphototagger.api.windows.OptionWindowManager;
+import org.jphototagger.api.windows.OptionsWindowManager;
 import org.jphototagger.lib.util.Bundle;
 import org.openide.util.Lookup;
 
@@ -19,7 +19,7 @@ public final class ModuleInstaller implements Module {
 
     @Override
     public void init() {
-        OptionWindowManager optionWindowManger = Lookup.getDefault().lookup(OptionWindowManager.class);
+        OptionsWindowManager optionWindowManger = Lookup.getDefault().lookup(OptionsWindowManager.class);
         String title = Bundle.getString(ModuleInstaller.class, "SettingsPanel.Title");
         SettingsPanel settingsPanel = new SettingsPanel();
 

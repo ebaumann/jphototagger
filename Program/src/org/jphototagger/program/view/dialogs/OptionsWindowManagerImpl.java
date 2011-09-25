@@ -4,7 +4,7 @@ import java.awt.Component;
 
 import org.openide.util.lookup.ServiceProvider;
 
-import org.jphototagger.api.windows.OptionWindowManager;
+import org.jphototagger.api.windows.OptionsWindowManager;
 import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
@@ -12,8 +12,8 @@ import org.jphototagger.lib.awt.EventQueueUtil;
  *
  * @author Elmar Baumann
  */
-@ServiceProvider(service = OptionWindowManager.class)
-public final class OptionWindowManagerImpl implements OptionWindowManager {
+@ServiceProvider(service = OptionsWindowManager.class)
+public final class OptionsWindowManagerImpl implements OptionsWindowManager {
 
     @Override
     public void addSettingsComponent(final Component component, final String title) {

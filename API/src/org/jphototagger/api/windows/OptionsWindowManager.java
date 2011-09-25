@@ -7,7 +7,7 @@ import java.awt.Component;
  *
  * @author Elmar Baumann
  */
-public interface OptionWindowManager {
+public interface OptionsWindowManager {
 
     void addSettingsComponent(Component component, String title);
 }
