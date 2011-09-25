@@ -1,6 +1,7 @@
 package org.jphototagger.program.factory;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,6 +23,7 @@ import org.jphototagger.program.app.update.UpdateDownload;
 public final class MetaFactory implements Runnable {
 
     public static final MetaFactory INSTANCE = new MetaFactory();
+    private Collection<? extends Module> modules;
     private boolean init = false;
 
     @Override
@@ -89,10 +91,16 @@ public final class MetaFactory implements Runnable {
     }
 
     private void installModules() {
-        Collection<? extends Module> modules = Lookup.getDefault().lookupAll(Module.class);
+        modules = Lookup.getDefault().lookupAll(Module.class);
 
         for (Module module : modules) {
             module.init();
         }
+    }
+
+    public Collection<Module> getModules() {
+        return modules == null
+                ? Collections.<Module>emptyList()
+                : Collections.unmodifiableCollection(modules);
     }
 }
