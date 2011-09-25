@@ -128,12 +128,12 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
 
                 if (cancel && downloadFile.exists()) {
                     if (!downloadFile.delete()) {
-                        LOGGER.log(Level.WARNING, "Uncomplete downloaded file ''{0}'' couldn't be deleted!", downloadFile);
+                        LOGGER.log(Level.WARNING, "Uncomplete downloaded file ''{0}'' couldn''t be deleted!", downloadFile);
                     }
                 }
             }
         } catch (Exception ex) {
-            LOGGER.log(Level.INFO, "The most recent version of JPhotoTagger couldn't be retrieved: {0}", ex.getLocalizedMessage());
+            LOGGER.log(Level.INFO, "The most recent version of JPhotoTagger couldn''t be retrieved: {0}", ex.getLocalizedMessage());
         } finally {
             progressBarProvider.progressEnded(pBarOwner);
 

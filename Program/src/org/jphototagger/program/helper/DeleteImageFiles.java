@@ -73,7 +73,7 @@ public final class DeleteImageFiles {
 
     private static void errorMessageDelete(File file, List<DeleteOption> options) {
         if (options.contains(DeleteOption.MESSAGES_ON_FAILURES)) {
-            LOGGER.log(Level.WARNING, "File ''{0}'' couldn't be deleted!", file);
+            LOGGER.log(Level.WARNING, "File ''{0}'' couldn''t be deleted!", file);
         }
     }
 

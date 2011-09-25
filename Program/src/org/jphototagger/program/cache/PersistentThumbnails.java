@@ -79,7 +79,7 @@ final class PersistentThumbnails {
                 }
             }
         } catch (Exception ex) {
-            Logger.getLogger(PersistentThumbnails.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             FileLock.INSTANCE.unlock(tnFile, PersistentThumbnails.class);
             IoUtil.close(fos);
@@ -99,7 +99,7 @@ final class PersistentThumbnails {
 
         if ((tnFile != null) && !tnFile.delete()) {
             LOGGER.log(Level.WARNING,
-                    "Thumbnail ''{0}'' of image file ''{1}'' couldn't be deleted!",
+                    "Thumbnail ''{0}'' of image file ''{1}'' couldn''t be deleted!",
                     new Object[]{tnFile, imageFile});
 
             return false;
@@ -138,7 +138,7 @@ final class PersistentThumbnails {
                 thumbnail = icon.getImage();
             }
         } catch (Exception ex) {
-            Logger.getLogger(PersistentThumbnails.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             IoUtil.close(fis);
         }
@@ -234,8 +234,8 @@ final class PersistentThumbnails {
 
         if (!fromTnFile.renameTo(toTnFile)) {
             LOGGER.log(Level.WARNING,
-                    "Thumbnail ''{0}'' couldn't be renamed to ''{1}''!",
-                    new Object[]{fromImageFile, toImageFile});
+                    "Thumbnail ''{0}'' couldn''t be renamed to ''{1}'' (Image file ''{2}'' was renamed to ''{3}''!",
+                    new Object[]{fromTnFile, toTnFile, fromImageFile, toImageFile});
 
             return false;
         }

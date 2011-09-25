@@ -195,7 +195,7 @@ final class UpdateTablesThumbnails extends Database {
                         convertThumbnail(id, imageFile);
                     } else {
                         if (!file.delete()) {    // orphaned thumbnail
-                            LOGGER.log(Level.WARNING, "Can't delete orphaned Thumbnail ''{0}''!", file);
+                            LOGGER.log(Level.WARNING, "Can''t delete orphaned Thumbnail ''{0}''!", file);
                         }
                     }
                 } catch (Exception ex) {
@@ -253,11 +253,11 @@ final class UpdateTablesThumbnails extends Database {
 
         if ((newTnFile != null) && newTnFile.exists()) {
             if (!oldTnFile.delete()) {
-                LOGGER.log(Level.WARNING, "Can't delete old thumbnail ''{0}''!", oldTnFile);
+                LOGGER.log(Level.WARNING, "Can''t delete old thumbnail ''{0}''!", oldTnFile);
             }
         } else {
             if (!oldTnFile.renameTo(newTnFile)) {
-                LOGGER.log(Level.WARNING, "Can't rename thumbnail ''{0}'' to ''{1}''!", new Object[]{oldTnFile, newTnFile});
+                LOGGER.log(Level.WARNING, "Can''t rename thumbnail ''{0}'' to ''{1}''!", new Object[]{oldTnFile, newTnFile});
             }
         }
     }

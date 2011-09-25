@@ -156,12 +156,12 @@ public final class RenameDialog extends Dialog implements ListDataListener {
 
             if (fromXmpFile.exists()) {
                 if (!toXmpFile.delete()) {
-                    LOGGER.log(Level.WARNING, "XMP file ''{0}'' couldn't be deleted!", toXmpFile);
+                    LOGGER.log(Level.WARNING, "XMP file ''{0}'' couldn''t be deleted!", toXmpFile);
                 }
             }
 
             if (!fromXmpFile.renameTo(toXmpFile)) {
-                LOGGER.log(Level.WARNING, "XMP file ''{0}'' couldn't be renamed to ''{1}''!", new Object[]{fromXmpFile, toXmpFile});
+                LOGGER.log(Level.WARNING, "XMP file ''{0}'' couldn''t be renamed to ''{1}''!", new Object[]{fromXmpFile, toXmpFile});
             }
         }
     }

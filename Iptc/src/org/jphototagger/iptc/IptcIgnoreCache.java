@@ -125,7 +125,7 @@ public final class IptcIgnoreCache {
             if (deleted) {
                 deleteCount++;
             } else {
-                LOGGER.log(Level.WARNING, "IPTC Ignore Cache: Couldn't delete cache file ''{0}''", cacheFile);
+                LOGGER.log(Level.WARNING, "IPTC Ignore Cache: Couldn''t delete cache file ''{0}''", cacheFile);
             }
         }
 
@@ -186,7 +186,7 @@ public final class IptcIgnoreCache {
 
     private File lookupCacheDirectory() {
         CacheDirectoryProvider provider = Lookup.getDefault().lookup(CacheDirectoryProvider.class);
-        
+
         return provider.getCacheDirectory("IptcIgnoreCache");
     }
 

@@ -224,15 +224,15 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
                 exportedFiles.add(exportFile);
             }
         }
-        
+
         displayFiles(Bundle.getString(ExportImportPanel.class, "ExportImportPanel.Info.ExportedFiles"), exportedFiles);
     }
-    
+
     private void displayFiles(String shortMessage, Collection<? extends File> files) {
         if (files.size() > 0) {
             LongMessageDialog dialog = new LongMessageDialog(ComponentUtil.getFrameWithIcon(), true);
             String filesString = CollectionUtil.toTokenString(files, "\n", "");
-            
+
             dialog.setShortMessage(shortMessage);
             dialog.setLongMessage(filesString);
             dialog.setVisible(true);
@@ -265,7 +265,7 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
                 }
             }
         }
-        
+
         displayFiles(Bundle.getString(ExportImportPanel.class, "ExportImportPanel.Info.ImportedFiles"), importedFiles);
     }
 
@@ -278,7 +278,7 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
     private void logImportErrorFileDoesNotExist(RepositoryDataImporter importer, File importFile) {
         String importerDisplayName = importer.getDisplayName();
 
-        LOGGER.log(Level.INFO, "{0}: The following file can't be imported, because it does not exist: ''{1}''",
+        LOGGER.log(Level.INFO, "{0}: The following file can''t be imported, because it does not exist: ''{1}''",
                 new Object[]{importerDisplayName, importFile});
     }
 
