@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.startup.AppStartupLock;
+import org.jphototagger.lib.util.Version;
 import org.jphototagger.repository.hsqldb.update.tables.UpdateTablesFactory;
 
 /**
@@ -52,6 +53,7 @@ import org.jphototagger.repository.hsqldb.update.tables.UpdateTablesFactory;
 final class DatabaseTables extends Database {
 
     static final DatabaseTables INSTANCE = new DatabaseTables();
+    static final Version LAST_DATABASE_STRUCTURE_CHANGE_ON_APP_VERSION = new Version(0, 10, 0); // First introduced, could be less
 
     private DatabaseTables() {
     }
@@ -69,6 +71,7 @@ final class DatabaseTables extends Database {
             con.setAutoCommit(true);
             stmt = con.createStatement();
             UpdateTablesFactory.INSTANCE.updatePreCreation(con);
+            // Do not forget updating LAST_DATABASE_STRUCTURE_CHANGE_ON_APP_VERSION!
             createAppTable(con, stmt);    // prior to all other tables!
             createFilesTable(con, stmt);
             createXmpTables(con, stmt);
@@ -86,6 +89,7 @@ final class DatabaseTables extends Database {
             createRenameTemplatesTable(con, stmt);
             createUserDefinedFileFiltersTable(con, stmt);
             createUserDefinedFileTypesTable(con, stmt);
+            // Do not forget updating LAST_DATABASE_STRUCTURE_CHANGE_ON_APP_VERSION!
             UpdateTablesFactory.INSTANCE.updatePostCreation(con);
         } catch (Exception ex) {
             Logger.getLogger(DatabaseTables.class.getName()).log(Level.SEVERE, null, ex);

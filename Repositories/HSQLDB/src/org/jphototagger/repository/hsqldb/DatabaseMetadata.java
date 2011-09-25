@@ -66,26 +66,18 @@ public final class DatabaseMetadata extends Database {
                 : dbVersion.equals(versionString);
     }
 
-    /**
-     * Returns, whether the database is the database of an older JPhotoTagger
-     * version.
-     *
-     * @return true, if the database is from an older version
-     */
-    public static boolean isDatabaseOfOlderVersion() {
+    public static boolean isDatabaseStructureChangedSinceLastUpdate() {
         ApplicationPropertiesRepository appPropertiesRepo = Lookup.getDefault().lookup(ApplicationPropertiesRepository.class);
-        String dbVersion = appPropertiesRepo.getString(KEY_JPT_APP_DB_VERSION);
+        String appVersionOfLastDatabaseUpdateString = appPropertiesRepo.getString(KEY_JPT_APP_DB_VERSION);
 
         // Only older JPhotoTagger versions did not write that key
-        if (dbVersion == null) {
+        if (appVersionOfLastDatabaseUpdateString == null) {
             return true;
         }
 
-        String versionString = Lookup.getDefault().lookup(AppProperties.class).getAppVersionString();
-        Version db = Version.parseVersion(dbVersion, ".");
-        Version current = Version.parseVersion(versionString, ".");
+        Version appVersionOfLastDatabaseUpdate = Version.parseVersion(appVersionOfLastDatabaseUpdateString, ".");
 
-        return current.compareTo(db) > 0;
+        return appVersionOfLastDatabaseUpdate.compareTo(DatabaseTables.LAST_DATABASE_STRUCTURE_CHANGE_ON_APP_VERSION) < 0;
     }
 
     /**
