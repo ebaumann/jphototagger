@@ -1,5 +1,6 @@
 package org.jphototagger.lib.dialog;
 
+import java.awt.CardLayout;
 import java.awt.Frame;
 import java.awt.HeadlessException;
 import java.awt.Point;
@@ -133,9 +134,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
     }
 
     private void reload() {
-        boolean simple =
-            tabbedPane.getSelectedIndex()
-            == paneIndexOfFormatterClass.get(SimpleFormatter.class);
+        boolean simple = SimpleFormatter.class.equals(formatterClass);
 
         if (simple) {
             try {
@@ -416,37 +415,26 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
     }
 
     private void readSimple() {
-        selectPane();
+        showCard("panelSimple");
         try {
-            textAreaSimple.setText(FileUtil.getContentAsString(
-                    new File(logfilename), "UTF-8"));
+            textAreaSimple.setText(FileUtil.getContentAsString(new File(logfilename), "UTF-8"));
         } catch (IOException ex) {
-            Logger.getLogger(LogfileDialog.class.getName())
-                    .log(Level.SEVERE, null, ex);
+            Logger.getLogger(LogfileDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     private void readXml() {
-        selectPane();
+        showCard("panelXml");
         filterString = textFieldSearch.getText();
         readLogfileRecords();
         resetVisibeLevels();
         textFieldSearch.requestFocus();
     }
 
-    private void selectPane() {
-        Set<Class<?>> classes = paneIndexOfFormatterClass.keySet();
+    private void showCard(String cardName) {
+        CardLayout cardLayout = (CardLayout) panelCards.getLayout();
 
-        for (Class<?> c : classes) {
-            int     panelIndex         = paneIndexOfFormatterClass.get(c);
-            boolean isCurrentFormatter = c.equals(formatterClass);
-
-            if (isCurrentFormatter) {
-                tabbedPane.setSelectedIndex(panelIndex);
-            }
-
-            tabbedPane.setEnabledAt(panelIndex, isCurrentFormatter);
-        }
+        cardLayout.show(panelCards, cardName);
     }
 
     /**
@@ -460,8 +448,12 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
+        panelContent = new javax.swing.JPanel();
         labelLogfileName = new javax.swing.JLabel();
-        tabbedPane = new javax.swing.JTabbedPane();
+        panelButtons = new javax.swing.JPanel();
+        buttonReload = new javax.swing.JButton();
+        buttonExit = new javax.swing.JButton();
+        panelCards = new javax.swing.JPanel();
         panelXml = new javax.swing.JPanel();
         panelFilter = new javax.swing.JPanel();
         panelFilterCheckBoxes = new javax.swing.JPanel();
@@ -491,8 +483,6 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
         textAreaSimple = new javax.swing.JTextArea();
         panelSearchSimple = new org.jphototagger.lib.component.TextAreaSearchPanel();
         panelSearchSimple.setTextArea(textAreaSimple);
-        buttonReload = new javax.swing.JButton();
-        buttonExit = new javax.swing.JButton();
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/lib/dialog/Bundle"); // NOI18N
         setTitle(bundle.getString("LogfileDialog.title")); // NOI18N
@@ -502,11 +492,51 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
                 formWindowClosing(evt);
             }
         });
+        getContentPane().setLayout(new java.awt.GridBagLayout());
+
+        panelContent.setName("panelContent"); // NOI18N
+        panelContent.setLayout(new java.awt.GridBagLayout());
 
         labelLogfileName.setText(bundle.getString("LogfileDialog.labelLogfileName.text")); // NOI18N
         labelLogfileName.setName("labelLogfileName"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        panelContent.add(labelLogfileName, gridBagConstraints);
 
-        tabbedPane.setName("tabbedPane"); // NOI18N
+        panelButtons.setName("panelButtons"); // NOI18N
+        panelButtons.setLayout(new java.awt.GridLayout(1, 0, 10, 0));
+
+        buttonReload.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/lib/resource/icons/icon_refresh24.png"))); // NOI18N
+        buttonReload.setToolTipText(bundle.getString("LogfileDialog.buttonReload.toolTipText")); // NOI18N
+        buttonReload.setBorder(null);
+        buttonReload.setName("buttonReload"); // NOI18N
+        buttonReload.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonReloadActionPerformed(evt);
+            }
+        });
+        panelButtons.add(buttonReload);
+
+        buttonExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/lib/resource/icons/icon_exit24.png"))); // NOI18N
+        buttonExit.setToolTipText(bundle.getString("LogfileDialog.buttonExit.toolTipText")); // NOI18N
+        buttonExit.setBorder(null);
+        buttonExit.setName("buttonExit"); // NOI18N
+        buttonExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonExitActionPerformed(evt);
+            }
+        });
+        panelButtons.add(buttonExit);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        panelContent.add(panelButtons, gridBagConstraints);
+
+        panelCards.setName("panelCards"); // NOI18N
+        panelCards.setLayout(new java.awt.CardLayout());
 
         panelXml.setName("panelXml"); // NOI18N
         panelXml.setLayout(new java.awt.GridBagLayout());
@@ -671,14 +701,13 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         panelXml.add(panelFilter, gridBagConstraints);
 
         scrollPaneTableLogfileRecords.setName("scrollPaneTableLogfileRecords"); // NOI18N
         scrollPaneTableLogfileRecords.setPreferredSize(new java.awt.Dimension(50, 50));
 
         tableLogfileRecords.setAutoCreateRowSorter(true);
-        tableLogfileRecords.setModel(new LogfilesTableModel("", Arrays.asList(Level.ALL)));
+        tableLogfileRecords.setModel(new org.jphototagger.lib.model.LogfilesTableModel("", Arrays.asList(Level.ALL)));
         tableLogfileRecords.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         tableLogfileRecords.setName("tableLogfileRecords"); // NOI18N
         tableLogfileRecords.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -690,7 +719,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 0.6;
-        gridBagConstraints.insets = new java.awt.Insets(3, 5, 0, 5);
+        gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
         panelXml.add(scrollPaneTableLogfileRecords, gridBagConstraints);
 
         scrollPaneTextPaneDetails.setName("scrollPaneTextPaneDetails"); // NOI18N
@@ -706,10 +735,10 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 0.4;
-        gridBagConstraints.insets = new java.awt.Insets(3, 5, 5, 5);
+        gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
         panelXml.add(scrollPaneTextPaneDetails, gridBagConstraints);
 
-        tabbedPane.addTab(bundle.getString("LogfileDialog.panelXml.TabConstraints.tabTitle"), panelXml); // NOI18N
+        panelCards.add(panelXml, "panelXml");
 
         panelSimple.setName("panelSimple"); // NOI18N
         panelSimple.setLayout(new java.awt.GridBagLayout());
@@ -729,64 +758,37 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panelSimple.add(scrollPanePanelSimple, gridBagConstraints);
 
-        tabbedPane.addTab(bundle.getString("LogfileDialog.panelSimple.TabConstraints.tabTitle"), panelSimple); // NOI18N
-
         panelSearchSimple.setName("panelSearchSimple"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        panelSimple.add(panelSearchSimple, gridBagConstraints);
 
-        buttonReload.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/lib/resource/icons/icon_refresh24.png"))); // NOI18N
-        buttonReload.setToolTipText(bundle.getString("LogfileDialog.buttonReload.toolTipText")); // NOI18N
-        buttonReload.setBorder(null);
-        buttonReload.setName("buttonReload"); // NOI18N
-        buttonReload.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonReloadActionPerformed(evt);
-            }
-        });
+        panelCards.add(panelSimple, "panelSimple");
 
-        buttonExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/lib/resource/icons/icon_exit24.png"))); // NOI18N
-        buttonExit.setToolTipText(bundle.getString("LogfileDialog.buttonExit.toolTipText")); // NOI18N
-        buttonExit.setBorder(null);
-        buttonExit.setName("buttonExit"); // NOI18N
-        buttonExit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonExitActionPerformed(evt);
-            }
-        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        panelContent.add(panelCards, gridBagConstraints);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(tabbedPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 721, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(panelSearchSimple, javax.swing.GroupLayout.DEFAULT_SIZE, 649, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(buttonReload)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(buttonExit))
-                    .addComponent(labelLogfileName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelLogfileName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 520, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(buttonExit)
-                    .addComponent(buttonReload)
-                    .addComponent(panelSearchSimple, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        getContentPane().add(panelContent, gridBagConstraints);
 
         pack();
     }//GEN-END:initComponents
@@ -849,6 +851,9 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
     private javax.swing.JLabel labelIconWarning;
     private javax.swing.JLabel labelLogfileName;
     private javax.swing.JLabel labelSearch;
+    private javax.swing.JPanel panelButtons;
+    private javax.swing.JPanel panelCards;
+    private javax.swing.JPanel panelContent;
     private javax.swing.JPanel panelFilter;
     private javax.swing.JPanel panelFilterCheckBoxes;
     private org.jphototagger.lib.component.TextAreaSearchPanel panelSearchSimple;
@@ -858,7 +863,6 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
     private javax.swing.JScrollPane scrollPanePanelSimple;
     private javax.swing.JScrollPane scrollPaneTableLogfileRecords;
     private javax.swing.JScrollPane scrollPaneTextPaneDetails;
-    private javax.swing.JTabbedPane tabbedPane;
     private javax.swing.JTable tableLogfileRecords;
     private javax.swing.JTextArea textAreaSimple;
     private javax.swing.JTextField textFieldSearch;
