@@ -26,7 +26,7 @@
       <Properties>
         <Property name="lineWrap" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/fileactionhooks/Bundle.properties" key="SettingsPanel.labelGeneralInfo.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/fileeventhooks/Bundle.properties" key="SettingsPanel.labelGeneralInfo.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="name" type="java.lang.String" value="labelGeneralInfo" noResource="true"/>
       </Properties>
@@ -41,7 +41,7 @@
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
             <TitledBorder title="Eine Bilddatei wurde kopiert">
-              <ResourceString PropertyName="titleX" bundle="org/jphototagger/fileactionhooks/Bundle.properties" key="SettingsPanel.panelFileCopied.border.title" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString PropertyName="titleX" bundle="org/jphototagger/fileeventhooks/Bundle.properties" key="SettingsPanel.panelFileCopied.border.title" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </TitledBorder>
           </Border>
         </Property>
@@ -69,7 +69,7 @@
         <Component class="javax.swing.JButton" name="buttonChooseScriptFileCopied">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/fileactionhooks/Bundle.properties" key="SettingsPanel.buttonChooseScriptFileCopied.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/fileeventhooks/Bundle.properties" key="SettingsPanel.buttonChooseScriptFileCopied.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="name" type="java.lang.String" value="buttonChooseScriptFileCopied" noResource="true"/>
           </Properties>
@@ -85,7 +85,7 @@
         <Component class="org.jdesktop.swingx.JXLabel" name="labelParameterInfoFileCopied">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/fileactionhooks/Bundle.properties" key="SettingsPanel.labelParameterInfoFileCopied.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/fileeventhooks/Bundle.properties" key="SettingsPanel.labelParameterInfoFileCopied.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="name" type="java.lang.String" value="labelParameterInfoFileCopied" noResource="true"/>
           </Properties>
@@ -102,7 +102,7 @@
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
             <TitledBorder title="Eine Bilddatei wurde umbenannt">
-              <ResourceString PropertyName="titleX" bundle="org/jphototagger/fileactionhooks/Bundle.properties" key="SettingsPanel.panelFileRenamed.border.title" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString PropertyName="titleX" bundle="org/jphototagger/fileeventhooks/Bundle.properties" key="SettingsPanel.panelFileRenamed.border.title" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </TitledBorder>
           </Border>
         </Property>
@@ -130,7 +130,7 @@
         <Component class="javax.swing.JButton" name="buttonChooseScriptFileRenamed">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/fileactionhooks/Bundle.properties" key="SettingsPanel.buttonChooseScriptFileRenamed.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/fileeventhooks/Bundle.properties" key="SettingsPanel.buttonChooseScriptFileRenamed.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="name" type="java.lang.String" value="buttonChooseScriptFileRenamed" noResource="true"/>
           </Properties>
@@ -146,7 +146,7 @@
         <Component class="org.jdesktop.swingx.JXLabel" name="labelParameterInfoFileRenamed">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/fileactionhooks/Bundle.properties" key="SettingsPanel.labelParameterInfoFileRenamed.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/fileeventhooks/Bundle.properties" key="SettingsPanel.labelParameterInfoFileRenamed.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="name" type="java.lang.String" value="labelParameterInfoFileRenamed" noResource="true"/>
           </Properties>
@@ -163,7 +163,7 @@
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
             <TitledBorder title="Eine Bilddatei wurde verschoben">
-              <ResourceString PropertyName="titleX" bundle="org/jphototagger/fileactionhooks/Bundle.properties" key="SettingsPanel.panelFileMoved.border.title" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString PropertyName="titleX" bundle="org/jphototagger/fileeventhooks/Bundle.properties" key="SettingsPanel.panelFileMoved.border.title" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </TitledBorder>
           </Border>
         </Property>
@@ -191,7 +191,7 @@
         <Component class="javax.swing.JButton" name="buttonChooseScriptFileMoved">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/fileactionhooks/Bundle.properties" key="SettingsPanel.buttonChooseScriptFileMoved.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/fileeventhooks/Bundle.properties" key="SettingsPanel.buttonChooseScriptFileMoved.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="name" type="java.lang.String" value="buttonChooseScriptFileMoved" noResource="true"/>
           </Properties>
@@ -207,7 +207,7 @@
         <Component class="org.jdesktop.swingx.JXLabel" name="labelParameterInfoFileMoved">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/fileactionhooks/Bundle.properties" key="SettingsPanel.labelParameterInfoFileMoved.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/fileeventhooks/Bundle.properties" key="SettingsPanel.labelParameterInfoFileMoved.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="name" type="java.lang.String" value="labelParameterInfoFileMoved" noResource="true"/>
           </Properties>
@@ -224,7 +224,7 @@
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
             <TitledBorder title="Eine Bilddatei wurde gel&#xf6;scht">
-              <ResourceString PropertyName="titleX" bundle="org/jphototagger/fileactionhooks/Bundle.properties" key="SettingsPanel.panelFileDeleted.border.title" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString PropertyName="titleX" bundle="org/jphototagger/fileeventhooks/Bundle.properties" key="SettingsPanel.panelFileDeleted.border.title" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </TitledBorder>
           </Border>
         </Property>
@@ -252,7 +252,7 @@
         <Component class="javax.swing.JButton" name="buttonChooseScriptFileDeleted">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/fileactionhooks/Bundle.properties" key="SettingsPanel.buttonChooseScriptFileDeleted.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/fileeventhooks/Bundle.properties" key="SettingsPanel.buttonChooseScriptFileDeleted.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="name" type="java.lang.String" value="buttonChooseScriptFileDeleted" noResource="true"/>
           </Properties>
@@ -268,7 +268,7 @@
         <Component class="org.jdesktop.swingx.JXLabel" name="labelParameterInfoFileDeleted">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/fileactionhooks/Bundle.properties" key="SettingsPanel.labelParameterInfoFileDeleted.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/fileeventhooks/Bundle.properties" key="SettingsPanel.labelParameterInfoFileDeleted.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="name" type="java.lang.String" value="labelParameterInfoFileDeleted" noResource="true"/>
           </Properties>
@@ -283,7 +283,7 @@
     <Component class="org.jdesktop.swingx.JXLabel" name="labelPathInfo">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/fileactionhooks/Bundle.properties" key="SettingsPanel.labelPathInfo.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/fileeventhooks/Bundle.properties" key="SettingsPanel.labelPathInfo.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="name" type="java.lang.String" value="labelPathInfo" noResource="true"/>
       </Properties>

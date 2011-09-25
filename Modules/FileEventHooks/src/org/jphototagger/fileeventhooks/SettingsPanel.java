@@ -1,4 +1,4 @@
-package org.jphototagger.fileactionhooks;
+package org.jphototagger.fileeventhooks;
 
 import java.awt.Color;
 import java.io.File;
@@ -27,7 +27,7 @@ public class SettingsPanel extends javax.swing.JPanel {
 
     private static final long serialVersionUID = 1L;
     private final Map<JTextField, String> keyOfTextField = new HashMap<JTextField, String>(4);
-    private static final String LAST_CHOOSEN_DIR_KEY = "Module.FileActionHooks.LastChoosenDir";
+    private static final String LAST_CHOOSEN_DIR_KEY = "Module.FileEventHooks.LastChoosenDir";
     private String lastChoosenDirectory;
     private static final Color TEXTFIELD_FOREGROUND = getTextFieldForeground();
 
@@ -49,10 +49,10 @@ public class SettingsPanel extends javax.swing.JPanel {
     }
 
     private void initKeyOfTextFieldMap() {
-        keyOfTextField.put(textFieldFileCopied, FileActionHooksPreferencesKeys.FILE_COPIED_KEY);
-        keyOfTextField.put(textFieldFileDeleted, FileActionHooksPreferencesKeys.FILE_DELETED_KEY);
-        keyOfTextField.put(textFieldFileMoved, FileActionHooksPreferencesKeys.FILE_MOVED_KEY);
-        keyOfTextField.put(textFieldFileRenamed, FileActionHooksPreferencesKeys.FILE_RENAMED_KEY);
+        keyOfTextField.put(textFieldFileCopied, FileEventHooksPreferencesKeys.FILE_COPIED_KEY);
+        keyOfTextField.put(textFieldFileDeleted, FileEventHooksPreferencesKeys.FILE_DELETED_KEY);
+        keyOfTextField.put(textFieldFileMoved, FileEventHooksPreferencesKeys.FILE_MOVED_KEY);
+        keyOfTextField.put(textFieldFileRenamed, FileEventHooksPreferencesKeys.FILE_RENAMED_KEY);
     }
 
     private void initLastChoosenDirectory() {
@@ -65,10 +65,10 @@ public class SettingsPanel extends javax.swing.JPanel {
     private void setScriptsToTextFields() {
         Preferences preferences = Lookup.getDefault().lookup(Preferences.class);
 
-        setScriptToTextField(preferences.getString(FileActionHooksPreferencesKeys.FILE_COPIED_KEY), textFieldFileCopied);
-        setScriptToTextField(preferences.getString(FileActionHooksPreferencesKeys.FILE_DELETED_KEY), textFieldFileDeleted);
-        setScriptToTextField(preferences.getString(FileActionHooksPreferencesKeys.FILE_MOVED_KEY), textFieldFileMoved);
-        setScriptToTextField(preferences.getString(FileActionHooksPreferencesKeys.FILE_RENAMED_KEY), textFieldFileRenamed);
+        setScriptToTextField(preferences.getString(FileEventHooksPreferencesKeys.FILE_COPIED_KEY), textFieldFileCopied);
+        setScriptToTextField(preferences.getString(FileEventHooksPreferencesKeys.FILE_DELETED_KEY), textFieldFileDeleted);
+        setScriptToTextField(preferences.getString(FileEventHooksPreferencesKeys.FILE_MOVED_KEY), textFieldFileMoved);
+        setScriptToTextField(preferences.getString(FileEventHooksPreferencesKeys.FILE_RENAMED_KEY), textFieldFileRenamed);
 
     }
 
@@ -105,7 +105,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         props.dialogTitle(Bundle.getString(SettingsPanel.class, "SettingsPanel.FileChooser.Title"));
         props.multiSelectionEnabled(false);
         props.fileSelectionMode(JFileChooser.FILES_ONLY);
-        props.propertyKeyPrefix("Module.FileActionHooks.FileChooser");
+        props.propertyKeyPrefix("Module.FileEventHooks.FileChooser");
 
         File scriptFile = FileChooserHelper.chooseFile(props);
 
@@ -161,7 +161,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         setLayout(new java.awt.GridBagLayout());
 
         labelGeneralInfo.setLineWrap(true);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/fileactionhooks/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/fileeventhooks/Bundle"); // NOI18N
         labelGeneralInfo.setText(bundle.getString("SettingsPanel.labelGeneralInfo.text")); // NOI18N
         labelGeneralInfo.setName("labelGeneralInfo"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
