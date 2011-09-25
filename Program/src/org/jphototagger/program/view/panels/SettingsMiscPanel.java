@@ -35,6 +35,7 @@ import org.jphototagger.program.types.Persistence;
 public final class SettingsMiscPanel extends javax.swing.JPanel implements Persistence {
 
     private static final long serialVersionUID = 479354601163285718L;
+    private static final String PREFERENCES_KEY_TABBED_PANE = "SettingsMiscPanel.TabbedPane";
 
     public SettingsMiscPanel() {
         initComponents();
@@ -209,6 +210,12 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
         radioButtonCopyMoveFileConfirmOverwrite.setSelected(getCopyMoveFilesOptions().equals(CopyFiles.Options.CONFIRM_OVERWRITE));
         radioButtonCopyMoveFileRenameIfExists.setSelected(getCopyMoveFilesOptions().equals(CopyFiles.Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS));
         setIconRepositoryDirectory();
+        restoreTabbedPaneSettings();
+    }
+
+    private void restoreTabbedPaneSettings() {
+        Preferences preferences = Lookup.getDefault().lookup(Preferences.class);
+        preferences.applyTabbedPaneSettings(PREFERENCES_KEY_TABBED_PANE, tabbedPane, null);
     }
 
     private static boolean isAddFilenameToGpsLocationExport() {
@@ -245,6 +252,9 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
 
     @Override
     public void persist() {
+        Preferences preferences = Lookup.getDefault().lookup(Preferences.class);
+
+        preferences.setTabbedPane(PREFERENCES_KEY_TABBED_PANE, tabbedPane, null);
     }
 
     private void checkDownload() {
@@ -263,6 +273,7 @@ public final class SettingsMiscPanel extends javax.swing.JPanel implements Persi
         }
 
         tabbedPane.add(title, component);
+        restoreTabbedPaneSettings();
     }
 
     /**
