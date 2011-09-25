@@ -1,4 +1,4 @@
-package org.jphototagger.fileactionhooks;
+package org.jphototagger.fileeventhooks;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,15 +23,15 @@ import org.jphototagger.lib.util.StringUtil;
  *
  * @author Elmar Baumann
  */
-public final class FileActionScriptExecutor {
+public final class FileEventHooksScriptExecutor {
 
-    private static final Logger LOGGER = Logger.getLogger(FileActionScriptExecutor.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(FileEventHooksScriptExecutor.class.getName());
     private String fileCopiedScript;
     private String fileDeletedScript;
     private String fileMovedScript;
     private String fileRenamedScript;
 
-    public FileActionScriptExecutor() {
+    public FileEventHooksScriptExecutor() {
         initScriptFiles();
         AnnotationProcessor.process(this);
     }
@@ -39,10 +39,10 @@ public final class FileActionScriptExecutor {
     private void initScriptFiles() {
         Preferences preferences = Lookup.getDefault().lookup(Preferences.class);
 
-        fileCopiedScript = preferences.getString(FileActionHooksPreferencesKeys.FILE_COPIED_KEY);
-        fileDeletedScript = preferences.getString(FileActionHooksPreferencesKeys.FILE_DELETED_KEY);
-        fileMovedScript = preferences.getString(FileActionHooksPreferencesKeys.FILE_MOVED_KEY);
-        fileRenamedScript = preferences.getString(FileActionHooksPreferencesKeys.FILE_RENAMED_KEY);
+        fileCopiedScript = preferences.getString(FileEventHooksPreferencesKeys.FILE_COPIED_KEY);
+        fileDeletedScript = preferences.getString(FileEventHooksPreferencesKeys.FILE_DELETED_KEY);
+        fileMovedScript = preferences.getString(FileEventHooksPreferencesKeys.FILE_MOVED_KEY);
+        fileRenamedScript = preferences.getString(FileEventHooksPreferencesKeys.FILE_RENAMED_KEY);
     }
 
     @EventSubscriber(eventClass = PreferencesChangedEvent.class)
@@ -50,13 +50,13 @@ public final class FileActionScriptExecutor {
         String key = evt.getKey();
         String stringValue = evt.getNewValue() == null ? "" : evt.getNewValue().toString();
 
-        if (FileActionHooksPreferencesKeys.FILE_COPIED_KEY.equals(key)) {
+        if (FileEventHooksPreferencesKeys.FILE_COPIED_KEY.equals(key)) {
             fileCopiedScript = stringValue;
-        } else if (FileActionHooksPreferencesKeys.FILE_DELETED_KEY.equals(key)) {
+        } else if (FileEventHooksPreferencesKeys.FILE_DELETED_KEY.equals(key)) {
             fileDeletedScript = stringValue;
-        } else if (FileActionHooksPreferencesKeys.FILE_MOVED_KEY.equals(key)) {
+        } else if (FileEventHooksPreferencesKeys.FILE_MOVED_KEY.equals(key)) {
             fileMovedScript = stringValue;
-        } else if (FileActionHooksPreferencesKeys.FILE_RENAMED_KEY.equals(key)) {
+        } else if (FileEventHooksPreferencesKeys.FILE_RENAMED_KEY.equals(key)) {
             fileRenamedScript = stringValue;
         }
     }

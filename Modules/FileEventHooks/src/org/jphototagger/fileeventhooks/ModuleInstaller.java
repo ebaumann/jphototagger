@@ -1,4 +1,4 @@
-package org.jphototagger.fileactionhooks;
+package org.jphototagger.fileeventhooks;
 
 import org.openide.util.lookup.ServiceProvider;
 
@@ -15,7 +15,7 @@ import org.openide.util.Lookup;
 @ServiceProvider(service = Module.class)
 public final class ModuleInstaller implements Module {
 
-    private static final FileActionScriptExecutor EXECUTOR = new FileActionScriptExecutor();
+    private static final FileEventHooksScriptExecutor EXECUTOR = new FileEventHooksScriptExecutor();
 
     @Override
     public void init() {
