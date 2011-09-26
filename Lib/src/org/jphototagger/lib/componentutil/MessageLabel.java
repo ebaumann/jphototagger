@@ -1,12 +1,12 @@
 package org.jphototagger.lib.componentutil;
 
-import org.jphototagger.api.messages.MessageType;
 import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JLabel;
 
+import org.jphototagger.api.messages.MessageType;
 import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
@@ -16,7 +16,11 @@ import org.jphototagger.lib.awt.EventQueueUtil;
  * @author Elmar Baumann
  */
 public final class MessageLabel {
+
     private final JLabel label;
+    private long removeTextTimeMillis;
+    private Thread currentHideTextThread;
+    private final Object monitor = new Object();
 
     public MessageLabel(JLabel label) {
         if (label == null) {
@@ -26,7 +30,7 @@ public final class MessageLabel {
         this.label = label;
     }
 
-    public void showMessage(final String message, final MessageType type, final long milliseconds) {
+    public void showMessage(final String message, final MessageType type, long milliseconds) {
         if (message == null) {
             throw new NullPointerException("message == null");
         }
@@ -40,46 +44,65 @@ public final class MessageLabel {
         }
 
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
             @Override
             public void run() {
-                label.setForeground(type.isError()
-                                    ? Color.RED
-                                    : Color.BLACK);
+                label.setForeground(getForegroundColorOfMessageType(type));
                 label.setText(message);
-
-                Thread thread = new Thread(new HideInfoMessage(message, milliseconds),
-                                           "JPhotoTagger: Hiding message popup");
-
-                thread.setPriority(Thread.MIN_PRIORITY);
-                thread.start();
             }
         });
+
+        synchronized (monitor) {
+            if (currentHideTextThread != null) {
+                return;
+            }
+
+            removeTextTimeMillis = System.currentTimeMillis() + milliseconds;
+            currentHideTextThread = new HideTextThread();
+            currentHideTextThread.start();
+        }
     }
 
-    private class HideInfoMessage implements Runnable {
-        private final long milliseconds;
-        private final String text;
+    private Color getForegroundColorOfMessageType(MessageType type) {
+        return type.isError()
+                ? Color.RED
+                : Color.BLACK;
+    }
 
-        HideInfoMessage(String text, long milliseconds) {
-            this.text = (text == null)
-                        ? ""
-                        : text;
-            this.milliseconds = milliseconds;
+    private class HideTextThread extends Thread {
+
+        private HideTextThread() {
+            super("JPhotoTagger: Hiding message label text");
+            setPriority(Thread.MIN_PRIORITY);
         }
 
         @Override
         public void run() {
-            try {
-                Thread.sleep(milliseconds);
-            } catch (Exception ex) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+            long currentTimeMillis = System.currentTimeMillis();
+            long sleepTime = 0;
+            synchronized (monitor) {
+                sleepTime = removeTextTimeMillis - currentTimeMillis;
+            }
+            while (sleepTime > 0 && !Thread.currentThread().isInterrupted()) {
+                try {
+                    Thread.sleep(sleepTime);
+                } catch (Exception ex) {
+                    Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+                }
+                currentTimeMillis = System.currentTimeMillis();
+                synchronized (monitor) {
+                    sleepTime = removeTextTimeMillis - currentTimeMillis;
+                }
             }
 
             EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
                 @Override
                 public void run() {
-                    if (text.equals(label.getText())) {
-                        label.setText("");
+                    label.setText("");
+
+                    synchronized (monitor) {
+                        currentHideTextThread = null;
                     }
                 }
             });
