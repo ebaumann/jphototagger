@@ -58,6 +58,7 @@ public final class AppLoggingSystem {
             APP_LOGGER.setLevel(Level.ALL); // Handlers are restricting the output
             APP_LOGGER.setUseParentHandlers(false);
             LogManager.getLogManager().addLogger(APP_LOGGER);
+            setDefaultUncaughtExceptionHandler();
         }
     }
 
@@ -138,6 +139,16 @@ public final class AppLoggingSystem {
         }
 
         return level == null ? Level.ALL : level;
+    }
+
+    private static void setDefaultUncaughtExceptionHandler() {
+        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+
+            @Override
+            public void uncaughtException(Thread t, Throwable e) {
+                APP_LOGGER.log(Level.SEVERE, null, e);
+            }
+        });
     }
 
     /**
