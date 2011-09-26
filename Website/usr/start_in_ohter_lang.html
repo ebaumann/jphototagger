@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>How can JPhotoTagger present the GUI in a different language?</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<meta name="date" content="2010-01-29T19:00:15+01:00" />
+	<meta http-equiv="content-language" content="en" />
+	<link rel="stylesheet" media="screen" type="text/css" href="../css/standard.css" />
+	<link rel="shortcut icon" href="../favicon.ico" />
+        <style type="text/css">
+            #content ol, #content ul { margin-top: 0.75em; margin-left: 0.75em; padding-left: 0.75em; }
+            #content ul { list-style-type: square; }
+        </style>
+</head>
+<body>
+
+<div id="page">
+    <div id="sitenav">
+        <h2>Navigate</h2>
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../download.html">Download</a></li>
+            <li><a href="../features.html">Features</a></li>
+            <li><a href="../system_req.html">System requirements</a></li>
+            <li><a href="../screenshots/index.html">Screenshots</a></li>
+            <li><a href="index.html">Users</a></li>
+            <li><a href="../dev/index.html">Developers</a></li>
+        </ul>
+        <h2>Discussion</h2>
+        <ul>
+            <li><a href="http://groups.google.de/group/jphototagger-benutzer">Deutsche Benutzer</a></li>
+            <li><a href="http://groups.google.de/group/jphototagger-developers">Developers</a></li>
+        </ul>
+        <h2>Tracking</h2>
+        <ul>
+            <li><a href="http://code.google.com/p/jphototagger/issues/list">Bugs, Issues</a></li>
+        </ul>
+        <h2>Repository</h2>
+        <ul>
+            <li><a href="http://code.google.com/p/jphototagger/source/checkout">Source Code</a></li>
+        </ul>
+    </div><!--sitenav-->
+    <div id="content">
+
+        <h1>How can JPhotoTagger present the GUI in a different language?</h1>
+
+        <p>The default language of <strong>JPhotoTagger</strong> is German. During startup <strong>JPhotoTagger</strong>
+            searches for the language used by the operating system and takes it,
+            <em>if that language is supported</em>. The supported languages are listed on
+            the <a href="../index.html">Homepage</a>, section <strong>Languages</strong>.
+            In September 2011 that are English and German.</p>
+
+        <p>If you speak German or English
+            and have time, you can support <strong>JPhotoTagger</strong>: The language
+            strings are stored in text files separated from the program code. You can
+            add text files in a special format for other languages.
+        </p>
+
+        <p>If the operating system is set up with an unsupported language,
+            <strong>JPhotoTagger</strong> uses it's default:
+            German. But you can start JPhotoTagger in any supported language, e.g. if you don't
+            speak German but another supported language that is not your native. Go to the
+            installation directory &ndash; the directory with the file <code>JPhotoTagger.jar</code>
+            and invoke <strong>JPhotoTagger</strong> from the command line with:
+        </p>
+
+        <pre>java -Xms30m -Xmx750m -Duser.language=en -jar JPhotoTagger.jar</pre>
+
+        <p>The important part is <strong>-Duser.language=en</strong>, the <strong>en</strong> means:
+            Use English. Supported language shortcuts (ISO language codes):
+        </p>
+
+        <table>
+            <tr><th>Shortcut</th><th>Language</th></tr>
+            <tr><td>de</td><td>German</td></tr>
+            <tr><td>en</td><td>English</td></tr>
+
+        </table>
+
+        <p>You can write a batch file (script) with that line and start JPhotoTagger via that batch file.
+            Under Windows you may prefer (does not display a separate command window):
+        </p>
+
+        <pre>start javaw -Xms30m -Xmx750m -Duser.language=en -jar JPhotoTagger.jar</pre>
+
+        <p><strong>Author:</strong>
+            <br /><a href="mailto:info@jphototagger.org?subject=JPhotoTagger%20">Write e-Mail</a>
+            <br /><strong>Status of this document:</strong> 2011-09-26
+        </p>
+
+    </div><!--content-->
+</div><!--page-->
+</body>
+</html>
