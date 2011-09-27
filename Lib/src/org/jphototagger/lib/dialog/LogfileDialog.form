@@ -401,6 +401,9 @@
                       <Dimension value="[50, 50]"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="componentResized" listener="java.awt.event.ComponentListener" parameters="java.awt.event.ComponentEvent" handler="scrollPaneTableLogfileRecordsComponentResized"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
                   </AuxValues>

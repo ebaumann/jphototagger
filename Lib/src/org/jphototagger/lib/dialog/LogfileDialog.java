@@ -4,6 +4,7 @@ import java.awt.CardLayout;
 import java.awt.Frame;
 import java.awt.HeadlessException;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -27,6 +28,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.TableColumnModel;
 import javax.swing.text.html.HTMLDocument;
 
 import org.jphototagger.lib.io.FileUtil;
@@ -235,15 +237,18 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
     }
 
     private void setColumnWidths() {
-        int width = getWidth() - 20;
-        int widthColumn0 = 20;
+        Rectangle bounds = scrollPaneTableLogfileRecords.getViewportBorderBounds();
+        int width = bounds.width;
+        int widthColumn0 = 25;
         int widthColumn1 = 150;
         int widthColumn2 = width - widthColumn0 - widthColumn1;
 
         if (widthColumn2 > 0) {
-            tableLogfileRecords.getColumnModel().getColumn(0).setPreferredWidth(widthColumn0);
-            tableLogfileRecords.getColumnModel().getColumn(1).setPreferredWidth(widthColumn1);
-            tableLogfileRecords.getColumnModel().getColumn(2).setPreferredWidth(widthColumn2);
+            TableColumnModel columnModel = tableLogfileRecords.getColumnModel();
+
+            columnModel.getColumn(0).setPreferredWidth(widthColumn0);
+            columnModel.getColumn(1).setPreferredWidth(widthColumn1);
+            columnModel.getColumn(2).setPreferredWidth(widthColumn2);
         }
     }
 
@@ -347,8 +352,8 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
             tableLogfileRecords.setModel(model);
             Collections.sort(logfileRecords, LogfileRecordComparatorDescendingByTime.INSTANCE);
             model.setRecords(logfileRecords);
-            setColumnWidths();
             scrollPaneTableLogfileRecords.getViewport().setViewPosition(new Point(0, 0));
+            setColumnWidths();
         }
     }
 
@@ -705,6 +710,11 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
 
         scrollPaneTableLogfileRecords.setName("scrollPaneTableLogfileRecords"); // NOI18N
         scrollPaneTableLogfileRecords.setPreferredSize(new java.awt.Dimension(50, 50));
+        scrollPaneTableLogfileRecords.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                scrollPaneTableLogfileRecordsComponentResized(evt);
+            }
+        });
 
         tableLogfileRecords.setAutoCreateRowSorter(true);
         tableLogfileRecords.setModel(new org.jphototagger.lib.model.LogfilesTableModel("", Arrays.asList(Level.ALL)));
@@ -808,6 +818,10 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         setVisible(false);
     }//GEN-LAST:event_formWindowClosing
+
+    private void scrollPaneTableLogfileRecordsComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_scrollPaneTableLogfileRecordsComponentResized
+        setColumnWidths();
+    }//GEN-LAST:event_scrollPaneTableLogfileRecordsComponentResized
 
     /**
      * @param args the command line arguments
