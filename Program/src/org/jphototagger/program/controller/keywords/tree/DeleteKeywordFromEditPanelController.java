@@ -77,7 +77,7 @@ public class DeleteKeywordFromEditPanelController extends KeywordsController imp
 
             if (editPanel.isEditable()) {
                 editPanel.removeText(keyword);
-                editPanels.checkSaveOnChanges();
+                editPanels.saveIfDirtyAndInputIsSaveEarly();
                 KeywordsHelper.removeHighlightKeyword(keyword);
             } else {
                 String message = Bundle.getString(DeleteKeywordFromEditPanelController.class, "DeleteKeywordFromEditPanelController.Error.EditDisabled");
