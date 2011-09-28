@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -37,6 +38,8 @@ import org.jphototagger.domain.event.AppWillExitEvent;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.event.EditMetadataPanelsEditDisabledEvent;
 import org.jphototagger.domain.metadata.event.EditMetadataPanelsEditEnabledEvent;
+import org.jphototagger.domain.metadata.xmp.FileXmp;
+import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpRatingMetaDataValue;
 import org.jphototagger.domain.repository.event.xmp.XmpDeletedEvent;
@@ -44,8 +47,6 @@ import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.domain.text.TextEntry;
-import org.jphototagger.domain.metadata.xmp.FileXmp;
-import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
@@ -70,11 +71,12 @@ public final class EditMetadataPanels implements FocusListener {
 
     private final List<JPanel> panels = new ArrayList<JPanel>();
     private final List<FileXmp> imageFilesXmp = new ArrayList<FileXmp>();
-    private boolean editable = true;
+    private volatile boolean editable = true;
     private WatchDifferentValues watchDifferentValues = new WatchDifferentValues();
     private JComponent container;
     private EditMetadataActionsPanel editActionsPanel;
     private Component lastFocussedEditControl;
+    private final Object monitor = new Object();
 
     public EditMetadataPanels(JComponent container) {
         if (container == null) {
@@ -101,7 +103,7 @@ public final class EditMetadataPanels implements FocusListener {
         return false;
     }
 
-    private void checkDirty() {
+    private void saveIfDirty() {
         if (isDirty()) {
             save();
             setFocusToLastFocussedEditControl();
@@ -109,8 +111,10 @@ public final class EditMetadataPanels implements FocusListener {
     }
 
     private void save() {
-        addInputToRepeatableTextEntries();
-        SaveXmp.save(imageFilesXmp);
+        addInputToRepeatableTextEntries(); // XMP in imageFilesXmp implicit adding these values
+        synchronized (monitor) {
+            SaveXmp.save(imageFilesXmp);
+        }
         setDirty(false);
     }
 
@@ -127,19 +131,15 @@ public final class EditMetadataPanels implements FocusListener {
         }
     }
 
-    /**
-     * Setzt, ob die Daten bearbeitet werden können.
-     *
-     * @param editable  true, wenn bearbeitbar
-     */
     public void setEditable(final boolean editable) {
-        this.editable = editable;
+        synchronized (monitor) {
+            this.editable = editable;
+        }
 
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
             public void run() {
-
                 for (JPanel panel : panels) {
                     ((TextEntry) panel).setEditable(editable);
                 }
@@ -154,7 +154,9 @@ public final class EditMetadataPanels implements FocusListener {
     }
 
     public boolean isEditable() {
-        return editable;
+        synchronized (monitor) {
+            return editable;
+        }
     }
 
     private void showWaitSetImageFiles(int imgCount) {
@@ -189,7 +191,9 @@ public final class EditMetadataPanels implements FocusListener {
     }
 
     private void setXmpOfImageFiles(Collection<File> imageFiles) {
-        imageFilesXmp.clear();
+        synchronized (monitor) {
+            imageFilesXmp.clear();
+        }
 
         for (File imageFile : imageFiles) {
             Xmp xmp = null;
@@ -206,12 +210,18 @@ public final class EditMetadataPanels implements FocusListener {
                 xmp = new Xmp();
             }
 
-            imageFilesXmp.add(new FileXmp(imageFile, xmp));
+            synchronized (monitor) {
+                imageFilesXmp.add(new FileXmp(imageFile, xmp));
+            }
         }
     }
 
     private void setXmpOfFilesAsTextEntryListener(boolean add) {
-        for (FileXmp imageFileXmp : imageFilesXmp) {
+        List<FileXmp> imageFilesXmpCopy = null;
+        synchronized (monitor) {
+            imageFilesXmpCopy = Collections.unmodifiableList(imageFilesXmp);
+        }
+        for (FileXmp imageFileXmp : imageFilesXmpCopy) {
             setXmpAsTextEntryListener(imageFileXmp.getXmp(), add);
         }
     }
@@ -268,9 +278,7 @@ public final class EditMetadataPanels implements FocusListener {
     }
 
     /**
-     * Adds text to a panel if it's an instance of
-     * {@code EditRepeatableTextEntryPanel} and if {@code #isEditable()} is
-     * true.
+     * Adds text to a panel if it's an instance of {@code EditRepeatableTextEntryPanel}.
      *
      * @param value
      * @param text   text to add
@@ -284,8 +292,10 @@ public final class EditMetadataPanels implements FocusListener {
             throw new NullPointerException("text == null");
         }
 
-        if (!isEditable()) {
-            return;
+        synchronized (monitor) {
+            if (!editable) {
+                return;
+            }
         }
 
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
@@ -312,7 +322,7 @@ public final class EditMetadataPanels implements FocusListener {
                     textEntry.setDirty(true);
                 }
 
-                checkSaveOnChanges();
+                saveIfDirtyAndInputIsSaveEarly();
             }
         });
     }
@@ -326,8 +336,10 @@ public final class EditMetadataPanels implements FocusListener {
             throw new NullPointerException("text == null");
         }
 
-        if (!isEditable()) {
-            return;
+        synchronized (monitor) {
+            if (!editable) {
+                return;
+            }
         }
 
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
@@ -355,7 +367,7 @@ public final class EditMetadataPanels implements FocusListener {
                     textEntry.setDirty(true);
                 }
 
-                checkSaveOnChanges();
+                saveIfDirtyAndInputIsSaveEarly();
             }
         });
     }
@@ -414,7 +426,7 @@ public final class EditMetadataPanels implements FocusListener {
             throw new NullPointerException("xmp == null");
         }
 
-        if (!isEditable()) {
+        if (!editable) {
             return;
         }
 
@@ -458,7 +470,7 @@ public final class EditMetadataPanels implements FocusListener {
                     }
                 }
 
-                checkSaveOnChanges();
+                saveIfDirtyAndInputIsSaveEarly();
             }
         });
     }
@@ -473,7 +485,7 @@ public final class EditMetadataPanels implements FocusListener {
             throw new NullPointerException("rating == null");
         }
 
-        if (!isEditable()) {
+        if (!editable) {
             return;
         }
 
@@ -498,13 +510,9 @@ public final class EditMetadataPanels implements FocusListener {
                     ratingPanel.setTextAndNotify(Long.toString(rating));
                 }
 
-                checkSaveOnChanges();
+                saveIfDirtyAndInputIsSaveEarly();
             }
         });
-    }
-
-    public Collection<FileXmp> getImageFilesXmp() {
-        return new ArrayList<FileXmp>(imageFilesXmp);
     }
 
     public void setMetadataTemplate(final MetadataTemplate template) {
@@ -512,8 +520,10 @@ public final class EditMetadataPanels implements FocusListener {
             throw new NullPointerException("template == null");
         }
 
-        if (!isEditable()) {
-            return;
+        synchronized (monitor) {
+            if (!editable) {
+                return;
+            }
         }
 
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
@@ -544,10 +554,8 @@ public final class EditMetadataPanels implements FocusListener {
     }
 
     /**
-     * Liefert ein Metadaten-Edit-Template mit den Daten der Panels.
      *
-     * @return Template <em>ohne</em> Name
-     *        ({@code org.jphototagger.program.data.MetadataTemplate#getValueName()})
+     * @return Template with current data
      */
     public MetadataTemplate getMetadataTemplate() {
         MetadataTemplate template = new MetadataTemplate();
@@ -571,11 +579,6 @@ public final class EditMetadataPanels implements FocusListener {
         return template;
     }
 
-    /**
-     * Sets the edit status.
-     *
-     * @param dirty  true if changes were made
-     */
     public void setDirty(final boolean dirty) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
@@ -592,7 +595,7 @@ public final class EditMetadataPanels implements FocusListener {
         watchDifferentValues.setListen(false);
         watchDifferentValues.setEntries(new ArrayList<TextEntry>());
 
-        if (imageFilesXmp.size() <= 0) {
+        if (isEmpty()) {
             return;
         }
 
@@ -611,7 +614,7 @@ public final class EditMetadataPanels implements FocusListener {
 
                 textEntry.setText(commonText);
 
-                if (multipleFiles() && commonText.isEmpty() && hasValue(xmpValue)) {
+                if (containsDataOfMultipleFiles() && commonText.isEmpty() && hasValue(xmpValue)) {
                     watchEntries.add(textEntry);
                 }
             }
@@ -619,25 +622,44 @@ public final class EditMetadataPanels implements FocusListener {
             textEntry.setDirty(false);
         }
 
-        if (multipleFiles() && (watchEntries.size() > 0)) {
+        if (containsDataOfMultipleFiles() && (watchEntries.size() > 0)) {
             watchDifferentValues.setEntries(watchEntries);
             watchDifferentValues.setListen(true);
         }
     }
 
-    private boolean multipleFiles() {
-        return imageFilesXmp.size() > 1;
+    private boolean isEmpty() {
+        synchronized (monitor) {
+            return imageFilesXmp.isEmpty();
+        }
+    }
+
+    private boolean containsDataOfMultipleFiles() {
+        synchronized (monitor) {
+            return imageFilesXmp.size() > 1;
+        }
+    }
+
+    private boolean containsDataOfExactlyOneFile() {
+        synchronized (monitor) {
+            return imageFilesXmp.size() == 1;
+        }
     }
 
     @SuppressWarnings("unchecked")
     private Collection<String> getCommonXmpCollection(MetaDataValue mdValue) {
-        assert imageFilesXmp.size() >= 1 : "No files!";
+        List<FileXmp> imageFilesXmpCopy = null;
+        synchronized (monitor) {
+            imageFilesXmpCopy = Collections.unmodifiableList(imageFilesXmp);
+        }
 
-        if (imageFilesXmp.size() == 1) {
-            Object value = imageFilesXmp.get(0).getXmp().getValue(mdValue);
+        if (imageFilesXmpCopy.size() == 1) {
+            FileXmp currentFileXmp = imageFilesXmpCopy.get(0);
+            Xmp currentXmp = currentFileXmp.getXmp();
+            Object currentValue = currentXmp.getValue(mdValue);
 
-            if (value instanceof List<?>) {
-                return (List<String>) value;
+            if (currentValue instanceof List<?>) {
+                return (List<String>) currentValue;
             } else {
                 return new ArrayList<String>(1);
             }
@@ -646,7 +668,7 @@ public final class EditMetadataPanels implements FocusListener {
         // more then 1 file
         Stack<List<String>> lists = new Stack<List<String>>();
 
-        for (FileXmp imageFileXmp : imageFilesXmp) {
+        for (FileXmp imageFileXmp : imageFilesXmpCopy) {
             Xmp xmp = imageFileXmp.getXmp();
             Object value = xmp.getValue(mdValue);
 
@@ -655,7 +677,7 @@ public final class EditMetadataPanels implements FocusListener {
             }
         }
 
-        if (lists.size() != imageFilesXmp.size()) {
+        if (lists.size() != imageFilesXmpCopy.size()) {
 
             // 1 ore more files without metadata
             return new ArrayList<String>(1);
@@ -671,10 +693,16 @@ public final class EditMetadataPanels implements FocusListener {
     }
 
     private String getCommonXmpString(MetaDataValue mdValue) {
-        assert imageFilesXmp.size() >= 1 : "No files!";
+        List<FileXmp> imageFilesXmpCopy = null;
+        synchronized (monitor) {
+            imageFilesXmpCopy = Collections.unmodifiableList(imageFilesXmp);
+        }
 
-        if (imageFilesXmp.size() == 1) {
-            String value = toString(imageFilesXmp.get(0).getXmp().getValue(mdValue));
+        if (imageFilesXmpCopy.size() == 1) {
+            FileXmp currentFilesXmp = imageFilesXmpCopy.get(0);
+            Xmp currentXmp = currentFilesXmp.getXmp();
+            Object currentValue = currentXmp.getValue(mdValue);
+            String value = toString(currentValue);
 
             return (value == null)
                     ? ""
@@ -684,7 +712,7 @@ public final class EditMetadataPanels implements FocusListener {
         // more then 1 file
         Stack<String> strings = new Stack<String>();
 
-        for (FileXmp imageFileXmp : imageFilesXmp) {
+        for (FileXmp imageFileXmp : imageFilesXmpCopy) {
             Xmp xmp = imageFileXmp.getXmp();
             String value = toString(xmp.getValue(mdValue));
 
@@ -693,7 +721,7 @@ public final class EditMetadataPanels implements FocusListener {
             }
         }
 
-        if (strings.size() != imageFilesXmp.size()) {
+        if (strings.size() != imageFilesXmpCopy.size()) {
             return "";
         }
 
@@ -709,7 +737,12 @@ public final class EditMetadataPanels implements FocusListener {
     }
 
     private boolean hasValue(MetaDataValue mdValue) {
-        for (FileXmp imageFileXmp : imageFilesXmp) {
+        List<FileXmp> imageFilesXmpCopy = null;
+        synchronized (monitor) {
+            imageFilesXmpCopy = Collections.unmodifiableList(imageFilesXmp);
+        }
+
+        for (FileXmp imageFileXmp : imageFilesXmpCopy) {
             Xmp xmp = imageFileXmp.getXmp();
             String value = toString(xmp.getValue(mdValue));
 
@@ -731,6 +764,7 @@ public final class EditMetadataPanels implements FocusListener {
         } else if (value instanceof Long) {
             return Long.toOctalString((Long) value);
         } else {
+            Logger.getLogger(EditMetadataPanels.class.getName()).log(Level.WARNING, "No string conversion implemented for ''{0}''", value);
             assert false : "No string conversion implemented for " + value;
         }
 
@@ -827,6 +861,10 @@ public final class EditMetadataPanels implements FocusListener {
     }
 
     private void createEditPanels() {
+        if (!panels.isEmpty()) {
+            throw new IllegalStateException("Panels already created");
+        }
+
         List<MetaDataValue> mdValues = EditMetaDataValues.get();
 
         for (MetaDataValue mdValue : mdValues) {
@@ -894,7 +932,7 @@ public final class EditMetadataPanels implements FocusListener {
     }
 
     public void emptyPanels(final boolean dirty) {
-        checkDirty();
+        saveIfDirty();
 
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
@@ -926,7 +964,7 @@ public final class EditMetadataPanels implements FocusListener {
     @Override
     public void focusLost(FocusEvent evt) {
         if (isEditComponent(evt.getOppositeComponent())) {
-            checkSaveOnChanges();
+            saveIfDirtyAndInputIsSaveEarly();
         }
     }
 
@@ -973,18 +1011,23 @@ public final class EditMetadataPanels implements FocusListener {
      * @param imageFile image file with new XMP data
      */
     private void setModifiedXmp(final File imageFile, final Xmp xmp) {
-        if (!editable || isDirty() || (imageFilesXmp.size() != 1)) {
+        if (!editable || isDirty() || !containsDataOfExactlyOneFile()) {
             return;
         }
 
-        final FileXmp imageFileXmp = imageFilesXmp.get(0);
+        FileXmp imageFileXmp = null;
+        synchronized (monitor) {
+            imageFileXmp = imageFilesXmp.get(0);
+        }
+
+        final Xmp imageFileXmpsXmp = imageFileXmp.getXmp();
 
         if (imageFileXmp.getFile().equals(imageFile)) {
             EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
                 @Override
                 public void run() {
-                    setXmpAsTextEntryListener(imageFileXmp.getXmp(), false);
+                    setXmpAsTextEntryListener(imageFileXmpsXmp, false);
                     setXmpAsTextEntryListener(xmp, true);
                     imageFilesXmp.set(0, new FileXmp(imageFile, xmp));
                     setXmpToEditPanels();
@@ -995,20 +1038,15 @@ public final class EditMetadataPanels implements FocusListener {
 
     @EventSubscriber(eventClass = AppWillExitEvent.class)
     public void appWillExit(AppWillExitEvent evt) {
-        checkDirty();
+        saveIfDirty();
     }
 
-    /**
-     * Checks whether content was changed and saves in that case the content.
-     */
-    public void checkSaveOnChanges() {
-        if (!isEditable()) {
+    public void saveIfDirtyAndInputIsSaveEarly() {
+        if (!editable || !isSaveInputEarly() || !isDirty()) {
             return;
         }
 
-        if (isSaveInputEarly() && isDirty()) {
-            save();
-        }
+        save();
     }
 
     private boolean isSaveInputEarly() {

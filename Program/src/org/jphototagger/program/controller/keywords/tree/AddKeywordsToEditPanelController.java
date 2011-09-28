@@ -80,7 +80,7 @@ public class AddKeywordsToEditPanelController extends KeywordsController impleme
                 }
 
                 KeywordsHelper.addHighlightKeywords(keywordNames);
-                editPanels.checkSaveOnChanges();
+                editPanels.saveIfDirtyAndInputIsSaveEarly();
             } else {
                 String message = Bundle.getString(AddKeywordsToEditPanelController.class, "AddKeywordsToEditPanelController.Error.EditDisabled");
                 MessageDisplayer.error(null, message);
