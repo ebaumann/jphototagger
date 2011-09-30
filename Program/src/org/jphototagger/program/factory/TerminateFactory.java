@@ -46,7 +46,7 @@ public final class TerminateFactory {
                 AppPanel appPanel = GUI.getAppPanel();
                 String message = Bundle.getString(TerminateFactory.class, "MiscFactory.Init.Start");
                 Support.setStatusbarInfo(message);
-                appPanel.getEditMetadataPanels().setAutocomplete();
+                appPanel.getEditMetadataPanels().enableAutocomplete();
                 ThumbnailsPopupMenu.INSTANCE.setOtherPrograms();
                 ScheduledTasks.INSTANCE.run();
                 checkImportImageFiles();

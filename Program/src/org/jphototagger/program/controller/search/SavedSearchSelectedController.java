@@ -69,10 +69,10 @@ public final class SavedSearchSelectedController implements ListSelectionListene
             Object selectedValue = GUI.getSavedSearchesList().getSelectedValue();
 
             if (selectedValue != null) {
-                WaitDisplay.show();
+                WaitDisplay.INSTANCE.show();
                 searchSelectedValue(selectedValue);
                 setMetadataEditable();
-                WaitDisplay.hide();
+                WaitDisplay.INSTANCE.hide();
             }
         }
 

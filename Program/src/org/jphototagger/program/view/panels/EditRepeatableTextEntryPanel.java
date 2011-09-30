@@ -114,7 +114,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
     }
 
     @Override
-    public void setAutocomplete() {
+    public void enableAutocomplete() {
         if (getPersistedAutocomplete()) {
             synchronized (this) {
                 if (autocomplete != null) {
@@ -193,7 +193,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
      *
      * @param texts text to set, every text is a list item
      */
-    public void setText(Collection<String> texts) {
+    public void setTexts(Collection<String> texts) {
         if (texts == null) {
             throw new NullPointerException("texts == null");
         }
@@ -234,10 +234,9 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
     }
 
     @Override
-    public void empty(boolean dirty) {
+    public void empty() {
         textAreaInput.setText("");
         model.removeAllElements();
-        this.dirty = dirty;
     }
 
     public void removeText(String text) {
@@ -316,7 +315,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
      * Focusses the input text field
      */
     @Override
-    public void focus() {
+    public void requestFocus() {
         textAreaInput.requestFocus();
         textAreaInput.selectAll();
     }
@@ -568,6 +567,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         return true;
     }
 
+    @Override
     public void addTextEntryListener(TextEntryListener listener) {
         if (listener == null) {
             throw new NullPointerException("listener == null");
@@ -576,6 +576,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         textEntryListenerSupport.add(listener);
     }
 
+    @Override
     public void removeTextEntryListener(TextEntryListener listener) {
         if (listener == null) {
             throw new NullPointerException("listener == null");

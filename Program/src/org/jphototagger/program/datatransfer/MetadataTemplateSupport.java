@@ -40,7 +40,7 @@ final class MetadataTemplateSupport {
                         return;
                     }
 
-                    panel.setText((Collection<String>) value);
+                    panel.setTexts((Collection<String>) value);
                     panel.setDirty(true);
                 }
             }

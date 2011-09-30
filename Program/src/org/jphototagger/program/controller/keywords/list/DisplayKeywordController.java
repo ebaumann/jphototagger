@@ -48,7 +48,7 @@ public final class DisplayKeywordController extends KeywordsController {
             throw new NullPointerException("keywords == null");
         }
 
-        WaitDisplay.show();
+        WaitDisplay.INSTANCE.show();
 
         ListModel model = ModelFactory.INSTANCE.getModel(KeywordsListModel.class);
         List<Integer> modelIndices = ListUtil.getModelIndicesOfItems(model, keywords);
@@ -57,6 +57,6 @@ public final class DisplayKeywordController extends KeywordsController {
             KeywordsHelper.selectInSelKeywordsList(modelIndices);
         }
 
-        WaitDisplay.hide();
+        WaitDisplay.INSTANCE.hide();
     }
 }

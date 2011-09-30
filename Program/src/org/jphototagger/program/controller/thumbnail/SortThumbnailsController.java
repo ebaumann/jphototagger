@@ -48,7 +48,7 @@ public final class SortThumbnailsController implements ActionListener {
 
             @Override
             public void run() {
-                WaitDisplay.show();
+                WaitDisplay.INSTANCE.show();
 
                 JRadioButtonMenuItem item = (JRadioButtonMenuItem) evt.getSource();
                 Comparator<File> sortCmp = GUI.getAppFrame().getSortCmpOfMenuItem(item);
@@ -59,7 +59,7 @@ public final class SortThumbnailsController implements ActionListener {
                 item.setSelected(true);
                 tnPanel.setFileSortComparator(sortCmp);
                 tnPanel.sort();
-                WaitDisplay.hide();
+                WaitDisplay.INSTANCE.hide();
             }
         });
     }

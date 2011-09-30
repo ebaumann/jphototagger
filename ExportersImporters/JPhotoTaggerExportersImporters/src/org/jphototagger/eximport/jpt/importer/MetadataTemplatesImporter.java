@@ -35,7 +35,7 @@ import org.jphototagger.domain.repository.RepositoryDataImporter;
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.eximport.jpt.exporter.MetadataTemplatesExporter;
-import org.jphototagger.xmp.EditMetaDataValues;
+import org.jphototagger.xmp.EditableMetaDataValues;
 
 /**
  *
@@ -51,7 +51,7 @@ public final class MetadataTemplatesImporter implements RepositoryDataImporter, 
     private static final ImageIcon ICON = IconUtil.getImageIcon("/org/jphototagger/eximport/jpt/icons/icon_import.png");
 
     static {
-        for (MetaDataValue mdValue : EditMetaDataValues.get()) {
+        for (MetaDataValue mdValue : EditableMetaDataValues.get()) {
             META_DATA_VALUE_OF_CLASSNAME.put(mdValue.getClass().getName(), mdValue);
         }
     }

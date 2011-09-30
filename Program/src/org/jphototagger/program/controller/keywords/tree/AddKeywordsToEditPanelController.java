@@ -69,7 +69,7 @@ public class AddKeywordsToEditPanelController extends KeywordsController impleme
 
     private void addToEditPanel(List<String> keywordNames) {
         EditMetadataPanels editPanels = GUI.getAppPanel().getEditMetadataPanels();
-        JPanel panel = editPanels.getEditPanel(XmpDcSubjectsSubjectMetaDataValue.INSTANCE);
+        JPanel panel = editPanels.getEditPanelForMetaDataValue(XmpDcSubjectsSubjectMetaDataValue.INSTANCE);
 
         if (panel instanceof EditRepeatableTextEntryPanel) {
             EditRepeatableTextEntryPanel editPanel = (EditRepeatableTextEntryPanel) panel;

@@ -222,13 +222,13 @@ public final class FavoritesHelper {
 
         @Override
         public void run() {
-            WaitDisplay.show();
+            WaitDisplay.INSTANCE.show();
             SortThumbnailsController.setLastSort();
             setTitle();
             tnPanel.setFiles(files, OriginOfDisplayedThumbnails.FILES_IN_SAME_FAVORITE_DIRECTORY);
             tnPanel.apply(tnPanelSettings);
             setMetadataEditable();
-            WaitDisplay.hide();
+            WaitDisplay.INSTANCE.hide();
         }
 
         private void setTitle() {

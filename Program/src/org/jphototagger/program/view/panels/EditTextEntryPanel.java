@@ -109,9 +109,8 @@ public final class EditTextEntryPanel extends JPanel implements TextEntry, Docum
     }
 
     @Override
-    public void empty(boolean dirty) {
+    public void empty() {
         textAreaEdit.setText("");
-        this.dirty = dirty;
     }
 
     @Override
@@ -120,7 +119,7 @@ public final class EditTextEntryPanel extends JPanel implements TextEntry, Docum
     }
 
     @Override
-    public void setAutocomplete() {
+    public void enableAutocomplete() {
         if (getPersistedAutocomplete()) {
             synchronized (this) {
                 if (autocomplete != null) {
@@ -174,7 +173,7 @@ public final class EditTextEntryPanel extends JPanel implements TextEntry, Docum
     }
 
     @Override
-    public void focus() {
+    public void requestFocus() {
         textAreaEdit.requestFocus();
         textAreaEdit.selectAll();
     }
@@ -211,6 +210,7 @@ public final class EditTextEntryPanel extends JPanel implements TextEntry, Docum
         dirty = true;
     }
 
+    @Override
     public void addTextEntryListener(TextEntryListener listener) {
         if (listener == null) {
             throw new NullPointerException("listener == null");
@@ -219,6 +219,7 @@ public final class EditTextEntryPanel extends JPanel implements TextEntry, Docum
         textEntryListenerSupport.add(listener);
     }
 
+    @Override
     public void removeTextEntryListener(TextEntryListener listener) {
         if (listener == null) {
             throw new NullPointerException("listener == null");

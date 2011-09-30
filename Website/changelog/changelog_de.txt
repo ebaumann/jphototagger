@@ -3,6 +3,18 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.10.1 2011--
+-----------------
+* Die gemeinsamen Metadaten ausgewählter Bilder werden im Hintergrund
+  berechnet. Bei der Auswahl sehr vieler Bilder muss nicht mehr auf das
+  Ende dieser Berechnung gewartet werden, es können sofort andere Bilder
+  ausgewählt werden, die vorherige Bearbeitung wird in diesem Fall
+  abgebrochen.
+* Im Programmfenster rechts ins Textfeld eingegebene Stichwörter
+  werden nicht mehr automatisch den Stichwörtern hinzugefügt. Sie
+  Sind explizit in die Stichwortliste oberhalb des Felds hinzuzufügen
+  (Enter oder +-Schaltfläche)
+
 0.10.0 2011-09-25
 -----------------
 * Neue Funktion: Datei-Hooks. Sollte sich selbst erklären

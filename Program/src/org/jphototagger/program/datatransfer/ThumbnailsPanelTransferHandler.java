@@ -245,7 +245,7 @@ public final class ThumbnailsPanelTransferHandler extends TransferHandler {
                     : null;
 
             for (String keyword : keywords) {
-                editPanels.addText(column, keyword);
+                editPanels.setOrAddText(column, keyword);
             }
         } else {
             KeywordsHelper.saveKeywordsToImageFile(keywords, imageFile);
@@ -345,7 +345,7 @@ public final class ThumbnailsPanelTransferHandler extends TransferHandler {
                 EditMetadataPanels ep = GUI.getAppPanel().getEditMetadataPanels();
 
                 for (MetaDataValueData data : mdValueData) {
-                    ep.addText(data.getMetaDataValue(), (String) data.getData());
+                    ep.setOrAddText(data.getMetaDataValue(), (String) data.getData());
                 }
             } else {
                 MiscMetadataHelper.saveToImageFile(mdValueData, imageFile);

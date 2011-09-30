@@ -26,8 +26,8 @@ public final class AppEventQueue extends java.awt.EventQueue {
     }
 
     private void hideWaitDisplay() {
-        if (WaitDisplay.isShow()) {
-            WaitDisplay.hide();
+        if (WaitDisplay.INSTANCE.isShow()) {
+            WaitDisplay.INSTANCE.hide();
         }
     }
 }

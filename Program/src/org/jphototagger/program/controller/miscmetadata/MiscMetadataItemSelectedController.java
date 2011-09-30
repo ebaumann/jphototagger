@@ -75,12 +75,12 @@ public final class MiscMetadataItemSelectedController implements TreeSelectionLi
 
         @Override
         public void run() {
-            WaitDisplay.show();
+            WaitDisplay.INSTANCE.show();
 
             Object lastPathComponent = treePath.getLastPathComponent();
 
             setFilesOfPossibleNodeToThumbnailsPanel(lastPathComponent);
-            WaitDisplay.hide();
+            WaitDisplay.INSTANCE.hide();
         }
 
         private void setFilesOfPossibleNodeToThumbnailsPanel(Object lastPathComponent) {

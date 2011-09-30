@@ -108,7 +108,7 @@ public final class MiscMetadataHelper {
                         DefaultMutableTreeNode parent = (DefaultMutableTreeNode) node.getParent();
                         MetaDataValue mdValue = (MetaDataValue) parent.getUserObject();
 
-                        editPanels.addText(mdValue, text);
+                        editPanels.setOrAddText(mdValue, text);
                     }
                 }
             }
@@ -161,7 +161,7 @@ public final class MiscMetadataHelper {
                 EditMetadataPanels editPanels = GUI.getAppPanel().getEditMetadataPanels();
 
                 if (editPanels.isEditable()) {
-                    editPanels.addText(mdValue, text);
+                    editPanels.setOrAddText(mdValue, text);
                 }
             }
         });

@@ -24,7 +24,7 @@ import org.jphototagger.program.view.popupmenus.ThumbnailsPopupMenu;
  * Listens to the menu items {@code ThumbnailsPopupMenu#getItemCopyMetadata()} and
  * {@code ThumbnailsPopupMenu#getItemPasteMetadata()} and on action performed copies
  * XMP metadata of the {@code EditMetadataPanels} or paste it via
- * {@code EditMetadataPanels#getXmp()} or
+ * {@code EditMetadataPanels#createXmpFromInput()} or
  * {@code EditMetadataPanels#setXmp(org.jphototagger.program.data.Xmp)}.
  *
  * @author Elmar Baumann
@@ -71,8 +71,10 @@ public final class CopyPasteMetadataController implements ActionListener, KeyLis
     }
 
     private void copy() {
-        this.xmp = new Xmp(GUI.getAppPanel().getEditMetadataPanels().getXmp());
-        getPasteItem().setEnabled(true);
+        EditMetadataPanels editPanel = GUI.getAppPanel().getEditMetadataPanels();
+        Xmp xmpOfEditPanel = editPanel.createXmpFromInput();
+        this.xmp = new Xmp(xmpOfEditPanel);
+        setPasteItemEnabled(true);
     }
 
     private void paste() {
@@ -87,8 +89,14 @@ public final class CopyPasteMetadataController implements ActionListener, KeyLis
         }
 
         editPanel.setXmp(xmp);
-        getPasteItem().setEnabled(false);
+        setPasteItemEnabled(false);
         xmp = null;
+    }
+
+    private void setPasteItemEnabled(boolean enabled) {
+        JMenuItem pasteItem = getPasteItem();
+
+        pasteItem.setEnabled(enabled);
     }
 
     private boolean checkSelected() {

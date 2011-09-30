@@ -79,7 +79,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
 
     private void setAutocomplete() {
         if (isAutocomplete()) {
-            panelKeywordsInput.setAutocomplete();
+            panelKeywordsInput.enableAutocomplete();
         }
     }
 
@@ -208,7 +208,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
         while (!valid && (index < columnCount)) {
             SearchColumnPanel searchColumnPanel = searchColumnPanels.get(index);
             String value = searchColumnPanel.getValue();
-            
+
             valid = !value.isEmpty();
             index++;
         }
@@ -337,7 +337,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
     }
 
     private void setKeywordsToPanel(SavedSearch search) {
-        panelKeywordsInput.setText(search.getKeywords());
+        panelKeywordsInput.setTexts(search.getKeywords());
 
         if (!existsSimpleSqlValue()) {
             setSelectedComponent(panelKeywords);
@@ -460,7 +460,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
         }
 
         if (allPanels || (selComponent == panelKeywords)) {
-            panelKeywordsInput.setText(new ArrayList<String>());
+            panelKeywordsInput.setTexts(new ArrayList<String>());
         }
 
         if (allPanels || (selComponent == panelCustomSql)) {

@@ -49,10 +49,10 @@ public final class ShowThumbnailsContainingKeywords implements Runnable {
 
             @Override
             public void run() {
-                WaitDisplay.show();
+                WaitDisplay.INSTANCE.show();
                 setFilesToThumbnailsPanel();
                 setMetadataEditable();
-                WaitDisplay.hide();
+                WaitDisplay.INSTANCE.hide();
             }
         });
     }

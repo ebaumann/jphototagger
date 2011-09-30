@@ -106,9 +106,8 @@ public class RatingSelectionPanel extends JPanel implements TextEntry, FocusList
     }
 
     @Override
-    public void empty(boolean dirty) {
+    public void empty() {
         setText("0");
-        this.dirty = dirty;
     }
 
     @Override
@@ -166,7 +165,7 @@ public class RatingSelectionPanel extends JPanel implements TextEntry, FocusList
     }
 
     @Override
-    public void focus() {
+    public void requestFocus() {
         buttonNoRating.requestFocus();
     }
 
@@ -186,7 +185,7 @@ public class RatingSelectionPanel extends JPanel implements TextEntry, FocusList
     }
 
     @Override
-    public void setAutocomplete() {
+    public void enableAutocomplete() {
         return;
     }
 
@@ -200,6 +199,7 @@ public class RatingSelectionPanel extends JPanel implements TextEntry, FocusList
         this.dirty = dirty;
     }
 
+    @Override
     public void addTextEntryListener(TextEntryListener listener) {
         if (listener == null) {
             throw new NullPointerException("listener == null");
@@ -208,6 +208,7 @@ public class RatingSelectionPanel extends JPanel implements TextEntry, FocusList
         textEntryListenerSupport.add(listener);
     }
 
+    @Override
     public void removeTextEntryListener(TextEntryListener listener) {
         if (listener == null) {
             throw new NullPointerException("listener == null");

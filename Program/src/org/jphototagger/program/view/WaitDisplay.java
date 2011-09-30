@@ -1,84 +1,31 @@
 package org.jphototagger.program.view;
 
-import java.awt.Component;
-import java.awt.Cursor;
-import java.awt.EventQueue;
-import java.awt.event.MouseAdapter;
-
-import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.component.GlassPaneWaitCursor;
 import org.jphototagger.program.resource.GUI;
 
 /**
- * Displays on the (entire) application frame a wait symbol (currently a
- * wait cursor).
+ * Displays on the (entire) application frame a wait symbol (currently a wait cursor).
  *
  * @author Elmar Baumann
  */
 public final class WaitDisplay {
 
-    private static final MouseAdapter ma = new MouseAdapter() {
-    };
-    private static final Cursor WAIT_CURSOR = Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR);
-    private static final Cursor DEFAULT_CURSOR = Cursor.getDefaultCursor();
-    private static volatile boolean mlAdded;
-    private static volatile boolean isShow;
-    private static final Object LOCK = new Object();
+    private final GlassPaneWaitCursor waitCursor;
+    public static final WaitDisplay INSTANCE = new WaitDisplay();
 
-    /**
-     * Shows the wait symbol (sets the wait cursor).
-     */
-    public static void show() {
-        synchronized (LOCK) {
-            addMouseListener();
-        }
-
-        show(true, WAIT_CURSOR);
+    public void show() {
+        waitCursor.show();
     }
 
-    /**
-     * Hides the wait symbol (sets the default cursor).
-     */
-    public static void hide() {
-        show(false, DEFAULT_CURSOR);
+    public void hide() {
+        waitCursor.hide();
     }
 
-    public static boolean isShow() {
-        synchronized (LOCK) {
-            return isShow;
-        }
-    }
-
-    private static void show(final boolean show, final Cursor cursor) {
-        final Component glassPane = GUI.getAppFrame().getGlassPane();
-
-        if (EventQueue.isDispatchThread()) {
-            synchronized (LOCK) {
-                glassPane.setCursor(cursor);
-                glassPane.setVisible(show);
-                isShow = show;
-            }
-        } else {
-            EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-                @Override
-                public void run() {
-                    synchronized (LOCK) {
-                        glassPane.setCursor(cursor);
-                        glassPane.setVisible(show);
-                        isShow = show;
-                    }
-                }
-            });
-        }
-    }
-
-    private static void addMouseListener() {
-        if (!mlAdded) {
-            mlAdded = true;
-            GUI.getAppFrame().getGlassPane().addMouseListener(ma);
-        }
+    public boolean isShow() {
+        return waitCursor.isShow();
     }
 
     private WaitDisplay() {
+        waitCursor = new GlassPaneWaitCursor(GUI.getAppFrame());
     }
 }

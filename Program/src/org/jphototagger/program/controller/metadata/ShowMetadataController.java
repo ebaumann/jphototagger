@@ -312,7 +312,7 @@ public final class ShowMetadataController implements ChangeListener {
                 return;
             }
 
-            WaitDisplay.show();
+            WaitDisplay.INSTANCE.show();
 
             Set<Metadata> resizeTableMetadta = new HashSet<Metadata>();
 
@@ -342,7 +342,7 @@ public final class ShowMetadataController implements ChangeListener {
             appPanel.getLabelMetadataFilename().setText(imageFile.getName() + (XmpMetadata.hasImageASidecarFile(imageFile)
                     ? ""
                     : Bundle.getString(ShowMetadata.class, "ShowMetadataController.Embedded")));
-            WaitDisplay.hide();
+            WaitDisplay.INSTANCE.hide();
             resizeMetadataTables(resizeTableMetadta);
             repaintMetadataTables(resizeTableMetadta);
         }

@@ -50,7 +50,7 @@ public final class AdvancedSearchController implements ActionListener {
             @Override
             public void run() {
                 assert savedSearch.isValid() : savedSearch;
-                WaitDisplay.show();
+                WaitDisplay.INSTANCE.show();
 
                 ParamStatement stmt = savedSearch.createParamStatement();
 
@@ -61,7 +61,7 @@ public final class AdvancedSearchController implements ActionListener {
                 setTitle(savedSearch.getName());
                 SavedSearchesHelper.setSort(savedSearch);
                 GUI.getThumbnailsPanel().setFiles(imageFiles, OriginOfDisplayedThumbnails.FILES_FOUND_BY_SAVED_SEARCH);
-                WaitDisplay.hide();
+                WaitDisplay.INSTANCE.hide();
             }
 
             private void setTitle(String name) {

@@ -31,7 +31,7 @@ import org.jphototagger.xmp.EditHints.SizeEditField;
  *
  * @author Elmar Baumann
  */
-public final class EditMetaDataValues {
+public final class EditableMetaDataValues {
 
     private static final Map<MetaDataValue, EditHints> EDIT_HINT_OF_META_DATA_VALUE = new LinkedHashMap<MetaDataValue, EditHints>();
 
@@ -72,6 +72,6 @@ public final class EditMetaDataValues {
         return EDIT_HINT_OF_META_DATA_VALUE.get(value);
     }
 
-    private EditMetaDataValues() {
+    private EditableMetaDataValues() {
     }
 }

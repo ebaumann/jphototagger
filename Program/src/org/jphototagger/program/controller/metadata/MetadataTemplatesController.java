@@ -89,7 +89,7 @@ public final class MetadataTemplatesController implements ActionListener {
                 final String name = getNewName(null);
 
                 if (name != null) {
-                    MetadataTemplate template = GUI.getEditPanel().getMetadataTemplate();
+                    MetadataTemplate template = GUI.getEditPanel().createMetadataTemplateFromInput();
 
                     template.setName(name);
                     getModel().insert(template);
@@ -160,7 +160,7 @@ public final class MetadataTemplatesController implements ActionListener {
 
                 if (o instanceof MetadataTemplate) {
                     MetadataTemplate oldTemplate = (MetadataTemplate) o;
-                    MetadataTemplate newTemplate = GUI.getEditPanel().getMetadataTemplate();
+                    MetadataTemplate newTemplate = GUI.getEditPanel().createMetadataTemplateFromInput();
 
                     newTemplate.setName(oldTemplate.getName());
                     getModel().update(newTemplate);

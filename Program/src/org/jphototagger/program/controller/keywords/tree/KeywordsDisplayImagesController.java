@@ -81,13 +81,13 @@ public class KeywordsDisplayImagesController implements ActionListener {
 
             @Override
             public void run() {
-                WaitDisplay.show();
+                WaitDisplay.INSTANCE.show();
 
                 AppPanel appPanel = GUI.getAppPanel();
 
                 appPanel.displaySelKeywordsTree(AppPanel.SelectAlso.SEL_KEYWORDS_TAB);
                 KeywordsHelper.selectNode(appPanel.getTreeSelKeywords(), keyword);
-                WaitDisplay.hide();
+                WaitDisplay.INSTANCE.hide();
             }
         });
     }
@@ -97,13 +97,13 @@ public class KeywordsDisplayImagesController implements ActionListener {
 
             @Override
             public void run() {
-                WaitDisplay.show();
+                WaitDisplay.INSTANCE.show();
 
                 AppPanel appPanel = GUI.getAppPanel();
 
                 appPanel.displaySelKeywordsList(AppPanel.SelectAlso.SEL_KEYWORDS_TAB);
                 ListUtil.select(appPanel.getListSelKeywords(), keyword, 0);
-                WaitDisplay.hide();
+                WaitDisplay.INSTANCE.hide();
             }
         });
     }
