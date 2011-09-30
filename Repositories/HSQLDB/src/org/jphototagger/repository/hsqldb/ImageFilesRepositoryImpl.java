@@ -10,13 +10,13 @@ import java.util.Set;
 import org.openide.util.lookup.ServiceProvider;
 
 import org.jphototagger.api.progress.ProgressListener;
-import org.jphototagger.domain.metadata.exif.Exif;
 import org.jphototagger.domain.image.ImageFile;
 import org.jphototagger.domain.metadata.MetaDataValue;
-import org.jphototagger.domain.repository.ImageFilesRepository;
-import org.jphototagger.domain.timeline.Timeline;
+import org.jphototagger.domain.metadata.exif.Exif;
 import org.jphototagger.domain.metadata.xmp.FileXmp;
 import org.jphototagger.domain.metadata.xmp.Xmp;
+import org.jphototagger.domain.repository.ImageFilesRepository;
+import org.jphototagger.domain.timeline.Timeline;
 
 /**
  *
@@ -251,5 +251,15 @@ public final class ImageFilesRepositoryImpl implements ImageFilesRepository {
     @Override
     public boolean saveOrUpdateXmpOfImageFile(File imageFile, Xmp xmp) {
         return db.insertOrUpdateXmpOfImageFile(imageFile, xmp);
+    }
+
+    @Override
+    public boolean existsXmpForFile(File file) {
+        return db.existsXmpForFile(file);
+    }
+
+    @Override
+    public int deleteXmpOfFile(File file) {
+        return db.deleteXmpOfFile(file);
     }
 }

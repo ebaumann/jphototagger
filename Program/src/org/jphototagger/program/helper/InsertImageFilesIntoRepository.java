@@ -97,7 +97,8 @@ public final class InsertImageFilesIntoRepository extends Thread implements Canc
             notifyPerformed(index + 1, imgFile);
 
             if (checkExists(imgFile)) {
-                ImageFile imageFile = getImageFile(imgFile);
+                deleteFromRepositoryXmpIfAbsentInFilesystem(imgFile);
+                ImageFile imageFile = createImageFile(imgFile);
 
                 if (isUpdate(imageFile)) {
                     setExifDateToXmpDateCreated(imageFile);
@@ -115,7 +116,7 @@ public final class InsertImageFilesIntoRepository extends Thread implements Canc
         return (imageFile.getExif() != null) || (imageFile.getXmp() != null) || (imageFile.getThumbnail() != null);
     }
 
-    private ImageFile getImageFile(File imgFile) {
+    private ImageFile createImageFile(File imgFile) {
         ImageFile imageFile = new ImageFile();
 
         imageFile.setFile(imgFile);
@@ -150,11 +151,13 @@ public final class InsertImageFilesIntoRepository extends Thread implements Canc
     }
 
     private boolean isUpdateExif(File imageFile) {
-        return what.contains(InsertIntoRepository.EXIF) || (what.contains(InsertIntoRepository.OUT_OF_DATE) && !isImageFileUpToDate(imageFile));
+        return what.contains(InsertIntoRepository.EXIF)
+                || (what.contains(InsertIntoRepository.OUT_OF_DATE) && !isImageFileUpToDate(imageFile));
     }
 
     private boolean isUpdateXmp(File imageFile) {
-        return what.contains(InsertIntoRepository.XMP) || (what.contains(InsertIntoRepository.OUT_OF_DATE) && !isXmpUpToDate(imageFile));
+        return what.contains(InsertIntoRepository.XMP)
+                || (what.contains(InsertIntoRepository.OUT_OF_DATE) && !isXmpUpToDate(imageFile));
     }
 
     private boolean isImageFileUpToDate(File imageFile) {
@@ -312,6 +315,17 @@ public final class InsertImageFilesIntoRepository extends Thread implements Canc
             StartPrograms programStarter = new StartPrograms();
 
             programStarter.startProgram(action, Collections.singletonList(imgFile), true);
+        }
+    }
+
+    private void deleteFromRepositoryXmpIfAbsentInFilesystem(File file) {
+        if (XmpMetadata.hasImageASidecarFile(file)) {
+            return;
+        }
+
+        if (imageFileRepo.existsXmpForFile(file)) {
+            LOGGER.log(Level.INFO, "Deleting from Repository XMP of file ''{0}'' - it does not have (anymore) a XMP sidecar file", file);
+            imageFileRepo.deleteXmpOfFile(file);
         }
     }
 

@@ -41,6 +41,10 @@ public interface ImageFilesRepository {
 
     boolean existsXMPDateCreated(String date);
 
+    boolean existsXmpForFile(File file);
+
+    int deleteXmpOfFile(File file);
+
     Set<String> findAllDcSubjects();
 
     Set<String> findAllDistinctMetaDataValues(MetaDataValue value);
