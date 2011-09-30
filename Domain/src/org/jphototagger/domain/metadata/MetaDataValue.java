@@ -129,14 +129,18 @@ public class MetaDataValue {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (o instanceof MetaDataValue) {
-            MetaDataValue other = (MetaDataValue) o;
-
-            return category.equals(other.category) && valueName.equals(other.valueName);
+    public boolean equals(Object object) {
+        if (object == this) {
+            return true;
         }
 
-        return false;
+        if (!(object instanceof MetaDataValue)) {
+            return false;
+        }
+
+        MetaDataValue other = (MetaDataValue) object;
+
+        return valueName.equals(other.valueName) && category.equals(other.category);
     }
 
     @Override
