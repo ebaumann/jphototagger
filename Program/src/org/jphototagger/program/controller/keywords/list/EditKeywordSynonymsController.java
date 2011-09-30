@@ -51,7 +51,7 @@ public final class EditKeywordSynonymsController extends KeywordsController impl
     }
 
     private EditRepeatableTextEntryPanel getKeywordsPanel() {
-        return (EditRepeatableTextEntryPanel) GUI.getAppPanel().getEditMetadataPanels().getEditPanel(
+        return (EditRepeatableTextEntryPanel) GUI.getAppPanel().getEditMetadataPanels().getEditPanelForMetaDataValue(
                 XmpDcSubjectsSubjectMetaDataValue.INSTANCE);
     }
 

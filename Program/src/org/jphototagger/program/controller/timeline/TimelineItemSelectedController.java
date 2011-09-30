@@ -78,10 +78,10 @@ public final class TimelineItemSelectedController implements TreeSelectionListen
 
                         @Override
                         public void run() {
-                            WaitDisplay.show();
+                            WaitDisplay.INSTANCE.show();
                             setFilesOfPossibleNodeToThumbnailsPanel(lastPathComponent);
                             GUI.getThumbnailsPanel().apply(settings);
-                            WaitDisplay.hide();
+                            WaitDisplay.INSTANCE.hide();
                         }
                     });
                 }

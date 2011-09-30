@@ -11,6 +11,7 @@ import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.view.panels.EditMetadataPanels;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.xmp.XmpMetadata;
 
@@ -47,13 +48,14 @@ public final class ThumbnailSelectionEditMetadataController {
             public void run() {
                 boolean canEdit = false;
                 ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
+                EditMetadataPanels editPanel = GUI.getEditPanel();
 
                 if (tnPanel.isAFileSelected()) {
                     canEdit = canEdit();
                     setEnabled(canEdit);
-                    GUI.getEditPanel().setImageFiles(tnPanel.getSelectedFiles());
+                    editPanel.setFiles(tnPanel.getSelectedFiles());
                 } else {
-                    GUI.getEditPanel().emptyPanels(false);
+                    editPanel.clear();
                     setEnabled(false);
                 }
 

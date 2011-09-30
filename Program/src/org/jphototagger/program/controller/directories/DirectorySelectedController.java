@@ -80,7 +80,7 @@ public final class DirectorySelectedController implements TreeSelectionListener 
 
         private void showThumbnails() {
             if (GUI.getDirectoriesTree().getSelectionCount() > 0) {
-                WaitDisplay.show();
+                WaitDisplay.INSTANCE.show();
 
                 File selectedDirectory = new File(getDirectorynameFromTree());
                 List<File> files = ImageFileFilterer.getImageFilesOfDirectory(selectedDirectory);
@@ -90,7 +90,7 @@ public final class DirectorySelectedController implements TreeSelectionListener 
                 GUI.getThumbnailsPanel().setFiles(files, OriginOfDisplayedThumbnails.FILES_IN_SAME_DIRECTORY);
                 GUI.getThumbnailsPanel().apply(panelSettings);
                 setMetadataEditable();
-                WaitDisplay.hide();
+                WaitDisplay.INSTANCE.hide();
             }
         }
 

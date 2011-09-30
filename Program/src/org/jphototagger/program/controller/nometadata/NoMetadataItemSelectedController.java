@@ -44,7 +44,7 @@ public final class NoMetadataItemSelectedController implements ListSelectionList
     }
 
     private void setFiles() {
-        WaitDisplay.show();
+        WaitDisplay.INSTANCE.show();
 
         Object selValue = GUI.getNoMetadataList().getSelectedValue();
 
@@ -57,7 +57,7 @@ public final class NoMetadataItemSelectedController implements ListSelectionList
 
             SortThumbnailsController.setLastSort();
             tnPanel.setFiles(imageFiles, OriginOfDisplayedThumbnails.FILES_MATCHING_MISSING_METADATA);
-            WaitDisplay.hide();
+            WaitDisplay.INSTANCE.hide();
         }
     }
 

@@ -374,7 +374,7 @@ public final class XmpMetadata {
     }
 
     private static void setMetadata(Xmp fromXmp, XMPMeta toXmpMeta) throws XMPException {
-        for (MetaDataValue metaDataValue : EditMetaDataValues.get()) {
+        for (MetaDataValue metaDataValue : EditableMetaDataValues.get()) {
             String namespaceUri = XmpMetaDataValuesNamespaceUriMapping.getNamespaceUriOfXmpMetaDataValue(metaDataValue);
             String arrayName = XmpMetaDataValueXmpArrayNameMapping.getXmpArrayNameOfXmpMetaDataValue(metaDataValue);
 
@@ -400,7 +400,7 @@ public final class XmpMetadata {
      * @param toXmpMeta XMP metadata
      */
     private static void deleteAllEditableMetadataFrom(XMPMeta xmpMeta) {
-        List<MetaDataValue> editableXmpMetaDataValues = EditMetaDataValues.get();
+        List<MetaDataValue> editableXmpMetaDataValues = EditableMetaDataValues.get();
 
         for (MetaDataValue editableValue : editableXmpMetaDataValues) {
             String namespaceUri = XmpMetaDataValuesNamespaceUriMapping.getNamespaceUriOfXmpMetaDataValue(editableValue);

@@ -165,7 +165,7 @@ public final class FastSearchController implements ActionListener {
                 String userInput = searchText.trim();
 
                 if (!userInput.isEmpty()) {
-                    WaitDisplay.show();
+                    WaitDisplay.INSTANCE.show();
                     clearSelection();
 
                     List<File> imageFiles = searchFiles(userInput);
@@ -177,7 +177,7 @@ public final class FastSearchController implements ActionListener {
                         GUI.getThumbnailsPanel().setFiles(imageFiles, OriginOfDisplayedThumbnails.FILES_FOUND_BY_SAVED_SEARCH);
                     }
 
-                    WaitDisplay.hide();
+                    WaitDisplay.INSTANCE.hide();
                 }
             }
 

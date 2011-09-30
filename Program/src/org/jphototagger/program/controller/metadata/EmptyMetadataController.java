@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.view.panels.EditMetadataPanels;
 
 /**
  *
@@ -27,7 +28,8 @@ public final class EmptyMetadataController implements ActionListener {
 
             @Override
             public void run() {
-                GUI.getEditPanel().emptyPanels(true);
+                EditMetadataPanels editPanel = GUI.getEditPanel();
+                editPanel.emptyAllEditPanels();
             }
         });
     }

@@ -37,7 +37,7 @@ public final class AddKeywordsToEditPanelController extends KeywordsController {
 
         if (editPanels.isEditable()) {
             for (String keyword : keywords) {
-                editPanels.addText(XmpDcSubjectsSubjectMetaDataValue.INSTANCE, keyword);
+                editPanels.setOrAddText(XmpDcSubjectsSubjectMetaDataValue.INSTANCE, keyword);
             }
         }
     }

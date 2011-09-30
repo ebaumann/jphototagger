@@ -84,7 +84,7 @@ public final class KeywordsHelper {
                 List<String> keywordStrings = getKeywordStrings(node, true);
 
                 for (String keyword : keywordStrings) {
-                    editPanels.addText(XmpDcSubjectsSubjectMetaDataValue.INSTANCE, keyword);
+                    editPanels.setOrAddText(XmpDcSubjectsSubjectMetaDataValue.INSTANCE, keyword);
                 }
 
                 if (keywordStrings.size() > 1) {

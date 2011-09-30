@@ -4,10 +4,10 @@ import java.awt.Component;
 import java.awt.event.MouseListener;
 import java.util.List;
 
+import org.jphototagger.domain.event.listener.TextEntryListener;
 import org.jphototagger.domain.metadata.MetaDataValue;
 
 /**
- * Text as value of a {@code MetaDataValue}.
  *
  * @author Elmar Baumann
  */
@@ -17,19 +17,11 @@ public interface TextEntry {
 
     void setText(String text);
 
-    /**
-     * Empties the text.
-     *
-     * @param dirty true if set dirty, else fals
-     */
-    void empty(boolean dirty);
+    void empty();
 
     MetaDataValue getMetaDataValue();
 
-    /**
-     * Requests the focus to the text input field.
-     */
-    void focus();
+    void requestFocus();
 
     void setEditable(boolean editable);
 
@@ -37,26 +29,15 @@ public interface TextEntry {
 
     boolean isEmpty();
 
-    /**
-     * Enables autocomplete.
-     */
-    void setAutocomplete();
+    void enableAutocomplete();
 
-    /**
-     * Returns whether the text has been changed since the last call
-     * to {@code #setText(java.lang.String)}.
-     *
-     * @return true if changed
-     */
     boolean isDirty();
 
-    /**
-     * Sets how the entry shall behave like changes since last call to
-     * {@code #setText(java.lang.String)}.
-     *
-     * @param dirty  true if the text was changed
-     */
     void setDirty(boolean dirty);
+
+    void addTextEntryListener(TextEntryListener listener);
+
+    void removeTextEntryListener(TextEntryListener listener);
 
     /**
      * Returns all input components in order of their appearance, especially the

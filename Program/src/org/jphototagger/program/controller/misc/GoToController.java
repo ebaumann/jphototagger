@@ -86,7 +86,7 @@ public final class GoToController implements ActionListener {
         }
 
         if (goTo.equals(AppFrame.GoTo.EDIT_PANELS)) {
-            GUI.getEditPanel().setFocusToFirstEditField();
+            GUI.getEditPanel().requestFocusToFirstEditField();
         }
     }
 }

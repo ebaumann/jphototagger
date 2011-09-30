@@ -61,7 +61,7 @@ public final class ThumbnailsFileFilterController implements ActionListener, Ite
     private void setItem(Object item) {
         ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
-        WaitDisplay.show();
+        WaitDisplay.INSTANCE.show();
 
         if (item instanceof FileFilter) {
             tnPanel.setFileFilter((FileFilter) item);
@@ -70,7 +70,7 @@ public final class ThumbnailsFileFilterController implements ActionListener, Ite
         }
 
         writeSettings();
-        WaitDisplay.hide();
+        WaitDisplay.INSTANCE.hide();
     }
 
     private void writeSettings() {

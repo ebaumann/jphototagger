@@ -88,7 +88,7 @@ public final class ImageCollectionSelectedController implements ListSelectionLis
 
             @Override
             public void run() {
-                WaitDisplay.show();
+                WaitDisplay.INSTANCE.show();
 
                 List<File> imageFiles = repo.findImageFilesOfImageCollection(collectionName);
                 ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
@@ -97,7 +97,7 @@ public final class ImageCollectionSelectedController implements ListSelectionLis
                 tnPanel.setFileSortComparator(FileSort.NO_SORT.getComparator());
                 tnPanel.setFiles(imageFiles, OriginOfDisplayedThumbnails.FILES_OF_AN_IMAGE_COLLECTION);
                 tnPanel.apply(settings);
-                WaitDisplay.hide();
+                WaitDisplay.INSTANCE.hide();
             }
 
             private void setTitle() {

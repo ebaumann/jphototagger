@@ -99,7 +99,7 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
     private void setAutocomplete() {
         if (isAutocomplete()) {
             for (TextEntry textEntry : textEntries) {
-                textEntry.setAutocomplete();
+                textEntry.enableAutocomplete();
             }
         }
     }
@@ -154,7 +154,7 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
 
             if (value != null) {
                 if (textEntry instanceof EditRepeatableTextEntryPanel) {
-                    ((EditRepeatableTextEntryPanel) textEntry).setText((Collection<String>) value);
+                    ((EditRepeatableTextEntryPanel) textEntry).setTexts((Collection<String>) value);
                 } else {
                     textEntry.setText(value.toString());
                 }

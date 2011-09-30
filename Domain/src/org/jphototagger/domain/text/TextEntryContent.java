@@ -5,6 +5,7 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jphototagger.domain.event.listener.TextEntryListener;
 import org.jphototagger.domain.metadata.MetaDataValue;
 
 /**
@@ -15,7 +16,7 @@ import org.jphototagger.domain.metadata.MetaDataValue;
 public final class TextEntryContent implements TextEntry {
 
     private String text;
-    private MetaDataValue metaDataValue;
+    private final MetaDataValue metaDataValue;
 
     public TextEntryContent(String text, MetaDataValue metaDataValue) {
         if (metaDataValue == null) {
@@ -45,7 +46,7 @@ public final class TextEntryContent implements TextEntry {
      * Does nothing.
      */
     @Override
-    public void focus() {
+    public void requestFocus() {
         // ignore
     }
 
@@ -67,7 +68,7 @@ public final class TextEntryContent implements TextEntry {
      * Does nothing.
      */
     @Override
-    public void setAutocomplete() {
+    public void enableAutocomplete() {
         // ignore
     }
 
@@ -102,10 +103,13 @@ public final class TextEntryContent implements TextEntry {
     }
 
     @Override
-    public void empty(boolean dirty) {
+    public void empty() {
         text = "";
+    }
 
-        // ignore dirty
+    @Override
+    public String toString() {
+        return metaDataValue + "=" + text;
     }
 
     @Override
@@ -124,7 +128,12 @@ public final class TextEntryContent implements TextEntry {
     }
 
     @Override
-    public String toString() {
-        return metaDataValue + "=" + text;
+    public void addTextEntryListener(TextEntryListener listener) {
+        // ignore
+    }
+
+    @Override
+    public void removeTextEntryListener(TextEntryListener listener) {
+        // ignore
     }
 }
