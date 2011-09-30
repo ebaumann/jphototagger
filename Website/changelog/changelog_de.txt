@@ -14,6 +14,9 @@ Changelog JPhotoTagger http://jphototagger.org/
   werden nicht mehr automatisch den Stichwörtern hinzugefügt. Sie
   Sind explizit in die Stichwortliste oberhalb des Felds hinzuzufügen
   (Enter oder +-Schaltfläche)
+* Wird ein Ordner mit Bildern ausgewählt, deren XMP-Filialdateien außerhalb
+  JPhotoTaggers gelöscht wurden, wird dies in der Datenbank automatisch
+  korrigiert (ohne dafür eine Datenbankwartung durchführen zu müssen)
 
 0.10.0 2011-09-25
 -----------------

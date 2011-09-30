@@ -212,12 +212,7 @@ final class ImageFilesDatabase extends Database {
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        ProgressEvent progressEvent = new ProgressEvent.Builder()
-                .source(this)
-                .minimum(0)
-                .maximum(0)
-                .value(0)
-                .build();
+        ProgressEvent progressEvent = new ProgressEvent.Builder().source(this).minimum(0).maximum(0).value(0).build();
 
         try {
             con = getConnection();
@@ -553,13 +548,7 @@ final class ImageFilesDatabase extends Database {
 
         try {
             int filecount = repoStatistics.getFileCount();
-        ProgressEvent progressEvent = new ProgressEvent.Builder()
-                .source(this)
-                .minimum(0)
-                .maximum(filecount)
-                .value(0)
-                .info("")
-                .build();
+            ProgressEvent progressEvent = new ProgressEvent.Builder().source(this).minimum(0).maximum(filecount).value(0).info("").build();
 
             con = getConnection();
             con.setAutoCommit(true);
@@ -757,12 +746,7 @@ final class ImageFilesDatabase extends Database {
     public int deleteAbsentImageFiles(ProgressListener listener) {
         int countDeleted = 0;
         RepositoryStatistics repoStatistics = Lookup.getDefault().lookup(RepositoryStatistics.class);
-        ProgressEvent event = new ProgressEvent.Builder()
-                .source(this)
-                .minimum(0)
-                .maximum(repoStatistics.getFileCount())
-                .value(0)
-                .build();
+        ProgressEvent event = new ProgressEvent.Builder().source(this).minimum(0).maximum(repoStatistics.getFileCount()).value(0).build();
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -1149,6 +1133,57 @@ final class ImageFilesDatabase extends Database {
         }
     }
 
+    boolean existsXmpForFile(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String sql = "SELECT COUNT(*) FROM files INNER JOIN xmp ON files.id = xmp.id_file WHERE files.filename = ?";
+        long count = 0;
+
+        try {
+            con = getConnection();
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, getFilePath(file));
+            logFinest(stmt);
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                count = rs.getLong(1);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(ImageFilesDatabase.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            close(rs, stmt);
+            free(con);
+        }
+
+        return count > 0;
+    }
+
+    int deleteXmpOfFile(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
+        Connection con = null;
+        int countDeleted = 0;
+
+        try {
+            con = getConnection();
+            countDeleted = deleteXmpOfImageFile(con, file);
+        } catch (Exception ex) {
+            Logger.getLogger(ImageFilesDatabase.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            free(con);
+        }
+
+        return countDeleted;
+    }
+
     private void deleteXmpDcSubjects(Connection con, long idXmp) throws SQLException {
         PreparedStatement stmt = null;
 
@@ -1165,12 +1200,7 @@ final class ImageFilesDatabase extends Database {
     public int deleteAbsentXmp(ProgressListener listener) {
         int countDeleted = 0;
         RepositoryStatistics repoStatistics = Lookup.getDefault().lookup(RepositoryStatistics.class);
-        ProgressEvent progressEvent = new ProgressEvent.Builder()
-                .source(this)
-                .minimum(0)
-                .maximum(repoStatistics.getXmpCount())
-                .value(0)
-                .build();
+        ProgressEvent progressEvent = new ProgressEvent.Builder().source(this).minimum(0).maximum(repoStatistics.getXmpCount()).value(0).build();
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -1222,7 +1252,11 @@ final class ImageFilesDatabase extends Database {
                     + " WHERE xmp.id_file = files.id AND files.filename = ?)");
             stmt.setString(1, getFilePath(imageFile));
             logFiner(stmt);
+            Xmp xmp = getXmpOfImageFile(imageFile);
             count = stmt.executeUpdate();
+            if (count > 0) {
+                EventBus.publish(new XmpDeletedEvent(this, imageFile, xmp));
+            }
         } catch (Exception ex) {
             Logger.getLogger(ImageFilesDatabase.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
