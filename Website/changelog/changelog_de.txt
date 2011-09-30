@@ -3,7 +3,7 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
-0.10.1 2011--
+0.10.1 2011-09-30
 -----------------
 * Die gemeinsamen Metadaten ausgewählter Bilder werden im Hintergrund
   berechnet. Bei der Auswahl sehr vieler Bilder muss nicht mehr auf das
