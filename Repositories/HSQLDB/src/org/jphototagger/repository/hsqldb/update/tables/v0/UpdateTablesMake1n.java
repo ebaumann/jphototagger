@@ -16,7 +16,6 @@ import org.jphototagger.domain.repository.RepositoryMaintainance;
 import org.jphototagger.repository.hsqldb.Database;
 import org.jphototagger.repository.hsqldb.DatabaseMetadata;
 import org.jphototagger.repository.hsqldb.SavedSearchesDatabase;
-import org.jphototagger.repository.hsqldb.update.tables.ColumnInfo;
 
 /**
  * Moves content of a table column into another table related 1:n (one to many)

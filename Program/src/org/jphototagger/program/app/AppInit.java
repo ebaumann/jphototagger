@@ -1,6 +1,8 @@
 package org.jphototagger.program.app;
 
 import java.awt.Toolkit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.imagero.reader.AbstractImageReader;
 
@@ -11,10 +13,12 @@ import org.openide.util.Lookup;
 import org.jphototagger.domain.event.AppWillInitEvent;
 import org.jphototagger.domain.repository.Repository;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.dialog.LongMessageDialog;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.system.SystemUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.CommandLineParser;
+import org.jphototagger.lib.util.ExceptionUtil;
 import org.jphototagger.lib.util.Version;
 import org.jphototagger.program.app.logging.AppLogUtil;
 import org.jphototagger.program.app.logging.AppLoggingSystem;
@@ -23,14 +27,6 @@ import org.jphototagger.program.resource.ImageProperties;
 import org.jphototagger.program.view.frames.AppFrame;
 
 /**
- * Initializes the application.
- *
- * Exits on errors. In that case the exit values are:
- *
- * <ul>
- * <li>1: The application couldn't be locked (create the lock file)</li>
- * <li>2: The Java version is too low</li>
- * </ul>
  *
  * @author Elmar Baumann
  */
@@ -76,6 +72,8 @@ public final class AppInit {
             showMainWindow();
             setJptEventQueue();
         } catch (Throwable t) {
+            Logger.getLogger(AppInit.class.getName()).log(Level.SEVERE, null, t);
+            showErrorMessage(t);
             AppLifeCycle.quitBeforeGuiWasCreated();
         } finally {
             SplashScreen.INSTANCE.removeMessage();
@@ -107,7 +105,7 @@ public final class AppInit {
 
     private static void lock() {
         if (!AppStartupLock.lock() && !AppStartupLock.forceLock()) {
-            System.exit(1);
+            throw new RuntimeException("Application can't be locked");
         }
     }
 
@@ -129,15 +127,28 @@ public final class AppInit {
 
     private static void checkJavaVersion() {
         Version javaVersion = SystemUtil.getJavaVersion();
+        boolean javaVersionIsTooOld = javaVersion != null && javaVersion.compareTo(AppInfo.MIN_JAVA_VERSION) < 0;
 
-        if ((javaVersion != null) && (javaVersion.compareTo(AppInfo.MIN_JAVA_VERSION) < 0)) {
+        if (javaVersionIsTooOld) {
             errorMessageJavaVersion(javaVersion);
-            System.exit(2);
+            throw new RuntimeException("Java version" + javaVersion.toString3() +
+                    " is too old. Required minimum version is " + AppInfo.MIN_JAVA_VERSION);
         }
     }
 
     private static void errorMessageJavaVersion(Version javaVersion) {
-        String message = Bundle.getString(AppInit.class, "AppInit.Error.JavaVersion", javaVersion, AppInfo.MIN_JAVA_VERSION);
+        String message = Bundle.getString(AppInit.class, "AppInit.Error.JavaVersion",
+                javaVersion.toString3(), AppInfo.MIN_JAVA_VERSION.toString3());
+
         MessageDisplayer.error(null, message);
+    }
+
+    private void showErrorMessage(Throwable t) {
+        LongMessageDialog dlg = new LongMessageDialog(null, true);
+        String message = t.getLocalizedMessage() + "\n" + ExceptionUtil.getStackTraceAsString(t);
+
+        dlg.setTitle(Bundle.getString(AppInit.class, "AppInit.Error.Thrown"));
+        dlg.setLongMessage(message);
+        dlg.setVisible(true);
     }
 }

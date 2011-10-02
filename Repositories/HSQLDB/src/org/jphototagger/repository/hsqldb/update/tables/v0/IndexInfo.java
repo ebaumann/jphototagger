@@ -1,4 +1,4 @@
-package org.jphototagger.repository.hsqldb.update.tables;
+package org.jphototagger.repository.hsqldb.update.tables.v0;
 
 import java.util.ArrayList;
 import java.util.Arrays;

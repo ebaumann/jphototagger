@@ -12,8 +12,6 @@ import java.util.logging.Logger;
 
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
-import org.jphototagger.lib.dialog.LongMessageDialog;
-import org.jphototagger.lib.util.Bundle;
 
 /**
  * Base class of specialized database classes.
@@ -25,18 +23,6 @@ public class Database {
     private static final Logger LOGGER = Logger.getLogger(Database.class.getName());
 
     protected Database() {
-    }
-
-    public static void errorMessageSqlException(SQLException ex) {
-        LongMessageDialog dlg = new LongMessageDialog(null, true);
-
-        dlg.setTitle(Bundle.getString(Database.class, "Database.Error.Title"));
-        dlg.setLongMessage(getExceptionMessage(ex));
-        dlg.setVisible(true);
-    }
-
-    private static String getExceptionMessage(SQLException ex) {
-        return Bundle.getString(Database.class, "Database.Error", ex.getLocalizedMessage());
     }
 
     public static boolean execute(Connection con, String sql) throws SQLException {
