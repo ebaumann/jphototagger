@@ -28,6 +28,10 @@ final class DatabaseMaintainance extends Database {
      * Shuts down the database.
      */
     void shutdown() {
+        if (!ConnectionPool.INSTANCE.isInit()) {
+            return;
+        }
+
         Connection con = null;
         Statement stmt = null;
 

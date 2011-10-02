@@ -1,7 +1,5 @@
 package org.jphototagger.repository.hsqldb.update.tables.v0;
 
-import org.jphototagger.repository.hsqldb.update.tables.ColumnInfo;
-
 /**
  *
  *

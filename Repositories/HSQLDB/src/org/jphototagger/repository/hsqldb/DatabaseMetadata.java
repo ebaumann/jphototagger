@@ -9,100 +9,15 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.openide.util.Lookup;
-
-import org.jphototagger.api.branding.AppProperties;
-import org.jphototagger.domain.repository.ApplicationPropertiesRepository;
-import org.jphototagger.lib.util.Version;
-
 /**
- *
  *
  * @author Elmar Baumann
  */
 public final class DatabaseMetadata extends Database {
 
     public static final DatabaseMetadata INSTANCE = new DatabaseMetadata();
-    private static final String KEY_JPT_APP_DB_VERSION = "VersionLastDbUpdate";
 
     private DatabaseMetadata() {
-    }
-
-    /**
-     * Returns, whether the database is the database of a newer JPhotoTagger
-     * version.
-     *
-     * @return true, if the database is for a newer version
-     */
-    public static boolean isDatabaseOfNewerVersion() {
-        ApplicationPropertiesRepository appPropertiesRepo = Lookup.getDefault().lookup(ApplicationPropertiesRepository.class);
-        String dbVersion = appPropertiesRepo.getString(KEY_JPT_APP_DB_VERSION);
-
-        // Only older JPhotoTagger versions did not write that key
-        if (dbVersion == null) {
-            return false;
-        }
-
-        String versionString = Lookup.getDefault().lookup(AppProperties.class).getAppVersionString();
-        Version db = Version.parseVersion(dbVersion, ".");
-        Version current = Version.parseVersion(versionString, ".");
-
-        return current.compareTo(db) < 0;
-    }
-
-    /**
-     * Returns, whether the database is the database of this JPhotoTagger
-     * version.
-     *
-     * @return true, if the database is from this version
-     */
-    public static boolean isDatabaseOfCurrentVersion() {
-        ApplicationPropertiesRepository appPropertiesRepo = Lookup.getDefault().lookup(ApplicationPropertiesRepository.class);
-        String dbVersion = appPropertiesRepo.getString(KEY_JPT_APP_DB_VERSION);
-        String versionString = Lookup.getDefault().lookup(AppProperties.class).getAppVersionString();
-
-        return (dbVersion == null)
-                ? false
-                : dbVersion.equals(versionString);
-    }
-
-    public static boolean isDatabaseStructureChangedSinceLastUpdate() {
-        ApplicationPropertiesRepository appPropertiesRepo = Lookup.getDefault().lookup(ApplicationPropertiesRepository.class);
-        String appVersionOfLastDatabaseUpdateString = appPropertiesRepo.getString(KEY_JPT_APP_DB_VERSION);
-
-        // Only older JPhotoTagger versions did not write that key
-        if (appVersionOfLastDatabaseUpdateString == null) {
-            return true;
-        }
-
-        Version appVersionOfLastDatabaseUpdate = Version.parseVersion(appVersionOfLastDatabaseUpdateString, ".");
-
-        return appVersionOfLastDatabaseUpdate.compareTo(DatabaseTables.LAST_DATABASE_STRUCTURE_CHANGE_ON_APP_VERSION) < 0;
-    }
-
-    /**
-     * Returns the application version written by
-     * {@code #setCurrentAppVersionToDatabase()}.
-     *
-     * @return version string or null if not written
-     */
-    public static String getDatabaseAppVersion() {
-        ApplicationPropertiesRepository appPropertiesRepo = Lookup.getDefault().lookup(ApplicationPropertiesRepository.class);
-
-        return appPropertiesRepo.getString(KEY_JPT_APP_DB_VERSION);
-    }
-
-    /**
-     * Sets the current application version into the database.
-     * <p>
-     * <em>Use only, if ensured, that the database layout fits to the current
-     * version!</em>
-     */
-    public static void setCurrentAppVersionToDatabase() {
-        ApplicationPropertiesRepository appPropertiesRepo = Lookup.getDefault().lookup(ApplicationPropertiesRepository.class);
-        String versionString = Lookup.getDefault().lookup(AppProperties.class).getAppVersionString();
-
-        appPropertiesRepo.setString(KEY_JPT_APP_DB_VERSION, versionString);
     }
 
     public boolean existsTable(Connection con, String tablename) throws SQLException {

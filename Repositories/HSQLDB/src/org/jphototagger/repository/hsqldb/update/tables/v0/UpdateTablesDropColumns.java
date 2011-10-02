@@ -9,7 +9,6 @@ import java.util.logging.Logger;
 
 import org.jphototagger.repository.hsqldb.Database;
 import org.jphototagger.repository.hsqldb.DatabaseMetadata;
-import org.jphototagger.repository.hsqldb.update.tables.ColumnInfo;
 
 /**
  * Drops unused columns.

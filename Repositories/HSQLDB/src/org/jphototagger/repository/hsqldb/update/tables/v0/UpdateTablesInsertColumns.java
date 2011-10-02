@@ -10,8 +10,6 @@ import java.util.logging.Logger;
 
 import org.jphototagger.repository.hsqldb.Database;
 import org.jphototagger.repository.hsqldb.DatabaseMetadata;
-import org.jphototagger.repository.hsqldb.update.tables.ColumnInfo;
-import org.jphototagger.repository.hsqldb.update.tables.IndexOfColumn;
 
 /**
  * Adds new columns to the database.
