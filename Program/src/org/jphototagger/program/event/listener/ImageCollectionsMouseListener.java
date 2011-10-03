@@ -6,9 +6,9 @@ import java.awt.event.MouseEvent;
 
 import org.jdesktop.swingx.JXList;
 
+import org.jphototagger.domain.imagecollections.ImageCollection;
 import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.lib.event.util.MouseEventUtil;
-import org.jphototagger.program.model.ImageCollectionsListModel;
 import org.jphototagger.program.view.popupmenus.ImageCollectionsPopupMenu;
 
 /**
@@ -52,7 +52,7 @@ public final class ImageCollectionsMouseListener extends MouseAdapter {
         Object o = list.getModel().getElementAt(modelIndex);
 
         if (o != null) {
-            return ImageCollectionsListModel.isSpecialCollection(o.toString());
+            return ImageCollection.isSpecialCollection(o.toString());
         }
 
         return false;

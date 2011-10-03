@@ -9,12 +9,9 @@ import java.util.logging.Logger;
 
 import org.jdesktop.swingx.JXList;
 
-import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.helper.ImageCollectionsHelper;
-import org.jphototagger.program.model.ImageCollectionsListModel;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.popupmenus.ImageCollectionsPopupMenu;
 
@@ -56,20 +53,12 @@ public final class DeleteImageCollectionController implements ActionListener, Ke
 
     private void deleteCollection(final String collectionName) {
         String errorMessage = Bundle.getString(DeleteImageCollectionController.class, "DeleteImageCollectionController.Error.SpecialCollection", collectionName);
-        if (!ImageCollectionsListModel.checkIsNotSpecialCollection(collectionName, errorMessage)) {
+        if (!ImageCollectionsHelper.checkIsNotSpecialCollection(collectionName, errorMessage)) {
             return;
         }
 
         if (collectionName != null) {
-            EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-                @Override
-                public void run() {
-                    if (ImageCollectionsHelper.deleteImageCollection(collectionName)) {
-                        ModelFactory.INSTANCE.getModel(ImageCollectionsListModel.class).removeElement(collectionName);
-                    }
-                }
-            });
+            ImageCollectionsHelper.deleteImageCollection(collectionName);
         } else {
             LOGGER.log(Level.WARNING, "Delete photo album: Couldn't find the selected photo album in the repository!");
         }

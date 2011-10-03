@@ -5,11 +5,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.event.util.KeyEventUtil;
-import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.helper.ImageCollectionsHelper;
-import org.jphototagger.program.model.ImageCollectionsListModel;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.popupmenus.ImageCollectionsPopupMenu;
 import org.jphototagger.program.view.popupmenus.ThumbnailsPopupMenu;
@@ -43,25 +40,7 @@ public final class AddImageCollectionController implements ActionListener, KeyLi
     }
 
     private void createImageCollectionOfSelectedFiles() {
-        final String collectionName = ImageCollectionsHelper.insertImageCollection(GUI.getSelectedImageFiles());
-
-        if (collectionName != null) {
-            EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-                @Override
-                public void run() {
-                    insertImageCollection(collectionName);
-                }
-            });
-        }
-    }
-
-    private void insertImageCollection(String collectionName) {
-        ImageCollectionsListModel model = ModelFactory.INSTANCE.getModel(ImageCollectionsListModel.class);
-
-        if (!model.contains(collectionName)) {
-            model.addElement(collectionName);
-        }
+        ImageCollectionsHelper.insertImageCollection(GUI.getSelectedImageFiles());
     }
 
     @Override

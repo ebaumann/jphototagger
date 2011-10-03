@@ -13,12 +13,12 @@ import org.jdesktop.swingx.JXList;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.domain.repository.ImageCollectionsRepository;
 import org.jphototagger.api.image.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.api.messages.MessageType;
 import org.jphototagger.api.messages.StatusBarMessageDisplayer;
+import org.jphototagger.domain.imagecollections.ImageCollection;
+import org.jphototagger.domain.repository.ImageCollectionsRepository;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.model.ImageCollectionsListModel;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.ThumbnailsPopupMenu;
@@ -72,13 +72,13 @@ public final class PickRejectController implements ActionListener, KeyListener {
             StatusBarMessageDisplayer messageDisplayer = Lookup.getDefault().lookup(StatusBarMessageDisplayer.class);
             messageDisplayer.setStatusbarText(getPopupMessage(pick), MessageType.INFO, 1000);
             addToCollection(pick
-                    ? ImageCollectionsListModel.NAME_IMAGE_COLLECTION_PICKED
-                    : ImageCollectionsListModel.NAME_IMAGE_COLLECTION_REJECTED, selFiles);
+                    ? ImageCollection.PICKED_NAME
+                    : ImageCollection.REJECTED_NAME, selFiles);
 
             if ((pick && isRejectCollection()) || (!pick && isPickCollection())) {
                 deleteFromCollection(pick
-                        ? ImageCollectionsListModel.NAME_IMAGE_COLLECTION_REJECTED
-                        : ImageCollectionsListModel.NAME_IMAGE_COLLECTION_PICKED, selFiles);
+                        ? ImageCollection.REJECTED_NAME
+                        : ImageCollection.PICKED_NAME, selFiles);
                 panelThumbnails.removeFiles(selFiles);
             }
         }
@@ -91,11 +91,11 @@ public final class PickRejectController implements ActionListener, KeyListener {
     }
 
     private boolean isPickCollection() {
-        return isCollection(ImageCollectionsListModel.NAME_IMAGE_COLLECTION_PICKED);
+        return isCollection(ImageCollection.PICKED_NAME);
     }
 
     private boolean isRejectCollection() {
-        return isCollection(ImageCollectionsListModel.NAME_IMAGE_COLLECTION_REJECTED);
+        return isCollection(ImageCollection.REJECTED_NAME);
     }
 
     private boolean isCollection(String collection) {

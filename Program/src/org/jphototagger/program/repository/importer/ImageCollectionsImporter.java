@@ -11,19 +11,14 @@ import javax.swing.filechooser.FileFilter;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
-import org.jphototagger.domain.comparator.StringAscendingComparator;
 import org.jphototagger.domain.imagecollections.ImageCollection;
 import org.jphototagger.domain.repository.ImageCollectionsRepository;
 import org.jphototagger.domain.repository.InsertIntoRepository;
 import org.jphototagger.domain.repository.RepositoryDataImporter;
-import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.xml.bind.XmlObjectImporter;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.helper.InsertImageFilesIntoRepository;
-import org.jphototagger.program.model.ImageCollectionsListModel;
 import org.jphototagger.program.repository.exporter.ImageCollectionsExporter;
 import org.jphototagger.program.repository.exporter.ImageCollectionsExporter.CollectionWrapper;
 import org.jphototagger.program.view.panels.ProgressBarUpdater;
@@ -94,25 +89,9 @@ public final class ImageCollectionsImporter implements RepositoryDataImporter {
             for (ImageCollection imageCollection : imageCollections) {
                 if (!repo.existsImageCollection(imageCollection.getName())) {
                     insertIntoDbMissingFiles(imageCollection);
-
-                    if (repo.saveImageCollection(imageCollection)) {
-                        updateImageCollectionList(imageCollection);
-                    }
+                    repo.saveImageCollection(imageCollection);
                 }
             }
-        }
-
-        private void updateImageCollectionList(final ImageCollection imageCollection) {
-            EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-                @Override
-                public void run() {
-                    ImageCollectionsListModel model = ModelFactory.INSTANCE.getModel(ImageCollectionsListModel.class);
-
-                    ListUtil.insertSorted(model, imageCollection.getName(), StringAscendingComparator.INSTANCE,
-                            ImageCollectionsListModel.getSpecialCollectionCount(), model.getSize() - 1);
-                }
-            });
         }
 
         private void insertIntoDbMissingFiles(ImageCollection imageCollection) {
