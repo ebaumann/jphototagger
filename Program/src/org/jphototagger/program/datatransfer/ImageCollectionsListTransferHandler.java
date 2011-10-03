@@ -13,10 +13,8 @@ import javax.swing.JList;
 import javax.swing.TransferHandler;
 
 import org.jdesktop.swingx.JXList;
-import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.helper.ImageCollectionsHelper;
 import org.jphototagger.program.io.ImageFileFilterer;
-import org.jphototagger.program.model.ImageCollectionsListModel;
 import org.jphototagger.program.resource.GUI;
 
 /**
@@ -89,11 +87,7 @@ public final class ImageCollectionsListTransferHandler extends TransferHandler {
     }
 
     private void createImageCollection(final List<File> imageFiles) {
-        String newCollectionName = ImageCollectionsHelper.insertImageCollection(imageFiles);
-
-        if (newCollectionName != null) {
-            ModelFactory.INSTANCE.getModel(ImageCollectionsListModel.class).addElement(newCollectionName);
-        }
+        ImageCollectionsHelper.insertImageCollection(imageFiles);
     }
 
     private String getImageCollectionName(int itemIndex) {

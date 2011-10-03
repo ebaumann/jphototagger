@@ -27,6 +27,7 @@ import org.jphototagger.program.app.AppWindowPersistence;
 import org.jphototagger.program.model.ExifTableModel;
 import org.jphototagger.program.model.FavoritesTreeModel;
 import org.jphototagger.program.model.FileFiltersComboBoxModel;
+import org.jphototagger.domain.imagecollections.ImageCollectionSortAscendingComparator;
 import org.jphototagger.program.model.ImageCollectionsListModel;
 import org.jphototagger.program.model.IptcTableModel;
 import org.jphototagger.program.model.KeywordsListModel;
@@ -166,7 +167,7 @@ public final class ModelFactory {
                     public void run() {
                         list.setModel(model);
                         ListSortController<ImageCollectionsListModel> sorter = new ListSortController<ImageCollectionsListModel>(model);
-                        sorter.setComparator(0, model.createAscendingSortComparator());
+                        sorter.setComparator(0, new ImageCollectionSortAscendingComparator());
                         list.setRowSorter(sorter);
                         list.setSortOrder(SortOrder.ASCENDING);
                         AppWindowPersistence.readListImageCollections();

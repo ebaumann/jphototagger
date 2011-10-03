@@ -12,6 +12,7 @@ import org.openide.util.Lookup;
 import org.jphototagger.api.concurrent.SerialTaskExecutor;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
+import org.jphototagger.domain.imagecollections.ImageCollection;
 import org.jphototagger.domain.repository.ImageCollectionsRepository;
 import org.jphototagger.domain.repository.InsertIntoRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
@@ -19,7 +20,6 @@ import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.SourceTargetFile;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.io.ImageFileFilterer;
-import org.jphototagger.program.model.ImageCollectionsListModel;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.dialogs.ImportImageFilesDialog;
 import org.jphototagger.program.view.panels.AppPanel;
@@ -153,7 +153,7 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
     }
 
     private void insertCopiedFilesAsCollectionIntoDb() {
-        String collectionName = ImageCollectionsListModel.NAME_IMAGE_COLLECTION_PREV_IMPORT;
+        String collectionName = ImageCollection.PREVIOUS_IMPORT_NAME;
         ImageCollectionsRepository repo = Lookup.getDefault().lookup(ImageCollectionsRepository.class);
         List<File> prevCollectionFiles = repo.findImageFilesOfImageCollection(collectionName);
 
@@ -179,7 +179,7 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
 
                 appPanel.getTabbedPaneSelection().setSelectedComponent(appPanel.getTabSelectionImageCollections());
                 GUI.getAppPanel().getListImageCollections().setSelectedValue(
-                        ImageCollectionsListModel.NAME_IMAGE_COLLECTION_PREV_IMPORT, true);
+                        ImageCollection.PREVIOUS_IMPORT_NAME, true);
             }
         });
     }

@@ -13,9 +13,7 @@ import org.jdesktop.swingx.JXList;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.helper.ImageCollectionsHelper;
-import org.jphototagger.program.model.ImageCollectionsListModel;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.popupmenus.ImageCollectionsPopupMenu;
 
@@ -72,18 +70,11 @@ public final class RenameImageCollectionController implements ActionListener, Ke
                 @Override
                 public void run() {
                     String errorMessage = Bundle.getString(RenameImageCollectionController.class, "ListModelImageCollections.Error.RenameSpecialCollection", fromName);
-                    if (!ImageCollectionsListModel.checkIsNotSpecialCollection(fromName, errorMessage)) {
+                    if (!ImageCollectionsHelper.checkIsNotSpecialCollection(fromName, errorMessage)) {
                         return;
                     }
 
-                    final String toName = ImageCollectionsHelper.renameImageCollection(fromName);
-
-                    if (toName != null) {
-                        ImageCollectionsListModel model =
-                                ModelFactory.INSTANCE.getModel(ImageCollectionsListModel.class);
-
-                        model.rename(fromName, toName);
-                    }
+                    ImageCollectionsHelper.renameImageCollection(fromName);
                 }
             });
         } else {

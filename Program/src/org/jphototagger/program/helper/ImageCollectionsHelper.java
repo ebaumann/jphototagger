@@ -7,13 +7,13 @@ import java.util.logging.Logger;
 
 import org.jdesktop.swingx.JXList;
 
+import org.jphototagger.domain.imagecollections.ImageCollection;
 import org.openide.util.Lookup;
 
 import org.jphototagger.domain.repository.ImageCollectionsRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.model.ImageCollectionsListModel;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 
@@ -205,7 +205,7 @@ public final class ImageCollectionsHelper {
 
     /**
      * Returns wether a name is valid. This is true if the name is not equals
-     * to {@code ImageCollectionsListModel#NAME_IMAGE_COLLECTION_PREV_IMPORT}
+     * to {@code ImageCollectionsListModel#PREVIOUS_IMPORT_NAME}
      * ignoring the case.
      *
      * @param  name name
@@ -216,7 +216,7 @@ public final class ImageCollectionsHelper {
             throw new NullPointerException("name == null");
         }
 
-        return !name.trim().equalsIgnoreCase(ImageCollectionsListModel.NAME_IMAGE_COLLECTION_PREV_IMPORT);
+        return !name.trim().equalsIgnoreCase(ImageCollection.PREVIOUS_IMPORT_NAME);
     }
 
     private static boolean checkIsValidName(String name) {
@@ -301,6 +301,34 @@ public final class ImageCollectionsHelper {
         }
 
         return name;
+    }
+
+    /**
+     * Checks whether an image collection isn't a special collection and when it
+     * is, displays a warning message with the name of the image collection as
+     * parameter.
+     *
+     * @param  collectionName
+     * @param  errorMessage
+     * @return                true if everything is ok: the image collection is
+     *                        <em>not</em> a special collection
+     */
+    public static boolean checkIsNotSpecialCollection(String collectionName, String errorMessage) {
+        if (collectionName == null) {
+            throw new NullPointerException("collectionName == null");
+        }
+
+        if (errorMessage == null) {
+            throw new NullPointerException("propertyKey == null");
+        }
+
+        if (ImageCollection.isSpecialCollection(collectionName)) {
+            MessageDisplayer.warning(null, errorMessage);
+
+            return false;
+        }
+
+        return true;
     }
 
     private ImageCollectionsHelper() {

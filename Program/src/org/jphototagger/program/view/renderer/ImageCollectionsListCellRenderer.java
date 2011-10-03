@@ -10,8 +10,8 @@ import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JList;
 
+import org.jphototagger.domain.imagecollections.ImageCollection;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.model.ImageCollectionsListModel;
 
 /**
  *
@@ -27,12 +27,9 @@ public final class ImageCollectionsListCellRenderer extends DefaultListCellRende
     private int tempSelRow = -1;
 
     {
-        ICON_OF_VALUE.put(ImageCollectionsListModel.NAME_IMAGE_COLLECTION_PREV_IMPORT,
-                AppLookAndFeel.getIcon("icon_card.png"));
-        ICON_OF_VALUE.put(ImageCollectionsListModel.NAME_IMAGE_COLLECTION_PICKED,
-                AppLookAndFeel.getIcon("icon_picked.png"));
-        ICON_OF_VALUE.put(ImageCollectionsListModel.NAME_IMAGE_COLLECTION_REJECTED,
-                AppLookAndFeel.getIcon("icon_rejected.png"));
+        ICON_OF_VALUE.put(ImageCollection.PREVIOUS_IMPORT_NAME, AppLookAndFeel.getIcon("icon_card.png"));
+        ICON_OF_VALUE.put(ImageCollection.PICKED_NAME, AppLookAndFeel.getIcon("icon_picked.png"));
+        ICON_OF_VALUE.put(ImageCollection.REJECTED_NAME, AppLookAndFeel.getIcon("icon_rejected.png"));
     }
 
     public ImageCollectionsListCellRenderer() {
@@ -40,10 +37,9 @@ public final class ImageCollectionsListCellRenderer extends DefaultListCellRende
     }
 
     @Override
-    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
-            boolean cellHasFocus) {
+    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
         JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-        boolean specialCollection = ImageCollectionsListModel.isSpecialCollection(value.toString());
+        boolean specialCollection = ImageCollection.isSpecialCollection(value.toString());
         boolean tempSelExists = tempSelRow >= 0;
         boolean isTempSelRow = index == tempSelRow;
 
