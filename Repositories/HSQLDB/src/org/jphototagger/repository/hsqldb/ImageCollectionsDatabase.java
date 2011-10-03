@@ -94,6 +94,10 @@ final class ImageCollectionsDatabase extends Database {
             throw new NullPointerException("toName == null");
         }
 
+        if (ImageCollection.isSpecialCollection(fromName) || ImageCollection.isSpecialCollection(toName)) {
+            return 0;
+        }
+
         int count = 0;
         Connection con = null;
         PreparedStatement stmt = null;
@@ -248,6 +252,10 @@ final class ImageCollectionsDatabase extends Database {
     boolean deleteImageCollection(String collectioNname) {
         if (collectioNname == null) {
             throw new NullPointerException("collectioNname == null");
+        }
+
+        if (ImageCollection.isSpecialCollection(collectioNname)) {
+            return false;
         }
 
         boolean deleted = false;
