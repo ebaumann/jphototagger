@@ -93,7 +93,7 @@ public final class GPSLocationExportUtil {
 
             for (int i = 0; !cancel && !isInterrupted() && (i < fileCount); i++) {
                 File imageFile = imageFiles.get(i);
-                ExifTags et = ExifMetadata.getCachedExifTags(imageFile);
+                ExifTags et = ExifMetadata.getExifTagsPreferCached(imageFile);
 
                 if (et != null) {
                     ExifGpsMetadata gpsMetadata = ExifGpsUtil.createGpsMetadataFromExifTags(et);

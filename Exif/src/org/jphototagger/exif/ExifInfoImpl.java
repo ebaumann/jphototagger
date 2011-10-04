@@ -16,7 +16,7 @@ public final class ExifInfoImpl implements ExifInfo {
 
     @Override
     public double getRotationAngleOfEmbeddedThumbnail(File file) {
-        ExifTags exifTags = ExifMetadata.getCachedExifTags(file);
+        ExifTags exifTags = ExifMetadata.getExifTagsPreferCached(file);
 
         if (exifTags != null) {
             ExifTag exifTag = exifTags.findExifTagByTagId(274);
