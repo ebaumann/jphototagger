@@ -15,25 +15,23 @@ import org.jphototagger.domain.repository.AutoscanDirectoriesRepository;
 @ServiceProvider(service = AutoscanDirectoriesRepository.class)
 public final class AutoscanDirectoriesRepositoryImpl implements AutoscanDirectoriesRepository {
 
-    private final AutoscanDirectoriesDatabase db = AutoscanDirectoriesDatabase.INSTANCE;
-
     @Override
     public boolean deleteAutoscanDirectory(File directory) {
-        return db.deleteDirectory(directory);
+        return AutoscanDirectoriesDatabase.INSTANCE.deleteDirectory(directory);
     }
 
     @Override
     public boolean existsAutoscanDirectory(File directory) {
-        return db.existsDirectory(directory);
+        return AutoscanDirectoriesDatabase.INSTANCE.existsDirectory(directory);
     }
 
     @Override
     public List<File> findAllAutoscanDirectories() {
-        return db.getAllDirectories();
+        return AutoscanDirectoriesDatabase.INSTANCE.getAllDirectories();
     }
 
     @Override
     public boolean saveAutoscanDirectory(File directory) {
-        return db.insertDirectory(directory);
+        return AutoscanDirectoriesDatabase.INSTANCE.insertDirectory(directory);
     }
 }

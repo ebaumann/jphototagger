@@ -8,47 +8,43 @@ import org.jphototagger.domain.repository.MetadataTemplatesRepository;
 import org.jphototagger.domain.templates.MetadataTemplate;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 @ServiceProvider(service = MetadataTemplatesRepository.class)
 public final class MetadataTemplatesRepositoryImpl implements MetadataTemplatesRepository {
 
-    private final MetadataTemplatesDatabase db = MetadataTemplatesDatabase.INSTANCE;
-
     @Override
     public boolean deleteMetadataTemplate(String name) {
-        return db.deleteMetadataTemplate(name);
+        return MetadataTemplatesDatabase.INSTANCE.deleteMetadataTemplate(name);
     }
 
     @Override
     public boolean existsMetadataTemplate(String name) {
-        return db.existsMetadataTemplate(name);
+        return MetadataTemplatesDatabase.INSTANCE.existsMetadataTemplate(name);
     }
 
     @Override
     public MetadataTemplate findMetadataTemplate(String name) {
-        return db.findMetadataTemplate(name);
+        return MetadataTemplatesDatabase.INSTANCE.findMetadataTemplate(name);
     }
 
     @Override
     public List<MetadataTemplate> findAllMetadataTemplates() {
-        return db.getAllMetadataTemplates();
+        return MetadataTemplatesDatabase.INSTANCE.getAllMetadataTemplates();
     }
 
     @Override
     public boolean saveOrUpdateMetadataTemplate(MetadataTemplate template) {
-        return db.insertOrUpdateMetadataTemplate(template);
+        return MetadataTemplatesDatabase.INSTANCE.insertOrUpdateMetadataTemplate(template);
     }
 
     @Override
     public boolean updateMetadataTemplate(MetadataTemplate template) {
-        return db.updateMetadataTemplate(template);
+        return MetadataTemplatesDatabase.INSTANCE.updateMetadataTemplate(template);
     }
 
     @Override
     public boolean updateRenameMetadataTemplate(String fromName, String toName) {
-        return db.updateRenameMetadataTemplate(fromName, toName);
+        return MetadataTemplatesDatabase.INSTANCE.updateRenameMetadataTemplate(fromName, toName);
     }
 }

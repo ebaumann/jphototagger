@@ -8,42 +8,38 @@ import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.domain.repository.FavoritesRepository;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 @ServiceProvider(service = FavoritesRepository.class)
 public final class FavoritesRepositoryImpl implements FavoritesRepository {
 
-    private final FavoritesDatabase db = FavoritesDatabase.INSTANCE;
-
     @Override
     public boolean deleteFavorite(String favoriteName) {
-        return db.deleteFavorite(favoriteName);
+        return FavoritesDatabase.INSTANCE.deleteFavorite(favoriteName);
     }
 
     @Override
     public boolean existsFavorite(String favoriteName) {
-        return db.existsFavorite(favoriteName);
+        return FavoritesDatabase.INSTANCE.existsFavorite(favoriteName);
     }
 
     @Override
     public List<Favorite> findAllFavorites() {
-        return db.getAllFavorites();
+        return FavoritesDatabase.INSTANCE.getAllFavorites();
     }
 
     @Override
     public boolean saveOrUpdateFavorite(Favorite favorite) {
-        return db.insertOrUpdateFavorite(favorite);
+        return FavoritesDatabase.INSTANCE.insertOrUpdateFavorite(favorite);
     }
 
     @Override
     public boolean updateFavorite(Favorite favorite) {
-        return db.updateFavorite(favorite);
+        return FavoritesDatabase.INSTANCE.updateFavorite(favorite);
     }
 
     @Override
     public boolean updateRenameFavorite(String fromFavoriteName, String toFavoriteName) {
-        return db.updateRenameFavorite(fromFavoriteName, toFavoriteName);
+        return FavoritesDatabase.INSTANCE.updateRenameFavorite(fromFavoriteName, toFavoriteName);
     }
 }

@@ -12,35 +12,33 @@ import org.jphototagger.domain.repository.ApplicationPropertiesRepository;
 @ServiceProvider(service = ApplicationPropertiesRepository.class)
 public final class ApplicationPropertiesRepositoryImpl implements ApplicationPropertiesRepository {
 
-    private final ApplicationPropertiesDatabase db = ApplicationPropertiesDatabase.INSTANCE;
-
     @Override
     public void deleteKey(String key) {
-        db.deleteKey(key);
+        ApplicationPropertiesDatabase.INSTANCE.deleteKey(key);
     }
 
     @Override
     public boolean existsKey(String key) {
-        return db.existsKey(key);
+        return ApplicationPropertiesDatabase.INSTANCE.existsKey(key);
     }
 
     @Override
     public boolean getBoolean(String key) {
-        return db.getBoolean(key);
+        return ApplicationPropertiesDatabase.INSTANCE.getBoolean(key);
     }
 
     @Override
     public String getString(String key) {
-        return db.getString(key);
+        return ApplicationPropertiesDatabase.INSTANCE.getString(key);
     }
 
     @Override
     public void setBoolean(String key, boolean value) {
-        db.setBoolean(key, value);
+        ApplicationPropertiesDatabase.INSTANCE.setBoolean(key, value);
     }
 
     @Override
     public void setString(String key, String string) {
-        db.setString(key, string);
+        ApplicationPropertiesDatabase.INSTANCE.setString(key, string);
     }
 }

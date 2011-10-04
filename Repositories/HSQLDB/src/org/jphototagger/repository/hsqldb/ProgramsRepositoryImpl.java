@@ -16,55 +16,53 @@ import org.jphototagger.domain.repository.ProgramsRepository;
 @ServiceProvider(service = ProgramsRepository.class)
 public final class ProgramsRepositoryImpl implements ProgramsRepository {
 
-    private final ProgramsDatabase db = ProgramsDatabase.INSTANCE;
-
     @Override
     public boolean deleteProgram(Program program) {
-        return db.deleteProgram(program);
+        return ProgramsDatabase.INSTANCE.deleteProgram(program);
     }
 
     @Override
     public boolean existsProgram(Program program) {
-        return db.existsProgram(program);
+        return ProgramsDatabase.INSTANCE.existsProgram(program);
     }
 
     @Override
     public Program findProgram(long id) {
-        return db.findProgram(id);
+        return ProgramsDatabase.INSTANCE.findProgram(id);
     }
 
     @Override
     public List<Program> findAllPrograms(ProgramType type) {
-        return db.getAllPrograms(type);
+        return ProgramsDatabase.INSTANCE.getAllPrograms(type);
     }
 
     @Override
     public Program findDefaultImageOpenProgram() {
-        return db.getDefaultImageOpenProgram();
+        return ProgramsDatabase.INSTANCE.getDefaultImageOpenProgram();
     }
 
     @Override
     public int getProgramCount(boolean actions) {
-        return db.getProgramCount(actions);
+        return ProgramsDatabase.INSTANCE.getProgramCount(actions);
     }
 
     @Override
     public boolean hasAction() {
-        return db.hasAction();
+        return ProgramsDatabase.INSTANCE.hasAction();
     }
 
     @Override
     public boolean hasProgram() {
-        return db.hasProgram();
+        return ProgramsDatabase.INSTANCE.hasProgram();
     }
 
     @Override
     public boolean saveProgram(Program program) {
-        return db.insertProgram(program);
+        return ProgramsDatabase.INSTANCE.insertProgram(program);
     }
 
     @Override
     public boolean updateProgram(Program program) {
-        return db.updateProgram(program);
+        return ProgramsDatabase.INSTANCE.updateProgram(program);
     }
 }

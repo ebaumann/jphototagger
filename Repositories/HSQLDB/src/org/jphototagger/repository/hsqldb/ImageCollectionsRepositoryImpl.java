@@ -9,72 +9,68 @@ import org.jphototagger.domain.imagecollections.ImageCollection;
 import org.jphototagger.domain.repository.ImageCollectionsRepository;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 @ServiceProvider(service = ImageCollectionsRepository.class)
 public final class ImageCollectionsRepositoryImpl implements ImageCollectionsRepository {
 
-    private final ImageCollectionsDatabase db = ImageCollectionsDatabase.INSTANCE;
-
     @Override
     public boolean deleteImageCollection(String collectionName) {
-        return db.deleteImageCollection(collectionName);
+        return ImageCollectionsDatabase.INSTANCE.deleteImageCollection(collectionName);
     }
 
     @Override
     public int deleteImagesFromImageCollection(String collectionName, List<File> imageFiles) {
-        return db.deleteImagesFromImageCollection(collectionName, imageFiles);
+        return ImageCollectionsDatabase.INSTANCE.deleteImagesFromImageCollection(collectionName, imageFiles);
     }
 
     @Override
     public boolean existsImageCollection(String collectionName) {
-        return db.existsImageCollection(collectionName);
+        return ImageCollectionsDatabase.INSTANCE.existsImageCollection(collectionName);
     }
 
     @Override
     public List<String> findAllImageCollectionNames() {
-        return db.getAllImageCollectionNames();
+        return ImageCollectionsDatabase.INSTANCE.getAllImageCollectionNames();
     }
 
     @Override
     public List<ImageCollection> findAllImageCollections() {
-        return db.getAllImageCollections();
+        return ImageCollectionsDatabase.INSTANCE.getAllImageCollections();
     }
 
     @Override
     public int getImageCollectionCount() {
-        return db.getImageCollectionCount();
+        return ImageCollectionsDatabase.INSTANCE.getImageCollectionCount();
     }
 
     @Override
     public int getImageCountOfAllImageCollections() {
-        return db.getImageCountOfAllImageCollections();
+        return ImageCollectionsDatabase.INSTANCE.getImageCountOfAllImageCollections();
     }
 
     @Override
     public List<File> findImageFilesOfImageCollection(String collectionName) {
-        return db.getImageFilesOfImageCollection(collectionName);
+        return ImageCollectionsDatabase.INSTANCE.getImageFilesOfImageCollection(collectionName);
     }
 
     @Override
     public boolean saveImageCollection(String collectionName, List<File> imageFiles) {
-        return db.insertImageCollection(collectionName, imageFiles);
+        return ImageCollectionsDatabase.INSTANCE.insertImageCollection(collectionName, imageFiles);
     }
 
     @Override
     public boolean saveImageCollection(ImageCollection collection) {
-        return db.insertImageCollection(collection);
+        return ImageCollectionsDatabase.INSTANCE.insertImageCollection(collection);
     }
 
     @Override
     public boolean insertImagesIntoImageCollection(String collectionName, List<File> imageFiles) {
-        return db.insertImagesIntoImageCollection(collectionName, imageFiles);
+        return ImageCollectionsDatabase.INSTANCE.insertImagesIntoImageCollection(collectionName, imageFiles);
     }
 
     @Override
     public int updateRenameImageCollection(String fromName, String toName) {
-        return db.updateRenameImageCollection(fromName, toName);
+        return ImageCollectionsDatabase.INSTANCE.updateRenameImageCollection(fromName, toName);
     }
 }
