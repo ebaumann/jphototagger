@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.bushe.swing.event.EventBus;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 
@@ -46,7 +47,10 @@ public final class ExifCache {
             FileUtil.touch(cacheFile, imageFile);
         } catch (Throwable ex) {
             LOGGER.log(Level.SEVERE, null, ex);
-            cacheFile.delete();
+            boolean deleted = cacheFile.delete();
+            if (deleted) {
+                EventBus.publish(new ExifCacheFileDeletedEvent(this, imageFile, cacheFile));
+            }
         }
     }
 
@@ -128,7 +132,10 @@ public final class ExifCache {
         if (cacheFile.isFile()) {
             LOGGER.log(Level.FINEST, "EXIF Cache: Deleting EXIF cache file ''{0}'' of image file ''{1}''",
                     new Object[]{cacheFile, imageFile});
-            cacheFile.delete();
+            boolean deleted = cacheFile.delete();
+            if (deleted) {
+                EventBus.publish(new ExifCacheFileDeletedEvent(this, imageFile, cacheFile));
+            }
         }
     }
 
@@ -175,6 +182,8 @@ public final class ExifCache {
                 LOGGER.log(Level.WARNING, "EXIF Cache: Couldn''t delete cache file ''{0}''", cacheFile);
             }
         }
+
+        EventBus.publish(new ExifCacheClearedEvent(this, deleteCount));
 
         return deleteCount;
     }

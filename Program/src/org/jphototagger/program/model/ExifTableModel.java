@@ -14,11 +14,15 @@ import java.util.logging.Logger;
 
 import javax.swing.JButton;
 
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.exif.ExifMetadata;
 import org.jphototagger.exif.ExifTag;
 import org.jphototagger.exif.ExifTagDisplayComparator;
 import org.jphototagger.exif.ExifTags;
 import org.jphototagger.exif.ExifTagsToDisplay;
+import org.jphototagger.exif.cache.ExifCacheClearedEvent;
+import org.jphototagger.exif.cache.ExifCacheFileDeletedEvent;
 import org.jphototagger.exif.tag.ExifGpsAltitude;
 import org.jphototagger.exif.tag.ExifGpsLatitude;
 import org.jphototagger.exif.tag.ExifGpsLongitude;
@@ -49,11 +53,32 @@ public final class ExifTableModel extends TableModelExt {
 
     public ExifTableModel() {
         setRowHeaders();
+        listen();
     }
 
     private void setRowHeaders() {
         addColumn(Bundle.getString(ExifTableModel.class, "ExifTableModel.HeaderColumn.1"));
         addColumn(Bundle.getString(ExifTableModel.class, "ExifTableModel.HeaderColumn.2"));
+    }
+
+    private void listen() {
+        AnnotationProcessor.process(this);
+    }
+
+    @EventSubscriber(eventClass = ExifCacheClearedEvent.class)
+    public void exifCacheCleared(ExifCacheClearedEvent evt) {
+        int deletedCacheFileCount = evt.getDeletedCacheFileCount();
+        if (file != null && deletedCacheFileCount > 0) {
+            setFile(file);
+        }
+    }
+
+    @EventSubscriber(eventClass = ExifCacheFileDeletedEvent.class)
+    public void exifCacheCleared(ExifCacheFileDeletedEvent evt) {
+        File imageFile = evt.getImageFile();
+        if (imageFile.equals(file)) {
+            setFile(file);
+        }
     }
 
     /**
