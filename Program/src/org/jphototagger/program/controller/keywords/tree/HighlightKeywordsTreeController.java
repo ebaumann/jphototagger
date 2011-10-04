@@ -17,7 +17,6 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
-import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.renderer.KeywordsTreeCellRenderer;
 import org.jphototagger.xmp.XmpMetadata;
@@ -42,13 +41,7 @@ public final class HighlightKeywordsTreeController {
 
     @EventSubscriber(eventClass = ThumbnailsSelectionChangedEvent.class)
     public void thumbnailsSelectionChanged(final ThumbnailsSelectionChangedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                applyCurrentSelection(evt);
-            }
-        });
+        applyCurrentSelection(evt);
     }
 
     private void applyCurrentSelection(ThumbnailsSelectionChangedEvent evt) {

@@ -16,7 +16,6 @@ import org.jphototagger.domain.repository.event.search.SavedSearchDeletedEvent;
 import org.jphototagger.domain.repository.event.search.SavedSearchInsertedEvent;
 import org.jphototagger.domain.repository.event.search.SavedSearchRenamedEvent;
 import org.jphototagger.domain.repository.event.search.SavedSearchUpdatedEvent;
-import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.helper.SavedSearchesHelper;
 
 /**
@@ -89,48 +88,24 @@ public final class SavedSearchesListModel extends DefaultListModel {
 
     @EventSubscriber(eventClass = SavedSearchInsertedEvent.class)
     public void searchInserted(final SavedSearchInsertedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                insertSearch(evt.getSavedSearch());
-            }
-        });
+        insertSearch(evt.getSavedSearch());
     }
 
     @EventSubscriber(eventClass = SavedSearchUpdatedEvent.class)
     public void searchUpdated(final SavedSearchUpdatedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                updateSearch(evt.getSavedSearch());
-            }
-        });
+        updateSearch(evt.getSavedSearch());
     }
 
     @EventSubscriber(eventClass = SavedSearchDeletedEvent.class)
     public void searchDeleted(final SavedSearchDeletedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                deleteSearch(evt.getSearchName());
-            }
-        });
+        deleteSearch(evt.getSearchName());
     }
 
     @EventSubscriber(eventClass = SavedSearchRenamedEvent.class)
     public void searchRenamed(final SavedSearchRenamedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
+        String fromName = evt.getFromName();
+        String toName = evt.getToName();
 
-            @Override
-            public void run() {
-                String fromName = evt.getFromName();
-                String toName = evt.getToName();
-
-                renameSearch(fromName, toName);
-            }
-        });
+        renameSearch(fromName, toName);
     }
 }

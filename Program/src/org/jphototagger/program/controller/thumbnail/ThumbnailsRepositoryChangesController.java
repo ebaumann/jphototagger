@@ -58,26 +58,14 @@ public final class ThumbnailsRepositoryChangesController {
 
     @EventSubscriber(eventClass = ThumbnailUpdatedEvent.class)
     public void thumbnailUpdated(ThumbnailUpdatedEvent evt) {
-        final File imageFile = evt.getImageFile();
+        File imageFile = evt.getImageFile();
 
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                ThumbnailCache.INSTANCE.remove(imageFile);
-                ThumbnailCache.INSTANCE.notifyUpdate(imageFile);
-            }
-        });
+        ThumbnailCache.INSTANCE.remove(imageFile);
+        ThumbnailCache.INSTANCE.notifyUpdate(imageFile);
     }
 
     @EventSubscriber(eventClass = ImageFileDeletedEvent.class)
     public void imageFileDeleted(final ImageFileDeletedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                GUI.getThumbnailsPanel().removeFiles(Collections.singleton(evt.getImageFile()));
-            }
-        });
+        GUI.getThumbnailsPanel().removeFiles(Collections.singleton(evt.getImageFile()));
     }
 }

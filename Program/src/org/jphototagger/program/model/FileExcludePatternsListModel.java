@@ -14,7 +14,6 @@ import org.jphototagger.domain.repository.FileExcludePatternsRepository;
 import org.jphototagger.domain.repository.Repository;
 import org.jphototagger.domain.repository.event.fileexcludepattern.FileExcludePatternDeletedEvent;
 import org.jphototagger.domain.repository.event.fileexcludepattern.FileExcludePatternInsertedEvent;
-import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 
@@ -127,27 +126,15 @@ public final class FileExcludePatternsListModel extends DefaultListModel {
 
     @EventSubscriber(eventClass = FileExcludePatternInsertedEvent.class)
     public void patternInserted(final FileExcludePatternInsertedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                if (listenToDb) {
-                    insertPattern(evt.getPattern());
-                }
-            }
-        });
+        if (listenToDb) {
+            insertPattern(evt.getPattern());
+        }
     }
 
     @EventSubscriber(eventClass = FileExcludePatternDeletedEvent.class)
     public void patternDeleted(final FileExcludePatternDeletedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                if (listenToDb) {
-                    deletePattern(evt.getPattern());
-                }
-            }
-        });
+        if (listenToDb) {
+            deletePattern(evt.getPattern());
+        }
     }
 }

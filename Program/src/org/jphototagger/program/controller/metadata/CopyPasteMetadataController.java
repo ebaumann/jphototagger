@@ -12,7 +12,6 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
 import org.jphototagger.domain.metadata.xmp.Xmp;
-import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
@@ -125,16 +124,10 @@ public final class CopyPasteMetadataController implements ActionListener, KeyLis
 
     @EventSubscriber(eventClass = ThumbnailsSelectionChangedEvent.class)
     public void thumbnailsSelectionChanged(final ThumbnailsSelectionChangedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
+        boolean aFileIsSelected = evt.isAFileSelected();
+        JMenuItem copyItem = getCopyItem();
 
-            @Override
-            public void run() {
-                boolean aFileIsSelected = evt.isAFileSelected();
-                JMenuItem copyItem = getCopyItem();
-
-                copyItem.setEnabled(aFileIsSelected);
-            }
-        });
+        copyItem.setEnabled(aFileIsSelected);
     }
 
     @Override

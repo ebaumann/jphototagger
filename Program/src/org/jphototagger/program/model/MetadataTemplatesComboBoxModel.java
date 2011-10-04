@@ -16,7 +16,6 @@ import org.jphototagger.domain.repository.event.metadatatemplates.MetadataTempla
 import org.jphototagger.domain.repository.event.metadatatemplates.MetadataTemplateRenamedEvent;
 import org.jphototagger.domain.repository.event.metadatatemplates.MetadataTemplateUpdatedEvent;
 import org.jphototagger.domain.templates.MetadataTemplate;
-import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 
@@ -180,45 +179,21 @@ public final class MetadataTemplatesComboBoxModel extends DefaultComboBoxModel {
 
     @EventSubscriber(eventClass = MetadataTemplateDeletedEvent.class)
     public void templateDeleted(final MetadataTemplateDeletedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                removeElement(evt.getTemplate());
-            }
-        });
+        removeElement(evt.getTemplate());
     }
 
     @EventSubscriber(eventClass = MetadataTemplateInsertedEvent.class)
     public void templateInserted(final MetadataTemplateInsertedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                addElement(evt.getTemplate());
-            }
-        });
+        addElement(evt.getTemplate());
     }
 
     @EventSubscriber(eventClass = MetadataTemplateUpdatedEvent.class)
     public void templateUpdated(final MetadataTemplateUpdatedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                updateTemplate(evt.getOldTemplate());
-            }
-        });
+        updateTemplate(evt.getOldTemplate());
     }
 
     @EventSubscriber(eventClass = MetadataTemplateRenamedEvent.class)
     public void templateRenamed(final MetadataTemplateRenamedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                renameTemplate(evt.getFromName(), evt.getToName());
-            }
-        });
+        renameTemplate(evt.getFromName(), evt.getToName());
     }
 }

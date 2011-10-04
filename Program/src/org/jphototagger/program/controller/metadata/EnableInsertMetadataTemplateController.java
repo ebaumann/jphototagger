@@ -10,7 +10,6 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 
 import org.jphototagger.domain.metadata.event.EditMetadataPanelsEditDisabledEvent;
 import org.jphototagger.domain.metadata.event.EditMetadataPanelsEditEnabledEvent;
-import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.AppPanel;
 
@@ -45,23 +44,11 @@ public final class EnableInsertMetadataTemplateController implements ActionListe
 
     @EventSubscriber(eventClass = EditMetadataPanelsEditEnabledEvent.class)
     public void editEnabled(final EditMetadataPanelsEditEnabledEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                setButtonEnabled();
-            }
-        });
+        setButtonEnabled();
     }
 
     @EventSubscriber(eventClass = EditMetadataPanelsEditDisabledEvent.class)
     public void editDisabled(final EditMetadataPanelsEditDisabledEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                setButtonEnabled();
-            }
-        });
+        setButtonEnabled();
     }
 }

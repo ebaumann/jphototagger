@@ -26,7 +26,6 @@ import org.jphototagger.domain.repository.ProgramsRepository;
 import org.jphototagger.domain.repository.event.programs.ProgramDeletedEvent;
 import org.jphototagger.domain.repository.event.programs.ProgramInsertedEvent;
 import org.jphototagger.domain.repository.event.programs.ProgramUpdatedEvent;
-import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
@@ -222,35 +221,17 @@ public final class ThumbnailsPopupMenu extends JPopupMenu {
 
     @EventSubscriber(eventClass = ProgramDeletedEvent.class)
     public void programDeleted(final ProgramDeletedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                updatePrograms(evt.getProgram());
-            }
-        });
+        updatePrograms(evt.getProgram());
     }
 
     @EventSubscriber(eventClass = ProgramInsertedEvent.class)
     public void programInserted(final ProgramInsertedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                updatePrograms(evt.getProgram());
-            }
-        });
+        updatePrograms(evt.getProgram());
     }
 
     @EventSubscriber(eventClass = ProgramUpdatedEvent.class)
     public void programUpdated(final ProgramUpdatedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                updatePrograms(evt.getProgram());
-            }
-        });
+        updatePrograms(evt.getProgram());
     }
 
     private void updatePrograms(Program updatedProgram) {

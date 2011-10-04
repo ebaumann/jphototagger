@@ -14,7 +14,6 @@ import org.jphototagger.domain.repository.AutoscanDirectoriesRepository;
 import org.jphototagger.domain.repository.Repository;
 import org.jphototagger.domain.repository.event.autoscandirectories.AutoscanDirectoryDeletedEvent;
 import org.jphototagger.domain.repository.event.autoscandirectories.AutoscanDirectoryInsertedEvent;
-import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  *
@@ -61,24 +60,14 @@ public final class AutoscanDirectoriesListModel extends DefaultListModel {
     }
 
     @EventSubscriber(eventClass = AutoscanDirectoryInsertedEvent.class)
-    public void directoryInserted(final AutoscanDirectoryInsertedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                addDirectory(evt.getDirectory());
-            }
-        });
+    public void directoryInserted(AutoscanDirectoryInsertedEvent evt) {
+        File directory = evt.getDirectory();
+        addDirectory(directory);
     }
 
     @EventSubscriber(eventClass = AutoscanDirectoryDeletedEvent.class)
     public void directoryDeleted(final AutoscanDirectoryDeletedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                removeDirectory(evt.getDirectory());
-            }
-        });
+        File directory = evt.getDirectory();
+        removeDirectory(directory);
     }
 }

@@ -20,7 +20,6 @@ import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.domain.timeline.Timeline;
 import org.jphototagger.domain.timeline.Timeline.Date;
 import org.jphototagger.domain.metadata.xmp.Xmp;
-import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.model.UpdateInfoTreeModel;
 
 /**
@@ -126,69 +125,33 @@ public final class TimelineTreeModel extends DefaultTreeModel {
 
     @EventSubscriber(eventClass = XmpInsertedEvent.class)
     public void xmpInserted(final XmpInsertedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                checkInserted(evt.getXmp());
-            }
-        });
+        checkInserted(evt.getXmp());
     }
 
     @EventSubscriber(eventClass = XmpUpdatedEvent.class)
     public void xmpUpdated(final XmpUpdatedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                checkDeleted(evt.getOldXmp());
-                checkInserted(evt.getUpdatedXmp());
-            }
-        });
+        checkDeleted(evt.getOldXmp());
+        checkInserted(evt.getUpdatedXmp());
     }
 
     @EventSubscriber(eventClass = XmpDeletedEvent.class)
     public void xmpDeleted(final XmpDeletedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                checkDeleted(evt.getXmp());
-            }
-        });
+        checkDeleted(evt.getXmp());
     }
 
     @EventSubscriber(eventClass = ExifInsertedEvent.class)
     public void exifInserted(final ExifInsertedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                checkInserted(evt.getExif());
-            }
-        });
+        checkInserted(evt.getExif());
     }
 
     @EventSubscriber(eventClass = ExifUpdatedEvent.class)
     public void exifUpdated(final ExifUpdatedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                checkDeleted(evt.getOldExif());
-                checkInserted(evt.getUpdatedExif());
-            }
-        });
+        checkDeleted(evt.getOldExif());
+        checkInserted(evt.getUpdatedExif());
     }
 
     @EventSubscriber(eventClass = ExifDeletedEvent.class)
     public void exifDeleted(final ExifDeletedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                checkDeleted(evt.getExif());
-            }
-        });
+        checkDeleted(evt.getExif());
     }
 }

@@ -13,7 +13,6 @@ import org.jphototagger.domain.repository.UserDefinedFileFiltersRepository;
 import org.jphototagger.domain.repository.event.userdefinedfilefilters.UserDefinedFileFilterDeletedEvent;
 import org.jphototagger.domain.repository.event.userdefinedfilefilters.UserDefinedFileFilterInsertedEvent;
 import org.jphototagger.domain.repository.event.userdefinedfilefilters.UserDefinedFileFilterUpdatedEvent;
-import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  *
@@ -61,34 +60,16 @@ public final class UserDefinedFileFilterListModel extends DefaultListModel {
 
     @EventSubscriber(eventClass = UserDefinedFileFilterInsertedEvent.class)
     public void filterInserted(final UserDefinedFileFilterInsertedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                insertFilter(evt.getFilter());
-            }
-        });
+        insertFilter(evt.getFilter());
     }
 
     @EventSubscriber(eventClass = UserDefinedFileFilterDeletedEvent.class)
     public void filterDeleted(final UserDefinedFileFilterDeletedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                deleteFilter(evt.getFilter());
-            }
-        });
+        deleteFilter(evt.getFilter());
     }
 
     @EventSubscriber(eventClass = UserDefinedFileFilterUpdatedEvent.class)
     public synchronized void filterUpdated(final UserDefinedFileFilterUpdatedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                updateFilter(evt.getFilter());
-            }
-        });
+        updateFilter(evt.getFilter());
     }
 }

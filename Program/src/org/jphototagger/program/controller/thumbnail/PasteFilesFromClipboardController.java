@@ -134,16 +134,10 @@ public final class PasteFilesFromClipboardController implements ActionListener, 
 
     @EventSubscriber(eventClass = ThumbnailsChangedEvent.class)
     public void thumbnailsChanged(final ThumbnailsChangedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
+        boolean canPasteFiles = canPasteFiles();
+        JMenuItem pasteItem = getPasteItem();
 
-            @Override
-            public void run() {
-                boolean canPasteFiles = canPasteFiles();
-                JMenuItem pasteItem = getPasteItem();
-
-                pasteItem.setEnabled(canPasteFiles);
-            }
-        });
+        pasteItem.setEnabled(canPasteFiles);
     }
 
     private boolean canPasteFiles() {

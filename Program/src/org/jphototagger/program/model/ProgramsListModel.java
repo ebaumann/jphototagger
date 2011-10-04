@@ -16,7 +16,6 @@ import org.jphototagger.domain.repository.Repository;
 import org.jphototagger.domain.repository.event.programs.ProgramDeletedEvent;
 import org.jphototagger.domain.repository.event.programs.ProgramInsertedEvent;
 import org.jphototagger.domain.repository.event.programs.ProgramUpdatedEvent;
-import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  *
@@ -93,13 +92,7 @@ public final class ProgramsListModel extends DefaultListModel {
         final Program program = evt.getProgram();
 
         if (isAppropriateProgramType(program)) {
-            EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-                @Override
-                public void run() {
-                    removeElement(program);
-                }
-            });
+            removeElement(program);
         }
     }
 
@@ -112,13 +105,7 @@ public final class ProgramsListModel extends DefaultListModel {
         final Program program = evt.getProgram();
 
         if (isAppropriateProgramType(program)) {
-            EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-                @Override
-                public void run() {
-                    addElement(program);
-                }
-            });
+            addElement(program);
         }
     }
 
@@ -131,13 +118,7 @@ public final class ProgramsListModel extends DefaultListModel {
         final Program program = evt.getProgram();
 
         if (isAppropriateProgramType(program)) {
-            EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-                @Override
-                public void run() {
-                    updateProgram(program);
-                }
-            });
+            updateProgram(program);
         }
     }
 }
