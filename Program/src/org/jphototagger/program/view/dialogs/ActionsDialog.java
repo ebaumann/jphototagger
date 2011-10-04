@@ -5,7 +5,6 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 
 import org.jphototagger.domain.repository.event.programs.ProgramInsertedEvent;
 import org.jphototagger.domain.repository.event.programs.ProgramUpdatedEvent;
-import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.ActionsPanel;
@@ -58,24 +57,12 @@ public final class ActionsDialog extends Dialog {
 
     @EventSubscriber(eventClass = ProgramInsertedEvent.class)
     public void programInserted(final ProgramInsertedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                toFrontIfVisible();
-            }
-        });
+        toFrontIfVisible();
     }
 
     @EventSubscriber(eventClass = ProgramUpdatedEvent.class)
     public void programUpdated(final ProgramUpdatedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                toFrontIfVisible();
-            }
-        });
+        toFrontIfVisible();
     }
 
     /**

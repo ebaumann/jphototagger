@@ -30,7 +30,6 @@ import org.jphototagger.domain.repository.FavoritesRepository;
 import org.jphototagger.domain.repository.event.favorites.FavoriteDeletedEvent;
 import org.jphototagger.domain.repository.event.favorites.FavoriteInsertedEvent;
 import org.jphototagger.domain.repository.event.favorites.FavoriteUpdatedEvent;
-import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.io.FileUtil;
@@ -637,39 +636,21 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
     @EventSubscriber(eventClass = FavoriteInsertedEvent.class)
     public void favoriteInserted(final FavoriteInsertedEvent evt) {
         if (listenToDb) {
-            EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-                @Override
-                public void run() {
-                    addFavorite(evt.getFavorite());
-                }
-            });
+            addFavorite(evt.getFavorite());
         }
     }
 
     @EventSubscriber(eventClass = FavoriteDeletedEvent.class)
     public void favoriteDeleted(final FavoriteDeletedEvent evt) {
         if (listenToDb) {
-            EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-                @Override
-                public void run() {
-                    deleteFavorite(evt.getFavorite());
-                }
-            });
+            deleteFavorite(evt.getFavorite());
         }
     }
 
     @EventSubscriber(eventClass = FavoriteUpdatedEvent.class)
     public void favoriteUpdated(final FavoriteUpdatedEvent evt) {
         if (listenToDb) {
-            EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-                @Override
-                public void run() {
-                    updateFavorite(evt.getOldFavorite(), evt.getUpdatedFavorite());
-                }
-            });
+            updateFavorite(evt.getOldFavorite(), evt.getUpdatedFavorite());
         }
     }
 

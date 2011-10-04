@@ -6,7 +6,6 @@ import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
-import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.AppPanel;
 
@@ -26,16 +25,10 @@ public final class EnableCreateMetadataTemplateController {
 
     @EventSubscriber(eventClass = ThumbnailsSelectionChangedEvent.class)
     public void thumbnailsSelectionChanged(final ThumbnailsSelectionChangedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
+        AppPanel appPanel = GUI.getAppPanel();
+        JButton buttonMetadataTemplateCreate = appPanel.getButtonMetadataTemplateCreate();
+        boolean aFileIsSelected = evt.isAFileSelected();
 
-            @Override
-            public void run() {
-                AppPanel appPanel = GUI.getAppPanel();
-                JButton buttonMetadataTemplateCreate = appPanel.getButtonMetadataTemplateCreate();
-                boolean aFileIsSelected = evt.isAFileSelected();
-
-                buttonMetadataTemplateCreate.setEnabled(aFileIsSelected);
-            }
-        });
+        buttonMetadataTemplateCreate.setEnabled(aFileIsSelected);
     }
 }

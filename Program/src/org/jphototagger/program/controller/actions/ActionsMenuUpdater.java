@@ -9,7 +9,6 @@ import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.repository.event.programs.ProgramDeletedEvent;
 import org.jphototagger.domain.repository.event.programs.ProgramInsertedEvent;
 import org.jphototagger.domain.repository.event.programs.ProgramUpdatedEvent;
-import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.helper.ActionsHelper;
 import org.jphototagger.program.view.popupmenus.ThumbnailsPopupMenu;
 
@@ -29,51 +28,31 @@ public final class ActionsMenuUpdater {
 
     @EventSubscriber(eventClass = ProgramDeletedEvent.class)
     public void programDeleted(final ProgramDeletedEvent evt) {
-        final Program program = evt.getProgram();
-        if (program.isAction()) {
-            EventQueueUtil.invokeInDispatchThread(new Runnable() {
+        Program program = evt.getProgram();
+        JMenu actionMenu = ThumbnailsPopupMenu.INSTANCE.getMenuActions();
 
-                @Override
-                public void run() {
-                    JMenu actionMenu = ThumbnailsPopupMenu.INSTANCE.getMenuActions();
-
-                    ActionsHelper.removeAction(actionMenu, program);
-                }
-            });
-        }
+        ActionsHelper.removeAction(actionMenu, program);
     }
 
     @EventSubscriber(eventClass = ProgramInsertedEvent.class)
     public void programInserted(final ProgramInsertedEvent evt) {
-        final Program program = evt.getProgram();
+        Program program = evt.getProgram();
 
         if (program.isAction()) {
-            EventQueueUtil.invokeInDispatchThread(new Runnable() {
+            JMenu actionMenu = ThumbnailsPopupMenu.INSTANCE.getMenuActions();
 
-                @Override
-                public void run() {
-                    JMenu actionMenu = ThumbnailsPopupMenu.INSTANCE.getMenuActions();
-
-                    ActionsHelper.addAction(actionMenu, program);
-                }
-            });
+            ActionsHelper.addAction(actionMenu, program);
         }
     }
 
     @EventSubscriber(eventClass = ProgramUpdatedEvent.class)
     public void programUpdated(final ProgramUpdatedEvent evt) {
-        final Program program = evt.getProgram();
+        Program program = evt.getProgram();
 
         if (program.isAction()) {
-            EventQueueUtil.invokeInDispatchThread(new Runnable() {
+            JMenu actionMenu = ThumbnailsPopupMenu.INSTANCE.getMenuActions();
 
-                @Override
-                public void run() {
-                    JMenu actionMenu = ThumbnailsPopupMenu.INSTANCE.getMenuActions();
-
-                    ActionsHelper.updateAction(actionMenu, program);
-                }
-            });
+            ActionsHelper.updateAction(actionMenu, program);
         }
     }
 }

@@ -105,35 +105,17 @@ public final class FileFiltersComboBoxModel extends DefaultComboBoxModel {
 
     @EventSubscriber(eventClass = UserDefinedFileFilterInsertedEvent.class)
     public void userDefinedFileFilterInserted(final UserDefinedFileFilterInsertedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                insertFilter(evt.getFilter());
-            }
-        });
+        insertFilter(evt.getFilter());
     }
 
     @EventSubscriber(eventClass = UserDefinedFileFilterDeletedEvent.class)
     public void userDefinedFileFilterDeleted(final UserDefinedFileFilterDeletedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                deleteFilter(evt.getFilter());
-            }
-        });
+        deleteFilter(evt.getFilter());
     }
 
     @EventSubscriber(eventClass = UserDefinedFileFilterUpdatedEvent.class)
     public void userDefinedFileFilterUpdated(final UserDefinedFileFilterUpdatedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                updateFilter(evt.getFilter());
-            }
-        });
+        updateFilter(evt.getFilter());
     }
 
     @EventSubscriber(eventClass = UserDefinedFileTypeInsertedEvent.class)

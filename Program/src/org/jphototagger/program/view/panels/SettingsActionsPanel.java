@@ -22,7 +22,6 @@ import org.jphototagger.domain.repository.ProgramsRepository;
 import org.jphototagger.domain.repository.Repository;
 import org.jphototagger.domain.repository.event.programs.ProgramDeletedEvent;
 import org.jphototagger.domain.repository.event.programs.ProgramInsertedEvent;
-import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
@@ -259,28 +258,16 @@ public class SettingsActionsPanel extends javax.swing.JPanel implements ListSele
         final Program program = evt.getProgram();
 
         if (program.isAction()) {
-            EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-                @Override
-                public void run() {
-                    setEnabledAddAction();
-                }
-            });
-    }
+            setEnabledAddAction();
+        }
     }
 
     @EventSubscriber(eventClass = ProgramDeletedEvent.class)
     public void programDeleted(ProgramDeletedEvent evt) {
         Program program = evt.getProgram();
         if (program.isAction()) {
-            EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-                @Override
-                public void run() {
-                    setEnabledAddAction();
-                }
-            });
-    }
+            setEnabledAddAction();
+        }
     }
 
     /**

@@ -14,7 +14,6 @@ import org.jphototagger.domain.repository.UserDefinedFileTypesRepository;
 import org.jphototagger.domain.repository.event.userdefinedfiletypes.UserDefinedFileTypeDeletedEvent;
 import org.jphototagger.domain.repository.event.userdefinedfiletypes.UserDefinedFileTypeInsertedEvent;
 import org.jphototagger.domain.repository.event.userdefinedfiletypes.UserDefinedFileTypeUpdatedEvent;
-import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  *
@@ -49,38 +48,20 @@ public final class UserDefinedFileTypesListModel extends DefaultListModel {
 
     @EventSubscriber(eventClass = UserDefinedFileTypeInsertedEvent.class)
     public void fileTypeInserted(final UserDefinedFileTypeInsertedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                addElement(evt.getFileType());
-            }
-        });
+        addElement(evt.getFileType());
     }
 
     @EventSubscriber(eventClass = UserDefinedFileTypeUpdatedEvent.class)
     public void fileTypeUpdated(final UserDefinedFileTypeUpdatedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
+        int index = indexOf(evt.getOldFileType());
 
-            @Override
-            public void run() {
-                int index = indexOf(evt.getOldFileType());
-
-                if (index >= 0) {
-                    set(index, evt.getNewFileType());
-                }
-            }
-        });
+        if (index >= 0) {
+            set(index, evt.getNewFileType());
+        }
     }
 
     @EventSubscriber(eventClass = UserDefinedFileTypeDeletedEvent.class)
     public void fileTypeDeleted(final UserDefinedFileTypeDeletedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                removeElement(evt.getFileType());
-            }
-        });
+        removeElement(evt.getFileType());
     }
 }

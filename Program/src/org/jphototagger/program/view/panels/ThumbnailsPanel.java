@@ -1623,13 +1623,7 @@ public class ThumbnailsPanel extends JPanel
 
     @EventSubscriber(eventClass = UserDefinedFileFilterUpdatedEvent.class)
     public synchronized void userDefinedFilterUpdated(final UserDefinedFileFilterUpdatedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                updateUserDefinedFileFilter(evt.getFilter());
-            }
-        });
+        updateUserDefinedFileFilter(evt.getFilter());
     }
 
     private void updateUserDefinedFileFilter(UserDefinedFileFilter userDefinedFileFilter) {

@@ -13,7 +13,6 @@ import org.jphototagger.domain.repository.event.renametemplates.RenameTemplateDe
 import org.jphototagger.domain.repository.event.renametemplates.RenameTemplateInsertedEvent;
 import org.jphototagger.domain.repository.event.renametemplates.RenameTemplateUpdatedEvent;
 import org.jphototagger.domain.templates.RenameTemplate;
-import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  *
@@ -62,34 +61,16 @@ public final class RenameTemplatesComboBoxModel extends DefaultComboBoxModel {
 
     @EventSubscriber(eventClass = RenameTemplateDeletedEvent.class)
     public void templateDeleted(final RenameTemplateDeletedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                deleteTemplate(evt.getTemplate());
-            }
-        });
+        deleteTemplate(evt.getTemplate());
     }
 
     @EventSubscriber(eventClass = RenameTemplateInsertedEvent.class)
     public void templateInserted(final RenameTemplateInsertedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                insertTemplate(evt.getTemplate());
-            }
-        });
+        insertTemplate(evt.getTemplate());
     }
 
     @EventSubscriber(eventClass = RenameTemplateUpdatedEvent.class)
     public void templateUpdated(final RenameTemplateUpdatedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                updateTemplate(evt.getTemplate());
-            }
-        });
+        updateTemplate(evt.getTemplate());
     }
 }

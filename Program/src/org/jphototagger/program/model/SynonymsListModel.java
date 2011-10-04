@@ -15,7 +15,6 @@ import org.jphototagger.domain.repository.event.synonyms.SynonymOfWordRenamedEve
 import org.jphototagger.domain.repository.event.synonyms.SynonymRenamedEvent;
 import org.jphototagger.domain.repository.event.synonyms.WordDeletedEvent;
 import org.jphototagger.domain.repository.event.synonyms.WordRenamedEvent;
-import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 
@@ -245,67 +244,31 @@ public final class SynonymsListModel extends DefaultListModel {
 
     @EventSubscriber(eventClass = SynonymOfWordDeletedEvent.class)
     public void synonymOfWordDeleted(final SynonymOfWordDeletedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                deleteSynonymOfWord(word, evt.getSynonym());
-            }
-        });
+        deleteSynonymOfWord(word, evt.getSynonym());
     }
 
     @EventSubscriber(eventClass = SynonymInsertedEvent.class)
     public void synonymInserted(final SynonymInsertedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                insertSynonym(word, evt.getSynonym());
-            }
-        });
+        insertSynonym(word, evt.getSynonym());
     }
 
     @EventSubscriber(eventClass = SynonymOfWordRenamedEvent.class)
     public void synonymOfWordRenamed(final SynonymOfWordRenamedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                renameSynonymOfWord(word, evt.getOldSynonymName(), evt.getNewSynonymName());
-            }
-        });
+        renameSynonymOfWord(word, evt.getOldSynonymName(), evt.getNewSynonymName());
     }
 
     @EventSubscriber(eventClass = SynonymRenamedEvent.class)
     public void synonymRenamed(final SynonymRenamedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                renameSynonym(evt.getOldSynonymName(), evt.getNewSynonymName());
-            }
-        });
+        renameSynonym(evt.getOldSynonymName(), evt.getNewSynonymName());
     }
 
     @EventSubscriber(eventClass = WordDeletedEvent.class)
     public void wordDeleted(final WordDeletedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                deleteWord(word);
-            }
-        });
+        deleteWord(word);
     }
 
     @EventSubscriber(eventClass = WordRenamedEvent.class)
     public void wordRenamed(final WordRenamedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                renameWord(evt.getFromName(), evt.getToName());
-            }
-        });
+        renameWord(evt.getFromName(), evt.getToName());
     }
 }

@@ -13,6 +13,7 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 
 import org.openide.util.Lookup;
 
+import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.repository.Repository;
@@ -22,8 +23,6 @@ import org.jphototagger.domain.repository.event.dcsubjects.DcSubjectInsertedEven
 import org.jphototagger.domain.repository.event.xmp.XmpDeletedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
-import org.jphototagger.domain.metadata.xmp.Xmp;
-import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  *
@@ -88,57 +87,27 @@ public final class KeywordsListModel extends DefaultListModel {
 
     @EventSubscriber(eventClass = XmpInsertedEvent.class)
     public void xmpInserted(final XmpInsertedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                addNewKeywords(getKeywords(evt.getXmp()));
-            }
-        });
+        addNewKeywords(getKeywords(evt.getXmp()));
     }
 
     @EventSubscriber(eventClass = XmpDeletedEvent.class)
     public void xmpDeleted(final XmpDeletedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                removeKeywordsNotInDb(getKeywords(evt.getXmp()));
-            }
-        });
+        removeKeywordsNotInDb(getKeywords(evt.getXmp()));
     }
 
     @EventSubscriber(eventClass = XmpUpdatedEvent.class)
     public void xmpUpdated(final XmpUpdatedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                addNewKeywords(getKeywords(evt.getUpdatedXmp()));
-                removeKeywordsNotInDb(getKeywords(evt.getOldXmp()));
-            }
-        });
+        addNewKeywords(getKeywords(evt.getUpdatedXmp()));
+        removeKeywordsNotInDb(getKeywords(evt.getOldXmp()));
     }
 
     @EventSubscriber(eventClass = DcSubjectDeletedEvent.class)
     public void dcSubjectDeleted(final DcSubjectDeletedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                removeKeywordsNotInDb(Collections.singleton(evt.getDcSubject()));
-            }
-        });
+        removeKeywordsNotInDb(Collections.singleton(evt.getDcSubject()));
     }
 
     @EventSubscriber(eventClass = DcSubjectInsertedEvent.class)
     public void dcSubjectInserted(final DcSubjectInsertedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                addNewKeywords(Collections.singleton(evt.getDcSubject()));
-            }
-        });
+        addNewKeywords(Collections.singleton(evt.getDcSubject()));
     }
 }

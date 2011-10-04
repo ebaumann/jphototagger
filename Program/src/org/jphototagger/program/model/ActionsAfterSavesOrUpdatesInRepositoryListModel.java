@@ -5,10 +5,10 @@ import java.util.List;
 
 import javax.swing.DefaultListModel;
 
-import org.openide.util.Lookup;
-
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+
+import org.openide.util.Lookup;
 
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.repository.ActionsAfterRepoUpdatesRepository;
@@ -18,7 +18,6 @@ import org.jphototagger.domain.repository.event.programs.ProgramUpdatedEvent;
 import org.jphototagger.domain.repository.event.repoupdates.ActionAfterRepoUpdateDeletedEvent;
 import org.jphototagger.domain.repository.event.repoupdates.ActionAfterRepoUpdateInsertedEvent;
 import org.jphototagger.domain.repository.event.repoupdates.ActionsAfterRepoUpdateReorderedEvent;
-import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  *
@@ -50,13 +49,13 @@ public final class ActionsAfterSavesOrUpdatesInRepositoryListModel extends Defau
 
     private void listen() {
         AnnotationProcessor.process(this);
-        }
+    }
 
     @EventSubscriber(eventClass = ActionAfterRepoUpdateInsertedEvent.class)
     public void actionInserted(ActionAfterRepoUpdateInsertedEvent event) {
         Program action = event.getAction();
         addElement(action);
-        }
+    }
 
     @EventSubscriber(eventClass = ActionAfterRepoUpdateDeletedEvent.class)
     public void actionDeleted(ActionAfterRepoUpdateDeletedEvent event) {
@@ -100,23 +99,11 @@ public final class ActionsAfterSavesOrUpdatesInRepositoryListModel extends Defau
 
     @EventSubscriber(eventClass = ProgramDeletedEvent.class)
     public void programDeleted(final ProgramDeletedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                deleteProgram(evt.getProgram());
-            }
-        });
+        deleteProgram(evt.getProgram());
     }
 
     @EventSubscriber(eventClass = ProgramUpdatedEvent.class)
     public void programUpdated(final ProgramUpdatedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                updateProgram(evt.getProgram());
-            }
-        });
+        updateProgram(evt.getProgram());
     }
 }

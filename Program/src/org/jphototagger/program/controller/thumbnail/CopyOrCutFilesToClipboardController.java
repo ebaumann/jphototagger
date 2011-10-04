@@ -13,7 +13,6 @@ import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
-import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.clipboard.ClipboardUtil;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.resource.GUI;
@@ -100,18 +99,12 @@ public final class CopyOrCutFilesToClipboardController implements ActionListener
 
     @EventSubscriber(eventClass = ThumbnailsSelectionChangedEvent.class)
     public void thumbnailsSelectionChanged(final ThumbnailsSelectionChangedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
+        boolean imagesSelected = evt.isAFileSelected();
 
-            @Override
-            public void run() {
-                final boolean imagesSelected = evt.isAFileSelected();
+        getCopyItem().setEnabled(imagesSelected);
 
-                getCopyItem().setEnabled(imagesSelected);
-
-                // ignore possibility of write protected files
-                getCutItem().setEnabled(imagesSelected);
-            }
-        });
+        // ignore possibility of write protected files
+        getCutItem().setEnabled(imagesSelected);
     }
 
     @Override

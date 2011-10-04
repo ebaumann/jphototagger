@@ -13,7 +13,6 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jdesktop.swingx.JXList;
 
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
-import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.program.resource.GUI;
 
@@ -75,15 +74,9 @@ public class MetaDataTemplatesPanel extends JPanel implements ListSelectionListe
 
     @EventSubscriber(eventClass=ThumbnailsSelectionChangedEvent.class)
     public void thumbnailsSelectionChanged(final ThumbnailsSelectionChangedEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
+        ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
-            @Override
-            public void run() {
-                ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
-
-                buttonAddToSelImages.setEnabled((list.getSelectedIndex() >= 0) && tnPanel.isAFileSelected());
-            }
-        });
+        buttonAddToSelImages.setEnabled((list.getSelectedIndex() >= 0) && tnPanel.isAFileSelected());
     }
 
     /**
