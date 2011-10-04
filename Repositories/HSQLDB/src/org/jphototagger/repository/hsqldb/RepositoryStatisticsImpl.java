@@ -8,37 +8,33 @@ import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.repository.RepositoryStatistics;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 @ServiceProvider(service = RepositoryStatistics.class)
 public final class RepositoryStatisticsImpl implements RepositoryStatistics {
 
-    private final DatabaseStatistics db = DatabaseStatistics.INSTANCE;
-
     @Override
     public boolean existsMetaDataValue(MetaDataValue metaDataValue, String value) {
-        return db.existsMetaDataValue(metaDataValue, value);
+        return DatabaseStatistics.INSTANCE.existsMetaDataValue(metaDataValue, value);
     }
 
     @Override
     public boolean existsValueInMetaDataValues(String value, List<MetaDataValue> metaDataValues) {
-        return db.existsValueInMetaDataValues(value, metaDataValues);
+        return DatabaseStatistics.INSTANCE.existsValueInMetaDataValues(value, metaDataValues);
     }
 
     @Override
     public int getCountOfMetaDataValue(MetaDataValue metaDataValue) {
-        return db.getCountOfMetaDataValue(metaDataValue);
+        return DatabaseStatistics.INSTANCE.getCountOfMetaDataValue(metaDataValue);
     }
 
     @Override
     public int getFileCount() {
-        return db.getFileCount();
+        return DatabaseStatistics.INSTANCE.getFileCount();
     }
 
     @Override
     public int getXmpCount() {
-        return db.getXmpCount();
+        return DatabaseStatistics.INSTANCE.getXmpCount();
     }
 }

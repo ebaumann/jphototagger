@@ -8,37 +8,33 @@ import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.domain.repository.FileExcludePatternsRepository;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 @ServiceProvider(service = FileExcludePatternsRepository.class)
 public final class FileExcludePatternsRepositoryImpl implements FileExcludePatternsRepository {
 
-    private final FileExcludePatternsDatabase db = FileExcludePatternsDatabase.INSTANCE;
-
     @Override
     public boolean deleteFileExcludePattern(String pattern) {
-        return db.deleteFileExcludePattern(pattern);
+        return FileExcludePatternsDatabase.INSTANCE.deleteFileExcludePattern(pattern);
     }
 
     @Override
     public int deleteMatchingFiles(List<String> patterns, ProgressListener listener) {
-        return db.deleteMatchingFiles(patterns, listener);
+        return FileExcludePatternsDatabase.INSTANCE.deleteMatchingFiles(patterns, listener);
     }
 
     @Override
     public boolean existsFileExcludePattern(String pattern) {
-        return db.existsFileExcludePattern(pattern);
+        return FileExcludePatternsDatabase.INSTANCE.existsFileExcludePattern(pattern);
     }
 
     @Override
     public List<String> findAllFileExcludePatterns() {
-        return db.getAllFileExcludePatterns();
+        return FileExcludePatternsDatabase.INSTANCE.getAllFileExcludePatterns();
     }
 
     @Override
     public boolean saveFileExcludePattern(String pattern) {
-        return db.insertFileExcludePattern(pattern);
+        return FileExcludePatternsDatabase.INSTANCE.insertFileExcludePattern(pattern);
     }
 }

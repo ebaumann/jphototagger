@@ -8,57 +8,53 @@ import org.jphototagger.domain.metadata.search.SavedSearch;
 import org.jphototagger.domain.repository.SavedSearchesRepository;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 @ServiceProvider(service = SavedSearchesRepository.class)
 public final class SavedSearchesRepositoryImpl implements SavedSearchesRepository {
 
-    private final SavedSearchesDatabase db = SavedSearchesDatabase.INSTANCE;
-
     @Override
     public boolean deleteSavedSearch(String searchName) {
-        return db.delete(searchName);
+        return SavedSearchesDatabase.INSTANCE.delete(searchName);
     }
 
     @Override
     public boolean existsSavedSearch(String searchName) {
-        return db.exists(searchName);
+        return SavedSearchesDatabase.INSTANCE.exists(searchName);
     }
 
     @Override
     public SavedSearch findSavedSearch(String searchName) {
-        return db.find(searchName);
+        return SavedSearchesDatabase.INSTANCE.find(searchName);
     }
 
     @Override
     public List<SavedSearch> findAllSavedSearches() {
-        return db.getAll();
+        return SavedSearchesDatabase.INSTANCE.getAll();
     }
 
     @Override
     public int getSavedSearchesCount() {
-        return db.getCount();
+        return SavedSearchesDatabase.INSTANCE.getCount();
     }
 
     @Override
     public boolean saveSavedSearch(SavedSearch savedSearch) {
-        return db.insert(savedSearch);
+        return SavedSearchesDatabase.INSTANCE.insert(savedSearch);
     }
 
     @Override
     public void tagSearchesIfStmtContains(String what, String tag) {
-        db.tagSearchesIfStmtContains(what, tag);
+        SavedSearchesDatabase.INSTANCE.tagSearchesIfStmtContains(what, tag);
     }
 
     @Override
     public boolean updateSavedSearch(SavedSearch savedSearch) {
-        return db.update(savedSearch);
+        return SavedSearchesDatabase.INSTANCE.update(savedSearch);
     }
 
     @Override
     public boolean updateRenameSavedSearch(String fromSearchName, String toSearchName) {
-        return db.updateRename(fromSearchName, toSearchName);
+        return SavedSearchesDatabase.INSTANCE.updateRename(fromSearchName, toSearchName);
     }
 }

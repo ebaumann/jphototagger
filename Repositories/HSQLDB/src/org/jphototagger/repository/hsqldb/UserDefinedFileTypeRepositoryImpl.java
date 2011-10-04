@@ -8,28 +8,24 @@ import org.jphototagger.domain.filetypes.UserDefinedFileType;
 import org.jphototagger.domain.repository.UserDefinedFileTypesRepository;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 @ServiceProvider(service = UserDefinedFileTypesRepository.class)
 public final class UserDefinedFileTypeRepositoryImpl implements UserDefinedFileTypesRepository {
 
-    private final UserDefinedFileTypesDatabase db = UserDefinedFileTypesDatabase.INSTANCE;
-
     @Override
     public void deleteUserDefinedFileType(UserDefinedFileType serDefinedFileType) {
-        db.delete(serDefinedFileType);
+        UserDefinedFileTypesDatabase.INSTANCE.delete(serDefinedFileType);
     }
 
     @Override
     public List<UserDefinedFileType> findAllUserDefinedFileTypes() {
-        return db.getAll();
+        return UserDefinedFileTypesDatabase.INSTANCE.getAll();
     }
 
     @Override
     public boolean existsUserDefinedFileTypeWithSuffix(String suffix) {
-        return db.existsSuffix(suffix);
+        return UserDefinedFileTypesDatabase.INSTANCE.existsSuffix(suffix);
     }
 
     @Override
@@ -44,11 +40,11 @@ public final class UserDefinedFileTypeRepositoryImpl implements UserDefinedFileT
 
     @Override
     public int saveUserDefinedFileType(UserDefinedFileType userDefinedFileType) {
-        return db.insert(userDefinedFileType);
+        return UserDefinedFileTypesDatabase.INSTANCE.insert(userDefinedFileType);
     }
 
     @Override
     public int updateUserDefinedFileType(UserDefinedFileType oldUserDefinedFileType, UserDefinedFileType newUserDefinedFileType) {
-        return db.update(oldUserDefinedFileType, newUserDefinedFileType);
+        return UserDefinedFileTypesDatabase.INSTANCE.update(oldUserDefinedFileType, newUserDefinedFileType);
     }
 }
