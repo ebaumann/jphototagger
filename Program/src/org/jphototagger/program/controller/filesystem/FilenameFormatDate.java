@@ -62,7 +62,7 @@ public final class FilenameFormatDate extends FilenameFormat {
         Exif exif = null;
 
         if (!AppFileFilters.INSTANCE.isUserDefinedFileType(file)) {
-            exif = ExifMetadata.getCachedExif(file);
+            exif = ExifMetadata.getExifPreferCached(file);
         }
 
         if (exif == null) {

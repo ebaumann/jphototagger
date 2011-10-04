@@ -123,7 +123,7 @@ public final class SetExifToXmp extends HelperThread {
             return;
         }
 
-        Exif exif = ExifMetadata.getCachedExif(imgFile);
+        Exif exif = ExifMetadata.getExifPreferCached(imgFile);
         Xmp xmp = null;
 
         try {

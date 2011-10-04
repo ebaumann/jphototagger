@@ -193,12 +193,12 @@ public final class ExifMetadata {
         return ExifFactory.getExif(exifTags);
     }
 
-    public static Exif getCachedExif(File imageFile) {
+    public static Exif getExifPreferCached(File imageFile) {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
 
-        return ExifFactory.getExif(getCachedExifTags(imageFile));
+        return ExifFactory.getExif(getExifTagsPreferCached(imageFile));
     }
 
     /**
@@ -209,7 +209,7 @@ public final class ExifMetadata {
      * @return           tags or null if the tags neither in the cache nor could be
      *                   created from the image file
      */
-    public static ExifTags getCachedExifTags(File imageFile) {
+    public static ExifTags getExifTagsPreferCached(File imageFile) {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
@@ -251,7 +251,7 @@ public final class ExifMetadata {
         Exif exif = null;
 
         if (ExifSupport.INSTANCE.canReadExif(imageFile)) {
-            exif = getCachedExif(imageFile);
+            exif = getExifPreferCached(imageFile);
         }
 
         if ((exif == null) || (exif.getDateTimeOriginal() == null)) {
