@@ -119,7 +119,7 @@ public final class ThumbnailsPanelTransferHandler extends TransferHandler {
         return false;
     }
 
-    public boolean isImageCollection(ThumbnailsPanel panel) {
+    private boolean isImageCollection(ThumbnailsPanel panel) {
         if (panel == null) {
             throw new NullPointerException("panel == null");
         }
@@ -211,14 +211,7 @@ public final class ThumbnailsPanelTransferHandler extends TransferHandler {
         }
     }
 
-    /**
-     *
-     * @param dataFlavor
-     * @param strings                    can be null
-     * @param dropOverSelectedThumbnail
-     * @param imageFile
-     */
-    public void importStrings(DataFlavor dataFlavor, Object[] strings, boolean dropOverSelectedThumbnail,
+    private void importStrings(DataFlavor dataFlavor, Object[] strings, boolean dropOverSelectedThumbnail,
             File imageFile) {
         if (dataFlavor == null) {
             throw new NullPointerException("dataFlavor == null");
@@ -252,7 +245,7 @@ public final class ThumbnailsPanelTransferHandler extends TransferHandler {
         }
     }
 
-    public boolean isDropOverSelectedThumbnail(TransferSupport support) {
+    private boolean isDropOverSelectedThumbnail(TransferSupport support) {
         if (support == null) {
             throw new NullPointerException("support == null");
         }
