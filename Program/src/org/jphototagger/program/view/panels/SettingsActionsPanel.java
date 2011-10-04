@@ -3,10 +3,9 @@ package org.jphototagger.program.view.panels;
 import java.awt.Container;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-import javax.swing.event.ListDataEvent;
-import javax.swing.event.ListDataListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -46,6 +45,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel implements ListSele
     private final ActionsAfterRepoUpdatesRepository actionsAfterRepoUpdatesRepo = Lookup.getDefault().lookup(ActionsAfterRepoUpdatesRepository.class);
     private final ProgramsRepository programsRepo = Lookup.getDefault().lookup(ProgramsRepository.class);
     private volatile boolean listenToModel = true;
+    private final ActionsAfterRepoUpdatesRepository actionsRepo = Lookup.getDefault().lookup(ActionsAfterRepoUpdatesRepository.class);
 
     public SettingsActionsPanel() {
         initComponents();
@@ -57,7 +57,6 @@ public class SettingsActionsPanel extends javax.swing.JPanel implements ListSele
         MnemonicUtil.setMnemonics((Container) this);
         addAccelerators();
         setEnabled();
-        listenToModel();
         AnnotationProcessor.process(this);
     }
 
@@ -94,34 +93,6 @@ public class SettingsActionsPanel extends javax.swing.JPanel implements ListSele
         menuItemAddAction.setEnabled(hasActions);
     }
 
-    private void listenToModel() {
-        list.getModel().addListDataListener(new ListDataListener() {
-
-            @Override
-            public void intervalAdded(ListDataEvent e) {
-                reorder();
-            }
-
-            @Override
-            public void intervalRemoved(ListDataEvent e) {
-                reorder();
-            }
-
-            @Override
-            public void contentsChanged(ListDataEvent e) {
-                reorder();
-            }
-
-            private void reorder() {
-                if (listenToModel) {
-                    listenToModel = false;
-                    reorderPrograms();
-                    listenToModel = true;
-                }
-            }
-        });
-    }
-
     private void addAction() {
         ProgramSelectDialog dlg = new ProgramSelectDialog(ProgramType.ACTION);
 
@@ -130,7 +101,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel implements ListSele
         Program action = dlg.getSelectedProgram();
 
         if (dlg.isAccepted() &&!model.contains(action)) {
-            model.insert(action);
+            actionsRepo.saveAction(action, model.size());
             setEnabled();
         }
     }
@@ -140,7 +111,11 @@ public class SettingsActionsPanel extends javax.swing.JPanel implements ListSele
             listenToModel = false;
             int selectedIndex = list.getSelectedIndex();
             int modelIndex = list.convertIndexToModel(selectedIndex);
-            model.moveDown(modelIndex);
+            List<Program> actions = model.getActions();
+            if (modelIndex < actions.size() - 1) {
+                Collections.swap(actions, modelIndex, modelIndex + 1);
+                actionsRepo.setActionOrder(actions, 0);
+            }
             setEnabled();
             listenToModel = true;
         }
@@ -151,7 +126,11 @@ public class SettingsActionsPanel extends javax.swing.JPanel implements ListSele
             listenToModel = false;
             int selectedIndex = list.getSelectedIndex();
             int modelIndex = list.convertIndexToModel(selectedIndex);
-            model.moveUp(modelIndex);
+            List<Program> actions = model.getActions();
+            if (modelIndex > 0) {
+                Collections.swap(actions, modelIndex, modelIndex - 1);
+                actionsRepo.setActionOrder(actions, 0);
+            }
             setEnabled();
             listenToModel = true;
         }
@@ -164,7 +143,7 @@ public class SettingsActionsPanel extends javax.swing.JPanel implements ListSele
             Program action = (Program) model.get(modelIndex);
 
             if (confirmDelete(action.getAlias())) {
-                model.delete(action);
+                actionsRepo.deleteAction(action);
                 setEnabled();
             }
         }
