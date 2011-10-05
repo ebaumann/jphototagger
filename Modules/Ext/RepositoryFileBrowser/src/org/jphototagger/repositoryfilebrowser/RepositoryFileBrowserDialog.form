@@ -112,7 +112,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="org.jphototagger.lib.lookup.NodesLookupList" name="listFiles">
+            <Component class="org.jphototagger.repositoryfilebrowser.NodesLookupList" name="listFiles">
               <Properties>
                 <Property name="selectionMode" type="int" value="0"/>
                 <Property name="autoCreateRowSorter" type="boolean" value="true"/>

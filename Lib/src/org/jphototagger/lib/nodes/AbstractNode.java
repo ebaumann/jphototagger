@@ -1,5 +1,6 @@
 package org.jphototagger.lib.nodes;
 
+import javax.swing.Action;
 import javax.swing.Icon;
 
 import org.jphototagger.api.component.HtmlDisplayNameProvider;
@@ -41,5 +42,14 @@ public abstract class AbstractNode implements Node, HtmlDisplayNameProvider {
     @Override
     public Icon getLargeIcon() {
         return null;
+    }
+
+    /**
+     *
+     * @return empty array
+     */
+    @Override
+    public Action[] getActions() {
+        return new Action[]{};
     }
 }
