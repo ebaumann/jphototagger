@@ -19,5 +19,15 @@ public interface Node extends DisplayNameProvider, IconProvider {
      */
     Collection<?> getContent();
 
-    Action[] getActions();
+    /**
+     *
+     * @return actions or empty list
+     */
+    Collection<? extends Action> getActions();
+
+    /**
+     *
+     * @return maybe null
+     */
+    Action getPreferredAction();
 }

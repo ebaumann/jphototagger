@@ -1,5 +1,7 @@
 package org.jphototagger.lib.nodes;
 
+import java.util.Collection;
+import java.util.Collections;
 import javax.swing.Action;
 import javax.swing.Icon;
 
@@ -46,10 +48,19 @@ public abstract class AbstractNode implements Node, HtmlDisplayNameProvider {
 
     /**
      *
-     * @return empty array
+     * @return empty collection
      */
     @Override
-    public Action[] getActions() {
-        return new Action[]{};
+    public Collection<? extends Action> getActions() {
+        return Collections.<Action>emptyList();
+    }
+
+    /**
+     *
+     * @return null
+     */
+    @Override
+    public Action getPreferredAction() {
+        return null;
     }
 }
