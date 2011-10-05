@@ -1,4 +1,4 @@
-package org.jphototagger.lib.lookup;
+package org.jphototagger.repositoryfilebrowser;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -33,6 +33,19 @@ public final class NodesLookupList extends JXList {
     public NodesLookupList() {
         super(new DefaultListModel());
         addListSelectionListener(selectionListener);
+    }
+
+    public void addNode(Node node) {
+        ListModel model = getModel();
+
+        if (model instanceof DefaultListModel) {
+            DefaultListModel defaultListModel = (DefaultListModel) model;
+
+            defaultListModel.addElement(node);
+        } else {
+            throw new IllegalStateException("Unexpected data model: " + model.getClass());
+        }
+
     }
 
     public Lookup getLookup() {
@@ -78,22 +91,21 @@ public final class NodesLookupList extends JXList {
             }
         }
 
-        private Collection<?> getSelectedElements() {
+        private Collection<Node> getSelectedElements() {
             Object[] selectedValues = getSelectedValues();
 
             if (selectedValues.length == 0) {
                 return Collections.emptyList();
             }
 
-            List<Object> selectedNodesContent = new ArrayList<Object>(selectedValues.length);
+            List<Node> selectedNodes = new ArrayList<Node>(selectedValues.length);
 
             for (Object selectedVaue : selectedValues) {
                 Node node = (Node) selectedVaue;
-                Collection<?> nodeContent = node.getContent();
-                selectedNodesContent.addAll(nodeContent);
+                selectedNodes.add(node);
             }
 
-            return selectedNodesContent;
+            return selectedNodes;
         }
     };
 }

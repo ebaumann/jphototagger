@@ -160,7 +160,7 @@ public class RepositoryFileBrowserDialog extends Dialog {
         textFieldFilter = new javax.swing.JTextField();
         buttonApplyFilter = new javax.swing.JButton();
         scrollPaneFiles = new javax.swing.JScrollPane();
-        listFiles = new org.jphototagger.lib.lookup.NodesLookupList();
+        listFiles = new org.jphototagger.repositoryfilebrowser.NodesLookupList();
         panelListInfo = new javax.swing.JPanel();
         labelSelectedFilepathPrompt = new javax.swing.JLabel();
         labelSelectedFilepath = new javax.swing.JLabel();
@@ -597,7 +597,7 @@ public class RepositoryFileBrowserDialog extends Dialog {
     private javax.swing.JLabel labelimeImageFileInFileSystemPrompt;
     private javax.swing.JLabel labelimeImageFileInRepository;
     private javax.swing.JLabel labelimeImageFileInRepositoryPrompt;
-    private org.jphototagger.lib.lookup.NodesLookupList listFiles;
+    private org.jphototagger.repositoryfilebrowser.NodesLookupList listFiles;
     private javax.swing.JPanel panelContent;
     private javax.swing.JPanel panelDetails;
     private javax.swing.JPanel panelFilter;
