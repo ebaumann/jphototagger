@@ -39,6 +39,10 @@ public final class NodesLookupList extends JXList {
         return lookup;
     }
 
+    public void setModel(NodesListModel model) {
+        super.setModel(model);
+    }
+
     /**
      * <em>Don't call this method!</em>.
      * @param model
