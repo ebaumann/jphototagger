@@ -19,7 +19,7 @@ import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.model.SortedChildrenTreeNode;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.helper.KeywordsHelper;
+import org.jphototagger.program.module.keywords.KeywordsHelper;
 
 /**
  * Elements are {@code DefaultMutableTreeNode}s with the user objects listed

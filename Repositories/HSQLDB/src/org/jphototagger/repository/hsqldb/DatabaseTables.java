@@ -49,10 +49,6 @@ final class DatabaseTables extends Database {
     private DatabaseTables() {
     }
 
-    /**
-     * Creates the necessary tables if not exists.
-     * Exits the VM if not successfully.
-     */
     public void createTables() throws SQLException {
         Connection con = null;
         Statement stmt = null;
@@ -394,14 +390,6 @@ final class DatabaseTables extends Database {
         }
     }
 
-    /**
-     * Creates the table for internal application usage such as postCreateTables
-     * information etc.
-     *
-     * @param con   connection
-     * @param stmt  sql statement
-     * @throws      SQLException on sql errors
-     */
     private void createAppTable(Connection con, Statement stmt) throws SQLException {
         if (!DatabaseMetadata.INSTANCE.existsTable(con, "application")) {
             stmt.execute("CREATE CACHED TABLE application"

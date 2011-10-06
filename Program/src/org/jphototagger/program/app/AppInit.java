@@ -24,7 +24,6 @@ import org.jphototagger.program.app.logging.AppLogUtil;
 import org.jphototagger.program.app.logging.AppLoggingSystem;
 import org.jphototagger.program.cache.CacheUtil;
 import org.jphototagger.program.resource.ImageProperties;
-import org.jphototagger.program.view.frames.AppFrame;
 
 /**
  *

@@ -14,7 +14,7 @@ import javax.swing.TransferHandler;
 import javax.swing.text.JTextComponent;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import org.jphototagger.program.helper.KeywordsHelper;
+import org.jphototagger.program.module.keywords.KeywordsHelper;
 
 /**
  * Imports into an {@code JTextField} and {@code JTextArea} strings exported via

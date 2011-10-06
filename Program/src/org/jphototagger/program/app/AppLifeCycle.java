@@ -25,7 +25,6 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.factory.MetaFactory;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.tasks.ScheduledTasks;
-import org.jphototagger.program.view.frames.AppFrame;
 
 /**
  * Life cycle of the application.

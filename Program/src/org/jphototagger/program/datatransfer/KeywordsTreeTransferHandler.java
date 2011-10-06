@@ -21,11 +21,11 @@ import org.jphototagger.lib.datatransfer.TransferUtil;
 import org.jphototagger.lib.datatransfer.TransferableObject;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.controller.keywords.tree.KeywordTreeNodesClipboard;
-import org.jphototagger.program.controller.keywords.tree.KeywordsTreePathExpander;
+import org.jphototagger.program.module.keywords.tree.KeywordTreeNodesClipboard;
+import org.jphototagger.program.module.keywords.tree.KeywordsTreePathExpander;
 import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.program.helper.KeywordsHelper;
-import org.jphototagger.program.helper.MiscMetadataHelper;
+import org.jphototagger.program.module.keywords.KeywordsHelper;
+import org.jphototagger.program.module.miscmetadata.MiscMetadataHelper;
 import org.jphototagger.program.model.KeywordsTreeModel;
 
 /**

@@ -8,7 +8,7 @@ import javax.swing.tree.TreePath;
 
 import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.lib.event.util.MouseEventUtil;
-import org.jphototagger.program.controller.keywords.tree.KeywordTreeNodesClipboard;
+import org.jphototagger.program.module.keywords.tree.KeywordTreeNodesClipboard;
 import org.jphototagger.program.view.popupmenus.KeywordsTreePopupMenu;
 
 /**

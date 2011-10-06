@@ -12,12 +12,12 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppCommandLineOptions;
 import org.jphototagger.program.app.AppInit;
-import org.jphototagger.program.controller.search.FastSearchController;
-import org.jphototagger.program.helper.ImportImageFiles;
+import org.jphototagger.program.module.search.FastSearchController;
+import org.jphototagger.program.module.filesystem.ImportImageFiles;
 import org.jphototagger.program.model.FileFiltersComboBoxModel;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.tasks.ScheduledTasks;
-import org.jphototagger.program.view.panels.AppPanel;
+import org.jphototagger.program.app.AppPanel;
 import org.jphototagger.program.view.panels.ThumbnailsPanel;
 import org.jphototagger.program.view.popupmenus.ThumbnailsPopupMenu;
 

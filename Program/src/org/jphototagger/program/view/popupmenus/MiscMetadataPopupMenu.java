@@ -18,7 +18,7 @@ import org.jphototagger.lib.event.listener.PopupMenuTree;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.helper.MiscMetadataHelper;
+import org.jphototagger.program.module.miscmetadata.MiscMetadataHelper;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.panels.EditMetadataPanels;
 

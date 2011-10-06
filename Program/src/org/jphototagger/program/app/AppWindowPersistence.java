@@ -21,8 +21,6 @@ import org.jphototagger.iptc.IptcPreferencesKeys;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.frames.AppFrame;
-import org.jphototagger.program.view.panels.AppPanel;
 import org.jphototagger.program.view.panels.KeywordsPanel;
 
 /**

@@ -14,8 +14,8 @@ import org.jphototagger.program.event.listener.MetadataTemplatesMouseListener;
 import org.jphototagger.program.event.listener.SavedSearchesMouseListener;
 import org.jphototagger.program.event.listener.TreeExpandMouseListener;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.dialogs.InputHelperDialog;
-import org.jphototagger.program.view.panels.AppPanel;
+import org.jphototagger.program.module.misc.InputHelperDialog;
+import org.jphototagger.program.app.AppPanel;
 import org.jphototagger.program.view.popupmenus.KeywordsListPopupMenu;
 import org.jphototagger.program.view.popupmenus.MetadataTemplatesPopupMenu;
 
