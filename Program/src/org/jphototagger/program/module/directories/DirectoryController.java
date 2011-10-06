@@ -1,0 +1,72 @@
+package org.jphototagger.program.module.directories;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.io.File;
+
+import javax.swing.JTree;
+import javax.swing.tree.DefaultMutableTreeNode;
+
+import org.jphototagger.lib.io.TreeFileSystemDirectories;
+import org.jphototagger.program.module.Controller;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.view.popupmenus.DirectoriesPopupMenu;
+
+/**
+ * Base class for directory controllers.
+ *
+ * @author Elmar Baumann
+ */
+abstract class DirectoryController extends Controller {
+
+    protected abstract void action(DefaultMutableTreeNode node);
+
+    DirectoryController() {
+        listenToKeyEventsOf(GUI.getDirectoriesTree());
+    }
+
+    @Override
+    protected void action(ActionEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
+        DefaultMutableTreeNode node =
+                TreeFileSystemDirectories.getNodeOfLastPathComponent(DirectoriesPopupMenu.INSTANCE.getTreePath());
+
+        if (node != null) {
+            action(node);
+        }
+    }
+
+    @Override
+    protected void action(KeyEvent evt) {
+        if (evt == null) {
+            throw new NullPointerException("evt == null");
+        }
+
+        JTree tree = GUI.getDirectoriesTree();
+
+        if (!tree.isSelectionEmpty()) {
+            Object node = tree.getSelectionPath().getLastPathComponent();
+
+            if (node instanceof DefaultMutableTreeNode) {
+                action((DefaultMutableTreeNode) node);
+            }
+        }
+    }
+
+    protected File getDirOfNode(DefaultMutableTreeNode node) {
+        if (node == null) {
+            throw new NullPointerException("node == null");
+        }
+
+        File dir = TreeFileSystemDirectories.getFile(node);
+
+        if ((dir != null) && dir.isDirectory()) {
+            return dir;
+        }
+
+        return null;
+    }
+}

@@ -59,7 +59,7 @@ import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.program.app.AppPreferencesKeys;
-import org.jphototagger.program.controller.keywords.tree.SuggestKeywords;
+import org.jphototagger.program.module.keywords.tree.SuggestKeywords;
 import org.jphototagger.program.helper.SaveXmp;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.ViewUtil;

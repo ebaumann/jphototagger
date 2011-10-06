@@ -12,11 +12,11 @@ import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppPreferencesKeys;
-import org.jphototagger.program.controller.filesystem.MoveFilesController;
+import org.jphototagger.program.module.filesystem.MoveFilesController;
 import org.jphototagger.program.factory.ControllerFactory;
-import org.jphototagger.program.helper.CopyFiles;
+import org.jphototagger.program.module.filesystem.CopyFiles;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.dialogs.CopyToDirectoryDialog;
+import org.jphototagger.program.module.filesystem.CopyToDirectoryDialog;
 import org.jphototagger.xmp.XmpMetadata;
 
 /**

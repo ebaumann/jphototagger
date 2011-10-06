@@ -21,7 +21,7 @@ import org.jphototagger.lib.datatransfer.TransferUtil;
 import org.jphototagger.lib.datatransfer.TransferableObject;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.helper.MiscMetadataHelper;
+import org.jphototagger.program.module.miscmetadata.MiscMetadataHelper;
 
 /**
  *

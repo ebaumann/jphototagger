@@ -16,7 +16,7 @@ import org.jphototagger.domain.repository.event.search.SavedSearchDeletedEvent;
 import org.jphototagger.domain.repository.event.search.SavedSearchInsertedEvent;
 import org.jphototagger.domain.repository.event.search.SavedSearchRenamedEvent;
 import org.jphototagger.domain.repository.event.search.SavedSearchUpdatedEvent;
-import org.jphototagger.program.helper.SavedSearchesHelper;
+import org.jphototagger.program.module.search.SavedSearchesHelper;
 
 /**
  * Elements are {@code SavedSearch}es.

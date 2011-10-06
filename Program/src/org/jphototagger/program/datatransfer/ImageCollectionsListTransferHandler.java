@@ -13,7 +13,7 @@ import javax.swing.JList;
 import javax.swing.TransferHandler;
 
 import org.jdesktop.swingx.JXList;
-import org.jphototagger.program.helper.ImageCollectionsHelper;
+import org.jphototagger.program.module.imagecollections.ImageCollectionsHelper;
 import org.jphototagger.program.io.ImageFileFilterer;
 import org.jphototagger.program.resource.GUI;
 

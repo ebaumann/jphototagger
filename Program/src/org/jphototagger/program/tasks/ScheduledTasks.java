@@ -26,7 +26,7 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppLookAndFeel;
 import org.jphototagger.program.app.AppPreferencesKeys;
 import org.jphototagger.program.helper.InsertImageFilesIntoRepository;
-import org.jphototagger.program.view.dialogs.SettingsDialog;
+import org.jphototagger.program.options.SettingsDialog;
 
 /**
  * Runs scheduled tasks after

@@ -30,11 +30,11 @@ import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.controller.metadata.ExportGPSToKMLController;
-import org.jphototagger.program.controller.plugin.PluginAction;
-import org.jphototagger.program.controller.programs.AddProgramController;
+import org.jphototagger.program.module.metadata.ExportGPSToKMLController;
+import org.jphototagger.program.plugins.PluginAction;
+import org.jphototagger.program.module.programs.AddProgramController;
 import org.jphototagger.program.factory.FileProcessorPluginManager;
-import org.jphototagger.program.helper.ActionsHelper;
+import org.jphototagger.program.module.actions.ActionsHelper;
 
 /**
  * Popup menu of the thumbnails panel.

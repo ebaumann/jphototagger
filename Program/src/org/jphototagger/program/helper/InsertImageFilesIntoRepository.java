@@ -1,5 +1,6 @@
 package org.jphototagger.program.helper;
 
+import org.jphototagger.program.module.programs.StartPrograms;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
