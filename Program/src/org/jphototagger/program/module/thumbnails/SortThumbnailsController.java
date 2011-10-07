@@ -10,8 +10,7 @@ import javax.swing.JRadioButtonMenuItem;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.WaitDisplay;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.jphototagger.program.app.ui.WaitDisplay;
 
 /**
  *

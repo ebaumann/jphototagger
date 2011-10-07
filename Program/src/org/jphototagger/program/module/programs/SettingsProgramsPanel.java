@@ -14,7 +14,6 @@ import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.event.util.MouseEventUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.model.ProgramsListModel;
 import org.jphototagger.program.module.programs.ProgramsHelper.ReorderListener;
 import org.jphototagger.program.types.Persistence;
 
@@ -256,7 +255,7 @@ public final class SettingsProgramsPanel extends javax.swing.JPanel implements P
 
         listPrograms.setModel(model);
         listPrograms.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        listPrograms.setCellRenderer(new org.jphototagger.program.view.renderer.ProgramsListCellRenderer());
+        listPrograms.setCellRenderer(new org.jphototagger.program.module.programs.ProgramsListCellRenderer());
         listPrograms.setComponentPopupMenu(popupMenu);
         listPrograms.setDragEnabled(true);
         listPrograms.setDropMode(javax.swing.DropMode.INSERT);

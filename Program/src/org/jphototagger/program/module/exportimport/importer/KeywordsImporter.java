@@ -19,7 +19,7 @@ import org.jphototagger.api.messages.MessageType;
 import org.jphototagger.api.messages.StatusBarMessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.program.model.KeywordsTreeModel;
+import org.jphototagger.program.module.keywords.tree.KeywordsTreeModel;
 import org.jphototagger.program.resource.GUI;
 
 /**

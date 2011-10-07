@@ -34,18 +34,15 @@ import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.module.search.AdvancedSearchController;
 import org.jphototagger.program.factory.ControllerFactory;
-import org.jphototagger.program.module.search.SavedSearchesHelper;
 import org.jphototagger.program.types.Persistence;
-import org.jphototagger.program.view.panels.NameListener;
-import org.jphototagger.program.view.panels.SearchColumnPanel;
 
 /**
  *
  * @author Elmar Baumann
  */
 public final class AdvancedSearchPanel extends javax.swing.JPanel implements Persistence {
+
     private static final String KEY_SELECTED_TAB_INDEX = "AdvancedSearchPanel.SelectedTabIndex";
     private static final long serialVersionUID = -4036432653670374380L;
     private final List<SearchColumnPanel> searchColumnPanels = new LinkedList<SearchColumnPanel>();
@@ -624,7 +621,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
         tabbedPane = new javax.swing.JTabbedPane();
         panelKeywords = new javax.swing.JPanel();
         labelInfoKeywords = new javax.swing.JLabel();
-        panelKeywordsInput = new org.jphototagger.program.view.panels.EditRepeatableTextEntryPanel();
+        panelKeywordsInput = new org.jphototagger.program.app.ui.EditRepeatableTextEntryPanel();
         panelKeywordsInput.setPrompt("");
         panelKeywordsInput.getTextArea().setTransferHandler(new org.jphototagger.program.datatransfer.DropTextComponentTransferHandler());
         panelKeywordsInput.getList().setTransferHandler(new org.jphototagger.program.datatransfer.DropListTransferHandler());
@@ -864,7 +861,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
     private javax.swing.JPanel panelColumns;
     private javax.swing.JPanel panelCustomSql;
     private javax.swing.JPanel panelKeywords;
-    private org.jphototagger.program.view.panels.EditRepeatableTextEntryPanel panelKeywordsInput;
+    private org.jphototagger.program.app.ui.EditRepeatableTextEntryPanel panelKeywordsInput;
     private javax.swing.JPanel panelSimpleSql;
     private javax.swing.JScrollPane scrollPaneColumns;
     private javax.swing.JScrollPane scrollPaneCustomSqlQuery;

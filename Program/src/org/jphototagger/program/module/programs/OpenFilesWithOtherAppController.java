@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.popupmenus.ThumbnailsPopupMenu;
+import org.jphototagger.program.module.thumbnails.ThumbnailsPopupMenu;
 
 /**
  *

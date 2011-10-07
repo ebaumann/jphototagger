@@ -29,10 +29,10 @@ import org.openide.util.lookup.ServiceProvider;
 import org.jphototagger.domain.metadata.keywords.Keyword;
 import org.jphototagger.domain.repository.RepositoryDataExporter;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.AppLookAndFeel;
+import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.io.FilenameSuffixes;
-import org.jphototagger.program.model.KeywordsTreeModel;
+import org.jphototagger.program.module.keywords.tree.KeywordsTreeModel;
 
 /**
  * JPhotoTagger's own exportFile format.

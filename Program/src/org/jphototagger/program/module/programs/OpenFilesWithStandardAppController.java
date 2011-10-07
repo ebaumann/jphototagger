@@ -12,7 +12,7 @@ import org.jphototagger.domain.repository.ProgramsRepository;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.popupmenus.ThumbnailsPopupMenu;
+import org.jphototagger.program.module.thumbnails.ThumbnailsPopupMenu;
 
 /**
  *

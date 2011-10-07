@@ -20,12 +20,11 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.module.thumbnails.SortThumbnailsController;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.io.ImageFileFilterer;
-import org.jphototagger.program.model.FavoritesTreeModel;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.WaitDisplay;
-import org.jphototagger.program.app.AppPanel;
-import org.jphototagger.program.view.panels.EditMetadataPanels;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.jphototagger.program.app.ui.WaitDisplay;
+import org.jphototagger.program.app.ui.AppPanel;
+import org.jphototagger.program.app.ui.EditMetadataPanels;
+import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
 
 /**
  *

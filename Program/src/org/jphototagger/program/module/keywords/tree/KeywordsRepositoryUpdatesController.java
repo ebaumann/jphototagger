@@ -19,7 +19,6 @@ import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.program.model.KeywordsTreeModel;
 
 /**
  * Listens to repository updates and adds not existing keywords.

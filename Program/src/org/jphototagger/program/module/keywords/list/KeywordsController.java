@@ -9,10 +9,8 @@ import org.jdesktop.swingx.JXList;
 
 import org.jphototagger.program.module.Controller;
 import org.jphototagger.program.module.keywords.KeywordsHelper;
-import org.jphototagger.program.model.KeywordsListModel;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.module.misc.InputHelperDialog;
-import org.jphototagger.program.view.popupmenus.KeywordsListPopupMenu;
+import org.jphototagger.program.misc.InputHelperDialog;
 
 /**
  *

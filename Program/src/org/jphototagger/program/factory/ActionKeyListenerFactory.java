@@ -15,16 +15,16 @@ import org.jphototagger.program.module.keywords.tree.DeleteKeywordsController;
 import org.jphototagger.program.module.keywords.tree.KeywordsDisplayImagesController;
 import org.jphototagger.program.module.keywords.tree.RenameKeywordController;
 import org.jphototagger.program.module.keywords.tree.ToggleRealKeywordController;
-import org.jphototagger.program.module.metadata.ShowUpdateMetadataDialogController;
-import org.jphototagger.program.module.misc.AboutJPhotoTaggerController;
-import org.jphototagger.program.module.misc.HelpController;
+import org.jphototagger.program.module.maintainance.ShowUpdateMetadataDialogController;
+import org.jphototagger.program.misc.AboutJPhotoTaggerController;
+import org.jphototagger.program.misc.HelpController;
 import org.jphototagger.program.module.maintainance.MaintainRepositoryController;
-import org.jphototagger.program.module.misc.ShowUserSettingsDialogController;
+import org.jphototagger.program.misc.ShowUserSettingsDialogController;
 import org.jphototagger.program.module.search.ShowAdvancedSearchDialogController;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.module.misc.InputHelperDialog;
-import org.jphototagger.program.app.AppFrame;
-import org.jphototagger.program.view.popupmenus.KeywordsTreePopupMenu;
+import org.jphototagger.program.misc.InputHelperDialog;
+import org.jphototagger.program.app.ui.AppFrame;
+import org.jphototagger.program.module.keywords.tree.KeywordsTreePopupMenu;
 
 /**
  *

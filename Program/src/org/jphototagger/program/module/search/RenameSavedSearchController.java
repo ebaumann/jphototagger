@@ -7,7 +7,6 @@ import java.awt.event.KeyListener;
 
 import org.jphototagger.domain.metadata.search.SavedSearch;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.popupmenus.SavedSearchesPopupMenu;
 
 /**
  *

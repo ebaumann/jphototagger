@@ -10,10 +10,8 @@ import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.program.model.FavoritesTreeModel;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.popupmenus.DirectoriesPopupMenu;
-import org.jphototagger.program.view.popupmenus.FavoritesPopupMenu;
+import org.jphototagger.program.module.directories.DirectoriesPopupMenu;
 
 /**
  * Listens to the {@code FavoritesPopupMenu} and inserts a

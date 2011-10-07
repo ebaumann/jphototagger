@@ -24,7 +24,7 @@ import org.jphototagger.program.module.favorites.RenameFilesystemFolderInFavorit
 import org.jphototagger.program.module.favorites.UpdateFavoriteController;
 import org.jphototagger.program.module.filesystem.CopyFilesToDirectoryController;
 import org.jphototagger.program.module.filesystem.DeleteFilesController;
-import org.jphototagger.program.module.filesystem.ImportImageFilesController;
+import org.jphototagger.program.module.importimages.ImportImageFilesController;
 import org.jphototagger.program.module.filesystem.MoveFilesController;
 import org.jphototagger.program.module.filesystem.RenameFilesController;
 import org.jphototagger.program.module.imagecollections.AddImageCollectionController;
@@ -52,33 +52,33 @@ import org.jphototagger.program.module.keywords.tree.RenameKeywordController;
 import org.jphototagger.program.module.keywords.tree.ShowKeywordsDialogController;
 import org.jphototagger.program.module.keywords.tree.ToggleButtonSelectKeywordsController;
 import org.jphototagger.program.module.keywords.tree.ToggleRealKeywordController;
-import org.jphototagger.program.module.metadata.CopyPasteMetadataController;
-import org.jphototagger.program.module.metadata.DisplayIptcUserSettingsController;
-import org.jphototagger.program.module.metadata.EmptyMetadataController;
-import org.jphototagger.program.module.metadata.EnableCreateMetadataTemplateController;
-import org.jphototagger.program.module.metadata.EnableInsertMetadataTemplateController;
-import org.jphototagger.program.module.metadata.ExifToXmpController;
-import org.jphototagger.program.module.metadata.ExtractEmbeddedXmpController;
-import org.jphototagger.program.module.metadata.IptcToXmpController;
-import org.jphototagger.program.module.metadata.MetadataTemplatesController;
+import org.jphototagger.program.module.thumbnails.CopyPasteMetadataController;
+import org.jphototagger.program.module.iptc.DisplayIptcUserSettingsController;
+import org.jphototagger.program.misc.EmptyAllEditPanelsController;
+import org.jphototagger.program.misc.EnableCreateMetadataTemplateController;
+import org.jphototagger.program.misc.EnableInsertMetadataTemplateController;
+import org.jphototagger.program.module.exif.ExifToXmpController;
+import org.jphototagger.program.module.xmp.ExtractEmbeddedXmpController;
+import org.jphototagger.program.module.iptc.IptcToXmpController;
+import org.jphototagger.program.module.metadatatemplates.MetadataTemplatesController;
 import org.jphototagger.program.module.metadata.ShowMetadataController;
-import org.jphototagger.program.module.metadata.ShowUpdateMetadataDialogController;
-import org.jphototagger.program.module.metadata.ThumbnailSelectionEditMetadataController;
+import org.jphototagger.program.module.maintainance.ShowUpdateMetadataDialogController;
+import org.jphototagger.program.misc.ThumbnailSelectionEditMetadataController;
 import org.jphototagger.program.module.metadatatemplates.AddMetadataTemplateController;
 import org.jphototagger.program.module.metadatatemplates.DeleteMetadataTemplateController;
 import org.jphototagger.program.module.metadatatemplates.EditMetadataTemplateController;
 import org.jphototagger.program.module.metadatatemplates.RenameMetadataTemplateController;
 import org.jphototagger.program.module.metadatatemplates.SetMetadataTemplateToSelectedImagesController;
-import org.jphototagger.program.module.misc.AboutJPhotoTaggerController;
-import org.jphototagger.program.module.misc.GoToController;
-import org.jphototagger.program.module.misc.HelpController;
+import org.jphototagger.program.misc.AboutJPhotoTaggerController;
+import org.jphototagger.program.misc.GoToController;
+import org.jphototagger.program.misc.HelpController;
 import org.jphototagger.program.module.maintainance.MaintainRepositoryController;
-import org.jphototagger.program.module.misc.MaximumOneItemSelectedController;
-import org.jphototagger.program.module.misc.MenuItemEnablerController;
-import org.jphototagger.program.module.misc.ShowSynonymsDialogController;
-import org.jphototagger.program.module.misc.ShowUserSettingsDialogController;
-import org.jphototagger.program.module.misc.ThumbnailCountDisplayController;
-import org.jphototagger.program.module.misc.UpdateCheckController;
+import org.jphototagger.program.misc.MaximumOneItemSelectedController;
+import org.jphototagger.program.misc.MenuItemEnablerController;
+import org.jphototagger.program.module.synonyms.ShowSynonymsDialogController;
+import org.jphototagger.program.misc.ShowUserSettingsDialogController;
+import org.jphototagger.program.misc.ThumbnailCountDisplayController;
+import org.jphototagger.program.app.update.UpdateCheckController;
 import org.jphototagger.program.module.miscmetadata.AddMetadataToSelectedImagesController;
 import org.jphototagger.program.module.miscmetadata.DeleteMiscMetadataController;
 import org.jphototagger.program.module.miscmetadata.MiscMetadataItemSelectedController;
@@ -113,9 +113,9 @@ import org.jphototagger.program.module.thumbnails.ThumbnailsRepositoryChangesCon
 import org.jphototagger.program.module.thumbnails.ToggleKeywordOverlayController;
 import org.jphototagger.program.module.timeline.TimelineItemSelectedController;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.module.misc.InputHelperDialog;
-import org.jphototagger.program.view.panels.KeywordsPanel;
-import org.jphototagger.program.view.popupmenus.MiscMetadataPopupMenu;
+import org.jphototagger.program.misc.InputHelperDialog;
+import org.jphototagger.program.module.keywords.KeywordsPanel;
+import org.jphototagger.program.module.miscmetadata.MiscMetadataPopupMenu;
 
 /**
  * Erzeugt alle Controller.
@@ -242,7 +242,7 @@ public final class ControllerFactory {
     }
 
     private void addMetadataEditPanelsControllers() {
-        support.add(new EmptyMetadataController());
+        support.add(new EmptyAllEditPanelsController());
         support.add(new EnableInsertMetadataTemplateController());
         support.add(new ShowKeywordsDialogController());
     }

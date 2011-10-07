@@ -18,11 +18,11 @@ import org.openide.util.Lookup;
 import org.jphototagger.api.file.event.FileRenamedEvent;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.program.cache.RenderedThumbnailCache;
-import org.jphototagger.program.cache.ThumbnailCache;
-import org.jphototagger.program.cache.XmpCache;
+import org.jphototagger.program.module.thumbnails.cache.RenderedThumbnailCache;
+import org.jphototagger.program.module.thumbnails.cache.ThumbnailCache;
+import org.jphototagger.program.module.thumbnails.cache.XmpCache;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.popupmenus.ThumbnailsPopupMenu;
+import org.jphototagger.program.module.thumbnails.ThumbnailsPopupMenu;
 
 /**
  * Listens to key events of {@code ThumbnailsPanel} and when

@@ -39,7 +39,7 @@ public class UserDefinedFileFilterDialog extends Dialog {
         panel = new org.jphototagger.program.module.udffilters.UserDefinedFileFilterPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/udftypes/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/udffilters/Bundle"); // NOI18N
         setTitle(bundle.getString("UserDefinedFileFilterDialog.title")); // NOI18N
         setName("Form"); // NOI18N
 

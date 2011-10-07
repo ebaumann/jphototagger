@@ -23,10 +23,10 @@ import org.jphototagger.domain.metadata.event.UpdateMetadataCheckEvent.Type;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.concurrent.SerialExecutor;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.AppLookAndFeel;
+import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.app.AppPreferencesKeys;
-import org.jphototagger.program.helper.InsertImageFilesIntoRepository;
-import org.jphototagger.program.options.SettingsDialog;
+import org.jphototagger.program.misc.InsertImageFilesIntoRepository;
+import org.jphototagger.program.settings.SettingsDialog;
 
 /**
  * Runs scheduled tasks after

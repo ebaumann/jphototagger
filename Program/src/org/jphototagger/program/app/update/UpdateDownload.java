@@ -27,7 +27,7 @@ import org.jphototagger.lib.util.Version;
 import org.jphototagger.program.app.AppInfo;
 import org.jphototagger.program.app.AppLifeCycle;
 import org.jphototagger.program.app.AppPreferencesKeys;
-import org.jphototagger.program.helper.FinalExecutable;
+import org.jphototagger.program.misc.FinalExecutable;
 
 /**
  * Checks for newer versions of JPhotoTagger and downloads them depending.

@@ -10,7 +10,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import org.jphototagger.lib.io.TreeFileSystemDirectories;
 import org.jphototagger.program.module.Controller;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.popupmenus.DirectoriesPopupMenu;
 
 /**
  * Base class for directory controllers.

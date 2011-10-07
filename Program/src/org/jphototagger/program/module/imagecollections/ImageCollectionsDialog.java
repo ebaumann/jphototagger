@@ -93,9 +93,9 @@ public final class ImageCollectionsDialog extends Dialog {
 
         scrollPaneImageCollectionNames.setName("scrollPaneImageCollectionNames"); // NOI18N
 
-        listImageCollectionNames.setModel(ModelFactory.INSTANCE.getModel(org.jphototagger.program.model.ImageCollectionsListModel.class));
+        listImageCollectionNames.setModel(ModelFactory.INSTANCE.getModel(org.jphototagger.program.module.imagecollections.ImageCollectionsListModel.class));
         listImageCollectionNames.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        listImageCollectionNames.setCellRenderer(new org.jphototagger.program.view.renderer.ImageCollectionsListCellRenderer());
+        listImageCollectionNames.setCellRenderer(new org.jphototagger.program.module.imagecollections.ImageCollectionsListCellRenderer());
         listImageCollectionNames.setName("listImageCollectionNames"); // NOI18N
         listImageCollectionNames.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

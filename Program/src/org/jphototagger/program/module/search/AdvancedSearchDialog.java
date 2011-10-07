@@ -3,7 +3,6 @@ package org.jphototagger.program.module.search;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.panels.NameListener;
 
 /**
  * Nicht modaler Dialog für eine erweiterte Suche.

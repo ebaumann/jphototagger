@@ -7,7 +7,7 @@ import java.util.Date;
 import org.jphototagger.domain.metadata.exif.Exif;
 import org.jphototagger.exif.ExifMetadata;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.AppFileFilters;
+import org.jphototagger.program.filefilter.AppFileFilters;
 
 /**
  * Formatted date in the order YYYY-MM-dd.

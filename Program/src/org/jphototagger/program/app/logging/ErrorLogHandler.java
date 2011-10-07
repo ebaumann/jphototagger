@@ -20,7 +20,7 @@ import org.jphototagger.api.messages.StatusBarMessageDisplayer;
 import org.jphototagger.lib.dialog.LogfileDialog;
 import org.jphototagger.lib.event.util.MouseEventUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.AppLookAndFeel;
+import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.resource.GUI;
 import org.openide.util.Lookup;
 

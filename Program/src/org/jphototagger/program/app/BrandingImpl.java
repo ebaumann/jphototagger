@@ -1,5 +1,6 @@
 package org.jphototagger.program.app;
 
+import org.jphototagger.program.app.ui.AppLookAndFeel;
 import java.awt.Image;
 import java.util.List;
 

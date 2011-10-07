@@ -21,10 +21,10 @@ import org.jphototagger.domain.metadata.xmp.XmpMetaDataValues;
 import org.jphototagger.domain.metadata.xmp.FileXmp;
 import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.program.helper.SaveXmp;
-import org.jphototagger.program.io.ImageUtil;
+import org.jphototagger.program.misc.SaveXmp;
+import org.jphototagger.program.io.FilesystemImageUtil;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.panels.EditMetadataPanels;
+import org.jphototagger.program.app.ui.EditMetadataPanels;
 import org.jphototagger.xmp.XmpMetadata;
 
 /**
@@ -48,7 +48,7 @@ public final class MiscMetadataHelper {
         List<FileXmp> saveList = new ArrayList<FileXmp>();
 
         for (File imageFile : imageFiles) {
-            if (imageFile.exists() && ImageUtil.checkImageEditable(imageFile)) {
+            if (imageFile.exists() && FilesystemImageUtil.checkImageEditable(imageFile)) {
                 Xmp xmp = null;
 
                 try {

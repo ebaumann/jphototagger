@@ -9,8 +9,8 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.app.AppFrame;
-import org.jphototagger.program.app.AppPanel;
+import org.jphototagger.program.app.ui.AppFrame;
+import org.jphototagger.program.app.ui.AppPanel;
 
 /**
  *

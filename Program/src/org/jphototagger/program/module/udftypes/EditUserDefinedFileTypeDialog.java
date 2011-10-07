@@ -19,7 +19,7 @@ import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.AppFileFilters;
+import org.jphototagger.program.filefilter.AppFileFilters;
 import org.jphototagger.program.resource.GUI;
 
 /**

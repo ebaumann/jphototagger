@@ -20,7 +20,7 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.module.actions.ProgramExecutorImpl;
 import org.jphototagger.program.module.programs.ProgramsHelper;
 import org.jphototagger.program.module.programs.ProgramsHelper.ReorderListener;
-import org.jphototagger.program.model.ProgramsListModel;
+import org.jphototagger.program.module.programs.ProgramsListModel;
 import org.jphototagger.program.module.programs.ProgramPropertiesDialog;
 
 /**
@@ -323,7 +323,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
 
         list.setModel(model);
         list.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        list.setCellRenderer(new org.jphototagger.program.view.renderer.ActionsListCellRenderer());
+        list.setCellRenderer(new org.jphototagger.program.module.actions.ActionsListCellRenderer());
         list.setComponentPopupMenu(popupMenu);
         list.setDragEnabled(true);
         list.setDropMode(javax.swing.DropMode.INSERT);

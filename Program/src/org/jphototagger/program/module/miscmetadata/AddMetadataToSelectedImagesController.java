@@ -6,7 +6,6 @@ import javax.swing.JMenuItem;
 
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.lib.event.util.KeyEventUtil;
-import org.jphototagger.program.view.popupmenus.MiscMetadataPopupMenu;
 
 /**
  *

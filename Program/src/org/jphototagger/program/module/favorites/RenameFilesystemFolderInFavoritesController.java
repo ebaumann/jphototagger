@@ -15,9 +15,7 @@ import org.jphototagger.lib.io.TreeFileSystemDirectories;
 import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.io.FileSystemDirectories;
-import org.jphototagger.program.model.FavoritesTreeModel;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.popupmenus.FavoritesPopupMenu;
 
 /**
  * Listens to {@code FavoritesPopupMenu#getItemRenameFilesystemFolder()} and

@@ -14,9 +14,9 @@ import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppPreferencesKeys;
-import org.jphototagger.program.helper.InsertImageFilesIntoRepository;
+import org.jphototagger.program.misc.InsertImageFilesIntoRepository;
 import org.jphototagger.program.io.ImageFileFilterer;
-import org.jphototagger.program.app.ProgressBarUpdater;
+import org.jphototagger.program.app.ui.ProgressBarUpdater;
 
 /**
  *

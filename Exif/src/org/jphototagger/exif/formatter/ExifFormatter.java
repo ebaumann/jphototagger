@@ -17,7 +17,7 @@ public abstract class ExifFormatter {
     private static final Map<ExifIfdType, Translation> TRANSLATION_OF_IFD = new EnumMap<ExifIfdType, Translation>(ExifIfdType.class);
 
     static {
-        TRANSLATION_OF_IFD.put(ExifIfdType.EXIF, new Translation("org/jphototagger/exif/formatter/ExifExifIfdFieldValueTranslations"));
+        TRANSLATION_OF_IFD.put(ExifIfdType.EXIF, new Translation(ExifFormatter.class, "ExifExifIfdFieldValueTranslations"));
     }
 
     /**

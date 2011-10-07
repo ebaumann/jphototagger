@@ -21,8 +21,8 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.comparator.FileSort;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.WaitDisplay;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.jphototagger.program.app.ui.WaitDisplay;
+import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
 
 /**
  * Kontrolliert die Aktion: Eine Bildsammlung wurde ausgewählt.

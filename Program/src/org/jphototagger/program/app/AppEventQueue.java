@@ -4,7 +4,7 @@ import java.awt.AWTEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.program.view.WaitDisplay;
+import org.jphototagger.program.app.ui.WaitDisplay;
 
 /**
  * JPhotoTagger's event queue.

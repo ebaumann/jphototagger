@@ -11,7 +11,6 @@ import org.jphototagger.lib.io.TreeFileSystemDirectories;
 import org.jphototagger.lib.model.AllSystemDirectoriesTreeModel;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.io.FileSystemDirectories;
-import org.jphototagger.program.view.popupmenus.DirectoriesPopupMenu;
 
 /**
  * Listens to {@code DirectoriesPopupMenu#getItemRenameDirectory()} and

@@ -10,8 +10,7 @@ import org.jphototagger.lib.dialog.InputDialog;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.module.keywords.KeywordsHelper;
-import org.jphototagger.program.module.misc.InputHelperDialog;
-import org.jphototagger.program.view.popupmenus.KeywordsListPopupMenu;
+import org.jphototagger.program.misc.InputHelperDialog;
 
 /**
  * Renames keywords of selected items whithin the keywords list.

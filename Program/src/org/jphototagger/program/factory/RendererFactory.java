@@ -9,16 +9,16 @@ import org.jphototagger.lib.componentutil.ListItemTempSelectionRowSetter;
 import org.jphototagger.lib.componentutil.TreeItemTempSelectionRowSetter;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.module.misc.InputHelperDialog;
-import org.jphototagger.program.app.AppPanel;
-import org.jphototagger.program.view.popupmenus.DirectoriesPopupMenu;
-import org.jphototagger.program.view.popupmenus.FavoritesPopupMenu;
-import org.jphototagger.program.view.popupmenus.ImageCollectionsPopupMenu;
-import org.jphototagger.program.view.popupmenus.KeywordsTreePopupMenu;
-import org.jphototagger.program.view.popupmenus.SavedSearchesPopupMenu;
-import org.jphototagger.program.view.renderer.ExifTableCellRenderer;
-import org.jphototagger.program.view.renderer.IptcTableCellRenderer;
-import org.jphototagger.program.view.renderer.XmpTableCellRenderer;
+import org.jphototagger.program.misc.InputHelperDialog;
+import org.jphototagger.program.app.ui.AppPanel;
+import org.jphototagger.program.module.directories.DirectoriesPopupMenu;
+import org.jphototagger.program.module.favorites.FavoritesPopupMenu;
+import org.jphototagger.program.module.imagecollections.ImageCollectionsPopupMenu;
+import org.jphototagger.program.module.keywords.tree.KeywordsTreePopupMenu;
+import org.jphototagger.program.module.search.SavedSearchesPopupMenu;
+import org.jphototagger.program.module.exif.ExifTableCellRenderer;
+import org.jphototagger.program.module.iptc.IptcTableCellRenderer;
+import org.jphototagger.program.module.xmp.XmpTableCellRenderer;
 
 /**
  * Erzeugt Renderer und verknüpft sie mit den GUI-Elementen.

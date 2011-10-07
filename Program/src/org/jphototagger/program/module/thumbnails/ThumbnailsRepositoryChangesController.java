@@ -12,8 +12,8 @@ import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.domain.thumbnails.event.ThumbnailUpdatedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.program.cache.ThumbnailCache;
-import org.jphototagger.program.cache.XmpCache;
+import org.jphototagger.program.module.thumbnails.cache.ThumbnailCache;
+import org.jphototagger.program.module.thumbnails.cache.XmpCache;
 import org.jphototagger.program.resource.GUI;
 
 /**

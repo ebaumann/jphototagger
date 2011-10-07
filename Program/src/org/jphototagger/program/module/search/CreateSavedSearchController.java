@@ -6,7 +6,6 @@ import java.awt.event.KeyEvent;
 import org.jphototagger.program.module.Controller;
 import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.popupmenus.SavedSearchesPopupMenu;
 
 /**
  *

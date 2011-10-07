@@ -834,7 +834,7 @@
                 <Component class="javax.swing.JComboBox" name="comboBoxRenameTemplates">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="new org.jphototagger.program.model.RenameTemplatesComboBoxModel()" type="code"/>
+                      <Connection code="new org.jphototagger.program.module.filesystem.RenameTemplatesComboBoxModel()" type="code"/>
                     </Property>
                     <Property name="name" type="java.lang.String" value="comboBoxRenameTemplates" noResource="true"/>
                   </Properties>

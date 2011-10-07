@@ -12,7 +12,6 @@ import org.jphototagger.lib.model.AllSystemDirectoriesTreeModel;
 import org.jphototagger.program.module.favorites.AddFilesystemFolderToFavoritesController;
 import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.program.view.popupmenus.DirectoriesPopupMenu;
 
 /**
  * Listens to {@code DirectoriesPopupMenu#getItemCreateDirectory()} and

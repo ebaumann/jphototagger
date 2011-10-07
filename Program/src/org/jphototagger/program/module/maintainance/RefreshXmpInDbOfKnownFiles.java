@@ -13,7 +13,7 @@ import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppPreferencesKeys;
-import org.jphototagger.program.helper.HelperThread;
+import org.jphototagger.program.misc.HelperThread;
 import org.jphototagger.xmp.XmpMetadata;
 
 /**

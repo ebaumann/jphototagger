@@ -8,7 +8,6 @@ import org.jphototagger.domain.programs.ProgramType;
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.model.ProgramsListModel;
 import org.jphototagger.program.resource.GUI;
 
 /**
@@ -128,7 +127,7 @@ public class ProgramSelectDialog extends Dialog {
 
         listPrograms.setModel(model);
         listPrograms.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        listPrograms.setCellRenderer(type.equals(ProgramType.ACTION) ? new org.jphototagger.program.view.renderer.ActionsListCellRenderer() : new org.jphototagger.program.view.renderer.ProgramsListCellRenderer());
+        listPrograms.setCellRenderer(type.equals(ProgramType.ACTION) ? new org.jphototagger.program.module.actions.ActionsListCellRenderer() : new org.jphototagger.program.module.programs.ProgramsListCellRenderer());
         listPrograms.setName("listPrograms"); // NOI18N
         listPrograms.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

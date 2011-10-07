@@ -40,14 +40,14 @@ import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.ArrayUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.program.helper.HelperThread;
-import org.jphototagger.program.helper.SaveXmp;
-import org.jphototagger.program.model.KeywordsTreeModel;
+import org.jphototagger.program.misc.HelperThread;
+import org.jphototagger.program.misc.SaveXmp;
+import org.jphototagger.program.module.keywords.tree.KeywordsTreeModel;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.module.misc.InputHelperDialog;
-import org.jphototagger.program.app.AppPanel;
-import org.jphototagger.program.view.panels.EditMetadataPanels;
-import org.jphototagger.program.view.renderer.KeywordsTreeCellRenderer;
+import org.jphototagger.program.misc.InputHelperDialog;
+import org.jphototagger.program.app.ui.AppPanel;
+import org.jphototagger.program.app.ui.EditMetadataPanels;
+import org.jphototagger.program.module.keywords.tree.KeywordsTreeCellRenderer;
 import org.jphototagger.xmp.XmpMetadata;
 
 /**

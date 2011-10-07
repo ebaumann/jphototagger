@@ -11,12 +11,8 @@ import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.module.programs.ProgramsHelper;
 import org.jphototagger.program.module.programs.StartPrograms;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
 
 /**
- * Kontroller für die Aktion: Doppelklick auf ein Thumbnail ausgelöst von
- * {@code org.jphototagger.program.view.panels.ThumbnailsPanel}.
- *
  * @author Elmar Baumann
  */
 public final class ThumbnailDoubleklickController {

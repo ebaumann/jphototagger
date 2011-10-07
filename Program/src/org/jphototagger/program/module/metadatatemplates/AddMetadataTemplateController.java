@@ -9,8 +9,7 @@ import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.module.misc.InputHelperDialog;
-import org.jphototagger.program.view.popupmenus.MetadataTemplatesPopupMenu;
+import org.jphototagger.program.misc.InputHelperDialog;
 
 /**
  *

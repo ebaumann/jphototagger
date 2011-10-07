@@ -17,8 +17,7 @@ import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.model.AllSystemDirectoriesTreeModel;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.app.AppPanel;
-import org.jphototagger.program.view.popupmenus.FavoritesPopupMenu;
+import org.jphototagger.program.app.ui.AppPanel;
 
 /**
  * Listens to the {@code FavoritesPopupMenu} and opens the

@@ -13,7 +13,7 @@ import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
 import org.jphototagger.lib.io.filefilter.RegexFileFilter;
 import org.jphototagger.lib.util.RegexUtil;
-import org.jphototagger.program.app.AppFileFilters;
+import org.jphototagger.program.filefilter.AppFileFilters;
 
 /**
  *

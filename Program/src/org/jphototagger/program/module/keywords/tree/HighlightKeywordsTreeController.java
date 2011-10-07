@@ -18,7 +18,6 @@ import org.openide.util.Lookup;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.renderer.KeywordsTreeCellRenderer;
 import org.jphototagger.xmp.XmpMetadata;
 
 /**

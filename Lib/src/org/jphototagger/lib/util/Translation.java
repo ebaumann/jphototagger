@@ -1,40 +1,41 @@
 package org.jphototagger.lib.util;
 
+import java.util.ListResourceBundle;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class Translation {
 
     private static final Logger LOGGER = Logger.getLogger(Translation.class.getName());
-    private final ResourceBundle bundle;
+    private ResourceBundle bundle;
     private final String propertiesBasename;
 
     /**
      *
-     * @param propertiesBasename e.g. "org/jphototagger/mymodule/mypackage/Bundle"
+     * @param clazz class in the package with the properties file
+     * @param propertiesBasename e.g. "Bundle"
      */
-    public Translation(String propertiesBasename) {
+    public Translation(Class<?> clazz, String propertiesBasename) {
         if (propertiesBasename == null) {
             throw new NullPointerException("propertiesBasename == null");
         }
 
-        this.propertiesBasename = propertiesBasename;
-        this.bundle = ResourceBundle.getBundle(propertiesBasename);
+        String packagePath = StorageUtil.resolvePackagePathForResource(clazz);
+        this.propertiesBasename = packagePath + '/' + propertiesBasename;
+
+        try {
+            LOGGER.log(Level.FINEST, "Loading resource bundle ''{0}''", this.propertiesBasename);
+            this.bundle = ResourceBundle.getBundle(this.propertiesBasename);
+        } catch (Throwable t) {
+            this.bundle = EMPTY_BUNDLE;
+            LOGGER.log(Level.SEVERE, null, t);
+        }
     }
 
-    /**
-     * Übersetzt einen String.
-     *
-     * @param string Fremdsprachiger String (Key eines Propertys)
-     * @return       Übersetzter String (Value eines Propertys) oder zu
-     *               übersetzender String, falls keine Übersetzung möglich ist
-     *               (Key nicht vorhanden in Properties-Datei)
-     */
     public String translate(String string) {
         if (string == null) {
             throw new NullPointerException("string == null");
@@ -56,22 +57,12 @@ public final class Translation {
                 new Object[]{string, propertiesBasename, localizedMessage});
     }
 
-    /**
-     * Übersetzt einen String.
-     *
-     * @param string    Fremdsprachiger String (Key eines Propertys)
-     * @param alternate Alternative Übersetzung, die geliefert wird, wenn
-     *                  keine Übersetzung gefunden wurde
-     * @return          Übersetzter String (Value eines Propertys) oder
-     *                  <code>alternate</code>, falls keine Übersetzung möglich
-     *                  ist (Key nicht vorhanden in Properties-Datei)
-     */
-    public String translate(String string, String alternate) {
+    public String translate(String string, String ifNoTranslationExists) {
         if (string == null) {
             throw new NullPointerException("string == null");
         }
 
-        if (alternate == null) {
+        if (ifNoTranslationExists == null) {
             throw new NullPointerException("alternate == null");
         }
 
@@ -81,10 +72,18 @@ public final class Translation {
             logMissingResource(ex, string);
         }
 
-        return alternate;
+        return ifNoTranslationExists;
     }
 
     public boolean canTranslate(String string) {
         return bundle.containsKey(string);
     }
+
+    private static final ResourceBundle EMPTY_BUNDLE = new ListResourceBundle() {
+
+        @Override
+        protected Object[][] getContents() {
+            return new Object[][]{{"", ""}};
+        }
+    };
 }

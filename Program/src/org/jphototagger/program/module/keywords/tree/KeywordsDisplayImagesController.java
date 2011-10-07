@@ -12,9 +12,8 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.program.module.keywords.KeywordsHelper;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.WaitDisplay;
-import org.jphototagger.program.app.AppPanel;
-import org.jphototagger.program.view.popupmenus.KeywordsTreePopupMenu;
+import org.jphototagger.program.app.ui.WaitDisplay;
+import org.jphototagger.program.app.ui.AppPanel;
 
 /**
  * Listens to the menu item

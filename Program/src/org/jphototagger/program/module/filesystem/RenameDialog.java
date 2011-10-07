@@ -1150,7 +1150,7 @@ public final class RenameDialog extends Dialog implements ListDataListener {
         panelRenameTemplates.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("RenameDialog.panelRenameTemplates.border.title"))); // NOI18N
         panelRenameTemplates.setName("panelRenameTemplates"); // NOI18N
 
-        comboBoxRenameTemplates.setModel(new org.jphototagger.program.model.RenameTemplatesComboBoxModel());
+        comboBoxRenameTemplates.setModel(new org.jphototagger.program.module.filesystem.RenameTemplatesComboBoxModel());
         comboBoxRenameTemplates.setName("comboBoxRenameTemplates"); // NOI18N
         comboBoxRenameTemplates.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

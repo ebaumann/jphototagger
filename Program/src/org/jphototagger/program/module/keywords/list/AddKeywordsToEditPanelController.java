@@ -9,8 +9,7 @@ import javax.swing.JMenuItem;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.panels.EditMetadataPanels;
-import org.jphototagger.program.view.popupmenus.KeywordsListPopupMenu;
+import org.jphototagger.program.app.ui.EditMetadataPanels;
 
 /**
  *

@@ -6,7 +6,6 @@ import java.awt.event.KeyEvent;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.jphototagger.domain.favorites.Favorite;
-import org.jphototagger.program.view.popupmenus.FavoritesPopupMenu;
 
 /**
  * Listens to the {@code FavoritesPopupMenu} and deletes a

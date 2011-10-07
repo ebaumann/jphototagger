@@ -15,7 +15,7 @@ import org.jphototagger.api.file.event.FileMovedEvent;
 import org.jphototagger.api.file.event.FileRenamedEvent;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.repository.InsertIntoRepository;
-import org.jphototagger.program.helper.InsertImageFilesIntoRepository;
+import org.jphototagger.program.misc.InsertImageFilesIntoRepository;
 import org.jphototagger.program.io.ImageFileFilterer;
 
 /**
