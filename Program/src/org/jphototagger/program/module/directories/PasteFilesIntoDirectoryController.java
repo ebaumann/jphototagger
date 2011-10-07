@@ -11,11 +11,10 @@ import org.jphototagger.api.image.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.lib.clipboard.ClipboardUtil;
 import org.jphototagger.lib.datatransfer.TransferUtil.FilenameDelimiter;
 import org.jphototagger.lib.event.util.KeyEventUtil;
-import org.jphototagger.program.datatransfer.DirectoryTreeTransferHandler;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.types.FileAction;
 import org.jphototagger.program.view.ViewUtil;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
 
 /**
  * Listens to keyboard actions whithin the directories tree and copies or

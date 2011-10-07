@@ -17,8 +17,6 @@ import org.jphototagger.lib.clipboard.ClipboardUtil;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.types.FileAction;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
-import org.jphototagger.program.view.popupmenus.ThumbnailsPopupMenu;
 
 /**
  * Listens to {@code ThumbnailsPopupMenu#getItemCopyToClipboard()},

@@ -12,7 +12,7 @@ import org.openide.util.Lookup;
 import org.jphototagger.domain.repository.KeywordsRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.program.model.KeywordsTreeModel;
+import org.jphototagger.program.module.keywords.tree.KeywordsTreeModel;
 import org.jphototagger.program.resource.GUI;
 
 /**

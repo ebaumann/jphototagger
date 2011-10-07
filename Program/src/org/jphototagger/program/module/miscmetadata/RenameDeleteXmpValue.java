@@ -21,8 +21,8 @@ import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.repository.InsertIntoRepository;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.helper.InsertImageFilesIntoRepository;
-import org.jphototagger.program.app.ProgressBarUpdater;
+import org.jphototagger.program.misc.InsertImageFilesIntoRepository;
+import org.jphototagger.program.app.ui.ProgressBarUpdater;
 import org.jphototagger.xmp.XmpMetadata;
 
 /**

@@ -30,7 +30,7 @@ import org.jphototagger.program.app.AppPreferencesKeys;
 import org.jphototagger.program.io.FileSystemMove;
 import org.jphototagger.program.module.filesystem.CopyFiles.Options;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.panels.SelectRootFilesPanel;
+import org.jphototagger.program.app.ui.SelectRootFilesPanel;
 import org.jphototagger.xmp.XmpMetadata;
 
 /**

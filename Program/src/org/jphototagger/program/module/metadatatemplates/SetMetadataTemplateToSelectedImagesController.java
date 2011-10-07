@@ -7,8 +7,7 @@ import javax.swing.JButton;
 
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.module.misc.InputHelperDialog;
-import org.jphototagger.program.view.popupmenus.MetadataTemplatesPopupMenu;
+import org.jphototagger.program.misc.InputHelperDialog;
 
 /**
  *

@@ -32,7 +32,7 @@ import org.jphototagger.domain.metadata.xmp.XmpPhotoshopStateMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpPhotoshopTransmissionReferenceMetaDataValue;
 import org.jphototagger.domain.text.TextEntry;
 import org.jphototagger.domain.metadata.xmp.Xmp;
-import org.jphototagger.program.view.panels.EditRepeatableTextEntryPanel;
+import org.jphototagger.program.app.ui.EditRepeatableTextEntryPanel;
 
 /**
  * Edits a {@code Xmp} object.
@@ -248,23 +248,23 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
 
     private void initComponents() {//GEN-BEGIN:initComponents
 
-        panelDcSubjects = new org.jphototagger.program.view.panels.EditRepeatableTextEntryPanel();
-        panelDcTitle = new org.jphototagger.program.view.panels.EditTextEntryPanel();
-        panelDcDescription = new org.jphototagger.program.view.panels.EditTextEntryPanel();
-        panelPhotoshopHeadline = new org.jphototagger.program.view.panels.EditTextEntryPanel();
-        panelIptc4xmpcoreLocation = new org.jphototagger.program.view.panels.EditTextEntryPanel();
-        panelIptc4XmpCoreDateCreated = new org.jphototagger.program.view.panels.EditTextEntryPanel();
-        panelPhotoshopAuthorsposition = new org.jphototagger.program.view.panels.EditTextEntryPanel();
-        panelDcCreator = new org.jphototagger.program.view.panels.EditTextEntryPanel();
-        panelPhotoshopCity = new org.jphototagger.program.view.panels.EditTextEntryPanel();
-        panelPhotoshopState = new org.jphototagger.program.view.panels.EditTextEntryPanel();
-        panelPhotoshopCountry = new org.jphototagger.program.view.panels.EditTextEntryPanel();
-        panelDcRights = new org.jphototagger.program.view.panels.EditTextEntryPanel();
-        panelPhotoshopCredit = new org.jphototagger.program.view.panels.EditTextEntryPanel();
-        panelPhotoshopSource = new org.jphototagger.program.view.panels.EditTextEntryPanel();
-        panelPhotoshopTransmissionReference = new org.jphototagger.program.view.panels.EditTextEntryPanel();
-        panelPhotoshopInstructions = new org.jphototagger.program.view.panels.EditTextEntryPanel();
-        panelPhotoshopCaptionwriter = new org.jphototagger.program.view.panels.EditTextEntryPanel();
+        panelDcSubjects = new org.jphototagger.program.app.ui.EditRepeatableTextEntryPanel();
+        panelDcTitle = new org.jphototagger.program.app.ui.EditTextEntryPanel();
+        panelDcDescription = new org.jphototagger.program.app.ui.EditTextEntryPanel();
+        panelPhotoshopHeadline = new org.jphototagger.program.app.ui.EditTextEntryPanel();
+        panelIptc4xmpcoreLocation = new org.jphototagger.program.app.ui.EditTextEntryPanel();
+        panelIptc4XmpCoreDateCreated = new org.jphototagger.program.app.ui.EditTextEntryPanel();
+        panelPhotoshopAuthorsposition = new org.jphototagger.program.app.ui.EditTextEntryPanel();
+        panelDcCreator = new org.jphototagger.program.app.ui.EditTextEntryPanel();
+        panelPhotoshopCity = new org.jphototagger.program.app.ui.EditTextEntryPanel();
+        panelPhotoshopState = new org.jphototagger.program.app.ui.EditTextEntryPanel();
+        panelPhotoshopCountry = new org.jphototagger.program.app.ui.EditTextEntryPanel();
+        panelDcRights = new org.jphototagger.program.app.ui.EditTextEntryPanel();
+        panelPhotoshopCredit = new org.jphototagger.program.app.ui.EditTextEntryPanel();
+        panelPhotoshopSource = new org.jphototagger.program.app.ui.EditTextEntryPanel();
+        panelPhotoshopTransmissionReference = new org.jphototagger.program.app.ui.EditTextEntryPanel();
+        panelPhotoshopInstructions = new org.jphototagger.program.app.ui.EditTextEntryPanel();
+        panelPhotoshopCaptionwriter = new org.jphototagger.program.app.ui.EditTextEntryPanel();
 
         setName("Form"); // NOI18N
 
@@ -363,22 +363,22 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
         );
     }//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private org.jphototagger.program.view.panels.EditTextEntryPanel panelDcCreator;
-    private org.jphototagger.program.view.panels.EditTextEntryPanel panelDcDescription;
-    private org.jphototagger.program.view.panels.EditTextEntryPanel panelDcRights;
-    private org.jphototagger.program.view.panels.EditRepeatableTextEntryPanel panelDcSubjects;
-    private org.jphototagger.program.view.panels.EditTextEntryPanel panelDcTitle;
-    private org.jphototagger.program.view.panels.EditTextEntryPanel panelIptc4XmpCoreDateCreated;
-    private org.jphototagger.program.view.panels.EditTextEntryPanel panelIptc4xmpcoreLocation;
-    private org.jphototagger.program.view.panels.EditTextEntryPanel panelPhotoshopAuthorsposition;
-    private org.jphototagger.program.view.panels.EditTextEntryPanel panelPhotoshopCaptionwriter;
-    private org.jphototagger.program.view.panels.EditTextEntryPanel panelPhotoshopCity;
-    private org.jphototagger.program.view.panels.EditTextEntryPanel panelPhotoshopCountry;
-    private org.jphototagger.program.view.panels.EditTextEntryPanel panelPhotoshopCredit;
-    private org.jphototagger.program.view.panels.EditTextEntryPanel panelPhotoshopHeadline;
-    private org.jphototagger.program.view.panels.EditTextEntryPanel panelPhotoshopInstructions;
-    private org.jphototagger.program.view.panels.EditTextEntryPanel panelPhotoshopSource;
-    private org.jphototagger.program.view.panels.EditTextEntryPanel panelPhotoshopState;
-    private org.jphototagger.program.view.panels.EditTextEntryPanel panelPhotoshopTransmissionReference;
+    private org.jphototagger.program.app.ui.EditTextEntryPanel panelDcCreator;
+    private org.jphototagger.program.app.ui.EditTextEntryPanel panelDcDescription;
+    private org.jphototagger.program.app.ui.EditTextEntryPanel panelDcRights;
+    private org.jphototagger.program.app.ui.EditRepeatableTextEntryPanel panelDcSubjects;
+    private org.jphototagger.program.app.ui.EditTextEntryPanel panelDcTitle;
+    private org.jphototagger.program.app.ui.EditTextEntryPanel panelIptc4XmpCoreDateCreated;
+    private org.jphototagger.program.app.ui.EditTextEntryPanel panelIptc4xmpcoreLocation;
+    private org.jphototagger.program.app.ui.EditTextEntryPanel panelPhotoshopAuthorsposition;
+    private org.jphototagger.program.app.ui.EditTextEntryPanel panelPhotoshopCaptionwriter;
+    private org.jphototagger.program.app.ui.EditTextEntryPanel panelPhotoshopCity;
+    private org.jphototagger.program.app.ui.EditTextEntryPanel panelPhotoshopCountry;
+    private org.jphototagger.program.app.ui.EditTextEntryPanel panelPhotoshopCredit;
+    private org.jphototagger.program.app.ui.EditTextEntryPanel panelPhotoshopHeadline;
+    private org.jphototagger.program.app.ui.EditTextEntryPanel panelPhotoshopInstructions;
+    private org.jphototagger.program.app.ui.EditTextEntryPanel panelPhotoshopSource;
+    private org.jphototagger.program.app.ui.EditTextEntryPanel panelPhotoshopState;
+    private org.jphototagger.program.app.ui.EditTextEntryPanel panelPhotoshopTransmissionReference;
     // End of variables declaration//GEN-END:variables
 }

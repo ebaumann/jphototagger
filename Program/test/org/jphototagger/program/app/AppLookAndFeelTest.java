@@ -1,5 +1,6 @@
 package org.jphototagger.program.app;
 
+import org.jphototagger.program.app.ui.AppLookAndFeel;
 import java.util.Locale;
 
 import org.junit.AfterClass;

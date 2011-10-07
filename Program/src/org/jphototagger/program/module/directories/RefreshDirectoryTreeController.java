@@ -7,7 +7,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.jphototagger.lib.model.AllSystemDirectoriesTreeModel;
 import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.program.view.popupmenus.DirectoriesPopupMenu;
 
 /**
  * Listens to {@code DirectoriesPopupMenu#getItemRefresh()} and

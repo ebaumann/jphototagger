@@ -12,7 +12,6 @@ import org.jdesktop.swingx.JXList;
 import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.popupmenus.ImageCollectionsPopupMenu;
 
 /**
  *

@@ -17,7 +17,6 @@ import org.jphototagger.domain.repository.ThumbnailsRepository;
 import org.jphototagger.image.util.ImageTransform;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.popupmenus.ThumbnailsPopupMenu;
 
 /**
  * Kontrolliert die Aktion: Rotiere ein Thumbnail,

@@ -18,7 +18,7 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.module.programs.StartPrograms;
 import org.jphototagger.program.module.actions.AddProgramAction;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
 
 /**
  *

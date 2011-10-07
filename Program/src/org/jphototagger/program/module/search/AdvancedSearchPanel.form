@@ -84,7 +84,7 @@
                 <Property name="name" type="java.lang.String" value="labelInfoKeywords" noResource="true"/>
               </Properties>
             </Component>
-            <Component class="org.jphototagger.program.view.panels.EditRepeatableTextEntryPanel" name="panelKeywordsInput">
+            <Component class="org.jphototagger.program.app.ui.EditRepeatableTextEntryPanel" name="panelKeywordsInput">
               <Properties>
                 <Property name="name" type="java.lang.String" value="panelKeywordsInput" noResource="true"/>
               </Properties>

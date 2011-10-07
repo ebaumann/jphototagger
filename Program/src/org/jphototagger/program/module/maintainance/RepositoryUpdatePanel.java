@@ -23,10 +23,10 @@ import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.program.helper.HelperThread;
-import org.jphototagger.program.model.KeywordsListModel;
-import org.jphototagger.program.model.KeywordsTreeModel;
-import org.jphototagger.program.module.metadata.SetExifToXmp;
+import org.jphototagger.program.misc.HelperThread;
+import org.jphototagger.program.module.keywords.list.KeywordsListModel;
+import org.jphototagger.program.module.keywords.tree.KeywordsTreeModel;
+import org.jphototagger.program.module.exif.SetExifToXmp;
 
 /**
  *

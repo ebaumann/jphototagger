@@ -39,14 +39,13 @@ import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.componentutil.TableUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppPreferencesKeys;
-import org.jphototagger.program.model.ExifTableModel;
-import org.jphototagger.program.model.IptcTableModel;
-import org.jphototagger.program.model.MetadataTableModels;
-import org.jphototagger.program.model.XmpTableModel;
+import org.jphototagger.program.module.exif.ExifTableModel;
+import org.jphototagger.program.module.iptc.IptcTableModel;
+import org.jphototagger.program.module.xmp.XmpTableModel;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.WaitDisplay;
-import org.jphototagger.program.app.AppPanel;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.jphototagger.program.app.ui.WaitDisplay;
+import org.jphototagger.program.app.ui.AppPanel;
+import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
 import org.jphototagger.xmp.EmbeddedXmpCache;
 import org.jphototagger.xmp.XmpMetadata;
 
@@ -68,7 +67,7 @@ public final class ShowMetadataController implements ChangeListener {
     private boolean xmpReadFromImageFile;
 
     public ShowMetadataController() {
-        initMetadatModels();
+        initMetadataModels();
         initNamespacesOfXmpTableModelMap();
         listen();
     }
@@ -83,7 +82,7 @@ public final class ShowMetadataController implements ChangeListener {
         metadataPane.addChangeListener(this);
     }
 
-    private void initMetadatModels() {
+    private void initMetadataModels() {
         metadataTableModels.setIptcTableModel((IptcTableModel) appPanel.getTableIptc().getModel());
         metadataTableModels.setExifTableModel((ExifTableModel) appPanel.getTableExif().getModel());
         metadataTableModels.setXmpTableModelDc((XmpTableModel) appPanel.getTableXmpDc().getModel());

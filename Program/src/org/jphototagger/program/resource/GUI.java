@@ -9,11 +9,11 @@ import javax.swing.JTree;
 import org.jdesktop.swingx.JXList;
 
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.program.module.misc.InputHelperDialog;
-import org.jphototagger.program.app.AppFrame;
-import org.jphototagger.program.app.AppPanel;
-import org.jphototagger.program.view.panels.EditMetadataPanels;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.jphototagger.program.misc.InputHelperDialog;
+import org.jphototagger.program.app.ui.AppFrame;
+import org.jphototagger.program.app.ui.AppPanel;
+import org.jphototagger.program.app.ui.EditMetadataPanels;
+import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
 
 /**
  * Provides access to GUI elements.

@@ -9,7 +9,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.program.module.Controller;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.popupmenus.FavoritesPopupMenu;
 
 /**
  *

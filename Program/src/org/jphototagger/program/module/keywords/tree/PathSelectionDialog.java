@@ -17,7 +17,7 @@ import javax.swing.event.ListSelectionListener;
 
 import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.Dialog;
-import org.jphototagger.program.app.AppLookAndFeel;
+import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.resource.GUI;
 
 /**

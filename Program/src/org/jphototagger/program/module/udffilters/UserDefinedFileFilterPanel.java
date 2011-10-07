@@ -214,7 +214,7 @@ public class UserDefinedFileFilterPanel extends javax.swing.JPanel implements Li
 
         scrollPane.setName("scrollPane"); // NOI18N
 
-        list.setModel(new org.jphototagger.program.model.UserDefinedFileFilterListModel());
+        list.setModel(new org.jphototagger.program.module.udffilters.UserDefinedFileFilterListModel());
         list.setComponentPopupMenu(popupMenu);
         list.setName("list"); // NOI18N
         list.addMouseListener(new java.awt.event.MouseAdapter() {

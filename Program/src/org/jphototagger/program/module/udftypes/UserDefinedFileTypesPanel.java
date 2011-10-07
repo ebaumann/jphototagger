@@ -127,7 +127,7 @@ public class UserDefinedFileTypesPanel extends javax.swing.JPanel {
 
         setLayout(new java.awt.GridBagLayout());
 
-        list.setModel(new org.jphototagger.program.model.UserDefinedFileTypesListModel());
+        list.setModel(new org.jphototagger.program.module.udftypes.UserDefinedFileTypesListModel());
         list.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listMouseClicked(evt);

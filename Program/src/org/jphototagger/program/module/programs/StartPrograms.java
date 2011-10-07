@@ -20,7 +20,7 @@ import org.jphototagger.lib.runtime.External;
 import org.jphototagger.lib.runtime.External.ProcessResult;
 import org.jphototagger.lib.runtime.RuntimeUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.helper.InsertImageFilesIntoRepository;
+import org.jphototagger.program.misc.InsertImageFilesIntoRepository;
 
 /**
  * Executes in a thread programs which processes image files.

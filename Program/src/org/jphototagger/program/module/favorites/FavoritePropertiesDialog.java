@@ -18,7 +18,7 @@ import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppPreferencesKeys;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.panels.SelectRootFilesPanel;
+import org.jphototagger.program.app.ui.SelectRootFilesPanel;
 
 
 /**

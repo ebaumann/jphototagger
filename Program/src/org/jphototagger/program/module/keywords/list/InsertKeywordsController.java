@@ -8,7 +8,6 @@ import javax.swing.JMenuItem;
 
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.module.keywords.KeywordsHelper;
-import org.jphototagger.program.view.popupmenus.KeywordsListPopupMenu;
 
 /**
  *

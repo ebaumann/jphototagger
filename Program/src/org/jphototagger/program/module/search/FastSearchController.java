@@ -38,10 +38,9 @@ import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.module.thumbnails.SortThumbnailsController;
-import org.jphototagger.program.helper.AutocompleteHelper;
-import org.jphototagger.program.model.FastSearchComboBoxModel;
+import org.jphototagger.program.misc.AutocompleteHelper;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.WaitDisplay;
+import org.jphototagger.program.app.ui.WaitDisplay;
 
 /**
  * Kontrolliert die Aktion: Schnellsuche durchführen.

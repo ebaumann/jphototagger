@@ -1,0 +1,211 @@
+package org.jphototagger.program.module.exif;
+
+import java.awt.Desktop;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.swing.JButton;
+
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.exif.ExifMetadata;
+import org.jphototagger.exif.ExifTag;
+import org.jphototagger.exif.ExifTagDisplayComparator;
+import org.jphototagger.exif.ExifTags;
+import org.jphototagger.exif.ExifTagsToDisplay;
+import org.jphototagger.exif.cache.ExifCacheClearedEvent;
+import org.jphototagger.exif.cache.ExifCacheFileDeletedEvent;
+import org.jphototagger.exif.tag.ExifGpsAltitude;
+import org.jphototagger.exif.tag.ExifGpsLatitude;
+import org.jphototagger.exif.tag.ExifGpsLongitude;
+import org.jphototagger.exif.tag.ExifGpsMetadata;
+import org.jphototagger.exif.tag.ExifGpsUtil;
+import org.jphototagger.lib.model.TableModelExt;
+import org.jphototagger.lib.util.Bundle;
+
+/**
+ * Elements are {@code ExifTag}s ore {@code String}s in case of GPS information
+ * retrieved through {@code ExifMetadata#getExifTags(java.io.File)}.
+ *
+ * This model displays EXIF information of <em>one</em> image file.
+ *
+ * The first row is a "prompt", the second contains the data. Both are
+ * containing the same objects (both either <code>ExifTag</code> instances or
+ * <code>String</code> instances).
+ *
+ * @author Elmar Baumann, Tobias Stening
+ */
+public final class ExifTableModel extends TableModelExt {
+
+    private static final long serialVersionUID = -5656774233855745962L;
+    private File file;
+    private transient ExifGpsMetadata exifGpsMetadata;
+    private transient ExifTags exifTags;
+
+    public ExifTableModel() {
+        setRowHeaders();
+        listen();
+    }
+
+    private void setRowHeaders() {
+        addColumn(Bundle.getString(ExifTableModel.class, "ExifTableModel.HeaderColumn.1"));
+        addColumn(Bundle.getString(ExifTableModel.class, "ExifTableModel.HeaderColumn.2"));
+    }
+
+    private void listen() {
+        AnnotationProcessor.process(this);
+    }
+
+    @EventSubscriber(eventClass = ExifCacheClearedEvent.class)
+    public void exifCacheCleared(ExifCacheClearedEvent evt) {
+        int deletedCacheFileCount = evt.getDeletedCacheFileCount();
+        if (file != null && deletedCacheFileCount > 0) {
+            setFile(file);
+        }
+    }
+
+    @EventSubscriber(eventClass = ExifCacheFileDeletedEvent.class)
+    public void exifCacheCleared(ExifCacheFileDeletedEvent evt) {
+        File imageFile = evt.getImageFile();
+        if (imageFile.equals(file)) {
+            setFile(file);
+        }
+    }
+
+    /**
+     * Returns the file.
+     *
+     * @return file or null if not set
+     */
+    public File getFile() {
+        return file;
+    }
+
+    /**
+     * Sets the file with exif metadata to be displayed.
+     *
+     * @param file file
+     */
+    public void setFile(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
+        this.file = file;
+        removeAllRows();
+
+        try {
+            setExifTags();
+        } catch (Exception ex) {
+            Logger.getLogger(ExifTableModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void setExifTags() {
+        exifTags = ExifMetadata.getExifTagsPreferCached(file);
+
+        if (exifTags == null) {
+            return;
+        }
+
+        addExifTags(exifTags.getExifTags());
+        addExifTags(exifTags.getInteroperabilityTags());
+        addGpsTags();
+        addExifTags(exifTags.getMakerNoteTags());
+    }
+
+    private void addExifTags(Collection<? extends ExifTag> tags) {
+        List<ExifTag> displayableExifTags = ExifTagsToDisplay.getDisplayableExifTagsOf(tags);
+
+        if (!displayableExifTags.isEmpty()) {
+            Collections.sort(displayableExifTags, ExifTagDisplayComparator.INSTANCE);
+
+            for (ExifTag displayableExifTag : displayableExifTags) {
+                String tagValue = displayableExifTag.getStringValue();
+
+                if (tagValue.length() > 0) {
+                    addTableRow(displayableExifTag);
+                }
+            }
+        }
+    }
+
+    private void addGpsTags() {
+        exifGpsMetadata = ExifGpsUtil.createGpsMetadataFromExifTags(exifTags);
+        ExifGpsLatitude latitude = exifGpsMetadata.getLatitude();
+        ExifGpsLongitude longitude = exifGpsMetadata.getLongitude();
+        ExifGpsAltitude altitude = exifGpsMetadata.getAltitude();
+
+        if (latitude != null) {
+            String tagId = Integer.toString(ExifTag.Id.GPS_LATITUDE.getTagId());
+            String tagName = ExifTableCellRenderer.TAG_ID_TAGNAME_TRANSLATION.translate(tagId, tagId);
+
+            super.addRow(new Object[]{tagName, exifGpsMetadata.getLatitude().getLocalizedString()});
+        }
+
+        if (longitude != null) {
+            String tagId = Integer.toString(ExifTag.Id.GPS_LONGITUDE.getTagId());
+            String tagName = ExifTableCellRenderer.TAG_ID_TAGNAME_TRANSLATION.translate(tagId, tagId);
+
+            super.addRow(new Object[]{tagName, exifGpsMetadata.getLongitude().toLocalizedString()});
+        }
+
+        if (altitude != null) {
+            String tagId = Integer.toString(ExifTag.Id.GPS_ALTITUDE.getTagId());
+            String tagName = ExifTableCellRenderer.TAG_ID_TAGNAME_TRANSLATION.translate(tagId, tagId);
+
+            super.addRow(new Object[]{tagName, exifGpsMetadata.getAltitude().getLocalizedString()});
+        }
+
+        if (longitude != null && latitude != null) {
+            JButton button = new JButton(Bundle.getString(ExifTableModel.class, "ExifTableModel.Button.GoogleMaps"));
+
+            button.addActionListener(new GpsButtonListener());
+            super.addRow(new Object[]{exifGpsMetadata, button});
+        }
+    }
+
+    private void addTableRow(ExifTag exifTag) {
+        List<ExifTag> row = new ArrayList<ExifTag>();
+
+        row.add(exifTag);
+        row.add(exifTag);
+        super.addRow(row.toArray(new ExifTag[row.size()]));
+    }
+
+    @Override
+    public boolean isCellEditable(int row, int column) {
+        return false;
+    }
+
+    private class GpsButtonListener implements ActionListener {
+
+        GpsButtonListener() {
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent evt) {
+            browse();
+        }
+
+        private void browse() {
+            if (exifGpsMetadata != null) {
+                String url = ExifGpsUtil.getGoogleMapsUrl(exifGpsMetadata.getLongitude(), exifGpsMetadata.getLatitude());
+
+                try {
+                    Desktop.getDesktop().browse(new URI(url));
+                } catch (Exception ex) {
+                    Logger.getLogger(GpsButtonListener.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }
+}

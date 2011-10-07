@@ -1,5 +1,8 @@
 package org.jphototagger.program.module.maintainance;
 
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ResourceBundle;
@@ -33,12 +36,13 @@ public class MaintainanceDialog extends Dialog {
      */
     @SuppressWarnings("unchecked")
     private void initComponents() {//GEN-BEGIN:initComponents
+        GridBagConstraints gridBagConstraints; // NOI18N
 
         tabbedPane = new JTabbedPane();
         panelMaintainanceCaches = new MaintainanceCachesPanel();
 
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        ResourceBundle bundle = ResourceBundle.getBundle("org/jphototagger/program/module/maintainance/Bundle"); // NOI18N
+        ResourceBundle bundle = ResourceBundle.getBundle("org/jphototagger/program/module/maintainance/Bundle");
         setTitle(bundle.getString("MaintainanceDialog.title")); // NOI18N
         setIconImage(null);
         setName("MaintainanceDialog"); // NOI18N
@@ -47,28 +51,22 @@ public class MaintainanceDialog extends Dialog {
                 formWindowClosing(evt);
             }
         });
+        getContentPane().setLayout(new GridBagLayout());
 
         tabbedPane.setName("tabbedPane"); // NOI18N
 
         panelMaintainanceCaches.setName("panelMaintainanceCaches"); // NOI18N
         tabbedPane.addTab(bundle.getString("MaintainanceDialog.panelMaintainanceCaches.TabConstraints.tabTitle"), panelMaintainanceCaches); // NOI18N
 
-        GroupLayout layout = new GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(tabbedPane, GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(tabbedPane)
-                .addContainerGap())
-        );
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new Insets(10, 10, 10, 10);
+        getContentPane().add(tabbedPane, gridBagConstraints);
 
         pack();
     }//GEN-END:initComponents

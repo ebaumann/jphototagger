@@ -33,11 +33,11 @@ import org.jphototagger.program.resource.GUI;
  * @author Elmar Baumann
  */
 public final class ProgramPropertiesDialog extends Dialog {
+    
     private static final long serialVersionUID = 5953007101307866505L;
     private transient Program program = new Program();
     private static final String KEY_LAST_DIR = "ProgramPropertiesDialog.LastDirectory";
     private static final String KEY_EXPERT_SETTINGS = "ProgramPropertiesDialog.ExpertSettings";
-    private static final java.util.ResourceBundle BUNDLE = java.util.ResourceBundle.getBundle("org/jphototagger/program/view/dialogs/Bundle"); // NOI18N
     private static final String BUTTON_TEXT_TOGGLE_TO_EXPERT_SETTINGS = Bundle.getString(ProgramPropertiesDialog.class, "ProgramPropertiesDialog.ButtonText.ExpertSettings");
     private static final String BUTTON_TEXT_TOGGLE_TO_SIMPLE_SETTINGS = Bundle.getString(ProgramPropertiesDialog.class, "ProgramPropertiesDialog.ButtonText.SimpleSettings");
     private static final Preferences STORAGE = Lookup.getDefault().lookup(Preferences.class);

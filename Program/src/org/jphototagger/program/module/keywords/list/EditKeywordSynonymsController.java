@@ -24,9 +24,8 @@ import org.jphototagger.lib.dialog.InputDialog;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.module.misc.InputHelperDialog;
-import org.jphototagger.program.view.panels.EditRepeatableTextEntryPanel;
-import org.jphototagger.program.view.popupmenus.KeywordsListPopupMenu;
+import org.jphototagger.program.misc.InputHelperDialog;
+import org.jphototagger.program.app.ui.EditRepeatableTextEntryPanel;
 
 /**
  *

@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.popupmenus.ThumbnailsPopupMenu;
 
 /**
  * Kontrolliert die Aktion: Thumbnailspanelanzeige aktualisieren.

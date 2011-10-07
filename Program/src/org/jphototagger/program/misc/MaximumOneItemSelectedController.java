@@ -1,0 +1,117 @@
+package org.jphototagger.program.misc;
+
+import javax.swing.JTree;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jdesktop.swingx.JXList;
+import org.jphototagger.api.image.thumbnails.OriginOfDisplayedThumbnails;
+import org.jphototagger.domain.thumbnails.event.ThumbnailsChangedEvent;
+import org.jphototagger.program.resource.GUI;
+
+/**
+ *
+ * @author Elmar Baumann
+ */
+public final class MaximumOneItemSelectedController implements TreeSelectionListener, ListSelectionListener {
+
+    private boolean listen = true;
+
+    public MaximumOneItemSelectedController() {
+        listen();
+    }
+
+    private void listen() {
+        for (JTree tree : GUI.getAppPanel().getSelectionTrees()) {
+            tree.addTreeSelectionListener(this);
+        }
+
+        for (JXList list : GUI.getAppPanel().getSelectionLists()) {
+            list.addListSelectionListener(this);
+        }
+
+        AnnotationProcessor.process(this);
+    }
+
+    @Override
+    public void valueChanged(TreeSelectionEvent evt) {
+        Object o = evt.getSource();
+
+        if (listen && evt.isAddedPath() && (o instanceof JTree)) {
+            handleTreeSelected((JTree) o);
+        }
+    }
+
+    @Override
+    public void valueChanged(ListSelectionEvent evt) {
+        Object o = evt.getSource();
+
+        if (listen && !evt.getValueIsAdjusting() && (o instanceof JXList)) {
+            JXList list = (JXList) o;
+
+            if (list.getSelectedIndex() >= 0) {
+                handleListSelected(list);
+            }
+        }
+    }
+
+    private void handleTreeSelected(JTree currentSelectedTree) {
+        clearSelectionAllLists();
+        clearSelectionOtherTrees(currentSelectedTree);
+    }
+
+    private void handleListSelected(JXList currentSelectedList) {
+        clearSelectionAllTrees();
+        clearSelectionOtherLists(currentSelectedList);
+    }
+
+    private void clearSelectionOtherLists(JXList list) {
+        listen = false;
+
+        for (JXList aList : GUI.getAppPanel().getSelectionLists()) {
+            if ((aList != list) && !aList.isSelectionEmpty()) {
+                aList.clearSelection();
+            }
+        }
+
+        listen = true;
+    }
+
+    private void clearSelectionOtherTrees(JTree tree) {
+        listen = false;
+
+        for (JTree aTree : GUI.getAppPanel().getSelectionTrees()) {
+            if ((aTree != tree) && (aTree.getSelectionCount() > 0)) {
+                aTree.clearSelection();
+            }
+        }
+
+        listen = true;
+    }
+
+    private void clearSelectionAllTrees() {
+        for (JTree tree : GUI.getAppPanel().getSelectionTrees()) {
+            tree.clearSelection();
+        }
+    }
+
+    private void clearSelectionAllLists() {
+        for (JXList list : GUI.getAppPanel().getSelectionLists()) {
+            list.clearSelection();
+        }
+    }
+
+    @EventSubscriber(eventClass=ThumbnailsChangedEvent.class)
+    public void thumbnailsChanged(ThumbnailsChangedEvent evt) {
+        OriginOfDisplayedThumbnails origin = evt.getOriginOfDisplayedThumbnails();
+
+        if (OriginOfDisplayedThumbnails.UNDEFINED_ORIGIN.equals(origin)) {
+            clearSelectionAllTrees();
+            clearSelectionAllLists();
+        }
+    }
+}

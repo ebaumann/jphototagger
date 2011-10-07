@@ -9,7 +9,7 @@ import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.repository.event.programs.ProgramDeletedEvent;
 import org.jphototagger.domain.repository.event.programs.ProgramInsertedEvent;
 import org.jphototagger.domain.repository.event.programs.ProgramUpdatedEvent;
-import org.jphototagger.program.view.popupmenus.ThumbnailsPopupMenu;
+import org.jphototagger.program.module.thumbnails.ThumbnailsPopupMenu;
 
 /**
  *

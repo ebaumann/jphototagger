@@ -13,13 +13,13 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppCommandLineOptions;
 import org.jphototagger.program.app.AppInit;
 import org.jphototagger.program.module.search.FastSearchController;
-import org.jphototagger.program.module.filesystem.ImportImageFiles;
-import org.jphototagger.program.model.FileFiltersComboBoxModel;
+import org.jphototagger.program.module.importimages.ImportImageFiles;
+import org.jphototagger.program.module.thumbnails.FileFiltersComboBoxModel;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.tasks.ScheduledTasks;
-import org.jphototagger.program.app.AppPanel;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
-import org.jphototagger.program.view.popupmenus.ThumbnailsPopupMenu;
+import org.jphototagger.program.app.ui.AppPanel;
+import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
+import org.jphototagger.program.module.thumbnails.ThumbnailsPopupMenu;
 
 /**
  *

@@ -18,8 +18,7 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.module.thumbnails.SortThumbnailsController;
 import org.jphototagger.program.io.ImageFileFilterer;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.WaitDisplay;
-import org.jphototagger.program.view.popupmenus.DirectoriesPopupMenu;
+import org.jphototagger.program.app.ui.WaitDisplay;
 
 /**
  * Listens for selections of items in the directory tree view. A tree item

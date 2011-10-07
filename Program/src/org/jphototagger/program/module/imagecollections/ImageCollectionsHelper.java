@@ -15,7 +15,7 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
 
 /**
  *

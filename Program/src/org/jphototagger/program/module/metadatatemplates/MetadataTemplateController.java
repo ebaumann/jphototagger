@@ -8,9 +8,7 @@ import org.jdesktop.swingx.JXList;
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.program.module.Controller;
 import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.program.model.MetadataTemplatesListModel;
-import org.jphototagger.program.module.misc.InputHelperDialog;
-import org.jphototagger.program.view.popupmenus.MetadataTemplatesPopupMenu;
+import org.jphototagger.program.misc.InputHelperDialog;
 
 /**
  *

@@ -20,11 +20,8 @@ import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.module.keywords.tree.KeywordTreeNodesClipboard.Action;
 import org.jphototagger.program.datatransfer.Flavor;
-import org.jphototagger.program.datatransfer.KeywordsTreeTransferHandler;
 import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.program.model.KeywordsTreeModel;
-import org.jphototagger.program.view.panels.KeywordsPanel;
-import org.jphototagger.program.view.popupmenus.KeywordsTreePopupMenu;
+import org.jphototagger.program.module.keywords.KeywordsPanel;
 
 //The implementation can't paste the nodes to the system clipboard and let do
 //the work the panel's transfer handler, because the affected nodes when using

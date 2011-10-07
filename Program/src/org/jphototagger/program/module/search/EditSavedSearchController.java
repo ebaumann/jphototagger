@@ -10,7 +10,6 @@ import org.jphototagger.domain.metadata.search.SavedSearch;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.popupmenus.SavedSearchesPopupMenu;
 
 /**
  *

@@ -10,8 +10,8 @@ import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.exif.ExifMetadata;
 import org.jphototagger.exif.cache.ExifCache;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.AppFileFilters;
-import org.jphototagger.program.helper.HelperThread;
+import org.jphototagger.program.filefilter.AppFileFilters;
+import org.jphototagger.program.misc.HelperThread;
 
 /**
  * Refreshes the EXIF metadata of all known imagesfiles whithout time stamp

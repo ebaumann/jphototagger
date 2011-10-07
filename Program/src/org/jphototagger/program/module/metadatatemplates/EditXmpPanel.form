@@ -80,87 +80,87 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="org.jphototagger.program.view.panels.EditRepeatableTextEntryPanel" name="panelDcSubjects">
+    <Component class="org.jphototagger.program.app.ui.EditRepeatableTextEntryPanel" name="panelDcSubjects">
       <Properties>
         <Property name="name" type="java.lang.String" value="panelDcSubjects" noResource="true"/>
       </Properties>
     </Component>
-    <Component class="org.jphototagger.program.view.panels.EditTextEntryPanel" name="panelDcTitle">
+    <Component class="org.jphototagger.program.app.ui.EditTextEntryPanel" name="panelDcTitle">
       <Properties>
         <Property name="name" type="java.lang.String" value="panelDcTitle" noResource="true"/>
       </Properties>
     </Component>
-    <Component class="org.jphototagger.program.view.panels.EditTextEntryPanel" name="panelDcDescription">
+    <Component class="org.jphototagger.program.app.ui.EditTextEntryPanel" name="panelDcDescription">
       <Properties>
         <Property name="name" type="java.lang.String" value="panelDcDescription" noResource="true"/>
       </Properties>
     </Component>
-    <Component class="org.jphototagger.program.view.panels.EditTextEntryPanel" name="panelPhotoshopHeadline">
+    <Component class="org.jphototagger.program.app.ui.EditTextEntryPanel" name="panelPhotoshopHeadline">
       <Properties>
         <Property name="name" type="java.lang.String" value="panelPhotoshopHeadline" noResource="true"/>
       </Properties>
     </Component>
-    <Component class="org.jphototagger.program.view.panels.EditTextEntryPanel" name="panelIptc4xmpcoreLocation">
+    <Component class="org.jphototagger.program.app.ui.EditTextEntryPanel" name="panelIptc4xmpcoreLocation">
       <Properties>
         <Property name="name" type="java.lang.String" value="panelIptc4xmpcoreLocation" noResource="true"/>
       </Properties>
     </Component>
-    <Component class="org.jphototagger.program.view.panels.EditTextEntryPanel" name="panelIptc4XmpCoreDateCreated">
+    <Component class="org.jphototagger.program.app.ui.EditTextEntryPanel" name="panelIptc4XmpCoreDateCreated">
       <Properties>
         <Property name="name" type="java.lang.String" value="panelIptc4XmpCoreDateCreated" noResource="true"/>
       </Properties>
     </Component>
-    <Component class="org.jphototagger.program.view.panels.EditTextEntryPanel" name="panelPhotoshopAuthorsposition">
+    <Component class="org.jphototagger.program.app.ui.EditTextEntryPanel" name="panelPhotoshopAuthorsposition">
       <Properties>
         <Property name="name" type="java.lang.String" value="panelPhotoshopAuthorsposition" noResource="true"/>
       </Properties>
     </Component>
-    <Component class="org.jphototagger.program.view.panels.EditTextEntryPanel" name="panelDcCreator">
+    <Component class="org.jphototagger.program.app.ui.EditTextEntryPanel" name="panelDcCreator">
       <Properties>
         <Property name="name" type="java.lang.String" value="panelDcCreator" noResource="true"/>
       </Properties>
     </Component>
-    <Component class="org.jphototagger.program.view.panels.EditTextEntryPanel" name="panelPhotoshopCity">
+    <Component class="org.jphototagger.program.app.ui.EditTextEntryPanel" name="panelPhotoshopCity">
       <Properties>
         <Property name="name" type="java.lang.String" value="panelPhotoshopCity" noResource="true"/>
       </Properties>
     </Component>
-    <Component class="org.jphototagger.program.view.panels.EditTextEntryPanel" name="panelPhotoshopState">
+    <Component class="org.jphototagger.program.app.ui.EditTextEntryPanel" name="panelPhotoshopState">
       <Properties>
         <Property name="name" type="java.lang.String" value="panelPhotoshopState" noResource="true"/>
       </Properties>
     </Component>
-    <Component class="org.jphototagger.program.view.panels.EditTextEntryPanel" name="panelPhotoshopCountry">
+    <Component class="org.jphototagger.program.app.ui.EditTextEntryPanel" name="panelPhotoshopCountry">
       <Properties>
         <Property name="name" type="java.lang.String" value="panelPhotoshopCountry" noResource="true"/>
       </Properties>
     </Component>
-    <Component class="org.jphototagger.program.view.panels.EditTextEntryPanel" name="panelDcRights">
+    <Component class="org.jphototagger.program.app.ui.EditTextEntryPanel" name="panelDcRights">
       <Properties>
         <Property name="name" type="java.lang.String" value="panelDcRights" noResource="true"/>
       </Properties>
     </Component>
-    <Component class="org.jphototagger.program.view.panels.EditTextEntryPanel" name="panelPhotoshopCredit">
+    <Component class="org.jphototagger.program.app.ui.EditTextEntryPanel" name="panelPhotoshopCredit">
       <Properties>
         <Property name="name" type="java.lang.String" value="panelPhotoshopCredit" noResource="true"/>
       </Properties>
     </Component>
-    <Component class="org.jphototagger.program.view.panels.EditTextEntryPanel" name="panelPhotoshopSource">
+    <Component class="org.jphototagger.program.app.ui.EditTextEntryPanel" name="panelPhotoshopSource">
       <Properties>
         <Property name="name" type="java.lang.String" value="panelPhotoshopSource" noResource="true"/>
       </Properties>
     </Component>
-    <Component class="org.jphototagger.program.view.panels.EditTextEntryPanel" name="panelPhotoshopTransmissionReference">
+    <Component class="org.jphototagger.program.app.ui.EditTextEntryPanel" name="panelPhotoshopTransmissionReference">
       <Properties>
         <Property name="name" type="java.lang.String" value="panelPhotoshopTransmissionReference" noResource="true"/>
       </Properties>
     </Component>
-    <Component class="org.jphototagger.program.view.panels.EditTextEntryPanel" name="panelPhotoshopInstructions">
+    <Component class="org.jphototagger.program.app.ui.EditTextEntryPanel" name="panelPhotoshopInstructions">
       <Properties>
         <Property name="name" type="java.lang.String" value="panelPhotoshopInstructions" noResource="true"/>
       </Properties>
     </Component>
-    <Component class="org.jphototagger.program.view.panels.EditTextEntryPanel" name="panelPhotoshopCaptionwriter">
+    <Component class="org.jphototagger.program.app.ui.EditTextEntryPanel" name="panelPhotoshopCaptionwriter">
       <Properties>
         <Property name="name" type="java.lang.String" value="panelPhotoshopCaptionwriter" noResource="true"/>
       </Properties>

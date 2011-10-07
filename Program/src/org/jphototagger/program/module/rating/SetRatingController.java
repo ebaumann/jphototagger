@@ -10,8 +10,8 @@ import java.util.Map;
 import javax.swing.JMenuItem;
 
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.panels.EditMetadataPanels;
-import org.jphototagger.program.view.popupmenus.ThumbnailsPopupMenu;
+import org.jphototagger.program.app.ui.EditMetadataPanels;
+import org.jphototagger.program.module.thumbnails.ThumbnailsPopupMenu;
 
 /**
  * Listens to key events in {@code ThumbnailsPanel} and if a key

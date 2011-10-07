@@ -9,8 +9,7 @@ import javax.swing.JMenuItem;
 import org.jphototagger.program.module.keywords.tree.DeleteKeywordFromEditPanelController;
 import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.panels.EditMetadataPanels;
-import org.jphototagger.program.view.popupmenus.KeywordsListPopupMenu;
+import org.jphototagger.program.app.ui.EditMetadataPanels;
 
 /**
  *

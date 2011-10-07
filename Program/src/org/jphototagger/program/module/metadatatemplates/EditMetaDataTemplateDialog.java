@@ -12,7 +12,7 @@ import org.jphototagger.lib.dialog.Dialog;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.view.ViewUtil;
-import org.jphototagger.program.module.misc.InputHelperDialog;
+import org.jphototagger.program.misc.InputHelperDialog;
 
 /**
  * You <strong>have to call</strong>

@@ -7,7 +7,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.lib.event.util.KeyEventUtil;
-import org.jphototagger.program.view.popupmenus.FavoritesPopupMenu;
 
 /**
  * Listens to the {@code FavoritesPopupMenu} and let's edit the selected

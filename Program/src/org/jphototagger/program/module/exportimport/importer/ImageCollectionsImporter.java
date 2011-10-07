@@ -17,11 +17,11 @@ import org.jphototagger.domain.repository.InsertIntoRepository;
 import org.jphototagger.domain.repository.RepositoryDataImporter;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.xml.bind.XmlObjectImporter;
-import org.jphototagger.program.app.AppLookAndFeel;
-import org.jphototagger.program.helper.InsertImageFilesIntoRepository;
+import org.jphototagger.program.app.ui.AppLookAndFeel;
+import org.jphototagger.program.misc.InsertImageFilesIntoRepository;
 import org.jphototagger.program.module.exportimport.exporter.ImageCollectionsExporter;
 import org.jphototagger.program.module.exportimport.exporter.ImageCollectionsExporter.CollectionWrapper;
-import org.jphototagger.program.app.ProgressBarUpdater;
+import org.jphototagger.program.app.ui.ProgressBarUpdater;
 
 /**
  *

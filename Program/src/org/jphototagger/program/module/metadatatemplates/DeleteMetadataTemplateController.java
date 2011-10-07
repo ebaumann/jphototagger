@@ -11,8 +11,7 @@ import org.jphototagger.domain.repository.MetadataTemplatesRepository;
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.module.misc.InputHelperDialog;
-import org.jphototagger.program.view.popupmenus.MetadataTemplatesPopupMenu;
+import org.jphototagger.program.misc.InputHelperDialog;
 
 /**
  *

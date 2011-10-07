@@ -9,9 +9,7 @@ import javax.swing.ListModel;
 import org.jphototagger.lib.componentutil.ListUtil;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.module.keywords.KeywordsHelper;
-import org.jphototagger.program.model.KeywordsListModel;
-import org.jphototagger.program.view.WaitDisplay;
-import org.jphototagger.program.view.popupmenus.KeywordsListPopupMenu;
+import org.jphototagger.program.app.ui.WaitDisplay;
 
 /**
  * Displays a selected keyword through selecting it in the selection list.

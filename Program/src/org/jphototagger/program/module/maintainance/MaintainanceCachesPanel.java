@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 
+import javax.swing.JPanel;
 import org.jdesktop.swingx.JXLabel;
 
 import org.jphototagger.lib.componentutil.MnemonicUtil;
@@ -40,11 +41,12 @@ public class MaintainanceCachesPanel extends javax.swing.JPanel {
 
         labelInfo = new JXLabel();
         buttonClearExifCache = new JButton();
-        buttonClearExifCache.setAction(org.jphototagger.program.module.maintainance.ClearExifCacheAction.INSTANCE);
+        buttonClearExifCache.setAction(ClearExifCacheAction.INSTANCE);
         labelInfoClearExifCache = new JXLabel();
         buttonClearIptcIgnoreCache = new JButton();
-        buttonClearIptcIgnoreCache.setAction(org.jphototagger.program.module.maintainance.ClearIptcIgnoreCacheAction.INSTANCE);
+        buttonClearIptcIgnoreCache.setAction(ClearIptcIgnoreCacheAction.INSTANCE);
         labelInfoClearIptcIgnoreCache = new JXLabel();
+        panelPadding = new JPanel();
 
         setName("MaintainanceCachesPanel"); // NOI18N
         setLayout(new GridBagLayout());
@@ -97,6 +99,12 @@ public class MaintainanceCachesPanel extends javax.swing.JPanel {
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new Insets(10, 5, 0, 5);
         add(labelInfoClearIptcIgnoreCache, gridBagConstraints);
+
+        panelPadding.setName("panelPadding"); // NOI18N
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.fill = GridBagConstraints.VERTICAL;
+        gridBagConstraints.weighty = 0.5;
+        add(panelPadding, gridBagConstraints);
     }//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JButton buttonClearExifCache;
@@ -104,5 +112,6 @@ public class MaintainanceCachesPanel extends javax.swing.JPanel {
     private JXLabel labelInfo;
     private JXLabel labelInfoClearExifCache;
     private JXLabel labelInfoClearIptcIgnoreCache;
+    private JPanel panelPadding;
     // End of variables declaration//GEN-END:variables
 }

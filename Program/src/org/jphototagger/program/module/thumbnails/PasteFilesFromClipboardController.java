@@ -24,11 +24,9 @@ import org.jphototagger.lib.clipboard.ClipboardUtil;
 import org.jphototagger.lib.datatransfer.TransferUtil;
 import org.jphototagger.lib.datatransfer.TransferUtil.FilenameDelimiter;
 import org.jphototagger.lib.event.util.KeyEventUtil;
-import org.jphototagger.program.datatransfer.DirectoryTreeTransferHandler;
+import org.jphototagger.program.module.directories.DirectoryTreeTransferHandler;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.ViewUtil;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
-import org.jphototagger.program.view.popupmenus.ThumbnailsPopupMenu;
 
 /**
  * Listens to {@code ThumbnailsPopupMenu#getItemPasteFromClipboard()} and on action

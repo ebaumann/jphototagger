@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.module.misc.InputHelperDialog;
+import org.jphototagger.program.misc.InputHelperDialog;
 
 /**
  * Listens to the menu item {@code AppFrame#getMenuItemInputHelper()}

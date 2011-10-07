@@ -24,7 +24,7 @@ import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.panels.EditMetadataPanels;
+import org.jphototagger.program.app.ui.EditMetadataPanels;
 
 /**
  *

@@ -7,7 +7,7 @@ import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.dialog.InputDialog;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.module.misc.InputHelperDialog;
+import org.jphototagger.program.misc.InputHelperDialog;
 
 /**
  *

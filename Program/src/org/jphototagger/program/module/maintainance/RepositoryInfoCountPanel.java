@@ -8,8 +8,6 @@ import org.jphototagger.api.file.FilenameTokens;
 import org.jphototagger.domain.repository.FileRepositoryProvider;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.model.RepositoryInfoTableModel;
-import org.jphototagger.program.view.renderer.RepositoryInfoColumnsTableCellRenderer;
 
 /**
  *

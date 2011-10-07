@@ -5,7 +5,7 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.AppLookAndFeel;
+import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.module.udftypes.UserDefinedFileTypesDialog;
 
 /**

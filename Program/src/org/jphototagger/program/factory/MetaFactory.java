@@ -11,7 +11,7 @@ import org.jphototagger.api.modules.Module;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.app.AppPreferencesKeys;
-import org.jphototagger.program.app.AppWindowPersistence;
+import org.jphototagger.program.app.ui.AppWindowPersistence;
 import org.jphototagger.program.app.update.UpdateDownload;
 
 /**

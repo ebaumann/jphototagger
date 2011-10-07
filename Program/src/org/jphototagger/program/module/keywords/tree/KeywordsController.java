@@ -15,8 +15,7 @@ import javax.swing.tree.TreePath;
 import org.jphototagger.lib.componentutil.TreeUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.view.panels.KeywordsPanel;
-import org.jphototagger.program.view.popupmenus.KeywordsTreePopupMenu;
+import org.jphototagger.program.module.keywords.KeywordsPanel;
 
 /**
  * Abstract root class for some controllers in this packages.  Contains some

@@ -15,7 +15,7 @@ import org.openide.util.Lookup;
 import org.jphototagger.api.file.event.FileMovedEvent;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.popupmenus.ThumbnailsPopupMenu;
+import org.jphototagger.program.module.thumbnails.ThumbnailsPopupMenu;
 
 /**
  * Renames files in the file system.

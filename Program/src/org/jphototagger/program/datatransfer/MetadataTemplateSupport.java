@@ -10,7 +10,7 @@ import javax.swing.TransferHandler.TransferSupport;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.domain.text.TextEntry;
-import org.jphototagger.program.view.panels.EditRepeatableTextEntryPanel;
+import org.jphototagger.program.app.ui.EditRepeatableTextEntryPanel;
 
 /**
  *

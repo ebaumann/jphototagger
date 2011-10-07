@@ -8,9 +8,7 @@ import java.awt.event.KeyListener;
 
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.program.model.FavoritesTreeModel;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.popupmenus.FavoritesPopupMenu;
 
 /**
  * Refreshes the favorite directories tree: Adds new folders and removes

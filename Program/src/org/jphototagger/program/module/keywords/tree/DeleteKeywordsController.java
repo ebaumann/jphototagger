@@ -12,9 +12,8 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.program.model.KeywordsTreeModel;
-import org.jphototagger.program.module.misc.InputHelperDialog;
-import org.jphototagger.program.view.panels.KeywordsPanel;
+import org.jphototagger.program.misc.InputHelperDialog;
+import org.jphototagger.program.module.keywords.KeywordsPanel;
 
 /**
  * Listens to the menu item {@code KeywordsTreePopupMenu#getItemRemove()}

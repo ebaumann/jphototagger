@@ -18,9 +18,9 @@ import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.module.keywords.KeywordsHelper;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.panels.EditMetadataPanels;
-import org.jphototagger.program.view.panels.EditRepeatableTextEntryPanel;
-import org.jphototagger.program.view.panels.KeywordsPanel;
+import org.jphototagger.program.app.ui.EditMetadataPanels;
+import org.jphototagger.program.app.ui.EditRepeatableTextEntryPanel;
+import org.jphototagger.program.module.keywords.KeywordsPanel;
 
 /**
  * Listens to the menu item

@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JMenuItem;
 
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.popupmenus.ThumbnailsPopupMenu;
 
 /**
  *

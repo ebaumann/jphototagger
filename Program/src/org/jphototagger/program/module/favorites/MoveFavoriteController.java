@@ -9,8 +9,6 @@ import javax.swing.tree.TreePath;
 import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.program.model.FavoritesTreeModel;
-import org.jphototagger.program.view.popupmenus.FavoritesPopupMenu;
 
 /**
  * Listens to the {@code FavoritesPopupMenu} and moves in the list

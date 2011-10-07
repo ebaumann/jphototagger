@@ -7,8 +7,8 @@ import java.awt.event.KeyListener;
 
 import org.jphototagger.api.image.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
-import org.jphototagger.program.view.popupmenus.ThumbnailsPopupMenu;
+import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
+import org.jphototagger.program.module.thumbnails.ThumbnailsPopupMenu;
 
 /**
  * Listens to key events of {@code ThumbnailsPanel} and when the

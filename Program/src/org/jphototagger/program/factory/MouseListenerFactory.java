@@ -5,19 +5,19 @@ import org.jphototagger.lib.componentutil.ListItemTempSelectionRowSetter;
 import org.jphototagger.lib.componentutil.TreeItemTempSelectionRowSetter;
 import org.jphototagger.lib.event.listener.TableButtonMouseListener;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.event.listener.DirectoriesMouseListener;
-import org.jphototagger.program.event.listener.FavoritesMouseListener;
-import org.jphototagger.program.event.listener.ImageCollectionsMouseListener;
-import org.jphototagger.program.event.listener.KeywordsListMouseListener;
-import org.jphototagger.program.event.listener.KeywordsTreeMouseListener;
-import org.jphototagger.program.event.listener.MetadataTemplatesMouseListener;
-import org.jphototagger.program.event.listener.SavedSearchesMouseListener;
+import org.jphototagger.program.module.directories.DirectoriesMouseListener;
+import org.jphototagger.program.module.favorites.FavoritesMouseListener;
+import org.jphototagger.program.module.imagecollections.ImageCollectionsMouseListener;
+import org.jphototagger.program.module.keywords.list.KeywordsListMouseListener;
+import org.jphototagger.program.module.keywords.tree.KeywordsTreeMouseListener;
+import org.jphototagger.program.module.metadatatemplates.MetadataTemplatesMouseListener;
+import org.jphototagger.program.module.search.SavedSearchesMouseListener;
 import org.jphototagger.program.event.listener.TreeExpandMouseListener;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.module.misc.InputHelperDialog;
-import org.jphototagger.program.app.AppPanel;
-import org.jphototagger.program.view.popupmenus.KeywordsListPopupMenu;
-import org.jphototagger.program.view.popupmenus.MetadataTemplatesPopupMenu;
+import org.jphototagger.program.misc.InputHelperDialog;
+import org.jphototagger.program.app.ui.AppPanel;
+import org.jphototagger.program.module.keywords.list.KeywordsListPopupMenu;
+import org.jphototagger.program.module.metadatatemplates.MetadataTemplatesPopupMenu;
 
 /**
  * Erzeugt und verbindet MouseListener.

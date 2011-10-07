@@ -23,8 +23,7 @@ import org.jphototagger.lib.comparator.FileSort;
 import org.jphototagger.lib.comparator.FileUnsortedComparator;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.app.AppPanel;
-import org.jphototagger.program.view.panels.ThumbnailsPanel;
+import org.jphototagger.program.app.ui.AppPanel;
 
 /**
  * Applies persistent settings to the thumbnails panel.
