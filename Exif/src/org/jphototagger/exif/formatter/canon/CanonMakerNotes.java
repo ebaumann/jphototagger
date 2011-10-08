@@ -1,7 +1,6 @@
 package org.jphototagger.exif.formatter.canon;
 
 import java.io.File;
-import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,8 +16,6 @@ import org.jphototagger.lib.util.Bundle;
  * @author Elmar Baumann
  */
 public final class CanonMakerNotes implements ExifMakerNotes {
-
-    private static final ResourceBundle BUNDLE = ResourceBundle.getBundle("org/jphototagger/exif/formatter/canon/Bundle");
 
     @Override
     public void add(File file, ExifTags exifTags, ExifTag makerNoteTag) {
