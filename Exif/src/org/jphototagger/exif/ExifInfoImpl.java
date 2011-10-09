@@ -4,7 +4,7 @@ import java.io.File;
 
 import org.openide.util.lookup.ServiceProvider;
 
-import org.jphototagger.api.image.exif.ExifInfo;
+import org.jphototagger.domain.metadata.exif.ExifInfo;
 
 /**
  *
