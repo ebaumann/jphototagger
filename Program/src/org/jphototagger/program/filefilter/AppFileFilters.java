@@ -20,8 +20,6 @@ import org.jphototagger.domain.repository.event.userdefinedfiletypes.UserDefined
 import org.jphototagger.domain.repository.event.userdefinedfiletypes.UserDefinedFileTypeUpdatedEvent;
 import org.jphototagger.lib.io.filefilter.RegexFileFilter;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.filefilter.NoXmpFileFilter;
-import org.jphototagger.program.filefilter.XmpRatingFileFilter;
 
 /**
  * Special file filters used in the application.
