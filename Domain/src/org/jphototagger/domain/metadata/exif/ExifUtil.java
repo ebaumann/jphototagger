@@ -2,6 +2,7 @@ package org.jphototagger.domain.metadata.exif;
 
 import java.io.File;
 import java.util.Collection;
+import java.util.Collections;
 import org.openide.util.Lookup;
 
 /**
@@ -51,6 +52,42 @@ public final class ExifUtil {
             }
         }
         return null;
+    }
+
+    /**
+     *
+     * @param file
+     * @return First non empty collection of tags from an ExifInfo implementation
+     */
+    public static Collection<ExifTag> getExifTags(File file) {
+        Collection<? extends ExifInfo> exifInfos = Lookup.getDefault().lookupAll(ExifInfo.class);
+
+        for (ExifInfo exifInfo : exifInfos) {
+            Collection<ExifTag> exifTags = exifInfo.getExifTags(file);
+            if (!exifTags.isEmpty()) {
+                return exifTags;
+            }
+        }
+
+        return Collections.emptyList();
+    }
+
+    /**
+     *
+     * @param file
+     * @return First non empty collection of tags from an ExifInfo implementation
+     */
+    public static Collection<ExifTag> getExifTagsPreferCached(File file) {
+        Collection<? extends ExifInfo> exifInfos = Lookup.getDefault().lookupAll(ExifInfo.class);
+
+        for (ExifInfo exifInfo : exifInfos) {
+            Collection<ExifTag> exifTags = exifInfo.getExifTagsPreferCached(file);
+            if (!exifTags.isEmpty()) {
+                return exifTags;
+            }
+        }
+
+        return Collections.emptyList();
     }
 
     private ExifUtil() {
