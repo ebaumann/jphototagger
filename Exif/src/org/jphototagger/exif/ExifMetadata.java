@@ -177,13 +177,7 @@ public final class ExifMetadata {
         }
     }
 
-    /**
-     * Returns EXIF metadata of a image file.
-     *
-     * @param  imageFile image file
-     * @return           EXIF metadata or null if errors occured
-     */
-    public static Exif getExif(File imageFile) {
+    static Exif getExif(File imageFile) {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
@@ -193,7 +187,7 @@ public final class ExifMetadata {
         return ExifFactory.getExif(exifTags);
     }
 
-    public static Exif getExifPreferCached(File imageFile) {
+    static Exif getExifPreferCached(File imageFile) {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }

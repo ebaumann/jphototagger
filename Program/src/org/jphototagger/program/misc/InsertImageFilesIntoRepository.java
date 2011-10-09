@@ -1,6 +1,5 @@
 package org.jphototagger.program.misc;
 
-import org.jphototagger.program.module.programs.StartPrograms;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
@@ -18,14 +17,16 @@ import org.bushe.swing.event.EventBus;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.concurrent.Cancelable;
+import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
-import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.event.listener.ProgressListenerSupport;
-import org.jphototagger.domain.metadata.exif.Exif;
 import org.jphototagger.domain.image.ImageFile;
 import org.jphototagger.domain.metadata.event.UpdateMetadataCheckEvent;
 import org.jphototagger.domain.metadata.event.UpdateMetadataCheckEvent.Type;
+import org.jphototagger.domain.metadata.exif.Exif;
+import org.jphototagger.domain.metadata.exif.ExifUtil;
+import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.metadata.xmp.XmpIptc4XmpCoreDateCreatedMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpLastModifiedMetaDataValue;
 import org.jphototagger.domain.programs.Program;
@@ -33,14 +34,11 @@ import org.jphototagger.domain.repository.ActionsAfterRepoUpdatesRepository;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.repository.InsertIntoRepository;
 import org.jphototagger.domain.repository.ThumbnailsRepository;
-import org.jphototagger.domain.metadata.xmp.Xmp;
-import org.jphototagger.exif.ExifMetadata;
-import org.jphototagger.exif.cache.ExifCache;
 import org.jphototagger.image.util.ThumbnailCreatorService;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.filefilter.AppFileFilters;
-import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.app.AppPreferencesKeys;
+import org.jphototagger.program.app.ui.AppLookAndFeel;
+import org.jphototagger.program.module.programs.StartPrograms;
 import org.jphototagger.xmp.XmpMetadata;
 
 /**
@@ -236,18 +234,9 @@ public final class InsertImageFilesIntoRepository extends Thread implements Canc
 
     private void setExif(ImageFile imageFile) {
         File file = imageFile.getFile();
-        Exif exif = null;
+        Exif exif = ExifUtil.readExif(file);
 
-        if (!AppFileFilters.INSTANCE.isUserDefinedFileType(file)) {
-            ExifCache.INSTANCE.deleteCachedExifTags(file);
-            exif = ExifMetadata.getExif(file);
-        }
-
-        if ((exif != null) && !exif.isEmpty()) {
-            imageFile.setExif(exif);
-        } else {
-            imageFile.setExif(null);
-        }
+        imageFile.setExif(exif);
     }
 
     private void setXmp(ImageFile imageFile) {
