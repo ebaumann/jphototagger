@@ -38,8 +38,8 @@ public final class ExifMetadata {
      * @param  imageFile image file or null
      * @return           EXIF entries or null if errors occured
      */
-    public static ExifTags getExifTags(File imageFile) {
-        if ((imageFile == null) || !imageFile.exists()) {
+    static ExifTags getExifTags(File imageFile) {
+        if (imageFile == null || !imageFile.exists()) {
             return null;
         }
 

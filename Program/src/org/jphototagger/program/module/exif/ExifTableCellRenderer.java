@@ -2,8 +2,6 @@ package org.jphototagger.program.module.exif;
 
 import java.awt.Component;
 import java.util.Comparator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -11,14 +9,8 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableStringConverter;
 
-import org.jphototagger.exif.ExifIfdType;
-import org.jphototagger.exif.ExifToSaveInRepository;
-import org.jphototagger.exif.ExifTag;
-import org.jphototagger.exif.ExifTag.Id;
-import org.jphototagger.exif.ExifTagValueFormatter;
-import org.jphototagger.exif.tag.ExifGpsMetadata;
+import org.jphototagger.domain.metadata.exif.ExifTag;
 import org.jphototagger.lib.componentutil.TableUtil;
-import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.lib.util.Translation;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
@@ -33,7 +25,6 @@ public final class ExifTableCellRenderer extends FormatterLabelMetadata implemen
 
     public static final Translation TAG_ID_TAGNAME_TRANSLATION = new Translation(ExifTableCellRenderer.class, "ExifTagIdTagNameTranslations");
     public static final Translation TAGNAME_TRANSLATION = new Translation(ExifTableCellRenderer.class, "ExifTagNameTranslations");
-    private static final Logger LOGGER = Logger.getLogger(ExifTableCellRenderer.class.getName());
 
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
@@ -50,76 +41,21 @@ public final class ExifTableCellRenderer extends FormatterLabelMetadata implemen
         if (value instanceof ExifTag) {
             ExifTag exifTag = (ExifTag) value;
 
-            setIsMakerNoteTagColor(cellLabel, exifTag, isSelected);
-            setIsStoredInRepositoryColor(cellLabel, exifTag, isSelected);    // override maker note (more important)
-
             if (column == 0) {
-                String tagName = getTagName(exifTag);
-
-                TableUtil.embedTableCellTextInHtml(table, row, cellLabel, tagName.trim(),
+                String displayName = exifTag.getDisplayName();
+                TableUtil.embedTableCellTextInHtml(table, row, cellLabel, displayName,
                         AppLookAndFeel.TABLE_MAX_CHARS_ROW_HEADER,
                         AppLookAndFeel.TABLE_ROW_HEADER_CSS);
             } else {
-                TableUtil.embedTableCellTextInHtml(table, row, cellLabel, ExifTagValueFormatter.format(exifTag),
+                String displayValue = exifTag.getDisplayValue();
+                TableUtil.embedTableCellTextInHtml(table, row, cellLabel, displayValue,
                         AppLookAndFeel.TABLE_MAX_CHARS_CELL, AppLookAndFeel.TABLE_CELL_CSS);
-            }
-        } else if (value instanceof ExifGpsMetadata) {
-            if (column == 0) {
-                cellLabel.setText(Bundle.getString(ExifTableCellRenderer.class, "ExifTableCellRenderer.Column.ShowLocationIn"));
             }
         } else if (value instanceof Component) {
             return (Component) value;
-        } else {
-            TableUtil.embedTableCellTextInHtml(table, row, cellLabel, value.toString(),
-                    AppLookAndFeel.TABLE_MAX_CHARS_CELL, AppLookAndFeel.TABLE_CELL_CSS);
         }
 
         return cellLabel;
-    }
-
-    private static String getTagName(ExifTag exifTag) {
-        String tagName = exifTag.getName();
-        ExifIfdType ifdType = exifTag.getIfdType();
-        boolean isMakerNoteIfd = ifdType.equals(ExifIfdType.MAKER_NOTE);
-
-        if (isMakerNoteIfd) {
-            return tagName;
-        }
-
-        Id exifTagId = exifTag.convertTagIdToEnumId();
-        int tagId = exifTagId.getTagId();
-        int makerNoteTagId = ExifTag.Id.MAKER_NOTE.getTagId();
-        boolean isMakerNoteTag = tagId >= makerNoteTagId;
-
-        if (isMakerNoteTag) {
-            boolean canTranslate = TAGNAME_TRANSLATION.canTranslate(tagName);
-
-            if (!canTranslate) {
-                LOGGER.log(Level.INFO, "EXIF tag name suggested for translation: ''{0}''", tagName);
-            }
-
-            return canTranslate
-                    ? TAGNAME_TRANSLATION.translate(tagName)
-                    : tagName;
-        }
-
-        return TAG_ID_TAGNAME_TRANSLATION.translate(Integer.toString(exifTag.getTagId()), tagName);
-    }
-
-    private void setIsMakerNoteTagColor(JLabel cellLabel, ExifTag exifTag, boolean isSelected) {
-        if (exifTag.getIfdType().equals(ExifIfdType.MAKER_NOTE)) {
-            setIsExifMakerNoteColors(cellLabel, isSelected);
-        }
-    }
-
-    private void setIsStoredInRepositoryColor(JLabel cellLabel, ExifTag exifTag, boolean isSelected) {
-        ExifIfdType ifdType = exifTag.getIfdType();
-        Id ExifTagId = exifTag.convertTagIdToEnumId();
-
-        if (ExifToSaveInRepository.isSaveInRepository(ifdType, ExifTagId)) {
-            setIsStoredInRepositoryColors(cellLabel, isSelected);
-            cellLabel.setToolTipText(Bundle.getString(ExifTableCellRenderer.class, "ExifTableCellRenderer.ToolTipText.CellLabelStoredInRepository"));
-        }
     }
 
     public static TableStringConverter createTableStringConverter() {
@@ -141,10 +77,10 @@ public final class ExifTableCellRenderer extends FormatterLabelMetadata implemen
             if (o1 instanceof ExifTag && o2 instanceof ExifTag) {
                 ExifTag exifTag1 = (ExifTag) o1;
                 ExifTag exifTag2 = (ExifTag) o2;
-                String o1String = getTagName(exifTag1).trim();
-                String o2String = getTagName(exifTag2).trim();
+                String displayName1 = exifTag1.getDisplayName();
+                String displayName2 = exifTag2.getDisplayName();
 
-                return o1String.compareToIgnoreCase(o2String);
+                return displayName1.compareToIgnoreCase(displayName2);
             } else {
                 return 0;
             }
@@ -158,10 +94,10 @@ public final class ExifTableCellRenderer extends FormatterLabelMetadata implemen
             if (o1 instanceof ExifTag && o2 instanceof ExifTag) {
                 ExifTag exifTag1 = (ExifTag) o1;
                 ExifTag exifTag2 = (ExifTag) o2;
-                String o1String = ExifTagValueFormatter.format(exifTag1);
-                String o2String = ExifTagValueFormatter.format(exifTag2);
+                String displayValue1 = exifTag1.getDisplayValue();
+                String displayValue2 = exifTag2.getDisplayValue();
 
-                return o1String.compareToIgnoreCase(o2String);
+                return displayValue1.compareToIgnoreCase(displayValue2);
             } else {
                 return 0;
             }
@@ -178,8 +114,8 @@ public final class ExifTableCellRenderer extends FormatterLabelMetadata implemen
                 ExifTag exifTag = (ExifTag) value;
 
                 return column == 0
-                        ? getTagName(exifTag).trim()
-                        : ExifTagValueFormatter.format(exifTag);
+                        ? exifTag.getDisplayName()
+                        : exifTag.getDisplayValue();
             } else {
                 return StringUtil.toStringNullToEmptyString(value);
             }
