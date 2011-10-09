@@ -10,14 +10,14 @@ import java.util.logging.Logger;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.domain.metadata.exif.Exif;
 import org.jphototagger.domain.image.ImageFile;
+import org.jphototagger.domain.metadata.exif.Exif;
+import org.jphototagger.domain.metadata.exif.ExifUtil;
+import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.metadata.xmp.XmpIptc4XmpCoreDateCreatedMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpLastModifiedMetaDataValue;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.repository.InsertIntoRepository;
-import org.jphototagger.domain.metadata.xmp.Xmp;
-import org.jphototagger.exif.ExifMetadata;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.filefilter.AppFileFilters;
 import org.jphototagger.program.misc.HelperThread;
@@ -124,7 +124,7 @@ public final class SetExifToXmp extends HelperThread {
             return;
         }
 
-        Exif exif = ExifMetadata.getExifPreferCached(imgFile);
+        Exif exif = ExifUtil.readExifPreferCached(imgFile);
         Xmp xmp = null;
 
         try {

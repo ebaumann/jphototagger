@@ -6,11 +6,9 @@ import java.util.List;
 import org.openide.util.Lookup;
 
 import org.jphototagger.domain.metadata.exif.Exif;
+import org.jphototagger.domain.metadata.exif.ExifUtil;
 import org.jphototagger.domain.repository.ImageFilesRepository;
-import org.jphototagger.exif.ExifMetadata;
-import org.jphototagger.exif.cache.ExifCache;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.filefilter.AppFileFilters;
 import org.jphototagger.program.misc.HelperThread;
 
 /**
@@ -40,12 +38,7 @@ public final class RefreshExifInDbOfKnownFiles extends HelperThread {
 
         for (int i = 0; !cancel && !isInterrupted() && (i < fileCount); i++) {
             File imageFile = imageFiles.get(i);
-            Exif exif = null;
-
-            if (!AppFileFilters.INSTANCE.isUserDefinedFileType(imageFile)) {
-                ExifCache.INSTANCE.deleteCachedExifTags(imageFile);
-                exif = ExifMetadata.getExif(imageFile);
-            }
+            Exif exif = ExifUtil.readExif(imageFile);
 
             if (exif != null) {
                 repo.saveOrUpdateExif(imageFile, exif);
