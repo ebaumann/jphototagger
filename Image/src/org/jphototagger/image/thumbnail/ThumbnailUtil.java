@@ -24,7 +24,7 @@ import com.imagero.reader.tiff.TiffReader;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.image.exif.ExifInfo;
+import org.jphototagger.domain.metadata.exif.ExifInfo;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.filetypes.UserDefinedFileType;
 import org.jphototagger.domain.repository.UserDefinedFileTypesRepository;

@@ -1,4 +1,4 @@
-package org.jphototagger.api.image.exif;
+package org.jphototagger.domain.metadata.exif;
 
 import java.io.File;
 
