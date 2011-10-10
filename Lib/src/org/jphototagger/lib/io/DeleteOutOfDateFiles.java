@@ -32,29 +32,30 @@ public final class DeleteOutOfDateFiles {
     }
 
     /**
-     *
      * @param cancelRequest  may be null
      * @return count of deleted files
      */
     public int start(CancelRequest cancelRequest) {
         int countDeleted = 0;
         for (File file : files) {
-            if (cancelRequest != null && cancelRequest.isCancel()) {
-                return countDeleted;
-            }
+            if (file.exists()) {
+                if (cancelRequest != null && cancelRequest.isCancel()) {
+                    return countDeleted;
+                }
 
-            long lastModifiedInMilliseconds = file.lastModified();
-            long nowInMilliseconds = System.currentTimeMillis();
-            long minMilliseconds = nowInMilliseconds - deleteIfNMillisecondsOlderThanNow;
-            boolean isTooOld = lastModifiedInMilliseconds < minMilliseconds;
+                long lastModifiedInMilliseconds = file.lastModified();
+                long nowInMilliseconds = System.currentTimeMillis();
+                long minMilliseconds = nowInMilliseconds - deleteIfNMillisecondsOlderThanNow;
+                boolean isTooOld = lastModifiedInMilliseconds < minMilliseconds;
 
-            if (isTooOld) {
-                LOGGER.log(Level.FINEST, "Deleting file ''{0}'' because it is older than {1} milliseconds", new Object[]{file, deleteIfNMillisecondsOlderThanNow});
-                boolean deleted = file.delete();
-                if (deleted) {
-                    countDeleted++;
-                } else {
-                    LOGGER.log(Level.WARNING, "Could not delete file ''{0}''", file);
+                if (isTooOld) {
+                    LOGGER.log(Level.FINEST, "Deleting file ''{0}'' because it is older than {1} milliseconds", new Object[]{file, deleteIfNMillisecondsOlderThanNow});
+                    boolean deleted = file.delete();
+                    if (deleted) {
+                        countDeleted++;
+                    } else {
+                        LOGGER.log(Level.WARNING, "Could not delete file ''{0}''", file);
+                    }
                 }
             }
         }
