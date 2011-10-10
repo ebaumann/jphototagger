@@ -1,7 +1,6 @@
 package org.jphototagger.exif;
 
 import java.io.File;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -9,6 +8,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
 import org.jphototagger.domain.metadata.exif.ExifInfo;
@@ -20,11 +20,8 @@ import org.jphototagger.exif.tag.ExifGpsLongitude;
 import org.jphototagger.exif.tag.ExifGpsMetadata;
 import org.jphototagger.exif.tag.ExifGpsUtil;
 import org.jphototagger.lib.util.Translation;
-import org.openide.util.Lookup;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 @ServiceProvider(service = ExifInfo.class)
@@ -181,8 +178,8 @@ public final class ExifInfoImpl implements ExifInfo {
         String makeString = makeTag.getStringValue();
         Collection<? extends ExifMakerNoteTags> makerNoteExifInfos = Lookup.getDefault().lookupAll(ExifMakerNoteTags.class);
 
-        for (ExifMakerNoteTags makerNotTags : makerNoteExifInfos) {
-            target.addAll(makerNotTags.getMakerNoteTags(makeString, modelString, makerNoteRawValue));
+        for (ExifMakerNoteTags makerNoteTags : makerNoteExifInfos) {
+            target.addAll(makerNoteTags.getMakerNoteTags(makeString, modelString, makerNoteRawValue));
         }
     }
 
