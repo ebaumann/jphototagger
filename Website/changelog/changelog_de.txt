@@ -21,6 +21,10 @@ Changelog JPhotoTagger http://jphototagger.org/
   beim Browsen von Dateien oder Öffnen des PDF-Handbuchs ein Dialog
   angeboten, über den ein passender Browser/PDF-Viewer ausgewählt werden
   kann
+* Beschreibung, wie Programmierer eigene Plugins/Module benutzen
+  können, die nicht in der Distribution erscheinen sollen:
+  http://jphototagger.org/dev/user_services.html
+* Mehrere Änderungen im Backend für bessere Erweiterbarkeit
 
 0.10.1 2011-09-30
 -----------------
