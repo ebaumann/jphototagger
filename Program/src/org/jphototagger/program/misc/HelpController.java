@@ -4,7 +4,6 @@ import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -18,6 +17,7 @@ import javax.swing.JMenuItem;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.lib.awt.DesktopUtil;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.dialog.HelpBrowser;
 import org.jphototagger.lib.dialog.MessageDisplayer;
@@ -191,11 +191,7 @@ public final class HelpController implements ActionListener, HelpBrowserListener
     }
 
     private void browse(String uri) {
-        try {
-            Desktop.getDesktop().browse(new URI(uri));
-        } catch (Exception ex) {
-            Logger.getLogger(HelpController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        DesktopUtil.browse(uri, "JPhotoTagger");
     }
 
     private void openPdfUserManual() {
@@ -205,11 +201,7 @@ public final class HelpController implements ActionListener, HelpBrowserListener
             return;
         }
 
-        try {
-            Desktop.getDesktop().open(manual);
-        } catch (IOException ex) {
-            Logger.getLogger(HelpController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        DesktopUtil.open(manual, "JPhotoTagger.PdfViewer");
     }
 
     /**

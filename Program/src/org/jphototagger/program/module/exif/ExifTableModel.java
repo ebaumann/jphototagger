@@ -1,12 +1,8 @@
 package org.jphototagger.program.module.exif;
 
-import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.io.File;
-import java.net.URI;
 import java.util.Collection;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
@@ -18,6 +14,7 @@ import org.jphototagger.domain.metadata.exif.ExifTag;
 import org.jphototagger.domain.metadata.exif.ExifUtil;
 import org.jphototagger.domain.metadata.exif.event.ExifCacheClearedEvent;
 import org.jphototagger.domain.metadata.exif.event.ExifCacheFileDeletedEvent;
+import org.jphototagger.lib.awt.DesktopUtil;
 import org.jphototagger.lib.model.TableModelExt;
 import org.jphototagger.lib.util.Bundle;
 
@@ -87,11 +84,7 @@ public final class ExifTableModel extends TableModelExt {
         }
 
         private void browse() {
-            try {
-                Desktop.getDesktop().browse(new URI(url));
-            } catch (Exception ex) {
-                Logger.getLogger(GpsButtonListener.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            DesktopUtil.browse(url, "JPhotoTagger");
         }
     }
 

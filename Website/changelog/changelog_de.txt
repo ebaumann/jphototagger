@@ -17,6 +17,10 @@ Changelog JPhotoTagger http://jphototagger.org/
   länger, bis die Bilder eines ausgewählten Ordners einer Suche
   etc. angezeigt werden.
 * Das Eingabefeld für den Bilddtitel ist zwei Zeilen hoch (bislang eine)
+* Falls ein Betriebssystem den Java-Desktop nicht unterstützt, wird
+  beim Browsen von Dateien oder Öffnen des PDF-Handbuchs ein Dialog
+  angeboten, über den ein passender Browser/PDF-Viewer ausgewählt werden
+  kann
 
 0.10.1 2011-09-30
 -----------------
