@@ -239,7 +239,7 @@ public final class ExifMetadata {
         String dateTimeString = dateTimeOriginalTag.getStringValue().trim();
         int dateTimeStringLength = dateTimeString.length();
 
-        if (dateTimeStringLength != 20) {
+        if (dateTimeStringLength != 19) {
             return file.lastModified();
         }
 
@@ -247,9 +247,9 @@ public final class ExifMetadata {
             String yearString = dateTimeString.substring(0, 4);
             String monthString = dateTimeString.substring(5, 7);
             String dayString = dateTimeString.substring(8, 10);
-            String hoursString = dateTimeString.substring(12, 14);
-            String minutesString = dateTimeString.substring(15, 17);
-            String secondsString = dateTimeString.substring(18, 20);
+            String hoursString = dateTimeString.substring(11, 13);
+            String minutesString = dateTimeString.substring(14, 16);
+            String secondsString = dateTimeString.substring(17, 19);
 
             if (!NumberUtil.allStringsAreIntegers(Arrays.asList(yearString, monthString, dayString, hoursString, minutesString, secondsString))) {
                 return file.lastModified();

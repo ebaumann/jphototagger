@@ -20,7 +20,7 @@ import org.jphototagger.lib.util.ClassEquality;
  */
 public final class XmpExifDateTimeAscendingComparator extends ClassEquality implements Comparator<File>, Serializable {
 
-    private static final long serialVersionUID = 2097919906679796456L;
+    private static final long serialVersionUID = 1L;
     private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
     private final ExifInfo exifInfo = Lookup.getDefault().lookup(ExifInfo.class);
 
@@ -38,7 +38,7 @@ public final class XmpExifDateTimeAscendingComparator extends ClassEquality impl
 
         if (hasExif) {
             Date exifDate = new Date(exifInfo.getTimeTakenInMillis(file));
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             return dateFormat.format(exifDate);
         }
 

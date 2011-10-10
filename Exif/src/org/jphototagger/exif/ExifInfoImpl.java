@@ -171,6 +171,11 @@ public final class ExifInfoImpl implements ExifInfo {
 
     private void addMakerNoteTagsFromService(ExifTags source, Collection<org.jphototagger.domain.metadata.exif.ExifTag> target) {
         ExifTag makerNoteTag = source.findExifTagByTagId(ExifTag.Id.MAKER_NOTE.getTagId());
+
+        if (makerNoteTag == null) {
+            return;
+        }
+
         byte[] makerNoteRawValue = makerNoteTag.getRawValue();
         ExifTag modelTag = source.findExifTagByTagId(ExifTag.Id.MODEL.getTagId());
         String modelString = modelTag.getStringValue();

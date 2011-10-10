@@ -9,7 +9,6 @@ import org.openide.util.lookup.ServiceProvider;
 
 import org.jphototagger.domain.thumbnails.FileSortComparator;
 import org.jphototagger.domain.thumbnails.FileSortComparators;
-import org.jphototagger.lib.comparator.ReverseComparator;
 import org.jphototagger.lib.util.Bundle;
 
 /**
@@ -88,7 +87,7 @@ public final class XmpFileSortComparators implements FileSortComparators {
 
         @Override
         public Comparator<File> getDescendingSortComparator() {
-            return new ReverseComparator<File>(new XmpExifDateTimeAscendingComparator());
+            return new XmpExifDateTimeDescendingComparator();
         }
 
         @Override
