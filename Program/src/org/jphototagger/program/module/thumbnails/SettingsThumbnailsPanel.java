@@ -14,7 +14,7 @@ import javax.swing.JRadioButton;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.image.thumbnails.ExternalThumbnailCreationCommand;
+import org.jphototagger.domain.thumbnails.ExternalThumbnailCreationCommand;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.image.ImagePreferencesKeys;
 import org.jphototagger.image.thumbnail.ThumbnailCreationStrategy;

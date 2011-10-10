@@ -37,13 +37,14 @@ public final class EditableMetaDataValues {
 
     static {
         EditHints notRepeatableHintSmall = new EditHints(false, SizeEditField.SMALL);
+        EditHints notRepeatableHintMedium = new EditHints(false, SizeEditField.MEDIUM);
         EditHints notRepeatableHintLarge = new EditHints(false, SizeEditField.LARGE);
         EditHints repeatableHint = new EditHints(true, SizeEditField.LARGE);
 
         EDIT_HINT_OF_META_DATA_VALUE.put(XmpDcSubjectsSubjectMetaDataValue.INSTANCE, repeatableHint);
         EDIT_HINT_OF_META_DATA_VALUE.put(XmpDcTitleMetaDataValue.INSTANCE, notRepeatableHintSmall);
         EDIT_HINT_OF_META_DATA_VALUE.put(XmpDcDescriptionMetaDataValue.INSTANCE, notRepeatableHintLarge);
-        EDIT_HINT_OF_META_DATA_VALUE.put(XmpPhotoshopHeadlineMetaDataValue.INSTANCE, notRepeatableHintSmall);
+        EDIT_HINT_OF_META_DATA_VALUE.put(XmpPhotoshopHeadlineMetaDataValue.INSTANCE, notRepeatableHintMedium);
         EDIT_HINT_OF_META_DATA_VALUE.put(XmpIptc4xmpcoreLocationMetaDataValue.INSTANCE, notRepeatableHintSmall);
         EDIT_HINT_OF_META_DATA_VALUE.put(XmpIptc4XmpCoreDateCreatedMetaDataValue.INSTANCE, notRepeatableHintSmall);
         EDIT_HINT_OF_META_DATA_VALUE.put(XmpPhotoshopAuthorspositionMetaDataValue.INSTANCE, notRepeatableHintSmall);

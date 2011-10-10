@@ -25,7 +25,7 @@ import org.bushe.swing.event.EventBus;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
-import org.jphototagger.api.image.thumbnails.ThumbnailProvider;
+import org.jphototagger.domain.thumbnails.ThumbnailProvider;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessedEvent;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessingFinishedEvent;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessingStartedEvent;
@@ -42,8 +42,6 @@ import org.jphototagger.plugin.flickrupload.FlickrImageInfoPanel.ImageInfo;
 import org.jphototagger.xmp.XmpProperties;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 @ServiceProvider(service = FileProcessorPlugin.class)

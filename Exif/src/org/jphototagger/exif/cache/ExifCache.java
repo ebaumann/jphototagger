@@ -1,5 +1,7 @@
 package org.jphototagger.exif.cache;
 
+import org.jphototagger.domain.metadata.exif.event.ExifCacheClearedEvent;
+import org.jphototagger.domain.metadata.exif.event.ExifCacheFileDeletedEvent;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,8 +21,6 @@ import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.filefilter.AcceptAllFilesFilter;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class ExifCache {

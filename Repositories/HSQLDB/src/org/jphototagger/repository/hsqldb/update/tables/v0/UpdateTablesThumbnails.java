@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
 
-import org.jphototagger.api.storage.ThumbnailsDirectoryProvider;
+import org.jphototagger.domain.thumbnails.ThumbnailsDirectoryProvider;
 import org.openide.util.Lookup;
 
 import org.jphototagger.domain.repository.ApplicationPropertiesRepository;

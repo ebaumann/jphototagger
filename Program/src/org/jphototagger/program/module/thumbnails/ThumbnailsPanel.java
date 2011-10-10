@@ -41,7 +41,7 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.image.thumbnails.OriginOfDisplayedThumbnails;
+import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.domain.event.AppWillExitEvent;

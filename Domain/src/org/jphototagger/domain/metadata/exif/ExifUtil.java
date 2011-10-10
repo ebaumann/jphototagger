@@ -2,7 +2,7 @@ package org.jphototagger.domain.metadata.exif;
 
 import java.io.File;
 import java.util.Collection;
-import java.util.Collections;
+import java.util.LinkedList;
 import org.openide.util.Lookup;
 
 /**
@@ -13,11 +13,10 @@ import org.openide.util.Lookup;
 public final class ExifUtil {
 
     /**
-     * Lookups all aviable ExifReaders and if any did read the EXIF it
-     * will be returned.
+     * Lookups all aviable ExifReaders and if any did read the EXIF, that will be returned.
      *
      * @param file
-     * @return
+     * @return EXIF or null
      */
     public static Exif readExif(File file) {
         Collection<? extends ExifReader> exifReaders = Lookup.getDefault().lookupAll(ExifReader.class);
@@ -34,11 +33,10 @@ public final class ExifUtil {
     }
 
     /**
-     * Lookups all aviable ExifReaders and if any did read the EXIF it
-     * will be returned.
+     * Lookups all aviable ExifReaders and if any did read the EXIF, that will be returned.
      *
      * @param file
-     * @return
+     * @return EXIF or null
      */
     public static Exif readExifPreferCached(File file) {
         Collection<? extends ExifReader> exifReaders = Lookup.getDefault().lookupAll(ExifReader.class);
@@ -57,37 +55,33 @@ public final class ExifUtil {
     /**
      *
      * @param file
-     * @return First non empty collection of tags from an ExifInfo implementation
+     * @return collection of tags of all ExifInfo implementations, maybe empty
      */
     public static Collection<ExifTag> getExifTags(File file) {
         Collection<? extends ExifInfo> exifInfos = Lookup.getDefault().lookupAll(ExifInfo.class);
+        Collection<ExifTag> exifTags = new LinkedList<ExifTag>();
 
         for (ExifInfo exifInfo : exifInfos) {
-            Collection<ExifTag> exifTags = exifInfo.getExifTags(file);
-            if (!exifTags.isEmpty()) {
-                return exifTags;
-            }
+            exifTags.addAll(exifInfo.getExifTags(file));
         }
 
-        return Collections.emptyList();
+        return exifTags;
     }
 
     /**
      *
      * @param file
-     * @return First non empty collection of tags from an ExifInfo implementation
+     * @return collection of tags of all ExifInfo implementations, maybe empty
      */
     public static Collection<ExifTag> getExifTagsPreferCached(File file) {
         Collection<? extends ExifInfo> exifInfos = Lookup.getDefault().lookupAll(ExifInfo.class);
+        Collection<ExifTag> exifTags = new LinkedList<ExifTag>();
 
         for (ExifInfo exifInfo : exifInfos) {
-            Collection<ExifTag> exifTags = exifInfo.getExifTagsPreferCached(file);
-            if (!exifTags.isEmpty()) {
-                return exifTags;
-            }
+            exifTags.addAll(exifInfo.getExifTagsPreferCached(file));
         }
 
-        return Collections.emptyList();
+        return exifTags;
     }
 
     private ExifUtil() {

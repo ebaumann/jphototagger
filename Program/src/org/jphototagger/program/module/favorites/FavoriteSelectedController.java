@@ -6,7 +6,7 @@ import javax.swing.event.TreeSelectionListener;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 
-import org.jphototagger.api.image.thumbnails.OriginOfDisplayedThumbnails;
+import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
 import org.jphototagger.program.resource.GUI;
 

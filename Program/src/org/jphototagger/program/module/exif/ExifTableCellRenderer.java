@@ -12,7 +12,6 @@ import javax.swing.table.TableStringConverter;
 import org.jphototagger.domain.metadata.exif.ExifTag;
 import org.jphototagger.lib.componentutil.TableUtil;
 import org.jphototagger.lib.util.StringUtil;
-import org.jphototagger.lib.util.Translation;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.app.ui.FormatterLabelMetadata;
 
@@ -22,9 +21,6 @@ import org.jphototagger.program.app.ui.FormatterLabelMetadata;
  * @author Elmar Baumann
  */
 public final class ExifTableCellRenderer extends FormatterLabelMetadata implements TableCellRenderer {
-
-    public static final Translation TAG_ID_TAGNAME_TRANSLATION = new Translation(ExifTableCellRenderer.class, "ExifTagIdTagNameTranslations");
-    public static final Translation TAGNAME_TRANSLATION = new Translation(ExifTableCellRenderer.class, "ExifTagNameTranslations");
 
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {

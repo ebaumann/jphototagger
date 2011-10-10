@@ -21,7 +21,7 @@ import org.bushe.swing.event.EventBus;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.file.event.FileRenamedEvent;
-import org.jphototagger.api.image.thumbnails.ThumbnailProvider;
+import org.jphototagger.domain.thumbnails.ThumbnailProvider;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesHints;
 import org.jphototagger.domain.templates.RenameTemplate;

@@ -28,4 +28,12 @@ public interface ExifInfo {
      * @return tags or empty collection
      */
     Collection<ExifTag> getExifTagsPreferCached(File file);
+
+    /**
+     *
+     * @param file
+     * @return Date taken in milliseconds since 1970/01/01
+     *    or file last modification time if the EXIF can't be read
+     */
+    long getTimeTakenInMillis(File file);
 }

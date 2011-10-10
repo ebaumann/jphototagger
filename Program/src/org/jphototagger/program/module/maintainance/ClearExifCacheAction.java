@@ -4,7 +4,9 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 
-import org.jphototagger.exif.cache.ExifCache;
+import org.openide.util.Lookup;
+
+import org.jphototagger.domain.metadata.exif.ExifCacheProvider;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 
@@ -25,7 +27,7 @@ public final class ClearExifCacheAction extends AbstractAction {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (confirm()) {
-            int deletedFileCount = ExifCache.INSTANCE.clear();
+            int deletedFileCount = Lookup.getDefault().lookup(ExifCacheProvider.class).clear();
             showDeletedFileCountInfo(deletedFileCount);
         }
     }

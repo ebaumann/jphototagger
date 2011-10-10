@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.image.thumbnails.ThumbnailProvider;
+import org.jphototagger.domain.thumbnails.ThumbnailProvider;
 import org.jphototagger.image.util.ThumbnailCreatorService;
 import org.jphototagger.lib.io.filefilter.FileChooserFilter;
 import org.jphototagger.lib.io.filefilter.RegexFileFilter;

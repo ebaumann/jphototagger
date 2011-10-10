@@ -6,7 +6,7 @@ import java.util.Collection;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.image.thumbnails.ThumbnailCreator;
+import org.jphototagger.domain.thumbnails.ThumbnailCreator;
 import org.jphototagger.api.preferences.Preferences;
 
 /**

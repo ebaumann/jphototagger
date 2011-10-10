@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.branding.AppProperties;
-import org.jphototagger.api.storage.ThumbnailsDirectoryProvider;
+import org.jphototagger.domain.thumbnails.ThumbnailsDirectoryProvider;
 import org.jphototagger.domain.repository.ApplicationPropertiesRepository;
 import org.jphototagger.lib.dialog.MessageDisplayer;
 import org.jphototagger.lib.io.FileUtil;

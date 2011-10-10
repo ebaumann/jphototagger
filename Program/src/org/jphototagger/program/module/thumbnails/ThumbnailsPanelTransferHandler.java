@@ -18,7 +18,7 @@ import org.jdesktop.swingx.JXList;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.image.thumbnails.OriginOfDisplayedThumbnails;
+import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.MetaDataValueData;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;

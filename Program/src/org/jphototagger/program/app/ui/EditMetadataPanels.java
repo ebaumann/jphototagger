@@ -911,7 +911,9 @@ public final class EditMetadataPanels implements FocusListener {
 
         for (MetaDataValue metaDataValue : EditableMetaDataValues.get()) {
             EditHints editHints = EditableMetaDataValues.getEditHints(metaDataValue);
-            boolean large = editHints.getSizeEditField().equals(SizeEditField.LARGE);
+            SizeEditField sizeEditField = editHints.getSizeEditField();
+            boolean large = sizeEditField.equals(SizeEditField.LARGE);
+            boolean medium = sizeEditField.equals(SizeEditField.MEDIUM);
             boolean isRepeatable = editHints.isRepeatable();
 
             if (isRepeatable) {
@@ -933,7 +935,8 @@ public final class EditMetadataPanels implements FocusListener {
                 } else {
                     EditTextEntryPanel panel = new EditTextEntryPanel(metaDataValue);
                     panel.textAreaEdit.addFocusListener(this);
-                    panel.textAreaEdit.setRows(large ? 4 : 1);
+                    int rows = large ? 4 : medium ? 2 : 1;
+                    panel.textAreaEdit.setRows(rows);
                     textEntries.add(panel);
                 }
                 notRepeatableMetaDataValuesOfTextEntries.add(metaDataValue);

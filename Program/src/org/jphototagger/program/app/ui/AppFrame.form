@@ -4,6 +4,18 @@
   <NonVisualComponents>
     <Component class="javax.swing.ButtonGroup" name="buttonGroupSort">
     </Component>
+    <Component class="javax.swing.JRadioButtonMenuItem" name="radioButtonMenuItemSortNone">
+      <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="buttonGroupSort"/>
+        </Property>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="org/jphototagger/program/app/ui/Bundle.properties" key="AppFrame.radioButtonMenuItemSortNone.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
+        <Property name="enabled" type="boolean" value="false"/>
+        <Property name="name" type="java.lang.String" value="radioButtonMenuItemSortNone" noResource="true"/>
+      </Properties>
+    </Component>
     <Menu class="javax.swing.JMenuBar" name="menuBar">
       <Properties>
         <Property name="name" type="java.lang.String" value="menuBar" noResource="true"/>
@@ -318,185 +330,6 @@
                       <ResourceString bundle="org/jphototagger/program/app/ui/Bundle.properties" key="AppFrame.radioButtonMenuItemSortLastModifiedDescending.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                     </Property>
                     <Property name="name" type="java.lang.String" value="radioButtonMenuItemSortLastModifiedDescending" noResource="true"/>
-                  </Properties>
-                </MenuItem>
-                <MenuItem class="javax.swing.JPopupMenu$Separator" name="sep8">
-                  <Properties>
-                    <Property name="name" type="java.lang.String" value="sep8" noResource="true"/>
-                  </Properties>
-                </MenuItem>
-                <MenuItem class="javax.swing.JRadioButtonMenuItem" name="radioButtonMenuItemSortExifDateTimeOriginalAscending">
-                  <Properties>
-                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                      <ComponentRef name="buttonGroupSort"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="org/jphototagger/program/app/ui/Bundle.properties" key="AppFrame.radioButtonMenuItemSortExifDateTimeOriginalAscending.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                    </Property>
-                    <Property name="name" type="java.lang.String" value="radioButtonMenuItemSortExifDateTimeOriginalAscending" noResource="true"/>
-                  </Properties>
-                </MenuItem>
-                <MenuItem class="javax.swing.JRadioButtonMenuItem" name="radioButtonMenuItemSortExifDateTimeOriginalDescending">
-                  <Properties>
-                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                      <ComponentRef name="buttonGroupSort"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="org/jphototagger/program/app/ui/Bundle.properties" key="AppFrame.radioButtonMenuItemSortExifDateTimeOriginalDescending.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                    </Property>
-                    <Property name="name" type="java.lang.String" value="radioButtonMenuItemSortExifDateTimeOriginalDescending" noResource="true"/>
-                  </Properties>
-                </MenuItem>
-                <MenuItem class="javax.swing.JPopupMenu$Separator" name="sep9">
-                  <Properties>
-                    <Property name="name" type="java.lang.String" value="sep9" noResource="true"/>
-                  </Properties>
-                </MenuItem>
-                <MenuItem class="javax.swing.JRadioButtonMenuItem" name="radioButtonMenuItemSortExifIsoSpeedRatingAscending">
-                  <Properties>
-                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                      <ComponentRef name="buttonGroupSort"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="org/jphototagger/program/app/ui/Bundle.properties" key="AppFrame.radioButtonMenuItemSortExifIsoSpeedRatingAscending.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                    </Property>
-                    <Property name="name" type="java.lang.String" value="radioButtonMenuItemSortExifIsoSpeedRatingAscending" noResource="true"/>
-                  </Properties>
-                </MenuItem>
-                <MenuItem class="javax.swing.JRadioButtonMenuItem" name="radioButtonMenuItemSortExifIsoSpeedRatingDescending">
-                  <Properties>
-                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                      <ComponentRef name="buttonGroupSort"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="org/jphototagger/program/app/ui/Bundle.properties" key="AppFrame.radioButtonMenuItemSortExifIsoSpeedRatingDescending.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                    </Property>
-                    <Property name="name" type="java.lang.String" value="radioButtonMenuItemSortExifIsoSpeedRatingDescending" noResource="true"/>
-                  </Properties>
-                </MenuItem>
-                <MenuItem class="javax.swing.JPopupMenu$Separator" name="sep10">
-                  <Properties>
-                    <Property name="name" type="java.lang.String" value="sep10" noResource="true"/>
-                  </Properties>
-                </MenuItem>
-                <MenuItem class="javax.swing.JRadioButtonMenuItem" name="radioButtonMenuItemSortExifFocalLengthAscending">
-                  <Properties>
-                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                      <ComponentRef name="buttonGroupSort"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="org/jphototagger/program/app/ui/Bundle.properties" key="AppFrame.radioButtonMenuItemSortExifFocalLengthAscending.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                    </Property>
-                    <Property name="name" type="java.lang.String" value="radioButtonMenuItemSortExifFocalLengthAscending" noResource="true"/>
-                  </Properties>
-                </MenuItem>
-                <MenuItem class="javax.swing.JRadioButtonMenuItem" name="radioButtonMenuItemSortExifFocalLengthDescending">
-                  <Properties>
-                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                      <ComponentRef name="buttonGroupSort"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="org/jphototagger/program/app/ui/Bundle.properties" key="AppFrame.radioButtonMenuItemSortExifFocalLengthDescending.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                    </Property>
-                    <Property name="name" type="java.lang.String" value="radioButtonMenuItemSortExifFocalLengthDescending" noResource="true"/>
-                  </Properties>
-                </MenuItem>
-                <MenuItem class="javax.swing.JPopupMenu$Separator" name="sep11">
-                  <Properties>
-                    <Property name="name" type="java.lang.String" value="sep11" noResource="true"/>
-                  </Properties>
-                </MenuItem>
-                <MenuItem class="javax.swing.JRadioButtonMenuItem" name="radioButtonMenuItemSortExifRecordingEquipmentAscending">
-                  <Properties>
-                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                      <ComponentRef name="buttonGroupSort"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="org/jphototagger/program/app/ui/Bundle.properties" key="AppFrame.radioButtonMenuItemSortExifRecordingEquipmentAscending.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                    </Property>
-                    <Property name="name" type="java.lang.String" value="radioButtonMenuItemSortExifRecordingEquipmentAscending" noResource="true"/>
-                  </Properties>
-                </MenuItem>
-                <MenuItem class="javax.swing.JRadioButtonMenuItem" name="radioButtonMenuItemSortExifRecordingEquipmentDescending">
-                  <Properties>
-                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                      <ComponentRef name="buttonGroupSort"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="org/jphototagger/program/app/ui/Bundle.properties" key="AppFrame.radioButtonMenuItemSortExifRecordingEquipmentDescending.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                    </Property>
-                    <Property name="name" type="java.lang.String" value="radioButtonMenuItemSortExifRecordingEquipmentDescending" noResource="true"/>
-                  </Properties>
-                </MenuItem>
-                <MenuItem class="javax.swing.JPopupMenu$Separator" name="sep12">
-                  <Properties>
-                    <Property name="name" type="java.lang.String" value="sep12" noResource="true"/>
-                  </Properties>
-                </MenuItem>
-                <MenuItem class="javax.swing.JRadioButtonMenuItem" name="radioButtonMenuItemSortXmpIptcLocationAscending">
-                  <Properties>
-                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                      <ComponentRef name="buttonGroupSort"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="org/jphototagger/program/app/ui/Bundle.properties" key="AppFrame.radioButtonMenuItemSortXmpIptcLocationAscending.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                    </Property>
-                    <Property name="name" type="java.lang.String" value="radioButtonMenuItemSortXmpIptcLocationAscending" noResource="true"/>
-                  </Properties>
-                </MenuItem>
-                <MenuItem class="javax.swing.JRadioButtonMenuItem" name="radioButtonMenuItemSortXmpIptcLocationDescending">
-                  <Properties>
-                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                      <ComponentRef name="buttonGroupSort"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="org/jphototagger/program/app/ui/Bundle.properties" key="AppFrame.radioButtonMenuItemSortXmpIptcLocationDescending.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                    </Property>
-                    <Property name="name" type="java.lang.String" value="radioButtonMenuItemSortXmpIptcLocationDescending" noResource="true"/>
-                  </Properties>
-                </MenuItem>
-                <MenuItem class="javax.swing.JPopupMenu$Separator" name="sep13">
-                  <Properties>
-                    <Property name="name" type="java.lang.String" value="sep13" noResource="true"/>
-                  </Properties>
-                </MenuItem>
-                <MenuItem class="javax.swing.JRadioButtonMenuItem" name="radioButtonMenuItemSortXmpRatingAscending">
-                  <Properties>
-                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                      <ComponentRef name="buttonGroupSort"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="org/jphototagger/program/app/ui/Bundle.properties" key="AppFrame.radioButtonMenuItemSortXmpRatingAscending.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                    </Property>
-                    <Property name="name" type="java.lang.String" value="radioButtonMenuItemSortXmpRatingAscending" noResource="true"/>
-                  </Properties>
-                </MenuItem>
-                <MenuItem class="javax.swing.JRadioButtonMenuItem" name="radioButtonMenuItemSortXmpRatingDescending">
-                  <Properties>
-                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                      <ComponentRef name="buttonGroupSort"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="org/jphototagger/program/app/ui/Bundle.properties" key="AppFrame.radioButtonMenuItemSortXmpRatingDescending.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                    </Property>
-                    <Property name="name" type="java.lang.String" value="radioButtonMenuItemSortXmpRatingDescending" noResource="true"/>
-                  </Properties>
-                </MenuItem>
-                <MenuItem class="javax.swing.JPopupMenu$Separator" name="sep14">
-                  <Properties>
-                    <Property name="name" type="java.lang.String" value="sep14" noResource="true"/>
-                  </Properties>
-                </MenuItem>
-                <MenuItem class="javax.swing.JRadioButtonMenuItem" name="radioButtonMenuItemSortNone">
-                  <Properties>
-                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                      <ComponentRef name="buttonGroupSort"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="org/jphototagger/program/app/ui/Bundle.properties" key="AppFrame.radioButtonMenuItemSortNone.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                    </Property>
-                    <Property name="enabled" type="boolean" value="false"/>
-                    <Property name="name" type="java.lang.String" value="radioButtonMenuItemSortNone" noResource="true"/>
                   </Properties>
                 </MenuItem>
               </SubComponents>

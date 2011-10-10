@@ -5,7 +5,7 @@ import java.io.File;
 
 import org.openide.util.lookup.ServiceProvider;
 
-import org.jphototagger.api.image.thumbnails.ThumbnailProvider;
+import org.jphototagger.domain.thumbnails.ThumbnailProvider;
 
 /**
  *

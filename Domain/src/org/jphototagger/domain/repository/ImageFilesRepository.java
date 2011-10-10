@@ -21,7 +21,7 @@ import org.jphototagger.domain.metadata.xmp.Xmp;
  */
 public interface ImageFilesRepository {
 
-    int deleteImageFiles(List<File> imageFiles);
+    int deleteImageFiles(List<File> files);
 
     void deleteDcSubject(String dcSubject);
 
@@ -31,7 +31,7 @@ public interface ImageFilesRepository {
 
     void deleteValueOfJoinedMetaDataValue(MetaDataValue mdValue, String value);
 
-    public boolean existsImageFile(File imageFile);
+    public boolean existsImageFile(File file);
 
     boolean existsDcSubject(String dcSubject);
 
@@ -53,9 +53,9 @@ public interface ImageFilesRepository {
 
     Set<File> findAllThumbnailFiles();
 
-    List<String> findDcSubjectsOfImageFile(File imageFile);
+    List<String> findDcSubjectsOfImageFile(File file);
 
-    Exif findExifOfImageFile(File imageFile);
+    Exif findExifOfImageFile(File file);
 
     Long findIdDcSubject(String dcSubject);
 
@@ -73,7 +73,7 @@ public interface ImageFilesRepository {
 
     List<File> findImageFilesContainingAVauleInMetaDataValue(MetaDataValue value);
 
-    long findImageFilesLastModifiedTimestamp(File imageFile);
+    long findImageFilesLastModifiedTimestamp(File file);
 
     Set<File> findImageFilesOfDateTaken(int year, int month, int day);
 
@@ -87,29 +87,31 @@ public interface ImageFilesRepository {
 
     Timeline findTimeline();
 
-    long findXmpFilesLastModifiedTimestamp(File imageFile);
+    long findXmpFilesLastModifiedTimestamp(File file);
 
-    Xmp findXmpOfImageFile(File imageFile);
+    Xmp findXmpOfImageFile(File file);
 
-    List<FileXmp> findXmpOfImageFiles(Collection<? extends File> imageFiles);
+    String findXmpIptc4CoreDateCreated(File file);
+
+    List<FileXmp> findXmpOfImageFiles(Collection<? extends File> files);
 
     boolean saveDcSubject(String dcSubject);
 
-    boolean saveOrUpdateExif(File imageFile, Exif exif);
+    boolean saveOrUpdateExif(File file, Exif exif);
 
     boolean saveOrUpdateImageFile(ImageFile imageFile);
 
-    boolean saveOrUpdateXmpOfImageFile(File imageFile, Xmp xmp);
+    boolean saveOrUpdateXmpOfImageFile(File file, Xmp xmp);
 
     boolean isDcSubjectReferenced(String dcSubject);
 
-    boolean setLastModifiedToXmpSidecarFileOfImageFile(File imageFile, long time);
+    boolean setLastModifiedToXmpSidecarFileOfImageFile(File file, long time);
 
     boolean updateImageFile(ImageFile imageFile);
 
     int updateRenameImageFile(File fromImageFile, File toImageFile);
 
-    boolean updateThumbnail(File imageFile, Image thumbnail);
+    boolean updateThumbnail(File file, Image thumbnail);
 
     int updateAllThumbnails(ProgressListener listener);
 

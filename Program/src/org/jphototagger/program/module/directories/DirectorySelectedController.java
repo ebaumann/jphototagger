@@ -11,7 +11,7 @@ import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 
 import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
-import org.jphototagger.api.image.thumbnails.OriginOfDisplayedThumbnails;
+import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;

@@ -7,7 +7,7 @@ import java.util.HashSet;
 
 import org.openide.util.lookup.ServiceProvider;
 
-import org.jphototagger.api.image.thumbnails.ExternalThumbnailCreationCommand;
+import org.jphototagger.domain.thumbnails.ExternalThumbnailCreationCommand;
 import org.jphototagger.lib.system.SystemUtil;
 import org.jphototagger.lib.util.Bundle;
 
