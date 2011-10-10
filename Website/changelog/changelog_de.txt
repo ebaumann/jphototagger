@@ -12,9 +12,9 @@ Changelog JPhotoTagger http://jphototagger.org/
   ** XMP- und EXIF-Datum absteigend
   Diese Sortierungen sind verhältnismäßig langsam, da sämtliche
   Metadaten aus den Dateien extrahiert werden und nicht aus der
-  Datenbank, denn diese speichert nur Tag/Monat/Jahr und nicht
-  die Uhrzeit. Das heißt: Mit diesen Sortierungen dauert es
-  länger, bis die Bilder eines ausgewählten Ordners einer Suche
+  Datenbank, denn in dieser sind nur Tag/Monat/Jahr gespeichert und
+  nicht die Uhrzeit. Das heißt: Mit diesen Sortierungen dauert es
+  länger, bis die Bilder eines ausgewählten Ordners oder einer Suche
   etc. angezeigt werden.
 * Das Eingabefeld für den Bilddtitel ist zwei Zeilen hoch (bislang eine)
 * Falls ein Betriebssystem den Java-Desktop nicht unterstützt, wird
