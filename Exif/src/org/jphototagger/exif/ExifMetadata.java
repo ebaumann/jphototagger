@@ -12,12 +12,14 @@ import com.imagero.reader.tiff.IFDEntry;
 import com.imagero.reader.tiff.ImageFileDirectory;
 import com.imagero.reader.tiff.TiffReader;
 
-import org.openide.util.Lookup;
 
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import org.jphototagger.domain.metadata.exif.Exif;
-import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.exif.cache.ExifCache;
 import org.jphototagger.image.ImageFileType;
+import org.jphototagger.lib.util.NumberUtil;
 
 /**
  * Extracts EXIF metadata from images as {@code ExifTag} and
@@ -32,12 +34,6 @@ public final class ExifMetadata {
     private ExifMetadata() {
     }
 
-    /**
-     * Returns {@code ExifTag} instances of an image file.
-     *
-     * @param  imageFile image file or null
-     * @return           EXIF entries or null if errors occured
-     */
     static ExifTags getExifTags(File imageFile) {
         if (imageFile == null || !imageFile.exists()) {
             return null;
@@ -52,7 +48,7 @@ public final class ExifMetadata {
             Logger.getLogger(ExifMetadata.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        ExifMakerNotesFactory.add(imageFile, exifTags);
+        ExifMakerNotesAdder.addMakerNotesToExifTags(imageFile, exifTags);
 
         return exifTags;
     }
@@ -67,17 +63,17 @@ public final class ExifMetadata {
         } else {
             LOGGER.log(Level.INFO, "Reading EXIF metadata of file ''{0}'''' with TIFF reader", imageFile);
             imageReader = new TiffReader(imageFile);
+            TiffReader tiffReader = (TiffReader) imageReader;
+            int count = tiffReader.getIFDCount();
 
-            int count = ((TiffReader) imageReader).getIFDCount();
-
-            // FIXME: IfdType.EXIF: How to determine the IFD type of an IFD
-            // (using not IfdType.EXIF)?
             for (int i = 0; i < count; i++) {
-                addTagsOfIfd(((TiffReader) imageReader).getIFD(i), ExifIfdType.EXIF, exifTags);
+                // FIXME: IfdType.EXIF: How to determine the IFD type of an IFD (using not IfdType.EXIF)?
+                ImageFileDirectory iFD = tiffReader.getIFD(i);
+                addTagsOfIfd(iFD, ExifIfdType.EXIF, exifTags);
             }
         }
 
-        close(imageReader);
+        closeImageReader(imageReader);
     }
 
     private static void addAllExifTags(JpegReader jpegReader, ExifTags exifTags) {
@@ -104,7 +100,7 @@ public final class ExifMetadata {
         }
     }
 
-    private static void close(ImageReader imageReader) {
+    private static void closeImageReader(ImageReader imageReader) {
         if (imageReader != null) {
             imageReader.close();
         }
@@ -227,58 +223,59 @@ public final class ExifMetadata {
         }
     }
 
-    /**
-     * Returns the milliseconds since 1970 of the time when the image was taken.
-     * <p>
-     * Reads the EXIF information of the file.
-     *
-     * @param  imageFile image file
-     * @return milliseconds. If the image file has no EXIF metadata or no
-     *         date time original information whithin the EXIF metadata the last
-     *         modification time of the file will be returned
-     */
-    public static long timestampDateTimeOriginal(File imageFile) {
-        if (imageFile == null) {
-            throw new NullPointerException("imageFile == null");
+    static long getTimeTakenInMillis(File file) {
+        ExifTags exifTags = getExifTags(file);
+
+        if (exifTags == null) {
+            return file.lastModified();
         }
 
-        Exif exif = null;
+        ExifTag dateTimeOriginalTag = exifTags.findExifTagByTagId(ExifTag.Id.DATE_TIME_ORIGINAL.getTagId());
 
-        if (ExifSupport.INSTANCE.canReadExif(imageFile)) {
-            exif = getExifPreferCached(imageFile);
+        if (dateTimeOriginalTag == null) {
+            return file.lastModified();
         }
 
-        if ((exif == null) || (exif.getDateTimeOriginal() == null)) {
-            return imageFile.lastModified();
+        String dateTimeString = dateTimeOriginalTag.getStringValue().trim();
+        int dateTimeStringLength = dateTimeString.length();
+
+        if (dateTimeStringLength != 20) {
+            return file.lastModified();
         }
 
-        return exif.getDateTimeOriginal().getTime();
-    }
+        try {
+            String yearString = dateTimeString.substring(0, 4);
+            String monthString = dateTimeString.substring(5, 7);
+            String dayString = dateTimeString.substring(8, 10);
+            String hoursString = dateTimeString.substring(12, 14);
+            String minutesString = dateTimeString.substring(15, 17);
+            String secondsString = dateTimeString.substring(18, 20);
 
-    /**
-     * Returns the milliseconds since 1970 of the time when the image was taken.
-     * <p>
-     * Gets the EXIF information from the repository. If in the repository is no
-     * EXIF information, the file's timestamp will be used, regardless whether
-     * the file contains EXIF information.
-     *
-     * @param  imageFile image file
-     * @return milliseconds. If the image file has no EXIF metadata or no
-     *         date time original information whithin the EXIF metadata the last
-     *         modification time of the file will be returned
-     */
-    public static long timestampDateTimeOriginalDb(File imageFile) {
-        if (imageFile == null) {
-            throw new NullPointerException("imageFile == null");
+            if (!NumberUtil.allStringsAreIntegers(Arrays.asList(yearString, monthString, dayString, hoursString, minutesString, secondsString))) {
+                return file.lastModified();
+            }
+
+            int year = Integer.parseInt(yearString);
+            int month = Integer.parseInt(monthString);
+            int day = Integer.parseInt(dayString);
+            int hours = Integer.parseInt(hoursString);
+            int minutes = Integer.parseInt(minutesString);
+            int seconds = Integer.parseInt(secondsString);
+
+            Calendar calendar = new GregorianCalendar();
+
+            if (year < 1839) {
+                LOGGER.log(Level.WARNING, "Year {0} is not plausible and EXIF date time taken will not be set!", year);
+                return file.lastModified();
+            }
+
+            calendar.set(year, month - 1, day, hours, minutes, seconds);
+
+            return calendar.getTimeInMillis();
+        } catch (Exception ex) {
+            LOGGER.log(Level.SEVERE, null, ex);
         }
 
-        ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
-        Exif exif = repo.findExifOfImageFile(imageFile);
-
-        if ((exif == null) || (exif.getDateTimeOriginal() == null)) {
-            return imageFile.lastModified();
-        }
-
-        return exif.getDateTimeOriginal().getTime();
+        return file.lastModified();
     }
 }

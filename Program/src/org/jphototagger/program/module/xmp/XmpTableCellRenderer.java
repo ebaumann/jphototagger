@@ -21,7 +21,6 @@ import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.lib.util.Translation;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.app.ui.FormatterLabelMetadata;
-import org.jphototagger.program.module.exif.ExifTableCellRenderer;
 import org.jphototagger.xmp.XmpMetadata;
 
 /**
@@ -35,7 +34,6 @@ public final class XmpTableCellRenderer extends FormatterLabelMetadata implement
     private static final String DELIMITER_PATH = "/";
     private static final String DELIMITER_NAMESPACE = ":";
     private static final Translation TRANSLATION_XMP = new Translation(XmpTableCellRenderer.class, "XmpPropertyTranslations");
-    private static final Translation TRANSLATION_XMP_EXIF_TAG_ID = new Translation(XmpTableCellRenderer.class, "XmpPropertyExifTagIdTranslations");
 
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
@@ -77,9 +75,7 @@ public final class XmpTableCellRenderer extends FormatterLabelMetadata implement
         for (int i = 0; i < pathComponentsCount; i++) {
             String pathComponent = pathComponents.get(i);
             String withoutIndex = getWithoutIndex(pathComponent);
-            String translated = (isExifNamespace(pathComponent)
-                    ? ExifTableCellRenderer.TAG_ID_TAGNAME_TRANSLATION.translate(TRANSLATION_XMP_EXIF_TAG_ID.translate(withoutIndex, alternate))
-                    : TRANSLATION_XMP.translate(withoutIndex, alternate));
+            String translated = TRANSLATION_XMP.translate(withoutIndex, alternate);
 
             newPath.append(getWithoutNamespace(translated)).append(getIndexString(pathComponent)).append(
                     ((pathComponentsCount > 1) && (i < pathComponentsCount - 1))

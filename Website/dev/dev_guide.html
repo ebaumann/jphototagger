@@ -108,6 +108,27 @@ implementation.doSomething();
                     application startup without user interaction (file processors will be invoked only if the user
                     calls them). Examples are <code>FileEventHooks</code> or <code>RepositoryFileBrowser</code>.
                 </p>
+				
+				<h2>Thumbnails for a specific file format not supported by JPotoTagger</h2>
+				
+				<p>Implement <code>org.jphototagger.domain.thumbnails.ThumbnailCreator</code>.
+				   JPhotoTagger will find it through the <strong>Java Service Provider Interface</strong>.
+				</p>
+				
+				<h2>EXIF for a specific file format not supported by JPotoTagger</h2>
+				
+				<p>Implement <code>org.jphototagger.domain.metadata.exif.ExifReader</code>.
+				   JPhotoTagger will find it through the <strong>Java Service Provider Interface</strong>.
+				</p>
+				
+				<h2>EXIF Maker Notes</h2>
+				
+				<p>Implement <code>org.jphototagger.domain.metadata.exif.ExifMakerNoteTags</code>.
+				   JPhotoTagger will find it through the <strong>Java Service Provider Interface</strong>.
+				   In Opposite to an <code>ExifReader</code>, a <code>ExifMakerNoteTags</code> instance
+				   gets the already read Maker Notes byte array and has to use the specification of
+				   the maker to decode them.
+				</p>
 
                 <h3>Remarks</h3>
 

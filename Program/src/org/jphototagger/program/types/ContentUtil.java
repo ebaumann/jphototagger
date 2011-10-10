@@ -3,7 +3,7 @@ package org.jphototagger.program.types;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jphototagger.api.image.thumbnails.OriginOfDisplayedThumbnails;
+import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
 
 /**
  * Utils for {@code OriginOfDisplayedThumbnails}.

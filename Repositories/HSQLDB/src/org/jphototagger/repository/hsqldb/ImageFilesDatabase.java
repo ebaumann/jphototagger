@@ -1133,6 +1133,37 @@ final class ImageFilesDatabase extends Database {
         }
     }
 
+    String findXmpIptc4CoreDateCreated(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String sql = "SELECT xmp.iptc4xmpcore_datecreated FROM files INNER JOIN xmp ON files.id = xmp.id_file WHERE files.filename = ?";
+        String result = null;
+
+        try {
+            con = getConnection();
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, getFilePath(file));
+            logFinest(stmt);
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                result = rs.getString(1);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(ImageFilesDatabase.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            close(rs, stmt);
+            free(con);
+        }
+
+        return result;
+    }
+
     boolean existsXmpForFile(File file) {
         if (file == null) {
             throw new NullPointerException("file == null");

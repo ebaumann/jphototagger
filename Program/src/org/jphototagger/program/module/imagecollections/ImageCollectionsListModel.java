@@ -8,7 +8,6 @@ import javax.swing.DefaultListModel;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 
-import org.jphototagger.domain.comparator.StringAscendingComparator;
 import org.openide.util.Lookup;
 
 import org.jphototagger.domain.imagecollections.ImageCollection;

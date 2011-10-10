@@ -1,5 +1,7 @@
 package org.jphototagger.lib.util;
 
+import java.util.Collection;
+
 /**
  *
  *
@@ -59,6 +61,20 @@ public final class NumberUtil {
         } catch (Throwable ignored) {
             return false;
         }
+    }
+
+    public static boolean allStringsAreIntegers(Collection<? extends String> strings) {
+        if (strings == null) {
+            throw new NullPointerException("strings == null");
+        }
+
+        for (String string : strings) {
+            if (!isInteger(string)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**

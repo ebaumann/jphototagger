@@ -16,8 +16,8 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 
 import org.jphototagger.domain.metadata.exif.ExifTag;
 import org.jphototagger.domain.metadata.exif.ExifUtil;
-import org.jphototagger.exif.cache.ExifCacheClearedEvent;
-import org.jphototagger.exif.cache.ExifCacheFileDeletedEvent;
+import org.jphototagger.domain.metadata.exif.event.ExifCacheClearedEvent;
+import org.jphototagger.domain.metadata.exif.event.ExifCacheFileDeletedEvent;
 import org.jphototagger.lib.model.TableModelExt;
 import org.jphototagger.lib.util.Bundle;
 

@@ -5,8 +5,8 @@ import java.util.Collection;
 
 import org.openide.util.lookup.ServiceProvider;
 
-import org.jphototagger.api.image.thumbnails.OriginOfDisplayedThumbnails;
-import org.jphototagger.api.image.thumbnails.ThumbnailsDisplayer;
+import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
+import org.jphototagger.domain.thumbnails.ThumbnailsDisplayer;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.resource.GUI;
 

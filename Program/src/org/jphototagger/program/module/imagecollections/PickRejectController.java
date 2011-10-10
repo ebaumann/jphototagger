@@ -13,7 +13,7 @@ import org.jdesktop.swingx.JXList;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.image.thumbnails.OriginOfDisplayedThumbnails;
+import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.api.messages.MessageType;
 import org.jphototagger.api.messages.StatusBarMessageDisplayer;
 import org.jphototagger.domain.imagecollections.ImageCollection;

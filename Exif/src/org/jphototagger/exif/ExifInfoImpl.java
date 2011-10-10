@@ -1,16 +1,18 @@
 package org.jphototagger.exif;
 
 import java.io.File;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import org.openide.util.lookup.ServiceProvider;
 
 import org.jphototagger.domain.metadata.exif.ExifInfo;
+import org.jphototagger.domain.metadata.exif.ExifMakerNoteTags;
 import org.jphototagger.exif.ExifTag.Id;
 import org.jphototagger.exif.tag.ExifGpsAltitude;
 import org.jphototagger.exif.tag.ExifGpsLatitude;
@@ -18,6 +20,7 @@ import org.jphototagger.exif.tag.ExifGpsLongitude;
 import org.jphototagger.exif.tag.ExifGpsMetadata;
 import org.jphototagger.exif.tag.ExifGpsUtil;
 import org.jphototagger.lib.util.Translation;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -75,11 +78,12 @@ public final class ExifInfoImpl implements ExifInfo {
         addExifTags(exifTags.getInteroperabilityTags(), tags);
         addGpsTags(exifTags, tags);
         addExifTags(exifTags.getMakerNoteTags(), tags);
+        addMakerNoteTagsFromService(exifTags, tags);
 
         return tags;
     }
 
-    private void addExifTags(Collection<? extends ExifTag> source, List<org.jphototagger.domain.metadata.exif.ExifTag> target) {
+    private void addExifTags(Collection<? extends ExifTag> source, Collection<org.jphototagger.domain.metadata.exif.ExifTag> target) {
         List<ExifTag> displayableExifTags = ExifTagsToDisplay.getDisplayableExifTagsOf(source);
 
         if (!displayableExifTags.isEmpty()) {
@@ -97,7 +101,7 @@ public final class ExifInfoImpl implements ExifInfo {
         }
     }
 
-    private void addGpsTags(ExifTags source, List<org.jphototagger.domain.metadata.exif.ExifTag> target) {
+    private void addGpsTags(ExifTags source, Collection<org.jphototagger.domain.metadata.exif.ExifTag> target) {
         ExifGpsMetadata exifGpsMetadata = ExifGpsUtil.createGpsMetadataFromExifTags(source);
         ExifGpsLatitude latitude = exifGpsMetadata.getLatitude();
         ExifGpsLongitude longitude = exifGpsMetadata.getLongitude();
@@ -166,5 +170,28 @@ public final class ExifInfoImpl implements ExifInfo {
         }
 
         return TAG_ID_TAGNAME_TRANSLATION.translate(Integer.toString(exifTag.getTagId()), tagName);
+    }
+
+    private void addMakerNoteTagsFromService(ExifTags source, Collection<org.jphototagger.domain.metadata.exif.ExifTag> target) {
+        ExifTag makerNoteTag = source.findExifTagByTagId(ExifTag.Id.MAKER_NOTE.getTagId());
+        byte[] makerNoteRawValue = makerNoteTag.getRawValue();
+        ExifTag modelTag = source.findExifTagByTagId(ExifTag.Id.MODEL.getTagId());
+        String modelString = modelTag.getStringValue();
+        ExifTag makeTag = source.findExifTagByTagId(ExifTag.Id.MAKE.getTagId());
+        String makeString = makeTag.getStringValue();
+        Collection<? extends ExifMakerNoteTags> makerNoteExifInfos = Lookup.getDefault().lookupAll(ExifMakerNoteTags.class);
+
+        for (ExifMakerNoteTags makerNotTags : makerNoteExifInfos) {
+            target.addAll(makerNotTags.getMakerNoteTags(makeString, modelString, makerNoteRawValue));
+        }
+    }
+
+    @Override
+    public long getTimeTakenInMillis(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
+        return ExifMetadata.getTimeTakenInMillis(file);
     }
 }

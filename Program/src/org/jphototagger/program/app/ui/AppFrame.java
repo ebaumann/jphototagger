@@ -2,41 +2,37 @@ package org.jphototagger.program.app.ui;
 
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.EnumMap;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import javax.swing.JPopupMenu.Separator;
 import javax.swing.JRadioButtonMenuItem;
 
 import org.jphototagger.api.windows.MainWindowMenuItem;
-import org.jphototagger.domain.comparator.ExifFocalLengthAscendingComparator;
-import org.jphototagger.domain.comparator.ExifFocalLengthDescendingComparator;
-import org.jphototagger.domain.comparator.ExifIsoSpeedRatingAscendingComparator;
-import org.jphototagger.domain.comparator.ExifIsoSpeedRatingDescendingComparator;
-import org.jphototagger.domain.comparator.ExifRecordingEquipmentAscendingComparator;
-import org.jphototagger.domain.comparator.ExifRecordingEquipmentDescendingComparator;
-import org.jphototagger.domain.comparator.XmpIptcLocationAscendingComparator;
-import org.jphototagger.domain.comparator.XmpIptcLocationDescendingComparator;
-import org.jphototagger.domain.comparator.XmpRatingAscendingComparator;
-import org.jphototagger.domain.comparator.XmpRatingDescendingComparator;
-import org.jphototagger.exif.comparator.ExifDateTimeOriginalAscendingComparator;
-import org.jphototagger.exif.comparator.ExifDateTimeOriginalDescendingComparator;
+import org.jphototagger.domain.thumbnails.FileSortComparator;
+import org.jphototagger.domain.thumbnails.FileSortComparators;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.comparator.FileSort;
 import org.jphototagger.lib.componentutil.MenuUtil;
 import org.jphototagger.lib.event.util.KeyEventUtil;
 import org.jphototagger.lib.system.SystemUtil;
+import org.jphototagger.lib.util.PositionComparatorAscendingOrder;
 import org.jphototagger.program.app.AppInfo;
 import org.jphototagger.program.app.AppLifeCycle;
 import org.jphototagger.program.module.actions.EditUserDefinedFileTypesAction;
 import org.jphototagger.program.module.actions.ShowActionDialogAction;
 import org.jphototagger.program.resource.GUI;
+import org.openide.util.Lookup;
 
 /**
  * The application's frame.
@@ -52,7 +48,7 @@ public final class AppFrame extends javax.swing.JFrame {
     private final Map<JMenuItem, GoTo> gotoOfMenuItem = new HashMap<JMenuItem, GoTo>();
     private AppPanel appPanel;
 
-    private void initSortMenuItemsMap() {
+    private void initSortMenuItems() {
         menuItemOfSortCmp.put(FileSort.PATHS_ASCENDING.getComparator(), radioButtonMenuItemSortFilepathAscending);
         menuItemOfSortCmp.put(FileSort.PATHS_DESCENDING.getComparator(), radioButtonMenuItemSortFilepathDescending);
         menuItemOfSortCmp.put(FileSort.NAMES_ASCENDING.getComparator(), radioButtonMenuItemSortFilenameAscending);
@@ -61,19 +57,39 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemOfSortCmp.put(FileSort.LAST_MODIFIED_DESCENDING.getComparator(), radioButtonMenuItemSortLastModifiedDescending);
         menuItemOfSortCmp.put(FileSort.TYPES_ASCENDING.getComparator(), radioButtonMenuItemSortFileTypeAscending);
         menuItemOfSortCmp.put(FileSort.TYPES_DESCENDING.getComparator(), radioButtonMenuItemSortFileTypeDescending);
+
+        Collection<? extends FileSortComparators> sortComparators = Lookup.getDefault().lookupAll(FileSortComparators.class);
+        List<FileSortComparator> sortedSortComparators = new ArrayList<FileSortComparator>();
+
+        for (FileSortComparators fscs : sortComparators) {
+            sortedSortComparators.addAll(fscs.getFileSortComparators());
+        }
+
+        Collections.sort(sortedSortComparators, PositionComparatorAscendingOrder.INSTANCE);
+
+        for (FileSortComparator fileSortComparator : sortedSortComparators) {
+            JRadioButtonMenuItem radioButtonMenuItemAscending = new JRadioButtonMenuItem();
+            JRadioButtonMenuItem radioButtonMenuItemDescending = new JRadioButtonMenuItem();
+
+            menuSort.add(new JPopupMenu.Separator());
+
+            radioButtonMenuItemAscending.setText(fileSortComparator.getAscendingSortComparatorDisplayName());
+            buttonGroupSort.add(radioButtonMenuItemAscending);
+            menuSort.add(radioButtonMenuItemAscending);
+            menuItemOfSortCmp.put(fileSortComparator.getAscendingSortComparator(), radioButtonMenuItemAscending);
+
+            radioButtonMenuItemDescending.setText(fileSortComparator.getDescendingSortComparatorDisplayName());
+            buttonGroupSort.add(radioButtonMenuItemDescending);
+            menuSort.add(radioButtonMenuItemDescending);
+            menuItemOfSortCmp.put(fileSortComparator.getDescendingSortComparator(), radioButtonMenuItemDescending);
+        }
+
+        menuSort.add(new JPopupMenu.Separator());
+        buttonGroupSort.add(radioButtonMenuItemSortNone);
+        radioButtonMenuItemSortNone.setEnabled(false);
+        radioButtonMenuItemSortNone.setName("radioButtonMenuItemSortNone"); // NOI18N
+        menuSort.add(radioButtonMenuItemSortNone);
         menuItemOfSortCmp.put(FileSort.NO_SORT.getComparator(), radioButtonMenuItemSortNone);
-        menuItemOfSortCmp.put(new ExifDateTimeOriginalAscendingComparator(), radioButtonMenuItemSortExifDateTimeOriginalAscending);
-        menuItemOfSortCmp.put(new ExifDateTimeOriginalDescendingComparator(), radioButtonMenuItemSortExifDateTimeOriginalDescending);
-        menuItemOfSortCmp.put(new ExifFocalLengthAscendingComparator(), radioButtonMenuItemSortExifFocalLengthAscending);
-        menuItemOfSortCmp.put(new ExifFocalLengthDescendingComparator(), radioButtonMenuItemSortExifFocalLengthDescending);
-        menuItemOfSortCmp.put(new ExifIsoSpeedRatingAscendingComparator(), radioButtonMenuItemSortExifIsoSpeedRatingAscending);
-        menuItemOfSortCmp.put(new ExifIsoSpeedRatingDescendingComparator(), radioButtonMenuItemSortExifIsoSpeedRatingDescending);
-        menuItemOfSortCmp.put(new ExifRecordingEquipmentAscendingComparator(), radioButtonMenuItemSortExifRecordingEquipmentAscending);
-        menuItemOfSortCmp.put(new ExifRecordingEquipmentDescendingComparator(), radioButtonMenuItemSortExifRecordingEquipmentDescending);
-        menuItemOfSortCmp.put(new XmpRatingAscendingComparator(), radioButtonMenuItemSortXmpRatingAscending);
-        menuItemOfSortCmp.put(new XmpRatingDescendingComparator(), radioButtonMenuItemSortXmpRatingDescending);
-        menuItemOfSortCmp.put(new XmpIptcLocationAscendingComparator(), radioButtonMenuItemSortXmpIptcLocationAscending);
-        menuItemOfSortCmp.put(new XmpIptcLocationDescendingComparator(), radioButtonMenuItemSortXmpIptcLocationDescending);
 
         for (Comparator<File> comparator : menuItemOfSortCmp.keySet()) {
             sortCmpOfMenuItem.put(menuItemOfSortCmp.get(comparator), comparator);
@@ -129,7 +145,7 @@ public final class AppFrame extends javax.swing.JFrame {
         GUI.setAppFrame(this);
         addAppPanel();
         MenuUtil.setMnemonics(menuBar);
-        initSortMenuItemsMap();
+        initSortMenuItems();
         initGotoMenuItemsMap();
         setIconImages(AppLookAndFeel.getAppIcons());
         AppLifeCycle.INSTANCE.started(this);
@@ -341,6 +357,7 @@ public final class AppFrame extends javax.swing.JFrame {
     private void initComponents() {//GEN-BEGIN:initComponents
 
         buttonGroupSort = new javax.swing.ButtonGroup();
+        radioButtonMenuItemSortNone = new javax.swing.JRadioButtonMenuItem();
         menuBar = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         menuItemScanDirectory = new javax.swing.JMenuItem();
@@ -372,26 +389,6 @@ public final class AppFrame extends javax.swing.JFrame {
         sep7 = new javax.swing.JPopupMenu.Separator();
         radioButtonMenuItemSortLastModifiedAscending = new javax.swing.JRadioButtonMenuItem();
         radioButtonMenuItemSortLastModifiedDescending = new javax.swing.JRadioButtonMenuItem();
-        sep8 = new javax.swing.JPopupMenu.Separator();
-        radioButtonMenuItemSortExifDateTimeOriginalAscending = new javax.swing.JRadioButtonMenuItem();
-        radioButtonMenuItemSortExifDateTimeOriginalDescending = new javax.swing.JRadioButtonMenuItem();
-        sep9 = new javax.swing.JPopupMenu.Separator();
-        radioButtonMenuItemSortExifIsoSpeedRatingAscending = new javax.swing.JRadioButtonMenuItem();
-        radioButtonMenuItemSortExifIsoSpeedRatingDescending = new javax.swing.JRadioButtonMenuItem();
-        sep10 = new javax.swing.JPopupMenu.Separator();
-        radioButtonMenuItemSortExifFocalLengthAscending = new javax.swing.JRadioButtonMenuItem();
-        radioButtonMenuItemSortExifFocalLengthDescending = new javax.swing.JRadioButtonMenuItem();
-        sep11 = new javax.swing.JPopupMenu.Separator();
-        radioButtonMenuItemSortExifRecordingEquipmentAscending = new javax.swing.JRadioButtonMenuItem();
-        radioButtonMenuItemSortExifRecordingEquipmentDescending = new javax.swing.JRadioButtonMenuItem();
-        sep12 = new javax.swing.JPopupMenu.Separator();
-        radioButtonMenuItemSortXmpIptcLocationAscending = new javax.swing.JRadioButtonMenuItem();
-        radioButtonMenuItemSortXmpIptcLocationDescending = new javax.swing.JRadioButtonMenuItem();
-        sep13 = new javax.swing.JPopupMenu.Separator();
-        radioButtonMenuItemSortXmpRatingAscending = new javax.swing.JRadioButtonMenuItem();
-        radioButtonMenuItemSortXmpRatingDescending = new javax.swing.JRadioButtonMenuItem();
-        sep14 = new javax.swing.JPopupMenu.Separator();
-        radioButtonMenuItemSortNone = new javax.swing.JRadioButtonMenuItem();
         sep15 = new javax.swing.JPopupMenu.Separator();
         checkBoxMenuItemKeywordOverlay = new javax.swing.JCheckBoxMenuItem();
         menuGoto = new javax.swing.JMenu();
@@ -441,13 +438,18 @@ public final class AppFrame extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         menuItemAbout = new javax.swing.JMenuItem();
 
+        buttonGroupSort.add(radioButtonMenuItemSortNone);
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/app/ui/Bundle"); // NOI18N
+        radioButtonMenuItemSortNone.setText(bundle.getString("AppFrame.radioButtonMenuItemSortNone.text")); // NOI18N
+        radioButtonMenuItemSortNone.setEnabled(false);
+        radioButtonMenuItemSortNone.setName("radioButtonMenuItemSortNone"); // NOI18N
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(AppInfo.APP_NAME);
         setName("Form"); // NOI18N
 
         menuBar.setName("menuBar"); // NOI18N
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/app/ui/Bundle"); // NOI18N
         menuFile.setText(bundle.getString("AppFrame.menuFile.text")); // NOI18N
         menuFile.setName("menuFile"); // NOI18N
 
@@ -589,93 +591,6 @@ public final class AppFrame extends javax.swing.JFrame {
         radioButtonMenuItemSortLastModifiedDescending.setText(bundle.getString("AppFrame.radioButtonMenuItemSortLastModifiedDescending.text")); // NOI18N
         radioButtonMenuItemSortLastModifiedDescending.setName("radioButtonMenuItemSortLastModifiedDescending"); // NOI18N
         menuSort.add(radioButtonMenuItemSortLastModifiedDescending);
-
-        sep8.setName("sep8"); // NOI18N
-        menuSort.add(sep8);
-
-        buttonGroupSort.add(radioButtonMenuItemSortExifDateTimeOriginalAscending);
-        radioButtonMenuItemSortExifDateTimeOriginalAscending.setText(bundle.getString("AppFrame.radioButtonMenuItemSortExifDateTimeOriginalAscending.text")); // NOI18N
-        radioButtonMenuItemSortExifDateTimeOriginalAscending.setName("radioButtonMenuItemSortExifDateTimeOriginalAscending"); // NOI18N
-        menuSort.add(radioButtonMenuItemSortExifDateTimeOriginalAscending);
-
-        buttonGroupSort.add(radioButtonMenuItemSortExifDateTimeOriginalDescending);
-        radioButtonMenuItemSortExifDateTimeOriginalDescending.setText(bundle.getString("AppFrame.radioButtonMenuItemSortExifDateTimeOriginalDescending.text")); // NOI18N
-        radioButtonMenuItemSortExifDateTimeOriginalDescending.setName("radioButtonMenuItemSortExifDateTimeOriginalDescending"); // NOI18N
-        menuSort.add(radioButtonMenuItemSortExifDateTimeOriginalDescending);
-
-        sep9.setName("sep9"); // NOI18N
-        menuSort.add(sep9);
-
-        buttonGroupSort.add(radioButtonMenuItemSortExifIsoSpeedRatingAscending);
-        radioButtonMenuItemSortExifIsoSpeedRatingAscending.setText(bundle.getString("AppFrame.radioButtonMenuItemSortExifIsoSpeedRatingAscending.text")); // NOI18N
-        radioButtonMenuItemSortExifIsoSpeedRatingAscending.setName("radioButtonMenuItemSortExifIsoSpeedRatingAscending"); // NOI18N
-        menuSort.add(radioButtonMenuItemSortExifIsoSpeedRatingAscending);
-
-        buttonGroupSort.add(radioButtonMenuItemSortExifIsoSpeedRatingDescending);
-        radioButtonMenuItemSortExifIsoSpeedRatingDescending.setText(bundle.getString("AppFrame.radioButtonMenuItemSortExifIsoSpeedRatingDescending.text")); // NOI18N
-        radioButtonMenuItemSortExifIsoSpeedRatingDescending.setName("radioButtonMenuItemSortExifIsoSpeedRatingDescending"); // NOI18N
-        menuSort.add(radioButtonMenuItemSortExifIsoSpeedRatingDescending);
-
-        sep10.setName("sep10"); // NOI18N
-        menuSort.add(sep10);
-
-        buttonGroupSort.add(radioButtonMenuItemSortExifFocalLengthAscending);
-        radioButtonMenuItemSortExifFocalLengthAscending.setText(bundle.getString("AppFrame.radioButtonMenuItemSortExifFocalLengthAscending.text")); // NOI18N
-        radioButtonMenuItemSortExifFocalLengthAscending.setName("radioButtonMenuItemSortExifFocalLengthAscending"); // NOI18N
-        menuSort.add(radioButtonMenuItemSortExifFocalLengthAscending);
-
-        buttonGroupSort.add(radioButtonMenuItemSortExifFocalLengthDescending);
-        radioButtonMenuItemSortExifFocalLengthDescending.setText(bundle.getString("AppFrame.radioButtonMenuItemSortExifFocalLengthDescending.text")); // NOI18N
-        radioButtonMenuItemSortExifFocalLengthDescending.setName("radioButtonMenuItemSortExifFocalLengthDescending"); // NOI18N
-        menuSort.add(radioButtonMenuItemSortExifFocalLengthDescending);
-
-        sep11.setName("sep11"); // NOI18N
-        menuSort.add(sep11);
-
-        buttonGroupSort.add(radioButtonMenuItemSortExifRecordingEquipmentAscending);
-        radioButtonMenuItemSortExifRecordingEquipmentAscending.setText(bundle.getString("AppFrame.radioButtonMenuItemSortExifRecordingEquipmentAscending.text")); // NOI18N
-        radioButtonMenuItemSortExifRecordingEquipmentAscending.setName("radioButtonMenuItemSortExifRecordingEquipmentAscending"); // NOI18N
-        menuSort.add(radioButtonMenuItemSortExifRecordingEquipmentAscending);
-
-        buttonGroupSort.add(radioButtonMenuItemSortExifRecordingEquipmentDescending);
-        radioButtonMenuItemSortExifRecordingEquipmentDescending.setText(bundle.getString("AppFrame.radioButtonMenuItemSortExifRecordingEquipmentDescending.text")); // NOI18N
-        radioButtonMenuItemSortExifRecordingEquipmentDescending.setName("radioButtonMenuItemSortExifRecordingEquipmentDescending"); // NOI18N
-        menuSort.add(radioButtonMenuItemSortExifRecordingEquipmentDescending);
-
-        sep12.setName("sep12"); // NOI18N
-        menuSort.add(sep12);
-
-        buttonGroupSort.add(radioButtonMenuItemSortXmpIptcLocationAscending);
-        radioButtonMenuItemSortXmpIptcLocationAscending.setText(bundle.getString("AppFrame.radioButtonMenuItemSortXmpIptcLocationAscending.text")); // NOI18N
-        radioButtonMenuItemSortXmpIptcLocationAscending.setName("radioButtonMenuItemSortXmpIptcLocationAscending"); // NOI18N
-        menuSort.add(radioButtonMenuItemSortXmpIptcLocationAscending);
-
-        buttonGroupSort.add(radioButtonMenuItemSortXmpIptcLocationDescending);
-        radioButtonMenuItemSortXmpIptcLocationDescending.setText(bundle.getString("AppFrame.radioButtonMenuItemSortXmpIptcLocationDescending.text")); // NOI18N
-        radioButtonMenuItemSortXmpIptcLocationDescending.setName("radioButtonMenuItemSortXmpIptcLocationDescending"); // NOI18N
-        menuSort.add(radioButtonMenuItemSortXmpIptcLocationDescending);
-
-        sep13.setName("sep13"); // NOI18N
-        menuSort.add(sep13);
-
-        buttonGroupSort.add(radioButtonMenuItemSortXmpRatingAscending);
-        radioButtonMenuItemSortXmpRatingAscending.setText(bundle.getString("AppFrame.radioButtonMenuItemSortXmpRatingAscending.text")); // NOI18N
-        radioButtonMenuItemSortXmpRatingAscending.setName("radioButtonMenuItemSortXmpRatingAscending"); // NOI18N
-        menuSort.add(radioButtonMenuItemSortXmpRatingAscending);
-
-        buttonGroupSort.add(radioButtonMenuItemSortXmpRatingDescending);
-        radioButtonMenuItemSortXmpRatingDescending.setText(bundle.getString("AppFrame.radioButtonMenuItemSortXmpRatingDescending.text")); // NOI18N
-        radioButtonMenuItemSortXmpRatingDescending.setName("radioButtonMenuItemSortXmpRatingDescending"); // NOI18N
-        menuSort.add(radioButtonMenuItemSortXmpRatingDescending);
-
-        sep14.setName("sep14"); // NOI18N
-        menuSort.add(sep14);
-
-        buttonGroupSort.add(radioButtonMenuItemSortNone);
-        radioButtonMenuItemSortNone.setText(bundle.getString("AppFrame.radioButtonMenuItemSortNone.text")); // NOI18N
-        radioButtonMenuItemSortNone.setEnabled(false);
-        radioButtonMenuItemSortNone.setName("radioButtonMenuItemSortNone"); // NOI18N
-        menuSort.add(radioButtonMenuItemSortNone);
 
         menuView.add(menuSort);
 
@@ -989,14 +904,6 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenu menuTools;
     private javax.swing.JMenu menuView;
     private javax.swing.JMenu menuWindow;
-    private javax.swing.JRadioButtonMenuItem radioButtonMenuItemSortExifDateTimeOriginalAscending;
-    private javax.swing.JRadioButtonMenuItem radioButtonMenuItemSortExifDateTimeOriginalDescending;
-    private javax.swing.JRadioButtonMenuItem radioButtonMenuItemSortExifFocalLengthAscending;
-    private javax.swing.JRadioButtonMenuItem radioButtonMenuItemSortExifFocalLengthDescending;
-    private javax.swing.JRadioButtonMenuItem radioButtonMenuItemSortExifIsoSpeedRatingAscending;
-    private javax.swing.JRadioButtonMenuItem radioButtonMenuItemSortExifIsoSpeedRatingDescending;
-    private javax.swing.JRadioButtonMenuItem radioButtonMenuItemSortExifRecordingEquipmentAscending;
-    private javax.swing.JRadioButtonMenuItem radioButtonMenuItemSortExifRecordingEquipmentDescending;
     private javax.swing.JRadioButtonMenuItem radioButtonMenuItemSortFileTypeAscending;
     private javax.swing.JRadioButtonMenuItem radioButtonMenuItemSortFileTypeDescending;
     private javax.swing.JRadioButtonMenuItem radioButtonMenuItemSortFilenameAscending;
@@ -1006,16 +913,7 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButtonMenuItem radioButtonMenuItemSortLastModifiedAscending;
     private javax.swing.JRadioButtonMenuItem radioButtonMenuItemSortLastModifiedDescending;
     private javax.swing.JRadioButtonMenuItem radioButtonMenuItemSortNone;
-    private javax.swing.JRadioButtonMenuItem radioButtonMenuItemSortXmpIptcLocationAscending;
-    private javax.swing.JRadioButtonMenuItem radioButtonMenuItemSortXmpIptcLocationDescending;
-    private javax.swing.JRadioButtonMenuItem radioButtonMenuItemSortXmpRatingAscending;
-    private javax.swing.JRadioButtonMenuItem radioButtonMenuItemSortXmpRatingDescending;
     private javax.swing.JPopupMenu.Separator sep1;
-    private javax.swing.JPopupMenu.Separator sep10;
-    private javax.swing.JPopupMenu.Separator sep11;
-    private javax.swing.JPopupMenu.Separator sep12;
-    private javax.swing.JPopupMenu.Separator sep13;
-    private javax.swing.JPopupMenu.Separator sep14;
     private javax.swing.JPopupMenu.Separator sep15;
     private javax.swing.JPopupMenu.Separator sep16;
     private javax.swing.JPopupMenu.Separator sep17;
@@ -1030,7 +928,5 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator sep5;
     private javax.swing.JPopupMenu.Separator sep6;
     private javax.swing.JPopupMenu.Separator sep7;
-    private javax.swing.JPopupMenu.Separator sep8;
-    private javax.swing.JPopupMenu.Separator sep9;
     // End of variables declaration//GEN-END:variables
 }

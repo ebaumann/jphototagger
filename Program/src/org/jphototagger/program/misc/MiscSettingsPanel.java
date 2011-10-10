@@ -20,11 +20,11 @@ import org.jphototagger.lib.componentutil.MnemonicUtil;
 import org.jphototagger.lib.dialog.DirectoryChooser;
 import org.jphototagger.lib.dialog.DirectoryChooser.Option;
 import org.jphototagger.program.app.AppPreferencesKeys;
+import org.jphototagger.program.app.update.UpdateCheckController;
 import org.jphototagger.program.factory.ControllerFactory;
-import org.jphototagger.program.module.iptc.IptcCharsetComboBoxModel;
 import org.jphototagger.program.module.filesystem.CopyFiles;
 import org.jphototagger.program.module.filesystem.CopyFiles.Options;
-import org.jphototagger.program.app.update.UpdateCheckController;
+import org.jphototagger.program.module.iptc.IptcCharsetComboBoxModel;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.types.Persistence;
 
@@ -39,6 +39,10 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
 
     public MiscSettingsPanel() {
         initComponents();
+        postInitComponents();
+    }
+
+    private void postInitComponents() {
         MnemonicUtil.setMnemonics((Container) this);
         AnnotationProcessor.process(this);
     }
@@ -165,16 +169,6 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         storage.setString(IptcPreferencesKeys.KEY_IPTC_CHARSET, charset);
     }
 
-    private void setAddFilenameToGpsLocationExport() {
-        setAddFilenameToGpsLocationExport(checkBoxAddFilenameToGpsLocationExport.isSelected());
-    }
-
-    private void setAddFilenameToGpsLocationExport(boolean add) {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-
-        storage.setBoolean(AppPreferencesKeys.KEY_GPS_ADD_FILENAME_TO_GPS_LOCATION_EXPORT, add);
-    }
-
     @EventSubscriber(eventClass = PreferencesChangedEvent.class)
     public void applySettings(PreferencesChangedEvent evt) {
         if (AppPreferencesKeys.KEY_CHECK_FOR_UPDATES.equals(evt.getKey())) {
@@ -204,7 +198,6 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         checkBoxCheckForUpdates.setSelected(isCheckForUpdates());
         checkBoxDisplaySearchButton.setSelected(isDisplaySearchButton());
         checkBoxIsAcceptHiddenDirectories.setSelected(isAcceptHiddenDirectories());
-        checkBoxAddFilenameToGpsLocationExport.setSelected(isAddFilenameToGpsLocationExport());
         setIptcCharsetFromUserSettings();
         labelRepositoryDirectory.setText(provider.getFileRepositoryDirectory().getAbsolutePath());
         radioButtonCopyMoveFileConfirmOverwrite.setSelected(getCopyMoveFilesOptions().equals(CopyFiles.Options.CONFIRM_OVERWRITE));
@@ -216,14 +209,6 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
     private void restoreTabbedPaneSettings() {
         Preferences preferences = Lookup.getDefault().lookup(Preferences.class);
         preferences.applyTabbedPaneSettings(PREFERENCES_KEY_TABBED_PANE, tabbedPane, null);
-    }
-
-    private static boolean isAddFilenameToGpsLocationExport() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-
-        return storage.containsKey(AppPreferencesKeys.KEY_GPS_ADD_FILENAME_TO_GPS_LOCATION_EXPORT)
-                ? storage.getBoolean(AppPreferencesKeys.KEY_GPS_ADD_FILENAME_TO_GPS_LOCATION_EXPORT)
-                : false;
     }
 
     private boolean isCheckForUpdates() {
@@ -295,7 +280,6 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         checkBoxCheckForUpdates = new javax.swing.JCheckBox();
         buttonCheckForUpdates = new javax.swing.JButton();
         checkBoxDisplaySearchButton = new javax.swing.JCheckBox();
-        checkBoxAddFilenameToGpsLocationExport = new javax.swing.JCheckBox();
         panelCopyMoveFiles = new javax.swing.JPanel();
         radioButtonCopyMoveFileConfirmOverwrite = new javax.swing.JRadioButton();
         radioButtonCopyMoveFileRenameIfExists = new javax.swing.JRadioButton();
@@ -357,14 +341,6 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         checkBoxDisplaySearchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxDisplaySearchButtonActionPerformed(evt);
-            }
-        });
-
-        checkBoxAddFilenameToGpsLocationExport.setText(bundle.getString("MiscSettingsPanel.checkBoxAddFilenameToGpsLocationExport.text")); // NOI18N
-        checkBoxAddFilenameToGpsLocationExport.setName("checkBoxAddFilenameToGpsLocationExport"); // NOI18N
-        checkBoxAddFilenameToGpsLocationExport.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkBoxAddFilenameToGpsLocationExportActionPerformed(evt);
             }
         });
 
@@ -468,7 +444,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
             .addGroup(panelRepositoryDirectoryLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelRepositoryDirectoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelRepositoryDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 627, Short.MAX_VALUE)
+                    .addComponent(labelRepositoryDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
                     .addGroup(panelRepositoryDirectoryLayout.createSequentialGroup()
                         .addComponent(labelInfoRepositoryDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -497,12 +473,11 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
                 .addContainerGap()
                 .addGroup(panelDefaultLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(checkBoxIsAcceptHiddenDirectories)
-                    .addComponent(panelRepositoryDirectory, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(checkBoxAddFilenameToGpsLocationExport)
-                    .addComponent(panelCopyMoveFiles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(checkBoxDisplaySearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelIptcCharset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelCheckForUpdates, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelCheckForUpdates, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelRepositoryDirectory, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelCopyMoveFiles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelIptcCharset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         panelDefaultLayout.setVerticalGroup(
@@ -515,8 +490,6 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
                 .addGap(2, 2, 2)
                 .addComponent(checkBoxDisplaySearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(checkBoxAddFilenameToGpsLocationExport)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelCopyMoveFiles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelIptcCharset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -580,16 +553,11 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
     private void buttonCheckForUpdatesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCheckForUpdatesActionPerformed
         checkDownload();
     }//GEN-LAST:event_buttonCheckForUpdatesActionPerformed
-
-    private void checkBoxAddFilenameToGpsLocationExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAddFilenameToGpsLocationExportActionPerformed
-        setAddFilenameToGpsLocationExport();
-    }//GEN-LAST:event_checkBoxAddFilenameToGpsLocationExportActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCheckForUpdates;
     private javax.swing.JButton buttonChooseRepositoryDirectory;
     private javax.swing.ButtonGroup buttonGroupCopyMoveFiles;
     private javax.swing.JButton buttonSetDefaultRepositoryDirectoryName;
-    private javax.swing.JCheckBox checkBoxAddFilenameToGpsLocationExport;
     private javax.swing.JCheckBox checkBoxCheckForUpdates;
     private javax.swing.JCheckBox checkBoxDisplaySearchButton;
     private javax.swing.JCheckBox checkBoxIsAcceptHiddenDirectories;

@@ -32,7 +32,6 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.factory.FileProcessorPluginManager;
 import org.jphototagger.program.module.actions.ActionsHelper;
-import org.jphototagger.program.module.exif.gps.ExportGPSToKMLController;
 import org.jphototagger.program.module.programs.AddProgramController;
 import org.jphototagger.program.plugins.PluginAction;
 
@@ -143,8 +142,6 @@ public final class ThumbnailsPopupMenu extends JPopupMenu {
         menuMetadata.add(new Separator());
         menuMetadata.add(itemIptcToXmp);
         menuMetadata.add(itemExifToXmp);
-        menuMetadata.add(new Separator());
-        menuMetadata.add(new JMenuItem(new ExportGPSToKMLController()));
         add(menuMetadata);
         itemPasteMetadata.setEnabled(false);
         menuFsOps.add(itemCopyToClipboard);

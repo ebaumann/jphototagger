@@ -1,8 +1,6 @@
 package org.jphototagger.program.app;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class AppPreferencesKeys {
@@ -12,7 +10,6 @@ public final class AppPreferencesKeys {
     public static final String KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS = "UserSettings.ExecuteActionsAfterImageChangeInDbAlways";
     public static final String KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP = "UserSettings.ExecuteActionsAfterImageChangeInDbIfImageHasXmp";
     public static final String KEY_FILE_SYSTEM_OPERATIONS_OPTIONS_COPY_MOVE_FILES = "UserSettings.CopyMoveFiles";
-    public static final String KEY_GPS_ADD_FILENAME_TO_GPS_LOCATION_EXPORT = "UserSettings.AddFilenameToGpsLocationExport";
     public static final String KEY_SAVE_INPUT_EARLY = "UserSettings.SaveInputEarly";
     public static final String KEY_SCAN_FOR_EMBEDDED_XMP = "UserSettings.ScanForEmbeddedXmp";
     public static final String KEY_SCHEDULED_TASKS_AUTO_SCAN_INCLUDE_SUBDIRECTORIES = "UserSettings.IsAutoscanIncludeSubdirectories";

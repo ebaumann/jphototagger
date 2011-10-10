@@ -258,4 +258,9 @@ public final class ImageFilesRepositoryImpl implements ImageFilesRepository {
     public int deleteXmpOfFile(File file) {
         return ImageFilesDatabase.INSTANCE.deleteXmpOfFile(file);
     }
+
+    @Override
+    public String findXmpIptc4CoreDateCreated(File file) {
+        return ImageFilesDatabase.INSTANCE.findXmpIptc4CoreDateCreated(file);
+    }
 }

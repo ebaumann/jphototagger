@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
-import org.jphototagger.api.image.thumbnails.ExternalThumbnailCreationCommand;
+import org.jphototagger.domain.thumbnails.ExternalThumbnailCreationCommand;
 import org.jphototagger.api.storage.PreferencesDirectoryProvider;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.system.SystemUtil;
