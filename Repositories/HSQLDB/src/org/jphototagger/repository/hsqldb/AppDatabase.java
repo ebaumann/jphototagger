@@ -25,7 +25,7 @@ public final class AppDatabase {
     private static final String KEY_DATABASE_VERSION = "VersionLastDbUpdate";
     private static boolean init;
     // Is the JPhotoTagger version where the database structure was changed (newest change)
-    static final Version DATABASE_VERSION = new Version(0, 10, 0);
+    static final Version DATABASE_VERSION = new Version(0, 11, 1);
 
     private AppDatabase() {
     }

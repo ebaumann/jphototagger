@@ -263,4 +263,9 @@ public final class ImageFilesRepositoryImpl implements ImageFilesRepository {
     public String findXmpIptc4CoreDateCreated(File file) {
         return ImageFilesDatabase.INSTANCE.findXmpIptc4CoreDateCreated(file);
     }
+
+    @Override
+    public long findExifDateTimeOriginalTimestamp(File file) {
+        return ImageFilesDatabase.INSTANCE.findExifDateTimeOriginalTimestamp(file);
+    }
 }

@@ -1,4 +1,4 @@
-package org.jphototagger.program.repository.actions;
+package org.jphototagger.program.module.maintainance;
 
 import java.io.File;
 import java.util.Arrays;

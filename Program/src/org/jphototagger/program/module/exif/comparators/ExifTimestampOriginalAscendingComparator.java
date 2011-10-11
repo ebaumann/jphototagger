@@ -4,9 +4,9 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.Comparator;
 
+import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.openide.util.Lookup;
 
-import org.jphototagger.domain.metadata.exif.ExifInfo;
 import org.jphototagger.lib.util.ClassEquality;
 
 /**
@@ -15,12 +15,12 @@ import org.jphototagger.lib.util.ClassEquality;
 public final class ExifTimestampOriginalAscendingComparator extends ClassEquality implements Comparator<File>, Serializable {
 
     private static final long serialVersionUID = -7558718187586080760L;
-    private final ExifInfo exifInfo = Lookup.getDefault().lookup(ExifInfo.class);
+    private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
 
     @Override
     public int compare(File fileLeft, File fileRight) {
-        long timeLeft = exifInfo.getTimeTakenInMillis(fileLeft);
-        long timeRight = exifInfo.getTimeTakenInMillis(fileRight);
+        long timeLeft = repo.findExifDateTimeOriginalTimestamp(fileLeft);
+        long timeRight = repo.findExifDateTimeOriginalTimestamp(fileRight);
 
         return timeLeft == timeRight
                 ? 0

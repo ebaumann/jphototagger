@@ -1,4 +1,4 @@
-package org.jphototagger.program.repository.actions;
+package org.jphototagger.program.module.maintainance;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

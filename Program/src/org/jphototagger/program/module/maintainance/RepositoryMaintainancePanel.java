@@ -1,4 +1,4 @@
-package org.jphototagger.program.repository.actions;
+package org.jphototagger.program.module.maintainance;
 
 import java.awt.Container;
 import java.lang.reflect.Method;
@@ -358,7 +358,7 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
         panelTasks.setName("panelTasks"); // NOI18N
         panelTasks.setLayout(new java.awt.GridBagLayout());
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/repository/actions/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/maintainance/Bundle"); // NOI18N
         checkBoxDeleteRecordsOfNotExistingFilesInRepository.setText(bundle.getString("RepositoryMaintainancePanel.checkBoxDeleteRecordsOfNotExistingFilesInRepository.text")); // NOI18N
         checkBoxDeleteRecordsOfNotExistingFilesInRepository.setName("checkBoxDeleteRecordsOfNotExistingFilesInRepository"); // NOI18N
         checkBoxDeleteRecordsOfNotExistingFilesInRepository.addActionListener(new java.awt.event.ActionListener() {

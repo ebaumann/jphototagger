@@ -1,8 +1,6 @@
 package org.jphototagger.exif;
 
 import java.sql.Date;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -70,35 +68,12 @@ final class ExifFactory {
                 : exifTagStringValue.trim();
         int dateTimeStringLength = dateTimeString.length();
 
-        if (dateTimeStringLength >= 11) {
-            try {
-                String yearString = dateTimeString.substring(0, 4);
-                String monthString = dateTimeString.substring(5, 7);
-                String dayString = dateTimeString.substring(8, 10);
+        if (dateTimeStringLength >= 19) {
+            long timeInMillis = ExifMetadata.exifDateTimeStringToTimestamp(dateTimeString);
+            Date dateTimeOriginal = new Date(timeInMillis < 0 ? 0 : timeInMillis);
 
-                if (!NumberUtil.isInteger(yearString) || !NumberUtil.isInteger(monthString) || !NumberUtil.isInteger(dayString)) {
-                    return;
-                }
-
-                int year = Integer.parseInt(yearString);
-                int month = Integer.parseInt(monthString);
-                int day = Integer.parseInt(dayString);
-                Calendar calendar = new GregorianCalendar();
-
-                if (year < 1839) {
-                    LOGGER.log(Level.WARNING, "Year {0} is not plausible and EXIF date time taken will not be set!", year);
-                    return;
-                }
-
-                calendar.set(year, month - 1, day);
-
-                long timeInMillis = calendar.getTimeInMillis();
-                Date dateTimeOriginal = new Date(timeInMillis);
-
-                exif.setDateTimeOriginal(dateTimeOriginal);
-            } catch (Exception ex) {
-                LOGGER.log(Level.SEVERE, null, ex);
-            }
+            exif.setDateTimeOriginal(dateTimeOriginal);
+            exif.setDateTimeOriginalTimestamp(timeInMillis);
         }
     }
 

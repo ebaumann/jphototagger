@@ -7,9 +7,12 @@ import java.util.logging.Logger;
 
 import org.openide.util.Lookup;
 
+import org.jphototagger.api.branding.AppProperties;
 import org.jphototagger.api.modules.Module;
 import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.api.startup.AppUpdater;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.util.Version;
 import org.jphototagger.program.app.AppPreferencesKeys;
 import org.jphototagger.program.app.ui.AppWindowPersistence;
 import org.jphototagger.program.app.update.UpdateDownload;
@@ -59,7 +62,21 @@ public final class MetaFactory implements Runnable {
             }
         });
         installModules();
+        notifyUpdaters();
         checkForDownload();
+    }
+
+    private void notifyUpdaters() {
+        Collection<? extends AppUpdater> appUpdaters = Lookup.getDefault().lookupAll(AppUpdater.class);
+        AppProperties appProperties = Lookup.getDefault().lookup(AppProperties.class);
+        Version version = Version.parseVersion(appProperties.getAppVersionString(), ".");
+        int major = version.getMajor();
+        int minor1 = version.getMinor1();
+        int minor2 = version.getMinor2();
+
+        for (AppUpdater appUpdater : appUpdaters) {
+            appUpdater.updateToVersion(major, minor1, minor2);
+        }
     }
 
     private void checkForDownload() {

@@ -7,11 +7,10 @@ import java.util.Comparator;
 import org.jphototagger.lib.comparator.ReverseComparator;
 import org.jphototagger.lib.util.ClassEquality;
 
-// Separate class: Instance via Reflection
-
 /**
  * @author Elmar Baumann
  */
+// Separate class: Will be instanciated via Reflection
 public final class XmpExifDateTimeDescendingComparator extends ClassEquality implements Comparator<File>, Serializable {
 
     private static final long serialVersionUID = 1L;
