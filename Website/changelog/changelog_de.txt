@@ -9,6 +9,8 @@ Changelog JPhotoTagger http://jphototagger.org/
   (Zeitpunkt, an dem Bild fotografiert wurde) gespeichert. Das
   beschleunigt die Sortierung nach "EXIF-Aufnahmedatum- und Uhrzeit"
   (nach Profiler-Messung um mindestens das 100-fache)
+* Bearbeiten > Einstellungen > Sonstiges > Datei-Hooks:
+  Die Zuordnung von Skripten kann entfernt werden
 
 0.11.0 2011-10-10
 -----------------
