@@ -239,8 +239,18 @@ public final class ExifMetadata {
         String dateTimeString = dateTimeOriginalTag.getStringValue().trim();
         int dateTimeStringLength = dateTimeString.length();
 
-        if (dateTimeStringLength != 19) {
+        if (dateTimeStringLength < 19) {
             return file.lastModified();
+        }
+
+        long timestamp = exifDateTimeStringToTimestamp(dateTimeString);
+
+        return timestamp < 0 ? file.lastModified() : timestamp;
+    }
+
+    static long exifDateTimeStringToTimestamp(String dateTimeString) {
+        if (dateTimeString.length() < 19) {
+            return -1;
         }
 
         try {
@@ -252,7 +262,7 @@ public final class ExifMetadata {
             String secondsString = dateTimeString.substring(17, 19);
 
             if (!NumberUtil.allStringsAreIntegers(Arrays.asList(yearString, monthString, dayString, hoursString, minutesString, secondsString))) {
-                return file.lastModified();
+                return -1;
             }
 
             int year = Integer.parseInt(yearString);
@@ -266,7 +276,7 @@ public final class ExifMetadata {
 
             if (year < 1839) {
                 LOGGER.log(Level.WARNING, "Year {0} is not plausible and EXIF date time taken will not be set!", year);
-                return file.lastModified();
+                return -1;
             }
 
             calendar.set(year, month - 1, day, hours, minutes, seconds);
@@ -275,7 +285,6 @@ public final class ExifMetadata {
         } catch (Exception ex) {
             LOGGER.log(Level.SEVERE, null, ex);
         }
-
-        return file.lastModified();
+        return -1;
     }
 }

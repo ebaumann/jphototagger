@@ -1,11 +1,12 @@
 package org.jphototagger.domain.metadata.exif;
 
 import java.sql.Date;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import javax.xml.bind.annotation.XmlTransient;
+import org.jphototagger.lib.util.StringUtil;
 
 /**
- * EXIF metadata or an image file.
- *
  * @author Elmar Baumann
  */
 public final class Exif {
@@ -15,11 +16,12 @@ public final class Exif {
     private short isoSpeedRatings = -1;
     private String recordingEquipment;
     private String lens;
+    private long dateTimeOriginalTimestamp = -1;
+    @XmlTransient
+    private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 
     /**
-     * Returns the date when the image was created.
-     *
-     * @return date or null if not defined
+     * @return date when the image was created or null
      */
     public Date getDateTimeOriginal() {
         return (dateTimeOriginal == null)
@@ -28,9 +30,7 @@ public final class Exif {
     }
 
     /**
-     * Sets the date when the image was created.
-     *
-     * @param dateTimeOriginal date
+     * @param dateTimeOriginal date when the image was created or null
      */
     public void setDateTimeOriginal(Date dateTimeOriginal) {
         this.dateTimeOriginal = dateTimeOriginal == null
@@ -39,8 +39,20 @@ public final class Exif {
     }
 
     /**
-     * Returns the focal length of the camera's lens which projected the image.
-     *
+     * @param timestamp time when the image was created in milliseconds since 1970/01/01 00:00:00 or negative value
+     */
+    public void setDateTimeOriginalTimestamp(long timestamp) {
+        dateTimeOriginalTimestamp = timestamp;
+    }
+
+    /**
+     * @return time when the image was created in milliseconds since 1970/01/01 00:00:00 or negative value
+     */
+    public long getDateTimeOriginalTimestamp() {
+        return dateTimeOriginalTimestamp;
+    }
+
+    /**
      * @return focal length in mm
      */
     public double getFocalLength() {
@@ -54,8 +66,6 @@ public final class Exif {
     }
 
     /**
-     * Sets the focal length of the camera's lens which projected the image.
-     *
      * @param focalLength focal length in mm
      */
     public void setFocalLength(double focalLength) {
@@ -63,26 +73,20 @@ public final class Exif {
     }
 
     /**
-     * Returns the ISO adjustment of the camera which took the image.
-     *
-     * @return ISO
+     * @return ISO setting
      */
     public short getIsoSpeedRatings() {
         return isoSpeedRatings;
     }
 
     /**
-     * Sets the ISO adjustment of the camera which took the image
-     *
-     * @param isoSpeedRatings ISO
+     * @param isoSpeedRatings ISO setting
      */
     public void setIsoSpeedRatings(short isoSpeedRatings) {
         this.isoSpeedRatings = isoSpeedRatings;
     }
 
     /**
-     * Returns the camera which took the image.
-     *
      * @return camera
      */
     public String getRecordingEquipment() {
@@ -90,14 +94,11 @@ public final class Exif {
     }
 
     /**
-     * Sets the camera which took the image.
-     *
      * @param recordingEquipment camera
      */
     public void setRecordingEquipment(String recordingEquipment) {
-
         // Bugfix imagero: If first byte of RAW data is 0, then the returned string is "0"
-        this.recordingEquipment = ((recordingEquipment == null) || recordingEquipment.equals("0"))
+        this.recordingEquipment = recordingEquipment == null || recordingEquipment.equals("0")
                 ? null
                 : recordingEquipment;
     }
@@ -115,10 +116,15 @@ public final class Exif {
             return "";
         }
 
-        return new SimpleDateFormat("yyyy-MM-dd").format(dateTimeOriginal);
+        return DATE_FORMAT.format(dateTimeOriginal);
     }
 
     public boolean isEmpty() {
-        return (dateTimeOriginal == null) && (focalLength < 0) && (isoSpeedRatings < 0) && (recordingEquipment == null);
+        return dateTimeOriginal == null
+                && focalLength < 0
+                && isoSpeedRatings < 0
+                && dateTimeOriginalTimestamp < 0
+                && !StringUtil.hasContent(lens)
+                && !StringUtil.hasContent(recordingEquipment);
     }
 }

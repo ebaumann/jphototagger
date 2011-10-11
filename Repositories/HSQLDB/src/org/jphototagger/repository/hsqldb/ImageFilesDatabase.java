@@ -1909,7 +1909,8 @@ final class ImageFilesDatabase extends Database {
                 + ", exif_focal_length = ?" // -- 4 --
                 + ", exif_iso_speed_ratings = ?" // -- 5 --
                 + ", id_exif_lens = ?" // -- 6 --
-                + " WHERE id_file = ?";    // -- 7 --
+                + ", exif_date_time_original_timestamp = ?" // -- 7 --
+                + " WHERE id_file = ?";    // -- 8 --
     }
 
     private void insertOrUpdateExif(Connection con, File imageFile, long idFile, Exif exif) throws SQLException {
@@ -1924,7 +1925,7 @@ final class ImageFilesDatabase extends Database {
 
                     stmt = con.prepareStatement(getUpdateExifStatement());
                     setExifValues(stmt, idFile, exif);
-                    stmt.setLong(7, idFile);
+                    stmt.setLong(8, idFile);
                     logFiner(stmt);
 
                     int count = stmt.executeUpdate();
@@ -1948,7 +1949,8 @@ final class ImageFilesDatabase extends Database {
                 + ", exif_focal_length" // -- 4 --
                 + ", exif_iso_speed_ratings" // -- 5 --
                 + ", id_exif_lens" // -- 6 --
-                + ") VALUES (?, ?, ?, ?, ?, ?)";
+                + ", exif_date_time_original_timestamp" // -- 7 --
+                + ") VALUES (?, ?, ?, ?, ?, ?, ?)";
     }
 
     private void insertExif(Connection con, File imageFile, long idFile, Exif exif) throws SQLException {
@@ -1974,6 +1976,7 @@ final class ImageFilesDatabase extends Database {
         setDouble(exif.getFocalLengthGreaterZeroOrNull(), stmt, 4);
         setShort(exif.getIsoSpeedRatings(), stmt, 5);
         setLong(ensureValueExists("exif_lenses", "lens", exif.getLens()), stmt, 6);
+        setLong(exif.getDateTimeOriginalTimestamp(), stmt, 7);
     }
 
     private long findIdExifOfIdFile(Connection con, long idFile) throws SQLException {
@@ -2344,12 +2347,46 @@ final class ImageFilesDatabase extends Database {
         return files;
     }
 
+    long findExifDateTimeOriginalTimestamp(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+
+        long timestamp = -1;
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            con = getConnection();
+            String sql = "SELECT exif.exif_date_time_original_timestamp"
+                    + " FROM files INNER JOIN exif ON files.id = exif.id_file"
+                    + " WHERE files.filename = ?";
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, getFilePath(file));
+            logFinest(stmt);
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                timestamp = rs.getLong(1);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(ImageFilesDatabase.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            close(rs, stmt);
+            free(con);
+        }
+
+        return timestamp;
+    }
+
     private String getExifOfStatement() {
         return "SELECT exif_recording_equipment.equipment" // -- 1 --
                 + ", exif.exif_date_time_original" // -- 2 --
                 + ", exif.exif_focal_length" // -- 3 --
                 + ", exif.exif_iso_speed_ratings" // -- 4 --
                 + ", exif_lenses.lens" // -- 5 --
+                + ", exif_date_time_original_timestamp" // -- 6 --
                 + " FROM files INNER JOIN exif ON files.id = exif.id_file"
                 + " LEFT JOIN exif_recording_equipment ON"
                 + " exif.id_exif_recording_equipment"
@@ -2382,6 +2419,7 @@ final class ImageFilesDatabase extends Database {
                 exif.setFocalLength(rs.getDouble(3));
                 exif.setIsoSpeedRatings(rs.getShort(4));
                 exif.setLens(rs.getString(5));
+                exif.setDateTimeOriginalTimestamp(rs.getLong(6));
             }
         } catch (Exception ex) {
             Logger.getLogger(ImageFilesDatabase.class.getName()).log(Level.SEVERE, null, ex);

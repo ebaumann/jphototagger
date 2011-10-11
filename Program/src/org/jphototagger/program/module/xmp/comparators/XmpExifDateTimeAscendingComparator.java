@@ -8,9 +8,6 @@ import java.util.Date;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.domain.metadata.exif.Exif;
-import org.jphototagger.domain.metadata.exif.ExifInfo;
-import org.jphototagger.domain.metadata.exif.ExifUtil;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.lib.util.ClassEquality;
 
@@ -22,7 +19,7 @@ public final class XmpExifDateTimeAscendingComparator extends ClassEquality impl
 
     private static final long serialVersionUID = 1L;
     private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
-    private final ExifInfo exifInfo = Lookup.getDefault().lookup(ExifInfo.class);
+    private static final SimpleDateFormat EXIF_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     @Override
     public int compare(File fileLeft, File fileRight) {
@@ -33,13 +30,12 @@ public final class XmpExifDateTimeAscendingComparator extends ClassEquality impl
     }
 
     private String getTimeString(File file) {
-        Exif exif = ExifUtil.readExifPreferCached(file);
-        boolean hasExif = exif != null && exif.getDateTimeOriginal() != null;
+        long exifTimestamp = repo.findExifDateTimeOriginalTimestamp(file);
+        boolean hasExif = exifTimestamp >= 0;
 
         if (hasExif) {
-            Date exifDate = new Date(exifInfo.getTimeTakenInMillis(file));
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            return dateFormat.format(exifDate);
+            Date exifDate = new Date(exifTimestamp);
+            return EXIF_DATE_FORMAT.format(exifDate);
         }
 
         String xmpDate = repo.findXmpIptc4CoreDateCreated(file);

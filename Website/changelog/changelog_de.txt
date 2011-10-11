@@ -3,6 +3,13 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.11.1 2011-10-11
+-----------------
+* In der Datenbank wird jetzt auch die Uhrzeit des EXIF-Datums
+  (Zeitpunkt, an dem Bild fotografiert wurde) gespeichert. Das
+  beschleunigt die Sortierung nach "EXIF-Aufnahmedatum- und Uhrzeit"
+  (nach Profiler-Messung um mindestens das 100-fache)
+
 0.11.0 2011-10-10
 -----------------
 * 4 neue Sortier-Menüpunkte unter Ansicht > Sortieren:

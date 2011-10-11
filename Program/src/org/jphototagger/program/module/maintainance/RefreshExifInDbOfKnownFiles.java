@@ -54,4 +54,8 @@ public final class RefreshExifInDbOfKnownFiles extends HelperThread {
     public void cancel() {
         cancel = true;
     }
+
+    public boolean isCanceled() {
+        return cancel;
+    }
 }

@@ -75,7 +75,7 @@ public final class RepositoryMaintainanceDialog extends Dialog {
 
         tabbedPane = new javax.swing.JTabbedPane();
         panelCount = new org.jphototagger.program.module.maintainance.RepositoryInfoCountPanel();
-        panelMaintainance = new org.jphototagger.program.repository.actions.RepositoryMaintainancePanel();
+        panelMaintainance = new org.jphototagger.program.module.maintainance.RepositoryMaintainancePanel();
         panelRepositoryUpdate = new org.jphototagger.program.module.maintainance.RepositoryUpdatePanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -147,7 +147,7 @@ public final class RepositoryMaintainanceDialog extends Dialog {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jphototagger.program.module.maintainance.RepositoryInfoCountPanel panelCount;
-    private org.jphototagger.program.repository.actions.RepositoryMaintainancePanel panelMaintainance;
+    private org.jphototagger.program.module.maintainance.RepositoryMaintainancePanel panelMaintainance;
     private org.jphototagger.program.module.maintainance.RepositoryUpdatePanel panelRepositoryUpdate;
     private javax.swing.JTabbedPane tabbedPane;
     // End of variables declaration//GEN-END:variables

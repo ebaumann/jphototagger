@@ -1,8 +1,5 @@
 package org.jphototagger.program.app;
 
-import org.jphototagger.program.app.ui.SplashScreen;
-import org.jphototagger.program.app.ui.AppLookAndFeel;
-import org.jphototagger.program.app.ui.AppFrame;
 import java.awt.Toolkit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,6 +22,9 @@ import org.jphototagger.lib.util.ExceptionUtil;
 import org.jphototagger.lib.util.Version;
 import org.jphototagger.program.app.logging.AppLogUtil;
 import org.jphototagger.program.app.logging.AppLoggingSystem;
+import org.jphototagger.program.app.ui.AppFrame;
+import org.jphototagger.program.app.ui.AppLookAndFeel;
+import org.jphototagger.program.app.ui.SplashScreen;
 import org.jphototagger.program.module.thumbnails.cache.CacheUtil;
 import org.jphototagger.program.resource.ImageProperties;
 
@@ -133,8 +133,8 @@ public final class AppInit {
 
         if (javaVersionIsTooOld) {
             errorMessageJavaVersion(javaVersion);
-            throw new RuntimeException("Java version" + javaVersion.toString3() +
-                    " is too old. Required minimum version is " + AppInfo.MIN_JAVA_VERSION);
+            throw new RuntimeException("Java version" + javaVersion.toString3()
+                    + " is too old. Required minimum version is " + AppInfo.MIN_JAVA_VERSION);
         }
     }
 

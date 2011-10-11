@@ -57,6 +57,8 @@ public interface ImageFilesRepository {
 
     Exif findExifOfImageFile(File file);
 
+    long findExifDateTimeOriginalTimestamp(File file);
+
     Long findIdDcSubject(String dcSubject);
 
     boolean existsXmpDcSubjectsLink(long idXmp, long idDcSubject);
