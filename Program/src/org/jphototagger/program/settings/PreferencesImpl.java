@@ -17,8 +17,8 @@ import org.bushe.swing.event.EventBus;
 import org.openide.util.lookup.ServiceProvider;
 
 import org.jphototagger.api.preferences.Preferences;
-import org.jphototagger.api.preferences.PreferencesHints;
 import org.jphototagger.api.preferences.PreferencesChangedEvent;
+import org.jphototagger.api.preferences.PreferencesHints;
 import org.jphototagger.lib.componentutil.ComponentUtil;
 import org.jphototagger.lib.util.ObjectUtil;
 import org.jphototagger.lib.util.Settings;
@@ -52,8 +52,10 @@ public final class PreferencesImpl implements Preferences {
 
     @Override
     public void removeKey(String key) {
+        String oldValue = settings.getString(key);
         settings.removeKey(key);
         writeToFile();
+        EventBus.publish(new PreferencesChangedEvent(this, key, oldValue, null));
     }
 
     @Override
