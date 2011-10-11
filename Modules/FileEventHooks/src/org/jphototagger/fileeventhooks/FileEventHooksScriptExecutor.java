@@ -30,9 +30,14 @@ public final class FileEventHooksScriptExecutor {
     private String fileDeletedScript;
     private String fileMovedScript;
     private String fileRenamedScript;
+    private final Object monitor = new Object();
 
     public FileEventHooksScriptExecutor() {
         initScriptFiles();
+        listen();
+    }
+
+    private void listen() {
         AnnotationProcessor.process(this);
     }
 
@@ -48,16 +53,24 @@ public final class FileEventHooksScriptExecutor {
     @EventSubscriber(eventClass = PreferencesChangedEvent.class)
     public void userPreferenceChanged(PreferencesChangedEvent evt) {
         String key = evt.getKey();
-        String stringValue = evt.getNewValue() == null ? "" : evt.getNewValue().toString();
+        String stringValue = evt.getNewValue() == null ? null : evt.getNewValue().toString();
 
         if (FileEventHooksPreferencesKeys.FILE_COPIED_KEY.equals(key)) {
-            fileCopiedScript = stringValue;
+            synchronized (monitor) {
+                fileCopiedScript = stringValue;
+            }
         } else if (FileEventHooksPreferencesKeys.FILE_DELETED_KEY.equals(key)) {
-            fileDeletedScript = stringValue;
+            synchronized (monitor) {
+                fileDeletedScript = stringValue;
+            }
         } else if (FileEventHooksPreferencesKeys.FILE_MOVED_KEY.equals(key)) {
-            fileMovedScript = stringValue;
+            synchronized (monitor) {
+                fileMovedScript = stringValue;
+            }
         } else if (FileEventHooksPreferencesKeys.FILE_RENAMED_KEY.equals(key)) {
-            fileRenamedScript = stringValue;
+            synchronized (monitor) {
+                fileRenamedScript = stringValue;
+            }
         }
     }
 
@@ -66,14 +79,18 @@ public final class FileEventHooksScriptExecutor {
         File sourceFile = evt.getSourceFile();
         File targetFile = evt.getTargetFile();
 
-        executeScript(fileCopiedScript, sourceFile, targetFile);
+        synchronized (monitor) {
+            executeScript(fileCopiedScript, sourceFile, targetFile);
+        }
     }
 
     @EventSubscriber(eventClass = FileDeletedEvent.class)
     public void fileDeleted(FileDeletedEvent evt) {
         File file = evt.getFile();
 
-        executeScript(fileDeletedScript, file, null);
+        synchronized (monitor) {
+            executeScript(fileDeletedScript, file, null);
+        }
     }
 
     @EventSubscriber(eventClass = FileMovedEvent.class)
@@ -81,7 +98,9 @@ public final class FileEventHooksScriptExecutor {
         File sourceFile = evt.getSourceFile();
         File targetFile = evt.getTargetFile();
 
-        executeScript(fileMovedScript, sourceFile, targetFile);
+        synchronized (monitor) {
+            executeScript(fileMovedScript, sourceFile, targetFile);
+        }
     }
 
     @EventSubscriber(eventClass = FileRenamedEvent.class)
@@ -89,10 +108,12 @@ public final class FileEventHooksScriptExecutor {
         File sourceFile = evt.getSourceFile();
         File targetFile = evt.getTargetFile();
 
-        executeScript(fileRenamedScript, sourceFile, targetFile);
+        synchronized (monitor) {
+            executeScript(fileRenamedScript, sourceFile, targetFile);
+        }
     }
 
-    private void executeScript(String script, File fromFile, File toFile) {
+    private void executeScript(final String script, File fromFile, File toFile) {
         if (!StringUtil.hasContent(script) || isSidecarFile(fromFile)) {
             return;
         }
@@ -148,6 +169,10 @@ public final class FileEventHooksScriptExecutor {
     }
 
     private boolean checkScriptExists(String script) {
+        if (script == null) {
+            return false;
+        }
+        
         if (!new File(script).isFile()) {
             LOGGER.log(Level.WARNING, "File Hook script ''{0}'' does not exist", script);
             return false;
