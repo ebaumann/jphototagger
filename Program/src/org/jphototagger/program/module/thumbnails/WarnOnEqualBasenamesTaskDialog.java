@@ -118,13 +118,12 @@ public class WarnOnEqualBasenamesTaskDialog extends Dialog {
         checkBoxDisplayInFuture = new JCheckBox();
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        ResourceBundle bundle = ResourceBundle.getBundle("org/jphototagger/program/helper/Bundle"); // NOI18N
+        ResourceBundle bundle = ResourceBundle.getBundle("org/jphototagger/program/module/thumbnails/Bundle"); // NOI18N
         setTitle(bundle.getString("WarnOnEqualBasenamesTaskDialog.title")); // NOI18N
         setName("Form"); // NOI18N
 
         labelInfo.setLineWrap(true);
-        ResourceBundle bundle1 = ResourceBundle.getBundle("org/jphototagger/program/module/thumbnails/Bundle"); // NOI18N
-        labelInfo.setText(bundle1.getString("WarnOnEqualBasenamesTaskDialog.labelInfo.text")); // NOI18N
+        labelInfo.setText(bundle.getString("WarnOnEqualBasenamesTaskDialog.labelInfo.text")); // NOI18N
         labelInfo.setName("labelInfo"); // NOI18N
 
         scrollPanlFiles.setName("scrollPanlFiles"); // NOI18N
@@ -134,7 +133,7 @@ public class WarnOnEqualBasenamesTaskDialog extends Dialog {
         listFiles.setName("listFiles"); // NOI18N
         scrollPanlFiles.setViewportView(listFiles);
 
-        checkBoxDisplayInFuture.setText(bundle1.getString("WarnOnEqualBasenamesTaskDialog.checkBoxDisplayInFuture.text")); // NOI18N
+        checkBoxDisplayInFuture.setText(bundle.getString("WarnOnEqualBasenamesTaskDialog.checkBoxDisplayInFuture.text")); // NOI18N
         checkBoxDisplayInFuture.setName("checkBoxDisplayInFuture"); // NOI18N
         checkBoxDisplayInFuture.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -160,7 +159,7 @@ public class WarnOnEqualBasenamesTaskDialog extends Dialog {
                 .addContainerGap()
                 .addComponent(labelInfo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(ComponentPlacement.RELATED)
-                .addComponent(scrollPanlFiles, GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
+                .addComponent(scrollPanlFiles, GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
                 .addGap(10, 10, 10)
                 .addComponent(checkBoxDisplayInFuture)
                 .addContainerGap())
