@@ -313,7 +313,7 @@ public final class ShowMetadataController implements ChangeListener {
 
             WaitDisplay.INSTANCE.show();
 
-            Set<Metadata> resizeTableMetadta = new HashSet<Metadata>();
+            Set<Metadata> resizeTableMetadta = EnumSet.noneOf(Metadata.class);
 
             if (isUpdateExif(metadata)) {
                 LOGGER.log(Level.FINEST, "Updating EXIF metadata of image file ''{0}'' in GUI table", imageFile);

@@ -1,41 +1,36 @@
 package org.jphototagger.domain.thumbnails;
 
-import java.util.HashSet;
+import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.Set;
 
 /**
  */
 public enum OriginOfDisplayedThumbnails {
 
-    FILES_IN_SAME_DIRECTORY,
     FILES_FOUND_BY_FAST_SEARCH,
+    FILES_FOUND_BY_SAVED_SEARCH,
+    FILES_IN_SAME_DIRECTORY,
     FILES_IN_SAME_FAVORITE_DIRECTORY,
-    FILES_OF_AN_IMAGE_COLLECTION,
     FILES_MATCHING_A_KEYWORD,
     FILES_MATCHING_DATES_IN_A_TIMELINE,
     FILES_MATCHING_MISC_METADATA,
     FILES_MATCHING_MISSING_METADATA,
-    FILES_FOUND_BY_SAVED_SEARCH,
+    FILES_OF_AN_IMAGE_COLLECTION,
     UNDEFINED_ORIGIN,;
     /**
      * Contents where images of displayed thumbnails can be deleted from the
      * file system
      */
-    private static final Set<OriginOfDisplayedThumbnails> CONTENT_DELETE_IMAGES_FROM_FILESYSTEM_ALLOWED = new HashSet<OriginOfDisplayedThumbnails>();
+    private static final Set<OriginOfDisplayedThumbnails> CONTENT_DELETE_IMAGES_FROM_FILESYSTEM_ALLOWED = EnumSet.noneOf(OriginOfDisplayedThumbnails.class);
     /**
      * Contents where images located elsewhere in the file system can be
      * inserted
      */
-    private static final Set<OriginOfDisplayedThumbnails> CONTENT_INSERT_IMAGES_FROM_FILESYSTEM_ALLOWED = new HashSet<OriginOfDisplayedThumbnails>();
+    private static final Set<OriginOfDisplayedThumbnails> CONTENT_INSERT_IMAGES_FROM_FILESYSTEM_ALLOWED = EnumSet.noneOf(OriginOfDisplayedThumbnails.class);
 
     static {
-
-        // Deletion from the file system is always allowed if the content is not
-        // not an image collection where deletion means deleting an image from
-        // the image collection and not from the file system
-        for (OriginOfDisplayedThumbnails content : values()) {
-            CONTENT_DELETE_IMAGES_FROM_FILESYSTEM_ALLOWED.add(content);
-        }
+        CONTENT_DELETE_IMAGES_FROM_FILESYSTEM_ALLOWED.addAll(Arrays.asList(values()));
 
         // Insertion is allowed if the directory is not ambigious where the
         // files shall be inserted. This is true if all displayed thumbnails
