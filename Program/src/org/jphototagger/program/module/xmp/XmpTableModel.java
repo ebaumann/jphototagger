@@ -10,8 +10,7 @@ import org.jphototagger.lib.swing.TableModelExt;
 import org.jphototagger.lib.util.Bundle;
 
 /**
- * Alle elements are {@code XMPPropertyInfo} instances retrieved through
- * {@code #setPropertyInfosOfFile(File, List)}.
+ * Alle elements are {@code XMPPropertyInfo}s.
  *
  * @author Elmar Baumann, Tobias Stening
  */
@@ -25,14 +24,6 @@ public final class XmpTableModel extends TableModelExt {
         setRowHeaders();
     }
 
-    /**
-     * Setzt die Property-Infos, deren Daten übernommen werden.
-     *
-     * @param file           Datei, aus der die Property-Infos
-     *                       ermittelt wurden oder null, falls diese
-     *                       Information unwichtig ist
-     * @param propertyInfos  Property-Infos
-     */
     public void setPropertyInfosOfFile(File file, List<XMPPropertyInfo> propertyInfos) {
         if (file == null) {
             throw new NullPointerException("file == null");
@@ -46,17 +37,6 @@ public final class XmpTableModel extends TableModelExt {
         this.propertyInfos = new ArrayList<XMPPropertyInfo>(propertyInfos);
         removeAllRows();
         addRows();
-    }
-
-    /**
-     * Liefert die Datei, deren Property-Infos das Model enthält.
-     *
-     * @return Dateiname oder null, wenn die Property-Infos entfernt wurden
-     *         oder null gesetzt wurde mit
-     *         {@code #setPropertyInfosOfFile(File, List) }
-     */
-    public File getFile() {
-        return file;
     }
 
     @Override

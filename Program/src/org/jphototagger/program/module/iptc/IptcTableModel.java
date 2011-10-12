@@ -14,8 +14,7 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.filefilter.AppFileFilters;
 
 /**
- * All elements are {@code IptcEntry}s of <em>one</em> image file retrieved
- * through {@code IptcMetadata#getIptcEntries(java.io.File)}.
+ * All elements are {@code IptcEntry}s of <em>one</em>.
  *
  * @author Elmar Baumann, Tobias Stening
  */
@@ -29,12 +28,6 @@ public final class IptcTableModel extends TableModelExt {
         addColumnHeaders();
     }
 
-    /**
-     * Setzt die Bilddatei. Der bisherige Inhalt wird ersetzt
-     * durch die IPTC-Daten des Bilds.
-     *
-     * @param file  Datei
-     */
     public void setFile(File file) {
         if (file == null) {
             throw new NullPointerException("file == null");
@@ -49,15 +42,6 @@ public final class IptcTableModel extends TableModelExt {
         IptcIgnoreCache.INSTANCE.setIgnore(file, iptcEntries.isEmpty());
         removeAllRows();
         addRows();
-    }
-
-    /**
-     * Liefert die Bilddatei.
-     *
-     * @return Dateiname. Null, falls nicht gesetzt.
-     */
-    public File getFile() {
-        return file;
     }
 
     @Override
