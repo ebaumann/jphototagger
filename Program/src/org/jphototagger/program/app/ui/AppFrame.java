@@ -1,38 +1,23 @@
 package org.jphototagger.program.app.ui;
 
 import java.awt.event.KeyEvent;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.EnumMap;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
 import javax.swing.JPopupMenu.Separator;
-import javax.swing.JRadioButtonMenuItem;
-
-import org.openide.util.Lookup;
 
 import org.jphototagger.api.windows.MainWindowMenuItem;
-import org.jphototagger.domain.thumbnails.FileSortComparator;
-import org.jphototagger.domain.thumbnails.FileSortComparators;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.comparator.FileSort;
-import org.jphototagger.lib.comparator.PositionComparatorAscendingOrder;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.swing.util.MenuUtil;
 import org.jphototagger.lib.util.SystemUtil;
 import org.jphototagger.program.app.AppInfo;
 import org.jphototagger.program.app.AppLifeCycle;
 import org.jphototagger.program.module.userdefinedfiletypes.EditUserDefinedFileTypesAction;
-import org.jphototagger.program.module.actions.ShowActionsDialogAction;
 import org.jphototagger.program.resource.GUI;
 
 /**
@@ -43,59 +28,9 @@ import org.jphototagger.program.resource.GUI;
 public final class AppFrame extends javax.swing.JFrame {
 
     private static final long serialVersionUID = 1L;
-    private final Map<Comparator<File>, JRadioButtonMenuItem> menuItemOfSortCmp = new HashMap<Comparator<File>, JRadioButtonMenuItem>();
-    private final Map<JRadioButtonMenuItem, Comparator<File>> sortCmpOfMenuItem = new HashMap<JRadioButtonMenuItem, Comparator<File>>();
     private final Map<GoTo, JMenuItem> menuItemOfGoto = new EnumMap<GoTo, JMenuItem>(GoTo.class);
     private final Map<JMenuItem, GoTo> gotoOfMenuItem = new HashMap<JMenuItem, GoTo>();
     private AppPanel appPanel;
-
-    private void initSortMenuItems() {
-        menuItemOfSortCmp.put(FileSort.PATHS_ASCENDING.getComparator(), radioButtonMenuItemSortFilepathAscending);
-        menuItemOfSortCmp.put(FileSort.PATHS_DESCENDING.getComparator(), radioButtonMenuItemSortFilepathDescending);
-        menuItemOfSortCmp.put(FileSort.NAMES_ASCENDING.getComparator(), radioButtonMenuItemSortFilenameAscending);
-        menuItemOfSortCmp.put(FileSort.NAMES_DESCENDING.getComparator(), radioButtonMenuItemSortFilenameDescending);
-        menuItemOfSortCmp.put(FileSort.LAST_MODIFIED_ASCENDING.getComparator(), radioButtonMenuItemSortLastModifiedAscending);
-        menuItemOfSortCmp.put(FileSort.LAST_MODIFIED_DESCENDING.getComparator(), radioButtonMenuItemSortLastModifiedDescending);
-        menuItemOfSortCmp.put(FileSort.TYPES_ASCENDING.getComparator(), radioButtonMenuItemSortFileTypeAscending);
-        menuItemOfSortCmp.put(FileSort.TYPES_DESCENDING.getComparator(), radioButtonMenuItemSortFileTypeDescending);
-
-        Collection<? extends FileSortComparators> sortComparators = Lookup.getDefault().lookupAll(FileSortComparators.class);
-        List<FileSortComparator> sortedSortComparators = new ArrayList<FileSortComparator>();
-
-        for (FileSortComparators fscs : sortComparators) {
-            sortedSortComparators.addAll(fscs.getFileSortComparators());
-        }
-
-        Collections.sort(sortedSortComparators, PositionComparatorAscendingOrder.INSTANCE);
-
-        for (FileSortComparator fileSortComparator : sortedSortComparators) {
-            JRadioButtonMenuItem radioButtonMenuItemAscending = new JRadioButtonMenuItem();
-            JRadioButtonMenuItem radioButtonMenuItemDescending = new JRadioButtonMenuItem();
-
-            menuSort.add(new JPopupMenu.Separator());
-
-            radioButtonMenuItemAscending.setText(fileSortComparator.getAscendingSortComparatorDisplayName());
-            buttonGroupSort.add(radioButtonMenuItemAscending);
-            menuSort.add(radioButtonMenuItemAscending);
-            menuItemOfSortCmp.put(fileSortComparator.getAscendingSortComparator(), radioButtonMenuItemAscending);
-
-            radioButtonMenuItemDescending.setText(fileSortComparator.getDescendingSortComparatorDisplayName());
-            buttonGroupSort.add(radioButtonMenuItemDescending);
-            menuSort.add(radioButtonMenuItemDescending);
-            menuItemOfSortCmp.put(fileSortComparator.getDescendingSortComparator(), radioButtonMenuItemDescending);
-        }
-
-        menuSort.add(new JPopupMenu.Separator());
-        buttonGroupSort.add(radioButtonMenuItemSortNone);
-        radioButtonMenuItemSortNone.setEnabled(false);
-        radioButtonMenuItemSortNone.setName("radioButtonMenuItemSortNone"); // NOI18N
-        menuSort.add(radioButtonMenuItemSortNone);
-        menuItemOfSortCmp.put(FileSort.NO_SORT.getComparator(), radioButtonMenuItemSortNone);
-
-        for (Comparator<File> comparator : menuItemOfSortCmp.keySet()) {
-            sortCmpOfMenuItem.put(menuItemOfSortCmp.get(comparator), comparator);
-        }
-    }
 
     private void initGotoMenuItemsMap() {
         menuItemOfGoto.put(GoTo.DIRECTORIES, menuItemGotoDirectories);
@@ -146,7 +81,6 @@ public final class AppFrame extends javax.swing.JFrame {
         GUI.setAppFrame(this);
         addAppPanel();
         MenuUtil.setMnemonics(menuBar);
-        initSortMenuItems();
         initGotoMenuItemsMap();
         setIconImages(AppLookAndFeel.getAppIcons());
         AppLifeCycle.INSTANCE.started(this);
@@ -159,10 +93,6 @@ public final class AppFrame extends javax.swing.JFrame {
     private void addAppPanel() {
         appPanel = new AppPanel();
         getContentPane().add(appPanel);
-    }
-
-    public JMenu getMenuSort() {
-        return menuSort;
     }
 
     public JCheckBoxMenuItem getCheckBoxMenuItemKeywordOverlay() {
@@ -183,18 +113,6 @@ public final class AppFrame extends javax.swing.JFrame {
 
     public JMenuItem getMenuItemOfGoto(GoTo gt) {
         return menuItemOfGoto.get(gt);
-    }
-
-    public JRadioButtonMenuItem getMenuItemOfSortCmp(Comparator<File> sortCmp) {
-        return menuItemOfSortCmp.get(sortCmp);
-    }
-
-    public Collection<JRadioButtonMenuItem> getSortMenuItems() {
-        return menuItemOfSortCmp.values();
-    }
-
-    public Comparator<File> getSortCmpOfMenuItem(JRadioButtonMenuItem item) {
-        return sortCmpOfMenuItem.get(item);
     }
 
     public JMenuItem getMenuItemAbout() {
@@ -251,10 +169,6 @@ public final class AppFrame extends javax.swing.JFrame {
 
     public JMenuItem getMenuItemSynonyms() {
         return menuItemSynonyms;
-    }
-
-    public void selectMenuItemUnsorted() {
-        radioButtonMenuItemSortNone.setSelected(true);
     }
 
     public JMenu getMenuEdit() {
@@ -358,7 +272,6 @@ public final class AppFrame extends javax.swing.JFrame {
     private void initComponents() {//GEN-BEGIN:initComponents
 
         buttonGroupSort = new javax.swing.ButtonGroup();
-        radioButtonMenuItemSortNone = new javax.swing.JRadioButtonMenuItem();
         menuBar = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         menuItemScanDirectory = new javax.swing.JMenuItem();
@@ -378,18 +291,6 @@ public final class AppFrame extends javax.swing.JFrame {
         sep4 = new javax.swing.JPopupMenu.Separator();
         menuItemSearch = new javax.swing.JMenuItem();
         menuView = new javax.swing.JMenu();
-        menuSort = new javax.swing.JMenu();
-        radioButtonMenuItemSortFilepathAscending = new javax.swing.JRadioButtonMenuItem();
-        radioButtonMenuItemSortFilepathDescending = new javax.swing.JRadioButtonMenuItem();
-        sep5 = new javax.swing.JPopupMenu.Separator();
-        radioButtonMenuItemSortFilenameAscending = new javax.swing.JRadioButtonMenuItem();
-        radioButtonMenuItemSortFilenameDescending = new javax.swing.JRadioButtonMenuItem();
-        sep6 = new javax.swing.JPopupMenu.Separator();
-        radioButtonMenuItemSortFileTypeAscending = new javax.swing.JRadioButtonMenuItem();
-        radioButtonMenuItemSortFileTypeDescending = new javax.swing.JRadioButtonMenuItem();
-        sep7 = new javax.swing.JPopupMenu.Separator();
-        radioButtonMenuItemSortLastModifiedAscending = new javax.swing.JRadioButtonMenuItem();
-        radioButtonMenuItemSortLastModifiedDescending = new javax.swing.JRadioButtonMenuItem();
         sep15 = new javax.swing.JPopupMenu.Separator();
         checkBoxMenuItemKeywordOverlay = new javax.swing.JCheckBoxMenuItem();
         menuGoto = new javax.swing.JMenu();
@@ -439,18 +340,13 @@ public final class AppFrame extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         menuItemAbout = new javax.swing.JMenuItem();
 
-        buttonGroupSort.add(radioButtonMenuItemSortNone);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/app/ui/Bundle"); // NOI18N
-        radioButtonMenuItemSortNone.setText(bundle.getString("AppFrame.radioButtonMenuItemSortNone.text")); // NOI18N
-        radioButtonMenuItemSortNone.setEnabled(false);
-        radioButtonMenuItemSortNone.setName("radioButtonMenuItemSortNone"); // NOI18N
-
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(AppInfo.APP_NAME);
         setName("Form"); // NOI18N
 
         menuBar.setName("menuBar"); // NOI18N
 
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/app/ui/Bundle"); // NOI18N
         menuFile.setText(bundle.getString("AppFrame.menuFile.text")); // NOI18N
         menuFile.setName("menuFile"); // NOI18N
 
@@ -539,61 +435,6 @@ public final class AppFrame extends javax.swing.JFrame {
 
         menuView.setText(bundle.getString("AppFrame.menuView.text")); // NOI18N
         menuView.setName("menuView"); // NOI18N
-
-        menuSort.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_sort.png"))); // NOI18N
-        menuSort.setText(bundle.getString("AppFrame.menuSort.text")); // NOI18N
-        menuSort.setName("menuSort"); // NOI18N
-
-        buttonGroupSort.add(radioButtonMenuItemSortFilepathAscending);
-        radioButtonMenuItemSortFilepathAscending.setText(bundle.getString("AppFrame.radioButtonMenuItemSortFilepathAscending.text")); // NOI18N
-        radioButtonMenuItemSortFilepathAscending.setName("radioButtonMenuItemSortFilepathAscending"); // NOI18N
-        menuSort.add(radioButtonMenuItemSortFilepathAscending);
-
-        buttonGroupSort.add(radioButtonMenuItemSortFilepathDescending);
-        radioButtonMenuItemSortFilepathDescending.setText(bundle.getString("AppFrame.radioButtonMenuItemSortFilepathDescending.text")); // NOI18N
-        radioButtonMenuItemSortFilepathDescending.setName("radioButtonMenuItemSortFilepathDescending"); // NOI18N
-        menuSort.add(radioButtonMenuItemSortFilepathDescending);
-
-        sep5.setName("sep5"); // NOI18N
-        menuSort.add(sep5);
-
-        buttonGroupSort.add(radioButtonMenuItemSortFilenameAscending);
-        radioButtonMenuItemSortFilenameAscending.setText(bundle.getString("AppFrame.radioButtonMenuItemSortFilenameAscending.text")); // NOI18N
-        radioButtonMenuItemSortFilenameAscending.setName("radioButtonMenuItemSortFilenameAscending"); // NOI18N
-        menuSort.add(radioButtonMenuItemSortFilenameAscending);
-
-        buttonGroupSort.add(radioButtonMenuItemSortFilenameDescending);
-        radioButtonMenuItemSortFilenameDescending.setText(bundle.getString("AppFrame.radioButtonMenuItemSortFilenameDescending.text")); // NOI18N
-        radioButtonMenuItemSortFilenameDescending.setName("radioButtonMenuItemSortFilenameDescending"); // NOI18N
-        menuSort.add(radioButtonMenuItemSortFilenameDescending);
-
-        sep6.setName("sep6"); // NOI18N
-        menuSort.add(sep6);
-
-        buttonGroupSort.add(radioButtonMenuItemSortFileTypeAscending);
-        radioButtonMenuItemSortFileTypeAscending.setText(bundle.getString("AppFrame.radioButtonMenuItemSortFileTypeAscending.text")); // NOI18N
-        radioButtonMenuItemSortFileTypeAscending.setName("radioButtonMenuItemSortFileTypeAscending"); // NOI18N
-        menuSort.add(radioButtonMenuItemSortFileTypeAscending);
-
-        buttonGroupSort.add(radioButtonMenuItemSortFileTypeDescending);
-        radioButtonMenuItemSortFileTypeDescending.setText(bundle.getString("AppFrame.radioButtonMenuItemSortFileTypeDescending.text")); // NOI18N
-        radioButtonMenuItemSortFileTypeDescending.setName("radioButtonMenuItemSortFileTypeDescending"); // NOI18N
-        menuSort.add(radioButtonMenuItemSortFileTypeDescending);
-
-        sep7.setName("sep7"); // NOI18N
-        menuSort.add(sep7);
-
-        buttonGroupSort.add(radioButtonMenuItemSortLastModifiedAscending);
-        radioButtonMenuItemSortLastModifiedAscending.setText(bundle.getString("AppFrame.radioButtonMenuItemSortLastModifiedAscending.text")); // NOI18N
-        radioButtonMenuItemSortLastModifiedAscending.setName("radioButtonMenuItemSortLastModifiedAscending"); // NOI18N
-        menuSort.add(radioButtonMenuItemSortLastModifiedAscending);
-
-        buttonGroupSort.add(radioButtonMenuItemSortLastModifiedDescending);
-        radioButtonMenuItemSortLastModifiedDescending.setText(bundle.getString("AppFrame.radioButtonMenuItemSortLastModifiedDescending.text")); // NOI18N
-        radioButtonMenuItemSortLastModifiedDescending.setName("radioButtonMenuItemSortLastModifiedDescending"); // NOI18N
-        menuSort.add(radioButtonMenuItemSortLastModifiedDescending);
-
-        menuView.add(menuSort);
 
         sep15.setName("sep15"); // NOI18N
         menuView.add(sep15);
@@ -736,7 +577,7 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemInputHelper.setName("menuItemInputHelper"); // NOI18N
         menuWindow.add(menuItemInputHelper);
 
-        menuItemActions.setAction(new ShowActionsDialogAction());
+        menuItemActions.setAction(new org.jphototagger.program.module.actions.ShowActionsDialogAction());
         menuItemActions.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_action.png"))); // NOI18N
         menuItemActions.setText(bundle.getString("AppFrame.menuItemActions.text")); // NOI18N
         menuItemActions.setName("menuItemActions"); // NOI18N
@@ -901,19 +742,9 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemToolIptcToXmp;
     private javax.swing.JMenuItem menuItemUserDefinedFileFilter;
     private javax.swing.JMenuItem menuItemUserDefinedFileType;
-    private javax.swing.JMenu menuSort;
     private javax.swing.JMenu menuTools;
     private javax.swing.JMenu menuView;
     private javax.swing.JMenu menuWindow;
-    private javax.swing.JRadioButtonMenuItem radioButtonMenuItemSortFileTypeAscending;
-    private javax.swing.JRadioButtonMenuItem radioButtonMenuItemSortFileTypeDescending;
-    private javax.swing.JRadioButtonMenuItem radioButtonMenuItemSortFilenameAscending;
-    private javax.swing.JRadioButtonMenuItem radioButtonMenuItemSortFilenameDescending;
-    private javax.swing.JRadioButtonMenuItem radioButtonMenuItemSortFilepathAscending;
-    private javax.swing.JRadioButtonMenuItem radioButtonMenuItemSortFilepathDescending;
-    private javax.swing.JRadioButtonMenuItem radioButtonMenuItemSortLastModifiedAscending;
-    private javax.swing.JRadioButtonMenuItem radioButtonMenuItemSortLastModifiedDescending;
-    private javax.swing.JRadioButtonMenuItem radioButtonMenuItemSortNone;
     private javax.swing.JPopupMenu.Separator sep1;
     private javax.swing.JPopupMenu.Separator sep15;
     private javax.swing.JPopupMenu.Separator sep16;
@@ -926,8 +757,5 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator sep23;
     private javax.swing.JPopupMenu.Separator sep3;
     private javax.swing.JPopupMenu.Separator sep4;
-    private javax.swing.JPopupMenu.Separator sep5;
-    private javax.swing.JPopupMenu.Separator sep6;
-    private javax.swing.JPopupMenu.Separator sep7;
     // End of variables declaration//GEN-END:variables
 }

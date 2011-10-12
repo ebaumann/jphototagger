@@ -55,7 +55,7 @@ public final class ShowThumbnailsContainingAllKeywords2 implements Runnable {
     private void setFilesToThumbnailsPanel() {
         List<File> imageFiles = getImageFilesOfKeywords();
 
-        SortThumbnailsController.setLastSort();
+        SortThumbnailsController.sortThumbnailsWithCurrentSortOrder();
         GUI.getThumbnailsPanel().setFiles(imageFiles, OriginOfDisplayedThumbnails.FILES_MATCHING_A_KEYWORD);
     }
 

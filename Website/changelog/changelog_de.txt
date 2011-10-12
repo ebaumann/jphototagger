@@ -3,6 +3,15 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.11.2 2011-10-12
+-----------------
+
+* Dateityp-Filter und Sortierung sind oberhalb des Vorschaubildbereichs. Somit
+  ist zu erkennen, dass diese sich darauf beziehen. Der Dateityp-Filter war
+  vorher unterhalb der Suche, bezog sich jedoch nicht darauf, sondern
+  filterte nur die Vorschaubilder. Die Sortierung war bislang in einem
+  Menü "versteckt", dies war zu öffnen, damit klar war, wonach sortiert wird.
+
 0.11.1 2011-10-11
 -----------------
 * In der Datenbank wird jetzt auch die Uhrzeit des EXIF-Datums

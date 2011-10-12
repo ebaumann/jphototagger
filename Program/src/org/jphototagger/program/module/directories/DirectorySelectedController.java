@@ -85,7 +85,7 @@ public final class DirectorySelectedController implements TreeSelectionListener 
                 List<File> files = ImageFileFilterer.getImageFilesOfDirectory(selectedDirectory);
 
                 setTitle(selectedDirectory);
-                SortThumbnailsController.setLastSort();
+                SortThumbnailsController.sortThumbnailsWithCurrentSortOrder();
                 GUI.getThumbnailsPanel().setFiles(files, OriginOfDisplayedThumbnails.FILES_IN_SAME_DIRECTORY);
                 GUI.getThumbnailsPanel().apply(panelSettings);
                 setMetadataEditable();

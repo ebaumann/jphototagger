@@ -55,7 +55,7 @@ public final class NoMetadataItemSelectedController implements ListSelectionList
 
             ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
-            SortThumbnailsController.setLastSort();
+            SortThumbnailsController.sortThumbnailsWithCurrentSortOrder();
             tnPanel.setFiles(imageFiles, OriginOfDisplayedThumbnails.FILES_MATCHING_MISSING_METADATA);
             WaitDisplay.INSTANCE.hide();
         }

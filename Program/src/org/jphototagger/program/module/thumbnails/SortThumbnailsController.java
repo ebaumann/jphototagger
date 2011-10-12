@@ -1,63 +1,75 @@
 package org.jphototagger.program.module.thumbnails;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.io.File;
 import java.util.Comparator;
 
-import javax.swing.JRadioButtonMenuItem;
-
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.comparator.FileSort;
+import org.jphototagger.program.app.ui.WaitDisplay;
 import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.app.ui.WaitDisplay;
 
 /**
  * @author Elmar Baumann
  */
-public final class SortThumbnailsController implements ActionListener {
+public final class SortThumbnailsController implements ItemListener {
+
+    private static volatile Comparator<File> currentSortComparator = ThumbnailsPanelPersistenceController.getFileSortComparator();
 
     public SortThumbnailsController() {
+        sortThumbnailsWithCurrentSortOrder();
         listen();
-        GUI.getAppFrame().getMenuItemOfSortCmp(GUI.getThumbnailsPanel().getFileSortComparator()).setSelected(true);
     }
 
     private void listen() {
-        for (JRadioButtonMenuItem item : GUI.getAppFrame().getSortMenuItems()) {
-            item.addActionListener(this);
-        }
+        GUI.getAppPanel().getComboBoxThumbnailsSort().addItemListener(this);
     }
 
-    @Override
-    public void actionPerformed(ActionEvent evt) {
-        sortThumbnails(evt);
+    public static void sortThumbnailsWithCurrentSortOrder() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
+            @Override
+            public void run() {
+                GUI.getThumbnailsPanel().setFileSortComparator(currentSortComparator);
+            }
+        });
     }
 
-    public static void setLastSort() {
-        Comparator<File> cmp = ThumbnailsPanelPersistenceController.getFileSortComparator();
-
-        GUI.getThumbnailsPanel().setFileSortComparator(cmp);
-        GUI.getAppFrame().getMenuItemOfSortCmp(cmp).setSelected(true);
-    }
-
-    private void sortThumbnails(final ActionEvent evt) {
+    private void sortThumbnails(final Comparator<File> fileSortComparator) {
+        currentSortComparator = fileSortComparator;
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
             public void run() {
                 WaitDisplay.INSTANCE.show();
 
-                JRadioButtonMenuItem item = (JRadioButtonMenuItem) evt.getSource();
-                Comparator<File> sortCmp = GUI.getAppFrame().getSortCmpOfMenuItem(item);
                 ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
                 ControllerFactory.INSTANCE.getController(
-                        ThumbnailsPanelPersistenceController.class).setFileSortComparator(sortCmp);
-                item.setSelected(true);
-                tnPanel.setFileSortComparator(sortCmp);
+                        ThumbnailsPanelPersistenceController.class).setFileSortComparator(fileSortComparator);
+                tnPanel.setFileSortComparator(fileSortComparator);
                 tnPanel.sort();
                 WaitDisplay.INSTANCE.hide();
             }
         });
+    }
+
+    public static void setUnsorted() {
+        SortThumbnailsController controller = ControllerFactory.INSTANCE.getController(SortThumbnailsController.class);
+        if (controller != null) {
+            controller.sortThumbnails(FileSort.NO_SORT.getComparator());
+        }
+    }
+
+    @Override
+    public void itemStateChanged(ItemEvent e) {
+        Object item = e.getItem();
+        if (item instanceof ThumbnailsSortComboBoxModel.FileSorter) {
+            ThumbnailsSortComboBoxModel.FileSorter fileSorter = (ThumbnailsSortComboBoxModel.FileSorter) item;
+            Comparator<File> comparator = fileSorter.getComparator();
+            sortThumbnails(comparator);
+        }
     }
 }

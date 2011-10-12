@@ -101,7 +101,7 @@ public final class TimelineItemSelectedController implements TreeSelectionListen
 
         if (node.equals(Timeline.getUnknownNode())) {
             setTitle();
-            SortThumbnailsController.setLastSort();
+            SortThumbnailsController.sortThumbnailsWithCurrentSortOrder();
             GUI.getThumbnailsPanel().setFiles(repo.findImageFilesOfUnknownDateTaken(), OriginOfDisplayedThumbnails.FILES_MATCHING_DATES_IN_A_TIMELINE);
         } else if (userObject instanceof Timeline.Date) {
             Timeline.Date date = (Timeline.Date) userObject;
@@ -121,7 +121,7 @@ public final class TimelineItemSelectedController implements TreeSelectionListen
 
                 List<File> files = new ArrayList<File>(repo.findImageFilesOfDateTaken(date.year, month, day));
 
-                SortThumbnailsController.setLastSort();
+                SortThumbnailsController.sortThumbnailsWithCurrentSortOrder();
                 GUI.getThumbnailsPanel().setFiles(files, OriginOfDisplayedThumbnails.FILES_MATCHING_DATES_IN_A_TIMELINE);
             }
         }
