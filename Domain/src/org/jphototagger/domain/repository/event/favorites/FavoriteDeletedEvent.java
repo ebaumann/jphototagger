@@ -3,8 +3,6 @@ package org.jphototagger.domain.repository.event.favorites;
 import org.jphototagger.domain.favorites.Favorite;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class FavoriteDeletedEvent {

@@ -3,8 +3,6 @@ package org.jphototagger.domain.repository.event.autoscandirectories;
 import java.io.File;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class AutoscanDirectoryDeletedEvent {

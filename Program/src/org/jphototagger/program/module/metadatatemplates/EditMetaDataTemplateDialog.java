@@ -7,9 +7,9 @@ import org.openide.util.Lookup;
 import org.jphototagger.domain.repository.MetadataTemplatesRepository;
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.domain.metadata.xmp.Xmp;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.dialog.Dialog;
-import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.view.ViewUtil;
 import org.jphototagger.program.misc.InputHelperDialog;
@@ -22,7 +22,7 @@ import org.jphototagger.program.misc.InputHelperDialog;
  * @author Elmar Baumann
  */
 public class EditMetaDataTemplateDialog extends Dialog {
-    private static final long serialVersionUID = -6621176928237283620L;
+    private static final long serialVersionUID = 1L;
     private transient MetadataTemplate template;
     private transient Xmp xmp = new Xmp();
     private final MetadataTemplatesRepository repo = Lookup.getDefault().lookup(MetadataTemplatesRepository.class);

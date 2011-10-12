@@ -7,12 +7,11 @@ import java.awt.event.KeyListener;
 
 import org.jdesktop.swingx.JXList;
 import org.jphototagger.domain.metadata.search.SavedSearch;
-import org.jphototagger.lib.componentutil.ComponentUtil;
-import org.jphototagger.lib.event.util.KeyEventUtil;
+import org.jphototagger.lib.swing.util.ComponentUtil;
+import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.program.resource.GUI;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class EditSavedSearchController implements ActionListener, KeyListener {

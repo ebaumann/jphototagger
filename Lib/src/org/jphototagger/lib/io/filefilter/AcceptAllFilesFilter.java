@@ -3,6 +3,7 @@ package org.jphototagger.lib.io.filefilter;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.Serializable;
+
 import org.jphototagger.lib.util.Bundle;
 
 /**
@@ -13,7 +14,7 @@ import org.jphototagger.lib.util.Bundle;
 public final class AcceptAllFilesFilter implements FileFilter, Serializable {
 
     public static final AcceptAllFilesFilter INSTANCE = new AcceptAllFilesFilter();
-    private static final long serialVersionUID = 6297923800725402735L;
+    private static final long serialVersionUID = 1L;
 
     private AcceptAllFilesFilter() {
     }

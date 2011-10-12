@@ -5,8 +5,6 @@ import com.adobe.xmp.options.PropertyOptions;
 import org.jphototagger.domain.metadata.mapping.XmpMetaDataValueXmpValueTypeMapping.XmpValueType;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public enum ArrayName {

@@ -8,17 +8,15 @@ import java.util.Collections;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import org.jphototagger.lib.component.TabOrEnterLeavingTextArea;
+import org.jphototagger.lib.swing.TabOrEnterLeavingTextArea;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class FlickrImageInfoPanel extends javax.swing.JPanel {
 
     public static final int IMAGE_WIDTH = 150;
-    private static final long serialVersionUID = 9219933749046808577L;
+    private static final long serialVersionUID = 1L;
     private static final String TAGS_DELIM = ";";
     private File imageFile;
 
@@ -194,7 +192,7 @@ public final class FlickrImageInfoPanel extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
 
         checkBoxUpload = new javax.swing.JCheckBox();
-        panelImage = new org.jphototagger.lib.component.ImagePanel();
+        panelImage = new org.jphototagger.lib.swing.ImagePanel();
         labelFilename = new javax.swing.JLabel();
         labelTitle = new javax.swing.JLabel();
         textFieldTitle = new javax.swing.JTextField();
@@ -341,7 +339,7 @@ public final class FlickrImageInfoPanel extends javax.swing.JPanel {
     private javax.swing.JLabel labelFilename;
     private javax.swing.JLabel labelTags;
     private javax.swing.JLabel labelTitle;
-    private org.jphototagger.lib.component.ImagePanel panelImage;
+    private org.jphototagger.lib.swing.ImagePanel panelImage;
     private javax.swing.JScrollPane scrollPaneDescription;
     private javax.swing.JScrollPane scrollPaneTags;
     private javax.swing.JTextArea textAreaDescription;

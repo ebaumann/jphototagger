@@ -6,8 +6,6 @@ import java.util.List;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class KeywordTreeNodesClipboard {

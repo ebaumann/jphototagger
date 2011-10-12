@@ -14,15 +14,13 @@ import org.jphototagger.domain.programs.Program;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class ActionsListCellRenderer extends DefaultListCellRenderer {
 
     private static final Icon ICON_ACTION = AppLookAndFeel.getIcon("icon_action.png");
     private static final Icon ICON_ERROR = AppLookAndFeel.getIcon("icon_error.png");
-    private static final long serialVersionUID = 8880764334564879502L;
+    private static final long serialVersionUID = 1L;
 
     @Override
     public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,

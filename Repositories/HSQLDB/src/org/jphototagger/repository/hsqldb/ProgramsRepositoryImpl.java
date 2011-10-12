@@ -9,8 +9,6 @@ import org.jphototagger.domain.programs.ProgramType;
 import org.jphototagger.domain.repository.ProgramsRepository;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 @ServiceProvider(service = ProgramsRepository.class)

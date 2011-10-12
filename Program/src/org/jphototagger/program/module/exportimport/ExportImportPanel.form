@@ -122,7 +122,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Container class="org.jphototagger.lib.component.SelectObjectsPanel" name="panelSelectObjects">
+        <Container class="org.jphototagger.lib.swing.SelectObjectsPanel" name="panelSelectObjects">
           <Properties>
             <Property name="name" type="java.lang.String" value="panelSelectObjects" noResource="true"/>
           </Properties>

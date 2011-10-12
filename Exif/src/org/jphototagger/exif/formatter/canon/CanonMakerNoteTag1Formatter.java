@@ -11,8 +11,6 @@ import org.jphototagger.exif.ExifTags;
 //* http://gvsoft.homedns.org/exif/canon_explain/Canon-PS-S50-111_1115-explain.html
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 final class CanonMakerNoteTag1Formatter {

@@ -20,7 +20,7 @@ import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.SourceTargetFile;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.misc.InsertImageFilesIntoRepository;
-import org.jphototagger.program.io.ImageFileFilterer;
+import org.jphototagger.program.module.filesystem.ImageFileFilterer;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.app.ui.AppPanel;
 import org.jphototagger.program.app.ui.ProgressBarUpdater;
@@ -102,7 +102,7 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
 
         copyFiles.addProgressListener(this);
         copyFiles.addProgressListener(pBarUpdater);
-        copyFiles.run();    // run in this thread!
+        copyFiles.run();    // Has to run in this thread!
     }
 
     @Override
@@ -150,7 +150,7 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
         ProgressBarUpdater pBarUpdater = new ProgressBarUpdater(inserter, progressBarString);
 
         inserter.addProgressListener(pBarUpdater);
-        inserter.run();    // run in this thread!
+        inserter.run();    // Has to run in this thread!
     }
 
     private void insertCopiedFilesAsCollectionIntoDb() {

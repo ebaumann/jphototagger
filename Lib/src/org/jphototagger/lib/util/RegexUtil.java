@@ -6,12 +6,6 @@ import java.util.List;
 import java.util.regex.PatternSyntaxException;
 
 /**
- * Utils for regular expressions.
- *
- * All functions with object-reference-parameters are throwing a
- * <code>NullPointerException</code> if an object reference is null and it is
- * not documentet that it can be null.
- *
  * @author Elmar Baumann
  */
 public final class RegexUtil {

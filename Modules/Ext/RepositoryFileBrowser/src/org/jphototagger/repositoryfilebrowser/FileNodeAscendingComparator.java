@@ -3,8 +3,6 @@ package org.jphototagger.repositoryfilebrowser;
 import java.util.Comparator;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class FileNodeAscendingComparator implements Comparator<FileNode> {

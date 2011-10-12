@@ -13,13 +13,12 @@ import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 import javax.swing.plaf.FontUIResource;
 
-import org.jphototagger.lib.componentutil.LookAndFeelUtil;
-import org.jphototagger.lib.dialog.HelpBrowser;
+import org.jphototagger.lib.swing.util.LookAndFeelUtil;
+import org.jphototagger.lib.help.HelpBrowser;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class AppLookAndFeel {

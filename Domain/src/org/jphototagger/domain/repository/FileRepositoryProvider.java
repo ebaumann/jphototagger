@@ -5,8 +5,6 @@ import java.io.File;
 import org.jphototagger.api.file.FilenameTokens;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public interface FileRepositoryProvider {

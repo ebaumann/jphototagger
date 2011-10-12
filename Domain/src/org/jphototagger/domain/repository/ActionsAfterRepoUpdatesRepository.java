@@ -5,8 +5,6 @@ import java.util.List;
 import org.jphototagger.domain.programs.Program;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public interface ActionsAfterRepoUpdatesRepository {

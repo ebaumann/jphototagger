@@ -7,15 +7,15 @@ import java.awt.event.KeyListener;
 import javax.swing.JMenuItem;
 
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.program.module.keywords.tree.AddKeywordController;
+import org.jphototagger.program.module.keywords.tree.AddKeywordToTreeController;
 import org.jphototagger.program.module.keywords.tree.AddKeywordsToEditPanelController;
 import org.jphototagger.program.module.keywords.tree.CopyCutPasteKeywordController;
 import org.jphototagger.program.module.keywords.tree.DeleteKeywordFromEditPanelController;
-import org.jphototagger.program.module.keywords.tree.DeleteKeywordsController;
+import org.jphototagger.program.module.keywords.tree.DeleteKeywordsFromTreeController;
 import org.jphototagger.program.module.keywords.tree.KeywordsDisplayImagesController;
 import org.jphototagger.program.module.keywords.tree.RenameKeywordController;
 import org.jphototagger.program.module.keywords.tree.ToggleRealKeywordController;
-import org.jphototagger.program.module.maintainance.ShowUpdateMetadataDialogController;
+import org.jphototagger.program.module.maintainance.ShowUpdateMetadataOfDirectoriesDialogController;
 import org.jphototagger.program.misc.AboutJPhotoTaggerController;
 import org.jphototagger.program.misc.HelpController;
 import org.jphototagger.program.module.maintainance.MaintainRepositoryController;
@@ -27,7 +27,6 @@ import org.jphototagger.program.app.ui.AppFrame;
 import org.jphototagger.program.module.keywords.tree.KeywordsTreePopupMenu;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class ActionKeyListenerFactory {
@@ -67,7 +66,7 @@ public final class ActionKeyListenerFactory {
         addActionListeners(AboutJPhotoTaggerController.class, appFrame.getMenuItemAbout());
         addActionListeners(HelpController.class, appFrame.getMenuItemHelp());
         addActionListeners(MaintainRepositoryController.class, appFrame.getMenuItemMaintainRepository());
-        addActionListeners(ShowUpdateMetadataDialogController.class, appFrame.getMenuItemScanDirectory());
+        addActionListeners(ShowUpdateMetadataOfDirectoriesDialogController.class, appFrame.getMenuItemScanDirectory());
         addActionListeners(ShowUserSettingsDialogController.class, appFrame.getMenuItemSettings());
         addActionListeners(ShowAdvancedSearchDialogController.class, appFrame.getMenuItemSearch());
     }
@@ -77,9 +76,9 @@ public final class ActionKeyListenerFactory {
 
         // Registerung not to more than 1 controller:
         // Popup menu stores tree and item of the action source
-        addActionListener(AddKeywordController.class, popup.getItemAdd());
+        addActionListener(AddKeywordToTreeController.class, popup.getItemAdd());
         addActionListener(RenameKeywordController.class, popup.getItemRename());
-        addActionListener(DeleteKeywordsController.class, popup.getItemRemove());
+        addActionListener(DeleteKeywordsFromTreeController.class, popup.getItemRemove());
         addActionListener(AddKeywordsToEditPanelController.class, popup.getItemAddToEditPanel());
         addActionListener(DeleteKeywordFromEditPanelController.class, popup.getItemRemoveFromEditPanel());
         addActionListener(ToggleRealKeywordController.class, popup.getItemToggleReal());

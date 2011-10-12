@@ -10,12 +10,11 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class DeleteThumbnailsFromRepositoryController implements ActionListener {

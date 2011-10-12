@@ -19,15 +19,13 @@ import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.programs.ProgramType;
 import org.jphototagger.domain.repository.ProgramsRepository;
-import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.lib.io.FileChooserHelper;
-import org.jphototagger.lib.io.FileChooserProperties;
+import org.jphototagger.lib.swing.MessageDisplayer;
+import org.jphototagger.lib.swing.FileChooserHelper;
+import org.jphototagger.lib.swing.FileChooserProperties;
 import org.jphototagger.lib.io.filefilter.AcceptExactFilenamesFileFilter;
 import org.jphototagger.lib.util.Bundle;
 
 /**
- *
- *
  * @author  Elmar Baumann
  */
 final class IrfanViewSlideshowCommand {
@@ -43,6 +41,10 @@ final class IrfanViewSlideshowCommand {
 
     IrfanViewSlideshowCommand() {
         setReloadOnLoop();
+        listen();
+    }
+
+    private void listen() {
         AnnotationProcessor.process(this);
     }
 

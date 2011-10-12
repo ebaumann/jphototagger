@@ -6,14 +6,12 @@ import java.awt.event.KeyEvent;
 import javax.swing.JButton;
 
 import org.jphototagger.domain.templates.MetadataTemplate;
-import org.jphototagger.lib.componentutil.ComponentUtil;
-import org.jphototagger.lib.event.util.KeyEventUtil;
+import org.jphototagger.lib.swing.util.ComponentUtil;
+import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.misc.InputHelperDialog;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class AddMetadataTemplateController extends MetadataTemplateController {

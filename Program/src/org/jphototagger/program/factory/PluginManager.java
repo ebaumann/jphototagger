@@ -11,8 +11,6 @@ import org.jphototagger.api.plugin.Plugin;
 import org.jphototagger.api.preferences.Preferences;
 
 /**
- *
- *
  * @param <T> Type of the plugin
  * @author Elmar Baumann
  */

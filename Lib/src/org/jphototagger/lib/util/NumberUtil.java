@@ -3,8 +3,6 @@ package org.jphototagger.lib.util;
 import java.util.Collection;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class NumberUtil {

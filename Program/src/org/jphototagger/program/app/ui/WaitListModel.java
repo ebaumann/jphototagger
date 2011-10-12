@@ -12,7 +12,7 @@ import org.jphototagger.lib.util.Bundle;
  */
 public final class WaitListModel extends DefaultListModel {
 
-    private static final long serialVersionUID = 1363478529337093293L;
+    private static final long serialVersionUID = 1L;
     public static final WaitListModel INSTANCE = new WaitListModel();
 
     public WaitListModel() {

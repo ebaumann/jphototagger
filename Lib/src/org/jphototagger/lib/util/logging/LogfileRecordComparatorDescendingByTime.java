@@ -3,8 +3,6 @@ package org.jphototagger.lib.util.logging;
 import java.util.Comparator;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class LogfileRecordComparatorDescendingByTime implements Comparator<LogfileRecord> {

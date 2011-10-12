@@ -4,8 +4,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class ExceptionUtil {

@@ -1,6 +1,6 @@
 package org.jphototagger.program.module.search;
 
-import org.jphototagger.lib.dialog.Dialog;
+import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
 
@@ -11,7 +11,7 @@ import org.jphototagger.program.resource.GUI;
  */
 public final class AdvancedSearchDialog extends Dialog implements NameListener {
     public static final AdvancedSearchDialog INSTANCE = new AdvancedSearchDialog(false);
-    private static final long serialVersionUID = -7381253840654600441L;
+    private static final long serialVersionUID = 1L;
 
     private AdvancedSearchDialog(boolean modal) {
         super(GUI.getAppFrame(), modal);

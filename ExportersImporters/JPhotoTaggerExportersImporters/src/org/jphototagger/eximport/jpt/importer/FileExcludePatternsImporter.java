@@ -20,8 +20,6 @@ import org.jphototagger.eximport.jpt.exporter.FileExcludePatternsExporter.Collec
 import org.jphototagger.lib.xml.bind.StringWrapper;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 @ServiceProvider(service = RepositoryDataImporter.class)

@@ -15,7 +15,7 @@ import org.jphototagger.api.progress.MainWindowProgressBarProvider;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.repository.InsertIntoRepository;
-import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.runtime.External;
 import org.jphototagger.lib.runtime.External.ProcessResult;
 import org.jphototagger.lib.runtime.RuntimeUtil;
@@ -124,7 +124,8 @@ public final class StartPrograms {
                     logError(command, result);
                 }
 
-                progressPerformed(++count);
+                count++;
+                progressPerformed(count);
             }
         }
 
@@ -247,9 +248,10 @@ public final class StartPrograms {
 
         private void updateRepository() {
             if (program.isChangeFile()) {
-                InsertImageFilesIntoRepository updater = new InsertImageFilesIntoRepository(imageFiles, InsertIntoRepository.OUT_OF_DATE);
+                InsertImageFilesIntoRepository updater =
+                        new InsertImageFilesIntoRepository(imageFiles, InsertIntoRepository.OUT_OF_DATE);
 
-                updater.run();    // run in this thread!
+                updater.run();    // Has to run in this thread!
             }
         }
     }

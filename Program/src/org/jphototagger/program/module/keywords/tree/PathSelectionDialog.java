@@ -15,8 +15,8 @@ import javax.swing.JList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.dialog.Dialog;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.resource.GUI;
 
@@ -26,7 +26,7 @@ import org.jphototagger.program.resource.GUI;
  * @author Elmar Baumann
  */
 public class PathSelectionDialog extends Dialog implements ListSelectionListener {
-    private static final long serialVersionUID = -5988292432590183296L;
+    private static final long serialVersionUID = 1L;
     private boolean accepted;
     private final Collection<Collection<String>> paths;
     private Collection<Collection<String>> selPaths;
@@ -130,7 +130,7 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
     }
 
     private class Model extends DefaultListModel {
-        private static final long serialVersionUID = 7783311389163592108L;
+        private static final long serialVersionUID = 1L;
 
         Model() {
             if (mode.equals(Mode.DISTINCT_ELEMENTS)) {
@@ -157,7 +157,7 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
 
 
     private static class Renderer extends DefaultListCellRenderer {
-        private static final long serialVersionUID = -3753515545397949621L;
+        private static final long serialVersionUID = 1L;
         private final Icon ICON = AppLookAndFeel.getIcon("icon_keyword.png");
 
         @Override
@@ -184,9 +184,10 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
             int i = 0;
 
             for (Object element : collection) {
-                sb.append((i++ == 0)
+                sb.append(i == 0
                         ? ""
                         : pathDelim).append(element.toString());
+                i++;
             }
 
             label.setText(sb.toString());

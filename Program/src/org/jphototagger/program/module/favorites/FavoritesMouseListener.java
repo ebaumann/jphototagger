@@ -9,10 +9,9 @@ import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
 import org.jphototagger.domain.favorites.Favorite;
-import org.jphototagger.lib.componentutil.TreeUtil;
-import org.jphototagger.lib.event.util.MouseEventUtil;
+import org.jphototagger.lib.swing.util.TreeUtil;
+import org.jphototagger.lib.swing.MouseEventUtil;
 import org.jphototagger.program.event.listener.TreeMouseListener;
-import org.jphototagger.program.module.favorites.FavoritesPopupMenu;
 
 /**
  * Do not use this class as template for implemention! Instead extend

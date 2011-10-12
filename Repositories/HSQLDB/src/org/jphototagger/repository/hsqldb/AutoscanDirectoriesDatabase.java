@@ -16,8 +16,6 @@ import org.jphototagger.domain.repository.event.autoscandirectories.AutoscanDire
 import org.jphototagger.domain.repository.event.autoscandirectories.AutoscanDirectoryInsertedEvent;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 final class AutoscanDirectoriesDatabase extends Database {

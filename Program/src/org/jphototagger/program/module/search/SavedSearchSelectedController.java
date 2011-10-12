@@ -22,8 +22,6 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.app.ui.WaitDisplay;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class SavedSearchSelectedController implements ListSelectionListener {
@@ -87,7 +85,7 @@ public final class SavedSearchSelectedController implements ListSelectionListene
 
                 ParamStatement stmt = savedSearch.createParamStatement();
 
-                SavedSearchesHelper.setSort(savedSearch);
+                SavedSearchesUtil.setSort(savedSearch);
                 searchParamStatement(stmt, savedSearch.getName());
             }
         }

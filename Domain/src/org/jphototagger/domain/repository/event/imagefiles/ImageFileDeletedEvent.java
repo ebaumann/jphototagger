@@ -3,8 +3,6 @@ package org.jphototagger.domain.repository.event.imagefiles;
 import java.io.File;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class ImageFileDeletedEvent {

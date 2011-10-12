@@ -6,9 +6,9 @@ import java.util.List;
 
 import javax.swing.ListModel;
 
-import org.jphototagger.lib.componentutil.ListUtil;
+import org.jphototagger.lib.swing.util.ListUtil;
 import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.program.module.keywords.KeywordsHelper;
+import org.jphototagger.program.module.keywords.KeywordsUtil;
 import org.jphototagger.program.app.ui.WaitDisplay;
 
 /**
@@ -16,7 +16,7 @@ import org.jphototagger.program.app.ui.WaitDisplay;
  *
  * @author Elmar Baumann
  */
-public final class DisplayKeywordController extends KeywordsController {
+public final class DisplayKeywordController extends KeywordsListController {
 
     public DisplayKeywordController() {
         listenToActionsOf(KeywordsListPopupMenu.INSTANCE.getItemDisplayImages());
@@ -52,7 +52,7 @@ public final class DisplayKeywordController extends KeywordsController {
         List<Integer> modelIndices = ListUtil.getModelIndicesOfItems(model, keywords);
 
         if (!modelIndices.isEmpty()) {
-            KeywordsHelper.selectInSelKeywordsList(modelIndices);
+            KeywordsUtil.selectInSelKeywordsList(modelIndices);
         }
 
         WaitDisplay.INSTANCE.hide();

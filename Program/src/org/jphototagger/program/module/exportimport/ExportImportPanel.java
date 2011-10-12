@@ -15,25 +15,24 @@ import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.event.listener.ListenerSupport;
 import org.jphototagger.domain.repository.RepositoryDataExporter;
 import org.jphototagger.domain.repository.RepositoryDataImporter;
-import org.jphototagger.lib.component.SelectObjectsPanel;
-import org.jphototagger.lib.component.SelectObjectsPanel.SelectionEvent;
-import org.jphototagger.lib.componentutil.ComponentUtil;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.dialog.DirectoryChooser;
-import org.jphototagger.lib.dialog.DirectoryChooser.Option;
-import org.jphototagger.lib.dialog.LongMessageDialog;
+import org.jphototagger.lib.swing.SelectObjectsPanel;
+import org.jphototagger.lib.swing.SelectObjectsPanel.SelectionEvent;
+import org.jphototagger.lib.swing.util.ComponentUtil;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.swing.DirectoryChooser;
+import org.jphototagger.lib.swing.DirectoryChooser.Option;
+import org.jphototagger.lib.swing.LongMessageDialog;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.CollectionUtil;
-import org.jphototagger.lib.util.PositionComparatorAscendingOrder;
+import org.jphototagger.lib.comparator.PositionComparatorAscendingOrder;
 import org.jphototagger.program.resource.GUI;
 
 /**
- *
  * @author Elmar Baumann
  */
 public class ExportImportPanel extends javax.swing.JPanel implements SelectObjectsPanel.SelectionListener {
-    private static final long serialVersionUID = -4556829908393776160L;
+    private static final long serialVersionUID = 1L;
     private static final Logger LOGGER = Logger.getLogger(ExportImportPanel.class.getName());
     private static final String TEXT_EXPORT = Bundle.getString(ExportImportPanel.class, "ExportImportPanel.Button.DisplayName.Export");
     private static final String TEXT_IMPORT = Bundle.getString(ExportImportPanel.class, "ExportImportPanel.Button.DisplayName.Import");
@@ -230,7 +229,7 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
 
     private void displayFiles(String shortMessage, Collection<? extends File> files) {
         if (files.size() > 0) {
-            LongMessageDialog dialog = new LongMessageDialog(ComponentUtil.getFrameWithIcon(), true);
+            LongMessageDialog dialog = new LongMessageDialog(ComponentUtil.findFrameWithIcon(), true);
             String filesString = CollectionUtil.toTokenString(files, "\n", "");
 
             dialog.setShortMessage(shortMessage);
@@ -349,7 +348,7 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
         buttonSelectAll = new javax.swing.JButton();
         buttonSelectNone = new javax.swing.JButton();
         scrollPane = new javax.swing.JScrollPane();
-        panelSelectObjects = new org.jphototagger.lib.component.SelectObjectsPanel();
+        panelSelectObjects = new org.jphototagger.lib.swing.SelectObjectsPanel();
         buttonExportImport = new javax.swing.JButton();
 
         setName("Form"); // NOI18N
@@ -470,7 +469,7 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
     private javax.swing.JLabel labelDir;
     private javax.swing.JLabel labelPromptDir;
     private javax.swing.JLabel labelSelectInfo;
-    private org.jphototagger.lib.component.SelectObjectsPanel panelSelectObjects;
+    private org.jphototagger.lib.swing.SelectObjectsPanel panelSelectObjects;
     private javax.swing.JScrollPane scrollPane;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,8 +4,6 @@ import java.text.DecimalFormat;
 import org.jphototagger.lib.util.Bundle;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class FilenameFormatNumberSequence extends FilenameFormat {

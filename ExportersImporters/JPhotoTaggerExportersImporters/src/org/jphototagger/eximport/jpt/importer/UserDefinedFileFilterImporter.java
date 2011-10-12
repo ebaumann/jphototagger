@@ -20,8 +20,6 @@ import org.jphototagger.eximport.jpt.exporter.UserDefinedFileFilterExporter;
 import org.jphototagger.eximport.jpt.exporter.UserDefinedFileFilterExporter.CollectionWrapper;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 @ServiceProvider(service = RepositoryDataImporter.class)

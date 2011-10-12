@@ -7,13 +7,11 @@ import javax.swing.JFileChooser;
 
 import javax.swing.filechooser.FileFilter;
 
-import org.jphototagger.lib.io.FileChooserHelper;
-import org.jphototagger.lib.io.FileChooserProperties;
+import org.jphototagger.lib.swing.FileChooserHelper;
+import org.jphototagger.lib.swing.FileChooserProperties;
 import org.jphototagger.lib.io.filefilter.AcceptExactFilenamesFileFilter;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class FileChooser {

@@ -1,7 +1,7 @@
 package org.jphototagger.program.module.xmp;
 
-import org.jphototagger.lib.dialog.Dialog;
-import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
 
@@ -9,7 +9,7 @@ import org.jphototagger.program.resource.GUI;
  * @author Elmar Baumann
  */
 public class FileEditorDialog extends Dialog {
-    private static final long serialVersionUID = -3235645652277682178L;
+    private static final long serialVersionUID = 1L;
 
     public FileEditorDialog() {
         super(GUI.getAppFrame(), false);

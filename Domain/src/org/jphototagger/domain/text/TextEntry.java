@@ -8,7 +8,6 @@ import org.jphototagger.domain.event.listener.TextEntryListener;
 import org.jphototagger.domain.metadata.MetaDataValue;
 
 /**
- *
  * @author Elmar Baumann
  */
 public interface TextEntry {

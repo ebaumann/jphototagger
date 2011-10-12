@@ -19,7 +19,6 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class DeleteOrphanedThumbnails implements Runnable, Cancelable {

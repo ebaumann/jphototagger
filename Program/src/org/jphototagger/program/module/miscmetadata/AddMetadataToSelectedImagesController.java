@@ -5,11 +5,9 @@ import java.awt.event.KeyEvent;
 import javax.swing.JMenuItem;
 
 import org.jphototagger.domain.metadata.MetaDataValue;
-import org.jphototagger.lib.event.util.KeyEventUtil;
+import org.jphototagger.lib.swing.KeyEventUtil;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class AddMetadataToSelectedImagesController extends MiscMetadataController {
@@ -22,6 +20,10 @@ public final class AddMetadataToSelectedImagesController extends MiscMetadataCon
         }
 
         itemAdd = popup.getItemAddToEditPanel();
+        listen(popup);
+    }
+
+    private void listen(MiscMetadataPopupMenu popup) {
         popup.addListener(itemAdd, this);
     }
 
@@ -40,6 +42,6 @@ public final class AddMetadataToSelectedImagesController extends MiscMetadataCon
             throw new NullPointerException("value == null");
         }
 
-        MiscMetadataHelper.addMetadataToSelectedImages(mdValue, value);
+        MiscMetadataUtil.addMetadataToSelectedImages(mdValue, value);
     }
 }

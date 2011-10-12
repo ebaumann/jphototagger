@@ -13,8 +13,6 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.app.ui.WaitDisplay;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class SortThumbnailsController implements ActionListener {

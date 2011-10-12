@@ -7,16 +7,14 @@ import java.util.List;
 import javax.swing.JMenuItem;
 
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
-import org.jphototagger.lib.event.util.KeyEventUtil;
+import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.app.ui.EditMetadataPanels;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
-public final class AddKeywordsToEditPanelController extends KeywordsController {
+public final class AddKeywordsToEditPanelController extends KeywordsListController {
 
     public AddKeywordsToEditPanelController() {
         listenToActionsOf(getMenuItem());

@@ -18,21 +18,22 @@ import javax.swing.JPopupMenu;
 import javax.swing.JPopupMenu.Separator;
 import javax.swing.JRadioButtonMenuItem;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.windows.MainWindowMenuItem;
 import org.jphototagger.domain.thumbnails.FileSortComparator;
 import org.jphototagger.domain.thumbnails.FileSortComparators;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.comparator.FileSort;
-import org.jphototagger.lib.componentutil.MenuUtil;
-import org.jphototagger.lib.event.util.KeyEventUtil;
-import org.jphototagger.lib.system.SystemUtil;
-import org.jphototagger.lib.util.PositionComparatorAscendingOrder;
+import org.jphototagger.lib.comparator.PositionComparatorAscendingOrder;
+import org.jphototagger.lib.swing.KeyEventUtil;
+import org.jphototagger.lib.swing.util.MenuUtil;
+import org.jphototagger.lib.util.SystemUtil;
 import org.jphototagger.program.app.AppInfo;
 import org.jphototagger.program.app.AppLifeCycle;
-import org.jphototagger.program.module.actions.EditUserDefinedFileTypesAction;
-import org.jphototagger.program.module.actions.ShowActionDialogAction;
+import org.jphototagger.program.module.userdefinedfiletypes.EditUserDefinedFileTypesAction;
+import org.jphototagger.program.module.actions.ShowActionsDialogAction;
 import org.jphototagger.program.resource.GUI;
-import org.openide.util.Lookup;
 
 /**
  * The application's frame.
@@ -41,7 +42,7 @@ import org.openide.util.Lookup;
  */
 public final class AppFrame extends javax.swing.JFrame {
 
-    private static final long serialVersionUID  = -7374684230320795331L;
+    private static final long serialVersionUID = 1L;
     private final Map<Comparator<File>, JRadioButtonMenuItem> menuItemOfSortCmp = new HashMap<Comparator<File>, JRadioButtonMenuItem>();
     private final Map<JRadioButtonMenuItem, Comparator<File>> sortCmpOfMenuItem = new HashMap<JRadioButtonMenuItem, Comparator<File>>();
     private final Map<GoTo, JMenuItem> menuItemOfGoto = new EnumMap<GoTo, JMenuItem>(GoTo.class);
@@ -735,7 +736,7 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemInputHelper.setName("menuItemInputHelper"); // NOI18N
         menuWindow.add(menuItemInputHelper);
 
-        menuItemActions.setAction(new ShowActionDialogAction());
+        menuItemActions.setAction(new ShowActionsDialogAction());
         menuItemActions.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_action.png"))); // NOI18N
         menuItemActions.setText(bundle.getString("AppFrame.menuItemActions.text")); // NOI18N
         menuItemActions.setName("menuItemActions"); // NOI18N

@@ -13,13 +13,12 @@ import org.jphototagger.domain.repository.InsertIntoRepository;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.AppPreferencesKeys;
+import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.program.misc.InsertImageFilesIntoRepository;
-import org.jphototagger.program.io.ImageFileFilterer;
+import org.jphototagger.program.module.filesystem.ImageFileFilterer;
 import org.jphototagger.program.app.ui.ProgressBarUpdater;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class InsertImageFilesIntoRepositoryScheduledTask {

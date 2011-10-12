@@ -13,12 +13,11 @@ import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.lib.util.ClassEquality;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class XmpIptcLocationAscendingComparator extends ClassEquality implements Comparator<File>, Serializable {
 
-    private static final long serialVersionUID = -6946394073635783198L;
+    private static final long serialVersionUID = 1L;
     private transient Collator collator = Collator.getInstance();
     private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
 

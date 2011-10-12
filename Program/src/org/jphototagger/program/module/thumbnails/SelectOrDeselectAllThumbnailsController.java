@@ -8,8 +8,6 @@ import javax.swing.JMenuItem;
 import org.jphototagger.program.resource.GUI;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class SelectOrDeselectAllThumbnailsController implements ActionListener {

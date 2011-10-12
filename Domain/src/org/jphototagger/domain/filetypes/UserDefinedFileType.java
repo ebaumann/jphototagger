@@ -1,8 +1,6 @@
 package org.jphototagger.domain.filetypes;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class UserDefinedFileType {

@@ -8,8 +8,6 @@ import org.jphototagger.api.component.TitleProvider;
 import org.jphototagger.api.component.TooltipTextProvider;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public interface MainWindowComponent extends IconProvider, PositionProvider, TitleProvider, TooltipTextProvider {

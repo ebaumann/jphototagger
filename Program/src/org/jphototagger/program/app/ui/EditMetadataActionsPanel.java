@@ -4,7 +4,7 @@ import java.awt.Container;
 
 import javax.swing.JComboBox;
 
-import org.jphototagger.lib.componentutil.MnemonicUtil;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 
 /**
@@ -14,7 +14,7 @@ import org.jphototagger.lib.util.Bundle;
  */
 public final class EditMetadataActionsPanel extends javax.swing.JPanel {
 
-    private static final long serialVersionUID = -8123589850440517504L;
+    private static final long serialVersionUID = 1L;
 
     public EditMetadataActionsPanel() {
         initComponents();

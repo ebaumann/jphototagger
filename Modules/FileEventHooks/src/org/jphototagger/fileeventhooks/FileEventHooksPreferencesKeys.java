@@ -1,8 +1,6 @@
 package org.jphototagger.fileeventhooks;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class FileEventHooksPreferencesKeys {

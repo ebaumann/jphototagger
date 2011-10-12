@@ -7,8 +7,6 @@ import org.jphototagger.api.windows.MainWindowMenuManager;
 import org.jphototagger.program.resource.GUI;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 @ServiceProvider(service = MainWindowMenuManager.class)

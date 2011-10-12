@@ -7,9 +7,8 @@ import java.awt.event.MouseEvent;
 import org.jdesktop.swingx.JXList;
 
 import org.jphototagger.domain.imagecollections.ImageCollection;
-import org.jphototagger.lib.componentutil.ListUtil;
-import org.jphototagger.lib.event.util.MouseEventUtil;
-import org.jphototagger.program.module.imagecollections.ImageCollectionsPopupMenu;
+import org.jphototagger.lib.swing.util.ListUtil;
+import org.jphototagger.lib.swing.MouseEventUtil;
 
 /**
  * Do not use this class as a template for other implementations! Instead extend

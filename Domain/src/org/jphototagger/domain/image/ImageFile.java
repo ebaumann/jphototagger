@@ -10,7 +10,6 @@ import org.jphototagger.domain.repository.InsertIntoRepository;
 import org.jphototagger.domain.metadata.xmp.Xmp;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class ImageFile {

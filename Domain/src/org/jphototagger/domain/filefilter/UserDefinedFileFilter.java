@@ -13,15 +13,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.jphototagger.lib.util.Bundle;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class UserDefinedFileFilter implements Serializable {
 
-    private static final long serialVersionUID = 1211554910220214424L;
+    private static final long serialVersionUID = 1L;
     private Long id;
     private Boolean isNot = Boolean.FALSE;
     private Type type = Type.CONTAINS;
@@ -245,7 +243,7 @@ public final class UserDefinedFileFilter implements Serializable {
 
     public static class RegexFileFilter implements FileFilter, Serializable {
 
-        private static final long serialVersionUID = -1657911795602944754L;
+        private static final long serialVersionUID = 1L;
         private final String pattern;
         private final boolean isNot;
         private final long id;

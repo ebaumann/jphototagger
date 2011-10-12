@@ -8,8 +8,6 @@ import org.jphototagger.domain.metadata.exif.Exif;
 import org.jphototagger.domain.metadata.exif.ExifReader;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 @ServiceProvider(service = ExifReader.class)

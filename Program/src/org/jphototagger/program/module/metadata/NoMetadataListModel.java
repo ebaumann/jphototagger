@@ -12,7 +12,7 @@ import org.jphototagger.domain.metadata.selections.NoMetadataValues;
  */
 public final class NoMetadataListModel extends DefaultListModel {
 
-    private static final long serialVersionUID = -1610826692746882410L;
+    private static final long serialVersionUID = 1L;
 
     public NoMetadataListModel() {
         addMetaDataValues();

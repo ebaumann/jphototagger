@@ -9,7 +9,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JTree;
 import javax.swing.tree.TreePath;
 
-import org.jphototagger.lib.event.util.KeyEventUtil;
+import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 
@@ -24,7 +24,7 @@ import org.jphototagger.program.app.ui.AppLookAndFeel;
  */
 public final class KeywordsTreePopupMenu extends JPopupMenu {
 
-    private static final long serialVersionUID = 2140903704744267916L;
+    private static final long serialVersionUID = 1L;
     public static final KeywordsTreePopupMenu INSTANCE = new KeywordsTreePopupMenu();
     private final JMenuItem itemAdd = new JMenuItem(Bundle.getString(KeywordsTreePopupMenu.class, "KeywordsTreePopupMenu.DisplayName.ActionAddKeyword"), AppLookAndFeel.ICON_NEW);
     private final JMenuItem itemAddToEditPanel = new JMenuItem(Bundle.getString(KeywordsTreePopupMenu.class, "KeywordsTreePopupMenu.DisplayName.ActionAddToEditPanel"));

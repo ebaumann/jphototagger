@@ -53,7 +53,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="org.jphototagger.lib.component.TabbedPaneSearchPanel" name="panelSearch">
+    <Component class="org.jphototagger.lib.swing.TabbedPaneSearchPanel" name="panelSearch">
       <Properties>
         <Property name="name" type="java.lang.String" value="panelSearch" noResource="true"/>
       </Properties>
@@ -66,7 +66,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
-        <Component class="org.jphototagger.program.module.programs.SettingsProgramsPanel" name="panelPrograms">
+        <Component class="org.jphototagger.program.module.programs.ProgramsSettingsPanel" name="panelPrograms">
           <Properties>
             <Property name="name" type="java.lang.String" value="panelPrograms" noResource="true"/>
           </Properties>
@@ -178,7 +178,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="org.jphototagger.program.misc.DisplayMessagesInFutureSettingsPanel" name="panelDisplayMessagesInFuture">
+        <Component class="org.jphototagger.program.settings.DisplayMessagesInFutureSettingsPanel" name="panelDisplayMessagesInFuture">
           <Properties>
             <Property name="name" type="java.lang.String" value="panelDisplayMessagesInFuture" noResource="true"/>
           </Properties>

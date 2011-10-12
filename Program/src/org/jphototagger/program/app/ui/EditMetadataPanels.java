@@ -31,12 +31,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import org.openide.util.Lookup;
+
 import org.bushe.swing.event.EventBus;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.DomainPreferencesKeys;
@@ -54,14 +53,14 @@ import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.domain.text.TextEntry;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.lib.swing.ExpandCollapseComponentPanel;
+import org.jphototagger.lib.swing.MessageDisplayer;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
-import org.jphototagger.program.app.AppPreferencesKeys;
-import org.jphototagger.program.module.keywords.tree.SuggestKeywords;
 import org.jphototagger.program.misc.SaveXmp;
 import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.program.view.ViewUtil;
 import org.jphototagger.xmp.EditHints;
 import org.jphototagger.xmp.EditHints.SizeEditField;
@@ -69,7 +68,6 @@ import org.jphototagger.xmp.EditableMetaDataValues;
 import org.jphototagger.xmp.XmpMetadata;
 
 /**
- *
  * @author Elmar Baumann, Tobias Stening
  */
 public final class EditMetadataPanels implements FocusListener {
@@ -97,10 +95,10 @@ public final class EditMetadataPanels implements FocusListener {
         addEditPanelsToParentContainer();
         requestFocusToFirstEditField();
         setEditable(false);
-        listenToActionSources();
+        listen();
     }
 
-    private void listenToActionSources() {
+    private void listen() {
         AnnotationProcessor.process(this);
     }
 

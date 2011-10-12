@@ -37,7 +37,6 @@ import org.jphototagger.lib.runtime.ExternalOutput;
 import org.jphototagger.lib.swing.IconUtil;
 
 /**
- *
  * @author Elmar Baumann, Tobias Stening
  */
 final class ThumbnailUtil {

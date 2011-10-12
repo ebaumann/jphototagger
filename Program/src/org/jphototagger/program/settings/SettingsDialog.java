@@ -12,8 +12,8 @@ import javax.swing.JButton;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
-import org.jphototagger.lib.componentutil.TabbedPaneUtil;
-import org.jphototagger.lib.dialog.Dialog;
+import org.jphototagger.lib.swing.util.TabbedPaneUtil;
+import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.program.resource.GUI;
@@ -25,8 +25,9 @@ import org.jphototagger.program.types.Persistence;
  * @author Elmar Baumann
  */
 public final class SettingsDialog extends Dialog {
+
     private static final String KEY_INDEX_TABBED_PANE = "UserSettingsDialog.TabbedPaneIndex";
-    private static final long serialVersionUID = -7576495084117427485L;
+    private static final long serialVersionUID = 1L;
     private final Map<Tab, Integer> indexOfTab = new EnumMap<Tab, Integer>(Tab.class);
     private final Map<Integer, Tab> tabOfIndex = new HashMap<Integer, Tab>();
     private final Map<Component, String> helpUrlOfComponent = new HashMap<Component, String>();
@@ -182,9 +183,9 @@ public final class SettingsDialog extends Dialog {
 
     private void initComponents() {//GEN-BEGIN:initComponents
 
-        panelSearch = new org.jphototagger.lib.component.TabbedPaneSearchPanel();
+        panelSearch = new org.jphototagger.lib.swing.TabbedPaneSearchPanel();
         tabbedPane = new javax.swing.JTabbedPane();
-        panelPrograms = new org.jphototagger.program.module.programs.SettingsProgramsPanel();
+        panelPrograms = new org.jphototagger.program.module.programs.ProgramsSettingsPanel();
         panelThumbnails = new org.jphototagger.program.module.thumbnails.SettingsThumbnailsPanel();
         panelTasks = new org.jphototagger.program.misc.ScheduledTasksSettingsPanel();
         panelPerformance = new org.jphototagger.program.misc.PerformanceSettingsPanel();
@@ -192,7 +193,7 @@ public final class SettingsDialog extends Dialog {
         panelMisc = new org.jphototagger.program.misc.MiscSettingsPanel();
         panelActions = new org.jphototagger.program.module.actions.ActionsSettingsPanel();
         panelPlugins = new org.jphototagger.program.plugins.PluginsSettingsPanel();
-        panelDisplayMessagesInFuture = new org.jphototagger.program.misc.DisplayMessagesInFutureSettingsPanel();
+        panelDisplayMessagesInFuture = new org.jphototagger.program.settings.DisplayMessagesInFutureSettingsPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/settings/Bundle"); // NOI18N
@@ -287,13 +288,13 @@ public final class SettingsDialog extends Dialog {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jphototagger.program.module.actions.ActionsSettingsPanel panelActions;
-    private org.jphototagger.program.misc.DisplayMessagesInFutureSettingsPanel panelDisplayMessagesInFuture;
+    private org.jphototagger.program.settings.DisplayMessagesInFutureSettingsPanel panelDisplayMessagesInFuture;
     private org.jphototagger.program.module.fileexcludepatterns.FileExcludePatternsSettingsPanel panelFileExcludePatterns;
     private org.jphototagger.program.misc.MiscSettingsPanel panelMisc;
     private org.jphototagger.program.misc.PerformanceSettingsPanel panelPerformance;
     private org.jphototagger.program.plugins.PluginsSettingsPanel panelPlugins;
-    private org.jphototagger.program.module.programs.SettingsProgramsPanel panelPrograms;
-    private org.jphototagger.lib.component.TabbedPaneSearchPanel panelSearch;
+    private org.jphototagger.program.module.programs.ProgramsSettingsPanel panelPrograms;
+    private org.jphototagger.lib.swing.TabbedPaneSearchPanel panelSearch;
     private org.jphototagger.program.misc.ScheduledTasksSettingsPanel panelTasks;
     private org.jphototagger.program.module.thumbnails.SettingsThumbnailsPanel panelThumbnails;
     private javax.swing.JTabbedPane tabbedPane;

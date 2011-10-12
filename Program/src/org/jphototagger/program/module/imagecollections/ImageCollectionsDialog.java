@@ -5,8 +5,8 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.ListModel;
 
-import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.dialog.Dialog;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.resource.GUI;
 
@@ -16,7 +16,7 @@ import org.jphototagger.program.resource.GUI;
  * @author Elmar Baumann
  */
 public final class ImageCollectionsDialog extends Dialog {
-    private static final long serialVersionUID = 1314098937293915298L;
+    private static final long serialVersionUID = 1L;
     private boolean ok = false;
 
     public ImageCollectionsDialog() {

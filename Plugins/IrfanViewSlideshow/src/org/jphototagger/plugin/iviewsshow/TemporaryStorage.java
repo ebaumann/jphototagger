@@ -10,8 +10,6 @@ import org.jphototagger.api.storage.CacheDirectoryProvider;
 import org.jphototagger.lib.io.FileUtil;
 
 /**
- *
- *
  * @author  Elmar Baumann
  */
 final class TemporaryStorage {
@@ -26,7 +24,7 @@ final class TemporaryStorage {
 
     private String getCacheDirectoryPathname() {
         CacheDirectoryProvider provider = Lookup.getDefault().lookup(CacheDirectoryProvider.class);
-        
+
         return provider.getCacheDirectory("IrfanViewSlideshow").getAbsolutePath();
     }
 

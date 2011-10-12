@@ -7,8 +7,6 @@ import java.util.List;
 import org.jphototagger.domain.programs.Program;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class ActionsAfterRepoUpdateReorderedEvent {

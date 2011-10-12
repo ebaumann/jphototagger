@@ -19,7 +19,7 @@ import org.jphototagger.api.preferences.PreferencesHints;
 import org.jphototagger.domain.event.AppWillExitEvent;
 import org.jphototagger.iptc.IptcPreferencesKeys;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.componentutil.ComponentUtil;
+import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.module.keywords.KeywordsPanel;
 

@@ -10,7 +10,7 @@ import java.io.Serializable;
  */
 public final class Keyword implements Comparable<Keyword>, Serializable {
 
-    private static final long serialVersionUID = -8175948472921889128L;
+    private static final long serialVersionUID = 1L;
     private Long id;
     private Long idParent;
     private String name;

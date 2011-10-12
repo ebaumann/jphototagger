@@ -3,8 +3,6 @@ package org.jphototagger.tcc.def;
 import org.jphototagger.lib.awt.DesktopUtil;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class Util {

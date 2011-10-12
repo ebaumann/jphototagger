@@ -32,17 +32,13 @@ import javax.swing.table.TableModel;
 import javax.swing.tree.TreePath;
 
 import org.jphototagger.api.preferences.PreferencesHints;
-import org.jphototagger.lib.componentutil.ListUtil;
-import org.jphototagger.lib.componentutil.TreeUtil;
+import org.jphototagger.lib.swing.util.ListUtil;
+import org.jphototagger.lib.swing.util.TreeUtil;
 
 /**
  * A settings object writes the state of several objects to a
  * {@code java.util.Properties} instance and resets the state of these objects
  * from an {@code java.util.Properties} instance.
- *
- * All functions with object-reference-parameters are throwing a
- * <code>NullPointerException</code> if an object reference is null and it is
- * not documentet that it can be null.
  *
  * @author Elmar Baumann
  */
@@ -201,7 +197,8 @@ public final class Settings {
                 }
             }
 
-            indexedKey = toIndexedKey(key, ++pathIndex);
+            pathIndex++;
+            indexedKey = toIndexedKey(key, pathIndex);
         }
     }
 
@@ -519,7 +516,8 @@ public final class Settings {
         int index = 0;
 
         for (String string : strings) {
-            properties.setProperty(key + DELIMITER_ARRAY_KEYS + Integer.toString(index++), string);
+            properties.setProperty(key + DELIMITER_ARRAY_KEYS + Integer.toString(index), string);
+            index++;
         }
     }
 
@@ -837,10 +835,11 @@ public final class Settings {
 
         for (int row = 0; row < rowCount; row++) {
             if (tree.isExpanded(row)) {
-                setTreePath(toIndexedKey(key, pathIndex++), tree.getPathForRow(row).getPath(), tree.isRowSelected(row));
+                setTreePath(toIndexedKey(key, pathIndex), tree.getPathForRow(row).getPath(), tree.isRowSelected(row));
             } else if (tree.isRowSelected(row)) {    // Selected but not expanded
-                setTreePath(toIndexedKey(key, pathIndex++), tree.getPathForRow(row).getPath(), true);
+                setTreePath(toIndexedKey(key, pathIndex), tree.getPathForRow(row).getPath(), true);
             }
+            pathIndex++;
         }
     }
 

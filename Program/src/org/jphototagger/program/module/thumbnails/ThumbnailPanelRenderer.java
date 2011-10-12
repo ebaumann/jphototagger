@@ -30,7 +30,6 @@ import org.jphototagger.program.module.thumbnails.cache.RenderedThumbnailCacheIn
 import org.jphototagger.program.module.thumbnails.cache.ThumbnailRenderer;
 import org.jphototagger.program.module.thumbnails.cache.XmpCache;
 import org.jphototagger.program.datatransfer.Flavor;
-import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
 
 /**
  *

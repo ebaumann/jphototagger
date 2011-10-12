@@ -3,12 +3,10 @@ package org.jphototagger.tcc.def;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.branding.Branding;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.dialog.Dialog;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.swing.Dialog;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public class ImageMagickThumbnailCreatorDialog extends Dialog {

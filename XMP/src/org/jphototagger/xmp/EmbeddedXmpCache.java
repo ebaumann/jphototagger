@@ -20,8 +20,6 @@ import org.jphototagger.lib.io.IoUtil;
 import org.jphototagger.lib.util.StringUtil;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class EmbeddedXmpCache {

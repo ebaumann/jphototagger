@@ -15,10 +15,6 @@ import java.util.logging.Logger;
  * Motivation: Das Adobe XMP SDK hat für Java (noch) nicht XMPFiles
  * implementiert.
  *
- * All functions with object-reference-parameters are throwing a
- * <code>NullPointerException</code> if an object reference is null and it is
- * not documentet that it can be null.
- *
  * <strong>Bug:</strong> Liest nur UTF-8-kodierte XMP-Pakete richtig.
  *
  * @author Elmar Baumann

@@ -4,7 +4,6 @@ import java.io.PrintStream;
 import java.nio.ByteBuffer;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class ByteUtil {

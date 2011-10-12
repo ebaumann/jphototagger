@@ -3,13 +3,11 @@ package org.jphototagger.program.misc;
 import javax.swing.JTree;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public class MiscXmpMetadataPanel extends javax.swing.JPanel {
 
-    private static final long serialVersionUID = -4474838462467326529L;
+    private static final long serialVersionUID = 1L;
 
     public MiscXmpMetadataPanel() {
         initComponents();

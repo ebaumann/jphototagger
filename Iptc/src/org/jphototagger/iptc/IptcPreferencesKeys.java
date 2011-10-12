@@ -1,8 +1,6 @@
 package org.jphototagger.iptc;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class IptcPreferencesKeys {

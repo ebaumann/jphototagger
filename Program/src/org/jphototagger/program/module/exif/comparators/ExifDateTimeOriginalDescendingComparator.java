@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.Comparator;
 
+import org.jphototagger.lib.comparator.ReverseComparator;
 import org.jphototagger.lib.util.ClassEquality;
 
 /**
@@ -11,17 +12,11 @@ import org.jphototagger.lib.util.ClassEquality;
  */
 public final class ExifDateTimeOriginalDescendingComparator extends ClassEquality implements Comparator<File>, Serializable {
 
-    private static final long serialVersionUID = -288734067911706453L;
+    private static final long serialVersionUID = 1L;
+    private final ReverseComparator<File> delegate = new ReverseComparator<File>(new ExifDateTimeOriginalAscendingComparator());
 
     @Override
     public int compare(File fileLeft, File fileRight) {
-        long timeLeft = ExifCompareUtil.getTimestampDateTimeOriginalFromRepository(fileLeft);
-        long timeRight = ExifCompareUtil.getTimestampDateTimeOriginalFromRepository(fileRight);
-
-        return timeLeft == timeRight
-                ? 0
-                : timeLeft < timeRight
-                ? 1
-                : -1;
+        return delegate.compare(fileLeft, fileRight);
     }
 }

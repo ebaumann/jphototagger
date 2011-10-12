@@ -13,7 +13,7 @@ import org.jphototagger.lib.util.Bundle;
  */
 public final class WaitTreeModel extends DefaultTreeModel {
 
-    private static final long serialVersionUID = -6456827464935791978L;
+    private static final long serialVersionUID = 1L;
     private static final String ITEM_TEXT = Bundle.getString(WaitTreeModel.class, "WaitTreeModel.ItemText");
     public static final WaitTreeModel INSTANCE = new WaitTreeModel();
 

@@ -5,8 +5,6 @@ import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
- *
- *
  * @param <T> listener type
  * @author Elmar Baumann
  */

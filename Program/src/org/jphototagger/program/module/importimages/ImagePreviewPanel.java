@@ -20,17 +20,15 @@ import org.jphototagger.lib.io.filefilter.FileChooserFilter;
 import org.jphototagger.lib.io.filefilter.RegexFileFilter;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.filefilter.AppFileFilters;
-import org.jphototagger.program.io.ImageFileFilterer;
+import org.jphototagger.program.module.filesystem.ImageFileFilterer;
 
 //Code based on http://www.javalobby.org/java/forums/t49462.html
 /**
- *
- *
  * @author Elmar Baumann
  */
 public class ImagePreviewPanel extends JPanel implements PropertyChangeListener {
 
-    private static final long serialVersionUID = 574676806606408192L;
+    private static final long serialVersionUID = 1L;
     private static final int SIZE = 155;
     private static final int PADDING = 5;
     private int width;

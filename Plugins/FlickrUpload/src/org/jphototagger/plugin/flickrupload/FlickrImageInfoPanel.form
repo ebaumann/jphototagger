@@ -33,7 +33,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Container class="org.jphototagger.lib.component.ImagePanel" name="panelImage">
+    <Container class="org.jphototagger.lib.swing.ImagePanel" name="panelImage">
       <Properties>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="new java.awt.Dimension(IMAGE_WIDTH, IMAGE_WIDTH)" type="code"/>

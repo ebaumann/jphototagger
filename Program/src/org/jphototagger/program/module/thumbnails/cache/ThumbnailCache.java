@@ -29,8 +29,14 @@ public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection> {
     private static final Logger LOGGER = Logger.getLogger(ThumbnailCache.class.getName());
 
     private ThumbnailCache() {
+        listen();
+        ThumbnailFetcher thumbnailFetcher = new ThumbnailFetcher(workQueue, this);
+        Thread thumbnailFetcherThread = new Thread(thumbnailFetcher, "JPhotoTagger: ThumbnailFetcher");
+        thumbnailFetcherThread.start();
+    }
+
+    private void listen() {
         AnnotationProcessor.process(this);
-        new Thread(new ThumbnailFetcher(workQueue, this), "JPhotoTagger: ThumbnailFetcher").start();
     }
 
     @EventSubscriber(eventClass = ImageFileDeletedEvent.class)

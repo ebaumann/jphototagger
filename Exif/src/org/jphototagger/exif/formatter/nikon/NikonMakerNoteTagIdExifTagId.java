@@ -1,8 +1,6 @@
 package org.jphototagger.exif.formatter.nikon;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 final class NikonMakerNoteTagIdExifTagId {

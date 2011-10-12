@@ -5,12 +5,6 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * Utils for arrays and array like objects.
- *
- * All functions with object-reference-parameters are throwing a
- * <code>NullPointerException</code> if an object reference is null and it is
- * not documentet that it can be null.
- *
  * @author Elmar Baumann
  */
 public final class ArrayUtil {
@@ -60,7 +54,8 @@ public final class ArrayUtil {
         int index = 0;
 
         for (int el : c) {
-            array[index++] = el;
+            array[index] = el;
+            index++;
         }
 
         return array;

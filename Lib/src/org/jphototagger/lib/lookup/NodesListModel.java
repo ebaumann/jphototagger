@@ -9,8 +9,6 @@ import javax.swing.event.ListDataListener;
 import org.jphototagger.api.nodes.Node;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public class NodesListModel implements ListModel, Serializable {

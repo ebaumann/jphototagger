@@ -5,8 +5,8 @@ import java.util.List;
 import javax.swing.JTable;
 
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.componentutil.ListItemTempSelectionRowSetter;
-import org.jphototagger.lib.componentutil.TreeItemTempSelectionRowSetter;
+import org.jphototagger.lib.swing.util.ListItemTempSelectionRowSetter;
+import org.jphototagger.lib.swing.util.TreeItemTempSelectionRowSetter;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.misc.InputHelperDialog;

@@ -14,7 +14,7 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.io.TreeFileSystemDirectories;
 import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.program.io.FileSystemDirectories;
+import org.jphototagger.program.module.filesystem.FileSystemDirectories;
 import org.jphototagger.program.resource.GUI;
 
 /**

@@ -5,8 +5,6 @@ import org.openide.util.lookup.ServiceProvider;
 import org.jphototagger.domain.repository.ApplicationPropertiesRepository;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 @ServiceProvider(service = ApplicationPropertiesRepository.class)

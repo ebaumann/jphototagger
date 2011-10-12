@@ -11,8 +11,6 @@ import org.jphototagger.exif.ExifTags;
 import org.jphototagger.lib.util.Bundle;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class CanonMakerNotes implements ExifMakerNotes {

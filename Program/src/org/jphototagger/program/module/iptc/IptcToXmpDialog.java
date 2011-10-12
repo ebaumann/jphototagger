@@ -21,27 +21,26 @@ import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.iptc.IptcPreferencesKeys;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.dialog.Dialog;
-import org.jphototagger.lib.dialog.DirectoryChooser;
-import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.DirectoryChooser;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter.Option;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.AppPreferencesKeys;
+import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.program.app.ui.SelectRootFilesPanel;
-import org.jphototagger.program.io.ImageFileFilterer;
+import org.jphototagger.program.module.filesystem.ImageFileFilterer;
 import org.jphototagger.program.resource.GUI;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class IptcToXmpDialog extends Dialog implements ProgressListener {
     private static final String KEY_DIRECTORY_NAME = "org.jphototagger.program.view.dialogs.IptcToXmpDialog.LastDirectory";
     private static final String KEY_INCLUDE_SUBDIRS = "org.jphototagger.program.view.dialogs.IptcToXmpDialog.IncludeSubdirectories";
-    private static final long serialVersionUID = 873528245237986989L;
+    private static final long serialVersionUID = 1L;
     private final transient CancelChooseRequest cancelChooseRequest = new CancelChooseRequest();
     private File directory = new File("");
     private boolean cancel = true;
@@ -52,6 +51,10 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
         initComponents();
         setHelpPage();
         MnemonicUtil.setMnemonics((Container) this);
+        listen();
+    }
+
+    private void listen() {
         AnnotationProcessor.process(this);
     }
 

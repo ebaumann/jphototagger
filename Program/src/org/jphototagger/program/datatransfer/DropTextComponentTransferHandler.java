@@ -14,7 +14,7 @@ import javax.swing.TransferHandler;
 import javax.swing.text.JTextComponent;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import org.jphototagger.program.module.keywords.KeywordsHelper;
+import org.jphototagger.program.module.keywords.KeywordsUtil;
 
 /**
  * Imports into an {@code JTextField} and {@code JTextArea} strings exported via
@@ -30,7 +30,7 @@ import org.jphototagger.program.module.keywords.KeywordsHelper;
  */
 public final class DropTextComponentTransferHandler extends TransferHandler {
 
-    private static final long serialVersionUID = 4543789065456550151L;
+    private static final long serialVersionUID = 1L;
 
     @Override
     public boolean canImport(TransferHandler.TransferSupport support) {
@@ -96,10 +96,9 @@ public final class DropTextComponentTransferHandler extends TransferHandler {
         int index = 0;
 
         for (Object o : array) {
-            sb.append((index++ == 0)
-                    ? ""
-                    : ";");
+            sb.append(index == 0 ? "" : ";");
             sb.append(o.toString());
+            index++;
         }
 
         return sb.toString();
@@ -113,7 +112,7 @@ public final class DropTextComponentTransferHandler extends TransferHandler {
         List<String> keywords = new ArrayList<String>();
 
         for (DefaultMutableTreeNode node : nodes) {
-            keywords.addAll(KeywordsHelper.getKeywordStrings(node, true));
+            keywords.addAll(KeywordsUtil.getKeywordStrings(node, true));
         }
 
         if (keywords.isEmpty()) {
@@ -124,10 +123,9 @@ public final class DropTextComponentTransferHandler extends TransferHandler {
         int index = 0;
 
         for (String keyword : keywords) {
-            sb.append((index++ == 0)
-                    ? ""
-                    : ";");
+            sb.append(index == 0 ? "" : ";");
             sb.append(keyword);
+            index++;
         }
 
         return sb.toString();

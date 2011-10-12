@@ -11,8 +11,8 @@ import java.util.logging.Logger;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import org.jphototagger.lib.model.SortedChildrenTreeNode;
-import org.jphototagger.lib.model.UpdateInfoTreeModel;
+import org.jphototagger.lib.swing.SortedChildrenTreeNode;
+import org.jphototagger.lib.swing.UpdateInfoTreeModel;
 import org.jphototagger.lib.util.Bundle;
 
 /**

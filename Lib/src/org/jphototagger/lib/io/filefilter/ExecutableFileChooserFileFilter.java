@@ -14,7 +14,7 @@ import org.jphototagger.lib.util.Bundle;
  */
 public final class ExecutableFileChooserFileFilter extends FileFilter implements Serializable {
 
-    private static final long serialVersionUID = 8245956226000329520L;
+    private static final long serialVersionUID = 1L;
 
     @Override
     public boolean accept(File f) {

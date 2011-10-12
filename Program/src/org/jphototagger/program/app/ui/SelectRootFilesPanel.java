@@ -20,8 +20,6 @@ import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.program.types.Persistence;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public class SelectRootFilesPanel extends javax.swing.JPanel implements Persistence {

@@ -20,7 +20,7 @@ import org.jphototagger.lib.util.Bundle;
  * @author Elmar Baumann
  */
 public class SettingsPanel extends javax.swing.JPanel {
-    private static final long serialVersionUID = -8198418342037889703L;
+    private static final long serialVersionUID = 1L;
     private final DelimiterModel model = new DelimiterModel();
     private final DelimiterRenderer renderer = new DelimiterRenderer();
     private final Preferences storage = Lookup.getDefault().lookup(Preferences.class);
@@ -43,7 +43,7 @@ public class SettingsPanel extends javax.swing.JPanel {
     }
 
     private static class DelimiterModel extends DefaultComboBoxModel {
-        private static final long serialVersionUID = 78207540460538249L;
+        private static final long serialVersionUID = 1L;
         private final Map<String, String> descriptionOfDelimiter = new LinkedHashMap<String, String>();
 
         DelimiterModel() {
@@ -75,7 +75,7 @@ public class SettingsPanel extends javax.swing.JPanel {
     }
 
     private class DelimiterRenderer extends DefaultListCellRenderer {
-        private static final long serialVersionUID = -2721860017412493615L;
+        private static final long serialVersionUID = 1L;
 
         @Override
         public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {

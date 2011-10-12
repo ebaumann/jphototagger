@@ -5,8 +5,6 @@ import java.util.List;
 import org.jphototagger.domain.templates.MetadataTemplate;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public interface MetadataTemplatesRepository {

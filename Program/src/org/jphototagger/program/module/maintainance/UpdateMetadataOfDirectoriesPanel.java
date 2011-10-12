@@ -1,5 +1,6 @@
 package org.jphototagger.program.module.maintainance;
 
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.event.KeyEvent;
 import java.io.File;
@@ -9,9 +10,13 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
+import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 
+import javax.swing.filechooser.FileSystemView;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 
@@ -26,22 +31,20 @@ import org.jphototagger.domain.metadata.event.UpdateMetadataCheckEvent.Type;
 import org.jphototagger.domain.repository.InsertIntoRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.comparator.FileSort;
-import org.jphototagger.lib.componentutil.ListUtil;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.dialog.DirectoryChooser;
+import org.jphototagger.lib.swing.util.ListUtil;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.swing.DirectoryChooser;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter.Option;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.CollectionUtil;
-import org.jphototagger.program.app.AppPreferencesKeys;
+import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.program.misc.InsertImageFilesIntoRepository;
-import org.jphototagger.program.io.ImageFileDirectory;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.app.ui.SelectRootFilesPanel;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements ProgressListener {
@@ -49,7 +52,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
     private static final String KEY_LAST_DIRECTORY = "org.jphototagger.program.view.ScanDirectoriesDialog.lastSelectedDirectory";
     private static final String KEY_FORCE = "org.jphototagger.program.view.ScanDirectoriesDialog.force";
     private static final String KEY_SUBDIRECTORIES = "org.jphototagger.program.view.ScanDirectoriesDialog.subdirectories";
-    private static final long serialVersionUID = -8953645248403117494L;
+    private static final long serialVersionUID = 1L;
     private final DefaultListModel listModelDirectories = new DefaultListModel();
     private File lastDirectory = new File("");
     private static final transient Logger LOGGER = Logger.getLogger(UpdateMetadataOfDirectoriesPanel.class.getName());
@@ -61,6 +64,10 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
         initComponents();
         readProperties();
         MnemonicUtil.setMnemonics((Container) this);
+        listen();
+    }
+
+    private void listen() {
         AnnotationProcessor.process(this);
     }
 
@@ -420,6 +427,39 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
         }
     }
 
+    private static class DirectoriesListCellRenderer extends DefaultListCellRenderer {
+
+        private static final FileSystemView FILE_SYSTEM_VIEW = FileSystemView.getFileSystemView();
+        private static final long serialVersionUID = 1L;
+
+        @Override
+        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
+                boolean cellHasFocus) {
+            JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            ImageFileDirectory directoryInfo = (ImageFileDirectory) value;
+            File dir = directoryInfo.getDirectory();
+
+            if (dir.exists()) {
+                synchronized (FILE_SYSTEM_VIEW) {
+                    try {
+                        label.setIcon(FILE_SYSTEM_VIEW.getSystemIcon(dir));
+                    } catch (Exception ex) {
+                        Logger.getLogger(DirectoriesListCellRenderer.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+
+            label.setText(getLabelText(directoryInfo));
+
+            return label;
+        }
+
+        private static String getLabelText(ImageFileDirectory directoryInfo) {
+            return Bundle.getString(DirectoriesListCellRenderer.class, "DirectoriesListCellRenderer.LabelText",
+                    directoryInfo.getDirectory().getAbsolutePath(), directoryInfo.getImageFileCount());
+        }
+    }
+
     /**
      * This method is called from within the constructor to
      * initialize the form.
@@ -489,7 +529,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
         scrollPane.setName("scrollPane"); // NOI18N
 
         list.setModel(listModelDirectories);
-        list.setCellRenderer(new org.jphototagger.program.module.maintainance.DirectoriesListCellRenderer());
+        list.setCellRenderer(new DirectoriesListCellRenderer());
         list.setComponentPopupMenu(popupMenu);
         list.setName("list"); // NOI18N
         list.addKeyListener(new java.awt.event.KeyAdapter() {

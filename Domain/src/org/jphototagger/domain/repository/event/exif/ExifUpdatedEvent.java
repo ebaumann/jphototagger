@@ -5,8 +5,6 @@ import java.io.File;
 import org.jphototagger.domain.metadata.exif.Exif;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class ExifUpdatedEvent {

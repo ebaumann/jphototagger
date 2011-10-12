@@ -5,7 +5,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
-import org.jphototagger.lib.event.util.KeyEventUtil;
+import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 
@@ -17,7 +17,7 @@ import org.jphototagger.program.app.ui.AppLookAndFeel;
  */
 public final class ImageCollectionsPopupMenu extends JPopupMenu {
 
-    private static final long serialVersionUID = -3446852358941591602L;
+    private static final long serialVersionUID = 1L;
     public static final ImageCollectionsPopupMenu INSTANCE = new ImageCollectionsPopupMenu();
     private final JMenuItem itemDelete = new JMenuItem(Bundle.getString(ImageCollectionsPopupMenu.class, "ImageCollectionsPopupMenu.DisplayName.Action.Delete"), AppLookAndFeel.ICON_DELETE);
     private final JMenuItem itemRename = new JMenuItem(Bundle.getString(ImageCollectionsPopupMenu.class, "ImageCollectionsPopupMenu.DisplayName.Action.Rename"), AppLookAndFeel.ICON_RENAME);

@@ -12,13 +12,11 @@ import org.openide.util.lookup.ServiceProvider;
 import org.jphototagger.domain.thumbnails.ExternalThumbnailCreationCommand;
 import org.jphototagger.api.storage.PreferencesDirectoryProvider;
 import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.lib.system.SystemUtil;
+import org.jphototagger.lib.util.SystemUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.tcc.def.scripts.ScriptWriter;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 @ServiceProvider(service = ExternalThumbnailCreationCommand.class)

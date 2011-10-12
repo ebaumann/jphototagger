@@ -10,10 +10,6 @@ import javax.swing.filechooser.FileSystemView;
 /**
  * Accepts only directories.
  *
- * All functions with object-reference-parameters are throwing a
- * <code>NullPointerException</code> if an object reference is null and it is
- * not documentet that it can be null.
- *
  * @author Elmar Baumann
  */
 public final class DirectoryFilter implements java.io.FileFilter, Serializable {
@@ -27,7 +23,7 @@ public final class DirectoryFilter implements java.io.FileFilter, Serializable {
      */
     public static final DirectoryFilter NO_OPTIONS = new DirectoryFilter(Option.NO_OPTION);
     private static final FileSystemView FILE_SYSTEM_VIEW = FileSystemView.getFileSystemView();
-    private static final long serialVersionUID = 5618213820669639267L;
+    private static final long serialVersionUID = 1L;
     private final List<Option> options;
 
     public enum Option {

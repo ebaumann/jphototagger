@@ -6,7 +6,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- *
  * @author Elmar Baumann
  */
 public class SplashScreenTest {

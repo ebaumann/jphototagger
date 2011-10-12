@@ -7,9 +7,9 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.repository.ProgramsRepository;
-import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.module.programs.ProgramsHelper;
+import org.jphototagger.program.module.programs.ProgramsUtil;
 import org.jphototagger.program.module.programs.StartPrograms;
 
 /**
@@ -41,7 +41,7 @@ public final class ThumbnailDoubleklickController {
 
                 // Reusing bundle string
                 MessageDisplayer.information(null, message);
-                ProgramsHelper.openSelectedFilesWidth(ProgramsHelper.addProgram(), false);
+                ProgramsUtil.openSelectedFilesWidth(ProgramsUtil.addProgram(), false);
             } else {
                 StartPrograms startPrograms = new StartPrograms();
                 File selectedFile = panel.getFileAtIndex(index);

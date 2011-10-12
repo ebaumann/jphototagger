@@ -3,8 +3,6 @@ package org.jphototagger.program.types;
 import javax.swing.TransferHandler;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public enum FileAction {

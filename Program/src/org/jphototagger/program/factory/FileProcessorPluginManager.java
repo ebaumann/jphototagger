@@ -3,7 +3,6 @@ package org.jphototagger.program.factory;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessorPlugin;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class FileProcessorPluginManager extends PluginManager<FileProcessorPlugin> {

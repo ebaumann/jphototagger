@@ -31,7 +31,7 @@ public final class AddToImageCollectionController implements ActionListener {
         String collectionName = selectCollectionName();
 
         if (collectionName != null) {
-            ImageCollectionsHelper.addImagesToCollection(collectionName, GUI.getSelectedImageFiles());
+            ImageCollectionsUtil.addImagesToCollection(collectionName, GUI.getSelectedImageFiles());
         }
     }
 

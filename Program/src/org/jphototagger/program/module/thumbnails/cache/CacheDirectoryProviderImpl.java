@@ -9,8 +9,6 @@ import org.jphototagger.api.storage.CacheDirectoryProvider;
 import org.jphototagger.api.storage.PreferencesDirectoryProvider;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 @ServiceProvider(service = CacheDirectoryProvider.class)

@@ -3,8 +3,6 @@ package org.jphototagger.domain.metadata.xmp;
 import java.io.File;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class FileXmp {

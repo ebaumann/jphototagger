@@ -17,7 +17,7 @@ import org.jphototagger.lib.datatransfer.TransferableObject;
  */
 public final class DragListItemsTransferHandler extends TransferHandler {
 
-    private static final long serialVersionUID = 2228155163708066205L;
+    private static final long serialVersionUID = 1L;
     private final DataFlavor[] dataFlavors;
 
     public DragListItemsTransferHandler(DataFlavor... dataFlavors) {

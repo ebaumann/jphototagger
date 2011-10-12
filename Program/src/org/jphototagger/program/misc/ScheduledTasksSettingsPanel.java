@@ -12,24 +12,23 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.repository.AutoscanDirectoriesRepository;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.dialog.DirectoryChooser;
-import org.jphototagger.lib.dialog.DirectoryChooser.Option;
-import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.swing.DirectoryChooser;
+import org.jphototagger.lib.swing.DirectoryChooser.Option;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.AppPreferencesKeys;
+import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.tasks.ScheduledTasks;
 import org.jphototagger.program.types.Persistence;
 import org.jphototagger.program.app.ui.SelectRootFilesPanel;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class ScheduledTasksSettingsPanel extends javax.swing.JPanel implements Persistence {
 
-    private static final long serialVersionUID = -5964543997343669428L;
+    private static final long serialVersionUID = 1L;
     private static final String KEY_LAST_SELECTED_AUTOSCAN_DIRECTORY = "UserSettingsDialog.keyLastSelectedAutoscanDirectory";
     private AutoscanDirectoriesListModel modelAutoscanDirectories = new AutoscanDirectoriesListModel();
     private String lastSelectedAutoscanDirectory = "";
@@ -243,7 +242,7 @@ public final class ScheduledTasksSettingsPanel extends javax.swing.JPanel implem
         scrollPaneListAutoscanDirectories.setName("scrollPaneListAutoscanDirectories"); // NOI18N
 
         listAutoscanDirectories.setModel(modelAutoscanDirectories);
-        listAutoscanDirectories.setCellRenderer(new org.jphototagger.lib.renderer.FileSystemListCellRenderer(true));
+        listAutoscanDirectories.setCellRenderer(new org.jphototagger.lib.swing.FileSystemListCellRenderer(true));
         listAutoscanDirectories.setName("listAutoscanDirectories"); // NOI18N
         listAutoscanDirectories.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {

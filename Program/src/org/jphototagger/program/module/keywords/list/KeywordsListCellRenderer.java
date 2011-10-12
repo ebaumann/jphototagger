@@ -10,14 +10,12 @@ import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.app.ui.ListCellRendererExt;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class KeywordsListCellRenderer extends ListCellRendererExt {
 
     private static final Icon ICON = AppLookAndFeel.getIcon("icon_keyword.png");
-    private static final long serialVersionUID = 8358358177217506189L;
+    private static final long serialVersionUID = 1L;
 
     @Override
     public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {

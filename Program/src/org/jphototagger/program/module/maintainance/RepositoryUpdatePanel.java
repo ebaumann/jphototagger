@@ -18,9 +18,9 @@ import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.domain.repository.KeywordsRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.componentutil.ListUtil;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.lib.swing.util.ListUtil;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.misc.HelperThread;
@@ -29,12 +29,11 @@ import org.jphototagger.program.module.keywords.tree.KeywordsTreeModel;
 import org.jphototagger.program.module.exif.SetExifToXmp;
 
 /**
- *
  * @author Elmar Baumann
  */
 public class RepositoryUpdatePanel extends JPanel implements ActionListener, ProgressListener {
 
-    private static final long serialVersionUID = 3148751698141558616L;
+    private static final long serialVersionUID = 1L;
     private static final String BUTTON_TEXT_CANCEL = Bundle.getString(RepositoryUpdatePanel.class, "RepositoryUpdatePanel.DisplayName.Cancel");
     private transient UpdateAllThumbnails thumbnailUpdater;
     private final AbstractButton[] buttons;
@@ -66,11 +65,11 @@ public class RepositoryUpdatePanel extends JPanel implements ActionListener, Pro
     }
 
     private synchronized void updateExif() {
-        startOrCancelHelperThread(toggleButtonRefreshExif, RefreshExifInDbOfKnownFiles.class);
+        startOrCancelHelperThread(toggleButtonRefreshExif, RefreshExifOfKnownFilesInRepository.class);
     }
 
     private void updateXmp() {
-        startOrCancelHelperThread(toggleButtonRefreshXmp, RefreshXmpInDbOfKnownFiles.class);
+        startOrCancelHelperThread(toggleButtonRefreshXmp, RefreshXmpOfKnownFilesInRepository.class);
     }
 
     private void exifDateToXmpDateCreated() {
@@ -130,7 +129,7 @@ public class RepositoryUpdatePanel extends JPanel implements ActionListener, Pro
     }
 
     private void renameFilesInDb() {
-        RenameFilenamesInDbDialog dlg = new RenameFilenamesInDbDialog();
+        RenameFilenamesInRepositoryDialog dlg = new RenameFilenamesInRepositoryDialog();
 
         setEnabledAllButtons(false);
         dlg.setVisible(true);
@@ -142,7 +141,7 @@ public class RepositoryUpdatePanel extends JPanel implements ActionListener, Pro
 
         if (keywords.size() > 0) {
             setEnabledAllButtons(false);
-            new InsertKeywords(keywords).run();    // run in this thread!
+            new InsertKeywords(keywords).run();    // Has to run in this thread!
             String message = Bundle.getString(RepositoryUpdatePanel.class, "RepositoryUpdatePanel.Info.CopyKeywordsToTree");
             MessageDisplayer.information(this, message);
             setEnabledAllButtons(true);

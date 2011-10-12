@@ -5,8 +5,6 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public class ThumbnailsPanelSettings {

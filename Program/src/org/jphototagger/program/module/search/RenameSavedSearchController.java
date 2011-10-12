@@ -9,7 +9,6 @@ import org.jphototagger.domain.metadata.search.SavedSearch;
 import org.jphototagger.program.resource.GUI;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class RenameSavedSearchController implements ActionListener, KeyListener {
@@ -48,8 +47,8 @@ public final class RenameSavedSearchController implements ActionListener, KeyLis
     }
 
     private void rename(SavedSearch savedSearch) {
-        SavedSearchesHelper.rename(savedSearch);
-        SavedSearchesHelper.focusAppPanelList();
+        SavedSearchesUtil.rename(savedSearch);
+        SavedSearchesUtil.focusAppPanelList();
     }
 
     @Override

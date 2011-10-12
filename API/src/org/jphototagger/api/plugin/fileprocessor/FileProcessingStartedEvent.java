@@ -1,8 +1,6 @@
 package org.jphototagger.api.plugin.fileprocessor;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class FileProcessingStartedEvent {

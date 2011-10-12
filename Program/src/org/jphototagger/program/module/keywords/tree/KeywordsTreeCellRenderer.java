@@ -15,7 +15,6 @@ import org.jphototagger.domain.metadata.keywords.Keyword;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class KeywordsTreeCellRenderer extends DefaultTreeCellRenderer {
@@ -26,7 +25,7 @@ public final class KeywordsTreeCellRenderer extends DefaultTreeCellRenderer {
     private static final Color TREE_BACKGROUND = AppLookAndFeel.getTreeBackground();
     private static final Color TREE_SELECTION_FOREGROUND = AppLookAndFeel.getTreeSelectionForeground();
     private static final Color TREE_SELECTION_BACKGROUND = AppLookAndFeel.getTreeSelectionBackground();
-    private static final long serialVersionUID = -1948927991470364757L;
+    private static final long serialVersionUID = 1L;
     private int tempSelectionRow = -1;
     private final List<String> highLightKeywords = new ArrayList<String>();
 

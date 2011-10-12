@@ -17,7 +17,6 @@ import org.jphototagger.domain.metadata.file.FilesFilenameMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 
 /**
- *
  * @author Elmar Baumann
  */
 @XmlRootElement

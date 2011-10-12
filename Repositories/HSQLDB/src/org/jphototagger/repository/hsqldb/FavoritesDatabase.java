@@ -18,8 +18,6 @@ import org.jphototagger.domain.repository.event.favorites.FavoriteInsertedEvent;
 import org.jphototagger.domain.repository.event.favorites.FavoriteUpdatedEvent;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 final class FavoritesDatabase extends Database {

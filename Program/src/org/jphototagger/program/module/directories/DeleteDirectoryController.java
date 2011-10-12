@@ -8,9 +8,9 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.io.TreeFileSystemDirectories;
-import org.jphototagger.lib.model.AllSystemDirectoriesTreeModel;
+import org.jphototagger.lib.swing.AllSystemDirectoriesTreeModel;
 import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.program.io.FileSystemDirectories;
+import org.jphototagger.program.module.filesystem.FileSystemDirectories;
 
 /**
  * Listens to {@code DirectoriesPopupMenu#getItemDeleteDirectory()} and

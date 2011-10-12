@@ -10,17 +10,16 @@ import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.DomainPreferencesKeys;
 import org.jphototagger.image.ImagePreferencesKeys;
 import org.jphototagger.iptc.IptcPreferencesKeys;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.program.app.AppPreferencesKeys;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.program.types.Persistence;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class PerformanceSettingsPanel extends javax.swing.JPanel implements Persistence {
 
-    private static final long serialVersionUID = -422417143078270821L;
+    private static final long serialVersionUID = 1L;
 
     public PerformanceSettingsPanel() {
         initComponents();

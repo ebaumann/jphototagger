@@ -22,13 +22,11 @@ import org.jphototagger.lib.io.filefilter.RegexFileFilter;
 import org.jphototagger.program.filefilter.AppFileFilters;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class FileFiltersComboBoxModel extends DefaultComboBoxModel {
 
-    private static final long serialVersionUID = -7792330718447905417L;
+    private static final long serialVersionUID = 1L;
     public static final String SETTINGS_KEY_SEL_INDEX = "ComboBoxModelFileFilters.SelIndex";
     private RegexFileFilter allAcceptedFileImageFilesFilter;
     private RegexFileFilter userDefinedFileTypesFilter;
@@ -36,6 +34,10 @@ public final class FileFiltersComboBoxModel extends DefaultComboBoxModel {
 
     public FileFiltersComboBoxModel() {
         insertElements();
+        listen();
+    }
+
+    private void listen() {
         AnnotationProcessor.process(this);
     }
 

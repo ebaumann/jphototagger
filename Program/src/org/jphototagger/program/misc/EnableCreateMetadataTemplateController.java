@@ -10,7 +10,6 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.app.ui.AppPanel;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class EnableCreateMetadataTemplateController {

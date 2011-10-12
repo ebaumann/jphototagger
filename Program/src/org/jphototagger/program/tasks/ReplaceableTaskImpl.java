@@ -5,8 +5,6 @@ import org.openide.util.lookup.ServiceProvider;
 import org.jphototagger.api.concurrent.ReplaceableTask;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 @ServiceProvider(service = ReplaceableTask.class)

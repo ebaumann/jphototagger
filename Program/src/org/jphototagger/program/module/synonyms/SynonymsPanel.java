@@ -16,20 +16,18 @@ import org.jphototagger.domain.DomainPreferencesKeys;
 import org.jphototagger.domain.metadata.selections.AutoCompleteDataOfMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.repository.ImageFilesRepository;
-import org.jphototagger.lib.componentutil.Autocomplete;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.lib.event.util.MouseEventUtil;
+import org.jphototagger.lib.swing.util.Autocomplete;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.swing.MessageDisplayer;
+import org.jphototagger.lib.swing.MouseEventUtil;
 import org.jphototagger.lib.util.Bundle;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionListener, DocumentListener {
 
-    private static final long serialVersionUID = 8012368048974373352L;
+    private static final long serialVersionUID = 1L;
     private SynonymsListModel modelWords = new SynonymsListModel(SynonymsListModel.Role.WORDS);
     private SynonymsListModel modelSynonyms = new SynonymsListModel(SynonymsListModel.Role.SYNONYMS);
     private Autocomplete autocomplete;

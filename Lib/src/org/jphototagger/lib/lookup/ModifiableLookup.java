@@ -7,8 +7,6 @@ import org.openide.util.lookup.AbstractLookup;
 import org.openide.util.lookup.InstanceContent;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class ModifiableLookup {

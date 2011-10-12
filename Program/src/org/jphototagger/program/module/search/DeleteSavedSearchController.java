@@ -11,7 +11,6 @@ import org.jphototagger.domain.metadata.search.SavedSearch;
 import org.jphototagger.program.resource.GUI;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class DeleteSavedSearchController implements ActionListener, KeyListener {
@@ -44,8 +43,8 @@ public final class DeleteSavedSearchController implements ActionListener, KeyLis
     }
 
     private void delete(SavedSearch savedSearch) {
-        SavedSearchesHelper.delete(savedSearch);
-        SavedSearchesHelper.focusAppPanelList();
+        SavedSearchesUtil.delete(savedSearch);
+        SavedSearchesUtil.focusAppPanelList();
     }
 
     @Override

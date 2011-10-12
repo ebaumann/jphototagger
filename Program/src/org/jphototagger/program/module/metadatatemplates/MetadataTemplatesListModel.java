@@ -22,11 +22,15 @@ import org.jphototagger.domain.templates.MetadataTemplate;
  */
 public final class MetadataTemplatesListModel extends DefaultListModel {
 
-    private static final long serialVersionUID = -1726658041913008196L;
+    private static final long serialVersionUID = 1L;
     private final MetadataTemplatesRepository metaDataTemplateRepo = Lookup.getDefault().lookup(MetadataTemplatesRepository.class);
 
     public MetadataTemplatesListModel() {
         addElements();
+        listen();
+    }
+
+    private void listen() {
         AnnotationProcessor.process(this);
     }
 

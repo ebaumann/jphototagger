@@ -13,12 +13,11 @@ import org.jphototagger.lib.util.ClassEquality;
  */
 public final class FilesuffixIgnoreCaseDescendingComparator extends ClassEquality implements Comparator<File>, Serializable {
 
-    private static final long serialVersionUID = 10242248897095575L;
+    private static final long serialVersionUID = 1L;
+    private final ReverseComparator<File> delegate = new ReverseComparator<File>(new FilesuffixIgnoreCaseAscendingComparator());
 
     @Override
     public int compare(File leftFile, File rightFile) {
-        FileSuffixes suffixes = CompareUtil.createFileSuffixes(leftFile, rightFile, true);
-
-        return suffixes.leftFileSuffix.compareToIgnoreCase(suffixes.rightFileSuffix) * -1;
+        return delegate.compare(leftFile, rightFile);
     }
 }

@@ -15,8 +15,6 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.xmp.XmpMetadata;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class XmpRatingFileFilter implements FileFilter, DisplayNameProvider {

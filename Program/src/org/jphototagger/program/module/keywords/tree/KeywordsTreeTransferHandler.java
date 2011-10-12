@@ -19,14 +19,14 @@ import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.datatransfer.TransferUtil;
 import org.jphototagger.lib.datatransfer.TransferableObject;
-import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.datatransfer.DataTransferSupport;
 import org.jphototagger.program.datatransfer.Flavor;
 import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.program.module.keywords.KeywordsHelper;
+import org.jphototagger.program.module.keywords.KeywordsUtil;
 import org.jphototagger.program.module.keywords.list.KeywordsListTransferHandler;
-import org.jphototagger.program.module.miscmetadata.MiscMetadataHelper;
+import org.jphototagger.program.module.miscmetadata.MiscMetadataUtil;
 
 /**
  * Handles drags and drops for a {@code KeywordsPanel}'s tree.
@@ -35,7 +35,7 @@ import org.jphototagger.program.module.miscmetadata.MiscMetadataHelper;
  */
 public final class KeywordsTreeTransferHandler extends TransferHandler {
 
-    private static final long serialVersionUID = 1714818504305178611L;
+    private static final long serialVersionUID = 1L;
 
     @Override
     public boolean canImport(TransferSupport support) {
@@ -126,7 +126,7 @@ public final class KeywordsTreeTransferHandler extends TransferHandler {
             return false;
         }
 
-        List<Keyword> keywords = KeywordsHelper.getKeywords(dropNode, true);
+        List<Keyword> keywords = KeywordsUtil.getKeywords(dropNode, true);
 
         if (keywords.isEmpty()) {
             return false;
@@ -142,7 +142,7 @@ public final class KeywordsTreeTransferHandler extends TransferHandler {
         int fileCount = imageFiles.size();
 
         if ((fileCount > 0) && confirmImport(fileCount)) {
-            MiscMetadataHelper.saveToImageFiles(cd, imageFiles);
+            MiscMetadataUtil.saveToImageFiles(cd, imageFiles);
 
             return true;
         }

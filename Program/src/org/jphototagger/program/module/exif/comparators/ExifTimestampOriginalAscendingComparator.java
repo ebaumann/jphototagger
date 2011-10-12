@@ -14,7 +14,7 @@ import org.jphototagger.lib.util.ClassEquality;
  */
 public final class ExifTimestampOriginalAscendingComparator extends ClassEquality implements Comparator<File>, Serializable {
 
-    private static final long serialVersionUID = -7558718187586080760L;
+    private static final long serialVersionUID = 1L;
     private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
 
     @Override

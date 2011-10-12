@@ -1,8 +1,6 @@
 package org.jphototagger.domain.repository.event.synonyms;
 
 /**
- *
- *
  * @author  Elmar Baumann
  */
 public final class WordDeletedEvent {
@@ -14,7 +12,7 @@ public final class WordDeletedEvent {
         if (word == null) {
             throw new NullPointerException("word == null");
         }
-        
+
         this.source = source;
         this.word = word;
     }
@@ -26,5 +24,5 @@ public final class WordDeletedEvent {
     public String getWord() {
         return word;
     }
-    
+
 }

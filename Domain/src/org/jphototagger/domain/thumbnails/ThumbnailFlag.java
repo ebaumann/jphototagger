@@ -3,7 +3,6 @@ package org.jphototagger.domain.thumbnails;
 import java.awt.Color;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class ThumbnailFlag {

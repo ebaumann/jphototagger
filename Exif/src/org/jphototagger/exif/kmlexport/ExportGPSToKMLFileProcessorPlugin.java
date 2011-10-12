@@ -15,7 +15,7 @@ import org.openide.util.lookup.ServiceProvider;
 @ServiceProvider(service = FileProcessorPlugin.class)
 public final class ExportGPSToKMLFileProcessorPlugin extends AbstractFileProcessorPlugin {
 
-    private static final long serialVersionUID = 6618409829007878958L;
+    private static final long serialVersionUID = 1L;
 
     @Override
     public void processFiles(Collection<? extends File> files) {

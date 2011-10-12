@@ -6,11 +6,9 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
-import org.jphototagger.lib.componentutil.TreeUtil;
-import org.jphototagger.lib.event.util.MouseEventUtil;
+import org.jphototagger.lib.swing.util.TreeUtil;
+import org.jphototagger.lib.swing.MouseEventUtil;
 import org.jphototagger.program.event.listener.TreeMouseListener;
-import org.jphototagger.program.module.keywords.tree.KeywordTreeNodesClipboard;
-import org.jphototagger.program.module.keywords.tree.KeywordsTreePopupMenu;
 
 /**
  * Do not use this class! Instead extend

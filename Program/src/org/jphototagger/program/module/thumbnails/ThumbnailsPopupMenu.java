@@ -26,12 +26,12 @@ import org.jphototagger.domain.repository.ProgramsRepository;
 import org.jphototagger.domain.repository.event.programs.ProgramDeletedEvent;
 import org.jphototagger.domain.repository.event.programs.ProgramInsertedEvent;
 import org.jphototagger.domain.repository.event.programs.ProgramUpdatedEvent;
-import org.jphototagger.lib.event.util.KeyEventUtil;
+import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.factory.FileProcessorPluginManager;
-import org.jphototagger.program.module.actions.ActionsHelper;
+import org.jphototagger.program.module.actions.ActionsUtil;
 import org.jphototagger.program.module.programs.AddProgramController;
 import org.jphototagger.program.plugins.PluginAction;
 
@@ -43,7 +43,7 @@ import org.jphototagger.program.plugins.PluginAction;
 public final class ThumbnailsPopupMenu extends JPopupMenu {
 
     public static final ThumbnailsPopupMenu INSTANCE = new ThumbnailsPopupMenu();
-    private static final long serialVersionUID = 1415777088897583494L;
+    private static final long serialVersionUID = 1L;
     private static final AddProgramController ADD_PROGRAM_ACTION = new AddProgramController();
     private final JMenu menuRefresh = new JMenu(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.MenuRefresh"));
     private final JMenu menuPrograms = new JMenu(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.MenuOtherOpenImageApps"));
@@ -54,7 +54,7 @@ public final class ThumbnailsPopupMenu extends JPopupMenu {
     private final JMenu menuPlugins = new JMenu(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.MenuPlugins"));
     private final JMenu menuSelection = new JMenu(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.MenuSelection"));
     private final JMenu menuFsOps = new JMenu(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.MenuFileSystemOps"));
-    private final JMenu menuActions = ActionsHelper.actionsAsMenu();
+    private final JMenu menuActions = ActionsUtil.actionsAsMenu();
     private final JMenuItem itemUpdateThumbnail = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.UpdateThumbnail"));
     private final JMenuItem itemUpdateMetadata = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.UpdateMetadata"));
     private final JMenuItem itemSelectNothing = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.ItemSelectNothing"));

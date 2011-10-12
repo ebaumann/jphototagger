@@ -1,7 +1,6 @@
 package org.jphototagger.domain.metadata;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class MetaDataValueData {

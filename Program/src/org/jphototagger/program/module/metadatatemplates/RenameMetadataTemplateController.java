@@ -9,13 +9,11 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.domain.repository.MetadataTemplatesRepository;
 import org.jphototagger.domain.templates.MetadataTemplate;
-import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.misc.InputHelperDialog;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class RenameMetadataTemplateController extends MetadataTemplateController {
@@ -69,7 +67,7 @@ public final class RenameMetadataTemplateController extends MetadataTemplateCont
         }
 
         String fromName = template.getName();
-        String toName = MetadataTemplateHelper.getNewTemplateName(fromName);
+        String toName = MetadataTemplateUtil.getNewTemplateName(fromName);
 
         if (toName != null) {
             if (!repo.updateRenameMetadataTemplate(fromName, toName)) {

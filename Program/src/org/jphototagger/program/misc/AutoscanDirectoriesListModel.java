@@ -23,11 +23,15 @@ import org.jphototagger.domain.repository.event.autoscandirectories.AutoscanDire
  */
 public final class AutoscanDirectoriesListModel extends DefaultListModel {
 
-    private static final long serialVersionUID = 5568827666022563702L;
+    private static final long serialVersionUID = 1L;
     private final AutoscanDirectoriesRepository autoscanDirsRepo = Lookup.getDefault().lookup(AutoscanDirectoriesRepository.class);
 
     public AutoscanDirectoriesListModel() {
         addElements();
+        listen();
+    }
+
+    private void listen() {
         AnnotationProcessor.process(this);
     }
 

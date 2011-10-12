@@ -11,8 +11,6 @@ import org.jphototagger.api.component.HtmlDisplayNameProvider;
 import org.jphototagger.api.nodes.Node;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class NodesListCellRenderer extends DefaultListCellRenderer {

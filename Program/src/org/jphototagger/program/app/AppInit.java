@@ -13,9 +13,9 @@ import org.openide.util.Lookup;
 import org.jphototagger.domain.event.AppWillInitEvent;
 import org.jphototagger.domain.repository.Repository;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.dialog.LongMessageDialog;
-import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.lib.system.SystemUtil;
+import org.jphototagger.lib.swing.LongMessageDialog;
+import org.jphototagger.lib.swing.MessageDisplayer;
+import org.jphototagger.lib.util.SystemUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.CommandLineParser;
 import org.jphototagger.lib.util.ExceptionUtil;
@@ -29,7 +29,6 @@ import org.jphototagger.program.module.thumbnails.cache.CacheUtil;
 import org.jphototagger.program.resource.ImageProperties;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class AppInit {

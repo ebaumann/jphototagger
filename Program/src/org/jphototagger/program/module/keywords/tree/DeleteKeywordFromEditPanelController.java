@@ -11,9 +11,9 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import org.jphototagger.domain.metadata.keywords.Keyword;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.module.keywords.KeywordsHelper;
+import org.jphototagger.program.module.keywords.KeywordsUtil;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.app.ui.EditMetadataPanels;
 import org.jphototagger.program.app.ui.EditRepeatableTextEntryPanel;
@@ -78,7 +78,7 @@ public class DeleteKeywordFromEditPanelController extends KeywordsController imp
             if (editPanel.isEditable()) {
                 editPanel.removeText(keyword);
                 editPanels.saveIfDirtyAndInputIsSaveEarly();
-                KeywordsHelper.removeHighlightKeyword(keyword);
+                KeywordsUtil.removeHighlightKeyword(keyword);
             } else {
                 String message = Bundle.getString(DeleteKeywordFromEditPanelController.class, "DeleteKeywordFromEditPanelController.Error.EditDisabled");
                 MessageDisplayer.error(null, message);

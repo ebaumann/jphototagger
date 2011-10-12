@@ -5,8 +5,6 @@ import java.util.Set;
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public interface UserDefinedFileFiltersRepository {

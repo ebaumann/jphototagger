@@ -24,7 +24,7 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.concurrent.SerialExecutor;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
-import org.jphototagger.program.app.AppPreferencesKeys;
+import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.program.misc.InsertImageFilesIntoRepository;
 import org.jphototagger.program.settings.SettingsDialog;
 
@@ -55,8 +55,7 @@ public final class ScheduledTasks implements ActionListener {
 
     private ScheduledTasks() {
         init();
-        button.addActionListener(this);
-        AnnotationProcessor.process(this);
+        listen();
     }
 
     private static void init() {
@@ -64,6 +63,11 @@ public final class ScheduledTasks implements ActionListener {
         TOOLTIP_TEXT_OF_BUTTON_STATE.put(ButtonState.CANCEL, Bundle.getString(ScheduledTasks.class, "ScheduledTasks.TooltipText.Cancel"));
         ICON_OF_BUTTON_STATE.put(ButtonState.START, AppLookAndFeel.ICON_START);
         ICON_OF_BUTTON_STATE.put(ButtonState.CANCEL, AppLookAndFeel.ICON_CANCEL);
+    }
+
+    private void listen() {
+        button.addActionListener(this);
+        AnnotationProcessor.process(this);
     }
 
     public static int getMinutesToStartScheduledTasks() {

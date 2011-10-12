@@ -6,7 +6,6 @@ import java.util.Arrays;
 import static org.junit.Assert.*;
 
 /**
- *
  * @author Elmar Baumann
  */
 public class DeleteOutOfDateFilesTest {

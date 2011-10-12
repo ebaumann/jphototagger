@@ -28,8 +28,8 @@ import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.domain.text.TextEntry;
 import org.jphototagger.domain.metadata.xmp.Xmp;
-import org.jphototagger.lib.componentutil.Autocomplete;
-import org.jphototagger.program.misc.AutocompleteHelper;
+import org.jphototagger.lib.swing.util.Autocomplete;
+import org.jphototagger.program.misc.AutocompleteUtil;
 
 /**
  * Panel zum Eingeben einzeiliger Texte.
@@ -39,7 +39,7 @@ import org.jphototagger.program.misc.AutocompleteHelper;
 public final class EditTextEntryPanel extends JPanel implements TextEntry, DocumentListener {
 
     private static final Color EDITABLE_COLOR = Color.WHITE;
-    private static final long serialVersionUID = -6455550547873630461L;
+    private static final long serialVersionUID = 1L;
     private transient MetaDataValue metaDataValue;
     private boolean dirty = false;
     private boolean editable;
@@ -49,6 +49,10 @@ public final class EditTextEntryPanel extends JPanel implements TextEntry, Docum
     public EditTextEntryPanel() {
         metaDataValue = XmpDcTitleMetaDataValue.INSTANCE;
         initComponents();
+        listen();
+    }
+
+    private void listen() {
         AnnotationProcessor.process(this);
     }
 
@@ -60,7 +64,7 @@ public final class EditTextEntryPanel extends JPanel implements TextEntry, Docum
         this.metaDataValue = metaDataValue;
         initComponents();
         postSetMetaDataValue();
-        AnnotationProcessor.process(this);
+        listen();
     }
 
     private void postSetMetaDataValue() {
@@ -147,7 +151,7 @@ public final class EditTextEntryPanel extends JPanel implements TextEntry, Docum
 
     private void addToAutocomplete(Xmp xmp) {
         if (isAutocomplete()) {
-            AutocompleteHelper.addAutocompleteData(metaDataValue, autocomplete, xmp);
+            AutocompleteUtil.addAutocompleteData(metaDataValue, autocomplete, xmp);
         }
     }
 
@@ -164,7 +168,7 @@ public final class EditTextEntryPanel extends JPanel implements TextEntry, Docum
     @EventSubscriber(eventClass = DcSubjectInsertedEvent.class)
     public void dcSubjectInserted(DcSubjectInsertedEvent evt) {
         if (isAutocomplete()) {
-            AutocompleteHelper.addAutocompleteData(metaDataValue, autocomplete, Collections.singleton(evt.getDcSubject()));
+            AutocompleteUtil.addAutocompleteData(metaDataValue, autocomplete, Collections.singleton(evt.getDcSubject()));
         }
     }
 

@@ -1,8 +1,6 @@
 package org.jphototagger.program.module.exportimport.importer;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class KeywordString {

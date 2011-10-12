@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.adobe.xmp.properties.XMPPropertyInfo;
 
-import org.jphototagger.lib.model.TableModelExt;
+import org.jphototagger.lib.swing.TableModelExt;
 import org.jphototagger.lib.util.Bundle;
 
 /**
@@ -17,7 +17,7 @@ import org.jphototagger.lib.util.Bundle;
  */
 public final class XmpTableModel extends TableModelExt {
 
-    private static final long serialVersionUID = -647814140321831383L;
+    private static final long serialVersionUID = 1L;
     private File file;
     private List<XMPPropertyInfo> propertyInfos;
 

@@ -31,7 +31,6 @@ import org.jphototagger.domain.repository.RepositoryDataExporter;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.program.io.FilenameSuffixes;
 import org.jphototagger.program.module.keywords.tree.KeywordsTreeModel;
 
 /**
@@ -190,5 +189,20 @@ public final class KeywordsExporterJpt implements RepositoryDataExporter {
     @Override
     public String toString() {
         return getDisplayName();
+    }
+
+    private static class FilenameSuffixes {
+
+        /**
+         * Filename suffix of exported Adobe Photoshop Lightroom keywords
+         */
+        public static final String LIGHTROOM_KEYWORDS = "txt";
+        /**
+         * Filename suffix of exported JPhotoTagger keywords
+         */
+        public static final String JPT_KEYWORDS = "xml";
+
+        private FilenameSuffixes() {
+        }
     }
 }

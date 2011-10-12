@@ -11,7 +11,7 @@ import java.io.Serializable;
  */
 public final class FileChooserFilter extends javax.swing.filechooser.FileFilter implements Serializable {
 
-    private static final long serialVersionUID = 4872224829528009592L;
+    private static final long serialVersionUID = 1L;
     private final java.io.FileFilter fileFilter;
     private final String description;
 

@@ -28,8 +28,6 @@ import org.jphototagger.lib.io.filefilter.RegexFileFilter;
 import org.jphototagger.repository.hsqldb.Database;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 final class UpdateTablesThumbnails extends Database {

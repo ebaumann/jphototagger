@@ -5,8 +5,6 @@ import java.util.Set;
 import org.jphototagger.domain.templates.RenameTemplate;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public interface RenameTemplatesRepository {

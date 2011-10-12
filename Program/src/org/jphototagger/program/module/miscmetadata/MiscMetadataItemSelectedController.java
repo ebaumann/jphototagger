@@ -26,7 +26,6 @@ import org.jphototagger.program.app.ui.WaitDisplay;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class MiscMetadataItemSelectedController implements TreeSelectionListener {

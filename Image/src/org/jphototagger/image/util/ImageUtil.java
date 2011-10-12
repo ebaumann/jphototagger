@@ -17,12 +17,6 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 /**
- * Image utils.
- *
- * All functions with object-reference-parameters are throwing a
- * <code>NullPointerException</code> if an object reference is null and it is
- * not documentet that it can be null.
- *
  * @author Elmar Baumann
  */
 public final class ImageUtil {

@@ -6,7 +6,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
 import org.jphototagger.domain.metadata.search.SavedSearch;
-import org.jphototagger.lib.event.util.KeyEventUtil;
+import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 
@@ -18,7 +18,7 @@ import org.jphototagger.program.app.ui.AppLookAndFeel;
  */
 public final class SavedSearchesPopupMenu extends JPopupMenu {
 
-    private static final long serialVersionUID = 3540766100829834971L;
+    private static final long serialVersionUID = 1L;
     public static final SavedSearchesPopupMenu INSTANCE = new SavedSearchesPopupMenu();
     private final JMenuItem itemDelete = new JMenuItem(Bundle.getString(SavedSearchesPopupMenu.class, "SavedSearchesPopupMenu.DisplayName.Action.Delete"), AppLookAndFeel.ICON_DELETE);
     private final JMenuItem itemEdit = new JMenuItem(Bundle.getString(SavedSearchesPopupMenu.class, "SavedSearchesPopupMenu.DisplayName.Action.Edit"), AppLookAndFeel.ICON_EDIT);

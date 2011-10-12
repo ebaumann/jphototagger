@@ -16,8 +16,6 @@ import org.jphototagger.repository.hsqldb.DatabaseMetadata;
 import org.jphototagger.repository.hsqldb.SavedSearchesDatabase;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 final class UpdateTablesXmpDcSubjects {

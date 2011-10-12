@@ -17,8 +17,6 @@ import org.jphototagger.domain.repository.event.userdefinedfiletypes.UserDefined
 import org.jphototagger.domain.repository.event.userdefinedfiletypes.UserDefinedFileTypeUpdatedEvent;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 final class UserDefinedFileTypesDatabase extends Database {

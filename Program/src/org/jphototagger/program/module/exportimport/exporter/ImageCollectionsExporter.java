@@ -26,8 +26,6 @@ import org.jphototagger.lib.xml.bind.XmlObjectExporter;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 @ServiceProvider(service = RepositoryDataExporter.class)

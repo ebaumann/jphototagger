@@ -4,9 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.List;
 
-import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.module.keywords.KeywordsHelper;
+import org.jphototagger.program.module.keywords.KeywordsUtil;
 import org.jphototagger.program.misc.InputHelperDialog;
 
 /**
@@ -14,7 +14,7 @@ import org.jphototagger.program.misc.InputHelperDialog;
  *
  * @author Elmar Baumann
  */
-public final class DeleteKeywordsController extends KeywordsController {
+public final class DeleteKeywordsController extends KeywordsListController {
 
     public DeleteKeywordsController() {
         listenToActionsOf(KeywordsListPopupMenu.INSTANCE.getItemDelete());
@@ -51,14 +51,14 @@ public final class DeleteKeywordsController extends KeywordsController {
             String message = Bundle.getString(DeleteKeywordsController.class, "DeleteKeywordsController.List.Confirm.Delete", keyword);
 
             if (MessageDisplayer.confirmYesNo(InputHelperDialog.INSTANCE, message)) {
-                KeywordsHelper.deleteDcSubject(keyword);
+                KeywordsUtil.deleteDcSubject(keyword);
             }
         } else if (size > 1) {
             String message = Bundle.getString(DeleteKeywordsController.class, "DeleteKeywordsController.List.Confirm.DeleteMultiple", size);
 
             if (MessageDisplayer.confirmYesNo(InputHelperDialog.INSTANCE, message)) {
                 for (String keyword : keywords) {
-                    KeywordsHelper.deleteDcSubject(keyword);
+                    KeywordsUtil.deleteDcSubject(keyword);
                 }
             }
         }

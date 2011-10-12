@@ -1,8 +1,6 @@
 package org.jphototagger.lib.util;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class ObjectUtil {

@@ -15,12 +15,12 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.programs.Program;
-import org.jphototagger.lib.component.TabOrEnterLeavingTextArea;
-import org.jphototagger.lib.componentutil.ComponentUtil;
-import org.jphototagger.lib.componentutil.LookAndFeelUtil;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.dialog.Dialog;
-import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.lib.swing.TabOrEnterLeavingTextArea;
+import org.jphototagger.lib.swing.util.ComponentUtil;
+import org.jphototagger.lib.swing.util.LookAndFeelUtil;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
@@ -33,8 +33,8 @@ import org.jphototagger.program.resource.GUI;
  * @author Elmar Baumann
  */
 public final class ProgramPropertiesDialog extends Dialog {
-    
-    private static final long serialVersionUID = 5953007101307866505L;
+
+    private static final long serialVersionUID = 1L;
     private transient Program program = new Program();
     private static final String KEY_LAST_DIR = "ProgramPropertiesDialog.LastDirectory";
     private static final String KEY_EXPERT_SETTINGS = "ProgramPropertiesDialog.ExpertSettings";

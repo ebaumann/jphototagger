@@ -3,8 +3,6 @@ package org.jphototagger.domain.repository.event.repoupdates;
 import org.jphototagger.domain.programs.Program;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class ActionAfterRepoUpdateInsertedEvent {

@@ -4,8 +4,6 @@ package org.jphototagger.repository.hsqldb.update.tables;
 import org.jphototagger.lib.util.Version;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public interface DatabaseUpdateTask {

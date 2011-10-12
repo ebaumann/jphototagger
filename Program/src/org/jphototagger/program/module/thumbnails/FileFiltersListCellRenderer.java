@@ -11,13 +11,11 @@ import org.jphototagger.api.component.DisplayNameProvider;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class FileFiltersListCellRenderer extends DefaultListCellRenderer {
 
-    private static final long serialVersionUID = 5485874791973375371L;
+    private static final long serialVersionUID = 1L;
     private static final Icon ICON = AppLookAndFeel.ICON_FILTER;
 
     @Override

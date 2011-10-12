@@ -1,8 +1,6 @@
 package org.jphototagger.api.messages;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public enum MessageType {

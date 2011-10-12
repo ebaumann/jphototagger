@@ -7,8 +7,6 @@ import java.util.Set;
 import org.jphototagger.lib.io.FileUtil;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class ExifSupport {

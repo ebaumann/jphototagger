@@ -26,40 +26,45 @@ import javax.swing.JTextArea;
 import javax.swing.JToggleButton;
 import javax.swing.JTree;
 import javax.swing.JViewport;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.table.TableRowSorter;
 import javax.swing.table.TableStringConverter;
 import javax.swing.text.Document;
 import javax.swing.text.JTextComponent;
 import javax.swing.tree.TreeSelectionModel;
 
-import org.bushe.swing.event.annotation.AnnotationProcessor;
-import org.bushe.swing.event.annotation.EventSubscriber;
-
-import org.jdesktop.swingx.JXList;
-import org.jdesktop.swingx.JXTree;
-
 import org.openide.util.Lookup;
 
+import org.bushe.swing.event.EventBus;
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jdesktop.swingx.JXList;
+import org.jdesktop.swingx.JXTree;
 import org.jphototagger.api.messages.MessageType;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.api.windows.MainWindowComponent;
+import org.jphototagger.api.windows.TabInEditWindowDisplayedEvent;
+import org.jphototagger.api.windows.TabInSelectionWindowDisplayedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.component.ImageTextArea;
-import org.jphototagger.lib.componentutil.ComponentUtil;
-import org.jphototagger.lib.componentutil.MessageLabel;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
+import org.jphototagger.lib.swing.ImageTextArea;
+import org.jphototagger.lib.swing.MessageLabel;
 import org.jphototagger.lib.swing.TableTextFilter;
+import org.jphototagger.lib.swing.util.ComponentUtil;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.swingx.ListTextFilter;
+import org.jphototagger.lib.swingx.SearchInJxListAction;
+import org.jphototagger.lib.swingx.SearchInJxTreeAction;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.AppPreferencesKeys;
-import org.jphototagger.program.module.thumbnails.SettingsThumbnailDimensionsDialog;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.module.keywords.KeywordsPanel;
-import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
 import org.jphototagger.program.module.exif.ExifTableCellRenderer;
 import org.jphototagger.program.module.iptc.IptcTableCellRenderer;
+import org.jphototagger.program.module.keywords.KeywordsPanel;
+import org.jphototagger.program.module.thumbnails.SettingsThumbnailDimensionsDialog;
+import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
 import org.jphototagger.program.module.xmp.XmpTableCellRenderer;
+import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.settings.AppPreferencesKeys;
 
 /**
  * Panel der Anwendung.
@@ -68,7 +73,7 @@ import org.jphototagger.program.module.xmp.XmpTableCellRenderer;
  */
 public final class AppPanel extends javax.swing.JPanel {
 
-    private static final long serialVersionUID = -7555272441595172631L;
+    private static final long serialVersionUID = 1L;
     private static final String KEY_DIVIDER_LOCATION_MAIN = "AppPanel.DividerLocationMain";
     private static final String KEY_DIVIDER_LOCATION_THUMBNAILS = "AppPanel.DividerLocationThumbnails";
     private static final int DEFAULT_DIVIDER_LOCATION_MAIN = 100;
@@ -106,6 +111,8 @@ public final class AppPanel extends javax.swing.JPanel {
         initListTextFilters();
         setTableTextFilters();
         AnnotationProcessor.process(this);
+        tabbedPaneMetadata.addChangeListener(tabbedPaneEditChangeListener);
+        tabbedPaneSelection.addChangeListener(tabbedPaneSelectionChangeListener);
     }
 
     private void setMnemonics() {
@@ -719,6 +726,24 @@ public final class AppPanel extends javax.swing.JPanel {
         });
     }
 
+    private ChangeListener tabbedPaneEditChangeListener = new ChangeListener() {
+
+        @Override
+        public void stateChanged(ChangeEvent e) {
+            Component selectedComponent = tabbedPaneMetadata.getSelectedComponent();
+            EventBus.publish(new TabInEditWindowDisplayedEvent(tabbedPaneMetadata, selectedComponent));
+        }
+    };
+
+    private ChangeListener tabbedPaneSelectionChangeListener = new ChangeListener() {
+
+        @Override
+        public void stateChanged(ChangeEvent e) {
+            Component selectedComponent = tabbedPaneSelection.getSelectedComponent();
+            EventBus.publish(new TabInSelectionWindowDisplayedEvent(tabbedPaneSelection, selectedComponent));
+        }
+    };
+
     @SuppressWarnings("serial")
 
     /**
@@ -988,7 +1013,7 @@ public final class AppPanel extends javax.swing.JPanel {
         scrollPaneDirectories.setName("scrollPaneDirectories"); // NOI18N
 
         treeDirectories.setModel(org.jphototagger.program.app.ui.WaitTreeModel.INSTANCE);
-        treeDirectories.setCellRenderer(new org.jphototagger.lib.renderer.AllSystemDirectoriesTreeCellRenderer());
+        treeDirectories.setCellRenderer(new org.jphototagger.lib.swing.AllSystemDirectoriesTreeCellRenderer());
         treeDirectories.setDragEnabled(true);
         treeDirectories.setName("treeDirectories"); // NOI18N
         treeDirectories.setRootVisible(false);

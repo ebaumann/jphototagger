@@ -31,7 +31,7 @@ public final class FavoriteSelectedController implements TreeSelectionListener {
     @Override
     public void valueChanged(TreeSelectionEvent evt) {
         if (evt.isAddedPath()) {
-            FavoritesHelper.setFilesToThumbnailPanel(FavoritesHelper.getFilesOfSelectedtDirectory(), null);
+            FavoritesUtil.setFilesToThumbnailPanel(FavoritesUtil.getFilesOfSelectedtDirectory(), null);
         }
     }
 
@@ -41,7 +41,7 @@ public final class FavoriteSelectedController implements TreeSelectionListener {
             OriginOfDisplayedThumbnails typeOfDisplayedImages = evt.getTypeOfDisplayedImages();
 
             if (OriginOfDisplayedThumbnails.FILES_IN_SAME_FAVORITE_DIRECTORY.equals(typeOfDisplayedImages)) {
-                FavoritesHelper.setFilesToThumbnailPanel(FavoritesHelper.getFilesOfSelectedtDirectory(), evt.getThumbnailsPanelSettings());
+                FavoritesUtil.setFilesToThumbnailPanel(FavoritesUtil.getFilesOfSelectedtDirectory(), evt.getThumbnailsPanelSettings());
             }
         }
     }

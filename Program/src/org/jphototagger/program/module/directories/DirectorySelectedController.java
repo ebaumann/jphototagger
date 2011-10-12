@@ -16,7 +16,7 @@ import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.module.thumbnails.SortThumbnailsController;
-import org.jphototagger.program.io.ImageFileFilterer;
+import org.jphototagger.program.module.filesystem.ImageFileFilterer;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.app.ui.WaitDisplay;
 

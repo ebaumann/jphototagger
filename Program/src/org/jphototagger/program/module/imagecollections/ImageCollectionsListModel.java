@@ -16,15 +16,14 @@ import org.jphototagger.domain.repository.Repository;
 import org.jphototagger.domain.repository.event.imagecollections.ImageCollectionDeletedEvent;
 import org.jphototagger.domain.repository.event.imagecollections.ImageCollectionInsertedEvent;
 import org.jphototagger.domain.repository.event.imagecollections.ImageCollectionRenamedEvent;
-import org.jphototagger.lib.componentutil.ListUtil;
+import org.jphototagger.lib.swing.util.ListUtil;
 
 /**
- *
  * @author Elmar Baumann, Tobias Stening
  */
 public final class ImageCollectionsListModel extends DefaultListModel {
 
-    private static final long serialVersionUID = -929229489709109467L;
+    private static final long serialVersionUID = 1L;
     private final ImageCollectionsRepository imageCollectionsRepo = Lookup.getDefault().lookup(ImageCollectionsRepository.class);
 
     public ImageCollectionsListModel() {

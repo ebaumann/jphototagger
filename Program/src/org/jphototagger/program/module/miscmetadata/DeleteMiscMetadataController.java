@@ -7,8 +7,6 @@ import javax.swing.JMenuItem;
 import org.jphototagger.domain.metadata.MetaDataValue;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class DeleteMiscMetadataController extends MiscMetadataController {
@@ -21,6 +19,10 @@ public final class DeleteMiscMetadataController extends MiscMetadataController {
         }
 
         itemDelete = popup.getItemDelete();
+        listen(popup);
+    }
+
+    private void listen(MiscMetadataPopupMenu popup) {
         popup.addListener(itemDelete, this);
     }
 

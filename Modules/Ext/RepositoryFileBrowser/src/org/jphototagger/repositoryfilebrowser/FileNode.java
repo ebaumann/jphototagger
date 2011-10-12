@@ -12,8 +12,6 @@ import org.jphototagger.lib.nodes.AbstractNode;
 import org.jphototagger.lib.swing.IconUtil;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class FileNode extends AbstractNode {

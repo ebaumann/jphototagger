@@ -1,12 +1,10 @@
 package org.jphototagger.plugin.flickrupload;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public class SettingsPanel extends javax.swing.JPanel {
-    private static final long serialVersionUID = -7766362003081534388L;
+    private static final long serialVersionUID = 1L;
     private transient Settings settings = new Settings();
 
     public SettingsPanel() {

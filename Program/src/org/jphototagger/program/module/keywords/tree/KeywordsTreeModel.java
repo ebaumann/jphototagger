@@ -15,11 +15,11 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.domain.metadata.keywords.Keyword;
 import org.jphototagger.domain.repository.KeywordsRepository;
-import org.jphototagger.lib.componentutil.TreeUtil;
-import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.lib.model.SortedChildrenTreeNode;
+import org.jphototagger.lib.swing.util.TreeUtil;
+import org.jphototagger.lib.swing.MessageDisplayer;
+import org.jphototagger.lib.swing.SortedChildrenTreeNode;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.module.keywords.KeywordsHelper;
+import org.jphototagger.program.module.keywords.KeywordsUtil;
 
 /**
  * Elements are {@code DefaultMutableTreeNode}s with the user objects listed
@@ -34,7 +34,7 @@ import org.jphototagger.program.module.keywords.KeywordsHelper;
  */
 public final class KeywordsTreeModel extends DefaultTreeModel {
 
-    private static final long serialVersionUID = -1044898256327030256L;
+    private static final long serialVersionUID = 1L;
     private static final Logger LOGGER = Logger.getLogger(KeywordsTreeModel.class.getName());
     private final KeywordsRepository repo = Lookup.getDefault().lookup(KeywordsRepository.class);
     private final DefaultMutableTreeNode ROOT;
@@ -113,7 +113,7 @@ public final class KeywordsTreeModel extends DefaultTreeModel {
             Keyword child = new Keyword(null, idParent, keyword, real);
 
             if (repo.saveKeyword(child)) {
-                KeywordsHelper.insertDcSubject(keyword);
+                KeywordsUtil.insertDcSubject(keyword);
 
                 SortedChildrenTreeNode node = new SortedChildrenTreeNode(child);
 
@@ -161,7 +161,7 @@ public final class KeywordsTreeModel extends DefaultTreeModel {
         Keyword keyword = new Keyword(null, targetKeyword.getId(), srcKeyword.getName(), srcKeyword.isReal());
 
         if (repo.saveKeyword(keyword)) {
-            KeywordsHelper.insertDcSubject(keyword.getName());
+            KeywordsUtil.insertDcSubject(keyword.getName());
 
             DefaultMutableTreeNode node = new SortedChildrenTreeNode(keyword);
 
@@ -183,7 +183,7 @@ public final class KeywordsTreeModel extends DefaultTreeModel {
         int childIndex = parent.getIndex(child);
 
         fireTreeNodesInserted(this, parent.getPath(), new int[]{childIndex}, new Object[]{child});
-        KeywordsHelper.expandAllTreesTo(child);
+        KeywordsUtil.expandAllTreesTo(child);
     }
 
     private boolean ensureIsNotChild(DefaultMutableTreeNode parentNode, String keyword, boolean errorMessage) {

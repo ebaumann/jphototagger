@@ -15,7 +15,6 @@ import org.jphototagger.domain.repository.RepositoryMaintainance;
 import org.jphototagger.lib.util.Bundle;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class CompressRepository implements Runnable {

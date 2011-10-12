@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Set;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class PreferencesHints {

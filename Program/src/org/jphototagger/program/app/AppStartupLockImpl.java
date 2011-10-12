@@ -3,8 +3,6 @@ package org.jphototagger.program.app;
 import org.openide.util.lookup.ServiceProvider;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 @ServiceProvider(service = org.jphototagger.api.startup.AppStartupLock.class)

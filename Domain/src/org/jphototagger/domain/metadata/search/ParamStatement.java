@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @author Elmar Baumann, Tobias Stening
  */
 public final class ParamStatement {

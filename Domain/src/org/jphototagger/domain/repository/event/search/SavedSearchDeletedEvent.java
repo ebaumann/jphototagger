@@ -1,8 +1,6 @@
 package org.jphototagger.domain.repository.event.search;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class SavedSearchDeletedEvent {

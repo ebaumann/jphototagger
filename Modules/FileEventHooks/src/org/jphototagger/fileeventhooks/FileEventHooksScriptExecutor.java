@@ -19,8 +19,6 @@ import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.lib.util.StringUtil;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class FileEventHooksScriptExecutor {

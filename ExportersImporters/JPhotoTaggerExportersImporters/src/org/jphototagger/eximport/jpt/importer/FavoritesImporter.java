@@ -20,8 +20,6 @@ import org.jphototagger.eximport.jpt.exporter.FavoritesExporter.CollectionWrappe
 import org.jphototagger.lib.swing.IconUtil;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 @ServiceProvider(service = RepositoryDataImporter.class)

@@ -20,8 +20,6 @@ import org.jphototagger.eximport.jpt.exporter.RenameTemplatesExporter;
 import org.jphototagger.eximport.jpt.exporter.RenameTemplatesExporter.CollectionWrapper;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 @ServiceProvider(service = RepositoryDataImporter.class)

@@ -1,8 +1,6 @@
 package org.jphototagger.domain.event;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class AppWillExitEvent {

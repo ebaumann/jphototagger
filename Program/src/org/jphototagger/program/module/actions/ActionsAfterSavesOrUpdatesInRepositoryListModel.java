@@ -20,12 +20,11 @@ import org.jphototagger.domain.repository.event.repoupdates.ActionAfterRepoUpdat
 import org.jphototagger.domain.repository.event.repoupdates.ActionsAfterRepoUpdateReorderedEvent;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class ActionsAfterSavesOrUpdatesInRepositoryListModel extends DefaultListModel {
 
-    private static final long serialVersionUID = -6490813457178023686L;
+    private static final long serialVersionUID = 1L;
     private final ActionsAfterRepoUpdatesRepository actionsRepo = Lookup.getDefault().lookup(ActionsAfterRepoUpdatesRepository.class);
 
     public ActionsAfterSavesOrUpdatesInRepositoryListModel() {

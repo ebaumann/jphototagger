@@ -11,8 +11,6 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.resource.GUI;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 @ServiceProvider(service = ThumbnailsDisplayer.class)

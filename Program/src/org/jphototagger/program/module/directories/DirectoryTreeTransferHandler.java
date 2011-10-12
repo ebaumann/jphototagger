@@ -14,18 +14,16 @@ import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.lib.datatransfer.TransferUtil;
 import org.jphototagger.lib.datatransfer.TransferUtil.FilenameDelimiter;
 import org.jphototagger.program.datatransfer.Flavor;
-import org.jphototagger.program.io.ImageFileFilterer;
-import org.jphototagger.program.io.FilesystemImageUtil;
-import org.jphototagger.program.io.FilesystemImageUtil.ConfirmOverwrite;
+import org.jphototagger.program.module.filesystem.ImageFileFilterer;
+import org.jphototagger.program.module.filesystem.FilesystemImageUtil;
+import org.jphototagger.program.module.filesystem.FilesystemImageUtil.ConfirmOverwrite;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class DirectoryTreeTransferHandler extends TransferHandler {
 
-    private static final long serialVersionUID = 667981391265349868L;
+    private static final long serialVersionUID = 1L;
 
     @Override
     public boolean canImport(TransferSupport support) {

@@ -1,8 +1,6 @@
 package org.jphototagger.domain.repository.event.dcsubjects;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class DcSubjectInsertedEvent {

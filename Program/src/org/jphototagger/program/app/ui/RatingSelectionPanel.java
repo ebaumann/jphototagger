@@ -32,7 +32,7 @@ import org.jphototagger.domain.text.TextEntry;
  */
 public class RatingSelectionPanel extends JPanel implements TextEntry, FocusListener, KeyListener {
 
-    private static final long serialVersionUID = -7955649305451645120L;
+    private static final long serialVersionUID = 1L;
     private final Icon star = AppLookAndFeel.getIcon("icon_xmp_rating_set.png");
     private final Icon dark_star = AppLookAndFeel.getIcon("icon_xmp_rating_not_set.png");;
     private final Icon icon_rating_remove = AppLookAndFeel.getIcon("icon_xmp_rating_remove.png");

@@ -20,8 +20,6 @@ import org.jphototagger.eximport.jpt.exporter.SavedSearchesExporter;
 import org.jphototagger.eximport.jpt.exporter.SavedSearchesExporter.CollectionWrapper;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 @ServiceProvider(service = RepositoryDataImporter.class)

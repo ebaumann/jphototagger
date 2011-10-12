@@ -1,8 +1,6 @@
 package org.jphototagger.domain.repository.event.fileexcludepattern;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class FileExcludePatternInsertedEvent {

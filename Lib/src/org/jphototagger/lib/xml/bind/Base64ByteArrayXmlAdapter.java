@@ -5,8 +5,6 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 import org.jphototagger.lib.thirdparty.Base64;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class Base64ByteArrayXmlAdapter extends XmlAdapter<String, byte[]> {

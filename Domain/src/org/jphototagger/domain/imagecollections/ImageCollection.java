@@ -16,8 +16,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.jphototagger.lib.util.Bundle;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 @XmlRootElement

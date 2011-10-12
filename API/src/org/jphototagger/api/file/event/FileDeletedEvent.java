@@ -3,8 +3,6 @@ package org.jphototagger.api.file.event;
 import java.io.File;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class FileDeletedEvent {

@@ -19,15 +19,14 @@ import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.domain.event.listener.ProgressListenerSupport;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.dialog.Dialog;
-import org.jphototagger.lib.dialog.DirectoryChooser;
-import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.DirectoryChooser;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.SourceTargetFile;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.AppPreferencesKeys;
-import org.jphototagger.program.io.FileSystemMove;
+import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.program.module.filesystem.CopyFiles.Options;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.app.ui.SelectRootFilesPanel;
@@ -38,7 +37,7 @@ import org.jphototagger.xmp.XmpMetadata;
  */
 public final class MoveToDirectoryDialog extends Dialog implements ProgressListener {
 
-    private static final long serialVersionUID = 3213926343815394815L;
+    private static final long serialVersionUID = 1L;
     private static final String KEY_TARGET_DIRECTORY = "org.jphototagger.program.view.dialogs.MoveToDirectoryDialog.TargetDirectory";
     private final List<File> movedFiles = new ArrayList<File>();
     private final transient ProgressListenerSupport pListenerSupport = new ProgressListenerSupport();
@@ -55,6 +54,10 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
         initComponents();
         setHelpPage();
         MnemonicUtil.setMnemonics((Container) this);
+        listen();
+    }
+
+    private void listen() {
         AnnotationProcessor.process(this);
     }
 

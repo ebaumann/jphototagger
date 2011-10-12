@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class StringEscapeUtil {

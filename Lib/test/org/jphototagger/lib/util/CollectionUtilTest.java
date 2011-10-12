@@ -10,7 +10,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- *
  * @author Elmar Baumann
  */
 public class CollectionUtilTest {

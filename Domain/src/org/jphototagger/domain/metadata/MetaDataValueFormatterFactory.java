@@ -12,8 +12,6 @@ import javax.swing.text.NumberFormatter;
 import org.jphototagger.domain.metadata.MetaDataValue.ValueType;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 final class MetaDataValueFormatterFactory {

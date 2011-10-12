@@ -1,7 +1,6 @@
 package org.jphototagger.api.progress;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class ProgressEvent {

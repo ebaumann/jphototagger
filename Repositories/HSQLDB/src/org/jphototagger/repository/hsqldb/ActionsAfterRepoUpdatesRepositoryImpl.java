@@ -8,8 +8,6 @@ import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.repository.ActionsAfterRepoUpdatesRepository;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 @ServiceProvider(service = ActionsAfterRepoUpdatesRepository.class)

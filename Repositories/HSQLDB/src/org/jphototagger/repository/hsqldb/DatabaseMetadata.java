@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class DatabaseMetadata extends Database {

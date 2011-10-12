@@ -8,13 +8,11 @@ import org.jphototagger.program.module.exportimport.ExportImportDialog;
 import org.jphototagger.program.module.exportimport.ExportImportContext;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class JptExportAction extends AbstractAction {
 
-    private static final long serialVersionUID = 2682169629889229733L;
+    private static final long serialVersionUID = 1L;
     public static final JptExportAction INSTANCE = new JptExportAction();
 
     @Override

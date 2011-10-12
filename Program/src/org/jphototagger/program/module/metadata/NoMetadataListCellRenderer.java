@@ -16,7 +16,7 @@ import org.jphototagger.program.app.ui.TableIcons;
  */
 public final class NoMetadataListCellRenderer extends DefaultListCellRenderer {
 
-    private static final long serialVersionUID = -5033440934166574955L;
+    private static final long serialVersionUID = 1L;
 
     @Override
     public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,

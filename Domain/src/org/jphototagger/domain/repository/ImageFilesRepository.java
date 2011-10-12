@@ -15,8 +15,6 @@ import org.jphototagger.domain.metadata.xmp.FileXmp;
 import org.jphototagger.domain.metadata.xmp.Xmp;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public interface ImageFilesRepository {

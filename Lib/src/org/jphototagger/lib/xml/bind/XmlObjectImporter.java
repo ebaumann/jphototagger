@@ -12,8 +12,6 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class XmlObjectImporter {

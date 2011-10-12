@@ -35,7 +35,7 @@ import org.jphototagger.domain.repository.event.exif.ExifUpdatedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpDeletedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
-import org.jphototagger.lib.componentutil.TreeUtil;
+import org.jphototagger.lib.swing.util.TreeUtil;
 import org.jphototagger.lib.util.Bundle;
 
 /**
@@ -56,7 +56,7 @@ import org.jphototagger.lib.util.Bundle;
 public final class MiscMetadataTreeModel extends DefaultTreeModel {
 
     private static final Object EXIF_USER_OBJECT = Bundle.getString(MiscMetadataTreeModel.class, "MiscMetadataTreeModel.ExifNode.DisplayName");
-    private static final long serialVersionUID = 2498087635943355657L;
+    private static final long serialVersionUID = 1L;
     private static final Object XMP_USER_OBJECT = Bundle.getString(MiscMetadataTreeModel.class, "MiscMetadataTreeModel.XmpNode.DisplayName");
     private static final Set<MetaDataValue> XMP_META_DATA_VALUES = new LinkedHashSet<MetaDataValue>();
     private static final Set<MetaDataValue> EXIF_META_DATA_VALUES = new LinkedHashSet<MetaDataValue>();

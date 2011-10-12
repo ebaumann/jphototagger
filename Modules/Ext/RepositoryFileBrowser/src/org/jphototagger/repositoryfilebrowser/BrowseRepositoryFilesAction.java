@@ -10,8 +10,6 @@ import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class BrowseRepositoryFilesAction extends AbstractAction implements MainWindowMenuItem {

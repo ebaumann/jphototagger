@@ -1,6 +1,5 @@
 package org.jphototagger.program.module.iptc;
 
-import org.jphototagger.program.module.iptc.IptcToXmpDialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -10,8 +9,6 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPopupMenu;
 
 /**
- * Kontrolliert die Aktion: IPTC-Daten nach XMP schreiben.
- *
  * @author Elmar Baumann
  */
 public final class IptcToXmpController implements ActionListener {

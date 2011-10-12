@@ -1,12 +1,10 @@
 package org.jphototagger.plugin.flickrupload;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public class SettingsDialog extends javax.swing.JDialog {
-    private static final long serialVersionUID = -2117242402770959470L;
+    private static final long serialVersionUID = 1L;
 
     public SettingsDialog() {
         super((java.awt.Frame) null, true);

@@ -8,14 +8,12 @@ import java.awt.event.MouseListener;
 import javax.swing.JButton;
 
 import org.jphototagger.domain.templates.MetadataTemplate;
-import org.jphototagger.lib.componentutil.ComponentUtil;
-import org.jphototagger.lib.event.util.KeyEventUtil;
-import org.jphototagger.lib.event.util.MouseEventUtil;
+import org.jphototagger.lib.swing.util.ComponentUtil;
+import org.jphototagger.lib.swing.KeyEventUtil;
+import org.jphototagger.lib.swing.MouseEventUtil;
 import org.jphototagger.program.misc.InputHelperDialog;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class EditMetadataTemplateController extends MetadataTemplateController implements MouseListener {

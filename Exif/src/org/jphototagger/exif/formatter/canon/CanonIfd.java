@@ -8,7 +8,6 @@ import org.jphototagger.exif.datatype.ExifDataType;
 import org.jphototagger.exif.datatype.ExifDatatypeUtil;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class CanonIfd {

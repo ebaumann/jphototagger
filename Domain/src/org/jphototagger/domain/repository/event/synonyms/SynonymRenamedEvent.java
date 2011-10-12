@@ -1,8 +1,6 @@
 package org.jphototagger.domain.repository.event.synonyms;
 
 /**
- *
- *
  * @author  Elmar Baumann
  */
 public final class SynonymRenamedEvent {
@@ -15,11 +13,11 @@ public final class SynonymRenamedEvent {
         if (oldSynonymName == null) {
             throw new NullPointerException("oldSynonymName == null");
         }
-        
+
         if (newSynonymName == null) {
             throw new NullPointerException("newSynonymName == null");
         }
-        
+
         this.source = source;
         this.oldSynonymName = oldSynonymName;
         this.newSynonymName = newSynonymName;

@@ -4,8 +4,6 @@ import java.util.Comparator;
 import org.jphototagger.lib.util.Version;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class DatabaseUpdateTaskComparator implements Comparator<DatabaseUpdateTask> {

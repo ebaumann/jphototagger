@@ -7,8 +7,6 @@ import org.jphototagger.domain.metadata.keywords.Keyword;
 import org.jphototagger.domain.metadata.keywords.KeywordType;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public interface KeywordsRepository {

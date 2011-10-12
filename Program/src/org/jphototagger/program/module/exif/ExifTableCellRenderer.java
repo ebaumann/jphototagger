@@ -10,17 +10,15 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableStringConverter;
 
 import org.jphototagger.domain.metadata.exif.ExifTag;
-import org.jphototagger.lib.componentutil.TableUtil;
+import org.jphototagger.lib.swing.util.TableUtil;
 import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
-import org.jphototagger.program.app.ui.FormatterLabelMetadata;
+import org.jphototagger.program.app.ui.MetadataLabelFormatter;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
-public final class ExifTableCellRenderer extends FormatterLabelMetadata implements TableCellRenderer {
+public final class ExifTableCellRenderer extends MetadataLabelFormatter implements TableCellRenderer {
 
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {

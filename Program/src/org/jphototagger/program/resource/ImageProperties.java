@@ -3,7 +3,6 @@ package org.jphototagger.program.resource;
 import com.imagero.util.R3;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class ImageProperties implements R3 {

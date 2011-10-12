@@ -43,14 +43,13 @@ import org.jphototagger.domain.repository.event.dcsubjects.DcSubjectInsertedEven
 import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.domain.text.TextEntry;
-import org.jphototagger.lib.componentutil.Autocomplete;
-import org.jphototagger.lib.componentutil.ComponentUtil;
-import org.jphototagger.lib.componentutil.ListUtil;
-import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.lib.event.util.KeyEventUtil;
+import org.jphototagger.lib.swing.util.Autocomplete;
+import org.jphototagger.lib.swing.util.ComponentUtil;
+import org.jphototagger.lib.swing.util.ListUtil;
+import org.jphototagger.lib.swing.MessageDisplayer;
+import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.misc.AutocompleteHelper;
-import org.jphototagger.program.types.Suggest;
+import org.jphototagger.program.misc.AutocompleteUtil;
 
 /**
  * Panel with an input text field an a list. The list contains multiple words,
@@ -63,7 +62,7 @@ import org.jphototagger.program.types.Suggest;
  */
 public final class EditRepeatableTextEntryPanel extends JPanel implements TextEntry, ActionListener, DocumentListener, ListDataListener {
 
-    private static final long serialVersionUID = -5581799743101447535L;
+    private static final long serialVersionUID = 1L;
     private String bundleKeyPosRenameDialog;
     private final DefaultListModel model = new DefaultListModel();
     private transient MetaDataValue metaDataValue = XmpDcSubjectsSubjectMetaDataValue.INSTANCE;
@@ -501,7 +500,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
             }
 
             if (autocomplete != null && getPersistedAutocomplete()) {
-                AutocompleteHelper.addAutocompleteData(metaDataValue, autocomplete, texts);
+                AutocompleteUtil.addAutocompleteData(metaDataValue, autocomplete, texts);
             }
         }
 
@@ -665,7 +664,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
 
     private void addToAutocomplete(Xmp xmp) {
         if (isAutocomplete()) {
-            AutocompleteHelper.addAutocompleteData(metaDataValue, autocomplete, xmp);
+            AutocompleteUtil.addAutocompleteData(metaDataValue, autocomplete, xmp);
         }
     }
 
@@ -682,7 +681,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
     @EventSubscriber(eventClass = DcSubjectInsertedEvent.class)
     public void dcSubjectInserted(DcSubjectInsertedEvent evt) {
         if (isAutocomplete()) {
-            AutocompleteHelper.addAutocompleteData(XmpDcSubjectsSubjectMetaDataValue.INSTANCE, autocomplete, Collections.singleton(evt.getDcSubject()));
+            AutocompleteUtil.addAutocompleteData(XmpDcSubjectsSubjectMetaDataValue.INSTANCE, autocomplete, Collections.singleton(evt.getDcSubject()));
         }
     }
 

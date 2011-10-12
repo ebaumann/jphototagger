@@ -1,8 +1,6 @@
 package org.jphototagger.domain.metadata.exif.event;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class ExifCacheClearedEvent {

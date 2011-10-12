@@ -30,12 +30,12 @@ import org.jphototagger.domain.repository.FavoritesRepository;
 import org.jphototagger.domain.repository.event.favorites.FavoriteDeletedEvent;
 import org.jphototagger.domain.repository.event.favorites.FavoriteInsertedEvent;
 import org.jphototagger.domain.repository.event.favorites.FavoriteUpdatedEvent;
-import org.jphototagger.lib.componentutil.TreeUtil;
-import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.lib.swing.util.TreeUtil;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.TreeFileSystemDirectories;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
-import org.jphototagger.lib.model.SortedChildrenTreeNode;
+import org.jphototagger.lib.swing.SortedChildrenTreeNode;
 import org.jphototagger.lib.util.Bundle;
 
 /**
@@ -48,7 +48,7 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
 
     private static final String KEY_SELECTED_DIR = "FavoritesTreeModel.SelDir";
     private static final String KEY_SELECTED_FAV_NAME = "FavoritesTreeModel.SelFavDir";
-    private static final long serialVersionUID = -2453748094818942669L;
+    private static final long serialVersionUID = 1L;
     private final Object monitor = new Object();
     private transient boolean listenToDb = true;
     private final DefaultMutableTreeNode rootNode;
@@ -65,8 +65,12 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
 
         this.tree = tree;
         rootNode = (DefaultMutableTreeNode) getRoot();
-        tree.addTreeWillExpandListener(this);
         addFavorites();
+        listen();
+    }
+
+    private void listen() {
+        tree.addTreeWillExpandListener(this);
         AnnotationProcessor.process(this);
     }
 
@@ -130,7 +134,8 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
             if (userObject instanceof Favorite) {
                 Favorite fav = (Favorite) userObject;
 
-                fav.setIndex(newIndex++);
+                fav.setIndex(newIndex);
+                newIndex++;
                 repo.updateFavorite(fav);
             }
         }
@@ -303,7 +308,8 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
             if (!nodeChildrenDirs.contains(subdir)) {
                 DefaultMutableTreeNode newChild = new SortedChildrenTreeNode(subdirs[i]);
 
-                parentNode.insert(newChild, childCount++);
+                parentNode.insert(newChild, childCount);
+                childCount++;
 
                 int childIndex = parentNode.getIndex(newChild);
 

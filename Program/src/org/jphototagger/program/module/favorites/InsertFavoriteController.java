@@ -8,7 +8,7 @@ import java.io.File;
 
 import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.event.util.KeyEventUtil;
+import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.module.directories.DirectoriesPopupMenu;

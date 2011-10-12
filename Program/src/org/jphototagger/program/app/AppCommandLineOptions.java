@@ -3,8 +3,6 @@ package org.jphototagger.program.app;
 import org.jphototagger.lib.util.CommandLineParser;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class AppCommandLineOptions {

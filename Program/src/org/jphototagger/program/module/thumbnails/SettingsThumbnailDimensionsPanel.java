@@ -13,18 +13,16 @@ import org.openide.util.Lookup;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.image.thumbnail.ThumbnailDefaults;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.program.module.maintainance.UpdateAllThumbnails;
 import org.jphototagger.program.types.Persistence;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public class SettingsThumbnailDimensionsPanel extends javax.swing.JPanel implements ActionListener, Persistence {
 
-    private static final long serialVersionUID = -6857947357604949567L;
+    private static final long serialVersionUID = 1L;
     private transient UpdateAllThumbnails thumbnailsUpdater;
     private boolean listenToMaxThumbnailWidthChanges = true;
 

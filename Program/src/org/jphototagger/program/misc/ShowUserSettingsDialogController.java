@@ -3,7 +3,7 @@ package org.jphototagger.program.misc;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import org.jphototagger.lib.componentutil.ComponentUtil;
+import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.program.settings.SettingsDialog;
 
 /**

@@ -13,13 +13,12 @@ import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.dialog.ProgressDialog;
+import org.jphototagger.lib.swing.ProgressDialog;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.misc.SizeAndLocationController;
 import org.jphototagger.program.resource.GUI;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class UpdateAllThumbnails implements Runnable, ProgressListener, ActionListener {

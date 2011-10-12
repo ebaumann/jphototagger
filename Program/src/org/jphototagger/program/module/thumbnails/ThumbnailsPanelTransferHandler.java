@@ -27,19 +27,18 @@ import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.lib.datatransfer.TransferUtil;
 import org.jphototagger.lib.datatransfer.TransferUtil.FilenameDelimiter;
 import org.jphototagger.lib.datatransfer.TransferableObject;
-import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.EditMetadataPanels;
 import org.jphototagger.program.datatransfer.DataTransferSupport;
 import org.jphototagger.program.datatransfer.Flavor;
-import org.jphototagger.program.io.ImageFileFilterer;
-import org.jphototagger.program.io.FilesystemImageUtil;
-import org.jphototagger.program.io.FilesystemImageUtil.ConfirmOverwrite;
-import org.jphototagger.program.module.favorites.FavoritesHelper;
-import org.jphototagger.program.module.keywords.KeywordsHelper;
-import org.jphototagger.program.module.miscmetadata.MiscMetadataHelper;
+import org.jphototagger.program.module.filesystem.ImageFileFilterer;
+import org.jphototagger.program.module.filesystem.FilesystemImageUtil;
+import org.jphototagger.program.module.filesystem.FilesystemImageUtil.ConfirmOverwrite;
+import org.jphototagger.program.module.favorites.FavoritesUtil;
+import org.jphototagger.program.module.keywords.KeywordsUtil;
+import org.jphototagger.program.module.miscmetadata.MiscMetadataUtil;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.types.ContentUtil;
 import org.jphototagger.program.view.ViewUtil;
 
 /**
@@ -53,7 +52,7 @@ import org.jphototagger.program.view.ViewUtil;
  */
 public final class ThumbnailsPanelTransferHandler extends TransferHandler {
 
-    private static final long serialVersionUID = 1831860682951562565L;
+    private static final long serialVersionUID = 1L;
 
     @Override
     public boolean canImport(TransferSupport support) {
@@ -193,14 +192,14 @@ public final class ThumbnailsPanelTransferHandler extends TransferHandler {
 
         for (DefaultMutableTreeNode node : DataTransferSupport.getKeywordNodes(t)) {
             if (dropOverSelectedThumbnail) {
-                KeywordsHelper.addKeywordsToEditPanel(node);
+                KeywordsUtil.addKeywordsToEditPanel(node);
             } else {
-                keywords.addAll(KeywordsHelper.getKeywordStrings(node, true));
+                keywords.addAll(KeywordsUtil.getKeywordStrings(node, true));
             }
         }
 
         if (!keywords.isEmpty()) {
-            KeywordsHelper.saveKeywordsToImageFile(keywords, imageFile);
+            KeywordsUtil.saveKeywordsToImageFile(keywords, imageFile);
         }
     }
 
@@ -242,7 +241,7 @@ public final class ThumbnailsPanelTransferHandler extends TransferHandler {
                 editPanels.setOrAddText(column, keyword);
             }
         } else {
-            KeywordsHelper.saveKeywordsToImageFile(keywords, imageFile);
+            KeywordsUtil.saveKeywordsToImageFile(keywords, imageFile);
         }
     }
 
@@ -305,7 +304,7 @@ public final class ThumbnailsPanelTransferHandler extends TransferHandler {
         if (treeDirectories.getSelectionCount() > 0) {
             return ViewUtil.getSelectedFile(treeDirectories);
         } else if (treeFavorites.getSelectionCount() > 0) {
-            return FavoritesHelper.getSelectedFavorite();
+            return FavoritesUtil.getSelectedFavorite();
         }
 
         return null;
@@ -342,7 +341,7 @@ public final class ThumbnailsPanelTransferHandler extends TransferHandler {
                     ep.setOrAddText(data.getMetaDataValue(), (String) data.getData());
                 }
             } else {
-                MiscMetadataHelper.saveToImageFile(mdValueData, imageFile);
+                MiscMetadataUtil.saveToImageFile(mdValueData, imageFile);
             }
         } catch (Exception ex) {
             Logger.getLogger(ThumbnailsPanelTransferHandler.class.getName()).log(Level.SEVERE, null, ex);

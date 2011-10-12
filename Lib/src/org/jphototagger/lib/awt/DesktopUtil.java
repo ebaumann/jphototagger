@@ -12,16 +12,14 @@ import javax.swing.JFileChooser;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
-import org.jphototagger.lib.componentutil.ComponentUtil;
-import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.lib.io.FileChooserHelper;
-import org.jphototagger.lib.io.FileChooserProperties;
+import org.jphototagger.lib.swing.util.ComponentUtil;
+import org.jphototagger.lib.swing.MessageDisplayer;
+import org.jphototagger.lib.swing.FileChooserHelper;
+import org.jphototagger.lib.swing.FileChooserProperties;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class DesktopUtil {
@@ -57,7 +55,7 @@ public final class DesktopUtil {
             }
         }
 
-        if (failed && MessageDisplayer.confirmYesNo(ComponentUtil.getFrameWithIcon(), "DesktopUtil.Open.ConfirmRetry")) {
+        if (failed && MessageDisplayer.confirmYesNo(ComponentUtil.findFrameWithIcon(), "DesktopUtil.Open.ConfirmRetry")) {
             open(file, prefrencesKeyForAlternateProgram); // Recursive
         }
     }
@@ -94,7 +92,7 @@ public final class DesktopUtil {
             }
         }
 
-        if (failed && MessageDisplayer.confirmYesNo(ComponentUtil.getFrameWithIcon(), "DesktopUtil.Browse.ConfirmRetry")) {
+        if (failed && MessageDisplayer.confirmYesNo(ComponentUtil.findFrameWithIcon(), "DesktopUtil.Browse.ConfirmRetry")) {
             browse(uriString, prefrencesKeyForAlternateBrowser); // Recursive
         }
     }
@@ -105,7 +103,7 @@ public final class DesktopUtil {
             return prefString;
         }
 
-        if (MessageDisplayer.confirmYesNo(ComponentUtil.getFrameWithIcon(), confirmMessage)) {
+        if (MessageDisplayer.confirmYesNo(ComponentUtil.findFrameWithIcon(), confirmMessage)) {
             File programFile = chooseProgramFile();
             String programPath = programFile == null ? null : programFile.getAbsolutePath();
 

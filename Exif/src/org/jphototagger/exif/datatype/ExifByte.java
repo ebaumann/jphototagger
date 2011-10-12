@@ -6,7 +6,6 @@ import org.jphototagger.exif.Ensure;
  * EXIF data exifDataType <code>BYTE</code> as defined in the EXIF standard:
  * An 8-bit unsigned integer.
  *
- *
  * @author Elmar Baumann
  */
 public final class ExifByte {
