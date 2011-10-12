@@ -182,7 +182,7 @@ public class UserDefinedFileFilterPanel extends javax.swing.JPanel implements Li
         });
 
         menuItemInsert.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_INSERT, 0));
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/udffilters/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/userdefinedfilters/Bundle"); // NOI18N
         menuItemInsert.setText(bundle.getString("UserDefinedFileFilterPanel.menuItemInsert.text")); // NOI18N
         menuItemInsert.setName("menuItemInsert"); // NOI18N
         menuItemInsert.addActionListener(new java.awt.event.ActionListener() {
