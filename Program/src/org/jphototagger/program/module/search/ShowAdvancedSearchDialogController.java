@@ -3,7 +3,7 @@ package org.jphototagger.program.module.search;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import org.jphototagger.lib.componentutil.ComponentUtil;
+import org.jphototagger.lib.swing.util.ComponentUtil;
 
 /**
  * Kontrolliert die Aktion: Dialog für erweiterte Suche anzeigen.

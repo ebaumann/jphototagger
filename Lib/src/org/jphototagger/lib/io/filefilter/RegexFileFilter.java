@@ -9,12 +9,11 @@ import java.util.StringTokenizer;
 import org.jphototagger.api.component.DisplayNameProvider;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class RegexFileFilter implements java.io.FileFilter, Serializable, DisplayNameProvider {
 
-    private static final long serialVersionUID = 5995205186843465364L;
+    private static final long serialVersionUID = 1L;
     private final Set<String> acceptedPatterns = new HashSet<String>();
     private String displayname;
 

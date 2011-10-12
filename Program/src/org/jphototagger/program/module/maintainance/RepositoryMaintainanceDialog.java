@@ -4,22 +4,21 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesHints;
-import org.jphototagger.lib.componentutil.ComponentUtil;
-import org.jphototagger.lib.componentutil.TabbedPaneUtil;
-import org.jphototagger.lib.dialog.Dialog;
-import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.lib.swing.util.ComponentUtil;
+import org.jphototagger.lib.swing.util.TabbedPaneUtil;
+import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class RepositoryMaintainanceDialog extends Dialog {
-    private static final long serialVersionUID = -6775385212305459197L;
+    private static final long serialVersionUID = 1L;
     public static final RepositoryMaintainanceDialog INSTANCE = new RepositoryMaintainanceDialog();
 
     private RepositoryMaintainanceDialog() {
-        super(ComponentUtil.getFrameWithIcon(), false);
+        super(ComponentUtil.findFrameWithIcon(), false);
         initComponents();
         setHelpPage();
         TabbedPaneUtil.setMnemonics(tabbedPane);

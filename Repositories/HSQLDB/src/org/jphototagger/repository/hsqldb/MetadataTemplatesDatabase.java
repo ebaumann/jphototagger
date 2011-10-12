@@ -39,8 +39,6 @@ import org.jphototagger.domain.repository.event.metadatatemplates.MetadataTempla
 import org.jphototagger.domain.templates.MetadataTemplate;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 final class MetadataTemplatesDatabase extends Database {

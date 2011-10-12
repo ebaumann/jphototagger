@@ -11,12 +11,11 @@ import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.lib.util.ClassEquality;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class ExifFocalLengthAscendingComparator extends ClassEquality implements Comparator<File>, Serializable {
 
-    private static final long serialVersionUID = -3547538589063666249L;
+    private static final long serialVersionUID = 1L;
     private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
 
     @Override

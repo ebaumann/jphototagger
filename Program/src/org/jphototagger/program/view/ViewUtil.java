@@ -19,16 +19,14 @@ import org.openide.util.Lookup;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.storage.PreferencesDirectoryProvider;
 import org.jphototagger.domain.favorites.Favorite;
-import org.jphototagger.lib.componentutil.ComponentUtil;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.lib.swing.util.ComponentUtil;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.app.ui.EditMetadataPanels;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public class ViewUtil {

@@ -20,8 +20,6 @@ import org.jphototagger.domain.metadata.xmp.XmpPhotoshopSourceMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpPhotoshopStateMetaDataValue;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class RepositoryInfoCountOfMetaDataValues {

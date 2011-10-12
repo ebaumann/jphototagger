@@ -8,9 +8,9 @@ import java.util.List;
 import javax.swing.JTree;
 
 import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
-import org.jphototagger.lib.clipboard.ClipboardUtil;
+import org.jphototagger.lib.util.ClipboardUtil;
 import org.jphototagger.lib.datatransfer.TransferUtil.FilenameDelimiter;
-import org.jphototagger.lib.event.util.KeyEventUtil;
+import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.types.FileAction;
 import org.jphototagger.program.view.ViewUtil;

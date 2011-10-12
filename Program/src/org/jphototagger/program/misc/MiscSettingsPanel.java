@@ -16,10 +16,10 @@ import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.domain.repository.FileRepositoryProvider;
 import org.jphototagger.iptc.IptcPreferencesKeys;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.dialog.DirectoryChooser;
-import org.jphototagger.lib.dialog.DirectoryChooser.Option;
-import org.jphototagger.program.app.AppPreferencesKeys;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.swing.DirectoryChooser;
+import org.jphototagger.lib.swing.DirectoryChooser.Option;
+import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.program.app.update.UpdateCheckController;
 import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.module.filesystem.CopyFiles;
@@ -29,12 +29,11 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.types.Persistence;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class MiscSettingsPanel extends javax.swing.JPanel implements Persistence {
 
-    private static final long serialVersionUID = 479354601163285718L;
+    private static final long serialVersionUID = 1L;
     private static final String PREFERENCES_KEY_TABBED_PANE = "MiscSettingsPanel.TabbedPane";
 
     public MiscSettingsPanel() {

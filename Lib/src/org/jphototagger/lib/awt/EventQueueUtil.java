@@ -3,8 +3,6 @@ package org.jphototagger.lib.awt;
 import java.awt.EventQueue;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class EventQueueUtil {

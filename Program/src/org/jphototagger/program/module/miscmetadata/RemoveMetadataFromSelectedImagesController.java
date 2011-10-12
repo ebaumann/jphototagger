@@ -7,8 +7,6 @@ import javax.swing.JMenuItem;
 import org.jphototagger.domain.metadata.MetaDataValue;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class RemoveMetadataFromSelectedImagesController extends MiscMetadataController {
@@ -21,6 +19,10 @@ public final class RemoveMetadataFromSelectedImagesController extends MiscMetada
         }
 
         itemRemove = popup.getItemRemoveFromEditPanel();
+        listen(popup);
+    }
+
+    private void listen(MiscMetadataPopupMenu popup) {
         popup.addListener(itemRemove, this);
     }
 
@@ -39,6 +41,6 @@ public final class RemoveMetadataFromSelectedImagesController extends MiscMetada
             throw new NullPointerException("value == null");
         }
 
-        MiscMetadataHelper.removeMetadataFromSelectedImages(mdValue, value);
+        MiscMetadataUtil.removeMetadataFromSelectedImages(mdValue, value);
     }
 }

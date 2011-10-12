@@ -14,8 +14,6 @@ import org.jphototagger.domain.imagecollections.ImageCollection;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class ImageCollectionsListCellRenderer extends DefaultListCellRenderer {
@@ -23,7 +21,7 @@ public final class ImageCollectionsListCellRenderer extends DefaultListCellRende
     private static final Icon ICON_DEFAULT = AppLookAndFeel.getIcon("icon_imagecollection.png");
     private static final Color SPECIAL_COLLECTION_FOREGROUND = Color.BLUE;
     private static final Map<Object, Icon> ICON_OF_VALUE = new HashMap<Object, Icon>();
-    private static final long serialVersionUID = -431048760716078334L;
+    private static final long serialVersionUID = 1L;
     private int tempSelRow = -1;
 
     {

@@ -11,8 +11,6 @@ import java.util.logging.Logger;
 import org.jphototagger.domain.metadata.MetaDataValue;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 final class DatabaseStatistics extends Database {

@@ -12,8 +12,8 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 
 import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
-import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.lib.event.util.KeyEventUtil;
+import org.jphototagger.lib.swing.MessageDisplayer;
+import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.EditMetadataPanels;
 import org.jphototagger.program.resource.GUI;

@@ -4,11 +4,7 @@ import java.awt.Color;
 
 import javax.swing.tree.DefaultTreeCellRenderer;
 
-import org.jphototagger.program.app.ui.AppLookAndFeel;
-
 /**
- *
- *
  * @author Elmar Baumann
  */
 public class TreeCellRendererExt extends DefaultTreeCellRenderer {
@@ -17,7 +13,7 @@ public class TreeCellRendererExt extends DefaultTreeCellRenderer {
     private static final Color TREE_BACKGROUND = AppLookAndFeel.getTreeBackground();
     private static final Color TREE_SELECTION_FOREGROUND = AppLookAndFeel.getTreeSelectionForeground();
     private static final Color TREE_SELECTION_BACKGROUND = AppLookAndFeel.getTreeSelectionBackground();
-    private static final long serialVersionUID = 7468243064122106211L;
+    private static final long serialVersionUID = 1L;
     private int tempSelectionRow = -1;
 
     public TreeCellRendererExt() {

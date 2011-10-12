@@ -1,16 +1,15 @@
 package org.jphototagger.program.module.exportimport;
 
-import org.jphototagger.lib.dialog.Dialog;
+import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.module.exportimport.ExportImportPanel.ExportImportListener;
 
 /**
- *
  * @author Elmar Baumann
  */
 public class ExportImportDialog extends Dialog implements ExportImportListener {
-    private static final long serialVersionUID = 8937656035473070405L;
+    private static final long serialVersionUID = 1L;
     private final ExportImportContext context;
 
     public ExportImportDialog(ExportImportContext context) {

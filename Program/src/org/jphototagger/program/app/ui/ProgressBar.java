@@ -7,9 +7,8 @@ import javax.swing.JButton;
 import javax.swing.JProgressBar;
 
 import org.jphototagger.api.concurrent.Cancelable;
-import org.jphototagger.lib.resource.MutualExcludedResource;
+import org.jphototagger.lib.util.MutualExcludedResource;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.resource.GUI;
 
 /**
@@ -28,6 +27,10 @@ final class ProgressBar extends MutualExcludedResource<JProgressBar> implements 
 
         setResource(appPanel.getProgressBar());
         buttonCancel = appPanel.getButtonCancelProgress();
+        listen();
+    }
+
+    private void listen() {
         buttonCancel.addActionListener(this);
         buttonCancel.setEnabled(false);
     }

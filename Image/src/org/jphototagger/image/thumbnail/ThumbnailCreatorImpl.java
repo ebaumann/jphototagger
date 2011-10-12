@@ -10,8 +10,6 @@ import org.openide.util.lookup.ServiceProvider;
 import org.jphototagger.domain.thumbnails.ThumbnailCreator;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 @ServiceProvider(service = ThumbnailCreator.class)

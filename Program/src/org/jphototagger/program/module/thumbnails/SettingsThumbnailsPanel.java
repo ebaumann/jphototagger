@@ -19,17 +19,16 @@ import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.image.ImagePreferencesKeys;
 import org.jphototagger.image.thumbnail.ThumbnailCreationStrategy;
 import org.jphototagger.image.thumbnail.ThumbnailCreationStrategyProvider;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.program.app.AppPreferencesKeys;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.program.types.Persistence;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements Persistence {
 
-    private static final long serialVersionUID = -5283587664627790755L;
+    private static final long serialVersionUID = 1L;
     private JPopupMenu createExternalThumbnailCreatorPopupMenu;
     private final Map<JRadioButton, ThumbnailCreationStrategy> thumbnailCreatorOfRadioButton = new HashMap<JRadioButton, ThumbnailCreationStrategy>();
     private final EnumMap<ThumbnailCreationStrategy, JRadioButton> radioButtonOfThumbnailCreator = new EnumMap<ThumbnailCreationStrategy, JRadioButton>(ThumbnailCreationStrategy.class);

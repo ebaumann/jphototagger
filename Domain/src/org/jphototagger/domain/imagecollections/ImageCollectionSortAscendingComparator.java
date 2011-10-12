@@ -5,8 +5,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class ImageCollectionSortAscendingComparator implements Comparator<String> {

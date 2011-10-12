@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class CollectionUtil {
@@ -239,10 +237,11 @@ public final class CollectionUtil {
         int index = 0;
 
         for (Object o : collection) {
-            tokenString.append(((index++ == 0)
+            tokenString.append(((index == 0)
                     ? EMPTY_STRING
                     : delimiter));
             tokenString.append(o.toString().replace(delimiter, delimiterReplacement));
+            index++;
         }
 
         return tokenString.toString();

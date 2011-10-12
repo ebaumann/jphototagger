@@ -3,9 +3,7 @@ package org.jphototagger.lib.util;
 /**
  * Object equality if the classes are equals.
  * <p>
- * Motivation: Comparing different instances of stateless classes via
- * <code>equals()</code>.
- *
+ * Motivation: Comparing different instances of stateless classes via <code>equals()</code>.
  *
  * @author Elmar Baumann
  */
@@ -21,11 +19,16 @@ public class ClassEquality {
             return false;
         }
 
-        return getClass().equals(obj.getClass());
+        Class<? extends ClassEquality> thisClass = getClass();
+        Class<? extends Object> objClass = obj.getClass();
+
+        return thisClass.equals(objClass);
     }
 
     @Override
     public int hashCode() {
-        return getClass().hashCode();
+        Class<? extends ClassEquality> thisClass = getClass();
+
+        return thisClass.hashCode();
     }
 }

@@ -7,8 +7,6 @@ import java.util.List;
 import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class ThumbnailsChangedEvent {

@@ -8,8 +8,6 @@ import org.jphototagger.api.file.FilenameTokens;
 import org.jphototagger.domain.repository.FileRepositoryProvider;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 @ServiceProvider(service = FileRepositoryProvider.class)

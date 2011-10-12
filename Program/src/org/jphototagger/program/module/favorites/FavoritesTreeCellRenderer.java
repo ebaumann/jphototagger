@@ -20,7 +20,7 @@ import org.jphototagger.program.app.ui.AppLookAndFeel;
  */
 public final class FavoritesTreeCellRenderer extends DefaultTreeCellRenderer {
 
-    private static final long serialVersionUID = 4280765256503091379L;
+    private static final long serialVersionUID = 1L;
     private final FileSystemView fileSystemView = FileSystemView.getFileSystemView();
     private int tempSelRow = -1;
 

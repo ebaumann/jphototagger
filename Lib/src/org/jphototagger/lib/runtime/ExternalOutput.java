@@ -1,8 +1,6 @@
 package org.jphototagger.lib.runtime;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class ExternalOutput {

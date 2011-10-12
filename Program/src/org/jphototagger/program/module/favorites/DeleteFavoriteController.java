@@ -46,7 +46,7 @@ public final class DeleteFavoriteController extends FavoriteController {
             throw new NullPointerException("favorite == null");
         }
 
-        FavoritesHelper.deleteFavorite(favorite);
+        FavoritesUtil.deleteFavorite(favorite);
     }
 
     @Override

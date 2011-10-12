@@ -1,8 +1,6 @@
 package org.jphototagger.repository.hsqldb.update.tables.v0;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class ColumnInfo {

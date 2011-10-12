@@ -3,8 +3,6 @@ package org.jphototagger.domain.repository.event.userdefinedfiletypes;
 import org.jphototagger.domain.filetypes.UserDefinedFileType;
 
 /**
- *
- *
  * @author  Elmar Baumann
  */
 public final class UserDefinedFileTypeDeletedEvent {
@@ -16,7 +14,7 @@ public final class UserDefinedFileTypeDeletedEvent {
         if (fileType == null) {
             throw new NullPointerException("fileType == null");
         }
-        
+
         this.source = source;
         this.fileType = fileType;
     }

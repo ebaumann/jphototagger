@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class XmpToSaveInRepository {

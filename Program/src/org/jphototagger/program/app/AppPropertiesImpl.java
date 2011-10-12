@@ -4,8 +4,6 @@ import org.jphototagger.api.branding.AppProperties;
 import org.openide.util.lookup.ServiceProvider;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 @ServiceProvider(service = AppProperties.class)

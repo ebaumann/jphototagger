@@ -14,20 +14,19 @@ import org.jdesktop.swingx.JXTree;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.componentutil.TreeUtil;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.swing.util.TreeUtil;
 import org.jphototagger.lib.swingx.ListTextFilter;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.ui.SearchInJxListAction;
-import org.jphototagger.program.app.ui.SearchInJxTreeAction;
+import org.jphototagger.lib.swingx.SearchInJxListAction;
+import org.jphototagger.lib.swingx.SearchInJxTreeAction;
 
 /**
- *
  * @author Elmar Baumann
  */
 public class KeywordsPanel extends javax.swing.JPanel {
 
-    private static final long serialVersionUID = 5968799511284000903L;
+    private static final long serialVersionUID = 1L;
     private ListTextFilter listTextFilter;
     private String keyTree = "KeywordsPanel.Tree.SelectedNode";
     private String keyCard = "KeywordsPanel.Card";

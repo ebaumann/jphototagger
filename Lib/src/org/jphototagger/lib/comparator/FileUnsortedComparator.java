@@ -13,7 +13,7 @@ import org.jphototagger.lib.util.ClassEquality;
  */
 public final class FileUnsortedComparator extends ClassEquality implements Comparator<File>, Serializable {
 
-    private static final long serialVersionUID = 6632501783143748216L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Returns always zero.

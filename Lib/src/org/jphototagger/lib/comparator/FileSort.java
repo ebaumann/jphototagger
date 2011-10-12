@@ -4,8 +4,6 @@ import java.io.File;
 import java.util.Comparator;
 
 /**
- * Sorting of files.
- *
  * @author Elmar Baumann
  */
 public enum FileSort {

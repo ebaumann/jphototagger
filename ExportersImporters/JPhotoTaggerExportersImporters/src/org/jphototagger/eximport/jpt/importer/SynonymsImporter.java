@@ -32,8 +32,6 @@ import org.jphototagger.eximport.jpt.exporter.SynonymsExporter;
 import org.jphototagger.lib.swing.IconUtil;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 @ServiceProvider(service = RepositoryDataImporter.class)

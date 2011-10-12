@@ -1,18 +1,16 @@
 package org.jphototagger.program.module.thumbnails;
 
-import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.dialog.Dialog;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.settings.SettingsDialog;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public class SettingsThumbnailDimensionsDialog extends Dialog {
 
-    private static final long serialVersionUID = -6371918482095310098L;
+    private static final long serialVersionUID = 1L;
 
     public SettingsThumbnailDimensionsDialog() {
         super(GUI.getAppFrame(), true);

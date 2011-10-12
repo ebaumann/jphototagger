@@ -14,13 +14,11 @@ import javax.swing.table.TableStringConverter;
 
 import com.adobe.xmp.properties.XMPPropertyInfo;
 
-import org.jphototagger.domain.repository.xmp.XmpToSaveInRepository;
-import org.jphototagger.lib.componentutil.TableUtil;
-import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.swing.util.TableUtil;
 import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.lib.util.Translation;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
-import org.jphototagger.program.app.ui.FormatterLabelMetadata;
+import org.jphototagger.program.app.ui.MetadataLabelFormatter;
 import org.jphototagger.xmp.XmpMetadata;
 
 /**
@@ -29,7 +27,7 @@ import org.jphototagger.xmp.XmpMetadata;
  *
  * @author Elmar Baumann
  */
-public final class XmpTableCellRenderer extends FormatterLabelMetadata implements TableCellRenderer {
+public final class XmpTableCellRenderer extends MetadataLabelFormatter implements TableCellRenderer {
 
     private static final String DELIMITER_PATH = "/";
     private static final String DELIMITER_NAMESPACE = ":";
@@ -41,7 +39,6 @@ public final class XmpTableCellRenderer extends FormatterLabelMetadata implement
         XMPPropertyInfo xmpPropertyInfo = (XMPPropertyInfo) value;
 
         setDefaultCellColors(cellLabel, isSelected);
-        setIsStoredInRepositoryColor(cellLabel, xmpPropertyInfo, isSelected);
 
         if (column == 0) {
             setHeaderFont(cellLabel);
@@ -58,13 +55,6 @@ public final class XmpTableCellRenderer extends FormatterLabelMetadata implement
         }
 
         return cellLabel;
-    }
-
-    private void setIsStoredInRepositoryColor(JLabel cellLabel, XMPPropertyInfo xmpPropertyInfo, boolean isSel) {
-        if (XmpToSaveInRepository.isSaveInRepository(xmpPropertyInfo.getPath())) {
-            setIsStoredInRepositoryColors(cellLabel, isSel);
-            cellLabel.setToolTipText(Bundle.getString(XmpTableCellRenderer.class, "XmpTableCellRenderer.ToolTipText.CellLabelStoredInRepository"));
-        }
     }
 
     private static String translate(String path, String alternate) {

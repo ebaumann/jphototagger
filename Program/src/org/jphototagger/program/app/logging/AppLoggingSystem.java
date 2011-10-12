@@ -17,7 +17,6 @@ import org.jphototagger.api.storage.PreferencesDirectoryProvider;
 import org.jphototagger.lib.io.FileUtil;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class AppLoggingSystem {

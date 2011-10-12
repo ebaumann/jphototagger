@@ -12,8 +12,6 @@ import javax.swing.JToggleButton;
 import javax.swing.JTree;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public interface Preferences {

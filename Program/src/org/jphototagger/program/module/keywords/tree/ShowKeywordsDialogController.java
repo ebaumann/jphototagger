@@ -3,7 +3,7 @@ package org.jphototagger.program.module.keywords.tree;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import org.jphototagger.lib.componentutil.ComponentUtil;
+import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.misc.InputHelperDialog;
 

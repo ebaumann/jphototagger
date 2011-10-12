@@ -31,7 +31,7 @@ import org.jphototagger.lib.plugin.AbstractFileProcessorPlugin;
 @ServiceProvider(service = FileProcessorPlugin.class)
 public final class CopyFilenamesToClipboard extends AbstractFileProcessorPlugin implements Serializable {
 
-    private static final long serialVersionUID = 526527636923496736L;
+    private static final long serialVersionUID = 1L;
     public static final String KEY_FILENAME_DELIMITER = CopyFilenamesToClipboard.class.getName() + ".KeyDelimiter";
     public static final String DEFAULT_FILENAME_DELIMITER = "\n";
     private static final Icon ICON = IconUtil.getImageIcon("/org/jphototagger/plugin/cftc/icon.png");

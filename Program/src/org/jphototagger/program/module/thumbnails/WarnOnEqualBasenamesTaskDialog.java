@@ -25,13 +25,11 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesChangedEvent;
-import org.jphototagger.lib.componentutil.ComponentUtil;
-import org.jphototagger.lib.dialog.Dialog;
-import org.jphototagger.program.app.AppPreferencesKeys;
+import org.jphototagger.lib.swing.util.ComponentUtil;
+import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.program.settings.AppPreferencesKeys;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public class WarnOnEqualBasenamesTaskDialog extends Dialog {
@@ -42,7 +40,7 @@ public class WarnOnEqualBasenamesTaskDialog extends Dialog {
     private boolean listenToDisplayInFutureCheckBox = false;
 
     public WarnOnEqualBasenamesTaskDialog(Collection<? extends File> files) {
-        super(ComponentUtil.getFrameWithIcon(), false);
+        super(ComponentUtil.findFrameWithIcon(), false);
         if (files == null) {
             throw new NullPointerException("files == null");
         }

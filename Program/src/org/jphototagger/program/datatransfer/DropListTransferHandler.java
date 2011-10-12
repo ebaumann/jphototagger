@@ -10,7 +10,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.jdesktop.swingx.JXList;
 import org.jphototagger.domain.metadata.MetaDataValueData;
-import org.jphototagger.program.module.keywords.KeywordsHelper;
+import org.jphototagger.program.module.keywords.KeywordsUtil;
 
 /**
  * Imports into a {@code DefaultListModel} of strings strings exported via a
@@ -27,7 +27,7 @@ import org.jphototagger.program.module.keywords.KeywordsHelper;
  */
 public final class DropListTransferHandler extends TransferHandler {
 
-    private static final long serialVersionUID = -3654778661471221382L;
+    private static final long serialVersionUID = 1L;
 
     @Override
     public boolean canImport(TransferHandler.TransferSupport support) {
@@ -100,7 +100,7 @@ public final class DropListTransferHandler extends TransferHandler {
     }
 
     private void importKeywords(DefaultMutableTreeNode node, DefaultListModel listModel) {
-        for (String keyword : KeywordsHelper.getKeywordStrings(node, true)) {
+        for (String keyword : KeywordsUtil.getKeywordStrings(node, true)) {
             if (!listModel.contains(keyword)) {
                 listModel.addElement(keyword);
             }

@@ -6,17 +6,15 @@ import javax.swing.AbstractAction;
 import javax.swing.JToggleButton;
 import javax.swing.JTree;
 
-import org.jphototagger.lib.componentutil.TreeUtil;
+import org.jphototagger.lib.swing.util.TreeUtil;
 import org.jphototagger.lib.util.Bundle;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class TreeExpandCollapseAllAction extends AbstractAction {
 
-    private static final long serialVersionUID = -2312693675896808948L;
+    private static final long serialVersionUID = 1L;
     public static final String SELECTED_TEXT = Bundle.getString(TreeExpandCollapseAllAction.class, "TreeExpandCollapseAllAction.ToggleButton.Selected.Text");
     public static final String NOT_SELECTED_TEXT = Bundle.getString(TreeExpandCollapseAllAction.class, "TreeExpandCollapseAllAction.ToggleButton.NotSelected.Text");
     private final JTree tree;

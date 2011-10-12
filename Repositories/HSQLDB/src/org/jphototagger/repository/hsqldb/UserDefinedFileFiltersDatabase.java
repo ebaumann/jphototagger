@@ -17,8 +17,6 @@ import org.jphototagger.domain.repository.event.userdefinedfilefilters.UserDefin
 import org.jphototagger.domain.repository.event.userdefinedfilefilters.UserDefinedFileFilterUpdatedEvent;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 final class UserDefinedFileFiltersDatabase extends Database {

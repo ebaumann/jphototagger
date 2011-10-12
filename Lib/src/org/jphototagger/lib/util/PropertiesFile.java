@@ -11,12 +11,7 @@ import java.util.logging.Logger;
 import org.jphototagger.lib.io.FileUtil;
 
 /**
- * Reads from and writes to a file values of an
- * {@code java.util.Properties} instance.
- *
- * All functions with object-reference-parameters are throwing a
- * <code>NullPointerException</code> if an object reference is null and it is
- * not documentet that it can be null.
+ * Reads from and writes to a file values of a {@code java.util.Properties} instance.
  *
  * @author Elmar Baumann
  */

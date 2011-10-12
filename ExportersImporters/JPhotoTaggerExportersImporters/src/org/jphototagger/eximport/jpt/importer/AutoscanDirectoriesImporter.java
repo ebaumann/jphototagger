@@ -20,8 +20,6 @@ import org.jphototagger.lib.xml.bind.StringWrapper;
 import org.jphototagger.lib.xml.bind.XmlObjectImporter;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 @ServiceProvider(service = RepositoryDataImporter.class)

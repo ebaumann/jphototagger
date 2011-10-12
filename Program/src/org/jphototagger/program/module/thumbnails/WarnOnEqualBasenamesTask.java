@@ -12,8 +12,6 @@ import org.jphototagger.lib.comparator.FilepathIgnoreCaseAscendingComparator;
 import org.jphototagger.lib.io.FileUtil;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class WarnOnEqualBasenamesTask extends Thread {

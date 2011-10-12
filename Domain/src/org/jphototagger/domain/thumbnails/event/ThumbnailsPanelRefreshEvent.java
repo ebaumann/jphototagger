@@ -9,8 +9,6 @@ import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
 import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class ThumbnailsPanelRefreshEvent {

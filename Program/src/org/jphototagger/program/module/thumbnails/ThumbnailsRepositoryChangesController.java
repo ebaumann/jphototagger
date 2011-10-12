@@ -17,7 +17,6 @@ import org.jphototagger.program.module.thumbnails.cache.XmpCache;
 import org.jphototagger.program.resource.GUI;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class ThumbnailsRepositoryChangesController {

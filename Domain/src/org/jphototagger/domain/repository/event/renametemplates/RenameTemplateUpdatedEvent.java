@@ -3,8 +3,6 @@ package org.jphototagger.domain.repository.event.renametemplates;
 import org.jphototagger.domain.templates.RenameTemplate;
 
 /**
- *
- *
  * @author  Elmar Baumann
  */
 public final class RenameTemplateUpdatedEvent {
@@ -16,7 +14,7 @@ public final class RenameTemplateUpdatedEvent {
         if (template == null) {
             throw new NullPointerException("template == null");
         }
-        
+
         this.source = source;
         this.template = template;
     }

@@ -8,7 +8,6 @@ import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.resource.GUI;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class CreateSavedSearchController extends Controller {

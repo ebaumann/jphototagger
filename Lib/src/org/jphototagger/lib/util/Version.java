@@ -4,8 +4,6 @@ import java.text.MessageFormat;
 import java.util.StringTokenizer;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class Version implements Comparable<Version> {
@@ -81,7 +79,7 @@ public final class Version implements Comparable<Version> {
         while (st.hasMoreTokens()) {
             int number = Integer.parseInt(st.nextToken().trim());
 
-            switch (index++) {
+            switch (index) {
                 case 0:
                     major = number;
 
@@ -105,6 +103,8 @@ public final class Version implements Comparable<Version> {
                 default:
                     assert false;
             }
+
+            index++;
         }
 
         return new Version(major, minor1, minor2, minor3);

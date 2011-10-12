@@ -16,7 +16,7 @@ import org.jphototagger.lib.util.Bundle;
  */
 public final class FastSearchMetaDataValuesListCellRenderer extends DefaultListCellRenderer {
 
-    private static final long serialVersionUID = 8142413010742459250L;
+    private static final long serialVersionUID = 1L;
 
     @Override
     public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {

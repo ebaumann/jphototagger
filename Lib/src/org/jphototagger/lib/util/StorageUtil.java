@@ -5,7 +5,6 @@ import java.io.File;
 import org.jphototagger.api.preferences.Preferences;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class StorageUtil {

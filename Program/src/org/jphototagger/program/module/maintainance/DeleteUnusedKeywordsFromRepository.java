@@ -15,7 +15,6 @@ import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.lib.util.Bundle;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class DeleteUnusedKeywordsFromRepository implements Runnable, Cancelable {

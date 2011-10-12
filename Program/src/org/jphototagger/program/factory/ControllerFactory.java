@@ -39,9 +39,9 @@ import org.jphototagger.program.module.keywords.list.DeleteKeywordsFromEditPanel
 import org.jphototagger.program.module.keywords.list.DisplayKeywordController;
 import org.jphototagger.program.module.keywords.list.EditKeywordSynonymsController;
 import org.jphototagger.program.module.keywords.list.InsertKeywordsController;
-import org.jphototagger.program.module.keywords.list.KeywordItemSelectedController;
+import org.jphototagger.program.module.keywords.list.KeywordListItemSelectedController;
 import org.jphototagger.program.module.keywords.list.RenameKeywordsController;
-import org.jphototagger.program.module.keywords.tree.AddKeywordController;
+import org.jphototagger.program.module.keywords.tree.AddKeywordToTreeController;
 import org.jphototagger.program.module.keywords.tree.CopyCutPasteKeywordController;
 import org.jphototagger.program.module.keywords.tree.DeleteKeywordFromEditPanelController;
 import org.jphototagger.program.module.keywords.tree.HighlightKeywordsTreeController;
@@ -50,19 +50,19 @@ import org.jphototagger.program.module.keywords.tree.KeywordsRepositoryUpdatesCo
 import org.jphototagger.program.module.keywords.tree.KeywordsSelectionController;
 import org.jphototagger.program.module.keywords.tree.RenameKeywordController;
 import org.jphototagger.program.module.keywords.tree.ShowKeywordsDialogController;
-import org.jphototagger.program.module.keywords.tree.ToggleButtonSelectKeywordsController;
+import org.jphototagger.program.module.keywords.tree.ToggleButtonExpandKeywordsTreeController;
 import org.jphototagger.program.module.keywords.tree.ToggleRealKeywordController;
 import org.jphototagger.program.module.thumbnails.CopyPasteMetadataController;
 import org.jphototagger.program.module.iptc.DisplayIptcUserSettingsController;
 import org.jphototagger.program.misc.EmptyAllEditPanelsController;
 import org.jphototagger.program.misc.EnableCreateMetadataTemplateController;
 import org.jphototagger.program.misc.EnableInsertMetadataTemplateController;
-import org.jphototagger.program.module.exif.ExifToXmpController;
+import org.jphototagger.program.module.exif.SetExifToXmpController;
 import org.jphototagger.program.module.xmp.ExtractEmbeddedXmpController;
 import org.jphototagger.program.module.iptc.IptcToXmpController;
 import org.jphototagger.program.module.metadatatemplates.MetadataTemplatesController;
 import org.jphototagger.program.module.metadata.ShowMetadataController;
-import org.jphototagger.program.module.maintainance.ShowUpdateMetadataDialogController;
+import org.jphototagger.program.module.maintainance.ShowUpdateMetadataOfDirectoriesDialogController;
 import org.jphototagger.program.misc.ThumbnailSelectionEditMetadataController;
 import org.jphototagger.program.module.metadatatemplates.AddMetadataTemplateController;
 import org.jphototagger.program.module.metadatatemplates.DeleteMetadataTemplateController;
@@ -73,7 +73,7 @@ import org.jphototagger.program.misc.AboutJPhotoTaggerController;
 import org.jphototagger.program.misc.GoToController;
 import org.jphototagger.program.misc.HelpController;
 import org.jphototagger.program.module.maintainance.MaintainRepositoryController;
-import org.jphototagger.program.misc.MaximumOneItemSelectedController;
+import org.jphototagger.program.misc.MaximumOneTreeOrListItemSelectedController;
 import org.jphototagger.program.misc.MenuItemEnablerController;
 import org.jphototagger.program.module.synonyms.ShowSynonymsDialogController;
 import org.jphototagger.program.misc.ShowUserSettingsDialogController;
@@ -175,7 +175,7 @@ public final class ControllerFactory {
         support.add(new AboutJPhotoTaggerController());
         support.add(new HelpController());
         support.add(new MaintainRepositoryController());
-        support.add(new ShowUpdateMetadataDialogController());
+        support.add(new ShowUpdateMetadataOfDirectoriesDialogController());
         support.add(new ShowUserSettingsDialogController());
         support.add(new ShowAdvancedSearchDialogController());
         support.add(new ShowSynonymsDialogController());
@@ -183,8 +183,8 @@ public final class ControllerFactory {
     }
 
     private void addAppWindowSelectionControllers() {
-        support.add(new MaximumOneItemSelectedController());
-        support.add(new KeywordItemSelectedController());
+        support.add(new MaximumOneTreeOrListItemSelectedController());
+        support.add(new KeywordListItemSelectedController());
         support.add(new SavedSearchSelectedController());
         support.add(new ImageCollectionSelectedController());
         support.add(new CreateMetadataOfSelectedThumbnailsController());
@@ -280,7 +280,7 @@ public final class ControllerFactory {
     private void addMetadataTablesControllers() {
         support.add(new ShowMetadataController());
         support.add(new IptcToXmpController());
-        support.add(new ExifToXmpController());
+        support.add(new SetExifToXmpController());
         support.add(new DisplayIptcUserSettingsController());
     }
 
@@ -299,8 +299,8 @@ public final class ControllerFactory {
         for (KeywordsPanel keywordsPanel : keywordPanels) {
             support.add(new ToggleRealKeywordController(keywordsPanel));
             support.add(new RenameKeywordController(keywordsPanel));
-            support.add(new AddKeywordController(keywordsPanel));
-            support.add(new org.jphototagger.program.module.keywords.tree.DeleteKeywordsController(keywordsPanel));
+            support.add(new AddKeywordToTreeController(keywordsPanel));
+            support.add(new org.jphototagger.program.module.keywords.tree.DeleteKeywordsFromTreeController(keywordsPanel));
             support.add(
                     new org.jphototagger.program.module.keywords.tree.AddKeywordsToEditPanelController(keywordsPanel));
             support.add(new DeleteKeywordFromEditPanelController(keywordsPanel));
@@ -312,7 +312,7 @@ public final class ControllerFactory {
         support.add(new KeywordsRepositoryUpdatesController());
         support.add(new RenameKeywordsController());
         support.add(new DeleteKeywordsController());
-        support.add(new ToggleButtonSelectKeywordsController());
+        support.add(new ToggleButtonExpandKeywordsTreeController());
         support.add(new DisplayKeywordController());
         support.add(new InsertKeywordsController());
         support.add(new org.jphototagger.program.module.keywords.list.AddKeywordsToEditPanelController());

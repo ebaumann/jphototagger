@@ -16,8 +16,8 @@ import javax.swing.UIManager;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
-import org.jphototagger.lib.io.FileChooserHelper;
-import org.jphototagger.lib.io.FileChooserProperties;
+import org.jphototagger.lib.swing.FileChooserHelper;
+import org.jphototagger.lib.swing.FileChooserProperties;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
@@ -58,7 +58,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         keyOfTextField.put(textFieldFileMoved, FileEventHooksPreferencesKeys.FILE_MOVED_KEY);
         keyOfTextField.put(textFieldFileRenamed, FileEventHooksPreferencesKeys.FILE_RENAMED_KEY);
     }
-    
+
     private void initTextFieldOfRemoveButtonMap() {
         textFieldOfRemoveButton.put(buttonRemoveScriptFileCopied, textFieldFileCopied);
         textFieldOfRemoveButton.put(buttonRemoveScriptFileDeleted, textFieldFileDeleted);
@@ -135,7 +135,7 @@ public class SettingsPanel extends javax.swing.JPanel {
 
         return scriptFile;
     }
-    
+
     private void setRemoveButtonsEnabled() {
         for (JButton button : textFieldOfRemoveButton.keySet()) {
             JTextField textField = textFieldOfRemoveButton.get(button);
@@ -143,14 +143,14 @@ public class SettingsPanel extends javax.swing.JPanel {
             button.setEnabled(StringUtil.hasContent(script));
         }
     }
-    
+
     private final Action removeScriptFileAction = new AbstractAction() {
         private static final long serialVersionUID = 1L;
 
         @Override
         public void actionPerformed(ActionEvent e) {
             Object source = e.getSource();
-            
+
             if (source instanceof JButton) {
                 JButton button = (JButton) source;
                 JTextField textField = textFieldOfRemoveButton.get(button);

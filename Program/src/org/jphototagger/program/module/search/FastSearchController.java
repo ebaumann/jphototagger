@@ -13,6 +13,7 @@ import java.util.StringTokenizer;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 
+import javax.swing.JTextArea;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 
@@ -32,13 +33,14 @@ import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
 import org.jphototagger.domain.metadata.xmp.Xmp;
+import org.jphototagger.domain.thumbnails.event.ThumbnailsChangedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.componentutil.Autocomplete;
-import org.jphototagger.lib.componentutil.ListUtil;
-import org.jphototagger.lib.componentutil.TreeUtil;
+import org.jphototagger.lib.swing.util.Autocomplete;
+import org.jphototagger.lib.swing.util.ListUtil;
+import org.jphototagger.lib.swing.util.TreeUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.module.thumbnails.SortThumbnailsController;
-import org.jphototagger.program.misc.AutocompleteHelper;
+import org.jphototagger.program.misc.AutocompleteUtil;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.app.ui.WaitDisplay;
 
@@ -92,7 +94,8 @@ public final class FastSearchController implements ActionListener {
 
     private void listen() {
         AnnotationProcessor.process(this);
-        GUI.getSearchTextArea().addKeyListener(new KeyAdapter() {
+        JTextArea searchTextArea = GUI.getSearchTextArea();
+        searchTextArea.addKeyListener(new KeyAdapter() {
 
             @Override
             public void keyReleased(KeyEvent evt) {
@@ -241,12 +244,22 @@ public final class FastSearchController implements ActionListener {
 
     @EventSubscriber(eventClass = ThumbnailsPanelRefreshEvent.class)
     public void refresh(ThumbnailsPanelRefreshEvent evt) {
-        if (GUI.getSearchTextArea().isEnabled()) {
+        JTextArea searchTextArea = GUI.getSearchTextArea();
+        if (searchTextArea.isEnabled()) {
             OriginOfDisplayedThumbnails typeOfDisplayedImages = evt.getTypeOfDisplayedImages();
 
             if (OriginOfDisplayedThumbnails.FILES_FOUND_BY_FAST_SEARCH.equals(typeOfDisplayedImages)) {
                 search(GUI.getSearchTextArea().getText());
             }
+        }
+    }
+
+    @EventSubscriber(eventClass = ThumbnailsChangedEvent.class)
+    public void thumbnailsChanged(ThumbnailsChangedEvent evt) {
+        OriginOfDisplayedThumbnails originOfDisplayedThumbnails = evt.getOriginOfDisplayedThumbnails();
+        if (!OriginOfDisplayedThumbnails.FILES_FOUND_BY_FAST_SEARCH.equals(originOfDisplayedThumbnails)) {
+            JTextArea searchTextArea = GUI.getSearchTextArea();
+            searchTextArea.setText("");
         }
     }
 
@@ -268,9 +281,9 @@ public final class FastSearchController implements ActionListener {
         }
 
         if (isSearchAllDefinedMetaDataValues()) {
-            AutocompleteHelper.addFastSearchAutocompleteData(autocomplete, xmp);
+            AutocompleteUtil.addFastSearchAutocompleteData(autocomplete, xmp);
         } else {
-            AutocompleteHelper.addAutocompleteData(getSearchMetaDataValue(), autocomplete, xmp);
+            AutocompleteUtil.addAutocompleteData(getSearchMetaDataValue(), autocomplete, xmp);
         }
     }
 

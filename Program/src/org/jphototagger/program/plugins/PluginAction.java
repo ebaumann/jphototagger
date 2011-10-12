@@ -7,8 +7,6 @@ import javax.swing.Action;
 import org.jphototagger.api.plugin.Plugin;
 
 /**
- *
- *
  * @param <T> Type of plugin
  * @author Elmar Baumann
  */

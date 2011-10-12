@@ -25,16 +25,19 @@ import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class KeywordsListModel extends DefaultListModel {
 
-    private static final long serialVersionUID = -9181622876402951455L;
+    private static final long serialVersionUID = 1L;
     private final ImageFilesRepository imageFileRepo = Lookup.getDefault().lookup(ImageFilesRepository.class);
 
     public KeywordsListModel() {
         addElements();
+        listen();
+    }
+
+    private void listen() {
         AnnotationProcessor.process(this);
     }
 

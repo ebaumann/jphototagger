@@ -17,8 +17,6 @@ import org.jphototagger.exif.ExifTag;
 import org.jphototagger.exif.ExifTags;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class NikonMakerNotes implements ExifMakerNotes {

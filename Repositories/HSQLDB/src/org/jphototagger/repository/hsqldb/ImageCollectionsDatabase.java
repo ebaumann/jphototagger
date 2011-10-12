@@ -20,8 +20,6 @@ import org.jphototagger.domain.repository.event.imagecollections.ImageCollection
 import org.jphototagger.domain.repository.event.imagecollections.ImageCollectionRenamedEvent;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 final class ImageCollectionsDatabase extends Database {

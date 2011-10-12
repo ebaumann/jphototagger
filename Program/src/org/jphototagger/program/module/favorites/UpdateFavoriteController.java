@@ -6,7 +6,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.jphototagger.domain.favorites.Favorite;
-import org.jphototagger.lib.event.util.KeyEventUtil;
+import org.jphototagger.lib.swing.KeyEventUtil;
 
 /**
  * Listens to the {@code FavoritesPopupMenu} and let's edit the selected
@@ -48,7 +48,7 @@ public final class UpdateFavoriteController extends FavoriteController {
             throw new NullPointerException("favorite == null");
         }
 
-        FavoritesHelper.updateFavorite(favorite);
+        FavoritesUtil.updateFavorite(favorite);
     }
 
     @Override

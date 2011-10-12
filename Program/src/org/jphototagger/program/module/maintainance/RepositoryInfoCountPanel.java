@@ -1,21 +1,26 @@
 package org.jphototagger.program.module.maintainance;
 
+import java.awt.Component;
 import java.text.MessageFormat;
 
+import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.table.TableCellRenderer;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.file.FilenameTokens;
+import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.repository.FileRepositoryProvider;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.app.ui.MetaDataValueLabelFormatter;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class RepositoryInfoCountPanel extends javax.swing.JPanel {
-    private static final long  serialVersionUID = -8537559082830438692L;
-    private RepositoryInfoTableModel repositoryInfoTableModel;
+    private static final long  serialVersionUID = 1L;
+    private RepositoryInfoCountTableModel repositoryInfoTableModel;
     private volatile boolean listenToDbChanges;
 
     public RepositoryInfoCountPanel() {
@@ -58,7 +63,7 @@ public final class RepositoryInfoCountPanel extends javax.swing.JPanel {
 
                         @Override
                         public void run() {
-                            repositoryInfoTableModel = new RepositoryInfoTableModel();
+                            repositoryInfoTableModel = new RepositoryInfoCountTableModel();
                             repositoryInfoTableModel.setListenToRepository(listenToDbChanges);
                             table.setModel(repositoryInfoTableModel);
                             repositoryInfoTableModel.update();
@@ -71,6 +76,23 @@ public final class RepositoryInfoCountPanel extends javax.swing.JPanel {
         } else {
             repositoryInfoTableModel.setListenToRepository(true);
             repositoryInfoTableModel.update();
+        }
+    }
+
+    private static class RepositoryInfoColumnsTableCellRenderer implements TableCellRenderer {
+
+        private static final String PADDING_LEFT = "  ";
+        private final JLabel cellLabel = new JLabel();
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            if (column == 0) {
+                MetaDataValueLabelFormatter.setLabelText(cellLabel, (MetaDataValue) value);
+            } else {
+                cellLabel.setText(PADDING_LEFT + value.toString());
+            }
+
+            return cellLabel;
         }
     }
 

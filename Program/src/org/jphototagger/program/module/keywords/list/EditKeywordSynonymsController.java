@@ -20,18 +20,17 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.repository.SynonymsRepository;
-import org.jphototagger.lib.dialog.InputDialog;
-import org.jphototagger.lib.event.util.KeyEventUtil;
+import org.jphototagger.lib.swing.InputDialog;
+import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.misc.InputHelperDialog;
 import org.jphototagger.program.app.ui.EditRepeatableTextEntryPanel;
 
 /**
- *
  * @author Elmar Baumann
  */
-public final class EditKeywordSynonymsController extends KeywordsController implements PopupMenuListener {
+public final class EditKeywordSynonymsController extends KeywordsListController implements PopupMenuListener {
 
     private static final String DELIM = ";";
     private static final String DISPLAYNAME = Bundle.getString(EditKeywordSynonymsController.class, "EditKeywordSynonymsController.MenuItemEditSynonyms.DisplayName");
@@ -192,10 +191,9 @@ public final class EditKeywordSynonymsController extends KeywordsController impl
         int i = 0;
 
         for (String synonym : synonyms) {
-            sb.append((i++ == 0)
-                    ? ""
-                    : DELIM);
+            sb.append(i == 0 ? "" : DELIM);
             sb.append(synonym);
+            i++;
         }
 
         return sb.toString();

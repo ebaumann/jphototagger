@@ -10,7 +10,6 @@ import org.jphototagger.repository.hsqldb.Database;
 import org.jphototagger.repository.hsqldb.update.tables.DatabaseUpdateTask;
 
 /**
- *
  * @author Elmar Baumann
  */
 @ServiceProvider(service = DatabaseUpdateTask.class)

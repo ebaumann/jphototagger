@@ -38,8 +38,6 @@ import org.jphototagger.eximport.jpt.exporter.MetadataTemplatesExporter;
 import org.jphototagger.xmp.EditableMetaDataValues;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 @ServiceProvider(service = RepositoryDataImporter.class)

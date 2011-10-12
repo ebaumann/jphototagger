@@ -29,8 +29,14 @@ public final class XmpCache extends Cache<XmpCacheIndirection> {
     public static final XmpCache INSTANCE = new XmpCache();
 
     private XmpCache() {
+        listen();
+        XmpFetcher xmpFetcher = new XmpFetcher(workQueue, this);
+        Thread xmpFetcherThread = new Thread(xmpFetcher, "JPhotoTagger: XmpFetcher");
+        xmpFetcherThread.start();
+    }
+
+    private void listen() {
         AnnotationProcessor.process(this);
-        new Thread(new XmpFetcher(workQueue, this), "JPhotoTagger: XmpFetcher").start();
     }
 
     @EventSubscriber(eventClass = XmpInsertedEvent.class)
@@ -91,8 +97,6 @@ public final class XmpCache extends Cache<XmpCacheIndirection> {
                 if (imageFile != null) {
                     imageFiles.add(imageFile);
                 }
-
-                assert !((imageFile == null) && (imageFiles.size() == 0)) : "Should not happen";
 
                 if ((imageFile == null) || (imageFiles.size() >= 64)) {
                     if (imageFiles.size() > 1) {

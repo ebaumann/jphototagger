@@ -1,7 +1,6 @@
 package org.jphototagger.api.startup;
 
 /**
- *
  * @author Elmar Baumann
  */
 public interface AppStartupLock {

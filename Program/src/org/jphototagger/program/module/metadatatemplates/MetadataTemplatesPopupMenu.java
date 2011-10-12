@@ -7,7 +7,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JPopupMenu.Separator;
 
 import org.jdesktop.swingx.JXList;
-import org.jphototagger.lib.event.util.KeyEventUtil;
+import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 
@@ -18,7 +18,7 @@ import org.jphototagger.program.app.ui.AppLookAndFeel;
  */
 public final class MetadataTemplatesPopupMenu extends JPopupMenu {
 
-    private static final long serialVersionUID = 5476440706471574353L;
+    private static final long serialVersionUID = 1L;
     public static final MetadataTemplatesPopupMenu INSTANCE = new MetadataTemplatesPopupMenu();
     private final JMenuItem itemSetToSelImages = new JMenuItem(Bundle.getString(MetadataTemplatesPopupMenu.class, "MetadataTemplatesPopupMenu.DisplayName.Action.SetToSelImages"), AppLookAndFeel.getIcon("icon_image.png"));
     private final JMenuItem itemRename = new JMenuItem(Bundle.getString(MetadataTemplatesPopupMenu.class, "MetadataTemplatesPopupMenu.DisplayName.Action.Rename"), AppLookAndFeel.ICON_RENAME);

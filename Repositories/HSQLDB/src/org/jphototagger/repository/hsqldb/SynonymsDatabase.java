@@ -19,8 +19,6 @@ import org.jphototagger.domain.repository.event.synonyms.WordDeletedEvent;
 import org.jphototagger.domain.repository.event.synonyms.WordRenamedEvent;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 final class SynonymsDatabase extends Database {

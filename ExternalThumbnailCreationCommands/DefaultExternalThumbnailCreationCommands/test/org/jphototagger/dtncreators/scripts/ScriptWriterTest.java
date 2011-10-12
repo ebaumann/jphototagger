@@ -5,7 +5,6 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
  * @author Elmar Baumann
  */
 public class ScriptWriterTest {

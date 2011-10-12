@@ -23,8 +23,6 @@ import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.module.keywords.list.KeywordsListCellRenderer;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class KeywordHighlightPredicate implements HighlightPredicate {

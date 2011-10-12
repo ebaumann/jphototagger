@@ -18,18 +18,25 @@ import javax.swing.filechooser.FileSystemView;
 
 import org.bushe.swing.event.EventBus;
 
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.file.event.FileRenamedEvent;
 import org.jphototagger.domain.thumbnails.ThumbnailProvider;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesHints;
+import org.jphototagger.domain.repository.RenameTemplatesRepository;
+import org.jphototagger.domain.repository.Repository;
+import org.jphototagger.domain.repository.event.renametemplates.RenameTemplateDeletedEvent;
+import org.jphototagger.domain.repository.event.renametemplates.RenameTemplateInsertedEvent;
+import org.jphototagger.domain.repository.event.renametemplates.RenameTemplateUpdatedEvent;
 import org.jphototagger.domain.templates.RenameTemplate;
 import org.jphototagger.image.ImageFileType;
-import org.jphototagger.lib.componentutil.ComboBoxUtil;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.dialog.Dialog;
-import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.lib.swing.util.ComboBoxUtil;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.xmp.XmpMetadata;
@@ -41,7 +48,7 @@ import org.jphototagger.xmp.XmpMetadata;
  */
 public final class RenameDialog extends Dialog implements ListDataListener {
 
-    private static final long serialVersionUID = 2975958115627670989L;
+    private static final long serialVersionUID = 1L;
     private static final String KEY_SEL_TEMPLATE = "RenameDialog.SelectedTemplate";
     private final transient FilenameFormatArray filenameFormatArray = new FilenameFormatArray();
     private List<File> imageFiles = new ArrayList<File>();
@@ -474,7 +481,8 @@ public final class RenameDialog extends Dialog implements ListDataListener {
         int index = 0;
 
         while (!selected && (index < size)) {
-            Object element = model.getElementAt(index++);
+            Object element = model.getElementAt(index);
+            index++;
 
             if (element.getClass().equals(formatClass)) {
                 model.setSelectedItem(element);
@@ -486,14 +494,14 @@ public final class RenameDialog extends Dialog implements ListDataListener {
     private void saveAsRenameTemplate() {
         RenameTemplate template = createTemplate();
 
-        RenameTemplateHelper.insert(template);
+        RenameTemplateUtil.insert(template);
     }
 
     private void renameRenameTemplate() {
         Object selItem = comboBoxRenameTemplates.getSelectedItem();
 
         if (selItem instanceof RenameTemplate) {
-            RenameTemplateHelper.rename((RenameTemplate) selItem);
+            RenameTemplateUtil.rename((RenameTemplate) selItem);
         }
     }
 
@@ -501,7 +509,7 @@ public final class RenameDialog extends Dialog implements ListDataListener {
         Object selItem = comboBoxRenameTemplates.getSelectedItem();
 
         if (selItem instanceof RenameTemplate) {
-            RenameTemplateHelper.delete((RenameTemplate) selItem);
+            RenameTemplateUtil.delete((RenameTemplate) selItem);
         }
     }
 
@@ -512,7 +520,7 @@ public final class RenameDialog extends Dialog implements ListDataListener {
             RenameTemplate template = (RenameTemplate) selItem;
 
             setValuesToTemplate(template);
-            RenameTemplateHelper.update(template);
+            RenameTemplateUtil.update(template);
         }
     }
 
@@ -649,6 +657,66 @@ public final class RenameDialog extends Dialog implements ListDataListener {
         }
     }
 
+    private static class RenameTemplatesComboBoxModel extends DefaultComboBoxModel {
+
+        private static final long serialVersionUID = 1L;
+        private final RenameTemplatesRepository renameTemplatesRepo = Lookup.getDefault().lookup(RenameTemplatesRepository.class);
+
+        private RenameTemplatesComboBoxModel() {
+            addElements();
+            listen();
+        }
+
+        private void listen() {
+            AnnotationProcessor.process(this);
+        }
+
+        private void addElements() {
+            Repository repo = Lookup.getDefault().lookup(Repository.class);
+
+            if (repo == null || !repo.isInit()) {
+                return;
+            }
+
+            for (RenameTemplate template : renameTemplatesRepo.findAllRenameTemplates()) {
+                addElement(template);
+            }
+        }
+
+        private void updateTemplate(RenameTemplate template) {
+            int index = getIndexOf(template);
+
+            if (index >= 0) {
+                ((RenameTemplate) getElementAt(index)).set(template);
+                fireContentsChanged(this, index, index);
+            }
+        }
+
+        private void insertTemplate(RenameTemplate template) {
+            addElement(template);
+            setSelectedItem(template);
+        }
+
+        private void deleteTemplate(RenameTemplate template) {
+            removeElement(template);
+        }
+
+        @EventSubscriber(eventClass = RenameTemplateDeletedEvent.class)
+        public void templateDeleted(final RenameTemplateDeletedEvent evt) {
+            deleteTemplate(evt.getTemplate());
+        }
+
+        @EventSubscriber(eventClass = RenameTemplateInsertedEvent.class)
+        public void templateInserted(final RenameTemplateInsertedEvent evt) {
+            insertTemplate(evt.getTemplate());
+        }
+
+        @EventSubscriber(eventClass = RenameTemplateUpdatedEvent.class)
+        public void templateUpdated(final RenameTemplateUpdatedEvent evt) {
+            updateTemplate(evt.getTemplate());
+        }
+    }
+
     /**
      * This method is called from within the constructor to
      * initialize the form.
@@ -664,7 +732,7 @@ public final class RenameDialog extends Dialog implements ListDataListener {
         labelDirectoryPrompt = new javax.swing.JLabel();
         labelDirectory = new javax.swing.JLabel();
         panelBorder = new javax.swing.JPanel();
-        panelThumbnail = new org.jphototagger.lib.component.ImagePanel();
+        panelThumbnail = new org.jphototagger.lib.swing.ImagePanel();
         labelFromNamePrompt = new javax.swing.JLabel();
         labelFromName = new javax.swing.JLabel();
         labelToNamePrompt = new javax.swing.JLabel();
@@ -806,18 +874,18 @@ public final class RenameDialog extends Dialog implements ListDataListener {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(panelInputNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(labelToNamePrompt, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelFromName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
+                            .addComponent(labelFromName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
                             .addComponent(labelFromNamePrompt, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textFieldToName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)))
+                            .addComponent(textFieldToName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInputNameLayout.createSequentialGroup()
-                        .addContainerGap(322, Short.MAX_VALUE)
+                        .addContainerGap(370, Short.MAX_VALUE)
                         .addComponent(buttonNextFile)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonRename))
                     .addGroup(panelInputNameLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(panelInputNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE)
+                            .addComponent(labelDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
                             .addComponent(labelDirectoryPrompt))))
                 .addContainerGap())
         );
@@ -839,7 +907,7 @@ public final class RenameDialog extends Dialog implements ListDataListener {
                         .addComponent(labelToNamePrompt)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(textFieldToName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 280, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 287, Short.MAX_VALUE)
                         .addGroup(panelInputNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(buttonRename)
                             .addComponent(buttonNextFile))))
@@ -946,7 +1014,7 @@ public final class RenameDialog extends Dialog implements ListDataListener {
                 .addComponent(labelDateDelim)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(comboBoxDateDelimiter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(250, Short.MAX_VALUE))
+                .addContainerGap(329, Short.MAX_VALUE))
         );
         panelOtherLayout.setVerticalGroup(
             panelOtherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1045,8 +1113,8 @@ public final class RenameDialog extends Dialog implements ListDataListener {
             .addGroup(panelDefineNameLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelDefineNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textFieldAtBegin, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
-                    .addComponent(comboBoxAtBegin, 0, 116, Short.MAX_VALUE)
+                    .addComponent(textFieldAtBegin, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+                    .addComponent(comboBoxAtBegin, 0, 134, Short.MAX_VALUE)
                     .addComponent(labelAtBegin))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelDefineNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1054,8 +1122,8 @@ public final class RenameDialog extends Dialog implements ListDataListener {
                     .addComponent(labelDelim1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelDefineNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textFieldInTheMiddle, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
-                    .addComponent(comboBoxInTheMiddle, 0, 118, Short.MAX_VALUE)
+                    .addComponent(textFieldInTheMiddle, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                    .addComponent(comboBoxInTheMiddle, 0, 135, Short.MAX_VALUE)
                     .addComponent(labelInTheMid))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelDefineNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1064,8 +1132,8 @@ public final class RenameDialog extends Dialog implements ListDataListener {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelDefineNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelAtEnd)
-                    .addComponent(comboBoxAtEnd, 0, 132, Short.MAX_VALUE)
-                    .addComponent(textFieldAtEnd, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE))
+                    .addComponent(comboBoxAtEnd, 0, 149, Short.MAX_VALUE)
+                    .addComponent(textFieldAtEnd, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -1128,8 +1196,8 @@ public final class RenameDialog extends Dialog implements ListDataListener {
                     .addComponent(labelBefore, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelExampleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelAfterFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
-                    .addComponent(labelBeforeFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE))
+                    .addComponent(labelAfterFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
+                    .addComponent(labelBeforeFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelExampleLayout.setVerticalGroup(
@@ -1150,7 +1218,7 @@ public final class RenameDialog extends Dialog implements ListDataListener {
         panelRenameTemplates.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("RenameDialog.panelRenameTemplates.border.title"))); // NOI18N
         panelRenameTemplates.setName("panelRenameTemplates"); // NOI18N
 
-        comboBoxRenameTemplates.setModel(new org.jphototagger.program.module.filesystem.RenameTemplatesComboBoxModel());
+        comboBoxRenameTemplates.setModel(new RenameTemplatesComboBoxModel());
         comboBoxRenameTemplates.setName("comboBoxRenameTemplates"); // NOI18N
         comboBoxRenameTemplates.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1205,7 +1273,7 @@ public final class RenameDialog extends Dialog implements ListDataListener {
                 .addContainerGap()
                 .addGroup(panelRenameTemplatesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelRenameTemplatesLayout.createSequentialGroup()
-                        .addComponent(comboBoxRenameTemplates, 0, 534, Short.MAX_VALUE)
+                        .addComponent(comboBoxRenameTemplates, 0, 540, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(panelRenameTemplatesLayout.createSequentialGroup()
                         .addComponent(buttonSaveRenameTemplate)
@@ -1441,7 +1509,7 @@ public final class RenameDialog extends Dialog implements ListDataListener {
     private javax.swing.JPanel panelOther;
     private javax.swing.JPanel panelRenameTemplates;
     private javax.swing.JPanel panelTemplates;
-    private org.jphototagger.lib.component.ImagePanel panelThumbnail;
+    private org.jphototagger.lib.swing.ImagePanel panelThumbnail;
     private javax.swing.JSpinner spinnerNumberCount;
     private javax.swing.JSpinner spinnerNumberStepWidth;
     private javax.swing.JSpinner spinnerStartNumber;

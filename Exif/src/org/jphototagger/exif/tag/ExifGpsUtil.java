@@ -17,8 +17,6 @@ import org.jphototagger.exif.datatype.ExifDatatypeUtil;
 import org.jphototagger.exif.datatype.ExifRational;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class ExifGpsUtil {

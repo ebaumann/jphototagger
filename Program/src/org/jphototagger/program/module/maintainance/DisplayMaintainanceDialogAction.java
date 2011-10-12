@@ -7,8 +7,6 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class DisplayMaintainanceDialogAction extends AbstractAction {

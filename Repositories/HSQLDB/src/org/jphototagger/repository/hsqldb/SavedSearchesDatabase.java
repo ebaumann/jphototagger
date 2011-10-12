@@ -21,8 +21,6 @@ import org.jphototagger.domain.repository.event.search.SavedSearchRenamedEvent;
 import org.jphototagger.domain.repository.event.search.SavedSearchUpdatedEvent;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class SavedSearchesDatabase extends Database {

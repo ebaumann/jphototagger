@@ -1,8 +1,6 @@
 package org.jphototagger.plugin.iviewsshow;
 
 /**
- *
- *
  * @author  Elmar Baumann
  */
 public final class IrfanViewSlideshowUserPreferencesKeys {

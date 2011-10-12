@@ -8,8 +8,6 @@ import org.jphototagger.lib.util.Bundle;
 import org.openide.util.Lookup;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 @ServiceProvider(service = Module.class)

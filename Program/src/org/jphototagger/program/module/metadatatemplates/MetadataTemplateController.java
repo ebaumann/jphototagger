@@ -11,8 +11,6 @@ import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.misc.InputHelperDialog;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public abstract class MetadataTemplateController extends Controller {

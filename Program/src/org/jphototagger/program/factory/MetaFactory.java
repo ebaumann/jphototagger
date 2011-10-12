@@ -13,7 +13,7 @@ import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.startup.AppUpdater;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Version;
-import org.jphototagger.program.app.AppPreferencesKeys;
+import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.program.app.ui.AppWindowPersistence;
 import org.jphototagger.program.app.update.UpdateDownload;
 

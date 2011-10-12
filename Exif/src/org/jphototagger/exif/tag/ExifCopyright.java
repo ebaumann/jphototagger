@@ -3,7 +3,7 @@ package org.jphototagger.exif.tag;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 
-import org.jphototagger.lib.generics.NumberRange;
+import org.jphototagger.lib.util.NumberRange;
 
 /**
  * Copyright as specified in the EXIF standard, tag 33432 (8298.H).

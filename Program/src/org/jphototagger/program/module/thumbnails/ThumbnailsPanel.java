@@ -63,12 +63,12 @@ import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
 import org.jphototagger.domain.thumbnails.event.TypedThumbnailUpdateEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.comparator.FileSort;
-import org.jphototagger.lib.event.util.MouseEventUtil;
+import org.jphototagger.lib.swing.MouseEventUtil;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.MathUtil;
 import org.jphototagger.program.filefilter.AppFileFilters;
-import org.jphototagger.program.app.AppPreferencesKeys;
+import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.program.module.thumbnails.cache.RenderedThumbnailCache;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.types.ByteSizeUnit;
@@ -76,14 +76,13 @@ import org.jphototagger.program.types.FileAction;
 import org.jphototagger.xmp.XmpMetadata;
 
 /**
- *
  * @author Elmar Baumann, Tobias Stening
  */
 public class ThumbnailsPanel extends JPanel
         implements ComponentListener, MouseListener, MouseMotionListener, KeyListener, ThumbnailUpdateListener {
 
     private static final String KEY_THUMBNAIL_WIDTH = "ThumbnailsPanel.ThumbnailWidth";
-    private static final long serialVersionUID = 1034671645083632578L;
+    private static final long serialVersionUID = 1L;
     private static final int MARGIN_THUMBNAIL = 3;
     public static final Color COLOR_FOREGROUND_PANEL = Color.WHITE;
     public static final Color COLOR_BACKGROUND_PANEL = new Color(32, 32, 32);

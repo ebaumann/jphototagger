@@ -17,15 +17,14 @@ import javax.swing.JMenuItem;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.api.messages.MessageType;
 import org.jphototagger.api.messages.StatusBarMessageDisplayer;
-import org.jphototagger.lib.dialog.LogfileDialog;
-import org.jphototagger.lib.event.util.MouseEventUtil;
+import org.jphototagger.lib.util.logging.LogfileDialog;
+import org.jphototagger.lib.swing.MouseEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.resource.GUI;
 import org.openide.util.Lookup;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class ErrorLogHandler extends Handler implements ActionListener, MouseListener {

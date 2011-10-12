@@ -5,12 +5,11 @@ import java.io.FileFilter;
 import java.io.Serializable;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class AcceptExactFilenameFileFilter implements FileFilter, Serializable {
 
-    private static final long serialVersionUID = 1241542302327284769L;
+    private static final long serialVersionUID = 1L;
     private final String filename;
     private boolean ignoreCase = true;
 

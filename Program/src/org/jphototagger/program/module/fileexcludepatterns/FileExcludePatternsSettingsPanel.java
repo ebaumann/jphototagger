@@ -13,17 +13,16 @@ import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.domain.repository.FileExcludePatternsRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.program.app.AppPreferencesKeys;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.program.types.Persistence;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel implements ProgressListener, Persistence, ListSelectionListener {
 
-    private static final long serialVersionUID = -3083582823254767001L;
+    private static final long serialVersionUID = 1L;
     private final FileExcludePatternsListModel model = new FileExcludePatternsListModel();
     private boolean isUpdateRepository = false;
     private boolean cancel = false;

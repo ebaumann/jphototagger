@@ -6,16 +6,15 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesHints;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.dialog.Dialog;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.program.resource.GUI;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class ProgramInputParametersDialog extends Dialog {
-    private static final long serialVersionUID = 7211489360676712179L;
+    private static final long serialVersionUID = 1L;
     private boolean accepted = false;
 
     public ProgramInputParametersDialog() {

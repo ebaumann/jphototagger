@@ -5,11 +5,8 @@ import java.awt.Color;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;
 
-import org.jphototagger.program.app.ui.AppLookAndFeel;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public class ListCellRendererExt extends DefaultListCellRenderer {
@@ -18,7 +15,7 @@ public class ListCellRendererExt extends DefaultListCellRenderer {
     private static final Color LIST_BACKGROUND = AppLookAndFeel.getListBackground();
     private static final Color LIST_SELECTION_FOREGROUND = AppLookAndFeel.getListSelectionForeground();
     private static final Color LIST_SELECTION_BACKGROUND = AppLookAndFeel.getListSelectionBackground();
-    private static final long serialVersionUID = 7531004273695822498L;
+    private static final long serialVersionUID = 1L;
     private int tempSelectionRow = -1;
 
     public ListCellRendererExt() {

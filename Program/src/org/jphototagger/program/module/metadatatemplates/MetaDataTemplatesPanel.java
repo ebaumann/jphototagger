@@ -13,18 +13,16 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jdesktop.swingx.JXList;
 
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public class MetaDataTemplatesPanel extends JPanel implements ListSelectionListener {
 
-    private static final long serialVersionUID = 1760177225644789506L;
+    private static final long serialVersionUID = 1L;
 
     public MetaDataTemplatesPanel() {
         initComponents();

@@ -5,12 +5,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import org.jphototagger.lib.event.util.KeyEventUtil;
+import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPopupMenu;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class AddImageCollectionController implements ActionListener, KeyListener {
@@ -38,7 +37,7 @@ public final class AddImageCollectionController implements ActionListener, KeyLi
     }
 
     private void createImageCollectionOfSelectedFiles() {
-        ImageCollectionsHelper.insertImageCollection(GUI.getSelectedImageFiles());
+        ImageCollectionsUtil.insertImageCollection(GUI.getSelectedImageFiles());
     }
 
     @Override

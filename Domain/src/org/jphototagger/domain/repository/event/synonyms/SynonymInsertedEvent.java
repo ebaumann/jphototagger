@@ -1,8 +1,6 @@
 package org.jphototagger.domain.repository.event.synonyms;
 
 /**
- *
- *
  * @author  Elmar Baumann
  */
 public final class SynonymInsertedEvent {
@@ -15,11 +13,11 @@ public final class SynonymInsertedEvent {
         if (word == null) {
             throw new NullPointerException("word == null");
         }
-        
+
         if (synonym == null) {
             throw new NullPointerException("synonym == null");
         }
-        
+
         this.source = source;
         this.word = word;
         this.synonym = synonym;

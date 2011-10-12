@@ -5,11 +5,7 @@ import java.util.Map;
 
 import javax.swing.Icon;
 
-import org.jphototagger.program.app.ui.AppLookAndFeel;
-
 /**
- * Liefert Icons für Tabellen.
- *
  * @author Elmar Baumann
  */
 public final class TableIcons {

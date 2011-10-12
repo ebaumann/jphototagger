@@ -6,8 +6,6 @@ import java.util.LinkedList;
 import org.openide.util.Lookup;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class ExifUtil {

@@ -13,8 +13,6 @@ import org.jphototagger.program.app.ui.AppFrame;
 import org.jphototagger.program.app.ui.AppPanel;
 
 /**
- *
- *
  * @author  Martin Pohlack
  */
 public final class ToggleKeywordOverlayController implements ActionListener {

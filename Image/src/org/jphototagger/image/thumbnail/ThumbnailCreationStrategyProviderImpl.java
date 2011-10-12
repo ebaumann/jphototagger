@@ -9,8 +9,6 @@ import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.image.ImagePreferencesKeys;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 @ServiceProvider(service = ThumbnailCreationStrategyProvider.class)

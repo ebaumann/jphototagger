@@ -12,11 +12,7 @@ import java.util.logging.Logger;
 import org.jphototagger.lib.io.IoUtil;
 
 /**
- * Something what doesn't happen in the JVM.
- *
- * All functions with object-reference-parameters are throwing a
- * <code>NullPointerException</code> if an object reference is null and it is
- * not documentet that it can be null.
+ * Something what doesn't happen within the JVM.
  *
  * @author Elmar Baumann
  */

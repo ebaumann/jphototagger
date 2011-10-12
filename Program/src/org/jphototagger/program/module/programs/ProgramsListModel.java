@@ -27,7 +27,7 @@ import org.jphototagger.domain.repository.event.programs.ProgramUpdatedEvent;
  */
 public final class ProgramsListModel extends DefaultListModel {
 
-    private static final long serialVersionUID = 1107244876982338977L;
+    private static final long serialVersionUID = 1L;
     private boolean listen = true;
     private ProgramType type;
     private final ProgramsRepository programsRepo = Lookup.getDefault().lookup(ProgramsRepository.class);
@@ -39,6 +39,10 @@ public final class ProgramsListModel extends DefaultListModel {
 
         this.type = type;
         addElements();
+        listen();
+    }
+
+    private void listen() {
         AnnotationProcessor.process(this);
     }
 

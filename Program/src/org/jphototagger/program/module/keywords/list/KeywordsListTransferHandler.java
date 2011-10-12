@@ -15,11 +15,11 @@ import org.jphototagger.domain.metadata.MetaDataValueData;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.lib.datatransfer.TransferUtil;
 import org.jphototagger.lib.datatransfer.TransferableObject;
-import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.datatransfer.DataTransferSupport;
 import org.jphototagger.program.datatransfer.Flavor;
-import org.jphototagger.program.module.miscmetadata.MiscMetadataHelper;
+import org.jphototagger.program.module.miscmetadata.MiscMetadataUtil;
 
 /**
  * Transfer handler for {@code KeywordsPanel#getList()}.
@@ -32,7 +32,7 @@ import org.jphototagger.program.module.miscmetadata.MiscMetadataHelper;
  */
 public final class KeywordsListTransferHandler extends TransferHandler {
 
-    private static final long serialVersionUID = -4156977618928448144L;
+    private static final long serialVersionUID = 1L;
 
     @Override
     public boolean canImport(TransferSupport support) {
@@ -59,7 +59,7 @@ public final class KeywordsListTransferHandler extends TransferHandler {
             if ((fileCount > 0) && confirmImport(keyword, fileCount)) {
                 MetaDataValueData cd = new MetaDataValueData(XmpDcSubjectsSubjectMetaDataValue.INSTANCE, value);
 
-                MiscMetadataHelper.saveToImageFiles(Collections.singletonList(cd), imageFiles);
+                MiscMetadataUtil.saveToImageFiles(Collections.singletonList(cd), imageFiles);
 
                 return true;
             }

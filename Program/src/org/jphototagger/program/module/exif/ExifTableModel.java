@@ -15,7 +15,7 @@ import org.jphototagger.domain.metadata.exif.ExifUtil;
 import org.jphototagger.domain.metadata.exif.event.ExifCacheClearedEvent;
 import org.jphototagger.domain.metadata.exif.event.ExifCacheFileDeletedEvent;
 import org.jphototagger.lib.awt.DesktopUtil;
-import org.jphototagger.lib.model.TableModelExt;
+import org.jphototagger.lib.swing.TableModelExt;
 import org.jphototagger.lib.util.Bundle;
 
 /**
@@ -23,7 +23,7 @@ import org.jphototagger.lib.util.Bundle;
  */
 public final class ExifTableModel extends TableModelExt {
 
-    private static final long serialVersionUID = -5656774233855745962L;
+    private static final long serialVersionUID = 1L;
     private File file;
 
     public ExifTableModel() {

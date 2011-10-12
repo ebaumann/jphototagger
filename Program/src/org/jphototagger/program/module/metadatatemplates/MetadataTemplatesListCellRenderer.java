@@ -11,14 +11,12 @@ import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class MetadataTemplatesListCellRenderer extends ListCellRendererExt {
 
     private static final ImageIcon ICON = AppLookAndFeel.getIcon("icon_edit.png");
-    private static final long serialVersionUID = 8409972246407893544L;
+    private static final long serialVersionUID = 1L;
 
     @Override
     public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {

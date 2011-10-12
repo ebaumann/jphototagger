@@ -4,11 +4,9 @@ import java.awt.Component;
 
 import javax.swing.Icon;
 
-
 import org.jphototagger.api.plugin.fileprocessor.FileProcessorPlugin;
 
 /**
- *
  * @author Elmar Baumann
  */
 public abstract class AbstractFileProcessorPlugin implements FileProcessorPlugin {

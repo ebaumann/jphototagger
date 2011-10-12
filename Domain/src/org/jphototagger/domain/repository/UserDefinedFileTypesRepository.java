@@ -5,7 +5,6 @@ import java.util.List;
 import org.jphototagger.domain.filetypes.UserDefinedFileType;
 
 /**
- *
  * @author Elmar Baumann
  */
 public interface UserDefinedFileTypesRepository {

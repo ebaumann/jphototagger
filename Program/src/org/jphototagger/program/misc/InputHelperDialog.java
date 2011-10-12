@@ -5,8 +5,8 @@ import javax.swing.ListModel;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
-import org.jphototagger.lib.componentutil.TabbedPaneUtil;
-import org.jphototagger.lib.dialog.Dialog;
+import org.jphototagger.lib.swing.util.TabbedPaneUtil;
+import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.module.keywords.KeywordsPanel;
 import org.jphototagger.program.module.metadatatemplates.MetaDataTemplatesPanel;
@@ -17,7 +17,7 @@ import org.jphototagger.program.module.metadatatemplates.MetaDataTemplatesPanel;
  * @author Elmar Baumann
  */
 public class InputHelperDialog extends Dialog {
-    private static final long serialVersionUID = 38960516048549937L;
+    private static final long serialVersionUID = 1L;
     public static final InputHelperDialog INSTANCE = new InputHelperDialog();
     private static final String KEY_SEL_INDEX_TABBED_PANE = "InputHelperDialog.SelIndexTabbedPane";
     private static final String KEY_TREE_MISC_XMP = "InputHelperDialog.TreeMiscXmpMetadata";

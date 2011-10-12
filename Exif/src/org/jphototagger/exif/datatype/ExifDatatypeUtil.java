@@ -4,8 +4,6 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class ExifDatatypeUtil {

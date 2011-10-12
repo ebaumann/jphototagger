@@ -18,15 +18,13 @@ import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.iptc.IptcPreferencesKeys;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppPanel;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
 import org.jphototagger.program.resource.GUI;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class DisplayIptcUserSettingsController extends MouseAdapter {

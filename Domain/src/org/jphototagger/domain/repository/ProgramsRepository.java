@@ -6,8 +6,6 @@ import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.programs.ProgramType;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public interface ProgramsRepository {

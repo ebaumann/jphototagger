@@ -10,13 +10,13 @@ import org.openide.util.Lookup;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.domain.repository.FavoritesRepository;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.dialog.Dialog;
-import org.jphototagger.lib.dialog.DirectoryChooser;
-import org.jphototagger.lib.dialog.DirectoryChooser.Option;
-import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.DirectoryChooser;
+import org.jphototagger.lib.swing.DirectoryChooser.Option;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.AppPreferencesKeys;
+import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.app.ui.SelectRootFilesPanel;
 
@@ -28,7 +28,7 @@ import org.jphototagger.program.app.ui.SelectRootFilesPanel;
  */
 public final class FavoritePropertiesDialog extends Dialog {
     private static final String KEY_LAST_DIRECTORY = "org.jphototagger.program.view.dialogs.FavoriteDirectoryPropertiesDialog.LastDirectory";
-    private static final long serialVersionUID = 750583413264344283L;
+    private static final long serialVersionUID = 1L;
     private final FavoritesRepository repo = Lookup.getDefault().lookup(FavoritesRepository.class);
     private File dir = new File("");
     private boolean accepted;

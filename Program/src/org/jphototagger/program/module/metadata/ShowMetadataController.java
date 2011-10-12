@@ -35,10 +35,10 @@ import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
 import org.jphototagger.iptc.IptcPreferencesKeys;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.componentutil.ComponentUtil;
-import org.jphototagger.lib.componentutil.TableUtil;
+import org.jphototagger.lib.swing.util.ComponentUtil;
+import org.jphototagger.lib.swing.util.TableUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.AppPreferencesKeys;
+import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.program.module.exif.ExifTableModel;
 import org.jphototagger.program.module.iptc.IptcTableModel;
 import org.jphototagger.program.module.xmp.XmpTableModel;
@@ -50,7 +50,6 @@ import org.jphototagger.xmp.EmbeddedXmpCache;
 import org.jphototagger.xmp.XmpMetadata;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class ShowMetadataController implements ChangeListener {
@@ -167,7 +166,8 @@ public final class ShowMetadataController implements ChangeListener {
         Object source = e.getSource();
 
         if (source == metadataPane && isExactlyOneThumbnailSelected()) {
-            EventQueueUtil.invokeInDispatchThread(new ShowMetadata(EnumSet.allOf(Metadata.class)));
+            ShowMetadata showMetadata = new ShowMetadata(EnumSet.allOf(Metadata.class));
+            EventQueueUtil.invokeInDispatchThread(showMetadata);
         }
     }
 

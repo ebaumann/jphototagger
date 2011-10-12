@@ -9,24 +9,22 @@ import java.util.List;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
-import org.jphototagger.lib.componentutil.ComponentUtil;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.dialog.Dialog;
+import org.jphototagger.lib.swing.util.ComponentUtil;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.plugin.flickrupload.FlickrImageInfoPanel.ImageInfo;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public class FlickrImageInfoDialog extends Dialog {
 
-    private static final long serialVersionUID = 6349275951817414186L;
+    private static final long serialVersionUID = 1L;
     private final List<ImageInfo> imageInfos = new ArrayList<ImageInfo>();
     private boolean upload;
 
     public FlickrImageInfoDialog() {
-        super(ComponentUtil.getFrameWithIcon(), true);
+        super(ComponentUtil.findFrameWithIcon(), true);
         initComponents();
         postInitComponents();
     }

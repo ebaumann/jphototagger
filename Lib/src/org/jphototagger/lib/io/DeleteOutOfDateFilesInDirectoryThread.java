@@ -9,8 +9,6 @@ import org.jphototagger.api.concurrent.CancelRequest;
 import org.jphototagger.api.concurrent.Cancelable;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class DeleteOutOfDateFilesInDirectoryThread extends Thread implements Cancelable {

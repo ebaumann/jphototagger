@@ -8,7 +8,7 @@ import javax.swing.JPopupMenu.Separator;
 import javax.swing.tree.TreePath;
 
 import org.jphototagger.domain.favorites.Favorite;
-import org.jphototagger.lib.event.util.KeyEventUtil;
+import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 
@@ -21,7 +21,7 @@ import org.jphototagger.program.app.ui.AppLookAndFeel;
  */
 public final class FavoritesPopupMenu extends JPopupMenu {
 
-    private static final long serialVersionUID = -7344945087460562958L;
+    private static final long serialVersionUID = 1L;
     public static final FavoritesPopupMenu INSTANCE = new FavoritesPopupMenu();
     private final JMenuItem itemInsertFavorite = new JMenuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.DisplayName.Action.InsertFavorite"), AppLookAndFeel.ICON_NEW);
     private final JMenuItem itemUpdateFavorite = new JMenuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.DisplayName.Action.UpdateFavorite"), AppLookAndFeel.ICON_EDIT);

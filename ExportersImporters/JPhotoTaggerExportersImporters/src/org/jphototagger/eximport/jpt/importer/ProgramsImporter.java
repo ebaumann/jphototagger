@@ -20,8 +20,6 @@ import org.jphototagger.eximport.jpt.exporter.ProgramsExporter;
 import org.jphototagger.eximport.jpt.exporter.ProgramsExporter.CollectionWrapper;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 @ServiceProvider(service = RepositoryDataImporter.class)

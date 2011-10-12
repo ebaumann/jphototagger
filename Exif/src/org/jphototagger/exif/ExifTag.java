@@ -23,7 +23,6 @@ import org.jphototagger.lib.xml.bind.Base64ByteArrayXmlAdapter;
 import org.jphototagger.lib.xml.bind.Base64ByteStringXmlAdapter;
 
 /**
- *
  * @author Elmar Baumann
  */
 @XmlRootElement(name = "exiftag")

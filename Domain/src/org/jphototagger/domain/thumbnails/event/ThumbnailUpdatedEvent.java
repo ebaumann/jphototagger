@@ -3,8 +3,6 @@ package org.jphototagger.domain.thumbnails.event;
 import java.io.File;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class ThumbnailUpdatedEvent {

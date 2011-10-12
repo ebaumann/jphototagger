@@ -3,8 +3,6 @@ package org.jphototagger.domain.repository.event.search;
 import org.jphototagger.domain.metadata.search.SavedSearch;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class SavedSearchUpdatedEvent {

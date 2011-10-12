@@ -21,7 +21,7 @@ import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.event.AppWillExitEvent;
 import org.jphototagger.domain.event.listener.ListenerSupport;
 import org.jphototagger.domain.repository.RepositoryMaintainance;
-import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.factory.MetaFactory;
 import org.jphototagger.program.resource.GUI;

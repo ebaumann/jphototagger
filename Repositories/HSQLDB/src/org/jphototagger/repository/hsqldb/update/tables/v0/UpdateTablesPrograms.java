@@ -16,8 +16,6 @@ import org.jphototagger.domain.repository.ProgramsRepository;
 import org.jphototagger.repository.hsqldb.Database;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 final class UpdateTablesPrograms extends Database {

@@ -8,7 +8,6 @@ import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.MetaDataValueIds;
 
 /**
- *
  * @author Elmar Baumann
  */
 @XmlRootElement

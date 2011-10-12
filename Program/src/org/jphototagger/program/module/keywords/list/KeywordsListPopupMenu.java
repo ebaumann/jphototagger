@@ -8,7 +8,7 @@ import javax.swing.JPopupMenu.Separator;
 
 import org.jdesktop.swingx.JXList;
 
-import org.jphototagger.lib.event.util.KeyEventUtil;
+import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 
@@ -20,7 +20,7 @@ import org.jphototagger.program.app.ui.AppLookAndFeel;
  */
 public final class KeywordsListPopupMenu extends JPopupMenu {
 
-    private static final long serialVersionUID = -552638878495121120L;
+    private static final long serialVersionUID = 1L;
     public static final KeywordsListPopupMenu INSTANCE = new KeywordsListPopupMenu();
     private final JMenuItem itemInsert = new JMenuItem(Bundle.getString(KeywordsListPopupMenu.class, "KeywordsListPopupMenu.DisplayName.Action.Insert"), AppLookAndFeel.ICON_NEW);
     private final JMenuItem itemRename = new JMenuItem(Bundle.getString(KeywordsListPopupMenu.class, "KeywordsListPopupMenu.DisplayName.Action.Rename"), AppLookAndFeel.ICON_RENAME);

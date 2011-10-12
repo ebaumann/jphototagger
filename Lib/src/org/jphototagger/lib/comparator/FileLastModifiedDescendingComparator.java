@@ -13,17 +13,11 @@ import org.jphototagger.lib.util.ClassEquality;
  */
 public final class FileLastModifiedDescendingComparator extends ClassEquality implements Comparator<File>, Serializable {
 
-    private static final long serialVersionUID = 5961294262855141993L;
+    private static final long serialVersionUID = 1L;
+    private final ReverseComparator<File> delegate = new ReverseComparator<File>(new FileLastModifiedAscendingComparator());
 
     @Override
     public int compare(File fileLeft, File fileRight) {
-        long timeLeft = fileLeft.lastModified();
-        long timeRight = fileRight.lastModified();
-
-        return (timeLeft == timeRight)
-                ? 0
-                : (timeLeft > timeRight)
-                ? -1
-                : 1;
+        return delegate.compare(fileLeft, fileRight);
     }
 }

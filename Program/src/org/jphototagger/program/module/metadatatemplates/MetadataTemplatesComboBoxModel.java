@@ -16,20 +16,23 @@ import org.jphototagger.domain.repository.event.metadatatemplates.MetadataTempla
 import org.jphototagger.domain.repository.event.metadatatemplates.MetadataTemplateRenamedEvent;
 import org.jphototagger.domain.repository.event.metadatatemplates.MetadataTemplateUpdatedEvent;
 import org.jphototagger.domain.templates.MetadataTemplate;
-import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 
 /**
- *
  * @author Elmar Baumann, Tobias Stening
  */
 public final class MetadataTemplatesComboBoxModel extends DefaultComboBoxModel {
 
-    private static final long serialVersionUID = 7895253533969078904L;
+    private static final long serialVersionUID = 1L;
     private final MetadataTemplatesRepository templateRepo = Lookup.getDefault().lookup(MetadataTemplatesRepository.class);
 
     public MetadataTemplatesComboBoxModel() {
         addElements();
+        listen();
+    }
+
+    private void listen() {
         AnnotationProcessor.process(this);
     }
 

@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 import org.jphototagger.program.resource.GUI;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class ImportImageFilesController implements ActionListener {

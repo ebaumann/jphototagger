@@ -15,17 +15,15 @@ import org.jphototagger.domain.repository.event.synonyms.SynonymOfWordRenamedEve
 import org.jphototagger.domain.repository.event.synonyms.SynonymRenamedEvent;
 import org.jphototagger.domain.repository.event.synonyms.WordDeletedEvent;
 import org.jphototagger.domain.repository.event.synonyms.WordRenamedEvent;
-import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class SynonymsListModel extends DefaultListModel {
 
-    private static final long serialVersionUID = -7595224452344062647L;
+    private static final long serialVersionUID = 1L;
     private boolean listen = true;
     private final Role role;
     private String word;

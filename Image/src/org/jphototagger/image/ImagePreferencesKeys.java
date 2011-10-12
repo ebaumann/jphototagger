@@ -1,8 +1,6 @@
 package org.jphototagger.image;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class ImagePreferencesKeys {

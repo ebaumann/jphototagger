@@ -11,8 +11,6 @@ import org.jphototagger.program.module.Controller;
 import org.jphototagger.program.resource.GUI;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public abstract class FavoriteController extends Controller {

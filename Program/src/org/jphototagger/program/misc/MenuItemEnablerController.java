@@ -21,8 +21,6 @@ import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPopupMenu;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class MenuItemEnablerController implements PopupMenuListener {

@@ -17,12 +17,10 @@ import com.aetrion.flickr.auth.Permission;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
-import org.jphototagger.lib.componentutil.ComponentUtil;
+import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 final class Authorization {
@@ -97,9 +95,9 @@ final class Authorization {
     private void authenticateViaWebBrowser() throws Exception {
         URL url = authInterface.buildAuthenticationUrl(Permission.DELETE, frob);
 
-        JOptionPane.showMessageDialog(ComponentUtil.getFrameWithIcon(), Bundle.getString(Authorization.class, "Auth.Info.GetToken.Browse"));
+        JOptionPane.showMessageDialog(ComponentUtil.findFrameWithIcon(), Bundle.getString(Authorization.class, "Auth.Info.GetToken.Browse"));
         Desktop.getDesktop().browse(url.toURI());
-        JOptionPane.showMessageDialog(ComponentUtil.getFrameWithIcon(), Bundle.getString(Authorization.class, "Auth.Info.GetToken.Confirm"));
+        JOptionPane.showMessageDialog(ComponentUtil.findFrameWithIcon(), Bundle.getString(Authorization.class, "Auth.Info.GetToken.Confirm"));
         auth = authInterface.getToken(frob);
         token = auth.getToken();
         setToken(token);

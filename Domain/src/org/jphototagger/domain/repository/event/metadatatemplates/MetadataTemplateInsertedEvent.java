@@ -3,8 +3,6 @@ package org.jphototagger.domain.repository.event.metadatatemplates;
 import org.jphototagger.domain.templates.MetadataTemplate;
 
 /**
- *
- *
  * @author  Elmar Baumann
  */
 public final class MetadataTemplateInsertedEvent {
@@ -16,7 +14,7 @@ public final class MetadataTemplateInsertedEvent {
         if (template == null) {
             throw new NullPointerException("template == null");
         }
-        
+
         this.source = source;
         this.template = template;
     }

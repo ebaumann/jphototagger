@@ -13,17 +13,16 @@ import javax.swing.filechooser.FileFilter;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.dialog.DirectoryChooser;
-import org.jphototagger.lib.dialog.DirectoryChooser.Option;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.swing.DirectoryChooser;
+import org.jphototagger.lib.swing.DirectoryChooser.Option;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
 import org.jphototagger.lib.io.filefilter.RegexFileFilter;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.filefilter.AppFileFilters;
-import org.jphototagger.program.app.AppPreferencesKeys;
+import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.types.FileEditor;
 import org.jphototagger.program.app.ui.SelectRootFilesPanel;
 
 /**
@@ -34,7 +33,7 @@ import org.jphototagger.program.app.ui.SelectRootFilesPanel;
  * @author Elmar Baumann
  */
 public final class FileEditorPanel extends javax.swing.JPanel {
-    private static final long serialVersionUID = 1672989914070513384L;
+    private static final long serialVersionUID = 1L;
     private static final String KEY_DIRECTORY_NAME = "org.jphototagger.program.view.FileEditorDialog.panels.Directory";
     private static final String KEY_INCLUDE_SUBDIRS = "FileEditorPanel.IncludeSubdirs";
     private static final String KEY_REPLACE_EXISTING_FILES = "FileEditorPanel.ReplaceExistingFiles";
@@ -338,7 +337,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
 
     private void setFilesToList(final List<File> fileList) {
         listFiles.setModel(new javax.swing.AbstractListModel() {
-            private static final long serialVersionUID = -7481419481763835426L;
+            private static final long serialVersionUID = 1L;
             private final List<File> files = fileList;
 
             @Override
@@ -416,7 +415,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
 
         scrollPaneListFiles.setName("scrollPaneListFiles"); // NOI18N
 
-        listFiles.setCellRenderer(new org.jphototagger.lib.renderer.FileSystemListCellRenderer(true));
+        listFiles.setCellRenderer(new org.jphototagger.lib.swing.FileSystemListCellRenderer(true));
         listFiles.setEnabled(false);
         listFiles.setName("listFiles"); // NOI18N
         scrollPaneListFiles.setViewportView(listFiles);

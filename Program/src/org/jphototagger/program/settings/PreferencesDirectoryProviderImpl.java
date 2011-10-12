@@ -9,8 +9,6 @@ import org.openide.util.lookup.ServiceProvider;
 import org.jphototagger.api.storage.PreferencesDirectoryProvider;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 @ServiceProvider(service = PreferencesDirectoryProvider.class)

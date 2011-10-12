@@ -14,8 +14,6 @@ import org.jphototagger.repository.hsqldb.Database;
 import org.jphototagger.repository.hsqldb.DatabaseMetadata;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 final class UpdateTablesMakePlural {

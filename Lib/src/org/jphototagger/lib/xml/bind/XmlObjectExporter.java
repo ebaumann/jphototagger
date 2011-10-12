@@ -13,8 +13,6 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class XmlObjectExporter {

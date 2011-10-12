@@ -12,7 +12,6 @@ import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.lib.util.ClassEquality;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class XmpExifDateTimeAscendingComparator extends ClassEquality implements Comparator<File>, Serializable {

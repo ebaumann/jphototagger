@@ -23,8 +23,6 @@ import org.jphototagger.domain.repository.event.fileexcludepattern.FileExcludePa
 import org.jphototagger.domain.repository.event.imagefiles.ImageFileDeletedEvent;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 final class FileExcludePatternsDatabase extends Database {

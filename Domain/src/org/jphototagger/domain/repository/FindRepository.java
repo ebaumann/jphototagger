@@ -7,8 +7,6 @@ import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.search.ParamStatement;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public interface FindRepository {

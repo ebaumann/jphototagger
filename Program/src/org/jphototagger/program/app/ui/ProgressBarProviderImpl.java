@@ -15,8 +15,6 @@ import org.jphototagger.api.progress.MainWindowProgressBarProvider;
 import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 @ServiceProvider(service = MainWindowProgressBarProvider.class)

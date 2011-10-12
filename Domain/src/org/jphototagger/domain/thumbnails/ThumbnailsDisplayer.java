@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.Collection;
 
 /**
- *
  * @author Elmar Baumann
  */
 public interface ThumbnailsDisplayer {

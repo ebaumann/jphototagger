@@ -4,8 +4,6 @@ import java.io.File;
 import java.util.List;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public interface AutoscanDirectoriesRepository {

@@ -3,8 +3,6 @@ package org.jphototagger.image.tiff;
 import java.nio.ByteOrder;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class TiffUtil {

@@ -5,8 +5,6 @@ import org.openide.util.lookup.ServiceProvider;
 import org.jphototagger.api.concurrent.SerialTaskExecutor;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 @ServiceProvider(service = SerialTaskExecutor.class)

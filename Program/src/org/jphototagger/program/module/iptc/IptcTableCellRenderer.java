@@ -1,6 +1,6 @@
 package org.jphototagger.program.module.iptc;
 
-import org.jphototagger.program.app.ui.FormatterLabelMetadata;
+import org.jphototagger.program.app.ui.MetadataLabelFormatter;
 import java.awt.Component;
 import java.util.Comparator;
 
@@ -11,7 +11,7 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableStringConverter;
 
 import org.jphototagger.iptc.IptcEntry;
-import org.jphototagger.lib.componentutil.TableUtil;
+import org.jphototagger.lib.swing.util.TableUtil;
 import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.lib.util.Translation;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
@@ -22,7 +22,7 @@ import org.jphototagger.program.app.ui.AppLookAndFeel;
  *
  * @author Elmar Baumann
  */
-public final class IptcTableCellRenderer extends FormatterLabelMetadata implements TableCellRenderer {
+public final class IptcTableCellRenderer extends MetadataLabelFormatter implements TableCellRenderer {
 
     private static final Translation TRANSLATION = new Translation(IptcTableCellRenderer.class, "IptcRecordDataSetNumberTranslations");
 

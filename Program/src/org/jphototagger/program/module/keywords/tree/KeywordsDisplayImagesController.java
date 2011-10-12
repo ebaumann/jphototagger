@@ -9,8 +9,8 @@ import javax.swing.tree.TreePath;
 
 import org.jphototagger.domain.metadata.keywords.Keyword;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.componentutil.ListUtil;
-import org.jphototagger.program.module.keywords.KeywordsHelper;
+import org.jphototagger.lib.swing.util.ListUtil;
+import org.jphototagger.program.module.keywords.KeywordsUtil;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.app.ui.WaitDisplay;
 import org.jphototagger.program.app.ui.AppPanel;
@@ -85,7 +85,7 @@ public class KeywordsDisplayImagesController implements ActionListener {
                 AppPanel appPanel = GUI.getAppPanel();
 
                 appPanel.displaySelKeywordsTree(AppPanel.SelectAlso.SEL_KEYWORDS_TAB);
-                KeywordsHelper.selectNode(appPanel.getTreeSelKeywords(), keyword);
+                KeywordsUtil.selectNode(appPanel.getTreeSelKeywords(), keyword);
                 WaitDisplay.INSTANCE.hide();
             }
         });

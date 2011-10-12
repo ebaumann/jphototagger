@@ -10,8 +10,6 @@ import org.jphototagger.api.nodes.Node;
 import org.jphototagger.lib.util.StringEscapeUtil;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public abstract class AbstractNode implements Node, HtmlDisplayNameProvider {

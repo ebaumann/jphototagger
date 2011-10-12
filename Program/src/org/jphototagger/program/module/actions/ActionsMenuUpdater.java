@@ -12,7 +12,6 @@ import org.jphototagger.domain.repository.event.programs.ProgramUpdatedEvent;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPopupMenu;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class ActionsMenuUpdater {
@@ -30,7 +29,7 @@ public final class ActionsMenuUpdater {
         Program program = evt.getProgram();
         JMenu actionMenu = ThumbnailsPopupMenu.INSTANCE.getMenuActions();
 
-        ActionsHelper.removeAction(actionMenu, program);
+        ActionsUtil.removeAction(actionMenu, program);
     }
 
     @EventSubscriber(eventClass = ProgramInsertedEvent.class)
@@ -40,7 +39,7 @@ public final class ActionsMenuUpdater {
         if (program.isAction()) {
             JMenu actionMenu = ThumbnailsPopupMenu.INSTANCE.getMenuActions();
 
-            ActionsHelper.addAction(actionMenu, program);
+            ActionsUtil.addAction(actionMenu, program);
         }
     }
 
@@ -51,7 +50,7 @@ public final class ActionsMenuUpdater {
         if (program.isAction()) {
             JMenu actionMenu = ThumbnailsPopupMenu.INSTANCE.getMenuActions();
 
-            ActionsHelper.updateAction(actionMenu, program);
+            ActionsUtil.updateAction(actionMenu, program);
         }
     }
 }

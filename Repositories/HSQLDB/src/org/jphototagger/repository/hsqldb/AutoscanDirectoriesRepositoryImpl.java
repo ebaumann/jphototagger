@@ -8,8 +8,6 @@ import org.openide.util.lookup.ServiceProvider;
 import org.jphototagger.domain.repository.AutoscanDirectoriesRepository;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 @ServiceProvider(service = AutoscanDirectoriesRepository.class)

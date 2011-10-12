@@ -5,9 +5,9 @@ import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 
 import org.jphototagger.domain.metadata.MetaDataValue;
-import org.jphototagger.lib.inputverifier.EmptyInputVerifier;
-import org.jphototagger.lib.inputverifier.InputVerifiersOr;
-import org.jphototagger.lib.inputverifier.StringPatternInputVerifier;
+import org.jphototagger.lib.swing.inputverifier.EmptyInputVerifier;
+import org.jphototagger.lib.swing.inputverifier.InputVerifiersOr;
+import org.jphototagger.lib.swing.inputverifier.StringPatternInputVerifier;
 import org.jphototagger.lib.util.Bundle;
 
 /**

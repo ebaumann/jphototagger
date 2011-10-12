@@ -404,11 +404,12 @@ public final class FileUtil {
                 String suffix = pathname.substring(suffixPos + 1);
                 String prefix = pathname.substring(0, suffixPos);
 
-                pathname = prefix + "_" + Integer.valueOf(index++) + "." + suffix;
+                pathname = prefix + "_" + Integer.valueOf(index) + "." + suffix;
             } else {
-                pathname += "_" + Integer.valueOf(index++);
+                pathname += "_" + Integer.valueOf(index);
             }
 
+            index++;
             newFile = new File(pathname);
         }
 

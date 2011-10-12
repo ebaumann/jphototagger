@@ -13,8 +13,6 @@ import org.jphototagger.lib.thirdparty.KMPMatch;
 import org.jphototagger.lib.util.ByteUtil;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class CanonMakerNote {

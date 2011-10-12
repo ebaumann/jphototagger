@@ -4,8 +4,6 @@ import java.awt.Image;
 import java.io.File;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public interface ThumbnailsRepository {

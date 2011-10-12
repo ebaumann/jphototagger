@@ -1,7 +1,6 @@
 package org.jphototagger.api.preferences;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class PreferencesChangedEvent {

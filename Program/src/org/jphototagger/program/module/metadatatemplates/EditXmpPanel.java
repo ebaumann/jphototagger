@@ -47,7 +47,7 @@ import org.jphototagger.program.app.ui.EditRepeatableTextEntryPanel;
  * @author Elmar Baumann
  */
 public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
-    private static final long serialVersionUID = 7898855480121337499L;
+    private static final long serialVersionUID = 1L;
     private final List<TextEntry> textEntries = new ArrayList<TextEntry>(18);
     private Component firstInputComponent;
     private Component lastInputComponent;

@@ -10,8 +10,6 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.misc.InputHelperDialog;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class SetMetadataTemplateToSelectedImagesController extends MetadataTemplateController {

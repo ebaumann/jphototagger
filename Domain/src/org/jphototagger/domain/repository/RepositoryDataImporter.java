@@ -8,8 +8,6 @@ import javax.swing.Icon;
 import org.jphototagger.api.collections.PositionProvider;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public interface RepositoryDataImporter extends PositionProvider {

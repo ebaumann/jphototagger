@@ -44,7 +44,7 @@ public final class DeleteFromImageCollectionController implements ActionListener
         ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
         if (tnPanel.getOriginOfDisplayedThumbnails().equals(OriginOfDisplayedThumbnails.FILES_OF_AN_IMAGE_COLLECTION) && (tnPanel.isAFileSelected())) {
-            ImageCollectionsHelper.deleteSelectedFiles();
+            ImageCollectionsUtil.deleteSelectedFiles();
         }
     }
 

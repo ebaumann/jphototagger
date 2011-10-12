@@ -18,8 +18,6 @@ import org.jphototagger.domain.repository.event.renametemplates.RenameTemplateUp
 import org.jphototagger.domain.templates.RenameTemplate;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 final class RenameTemplatesDatabase extends Database {

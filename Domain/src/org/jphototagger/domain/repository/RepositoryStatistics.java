@@ -5,8 +5,6 @@ import java.util.List;
 import org.jphototagger.domain.metadata.MetaDataValue;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public interface RepositoryStatistics {

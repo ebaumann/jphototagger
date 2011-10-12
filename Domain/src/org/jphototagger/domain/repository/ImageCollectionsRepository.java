@@ -6,8 +6,6 @@ import java.util.List;
 import org.jphototagger.domain.imagecollections.ImageCollection;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public interface ImageCollectionsRepository {

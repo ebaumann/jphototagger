@@ -1,6 +1,6 @@
 package org.jphototagger.program.module.maintainance;
 
-import org.jphototagger.lib.dialog.Dialog;
+import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.program.resource.GUI;
 
 /**
@@ -11,7 +11,7 @@ import org.jphototagger.program.resource.GUI;
  */
 public final class UpdateMetadataOfDirectoriesDialog extends Dialog {
     public static final UpdateMetadataOfDirectoriesDialog INSTANCE = new UpdateMetadataOfDirectoriesDialog();
-    private static final long serialVersionUID = -3660709942403455416L;
+    private static final long serialVersionUID = 1L;
 
     private UpdateMetadataOfDirectoriesDialog() {
         super(GUI.getAppFrame(), false);

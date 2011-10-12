@@ -13,8 +13,6 @@ import org.jphototagger.domain.text.TextEntry;
 import org.jphototagger.program.app.ui.EditRepeatableTextEntryPanel;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 final class MetadataTemplateSupport {

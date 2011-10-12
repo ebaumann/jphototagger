@@ -1,8 +1,6 @@
 package org.jphototagger.domain.thumbnails;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public interface ExternalThumbnailCreationCommand {

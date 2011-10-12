@@ -10,11 +10,9 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import org.jdesktop.swingx.JXLabel;
 
-import org.jphototagger.lib.componentutil.MnemonicUtil;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public class MaintainanceCachesPanel extends javax.swing.JPanel {

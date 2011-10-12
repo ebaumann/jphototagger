@@ -11,16 +11,14 @@ import javax.swing.ImageIcon;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.branding.Branding;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.dialog.Dialog;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.tcc.def.FileChooser;
 import org.jphototagger.tcc.def.SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction;
 import org.jphototagger.tcc.def.Util;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {

@@ -7,8 +7,6 @@ import org.openide.util.lookup.ServiceProvider;
 import org.jphototagger.domain.thumbnails.ThumbnailsDirectoryProvider;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 @ServiceProvider(service = ThumbnailsDirectoryProvider.class)

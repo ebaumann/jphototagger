@@ -9,13 +9,12 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.repository.ProgramsRepository;
-import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPopupMenu;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class OpenFilesWithStandardAppController implements ActionListener {
@@ -41,7 +40,7 @@ public final class OpenFilesWithStandardAppController implements ActionListener 
         if (program == null) {
             String message = Bundle.getString(OpenFilesWithOtherAppController.class, "OpenFilesWithStandardAppController.Info.DefineOpenApp");
             MessageDisplayer.information(null, message);
-            ProgramsHelper.openSelectedFilesWidth(ProgramsHelper.addProgram(), false);
+            ProgramsUtil.openSelectedFilesWidth(ProgramsUtil.addProgram(), false);
         } else {
             StartPrograms startPrograms = new StartPrograms();
             List<File> selectedImageFiles = GUI.getSelectedImageFiles();

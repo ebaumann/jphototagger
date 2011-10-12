@@ -7,13 +7,12 @@ import java.util.logging.Logger;
 import javax.swing.InputVerifier;
 import javax.swing.text.DefaultFormatterFactory;
 
-import org.jphototagger.lib.inputverifier.AlwaysTrueInputVerifier;
-import org.jphototagger.lib.inputverifier.DateInputVerifier;
-import org.jphototagger.lib.inputverifier.MaxLengthInputVerifier;
-import org.jphototagger.lib.inputverifier.NumberInputVerifier;
+import org.jphototagger.lib.swing.inputverifier.AlwaysTrueInputVerifier;
+import org.jphototagger.lib.swing.inputverifier.DateInputVerifier;
+import org.jphototagger.lib.swing.inputverifier.MaxLengthInputVerifier;
+import org.jphototagger.lib.swing.inputverifier.NumberInputVerifier;
 
 /**
- *
  * @author Elmar Baumann
  */
 public class MetaDataValue {

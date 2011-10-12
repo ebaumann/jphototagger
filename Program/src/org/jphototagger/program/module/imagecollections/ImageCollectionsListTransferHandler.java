@@ -14,8 +14,7 @@ import javax.swing.TransferHandler;
 
 import org.jdesktop.swingx.JXList;
 import org.jphototagger.program.datatransfer.Flavor;
-import org.jphototagger.program.module.imagecollections.ImageCollectionsHelper;
-import org.jphototagger.program.io.ImageFileFilterer;
+import org.jphototagger.program.module.filesystem.ImageFileFilterer;
 import org.jphototagger.program.resource.GUI;
 
 /**
@@ -27,7 +26,7 @@ import org.jphototagger.program.resource.GUI;
  */
 public final class ImageCollectionsListTransferHandler extends TransferHandler {
 
-    private static final long serialVersionUID = 1375965940535469098L;
+    private static final long serialVersionUID = 1L;
 
     @Override
     public boolean canImport(TransferHandler.TransferSupport support) {
@@ -80,7 +79,7 @@ public final class ImageCollectionsListTransferHandler extends TransferHandler {
     }
 
     private void addToImageCollection(int itemIndex, List<File> imageFiles) {
-        boolean added = ImageCollectionsHelper.addImagesToCollection(getImageCollectionName(itemIndex), imageFiles);
+        boolean added = ImageCollectionsUtil.addImagesToCollection(getImageCollectionName(itemIndex), imageFiles);
 
         if (added) {
             GUI.refreshThumbnailsPanel();
@@ -88,7 +87,7 @@ public final class ImageCollectionsListTransferHandler extends TransferHandler {
     }
 
     private void createImageCollection(final List<File> imageFiles) {
-        ImageCollectionsHelper.insertImageCollection(imageFiles);
+        ImageCollectionsUtil.insertImageCollection(imageFiles);
     }
 
     private String getImageCollectionName(int itemIndex) {

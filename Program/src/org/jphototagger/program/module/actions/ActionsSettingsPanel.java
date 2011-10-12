@@ -21,24 +21,22 @@ import org.jphototagger.domain.repository.ProgramsRepository;
 import org.jphototagger.domain.repository.Repository;
 import org.jphototagger.domain.repository.event.programs.ProgramDeletedEvent;
 import org.jphototagger.domain.repository.event.programs.ProgramInsertedEvent;
-import org.jphototagger.lib.componentutil.ComponentUtil;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.lib.event.util.KeyEventUtil;
+import org.jphototagger.lib.swing.util.ComponentUtil;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.swing.MessageDisplayer;
+import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.AppPreferencesKeys;
-import org.jphototagger.program.module.programs.ProgramSelectDialog;
+import org.jphototagger.program.settings.AppPreferencesKeys;
+import org.jphototagger.program.module.programs.SelectProgramDialog;
 import org.jphototagger.program.types.Persistence;
 
 /**
- *
  * @author Elmar Baumann
  */
 public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSelectionListener, Persistence {
 
-    private static final long serialVersionUID = 6440789488453905704L;
+    private static final long serialVersionUID = 1L;
     private final ActionsAfterSavesOrUpdatesInRepositoryListModel model = new ActionsAfterSavesOrUpdatesInRepositoryListModel();
-    private final ActionsAfterRepoUpdatesRepository actionsAfterRepoUpdatesRepo = Lookup.getDefault().lookup(ActionsAfterRepoUpdatesRepository.class);
     private final ProgramsRepository programsRepo = Lookup.getDefault().lookup(ProgramsRepository.class);
     private volatile boolean listenToModel = true;
     private final ActionsAfterRepoUpdatesRepository actionsRepo = Lookup.getDefault().lookup(ActionsAfterRepoUpdatesRepository.class);
@@ -90,7 +88,7 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
     }
 
     private void addAction() {
-        ProgramSelectDialog dlg = new ProgramSelectDialog(ProgramType.ACTION);
+        SelectProgramDialog dlg = new SelectProgramDialog(ProgramType.ACTION);
 
         dlg.setVisible(true);
 

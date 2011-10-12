@@ -12,7 +12,6 @@ import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.program.app.ui.TreeCellRendererExt;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class TimelineTreeCellRenderer extends TreeCellRendererExt {
@@ -21,7 +20,7 @@ public final class TimelineTreeCellRenderer extends TreeCellRendererExt {
     private static final ImageIcon ICON_MONTH = IconUtil.getImageIcon("/org/jphototagger/program/resource/icons/icon_timeline_month.png");
     private static final ImageIcon ICON_DAY = IconUtil.getImageIcon("/org/jphototagger/program/resource/icons/icon_timeline_day.png");
     private static final ImageIcon ICON_UNKNOWN = IconUtil.getImageIcon("/org/jphototagger/program/resource/icons/icon_timeline_unknown.png");
-    private static final long serialVersionUID = -6142860231033161129L;
+    private static final long serialVersionUID = 1L;
 
     @Override
     public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {

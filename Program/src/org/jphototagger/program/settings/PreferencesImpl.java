@@ -19,13 +19,11 @@ import org.openide.util.lookup.ServiceProvider;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.api.preferences.PreferencesHints;
-import org.jphototagger.lib.componentutil.ComponentUtil;
+import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.ObjectUtil;
 import org.jphototagger.lib.util.Settings;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 @ServiceProvider(service = Preferences.class)

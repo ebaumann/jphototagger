@@ -9,7 +9,6 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- *
  * @author Elmar Baumann
  */
 public class FileUtilTest {

@@ -13,7 +13,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.jphototagger.domain.metadata.MetaDataValueData;
 import org.jphototagger.lib.datatransfer.TransferUtil;
-import org.jphototagger.program.io.ImageFileFilterer;
+import org.jphototagger.program.module.filesystem.ImageFileFilterer;
 
 /**
  * DataTransferSupport for data transfer.
@@ -102,10 +102,9 @@ public final class DataTransferSupport {
             int index = 0;
 
             for (MetaDataValueData data : mdValueData) {
-                sb.append((index++ == 0)
-                        ? ""
-                        : ";");
+                sb.append(index == 0 ? "" : ";");
                 sb.append(data.getData().toString());
+                index++;
             }
 
             return sb.toString();

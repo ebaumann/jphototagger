@@ -23,7 +23,7 @@ import org.jphototagger.lib.datatransfer.TransferableObject;
  */
 public final class ReorderListItemsTransferHandler extends TransferHandler {
 
-    private static final long serialVersionUID = -5420770026801383911L;
+    private static final long serialVersionUID = 1L;
     private static final DataFlavor INDICES_FLAVOR = new DataFlavor(LIST.class, null);
     private final JList list;
 
@@ -133,7 +133,8 @@ public final class ReorderListItemsTransferHandler extends TransferHandler {
                 : dropIndex;
 
         for (Object selValue : selValues) {
-            model.insertElementAt(selValue, insertIndex++);
+            model.insertElementAt(selValue, insertIndex);
+            insertIndex++;
         }
     }
 

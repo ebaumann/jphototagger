@@ -3,10 +3,9 @@ package org.jphototagger.program.module.maintainance;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import org.jphototagger.lib.componentutil.ComponentUtil;
+import org.jphototagger.lib.swing.util.ComponentUtil;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class MaintainRepositoryController implements ActionListener {

@@ -33,7 +33,7 @@ import org.jphototagger.api.plugin.fileprocessor.FileProcessorPlugin;
 import org.jphototagger.api.progress.MainWindowProgressBarProvider;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.image.util.ImageUtil;
-import org.jphototagger.lib.componentutil.ComponentUtil;
+import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.io.IoUtil;
 import org.jphototagger.lib.plugin.AbstractFileProcessorPlugin;
 import org.jphototagger.lib.swing.IconUtil;
@@ -47,7 +47,7 @@ import org.jphototagger.xmp.XmpProperties;
 @ServiceProvider(service = FileProcessorPlugin.class)
 public final class FlickrUpload extends AbstractFileProcessorPlugin implements Serializable {
 
-    private static final long serialVersionUID = -2935460271965834936L;
+    private static final long serialVersionUID = 1L;
     private static final Icon icon = IconUtil.getImageIcon("/org/jphototagger/plugin/flickrupload/flickr.png");
     private static final String PROGRESS_BAR_STRING = Bundle.getString(FlickrUpload.class, "FlickrUpload.ProgressBar.String");
     private final MainWindowProgressBarProvider progressBarProvider = Lookup.getDefault().lookup(MainWindowProgressBarProvider.class);
@@ -174,13 +174,13 @@ public final class FlickrUpload extends AbstractFileProcessorPlugin implements S
 
         private void uploadFinished(int countOfImagesToUpload, int countOfUploadedImages, boolean success) throws HeadlessException {
             progressBarProvider.progressEnded(pBarOwner);
-            JOptionPane.showMessageDialog(ComponentUtil.getFrameWithIcon(), Bundle.getString(FlickrUpload.class, "FlickrUpload.Info.UploadCount", countOfUploadedImages));
+            JOptionPane.showMessageDialog(ComponentUtil.findFrameWithIcon(), Bundle.getString(FlickrUpload.class, "FlickrUpload.Info.UploadCount", countOfUploadedImages));
             EventBus.publish(new FileProcessingFinishedEvent(this, success));
         }
 
         private void logDisplayUploadException(Exception ex, File imageFile) throws HeadlessException {
             Logger.getLogger(FlickrUpload.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(ComponentUtil.getFrameWithIcon(), Bundle.getString(FlickrUpload.class, "FlickrUpload.Error.Upload", imageFile));
+            JOptionPane.showMessageDialog(ComponentUtil.findFrameWithIcon(), Bundle.getString(FlickrUpload.class, "FlickrUpload.Error.Upload", imageFile));
         }
 
         private UploadMetaData getUploadMetaData(ImageInfo imageInfo) {

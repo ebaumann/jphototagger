@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 import org.jphototagger.program.app.AppInfo;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class AppLogUtil {

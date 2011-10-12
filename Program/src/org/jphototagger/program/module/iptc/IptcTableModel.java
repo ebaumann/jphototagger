@@ -9,7 +9,7 @@ import org.jphototagger.iptc.IptcEntry;
 import org.jphototagger.iptc.IptcEntryComparator;
 import org.jphototagger.iptc.IptcIgnoreCache;
 import org.jphototagger.iptc.IptcMetadata;
-import org.jphototagger.lib.model.TableModelExt;
+import org.jphototagger.lib.swing.TableModelExt;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.filefilter.AppFileFilters;
 
@@ -21,7 +21,7 @@ import org.jphototagger.program.filefilter.AppFileFilters;
  */
 public final class IptcTableModel extends TableModelExt {
 
-    private static final long serialVersionUID = -3988241922301609843L;
+    private static final long serialVersionUID = 1L;
     private File file;
     private List<IptcEntry> iptcEntries = new ArrayList<IptcEntry>();
 

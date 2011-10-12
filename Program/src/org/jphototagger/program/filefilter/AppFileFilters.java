@@ -53,6 +53,10 @@ public final class AppFileFilters {
         userDefinedFileTypesFilter = createUserDefinedFileFilter();
         // Has invoked after all others!
         allAcceptedImageFilesFilter = createAllAcceptedImagesFileFilter();
+        listen();
+    }
+
+    private void listen() {
         AnnotationProcessor.process(this);
     }
 

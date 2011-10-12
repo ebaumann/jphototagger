@@ -12,26 +12,25 @@ import org.jphototagger.domain.programs.ProgramExecutor;
 import org.jphototagger.domain.programs.ProgramType;
 import org.jphototagger.domain.repository.ActionsAfterRepoUpdatesRepository;
 import org.jphototagger.domain.repository.ProgramsRepository;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.lib.event.util.KeyEventUtil;
-import org.jphototagger.lib.event.util.MouseEventUtil;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.swing.MessageDisplayer;
+import org.jphototagger.lib.swing.KeyEventUtil;
+import org.jphototagger.lib.swing.MouseEventUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.module.actions.ProgramExecutorImpl;
-import org.jphototagger.program.module.programs.ProgramsHelper;
-import org.jphototagger.program.module.programs.ProgramsHelper.ReorderListener;
+import org.jphototagger.program.module.programs.ProgramExecutorImpl;
+import org.jphototagger.program.module.programs.ProgramsUtil;
+import org.jphototagger.program.module.programs.ProgramsUtil.ReorderListener;
 import org.jphototagger.program.module.programs.ProgramsListModel;
 import org.jphototagger.program.module.programs.ProgramPropertiesDialog;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class ActionsPanel extends javax.swing.JPanel {
-    private static final long serialVersionUID = 8875330844851092391L;
+    private static final long serialVersionUID = 1L;
     private final ProgramsListModel model = new ProgramsListModel(ProgramType.ACTION);
     private final ListenerSupport<ProgramExecutor> ls = new ListenerSupport<ProgramExecutor>();
-    private final ReorderListener reorderListener = new ProgramsHelper.ReorderListener(model);
+    private final ReorderListener reorderListener = new ProgramsUtil.ReorderListener(model);
     private final ActionsAfterRepoUpdatesRepository actionsAfterRepoUpdatesRepo = Lookup.getDefault().lookup(ActionsAfterRepoUpdatesRepository.class);
     private final ProgramsRepository programsRepo = Lookup.getDefault().lookup(ProgramsRepository.class);
 
@@ -194,13 +193,13 @@ public final class ActionsPanel extends javax.swing.JPanel {
 
     private void moveActionDown() {
         reorderListener.setListenToModel(false);
-        ProgramsHelper.moveProgramDown(list);
+        ProgramsUtil.moveProgramDown(list);
         reorderListener.setListenToModel(true);
     }
 
     private void moveActionUp() {
         reorderListener.setListenToModel(false);
-        ProgramsHelper.moveProgramUp(list);
+        ProgramsUtil.moveProgramUp(list);
         reorderListener.setListenToModel(true);
     }
 

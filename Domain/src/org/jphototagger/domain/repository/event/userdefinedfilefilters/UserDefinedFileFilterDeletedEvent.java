@@ -3,8 +3,6 @@ package org.jphototagger.domain.repository.event.userdefinedfilefilters;
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
 
 /**
- *
- *
  * @author  Elmar Baumann
  */
 public final class UserDefinedFileFilterDeletedEvent {
@@ -16,7 +14,7 @@ public final class UserDefinedFileFilterDeletedEvent {
         if (filter == null) {
             throw new NullPointerException("filter == null");
         }
-        
+
         this.source = source;
         this.filter = filter;
     }

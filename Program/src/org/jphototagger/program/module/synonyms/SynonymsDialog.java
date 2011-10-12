@@ -1,15 +1,13 @@
 package org.jphototagger.program.module.synonyms;
 
-import org.jphototagger.lib.dialog.Dialog;
+import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.program.resource.GUI;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public class SynonymsDialog extends Dialog {
-    private static final long serialVersionUID = 2986454559232977345L;
+    private static final long serialVersionUID = 1L;
     public static final SynonymsDialog INSTANCE = new SynonymsDialog();
 
     private SynonymsDialog() {

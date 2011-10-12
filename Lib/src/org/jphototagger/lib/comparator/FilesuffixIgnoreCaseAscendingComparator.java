@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.Comparator;
 
+import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.util.ClassEquality;
 
 /**
@@ -13,12 +14,13 @@ import org.jphototagger.lib.util.ClassEquality;
  */
 public final class FilesuffixIgnoreCaseAscendingComparator extends ClassEquality implements Comparator<File>, Serializable {
 
-    private static final long serialVersionUID = 2364140969938240256L;
+    private static final long serialVersionUID = 1L;
 
     @Override
     public int compare(File leftFile, File rightFile) {
-        FileSuffixes suffixes = CompareUtil.createFileSuffixes(leftFile, rightFile, true);
+        String leftSuffix = FileUtil.getSuffix(leftFile);
+        String rightSuffix = FileUtil.getSuffix(rightFile);
 
-        return suffixes.leftFileSuffix.compareToIgnoreCase(suffixes.rightFileSuffix);
+        return leftSuffix.compareToIgnoreCase(rightSuffix);
     }
 }

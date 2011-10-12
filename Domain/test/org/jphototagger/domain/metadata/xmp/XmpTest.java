@@ -23,7 +23,6 @@ import org.junit.Test;
 import com.imagero.reader.iptc.IPTCEntryMeta;
 
 /**
- *
  * @author Elmar Baumann
  */
 public class XmpTest {

@@ -14,7 +14,7 @@ import org.jphototagger.domain.repository.FileExcludePatternsRepository;
 import org.jphototagger.domain.repository.Repository;
 import org.jphototagger.domain.repository.event.fileexcludepattern.FileExcludePatternDeletedEvent;
 import org.jphototagger.domain.repository.event.fileexcludepattern.FileExcludePatternInsertedEvent;
-import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 
 /**
@@ -27,13 +27,17 @@ import org.jphototagger.lib.util.Bundle;
  */
 public final class FileExcludePatternsListModel extends DefaultListModel {
 
-    private static final long serialVersionUID = -8337739189362442866L;
+    private static final long serialVersionUID = 1L;
     private volatile transient boolean listenToDb = true;
     private List<String> patterns;
     private final FileExcludePatternsRepository fepRepo = Lookup.getDefault().lookup(FileExcludePatternsRepository.class);
 
     public FileExcludePatternsListModel() {
         addElements();
+        listen();
+    }
+
+    private void listen() {
         AnnotationProcessor.process(this);
     }
 

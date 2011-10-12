@@ -1,9 +1,9 @@
 package org.jphototagger.program.factory;
 
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.componentutil.ListItemTempSelectionRowSetter;
-import org.jphototagger.lib.componentutil.TreeItemTempSelectionRowSetter;
-import org.jphototagger.lib.event.listener.TableButtonMouseListener;
+import org.jphototagger.lib.swing.util.ListItemTempSelectionRowSetter;
+import org.jphototagger.lib.swing.util.TreeItemTempSelectionRowSetter;
+import org.jphototagger.lib.swing.TableButtonMouseListener;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.module.directories.DirectoriesMouseListener;
 import org.jphototagger.program.module.favorites.FavoritesMouseListener;

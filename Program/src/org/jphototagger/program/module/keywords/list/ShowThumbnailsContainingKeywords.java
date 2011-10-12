@@ -88,7 +88,7 @@ public final class ShowThumbnailsContainingKeywords implements Runnable {
     private void setTitle(List<String> keywords) {
         GUI.getAppFrame().setTitle(
                 Bundle.getString(ShowThumbnailsContainingKeywords.class,
-                "ShowThumbnailsContainingKeywords.AppFrame.Title.Keywords.Path", KeywordControllerUtil.keywordPathString(keywords)));
+                "ShowThumbnailsContainingKeywords.AppFrame.Title.Keywords.Path", KeywordsListControllerUtil.keywordPathString(keywords)));
     }
 
     private void setTitle(String keyword) {

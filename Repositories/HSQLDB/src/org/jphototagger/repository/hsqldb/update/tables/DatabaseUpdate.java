@@ -12,7 +12,6 @@ import org.jphototagger.lib.util.Version;
 import org.jphototagger.repository.hsqldb.AppDatabase;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class DatabaseUpdate {

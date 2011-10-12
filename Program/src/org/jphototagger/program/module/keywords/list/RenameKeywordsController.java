@@ -6,10 +6,10 @@ import java.util.List;
 
 import javax.swing.JDialog;
 
-import org.jphototagger.lib.dialog.InputDialog;
-import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.lib.swing.InputDialog;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.module.keywords.KeywordsHelper;
+import org.jphototagger.program.module.keywords.KeywordsUtil;
 import org.jphototagger.program.misc.InputHelperDialog;
 
 /**
@@ -17,7 +17,7 @@ import org.jphototagger.program.misc.InputHelperDialog;
  *
  * @author Elmar Baumann
  */
-public final class RenameKeywordsController extends KeywordsController {
+public final class RenameKeywordsController extends KeywordsListController {
 
     public RenameKeywordsController() {
         listenToActionsOf(KeywordsListPopupMenu.INSTANCE.getItemRename());
@@ -54,7 +54,7 @@ public final class RenameKeywordsController extends KeywordsController {
             String toName = getNewName(fromName);
 
             if ((toName != null) && !toName.equalsIgnoreCase(fromName)) {
-                KeywordsHelper.renameDcSubject(fromName, toName);
+                KeywordsUtil.renameDcSubject(fromName, toName);
             }
         } else if (size > 1) {
             String message = Bundle.getString(RenameKeywordsController.class, "RenameKeywordsController.Info.MultipleSelected");

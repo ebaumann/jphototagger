@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 
 import org.jdesktop.swingx.JXList;
 
-import org.jphototagger.lib.event.util.MouseEventUtil;
+import org.jphototagger.lib.swing.MouseEventUtil;
 
 /**
  * Do not use this class! Instead extend a popup menu from

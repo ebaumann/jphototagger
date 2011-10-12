@@ -24,8 +24,6 @@ import org.jphototagger.program.module.exportimport.exporter.ImageCollectionsExp
 import org.jphototagger.program.app.ui.ProgressBarUpdater;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 @ServiceProvider(service = RepositoryDataImporter.class)
@@ -100,7 +98,7 @@ public final class ImageCollectionsImporter implements RepositoryDataImporter {
 
             inserter.addProgressListener(new ProgressBarUpdater(inserter,
                     Bundle.getString(ImportThread.class, "ImageCollectionsImporter.ProgressBar.String")));
-            inserter.run();    // run in this thread!
+            inserter.run();    // Has to run in this thread!
         }
     }
 

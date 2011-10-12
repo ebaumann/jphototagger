@@ -9,8 +9,6 @@ import org.jphototagger.domain.metadata.exif.Exif;
 import org.jphototagger.lib.util.NumberUtil;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 final class ExifFactory {

@@ -18,11 +18,11 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.lib.awt.DesktopUtil;
-import org.jphototagger.lib.componentutil.ComponentUtil;
-import org.jphototagger.lib.dialog.HelpBrowser;
-import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.lib.event.HelpBrowserEvent;
-import org.jphototagger.lib.event.listener.HelpBrowserListener;
+import org.jphototagger.lib.swing.util.ComponentUtil;
+import org.jphototagger.lib.help.HelpBrowser;
+import org.jphototagger.lib.swing.MessageDisplayer;
+import org.jphototagger.lib.help.HelpBrowserEvent;
+import org.jphototagger.lib.help.HelpBrowserListener;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.Main;
 import org.jphototagger.program.app.AppInfo;
@@ -30,8 +30,6 @@ import org.jphototagger.program.app.logging.AppLoggingSystem;
 import org.jphototagger.program.resource.GUI;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class HelpController implements ActionListener, HelpBrowserListener {

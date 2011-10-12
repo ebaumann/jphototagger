@@ -10,8 +10,6 @@ import org.jphototagger.api.branding.Branding;
 import org.jphototagger.lib.swing.IconUtil;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 @ServiceProvider(service = Branding.class)

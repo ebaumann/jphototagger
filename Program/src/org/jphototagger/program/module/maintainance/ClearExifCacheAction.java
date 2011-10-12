@@ -7,12 +7,10 @@ import javax.swing.AbstractAction;
 import org.openide.util.Lookup;
 
 import org.jphototagger.domain.metadata.exif.ExifCacheProvider;
-import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class ClearExifCacheAction extends AbstractAction {

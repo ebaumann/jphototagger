@@ -19,19 +19,17 @@ import org.jphototagger.domain.metadata.MetaDataValueData;
 import org.jphototagger.domain.metadata.xmp.XmpMetaDataValues;
 import org.jphototagger.lib.datatransfer.TransferUtil;
 import org.jphototagger.lib.datatransfer.TransferableObject;
-import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.datatransfer.DataTransferSupport;
 import org.jphototagger.program.datatransfer.Flavor;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class MiscMetadataTreeTransferHandler extends TransferHandler {
 
-    private static final long serialVersionUID = -260820309332646425L;
+    private static final long serialVersionUID = 1L;
     private static final List<MetaDataValue> XMP_COLS = XmpMetaDataValues.get();
 
     @Override
@@ -46,7 +44,7 @@ public final class MiscMetadataTreeTransferHandler extends TransferHandler {
 
         DefaultMutableTreeNode dropNode = TransferUtil.getTreeDropNode(support);
 
-        return (dropNode != null) && MiscMetadataHelper.isParentUserObjectAMetaDataValue(dropNode, XMP_COLS);
+        return (dropNode != null) && MiscMetadataUtil.isParentUserObjectAMetaDataValue(dropNode, XMP_COLS);
     }
 
     @Override
@@ -61,7 +59,7 @@ public final class MiscMetadataTreeTransferHandler extends TransferHandler {
             return false;
         }
 
-        MetaDataStringValue colValue = MiscMetadataHelper.getColValueFrom(dropNode);
+        MetaDataStringValue colValue = MiscMetadataUtil.getColValueFrom(dropNode);
 
         if (colValue == null) {
             return false;
@@ -73,7 +71,7 @@ public final class MiscMetadataTreeTransferHandler extends TransferHandler {
         if (!imageFiles.isEmpty() && confirmImport(value, imageFiles.size())) {
             MetaDataValueData cd = new MetaDataValueData(colValue.getMetaDataValue(), value);
 
-            MiscMetadataHelper.saveToImageFiles(Collections.singletonList(cd), imageFiles);
+            MiscMetadataUtil.saveToImageFiles(Collections.singletonList(cd), imageFiles);
 
             return true;
         }
@@ -101,7 +99,7 @@ public final class MiscMetadataTreeTransferHandler extends TransferHandler {
                 if (lpc instanceof DefaultMutableTreeNode) {
                     DefaultMutableTreeNode node = (DefaultMutableTreeNode) lpc;
 
-                    if (MiscMetadataHelper.isParentUserObjectAMetaDataValue(node, XMP_COLS)) {
+                    if (MiscMetadataUtil.isParentUserObjectAMetaDataValue(node, XMP_COLS)) {
                         Object nodeUserObject = node.getUserObject();
                         TreeNode parent = node.getParent();
                         Object parentUserObject = ((DefaultMutableTreeNode) parent).getUserObject();

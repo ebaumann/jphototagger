@@ -14,8 +14,8 @@ import javax.swing.tree.TreePath;
 
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpMetaDataValues;
-import org.jphototagger.lib.event.listener.PopupMenuTree;
-import org.jphototagger.lib.event.util.KeyEventUtil;
+import org.jphototagger.lib.swing.PopupMenuTree;
+import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.app.ui.EditMetadataPanels;
@@ -29,7 +29,7 @@ import org.jphototagger.program.resource.GUI;
  */
 public final class MiscMetadataPopupMenu extends PopupMenuTree {
 
-    private static final long serialVersionUID = 3228757281030616972L;
+    private static final long serialVersionUID = 1L;
     private static final List<MetaDataValue> XMP_META_DATA_VALUES = XmpMetaDataValues.get();
     private JMenuItem itemAddToEditPanel;
     private JMenuItem itemCollapseAllSubitems;
@@ -88,7 +88,7 @@ public final class MiscMetadataPopupMenu extends PopupMenuTree {
     private boolean isNodeXmpValue(TreePath treePath) {
         DefaultMutableTreeNode node = (DefaultMutableTreeNode) treePath.getLastPathComponent();
 
-        return MiscMetadataHelper.isParentUserObjectAMetaDataValue(node, XMP_META_DATA_VALUES);
+        return MiscMetadataUtil.isParentUserObjectAMetaDataValue(node, XMP_META_DATA_VALUES);
     }
 
     public JMenuItem getItemDelete() {

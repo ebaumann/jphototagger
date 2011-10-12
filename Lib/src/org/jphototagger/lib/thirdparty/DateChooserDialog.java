@@ -42,7 +42,6 @@ import org.jphototagger.lib.util.Bundle;
  * - Strings aus Bundle
  * - main() entfernt
  *
- *
  * URL: http://groups.google.de/group/comp.lang.java.gui/browse_thread/thread/d69c86b8831c787f/1674081f7286a171?hl=de&lnk=st&q=#1674081f7286a171
  *
  *  JDateChooser
@@ -53,7 +52,6 @@ import org.jphototagger.lib.util.Bundle;
  *  ---------   -------
  * ---------------------------------------------------
  *  04 jun 05   01.00       incept
- *
  *
  *  Constructor Summary
  *      JDateChooser()
@@ -80,7 +78,7 @@ import org.jphototagger.lib.util.Bundle;
  */
 public final class DateChooserDialog extends JComponent {
 
-    private static final long serialVersionUID = 6639100896711582088L;
+    private static final long serialVersionUID = 1L;
     private final String[] dayStr;
     private final String[] monthStr;
     private final JButton previousButton, nextButton;

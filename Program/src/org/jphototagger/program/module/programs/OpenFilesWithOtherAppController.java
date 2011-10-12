@@ -8,7 +8,6 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPopupMenu;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class OpenFilesWithOtherAppController implements ActionListener {

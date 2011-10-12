@@ -14,15 +14,13 @@ import org.openide.util.Lookup;
 import org.jphototagger.api.branding.Branding;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.repository.ImageFilesRepository;
-import org.jphototagger.lib.componentutil.ComponentUtil;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.dialog.Dialog;
+import org.jphototagger.lib.swing.util.ComponentUtil;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.lookup.NodesListCellRenderer;
 import org.jphototagger.lib.swingx.ListTextFilter;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public class RepositoryFileBrowserDialog extends Dialog {
@@ -169,17 +167,17 @@ public class RepositoryFileBrowserDialog extends Dialog {
         progressBarGetFiles = new javax.swing.JProgressBar();
         panelInfo = new javax.swing.JPanel();
         panelThumbnail = new javax.swing.JPanel();
-        imagePanel = new org.jphototagger.lib.component.ImagePanel();
+        imagePanel = new org.jphototagger.lib.swing.ImagePanel();
         panelDetails = new javax.swing.JPanel();
         panelImageFile = new javax.swing.JPanel();
-        booleanLabelImageFileExists = new org.jphototagger.lib.component.BooleanLabel();
+        booleanLabelImageFileExists = new org.jphototagger.lib.swing.BooleanLabel();
         labelimeImageFileInRepositoryPrompt = new javax.swing.JLabel();
         labelimeImageFileInRepository = new javax.swing.JLabel();
         labelimeImageFileInFileSystemPrompt = new javax.swing.JLabel();
         labelimeImageFileInFileSystem = new javax.swing.JLabel();
         labelTimeImageFileWarning = new javax.swing.JLabel();
         panelXMPFile = new javax.swing.JPanel();
-        booleanLabelXmpFileExists = new org.jphototagger.lib.component.BooleanLabel();
+        booleanLabelXmpFileExists = new org.jphototagger.lib.swing.BooleanLabel();
         labelPromptTimeXmpFileInRepository = new javax.swing.JLabel();
         labelTimeXmpFileInRepository = new javax.swing.JLabel();
         labelPromptTimeXmpFileInFileSystem = new javax.swing.JLabel();
@@ -577,10 +575,10 @@ public class RepositoryFileBrowserDialog extends Dialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private org.jphototagger.lib.component.BooleanLabel booleanLabelImageFileExists;
-    private org.jphototagger.lib.component.BooleanLabel booleanLabelXmpFileExists;
+    private org.jphototagger.lib.swing.BooleanLabel booleanLabelImageFileExists;
+    private org.jphototagger.lib.swing.BooleanLabel booleanLabelXmpFileExists;
     private javax.swing.JButton buttonApplyFilter;
-    private org.jphototagger.lib.component.ImagePanel imagePanel;
+    private org.jphototagger.lib.swing.ImagePanel imagePanel;
     private javax.swing.JLabel labelFileCount;
     private javax.swing.JLabel labelFileCountPrompt;
     private javax.swing.JLabel labelFilterPrompt;

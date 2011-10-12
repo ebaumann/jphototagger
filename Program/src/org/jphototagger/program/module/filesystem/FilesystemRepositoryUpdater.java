@@ -16,7 +16,6 @@ import org.jphototagger.api.file.event.FileRenamedEvent;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.repository.InsertIntoRepository;
 import org.jphototagger.program.misc.InsertImageFilesIntoRepository;
-import org.jphototagger.program.io.ImageFileFilterer;
 
 /**
  * Updates the repository on file system events.
@@ -37,6 +36,10 @@ public final class FilesystemRepositoryUpdater {
      */
     public FilesystemRepositoryUpdater(boolean wait) {
         this.wait = wait;
+        listen();
+    }
+
+    private void listen() {
         AnnotationProcessor.process(this);
     }
 
@@ -46,7 +49,7 @@ public final class FilesystemRepositoryUpdater {
                     InsertIntoRepository.OUT_OF_DATE);
 
             if (wait) {
-                inserter.run();    // run in this thread!
+                inserter.run();    // Has to run in this thread!
             } else {
                 executor.addTask(inserter);
             }

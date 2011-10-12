@@ -23,8 +23,6 @@ import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.repository.SynonymsRepository;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 final class FindDatabase extends Database {

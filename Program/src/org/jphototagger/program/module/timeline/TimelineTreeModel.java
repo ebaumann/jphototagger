@@ -20,7 +20,7 @@ import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.domain.timeline.Timeline;
 import org.jphototagger.domain.timeline.Timeline.Date;
 import org.jphototagger.domain.metadata.xmp.Xmp;
-import org.jphototagger.lib.model.UpdateInfoTreeModel;
+import org.jphototagger.lib.swing.UpdateInfoTreeModel;
 
 /**
  *
@@ -38,7 +38,7 @@ import org.jphototagger.lib.model.UpdateInfoTreeModel;
  */
 public final class TimelineTreeModel extends DefaultTreeModel {
 
-    private static final long serialVersionUID = 3932797263824188655L;
+    private static final long serialVersionUID = 1L;
     private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
     private final transient Timeline timeline;
 

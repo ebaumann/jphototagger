@@ -6,15 +6,13 @@ import java.util.List;
 
 import javax.swing.JMenuItem;
 
-import org.jphototagger.lib.event.util.KeyEventUtil;
-import org.jphototagger.program.module.keywords.KeywordsHelper;
+import org.jphototagger.lib.swing.KeyEventUtil;
+import org.jphototagger.program.module.keywords.KeywordsUtil;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
-public final class InsertKeywordsController extends KeywordsController {
+public final class InsertKeywordsController extends KeywordsListController {
 
     private final JMenuItem itemInsert = KeywordsListPopupMenu.INSTANCE.getItemInsert();
 
@@ -28,7 +26,7 @@ public final class InsertKeywordsController extends KeywordsController {
             throw new NullPointerException("keywords == null");
         }
 
-        KeywordsHelper.insertDcSubject();
+        KeywordsUtil.insertDcSubject();
     }
 
     @Override

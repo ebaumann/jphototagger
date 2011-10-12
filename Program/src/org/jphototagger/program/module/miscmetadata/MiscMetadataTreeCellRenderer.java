@@ -20,7 +20,6 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.TreeCellRendererExt;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class MiscMetadataTreeCellRenderer extends TreeCellRendererExt {
@@ -30,7 +29,7 @@ public final class MiscMetadataTreeCellRenderer extends TreeCellRendererExt {
     private static final ImageIcon ICON_XMP = IconUtil.getImageIcon("/org/jphototagger/program/resource/icons/icon_xmp.png");
     private static final ImageIcon ICON_DETAIL = IconUtil.getImageIcon("/org/jphototagger/program/resource/icons/icon_misc_metadata_detail.png");
     private static final Map<MetaDataValue, ImageIcon> ICON_OF_META_DATA_VALUE = new HashMap<MetaDataValue, ImageIcon>();
-    private static final long serialVersionUID = 4497836207990199053L;
+    private static final long serialVersionUID = 1L;
 
     static {
         for (MetaDataValue exifMetaDataValue : MiscMetadataTreeModel.getExifMetaDataValues()) {

@@ -5,8 +5,6 @@ import org.openide.util.Lookup;
 import org.jphototagger.api.preferences.Preferences;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class Settings {

@@ -6,7 +6,6 @@ import org.jdesktop.swingx.JXList;
 
 import org.jphototagger.program.event.listener.ListMouseListener;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.module.metadatatemplates.MetadataTemplatesPopupMenu;
 
 /**
  * Do not use this class as a template for other implementations! Instead extend

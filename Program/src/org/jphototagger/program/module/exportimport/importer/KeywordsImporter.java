@@ -23,7 +23,6 @@ import org.jphototagger.program.module.keywords.tree.KeywordsTreeModel;
 import org.jphototagger.program.resource.GUI;
 
 /**
- *
  * @author Elmar Baumann
  */
 public abstract class KeywordsImporter {

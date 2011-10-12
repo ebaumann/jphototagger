@@ -1,8 +1,6 @@
 package org.jphototagger.exif.datatype;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class Fraction {

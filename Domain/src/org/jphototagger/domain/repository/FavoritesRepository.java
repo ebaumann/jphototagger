@@ -5,8 +5,6 @@ import java.util.List;
 import org.jphototagger.domain.favorites.Favorite;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public interface FavoritesRepository {

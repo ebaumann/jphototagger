@@ -5,8 +5,6 @@ import java.io.File;
 import org.jphototagger.lib.util.ObjectUtil;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class SourceTargetFile {

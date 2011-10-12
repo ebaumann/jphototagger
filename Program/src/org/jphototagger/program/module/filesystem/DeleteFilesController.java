@@ -13,7 +13,6 @@ import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.types.DeleteOption;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPopupMenu;
 
@@ -69,7 +68,7 @@ public final class DeleteFilesController implements ActionListener, KeyListener 
     }
 
     private void deleteSelectedFiles() {
-        List<File> deletedImageFiles = DeleteImageFiles.delete(GUI.getSelectedImageFiles(),
+        List<File> deletedImageFiles = DeleteFiles.delete(GUI.getSelectedImageFiles(),
                 DeleteOption.CONFIRM_DELETE, DeleteOption.MESSAGES_ON_FAILURES);
 
         if (!deletedImageFiles.isEmpty()) {

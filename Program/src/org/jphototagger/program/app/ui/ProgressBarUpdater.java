@@ -7,8 +7,6 @@ import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class ProgressBarUpdater implements ProgressListener {

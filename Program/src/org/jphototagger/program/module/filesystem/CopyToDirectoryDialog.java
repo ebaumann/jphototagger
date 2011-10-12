@@ -18,30 +18,27 @@ import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.event.listener.ProgressListenerSupport;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.componentutil.ComponentUtil;
-import org.jphototagger.lib.componentutil.MnemonicUtil;
-import org.jphototagger.lib.dialog.Dialog;
-import org.jphototagger.lib.dialog.DirectoryChooser;
-import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.lib.swing.util.ComponentUtil;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.DirectoryChooser;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.SourceTargetFile;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.AppPreferencesKeys;
-import org.jphototagger.program.module.filesystem.CopyFiles;
+import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.program.module.filesystem.CopyFiles.Options;
-import org.jphototagger.program.module.filesystem.FilesystemRepositoryUpdater;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.app.ui.SelectRootFilesPanel;
 import org.jphototagger.xmp.XmpMetadata;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class CopyToDirectoryDialog extends Dialog implements ProgressListener {
     private static final String KEY_LAST_DIRECTORY = "org.jphototagger.program.view.dialogs.CopyToDirectoryDialog.LastDirectory";
     private static final String KEY_COPY_XMP = "CopyToDirectoryDialog.CopyXmp";
-    private static final long serialVersionUID = 2401347394410721552L;
+    private static final long serialVersionUID = 1L;
     private final transient ProgressListenerSupport pListenerSupport = new ProgressListenerSupport();
     private transient CopyFiles copyTask;
     private boolean copy;

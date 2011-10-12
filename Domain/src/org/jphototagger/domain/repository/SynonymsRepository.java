@@ -3,8 +3,6 @@ package org.jphototagger.domain.repository;
 import java.util.Set;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public interface SynonymsRepository {

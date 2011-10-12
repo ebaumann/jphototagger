@@ -3,7 +3,6 @@ package org.jphototagger.program.module.keywords.list;
 import org.jdesktop.swingx.JXList;
 import org.jphototagger.program.event.listener.ListMouseListener;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.module.keywords.list.KeywordsListPopupMenu;
 
 /**
  * Do not use this class as a template for other implementations! Instead extend

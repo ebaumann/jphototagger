@@ -270,7 +270,7 @@
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Container class="org.jphototagger.lib.component.ImagePanel" name="imagePanel">
+                <Container class="org.jphototagger.lib.swing.ImagePanel" name="imagePanel">
                   <Properties>
                     <Property name="imageIsAbsentText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                       <ResourceString bundle="org/jphototagger/repositoryfilebrowser/Bundle.properties" key="RepositoryFileBrowserDialog.imagePanel.imageIsAbsentText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
@@ -337,7 +337,7 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout"/>
                   <SubComponents>
-                    <Component class="org.jphototagger.lib.component.BooleanLabel" name="booleanLabelImageFileExists">
+                    <Component class="org.jphototagger.lib.swing.BooleanLabel" name="booleanLabelImageFileExists">
                       <Properties>
                         <Property name="falseText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                           <ResourceString bundle="org/jphototagger/repositoryfilebrowser/Bundle.properties" key="RepositoryFileBrowserDialog.booleanLabelImageFileExists.falseText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
@@ -448,7 +448,7 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout"/>
                   <SubComponents>
-                    <Component class="org.jphototagger.lib.component.BooleanLabel" name="booleanLabelXmpFileExists">
+                    <Component class="org.jphototagger.lib.swing.BooleanLabel" name="booleanLabelXmpFileExists">
                       <Properties>
                         <Property name="falseText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                           <ResourceString bundle="org/jphototagger/repositoryfilebrowser/Bundle.properties" key="RepositoryFileBrowserDialog.booleanLabelXmpFileExists.falseText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>

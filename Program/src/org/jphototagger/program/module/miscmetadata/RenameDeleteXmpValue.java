@@ -1,6 +1,5 @@
 package org.jphototagger.program.module.miscmetadata;
 
-import org.jphototagger.program.module.miscmetadata.MiscMetadataHelper;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
@@ -19,7 +18,7 @@ import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpMetaDataValues;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.repository.InsertIntoRepository;
-import org.jphototagger.lib.dialog.MessageDisplayer;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.misc.InsertImageFilesIntoRepository;
 import org.jphototagger.program.app.ui.ProgressBarUpdater;
@@ -169,18 +168,21 @@ public final class RenameDeleteXmpValue {
 
                 if (xmp != null) {
                     rename(xmp);
-
-                    if (XmpMetadata.writeXmpToSidecarFile(xmp, XmpMetadata.suggestSidecarFile(imageFile))) {
-                        new InsertImageFilesIntoRepository(Collections.singletonList(imageFile),
-                                InsertIntoRepository.XMP).run();    // run in this thread!
+                    File suggestSidecarFile = XmpMetadata.suggestSidecarFile(imageFile);
+                    if (XmpMetadata.writeXmpToSidecarFile(xmp, suggestSidecarFile)) {
+                        InsertImageFilesIntoRepository insertImageFilesIntoRepository =
+                                new InsertImageFilesIntoRepository(Collections.singletonList(imageFile),
+                                InsertIntoRepository.XMP);
+                        insertImageFilesIntoRepository.run();    // Has to run in this thread!
                     }
                 }
 
-                notifyPerformed(++value, size);
+                value++;
+                notifyPerformed(value, size);
             }
 
             repo.deleteValueOfJoinedMetaDataValue(metaDataValue, oldValue);
-            MiscMetadataHelper.removeChildValueFrom(metaDataValue, oldValue);
+            MiscMetadataUtil.removeChildValueFrom(metaDataValue, oldValue);
             notifyEnded(value, size);
         }
 
@@ -189,32 +191,17 @@ public final class RenameDeleteXmpValue {
         }
 
         private void notifyStarted(int count) {
-            ProgressEvent evt = new ProgressEvent.Builder()
-                    .source(this)
-                    .minimum(0)
-                    .maximum(count)
-                    .value(0)
-                    .build();
+            ProgressEvent evt = new ProgressEvent.Builder().source(this).minimum(0).maximum(count).value(0).build();
             pb.progressStarted(evt);
         }
 
         private void notifyPerformed(int value, int count) {
-            ProgressEvent evt = new ProgressEvent.Builder()
-                    .source(this)
-                    .minimum(0)
-                    .maximum(count)
-                    .value(value)
-                    .build();
+            ProgressEvent evt = new ProgressEvent.Builder().source(this).minimum(0).maximum(count).value(value).build();
             pb.progressPerformed(evt);
         }
 
         private void notifyEnded(int value, int count) {
-            ProgressEvent evt = new ProgressEvent.Builder()
-                    .source(this)
-                    .minimum(0)
-                    .maximum(count)
-                    .value(value)
-                    .build();
+            ProgressEvent evt = new ProgressEvent.Builder().source(this).minimum(0).maximum(count).value(value).build();
             pb.progressEnded(evt);
         }
     }

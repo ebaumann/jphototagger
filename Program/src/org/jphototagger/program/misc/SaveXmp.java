@@ -83,7 +83,7 @@ public final class SaveXmp extends Thread implements Cancelable {
     private void updateRepository(File imageFile) {
         InsertImageFilesIntoRepository updater = new InsertImageFilesIntoRepository(Arrays.asList(imageFile), InsertIntoRepository.XMP);
 
-        updater.run();    // run in this thread!
+        updater.run();    // Has to run in this thread!
     }
 
     private ProgressEvent createProgressEvent(int value) {

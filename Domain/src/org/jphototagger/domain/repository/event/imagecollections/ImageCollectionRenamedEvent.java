@@ -1,8 +1,6 @@
 package org.jphototagger.domain.repository.event.imagecollections;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class ImageCollectionRenamedEvent {

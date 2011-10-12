@@ -14,8 +14,6 @@ import org.jphototagger.api.messages.MessageType;
 import org.jphototagger.api.messages.StatusBarMessageDisplayer;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 final class Support {

@@ -5,8 +5,6 @@ import java.util.List;
 import org.jphototagger.api.progress.ProgressListener;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public interface FileExcludePatternsRepository {

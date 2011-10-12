@@ -9,13 +9,11 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class AddProgramController extends AbstractAction {
 
-    private static final long serialVersionUID = -8236351732517551399L;
+    private static final long serialVersionUID = 1L;
 
     public AddProgramController() {
         super(Bundle.getString(AddProgramController.class, "AddProgramController.Name"));
@@ -24,6 +22,6 @@ public final class AddProgramController extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        ProgramsHelper.openSelectedFilesWidth(ProgramsHelper.addProgram(), false);
+        ProgramsUtil.openSelectedFilesWidth(ProgramsUtil.addProgram(), false);
     }
 }

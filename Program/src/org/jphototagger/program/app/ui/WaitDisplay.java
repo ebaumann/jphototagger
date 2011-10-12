@@ -1,6 +1,6 @@
 package org.jphototagger.program.app.ui;
 
-import org.jphototagger.lib.component.GlassPaneWaitCursor;
+import org.jphototagger.lib.swing.GlassPaneWaitCursor;
 import org.jphototagger.program.resource.GUI;
 
 /**

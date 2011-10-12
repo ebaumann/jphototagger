@@ -14,7 +14,6 @@ import org.jphototagger.lib.io.IoUtil;
 import org.jphototagger.lib.util.SystemProperties;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class ScriptWriter {

@@ -16,8 +16,6 @@ import org.jphototagger.domain.repository.UserDefinedFileTypesRepository;
 import org.jphototagger.lib.util.Bundle;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public final class SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction extends AbstractAction {

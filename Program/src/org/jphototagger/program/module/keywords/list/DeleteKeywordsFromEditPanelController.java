@@ -12,11 +12,9 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.app.ui.EditMetadataPanels;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
-public final class DeleteKeywordsFromEditPanelController extends KeywordsController {
+public final class DeleteKeywordsFromEditPanelController extends KeywordsListController {
 
     public DeleteKeywordsFromEditPanelController() {
         listenToActionsOf(getMenuItem());

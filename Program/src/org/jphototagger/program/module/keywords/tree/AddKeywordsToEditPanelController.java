@@ -13,10 +13,10 @@ import javax.swing.tree.TreeNode;
 import org.jphototagger.domain.metadata.keywords.Keyword;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.dialog.MessageDisplayer;
-import org.jphototagger.lib.event.util.KeyEventUtil;
+import org.jphototagger.lib.swing.MessageDisplayer;
+import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.module.keywords.KeywordsHelper;
+import org.jphototagger.program.module.keywords.KeywordsUtil;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.app.ui.EditMetadataPanels;
 import org.jphototagger.program.app.ui.EditRepeatableTextEntryPanel;
@@ -79,7 +79,7 @@ public class AddKeywordsToEditPanelController extends KeywordsController impleme
                     editPanel.addText(keywordName);
                 }
 
-                KeywordsHelper.addHighlightKeywords(keywordNames);
+                KeywordsUtil.addHighlightKeywords(keywordNames);
                 editPanels.saveIfDirtyAndInputIsSaveEarly();
             } else {
                 String message = Bundle.getString(AddKeywordsToEditPanelController.class, "AddKeywordsToEditPanelController.Error.EditDisabled");

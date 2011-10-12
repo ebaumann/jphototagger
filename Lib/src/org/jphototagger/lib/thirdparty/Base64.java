@@ -29,8 +29,6 @@ package org.jphototagger.lib.thirdparty;
  * <p>Also...</p>
  * <code>String encoded = Base64.encodeBytes( crazyString.getBytes() );</code>
  *
- *
- *
  * <p>
  * Change Log:
  * </p>

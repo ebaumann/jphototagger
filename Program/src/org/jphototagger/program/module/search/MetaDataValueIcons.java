@@ -24,7 +24,6 @@ import org.jphototagger.domain.metadata.xmp.XmpRatingMetaDataValue;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class MetaDataValueIcons {

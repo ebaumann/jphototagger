@@ -8,8 +8,6 @@ import java.util.Set;
 import org.jphototagger.lib.io.FileUtil;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 final class ThumbnailSupport {

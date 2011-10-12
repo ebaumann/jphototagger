@@ -4,7 +4,6 @@ import org.jphototagger.exif.formatter.ExifFormatter;
 import org.jphototagger.exif.formatter.ExifFormatterFactory;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class ExifTagValueFormatter {

@@ -9,12 +9,11 @@ import java.util.logging.Logger;
 
 import org.jdesktop.swingx.JXList;
 
-import org.jphototagger.lib.componentutil.ListUtil;
+import org.jphototagger.lib.swing.util.ListUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
 
 /**
- *
  * @author Elmar Baumann
  */
 public final class DeleteImageCollectionController implements ActionListener, KeyListener {
@@ -51,12 +50,12 @@ public final class DeleteImageCollectionController implements ActionListener, Ke
 
     private void deleteCollection(final String collectionName) {
         String errorMessage = Bundle.getString(DeleteImageCollectionController.class, "DeleteImageCollectionController.Error.SpecialCollection", collectionName);
-        if (!ImageCollectionsHelper.checkIsNotSpecialCollection(collectionName, errorMessage)) {
+        if (!ImageCollectionsUtil.checkIsNotSpecialCollection(collectionName, errorMessage)) {
             return;
         }
 
         if (collectionName != null) {
-            ImageCollectionsHelper.deleteImageCollection(collectionName);
+            ImageCollectionsUtil.deleteImageCollection(collectionName);
         } else {
             LOGGER.log(Level.WARNING, "Delete photo album: Couldn't find the selected photo album in the repository!");
         }

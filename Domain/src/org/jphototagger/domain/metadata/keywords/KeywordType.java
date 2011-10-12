@@ -1,8 +1,6 @@
 package org.jphototagger.domain.metadata.keywords;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 public enum KeywordType {

@@ -8,7 +8,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JPopupMenu.Separator;
 import javax.swing.tree.TreePath;
 
-import org.jphototagger.lib.event.util.KeyEventUtil;
+import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 
@@ -21,7 +21,7 @@ import org.jphototagger.program.app.ui.AppLookAndFeel;
  */
 public final class DirectoriesPopupMenu extends JPopupMenu {
 
-    private static final long serialVersionUID = 4574458335277932153L;
+    private static final long serialVersionUID = 1L;
     public static final DirectoriesPopupMenu INSTANCE = new DirectoriesPopupMenu();
     private final JMenuItem itemAddToFavorites = new JMenuItem(Bundle.getString(DirectoriesPopupMenu.class, "DirectoriesPopupMenu.DisplayName.Action.AddToFavoriteDirectories"), AppLookAndFeel.getIcon("icon_favorite.png"));
     private final JMenuItem itemCreateDirectory = new JMenuItem(Bundle.getString(DirectoriesPopupMenu.class, "DirectoriesPopupMenu.DisplayName.Action.CreateDirectory"), AppLookAndFeel.getIcon("icon_folder_new.png"));

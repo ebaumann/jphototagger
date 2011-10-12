@@ -16,7 +16,6 @@ import org.jphototagger.domain.repository.event.search.SavedSearchDeletedEvent;
 import org.jphototagger.domain.repository.event.search.SavedSearchInsertedEvent;
 import org.jphototagger.domain.repository.event.search.SavedSearchRenamedEvent;
 import org.jphototagger.domain.repository.event.search.SavedSearchUpdatedEvent;
-import org.jphototagger.program.module.search.SavedSearchesHelper;
 
 /**
  * Elements are {@code SavedSearch}es.
@@ -25,11 +24,15 @@ import org.jphototagger.program.module.search.SavedSearchesHelper;
  */
 public final class SavedSearchesListModel extends DefaultListModel {
 
-    private static final long serialVersionUID = 1979666986802551310L;
+    private static final long serialVersionUID = 1L;
     private final SavedSearchesRepository savedSearchRepo = Lookup.getDefault().lookup(SavedSearchesRepository.class);
 
     public SavedSearchesListModel() {
         addElements();
+        listen();
+    }
+
+    private void listen() {
         AnnotationProcessor.process(this);
     }
 
@@ -54,7 +57,7 @@ public final class SavedSearchesListModel extends DefaultListModel {
     }
 
     private void deleteSearch(String name) {
-        int index = SavedSearchesHelper.getIndexOfSavedSearch(this, name);
+        int index = SavedSearchesUtil.getIndexOfSavedSearch(this, name);
 
         if (index >= 0) {
             remove(index);
@@ -62,7 +65,7 @@ public final class SavedSearchesListModel extends DefaultListModel {
     }
 
     private void renameSearch(String fromName, String toName) {
-        int index = SavedSearchesHelper.getIndexOfSavedSearch(this, fromName);
+        int index = SavedSearchesUtil.getIndexOfSavedSearch(this, fromName);
 
         if (index >= 0) {
             SavedSearch savedSearch = (SavedSearch) get(index);

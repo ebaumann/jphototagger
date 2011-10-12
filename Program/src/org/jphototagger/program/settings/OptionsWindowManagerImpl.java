@@ -1,6 +1,5 @@
 package org.jphototagger.program.settings;
 
-import org.jphototagger.program.settings.SettingsDialog;
 import java.awt.Component;
 
 import org.openide.util.lookup.ServiceProvider;
@@ -9,8 +8,6 @@ import org.jphototagger.api.windows.OptionsWindowManager;
 import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
- *
- *
  * @author Elmar Baumann
  */
 @ServiceProvider(service = OptionsWindowManager.class)
