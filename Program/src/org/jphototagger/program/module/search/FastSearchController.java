@@ -176,7 +176,7 @@ public final class FastSearchController implements ActionListener {
                         setTitle(userInput);
                         GUI.getAppFrame().selectMenuItemUnsorted();
                         SortThumbnailsController.setLastSort();
-                        GUI.getThumbnailsPanel().setFiles(imageFiles, OriginOfDisplayedThumbnails.FILES_FOUND_BY_SAVED_SEARCH);
+                        GUI.getThumbnailsPanel().setFiles(imageFiles, OriginOfDisplayedThumbnails.FILES_FOUND_BY_FAST_SEARCH);
                     }
 
                     WaitDisplay.INSTANCE.hide();
