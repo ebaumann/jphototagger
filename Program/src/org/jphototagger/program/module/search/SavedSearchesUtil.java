@@ -6,7 +6,6 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.domain.metadata.search.SavedSearch;
 import org.jphototagger.domain.repository.SavedSearchesRepository;
-import org.jphototagger.lib.comparator.FileSort;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.module.thumbnails.SortThumbnailsController;
@@ -171,10 +170,9 @@ public final class SavedSearchesUtil {
         }
 
         if (search.isCustomSql()) {
-            GUI.getThumbnailsPanel().setFileSortComparator(FileSort.NO_SORT.getComparator());
-            GUI.getAppFrame().selectMenuItemUnsorted();
+            SortThumbnailsController.setUnsorted();
         } else {
-            SortThumbnailsController.setLastSort();
+            SortThumbnailsController.sortThumbnailsWithCurrentSortOrder();
         }
     }
 

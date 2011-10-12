@@ -219,7 +219,7 @@ public final class FavoritesUtil {
         @Override
         public void run() {
             WaitDisplay.INSTANCE.show();
-            SortThumbnailsController.setLastSort();
+            SortThumbnailsController.sortThumbnailsWithCurrentSortOrder();
             setTitle();
             tnPanel.setFiles(files, OriginOfDisplayedThumbnails.FILES_IN_SAME_FAVORITE_DIRECTORY);
             tnPanel.apply(tnPanelSettings);
