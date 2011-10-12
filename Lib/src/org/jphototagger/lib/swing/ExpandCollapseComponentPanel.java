@@ -26,8 +26,8 @@ import org.jphototagger.lib.util.Bundle;
 public class ExpandCollapseComponentPanel extends JPanel implements FocusListener {
 
     private static final long serialVersionUID = 1L;
-    private static final String ICON_PATH_EXPAND = "/org/jphototagger/lib/resource/icons/icon_edit_metadata_expand.png";
-    private static final String ICON_PATH_COLLAPSE = "/org/jphototagger/lib/resource/icons/icon_edit_metadata_collapse.png";
+    private static final String ICON_PATH_EXPAND = "/org/jphototagger/lib/resource/icons/icon_expand.png";
+    private static final String ICON_PATH_COLLAPSE = "/org/jphototagger/lib/resource/icons/icon_collapse.png";
     private static final ImageIcon ICON_EXPAND = IconUtil.getImageIcon(ICON_PATH_EXPAND);
     private static final ImageIcon ICON_COLLAPSE = IconUtil.getImageIcon(ICON_PATH_COLLAPSE);
     private static final String TOOLTIP_TEXT_EXPAND = Bundle.getString(ExpandCollapseComponentPanel.class, "ExpandCollapseComponentPanel.TooltipTextExpand");
