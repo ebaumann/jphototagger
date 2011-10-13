@@ -836,10 +836,11 @@ public final class Settings {
         for (int row = 0; row < rowCount; row++) {
             if (tree.isExpanded(row)) {
                 setTreePath(toIndexedKey(key, pathIndex), tree.getPathForRow(row).getPath(), tree.isRowSelected(row));
+                pathIndex++;
             } else if (tree.isRowSelected(row)) {    // Selected but not expanded
                 setTreePath(toIndexedKey(key, pathIndex), tree.getPathForRow(row).getPath(), true);
+                pathIndex++;
             }
-            pathIndex++;
         }
     }
 
