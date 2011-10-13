@@ -3,6 +3,13 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.11.3 2011-10-13
+-----------------
+
+* Bugfix: Nach dem Start wird der Zustand einiger Bäume wieder
+  hergestellt, z.B. die zuletzt aufgeklappten Ordner oder Zeiten
+  in der Zeitleiste
+
 0.11.2 2011-10-12
 -----------------
 

@@ -121,6 +121,7 @@ public final class AppWindowPersistence implements ComponentListener {
                 storage.applyComponentSettings(appPanel, getAppPanelSettingsHints());
                 appPanel.setEnabledIptcTab(isDisplayIptc());
                 setInitKeywordsView(appPanel);
+                readListNoMetadata(); // Hack (Controller is later ready than model)
                 selectFastSearch(appPanel);
             }
         });
