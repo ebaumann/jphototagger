@@ -1,24 +1,20 @@
 package org.jphototagger.program.factory;
 
 import java.io.File;
-import java.io.FileFilter;
 
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.DomainPreferencesKeys;
-import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppCommandLineOptions;
 import org.jphototagger.program.app.AppInit;
 import org.jphototagger.program.module.search.FastSearchController;
 import org.jphototagger.program.module.importimages.ImportImageFiles;
-import org.jphototagger.program.module.thumbnails.FileFiltersComboBoxModel;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.tasks.ScheduledTasks;
 import org.jphototagger.program.app.ui.AppPanel;
-import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPopupMenu;
 
 /**
@@ -50,7 +46,6 @@ public final class TerminateFactory {
                 ScheduledTasks.INSTANCE.run();
                 checkImportImageFiles();
                 setAutocomplete();
-                setTnPanelFileFilter();
                 message = Bundle.getString(TerminateFactory.class, "MiscFactory.Init.Finished");
                 Support.setStatusbarInfo(message);
             }
@@ -87,18 +82,6 @@ public final class TerminateFactory {
             }
 
             ImportImageFiles.importFrom(dir);
-        }
-    }
-
-    private void setTnPanelFileFilter() {
-        FileFiltersComboBoxModel model = ModelFactory.INSTANCE.getModel(FileFiltersComboBoxModel.class);
-        Object selItem = model.getSelectedItem();
-        ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
-
-        if (selItem instanceof FileFilter) {
-            tnPanel.setFileFilter((FileFilter) selItem);
-        } else if (selItem instanceof UserDefinedFileFilter) {
-            tnPanel.setFileFilter(((UserDefinedFileFilter) selItem).getFileFilter());
         }
     }
 }

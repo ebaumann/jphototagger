@@ -21,15 +21,14 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 import org.openide.util.Lookup;
 
 import org.jphototagger.domain.repository.ImageFilesRepository;
-import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
 import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
+import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
 import org.jphototagger.domain.timeline.Timeline;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.module.thumbnails.SortThumbnailsController;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.app.ui.WaitDisplay;
+import org.jphototagger.program.resource.GUI;
 
 /**
  * @author Elmar Baumann
@@ -79,7 +78,7 @@ public final class TimelineItemSelectedController implements TreeSelectionListen
                         public void run() {
                             WaitDisplay.INSTANCE.show();
                             setFilesOfPossibleNodeToThumbnailsPanel(lastPathComponent);
-                            GUI.getThumbnailsPanel().apply(settings);
+                            GUI.getThumbnailsPanel().applyThumbnailsPanelSettings(settings);
                             WaitDisplay.INSTANCE.hide();
                         }
                     });
@@ -101,7 +100,6 @@ public final class TimelineItemSelectedController implements TreeSelectionListen
 
         if (node.equals(Timeline.getUnknownNode())) {
             setTitle();
-            SortThumbnailsController.sortThumbnailsWithCurrentSortOrder();
             GUI.getThumbnailsPanel().setFiles(repo.findImageFilesOfUnknownDateTaken(), OriginOfDisplayedThumbnails.FILES_MATCHING_DATES_IN_A_TIMELINE);
         } else if (userObject instanceof Timeline.Date) {
             Timeline.Date date = (Timeline.Date) userObject;
@@ -121,7 +119,6 @@ public final class TimelineItemSelectedController implements TreeSelectionListen
 
                 List<File> files = new ArrayList<File>(repo.findImageFilesOfDateTaken(date.year, month, day));
 
-                SortThumbnailsController.sortThumbnailsWithCurrentSortOrder();
                 GUI.getThumbnailsPanel().setFiles(files, OriginOfDisplayedThumbnails.FILES_MATCHING_DATES_IN_A_TIMELINE);
             }
         }

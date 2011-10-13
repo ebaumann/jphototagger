@@ -2,7 +2,6 @@ package org.jphototagger.program.module.thumbnails;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,11 +18,9 @@ import org.jphototagger.domain.event.AppWillExitEvent;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsChangedEvent;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.comparator.FileSort;
-import org.jphototagger.lib.comparator.FileUnsortedComparator;
 import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.app.ui.AppPanel;
+import org.jphototagger.program.resource.GUI;
 
 /**
  * Applies persistent settings to the thumbnails panel.
@@ -102,46 +99,6 @@ public final class ThumbnailsPanelPersistenceController {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         persistentSelectedFiles = FileUtil.getStringsAsFiles(storage.getStringCollection(KEY_SELECTED_FILES));
-        readSortFromProperties();
-    }
-
-    @SuppressWarnings("unchecked")
-    private void readSortFromProperties() {
-        GUI.getThumbnailsPanel().setFileSortComparator(getFileSortComparator());
-    }
-
-    public void setFileSortComparator(Comparator<File> cmp) {
-        Class<?> sortClass = cmp.getClass();
-
-        if (!sortClass.equals(FileUnsortedComparator.class)) {
-            Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-
-            storage.setString(KEY_SORT, sortClass.getName());
-        }
-    }
-
-    /**
-     * Returns the file sort comparator from the user settings.
-     *
-     * @return sort comparator or if not defined the comparator of
-     *         {@code FileSort#NAMES_ASCENDING}
-     */
-    @SuppressWarnings("unchecked")
-    public static Comparator<File> getFileSortComparator() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-        if (storage.containsKey(KEY_SORT)) {
-            try {
-                String className = storage.getString(KEY_SORT);
-
-                return (Comparator<File>) Class.forName(className).newInstance();
-            } catch (Exception ex) {
-                Logger.getLogger(ThumbnailsPanelPersistenceController.class.getName()).log(Level.SEVERE, null, ex);
-                String cmpClassName = FileSort.NAMES_ASCENDING.getComparator().getClass().getName();
-                storage.setString(KEY_SORT, cmpClassName);
-            }
-        }
-
-        return FileSort.NAMES_ASCENDING.getComparator();
     }
 
     private void readViewportViewPositionFromProperties() {

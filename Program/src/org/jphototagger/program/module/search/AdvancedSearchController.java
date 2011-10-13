@@ -60,7 +60,6 @@ public final class AdvancedSearchController implements ActionListener {
                 List<File> imageFiles = repo.findImageFiles(stmt);
 
                 setTitle(savedSearch.getName());
-                SavedSearchesUtil.setSort(savedSearch);
                 GUI.getThumbnailsPanel().setFiles(imageFiles, OriginOfDisplayedThumbnails.FILES_FOUND_BY_SAVED_SEARCH);
                 WaitDisplay.INSTANCE.hide();
             }

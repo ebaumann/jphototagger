@@ -85,7 +85,6 @@ public final class SavedSearchSelectedController implements ListSelectionListene
 
                 ParamStatement stmt = savedSearch.createParamStatement();
 
-                SavedSearchesUtil.setSort(savedSearch);
                 searchParamStatement(stmt, savedSearch.getName());
             }
         }

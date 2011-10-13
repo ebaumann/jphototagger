@@ -12,8 +12,8 @@ import java.util.StringTokenizer;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-
 import javax.swing.JTextArea;
+
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 
@@ -24,6 +24,7 @@ import org.jphototagger.domain.DomainPreferencesKeys;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.selections.AutoCompleteDataOfMetaDataValue;
 import org.jphototagger.domain.metadata.selections.FastSearchMetaDataValues;
+import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.repository.FindRepository;
 import org.jphototagger.domain.repository.ImageFilesRepository;
@@ -31,18 +32,16 @@ import org.jphototagger.domain.repository.event.xmp.XmpDeletedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
-import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
-import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsChangedEvent;
+import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.util.Autocomplete;
 import org.jphototagger.lib.swing.util.ListUtil;
 import org.jphototagger.lib.swing.util.TreeUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.module.thumbnails.SortThumbnailsController;
+import org.jphototagger.program.app.ui.WaitDisplay;
 import org.jphototagger.program.misc.AutocompleteUtil;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.app.ui.WaitDisplay;
 
 /**
  * Kontrolliert die Aktion: Schnellsuche durchführen.
@@ -174,7 +173,6 @@ public final class FastSearchController implements ActionListener {
 
                     if (imageFiles != null) {
                         setTitle(userInput);
-                        SortThumbnailsController.sortThumbnailsWithCurrentSortOrder();
                         GUI.getThumbnailsPanel().setFiles(imageFiles, OriginOfDisplayedThumbnails.FILES_FOUND_BY_FAST_SEARCH);
                     }
 

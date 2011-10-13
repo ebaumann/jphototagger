@@ -8,14 +8,13 @@ import java.util.Set;
 import org.openide.util.Lookup;
 
 import org.jphototagger.domain.repository.ImageFilesRepository;
-import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
 import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
+import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.module.thumbnails.SortThumbnailsController;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.app.ui.WaitDisplay;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
+import org.jphototagger.program.resource.GUI;
 
 /**
  * Displays in the {@code ThumbnailsPanel} thumbnails of images containing all
@@ -64,9 +63,8 @@ public final class ShowThumbnailsContainingAllKeywords implements Runnable {
         if (imageFiles != null) {
             ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
-            SortThumbnailsController.sortThumbnailsWithCurrentSortOrder();
             tnPanel.setFiles(imageFiles, OriginOfDisplayedThumbnails.FILES_MATCHING_A_KEYWORD);
-            tnPanel.apply(tnPanelSettings);
+            tnPanel.applyThumbnailsPanelSettings(tnPanelSettings);
         }
     }
 
