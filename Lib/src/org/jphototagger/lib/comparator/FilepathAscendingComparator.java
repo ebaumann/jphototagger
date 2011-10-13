@@ -19,4 +19,9 @@ public final class FilepathAscendingComparator extends ClassEquality implements 
     public int compare(File leftFile, File rightFile) {
         return leftFile.getAbsolutePath().compareTo(rightFile.getAbsolutePath());
     }
+
+    @Override
+    public String toString() {
+        return "File Path Ascending";
+    }
 }

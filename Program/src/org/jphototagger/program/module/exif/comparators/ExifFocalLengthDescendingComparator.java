@@ -19,4 +19,9 @@ public final class ExifFocalLengthDescendingComparator extends ClassEquality imp
     public int compare(File fileLeft, File fileRight) {
         return delegate.compare(fileLeft, fileRight);
     }
+
+    @Override
+    public String toString() {
+        return "EXIF Focal Length Descending";
+    }
 }

@@ -19,4 +19,9 @@ public final class FilepathIgnoreCaseAscendingComparator extends ClassEquality i
     public int compare(File leftFile, File rightFile) {
         return leftFile.getAbsolutePath().compareToIgnoreCase(rightFile.getAbsolutePath());
     }
+
+    @Override
+    public String toString() {
+        return "File Path ignoring case Ascending";
+    }
 }

@@ -38,4 +38,9 @@ public final class XmpRatingAscendingComparator extends ClassEquality implements
                 ? 1
                 : (int) (ratingLeft - ratingRight);
     }
+
+    @Override
+    public String toString() {
+        return "XMP Rating Ascending";
+    }
 }

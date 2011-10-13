@@ -39,4 +39,9 @@ public final class ExifDateTimeOriginalAscendingComparator extends ClassEquality
 
         return exif.getDateTimeOriginal().getTime();
     }
+
+    @Override
+    public String toString() {
+        return "Exif DateTimeOriginal only Date Ascending";
+    }
 }

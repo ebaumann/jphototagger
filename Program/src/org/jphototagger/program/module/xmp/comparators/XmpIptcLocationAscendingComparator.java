@@ -40,4 +40,9 @@ public final class XmpIptcLocationAscendingComparator extends ClassEquality impl
                 ? 1
                 : collator.compare(locLeft, locRight);
     }
+
+    @Override
+    public String toString() {
+        return "XMP IPTC Location Ascending";
+    }
 }

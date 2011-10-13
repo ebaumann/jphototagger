@@ -20,4 +20,9 @@ public final class FileLastModifiedDescendingComparator extends ClassEquality im
     public int compare(File fileLeft, File fileRight) {
         return delegate.compare(fileLeft, fileRight);
     }
+
+    @Override
+    public String toString() {
+        return "File Last Modified Descending";
+    }
 }

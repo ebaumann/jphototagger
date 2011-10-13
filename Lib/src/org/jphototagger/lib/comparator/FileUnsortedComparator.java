@@ -26,4 +26,9 @@ public final class FileUnsortedComparator extends ClassEquality implements Compa
     public int compare(File leftFile, File rightFile) {
         return 0;
     }
+
+    @Override
+    public String toString() {
+        return "File Unsorted";
+    }
 }

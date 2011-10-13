@@ -19,4 +19,9 @@ public final class XmpRatingDescendingComparator extends ClassEquality implement
     public int compare(File fileLeft, File fileRight) {
         return delegate.compare(fileLeft, fileRight);
     }
+
+    @Override
+    public String toString() {
+        return "XMP Rating Descending";
+    }
 }

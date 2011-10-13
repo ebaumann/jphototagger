@@ -28,4 +28,9 @@ public final class ExifTimestampOriginalAscendingComparator extends ClassEqualit
                 ? -1
                 : 1;
     }
+
+    @Override
+    public String toString() {
+        return "EXIF DateTimeOriginal Date and Time Ascending";
+    }
 }

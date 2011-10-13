@@ -26,4 +26,9 @@ public final class FileLastModifiedAscendingComparator extends ClassEquality imp
                 ? -1
                 : 1;
     }
+
+    @Override
+    public String toString() {
+        return "File Last Modified Ascending";
+    }
 }

@@ -20,4 +20,9 @@ public final class FilenameIgnoreCaseDescendingComparator extends ClassEquality 
     public int compare(File leftFile, File rightFile) {
         return delegate.compare(leftFile, rightFile);
     }
+
+    @Override
+    public String toString() {
+        return "Filename ignoring case Descending";
+    }
 }

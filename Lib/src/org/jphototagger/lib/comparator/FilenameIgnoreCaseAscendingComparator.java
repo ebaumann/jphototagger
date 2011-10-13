@@ -19,4 +19,9 @@ public final class FilenameIgnoreCaseAscendingComparator extends ClassEquality i
     public int compare(File leftFile, File rightFile) {
         return leftFile.getName().compareToIgnoreCase(rightFile.getName());
     }
+
+    @Override
+    public String toString() {
+        return "Filename ignoring case Ascending";
+    }
 }

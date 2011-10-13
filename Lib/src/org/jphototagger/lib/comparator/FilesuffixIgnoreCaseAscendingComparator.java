@@ -23,4 +23,9 @@ public final class FilesuffixIgnoreCaseAscendingComparator extends ClassEquality
 
         return leftSuffix.compareToIgnoreCase(rightSuffix);
     }
+
+    @Override
+    public String toString() {
+        return "File Suffix ignoring case Ascending";
+    }
 }

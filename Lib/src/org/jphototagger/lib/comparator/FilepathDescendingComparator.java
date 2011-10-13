@@ -20,4 +20,9 @@ public final class FilepathDescendingComparator extends ClassEquality implements
     public int compare(File leftFile, File rightFile) {
         return delegate.compare(leftFile, rightFile);
     }
+
+    @Override
+    public String toString() {
+        return "File Path Descending";
+    }
 }

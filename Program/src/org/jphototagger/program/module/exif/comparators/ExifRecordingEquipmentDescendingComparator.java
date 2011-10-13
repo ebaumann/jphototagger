@@ -19,4 +19,9 @@ public final class ExifRecordingEquipmentDescendingComparator extends ClassEqual
     public int compare(File fileLeft, File fileRight) {
         return delegate.compare(fileLeft, fileRight);
     }
+
+    @Override
+    public String toString() {
+        return "EXIF Recording Equipment Descending";
+    }
 }

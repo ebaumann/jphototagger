@@ -39,4 +39,9 @@ public final class ExifRecordingEquipmentAscendingComparator extends ClassEquali
                 ? 1
                 : collator.compare(eqipLeft, eqipRight);
     }
+
+    @Override
+    public String toString() {
+        return "EXIF Recording Equipment Ascending";
+    }
 }
