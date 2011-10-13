@@ -41,7 +41,6 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.domain.event.AppWillExitEvent;
@@ -55,6 +54,7 @@ import org.jphototagger.domain.repository.event.userdefinedfilefilters.UserDefin
 import org.jphototagger.domain.repository.event.xmp.XmpDeletedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
+import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.domain.thumbnails.ThumbnailFlag;
 import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsChangedEvent;
@@ -63,14 +63,15 @@ import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
 import org.jphototagger.domain.thumbnails.event.TypedThumbnailUpdateEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.comparator.FileSort;
-import org.jphototagger.lib.swing.MouseEventUtil;
 import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.lib.swing.MouseEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.MathUtil;
+import org.jphototagger.lib.util.ObjectUtil;
 import org.jphototagger.program.filefilter.AppFileFilters;
-import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.program.module.thumbnails.cache.RenderedThumbnailCache;
 import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.program.types.ByteSizeUnit;
 import org.jphototagger.program.types.FileAction;
 import org.jphototagger.xmp.XmpMetadata;
@@ -105,7 +106,7 @@ public class ThumbnailsPanel extends JPanel
     private boolean drag;
     private boolean keywordsOverlay;
     private volatile boolean notifySelChanged;
-    private volatile boolean notifyTnsChanged;
+    private volatile boolean publishesChangedEvent;
     private volatile boolean notifyRefresh;
     private JViewport viewport;
     private static final Logger LOGGER = Logger.getLogger(ThumbnailsPanel.class.getName());
@@ -415,11 +416,6 @@ public class ThumbnailsPanel extends JPanel
         return selectedThumbnailIndices.size();
     }
 
-    /**
-     * Returns whether at least one image file is selected.
-     *
-     * @return true if ore more image files are selected
-     */
     public synchronized boolean isAFileSelected() {
         return !selectedThumbnailIndices.isEmpty();
     }
@@ -879,11 +875,6 @@ public class ThumbnailsPanel extends JPanel
         return fileAction;
     }
 
-    /**
-     * Returns the number of Thumbnails.
-     *
-     * @return thumbnail count
-     */
     public synchronized int getFileCount() {
         return files.size();
     }
@@ -892,21 +883,10 @@ public class ThumbnailsPanel extends JPanel
         return !files.isEmpty();
     }
 
-    /**
-     * Returns all displayed files.
-     *
-     * @return files
-     */
     public synchronized List<File> getFiles() {
-        return new ArrayList<File>(files);
+        return Collections.unmodifiableList(files);
     }
 
-    /**
-     * Returns the files with a specific index.
-     *
-     * @param  indices  file indices
-     * @return files of valid indices
-     */
     private synchronized List<File> getFilesAtIndices(List<Integer> indices) {
         List<File> f = new ArrayList<File>();
 
@@ -937,16 +917,6 @@ public class ThumbnailsPanel extends JPanel
         return getFilesAtIndices(getSelectedIndices());
     }
 
-    public synchronized Comparator<File> getFileSortComparator() {
-        return fileSortComparator;
-    }
-
-    /**
-     * Returns wheter an index of a file is valid.
-     *
-     * @param  index index
-     * @return true if valid
-     */
     public synchronized boolean isIndex(int index) {
         return (index >= 0) && (index < files.size());
     }
@@ -1010,10 +980,6 @@ public class ThumbnailsPanel extends JPanel
         }
     }
 
-    /**
-     * Calls <code>refresh()</code> by all added
-     * {@code org.jphototagger.program.event.listener.RefreshListener} objects.
-     */
     public void refresh() {
         JViewport vp = getViewport();
         Point viewportPosition = new Point(0, 0);
@@ -1033,11 +999,9 @@ public class ThumbnailsPanel extends JPanel
     }
 
     /**
-     * Applies settings to this panel.
-     *
-     * @param settings can be null (won't be applied in that case)
+     * @param settings or null
      */
-    public void apply(ThumbnailsPanelSettings settings) {
+    public void applyThumbnailsPanelSettings(ThumbnailsPanelSettings settings) {
         if (settings == null) {
             return;
         }
@@ -1080,12 +1044,6 @@ public class ThumbnailsPanel extends JPanel
         return files.contains(file);
     }
 
-    /**
-     * Removes files from the <strong>display</strong>, <em>not</em> from the
-     * file system.
-     *
-     * @param filesToRemove  files to removeFiles
-     */
     public synchronized void removeFiles(Collection<? extends File> filesToRemove) {
         if (filesToRemove == null) {
             throw new NullPointerException("filesToRemove == null");
@@ -1144,11 +1102,6 @@ public class ThumbnailsPanel extends JPanel
         }
     }
 
-    /**
-     * Repaints a file.
-     *
-     * @param file  file
-     */
     public synchronized void repaintFile(File file) {
         if (file == null) {
             throw new NullPointerException("file == null");
@@ -1161,11 +1114,6 @@ public class ThumbnailsPanel extends JPanel
         }
     }
 
-    /**
-     * Sets the file action.
-     *
-     * @param fileAction  file action
-     */
     public synchronized void setFileAction(FileAction fileAction) {
         if (fileAction == null) {
             throw new NullPointerException("fileAction == null");
@@ -1174,24 +1122,13 @@ public class ThumbnailsPanel extends JPanel
         this.fileAction = fileAction;
     }
 
-    /**
-     * Color of the background surrounding a highlighted thumbnail. When
-     * changing, look for {@code #COLOR_TEXT_HIGHLIGHTED}.
-     */
-    /**
-     * Sets the files to display. Previous desplayed files will be hidden.
-     * The new files will be displayed in the defined sort order.
-     *
-     * @param files    files
-     * @param content  content description of the files
-     */
-    public synchronized void setFiles(Collection<? extends File> files, OriginOfDisplayedThumbnails content) {
+    public synchronized void setFiles(Collection<? extends File> files, OriginOfDisplayedThumbnails originOfOfDisplayedThumbnails) {
         if (files == null) {
             throw new NullPointerException("files == null");
         }
 
-        if (content == null) {
-            throw new NullPointerException("content == null");
+        if (originOfOfDisplayedThumbnails == null) {
+            throw new NullPointerException("originOfOfDisplayedThumbnails == null");
         }
 
         synchronized (this) {
@@ -1199,12 +1136,18 @@ public class ThumbnailsPanel extends JPanel
             clearSelectionAndFlags();
             new WarnOnEqualBasenamesTask(files).start();
 
-            List<File> filteredFiles = FileUtil.filterFiles(files, fileFilter);
+            boolean isImageCollection =
+                    OriginOfDisplayedThumbnails.FILES_OF_AN_IMAGE_COLLECTION.equals(originOfOfDisplayedThumbnails);
 
-            Collections.sort(filteredFiles, fileSortComparator);
+            List<File> filteredFiles = null;
+            if (!isImageCollection) {
+                filteredFiles = FileUtil.filterFiles(files, fileFilter);
+                Collections.sort(filteredFiles, fileSortComparator);
+            }
+
             this.files.clear();
-            this.files.addAll(filteredFiles);
-            this.originOfOfDisplayedThumbnails = content;
+            this.files.addAll(isImageCollection ? files : filteredFiles);
+            this.originOfOfDisplayedThumbnails = originOfOfDisplayedThumbnails;
             scrollToTop();
             setMissingFilesFlags();
         }
@@ -1223,18 +1166,26 @@ public class ThumbnailsPanel extends JPanel
         }
     }
 
-    /**
-     * Sets a file sort comparator, does <em>not</em> sort.
-     * This is done via {@code #sort()}.
-     *
-     * @param comparator comparator
-     */
-    public synchronized void setFileSortComparator(Comparator<File> comparator) {
+    public synchronized boolean isEmpty() {
+        return files.isEmpty();
+    }
+
+    synchronized void setFileSortComparator(Comparator<File> comparator) {
         if (comparator == null) {
             throw new NullPointerException("comparator == null");
         }
 
-        fileSortComparator = comparator;
+        boolean comparatorChanged = !ObjectUtil.equals(comparator, fileSortComparator);
+
+        if (comparatorChanged) {
+            LOGGER.log(Level.FINEST, "Changing sort order to {0}", fileSortComparator);
+            fileSortComparator = comparator;
+            boolean isImageCollection =
+                    OriginOfDisplayedThumbnails.FILES_OF_AN_IMAGE_COLLECTION.equals(originOfOfDisplayedThumbnails);
+            if (!isImageCollection && !isEmpty()) {
+                setFiles(getFiles(), originOfOfDisplayedThumbnails);
+            }
+        }
     }
 
     public synchronized void setFileFilter(FileFilter filter) {
@@ -1242,8 +1193,17 @@ public class ThumbnailsPanel extends JPanel
             throw new NullPointerException("filter == null");
         }
 
-        fileFilter = filter;
-        refresh();
+        boolean filterChanged = !ObjectUtil.equals(fileFilter, filter);
+
+        if (filterChanged) {
+            LOGGER.log(Level.FINEST, "Changing file filter to {0}", filter);
+            fileFilter = filter;
+            boolean isImageCollection =
+                    OriginOfDisplayedThumbnails.FILES_OF_AN_IMAGE_COLLECTION.equals(originOfOfDisplayedThumbnails);
+            if (!isImageCollection && !isEmpty()) {
+                refresh(); // Refresh because a filter may display more files, e.g. prev. TIFF, now ALL types
+            }
+        }
     }
 
     public synchronized void sort() {
@@ -1292,12 +1252,10 @@ public class ThumbnailsPanel extends JPanel
 
     private void notifyThumbnailsChanged() {
         synchronized (thumbnailsChangedNotifyMonitor) {
-            if (!notifyTnsChanged) {
-                notifyTnsChanged = true;
-
+            if (!publishesChangedEvent) {
+                publishesChangedEvent = true;
                 EventBus.publish(new ThumbnailsChangedEvent(this, originOfOfDisplayedThumbnails, files));
-
-                notifyTnsChanged = false;
+                publishesChangedEvent = false;
             }
         }
     }
@@ -1672,7 +1630,7 @@ public class ThumbnailsPanel extends JPanel
     }
 
     @EventSubscriber(eventClass = PreferencesChangedEvent.class)
-    public void applySettings(PreferencesChangedEvent evt) {
+    public void preferencesChanged(PreferencesChangedEvent evt) {
         if (AppPreferencesKeys.KEY_UI_DISPLAY_THUMBNAIL_TOOLTIP.equals(evt.getKey())) {
             boolean displayThumbnailTooltip = (Boolean) evt.getNewValue();
 

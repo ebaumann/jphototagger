@@ -14,15 +14,14 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 import org.openide.util.Lookup;
 
 import org.jphototagger.domain.repository.ImageCollectionsRepository;
-import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
 import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
+import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.comparator.FileSort;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.app.ui.WaitDisplay;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
+import org.jphototagger.program.resource.GUI;
 
 /**
  * Kontrolliert die Aktion: Eine Bildsammlung wurde ausgewählt.
@@ -94,9 +93,8 @@ public final class ImageCollectionSelectedController implements ListSelectionLis
                 ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
                 setTitle();
-                tnPanel.setFileSortComparator(FileSort.NO_SORT.getComparator());
                 tnPanel.setFiles(imageFiles, OriginOfDisplayedThumbnails.FILES_OF_AN_IMAGE_COLLECTION);
-                tnPanel.apply(settings);
+                tnPanel.applyThumbnailsPanelSettings(settings);
                 WaitDisplay.INSTANCE.hide();
             }
 

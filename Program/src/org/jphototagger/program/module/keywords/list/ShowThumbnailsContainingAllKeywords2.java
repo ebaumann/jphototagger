@@ -10,9 +10,8 @@ import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.module.thumbnails.SortThumbnailsController;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.app.ui.WaitDisplay;
+import org.jphototagger.program.resource.GUI;
 
 /**
  * Displays in the {@code ThumbnailsPanel} thumbnails of images containing all
@@ -55,7 +54,6 @@ public final class ShowThumbnailsContainingAllKeywords2 implements Runnable {
     private void setFilesToThumbnailsPanel() {
         List<File> imageFiles = getImageFilesOfKeywords();
 
-        SortThumbnailsController.sortThumbnailsWithCurrentSortOrder();
         GUI.getThumbnailsPanel().setFiles(imageFiles, OriginOfDisplayedThumbnails.FILES_MATCHING_A_KEYWORD);
     }
 

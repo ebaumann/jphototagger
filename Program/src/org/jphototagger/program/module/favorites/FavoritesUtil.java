@@ -12,19 +12,18 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.domain.repository.FavoritesRepository;
-import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
 import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
+import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.module.thumbnails.SortThumbnailsController;
-import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.program.module.filesystem.ImageFileFilterer;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.app.ui.WaitDisplay;
 import org.jphototagger.program.app.ui.AppPanel;
 import org.jphototagger.program.app.ui.EditMetadataPanels;
+import org.jphototagger.program.app.ui.WaitDisplay;
+import org.jphototagger.program.factory.ModelFactory;
+import org.jphototagger.program.module.filesystem.ImageFileFilterer;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
+import org.jphototagger.program.resource.GUI;
 
 /**
  * @author Elmar Baumann
@@ -219,10 +218,9 @@ public final class FavoritesUtil {
         @Override
         public void run() {
             WaitDisplay.INSTANCE.show();
-            SortThumbnailsController.sortThumbnailsWithCurrentSortOrder();
             setTitle();
             tnPanel.setFiles(files, OriginOfDisplayedThumbnails.FILES_IN_SAME_FAVORITE_DIRECTORY);
-            tnPanel.apply(tnPanelSettings);
+            tnPanel.applyThumbnailsPanelSettings(tnPanelSettings);
             setMetadataEditable();
             WaitDisplay.INSTANCE.hide();
         }

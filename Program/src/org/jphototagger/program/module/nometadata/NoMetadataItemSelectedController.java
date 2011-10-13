@@ -12,10 +12,9 @@ import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.module.thumbnails.SortThumbnailsController;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.app.ui.WaitDisplay;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
+import org.jphototagger.program.resource.GUI;
 
 /**
  * Listens to selections within the list {@code AppPanel#getListNoMetadata()}
@@ -55,7 +54,6 @@ public final class NoMetadataItemSelectedController implements ListSelectionList
 
             ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
-            SortThumbnailsController.sortThumbnailsWithCurrentSortOrder();
             tnPanel.setFiles(imageFiles, OriginOfDisplayedThumbnails.FILES_MATCHING_MISSING_METADATA);
             WaitDisplay.INSTANCE.hide();
         }

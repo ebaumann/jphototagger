@@ -35,26 +35,16 @@ public final class AppWindowPersistence implements ComponentListener {
     private static final String KEY_DIVIDER_LOCATION_MAIN = "AppPanel.DividerLocationMain";
     private static final String KEY_DIVIDER_LOCATION_THUMBNAILS = "AppPanel.DividerLocationThumbnails";
     private static final String KEY_KEYWORDS_VIEW = "AppPanel.KeywordsView";
-    private static final String APP_PANEL_TREE_DIRECTORIES = "org.jphototagger.program.view.panels.AppPanel.treeDirectories";
-    private static final String APP_PANEL_TREE_FAVORITES = "org.jphototagger.program.view.panels.AppPanel.treeFavorites";
-    private static final String APP_PANEL_TREE_SEL_KEYWORDS = "org.jphototagger.program.view.panels.AppPanel.treeSelKeywords";
+    private static final String APP_PANEL_TREE_DIRECTORIES = "org.jphototagger.program.app.ui.AppPanel.treeDirectories";
+    private static final String APP_PANEL_TREE_FAVORITES = "org.jphototagger.program.app.ui.AppPanel.treeFavorites";
+    private static final String APP_PANEL_TREE_SEL_KEYWORDS = "org.jphototagger.program.app.ui.AppPanel.treeSelKeywords";
     private static final String APP_PANEL_TREE_EDIT_KEYWORDS = "AppPanel.Keywords.Tree";
-    private static final String APP_PANEL_TREE_MISC_METADATA = "org.jphototagger.program.view.panels.AppPanel.treeMiscMetadata";
-    private static final String APP_PANEL_TREE_TIMELINE = "org.jphototagger.program.view.panels.AppPanel.treeTimeline";
-    private static final String APP_PANEL_LIST_IMAGE_COLLECTIONS = "org.jphototagger.program.view.panels.AppPanel.listImageCollections";
-    private static final String APP_PANEL_LIST_NO_METADATA = "org.jphototagger.program.view.panels.AppPanel.listNoMetadata";
-    private static final String APP_PANEL_LIST_SAVED_SEARCHES = "org.jphototagger.program.view.panels.AppPanel.listSavedSearches";
-    private static final String APP_PANEL_LIST_SEL_KEYWORDS = "org.jphototagger.program.view.panels.AppPanel.listSelKeywords";
-    private static final String APP_PANEL_TABLE_EXIF = "org.jphototagger.program.view.panels.AppPanel.tableExif";
-    private static final String APP_PANEL_TABLE_IPTC = "org.jphototagger.program.view.panels.AppPanel.tableIptc";
-    private static final String APP_PANEL_TABLE_XMP_CR_SETTINGS = "org.jphototagger.program.view.panels.AppPanel.tableXmpCameraRawSettings";
-    private static final String APP_PANEL_TABLE_XMP_DC = "org.jphototagger.program.view.panels.AppPanel.tableXmpDc";
-    private static final String APP_PANEL_TABLE_XMP_EXIF = "org.jphototagger.program.view.panels.AppPanel.tableXmpExif";
-    private static final String APP_PANEL_TABLE_XMP_IPTC = "org.jphototagger.program.view.panels.AppPanel.tableXmpIptc";
-    private static final String APP_PANEL_TABLE_XMP_LIGHTROOM = "org.jphototagger.program.view.panels.AppPanel.tableXmpLightroom";
-    private static final String APP_PANEL_TABLE_XMP_PHOTOSHOP = "org.jphototagger.program.view.panels.AppPanel.tableXmpPhotoshop";
-    private static final String APP_PANEL_TABLE_XMP_TIFF = "org.jphototagger.program.view.panels.AppPanel.tableXmpTiff";
-    private static final String APP_PANEL_TABLE_XMP_XAP = "org.jphototagger.program.view.panels.AppPanel.tableXmpXap";
+    private static final String APP_PANEL_TREE_MISC_METADATA = "org.jphototagger.program.app.ui.AppPanel.treeMiscMetadata";
+    private static final String APP_PANEL_TREE_TIMELINE = "org.jphototagger.program.app.ui.AppPanel.treeTimeline";
+    private static final String APP_PANEL_LIST_IMAGE_COLLECTIONS = "org.jphototagger.program.app.ui.AppPanel.listImageCollections";
+    private static final String APP_PANEL_LIST_NO_METADATA = "org.jphototagger.program.app.ui.AppPanel.listNoMetadata";
+    private static final String APP_PANEL_LIST_SAVED_SEARCHES = "org.jphototagger.program.app.ui.AppPanel.listSavedSearches";
+    private static final String APP_PANEL_LIST_SEL_KEYWORDS = "org.jphototagger.program.app.ui.AppPanel.listSelKeywords";
     private final Component cardSelKeywordsList = GUI.getAppPanel().getCardSelKeywordsList();
     private final Component cardSelKeywordsTree = GUI.getAppPanel().getCardSelKeywordsTree();
     private final Map<Component, String> NAME_OF_CARD = new HashMap<Component, String>(2);
@@ -160,6 +150,8 @@ public final class AppWindowPersistence implements ComponentListener {
         hints.addKeyToExclude(APP_PANEL_TREE_MISC_METADATA);
         hints.addKeyToExclude(APP_PANEL_TREE_SEL_KEYWORDS);
         hints.addKeyToExclude(APP_PANEL_TREE_TIMELINE);
+
+        hints.addKeyToExclude("org.jphototagger.program.app.ui.AppPanel.comboBoxFileFilters");
 
         return hints;
     }

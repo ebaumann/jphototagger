@@ -8,7 +8,6 @@ import org.jphototagger.domain.metadata.search.SavedSearch;
 import org.jphototagger.domain.repository.SavedSearchesRepository;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.module.thumbnails.SortThumbnailsController;
 import org.jphototagger.program.resource.GUI;
 
 /**
@@ -154,25 +153,6 @@ public final class SavedSearchesUtil {
                 String message = Bundle.getString(SavedSearchesUtil.class, "SavedSearchesHelper.Error.Rename", fromName);
                 MessageDisplayer.error(null, message);
             }
-        }
-    }
-
-    /**
-     * Calls {@code ThumbnailsPanel#setFileSortComparator(java.util.Comparator)}
-     * with no sort order if the search uses custom SQL or the last used sort
-     * order.
-     *
-     * @param search saved search
-     */
-    public static void setSort(SavedSearch search) {
-        if (search == null) {
-            throw new NullPointerException("search == null");
-        }
-
-        if (search.isCustomSql()) {
-            SortThumbnailsController.setUnsorted();
-        } else {
-            SortThumbnailsController.sortThumbnailsWithCurrentSortOrder();
         }
     }
 

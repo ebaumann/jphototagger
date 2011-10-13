@@ -10,15 +10,14 @@ import javax.swing.tree.TreePath;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 
-import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
 import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
+import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.module.thumbnails.SortThumbnailsController;
+import org.jphototagger.program.app.ui.WaitDisplay;
 import org.jphototagger.program.module.filesystem.ImageFileFilterer;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.app.ui.WaitDisplay;
 
 /**
  * Listens for selections of items in the directory tree view. A tree item
@@ -85,9 +84,8 @@ public final class DirectorySelectedController implements TreeSelectionListener 
                 List<File> files = ImageFileFilterer.getImageFilesOfDirectory(selectedDirectory);
 
                 setTitle(selectedDirectory);
-                SortThumbnailsController.sortThumbnailsWithCurrentSortOrder();
                 GUI.getThumbnailsPanel().setFiles(files, OriginOfDisplayedThumbnails.FILES_IN_SAME_DIRECTORY);
-                GUI.getThumbnailsPanel().apply(panelSettings);
+                GUI.getThumbnailsPanel().applyThumbnailsPanelSettings(panelSettings);
                 setMetadataEditable();
                 WaitDisplay.INSTANCE.hide();
             }

@@ -15,15 +15,14 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.repository.ImageFilesRepository;
-import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
 import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
+import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.module.thumbnails.SortThumbnailsController;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.app.ui.WaitDisplay;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
+import org.jphototagger.program.resource.GUI;
 
 /**
  * @author Elmar Baumann
@@ -99,10 +98,9 @@ public final class MiscMetadataItemSelectedController implements TreeSelectionLi
                     MetaDataValue mdValue = (MetaDataValue) parentUserObject;
 
                     setTitle(mdValue, userObject);
-                    SortThumbnailsController.sortThumbnailsWithCurrentSortOrder();
                     tnPanel.setFiles(repo.findImageFilesWhereMetaDataValueHasExactValue(mdValue,
                             userObject.toString()), OriginOfDisplayedThumbnails.FILES_MATCHING_MISC_METADATA);
-                    tnPanel.apply(tnPanelSettings);
+                    tnPanel.applyThumbnailsPanelSettings(tnPanelSettings);
                 } else {
                     setTitle();
                 }
@@ -110,18 +108,16 @@ public final class MiscMetadataItemSelectedController implements TreeSelectionLi
                 MetaDataValue mdValue = (MetaDataValue) userObject;
 
                 setTitle(mdValue);
-                SortThumbnailsController.sortThumbnailsWithCurrentSortOrder();
                 tnPanel.setFiles(repo.findImageFilesContainingAVauleInMetaDataValue(mdValue), OriginOfDisplayedThumbnails.FILES_MATCHING_MISC_METADATA);
-                tnPanel.apply(tnPanelSettings);
+                tnPanel.applyThumbnailsPanelSettings(tnPanelSettings);
             } else {
-                SortThumbnailsController.sortThumbnailsWithCurrentSortOrder();
                 tnPanel.setFiles(new ArrayList<File>(), OriginOfDisplayedThumbnails.FILES_MATCHING_MISC_METADATA);
-                tnPanel.apply(tnPanelSettings);
+                tnPanel.applyThumbnailsPanelSettings(tnPanelSettings);
                 setTitle();
             }
         }
 
-        // 1 path where tnPanel.apply(tnPanelSettings) is not to call
+        // 1 path where tnPanel.applyThumbnailsPanelSettings(tnPanelSettings) is not to call
         private void setTitle() {
             GUI.getAppFrame().setTitle(
                     Bundle.getString(ShowThumbnails.class, "MiscMetadataItemSelectedController.AppFrame.Title.Metadata"));
