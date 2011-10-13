@@ -41,4 +41,9 @@ public final class XmpExifDateTimeAscendingComparator extends ClassEquality impl
 
         return xmpDate != null ? xmpDate : "";
     }
+
+    @Override
+    public String toString() {
+        return "XMP and EXIF Dates Ascending";
+    }
 }

@@ -23,4 +23,9 @@ public final class FilesuffixAscendingComparator extends ClassEquality implement
 
         return leftSuffix.compareTo(rightSuffix);
     }
+
+    @Override
+    public String toString() {
+        return "File Suffix Ascending";
+    }
 }

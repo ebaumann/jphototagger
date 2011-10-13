@@ -19,4 +19,9 @@ public final class FilenameAscendingComparator extends ClassEquality implements 
     public int compare(File leftFile, File rightFile) {
         return leftFile.getName().compareTo(rightFile.getName());
     }
+
+    @Override
+    public String toString() {
+        return "Filename Ascending";
+    }
 }

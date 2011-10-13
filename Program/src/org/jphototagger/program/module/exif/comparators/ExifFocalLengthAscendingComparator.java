@@ -35,4 +35,9 @@ public final class ExifFocalLengthAscendingComparator extends ClassEquality impl
                 ? 0
                 : -1;
     }
+
+    @Override
+    public String toString() {
+        return "EXIF Focal Length Ascending";
+    }
 }

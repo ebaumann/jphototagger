@@ -19,4 +19,9 @@ public final class ExifIsoSpeedRatingDescendingComparator extends ClassEquality 
     public int compare(File fileLeft, File fileRight) {
         return delegate.compare(fileLeft, fileRight);
     }
+
+    @Override
+    public String toString() {
+        return "EXIF ISO Speed Rating Descending";
+    }
 }

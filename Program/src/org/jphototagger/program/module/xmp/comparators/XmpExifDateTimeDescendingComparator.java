@@ -20,4 +20,9 @@ public final class XmpExifDateTimeDescendingComparator extends ClassEquality imp
     public int compare(File fileLeft, File fileRight) {
         return delegate.compare(fileLeft, fileRight);
     }
+
+    @Override
+    public String toString() {
+        return "XMP and EXIF Dates Descending";
+    }
 }

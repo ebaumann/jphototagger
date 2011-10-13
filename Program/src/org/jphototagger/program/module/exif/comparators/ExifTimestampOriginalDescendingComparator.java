@@ -20,4 +20,9 @@ public final class ExifTimestampOriginalDescendingComparator extends ClassEquali
     public int compare(File fileLeft, File fileRight) {
         return delegate.compare(fileLeft, fileRight);
     }
+
+    @Override
+    public String toString() {
+        return "EXIF DateTimeOriginal Date and Time Descending";
+    }
 }

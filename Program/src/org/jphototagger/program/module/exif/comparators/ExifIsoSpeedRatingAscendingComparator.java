@@ -31,4 +31,9 @@ public final class ExifIsoSpeedRatingAscendingComparator extends ClassEquality i
                 ? 1
                 : exifLeft.getIsoSpeedRatings() - exifRight.getIsoSpeedRatings();
     }
+
+    @Override
+    public String toString() {
+        return "EXIF ISO Speed Rating Ascending";
+    }
 }
