@@ -14,15 +14,16 @@ import java.util.logging.XMLFormatter;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 
-import org.jphototagger.lib.awt.EventQueueUtil;
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.messages.MessageType;
-import org.jphototagger.api.messages.StatusBarMessageDisplayer;
-import org.jphototagger.lib.util.logging.LogfileDialog;
+import org.jphototagger.api.windows.MainWindowManager;
+import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.MouseEventUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.util.logging.LogfileDialog;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.resource.GUI;
-import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann
@@ -84,9 +85,9 @@ public final class ErrorLogHandler extends Handler implements ActionListener, Mo
     }
 
     private void showErrorLabel() {
-        StatusBarMessageDisplayer messageDisplayer = Lookup.getDefault().lookup(StatusBarMessageDisplayer.class);
+        MainWindowManager mainWindowManager = Lookup.getDefault().lookup(MainWindowManager.class);
 
-        messageDisplayer.setStatusbarText(STATUSBAR_ERROR_TEXT, MessageType.ERROR, MILLISECONDS_ERROR_DISPLAY);
+        mainWindowManager.setMainWindowStatusbarText(STATUSBAR_ERROR_TEXT, MessageType.ERROR, MILLISECONDS_ERROR_DISPLAY);
         getItemErrorLogfile().setEnabled(true);
 
         JLabel labelError = GUI.getAppPanel().getLabelError();
