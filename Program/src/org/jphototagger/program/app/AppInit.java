@@ -10,7 +10,7 @@ import org.bushe.swing.event.EventBus;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.lifecycle.AppWillInitEvent;
+import org.jphototagger.api.applifecycle.AppWillInitEvent;
 import org.jphototagger.domain.repository.Repository;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.LongMessageDialog;

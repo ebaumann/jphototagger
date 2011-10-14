@@ -16,7 +16,7 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesHints;
-import org.jphototagger.api.lifecycle.AppWillExitEvent;
+import org.jphototagger.api.applifecycle.AppWillExitEvent;
 import org.jphototagger.iptc.IptcPreferencesKeys;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.util.ComponentUtil;

@@ -10,7 +10,7 @@ import org.openide.util.Lookup;
 import org.jphototagger.api.branding.AppProperties;
 import org.jphototagger.api.modules.Module;
 import org.jphototagger.api.preferences.Preferences;
-import org.jphototagger.api.lifecycle.AppUpdater;
+import org.jphototagger.api.applifecycle.AppUpdater;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Version;
 import org.jphototagger.program.settings.AppPreferencesKeys;
