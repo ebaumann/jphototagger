@@ -21,6 +21,7 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.windows.MainWindowManager;
+import org.jphototagger.api.windows.WaitDisplayer;
 import org.jphototagger.domain.DomainPreferencesKeys;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.selections.AutoCompleteDataOfMetaDataValue;
@@ -40,7 +41,6 @@ import org.jphototagger.lib.swing.util.Autocomplete;
 import org.jphototagger.lib.swing.util.ListUtil;
 import org.jphototagger.lib.swing.util.TreeUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.ui.WaitDisplay;
 import org.jphototagger.program.misc.AutocompleteUtil;
 import org.jphototagger.program.resource.GUI;
 
@@ -167,7 +167,8 @@ public final class FastSearchController implements ActionListener {
                 String userInput = searchText.trim();
 
                 if (!userInput.isEmpty()) {
-                    WaitDisplay.INSTANCE.show();
+                    WaitDisplayer waitDisplayer = Lookup.getDefault().lookup(WaitDisplayer.class);
+                    waitDisplayer.show();
                     clearSelection();
 
                     List<File> imageFiles = searchFiles(userInput);
@@ -176,8 +177,7 @@ public final class FastSearchController implements ActionListener {
                         setTitle(userInput);
                         GUI.getThumbnailsPanel().setFiles(imageFiles, OriginOfDisplayedThumbnails.FILES_FOUND_BY_FAST_SEARCH);
                     }
-
-                    WaitDisplay.INSTANCE.hide();
+                    waitDisplayer.hide();
                 }
             }
 

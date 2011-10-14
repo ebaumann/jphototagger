@@ -7,11 +7,11 @@ import java.util.List;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.windows.MainWindowManager;
+import org.jphototagger.api.windows.WaitDisplayer;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.ui.WaitDisplay;
 import org.jphototagger.program.resource.GUI;
 
 /**
@@ -44,10 +44,11 @@ public final class ShowThumbnailsContainingAllKeywords2 implements Runnable {
 
             @Override
             public void run() {
-                WaitDisplay.INSTANCE.show();
+                WaitDisplayer waitDisplayer = Lookup.getDefault().lookup(WaitDisplayer.class);
+                waitDisplayer.show();
                 setFilesToThumbnailsPanel();
                 setMetadataEditable();
-                WaitDisplay.INSTANCE.hide();
+                waitDisplayer.hide();
             }
         });
     }

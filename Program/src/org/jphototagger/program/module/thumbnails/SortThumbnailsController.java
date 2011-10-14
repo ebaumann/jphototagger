@@ -5,8 +5,10 @@ import java.awt.event.ItemListener;
 import java.io.File;
 import java.util.Comparator;
 
+import org.openide.util.Lookup;
+
+import org.jphototagger.api.windows.WaitDisplayer;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.program.app.ui.WaitDisplay;
 import org.jphototagger.program.resource.GUI;
 
 /**
@@ -27,11 +29,12 @@ public final class SortThumbnailsController implements ItemListener {
 
             @Override
             public void run() {
-                WaitDisplay.INSTANCE.show();
+                WaitDisplayer waitDisplayer = Lookup.getDefault().lookup(WaitDisplayer.class);
+                waitDisplayer.show();
                 ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
                 tnPanel.setFileSortComparator(fileSortComparator);
                 tnPanel.sort();
-                WaitDisplay.INSTANCE.hide();
+                waitDisplayer.hide();
             }
         });
     }
