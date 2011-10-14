@@ -12,11 +12,11 @@ import javax.swing.tree.TreePath;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.concurrent.Cancelable;
+import org.jphototagger.api.messages.MessageType;
 import org.jphototagger.api.progress.MainWindowProgressBarProvider;
 import org.jphototagger.api.progress.ProgressEvent;
+import org.jphototagger.api.windows.MainWindowManager;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.api.messages.MessageType;
-import org.jphototagger.api.messages.StatusBarMessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.module.keywords.tree.KeywordsTreeModel;
@@ -137,7 +137,7 @@ public abstract class KeywordsImporter {
                     progressBarProvider.progressPerformed(createProgressEventWithValue(progressValue));
                 }
 
-                 progressBarProvider.progressEnded(pBarOwner);
+                progressBarProvider.progressEnded(pBarOwner);
                 messageImported(importCount);
                 expandRootSelHk();
             }
@@ -151,21 +151,14 @@ public abstract class KeywordsImporter {
         }
 
         private ProgressEvent createProgressEventWithValue(final int value) {
-            return new ProgressEvent.Builder()
-                   .source(pBarOwner)
-                   .minimum(0)
-                   .maximum(paths.size())
-                   .value(value)
-                   .stringPainted(true)
-                   .stringToPaint(PROGRESSBAR_STRING)
-                   .build();
+            return new ProgressEvent.Builder().source(pBarOwner).minimum(0).maximum(paths.size()).value(value).stringPainted(true).stringToPaint(PROGRESSBAR_STRING).build();
         }
 
         private void messageImported(int importCount) {
             String message = Bundle.getString(ImportTask.class, "ImportTask.Info.Imported", importCount);
-            StatusBarMessageDisplayer messageDisplayer = Lookup.getDefault().lookup(StatusBarMessageDisplayer.class);
+            MainWindowManager messageDisplayer = Lookup.getDefault().lookup(MainWindowManager.class);
 
-            messageDisplayer.setStatusbarText(message, MessageType.INFO, 2000);
+            messageDisplayer.setMainWindowStatusbarText(message, MessageType.INFO, 2000);
         }
     }
 }

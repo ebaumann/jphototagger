@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.messages.MessageType;
-import org.jphototagger.api.messages.StatusBarMessageDisplayer;
+import org.jphototagger.api.windows.MainWindowManager;
 
 /**
  * @author Elmar Baumann
@@ -47,9 +47,9 @@ final class Support {
     }
 
     static void setStatusbarInfo(final String message) {
-        StatusBarMessageDisplayer messageDisplayer = Lookup.getDefault().lookup(StatusBarMessageDisplayer.class);
+        MainWindowManager messageDisplayer = Lookup.getDefault().lookup(MainWindowManager.class);
 
-        messageDisplayer.setStatusbarText(message, MessageType.INFO, 2000);
+        messageDisplayer.setMainWindowStatusbarText(message, MessageType.INFO, 2000);
     }
 
     /**

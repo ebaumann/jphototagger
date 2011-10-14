@@ -13,15 +13,15 @@ import org.jdesktop.swingx.JXList;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.api.messages.MessageType;
-import org.jphototagger.api.messages.StatusBarMessageDisplayer;
+import org.jphototagger.api.windows.MainWindowManager;
 import org.jphototagger.domain.imagecollections.ImageCollection;
 import org.jphototagger.domain.repository.ImageCollectionsRepository;
+import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPopupMenu;
+import org.jphototagger.program.resource.GUI;
 
 /**
  * @author Elmar Baumann
@@ -68,8 +68,8 @@ public final class PickRejectController implements ActionListener, KeyListener {
         if (panelThumbnails.isAFileSelected()) {
             List<File> selFiles = panelThumbnails.getSelectedFiles();
 
-            StatusBarMessageDisplayer messageDisplayer = Lookup.getDefault().lookup(StatusBarMessageDisplayer.class);
-            messageDisplayer.setStatusbarText(getPopupMessage(pick), MessageType.INFO, 1000);
+            MainWindowManager mainWindowManager = Lookup.getDefault().lookup(MainWindowManager.class);
+            mainWindowManager.setMainWindowStatusbarText(getPopupMessage(pick), MessageType.INFO, 1000);
             addToCollection(pick
                     ? ImageCollection.PICKED_NAME
                     : ImageCollection.REJECTED_NAME, selFiles);
