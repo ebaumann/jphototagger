@@ -7,7 +7,6 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 
 import org.jphototagger.domain.metadata.MetaDataValue;
-import org.jphototagger.program.app.ui.TableIcons;
 
 /**
  * @author Elmar Baumann
@@ -21,10 +20,10 @@ public final class FilesWithoutMetaDataListCellRenderer extends DefaultListCellR
         JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 
         if (value instanceof MetaDataValue) {
-            MetaDataValue mdValue = (MetaDataValue) value;
+            MetaDataValue metaDataValue = (MetaDataValue) value;
 
-            label.setText(mdValue.getDescription());
-            label.setIcon(TableIcons.getIcon(mdValue.getCategory()));
+            label.setText(metaDataValue.getDescription());
+            label.setIcon(metaDataValue.getCategoryIcon());
         }
 
         return label;

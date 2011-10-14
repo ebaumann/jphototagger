@@ -18,7 +18,7 @@ public final class MetaDataValueLabelFormatter {
             throw new NullPointerException("metaDataValue == null");
         }
 
-        label.setIcon(TableIcons.getIcon(metaDataValue.getCategory()));
+        label.setIcon(metaDataValue.getCategoryIcon());
         label.setText(metaDataValue.getDescription());
     }
 
