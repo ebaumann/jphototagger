@@ -1135,19 +1135,15 @@ public class ThumbnailsPanel extends JPanel
             Logger.getLogger(ThumbnailsPanel.class.getName()).log(Level.FINE, "{0} new files to display", files.size());
             clearSelectionAndFlags();
             new WarnOnEqualBasenamesTask(files).start();
-
-            boolean isImageCollection =
-                    OriginOfDisplayedThumbnails.FILES_OF_AN_IMAGE_COLLECTION.equals(originOfOfDisplayedThumbnails);
-
-            List<File> filteredFiles = null;
-            if (!isImageCollection) {
-                filteredFiles = FileUtil.filterFiles(files, fileFilter);
+            this.originOfOfDisplayedThumbnails = originOfOfDisplayedThumbnails;
+            List<File> filteredFiles = originOfOfDisplayedThumbnails.isFilterable()
+                    ? FileUtil.filterFiles(files, fileFilter)
+                    : new ArrayList<File>(files);
+            if (originOfOfDisplayedThumbnails.isSortable()) {
                 Collections.sort(filteredFiles, fileSortComparator);
             }
-
             this.files.clear();
-            this.files.addAll(isImageCollection ? files : filteredFiles);
-            this.originOfOfDisplayedThumbnails = originOfOfDisplayedThumbnails;
+            this.files.addAll(filteredFiles);
             scrollToTop();
             setMissingFilesFlags();
         }
@@ -1180,15 +1176,13 @@ public class ThumbnailsPanel extends JPanel
         if (comparatorChanged) {
             LOGGER.log(Level.FINEST, "Changing sort order to {0}", fileSortComparator);
             fileSortComparator = comparator;
-            boolean isImageCollection =
-                    OriginOfDisplayedThumbnails.FILES_OF_AN_IMAGE_COLLECTION.equals(originOfOfDisplayedThumbnails);
-            if (!isImageCollection && !isEmpty()) {
+            if (originOfOfDisplayedThumbnails.isSortable() && !isEmpty()) {
                 setFiles(getFiles(), originOfOfDisplayedThumbnails);
             }
         }
     }
 
-    public synchronized void setFileFilter(FileFilter filter) {
+    synchronized void setFileFilter(FileFilter filter) {
         if (filter == null) {
             throw new NullPointerException("filter == null");
         }
@@ -1198,16 +1192,14 @@ public class ThumbnailsPanel extends JPanel
         if (filterChanged) {
             LOGGER.log(Level.FINEST, "Changing file filter to {0}", filter);
             fileFilter = filter;
-            boolean isImageCollection =
-                    OriginOfDisplayedThumbnails.FILES_OF_AN_IMAGE_COLLECTION.equals(originOfOfDisplayedThumbnails);
-            if (!isImageCollection && !isEmpty()) {
-                refresh(); // Refresh because a filter may display more files, e.g. prev. TIFF, now ALL types
+            if (originOfOfDisplayedThumbnails.isFilterable() && !isEmpty()) {
+                refresh(); // Refresh and not setFiles() because a filter may display more files, e.g. prev. TIFF, now ALL types
             }
         }
     }
 
-    public synchronized void sort() {
-        if (!originOfOfDisplayedThumbnails.equals(OriginOfDisplayedThumbnails.FILES_OF_AN_IMAGE_COLLECTION)) {
+    synchronized void sort() {
+        if (originOfOfDisplayedThumbnails.isSortable()) {
             List<File> selFiles = getSelectedFiles();
 
             setFiles(new ArrayList<File>(files), originOfOfDisplayedThumbnails);
