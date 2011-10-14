@@ -9,6 +9,7 @@ import javax.swing.JButton;
 
 import org.openide.util.Lookup;
 
+import org.jphototagger.api.windows.MainWindowManager;
 import org.jphototagger.domain.metadata.search.ParamStatement;
 import org.jphototagger.domain.metadata.search.SavedSearch;
 import org.jphototagger.domain.repository.FindRepository;
@@ -16,8 +17,8 @@ import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.util.TreeUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.app.ui.WaitDisplay;
+import org.jphototagger.program.resource.GUI;
 
 /**
  * Kontrolliert die Aktionen: Erweiterter Suchdialog soll angezeigt werden sowie
@@ -67,7 +68,9 @@ public final class AdvancedSearchController implements ActionListener {
             private void setTitle(String name) {
                 String titleAdvancedSearch = Bundle.getString(AdvancedSearchController.class, "AdvancedSearchController.AppFrame.Title.AdvancedSearch");
                 String titleSavedSearch = Bundle.getString(AdvancedSearchController.class, "AdvancedSearchController.AppFrame.Title.AdvancedSearch.Saved", name);
-                GUI.getAppFrame().setTitle(name == null ? titleAdvancedSearch : titleSavedSearch);
+                String title = name == null ? titleAdvancedSearch : titleSavedSearch;
+                MainWindowManager mainWindowManager = Lookup.getDefault().lookup(MainWindowManager.class);
+                mainWindowManager.setMainWindowTitle(title);
             }
         });
     }

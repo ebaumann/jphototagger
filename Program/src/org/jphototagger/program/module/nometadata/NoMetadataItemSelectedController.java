@@ -6,6 +6,7 @@ import java.util.List;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import org.jphototagger.api.windows.MainWindowManager;
 import org.openide.util.Lookup;
 
 import org.jphototagger.domain.metadata.MetaDataValue;
@@ -60,7 +61,8 @@ public final class NoMetadataItemSelectedController implements ListSelectionList
     }
 
     private void setTitle(MetaDataValue mdValue) {
-        GUI.getAppFrame().setTitle(
+        MainWindowManager mainWindowManager = Lookup.getDefault().lookup(MainWindowManager.class);
+        mainWindowManager.setMainWindowTitle(
                 Bundle.getString(NoMetadataItemSelectedController.class,
                 "NoMetadataItemSelectedController.AppFrame.Title.WithoutMetadata", mdValue.getDescription()));
     }

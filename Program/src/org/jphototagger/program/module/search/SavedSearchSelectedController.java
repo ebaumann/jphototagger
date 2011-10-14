@@ -11,6 +11,7 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 
 import org.openide.util.Lookup;
 
+import org.jphototagger.api.windows.MainWindowManager;
 import org.jphototagger.domain.metadata.search.ParamStatement;
 import org.jphototagger.domain.metadata.search.SavedSearch;
 import org.jphototagger.domain.repository.FindRepository;
@@ -18,8 +19,8 @@ import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.app.ui.WaitDisplay;
+import org.jphototagger.program.resource.GUI;
 
 /**
  * @author Elmar Baumann
@@ -97,8 +98,9 @@ public final class SavedSearchSelectedController implements ListSelectionListene
         }
 
         private void setTitle(String name) {
-            GUI.getAppFrame().setTitle(
-                    Bundle.getString(ShowThumbnails.class, "SavedSearchSelectedController.AppFrame.Title.AdvancedSearch.Saved", name));
+            String title = Bundle.getString(ShowThumbnails.class, "SavedSearchSelectedController.AppFrame.Title.AdvancedSearch.Saved", name);
+            MainWindowManager mainWindowManager = Lookup.getDefault().lookup(MainWindowManager.class);
+            mainWindowManager.setMainWindowTitle(title);
         }
 
         private void setMetadataEditable() {

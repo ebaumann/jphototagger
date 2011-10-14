@@ -10,6 +10,9 @@ import javax.swing.tree.TreePath;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 
+import org.openide.util.Lookup;
+
+import org.jphototagger.api.windows.MainWindowManager;
 import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
@@ -93,8 +96,8 @@ public final class DirectorySelectedController implements TreeSelectionListener 
 
         private void setTitle(File selectedDirectory) {
             String title = Bundle.getString(ShowThumbnails.class, "ControllerDirectorySelected.AppFrame.Title.Directory", selectedDirectory);
-
-            GUI.getAppFrame().setTitle(title);
+            MainWindowManager mainWindowManager = Lookup.getDefault().lookup(MainWindowManager.class);
+            mainWindowManager.setMainWindowTitle(title);
         }
 
         private String getDirectorynameFromTree() {

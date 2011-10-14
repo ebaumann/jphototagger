@@ -13,6 +13,7 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 
 import org.openide.util.Lookup;
 
+import org.jphototagger.api.windows.MainWindowManager;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
@@ -119,16 +120,24 @@ public final class MiscMetadataItemSelectedController implements TreeSelectionLi
 
         // 1 path where tnPanel.applyThumbnailsPanelSettings(tnPanelSettings) is not to call
         private void setTitle() {
-            GUI.getAppFrame().setTitle(
-                    Bundle.getString(ShowThumbnails.class, "MiscMetadataItemSelectedController.AppFrame.Title.Metadata"));
+            String title = Bundle.getString(ShowThumbnails.class, "MiscMetadataItemSelectedController.AppFrame.Title.Metadata");
+            MainWindowManager mainWindowManager = Lookup.getDefault().lookup(MainWindowManager.class);
+            mainWindowManager.setMainWindowTitle(title);
         }
 
         private void setTitle(MetaDataValue mdValue) {
-            GUI.getAppFrame().setTitle(Bundle.getString(ShowThumbnails.class, "MiscMetadataItemSelectedController.AppFrame.Title.Metadata.Value", mdValue.getDescription()));
+            String metaDataValueDescription = mdValue.getDescription();
+            String title = Bundle.getString(ShowThumbnails.class, "MiscMetadataItemSelectedController.AppFrame.Title.Metadata.Value", metaDataValueDescription);
+            MainWindowManager mainWindowManager = Lookup.getDefault().lookup(MainWindowManager.class);
+            mainWindowManager.setMainWindowTitle(title);
         }
 
         private void setTitle(MetaDataValue mdValue, Object userObject) {
-            GUI.getAppFrame().setTitle(Bundle.getString(ShowThumbnails.class, "MiscMetadataItemSelectedController.AppFrame.Title.Metadata.Object", mdValue.getDescription(), userObject.toString()));
+            String userObjectAsString = userObject.toString();
+            String metaDataValueDescription = mdValue.getDescription();
+            String title = Bundle.getString(ShowThumbnails.class, "MiscMetadataItemSelectedController.AppFrame.Title.Metadata.Object", metaDataValueDescription, userObjectAsString);
+            MainWindowManager mainWindowManager = Lookup.getDefault().lookup(MainWindowManager.class);
+            mainWindowManager.setMainWindowTitle(title);
         }
     }
 }
