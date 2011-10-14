@@ -18,7 +18,7 @@ import org.jphototagger.api.concurrent.ReplaceableTask;
 import org.jphototagger.api.concurrent.SerialTaskExecutor;
 import org.jphototagger.api.modules.Module;
 import org.jphototagger.api.preferences.Preferences;
-import org.jphototagger.domain.event.AppWillExitEvent;
+import org.jphototagger.api.lifecycle.AppWillExitEvent;
 import org.jphototagger.domain.event.listener.ListenerSupport;
 import org.jphototagger.domain.repository.RepositoryMaintainance;
 import org.jphototagger.lib.swing.MessageDisplayer;

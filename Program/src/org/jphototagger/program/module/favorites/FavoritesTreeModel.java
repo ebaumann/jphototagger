@@ -24,7 +24,7 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
-import org.jphototagger.domain.event.AppWillExitEvent;
+import org.jphototagger.api.lifecycle.AppWillExitEvent;
 import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.domain.repository.FavoritesRepository;
 import org.jphototagger.domain.repository.event.favorites.FavoriteDeletedEvent;

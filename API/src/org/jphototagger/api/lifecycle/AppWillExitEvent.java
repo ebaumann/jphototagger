@@ -1,13 +1,13 @@
-package org.jphototagger.domain.event;
+package org.jphototagger.api.lifecycle;
 
 /**
  * @author Elmar Baumann
  */
-public final class AppWillInitEvent {
+public final class AppWillExitEvent {
 
     private final Object source;
 
-    public AppWillInitEvent(Object source) {
+    public AppWillExitEvent(Object source) {
         this.source = source;
     }
 
