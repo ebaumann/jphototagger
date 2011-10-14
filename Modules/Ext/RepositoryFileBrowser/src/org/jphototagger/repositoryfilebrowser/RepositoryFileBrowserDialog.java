@@ -1,5 +1,6 @@
 package org.jphototagger.repositoryfilebrowser;
 
+import java.awt.Dimension;
 import java.io.File;
 import java.util.Collection;
 import java.util.List;
@@ -14,21 +15,24 @@ import org.openide.util.Lookup;
 import org.jphototagger.api.branding.Branding;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.repository.ImageFilesRepository;
+import org.jphototagger.lib.lookup.NodesListModel;
+import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
-import org.jphototagger.lib.swing.Dialog;
-import org.jphototagger.lib.lookup.NodesListCellRenderer;
+import org.jphototagger.lib.swingx.BusyPanel;
 import org.jphototagger.lib.swingx.ListTextFilter;
 
 /**
  * @author Elmar Baumann
  */
-public class RepositoryFileBrowserDialog extends Dialog {
+public final class RepositoryFileBrowserDialog extends Dialog {
 
     private static final long serialVersionUID = 1L;
     private RepositoryImageFileInfo imageFileInfo;
     private FileNode selectedFileNode;
+    private final NodesListModel nodesListModel = new NodesListModel();
     private ListTextFilter listTextFilter;
+    private final BusyPanel busyPanel = new BusyPanel(new Dimension(200, 200));
 
     public RepositoryFileBrowserDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -40,6 +44,8 @@ public class RepositoryFileBrowserDialog extends Dialog {
         initFileFilter();
         listFiles.addListSelectionListener(new FileSelectionListener());
         MnemonicUtil.setMnemonics(this);
+        panelContent.setGlassPane(busyPanel);
+        busyPanel.setVisible(true);
     }
 
     private void initFileFilter() {
@@ -93,7 +99,6 @@ public class RepositoryFileBrowserDialog extends Dialog {
 
             for (File imageFile : imageFiles) {
                 FileNode node = new FileNode(imageFile);
-
                 publish(node);
             }
 
@@ -101,13 +106,16 @@ public class RepositoryFileBrowserDialog extends Dialog {
         }
 
         @Override
-        protected void process(List<FileNode> nodes) {
-            for (FileNode node : nodes) {
-                listFiles.addNode(node);
-            }
+        protected void process(List<FileNode> chunks) {
+            nodesListModel.addNodes(chunks);
+        }
 
+        @Override
+        protected void done() {
             panelListInfo.remove(progressBarGetFiles);
+            listFiles.setModel(nodesListModel);
             updateFileCountLabel();
+            busyPanel.setVisible(false);
         }
     }
 
@@ -152,13 +160,13 @@ public class RepositoryFileBrowserDialog extends Dialog {
         java.awt.GridBagConstraints gridBagConstraints;
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
-        panelContent = new javax.swing.JPanel();
+        panelContent = new org.jdesktop.swingx.JXRootPane();
         panelFilter = new javax.swing.JPanel();
         labelFilterPrompt = new javax.swing.JLabel();
         textFieldFilter = new javax.swing.JTextField();
         buttonApplyFilter = new javax.swing.JButton();
         scrollPaneFiles = new javax.swing.JScrollPane();
-        listFiles = new org.jphototagger.repositoryfilebrowser.NodesLookupList();
+        listFiles = new org.jphototagger.lib.lookup.LookupList();
         panelListInfo = new javax.swing.JPanel();
         labelSelectedFilepathPrompt = new javax.swing.JLabel();
         labelSelectedFilepath = new javax.swing.JLabel();
@@ -193,7 +201,7 @@ public class RepositoryFileBrowserDialog extends Dialog {
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         panelContent.setName("panelContent"); // NOI18N
-        panelContent.setLayout(new java.awt.GridBagLayout());
+        panelContent.getContentPane().setLayout(new java.awt.GridBagLayout());
 
         panelFilter.setName("panelFilter"); // NOI18N
         panelFilter.setLayout(new java.awt.GridBagLayout());
@@ -228,15 +236,15 @@ public class RepositoryFileBrowserDialog extends Dialog {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        panelContent.add(panelFilter, gridBagConstraints);
+        panelContent.getContentPane().add(panelFilter, gridBagConstraints);
 
         scrollPaneFiles.setName("scrollPaneFiles"); // NOI18N
         scrollPaneFiles.setPreferredSize(new java.awt.Dimension(400, 131));
 
         listFiles.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         listFiles.setAutoCreateRowSorter(true);
-        listFiles.setCellRenderer(new NodesListCellRenderer());
-        listFiles.setComparator(FileNodeAscendingComparator.INSTANCE);
+        listFiles.setCellRenderer(new org.jphototagger.lib.lookup.NodesListCellRenderer());
+        listFiles.setComparator(org.jphototagger.repositoryfilebrowser.FileNodeAscendingComparator.INSTANCE);
         listFiles.setName("listFiles"); // NOI18N
         listFiles.setSortOrder(javax.swing.SortOrder.ASCENDING);
         scrollPaneFiles.setViewportView(listFiles);
@@ -247,7 +255,7 @@ public class RepositoryFileBrowserDialog extends Dialog {
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 0.6;
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
-        panelContent.add(scrollPaneFiles, gridBagConstraints);
+        panelContent.getContentPane().add(scrollPaneFiles, gridBagConstraints);
 
         panelListInfo.setName("panelListInfo"); // NOI18N
         panelListInfo.setLayout(new java.awt.GridBagLayout());
@@ -303,7 +311,7 @@ public class RepositoryFileBrowserDialog extends Dialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
-        panelContent.add(panelListInfo, gridBagConstraints);
+        panelContent.getContentPane().add(panelListInfo, gridBagConstraints);
 
         panelInfo.setName("panelInfo"); // NOI18N
         panelInfo.setLayout(new java.awt.GridBagLayout());
@@ -322,7 +330,7 @@ public class RepositoryFileBrowserDialog extends Dialog {
         imagePanel.setLayout(imagePanelLayout);
         imagePanelLayout.setHorizontalGroup(
             imagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 165, Short.MAX_VALUE)
+            .addGap(0, 59, Short.MAX_VALUE)
         );
         imagePanelLayout.setVerticalGroup(
             imagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -334,7 +342,7 @@ public class RepositoryFileBrowserDialog extends Dialog {
         panelThumbnailLayout.setHorizontalGroup(
             panelThumbnailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelThumbnailLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(126, 126, 126)
                 .addComponent(imagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -536,11 +544,9 @@ public class RepositoryFileBrowserDialog extends Dialog {
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 0.4;
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
-        panelContent.add(panelInfo, gridBagConstraints);
+        panelContent.getContentPane().add(panelInfo, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.gridheight = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
@@ -595,8 +601,8 @@ public class RepositoryFileBrowserDialog extends Dialog {
     private javax.swing.JLabel labelimeImageFileInFileSystemPrompt;
     private javax.swing.JLabel labelimeImageFileInRepository;
     private javax.swing.JLabel labelimeImageFileInRepositoryPrompt;
-    private org.jphototagger.repositoryfilebrowser.NodesLookupList listFiles;
-    private javax.swing.JPanel panelContent;
+    private org.jphototagger.lib.lookup.LookupList listFiles;
+    private org.jdesktop.swingx.JXRootPane panelContent;
     private javax.swing.JPanel panelDetails;
     private javax.swing.JPanel panelFilter;
     private javax.swing.JPanel panelImageFile;
