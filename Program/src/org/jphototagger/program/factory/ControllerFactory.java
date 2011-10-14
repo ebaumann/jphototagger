@@ -84,7 +84,7 @@ import org.jphototagger.program.module.miscmetadata.DeleteMiscMetadataController
 import org.jphototagger.program.module.miscmetadata.MiscMetadataItemSelectedController;
 import org.jphototagger.program.module.miscmetadata.RemoveMetadataFromSelectedImagesController;
 import org.jphototagger.program.module.miscmetadata.RenameMiscMetadataController;
-import org.jphototagger.program.module.nometadata.NoMetadataItemSelectedController;
+import org.jphototagger.program.module.nometadata.FilesWithoutMetaDataDisplayAction;
 import org.jphototagger.program.plugins.FileProcessorPluginsController;
 import org.jphototagger.program.module.programs.OpenFilesWithOtherAppController;
 import org.jphototagger.program.module.programs.OpenFilesWithStandardAppController;
@@ -189,7 +189,7 @@ public final class ControllerFactory {
         support.add(new ImageCollectionSelectedController());
         support.add(new CreateMetadataOfSelectedThumbnailsController());
         support.add(new ThumbnailSelectionEditMetadataController());
-        support.add(new NoMetadataItemSelectedController());
+        support.add(new FilesWithoutMetaDataDisplayAction());
         support.add(new KeywordsSelectionController());
         support.add(new MiscMetadataItemSelectedController());
         support.add(new TimelineItemSelectedController());

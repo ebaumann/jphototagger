@@ -1,4 +1,4 @@
-package org.jphototagger.program.module.metadata;
+package org.jphototagger.program.module.nometadata;
 
 import javax.swing.DefaultListModel;
 
@@ -6,15 +6,13 @@ import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.selections.NoMetadataValues;
 
 /**
- * Elements are {@code MetaDataValue}s retrieved through {@code NoMetadataValues#get()}.
- *
  * @author Elmar Baumann
  */
-public final class NoMetadataListModel extends DefaultListModel {
+public final class FilesWithoutMetaDataMetadataListModel extends DefaultListModel {
 
     private static final long serialVersionUID = 1L;
 
-    public NoMetadataListModel() {
+    public FilesWithoutMetaDataMetadataListModel() {
         addMetaDataValues();
     }
 

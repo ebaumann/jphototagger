@@ -35,7 +35,7 @@ import org.jphototagger.program.module.keywords.tree.KeywordsTreeModel;
 import org.jphototagger.program.module.metadatatemplates.MetadataTemplatesComboBoxModel;
 import org.jphototagger.program.module.metadatatemplates.MetadataTemplatesListModel;
 import org.jphototagger.program.module.miscmetadata.MiscMetadataTreeModel;
-import org.jphototagger.program.module.metadata.NoMetadataListModel;
+import org.jphototagger.program.module.nometadata.FilesWithoutMetaDataMetadataListModel;
 import org.jphototagger.program.module.search.SavedSearchesListModel;
 import org.jphototagger.program.module.timeline.TimelineTreeModel;
 import org.jphototagger.program.module.xmp.XmpTableModel;
@@ -218,7 +218,7 @@ public final class ModelFactory {
         String message = Bundle.getString(ModelFactory.class, "ModelFactory.Starting.ListModelNoMetadata");
         Support.setStatusbarInfo(message);
 
-        NoMetadataListModel model = new NoMetadataListModel();
+        FilesWithoutMetaDataMetadataListModel model = new FilesWithoutMetaDataMetadataListModel();
 
         support.add(model);
         appPanel.getListNoMetadata().setModel(model);

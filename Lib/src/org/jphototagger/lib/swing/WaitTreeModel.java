@@ -1,4 +1,4 @@
-package org.jphototagger.program.app.ui;
+package org.jphototagger.lib.swing;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;

@@ -1,4 +1,4 @@
-package org.jphototagger.program.module.metadata;
+package org.jphototagger.program.module.nometadata;
 
 import java.awt.Component;
 
@@ -10,17 +10,14 @@ import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.program.app.ui.TableIcons;
 
 /**
- * Renders list items of {@code NoMetadataListModel}.
- *
  * @author Elmar Baumann
  */
-public final class NoMetadataListCellRenderer extends DefaultListCellRenderer {
+public final class FilesWithoutMetaDataListCellRenderer extends DefaultListCellRenderer {
 
     private static final long serialVersionUID = 1L;
 
     @Override
-    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
-            boolean cellHasFocus) {
+    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
         JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 
         if (value instanceof MetaDataValue) {
