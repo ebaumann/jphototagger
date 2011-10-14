@@ -1,5 +1,6 @@
 package org.jphototagger.program.app.ui;
 
+import org.jphototagger.lib.swing.TreeExpandCollapseAllAction;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Container;
