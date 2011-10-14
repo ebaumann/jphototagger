@@ -3,6 +3,12 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.11.4 2011-10-
+-----------------
+
+* Bugfix: Sortierung nach EXIF-Kamera funktioniert (vorher wurde
+  nach Brennweite sortiert)
+
 0.11.3 2011-10-13
 -----------------
 

@@ -44,6 +44,7 @@ public final class ExifFileSortComparators implements FileSortComparators {
             return 10;
         }
     };
+
     private final FileSortComparator timestampOriginalFileSortComparator = new FileSortComparator() {
 
         @Override
@@ -71,6 +72,7 @@ public final class ExifFileSortComparators implements FileSortComparators {
             return 20;
         }
     };
+
     private final FileSortComparator focalLengthSortComparator = new FileSortComparator() {
 
         @Override
@@ -98,6 +100,7 @@ public final class ExifFileSortComparators implements FileSortComparators {
             return 30;
         }
     };
+
     private final FileSortComparator isoSpeedRatingSortComparator = new FileSortComparator() {
 
         @Override
@@ -125,11 +128,12 @@ public final class ExifFileSortComparators implements FileSortComparators {
             return 40;
         }
     };
+
     private final FileSortComparator recordingEquipmentSortComparator = new FileSortComparator() {
 
         @Override
         public Comparator<File> getAscendingSortComparator() {
-            return new ExifIsoSpeedRatingAscendingComparator();
+            return new ExifRecordingEquipmentAscendingComparator();
         }
 
         @Override
@@ -139,7 +143,7 @@ public final class ExifFileSortComparators implements FileSortComparators {
 
         @Override
         public Comparator<File> getDescendingSortComparator() {
-            return new ExifIsoSpeedRatingDescendingComparator();
+            return new ExifRecordingEquipmentDescendingComparator();
         }
 
         @Override
