@@ -1,4 +1,4 @@
-package org.jphototagger.api.startup;
+package org.jphototagger.api.lifecycle;
 
 /**
  * @author Elmar Baumann

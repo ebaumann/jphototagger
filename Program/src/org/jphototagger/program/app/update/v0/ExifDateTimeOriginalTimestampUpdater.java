@@ -5,7 +5,7 @@ import org.openide.util.lookup.ServiceProvider;
 
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
-import org.jphototagger.api.startup.AppUpdater;
+import org.jphototagger.api.lifecycle.AppUpdater;
 import org.jphototagger.domain.repository.ApplicationPropertiesRepository;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.MessageDisplayer;
