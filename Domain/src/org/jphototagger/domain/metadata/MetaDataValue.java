@@ -1,28 +1,57 @@
 package org.jphototagger.domain.metadata;
 
 import java.text.DateFormat;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.Icon;
 import javax.swing.InputVerifier;
 import javax.swing.text.DefaultFormatterFactory;
 
+import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.swing.inputverifier.AlwaysTrueInputVerifier;
 import org.jphototagger.lib.swing.inputverifier.DateInputVerifier;
 import org.jphototagger.lib.swing.inputverifier.MaxLengthInputVerifier;
 import org.jphototagger.lib.swing.inputverifier.NumberInputVerifier;
+import org.jphototagger.lib.util.StringUtil;
 
 /**
  * @author Elmar Baumann
  */
 public class MetaDataValue {
 
+    private static final Icon CATEGORY_ICON_EXIF = IconUtil.getImageIcon(MetaDataValue.class, "meata_data_value_category_exif.png");
+    private static final Icon CATEGORY_ICON_FILE = IconUtil.getImageIcon(MetaDataValue.class, "meata_data_value_category_file.png");
+    private static final Icon CATEGORY_ICON_XMP = IconUtil.getImageIcon(MetaDataValue.class, "meata_data_value_category_xmp.png");
+    private static final Icon CATEGORY_ICON_UNDEFINED = IconUtil.getImageIcon(MetaDataValue.class, "meata_data_value_category_undefined.png");
+    private static final Map<String, Icon> ICON_OF_CATEGORY = new HashMap<String, Icon>();
     private final ValueType valueType;
     private String description;
     private int valueLength;
     private String longerDescription;
     private final String valueName;
     private final String category;
+
+    static {
+        ICON_OF_CATEGORY.put("exif", CATEGORY_ICON_EXIF);
+        ICON_OF_CATEGORY.put("exif_recording_equipment", CATEGORY_ICON_EXIF);
+        ICON_OF_CATEGORY.put("exif_lenses", CATEGORY_ICON_EXIF);
+        ICON_OF_CATEGORY.put("files", CATEGORY_ICON_FILE);
+        ICON_OF_CATEGORY.put("xmp", CATEGORY_ICON_XMP);
+        ICON_OF_CATEGORY.put("dc_creators", CATEGORY_ICON_XMP);
+        ICON_OF_CATEGORY.put("dc_rights", CATEGORY_ICON_XMP);
+        ICON_OF_CATEGORY.put("iptc4xmpcore_locations", CATEGORY_ICON_XMP);
+        ICON_OF_CATEGORY.put("photoshop_authorspositions", CATEGORY_ICON_XMP);
+        ICON_OF_CATEGORY.put("photoshop_captionwriters", CATEGORY_ICON_XMP);
+        ICON_OF_CATEGORY.put("photoshop_cities", CATEGORY_ICON_XMP);
+        ICON_OF_CATEGORY.put("photoshop_countries", CATEGORY_ICON_XMP);
+        ICON_OF_CATEGORY.put("photoshop_credits", CATEGORY_ICON_XMP);
+        ICON_OF_CATEGORY.put("photoshop_sources", CATEGORY_ICON_XMP);
+        ICON_OF_CATEGORY.put("photoshop_states", CATEGORY_ICON_XMP);
+        ICON_OF_CATEGORY.put("dc_subjects", CATEGORY_ICON_XMP);
+    }
 
     protected MetaDataValue(String valueName, String category, ValueType valueType) {
         if (valueName == null) {
@@ -114,6 +143,18 @@ public class MetaDataValue {
 
     public String getCategory() {
         return category;
+    }
+
+    public Icon getCategoryIcon() {
+        if (!StringUtil.hasContent(category)) {
+            return CATEGORY_ICON_UNDEFINED;
+        }
+
+        Icon icon = ICON_OF_CATEGORY.get(category);
+
+        return (icon == null)
+                ? CATEGORY_ICON_UNDEFINED
+                : icon;
     }
 
     @Override
