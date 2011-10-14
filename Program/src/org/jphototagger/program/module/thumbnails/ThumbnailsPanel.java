@@ -43,7 +43,7 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesChangedEvent;
-import org.jphototagger.domain.event.AppWillExitEvent;
+import org.jphototagger.api.lifecycle.AppWillExitEvent;
 import org.jphototagger.domain.event.listener.ThumbnailUpdateListener;
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter.RegexFileFilter;

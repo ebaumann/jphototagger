@@ -39,7 +39,7 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.DomainPreferencesKeys;
-import org.jphototagger.domain.event.AppWillExitEvent;
+import org.jphototagger.api.lifecycle.AppWillExitEvent;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.event.EditMetadataPanelsEditDisabledEvent;
 import org.jphototagger.domain.metadata.event.EditMetadataPanelsEditEnabledEvent;
