@@ -4,6 +4,7 @@ import java.util.EnumSet;
 import java.util.Set;
 
 /**
+ * @author Elmar Baumann
  */
 public enum OriginOfDisplayedThumbnails {
 
@@ -41,7 +42,7 @@ public enum OriginOfDisplayedThumbnails {
         return CONTENT_INSERT_IMAGES_FROM_FILESYSTEM_ALLOWED.contains(this);
     }
 
-    public boolean isUniqueFileSystemDirectory() {
+    public boolean isInSameFileSystemDirectory() {
         return this.equals(FILES_IN_SAME_DIRECTORY) || this.equals(FILES_IN_SAME_FAVORITE_DIRECTORY);
     }
 

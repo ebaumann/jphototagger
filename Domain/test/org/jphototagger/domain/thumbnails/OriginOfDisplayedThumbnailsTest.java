@@ -24,8 +24,8 @@ public class OriginOfDisplayedThumbnailsTest {
 
     @Test
     public void testIsUniqueFileSystemDirectory() {
-        assertTrue(OriginOfDisplayedThumbnails.FILES_IN_SAME_DIRECTORY.isUniqueFileSystemDirectory());
-        assertTrue(OriginOfDisplayedThumbnails.FILES_IN_SAME_FAVORITE_DIRECTORY.isUniqueFileSystemDirectory());
+        assertTrue(OriginOfDisplayedThumbnails.FILES_IN_SAME_DIRECTORY.isInSameFileSystemDirectory());
+        assertTrue(OriginOfDisplayedThumbnails.FILES_IN_SAME_FAVORITE_DIRECTORY.isInSameFileSystemDirectory());
     }
 
     @Test
