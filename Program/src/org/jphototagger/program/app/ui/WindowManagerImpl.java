@@ -21,4 +21,9 @@ public final class WindowManagerImpl implements MainWindowManager {
     public void dockIntoEditWindow(MainWindowComponent appWindow) {
         GUI.getAppPanel().dockIntoEditWindow(appWindow);
     }
+
+    @Override
+    public void setMainWindowTitle(String title) {
+        GUI.getAppFrame().setTitle(title);
+    }
 }

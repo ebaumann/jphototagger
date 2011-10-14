@@ -10,6 +10,7 @@ import javax.swing.tree.TreePath;
 
 import org.openide.util.Lookup;
 
+import org.jphototagger.api.windows.MainWindowManager;
 import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.domain.repository.FavoritesRepository;
 import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
@@ -227,11 +228,10 @@ public final class FavoritesUtil {
 
         private void setTitle() {
             File dir = FavoritesUtil.getSelectedDir();
-
-            GUI.getAppFrame().setTitle(Bundle.getString(SetFiles.class, "FavoritesHelper.AppFrame.Title.FavoriteDirectory",
-                    (dir == null)
-                    ? "?"
-                    : dir));
+            Object dirString = dir == null ? "?" : dir;
+            String title = Bundle.getString(SetFiles.class, "FavoritesHelper.AppFrame.Title.FavoriteDirectory", dirString);
+            MainWindowManager mainWindowManager = Lookup.getDefault().lookup(MainWindowManager.class);
+            mainWindowManager.setMainWindowTitle(title);
         }
 
         private void setMetadataEditable() {

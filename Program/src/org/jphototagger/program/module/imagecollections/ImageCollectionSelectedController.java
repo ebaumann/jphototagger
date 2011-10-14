@@ -13,6 +13,7 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 
 import org.openide.util.Lookup;
 
+import org.jphototagger.api.windows.MainWindowManager;
 import org.jphototagger.domain.repository.ImageCollectionsRepository;
 import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
@@ -100,8 +101,8 @@ public final class ImageCollectionSelectedController implements ListSelectionLis
 
             private void setTitle() {
                 String title = Bundle.getString(ImageCollectionSelectedController.class, "ImageCollectionSelectedController.AppFrame.Title.Collection", collectionName);
-
-                GUI.getAppFrame().setTitle(title);
+                MainWindowManager mainWindowManager = Lookup.getDefault().lookup(MainWindowManager.class);
+                mainWindowManager.setMainWindowTitle(title);
             }
         });
     }

@@ -20,6 +20,7 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 
 import org.openide.util.Lookup;
 
+import org.jphototagger.api.windows.MainWindowManager;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
@@ -125,8 +126,9 @@ public final class TimelineItemSelectedController implements TreeSelectionListen
     }
 
     private void setTitle() {
-        GUI.getAppFrame().setTitle(
-                Bundle.getString(TimelineItemSelectedController.class, "TimelineItemSelectedController.AppFrame.Title.Timline.Unknown"));
+        String title = Bundle.getString(TimelineItemSelectedController.class, "TimelineItemSelectedController.AppFrame.Title.Timline.Unknown");
+        MainWindowManager mainWindowManager = Lookup.getDefault().lookup(MainWindowManager.class);
+        mainWindowManager.setMainWindowTitle(title);
     }
 
     private void setTitle(boolean isYear, int year, boolean isMonth, int month, Timeline.Date date) {
@@ -153,8 +155,8 @@ public final class TimelineItemSelectedController implements TreeSelectionListen
                 : (d == null)
                 ? ""
                 : df.format(d);
-
-        GUI.getAppFrame().setTitle(
-                Bundle.getString(TimelineItemSelectedController.class, "TimelineItemSelectedController.AppFrame.Title.Timeline.Date", fDate));
+        String title = Bundle.getString(TimelineItemSelectedController.class, "TimelineItemSelectedController.AppFrame.Title.Timeline.Date", fDate);
+        MainWindowManager mainWindowManager = Lookup.getDefault().lookup(MainWindowManager.class);
+        mainWindowManager.setMainWindowTitle(title);
     }
 }

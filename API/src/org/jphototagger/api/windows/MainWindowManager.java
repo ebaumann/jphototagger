@@ -20,4 +20,6 @@ public interface MainWindowManager {
      * @param appWindow
      */
     void dockIntoEditWindow(MainWindowComponent appWindow);
+
+    void setMainWindowTitle(String title);
 }

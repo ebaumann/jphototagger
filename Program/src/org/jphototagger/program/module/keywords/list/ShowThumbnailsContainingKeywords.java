@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.openide.util.Lookup;
 
+import org.jphototagger.api.windows.MainWindowManager;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
@@ -84,14 +85,17 @@ public final class ShowThumbnailsContainingKeywords implements Runnable {
     }
 
     private void setTitle(List<String> keywords) {
-        GUI.getAppFrame().setTitle(
-                Bundle.getString(ShowThumbnailsContainingKeywords.class,
-                "ShowThumbnailsContainingKeywords.AppFrame.Title.Keywords.Path", KeywordsListControllerUtil.keywordPathString(keywords)));
+        String keywordPathString = KeywordsListControllerUtil.keywordPathString(keywords);
+        String title = Bundle.getString(ShowThumbnailsContainingKeywords.class,
+                "ShowThumbnailsContainingKeywords.AppFrame.Title.Keywords.Path", keywordPathString);
+        MainWindowManager mainWindowManager = Lookup.getDefault().lookup(MainWindowManager.class);
+        mainWindowManager.setMainWindowTitle(title);
     }
 
     private void setTitle(String keyword) {
-        GUI.getAppFrame().setTitle(
-                Bundle.getString(ShowThumbnailsContainingKeywords.class, "ShowThumbnailsContainingKeywords.AppFrame.Title.Keyword", keyword));
+        String title = Bundle.getString(ShowThumbnailsContainingKeywords.class, "ShowThumbnailsContainingKeywords.AppFrame.Title.Keyword", keyword);
+        MainWindowManager mainWindowManager = Lookup.getDefault().lookup(MainWindowManager.class);
+        mainWindowManager.setMainWindowTitle(title);
     }
 
     private void setMetadataEditable() {

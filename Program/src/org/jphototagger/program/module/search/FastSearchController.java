@@ -20,6 +20,7 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.api.windows.MainWindowManager;
 import org.jphototagger.domain.DomainPreferencesKeys;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.selections.AutoCompleteDataOfMetaDataValue;
@@ -182,7 +183,8 @@ public final class FastSearchController implements ActionListener {
 
             private void setTitle(String userInput) {
                 String title = Bundle.getString(FastSearchController.class, "FastSearchController.AppFrame.Title.FastSearch", userInput);
-                GUI.getAppFrame().setTitle(title);
+                MainWindowManager mainWindowManager = Lookup.getDefault().lookup(MainWindowManager.class);
+                mainWindowManager.setMainWindowTitle(title);
             }
 
             private List<File> searchFiles(String userInput) {
