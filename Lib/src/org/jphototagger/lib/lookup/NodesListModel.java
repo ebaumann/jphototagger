@@ -1,130 +1,50 @@
 package org.jphototagger.lib.lookup;
 
-import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
-import javax.swing.DefaultListModel;
-import javax.swing.ListModel;
-import javax.swing.event.ListDataListener;
+import javax.swing.AbstractListModel;
 
 import org.jphototagger.api.nodes.Node;
 
 /**
  * @author Elmar Baumann
  */
-public class NodesListModel implements ListModel, Serializable {
+public final class NodesListModel extends AbstractListModel {
 
     private static final long serialVersionUID = 1L;
-    private final DefaultListModel delegate = new DefaultListModel();
+    private final List<Node> nodes = new ArrayList<Node>();
 
-    @Override
-    public void removeListDataListener(ListDataListener l) {
-        delegate.removeListDataListener(l);
+    public NodesListModel() {
     }
 
-    @Override
-    public void addListDataListener(ListDataListener l) {
-        delegate.addListDataListener(l);
+    public NodesListModel(Collection<? extends Node> nodes) {
+        if (nodes == null) {
+            throw new NullPointerException("nodes == null");
+        }
+        this.nodes.addAll(nodes);
+    }
+
+    public void addNodes(Collection<? extends Node> nodes) {
+        if (nodes == null) {
+            throw new NullPointerException("nodes == null");
+        }
+        if (!nodes.isEmpty()) {
+            int addedFromIndex = this.nodes.size();
+            int addedToIndex = addedFromIndex + nodes.size() - 1;
+            this.nodes.addAll(nodes);
+            fireIntervalAdded(this, addedFromIndex, addedToIndex);
+        }
     }
 
     @Override
     public int getSize() {
-        return delegate.getSize();
+        return nodes.size();
     }
 
     @Override
     public Object getElementAt(int index) {
-        return delegate.getElementAt(index);
-    }
-
-    protected void setElementAt(Node node, int index) {
-        delegate.setElementAt(node, index);
-    }
-
-    protected Object set(int index, Node node) {
-        return delegate.set(index, node);
-    }
-
-    protected void removeRange(int fromIndex, int toIndex) {
-        delegate.removeRange(fromIndex, toIndex);
-    }
-
-    protected void removeElementAt(int index) {
-        delegate.removeElementAt(index);
-    }
-
-    protected boolean removeElement(Node node) {
-        return delegate.removeElement(node);
-    }
-
-    protected void removeAllElements() {
-        delegate.removeAllElements();
-    }
-
-    protected Node remove(int index) {
-        return (Node) delegate.remove(index);
-    }
-
-    protected int lastIndexOf(Node node, int index) {
-        return delegate.lastIndexOf(node, index);
-    }
-
-    protected int lastIndexOf(Node node) {
-        return delegate.lastIndexOf(node);
-    }
-
-    protected Node lastElement() {
-        return (Node) delegate.lastElement();
-    }
-
-    protected boolean isEmpty() {
-        return delegate.isEmpty();
-    }
-
-    protected void insertElementAt(Node node, int index) {
-        delegate.insertElementAt(node, index);
-    }
-
-    protected int indexOf(Node node, int index) {
-        return delegate.indexOf(node, index);
-    }
-
-    protected int indexOf(Node node) {
-        return delegate.indexOf(node);
-    }
-
-    protected Node get(int index) {
-        return (Node) delegate.get(index);
-    }
-
-    protected Node firstElement() {
-        return (Node) delegate.firstElement();
-    }
-
-    protected void ensureCapacity(int minCapacity) {
-        delegate.ensureCapacity(minCapacity);
-    }
-
-    protected Node elementAt(int index) {
-        return (Node) delegate.elementAt(index);
-    }
-
-    protected boolean contains(Node node) {
-        return delegate.contains(node);
-    }
-
-    protected void clear() {
-        delegate.clear();
-    }
-
-    protected int capacity() {
-        return delegate.capacity();
-    }
-
-    protected void addElement(Node node) {
-        delegate.addElement(node);
-    }
-
-    protected void add(int index, Node node) {
-        delegate.add(index, node);
+        return nodes.get(index);
     }
 }
