@@ -1000,7 +1000,7 @@ public final class AppPanel extends javax.swing.JPanel {
 
         scrollPaneDirectories.setName("scrollPaneDirectories"); // NOI18N
 
-        treeDirectories.setModel(org.jphototagger.program.app.ui.WaitTreeModel.INSTANCE);
+        treeDirectories.setModel(org.jphototagger.lib.swing.WaitTreeModel.INSTANCE);
         treeDirectories.setCellRenderer(new org.jphototagger.lib.swing.AllSystemDirectoriesTreeCellRenderer());
         treeDirectories.setDragEnabled(true);
         treeDirectories.setName("treeDirectories"); // NOI18N
@@ -1068,7 +1068,7 @@ public final class AppPanel extends javax.swing.JPanel {
 
         scrollPaneSavedSearches.setName("scrollPaneSavedSearches"); // NOI18N
 
-        listSavedSearches.setModel(org.jphototagger.program.app.ui.WaitListModel.INSTANCE);
+        listSavedSearches.setModel(org.jphototagger.lib.swing.WaitListModel.INSTANCE);
         listSavedSearches.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         listSavedSearches.setCellRenderer(new org.jphototagger.program.module.search.SavedSearchesListCellRenderer());
         listSavedSearches.setName("listSavedSearches"); // NOI18N
@@ -1134,7 +1134,7 @@ public final class AppPanel extends javax.swing.JPanel {
 
         scrollPaneImageCollections.setName("scrollPaneImageCollections"); // NOI18N
 
-        listImageCollections.setModel(org.jphototagger.program.app.ui.WaitListModel.INSTANCE);
+        listImageCollections.setModel(org.jphototagger.lib.swing.WaitListModel.INSTANCE);
         listImageCollections.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         listImageCollections.setCellRenderer(new org.jphototagger.program.module.imagecollections.ImageCollectionsListCellRenderer());
         listImageCollections.setDragEnabled(true);
@@ -1170,7 +1170,7 @@ public final class AppPanel extends javax.swing.JPanel {
 
         scrollPaneFavorites.setName("scrollPaneFavorites"); // NOI18N
 
-        treeFavorites.setModel(org.jphototagger.program.app.ui.WaitTreeModel.INSTANCE);
+        treeFavorites.setModel(org.jphototagger.lib.swing.WaitTreeModel.INSTANCE);
         treeFavorites.setCellRenderer(new org.jphototagger.program.module.favorites.FavoritesTreeCellRenderer());
         treeFavorites.setDragEnabled(true);
         treeFavorites.setName("treeFavorites"); // NOI18N
@@ -1207,7 +1207,7 @@ public final class AppPanel extends javax.swing.JPanel {
 
         scrollPaneSelKeywordsTree.setName("scrollPaneSelKeywordsTree"); // NOI18N
 
-        treeSelKeywords.setModel(org.jphototagger.program.app.ui.WaitTreeModel.INSTANCE);
+        treeSelKeywords.setModel(org.jphototagger.lib.swing.WaitTreeModel.INSTANCE);
         treeSelKeywords.setCellRenderer(new org.jphototagger.program.module.keywords.tree.KeywordsTreeCellRenderer());
         treeSelKeywords.setName("treeSelKeywords"); // NOI18N
         treeSelKeywords.setRootVisible(false);
@@ -1297,7 +1297,7 @@ public final class AppPanel extends javax.swing.JPanel {
 
         scrollPaneSelKeywordsList.setName("scrollPaneSelKeywordsList"); // NOI18N
 
-        listSelKeywords.setModel(org.jphototagger.program.app.ui.WaitListModel.INSTANCE);
+        listSelKeywords.setModel(org.jphototagger.lib.swing.WaitListModel.INSTANCE);
         listSelKeywords.setCellRenderer(new org.jphototagger.program.module.keywords.list.KeywordsListCellRenderer());
         listSelKeywords.setDragEnabled(true);
         listSelKeywords.setName("listSelKeywords"); // NOI18N
@@ -1385,7 +1385,7 @@ public final class AppPanel extends javax.swing.JPanel {
 
         scrollPaneTimeline.setName("scrollPaneTimeline"); // NOI18N
 
-        treeTimeline.setModel(org.jphototagger.program.app.ui.WaitTreeModel.INSTANCE);
+        treeTimeline.setModel(org.jphototagger.lib.swing.WaitTreeModel.INSTANCE);
         treeTimeline.setCellRenderer(new org.jphototagger.program.module.timeline.TimelineTreeCellRenderer());
         treeTimeline.setName("treeTimeline"); // NOI18N
         treeTimeline.setRootVisible(false);
@@ -1430,7 +1430,7 @@ public final class AppPanel extends javax.swing.JPanel {
 
         scrollPaneMiscMetadata.setName("scrollPaneMiscMetadata"); // NOI18N
 
-        treeMiscMetadata.setModel(org.jphototagger.program.app.ui.WaitTreeModel.INSTANCE);
+        treeMiscMetadata.setModel(org.jphototagger.lib.swing.WaitTreeModel.INSTANCE);
         treeMiscMetadata.setCellRenderer(new org.jphototagger.program.module.miscmetadata.MiscMetadataTreeCellRenderer());
         treeMiscMetadata.setDragEnabled(true);
         treeMiscMetadata.setName("treeMiscMetadata"); // NOI18N
@@ -1475,9 +1475,9 @@ public final class AppPanel extends javax.swing.JPanel {
 
         scrollPaneNoMetadata.setName("scrollPaneNoMetadata"); // NOI18N
 
-        listNoMetadata.setModel(org.jphototagger.program.app.ui.WaitListModel.INSTANCE);
+        listNoMetadata.setModel(org.jphototagger.lib.swing.WaitListModel.INSTANCE);
         listNoMetadata.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        listNoMetadata.setCellRenderer(new org.jphototagger.program.module.metadata.NoMetadataListCellRenderer());
+        listNoMetadata.setCellRenderer(new org.jphototagger.program.module.nometadata.FilesWithoutMetaDataListCellRenderer());
         listNoMetadata.setName("listNoMetadata"); // NOI18N
         scrollPaneNoMetadata.setViewportView(listNoMetadata);
 

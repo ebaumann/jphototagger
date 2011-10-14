@@ -193,7 +193,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
 
         scrollPaneTree.setName("scrollPaneTree"); // NOI18N
 
-        tree.setModel(org.jphototagger.program.app.ui.WaitTreeModel.INSTANCE);
+        tree.setModel(org.jphototagger.lib.swing.WaitTreeModel.INSTANCE);
         tree.setCellRenderer(new org.jphototagger.program.module.keywords.tree.KeywordsTreeCellRenderer());
         tree.setDragEnabled(true);
         tree.setName("tree"); // NOI18N
@@ -296,7 +296,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
 
         scrollPaneList.setName("scrollPaneList"); // NOI18N
 
-        list.setModel(org.jphototagger.program.app.ui.WaitListModel.INSTANCE);
+        list.setModel(org.jphototagger.lib.swing.WaitListModel.INSTANCE);
         list.setCellRenderer(new org.jphototagger.program.module.keywords.list.KeywordsListCellRenderer());
         list.setDragEnabled(true);
         list.setName("list"); // NOI18N
