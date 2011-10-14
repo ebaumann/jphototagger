@@ -27,6 +27,7 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.api.windows.WaitDisplayer;
 import org.jphototagger.domain.repository.event.exif.ExifInsertedEvent;
 import org.jphototagger.domain.repository.event.exif.ExifUpdatedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpDeletedEvent;
@@ -38,14 +39,13 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.TableUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.settings.AppPreferencesKeys;
+import org.jphototagger.program.app.ui.AppPanel;
 import org.jphototagger.program.module.exif.ExifTableModel;
 import org.jphototagger.program.module.iptc.IptcTableModel;
+import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
 import org.jphototagger.program.module.xmp.XmpTableModel;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.app.ui.WaitDisplay;
-import org.jphototagger.program.app.ui.AppPanel;
-import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
+import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.xmp.EmbeddedXmpCache;
 import org.jphototagger.xmp.XmpMetadata;
 
@@ -311,7 +311,8 @@ public final class ShowMetadataController implements ChangeListener {
                 return;
             }
 
-            WaitDisplay.INSTANCE.show();
+            WaitDisplayer waitDisplayer = Lookup.getDefault().lookup(WaitDisplayer.class);
+            waitDisplayer.show();
 
             Set<Metadata> resizeTableMetadta = EnumSet.noneOf(Metadata.class);
 
@@ -341,7 +342,7 @@ public final class ShowMetadataController implements ChangeListener {
             appPanel.getLabelMetadataFilename().setText(imageFile.getName() + (XmpMetadata.hasImageASidecarFile(imageFile)
                     ? ""
                     : Bundle.getString(ShowMetadata.class, "ShowMetadataController.Embedded")));
-            WaitDisplay.INSTANCE.hide();
+            waitDisplayer.hide();
             resizeMetadataTables(resizeTableMetadta);
             repaintMetadataTables(resizeTableMetadta);
         }

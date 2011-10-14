@@ -7,13 +7,15 @@ import javax.swing.JMenuItem;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
+import org.openide.util.Lookup;
+
+import org.jphototagger.api.windows.WaitDisplayer;
 import org.jphototagger.domain.metadata.keywords.Keyword;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.util.ListUtil;
+import org.jphototagger.program.app.ui.AppPanel;
 import org.jphototagger.program.module.keywords.KeywordsUtil;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.app.ui.WaitDisplay;
-import org.jphototagger.program.app.ui.AppPanel;
 
 /**
  * Listens to the menu item
@@ -80,13 +82,13 @@ public class KeywordsDisplayImagesController implements ActionListener {
 
             @Override
             public void run() {
-                WaitDisplay.INSTANCE.show();
-
+                WaitDisplayer waitDisplayer = Lookup.getDefault().lookup(WaitDisplayer.class);
+                waitDisplayer.show();
                 AppPanel appPanel = GUI.getAppPanel();
 
                 appPanel.displaySelKeywordsTree(AppPanel.SelectAlso.SEL_KEYWORDS_TAB);
                 KeywordsUtil.selectNode(appPanel.getTreeSelKeywords(), keyword);
-                WaitDisplay.INSTANCE.hide();
+                waitDisplayer.hide();
             }
         });
     }
@@ -96,13 +98,13 @@ public class KeywordsDisplayImagesController implements ActionListener {
 
             @Override
             public void run() {
-                WaitDisplay.INSTANCE.show();
-
+                WaitDisplayer waitDisplayer = Lookup.getDefault().lookup(WaitDisplayer.class);
+                waitDisplayer.show();
                 AppPanel appPanel = GUI.getAppPanel();
 
                 appPanel.displaySelKeywordsList(AppPanel.SelectAlso.SEL_KEYWORDS_TAB);
                 ListUtil.select(appPanel.getListSelKeywords(), keyword, 0);
-                WaitDisplay.INSTANCE.hide();
+                waitDisplayer.hide();
             }
         });
     }

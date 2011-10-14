@@ -14,13 +14,13 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.windows.MainWindowManager;
+import org.jphototagger.api.windows.WaitDisplayer;
 import org.jphototagger.domain.repository.ImageCollectionsRepository;
 import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.ui.WaitDisplay;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
 import org.jphototagger.program.resource.GUI;
 
@@ -88,15 +88,14 @@ public final class ImageCollectionSelectedController implements ListSelectionLis
 
             @Override
             public void run() {
-                WaitDisplay.INSTANCE.show();
-
+                WaitDisplayer waitDisplayer = Lookup.getDefault().lookup(WaitDisplayer.class);
+                waitDisplayer.show();
                 List<File> imageFiles = repo.findImageFilesOfImageCollection(collectionName);
                 ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
-
                 setTitle();
                 tnPanel.setFiles(imageFiles, OriginOfDisplayedThumbnails.FILES_OF_AN_IMAGE_COLLECTION);
                 tnPanel.applyThumbnailsPanelSettings(settings);
-                WaitDisplay.INSTANCE.hide();
+                waitDisplayer.hide();
             }
 
             private void setTitle() {

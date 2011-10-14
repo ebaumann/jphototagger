@@ -11,6 +11,7 @@ import javax.swing.tree.TreePath;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.windows.MainWindowManager;
+import org.jphototagger.api.windows.WaitDisplayer;
 import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.domain.repository.FavoritesRepository;
 import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
@@ -20,7 +21,6 @@ import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppPanel;
 import org.jphototagger.program.app.ui.EditMetadataPanels;
-import org.jphototagger.program.app.ui.WaitDisplay;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.module.filesystem.ImageFileFilterer;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
@@ -218,12 +218,13 @@ public final class FavoritesUtil {
 
         @Override
         public void run() {
-            WaitDisplay.INSTANCE.show();
+            WaitDisplayer waitDisplayer = Lookup.getDefault().lookup(WaitDisplayer.class);
+            waitDisplayer.show();
             setTitle();
             tnPanel.setFiles(files, OriginOfDisplayedThumbnails.FILES_IN_SAME_FAVORITE_DIRECTORY);
             tnPanel.applyThumbnailsPanelSettings(tnPanelSettings);
             setMetadataEditable();
-            WaitDisplay.INSTANCE.hide();
+            waitDisplayer.hide();
         }
 
         private void setTitle() {

@@ -13,12 +13,12 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.windows.MainWindowManager;
+import org.jphototagger.api.windows.WaitDisplayer;
 import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.ui.WaitDisplay;
 import org.jphototagger.program.module.filesystem.ImageFileFilterer;
 import org.jphototagger.program.resource.GUI;
 
@@ -81,8 +81,8 @@ public final class DirectorySelectedController implements TreeSelectionListener 
 
         private void showThumbnails() {
             if (GUI.getDirectoriesTree().getSelectionCount() > 0) {
-                WaitDisplay.INSTANCE.show();
-
+                WaitDisplayer waitDisplayer = Lookup.getDefault().lookup(WaitDisplayer.class);
+                waitDisplayer.show();
                 File selectedDirectory = new File(getDirectorynameFromTree());
                 List<File> files = ImageFileFilterer.getImageFilesOfDirectory(selectedDirectory);
 
@@ -90,7 +90,7 @@ public final class DirectorySelectedController implements TreeSelectionListener 
                 GUI.getThumbnailsPanel().setFiles(files, OriginOfDisplayedThumbnails.FILES_IN_SAME_DIRECTORY);
                 GUI.getThumbnailsPanel().applyThumbnailsPanelSettings(panelSettings);
                 setMetadataEditable();
-                WaitDisplay.INSTANCE.hide();
+                waitDisplayer.hide();
             }
         }
 

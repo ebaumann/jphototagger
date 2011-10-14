@@ -4,7 +4,9 @@ import java.awt.AWTEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.program.app.ui.WaitDisplay;
+import org.openide.util.Lookup;
+
+import org.jphototagger.api.windows.WaitDisplayer;
 
 /**
  * JPhotoTagger's event queue.
@@ -26,8 +28,9 @@ public final class AppEventQueue extends java.awt.EventQueue {
     }
 
     private void hideWaitDisplay() {
-        if (WaitDisplay.INSTANCE.isShow()) {
-            WaitDisplay.INSTANCE.hide();
+        WaitDisplayer waitDisplayer = Lookup.getDefault().lookup(WaitDisplayer.class);
+        if (waitDisplayer != null && waitDisplayer.isShow()) {
+            waitDisplayer.hide();
         }
     }
 }

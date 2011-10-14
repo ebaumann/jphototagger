@@ -6,10 +6,12 @@ import java.util.List;
 
 import javax.swing.ListModel;
 
+import org.openide.util.Lookup;
+
+import org.jphototagger.api.windows.WaitDisplayer;
 import org.jphototagger.lib.swing.util.ListUtil;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.module.keywords.KeywordsUtil;
-import org.jphototagger.program.app.ui.WaitDisplay;
 
 /**
  * Displays a selected keyword through selecting it in the selection list.
@@ -46,8 +48,8 @@ public final class DisplayKeywordController extends KeywordsListController {
             throw new NullPointerException("keywords == null");
         }
 
-        WaitDisplay.INSTANCE.show();
-
+        WaitDisplayer waitDisplayer = Lookup.getDefault().lookup(WaitDisplayer.class);
+        waitDisplayer.show();
         ListModel model = ModelFactory.INSTANCE.getModel(KeywordsListModel.class);
         List<Integer> modelIndices = ListUtil.getModelIndicesOfItems(model, keywords);
 
@@ -55,6 +57,6 @@ public final class DisplayKeywordController extends KeywordsListController {
             KeywordsUtil.selectInSelKeywordsList(modelIndices);
         }
 
-        WaitDisplay.INSTANCE.hide();
+        waitDisplayer.hide();
     }
 }

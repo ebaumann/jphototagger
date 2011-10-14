@@ -12,6 +12,7 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.windows.MainWindowManager;
+import org.jphototagger.api.windows.WaitDisplayer;
 import org.jphototagger.domain.metadata.search.ParamStatement;
 import org.jphototagger.domain.metadata.search.SavedSearch;
 import org.jphototagger.domain.repository.FindRepository;
@@ -19,7 +20,6 @@ import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.ui.WaitDisplay;
 import org.jphototagger.program.resource.GUI;
 
 /**
@@ -67,10 +67,11 @@ public final class SavedSearchSelectedController implements ListSelectionListene
             Object selectedValue = GUI.getSavedSearchesList().getSelectedValue();
 
             if (selectedValue != null) {
-                WaitDisplay.INSTANCE.show();
+                WaitDisplayer waitDisplayer = Lookup.getDefault().lookup(WaitDisplayer.class);
+                waitDisplayer.show();
                 searchSelectedValue(selectedValue);
                 setMetadataEditable();
-                WaitDisplay.INSTANCE.hide();
+                waitDisplayer.hide();
             }
         }
 

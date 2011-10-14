@@ -4,28 +4,32 @@ import org.jphototagger.lib.swing.GlassPaneWaitCursor;
 import org.jphototagger.program.resource.GUI;
 
 /**
- * Displays on the (entire) application frame a wait symbol (currently a wait cursor).
- *
  * @author Elmar Baumann
  */
-public final class WaitDisplay {
+final class WaitDisplay {
 
     private final GlassPaneWaitCursor waitCursor;
-    public static final WaitDisplay INSTANCE = new WaitDisplay();
+    static final WaitDisplay INSTANCE = new WaitDisplay();
 
-    public void show() {
-        waitCursor.show();
+    void show() {
+        synchronized (waitCursor) {
+            waitCursor.show();
+        }
     }
 
-    public void hide() {
-        waitCursor.hide();
+    void hide() {
+        synchronized (waitCursor) {
+            waitCursor.hide();
+        }
     }
 
-    public boolean isShow() {
-        return waitCursor.isShow();
+    boolean isShow() {
+        synchronized (waitCursor) {
+            return waitCursor.isShow();
+        }
     }
 
-    private WaitDisplay() {
+    WaitDisplay() {
         waitCursor = new GlassPaneWaitCursor(GUI.getAppFrame());
     }
 }

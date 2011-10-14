@@ -6,22 +6,18 @@ import java.util.List;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import org.jphototagger.api.windows.MainWindowManager;
 import org.openide.util.Lookup;
 
+import org.jphototagger.api.windows.MainWindowManager;
+import org.jphototagger.api.windows.WaitDisplayer;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
+import org.jphototagger.domain.thumbnails.ThumbnailsDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.ui.WaitDisplay;
-import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
 import org.jphototagger.program.resource.GUI;
 
 /**
- * Listens to selections within the list {@code AppPanel#getListNoMetadata()}
- * and when an item was selected, sets files without metadata related to the
- * selected item to the thumbnails panel.
- *
  * @author Elmar Baumann Elmar Baumann
  */
 public final class NoMetadataItemSelectedController implements ListSelectionListener {
@@ -44,7 +40,8 @@ public final class NoMetadataItemSelectedController implements ListSelectionList
     }
 
     private void setFiles() {
-        WaitDisplay.INSTANCE.show();
+        WaitDisplayer waitDisplayer = Lookup.getDefault().lookup(WaitDisplayer.class);
+        waitDisplayer.show();
 
         Object selValue = GUI.getNoMetadataList().getSelectedValue();
 
@@ -53,10 +50,10 @@ public final class NoMetadataItemSelectedController implements ListSelectionList
 
             setTitle((MetaDataValue) selValue);
 
-            ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
+            ThumbnailsDisplayer thumbnailsDisplayer = Lookup.getDefault().lookup(ThumbnailsDisplayer.class);
 
-            tnPanel.setFiles(imageFiles, OriginOfDisplayedThumbnails.FILES_MATCHING_MISSING_METADATA);
-            WaitDisplay.INSTANCE.hide();
+            thumbnailsDisplayer.displayThumbnails(imageFiles, OriginOfDisplayedThumbnails.FILES_MATCHING_MISSING_METADATA);
+            waitDisplayer.hide();
         }
     }
 

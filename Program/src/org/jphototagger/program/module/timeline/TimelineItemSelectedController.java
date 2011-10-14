@@ -21,6 +21,7 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.windows.MainWindowManager;
+import org.jphototagger.api.windows.WaitDisplayer;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
@@ -28,7 +29,6 @@ import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
 import org.jphototagger.domain.timeline.Timeline;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.ui.WaitDisplay;
 import org.jphototagger.program.resource.GUI;
 
 /**
@@ -77,10 +77,11 @@ public final class TimelineItemSelectedController implements TreeSelectionListen
 
                         @Override
                         public void run() {
-                            WaitDisplay.INSTANCE.show();
+                            WaitDisplayer waitDisplayer = Lookup.getDefault().lookup(WaitDisplayer.class);
+                            waitDisplayer.show();
                             setFilesOfPossibleNodeToThumbnailsPanel(lastPathComponent);
                             GUI.getThumbnailsPanel().applyThumbnailsPanelSettings(settings);
-                            WaitDisplay.INSTANCE.hide();
+                            waitDisplayer.hide();
                         }
                     });
                 }

@@ -1,6 +1,5 @@
 package org.jphototagger.program.module.thumbnails;
 
-import org.jphototagger.program.module.userdefinedfilters.UserDefinedFileFilterDialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -16,9 +15,10 @@ import javax.swing.event.ListDataListener;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.api.windows.WaitDisplayer;
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
+import org.jphototagger.program.module.userdefinedfilters.UserDefinedFileFilterDialog;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.app.ui.WaitDisplay;
 
 /**
  * @author Elmar Baumann
@@ -57,8 +57,8 @@ public final class ThumbnailsFileFilterController implements ActionListener, Ite
     private void setItem(Object item) {
         ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
-        WaitDisplay.INSTANCE.show();
-
+        WaitDisplayer waitDisplayer = Lookup.getDefault().lookup(WaitDisplayer.class);
+        waitDisplayer.show();
         if (item instanceof FileFilter) {
             tnPanel.setFileFilter((FileFilter) item);
         } else if (item instanceof UserDefinedFileFilter) {
@@ -66,7 +66,7 @@ public final class ThumbnailsFileFilterController implements ActionListener, Ite
         }
 
         writeSettings();
-        WaitDisplay.INSTANCE.hide();
+        waitDisplayer.hide();
     }
 
     private void writeSettings() {

@@ -5,15 +5,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import org.jphototagger.api.windows.MainWindowManager;
 import org.openide.util.Lookup;
 
+import org.jphototagger.api.windows.MainWindowManager;
+import org.jphototagger.api.windows.WaitDisplayer;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.ui.WaitDisplay;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
 import org.jphototagger.program.resource.GUI;
 
@@ -50,10 +50,11 @@ public final class ShowThumbnailsContainingAllKeywords implements Runnable {
 
             @Override
             public void run() {
-                WaitDisplay.INSTANCE.show();
+                WaitDisplayer waitDisplayer = Lookup.getDefault().lookup(WaitDisplayer.class);
+                waitDisplayer.show();
                 setFilesToThumbnailsPanel();
                 setMetadataEditable();
-                WaitDisplay.INSTANCE.hide();
+                waitDisplayer.hide();
             }
         });
     }
