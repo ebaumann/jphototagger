@@ -1,13 +1,113 @@
 package org.jphototagger.program.module.nometadata;
 
+import java.awt.Component;
+import java.util.Arrays;
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.DefaultListModel;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import org.bushe.swing.event.EventBus;
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
+import org.openide.util.Lookup;
+
+import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.api.windows.SelectionItemSelectedEvent;
+import org.jphototagger.domain.metadata.MetaDataValue;
+import org.jphototagger.domain.metadata.selections.NoMetadataValues;
+import org.jphototagger.lib.lookup.SelectedListItemsLookup;
+
 /**
  * @author Elmar Baumann
  */
-public class FilesWithoutMetaDataPanel extends javax.swing.JPanel {
+public final class FilesWithoutMetaDataPanel extends javax.swing.JPanel {
+
     private static final long serialVersionUID = 1L;
+    private final SelectedListItemsLookup selectedListItemsLookup;
+    private final DisplayFilesWithoutMetaDataAction displayFilesWithoutMetaDataAction;
+    private final FilesWithoutMetaDataMetadataListModel listModel = new FilesWithoutMetaDataMetadataListModel();
+    private static final String PREFERENCES_KEY = "org.jphototagger.program.app.ui.AppPanel.listNoMetadata";
+    private volatile boolean clearingSelection;
 
     public FilesWithoutMetaDataPanel() {
         initComponents();
+        selectedListItemsLookup = new SelectedListItemsLookup(list);
+        displayFilesWithoutMetaDataAction = new DisplayFilesWithoutMetaDataAction(selectedListItemsLookup.getLookup());
+        postInitComponents();
+    }
+
+    private void postInitComponents() {
+        readPreferences();
+        list.addListSelectionListener(sectionItemSelectedEventPublisher);
+        AnnotationProcessor.process(this);
+    }
+
+    public void readPreferences() {
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+
+        storage.applySelectedIndices(PREFERENCES_KEY, list);
+    }
+
+    public void writePreferences() {
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+
+        storage.setSelectedIndices(PREFERENCES_KEY, list);
+    }
+
+    private class FilesWithoutMetaDataMetadataListModel extends DefaultListModel {
+
+        private static final long serialVersionUID = 1L;
+
+        private FilesWithoutMetaDataMetadataListModel() {
+            addMetaDataValues();
+        }
+
+        private void addMetaDataValues() {
+            for (MetaDataValue value : NoMetadataValues.get()) {
+                addElement(value);
+            }
+        }
+    }
+
+    @EventSubscriber(eventClass = SelectionItemSelectedEvent.class)
+    public void sectionItemSelected(SelectionItemSelectedEvent evt) {
+        Object source = evt.getSource();
+        if (source != list) {
+            clearingSelection = true;
+            list.clearSelection();
+            clearingSelection = false;
+        }
+    }
+
+    private ListSelectionListener sectionItemSelectedEventPublisher = new ListSelectionListener() {
+
+        @Override
+        public void valueChanged(ListSelectionEvent e) {
+            if (!clearingSelection && !e.getValueIsAdjusting()) {
+                EventBus.publish(new SelectionItemSelectedEvent(list, Arrays.asList(list.getSelectedValues())));
+            }
+        }
+    };
+
+    private static class FilesWithoutMetaDataListCellRenderer extends DefaultListCellRenderer {
+
+        private static final long serialVersionUID = 1L;
+
+        @Override
+        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+            JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+
+            if (value instanceof MetaDataValue) {
+                MetaDataValue metaDataValue = (MetaDataValue) value;
+
+                label.setText(metaDataValue.getDescription());
+                label.setIcon(metaDataValue.getCategoryIcon());
+            }
+
+            return label;
+        }
     }
 
     /** This method is called from within the constructor to
@@ -25,9 +125,9 @@ public class FilesWithoutMetaDataPanel extends javax.swing.JPanel {
 
         scrollPane.setName("scrollPane"); // NOI18N
 
-        list.setModel(org.jphototagger.lib.swing.WaitListModel.INSTANCE);
+        list.setModel(listModel);
         list.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        list.setCellRenderer(new org.jphototagger.program.module.nometadata.FilesWithoutMetaDataListCellRenderer());
+        list.setCellRenderer(new FilesWithoutMetaDataListCellRenderer());
         list.setName("list"); // NOI18N
         scrollPane.setViewportView(list);
 
@@ -36,13 +136,11 @@ public class FilesWithoutMetaDataPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 400, Short.MAX_VALUE)
-            .addGap(0, 400, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
             .addGap(0, 300, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(scrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE))

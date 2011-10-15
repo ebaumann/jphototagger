@@ -5,12 +5,14 @@ import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.bushe.swing.event.EventBus;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.branding.AppProperties;
 import org.jphototagger.api.modules.Module;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.applifecycle.AppUpdater;
+import org.jphototagger.api.modules.ModulesWereInitEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Version;
 import org.jphototagger.program.settings.AppPreferencesKeys;
@@ -58,10 +60,10 @@ public final class MetaFactory implements Runnable {
             @Override
             public void run() {
                 TerminateFactory.INSTANCE.init();
-                appPersistence.readAppPanelFromProperties();
             }
         });
         installModules();
+        readPreferences(appPersistence);
         notifyUpdaters();
         checkForDownload();
     }
@@ -113,11 +115,23 @@ public final class MetaFactory implements Runnable {
         for (Module module : modules) {
             module.init();
         }
+
+        EventBus.publish(new ModulesWereInitEvent(this, Collections.unmodifiableCollection(modules)));
     }
 
     public Collection<Module> getModules() {
         return modules == null
                 ? Collections.<Module>emptyList()
                 : Collections.unmodifiableCollection(modules);
+    }
+
+    private void readPreferences(final AppWindowPersistence appPersistence) {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
+            @Override
+            public void run() {
+                appPersistence.readAppPanelFromProperties();
+            }
+        });
     }
 }

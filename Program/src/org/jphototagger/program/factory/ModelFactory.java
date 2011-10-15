@@ -18,36 +18,35 @@ import org.jdesktop.swingx.sort.ListSortController;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.domain.imagecollections.ImageCollectionSortAscendingComparator;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
 import org.jphototagger.lib.swing.AllSystemDirectoriesTreeModel;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.settings.AppPreferencesKeys;
+import org.jphototagger.program.app.ui.AppPanel;
 import org.jphototagger.program.app.ui.AppWindowPersistence;
+import org.jphototagger.program.app.ui.SelectRootFilesPanel;
+import org.jphototagger.program.misc.InputHelperDialog;
+import org.jphototagger.program.module.exif.ExifTableCellRenderer;
 import org.jphototagger.program.module.exif.ExifTableModel;
 import org.jphototagger.program.module.favorites.FavoritesTreeModel;
-import org.jphototagger.program.module.thumbnails.FileFiltersComboBoxModel;
-import org.jphototagger.domain.imagecollections.ImageCollectionSortAscendingComparator;
 import org.jphototagger.program.module.imagecollections.ImageCollectionsListModel;
+import org.jphototagger.program.module.iptc.IptcTableCellRenderer;
 import org.jphototagger.program.module.iptc.IptcTableModel;
+import org.jphototagger.program.module.keywords.KeywordHighlightPredicate;
+import org.jphototagger.program.module.keywords.KeywordsPanel;
 import org.jphototagger.program.module.keywords.list.KeywordsListModel;
 import org.jphototagger.program.module.keywords.tree.KeywordsTreeModel;
 import org.jphototagger.program.module.metadatatemplates.MetadataTemplatesComboBoxModel;
 import org.jphototagger.program.module.metadatatemplates.MetadataTemplatesListModel;
 import org.jphototagger.program.module.miscmetadata.MiscMetadataTreeModel;
-import org.jphototagger.program.module.nometadata.FilesWithoutMetaDataMetadataListModel;
 import org.jphototagger.program.module.search.SavedSearchesListModel;
+import org.jphototagger.program.module.thumbnails.FileFiltersComboBoxModel;
 import org.jphototagger.program.module.timeline.TimelineTreeModel;
+import org.jphototagger.program.module.xmp.XmpTableCellRenderer;
 import org.jphototagger.program.module.xmp.XmpTableModel;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.misc.InputHelperDialog;
-import org.jphototagger.program.app.ui.AppPanel;
-import org.jphototagger.program.module.keywords.KeywordsPanel;
-import org.jphototagger.program.app.ui.SelectRootFilesPanel;
-import org.jphototagger.program.module.exif.ExifTableCellRenderer;
-import org.jphototagger.program.module.iptc.IptcTableCellRenderer;
-import org.jphototagger.program.module.keywords.KeywordHighlightPredicate;
-import org.jphototagger.program.module.xmp.XmpTableCellRenderer;
+import org.jphototagger.program.settings.AppPreferencesKeys;
 
 /**
  * Erzeugt die Models und verbindet sie mit den GUI-Elementen.
@@ -115,7 +114,6 @@ public final class ModelFactory {
         setListModelSavedSearches(appPanel);
         setListModelImageCollections(appPanel);
         setListModelKeywords(appPanel);
-        setListModelNoMetadata(appPanel);
     }
 
     private void setListModelSavedSearches(final AppPanel appPanel) {
@@ -212,18 +210,6 @@ public final class ModelFactory {
                 });
             }
         }, "JPhotoTagger: Creating Keywords list").start();
-    }
-
-    private void setListModelNoMetadata(AppPanel appPanel) {
-        String message = Bundle.getString(ModelFactory.class, "ModelFactory.Starting.ListModelNoMetadata");
-        Support.setStatusbarInfo(message);
-
-        FilesWithoutMetaDataMetadataListModel model = new FilesWithoutMetaDataMetadataListModel();
-
-        support.add(model);
-        appPanel.getListNoMetadata().setModel(model);
-        message = Bundle.getString(ModelFactory.class, "ModelFactory.Finished.ListModelNoMetadata");
-        Support.setStatusbarInfo(message);
     }
 
     private void setTableModels(AppPanel appPanel) {

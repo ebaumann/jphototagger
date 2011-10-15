@@ -34,7 +34,6 @@ public final class GoToController implements ActionListener {
         componentOfGoTo.put(AppFrame.GoTo.KEYWORDS_SEL, appPanel.getTabSelectionKeywords());
         componentOfGoTo.put(AppFrame.GoTo.TIMELINE, appPanel.getTabSelectionTimeline());
         componentOfGoTo.put(AppFrame.GoTo.MISC_METADATA, appPanel.getTabSelectionMiscMetadata());
-        componentOfGoTo.put(AppFrame.GoTo.NO_METADATA, appPanel.getTabSelectionNoMetadata());
         componentOfGoTo.put(AppFrame.GoTo.EDIT_PANELS, appPanel.getTabMetadataEdit());
         componentOfGoTo.put(AppFrame.GoTo.EXIF_METADATA, appPanel.getTabMetadataExif());
         componentOfGoTo.put(AppFrame.GoTo.IPTC_METADATA, appPanel.getTabMetadataIptc());

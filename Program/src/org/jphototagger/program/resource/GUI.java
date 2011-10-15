@@ -95,10 +95,6 @@ public final class GUI {
         return InputHelperDialog.INSTANCE.getPanelKeywords().getList();
     }
 
-    public static JXList getNoMetadataList() {
-        return appPanel.getListNoMetadata();
-    }
-
     public static JXList getSavedSearchesList() {
         return appPanel.getListSavedSearches();
     }

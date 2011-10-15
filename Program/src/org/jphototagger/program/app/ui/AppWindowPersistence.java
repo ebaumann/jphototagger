@@ -24,9 +24,6 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.module.keywords.KeywordsPanel;
 
 /**
- * Reads and writes persistent important settings of {@code AppPanel} and
- * {@code AppFrame}.
- *
  * @author Elmar Baumann
  */
 public final class AppWindowPersistence implements ComponentListener {
@@ -121,7 +118,6 @@ public final class AppWindowPersistence implements ComponentListener {
                 storage.applyComponentSettings(appPanel, getAppPanelSettingsHints());
                 appPanel.setEnabledIptcTab(isDisplayIptc());
                 setInitKeywordsView(appPanel);
-                readListNoMetadata(); // Hack (Controller is later ready than model)
                 selectFastSearch(appPanel);
             }
         });
@@ -268,13 +264,6 @@ public final class AppWindowPersistence implements ComponentListener {
         read(GUI.getSelKeywordsList(), APP_PANEL_LIST_SEL_KEYWORDS);
     }
 
-    /**
-     * To after the model has been created.
-     */
-    public static void readListNoMetadata() {
-        read(GUI.getNoMetadataList(), APP_PANEL_LIST_NO_METADATA);
-    }
-
     private static void read(JTree tree, String key) {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
@@ -302,7 +291,6 @@ public final class AppWindowPersistence implements ComponentListener {
         write(appPanel.getListSavedSearches(), APP_PANEL_LIST_SAVED_SEARCHES);
         write(appPanel.getListImageCollections(), APP_PANEL_LIST_IMAGE_COLLECTIONS);
         write(appPanel.getListSelKeywords(), APP_PANEL_LIST_SEL_KEYWORDS);
-        write(appPanel.getListNoMetadata(), APP_PANEL_LIST_NO_METADATA);
     }
 
     private void write(JTree tree, String key) {
