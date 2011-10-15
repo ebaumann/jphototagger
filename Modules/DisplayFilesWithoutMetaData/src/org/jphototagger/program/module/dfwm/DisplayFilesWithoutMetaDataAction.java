@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.openide.util.Lookup;
 import org.openide.util.LookupEvent;
+import org.openide.util.LookupListener;
 
 import org.jphototagger.api.windows.MainWindowManager;
 import org.jphototagger.api.windows.WaitDisplayer;
@@ -13,20 +14,31 @@ import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.domain.thumbnails.ThumbnailsDisplayer;
-import org.jphototagger.lib.lookup.LookupAction;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.CollectionUtil;
 
 /**
  * @author Elmar Baumann Elmar Baumann
  */
-public final class DisplayFilesWithoutMetaDataAction extends LookupAction<MetaDataValue> {
+public final class DisplayFilesWithoutMetaDataAction implements LookupListener {
 
     private static final long serialVersionUID = 1L;
+    private final Lookup.Result<? extends MetaDataValue> lookupResult;
     private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
 
     public DisplayFilesWithoutMetaDataAction(Lookup lookup) {
-        super(MetaDataValue.class, lookup);
+        lookupResult = lookup.lookupResult(MetaDataValue.class);
+        lookupResult.addLookupListener(this);
+        resultChanged(null);
+    }
+
+    @Override
+    public void resultChanged(LookupEvent evt) {
+        Collection<? extends MetaDataValue> metaDataValues = lookupResult.allInstances();
+        if (metaDataValues.size() == 1) {
+            MetaDataValue metaDataValue = CollectionUtil.getFirstElement(metaDataValues);
+            displayMetaDataValue(metaDataValue);
+        }
     }
 
     private void displayMetaDataValue(MetaDataValue metaDataValue) {
@@ -48,24 +60,5 @@ public final class DisplayFilesWithoutMetaDataAction extends LookupAction<MetaDa
         mainWindowManager.setMainWindowTitle(
                 Bundle.getString(DisplayFilesWithoutMetaDataAction.class,
                 "FilesWithoutMetaDataDisplayAction.MainWindowTitle", metaDataValue.getDescription()));
-    }
-
-    @Override
-    public void resultChanged(LookupEvent evt) {
-        Collection<? extends MetaDataValue> metaDataValues = getLookupContent();
-        actionPerformed(metaDataValues);
-    }
-
-    @Override
-    protected boolean isEnabled(Collection<? extends MetaDataValue> metaDataValues) {
-        return metaDataValues.size() == 1;
-    }
-
-    @Override
-    public void actionPerformed(Collection<? extends MetaDataValue> metaDataValues) {
-        if (metaDataValues.size() == 1) {
-            MetaDataValue metaDataValue = CollectionUtil.getFirstElement(metaDataValues);
-            displayMetaDataValue(metaDataValue);
-        }
     }
 }
