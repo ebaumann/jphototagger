@@ -9,11 +9,12 @@ import org.openide.util.lookup.InstanceContent;
 /**
  * @author Elmar Baumann
  */
-public final class ModifiableLookup {
+public final class ModifiableLookup implements Lookup.Provider {
 
     private final InstanceContent content = new InstanceContent();
     private final Lookup lookup = new AbstractLookup(content);
 
+    @Override
     public Lookup getLookup() {
         return lookup;
     }
