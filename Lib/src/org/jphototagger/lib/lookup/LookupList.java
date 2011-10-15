@@ -1,6 +1,6 @@
 package org.jphototagger.lib.lookup;
 
-import java.util.Arrays;
+import java.util.Collection;
 
 import javax.swing.DefaultListModel;
 import javax.swing.event.ListSelectionEvent;
@@ -36,8 +36,8 @@ public final class LookupList extends JXList {
         @Override
         public void valueChanged(ListSelectionEvent e) {
             if (!e.getValueIsAdjusting()) {
-                Object[] selectedValues = getSelectedValues();
-                content.set(Arrays.asList(selectedValues), null);
+                Collection<?> selectedContent = LookupUtil.createContentOfSelectedValues(LookupList.this);
+                content.set(selectedContent, null);
             }
         }
     };
