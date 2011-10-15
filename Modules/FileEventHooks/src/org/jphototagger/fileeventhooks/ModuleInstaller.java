@@ -3,6 +3,7 @@ package org.jphototagger.fileeventhooks;
 import org.openide.util.lookup.ServiceProvider;
 
 import org.jphototagger.api.modules.Module;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * @author Elmar Baumann
@@ -20,5 +21,10 @@ public final class ModuleInstaller implements Module {
     @Override
     public void remove() {
         // ignore
+    }
+
+    @Override
+    public String toString() {
+        return Bundle.getString(ModuleInstaller.class, "ModuleInstaller.Name");
     }
 }
