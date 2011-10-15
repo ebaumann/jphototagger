@@ -1,7 +1,6 @@
 package org.jphototagger.lib.lookup;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.Collection;
 import javax.swing.JList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -21,15 +20,14 @@ public final class SelectedListItemsLookup implements Lookup.Provider {
 
         list.addListSelectionListener(listSelectionListener);
     }
-
     private final ListSelectionListener listSelectionListener = new ListSelectionListener() {
 
         @Override
         public void valueChanged(ListSelectionEvent e) {
             if (!e.getValueIsAdjusting()) {
                 JList list = (JList) e.getSource();
-                List<Object> selectedValues = Arrays.asList(list.getSelectedValues());
-                lookup.set(selectedValues);
+                Collection<?> content = LookupUtil.createContentOfSelectedValues(list);
+                lookup.set(content);
             }
         }
     };
