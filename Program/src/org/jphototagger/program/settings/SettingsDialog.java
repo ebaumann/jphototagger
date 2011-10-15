@@ -169,10 +169,6 @@ public final class SettingsDialog extends Dialog {
         return panelTasks.getButtonScheduledTasks();
     }
 
-    public void addTabToMiscSettings(Component component, String title) {
-        panelMisc.addTab(component, title);
-    }
-
     /**
      * This method is called from within the constructor to
      * initialize the form.
