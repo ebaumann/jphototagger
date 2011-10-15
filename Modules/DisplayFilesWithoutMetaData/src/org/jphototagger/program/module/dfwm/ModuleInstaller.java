@@ -71,4 +71,9 @@ public final class ModuleInstaller implements Module {
             return null;
         }
     };
+
+    @Override
+    public String toString() {
+        return Bundle.getString(ModuleInstaller.class, "ModuleInstaller.Name");
+    }
 }
