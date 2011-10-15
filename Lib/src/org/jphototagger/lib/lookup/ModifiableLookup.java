@@ -19,15 +19,27 @@ public final class ModifiableLookup implements Lookup.Provider {
         return lookup;
     }
 
-    public void add(Object object) {
-        content.add(object);
+    public void add(Object content) {
+        if (content == null) {
+            throw new NullPointerException("content == null");
+        }
+
+        this.content.add(content);
     }
 
-    public void remove(Object object) {
-        content.remove(object);
+    public void remove(Object content) {
+        if (content == null) {
+            throw new NullPointerException("content == null");
+        }
+
+        this.content.remove(content);
     }
 
-    public void set(Collection<?> ts) {
-        content.set(ts, null);
+    public void set(Collection<?> content) {
+        if (content == null) {
+            throw new NullPointerException("content == null");
+        }
+
+        this.content.set(content, null);
     }
 }
