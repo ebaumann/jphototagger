@@ -6,6 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.jphototagger.domain.metadata.exif.Exif;
+import org.jphototagger.exif.formatter.ExifFormatterAscii;
 import org.jphototagger.lib.util.NumberUtil;
 
 /**
@@ -76,11 +77,9 @@ final class ExifFactory {
     }
 
     private static void setExifEquipment(Exif exif, ExifTag modelTag) {
-        String exifTagStringValue = modelTag.getStringValue();
-
-        if (exifTagStringValue != null) {
-            exif.setRecordingEquipment(exifTagStringValue.trim());
-        }
+        ExifFormatterAscii formatter = ExifFormatterAscii.INSTANCE;
+        String formattedModelTag = formatter.format(modelTag);
+        exif.setRecordingEquipment(formattedModelTag);
     }
 
     private static void setExifFocalLength(Exif exif, ExifTag focalLengthTag) {
