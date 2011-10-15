@@ -5,11 +5,13 @@ import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.Action;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu.Separator;
 
+import javax.swing.KeyStroke;
 import org.jphototagger.api.windows.MainWindowMenuItem;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.KeyEventUtil;
@@ -31,6 +33,8 @@ public final class AppFrame extends javax.swing.JFrame {
     private final Map<GoTo, JMenuItem> menuItemOfGoto = new EnumMap<GoTo, JMenuItem>(GoTo.class);
     private final Map<JMenuItem, GoTo> gotoOfMenuItem = new HashMap<JMenuItem, GoTo>();
     private AppPanel appPanel;
+    private int lastGotoItemIndex = 9;
+    private int lastGotoItemAcceleratorKeyCode = 0x37;
 
     private void initGotoMenuItemsMap() {
         menuItemOfGoto.put(GoTo.DIRECTORIES, menuItemGotoDirectories);
@@ -43,7 +47,6 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemOfGoto.put(GoTo.IPTC_METADATA, menuItemGotoIptcMetadata);
         menuItemOfGoto.put(GoTo.KEYWORDS_SEL, menuItemGotoKeywordsSel);
         menuItemOfGoto.put(GoTo.MISC_METADATA, menuItemGotoMiscMetadata);
-        menuItemOfGoto.put(GoTo.NO_METADATA, menuItemGotoNoMetadata);
         menuItemOfGoto.put(GoTo.SAVED_SEARCHES, menuItemGotoSavedSearches);
         menuItemOfGoto.put(GoTo.THUMBNAILS_PANEL, menuItemGotoThumbnailsPanel);
         menuItemOfGoto.put(GoTo.TIMELINE, menuItemGotoTimeline);
@@ -69,7 +72,6 @@ public final class AppFrame extends javax.swing.JFrame {
         THUMBNAILS_PANEL,
         TIMELINE,
         XMP_METADATA,
-        NO_METADATA,
     }
 
     public AppFrame() {
@@ -93,6 +95,17 @@ public final class AppFrame extends javax.swing.JFrame {
     private void addAppPanel() {
         appPanel = new AppPanel();
         getContentPane().add(appPanel);
+    }
+
+    void addGotoMenuItem(Action action) {
+        JMenuItem item = new JMenuItem(action);
+        if (lastGotoItemAcceleratorKeyCode > 0x30 && lastGotoItemAcceleratorKeyCode <= 0x39) { // 0x30: TN-Panel
+            KeyStroke keyStroke = KeyEventUtil.getKeyStrokeMenuShortcut(lastGotoItemAcceleratorKeyCode + 1);
+            item.setAccelerator(keyStroke);
+            lastGotoItemAcceleratorKeyCode++;
+        }
+        menuGoto.insert(item, lastGotoItemIndex + 1);
+        lastGotoItemIndex++;
     }
 
     public JCheckBoxMenuItem getCheckBoxMenuItemKeywordOverlay() {
@@ -304,7 +317,6 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemGotoKeywordsSel = new javax.swing.JMenuItem();
         menuItemGotoTimeline = new javax.swing.JMenuItem();
         menuItemGotoMiscMetadata = new javax.swing.JMenuItem();
-        menuItemGotoNoMetadata = new javax.swing.JMenuItem();
         sep17 = new javax.swing.JPopupMenu.Separator();
         menuItemGotoThumbnailsPanel = new javax.swing.JMenuItem();
         sep18 = new javax.swing.JPopupMenu.Separator();
@@ -506,12 +518,6 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemGotoMiscMetadata.setText(bundle.getString("AppFrame.menuItemGotoMiscMetadata.text")); // NOI18N
         menuItemGotoMiscMetadata.setName("menuItemGotoMiscMetadata"); // NOI18N
         menuGoto.add(menuItemGotoMiscMetadata);
-
-        menuItemGotoNoMetadata.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_8));
-        menuItemGotoNoMetadata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_no_metadata.png"))); // NOI18N
-        menuItemGotoNoMetadata.setText(bundle.getString("AppFrame.menuItemGotoNoMetadata.text")); // NOI18N
-        menuItemGotoNoMetadata.setName("menuItemGotoNoMetadata"); // NOI18N
-        menuGoto.add(menuItemGotoNoMetadata);
 
         sep17.setName("sep17"); // NOI18N
         menuGoto.add(sep17);
@@ -722,7 +728,6 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemGotoKeywordsEdit;
     private javax.swing.JMenuItem menuItemGotoKeywordsSel;
     private javax.swing.JMenuItem menuItemGotoMiscMetadata;
-    private javax.swing.JMenuItem menuItemGotoNoMetadata;
     private javax.swing.JMenuItem menuItemGotoSavedSearches;
     private javax.swing.JMenuItem menuItemGotoThumbnailsPanel;
     private javax.swing.JMenuItem menuItemGotoTimeline;

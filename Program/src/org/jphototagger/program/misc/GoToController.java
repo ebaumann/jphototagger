@@ -46,7 +46,6 @@ public final class GoToController implements ActionListener {
         tabbedPaneOfGoTo.put(AppFrame.GoTo.KEYWORDS_SEL, appPanel.getTabbedPaneSelection());
         tabbedPaneOfGoTo.put(AppFrame.GoTo.TIMELINE, appPanel.getTabbedPaneSelection());
         tabbedPaneOfGoTo.put(AppFrame.GoTo.MISC_METADATA, appPanel.getTabbedPaneSelection());
-        tabbedPaneOfGoTo.put(AppFrame.GoTo.NO_METADATA, appPanel.getTabbedPaneSelection());
         tabbedPaneOfGoTo.put(AppFrame.GoTo.EDIT_PANELS, appPanel.getTabbedPaneMetadata());
         tabbedPaneOfGoTo.put(AppFrame.GoTo.EXIF_METADATA, appPanel.getTabbedPaneMetadata());
         tabbedPaneOfGoTo.put(AppFrame.GoTo.IPTC_METADATA, appPanel.getTabbedPaneMetadata());

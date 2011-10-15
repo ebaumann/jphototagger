@@ -1,16 +1,18 @@
 package org.jphototagger.program.app.ui;
 
-import org.jphototagger.lib.swing.TreeExpandCollapseAllAction;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.GridBagConstraints;
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -35,13 +37,15 @@ import javax.swing.text.Document;
 import javax.swing.text.JTextComponent;
 import javax.swing.tree.TreeSelectionModel;
 
-import org.openide.util.Lookup;
-
 import org.bushe.swing.event.EventBus;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.JXTree;
+
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.messages.MessageType;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesChangedEvent;
@@ -52,6 +56,7 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.ImageTextArea;
 import org.jphototagger.lib.swing.MessageLabel;
 import org.jphototagger.lib.swing.TableTextFilter;
+import org.jphototagger.lib.swing.TreeExpandCollapseAllAction;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.swingx.ListTextFilter;
@@ -698,12 +703,37 @@ public final class AppPanel extends javax.swing.JPanel {
         return splitPaneThumbnailsMetadata;
     }
 
-    void dockIntoSelectionWindow(MainWindowComponent appWindow) {
-        dockIntoTabbedPane(appWindow, tabbedPaneSelection);
+    void dockIntoSelectionWindow(MainWindowComponent mainWindowComponent) {
+        dockIntoTabbedPane(mainWindowComponent, tabbedPaneSelection);
+        SelectTabAction selectTabAction = createSelectTabAction(mainWindowComponent, tabbedPaneSelection);
+        GUI.getAppFrame().addGotoMenuItem(selectTabAction);
     }
 
     void dockIntoEditWindow(MainWindowComponent appWindow) {
         dockIntoTabbedPane(appWindow, tabbedPaneSelection);
+    }
+
+    private SelectTabAction createSelectTabAction(MainWindowComponent mainWindowComponent, JTabbedPane tabbedPane) {
+        SelectTabAction action = new SelectTabAction(tabbedPane, mainWindowComponent.getComponent());
+        action.putValue(Action.NAME, mainWindowComponent.getTitle());
+        action.putValue(Action.SMALL_ICON, mainWindowComponent.getSmallIcon());
+        return action;
+    }
+
+    private static class SelectTabAction extends AbstractAction {
+        private static final long serialVersionUID = 1L;
+        private final JTabbedPane tabbedPane;
+        private final Component component;
+
+        private SelectTabAction(JTabbedPane tabbedPane, Component component) {
+            this.tabbedPane = tabbedPane;
+            this.component = component;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            tabbedPane.setSelectedComponent(component);
+        }
     }
 
     private void dockIntoTabbedPane(final MainWindowComponent appWindow, final JTabbedPane tabbedPane) {
