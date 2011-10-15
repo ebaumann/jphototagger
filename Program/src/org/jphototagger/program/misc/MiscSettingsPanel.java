@@ -4,6 +4,9 @@ import java.awt.Component;
 import java.awt.Container;
 import java.io.File;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import javax.swing.Icon;
 import javax.swing.filechooser.FileSystemView;
 
@@ -14,8 +17,10 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesChangedEvent;
+import org.jphototagger.api.windows.OptionPageProvider;
 import org.jphototagger.domain.repository.FileRepositoryProvider;
 import org.jphototagger.iptc.IptcPreferencesKeys;
+import org.jphototagger.lib.comparator.PositionComparatorAscendingOrder;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.swing.DirectoryChooser;
 import org.jphototagger.lib.swing.DirectoryChooser.Option;
@@ -42,6 +47,8 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
     }
 
     private void postInitComponents() {
+        lookupMiscOptionPages();
+        restoreTabbedPaneSettings();
         MnemonicUtil.setMnemonics((Container) this);
         AnnotationProcessor.process(this);
     }
@@ -247,7 +254,18 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         updateCheckController.actionPerformed(null);
     }
 
-    public void addTab(Component component, String title) {
+    private void lookupMiscOptionPages() {
+        List<OptionPageProvider> providers =
+                new ArrayList<OptionPageProvider>(Lookup.getDefault().lookupAll(OptionPageProvider.class));
+        Collections.sort(providers, PositionComparatorAscendingOrder.INSTANCE);
+        for (OptionPageProvider provider : providers) {
+            if (provider.isMiscOptionPage()) {
+                addTab(provider.getComponent(), provider.getTitle(), provider.getIcon());
+            }
+        }
+    }
+
+    private void addTab(Component component, String title, Icon icon) {
         if (component == null) {
             throw new NullPointerException("component == null");
         }
@@ -255,9 +273,10 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         if (title == null) {
             throw new NullPointerException("title == null");
         }
-
         tabbedPane.add(title, component);
-        restoreTabbedPaneSettings();
+        if (icon != null) {
+            tabbedPane.setIconAt(tabbedPane.indexOfComponent(component), icon);
+        }
     }
 
     /**
