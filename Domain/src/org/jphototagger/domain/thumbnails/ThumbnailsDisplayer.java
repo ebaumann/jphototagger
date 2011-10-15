@@ -8,5 +8,9 @@ import java.util.Collection;
  */
 public interface ThumbnailsDisplayer {
 
-    void displayThumbnails(Collection<? extends File> files, OriginOfDisplayedThumbnails origin);
+    void displayFiles(Collection<? extends File> files, OriginOfDisplayedThumbnails origin);
+
+    boolean isDisplayFile(File file);
+
+    void removeFilesFromDisplay(Collection<? extends File> filesToRemove);
 }

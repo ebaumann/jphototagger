@@ -52,7 +52,7 @@ public final class DisplayFilesWithoutMetaDataAction implements LookupListener {
     private void displayThumbnails(MetaDataValue selValue) {
         List<File> imageFiles = repo.findImageFilesWithoutDataValue(selValue);
         ThumbnailsDisplayer thumbnailsDisplayer = Lookup.getDefault().lookup(ThumbnailsDisplayer.class);
-        thumbnailsDisplayer.displayThumbnails(imageFiles, OriginOfDisplayedThumbnails.FILES_MATCHING_MISSING_METADATA);
+        thumbnailsDisplayer.displayFiles(imageFiles, OriginOfDisplayedThumbnails.FILES_MATCHING_MISSING_METADATA);
     }
 
     private void setTitle(MetaDataValue metaDataValue) {

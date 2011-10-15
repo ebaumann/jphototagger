@@ -17,27 +17,29 @@ import org.jphototagger.program.resource.GUI;
 public final class ThumbnailsDisplayerImpl implements ThumbnailsDisplayer {
 
     @Override
-    public void displayThumbnails(Collection<? extends File> imageFiles, OriginOfDisplayedThumbnails origin) {
-        ThumbnailsDisplayer thumbnailsDisplayer = new ThumbnailsDisplayer(imageFiles, origin);
+    public void displayFiles(final Collection<? extends File> imageFiles, final OriginOfDisplayedThumbnails origin) {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
-        EventQueueUtil.invokeInDispatchThread(thumbnailsDisplayer);
+            @Override
+            public void run() {
+                GUI.getThumbnailsPanel().setFiles(imageFiles, origin);
+            }
+        });
     }
 
-    private static class ThumbnailsDisplayer implements Runnable {
+    @Override
+    public boolean isDisplayFile(File file) {
+        return GUI.getThumbnailsPanel().containsFile(file);
+    }
 
-        private final Collection<? extends File> imageFiles;
-        private final OriginOfDisplayedThumbnails origin;
+    @Override
+    public void removeFilesFromDisplay(final Collection<? extends File> filesToRemove) {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
-        ThumbnailsDisplayer(Collection<? extends File> imageFiles, OriginOfDisplayedThumbnails origin) {
-            this.imageFiles = imageFiles;
-            this.origin = origin;
-        }
-
-        @Override
-        public void run() {
-            ThumbnailsPanel thumbnailsPanel = GUI.getThumbnailsPanel();
-
-            thumbnailsPanel.setFiles(imageFiles, origin);
-        }
+            @Override
+            public void run() {
+                GUI.getThumbnailsPanel().removeFiles(filesToRemove);
+            }
+        });
     }
 }
