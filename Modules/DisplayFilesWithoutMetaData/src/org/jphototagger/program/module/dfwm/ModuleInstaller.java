@@ -1,4 +1,4 @@
-package org.jphototagger.program.module.nometadata;
+package org.jphototagger.program.module.dfwm;
 
 import java.awt.Component;
 

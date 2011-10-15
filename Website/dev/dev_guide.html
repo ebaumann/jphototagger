@@ -46,6 +46,10 @@
 
                 <p><em>Do not repeat bad code</em> in (hopefully) old parts of <strong>JPhotoTagger</strong>! For example
                     do <em>not</em> implement <code>ActionListener</code>s, use <code>Action</code>s instead.
+                    Even better, use the <code>org.openide.util.Lookup</code> and support for the Lookup in
+                    <strong>JPhotoTaggers</strong>'s <strong>Lib</strong> Project. You can see usage examples
+                    in the code of some modules, e.g. in Module <strong>Display Files Without Metadata</strong>
+                    or Module <strong>RepositoryFileBrowser</strong>.
                 </p>
 
                 <p><em>Do not add code to the </em> <strong>Program</strong> project. There should be only
@@ -108,21 +112,21 @@ implementation.doSomething();
                     application startup without user interaction (file processors will be invoked only if the user
                     calls them). Examples are <code>FileEventHooks</code> or <code>RepositoryFileBrowser</code>.
                 </p>
-				
+
 				<h2>Thumbnails for a specific file format not supported by JPotoTagger</h2>
-				
+
 				<p>Implement <code>org.jphototagger.domain.thumbnails.ThumbnailCreator</code>.
 				   JPhotoTagger will find it through the <strong>Java Service Provider Interface</strong>.
 				</p>
-				
+
 				<h2>EXIF for a specific file format not supported by JPotoTagger</h2>
-				
+
 				<p>Implement <code>org.jphototagger.domain.metadata.exif.ExifReader</code>.
 				   JPhotoTagger will find it through the <strong>Java Service Provider Interface</strong>.
 				</p>
-				
+
 				<h2>EXIF Maker Notes</h2>
-				
+
 				<p>Implement <code>org.jphototagger.domain.metadata.exif.ExifMakerNoteTags</code>.
 				   JPhotoTagger will find it through the <strong>Java Service Provider Interface</strong>.
 				   In Opposite to an <code>ExifReader</code>, a <code>ExifMakerNoteTags</code> instance

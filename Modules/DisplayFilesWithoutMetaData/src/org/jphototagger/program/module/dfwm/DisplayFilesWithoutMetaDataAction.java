@@ -1,10 +1,11 @@
-package org.jphototagger.program.module.nometadata;
+package org.jphototagger.program.module.dfwm;
 
 import java.io.File;
 import java.util.Collection;
 import java.util.List;
 
 import org.openide.util.Lookup;
+import org.openide.util.LookupEvent;
 
 import org.jphototagger.api.windows.MainWindowManager;
 import org.jphototagger.api.windows.WaitDisplayer;
@@ -15,7 +16,6 @@ import org.jphototagger.domain.thumbnails.ThumbnailsDisplayer;
 import org.jphototagger.lib.lookup.LookupAction;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.CollectionUtil;
-import org.openide.util.LookupEvent;
 
 /**
  * @author Elmar Baumann Elmar Baumann
