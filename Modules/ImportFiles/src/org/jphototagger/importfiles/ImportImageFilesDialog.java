@@ -1,4 +1,4 @@
-package org.jphototagger.importimages;
+package org.jphototagger.importfiles;
 
 import java.awt.Container;
 import java.io.File;
@@ -344,7 +344,7 @@ public class ImportImageFilesDialog extends Dialog {
         buttonOk = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/importimages/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/importfiles/Bundle"); // NOI18N
         setTitle(bundle.getString("ImportImageFilesDialog.title")); // NOI18N
         setName("Form"); // NOI18N
 

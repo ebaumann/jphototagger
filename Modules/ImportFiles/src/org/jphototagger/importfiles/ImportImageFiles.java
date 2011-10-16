@@ -1,8 +1,9 @@
-package org.jphototagger.importimages;
+package org.jphototagger.importfiles;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,6 +15,7 @@ import org.jphototagger.api.file.CopyMoveFilesOptions;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.domain.FileCopyService;
+import org.jphototagger.domain.FileImportService;
 import org.jphototagger.domain.filefilter.FileFilterUtil;
 import org.jphototagger.domain.imagecollections.ImageCollection;
 import org.jphototagger.domain.imagecollections.ImageCollectionService;
@@ -24,11 +26,13 @@ import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.SourceTargetFile;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.ProgressBarUpdater;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann
  */
-public final class ImportImageFiles extends Thread implements ProgressListener {
+@ServiceProvider(service = FileImportService.class)
+public final class ImportImageFiles extends Thread implements FileImportService, ProgressListener {
 
     private static final String progressBarString = Bundle.getString(ImportImageFiles.class, "ImportImageFiles.Info.ProgressBar");
     private final List<File> copiedTargetFiles = new ArrayList<File>();
@@ -36,6 +40,12 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
     private final List<SourceTargetFile> sourceTargetFiles;
     private final boolean deleteScrFilesAfterCopying;
     private static final Logger LOGGER = Logger.getLogger(ImportImageFiles.class.getName());
+
+    public ImportImageFiles() {
+        super("JPhotoTagger: Importing image files");
+        sourceTargetFiles = Collections.emptyList();
+        deleteScrFilesAfterCopying = false;
+    }
 
     private ImportImageFiles(List<SourceTargetFile> sourceTargetFiles, boolean deleteScrFilesAfterCopying) {
         super("JPhotoTagger: Importing image files");
@@ -183,5 +193,14 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
                 LOGGER.log(Level.WARNING, "Error while deleting file ''{0}''!", file);
             }
         }
+    }
+
+    @Override
+    public void importFilesFromDirectory(File directory) {
+        if (directory == null) {
+            throw new NullPointerException("directory == null");
+        }
+
+        importFrom(directory);
     }
 }
