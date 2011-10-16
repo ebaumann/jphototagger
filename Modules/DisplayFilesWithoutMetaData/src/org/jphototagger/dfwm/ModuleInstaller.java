@@ -1,4 +1,4 @@
-package org.jphototagger.program.module.dfwm;
+package org.jphototagger.dfwm;
 
 import java.awt.Component;
 
