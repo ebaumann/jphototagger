@@ -1,34 +1,38 @@
 package org.jphototagger.dfwm;
 
 import java.awt.Component;
+import java.util.Arrays;
+import java.util.Collection;
 
 import javax.swing.Icon;
 
-import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
+import org.openide.util.lookup.ServiceProviders;
 
 import org.jphototagger.api.modules.Module;
 import org.jphototagger.api.modules.ModuleDescription;
 import org.jphototagger.api.windows.MainWindowComponent;
-import org.jphototagger.api.windows.MainWindowManager;
+import org.jphototagger.api.windows.MainWindowComponentProvider;
+import org.jphototagger.api.windows.MainWindowComponentProviderAdapter;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
 
 /**
  * @author Elmar Baumann
  */
-@ServiceProvider(service = Module.class)
-public final class ModuleInstaller implements Module, ModuleDescription {
+@ServiceProviders({
+    @ServiceProvider(service = Module.class),
+    @ServiceProvider(service = MainWindowComponentProvider.class)
+})
+public final class ModuleInstaller extends MainWindowComponentProviderAdapter implements Module, ModuleDescription {
 
     private static final Icon ICON = IconUtil.getImageIcon(ModuleInstaller.class, "files_without_metadata.png");
     private static final String TITLE = Bundle.getString(ModuleInstaller.class, "Module.Title");
     private final FilesWithoutMetaDataPanel panel = new FilesWithoutMetaDataPanel();
 
-
     @Override
     public void init() {
-        plugIntoMainWindow();
-
+        // ignore
     }
 
     @Override
@@ -36,11 +40,11 @@ public final class ModuleInstaller implements Module, ModuleDescription {
         panel.writePreferences();
     }
 
-    private void plugIntoMainWindow() {
-        MainWindowManager manager = Lookup.getDefault().lookup(MainWindowManager.class);
-        manager.dockIntoSelectionWindow(mainWindowComponent);
+    @Override
+    public Collection<? extends MainWindowComponent> getMainWindowSelectionComponents() {
+        return Arrays.asList(mainWindowPanel);
     }
-    private final MainWindowComponent mainWindowComponent = new MainWindowComponent() {
+    private final MainWindowComponent mainWindowPanel = new MainWindowComponent() {
 
         @Override
         public Component getComponent() {

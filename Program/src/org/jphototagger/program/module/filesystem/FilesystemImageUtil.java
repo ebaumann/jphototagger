@@ -1,5 +1,6 @@
 package org.jphototagger.program.module.filesystem;
 
+import org.jphototagger.api.file.CopyMoveFilesOptions;
 import org.jphototagger.domain.filefilter.FileFilterUtil;
 import java.io.File;
 import java.util.ArrayList;
@@ -78,12 +79,12 @@ public final class FilesystemImageUtil {
         dlg.copy(true, getCopyMoveFilesOptions());
     }
 
-    private static CopyFiles.Options getCopyMoveFilesOptions() {
+    private static CopyMoveFilesOptions getCopyMoveFilesOptions() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         return storage.containsKey(AppPreferencesKeys.KEY_FILE_SYSTEM_OPERATIONS_OPTIONS_COPY_MOVE_FILES)
-                ? CopyFiles.Options.fromInt(storage.getInt(AppPreferencesKeys.KEY_FILE_SYSTEM_OPERATIONS_OPTIONS_COPY_MOVE_FILES))
-                : CopyFiles.Options.CONFIRM_OVERWRITE;
+                ? CopyMoveFilesOptions.parseInteger(storage.getInt(AppPreferencesKeys.KEY_FILE_SYSTEM_OPERATIONS_OPTIONS_COPY_MOVE_FILES))
+                : CopyMoveFilesOptions.CONFIRM_OVERWRITE;
     }
 
     /**

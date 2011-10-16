@@ -1,4 +1,4 @@
-package org.jphototagger.program.module.importimages;
+package org.jphototagger.importimages;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -10,25 +10,22 @@ import java.util.logging.Logger;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.concurrent.SerialTaskExecutor;
+import org.jphototagger.api.file.CopyMoveFilesOptions;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
+import org.jphototagger.domain.FileCopyService;
+import org.jphototagger.domain.filefilter.FileFilterUtil;
 import org.jphototagger.domain.imagecollections.ImageCollection;
+import org.jphototagger.domain.imagecollections.ImageCollectionService;
 import org.jphototagger.domain.repository.ImageCollectionsRepository;
 import org.jphototagger.domain.repository.SaveOrUpdate;
-import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.domain.repository.SaveToOrUpdateFilesInRepository;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.SourceTargetFile;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.misc.SaveToOrUpdateFilesInRepositoryImpl;
-import org.jphototagger.domain.filefilter.FileFilterUtil;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.app.ui.AppPanel;
-import org.jphototagger.program.app.ui.ProgressBarUpdater;
-import org.jphototagger.program.module.filesystem.CopyFiles;
+import org.jphototagger.lib.util.ProgressBarUpdater;
 
 /**
- * Imports image files from a source directory to a target directory.
- *
  * @author Elmar Baumann
  */
 public final class ImportImageFiles extends Thread implements ProgressListener {
@@ -97,12 +94,12 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
 
     @Override
     public void run() {
-        CopyFiles copyFiles = new CopyFiles(sourceTargetFiles, CopyFiles.Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS);
-        ProgressBarUpdater pBarUpdater = new ProgressBarUpdater(copyFiles, progressBarString);
+        FileCopyService copyService = Lookup.getDefault().lookup(FileCopyService.class).createInstance(sourceTargetFiles, CopyMoveFilesOptions.RENAME_SOURCE_FILE_IF_TARGET_FILE_EXISTS);
+        ProgressBarUpdater pBarUpdater = new ProgressBarUpdater(copyService, progressBarString);
 
-        copyFiles.addProgressListener(this);
-        copyFiles.addProgressListener(pBarUpdater);
-        copyFiles.run();    // Has to run in this thread!
+        copyService.addProgressListener(this);
+        copyService.addProgressListener(pBarUpdater);
+        copyService.copyWaitForTermination();
     }
 
     @Override
@@ -146,11 +143,11 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
     }
 
     private void insertCopiedFilesIntoDb() {
-        SaveToOrUpdateFilesInRepositoryImpl inserter = new SaveToOrUpdateFilesInRepositoryImpl(copiedTargetFiles, SaveOrUpdate.OUT_OF_DATE);
+        SaveToOrUpdateFilesInRepository inserter = Lookup.getDefault().lookup(SaveToOrUpdateFilesInRepository.class).createInstance(copiedTargetFiles, SaveOrUpdate.OUT_OF_DATE);
         ProgressBarUpdater pBarUpdater = new ProgressBarUpdater(inserter, progressBarString);
 
         inserter.addProgressListener(pBarUpdater);
-        inserter.run();    // Has to run in this thread!
+        inserter.saveOrUpdateWaitForTermination();
     }
 
     private void insertCopiedFilesAsCollectionIntoDb() {
@@ -172,17 +169,10 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
     }
 
     private void selectPrevImportCollection() {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                AppPanel appPanel = GUI.getAppPanel();
-
-                appPanel.getTabbedPaneSelection().setSelectedComponent(appPanel.getTabSelectionImageCollections());
-                GUI.getAppPanel().getListImageCollections().setSelectedValue(
-                        ImageCollection.PREVIOUS_IMPORT_NAME, true);
-            }
-        });
+        ImageCollectionService service = Lookup.getDefault().lookup(ImageCollectionService.class);
+        if (service != null) {
+            service.selectPreviousImportedFiles();
+        }
     }
 
     private void deleteCopiedSourceFiles() {

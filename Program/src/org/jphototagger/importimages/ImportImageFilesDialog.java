@@ -1,4 +1,4 @@
-package org.jphototagger.program.module.importimages;
+package org.jphototagger.importimages;
 
 import java.awt.Container;
 import java.io.File;
@@ -13,14 +13,14 @@ import javax.swing.filechooser.FileSystemView;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
-import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.DirectoryChooser;
 import org.jphototagger.lib.swing.DirectoryChooser.Option;
 import org.jphototagger.lib.swing.MessageDisplayer;
+import org.jphototagger.lib.swing.util.ComponentUtil;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
-import org.jphototagger.program.resource.GUI;
 
 /**
  * @author Elmar Baumann
@@ -42,7 +42,7 @@ public class ImportImageFilesDialog extends Dialog {
     private boolean listenToCheckBox = true;
 
     public ImportImageFilesDialog() {
-        super(GUI.getAppFrame(), true);
+        super(ComponentUtil.findFrameWithIcon(), true);
         initComponents();
         setHelpPage();
         init();
@@ -222,7 +222,7 @@ public class ImportImageFilesDialog extends Dialog {
 
     private File chooseDir(File startDir) {
         Option showHiddenDirs = getDirChooserOptionShowHiddenDirs();
-        DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), startDir, showHiddenDirs);
+        DirectoryChooser dlg = new DirectoryChooser(ComponentUtil.findFrameWithIcon(), startDir, showHiddenDirs);
 
         dlg.setStorageKey("ImportImageFilesDialog.DirChooser");
         dlg.setVisible(true);
@@ -344,7 +344,7 @@ public class ImportImageFilesDialog extends Dialog {
         buttonOk = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/importimages/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/importimages/Bundle"); // NOI18N
         setTitle(bundle.getString("ImportImageFilesDialog.title")); // NOI18N
         setName("Form"); // NOI18N
 

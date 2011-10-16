@@ -16,7 +16,7 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.program.misc.SaveToOrUpdateFilesInRepositoryImpl;
 import org.jphototagger.domain.filefilter.FileFilterUtil;
-import org.jphototagger.program.app.ui.ProgressBarUpdater;
+import org.jphototagger.lib.util.ProgressBarUpdater;
 
 /**
  * @author Elmar Baumann

@@ -1,33 +1,43 @@
 package org.jphototagger.program.module.filesystem;
 
+import org.jphototagger.api.file.CopyMoveFilesOptions;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
+import org.jphototagger.domain.FileCopyService;
 import org.jphototagger.domain.event.listener.ProgressListenerSupport;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.SourceTargetFile;
 import org.jphototagger.lib.util.Bundle;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * Kopieren von Dateien.
  *
  * @author Elmar Baumann
  */
-public final class CopyFiles implements Runnable, Cancelable {
+@ServiceProvider(service = FileCopyService.class)
+public final class CopyFiles implements Runnable, FileCopyService {
 
-    private final ProgressListenerSupport ls = new ProgressListenerSupport();
+    private final ProgressListenerSupport progressListeners = new ProgressListenerSupport();
     private final List<File> errorFiles = new ArrayList<File>();
-    private final Options options;
+    private final CopyMoveFilesOptions options;
     private final List<SourceTargetFile> sourceTargetFiles;
     private volatile boolean cancel;
     private static final Logger LOGGER = Logger.getLogger(CopyFiles.class.getName());
+
+    public CopyFiles() {
+        sourceTargetFiles = Collections.emptyList();
+        options = CopyMoveFilesOptions.CONFIRM_OVERWRITE;
+    }
 
     /**
      * Konstruktor
@@ -36,7 +46,7 @@ public final class CopyFiles implements Runnable, Cancelable {
      *                 ist die Quelldatei, die zweite die Zieldatei.
      * @param options  Optionen
      */
-    public CopyFiles(List<SourceTargetFile> sourceTargetFiles, Options options) {
+    public CopyFiles(Collection<? extends SourceTargetFile> sourceTargetFiles, CopyMoveFilesOptions options) {
         if (sourceTargetFiles == null) {
             throw new NullPointerException("sourceTargetFiles == null");
         }
@@ -54,59 +64,14 @@ public final class CopyFiles implements Runnable, Cancelable {
         cancel = true;
     }
 
-    /**
-     * Copy options.
-     */
-    public enum Options {
-
-        /** Overwrite existing files only if confirmed */
-        CONFIRM_OVERWRITE(0),
-        /** Overwrite existing files without confirmYesNo */
-        FORCE_OVERWRITE(1),
-        /** Rename the source file if the target file exists */
-        RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS(2),;
-        private final int index;
-
-        private Options(int index) {
-            this.index = index;
-        }
-
-        public int getInt() {
-            return index;
-        }
-
-        public static Options fromInt(int index) {
-            for (Options o : values()) {
-                if (o.getInt() == index) {
-                    return o;
-                }
-            }
-
-            assert false : "Invalid index: " + index;
-
-            return CONFIRM_OVERWRITE;
-        }
+    @Override
+    public void addProgressListener(ProgressListener progessListener) {
+        progressListeners.add(progessListener);
     }
 
-    /**
-     * Fügt einen Aktionsbeobachter hinzu.
-     * {@code ProgressListener#progressPerformed(ProgressEvent)}
-     * liefert ein
-     * {@code  org.jphototagger.program.event.ProgressEvent}-Objekt,
-     * das mit {@code  org.jphototagger.program.event.ProgressEvent#getInfo()}
-     * ein {@code SourceTargetFile}-Objekt liefert.
-     *
-     * {@code ProgressListener#progressEnded(ProgressEvent)}
-     * liefert ein
-     * {@code  org.jphototagger.program.event.ProgressEvent}-Objekt,
-     * das mit {@code  ProgressEvent#getInfo()}
-     * ein {@code java.util.List}-Objekt mit den Dateinamen der Dateien, die
-     * nicht kopiert werden konnten.
-     *
-     * @param listener  Beobachter
-     */
-    public synchronized void addProgressListener(ProgressListener listener) {
-        ls.add(listener);
+    @Override
+    public void removeProgressListener(ProgressListener progessListener) {
+        progressListeners.add(progessListener);
     }
 
     @Override
@@ -140,7 +105,7 @@ public final class CopyFiles implements Runnable, Cancelable {
     private File getTargetFile(SourceTargetFile files) {
         File targetFile = files.getTargetFile();
 
-        if (options.equals(Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS) && targetFile.exists()) {
+        if (options.equals(CopyMoveFilesOptions.RENAME_SOURCE_FILE_IF_TARGET_FILE_EXISTS) && targetFile.exists()) {
             targetFile = FileUtil.getNotExistingFile(targetFile);
         }
 
@@ -154,23 +119,23 @@ public final class CopyFiles implements Runnable, Cancelable {
     private synchronized void notifyStart() {
         ProgressEvent evt = new ProgressEvent.Builder().source(this).minimum(0).maximum(sourceTargetFiles.size()).value(0).build();
 
-        ls.notifyStarted(evt);
+        progressListeners.notifyStarted(evt);
     }
 
     private synchronized void notifyPerformed(int value, SourceTargetFile sourceTargetFile) {
         ProgressEvent evt = new ProgressEvent.Builder().source(this).minimum(0).maximum(sourceTargetFiles.size()).value(value).info(sourceTargetFile).build();
 
-        ls.notifyPerformed(evt);
+        progressListeners.notifyPerformed(evt);
     }
 
     private synchronized void notifyEnded() {
         ProgressEvent evt = new ProgressEvent.Builder().source(this).minimum(0).maximum(sourceTargetFiles.size()).value(sourceTargetFiles.size()).info(errorFiles).build();
 
-        ls.notifyEnded(evt);
+        progressListeners.notifyEnded(evt);
     }
 
     private boolean checkOverwrite(SourceTargetFile sourceTargetFile) {
-        if (options.equals(Options.FORCE_OVERWRITE) || options.equals(Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS)) {
+        if (options.equals(CopyMoveFilesOptions.FORCE_OVERWRITE) || options.equals(CopyMoveFilesOptions.RENAME_SOURCE_FILE_IF_TARGET_FILE_EXISTS)) {
             return true;
         }
 
@@ -202,5 +167,30 @@ public final class CopyFiles implements Runnable, Cancelable {
         }
 
         return true;
+    }
+
+    @Override
+    public FileCopyService createInstance(Collection<? extends SourceTargetFile> sourceTargetFiles, CopyMoveFilesOptions options) {
+        if (sourceTargetFiles == null) {
+            throw new NullPointerException("sourceTargetFiles == null");
+        }
+
+        if (options == null) {
+            throw new NullPointerException("options == null");
+        }
+
+        return new CopyFiles(sourceTargetFiles, options);
+    }
+
+    @Override
+    public void copyInNewThread() {
+        Thread thread = new Thread(this);
+        thread.setName("JPhotoTagger: Copy Files");
+        thread.start();
+    }
+
+    @Override
+    public void copyWaitForTermination() {
+        run();
     }
 }

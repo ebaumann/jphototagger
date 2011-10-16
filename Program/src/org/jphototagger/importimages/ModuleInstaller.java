@@ -1,10 +1,9 @@
-package org.jphototagger.repositoryfilebrowser;
+package org.jphototagger.importimages;
 
 import java.util.Arrays;
 import java.util.Collection;
 
 import org.openide.util.lookup.ServiceProvider;
-import org.openide.util.lookup.ServiceProviders;
 
 import org.jphototagger.api.modules.Module;
 import org.jphototagger.api.modules.ModuleDescription;
@@ -12,6 +11,7 @@ import org.jphototagger.api.windows.MainWindowMenuItem;
 import org.jphototagger.api.windows.MainWindowMenuProvider;
 import org.jphototagger.api.windows.MainWindowMenuProviderAdapter;
 import org.jphototagger.lib.util.Bundle;
+import org.openide.util.lookup.ServiceProviders;
 
 /**
  * @author Elmar Baumann
@@ -24,17 +24,17 @@ public final class ModuleInstaller extends MainWindowMenuProviderAdapter impleme
 
     @Override
     public void init() {
-        // Ignore
+        // ignore
     }
 
     @Override
     public void remove() {
-        // Ignore
+        // ignore
     }
 
     @Override
-    public Collection<? extends MainWindowMenuItem> getWindowMenuItems() {
-        return Arrays.asList(BrowseRepositoryFilesAction.INSTANCE);
+    public Collection<? extends MainWindowMenuItem> getFileMenuItems() {
+        return Arrays.asList(new ImportImageFilesAction());
     }
 
     @Override

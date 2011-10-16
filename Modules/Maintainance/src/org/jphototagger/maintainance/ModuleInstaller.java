@@ -1,30 +1,43 @@
 package org.jphototagger.maintainance;
 
-import org.openide.util.Lookup;
+import java.util.Arrays;
+import java.util.Collection;
+
 import org.openide.util.lookup.ServiceProvider;
+import org.openide.util.lookup.ServiceProviders;
 
 import org.jphototagger.api.modules.Module;
 import org.jphototagger.api.modules.ModuleDescription;
-import org.jphototagger.api.windows.MainWindowMenuManager;
+import org.jphototagger.api.windows.MainWindowMenuItem;
+import org.jphototagger.api.windows.MainWindowMenuProvider;
+import org.jphototagger.api.windows.MainWindowMenuProviderAdapter;
 import org.jphototagger.lib.util.Bundle;
 
 /**
  * @author Elmar Baumann
  */
-@ServiceProvider(service = Module.class)
-public final class ModuleInstaller implements Module, ModuleDescription {
+@ServiceProviders({
+        @ServiceProvider(service = Module.class),
+        @ServiceProvider(service = MainWindowMenuProvider.class)
+})
+public final class ModuleInstaller extends MainWindowMenuProviderAdapter implements Module, ModuleDescription {
 
     @Override
     public void init() {
-        MainWindowMenuManager menuManager = Lookup.getDefault().lookup(MainWindowMenuManager.class);
-        menuManager.addToFileMenu(new ShowUpdateMetadataOfDirectoriesDialogAction());
-        menuManager.addToFileMenu(new ShowMaintainanceDialogAction());
-        menuManager.addToFileMenu(new ShowRepositoryMaintainanceDialogAction());
+        // ignore
     }
 
     @Override
     public void remove() {
-        // ignored
+        // ignore
+    }
+
+    @Override
+    public Collection<? extends MainWindowMenuItem> getFileMenuItems() {
+        return Arrays.<MainWindowMenuItem>asList(
+                new ShowUpdateMetadataOfDirectoriesDialogAction(),
+                new ShowMaintainanceDialogAction(),
+                new ShowRepositoryMaintainanceDialogAction());
     }
 
     @Override

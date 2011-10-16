@@ -14,7 +14,7 @@ import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.misc.SaveToOrUpdateFilesInRepositoryImpl;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.app.ui.ProgressBarUpdater;
+import org.jphototagger.lib.util.ProgressBarUpdater;
 
 /**
  * Kontrolliert die Aktion: Metadaten erzeugen für ausgewählte Bilder,

@@ -21,7 +21,7 @@ import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.misc.SaveToOrUpdateFilesInRepositoryImpl;
-import org.jphototagger.program.app.ui.ProgressBarUpdater;
+import org.jphototagger.lib.util.ProgressBarUpdater;
 import org.jphototagger.xmp.XmpMetadata;
 
 /**
