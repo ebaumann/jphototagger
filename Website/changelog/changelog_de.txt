@@ -3,9 +3,12 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
-0.11.4 2011-10-
+0.12.0 2011-10-16
 -----------------
 
+* Benutzte Module werden angezeigt unter Bearbeiten > Einstellungen
+  > Sonstiges > Installierte Module. Dies ist Teil des Fortschritts,
+  JPhotoTagger weiter zu modularisieren
 * Bugfix: Sortierung nach EXIF-Kamera funktioniert (vorher wurde
   nach Brennweite sortiert)
 
