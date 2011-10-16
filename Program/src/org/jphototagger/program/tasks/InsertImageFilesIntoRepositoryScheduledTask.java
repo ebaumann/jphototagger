@@ -9,13 +9,13 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.repository.AutoscanDirectoriesRepository;
-import org.jphototagger.domain.repository.InsertIntoRepository;
+import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.settings.AppPreferencesKeys;
-import org.jphototagger.program.misc.InsertImageFilesIntoRepository;
-import org.jphototagger.program.module.filesystem.ImageFileFilterer;
+import org.jphototagger.program.misc.SaveToOrUpdateFilesInRepositoryImpl;
+import org.jphototagger.domain.filefilter.FileFilterUtil;
 import org.jphototagger.program.app.ui.ProgressBarUpdater;
 
 /**
@@ -39,7 +39,7 @@ public final class InsertImageFilesIntoRepositoryScheduledTask {
      * @return inserter thread or null if no image file is to saveAutoscanDirectory into the
      *         repository
      */
-    static InsertImageFilesIntoRepository getThread() {
+    static SaveToOrUpdateFilesInRepositoryImpl getThread() {
         List<File> directories = getDirectories();
         List<File> imageFiles = new ArrayList<File>(directories.size());
 
@@ -51,7 +51,7 @@ public final class InsertImageFilesIntoRepositoryScheduledTask {
             }
         }
 
-        InsertImageFilesIntoRepository inserter = new InsertImageFilesIntoRepository(imageFiles, InsertIntoRepository.OUT_OF_DATE);
+        SaveToOrUpdateFilesInRepositoryImpl inserter = new SaveToOrUpdateFilesInRepositoryImpl(imageFiles, SaveOrUpdate.OUT_OF_DATE);
         String pBarString = Bundle.getString(InsertImageFilesIntoRepositoryScheduledTask.class, "InsertImageFilesIntoRepositoryScheduledTask.ProgressBar.String");
 
         inserter.addProgressListener(new ProgressBarUpdater(inserter, pBarString));
@@ -60,7 +60,7 @@ public final class InsertImageFilesIntoRepositoryScheduledTask {
     }
 
     private static List<File> getImageFilesOfDirectory(File directory) {
-        return ImageFileFilterer.getImageFilesOfDirectory(directory);
+        return FileFilterUtil.getImageFilesOfDirectory(directory);
     }
 
     private static List<File> getDirectories() {

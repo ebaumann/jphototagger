@@ -3,8 +3,6 @@ package org.jphototagger.program.module.maintainance;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Collection;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -12,21 +10,13 @@ import javax.swing.AbstractButton;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
-import org.openide.util.Lookup;
 
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
-import org.jphototagger.domain.repository.KeywordsRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.swing.util.ListUtil;
+import org.jphototagger.lib.concurrent.HelperThread;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
-import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.program.misc.HelperThread;
-import org.jphototagger.program.module.keywords.list.KeywordsListModel;
-import org.jphototagger.program.module.keywords.tree.KeywordsTreeModel;
-import org.jphototagger.program.module.exif.SetExifToXmp;
 
 /**
  * @author Elmar Baumann
@@ -46,9 +36,6 @@ public class RepositoryUpdatePanel extends JPanel implements ActionListener, Pro
             toggleButtonRefreshXmp,
             buttonUpdateThumbnails,
             buttonRenameFiles,
-            buttonCopyKeywordsToKeywordsTree,
-            buttonDeleteKeywordsTree,
-            toggleButtonExifDateToXmpDateCreated,
         };
         MnemonicUtil.setMnemonics((Container) this);
     }
@@ -70,10 +57,6 @@ public class RepositoryUpdatePanel extends JPanel implements ActionListener, Pro
 
     private void updateXmp() {
         startOrCancelHelperThread(toggleButtonRefreshXmp, RefreshXmpOfKnownFilesInRepository.class);
-    }
-
-    private void exifDateToXmpDateCreated() {
-        startOrCancelHelperThread(toggleButtonExifDateToXmpDateCreated, SetExifToXmp.class);
     }
 
     private synchronized void startOrCancelHelperThread(JToggleButton button, Class<?> helperThreadClass) {
@@ -101,8 +84,6 @@ public class RepositoryUpdatePanel extends JPanel implements ActionListener, Pro
         toggleButtonRefreshXmp.setText(Bundle.getString(RepositoryUpdatePanel.class, "RepositoryUpdatePanel.toggleButtonRefreshXmp.text"));
         buttonUpdateThumbnails.setText(Bundle.getString(RepositoryUpdatePanel.class, "RepositoryUpdatePanel.buttonUpdateThumbnails.text"));
         buttonRenameFiles.setText(Bundle.getString(RepositoryUpdatePanel.class, "RepositoryUpdatePanel.buttonRenameFiles.text"));
-        buttonCopyKeywordsToKeywordsTree.setText(Bundle.getString(RepositoryUpdatePanel.class, "RepositoryUpdatePanel.buttonCopyKeywordsToKeywordsTree.text"));
-        toggleButtonExifDateToXmpDateCreated.setText(Bundle.getString(RepositoryUpdatePanel.class, "RepositoryUpdatePanel.toggleButtonExifDateToXmpDateCreated.text"));
         MnemonicUtil.setMnemonics((Container) this);
     }
 
@@ -134,51 +115,6 @@ public class RepositoryUpdatePanel extends JPanel implements ActionListener, Pro
         setEnabledAllButtons(false);
         dlg.setVisible(true);
         setEnabledAllButtons(true);
-    }
-
-    private void copyKeywordsToKeywordsTree() {
-        List<String> keywords = ListUtil.toStringList(ModelFactory.INSTANCE.getModel(KeywordsListModel.class));
-
-        if (keywords.size() > 0) {
-            setEnabledAllButtons(false);
-            new InsertKeywords(keywords).run();    // Has to run in this thread!
-            String message = Bundle.getString(RepositoryUpdatePanel.class, "RepositoryUpdatePanel.Info.CopyKeywordsToTree");
-            MessageDisplayer.information(this, message);
-            setEnabledAllButtons(true);
-        }
-    }
-
-    private void deleteAllKeywordsFromKeywordsTree() {
-        String message = Bundle.getString(RepositoryUpdatePanel.class, "RepositoryUpdatePanel.Confirm.DeleteAllKeywordsFromKeywordsTree");
-
-        if (MessageDisplayer.confirmYesNo(this, message)) {
-            KeywordsRepository repo = Lookup.getDefault().lookup(KeywordsRepository.class);
-
-            setEnabledAllButtons(false);
-            int count = repo.deleteAllKeywords();
-
-            if (count > 0) {
-                 Collection<KeywordsTreeModel> models =
-                       ModelFactory.INSTANCE.getModels(KeywordsTreeModel.class);
-
-                 if (models != null) {
-                     for (final KeywordsTreeModel model : models) {
-                        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-                            @Override
-                            public void run() {
-                                model.removeAllKeywords();
-                            }
-                        });
-                     }
-                 }
-
-                 message = Bundle.getString(RepositoryUpdatePanel.class, "RepositoryUpdatePanel.Info.DeletedKeywords", count);
-                 MessageDisplayer.information(this, message);
-             }
-
-            setEnabledAllButtons(true);
-        }
     }
 
     private void checkCancel(ProgressEvent evt) {
@@ -243,12 +179,6 @@ public class RepositoryUpdatePanel extends JPanel implements ActionListener, Pro
         buttonUpdateThumbnails = new javax.swing.JButton();
         labelRenameFiles = new javax.swing.JLabel();
         buttonRenameFiles = new javax.swing.JButton();
-        labelCopyKeywordsToKeywordsTree = new javax.swing.JLabel();
-        buttonCopyKeywordsToKeywordsTree = new javax.swing.JButton();
-        labelDeleteKeywordsTree = new javax.swing.JLabel();
-        buttonDeleteKeywordsTree = new javax.swing.JButton();
-        labelExifDateToXmpDateCreated = new javax.swing.JLabel();
-        toggleButtonExifDateToXmpDateCreated = new javax.swing.JToggleButton();
         panelPadding = new javax.swing.JPanel();
 
         setName("Form"); // NOI18N
@@ -359,78 +289,6 @@ public class RepositoryUpdatePanel extends JPanel implements ActionListener, Pro
         gridBagConstraints.insets = new java.awt.Insets(3, 10, 0, 0);
         panelTasks.add(buttonRenameFiles, gridBagConstraints);
 
-        labelCopyKeywordsToKeywordsTree.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_tree.png"))); // NOI18N
-        labelCopyKeywordsToKeywordsTree.setText(bundle.getString("RepositoryUpdatePanel.labelCopyKeywordsToKeywordsTree.text")); // NOI18N
-        labelCopyKeywordsToKeywordsTree.setName("labelCopyKeywordsToKeywordsTree"); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
-        panelTasks.add(labelCopyKeywordsToKeywordsTree, gridBagConstraints);
-
-        buttonCopyKeywordsToKeywordsTree.setText(bundle.getString("RepositoryUpdatePanel.buttonCopyKeywordsToKeywordsTree.text")); // NOI18N
-        buttonCopyKeywordsToKeywordsTree.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        buttonCopyKeywordsToKeywordsTree.setName("buttonCopyKeywordsToKeywordsTree"); // NOI18N
-        buttonCopyKeywordsToKeywordsTree.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonCopyKeywordsToKeywordsTreeActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(3, 10, 0, 0);
-        panelTasks.add(buttonCopyKeywordsToKeywordsTree, gridBagConstraints);
-
-        labelDeleteKeywordsTree.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_tree.png"))); // NOI18N
-        labelDeleteKeywordsTree.setText(bundle.getString("RepositoryUpdatePanel.labelDeleteKeywordsTree.text")); // NOI18N
-        labelDeleteKeywordsTree.setName("labelDeleteKeywordsTree"); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
-        panelTasks.add(labelDeleteKeywordsTree, gridBagConstraints);
-
-        buttonDeleteKeywordsTree.setText(bundle.getString("RepositoryUpdatePanel.buttonDeleteKeywordsTree.text")); // NOI18N
-        buttonDeleteKeywordsTree.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        buttonDeleteKeywordsTree.setName("buttonDeleteKeywordsTree"); // NOI18N
-        buttonDeleteKeywordsTree.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonDeleteKeywordsTreeActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(3, 10, 0, 0);
-        panelTasks.add(buttonDeleteKeywordsTree, gridBagConstraints);
-
-        labelExifDateToXmpDateCreated.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_exif.png"))); // NOI18N
-        labelExifDateToXmpDateCreated.setText(bundle.getString("RepositoryUpdatePanel.labelExifDateToXmpDateCreated.text")); // NOI18N
-        labelExifDateToXmpDateCreated.setName("labelExifDateToXmpDateCreated"); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
-        panelTasks.add(labelExifDateToXmpDateCreated, gridBagConstraints);
-
-        toggleButtonExifDateToXmpDateCreated.setText(bundle.getString("RepositoryUpdatePanel.toggleButtonExifDateToXmpDateCreated.text")); // NOI18N
-        toggleButtonExifDateToXmpDateCreated.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        toggleButtonExifDateToXmpDateCreated.setName("toggleButtonExifDateToXmpDateCreated"); // NOI18N
-        toggleButtonExifDateToXmpDateCreated.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                toggleButtonExifDateToXmpDateCreatedActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(3, 10, 0, 0);
-        panelTasks.add(toggleButtonExifDateToXmpDateCreated, gridBagConstraints);
-
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -470,26 +328,9 @@ public class RepositoryUpdatePanel extends JPanel implements ActionListener, Pro
     private void buttonUpdateThumbnailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpdateThumbnailsActionPerformed
         updateThumbnails();
     }//GEN-LAST:event_buttonUpdateThumbnailsActionPerformed
-
-    private void buttonCopyKeywordsToKeywordsTreeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCopyKeywordsToKeywordsTreeActionPerformed
-        copyKeywordsToKeywordsTree();
-    }//GEN-LAST:event_buttonCopyKeywordsToKeywordsTreeActionPerformed
-
-    private void toggleButtonExifDateToXmpDateCreatedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleButtonExifDateToXmpDateCreatedActionPerformed
-        exifDateToXmpDateCreated();
-    }//GEN-LAST:event_toggleButtonExifDateToXmpDateCreatedActionPerformed
-
-    private void buttonDeleteKeywordsTreeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteKeywordsTreeActionPerformed
-        deleteAllKeywordsFromKeywordsTree();
-    }//GEN-LAST:event_buttonDeleteKeywordsTreeActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonCopyKeywordsToKeywordsTree;
-    private javax.swing.JButton buttonDeleteKeywordsTree;
     private javax.swing.JButton buttonRenameFiles;
     private javax.swing.JButton buttonUpdateThumbnails;
-    private javax.swing.JLabel labelCopyKeywordsToKeywordsTree;
-    private javax.swing.JLabel labelDeleteKeywordsTree;
-    private javax.swing.JLabel labelExifDateToXmpDateCreated;
     private javax.swing.JLabel labelRefreshExif;
     private javax.swing.JLabel labelRefreshXmp;
     private javax.swing.JLabel labelRenameFiles;
@@ -497,7 +338,6 @@ public class RepositoryUpdatePanel extends JPanel implements ActionListener, Pro
     private javax.swing.JPanel panelContent;
     private javax.swing.JPanel panelPadding;
     private javax.swing.JPanel panelTasks;
-    private javax.swing.JToggleButton toggleButtonExifDateToXmpDateCreated;
     private javax.swing.JToggleButton toggleButtonRefreshExif;
     private javax.swing.JToggleButton toggleButtonRefreshXmp;
     // End of variables declaration//GEN-END:variables

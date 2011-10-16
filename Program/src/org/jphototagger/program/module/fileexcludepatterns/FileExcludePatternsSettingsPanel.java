@@ -11,11 +11,11 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
+import org.jphototagger.api.storage.Persistence;
+import org.jphototagger.domain.DomainPreferencesKeys;
 import org.jphototagger.domain.repository.FileExcludePatternsRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
-import org.jphototagger.program.settings.AppPreferencesKeys;
-import org.jphototagger.program.types.Persistence;
 
 /**
  * @author Elmar Baumann
@@ -36,7 +36,7 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel i
     private void postInitComponents() {
         textFieldInputPattern.requestFocusInWindow();
         MnemonicUtil.setMnemonics((Container) this);
-        panelSelectRootFiles.setPersistenceKey(AppPreferencesKeys.KEY_UI_DIRECTORIES_TAB_HIDE_ROOT_FILES);
+        panelSelectRootFiles.setPersistenceKey(DomainPreferencesKeys.KEY_UI_DIRECTORIES_TAB_HIDE_ROOT_FILES);
     }
 
     @Override
@@ -234,7 +234,7 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel i
         panelDirectoryFolder = new javax.swing.JPanel();
         labelInfopanelDirectoryFolder = new javax.swing.JLabel();
         scrollPanePanelDirectoryFolder = new javax.swing.JScrollPane();
-        panelSelectRootFiles = new org.jphototagger.program.app.ui.SelectRootFilesPanel();
+        panelSelectRootFiles = new org.jphototagger.lib.swing.SelectRootFilesPanel();
 
         popupMenu.setName("popupMenu"); // NOI18N
 
@@ -487,7 +487,7 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel i
     private javax.swing.JMenuItem menuItemDeletePattern;
     private javax.swing.JPanel panelDirectoryFolder;
     private javax.swing.JPanel panelFiles;
-    private org.jphototagger.program.app.ui.SelectRootFilesPanel panelSelectRootFiles;
+    private org.jphototagger.lib.swing.SelectRootFilesPanel panelSelectRootFiles;
     private javax.swing.JPopupMenu popupMenu;
     private javax.swing.JProgressBar progressBarUpdateRepository;
     private javax.swing.JScrollPane scrollPane;

@@ -1,8 +1,5 @@
 package org.jphototagger.program.module.thumbnails;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.SpinnerNumberModel;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
@@ -12,18 +9,16 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesChangedEvent;
+import org.jphototagger.api.storage.Persistence;
 import org.jphototagger.image.thumbnail.ThumbnailDefaults;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
-import org.jphototagger.program.module.maintainance.UpdateAllThumbnails;
-import org.jphototagger.program.types.Persistence;
 
 /**
  * @author Elmar Baumann
  */
-public class SettingsThumbnailDimensionsPanel extends javax.swing.JPanel implements ActionListener, Persistence {
+public class SettingsThumbnailDimensionsPanel extends javax.swing.JPanel implements Persistence {
 
     private static final long serialVersionUID = 1L;
-    private transient UpdateAllThumbnails thumbnailsUpdater;
     private boolean listenToMaxThumbnailWidthChanges = true;
 
     public SettingsThumbnailDimensionsPanel() {
@@ -46,18 +41,6 @@ public class SettingsThumbnailDimensionsPanel extends javax.swing.JPanel impleme
         storage.setString(Preferences.KEY_MAX_THUMBNAIL_WIDTH, Integer.toString(width));
     }
 
-    private void updateAllThumbnails() {
-        synchronized (this) {
-            buttonUpdateAllThumbnails.setEnabled(false);
-            thumbnailsUpdater = new UpdateAllThumbnails();
-            thumbnailsUpdater.addActionListener(this);
-
-            Thread thread = new Thread(thumbnailsUpdater, "JPhotoTagger: Updating all thumbnails");
-
-            thread.start();
-        }
-    }
-
     @Override
     public void restore() {
         spinnerMaxThumbnailWidth.setValue(getMaxThumbnailWidth());
@@ -75,15 +58,6 @@ public class SettingsThumbnailDimensionsPanel extends javax.swing.JPanel impleme
     @Override
     public void persist() {
         // ignore
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent evt) {
-        synchronized (this) {
-            if (evt.getSource() == thumbnailsUpdater) {
-                buttonUpdateAllThumbnails.setEnabled(true);
-            }
-        }
     }
 
     @EventSubscriber(eventClass = PreferencesChangedEvent.class)
@@ -106,7 +80,6 @@ public class SettingsThumbnailDimensionsPanel extends javax.swing.JPanel impleme
 
         labelMaxThumbnailWidth = new javax.swing.JLabel();
         spinnerMaxThumbnailWidth = new javax.swing.JSpinner();
-        buttonUpdateAllThumbnails = new javax.swing.JButton();
         labelUpdateAllThumbnails = new javax.swing.JLabel();
 
         setName("Form"); // NOI18N
@@ -137,20 +110,6 @@ public class SettingsThumbnailDimensionsPanel extends javax.swing.JPanel impleme
         gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 0);
         add(spinnerMaxThumbnailWidth, gridBagConstraints);
 
-        buttonUpdateAllThumbnails.setText(bundle.getString("SettingsThumbnailDimensionsPanel.buttonUpdateAllThumbnails.text")); // NOI18N
-        buttonUpdateAllThumbnails.setName("buttonUpdateAllThumbnails"); // NOI18N
-        buttonUpdateAllThumbnails.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonUpdateAllThumbnailsActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 6);
-        add(buttonUpdateAllThumbnails, gridBagConstraints);
-
         labelUpdateAllThumbnails.setForeground(new java.awt.Color(0, 0, 255));
         labelUpdateAllThumbnails.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         labelUpdateAllThumbnails.setText(bundle.getString("SettingsThumbnailDimensionsPanel.labelUpdateAllThumbnails.text")); // NOI18N
@@ -171,13 +130,7 @@ public class SettingsThumbnailDimensionsPanel extends javax.swing.JPanel impleme
         handleStateChangedSpinnerMaxThumbnailWidth();
 }//GEN-LAST:event_spinnerMaxThumbnailWidthStateChanged
 
-    private void buttonUpdateAllThumbnailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpdateAllThumbnailsActionPerformed
-        if (listenToMaxThumbnailWidthChanges) {
-            updateAllThumbnails();
-        }
-}//GEN-LAST:event_buttonUpdateAllThumbnailsActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonUpdateAllThumbnails;
     private javax.swing.JLabel labelMaxThumbnailWidth;
     private javax.swing.JLabel labelUpdateAllThumbnails;
     private javax.swing.JSpinner spinnerMaxThumbnailWidth;

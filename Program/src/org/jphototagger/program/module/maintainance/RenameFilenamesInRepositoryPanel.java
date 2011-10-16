@@ -6,15 +6,15 @@ import javax.swing.JPanel;
 
 import org.openide.util.Lookup;
 
+import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
-import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.api.storage.Persistence;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.swing.MessageDisplayer;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.types.Persistence;
 
 /**
  * @author Elmar Baumann

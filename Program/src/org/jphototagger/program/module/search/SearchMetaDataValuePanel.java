@@ -1,13 +1,18 @@
 package org.jphototagger.program.module.search;
 
+import java.awt.Component;
 import java.awt.event.KeyEvent;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 
+import javax.swing.ListCellRenderer;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.MetaDataValueIds;
 import org.jphototagger.domain.metadata.exif.ExifDateTimeOriginalMetaDataValue;
@@ -33,7 +38,6 @@ public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
     private static final String NOT_SEL_LEFT_BRACKET = "<html><font size=\"+1\" color=\"#dddddd\"><b>(</b></font></html>";
     private static final String SEL_RIGHT_BRACKET = "<html><font size=\"+1\" color=\"#000000\"><b>)</b></font></html>";
     private static final String NOT_SEL_RIGHT_BRACKET = "<html><font size=\"+1\" color=\"#dddddd\"><b>)</b></font></html>";
-    private final MetaDataValueListCellRenderer columnRenderer = new MetaDataValueListCellRenderer();
     private MetaDataValue.ValueType  prevColumnDataType;
     private boolean isOperatorsEnabled = true;
     private boolean listenToActions = true;
@@ -311,6 +315,23 @@ public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
             GUI.getAppFrame().getMenuItemInputHelper().doClick();
         }
     }
+
+    private final ListCellRenderer columnRenderer = new DefaultListCellRenderer() {
+
+        private static final long serialVersionUID = 1L;
+
+        @Override
+        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+            JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+
+            MetaDataValue metaDataValue = (MetaDataValue) value;
+            label.setIcon(metaDataValue.getCategoryIcon());
+            label.setText(metaDataValue.getDescription());
+
+            return label;
+        }
+    };
+
 
     /**
      * This method is called from within the constructor to

@@ -14,7 +14,7 @@ import javax.swing.TransferHandler;
 
 import org.jdesktop.swingx.JXList;
 import org.jphototagger.program.datatransfer.Flavor;
-import org.jphototagger.program.module.filesystem.ImageFileFilterer;
+import org.jphototagger.domain.filefilter.FileFilterUtil;
 import org.jphototagger.program.resource.GUI;
 
 /**
@@ -104,7 +104,7 @@ public final class ImageCollectionsListTransferHandler extends TransferHandler {
         List<File> imageFiles = new ArrayList<File>(list.size() / 2);
 
         for (File file : list) {
-            if (ImageFileFilterer.isImageFile(file)) {
+            if (FileFilterUtil.isImageFile(file)) {
                 imageFiles.add(file);
             }
         }

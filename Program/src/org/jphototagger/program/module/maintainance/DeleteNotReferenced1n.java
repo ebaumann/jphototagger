@@ -12,8 +12,7 @@ import org.jphototagger.domain.repository.RepositoryMaintainance;
 import org.jphototagger.lib.util.Bundle;
 
 /**
- * Deletes from the repository records in 1:n tables not referenced by another
- * record.
+ * Deletes from the repository records in 1:n not referenced by another record.
  *
  * @author Elmar Baumann
  */

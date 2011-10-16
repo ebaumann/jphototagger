@@ -17,10 +17,10 @@ import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpMetaDataValues;
 import org.jphototagger.domain.repository.ImageFilesRepository;
-import org.jphototagger.domain.repository.InsertIntoRepository;
+import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.misc.InsertImageFilesIntoRepository;
+import org.jphototagger.program.misc.SaveToOrUpdateFilesInRepositoryImpl;
 import org.jphototagger.program.app.ui.ProgressBarUpdater;
 import org.jphototagger.xmp.XmpMetadata;
 
@@ -170,9 +170,9 @@ public final class RenameDeleteXmpValue {
                     rename(xmp);
                     File suggestSidecarFile = XmpMetadata.suggestSidecarFile(imageFile);
                     if (XmpMetadata.writeXmpToSidecarFile(xmp, suggestSidecarFile)) {
-                        InsertImageFilesIntoRepository insertImageFilesIntoRepository =
-                                new InsertImageFilesIntoRepository(Collections.singletonList(imageFile),
-                                InsertIntoRepository.XMP);
+                        SaveToOrUpdateFilesInRepositoryImpl insertImageFilesIntoRepository =
+                                new SaveToOrUpdateFilesInRepositoryImpl(Collections.singletonList(imageFile),
+                                SaveOrUpdate.XMP);
                         insertImageFilesIntoRepository.run();    // Has to run in this thread!
                     }
                 }

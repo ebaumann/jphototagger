@@ -32,7 +32,7 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.EditMetadataPanels;
 import org.jphototagger.program.datatransfer.DataTransferSupport;
 import org.jphototagger.program.datatransfer.Flavor;
-import org.jphototagger.program.module.filesystem.ImageFileFilterer;
+import org.jphototagger.domain.filefilter.FileFilterUtil;
 import org.jphototagger.program.module.filesystem.FilesystemImageUtil;
 import org.jphototagger.program.module.filesystem.FilesystemImageUtil.ConfirmOverwrite;
 import org.jphototagger.program.module.favorites.FavoritesUtil;
@@ -285,11 +285,11 @@ public final class ThumbnailsPanelTransferHandler extends TransferHandler {
         int dropAction = support.getDropAction();
 
         if (dropAction == TransferHandler.COPY) {
-            FilesystemImageUtil.copyImageFiles(ImageFileFilterer.getImageFiles(srcFiles), targetDir, ConfirmOverwrite.YES);
+            FilesystemImageUtil.copyImageFiles(FileFilterUtil.getImageFiles(srcFiles), targetDir, ConfirmOverwrite.YES);
 
             return true;
         } else if (dropAction == TransferHandler.MOVE) {
-            FilesystemImageUtil.moveImageFiles(ImageFileFilterer.getImageFiles(srcFiles), targetDir, ConfirmOverwrite.YES);
+            FilesystemImageUtil.moveImageFiles(FileFilterUtil.getImageFiles(srcFiles), targetDir, ConfirmOverwrite.YES);
 
             return true;
         }

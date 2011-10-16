@@ -13,10 +13,10 @@ import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.domain.metadata.iptc.Iptc;
 import org.jphototagger.domain.metadata.xmp.Xmp;
-import org.jphototagger.domain.repository.InsertIntoRepository;
+import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.iptc.IptcMetadata;
 import org.jphototagger.program.filefilter.AppFileFilters;
-import org.jphototagger.program.misc.InsertImageFilesIntoRepository;
+import org.jphototagger.program.misc.SaveToOrUpdateFilesInRepositoryImpl;
 import org.jphototagger.xmp.XmpMetadata;
 
 /**
@@ -96,7 +96,7 @@ public final class ConvertIptcToXmp implements Runnable, Cancelable {
     }
 
     private void updateRepository(File imageFile) {
-        InsertImageFilesIntoRepository insert = new InsertImageFilesIntoRepository(Arrays.asList(imageFile), InsertIntoRepository.XMP);
+        SaveToOrUpdateFilesInRepositoryImpl insert = new SaveToOrUpdateFilesInRepositoryImpl(Arrays.asList(imageFile), SaveOrUpdate.XMP);
 
         insert.run();    // Has to run in this thread!
     }

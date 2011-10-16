@@ -69,8 +69,6 @@ import org.jphototagger.program.module.keywords.tree.RenameKeywordController;
 import org.jphototagger.program.module.keywords.tree.ShowKeywordsDialogController;
 import org.jphototagger.program.module.keywords.tree.ToggleButtonExpandKeywordsTreeController;
 import org.jphototagger.program.module.keywords.tree.ToggleRealKeywordController;
-import org.jphototagger.program.module.maintainance.MaintainRepositoryController;
-import org.jphototagger.program.module.maintainance.ShowUpdateMetadataOfDirectoriesDialogController;
 import org.jphototagger.program.module.metadata.ShowMetadataController;
 import org.jphototagger.program.module.metadatatemplates.AddMetadataTemplateController;
 import org.jphototagger.program.module.metadatatemplates.DeleteMetadataTemplateController;
@@ -173,8 +171,6 @@ public final class ControllerFactory {
         support.add(new ExtractEmbeddedXmpController());
         support.add(new AboutJPhotoTaggerController());
         support.add(new HelpController());
-        support.add(new MaintainRepositoryController());
-        support.add(new ShowUpdateMetadataOfDirectoriesDialogController());
         support.add(new ShowUserSettingsDialogController());
         support.add(new ShowAdvancedSearchDialogController());
         support.add(new ShowSynonymsDialogController());

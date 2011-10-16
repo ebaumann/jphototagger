@@ -14,9 +14,9 @@ import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.ProgressDialog;
+import org.jphototagger.lib.swing.SizeAndLocationController;
+import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.misc.SizeAndLocationController;
-import org.jphototagger.program.resource.GUI;
 
 /**
  * @author Elmar Baumann
@@ -47,7 +47,7 @@ public final class UpdateAllThumbnails implements Runnable, ProgressListener, Ac
     }
 
     private void initProgressDialog() {
-        progressDialog = new ProgressDialog(GUI.getAppFrame());
+        progressDialog = new ProgressDialog(ComponentUtil.findFrameWithIcon());
         progressDialog.setTitle(Bundle.getString(UpdateAllThumbnails.class, "UpdateAllThumbnails.Dialog.Title"));
         progressDialog.setInfoText(Bundle.getString(UpdateAllThumbnails.class, "UpdateAllThumbnails.Dialog.InfoText"));
         progressDialog.addActionListener(this);

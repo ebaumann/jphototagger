@@ -19,19 +19,19 @@ import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.api.preferences.PreferencesHints;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
+import org.jphototagger.domain.DomainPreferencesKeys;
+import org.jphototagger.domain.filefilter.FileFilterUtil;
 import org.jphototagger.iptc.IptcPreferencesKeys;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.swing.util.MnemonicUtil;
-import org.jphototagger.lib.swing.Dialog;
-import org.jphototagger.lib.swing.DirectoryChooser;
-import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter.Option;
+import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.DirectoryChooser;
+import org.jphototagger.lib.swing.MessageDisplayer;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.settings.AppPreferencesKeys;
-import org.jphototagger.program.app.ui.SelectRootFilesPanel;
-import org.jphototagger.program.module.filesystem.ImageFileFilterer;
+import org.jphototagger.lib.swing.SelectRootFilesPanel;
 import org.jphototagger.program.resource.GUI;
 
 /**
@@ -88,7 +88,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
     }
 
     private void chooseDirectory() {
-        List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(AppPreferencesKeys.KEY_UI_DIRECTORIES_TAB_HIDE_ROOT_FILES);
+        List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(DomainPreferencesKeys.KEY_UI_DIRECTORIES_TAB_HIDE_ROOT_FILES);
         DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), directory, hideRootFiles, getDirChooserOptionShowHiddenDirs());
 
         dlg.setStorageKey("IptcToXmpDialog.DirChooser");
@@ -251,7 +251,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
                 directories.addAll(FileUtil.getSubDirectoriesRecursive(directory, cancelChooseRequest, showHiddenFiles));
             }
 
-            return ImageFileFilterer.getImageFilesOfDirectories(directories);
+            return FileFilterUtil.getImageFilesOfDirectories(directories);
         } else {
             return Collections.unmodifiableList(files);
         }

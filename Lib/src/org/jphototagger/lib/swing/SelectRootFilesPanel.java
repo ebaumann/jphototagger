@@ -1,4 +1,4 @@
-package org.jphototagger.program.app.ui;
+package org.jphototagger.lib.swing;
 
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
@@ -17,7 +17,7 @@ import javax.swing.JCheckBox;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
-import org.jphototagger.program.types.Persistence;
+import org.jphototagger.api.storage.Persistence;
 
 /**
  * @author Elmar Baumann

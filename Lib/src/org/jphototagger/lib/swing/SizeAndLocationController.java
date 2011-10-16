@@ -1,4 +1,4 @@
-package org.jphototagger.program.misc;
+package org.jphototagger.lib.swing;
 
 import java.awt.Component;
 import java.awt.event.WindowAdapter;

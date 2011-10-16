@@ -13,7 +13,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.jphototagger.domain.metadata.MetaDataValueData;
 import org.jphototagger.lib.datatransfer.TransferUtil;
-import org.jphototagger.program.module.filesystem.ImageFileFilterer;
+import org.jphototagger.domain.filefilter.FileFilterUtil;
 
 /**
  * DataTransferSupport for data transfer.
@@ -138,6 +138,6 @@ public final class DataTransferSupport {
     public static List<File> getImageFiles(TransferSupport support) {
         List<File> files = TransferUtil.getFiles(support.getTransferable(), TransferUtil.FilenameDelimiter.NEWLINE);
 
-        return ImageFileFilterer.getImageFiles(files);
+        return FileFilterUtil.getImageFiles(files);
     }
 }

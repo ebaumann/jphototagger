@@ -7,11 +7,11 @@ import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.domain.repository.InsertIntoRepository;
+import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.io.FileLock;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.misc.InsertImageFilesIntoRepository;
+import org.jphototagger.program.misc.SaveToOrUpdateFilesInRepositoryImpl;
 import org.jphototagger.xmp.XmpFileReader;
 import org.jphototagger.xmp.XmpMetadata;
 
@@ -87,7 +87,7 @@ public final class ExtractEmbeddedXmp extends FileEditor {
     }
 
     private void updateRepository(File imageFile) {
-        InsertImageFilesIntoRepository insert = new InsertImageFilesIntoRepository(Arrays.asList(imageFile), InsertIntoRepository.XMP);
+        SaveToOrUpdateFilesInRepositoryImpl insert = new SaveToOrUpdateFilesInRepositoryImpl(Arrays.asList(imageFile), SaveOrUpdate.XMP);
 
         insert.run();    // Has to run in this thread!
     }

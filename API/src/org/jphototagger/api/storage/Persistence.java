@@ -1,4 +1,4 @@
-package org.jphototagger.program.types;
+package org.jphototagger.api.storage;
 
 /**
  * @author Elmar Baumann

@@ -31,7 +31,7 @@ import org.jphototagger.program.module.filesystem.CopyFiles;
 import org.jphototagger.program.module.filesystem.CopyFiles.Options;
 import org.jphototagger.program.module.iptc.IptcCharsetComboBoxModel;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.types.Persistence;
+import org.jphototagger.api.storage.Persistence;
 
 /**
  * @author Elmar Baumann

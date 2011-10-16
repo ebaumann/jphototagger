@@ -13,12 +13,12 @@ import org.openide.util.lookup.ServiceProvider;
 
 import org.jphototagger.domain.imagecollections.ImageCollection;
 import org.jphototagger.domain.repository.ImageCollectionsRepository;
-import org.jphototagger.domain.repository.InsertIntoRepository;
+import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.domain.repository.RepositoryDataImporter;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.xml.bind.XmlObjectImporter;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
-import org.jphototagger.program.misc.InsertImageFilesIntoRepository;
+import org.jphototagger.program.misc.SaveToOrUpdateFilesInRepositoryImpl;
 import org.jphototagger.program.module.exportimport.exporter.ImageCollectionsExporter;
 import org.jphototagger.program.module.exportimport.exporter.ImageCollectionsExporter.CollectionWrapper;
 import org.jphototagger.program.app.ui.ProgressBarUpdater;
@@ -93,8 +93,8 @@ public final class ImageCollectionsImporter implements RepositoryDataImporter {
         }
 
         private void insertIntoDbMissingFiles(ImageCollection imageCollection) {
-            InsertImageFilesIntoRepository inserter = new InsertImageFilesIntoRepository(imageCollection.getFiles(),
-                    InsertIntoRepository.OUT_OF_DATE);
+            SaveToOrUpdateFilesInRepositoryImpl inserter = new SaveToOrUpdateFilesInRepositoryImpl(imageCollection.getFiles(),
+                    SaveOrUpdate.OUT_OF_DATE);
 
             inserter.addProgressListener(new ProgressBarUpdater(inserter,
                     Bundle.getString(ImportThread.class, "ImageCollectionsImporter.ProgressBar.String")));

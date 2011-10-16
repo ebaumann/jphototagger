@@ -28,7 +28,7 @@ import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.program.module.programs.SelectProgramDialog;
-import org.jphototagger.program.types.Persistence;
+import org.jphototagger.api.storage.Persistence;
 
 /**
  * @author Elmar Baumann

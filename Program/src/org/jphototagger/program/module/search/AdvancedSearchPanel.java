@@ -35,7 +35,7 @@ import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.factory.ControllerFactory;
-import org.jphototagger.program.types.Persistence;
+import org.jphototagger.api.storage.Persistence;
 
 /**
  * @author Elmar Baumann

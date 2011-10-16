@@ -17,19 +17,20 @@ import org.jphototagger.api.file.event.FileMovedEvent;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
+import org.jphototagger.domain.DomainPreferencesKeys;
 import org.jphototagger.domain.event.listener.ProgressListenerSupport;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.lib.io.SourceTargetFile;
 import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.DirectoryChooser;
 import org.jphototagger.lib.swing.MessageDisplayer;
-import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.lib.io.SourceTargetFile;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.settings.AppPreferencesKeys;
+import org.jphototagger.lib.swing.SelectRootFilesPanel;
 import org.jphototagger.program.module.filesystem.CopyFiles.Options;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.app.ui.SelectRootFilesPanel;
+import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.xmp.XmpMetadata;
 
 /**
@@ -146,7 +147,7 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
     }
 
     private void chooseTargetDirectory() {
-        List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(AppPreferencesKeys.KEY_UI_DIRECTORIES_TAB_HIDE_ROOT_FILES);
+        List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(DomainPreferencesKeys.KEY_UI_DIRECTORIES_TAB_HIDE_ROOT_FILES);
         DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), targetDirectory, hideRootFiles, getDirChooserOptionShowHiddenDirs());
 
         dlg.setStorageKey("MoveToDirectoriesDialog.DirChooser");

@@ -21,7 +21,7 @@ import org.jphototagger.image.thumbnail.ThumbnailCreationStrategy;
 import org.jphototagger.image.thumbnail.ThumbnailCreationStrategyProvider;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.program.settings.AppPreferencesKeys;
-import org.jphototagger.program.types.Persistence;
+import org.jphototagger.api.storage.Persistence;
 
 /**
  * @author Elmar Baumann

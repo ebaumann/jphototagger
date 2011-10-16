@@ -3,7 +3,8 @@ package org.jphototagger.program.module.maintainance;
 import java.io.File;
 import java.util.Collections;
 import java.util.List;
-import org.jphototagger.program.module.filesystem.ImageFileFilterer;
+
+import org.jphototagger.domain.filefilter.FileFilterUtil;
 
 /**
  * File system directory with image files.
@@ -21,7 +22,7 @@ public final class ImageFileDirectory {
         }
 
         this.directory = directory;
-        imageFiles = ImageFileFilterer.getImageFilesOfDirectory(directory);
+        imageFiles = FileFilterUtil.getImageFilesOfDirectory(directory);
     }
 
     public File getDirectory() {

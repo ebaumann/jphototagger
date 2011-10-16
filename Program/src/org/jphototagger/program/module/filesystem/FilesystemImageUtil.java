@@ -1,5 +1,6 @@
 package org.jphototagger.program.module.filesystem;
 
+import org.jphototagger.domain.filefilter.FileFilterUtil;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -149,7 +150,7 @@ public final class FilesystemImageUtil {
         List<File> files = new ArrayList<File>(imageFiles.size() * 2);
 
         for (File imageFile : imageFiles) {
-            if ((imageFile != null) && ImageFileFilterer.isImageFile(imageFile)) {
+            if ((imageFile != null) && FileFilterUtil.isImageFile(imageFile)) {
                 files.add(imageFile);
 
                 File sidecarFile = XmpMetadata.getSidecarFile(imageFile);

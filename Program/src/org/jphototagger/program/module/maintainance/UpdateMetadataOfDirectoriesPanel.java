@@ -15,8 +15,8 @@ import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
-
 import javax.swing.filechooser.FileSystemView;
+
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 
@@ -26,23 +26,23 @@ import org.jphototagger.api.concurrent.CancelRequest;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
+import org.jphototagger.domain.DomainPreferencesKeys;
 import org.jphototagger.domain.metadata.event.UpdateMetadataCheckEvent;
 import org.jphototagger.domain.metadata.event.UpdateMetadataCheckEvent.Type;
-import org.jphototagger.domain.repository.InsertIntoRepository;
+import org.jphototagger.domain.repository.SaveOrUpdate;
+import org.jphototagger.domain.repository.SaveToOrUpdateFilesInRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.comparator.FileSort;
-import org.jphototagger.lib.swing.util.ListUtil;
-import org.jphototagger.lib.swing.util.MnemonicUtil;
-import org.jphototagger.lib.swing.DirectoryChooser;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter.Option;
+import org.jphototagger.lib.swing.DirectoryChooser;
+import org.jphototagger.lib.swing.SelectRootFilesPanel;
+import org.jphototagger.lib.swing.util.ComponentUtil;
+import org.jphototagger.lib.swing.util.ListUtil;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.CollectionUtil;
-import org.jphototagger.program.settings.AppPreferencesKeys;
-import org.jphototagger.program.misc.InsertImageFilesIntoRepository;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.app.ui.SelectRootFilesPanel;
 
 /**
  * @author Elmar Baumann
@@ -56,7 +56,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
     private final DefaultListModel listModelDirectories = new DefaultListModel();
     private File lastDirectory = new File("");
     private static final transient Logger LOGGER = Logger.getLogger(UpdateMetadataOfDirectoriesPanel.class.getName());
-    private transient InsertImageFilesIntoRepository imageFileInserter;
+    private transient SaveToOrUpdateFilesInRepository repositoryUpdater = Lookup.getDefault().lookup(SaveToOrUpdateFilesInRepository.class);
     private transient volatile boolean cancelChooseDirectories;
     private final transient CancelChooseRequest cancelChooseRequest = new CancelChooseRequest();
 
@@ -112,7 +112,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
 
         updateWillStart(selectedImageFiles.size());
         createImageFileInserter(selectedImageFiles);
-        imageFileInserter.start();
+        repositoryUpdater.saveOrUpdateInNewThread();
     }
 
     private void updateWillStart(int filecount) {
@@ -139,16 +139,17 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
     }
 
     private void createImageFileInserter(List<File> selectedImageFiles) {
-        InsertIntoRepository[] insertIntoRepository = getWhatToInsertIntoRepository();
+        SaveOrUpdate[] insertIntoRepository = getWhatToInsertIntoRepository();
 
-        imageFileInserter = new InsertImageFilesIntoRepository(selectedImageFiles, insertIntoRepository);
-        imageFileInserter.addProgressListener(this);
+        repositoryUpdater = Lookup.getDefault().lookup(SaveToOrUpdateFilesInRepository.class)
+                .createInstance(selectedImageFiles, insertIntoRepository);
+        repositoryUpdater.addProgressListener(this);
     }
 
-    private InsertIntoRepository[] getWhatToInsertIntoRepository() {
+    private SaveOrUpdate[] getWhatToInsertIntoRepository() {
         return checkBoxForce.isSelected()
-               ? new InsertIntoRepository[] { InsertIntoRepository.EXIF, InsertIntoRepository.THUMBNAIL, InsertIntoRepository.XMP }
-               : new InsertIntoRepository[] { InsertIntoRepository.OUT_OF_DATE };
+               ? new SaveOrUpdate[] { SaveOrUpdate.EXIF, SaveOrUpdate.THUMBNAIL, SaveOrUpdate.XMP }
+               : new SaveOrUpdate[] { SaveOrUpdate.OUT_OF_DATE };
     }
 
     private void cancelUpdate() {
@@ -156,8 +157,8 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
     }
 
     private synchronized void interruptImageFileInsterter() {
-        if (imageFileInserter != null) {
-            imageFileInserter.cancel();
+        if (repositoryUpdater != null) {
+            repositoryUpdater.cancel();
         }
     }
 
@@ -223,7 +224,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
                 setFileLabel(file);
             }
         } else if (evt.getType().equals(Type.CHECK_FINISHED)) {
-            imageFileInserter = null;
+            repositoryUpdater = null;
             updateFinished();
         }
     }
@@ -287,8 +288,8 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
     }
 
     private void chooseDirectories() {
-        List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(AppPreferencesKeys.KEY_UI_DIRECTORIES_TAB_HIDE_ROOT_FILES);
-        DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), lastDirectory, hideRootFiles, getDirChooserOptionShowHiddenDirs());
+        List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(DomainPreferencesKeys.KEY_UI_DIRECTORIES_TAB_HIDE_ROOT_FILES);
+        DirectoryChooser dlg = new DirectoryChooser(ComponentUtil.findFrameWithIcon(), lastDirectory, hideRootFiles, getDirChooserOptionShowHiddenDirs());
 
         buttonChooseDirectories.setEnabled(false);
         dlg.setStorageKey("UpdateMetadataOfDirectoriesPanel.DirChooser");
@@ -433,8 +434,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
         private static final long serialVersionUID = 1L;
 
         @Override
-        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
-                boolean cellHasFocus) {
+        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
             JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
             ImageFileDirectory directoryInfo = (ImageFileDirectory) value;
             File dir = directoryInfo.getDirectory();
