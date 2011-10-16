@@ -1,4 +1,4 @@
-package org.jphototagger.importimages;
+package org.jphototagger.importfiles;
 
 import java.awt.event.ActionEvent;
 

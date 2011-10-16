@@ -6,16 +6,16 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.DomainPreferencesKeys;
+import org.jphototagger.domain.FileImportService;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppCommandLineOptions;
 import org.jphototagger.program.app.AppInit;
+import org.jphototagger.program.app.ui.AppPanel;
 import org.jphototagger.program.module.search.FastSearchController;
-import org.jphototagger.importimages.ImportImageFiles;
+import org.jphototagger.program.module.thumbnails.ThumbnailsPopupMenu;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.tasks.ScheduledTasks;
-import org.jphototagger.program.app.ui.AppPanel;
-import org.jphototagger.program.module.thumbnails.ThumbnailsPopupMenu;
 
 /**
  * @author Elmar Baumann
@@ -81,7 +81,9 @@ public final class TerminateFactory {
                 dir = new File(dirName);
             }
 
-            ImportImageFiles.importFrom(dir);
+            FileImportService service = Lookup.getDefault().lookup(FileImportService.class);
+
+            service.importFilesFromDirectory(dir);
         }
     }
 }

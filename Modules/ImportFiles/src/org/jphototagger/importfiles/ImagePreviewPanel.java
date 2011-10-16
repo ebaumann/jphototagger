@@ -1,4 +1,4 @@
-package org.jphototagger.importimages;
+package org.jphototagger.importfiles;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -14,13 +14,12 @@ import javax.swing.JPanel;
 
 import org.openide.util.Lookup;
 
+import org.jphototagger.domain.filefilter.AppFileFilterProvider;
+import org.jphototagger.domain.filefilter.FileFilterUtil;
 import org.jphototagger.domain.thumbnails.ThumbnailProvider;
 import org.jphototagger.image.util.ThumbnailCreatorService;
 import org.jphototagger.lib.io.filefilter.FileChooserFilter;
-import org.jphototagger.lib.io.filefilter.RegexFileFilter;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.filefilter.AppFileFilters;
-import org.jphototagger.domain.filefilter.FileFilterUtil;
 
 //Code based on http://www.javalobby.org/java/forums/t49462.html
 /**
@@ -118,7 +117,7 @@ public class ImagePreviewPanel extends JPanel implements PropertyChangeListener 
     private static class ImageFileFilter implements FileFilter {
 
         private static final String DESCRIPTION = Bundle.getString(ImagePreviewPanel.class, "ImagePreviewPanel.ImageFileFilter.Description");
-        private static final RegexFileFilter FILE_FILTER = AppFileFilters.INSTANCE.getAllAcceptedImageFilesFilter();
+        private static final FileFilter FILE_FILTER = Lookup.getDefault().lookup(AppFileFilterProvider.class).getAcceptedImageFilesFileFilter();
         private static final ImageFileFilter INSTANCE = new ImageFileFilter();
 
         @Override

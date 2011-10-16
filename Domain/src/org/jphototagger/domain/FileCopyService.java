@@ -12,7 +12,6 @@ import org.jphototagger.lib.io.SourceTargetFile;
 public interface FileCopyService extends Cancelable {
 
     /**
-     *
      * @param sourceTargetFiles
      * @param options
      * @return Instance to use. <em>Do not the instance returned from the Service
