@@ -1,4 +1,4 @@
-package org.jphototagger.program.module.importimages;
+package org.jphototagger.importimages;
 
 import java.awt.Color;
 import java.awt.Dimension;

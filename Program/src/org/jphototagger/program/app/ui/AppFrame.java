@@ -1,8 +1,12 @@
 package org.jphototagger.program.app.ui;
 
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.EnumMap;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.Action;
@@ -13,7 +17,9 @@ import javax.swing.JPopupMenu.Separator;
 
 import javax.swing.KeyStroke;
 import org.jphototagger.api.windows.MainWindowMenuItem;
+import org.jphototagger.api.windows.MainWindowMenuProvider;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.comparator.PositionComparatorAscendingOrder;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.swing.util.MenuUtil;
 import org.jphototagger.lib.util.SystemUtil;
@@ -21,6 +27,7 @@ import org.jphototagger.program.app.AppInfo;
 import org.jphototagger.program.app.AppLifeCycle;
 import org.jphototagger.program.module.userdefinedfiletypes.EditUserDefinedFileTypesAction;
 import org.jphototagger.program.resource.GUI;
+import org.openide.util.Lookup;
 
 /**
  * The application's frame.
@@ -82,6 +89,7 @@ public final class AppFrame extends javax.swing.JFrame {
         initComponents();
         GUI.setAppFrame(this);
         addAppPanel();
+        lookupMenuItems();
         MenuUtil.setMnemonics(menuBar);
         initGotoMenuItemsMap();
         setIconImages(AppLookAndFeel.getAppIcons());
@@ -97,7 +105,7 @@ public final class AppFrame extends javax.swing.JFrame {
         getContentPane().add(appPanel);
     }
 
-    void addGotoMenuItem(Action action) {
+    void addGotoMenuItemForSelectionWindow(Action action) {
         JMenuItem item = new JMenuItem(action);
         if (lastGotoItemAcceleratorKeyCode > 0x30 && lastGotoItemAcceleratorKeyCode <= 0x39) { // 0x30: TN-Panel
             KeyStroke keyStroke = KeyEventUtil.getKeyStrokeMenuShortcut(lastGotoItemAcceleratorKeyCode + 1);
@@ -106,6 +114,10 @@ public final class AppFrame extends javax.swing.JFrame {
         }
         menuGoto.insert(item, lastGotoItemIndex + 1);
         lastGotoItemIndex++;
+    }
+
+    void addGotoMenuItemForEditWindow(Action action) {
+        throw new UnsupportedOperationException("TODO: Implement");
     }
 
     public JCheckBoxMenuItem getCheckBoxMenuItemKeywordOverlay() {
@@ -118,10 +130,6 @@ public final class AppFrame extends javax.swing.JFrame {
 
     public JMenuItem getMenuItemExtractEmbeddedXmp() {
         return menuItemExtractEmbeddedXmp;
-    }
-
-    public JMenuItem getMenuItemImportImageFiles() {
-        return menuImportImageFiles;
     }
 
     public JMenuItem getMenuItemOfGoto(GoTo gt) {
@@ -217,53 +225,52 @@ public final class AppFrame extends javax.swing.JFrame {
         }
     }
 
-    void addToFileMenu(MainWindowMenuItem appMenuAction) {
-        addToMenu(appMenuAction, menuFile);
-    }
-
-    void addToEditMenu(MainWindowMenuItem appMenuAction) {
-        addToMenu(appMenuAction, menuEdit);
-    }
-
-    void addToViewMenu(MainWindowMenuItem appMenuAction) {
-        addToMenu(appMenuAction, menuView);
-    }
-
-    void addToGotoMenu(MainWindowMenuItem appMenuAction) {
-        addToMenu(appMenuAction, menuGoto);
-    }
-
-    void addToToolsMenu(MainWindowMenuItem appMenuAction) {
-        addToMenu(appMenuAction, menuTools);
-    }
-
-    void addToWindowMenu(MainWindowMenuItem appMenuAction) {
-        addToMenu(appMenuAction, menuWindow);
-    }
-
-    void addToHelpMenu(MainWindowMenuItem appMenuAction) {
-        addToMenu(appMenuAction, menuHelp);
-    }
-
-    private void addToMenu(final MainWindowMenuItem appMenuAction, final JMenu menu) {
+    private void lookupMenuItems() {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
             public void run() {
-                int position = appMenuAction.getPosition();
-                JMenuItem menuItem = appMenuAction.getMenuItem();
-                int itemCount = menu.getItemCount();
-                int index = position < 0 || position > itemCount ? itemCount : position;
+                Collection<? extends MainWindowMenuProvider> providers = Lookup.getDefault().lookupAll(MainWindowMenuProvider.class);
 
-                if (appMenuAction.isSeparatorBefore()) {
-                    menu.add(new Separator(), index);
-                    index++;
+                for (MainWindowMenuProvider provider : providers) {
+                    List<MainWindowMenuItem> editMenuItems = new ArrayList<MainWindowMenuItem>(provider.getEditMenuItems());
+                    addMenuItems(editMenuItems, menuEdit);
+                    List<MainWindowMenuItem> fileMenuItems = new ArrayList<MainWindowMenuItem>(provider.getFileMenuItems());
+                    addMenuItems(fileMenuItems, menuFile);
+                    List<MainWindowMenuItem> gotoMenuItems = new ArrayList<MainWindowMenuItem>(provider.getGotoMenuItems());
+                    addMenuItems(gotoMenuItems, menuGoto);
+                    List<MainWindowMenuItem> helpMenuItems = new ArrayList<MainWindowMenuItem>(provider.getHelpMenuItems());
+                    addMenuItems(helpMenuItems, menuHelp);
+                    List<MainWindowMenuItem> toolsMenuItems = new ArrayList<MainWindowMenuItem>(provider.getToolsMenuItems());
+                    addMenuItems(toolsMenuItems, menuTools);
+                    List<MainWindowMenuItem> viewMenuItems = new ArrayList<MainWindowMenuItem>(provider.getViewMenuItems());
+                    addMenuItems(viewMenuItems, menuView);
+                    List<MainWindowMenuItem> windowMenuItems = new ArrayList<MainWindowMenuItem>(provider.getWindowMenuItems());
+                    addMenuItems(windowMenuItems, menuWindow);
                 }
-
-                menu.add(menuItem, index);
-
             }
         });
+    }
+
+    private void addMenuItems(List<? extends MainWindowMenuItem> items, JMenu menu) {
+        Collections.sort(items, PositionComparatorAscendingOrder.INSTANCE);
+        for (MainWindowMenuItem menuItem : items) {
+            addMenuItem(menuItem, menu);
+        }
+    }
+
+    private void addMenuItem(MainWindowMenuItem item, JMenu menu) {
+        int position = item.getPosition();
+        JMenuItem menuItem = item.getMenuItem();
+        int itemCount = menu.getItemCount();
+        int index = position < 0 || position > itemCount ? itemCount : position;
+
+        if (item.isSeparatorBefore()) {
+            menu.add(new Separator(), index);
+            index++;
+        }
+
+        menu.add(menuItem, index);
     }
 
     /**
@@ -279,7 +286,6 @@ public final class AppFrame extends javax.swing.JFrame {
         buttonGroupSort = new javax.swing.ButtonGroup();
         menuBar = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
-        menuImportImageFiles = new javax.swing.JMenuItem();
         sep2 = new javax.swing.JPopupMenu.Separator();
         menuExport = new javax.swing.JMenu();
         menuItemExportJptMisc = new javax.swing.JMenuItem();
@@ -349,12 +355,6 @@ public final class AppFrame extends javax.swing.JFrame {
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/app/ui/Bundle"); // NOI18N
         menuFile.setText(bundle.getString("AppFrame.menuFile.text")); // NOI18N
         menuFile.setName("menuFile"); // NOI18N
-
-        menuImportImageFiles.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_P));
-        menuImportImageFiles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_card.png"))); // NOI18N
-        menuImportImageFiles.setText(bundle.getString("AppFrame.menuImportImageFiles.text")); // NOI18N
-        menuImportImageFiles.setName("menuImportImageFiles"); // NOI18N
-        menuFile.add(menuImportImageFiles);
 
         sep2.setName("sep2"); // NOI18N
         menuFile.add(sep2);
@@ -674,7 +674,6 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenu menuGoto;
     private javax.swing.JMenu menuHelp;
     private javax.swing.JMenu menuImport;
-    private javax.swing.JMenuItem menuImportImageFiles;
     private javax.swing.JMenuItem menuItemAbout;
     private javax.swing.JMenuItem menuItemAcceleratorKeys;
     private javax.swing.JMenuItem menuItemActions;

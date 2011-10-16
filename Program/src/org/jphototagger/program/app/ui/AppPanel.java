@@ -6,6 +6,7 @@ import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
@@ -50,9 +51,11 @@ import org.jphototagger.api.messages.MessageType;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.api.windows.MainWindowComponent;
+import org.jphototagger.api.windows.MainWindowComponentProvider;
 import org.jphototagger.api.windows.TabInEditWindowDisplayedEvent;
 import org.jphototagger.api.windows.TabInSelectionWindowDisplayedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.comparator.PositionComparatorAscendingOrder;
 import org.jphototagger.lib.swing.ImageTextArea;
 import org.jphototagger.lib.swing.MessageLabel;
 import org.jphototagger.lib.swing.TableTextFilter;
@@ -107,6 +110,7 @@ public final class AppPanel extends javax.swing.JPanel {
         initComponents();
         messageLabel = new MessageLabel(labelStatusbarText);
         GUI.setAppPanel(this);
+        lookupWindows();
         toggleDisplaySearchButton();
         editMetadtaPanels = new EditMetadataPanels(panelEditMetadata);
         panelThumbnails.setViewport(scrollPaneThumbnails.getViewport());
@@ -703,14 +707,39 @@ public final class AppPanel extends javax.swing.JPanel {
         return splitPaneThumbnailsMetadata;
     }
 
-    void dockIntoSelectionWindow(MainWindowComponent mainWindowComponent) {
-        dockIntoTabbedPane(mainWindowComponent, tabbedPaneSelection);
-        SelectTabAction selectTabAction = createSelectTabAction(mainWindowComponent, tabbedPaneSelection);
-        GUI.getAppFrame().addGotoMenuItem(selectTabAction);
+    private void lookupWindows() {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
+            @Override
+            public void run() {
+                Collection<? extends MainWindowComponentProvider> providers = Lookup.getDefault().lookupAll(MainWindowComponentProvider.class);
+
+                for (MainWindowComponentProvider provider : providers) {
+                    List<MainWindowComponent> editComponents = new ArrayList<MainWindowComponent>(provider.getMainWindowEditComponents());
+                    insterIntoEditTabbedPane(editComponents);
+                    List<MainWindowComponent> selectionsComponents = new ArrayList<MainWindowComponent>(provider.getMainWindowSelectionComponents());
+                    insterIntoSelectionTabbedPane(selectionsComponents);
+                }
+            }
+        });
     }
 
-    void dockIntoEditWindow(MainWindowComponent appWindow) {
-        dockIntoTabbedPane(appWindow, tabbedPaneSelection);
+    private void insterIntoEditTabbedPane(List<MainWindowComponent> components) {
+        Collections.sort(components, PositionComparatorAscendingOrder.INSTANCE);
+        for (MainWindowComponent component : components) {
+            dockIntoTabbedPane(component, tabbedPaneMetadata);
+            SelectTabAction selectTabAction = createSelectTabAction(component, tabbedPaneMetadata);
+            GUI.getAppFrame().addGotoMenuItemForEditWindow(selectTabAction);
+        }
+    }
+
+    private void insterIntoSelectionTabbedPane(List<MainWindowComponent> components) {
+        Collections.sort(components, PositionComparatorAscendingOrder.INSTANCE);
+        for (MainWindowComponent component : components) {
+            dockIntoTabbedPane(component, tabbedPaneSelection);
+            SelectTabAction selectTabAction = createSelectTabAction(component, tabbedPaneSelection);
+            GUI.getAppFrame().addGotoMenuItemForSelectionWindow(selectTabAction);
+        }
     }
 
     private SelectTabAction createSelectTabAction(MainWindowComponent mainWindowComponent, JTabbedPane tabbedPane) {

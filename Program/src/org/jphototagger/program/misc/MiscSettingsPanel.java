@@ -3,10 +3,10 @@ package org.jphototagger.program.misc;
 import java.awt.Component;
 import java.awt.Container;
 import java.io.File;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import javax.swing.Icon;
 import javax.swing.filechooser.FileSystemView;
 
@@ -15,23 +15,22 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 
 import org.openide.util.Lookup;
 
+import org.jphototagger.api.file.CopyMoveFilesOptions;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesChangedEvent;
+import org.jphototagger.api.storage.Persistence;
 import org.jphototagger.api.windows.OptionPageProvider;
 import org.jphototagger.domain.repository.FileRepositoryProvider;
 import org.jphototagger.iptc.IptcPreferencesKeys;
 import org.jphototagger.lib.comparator.PositionComparatorAscendingOrder;
-import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.swing.DirectoryChooser;
 import org.jphototagger.lib.swing.DirectoryChooser.Option;
-import org.jphototagger.program.settings.AppPreferencesKeys;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.program.app.update.UpdateCheckController;
 import org.jphototagger.program.factory.ControllerFactory;
-import org.jphototagger.program.module.filesystem.CopyFiles;
-import org.jphototagger.program.module.filesystem.CopyFiles.Options;
 import org.jphototagger.program.module.iptc.IptcCharsetComboBoxModel;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.api.storage.Persistence;
+import org.jphototagger.program.settings.AppPreferencesKeys;
 
 /**
  * @author Elmar Baumann
@@ -140,16 +139,16 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
     private void setCopyMoveFiles() {
         boolean isConfirmOverwrite = radioButtonCopyMoveFileConfirmOverwrite.isSelected();
         boolean renameSourceFileIfTargetFileExists = radioButtonCopyMoveFileRenameIfExists.isSelected();
-        Options options = isConfirmOverwrite
-                          ? CopyFiles.Options.CONFIRM_OVERWRITE
+        CopyMoveFilesOptions options = isConfirmOverwrite
+                          ? CopyMoveFilesOptions.CONFIRM_OVERWRITE
                           : renameSourceFileIfTargetFileExists
-                            ? CopyFiles.Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS
-                            : CopyFiles.Options.CONFIRM_OVERWRITE;
+                            ? CopyMoveFilesOptions.RENAME_SOURCE_FILE_IF_TARGET_FILE_EXISTS
+                            : CopyMoveFilesOptions.CONFIRM_OVERWRITE;
 
         setCopyMoveFilesOptions(options);
     }
 
-    private void setCopyMoveFilesOptions(Options options) {
+    private void setCopyMoveFilesOptions(CopyMoveFilesOptions options) {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         storage.setInt(AppPreferencesKeys.KEY_FILE_SYSTEM_OPERATIONS_OPTIONS_COPY_MOVE_FILES, options.getInt());
@@ -206,8 +205,8 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         checkBoxIsAcceptHiddenDirectories.setSelected(isAcceptHiddenDirectories());
         setIptcCharsetFromUserSettings();
         labelRepositoryDirectory.setText(provider.getFileRepositoryDirectory().getAbsolutePath());
-        radioButtonCopyMoveFileConfirmOverwrite.setSelected(getCopyMoveFilesOptions().equals(CopyFiles.Options.CONFIRM_OVERWRITE));
-        radioButtonCopyMoveFileRenameIfExists.setSelected(getCopyMoveFilesOptions().equals(CopyFiles.Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS));
+        radioButtonCopyMoveFileConfirmOverwrite.setSelected(getCopyMoveFilesOptions().equals(CopyMoveFilesOptions.CONFIRM_OVERWRITE));
+        radioButtonCopyMoveFileRenameIfExists.setSelected(getCopyMoveFilesOptions().equals(CopyMoveFilesOptions.RENAME_SOURCE_FILE_IF_TARGET_FILE_EXISTS));
         setIconRepositoryDirectory();
         restoreTabbedPaneSettings();
     }
@@ -233,12 +232,12 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
                 : true;
     }
 
-    private CopyFiles.Options getCopyMoveFilesOptions() {
+    private CopyMoveFilesOptions getCopyMoveFilesOptions() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         return storage.containsKey(AppPreferencesKeys.KEY_FILE_SYSTEM_OPERATIONS_OPTIONS_COPY_MOVE_FILES)
-                ? CopyFiles.Options.fromInt(storage.getInt(AppPreferencesKeys.KEY_FILE_SYSTEM_OPERATIONS_OPTIONS_COPY_MOVE_FILES))
-                : CopyFiles.Options.CONFIRM_OVERWRITE;
+                ? CopyMoveFilesOptions.parseInteger(storage.getInt(AppPreferencesKeys.KEY_FILE_SYSTEM_OPERATIONS_OPTIONS_COPY_MOVE_FILES))
+                : CopyMoveFilesOptions.CONFIRM_OVERWRITE;
     }
 
     @Override

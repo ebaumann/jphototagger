@@ -11,7 +11,7 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppCommandLineOptions;
 import org.jphototagger.program.app.AppInit;
 import org.jphototagger.program.module.search.FastSearchController;
-import org.jphototagger.program.module.importimages.ImportImageFiles;
+import org.jphototagger.importimages.ImportImageFiles;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.tasks.ScheduledTasks;
 import org.jphototagger.program.app.ui.AppPanel;

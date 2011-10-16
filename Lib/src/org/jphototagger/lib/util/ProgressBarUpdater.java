@@ -1,4 +1,4 @@
-package org.jphototagger.program.app.ui;
+package org.jphototagger.lib.util;
 
 import org.openide.util.Lookup;
 
@@ -17,7 +17,7 @@ public final class ProgressBarUpdater implements ProgressListener {
 
     /**
      *
-     * @param progressBarOwner  owner of the progress bar
+     * @param progressBarOwner
      * @param progressBarString string to paint on the progress bar or null
      */
     public ProgressBarUpdater(Object progressBarOwner, String progressBarString) {

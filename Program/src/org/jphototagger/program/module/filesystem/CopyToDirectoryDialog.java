@@ -28,7 +28,7 @@ import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.swing.SelectRootFilesPanel;
-import org.jphototagger.program.module.filesystem.CopyFiles.Options;
+import org.jphototagger.api.file.CopyMoveFilesOptions;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.xmp.XmpMetadata;
 
@@ -92,7 +92,7 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
         }
     }
 
-    private void start(boolean addXmp, Options options) {
+    private void start(boolean addXmp, CopyMoveFilesOptions options) {
         copyTask = new CopyFiles(getFiles(addXmp), options);
         copyTask.addProgressListener(this);
 
@@ -101,12 +101,12 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
         thread.start();
     }
 
-    private Options getCopyOptions() {
+    private CopyMoveFilesOptions getCopyOptions() {
         return radioButtonForceOverwrite.isSelected()
-               ? CopyFiles.Options.FORCE_OVERWRITE
+               ? CopyMoveFilesOptions.FORCE_OVERWRITE
                : radioButtonRenameIfTargetFileExists.isSelected()
-                 ? CopyFiles.Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS
-                 : CopyFiles.Options.CONFIRM_OVERWRITE;
+                 ? CopyMoveFilesOptions.RENAME_SOURCE_FILE_IF_TARGET_FILE_EXISTS
+                 : CopyMoveFilesOptions.CONFIRM_OVERWRITE;
     }
 
     private List<SourceTargetFile> getFiles(boolean addXmp) {
@@ -230,7 +230,7 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
      * @param addXmp  true if copy XMP sidecar files too
      * @param options copy options
      */
-    public void copy(boolean addXmp, Options options) {
+    public void copy(boolean addXmp, CopyMoveFilesOptions options) {
         if (options == null) {
             throw new NullPointerException("options == null");
         }
@@ -375,9 +375,9 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
         checkClosing();
     }
 
-    private void setOptionsToRadioButtons(Options options) {
-        radioButtonForceOverwrite.setSelected(options.equals(CopyFiles.Options.FORCE_OVERWRITE));
-        radioButtonRenameIfTargetFileExists.setSelected(options.equals(CopyFiles.Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS));
+    private void setOptionsToRadioButtons(CopyMoveFilesOptions options) {
+        radioButtonForceOverwrite.setSelected(options.equals(CopyMoveFilesOptions.FORCE_OVERWRITE));
+        radioButtonRenameIfTargetFileExists.setSelected(options.equals(CopyMoveFilesOptions.RENAME_SOURCE_FILE_IF_TARGET_FILE_EXISTS));
     }
 
     /**

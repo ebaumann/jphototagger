@@ -28,7 +28,7 @@ import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.swing.SelectRootFilesPanel;
-import org.jphototagger.program.module.filesystem.CopyFiles.Options;
+import org.jphototagger.api.file.CopyMoveFilesOptions;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.xmp.XmpMetadata;
@@ -115,8 +115,8 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
 
     private void start() {
         reset();
-        Options copyMoveFilesOptions = getCopyMoveFilesOptions();
-        boolean renameIfTargetFileExists = copyMoveFilesOptions.equals(CopyFiles.Options.RENAME_SRC_FILE_IF_TARGET_FILE_EXISTS);
+        CopyMoveFilesOptions copyMoveFilesOptions = getCopyMoveFilesOptions();
+        boolean renameIfTargetFileExists = copyMoveFilesOptions.equals(CopyMoveFilesOptions.RENAME_SOURCE_FILE_IF_TARGET_FILE_EXISTS);
         moveTask = new FileSystemMove(sourceFiles, targetDirectory, renameIfTargetFileExists);
         addListenerToMoveTask();
 
@@ -126,12 +126,12 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
         runs = true;
     }
 
-    private CopyFiles.Options getCopyMoveFilesOptions() {
+    private CopyMoveFilesOptions getCopyMoveFilesOptions() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         return storage.containsKey(AppPreferencesKeys.KEY_FILE_SYSTEM_OPERATIONS_OPTIONS_COPY_MOVE_FILES)
-                ? CopyFiles.Options.fromInt(storage.getInt(AppPreferencesKeys.KEY_FILE_SYSTEM_OPERATIONS_OPTIONS_COPY_MOVE_FILES))
-                : CopyFiles.Options.CONFIRM_OVERWRITE;
+                ? CopyMoveFilesOptions.parseInteger(storage.getInt(AppPreferencesKeys.KEY_FILE_SYSTEM_OPERATIONS_OPTIONS_COPY_MOVE_FILES))
+                : CopyMoveFilesOptions.CONFIRM_OVERWRITE;
     }
 
     private String getMoveThreadName() {
