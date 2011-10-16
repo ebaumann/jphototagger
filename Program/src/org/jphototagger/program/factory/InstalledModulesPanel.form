@@ -67,7 +67,7 @@
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Description of selected Module">
+            <TitledBorder title="Beschreibung des ausgew&#xe4;hlten Moduls">
               <ResourceString PropertyName="titleX" bundle="org/jphototagger/program/factory/Bundle.properties" key="InstalledModulesPanel.panelModuleDescription.border.title" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </TitledBorder>
           </Border>
