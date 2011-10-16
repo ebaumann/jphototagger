@@ -8,6 +8,7 @@ import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
 import org.jphototagger.api.modules.Module;
+import org.jphototagger.api.modules.ModuleDescription;
 import org.jphototagger.api.windows.MainWindowComponent;
 import org.jphototagger.api.windows.MainWindowManager;
 import org.jphototagger.lib.swing.IconUtil;
@@ -17,7 +18,7 @@ import org.jphototagger.lib.util.Bundle;
  * @author Elmar Baumann
  */
 @ServiceProvider(service = Module.class)
-public final class ModuleInstaller implements Module {
+public final class ModuleInstaller implements Module, ModuleDescription {
 
     private static final Icon ICON = IconUtil.getImageIcon(ModuleInstaller.class, "files_without_metadata.png");
     private static final String TITLE = Bundle.getString(ModuleInstaller.class, "Module.Title");
@@ -75,5 +76,10 @@ public final class ModuleInstaller implements Module {
     @Override
     public String toString() {
         return Bundle.getString(ModuleInstaller.class, "ModuleInstaller.Name");
+    }
+
+    @Override
+    public String getLocalizedDescription() {
+        return Bundle.getString(ModuleInstaller.class, "ModuleInstaller.Description");
     }
 }
