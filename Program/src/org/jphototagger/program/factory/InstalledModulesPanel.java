@@ -2,12 +2,17 @@ package org.jphototagger.program.factory;
 
 import java.awt.Component;
 import java.util.Collection;
+
 import javax.swing.DefaultListModel;
 import javax.swing.Icon;
-import org.jphototagger.api.modules.Module;
-import org.jphototagger.api.windows.OptionPageProvider;
-import org.jphototagger.lib.util.Bundle;
+
 import org.openide.util.lookup.ServiceProvider;
+
+import org.jphototagger.api.modules.Module;
+import org.jphototagger.api.modules.ModuleDescription;
+import org.jphototagger.api.windows.OptionPageProvider;
+import org.jphototagger.lib.swing.util.ComponentUtil;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * @author Elmar Baumann
@@ -17,6 +22,7 @@ public class InstalledModulesPanel extends javax.swing.JPanel implements OptionP
 
     private static final long serialVersionUID = 1L;
     private final ModulesListModel modulesListModel = new ModulesListModel();
+    private Module selectedModule;
 
     public InstalledModulesPanel() {
         initComponents();
@@ -59,6 +65,19 @@ public class InstalledModulesPanel extends javax.swing.JPanel implements OptionP
         }
     }
 
+    public Module getSelectedModule() {
+        return selectedModule;
+    }
+
+    public void setSelectedModule(Module selectedModule) {
+        this.selectedModule = selectedModule;
+        if (selectedModule instanceof ModuleDescription) {
+            ModuleDescription moduleDescription = (ModuleDescription) selectedModule;
+            labelModuleDescription.setText(moduleDescription.getLocalizedDescription());
+            ComponentUtil.forceRepaint(this);
+        }
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -66,47 +85,80 @@ public class InstalledModulesPanel extends javax.swing.JPanel implements OptionP
      */
     @SuppressWarnings("unchecked")
     private void initComponents() {//GEN-BEGIN:initComponents
+        java.awt.GridBagConstraints gridBagConstraints;
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
-        jLabel1 = new javax.swing.JLabel();
-        scrollPane = new javax.swing.JScrollPane();
-        list = new javax.swing.JList();
+        labelInfo = new javax.swing.JLabel();
+        scrollPaneModules = new javax.swing.JScrollPane();
+        listModules = new javax.swing.JList();
+        panelModuleDescription = new javax.swing.JPanel();
+        labelModuleDescription = new org.jdesktop.swingx.JXLabel();
 
         setName("Form"); // NOI18N
+        setLayout(new java.awt.GridBagLayout());
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/factory/Bundle"); // NOI18N
-        jLabel1.setText(bundle.getString("InstalledModulesPanel.jLabel1.text")); // NOI18N
-        jLabel1.setName("jLabel1"); // NOI18N
+        labelInfo.setText(bundle.getString("InstalledModulesPanel.labelInfo.text")); // NOI18N
+        labelInfo.setName("labelInfo"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        add(labelInfo, gridBagConstraints);
 
-        scrollPane.setName("scrollPane"); // NOI18N
+        scrollPaneModules.setName("scrollPaneModules"); // NOI18N
 
-        list.setModel(modulesListModel);
-        list.setName("list"); // NOI18N
-        scrollPane.setViewportView(list);
+        listModules.setModel(modulesListModel);
+        listModules.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        listModules.setName("listModules"); // NOI18N
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
-                    .addComponent(jLabel1))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${selectedModule}"), listModules, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
+        bindingGroup.addBinding(binding);
+
+        scrollPaneModules.setViewportView(listModules);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        add(scrollPaneModules, gridBagConstraints);
+
+        panelModuleDescription.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("InstalledModulesPanel.panelModuleDescription.border.title"))); // NOI18N
+        panelModuleDescription.setName("panelModuleDescription"); // NOI18N
+        panelModuleDescription.setPreferredSize(new java.awt.Dimension(100, 75));
+        panelModuleDescription.setLayout(new java.awt.GridBagLayout());
+
+        labelModuleDescription.setLineWrap(true);
+        labelModuleDescription.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        labelModuleDescription.setName("labelModuleDescription"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        panelModuleDescription.add(labelModuleDescription, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        add(panelModuleDescription, gridBagConstraints);
+
+        bindingGroup.bind();
     }//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JList list;
-    private javax.swing.JScrollPane scrollPane;
+    private javax.swing.JLabel labelInfo;
+    private org.jdesktop.swingx.JXLabel labelModuleDescription;
+    private javax.swing.JList listModules;
+    private javax.swing.JPanel panelModuleDescription;
+    private javax.swing.JScrollPane scrollPaneModules;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }
