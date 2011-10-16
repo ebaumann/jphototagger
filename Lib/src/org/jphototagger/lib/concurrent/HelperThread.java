@@ -1,4 +1,4 @@
-package org.jphototagger.program.misc;
+package org.jphototagger.lib.concurrent;
 
 import java.util.HashSet;
 import java.util.Set;

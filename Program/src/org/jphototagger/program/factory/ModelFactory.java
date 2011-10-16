@@ -18,6 +18,7 @@ import org.jdesktop.swingx.sort.ListSortController;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.domain.DomainPreferencesKeys;
 import org.jphototagger.domain.imagecollections.ImageCollectionSortAscendingComparator;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
@@ -25,7 +26,7 @@ import org.jphototagger.lib.swing.AllSystemDirectoriesTreeModel;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppPanel;
 import org.jphototagger.program.app.ui.AppWindowPersistence;
-import org.jphototagger.program.app.ui.SelectRootFilesPanel;
+import org.jphototagger.lib.swing.SelectRootFilesPanel;
 import org.jphototagger.program.misc.InputHelperDialog;
 import org.jphototagger.program.module.exif.ExifTableCellRenderer;
 import org.jphototagger.program.module.exif.ExifTableModel;
@@ -46,7 +47,6 @@ import org.jphototagger.program.module.timeline.TimelineTreeModel;
 import org.jphototagger.program.module.xmp.XmpTableCellRenderer;
 import org.jphototagger.program.module.xmp.XmpTableModel;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.settings.AppPreferencesKeys;
 
 /**
  * Erzeugt die Models und verbindet sie mit den GUI-Elementen.
@@ -434,7 +434,7 @@ public final class ModelFactory {
 
                 final JTree tree = appPanel.getTreeDirectories();
                 final Cursor treeCursor = setWaitCursor(tree);
-                List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(AppPreferencesKeys.KEY_UI_DIRECTORIES_TAB_HIDE_ROOT_FILES);
+                List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(DomainPreferencesKeys.KEY_UI_DIRECTORIES_TAB_HIDE_ROOT_FILES);
                 final TreeModel model = new AllSystemDirectoriesTreeModel(tree, hideRootFiles, getDirFilterOptionShowHiddenFiles());
 
                 support.add(model);

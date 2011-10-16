@@ -1,5 +1,6 @@
 package org.jphototagger.program.module.filesystem;
 
+import org.jphototagger.domain.filefilter.FileFilterUtil;
 import java.io.File;
 import java.util.List;
 import java.util.logging.Level;
@@ -45,7 +46,7 @@ public final class FileSystemDirectories {
         if (directory.isDirectory()) {
             if (TreeFileSystemDirectories.confirmDelete(directory.getName())) {
                 try {
-                    List<File> imageFiles = ImageFileFilterer.getImageFilesOfDirAndSubDirs(directory);
+                    List<File> imageFiles = FileFilterUtil.getImageFilesOfDirAndSubDirs(directory);
 
                     FileUtil.deleteDirectoryRecursive(directory);
 

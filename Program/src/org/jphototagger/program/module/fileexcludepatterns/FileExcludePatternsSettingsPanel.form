@@ -334,7 +334,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="org.jphototagger.program.app.ui.SelectRootFilesPanel" name="panelSelectRootFiles">
+                <Component class="org.jphototagger.lib.swing.SelectRootFilesPanel" name="panelSelectRootFiles">
                   <Properties>
                     <Property name="name" type="java.lang.String" value="panelSelectRootFiles" noResource="true"/>
                   </Properties>

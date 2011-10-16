@@ -15,7 +15,7 @@ import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.swing.MouseEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.module.programs.ProgramsUtil.ReorderListener;
-import org.jphototagger.program.types.Persistence;
+import org.jphototagger.api.storage.Persistence;
 
 /**
  * @author Elmar Baumann

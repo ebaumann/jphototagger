@@ -13,17 +13,17 @@ import javax.swing.filechooser.FileFilter;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
-import org.jphototagger.lib.swing.util.MnemonicUtil;
-import org.jphototagger.lib.swing.DirectoryChooser;
-import org.jphototagger.lib.swing.DirectoryChooser.Option;
+import org.jphototagger.domain.DomainPreferencesKeys;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
 import org.jphototagger.lib.io.filefilter.RegexFileFilter;
+import org.jphototagger.lib.swing.DirectoryChooser;
+import org.jphototagger.lib.swing.DirectoryChooser.Option;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.swing.SelectRootFilesPanel;
 import org.jphototagger.program.filefilter.AppFileFilters;
-import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.app.ui.SelectRootFilesPanel;
 
 /**
  * Panel to select files for a {@code org.jphototagger.program.types.FileEditor}.
@@ -234,7 +234,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     }
 
     private void selectDirectories() {
-        List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(AppPreferencesKeys.KEY_UI_DIRECTORIES_TAB_HIDE_ROOT_FILES);
+        List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(DomainPreferencesKeys.KEY_UI_DIRECTORIES_TAB_HIDE_ROOT_FILES);
         DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), prevSelectedDirectory, hideRootFiles, getDirChooserOptions());
 
         dlg.setStorageKey("FileEditorPanel.DirChooser");

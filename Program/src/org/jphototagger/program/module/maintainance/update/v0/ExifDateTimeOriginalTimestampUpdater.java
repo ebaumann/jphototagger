@@ -1,4 +1,4 @@
-package org.jphototagger.program.app.update.v0;
+package org.jphototagger.program.module.maintainance.update.v0;
 
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;

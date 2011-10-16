@@ -8,17 +8,17 @@ import java.util.List;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.domain.DomainPreferencesKeys;
 import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.domain.repository.FavoritesRepository;
-import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.DirectoryChooser;
 import org.jphototagger.lib.swing.DirectoryChooser.Option;
 import org.jphototagger.lib.swing.MessageDisplayer;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.settings.AppPreferencesKeys;
+import org.jphototagger.lib.swing.SelectRootFilesPanel;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.app.ui.SelectRootFilesPanel;
 
 
 /**
@@ -49,7 +49,7 @@ public final class FavoritePropertiesDialog extends Dialog {
 
     private void chooseDirectory() {
         Option showHiddenDirs = getDirChooserOptionShowHiddenDirs();
-        List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(AppPreferencesKeys.KEY_UI_DIRECTORIES_TAB_HIDE_ROOT_FILES);
+        List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(DomainPreferencesKeys.KEY_UI_DIRECTORIES_TAB_HIDE_ROOT_FILES);
         DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), dir, hideRootFiles, showHiddenDirs);
 
         dlg.setStorageKey("FavoritePropertiesDialog.DirChooser");

@@ -1,6 +1,7 @@
-package org.jphototagger.program.module.filesystem;
+package org.jphototagger.domain.filefilter;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -11,27 +12,20 @@ import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.repository.FileExcludePatternsRepository;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
-import org.jphototagger.lib.io.filefilter.RegexFileFilter;
 import org.jphototagger.lib.util.RegexUtil;
-import org.jphototagger.program.filefilter.AppFileFilters;
 
 /**
  * @author Elmar Baumann
  */
-public final class ImageFileFilterer {
+public final class FileFilterUtil {
 
-    /**
-     * Liefert alle Bilddateien eines Verzeichnisses.
-     *
-     * @param  directory  Verzeichnis
-     * @return Bilddateien dieses Verzeichnisses
-     */
     public static List<File> getImageFilesOfDirectory(File directory) {
         if (directory == null) {
             throw new NullPointerException("directory == null");
         }
 
-        File[] filteredFiles = directory.listFiles(AppFileFilters.INSTANCE.getAllAcceptedImageFilesFilter());
+        AppFileFilterProvider provider = Lookup.getDefault().lookup(AppFileFilterProvider.class);
+        File[] filteredFiles = directory.listFiles(provider.getAcceptedImageFilesFileFilter());
         FileExcludePatternsRepository repo = Lookup.getDefault().lookup(FileExcludePatternsRepository.class);
         List<String> excludePatterns = repo.findAllFileExcludePatterns();
         List<File> files = new ArrayList<File>();
@@ -49,12 +43,6 @@ public final class ImageFileFilterer {
         return files;
     }
 
-    /**
-     * Liefert alle Bilddateien mehrerer Verzeichnisse.
-     *
-     * @param  directories  Verzeichnisse
-     * @return Bilddateien in diesen Verzeichnissen
-     */
     public static List<File> getImageFilesOfDirectories(List<File> directories) {
         if (directories == null) {
             throw new NullPointerException("directories == null");
@@ -69,12 +57,6 @@ public final class ImageFileFilterer {
         return files;
     }
 
-    /**
-     * Returns images files of a directory and all it's subdirectories.
-     *
-     * @param  dir directory
-     * @return image files
-     */
     public static List<File> getImageFilesOfDirAndSubDirs(File dir) {
         if (dir == null) {
             throw new NullPointerException("dir == null");
@@ -101,19 +83,14 @@ public final class ImageFileFilterer {
                 : false;
     }
 
-    /**
-     * Filters from a collection of arbitrary file image files.
-     *
-     * @param  arbitraryFiles arbitrary files
-     * @return                image files of <code>files</code>
-     */
     public static List<File> filterImageFiles(Collection<File> arbitraryFiles) {
         if (arbitraryFiles == null) {
             throw new NullPointerException("arbitraryFiles == null");
         }
 
         List<File> imageFiles = new ArrayList<File>();
-        RegexFileFilter filter = AppFileFilters.INSTANCE.getAllAcceptedImageFilesFilter();
+        AppFileFilterProvider provider = Lookup.getDefault().lookup(AppFileFilterProvider.class);
+        FileFilter filter = provider.getAcceptedImageFilesFileFilter();
 
         for (File file : arbitraryFiles) {
             if (filter.accept(file)) {
@@ -124,26 +101,14 @@ public final class ImageFileFilterer {
         return imageFiles;
     }
 
-    /**
-     * Returns wheter a file is an image file.
-     *
-     * @param  file file
-     * @return      true if the file is an image file
-     */
     public static boolean isImageFile(File file) {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
-
-        return AppFileFilters.INSTANCE.isAcceptedImageFile(file);
+        AppFileFilterProvider provider = Lookup.getDefault().lookup(AppFileFilterProvider.class);
+        return provider.isAcceptedImageFile(file);
     }
 
-    /**
-     * Returns from a collection of files the image files.
-     *
-     * @param  files files
-     * @return       image files of that files
-     */
     public static List<File> getImageFiles(Collection<? extends File> files) {
         if (files == null) {
             throw new NullPointerException("files == null");
@@ -160,6 +125,6 @@ public final class ImageFileFilterer {
         return imageFiles;
     }
 
-    private ImageFileFilterer() {
+    private FileFilterUtil() {
     }
 }

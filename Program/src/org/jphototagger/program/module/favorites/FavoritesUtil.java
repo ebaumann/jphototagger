@@ -22,7 +22,7 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppPanel;
 import org.jphototagger.program.app.ui.EditMetadataPanels;
 import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.program.module.filesystem.ImageFileFilterer;
+import org.jphototagger.domain.filefilter.FileFilterUtil;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
 import org.jphototagger.program.resource.GUI;
 
@@ -154,7 +154,7 @@ public final class FavoritesUtil {
             }
 
             if (dir != null) {
-                return ImageFileFilterer.getImageFilesOfDirectory(dir);
+                return FileFilterUtil.getImageFilesOfDirectory(dir);
             }
         }
 

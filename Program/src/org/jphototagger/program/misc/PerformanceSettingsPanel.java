@@ -7,12 +7,12 @@ import javax.swing.SpinnerModel;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.api.storage.Persistence;
 import org.jphototagger.domain.DomainPreferencesKeys;
 import org.jphototagger.image.ImagePreferencesKeys;
 import org.jphototagger.iptc.IptcPreferencesKeys;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.program.settings.AppPreferencesKeys;
-import org.jphototagger.program.types.Persistence;
 
 /**
  * @author Elmar Baumann
@@ -46,7 +46,7 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
     private void setScanForEmbeddedXmp(boolean scan) {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setBoolean(AppPreferencesKeys.KEY_SCAN_FOR_EMBEDDED_XMP, scan);
+        storage.setBoolean(DomainPreferencesKeys.KEY_SCAN_FOR_EMBEDDED_XMP, scan);
     }
 
     private void setSaveEarly() {
@@ -163,8 +163,8 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
     private boolean isScanForEmbeddedXmp() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(AppPreferencesKeys.KEY_SCAN_FOR_EMBEDDED_XMP)
-                ? storage.getBoolean(AppPreferencesKeys.KEY_SCAN_FOR_EMBEDDED_XMP)
+        return storage.containsKey(DomainPreferencesKeys.KEY_SCAN_FOR_EMBEDDED_XMP)
+                ? storage.getBoolean(DomainPreferencesKeys.KEY_SCAN_FOR_EMBEDDED_XMP)
                 : false;
     }
 

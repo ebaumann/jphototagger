@@ -17,10 +17,10 @@ import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.metadata.xmp.XmpIptc4XmpCoreDateCreatedMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpLastModifiedMetaDataValue;
 import org.jphototagger.domain.repository.ImageFilesRepository;
-import org.jphototagger.domain.repository.InsertIntoRepository;
+import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.filefilter.AppFileFilters;
-import org.jphototagger.program.misc.HelperThread;
+import org.jphototagger.lib.concurrent.HelperThread;
 import org.jphototagger.xmp.XmpMetadata;
 
 /**
@@ -152,7 +152,7 @@ public final class SetExifToXmp extends HelperThread {
                     imageFile.setLastmodified(imgFile.lastModified());
                     imageFile.setFile(imgFile);
                     imageFile.setXmp(xmp);
-                    imageFile.addToSaveIntoRepository(InsertIntoRepository.XMP);
+                    imageFile.addToSaveIntoRepository(SaveOrUpdate.XMP);
                     repo.saveOrUpdateImageFile(imageFile);
                 }
             }

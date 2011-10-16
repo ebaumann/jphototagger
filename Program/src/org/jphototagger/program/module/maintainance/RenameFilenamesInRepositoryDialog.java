@@ -4,7 +4,7 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.lib.swing.Dialog;
-import org.jphototagger.program.resource.GUI;
+import org.jphototagger.lib.swing.util.ComponentUtil;
 
 /**
  * @author Elmar Baumann
@@ -13,7 +13,7 @@ public class RenameFilenamesInRepositoryDialog extends Dialog {
     private static final long serialVersionUID = 1L;
 
     public RenameFilenamesInRepositoryDialog() {
-        super(GUI.getAppFrame(), true);
+        super(ComponentUtil.findFrameWithIcon(), true);
         initComponents();
         postInitComponents();
     }

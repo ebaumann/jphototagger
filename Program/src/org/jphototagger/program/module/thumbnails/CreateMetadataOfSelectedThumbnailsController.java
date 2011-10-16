@@ -10,9 +10,9 @@ import javax.swing.JMenuItem;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.concurrent.SerialTaskExecutor;
-import org.jphototagger.domain.repository.InsertIntoRepository;
+import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.misc.InsertImageFilesIntoRepository;
+import org.jphototagger.program.misc.SaveToOrUpdateFilesInRepositoryImpl;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.app.ui.ProgressBarUpdater;
 
@@ -27,7 +27,7 @@ import org.jphototagger.program.app.ui.ProgressBarUpdater;
  */
 public final class CreateMetadataOfSelectedThumbnailsController implements ActionListener {
 
-    private final Map<JMenuItem, InsertIntoRepository[]> insertIntoRepositoryOfMenuItem = new HashMap<JMenuItem, InsertIntoRepository[]>();
+    private final Map<JMenuItem, SaveOrUpdate[]> insertIntoRepositoryOfMenuItem = new HashMap<JMenuItem, SaveOrUpdate[]>();
     private final SerialTaskExecutor executor = Lookup.getDefault().lookup(SerialTaskExecutor.class);
 
     /**
@@ -41,16 +41,16 @@ public final class CreateMetadataOfSelectedThumbnailsController implements Actio
     private void initInsertIntoRepositoryOfMenuItem() {
         ThumbnailsPopupMenu popupMenu = ThumbnailsPopupMenu.INSTANCE;
 
-        insertIntoRepositoryOfMenuItem.put(popupMenu.getItemUpdateMetadata(), new InsertIntoRepository[]{InsertIntoRepository.EXIF, InsertIntoRepository.XMP});
-        insertIntoRepositoryOfMenuItem.put(popupMenu.getItemUpdateThumbnail(), new InsertIntoRepository[]{InsertIntoRepository.THUMBNAIL});
+        insertIntoRepositoryOfMenuItem.put(popupMenu.getItemUpdateMetadata(), new SaveOrUpdate[]{SaveOrUpdate.EXIF, SaveOrUpdate.XMP});
+        insertIntoRepositoryOfMenuItem.put(popupMenu.getItemUpdateThumbnail(), new SaveOrUpdate[]{SaveOrUpdate.THUMBNAIL});
     }
 
-    private InsertIntoRepository[] getMetadataToInsertIntoRepository(Object o) {
+    private SaveOrUpdate[] getMetadataToInsertIntoRepository(Object o) {
         if (o instanceof JMenuItem) {
             return insertIntoRepositoryOfMenuItem.get((JMenuItem) o);
         }
 
-        return new InsertIntoRepository[]{InsertIntoRepository.OUT_OF_DATE};
+        return new SaveOrUpdate[]{SaveOrUpdate.OUT_OF_DATE};
     }
 
     private void listen() {
@@ -67,8 +67,8 @@ public final class CreateMetadataOfSelectedThumbnailsController implements Actio
         }
     }
 
-    private void updateMetadata(InsertIntoRepository[] what) {
-        InsertImageFilesIntoRepository inserter = new InsertImageFilesIntoRepository(GUI.getThumbnailsPanel().getSelectedFiles(), what);
+    private void updateMetadata(SaveOrUpdate[] what) {
+        SaveToOrUpdateFilesInRepositoryImpl inserter = new SaveToOrUpdateFilesInRepositoryImpl(GUI.getThumbnailsPanel().getSelectedFiles(), what);
         String pBarString = Bundle.getString(CreateMetadataOfSelectedThumbnailsController.class, "CreateMetadataOfSelectedThumbnailsController.ProgressBar.String");
 
         inserter.addProgressListener(new ProgressBarUpdater(inserter, pBarString));

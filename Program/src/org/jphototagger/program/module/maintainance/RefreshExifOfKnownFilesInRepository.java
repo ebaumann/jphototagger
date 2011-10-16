@@ -9,7 +9,7 @@ import org.jphototagger.domain.metadata.exif.Exif;
 import org.jphototagger.domain.metadata.exif.ExifUtil;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.misc.HelperThread;
+import org.jphototagger.lib.concurrent.HelperThread;
 
 /**
  * Refreshes the EXIF metadata of all known imagesfiles whithout time stamp

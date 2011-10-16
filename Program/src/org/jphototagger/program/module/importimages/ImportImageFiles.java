@@ -14,13 +14,13 @@ import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.domain.imagecollections.ImageCollection;
 import org.jphototagger.domain.repository.ImageCollectionsRepository;
-import org.jphototagger.domain.repository.InsertIntoRepository;
+import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.SourceTargetFile;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.misc.InsertImageFilesIntoRepository;
-import org.jphototagger.program.module.filesystem.ImageFileFilterer;
+import org.jphototagger.program.misc.SaveToOrUpdateFilesInRepositoryImpl;
+import org.jphototagger.domain.filefilter.FileFilterUtil;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.app.ui.AppPanel;
 import org.jphototagger.program.app.ui.ProgressBarUpdater;
@@ -65,7 +65,7 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
                 sourceDirectories.add(srcDir);
                 sourceDirectories.addAll(FileUtil.getSubDirectoriesRecursive(srcDir, null));
 
-                List<File> sourceImageFiles = ImageFileFilterer.getImageFilesOfDirectories(sourceDirectories);
+                List<File> sourceImageFiles = FileFilterUtil.getImageFilesOfDirectories(sourceDirectories);
 
                 copy(sourceImageFiles, dlg.getTargetDir(), dlg.isDeleteSourceFilesAfterCopying());
             }
@@ -146,7 +146,7 @@ public final class ImportImageFiles extends Thread implements ProgressListener {
     }
 
     private void insertCopiedFilesIntoDb() {
-        InsertImageFilesIntoRepository inserter = new InsertImageFilesIntoRepository(copiedTargetFiles, InsertIntoRepository.OUT_OF_DATE);
+        SaveToOrUpdateFilesInRepositoryImpl inserter = new SaveToOrUpdateFilesInRepositoryImpl(copiedTargetFiles, SaveOrUpdate.OUT_OF_DATE);
         ProgressBarUpdater pBarUpdater = new ProgressBarUpdater(inserter, progressBarString);
 
         inserter.addProgressListener(pBarUpdater);

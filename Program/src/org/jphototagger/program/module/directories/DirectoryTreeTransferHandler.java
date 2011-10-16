@@ -14,7 +14,7 @@ import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.lib.datatransfer.TransferUtil;
 import org.jphototagger.lib.datatransfer.TransferUtil.FilenameDelimiter;
 import org.jphototagger.program.datatransfer.Flavor;
-import org.jphototagger.program.module.filesystem.ImageFileFilterer;
+import org.jphototagger.domain.filefilter.FileFilterUtil;
 import org.jphototagger.program.module.filesystem.FilesystemImageUtil;
 import org.jphototagger.program.module.filesystem.FilesystemImageUtil.ConfirmOverwrite;
 
@@ -84,7 +84,7 @@ public final class DirectoryTreeTransferHandler extends TransferHandler {
             throw new NullPointerException("targetDirectory == null");
         }
 
-        List<File> imageFiles = ImageFileFilterer.filterImageFiles(sourceFiles);
+        List<File> imageFiles = FileFilterUtil.filterImageFiles(sourceFiles);
 
         if (imageFiles.isEmpty()) {
             return;

@@ -7,24 +7,22 @@ import java.awt.event.KeyListener;
 import javax.swing.JMenuItem;
 
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.program.app.ui.AppFrame;
+import org.jphototagger.program.misc.AboutJPhotoTaggerController;
+import org.jphototagger.program.misc.HelpController;
+import org.jphototagger.program.misc.InputHelperDialog;
+import org.jphototagger.program.misc.ShowUserSettingsDialogController;
 import org.jphototagger.program.module.keywords.tree.AddKeywordToTreeController;
 import org.jphototagger.program.module.keywords.tree.AddKeywordsToEditPanelController;
 import org.jphototagger.program.module.keywords.tree.CopyCutPasteKeywordController;
 import org.jphototagger.program.module.keywords.tree.DeleteKeywordFromEditPanelController;
 import org.jphototagger.program.module.keywords.tree.DeleteKeywordsFromTreeController;
 import org.jphototagger.program.module.keywords.tree.KeywordsDisplayImagesController;
+import org.jphototagger.program.module.keywords.tree.KeywordsTreePopupMenu;
 import org.jphototagger.program.module.keywords.tree.RenameKeywordController;
 import org.jphototagger.program.module.keywords.tree.ToggleRealKeywordController;
-import org.jphototagger.program.module.maintainance.ShowUpdateMetadataOfDirectoriesDialogController;
-import org.jphototagger.program.misc.AboutJPhotoTaggerController;
-import org.jphototagger.program.misc.HelpController;
-import org.jphototagger.program.module.maintainance.MaintainRepositoryController;
-import org.jphototagger.program.misc.ShowUserSettingsDialogController;
 import org.jphototagger.program.module.search.ShowAdvancedSearchDialogController;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.misc.InputHelperDialog;
-import org.jphototagger.program.app.ui.AppFrame;
-import org.jphototagger.program.module.keywords.tree.KeywordsTreePopupMenu;
 
 /**
  * @author Elmar Baumann
@@ -65,8 +63,6 @@ public final class ActionKeyListenerFactory {
 
         addActionListeners(AboutJPhotoTaggerController.class, appFrame.getMenuItemAbout());
         addActionListeners(HelpController.class, appFrame.getMenuItemHelp());
-        addActionListeners(MaintainRepositoryController.class, appFrame.getMenuItemMaintainRepository());
-        addActionListeners(ShowUpdateMetadataOfDirectoriesDialogController.class, appFrame.getMenuItemScanDirectory());
         addActionListeners(ShowUserSettingsDialogController.class, appFrame.getMenuItemSettings());
         addActionListeners(ShowAdvancedSearchDialogController.class, appFrame.getMenuItemSearch());
     }

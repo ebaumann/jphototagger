@@ -1,12 +1,9 @@
 package org.jphototagger.program.module.maintainance;
 
 import org.jphototagger.lib.swing.Dialog;
-import org.jphototagger.program.resource.GUI;
+import org.jphototagger.lib.swing.util.ComponentUtil;
 
 /**
- * Dialog zum Scannen eines Verzeichnisses nach Bildern und Einfügen
- * von Thumbnails in die Datenbank.
- *
  * @author Elmar Baumann
  */
 public final class UpdateMetadataOfDirectoriesDialog extends Dialog {
@@ -14,7 +11,7 @@ public final class UpdateMetadataOfDirectoriesDialog extends Dialog {
     private static final long serialVersionUID = 1L;
 
     private UpdateMetadataOfDirectoriesDialog() {
-        super(GUI.getAppFrame(), false);
+        super(ComponentUtil.findFrameWithIcon(), false);
         initComponents();
         setHelpPage();
     }

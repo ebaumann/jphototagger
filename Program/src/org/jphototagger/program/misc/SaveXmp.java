@@ -13,7 +13,7 @@ import org.jphototagger.api.progress.MainWindowProgressBarProvider;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.domain.metadata.xmp.FileXmp;
 import org.jphototagger.domain.metadata.xmp.Xmp;
-import org.jphototagger.domain.repository.InsertIntoRepository;
+import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppLifeCycle;
 import org.jphototagger.xmp.XmpMetadata;
@@ -81,7 +81,7 @@ public final class SaveXmp extends Thread implements Cancelable {
     }
 
     private void updateRepository(File imageFile) {
-        InsertImageFilesIntoRepository updater = new InsertImageFilesIntoRepository(Arrays.asList(imageFile), InsertIntoRepository.XMP);
+        SaveToOrUpdateFilesInRepositoryImpl updater = new SaveToOrUpdateFilesInRepositoryImpl(Arrays.asList(imageFile), SaveOrUpdate.XMP);
 
         updater.run();    // Has to run in this thread!
     }

@@ -31,7 +31,7 @@ import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpLastModifiedMetaDataValue;
 import org.jphototagger.domain.repository.ImageFilesRepository;
-import org.jphototagger.domain.repository.InsertIntoRepository;
+import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.domain.repository.KeywordsRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.util.ListUtil;
@@ -40,7 +40,7 @@ import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.ArrayUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.program.misc.HelperThread;
+import org.jphototagger.lib.concurrent.HelperThread;
 import org.jphototagger.program.misc.SaveXmp;
 import org.jphototagger.program.module.keywords.tree.KeywordsTreeModel;
 import org.jphototagger.program.resource.GUI;
@@ -469,7 +469,7 @@ public final class KeywordsUtil {
             imageFile.setLastmodified(imgFile.lastModified());
             xmp.setValue(XmpLastModifiedMetaDataValue.INSTANCE, sidecarFile.lastModified());
             imageFile.setXmp(xmp);
-            imageFile.addToSaveIntoRepository(InsertIntoRepository.XMP);
+            imageFile.addToSaveIntoRepository(SaveOrUpdate.XMP);
             imageFileRepo.saveOrUpdateImageFile(imageFile);
         }
     }

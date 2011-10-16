@@ -20,7 +20,7 @@ import org.jphototagger.lib.io.filefilter.FileChooserFilter;
 import org.jphototagger.lib.io.filefilter.RegexFileFilter;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.filefilter.AppFileFilters;
-import org.jphototagger.program.module.filesystem.ImageFileFilterer;
+import org.jphototagger.domain.filefilter.FileFilterUtil;
 
 //Code based on http://www.javalobby.org/java/forums/t49462.html
 /**
@@ -50,7 +50,7 @@ public class ImagePreviewPanel extends JPanel implements PropertyChangeListener 
 
         File selFile = (File) evt.getNewValue();
 
-        if ((selFile == null) || !ImageFileFilterer.isImageFile(selFile)) {
+        if ((selFile == null) || !FileFilterUtil.isImageFile(selFile)) {
             image = null;
             repaint();
 

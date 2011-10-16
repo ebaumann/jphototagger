@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.jphototagger.domain.metadata.exif.Exif;
-import org.jphototagger.domain.repository.InsertIntoRepository;
+import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.domain.metadata.xmp.Xmp;
 
 /**
@@ -15,7 +15,7 @@ import org.jphototagger.domain.metadata.xmp.Xmp;
 public final class ImageFile {
 
     private long lastmodified = -1;
-    private Set<InsertIntoRepository> insertIntoDb = new HashSet<InsertIntoRepository>();
+    private Set<SaveOrUpdate> insertIntoDb = new HashSet<SaveOrUpdate>();
     private Exif exif;
     private File file;
     private Image thumbnail;
@@ -77,24 +77,24 @@ public final class ImageFile {
      * @return        true if <code>insert</code> is to insert into the repository
      *
      */
-    public boolean isSaveInRepository(InsertIntoRepository insert) {
+    public boolean isSaveInRepository(SaveOrUpdate insert) {
         return insertIntoDb.contains(insert);
     }
 
     public boolean isInsertXmpIntoDb() {
-        return insertIntoDb.contains(InsertIntoRepository.XMP);
+        return insertIntoDb.contains(SaveOrUpdate.XMP);
     }
 
     public boolean isInsertExifIntoDb() {
-        return insertIntoDb.contains(InsertIntoRepository.EXIF);
+        return insertIntoDb.contains(SaveOrUpdate.EXIF);
     }
 
     public boolean isInsertThumbnailIntoDb() {
-        return insertIntoDb.contains(InsertIntoRepository.THUMBNAIL);
+        return insertIntoDb.contains(SaveOrUpdate.THUMBNAIL);
     }
 
-    public Set<InsertIntoRepository> getInsertIntoDb() {
-        return new HashSet<InsertIntoRepository>(insertIntoDb);
+    public Set<SaveOrUpdate> getInsertIntoDb() {
+        return new HashSet<SaveOrUpdate>(insertIntoDb);
     }
 
     /**
@@ -102,7 +102,7 @@ public final class ImageFile {
      *
      * @param insert metadata to insert
      */
-    public void addToSaveIntoRepository(InsertIntoRepository insert) {
+    public void addToSaveIntoRepository(SaveOrUpdate insert) {
         if (insert == null) {
             throw new NullPointerException("insert == null");
         }

@@ -19,7 +19,7 @@ import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.module.filesystem.ImageFileFilterer;
+import org.jphototagger.domain.filefilter.FileFilterUtil;
 import org.jphototagger.program.resource.GUI;
 
 /**
@@ -84,7 +84,7 @@ public final class DirectorySelectedController implements TreeSelectionListener 
                 WaitDisplayer waitDisplayer = Lookup.getDefault().lookup(WaitDisplayer.class);
                 waitDisplayer.show();
                 File selectedDirectory = new File(getDirectorynameFromTree());
-                List<File> files = ImageFileFilterer.getImageFilesOfDirectory(selectedDirectory);
+                List<File> files = FileFilterUtil.getImageFilesOfDirectory(selectedDirectory);
 
                 setTitle(selectedDirectory);
                 GUI.getThumbnailsPanel().setFiles(files, OriginOfDisplayedThumbnails.FILES_IN_SAME_DIRECTORY);

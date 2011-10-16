@@ -14,13 +14,13 @@ import org.openide.util.Lookup;
 import org.jphototagger.api.progress.MainWindowProgressBarProvider;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.domain.programs.Program;
-import org.jphototagger.domain.repository.InsertIntoRepository;
-import org.jphototagger.lib.swing.MessageDisplayer;
+import org.jphototagger.domain.repository.SaveOrUpdate;
+import org.jphototagger.domain.repository.SaveToOrUpdateFilesInRepository;
 import org.jphototagger.lib.runtime.External;
 import org.jphototagger.lib.runtime.External.ProcessResult;
 import org.jphototagger.lib.runtime.RuntimeUtil;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.misc.InsertImageFilesIntoRepository;
 
 /**
  * Executes in a thread programs which processes image files.
@@ -227,31 +227,20 @@ public final class StartPrograms {
         }
 
         private void progressStarted() {
-            ProgressEvent evt = new ProgressEvent.Builder()
-                    .source(this)
-                    .minimum(0)
-                    .maximum(imageFiles.size())
-                    .value(0)
-                    .build();
+            ProgressEvent evt = new ProgressEvent.Builder().source(this).minimum(0).maximum(imageFiles.size()).value(0).build();
             progressBarProvider.progressStarted(evt);
         }
 
         private void progressPerformed(int value) {
-            ProgressEvent evt = new ProgressEvent.Builder()
-                    .source(this)
-                    .minimum(0)
-                    .maximum(imageFiles.size())
-                    .value(value)
-                    .build();
+            ProgressEvent evt = new ProgressEvent.Builder().source(this).minimum(0).maximum(imageFiles.size()).value(value).build();
             progressBarProvider.progressPerformed(evt);
         }
 
         private void updateRepository() {
             if (program.isChangeFile()) {
-                InsertImageFilesIntoRepository updater =
-                        new InsertImageFilesIntoRepository(imageFiles, InsertIntoRepository.OUT_OF_DATE);
-
-                updater.run();    // Has to run in this thread!
+                SaveToOrUpdateFilesInRepository updater = Lookup.getDefault().lookup(SaveToOrUpdateFilesInRepository.class)
+                        .createInstance(imageFiles, SaveOrUpdate.OUT_OF_DATE);
+                updater.saveOrUpdateWaitForTermination();
             }
         }
     }

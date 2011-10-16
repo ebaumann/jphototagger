@@ -140,14 +140,6 @@ public final class AppFrame extends javax.swing.JFrame {
         return menuItemOpenPdfUserManual;
     }
 
-    public JMenuItem getMenuItemMaintainRepository() {
-        return menuItemMaintainRepository;
-    }
-
-    public JMenuItem getMenuItemScanDirectory() {
-        return menuItemScanDirectory;
-    }
-
     public JMenuItem getMenuItemSettings() {
         return menuItemSettings;
     }
@@ -287,10 +279,6 @@ public final class AppFrame extends javax.swing.JFrame {
         buttonGroupSort = new javax.swing.ButtonGroup();
         menuBar = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
-        menuItemScanDirectory = new javax.swing.JMenuItem();
-        menuItemMaintainRepository = new javax.swing.JMenuItem();
-        menuItemMaintainance = new JMenuItem(org.jphototagger.program.module.maintainance.DisplayMaintainanceDialogAction.INSTANCE);
-        sep1 = new javax.swing.JPopupMenu.Separator();
         menuImportImageFiles = new javax.swing.JMenuItem();
         sep2 = new javax.swing.JPopupMenu.Separator();
         menuExport = new javax.swing.JMenu();
@@ -361,25 +349,6 @@ public final class AppFrame extends javax.swing.JFrame {
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/app/ui/Bundle"); // NOI18N
         menuFile.setText(bundle.getString("AppFrame.menuFile.text")); // NOI18N
         menuFile.setName("menuFile"); // NOI18N
-
-        menuItemScanDirectory.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_R));
-        menuItemScanDirectory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_folder.png"))); // NOI18N
-        menuItemScanDirectory.setText(bundle.getString("AppFrame.menuItemScanDirectory.text")); // NOI18N
-        menuItemScanDirectory.setName("menuItemScanDirectory"); // NOI18N
-        menuFile.add(menuItemScanDirectory);
-
-        menuItemMaintainRepository.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_D));
-        menuItemMaintainRepository.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_database.png"))); // NOI18N
-        menuItemMaintainRepository.setText(bundle.getString("AppFrame.menuItemMaintainRepository.text")); // NOI18N
-        menuItemMaintainRepository.setName("menuItemMaintainRepository"); // NOI18N
-        menuFile.add(menuItemMaintainRepository);
-
-        menuItemMaintainance.setText(bundle.getString("AppFrame.menuItemMaintainance.text")); // NOI18N
-        menuItemMaintainance.setName("menuItemMaintainance"); // NOI18N
-        menuFile.add(menuItemMaintainance);
-
-        sep1.setName("sep1"); // NOI18N
-        menuFile.add(sep1);
 
         menuImportImageFiles.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_P));
         menuImportImageFiles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_card.png"))); // NOI18N
@@ -735,10 +704,7 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemHelp;
     private javax.swing.JMenuItem menuItemImportJptMisc;
     private javax.swing.JMenuItem menuItemInputHelper;
-    private javax.swing.JMenuItem menuItemMaintainRepository;
-    private javax.swing.JMenuItem menuItemMaintainance;
     private javax.swing.JMenuItem menuItemOpenPdfUserManual;
-    private javax.swing.JMenuItem menuItemScanDirectory;
     private javax.swing.JMenuItem menuItemSearch;
     private javax.swing.JMenuItem menuItemSendBugMail;
     private javax.swing.JMenuItem menuItemSendFeatureMail;
@@ -750,7 +716,6 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenu menuTools;
     private javax.swing.JMenu menuView;
     private javax.swing.JMenu menuWindow;
-    private javax.swing.JPopupMenu.Separator sep1;
     private javax.swing.JPopupMenu.Separator sep15;
     private javax.swing.JPopupMenu.Separator sep16;
     private javax.swing.JPopupMenu.Separator sep17;

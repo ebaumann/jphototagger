@@ -11,17 +11,18 @@ import javax.swing.SpinnerNumberModel;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.api.storage.Persistence;
+import org.jphototagger.domain.DomainPreferencesKeys;
 import org.jphototagger.domain.repository.AutoscanDirectoriesRepository;
-import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.swing.DirectoryChooser;
 import org.jphototagger.lib.swing.DirectoryChooser.Option;
 import org.jphototagger.lib.swing.MessageDisplayer;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.settings.AppPreferencesKeys;
+import org.jphototagger.lib.swing.SelectRootFilesPanel;
 import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.program.tasks.ScheduledTasks;
-import org.jphototagger.program.types.Persistence;
-import org.jphototagger.program.app.ui.SelectRootFilesPanel;
 
 /**
  * @author Elmar Baumann
@@ -84,7 +85,7 @@ public final class ScheduledTasksSettingsPanel extends javax.swing.JPanel implem
 
     private void addAutoscanDirectories() {
         Option showHiddenDirs = getDirChooserOptionShowHiddenDirs();
-        List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(AppPreferencesKeys.KEY_UI_DIRECTORIES_TAB_HIDE_ROOT_FILES);
+        List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(DomainPreferencesKeys.KEY_UI_DIRECTORIES_TAB_HIDE_ROOT_FILES);
         DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), new File(lastSelectedAutoscanDirectory), hideRootFiles, showHiddenDirs);
 
         dlg.setStorageKey("ScheduledTasksSettingsPanel.DirChooser");

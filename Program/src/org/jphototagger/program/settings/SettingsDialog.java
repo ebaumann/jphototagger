@@ -17,7 +17,7 @@ import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.types.Persistence;
+import org.jphototagger.api.storage.Persistence;
 
 /**
  * Modaler Dialog für Anwendungseinstellungen.
