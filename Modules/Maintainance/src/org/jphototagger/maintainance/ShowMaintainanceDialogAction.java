@@ -6,7 +6,7 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JMenuItem;
 
-import org.jphototagger.api.windows.MainWindowMenuItem;
+import org.jphototagger.api.windows.MenuItemProvider;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.swing.util.MenuUtil;
 import org.jphototagger.lib.util.Bundle;
@@ -14,7 +14,7 @@ import org.jphototagger.lib.util.Bundle;
 /**
  * @author Elmar Baumann
  */
-public final class ShowMaintainanceDialogAction extends AbstractAction implements MainWindowMenuItem {
+public final class ShowMaintainanceDialogAction extends AbstractAction implements MenuItemProvider {
 
     private static final long serialVersionUID = 1L;
 

@@ -1,5 +1,6 @@
 package org.jphototagger.program.app.ui;
 
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -16,7 +17,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu.Separator;
 
 import javax.swing.KeyStroke;
-import org.jphototagger.api.windows.MainWindowMenuItem;
+import org.jphototagger.api.windows.MenuItemProvider;
 import org.jphototagger.api.windows.MainWindowMenuProvider;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.comparator.PositionComparatorAscendingOrder;
@@ -30,8 +31,6 @@ import org.jphototagger.program.resource.GUI;
 import org.openide.util.Lookup;
 
 /**
- * The application's frame.
- *
  * @author Elmar Baumann
  */
 public final class AppFrame extends javax.swing.JFrame {
@@ -40,8 +39,10 @@ public final class AppFrame extends javax.swing.JFrame {
     private final Map<GoTo, JMenuItem> menuItemOfGoto = new EnumMap<GoTo, JMenuItem>(GoTo.class);
     private final Map<JMenuItem, GoTo> gotoOfMenuItem = new HashMap<JMenuItem, GoTo>();
     private AppPanel appPanel;
-    private int lastGotoItemIndex = 9;
-    private int lastGotoItemAcceleratorKeyCode = 0x37;
+    private int lastGotoSelectionItemIndex = 9;
+    private int lastGotoEditItemIndex = 13;
+    private int lastSelectionGotoItemAcceleratorKeyCode = 0x37;
+    private int lastEditGotoItemAcceleratorKeyCode = 0x30;
 
     private void initGotoMenuItemsMap() {
         menuItemOfGoto.put(GoTo.DIRECTORIES, menuItemGotoDirectories);
@@ -51,7 +52,6 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemOfGoto.put(GoTo.FAVORITES, menuItemGotoFavorites);
         menuItemOfGoto.put(GoTo.KEYWORDS_EDIT, menuItemGotoKeywordsEdit);
         menuItemOfGoto.put(GoTo.IMAGE_COLLECTIONS, menuItemGotoCollections);
-        menuItemOfGoto.put(GoTo.IPTC_METADATA, menuItemGotoIptcMetadata);
         menuItemOfGoto.put(GoTo.KEYWORDS_SEL, menuItemGotoKeywordsSel);
         menuItemOfGoto.put(GoTo.MISC_METADATA, menuItemGotoMiscMetadata);
         menuItemOfGoto.put(GoTo.SAVED_SEARCHES, menuItemGotoSavedSearches);
@@ -72,7 +72,6 @@ public final class AppFrame extends javax.swing.JFrame {
         FAVORITES,
         KEYWORDS_EDIT,
         IMAGE_COLLECTIONS,
-        IPTC_METADATA,
         KEYWORDS_SEL,
         MISC_METADATA,
         SAVED_SEARCHES,
@@ -103,21 +102,6 @@ public final class AppFrame extends javax.swing.JFrame {
     private void addAppPanel() {
         appPanel = new AppPanel();
         getContentPane().add(appPanel);
-    }
-
-    void addGotoMenuItemForSelectionWindow(Action action) {
-        JMenuItem item = new JMenuItem(action);
-        if (lastGotoItemAcceleratorKeyCode > 0x30 && lastGotoItemAcceleratorKeyCode <= 0x39) { // 0x30: TN-Panel
-            KeyStroke keyStroke = KeyEventUtil.getKeyStrokeMenuShortcut(lastGotoItemAcceleratorKeyCode + 1);
-            item.setAccelerator(keyStroke);
-            lastGotoItemAcceleratorKeyCode++;
-        }
-        menuGoto.insert(item, lastGotoItemIndex + 1);
-        lastGotoItemIndex++;
-    }
-
-    void addGotoMenuItemForEditWindow(Action action) {
-        throw new UnsupportedOperationException("TODO: Implement");
     }
 
     public JCheckBoxMenuItem getCheckBoxMenuItemKeywordOverlay() {
@@ -154,10 +138,6 @@ public final class AppFrame extends javax.swing.JFrame {
 
     public JMenuItem getMenuItemSearch() {
         return menuItemSearch;
-    }
-
-    public JMenuItem getMenuItemToolIptcToXmp() {
-        return menuItemToolIptcToXmp;
     }
 
     public JMenuItem getMenuItemInputHelper() {
@@ -233,33 +213,33 @@ public final class AppFrame extends javax.swing.JFrame {
                 Collection<? extends MainWindowMenuProvider> providers = Lookup.getDefault().lookupAll(MainWindowMenuProvider.class);
 
                 for (MainWindowMenuProvider provider : providers) {
-                    List<MainWindowMenuItem> editMenuItems = new ArrayList<MainWindowMenuItem>(provider.getEditMenuItems());
+                    List<MenuItemProvider> editMenuItems = new ArrayList<MenuItemProvider>(provider.getEditMenuItems());
                     addMenuItems(editMenuItems, menuEdit);
-                    List<MainWindowMenuItem> fileMenuItems = new ArrayList<MainWindowMenuItem>(provider.getFileMenuItems());
+                    List<MenuItemProvider> fileMenuItems = new ArrayList<MenuItemProvider>(provider.getFileMenuItems());
                     addMenuItems(fileMenuItems, menuFile);
-                    List<MainWindowMenuItem> gotoMenuItems = new ArrayList<MainWindowMenuItem>(provider.getGotoMenuItems());
+                    List<MenuItemProvider> gotoMenuItems = new ArrayList<MenuItemProvider>(provider.getGotoMenuItems());
                     addMenuItems(gotoMenuItems, menuGoto);
-                    List<MainWindowMenuItem> helpMenuItems = new ArrayList<MainWindowMenuItem>(provider.getHelpMenuItems());
+                    List<MenuItemProvider> helpMenuItems = new ArrayList<MenuItemProvider>(provider.getHelpMenuItems());
                     addMenuItems(helpMenuItems, menuHelp);
-                    List<MainWindowMenuItem> toolsMenuItems = new ArrayList<MainWindowMenuItem>(provider.getToolsMenuItems());
+                    List<MenuItemProvider> toolsMenuItems = new ArrayList<MenuItemProvider>(provider.getToolsMenuItems());
                     addMenuItems(toolsMenuItems, menuTools);
-                    List<MainWindowMenuItem> viewMenuItems = new ArrayList<MainWindowMenuItem>(provider.getViewMenuItems());
+                    List<MenuItemProvider> viewMenuItems = new ArrayList<MenuItemProvider>(provider.getViewMenuItems());
                     addMenuItems(viewMenuItems, menuView);
-                    List<MainWindowMenuItem> windowMenuItems = new ArrayList<MainWindowMenuItem>(provider.getWindowMenuItems());
+                    List<MenuItemProvider> windowMenuItems = new ArrayList<MenuItemProvider>(provider.getWindowMenuItems());
                     addMenuItems(windowMenuItems, menuWindow);
                 }
             }
         });
     }
 
-    private void addMenuItems(List<? extends MainWindowMenuItem> items, JMenu menu) {
+    private void addMenuItems(List<? extends MenuItemProvider> items, JMenu menu) {
         Collections.sort(items, PositionComparatorAscendingOrder.INSTANCE);
-        for (MainWindowMenuItem menuItem : items) {
+        for (MenuItemProvider menuItem : items) {
             addMenuItem(menuItem, menu);
         }
     }
 
-    private void addMenuItem(MainWindowMenuItem item, JMenu menu) {
+    private void addMenuItem(MenuItemProvider item, JMenu menu) {
         int position = item.getPosition();
         JMenuItem menuItem = item.getMenuItem();
         int itemCount = menu.getItemCount();
@@ -271,6 +251,28 @@ public final class AppFrame extends javax.swing.JFrame {
         }
 
         menu.add(menuItem, index);
+    }
+
+    void addGotoMenuItemForSelectionWindow(Action action) {
+        JMenuItem item = new JMenuItem(action);
+        if (lastSelectionGotoItemAcceleratorKeyCode > 0x30 && lastSelectionGotoItemAcceleratorKeyCode < 0x39) { // 0x30: TN-Panel
+            KeyStroke keyStroke = KeyEventUtil.getKeyStrokeMenuShortcut(lastSelectionGotoItemAcceleratorKeyCode + 1);
+            item.setAccelerator(keyStroke);
+            lastSelectionGotoItemAcceleratorKeyCode++;
+        }
+        menuGoto.insert(item, lastGotoSelectionItemIndex + 1);
+        lastGotoSelectionItemIndex++;
+    }
+
+    void addGotoMenuItemForEditWindow(Action action) {
+        JMenuItem item = new JMenuItem(action);
+        if (lastEditGotoItemAcceleratorKeyCode >= 0x30 && lastEditGotoItemAcceleratorKeyCode < 0x39) {
+            KeyStroke keyStroke = KeyStroke.getKeyStroke(lastEditGotoItemAcceleratorKeyCode + 1, InputEvent.ALT_MASK);
+            item.setAccelerator(keyStroke);
+            lastEditGotoItemAcceleratorKeyCode++;
+        }
+        menuGoto.insert(item, lastGotoEditItemIndex + 1);
+        lastGotoEditItemIndex++;
     }
 
     /**
@@ -314,12 +316,10 @@ public final class AppFrame extends javax.swing.JFrame {
         sep17 = new javax.swing.JPopupMenu.Separator();
         menuItemGotoThumbnailsPanel = new javax.swing.JMenuItem();
         sep18 = new javax.swing.JPopupMenu.Separator();
-        menuItemGotoIptcMetadata = new javax.swing.JMenuItem();
         menuItemGotoExifMetadata = new javax.swing.JMenuItem();
         menuItemGotoXmpMetadata = new javax.swing.JMenuItem();
         menuItemGotoKeywordsEdit = new javax.swing.JMenuItem();
         menuTools = new javax.swing.JMenu();
-        menuItemToolIptcToXmp = new javax.swing.JMenuItem();
         menuItemExtractEmbeddedXmp = new javax.swing.JMenuItem();
         menuWindow = new javax.swing.JMenu();
         menuItemInputHelper = new javax.swing.JMenuItem();
@@ -500,12 +500,6 @@ public final class AppFrame extends javax.swing.JFrame {
         sep18.setName("sep18"); // NOI18N
         menuGoto.add(sep18);
 
-        menuItemGotoIptcMetadata.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, java.awt.event.InputEvent.ALT_MASK));
-        menuItemGotoIptcMetadata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_iptc.png"))); // NOI18N
-        menuItemGotoIptcMetadata.setText(bundle.getString("AppFrame.menuItemGotoIptcMetadata.text")); // NOI18N
-        menuItemGotoIptcMetadata.setName("menuItemGotoIptcMetadata"); // NOI18N
-        menuGoto.add(menuItemGotoIptcMetadata);
-
         menuItemGotoExifMetadata.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_2, java.awt.event.InputEvent.ALT_MASK));
         menuItemGotoExifMetadata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_exif.png"))); // NOI18N
         menuItemGotoExifMetadata.setText(bundle.getString("AppFrame.menuItemGotoExifMetadata.text")); // NOI18N
@@ -528,12 +522,6 @@ public final class AppFrame extends javax.swing.JFrame {
 
         menuTools.setText(bundle.getString("AppFrame.menuTools.text")); // NOI18N
         menuTools.setName("menuTools"); // NOI18N
-
-        menuItemToolIptcToXmp.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_I));
-        menuItemToolIptcToXmp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_iptc.png"))); // NOI18N
-        menuItemToolIptcToXmp.setText(bundle.getString("AppFrame.menuItemToolIptcToXmp.text")); // NOI18N
-        menuItemToolIptcToXmp.setName("menuItemToolIptcToXmp"); // NOI18N
-        menuTools.add(menuItemToolIptcToXmp);
 
         menuItemExtractEmbeddedXmp.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_X));
         menuItemExtractEmbeddedXmp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_xmp.png"))); // NOI18N
@@ -692,7 +680,6 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemGotoExifMetadata;
     private javax.swing.JMenuItem menuItemGotoFastSearch;
     private javax.swing.JMenuItem menuItemGotoFavorites;
-    private javax.swing.JMenuItem menuItemGotoIptcMetadata;
     private javax.swing.JMenuItem menuItemGotoKeywordsEdit;
     private javax.swing.JMenuItem menuItemGotoKeywordsSel;
     private javax.swing.JMenuItem menuItemGotoMiscMetadata;
@@ -709,7 +696,6 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemSendFeatureMail;
     private javax.swing.JMenuItem menuItemSettings;
     private javax.swing.JMenuItem menuItemSynonyms;
-    private javax.swing.JMenuItem menuItemToolIptcToXmp;
     private javax.swing.JMenuItem menuItemUserDefinedFileFilter;
     private javax.swing.JMenuItem menuItemUserDefinedFileType;
     private javax.swing.JMenu menuTools;

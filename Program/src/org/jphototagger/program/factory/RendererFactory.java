@@ -8,17 +8,16 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.util.ListItemTempSelectionRowSetter;
 import org.jphototagger.lib.swing.util.TreeItemTempSelectionRowSetter;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.misc.InputHelperDialog;
 import org.jphototagger.program.app.ui.AppPanel;
+import org.jphototagger.program.misc.InputHelperDialog;
 import org.jphototagger.program.module.directories.DirectoriesPopupMenu;
+import org.jphototagger.program.module.exif.ExifTableCellRenderer;
 import org.jphototagger.program.module.favorites.FavoritesPopupMenu;
 import org.jphototagger.program.module.imagecollections.ImageCollectionsPopupMenu;
 import org.jphototagger.program.module.keywords.tree.KeywordsTreePopupMenu;
 import org.jphototagger.program.module.search.SavedSearchesPopupMenu;
-import org.jphototagger.program.module.exif.ExifTableCellRenderer;
-import org.jphototagger.program.module.iptc.IptcTableCellRenderer;
 import org.jphototagger.program.module.xmp.XmpTableCellRenderer;
+import org.jphototagger.program.resource.GUI;
 
 /**
  * Erzeugt Renderer und verknüpft sie mit den GUI-Elementen.
@@ -63,7 +62,6 @@ public final class RendererFactory {
             table.setDefaultRenderer(Object.class, rendererTableCellXmp);
         }
 
-        appPanel.getTableIptc().setDefaultRenderer(Object.class, new IptcTableCellRenderer());
         appPanel.getTableExif().setDefaultRenderer(Object.class, new ExifTableCellRenderer());
     }
 

@@ -6,7 +6,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.AbstractAction;
 
 import javax.swing.JMenuItem;
-import org.jphototagger.api.windows.MainWindowMenuItem;
+import org.jphototagger.api.windows.MenuItemProvider;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.swing.util.ComponentUtil;
@@ -16,7 +16,7 @@ import org.jphototagger.lib.util.Bundle;
 /**
  * @author Elmar Baumann
  */
-public final class ShowUpdateMetadataOfDirectoriesDialogAction extends AbstractAction implements MainWindowMenuItem {
+public final class ShowUpdateMetadataOfDirectoriesDialogAction extends AbstractAction implements MenuItemProvider {
 
     private static final long serialVersionUID = 1L;
 

@@ -8,12 +8,12 @@ import java.util.List;
 import javax.swing.JTree;
 import javax.swing.tree.TreeCellRenderer;
 
-import org.bushe.swing.event.annotation.AnnotationProcessor;
-import org.bushe.swing.event.annotation.EventSubscriber;
-
 import org.jdesktop.swingx.JXTree;
 
 import org.openide.util.Lookup;
+
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
 
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
@@ -47,7 +47,7 @@ public final class HighlightKeywordsTreeController {
         removeKeywords();
 
         if (evt.getSelectionCount() == 1) {
-            List<File> selFiles = evt.getSelectedImageFiles();
+            List<File> selFiles = evt.getSelectedFiles();
 
             if ((selFiles.size() == 1) && hasSidecarFile(selFiles)) {
                 Collection<String> keywords = repo.findDcSubjectsOfImageFile(selFiles.get(0));

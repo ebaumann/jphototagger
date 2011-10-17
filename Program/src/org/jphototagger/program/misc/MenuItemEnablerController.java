@@ -59,7 +59,6 @@ public final class MenuItemEnablerController implements PopupMenuListener {
         itemsRequiresSelImages.add(popupThumbnails.getItemFileSystemCopyToDirectory());
         itemsRequiresSelImages.add(popupThumbnails.getItemFileSystemDeleteFiles());
         itemsRequiresSelImages.add(popupThumbnails.getItemFileSystemRenameFiles());
-        itemsRequiresSelImages.add(popupThumbnails.getItemIptcToXmp());
         itemsRequiresSelImages.add(popupThumbnails.getItemExifToXmp());
         itemsRequiresSelImages.add(popupThumbnails.getItemPick());
         itemsRequiresSelImages.add(popupThumbnails.getItemCopyMetadata());

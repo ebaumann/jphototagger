@@ -25,7 +25,6 @@
               <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="panelAutocomplete" alignment="0" max="32767" attributes="0"/>
                   <Component id="checkBoxSaveInputEarly" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="checkBoxDisplayIptc" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="checkBoxScanForEmbeddedXmp" alignment="0" min="-2" max="-2" attributes="3"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="labelMaximumSecondsToTerminateExternalPrograms" min="-2" max="-2" attributes="1"/>
@@ -47,9 +46,7 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="checkBoxScanForEmbeddedXmp" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="checkBoxDisplayIptc" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
               <Component id="checkBoxSaveInputEarly" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="panelAutocomplete" min="-2" max="-2" attributes="0"/>
@@ -90,17 +87,6 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxScanForEmbeddedXmpActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JCheckBox" name="checkBoxDisplayIptc">
-      <Properties>
-        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/program/misc/Bundle.properties" key="PerformanceSettingsPanel.checkBoxDisplayIptc.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-        </Property>
-        <Property name="name" type="java.lang.String" value="checkBoxDisplayIptc" noResource="true"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxDisplayIptcActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JCheckBox" name="checkBoxSaveInputEarly">

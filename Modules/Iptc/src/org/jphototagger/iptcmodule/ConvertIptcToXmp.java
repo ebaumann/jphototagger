@@ -1,12 +1,15 @@
-package org.jphototagger.program.module.iptc;
+package org.jphototagger.iptcmodule;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.openide.util.Lookup;
 
 import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.api.progress.ProgressEvent;
@@ -14,29 +17,29 @@ import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.domain.metadata.iptc.Iptc;
 import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.repository.SaveOrUpdate;
+import org.jphototagger.domain.repository.SaveToOrUpdateFilesInRepository;
+import org.jphototagger.domain.repository.UserDefinedFileTypesRepository;
 import org.jphototagger.iptc.IptcMetadata;
-import org.jphototagger.program.filefilter.AppFileFilters;
-import org.jphototagger.program.misc.SaveToOrUpdateFilesInRepositoryImpl;
+import org.jphototagger.iptc.IptcMetadata;
+import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.xmp.XmpMetadata;
 
 /**
- * Erzeugt XMP-Daten anhand bestehender IPTC-Daten.
- *
  * @author Elmar Baumann
  */
 public final class ConvertIptcToXmp implements Runnable, Cancelable {
 
-    private final List<ProgressListener> prLs = new ArrayList<ProgressListener>();
-    private final List<File> imageFiles;
+    private final List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
+    private final List<File> files;
     private boolean cancel;
     private static final Logger LOGGER = Logger.getLogger(ConvertIptcToXmp.class.getName());
 
-    public ConvertIptcToXmp(List<File> imageFiles) {
+    public ConvertIptcToXmp(Collection<? extends File> imageFiles) {
         if (imageFiles == null) {
             throw new NullPointerException("imageFiles == null");
         }
 
-        this.imageFiles = new ArrayList<File>(imageFiles);
+        this.files = new ArrayList<File>(imageFiles);
     }
 
     public synchronized void addProgressListener(ProgressListener listener) {
@@ -44,7 +47,7 @@ public final class ConvertIptcToXmp implements Runnable, Cancelable {
             throw new NullPointerException("listener == null");
         }
 
-        prLs.add(listener);
+        progressListeners.add(listener);
     }
 
     @Override
@@ -56,23 +59,23 @@ public final class ConvertIptcToXmp implements Runnable, Cancelable {
     public void run() {
         notifyStart();
 
-        int size = imageFiles.size();
+        int size = files.size();
         int index = 0;
 
         for (index = 0; !cancel && (index < size); index++) {
-            File imageFile = imageFiles.get(index);
-            File xmpFile = XmpMetadata.suggestSidecarFile(imageFile);
+            File file = files.get(index);
+            File xmpFile = XmpMetadata.suggestSidecarFile(file);
             Iptc iptc = null;
 
-            if (!AppFileFilters.INSTANCE.isUserDefinedFileType(imageFile)) {
-                iptc = IptcMetadata.getIptc(imageFile);
+            if (!isUserDefinedFileType(file)) {
+                iptc = IptcMetadata.getIptc(file);
             }
 
             if (iptc != null) {
                 Xmp xmp = null;
 
                 try {
-                    xmp = XmpMetadata.getXmpFromSidecarFileOf(imageFile);
+                    xmp = XmpMetadata.getXmpFromSidecarFileOf(file);
                 } catch (IOException ex) {
                     Logger.getLogger(ConvertIptcToXmp.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -82,10 +85,10 @@ public final class ConvertIptcToXmp implements Runnable, Cancelable {
                 }
 
                 xmp.setIptc(iptc, Xmp.SetIptc.DONT_CHANGE_EXISTING_VALUES);
-                logWriteXmpFile(imageFile);
+                logWriteXmpFile(file);
 
                 if (XmpMetadata.writeXmpToSidecarFile(xmp, xmpFile)) {
-                    updateRepository(imageFile);
+                    updateRepository(file);
                 }
             }
 
@@ -95,10 +98,16 @@ public final class ConvertIptcToXmp implements Runnable, Cancelable {
         notifyEnd(index);
     }
 
-    private void updateRepository(File imageFile) {
-        SaveToOrUpdateFilesInRepositoryImpl insert = new SaveToOrUpdateFilesInRepositoryImpl(Arrays.asList(imageFile), SaveOrUpdate.XMP);
+    private boolean isUserDefinedFileType(File file) {
+        String suffix = FileUtil.getSuffix(file);
+        UserDefinedFileTypesRepository repo = Lookup.getDefault().lookup(UserDefinedFileTypesRepository.class);
+        return repo.existsUserDefinedFileTypeWithSuffix(suffix);
+    }
 
-        insert.run();    // Has to run in this thread!
+    private void updateRepository(File imageFile) {
+        SaveToOrUpdateFilesInRepository updater = Lookup.getDefault().lookup(SaveToOrUpdateFilesInRepository.class)
+                .createInstance(Arrays.asList(imageFile), SaveOrUpdate.XMP);
+        updater.saveOrUpdateWaitForTermination();
     }
 
     private void checkCancel(ProgressEvent event) {
@@ -112,9 +121,9 @@ public final class ConvertIptcToXmp implements Runnable, Cancelable {
     }
 
     private synchronized void notifyStart() {
-        int count = imageFiles.size();
-        Object info = imageFiles.size() > 0
-                ? imageFiles.get(0)
+        int count = files.size();
+        Object info = files.size() > 0
+                ? files.get(0)
                 : "";
         ProgressEvent event = new ProgressEvent.Builder()
                 .source(this)
@@ -124,7 +133,7 @@ public final class ConvertIptcToXmp implements Runnable, Cancelable {
                 .info(info)
                 .build();
 
-        for (ProgressListener progressListener : prLs) {
+        for (ProgressListener progressListener : progressListeners) {
             progressListener.progressStarted(event);
             checkCancel(event);
         }
@@ -134,12 +143,12 @@ public final class ConvertIptcToXmp implements Runnable, Cancelable {
         ProgressEvent event = new ProgressEvent.Builder()
                 .source(this)
                 .minimum(0)
-                .maximum(imageFiles.size())
+                .maximum(files.size())
                 .value(index + 1)
-                .info(imageFiles.get(index))
+                .info(files.get(index))
                 .build();
 
-        for (ProgressListener progressListener : prLs) {
+        for (ProgressListener progressListener : progressListeners) {
             progressListener.progressPerformed(event);
             checkCancel(event);
         }
@@ -149,12 +158,12 @@ public final class ConvertIptcToXmp implements Runnable, Cancelable {
         ProgressEvent event = new ProgressEvent.Builder()
                 .source(this)
                 .minimum(0)
-                .maximum(imageFiles.size())
+                .maximum(files.size())
                 .value(index + 1)
                 .info("")
                 .build();
 
-        for (ProgressListener progressListener : prLs) {
+        for (ProgressListener progressListener : progressListeners) {
             progressListener.progressEnded(event);
         }
     }

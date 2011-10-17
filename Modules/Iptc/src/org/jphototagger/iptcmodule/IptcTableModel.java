@@ -1,17 +1,24 @@
-package org.jphototagger.program.module.iptc;
+package org.jphototagger.iptcmodule;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.openide.util.Lookup;
+
+import org.jphototagger.domain.repository.UserDefinedFileTypesRepository;
+import org.jphototagger.iptc.IptcEntry;
 import org.jphototagger.iptc.IptcEntry;
 import org.jphototagger.iptc.IptcEntryComparator;
+import org.jphototagger.iptc.IptcEntryComparator;
+import org.jphototagger.iptc.IptcIgnoreCache;
 import org.jphototagger.iptc.IptcIgnoreCache;
 import org.jphototagger.iptc.IptcMetadata;
+import org.jphototagger.iptc.IptcMetadata;
+import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.swing.TableModelExt;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.filefilter.AppFileFilters;
 
 /**
  * All elements are {@code IptcEntry}s of <em>one</em>.
@@ -33,7 +40,7 @@ public final class IptcTableModel extends TableModelExt {
             throw new NullPointerException("file == null");
         }
 
-        if (IptcIgnoreCache.INSTANCE.isIgnore(file) || AppFileFilters.INSTANCE.isUserDefinedFileType(file)) {
+        if (IptcIgnoreCache.INSTANCE.isIgnore(file) || isUserDefinedFileType(file)) {
             return;
         }
 
@@ -42,6 +49,12 @@ public final class IptcTableModel extends TableModelExt {
         IptcIgnoreCache.INSTANCE.setIgnore(file, iptcEntries.isEmpty());
         removeAllRows();
         addRows();
+    }
+
+    private boolean isUserDefinedFileType(File file) {
+        UserDefinedFileTypesRepository repo = Lookup.getDefault().lookup(UserDefinedFileTypesRepository.class);
+        String fileSuffix = FileUtil.getSuffix(file);
+        return repo.existsUserDefinedFileTypeWithSuffix(fileSuffix);
     }
 
     @Override

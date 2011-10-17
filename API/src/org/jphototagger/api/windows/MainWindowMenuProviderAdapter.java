@@ -9,37 +9,37 @@ import java.util.Collections;
 public class MainWindowMenuProviderAdapter implements MainWindowMenuProvider {
 
     @Override
-    public Collection<? extends MainWindowMenuItem> getFileMenuItems() {
+    public Collection<? extends MenuItemProvider> getFileMenuItems() {
         return Collections.emptyList();
     }
 
     @Override
-    public Collection<? extends MainWindowMenuItem> getEditMenuItems() {
+    public Collection<? extends MenuItemProvider> getEditMenuItems() {
         return Collections.emptyList();
     }
 
     @Override
-    public Collection<? extends MainWindowMenuItem> getViewMenuItems() {
+    public Collection<? extends MenuItemProvider> getViewMenuItems() {
         return Collections.emptyList();
     }
 
     @Override
-    public Collection<? extends MainWindowMenuItem> getGotoMenuItems() {
+    public Collection<? extends MenuItemProvider> getGotoMenuItems() {
         return Collections.emptyList();
     }
 
     @Override
-    public Collection<? extends MainWindowMenuItem> getToolsMenuItems() {
+    public Collection<? extends MenuItemProvider> getToolsMenuItems() {
         return Collections.emptyList();
     }
 
     @Override
-    public Collection<? extends MainWindowMenuItem> getWindowMenuItems() {
+    public Collection<? extends MenuItemProvider> getWindowMenuItems() {
         return Collections.emptyList();
     }
 
     @Override
-    public Collection<? extends MainWindowMenuItem> getHelpMenuItems() {
+    public Collection<? extends MenuItemProvider> getHelpMenuItems() {
         return Collections.emptyList();
     }
 

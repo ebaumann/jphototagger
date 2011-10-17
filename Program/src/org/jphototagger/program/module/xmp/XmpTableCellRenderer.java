@@ -14,11 +14,12 @@ import javax.swing.table.TableStringConverter;
 
 import com.adobe.xmp.properties.XMPPropertyInfo;
 
+import org.openide.util.Lookup;
+
+import org.jphototagger.api.branding.TableLookAndFeel;
 import org.jphototagger.lib.swing.util.TableUtil;
 import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.lib.util.Translation;
-import org.jphototagger.program.app.ui.AppLookAndFeel;
-import org.jphototagger.program.app.ui.MetadataLabelFormatter;
 import org.jphototagger.xmp.XmpMetadata;
 
 /**
@@ -27,31 +28,33 @@ import org.jphototagger.xmp.XmpMetadata;
  *
  * @author Elmar Baumann
  */
-public final class XmpTableCellRenderer extends MetadataLabelFormatter implements TableCellRenderer {
+public final class XmpTableCellRenderer implements TableCellRenderer {
 
     private static final String DELIMITER_PATH = "/";
     private static final String DELIMITER_NAMESPACE = ":";
     private static final Translation TRANSLATION_XMP = new Translation(XmpTableCellRenderer.class, "XmpPropertyTranslations");
+    private final TableLookAndFeel lookAndFeel = Lookup.getDefault().lookup(TableLookAndFeel.class);
 
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+        if (lookAndFeel != null) {
+            return new JLabel(StringUtil.toStringNullToEmptyString(value));
+        }
         JLabel cellLabel = new JLabel();
         XMPPropertyInfo xmpPropertyInfo = (XMPPropertyInfo) value;
-
-        setDefaultCellColors(cellLabel, isSelected);
-
+        lookAndFeel.setTableCellColor(cellLabel, isSelected);
+        boolean isRowHeader = column == 0;
+        int maxChars = isRowHeader ? lookAndFeel.getRowHeaderMaxChars() : lookAndFeel.getCellMaxChars();
+        String css = isRowHeader ? lookAndFeel.getRowHeaderCss() : lookAndFeel.getCellCss();
         if (column == 0) {
-            setHeaderFont(cellLabel);
-
+            lookAndFeel.setTableRowHeaderFont(cellLabel);
             String xmpPath = xmpPropertyInfo.getPath();
-
-            TableUtil.embedTableCellTextInHtml(table, row, cellLabel, translate(xmpPath, xmpPath),
-                    AppLookAndFeel.TABLE_MAX_CHARS_ROW_HEADER,
-                    AppLookAndFeel.TABLE_ROW_HEADER_CSS);
+            String text = translate(xmpPath, xmpPath);
+            TableUtil.embedTableCellTextInHtml(table, row, cellLabel, text, maxChars, css);
         } else {
-            setContentFont(cellLabel);
-            TableUtil.embedTableCellTextInHtml(table, row, cellLabel, xmpPropertyInfo.getValue().toString(),
-                    AppLookAndFeel.TABLE_MAX_CHARS_CELL, AppLookAndFeel.TABLE_CELL_CSS);
+            lookAndFeel.setTableCellFont(cellLabel);
+            String text = xmpPropertyInfo.getValue().toString();
+            TableUtil.embedTableCellTextInHtml(table, row, cellLabel, text, maxChars, css);
         }
 
         return cellLabel;
