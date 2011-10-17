@@ -23,17 +23,15 @@ import org.jphototagger.domain.imagecollections.ImageCollectionSortAscendingComp
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
 import org.jphototagger.lib.swing.AllSystemDirectoriesTreeModel;
+import org.jphototagger.lib.swing.SelectRootFilesPanel;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppPanel;
 import org.jphototagger.program.app.ui.AppWindowPersistence;
-import org.jphototagger.lib.swing.SelectRootFilesPanel;
 import org.jphototagger.program.misc.InputHelperDialog;
 import org.jphototagger.program.module.exif.ExifTableCellRenderer;
 import org.jphototagger.program.module.exif.ExifTableModel;
 import org.jphototagger.program.module.favorites.FavoritesTreeModel;
 import org.jphototagger.program.module.imagecollections.ImageCollectionsListModel;
-import org.jphototagger.program.module.iptc.IptcTableCellRenderer;
-import org.jphototagger.program.module.iptc.IptcTableModel;
 import org.jphototagger.program.module.keywords.KeywordHighlightPredicate;
 import org.jphototagger.program.module.keywords.KeywordsPanel;
 import org.jphototagger.program.module.keywords.list.KeywordsListModel;
@@ -216,7 +214,6 @@ public final class ModelFactory {
         String message = Bundle.getString(ModelFactory.class, "ModelFactory.Starting.TableModels");
         Support.setStatusbarInfo(message);
 
-        IptcTableModel modelIptc = new IptcTableModel();
         XmpTableModel modelXmp1 = new XmpTableModel();
         XmpTableModel modelXmp2 = new XmpTableModel();
         XmpTableModel modelXmp3 = new XmpTableModel();
@@ -227,7 +224,6 @@ public final class ModelFactory {
         XmpTableModel modelXmp8 = new XmpTableModel();
         ExifTableModel modelExif = new ExifTableModel();
 
-        support.add(modelIptc);
         support.add(modelXmp1);
         support.add(modelXmp2);
         support.add(modelXmp3);
@@ -238,7 +234,6 @@ public final class ModelFactory {
         support.add(modelXmp8);
         support.add(modelExif);
 
-        appPanel.getTableIptc().setModel(modelIptc);
         appPanel.getTableXmpCameraRawSettings().setModel(modelXmp1);
         appPanel.getTableXmpDc().setModel(modelXmp2);
         appPanel.getTableXmpExif().setModel(modelXmp3);
@@ -249,7 +244,6 @@ public final class ModelFactory {
         appPanel.getTableXmpXap().setModel(modelXmp8);
         appPanel.getTableExif().setModel(modelExif);
 
-        setIptcTableComparator(appPanel.getTableIptc());
         setXmpTableComparator(appPanel.getTableXmpCameraRawSettings());
         setXmpTableComparator(appPanel.getTableXmpDc());
         setXmpTableComparator(appPanel.getTableXmpExif());
@@ -271,17 +265,6 @@ public final class ModelFactory {
 
         rowSorter.setComparator(0, column0Comparator);
         rowSorter.setComparator(1, column1Comparator);
-    }
-
-    private void setIptcTableComparator(JTable iptcTabe) {
-        TableRowSorter<?> rowSorter = (TableRowSorter<?>) iptcTabe.getRowSorter();
-        Comparator<?> column0Comparator = IptcTableCellRenderer.createColumn0Comparator();
-        Comparator<?> column1Comparator = IptcTableCellRenderer.createColumn1Comparator();
-        Comparator<?> column2Comparator = IptcTableCellRenderer.createColumn2Comparator();
-
-        rowSorter.setComparator(0, column0Comparator);
-        rowSorter.setComparator(1, column1Comparator);
-        rowSorter.setComparator(2, column2Comparator);
     }
 
     private void setExifTableComparator(JTable exif) {

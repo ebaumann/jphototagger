@@ -3,6 +3,8 @@ package org.jphototagger.program.module.thumbnails;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,12 +22,15 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.plugin.fileprocessor.FileProcessorPlugin;
+import org.jphototagger.api.windows.MenuItemProvider;
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.programs.ProgramType;
 import org.jphototagger.domain.repository.ProgramsRepository;
 import org.jphototagger.domain.repository.event.programs.ProgramDeletedEvent;
 import org.jphototagger.domain.repository.event.programs.ProgramInsertedEvent;
 import org.jphototagger.domain.repository.event.programs.ProgramUpdatedEvent;
+import org.jphototagger.domain.thumbnails.ThumbnailsPopupMenuItemProvider;
+import org.jphototagger.lib.comparator.PositionComparatorAscendingOrder;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
@@ -74,7 +79,6 @@ public final class ThumbnailsPopupMenu extends JPopupMenu {
     private final JMenuItem itemPasteMetadata = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.ItemPasteMetadata"), AppLookAndFeel.ICON_PASTE);
     private final JMenuItem itemPasteFromClipboard = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.ItemPasteFromClipboard"), AppLookAndFeel.ICON_PASTE);
     private final JMenuItem itemOpenFilesWithStandardApp = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.OpenFiles"));
-    private final JMenuItem itemIptcToXmp = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.IptcToXmp"));
     private final JMenuItem itemFileSystemRenameFiles = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.FileSystemRename"));
     private final JMenuItem itemFileSystemMoveFiles = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.FileSystemMove"));
     private final JMenuItem itemFileSystemDeleteFiles = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.FileSystemDeleteFiles"), AppLookAndFeel.ICON_DELETE);
@@ -139,8 +143,6 @@ public final class ThumbnailsPopupMenu extends JPopupMenu {
         add(menuImageCollection);
         menuMetadata.add(itemCopyMetadata);
         menuMetadata.add(itemPasteMetadata);
-        menuMetadata.add(new Separator());
-        menuMetadata.add(itemIptcToXmp);
         menuMetadata.add(itemExifToXmp);
         add(menuMetadata);
         itemPasteMetadata.setEnabled(false);
@@ -157,6 +159,46 @@ public final class ThumbnailsPopupMenu extends JPopupMenu {
         menuFsOps.add(itemSelectAll);
         menuFsOps.add(itemSelectNothing);
         add(menuFsOps);
+        lookupItems();
+    }
+
+    private void lookupItems() {
+        Collection<? extends ThumbnailsPopupMenuItemProvider> providers =
+                Lookup.getDefault().lookupAll(ThumbnailsPopupMenuItemProvider.class);
+
+        for (ThumbnailsPopupMenuItemProvider provider : providers) {
+            List<MenuItemProvider> fileOperationItemProviders = new ArrayList<MenuItemProvider>(provider.getFileOperationsMenuItems());
+            insertMenuItems(fileOperationItemProviders, menuFsOps);
+            List<MenuItemProvider> metaDataItemProviders = new ArrayList<MenuItemProvider>(provider.getMetaDataMenuItems());
+            insertMenuItems(metaDataItemProviders, menuMetadata);
+            List<MenuItemProvider> refreshItemProviders = new ArrayList<MenuItemProvider>(provider.getRefreshMenuItems());
+            insertMenuItems(refreshItemProviders, menuRefresh);
+            List<MenuItemProvider> rootItemProviders = new ArrayList<MenuItemProvider>(provider.getRootMenuItems());
+            insertMenuItems(rootItemProviders, null);
+        }
+    }
+
+    private void insertMenuItems(List<MenuItemProvider> itemProviders, JMenu intoMenu) {
+        Collections.sort(itemProviders, PositionComparatorAscendingOrder.INSTANCE);
+        for (MenuItemProvider itemProvider : itemProviders) {
+            int intoItemCount = intoMenu == null ? getComponentCount() : intoMenu.getItemCount();
+            int itemProviderPosition = itemProvider.getPosition();
+            int itemIndex = itemProviderPosition <= intoItemCount ? itemProviderPosition : intoItemCount;
+            if (itemProvider.isSeparatorBefore()) {
+                if (intoMenu == null) {
+                    add(new Separator(), itemIndex);
+                } else {
+                    intoMenu.add(new Separator(), itemIndex);
+                }
+                itemIndex++;
+            }
+            JMenuItem menuItem = itemProvider.getMenuItem();
+            if (intoMenu == null) {
+                add(menuItem, itemIndex);
+            } else {
+                intoMenu.add(menuItem, itemIndex);
+            }
+        }
     }
 
     private void addPluginItems() {
@@ -295,10 +337,6 @@ public final class ThumbnailsPopupMenu extends JPopupMenu {
 
     public JMenuItem getItemRefresh() {
         return itemRefresh;
-    }
-
-    public JMenuItem getItemIptcToXmp() {
-        return itemIptcToXmp;
     }
 
     public JMenuItem getItemExifToXmp() {

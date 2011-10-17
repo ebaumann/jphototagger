@@ -9,19 +9,18 @@ import java.util.Map;
 import javax.swing.JList;
 import javax.swing.JTree;
 
+import org.openide.util.Lookup;
+
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 
-import org.openide.util.Lookup;
-
+import org.jphototagger.api.applifecycle.AppWillExitEvent;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesHints;
-import org.jphototagger.api.applifecycle.AppWillExitEvent;
-import org.jphototagger.iptc.IptcPreferencesKeys;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.util.ComponentUtil;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.module.keywords.KeywordsPanel;
+import org.jphototagger.program.resource.GUI;
 
 /**
  * @author Elmar Baumann
@@ -116,19 +115,10 @@ public final class AppWindowPersistence implements ComponentListener {
                 Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
                 storage.applyComponentSettings(appPanel, getAppPanelSettingsHints());
-                appPanel.setEnabledIptcTab(isDisplayIptc());
                 setInitKeywordsView(appPanel);
                 selectFastSearch(appPanel);
             }
         });
-    }
-
-    private boolean isDisplayIptc() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-
-        return storage.containsKey(IptcPreferencesKeys.KEY_DISPLAY_IPTC)
-                ? storage.getBoolean(IptcPreferencesKeys.KEY_DISPLAY_IPTC)
-                : false;
     }
 
     private static PreferencesHints getAppPanelSettingsHints() {

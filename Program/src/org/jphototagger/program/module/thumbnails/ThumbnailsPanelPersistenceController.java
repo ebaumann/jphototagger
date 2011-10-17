@@ -8,13 +8,13 @@ import java.util.logging.Logger;
 
 import javax.swing.JScrollPane;
 
+import org.openide.util.Lookup;
+
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 
-import org.openide.util.Lookup;
-
-import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.applifecycle.AppWillExitEvent;
+import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsChangedEvent;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
@@ -46,7 +46,7 @@ public final class ThumbnailsPanelPersistenceController {
 
     @EventSubscriber(eventClass = ThumbnailsSelectionChangedEvent.class)
     public void thumbnailsSelectionChanged(final ThumbnailsSelectionChangedEvent evt) {
-        writeSelectionToProperties(evt.getSelectedImageFiles());
+        writeSelectionToProperties(evt.getSelectedFiles());
     }
 
     @EventSubscriber(eventClass = ThumbnailsChangedEvent.class)

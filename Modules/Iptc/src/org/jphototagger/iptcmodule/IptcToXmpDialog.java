@@ -1,4 +1,4 @@
-package org.jphototagger.program.module.iptc;
+package org.jphototagger.iptcmodule;
 
 import java.awt.Container;
 import java.io.File;
@@ -8,10 +8,10 @@ import java.util.List;
 
 import javax.swing.filechooser.FileSystemView;
 
+import org.openide.util.Lookup;
+
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-
-import org.openide.util.Lookup;
 
 import org.jphototagger.api.concurrent.CancelRequest;
 import org.jphototagger.api.preferences.Preferences;
@@ -29,10 +29,10 @@ import org.jphototagger.lib.io.filefilter.DirectoryFilter.Option;
 import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.DirectoryChooser;
 import org.jphototagger.lib.swing.MessageDisplayer;
+import org.jphototagger.lib.swing.SelectRootFilesPanel;
+import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.lib.swing.SelectRootFilesPanel;
-import org.jphototagger.program.resource.GUI;
 
 /**
  * @author Elmar Baumann
@@ -47,7 +47,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
     private List<File> files;
 
     public IptcToXmpDialog() {
-        super(GUI.getAppFrame(), false);
+        super(ComponentUtil.findFrameWithIcon(), false);
         initComponents();
         setHelpPage();
         MnemonicUtil.setMnemonics((Container) this);
@@ -89,7 +89,8 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
 
     private void chooseDirectory() {
         List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(DomainPreferencesKeys.KEY_UI_DIRECTORIES_TAB_HIDE_ROOT_FILES);
-        DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), directory, hideRootFiles, getDirChooserOptionShowHiddenDirs());
+        DirectoryChooser.Option options = getDirChooserOptionShowHiddenDirs();
+        DirectoryChooser dlg = new DirectoryChooser(ComponentUtil.findFrameWithIcon(), directory, hideRootFiles, options);
 
         dlg.setStorageKey("IptcToXmpDialog.DirChooser");
         dlg.setVisible(true);
@@ -353,7 +354,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
         buttonStart = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/iptc/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/iptcmodule/Bundle"); // NOI18N
         setTitle(bundle.getString("IptcToXmpDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -423,12 +424,12 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 762, Short.MAX_VALUE)
+                            .addComponent(labelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 768, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(labelDirectoryPrompt)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 580, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 591, Short.MAX_VALUE)
                                 .addComponent(buttonChooseDirectory))
-                            .addComponent(labelDirectoryName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 762, Short.MAX_VALUE))
+                            .addComponent(labelDirectoryName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 768, Short.MAX_VALUE))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(checkBoxIncludeSubdirectories)
@@ -444,7 +445,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
                                 .addComponent(buttonCancel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(buttonStart))
-                            .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 758, Short.MAX_VALUE))
+                            .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 762, Short.MAX_VALUE))
                         .addGap(16, 16, 16))))
         );
         layout.setVerticalGroup(

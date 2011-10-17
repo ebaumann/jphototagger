@@ -7,7 +7,7 @@ import org.jphototagger.api.collections.PositionProvider;
 /**
  * @author Elmar Baumann
  */
-public interface MainWindowMenuItem extends PositionProvider {
+public interface MenuItemProvider extends PositionProvider {
 
     JMenuItem getMenuItem();
 

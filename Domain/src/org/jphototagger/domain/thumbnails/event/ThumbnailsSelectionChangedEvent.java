@@ -11,12 +11,12 @@ import java.util.List;
 public final class ThumbnailsSelectionChangedEvent {
 
     private final Object source;
-    private final List<File> selectedImageFiles;
+    private final List<File> selectedFiles;
     private final List<Integer> selectedIndices;
 
-    public ThumbnailsSelectionChangedEvent(Object source, List<File> selectedImageFiles, List<Integer> selectedIndices) {
-        if (selectedImageFiles == null) {
-            throw new NullPointerException("selectedImageFiles == null");
+    public ThumbnailsSelectionChangedEvent(Object source, List<? extends File> selectedFiles, List<Integer> selectedIndices) {
+        if (selectedFiles == null) {
+            throw new NullPointerException("selectedFiles == null");
         }
 
         if (selectedIndices == null) {
@@ -24,12 +24,12 @@ public final class ThumbnailsSelectionChangedEvent {
         }
 
         this.source = source;
-        this.selectedImageFiles = new ArrayList<File>(selectedImageFiles);
+        this.selectedFiles = new ArrayList<File>(selectedFiles);
         this.selectedIndices = new ArrayList<Integer>(selectedIndices);
     }
 
-    public List<File> getSelectedImageFiles() {
-        return Collections.unmodifiableList(selectedImageFiles);
+    public List<File> getSelectedFiles() {
+        return Collections.unmodifiableList(selectedFiles);
     }
 
     public List<Integer> getSelectedIndices() {
@@ -37,11 +37,15 @@ public final class ThumbnailsSelectionChangedEvent {
     }
 
     public boolean isAFileSelected() {
-        return !selectedImageFiles.isEmpty();
+        return !selectedFiles.isEmpty();
+    }
+
+    public boolean isExcactlyOneFileSelected() {
+        return selectedFiles.size() == 1;
     }
 
     public int getSelectionCount() {
-        return selectedImageFiles.size();
+        return selectedFiles.size();
     }
 
     public Object getSource() {

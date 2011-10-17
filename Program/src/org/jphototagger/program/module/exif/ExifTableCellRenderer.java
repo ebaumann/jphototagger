@@ -9,41 +9,46 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableStringConverter;
 
+import org.openide.util.Lookup;
+
+import org.jphototagger.api.branding.TableLookAndFeel;
 import org.jphototagger.domain.metadata.exif.ExifTag;
 import org.jphototagger.lib.swing.util.TableUtil;
 import org.jphototagger.lib.util.StringUtil;
-import org.jphototagger.program.app.ui.AppLookAndFeel;
-import org.jphototagger.program.app.ui.MetadataLabelFormatter;
 
 /**
  * @author Elmar Baumann
  */
-public final class ExifTableCellRenderer extends MetadataLabelFormatter implements TableCellRenderer {
+public final class ExifTableCellRenderer implements TableCellRenderer {
+
+    private final TableLookAndFeel lookAndFeel = Lookup.getDefault().lookup(TableLookAndFeel.class);
 
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-        JLabel cellLabel = new JLabel();
-
-        setDefaultCellColors(cellLabel, isSelected);
-
-        if (column == 0) {
-            setHeaderFont(cellLabel);
-        } else {
-            setContentFont(cellLabel);
+        if (lookAndFeel != null) {
+            return new JLabel(StringUtil.toStringNullToEmptyString(value));
         }
 
+        JLabel cellLabel = new JLabel();
+        lookAndFeel.setTableCellColor(cellLabel, isSelected);
+        if (column == 0) {
+            lookAndFeel.setTableRowHeaderFont(cellLabel);
+        } else {
+            lookAndFeel.setTableCellFont(cellLabel);
+        }
+
+        boolean isRowHeader = column == 0;
+        int maxChars = isRowHeader ? lookAndFeel.getRowHeaderMaxChars() : lookAndFeel.getCellMaxChars();
+        String css = isRowHeader ? lookAndFeel.getRowHeaderCss() : lookAndFeel.getCellCss();
         if (value instanceof ExifTag) {
             ExifTag exifTag = (ExifTag) value;
 
             if (column == 0) {
                 String displayName = exifTag.getDisplayName();
-                TableUtil.embedTableCellTextInHtml(table, row, cellLabel, displayName,
-                        AppLookAndFeel.TABLE_MAX_CHARS_ROW_HEADER,
-                        AppLookAndFeel.TABLE_ROW_HEADER_CSS);
+                TableUtil.embedTableCellTextInHtml(table, row, cellLabel, displayName, maxChars, css);
             } else {
                 String displayValue = exifTag.getDisplayValue();
-                TableUtil.embedTableCellTextInHtml(table, row, cellLabel, displayValue,
-                        AppLookAndFeel.TABLE_MAX_CHARS_CELL, AppLookAndFeel.TABLE_CELL_CSS);
+                TableUtil.embedTableCellTextInHtml(table, row, cellLabel, displayValue, maxChars, css);
             }
         } else if (value instanceof Component) {
             return (Component) value;

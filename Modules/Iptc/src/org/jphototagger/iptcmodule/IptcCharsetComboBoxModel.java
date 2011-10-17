@@ -1,4 +1,4 @@
-package org.jphototagger.program.module.iptc;
+package org.jphototagger.iptcmodule;
 
 import javax.swing.DefaultComboBoxModel;
 

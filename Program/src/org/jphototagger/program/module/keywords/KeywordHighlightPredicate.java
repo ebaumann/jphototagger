@@ -12,10 +12,10 @@ import org.jdesktop.swingx.decorator.ComponentAdapter;
 import org.jdesktop.swingx.decorator.HighlightPredicate;
 import org.jdesktop.swingx.decorator.Highlighter;
 
+import org.openide.util.Lookup;
+
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-
-import org.openide.util.Lookup;
 
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
@@ -84,7 +84,7 @@ public final class KeywordHighlightPredicate implements HighlightPredicate {
         keywordsOfSelectedImage.clear();
 
         if (evt.getSelectionCount() == 1) {
-            List<File> selectedFiles = evt.getSelectedImageFiles();
+            List<File> selectedFiles = evt.getSelectedFiles();
             Collection<String> keywordsOfSelectedFile = repo.findDcSubjectsOfImageFile(selectedFiles.get(0));
 
             keywordsOfSelectedImage.addAll(keywordsOfSelectedFile);

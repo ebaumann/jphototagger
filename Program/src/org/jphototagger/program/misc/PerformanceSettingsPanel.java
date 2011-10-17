@@ -10,7 +10,6 @@ import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.storage.Persistence;
 import org.jphototagger.domain.DomainPreferencesKeys;
 import org.jphototagger.image.ImagePreferencesKeys;
-import org.jphototagger.iptc.IptcPreferencesKeys;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.program.settings.AppPreferencesKeys;
 
@@ -59,16 +58,6 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
         storage.setBoolean(AppPreferencesKeys.KEY_SAVE_INPUT_EARLY, early);
     }
 
-    private void setDisplayIptc() {
-        setDisplayIptc(checkBoxDisplayIptc.isSelected());
-    }
-
-    private void setDisplayIptc(boolean display) {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-
-        storage.setBoolean(IptcPreferencesKeys.KEY_DISPLAY_IPTC, display);
-    }
-
     private void setEnableAutocomplete() {
         setEnableAutocomplete(checkBoxEnableAutocomplete.isSelected());
         setEnabledCheckBoxUpdateAutocomplete();
@@ -102,7 +91,6 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
 
     @Override
     public void restore() {
-        checkBoxDisplayIptc.setSelected(isDisplayIptc());
         checkBoxScanForEmbeddedXmp.setSelected(isScanForEmbeddedXmp());
         checkBoxSaveInputEarly.setSelected(isSaveInputEarly());
         spinnerMaximumSecondsToTerminateExternalPrograms.getModel().setValue(getMaxSecondsToTerminateExternalPrograms());
@@ -134,14 +122,6 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
         return storage.containsKey(DomainPreferencesKeys.KEY_ENABLE_AUTOCOMPLETE)
                 ? storage.getBoolean(DomainPreferencesKeys.KEY_ENABLE_AUTOCOMPLETE)
                 : true;
-    }
-
-    private boolean isDisplayIptc() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-
-        return storage.containsKey(IptcPreferencesKeys.KEY_DISPLAY_IPTC)
-                ? storage.getBoolean(IptcPreferencesKeys.KEY_DISPLAY_IPTC)
-                : false;
     }
 
     private int getMaxSecondsToTerminateExternalPrograms() {
@@ -188,7 +168,6 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
         labelMaximumSecondsToTerminateExternalPrograms = new javax.swing.JLabel();
         spinnerMaximumSecondsToTerminateExternalPrograms = new javax.swing.JSpinner();
         checkBoxScanForEmbeddedXmp = new javax.swing.JCheckBox();
-        checkBoxDisplayIptc = new javax.swing.JCheckBox();
         checkBoxSaveInputEarly = new javax.swing.JCheckBox();
         panelAutocomplete = new javax.swing.JPanel();
         checkBoxEnableAutocomplete = new javax.swing.JCheckBox();
@@ -215,14 +194,6 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
         checkBoxScanForEmbeddedXmp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxScanForEmbeddedXmpActionPerformed(evt);
-            }
-        });
-
-        checkBoxDisplayIptc.setText(bundle.getString("PerformanceSettingsPanel.checkBoxDisplayIptc.text")); // NOI18N
-        checkBoxDisplayIptc.setName("checkBoxDisplayIptc"); // NOI18N
-        checkBoxDisplayIptc.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkBoxDisplayIptcActionPerformed(evt);
             }
         });
 
@@ -293,7 +264,6 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(panelAutocomplete, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(checkBoxSaveInputEarly, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(checkBoxDisplayIptc, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(checkBoxScanForEmbeddedXmp, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(labelMaximumSecondsToTerminateExternalPrograms)
@@ -310,9 +280,7 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
                     .addComponent(spinnerMaximumSecondsToTerminateExternalPrograms, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(checkBoxScanForEmbeddedXmp)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(checkBoxDisplayIptc)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(23, 23, 23)
                 .addComponent(checkBoxSaveInputEarly)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelAutocomplete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -332,10 +300,6 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
         setSaveEarly();
     }//GEN-LAST:event_checkBoxSaveInputEarlyActionPerformed
 
-    private void checkBoxDisplayIptcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDisplayIptcActionPerformed
-        setDisplayIptc();
-    }//GEN-LAST:event_checkBoxDisplayIptcActionPerformed
-
     private void checkBoxEnableAutocompleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxEnableAutocompleteActionPerformed
         setEnableAutocomplete();
     }//GEN-LAST:event_checkBoxEnableAutocompleteActionPerformed
@@ -349,7 +313,6 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
     }//GEN-LAST:event_checkBoxAutocompleteIgnoreCaseActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox checkBoxAutocompleteIgnoreCase;
-    private javax.swing.JCheckBox checkBoxDisplayIptc;
     private javax.swing.JCheckBox checkBoxEnableAutocomplete;
     private javax.swing.JCheckBox checkBoxSaveInputEarly;
     private javax.swing.JCheckBox checkBoxScanForEmbeddedXmp;

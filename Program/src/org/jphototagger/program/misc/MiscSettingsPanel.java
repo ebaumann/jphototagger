@@ -21,14 +21,12 @@ import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.api.storage.Persistence;
 import org.jphototagger.api.windows.OptionPageProvider;
 import org.jphototagger.domain.repository.FileRepositoryProvider;
-import org.jphototagger.iptc.IptcPreferencesKeys;
 import org.jphototagger.lib.comparator.PositionComparatorAscendingOrder;
 import org.jphototagger.lib.swing.DirectoryChooser;
 import org.jphototagger.lib.swing.DirectoryChooser.Option;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.program.app.update.UpdateCheckController;
 import org.jphototagger.program.factory.ControllerFactory;
-import org.jphototagger.program.module.iptc.IptcCharsetComboBoxModel;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.settings.AppPreferencesKeys;
 
@@ -164,36 +162,11 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         storage.setBoolean(AppPreferencesKeys.KEY_CHECK_FOR_UPDATES, auto);
     }
 
-    private void setIptcCharset() {
-        setIptcCharset(comboBoxIptcCharset.getSelectedItem().toString());
-    }
-
-    private void setIptcCharset(String charset) {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-
-        storage.setString(IptcPreferencesKeys.KEY_IPTC_CHARSET, charset);
-    }
-
     @EventSubscriber(eventClass = PreferencesChangedEvent.class)
     public void applySettings(PreferencesChangedEvent evt) {
         if (AppPreferencesKeys.KEY_CHECK_FOR_UPDATES.equals(evt.getKey())) {
             checkBoxCheckForUpdates.setSelected((Boolean)evt.getNewValue());
-        } else if (IptcPreferencesKeys.KEY_IPTC_CHARSET.equals(evt.getKey())) {
-            setIptcCharsetFromUserSettings();
         }
-    }
-
-    private void setIptcCharsetFromUserSettings() {
-        comboBoxIptcCharset.getModel().setSelectedItem(getIptcCharset());
-    }
-
-    private String getIptcCharset() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-        String charset = storage.getString(IptcPreferencesKeys.KEY_IPTC_CHARSET);
-
-        return charset.isEmpty()
-                ? "ISO-8859-1"
-                : charset;
     }
 
     @Override
@@ -203,7 +176,6 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         checkBoxCheckForUpdates.setSelected(isCheckForUpdates());
         checkBoxDisplaySearchButton.setSelected(isDisplaySearchButton());
         checkBoxIsAcceptHiddenDirectories.setSelected(isAcceptHiddenDirectories());
-        setIptcCharsetFromUserSettings();
         labelRepositoryDirectory.setText(provider.getFileRepositoryDirectory().getAbsolutePath());
         radioButtonCopyMoveFileConfirmOverwrite.setSelected(getCopyMoveFilesOptions().equals(CopyMoveFilesOptions.CONFIRM_OVERWRITE));
         radioButtonCopyMoveFileRenameIfExists.setSelected(getCopyMoveFilesOptions().equals(CopyMoveFilesOptions.RENAME_SOURCE_FILE_IF_TARGET_FILE_EXISTS));
@@ -300,9 +272,6 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         panelCopyMoveFiles = new javax.swing.JPanel();
         radioButtonCopyMoveFileConfirmOverwrite = new javax.swing.JRadioButton();
         radioButtonCopyMoveFileRenameIfExists = new javax.swing.JRadioButton();
-        panelIptcCharset = new javax.swing.JPanel();
-        labelIptcCharset = new javax.swing.JLabel();
-        comboBoxIptcCharset = new javax.swing.JComboBox();
         panelRepositoryDirectory = new javax.swing.JPanel();
         labelInfoRepositoryDirectory = new javax.swing.JLabel();
         buttonSetDefaultRepositoryDirectoryName = new javax.swing.JButton();
@@ -402,31 +371,6 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
-        panelIptcCharset.setName("panelIptcCharset"); // NOI18N
-        panelIptcCharset.setLayout(new java.awt.GridBagLayout());
-
-        labelIptcCharset.setLabelFor(comboBoxIptcCharset);
-        labelIptcCharset.setText(bundle.getString("MiscSettingsPanel.labelIptcCharset.text")); // NOI18N
-        labelIptcCharset.setName("labelIptcCharset"); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        panelIptcCharset.add(labelIptcCharset, gridBagConstraints);
-
-        comboBoxIptcCharset.setModel(new IptcCharsetComboBoxModel());
-        comboBoxIptcCharset.setName("comboBoxIptcCharset"); // NOI18N
-        comboBoxIptcCharset.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboBoxIptcCharsetActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
-        panelIptcCharset.add(comboBoxIptcCharset, gridBagConstraints);
-
         panelRepositoryDirectory.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("MiscSettingsPanel.panelRepositoryDirectory.border.title"))); // NOI18N
         panelRepositoryDirectory.setName("panelRepositoryDirectory"); // NOI18N
 
@@ -492,9 +436,8 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
                     .addComponent(checkBoxIsAcceptHiddenDirectories)
                     .addComponent(checkBoxDisplaySearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(panelCheckForUpdates, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelRepositoryDirectory, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelCopyMoveFiles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelIptcCharset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelRepositoryDirectory, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelDefaultLayout.setVerticalGroup(
@@ -509,8 +452,6 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelCopyMoveFiles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelIptcCharset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
                 .addComponent(panelRepositoryDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -530,7 +471,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
+                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }//GEN-END:initComponents
@@ -563,10 +504,6 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         setDisplaySearchButton();
     }//GEN-LAST:event_checkBoxDisplaySearchButtonActionPerformed
 
-    private void comboBoxIptcCharsetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxIptcCharsetActionPerformed
-        setIptcCharset();
-    }//GEN-LAST:event_comboBoxIptcCharsetActionPerformed
-
     private void buttonCheckForUpdatesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCheckForUpdatesActionPerformed
         checkDownload();
     }//GEN-LAST:event_buttonCheckForUpdatesActionPerformed
@@ -578,14 +515,11 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
     private javax.swing.JCheckBox checkBoxCheckForUpdates;
     private javax.swing.JCheckBox checkBoxDisplaySearchButton;
     private javax.swing.JCheckBox checkBoxIsAcceptHiddenDirectories;
-    private javax.swing.JComboBox comboBoxIptcCharset;
     private javax.swing.JLabel labelInfoRepositoryDirectory;
-    private javax.swing.JLabel labelIptcCharset;
     private javax.swing.JLabel labelRepositoryDirectory;
     private javax.swing.JPanel panelCheckForUpdates;
     private javax.swing.JPanel panelCopyMoveFiles;
     private javax.swing.JPanel panelDefault;
-    private javax.swing.JPanel panelIptcCharset;
     private javax.swing.JPanel panelRepositoryDirectory;
     private javax.swing.JRadioButton radioButtonCopyMoveFileConfirmOverwrite;
     private javax.swing.JRadioButton radioButtonCopyMoveFileRenameIfExists;

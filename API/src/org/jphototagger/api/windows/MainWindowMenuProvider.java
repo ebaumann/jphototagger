@@ -7,17 +7,17 @@ import java.util.Collection;
  */
 public interface MainWindowMenuProvider {
 
-    Collection<? extends MainWindowMenuItem> getFileMenuItems();
+    Collection<? extends MenuItemProvider> getFileMenuItems();
 
-    Collection<? extends MainWindowMenuItem> getEditMenuItems();
+    Collection<? extends MenuItemProvider> getEditMenuItems();
 
-    Collection<? extends MainWindowMenuItem> getViewMenuItems();
+    Collection<? extends MenuItemProvider> getViewMenuItems();
 
-    Collection<? extends MainWindowMenuItem> getGotoMenuItems();
+    Collection<? extends MenuItemProvider> getGotoMenuItems();
 
-    Collection<? extends MainWindowMenuItem> getToolsMenuItems();
+    Collection<? extends MenuItemProvider> getToolsMenuItems();
 
-    Collection<? extends MainWindowMenuItem> getWindowMenuItems();
+    Collection<? extends MenuItemProvider> getWindowMenuItems();
 
-    Collection<? extends MainWindowMenuItem> getHelpMenuItems();
+    Collection<? extends MenuItemProvider> getHelpMenuItems();
 }

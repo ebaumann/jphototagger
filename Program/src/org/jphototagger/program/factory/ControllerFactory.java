@@ -47,8 +47,6 @@ import org.jphototagger.program.module.imagecollections.DeleteImageCollectionCon
 import org.jphototagger.program.module.imagecollections.ImageCollectionSelectedController;
 import org.jphototagger.program.module.imagecollections.PickRejectController;
 import org.jphototagger.program.module.imagecollections.RenameImageCollectionController;
-import org.jphototagger.program.module.iptc.DisplayIptcUserSettingsController;
-import org.jphototagger.program.module.iptc.IptcToXmpController;
 import org.jphototagger.program.module.keywords.KeywordsPanel;
 import org.jphototagger.program.module.keywords.list.DeleteKeywordsController;
 import org.jphototagger.program.module.keywords.list.DeleteKeywordsFromEditPanelController;
@@ -271,9 +269,7 @@ public final class ControllerFactory {
 
     private void addMetadataTablesControllers() {
         support.add(new ShowMetadataController());
-        support.add(new IptcToXmpController());
         support.add(new SetExifToXmpController());
-        support.add(new DisplayIptcUserSettingsController());
     }
 
     private void addDirectoryTreeControllers() {

@@ -7,7 +7,7 @@ import org.openide.util.lookup.ServiceProvider;
 
 import org.jphototagger.api.modules.Module;
 import org.jphototagger.api.modules.ModuleDescription;
-import org.jphototagger.api.windows.MainWindowMenuItem;
+import org.jphototagger.api.windows.MenuItemProvider;
 import org.jphototagger.api.windows.MainWindowMenuProvider;
 import org.jphototagger.api.windows.MainWindowMenuProviderAdapter;
 import org.jphototagger.lib.util.Bundle;
@@ -33,7 +33,7 @@ public final class ModuleInstaller extends MainWindowMenuProviderAdapter impleme
     }
 
     @Override
-    public Collection<? extends MainWindowMenuItem> getFileMenuItems() {
+    public Collection<? extends MenuItemProvider> getFileMenuItems() {
         return Arrays.asList(new ImportImageFilesAction());
     }
 

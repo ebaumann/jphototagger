@@ -21,10 +21,10 @@ import javax.swing.event.ChangeListener;
 import com.adobe.xmp.XMPConst;
 import com.adobe.xmp.properties.XMPPropertyInfo;
 
+import org.openide.util.Lookup;
+
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-
-import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.windows.WaitDisplayer;
@@ -35,14 +35,12 @@ import org.jphototagger.domain.repository.event.xmp.XmpDeletedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
-import org.jphototagger.iptc.IptcPreferencesKeys;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.TableUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppPanel;
 import org.jphototagger.program.module.exif.ExifTableModel;
-import org.jphototagger.program.module.iptc.IptcTableModel;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
 import org.jphototagger.program.module.xmp.XmpTableModel;
 import org.jphototagger.program.resource.GUI;
@@ -62,7 +60,6 @@ public final class ShowMetadataController implements ChangeListener {
     private final JTabbedPane metadataPane = appPanel.getTabbedPaneMetadata();
     private File selectedImageFile;
     private boolean exifReadFromImageFile;
-    private boolean iptcReadFromImageFile;
     private boolean xmpReadFromImageFile;
 
     public ShowMetadataController() {
@@ -73,7 +70,7 @@ public final class ShowMetadataController implements ChangeListener {
 
     private enum Metadata {
 
-        EXIF, IPTC, XMP;
+        EXIF, XMP;
     }
 
     private void listen() {
@@ -82,7 +79,6 @@ public final class ShowMetadataController implements ChangeListener {
     }
 
     private void initMetadataModels() {
-        metadataTableModels.setIptcTableModel((IptcTableModel) appPanel.getTableIptc().getModel());
         metadataTableModels.setExifTableModel((ExifTableModel) appPanel.getTableExif().getModel());
         metadataTableModels.setXmpTableModelDc((XmpTableModel) appPanel.getTableXmpDc().getModel());
         metadataTableModels.setXmpTableModelExif((XmpTableModel) appPanel.getTableXmpExif().getModel());
@@ -125,7 +121,6 @@ public final class ShowMetadataController implements ChangeListener {
     private void setSelectedImageFileUndefined() {
         selectedImageFile = null;
         exifReadFromImageFile = false;
-        iptcReadFromImageFile = false;
         xmpReadFromImageFile = false;
     }
 
@@ -158,7 +153,7 @@ public final class ShowMetadataController implements ChangeListener {
     public void thumbnailsSelectionChanged(final ThumbnailsSelectionChangedEvent evt) {
         setSelectedImageFileUndefined();
         removeMetadataFromTables(EnumSet.allOf(Metadata.class));
-        showMetadataOfSelectedThumbnails(evt.getSelectedImageFiles());
+        showMetadataOfSelectedThumbnails(evt.getSelectedFiles());
     }
 
     @Override
@@ -183,21 +178,6 @@ public final class ShowMetadataController implements ChangeListener {
                 && appPanel.isTabMetadataExifSelected();
     }
 
-    private boolean isUpdateIptc(Collection<? extends Metadata> metadata) {
-        return metadata.contains(Metadata.IPTC)
-                && !iptcReadFromImageFile
-                && appPanel.isTabMetadataIptcSelected()
-                && isDisplayIptc();
-    }
-
-    private boolean isDisplayIptc() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-
-        return storage.containsKey(IptcPreferencesKeys.KEY_DISPLAY_IPTC)
-                ? storage.getBoolean(IptcPreferencesKeys.KEY_DISPLAY_IPTC)
-                : false;
-    }
-
     private boolean isUpdateXmp(Collection<? extends Metadata> metadata) {
         return metadata.contains(Metadata.XMP)
                 && !xmpReadFromImageFile
@@ -214,7 +194,6 @@ public final class ShowMetadataController implements ChangeListener {
     }
 
     private void removeDisplayedMetadata() {
-        appPanel.getButtonIptcToXmp().setEnabled(false);
         appPanel.getButtonExifToXmp().setEnabled(false);
         EventQueueUtil.invokeInDispatchThread(new RemoveAllMetadata());
     }
@@ -229,11 +208,6 @@ public final class ShowMetadataController implements ChangeListener {
         if (metadata.contains(Metadata.EXIF)) {
             LOGGER.log(Level.FINEST, "Resizing EXIF metadata GUI table");
             resizeTables(Collections.singleton(appPanel.getTableExif()));
-        }
-
-        if (metadata.contains(Metadata.IPTC)) {
-            LOGGER.log(Level.FINEST, "Resizing IPTC metadata GUI table");
-            resizeTables(Collections.singleton(appPanel.getTableIptc()));
         }
 
         if (metadata.contains(Metadata.XMP)) {
@@ -252,11 +226,6 @@ public final class ShowMetadataController implements ChangeListener {
         if (metadata.contains(Metadata.EXIF)) {
             LOGGER.log(Level.FINEST, "Repainting EXIF metadata GUI table");
             repaintTables(Collections.singleton(appPanel.getTableExif()));
-        }
-
-        if (metadata.contains(Metadata.IPTC)) {
-            LOGGER.log(Level.FINEST, "Repainting IPTC metadata GUI table");
-            repaintTables(Collections.singleton(appPanel.getTableIptc()));
         }
 
         if (metadata.contains(Metadata.XMP)) {
@@ -323,14 +292,6 @@ public final class ShowMetadataController implements ChangeListener {
                 resizeTableMetadta.add(Metadata.EXIF);
             }
 
-            if (isUpdateIptc(metadata)) {
-                LOGGER.log(Level.FINEST, "Updating IPTC metadata of image file ''{0}'' in GUI table", imageFile);
-                metadataTableModels.getIptcTableModel().setFile(imageFile);
-                iptcReadFromImageFile = true;
-                appPanel.getButtonIptcToXmp().setEnabled(hasIptcData());
-                resizeTableMetadta.add(Metadata.IPTC);
-            }
-
             appPanel.getButtonExifToXmp().setEnabled(hasExifData());
 
             if (isUpdateXmp(metadata)) {
@@ -385,10 +346,6 @@ public final class ShowMetadataController implements ChangeListener {
             }
 
             model.setPropertyInfosOfFile(imageFile, infos);
-        }
-
-        private boolean hasIptcData() {
-            return metadataTableModels.getIptcTableModel().getRowCount() > 0;
         }
 
         private boolean hasExifData() {

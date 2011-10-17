@@ -38,14 +38,14 @@ import javax.swing.text.Document;
 import javax.swing.text.JTextComponent;
 import javax.swing.tree.TreeSelectionModel;
 
-import org.bushe.swing.event.EventBus;
-import org.bushe.swing.event.annotation.AnnotationProcessor;
-import org.bushe.swing.event.annotation.EventSubscriber;
-
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.JXTree;
 
 import org.openide.util.Lookup;
+
+import org.bushe.swing.event.EventBus;
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
 
 import org.jphototagger.api.messages.MessageType;
 import org.jphototagger.api.preferences.Preferences;
@@ -65,9 +65,7 @@ import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.swingx.ListTextFilter;
 import org.jphototagger.lib.swingx.SearchInJxListAction;
 import org.jphototagger.lib.swingx.SearchInJxTreeAction;
-import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.module.exif.ExifTableCellRenderer;
-import org.jphototagger.program.module.iptc.IptcTableCellRenderer;
 import org.jphototagger.program.module.keywords.KeywordsPanel;
 import org.jphototagger.program.module.thumbnails.SettingsThumbnailDimensionsDialog;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
@@ -95,7 +93,6 @@ public final class AppPanel extends javax.swing.JPanel {
     private final List<JXList> selectionLists = new ArrayList<JXList>();
     private transient EditMetadataPanels editMetadtaPanels;
     private transient EditMetadataActionsPanel panelEditActions;
-    public static final transient String DISABLED_IPTC_TAB_TOOLTIP_TEXT = Bundle.getString(AppPanel.class, "AppPanel.TabMetadataIptc.TooltipText.Disabled");
     private ListTextFilter listSelKeywordsTextFilter;
     private ListTextFilter listImageCollectionsTextFilter;
     private ListTextFilter listSavedSearchesTextFilter;
@@ -130,7 +127,6 @@ public final class AppPanel extends javax.swing.JPanel {
 
         // Do not set mnemonics to left panel because it can trigger edit actions!
         MnemonicUtil.setMnemonics((Container) panelExif);
-        MnemonicUtil.setMnemonics((Container) panelIptc);
         MnemonicUtil.setMnemonics((Container) panelSearch);
     }
 
@@ -146,7 +142,6 @@ public final class AppPanel extends javax.swing.JPanel {
 
     private void setTableTextFilters() {
         setExifTableTextFilter();
-        setIptcTableTextFilter();
         setXmpTableTextFilter(textFieldTableXmpCameraRawSettingsFilter, tableXmpCameraRawSettings);
         setXmpTableTextFilter(textFieldTableXmpDcFilter, tableXmpDc);
         setXmpTableTextFilter(textFieldTableXmpExifFilter, tableXmpExif);
@@ -162,16 +157,6 @@ public final class AppPanel extends javax.swing.JPanel {
         TableStringConverter stringConverter = ExifTableCellRenderer.createTableStringConverter();
         Document document = textFieldTableExifFilter.getDocument();
         TableTextFilter tableTextFilter = new TableTextFilter(tableExif, stringConverter);
-
-        rowSorter.setStringConverter(stringConverter);
-        document.addDocumentListener(tableTextFilter);
-    }
-
-    private void setIptcTableTextFilter() {
-        TableRowSorter<?> rowSorter = (TableRowSorter<?>) tableIptc.getRowSorter();
-        TableStringConverter stringConverter = IptcTableCellRenderer.createTableStringConverter();
-        Document document = textFieldTableIptcFilter.getDocument();
-        TableTextFilter tableTextFilter = new TableTextFilter(tableIptc, stringConverter);
 
         rowSorter.setStringConverter(stringConverter);
         document.addDocumentListener(tableTextFilter);
@@ -243,7 +228,6 @@ public final class AppPanel extends javax.swing.JPanel {
     private void initMetadataTablesCollection() {
         metadataTables.addAll(xmpTables);
         metadataTables.add(tableExif);
-        metadataTables.add(tableIptc);
     }
 
     private void initXmpTablesCollection() {
@@ -345,18 +329,6 @@ public final class AppPanel extends javax.swing.JPanel {
                : DEFAULT_DIVIDER_LOCATION_THUMBNAILS;
     }
 
-    public void setEnabledIptcTab(boolean enabled) {
-        int indexIptcTab = tabbedPaneMetadata.indexOfComponent(panelIptc);
-
-        tabbedPaneMetadata.setEnabledAt(indexIptcTab, enabled);
-        tabbedPaneMetadata.setToolTipTextAt(indexIptcTab, enabled
-                ? ""
-                : DISABLED_IPTC_TAB_TOOLTIP_TEXT);
-        if (!enabled && indexIptcTab == tabbedPaneMetadata.getSelectedIndex()) {
-            tabbedPaneMetadata.setSelectedIndex(0);
-        }
-    }
-
     /**
      * Returns components with mnemonics set that can interfer with the
      * edit metadata panel mnemonics.
@@ -423,12 +395,18 @@ public final class AppPanel extends javax.swing.JPanel {
         return tabbedPaneMetadata;
     }
 
-    public JTabbedPane getTabbedPaneSelection() {
-        return tabbedPaneSelection;
+    public boolean isSelectionComponentSelected(Component component) {
+        Component selectedComponent = tabbedPaneSelection.getSelectedComponent();
+        return component == selectedComponent;
     }
 
-    public boolean isTabMetadataIptcSelected() {
-        return tabbedPaneMetadata.getSelectedComponent() == panelIptc;
+    public boolean isEditComponentSelected(Component component) {
+        Component selectedComponent = tabbedPaneMetadata.getSelectedComponent();
+        return component == selectedComponent;
+    }
+
+    public JTabbedPane getTabbedPaneSelection() {
+        return tabbedPaneSelection;
     }
 
     public boolean isTabMetadataExifSelected() {
@@ -437,10 +415,6 @@ public final class AppPanel extends javax.swing.JPanel {
 
     public boolean isTabMetadataXmpSelected() {
         return tabbedPaneMetadata.getSelectedComponent() == tabbedPaneXmp;
-    }
-
-    public Component getTabMetadataIptc() {
-        return panelIptc;
     }
 
     public Component getTabMetadataExif() {
@@ -595,10 +569,6 @@ public final class AppPanel extends javax.swing.JPanel {
         return panelEditActions.buttonMetadataTemplateDelete;
     }
 
-    public JButton getButtonIptcToXmp() {
-        return buttonIptcToXmp;
-    }
-
     public JButton getButtonExifToXmp() {
         return buttonExifToXmp;
     }
@@ -641,10 +611,6 @@ public final class AppPanel extends javax.swing.JPanel {
 
     public List<JTable> getXmpTables() {
         return Collections.unmodifiableList(xmpTables);
-    }
-
-    public JTable getTableIptc() {
-        return tableIptc;
     }
 
     public JTable getTableExif() {
@@ -907,13 +873,6 @@ public final class AppPanel extends javax.swing.JPanel {
         scrollPaneExif = new javax.swing.JScrollPane();
         tableExif = new javax.swing.JTable();
         buttonExifToXmp = new javax.swing.JButton();
-        panelIptc = new javax.swing.JPanel();
-        panelTableIptcFilter = new javax.swing.JPanel();
-        labeTTableIptcFilter = new javax.swing.JLabel();
-        textFieldTableIptcFilter = new javax.swing.JTextField();
-        scrollPaneIptc = new javax.swing.JScrollPane();
-        tableIptc = new javax.swing.JTable();
-        buttonIptcToXmp = new javax.swing.JButton();
         tabbedPaneXmp = new javax.swing.JTabbedPane();
         panelTableXmpTiff = new javax.swing.JPanel();
         panelTableXmpTiffFilter = new javax.swing.JPanel();
@@ -1592,7 +1551,7 @@ public final class AppPanel extends javax.swing.JPanel {
         panelThumbnails.setLayout(panelThumbnailsLayout);
         panelThumbnailsLayout.setHorizontalGroup(
             panelThumbnailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 325, Short.MAX_VALUE)
+            .addGap(0, 472, Short.MAX_VALUE)
         );
         panelThumbnailsLayout.setVerticalGroup(
             panelThumbnailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1687,71 +1646,6 @@ public final class AppPanel extends javax.swing.JPanel {
         panelExif.add(buttonExifToXmp, gridBagConstraints);
 
         tabbedPaneMetadata.addTab(bundle.getString("AppPanel.panelExif.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_exif.png")), panelExif); // NOI18N
-
-        panelIptc.setName("panelIptc"); // NOI18N
-        panelIptc.setLayout(new java.awt.GridBagLayout());
-
-        panelTableIptcFilter.setName("panelTableIptcFilter"); // NOI18N
-        panelTableIptcFilter.setLayout(new java.awt.GridBagLayout());
-
-        labeTTableIptcFilter.setLabelFor(textFieldTableIptcFilter);
-        labeTTableIptcFilter.setText(bundle.getString("AppPanel.labeTTableIptcFilter.text")); // NOI18N
-        labeTTableIptcFilter.setName("labeTTableIptcFilter"); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        panelTableIptcFilter.add(labeTTableIptcFilter, gridBagConstraints);
-
-        textFieldTableIptcFilter.setName("textFieldTableIptcFilter"); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
-        panelTableIptcFilter.add(textFieldTableIptcFilter, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
-        panelIptc.add(panelTableIptcFilter, gridBagConstraints);
-
-        scrollPaneIptc.setName("scrollPaneIptc"); // NOI18N
-
-        tableIptc.setAutoCreateRowSorter(true);
-        tableIptc.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        tableIptc.setName("tableIptc"); // NOI18N
-        scrollPaneIptc.setViewportView(tableIptc);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        panelIptc.add(scrollPaneIptc, gridBagConstraints);
-
-        buttonIptcToXmp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_xmp.png"))); // NOI18N
-        buttonIptcToXmp.setText(bundle.getString("AppPanel.buttonIptcToXmp.text")); // NOI18N
-        buttonIptcToXmp.setToolTipText(bundle.getString("AppPanel.buttonIptcToXmp.toolTipText")); // NOI18N
-        buttonIptcToXmp.setMargin(new java.awt.Insets(2, 2, 2, 2));
-        buttonIptcToXmp.setName("buttonIptcToXmp"); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(2, 0, 2, 2);
-        panelIptc.add(buttonIptcToXmp, gridBagConstraints);
-
-        tabbedPaneMetadata.addTab(bundle.getString("AppPanel.panelIptc.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_iptc.png")), panelIptc); // NOI18N
 
         tabbedPaneXmp.setName("tabbedPaneXmp"); // NOI18N
         tabbedPaneXmp.setOpaque(true);
@@ -2219,7 +2113,7 @@ public final class AppPanel extends javax.swing.JPanel {
         );
         panelScrollPaneEditMetadataLayout.setVerticalGroup(
             panelScrollPaneEditMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneEditMetadata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
+            .addComponent(scrollPaneEditMetadata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout panelTabEditMetadataLayout = new javax.swing.GroupLayout(panelTabEditMetadata);
@@ -2250,7 +2144,7 @@ public final class AppPanel extends javax.swing.JPanel {
             .addGroup(panelMetadataLayout.createSequentialGroup()
                 .addComponent(labelMetadataFilename)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tabbedPaneMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE))
+                .addComponent(tabbedPaneMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE))
         );
 
         splitPaneThumbnailsMetadata.setRightComponent(panelMetadata);
@@ -2259,15 +2153,15 @@ public final class AppPanel extends javax.swing.JPanel {
         panelThumbnailsMetadata.setLayout(panelThumbnailsMetadataLayout);
         panelThumbnailsMetadataLayout.setHorizontalGroup(
             panelThumbnailsMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 478, Short.MAX_VALUE)
+            .addGap(0, 624, Short.MAX_VALUE)
             .addGroup(panelThumbnailsMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(splitPaneThumbnailsMetadata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE))
+                .addComponent(splitPaneThumbnailsMetadata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 624, Short.MAX_VALUE))
         );
         panelThumbnailsMetadataLayout.setVerticalGroup(
             panelThumbnailsMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 471, Short.MAX_VALUE)
+            .addGap(0, 464, Short.MAX_VALUE)
             .addGroup(panelThumbnailsMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(splitPaneThumbnailsMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE))
+                .addComponent(splitPaneThumbnailsMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE))
         );
 
         splitPaneMain.setRightComponent(panelThumbnailsMetadata);
@@ -2323,9 +2217,9 @@ public final class AppPanel extends javax.swing.JPanel {
         panelStatusbarLayout.setHorizontalGroup(
             panelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelStatusbarLayout.createSequentialGroup()
-                .addComponent(labelThumbnailInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
+                .addComponent(labelThumbnailInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(labelStatusbarText, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
+                .addComponent(labelStatusbarText, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(sliderThumbnailSize, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -2376,7 +2270,6 @@ public final class AppPanel extends javax.swing.JPanel {
     private javax.swing.JButton buttonDisplaySelKeywordsTree;
     private javax.swing.JButton buttonExifToXmp;
     private javax.swing.ButtonGroup buttonGroupKeywordsMultipleSel;
-    private javax.swing.JButton buttonIptcToXmp;
     private javax.swing.JButton buttonSearch;
     private javax.swing.JButton buttonSearchInDirectories;
     private javax.swing.JButton buttonSearchInImageCollections;
@@ -2390,7 +2283,6 @@ public final class AppPanel extends javax.swing.JPanel {
     private javax.swing.JComboBox comboBoxFastSearch;
     private javax.swing.JComboBox comboBoxFileFilters;
     private javax.swing.JComboBox comboBoxFileSort;
-    private javax.swing.JLabel labeTTableIptcFilter;
     private javax.swing.JLabel labelError;
     private javax.swing.JLabel labelFileFilters;
     private javax.swing.JLabel labelFileSort;
@@ -2419,7 +2311,6 @@ public final class AppPanel extends javax.swing.JPanel {
     private javax.swing.JPanel panelExif;
     private javax.swing.JPanel panelFavorites;
     private javax.swing.JPanel panelImageCollections;
-    private javax.swing.JPanel panelIptc;
     private javax.swing.JPanel panelListImageCollectionsFilter;
     private javax.swing.JPanel panelListSavedSearchesFilter;
     private javax.swing.JPanel panelListSelKeywordsFilter;
@@ -2436,7 +2327,6 @@ public final class AppPanel extends javax.swing.JPanel {
     private javax.swing.JPanel panelStatusbar;
     private javax.swing.JPanel panelTabEditMetadata;
     private javax.swing.JPanel panelTableExifFilter;
-    private javax.swing.JPanel panelTableIptcFilter;
     private javax.swing.JPanel panelTableXmpCameraRawSettings;
     private javax.swing.JPanel panelTableXmpCameraRawSettingsFilter;
     private javax.swing.JPanel panelTableXmpDc;
@@ -2465,7 +2355,6 @@ public final class AppPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane scrollPaneExif;
     private javax.swing.JScrollPane scrollPaneFavorites;
     private javax.swing.JScrollPane scrollPaneImageCollections;
-    private javax.swing.JScrollPane scrollPaneIptc;
     private javax.swing.JScrollPane scrollPaneMiscMetadata;
     private javax.swing.JScrollPane scrollPaneSavedSearches;
     private javax.swing.JScrollPane scrollPaneSelKeywordsList;
@@ -2488,7 +2377,6 @@ public final class AppPanel extends javax.swing.JPanel {
     private javax.swing.JTabbedPane tabbedPaneSelection;
     private javax.swing.JTabbedPane tabbedPaneXmp;
     private javax.swing.JTable tableExif;
-    private javax.swing.JTable tableIptc;
     private javax.swing.JTable tableXmpCameraRawSettings;
     private javax.swing.JTable tableXmpDc;
     private javax.swing.JTable tableXmpExif;
@@ -2502,7 +2390,6 @@ public final class AppPanel extends javax.swing.JPanel {
     private javax.swing.JTextField textFieldListSavedSearchesFilter;
     private javax.swing.JTextField textFieldListSelKeywordsFilter;
     private javax.swing.JTextField textFieldTableExifFilter;
-    private javax.swing.JTextField textFieldTableIptcFilter;
     private javax.swing.JTextField textFieldTableXmpCameraRawSettingsFilter;
     private javax.swing.JTextField textFieldTableXmpDcFilter;
     private javax.swing.JTextField textFieldTableXmpExifFilter;
