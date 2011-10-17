@@ -26,6 +26,7 @@ import org.jphototagger.api.branding.TableLookAndFeel;
 import org.jphototagger.iptc.IptcEntry;
 import org.jphototagger.lib.swing.TableTextFilter;
 import org.jphototagger.lib.swing.util.ComponentUtil;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.swing.util.TableUtil;
 import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.lib.util.Translation;
@@ -48,6 +49,7 @@ public class IptcPanel extends javax.swing.JPanel {
         tableIptc.setDefaultRenderer(Object.class, iptcTableCellRenderer);
         setIptcTableTextFilter();
         setIptcTableComparator();
+        MnemonicUtil.setMnemonics(this);
     }
 
     private void setIptcTableTextFilter() {
@@ -87,7 +89,7 @@ public class IptcPanel extends javax.swing.JPanel {
 
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            if (lookAndFeel != null) {
+            if (lookAndFeel == null) {
                 return new JLabel(StringUtil.toStringNullToEmptyString(value));
             }
 
