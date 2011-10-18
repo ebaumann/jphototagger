@@ -1021,17 +1021,17 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="624" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="557" max="32767" attributes="0"/>
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                      <Component id="splitPaneThumbnailsMetadata" alignment="1" pref="624" max="32767" attributes="0"/>
+                      <Component id="splitPaneThumbnailsMetadata" alignment="1" pref="557" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="464" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="471" max="32767" attributes="0"/>
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                      <Component id="splitPaneThumbnailsMetadata" alignment="0" pref="464" max="32767" attributes="0"/>
+                      <Component id="splitPaneThumbnailsMetadata" alignment="0" pref="471" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1160,7 +1160,7 @@
                           <Layout>
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <EmptySpace min="0" pref="472" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="404" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                             <DimensionLayout dim="1">
@@ -1184,46 +1184,18 @@
                     </Constraint>
                   </Constraints>
 
-                  <Layout>
-                    <DimensionLayout dim="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="labelMetadataFilename" alignment="0" pref="142" max="32767" attributes="2"/>
-                          <Component id="tabbedPaneMetadata" alignment="0" pref="142" max="32767" attributes="2"/>
-                      </Group>
-                    </DimensionLayout>
-                    <DimensionLayout dim="1">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="labelMetadataFilename" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="tabbedPaneMetadata" pref="438" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                  </Layout>
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JLabel" name="labelMetadataFilename">
-                      <Properties>
-                        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                          <ResourceString bundle="org/jphototagger/program/app/ui/Bundle.properties" key="AppPanel.labelMetadataFilename.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                        </Property>
-                        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                          <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
-                            <EtchetBorder/>
-                          </Border>
-                        </Property>
-                        <Property name="name" type="java.lang.String" value="labelMetadataFilename" noResource="true"/>
-                        <Property name="opaque" type="boolean" value="true"/>
-                      </Properties>
-                    </Component>
                     <Container class="javax.swing.JTabbedPane" name="tabbedPaneMetadata">
                       <Properties>
                         <Property name="name" type="java.lang.String" value="tabbedPaneMetadata" noResource="true"/>
                         <Property name="opaque" type="boolean" value="true"/>
                       </Properties>
+                      <Constraints>
+                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                          <GridBagConstraints gridX="-1" gridY="-1" gridWidth="0" gridHeight="0" fill="1" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="18" weightX="1.0" weightY="1.0"/>
+                        </Constraint>
+                      </Constraints>
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
                       <SubComponents>
@@ -1265,12 +1237,12 @@
                               <Layout>
                                 <DimensionLayout dim="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="scrollPaneEditMetadata" alignment="0" pref="137" max="32767" attributes="0"/>
+                                      <Component id="scrollPaneEditMetadata" alignment="0" pref="323" max="32767" attributes="0"/>
                                   </Group>
                                 </DimensionLayout>
                                 <DimensionLayout dim="1">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="scrollPaneEditMetadata" alignment="1" pref="390" max="32767" attributes="0"/>
+                                      <Component id="scrollPaneEditMetadata" alignment="1" pref="442" max="32767" attributes="0"/>
                                   </Group>
                                 </DimensionLayout>
                               </Layout>
@@ -1347,9 +1319,9 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <Component id="labelThumbnailInfo" pref="228" max="32767" attributes="1"/>
+                  <Component id="labelThumbnailInfo" pref="216" max="32767" attributes="1"/>
                   <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                  <Component id="labelStatusbarText" pref="195" max="32767" attributes="0"/>
+                  <Component id="labelStatusbarText" pref="183" max="32767" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="sliderThumbnailSize" min="-2" pref="135" max="-2" attributes="1"/>
                   <EmptySpace max="-2" attributes="0"/>
