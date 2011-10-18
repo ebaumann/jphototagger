@@ -37,7 +37,6 @@ import org.jphototagger.lib.util.CollectionUtil;
 public final class IptcMetaDataDisplayer implements MainWindowComponentProvider {
 
     private final IptcPanel iptcPanel = new IptcPanel();
-    private final IptcTableModel iptcTableModel = iptcPanel.getIptcTableModel();
     private File selectedFile;
     private boolean iptcPanelDisplayed;
 
@@ -57,7 +56,7 @@ public final class IptcMetaDataDisplayer implements MainWindowComponentProvider 
             displaySelectedFile();
         } else {
             selectedFile = null;
-            iptcTableModel.removeAllRows();
+            iptcPanel.removeAllRows();
         }
     }
 
@@ -76,8 +75,49 @@ public final class IptcMetaDataDisplayer implements MainWindowComponentProvider 
             return;
         }
 
-        DisplayIptcMetaData displayIptcMetaData = new DisplayIptcMetaData(selectedFile, iptcTableModel, iptcPanel);
+        DisplayIptcMetaData displayIptcMetaData = new DisplayIptcMetaData(selectedFile, iptcPanel);
         EventQueueUtil.invokeInDispatchThread(displayIptcMetaData);
+    }
+
+    public static class DisplayIptcMetaData implements Runnable {
+
+        private final File file;
+        private final IptcPanel iptcPanel;
+        private static final Logger LOGGER = Logger.getLogger(DisplayIptcMetaData.class.getName());
+
+        public DisplayIptcMetaData(File file, IptcPanel iptcPanel) {
+            this.file = file;
+            this.iptcPanel = iptcPanel;
+        }
+
+        @Override
+        public void run() {
+            if (file == null) {
+                return;
+            }
+
+            if (isDisplayIptc()) {
+                LOGGER.log(Level.FINEST, "Updating IPTC metadata of image file ''{0}'' in GUI table", file);
+                WaitDisplayer waitDisplayer = Lookup.getDefault().lookup(WaitDisplayer.class);
+                waitDisplayer.show();
+                iptcPanel.setFile(file);
+                waitDisplayer.hide();
+            }
+        }
+
+        private boolean isDisplayIptc() {
+            MainWindowManager windowManager = Lookup.getDefault().lookup(MainWindowManager.class);
+            boolean iptcPanelSelected = windowManager.isEditComponentSelected(iptcPanel);
+            return iptcPanelSelected && isDisplayIptcPreferred();
+        }
+
+        private boolean isDisplayIptcPreferred() {
+            Preferences preferences = Lookup.getDefault().lookup(Preferences.class);
+
+            return preferences.containsKey(IptcPreferencesKeys.KEY_DISPLAY_IPTC)
+                    ? preferences.getBoolean(IptcPreferencesKeys.KEY_DISPLAY_IPTC)
+                    : false;
+        }
     }
 
     @Override
@@ -119,49 +159,5 @@ public final class IptcMetaDataDisplayer implements MainWindowComponentProvider 
                 return null;
             }
         });
-    }
-
-    public static class DisplayIptcMetaData implements Runnable {
-
-        private final File file;
-        private final IptcPanel iptcPanel;
-        private final IptcTableModel iptcTableModel;
-        private static final Logger LOGGER = Logger.getLogger(DisplayIptcMetaData.class.getName());
-
-        public DisplayIptcMetaData(File file, IptcTableModel iptcTableModel, IptcPanel iptcPanel) {
-            this.file = file;
-            this.iptcTableModel = iptcTableModel;
-            this.iptcPanel = iptcPanel;
-        }
-
-        @Override
-        public void run() {
-            if (file == null) {
-                return;
-            }
-
-            if (isDisplayIptc()) {
-                LOGGER.log(Level.FINEST, "Updating IPTC metadata of image file ''{0}'' in GUI table", file);
-                WaitDisplayer waitDisplayer = Lookup.getDefault().lookup(WaitDisplayer.class);
-                waitDisplayer.show();
-                iptcTableModel.setFile(file);
-                iptcPanel.resizeTable();
-                waitDisplayer.hide();
-            }
-        }
-
-        private boolean isDisplayIptc() {
-            MainWindowManager windowManager = Lookup.getDefault().lookup(MainWindowManager.class);
-            boolean iptcPanelSelected = windowManager.isEditComponentSelected(iptcPanel);
-            return iptcPanelSelected && isDisplayIptcPreferred();
-        }
-
-        private boolean isDisplayIptcPreferred() {
-            Preferences preferences = Lookup.getDefault().lookup(Preferences.class);
-
-            return preferences.containsKey(IptcPreferencesKeys.KEY_DISPLAY_IPTC)
-                    ? preferences.getBoolean(IptcPreferencesKeys.KEY_DISPLAY_IPTC)
-                    : false;
-        }
     }
 }

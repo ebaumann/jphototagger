@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.io.File;
 import java.util.Comparator;
 import java.util.ResourceBundle;
 
@@ -73,13 +74,18 @@ public class IptcPanel extends javax.swing.JPanel {
         rowSorter.setComparator(2, column2Comparator);
     }
 
-    public void resizeTable() {
+    private void resizeTable() {
         TableUtil.resizeColumnWidthsToFit(tableIptc);
         ComponentUtil.forceRepaint(tableIptc);
     }
 
-    IptcTableModel getIptcTableModel() {
-        return iptcTableModel;
+    void removeAllRows() {
+        iptcTableModel.removeAllRows();
+    }
+
+    void setFile(File file) {
+        iptcTableModel.setFile(file);
+        resizeTable();
     }
 
     private final class IptcTableCellRenderer implements TableCellRenderer {
