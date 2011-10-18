@@ -1,6 +1,7 @@
 package org.jphototagger.repositoryfilebrowser;
 
 import java.awt.Dimension;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.Collection;
 import java.util.List;
@@ -216,6 +217,11 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         panelFilter.add(labelFilterPrompt, gridBagConstraints);
 
         textFieldFilter.setName("textFieldFilter"); // NOI18N
+        textFieldFilter.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                textFieldFilterKeyPressed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -275,6 +281,8 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         binding.setSourceUnreadableValue(null);
         bindingGroup.addBinding(binding);
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${imageFileInfo.imageFilepath}"), labelSelectedFilepath, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        binding.setSourceNullValue("");
+        binding.setSourceUnreadableValue("");
         bindingGroup.addBinding(binding);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -330,7 +338,7 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         imagePanel.setLayout(imagePanelLayout);
         imagePanelLayout.setHorizontalGroup(
             imagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 59, Short.MAX_VALUE)
+            .addGap(0, 51, Short.MAX_VALUE)
         );
         imagePanelLayout.setVerticalGroup(
             imagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -393,6 +401,8 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         labelimeImageFileInRepository.setName("labelimeImageFileInRepository"); // NOI18N
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${imageFileInfo.timeImageFileInRepository}"), labelimeImageFileInRepository, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        binding.setSourceNullValue("");
+        binding.setSourceUnreadableValue("");
         bindingGroup.addBinding(binding);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -412,6 +422,8 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         labelimeImageFileInFileSystem.setName("labelimeImageFileInFileSystem"); // NOI18N
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${imageFileInfo.timeImageFileInFileSystem}"), labelimeImageFileInFileSystem, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        binding.setSourceNullValue("");
+        binding.setSourceUnreadableValue("");
         bindingGroup.addBinding(binding);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -423,8 +435,8 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         labelTimeImageFileWarning.setName("labelTimeImageFileWarning"); // NOI18N
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${imageFileInfo.timeImageFileWarning}"), labelTimeImageFileWarning, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        binding.setSourceNullValue(null);
-        binding.setSourceUnreadableValue(null);
+        binding.setSourceNullValue("");
+        binding.setSourceUnreadableValue("");
         bindingGroup.addBinding(binding);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -469,6 +481,8 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         labelTimeXmpFileInRepository.setName("labelTimeXmpFileInRepository"); // NOI18N
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${imageFileInfo.timeXmpFileInRepository}"), labelTimeXmpFileInRepository, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        binding.setSourceNullValue("");
+        binding.setSourceUnreadableValue("");
         bindingGroup.addBinding(binding);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -488,6 +502,8 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         labelTimeXmpFileInFileSystem.setName("labelTimeXmpFileInFileSystem"); // NOI18N
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${imageFileInfo.timeXmpFileInFileSystem}"), labelTimeXmpFileInFileSystem, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        binding.setSourceNullValue("");
+        binding.setSourceUnreadableValue("");
         bindingGroup.addBinding(binding);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -499,8 +515,8 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         labelTimeXmpFileWarning.setName("labelTimeXmpFileWarning"); // NOI18N
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${imageFileInfo.timeXmpFileWarning}"), labelTimeXmpFileWarning, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        binding.setSourceNullValue(null);
-        binding.setSourceUnreadableValue(null);
+        binding.setSourceNullValue("");
+        binding.setSourceUnreadableValue("");
         bindingGroup.addBinding(binding);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -520,8 +536,8 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         labelThumbnailSizeInfo.setName("labelThumbnailSizeInfo"); // NOI18N
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${imageFileInfo.thumbnailSizeInfo}"), labelThumbnailSizeInfo, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        binding.setSourceNullValue(null);
-        binding.setSourceUnreadableValue(null);
+        binding.setSourceNullValue("");
+        binding.setSourceUnreadableValue("");
         bindingGroup.addBinding(binding);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -560,9 +576,12 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         pack();
     }//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
+    private void textFieldFilterKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldFilterKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            buttonApplyFilter.doClick();
+        }
+    }//GEN-LAST:event_textFieldFilterKeyPressed
+
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
 

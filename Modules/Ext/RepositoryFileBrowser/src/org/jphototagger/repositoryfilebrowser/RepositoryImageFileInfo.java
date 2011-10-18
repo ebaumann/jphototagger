@@ -25,8 +25,8 @@ public class RepositoryImageFileInfo {
     private String timeImageFileInFileSystem = "-";
     private String timeXmpFileInRepository = "-";
     private String timeXmpFileInFileSystem = "-";
-    private Boolean imageFileExists;
-    private Boolean xmpFileExists;
+    private boolean imageFileExists;
+    private boolean xmpFileExists;
     private String timeImageFileWarning;
     private String timeXmpFileWarning;
     private String thumbnailSizeInfo;
@@ -135,7 +135,7 @@ public class RepositoryImageFileInfo {
         return imageFileIcon;
     }
 
-    public Boolean getImageFileExists() {
+    public boolean getImageFileExists() {
         return imageFileExists;
     }
 
@@ -159,7 +159,7 @@ public class RepositoryImageFileInfo {
         return timeXmpFileInRepository;
     }
 
-    public Boolean getXmpFileExists() {
+    public boolean getXmpFileExists() {
         return xmpFileExists;
     }
 
