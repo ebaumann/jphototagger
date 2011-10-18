@@ -14,16 +14,17 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.DomainPreferencesKeys;
+import org.jphototagger.domain.filefilter.AppFileFilterProvider;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
+import org.jphototagger.lib.io.filefilter.FileChooserFilter;
 import org.jphototagger.lib.io.filefilter.RegexFileFilter;
 import org.jphototagger.lib.swing.DirectoryChooser;
 import org.jphototagger.lib.swing.DirectoryChooser.Option;
-import org.jphototagger.lib.swing.util.MnemonicUtil;
-import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.swing.SelectRootFilesPanel;
 import org.jphototagger.lib.swing.util.ComponentUtil;
-import org.jphototagger.program.filefilter.AppFileFilters;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * Panel to select files for a {@code org.jphototagger.program.types.FileEditor}.
@@ -41,7 +42,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     private List<File> selectedDirectories = new ArrayList<File>();
     private File prevSelectedDirectory = new File("");
     private FileEditor fileEditor = new FileEditor();
-    private FileFilter fileChooserFileFilter = AppFileFilters.INSTANCE.getAllAcceptedImageFilesFilter().forFileChooser(Bundle.getString(FileEditorPanel.class, "FileEditorPanel.FileChooserFileFilter.Description"));
+    private FileFilter fileChooserFileFilter = createFileChooserFilter();
     private java.io.FileFilter dirChooserFileFilter = new RegexFileFilter(".*", ";");
     private String title = "";
     private volatile boolean selectDirs;
@@ -70,6 +71,13 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         this.selectDirs = selectDirs;
         initComponents();
         postInitComponents();
+    }
+
+    private FileFilter createFileChooserFilter() {
+        AppFileFilterProvider provider = Lookup.getDefault().lookup(AppFileFilterProvider.class);
+        java.io.FileFilter filter = provider.getAcceptedImageFilesFileFilter();
+        String description = Bundle.getString(FileEditorPanel.class, "FileEditorPanel.FileChooserFileFilter.Description");
+        return new FileChooserFilter(filter, description);
     }
 
     private void postInitComponents() {

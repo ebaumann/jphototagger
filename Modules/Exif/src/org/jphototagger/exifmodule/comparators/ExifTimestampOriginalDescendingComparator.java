@@ -1,4 +1,4 @@
-package org.jphototagger.program.module.exif.comparators;
+package org.jphototagger.exifmodule.comparators;
 
 import java.io.File;
 import java.io.Serializable;
@@ -10,10 +10,11 @@ import org.jphototagger.lib.util.ClassEquality;
 /**
  * @author Elmar Baumann
  */
-public final class ExifFocalLengthDescendingComparator extends ClassEquality implements Comparator<File>, Serializable {
+// Separate class: Will be instanciated via Reflection
+public final class ExifTimestampOriginalDescendingComparator extends ClassEquality implements Comparator<File>, Serializable {
 
     private static final long serialVersionUID = 1L;
-    private final ReverseComparator<File> delegate = new ReverseComparator<File>(new ExifFocalLengthAscendingComparator());
+    private final Comparator<File> delegate = new ReverseComparator<File>(new ExifTimestampOriginalAscendingComparator());
 
     @Override
     public int compare(File fileLeft, File fileRight) {
@@ -22,6 +23,6 @@ public final class ExifFocalLengthDescendingComparator extends ClassEquality imp
 
     @Override
     public String toString() {
-        return "EXIF Focal Length Descending";
+        return "EXIF DateTimeOriginal Date and Time Descending";
     }
 }

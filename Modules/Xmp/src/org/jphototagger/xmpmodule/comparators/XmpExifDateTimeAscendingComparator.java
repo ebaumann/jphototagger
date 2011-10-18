@@ -1,4 +1,4 @@
-package org.jphototagger.program.module.xmp.comparators;
+package org.jphototagger.xmpmodule.comparators;
 
 import java.io.File;
 import java.io.Serializable;

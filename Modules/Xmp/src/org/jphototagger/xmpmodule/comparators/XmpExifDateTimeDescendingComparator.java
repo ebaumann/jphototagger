@@ -1,4 +1,4 @@
-package org.jphototagger.program.module.exif.comparators;
+package org.jphototagger.xmpmodule.comparators;
 
 import java.io.File;
 import java.io.Serializable;
@@ -10,10 +10,11 @@ import org.jphototagger.lib.util.ClassEquality;
 /**
  * @author Elmar Baumann
  */
-public final class ExifDateTimeOriginalDescendingComparator extends ClassEquality implements Comparator<File>, Serializable {
+// Separate class: Will be instanciated via Reflection
+public final class XmpExifDateTimeDescendingComparator extends ClassEquality implements Comparator<File>, Serializable {
 
     private static final long serialVersionUID = 1L;
-    private final ReverseComparator<File> delegate = new ReverseComparator<File>(new ExifDateTimeOriginalAscendingComparator());
+    private final Comparator<File> delegate = new ReverseComparator<File>(new XmpExifDateTimeAscendingComparator());
 
     @Override
     public int compare(File fileLeft, File fileRight) {
@@ -22,6 +23,6 @@ public final class ExifDateTimeOriginalDescendingComparator extends ClassEqualit
 
     @Override
     public String toString() {
-        return "EXIF DateTimeOriginal only Date Descending";
+        return "XMP and EXIF Dates Descending";
     }
 }
