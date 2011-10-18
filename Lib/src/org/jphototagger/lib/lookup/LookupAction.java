@@ -43,21 +43,6 @@ public abstract class LookupAction<T> extends AbstractAction implements LookupLi
         setLookupResult();
     }
 
-    /**
-     * Subclasses can decide whether this action is enabled based on the Lookup's content.
-     *
-     * @param lookupContent
-     * @return b
-     */
-    protected abstract boolean isEnabled(Collection<? extends T> lookupContent);
-
-    /**
-     * Will be called through {@code #actionPerformed(java.awt.event.ActionEvent)} with the Lookup's content.
-     *
-     * @param lookupContent
-     */
-    protected abstract void actionPerformed(Collection<? extends T> lookupContent);
-
     private void setLookupResult() {
         if (lookupResult == null) {
             lookupResult = lookup.lookupResult(lookupResultClass);
@@ -96,4 +81,19 @@ public abstract class LookupAction<T> extends AbstractAction implements LookupLi
         setLookupResult();
         actionPerformed(lookupResult.allInstances());
     }
+
+    /**
+     * Subclasses can decide whether this action is enabled based on the Lookup's content.
+     *
+     * @param lookupContent
+     * @return b
+     */
+    protected abstract boolean isEnabled(Collection<? extends T> lookupContent);
+
+    /**
+     * Will be called through {@code #actionPerformed(java.awt.event.ActionEvent)} with the Lookup's content.
+     *
+     * @param lookupContent
+     */
+    protected abstract void actionPerformed(Collection<? extends T> lookupContent);
 }
