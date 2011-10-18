@@ -26,6 +26,15 @@ public interface Node extends DisplayNameProvider, IconProvider {
     Collection<? extends Action> getActions();
 
     /**
+     * "Temporary selections" are selections additional to "regular selections", usually
+     * triggered if the user right clicks on a node. So the selection set via left click
+     * must not disappear (replaced through a new selection triggered by right click).
+     *
+     * @return actions or empty list
+     */
+    Collection<? extends Action> getActionsForTemporarySelections();
+
+    /**
      *
      * @return maybe null
      */
