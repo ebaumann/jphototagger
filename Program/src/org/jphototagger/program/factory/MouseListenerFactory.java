@@ -1,23 +1,23 @@
 package org.jphototagger.program.factory;
 
+
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.util.ListItemTempSelectionRowSetter;
 import org.jphototagger.lib.swing.util.TreeItemTempSelectionRowSetter;
-import org.jphototagger.lib.swing.TableButtonMouseListener;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.app.ui.AppPanel;
+import org.jphototagger.program.event.listener.TreeExpandMouseListener;
+import org.jphototagger.program.misc.InputHelperDialog;
 import org.jphototagger.program.module.directories.DirectoriesMouseListener;
 import org.jphototagger.program.module.favorites.FavoritesMouseListener;
 import org.jphototagger.program.module.imagecollections.ImageCollectionsMouseListener;
 import org.jphototagger.program.module.keywords.list.KeywordsListMouseListener;
+import org.jphototagger.program.module.keywords.list.KeywordsListPopupMenu;
 import org.jphototagger.program.module.keywords.tree.KeywordsTreeMouseListener;
 import org.jphototagger.program.module.metadatatemplates.MetadataTemplatesMouseListener;
-import org.jphototagger.program.module.search.SavedSearchesMouseListener;
-import org.jphototagger.program.event.listener.TreeExpandMouseListener;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.misc.InputHelperDialog;
-import org.jphototagger.program.app.ui.AppPanel;
-import org.jphototagger.program.module.keywords.list.KeywordsListPopupMenu;
 import org.jphototagger.program.module.metadatatemplates.MetadataTemplatesPopupMenu;
+import org.jphototagger.program.module.search.SavedSearchesMouseListener;
+import org.jphototagger.program.resource.GUI;
 
 /**
  * Erzeugt und verbindet MouseListener.
@@ -57,7 +57,6 @@ public final class MouseListenerFactory {
         TreeExpandMouseListener listenerTreeExpand = new TreeExpandMouseListener();
         KeywordsTreeMouseListener listenerKeywordsTree = new KeywordsTreeMouseListener();
 
-        appPanel.getTableExif().addMouseListener(new TableButtonMouseListener(appPanel.getTableExif()));
         appPanel.getTreeDirectories().addMouseListener(new DirectoriesMouseListener());
         appPanel.getListSavedSearches().addMouseListener(new SavedSearchesMouseListener());
         appPanel.getListEditKeywords().addMouseListener(new KeywordsListMouseListener());

@@ -14,7 +14,7 @@ import org.openide.util.Lookup;
 import org.jphototagger.domain.thumbnails.FileSortComparator;
 import org.jphototagger.domain.thumbnails.FileSortComparators;
 import org.jphototagger.lib.comparator.FileSort;
-import org.jphototagger.lib.comparator.PositionComparatorAscendingOrder;
+import org.jphototagger.lib.comparator.PositionProviderAscendingComparator;
 import org.jphototagger.lib.util.Bundle;
 
 /**
@@ -86,7 +86,7 @@ public final class ThumbnailsSortComboBoxModel extends DefaultComboBoxModel {
             sortedSortComparators.addAll(fscs.getFileSortComparators());
         }
 
-        Collections.sort(sortedSortComparators, PositionComparatorAscendingOrder.INSTANCE);
+        Collections.sort(sortedSortComparators, PositionProviderAscendingComparator.INSTANCE);
 
         for (FileSortComparator fileSortComparator : sortedSortComparators) {
             addElement(new FileSorter(fileSortComparator.getAscendingSortComparator(), fileSortComparator.getAscendingSortComparatorDisplayName()));

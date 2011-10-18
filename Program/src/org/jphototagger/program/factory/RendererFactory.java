@@ -1,8 +1,6 @@
 package org.jphototagger.program.factory;
 
-import java.util.List;
 
-import javax.swing.JTable;
 
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.util.ListItemTempSelectionRowSetter;
@@ -11,12 +9,10 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppPanel;
 import org.jphototagger.program.misc.InputHelperDialog;
 import org.jphototagger.program.module.directories.DirectoriesPopupMenu;
-import org.jphototagger.program.module.exif.ExifTableCellRenderer;
 import org.jphototagger.program.module.favorites.FavoritesPopupMenu;
 import org.jphototagger.program.module.imagecollections.ImageCollectionsPopupMenu;
 import org.jphototagger.program.module.keywords.tree.KeywordsTreePopupMenu;
 import org.jphototagger.program.module.search.SavedSearchesPopupMenu;
-import org.jphototagger.program.module.xmp.XmpTableCellRenderer;
 import org.jphototagger.program.resource.GUI;
 
 /**
@@ -45,24 +41,11 @@ public final class RendererFactory {
             public void run() {
                 String message = Bundle.getString(RendererFactory.class, "RendererFactory.Init.Start");
                 Support.setStatusbarInfo(message);
-                setMetadataTablesRenderers();
                 setPopupMenuHighlighter();
                 message = Bundle.getString(RendererFactory.class, "RendererFactory.Init.Finished");
                 Support.setStatusbarInfo(message);
             }
         });
-    }
-
-    private void setMetadataTablesRenderers() {
-        AppPanel appPanel = GUI.getAppPanel();
-        XmpTableCellRenderer rendererTableCellXmp = new XmpTableCellRenderer();
-        List<JTable> xmpTables = appPanel.getXmpTables();
-
-        for (JTable table : xmpTables) {
-            table.setDefaultRenderer(Object.class, rendererTableCellXmp);
-        }
-
-        appPanel.getTableExif().setDefaultRenderer(Object.class, new ExifTableCellRenderer());
     }
 
     private void setPopupMenuHighlighter() {

@@ -25,27 +25,21 @@ import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
-import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JToggleButton;
 import javax.swing.JTree;
-import javax.swing.JViewport;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.table.TableRowSorter;
-import javax.swing.table.TableStringConverter;
-import javax.swing.text.Document;
-import javax.swing.text.JTextComponent;
 import javax.swing.tree.TreeSelectionModel;
 
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.JXTree;
 
-import org.openide.util.Lookup;
-
 import org.bushe.swing.event.EventBus;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+
+import org.openide.util.Lookup;
 
 import org.jphototagger.api.messages.MessageType;
 import org.jphototagger.api.preferences.Preferences;
@@ -55,28 +49,23 @@ import org.jphototagger.api.windows.MainWindowComponentProvider;
 import org.jphototagger.api.windows.TabInEditWindowDisplayedEvent;
 import org.jphototagger.api.windows.TabInSelectionWindowDisplayedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.comparator.PositionComparatorAscendingOrder;
+import org.jphototagger.lib.comparator.PositionProviderAscendingComparator;
 import org.jphototagger.lib.swing.ImageTextArea;
 import org.jphototagger.lib.swing.MessageLabel;
-import org.jphototagger.lib.swing.TableTextFilter;
 import org.jphototagger.lib.swing.TreeExpandCollapseAllAction;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.swingx.ListTextFilter;
 import org.jphototagger.lib.swingx.SearchInJxListAction;
 import org.jphototagger.lib.swingx.SearchInJxTreeAction;
-import org.jphototagger.program.module.exif.ExifTableCellRenderer;
 import org.jphototagger.program.module.keywords.KeywordsPanel;
 import org.jphototagger.program.module.thumbnails.SettingsThumbnailDimensionsDialog;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
 import org.jphototagger.program.module.thumbnails.ThumbnailsSortComboBoxModel;
-import org.jphototagger.program.module.xmp.XmpTableCellRenderer;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.settings.AppPreferencesKeys;
 
 /**
- * Panel der Anwendung.
- *
  * @author Elmar Baumann, Tobias Stening
  */
 public final class AppPanel extends javax.swing.JPanel {
@@ -87,8 +76,6 @@ public final class AppPanel extends javax.swing.JPanel {
     private static final int DEFAULT_DIVIDER_LOCATION_MAIN = 100;
     private static final int DEFAULT_DIVIDER_LOCATION_THUMBNAILS = 200;
     private transient MessageLabel messageLabel;
-    private final List<JTable> xmpTables = new ArrayList<JTable>();
-    private final List<JTable> metadataTables = new ArrayList<JTable>();
     private final List<JTree> selectionTrees = new ArrayList<JTree>();
     private final List<JXList> selectionLists = new ArrayList<JXList>();
     private transient EditMetadataPanels editMetadtaPanels;
@@ -111,13 +98,11 @@ public final class AppPanel extends javax.swing.JPanel {
         toggleDisplaySearchButton();
         editMetadtaPanels = new EditMetadataPanels(panelEditMetadata);
         panelThumbnails.setViewport(scrollPaneThumbnails.getViewport());
-        setBackgroundColorToTablesViewports();
         setTreesSingleSelection();
         initCollections();
         scrollPaneThumbnails.getVerticalScrollBar().setUnitIncrement(30);
         setMnemonics();
         initListTextFilters();
-        setTableTextFilters();
         AnnotationProcessor.process(this);
         tabbedPaneMetadata.addChangeListener(tabbedPaneEditChangeListener);
         tabbedPaneSelection.addChangeListener(tabbedPaneSelectionChangeListener);
@@ -126,7 +111,6 @@ public final class AppPanel extends javax.swing.JPanel {
     private void setMnemonics() {
 
         // Do not set mnemonics to left panel because it can trigger edit actions!
-        MnemonicUtil.setMnemonics((Container) panelExif);
         MnemonicUtil.setMnemonics((Container) panelSearch);
     }
 
@@ -138,38 +122,6 @@ public final class AppPanel extends javax.swing.JPanel {
         listSelKeywordsTextFilter.filterOnDocumentChanges(textFieldListSelKeywordsFilter.getDocument());
         listSavedSearchesTextFilter.filterOnDocumentChanges(textFieldListSavedSearchesFilter.getDocument());
         listImageCollectionsTextFilter.filterOnDocumentChanges(textFieldListImageCollectionsFilter.getDocument());
-    }
-
-    private void setTableTextFilters() {
-        setExifTableTextFilter();
-        setXmpTableTextFilter(textFieldTableXmpCameraRawSettingsFilter, tableXmpCameraRawSettings);
-        setXmpTableTextFilter(textFieldTableXmpDcFilter, tableXmpDc);
-        setXmpTableTextFilter(textFieldTableXmpExifFilter, tableXmpExif);
-        setXmpTableTextFilter(textFieldTableXmpIptcFilter, tableXmpIptc);
-        setXmpTableTextFilter(textFieldTableXmpLightroomFilter, tableXmpLightroom);
-        setXmpTableTextFilter(textFieldTableXmpPhotoshopFilter, tableXmpPhotoshop);
-        setXmpTableTextFilter(textFieldTableXmpTiffFilter, tableXmpTiff);
-        setXmpTableTextFilter(textFieldTableXmpXapFilter, tableXmpXap);
-    }
-
-    private void setExifTableTextFilter() {
-        TableRowSorter<?> rowSorter = (TableRowSorter<?>) tableExif.getRowSorter();
-        TableStringConverter stringConverter = ExifTableCellRenderer.createTableStringConverter();
-        Document document = textFieldTableExifFilter.getDocument();
-        TableTextFilter tableTextFilter = new TableTextFilter(tableExif, stringConverter);
-
-        rowSorter.setStringConverter(stringConverter);
-        document.addDocumentListener(tableTextFilter);
-    }
-
-    private void setXmpTableTextFilter(JTextComponent filterTextComponent, JTable xmpTable) {
-        TableRowSorter<?> rowSorter = (TableRowSorter<?>) xmpTable.getRowSorter();
-        TableStringConverter stringConverter = XmpTableCellRenderer.createTableStringConverter();
-        Document document = filterTextComponent.getDocument();
-        TableTextFilter tableTextFilter = new TableTextFilter(xmpTable, stringConverter);
-
-        rowSorter.setStringConverter(stringConverter);
-        document.addDocumentListener(tableTextFilter);
     }
 
     private void toggleDisplaySearchButton() {
@@ -215,30 +167,8 @@ public final class AppPanel extends javax.swing.JPanel {
     }
 
     private void initCollections() {
-        initTablesCollection();
         initSelectionTreesCollection();
         initSelectionListsCollection();
-    }
-
-    private void initTablesCollection() {
-        initXmpTablesCollection();
-        initMetadataTablesCollection();
-    }
-
-    private void initMetadataTablesCollection() {
-        metadataTables.addAll(xmpTables);
-        metadataTables.add(tableExif);
-    }
-
-    private void initXmpTablesCollection() {
-        xmpTables.add(tableXmpCameraRawSettings);
-        xmpTables.add(tableXmpDc);
-        xmpTables.add(tableXmpExif);
-        xmpTables.add(tableXmpIptc);
-        xmpTables.add(tableXmpLightroom);
-        xmpTables.add(tableXmpPhotoshop);
-        xmpTables.add(tableXmpTiff);
-        xmpTables.add(tableXmpXap);
     }
 
     private void initSelectionTreesCollection() {
@@ -253,18 +183,6 @@ public final class AppPanel extends javax.swing.JPanel {
         selectionLists.add(listImageCollections);
         selectionLists.add(listSelKeywords);
         selectionLists.add(listSavedSearches);
-    }
-
-    private void setBackgroundColorToTablesViewports() {
-        for (JTable table : metadataTables) {
-            Container container = table.getParent();
-
-            if (container instanceof JViewport) {
-                JViewport viewport = (JViewport) container;
-
-                viewport.setBackground(table.getBackground());
-            }
-        }
     }
 
     private int getDividerLocationMain() {
@@ -407,22 +325,6 @@ public final class AppPanel extends javax.swing.JPanel {
 
     public JTabbedPane getTabbedPaneSelection() {
         return tabbedPaneSelection;
-    }
-
-    public boolean isTabMetadataExifSelected() {
-        return tabbedPaneMetadata.getSelectedComponent() == panelExif;
-    }
-
-    public boolean isTabMetadataXmpSelected() {
-        return tabbedPaneMetadata.getSelectedComponent() == tabbedPaneXmp;
-    }
-
-    public Component getTabMetadataExif() {
-        return panelExif;
-    }
-
-    public Component getTabMetadataXmp() {
-        return tabbedPaneXmp;
     }
 
     public Component getTabEditKeywords() {
@@ -569,10 +471,6 @@ public final class AppPanel extends javax.swing.JPanel {
         return panelEditActions.buttonMetadataTemplateDelete;
     }
 
-    public JButton getButtonExifToXmp() {
-        return buttonExifToXmp;
-    }
-
     public JButton getButtonSearch() {
         return buttonSearch;
     }
@@ -603,50 +501,6 @@ public final class AppPanel extends javax.swing.JPanel {
 
     public JTextArea getTextAreaSearch() {
         return textAreaSearch;
-    }
-
-    public List<JTable> getMetadataTables() {
-        return Collections.unmodifiableList(metadataTables);
-    }
-
-    public List<JTable> getXmpTables() {
-        return Collections.unmodifiableList(xmpTables);
-    }
-
-    public JTable getTableExif() {
-        return tableExif;
-    }
-
-    public JTable getTableXmpCameraRawSettings() {
-        return tableXmpCameraRawSettings;
-    }
-
-    public JTable getTableXmpDc() {
-        return tableXmpDc;
-    }
-
-    public JTable getTableXmpExif() {
-        return tableXmpExif;
-    }
-
-    public JTable getTableXmpIptc() {
-        return tableXmpIptc;
-    }
-
-    public JTable getTableXmpLightroom() {
-        return tableXmpLightroom;
-    }
-
-    public JTable getTableXmpPhotoshop() {
-        return tableXmpPhotoshop;
-    }
-
-    public JTable getTableXmpTiff() {
-        return tableXmpTiff;
-    }
-
-    public JTable getTableXmpXap() {
-        return tableXmpXap;
     }
 
     public JComboBox getComboBoxFastSearch() {
@@ -691,7 +545,7 @@ public final class AppPanel extends javax.swing.JPanel {
     }
 
     private void insterIntoEditTabbedPane(List<MainWindowComponent> components) {
-        Collections.sort(components, PositionComparatorAscendingOrder.INSTANCE);
+        Collections.sort(components, PositionProviderAscendingComparator.INSTANCE);
         for (MainWindowComponent component : components) {
             dockIntoTabbedPane(component, tabbedPaneMetadata);
             SelectTabAction selectTabAction = createSelectTabAction(component, tabbedPaneMetadata);
@@ -700,7 +554,7 @@ public final class AppPanel extends javax.swing.JPanel {
     }
 
     private void insterIntoSelectionTabbedPane(List<MainWindowComponent> components) {
-        Collections.sort(components, PositionComparatorAscendingOrder.INSTANCE);
+        Collections.sort(components, PositionProviderAscendingComparator.INSTANCE);
         for (MainWindowComponent component : components) {
             dockIntoTabbedPane(component, tabbedPaneSelection);
             SelectTabAction selectTabAction = createSelectTabAction(component, tabbedPaneSelection);
@@ -866,62 +720,6 @@ public final class AppPanel extends javax.swing.JPanel {
         panelMetadata = new javax.swing.JPanel();
         labelMetadataFilename = new javax.swing.JLabel();
         tabbedPaneMetadata = new javax.swing.JTabbedPane();
-        panelExif = new javax.swing.JPanel();
-        panelTableExifFilter = new javax.swing.JPanel();
-        labelTableExifFilter = new javax.swing.JLabel();
-        textFieldTableExifFilter = new javax.swing.JTextField();
-        scrollPaneExif = new javax.swing.JScrollPane();
-        tableExif = new javax.swing.JTable();
-        buttonExifToXmp = new javax.swing.JButton();
-        tabbedPaneXmp = new javax.swing.JTabbedPane();
-        panelTableXmpTiff = new javax.swing.JPanel();
-        panelTableXmpTiffFilter = new javax.swing.JPanel();
-        labelTableXmpTiffFilter = new javax.swing.JLabel();
-        textFieldTableXmpTiffFilter = new javax.swing.JTextField();
-        scrollPaneXmpTiff = new javax.swing.JScrollPane();
-        tableXmpTiff = new javax.swing.JTable();
-        panelTableXmpExif = new javax.swing.JPanel();
-        panelTableXmpExifFilter = new javax.swing.JPanel();
-        labelTableXmpExifFilter = new javax.swing.JLabel();
-        textFieldTableXmpExifFilter = new javax.swing.JTextField();
-        scrollPaneXmpExif = new javax.swing.JScrollPane();
-        tableXmpExif = new javax.swing.JTable();
-        panelTableXmpDc = new javax.swing.JPanel();
-        panelTableXmpDcFilter = new javax.swing.JPanel();
-        labelTableXmpDcFilter = new javax.swing.JLabel();
-        textFieldTableXmpDcFilter = new javax.swing.JTextField();
-        scrollPaneXmpDc = new javax.swing.JScrollPane();
-        tableXmpDc = new javax.swing.JTable();
-        panelTableXmpIptc = new javax.swing.JPanel();
-        panelTableXmpIptcFilter = new javax.swing.JPanel();
-        labelTableXmpIptcFilter = new javax.swing.JLabel();
-        textFieldTableXmpIptcFilter = new javax.swing.JTextField();
-        scrollPaneXmpIptc = new javax.swing.JScrollPane();
-        tableXmpIptc = new javax.swing.JTable();
-        panelTableXmpPhotoshop = new javax.swing.JPanel();
-        panelTableXmpPhotoshopFilter = new javax.swing.JPanel();
-        labelTableXmpPhotoshopFilter = new javax.swing.JLabel();
-        textFieldTableXmpPhotoshopFilter = new javax.swing.JTextField();
-        scrollPaneXmpPhotoshop = new javax.swing.JScrollPane();
-        tableXmpPhotoshop = new javax.swing.JTable();
-        panelTableXmpXap = new javax.swing.JPanel();
-        panelTableXmpXapFilter = new javax.swing.JPanel();
-        labelTableXmpXapFilter = new javax.swing.JLabel();
-        textFieldTableXmpXapFilter = new javax.swing.JTextField();
-        scrollPaneXmpXap = new javax.swing.JScrollPane();
-        tableXmpXap = new javax.swing.JTable();
-        panelTableXmpLightroom = new javax.swing.JPanel();
-        panelTableXmpLightroomFilter = new javax.swing.JPanel();
-        labelTableXmpLightroomFilter = new javax.swing.JLabel();
-        textFieldTableXmpLightroomFilter = new javax.swing.JTextField();
-        scrollPaneXmpLightroom = new javax.swing.JScrollPane();
-        tableXmpLightroom = new javax.swing.JTable();
-        panelTableXmpCameraRawSettings = new javax.swing.JPanel();
-        panelTableXmpCameraRawSettingsFilter = new javax.swing.JPanel();
-        labelTableXmpCameraRawSettingsFilter = new javax.swing.JLabel();
-        textFieldTableXmpCameraRawSettingsFilter = new javax.swing.JTextField();
-        scrollPaneXmpCameraRawSettings = new javax.swing.JScrollPane();
-        tableXmpCameraRawSettings = new javax.swing.JTable();
         panelTabEditMetadata = new javax.swing.JPanel();
         panelScrollPaneEditMetadata = new javax.swing.JPanel();
         scrollPaneEditMetadata = new javax.swing.JScrollPane();
@@ -1581,509 +1379,6 @@ public final class AppPanel extends javax.swing.JPanel {
         tabbedPaneMetadata.setName("tabbedPaneMetadata"); // NOI18N
         tabbedPaneMetadata.setOpaque(true);
 
-        panelExif.setName("panelExif"); // NOI18N
-        panelExif.setLayout(new java.awt.GridBagLayout());
-
-        panelTableExifFilter.setName("panelTableExifFilter"); // NOI18N
-        panelTableExifFilter.setLayout(new java.awt.GridBagLayout());
-
-        labelTableExifFilter.setLabelFor(textFieldTableExifFilter);
-        labelTableExifFilter.setText(bundle.getString("AppPanel.labelTableExifFilter.text")); // NOI18N
-        labelTableExifFilter.setName("labelTableExifFilter"); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        panelTableExifFilter.add(labelTableExifFilter, gridBagConstraints);
-
-        textFieldTableExifFilter.setName("textFieldTableExifFilter"); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
-        panelTableExifFilter.add(textFieldTableExifFilter, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
-        panelExif.add(panelTableExifFilter, gridBagConstraints);
-
-        scrollPaneExif.setName("scrollPaneExif"); // NOI18N
-
-        tableExif.setAutoCreateRowSorter(true);
-        tableExif.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        tableExif.setName("tableExif"); // NOI18N
-        scrollPaneExif.setViewportView(tableExif);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        panelExif.add(scrollPaneExif, gridBagConstraints);
-
-        buttonExifToXmp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_xmp.png"))); // NOI18N
-        buttonExifToXmp.setText(bundle.getString("AppPanel.buttonExifToXmp.text")); // NOI18N
-        buttonExifToXmp.setToolTipText(bundle.getString("AppPanel.buttonExifToXmp.toolTipText")); // NOI18N
-        buttonExifToXmp.setMargin(new java.awt.Insets(2, 2, 2, 2));
-        buttonExifToXmp.setName("buttonExifToXmp"); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(2, 0, 2, 2);
-        panelExif.add(buttonExifToXmp, gridBagConstraints);
-
-        tabbedPaneMetadata.addTab(bundle.getString("AppPanel.panelExif.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_exif.png")), panelExif); // NOI18N
-
-        tabbedPaneXmp.setName("tabbedPaneXmp"); // NOI18N
-        tabbedPaneXmp.setOpaque(true);
-
-        panelTableXmpTiff.setName("panelTableXmpTiff"); // NOI18N
-        panelTableXmpTiff.setLayout(new java.awt.GridBagLayout());
-
-        panelTableXmpTiffFilter.setName("panelTableXmpTiffFilter"); // NOI18N
-        panelTableXmpTiffFilter.setLayout(new java.awt.GridBagLayout());
-
-        labelTableXmpTiffFilter.setLabelFor(textFieldTableXmpTiffFilter);
-        labelTableXmpTiffFilter.setText(bundle.getString("AppPanel.labelTableXmpTiffFilter.text")); // NOI18N
-        labelTableXmpTiffFilter.setName("labelTableXmpTiffFilter"); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        panelTableXmpTiffFilter.add(labelTableXmpTiffFilter, gridBagConstraints);
-
-        textFieldTableXmpTiffFilter.setName("textFieldTableXmpTiffFilter"); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
-        panelTableXmpTiffFilter.add(textFieldTableXmpTiffFilter, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
-        panelTableXmpTiff.add(panelTableXmpTiffFilter, gridBagConstraints);
-
-        scrollPaneXmpTiff.setName("scrollPaneXmpTiff"); // NOI18N
-
-        tableXmpTiff.setAutoCreateRowSorter(true);
-        tableXmpTiff.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        tableXmpTiff.setName("tableXmpTiff"); // NOI18N
-        scrollPaneXmpTiff.setViewportView(tableXmpTiff);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.gridheight = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        panelTableXmpTiff.add(scrollPaneXmpTiff, gridBagConstraints);
-
-        tabbedPaneXmp.addTab(bundle.getString("AppPanel.panelTableXmpTiff.TabConstraints.tabTitle"), panelTableXmpTiff); // NOI18N
-
-        panelTableXmpExif.setName("panelTableXmpExif"); // NOI18N
-        panelTableXmpExif.setLayout(new java.awt.GridBagLayout());
-
-        panelTableXmpExifFilter.setName("panelTableXmpExifFilter"); // NOI18N
-        panelTableXmpExifFilter.setLayout(new java.awt.GridBagLayout());
-
-        labelTableXmpExifFilter.setLabelFor(textFieldTableXmpExifFilter);
-        labelTableXmpExifFilter.setText(bundle.getString("AppPanel.labelTableXmpExifFilter.text")); // NOI18N
-        labelTableXmpExifFilter.setName("labelTableXmpExifFilter"); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        panelTableXmpExifFilter.add(labelTableXmpExifFilter, gridBagConstraints);
-
-        textFieldTableXmpExifFilter.setName("textFieldTableXmpExifFilter"); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
-        panelTableXmpExifFilter.add(textFieldTableXmpExifFilter, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
-        panelTableXmpExif.add(panelTableXmpExifFilter, gridBagConstraints);
-
-        scrollPaneXmpExif.setName("scrollPaneXmpExif"); // NOI18N
-
-        tableXmpExif.setAutoCreateRowSorter(true);
-        tableXmpExif.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        tableXmpExif.setName("tableXmpExif"); // NOI18N
-        scrollPaneXmpExif.setViewportView(tableXmpExif);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.gridheight = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        panelTableXmpExif.add(scrollPaneXmpExif, gridBagConstraints);
-
-        tabbedPaneXmp.addTab(bundle.getString("AppPanel.panelTableXmpExif.TabConstraints.tabTitle"), panelTableXmpExif); // NOI18N
-
-        panelTableXmpDc.setName("panelTableXmpDc"); // NOI18N
-        panelTableXmpDc.setLayout(new java.awt.GridBagLayout());
-
-        panelTableXmpDcFilter.setName("panelTableXmpDcFilter"); // NOI18N
-        panelTableXmpDcFilter.setLayout(new java.awt.GridBagLayout());
-
-        labelTableXmpDcFilter.setLabelFor(textFieldTableXmpDcFilter);
-        labelTableXmpDcFilter.setText(bundle.getString("AppPanel.labelTableXmpDcFilter.text")); // NOI18N
-        labelTableXmpDcFilter.setName("labelTableXmpDcFilter"); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        panelTableXmpDcFilter.add(labelTableXmpDcFilter, gridBagConstraints);
-
-        textFieldTableXmpDcFilter.setName("textFieldTableXmpDcFilter"); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
-        panelTableXmpDcFilter.add(textFieldTableXmpDcFilter, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
-        panelTableXmpDc.add(panelTableXmpDcFilter, gridBagConstraints);
-
-        scrollPaneXmpDc.setName("scrollPaneXmpDc"); // NOI18N
-
-        tableXmpDc.setAutoCreateRowSorter(true);
-        tableXmpDc.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        tableXmpDc.setName("tableXmpDc"); // NOI18N
-        scrollPaneXmpDc.setViewportView(tableXmpDc);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.gridheight = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        panelTableXmpDc.add(scrollPaneXmpDc, gridBagConstraints);
-
-        tabbedPaneXmp.addTab(bundle.getString("AppPanel.panelTableXmpDc.TabConstraints.tabTitle"), panelTableXmpDc); // NOI18N
-
-        panelTableXmpIptc.setName("panelTableXmpIptc"); // NOI18N
-        panelTableXmpIptc.setLayout(new java.awt.GridBagLayout());
-
-        panelTableXmpIptcFilter.setName("panelTableXmpIptcFilter"); // NOI18N
-        panelTableXmpIptcFilter.setLayout(new java.awt.GridBagLayout());
-
-        labelTableXmpIptcFilter.setLabelFor(textFieldTableXmpIptcFilter);
-        labelTableXmpIptcFilter.setText(bundle.getString("AppPanel.labelTableXmpIptcFilter.text")); // NOI18N
-        labelTableXmpIptcFilter.setName("labelTableXmpIptcFilter"); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        panelTableXmpIptcFilter.add(labelTableXmpIptcFilter, gridBagConstraints);
-
-        textFieldTableXmpIptcFilter.setName("textFieldTableXmpIptcFilter"); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
-        panelTableXmpIptcFilter.add(textFieldTableXmpIptcFilter, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
-        panelTableXmpIptc.add(panelTableXmpIptcFilter, gridBagConstraints);
-
-        scrollPaneXmpIptc.setName("scrollPaneXmpIptc"); // NOI18N
-
-        tableXmpIptc.setAutoCreateRowSorter(true);
-        tableXmpIptc.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        tableXmpIptc.setName("tableXmpIptc"); // NOI18N
-        scrollPaneXmpIptc.setViewportView(tableXmpIptc);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.gridheight = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        panelTableXmpIptc.add(scrollPaneXmpIptc, gridBagConstraints);
-
-        tabbedPaneXmp.addTab(bundle.getString("AppPanel.panelTableXmpIptc.TabConstraints.tabTitle"), panelTableXmpIptc); // NOI18N
-
-        panelTableXmpPhotoshop.setName("panelTableXmpPhotoshop"); // NOI18N
-        panelTableXmpPhotoshop.setLayout(new java.awt.GridBagLayout());
-
-        panelTableXmpPhotoshopFilter.setName("panelTableXmpPhotoshopFilter"); // NOI18N
-        panelTableXmpPhotoshopFilter.setLayout(new java.awt.GridBagLayout());
-
-        labelTableXmpPhotoshopFilter.setLabelFor(textFieldTableXmpPhotoshopFilter);
-        labelTableXmpPhotoshopFilter.setText(bundle.getString("AppPanel.labelTableXmpPhotoshopFilter.text")); // NOI18N
-        labelTableXmpPhotoshopFilter.setName("labelTableXmpPhotoshopFilter"); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        panelTableXmpPhotoshopFilter.add(labelTableXmpPhotoshopFilter, gridBagConstraints);
-
-        textFieldTableXmpPhotoshopFilter.setName("textFieldTableXmpPhotoshopFilter"); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
-        panelTableXmpPhotoshopFilter.add(textFieldTableXmpPhotoshopFilter, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
-        panelTableXmpPhotoshop.add(panelTableXmpPhotoshopFilter, gridBagConstraints);
-
-        scrollPaneXmpPhotoshop.setName("scrollPaneXmpPhotoshop"); // NOI18N
-
-        tableXmpPhotoshop.setAutoCreateRowSorter(true);
-        tableXmpPhotoshop.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        tableXmpPhotoshop.setName("tableXmpPhotoshop"); // NOI18N
-        scrollPaneXmpPhotoshop.setViewportView(tableXmpPhotoshop);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.gridheight = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        panelTableXmpPhotoshop.add(scrollPaneXmpPhotoshop, gridBagConstraints);
-
-        tabbedPaneXmp.addTab(bundle.getString("AppPanel.panelTableXmpPhotoshop.TabConstraints.tabTitle"), panelTableXmpPhotoshop); // NOI18N
-
-        panelTableXmpXap.setName("panelTableXmpXap"); // NOI18N
-        panelTableXmpXap.setLayout(new java.awt.GridBagLayout());
-
-        panelTableXmpXapFilter.setName("panelTableXmpXapFilter"); // NOI18N
-        panelTableXmpXapFilter.setLayout(new java.awt.GridBagLayout());
-
-        labelTableXmpXapFilter.setLabelFor(textFieldTableXmpXapFilter);
-        labelTableXmpXapFilter.setText(bundle.getString("AppPanel.labelTableXmpXapFilter.text")); // NOI18N
-        labelTableXmpXapFilter.setName("labelTableXmpXapFilter"); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        panelTableXmpXapFilter.add(labelTableXmpXapFilter, gridBagConstraints);
-
-        textFieldTableXmpXapFilter.setName("textFieldTableXmpXapFilter"); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
-        panelTableXmpXapFilter.add(textFieldTableXmpXapFilter, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
-        panelTableXmpXap.add(panelTableXmpXapFilter, gridBagConstraints);
-
-        scrollPaneXmpXap.setName("scrollPaneXmpXap"); // NOI18N
-
-        tableXmpXap.setAutoCreateRowSorter(true);
-        tableXmpXap.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        tableXmpXap.setName("tableXmpXap"); // NOI18N
-        scrollPaneXmpXap.setViewportView(tableXmpXap);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.gridheight = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        panelTableXmpXap.add(scrollPaneXmpXap, gridBagConstraints);
-
-        tabbedPaneXmp.addTab(bundle.getString("AppPanel.panelTableXmpXap.TabConstraints.tabTitle"), panelTableXmpXap); // NOI18N
-
-        panelTableXmpLightroom.setName("panelTableXmpLightroom"); // NOI18N
-        panelTableXmpLightroom.setLayout(new java.awt.GridBagLayout());
-
-        panelTableXmpLightroomFilter.setName("panelTableXmpLightroomFilter"); // NOI18N
-        panelTableXmpLightroomFilter.setLayout(new java.awt.GridBagLayout());
-
-        labelTableXmpLightroomFilter.setLabelFor(textFieldTableXmpLightroomFilter);
-        labelTableXmpLightroomFilter.setText(bundle.getString("AppPanel.labelTableXmpLightroomFilter.text")); // NOI18N
-        labelTableXmpLightroomFilter.setName("labelTableXmpLightroomFilter"); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        panelTableXmpLightroomFilter.add(labelTableXmpLightroomFilter, gridBagConstraints);
-
-        textFieldTableXmpLightroomFilter.setName("textFieldTableXmpLightroomFilter"); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
-        panelTableXmpLightroomFilter.add(textFieldTableXmpLightroomFilter, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
-        panelTableXmpLightroom.add(panelTableXmpLightroomFilter, gridBagConstraints);
-
-        scrollPaneXmpLightroom.setName("scrollPaneXmpLightroom"); // NOI18N
-
-        tableXmpLightroom.setAutoCreateRowSorter(true);
-        tableXmpLightroom.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        tableXmpLightroom.setName("tableXmpLightroom"); // NOI18N
-        scrollPaneXmpLightroom.setViewportView(tableXmpLightroom);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.gridheight = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        panelTableXmpLightroom.add(scrollPaneXmpLightroom, gridBagConstraints);
-
-        tabbedPaneXmp.addTab(bundle.getString("AppPanel.panelTableXmpLightroom.TabConstraints.tabTitle"), panelTableXmpLightroom); // NOI18N
-
-        panelTableXmpCameraRawSettings.setName("panelTableXmpCameraRawSettings"); // NOI18N
-        panelTableXmpCameraRawSettings.setLayout(new java.awt.GridBagLayout());
-
-        panelTableXmpCameraRawSettingsFilter.setName("panelTableXmpCameraRawSettingsFilter"); // NOI18N
-        panelTableXmpCameraRawSettingsFilter.setLayout(new java.awt.GridBagLayout());
-
-        labelTableXmpCameraRawSettingsFilter.setLabelFor(textFieldTableXmpCameraRawSettingsFilter);
-        labelTableXmpCameraRawSettingsFilter.setText(bundle.getString("AppPanel.labelTableXmpCameraRawSettingsFilter.text")); // NOI18N
-        labelTableXmpCameraRawSettingsFilter.setName("labelTableXmpCameraRawSettingsFilter"); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        panelTableXmpCameraRawSettingsFilter.add(labelTableXmpCameraRawSettingsFilter, gridBagConstraints);
-
-        textFieldTableXmpCameraRawSettingsFilter.setName("textFieldTableXmpCameraRawSettingsFilter"); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
-        panelTableXmpCameraRawSettingsFilter.add(textFieldTableXmpCameraRawSettingsFilter, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
-        panelTableXmpCameraRawSettings.add(panelTableXmpCameraRawSettingsFilter, gridBagConstraints);
-
-        scrollPaneXmpCameraRawSettings.setName("scrollPaneXmpCameraRawSettings"); // NOI18N
-
-        tableXmpCameraRawSettings.setAutoCreateRowSorter(true);
-        tableXmpCameraRawSettings.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        tableXmpCameraRawSettings.setName("tableXmpCameraRawSettings"); // NOI18N
-        scrollPaneXmpCameraRawSettings.setViewportView(tableXmpCameraRawSettings);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.gridheight = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        panelTableXmpCameraRawSettings.add(scrollPaneXmpCameraRawSettings, gridBagConstraints);
-
-        tabbedPaneXmp.addTab(bundle.getString("AppPanel.panelTableXmpCameraRawSettings.TabConstraints.tabTitle"), panelTableXmpCameraRawSettings); // NOI18N
-
-        tabbedPaneMetadata.addTab(bundle.getString("AppPanel.tabbedPaneXmp.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_xmp.png")), tabbedPaneXmp); // NOI18N
-
         panelTabEditMetadata.setName("panelTabEditMetadata"); // NOI18N
 
         panelScrollPaneEditMetadata.setName("panelScrollPaneEditMetadata"); // NOI18N
@@ -2113,7 +1408,7 @@ public final class AppPanel extends javax.swing.JPanel {
         );
         panelScrollPaneEditMetadataLayout.setVerticalGroup(
             panelScrollPaneEditMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneEditMetadata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
+            .addComponent(scrollPaneEditMetadata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout panelTabEditMetadataLayout = new javax.swing.GroupLayout(panelTabEditMetadata);
@@ -2268,7 +1563,6 @@ public final class AppPanel extends javax.swing.JPanel {
     private javax.swing.JButton buttonCancelProgress;
     private javax.swing.JButton buttonDisplaySelKeywordsList;
     private javax.swing.JButton buttonDisplaySelKeywordsTree;
-    private javax.swing.JButton buttonExifToXmp;
     private javax.swing.ButtonGroup buttonGroupKeywordsMultipleSel;
     private javax.swing.JButton buttonSearch;
     private javax.swing.JButton buttonSearchInDirectories;
@@ -2291,15 +1585,6 @@ public final class AppPanel extends javax.swing.JPanel {
     private javax.swing.JLabel labelListSelKeywordsFilter;
     private javax.swing.JLabel labelMetadataFilename;
     private javax.swing.JLabel labelStatusbarText;
-    private javax.swing.JLabel labelTableExifFilter;
-    private javax.swing.JLabel labelTableXmpCameraRawSettingsFilter;
-    private javax.swing.JLabel labelTableXmpDcFilter;
-    private javax.swing.JLabel labelTableXmpExifFilter;
-    private javax.swing.JLabel labelTableXmpIptcFilter;
-    private javax.swing.JLabel labelTableXmpLightroomFilter;
-    private javax.swing.JLabel labelTableXmpPhotoshopFilter;
-    private javax.swing.JLabel labelTableXmpTiffFilter;
-    private javax.swing.JLabel labelTableXmpXapFilter;
     private javax.swing.JLabel labelThumbnailInfo;
     private org.jdesktop.swingx.JXList listImageCollections;
     private org.jdesktop.swingx.JXList listSavedSearches;
@@ -2308,7 +1593,6 @@ public final class AppPanel extends javax.swing.JPanel {
     private javax.swing.JPanel panelDisplayedThumbnailFilters;
     private org.jphototagger.program.module.keywords.KeywordsPanel panelEditKeywords;
     private javax.swing.JPanel panelEditMetadata;
-    private javax.swing.JPanel panelExif;
     private javax.swing.JPanel panelFavorites;
     private javax.swing.JPanel panelImageCollections;
     private javax.swing.JPanel panelListImageCollectionsFilter;
@@ -2326,23 +1610,6 @@ public final class AppPanel extends javax.swing.JPanel {
     private javax.swing.JPanel panelSelection;
     private javax.swing.JPanel panelStatusbar;
     private javax.swing.JPanel panelTabEditMetadata;
-    private javax.swing.JPanel panelTableExifFilter;
-    private javax.swing.JPanel panelTableXmpCameraRawSettings;
-    private javax.swing.JPanel panelTableXmpCameraRawSettingsFilter;
-    private javax.swing.JPanel panelTableXmpDc;
-    private javax.swing.JPanel panelTableXmpDcFilter;
-    private javax.swing.JPanel panelTableXmpExif;
-    private javax.swing.JPanel panelTableXmpExifFilter;
-    private javax.swing.JPanel panelTableXmpIptc;
-    private javax.swing.JPanel panelTableXmpIptcFilter;
-    private javax.swing.JPanel panelTableXmpLightroom;
-    private javax.swing.JPanel panelTableXmpLightroomFilter;
-    private javax.swing.JPanel panelTableXmpPhotoshop;
-    private javax.swing.JPanel panelTableXmpPhotoshopFilter;
-    private javax.swing.JPanel panelTableXmpTiff;
-    private javax.swing.JPanel panelTableXmpTiffFilter;
-    private javax.swing.JPanel panelTableXmpXap;
-    private javax.swing.JPanel panelTableXmpXapFilter;
     private org.jphototagger.program.module.thumbnails.ThumbnailsPanel panelThumbnails;
     private javax.swing.JPanel panelThumbnailsContent;
     private javax.swing.JPanel panelThumbnailsMetadata;
@@ -2352,7 +1619,6 @@ public final class AppPanel extends javax.swing.JPanel {
     private javax.swing.JRadioButton radioButtonSelKeywordsMultipleSelOne;
     private javax.swing.JScrollPane scrollPaneDirectories;
     private javax.swing.JScrollPane scrollPaneEditMetadata;
-    private javax.swing.JScrollPane scrollPaneExif;
     private javax.swing.JScrollPane scrollPaneFavorites;
     private javax.swing.JScrollPane scrollPaneImageCollections;
     private javax.swing.JScrollPane scrollPaneMiscMetadata;
@@ -2362,42 +1628,15 @@ public final class AppPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane scrollPaneTextAreaSearch;
     private javax.swing.JScrollPane scrollPaneThumbnails;
     private javax.swing.JScrollPane scrollPaneTimeline;
-    private javax.swing.JScrollPane scrollPaneXmpCameraRawSettings;
-    private javax.swing.JScrollPane scrollPaneXmpDc;
-    private javax.swing.JScrollPane scrollPaneXmpExif;
-    private javax.swing.JScrollPane scrollPaneXmpIptc;
-    private javax.swing.JScrollPane scrollPaneXmpLightroom;
-    private javax.swing.JScrollPane scrollPaneXmpPhotoshop;
-    private javax.swing.JScrollPane scrollPaneXmpTiff;
-    private javax.swing.JScrollPane scrollPaneXmpXap;
     private javax.swing.JSlider sliderThumbnailSize;
     private javax.swing.JSplitPane splitPaneMain;
     private javax.swing.JSplitPane splitPaneThumbnailsMetadata;
     private javax.swing.JTabbedPane tabbedPaneMetadata;
     private javax.swing.JTabbedPane tabbedPaneSelection;
-    private javax.swing.JTabbedPane tabbedPaneXmp;
-    private javax.swing.JTable tableExif;
-    private javax.swing.JTable tableXmpCameraRawSettings;
-    private javax.swing.JTable tableXmpDc;
-    private javax.swing.JTable tableXmpExif;
-    private javax.swing.JTable tableXmpIptc;
-    private javax.swing.JTable tableXmpLightroom;
-    private javax.swing.JTable tableXmpPhotoshop;
-    private javax.swing.JTable tableXmpTiff;
-    private javax.swing.JTable tableXmpXap;
     private javax.swing.JTextArea textAreaSearch;
     private javax.swing.JTextField textFieldListImageCollectionsFilter;
     private javax.swing.JTextField textFieldListSavedSearchesFilter;
     private javax.swing.JTextField textFieldListSelKeywordsFilter;
-    private javax.swing.JTextField textFieldTableExifFilter;
-    private javax.swing.JTextField textFieldTableXmpCameraRawSettingsFilter;
-    private javax.swing.JTextField textFieldTableXmpDcFilter;
-    private javax.swing.JTextField textFieldTableXmpExifFilter;
-    private javax.swing.JTextField textFieldTableXmpIptcFilter;
-    private javax.swing.JTextField textFieldTableXmpLightroomFilter;
-    private javax.swing.JTextField textFieldTableXmpPhotoshopFilter;
-    private javax.swing.JTextField textFieldTableXmpTiffFilter;
-    private javax.swing.JTextField textFieldTableXmpXapFilter;
     private javax.swing.JToggleButton toggleButtonExpandAllNodesSelKeywords;
     private javax.swing.JToggleButton toggleButtonExpandCollapseTreeMiscMetadata;
     private javax.swing.JToggleButton toggleButtonExpandCollapseTreeTimeline;

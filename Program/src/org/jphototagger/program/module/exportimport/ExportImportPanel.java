@@ -25,7 +25,7 @@ import org.jphototagger.lib.swing.LongMessageDialog;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.CollectionUtil;
-import org.jphototagger.lib.comparator.PositionComparatorAscendingOrder;
+import org.jphototagger.lib.comparator.PositionProviderAscendingComparator;
 import org.jphototagger.program.resource.GUI;
 
 /**
@@ -134,7 +134,7 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
             }
         }
 
-        Collections.sort(jptExporters, PositionComparatorAscendingOrder.INSTANCE);
+        Collections.sort(jptExporters, PositionProviderAscendingComparator.INSTANCE);
 
         return jptExporters;
     }
@@ -160,7 +160,7 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
             }
         }
 
-        Collections.sort(jptImporters, PositionComparatorAscendingOrder.INSTANCE);
+        Collections.sort(jptImporters, PositionProviderAscendingComparator.INSTANCE);
 
         return jptImporters;
     }

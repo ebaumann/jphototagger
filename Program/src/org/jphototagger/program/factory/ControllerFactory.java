@@ -25,7 +25,6 @@ import org.jphototagger.program.module.directories.DirectorySelectedController;
 import org.jphototagger.program.module.directories.PasteFilesIntoDirectoryController;
 import org.jphototagger.program.module.directories.RefreshDirectoryTreeController;
 import org.jphototagger.program.module.directories.RenameDirectoryController;
-import org.jphototagger.program.module.exif.SetExifToXmpController;
 import org.jphototagger.program.module.favorites.AddFilesystemFolderToFavoritesController;
 import org.jphototagger.program.module.favorites.DeleteFavoriteController;
 import org.jphototagger.program.module.favorites.DeleteFilesystemFolderFromFavoritesController;
@@ -66,7 +65,6 @@ import org.jphototagger.program.module.keywords.tree.RenameKeywordController;
 import org.jphototagger.program.module.keywords.tree.ShowKeywordsDialogController;
 import org.jphototagger.program.module.keywords.tree.ToggleButtonExpandKeywordsTreeController;
 import org.jphototagger.program.module.keywords.tree.ToggleRealKeywordController;
-import org.jphototagger.program.module.metadata.ShowMetadataController;
 import org.jphototagger.program.module.metadatatemplates.AddMetadataTemplateController;
 import org.jphototagger.program.module.metadatatemplates.DeleteMetadataTemplateController;
 import org.jphototagger.program.module.metadatatemplates.EditMetadataTemplateController;
@@ -107,7 +105,6 @@ import org.jphototagger.program.module.thumbnails.ThumbnailsPanelPersistenceCont
 import org.jphototagger.program.module.thumbnails.ThumbnailsRepositoryChangesController;
 import org.jphototagger.program.module.thumbnails.ToggleKeywordOverlayController;
 import org.jphototagger.program.module.timeline.TimelineItemSelectedController;
-import org.jphototagger.program.module.xmp.ExtractEmbeddedXmpController;
 import org.jphototagger.program.plugins.FileProcessorPluginsController;
 import org.jphototagger.program.resource.GUI;
 
@@ -145,7 +142,6 @@ public final class ControllerFactory {
                 addThumbnailsPanelControllers();
                 addMetadataEditPanelsControllers();
                 addFavoritesControllers();
-                addMetadataTablesControllers();
                 addDirectoryTreeControllers();
                 addMetadataTemplatesControllers();
                 addMiscMetadataControllers();
@@ -164,7 +160,6 @@ public final class ControllerFactory {
         support.add(new ToggleKeywordOverlayController());
         support.add(new ThumbnailSizeSliderController());
         support.add(new SortThumbnailsController());
-        support.add(new ExtractEmbeddedXmpController());
         support.add(new AboutJPhotoTaggerController());
         support.add(new HelpController());
         support.add(new ShowUserSettingsDialogController());
@@ -265,11 +260,6 @@ public final class ControllerFactory {
         support.add(new AddFilesystemFolderToFavoritesController());
         support.add(new RenameFilesystemFolderInFavoritesController());
         support.add(new DeleteFilesystemFolderFromFavoritesController());
-    }
-
-    private void addMetadataTablesControllers() {
-        support.add(new ShowMetadataController());
-        support.add(new SetExifToXmpController());
     }
 
     private void addDirectoryTreeControllers() {

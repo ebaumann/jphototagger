@@ -21,7 +21,7 @@ import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.api.storage.Persistence;
 import org.jphototagger.api.windows.OptionPageProvider;
 import org.jphototagger.domain.repository.FileRepositoryProvider;
-import org.jphototagger.lib.comparator.PositionComparatorAscendingOrder;
+import org.jphototagger.lib.comparator.PositionProviderAscendingComparator;
 import org.jphototagger.lib.swing.DirectoryChooser;
 import org.jphototagger.lib.swing.DirectoryChooser.Option;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
@@ -228,7 +228,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
     private void lookupMiscOptionPages() {
         List<OptionPageProvider> providers =
                 new ArrayList<OptionPageProvider>(Lookup.getDefault().lookupAll(OptionPageProvider.class));
-        Collections.sort(providers, PositionComparatorAscendingOrder.INSTANCE);
+        Collections.sort(providers, PositionProviderAscendingComparator.INSTANCE);
         for (OptionPageProvider provider : providers) {
             if (provider.isMiscOptionPage()) {
                 addTab(provider.getComponent(), provider.getTitle(), provider.getIcon());

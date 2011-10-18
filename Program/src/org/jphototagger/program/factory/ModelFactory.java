@@ -2,14 +2,11 @@ package org.jphototagger.program.factory;
 
 import java.awt.Cursor;
 import java.io.File;
-import java.util.Comparator;
 import java.util.List;
 
 import javax.swing.JList;
-import javax.swing.JTable;
 import javax.swing.JTree;
 import javax.swing.SortOrder;
-import javax.swing.table.TableRowSorter;
 import javax.swing.tree.TreeModel;
 
 import org.jdesktop.swingx.JXList;
@@ -28,8 +25,6 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppPanel;
 import org.jphototagger.program.app.ui.AppWindowPersistence;
 import org.jphototagger.program.misc.InputHelperDialog;
-import org.jphototagger.program.module.exif.ExifTableCellRenderer;
-import org.jphototagger.program.module.exif.ExifTableModel;
 import org.jphototagger.program.module.favorites.FavoritesTreeModel;
 import org.jphototagger.program.module.imagecollections.ImageCollectionsListModel;
 import org.jphototagger.program.module.keywords.KeywordHighlightPredicate;
@@ -42,8 +37,6 @@ import org.jphototagger.program.module.miscmetadata.MiscMetadataTreeModel;
 import org.jphototagger.program.module.search.SavedSearchesListModel;
 import org.jphototagger.program.module.thumbnails.FileFiltersComboBoxModel;
 import org.jphototagger.program.module.timeline.TimelineTreeModel;
-import org.jphototagger.program.module.xmp.XmpTableCellRenderer;
-import org.jphototagger.program.module.xmp.XmpTableModel;
 import org.jphototagger.program.resource.GUI;
 
 /**
@@ -74,7 +67,6 @@ public final class ModelFactory {
 
                 String message = Bundle.getString(ModelFactory.class, "ModelFactory.Init.Start");
                 Support.setStatusbarInfo(message);
-                setTableModels(appPanel);
                 setComboBoxModels(appPanel);
                 setListModels(appPanel);
                 setTreeModels(appPanel);
@@ -208,72 +200,6 @@ public final class ModelFactory {
                 });
             }
         }, "JPhotoTagger: Creating Keywords list").start();
-    }
-
-    private void setTableModels(AppPanel appPanel) {
-        String message = Bundle.getString(ModelFactory.class, "ModelFactory.Starting.TableModels");
-        Support.setStatusbarInfo(message);
-
-        XmpTableModel modelXmp1 = new XmpTableModel();
-        XmpTableModel modelXmp2 = new XmpTableModel();
-        XmpTableModel modelXmp3 = new XmpTableModel();
-        XmpTableModel modelXmp4 = new XmpTableModel();
-        XmpTableModel modelXmp5 = new XmpTableModel();
-        XmpTableModel modelXmp6 = new XmpTableModel();
-        XmpTableModel modelXmp7 = new XmpTableModel();
-        XmpTableModel modelXmp8 = new XmpTableModel();
-        ExifTableModel modelExif = new ExifTableModel();
-
-        support.add(modelXmp1);
-        support.add(modelXmp2);
-        support.add(modelXmp3);
-        support.add(modelXmp4);
-        support.add(modelXmp5);
-        support.add(modelXmp6);
-        support.add(modelXmp7);
-        support.add(modelXmp8);
-        support.add(modelExif);
-
-        appPanel.getTableXmpCameraRawSettings().setModel(modelXmp1);
-        appPanel.getTableXmpDc().setModel(modelXmp2);
-        appPanel.getTableXmpExif().setModel(modelXmp3);
-        appPanel.getTableXmpIptc().setModel(modelXmp4);
-        appPanel.getTableXmpLightroom().setModel(modelXmp5);
-        appPanel.getTableXmpPhotoshop().setModel(modelXmp6);
-        appPanel.getTableXmpTiff().setModel(modelXmp7);
-        appPanel.getTableXmpXap().setModel(modelXmp8);
-        appPanel.getTableExif().setModel(modelExif);
-
-        setXmpTableComparator(appPanel.getTableXmpCameraRawSettings());
-        setXmpTableComparator(appPanel.getTableXmpDc());
-        setXmpTableComparator(appPanel.getTableXmpExif());
-        setXmpTableComparator(appPanel.getTableXmpIptc());
-        setXmpTableComparator(appPanel.getTableXmpLightroom());
-        setXmpTableComparator(appPanel.getTableXmpPhotoshop());
-        setXmpTableComparator(appPanel.getTableXmpTiff());
-        setXmpTableComparator(appPanel.getTableXmpXap());
-        setExifTableComparator(appPanel.getTableExif());
-
-        message = Bundle.getString(ModelFactory.class, "ModelFactory.Finished.TableModels");
-        Support.setStatusbarInfo(message);
-    }
-
-    private void setXmpTableComparator(JTable xmpTable) {
-        TableRowSorter<?> rowSorter = (TableRowSorter<?>) xmpTable.getRowSorter();
-        Comparator<?> column0Comparator = XmpTableCellRenderer.createColumn0Comparator();
-        Comparator<?> column1Comparator = XmpTableCellRenderer.createColumn1Comparator();
-
-        rowSorter.setComparator(0, column0Comparator);
-        rowSorter.setComparator(1, column1Comparator);
-    }
-
-    private void setExifTableComparator(JTable exif) {
-        TableRowSorter<?> rowSorter = (TableRowSorter<?>) exif.getRowSorter();
-        Comparator<?> column0Comparator = ExifTableCellRenderer.createColumn0Comparator();
-        Comparator<?> column1Comparator = ExifTableCellRenderer.createColumn1Comparator();
-
-        rowSorter.setComparator(0, column0Comparator);
-        rowSorter.setComparator(1, column1Comparator);
     }
 
     private void setTreeModels(AppPanel appPanel) {
