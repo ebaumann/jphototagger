@@ -13,7 +13,7 @@ import org.jphototagger.api.modules.Module;
 import org.jphototagger.api.modules.ModuleDescription;
 import org.jphototagger.api.windows.MainWindowComponent;
 import org.jphototagger.api.windows.MainWindowComponentProvider;
-import org.jphototagger.api.windows.MainWindowComponentProviderAdapter;
+import org.jphototagger.lib.api.MainWindowComponentProviderAdapter;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
 

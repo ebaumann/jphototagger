@@ -30,9 +30,9 @@ import org.jphototagger.domain.repository.event.programs.ProgramDeletedEvent;
 import org.jphototagger.domain.repository.event.programs.ProgramInsertedEvent;
 import org.jphototagger.domain.repository.event.programs.ProgramUpdatedEvent;
 import org.jphototagger.domain.thumbnails.ThumbnailsPopupMenuItemProvider;
-import org.jphototagger.lib.comparator.PositionComparatorAscendingOrder;
-import org.jphototagger.lib.swing.KeyEventUtil;
+import org.jphototagger.lib.comparator.PositionProviderAscendingComparator;
 import org.jphototagger.lib.swing.IconUtil;
+import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.factory.FileProcessorPluginManager;
@@ -47,7 +47,6 @@ import org.jphototagger.program.plugins.PluginAction;
  */
 public final class ThumbnailsPopupMenu extends JPopupMenu {
 
-    public static final ThumbnailsPopupMenu INSTANCE = new ThumbnailsPopupMenu();
     private static final long serialVersionUID = 1L;
     private static final AddProgramController ADD_PROGRAM_ACTION = new AddProgramController();
     private final JMenu menuRefresh = new JMenu(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.MenuRefresh"));
@@ -83,7 +82,6 @@ public final class ThumbnailsPopupMenu extends JPopupMenu {
     private final JMenuItem itemFileSystemMoveFiles = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.FileSystemMove"));
     private final JMenuItem itemFileSystemDeleteFiles = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.FileSystemDeleteFiles"), AppLookAndFeel.ICON_DELETE);
     private final JMenuItem itemFileSystemCopyToDirectory = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.FileSystemCopyToDirectory"), AppLookAndFeel.ICON_COPY);
-    private final JMenuItem itemExifToXmp = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.ExifToXmp"));
     private final JMenuItem itemDeleteImageFromRepository = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.DeleteImageFromRepository"));
     private final JMenuItem itemDeleteFromImageCollection = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.DeleteFromImageCollection"), AppLookAndFeel.getIcon("icon_imagecollection_remove_from.png"));
     private final JMenuItem itemCutToClipboard = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.ItemCutToClipboard"), AppLookAndFeel.ICON_CUT);
@@ -97,6 +95,8 @@ public final class ThumbnailsPopupMenu extends JPopupMenu {
     private final Map<JMenuItem, Long> RATING_OF_ITEM = new HashMap<JMenuItem, Long>();
     private final Map<JMenuItem, FileProcessorPlugin> FILE_PROCESSOR_PLUGIN_OF_ITEM = new HashMap<JMenuItem, FileProcessorPlugin>();
     private final Map<JMenuItem, Action> ACTION_OF_ITEM = new HashMap<JMenuItem, Action>();
+
+    public static final ThumbnailsPopupMenu INSTANCE = new ThumbnailsPopupMenu();
 
     private ThumbnailsPopupMenu() {
         init();
@@ -143,7 +143,6 @@ public final class ThumbnailsPopupMenu extends JPopupMenu {
         add(menuImageCollection);
         menuMetadata.add(itemCopyMetadata);
         menuMetadata.add(itemPasteMetadata);
-        menuMetadata.add(itemExifToXmp);
         add(menuMetadata);
         itemPasteMetadata.setEnabled(false);
         menuFsOps.add(itemCopyToClipboard);
@@ -179,7 +178,7 @@ public final class ThumbnailsPopupMenu extends JPopupMenu {
     }
 
     private void insertMenuItems(List<MenuItemProvider> itemProviders, JMenu intoMenu) {
-        Collections.sort(itemProviders, PositionComparatorAscendingOrder.INSTANCE);
+        Collections.sort(itemProviders, PositionProviderAscendingComparator.INSTANCE);
         for (MenuItemProvider itemProvider : itemProviders) {
             int intoItemCount = intoMenu == null ? getComponentCount() : intoMenu.getItemCount();
             int itemProviderPosition = itemProvider.getPosition();
@@ -337,10 +336,6 @@ public final class ThumbnailsPopupMenu extends JPopupMenu {
 
     public JMenuItem getItemRefresh() {
         return itemRefresh;
-    }
-
-    public JMenuItem getItemExifToXmp() {
-        return itemExifToXmp;
     }
 
     public JMenuItem getItemPick() {

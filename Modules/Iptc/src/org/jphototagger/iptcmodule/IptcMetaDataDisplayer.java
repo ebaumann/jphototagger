@@ -11,11 +11,11 @@ import java.util.logging.Logger;
 
 import javax.swing.Icon;
 
-import org.openide.util.Lookup;
-import org.openide.util.lookup.ServiceProvider;
-
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+
+import org.openide.util.Lookup;
+import org.openide.util.lookup.ServiceProvider;
 
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.windows.MainWindowComponent;
@@ -25,7 +25,7 @@ import org.jphototagger.api.windows.TabInEditWindowDisplayedEvent;
 import org.jphototagger.api.windows.WaitDisplayer;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
 import org.jphototagger.iptc.IptcPreferencesKeys;
-import org.jphototagger.iptc.IptcPreferencesKeys;
+import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.CollectionUtil;
@@ -77,7 +77,7 @@ public final class IptcMetaDataDisplayer implements MainWindowComponentProvider 
         }
 
         DisplayIptcMetaData displayIptcMetaData = new DisplayIptcMetaData(selectedFile, iptcTableModel, iptcPanel);
-        displayIptcMetaData.start();
+        EventQueueUtil.invokeInDispatchThread(displayIptcMetaData);
     }
 
     @Override
@@ -121,7 +121,7 @@ public final class IptcMetaDataDisplayer implements MainWindowComponentProvider 
         });
     }
 
-    public static class DisplayIptcMetaData extends Thread {
+    public static class DisplayIptcMetaData implements Runnable {
 
         private final File file;
         private final IptcPanel iptcPanel;
@@ -129,7 +129,6 @@ public final class IptcMetaDataDisplayer implements MainWindowComponentProvider 
         private static final Logger LOGGER = Logger.getLogger(DisplayIptcMetaData.class.getName());
 
         public DisplayIptcMetaData(File file, IptcTableModel iptcTableModel, IptcPanel iptcPanel) {
-            super("JPhotoTagger: Displaying IPTC Metadata");
             this.file = file;
             this.iptcTableModel = iptcTableModel;
             this.iptcPanel = iptcPanel;

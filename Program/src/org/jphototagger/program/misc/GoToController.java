@@ -35,8 +35,6 @@ public final class GoToController implements ActionListener {
         componentOfGoTo.put(AppFrame.GoTo.TIMELINE, appPanel.getTabSelectionTimeline());
         componentOfGoTo.put(AppFrame.GoTo.MISC_METADATA, appPanel.getTabSelectionMiscMetadata());
         componentOfGoTo.put(AppFrame.GoTo.EDIT_PANELS, appPanel.getTabMetadataEdit());
-        componentOfGoTo.put(AppFrame.GoTo.EXIF_METADATA, appPanel.getTabMetadataExif());
-        componentOfGoTo.put(AppFrame.GoTo.XMP_METADATA, appPanel.getTabMetadataXmp());
         componentOfGoTo.put(AppFrame.GoTo.KEYWORDS_EDIT, appPanel.getTabEditKeywords());
         tabbedPaneOfGoTo.put(AppFrame.GoTo.IMAGE_COLLECTIONS, appPanel.getTabbedPaneSelection());
         tabbedPaneOfGoTo.put(AppFrame.GoTo.DIRECTORIES, appPanel.getTabbedPaneSelection());
@@ -46,8 +44,6 @@ public final class GoToController implements ActionListener {
         tabbedPaneOfGoTo.put(AppFrame.GoTo.TIMELINE, appPanel.getTabbedPaneSelection());
         tabbedPaneOfGoTo.put(AppFrame.GoTo.MISC_METADATA, appPanel.getTabbedPaneSelection());
         tabbedPaneOfGoTo.put(AppFrame.GoTo.EDIT_PANELS, appPanel.getTabbedPaneMetadata());
-        tabbedPaneOfGoTo.put(AppFrame.GoTo.EXIF_METADATA, appPanel.getTabbedPaneMetadata());
-        tabbedPaneOfGoTo.put(AppFrame.GoTo.XMP_METADATA, appPanel.getTabbedPaneMetadata());
         tabbedPaneOfGoTo.put(AppFrame.GoTo.KEYWORDS_EDIT, appPanel.getTabbedPaneMetadata());
     }
 
@@ -60,7 +56,8 @@ public final class GoToController implements ActionListener {
         AppFrame appFrame = GUI.getAppFrame();
 
         for (AppFrame.GoTo gt : AppFrame.GoTo.values()) {
-            appFrame.getMenuItemOfGoto(gt).addActionListener(this);
+            JMenuItem menuItem = appFrame.getMenuItemOfGoto(gt);
+            menuItem.addActionListener(this);
         }
     }
 
