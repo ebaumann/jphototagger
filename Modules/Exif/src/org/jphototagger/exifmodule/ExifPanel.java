@@ -72,10 +72,6 @@ public class ExifPanel extends javax.swing.JPanel {
         rowSorter.setComparator(1, column1Comparator);
     }
 
-    ExifTableModel getExifTableModel() {
-        return exifTableModel;
-    }
-
     void removeAllRows() {
         exifTableModel.removeAllRows();
     }
