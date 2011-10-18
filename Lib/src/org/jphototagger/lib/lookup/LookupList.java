@@ -34,6 +34,7 @@ public final class LookupList extends JXList implements Lookup.Provider, MouseLi
     private final Lookup selectionLookup = new AbstractLookup(selectionContent);
     private final InstanceContent temporarySelectionContent = new InstanceContent();
     private final Lookup temporarySelectionLookup = new AbstractLookup(temporarySelectionContent);
+    private int lastSelectionCount = 0;
     private int lastRightClickIndex = -1;
 
     public LookupList() {
@@ -57,16 +58,19 @@ public final class LookupList extends JXList implements Lookup.Provider, MouseLi
     @Override
     public void mousePressed(MouseEvent e) {
         int mouseCursorIndex = ListUtil.getItemIndex(e);
+        int currentSelectionCount = ListUtil.getSelectionCount(this);
         Collection<?> selectedContent = LookupUtil.createContentOfSelectedValues(this);
 
         if (!MouseEventUtil.isPopupTrigger(e)) {
-            if (mouseCursorIndex != lastRightClickIndex) {
+            if (mouseCursorIndex != lastRightClickIndex || lastSelectionCount != currentSelectionCount) {
                 lastRightClickIndex = mouseCursorIndex;
                 selectionContent.set(selectedContent, null);
             }
+            lastSelectionCount = currentSelectionCount;
             return;
         }
 
+        lastSelectionCount = currentSelectionCount;
         if (isSelectedIndex(mouseCursorIndex)) {
             boolean isTemporarySelection = false;
             showPopupMenu(e.getX(), e.getY(), selectedContent, isTemporarySelection);
