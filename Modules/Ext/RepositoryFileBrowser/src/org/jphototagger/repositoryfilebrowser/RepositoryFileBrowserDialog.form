@@ -73,6 +73,9 @@
               <Properties>
                 <Property name="name" type="java.lang.String" value="textFieldFilter" noResource="true"/>
               </Properties>
+              <Events>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="textFieldFilterKeyPressed"/>
+              </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
                   <GridBagConstraints gridX="1" gridY="0" gridWidth="1" gridHeight="1" fill="2" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="5" insetsBottom="0" insetsRight="0" anchor="17" weightX="1.0" weightY="0.0"/>
@@ -171,7 +174,10 @@
                     <Image iconType="0" name="null"/>
                   </Property>
                 </BindingProperty>
-                <BindingProperty name="text" source="Form" sourcePath="${imageFileInfo.imageFilepath}" target="labelSelectedFilepath" targetPath="text" updateStrategy="0" immediately="false"/>
+                <BindingProperty name="text" source="Form" sourcePath="${imageFileInfo.imageFilepath}" target="labelSelectedFilepath" targetPath="text" updateStrategy="0" immediately="false">
+                  <Property name="nullValue" type="java.lang.String" value=""/>
+                  <Property name="incompletePathValue" type="java.lang.String" value=""/>
+                </BindingProperty>
               </BindingProperties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
@@ -284,7 +290,7 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="59" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="51" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -374,7 +380,10 @@
                         <Property name="name" type="java.lang.String" value="labelimeImageFileInRepository" noResource="true"/>
                       </Properties>
                       <BindingProperties>
-                        <BindingProperty name="text" source="Form" sourcePath="${imageFileInfo.timeImageFileInRepository}" target="labelimeImageFileInRepository" targetPath="text" updateStrategy="0" immediately="false"/>
+                        <BindingProperty name="text" source="Form" sourcePath="${imageFileInfo.timeImageFileInRepository}" target="labelimeImageFileInRepository" targetPath="text" updateStrategy="0" immediately="false">
+                          <Property name="nullValue" type="java.lang.String" value=""/>
+                          <Property name="incompletePathValue" type="java.lang.String" value=""/>
+                        </BindingProperty>
                       </BindingProperties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
@@ -400,7 +409,10 @@
                         <Property name="name" type="java.lang.String" value="labelimeImageFileInFileSystem" noResource="true"/>
                       </Properties>
                       <BindingProperties>
-                        <BindingProperty name="text" source="Form" sourcePath="${imageFileInfo.timeImageFileInFileSystem}" target="labelimeImageFileInFileSystem" targetPath="text" updateStrategy="0" immediately="false"/>
+                        <BindingProperty name="text" source="Form" sourcePath="${imageFileInfo.timeImageFileInFileSystem}" target="labelimeImageFileInFileSystem" targetPath="text" updateStrategy="0" immediately="false">
+                          <Property name="nullValue" type="java.lang.String" value=""/>
+                          <Property name="incompletePathValue" type="java.lang.String" value=""/>
+                        </BindingProperty>
                       </BindingProperties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
@@ -417,8 +429,8 @@
                       </Properties>
                       <BindingProperties>
                         <BindingProperty name="text" source="Form" sourcePath="${imageFileInfo.timeImageFileWarning}" target="labelTimeImageFileWarning" targetPath="text" updateStrategy="0" immediately="false">
-                          <Property name="nullValue" type="java.lang.String" value="null"/>
-                          <Property name="incompletePathValue" type="java.lang.String" value="null"/>
+                          <Property name="nullValue" type="java.lang.String" value=""/>
+                          <Property name="incompletePathValue" type="java.lang.String" value=""/>
                         </BindingProperty>
                       </BindingProperties>
                       <Constraints>
@@ -485,7 +497,10 @@
                         <Property name="name" type="java.lang.String" value="labelTimeXmpFileInRepository" noResource="true"/>
                       </Properties>
                       <BindingProperties>
-                        <BindingProperty name="text" source="Form" sourcePath="${imageFileInfo.timeXmpFileInRepository}" target="labelTimeXmpFileInRepository" targetPath="text" updateStrategy="0" immediately="false"/>
+                        <BindingProperty name="text" source="Form" sourcePath="${imageFileInfo.timeXmpFileInRepository}" target="labelTimeXmpFileInRepository" targetPath="text" updateStrategy="0" immediately="false">
+                          <Property name="nullValue" type="java.lang.String" value=""/>
+                          <Property name="incompletePathValue" type="java.lang.String" value=""/>
+                        </BindingProperty>
                       </BindingProperties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
@@ -511,7 +526,10 @@
                         <Property name="name" type="java.lang.String" value="labelTimeXmpFileInFileSystem" noResource="true"/>
                       </Properties>
                       <BindingProperties>
-                        <BindingProperty name="text" source="Form" sourcePath="${imageFileInfo.timeXmpFileInFileSystem}" target="labelTimeXmpFileInFileSystem" targetPath="text" updateStrategy="0" immediately="false"/>
+                        <BindingProperty name="text" source="Form" sourcePath="${imageFileInfo.timeXmpFileInFileSystem}" target="labelTimeXmpFileInFileSystem" targetPath="text" updateStrategy="0" immediately="false">
+                          <Property name="nullValue" type="java.lang.String" value=""/>
+                          <Property name="incompletePathValue" type="java.lang.String" value=""/>
+                        </BindingProperty>
                       </BindingProperties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
@@ -528,8 +546,8 @@
                       </Properties>
                       <BindingProperties>
                         <BindingProperty name="text" source="Form" sourcePath="${imageFileInfo.timeXmpFileWarning}" target="labelTimeXmpFileWarning" targetPath="text" updateStrategy="0" immediately="false">
-                          <Property name="nullValue" type="java.lang.String" value="null"/>
-                          <Property name="incompletePathValue" type="java.lang.String" value="null"/>
+                          <Property name="nullValue" type="java.lang.String" value=""/>
+                          <Property name="incompletePathValue" type="java.lang.String" value=""/>
                         </BindingProperty>
                       </BindingProperties>
                       <Constraints>
@@ -546,8 +564,8 @@
                   </Properties>
                   <BindingProperties>
                     <BindingProperty name="text" source="Form" sourcePath="${imageFileInfo.thumbnailSizeInfo}" target="labelThumbnailSizeInfo" targetPath="text" updateStrategy="0" immediately="false">
-                      <Property name="nullValue" type="java.lang.String" value="null"/>
-                      <Property name="incompletePathValue" type="java.lang.String" value="null"/>
+                      <Property name="nullValue" type="java.lang.String" value=""/>
+                      <Property name="incompletePathValue" type="java.lang.String" value=""/>
                     </BindingProperty>
                   </BindingProperties>
                   <Constraints>
