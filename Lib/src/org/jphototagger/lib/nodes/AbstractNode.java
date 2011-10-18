@@ -55,6 +55,15 @@ public abstract class AbstractNode implements Node, HtmlDisplayNameProvider {
 
     /**
      *
+     * @return empty collection
+     */
+    @Override
+    public Collection<? extends Action> getActionsForTemporarySelections() {
+        return Collections.<Action>emptyList();
+    }
+
+    /**
+     *
      * @return null
      */
     @Override
