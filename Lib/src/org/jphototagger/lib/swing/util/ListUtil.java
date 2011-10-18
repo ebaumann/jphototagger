@@ -12,6 +12,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.ListModel;
 
+import javax.swing.ListSelectionModel;
 import org.jdesktop.swingx.JXList;
 
 /**
@@ -251,6 +252,22 @@ public final class ListUtil {
         }
 
         return -1;
+    }
+
+    public static int getSelectionCount(JList list) {
+        if (list == null) {
+            throw new NullPointerException("list == null");
+        }
+
+        ListSelectionModel selectionModel = list.getSelectionModel();
+        int minSelectionIndex = selectionModel.getMinSelectionIndex();
+        int maxSelectionIndex = selectionModel.getMaxSelectionIndex();
+
+        if (minSelectionIndex < 0 || maxSelectionIndex < 0) {
+            return 0;
+        }
+
+        return maxSelectionIndex - minSelectionIndex + 1;
     }
 
     /**
