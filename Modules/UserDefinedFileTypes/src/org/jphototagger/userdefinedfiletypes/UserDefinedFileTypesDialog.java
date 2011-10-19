@@ -1,8 +1,8 @@
-package org.jphototagger.program.module.userdefinedfiletypes;
+package org.jphototagger.userdefinedfiletypes;
 
-import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.swing.Dialog;
-import org.jphototagger.program.resource.GUI;
+import org.jphototagger.lib.swing.util.ComponentUtil;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
 
 /**
  * @author Elmar Baumann
@@ -12,7 +12,7 @@ public class UserDefinedFileTypesDialog extends Dialog {
     private static final long serialVersionUID = 1L;
 
     public UserDefinedFileTypesDialog() {
-        super(GUI.getAppFrame(), true);
+        super(ComponentUtil.findFrameWithIcon(), true);
         initComponents();
         postInitComponents();
     }
@@ -36,10 +36,10 @@ public class UserDefinedFileTypesDialog extends Dialog {
     @SuppressWarnings("unchecked")
     private void initComponents() {//GEN-BEGIN:initComponents
 
-        panelUserDefinedFileTypes = new org.jphototagger.program.module.userdefinedfiletypes.UserDefinedFileTypesPanel();
+        panelUserDefinedFileTypes = new org.jphototagger.userdefinedfiletypes.UserDefinedFileTypesPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/userdefinedfiletypes/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/userdefinedfiletypes/Bundle"); // NOI18N
         setTitle(bundle.getString("UserDefinedFileTypesDialog.title")); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -92,6 +92,6 @@ public class UserDefinedFileTypesDialog extends Dialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private org.jphototagger.program.module.userdefinedfiletypes.UserDefinedFileTypesPanel panelUserDefinedFileTypes;
+    private org.jphototagger.userdefinedfiletypes.UserDefinedFileTypesPanel panelUserDefinedFileTypes;
     // End of variables declaration//GEN-END:variables
 }

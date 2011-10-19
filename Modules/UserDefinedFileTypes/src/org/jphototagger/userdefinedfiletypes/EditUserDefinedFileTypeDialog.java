@@ -1,4 +1,4 @@
-package org.jphototagger.program.module.userdefinedfiletypes;
+package org.jphototagger.userdefinedfiletypes;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,14 +13,14 @@ import javax.swing.text.Document;
 
 import org.openide.util.Lookup;
 
+import org.jphototagger.domain.filefilter.AppFileFilterProvider;
 import org.jphototagger.domain.filetypes.UserDefinedFileType;
 import org.jphototagger.domain.repository.UserDefinedFileTypesRepository;
-import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.MessageDisplayer;
+import org.jphototagger.lib.swing.util.ComponentUtil;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.filefilter.AppFileFilters;
-import org.jphototagger.program.resource.GUI;
 
 /**
  * @author Elmar Baumann
@@ -34,7 +34,7 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
     private final UserDefinedFileTypesRepository repo = Lookup.getDefault().lookup((UserDefinedFileTypesRepository.class));
 
     public EditUserDefinedFileTypeDialog() {
-        super(GUI.getAppFrame(), true);
+        super(ComponentUtil.findFrameWithIcon(), true);
         initComponents();
         postInitComponents();
     }
@@ -158,8 +158,9 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
 
         String suffix = getSuffix();
         File aFile = new File("abc." + suffix);
+        AppFileFilterProvider fileFilterProvider = Lookup.getDefault().lookup(AppFileFilterProvider.class);
 
-        if (AppFileFilters.INSTANCE.isAcceptedImageFile(aFile)) {
+        if (fileFilterProvider.isAcceptedImageFile(aFile)) {
             String message = Bundle.getString(EditUserDefinedFileTypeDialog.class, "EditUserDefinedFileTypeDialog.Error.IsAcceptedSuffix", suffix);
             MessageDisplayer.error(this, message);
             return false;
@@ -286,7 +287,7 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
         buttonSave = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/userdefinedfiletypes/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/userdefinedfiletypes/Bundle"); // NOI18N
         setTitle(bundle.getString("EditUserDefinedFileTypeDialog.title")); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {

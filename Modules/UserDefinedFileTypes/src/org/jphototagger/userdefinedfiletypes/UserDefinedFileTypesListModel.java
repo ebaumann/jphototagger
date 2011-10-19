@@ -1,4 +1,4 @@
-package org.jphototagger.program.module.userdefinedfiletypes;
+package org.jphototagger.userdefinedfiletypes;
 
 import java.util.List;
 
