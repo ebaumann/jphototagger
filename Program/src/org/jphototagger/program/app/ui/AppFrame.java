@@ -180,10 +180,6 @@ public final class AppFrame extends javax.swing.JFrame {
         return menuItemBrowseWebsite;
     }
 
-    public JMenuItem getMenuItemUserDefinedFileFilter() {
-        return menuItemUserDefinedFileFilter;
-    }
-
     public JMenuItem getMenuItemCheckForUpdates() {
         return menuItemCheckForUpdates;
     }
@@ -314,8 +310,6 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemInputHelper = new javax.swing.JMenuItem();
         menuItemActions = new javax.swing.JMenuItem();
         menuItemSynonyms = new javax.swing.JMenuItem();
-        menuItemUserDefinedFileFilter = new javax.swing.JMenuItem();
-        sep20 = new javax.swing.JPopupMenu.Separator();
         menuItemDisplayLogfile = new javax.swing.JMenuItem();
         menuItemDisplayAllLogfile = new javax.swing.JMenuItem();
         menuHelp = new javax.swing.JMenu();
@@ -520,14 +514,6 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemSynonyms.setName("menuItemSynonyms"); // NOI18N
         menuWindow.add(menuItemSynonyms);
 
-        menuItemUserDefinedFileFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_filter.png"))); // NOI18N
-        menuItemUserDefinedFileFilter.setText(bundle.getString("AppFrame.menuItemUserDefinedFileFilter.text")); // NOI18N
-        menuItemUserDefinedFileFilter.setName("menuItemUserDefinedFileFilter"); // NOI18N
-        menuWindow.add(menuItemUserDefinedFileFilter);
-
-        sep20.setName("sep20"); // NOI18N
-        menuWindow.add(sep20);
-
         menuItemDisplayLogfile.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_L));
         menuItemDisplayLogfile.setText(bundle.getString("AppFrame.menuItemDisplayLogfile.text")); // NOI18N
         menuItemDisplayLogfile.setEnabled(false);
@@ -658,7 +644,6 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemSendFeatureMail;
     private javax.swing.JMenuItem menuItemSettings;
     private javax.swing.JMenuItem menuItemSynonyms;
-    private javax.swing.JMenuItem menuItemUserDefinedFileFilter;
     private javax.swing.JMenu menuTools;
     private javax.swing.JMenu menuView;
     private javax.swing.JMenu menuWindow;
@@ -667,7 +652,6 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator sep17;
     private javax.swing.JPopupMenu.Separator sep18;
     private javax.swing.JPopupMenu.Separator sep2;
-    private javax.swing.JPopupMenu.Separator sep20;
     private javax.swing.JPopupMenu.Separator sep21;
     private javax.swing.JPopupMenu.Separator sep22;
     private javax.swing.JPopupMenu.Separator sep23;

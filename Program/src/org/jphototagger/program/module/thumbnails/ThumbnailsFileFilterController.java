@@ -1,14 +1,11 @@
 package org.jphototagger.program.module.thumbnails;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.FileFilter;
 
 import javax.swing.ComboBoxModel;
 import javax.swing.JComboBox;
-import javax.swing.JMenuItem;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 
@@ -17,13 +14,12 @@ import org.openide.util.Lookup;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.windows.WaitDisplayer;
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
-import org.jphototagger.program.module.userdefinedfilters.UserDefinedFileFilterDialog;
 import org.jphototagger.program.resource.GUI;
 
 /**
  * @author Elmar Baumann
  */
-public final class ThumbnailsFileFilterController implements ActionListener, ItemListener, ListDataListener {
+public final class ThumbnailsFileFilterController implements ItemListener, ListDataListener {
 
     private final JComboBox fileFilterComboBox = getFileFilterComboBox();
 
@@ -33,20 +29,13 @@ public final class ThumbnailsFileFilterController implements ActionListener, Ite
 
     private void listen() {
         ComboBoxModel fileFilterComboBoxModel = fileFilterComboBox.getModel();
-        JMenuItem menuItemUserDefinedFileFilter = GUI.getAppFrame().getMenuItemUserDefinedFileFilter();
 
         fileFilterComboBox.addItemListener(this);
         fileFilterComboBoxModel.addListDataListener(this);
-        menuItemUserDefinedFileFilter.addActionListener(this);
     }
 
     private JComboBox getFileFilterComboBox() {
         return GUI.getAppPanel().getComboBoxFileFilters();
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent evt) {
-        new UserDefinedFileFilterDialog().setVisible(true);
     }
 
     @Override
