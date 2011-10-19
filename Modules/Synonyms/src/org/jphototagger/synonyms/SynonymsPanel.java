@@ -1,4 +1,4 @@
-package org.jphototagger.program.module.synonyms;
+package org.jphototagger.synonyms;
 
 import java.awt.Container;
 import java.awt.event.KeyEvent;
@@ -16,10 +16,10 @@ import org.jphototagger.domain.DomainPreferencesKeys;
 import org.jphototagger.domain.metadata.selections.AutoCompleteDataOfMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.repository.ImageFilesRepository;
-import org.jphototagger.lib.swing.util.Autocomplete;
-import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.MouseEventUtil;
+import org.jphototagger.lib.swing.util.Autocomplete;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 
 /**
@@ -315,7 +315,6 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         labelTextAreaWord = new javax.swing.JLabel();
         scrollPaneTextAreaWords = new javax.swing.JScrollPane();
         textAreaWords = new javax.swing.JTextArea();
-        textAreaWords.setTransferHandler(new org.jphototagger.program.datatransfer.DropTextComponentTransferHandler());
         buttonAddWord = new javax.swing.JButton();
         panelAddedWords = new javax.swing.JPanel();
         labelListWords = new javax.swing.JLabel();
@@ -328,7 +327,6 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         panelEditInputSynonyms = new javax.swing.JPanel();
         labelTextFieldSynonym = new javax.swing.JLabel();
         textFieldSynonyms = new javax.swing.JTextField();
-        textFieldSynonyms.setTransferHandler(new org.jphototagger.program.datatransfer.DropTextComponentTransferHandler());
         buttonAddSynonym = new javax.swing.JButton();
         panelAddedSynonyms = new javax.swing.JPanel();
         labelListSynonyms = new javax.swing.JLabel();
@@ -342,7 +340,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
 
         menuItemChangeWord.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
         menuItemChangeWord.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_rename.png"))); // NOI18N
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/synonyms/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/synonyms/Bundle"); // NOI18N
         menuItemChangeWord.setText(bundle.getString("SynonymsPanel.menuItemChangeWord.text")); // NOI18N
         menuItemChangeWord.setName("menuItemChangeWord"); // NOI18N
         menuItemChangeWord.addActionListener(new java.awt.event.ActionListener() {

@@ -152,10 +152,6 @@ public final class AppFrame extends javax.swing.JFrame {
         return menuItemDisplayAllLogfile;
     }
 
-    public JMenuItem getMenuItemSynonyms() {
-        return menuItemSynonyms;
-    }
-
     public JMenu getMenuEdit() {
         return menuEdit;
     }
@@ -309,7 +305,6 @@ public final class AppFrame extends javax.swing.JFrame {
         menuWindow = new javax.swing.JMenu();
         menuItemInputHelper = new javax.swing.JMenuItem();
         menuItemActions = new javax.swing.JMenuItem();
-        menuItemSynonyms = new javax.swing.JMenuItem();
         menuItemDisplayLogfile = new javax.swing.JMenuItem();
         menuItemDisplayAllLogfile = new javax.swing.JMenuItem();
         menuHelp = new javax.swing.JMenu();
@@ -509,11 +504,6 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemActions.setName("menuItemActions"); // NOI18N
         menuWindow.add(menuItemActions);
 
-        menuItemSynonyms.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F7, 0));
-        menuItemSynonyms.setText(bundle.getString("AppFrame.menuItemSynonyms.text")); // NOI18N
-        menuItemSynonyms.setName("menuItemSynonyms"); // NOI18N
-        menuWindow.add(menuItemSynonyms);
-
         menuItemDisplayLogfile.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_L));
         menuItemDisplayLogfile.setText(bundle.getString("AppFrame.menuItemDisplayLogfile.text")); // NOI18N
         menuItemDisplayLogfile.setEnabled(false);
@@ -643,7 +633,6 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemSendBugMail;
     private javax.swing.JMenuItem menuItemSendFeatureMail;
     private javax.swing.JMenuItem menuItemSettings;
-    private javax.swing.JMenuItem menuItemSynonyms;
     private javax.swing.JMenu menuTools;
     private javax.swing.JMenu menuView;
     private javax.swing.JMenu menuWindow;

@@ -1,7 +1,7 @@
-package org.jphototagger.program.module.synonyms;
+package org.jphototagger.synonyms;
 
 import org.jphototagger.lib.swing.Dialog;
-import org.jphototagger.program.resource.GUI;
+import org.jphototagger.lib.swing.util.ComponentUtil;
 
 /**
  * @author Elmar Baumann
@@ -11,7 +11,7 @@ public class SynonymsDialog extends Dialog {
     public static final SynonymsDialog INSTANCE = new SynonymsDialog();
 
     private SynonymsDialog() {
-        super(GUI.getAppFrame(), false);
+        super(ComponentUtil.findFrameWithIcon(), false);
         setStorageKey("SynonymsDialog");
         initComponents();
         postInitComponents();
@@ -37,10 +37,10 @@ public class SynonymsDialog extends Dialog {
 
     private void initComponents() {//GEN-BEGIN:initComponents
 
-        synonymsPanel1 = new org.jphototagger.program.module.synonyms.SynonymsPanel();
+        synonymsPanel1 = new org.jphototagger.synonyms.SynonymsPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/synonyms/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/synonyms/Bundle"); // NOI18N
         setTitle(bundle.getString("SynonymsDialog.title")); // NOI18N
         setName("Form"); // NOI18N
 
@@ -88,6 +88,6 @@ public class SynonymsDialog extends Dialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private org.jphototagger.program.module.synonyms.SynonymsPanel synonymsPanel1;
+    private org.jphototagger.synonyms.SynonymsPanel synonymsPanel1;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,4 +1,4 @@
-package org.jphototagger.program.module.synonyms;
+package org.jphototagger.synonyms;
 
 import javax.swing.DefaultListModel;
 
