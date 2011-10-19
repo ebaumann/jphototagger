@@ -144,14 +144,6 @@ public final class AppFrame extends javax.swing.JFrame {
         return menuItemAcceleratorKeys;
     }
 
-    public JMenuItem getMenuItemDisplayLogfile() {
-        return menuItemDisplayLogfile;
-    }
-
-    public JMenuItem getMenuItemDisplayAllLogfile() {
-        return menuItemDisplayAllLogfile;
-    }
-
     public JMenu getMenuEdit() {
         return menuEdit;
     }
@@ -305,8 +297,6 @@ public final class AppFrame extends javax.swing.JFrame {
         menuWindow = new javax.swing.JMenu();
         menuItemInputHelper = new javax.swing.JMenuItem();
         menuItemActions = new javax.swing.JMenuItem();
-        menuItemDisplayLogfile = new javax.swing.JMenuItem();
-        menuItemDisplayAllLogfile = new javax.swing.JMenuItem();
         menuHelp = new javax.swing.JMenu();
         menuItemHelp = new javax.swing.JMenuItem();
         menuItemOpenPdfUserManual = new javax.swing.JMenuItem();
@@ -504,16 +494,6 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemActions.setName("menuItemActions"); // NOI18N
         menuWindow.add(menuItemActions);
 
-        menuItemDisplayLogfile.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_L));
-        menuItemDisplayLogfile.setText(bundle.getString("AppFrame.menuItemDisplayLogfile.text")); // NOI18N
-        menuItemDisplayLogfile.setEnabled(false);
-        menuItemDisplayLogfile.setName("menuItemDisplayLogfile"); // NOI18N
-        menuWindow.add(menuItemDisplayLogfile);
-
-        menuItemDisplayAllLogfile.setText(bundle.getString("AppFrame.menuItemDisplayAllLogfile.text")); // NOI18N
-        menuItemDisplayAllLogfile.setName("menuItemDisplayAllLogfile"); // NOI18N
-        menuWindow.add(menuItemDisplayAllLogfile);
-
         menuBar.add(menuWindow);
 
         menuHelp.setText(bundle.getString("AppFrame.menuHelp.text")); // NOI18N
@@ -610,8 +590,6 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemBrowseUserForum;
     private javax.swing.JMenuItem menuItemBrowseWebsite;
     private javax.swing.JMenuItem menuItemCheckForUpdates;
-    private javax.swing.JMenuItem menuItemDisplayAllLogfile;
-    private javax.swing.JMenuItem menuItemDisplayLogfile;
     private javax.swing.JMenuItem menuItemExit;
     private javax.swing.JMenuItem menuItemExportJptMisc;
     private javax.swing.JMenuItem menuItemGotoCollections;
