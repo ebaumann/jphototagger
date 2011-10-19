@@ -1,4 +1,4 @@
-package org.jphototagger.program.module.userdefinedfilters;
+package org.jphototagger.userdefinedfilters;
 
 import java.awt.Container;
 import java.awt.event.KeyEvent;
@@ -13,20 +13,20 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
 import org.jphototagger.domain.repository.UserDefinedFileFiltersRepository;
-import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.MouseEventUtil;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 
 /**
  * @author Elmar Baumann
  */
-public class UserDefinedFileFilterPanel extends javax.swing.JPanel implements ListSelectionListener {
+public class UserDefinedFileFiltersPanel extends javax.swing.JPanel implements ListSelectionListener {
 
     private static final long serialVersionUID = 1L;
     private final UserDefinedFileFiltersRepository repo = Lookup.getDefault().lookup(UserDefinedFileFiltersRepository.class);
 
-    public UserDefinedFileFilterPanel() {
+    public UserDefinedFileFiltersPanel() {
         initComponents();
         MnemonicUtil.setMnemonics((Container) this);
         listen();
@@ -50,7 +50,7 @@ public class UserDefinedFileFilterPanel extends javax.swing.JPanel implements Li
     }
 
     private void errorMessageInsert(UserDefinedFileFilter filter) {
-        String message = Bundle.getString(UserDefinedFileFilterPanel.class, "UserDefinedFileFilterPanel.Error.Insert", filter);
+        String message = Bundle.getString(UserDefinedFileFiltersPanel.class, "UserDefinedFileFilterPanel.Error.Insert", filter);
 
         MessageDisplayer.error(this, message);
     }
@@ -71,7 +71,7 @@ public class UserDefinedFileFilterPanel extends javax.swing.JPanel implements Li
     }
 
     private void errorMessageUpdate(UserDefinedFileFilter filter) {
-        String message = Bundle.getString(UserDefinedFileFilterPanel.class, "UserDefinedFileFilterPanel.Error.Update", filter);
+        String message = Bundle.getString(UserDefinedFileFiltersPanel.class, "UserDefinedFileFilterPanel.Error.Update", filter);
 
         MessageDisplayer.error(this, message);
     }
@@ -87,13 +87,13 @@ public class UserDefinedFileFilterPanel extends javax.swing.JPanel implements Li
     }
 
     private void errorMessageDelete(UserDefinedFileFilter filter) {
-        String message = Bundle.getString(UserDefinedFileFilterPanel.class, "UserDefinedFileFilterPanel.Error.Delete", filter);
+        String message = Bundle.getString(UserDefinedFileFiltersPanel.class, "UserDefinedFileFilterPanel.Error.Delete", filter);
 
         MessageDisplayer.error(this, message);
     }
 
     private boolean confirmDelete() {
-        String message = Bundle.getString(UserDefinedFileFilterPanel.class, "UserDefinedFileFilterPanel.Confirm.Delete");
+        String message = Bundle.getString(UserDefinedFileFiltersPanel.class, "UserDefinedFileFilterPanel.Confirm.Delete");
 
         return MessageDisplayer.confirmYesNo(this, message);
     }
@@ -182,8 +182,8 @@ public class UserDefinedFileFilterPanel extends javax.swing.JPanel implements Li
         });
 
         menuItemInsert.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_INSERT, 0));
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/userdefinedfilters/Bundle"); // NOI18N
-        menuItemInsert.setText(bundle.getString("UserDefinedFileFilterPanel.menuItemInsert.text")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/userdefinedfilters/Bundle"); // NOI18N
+        menuItemInsert.setText(bundle.getString("UserDefinedFileFiltersPanel.menuItemInsert.text")); // NOI18N
         menuItemInsert.setName("menuItemInsert"); // NOI18N
         menuItemInsert.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -193,7 +193,7 @@ public class UserDefinedFileFilterPanel extends javax.swing.JPanel implements Li
         popupMenu.add(menuItemInsert);
 
         menuItemUpdate.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ENTER, 0));
-        menuItemUpdate.setText(bundle.getString("UserDefinedFileFilterPanel.menuItemUpdate.text")); // NOI18N
+        menuItemUpdate.setText(bundle.getString("UserDefinedFileFiltersPanel.menuItemUpdate.text")); // NOI18N
         menuItemUpdate.setName("menuItemUpdate"); // NOI18N
         menuItemUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -203,7 +203,7 @@ public class UserDefinedFileFilterPanel extends javax.swing.JPanel implements Li
         popupMenu.add(menuItemUpdate);
 
         menuItemDelete.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
-        menuItemDelete.setText(bundle.getString("UserDefinedFileFilterPanel.menuItemDelete.text")); // NOI18N
+        menuItemDelete.setText(bundle.getString("UserDefinedFileFiltersPanel.menuItemDelete.text")); // NOI18N
         menuItemDelete.setName("menuItemDelete"); // NOI18N
         menuItemDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -216,7 +216,8 @@ public class UserDefinedFileFilterPanel extends javax.swing.JPanel implements Li
 
         scrollPane.setName("scrollPane"); // NOI18N
 
-        list.setModel(new org.jphototagger.program.module.userdefinedfilters.UserDefinedFileFilterListModel());
+        list.setModel(new org.jphototagger.userdefinedfilters.UserDefinedFileFiltersListModel());
+        list.setCellRenderer(new UserDefinedFileFiltersListCellRenderer());
         list.setComponentPopupMenu(popupMenu);
         list.setName("list"); // NOI18N
         list.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -231,7 +232,7 @@ public class UserDefinedFileFilterPanel extends javax.swing.JPanel implements Li
         });
         scrollPane.setViewportView(list);
 
-        buttonInsert.setText(bundle.getString("UserDefinedFileFilterPanel.buttonInsert.text")); // NOI18N
+        buttonInsert.setText(bundle.getString("UserDefinedFileFiltersPanel.buttonInsert.text")); // NOI18N
         buttonInsert.setName("buttonInsert"); // NOI18N
         buttonInsert.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -239,7 +240,7 @@ public class UserDefinedFileFilterPanel extends javax.swing.JPanel implements Li
             }
         });
 
-        buttonUpdate.setText(bundle.getString("UserDefinedFileFilterPanel.buttonUpdate.text")); // NOI18N
+        buttonUpdate.setText(bundle.getString("UserDefinedFileFiltersPanel.buttonUpdate.text")); // NOI18N
         buttonUpdate.setEnabled(false);
         buttonUpdate.setName("buttonUpdate"); // NOI18N
         buttonUpdate.addActionListener(new java.awt.event.ActionListener() {
@@ -248,7 +249,7 @@ public class UserDefinedFileFilterPanel extends javax.swing.JPanel implements Li
             }
         });
 
-        buttonDelete.setText(bundle.getString("UserDefinedFileFilterPanel.buttonDelete.text")); // NOI18N
+        buttonDelete.setText(bundle.getString("UserDefinedFileFiltersPanel.buttonDelete.text")); // NOI18N
         buttonDelete.setEnabled(false);
         buttonDelete.setName("buttonDelete"); // NOI18N
         buttonDelete.addActionListener(new java.awt.event.ActionListener() {

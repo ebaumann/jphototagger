@@ -1,17 +1,17 @@
-package org.jphototagger.program.module.userdefinedfilters;
+package org.jphototagger.userdefinedfilters;
 
 import org.jphototagger.lib.swing.Dialog;
-import org.jphototagger.program.resource.GUI;
+import org.jphototagger.lib.swing.util.ComponentUtil;
 
 /**
  * @author Elmar Baumann
  */
-public class UserDefinedFileFilterDialog extends Dialog {
+public class UserDefinedFileFiltersDialog extends Dialog {
 
     private static final long serialVersionUID = 1L;
 
-    public UserDefinedFileFilterDialog() {
-        super(GUI.getAppFrame(), true);
+    public UserDefinedFileFiltersDialog() {
+        super(ComponentUtil.findFrameWithIcon(), true);
         initComponents();
         postInitComponents();
     }
@@ -34,11 +34,11 @@ public class UserDefinedFileFilterDialog extends Dialog {
     @SuppressWarnings("unchecked")
     private void initComponents() {//GEN-BEGIN:initComponents
 
-        panel = new org.jphototagger.program.module.userdefinedfilters.UserDefinedFileFilterPanel();
+        panel = new org.jphototagger.userdefinedfilters.UserDefinedFileFiltersPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/userdefinedfilters/Bundle"); // NOI18N
-        setTitle(bundle.getString("UserDefinedFileFilterDialog.title")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/userdefinedfilters/Bundle"); // NOI18N
+        setTitle(bundle.getString("UserDefinedFileFiltersDialog.title")); // NOI18N
         setName("Form"); // NOI18N
 
         panel.setName("panel"); // NOI18N
@@ -71,7 +71,7 @@ public class UserDefinedFileFilterDialog extends Dialog {
 
             @Override
             public void run() {
-                UserDefinedFileFilterDialog dialog = new UserDefinedFileFilterDialog();
+                UserDefinedFileFiltersDialog dialog = new UserDefinedFileFiltersDialog();
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
                     @Override
@@ -84,6 +84,6 @@ public class UserDefinedFileFilterDialog extends Dialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private org.jphototagger.program.module.userdefinedfilters.UserDefinedFileFilterPanel panel;
+    private org.jphototagger.userdefinedfilters.UserDefinedFileFiltersPanel panel;
     // End of variables declaration//GEN-END:variables
 }

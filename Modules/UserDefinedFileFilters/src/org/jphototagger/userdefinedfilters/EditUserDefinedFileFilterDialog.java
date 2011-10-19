@@ -1,17 +1,18 @@
-package org.jphototagger.program.module.userdefinedfilters;
+package org.jphototagger.userdefinedfilters;
 
 import java.awt.Container;
 
+import javax.swing.DefaultComboBoxModel;
 import org.openide.util.Lookup;
 
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
 import org.jphototagger.domain.repository.UserDefinedFileFiltersRepository;
 import org.jphototagger.lib.beansbinding.MaxLengthValidator;
-import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.MessageDisplayer;
+import org.jphototagger.lib.swing.util.ComponentUtil;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.resource.GUI;
 
 /**
  * @author Elmar Baumann
@@ -24,13 +25,13 @@ public class EditUserDefinedFileFilterDialog extends Dialog {
     private final UserDefinedFileFiltersRepository repo = Lookup.getDefault().lookup(UserDefinedFileFiltersRepository.class);
 
     public EditUserDefinedFileFilterDialog() {
-        super(GUI.getAppFrame(), true);
+        super(ComponentUtil.findFrameWithIcon(), true);
         initComponents();
         postInitComponents();
     }
 
     public EditUserDefinedFileFilterDialog(UserDefinedFileFilter filter) {
-        super(GUI.getAppFrame(), true);
+        super(ComponentUtil.findFrameWithIcon(), true);
         if (filter == null) {
             throw new NullPointerException("filter == null");
         }
@@ -81,6 +82,21 @@ public class EditUserDefinedFileFilterDialog extends Dialog {
         return true;
     }
 
+    private static class ComboBoxModel extends DefaultComboBoxModel {
+
+        private static final long serialVersionUID = 1L;
+
+        private ComboBoxModel() {
+            addElements();
+        }
+
+        private void addElements() {
+            for (UserDefinedFileFilter.Type type : UserDefinedFileFilter.Type.values()) {
+                addElement(type);
+            }
+        }
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -100,7 +116,7 @@ public class EditUserDefinedFileFilterDialog extends Dialog {
         buttonOk = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/userdefinedfilters/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/userdefinedfilters/Bundle"); // NOI18N
         setTitle(bundle.getString("EditUserDefinedFileFilterDialog.title")); // NOI18N
         setName("Form"); // NOI18N
 
@@ -115,9 +131,9 @@ public class EditUserDefinedFileFilterDialog extends Dialog {
         binding.setValidator(new MaxLengthValidator(45));
         bindingGroup.addBinding(binding);
 
-        comboBoxType.setModel(new org.jphototagger.program.module.userdefinedfilters.UserDefinedFileFilterTypeComboBoxModel());
+        comboBoxType.setModel(new ComboBoxModel());
         comboBoxType.setName("comboBoxType"); // NOI18N
-        comboBoxType.setRenderer(new org.jphototagger.program.module.userdefinedfilters.UserDefinedFileFilterTypeListCellRenderer());
+        comboBoxType.setRenderer(new UserDefinedFileFiltersListCellRenderer());
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, filter, org.jdesktop.beansbinding.ELProperty.create("${type}"), comboBoxType, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
         bindingGroup.addBinding(binding);

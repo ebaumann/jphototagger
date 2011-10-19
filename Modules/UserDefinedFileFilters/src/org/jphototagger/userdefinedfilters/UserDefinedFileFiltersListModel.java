@@ -1,4 +1,4 @@
-package org.jphototagger.program.module.userdefinedfilters;
+package org.jphototagger.userdefinedfilters;
 
 import javax.swing.DefaultListModel;
 
@@ -17,12 +17,12 @@ import org.jphototagger.domain.repository.event.userdefinedfilefilters.UserDefin
 /**
  * @author Elmar Baumann
  */
-public final class UserDefinedFileFilterListModel extends DefaultListModel {
+public final class UserDefinedFileFiltersListModel extends DefaultListModel {
 
     private static final long serialVersionUID = 1L;
     private final UserDefinedFileFiltersRepository udffRepo = Lookup.getDefault().lookup(UserDefinedFileFiltersRepository.class);
 
-    public UserDefinedFileFilterListModel() {
+    public UserDefinedFileFiltersListModel() {
         addElements();
         listen();
     }
