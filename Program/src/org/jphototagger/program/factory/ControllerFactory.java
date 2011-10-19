@@ -88,7 +88,6 @@ import org.jphototagger.program.module.search.FastSearchController;
 import org.jphototagger.program.module.search.RenameSavedSearchController;
 import org.jphototagger.program.module.search.SavedSearchSelectedController;
 import org.jphototagger.program.module.search.ShowAdvancedSearchDialogController;
-import org.jphototagger.program.module.synonyms.ShowSynonymsDialogController;
 import org.jphototagger.program.module.thumbnails.CopyOrCutFilesToClipboardController;
 import org.jphototagger.program.module.thumbnails.CopyPasteMetadataController;
 import org.jphototagger.program.module.thumbnails.CreateMetadataOfDisplayedThumbnailsController;
@@ -164,7 +163,6 @@ public final class ControllerFactory {
         support.add(new HelpController());
         support.add(new ShowUserSettingsDialogController());
         support.add(new ShowAdvancedSearchDialogController());
-        support.add(new ShowSynonymsDialogController());
         support.add(new EditKeywordSynonymsController());
     }
 
