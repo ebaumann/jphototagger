@@ -15,10 +15,12 @@ import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu.Separator;
-
 import javax.swing.KeyStroke;
-import org.jphototagger.api.windows.MenuItemProvider;
+
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.windows.MainWindowMenuProvider;
+import org.jphototagger.api.windows.MenuItemProvider;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.comparator.PositionProviderAscendingComparator;
 import org.jphototagger.lib.swing.KeyEventUtil;
@@ -26,9 +28,7 @@ import org.jphototagger.lib.swing.util.MenuUtil;
 import org.jphototagger.lib.util.SystemUtil;
 import org.jphototagger.program.app.AppInfo;
 import org.jphototagger.program.app.AppLifeCycle;
-import org.jphototagger.program.module.userdefinedfiletypes.EditUserDefinedFileTypesAction;
 import org.jphototagger.program.resource.GUI;
-import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann
@@ -315,7 +315,6 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemActions = new javax.swing.JMenuItem();
         menuItemSynonyms = new javax.swing.JMenuItem();
         menuItemUserDefinedFileFilter = new javax.swing.JMenuItem();
-        menuItemUserDefinedFileType = new JMenuItem(new EditUserDefinedFileTypesAction());
         sep20 = new javax.swing.JPopupMenu.Separator();
         menuItemDisplayLogfile = new javax.swing.JMenuItem();
         menuItemDisplayAllLogfile = new javax.swing.JMenuItem();
@@ -526,10 +525,6 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemUserDefinedFileFilter.setName("menuItemUserDefinedFileFilter"); // NOI18N
         menuWindow.add(menuItemUserDefinedFileFilter);
 
-        menuItemUserDefinedFileType.setText(bundle.getString("AppFrame.menuItemUserDefinedFileType.text")); // NOI18N
-        menuItemUserDefinedFileType.setName("menuItemUserDefinedFileType"); // NOI18N
-        menuWindow.add(menuItemUserDefinedFileType);
-
         sep20.setName("sep20"); // NOI18N
         menuWindow.add(sep20);
 
@@ -664,7 +659,6 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemSettings;
     private javax.swing.JMenuItem menuItemSynonyms;
     private javax.swing.JMenuItem menuItemUserDefinedFileFilter;
-    private javax.swing.JMenuItem menuItemUserDefinedFileType;
     private javax.swing.JMenu menuTools;
     private javax.swing.JMenu menuView;
     private javax.swing.JMenu menuWindow;

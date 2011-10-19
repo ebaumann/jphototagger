@@ -1,4 +1,4 @@
-package org.jphototagger.program.module.userdefinedfiletypes;
+package org.jphototagger.userdefinedfiletypes;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -12,9 +12,9 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.domain.filetypes.UserDefinedFileType;
 import org.jphototagger.domain.repository.UserDefinedFileTypesRepository;
-import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.MouseEventUtil;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 
 /**
@@ -125,7 +125,7 @@ public class UserDefinedFileTypesPanel extends javax.swing.JPanel {
 
         setLayout(new java.awt.GridBagLayout());
 
-        list.setModel(new org.jphototagger.program.module.userdefinedfiletypes.UserDefinedFileTypesListModel());
+        list.setModel(new org.jphototagger.userdefinedfiletypes.UserDefinedFileTypesListModel());
         list.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listMouseClicked(evt);
@@ -148,7 +148,7 @@ public class UserDefinedFileTypesPanel extends javax.swing.JPanel {
 
         panelButtons.setLayout(new java.awt.GridLayout(1, 0, 3, 0));
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/userdefinedfiletypes/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/userdefinedfiletypes/Bundle"); // NOI18N
         buttonAdd.setText(bundle.getString("UserDefinedFileTypesPanel.buttonAdd.text")); // NOI18N
         buttonAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
