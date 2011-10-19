@@ -72,7 +72,7 @@ public final class AppLoggingSystem {
 
             if (isLogfile && !isLocked) {
                 boolean logfileDeleted = file.delete();
-                
+
                 if (logfileDeleted) {
                     APP_LOGGER.log(Level.INFO, "Deleted obsolete logfile ''{0}''", file);
                 } else {
@@ -150,11 +150,7 @@ public final class AppLoggingSystem {
         });
     }
 
-    /**
-     *
-     * @return full path name
-     */
-    public static String getErrorMessagesLogfilePath() {
+    static String getErrorMessagesLogfilePath() {
         return ERROR_MESSAGES_LOGFILE_PATH;
     }
 

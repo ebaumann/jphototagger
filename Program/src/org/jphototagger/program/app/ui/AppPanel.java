@@ -4,6 +4,7 @@ import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.GridBagConstraints;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -46,6 +47,7 @@ import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.api.windows.MainWindowComponent;
 import org.jphototagger.api.windows.MainWindowComponentProvider;
+import org.jphototagger.api.windows.StatusLineElementProvider;
 import org.jphototagger.api.windows.TabInEditWindowDisplayedEvent;
 import org.jphototagger.api.windows.TabInSelectionWindowDisplayedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
@@ -95,6 +97,7 @@ public final class AppPanel extends javax.swing.JPanel {
         messageLabel = new MessageLabel(labelStatusbarText);
         GUI.setAppPanel(this);
         lookupWindows();
+        lookupStatusLineElements();
         toggleDisplaySearchButton();
         editMetadtaPanels = new EditMetadataPanels(panelEditMetadata);
         panelThumbnails.setViewport(scrollPaneThumbnails.getViewport());
@@ -511,10 +514,6 @@ public final class AppPanel extends javax.swing.JPanel {
         return radioButtonSelKeywordsMultipleSelOne;
     }
 
-    public JLabel getLabelError() {
-        return labelError;
-    }
-
     public JSplitPane getSplitPaneMain() {
         return splitPaneMain;
     }
@@ -597,6 +596,17 @@ public final class AppPanel extends javax.swing.JPanel {
                 tabbedPane.insertTab(title, icon, component, tip, tabIndex);
             }
         });
+    }
+
+    private void lookupStatusLineElements() {
+        Collection<? extends StatusLineElementProvider> providers = Lookup.getDefault().lookupAll(StatusLineElementProvider.class);
+        boolean isFirst = true;
+        for (StatusLineElementProvider provider : providers) {
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.insets = new Insets(0, isFirst ? 0 : 10, 0, 0);
+            isFirst = false;
+            panelStatusLineElements.add(provider.getStatusLineElement(), gbc);
+        }
     }
 
     private ChangeListener tabbedPaneEditChangeListener = new ChangeListener() {
@@ -725,7 +735,9 @@ public final class AppPanel extends javax.swing.JPanel {
         labelStatusbarText = new javax.swing.JLabel();
         sliderThumbnailSize = new javax.swing.JSlider();
         buttonSetThumbnailDimensions = new javax.swing.JButton();
-        labelError = new javax.swing.JLabel();
+        panelStatusLineElements = new javax.swing.JPanel();
+        progressBarPanels = new javax.swing.JPanel();
+        defaultProgressPanel = new javax.swing.JPanel();
         buttonCancelProgress = new javax.swing.JButton();
         progressBar = new javax.swing.JProgressBar();
 
@@ -1344,7 +1356,7 @@ public final class AppPanel extends javax.swing.JPanel {
         panelThumbnails.setLayout(panelThumbnailsLayout);
         panelThumbnailsLayout.setHorizontalGroup(
             panelThumbnailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 404, Short.MAX_VALUE)
+            .addGap(0, 218, Short.MAX_VALUE)
         );
         panelThumbnailsLayout.setVerticalGroup(
             panelThumbnailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1455,17 +1467,33 @@ public final class AppPanel extends javax.swing.JPanel {
         add(splitPaneMain, gridBagConstraints);
 
         panelStatusbar.setName("panelStatusbar"); // NOI18N
+        panelStatusbar.setLayout(new java.awt.GridBagLayout());
 
         labelThumbnailInfo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         labelThumbnailInfo.setName("labelThumbnailInfo"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        panelStatusbar.add(labelThumbnailInfo, gridBagConstraints);
 
         labelStatusbarText.setName("labelStatusbarText"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        panelStatusbar.add(labelStatusbarText, gridBagConstraints);
 
         sliderThumbnailSize.setMajorTickSpacing(5);
         sliderThumbnailSize.setMinimum(10);
         sliderThumbnailSize.setSnapToTicks(true);
         sliderThumbnailSize.setToolTipText(bundle.getString("AppPanel.sliderThumbnailSize.toolTipText")); // NOI18N
         sliderThumbnailSize.setName("sliderThumbnailSize"); // NOI18N
+        sliderThumbnailSize.setPreferredSize(new java.awt.Dimension(200, 20));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        panelStatusbar.add(sliderThumbnailSize, gridBagConstraints);
 
         buttonSetThumbnailDimensions.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_thumbnail_size.png"))); // NOI18N
         buttonSetThumbnailDimensions.setToolTipText(bundle.getString("AppPanel.buttonSetThumbnailDimensions.toolTipText")); // NOI18N
@@ -1478,51 +1506,49 @@ public final class AppPanel extends javax.swing.JPanel {
                 buttonSetThumbnailDimensionsActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelStatusbar.add(buttonSetThumbnailDimensions, gridBagConstraints);
 
-        labelError.setName("labelError"); // NOI18N
-        labelError.setOpaque(true);
-        labelError.setPreferredSize(new java.awt.Dimension(16, 16));
+        panelStatusLineElements.setName("panelStatusLineElements"); // NOI18N
+        panelStatusLineElements.setLayout(new java.awt.GridBagLayout());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        panelStatusbar.add(panelStatusLineElements, gridBagConstraints);
+
+        progressBarPanels.setName("progressBarPanels"); // NOI18N
+        progressBarPanels.setLayout(new java.awt.GridBagLayout());
+
+        defaultProgressPanel.setName("defaultProgressPanel"); // NOI18N
+        defaultProgressPanel.setLayout(new java.awt.GridBagLayout());
 
         buttonCancelProgress.setBorder(null);
         buttonCancelProgress.setContentAreaFilled(false);
         buttonCancelProgress.setName("buttonCancelProgress"); // NOI18N
         buttonCancelProgress.setPreferredSize(new java.awt.Dimension(16, 16));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 5);
+        defaultProgressPanel.add(buttonCancelProgress, gridBagConstraints);
 
         progressBar.setMaximumSize(new java.awt.Dimension(300, 14));
         progressBar.setName("progressBar"); // NOI18N
+        progressBar.setPreferredSize(new java.awt.Dimension(250, 20));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        defaultProgressPanel.add(progressBar, gridBagConstraints);
 
-        javax.swing.GroupLayout panelStatusbarLayout = new javax.swing.GroupLayout(panelStatusbar);
-        panelStatusbar.setLayout(panelStatusbarLayout);
-        panelStatusbarLayout.setHorizontalGroup(
-            panelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelStatusbarLayout.createSequentialGroup()
-                .addComponent(labelThumbnailInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(labelStatusbarText, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(sliderThumbnailSize, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonSetThumbnailDimensions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelError, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonCancelProgress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        panelStatusbarLayout.setVerticalGroup(
-            panelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelStatusbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                .addComponent(labelThumbnailInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(labelStatusbarText)
-                .addComponent(labelError, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(sliderThumbnailSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(buttonCancelProgress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(buttonSetThumbnailDimensions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        progressBarPanels.add(defaultProgressPanel, gridBagConstraints);
 
-        panelStatusbarLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelStatusbarText, labelThumbnailInfo});
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        panelStatusbar.add(progressBarPanels, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -1561,7 +1587,7 @@ public final class AppPanel extends javax.swing.JPanel {
     private javax.swing.JComboBox comboBoxFastSearch;
     private javax.swing.JComboBox comboBoxFileFilters;
     private javax.swing.JComboBox comboBoxFileSort;
-    private javax.swing.JLabel labelError;
+    private javax.swing.JPanel defaultProgressPanel;
     private javax.swing.JLabel labelFileFilters;
     private javax.swing.JLabel labelFileSort;
     private javax.swing.JLabel labelListImageCollectionsFilter;
@@ -1591,6 +1617,7 @@ public final class AppPanel extends javax.swing.JPanel {
     private javax.swing.JPanel panelSelKeywordsListMultipleSelection;
     private javax.swing.JPanel panelSelKeywordsTree;
     private javax.swing.JPanel panelSelection;
+    private javax.swing.JPanel panelStatusLineElements;
     private javax.swing.JPanel panelStatusbar;
     private javax.swing.JPanel panelTabEditMetadata;
     private org.jphototagger.program.module.thumbnails.ThumbnailsPanel panelThumbnails;
@@ -1598,6 +1625,7 @@ public final class AppPanel extends javax.swing.JPanel {
     private javax.swing.JPanel panelThumbnailsMetadata;
     private javax.swing.JPanel panelTimeline;
     private javax.swing.JProgressBar progressBar;
+    private javax.swing.JPanel progressBarPanels;
     private javax.swing.JRadioButton radioButtonSelKeywordsMultipleSelAll;
     private javax.swing.JRadioButton radioButtonSelKeywordsMultipleSelOne;
     private javax.swing.JScrollPane scrollPaneDirectories;
