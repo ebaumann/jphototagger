@@ -25,8 +25,6 @@ import org.jphototagger.lib.comparator.PositionProviderAscendingComparator;
 import org.jphototagger.lib.swing.DirectoryChooser;
 import org.jphototagger.lib.swing.DirectoryChooser.Option;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
-import org.jphototagger.program.app.update.UpdateCheckController;
-import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.settings.AppPreferencesKeys;
 
@@ -219,12 +217,6 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         preferences.setTabbedPane(PREFERENCES_KEY_TABBED_PANE, tabbedPane, null);
     }
 
-    private void checkDownload() {
-        UpdateCheckController updateCheckController = ControllerFactory.INSTANCE.getController(UpdateCheckController.class);
-
-        updateCheckController.actionPerformed(null);
-    }
-
     private void lookupMiscOptionPages() {
         List<OptionPageProvider> providers =
                 new ArrayList<OptionPageProvider>(Lookup.getDefault().lookupAll(OptionPageProvider.class));
@@ -267,7 +259,6 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         checkBoxIsAcceptHiddenDirectories = new javax.swing.JCheckBox();
         panelCheckForUpdates = new javax.swing.JPanel();
         checkBoxCheckForUpdates = new javax.swing.JCheckBox();
-        buttonCheckForUpdates = new javax.swing.JButton();
         checkBoxDisplaySearchButton = new javax.swing.JCheckBox();
         panelCopyMoveFiles = new javax.swing.JPanel();
         radioButtonCopyMoveFileConfirmOverwrite = new javax.swing.JRadioButton();
@@ -307,20 +298,6 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         panelCheckForUpdates.add(checkBoxCheckForUpdates, gridBagConstraints);
-
-        buttonCheckForUpdates.setText(bundle.getString("MiscSettingsPanel.buttonCheckForUpdates.text")); // NOI18N
-        buttonCheckForUpdates.setName("buttonCheckForUpdates"); // NOI18N
-        buttonCheckForUpdates.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonCheckForUpdatesActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
-        panelCheckForUpdates.add(buttonCheckForUpdates, gridBagConstraints);
 
         checkBoxDisplaySearchButton.setText(bundle.getString("MiscSettingsPanel.checkBoxDisplaySearchButton.text")); // NOI18N
         checkBoxDisplaySearchButton.setName("checkBoxDisplaySearchButton"); // NOI18N
@@ -405,7 +382,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
             .addGroup(panelRepositoryDirectoryLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelRepositoryDirectoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelRepositoryDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
+                    .addComponent(labelRepositoryDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 627, Short.MAX_VALUE)
                     .addGroup(panelRepositoryDirectoryLayout.createSequentialGroup()
                         .addComponent(labelInfoRepositoryDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -503,12 +480,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
     private void checkBoxDisplaySearchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDisplaySearchButtonActionPerformed
         setDisplaySearchButton();
     }//GEN-LAST:event_checkBoxDisplaySearchButtonActionPerformed
-
-    private void buttonCheckForUpdatesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCheckForUpdatesActionPerformed
-        checkDownload();
-    }//GEN-LAST:event_buttonCheckForUpdatesActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonCheckForUpdates;
     private javax.swing.JButton buttonChooseRepositoryDirectory;
     private javax.swing.ButtonGroup buttonGroupCopyMoveFiles;
     private javax.swing.JButton buttonSetDefaultRepositoryDirectoryName;

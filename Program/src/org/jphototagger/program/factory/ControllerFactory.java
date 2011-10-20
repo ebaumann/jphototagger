@@ -5,13 +5,11 @@ import java.util.List;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.logging.ErrorLogHandler;
-import org.jphototagger.program.app.update.UpdateCheckController;
-import org.jphototagger.program.misc.AboutJPhotoTaggerController;
+import org.jphototagger.program.misc.DisplayAboutJPhotoTaggerAction;
 import org.jphototagger.program.misc.EmptyAllEditPanelsController;
 import org.jphototagger.program.misc.EnableCreateMetadataTemplateController;
 import org.jphototagger.program.misc.EnableInsertMetadataTemplateController;
 import org.jphototagger.program.misc.GoToController;
-import org.jphototagger.program.misc.HelpController;
 import org.jphototagger.program.misc.InputHelperDialog;
 import org.jphototagger.program.misc.MaximumOneTreeOrListItemSelectedController;
 import org.jphototagger.program.misc.MenuItemEnablerController;
@@ -159,8 +157,7 @@ public final class ControllerFactory {
         support.add(new ToggleKeywordOverlayController());
         support.add(new ThumbnailSizeSliderController());
         support.add(new SortThumbnailsController());
-        support.add(new AboutJPhotoTaggerController());
-        support.add(new HelpController());
+        support.add(new DisplayAboutJPhotoTaggerAction());
         support.add(new ShowUserSettingsDialogController());
         support.add(new ShowAdvancedSearchDialogController());
         support.add(new EditKeywordSynonymsController());
@@ -245,7 +242,6 @@ public final class ControllerFactory {
         support.add(new RenameMiscMetadataController(popupInputHelper));
         support.add(new AddMetadataToSelectedImagesController(popupInputHelper));
         support.add(new RemoveMetadataFromSelectedImagesController(popupInputHelper));
-        support.add(new UpdateCheckController());
     }
 
     private void addFavoritesControllers() {

@@ -25,7 +25,6 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.comparator.PositionProviderAscendingComparator;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.swing.util.MenuUtil;
-import org.jphototagger.lib.util.SystemUtil;
 import org.jphototagger.program.app.AppInfo;
 import org.jphototagger.program.app.AppLifeCycle;
 import org.jphototagger.program.resource.GUI;
@@ -112,18 +111,6 @@ public final class AppFrame extends javax.swing.JFrame {
         return menuItemOfGoto.get(gt);
     }
 
-    public JMenuItem getMenuItemAbout() {
-        return menuItemAbout;
-    }
-
-    public JMenuItem getMenuItemHelp() {
-        return menuItemHelp;
-    }
-
-    public JMenuItem getMenuItemOpenPdfUserManual() {
-        return menuItemOpenPdfUserManual;
-    }
-
     public JMenuItem getMenuItemSettings() {
         return menuItemSettings;
     }
@@ -140,36 +127,8 @@ public final class AppFrame extends javax.swing.JFrame {
         return menuItemExit;
     }
 
-    public JMenuItem getMenuItemAcceleratorKeys() {
-        return menuItemAcceleratorKeys;
-    }
-
     public JMenu getMenuEdit() {
         return menuEdit;
-    }
-
-    public JMenuItem getMenuItemSendBugMail() {
-        return menuItemSendBugMail;
-    }
-
-    public JMenuItem getMenuItemSendFeatureMail() {
-        return menuItemSendFeatureMail;
-    }
-
-    public JMenuItem getMenuItemBrowseUserForum() {
-        return menuItemBrowseUserForum;
-    }
-
-    public JMenuItem getMenuItemBrowseChangelog() {
-        return menuItemBrowseChangelog;
-    }
-
-    public JMenuItem getMenuItemBrowseWebsite() {
-        return menuItemBrowseWebsite;
-    }
-
-    public JMenuItem getMenuItemCheckForUpdates() {
-        return menuItemCheckForUpdates;
     }
 
     @Override
@@ -187,23 +146,29 @@ public final class AppFrame extends javax.swing.JFrame {
             @Override
             public void run() {
                 Collection<? extends MainWindowMenuProvider> providers = Lookup.getDefault().lookupAll(MainWindowMenuProvider.class);
-
+                List<MenuItemProvider> editMenuItems = new ArrayList<MenuItemProvider>();
+                List<MenuItemProvider> fileMenuItems = new ArrayList<MenuItemProvider>();
+                List<MenuItemProvider> gotoMenuItems = new ArrayList<MenuItemProvider>();
+                List<MenuItemProvider> toolsMenuItems = new ArrayList<MenuItemProvider>();
+                List<MenuItemProvider> viewMenuItems = new ArrayList<MenuItemProvider>();
+                List<MenuItemProvider> helpMenuItems = new ArrayList<MenuItemProvider>();
+                List<MenuItemProvider> windowMenuItems = new ArrayList<MenuItemProvider>();
                 for (MainWindowMenuProvider provider : providers) {
-                    List<MenuItemProvider> editMenuItems = new ArrayList<MenuItemProvider>(provider.getEditMenuItems());
-                    addMenuItems(editMenuItems, menuEdit);
-                    List<MenuItemProvider> fileMenuItems = new ArrayList<MenuItemProvider>(provider.getFileMenuItems());
-                    addMenuItems(fileMenuItems, menuFile);
-                    List<MenuItemProvider> gotoMenuItems = new ArrayList<MenuItemProvider>(provider.getGotoMenuItems());
-                    addMenuItems(gotoMenuItems, menuGoto);
-                    List<MenuItemProvider> helpMenuItems = new ArrayList<MenuItemProvider>(provider.getHelpMenuItems());
-                    addMenuItems(helpMenuItems, menuHelp);
-                    List<MenuItemProvider> toolsMenuItems = new ArrayList<MenuItemProvider>(provider.getToolsMenuItems());
-                    addMenuItems(toolsMenuItems, menuTools);
-                    List<MenuItemProvider> viewMenuItems = new ArrayList<MenuItemProvider>(provider.getViewMenuItems());
-                    addMenuItems(viewMenuItems, menuView);
-                    List<MenuItemProvider> windowMenuItems = new ArrayList<MenuItemProvider>(provider.getWindowMenuItems());
-                    addMenuItems(windowMenuItems, menuWindow);
+                    editMenuItems.addAll(provider.getEditMenuItems());
+                    fileMenuItems.addAll(provider.getFileMenuItems());
+                    gotoMenuItems.addAll(provider.getGotoMenuItems());
+                    helpMenuItems.addAll(provider.getHelpMenuItems());
+                    toolsMenuItems.addAll(provider.getToolsMenuItems());
+                    viewMenuItems.addAll(provider.getViewMenuItems());
+                    windowMenuItems.addAll(provider.getWindowMenuItems());
                 }
+                addMenuItems(fileMenuItems, menuFile);
+                addMenuItems(editMenuItems, menuEdit);
+                addMenuItems(gotoMenuItems, menuGoto);
+                addMenuItems(viewMenuItems, menuView);
+                addMenuItems(toolsMenuItems, menuTools);
+                addMenuItems(windowMenuItems, menuWindow);
+                addMenuItems(helpMenuItems, menuHelp);
             }
         });
     }
@@ -298,20 +263,6 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemInputHelper = new javax.swing.JMenuItem();
         menuItemActions = new javax.swing.JMenuItem();
         menuHelp = new javax.swing.JMenu();
-        menuItemHelp = new javax.swing.JMenuItem();
-        menuItemOpenPdfUserManual = new javax.swing.JMenuItem();
-        menuItemAcceleratorKeys = new javax.swing.JMenuItem();
-        sep21 = new javax.swing.JPopupMenu.Separator();
-        menuItemBrowseUserForum = new javax.swing.JMenuItem();
-        menuItemBrowseWebsite = new javax.swing.JMenuItem();
-        menuItemBrowseChangelog = new javax.swing.JMenuItem();
-        sep22 = new javax.swing.JPopupMenu.Separator();
-        menuItemSendBugMail = new javax.swing.JMenuItem();
-        menuItemSendFeatureMail = new javax.swing.JMenuItem();
-        sep23 = new javax.swing.JPopupMenu.Separator();
-        menuItemCheckForUpdates = new javax.swing.JMenuItem();
-        jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        menuItemAbout = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(AppInfo.APP_NAME);
@@ -498,76 +449,6 @@ public final class AppFrame extends javax.swing.JFrame {
 
         menuHelp.setText(bundle.getString("AppFrame.menuHelp.text")); // NOI18N
         menuHelp.setName("menuHelp"); // NOI18N
-
-        menuItemHelp.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
-        menuItemHelp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_help.png"))); // NOI18N
-        menuItemHelp.setText(bundle.getString("AppFrame.menuItemHelp.text")); // NOI18N
-        menuItemHelp.setName("menuItemHelp"); // NOI18N
-        menuHelp.add(menuItemHelp);
-
-        menuItemOpenPdfUserManual.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_pdf_manual.png"))); // NOI18N
-        menuItemOpenPdfUserManual.setText(bundle.getString("AppFrame.menuItemOpenPdfUserManual.text")); // NOI18N
-        menuItemOpenPdfUserManual.setEnabled(SystemUtil.canOpen());
-        menuItemOpenPdfUserManual.setName("menuItemOpenPdfUserManual"); // NOI18N
-        menuHelp.add(menuItemOpenPdfUserManual);
-
-        menuItemAcceleratorKeys.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_keyboard.png"))); // NOI18N
-        menuItemAcceleratorKeys.setText(bundle.getString("AppFrame.menuItemAcceleratorKeys.text")); // NOI18N
-        menuItemAcceleratorKeys.setName("menuItemAcceleratorKeys"); // NOI18N
-        menuHelp.add(menuItemAcceleratorKeys);
-
-        sep21.setName("sep21"); // NOI18N
-        menuHelp.add(sep21);
-
-        menuItemBrowseUserForum.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_web.png"))); // NOI18N
-        menuItemBrowseUserForum.setText(bundle.getString("AppFrame.menuItemBrowseUserForum.text")); // NOI18N
-        menuItemBrowseUserForum.setEnabled(SystemUtil.canBrowse());
-        menuItemBrowseUserForum.setName("menuItemBrowseUserForum"); // NOI18N
-        menuHelp.add(menuItemBrowseUserForum);
-
-        menuItemBrowseWebsite.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_web.png"))); // NOI18N
-        menuItemBrowseWebsite.setText(bundle.getString("AppFrame.menuItemBrowseWebsite.text")); // NOI18N
-        menuItemBrowseWebsite.setEnabled(SystemUtil.canBrowse());
-        menuItemBrowseWebsite.setName("menuItemBrowseWebsite"); // NOI18N
-        menuHelp.add(menuItemBrowseWebsite);
-
-        menuItemBrowseChangelog.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_web.png"))); // NOI18N
-        menuItemBrowseChangelog.setText(bundle.getString("AppFrame.menuItemBrowseChangelog.text")); // NOI18N
-        menuItemBrowseChangelog.setEnabled(SystemUtil.canBrowse());
-        menuItemBrowseChangelog.setName("menuItemBrowseChangelog"); // NOI18N
-        menuHelp.add(menuItemBrowseChangelog);
-
-        sep22.setName("sep22"); // NOI18N
-        menuHelp.add(sep22);
-
-        menuItemSendBugMail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_mail.png"))); // NOI18N
-        menuItemSendBugMail.setText(bundle.getString("AppFrame.menuItemSendBugMail.text")); // NOI18N
-        menuItemSendBugMail.setEnabled(SystemUtil.canMail());
-        menuItemSendBugMail.setName("menuItemSendBugMail"); // NOI18N
-        menuHelp.add(menuItemSendBugMail);
-
-        menuItemSendFeatureMail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_mail.png"))); // NOI18N
-        menuItemSendFeatureMail.setText(bundle.getString("AppFrame.menuItemSendFeatureMail.text")); // NOI18N
-        menuItemSendFeatureMail.setEnabled(SystemUtil.canMail());
-        menuItemSendFeatureMail.setName("menuItemSendFeatureMail"); // NOI18N
-        menuHelp.add(menuItemSendFeatureMail);
-
-        sep23.setName("sep23"); // NOI18N
-        menuHelp.add(sep23);
-
-        menuItemCheckForUpdates.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_refresh.png"))); // NOI18N
-        menuItemCheckForUpdates.setText(bundle.getString("AppFrame.menuItemCheckForUpdates.text")); // NOI18N
-        menuItemCheckForUpdates.setName("menuItemCheckForUpdates"); // NOI18N
-        menuHelp.add(menuItemCheckForUpdates);
-
-        jSeparator1.setName("jSeparator1"); // NOI18N
-        menuHelp.add(jSeparator1);
-
-        menuItemAbout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_app_about.png"))); // NOI18N
-        menuItemAbout.setText(bundle.getString("AppFrame.menuItemAbout.text")); // NOI18N
-        menuItemAbout.setName("menuItemAbout"); // NOI18N
-        menuHelp.add(menuItemAbout);
-
         menuBar.add(menuHelp);
 
         setJMenuBar(menuBar);
@@ -575,7 +456,6 @@ public final class AppFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupSort;
     private javax.swing.JCheckBoxMenuItem checkBoxMenuItemKeywordOverlay;
-    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu menuEdit;
     private javax.swing.JMenu menuExport;
@@ -583,13 +463,7 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenu menuGoto;
     private javax.swing.JMenu menuHelp;
     private javax.swing.JMenu menuImport;
-    private javax.swing.JMenuItem menuItemAbout;
-    private javax.swing.JMenuItem menuItemAcceleratorKeys;
     private javax.swing.JMenuItem menuItemActions;
-    private javax.swing.JMenuItem menuItemBrowseChangelog;
-    private javax.swing.JMenuItem menuItemBrowseUserForum;
-    private javax.swing.JMenuItem menuItemBrowseWebsite;
-    private javax.swing.JMenuItem menuItemCheckForUpdates;
     private javax.swing.JMenuItem menuItemExit;
     private javax.swing.JMenuItem menuItemExportJptMisc;
     private javax.swing.JMenuItem menuItemGotoCollections;
@@ -603,13 +477,9 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemGotoSavedSearches;
     private javax.swing.JMenuItem menuItemGotoThumbnailsPanel;
     private javax.swing.JMenuItem menuItemGotoTimeline;
-    private javax.swing.JMenuItem menuItemHelp;
     private javax.swing.JMenuItem menuItemImportJptMisc;
     private javax.swing.JMenuItem menuItemInputHelper;
-    private javax.swing.JMenuItem menuItemOpenPdfUserManual;
     private javax.swing.JMenuItem menuItemSearch;
-    private javax.swing.JMenuItem menuItemSendBugMail;
-    private javax.swing.JMenuItem menuItemSendFeatureMail;
     private javax.swing.JMenuItem menuItemSettings;
     private javax.swing.JMenu menuTools;
     private javax.swing.JMenu menuView;
@@ -619,9 +489,6 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator sep17;
     private javax.swing.JPopupMenu.Separator sep18;
     private javax.swing.JPopupMenu.Separator sep2;
-    private javax.swing.JPopupMenu.Separator sep21;
-    private javax.swing.JPopupMenu.Separator sep22;
-    private javax.swing.JPopupMenu.Separator sep23;
     private javax.swing.JPopupMenu.Separator sep3;
     private javax.swing.JPopupMenu.Separator sep4;
     // End of variables declaration//GEN-END:variables
