@@ -24,7 +24,7 @@ public final class ActionsToMenus extends MainWindowMenuProviderAdapter implemen
 
     @Override
     public Collection<? extends MenuItemProvider> getMetaDataMenuItems() {
-        return Arrays.asList(new MenuItemProviderImpl(new ExportIptcToXmpOfSelectedFilesAction(), 2, true));
+        return Arrays.asList(new MenuItemProviderImpl(new ExportIptcToXmpOfSelectedFilesAction(), 200, true));
     }
 
     @Override
