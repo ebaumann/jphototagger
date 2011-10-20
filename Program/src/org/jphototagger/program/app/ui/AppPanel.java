@@ -528,18 +528,19 @@ public final class AppPanel extends javax.swing.JPanel {
             @Override
             public void run() {
                 Collection<? extends MainWindowComponentProvider> providers = Lookup.getDefault().lookupAll(MainWindowComponentProvider.class);
-
+                List<MainWindowComponent> selectionsComponents = new ArrayList<MainWindowComponent>();
+                List<MainWindowComponent> editComponents = new ArrayList<MainWindowComponent>();
                 for (MainWindowComponentProvider provider : providers) {
-                    List<MainWindowComponent> editComponents = new ArrayList<MainWindowComponent>(provider.getMainWindowEditComponents());
-                    insterIntoEditTabbedPane(editComponents);
-                    List<MainWindowComponent> selectionsComponents = new ArrayList<MainWindowComponent>(provider.getMainWindowSelectionComponents());
-                    insterIntoSelectionTabbedPane(selectionsComponents);
+                    editComponents.addAll(provider.getMainWindowEditComponents());
+                    selectionsComponents.addAll(provider.getMainWindowSelectionComponents());
                 }
+                instertIntoEditTabbedPane(editComponents);
+                insertIntoSelectionTabbedPane(selectionsComponents);
             }
         });
     }
 
-    private void insterIntoEditTabbedPane(List<MainWindowComponent> components) {
+    private void instertIntoEditTabbedPane(List<MainWindowComponent> components) {
         Collections.sort(components, PositionProviderAscendingComparator.INSTANCE);
         for (MainWindowComponent component : components) {
             dockIntoTabbedPane(component, tabbedPaneMetadata);
@@ -548,7 +549,7 @@ public final class AppPanel extends javax.swing.JPanel {
         }
     }
 
-    private void insterIntoSelectionTabbedPane(List<MainWindowComponent> components) {
+    private void insertIntoSelectionTabbedPane(List<MainWindowComponent> components) {
         Collections.sort(components, PositionProviderAscendingComparator.INSTANCE);
         for (MainWindowComponent component : components) {
             dockIntoTabbedPane(component, tabbedPaneSelection);
