@@ -95,7 +95,6 @@ public final class ThumbnailsPopupMenu extends JPopupMenu {
     private final Map<JMenuItem, Long> RATING_OF_ITEM = new HashMap<JMenuItem, Long>();
     private final Map<JMenuItem, FileProcessorPlugin> FILE_PROCESSOR_PLUGIN_OF_ITEM = new HashMap<JMenuItem, FileProcessorPlugin>();
     private final Map<JMenuItem, Action> ACTION_OF_ITEM = new HashMap<JMenuItem, Action>();
-
     public static final ThumbnailsPopupMenu INSTANCE = new ThumbnailsPopupMenu();
 
     private ThumbnailsPopupMenu() {
@@ -165,16 +164,20 @@ public final class ThumbnailsPopupMenu extends JPopupMenu {
         Collection<? extends ThumbnailsPopupMenuItemProvider> providers =
                 Lookup.getDefault().lookupAll(ThumbnailsPopupMenuItemProvider.class);
 
+        List<MenuItemProvider> rootItemProviders = new ArrayList<MenuItemProvider>();
+        List<MenuItemProvider> refreshItemProviders = new ArrayList<MenuItemProvider>();
+        List<MenuItemProvider> fileOperationItemProviders = new ArrayList<MenuItemProvider>();
+        List<MenuItemProvider> metaDataItemProviders = new ArrayList<MenuItemProvider>();
         for (ThumbnailsPopupMenuItemProvider provider : providers) {
-            List<MenuItemProvider> fileOperationItemProviders = new ArrayList<MenuItemProvider>(provider.getFileOperationsMenuItems());
-            insertMenuItems(fileOperationItemProviders, menuFsOps);
-            List<MenuItemProvider> metaDataItemProviders = new ArrayList<MenuItemProvider>(provider.getMetaDataMenuItems());
-            insertMenuItems(metaDataItemProviders, menuMetadata);
-            List<MenuItemProvider> refreshItemProviders = new ArrayList<MenuItemProvider>(provider.getRefreshMenuItems());
-            insertMenuItems(refreshItemProviders, menuRefresh);
-            List<MenuItemProvider> rootItemProviders = new ArrayList<MenuItemProvider>(provider.getRootMenuItems());
-            insertMenuItems(rootItemProviders, null);
+            rootItemProviders.addAll(provider.getRootMenuItems());
+            refreshItemProviders.addAll(provider.getRefreshMenuItems());
+            metaDataItemProviders.addAll(provider.getMetaDataMenuItems());
+            fileOperationItemProviders.addAll(provider.getFileOperationsMenuItems());
         }
+        insertMenuItems(rootItemProviders, null);
+        insertMenuItems(refreshItemProviders, menuRefresh);
+        insertMenuItems(metaDataItemProviders, menuMetadata);
+        insertMenuItems(fileOperationItemProviders, menuFsOps);
     }
 
     private void insertMenuItems(List<MenuItemProvider> itemProviders, JMenu intoMenu) {
