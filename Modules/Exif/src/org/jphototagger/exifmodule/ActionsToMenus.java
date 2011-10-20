@@ -18,6 +18,6 @@ public final class ActionsToMenus extends ThumbnailsPopupMenuItemProviderAdapter
 
     @Override
     public Collection<? extends MenuItemProvider> getMetaDataMenuItems() {
-        return Arrays.asList(new MenuItemProviderImpl(new SetExifToXmpAction(), 4, false));
+        return Arrays.asList(new MenuItemProviderImpl(new SetExifToXmpAction(), 300, false));
     }
 }
