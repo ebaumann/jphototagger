@@ -8,8 +8,6 @@ import javax.swing.JMenuItem;
 
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.app.ui.AppFrame;
-import org.jphototagger.program.misc.AboutJPhotoTaggerController;
-import org.jphototagger.program.misc.HelpController;
 import org.jphototagger.program.misc.InputHelperDialog;
 import org.jphototagger.program.misc.ShowUserSettingsDialogController;
 import org.jphototagger.program.module.keywords.tree.AddKeywordToTreeController;
@@ -61,8 +59,6 @@ public final class ActionKeyListenerFactory {
     private void listenToAppFrameMenuItems() {
         AppFrame appFrame = GUI.getAppFrame();
 
-        addActionListeners(AboutJPhotoTaggerController.class, appFrame.getMenuItemAbout());
-        addActionListeners(HelpController.class, appFrame.getMenuItemHelp());
         addActionListeners(ShowUserSettingsDialogController.class, appFrame.getMenuItemSettings());
         addActionListeners(ShowAdvancedSearchDialogController.class, appFrame.getMenuItemSearch());
     }
