@@ -20,6 +20,6 @@ public final class ActionsToMenus extends MainWindowMenuProviderAdapter {
     public Collection<? extends MenuItemProvider> getWindowMenuItems() {
         return Arrays.asList(
                 new MenuItemProviderImpl(new ShowErrorLogfileAction(), 50, true),
-                new MenuItemProviderImpl(new ShowAllMessagesLogfileAction(), 55, false));
+                new MenuItemProviderImpl(new ShowAllMessagesLogfileAction(), 60, false));
     }
 }
