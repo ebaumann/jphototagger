@@ -18,6 +18,6 @@ public final class ActionsToMenus extends MainWindowMenuProviderAdapter {
 
     @Override
     public Collection<? extends MenuItemProvider> getToolsMenuItems() {
-        return Arrays.asList(new MenuItemProviderImpl(new ExtractEmbeddedXmpAction(), 1, false));
+        return Arrays.asList(new MenuItemProviderImpl(new ExtractEmbeddedXmpAction(), 200, false));
     }
 }

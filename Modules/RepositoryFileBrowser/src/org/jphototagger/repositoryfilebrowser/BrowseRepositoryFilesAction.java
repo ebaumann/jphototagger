@@ -20,14 +20,12 @@ public final class BrowseRepositoryFilesAction extends AbstractAction implements
 
     private BrowseRepositoryFilesAction() {
         super(Bundle.getString(BrowseRepositoryFilesAction.class, "DisplayFileBrowserAction.Name"));
-
         putValue(Action.SMALL_ICON, IconUtil.getImageIcon(BrowseRepositoryFilesAction.class, "icon_database.png"));
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         RepositoryFileBrowserDialog dialog = new RepositoryFileBrowserDialog(null, true);
-
         dialog.setVisible(true);
     }
 
@@ -38,7 +36,7 @@ public final class BrowseRepositoryFilesAction extends AbstractAction implements
 
     @Override
     public int getPosition() {
-        return -1;
+        return 1000;
     }
 
     @Override

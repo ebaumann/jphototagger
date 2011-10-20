@@ -29,7 +29,7 @@ public final class ActionsToMenus extends MainWindowMenuProviderAdapter implemen
 
     @Override
     public Collection<? extends MenuItemProvider> getToolsMenuItems() {
-        return Arrays.asList(new MenuItemProviderImpl(new ShowIptcToXmpDialogAction(), 0, false));
+        return Arrays.asList(new MenuItemProviderImpl(new ShowIptcToXmpDialogAction(), 100, false));
     }
 
     @Override
