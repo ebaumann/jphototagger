@@ -20,21 +20,15 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsChangedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.util.ClipboardUtil;
 import org.jphototagger.lib.datatransfer.TransferUtil;
 import org.jphototagger.lib.datatransfer.TransferUtil.FilenameDelimiter;
 import org.jphototagger.lib.swing.KeyEventUtil;
+import org.jphototagger.lib.util.ClipboardUtil;
 import org.jphototagger.program.module.directories.DirectoryTreeTransferHandler;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.ViewUtil;
 
 /**
- * Listens to {@code ThumbnailsPopupMenu#getItemPasteFromClipboard()} and on action
- * performed this class pastes the images in the clipboard into the current
- * directory.
- *
- * Enables the menu items based on the content (when it's a single directory).
- *
  * @author Elmar Baumann
  */
 public final class PasteFilesFromClipboardController implements ActionListener, KeyListener, MenuListener {
@@ -47,7 +41,6 @@ public final class PasteFilesFromClipboardController implements ActionListener, 
         ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
 
         getPasteItem().addActionListener(this);
-        GUI.getAppFrame().getMenuEdit().addMenuListener(this);
         tnPanel.addKeyListener(this);
         AnnotationProcessor.process(this);
     }
