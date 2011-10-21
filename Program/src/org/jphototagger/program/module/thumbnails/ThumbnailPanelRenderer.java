@@ -192,11 +192,11 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
 
             if (!dummy) {
                 paintThumbnailText(g2, rtci.file);
-                rtci.renderedForKeywords = panel.isKeywordsOverlay();
+                rtci.renderedForKeywords = panel.isMetaDataOverlay();
 
                 boolean actualOverlay = false;
 
-                if (panel.isKeywordsOverlay()) {
+                if (panel.isMetaDataOverlay()) {
                     actualOverlay = paintThumbnailKeywords(g2, rtci.file);
                     actualOverlay |= paintThumbnailStars(g2, rtci.file);
                 }

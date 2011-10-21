@@ -13,4 +13,8 @@ public interface ThumbnailsDisplayer {
     boolean isDisplayFile(File file);
 
     void removeFilesFromDisplay(Collection<? extends File> filesToRemove);
+
+    void setMetaDataOverlay(boolean overlay);
+
+    boolean isMetaDataOverlay();
 }

@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.Action;
-import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu.Separator;
@@ -22,8 +21,8 @@ import org.openide.util.Lookup;
 import org.jphototagger.api.windows.MainWindowMenuProvider;
 import org.jphototagger.api.windows.MenuItemProvider;
 import org.jphototagger.lib.api.LayerUtil;
-import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.api.PositionProviderAscendingComparator;
+import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.swing.util.MenuUtil;
 import org.jphototagger.program.app.AppInfo;
@@ -98,10 +97,6 @@ public final class AppFrame extends javax.swing.JFrame {
     private void addAppPanel() {
         appPanel = new AppPanel();
         getContentPane().add(appPanel);
-    }
-
-    public JCheckBoxMenuItem getCheckBoxMenuItemKeywordOverlay() {
-        return checkBoxMenuItemKeywordOverlay;
     }
 
     public GoTo getGotoOfMenuItem(JMenuItem item) {
@@ -240,7 +235,6 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemSearch = new javax.swing.JMenuItem();
         menuView = new javax.swing.JMenu();
         sep15 = new javax.swing.JPopupMenu.Separator();
-        checkBoxMenuItemKeywordOverlay = new javax.swing.JCheckBoxMenuItem();
         menuGoto = new javax.swing.JMenu();
         menuItemGotoFastSearch = new javax.swing.JMenuItem();
         menuItemGotoEdit = new javax.swing.JMenuItem();
@@ -333,12 +327,6 @@ public final class AppFrame extends javax.swing.JFrame {
 
         sep15.setName("sep15"); // NOI18N
         menuView.add(sep15);
-
-        checkBoxMenuItemKeywordOverlay.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_O));
-        checkBoxMenuItemKeywordOverlay.setText(bundle.getString("AppFrame.checkBoxMenuItemKeywordOverlay.text")); // NOI18N
-        checkBoxMenuItemKeywordOverlay.setToolTipText(bundle.getString("AppFrame.checkBoxMenuItemKeywordOverlay.toolTipText")); // NOI18N
-        checkBoxMenuItemKeywordOverlay.setName("checkBoxMenuItemKeywordOverlay"); // NOI18N
-        menuView.add(checkBoxMenuItemKeywordOverlay);
 
         menuBar.add(menuView);
 
@@ -438,7 +426,6 @@ public final class AppFrame extends javax.swing.JFrame {
     }//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupSort;
-    private javax.swing.JCheckBoxMenuItem checkBoxMenuItemKeywordOverlay;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu menuEdit;
     private javax.swing.JMenu menuExport;

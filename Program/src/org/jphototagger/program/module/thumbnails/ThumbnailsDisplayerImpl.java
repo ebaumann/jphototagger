@@ -42,4 +42,20 @@ public final class ThumbnailsDisplayerImpl implements ThumbnailsDisplayer {
             }
         });
     }
+
+    @Override
+    public boolean isMetaDataOverlay() {
+        return GUI.getThumbnailsPanel().isMetaDataOverlay();
+    }
+
+    @Override
+    public void setMetaDataOverlay(final boolean overlay) {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
+            @Override
+            public void run() {
+                GUI.getThumbnailsPanel().setMetaDataOverlay(overlay);
+            }
+        });
+    }
 }

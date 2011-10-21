@@ -1,8 +1,10 @@
 package org.jphototagger.lib.api;
 
 import javax.swing.Action;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenuItem;
 
+import org.jphototagger.api.component.Selectable;
 import org.jphototagger.api.windows.MenuItemProvider;
 import org.jphototagger.lib.swing.util.MenuUtil;
 
@@ -23,9 +25,15 @@ public final class MenuItemProviderImpl implements MenuItemProvider {
 
     @Override
     public JMenuItem getMenuItem() {
-        JMenuItem item = new JMenuItem(action);
+        JMenuItem item = isSelectable()
+                ? new JCheckBoxMenuItem(action)
+                : new JMenuItem(action);
         MenuUtil.setMnemonics(item);
         return item;
+    }
+
+    private boolean isSelectable() {
+        return action instanceof Selectable;
     }
 
     @Override
