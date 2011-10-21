@@ -1,4 +1,4 @@
-package org.jphototagger.program.app.logging;
+package org.jphototagger.program.app.update;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -14,12 +14,10 @@ import org.jphototagger.lib.api.MenuItemProviderImpl;
  * @author Elmar Baumann
  */
 @ServiceProvider(service = MainWindowMenuProvider.class)
-public final class ActionsToMenus extends MainWindowMenuProviderAdapter {
+public final class MenuLayer extends MainWindowMenuProviderAdapter {
 
     @Override
-    public Collection<? extends MenuItemProvider> getWindowMenuItems() {
-        return Arrays.asList(
-                new MenuItemProviderImpl(new ShowErrorLogfileAction(), 50, true),
-                new MenuItemProviderImpl(new ShowAllMessagesLogfileAction(), 60, false));
+    public Collection<? extends MenuItemProvider> getHelpMenuItems() {
+        return Arrays.asList(new MenuItemProviderImpl(new UpdateCheckAction(), 1000, true));
     }
 }

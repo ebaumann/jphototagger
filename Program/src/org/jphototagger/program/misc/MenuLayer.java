@@ -1,4 +1,4 @@
-package org.jphototagger.synonyms;
+package org.jphototagger.program.misc;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -14,10 +14,10 @@ import org.jphototagger.lib.api.MenuItemProviderImpl;
  * @author Elmar Baumann
  */
 @ServiceProvider(service = MainWindowMenuProvider.class)
-public final class ActionsToMenus extends MainWindowMenuProviderAdapter {
+public final class MenuLayer extends MainWindowMenuProviderAdapter {
 
     @Override
-    public Collection<? extends MenuItemProvider> getWindowMenuItems() {
-        return Arrays.asList(new MenuItemProviderImpl(new ShowSynonymsDialogAction(), 20, false));
+    public Collection<? extends MenuItemProvider> getHelpMenuItems() {
+        return Arrays.asList(new MenuItemProviderImpl(new DisplayAboutJPhotoTaggerAction(), 10000, true));
     }
 }

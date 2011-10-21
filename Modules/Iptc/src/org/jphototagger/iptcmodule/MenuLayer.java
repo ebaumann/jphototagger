@@ -20,7 +20,7 @@ import org.jphototagger.lib.api.MenuItemProviderImpl;
     @ServiceProvider(service=MainWindowMenuProvider.class),
     @ServiceProvider(service=ThumbnailsPopupMenuItemProvider.class)
 })
-public final class ActionsToMenus extends MainWindowMenuProviderAdapter implements ThumbnailsPopupMenuItemProvider {
+public final class MenuLayer extends MainWindowMenuProviderAdapter implements ThumbnailsPopupMenuItemProvider {
 
     @Override
     public Collection<? extends MenuItemProvider> getMetaDataMenuItems() {

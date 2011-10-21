@@ -14,7 +14,7 @@ import org.jphototagger.lib.api.MenuItemProviderImpl;
  * @author Elmar Baumann
  */
 @ServiceProvider(service = MainWindowMenuProvider.class)
-public final class ActionsToMenus extends MainWindowMenuProviderAdapter {
+public final class MenuLayer extends MainWindowMenuProviderAdapter {
 
     @Override
     public Collection<? extends MenuItemProvider> getHelpMenuItems() {
