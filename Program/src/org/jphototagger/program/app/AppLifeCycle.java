@@ -1,6 +1,5 @@
 package org.jphototagger.program.app;
 
-import org.jphototagger.program.app.ui.AppFrame;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Collection;
@@ -14,15 +13,16 @@ import org.bushe.swing.event.EventBus;
 
 import org.openide.util.Lookup;
 
+import org.jphototagger.api.applifecycle.AppWillExitEvent;
 import org.jphototagger.api.concurrent.ReplaceableTask;
 import org.jphototagger.api.concurrent.SerialTaskExecutor;
 import org.jphototagger.api.modules.Module;
 import org.jphototagger.api.preferences.Preferences;
-import org.jphototagger.api.applifecycle.AppWillExitEvent;
 import org.jphototagger.domain.event.listener.ListenerSupport;
 import org.jphototagger.domain.repository.RepositoryMaintainance;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.app.ui.AppFrame;
 import org.jphototagger.program.factory.MetaFactory;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.tasks.ScheduledTasks;
@@ -147,13 +147,6 @@ public final class AppLifeCycle {
 
             @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {
-                quit();
-            }
-        });
-        appFrame.getMenuItemExit().addActionListener(new java.awt.event.ActionListener() {
-
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 quit();
             }
         });
