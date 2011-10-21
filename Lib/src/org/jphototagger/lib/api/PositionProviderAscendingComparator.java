@@ -1,4 +1,4 @@
-package org.jphototagger.lib.comparator;
+package org.jphototagger.lib.api;
 
 import java.util.Comparator;
 import org.jphototagger.api.collections.PositionProvider;

@@ -11,19 +11,17 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
-
 import javax.swing.ListCellRenderer;
+
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.MetaDataValueIds;
 import org.jphototagger.domain.metadata.exif.ExifDateTimeOriginalMetaDataValue;
 import org.jphototagger.domain.metadata.search.Comparator;
 import org.jphototagger.domain.metadata.search.Operator;
 import org.jphototagger.domain.metadata.search.SavedSearchPanel;
-import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpIptc4XmpCoreDateCreatedMetaDataValue;
 import org.jphototagger.lib.thirdparty.DateChooserDialog;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
-import org.jphototagger.program.resource.GUI;
 
 /**
  * Panel mit einer Suchspalte und deren möglichen Verknüpfungen, Operatoren
@@ -300,7 +298,6 @@ public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
         setFormatter();
         setInputVerifier();
         setEnabledCalendarButton();
-        showInputHelpers();
     }
 
     private void setEnabledCalendarButton() {
@@ -308,12 +305,6 @@ public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
         buttonCalendar.setEnabled(
             selItem.equals(ExifDateTimeOriginalMetaDataValue.INSTANCE)
             || selItem.equals(XmpIptc4XmpCoreDateCreatedMetaDataValue.INSTANCE));
-    }
-
-    private void showInputHelpers() {
-        if (listenToActions && getColumn().equals(XmpDcSubjectsSubjectMetaDataValue.INSTANCE)) {
-            GUI.getAppFrame().getMenuItemInputHelper().doClick();
-        }
     }
 
     private final ListCellRenderer columnRenderer = new DefaultListCellRenderer() {

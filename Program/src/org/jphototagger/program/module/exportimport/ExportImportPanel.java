@@ -15,17 +15,18 @@ import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.event.listener.ListenerSupport;
 import org.jphototagger.domain.repository.RepositoryDataExporter;
 import org.jphototagger.domain.repository.RepositoryDataImporter;
+import org.jphototagger.lib.api.LayerUtil;
+import org.jphototagger.lib.api.PositionProviderAscendingComparator;
+import org.jphototagger.lib.swing.DirectoryChooser;
+import org.jphototagger.lib.swing.DirectoryChooser.Option;
+import org.jphototagger.lib.swing.IconUtil;
+import org.jphototagger.lib.swing.LongMessageDialog;
 import org.jphototagger.lib.swing.SelectObjectsPanel;
 import org.jphototagger.lib.swing.SelectObjectsPanel.SelectionEvent;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
-import org.jphototagger.lib.swing.DirectoryChooser;
-import org.jphototagger.lib.swing.DirectoryChooser.Option;
-import org.jphototagger.lib.swing.LongMessageDialog;
-import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.CollectionUtil;
-import org.jphototagger.lib.comparator.PositionProviderAscendingComparator;
 import org.jphototagger.program.resource.GUI;
 
 /**
@@ -135,6 +136,7 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
         }
 
         Collections.sort(jptExporters, PositionProviderAscendingComparator.INSTANCE);
+        LayerUtil.logWarningIfNotUniquePositions(jptExporters);
 
         return jptExporters;
     }
@@ -161,6 +163,7 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
         }
 
         Collections.sort(jptImporters, PositionProviderAscendingComparator.INSTANCE);
+        LayerUtil.logWarningIfNotUniquePositions(jptImporters);
 
         return jptImporters;
     }

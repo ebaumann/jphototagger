@@ -18,6 +18,6 @@ public final class MenuLayer extends MainWindowMenuProviderAdapter {
 
     @Override
     public Collection<? extends MenuItemProvider> getWindowMenuItems() {
-        return Arrays.asList(new MenuItemProviderImpl(new ShowSynonymsDialogAction(), 20, false));
+        return Arrays.asList(new MenuItemProviderImpl(new ShowSynonymsDialogAction(), 250, false));
     }
 }

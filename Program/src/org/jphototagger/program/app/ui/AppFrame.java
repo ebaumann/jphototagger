@@ -21,8 +21,9 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.api.windows.MainWindowMenuProvider;
 import org.jphototagger.api.windows.MenuItemProvider;
+import org.jphototagger.lib.api.LayerUtil;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.comparator.PositionProviderAscendingComparator;
+import org.jphototagger.lib.api.PositionProviderAscendingComparator;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.swing.util.MenuUtil;
 import org.jphototagger.program.app.AppInfo;
@@ -119,10 +120,6 @@ public final class AppFrame extends javax.swing.JFrame {
         return menuItemSearch;
     }
 
-    public JMenuItem getMenuItemInputHelper() {
-        return menuItemInputHelper;
-    }
-
     public JMenuItem getMenuItemExit() {
         return menuItemExit;
     }
@@ -173,20 +170,21 @@ public final class AppFrame extends javax.swing.JFrame {
         });
     }
 
-    private void addMenuItems(List<? extends MenuItemProvider> items, JMenu menu) {
-        Collections.sort(items, PositionProviderAscendingComparator.INSTANCE);
-        for (MenuItemProvider menuItem : items) {
-            addMenuItem(menuItem, menu);
+    private void addMenuItems(List<? extends MenuItemProvider> menuItemProviders, JMenu menu) {
+        Collections.sort(menuItemProviders, PositionProviderAscendingComparator.INSTANCE);
+        LayerUtil.logWarningIfNotUniquePositions(menuItemProviders);
+        for (MenuItemProvider menuItemProvider : menuItemProviders) {
+            addMenuItem(menuItemProvider, menu);
         }
     }
 
-    private void addMenuItem(MenuItemProvider item, JMenu menu) {
-        int position = item.getPosition();
-        JMenuItem menuItem = item.getMenuItem();
+    private void addMenuItem(MenuItemProvider menuItemProvider, JMenu menu) {
+        int position = menuItemProvider.getPosition();
+        JMenuItem menuItem = menuItemProvider.getMenuItem();
         int itemCount = menu.getItemCount();
         int index = position < 0 || position > itemCount ? itemCount : position;
 
-        if (item.isSeparatorBefore()) {
+        if (menuItemProvider.isSeparatorBefore()) {
             menu.add(new Separator(), index);
             index++;
         }
@@ -260,8 +258,6 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemGotoKeywordsEdit = new javax.swing.JMenuItem();
         menuTools = new javax.swing.JMenu();
         menuWindow = new javax.swing.JMenu();
-        menuItemInputHelper = new javax.swing.JMenuItem();
-        menuItemActions = new javax.swing.JMenuItem();
         menuHelp = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -432,19 +428,6 @@ public final class AppFrame extends javax.swing.JFrame {
 
         menuWindow.setText(bundle.getString("AppFrame.menuWindow.text")); // NOI18N
         menuWindow.setName("menuWindow"); // NOI18N
-
-        menuItemInputHelper.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F9, 0));
-        menuItemInputHelper.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_edit.png"))); // NOI18N
-        menuItemInputHelper.setText(bundle.getString("AppFrame.menuItemInputHelper.text")); // NOI18N
-        menuItemInputHelper.setName("menuItemInputHelper"); // NOI18N
-        menuWindow.add(menuItemInputHelper);
-
-        menuItemActions.setAction(new org.jphototagger.program.module.actions.ShowActionsDialogAction());
-        menuItemActions.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_action.png"))); // NOI18N
-        menuItemActions.setText(bundle.getString("AppFrame.menuItemActions.text")); // NOI18N
-        menuItemActions.setName("menuItemActions"); // NOI18N
-        menuWindow.add(menuItemActions);
-
         menuBar.add(menuWindow);
 
         menuHelp.setText(bundle.getString("AppFrame.menuHelp.text")); // NOI18N
@@ -463,7 +446,6 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenu menuGoto;
     private javax.swing.JMenu menuHelp;
     private javax.swing.JMenu menuImport;
-    private javax.swing.JMenuItem menuItemActions;
     private javax.swing.JMenuItem menuItemExit;
     private javax.swing.JMenuItem menuItemExportJptMisc;
     private javax.swing.JMenuItem menuItemGotoCollections;
@@ -478,7 +460,6 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemGotoThumbnailsPanel;
     private javax.swing.JMenuItem menuItemGotoTimeline;
     private javax.swing.JMenuItem menuItemImportJptMisc;
-    private javax.swing.JMenuItem menuItemInputHelper;
     private javax.swing.JMenuItem menuItemSearch;
     private javax.swing.JMenuItem menuItemSettings;
     private javax.swing.JMenu menuTools;

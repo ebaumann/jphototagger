@@ -33,12 +33,12 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.tree.TreeSelectionModel;
 
-import org.jdesktop.swingx.JXList;
-import org.jdesktop.swingx.JXTree;
-
 import org.bushe.swing.event.EventBus;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+
+import org.jdesktop.swingx.JXList;
+import org.jdesktop.swingx.JXTree;
 
 import org.openide.util.Lookup;
 
@@ -50,8 +50,9 @@ import org.jphototagger.api.windows.MainWindowComponentProvider;
 import org.jphototagger.api.windows.StatusLineElementProvider;
 import org.jphototagger.api.windows.TabInEditWindowDisplayedEvent;
 import org.jphototagger.api.windows.TabInSelectionWindowDisplayedEvent;
+import org.jphototagger.lib.api.LayerUtil;
+import org.jphototagger.lib.api.PositionProviderAscendingComparator;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.comparator.PositionProviderAscendingComparator;
 import org.jphototagger.lib.swing.ImageTextArea;
 import org.jphototagger.lib.swing.MessageLabel;
 import org.jphototagger.lib.swing.TreeExpandCollapseAllAction;
@@ -540,18 +541,20 @@ public final class AppPanel extends javax.swing.JPanel {
         });
     }
 
-    private void instertIntoEditTabbedPane(List<MainWindowComponent> components) {
-        Collections.sort(components, PositionProviderAscendingComparator.INSTANCE);
-        for (MainWindowComponent component : components) {
+    private void instertIntoEditTabbedPane(List<MainWindowComponent> mainWindowComponents) {
+        Collections.sort(mainWindowComponents, PositionProviderAscendingComparator.INSTANCE);
+        LayerUtil.logWarningIfNotUniquePositions(mainWindowComponents);
+        for (MainWindowComponent component : mainWindowComponents) {
             dockIntoTabbedPane(component, tabbedPaneMetadata);
             SelectTabAction selectTabAction = createSelectTabAction(component, tabbedPaneMetadata);
             GUI.getAppFrame().addGotoMenuItemForEditWindow(selectTabAction);
         }
     }
 
-    private void insertIntoSelectionTabbedPane(List<MainWindowComponent> components) {
-        Collections.sort(components, PositionProviderAscendingComparator.INSTANCE);
-        for (MainWindowComponent component : components) {
+    private void insertIntoSelectionTabbedPane(List<MainWindowComponent> mainWindowComponents) {
+        Collections.sort(mainWindowComponents, PositionProviderAscendingComparator.INSTANCE);
+        LayerUtil.logWarningIfNotUniquePositions(mainWindowComponents);
+        for (MainWindowComponent component : mainWindowComponents) {
             dockIntoTabbedPane(component, tabbedPaneSelection);
             SelectTabAction selectTabAction = createSelectTabAction(component, tabbedPaneSelection);
             GUI.getAppFrame().addGotoMenuItemForSelectionWindow(selectTabAction);

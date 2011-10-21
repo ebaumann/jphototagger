@@ -30,7 +30,8 @@ import org.jphototagger.domain.repository.event.programs.ProgramDeletedEvent;
 import org.jphototagger.domain.repository.event.programs.ProgramInsertedEvent;
 import org.jphototagger.domain.repository.event.programs.ProgramUpdatedEvent;
 import org.jphototagger.domain.thumbnails.ThumbnailsPopupMenuItemProvider;
-import org.jphototagger.lib.comparator.PositionProviderAscendingComparator;
+import org.jphototagger.lib.api.LayerUtil;
+import org.jphototagger.lib.api.PositionProviderAscendingComparator;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
@@ -180,13 +181,14 @@ public final class ThumbnailsPopupMenu extends JPopupMenu {
         insertMenuItems(fileOperationItemProviders, menuFsOps);
     }
 
-    private void insertMenuItems(List<MenuItemProvider> itemProviders, JMenu intoMenu) {
-        Collections.sort(itemProviders, PositionProviderAscendingComparator.INSTANCE);
-        for (MenuItemProvider itemProvider : itemProviders) {
+    private void insertMenuItems(List<MenuItemProvider> menuItemProviders, JMenu intoMenu) {
+        Collections.sort(menuItemProviders, PositionProviderAscendingComparator.INSTANCE);
+        LayerUtil.logWarningIfNotUniquePositions(menuItemProviders);
+        for (MenuItemProvider menuItemProvider : menuItemProviders) {
             int intoItemCount = intoMenu == null ? getComponentCount() : intoMenu.getItemCount();
-            int itemProviderPosition = itemProvider.getPosition();
+            int itemProviderPosition = menuItemProvider.getPosition();
             int itemIndex = itemProviderPosition <= intoItemCount ? itemProviderPosition : intoItemCount;
-            if (itemProvider.isSeparatorBefore()) {
+            if (menuItemProvider.isSeparatorBefore()) {
                 if (intoMenu == null) {
                     add(new Separator(), itemIndex);
                 } else {
@@ -194,7 +196,7 @@ public final class ThumbnailsPopupMenu extends JPopupMenu {
                 }
                 itemIndex++;
             }
-            JMenuItem menuItem = itemProvider.getMenuItem();
+            JMenuItem menuItem = menuItemProvider.getMenuItem();
             if (intoMenu == null) {
                 add(menuItem, itemIndex);
             } else {
