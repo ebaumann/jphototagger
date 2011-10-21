@@ -14,7 +14,7 @@ import org.jphototagger.program.misc.InputHelperDialog;
 import org.jphototagger.program.misc.MaximumOneTreeOrListItemSelectedController;
 import org.jphototagger.program.misc.MenuItemEnablerController;
 import org.jphototagger.program.misc.ShowInputHelperDialogAction;
-import org.jphototagger.program.misc.ShowUserSettingsDialogController;
+import org.jphototagger.program.settings.ShowUserSettingsDialogAction;
 import org.jphototagger.program.misc.ThumbnailCountDisplayController;
 import org.jphototagger.program.misc.ThumbnailSelectionEditMetadataController;
 import org.jphototagger.program.module.actions.ActionsMenuUpdater;
@@ -85,7 +85,7 @@ import org.jphototagger.program.module.search.EditSavedSearchController;
 import org.jphototagger.program.module.search.FastSearchController;
 import org.jphototagger.program.module.search.RenameSavedSearchController;
 import org.jphototagger.program.module.search.SavedSearchSelectedController;
-import org.jphototagger.program.module.search.ShowAdvancedSearchDialogController;
+import org.jphototagger.program.module.search.ShowAdvancedSearchDialogAction;
 import org.jphototagger.program.module.thumbnails.CopyOrCutFilesToClipboardController;
 import org.jphototagger.program.module.thumbnails.CopyPasteMetadataController;
 import org.jphototagger.program.module.thumbnails.CreateMetadataOfDisplayedThumbnailsController;
@@ -156,8 +156,8 @@ public final class ControllerFactory {
         support.add(new ThumbnailSizeSliderController());
         support.add(new SortThumbnailsController());
         support.add(new DisplayAboutJPhotoTaggerAction());
-        support.add(new ShowUserSettingsDialogController());
-        support.add(new ShowAdvancedSearchDialogController());
+        support.add(new ShowUserSettingsDialogAction());
+        support.add(new ShowAdvancedSearchDialogAction());
         support.add(new EditKeywordSynonymsController());
     }
 

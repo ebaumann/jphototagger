@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
 import org.jphototagger.program.module.Controller;
-import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.resource.GUI;
 
 /**
@@ -19,7 +18,7 @@ public final class CreateSavedSearchController extends Controller {
 
     public void displayEmptySearchDialog() {
         AdvancedSearchDialog.INSTANCE.getPanel().empty();
-        ControllerFactory.INSTANCE.getController(ShowAdvancedSearchDialogController.class).showDialog();
+        new ShowAdvancedSearchDialogAction().actionPerformed(null);
     }
 
     @Override
