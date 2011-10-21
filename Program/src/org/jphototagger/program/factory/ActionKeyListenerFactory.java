@@ -7,9 +7,7 @@ import java.awt.event.KeyListener;
 import javax.swing.JMenuItem;
 
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.program.app.ui.AppFrame;
 import org.jphototagger.program.misc.InputHelperDialog;
-import org.jphototagger.program.misc.ShowUserSettingsDialogController;
 import org.jphototagger.program.module.keywords.tree.AddKeywordToTreeController;
 import org.jphototagger.program.module.keywords.tree.AddKeywordsToEditPanelController;
 import org.jphototagger.program.module.keywords.tree.CopyCutPasteKeywordController;
@@ -19,7 +17,6 @@ import org.jphototagger.program.module.keywords.tree.KeywordsDisplayImagesContro
 import org.jphototagger.program.module.keywords.tree.KeywordsTreePopupMenu;
 import org.jphototagger.program.module.keywords.tree.RenameKeywordController;
 import org.jphototagger.program.module.keywords.tree.ToggleRealKeywordController;
-import org.jphototagger.program.module.search.ShowAdvancedSearchDialogController;
 import org.jphototagger.program.resource.GUI;
 
 /**
@@ -47,20 +44,12 @@ public final class ActionKeyListenerFactory {
     }
 
     private void addActionListeners() {
-        listenToAppFrameMenuItems();
         listenToPopupMenuKeywordsTrees();
     }
 
     private void addKeyListeners() {
         addKeyListener(CopyCutPasteKeywordController.class, GUI.getAppPanel().getTreeEditKeywords());
         addKeyListener(CopyCutPasteKeywordController.class, InputHelperDialog.INSTANCE.getPanelKeywords().getTree());
-    }
-
-    private void listenToAppFrameMenuItems() {
-        AppFrame appFrame = GUI.getAppFrame();
-
-        addActionListeners(ShowUserSettingsDialogController.class, appFrame.getMenuItemSettings());
-        addActionListeners(ShowAdvancedSearchDialogController.class, appFrame.getMenuItemSearch());
     }
 
     private void listenToPopupMenuKeywordsTrees() {

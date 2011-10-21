@@ -107,14 +107,6 @@ public final class AppFrame extends javax.swing.JFrame {
         return menuItemOfGoto.get(gt);
     }
 
-    public JMenuItem getMenuItemSettings() {
-        return menuItemSettings;
-    }
-
-    public JMenuItem getMenuItemSearch() {
-        return menuItemSearch;
-    }
-
     public JMenuItem getMenuItemExit() {
         return menuItemExit;
     }
@@ -230,11 +222,7 @@ public final class AppFrame extends javax.swing.JFrame {
         sep3 = new javax.swing.JPopupMenu.Separator();
         menuItemExit = new javax.swing.JMenuItem();
         menuEdit = new javax.swing.JMenu();
-        menuItemSettings = new javax.swing.JMenuItem();
-        sep4 = new javax.swing.JPopupMenu.Separator();
-        menuItemSearch = new javax.swing.JMenuItem();
         menuView = new javax.swing.JMenu();
-        sep15 = new javax.swing.JPopupMenu.Separator();
         menuGoto = new javax.swing.JMenu();
         menuItemGotoFastSearch = new javax.swing.JMenuItem();
         menuItemGotoEdit = new javax.swing.JMenuItem();
@@ -304,30 +292,10 @@ public final class AppFrame extends javax.swing.JFrame {
 
         menuEdit.setText(bundle.getString("AppFrame.menuEdit.text")); // NOI18N
         menuEdit.setName("menuEdit"); // NOI18N
-
-        menuItemSettings.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_S));
-        menuItemSettings.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_settings.png"))); // NOI18N
-        menuItemSettings.setText(bundle.getString("AppFrame.menuItemSettings.text")); // NOI18N
-        menuItemSettings.setName("menuItemSettings"); // NOI18N
-        menuEdit.add(menuItemSettings);
-
-        sep4.setName("sep4"); // NOI18N
-        menuEdit.add(sep4);
-
-        menuItemSearch.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
-        menuItemSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_search.png"))); // NOI18N
-        menuItemSearch.setText(bundle.getString("AppFrame.menuItemSearch.text")); // NOI18N
-        menuItemSearch.setName("menuItemSearch"); // NOI18N
-        menuEdit.add(menuItemSearch);
-
         menuBar.add(menuEdit);
 
         menuView.setText(bundle.getString("AppFrame.menuView.text")); // NOI18N
         menuView.setName("menuView"); // NOI18N
-
-        sep15.setName("sep15"); // NOI18N
-        menuView.add(sep15);
-
         menuBar.add(menuView);
 
         menuGoto.setText(bundle.getString("AppFrame.menuGoto.text")); // NOI18N
@@ -447,17 +415,13 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemGotoThumbnailsPanel;
     private javax.swing.JMenuItem menuItemGotoTimeline;
     private javax.swing.JMenuItem menuItemImportJptMisc;
-    private javax.swing.JMenuItem menuItemSearch;
-    private javax.swing.JMenuItem menuItemSettings;
     private javax.swing.JMenu menuTools;
     private javax.swing.JMenu menuView;
     private javax.swing.JMenu menuWindow;
-    private javax.swing.JPopupMenu.Separator sep15;
     private javax.swing.JPopupMenu.Separator sep16;
     private javax.swing.JPopupMenu.Separator sep17;
     private javax.swing.JPopupMenu.Separator sep18;
     private javax.swing.JPopupMenu.Separator sep2;
     private javax.swing.JPopupMenu.Separator sep3;
-    private javax.swing.JPopupMenu.Separator sep4;
     // End of variables declaration//GEN-END:variables
 }
