@@ -107,10 +107,6 @@ public final class AppFrame extends javax.swing.JFrame {
         return menuItemOfGoto.get(gt);
     }
 
-    public JMenu getMenuEdit() {
-        return menuEdit;
-    }
-
     @Override
     public void setTitle(String title) {
         if (title.equals(AppInfo.APP_NAME)) {
