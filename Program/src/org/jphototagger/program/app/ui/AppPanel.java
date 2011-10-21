@@ -589,7 +589,7 @@ public final class AppPanel extends javax.swing.JPanel {
 
             @Override
             public void run() {
-                int tabCount = tabbedPaneSelection.getTabCount();
+                int tabCount = tabbedPane.getTabCount();
                 int appWindowPosition = appWindow.getPosition();
                 int tabIndex = appWindowPosition < 0 || appWindowPosition > tabCount ? tabCount : appWindowPosition;
                 Component component = appWindow.getComponent();
