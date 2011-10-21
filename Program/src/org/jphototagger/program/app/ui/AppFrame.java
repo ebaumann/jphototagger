@@ -107,10 +107,6 @@ public final class AppFrame extends javax.swing.JFrame {
         return menuItemOfGoto.get(gt);
     }
 
-    public JMenuItem getMenuItemExit() {
-        return menuItemExit;
-    }
-
     public JMenu getMenuEdit() {
         return menuEdit;
     }
@@ -214,13 +210,6 @@ public final class AppFrame extends javax.swing.JFrame {
         buttonGroupSort = new javax.swing.ButtonGroup();
         menuBar = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
-        sep2 = new javax.swing.JPopupMenu.Separator();
-        menuExport = new javax.swing.JMenu();
-        menuItemExportJptMisc = new javax.swing.JMenuItem();
-        menuImport = new javax.swing.JMenu();
-        menuItemImportJptMisc = new javax.swing.JMenuItem();
-        sep3 = new javax.swing.JPopupMenu.Separator();
-        menuItemExit = new javax.swing.JMenuItem();
         menuEdit = new javax.swing.JMenu();
         menuView = new javax.swing.JMenu();
         menuGoto = new javax.swing.JMenu();
@@ -251,43 +240,6 @@ public final class AppFrame extends javax.swing.JFrame {
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/app/ui/Bundle"); // NOI18N
         menuFile.setText(bundle.getString("AppFrame.menuFile.text")); // NOI18N
         menuFile.setName("menuFile"); // NOI18N
-
-        sep2.setName("sep2"); // NOI18N
-        menuFile.add(sep2);
-
-        menuExport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_export.png"))); // NOI18N
-        menuExport.setText(bundle.getString("AppFrame.menuExport.text")); // NOI18N
-        menuExport.setName("menuExport"); // NOI18N
-
-        menuItemExportJptMisc.setAction(org.jphototagger.program.module.exportimport.exporter.JptExportAction.INSTANCE);
-        menuItemExportJptMisc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_app_small.png"))); // NOI18N
-        menuItemExportJptMisc.setText(bundle.getString("AppFrame.menuItemExportJptMisc.text")); // NOI18N
-        menuItemExportJptMisc.setName("menuItemExportJptMisc"); // NOI18N
-        menuExport.add(menuItemExportJptMisc);
-
-        menuFile.add(menuExport);
-
-        menuImport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_import.png"))); // NOI18N
-        menuImport.setText(bundle.getString("AppFrame.menuImport.text")); // NOI18N
-        menuImport.setName("menuImport"); // NOI18N
-
-        menuItemImportJptMisc.setAction(org.jphototagger.program.module.exportimport.importer.JptImportAction.INSTANCE);
-        menuItemImportJptMisc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_app_small.png"))); // NOI18N
-        menuItemImportJptMisc.setText(bundle.getString("AppFrame.menuItemImportJptMisc.text")); // NOI18N
-        menuItemImportJptMisc.setName("menuItemImportJptMisc"); // NOI18N
-        menuImport.add(menuItemImportJptMisc);
-
-        menuFile.add(menuImport);
-
-        sep3.setName("sep3"); // NOI18N
-        menuFile.add(sep3);
-
-        menuItemExit.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_Q));
-        menuItemExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_exit.png"))); // NOI18N
-        menuItemExit.setText(bundle.getString("AppFrame.menuItemExit.text")); // NOI18N
-        menuItemExit.setName("menuItemExit"); // NOI18N
-        menuFile.add(menuItemExit);
-
         menuBar.add(menuFile);
 
         menuEdit.setText(bundle.getString("AppFrame.menuEdit.text")); // NOI18N
@@ -396,13 +348,9 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroupSort;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu menuEdit;
-    private javax.swing.JMenu menuExport;
     private javax.swing.JMenu menuFile;
     private javax.swing.JMenu menuGoto;
     private javax.swing.JMenu menuHelp;
-    private javax.swing.JMenu menuImport;
-    private javax.swing.JMenuItem menuItemExit;
-    private javax.swing.JMenuItem menuItemExportJptMisc;
     private javax.swing.JMenuItem menuItemGotoCollections;
     private javax.swing.JMenuItem menuItemGotoDirectories;
     private javax.swing.JMenuItem menuItemGotoEdit;
@@ -414,14 +362,11 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemGotoSavedSearches;
     private javax.swing.JMenuItem menuItemGotoThumbnailsPanel;
     private javax.swing.JMenuItem menuItemGotoTimeline;
-    private javax.swing.JMenuItem menuItemImportJptMisc;
     private javax.swing.JMenu menuTools;
     private javax.swing.JMenu menuView;
     private javax.swing.JMenu menuWindow;
     private javax.swing.JPopupMenu.Separator sep16;
     private javax.swing.JPopupMenu.Separator sep17;
     private javax.swing.JPopupMenu.Separator sep18;
-    private javax.swing.JPopupMenu.Separator sep2;
-    private javax.swing.JPopupMenu.Separator sep3;
     // End of variables declaration//GEN-END:variables
 }

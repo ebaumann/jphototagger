@@ -4,8 +4,13 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 
-import org.jphototagger.program.module.exportimport.ExportImportDialog;
+import org.openide.util.Lookup;
+
+import org.jphototagger.api.branding.Branding;
+import org.jphototagger.lib.swing.IconUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.module.exportimport.ExportImportContext;
+import org.jphototagger.program.module.exportimport.ExportImportDialog;
 
 /**
  * @author Elmar Baumann
@@ -13,13 +18,16 @@ import org.jphototagger.program.module.exportimport.ExportImportContext;
 public final class JptImportAction extends AbstractAction {
 
     private static final long serialVersionUID = 1L;
-    public static final JptImportAction INSTANCE = new JptImportAction();
+
+    public JptImportAction() {
+        super(Bundle.getString(JptImportAction.class, "JptImportAction.Name"));
+        Branding branding = Lookup.getDefault().lookup(Branding.class);
+        putValue(SMALL_ICON, IconUtil.getImageIcon(JptImportAction.class, "jpt.png"));
+    }
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        new ExportImportDialog(ExportImportContext.IMPORT).setVisible(true);
-    }
-
-    private JptImportAction() {
+        ExportImportDialog importDialog = new ExportImportDialog(ExportImportContext.IMPORT);
+        importDialog.setVisible(true);
     }
 }
