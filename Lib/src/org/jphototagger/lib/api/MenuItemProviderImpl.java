@@ -37,4 +37,9 @@ public final class MenuItemProviderImpl implements MenuItemProvider {
     public int getPosition() {
         return position;
     }
+
+    @Override
+    public String toString() {
+        return action.toString();
+    }
 }

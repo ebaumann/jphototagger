@@ -17,7 +17,7 @@ public final class MenuLayer extends MainWindowMenuProviderAdapter {
 
     @Override
     public Collection<? extends MenuItemProvider> getWindowMenuItems() {
-        return Arrays.asList(new MenuItemProviderImpl(new EditUserDefinedFileTypesAction(), 40, false));
+        return Arrays.asList(new MenuItemProviderImpl(new EditUserDefinedFileTypesAction(), 400, false));
     }
 
 }

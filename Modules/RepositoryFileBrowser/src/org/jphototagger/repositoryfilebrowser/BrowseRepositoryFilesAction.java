@@ -36,7 +36,7 @@ public final class BrowseRepositoryFilesAction extends AbstractAction implements
 
     @Override
     public int getPosition() {
-        return 1000;
+        return 10000;
     }
 
     @Override

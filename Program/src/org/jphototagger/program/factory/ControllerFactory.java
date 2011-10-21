@@ -60,7 +60,7 @@ import org.jphototagger.program.module.keywords.tree.KeywordsDisplayImagesContro
 import org.jphototagger.program.module.keywords.tree.KeywordsRepositoryUpdatesController;
 import org.jphototagger.program.module.keywords.tree.KeywordsSelectionController;
 import org.jphototagger.program.module.keywords.tree.RenameKeywordController;
-import org.jphototagger.program.module.keywords.tree.ShowKeywordsDialogController;
+import org.jphototagger.program.misc.ShowInputHelperDialogAction;
 import org.jphototagger.program.module.keywords.tree.ToggleButtonExpandKeywordsTreeController;
 import org.jphototagger.program.module.keywords.tree.ToggleRealKeywordController;
 import org.jphototagger.program.module.metadatatemplates.AddMetadataTemplateController;
@@ -224,7 +224,7 @@ public final class ControllerFactory {
     private void addMetadataEditPanelsControllers() {
         support.add(new EmptyAllEditPanelsController());
         support.add(new EnableInsertMetadataTemplateController());
-        support.add(new ShowKeywordsDialogController());
+        support.add(new ShowInputHelperDialogAction());
     }
 
     private void addMiscMetadataControllers() {

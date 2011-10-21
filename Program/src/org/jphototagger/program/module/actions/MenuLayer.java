@@ -1,4 +1,4 @@
-package org.jphototagger.program.misc;
+package org.jphototagger.program.module.actions;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -18,11 +18,6 @@ public final class MenuLayer extends MainWindowMenuProviderAdapter {
 
     @Override
     public Collection<? extends MenuItemProvider> getWindowMenuItems() {
-        return Arrays.asList(new MenuItemProviderImpl(new ShowInputHelperDialogAction(), 100, false));
-    }
-
-    @Override
-    public Collection<? extends MenuItemProvider> getHelpMenuItems() {
-        return Arrays.asList(new MenuItemProviderImpl(new DisplayAboutJPhotoTaggerAction(), 10000, true));
+        return Arrays.asList(new MenuItemProviderImpl(new ShowActionsDialogAction(), 200, false));
     }
 }
