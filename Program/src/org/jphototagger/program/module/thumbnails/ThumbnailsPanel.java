@@ -83,6 +83,7 @@ public class ThumbnailsPanel extends JPanel
         implements ComponentListener, MouseListener, MouseMotionListener, KeyListener, ThumbnailUpdateListener {
 
     private static final String KEY_THUMBNAIL_WIDTH = "ThumbnailsPanel.ThumbnailWidth";
+    private static final String KEY_SHOW_METADATA_OVERLAY = "UserSettings.ShowMetadataOverlay";
     private static final long serialVersionUID = 1L;
     private static final int MARGIN_THUMBNAIL = 3;
     public static final Color COLOR_FOREGROUND_PANEL = Color.WHITE;
@@ -104,7 +105,7 @@ public class ThumbnailsPanel extends JPanel
     private OriginOfDisplayedThumbnails originOfOfDisplayedThumbnails = OriginOfDisplayedThumbnails.UNDEFINED_ORIGIN;
     private final transient ThumbnailDoubleklickController ctrlDoubleklick;
     private boolean drag;
-    private boolean keywordsOverlay;
+    private boolean metaDataOverlay = readPersistedMetaDataOverlay();
     private volatile boolean notifySelChanged;
     private volatile boolean publishesChangedEvent;
     private volatile boolean notifyRefresh;
@@ -787,11 +788,11 @@ public class ThumbnailsPanel extends JPanel
             int prefetchHighEnd = Math.min(files.size() - 1, lastIndex + thumbnailCountPerRow * 5);
 
             if (isIndex(prefetchHighStart) && isIndex(prefetchHighEnd)) {
-                prefetch(prefetchHighStart, prefetchHighEnd, isKeywordsOverlay());
+                prefetch(prefetchHighStart, prefetchHighEnd, isMetaDataOverlay());
             }
 
             if (isIndex(prefetchLowStart) && isIndex(prefetchLowEnd)) {
-                prefetch(prefetchLowStart, prefetchLowEnd, isKeywordsOverlay());
+                prefetch(prefetchLowStart, prefetchLowEnd, isMetaDataOverlay());
             }
         }
 
@@ -811,7 +812,7 @@ public class ThumbnailsPanel extends JPanel
     private synchronized void paintThumbnail(int index, Graphics g) {
         Point topLeft = getTopLeftOfTnIndex(index);
         Image im = renderedThumbnailCache.getThumbnail(getFileAtIndex(index), renderer.getThumbnailWidth(),
-                isKeywordsOverlay());
+                isMetaDataOverlay());
 
         if (im != null) {
             g.drawImage(im, topLeft.x, topLeft.y, viewport);
@@ -862,15 +863,6 @@ public class ThumbnailsPanel extends JPanel
         return originOfOfDisplayedThumbnails;
     }
 
-    /**
-     * Returns the file action.
-     *
-     * <em>This class is not responsible to take care of the file action! I.e.
-     * if the action is not longer valid, the caller must setTree it to a valid
-     * action type.</em>
-     *
-     * @return file action
-     */
     public synchronized FileAction getFileAction() {
         return fileAction;
     }
@@ -1494,28 +1486,20 @@ public class ThumbnailsPanel extends JPanel
         return true;
     }
 
-    /**
-     * @return the keywordsOverlay
-     */
-    public synchronized boolean isKeywordsOverlay() {
-        return keywordsOverlay;
+    synchronized boolean isMetaDataOverlay() {
+        return metaDataOverlay;
     }
 
-    /**
-     * @param keywordsOverlay the keywordsOverlay to setTree
-     */
-    public synchronized void setKeywordsOverlay(boolean keywordsOverlay) {
-        this.keywordsOverlay = keywordsOverlay;
-
+    synchronized void setMetaDataOverlay(boolean metaDataOverlay) {
+        this.metaDataOverlay = metaDataOverlay;
+        persistMetaDataOverlay();
         // renderedThumbnailCache.rerenderAll(keywordsOverlay);
         repaint();
     }
 
     /**
-     * Returns the index of a specific file.
-     *
-     * @param  file  file
-     * @return Index or -1 if not displayed
+     * @param  file
+     * @return -1 if not displayed
      */
     public synchronized int getIndexOf(File file) {
         if (file == null) {
@@ -1526,10 +1510,8 @@ public class ThumbnailsPanel extends JPanel
     }
 
     /**
-     * Returns a specific file.
-     *
-     * @param  index index
-     * @return file or null if the index is invalid
+     * @param  index
+     * @return null if the index is invalid
      */
     public synchronized File getFileAtIndex(int index) {
         return isIndex(index)
@@ -1632,5 +1614,18 @@ public class ThumbnailsPanel extends JPanel
                 setToolTipText(null);
             }
         }
+    }
+
+    private boolean readPersistedMetaDataOverlay() {
+        Preferences preferences = Lookup.getDefault().lookup(Preferences.class);
+        if (preferences != null && preferences.containsKey(KEY_SHOW_METADATA_OVERLAY)) {
+            return preferences.getBoolean(KEY_SHOW_METADATA_OVERLAY);
+        }
+        return false;
+    }
+
+    private void persistMetaDataOverlay() {
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        storage.setBoolean(KEY_SHOW_METADATA_OVERLAY, metaDataOverlay);
     }
 }
