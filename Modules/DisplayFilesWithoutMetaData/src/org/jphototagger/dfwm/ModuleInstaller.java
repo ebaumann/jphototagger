@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import javax.swing.Icon;
+import javax.swing.KeyStroke;
 
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
@@ -73,6 +74,11 @@ public final class ModuleInstaller extends MainWindowComponentProviderAdapter im
 
         @Override
         public String getTooltipText() {
+            return null;
+        }
+
+        @Override
+        public KeyStroke getOptionalSelectionAccelaratorKey() {
             return null;
         }
     };

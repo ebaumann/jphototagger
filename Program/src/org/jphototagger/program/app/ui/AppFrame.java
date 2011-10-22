@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -171,7 +172,8 @@ public final class AppFrame extends javax.swing.JFrame {
 
     void addGotoMenuItemForSelectionWindow(Action action) {
         JMenuItem item = new JMenuItem(action);
-        if (lastSelectionGotoItemAcceleratorKeyCode > 0x30 && lastSelectionGotoItemAcceleratorKeyCode < 0x39) { // 0x30: TN-Panel
+
+        if (!hasAccelerator(action) && lastSelectionGotoItemAcceleratorKeyCode > 0x30 && lastSelectionGotoItemAcceleratorKeyCode <= 0x39) { // 0x30: TN-Panel
             KeyStroke keyStroke = KeyEventUtil.getKeyStrokeMenuShortcut(lastSelectionGotoItemAcceleratorKeyCode + 1);
             item.setAccelerator(keyStroke);
             lastSelectionGotoItemAcceleratorKeyCode++;
@@ -180,9 +182,18 @@ public final class AppFrame extends javax.swing.JFrame {
         lastGotoSelectionItemIndex++;
     }
 
+    private boolean hasAccelerator(Action action) {
+        if (action instanceof AbstractAction) {
+            AbstractAction abstractAction = (AbstractAction) action;
+            Object value = abstractAction.getValue(Action.ACCELERATOR_KEY);
+            return value != null;
+        }
+        return false;
+    }
+
     void addGotoMenuItemForEditWindow(Action action) {
         JMenuItem item = new JMenuItem(action);
-        if (lastEditGotoItemAcceleratorKeyCode >= 0x30 && lastEditGotoItemAcceleratorKeyCode < 0x39) {
+        if (!hasAccelerator(action) && lastEditGotoItemAcceleratorKeyCode >= 0x30 && lastEditGotoItemAcceleratorKeyCode <= 0x39) {
             KeyStroke keyStroke = KeyStroke.getKeyStroke(lastEditGotoItemAcceleratorKeyCode + 1, InputEvent.ALT_MASK);
             item.setAccelerator(keyStroke);
             lastEditGotoItemAcceleratorKeyCode++;
@@ -219,7 +230,6 @@ public final class AppFrame extends javax.swing.JFrame {
         sep17 = new javax.swing.JPopupMenu.Separator();
         menuItemGotoThumbnailsPanel = new javax.swing.JMenuItem();
         sep18 = new javax.swing.JPopupMenu.Separator();
-        menuItemGotoEdit = new javax.swing.JMenuItem();
         menuItemGotoKeywordsEdit = new javax.swing.JMenuItem();
         menuTools = new javax.swing.JMenu();
         menuWindow = new javax.swing.JMenu();
@@ -310,12 +320,6 @@ public final class AppFrame extends javax.swing.JFrame {
         sep18.setName("sep18"); // NOI18N
         menuGoto.add(sep18);
 
-        menuItemGotoEdit.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_E));
-        menuItemGotoEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_edit.png"))); // NOI18N
-        menuItemGotoEdit.setText(bundle.getString("AppFrame.menuItemGotoEdit.text")); // NOI18N
-        menuItemGotoEdit.setName("menuItemGotoEdit"); // NOI18N
-        menuGoto.add(menuItemGotoEdit);
-
         menuItemGotoKeywordsEdit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_4, java.awt.event.InputEvent.ALT_MASK));
         menuItemGotoKeywordsEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_keyword.png"))); // NOI18N
         menuItemGotoKeywordsEdit.setText(bundle.getString("AppFrame.menuItemGotoKeywordsEdit.text")); // NOI18N
@@ -347,7 +351,6 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenu menuHelp;
     private javax.swing.JMenuItem menuItemGotoCollections;
     private javax.swing.JMenuItem menuItemGotoDirectories;
-    private javax.swing.JMenuItem menuItemGotoEdit;
     private javax.swing.JMenuItem menuItemGotoFastSearch;
     private javax.swing.JMenuItem menuItemGotoFavorites;
     private javax.swing.JMenuItem menuItemGotoKeywordsEdit;

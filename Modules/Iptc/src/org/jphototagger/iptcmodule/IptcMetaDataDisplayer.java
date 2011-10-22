@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.Icon;
+import javax.swing.KeyStroke;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
@@ -60,7 +61,7 @@ public final class IptcMetaDataDisplayer implements MainWindowComponentProvider 
         }
     }
 
-    @EventSubscriber(eventClass=TabInEditWindowDisplayedEvent.class)
+    @EventSubscriber(eventClass = TabInEditWindowDisplayedEvent.class)
     public void tabInEditWindowDisplayed(TabInEditWindowDisplayedEvent evt) {
         Component selectedTabComponent = evt.getSelectedTabComponent();
         iptcPanelDisplayed = selectedTabComponent == iptcPanel;
@@ -156,6 +157,11 @@ public final class IptcMetaDataDisplayer implements MainWindowComponentProvider 
 
             @Override
             public String getTooltipText() {
+                return null;
+            }
+
+            @Override
+            public KeyStroke getOptionalSelectionAccelaratorKey() {
                 return null;
             }
         });
