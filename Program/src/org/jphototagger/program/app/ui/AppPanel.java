@@ -509,7 +509,12 @@ public final class AppPanel extends javax.swing.JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            tabbedPane.setSelectedComponent(component);
+            Component selectedComponent = tabbedPane.getSelectedComponent();
+            if (component != selectedComponent) {
+                tabbedPane.setSelectedComponent(component);
+            } else {
+                EventBus.publish(new TabInEditWindowDisplayedEvent(this, component));
+            }
         }
     }
 

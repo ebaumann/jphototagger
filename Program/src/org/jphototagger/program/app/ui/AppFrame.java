@@ -39,7 +39,7 @@ public final class AppFrame extends javax.swing.JFrame {
     private final Map<GoTo, JMenuItem> menuItemOfGoto = new EnumMap<GoTo, JMenuItem>(GoTo.class);
     private final Map<JMenuItem, GoTo> gotoOfMenuItem = new HashMap<JMenuItem, GoTo>();
     private AppPanel appPanel;
-    private int lastGotoSelectionItemIndex = 9;
+    private int lastGotoSelectionItemIndex = 8;
     private int lastGotoEditItemIndex = 13;
     private int lastSelectionGotoItemAcceleratorKeyCode = 0x37;
     private int lastEditGotoItemAcceleratorKeyCode = 0x30;
@@ -219,6 +219,8 @@ public final class AppFrame extends javax.swing.JFrame {
         menuView = new javax.swing.JMenu();
         menuGoto = new javax.swing.JMenu();
         menuItemGotoFastSearch = new javax.swing.JMenuItem();
+        sep17 = new javax.swing.JPopupMenu.Separator();
+        menuItemGotoThumbnailsPanel = new javax.swing.JMenuItem();
         sep16 = new javax.swing.JPopupMenu.Separator();
         menuItemGotoDirectories = new javax.swing.JMenuItem();
         menuItemGotoSavedSearches = new javax.swing.JMenuItem();
@@ -227,8 +229,6 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemGotoKeywordsSel = new javax.swing.JMenuItem();
         menuItemGotoTimeline = new javax.swing.JMenuItem();
         menuItemGotoMiscMetadata = new javax.swing.JMenuItem();
-        sep17 = new javax.swing.JPopupMenu.Separator();
-        menuItemGotoThumbnailsPanel = new javax.swing.JMenuItem();
         sep18 = new javax.swing.JPopupMenu.Separator();
         menuItemGotoKeywordsEdit = new javax.swing.JMenuItem();
         menuTools = new javax.swing.JMenu();
@@ -262,6 +262,15 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemGotoFastSearch.setText(bundle.getString("AppFrame.menuItemGotoFastSearch.text")); // NOI18N
         menuItemGotoFastSearch.setName("menuItemGotoFastSearch"); // NOI18N
         menuGoto.add(menuItemGotoFastSearch);
+
+        sep17.setName("sep17"); // NOI18N
+        menuGoto.add(sep17);
+
+        menuItemGotoThumbnailsPanel.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_0));
+        menuItemGotoThumbnailsPanel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_thumbnails.png"))); // NOI18N
+        menuItemGotoThumbnailsPanel.setText(bundle.getString("AppFrame.menuItemGotoThumbnailsPanel.text")); // NOI18N
+        menuItemGotoThumbnailsPanel.setName("menuItemGotoThumbnailsPanel"); // NOI18N
+        menuGoto.add(menuItemGotoThumbnailsPanel);
 
         sep16.setName("sep16"); // NOI18N
         menuGoto.add(sep16);
@@ -307,15 +316,6 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemGotoMiscMetadata.setText(bundle.getString("AppFrame.menuItemGotoMiscMetadata.text")); // NOI18N
         menuItemGotoMiscMetadata.setName("menuItemGotoMiscMetadata"); // NOI18N
         menuGoto.add(menuItemGotoMiscMetadata);
-
-        sep17.setName("sep17"); // NOI18N
-        menuGoto.add(sep17);
-
-        menuItemGotoThumbnailsPanel.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_0));
-        menuItemGotoThumbnailsPanel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_thumbnails.png"))); // NOI18N
-        menuItemGotoThumbnailsPanel.setText(bundle.getString("AppFrame.menuItemGotoThumbnailsPanel.text")); // NOI18N
-        menuItemGotoThumbnailsPanel.setName("menuItemGotoThumbnailsPanel"); // NOI18N
-        menuGoto.add(menuItemGotoThumbnailsPanel);
 
         sep18.setName("sep18"); // NOI18N
         menuGoto.add(sep18);

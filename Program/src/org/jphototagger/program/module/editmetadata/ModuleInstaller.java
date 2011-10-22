@@ -9,6 +9,8 @@ import javax.swing.Icon;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.templates.MetadataTemplate;
@@ -19,6 +21,7 @@ import org.jphototagger.api.modules.Module;
 import org.jphototagger.api.modules.ModuleDescription;
 import org.jphototagger.api.windows.MainWindowComponent;
 import org.jphototagger.api.windows.MainWindowComponentProvider;
+import org.jphototagger.api.windows.TabInEditWindowDisplayedEvent;
 import org.jphototagger.domain.metadata.SelectedFilesMetaDataEditor;
 import org.jphototagger.lib.api.MainWindowComponentProviderAdapter;
 import org.jphototagger.lib.swing.IconUtil;
@@ -41,7 +44,7 @@ public final class ModuleInstaller extends MainWindowComponentProviderAdapter im
 
     @Override
     public void init() {
-        // ignore
+        AnnotationProcessor.process(this);
     }
 
     @Override
@@ -101,6 +104,13 @@ public final class ModuleInstaller extends MainWindowComponentProviderAdapter im
             return KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_E);
         }
     };
+
+    @EventSubscriber(eventClass=TabInEditWindowDisplayedEvent.class)
+    public void tabInEditWindowDisplayed(TabInEditWindowDisplayedEvent evt) {
+        if (evt.getSelectedTabComponent() == EDIT_METADTA_PANELS_WRAPPER) {
+            EDIT_METADATA_PANELS.setFocusToLastFocussedEditControl();
+        }
+    }
 
     @Override
     public boolean isEditable() {
