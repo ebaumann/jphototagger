@@ -1,4 +1,4 @@
-package org.jphototagger.program.app.ui;
+package org.jphototagger.program.module.editmetadata;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -29,6 +29,7 @@ import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.domain.text.TextEntry;
 import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.lib.swing.util.Autocomplete;
+import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.program.misc.AutocompleteUtil;
 
 /**
@@ -115,7 +116,11 @@ public final class EditTextEntryPanel extends JPanel implements TextEntry, Docum
 
     @Override
     public void empty() {
-        textAreaEdit.setText("");
+        String oldText = textAreaEdit.getText();
+        if (StringUtil.hasContent(oldText)) {
+            textAreaEdit.setText("");
+            dirty = true;
+        }
     }
 
     @Override

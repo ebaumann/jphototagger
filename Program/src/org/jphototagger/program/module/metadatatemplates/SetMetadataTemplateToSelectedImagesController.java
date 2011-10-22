@@ -5,9 +5,12 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.domain.templates.MetadataTemplate;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.misc.InputHelperDialog;
+import org.jphototagger.program.module.editmetadata.EditMetaDataPanelsProvider;
+import org.jphototagger.program.resource.GUI;
 
 /**
  * @author Elmar Baumann
@@ -64,7 +67,8 @@ public final class SetMetadataTemplateToSelectedImagesController extends Metadat
             return;
         }
 
-        GUI.getAppPanel().getEditMetadataPanels().setMetadataTemplate(template);
+        EditMetaDataPanelsProvider provider = Lookup.getDefault().lookup(EditMetaDataPanelsProvider.class);
+        provider.getEditMetadataPanels().setMetadataTemplate(template);
         focusList();
     }
 

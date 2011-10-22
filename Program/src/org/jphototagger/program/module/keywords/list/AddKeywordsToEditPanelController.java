@@ -6,10 +6,12 @@ import java.util.List;
 
 import javax.swing.JMenuItem;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.lib.swing.KeyEventUtil;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.app.ui.EditMetadataPanels;
+import org.jphototagger.program.module.editmetadata.EditMetaDataPanels;
+import org.jphototagger.program.module.editmetadata.EditMetaDataPanelsProvider;
 
 /**
  * @author Elmar Baumann
@@ -30,7 +32,8 @@ public final class AddKeywordsToEditPanelController extends KeywordsListControll
             throw new NullPointerException("keywords == null");
         }
 
-        EditMetadataPanels editPanels = GUI.getAppPanel().getEditMetadataPanels();
+        EditMetaDataPanelsProvider provider = Lookup.getDefault().lookup(EditMetaDataPanelsProvider.class);
+        EditMetaDataPanels editPanels = provider.getEditMetadataPanels();
 
         if (editPanels.isEditable()) {
             for (String keyword : keywords) {

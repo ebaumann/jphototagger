@@ -1,4 +1,4 @@
-package org.jphototagger.program.app.ui;
+package org.jphototagger.program.module.editmetadata;
 
 import java.awt.Component;
 import java.awt.Container;
@@ -31,15 +31,16 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import org.openide.util.Lookup;
-
 import org.bushe.swing.event.EventBus;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+
+import org.openide.util.Lookup;
+
+import org.jphototagger.api.applifecycle.AppWillExitEvent;
 import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.DomainPreferencesKeys;
-import org.jphototagger.api.applifecycle.AppWillExitEvent;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.event.EditMetadataPanelsEditDisabledEvent;
 import org.jphototagger.domain.metadata.event.EditMetadataPanelsEditEnabledEvent;
@@ -52,6 +53,7 @@ import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.domain.text.TextEntry;
+import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.ExpandCollapseComponentPanel;
 import org.jphototagger.lib.swing.MessageDisplayer;
@@ -59,6 +61,7 @@ import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.program.misc.SaveXmp;
+import org.jphototagger.program.module.keywords.tree.SuggestKeywords;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.program.view.ViewUtil;
@@ -70,9 +73,9 @@ import org.jphototagger.xmp.XmpMetadata;
 /**
  * @author Elmar Baumann, Tobias Stening
  */
-public final class EditMetadataPanels implements FocusListener {
+public final class EditMetaDataPanels implements FocusListener {
 
-    private static final Logger LOGGER = Logger.getLogger(EditMetadataPanels.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(EditMetaDataPanels.class.getName());
     private final List<TextEntry> textEntries = new ArrayList<TextEntry>();
     private final List<FileXmp> filesXmp = new CopyOnWriteArrayList<FileXmp>();
     private final Set<MetaDataValue> repeatableMetaDataValuesOfTextEntries = new HashSet<MetaDataValue>();
@@ -82,10 +85,10 @@ public final class EditMetadataPanels implements FocusListener {
     private SetFilesThread currentSetFilesThread;
     private final JComponent parentContainer;
     private final Object monitor = new Object();
-    private EditMetadataActionsPanel editMetadataActionsPanel;
+    private final EditMetaDataActionsPanel editMetadataActionsPanel = new EditMetaDataActionsPanel(this);
     private Component lastFocussedEditControl;
 
-    public EditMetadataPanels(JComponent parentContainer) {
+    public EditMetaDataPanels(JComponent parentContainer) {
         if (parentContainer == null) {
             throw new NullPointerException("parentContainer == null");
         }
@@ -112,7 +115,7 @@ public final class EditMetadataPanels implements FocusListener {
         return false;
     }
 
-    public void setDirty(final boolean dirty) {
+    private void setDirty(final boolean dirty) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
@@ -137,7 +140,7 @@ public final class EditMetadataPanels implements FocusListener {
         setDirty(false);
     }
 
-    public void setEditable(final boolean editable) {
+    private void setEditable(final boolean editable) {
         synchronized (monitor) {
             this.editable = editable;
         }
@@ -163,7 +166,32 @@ public final class EditMetadataPanels implements FocusListener {
         }
     }
 
-    public void setFiles(final Collection<File> files) {
+    @EventSubscriber(eventClass = ThumbnailsSelectionChangedEvent.class)
+    public void thumbnailsSelectionChanged(final ThumbnailsSelectionChangedEvent evt) {
+        boolean canEdit = false;
+        List<File> selFiles = evt.getSelectedFiles();
+
+        if (evt.isAFileSelected()) {
+            canEdit = canEdit(selFiles);
+            setEditable(canEdit);
+            setFiles(selFiles);
+        } else {
+            clear();
+            setEditable(false);
+        }
+    }
+
+    boolean canEdit(List<File> selectedFiles) {
+        for (File selFile : selectedFiles) {
+            if (!XmpMetadata.canWriteSidecarFileForImageFile(selFile)) {
+                return false;
+            }
+        }
+
+        return selectedFiles.size() > 0;
+    }
+
+    private void setFiles(final Collection<File> files) {
         if (files == null) {
             throw new NullPointerException("files == null");
         }
@@ -622,7 +650,7 @@ public final class EditMetadataPanels implements FocusListener {
                         xmp.setValue(XmpRatingMetaDataValue.INSTANCE, rating);
                     }
                 } catch (Exception ex) {
-                    Logger.getLogger(EditMetadataPanels.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(EditMetaDataPanels.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -766,7 +794,7 @@ public final class EditMetadataPanels implements FocusListener {
         });
     }
 
-    public MetadataTemplate createMetadataTemplateFromInput() {
+    MetadataTemplate createMetadataTemplateFromInput() {
         if (!EventQueue.isDispatchThread()) {
             throw new IllegalStateException("Not called in EDT");
         }
@@ -827,26 +855,9 @@ public final class EditMetadataPanels implements FocusListener {
 
             @Override
             public void run() {
-                EditMetadataActionsPanel actionsPanel = GUI.getAppPanel().getPanelEditMetadataActions();
-                List<Character> mnemonics = new ArrayList<Character>(10);
-
-                /*
-                 * UPDATE IF other components of the application panel containing
-                 * buttons with mnemonics and can be visible and enabled when the edit
-                 * panel is displayed. Else Alt+Mnemonic triggers their button actions
-                 * even if the components with the buttons are not focussed.
-                 */
-                mnemonics.add((char) actionsPanel.buttonEmptyMetadata.getMnemonic());
-                mnemonics.add((char) actionsPanel.buttonMetadataTemplateCreate.getMnemonic());
-                mnemonics.add((char) actionsPanel.buttonMetadataTemplateDelete.getMnemonic());
-                mnemonics.add((char) actionsPanel.buttonMetadataTemplateEdit.getMnemonic());
-                mnemonics.add((char) actionsPanel.buttonMetadataTemplateInsert.getMnemonic());
-                mnemonics.add((char) actionsPanel.buttonMetadataTemplateRename.getMnemonic());
-                mnemonics.add((char) actionsPanel.buttonMetadataTemplateUpdate.getMnemonic());
-                mnemonics.add((char) actionsPanel.buttonMetadataTemplateAdd.getMnemonic());
-                mnemonics.add((char) actionsPanel.labelPromptCurrentTemplate.getDisplayedMnemonic());
-                mnemonics.addAll(MnemonicUtil.getMnemonicCharsOf(Arrays.asList(GUI.getAppPanel().getMnemonizedComponents())));
-                ViewUtil.setDisplayedMnemonicsToLabels(parentContainer, mnemonics.toArray(new Character[]{}));
+                List<Character> mnemonicChars = editMetadataActionsPanel.getButtonsMnemonicChars();
+                mnemonicChars.addAll(MnemonicUtil.getMnemonicCharsOf(Arrays.asList(GUI.getAppPanel().getMnemonizedComponents())));
+                ViewUtil.setDisplayedMnemonicsToLabels(parentContainer, mnemonicChars.toArray(new Character[]{}));
             }
         });
     }
@@ -864,16 +875,13 @@ public final class EditMetadataPanels implements FocusListener {
     }
 
     private void addActionPanel() {
-        editMetadataActionsPanel = GUI.getAppPanel().getPanelEditMetadataActions();
-
         GridBagConstraints gbc = newConstraints();
-
         gbc.weighty = 1;
         parentContainer.add(editMetadataActionsPanel, gbc);
         editMetadataActionsPanel.tabbedPane.addFocusListener(this);
     }
 
-    public void requestFocusToFirstEditField() {
+    private void requestFocusToFirstEditField() {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
@@ -964,13 +972,13 @@ public final class EditMetadataPanels implements FocusListener {
                 : true;
     }
 
-    public void clear() {
+    private void clear() {
         synchronized (monitor) {
             setFiles(Collections.<File>emptyList());
         }
     }
 
-    public void emptyAllEditPanels() {
+    void emptyAllEditPanels() {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
@@ -1128,7 +1136,7 @@ public final class EditMetadataPanels implements FocusListener {
                 if (entry instanceof RatingSelectionPanel) {
                     // Text not parsable as number leads to an exception
                 } else {
-                    entry.setText(Bundle.getString(EditMetadataPanels.class, "EditMetadataPanels.DisableIfMultipleValues.Info.TextEntry"));
+                    entry.setText(Bundle.getString(EditMetaDataPanels.class, "EditMetadataPanels.DisableIfMultipleValues.Info.TextEntry"));
                 }
 
                 entry.addMouseListenerToInputComponents(this);

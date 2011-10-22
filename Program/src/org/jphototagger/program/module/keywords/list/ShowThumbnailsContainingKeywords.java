@@ -52,7 +52,6 @@ public final class ShowThumbnailsContainingKeywords implements Runnable {
                 WaitDisplayer waitDisplayer = Lookup.getDefault().lookup(WaitDisplayer.class);
                 waitDisplayer.show();
                 setFilesToThumbnailsPanel();
-                setMetadataEditable();
                 waitDisplayer.hide();
             }
         });
@@ -97,11 +96,5 @@ public final class ShowThumbnailsContainingKeywords implements Runnable {
         String title = Bundle.getString(ShowThumbnailsContainingKeywords.class, "ShowThumbnailsContainingKeywords.AppFrame.Title.Keyword", keyword);
         MainWindowManager mainWindowManager = Lookup.getDefault().lookup(MainWindowManager.class);
         mainWindowManager.setMainWindowTitle(title);
-    }
-
-    private void setMetadataEditable() {
-        if (!GUI.getThumbnailsPanel().isAFileSelected()) {
-            GUI.getEditPanel().setEditable(false);
-        }
     }
 }

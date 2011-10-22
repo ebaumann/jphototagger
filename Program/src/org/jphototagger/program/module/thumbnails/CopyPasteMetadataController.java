@@ -10,12 +10,15 @@ import javax.swing.JMenuItem;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
-import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.KeyEventUtil;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.ui.EditMetadataPanels;
+import org.jphototagger.program.module.editmetadata.EditMetaDataPanels;
+import org.jphototagger.program.module.editmetadata.EditMetaDataPanelsProvider;
 import org.jphototagger.program.resource.GUI;
 
 /**
@@ -63,7 +66,8 @@ public final class CopyPasteMetadataController implements ActionListener, KeyLis
     }
 
     private void copy() {
-        EditMetadataPanels editPanel = GUI.getAppPanel().getEditMetadataPanels();
+        EditMetaDataPanelsProvider provider = Lookup.getDefault().lookup(EditMetaDataPanelsProvider.class);
+        EditMetaDataPanels editPanel = provider.getEditMetadataPanels();
         Xmp xmpOfEditPanel = editPanel.createXmpFromInput();
         this.xmp = new Xmp(xmpOfEditPanel);
         setPasteItemEnabled(true);
@@ -74,7 +78,8 @@ public final class CopyPasteMetadataController implements ActionListener, KeyLis
             return;
         }
 
-        EditMetadataPanels editPanel = GUI.getAppPanel().getEditMetadataPanels();
+        EditMetaDataPanelsProvider provider = Lookup.getDefault().lookup(EditMetaDataPanelsProvider.class);
+        EditMetaDataPanels editPanel = provider.getEditMetadataPanels();
 
         if (!checkSelected() || !checkCanEdit(editPanel)) {
             return;
@@ -104,7 +109,7 @@ public final class CopyPasteMetadataController implements ActionListener, KeyLis
         return true;
     }
 
-    private boolean checkCanEdit(EditMetadataPanels editPanel) {
+    private boolean checkCanEdit(EditMetaDataPanels editPanel) {
         if (!editPanel.isEditable()) {
             String message = Bundle.getString(CopyPasteMetadataController.class, "CopyPasteMetadataController.Error.NotEditable");
             MessageDisplayer.error(null, message);

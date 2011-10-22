@@ -70,7 +70,6 @@ public final class SavedSearchSelectedController implements ListSelectionListene
                 WaitDisplayer waitDisplayer = Lookup.getDefault().lookup(WaitDisplayer.class);
                 waitDisplayer.show();
                 searchSelectedValue(selectedValue);
-                setMetadataEditable();
                 waitDisplayer.hide();
             }
         }
@@ -102,18 +101,6 @@ public final class SavedSearchSelectedController implements ListSelectionListene
             String title = Bundle.getString(ShowThumbnails.class, "SavedSearchSelectedController.AppFrame.Title.AdvancedSearch.Saved", name);
             MainWindowManager mainWindowManager = Lookup.getDefault().lookup(MainWindowManager.class);
             mainWindowManager.setMainWindowTitle(title);
-        }
-
-        private void setMetadataEditable() {
-            EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-                @Override
-                public void run() {
-                    if (!GUI.getThumbnailsPanel().isAFileSelected()) {
-                        GUI.getEditPanel().setEditable(false);
-                    }
-                }
-            });
         }
     }
 }

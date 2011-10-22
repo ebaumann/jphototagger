@@ -14,12 +14,12 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.api.windows.MainWindowManager;
 import org.jphototagger.api.windows.WaitDisplayer;
+import org.jphototagger.domain.filefilter.FileFilterUtil;
 import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.domain.filefilter.FileFilterUtil;
 import org.jphototagger.program.resource.GUI;
 
 /**
@@ -89,7 +89,6 @@ public final class DirectorySelectedController implements TreeSelectionListener 
                 setTitle(selectedDirectory);
                 GUI.getThumbnailsPanel().setFiles(files, OriginOfDisplayedThumbnails.FILES_IN_SAME_DIRECTORY);
                 GUI.getThumbnailsPanel().applyThumbnailsPanelSettings(panelSettings);
-                setMetadataEditable();
                 waitDisplayer.hide();
             }
         }
@@ -107,12 +106,6 @@ public final class DirectorySelectedController implements TreeSelectionListener 
                 return ((File) treePath.getLastPathComponent()).getAbsolutePath();
             } else {
                 return treePath.getLastPathComponent().toString();
-            }
-        }
-
-        private void setMetadataEditable() {
-            if (!GUI.getThumbnailsPanel().isAFileSelected()) {
-                GUI.getEditPanel().setEditable(false);
             }
         }
     }

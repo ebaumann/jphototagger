@@ -23,9 +23,9 @@ import org.jphototagger.domain.repository.SynonymsRepository;
 import org.jphototagger.lib.swing.InputDialog;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.misc.InputHelperDialog;
-import org.jphototagger.program.app.ui.EditRepeatableTextEntryPanel;
+import org.jphototagger.program.module.editmetadata.EditMetaDataPanelsProvider;
+import org.jphototagger.program.module.editmetadata.EditRepeatableTextEntryPanel;
 
 /**
  * @author Elmar Baumann
@@ -49,7 +49,8 @@ public final class EditKeywordSynonymsController extends KeywordsListController 
     }
 
     private EditRepeatableTextEntryPanel getKeywordsPanel() {
-        return (EditRepeatableTextEntryPanel) GUI.getAppPanel().getEditMetadataPanels().getEditPanelForMetaDataValue(
+        EditMetaDataPanelsProvider provider = Lookup.getDefault().lookup(EditMetaDataPanelsProvider.class);
+        return (EditRepeatableTextEntryPanel) provider.getEditMetadataPanels().getEditPanelForMetaDataValue(
                 XmpDcSubjectsSubjectMetaDataValue.INSTANCE);
     }
 

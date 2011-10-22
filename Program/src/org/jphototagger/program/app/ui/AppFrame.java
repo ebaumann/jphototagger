@@ -45,7 +45,6 @@ public final class AppFrame extends javax.swing.JFrame {
 
     private void initGotoMenuItemsMap() {
         menuItemOfGoto.put(GoTo.DIRECTORIES, menuItemGotoDirectories);
-        menuItemOfGoto.put(GoTo.EDIT_PANELS, menuItemGotoEdit);
         menuItemOfGoto.put(GoTo.FAST_SEARCH, menuItemGotoFastSearch);
         menuItemOfGoto.put(GoTo.FAVORITES, menuItemGotoFavorites);
         menuItemOfGoto.put(GoTo.KEYWORDS_EDIT, menuItemGotoKeywordsEdit);
@@ -63,7 +62,6 @@ public final class AppFrame extends javax.swing.JFrame {
 
     public enum GoTo {
         DIRECTORIES,
-        EDIT_PANELS,
         FAST_SEARCH,
         FAVORITES,
         KEYWORDS_EDIT,
@@ -210,7 +208,6 @@ public final class AppFrame extends javax.swing.JFrame {
         menuView = new javax.swing.JMenu();
         menuGoto = new javax.swing.JMenu();
         menuItemGotoFastSearch = new javax.swing.JMenuItem();
-        menuItemGotoEdit = new javax.swing.JMenuItem();
         sep16 = new javax.swing.JPopupMenu.Separator();
         menuItemGotoDirectories = new javax.swing.JMenuItem();
         menuItemGotoSavedSearches = new javax.swing.JMenuItem();
@@ -222,6 +219,7 @@ public final class AppFrame extends javax.swing.JFrame {
         sep17 = new javax.swing.JPopupMenu.Separator();
         menuItemGotoThumbnailsPanel = new javax.swing.JMenuItem();
         sep18 = new javax.swing.JPopupMenu.Separator();
+        menuItemGotoEdit = new javax.swing.JMenuItem();
         menuItemGotoKeywordsEdit = new javax.swing.JMenuItem();
         menuTools = new javax.swing.JMenu();
         menuWindow = new javax.swing.JMenu();
@@ -254,12 +252,6 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemGotoFastSearch.setText(bundle.getString("AppFrame.menuItemGotoFastSearch.text")); // NOI18N
         menuItemGotoFastSearch.setName("menuItemGotoFastSearch"); // NOI18N
         menuGoto.add(menuItemGotoFastSearch);
-
-        menuItemGotoEdit.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_E));
-        menuItemGotoEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_edit.png"))); // NOI18N
-        menuItemGotoEdit.setText(bundle.getString("AppFrame.menuItemGotoEdit.text")); // NOI18N
-        menuItemGotoEdit.setName("menuItemGotoEdit"); // NOI18N
-        menuGoto.add(menuItemGotoEdit);
 
         sep16.setName("sep16"); // NOI18N
         menuGoto.add(sep16);
@@ -317,6 +309,12 @@ public final class AppFrame extends javax.swing.JFrame {
 
         sep18.setName("sep18"); // NOI18N
         menuGoto.add(sep18);
+
+        menuItemGotoEdit.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_E));
+        menuItemGotoEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_edit.png"))); // NOI18N
+        menuItemGotoEdit.setText(bundle.getString("AppFrame.menuItemGotoEdit.text")); // NOI18N
+        menuItemGotoEdit.setName("menuItemGotoEdit"); // NOI18N
+        menuGoto.add(menuItemGotoEdit);
 
         menuItemGotoKeywordsEdit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_4, java.awt.event.InputEvent.ALT_MASK));
         menuItemGotoKeywordsEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_keyword.png"))); // NOI18N

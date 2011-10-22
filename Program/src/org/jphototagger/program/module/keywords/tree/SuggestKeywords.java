@@ -1,4 +1,4 @@
-package org.jphototagger.program.app.ui;
+package org.jphototagger.program.module.keywords.tree;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -11,14 +11,12 @@ import org.jphototagger.domain.metadata.keywords.Keyword;
 import org.jphototagger.domain.metadata.keywords.KeywordType;
 import org.jphototagger.domain.repository.KeywordsRepository;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.module.keywords.tree.PathSelectionDialog;
+import org.jphototagger.api.text.Suggest;
 
 /**
- * Suggest keywords.
- *
  * @author Elmar Baumann
  */
-public class SuggestionKeywords implements Suggest {
+public class SuggestKeywords implements Suggest {
 
     private final KeywordsRepository repo = Lookup.getDefault().lookup(KeywordsRepository.class);
 
@@ -34,30 +32,6 @@ public class SuggestionKeywords implements Suggest {
         parentKeywordNames.addAll(chooseParentKeywords(keywordName, toStringCollection(parentKeywords)));
 
         return new HashSet<String>(parentKeywordNames);    // make them unique
-    }
-
-    private Collection<String> chooseParentKeywords(String keywordName, Collection<Collection<String>> parentKeywords) {
-        List<String> keywords = new ArrayList<String>();
-
-        if (parentKeywords.size() > 0) {
-            PathSelectionDialog dlg = new PathSelectionDialog(parentKeywords,
-                    PathSelectionDialog.Mode.DISTINCT_ELEMENTS);
-
-            dlg.setInfoMessage(Bundle.getString(SuggestionKeywords.class, "SuggestKeywords.Info", keywordName));
-            dlg.setVisible(true);
-
-            if (dlg.isAccepted()) {
-                addToKeywords(keywords, dlg.getSelPaths());
-            }
-        }
-
-        return keywords;
-    }
-
-    private void addToKeywords(Collection<String> keywords, Collection<Collection<String>> parentKeywords) {
-        for (Collection<String> collection : parentKeywords) {
-            keywords.addAll(collection);
-        }
     }
 
     private Collection<Collection<String>> toStringCollection(Collection<Collection<Keyword>> keywordCollection) {
@@ -76,8 +50,32 @@ public class SuggestionKeywords implements Suggest {
         return strings;
     }
 
+    private Collection<String> chooseParentKeywords(String keywordName, Collection<Collection<String>> parentKeywords) {
+        List<String> keywords = new ArrayList<String>();
+
+        if (parentKeywords.size() > 0) {
+            PathSelectionDialog dlg = new PathSelectionDialog(parentKeywords,
+                    PathSelectionDialog.Mode.DISTINCT_ELEMENTS);
+
+            dlg.setInfoMessage(Bundle.getString(SuggestKeywords.class, "SuggestKeywords.Info", keywordName));
+            dlg.setVisible(true);
+
+            if (dlg.isAccepted()) {
+                addToKeywords(keywords, dlg.getSelPaths());
+            }
+        }
+
+        return keywords;
+    }
+
+    private void addToKeywords(Collection<String> keywords, Collection<Collection<String>> parentKeywords) {
+        for (Collection<String> collection : parentKeywords) {
+            keywords.addAll(collection);
+        }
+    }
+
     @Override
     public String getDescription() {
-        return Bundle.getString(SuggestionKeywords.class, "SuggestKeywords.Description");
+        return Bundle.getString(SuggestKeywords.class, "SuggestKeywords.Description");
     }
 }

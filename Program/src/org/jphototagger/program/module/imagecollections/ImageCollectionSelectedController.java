@@ -75,8 +75,6 @@ public final class ImageCollectionSelectedController implements ListSelectionLis
                 } else {
                     LOGGER.log(Level.WARNING, "Photo album item selected: Couldn't find the album's name (Item value == null)!");
                 }
-
-                setMetadataEditable();
             }
         }, "JPhotoTagger: Displaying selected image collection");
 
@@ -104,11 +102,5 @@ public final class ImageCollectionSelectedController implements ListSelectionLis
                 mainWindowManager.setMainWindowTitle(title);
             }
         });
-    }
-
-    private void setMetadataEditable() {
-        if (!GUI.getThumbnailsPanel().isAFileSelected()) {
-            GUI.getEditPanel().setEditable(false);
-        }
     }
 }

@@ -13,6 +13,7 @@ import org.openide.util.Lookup;
 import org.jphototagger.api.windows.MainWindowManager;
 import org.jphototagger.api.windows.WaitDisplayer;
 import org.jphototagger.domain.favorites.Favorite;
+import org.jphototagger.domain.filefilter.FileFilterUtil;
 import org.jphototagger.domain.repository.FavoritesRepository;
 import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
@@ -20,9 +21,9 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppPanel;
-import org.jphototagger.program.app.ui.EditMetadataPanels;
 import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.domain.filefilter.FileFilterUtil;
+import org.jphototagger.program.module.editmetadata.EditMetaDataPanels;
+import org.jphototagger.program.module.editmetadata.EditMetaDataPanelsProvider;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
 import org.jphototagger.program.resource.GUI;
 
@@ -203,7 +204,8 @@ public final class FavoritesUtil {
 
         private final AppPanel appPanel = GUI.getAppPanel();
         private final ThumbnailsPanel tnPanel = appPanel.getPanelThumbnails();
-        private final EditMetadataPanels editPanels = appPanel.getEditMetadataPanels();
+        private final EditMetaDataPanelsProvider provider = Lookup.getDefault().lookup(EditMetaDataPanelsProvider.class);
+        private final EditMetaDataPanels editPanels = provider.getEditMetadataPanels();
         private final List<File> files;
         private final ThumbnailsPanelSettings tnPanelSettings;
 
@@ -223,7 +225,6 @@ public final class FavoritesUtil {
             setTitle();
             tnPanel.setFiles(files, OriginOfDisplayedThumbnails.FILES_IN_SAME_FAVORITE_DIRECTORY);
             tnPanel.applyThumbnailsPanelSettings(tnPanelSettings);
-            setMetadataEditable();
             waitDisplayer.hide();
         }
 
@@ -233,12 +234,6 @@ public final class FavoritesUtil {
             String title = Bundle.getString(SetFiles.class, "FavoritesHelper.AppFrame.Title.FavoriteDirectory", dirString);
             MainWindowManager mainWindowManager = Lookup.getDefault().lookup(MainWindowManager.class);
             mainWindowManager.setMainWindowTitle(title);
-        }
-
-        private void setMetadataEditable() {
-            if (!tnPanel.isAFileSelected()) {
-                editPanels.setEditable(false);
-            }
         }
     }
 }
