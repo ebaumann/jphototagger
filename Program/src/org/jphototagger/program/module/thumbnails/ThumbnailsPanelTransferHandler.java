@@ -18,24 +18,25 @@ import org.jdesktop.swingx.JXList;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
+import org.jphototagger.domain.filefilter.FileFilterUtil;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.MetaDataValueData;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.repository.ImageCollectionsRepository;
 import org.jphototagger.domain.templates.MetadataTemplate;
+import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.lib.datatransfer.TransferUtil;
 import org.jphototagger.lib.datatransfer.TransferUtil.FilenameDelimiter;
 import org.jphototagger.lib.datatransfer.TransferableObject;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.ui.EditMetadataPanels;
 import org.jphototagger.program.datatransfer.DataTransferSupport;
 import org.jphototagger.program.datatransfer.Flavor;
-import org.jphototagger.domain.filefilter.FileFilterUtil;
+import org.jphototagger.program.module.editmetadata.EditMetaDataPanels;
+import org.jphototagger.program.module.editmetadata.EditMetaDataPanelsProvider;
+import org.jphototagger.program.module.favorites.FavoritesUtil;
 import org.jphototagger.program.module.filesystem.FilesystemImageUtil;
 import org.jphototagger.program.module.filesystem.FilesystemImageUtil.ConfirmOverwrite;
-import org.jphototagger.program.module.favorites.FavoritesUtil;
 import org.jphototagger.program.module.keywords.KeywordsUtil;
 import org.jphototagger.program.module.miscmetadata.MiscMetadataUtil;
 import org.jphototagger.program.resource.GUI;
@@ -232,7 +233,8 @@ public final class ThumbnailsPanelTransferHandler extends TransferHandler {
         }
 
         if (dropOverSelectedThumbnail) {
-            EditMetadataPanels editPanels = GUI.getAppPanel().getEditMetadataPanels();
+            EditMetaDataPanelsProvider provider = Lookup.getDefault().lookup(EditMetaDataPanelsProvider.class);
+            EditMetaDataPanels editPanels = provider.getEditMetadataPanels();
             MetaDataValue column = dataFlavor.equals(Flavor.KEYWORDS_LIST)
                     ? XmpDcSubjectsSubjectMetaDataValue.INSTANCE
                     : null;
@@ -319,7 +321,8 @@ public final class ThumbnailsPanelTransferHandler extends TransferHandler {
             }
 
             assert selTemplates.length == 1;
-            GUI.getAppPanel().getEditMetadataPanels().setMetadataTemplate((MetadataTemplate) selTemplates[0]);
+            EditMetaDataPanelsProvider provider = Lookup.getDefault().lookup(EditMetaDataPanelsProvider.class);
+            provider.getEditMetadataPanels().setMetadataTemplate((MetadataTemplate) selTemplates[0]);
         } catch (Exception ex) {
             Logger.getLogger(ThumbnailsPanelTransferHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -335,7 +338,8 @@ public final class ThumbnailsPanelTransferHandler extends TransferHandler {
                     return;
                 }
 
-                EditMetadataPanels ep = GUI.getAppPanel().getEditMetadataPanels();
+                EditMetaDataPanelsProvider provider = Lookup.getDefault().lookup(EditMetaDataPanelsProvider.class);
+                EditMetaDataPanels ep = provider.getEditMetadataPanels();
 
                 for (MetaDataValueData data : mdValueData) {
                     ep.setOrAddText(data.getMetaDataValue(), (String) data.getData());

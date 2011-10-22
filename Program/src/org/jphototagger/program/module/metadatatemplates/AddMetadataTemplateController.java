@@ -6,9 +6,8 @@ import java.awt.event.KeyEvent;
 import javax.swing.JButton;
 
 import org.jphototagger.domain.templates.MetadataTemplate;
-import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.KeyEventUtil;
-import org.jphototagger.program.resource.GUI;
+import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.program.misc.InputHelperDialog;
 
 /**
@@ -22,12 +21,7 @@ public final class AddMetadataTemplateController extends MetadataTemplateControl
 
     private void listen() {
         listenToActionsOf(MetadataTemplatesPopupMenu.INSTANCE.getItemAdd());
-        getAddButtonEditPanel().addActionListener(this);
         getAddButtonInputHelper().addActionListener(this);
-    }
-
-    private JButton getAddButtonEditPanel() {
-        return GUI.getAppPanel().getButtonMetadataTemplateAdd();
     }
 
     private JButton getAddButtonInputHelper() {
@@ -41,17 +35,6 @@ public final class AddMetadataTemplateController extends MetadataTemplateControl
         }
 
         return KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_N);
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent evt) {
-        Object source = evt.getSource();
-
-        if ((source == getAddButtonEditPanel()) || (source == getAddButtonInputHelper())) {
-            action((MetadataTemplate) null);
-        } else {
-            super.actionPerformed(evt);
-        }
     }
 
     @Override

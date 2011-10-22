@@ -47,7 +47,6 @@ public final class ShowThumbnailsContainingAllKeywords2 implements Runnable {
                 WaitDisplayer waitDisplayer = Lookup.getDefault().lookup(WaitDisplayer.class);
                 waitDisplayer.show();
                 setFilesToThumbnailsPanel();
-                setMetadataEditable();
                 waitDisplayer.hide();
             }
         });
@@ -90,12 +89,6 @@ public final class ShowThumbnailsContainingAllKeywords2 implements Runnable {
         String title = Bundle.getString(ShowThumbnailsContainingAllKeywords2.class, "ShowThumbnailsContainingAllKeywords2.AppFrame.Title.Keyword", keyword);
         MainWindowManager mainWindowManager = Lookup.getDefault().lookup(MainWindowManager.class);
         mainWindowManager.setMainWindowTitle(title);
-    }
-
-    private void setMetadataEditable() {
-        if (!GUI.getThumbnailsPanel().isAFileSelected()) {
-            GUI.getEditPanel().setEditable(false);
-        }
     }
 
     private List<List<String>> deepCopy(List<List<String>> kwLists) {

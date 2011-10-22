@@ -154,7 +154,6 @@ public final class FastSearchController implements ActionListener {
 
     private void search() {
         search(GUI.getSearchTextArea().getText());
-        setMetadataEditable();
     }
 
     private void search(final String searchText) {
@@ -259,12 +258,6 @@ public final class FastSearchController implements ActionListener {
         if (!OriginOfDisplayedThumbnails.FILES_FOUND_BY_FAST_SEARCH.equals(originOfDisplayedThumbnails)) {
             JTextArea searchTextArea = GUI.getSearchTextArea();
             searchTextArea.setText("");
-        }
-    }
-
-    private void setMetadataEditable() {
-        if (!GUI.getThumbnailsPanel().isAFileSelected()) {
-            GUI.getEditPanel().setEditable(false);
         }
     }
 

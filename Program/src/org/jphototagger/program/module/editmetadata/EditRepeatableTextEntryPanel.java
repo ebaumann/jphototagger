@@ -1,4 +1,4 @@
-package org.jphototagger.program.app.ui;
+package org.jphototagger.program.module.editmetadata;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -49,6 +49,7 @@ import org.jphototagger.lib.swing.util.ListUtil;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.api.text.Suggest;
 import org.jphototagger.program.misc.AutocompleteUtil;
 
 /**
@@ -236,7 +237,15 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
     @Override
     public void empty() {
         textAreaInput.setText("");
-        model.removeAllElements();
+        if (!model.isEmpty()) {
+            Object[] elements = new Object[model.getSize()];
+            model.copyInto(elements);
+            for (Object element : elements) {
+                notifyTextRemoved(metaDataValue, (String) element);
+            }
+            model.removeAllElements();
+            dirty = true;
+        }
     }
 
     public void removeText(String text) {
@@ -712,7 +721,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         popupMenuList.setName("popupMenuList"); // NOI18N
 
         menuItemRename.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/app/ui/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/editmetadata/Bundle"); // NOI18N
         menuItemRename.setText(bundle.getString("EditRepeatableTextEntryPanel.menuItemRename.text")); // NOI18N
         menuItemRename.setName("menuItemRename"); // NOI18N
         menuItemRename.addActionListener(new java.awt.event.ActionListener() {
@@ -749,7 +758,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
 
         list.setModel(model);
         list.setToolTipText(bundle.getString("EditRepeatableTextEntryPanel.list.toolTipText")); // NOI18N
-        list.setCellRenderer(new org.jphototagger.program.app.ui.KeywordsEditPanelListCellRenderer());
+        list.setCellRenderer(new org.jphototagger.program.module.editmetadata.KeywordsEditPanelListCellRenderer());
         list.setComponentPopupMenu(popupMenuList);
         list.setDragEnabled(true);
         list.setDropMode(javax.swing.DropMode.INSERT);

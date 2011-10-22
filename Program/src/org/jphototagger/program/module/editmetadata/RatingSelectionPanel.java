@@ -1,4 +1,4 @@
-package org.jphototagger.program.app.ui;
+package org.jphototagger.program.module.editmetadata;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -24,6 +24,8 @@ import org.jphototagger.domain.event.listener.TextEntryListenerSupport;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpRatingMetaDataValue;
 import org.jphototagger.domain.text.TextEntry;
+import org.jphototagger.lib.util.StringUtil;
+import org.jphototagger.program.app.ui.AppLookAndFeel;
 
 /*
 * RatingSelectionPanel.java
@@ -116,20 +118,25 @@ public class RatingSelectionPanel extends JPanel implements TextEntry, FocusList
             throw new NullPointerException("text == null");
         }
 
-        int val = 0;
+        int inputAsInteger = 0;
 
         try {
-            if (!text.trim().isEmpty()) {
-                val = Integer.valueOf(text).intValue();
+            if (StringUtil.hasContent(text)) {
+                inputAsInteger = Integer.valueOf(text).intValue();
             }
         } catch (Exception ex) {
             Logger.getLogger(RatingSelectionPanel.class.getName()).log(Level.SEVERE, null, ex);
+            return;
         }
 
-        value = val;
+        if (value == inputAsInteger) {
+            return;
+        }
+
+        value = inputAsInteger;
 
         for (int i = 0; i < buttons.length; i++) {
-            if (i >= val) {
+            if (i >= inputAsInteger) {
                 buttons[i].setIcon(dark_star);
             } else {
                 buttons[i].setIcon(star);
@@ -139,7 +146,7 @@ public class RatingSelectionPanel extends JPanel implements TextEntry, FocusList
         buttonNoRating.setIcon((value > 0)
                                ? icon_rating_remove_not_set
                                : icon_rating_remove);
-        dirty = false;
+        dirty = true;
     }
 
     /**
@@ -359,7 +366,7 @@ public class RatingSelectionPanel extends JPanel implements TextEntry, FocusList
 
         buttonNoRating.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_xmp_rating_remove_not_set.png"))); // NOI18N
         buttonNoRating.setMnemonic('0');
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/app/ui/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/editmetadata/Bundle"); // NOI18N
         buttonNoRating.setToolTipText(bundle.getString("RatingSelectionPanel.buttonNoRating.toolTipText")); // NOI18N
         buttonNoRating.setBorder(null);
         buttonNoRating.setContentAreaFilled(false);

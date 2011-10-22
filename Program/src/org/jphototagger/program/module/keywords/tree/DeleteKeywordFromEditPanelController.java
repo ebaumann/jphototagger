@@ -8,16 +8,18 @@ import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.domain.metadata.keywords.Keyword;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.module.keywords.KeywordsUtil;
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.app.ui.EditMetadataPanels;
-import org.jphototagger.program.app.ui.EditRepeatableTextEntryPanel;
+import org.jphototagger.program.module.editmetadata.EditMetaDataPanels;
+import org.jphototagger.program.module.editmetadata.EditMetaDataPanelsProvider;
+import org.jphototagger.program.module.editmetadata.EditRepeatableTextEntryPanel;
 import org.jphototagger.program.module.keywords.KeywordsPanel;
+import org.jphototagger.program.module.keywords.KeywordsUtil;
 
 /**
  * Listens to the menu item
@@ -69,7 +71,8 @@ public class DeleteKeywordFromEditPanelController extends KeywordsController imp
     }
 
     public void removeFromEditPanel(String keyword) {
-        EditMetadataPanels editPanels = GUI.getAppPanel().getEditMetadataPanels();
+        EditMetaDataPanelsProvider provider = Lookup.getDefault().lookup(EditMetaDataPanelsProvider.class);
+        EditMetaDataPanels editPanels = provider.getEditMetadataPanels();
         JPanel panel = editPanels.getEditPanelForMetaDataValue(XmpDcSubjectsSubjectMetaDataValue.INSTANCE);
 
         if (panel instanceof EditRepeatableTextEntryPanel) {

@@ -8,11 +8,11 @@ import javax.swing.JTree;
 
 import org.jdesktop.swingx.JXList;
 
+
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.program.misc.InputHelperDialog;
 import org.jphototagger.program.app.ui.AppFrame;
 import org.jphototagger.program.app.ui.AppPanel;
-import org.jphototagger.program.app.ui.EditMetadataPanels;
+import org.jphototagger.program.misc.InputHelperDialog;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
 
 /**
@@ -51,10 +51,6 @@ public final class GUI {
 
     public static JTextArea getSearchTextArea() {
         return appPanel.getTextAreaSearch();
-    }
-
-    public static EditMetadataPanels getEditPanel() {
-        return appPanel.getEditMetadataPanels();
     }
 
     public static ThumbnailsPanel getThumbnailsPanel() {

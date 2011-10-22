@@ -31,7 +31,6 @@ import org.jphototagger.program.module.keywords.KeywordHighlightPredicate;
 import org.jphototagger.program.module.keywords.KeywordsPanel;
 import org.jphototagger.program.module.keywords.list.KeywordsListModel;
 import org.jphototagger.program.module.keywords.tree.KeywordsTreeModel;
-import org.jphototagger.program.module.metadatatemplates.MetadataTemplatesComboBoxModel;
 import org.jphototagger.program.module.metadatatemplates.MetadataTemplatesListModel;
 import org.jphototagger.program.module.miscmetadata.MiscMetadataTreeModel;
 import org.jphototagger.program.module.search.SavedSearchesListModel;
@@ -77,7 +76,6 @@ public final class ModelFactory {
     }
 
     private void setComboBoxModels(AppPanel appPanel) {
-        setComboBoxModelMetadataTemplates(appPanel);
         setComboBoxModelFileFilters();
     }
 
@@ -86,18 +84,6 @@ public final class ModelFactory {
 
         support.add(model);
         GUI.getAppPanel().getComboBoxFileFilters().setModel(model);
-    }
-
-    private void setComboBoxModelMetadataTemplates(AppPanel appPanel) {
-        String message = Bundle.getString(ModelFactory.class, "ModelFactory.Starting.ComboBoxModelMetadataTemplates");
-        Support.setStatusbarInfo(message);
-
-        MetadataTemplatesComboBoxModel model = new MetadataTemplatesComboBoxModel();
-
-        support.add(model);
-        appPanel.getPanelEditMetadataActions().getComboBoxMetadataTemplates().setModel(model);
-        message = Bundle.getString(ModelFactory.class, "ModelFactory.Finished.ComboBoxModelMetadataTemplates");
-        Support.setStatusbarInfo(message);
     }
 
     private void setListModels(AppPanel appPanel) {

@@ -75,12 +75,6 @@ public final class AdvancedSearchController implements ActionListener {
         });
     }
 
-    private void setMetadataEditable() {
-        if (!GUI.getThumbnailsPanel().isAFileSelected()) {
-            GUI.getEditPanel().setEditable(false);
-        }
-    }
-
     /**
      * Takes a search via {@code AdvancedSearchPanel#createSavedSearch()} and
      * performs it (searches).
@@ -93,7 +87,6 @@ public final class AdvancedSearchController implements ActionListener {
 
         if (savedSearch.isValid()) {
             applySavedSearch(savedSearch);
-            setMetadataEditable();
         }
     }
 }

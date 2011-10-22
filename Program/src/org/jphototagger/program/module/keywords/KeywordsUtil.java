@@ -31,23 +31,24 @@ import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpLastModifiedMetaDataValue;
 import org.jphototagger.domain.repository.ImageFilesRepository;
-import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.domain.repository.KeywordsRepository;
+import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.concurrent.HelperThread;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.util.ListUtil;
 import org.jphototagger.lib.swing.util.TreeUtil;
-import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.ArrayUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.app.ui.AppPanel;
 import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.lib.concurrent.HelperThread;
+import org.jphototagger.program.misc.InputHelperDialog;
 import org.jphototagger.program.misc.SaveXmp;
+import org.jphototagger.program.module.editmetadata.EditMetaDataPanels;
+import org.jphototagger.program.module.editmetadata.EditMetaDataPanelsProvider;
+import org.jphototagger.program.module.keywords.tree.KeywordsTreeCellRenderer;
 import org.jphototagger.program.module.keywords.tree.KeywordsTreeModel;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.misc.InputHelperDialog;
-import org.jphototagger.program.app.ui.AppPanel;
-import org.jphototagger.program.app.ui.EditMetadataPanels;
-import org.jphototagger.program.module.keywords.tree.KeywordsTreeCellRenderer;
 import org.jphototagger.xmp.XmpMetadata;
 
 /**
@@ -82,7 +83,8 @@ public final class KeywordsUtil {
 
             @Override
             public void run() {
-                EditMetadataPanels editPanels = GUI.getAppPanel().getEditMetadataPanels();
+                EditMetaDataPanelsProvider provider = Lookup.getDefault().lookup(EditMetaDataPanelsProvider.class);
+                EditMetaDataPanels editPanels = provider.getEditMetadataPanels();
                 List<String> keywordStrings = getKeywordStrings(node, true);
 
                 for (String keyword : keywordStrings) {

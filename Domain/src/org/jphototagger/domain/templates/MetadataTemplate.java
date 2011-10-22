@@ -121,4 +121,11 @@ public final class MetadataTemplate {
     public Set<MetaDataValue> getMetaDataValues() {
         return fieldOfMetaDataValue.keySet();
     }
+
+    public void updateValuesWithTemplate(MetadataTemplate template) {
+        Set<MetaDataValue> metaDataValues = template.getMetaDataValues();
+        for (MetaDataValue metaDataValue : metaDataValues) {
+            fieldOfMetaDataValue.put(metaDataValue, template.getMetaDataValue(metaDataValue));
+        }
+    }
 }

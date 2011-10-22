@@ -6,17 +6,11 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.logging.ErrorLogHandler;
 import org.jphototagger.program.misc.DisplayAboutJPhotoTaggerAction;
-import org.jphototagger.program.misc.EmptyAllEditPanelsController;
-import org.jphototagger.program.misc.EnableCreateMetadataTemplateController;
-import org.jphototagger.program.misc.EnableInsertMetadataTemplateController;
 import org.jphototagger.program.misc.GoToController;
 import org.jphototagger.program.misc.InputHelperDialog;
 import org.jphototagger.program.misc.MaximumOneTreeOrListItemSelectedController;
 import org.jphototagger.program.misc.MenuItemEnablerController;
-import org.jphototagger.program.misc.ShowInputHelperDialogAction;
-import org.jphototagger.program.settings.ShowUserSettingsDialogAction;
 import org.jphototagger.program.misc.ThumbnailCountDisplayController;
-import org.jphototagger.program.misc.ThumbnailSelectionEditMetadataController;
 import org.jphototagger.program.module.actions.ActionsMenuUpdater;
 import org.jphototagger.program.module.directories.CreateDirectoryController;
 import org.jphototagger.program.module.directories.DeleteDirectoryController;
@@ -66,7 +60,6 @@ import org.jphototagger.program.module.keywords.tree.ToggleRealKeywordController
 import org.jphototagger.program.module.metadatatemplates.AddMetadataTemplateController;
 import org.jphototagger.program.module.metadatatemplates.DeleteMetadataTemplateController;
 import org.jphototagger.program.module.metadatatemplates.EditMetadataTemplateController;
-import org.jphototagger.program.module.metadatatemplates.MetadataTemplatesController;
 import org.jphototagger.program.module.metadatatemplates.RenameMetadataTemplateController;
 import org.jphototagger.program.module.metadatatemplates.SetMetadataTemplateToSelectedImagesController;
 import org.jphototagger.program.module.miscmetadata.AddMetadataToSelectedImagesController;
@@ -103,6 +96,7 @@ import org.jphototagger.program.module.thumbnails.ThumbnailsRepositoryChangesCon
 import org.jphototagger.program.module.timeline.TimelineItemSelectedController;
 import org.jphototagger.program.plugins.FileProcessorPluginsController;
 import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.settings.ShowUserSettingsDialogAction;
 
 /**
  * Erzeugt alle Controller.
@@ -136,7 +130,6 @@ public final class ControllerFactory {
                 addSavedSearchControllers();
                 addSearchControllers();
                 addThumbnailsPanelControllers();
-                addMetadataEditPanelsControllers();
                 addFavoritesControllers();
                 addDirectoryTreeControllers();
                 addMetadataTemplatesControllers();
@@ -167,7 +160,6 @@ public final class ControllerFactory {
         support.add(new SavedSearchSelectedController());
         support.add(new ImageCollectionSelectedController());
         support.add(new CreateMetadataOfSelectedThumbnailsController());
-        support.add(new ThumbnailSelectionEditMetadataController());
         support.add(new KeywordsSelectionController());
         support.add(new MiscMetadataItemSelectedController());
         support.add(new TimelineItemSelectedController());
@@ -217,12 +209,6 @@ public final class ControllerFactory {
         support.add(new CopyPasteMetadataController());
         support.add(new ActionsMenuUpdater());
         support.add(new ThumbnailsFileFilterController());
-    }
-
-    private void addMetadataEditPanelsControllers() {
-        support.add(new EmptyAllEditPanelsController());
-        support.add(new EnableInsertMetadataTemplateController());
-        support.add(new ShowInputHelperDialogAction());
     }
 
     private void addMiscMetadataControllers() {
@@ -295,8 +281,6 @@ public final class ControllerFactory {
         support.add(new EditMetadataTemplateController());
         support.add(new DeleteMetadataTemplateController());
         support.add(new RenameMetadataTemplateController());
-        support.add(new MetadataTemplatesController());
-        support.add(new EnableCreateMetadataTemplateController());
     }
 
     private void addMiscControllers() {

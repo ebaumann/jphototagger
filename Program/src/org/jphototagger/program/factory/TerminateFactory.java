@@ -12,6 +12,7 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppCommandLineOptions;
 import org.jphototagger.program.app.AppInit;
 import org.jphototagger.program.app.ui.AppPanel;
+import org.jphototagger.program.module.editmetadata.EditMetaDataPanelsProvider;
 import org.jphototagger.program.module.search.FastSearchController;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPopupMenu;
 import org.jphototagger.program.resource.GUI;
@@ -41,7 +42,8 @@ public final class TerminateFactory {
                 AppPanel appPanel = GUI.getAppPanel();
                 String message = Bundle.getString(TerminateFactory.class, "MiscFactory.Init.Start");
                 Support.setStatusbarInfo(message);
-                appPanel.getEditMetadataPanels().enableAutocomplete();
+                EditMetaDataPanelsProvider provider = Lookup.getDefault().lookup(EditMetaDataPanelsProvider.class);
+                provider.getEditMetadataPanels().enableAutocomplete();
                 ThumbnailsPopupMenu.INSTANCE.setOtherPrograms();
                 ScheduledTasks.INSTANCE.run();
                 checkImportImageFiles();

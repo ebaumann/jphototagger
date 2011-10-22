@@ -81,8 +81,6 @@ public final class AppPanel extends javax.swing.JPanel {
     private transient MessageLabel messageLabel;
     private final List<JTree> selectionTrees = new ArrayList<JTree>();
     private final List<JXList> selectionLists = new ArrayList<JXList>();
-    private transient EditMetadataPanels editMetadtaPanels;
-    private transient EditMetadataActionsPanel panelEditActions;
     private ListTextFilter listSelKeywordsTextFilter;
     private ListTextFilter listImageCollectionsTextFilter;
     private ListTextFilter listSavedSearchesTextFilter;
@@ -100,7 +98,6 @@ public final class AppPanel extends javax.swing.JPanel {
         lookupWindows();
         lookupStatusLineElements();
         toggleDisplaySearchButton();
-        editMetadtaPanels = new EditMetadataPanels(panelEditMetadata);
         panelThumbnails.setViewport(scrollPaneThumbnails.getViewport());
         setTreesSingleSelection();
         initCollections();
@@ -267,42 +264,13 @@ public final class AppPanel extends javax.swing.JPanel {
         };
     }
 
-    /**
-     * Sets text to display in the status bar.
-     *
-     * @param text         text to display or empty string to removeFiles text
-     * @param type         changes the text color (red on errors)
-     * @param milliseconds if greater than zero the message will be deleted
-     *                     automatically after that time
-     */
     void setStatusbarText(String text, MessageType type, final long milliseconds) {
-        if (text == null) {
-            throw new NullPointerException("text == null");
-        }
-
-        if (type == null) {
-            throw new NullPointerException("type == null");
-        }
-
         if (milliseconds > 0) {
             messageLabel.showMessage(text, type, milliseconds);
         } else {
             labelStatusbarText.setText(text);
         }
-
         LOGGER.log(Level.INFO, text);
-    }
-
-    public EditMetadataPanels getEditMetadataPanels() {
-        return editMetadtaPanels;
-    }
-
-    public EditMetadataActionsPanel getPanelEditMetadataActions() {
-        if (panelEditActions == null) {
-            panelEditActions = new EditMetadataActionsPanel();
-        }
-
-        return panelEditActions;
     }
 
     public JScrollPane getScrollPaneThumbnailsPanel() {
@@ -345,10 +313,6 @@ public final class AppPanel extends javax.swing.JPanel {
 
     public Component getCardSelKeywordsTree() {
         return panelSelKeywordsTree;
-    }
-
-    public Component getTabMetadataEdit() {
-        return panelTabEditMetadata;
     }
 
     public Component getTabSelectionDirectories() {
@@ -443,38 +407,6 @@ public final class AppPanel extends javax.swing.JPanel {
         return panelEditKeywords.getList();
     }
 
-    public JButton getButtonEmptyMetadata() {
-        return panelEditActions.buttonEmptyMetadata;
-    }
-
-    public JButton getButtonMetadataTemplateAdd() {
-        return panelEditActions.buttonMetadataTemplateAdd;
-    }
-
-    public JButton getButtonMetadataTemplateCreate() {
-        return panelEditActions.buttonMetadataTemplateCreate;
-    }
-
-    public JButton getButtonMetadataTemplateUpdate() {
-        return panelEditActions.buttonMetadataTemplateUpdate;
-    }
-
-    public JButton getButtonMetadataTemplateRename() {
-        return panelEditActions.buttonMetadataTemplateRename;
-    }
-
-    public JButton getButtonMetadataTemplateEdit() {
-        return panelEditActions.buttonMetadataTemplateEdit;
-    }
-
-    public JButton getButtonMetadataTemplateInsert() {
-        return panelEditActions.buttonMetadataTemplateInsert;
-    }
-
-    public JButton getButtonMetadataTemplateDelete() {
-        return panelEditActions.buttonMetadataTemplateDelete;
-    }
-
     public JButton getButtonSearch() {
         return buttonSearch;
     }
@@ -485,14 +417,6 @@ public final class AppPanel extends javax.swing.JPanel {
 
     public JToggleButton getToggleButtonSelKeywords() {
         return toggleButtonExpandAllNodesSelKeywords;
-    }
-
-    public JComboBox getComboBoxMetadataTemplates() {
-        return panelEditActions.comboBoxMetadataTemplates;
-    }
-
-    public JLabel getLabelMetadataInfoEditable() {
-        return panelEditActions.labelMetadataInfoEditable;
     }
 
     public JLabel getLabelThumbnailInfo() {
@@ -729,10 +653,6 @@ public final class AppPanel extends javax.swing.JPanel {
         panelThumbnails = new org.jphototagger.program.module.thumbnails.ThumbnailsPanel();
         panelMetadata = new javax.swing.JPanel();
         tabbedPaneMetadata = new javax.swing.JTabbedPane();
-        panelTabEditMetadata = new javax.swing.JPanel();
-        panelScrollPaneEditMetadata = new javax.swing.JPanel();
-        scrollPaneEditMetadata = new javax.swing.JScrollPane();
-        panelEditMetadata = new javax.swing.JPanel();
         panelEditKeywords = new org.jphototagger.program.module.keywords.KeywordsPanel();
         panelStatusbar = new javax.swing.JPanel();
         labelThumbnailInfo = new javax.swing.JLabel();
@@ -1385,51 +1305,6 @@ public final class AppPanel extends javax.swing.JPanel {
         tabbedPaneMetadata.setName("tabbedPaneMetadata"); // NOI18N
         tabbedPaneMetadata.setOpaque(true);
 
-        panelTabEditMetadata.setName("panelTabEditMetadata"); // NOI18N
-
-        panelScrollPaneEditMetadata.setName("panelScrollPaneEditMetadata"); // NOI18N
-
-        scrollPaneEditMetadata.setName("scrollPaneEditMetadata"); // NOI18N
-
-        panelEditMetadata.setName("panelEditMetadata"); // NOI18N
-
-        javax.swing.GroupLayout panelEditMetadataLayout = new javax.swing.GroupLayout(panelEditMetadata);
-        panelEditMetadata.setLayout(panelEditMetadataLayout);
-        panelEditMetadataLayout.setHorizontalGroup(
-            panelEditMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 923, Short.MAX_VALUE)
-        );
-        panelEditMetadataLayout.setVerticalGroup(
-            panelEditMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 499, Short.MAX_VALUE)
-        );
-
-        scrollPaneEditMetadata.setViewportView(panelEditMetadata);
-
-        javax.swing.GroupLayout panelScrollPaneEditMetadataLayout = new javax.swing.GroupLayout(panelScrollPaneEditMetadata);
-        panelScrollPaneEditMetadata.setLayout(panelScrollPaneEditMetadataLayout);
-        panelScrollPaneEditMetadataLayout.setHorizontalGroup(
-            panelScrollPaneEditMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneEditMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
-        );
-        panelScrollPaneEditMetadataLayout.setVerticalGroup(
-            panelScrollPaneEditMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneEditMetadata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout panelTabEditMetadataLayout = new javax.swing.GroupLayout(panelTabEditMetadata);
-        panelTabEditMetadata.setLayout(panelTabEditMetadataLayout);
-        panelTabEditMetadataLayout.setHorizontalGroup(
-            panelTabEditMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelScrollPaneEditMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        panelTabEditMetadataLayout.setVerticalGroup(
-            panelTabEditMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelScrollPaneEditMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
-        tabbedPaneMetadata.addTab(bundle.getString("AppPanel.panelTabEditMetadata.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_edit.png")), panelTabEditMetadata); // NOI18N
-
         panelEditKeywords.setName("panelEditKeywords"); // NOI18N
         tabbedPaneMetadata.addTab(bundle.getString("AppPanel.panelEditKeywords.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_keyword.png")), panelEditKeywords); // NOI18N
 
@@ -1605,7 +1480,6 @@ public final class AppPanel extends javax.swing.JPanel {
     private javax.swing.JPanel panelDirectories;
     private javax.swing.JPanel panelDisplayedThumbnailFilters;
     private org.jphototagger.program.module.keywords.KeywordsPanel panelEditKeywords;
-    private javax.swing.JPanel panelEditMetadata;
     private javax.swing.JPanel panelFavorites;
     private javax.swing.JPanel panelImageCollections;
     private javax.swing.JPanel panelListImageCollectionsFilter;
@@ -1614,7 +1488,6 @@ public final class AppPanel extends javax.swing.JPanel {
     private javax.swing.JPanel panelMetadata;
     private javax.swing.JPanel panelMiscMetadata;
     private javax.swing.JPanel panelSavedSearches;
-    private javax.swing.JPanel panelScrollPaneEditMetadata;
     private javax.swing.JPanel panelSearch;
     private javax.swing.JPanel panelSelKeywords;
     private javax.swing.JPanel panelSelKeywordsList;
@@ -1623,7 +1496,6 @@ public final class AppPanel extends javax.swing.JPanel {
     private javax.swing.JPanel panelSelection;
     private javax.swing.JPanel panelStatusLineElements;
     private javax.swing.JPanel panelStatusbar;
-    private javax.swing.JPanel panelTabEditMetadata;
     private org.jphototagger.program.module.thumbnails.ThumbnailsPanel panelThumbnails;
     private javax.swing.JPanel panelThumbnailsContent;
     private javax.swing.JPanel panelThumbnailsMetadata;
@@ -1633,7 +1505,6 @@ public final class AppPanel extends javax.swing.JPanel {
     private javax.swing.JRadioButton radioButtonSelKeywordsMultipleSelAll;
     private javax.swing.JRadioButton radioButtonSelKeywordsMultipleSelOne;
     private javax.swing.JScrollPane scrollPaneDirectories;
-    private javax.swing.JScrollPane scrollPaneEditMetadata;
     private javax.swing.JScrollPane scrollPaneFavorites;
     private javax.swing.JScrollPane scrollPaneImageCollections;
     private javax.swing.JScrollPane scrollPaneMiscMetadata;

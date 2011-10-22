@@ -9,9 +9,9 @@ import java.util.Map;
 import javax.swing.JMenuItem;
 import javax.swing.JTabbedPane;
 
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.app.ui.AppFrame;
 import org.jphototagger.program.app.ui.AppPanel;
+import org.jphototagger.program.resource.GUI;
 
 /**
  * Controls the action: Go to ...
@@ -34,7 +34,6 @@ public final class GoToController implements ActionListener {
         componentOfGoTo.put(AppFrame.GoTo.KEYWORDS_SEL, appPanel.getTabSelectionKeywords());
         componentOfGoTo.put(AppFrame.GoTo.TIMELINE, appPanel.getTabSelectionTimeline());
         componentOfGoTo.put(AppFrame.GoTo.MISC_METADATA, appPanel.getTabSelectionMiscMetadata());
-        componentOfGoTo.put(AppFrame.GoTo.EDIT_PANELS, appPanel.getTabMetadataEdit());
         componentOfGoTo.put(AppFrame.GoTo.KEYWORDS_EDIT, appPanel.getTabEditKeywords());
         tabbedPaneOfGoTo.put(AppFrame.GoTo.IMAGE_COLLECTIONS, appPanel.getTabbedPaneSelection());
         tabbedPaneOfGoTo.put(AppFrame.GoTo.DIRECTORIES, appPanel.getTabbedPaneSelection());
@@ -43,7 +42,6 @@ public final class GoToController implements ActionListener {
         tabbedPaneOfGoTo.put(AppFrame.GoTo.KEYWORDS_SEL, appPanel.getTabbedPaneSelection());
         tabbedPaneOfGoTo.put(AppFrame.GoTo.TIMELINE, appPanel.getTabbedPaneSelection());
         tabbedPaneOfGoTo.put(AppFrame.GoTo.MISC_METADATA, appPanel.getTabbedPaneSelection());
-        tabbedPaneOfGoTo.put(AppFrame.GoTo.EDIT_PANELS, appPanel.getTabbedPaneMetadata());
         tabbedPaneOfGoTo.put(AppFrame.GoTo.KEYWORDS_EDIT, appPanel.getTabbedPaneMetadata());
     }
 
@@ -76,10 +74,6 @@ public final class GoToController implements ActionListener {
             GUI.getSearchTextArea().requestFocusInWindow();
         } else if (goTo.equals(AppFrame.GoTo.THUMBNAILS_PANEL)) {
             GUI.getThumbnailsPanel().requestFocusInWindow();
-        }
-
-        if (goTo.equals(AppFrame.GoTo.EDIT_PANELS)) {
-            GUI.getEditPanel().requestFocusToFirstEditField();
         }
     }
 }
