@@ -12,13 +12,12 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 
 import org.openide.util.Lookup;
 
+import org.jphototagger.domain.metadata.SelectedFilesMetaDataEditor;
 import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.module.editmetadata.EditMetaDataPanels;
-import org.jphototagger.program.module.editmetadata.EditMetaDataPanelsProvider;
 import org.jphototagger.program.resource.GUI;
 
 /**
@@ -66,9 +65,8 @@ public final class CopyPasteMetadataController implements ActionListener, KeyLis
     }
 
     private void copy() {
-        EditMetaDataPanelsProvider provider = Lookup.getDefault().lookup(EditMetaDataPanelsProvider.class);
-        EditMetaDataPanels editPanel = provider.getEditMetadataPanels();
-        Xmp xmpOfEditPanel = editPanel.createXmpFromInput();
+        SelectedFilesMetaDataEditor editor = Lookup.getDefault().lookup(SelectedFilesMetaDataEditor.class);
+        Xmp xmpOfEditPanel = editor.createXmpFromInput();
         this.xmp = new Xmp(xmpOfEditPanel);
         setPasteItemEnabled(true);
     }
@@ -78,14 +76,13 @@ public final class CopyPasteMetadataController implements ActionListener, KeyLis
             return;
         }
 
-        EditMetaDataPanelsProvider provider = Lookup.getDefault().lookup(EditMetaDataPanelsProvider.class);
-        EditMetaDataPanels editPanel = provider.getEditMetadataPanels();
+        SelectedFilesMetaDataEditor editor = Lookup.getDefault().lookup(SelectedFilesMetaDataEditor.class);
 
-        if (!checkSelected() || !checkCanEdit(editPanel)) {
+        if (!checkSelected() || !checkCanEdit(editor)) {
             return;
         }
 
-        editPanel.setXmp(xmp);
+        editor.setXmp(xmp);
         setPasteItemEnabled(false);
         xmp = null;
     }
@@ -109,8 +106,8 @@ public final class CopyPasteMetadataController implements ActionListener, KeyLis
         return true;
     }
 
-    private boolean checkCanEdit(EditMetaDataPanels editPanel) {
-        if (!editPanel.isEditable()) {
+    private boolean checkCanEdit(SelectedFilesMetaDataEditor editor) {
+        if (!editor.isEditable()) {
             String message = Bundle.getString(CopyPasteMetadataController.class, "CopyPasteMetadataController.Error.NotEditable");
             MessageDisplayer.error(null, message);
 

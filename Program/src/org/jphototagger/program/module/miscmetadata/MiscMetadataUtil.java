@@ -19,13 +19,12 @@ import org.openide.util.Lookup;
 import org.jphototagger.domain.metadata.MetaDataStringValue;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.MetaDataValueData;
+import org.jphototagger.domain.metadata.SelectedFilesMetaDataEditor;
 import org.jphototagger.domain.metadata.xmp.FileXmp;
 import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.metadata.xmp.XmpMetaDataValues;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.misc.SaveXmp;
-import org.jphototagger.program.module.editmetadata.EditMetaDataPanels;
-import org.jphototagger.program.module.editmetadata.EditMetaDataPanelsProvider;
 import org.jphototagger.program.module.filesystem.FilesystemImageUtil;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.xmp.XmpMetadata;
@@ -98,10 +97,9 @@ public final class MiscMetadataUtil {
 
             @Override
             public void run() {
-                EditMetaDataPanelsProvider provider = Lookup.getDefault().lookup(EditMetaDataPanelsProvider.class);
-                EditMetaDataPanels editPanels = provider.getEditMetadataPanels();
+                SelectedFilesMetaDataEditor editor = Lookup.getDefault().lookup(SelectedFilesMetaDataEditor.class);
 
-                if (!editPanels.isEditable()) {
+                if (!editor.isEditable()) {
                     return;
                 }
 
@@ -111,7 +109,7 @@ public final class MiscMetadataUtil {
                         DefaultMutableTreeNode parent = (DefaultMutableTreeNode) node.getParent();
                         MetaDataValue mdValue = (MetaDataValue) parent.getUserObject();
 
-                        editPanels.setOrAddText(mdValue, text);
+                        editor.setOrAddText(mdValue, text);
                     }
                 }
             }
@@ -129,10 +127,9 @@ public final class MiscMetadataUtil {
 
             @Override
             public void run() {
-                EditMetaDataPanelsProvider provider = Lookup.getDefault().lookup(EditMetaDataPanelsProvider.class);
-                EditMetaDataPanels editPanels = provider.getEditMetadataPanels();
+                SelectedFilesMetaDataEditor editor = Lookup.getDefault().lookup(SelectedFilesMetaDataEditor.class);
 
-                if (!editPanels.isEditable()) {
+                if (!editor.isEditable()) {
                     return;
                 }
 
@@ -142,7 +139,7 @@ public final class MiscMetadataUtil {
                         DefaultMutableTreeNode parent = (DefaultMutableTreeNode) node.getParent();
                         MetaDataValue mdValue = (MetaDataValue) parent.getUserObject();
 
-                        editPanels.removeText(mdValue, text);
+                        editor.removeText(mdValue, text);
                     }
                 }
             }
@@ -162,11 +159,10 @@ public final class MiscMetadataUtil {
 
             @Override
             public void run() {
-                EditMetaDataPanelsProvider provider = Lookup.getDefault().lookup(EditMetaDataPanelsProvider.class);
-                EditMetaDataPanels editPanels = provider.getEditMetadataPanels();
+                SelectedFilesMetaDataEditor editor = Lookup.getDefault().lookup(SelectedFilesMetaDataEditor.class);
 
-                if (editPanels.isEditable()) {
-                    editPanels.setOrAddText(mdValue, text);
+                if (editor.isEditable()) {
+                    editor.setOrAddText(mdValue, text);
                 }
             }
         });
@@ -185,11 +181,10 @@ public final class MiscMetadataUtil {
 
             @Override
             public void run() {
-                EditMetaDataPanelsProvider provider = Lookup.getDefault().lookup(EditMetaDataPanelsProvider.class);
-                EditMetaDataPanels editPanels = provider.getEditMetadataPanels();
+                SelectedFilesMetaDataEditor editor = Lookup.getDefault().lookup(SelectedFilesMetaDataEditor.class);
 
-                if (editPanels.isEditable()) {
-                    editPanels.removeText(mdValue, text);
+                if (editor.isEditable()) {
+                    editor.removeText(mdValue, text);
                 }
             }
         });

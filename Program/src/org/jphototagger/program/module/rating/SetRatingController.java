@@ -9,16 +9,16 @@ import java.util.Map;
 
 import javax.swing.JMenuItem;
 
-import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.module.editmetadata.EditMetaDataPanels;
-import org.jphototagger.program.module.editmetadata.EditMetaDataPanelsProvider;
-import org.jphototagger.program.module.thumbnails.ThumbnailsPopupMenu;
 import org.openide.util.Lookup;
+
+import org.jphototagger.domain.metadata.SelectedFilesMetaDataEditor;
+import org.jphototagger.program.module.thumbnails.ThumbnailsPopupMenu;
+import org.jphototagger.program.resource.GUI;
 
 /**
  * Listens to key events in {@code ThumbnailsPanel} and if a key
  * between the range 0..5 was pressed set's the rating to the
- * {@code EditMetaDataPanels}.
+ * {@code SelectedFilesMetaDataEditor}.
  * <p>
  * Also listens to the rating items in the {@code ThumbnailsPopupMenu} and
  * rates an action performed.
@@ -67,11 +67,10 @@ public final class SetRatingController implements ActionListener, KeyListener {
     }
 
     public void setRating(Long rating) {
-        EditMetaDataPanelsProvider provider = Lookup.getDefault().lookup(EditMetaDataPanelsProvider.class);
-        EditMetaDataPanels editPanel = provider.getEditMetadataPanels();
+        SelectedFilesMetaDataEditor editor = Lookup.getDefault().lookup(SelectedFilesMetaDataEditor.class);
 
-        if (editPanel.isEditable()) {
-            editPanel.setRating(rating);
+        if (editor.isEditable()) {
+            editor.setRating(rating);
         }
     }
 

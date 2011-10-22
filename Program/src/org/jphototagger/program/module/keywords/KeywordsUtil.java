@@ -25,6 +25,7 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.api.concurrent.SerialTaskExecutor;
 import org.jphototagger.domain.image.ImageFile;
+import org.jphototagger.domain.metadata.SelectedFilesMetaDataEditor;
 import org.jphototagger.domain.metadata.keywords.Keyword;
 import org.jphototagger.domain.metadata.xmp.FileXmp;
 import org.jphototagger.domain.metadata.xmp.Xmp;
@@ -44,8 +45,6 @@ import org.jphototagger.program.app.ui.AppPanel;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.misc.InputHelperDialog;
 import org.jphototagger.program.misc.SaveXmp;
-import org.jphototagger.program.module.editmetadata.EditMetaDataPanels;
-import org.jphototagger.program.module.editmetadata.EditMetaDataPanelsProvider;
 import org.jphototagger.program.module.keywords.tree.KeywordsTreeCellRenderer;
 import org.jphototagger.program.module.keywords.tree.KeywordsTreeModel;
 import org.jphototagger.program.resource.GUI;
@@ -83,12 +82,11 @@ public final class KeywordsUtil {
 
             @Override
             public void run() {
-                EditMetaDataPanelsProvider provider = Lookup.getDefault().lookup(EditMetaDataPanelsProvider.class);
-                EditMetaDataPanels editPanels = provider.getEditMetadataPanels();
+                SelectedFilesMetaDataEditor editor = Lookup.getDefault().lookup(SelectedFilesMetaDataEditor.class);
                 List<String> keywordStrings = getKeywordStrings(node, true);
 
                 for (String keyword : keywordStrings) {
-                    editPanels.setOrAddText(XmpDcSubjectsSubjectMetaDataValue.INSTANCE, keyword);
+                    editor.setOrAddText(XmpDcSubjectsSubjectMetaDataValue.INSTANCE, keyword);
                 }
 
                 if (keywordStrings.size() > 1) {

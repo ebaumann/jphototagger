@@ -15,13 +15,12 @@ import javax.swing.tree.TreePath;
 import org.openide.util.Lookup;
 
 import org.jphototagger.domain.metadata.MetaDataValue;
+import org.jphototagger.domain.metadata.SelectedFilesMetaDataEditor;
 import org.jphototagger.domain.metadata.xmp.XmpMetaDataValues;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.swing.PopupMenuTree;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
-import org.jphototagger.program.module.editmetadata.EditMetaDataPanels;
-import org.jphototagger.program.module.editmetadata.EditMetaDataPanelsProvider;
 import org.jphototagger.program.resource.GUI;
 
 /**
@@ -73,10 +72,9 @@ public final class MiscMetadataPopupMenu extends PopupMenuTree {
     }
 
     private boolean isEditable() {
-        EditMetaDataPanelsProvider provider = Lookup.getDefault().lookup(EditMetaDataPanelsProvider.class);
-        EditMetaDataPanels editPanels = provider.getEditMetadataPanels();
+        SelectedFilesMetaDataEditor editor = Lookup.getDefault().lookup(SelectedFilesMetaDataEditor.class);
 
-        return editPanels.isEditable();
+        return editor.isEditable();
     }
 
     private boolean allNodesXmpValues(List<TreePath> treePaths) {

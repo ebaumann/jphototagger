@@ -10,13 +10,12 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.openide.util.Lookup;
 
+import org.jphototagger.domain.metadata.SelectedFilesMetaDataEditor;
 import org.jphototagger.domain.metadata.keywords.Keyword;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.module.editmetadata.EditMetaDataPanels;
-import org.jphototagger.program.module.editmetadata.EditMetaDataPanelsProvider;
 import org.jphototagger.program.module.editmetadata.EditRepeatableTextEntryPanel;
 import org.jphototagger.program.module.keywords.KeywordsPanel;
 import org.jphototagger.program.module.keywords.KeywordsUtil;
@@ -71,16 +70,15 @@ public class DeleteKeywordFromEditPanelController extends KeywordsController imp
     }
 
     public void removeFromEditPanel(String keyword) {
-        EditMetaDataPanelsProvider provider = Lookup.getDefault().lookup(EditMetaDataPanelsProvider.class);
-        EditMetaDataPanels editPanels = provider.getEditMetadataPanels();
-        JPanel panel = editPanels.getEditPanelForMetaDataValue(XmpDcSubjectsSubjectMetaDataValue.INSTANCE);
+        SelectedFilesMetaDataEditor editor = Lookup.getDefault().lookup(SelectedFilesMetaDataEditor.class);
+        JPanel panel = editor.getEditPanelForMetaDataValue(XmpDcSubjectsSubjectMetaDataValue.INSTANCE);
 
         if (panel instanceof EditRepeatableTextEntryPanel) {
             EditRepeatableTextEntryPanel editPanel = (EditRepeatableTextEntryPanel) panel;
 
             if (editPanel.isEditable()) {
                 editPanel.removeText(keyword);
-                editPanels.saveIfDirtyAndInputIsSaveEarly();
+                editor.saveIfDirtyAndInputIsSaveEarly();
                 KeywordsUtil.removeHighlightKeyword(keyword);
             } else {
                 String message = Bundle.getString(DeleteKeywordFromEditPanelController.class, "DeleteKeywordFromEditPanelController.Error.EditDisabled");

@@ -18,13 +18,13 @@ import org.jdesktop.swingx.JXList;
 
 import org.openide.util.Lookup;
 
+import org.jphototagger.domain.metadata.SelectedFilesMetaDataEditor;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.repository.SynonymsRepository;
 import org.jphototagger.lib.swing.InputDialog;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.misc.InputHelperDialog;
-import org.jphototagger.program.module.editmetadata.EditMetaDataPanelsProvider;
 import org.jphototagger.program.module.editmetadata.EditRepeatableTextEntryPanel;
 
 /**
@@ -49,8 +49,8 @@ public final class EditKeywordSynonymsController extends KeywordsListController 
     }
 
     private EditRepeatableTextEntryPanel getKeywordsPanel() {
-        EditMetaDataPanelsProvider provider = Lookup.getDefault().lookup(EditMetaDataPanelsProvider.class);
-        return (EditRepeatableTextEntryPanel) provider.getEditMetadataPanels().getEditPanelForMetaDataValue(
+        SelectedFilesMetaDataEditor editor = Lookup.getDefault().lookup(SelectedFilesMetaDataEditor.class);
+        return (EditRepeatableTextEntryPanel) editor.getEditPanelForMetaDataValue(
                 XmpDcSubjectsSubjectMetaDataValue.INSTANCE);
     }
 
