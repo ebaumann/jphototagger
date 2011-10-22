@@ -22,9 +22,6 @@ final class DatabaseMaintainance extends Database {
     private DatabaseMaintainance() {
     }
 
-    /**
-     * Shuts down the database.
-     */
     void shutdown() {
         if (!ConnectionPool.INSTANCE.isInit()) {
             return;

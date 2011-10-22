@@ -19,7 +19,7 @@ import org.jphototagger.api.concurrent.SerialTaskExecutor;
 import org.jphototagger.api.modules.Module;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.event.listener.ListenerSupport;
-import org.jphototagger.domain.repository.RepositoryMaintainance;
+import org.jphototagger.domain.repository.Repository;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppFrame;
@@ -162,9 +162,9 @@ public final class AppLifeCycle {
             writeProperties();
             checkDataToSave();
             Cleanup.shutdown();
-            RepositoryMaintainance repo = Lookup.getDefault().lookup(RepositoryMaintainance.class);
+            Repository repo = Lookup.getDefault().lookup(Repository.class);
 
-            repo.shutdownRepository();
+            repo.shutdown();
 
             synchronized (finalTasks) {
                 if (finalTasks.isEmpty()) {
@@ -185,7 +185,7 @@ public final class AppLifeCycle {
     }
 
     public static void quitBeforeGuiWasCreated() {
-        Lookup.getDefault().lookup(RepositoryMaintainance.class).shutdownRepository();
+        Lookup.getDefault().lookup(Repository.class).shutdown();
         AppStartupLock.unlock();
         System.exit(1);
     }

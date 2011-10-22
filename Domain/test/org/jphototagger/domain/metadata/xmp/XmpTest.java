@@ -3,24 +3,16 @@ package org.jphototagger.domain.metadata.xmp;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.jphototagger.domain.metadata.iptc.Iptc;
-import org.jphototagger.domain.metadata.MetaDataValue;
-import org.jphototagger.domain.metadata.mapping.IptcXmpMapping;
-import org.jphototagger.domain.metadata.xmp.XmpDcCreatorMetaDataValue;
-import org.jphototagger.domain.metadata.xmp.XmpDcDescriptionMetaDataValue;
-import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
-import org.jphototagger.domain.metadata.xmp.XmpDcTitleMetaDataValue;
-import org.jphototagger.domain.metadata.xmp.XmpLastModifiedMetaDataValue;
-import org.jphototagger.domain.metadata.xmp.XmpPhotoshopAuthorspositionMetaDataValue;
-import org.jphototagger.domain.metadata.xmp.XmpPhotoshopCaptionwriterMetaDataValue;
-import org.jphototagger.domain.templates.MetadataTemplate;
-import org.jphototagger.domain.metadata.xmp.Xmp.SetIptc;
-import org.junit.AfterClass;
+import com.imagero.reader.iptc.IPTCEntryMeta;
+
 import static org.junit.Assert.*;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.imagero.reader.iptc.IPTCEntryMeta;
+import org.jphototagger.domain.metadata.MetaDataValue;
+import org.jphototagger.domain.metadata.iptc.Iptc;
+import org.jphototagger.domain.metadata.mapping.IptcXmpMapping;
+import org.jphototagger.domain.metadata.xmp.Xmp.SetIptc;
+import org.jphototagger.domain.templates.MetadataTemplate;
 
 /**
  * @author Elmar Baumann
@@ -28,14 +20,6 @@ import com.imagero.reader.iptc.IPTCEntryMeta;
 public class XmpTest {
 
     public XmpTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
     }
 
     /**

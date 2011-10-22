@@ -19,9 +19,4 @@ public final class RepositoryMaintainanceImpl implements RepositoryMaintainance 
     public int deleteNotReferenced1n() {
         return DatabaseMaintainance.INSTANCE.deleteNotReferenced1n();
     }
-
-    @Override
-    public void shutdownRepository() {
-        DatabaseMaintainance.INSTANCE.shutdown();
-    }
 }
