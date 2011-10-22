@@ -7,9 +7,9 @@ import javax.swing.JButton;
 
 import org.openide.util.Lookup;
 
+import org.jphototagger.domain.metadata.SelectedFilesMetaDataEditor;
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.program.misc.InputHelperDialog;
-import org.jphototagger.program.module.editmetadata.EditMetaDataPanelsProvider;
 import org.jphototagger.program.resource.GUI;
 
 /**
@@ -67,8 +67,8 @@ public final class SetMetadataTemplateToSelectedImagesController extends Metadat
             return;
         }
 
-        EditMetaDataPanelsProvider provider = Lookup.getDefault().lookup(EditMetaDataPanelsProvider.class);
-        provider.getEditMetadataPanels().setMetadataTemplate(template);
+        SelectedFilesMetaDataEditor editor = Lookup.getDefault().lookup(SelectedFilesMetaDataEditor.class);
+        editor.setMetadataTemplate(template);
         focusList();
     }
 

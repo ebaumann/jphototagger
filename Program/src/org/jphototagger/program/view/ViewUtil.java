@@ -19,12 +19,11 @@ import org.openide.util.Lookup;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.storage.PreferencesDirectoryProvider;
 import org.jphototagger.domain.favorites.Favorite;
+import org.jphototagger.domain.metadata.SelectedFilesMetaDataEditor;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.module.editmetadata.EditMetaDataPanels;
-import org.jphototagger.program.module.editmetadata.EditMetaDataPanelsProvider;
 import org.jphototagger.program.resource.GUI;
 
 /**
@@ -141,10 +140,9 @@ public class ViewUtil {
      * @return              true if the selected images are editable
      */
     public static boolean checkSelImagesEditable(boolean errorMessage) {
-        EditMetaDataPanelsProvider provider = Lookup.getDefault().lookup(EditMetaDataPanelsProvider.class);
-        EditMetaDataPanels ep = provider.getEditMetadataPanels();
+        SelectedFilesMetaDataEditor editor = Lookup.getDefault().lookup(SelectedFilesMetaDataEditor.class);
 
-        if (!ep.isEditable()) {
+        if (!editor.isEditable()) {
             if (errorMessage) {
                 String message = Bundle.getString(ViewUtil.class, "ViewUtil.Error.NotEditable");
                 MessageDisplayer.error(null, message);

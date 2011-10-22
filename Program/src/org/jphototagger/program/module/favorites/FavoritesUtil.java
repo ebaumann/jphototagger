@@ -22,8 +22,6 @@ import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppPanel;
 import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.program.module.editmetadata.EditMetaDataPanels;
-import org.jphototagger.program.module.editmetadata.EditMetaDataPanelsProvider;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
 import org.jphototagger.program.resource.GUI;
 
@@ -204,8 +202,6 @@ public final class FavoritesUtil {
 
         private final AppPanel appPanel = GUI.getAppPanel();
         private final ThumbnailsPanel tnPanel = appPanel.getPanelThumbnails();
-        private final EditMetaDataPanelsProvider provider = Lookup.getDefault().lookup(EditMetaDataPanelsProvider.class);
-        private final EditMetaDataPanels editPanels = provider.getEditMetadataPanels();
         private final List<File> files;
         private final ThumbnailsPanelSettings tnPanelSettings;
 

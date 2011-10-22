@@ -12,14 +12,13 @@ import javax.swing.tree.TreeNode;
 
 import org.openide.util.Lookup;
 
+import org.jphototagger.domain.metadata.SelectedFilesMetaDataEditor;
 import org.jphototagger.domain.metadata.keywords.Keyword;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.module.editmetadata.EditMetaDataPanels;
-import org.jphototagger.program.module.editmetadata.EditMetaDataPanelsProvider;
 import org.jphototagger.program.module.editmetadata.EditRepeatableTextEntryPanel;
 import org.jphototagger.program.module.keywords.KeywordsPanel;
 import org.jphototagger.program.module.keywords.KeywordsUtil;
@@ -70,9 +69,8 @@ public class AddKeywordsToEditPanelController extends KeywordsController impleme
     }
 
     private void addToEditPanel(List<String> keywordNames) {
-        EditMetaDataPanelsProvider provider = Lookup.getDefault().lookup(EditMetaDataPanelsProvider.class);
-        EditMetaDataPanels editPanels = provider.getEditMetadataPanels();
-        JPanel panel = editPanels.getEditPanelForMetaDataValue(XmpDcSubjectsSubjectMetaDataValue.INSTANCE);
+        SelectedFilesMetaDataEditor editor = Lookup.getDefault().lookup(SelectedFilesMetaDataEditor.class);
+        JPanel panel = editor.getEditPanelForMetaDataValue(XmpDcSubjectsSubjectMetaDataValue.INSTANCE);
 
         if (panel instanceof EditRepeatableTextEntryPanel) {
             EditRepeatableTextEntryPanel editPanel = (EditRepeatableTextEntryPanel) panel;
@@ -83,7 +81,7 @@ public class AddKeywordsToEditPanelController extends KeywordsController impleme
                 }
 
                 KeywordsUtil.addHighlightKeywords(keywordNames);
-                editPanels.saveIfDirtyAndInputIsSaveEarly();
+                editor.saveIfDirtyAndInputIsSaveEarly();
             } else {
                 String message = Bundle.getString(AddKeywordsToEditPanelController.class, "AddKeywordsToEditPanelController.Error.EditDisabled");
                 MessageDisplayer.error(null, message);

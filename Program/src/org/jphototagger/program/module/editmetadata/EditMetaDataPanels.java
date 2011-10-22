@@ -73,7 +73,7 @@ import org.jphototagger.xmp.XmpMetadata;
 /**
  * @author Elmar Baumann, Tobias Stening
  */
-public final class EditMetaDataPanels implements FocusListener {
+final class EditMetaDataPanels implements FocusListener {
 
     private static final Logger LOGGER = Logger.getLogger(EditMetaDataPanels.class.getName());
     private final List<TextEntry> textEntries = new ArrayList<TextEntry>();
@@ -88,7 +88,7 @@ public final class EditMetaDataPanels implements FocusListener {
     private final EditMetaDataActionsPanel editMetadataActionsPanel = new EditMetaDataActionsPanel(this);
     private Component lastFocussedEditControl;
 
-    public EditMetaDataPanels(JComponent parentContainer) {
+    EditMetaDataPanels(JComponent parentContainer) {
         if (parentContainer == null) {
             throw new NullPointerException("parentContainer == null");
         }
@@ -97,6 +97,7 @@ public final class EditMetaDataPanels implements FocusListener {
         createEditPanels();
         addEditPanelsToParentContainer();
         requestFocusToFirstEditField();
+        enableAutocomplete();
         setEditable(false);
         listen();
     }
@@ -160,7 +161,7 @@ public final class EditMetaDataPanels implements FocusListener {
         });
     }
 
-    public boolean isEditable() {
+    boolean isEditable() {
         synchronized (monitor) {
             return editable;
         }
@@ -497,13 +498,7 @@ public final class EditMetaDataPanels implements FocusListener {
         });
     }
 
-    /**
-     * Returns an edit panel for a specific metadata value.
-     *
-     * @param metaDataValue
-     * @return panel or null if for that metadata value an edit panel doesn't exist
-     */
-    public JPanel getEditPanelForMetaDataValue(MetaDataValue metaDataValue) {
+    JPanel getEditPanelForMetaDataValue(MetaDataValue metaDataValue) {
         if (metaDataValue == null) {
             throw new NullPointerException("metaDataValue == null");
         }
@@ -521,14 +516,7 @@ public final class EditMetaDataPanels implements FocusListener {
         return null;
     }
 
-    /**
-     * Sets (replaces) text to a panel containing a single metadata value, adds text to a panel
-     * containing repeatable metadata values such as keywords.
-     *
-     * @param metaDataValue
-     * @param text text to add
-     */
-    public void setOrAddText(final MetaDataValue metaDataValue, final String text) {
+    void setOrAddText(final MetaDataValue metaDataValue, final String text) {
         if (metaDataValue == null) {
             throw new NullPointerException("metaDataValue == null");
         }
@@ -572,7 +560,7 @@ public final class EditMetaDataPanels implements FocusListener {
         });
     }
 
-    public void removeText(final MetaDataValue metaDataValue, final String text) {
+    void removeText(final MetaDataValue metaDataValue, final String text) {
         if (metaDataValue == null) {
             throw new NullPointerException("metaDataValue == null");
         }
@@ -616,7 +604,7 @@ public final class EditMetaDataPanels implements FocusListener {
         });
     }
 
-    public Xmp createXmpFromInput() {
+    Xmp createXmpFromInput() {
         if (!EventQueue.isDispatchThread()) {
             throw new IllegalStateException("Not called in EDT");
         }
@@ -658,12 +646,7 @@ public final class EditMetaDataPanels implements FocusListener {
         return xmp;
     }
 
-    /**
-     * Adds to the edit panels repeatable values and replaces not repeatable values.
-     *
-     * @param xmp xmp object
-     */
-    public void setXmp(final Xmp xmp) {
+    void setXmp(final Xmp xmp) {
         if (xmp == null) {
             throw new NullPointerException("xmp == null");
         }
@@ -719,7 +702,7 @@ public final class EditMetaDataPanels implements FocusListener {
         });
     }
 
-    public void setRating(final Long rating) {
+    void setRating(final Long rating) {
         if (rating == null) {
             throw new NullPointerException("rating == null");
         }
@@ -756,7 +739,7 @@ public final class EditMetaDataPanels implements FocusListener {
         });
     }
 
-    public void setMetadataTemplate(final MetadataTemplate template) {
+    void setMetadataTemplate(final MetadataTemplate template) {
         if (template == null) {
             throw new NullPointerException("template == null");
         }
@@ -896,7 +879,7 @@ public final class EditMetaDataPanels implements FocusListener {
         });
     }
 
-    public void setFocusToLastFocussedEditControl() {
+    void setFocusToLastFocussedEditControl() {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
@@ -950,17 +933,11 @@ public final class EditMetaDataPanels implements FocusListener {
         }
     }
 
-    public void enableAutocomplete() {
+    private void enableAutocomplete() {
         if (isAutocompleteEnabled()) {
-            EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-                @Override
-                public void run() {
-                    for (TextEntry textEntry : textEntries) {
-                        textEntry.enableAutocomplete();
-                    }
-                }
-            });
+            for (TextEntry textEntry : textEntries) {
+                textEntry.enableAutocomplete();
+            }
         }
     }
 
@@ -1049,7 +1026,7 @@ public final class EditMetaDataPanels implements FocusListener {
         saveIfDirty();
     }
 
-    public void saveIfDirtyAndInputIsSaveEarly() {
+    void saveIfDirtyAndInputIsSaveEarly() {
         if (!editable || !isSaveInputEarly() || !isDirty()) {
             return;
         }

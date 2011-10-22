@@ -8,9 +8,8 @@ import javax.swing.JMenuItem;
 
 import org.openide.util.Lookup;
 
+import org.jphototagger.domain.metadata.SelectedFilesMetaDataEditor;
 import org.jphototagger.program.factory.ControllerFactory;
-import org.jphototagger.program.module.editmetadata.EditMetaDataPanels;
-import org.jphototagger.program.module.editmetadata.EditMetaDataPanelsProvider;
 import org.jphototagger.program.module.keywords.tree.DeleteKeywordFromEditPanelController;
 
 /**
@@ -32,10 +31,9 @@ public final class DeleteKeywordsFromEditPanelController extends KeywordsListCon
             throw new NullPointerException("keywords == null");
         }
 
-        EditMetaDataPanelsProvider provider = Lookup.getDefault().lookup(EditMetaDataPanelsProvider.class);
-        EditMetaDataPanels editPanels = provider.getEditMetadataPanels();
+        SelectedFilesMetaDataEditor editor = Lookup.getDefault().lookup(SelectedFilesMetaDataEditor.class);
 
-        if (editPanels.isEditable()) {
+        if (editor.isEditable()) {
             DeleteKeywordFromEditPanelController ctrl =
                     ControllerFactory.INSTANCE.getController(DeleteKeywordFromEditPanelController.class);
 

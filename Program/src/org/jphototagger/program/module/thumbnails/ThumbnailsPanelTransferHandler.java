@@ -21,6 +21,7 @@ import org.openide.util.Lookup;
 import org.jphototagger.domain.filefilter.FileFilterUtil;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.MetaDataValueData;
+import org.jphototagger.domain.metadata.SelectedFilesMetaDataEditor;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.repository.ImageCollectionsRepository;
 import org.jphototagger.domain.templates.MetadataTemplate;
@@ -32,8 +33,6 @@ import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.datatransfer.DataTransferSupport;
 import org.jphototagger.program.datatransfer.Flavor;
-import org.jphototagger.program.module.editmetadata.EditMetaDataPanels;
-import org.jphototagger.program.module.editmetadata.EditMetaDataPanelsProvider;
 import org.jphototagger.program.module.favorites.FavoritesUtil;
 import org.jphototagger.program.module.filesystem.FilesystemImageUtil;
 import org.jphototagger.program.module.filesystem.FilesystemImageUtil.ConfirmOverwrite;
@@ -233,14 +232,13 @@ public final class ThumbnailsPanelTransferHandler extends TransferHandler {
         }
 
         if (dropOverSelectedThumbnail) {
-            EditMetaDataPanelsProvider provider = Lookup.getDefault().lookup(EditMetaDataPanelsProvider.class);
-            EditMetaDataPanels editPanels = provider.getEditMetadataPanels();
+            SelectedFilesMetaDataEditor editor = Lookup.getDefault().lookup(SelectedFilesMetaDataEditor.class);
             MetaDataValue column = dataFlavor.equals(Flavor.KEYWORDS_LIST)
                     ? XmpDcSubjectsSubjectMetaDataValue.INSTANCE
                     : null;
 
             for (String keyword : keywords) {
-                editPanels.setOrAddText(column, keyword);
+                editor.setOrAddText(column, keyword);
             }
         } else {
             KeywordsUtil.saveKeywordsToImageFile(keywords, imageFile);
@@ -321,8 +319,8 @@ public final class ThumbnailsPanelTransferHandler extends TransferHandler {
             }
 
             assert selTemplates.length == 1;
-            EditMetaDataPanelsProvider provider = Lookup.getDefault().lookup(EditMetaDataPanelsProvider.class);
-            provider.getEditMetadataPanels().setMetadataTemplate((MetadataTemplate) selTemplates[0]);
+            SelectedFilesMetaDataEditor editor = Lookup.getDefault().lookup(SelectedFilesMetaDataEditor.class);
+            editor.setMetadataTemplate((MetadataTemplate) selTemplates[0]);
         } catch (Exception ex) {
             Logger.getLogger(ThumbnailsPanelTransferHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -338,11 +336,10 @@ public final class ThumbnailsPanelTransferHandler extends TransferHandler {
                     return;
                 }
 
-                EditMetaDataPanelsProvider provider = Lookup.getDefault().lookup(EditMetaDataPanelsProvider.class);
-                EditMetaDataPanels ep = provider.getEditMetadataPanels();
+                SelectedFilesMetaDataEditor editor = Lookup.getDefault().lookup(SelectedFilesMetaDataEditor.class);
 
                 for (MetaDataValueData data : mdValueData) {
-                    ep.setOrAddText(data.getMetaDataValue(), (String) data.getData());
+                    editor.setOrAddText(data.getMetaDataValue(), (String) data.getData());
                 }
             } else {
                 MiscMetadataUtil.saveToImageFile(mdValueData, imageFile);

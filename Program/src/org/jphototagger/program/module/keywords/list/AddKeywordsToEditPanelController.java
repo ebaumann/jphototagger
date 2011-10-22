@@ -8,10 +8,9 @@ import javax.swing.JMenuItem;
 
 import org.openide.util.Lookup;
 
+import org.jphototagger.domain.metadata.SelectedFilesMetaDataEditor;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.lib.swing.KeyEventUtil;
-import org.jphototagger.program.module.editmetadata.EditMetaDataPanels;
-import org.jphototagger.program.module.editmetadata.EditMetaDataPanelsProvider;
 
 /**
  * @author Elmar Baumann
@@ -32,12 +31,11 @@ public final class AddKeywordsToEditPanelController extends KeywordsListControll
             throw new NullPointerException("keywords == null");
         }
 
-        EditMetaDataPanelsProvider provider = Lookup.getDefault().lookup(EditMetaDataPanelsProvider.class);
-        EditMetaDataPanels editPanels = provider.getEditMetadataPanels();
+        SelectedFilesMetaDataEditor editor = Lookup.getDefault().lookup(SelectedFilesMetaDataEditor.class);
 
-        if (editPanels.isEditable()) {
+        if (editor.isEditable()) {
             for (String keyword : keywords) {
-                editPanels.setOrAddText(XmpDcSubjectsSubjectMetaDataValue.INSTANCE, keyword);
+                editor.setOrAddText(XmpDcSubjectsSubjectMetaDataValue.INSTANCE, keyword);
             }
         }
     }

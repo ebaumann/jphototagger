@@ -4,8 +4,8 @@ import org.jdesktop.swingx.JXList;
 
 import org.openide.util.Lookup;
 
+import org.jphototagger.domain.metadata.SelectedFilesMetaDataEditor;
 import org.jphototagger.program.event.listener.ListMouseListener;
-import org.jphototagger.program.module.editmetadata.EditMetaDataPanelsProvider;
 
 /**
  * Do not use this class as a template for other implementations! Instead extend
@@ -30,8 +30,8 @@ public final class KeywordsListMouseListener extends ListMouseListener {
     }
 
     private void setEnabled() {
-        EditMetaDataPanelsProvider provider = Lookup.getDefault().lookup(EditMetaDataPanelsProvider.class);
-        boolean editable = provider.getEditMetadataPanels().isEditable();
+        SelectedFilesMetaDataEditor editor = Lookup.getDefault().lookup(SelectedFilesMetaDataEditor.class);
+        boolean editable = editor.isEditable();
 
         popup.getItemAddToEditPanel().setEnabled(editable);
         popup.getItemRemoveFromEditPanel().setEnabled(editable);
