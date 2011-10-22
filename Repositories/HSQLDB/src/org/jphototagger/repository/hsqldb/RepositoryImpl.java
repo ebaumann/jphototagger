@@ -21,4 +21,9 @@ public final class RepositoryImpl implements Repository {
     public boolean isInit() {
         return pool.isInit();
     }
+
+    @Override
+    public void shutdown() {
+        DatabaseMaintainance.INSTANCE.shutdown();
+    }
 }

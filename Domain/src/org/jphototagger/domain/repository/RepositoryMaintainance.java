@@ -8,6 +8,4 @@ public interface RepositoryMaintainance {
     boolean compressRepository();
 
     int deleteNotReferenced1n();
-
-    void shutdownRepository();
 }

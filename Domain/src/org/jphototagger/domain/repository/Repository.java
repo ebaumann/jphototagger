@@ -7,5 +7,7 @@ public interface Repository {
 
     void init();
 
+    void shutdown();
+
     boolean isInit();
 }
