@@ -1,12 +1,14 @@
 package org.jphototagger.program.module.editmetadata;
 
 import java.awt.Component;
+import java.awt.event.KeyEvent;
 import java.util.Arrays;
 import java.util.Collection;
 
 import javax.swing.Icon;
-
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
+
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.templates.MetadataTemplate;
@@ -20,6 +22,7 @@ import org.jphototagger.api.windows.MainWindowComponentProvider;
 import org.jphototagger.domain.metadata.SelectedFilesMetaDataEditor;
 import org.jphototagger.lib.api.MainWindowComponentProviderAdapter;
 import org.jphototagger.lib.swing.IconUtil;
+import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
 
 /**
@@ -91,6 +94,11 @@ public final class ModuleInstaller extends MainWindowComponentProviderAdapter im
         @Override
         public String getTooltipText() {
             return null;
+        }
+
+        @Override
+        public KeyStroke getOptionalSelectionAccelaratorKey() {
+            return KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_E);
         }
     };
 

@@ -29,6 +29,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JToggleButton;
 import javax.swing.JTree;
+import javax.swing.KeyStroke;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.tree.TreeSelectionModel;
@@ -489,6 +490,10 @@ public final class AppPanel extends javax.swing.JPanel {
         SelectTabAction action = new SelectTabAction(tabbedPane, mainWindowComponent.getComponent());
         action.putValue(Action.NAME, mainWindowComponent.getTitle());
         action.putValue(Action.SMALL_ICON, mainWindowComponent.getSmallIcon());
+        KeyStroke keyStroke = mainWindowComponent.getOptionalSelectionAccelaratorKey();
+        if (keyStroke != null) {
+            action.putValue(Action.ACCELERATOR_KEY, keyStroke);
+        }
         return action;
     }
 
