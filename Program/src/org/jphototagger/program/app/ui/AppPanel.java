@@ -20,7 +20,6 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JProgressBar;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
@@ -358,10 +357,6 @@ public final class AppPanel extends javax.swing.JPanel {
         return treeSelKeywords;
     }
 
-    JProgressBar getProgressBar() {
-        return progressBar;
-    }
-
     public List<JTree> getSelectionTrees() {
         return Collections.unmodifiableList(selectionTrees);
     }
@@ -404,10 +399,6 @@ public final class AppPanel extends javax.swing.JPanel {
 
     public JButton getButtonSearch() {
         return buttonSearch;
-    }
-
-    JButton getButtonCancelProgress() {
-        return buttonCancelProgress;
     }
 
     public JToggleButton getToggleButtonSelKeywords() {
@@ -664,10 +655,6 @@ public final class AppPanel extends javax.swing.JPanel {
         labelThumbnailInfo = new javax.swing.JLabel();
         labelStatusbarText = new javax.swing.JLabel();
         statusLineElementsPanel = new javax.swing.JPanel();
-        progressBarPanels = new javax.swing.JPanel();
-        defaultProgressPanel = new javax.swing.JPanel();
-        buttonCancelProgress = new javax.swing.JButton();
-        progressBar = new javax.swing.JProgressBar();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
@@ -1288,7 +1275,7 @@ public final class AppPanel extends javax.swing.JPanel {
         );
         panelThumbnailsLayout.setVerticalGroup(
             panelThumbnailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 434, Short.MAX_VALUE)
+            .addGap(0, 448, Short.MAX_VALUE)
         );
 
         scrollPaneThumbnails.setViewportView(panelThumbnails);
@@ -1333,9 +1320,9 @@ public final class AppPanel extends javax.swing.JPanel {
         );
         panelThumbnailsMetadataLayout.setVerticalGroup(
             panelThumbnailsMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 473, Short.MAX_VALUE)
+            .addGap(0, 487, Short.MAX_VALUE)
             .addGroup(panelThumbnailsMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(splitPaneThumbnailsMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE))
+                .addComponent(splitPaneThumbnailsMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE))
         );
 
         splitPaneMain.setRightComponent(panelThumbnailsMetadata);
@@ -1374,38 +1361,6 @@ public final class AppPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
         panelStatusbar.add(statusLineElementsPanel, gridBagConstraints);
 
-        progressBarPanels.setName("progressBarPanels"); // NOI18N
-        progressBarPanels.setLayout(new java.awt.GridBagLayout());
-
-        defaultProgressPanel.setName("defaultProgressPanel"); // NOI18N
-        defaultProgressPanel.setLayout(new java.awt.GridBagLayout());
-
-        buttonCancelProgress.setBorder(null);
-        buttonCancelProgress.setContentAreaFilled(false);
-        buttonCancelProgress.setName("buttonCancelProgress"); // NOI18N
-        buttonCancelProgress.setPreferredSize(new java.awt.Dimension(16, 16));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 5);
-        defaultProgressPanel.add(buttonCancelProgress, gridBagConstraints);
-
-        progressBar.setMaximumSize(new java.awt.Dimension(300, 14));
-        progressBar.setName("progressBar"); // NOI18N
-        progressBar.setPreferredSize(new java.awt.Dimension(250, 20));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
-        defaultProgressPanel.add(progressBar, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        progressBarPanels.add(defaultProgressPanel, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
-        panelStatusbar.add(progressBarPanels, gridBagConstraints);
-
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -1421,9 +1376,7 @@ public final class AppPanel extends javax.swing.JPanel {
     private void buttonDisplaySelKeywordsTreeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDisplaySelKeywordsTreeActionPerformed
         displaySelKeywordsCard("keywordsTree");
     }//GEN-LAST:event_buttonDisplaySelKeywordsTreeActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonCancelProgress;
     private javax.swing.JButton buttonDisplaySelKeywordsList;
     private javax.swing.JButton buttonDisplaySelKeywordsTree;
     private javax.swing.ButtonGroup buttonGroupKeywordsMultipleSel;
@@ -1439,7 +1392,6 @@ public final class AppPanel extends javax.swing.JPanel {
     private javax.swing.JComboBox comboBoxFastSearch;
     private javax.swing.JComboBox comboBoxFileFilters;
     private javax.swing.JComboBox comboBoxFileSort;
-    private javax.swing.JPanel defaultProgressPanel;
     private javax.swing.JLabel labelFileFilters;
     private javax.swing.JLabel labelFileSort;
     private javax.swing.JLabel labelListImageCollectionsFilter;
@@ -1472,8 +1424,6 @@ public final class AppPanel extends javax.swing.JPanel {
     private javax.swing.JPanel panelThumbnailsContent;
     private javax.swing.JPanel panelThumbnailsMetadata;
     private javax.swing.JPanel panelTimeline;
-    private javax.swing.JProgressBar progressBar;
-    private javax.swing.JPanel progressBarPanels;
     private javax.swing.JRadioButton radioButtonSelKeywordsMultipleSelAll;
     private javax.swing.JRadioButton radioButtonSelKeywordsMultipleSelOne;
     private javax.swing.JScrollPane scrollPaneDirectories;

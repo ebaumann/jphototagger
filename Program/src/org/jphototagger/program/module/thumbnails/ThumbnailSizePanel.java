@@ -190,6 +190,7 @@ public class ThumbnailSizePanel extends javax.swing.JPanel implements AWTEventLi
         thumbnailSizeSlider = new javax.swing.JSlider();
         thumbnailDimensionsButton = new javax.swing.JButton();
 
+        setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
 
         thumbnailSizeSlider.setMajorTickSpacing(5);
@@ -197,6 +198,7 @@ public class ThumbnailSizePanel extends javax.swing.JPanel implements AWTEventLi
         thumbnailSizeSlider.setSnapToTicks(true);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/thumbnails/Bundle"); // NOI18N
         thumbnailSizeSlider.setToolTipText(bundle.getString("ThumbnailSizePanel.thumbnailSizeSlider.toolTipText")); // NOI18N
+        thumbnailSizeSlider.setName("thumbnailSizeSlider"); // NOI18N
         thumbnailSizeSlider.setPreferredSize(new java.awt.Dimension(200, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
@@ -207,6 +209,7 @@ public class ThumbnailSizePanel extends javax.swing.JPanel implements AWTEventLi
         thumbnailDimensionsButton.setToolTipText(bundle.getString("ThumbnailSizePanel.thumbnailDimensionsButton.toolTipText")); // NOI18N
         thumbnailDimensionsButton.setBorder(null);
         thumbnailDimensionsButton.setContentAreaFilled(false);
+        thumbnailDimensionsButton.setName("thumbnailDimensionsButton"); // NOI18N
         thumbnailDimensionsButton.setPreferredSize(new java.awt.Dimension(16, 16));
         thumbnailDimensionsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
