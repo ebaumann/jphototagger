@@ -8,7 +8,6 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.swing.Action;
-import javax.swing.DefaultListModel;
 import javax.swing.JPopupMenu;
 
 import org.jdesktop.swingx.JXList;
@@ -40,7 +39,6 @@ public final class LookupList extends JXList implements Lookup.Provider, MouseLi
     private int lastRightClickIndex = -1;
 
     public LookupList() {
-        super(new DefaultListModel());
         addMouseListener(this);
     }
 
