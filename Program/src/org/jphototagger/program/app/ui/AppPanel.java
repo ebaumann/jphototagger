@@ -23,7 +23,6 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
-import javax.swing.JSlider;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
@@ -63,7 +62,6 @@ import org.jphototagger.lib.swingx.ListTextFilter;
 import org.jphototagger.lib.swingx.SearchInJxListAction;
 import org.jphototagger.lib.swingx.SearchInJxTreeAction;
 import org.jphototagger.program.module.keywords.KeywordsPanel;
-import org.jphototagger.program.module.thumbnails.SettingsThumbnailDimensionsDialog;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
 import org.jphototagger.program.module.thumbnails.ThumbnailsSortComboBoxModel;
 import org.jphototagger.program.resource.GUI;
@@ -276,10 +274,6 @@ public final class AppPanel extends javax.swing.JPanel {
 
     public JScrollPane getScrollPaneThumbnailsPanel() {
         return scrollPaneThumbnails;
-    }
-
-    public JSlider getSliderThumbnailSize() {
-        return sliderThumbnailSize;
     }
 
     public JTabbedPane getTabbedPaneMetadata() {
@@ -537,13 +531,15 @@ public final class AppPanel extends javax.swing.JPanel {
     }
 
     private void lookupStatusLineElements() {
-        Collection<? extends StatusLineElementProvider> providers = Lookup.getDefault().lookupAll(StatusLineElementProvider.class);
+        List<StatusLineElementProvider> providers = new ArrayList<StatusLineElementProvider>(
+                Lookup.getDefault().lookupAll(StatusLineElementProvider.class));
+        Collections.sort(providers, PositionProviderAscendingComparator.INSTANCE);
         boolean isFirst = true;
         for (StatusLineElementProvider provider : providers) {
             GridBagConstraints gbc = new GridBagConstraints();
             gbc.insets = new Insets(0, isFirst ? 0 : 10, 0, 0);
             isFirst = false;
-            panelStatusLineElements.add(provider.getStatusLineElement(), gbc);
+            statusLineElementsPanel.add(provider.getStatusLineElement(), gbc);
         }
     }
 
@@ -667,9 +663,7 @@ public final class AppPanel extends javax.swing.JPanel {
         panelStatusbar = new javax.swing.JPanel();
         labelThumbnailInfo = new javax.swing.JLabel();
         labelStatusbarText = new javax.swing.JLabel();
-        sliderThumbnailSize = new javax.swing.JSlider();
-        buttonSetThumbnailDimensions = new javax.swing.JButton();
-        panelStatusLineElements = new javax.swing.JPanel();
+        statusLineElementsPanel = new javax.swing.JPanel();
         progressBarPanels = new javax.swing.JPanel();
         defaultProgressPanel = new javax.swing.JPanel();
         buttonCancelProgress = new javax.swing.JButton();
@@ -1294,7 +1288,7 @@ public final class AppPanel extends javax.swing.JPanel {
         );
         panelThumbnailsLayout.setVerticalGroup(
             panelThumbnailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 432, Short.MAX_VALUE)
+            .addGap(0, 434, Short.MAX_VALUE)
         );
 
         scrollPaneThumbnails.setViewportView(panelThumbnails);
@@ -1339,9 +1333,9 @@ public final class AppPanel extends javax.swing.JPanel {
         );
         panelThumbnailsMetadataLayout.setVerticalGroup(
             panelThumbnailsMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 471, Short.MAX_VALUE)
+            .addGap(0, 473, Short.MAX_VALUE)
             .addGroup(panelThumbnailsMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(splitPaneThumbnailsMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE))
+                .addComponent(splitPaneThumbnailsMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE))
         );
 
         splitPaneMain.setRightComponent(panelThumbnailsMetadata);
@@ -1373,39 +1367,12 @@ public final class AppPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
         panelStatusbar.add(labelStatusbarText, gridBagConstraints);
 
-        sliderThumbnailSize.setMajorTickSpacing(5);
-        sliderThumbnailSize.setMinimum(10);
-        sliderThumbnailSize.setSnapToTicks(true);
-        sliderThumbnailSize.setToolTipText(bundle.getString("AppPanel.sliderThumbnailSize.toolTipText")); // NOI18N
-        sliderThumbnailSize.setName("sliderThumbnailSize"); // NOI18N
-        sliderThumbnailSize.setPreferredSize(new java.awt.Dimension(200, 20));
+        statusLineElementsPanel.setName("statusLineElementsPanel"); // NOI18N
+        statusLineElementsPanel.setLayout(new java.awt.GridBagLayout());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
-        panelStatusbar.add(sliderThumbnailSize, gridBagConstraints);
-
-        buttonSetThumbnailDimensions.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_thumbnail_size.png"))); // NOI18N
-        buttonSetThumbnailDimensions.setToolTipText(bundle.getString("AppPanel.buttonSetThumbnailDimensions.toolTipText")); // NOI18N
-        buttonSetThumbnailDimensions.setBorder(null);
-        buttonSetThumbnailDimensions.setContentAreaFilled(false);
-        buttonSetThumbnailDimensions.setName("buttonSetThumbnailDimensions"); // NOI18N
-        buttonSetThumbnailDimensions.setPreferredSize(new java.awt.Dimension(16, 16));
-        buttonSetThumbnailDimensions.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonSetThumbnailDimensionsActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
-        panelStatusbar.add(buttonSetThumbnailDimensions, gridBagConstraints);
-
-        panelStatusLineElements.setName("panelStatusLineElements"); // NOI18N
-        panelStatusLineElements.setLayout(new java.awt.GridBagLayout());
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
-        panelStatusbar.add(panelStatusLineElements, gridBagConstraints);
+        panelStatusbar.add(statusLineElementsPanel, gridBagConstraints);
 
         progressBarPanels.setName("progressBarPanels"); // NOI18N
         progressBarPanels.setLayout(new java.awt.GridBagLayout());
@@ -1455,9 +1422,6 @@ public final class AppPanel extends javax.swing.JPanel {
         displaySelKeywordsCard("keywordsTree");
     }//GEN-LAST:event_buttonDisplaySelKeywordsTreeActionPerformed
 
-    private void buttonSetThumbnailDimensionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSetThumbnailDimensionsActionPerformed
-        new SettingsThumbnailDimensionsDialog().setVisible(true);
-    }//GEN-LAST:event_buttonSetThumbnailDimensionsActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCancelProgress;
     private javax.swing.JButton buttonDisplaySelKeywordsList;
@@ -1472,7 +1436,6 @@ public final class AppPanel extends javax.swing.JPanel {
     private javax.swing.JButton buttonSearchInTreeMiscMetadata;
     private javax.swing.JButton buttonSearchInTreeSelKeywords;
     private javax.swing.JButton buttonSearchInTreeTimeline;
-    private javax.swing.JButton buttonSetThumbnailDimensions;
     private javax.swing.JComboBox comboBoxFastSearch;
     private javax.swing.JComboBox comboBoxFileFilters;
     private javax.swing.JComboBox comboBoxFileSort;
@@ -1504,7 +1467,6 @@ public final class AppPanel extends javax.swing.JPanel {
     private javax.swing.JPanel panelSelKeywordsListMultipleSelection;
     private javax.swing.JPanel panelSelKeywordsTree;
     private javax.swing.JPanel panelSelection;
-    private javax.swing.JPanel panelStatusLineElements;
     private javax.swing.JPanel panelStatusbar;
     private org.jphototagger.program.module.thumbnails.ThumbnailsPanel panelThumbnails;
     private javax.swing.JPanel panelThumbnailsContent;
@@ -1524,9 +1486,9 @@ public final class AppPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane scrollPaneTextAreaSearch;
     private javax.swing.JScrollPane scrollPaneThumbnails;
     private javax.swing.JScrollPane scrollPaneTimeline;
-    private javax.swing.JSlider sliderThumbnailSize;
     private javax.swing.JSplitPane splitPaneMain;
     private javax.swing.JSplitPane splitPaneThumbnailsMetadata;
+    private javax.swing.JPanel statusLineElementsPanel;
     private javax.swing.JTabbedPane tabbedPaneMetadata;
     private javax.swing.JTabbedPane tabbedPaneSelection;
     private javax.swing.JTextArea textAreaSearch;

@@ -89,7 +89,6 @@ import org.jphototagger.program.module.thumbnails.RefreshThumbnailsPanelControll
 import org.jphototagger.program.module.thumbnails.RotateThumbnailsController;
 import org.jphototagger.program.module.thumbnails.SelectOrDeselectAllThumbnailsController;
 import org.jphototagger.program.module.thumbnails.SortThumbnailsController;
-import org.jphototagger.program.module.thumbnails.ThumbnailSizeSliderController;
 import org.jphototagger.program.module.thumbnails.ThumbnailsFileFilterController;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPanelPersistenceController;
 import org.jphototagger.program.module.thumbnails.ThumbnailsRepositoryChangesController;
@@ -146,7 +145,6 @@ public final class ControllerFactory {
         support.add(new MenuItemEnablerController());
         support.add(new ErrorLogHandler());
         support.add(new GoToController());
-        support.add(new ThumbnailSizeSliderController());
         support.add(new SortThumbnailsController());
         support.add(new DisplayAboutJPhotoTaggerAction());
         support.add(new ShowUserSettingsDialogAction());
