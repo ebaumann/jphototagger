@@ -87,8 +87,6 @@ import org.jphototagger.program.module.thumbnails.PasteFilesFromClipboardControl
 import org.jphototagger.program.module.thumbnails.RefreshThumbnailsPanelController;
 import org.jphototagger.program.module.thumbnails.RotateThumbnailsController;
 import org.jphototagger.program.module.thumbnails.SelectOrDeselectAllThumbnailsController;
-import org.jphototagger.program.module.thumbnails.SortThumbnailsController;
-import org.jphototagger.program.module.thumbnails.ThumbnailsFileFilterController;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPanelPersistenceController;
 import org.jphototagger.program.module.thumbnails.ThumbnailsRepositoryChangesController;
 import org.jphototagger.program.module.timeline.TimelineItemSelectedController;
@@ -144,7 +142,6 @@ public final class ControllerFactory {
         support.add(new MenuItemEnablerController());
         support.add(new ErrorLogHandler());
         support.add(new GoToController());
-        support.add(new SortThumbnailsController());
         support.add(new DisplayAboutJPhotoTaggerAction());
         support.add(new ShowUserSettingsDialogAction());
         support.add(new ShowAdvancedSearchDialogAction());
@@ -204,7 +201,6 @@ public final class ControllerFactory {
         support.add(new SetRatingController());
         support.add(new CopyPasteMetadataController());
         support.add(new ActionsMenuUpdater());
-        support.add(new ThumbnailsFileFilterController());
     }
 
     private void addMiscMetadataControllers() {

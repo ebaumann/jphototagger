@@ -16,13 +16,12 @@ import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.domain.filefilter.FileFilterUtil;
 import org.jphototagger.domain.repository.FavoritesRepository;
 import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
+import org.jphototagger.domain.thumbnails.ThumbnailsDisplayer;
 import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.ui.AppPanel;
 import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
 import org.jphototagger.program.resource.GUI;
 
 /**
@@ -200,8 +199,7 @@ public final class FavoritesUtil {
 
     private static class SetFiles implements Runnable {
 
-        private final AppPanel appPanel = GUI.getAppPanel();
-        private final ThumbnailsPanel tnPanel = appPanel.getPanelThumbnails();
+        private final ThumbnailsDisplayer thumbnailsDisplayer = Lookup.getDefault().lookup(ThumbnailsDisplayer.class);
         private final List<File> files;
         private final ThumbnailsPanelSettings tnPanelSettings;
 
@@ -219,8 +217,8 @@ public final class FavoritesUtil {
             WaitDisplayer waitDisplayer = Lookup.getDefault().lookup(WaitDisplayer.class);
             waitDisplayer.show();
             setTitle();
-            tnPanel.setFiles(files, OriginOfDisplayedThumbnails.FILES_IN_SAME_FAVORITE_DIRECTORY);
-            tnPanel.applyThumbnailsPanelSettings(tnPanelSettings);
+            thumbnailsDisplayer.displayFiles(files, OriginOfDisplayedThumbnails.FILES_IN_SAME_FAVORITE_DIRECTORY);
+            thumbnailsDisplayer.applyThumbnailsPanelSettings(tnPanelSettings);
             waitDisplayer.hide();
         }
 

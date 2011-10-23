@@ -53,7 +53,6 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemOfGoto.put(GoTo.KEYWORDS_SEL, menuItemGotoKeywordsSel);
         menuItemOfGoto.put(GoTo.MISC_METADATA, menuItemGotoMiscMetadata);
         menuItemOfGoto.put(GoTo.SAVED_SEARCHES, menuItemGotoSavedSearches);
-        menuItemOfGoto.put(GoTo.THUMBNAILS_PANEL, menuItemGotoThumbnailsPanel);
         menuItemOfGoto.put(GoTo.TIMELINE, menuItemGotoTimeline);
 
         for (GoTo gt : menuItemOfGoto.keySet()) {
@@ -70,7 +69,6 @@ public final class AppFrame extends javax.swing.JFrame {
         KEYWORDS_SEL,
         MISC_METADATA,
         SAVED_SEARCHES,
-        THUMBNAILS_PANEL,
         TIMELINE,
     }
 
@@ -182,6 +180,14 @@ public final class AppFrame extends javax.swing.JFrame {
         lastGotoSelectionItemIndex++;
     }
 
+    void addGotoMenuItem(Action action, int index, boolean separatorBefore) {
+        if (separatorBefore) {
+            menuGoto.add(new Separator(), index);
+        }
+        JMenuItem item = new JMenuItem(action);
+        menuGoto.insert(item, separatorBefore ? index + 1 : index);
+    }
+
     private boolean hasAccelerator(Action action) {
         if (action instanceof AbstractAction) {
             AbstractAction abstractAction = (AbstractAction) action;
@@ -220,8 +226,6 @@ public final class AppFrame extends javax.swing.JFrame {
         menuGoto = new javax.swing.JMenu();
         menuItemGotoFastSearch = new javax.swing.JMenuItem();
         sep17 = new javax.swing.JPopupMenu.Separator();
-        menuItemGotoThumbnailsPanel = new javax.swing.JMenuItem();
-        sep16 = new javax.swing.JPopupMenu.Separator();
         menuItemGotoDirectories = new javax.swing.JMenuItem();
         menuItemGotoSavedSearches = new javax.swing.JMenuItem();
         menuItemGotoCollections = new javax.swing.JMenuItem();
@@ -265,15 +269,6 @@ public final class AppFrame extends javax.swing.JFrame {
 
         sep17.setName("sep17"); // NOI18N
         menuGoto.add(sep17);
-
-        menuItemGotoThumbnailsPanel.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_0));
-        menuItemGotoThumbnailsPanel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_thumbnails.png"))); // NOI18N
-        menuItemGotoThumbnailsPanel.setText(bundle.getString("AppFrame.menuItemGotoThumbnailsPanel.text")); // NOI18N
-        menuItemGotoThumbnailsPanel.setName("menuItemGotoThumbnailsPanel"); // NOI18N
-        menuGoto.add(menuItemGotoThumbnailsPanel);
-
-        sep16.setName("sep16"); // NOI18N
-        menuGoto.add(sep16);
 
         menuItemGotoDirectories.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_1));
         menuItemGotoDirectories.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_folder.png"))); // NOI18N
@@ -357,12 +352,10 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemGotoKeywordsSel;
     private javax.swing.JMenuItem menuItemGotoMiscMetadata;
     private javax.swing.JMenuItem menuItemGotoSavedSearches;
-    private javax.swing.JMenuItem menuItemGotoThumbnailsPanel;
     private javax.swing.JMenuItem menuItemGotoTimeline;
     private javax.swing.JMenu menuTools;
     private javax.swing.JMenu menuView;
     private javax.swing.JMenu menuWindow;
-    private javax.swing.JPopupMenu.Separator sep16;
     private javax.swing.JPopupMenu.Separator sep17;
     private javax.swing.JPopupMenu.Separator sep18;
     // End of variables declaration//GEN-END:variables

@@ -2,6 +2,7 @@ package org.jphototagger.domain.thumbnails;
 
 import java.io.File;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * @author Elmar Baumann
@@ -17,4 +18,10 @@ public interface ThumbnailsDisplayer {
     void setMetaDataOverlay(boolean overlay);
 
     boolean isMetaDataOverlay();
+
+    void applyThumbnailsPanelSettings(ThumbnailsPanelSettings settings);
+
+    List<File> getSelectedFiles();
+
+    List<File> getDisplayedFiles();
 }

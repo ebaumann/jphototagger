@@ -3,23 +3,19 @@ package org.jphototagger.program.module.thumbnails;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import javax.swing.JScrollPane;
-
-import org.openide.util.Lookup;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.applifecycle.AppWillExitEvent;
 import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.domain.thumbnails.MainWindowThumbnailsComponent;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsChangedEvent;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.program.app.ui.AppPanel;
 import org.jphototagger.program.resource.GUI;
 
 /**
@@ -30,8 +26,6 @@ import org.jphototagger.program.resource.GUI;
 public final class ThumbnailsPanelPersistenceController {
 
     private static final String KEY_SELECTED_FILES = "org.jphototagger.program.view.controller.ControllerThumbnailsPanelPersistence.SelectedFiles";
-    private static final String KEY_SORT = "org.jphototagger.program.view.controller.ControllerThumbnailsPanelPersistence.Sort";
-    private static final String KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION = "org.jphototagger.program.view.panels.controller.ViewportViewPosition";
     private volatile boolean propertiesRead;
     private List<File> persistentSelectedFiles = new ArrayList<File>();
 
@@ -101,32 +95,9 @@ public final class ThumbnailsPanelPersistenceController {
         persistentSelectedFiles = FileUtil.getStringsAsFiles(storage.getStringCollection(KEY_SELECTED_FILES));
     }
 
-    private void readViewportViewPositionFromProperties() {
-        new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                try {
-
-                    // Waiting until TN panel size was calculated
-                    Thread.sleep(2000);
-                } catch (Exception ex) {
-                    Logger.getLogger(ThumbnailsPanelPersistenceController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-                EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-                        AppPanel appPanel = GUI.getAppPanel();
-                        JScrollPane scrollPaneThumbnailsPanel = appPanel.getScrollPaneThumbnailsPanel();
-
-                        storage.applyScrollPaneSettings(KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION, scrollPaneThumbnailsPanel);
-                    }
-                });
-            }
-        }, "JPhotoTagger: Restoring viewport position").start();
+    void readViewportViewPositionFromProperties() {
+        MainWindowThumbnailsComponent component = Lookup.getDefault().lookup(MainWindowThumbnailsComponent.class);
+        component.restoreViewportPosition();
     }
 
     @EventSubscriber(eventClass = AppWillExitEvent.class)
@@ -135,8 +106,7 @@ public final class ThumbnailsPanelPersistenceController {
     }
 
     private void writeViewportViewPositionToProperties() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-
-        storage.setScrollPane(KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION, GUI.getAppPanel().getScrollPaneThumbnailsPanel());
+        MainWindowThumbnailsComponent component = Lookup.getDefault().lookup(MainWindowThumbnailsComponent.class);
+        component.persistViewportPosition();
     }
 }

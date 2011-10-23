@@ -72,8 +72,6 @@ public final class GoToController implements ActionListener {
             componentOfGoTo.get(goTo).requestFocusInWindow();
         } else if (goTo.equals(AppFrame.GoTo.FAST_SEARCH)) {
             GUI.getSearchTextArea().requestFocusInWindow();
-        } else if (goTo.equals(AppFrame.GoTo.THUMBNAILS_PANEL)) {
-            GUI.getThumbnailsPanel().requestFocusInWindow();
         }
     }
 }

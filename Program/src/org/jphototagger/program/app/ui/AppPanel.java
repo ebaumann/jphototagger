@@ -6,6 +6,7 @@ import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -20,7 +21,6 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
@@ -48,10 +48,12 @@ import org.jphototagger.api.windows.MainWindowComponentProvider;
 import org.jphototagger.api.windows.StatusLineElementProvider;
 import org.jphototagger.api.windows.TabInEditWindowDisplayedEvent;
 import org.jphototagger.api.windows.TabInSelectionWindowDisplayedEvent;
+import org.jphototagger.domain.thumbnails.MainWindowThumbnailsComponent;
 import org.jphototagger.lib.api.LayerUtil;
 import org.jphototagger.lib.api.PositionProviderAscendingComparator;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.ImageTextArea;
+import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.swing.MessageLabel;
 import org.jphototagger.lib.swing.TreeExpandCollapseAllAction;
 import org.jphototagger.lib.swing.util.ComponentUtil;
@@ -59,9 +61,8 @@ import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.swingx.ListTextFilter;
 import org.jphototagger.lib.swingx.SearchInJxListAction;
 import org.jphototagger.lib.swingx.SearchInJxTreeAction;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.module.keywords.KeywordsPanel;
-import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
-import org.jphototagger.program.module.thumbnails.ThumbnailsSortComboBoxModel;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.settings.AppPreferencesKeys;
 
@@ -95,10 +96,8 @@ public final class AppPanel extends javax.swing.JPanel {
         lookupWindows();
         lookupStatusLineElements();
         toggleDisplaySearchButton();
-        panelThumbnails.setViewport(scrollPaneThumbnails.getViewport());
         setTreesSingleSelection();
         initCollections();
-        scrollPaneThumbnails.getVerticalScrollBar().setUnitIncrement(30);
         setMnemonics();
         initListTextFilters();
         AnnotationProcessor.process(this);
@@ -255,9 +254,7 @@ public final class AppPanel extends javax.swing.JPanel {
      */
     public Component[] getMnemonizedComponents() {
         return new Component[] {
-          buttonSearch,
-          labelFileFilters,
-          labelFileSort,
+          buttonSearch
         };
     }
 
@@ -268,10 +265,6 @@ public final class AppPanel extends javax.swing.JPanel {
             labelStatusbarText.setText(text);
         }
         LOGGER.log(Level.INFO, text);
-    }
-
-    public JScrollPane getScrollPaneThumbnailsPanel() {
-        return scrollPaneThumbnails;
     }
 
     public JTabbedPane getTabbedPaneMetadata() {
@@ -328,14 +321,6 @@ public final class AppPanel extends javax.swing.JPanel {
         return panelMiscMetadata;
     }
 
-    public JComboBox getComboBoxFileFilters() {
-        return comboBoxFileFilters;
-    }
-
-    public JComboBox getComboBoxThumbnailsSort() {
-        return comboBoxFileSort;
-    }
-
     public JPanel getTabSelectionSavedSearches() {
         return panelSavedSearches;
     }
@@ -362,10 +347,6 @@ public final class AppPanel extends javax.swing.JPanel {
 
     public List<JXList> getSelectionLists() {
         return Collections.unmodifiableList(selectionLists);
-    }
-
-    public ThumbnailsPanel getPanelThumbnails() {
-        return panelThumbnails;
     }
 
     public KeywordsPanel getPanelEditKeywords() {
@@ -433,6 +414,7 @@ public final class AppPanel extends javax.swing.JPanel {
 
             @Override
             public void run() {
+                lookupMainWindowThumbnailsComponent();
                 Collection<? extends MainWindowComponentProvider> providers = Lookup.getDefault().lookupAll(MainWindowComponentProvider.class);
                 List<MainWindowComponent> selectionsComponents = new ArrayList<MainWindowComponent>();
                 List<MainWindowComponent> editComponents = new ArrayList<MainWindowComponent>();
@@ -444,6 +426,40 @@ public final class AppPanel extends javax.swing.JPanel {
                 insertIntoSelectionTabbedPane(selectionsComponents);
             }
         });
+    }
+
+    private void lookupMainWindowThumbnailsComponent() {
+        MainWindowThumbnailsComponent tComponent = Lookup.getDefault().lookup(MainWindowThumbnailsComponent.class);
+        Component component = tComponent.getThumbnailsComponent();
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.gridheight = GridBagConstraints.REMAINDER;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        gbc.fill = GridBagConstraints.BOTH;
+        thumbnailPanelComponent.add(component, gbc);
+        SelectThumbnailsPanelAction selectThumbnailsPanelAction =
+                new SelectThumbnailsPanelAction(tComponent.getThumbnailsDisplayingComponent());
+        GUI.getAppFrame().addGotoMenuItem(selectThumbnailsPanelAction, 2, false);
+
+    }
+
+    private static class SelectThumbnailsPanelAction extends AbstractAction {
+
+        private static final long serialVersionUID = 1L;
+        private final Component thumbnailsPanel;
+
+        private SelectThumbnailsPanelAction(Component thumbnailsPanel) {
+            super(Bundle.getString(AppPanel.class, "SelectThumbnailsPanelAction.Name"));
+            this.thumbnailsPanel = thumbnailsPanel;
+            putValue(ACCELERATOR_KEY, KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_0));
+            putValue(SMALL_ICON, AppLookAndFeel.getIcon("icon_thumbnails.png"));
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            thumbnailsPanel.requestFocusInWindow();
+        }
     }
 
     private void instertIntoEditTabbedPane(List<MainWindowComponent> mainWindowComponents) {
@@ -635,14 +651,7 @@ public final class AppPanel extends javax.swing.JPanel {
         panelThumbnailsMetadata = new javax.swing.JPanel();
         splitPaneThumbnailsMetadata = new javax.swing.JSplitPane();
         splitPaneThumbnailsMetadata.setDividerLocation(getDividerLocationThumbnails());
-        panelThumbnailsContent = new javax.swing.JPanel();
-        panelDisplayedThumbnailFilters = new javax.swing.JPanel();
-        labelFileFilters = new javax.swing.JLabel();
-        comboBoxFileFilters = new javax.swing.JComboBox();
-        labelFileSort = new javax.swing.JLabel();
-        comboBoxFileSort = new javax.swing.JComboBox();
-        scrollPaneThumbnails = new javax.swing.JScrollPane();
-        panelThumbnails = new org.jphototagger.program.module.thumbnails.ThumbnailsPanel();
+        thumbnailPanelComponent = new javax.swing.JPanel();
         panelMetadata = new javax.swing.JPanel();
         tabbedPaneMetadata = new javax.swing.JTabbedPane();
         panelEditKeywords = new org.jphototagger.program.module.keywords.KeywordsPanel();
@@ -1210,79 +1219,10 @@ public final class AppPanel extends javax.swing.JPanel {
         splitPaneThumbnailsMetadata.setName("splitPaneThumbnailsMetadata"); // NOI18N
         splitPaneThumbnailsMetadata.setOneTouchExpandable(true);
 
-        panelThumbnailsContent.setMinimumSize(new java.awt.Dimension(180, 0));
-        panelThumbnailsContent.setName("panelThumbnailsContent"); // NOI18N
-        panelThumbnailsContent.setLayout(new java.awt.GridBagLayout());
-
-        panelDisplayedThumbnailFilters.setName("panelDisplayedThumbnailFilters"); // NOI18N
-        panelDisplayedThumbnailFilters.setLayout(new java.awt.GridBagLayout());
-
-        labelFileFilters.setLabelFor(comboBoxFileFilters);
-        labelFileFilters.setText(bundle.getString("AppPanel.labelFileFilters.text")); // NOI18N
-        labelFileFilters.setName("labelFileFilters"); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
-        panelDisplayedThumbnailFilters.add(labelFileFilters, gridBagConstraints);
-
-        comboBoxFileFilters.setName("comboBoxFileFilters"); // NOI18N
-        comboBoxFileFilters.setRenderer(new org.jphototagger.program.module.thumbnails.FileFiltersListCellRenderer());
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
-        panelDisplayedThumbnailFilters.add(comboBoxFileFilters, gridBagConstraints);
-
-        labelFileSort.setLabelFor(comboBoxFileSort);
-        labelFileSort.setText(bundle.getString("AppPanel.labelFileSort.text")); // NOI18N
-        labelFileSort.setName("labelFileSort"); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
-        panelDisplayedThumbnailFilters.add(labelFileSort, gridBagConstraints);
-
-        comboBoxFileSort.setModel(new ThumbnailsSortComboBoxModel());
-        comboBoxFileSort.setName("comboBoxFileSort"); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
-        panelDisplayedThumbnailFilters.add(comboBoxFileSort, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
-        panelThumbnailsContent.add(panelDisplayedThumbnailFilters, gridBagConstraints);
-
-        scrollPaneThumbnails.setName("scrollPaneThumbnails"); // NOI18N
-
-        panelThumbnails.setName("panelThumbnails"); // NOI18N
-
-        javax.swing.GroupLayout panelThumbnailsLayout = new javax.swing.GroupLayout(panelThumbnails);
-        panelThumbnails.setLayout(panelThumbnailsLayout);
-        panelThumbnailsLayout.setHorizontalGroup(
-            panelThumbnailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 218, Short.MAX_VALUE)
-        );
-        panelThumbnailsLayout.setVerticalGroup(
-            panelThumbnailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 448, Short.MAX_VALUE)
-        );
-
-        scrollPaneThumbnails.setViewportView(panelThumbnails);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        panelThumbnailsContent.add(scrollPaneThumbnails, gridBagConstraints);
-
-        splitPaneThumbnailsMetadata.setLeftComponent(panelThumbnailsContent);
+        thumbnailPanelComponent.setMinimumSize(new java.awt.Dimension(180, 0));
+        thumbnailPanelComponent.setName("thumbnailPanelComponent"); // NOI18N
+        thumbnailPanelComponent.setLayout(new java.awt.GridBagLayout());
+        splitPaneThumbnailsMetadata.setLeftComponent(thumbnailPanelComponent);
 
         panelMetadata.setName("panelMetadata"); // NOI18N
         panelMetadata.setLayout(new java.awt.GridBagLayout());
@@ -1377,10 +1317,6 @@ public final class AppPanel extends javax.swing.JPanel {
     private javax.swing.JButton buttonSearchInTreeSelKeywords;
     private javax.swing.JButton buttonSearchInTreeTimeline;
     private javax.swing.JComboBox comboBoxFastSearch;
-    private javax.swing.JComboBox comboBoxFileFilters;
-    private javax.swing.JComboBox comboBoxFileSort;
-    private javax.swing.JLabel labelFileFilters;
-    private javax.swing.JLabel labelFileSort;
     private javax.swing.JLabel labelListImageCollectionsFilter;
     private javax.swing.JLabel labelListSavedSearchesFilter;
     private javax.swing.JLabel labelListSelKeywordsFilter;
@@ -1389,7 +1325,6 @@ public final class AppPanel extends javax.swing.JPanel {
     private org.jdesktop.swingx.JXList listSavedSearches;
     private org.jdesktop.swingx.JXList listSelKeywords;
     private javax.swing.JPanel panelDirectories;
-    private javax.swing.JPanel panelDisplayedThumbnailFilters;
     private org.jphototagger.program.module.keywords.KeywordsPanel panelEditKeywords;
     private javax.swing.JPanel panelFavorites;
     private javax.swing.JPanel panelImageCollections;
@@ -1406,8 +1341,6 @@ public final class AppPanel extends javax.swing.JPanel {
     private javax.swing.JPanel panelSelKeywordsTree;
     private javax.swing.JPanel panelSelection;
     private javax.swing.JPanel panelStatusbar;
-    private org.jphototagger.program.module.thumbnails.ThumbnailsPanel panelThumbnails;
-    private javax.swing.JPanel panelThumbnailsContent;
     private javax.swing.JPanel panelThumbnailsMetadata;
     private javax.swing.JPanel panelTimeline;
     private javax.swing.JRadioButton radioButtonSelKeywordsMultipleSelAll;
@@ -1420,7 +1353,6 @@ public final class AppPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane scrollPaneSelKeywordsList;
     private javax.swing.JScrollPane scrollPaneSelKeywordsTree;
     private javax.swing.JScrollPane scrollPaneTextAreaSearch;
-    private javax.swing.JScrollPane scrollPaneThumbnails;
     private javax.swing.JScrollPane scrollPaneTimeline;
     private javax.swing.JSplitPane splitPaneMain;
     private javax.swing.JSplitPane splitPaneThumbnailsMetadata;
@@ -1431,6 +1363,7 @@ public final class AppPanel extends javax.swing.JPanel {
     private javax.swing.JTextField textFieldListImageCollectionsFilter;
     private javax.swing.JTextField textFieldListSavedSearchesFilter;
     private javax.swing.JTextField textFieldListSelKeywordsFilter;
+    private javax.swing.JPanel thumbnailPanelComponent;
     private javax.swing.JToggleButton toggleButtonExpandAllNodesSelKeywords;
     private javax.swing.JToggleButton toggleButtonExpandCollapseTreeMiscMetadata;
     private javax.swing.JToggleButton toggleButtonExpandCollapseTreeTimeline;
