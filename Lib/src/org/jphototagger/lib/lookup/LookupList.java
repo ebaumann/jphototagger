@@ -25,6 +25,8 @@ import org.jphototagger.lib.swing.util.ListUtil;
  * <p>
  * If the (temporary) selected items are {@link Node}s, a popup menu with
  * it's actions is displayed.
+ * <p>
+ * Double click's on a node perform the node's preferred action.
  *
  * @author Elmar Baumann
  */
