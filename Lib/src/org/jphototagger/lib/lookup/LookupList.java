@@ -1,11 +1,13 @@
 package org.jphototagger.lib.lookup;
 
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import javax.swing.Action;
 import javax.swing.DefaultListModel;
 import javax.swing.JPopupMenu;
 
@@ -93,7 +95,27 @@ public final class LookupList extends JXList implements Lookup.Provider, MouseLi
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        // ignore
+        if (MouseEventUtil.isDoubleClick(e)) {
+            int itemIndex = ListUtil.getItemIndex(e);
+            if (itemIndex >= 0) {
+                performPreferredActionAtItemIndex(itemIndex);
+            }
+        }
+    }
+
+    private void performPreferredActionAtItemIndex(int itemIndex) {
+        Object elementAtIndex = super.getElementAt(itemIndex);
+        if (elementAtIndex instanceof Node) {
+            Node nodeAtIndex = (Node) elementAtIndex;
+            performPreferredActionOfNode(nodeAtIndex);
+        }
+    }
+
+    private void performPreferredActionOfNode(Node node) {
+        Action preferredAction = node.getPreferredAction();
+        if (preferredAction != null) {
+            preferredAction.actionPerformed(new ActionEvent(this, 0, null));
+        }
     }
 
     @Override
