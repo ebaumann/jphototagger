@@ -9,16 +9,15 @@ import java.util.Map;
 import javax.swing.JList;
 import javax.swing.JTree;
 
-import org.openide.util.Lookup;
-
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+
+import org.openide.util.Lookup;
 
 import org.jphototagger.api.applifecycle.AppWillExitEvent;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesHints;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.program.module.keywords.KeywordsPanel;
 import org.jphototagger.program.resource.GUI;
 
@@ -116,7 +115,6 @@ public final class AppWindowPersistence implements ComponentListener {
 
                 storage.applyComponentSettings(appPanel, getAppPanelSettingsHints());
                 setInitKeywordsView(appPanel);
-                selectFastSearch(appPanel);
             }
         });
     }
@@ -141,11 +139,6 @@ public final class AppWindowPersistence implements ComponentListener {
         hints.addKeyToExclude("org.jphototagger.program.app.ui.AppPanel.comboBoxFileFilters");
 
         return hints;
-    }
-
-    private void selectFastSearch(AppPanel appPanel) {
-        ComponentUtil.forceRepaint(appPanel.getComboBoxFastSearch());
-        appPanel.getTextAreaSearch().requestFocusInWindow();
     }
 
     private void setInitKeywordsView(AppPanel appPanel) {

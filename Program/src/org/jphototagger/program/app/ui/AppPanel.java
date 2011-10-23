@@ -17,13 +17,10 @@ import java.util.logging.Logger;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.Icon;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
-import javax.swing.JTextArea;
 import javax.swing.JToggleButton;
 import javax.swing.JTree;
 import javax.swing.KeyStroke;
@@ -32,8 +29,6 @@ import javax.swing.event.ChangeListener;
 import javax.swing.tree.TreeSelectionModel;
 
 import org.bushe.swing.event.EventBus;
-import org.bushe.swing.event.annotation.AnnotationProcessor;
-import org.bushe.swing.event.annotation.EventSubscriber;
 
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.JXTree;
@@ -42,21 +37,19 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.api.messages.MessageType;
 import org.jphototagger.api.preferences.Preferences;
-import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.api.windows.MainWindowComponent;
 import org.jphototagger.api.windows.MainWindowComponentProvider;
 import org.jphototagger.api.windows.StatusLineElementProvider;
 import org.jphototagger.api.windows.TabInEditWindowDisplayedEvent;
 import org.jphototagger.api.windows.TabInSelectionWindowDisplayedEvent;
+import org.jphototagger.domain.metadata.search.SearchComponent;
 import org.jphototagger.domain.thumbnails.MainWindowThumbnailsComponent;
 import org.jphototagger.lib.api.LayerUtil;
 import org.jphototagger.lib.api.PositionProviderAscendingComparator;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.swing.ImageTextArea;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.swing.MessageLabel;
 import org.jphototagger.lib.swing.TreeExpandCollapseAllAction;
-import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.swingx.ListTextFilter;
 import org.jphototagger.lib.swingx.SearchInJxListAction;
@@ -64,7 +57,6 @@ import org.jphototagger.lib.swingx.SearchInJxTreeAction;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.module.keywords.KeywordsPanel;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.settings.AppPreferencesKeys;
 
 /**
  * @author Elmar Baumann, Tobias Stening
@@ -95,12 +87,10 @@ public final class AppPanel extends javax.swing.JPanel {
         GUI.setAppPanel(this);
         lookupWindows();
         lookupStatusLineElements();
-        toggleDisplaySearchButton();
         setTreesSingleSelection();
         initCollections();
         setMnemonics();
         initListTextFilters();
-        AnnotationProcessor.process(this);
         tabbedPaneMetadata.addChangeListener(tabbedPaneEditChangeListener);
         tabbedPaneSelection.addChangeListener(tabbedPaneSelectionChangeListener);
     }
@@ -119,48 +109,6 @@ public final class AppPanel extends javax.swing.JPanel {
         listSelKeywordsTextFilter.filterOnDocumentChanges(textFieldListSelKeywordsFilter.getDocument());
         listSavedSearchesTextFilter.filterOnDocumentChanges(textFieldListSavedSearchesFilter.getDocument());
         listImageCollectionsTextFilter.filterOnDocumentChanges(textFieldListImageCollectionsFilter.getDocument());
-    }
-
-    private void toggleDisplaySearchButton() {
-        int zOrder = panelSearch.getComponentZOrder(buttonSearch);
-        boolean containsButton = zOrder >= 0;
-        boolean displaySearchButton = isDisplaySearchButton();
-        boolean toDo = containsButton && !displaySearchButton || !containsButton && displaySearchButton;
-
-        if (!toDo) {
-            return;
-        }
-
-        if (displaySearchButton) {
-            GridBagConstraints gbc = new GridBagConstraints();
-            gbc.gridx = 1;
-            gbc.gridy = 1;
-            gbc.fill = java.awt.GridBagConstraints.BOTH;
-            gbc.weighty = 1.0;
-            gbc.insets = new java.awt.Insets(3, 3, 0, 0);
-            panelSearch.add(buttonSearch, gbc);
-        } else {
-            panelSearch.remove(buttonSearch);
-        }
-
-        ComponentUtil.forceRepaint(panelSearch);
-    }
-
-    private boolean isDisplaySearchButton() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-
-        return storage.containsKey(AppPreferencesKeys.KEY_UI_DISPLAY_SEARCH_BUTTON)
-                ? storage.getBoolean(AppPreferencesKeys.KEY_UI_DISPLAY_SEARCH_BUTTON)
-                : true;
-    }
-
-    @EventSubscriber(eventClass=PreferencesChangedEvent.class)
-    public void userPropertyChanged(PreferencesChangedEvent evt) {
-        String key = evt.getKey();
-
-        if (AppPreferencesKeys.KEY_UI_DISPLAY_SEARCH_BUTTON.equals(key)) {
-            toggleDisplaySearchButton();
-        }
     }
 
     private void initCollections() {
@@ -242,20 +190,6 @@ public final class AppPanel extends javax.swing.JPanel {
         return (location >= 0)
                ? location
                : DEFAULT_DIVIDER_LOCATION_THUMBNAILS;
-    }
-
-    /**
-     * Returns components with mnemonics set that can interfer with the
-     * edit metadata panel mnemonics.
-     * <p>
-     * Panels hiding the edit metadata panel are <em>not</em> included.
-     *
-     * @return components
-     */
-    public Component[] getMnemonizedComponents() {
-        return new Component[] {
-          buttonSearch
-        };
     }
 
     void setStatusbarText(String text, MessageType type, final long milliseconds) {
@@ -377,20 +311,8 @@ public final class AppPanel extends javax.swing.JPanel {
         return panelEditKeywords.getList();
     }
 
-    public JButton getButtonSearch() {
-        return buttonSearch;
-    }
-
     public JToggleButton getToggleButtonSelKeywords() {
         return toggleButtonExpandAllNodesSelKeywords;
-    }
-
-    public JTextArea getTextAreaSearch() {
-        return textAreaSearch;
-    }
-
-    public JComboBox getComboBoxFastSearch() {
-        return comboBoxFastSearch;
     }
 
     public JRadioButton getRadioButtonSelKeywordsMultipleSelAll() {
@@ -414,6 +336,7 @@ public final class AppPanel extends javax.swing.JPanel {
 
             @Override
             public void run() {
+                lookupSearchComponent();
                 lookupMainWindowThumbnailsComponent();
                 Collection<? extends MainWindowComponentProvider> providers = Lookup.getDefault().lookupAll(MainWindowComponentProvider.class);
                 List<MainWindowComponent> selectionsComponents = new ArrayList<MainWindowComponent>();
@@ -426,6 +349,18 @@ public final class AppPanel extends javax.swing.JPanel {
                 insertIntoSelectionTabbedPane(selectionsComponents);
             }
         });
+    }
+
+    private void lookupSearchComponent() {
+        SearchComponent searchComponent = Lookup.getDefault().lookup(SearchComponent.class);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.gridheight = GridBagConstraints.REMAINDER;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        gbc.fill = GridBagConstraints.BOTH;
+        panelSearch.add(searchComponent.getSearchComponent(), gbc);
+        GUI.getAppFrame().addGotoMenuItem(searchComponent.getSelectSearchComponentAction(), 0, false);
     }
 
     private void lookupMainWindowThumbnailsComponent() {
@@ -580,14 +515,6 @@ public final class AppPanel extends javax.swing.JPanel {
         splitPaneMain.setDividerLocation(getDividerLocationMain());
         panelSelection = new javax.swing.JPanel();
         panelSearch = new javax.swing.JPanel();
-        comboBoxFastSearch = new javax.swing.JComboBox();
-        buttonSearch = new javax.swing.JButton();
-        scrollPaneTextAreaSearch = new javax.swing.JScrollPane();
-        textAreaSearch = new ImageTextArea();
-        ((ImageTextArea) textAreaSearch).setImage(
-            AppLookAndFeel.getLocalizedImage(
-                "/org/jphototagger/program/resource/images/textfield_search.png"));
-        ((ImageTextArea) textAreaSearch).setConsumeEnter(true);
         tabbedPaneSelection = new javax.swing.JTabbedPane();
         panelDirectories = new javax.swing.JPanel();
         scrollPaneDirectories = new javax.swing.JScrollPane();
@@ -671,49 +598,6 @@ public final class AppPanel extends javax.swing.JPanel {
 
         panelSearch.setName("panelSearch"); // NOI18N
         panelSearch.setLayout(new java.awt.GridBagLayout());
-
-        comboBoxFastSearch.setModel(new org.jphototagger.program.module.search.FastSearchComboBoxModel());
-        comboBoxFastSearch.setName("comboBoxFastSearch"); // NOI18N
-        comboBoxFastSearch.setRenderer(new org.jphototagger.program.module.search.FastSearchMetaDataValuesListCellRenderer());
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.weightx = 1.0;
-        panelSearch.add(comboBoxFastSearch, gridBagConstraints);
-
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/app/ui/Bundle"); // NOI18N
-        buttonSearch.setText(bundle.getString("AppPanel.buttonSearch.text")); // NOI18N
-        buttonSearch.setMargin(new java.awt.Insets(1, 1, 1, 1));
-        buttonSearch.setName("buttonSearch"); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(3, 3, 0, 0);
-        panelSearch.add(buttonSearch, gridBagConstraints);
-
-        scrollPaneTextAreaSearch.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPaneTextAreaSearch.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-        scrollPaneTextAreaSearch.setMinimumSize(new java.awt.Dimension(7, 20));
-        scrollPaneTextAreaSearch.setName("scrollPaneTextAreaSearch"); // NOI18N
-
-        textAreaSearch.setRows(1);
-        textAreaSearch.setMinimumSize(new java.awt.Dimension(0, 18));
-        textAreaSearch.setName("JPhotoTagger Fast Search Text Area"); // NOI18N
-        scrollPaneTextAreaSearch.setViewportView(textAreaSearch);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 0.5;
-        gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
-        panelSearch.add(scrollPaneTextAreaSearch, gridBagConstraints);
-
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -748,6 +632,7 @@ public final class AppPanel extends javax.swing.JPanel {
         panelDirectories.add(scrollPaneDirectories, gridBagConstraints);
 
         buttonSearchInDirectories.setAction(new SearchInJxTreeAction((JXTree)treeDirectories));
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/app/ui/Bundle"); // NOI18N
         buttonSearchInDirectories.setText(bundle.getString("AppPanel.buttonSearchInDirectories.text")); // NOI18N
         buttonSearchInDirectories.setMargin(new java.awt.Insets(1, 1, 1, 1));
         buttonSearchInDirectories.setName("buttonSearchInDirectories"); // NOI18N
@@ -1307,7 +1192,6 @@ public final class AppPanel extends javax.swing.JPanel {
     private javax.swing.JButton buttonDisplaySelKeywordsList;
     private javax.swing.JButton buttonDisplaySelKeywordsTree;
     private javax.swing.ButtonGroup buttonGroupKeywordsMultipleSel;
-    private javax.swing.JButton buttonSearch;
     private javax.swing.JButton buttonSearchInDirectories;
     private javax.swing.JButton buttonSearchInImageCollections;
     private javax.swing.JButton buttonSearchInListSelKeywords;
@@ -1316,7 +1200,6 @@ public final class AppPanel extends javax.swing.JPanel {
     private javax.swing.JButton buttonSearchInTreeMiscMetadata;
     private javax.swing.JButton buttonSearchInTreeSelKeywords;
     private javax.swing.JButton buttonSearchInTreeTimeline;
-    private javax.swing.JComboBox comboBoxFastSearch;
     private javax.swing.JLabel labelListImageCollectionsFilter;
     private javax.swing.JLabel labelListSavedSearchesFilter;
     private javax.swing.JLabel labelListSelKeywordsFilter;
@@ -1352,14 +1235,12 @@ public final class AppPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane scrollPaneSavedSearches;
     private javax.swing.JScrollPane scrollPaneSelKeywordsList;
     private javax.swing.JScrollPane scrollPaneSelKeywordsTree;
-    private javax.swing.JScrollPane scrollPaneTextAreaSearch;
     private javax.swing.JScrollPane scrollPaneTimeline;
     private javax.swing.JSplitPane splitPaneMain;
     private javax.swing.JSplitPane splitPaneThumbnailsMetadata;
     private javax.swing.JPanel statusLineElementsPanel;
     private javax.swing.JTabbedPane tabbedPaneMetadata;
     private javax.swing.JTabbedPane tabbedPaneSelection;
-    private javax.swing.JTextArea textAreaSearch;
     private javax.swing.JTextField textFieldListImageCollectionsFilter;
     private javax.swing.JTextField textFieldListSavedSearchesFilter;
     private javax.swing.JTextField textFieldListSelKeywordsFilter;

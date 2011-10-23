@@ -11,10 +11,7 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppCommandLineOptions;
 import org.jphototagger.program.app.AppInit;
-import org.jphototagger.program.app.ui.AppPanel;
-import org.jphototagger.program.module.search.FastSearchController;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPopupMenu;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.tasks.ScheduledTasks;
 
 /**
@@ -38,27 +35,15 @@ public final class TerminateFactory {
 
             @Override
             public void run() {
-                AppPanel appPanel = GUI.getAppPanel();
                 String message = Bundle.getString(TerminateFactory.class, "MiscFactory.Init.Start");
                 Support.setStatusbarInfo(message);
                 ThumbnailsPopupMenu.INSTANCE.setOtherPrograms();
                 ScheduledTasks.INSTANCE.run();
                 checkImportImageFiles();
-                setAutocomplete();
                 message = Bundle.getString(TerminateFactory.class, "MiscFactory.Init.Finished");
                 Support.setStatusbarInfo(message);
             }
         });
-    }
-
-    private void setAutocomplete() {
-        if (isAutocomplete()) {
-            FastSearchController controller = ControllerFactory.INSTANCE.getController(FastSearchController.class);
-
-            if (controller != null) {
-                controller.setAutocomplete(true);
-            }
-        }
     }
 
     private boolean isAutocomplete() {
