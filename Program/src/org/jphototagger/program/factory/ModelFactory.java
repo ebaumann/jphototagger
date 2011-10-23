@@ -34,7 +34,6 @@ import org.jphototagger.program.module.keywords.tree.KeywordsTreeModel;
 import org.jphototagger.program.module.metadatatemplates.MetadataTemplatesListModel;
 import org.jphototagger.program.module.miscmetadata.MiscMetadataTreeModel;
 import org.jphototagger.program.module.search.SavedSearchesListModel;
-import org.jphototagger.program.module.thumbnails.FileFiltersComboBoxModel;
 import org.jphototagger.program.module.timeline.TimelineTreeModel;
 import org.jphototagger.program.resource.GUI;
 
@@ -66,24 +65,12 @@ public final class ModelFactory {
 
                 String message = Bundle.getString(ModelFactory.class, "ModelFactory.Init.Start");
                 Support.setStatusbarInfo(message);
-                setComboBoxModels(appPanel);
                 setListModels(appPanel);
                 setTreeModels(appPanel);
                 message = Bundle.getString(ModelFactory.class, "ModelFactory.Init.Finished");
                 Support.setStatusbarInfo(message);
             }
         });
-    }
-
-    private void setComboBoxModels(AppPanel appPanel) {
-        setComboBoxModelFileFilters();
-    }
-
-    private void setComboBoxModelFileFilters() {
-        FileFiltersComboBoxModel model = new FileFiltersComboBoxModel();
-
-        support.add(model);
-        GUI.getAppPanel().getComboBoxFileFilters().setModel(model);
     }
 
     private void setListModels(AppPanel appPanel) {

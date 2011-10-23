@@ -14,6 +14,8 @@ import org.jphototagger.program.app.ui.AppFrame;
 import org.jphototagger.program.app.ui.AppPanel;
 import org.jphototagger.program.misc.InputHelperDialog;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
+import org.jphototagger.program.module.thumbnails.ThumbnailsPanelProvider;
+import org.openide.util.Lookup;
 
 /**
  * Provides access to GUI elements.
@@ -54,16 +56,13 @@ public final class GUI {
     }
 
     public static ThumbnailsPanel getThumbnailsPanel() {
-        return appPanel.getPanelThumbnails();
+        ThumbnailsPanelProvider provider = Lookup.getDefault().lookup(ThumbnailsPanelProvider.class);
+        return provider.getThumbnailsPanel();
     }
 
-    /**
-     * Returns all in the thumbnails panel selected images files.
-     *
-     * @return selected files
-     */
     public static List<File> getSelectedImageFiles() {
-        return appPanel.getPanelThumbnails().getSelectedFiles();
+        ThumbnailsPanelProvider provider = Lookup.getDefault().lookup(ThumbnailsPanelProvider.class);
+        return provider.getThumbnailsPanel().getSelectedFiles();
     }
 
     /**

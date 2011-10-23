@@ -41,9 +41,9 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 
 import org.openide.util.Lookup;
 
+import org.jphototagger.api.applifecycle.AppWillExitEvent;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesChangedEvent;
-import org.jphototagger.api.applifecycle.AppWillExitEvent;
 import org.jphototagger.domain.event.listener.ThumbnailUpdateListener;
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter.RegexFileFilter;
@@ -54,6 +54,7 @@ import org.jphototagger.domain.repository.event.userdefinedfilefilters.UserDefin
 import org.jphototagger.domain.repository.event.xmp.XmpDeletedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
+import org.jphototagger.domain.thumbnails.MainWindowThumbnailsComponent;
 import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.domain.thumbnails.ThumbnailFlag;
 import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
@@ -70,7 +71,6 @@ import org.jphototagger.lib.util.MathUtil;
 import org.jphototagger.lib.util.ObjectUtil;
 import org.jphototagger.program.filefilter.AppFileFilters;
 import org.jphototagger.program.module.thumbnails.cache.RenderedThumbnailCache;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.program.types.ByteSizeUnit;
 import org.jphototagger.program.types.FileAction;
@@ -1015,9 +1015,8 @@ public class ThumbnailsPanel extends JPanel
     }
 
     private void validateScrollPane() {
-
-        // See: http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=5066771
-        GUI.getAppPanel().getScrollPaneThumbnailsPanel().validate();
+        MainWindowThumbnailsComponent component = Lookup.getDefault().lookup(MainWindowThumbnailsComponent.class);
+        component.validateViewportPosition();
     }
 
     private Point getViewPosition() {
@@ -1630,5 +1629,12 @@ public class ThumbnailsPanel extends JPanel
     private void persistMetaDataOverlay() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
         storage.setBoolean(KEY_SHOW_METADATA_OVERLAY, metaDataOverlay);
+    }
+
+    @Override
+    public boolean requestFocusInWindow() {
+        boolean requested = super.requestFocusInWindow();
+        repaint(); // Border
+        return requested;
     }
 }
