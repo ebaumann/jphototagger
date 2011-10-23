@@ -1191,6 +1191,9 @@ public class ThumbnailsPanel extends JPanel
     }
 
     synchronized void sort() {
+        if (files.isEmpty()) {
+            return;
+        }
         if (originOfOfDisplayedThumbnails.isSortable()) {
             List<File> selFiles = getSelectedFiles();
 
