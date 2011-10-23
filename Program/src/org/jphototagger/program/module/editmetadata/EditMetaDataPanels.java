@@ -57,12 +57,10 @@ import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.ExpandCollapseComponentPanel;
 import org.jphototagger.lib.swing.MessageDisplayer;
-import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.program.misc.SaveXmp;
 import org.jphototagger.program.module.keywords.tree.SuggestKeywords;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.program.view.ViewUtil;
 import org.jphototagger.xmp.EditHints;
@@ -839,7 +837,6 @@ final class EditMetaDataPanels implements FocusListener {
             @Override
             public void run() {
                 List<Character> mnemonicChars = editMetadataActionsPanel.getButtonsMnemonicChars();
-                mnemonicChars.addAll(MnemonicUtil.getMnemonicCharsOf(Arrays.asList(GUI.getAppPanel().getMnemonizedComponents())));
                 ViewUtil.setDisplayedMnemonicsToLabels(parentContainer, mnemonicChars.toArray(new Character[]{}));
             }
         });

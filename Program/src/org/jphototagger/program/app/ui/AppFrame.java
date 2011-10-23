@@ -46,7 +46,6 @@ public final class AppFrame extends javax.swing.JFrame {
 
     private void initGotoMenuItemsMap() {
         menuItemOfGoto.put(GoTo.DIRECTORIES, menuItemGotoDirectories);
-        menuItemOfGoto.put(GoTo.FAST_SEARCH, menuItemGotoFastSearch);
         menuItemOfGoto.put(GoTo.FAVORITES, menuItemGotoFavorites);
         menuItemOfGoto.put(GoTo.KEYWORDS_EDIT, menuItemGotoKeywordsEdit);
         menuItemOfGoto.put(GoTo.IMAGE_COLLECTIONS, menuItemGotoCollections);
@@ -62,7 +61,6 @@ public final class AppFrame extends javax.swing.JFrame {
 
     public enum GoTo {
         DIRECTORIES,
-        FAST_SEARCH,
         FAVORITES,
         KEYWORDS_EDIT,
         IMAGE_COLLECTIONS,
@@ -224,7 +222,6 @@ public final class AppFrame extends javax.swing.JFrame {
         menuEdit = new javax.swing.JMenu();
         menuView = new javax.swing.JMenu();
         menuGoto = new javax.swing.JMenu();
-        menuItemGotoFastSearch = new javax.swing.JMenuItem();
         sep17 = new javax.swing.JPopupMenu.Separator();
         menuItemGotoDirectories = new javax.swing.JMenuItem();
         menuItemGotoSavedSearches = new javax.swing.JMenuItem();
@@ -260,12 +257,6 @@ public final class AppFrame extends javax.swing.JFrame {
 
         menuGoto.setText(bundle.getString("AppFrame.menuGoto.text")); // NOI18N
         menuGoto.setName("menuGoto"); // NOI18N
-
-        menuItemGotoFastSearch.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_F));
-        menuItemGotoFastSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_search.png"))); // NOI18N
-        menuItemGotoFastSearch.setText(bundle.getString("AppFrame.menuItemGotoFastSearch.text")); // NOI18N
-        menuItemGotoFastSearch.setName("menuItemGotoFastSearch"); // NOI18N
-        menuGoto.add(menuItemGotoFastSearch);
 
         sep17.setName("sep17"); // NOI18N
         menuGoto.add(sep17);
@@ -346,7 +337,6 @@ public final class AppFrame extends javax.swing.JFrame {
     private javax.swing.JMenu menuHelp;
     private javax.swing.JMenuItem menuItemGotoCollections;
     private javax.swing.JMenuItem menuItemGotoDirectories;
-    private javax.swing.JMenuItem menuItemGotoFastSearch;
     private javax.swing.JMenuItem menuItemGotoFavorites;
     private javax.swing.JMenuItem menuItemGotoKeywordsEdit;
     private javax.swing.JMenuItem menuItemGotoKeywordsSel;

@@ -70,8 +70,6 @@ public final class GoToController implements ActionListener {
         if (tabbedPaneOfGoTo.containsKey(goTo)) {
             tabbedPaneOfGoTo.get(goTo).setSelectedComponent(componentOfGoTo.get(goTo));
             componentOfGoTo.get(goTo).requestFocusInWindow();
-        } else if (goTo.equals(AppFrame.GoTo.FAST_SEARCH)) {
-            GUI.getSearchTextArea().requestFocusInWindow();
         }
     }
 }

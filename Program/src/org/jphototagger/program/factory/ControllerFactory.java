@@ -74,7 +74,6 @@ import org.jphototagger.program.module.search.AdvancedSearchController;
 import org.jphototagger.program.module.search.CreateSavedSearchController;
 import org.jphototagger.program.module.search.DeleteSavedSearchController;
 import org.jphototagger.program.module.search.EditSavedSearchController;
-import org.jphototagger.program.module.search.FastSearchController;
 import org.jphototagger.program.module.search.RenameSavedSearchController;
 import org.jphototagger.program.module.search.SavedSearchSelectedController;
 import org.jphototagger.program.module.search.ShowAdvancedSearchDialogAction;
@@ -178,7 +177,6 @@ public final class ControllerFactory {
     }
 
     private void addSearchControllers() {
-        support.add(new FastSearchController());
         support.add(new AdvancedSearchController());
     }
 
