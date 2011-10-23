@@ -9,6 +9,9 @@ import javax.swing.Action;
 import javax.swing.JList;
 
 import javax.swing.JPopupMenu;
+import javax.swing.JTree;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreePath;
 import org.openide.util.lookup.InstanceContent;
 
 import org.jphototagger.api.nodes.Node;
@@ -30,6 +33,38 @@ final class LookupUtil {
             }
         }
         return selectedContent;
+    }
+
+    static Collection<?> createContentOfSelectedValues(JTree tree) {
+        TreePath[] selectionPaths = tree.getSelectionPaths();
+        if (selectionPaths == null) {
+            return Collections.emptyList();
+        }
+        Collection<Object> selectedContent = new ArrayList<Object>(selectionPaths.length);
+        for (TreePath treePath : selectionPaths) {
+            Object lastPathComponent = treePath.getLastPathComponent();
+            if (lastPathComponent instanceof DefaultMutableTreeNode) {
+                DefaultMutableTreeNode treeNode = (DefaultMutableTreeNode) lastPathComponent;
+                selectedContent.add(treeNode.getUserObject());
+            } else {
+                selectedContent.add(lastPathComponent);
+            }
+        }
+        return selectedContent;
+    }
+
+    static Object getTreeContentAtRow(JTree tree, int rowIndex) {
+        TreePath pathForRow = tree.getPathForRow(rowIndex);
+        if (pathForRow == null) {
+            return null;
+        }
+        Object lastPathComponent = pathForRow.getLastPathComponent();
+        if (lastPathComponent instanceof DefaultMutableTreeNode) {
+            DefaultMutableTreeNode treeNode = (DefaultMutableTreeNode) lastPathComponent;
+            return treeNode.getUserObject();
+        } else {
+            return lastPathComponent;
+        }
     }
 
     static void clearInstanceContent(InstanceContent content) {
