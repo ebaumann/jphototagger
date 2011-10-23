@@ -113,4 +113,9 @@ public final class ErrorLogHandler extends Handler implements MouseListener, Sta
     public Component getStatusLineElement() {
         return errorLabel;
     }
+
+    @Override
+    public int getPosition() {
+        return 10;
+    }
 }

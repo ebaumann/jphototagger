@@ -1,42 +1,44 @@
 package org.jphototagger.program.misc;
 
 import javax.swing.JLabel;
-import javax.swing.JSlider;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 
+import org.openide.util.Lookup;
+
+import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.domain.thumbnails.event.ThumbnailZoomChangedEvent;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsChangedEvent;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.settings.AppPreferencesKeys;
 
 /**
- * Zeigt die Anzahl der Thumbnails an.
- *
  * @author Elmar Baumann
  */
-public final class ThumbnailCountDisplayController implements ChangeListener {
+public final class ThumbnailCountDisplayController {
 
     private int thumbnailZoom;
     private int thumbnailCount;
     private int selectionCount;
 
     public ThumbnailCountDisplayController() {
-        thumbnailZoom = getSlider().getValue();
+        initThumbnailZoom();
         listen();
     }
 
-    private void listen() {
-        getSlider().addChangeListener(this);
-        AnnotationProcessor.process(this);
+    private void initThumbnailZoom() {
+        Preferences preferences = Lookup.getDefault().lookup(Preferences.class);
+        Integer value = preferences.getInt(AppPreferencesKeys.KEY_THUMBNAILS_ZOOM);
+
+        thumbnailZoom = value.equals(Integer.MIN_VALUE) ? 100 : value;
     }
 
-    private JSlider getSlider() {
-        return GUI.getAppPanel().getSliderThumbnailSize();
+    private void listen() {
+        AnnotationProcessor.process(this);
     }
 
     @EventSubscriber(eventClass = ThumbnailsSelectionChangedEvent.class)
@@ -50,18 +52,14 @@ public final class ThumbnailCountDisplayController implements ChangeListener {
         setCount();
     }
 
-    @Override
-    public void stateChanged(ChangeEvent evt) {
-        setZoom();
+    @EventSubscriber(eventClass = ThumbnailZoomChangedEvent.class)
+    public void thumbnailZoomChanged(ThumbnailZoomChangedEvent evt) {
+        thumbnailZoom = evt.getZoomValue();
+        setLabel();
     }
 
     private void setCount() {
         thumbnailCount = GUI.getThumbnailsPanel().getFileCount();
-        setLabel();
-    }
-
-    private void setZoom() {
-        thumbnailZoom = getSlider().getValue();
         setLabel();
     }
 

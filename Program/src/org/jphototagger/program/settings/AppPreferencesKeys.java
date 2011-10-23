@@ -13,6 +13,7 @@ public final class AppPreferencesKeys {
     public static final String KEY_SAVE_INPUT_EARLY = "UserSettings.SaveInputEarly";
     public static final String KEY_SCHEDULED_TASKS_AUTO_SCAN_INCLUDE_SUBDIRECTORIES = "UserSettings.IsAutoscanIncludeSubdirectories";
     public static final String KEY_SCHEDULED_TASKS_MINUTES_TO_START_SCHEDULED_TASKS = "UserSettings.MinutesToStartScheduledTasks";
+    public static final String KEY_THUMBNAILS_ZOOM = "org.jphototagger.program.controller.thumbnail.ControllerSliderThumbnailSize." + "SliderValue";
     public static final String KEY_UI_DISPLAY_SEARCH_BUTTON = "UserSettings.DisplaySearchButton";
     public static final String KEY_UI_DISPLAY_THUMBNAIL_TOOLTIP = "UserSettings.DisplayThumbnailTooltip";
 
