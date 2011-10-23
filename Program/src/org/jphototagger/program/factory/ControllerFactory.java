@@ -10,7 +10,6 @@ import org.jphototagger.program.misc.GoToController;
 import org.jphototagger.program.misc.InputHelperDialog;
 import org.jphototagger.program.misc.MaximumOneTreeOrListItemSelectedController;
 import org.jphototagger.program.misc.MenuItemEnablerController;
-import org.jphototagger.program.misc.ThumbnailCountDisplayController;
 import org.jphototagger.program.module.actions.ActionsMenuUpdater;
 import org.jphototagger.program.module.directories.CreateDirectoryController;
 import org.jphototagger.program.module.directories.DeleteDirectoryController;
@@ -188,7 +187,6 @@ public final class ControllerFactory {
 
     private void addThumbnailsPanelControllers() {
         support.add(new ThumbnailsPanelPersistenceController());
-        support.add(new ThumbnailCountDisplayController());
         support.add(new RotateThumbnailsController());
         support.add(new OpenFilesWithStandardAppController());
         support.add(new OpenFilesWithOtherAppController());

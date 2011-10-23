@@ -18,7 +18,6 @@ import javax.swing.Action;
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -405,10 +404,6 @@ public final class AppPanel extends javax.swing.JPanel {
         return toggleButtonExpandAllNodesSelKeywords;
     }
 
-    public JLabel getLabelThumbnailInfo() {
-        return labelThumbnailInfo;
-    }
-
     public JTextArea getTextAreaSearch() {
         return textAreaSearch;
     }
@@ -652,7 +647,6 @@ public final class AppPanel extends javax.swing.JPanel {
         tabbedPaneMetadata = new javax.swing.JTabbedPane();
         panelEditKeywords = new org.jphototagger.program.module.keywords.KeywordsPanel();
         panelStatusbar = new javax.swing.JPanel();
-        labelThumbnailInfo = new javax.swing.JLabel();
         labelStatusbarText = new javax.swing.JLabel();
         statusLineElementsPanel = new javax.swing.JPanel();
 
@@ -1339,25 +1333,18 @@ public final class AppPanel extends javax.swing.JPanel {
         panelStatusbar.setName("panelStatusbar"); // NOI18N
         panelStatusbar.setLayout(new java.awt.GridBagLayout());
 
-        labelThumbnailInfo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        labelThumbnailInfo.setName("labelThumbnailInfo"); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
-        panelStatusbar.add(labelThumbnailInfo, gridBagConstraints);
-
         labelStatusbarText.setName("labelStatusbarText"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
         panelStatusbar.add(labelStatusbarText, gridBagConstraints);
 
         statusLineElementsPanel.setName("statusLineElementsPanel"); // NOI18N
         statusLineElementsPanel.setLayout(new java.awt.GridBagLayout());
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
         panelStatusbar.add(statusLineElementsPanel, gridBagConstraints);
 
@@ -1398,7 +1385,6 @@ public final class AppPanel extends javax.swing.JPanel {
     private javax.swing.JLabel labelListSavedSearchesFilter;
     private javax.swing.JLabel labelListSelKeywordsFilter;
     private javax.swing.JLabel labelStatusbarText;
-    private javax.swing.JLabel labelThumbnailInfo;
     private org.jdesktop.swingx.JXList listImageCollections;
     private org.jdesktop.swingx.JXList listSavedSearches;
     private org.jdesktop.swingx.JXList listSelKeywords;
