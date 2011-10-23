@@ -1,24 +1,31 @@
 package org.jphototagger.program.app.ui;
 
+import java.awt.Component;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.JProgressBar;
 
-import org.jphototagger.api.progress.ProgressEvent;
 import org.openide.util.lookup.ServiceProvider;
+import org.openide.util.lookup.ServiceProviders;
 
 import org.jphototagger.api.progress.MainWindowProgressBarProvider;
+import org.jphototagger.api.progress.ProgressEvent;
+import org.jphototagger.api.windows.StatusLineElementProvider;
 import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**
  * @author Elmar Baumann
  */
-@ServiceProvider(service = MainWindowProgressBarProvider.class)
-public final class ProgressBarProviderImpl implements MainWindowProgressBarProvider {
+@ServiceProviders({
+    @ServiceProvider(service = MainWindowProgressBarProvider.class),
+    @ServiceProvider(service = StatusLineElementProvider.class)
+})
+public final class ProgressBarProviderImpl implements MainWindowProgressBarProvider, StatusLineElementProvider {
 
     private Object progressBarOwner;
     private JProgressBar progressBar;
@@ -129,12 +136,11 @@ public final class ProgressBarProviderImpl implements MainWindowProgressBarProvi
             });
         }
     }
-
     private final Runnable warnOnLongProgressBarAccessDelays = new Runnable() {
 
         @Override
         public void run() {
-            synchronized(monitor) {
+            synchronized (monitor) {
                 if (progressBarOwner == null) {
                     return;
                 }
@@ -150,7 +156,6 @@ public final class ProgressBarProviderImpl implements MainWindowProgressBarProvi
             }
         }
     };
-
     private static final ThreadFactory threadFactory = new ThreadFactory() {
 
         @Override
@@ -162,4 +167,14 @@ public final class ProgressBarProviderImpl implements MainWindowProgressBarProvi
             return thread;
         }
     };
+
+    @Override
+    public Component getStatusLineElement() {
+        return ProgressBar.INSTANCE.getProgressBarPanel();
+    }
+
+    @Override
+    public int getPosition() {
+        return Integer.MAX_VALUE;
+    }
 }
