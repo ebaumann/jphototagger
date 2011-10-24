@@ -14,10 +14,12 @@ import java.util.StringTokenizer;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 
 import org.openide.util.Lookup;
+import org.openide.util.lookup.ServiceProvider;
 
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesChangedEvent;
@@ -46,13 +48,13 @@ import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.swing.util.Autocomplete;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.ListUtil;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.swing.util.TreeUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.misc.AutocompleteUtil;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.settings.AppPreferencesKeys;
-import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann
@@ -81,6 +83,7 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
 
     private void postInitComponents() {
         setAutocomplete(true);
+        MnemonicUtil.setMnemonics(this);
         toggleDisplaySearchButton();
         listen();
     }
