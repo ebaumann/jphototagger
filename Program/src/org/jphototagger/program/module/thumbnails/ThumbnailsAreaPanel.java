@@ -18,6 +18,7 @@ import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.windows.WaitDisplayer;
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
 
 /**
  * @author Elmar Baumann
@@ -39,6 +40,7 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel implements ItemListe
         fileFiltersComboBox.addItemListener(this);
         fileFilterComboBoxModel.addListDataListener(this);
         thumbnailsPanel.setViewport(thumbnailsPanelScrollPane.getViewport());
+        MnemonicUtil.setMnemonics(this);
     }
 
     @Override
