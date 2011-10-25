@@ -13,10 +13,7 @@ import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.util.Bundle;
 
 /**
- * Creates an application lock file to prevent multiple instances. Uses
- * {@code org.jphototagger.program.UserSettings#getSettingsDirectoryName()}
- * to get the setting's directory where the lock file will be created.
- *
+ * Creates an application lock file to prevent multiple instances.
  * @author Elmar Baumann
  */
 public final class AppStartupLock {
@@ -29,25 +26,16 @@ public final class AppStartupLock {
         String repositoryDirectoryName = repositoryDirectory.getAbsolutePath();
 
         LOCKFILE_NAME = repositoryDirectoryName + File.separator + AppInfo.PROJECT_NAME + ".lck";
+        addShutdownCleanupCheck();
     }
 
     private AppStartupLock() {
     }
 
-    /**
-     * Returns whether the application ist locked.
-     *
-     * @return  true if locked
-     */
     public static synchronized boolean isLocked() {
         return FileUtil.existsFile(new File(LOCKFILE_NAME));
     }
 
-    /**
-     * Locks the application.
-     *
-     * @return true if locked
-     */
     public static synchronized boolean lock() {
         if (!isLocked()) {
             try {
@@ -62,11 +50,6 @@ public final class AppStartupLock {
         return false;
     }
 
-    /**
-     * Unlocks the application. Typically called before exiting the VM.
-     *
-     * @return true if successful
-     */
     public static synchronized boolean unlock() {
         if (isLocked()) {
             return new File(LOCKFILE_NAME).delete();
@@ -78,8 +61,7 @@ public final class AppStartupLock {
     /**
      * Displays an error message that the lock file couldn't be created and
      * offers the option to unlock - delete - it.
-     *
-     * @return  true if unlocked
+     * @return true if unlocked
      */
     public static synchronized boolean forceLock() {
         if (confirmForceUnlock()) {
@@ -113,5 +95,16 @@ public final class AppStartupLock {
         String message = Bundle.getString(AppStartupLock.class, "AppStartupLock.Error.DeleteLockFile", LOCKFILE_NAME);
 
         MessageDisplayer.error(null, message);
+    }
+
+    private static void addShutdownCleanupCheck() {
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+
+            @Override public void run() {
+                if (new File(LOCKFILE_NAME).exists()) {
+                    unlock();
+                }
+            }
+        });
     }
 }

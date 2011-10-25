@@ -8,6 +8,7 @@ Changelog JPhotoTagger http://jphototagger.org/
 
 * Bugfix: Auswählen eines anderen Ordners für die Datenbank führte
   zu einem Stack Overflow (Endlosrekursion)
+* Interna modifiziert
 
 0.12.0 2011-10-16
 -----------------
