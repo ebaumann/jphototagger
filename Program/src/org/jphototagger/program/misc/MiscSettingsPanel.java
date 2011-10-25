@@ -16,6 +16,7 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.file.CopyMoveFilesOptions;
+import org.jphototagger.api.file.FilenameTokens;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.api.storage.Persistence;
@@ -23,9 +24,12 @@ import org.jphototagger.api.windows.OptionPageProvider;
 import org.jphototagger.domain.repository.FileRepositoryProvider;
 import org.jphototagger.lib.api.LayerUtil;
 import org.jphototagger.lib.api.PositionProviderAscendingComparator;
+import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.swing.DirectoryChooser;
 import org.jphototagger.lib.swing.DirectoryChooser.Option;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.settings.AppPreferencesKeys;
 
@@ -82,6 +86,12 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         setAcceptHiddenDirectories(checkBoxIsAcceptHiddenDirectories.isSelected());
     }
 
+    private void setAcceptHiddenDirectories(boolean accept) {
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+
+        storage.setBoolean(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES, accept);
+    }
+
     private void chooseRepositoryDirectory() {
         FileRepositoryProvider provider = Lookup.getDefault().lookup(FileRepositoryProvider.class);
         File repositoryDirectory = provider.getFileRepositoryDirectory();
@@ -90,21 +100,16 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
 
         if (file != null) {
             setRepositoryDirectoryName(file.getAbsolutePath());
+            displayRepositoryDirectoryInfo();
         }
-    }
-    private void setAcceptHiddenDirectories(boolean accept) {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-
-        storage.setBoolean(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES, accept);
     }
 
     private void setRepositoryDirectoryName(String directoryName) {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences preferences = Lookup.getDefault().lookup(Preferences.class);
 
         setIconRepositoryDirectory();
         labelRepositoryDirectory.setText(directoryName);
-        setRepositoryDirectoryName(directoryName);
-        storage.setString(FileRepositoryProvider.KEY_FILE_REPOSITORY_DIRECTORY, directoryName);
+        preferences.setString(FileRepositoryProvider.KEY_FILE_REPOSITORY_DIRECTORY, directoryName);
     }
 
     private void setIconRepositoryDirectory() {
@@ -121,6 +126,14 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         FileRepositoryProvider provider = Lookup.getDefault().lookup(FileRepositoryProvider.class);
 
         setRepositoryDirectoryName(provider.getDefaultFileRepositoryDirectory().getAbsolutePath());
+    }
+
+    private void displayRepositoryDirectoryInfo() {
+        FileRepositoryProvider provider = Lookup.getDefault().lookup(FileRepositoryProvider.class);
+        String repositoryFileName = provider.getFileRepositoryFileName(FilenameTokens.FULL_PATH);
+        String repositoryPattern = FileUtil.getAbsolutePathnamePrefix(repositoryFileName);
+        String message = Bundle.getString(MiscSettingsPanel.class, "MiscSettingsPanel.RepositoryDirectoryInfo.Text", repositoryPattern);
+        MessageDisplayer.information(this, message);
     }
 
     private void setDisplaySearchButton() {
@@ -477,6 +490,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
 
     private void buttonSetDefaultRepositoryDirectoryNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSetDefaultRepositoryDirectoryNameActionPerformed
         setDefaultRepositoryDirectory();
+        displayRepositoryDirectoryInfo();
     }//GEN-LAST:event_buttonSetDefaultRepositoryDirectoryNameActionPerformed
 
     private void checkBoxDisplaySearchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDisplaySearchButtonActionPerformed
