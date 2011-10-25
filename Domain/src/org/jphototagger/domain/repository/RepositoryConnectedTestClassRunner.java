@@ -21,6 +21,7 @@ public class RepositoryConnectedTestClassRunner extends BlockJUnit4ClassRunner {
 
     public RepositoryConnectedTestClassRunner(Class<?> klass) throws InitializationError {
         super(klass);
+        startUpRequests++;
     }
 
     @Override
@@ -29,6 +30,7 @@ public class RepositoryConnectedTestClassRunner extends BlockJUnit4ClassRunner {
             initResourceIfNecessary();
             // Unattended Tests: Here: notifier.addListener(new MyFailureListener());
             super.run(notifier);
+            startUpRequests--;
             disposeResourceIfNecessary();
         } catch (Throwable t) {
             Logger.getLogger(RepositoryConnectedTestClassRunner.class.getName()).log(Level.SEVERE, null, t);
