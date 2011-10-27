@@ -47,7 +47,7 @@
         <Component class="javax.swing.JComboBox" name="fileFiltersComboBox">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new FileFiltersComboBoxModel()" type="code"/>
+              <Connection code="fileFiltersComboBoxModel" type="code"/>
             </Property>
             <Property name="name" type="java.lang.String" value="fileFiltersComboBox" noResource="true"/>
             <Property name="renderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
