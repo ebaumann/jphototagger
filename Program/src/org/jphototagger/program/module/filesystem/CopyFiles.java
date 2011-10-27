@@ -1,6 +1,5 @@
 package org.jphototagger.program.module.filesystem;
 
-import org.jphototagger.api.file.CopyMoveFilesOptions;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -9,15 +8,20 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.bushe.swing.event.EventBus;
+
+import org.openide.util.lookup.ServiceProvider;
+
+import org.jphototagger.api.file.CopyMoveFilesOptions;
+import org.jphototagger.api.file.event.FileCopiedEvent;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.domain.FileCopyService;
 import org.jphototagger.domain.event.listener.ProgressListenerSupport;
-import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.SourceTargetFile;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.openide.util.lookup.ServiceProvider;
 
 /**
  * Kopieren von Dateien.
@@ -88,6 +92,7 @@ public final class CopyFiles implements Runnable, FileCopyService {
                     File sourceFile = sourceTargetFile.getSourceFile();
                     File targetFile = getTargetFile(sourceTargetFile);
 
+                    EventBus.publish(new FileCopiedEvent(this, sourceFile, targetFile));
                     logCopyFile(sourceFile, targetFile);
                     FileUtil.copyFile(sourceFile, targetFile);
                 } catch (Exception ex) {
