@@ -24,8 +24,6 @@ import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 
 /**
- * Kopieren von Dateien.
- *
  * @author Elmar Baumann
  */
 @ServiceProvider(service = FileCopyService.class)
@@ -43,13 +41,6 @@ public final class CopyFiles implements Runnable, FileCopyService {
         options = CopyMoveFilesOptions.CONFIRM_OVERWRITE;
     }
 
-    /**
-     * Konstruktor
-     *
-     * @param sourceTargetFiles    Zu kopierende Dateien. Die erste im Paar
-     *                 ist die Quelldatei, die zweite die Zieldatei.
-     * @param options  Optionen
-     */
     public CopyFiles(Collection<? extends SourceTargetFile> sourceTargetFiles, CopyMoveFilesOptions options) {
         if (sourceTargetFiles == null) {
             throw new NullPointerException("sourceTargetFiles == null");
