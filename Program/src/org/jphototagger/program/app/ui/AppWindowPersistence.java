@@ -136,8 +136,6 @@ public final class AppWindowPersistence implements ComponentListener {
         hints.addKeyToExclude(APP_PANEL_TREE_SEL_KEYWORDS);
         hints.addKeyToExclude(APP_PANEL_TREE_TIMELINE);
 
-        hints.addKeyToExclude("org.jphototagger.program.app.ui.AppPanel.comboBoxFileFilters");
-
         return hints;
     }
 
@@ -192,56 +190,56 @@ public final class AppWindowPersistence implements ComponentListener {
     }
 
     /**
-     * To after the model has been created.
+     * To call after the model has been created.
      */
     public static void readTreeSelKeywords() {
         read(GUI.getSelKeywordsTree(), APP_PANEL_TREE_SEL_KEYWORDS);
     }
 
     /**
-     * To after the model has been created.
+     * To call after the model has been created.
      */
     public static void readTreeEditKeywords() {
         read(GUI.getEditKeywordsTree(), APP_PANEL_TREE_EDIT_KEYWORDS);
     }
 
     /**
-     * To after the model has been created.
+     * To call after the model has been created.
      */
     public static void readTreeMiscMetadata() {
         read(GUI.getMiscMetadataTree(), APP_PANEL_TREE_MISC_METADATA);
     }
 
     /**
-     * To after the model has been created.
+     * To call after the model has been created.
      */
     public static void readTreeTimeline() {
         read(GUI.getTimelineTree(), APP_PANEL_TREE_TIMELINE);
     }
 
     /**
-     * To after the model has been created.
+     * To call after the model has been created.
      */
     public static void readTreeDirectories() {
         read(GUI.getDirectoriesTree(), APP_PANEL_TREE_DIRECTORIES);
     }
 
     /**
-     * To after the model has been created.
+     * To call after the model has been created.
      */
     public static void readListSavedSearches() {
         read(GUI.getSavedSearchesList(), APP_PANEL_LIST_SAVED_SEARCHES);
     }
 
     /**
-     * To after the model has been created.
+     * To call after the model has been created.
      */
     public static void readListImageCollections() {
         read(GUI.getImageCollectionsList(), APP_PANEL_LIST_IMAGE_COLLECTIONS);
     }
 
     /**
-     * To after the model has been created.
+     * To call after the model has been created.
      */
     public static void readListSelKeywords() {
         read(GUI.getSelKeywordsList(), APP_PANEL_LIST_SEL_KEYWORDS);
