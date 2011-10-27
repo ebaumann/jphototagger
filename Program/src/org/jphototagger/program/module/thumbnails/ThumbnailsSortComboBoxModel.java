@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 
+import org.jphototagger.api.preferences.Preferences;
 import org.openide.util.Lookup;
 
 import org.jphototagger.domain.thumbnails.FileSortComparator;
@@ -25,6 +26,7 @@ import org.jphototagger.lib.util.Bundle;
 public final class ThumbnailsSortComboBoxModel extends DefaultComboBoxModel {
 
     private static final long serialVersionUID = 1L;
+    static final String PERSISTED_SELECTED_ITEM_KEY = "ThumbnailsSortComboBoxModel.SelIndex";
 
     public static class FileSorter {
 
@@ -93,6 +95,18 @@ public final class ThumbnailsSortComboBoxModel extends DefaultComboBoxModel {
         for (FileSortComparator fileSortComparator : sortedSortComparators) {
             addElement(new FileSorter(fileSortComparator.getAscendingSortComparator(), fileSortComparator.getAscendingSortComparatorDisplayName()));
             addElement(new FileSorter(fileSortComparator.getDescendingSortComparator(), fileSortComparator.getDescendingSortComparatorDisplayName()));
+        }
+    }
+
+    void selectPersistedItem() {
+        Preferences references = Lookup.getDefault().lookup(Preferences.class);
+
+        if (references.containsKey(PERSISTED_SELECTED_ITEM_KEY)) {
+            int index = references.getInt(PERSISTED_SELECTED_ITEM_KEY);
+
+            if ((index >= 0) && (index < getSize())) {
+                setSelectedItem(getElementAt(index));
+            }
         }
     }
 }

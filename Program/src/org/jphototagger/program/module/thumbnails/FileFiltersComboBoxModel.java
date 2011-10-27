@@ -27,7 +27,7 @@ import org.jphototagger.program.filefilter.AppFileFilters;
 public final class FileFiltersComboBoxModel extends DefaultComboBoxModel {
 
     private static final long serialVersionUID = 1L;
-    public static final String SETTINGS_KEY_SEL_INDEX = "ComboBoxModelFileFilters.SelIndex";
+    static final String PERSISTED_SELECTED_ITEM_KEY = "ComboBoxModelFileFilters.SelIndex";
     private RegexFileFilter allAcceptedFileImageFilesFilter;
     private RegexFileFilter userDefinedFileTypesFilter;
     private final UserDefinedFileFiltersRepository udffRepo = Lookup.getDefault().lookup(UserDefinedFileFiltersRepository.class);
@@ -77,8 +77,8 @@ public final class FileFiltersComboBoxModel extends DefaultComboBoxModel {
     void selectPersistedItem() {
         Preferences references = Lookup.getDefault().lookup(Preferences.class);
 
-        if (references.containsKey(SETTINGS_KEY_SEL_INDEX)) {
-            int index = references.getInt(SETTINGS_KEY_SEL_INDEX);
+        if (references.containsKey(PERSISTED_SELECTED_ITEM_KEY)) {
+            int index = references.getInt(PERSISTED_SELECTED_ITEM_KEY);
 
             if ((index >= 0) && (index < getSize())) {
                 setSelectedItem(getElementAt(index));
