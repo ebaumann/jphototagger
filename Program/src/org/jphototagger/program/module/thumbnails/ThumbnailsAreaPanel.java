@@ -8,7 +8,6 @@ import java.util.Comparator;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ComboBoxModel;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 
@@ -27,6 +26,7 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel implements ItemListe
 
     private static final long serialVersionUID = 1L;
     private static final String KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION = "org.jphototagger.program.view.panels.controller.ViewportViewPosition";
+    private final FileFiltersComboBoxModel fileFiltersComboBoxModel = new FileFiltersComboBoxModel();
 
     public ThumbnailsAreaPanel() {
         initComponents();
@@ -36,11 +36,11 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel implements ItemListe
     private void postInitComponents() {
         thumbnailsPanelScrollPane.getVerticalScrollBar().setUnitIncrement(30);
         fileSortComboBox.addItemListener(this);
-        ComboBoxModel fileFilterComboBoxModel = fileFiltersComboBox.getModel();
         fileFiltersComboBox.addItemListener(this);
-        fileFilterComboBoxModel.addListDataListener(this);
+        fileFiltersComboBoxModel.addListDataListener(this);
         thumbnailsPanel.setViewport(thumbnailsPanelScrollPane.getViewport());
         MnemonicUtil.setMnemonics(this);
+        fileFiltersComboBoxModel.selectPersistedItem();
     }
 
     @Override
@@ -182,7 +182,7 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel implements ItemListe
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
         panelDisplayedThumbnailFilters.add(labelFileFilters, gridBagConstraints);
 
-        fileFiltersComboBox.setModel(new FileFiltersComboBoxModel());
+        fileFiltersComboBox.setModel(fileFiltersComboBoxModel);
         fileFiltersComboBox.setName("fileFiltersComboBox"); // NOI18N
         fileFiltersComboBox.setRenderer(new org.jphototagger.program.module.thumbnails.FileFiltersListCellRenderer());
         gridBagConstraints = new java.awt.GridBagConstraints();

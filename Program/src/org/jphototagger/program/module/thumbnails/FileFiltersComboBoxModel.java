@@ -72,15 +72,13 @@ public final class FileFiltersComboBoxModel extends DefaultComboBoxModel {
         for (UserDefinedFileFilter filter : udffRepo.findAllUserDefinedFileFilters()) {
             addElement(filter);
         }
-
-        selectItem();
     }
 
-    private void selectItem() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+    void selectPersistedItem() {
+        Preferences references = Lookup.getDefault().lookup(Preferences.class);
 
-        if (storage.containsKey(SETTINGS_KEY_SEL_INDEX)) {
-            int index = storage.getInt(SETTINGS_KEY_SEL_INDEX);
+        if (references.containsKey(SETTINGS_KEY_SEL_INDEX)) {
+            int index = references.getInt(SETTINGS_KEY_SEL_INDEX);
 
             if ((index >= 0) && (index < getSize())) {
                 setSelectedItem(getElementAt(index));
