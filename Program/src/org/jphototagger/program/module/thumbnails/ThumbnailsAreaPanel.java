@@ -27,6 +27,7 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel implements ItemListe
     private static final long serialVersionUID = 1L;
     private static final String KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION = "org.jphototagger.program.view.panels.controller.ViewportViewPosition";
     private final FileFiltersComboBoxModel fileFiltersComboBoxModel = new FileFiltersComboBoxModel();
+    private final ThumbnailsSortComboBoxModel thumbnailsSortComboBoxModel = new ThumbnailsSortComboBoxModel();
 
     public ThumbnailsAreaPanel() {
         initComponents();
@@ -41,6 +42,7 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel implements ItemListe
         thumbnailsPanel.setViewport(thumbnailsPanelScrollPane.getViewport());
         MnemonicUtil.setMnemonics(this);
         fileFiltersComboBoxModel.selectPersistedItem();
+        thumbnailsSortComboBoxModel.selectPersistedItem();
     }
 
     @Override
@@ -60,6 +62,7 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel implements ItemListe
         waitDisplayer.show();
         thumbnailsPanel.setFileSortComparator(fileSortComparator);
         thumbnailsPanel.sort();
+        persistSortOrder();
         waitDisplayer.hide();
     }
 
@@ -72,14 +75,20 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel implements ItemListe
             thumbnailsPanel.setFileFilter(((UserDefinedFileFilter) item).getFileFilter());
         }
 
-        writeSettings();
+        persistFileFilter();
         waitDisplayer.hide();
     }
 
-    private void writeSettings() {
+    private void persistFileFilter() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setInt(FileFiltersComboBoxModel.SETTINGS_KEY_SEL_INDEX, fileFiltersComboBox.getSelectedIndex());
+        storage.setInt(FileFiltersComboBoxModel.PERSISTED_SELECTED_ITEM_KEY, fileFiltersComboBox.getSelectedIndex());
+    }
+
+    private void persistSortOrder() {
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+
+        storage.setInt(ThumbnailsSortComboBoxModel.PERSISTED_SELECTED_ITEM_KEY, fileSortComboBox.getSelectedIndex());
     }
 
     @Override
@@ -197,7 +206,7 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel implements ItemListe
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
         panelDisplayedThumbnailFilters.add(labelFileSort, gridBagConstraints);
 
-        fileSortComboBox.setModel(new ThumbnailsSortComboBoxModel());
+        fileSortComboBox.setModel(thumbnailsSortComboBoxModel);
         fileSortComboBox.setName("fileSortComboBox"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;

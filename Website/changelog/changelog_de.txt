@@ -9,6 +9,8 @@ Changelog JPhotoTagger http://jphototagger.org/
 * Bugfix: Unmittelbar nach Start wurden die ausgewählten Dateifilter nicht
   ausgewertet (dies erfolgte erst, nachdem erstmalig ein anderer Dateifilter
   ausgewählt wurde)
+* Bugfix: Die ausgewählte Sortierung wurde nach Programmstart nicht wieder
+  hergestellt
 
 0.12.1 2011-10-25
 -----------------
