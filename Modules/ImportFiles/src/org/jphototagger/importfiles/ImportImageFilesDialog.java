@@ -1,5 +1,6 @@
 package org.jphototagger.importfiles;
 
+import java.awt.Color;
 import java.awt.Container;
 import java.io.File;
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.List;
 
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.UIManager;
 import javax.swing.filechooser.FileSystemView;
 
 import org.openide.util.Lookup;
@@ -16,6 +18,8 @@ import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.DirectoryChooser;
 import org.jphototagger.lib.swing.DirectoryChooser.Option;
+import org.jphototagger.lib.swing.FileChooserHelper;
+import org.jphototagger.lib.swing.FileChooserProperties;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
@@ -31,10 +35,15 @@ public class ImportImageFilesDialog extends Dialog {
     private static final String KEY_LAST_SRC_DIR = "ImportImageFiles.LastSrcDir";
     private static final String KEY_LAST_TARGET_DIR = "ImportImageFiles.LastTargetDir";
     private static final String KEY_DEL_SRC_AFTER_COPY = "ImportImageFiles.DelSrcAfterCopy";
+    private static final String KEY_LAST_SCRIPT_DIR = "ImportImageFiles.LastScriptDir";
+    private static final String KEY_SCRIPT_FILE = "ImportImageFiles.LastScriptFile";
     private final FileSystemView fileSystemView = FileSystemView.getFileSystemView();
+    private static final Color LABEL_FOREGROUND = getLabelForeground();
     private final Preferences storage = Lookup.getDefault().lookup(Preferences.class);
     private File sourceDir = new File(storage.getString(KEY_LAST_SRC_DIR));
     private File targetDir = new File(storage.getString(KEY_LAST_TARGET_DIR));
+    private File scriptFile;
+    private String lastChoosenScriptDir = "";
     private final List<File> sourceFiles = new ArrayList<File>();
     private boolean filesChoosed;
     private boolean accepted;
@@ -46,6 +55,11 @@ public class ImportImageFilesDialog extends Dialog {
         initComponents();
         setHelpPage();
         init();
+    }
+
+    private static Color getLabelForeground() {
+        Color foreground = UIManager.getColor("Label.foreground");
+        return foreground == null ? Color.BLACK : foreground;
     }
 
     private void setHelpPage() {
@@ -65,6 +79,8 @@ public class ImportImageFilesDialog extends Dialog {
         }
 
         initDeleteSrcFilesAfterCopying();
+        lookupPersistedScriptFile();
+        lookupPersistedLastChoosenScriptDir();
         MnemonicUtil.setMnemonics((Container) this);
     }
 
@@ -81,7 +97,6 @@ public class ImportImageFilesDialog extends Dialog {
 
     /**
      * Call prior <code>setVisible()</code>.
-     *
      * @param dir
      */
     public void setSourceDir(File dir) {
@@ -95,7 +110,6 @@ public class ImportImageFilesDialog extends Dialog {
 
     /**
      * Call prior <code>setVisible()</code>.
-     *
      * @param dir
      */
     public void setTargetDir(File dir) {
@@ -110,7 +124,6 @@ public class ImportImageFilesDialog extends Dialog {
     /**
      * Returns the source directory if the user choosed a source directory
      * rather than separate files.
-     *
      * @return source directory
      */
     public File getSourceDir() {
@@ -216,6 +229,91 @@ public class ImportImageFilesDialog extends Dialog {
         setEnabledOkButton();
     }
 
+    private void lookupPersistedScriptFile() {
+        Preferences preferences = Lookup.getDefault().lookup(Preferences.class);
+        if (preferences.containsKey(KEY_SCRIPT_FILE)) {
+            String scriptFilePath = preferences.getString(KEY_SCRIPT_FILE);
+            File persistedScriptFile = new File(scriptFilePath);
+            scriptFileLabel.setText(scriptFilePath);
+            boolean scriptFileExists = persistedScriptFile.isFile();
+            if (scriptFileExists) {
+                scriptFile = persistedScriptFile;
+                scriptFileLabel.setIcon(fileSystemView.getSystemIcon(scriptFile));
+                buttonRemoveScriptFile.setEnabled(true);
+            }
+            scriptFileLabel.setForeground(scriptFileExists ? LABEL_FOREGROUND : Color.RED);
+        }
+    }
+
+    private void chooseAndSetScriptFile() {
+        File choosenScriptFile = chooseScriptFile();
+        if (choosenScriptFile == null) {
+            return;
+        }
+        scriptFile = choosenScriptFile;
+        String scriptFilePath = scriptFile.getAbsolutePath();
+        persistScriptFile(scriptFilePath);
+        scriptFileLabel.setText(scriptFilePath);
+        scriptFileLabel.setIcon(fileSystemView.getSystemIcon(scriptFile));
+        buttonRemoveScriptFile.setEnabled(true);
+    }
+
+    private void persistScriptFile(String scriptFilePath) {
+        Preferences preferences = Lookup.getDefault().lookup(Preferences.class);
+        preferences.setString(KEY_SCRIPT_FILE, scriptFilePath);
+    }
+
+    private File chooseScriptFile() {
+        File choosenScriptFile = FileChooserHelper.chooseFile(createFileChooserPropertiesForScriptFile());
+        if (choosenScriptFile != null) {
+            String dirOfScriptFile = choosenScriptFile.getParent();
+            if (dirOfScriptFile != null) {
+                persistLastChoosenScriptDir(dirOfScriptFile);
+            }
+        }
+        return choosenScriptFile;
+    }
+
+    private FileChooserProperties createFileChooserPropertiesForScriptFile() {
+        FileChooserProperties props = new FileChooserProperties();
+        props.currentDirectoryPath(lastChoosenScriptDir);
+        props.dialogTitle(Bundle.getString(ImportImageFilesDialog.class, "ImportImageFilesDialog.ChooseScriptFile.FileChooser.Title"));
+        props.multiSelectionEnabled(false);
+        props.fileSelectionMode(JFileChooser.FILES_ONLY);
+        props.propertyKeyPrefix("ImportImageFilesDialog.ChooseScriptFile.FileChooser");
+        return props;
+    }
+
+    private void persistLastChoosenScriptDir(String scriptDir) {
+        lastChoosenScriptDir = scriptDir;
+        Preferences preferences = Lookup.getDefault().lookup(Preferences.class);
+        preferences.setString(KEY_LAST_SCRIPT_DIR, lastChoosenScriptDir);
+    }
+
+    private void lookupPersistedLastChoosenScriptDir() {
+        Preferences preferences = Lookup.getDefault().lookup(Preferences.class);
+
+        if (preferences.containsKey(KEY_LAST_SCRIPT_DIR)) {
+            lastChoosenScriptDir = preferences.getString(KEY_LAST_SCRIPT_DIR);
+        }
+    }
+
+    private void removeScriptFile() {
+        scriptFile = null;
+        scriptFileLabel.setText("");
+        scriptFileLabel.setIcon(null);
+        buttonRemoveScriptFile.setEnabled(false);
+        Preferences preferences = Lookup.getDefault().lookup(Preferences.class);
+        preferences.removeKey(KEY_SCRIPT_FILE);
+    }
+
+    /**
+     * @return null if not defined
+     */
+    public File getScriptFile() {
+        return scriptFile;
+    }
+
     private void toSettings(String key, File dir) {
         storage.setString(key, dir.getAbsolutePath());
     }
@@ -250,16 +348,14 @@ public class ImportImageFilesDialog extends Dialog {
     }
 
     private void setFileLabel(File file, boolean multipleFiles) {
-        labelChoosedFiles.setIcon(fileSystemView.getSystemIcon(file));
-        labelChoosedFiles.setText(StringUtil.getPrefixDotted(file.getName(), 20) +
-                (multipleFiles
-                       ? ", ..."
-                       : ""));
+        labelChoosenFiles.setIcon(fileSystemView.getSystemIcon(file));
+        labelChoosenFiles.setText(StringUtil.getPrefixDotted(file.getName(), 20) +
+                (multipleFiles ? ", ..." : ""));
     }
 
     private void resetLabelChoosedFiles() {
-        labelChoosedFiles.setIcon(null);
-        labelChoosedFiles.setText("");
+        labelChoosenFiles.setIcon(null);
+        labelChoosenFiles.setText("");
     }
 
     private void resetLabelSourceDir() {
@@ -329,17 +425,25 @@ public class ImportImageFilesDialog extends Dialog {
     @SuppressWarnings("unchecked")
 
     private void initComponents() {//GEN-BEGIN:initComponents
+        java.awt.GridBagConstraints gridBagConstraints;
 
-        labelPromptSourceDir = new javax.swing.JLabel();
+        sourceDirPanel = new org.jdesktop.swingx.JXPanel();
         labelSourceDir = new javax.swing.JLabel();
         buttonChooseSourceDir = new javax.swing.JButton();
-        labelPromptChooseFiles = new javax.swing.JLabel();
-        labelChoosedFiles = new javax.swing.JLabel();
-        buttonChooseFiles = new javax.swing.JButton();
-        labelPromptTargetDir = new javax.swing.JLabel();
-        labelTargetDir = new javax.swing.JLabel();
         checkBoxDeleteAfterCopy = new javax.swing.JCheckBox();
+        choosenFilesPanel = new org.jdesktop.swingx.JXPanel();
+        labelChoosenFiles = new javax.swing.JLabel();
+        buttonChooseFiles = new javax.swing.JButton();
+        targetDirPanel = new org.jdesktop.swingx.JXPanel();
+        labelTargetDir = new javax.swing.JLabel();
         buttonChooseTargetDir = new javax.swing.JButton();
+        scriptFilePanel = new org.jdesktop.swingx.JXPanel();
+        scriptFileLabel = new javax.swing.JLabel();
+        buttonRemoveScriptFile = new javax.swing.JButton();
+        buttonChooseScriptFile = new javax.swing.JButton();
+        labelScriptFileInfo = new javax.swing.JLabel();
+        vPaddingPanel = new javax.swing.JPanel();
+        dialogControlButtonsPanel = new org.jdesktop.swingx.JXPanel();
         buttonCancel = new javax.swing.JButton();
         buttonOk = new javax.swing.JButton();
 
@@ -347,11 +451,21 @@ public class ImportImageFilesDialog extends Dialog {
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/importfiles/Bundle"); // NOI18N
         setTitle(bundle.getString("ImportImageFilesDialog.title")); // NOI18N
         setName("Form"); // NOI18N
+        getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        labelPromptSourceDir.setText(bundle.getString("ImportImageFilesDialog.labelPromptSourceDir.text")); // NOI18N
-        labelPromptSourceDir.setName("labelPromptSourceDir"); // NOI18N
+        sourceDirPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("ImportImageFilesDialog.sourceDirPanel.border.title"))); // NOI18N
+        sourceDirPanel.setName("sourceDirPanel"); // NOI18N
+        sourceDirPanel.setLayout(new java.awt.GridBagLayout());
 
+        labelSourceDir.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         labelSourceDir.setName("labelSourceDir"); // NOI18N
+        labelSourceDir.setPreferredSize(new java.awt.Dimension(400, 16));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
+        sourceDirPanel.add(labelSourceDir, gridBagConstraints);
 
         buttonChooseSourceDir.setText(bundle.getString("ImportImageFilesDialog.buttonChooseSourceDir.text")); // NOI18N
         buttonChooseSourceDir.setName("buttonChooseSourceDir"); // NOI18N
@@ -360,24 +474,11 @@ public class ImportImageFilesDialog extends Dialog {
                 buttonChooseSourceDirActionPerformed(evt);
             }
         });
-
-        labelPromptChooseFiles.setText(bundle.getString("ImportImageFilesDialog.labelPromptChooseFiles.text")); // NOI18N
-        labelPromptChooseFiles.setName("labelPromptChooseFiles"); // NOI18N
-
-        labelChoosedFiles.setName("labelChoosedFiles"); // NOI18N
-
-        buttonChooseFiles.setText(bundle.getString("ImportImageFilesDialog.buttonChooseFiles.text")); // NOI18N
-        buttonChooseFiles.setName("buttonChooseFiles"); // NOI18N
-        buttonChooseFiles.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonChooseFilesActionPerformed(evt);
-            }
-        });
-
-        labelPromptTargetDir.setText(bundle.getString("ImportImageFilesDialog.labelPromptTargetDir.text")); // NOI18N
-        labelPromptTargetDir.setName("labelPromptTargetDir"); // NOI18N
-
-        labelTargetDir.setName("labelTargetDir"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        sourceDirPanel.add(buttonChooseSourceDir, gridBagConstraints);
 
         checkBoxDeleteAfterCopy.setText(bundle.getString("ImportImageFilesDialog.checkBoxDeleteAfterCopy.text")); // NOI18N
         checkBoxDeleteAfterCopy.setName("checkBoxDeleteAfterCopy"); // NOI18N
@@ -386,6 +487,68 @@ public class ImportImageFilesDialog extends Dialog {
                 checkBoxDeleteAfterCopyActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        sourceDirPanel.add(checkBoxDeleteAfterCopy, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        getContentPane().add(sourceDirPanel, gridBagConstraints);
+
+        choosenFilesPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("ImportImageFilesDialog.choosenFilesPanel.border.title"))); // NOI18N
+        choosenFilesPanel.setName("choosenFilesPanel"); // NOI18N
+        choosenFilesPanel.setLayout(new java.awt.GridBagLayout());
+
+        labelChoosenFiles.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        labelChoosenFiles.setName("labelChoosenFiles"); // NOI18N
+        labelChoosenFiles.setPreferredSize(new java.awt.Dimension(400, 16));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 0);
+        choosenFilesPanel.add(labelChoosenFiles, gridBagConstraints);
+
+        buttonChooseFiles.setText(bundle.getString("ImportImageFilesDialog.buttonChooseFiles.text")); // NOI18N
+        buttonChooseFiles.setName("buttonChooseFiles"); // NOI18N
+        buttonChooseFiles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonChooseFilesActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        choosenFilesPanel.add(buttonChooseFiles, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        getContentPane().add(choosenFilesPanel, gridBagConstraints);
+
+        targetDirPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("ImportImageFilesDialog.targetDirPanel.border.title"))); // NOI18N
+        targetDirPanel.setName("targetDirPanel"); // NOI18N
+        targetDirPanel.setLayout(new java.awt.GridBagLayout());
+
+        labelTargetDir.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        labelTargetDir.setName("labelTargetDir"); // NOI18N
+        labelTargetDir.setPreferredSize(new java.awt.Dimension(400, 16));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 0);
+        targetDirPanel.add(labelTargetDir, gridBagConstraints);
 
         buttonChooseTargetDir.setText(bundle.getString("ImportImageFilesDialog.buttonChooseTargetDir.text")); // NOI18N
         buttonChooseTargetDir.setName("buttonChooseTargetDir"); // NOI18N
@@ -394,6 +557,97 @@ public class ImportImageFilesDialog extends Dialog {
                 buttonChooseTargetDirActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        targetDirPanel.add(buttonChooseTargetDir, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        getContentPane().add(targetDirPanel, gridBagConstraints);
+
+        scriptFilePanel.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("ImportImageFilesDialog.scriptFilePanel.border.title"))); // NOI18N
+        scriptFilePanel.setName("scriptFilePanel"); // NOI18N
+        scriptFilePanel.setLayout(new java.awt.GridBagLayout());
+
+        scriptFileLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        scriptFileLabel.setName("scriptFileLabel"); // NOI18N
+        scriptFileLabel.setPreferredSize(new java.awt.Dimension(400, 16));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
+        scriptFilePanel.add(scriptFileLabel, gridBagConstraints);
+
+        buttonRemoveScriptFile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/importfiles/delete.png"))); // NOI18N
+        buttonRemoveScriptFile.setToolTipText(bundle.getString("ImportImageFilesDialog.buttonRemoveScriptFile.toolTipText")); // NOI18N
+        buttonRemoveScriptFile.setEnabled(false);
+        buttonRemoveScriptFile.setName("buttonRemoveScriptFile"); // NOI18N
+        buttonRemoveScriptFile.setPreferredSize(new java.awt.Dimension(16, 16));
+        buttonRemoveScriptFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRemoveScriptFileActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        scriptFilePanel.add(buttonRemoveScriptFile, gridBagConstraints);
+
+        buttonChooseScriptFile.setText(bundle.getString("ImportImageFilesDialog.buttonChooseScriptFile.text")); // NOI18N
+        buttonChooseScriptFile.setName("buttonChooseScriptFile"); // NOI18N
+        buttonChooseScriptFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonChooseScriptFileActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        scriptFilePanel.add(buttonChooseScriptFile, gridBagConstraints);
+
+        labelScriptFileInfo.setText(bundle.getString("ImportImageFilesDialog.labelScriptFileInfo.text")); // NOI18N
+        labelScriptFileInfo.setName("labelScriptFileInfo"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        scriptFilePanel.add(labelScriptFileInfo, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        getContentPane().add(scriptFilePanel, gridBagConstraints);
+
+        vPaddingPanel.setName("vPaddingPanel"); // NOI18N
+
+        javax.swing.GroupLayout vPaddingPanelLayout = new javax.swing.GroupLayout(vPaddingPanel);
+        vPaddingPanel.setLayout(vPaddingPanelLayout);
+        vPaddingPanelLayout.setHorizontalGroup(
+            vPaddingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        vPaddingPanelLayout.setVerticalGroup(
+            vPaddingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.weighty = 1.0;
+        getContentPane().add(vPaddingPanel, gridBagConstraints);
+
+        dialogControlButtonsPanel.setName("dialogControlButtonsPanel"); // NOI18N
+        dialogControlButtonsPanel.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
 
         buttonCancel.setText(bundle.getString("ImportImageFilesDialog.buttonCancel.text")); // NOI18N
         buttonCancel.setName("buttonCancel"); // NOI18N
@@ -402,6 +656,7 @@ public class ImportImageFilesDialog extends Dialog {
                 buttonCancelActionPerformed(evt);
             }
         });
+        dialogControlButtonsPanel.add(buttonCancel);
 
         buttonOk.setText(bundle.getString("ImportImageFilesDialog.buttonOk.text")); // NOI18N
         buttonOk.setEnabled(false);
@@ -411,80 +666,14 @@ public class ImportImageFilesDialog extends Dialog {
                 buttonOkActionPerformed(evt);
             }
         });
+        dialogControlButtonsPanel.add(buttonOk);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(97, 97, 97)
-                .addComponent(labelSourceDir, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
-                .addContainerGap(261, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelPromptTargetDir)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(labelPromptChooseFiles)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(labelChoosedFiles, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE))
-                            .addComponent(labelPromptSourceDir)
-                            .addComponent(checkBoxDeleteAfterCopy)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(97, 97, 97)
-                        .addComponent(labelTargetDir, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(buttonChooseFiles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(buttonChooseSourceDir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(buttonChooseTargetDir))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(405, Short.MAX_VALUE)
-                .addComponent(buttonCancel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonOk)
-                .addContainerGap())
-        );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonChooseFiles, buttonChooseSourceDir, buttonChooseTargetDir});
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonCancel, buttonOk});
-
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(buttonChooseSourceDir)
-                    .addComponent(labelSourceDir)
-                    .addComponent(labelPromptSourceDir))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(buttonChooseFiles)
-                    .addComponent(labelChoosedFiles)
-                    .addComponent(labelPromptChooseFiles))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(buttonChooseTargetDir)
-                    .addComponent(labelTargetDir)
-                    .addComponent(labelPromptTargetDir))
-                .addGap(8, 8, 8)
-                .addComponent(checkBoxDeleteAfterCopy)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonOk)
-                    .addComponent(buttonCancel))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelPromptSourceDir, labelPromptTargetDir, labelSourceDir, labelTargetDir});
-
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {buttonChooseFiles, buttonChooseSourceDir, buttonChooseTargetDir});
-
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelChoosedFiles, labelPromptChooseFiles});
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHEAST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 10, 5);
+        getContentPane().add(dialogControlButtonsPanel, gridBagConstraints);
 
         pack();
     }//GEN-END:initComponents
@@ -513,6 +702,14 @@ public class ImportImageFilesDialog extends Dialog {
         handleCheckBoxDeleteAfterCopyPerformed();
     }//GEN-LAST:event_checkBoxDeleteAfterCopyActionPerformed
 
+    private void buttonChooseScriptFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseScriptFileActionPerformed
+        chooseAndSetScriptFile();
+    }//GEN-LAST:event_buttonChooseScriptFileActionPerformed
+
+    private void buttonRemoveScriptFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveScriptFileActionPerformed
+        removeScriptFile();
+    }//GEN-LAST:event_buttonRemoveScriptFileActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -537,15 +734,22 @@ public class ImportImageFilesDialog extends Dialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCancel;
     private javax.swing.JButton buttonChooseFiles;
+    private javax.swing.JButton buttonChooseScriptFile;
     private javax.swing.JButton buttonChooseSourceDir;
     private javax.swing.JButton buttonChooseTargetDir;
     private javax.swing.JButton buttonOk;
+    private javax.swing.JButton buttonRemoveScriptFile;
     private javax.swing.JCheckBox checkBoxDeleteAfterCopy;
-    private javax.swing.JLabel labelChoosedFiles;
-    private javax.swing.JLabel labelPromptChooseFiles;
-    private javax.swing.JLabel labelPromptSourceDir;
-    private javax.swing.JLabel labelPromptTargetDir;
+    private org.jdesktop.swingx.JXPanel choosenFilesPanel;
+    private org.jdesktop.swingx.JXPanel dialogControlButtonsPanel;
+    private javax.swing.JLabel labelChoosenFiles;
+    private javax.swing.JLabel labelScriptFileInfo;
     private javax.swing.JLabel labelSourceDir;
     private javax.swing.JLabel labelTargetDir;
+    private javax.swing.JLabel scriptFileLabel;
+    private org.jdesktop.swingx.JXPanel scriptFilePanel;
+    private org.jdesktop.swingx.JXPanel sourceDirPanel;
+    private org.jdesktop.swingx.JXPanel targetDirPanel;
+    private javax.swing.JPanel vPaddingPanel;
     // End of variables declaration//GEN-END:variables
 }

@@ -3,6 +3,14 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.13.0 2011-10-28
+-----------------
+
+* Datei > Bilder importieren: Es kann ein Skript (Batch-Datei) ausgewählt werden,
+  das für jedes importierte Bild aufgerufen wird
+* Bugfix: Fehlermeldung bei Ändern der Vorschaubildgröße im
+  Einstellungen-Dialog
+
 0.12.2 2011-10-27
 -----------------
 
