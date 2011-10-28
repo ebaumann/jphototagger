@@ -9,11 +9,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.openide.util.Lookup;
+import org.openide.util.lookup.ServiceProvider;
 
 import org.jphototagger.api.concurrent.SerialTaskExecutor;
 import org.jphototagger.api.file.CopyMoveFilesOptions;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
+import org.jphototagger.domain.DirectorySelectService;
 import org.jphototagger.domain.FileCopyService;
 import org.jphototagger.domain.FileImportService;
 import org.jphototagger.domain.filefilter.FileFilterUtil;
@@ -24,9 +26,11 @@ import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.domain.repository.SaveToOrUpdateFilesInRepository;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.SourceTargetFile;
+import org.jphototagger.lib.runtime.External;
+import org.jphototagger.lib.runtime.ExternalOutput;
+import org.jphototagger.lib.runtime.RuntimeUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.ProgressBarUpdater;
-import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann
@@ -38,19 +42,29 @@ public final class ImportImageFiles extends Thread implements FileImportService,
     private final List<File> copiedTargetFiles = new ArrayList<File>();
     private final List<File> copiedSourceFiles = new ArrayList<File>();
     private final List<SourceTargetFile> sourceTargetFiles;
+    private final File targetDirectory;
     private final boolean deleteScrFilesAfterCopying;
+    private final File scriptFile;
+    private static final int MAX_WAIT_FOR_SCRIPT_EXEC_IN_MILLIS = 240000;
+    private final String scriptForRuntime;
     private static final Logger LOGGER = Logger.getLogger(ImportImageFiles.class.getName());
 
     public ImportImageFiles() {
         super("JPhotoTagger: Importing image files");
         sourceTargetFiles = Collections.emptyList();
         deleteScrFilesAfterCopying = false;
+        scriptFile = null;
+        targetDirectory = null;
+        scriptForRuntime = null;
     }
 
-    private ImportImageFiles(List<SourceTargetFile> sourceTargetFiles, boolean deleteScrFilesAfterCopying) {
+    private ImportImageFiles(List<SourceTargetFile> sourceTargetFiles, File targetDirectory, boolean deleteScrFilesAfterCopying, File scriptFile) {
         super("JPhotoTagger: Importing image files");
         this.sourceTargetFiles = new ArrayList<SourceTargetFile>(sourceTargetFiles);
         this.deleteScrFilesAfterCopying = deleteScrFilesAfterCopying;
+        this.scriptFile = scriptFile;
+        this.targetDirectory = targetDirectory;
+        scriptForRuntime = scriptFile == null ? "" : RuntimeUtil.quoteForCommandLine(scriptFile);
     }
 
     public static void importFrom(File sourceDirectory) {
@@ -64,7 +78,7 @@ public final class ImportImageFiles extends Thread implements FileImportService,
 
         if (dlg.isAccepted()) {
             if (dlg.filesChoosed()) {
-                copy(dlg.getSourceFiles(), dlg.getTargetDir(), dlg.isDeleteSourceFilesAfterCopying());
+                copy(dlg.getSourceFiles(), dlg.getTargetDir(), dlg.isDeleteSourceFilesAfterCopying(), dlg.getScriptFile());
             } else {
                 List<File> sourceDirectories = new ArrayList<File>();
                 File srcDir = dlg.getSourceDir();
@@ -74,22 +88,21 @@ public final class ImportImageFiles extends Thread implements FileImportService,
 
                 List<File> sourceImageFiles = FileFilterUtil.getImageFilesOfDirectories(sourceDirectories);
 
-                copy(sourceImageFiles, dlg.getTargetDir(), dlg.isDeleteSourceFilesAfterCopying());
+                copy(sourceImageFiles, dlg.getTargetDir(), dlg.isDeleteSourceFilesAfterCopying(), dlg.getScriptFile());
             }
         }
     }
 
-    private static void copy(List<File> sourceImageFiles, File targetDir, boolean deleteScrFilesAfterCopying) {
+    private static void copy(List<File> sourceImageFiles, File targetDir, boolean deleteScrFilesAfterCopying, File scriptFile) {
         if (sourceImageFiles.size() > 0) {
             SerialTaskExecutor executor = Lookup.getDefault().lookup(SerialTaskExecutor.class);
-            ImportImageFiles importImageFiles =
-                    new ImportImageFiles(getSourceTargetFiles(sourceImageFiles, targetDir), deleteScrFilesAfterCopying);
-
+            List<SourceTargetFile> scrTgtFiles = createSourceTargetFiles(sourceImageFiles, targetDir);
+            ImportImageFiles importImageFiles = new ImportImageFiles(scrTgtFiles, targetDir, deleteScrFilesAfterCopying, scriptFile);
             executor.addTask(importImageFiles);
         }
     }
 
-    private static List<SourceTargetFile> getSourceTargetFiles(Collection<? extends File> sourceFiles, File targetDirectory) {
+    private static List<SourceTargetFile> createSourceTargetFiles(Collection<? extends File> sourceFiles, File targetDirectory) {
         List<SourceTargetFile> sourceTargetFiles = new ArrayList<SourceTargetFile>(sourceFiles.size());
         String targetDir = targetDirectory.getAbsolutePath();
 
@@ -106,7 +119,6 @@ public final class ImportImageFiles extends Thread implements FileImportService,
     public void run() {
         FileCopyService copyService = Lookup.getDefault().lookup(FileCopyService.class).createInstance(sourceTargetFiles, CopyMoveFilesOptions.RENAME_SOURCE_FILE_IF_TARGET_FILE_EXISTS);
         ProgressBarUpdater pBarUpdater = new ProgressBarUpdater(copyService, progressBarString);
-
         copyService.addProgressListener(this);
         copyService.addProgressListener(pBarUpdater);
         copyService.copyWaitForTermination();
@@ -128,26 +140,59 @@ public final class ImportImageFiles extends Thread implements FileImportService,
             if (!targetFile.getName().toLowerCase().endsWith(".xmp")) {
                 copiedTargetFiles.add(targetFile);
                 copiedSourceFiles.add(sourceTargetFile.getSourceFile());
+                executeScriptFileForCopiedFile(targetFile);
             }
         }
     }
 
     @Override
     public void progressEnded(ProgressEvent evt) {
-        addFilesToCollection();
-
+        if (scriptFile != null) {
+            selectTargetDirectory();
+        } else {
+            addFilesToCollection();
+        }
         if (deleteScrFilesAfterCopying) {
             deleteCopiedSourceFiles();
         }
     }
 
+    private void selectTargetDirectory() {
+        DirectorySelectService service = Lookup.getDefault().lookup(DirectorySelectService.class);
+
+        if (service != null) {
+            service.selectDirectory(targetDirectory);
+        }
+    }
+
+    private void executeScriptFileForCopiedFile(File copiedFileInTarget) {
+        if (scriptFile == null) {
+            return;
+        }
+        String fileAsScriptArgument = RuntimeUtil.quoteForCommandLine(copiedFileInTarget);
+        String command = scriptForRuntime + " " + fileAsScriptArgument;
+        logScriptCommand(copiedFileInTarget, command);
+        ExternalOutput execResult = External.executeGetOutput(command, MAX_WAIT_FOR_SCRIPT_EXEC_IN_MILLIS);
+        logScriptErrors(execResult);
+    }
+
+    private void logScriptCommand(File copiedFileInTarget, String command) {
+        LOGGER.log(Level.INFO, "Executing script file ''{0}'' for copied file ''{1}'' with command ''{2}'' and waiting for a maximum of {3} milliseconds",
+                new Object[]{scriptFile, copiedFileInTarget, command, MAX_WAIT_FOR_SCRIPT_EXEC_IN_MILLIS});
+    }
+
+    private void logScriptErrors(ExternalOutput execResult) {
+        byte[] errorStream = execResult.getErrorStream();
+        if (errorStream != null && errorStream.length > 0) {
+            LOGGER.log(Level.WARNING, new String(errorStream));
+        }
+    }
+
     private void addFilesToCollection() {
         if (!copiedTargetFiles.isEmpty()) {
-
-            // Needs to be in the DB to be added to an image collection
+            // Needs to be in the DB for adding to an image collection
             insertCopiedFilesIntoDb();
         }
-
         insertCopiedFilesAsCollectionIntoDb();
         selectPrevImportCollection();
     }
