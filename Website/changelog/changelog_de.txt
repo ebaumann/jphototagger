@@ -10,6 +10,7 @@ Changelog JPhotoTagger http://jphototagger.org/
   das für jedes importierte Bild aufgerufen wird
 * Bugfix: Fehlermeldung bei Ändern der Vorschaubildgröße im
   Einstellungen-Dialog
+* Bugfix: Automatische Aktualisierung funktinierte nicht mehr
 
 0.12.2 2011-10-27
 -----------------
