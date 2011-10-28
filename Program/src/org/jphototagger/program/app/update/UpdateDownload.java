@@ -42,8 +42,8 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
     private static final String URL_WIN_INSTALLER = "http://www.jphototagger.org/dist/JPhotoTagger-setup.exe";
     private static final String URL_ZIP = "http://www.jphototagger.org/dist/JPhotoTagger.zip";
     private static final String VERSION_DELIMITER = ".";
-    private Version currentVersion;
-    private Version netVersion;
+    private final Version currentVersion = Version.parseVersion(AppInfo.APP_VERSION, VERSION_DELIMITER);
+    private Version netVersion = currentVersion;
     private volatile boolean cancel;
     private static boolean checkPending;
     private final Object pBarOwner = this;
@@ -118,8 +118,8 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
         startProgressBar();
 
         try {
+            netVersion = NetVersion.getOverHttp(URL_VERSION_CHECK_FILE, VERSION_DELIMITER);
             String message = Bundle.getString(UpdateDownload.class, "UpdateDownload.Confirm.Download", currentVersion.toString3(), netVersion.toString3());
-
             if (hasNewerVersion() && MessageDisplayer.confirmYesNo(null, message)) {
                 progressBarDownloadInfo();
                 download();
@@ -133,7 +133,7 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
                 }
             }
         } catch (Exception ex) {
-            LOGGER.log(Level.INFO, "The most recent version of JPhotoTagger couldn''t be retrieved: {0}", ex.getLocalizedMessage());
+            LOGGER.log(Level.SEVERE, "The most recent version of JPhotoTagger couldn''t be retrieved: {0}", ex.getLocalizedMessage());
         } finally {
             progressBarProvider.progressEnded(pBarOwner);
 
@@ -141,12 +141,6 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
                 checkPending = false;
             }
         }
-    }
-
-    private Version currentVersion() {
-        currentVersion = Version.parseVersion(AppInfo.APP_VERSION, VERSION_DELIMITER);
-
-        return currentVersion;
     }
 
     private void download() {
@@ -199,29 +193,17 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
     }
 
     private void startProgressBar() {
-        ProgressEvent evt = new ProgressEvent.Builder()
-                .source(pBarOwner)
-                .indeterminate(true)
-                .stringPainted(true)
-                .stringToPaint(Bundle.getString(UpdateDownload.class, "UpdateDownload.Info.ProgressBar"))
-                .build();
+        ProgressEvent evt = new ProgressEvent.Builder().source(pBarOwner).indeterminate(true).stringPainted(true).stringToPaint(Bundle.getString(UpdateDownload.class, "UpdateDownload.Info.ProgressBar")).build();
         progressBarProvider.progressStarted(evt);
     }
 
     private void progressBarDownloadInfo() {
-        ProgressEvent evt = new ProgressEvent.Builder()
-                .source(pBarOwner)
-                .indeterminate(true)
-                .stringPainted(true)
-                .stringToPaint(Bundle.getString(UpdateDownload.class, "UpdateDownload.Info.ProgressBarDownload"))
-                .build();
+        ProgressEvent evt = new ProgressEvent.Builder().source(pBarOwner).indeterminate(true).stringPainted(true).stringToPaint(Bundle.getString(UpdateDownload.class, "UpdateDownload.Info.ProgressBarDownload")).build();
         progressBarProvider.progressStarted(evt);
     }
 
     private boolean hasNewerVersion() throws Exception {
-        netVersion = NetVersion.getOverHttp(URL_VERSION_CHECK_FILE, VERSION_DELIMITER);
-
-        return currentVersion().compareTo(netVersion) < 0;
+        return currentVersion.compareTo(netVersion) < 0;
     }
 
     @Override
