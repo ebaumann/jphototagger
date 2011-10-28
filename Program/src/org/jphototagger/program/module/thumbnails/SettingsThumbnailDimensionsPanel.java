@@ -36,9 +36,9 @@ public class SettingsThumbnailDimensionsPanel extends javax.swing.JPanel impleme
     }
 
     private void setMaxThumbnailWidth(int width) {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences preferences = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setString(Preferences.KEY_MAX_THUMBNAIL_WIDTH, Integer.toString(width));
+        preferences.setInt(Preferences.KEY_MAX_THUMBNAIL_WIDTH, width);
     }
 
     @Override
@@ -61,7 +61,7 @@ public class SettingsThumbnailDimensionsPanel extends javax.swing.JPanel impleme
     }
 
     @EventSubscriber(eventClass = PreferencesChangedEvent.class)
-    public void applySettings(PreferencesChangedEvent evt) {
+    public void preferencesChanged(PreferencesChangedEvent evt) {
         if (Preferences.KEY_MAX_THUMBNAIL_WIDTH.equals(evt.getKey())) {
             listenToMaxThumbnailWidthChanges = false;
             spinnerMaxThumbnailWidth.setValue((Integer) evt.getNewValue());
