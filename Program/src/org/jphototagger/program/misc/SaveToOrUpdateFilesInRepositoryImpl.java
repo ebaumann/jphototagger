@@ -428,7 +428,7 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
 
     private boolean checkExists(File imageFile) {
         if (!imageFile.exists()) {
-            LOGGER.log(Level.WARNING, "Image file ''{0}'' does not (longer) exist and will not be updated in the repository", imageFile);
+            LOGGER.log(Level.INFO, "Image file ''{0}'' does not (longer) exist and will not be updated in the repository", imageFile);
 
             return false;
         }
