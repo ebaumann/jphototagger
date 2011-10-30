@@ -9,21 +9,31 @@ import javax.swing.tree.TreePath;
  */
 public final class HelpContentsTreeModel implements TreeModel {
 
-    private HelpNode root = new HelpNode();
+    private HelpNode rootNode = new HelpNode();
+
+    public HelpContentsTreeModel(HelpNode rootNode) {
+        if (rootNode == null) {
+            throw new NullPointerException("rootNode == null");
+        }
+
+        this.rootNode = rootNode;
+    }
 
     @Override
     public Object getRoot() {
-        return root;
+        return rootNode;
     }
 
     @Override
     public Object getChild(Object parent, int index) {
-        return ((HelpNode) parent).getChild(index);
+        HelpNode parentNode = (HelpNode) parent;
+        return parentNode.getChild(index);
     }
 
     @Override
     public int getChildCount(Object parent) {
-        return ((HelpNode) parent).getChildCount();
+        HelpNode parentNode = (HelpNode) parent;
+        return parentNode.getChildCount();
     }
 
     @Override
@@ -33,7 +43,8 @@ public final class HelpContentsTreeModel implements TreeModel {
 
     @Override
     public int getIndexOfChild(Object parent, Object child) {
-        return ((HelpNode) parent).getIndexOfChild(child);
+        HelpNode parentNode = (HelpNode) parent;
+        return parentNode.getIndexOfChild(child);
     }
 
     @Override
@@ -49,26 +60,5 @@ public final class HelpContentsTreeModel implements TreeModel {
     @Override
     public void removeTreeModelListener(TreeModelListener l) {
         // ignore
-    }
-
-    /**
-     * Constructor.
-     *
-     * @param url  URL of the XML file for the class
-     */
-    public HelpContentsTreeModel(String url) {
-        if (url == null) {
-            throw new NullPointerException("url == null");
-        }
-
-        parse(url);
-    }
-
-    private void parse(String url) {
-        HelpNode rootNode = HelpIndexParser.parse(this.getClass().getResourceAsStream(url));
-
-        if (rootNode != null) {
-            root = rootNode;
-        }
     }
 }

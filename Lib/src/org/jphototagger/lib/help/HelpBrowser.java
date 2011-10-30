@@ -1,14 +1,7 @@
 package org.jphototagger.lib.help;
 
-import java.awt.Frame;
-import java.awt.MenuItem;
-import java.awt.PopupMenu;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.net.URL;
-import java.util.LinkedList;
+import java.util.Collection;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.logging.Level;
@@ -24,52 +17,37 @@ import javax.swing.tree.TreeSelectionModel;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
-import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 
 /**
- * Browser for HTML help files. Usually those are packaged with the application
- * in a JAR file.
+ * Browser for HTML help files.
  *
  * @author Elmar Baumann
  */
-public final class HelpBrowser extends Dialog implements ActionListener, HyperlinkListener, MouseListener, TreeSelectionListener {
+public final class HelpBrowser extends Dialog implements HyperlinkListener, TreeSelectionListener {
     private static final long serialVersionUID = 1L;
     private static final String KEY_DIVIDER_LOCATION = "HelpBrowser.DividerLocation";
     private static final String DISPLAY_NAME_ACTION_PREVIOUS = Bundle.getString(HelpBrowser.class, "HelpBrowser.Action.Previous");
     private static final String DISPLAY_NAME_ACTION_NEXT = Bundle.getString(HelpBrowser.class, "HelpBrowser.Action.Next");
-    private final LinkedList<URL> urlHistory = new LinkedList<URL>();
     private final Set<HelpBrowserListener> listeners = new CopyOnWriteArraySet<HelpBrowserListener>();
-    private int currentHistoryIndex = -1;
-    private PopupMenu popupMenu;
-    private MenuItem itemPrevious;
-    private MenuItem itemNext;
-    private String startUrl;
-    private String baseUrl;
-    private String contentsUrl;
+    private String displayUrl;
     private boolean settingPath;
-    public static final HelpBrowser INSTANCE = new HelpBrowser(ComponentUtil.findFrameWithIcon());
 
-    private HelpBrowser(Frame parent) {
-        super(parent);
+    public HelpBrowser() {
+        super(ComponentUtil.findFrameWithIcon());
         initComponents();
         postInitComponents();
     }
 
     private void postInitComponents() {
-        initPopupMenu();
         editorPanePage.addHyperlinkListener(this);
         tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
         tree.addTreeSelectionListener(this);
         setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
     }
 
-    /**
-     * Adds an action listener.
-     *
-     * @param listener  listener
-     */
     public void addHelpBrowserListener(HelpBrowserListener listener) {
         if (listener == null) {
             throw new NullPointerException("listener == null");
@@ -78,11 +56,6 @@ public final class HelpBrowser extends Dialog implements ActionListener, Hyperli
         listeners.add(listener);
     }
 
-    /**
-     * Removes an action listener.
-     *
-     * @param listener  listener
-     */
     public void removeHelpBrowserListener(HelpBrowserListener listener) {
         if (listener == null) {
             throw new NullPointerException("listener == null");
@@ -100,42 +73,16 @@ public final class HelpBrowser extends Dialog implements ActionListener, Hyperli
     }
 
     private void showUrl(URL url) {
-        removeNextHistory();
-        currentHistoryIndex++;
-        urlHistory.add(url);
-        setButtonStatus();
         setUrl(url);
         notifyUrlChanged(url);
     }
 
-    /**
-     * Shows a page with a specific URL. Call this, if the dialog is visible.
-     *
-     * @param url  URL
-     */
-    public synchronized void showUrl(String url) {
-        if (url == null) {
-            throw new NullPointerException("url == null");
-        }
-
-        if (isVisible()) {
-            showUrl(getClass().getResource(baseUrl + "/" + url));
-        }
-    }
-
-    /**
-     * Sets the URL of the page to be initial displayed. It has to be relative
-     * and exist in the contents XML-File setTree with
-     * {@code #setDisplayUrl(java.lang.String)}.
-     *
-     * @param url  URL, eg. <code>firststeps.html</code>
-     */
     public synchronized void setDisplayUrl(String url) {
         if (url == null) {
             throw new NullPointerException("url == null");
         }
 
-        startUrl = url;
+        displayUrl = url;
     }
 
     /**
@@ -149,96 +96,43 @@ public final class HelpBrowser extends Dialog implements ActionListener, Hyperli
             throw new NullPointerException("url == null");
         }
 
-        contentsUrl = url;
-        urlHistory.clear();
-        tree.setModel(new HelpContentsTreeModel(url));
-        setBaseUrl(url);
+        HelpIndexParser helpIndexParser = new HelpIndexParser(url);
+        HelpNode rootNode = helpIndexParser.parse(HelpBrowser.class.getResourceAsStream(url));
+
+        if (rootNode != null) {
+            Collection<? extends HelpContentProvider> providers = Lookup.getDefault().lookupAll(HelpContentProvider.class);
+            for (HelpContentProvider provider : providers) {
+                String helpContentsUrl = provider.getHelpContentUrl();
+                helpIndexParser = new HelpIndexParser(helpContentsUrl);
+                HelpNode helpNode = helpIndexParser.parse(HelpBrowser.class.getResourceAsStream(helpContentsUrl));
+                addChildrenToNode(helpNode, rootNode);
+            }
+            tree.setModel(new HelpContentsTreeModel(rootNode));
+        }
     }
 
-    public synchronized String getContentsUrl() {
-        return contentsUrl;
-    }
-
-    private synchronized void setBaseUrl(String url) {
-        int index = url.lastIndexOf('/');
-
-        baseUrl = url.substring(0, index);
+    private void addChildrenToNode(HelpNode fromHelpNode, HelpNode toHelpNode) {
+        int childCount = fromHelpNode.getChildCount();
+        for (int index = 0; index < childCount; index++) {
+            Object child = fromHelpNode.getChild(index);
+            if (child instanceof HelpNode) {
+                HelpNode helpNode = (HelpNode) child;
+                toHelpNode.addNode(helpNode);
+            } else if (child instanceof HelpPage) {
+                HelpPage helpPage = (HelpPage) child;
+                toHelpNode.addPage(helpPage);
+            }
+        }
     }
 
     private synchronized void selectStartUrl() {
-        if (startUrl != null) {
+        if (displayUrl != null) {
             HelpNode node = (HelpNode) tree.getModel().getRoot();
-            Object[] path = node.getPagePath(startUrl);
+            Object[] path = node.getPagePath(displayUrl);
 
             if (path != null) {
                 tree.setSelectionPath(new TreePath(path));
             }
-        }
-    }
-
-    private boolean canGoNext() {
-        return (currentHistoryIndex + 1 > 0) && (currentHistoryIndex + 1 < urlHistory.size());
-    }
-
-    private boolean canGoPrevious() {
-        return (currentHistoryIndex - 1 >= 0) && (currentHistoryIndex - 1 < urlHistory.size());
-    }
-
-    private void goNext() {
-        if ((currentHistoryIndex + 1 >= 0) && (currentHistoryIndex + 1 < urlHistory.size())) {
-            currentHistoryIndex++;
-            setUrl(urlHistory.get(currentHistoryIndex));
-            setSelectionPath(getLastPathComponent(urlHistory.get(currentHistoryIndex)));
-            setButtonStatus();
-        }
-    }
-
-    private void goPrevious() {
-        if ((currentHistoryIndex - 1 >= 0) && (currentHistoryIndex - 1 < urlHistory.size())) {
-            currentHistoryIndex--;
-            setUrl(urlHistory.get(currentHistoryIndex));
-            setSelectionPath(getLastPathComponent(urlHistory.get(currentHistoryIndex)));
-            setButtonStatus();
-        }
-    }
-
-    private void initPopupMenu() {
-        popupMenu = new PopupMenu();
-        itemPrevious = new MenuItem(DISPLAY_NAME_ACTION_PREVIOUS);
-        itemNext = new MenuItem(DISPLAY_NAME_ACTION_NEXT);
-        itemPrevious.addActionListener(this);
-        itemNext.addActionListener(this);
-        editorPanePage.addMouseListener(this);
-        popupMenu.add(itemPrevious);
-        popupMenu.add(itemNext);
-        add(popupMenu);
-    }
-
-    private void removeNextHistory() {
-        int historyUrlCount = urlHistory.size();
-        boolean canRemove = (historyUrlCount > 0)
-                            && (currentHistoryIndex >= 0)
-                            && (currentHistoryIndex < historyUrlCount);
-
-        if (canRemove) {
-            int removeCount = historyUrlCount - currentHistoryIndex - 1;
-
-            for (int i = 0; i < removeCount; i++) {
-                urlHistory.pollLast();
-            }
-        }
-    }
-
-    private void setButtonStatus() {
-        buttonPrevious.setEnabled(canGoPrevious());
-        buttonNext.setEnabled(canGoNext());
-    }
-
-    private void showPopupMenu(MouseEvent evt) {
-        if (evt.isPopupTrigger()) {
-            itemPrevious.setEnabled(canGoPrevious());
-            itemNext.setEnabled(canGoNext());
-            popupMenu.show(editorPanePage, evt.getX(), evt.getY());
         }
     }
 
@@ -253,16 +147,16 @@ public final class HelpBrowser extends Dialog implements ActionListener, Hyperli
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            readDividerLocationFromProperties();
+            readDividerLocationFromPreferences();
             selectStartUrl();
         } else {
-            writeDividerLocationToProperties();
+            writeDividerLocationToPreferences();
         }
 
         super.setVisible(visible);
     }
 
-    private void readDividerLocationFromProperties() {
+    private void readDividerLocationFromPreferences() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         if (storage != null && storage.containsKey(KEY_DIVIDER_LOCATION)) {
@@ -270,7 +164,7 @@ public final class HelpBrowser extends Dialog implements ActionListener, Hyperli
         }
     }
 
-    private void writeDividerLocationToProperties() {
+    private void writeDividerLocationToPreferences() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
         if (storage != null) {
@@ -279,38 +173,10 @@ public final class HelpBrowser extends Dialog implements ActionListener, Hyperli
     }
 
     @Override
-    public void actionPerformed(ActionEvent evt) {
-        if (evt.getSource() == itemPrevious) {
-            goPrevious();
-        } else if (evt.getSource() == itemNext) {
-            goNext();
-        }
-    }
-
-    @Override
     public void hyperlinkUpdate(HyperlinkEvent evt) {
         if (evt.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
             URL url = evt.getURL();
-            String  lastPathComponent = getLastPathComponent(url);
-            Object[] path = ((HelpNode) tree.getModel().getRoot()).getPagePath(lastPathComponent);
-
-            if (path == null) {
                 showUrl(url);
-            } else {
-                tree.setSelectionPath(new TreePath(path));
-            }
-        }
-    }
-
-    private void setSelectionPath(String lastPathComponent) {
-        Object[] path = ((HelpNode) tree.getModel().getRoot()).getPagePath(lastPathComponent);
-
-        assert path != null;
-
-        if (path != null) {
-            settingPath = true;
-            tree.setSelectionPath(new TreePath(path));
-            settingPath = false;
         }
     }
 
@@ -344,7 +210,7 @@ public final class HelpBrowser extends Dialog implements ActionListener, Hyperli
                 if (o instanceof HelpPage) {
                     HelpPage helpPage = (HelpPage) o;
                     String helpPageUrl = helpPage.getUrl();
-                    URL url = getClass().getResource(baseUrl + "/" + helpPageUrl);
+                    URL url = getClass().getResource(helpPageUrl);
 
                     setTitle(helpPage.getTitle() + Bundle.getString(HelpBrowser.class, "HelpBrowser.TitlePostfix"));
                     showUrl(url);
@@ -352,23 +218,6 @@ public final class HelpBrowser extends Dialog implements ActionListener, Hyperli
             }
         }
     }
-
-    @Override
-    public void mouseClicked(MouseEvent evt) {}
-
-    @Override
-    public void mousePressed(MouseEvent evt) {
-        showPopupMenu(evt);
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent evt) {}
-
-    @Override
-    public void mouseEntered(MouseEvent evt) {}
-
-    @Override
-    public void mouseExited(MouseEvent evt) {}
 
     /**
      * This method is called from within the constructor to
@@ -387,8 +236,6 @@ public final class HelpBrowser extends Dialog implements ActionListener, Hyperli
         panelPage = new javax.swing.JPanel();
         scrollPanePage = new javax.swing.JScrollPane();
         editorPanePage = new javax.swing.JEditorPane();
-        buttonPrevious = new javax.swing.JButton();
-        buttonNext = new javax.swing.JButton();
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/lib/help/Bundle"); // NOI18N
         setTitle(bundle.getString("HelpBrowser.title")); // NOI18N
@@ -441,40 +288,13 @@ public final class HelpBrowser extends Dialog implements ActionListener, Hyperli
 
         splitPane.setRightComponent(panelPage);
 
-        buttonPrevious.setMnemonic('z');
-        buttonPrevious.setText(bundle.getString("HelpBrowser.buttonPrevious.text")); // NOI18N
-        buttonPrevious.setToolTipText(bundle.getString("HelpBrowser.buttonPrevious.toolTipText")); // NOI18N
-        buttonPrevious.setEnabled(false);
-        buttonPrevious.setName("buttonPrevious"); // NOI18N
-        buttonPrevious.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPreviousActionPerformed(evt);
-            }
-        });
-
-        buttonNext.setMnemonic('v');
-        buttonNext.setText(bundle.getString("HelpBrowser.buttonNext.text")); // NOI18N
-        buttonNext.setToolTipText(bundle.getString("HelpBrowser.buttonNext.toolTipText")); // NOI18N
-        buttonNext.setEnabled(false);
-        buttonNext.setName("buttonNext"); // NOI18N
-        buttonNext.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonNextActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(splitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 573, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(buttonPrevious)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonNext)))
+                .addComponent(splitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 573, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -482,39 +302,22 @@ public final class HelpBrowser extends Dialog implements ActionListener, Hyperli
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(splitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonNext)
-                    .addComponent(buttonPrevious))
                 .addContainerGap())
         );
 
         pack();
     }//GEN-END:initComponents
 
-    private void buttonNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNextActionPerformed
-        goNext();
-    }//GEN-LAST:event_buttonNextActionPerformed
-
-    private void buttonPreviousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPreviousActionPerformed
-        goPrevious();
-    }//GEN-LAST:event_buttonPreviousActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             @Override
             public void run() {
-                INSTANCE.setVisible(true);
+                new HelpBrowser().setVisible(true);
             }
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonNext;
-    private javax.swing.JButton buttonPrevious;
     private javax.swing.JEditorPane editorPanePage;
     private javax.swing.JPanel panelPage;
     private javax.swing.JPanel panelTree;

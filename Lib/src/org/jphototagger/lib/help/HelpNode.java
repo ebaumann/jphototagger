@@ -6,8 +6,7 @@ import java.util.List;
 import java.util.Stack;
 
 /**
- * Node in the applications help file tree structure. A node is a chapter
- * with help pages and subchapters.
+ * A node is a chapter with help pages and subchapters.
  *
  * @author Elmar Baumann
  */
@@ -17,20 +16,10 @@ public final class HelpNode {
     private List<Object> children = new ArrayList<Object>();
     private HelpNode parent;
 
-    /**
-     * Rerturns the chapter's title.
-     *
-     * @return title
-     */
     public String getTitle() {
         return title;
     }
 
-    /**
-     * Sets the chapter's title.
-     *
-     * @param title tile
-     */
     public void setTitle(String title) {
         if (title == null) {
             throw new NullPointerException("title == null");
@@ -39,11 +28,6 @@ public final class HelpNode {
         this.title = title;
     }
 
-    /**
-     * Adds a help page.
-     *
-     * @param page help page
-     */
     public void addPage(HelpPage page) {
         if (page == null) {
             throw new NullPointerException("page == null");
@@ -53,11 +37,6 @@ public final class HelpNode {
         children.add(page);
     }
 
-    /**
-     * Adds a chapter.
-     *
-     * @param chapter chapter
-     */
     public void addNode(HelpNode chapter) {
         if (chapter == null) {
             throw new NullPointerException("chapter == null");
@@ -67,25 +46,10 @@ public final class HelpNode {
         children.add(chapter);
     }
 
-    /**
-     * Returns the number of children: help pages and chapters.
-     *
-     * @return children count
-     */
     public int getChildCount() {
         return children.size();
     }
 
-    /**
-     * Returns a specific child.
-     * @param  index the child's index {@code >= 0}
-     *
-     * @return child: an object of the type
-     *         {@code HelpNode} or {@code HelpPage}
-     *         or null if the index is invalid
-     * @throws IndexOutOfBoundsException if
-     *                                  {@code index < 0 || index >= childCount}
-     */
     public Object getChild(int index) {
         int count = children.size();
 
@@ -97,9 +61,7 @@ public final class HelpNode {
     }
 
     /**
-     * Returns the index of a specific child.
-     *
-     * @param  child  child
+     * @param  child
      * @return index or -1 if the child does not exist
      */
     public int getIndexOfChild(Object child) {
@@ -111,8 +73,6 @@ public final class HelpNode {
     }
 
     /**
-     * Returns the parent node.
-     *
      * @return parent or null if the node is the root node
      */
     public HelpNode getParent() {
@@ -120,9 +80,7 @@ public final class HelpNode {
     }
 
     /**
-     * Returns the path of a help page with an specific URL.
-     *
-     * @param  url URL
+     * @param  url
      * @return path or null if a page with the URL doesn't exist
      */
     public Object[] getPagePath(String url) {

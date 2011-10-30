@@ -2,6 +2,7 @@ package org.jphototagger.synonyms;
 
 import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.util.ComponentUtil;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * @author Elmar Baumann
@@ -22,9 +23,7 @@ public class SynonymsDialog extends Dialog {
     }
 
     private void setHelpPage() {
-        // Has to be localized!
-        setHelpContentsUrl("/org/jphototagger/program/resource/doc/de/contents.xml");
-        setHelpPageUrl("synonyms.html");
+        setHelpPageUrl(Bundle.getString(SynonymsDialog.class, "SynonymsDialog.HelpPage"));
     }
 
     /**

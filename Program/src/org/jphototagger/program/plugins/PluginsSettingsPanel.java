@@ -4,47 +4,32 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.plugin.Plugin;
 import org.jphototagger.api.preferences.Preferences;
-import org.jphototagger.lib.swing.util.ComponentUtil;
+import org.jphototagger.api.storage.Persistence;
+import org.jphototagger.lib.help.HelpPageProvider;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
-import org.jphototagger.lib.help.HelpBrowser;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.factory.FileProcessorPluginManager;
 import org.jphototagger.program.factory.PluginManager;
-import org.jphototagger.api.storage.Persistence;
 
 /**
  * Dynamically adds panels of plugins ({@code AbstractFileProcessorPlugin#getSettingsComponent()}).
  *
  * @author Elmar Baumann
  */
-public class PluginsSettingsPanel extends javax.swing.JPanel implements ChangeListener, Persistence {
-
-    private static class HelpContentsPathFirstPageName {
-        private final String helpContentsPath;
-        private final String firstHelpPageName;
-
-        private HelpContentsPathFirstPageName(String helpContentsPath, String firstHelpPageName) {
-            this.helpContentsPath = helpContentsPath;
-            this.firstHelpPageName = firstHelpPageName;
-        }
-    }
+public class PluginsSettingsPanel extends javax.swing.JPanel implements Persistence, HelpPageProvider {
 
     private static final long serialVersionUID = 1L;
     private static final String KEY_TABBED_PANE = "SettingsPluginsPanel.TabbedPane";
-    private final Map<Component, HelpContentsPathFirstPageName> helpContentsPathOfTab = new HashMap<Component, HelpContentsPathFirstPageName>();
 
     public PluginsSettingsPanel() {
         initComponents();
@@ -55,8 +40,6 @@ public class PluginsSettingsPanel extends javax.swing.JPanel implements ChangeLi
         addPlugins(FileProcessorPluginManager.INSTANCE);
         panelExcludeCheckboxes.add(new JPanel(), getGbcAfterLastCheckBox());    // ensures checkboxes vertically top and not centered
         MnemonicUtil.setMnemonics((Container) this);
-        setEnabledHelpButton();
-        tabbedPane.addChangeListener(this);
     }
 
     private <T extends Plugin> void addPlugins(PluginManager<T> pluginManager) {
@@ -77,10 +60,6 @@ public class PluginsSettingsPanel extends javax.swing.JPanel implements ChangeLi
         Component component = plugin.getSettingsComponent();
 
         if (component != null) {
-            String helpContentsPath = plugin.getHelpContentsPath();
-            String firstHelpPageName = plugin.getFirstHelpPageName();
-
-            helpContentsPathOfTab.put(component, new HelpContentsPathFirstPageName(helpContentsPath, firstHelpPageName));
             tabbedPane.add(plugin.getDisplayName(), component);
         }
     }
@@ -131,7 +110,12 @@ public class PluginsSettingsPanel extends javax.swing.JPanel implements ChangeLi
         storage.setTabbedPane(KEY_TABBED_PANE, tabbedPane, null);
     }
 
-    private static class ActionExcludePlugin<T extends Plugin> extends AbstractAction {
+    @Override
+    public String getHelpPageUrl() {
+        return Bundle.getString(PluginsSettingsPanel.class, "PluginsSettingsPanel.HelpPage");
+    }
+
+private static class ActionExcludePlugin<T extends Plugin> extends AbstractAction {
         private static final long serialVersionUID = 1L;
         private transient final T plugin;
         private transient final PluginManager<T> pluginManager;
@@ -150,32 +134,6 @@ public class PluginsSettingsPanel extends javax.swing.JPanel implements ChangeLi
         }
     }
 
-    private void showHelp() {
-        String helpContentsPath = helpContentsPathOfTab.get(tabbedPane.getSelectedComponent()).helpContentsPath;
-        String firstPageUrl = helpContentsPathOfTab.get(tabbedPane.getSelectedComponent()).firstHelpPageName;
-
-        if (helpContentsPath != null) {
-            HelpBrowser help = HelpBrowser.INSTANCE;
-
-            help.setContentsUrl(helpContentsPath);
-
-            if (firstPageUrl != null) {
-                help.setDisplayUrl(firstPageUrl);
-            }
-
-            ComponentUtil.show(help);
-        }
-    }
-
-    private void setEnabledHelpButton() {
-        buttonHelpPlugin.setEnabled(helpContentsPathOfTab.get(tabbedPane.getSelectedComponent()) != null);
-    }
-
-    @Override
-    public void stateChanged(ChangeEvent evt) {
-        setEnabledHelpButton();
-    }
-
     /**
      * This method is called from within the constructor to
      * initialize the form.
@@ -192,7 +150,6 @@ public class PluginsSettingsPanel extends javax.swing.JPanel implements ChangeLi
         labelInfoExclude = new javax.swing.JLabel();
         scrollPaneExclude = new javax.swing.JScrollPane();
         panelExcludeCheckboxes = new javax.swing.JPanel();
-        buttonHelpPlugin = new javax.swing.JButton();
 
         setName("Form"); // NOI18N
 
@@ -230,46 +187,26 @@ public class PluginsSettingsPanel extends javax.swing.JPanel implements ChangeLi
                 .addContainerGap()
                 .addComponent(labelInfoExclude)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneExclude, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
+                .addComponent(scrollPaneExclude, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         tabbedPane.addTab(bundle.getString("PluginsSettingsPanel.panelExclude.TabConstraints.tabTitle"), panelExclude); // NOI18N
-
-        buttonHelpPlugin.setText(bundle.getString("PluginsSettingsPanel.buttonHelpPlugin.text")); // NOI18N
-        buttonHelpPlugin.setName("buttonHelpPlugin"); // NOI18N
-        buttonHelpPlugin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonHelpPluginActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(420, Short.MAX_VALUE)
-                .addComponent(buttonHelpPlugin)
-                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonHelpPlugin)
-                .addContainerGap())
+            .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
         );
     }//GEN-END:initComponents
 
-    private void buttonHelpPluginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHelpPluginActionPerformed
-        showHelp();
-    }//GEN-LAST:event_buttonHelpPluginActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup;
-    private javax.swing.JButton buttonHelpPlugin;
     private javax.swing.JLabel labelInfoExclude;
     private javax.swing.JPanel panelExclude;
     private javax.swing.JPanel panelExcludeCheckboxes;

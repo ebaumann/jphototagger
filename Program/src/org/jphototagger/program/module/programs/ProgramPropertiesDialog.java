@@ -296,8 +296,7 @@ public final class ProgramPropertiesDialog extends Dialog {
     }
 
     private void showPatternHelp() {
-        setHelpContentsUrl("/org/jphototagger/program/resource/doc/de/contents.xml");
-        help("parameter_substitution.html");
+        help("/org/jphototagger/program/resource/doc/de/parameter_substitution.html");
     }
 
     private void toggleExpertSettings() {

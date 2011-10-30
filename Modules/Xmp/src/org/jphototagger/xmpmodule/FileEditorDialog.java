@@ -14,7 +14,6 @@ public class FileEditorDialog extends Dialog {
     public FileEditorDialog() {
         super(ComponentUtil.findFrameWithIcon(), false);
         initComponents();
-        setHelpContentsUrl("/org/jphototagger/program/resource/doc/de/contents.xml");
     }
 
     public FileEditorPanel getFileEditorPanel() {

@@ -1,9 +1,10 @@
 package org.jphototagger.program.module.exportimport;
 
+
 import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.module.exportimport.ExportImportPanel.ExportImportListener;
+import org.jphototagger.program.resource.GUI;
 
 /**
  * @author Elmar Baumann
@@ -40,9 +41,9 @@ public class ExportImportDialog extends Dialog implements ExportImportListener {
     }
 
     private void setHelpPage() {
-        // Has to be localized!
-        setHelpContentsUrl("/org/jphototagger/program/resource/doc/de/contents.xml");
-        setHelpPageUrl(context.equals(ExportImportContext.EXPORT) ? "export_jpt.html" : "import_jpt.html");
+        setHelpPageUrl(context.equals(ExportImportContext.EXPORT)
+                ? Bundle.getString(ExportImportDialog.class, "ExportImportDialog.HelpPage.Export")
+                : Bundle.getString(ExportImportDialog.class, "ExportImportDialog.HelpPage.Import"));
     }
 
     @Override

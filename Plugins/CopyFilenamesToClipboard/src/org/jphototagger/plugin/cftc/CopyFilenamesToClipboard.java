@@ -19,6 +19,7 @@ import org.jphototagger.api.plugin.fileprocessor.FileProcessingFinishedEvent;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessingStartedEvent;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessorPlugin;
 import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.lib.help.HelpContentProvider;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.plugin.AbstractFileProcessorPlugin;
@@ -29,12 +30,12 @@ import org.jphototagger.lib.plugin.AbstractFileProcessorPlugin;
  * @author Elmar Baumann
  */
 @ServiceProvider(service = FileProcessorPlugin.class)
-public final class CopyFilenamesToClipboard extends AbstractFileProcessorPlugin implements Serializable {
+public final class CopyFilenamesToClipboard extends AbstractFileProcessorPlugin implements Serializable, HelpContentProvider {
 
     private static final long serialVersionUID = 1L;
     public static final String KEY_FILENAME_DELIMITER = CopyFilenamesToClipboard.class.getName() + ".KeyDelimiter";
     public static final String DEFAULT_FILENAME_DELIMITER = "\n";
-    private static final Icon ICON = IconUtil.getImageIcon("/org/jphototagger/plugin/cftc/icon.png");
+    private static final Icon ICON = IconUtil.getImageIcon(CopyFilenamesToClipboard.class, "icon.png");
     private String fileNameDelimiter = DEFAULT_FILENAME_DELIMITER;
 
     @Override
@@ -53,15 +54,9 @@ public final class CopyFilenamesToClipboard extends AbstractFileProcessorPlugin 
     }
 
     @Override
-    public String getHelpContentsPath() {
+    public String getHelpContentUrl() {
         return "/org/jphototagger/plugin/cftc/help/contents.xml";
     }
-
-    @Override
-    public String getFirstHelpPageName() {
-        return "index.html";
-    }
-
     @Override
     public Icon getSmallIcon() {
         return ICON;

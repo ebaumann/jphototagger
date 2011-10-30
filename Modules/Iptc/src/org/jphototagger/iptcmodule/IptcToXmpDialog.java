@@ -8,10 +8,10 @@ import java.util.List;
 
 import javax.swing.filechooser.FileSystemView;
 
-import org.openide.util.Lookup;
-
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+
+import org.openide.util.Lookup;
 
 import org.jphototagger.api.concurrent.CancelRequest;
 import org.jphototagger.api.preferences.Preferences;
@@ -59,9 +59,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
     }
 
     private void setHelpPage() {
-        // Has to be localized!
-        setHelpContentsUrl("/org/jphototagger/program/resource/doc/de/contents.xml");
-        setHelpPageUrl("import_iptc.html");
+        setHelpPageUrl(Bundle.getString(IptcToXmpDialog.class, "IptcToXmpDialog.HelpPage"));
     }
 
     /**

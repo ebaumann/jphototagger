@@ -2,6 +2,7 @@ package org.jphototagger.userdefinedfilters;
 
 import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.util.ComponentUtil;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * @author Elmar Baumann
@@ -21,9 +22,7 @@ public class UserDefinedFileFiltersDialog extends Dialog {
     }
 
     private void setHelpPage() {
-        // Has to be localized!
-        setHelpContentsUrl("/org/jphototagger/program/resource/doc/de/contents.xml");
-        setHelpPageUrl("user_defined_file_filter.html");
+        setHelpPageUrl(Bundle.getString(UserDefinedFileFiltersDialog.class, "UserDefinedFileFiltersDialog.HelpPage"));
     }
 
     /** This method is called from within the constructor to

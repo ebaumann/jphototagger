@@ -47,9 +47,7 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
     }
 
     private void setHelpPage() {
-        // Has to be localized!
-        setHelpContentsUrl("/org/jphototagger/program/resource/doc/de/contents.xml");
-        setHelpPageUrl("user_defined_file_type_edit.html");
+        setHelpPageUrl(Bundle.getString(EditUserDefinedFileTypeDialog.class, "EditUserDefinedFileTypeDialog.HelpPage"));
     }
 
     private void initSuffixTextField() {

@@ -12,6 +12,7 @@ import org.bushe.swing.event.EventBus;
 
 import org.openide.util.Lookup;
 
+import org.jphototagger.api.file.CopyMoveFilesOptions;
 import org.jphototagger.api.file.event.FileCopiedEvent;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.progress.ProgressEvent;
@@ -24,11 +25,10 @@ import org.jphototagger.lib.io.SourceTargetFile;
 import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.DirectoryChooser;
 import org.jphototagger.lib.swing.MessageDisplayer;
+import org.jphototagger.lib.swing.SelectRootFilesPanel;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.lib.swing.SelectRootFilesPanel;
-import org.jphototagger.api.file.CopyMoveFilesOptions;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.xmp.XmpMetadata;
 
@@ -55,9 +55,7 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
     }
 
     private void setHelpPage() {
-        // Has to be localized!
-        setHelpContentsUrl("/org/jphototagger/program/resource/doc/de/contents.xml");
-        setHelpPageUrl("copy_images.html");
+        setHelpPageUrl(Bundle.getString(CopyToDirectoryDialog.class, "CopyToDirectoryDialog.HelpPage"));
     }
 
     public void addProgressListener(ProgressListener listener) {

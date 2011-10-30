@@ -281,6 +281,10 @@
             <url>user_defined_file_filter_edit.html</url>
             <title>Benutzerdefinierten Dateifilter bearbeiten</title>
         </page>
+        <page>
+            <url>rename_images_in_database.html</url>
+            <title>In der Datenbank Dateipfade umbenennen</title>
+        </page>
     </node>
     <node>
         <title>Weitere Funktionen</title>

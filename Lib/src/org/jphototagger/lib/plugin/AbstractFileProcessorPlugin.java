@@ -37,22 +37,4 @@ public abstract class AbstractFileProcessorPlugin implements FileProcessorPlugin
     public Component getSettingsComponent() {
         return null;
     }
-
-    /**
-     *
-     * @return null
-     */
-    @Override
-    public String getHelpContentsPath() {
-        return null;
-    }
-
-    /**
-     *
-     * @return null
-     */
-    @Override
-    public String getFirstHelpPageName() {
-        return null;
-    }
 }

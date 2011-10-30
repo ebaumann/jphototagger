@@ -2,6 +2,7 @@ package org.jphototagger.maintainance;
 
 import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.util.ComponentUtil;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * @author Elmar Baumann
@@ -17,9 +18,7 @@ public final class UpdateMetadataOfDirectoriesDialog extends Dialog {
     }
 
     private void setHelpPage() {
-        // Has to be localized!
-        setHelpContentsUrl("/org/jphototagger/program/resource/doc/de/contents.xml");
-        setHelpPageUrl("scan_directories.html");
+        setHelpPageUrl(Bundle.getString(UpdateMetadataOfDirectoriesDialog.class, "UpdateMetadataOfDirectoriesDialog.HelpPage"));
     }
 
     private void endDialog() {

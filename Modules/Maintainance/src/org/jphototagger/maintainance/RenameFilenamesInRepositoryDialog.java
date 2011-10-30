@@ -5,6 +5,7 @@ import org.openide.util.Lookup;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.util.ComponentUtil;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * @author Elmar Baumann
@@ -29,9 +30,7 @@ public class RenameFilenamesInRepositoryDialog extends Dialog {
     }
 
     private void setHelpPage() {
-        // Has to be localized!
-        setHelpContentsUrl("/org/jphototagger/program/resource/doc/de/contents.xml");
-        setHelpPageUrl("rename_images_in_database.html");
+        setHelpPageUrl(Bundle.getString(RenameFilenamesInRepositoryDialog.class, "RenameFilenamesInRepositoryDialog.HelpPage"));
     }
 
     private void checkClosing() {

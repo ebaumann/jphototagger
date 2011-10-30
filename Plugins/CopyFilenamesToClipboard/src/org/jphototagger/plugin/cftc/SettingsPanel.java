@@ -12,6 +12,8 @@ import javax.swing.JList;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.lib.help.HelpDisplay;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 
 /**
@@ -28,6 +30,7 @@ public class SettingsPanel extends javax.swing.JPanel {
     public SettingsPanel() {
         initComponents();
         setPersistentModelValue();
+        MnemonicUtil.setMnemonics(this);
     }
 
     private void setPersistentModelValue() {
@@ -39,6 +42,13 @@ public class SettingsPanel extends javax.swing.JPanel {
             }
 
             comboBoxDelimiter.setSelectedItem(delim);
+        }
+    }
+
+    private void showHelp() {
+        HelpDisplay helpDisplay = Lookup.getDefault().lookup(HelpDisplay.class);
+        if (helpDisplay != null) {
+            helpDisplay.showHelp("/org/jphototagger/plugin/cftc/help/index.html");
         }
     }
 
@@ -105,12 +115,12 @@ public class SettingsPanel extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
 
         label = new javax.swing.JLabel();
         comboBoxDelimiter = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
+        buttonHelp = new javax.swing.JButton();
 
         setName("Form"); // NOI18N
 
@@ -132,6 +142,14 @@ public class SettingsPanel extends javax.swing.JPanel {
         jLabel1.setText(bundle.getString("SettingsPanel.jLabel1.text")); // NOI18N
         jLabel1.setName("jLabel1"); // NOI18N
 
+        buttonHelp.setText(bundle.getString("SettingsPanel.buttonHelp.text")); // NOI18N
+        buttonHelp.setName("buttonHelp"); // NOI18N
+        buttonHelp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonHelpActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -145,6 +163,10 @@ public class SettingsPanel extends javax.swing.JPanel {
                         .addComponent(comboBoxDelimiter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(483, Short.MAX_VALUE)
+                .addComponent(buttonHelp)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,16 +175,23 @@ public class SettingsPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(label)
                     .addComponent(comboBoxDelimiter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
+                .addComponent(buttonHelp)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addContainerGap())
         );
-    }// </editor-fold>//GEN-END:initComponents
+    }//GEN-END:initComponents
 
     private void comboBoxDelimiterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxDelimiterActionPerformed
         writeDelimiter();
     }//GEN-LAST:event_comboBoxDelimiterActionPerformed
+
+    private void buttonHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHelpActionPerformed
+        showHelp();
+    }//GEN-LAST:event_buttonHelpActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonHelp;
     private javax.swing.JComboBox comboBoxDelimiter;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel label;

@@ -45,7 +45,6 @@ public final class ExtractEmbeddedXmpAction extends AbstractAction {
     }
 
     private void setHelpPage(FileEditorDialog dlg) {
-        // Has to be localized!
-        dlg.setHelpPageUrl("import_xmp.html");
+        dlg.setHelpPageUrl(Bundle.getString(ExtractEmbeddedXmpAction.class, "ExtractEmbeddedXmpAction.HelpPage"));
     }
 }
