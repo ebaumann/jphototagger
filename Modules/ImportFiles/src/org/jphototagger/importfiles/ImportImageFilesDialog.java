@@ -63,9 +63,7 @@ public class ImportImageFilesDialog extends Dialog {
     }
 
     private void setHelpPage() {
-        // Has to be localized!
-        setHelpContentsUrl("/org/jphototagger/program/resource/doc/de/contents.xml");
-        setHelpPageUrl("import_images.html");
+        setHelpPageUrl(Bundle.getString(ImportImageFilesDialog.class, "ImportImageFilesDialog.HelpPage"));
     }
 
     private void init() {

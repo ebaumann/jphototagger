@@ -15,9 +15,9 @@ import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.DirectoryChooser;
 import org.jphototagger.lib.swing.DirectoryChooser.Option;
 import org.jphototagger.lib.swing.MessageDisplayer;
+import org.jphototagger.lib.swing.SelectRootFilesPanel;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.lib.swing.SelectRootFilesPanel;
 import org.jphototagger.program.resource.GUI;
 
 
@@ -42,9 +42,7 @@ public final class FavoritePropertiesDialog extends Dialog {
     }
 
     private void setHelpPage() {
-        // Has to be localized!
-        setHelpContentsUrl("/org/jphototagger/program/resource/doc/de/contents.xml");
-        setHelpPageUrl("mainwindow_favorites.html");
+        setHelpPageUrl(Bundle.getString(FavoritePropertiesDialog.class, "FavoritePropertiesDialog.HelpPage"));
     }
 
     private void chooseDirectory() {

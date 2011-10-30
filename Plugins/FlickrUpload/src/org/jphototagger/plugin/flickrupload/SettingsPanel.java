@@ -1,5 +1,10 @@
 package org.jphototagger.plugin.flickrupload;
 
+import org.openide.util.Lookup;
+
+import org.jphototagger.lib.help.HelpDisplay;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
+
 /**
  * @author Elmar Baumann
  */
@@ -10,6 +15,7 @@ public class SettingsPanel extends javax.swing.JPanel {
     public SettingsPanel() {
         initComponents();
         readSettings();
+        MnemonicUtil.setMnemonics(this);
     }
 
     private void deleteToken() {
@@ -22,6 +28,13 @@ public class SettingsPanel extends javax.swing.JPanel {
         checkBoxPhotoshopHeadline.setSelected(settings.isAddPhotoshopHeadline());
     }
 
+    private void showHelp() {
+        HelpDisplay helpDisplay = Lookup.getDefault().lookup(HelpDisplay.class);
+        if (helpDisplay != null) {
+            helpDisplay.showHelp("/org/jphototagger/plugin/flickrupload/help/index.html");
+        }
+    }
+
     /**
      * This method is called from within the constructor to
      * initialize the form.
@@ -30,8 +43,7 @@ public class SettingsPanel extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
 
         label = new javax.swing.JLabel();
         buttonDeleteToken = new javax.swing.JButton();
@@ -40,6 +52,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         checkBoxPhotoshopHeadline = new javax.swing.JCheckBox();
         checkBoxDcDescription = new javax.swing.JCheckBox();
         labelVersionInfo = new javax.swing.JLabel();
+        buttonHelp = new javax.swing.JButton();
 
         setName("Form"); // NOI18N
 
@@ -92,7 +105,7 @@ public class SettingsPanel extends javax.swing.JPanel {
                     .addComponent(checkBoxDcSubjects)
                     .addComponent(checkBoxPhotoshopHeadline)
                     .addComponent(checkBoxDcDescription))
-                .addContainerGap(288, Short.MAX_VALUE))
+                .addContainerGap(352, Short.MAX_VALUE))
         );
         panelXmpLayout.setVerticalGroup(
             panelXmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,6 +121,14 @@ public class SettingsPanel extends javax.swing.JPanel {
         labelVersionInfo.setText(bundle.getString("SettingsPanel.labelVersionInfo.text")); // NOI18N
         labelVersionInfo.setName("labelVersionInfo"); // NOI18N
 
+        buttonHelp.setText(bundle.getString("SettingsPanel.buttonHelp.text")); // NOI18N
+        buttonHelp.setName("buttonHelp"); // NOI18N
+        buttonHelp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonHelpActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -120,7 +141,8 @@ public class SettingsPanel extends javax.swing.JPanel {
                         .addComponent(label)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonDeleteToken))
-                    .addComponent(labelVersionInfo))
+                    .addComponent(labelVersionInfo)
+                    .addComponent(buttonHelp, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -132,11 +154,13 @@ public class SettingsPanel extends javax.swing.JPanel {
                     .addComponent(buttonDeleteToken))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelXmp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addComponent(buttonHelp)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelVersionInfo)
                 .addContainerGap())
         );
-    }// </editor-fold>//GEN-END:initComponents
+    }//GEN-END:initComponents
 
     private void buttonDeleteTokenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteTokenActionPerformed
         deleteToken();
@@ -160,8 +184,13 @@ public class SettingsPanel extends javax.swing.JPanel {
             settings.setAddDcDescription(checkBoxDcDescription.isSelected());
         }
     }//GEN-LAST:event_checkBoxDcDescriptionActionPerformed
+
+    private void buttonHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHelpActionPerformed
+        showHelp();
+    }//GEN-LAST:event_buttonHelpActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonDeleteToken;
+    private javax.swing.JButton buttonHelp;
     private javax.swing.JCheckBox checkBoxDcDescription;
     private javax.swing.JCheckBox checkBoxDcSubjects;
     private javax.swing.JCheckBox checkBoxPhotoshopHeadline;

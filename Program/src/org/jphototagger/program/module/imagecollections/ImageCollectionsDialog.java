@@ -5,8 +5,9 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.ListModel;
 
-import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.resource.GUI;
 
@@ -27,9 +28,7 @@ public final class ImageCollectionsDialog extends Dialog {
     }
 
     private void setHelpPage() {
-        // Has to be localized!
-        setHelpContentsUrl("/org/jphototagger/program/resource/doc/de/contents.xml");
-        setHelpPageUrl("collection_add_to.html");
+        setHelpPageUrl(Bundle.getString(ImageCollectionsDialog.class, "ImageCollectionsDialog.HelpPage"));
     }
 
     public boolean isCollectionSelected() {

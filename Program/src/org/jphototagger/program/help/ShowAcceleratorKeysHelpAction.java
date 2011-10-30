@@ -21,6 +21,6 @@ final class ShowAcceleratorKeysHelpAction extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        HelpBrowserDisplayer.browseHelp("accelerator_keys.html");
+        HelpBrowserDisplayer.browseHelp(Bundle.getString(ShowAcceleratorKeysHelpAction.class, "ShowAcceleratorKeysHelpAction.HelpPage"));
     }
 }

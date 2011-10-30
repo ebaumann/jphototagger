@@ -6,21 +6,22 @@ import java.awt.event.MouseEvent;
 
 import org.openide.util.Lookup;
 
+import org.jphototagger.api.storage.Persistence;
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.programs.ProgramType;
 import org.jphototagger.domain.repository.ProgramsRepository;
-import org.jphototagger.lib.swing.util.MnemonicUtil;
-import org.jphototagger.lib.swing.MessageDisplayer;
+import org.jphototagger.lib.help.HelpPageProvider;
 import org.jphototagger.lib.swing.KeyEventUtil;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.MouseEventUtil;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.module.programs.ProgramsUtil.ReorderListener;
-import org.jphototagger.api.storage.Persistence;
 
 /**
  * @author Elmar Baumann
  */
-public final class ProgramsSettingsPanel extends javax.swing.JPanel implements Persistence {
+public final class ProgramsSettingsPanel extends javax.swing.JPanel implements Persistence, HelpPageProvider {
 
     private static final long serialVersionUID = 1L;
     private final ProgramsListModel model = new ProgramsListModel(ProgramType.PROGRAM);
@@ -144,6 +145,11 @@ public final class ProgramsSettingsPanel extends javax.swing.JPanel implements P
         reorderListener.setListenToModel(false);
         ProgramsUtil.moveProgramUp(listPrograms);
         reorderListener.setListenToModel(true);
+    }
+
+    @Override
+    public String getHelpPageUrl() {
+        return Bundle.getString(ProgramsSettingsPanel.class, "ProgramsSettingsPanel.HelpPage");
     }
 
     /**

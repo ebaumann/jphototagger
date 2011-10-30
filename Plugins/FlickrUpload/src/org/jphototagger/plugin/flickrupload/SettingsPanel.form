@@ -29,6 +29,7 @@
                       <Component id="buttonDeleteToken" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="labelVersionInfo" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="buttonHelp" alignment="1" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -44,7 +45,9 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="panelXmp" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="31" max="32767" attributes="0"/>
+              <Component id="buttonHelp" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="labelVersionInfo" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -93,7 +96,7 @@
                       <Component id="checkBoxPhotoshopHeadline" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="checkBoxDcDescription" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="288" max="32767" attributes="0"/>
+                  <EmptySpace pref="352" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -153,6 +156,17 @@
         </Property>
         <Property name="name" type="java.lang.String" value="labelVersionInfo" noResource="true"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="buttonHelp">
+      <Properties>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="org/jphototagger/plugin/flickrupload/Bundle.properties" key="SettingsPanel.buttonHelp.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
+        <Property name="name" type="java.lang.String" value="buttonHelp" noResource="true"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonHelpActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

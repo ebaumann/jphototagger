@@ -12,12 +12,13 @@ import javax.swing.JButton;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
-import org.jphototagger.lib.swing.util.TabbedPaneUtil;
+import org.jphototagger.api.storage.Persistence;
+import org.jphototagger.lib.help.HelpPageProvider;
 import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.util.TabbedPaneUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.api.storage.Persistence;
 
 /**
  * Modaler Dialog für Anwendungseinstellungen.
@@ -58,7 +59,6 @@ public final class SettingsDialog extends Dialog {
         initPersistentPanels();
         readProperties();
         TabbedPaneUtil.setMnemonics(tabbedPane);
-        setHelpContentsUrl("/org/jphototagger/program/resource/doc/de/contents.xml");
         initSearchPanel();
     }
 
@@ -77,14 +77,15 @@ public final class SettingsDialog extends Dialog {
             tabOfIndex.put(indexOfTab.get(tab), tab);
         }
 
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(0), "settings_programs.html");
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(1), "settings_thumbnails.html");
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(2), "settings_tasks.html");
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(3), "settings_performance.html");
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(4), "settings_file_excludepattern.html");
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(5), "settings_misc.html");
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(6), "settings_actions.html");
-        helpUrlOfComponent.put(tabbedPane.getComponentAt(7), "settings_plugins.html");
+        for (int index = 0; index < tabbedPane.getTabCount(); index++) {
+            Component component = tabbedPane.getComponentAt(index);
+            if (component instanceof HelpPageProvider) {
+                HelpPageProvider helpPageProvider = (HelpPageProvider) component;
+                helpUrlOfComponent.put(component, helpPageProvider.getHelpPageUrl());
+            } else {
+                helpUrlOfComponent.put(component, "");
+            }
+        }
     }
 
     private void initPersistentPanels() {

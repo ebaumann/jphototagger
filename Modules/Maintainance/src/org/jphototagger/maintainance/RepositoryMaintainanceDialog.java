@@ -4,10 +4,10 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesHints;
-import org.jphototagger.lib.swing.util.ComponentUtil;
-import org.jphototagger.lib.swing.util.TabbedPaneUtil;
 import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.MessageDisplayer;
+import org.jphototagger.lib.swing.util.ComponentUtil;
+import org.jphototagger.lib.swing.util.TabbedPaneUtil;
 import org.jphototagger.lib.util.Bundle;
 
 /**
@@ -25,9 +25,7 @@ public final class RepositoryMaintainanceDialog extends Dialog {
     }
 
     private void setHelpPage() {
-        // Has to be localized!
-        setHelpContentsUrl("/org/jphototagger/program/resource/doc/de/contents.xml");
-        setHelpPageUrl("maintain_database.html");
+        setHelpPageUrl(Bundle.getString(RepositoryMaintainanceDialog.class, "RepositoryMaintainanceDialog.HelpPage"));
     }
 
     @Override

@@ -21,7 +21,6 @@ public final class AdvancedSearchDialog extends Dialog implements NameListener {
 
     private void postInitComponents() {
         panel.addNameListener(this);
-        setHelpContentsUrl("/org/jphototagger/program/resource/doc/de/contents.xml");
     }
 
     @Override
@@ -46,7 +45,7 @@ public final class AdvancedSearchDialog extends Dialog implements NameListener {
 
     @Override
     protected void help() {
-        help("advanced_search.html");
+        help(Bundle.getString(AdvancedSearchDialog.class, "AdvancedSearchDialog.HelpPage"));
     }
 
     @Override

@@ -31,6 +31,11 @@
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace pref="483" max="32767" attributes="0"/>
+              <Component id="buttonHelp" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -41,7 +46,9 @@
                   <Component id="label" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="comboBoxDelimiter" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="115" max="32767" attributes="0"/>
+              <Component id="buttonHelp" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -82,6 +89,17 @@
         </Property>
         <Property name="name" type="java.lang.String" value="jLabel1" noResource="true"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="buttonHelp">
+      <Properties>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="org/jphototagger/plugin/cftc/Bundle.properties" key="SettingsPanel.buttonHelp.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
+        <Property name="name" type="java.lang.String" value="buttonHelp" noResource="true"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonHelpActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

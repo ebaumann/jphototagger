@@ -9,17 +9,17 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.w3c.dom.DOMException;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
 import org.xml.sax.EntityResolver;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
+
+import org.w3c.dom.DOMException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 /**
  * Reads the index file of the application's help: a XML file wich validates
@@ -29,6 +29,23 @@ import org.xml.sax.SAXParseException;
  */
 public final class HelpIndexParser {
 
+    private final String contentsUrl;
+    private final String contentsUrlPath;
+
+    public HelpIndexParser(String contentsUrl) {
+        if (contentsUrl == null) {
+            throw new NullPointerException("contentsUrl == null");
+        }
+
+        this.contentsUrl = contentsUrl;
+        int lastIndex = contentsUrl.lastIndexOf('/');
+        if (lastIndex > 0) {
+            contentsUrlPath = contentsUrl.substring(0, lastIndex);
+        } else {
+            contentsUrlPath = "";
+        }
+    }
+
     /**
      * Reads the index file from an input stream and returns an the root node of
      * the index tree structure.
@@ -36,7 +53,7 @@ public final class HelpIndexParser {
      * @param  is  input stream
      * @return help root node of the index or null when errors occured
      */
-    public static HelpNode parse(InputStream is) {
+    public HelpNode parse(InputStream is) {
         if (is == null) {
             throw new NullPointerException("is == null");
         }
@@ -57,7 +74,7 @@ public final class HelpIndexParser {
         return rootNode;
     }
 
-    private static HelpNode getTree(Document document) throws DOMException {
+    private HelpNode getTree(Document document) throws DOMException {
         HelpNode rootNode = new HelpNode();
         NodeList docNodes = document.getElementsByTagName("helpindex").item(0).getChildNodes();
         int length = docNodes.getLength();
@@ -76,7 +93,7 @@ public final class HelpIndexParser {
         return rootNode;
     }
 
-    private static void parseNode(Element section, HelpNode rootNode) {
+    private void parseNode(Element section, HelpNode rootNode) {
         HelpNode helpNode = new HelpNode();
         NodeList title = section.getElementsByTagName("title");
 
@@ -96,18 +113,23 @@ public final class HelpIndexParser {
         rootNode.addNode(helpNode);
     }
 
-    private static HelpPage getPage(Element page) throws DOMException {
+    private HelpPage getPage(Element page) throws DOMException {
         HelpPage helpPage = new HelpPage();
         NodeList url = page.getElementsByTagName("url");
         NodeList title = page.getElementsByTagName("title");
+        String urlString = url.item(0).getFirstChild().getNodeValue().trim();
 
-        helpPage.setUrl(url.item(0).getFirstChild().getNodeValue().trim());
+        if (!urlString.startsWith(contentsUrlPath)) {
+            urlString = contentsUrlPath + '/' + urlString;
+        }
+
+        helpPage.setUrl(urlString);
         helpPage.setTitle(title.item(0).getFirstChild().getNodeValue().trim());
 
         return helpPage;
     }
 
-    private static DocumentBuilderFactory getDocBuilderFactory() throws ParserConfigurationException {
+    private DocumentBuilderFactory getDocBuilderFactory() throws ParserConfigurationException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
         factory.setFeature("http://xml.org/sax/features/validation", true);
@@ -115,7 +137,7 @@ public final class HelpIndexParser {
         return factory;
     }
 
-    private static DocumentBuilder getDocBuilder(DocumentBuilderFactory factory) throws ParserConfigurationException {
+    private DocumentBuilder getDocBuilder(DocumentBuilderFactory factory) throws ParserConfigurationException {
         DocumentBuilder documentBuilder = factory.newDocumentBuilder();
 
         setEntityResolver(documentBuilder);
@@ -124,7 +146,7 @@ public final class HelpIndexParser {
         return documentBuilder;
     }
 
-    private static void setEntityResolver(DocumentBuilder documentBuilder) {
+    private void setEntityResolver(DocumentBuilder documentBuilder) {
         documentBuilder.setEntityResolver(new EntityResolver() {
 
             @Override
@@ -139,7 +161,7 @@ public final class HelpIndexParser {
         });
     }
 
-    private static void setErrorHandler(DocumentBuilder documentBuilder) {
+    private void setErrorHandler(DocumentBuilder documentBuilder) {
         documentBuilder.setErrorHandler(new ErrorHandler() {
 
             @Override
@@ -156,8 +178,5 @@ public final class HelpIndexParser {
                 throw exception;
             }
         });
-    }
-
-    private HelpIndexParser() {
     }
 }

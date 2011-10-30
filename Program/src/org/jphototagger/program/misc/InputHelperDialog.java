@@ -5,11 +5,12 @@ import javax.swing.ListModel;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
-import org.jphototagger.lib.swing.util.TabbedPaneUtil;
 import org.jphototagger.lib.swing.Dialog;
-import org.jphototagger.program.resource.GUI;
+import org.jphototagger.lib.swing.util.TabbedPaneUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.module.keywords.KeywordsPanel;
 import org.jphototagger.program.module.metadatatemplates.MetaDataTemplatesPanel;
+import org.jphototagger.program.resource.GUI;
 
 /**
  * Dialog for input assistance.
@@ -40,9 +41,7 @@ public class InputHelperDialog extends Dialog {
     }
 
     private void setHelpPage() {
-        // Has to be localized!
-        setHelpContentsUrl("/org/jphototagger/program/resource/doc/de/contents.xml");
-        setHelpPageUrl("input_helpers.html");
+        setHelpPageUrl(Bundle.getString(InputHelperDialog.class, "InputHelperDialog.HelpPage"));
     }
 
     public void setModelKeywords(ListModel model) {

@@ -14,12 +14,13 @@ import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.storage.Persistence;
 import org.jphototagger.domain.DomainPreferencesKeys;
 import org.jphototagger.domain.repository.AutoscanDirectoriesRepository;
+import org.jphototagger.lib.help.HelpPageProvider;
 import org.jphototagger.lib.swing.DirectoryChooser;
 import org.jphototagger.lib.swing.DirectoryChooser.Option;
 import org.jphototagger.lib.swing.MessageDisplayer;
+import org.jphototagger.lib.swing.SelectRootFilesPanel;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.lib.swing.SelectRootFilesPanel;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.program.tasks.ScheduledTasks;
@@ -27,7 +28,7 @@ import org.jphototagger.program.tasks.ScheduledTasks;
 /**
  * @author Elmar Baumann
  */
-public final class ScheduledTasksSettingsPanel extends javax.swing.JPanel implements Persistence {
+public final class ScheduledTasksSettingsPanel extends javax.swing.JPanel implements Persistence, HelpPageProvider {
 
     private static final long serialVersionUID = 1L;
     private static final String KEY_LAST_SELECTED_AUTOSCAN_DIRECTORY = "UserSettingsDialog.keyLastSelectedAutoscanDirectory";
@@ -182,6 +183,11 @@ public final class ScheduledTasksSettingsPanel extends javax.swing.JPanel implem
 
     public JButton getButtonScheduledTasks() {
         return buttonScheduledTasks;
+    }
+
+    @Override
+    public String getHelpPageUrl() {
+        return Bundle.getString(ScheduledTasksSettingsPanel.class, "ScheduledTasksSettingsPanel.HelpPage");
     }
 
     /**

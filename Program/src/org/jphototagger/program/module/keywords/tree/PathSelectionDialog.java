@@ -55,7 +55,6 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
     }
 
     private void postInitComponents() {
-        setHelpContentsUrl("/org/jphototagger/program/resource/doc/de/contents.xml");
         list.addListSelectionListener(this);
 
         if (mode.equals(Mode.DISTINCT_ELEMENTS)) {

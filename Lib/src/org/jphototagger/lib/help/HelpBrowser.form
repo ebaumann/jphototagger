@@ -28,14 +28,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="splitPane" alignment="1" pref="573" max="32767" attributes="0"/>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="buttonPrevious" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="buttonNext" min="-2" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
+              <Component id="splitPane" pref="573" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -45,12 +38,7 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="splitPane" pref="458" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="buttonNext" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="buttonPrevious" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -160,37 +148,5 @@
         </Container>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="buttonPrevious">
-      <Properties>
-        <Property name="mnemonic" type="int" value="122"/>
-        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/lib/help/Bundle.properties" key="HelpBrowser.buttonPrevious.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-        </Property>
-        <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/lib/help/Bundle.properties" key="HelpBrowser.buttonPrevious.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-        </Property>
-        <Property name="enabled" type="boolean" value="false"/>
-        <Property name="name" type="java.lang.String" value="buttonPrevious" noResource="true"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonPreviousActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="buttonNext">
-      <Properties>
-        <Property name="mnemonic" type="int" value="118"/>
-        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/lib/help/Bundle.properties" key="HelpBrowser.buttonNext.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-        </Property>
-        <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/lib/help/Bundle.properties" key="HelpBrowser.buttonNext.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-        </Property>
-        <Property name="enabled" type="boolean" value="false"/>
-        <Property name="name" type="java.lang.String" value="buttonNext" noResource="true"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonNextActionPerformed"/>
-      </Events>
-    </Component>
   </SubComponents>
 </Form>

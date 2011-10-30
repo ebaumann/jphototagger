@@ -13,9 +13,8 @@ import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 import javax.swing.plaf.FontUIResource;
 
-import org.jphototagger.lib.swing.util.LookAndFeelUtil;
-import org.jphototagger.lib.help.HelpBrowser;
 import org.jphototagger.lib.swing.IconUtil;
+import org.jphototagger.lib.swing.util.LookAndFeelUtil;
 import org.jphototagger.lib.util.Bundle;
 
 /**
@@ -159,11 +158,6 @@ public final class AppLookAndFeel {
         LookAndFeelUtil.setSystemLookAndFeel();
         setFonts();
         setUiColors();
-        setHelp();
-    }
-
-    private static void setHelp() {
-        HelpBrowser.INSTANCE.setIconImages(getAppIcons());
     }
 
     private static void setUiColors() {

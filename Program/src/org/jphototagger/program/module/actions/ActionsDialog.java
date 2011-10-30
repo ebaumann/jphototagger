@@ -6,6 +6,7 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.domain.repository.event.programs.ProgramInsertedEvent;
 import org.jphototagger.domain.repository.event.programs.ProgramUpdatedEvent;
 import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
 
 /**
@@ -30,9 +31,7 @@ public final class ActionsDialog extends Dialog {
     }
 
     private void setHelpPage() {
-        // Has to be localized!
-        setHelpContentsUrl("/org/jphototagger/program/resource/doc/de/contents.xml");
-        setHelpPageUrl("dialog_actions.html");
+        setHelpPageUrl(Bundle.getString(ActionsDialog.class, "ActionsDialog.HelpPage"));
     }
 
     public ActionsPanel getPanelActions() {

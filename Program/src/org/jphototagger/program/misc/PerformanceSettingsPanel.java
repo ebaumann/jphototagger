@@ -10,13 +10,15 @@ import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.storage.Persistence;
 import org.jphototagger.domain.DomainPreferencesKeys;
 import org.jphototagger.image.ImagePreferencesKeys;
+import org.jphototagger.lib.help.HelpPageProvider;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.settings.AppPreferencesKeys;
 
 /**
  * @author Elmar Baumann
  */
-public final class PerformanceSettingsPanel extends javax.swing.JPanel implements Persistence {
+public final class PerformanceSettingsPanel extends javax.swing.JPanel implements Persistence, HelpPageProvider {
 
     private static final long serialVersionUID = 1L;
 
@@ -154,6 +156,11 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
 
     @Override
     public void persist() {}
+
+    @Override
+    public String getHelpPageUrl() {
+        return Bundle.getString(PerformanceSettingsPanel.class, "PerformanceSettingsPanel.HelpPage");
+    }
 
     /**
      * This method is called from within the constructor to

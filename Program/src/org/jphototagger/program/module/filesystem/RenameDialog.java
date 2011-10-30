@@ -17,13 +17,12 @@ import javax.swing.event.ListDataListener;
 import javax.swing.filechooser.FileSystemView;
 
 import org.bushe.swing.event.EventBus;
-
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.file.event.FileRenamedEvent;
-import org.jphototagger.domain.thumbnails.ThumbnailProvider;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesHints;
 import org.jphototagger.domain.repository.RenameTemplatesRepository;
@@ -32,11 +31,12 @@ import org.jphototagger.domain.repository.event.renametemplates.RenameTemplateDe
 import org.jphototagger.domain.repository.event.renametemplates.RenameTemplateInsertedEvent;
 import org.jphototagger.domain.repository.event.renametemplates.RenameTemplateUpdatedEvent;
 import org.jphototagger.domain.templates.RenameTemplate;
+import org.jphototagger.domain.thumbnails.ThumbnailProvider;
 import org.jphototagger.image.ImageFileType;
-import org.jphototagger.lib.swing.util.ComboBoxUtil;
-import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.MessageDisplayer;
+import org.jphototagger.lib.swing.util.ComboBoxUtil;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.xmp.XmpMetadata;
@@ -92,9 +92,7 @@ public final class RenameDialog extends Dialog implements ListDataListener {
     }
 
     private void setHelpPage() {
-        // Has to be localized!
-        setHelpContentsUrl("/org/jphototagger/program/resource/doc/de/contents.xml");
-        setHelpPageUrl("rename_images.html");
+        setHelpPageUrl(Bundle.getString(RenameDialog.class, "RenameDialog.HelpPage"));
     }
 
     /**

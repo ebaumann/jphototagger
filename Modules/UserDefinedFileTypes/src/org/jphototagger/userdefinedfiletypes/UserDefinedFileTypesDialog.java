@@ -3,6 +3,7 @@ package org.jphototagger.userdefinedfiletypes;
 import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * @author Elmar Baumann
@@ -23,9 +24,7 @@ public class UserDefinedFileTypesDialog extends Dialog {
     }
 
     private void setHelpPage() {
-        // Has to be localized!
-        setHelpContentsUrl("/org/jphototagger/program/resource/doc/de/contents.xml");
-        setHelpPageUrl("user_defined_file_type_edit.html");
+        setHelpPageUrl(Bundle.getString(UserDefinedFileTypesDialog.class, "UserDefinedFileTypesDialog.HelpPage"));
     }
 
     /** This method is called from within the constructor to

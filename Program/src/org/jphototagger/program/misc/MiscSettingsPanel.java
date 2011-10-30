@@ -24,6 +24,7 @@ import org.jphototagger.api.windows.OptionPageProvider;
 import org.jphototagger.domain.repository.FileRepositoryProvider;
 import org.jphototagger.lib.api.LayerUtil;
 import org.jphototagger.lib.api.PositionProviderAscendingComparator;
+import org.jphototagger.lib.help.HelpPageProvider;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.swing.DirectoryChooser;
 import org.jphototagger.lib.swing.DirectoryChooser.Option;
@@ -36,7 +37,7 @@ import org.jphototagger.program.settings.AppPreferencesKeys;
 /**
  * @author Elmar Baumann
  */
-public final class MiscSettingsPanel extends javax.swing.JPanel implements Persistence {
+public final class MiscSettingsPanel extends javax.swing.JPanel implements Persistence, HelpPageProvider {
 
     private static final long serialVersionUID = 1L;
     private static final String PREFERENCES_KEY_TABBED_PANE = "MiscSettingsPanel.TabbedPane";
@@ -255,6 +256,11 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         if (icon != null) {
             tabbedPane.setIconAt(tabbedPane.indexOfComponent(component), icon);
         }
+    }
+
+    @Override
+    public String getHelpPageUrl() {
+        return Bundle.getString(MiscSettingsPanel.class, "MiscSettingsPanel.HelpPage");
     }
 
     /**

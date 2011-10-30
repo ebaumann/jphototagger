@@ -25,18 +25,19 @@ import org.bushe.swing.event.EventBus;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
-import org.jphototagger.domain.thumbnails.ThumbnailProvider;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessedEvent;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessingFinishedEvent;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessingStartedEvent;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessorPlugin;
 import org.jphototagger.api.progress.MainWindowProgressBarProvider;
 import org.jphototagger.api.progress.ProgressEvent;
+import org.jphototagger.domain.thumbnails.ThumbnailProvider;
 import org.jphototagger.image.util.ImageUtil;
-import org.jphototagger.lib.swing.util.ComponentUtil;
+import org.jphototagger.lib.help.HelpContentProvider;
 import org.jphototagger.lib.io.IoUtil;
 import org.jphototagger.lib.plugin.AbstractFileProcessorPlugin;
 import org.jphototagger.lib.swing.IconUtil;
+import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.plugin.flickrupload.FlickrImageInfoPanel.ImageInfo;
 import org.jphototagger.xmp.XmpProperties;
@@ -45,10 +46,10 @@ import org.jphototagger.xmp.XmpProperties;
  * @author Elmar Baumann
  */
 @ServiceProvider(service = FileProcessorPlugin.class)
-public final class FlickrUpload extends AbstractFileProcessorPlugin implements Serializable {
+public final class FlickrUpload extends AbstractFileProcessorPlugin implements Serializable, HelpContentProvider {
 
     private static final long serialVersionUID = 1L;
-    private static final Icon icon = IconUtil.getImageIcon("/org/jphototagger/plugin/flickrupload/flickr.png");
+    private static final Icon icon = IconUtil.getImageIcon(FlickrUpload.class, "flickr.png");
     private static final String PROGRESS_BAR_STRING = Bundle.getString(FlickrUpload.class, "FlickrUpload.ProgressBar.String");
     private final MainWindowProgressBarProvider progressBarProvider = Lookup.getDefault().lookup(MainWindowProgressBarProvider.class);
 
@@ -68,13 +69,8 @@ public final class FlickrUpload extends AbstractFileProcessorPlugin implements S
     }
 
     @Override
-    public String getHelpContentsPath() {
+    public String getHelpContentUrl() {
         return "/org/jphototagger/plugin/flickrupload/help/contents.xml";
-    }
-
-    @Override
-    public String getFirstHelpPageName() {
-        return "index.html";
     }
 
     @Override
@@ -151,25 +147,11 @@ public final class FlickrUpload extends AbstractFileProcessorPlugin implements S
         }
 
         private ProgressEvent createStartProgressEvent(int maximum) {
-            return new ProgressEvent.Builder()
-                    .source(pBarOwner)
-                    .minimum(0)
-                    .maximum(maximum)
-                    .value(0)
-                    .stringPainted(true)
-                    .stringToPaint(PROGRESS_BAR_STRING)
-                    .build();
+            return new ProgressEvent.Builder().source(pBarOwner).minimum(0).maximum(maximum).value(0).stringPainted(true).stringToPaint(PROGRESS_BAR_STRING).build();
         }
 
         private ProgressEvent createPerformedProgressEvent(int maximum, int value) {
-            return new ProgressEvent.Builder()
-                    .source(pBarOwner)
-                    .minimum(0)
-                    .maximum(maximum)
-                    .value(value)
-                    .stringPainted(true)
-                    .stringToPaint(PROGRESS_BAR_STRING)
-                    .build();
+            return new ProgressEvent.Builder().source(pBarOwner).minimum(0).maximum(maximum).value(value).stringPainted(true).stringToPaint(PROGRESS_BAR_STRING).build();
         }
 
         private void uploadFinished(int countOfImagesToUpload, int countOfUploadedImages, boolean success) throws HeadlessException {

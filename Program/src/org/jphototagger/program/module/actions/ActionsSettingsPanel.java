@@ -14,6 +14,7 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.api.storage.Persistence;
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.programs.ProgramType;
 import org.jphototagger.domain.repository.ActionsAfterRepoUpdatesRepository;
@@ -21,19 +22,19 @@ import org.jphototagger.domain.repository.ProgramsRepository;
 import org.jphototagger.domain.repository.Repository;
 import org.jphototagger.domain.repository.event.programs.ProgramDeletedEvent;
 import org.jphototagger.domain.repository.event.programs.ProgramInsertedEvent;
+import org.jphototagger.lib.help.HelpPageProvider;
+import org.jphototagger.lib.swing.KeyEventUtil;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
-import org.jphototagger.lib.swing.MessageDisplayer;
-import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.program.module.programs.SelectProgramDialog;
-import org.jphototagger.api.storage.Persistence;
+import org.jphototagger.program.settings.AppPreferencesKeys;
 
 /**
  * @author Elmar Baumann
  */
-public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSelectionListener, Persistence {
+public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSelectionListener, Persistence, HelpPageProvider {
 
     private static final long serialVersionUID = 1L;
     private final ActionsAfterSavesOrUpdatesInRepositoryListModel model = new ActionsAfterSavesOrUpdatesInRepositoryListModel();
@@ -252,6 +253,11 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
         if (program.isAction()) {
             setEnabledAddAction();
         }
+    }
+
+    @Override
+    public String getHelpPageUrl() {
+        return Bundle.getString(ActionsSettingsPanel.class, "ActionsSettingsPanel.HelpPage");
     }
 
     /**

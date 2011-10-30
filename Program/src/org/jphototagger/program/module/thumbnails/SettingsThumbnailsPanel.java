@@ -14,19 +14,21 @@ import javax.swing.JRadioButton;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.domain.thumbnails.ExternalThumbnailCreationCommand;
 import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.api.storage.Persistence;
+import org.jphototagger.domain.thumbnails.ExternalThumbnailCreationCommand;
 import org.jphototagger.image.ImagePreferencesKeys;
 import org.jphototagger.image.thumbnail.ThumbnailCreationStrategy;
 import org.jphototagger.image.thumbnail.ThumbnailCreationStrategyProvider;
+import org.jphototagger.lib.help.HelpPageProvider;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.settings.AppPreferencesKeys;
-import org.jphototagger.api.storage.Persistence;
 
 /**
  * @author Elmar Baumann
  */
-public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements Persistence {
+public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements Persistence, HelpPageProvider {
 
     private static final long serialVersionUID = 1L;
     private JPopupMenu createExternalThumbnailCreatorPopupMenu;
@@ -120,6 +122,11 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
         }
 
         return popupMenu;
+    }
+
+    @Override
+    public String getHelpPageUrl() {
+        return Bundle.getString(SettingsThumbnailDimensionsPanel.class, "SettingsThumbnailDimensionsPanel.HelpPage");
     }
 
     private class ExternalThumbnailCreatorAction extends AbstractAction {

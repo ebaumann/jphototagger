@@ -47,9 +47,7 @@ public class EditUserDefinedFileFilterDialog extends Dialog {
     }
 
     private void setHelpPage() {
-        // Has to be localized!
-        setHelpContentsUrl("/org/jphototagger/program/resource/doc/de/contents.xml");
-        setHelpPageUrl("user_defined_file_filter_edit.html");
+        setHelpPageUrl(Bundle.getString(EditUserDefinedFileFilterDialog.class, "EditUserDefinedFileFilterDialog.HelpPage"));
     }
 
     public UserDefinedFileFilter getFilter() {

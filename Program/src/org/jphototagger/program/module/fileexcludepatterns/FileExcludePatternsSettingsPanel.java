@@ -15,12 +15,15 @@ import org.jphototagger.api.storage.Persistence;
 import org.jphototagger.domain.DomainPreferencesKeys;
 import org.jphototagger.domain.repository.FileExcludePatternsRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.help.HelpPageProvider;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * @author Elmar Baumann
  */
-public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel implements ProgressListener, Persistence, ListSelectionListener {
+public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
+    implements ProgressListener, Persistence, ListSelectionListener, HelpPageProvider {
 
     private static final long serialVersionUID = 1L;
     private final FileExcludePatternsListModel model = new FileExcludePatternsListModel();
@@ -204,6 +207,11 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel i
         if (!evt.getValueIsAdjusting()) {
             setEnabled();
         }
+    }
+
+    @Override
+    public String getHelpPageUrl() {
+        return Bundle.getString(FileExcludePatternsSettingsPanel.class, "FileExcludePatternsSettingsPanel.HelpPage");
     }
 
     /**

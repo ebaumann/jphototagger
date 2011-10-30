@@ -1,6 +1,5 @@
 package org.jphototagger.lib.swing;
 
-import org.jphototagger.lib.help.HelpBrowser;
 import java.awt.Component;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
@@ -17,6 +16,7 @@ import javax.swing.KeyStroke;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.lib.help.HelpDisplay;
 
 /**
  * Dialog which can close by pressing the ESC key and showing the Help dialog
@@ -29,11 +29,9 @@ public class Dialog extends JDialog implements WindowListener {
     private static final long serialVersionUID = 1L;
     private transient ActionListener actionListenerEscape;
     private transient ActionListener actionListenerHelp;
-    private String helpContentsUrl = "";
     private String helpPageUrl;
     private String storageKey;
     private boolean ignoreSizeAndLocation;
-    private transient final HelpBrowser help = HelpBrowser.INSTANCE;
 
     public Dialog(Frame owner, boolean modal) {
         super(owner, modal);
@@ -59,20 +57,6 @@ public class Dialog extends JDialog implements WindowListener {
         createActionListener();
         registerKeyboardActions();
         addWindowListener(this);
-    }
-
-    /**
-     * Sets the contents URL of the help and must be called <em>before</em>
-     * {@code #help(java.lang.String)}.
-     *
-     * @param url  contents URL
-     */
-    protected void setHelpContentsUrl(String url) {
-        if (url == null) {
-            throw new NullPointerException("url == null");
-        }
-
-        helpContentsUrl = url;
     }
 
     /**
@@ -102,29 +86,15 @@ public class Dialog extends JDialog implements WindowListener {
         }
     }
 
-    /**
-     * Shows the help dialog with an specific URL. Previous to this call once
-     * {@code #setHelpContentsUrl(java.lang.String)} have to be called.
-     *
-     * The dialog is an instance of {@code HelpBrowser}.
-     *
-     * @param url  URL to display
-     */
     protected void help(String url) {
         if (url == null) {
             throw new NullPointerException("url == null");
         }
 
-        if ((help.getContentsUrl() == null) || !help.getContentsUrl().equals(helpContentsUrl)) {
-            help.setContentsUrl(helpContentsUrl);
-        }
+        HelpDisplay helpDisplay = Lookup.getDefault().lookup(HelpDisplay.class);
 
-        if (help.isVisible()) {
-            help.showUrl(url);
-            help.toFront();
-        } else {
-            help.setDisplayUrl(url);
-            help.setVisible(true);
+        if (helpDisplay != null) {
+            helpDisplay.showHelp(url);
         }
     }
 
