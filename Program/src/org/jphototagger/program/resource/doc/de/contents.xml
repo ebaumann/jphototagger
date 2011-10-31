@@ -301,6 +301,13 @@
         </page>
     </node>
     <node>
+        <title>Module</title>
+        <page>
+            <url>modules.html</url>
+            <title>Module: Einführung</title>
+        </page>
+    </node>
+    <node>
         <title>Tipps</title>
         <page>
             <url>tip_use_help.html</url>
