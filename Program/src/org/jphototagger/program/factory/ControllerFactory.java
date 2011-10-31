@@ -5,7 +5,7 @@ import java.util.List;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.logging.ErrorLogHandler;
-import org.jphototagger.program.misc.DisplayAboutJPhotoTaggerAction;
+import org.jphototagger.program.help.ShowAboutJPhotoTaggerAction;
 import org.jphototagger.program.misc.GoToController;
 import org.jphototagger.program.misc.InputHelperDialog;
 import org.jphototagger.program.misc.MaximumOneTreeOrListItemSelectedController;
@@ -141,7 +141,7 @@ public final class ControllerFactory {
         support.add(new MenuItemEnablerController());
         support.add(new ErrorLogHandler());
         support.add(new GoToController());
-        support.add(new DisplayAboutJPhotoTaggerAction());
+        support.add(new ShowAboutJPhotoTaggerAction());
         support.add(new ShowUserSettingsDialogAction());
         support.add(new ShowAdvancedSearchDialogAction());
         support.add(new EditKeywordSynonymsController());

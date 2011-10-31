@@ -20,9 +20,4 @@ public final class MenuLayer extends MainWindowMenuProviderAdapter {
     public Collection<? extends MenuItemProvider> getWindowMenuItems() {
         return Arrays.asList(new MenuItemProviderImpl(new ShowInputHelperDialogAction(), 100, false));
     }
-
-    @Override
-    public Collection<? extends MenuItemProvider> getHelpMenuItems() {
-        return Arrays.asList(new MenuItemProviderImpl(new DisplayAboutJPhotoTaggerAction(), 10000, true));
-    }
 }

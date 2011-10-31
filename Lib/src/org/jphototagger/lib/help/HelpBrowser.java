@@ -1,9 +1,12 @@
 package org.jphototagger.lib.help;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.logging.Level;
@@ -11,23 +14,36 @@ import java.util.logging.Logger;
 
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.ImageIcon;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JTree;
 import javax.swing.KeyStroke;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
+import org.jdesktop.observablecollections.ObservableCollections;
+import org.jdesktop.observablecollections.ObservableList;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.util.StringUtil;
 
 /**
  * Browser for HTML help files.
@@ -46,7 +62,10 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
     private String displayUrl;
     private boolean settingPath;
     private final HelpNode rootNode;
+    private final HelpSearch helpSearch;
     private String titlePostfix = Bundle.getString(HelpBrowser.class, "HelpBrowser.TitlePostfix");
+    private HelpPage selectedFoundPage;
+    private final ObservableList<HelpPage> foundPages = ObservableCollections.observableList(new ArrayList<HelpPage>());
 
     public HelpBrowser(HelpNode rootNode) {
         super(ComponentUtil.findFrameWithIcon());
@@ -54,6 +73,7 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
             throw new NullPointerException("rootNode == null");
         }
         this.rootNode = rootNode;
+        this.helpSearch = new HelpSearch(rootNode);
         initComponents();
         postInitComponents();
         tree.setModel(new HelpContentsTreeModel(rootNode));
@@ -66,6 +86,11 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
         MnemonicUtil.setMnemonics(this);
         MnemonicUtil.setMnemonics(popupMenuEditorPane);
+        initPreviousNextShortcuts();
+        new HeplpSearchInit().start();
+    }
+
+    private void initPreviousNextShortcuts() {
         ActionMap actionMap = getRootPane().getActionMap();
         InputMap inputMap = getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, KeyEvent.ALT_DOWN_MASK), "nexturl");
@@ -301,6 +326,113 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         }
     }
 
+    public HelpPage getSelectedFoundPage() {
+        return selectedFoundPage;
+    }
+
+    public void setSelectedFoundPage(HelpPage selectedFoundPage) {
+        this.selectedFoundPage = selectedFoundPage;
+        if (selectedFoundPage != null) {
+            setDisplayUrl(selectedFoundPage.getUrl());
+            selectDisplayUrl();
+        }
+    }
+
+    public ObservableList<HelpPage> getFoundPages() {
+        return foundPages;
+    }
+
+    private class HeplpSearchInit extends Thread {
+
+        private HeplpSearchInit() {
+            super("JPhotoTagger: Init Help Search");
+        }
+
+        @Override
+        public void run() {
+            final int index = tabbedPaneContents.indexOfComponent(panelSearch);
+            tabbedPaneContents.setEnabledAt(index, false);
+            helpSearch.startIndexing();
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
+                @Override
+                public void run() {
+                    textFieldSearch.getDocument().addDocumentListener(new SearchTextFieldListener());
+                    tabbedPaneContents.setEnabledAt(index, true);
+                }
+            });
+        }
+    }
+
+    private class SearchTextFieldListener implements DocumentListener{
+
+        @Override
+        public void insertUpdate(DocumentEvent e) {
+            search();
+        }
+
+        @Override
+        public void removeUpdate(DocumentEvent e) {
+            search();
+        }
+
+        @Override
+        public void changedUpdate(DocumentEvent e) {
+            search();
+        }
+    }
+
+    private void search() {
+        String searchText = textFieldSearch.getText();
+        foundPages.clear();
+        if (StringUtil.hasContent(searchText)) {
+            List<HelpPage> foundHelpPages = helpSearch.findHelpPagesMatching(searchText);
+            foundPages.addAll(foundHelpPages);
+        }
+    }
+
+    private static class HelpContentsTreeCellRenderer extends DefaultTreeCellRenderer {
+
+        private static final ImageIcon ICON_SECTION_COLLAPSED = IconUtil.getImageIcon(HelpContentsTreeCellRenderer.class, "help_section_collapsed.png");
+        private static final ImageIcon ICON_SECTION_EXPANDED = IconUtil.getImageIcon(HelpContentsTreeCellRenderer.class, "help_section_expanded.png");
+        private static final ImageIcon ICON_PAGE = IconUtil.getImageIcon(HelpContentsTreeCellRenderer.class, "help_page.png");
+        private static final long serialVersionUID = 1L;
+
+        @Override
+        public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {
+            super.getTreeCellRendererComponent(tree, value, sel, expanded, false, row, hasFocus);
+
+            if (value instanceof HelpPage) {
+                setIcon(ICON_PAGE);
+                setText(((HelpPage) value).getTitle());
+            } else if (value instanceof HelpNode) {
+                setIcon(expanded
+                        ? ICON_SECTION_EXPANDED
+                        : ICON_SECTION_COLLAPSED);
+                setText(((HelpNode) value).getTitle());
+            } else if (value == tree.getModel().getRoot()) {
+                setIcon(null);
+                setText("");
+            }
+
+            return this;
+        }
+}
+
+    private static class HelpPageListCellRenderer extends DefaultListCellRenderer {
+        private static final long serialVersionUID = 1L;
+        private static final ImageIcon ICON = IconUtil.getImageIcon(HelpPageListCellRenderer.class, "help_page.png");
+
+        @Override
+        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+            JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            label.setIcon(ICON);
+
+            return label;
+        }
+
+    }
+
     /**
      * This method is called from within the constructor to
      * initialize the form.
@@ -311,14 +443,21 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
 
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         popupMenuEditorPane = new javax.swing.JPopupMenu();
         menuItemGotNextUrl = new javax.swing.JMenuItem();
         menuItemGotoPreviousUrl = new javax.swing.JMenuItem();
         splitPane = new javax.swing.JSplitPane();
-        panelTree = new javax.swing.JPanel();
+        tabbedPaneContents = new javax.swing.JTabbedPane();
+        panelContents = new javax.swing.JPanel();
         scrollPaneTree = new javax.swing.JScrollPane();
         tree = new javax.swing.JTree();
+        panelSearch = new javax.swing.JPanel();
+        labelSearch = new javax.swing.JLabel();
+        textFieldSearch = new org.jdesktop.swingx.JXTextField();
+        scrollPaneSearchResults = new javax.swing.JScrollPane();
+        listSearchResults = new org.jdesktop.swingx.JXList();
         panelPage = new javax.swing.JPanel();
         scrollPanePage = new javax.swing.JScrollPane();
         editorPanePage = new javax.swing.JEditorPane();
@@ -344,14 +483,16 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         splitPane.setDividerSize(2);
         splitPane.setName("splitPane"); // NOI18N
 
-        panelTree.setName("panelTree"); // NOI18N
-        panelTree.setLayout(new java.awt.GridBagLayout());
+        tabbedPaneContents.setName("tabbedPaneContents"); // NOI18N
+
+        panelContents.setName("panelContents"); // NOI18N
+        panelContents.setLayout(new java.awt.GridBagLayout());
 
         scrollPaneTree.setName("scrollPaneTree"); // NOI18N
         scrollPaneTree.setPreferredSize(new java.awt.Dimension(150, 10));
 
         tree.setModel(null);
-        tree.setCellRenderer(new org.jphototagger.lib.help.HelpContentsTreeCellRenderer());
+        tree.setCellRenderer(new HelpContentsTreeCellRenderer());
         tree.setName("tree"); // NOI18N
         scrollPaneTree.setViewportView(tree);
 
@@ -361,9 +502,57 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        panelTree.add(scrollPaneTree, gridBagConstraints);
+        panelContents.add(scrollPaneTree, gridBagConstraints);
 
-        splitPane.setLeftComponent(panelTree);
+        tabbedPaneContents.addTab(bundle.getString("HelpBrowser.panelContents.TabConstraints.tabTitle"), panelContents); // NOI18N
+
+        panelSearch.setName("panelSearch"); // NOI18N
+        panelSearch.setLayout(new java.awt.GridBagLayout());
+
+        labelSearch.setLabelFor(textFieldSearch);
+        labelSearch.setText(bundle.getString("HelpBrowser.labelSearch.text")); // NOI18N
+        labelSearch.setName("labelSearch"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
+        panelSearch.add(labelSearch, gridBagConstraints);
+
+        textFieldSearch.setColumns(15);
+        textFieldSearch.setName("textFieldSearch"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        panelSearch.add(textFieldSearch, gridBagConstraints);
+
+        scrollPaneSearchResults.setName("scrollPaneSearchResults"); // NOI18N
+
+        listSearchResults.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        listSearchResults.setCellRenderer(new HelpPageListCellRenderer());
+        listSearchResults.setName("listSearchResults"); // NOI18N
+
+        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${foundPages}");
+        org.jdesktop.swingbinding.JListBinding jListBinding = org.jdesktop.swingbinding.SwingBindings.createJListBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, listSearchResults);
+        bindingGroup.addBinding(jListBinding);
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${selectedFoundPage}"), listSearchResults, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
+        bindingGroup.addBinding(binding);
+
+        scrollPaneSearchResults.setViewportView(listSearchResults);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        panelSearch.add(scrollPaneSearchResults, gridBagConstraints);
+
+        tabbedPaneContents.addTab(bundle.getString("HelpBrowser.panelSearch.TabConstraints.tabTitle"), panelSearch); // NOI18N
+
+        splitPane.setLeftComponent(tabbedPaneContents);
 
         panelPage.setName("panelPage"); // NOI18N
         panelPage.setLayout(new java.awt.GridBagLayout());
@@ -409,7 +598,7 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(splitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
+                .addComponent(splitPane)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -419,6 +608,8 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
                 .addComponent(splitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
                 .addContainerGap())
         );
+
+        bindingGroup.bind();
 
         pack();
     }//GEN-END:initComponents
@@ -436,15 +627,22 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
     private javax.swing.JButton buttonGotoNextUrl;
     private javax.swing.JButton buttonGotoPreviousUrl;
     private javax.swing.JEditorPane editorPanePage;
+    private javax.swing.JLabel labelSearch;
+    private org.jdesktop.swingx.JXList listSearchResults;
     private javax.swing.JMenuItem menuItemGotNextUrl;
     private javax.swing.JMenuItem menuItemGotoPreviousUrl;
+    private javax.swing.JPanel panelContents;
     private javax.swing.JPanel panelGotoButtons;
     private javax.swing.JPanel panelPage;
-    private javax.swing.JPanel panelTree;
+    private javax.swing.JPanel panelSearch;
     private javax.swing.JPopupMenu popupMenuEditorPane;
     private javax.swing.JScrollPane scrollPanePage;
+    private javax.swing.JScrollPane scrollPaneSearchResults;
     private javax.swing.JScrollPane scrollPaneTree;
     private javax.swing.JSplitPane splitPane;
+    private javax.swing.JTabbedPane tabbedPaneContents;
+    private org.jdesktop.swingx.JXTextField textFieldSearch;
     private javax.swing.JTree tree;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }

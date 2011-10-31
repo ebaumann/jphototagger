@@ -1,4 +1,4 @@
-package org.jphototagger.program.misc;
+package org.jphototagger.program.help;
 
 import java.awt.event.ActionEvent;
 
@@ -14,27 +14,24 @@ import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.resource.GUI;
 
 /**
- * Kontrolliert die Aktion: Informationen über die Anwendung sollen angezeigt
- * werden.
- *
  * @author Elmar Baumann
  */
-public final class DisplayAboutJPhotoTaggerAction extends AbstractAction {
+public final class ShowAboutJPhotoTaggerAction extends AbstractAction {
 
     private static final long serialVersionUID = 1L;
 
-    public DisplayAboutJPhotoTaggerAction() {
-        super(Bundle.getString(DisplayAboutJPhotoTaggerAction.class, "DisplayAboutJPhotoTaggerAction.Name"));
-        putValue(SMALL_ICON, IconUtil.getImageIcon(DisplayAboutJPhotoTaggerAction.class, "about.png"));
+    public ShowAboutJPhotoTaggerAction() {
+        super(Bundle.getString(ShowAboutJPhotoTaggerAction.class, "ShowAboutJPhotoTaggerAction.Name"));
+        putValue(SMALL_ICON, IconUtil.getImageIcon(ShowAboutJPhotoTaggerAction.class, "about.png"));
     }
 
     @Override
     public void actionPerformed(ActionEvent evt) {
         ImageIcon icon = AppLookAndFeel.getIcon("icon_logo.png");
-        String key = "DisplayAboutJPhotoTaggerAction.Info.About";
+        String key = "ShowAboutJPhotoTaggerAction.Info.About";
         String title = "JPhotoTagger";
         AppFrame parentComponent = GUI.getAppFrame();
-        String message = Bundle.getString(DisplayAboutJPhotoTaggerAction.class, key, AppInfo.APP_NAME, AppInfo.APP_VERSION);
+        String message = Bundle.getString(ShowAboutJPhotoTaggerAction.class, key, AppInfo.APP_NAME, AppInfo.APP_VERSION);
         int messageType = JOptionPane.INFORMATION_MESSAGE;
 
         JOptionPane.showMessageDialog(parentComponent, message, title, messageType, icon);

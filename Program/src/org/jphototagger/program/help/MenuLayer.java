@@ -26,7 +26,8 @@ public final class MenuLayer extends MainWindowMenuProviderAdapter {
                 new MenuItemProviderImpl(new BrowseWebsiteAction(), 500, false),
                 new MenuItemProviderImpl(new BrowseChangeLogAction(), 600, false),
                 new MenuItemProviderImpl(new SendBugReportMailAction(), 700, true),
-                new MenuItemProviderImpl(new SendIssueMailAction(), 800, false)
+                new MenuItemProviderImpl(new SendIssueMailAction(), 800, false),
+                new MenuItemProviderImpl(new ShowAboutJPhotoTaggerAction(), Integer.MAX_VALUE, true)
                 );
     }
 }
