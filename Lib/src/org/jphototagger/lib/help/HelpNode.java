@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
+
 import org.jphototagger.lib.util.ObjectUtil;
 
 /**
