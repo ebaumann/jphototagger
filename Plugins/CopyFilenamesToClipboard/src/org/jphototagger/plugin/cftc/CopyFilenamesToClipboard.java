@@ -57,6 +57,12 @@ public final class CopyFilenamesToClipboard extends AbstractFileProcessorPlugin 
     public String getHelpContentUrl() {
         return "/org/jphototagger/plugin/cftc/help/contents.xml";
     }
+
+    @Override
+    public int getPosition() {
+        return 100;
+    }
+
     @Override
     public Icon getSmallIcon() {
         return ICON;

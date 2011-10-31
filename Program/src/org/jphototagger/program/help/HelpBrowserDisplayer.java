@@ -1,23 +1,30 @@
 package org.jphototagger.program.help;
 
 import org.openide.util.lookup.ServiceProvider;
+import org.openide.util.lookup.ServiceProviders;
 
 import org.jphototagger.lib.help.HelpBrowser;
-import org.jphototagger.lib.help.HelpDisplay;
+import org.jphototagger.lib.help.HelpContentProvider;
+import org.jphototagger.lib.help.HelpDisplayer;
+import org.jphototagger.lib.help.HelpNode;
+import org.jphototagger.lib.help.HelpUtil;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.StringUtil;
 
 /**
  * @author Elmar Baumann
  */
-@ServiceProvider(service = HelpDisplay.class)
-public final class HelpBrowserDisplayer implements HelpDisplay {
+@ServiceProviders({
+    @ServiceProvider(service = HelpDisplayer.class),
+    @ServiceProvider(service = HelpContentProvider.class)
+})
+public final class HelpBrowserDisplayer implements HelpDisplayer, HelpContentProvider {
 
-    private static final String HELP_CONTENTS_URL = "/org/jphototagger/program/resource/doc/de/contents.xml";
-    private static final HelpBrowser HELP_BROWSER = new HelpBrowser();
+    private static final HelpBrowser HELP_BROWSER;
 
     static {
-        HELP_BROWSER.setContentsUrl(HELP_CONTENTS_URL);
+        HelpNode rootNode = HelpUtil.createNodeFromHelpContentProviders();
+        HELP_BROWSER = new HelpBrowser(rootNode);
     }
 
     static void browseHelp(String helpPageUrl) {
@@ -30,7 +37,17 @@ public final class HelpBrowserDisplayer implements HelpDisplay {
     }
 
     @Override
-    public void showHelp(String url) {
+    public void displayHelp(String url) {
         browseHelp(url);
+    }
+
+    @Override
+    public String getHelpContentUrl() {
+        return "/org/jphototagger/program/resource/doc/de/contents.xml";
+    }
+
+    @Override
+    public int getPosition() {
+        return Integer.MIN_VALUE;
     }
 }

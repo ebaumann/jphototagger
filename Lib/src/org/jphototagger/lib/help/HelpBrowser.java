@@ -1,7 +1,6 @@
 package org.jphototagger.lib.help;
 
 import java.net.URL;
-import java.util.Collection;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.logging.Level;
@@ -35,10 +34,14 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
     private String displayUrl;
     private boolean settingPath;
 
-    public HelpBrowser() {
+    public HelpBrowser(HelpNode rootNode) {
         super(ComponentUtil.findFrameWithIcon());
+        if (rootNode == null) {
+            throw new NullPointerException("rootNode == null");
+        }
         initComponents();
         postInitComponents();
+        tree.setModel(new HelpContentsTreeModel(rootNode));
     }
 
     private void postInitComponents() {
@@ -83,46 +86,6 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         }
 
         displayUrl = url;
-    }
-
-    /**
-     * Sets the URL of the contents XML-File wich validates against <code>helpindex.dtd</code>.
-     * <code>helpindex.dtd</code> is in this package.
-     *
-     * @param url URL, eg. <code>/org/jphototagger/program/resource/doc/de/contents.xml</code>
-     */
-    public synchronized void setContentsUrl(String url) {
-        if (url == null) {
-            throw new NullPointerException("url == null");
-        }
-
-        HelpIndexParser helpIndexParser = new HelpIndexParser(url);
-        HelpNode rootNode = helpIndexParser.parse(HelpBrowser.class.getResourceAsStream(url));
-
-        if (rootNode != null) {
-            Collection<? extends HelpContentProvider> providers = Lookup.getDefault().lookupAll(HelpContentProvider.class);
-            for (HelpContentProvider provider : providers) {
-                String helpContentsUrl = provider.getHelpContentUrl();
-                helpIndexParser = new HelpIndexParser(helpContentsUrl);
-                HelpNode helpNode = helpIndexParser.parse(HelpBrowser.class.getResourceAsStream(helpContentsUrl));
-                addChildrenToNode(helpNode, rootNode);
-            }
-            tree.setModel(new HelpContentsTreeModel(rootNode));
-        }
-    }
-
-    private void addChildrenToNode(HelpNode fromHelpNode, HelpNode toHelpNode) {
-        int childCount = fromHelpNode.getChildCount();
-        for (int index = 0; index < childCount; index++) {
-            Object child = fromHelpNode.getChild(index);
-            if (child instanceof HelpNode) {
-                HelpNode helpNode = (HelpNode) child;
-                toHelpNode.addNode(helpNode);
-            } else if (child instanceof HelpPage) {
-                HelpPage helpPage = (HelpPage) child;
-                toHelpNode.addPage(helpPage);
-            }
-        }
     }
 
     private synchronized void selectStartUrl() {
@@ -313,7 +276,7 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
 
             @Override
             public void run() {
-                new HelpBrowser().setVisible(true);
+                new HelpBrowser(new HelpNode()).setVisible(true);
             }
         });
     }

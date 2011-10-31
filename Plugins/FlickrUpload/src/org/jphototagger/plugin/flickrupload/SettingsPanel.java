@@ -1,8 +1,6 @@
 package org.jphototagger.plugin.flickrupload;
 
-import org.openide.util.Lookup;
-
-import org.jphototagger.lib.help.HelpDisplay;
+import org.jphototagger.lib.help.HelpUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 
 /**
@@ -29,10 +27,7 @@ public class SettingsPanel extends javax.swing.JPanel {
     }
 
     private void showHelp() {
-        HelpDisplay helpDisplay = Lookup.getDefault().lookup(HelpDisplay.class);
-        if (helpDisplay != null) {
-            helpDisplay.showHelp("/org/jphototagger/plugin/flickrupload/help/index.html");
-        }
+        HelpUtil.displayHelp("/org/jphototagger/plugin/flickrupload/help/index.html");
     }
 
     /**

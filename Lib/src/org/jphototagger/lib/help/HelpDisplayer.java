@@ -3,7 +3,7 @@ package org.jphototagger.lib.help;
 /**
  * @author Elmar Baumann
  */
-public interface HelpDisplay {
+public interface HelpDisplayer {
 
-    void showHelp(String url);
+    void displayHelp(String url);
 }

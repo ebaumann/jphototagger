@@ -74,6 +74,11 @@ public final class FlickrUpload extends AbstractFileProcessorPlugin implements S
     }
 
     @Override
+    public int getPosition() {
+        return 200;
+    }
+
+    @Override
     public Icon getSmallIcon() {
         return icon;
     }
