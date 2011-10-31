@@ -26,6 +26,7 @@ import org.jphototagger.lib.util.Bundle;
  * @author Elmar Baumann
  */
 public final class HelpBrowser extends Dialog implements HyperlinkListener, TreeSelectionListener {
+
     private static final long serialVersionUID = 1L;
     private static final String KEY_DIVIDER_LOCATION = "HelpBrowser.DividerLocation";
     private static final String DISPLAY_NAME_ACTION_PREVIOUS = Bundle.getString(HelpBrowser.class, "HelpBrowser.Action.Previous");
@@ -33,6 +34,7 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
     private final Set<HelpBrowserListener> listeners = new CopyOnWriteArraySet<HelpBrowserListener>();
     private String displayUrl;
     private boolean settingPath;
+    private String titlePostfix = Bundle.getString(HelpBrowser.class, "HelpBrowser.TitlePostfix");
 
     public HelpBrowser(HelpNode rootNode) {
         super(ComponentUtil.findFrameWithIcon());
@@ -139,7 +141,7 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
     public void hyperlinkUpdate(HyperlinkEvent evt) {
         if (evt.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
             URL url = evt.getURL();
-                showUrl(url);
+            showUrl(url);
         }
     }
 
@@ -175,11 +177,21 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
                     String helpPageUrl = helpPage.getUrl();
                     URL url = getClass().getResource(helpPageUrl);
 
-                    setTitle(helpPage.getTitle() + Bundle.getString(HelpBrowser.class, "HelpBrowser.TitlePostfix"));
+                    super.setTitle(helpPage.getTitle() + " - " + titlePostfix);
                     showUrl(url);
                 }
             }
         }
+    }
+
+    @Override
+    public void setTitle(String title) {
+        if (title == null) {
+            throw new NullPointerException("title == null");
+        }
+
+        titlePostfix = title;
+        super.setTitle(title);
     }
 
     /**
