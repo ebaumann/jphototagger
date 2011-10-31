@@ -9,6 +9,7 @@ import org.jphototagger.lib.help.HelpDisplayer;
 import org.jphototagger.lib.help.HelpNode;
 import org.jphototagger.lib.help.HelpUtil;
 import org.jphototagger.lib.swing.util.ComponentUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
 
 /**
@@ -25,6 +26,7 @@ public final class HelpBrowserDisplayer implements HelpDisplayer, HelpContentPro
     static {
         HelpNode rootNode = HelpUtil.createNodeFromHelpContentProviders();
         HELP_BROWSER = new HelpBrowser(rootNode);
+        HELP_BROWSER.setTitle(Bundle.getString(HelpBrowserDisplayer.class, "HelpBrowserDisplayer.Title"));
     }
 
     static void browseHelp(String helpPageUrl) {
