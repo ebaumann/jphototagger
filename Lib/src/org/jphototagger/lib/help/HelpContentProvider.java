@@ -1,9 +1,11 @@
 package org.jphototagger.lib.help;
 
+import org.jphototagger.api.collections.PositionProvider;
+
 /**
  * @author Elmar Baumann
  */
-public interface HelpContentProvider {
+public interface HelpContentProvider extends PositionProvider {
 
     /**
      *

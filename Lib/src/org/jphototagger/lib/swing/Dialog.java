@@ -16,7 +16,7 @@ import javax.swing.KeyStroke;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
-import org.jphototagger.lib.help.HelpDisplay;
+import org.jphototagger.lib.help.HelpUtil;
 
 /**
  * Dialog which can close by pressing the ESC key and showing the Help dialog
@@ -91,11 +91,7 @@ public class Dialog extends JDialog implements WindowListener {
             throw new NullPointerException("url == null");
         }
 
-        HelpDisplay helpDisplay = Lookup.getDefault().lookup(HelpDisplay.class);
-
-        if (helpDisplay != null) {
-            helpDisplay.showHelp(url);
-        }
+        HelpUtil.displayHelp(url);
     }
 
     /**

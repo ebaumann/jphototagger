@@ -12,7 +12,7 @@ import javax.swing.JList;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
-import org.jphototagger.lib.help.HelpDisplay;
+import org.jphototagger.lib.help.HelpUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 
@@ -22,6 +22,7 @@ import org.jphototagger.lib.util.Bundle;
  * @author Elmar Baumann
  */
 public class SettingsPanel extends javax.swing.JPanel {
+
     private static final long serialVersionUID = 1L;
     private final DelimiterModel model = new DelimiterModel();
     private final DelimiterRenderer renderer = new DelimiterRenderer();
@@ -46,10 +47,7 @@ public class SettingsPanel extends javax.swing.JPanel {
     }
 
     private void showHelp() {
-        HelpDisplay helpDisplay = Lookup.getDefault().lookup(HelpDisplay.class);
-        if (helpDisplay != null) {
-            helpDisplay.showHelp("/org/jphototagger/plugin/cftc/help/index.html");
-        }
+        HelpUtil.displayHelp("/org/jphototagger/plugin/cftc/help/index.html");
     }
 
     private static class DelimiterModel extends DefaultComboBoxModel {
