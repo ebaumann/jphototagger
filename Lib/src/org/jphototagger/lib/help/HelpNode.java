@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
+import org.jphototagger.lib.util.ObjectUtil;
 
 /**
  * A node is a chapter with help pages and subchapters.
@@ -41,9 +42,25 @@ public final class HelpNode {
         if (chapter == null) {
             throw new NullPointerException("chapter == null");
         }
+        HelpNode equalChapter = findEqualChildNode(chapter);
+        if (equalChapter == null) {
+            chapter.parent = this;
+            children.add(chapter);
+        } else {
+            equalChapter.children.addAll(chapter.children);
+        }
+    }
 
-        chapter.parent = this;
-        children.add(chapter);
+    private HelpNode findEqualChildNode(HelpNode helpNode) {
+        for (Object child : children) {
+            if (child instanceof HelpNode) {
+                HelpNode childHelpNode = (HelpNode) child;
+                if (childHelpNode.equals(helpNode)) {
+                    return childHelpNode;
+                }
+            }
+        }
+        return null;
     }
 
     public int getChildCount() {
@@ -142,5 +159,24 @@ public final class HelpNode {
         Collections.reverse(path);
 
         return path;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof HelpNode)) {
+            return false;
+        }
+        HelpNode other = (HelpNode) obj;
+        return ObjectUtil.equals(this.title, other.title);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 29 * hash + (this.title != null ? this.title.hashCode() : 0);
+        return hash;
     }
 }
