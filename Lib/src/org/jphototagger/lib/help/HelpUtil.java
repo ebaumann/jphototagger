@@ -1,7 +1,9 @@
 package org.jphototagger.lib.help;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.openide.util.Lookup;
@@ -64,6 +66,29 @@ public final class HelpUtil {
             } else if (child instanceof HelpPage) {
                 HelpPage helpPage = (HelpPage) child;
                 toHelpNode.addPage(helpPage);
+            }
+        }
+    }
+
+    public static Collection<HelpPage> findHelpPagesRecursive(HelpNode helpNode) {
+        if (helpNode == null) {
+            throw new NullPointerException("helpNode == null");
+        }
+        List<HelpPage> helpPages = new LinkedList<HelpPage>();
+        addHelpPagesRecursive(helpNode, helpPages);
+        return helpPages;
+    }
+
+    private static void addHelpPagesRecursive(HelpNode helpNode, Collection<HelpPage> helpPages) {
+        int childCount = helpNode.getChildCount();
+        for (int childIndex = 0; childIndex < childCount; childIndex++) {
+            Object child = helpNode.getChild(childIndex);
+            if (child instanceof HelpNode) {
+                addHelpPagesRecursive((HelpNode) child, helpPages); // Recursive
+            }
+            if (child instanceof HelpPage) {
+                HelpPage helpPage = (HelpPage) child;
+                helpPages.add(helpPage);
             }
         }
     }

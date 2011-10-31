@@ -3,6 +3,12 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.14.0 2011-11-01
+-----------------
+
+* Hilfedialog hat Volltextsuche (gefundene Wörter werden [noch] nicht
+  eingefärbt)
+
 0.13.0 2011-10-28
 -----------------
 

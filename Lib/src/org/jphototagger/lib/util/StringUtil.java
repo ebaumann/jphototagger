@@ -286,6 +286,14 @@ public final class StringUtil {
         return string != null && !string.trim().isEmpty();
     }
 
+    public static String emptyStringIfNull(String title) {
+        if (title == null) {
+            return "";
+        } else {
+            return title;
+        }
+    }
+
     private StringUtil() {
     }
 }
