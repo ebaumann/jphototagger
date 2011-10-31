@@ -294,6 +294,13 @@
         </page>
     </node>
     <node>
+        <title>Plugins</title>
+        <page>
+            <url>plugins.html</url>
+            <title>Plugins: Einführung</title>
+        </page>
+    </node>
+    <node>
         <title>Tipps</title>
         <page>
             <url>tip_use_help.html</url>
