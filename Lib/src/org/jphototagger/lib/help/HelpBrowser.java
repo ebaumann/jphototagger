@@ -1,11 +1,19 @@
 package org.jphototagger.lib.help;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.net.URL;
+import java.util.LinkedList;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.AbstractAction;
+import javax.swing.ActionMap;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
+import javax.swing.KeyStroke;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 import javax.swing.event.TreeSelectionEvent;
@@ -18,6 +26,7 @@ import org.openide.util.Lookup;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.util.ComponentUtil;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 
 /**
@@ -29,9 +38,11 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
 
     private static final long serialVersionUID = 1L;
     private static final String KEY_DIVIDER_LOCATION = "HelpBrowser.DividerLocation";
-    private static final String DISPLAY_NAME_ACTION_PREVIOUS = Bundle.getString(HelpBrowser.class, "HelpBrowser.Action.Previous");
-    private static final String DISPLAY_NAME_ACTION_NEXT = Bundle.getString(HelpBrowser.class, "HelpBrowser.Action.Next");
+    private final LinkedList<URL> urlHistory = new LinkedList<URL>();
+    private int currentHistoryIndex = -1;
     private final Set<HelpBrowserListener> listeners = new CopyOnWriteArraySet<HelpBrowserListener>();
+    private final GoToNextUrlAction goToNextUrlAction = new GoToNextUrlAction();
+    private final GoToPreviousUrlAction goToPreviousUrlAction = new GoToPreviousUrlAction();
     private String displayUrl;
     private boolean settingPath;
     private String titlePostfix = Bundle.getString(HelpBrowser.class, "HelpBrowser.TitlePostfix");
@@ -51,6 +62,14 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
         tree.addTreeSelectionListener(this);
         setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
+        MnemonicUtil.setMnemonics(this);
+        MnemonicUtil.setMnemonics(popupMenuEditorPane);
+        ActionMap actionMap = getRootPane().getActionMap();
+        InputMap inputMap = getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, KeyEvent.ALT_DOWN_MASK), "nexturl");
+        actionMap.put("nexturl", goToNextUrlAction);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, KeyEvent.ALT_DOWN_MASK), "prevurl");
+        actionMap.put("prevurl", goToPreviousUrlAction);
     }
 
     public void addHelpBrowserListener(HelpBrowserListener listener) {
@@ -78,8 +97,27 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
     }
 
     private void showUrl(URL url) {
+        removeNextHistory();
+        currentHistoryIndex++;
+        urlHistory.add(url);
+        setGotActionsEnabled();
         setUrl(url);
         notifyUrlChanged(url);
+    }
+
+    private void removeNextHistory() {
+        int historyUrlCount = urlHistory.size();
+        boolean canRemove = historyUrlCount > 0
+                && currentHistoryIndex >= 0
+                && currentHistoryIndex < historyUrlCount;
+
+        if (canRemove) {
+            int removeCount = historyUrlCount - currentHistoryIndex - 1;
+
+            for (int i = 0; i < removeCount; i++) {
+                urlHistory.pollLast();
+            }
+        }
     }
 
     public synchronized void setDisplayUrl(String url) {
@@ -194,6 +232,57 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         super.setTitle(title);
     }
 
+    private final class GoToNextUrlAction extends AbstractAction {
+        private static final long serialVersionUID = 1L;
+
+        private GoToNextUrlAction() {
+            super(Bundle.getString(HelpBrowser.class, "HelpBrowser.GoToNextUrlAction"));
+            setEnabled(false);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (canGoToNextUrl()) {
+                currentHistoryIndex++;
+                URL url = urlHistory.get(currentHistoryIndex);
+                setUrl(url);
+                setGotActionsEnabled();
+            }
+        }
+    }
+
+    private final class GoToPreviousUrlAction extends AbstractAction {
+        private static final long serialVersionUID = 1L;
+
+        private GoToPreviousUrlAction() {
+            super(Bundle.getString(HelpBrowser.class, "HelpBrowser.GoToPreviousUrlAction"));
+            setEnabled(false);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (canGoToPreviousUrl()) {
+                currentHistoryIndex--;
+                URL url = urlHistory.get(currentHistoryIndex);
+                setUrl(url);
+                setGotActionsEnabled();
+            }
+        }
+    }
+
+    private void setGotActionsEnabled() {
+        goToNextUrlAction.setEnabled(canGoToNextUrl());
+        goToPreviousUrlAction.setEnabled(canGoToPreviousUrl());
+    }
+
+    private boolean canGoToNextUrl() {
+        return currentHistoryIndex + 1 > 0 && currentHistoryIndex + 1 < urlHistory.size();
+    }
+
+    private boolean canGoToPreviousUrl() {
+        return currentHistoryIndex - 1 >= 0 && currentHistoryIndex - 1 < urlHistory.size();
+    }
+
     /**
      * This method is called from within the constructor to
      * initialize the form.
@@ -203,7 +292,11 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
     @SuppressWarnings("unchecked")
 
     private void initComponents() {//GEN-BEGIN:initComponents
+        java.awt.GridBagConstraints gridBagConstraints;
 
+        popupMenuEditorPane = new javax.swing.JPopupMenu();
+        menuItemGotNextUrl = new javax.swing.JMenuItem();
+        menuItemGotoPreviousUrl = new javax.swing.JMenuItem();
         splitPane = new javax.swing.JSplitPane();
         panelTree = new javax.swing.JPanel();
         scrollPaneTree = new javax.swing.JScrollPane();
@@ -211,6 +304,19 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         panelPage = new javax.swing.JPanel();
         scrollPanePage = new javax.swing.JScrollPane();
         editorPanePage = new javax.swing.JEditorPane();
+        panelGotoButtons = new javax.swing.JPanel();
+        buttonGotoPreviousUrl = new javax.swing.JButton();
+        buttonGotoNextUrl = new javax.swing.JButton();
+
+        popupMenuEditorPane.setName("popupMenuEditorPane"); // NOI18N
+
+        menuItemGotNextUrl.setAction(goToNextUrlAction);
+        menuItemGotNextUrl.setName("menuItemGotNextUrl"); // NOI18N
+        popupMenuEditorPane.add(menuItemGotNextUrl);
+
+        menuItemGotoPreviousUrl.setAction(goToPreviousUrlAction);
+        menuItemGotoPreviousUrl.setName("menuItemGotoPreviousUrl"); // NOI18N
+        popupMenuEditorPane.add(menuItemGotoPreviousUrl);
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/lib/help/Bundle"); // NOI18N
         setTitle(bundle.getString("HelpBrowser.title")); // NOI18N
@@ -221,45 +327,61 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         splitPane.setName("splitPane"); // NOI18N
 
         panelTree.setName("panelTree"); // NOI18N
+        panelTree.setLayout(new java.awt.GridBagLayout());
 
         scrollPaneTree.setName("scrollPaneTree"); // NOI18N
+        scrollPaneTree.setPreferredSize(new java.awt.Dimension(150, 10));
 
         tree.setModel(null);
         tree.setCellRenderer(new org.jphototagger.lib.help.HelpContentsTreeCellRenderer());
         tree.setName("tree"); // NOI18N
         scrollPaneTree.setViewportView(tree);
 
-        javax.swing.GroupLayout panelTreeLayout = new javax.swing.GroupLayout(panelTree);
-        panelTree.setLayout(panelTreeLayout);
-        panelTreeLayout.setHorizontalGroup(
-            panelTreeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneTree, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-        );
-        panelTreeLayout.setVerticalGroup(
-            panelTreeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneTree, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        panelTree.add(scrollPaneTree, gridBagConstraints);
 
         splitPane.setLeftComponent(panelTree);
 
         panelPage.setName("panelPage"); // NOI18N
+        panelPage.setLayout(new java.awt.GridBagLayout());
 
         scrollPanePage.setName("scrollPanePage"); // NOI18N
 
         editorPanePage.setEditable(false);
+        editorPanePage.setComponentPopupMenu(popupMenuEditorPane);
         editorPanePage.setName("editorPanePage"); // NOI18N
         scrollPanePage.setViewportView(editorPanePage);
 
-        javax.swing.GroupLayout panelPageLayout = new javax.swing.GroupLayout(panelPage);
-        panelPage.setLayout(panelPageLayout);
-        panelPageLayout.setHorizontalGroup(
-            panelPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPanePage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE)
-        );
-        panelPageLayout.setVerticalGroup(
-            panelPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPanePage, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        panelPage.add(scrollPanePage, gridBagConstraints);
+
+        panelGotoButtons.setName("panelGotoButtons"); // NOI18N
+        panelGotoButtons.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
+
+        buttonGotoPreviousUrl.setAction(goToPreviousUrlAction);
+        buttonGotoPreviousUrl.setName("buttonGotoPreviousUrl"); // NOI18N
+        panelGotoButtons.add(buttonGotoPreviousUrl);
+
+        buttonGotoNextUrl.setAction(goToNextUrlAction);
+        buttonGotoNextUrl.setName("buttonGotoNextUrl"); // NOI18N
+        panelGotoButtons.add(buttonGotoNextUrl);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        panelPage.add(panelGotoButtons, gridBagConstraints);
 
         splitPane.setRightComponent(panelPage);
 
@@ -269,14 +391,14 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(splitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 573, Short.MAX_VALUE)
+                .addComponent(splitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(splitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
+                .addComponent(splitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -293,9 +415,15 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonGotoNextUrl;
+    private javax.swing.JButton buttonGotoPreviousUrl;
     private javax.swing.JEditorPane editorPanePage;
+    private javax.swing.JMenuItem menuItemGotNextUrl;
+    private javax.swing.JMenuItem menuItemGotoPreviousUrl;
+    private javax.swing.JPanel panelGotoButtons;
     private javax.swing.JPanel panelPage;
     private javax.swing.JPanel panelTree;
+    private javax.swing.JPopupMenu popupMenuEditorPane;
     private javax.swing.JScrollPane scrollPanePage;
     private javax.swing.JScrollPane scrollPaneTree;
     private javax.swing.JSplitPane splitPane;
