@@ -69,12 +69,12 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="org.jphototagger.lib.swing.TextAreaSearchPanel" name="searchPanel">
+    <Component class="org.jphototagger.lib.swing.TextComponentSearchPanel" name="searchPanel">
       <Properties>
         <Property name="name" type="java.lang.String" value="searchPanel" noResource="true"/>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="searchPanel.setTextArea(textArea);"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="searchPanel.setSearchableTextComponent(textArea);"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="buttonDelete">

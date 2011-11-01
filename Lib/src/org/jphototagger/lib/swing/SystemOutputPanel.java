@@ -111,8 +111,8 @@ public class SystemOutputPanel extends JPanel {
 
         scrollPane = new javax.swing.JScrollPane();
         textArea = new javax.swing.JTextArea();
-        searchPanel = new org.jphototagger.lib.swing.TextAreaSearchPanel();
-        searchPanel.setTextArea(textArea);
+        searchPanel = new org.jphototagger.lib.swing.TextComponentSearchPanel();
+        searchPanel.setSearchableTextComponent(textArea);
         buttonDelete = new javax.swing.JButton();
         buttonCopyToClipboard = new javax.swing.JButton();
 
@@ -192,7 +192,7 @@ public class SystemOutputPanel extends JPanel {
     private javax.swing.JButton buttonCopyToClipboard;
     private javax.swing.JButton buttonDelete;
     private javax.swing.JScrollPane scrollPane;
-    private org.jphototagger.lib.swing.TextAreaSearchPanel searchPanel;
+    private org.jphototagger.lib.swing.TextComponentSearchPanel searchPanel;
     private javax.swing.JTextArea textArea;
     // End of variables declaration//GEN-END:variables
 }

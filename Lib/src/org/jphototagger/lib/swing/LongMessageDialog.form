@@ -113,12 +113,12 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="org.jphototagger.lib.swing.TextAreaSearchPanel" name="panelSearch">
+        <Component class="org.jphototagger.lib.swing.TextComponentSearchPanel" name="panelSearch">
           <Properties>
             <Property name="name" type="java.lang.String" value="panelSearch" noResource="true"/>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="panelSearch.setTextArea(textArea);"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="panelSearch.setSearchableTextComponent(textArea);"/>
           </AuxValues>
         </Component>
         <Component class="javax.swing.JButton" name="buttonMail">
