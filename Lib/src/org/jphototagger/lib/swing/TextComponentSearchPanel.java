@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.Icon;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
@@ -24,7 +25,7 @@ import org.jphototagger.lib.swing.util.MnemonicUtil;
 public class TextComponentSearchPanel extends javax.swing.JPanel implements DocumentListener {
 
     private static final long serialVersionUID = 1L;
-    private JTextComponent textComponent;
+    private JTextComponent searchableTextComponent;
     private static final Color ERROR_BG = Color.RED;
     private final Color searchTextFieldBackground;
     private final transient Highlighter highlighter = new DefaultHighlighter();
@@ -48,8 +49,70 @@ public class TextComponentSearchPanel extends javax.swing.JPanel implements Docu
             throw new NullPointerException("textComponent == null");
         }
 
-        this.textComponent = textComponent;
+        JTextComponent old = searchableTextComponent;
+        searchableTextComponent = textComponent;
         textComponent.setHighlighter(highlighter);
+        firePropertyChange("searchableTextComponent", old, searchableTextComponent);
+    }
+
+    public JTextComponent getSearchableTextComponent() {
+        return searchableTextComponent;
+    }
+
+    public void setSearchPrompt(String prompt) {
+        if (prompt == null) {
+            throw new NullPointerException("prompt == null");
+        }
+        String old = label.getText();
+        label.setText(prompt);
+        MnemonicUtil.setMnemonics(label);
+        firePropertyChange("searchPrompt", old, prompt);
+    }
+
+    public String getSearchPrompt() {
+        return label.getText();
+    }
+
+    public void setSearchUpwardsButtonText(String text) {
+        String old = buttonSearchUpwards.getText();
+        buttonSearchUpwards.setText(text);
+        MnemonicUtil.setMnemonics(buttonSearchUpwards);
+        firePropertyChange("searchUpwardsButtonText", old, text);
+    }
+
+    public String getSearchUpwardsButtonText() {
+        return buttonSearchUpwards.getText();
+    }
+
+    public void setSearchDownwardsButtonText(String text) {
+        String old = buttonSearchDownwards.getText();
+        buttonSearchDownwards.setText(text);
+        MnemonicUtil.setMnemonics(buttonSearchDownwards);
+        firePropertyChange("searchDownwardsButtonText", old, text);
+    }
+
+    public String getSearchDownwardsButtonText() {
+        return buttonSearchDownwards.getText();
+    }
+
+    public void setSearchUpwardsButtonIcon(Icon icon) {
+        Icon old = buttonSearchUpwards.getIcon();
+        buttonSearchUpwards.setIcon(icon);
+        firePropertyChange("searchUpwardsButtonIcon", old, icon);
+    }
+
+    public Icon getSearchUpwardsButtonIcon() {
+        return buttonSearchUpwards.getIcon();
+    }
+
+    public void setSearchDownwardsButtonIcon(Icon icon) {
+        Icon old = buttonSearchDownwards.getIcon();
+        buttonSearchDownwards.setIcon(icon);
+        firePropertyChange("searchDownwardsButtonIcon", old, icon);
+    }
+
+    public Icon getSearchDownwardsButtonIcon() {
+        return buttonSearchDownwards.getIcon();
     }
 
     public void requestFocusToSearchTextField() {
@@ -58,13 +121,13 @@ public class TextComponentSearchPanel extends javax.swing.JPanel implements Docu
 
     private int search(int startIndex) {
         String searchText = searchTextField.getText().toLowerCase();
-        if (textComponent == null || searchText.isEmpty()) {
+        if (searchableTextComponent == null || searchText.isEmpty()) {
             return -1;
         }
 
         highlighter.removeAllHighlights();
 
-        String text = textComponent.getText().toLowerCase();
+        String text = searchableTextComponent.getText().toLowerCase();
         int index = text.indexOf(searchText, startIndex);
 
         synchronized (foundIndices) {
@@ -72,7 +135,7 @@ public class TextComponentSearchPanel extends javax.swing.JPanel implements Docu
                 try {
                     int end = index + searchText.length();
                     highlighter.addHighlight(index, end, painter);
-                    textComponent.setCaretPosition(end);
+                    searchableTextComponent.setCaretPosition(end);
                     searchTextField.setBackground(searchTextFieldBackground);
                     return index;
                 } catch (BadLocationException ex) {
@@ -134,7 +197,7 @@ public class TextComponentSearchPanel extends javax.swing.JPanel implements Docu
     }
 
     private void searchDown() {
-        if (textComponent == null) {
+        if (searchableTextComponent == null) {
             return;
         }
 
@@ -157,7 +220,7 @@ public class TextComponentSearchPanel extends javax.swing.JPanel implements Docu
 
     private void searchUp() {
         synchronized (foundIndices) {
-            if (textComponent == null || foundIndices.isEmpty()) {
+            if (searchableTextComponent == null || foundIndices.isEmpty()) {
                 return;
             }
 
