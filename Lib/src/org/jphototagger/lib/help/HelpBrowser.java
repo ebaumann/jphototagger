@@ -630,7 +630,7 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         scrollPanePage.setPreferredSize(new java.awt.Dimension(200, 24));
 
         editorPanePage.setEditable(false);
-        editorPanePage.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        editorPanePage.setFont(new java.awt.Font("Verdana", 0, 14));
         editorPanePage.setComponentPopupMenu(popupMenuEditorPane);
         editorPanePage.setName("editorPanePage"); // NOI18N
         scrollPanePage.setViewportView(editorPanePage);
@@ -643,6 +643,7 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         gridBagConstraints.weighty = 1.0;
         panelPage.add(scrollPanePage, gridBagConstraints);
 
+        buttonSearchInCurrentPage.setToolTipText(bundle.getString("HelpBrowser.buttonSearchInCurrentPage.toolTipText")); // NOI18N
         buttonSearchInCurrentPage.setName("buttonSearchInCurrentPage"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
