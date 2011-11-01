@@ -119,12 +119,15 @@ final class HelpSearch {
     }
 
     private String generateAndQuery(String string) {
-        String[] tokens = string.split(" ");
+        List<String> tokens = StringUtil.getStringsWithContent(string.split(" "));
+        int tokenCount = tokens.size();
+        boolean wordCompleted = string.endsWith(" ");
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < tokens.length; i++) {
+        for (int i = 0; i < tokenCount; i++) {
+            String token = tokens.get(i);
             sb.append(i == 0 ? "" : " AND ");
-            sb.append(tokens[i]);
-            sb.append(i == tokens.length - 1 ? "*" : "");
+            sb.append(token);
+            sb.append(i == tokenCount - 1 && !wordCompleted ? "*" : "");
         }
         return sb.toString();
     }
