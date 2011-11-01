@@ -9,6 +9,7 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -292,6 +293,23 @@ public final class StringUtil {
         } else {
             return title;
         }
+    }
+
+    /**
+     * @param strings maybe null (empty list will be returned if null)
+     * @return strings within {@code strings[]} matching {@link #hasContent(java.lang.String)}
+     */
+    public static List<String> getStringsWithContent(String[] strings) {
+        if (strings == null) {
+            return Collections.emptyList();
+        }
+        List<String> stringsWithContent = new ArrayList<String>(strings.length);
+        for (String string : strings) {
+            if (hasContent(string)) {
+                stringsWithContent.add(string);
+            }
+        }
+        return stringsWithContent;
     }
 
     private StringUtil() {
