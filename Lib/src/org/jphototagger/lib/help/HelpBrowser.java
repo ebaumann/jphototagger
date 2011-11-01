@@ -1,12 +1,15 @@
 package org.jphototagger.lib.help;
 
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.logging.Level;
@@ -20,6 +23,7 @@ import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JMenuItem;
 import javax.swing.JTree;
 import javax.swing.KeyStroke;
 import javax.swing.event.DocumentEvent;
@@ -42,6 +46,7 @@ import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.swingx.SearchInComponentAction;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
 
@@ -54,6 +59,7 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
 
     private static final long serialVersionUID = 1L;
     private static final String KEY_DIVIDER_LOCATION = "HelpBrowser.DividerLocation";
+    private static final String KEY_TEXT_FONT_SIZE = "HelpBrowser.TextFontSize";
     private final LinkedList<URL> urlHistory = new LinkedList<URL>();
     private int currentHistoryIndex = -1;
     private final Set<HelpBrowserListener> listeners = new CopyOnWriteArraySet<HelpBrowserListener>();
@@ -65,6 +71,7 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
     private final HelpSearch helpSearch;
     private String titlePostfix = Bundle.getString(HelpBrowser.class, "HelpBrowser.TitlePostfix");
     private HelpPage selectedFoundPage;
+    private final Map<JMenuItem, Integer> textFontSizeOfMenuItem = new HashMap<JMenuItem, Integer>();
     private final ObservableList<HelpPage> foundPages = ObservableCollections.observableList(new ArrayList<HelpPage>());
 
     public HelpBrowser(HelpNode rootNode) {
@@ -86,8 +93,17 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
         MnemonicUtil.setMnemonics(this);
         MnemonicUtil.setMnemonics(popupMenuEditorPane);
+        addSearchAction();
         initPreviousNextShortcuts();
+        initTextFontSizeOfMenuItem();
         new HeplpSearchInit().start();
+    }
+
+    private void initTextFontSizeOfMenuItem() {
+        textFontSizeOfMenuItem.put(menuItemTextFontSizeSmall, 10);
+        textFontSizeOfMenuItem.put(menuItemTextFontSizeNormal, 14);
+        textFontSizeOfMenuItem.put(menuItemTextFontSizeLarge, 18);
+        textFontSizeOfMenuItem.put(menuItemTextFontSizeHuge, 28);
     }
 
     private void initPreviousNextShortcuts() {
@@ -178,6 +194,7 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
     public void setVisible(boolean visible) {
         if (visible) {
             readDividerLocationFromPreferences();
+            restoreTextFontSize();
             selectDisplayUrl();
         } else {
             writeDividerLocationToPreferences();
@@ -257,6 +274,46 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
 
         titlePostfix = title;
         super.setTitle(title);
+    }
+
+    private void setFontSizeOfHelpPageText(int textFontSize) {
+        Font font = editorPanePage.getFont();
+        int oldSize = font.getSize();
+        if (textFontSize == oldSize) {
+            return;
+        }
+        String fontName = font.getName();
+        Font newFont = new Font(fontName, 0, textFontSize);
+        editorPanePage.setFont(newFont);
+        persisteTextFontSize(textFontSize);
+        ComponentUtil.forceRepaint(panelContents);
+    }
+
+    private void setTextFontSizeOfMenuItem(JMenuItem menuItem) {
+        Integer textFontSize = textFontSizeOfMenuItem.get(menuItem);
+        if (textFontSize != null) {
+            setFontSizeOfHelpPageText(textFontSize);
+        }
+    }
+
+    private void persisteTextFontSize(int textFontSize) {
+        Preferences preferences = Lookup.getDefault().lookup(Preferences.class);
+        preferences.setInt(KEY_TEXT_FONT_SIZE, textFontSize);
+    }
+
+    private void restoreTextFontSize() {
+        Preferences preferences = Lookup.getDefault().lookup(Preferences.class);
+        if (preferences != null && preferences.containsKey(KEY_TEXT_FONT_SIZE)) {
+            int textFontSize = preferences.getInt(KEY_TEXT_FONT_SIZE);
+            for (JMenuItem menuItem : textFontSizeOfMenuItem.keySet()) {
+                int fontSizeOfMenuItem = textFontSizeOfMenuItem.get(menuItem);
+                if (fontSizeOfMenuItem == textFontSize) {
+                     menuItem.setSelected(true);
+                     setFontSizeOfHelpPageText(textFontSize);
+                     break;
+                }
+            }
+        }
     }
 
     private final class GoToNextUrlAction extends AbstractAction {
@@ -433,6 +490,10 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
 
     }
 
+    private void addSearchAction(){
+        buttonSearchInCurrentPage.setAction(new SearchInComponentAction(editorPanePage));
+    }
+
     /**
      * This method is called from within the constructor to
      * initialize the form.
@@ -448,6 +509,7 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         popupMenuEditorPane = new javax.swing.JPopupMenu();
         menuItemGotNextUrl = new javax.swing.JMenuItem();
         menuItemGotoPreviousUrl = new javax.swing.JMenuItem();
+        buttonGroupTextSize = new javax.swing.ButtonGroup();
         splitPane = new javax.swing.JSplitPane();
         tabbedPaneContents = new javax.swing.JTabbedPane();
         panelContents = new javax.swing.JPanel();
@@ -460,10 +522,17 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         listSearchResults = new org.jdesktop.swingx.JXList();
         panelPage = new javax.swing.JPanel();
         scrollPanePage = new javax.swing.JScrollPane();
-        editorPanePage = new javax.swing.JEditorPane();
+        editorPanePage = new org.jdesktop.swingx.JXEditorPane();
+        buttonSearchInCurrentPage = new javax.swing.JButton();
         panelGotoButtons = new javax.swing.JPanel();
         buttonGotoPreviousUrl = new javax.swing.JButton();
         buttonGotoNextUrl = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        menuView = new javax.swing.JMenu();
+        menuItemTextFontSizeSmall = new javax.swing.JRadioButtonMenuItem();
+        menuItemTextFontSizeNormal = new javax.swing.JRadioButtonMenuItem();
+        menuItemTextFontSizeLarge = new javax.swing.JRadioButtonMenuItem();
+        menuItemTextFontSizeHuge = new javax.swing.JRadioButtonMenuItem();
 
         popupMenuEditorPane.setName("popupMenuEditorPane"); // NOI18N
 
@@ -558,8 +627,10 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         panelPage.setLayout(new java.awt.GridBagLayout());
 
         scrollPanePage.setName("scrollPanePage"); // NOI18N
+        scrollPanePage.setPreferredSize(new java.awt.Dimension(200, 24));
 
         editorPanePage.setEditable(false);
+        editorPanePage.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         editorPanePage.setComponentPopupMenu(popupMenuEditorPane);
         editorPanePage.setName("editorPanePage"); // NOI18N
         scrollPanePage.setViewportView(editorPanePage);
@@ -571,6 +642,13 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
         panelPage.add(scrollPanePage, gridBagConstraints);
+
+        buttonSearchInCurrentPage.setName("buttonSearchInCurrentPage"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.weightx = 0.5;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 0);
+        panelPage.add(buttonSearchInCurrentPage, gridBagConstraints);
 
         panelGotoButtons.setName("panelGotoButtons"); // NOI18N
         panelGotoButtons.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
@@ -586,26 +664,75 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.insets = new java.awt.Insets(5, 15, 5, 5);
         panelPage.add(panelGotoButtons, gridBagConstraints);
 
         splitPane.setRightComponent(panelPage);
+
+        jMenuBar1.setName("jMenuBar1"); // NOI18N
+
+        menuView.setText(bundle.getString("HelpBrowser.menuView.text")); // NOI18N
+        menuView.setName("menuView"); // NOI18N
+
+        buttonGroupTextSize.add(menuItemTextFontSizeSmall);
+        menuItemTextFontSizeSmall.setText(bundle.getString("HelpBrowser.menuItemTextFontSizeSmall.text")); // NOI18N
+        menuItemTextFontSizeSmall.setName("menuItemTextFontSizeSmall"); // NOI18N
+        menuItemTextFontSizeSmall.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemTextFontSizeSmallActionPerformed(evt);
+            }
+        });
+        menuView.add(menuItemTextFontSizeSmall);
+
+        buttonGroupTextSize.add(menuItemTextFontSizeNormal);
+        menuItemTextFontSizeNormal.setSelected(true);
+        menuItemTextFontSizeNormal.setText(bundle.getString("HelpBrowser.menuItemTextFontSizeNormal.text")); // NOI18N
+        menuItemTextFontSizeNormal.setName("menuItemTextFontSizeNormal"); // NOI18N
+        menuItemTextFontSizeNormal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemTextFontSizeNormalActionPerformed(evt);
+            }
+        });
+        menuView.add(menuItemTextFontSizeNormal);
+
+        buttonGroupTextSize.add(menuItemTextFontSizeLarge);
+        menuItemTextFontSizeLarge.setText(bundle.getString("HelpBrowser.menuItemTextFontSizeLarge.text")); // NOI18N
+        menuItemTextFontSizeLarge.setName("menuItemTextFontSizeLarge"); // NOI18N
+        menuItemTextFontSizeLarge.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemTextFontSizeLargeActionPerformed(evt);
+            }
+        });
+        menuView.add(menuItemTextFontSizeLarge);
+
+        buttonGroupTextSize.add(menuItemTextFontSizeHuge);
+        menuItemTextFontSizeHuge.setText(bundle.getString("HelpBrowser.menuItemTextFontSizeHuge.text")); // NOI18N
+        menuItemTextFontSizeHuge.setName("menuItemTextFontSizeHuge"); // NOI18N
+        menuItemTextFontSizeHuge.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemTextFontSizeHugeActionPerformed(evt);
+            }
+        });
+        menuView.add(menuItemTextFontSizeHuge);
+
+        jMenuBar1.add(menuView);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(splitPane)
+                .addComponent(splitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(splitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
+                .addComponent(splitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -613,6 +740,22 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
 
         pack();
     }//GEN-END:initComponents
+
+    private void menuItemTextFontSizeSmallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemTextFontSizeSmallActionPerformed
+        setTextFontSizeOfMenuItem(menuItemTextFontSizeSmall);
+    }//GEN-LAST:event_menuItemTextFontSizeSmallActionPerformed
+
+    private void menuItemTextFontSizeNormalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemTextFontSizeNormalActionPerformed
+        setTextFontSizeOfMenuItem(menuItemTextFontSizeNormal);
+    }//GEN-LAST:event_menuItemTextFontSizeNormalActionPerformed
+
+    private void menuItemTextFontSizeLargeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemTextFontSizeLargeActionPerformed
+        setTextFontSizeOfMenuItem(menuItemTextFontSizeLarge);
+    }//GEN-LAST:event_menuItemTextFontSizeLargeActionPerformed
+
+    private void menuItemTextFontSizeHugeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemTextFontSizeHugeActionPerformed
+        setTextFontSizeOfMenuItem(menuItemTextFontSizeHuge);
+    }//GEN-LAST:event_menuItemTextFontSizeHugeActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -626,11 +769,19 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonGotoNextUrl;
     private javax.swing.JButton buttonGotoPreviousUrl;
-    private javax.swing.JEditorPane editorPanePage;
+    private javax.swing.ButtonGroup buttonGroupTextSize;
+    private javax.swing.JButton buttonSearchInCurrentPage;
+    private org.jdesktop.swingx.JXEditorPane editorPanePage;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JLabel labelSearch;
     private org.jdesktop.swingx.JXList listSearchResults;
     private javax.swing.JMenuItem menuItemGotNextUrl;
     private javax.swing.JMenuItem menuItemGotoPreviousUrl;
+    private javax.swing.JRadioButtonMenuItem menuItemTextFontSizeHuge;
+    private javax.swing.JRadioButtonMenuItem menuItemTextFontSizeLarge;
+    private javax.swing.JRadioButtonMenuItem menuItemTextFontSizeNormal;
+    private javax.swing.JRadioButtonMenuItem menuItemTextFontSizeSmall;
+    private javax.swing.JMenu menuView;
     private javax.swing.JPanel panelContents;
     private javax.swing.JPanel panelGotoButtons;
     private javax.swing.JPanel panelPage;
