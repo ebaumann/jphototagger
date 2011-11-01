@@ -7,79 +7,79 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.swing.JTextArea;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter;
 
+import javax.swing.text.JTextComponent;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 
 /**
- * Enhances a {@code JTextArea} with search capabilities.
+ * Enhances a {@code JTextComponent} with search capabilities.
  *
  * @author Elmar Baumann
  */
-public class TextAreaSearchPanel extends javax.swing.JPanel implements DocumentListener {
+public class TextComponentSearchPanel extends javax.swing.JPanel implements DocumentListener {
 
     private static final long serialVersionUID = 1L;
-    private JTextArea textArea;
+    private JTextComponent textComponent;
     private static final Color ERROR_BG = Color.RED;
-    private final Color textFieldBg;
-    private final transient Highlighter hilit = new DefaultHighlighter();
+    private final Color searchTextFieldBackground;
+    private final transient Highlighter highlighter = new DefaultHighlighter();
     private final transient Highlighter.HighlightPainter painter = new DefaultHighlighter.DefaultHighlightPainter(Color.YELLOW);
     private final List<Integer> foundIndices = new ArrayList<Integer>();
     private int currentFoundIndex = -1;
 
-    public TextAreaSearchPanel() {
+    public TextComponentSearchPanel() {
         initComponents();
         MnemonicUtil.setMnemonics((Container) this);
-        textFieldBg = textField.getBackground();
+        searchTextFieldBackground = searchTextField.getBackground();
         listen();
     }
 
     private void listen() {
-        textField.getDocument().addDocumentListener(this);
+        searchTextField.getDocument().addDocumentListener(this);
     }
 
-    public void setTextArea(JTextArea textArea) {
-        if (textArea == null) {
-            throw new NullPointerException("textArea == null");
+    public void setSearchableTextComponent(JTextComponent textComponent) {
+        if (textComponent == null) {
+            throw new NullPointerException("textComponent == null");
         }
 
-        this.textArea = textArea;
-        textArea.setHighlighter(hilit);
+        this.textComponent = textComponent;
+        textComponent.setHighlighter(highlighter);
     }
 
-    public void focusTextInput() {
-        textField.requestFocusInWindow();
+    public void requestFocusToSearchTextField() {
+        searchTextField.requestFocusInWindow();
     }
 
     private int search(int startIndex) {
-        String searchText = textField.getText().toLowerCase();
-        if (textArea == null || searchText.isEmpty()) {
+        String searchText = searchTextField.getText().toLowerCase();
+        if (textComponent == null || searchText.isEmpty()) {
             return -1;
         }
 
-        hilit.removeAllHighlights();
+        highlighter.removeAllHighlights();
 
-        String text = textArea.getText().toLowerCase();
+        String text = textComponent.getText().toLowerCase();
         int index = text.indexOf(searchText, startIndex);
 
         synchronized (foundIndices) {
             if (index >= startIndex) {
                 try {
                     int end = index + searchText.length();
-                    hilit.addHighlight(index, end, painter);
-                    textArea.setCaretPosition(end);
-                    textField.setBackground(textFieldBg);
+                    highlighter.addHighlight(index, end, painter);
+                    textComponent.setCaretPosition(end);
+                    searchTextField.setBackground(searchTextFieldBackground);
                     return index;
                 } catch (BadLocationException ex) {
-                    Logger.getLogger(TextAreaSearchPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(TextComponentSearchPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else if (foundIndices.isEmpty()) {
-                textField.setBackground(ERROR_BG);
+                searchTextField.setBackground(ERROR_BG);
             }
         }
 
@@ -103,12 +103,12 @@ public class TextAreaSearchPanel extends javax.swing.JPanel implements DocumentL
 
     @Override
     public void setEnabled(boolean enabled) {
-        textField.setEnabled(enabled);
-        textField.setEditable(enabled);
+        searchTextField.setEnabled(enabled);
+        searchTextField.setEditable(enabled);
 
         if (!enabled) {
-            buttonUp.setEnabled(false);
-            buttonDown.setEnabled(false);
+            buttonSearchUpwards.setEnabled(false);
+            buttonSearchDownwards.setEnabled(false);
         }
         super.setEnabled(enabled);
     }
@@ -129,12 +129,12 @@ public class TextAreaSearchPanel extends javax.swing.JPanel implements DocumentL
             }
         }
 
-        buttonDown.setEnabled(found);
-        buttonUp.setEnabled(false);
+        buttonSearchDownwards.setEnabled(found);
+        buttonSearchUpwards.setEnabled(false);
     }
 
     private void searchDown() {
-        if (textArea == null) {
+        if (textComponent == null) {
             return;
         }
 
@@ -150,14 +150,14 @@ public class TextAreaSearchPanel extends javax.swing.JPanel implements DocumentL
                 }
             }
 
-            buttonDown.setEnabled(found);
-            buttonUp.setEnabled(found || !found && !foundIndices.isEmpty());
+            buttonSearchDownwards.setEnabled(found);
+            buttonSearchUpwards.setEnabled(found || !found && !foundIndices.isEmpty());
         }
     }
 
     private void searchUp() {
         synchronized (foundIndices) {
-            if (textArea == null || foundIndices.isEmpty()) {
+            if (textComponent == null || foundIndices.isEmpty()) {
                 return;
             }
 
@@ -172,8 +172,8 @@ public class TextAreaSearchPanel extends javax.swing.JPanel implements DocumentL
                     currentFoundIndex = prevFoundIndex;
                 }
 
-                buttonUp.setEnabled(foundIndices.indexOf(prevFoundIndex) > 0);
-                buttonDown.setEnabled(found);
+                buttonSearchUpwards.setEnabled(foundIndices.indexOf(prevFoundIndex) > 0);
+                buttonSearchDownwards.setEnabled(found);
             }
         }
     }
@@ -187,37 +187,37 @@ public class TextAreaSearchPanel extends javax.swing.JPanel implements DocumentL
     private void initComponents() {//GEN-BEGIN:initComponents
 
         label = new javax.swing.JLabel();
-        textField = new javax.swing.JTextField();
-        buttonDown = new javax.swing.JButton();
-        buttonUp = new javax.swing.JButton();
+        searchTextField = new javax.swing.JTextField();
+        buttonSearchDownwards = new javax.swing.JButton();
+        buttonSearchUpwards = new javax.swing.JButton();
 
         setName("Form"); // NOI18N
 
-        label.setLabelFor(textField);
+        label.setLabelFor(searchTextField);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/lib/swing/Bundle"); // NOI18N
-        label.setText(bundle.getString("TextAreaSearchPanel.label.text")); // NOI18N
+        label.setText(bundle.getString("TextComponentSearchPanel.label.text")); // NOI18N
         label.setName("label"); // NOI18N
 
-        textField.setColumns(10);
-        textField.setName("textField"); // NOI18N
+        searchTextField.setColumns(10);
+        searchTextField.setName("searchTextField"); // NOI18N
 
-        buttonDown.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/lib/resource/icons/icon_arrow_down.png"))); // NOI18N
-        buttonDown.setText(bundle.getString("TextAreaSearchPanel.buttonDown.text")); // NOI18N
-        buttonDown.setEnabled(false);
-        buttonDown.setName("buttonDown"); // NOI18N
-        buttonDown.addActionListener(new java.awt.event.ActionListener() {
+        buttonSearchDownwards.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/lib/resource/icons/icon_arrow_down.png"))); // NOI18N
+        buttonSearchDownwards.setText(bundle.getString("TextComponentSearchPanel.buttonSearchDownwards.text")); // NOI18N
+        buttonSearchDownwards.setEnabled(false);
+        buttonSearchDownwards.setName("buttonSearchDownwards"); // NOI18N
+        buttonSearchDownwards.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonDownActionPerformed(evt);
+                buttonSearchDownwardsActionPerformed(evt);
             }
         });
 
-        buttonUp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/lib/resource/icons/icon_arrow_up.png"))); // NOI18N
-        buttonUp.setText(bundle.getString("TextAreaSearchPanel.buttonUp.text")); // NOI18N
-        buttonUp.setEnabled(false);
-        buttonUp.setName("buttonUp"); // NOI18N
-        buttonUp.addActionListener(new java.awt.event.ActionListener() {
+        buttonSearchUpwards.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/lib/resource/icons/icon_arrow_up.png"))); // NOI18N
+        buttonSearchUpwards.setText(bundle.getString("TextComponentSearchPanel.buttonSearchUpwards.text")); // NOI18N
+        buttonSearchUpwards.setEnabled(false);
+        buttonSearchUpwards.setName("buttonSearchUpwards"); // NOI18N
+        buttonSearchUpwards.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonUpActionPerformed(evt);
+                buttonSearchUpwardsActionPerformed(evt);
             }
         });
 
@@ -228,39 +228,39 @@ public class TextAreaSearchPanel extends javax.swing.JPanel implements DocumentL
             .addGroup(layout.createSequentialGroup()
                 .addComponent(label)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textField, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
+                .addComponent(searchTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonDown)
+                .addComponent(buttonSearchDownwards)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonUp))
+                .addComponent(buttonSearchUpwards))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonDown, buttonUp});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonSearchDownwards, buttonSearchUpwards});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(label)
-                .addComponent(textField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(buttonDown)
-                .addComponent(buttonUp))
+                .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(buttonSearchDownwards)
+                .addComponent(buttonSearchUpwards))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {buttonDown, buttonUp});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {buttonSearchDownwards, buttonSearchUpwards});
 
     }//GEN-END:initComponents
 
-    private void buttonDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDownActionPerformed
+    private void buttonSearchDownwardsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSearchDownwardsActionPerformed
         searchDown();
-    }//GEN-LAST:event_buttonDownActionPerformed
+    }//GEN-LAST:event_buttonSearchDownwardsActionPerformed
 
-    private void buttonUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpActionPerformed
+    private void buttonSearchUpwardsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSearchUpwardsActionPerformed
         searchUp();
-    }//GEN-LAST:event_buttonUpActionPerformed
+    }//GEN-LAST:event_buttonSearchUpwardsActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonDown;
-    private javax.swing.JButton buttonUp;
+    private javax.swing.JButton buttonSearchDownwards;
+    private javax.swing.JButton buttonSearchUpwards;
     private javax.swing.JLabel label;
-    private javax.swing.JTextField textField;
+    private javax.swing.JTextField searchTextField;
     // End of variables declaration//GEN-END:variables
 }

@@ -23,11 +23,11 @@
           <Group type="102" alignment="0" attributes="0">
               <Component id="label" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="textField" pref="118" max="32767" attributes="0"/>
+              <Component id="searchTextField" pref="118" max="32767" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="buttonDown" linkSize="1" min="-2" max="-2" attributes="0"/>
+              <Component id="buttonSearchDownwards" linkSize="1" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="buttonUp" linkSize="1" min="-2" max="-2" attributes="0"/>
+              <Component id="buttonSearchUpwards" linkSize="1" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -35,9 +35,9 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="103" groupAlignment="3" attributes="0">
               <Component id="label" alignment="3" min="-2" max="-2" attributes="0"/>
-              <Component id="textField" alignment="3" min="-2" max="-2" attributes="0"/>
-              <Component id="buttonDown" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
-              <Component id="buttonUp" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Component id="searchTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Component id="buttonSearchDownwards" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Component id="buttonSearchUpwards" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -46,48 +46,48 @@
     <Component class="javax.swing.JLabel" name="label">
       <Properties>
         <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="textField"/>
+          <ComponentRef name="searchTextField"/>
         </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/lib/swing/Bundle.properties" key="TextAreaSearchPanel.label.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/lib/swing/Bundle.properties" key="TextComponentSearchPanel.label.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="name" type="java.lang.String" value="label" noResource="true"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="textField">
+    <Component class="javax.swing.JTextField" name="searchTextField">
       <Properties>
         <Property name="columns" type="int" value="10"/>
-        <Property name="name" type="java.lang.String" value="textField" noResource="true"/>
+        <Property name="name" type="java.lang.String" value="searchTextField" noResource="true"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="buttonDown">
+    <Component class="javax.swing.JButton" name="buttonSearchDownwards">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/org/jphototagger/lib/resource/icons/icon_arrow_down.png"/>
         </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/lib/swing/Bundle.properties" key="TextAreaSearchPanel.buttonDown.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/lib/swing/Bundle.properties" key="TextComponentSearchPanel.buttonSearchDownwards.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
-        <Property name="name" type="java.lang.String" value="buttonDown" noResource="true"/>
+        <Property name="name" type="java.lang.String" value="buttonSearchDownwards" noResource="true"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonDownActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSearchDownwardsActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="buttonUp">
+    <Component class="javax.swing.JButton" name="buttonSearchUpwards">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/org/jphototagger/lib/resource/icons/icon_arrow_up.png"/>
         </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/lib/swing/Bundle.properties" key="TextAreaSearchPanel.buttonUp.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/lib/swing/Bundle.properties" key="TextComponentSearchPanel.buttonSearchUpwards.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
-        <Property name="name" type="java.lang.String" value="buttonUp" noResource="true"/>
+        <Property name="name" type="java.lang.String" value="buttonSearchUpwards" noResource="true"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonUpActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSearchUpwardsActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

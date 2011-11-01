@@ -119,8 +119,8 @@ public class LongMessageDialog extends Dialog {
         scrollPane = new javax.swing.JScrollPane();
         textArea = new javax.swing.JTextArea();
         panelControls = new javax.swing.JPanel();
-        panelSearch = new org.jphototagger.lib.swing.TextAreaSearchPanel();
-        panelSearch.setTextArea(textArea);
+        panelSearch = new org.jphototagger.lib.swing.TextComponentSearchPanel();
+        panelSearch.setSearchableTextComponent(textArea);
         buttonMail = new javax.swing.JButton();
         buttonCopy = new javax.swing.JButton();
         buttonClose = new javax.swing.JButton();
@@ -283,7 +283,7 @@ public class LongMessageDialog extends Dialog {
     private javax.swing.JLabel labelIcon;
     private javax.swing.JLabel labelShortMessage;
     private javax.swing.JPanel panelControls;
-    private org.jphototagger.lib.swing.TextAreaSearchPanel panelSearch;
+    private org.jphototagger.lib.swing.TextComponentSearchPanel panelSearch;
     private javax.swing.JScrollPane scrollPane;
     private javax.swing.JTextArea textArea;
     // End of variables declaration//GEN-END:variables

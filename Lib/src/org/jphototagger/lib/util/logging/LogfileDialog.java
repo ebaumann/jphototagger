@@ -398,7 +398,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
                 remove(panelSearchSimple);
             } else if (simpleFormatter) {
                 readSimple();
-                panelSearchSimple.focusTextInput();
+                panelSearchSimple.requestFocusToSearchTextField();
             } else {
                 errorMessageNotSupportedFormat();
                 readSimple();
@@ -481,8 +481,8 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
         panelSimple = new javax.swing.JPanel();
         scrollPanePanelSimple = new javax.swing.JScrollPane();
         textAreaSimple = new javax.swing.JTextArea();
-        panelSearchSimple = new org.jphototagger.lib.swing.TextAreaSearchPanel();
-        panelSearchSimple.setTextArea(textAreaSimple);
+        panelSearchSimple = new org.jphototagger.lib.swing.TextComponentSearchPanel();
+        panelSearchSimple.setSearchableTextComponent(textAreaSimple);
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/lib/util/logging/Bundle"); // NOI18N
         setTitle(bundle.getString("LogfileDialog.title")); // NOI18N
@@ -865,7 +865,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
     private javax.swing.JPanel panelContent;
     private javax.swing.JPanel panelFilter;
     private javax.swing.JPanel panelFilterCheckBoxes;
-    private org.jphototagger.lib.swing.TextAreaSearchPanel panelSearchSimple;
+    private org.jphototagger.lib.swing.TextComponentSearchPanel panelSearchSimple;
     private javax.swing.JPanel panelSearchXml;
     private javax.swing.JPanel panelSimple;
     private javax.swing.JPanel panelXml;
