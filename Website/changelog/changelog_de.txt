@@ -3,6 +3,12 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.14.1 2011-11-01
+-----------------
+
+* Hilfedialog hat Suche innerhalb der angezeigten Seite und die Textgröße
+  kann eingestellt werden auf verschiedene Stufen (klein bis sehr groß)
+
 0.14.0 2011-11-01
 -----------------
 
