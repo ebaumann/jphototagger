@@ -1,5 +1,6 @@
 package org.jphototagger.lib.swingx;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import org.jdesktop.swingx.JXEditorPane;
@@ -53,6 +54,14 @@ public final class ScalableContentEditorPane extends JXEditorPane {
 
     public int getScaleFactorPercent() {
         return (int) (scaleFactor * 100);
+    }
+
+    @Override
+    public Dimension getPreferredSize() {
+        Dimension preferredSize = super.getPreferredSize();
+        int scaledWidth = (int) (preferredSize.width * scaleFactor);
+        int scaledHeight = (int) (preferredSize.height * scaleFactor);
+        return new Dimension(scaledWidth, scaledHeight);
     }
 
     @Override
