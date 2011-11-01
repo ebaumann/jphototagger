@@ -52,7 +52,7 @@ public final class ScalableContentEditorPane extends JXEditorPane {
     }
 
     public int getScaleFactorPercent() {
-        return (int) scaleFactor * 100;
+        return (int) (scaleFactor * 100);
     }
 
     @Override
