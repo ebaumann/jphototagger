@@ -8,6 +8,7 @@ Changelog JPhotoTagger http://jphototagger.org/
 
 * In der Hilfe werden in der Volltextsuche gefundene Wörter (nun)
   hervorgehoben
+* Angezeigte Hilfeseiten können gedruckt werden
 
 0.14.1 2011-11-01
 -----------------
