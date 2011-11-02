@@ -3,6 +3,12 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.14.2 2011-11-01
+-----------------
+
+* In der Hilfe werden in der Volltextsuche gefundene Wörter (nun)
+  hervorgehoben
+
 0.14.1 2011-11-01
 -----------------
 
