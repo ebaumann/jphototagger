@@ -19,7 +19,11 @@ public final class SearchInComponentAction extends AbstractAction {
     private final JComponent component;
 
     public SearchInComponentAction(JComponent component) {
-        super(Bundle.getString(SearchInComponentAction.class, "SearchInComponentAction.Name"));
+        this(component, Bundle.getString(SearchInComponentAction.class, "SearchInComponentAction.Name"));
+    }
+
+    public SearchInComponentAction(JComponent component, String name) {
+        super(name);
         if (component == null) {
             throw new NullPointerException("list == null");
         }
