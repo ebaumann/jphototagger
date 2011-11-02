@@ -4,9 +4,12 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -55,7 +58,7 @@ import org.jphototagger.lib.util.StringUtil;
  *
  * @author Elmar Baumann
  */
-public final class HelpBrowser extends Dialog implements HyperlinkListener, TreeSelectionListener {
+public final class HelpBrowser extends Dialog implements HyperlinkListener, TreeSelectionListener, PropertyChangeListener {
 
     private static final long serialVersionUID = 1L;
     private static final String KEY_DIVIDER_LOCATION = "HelpBrowser.DividerLocation";
@@ -73,6 +76,8 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
     private HelpPage selectedFoundPage;
     private final Map<JMenuItem, Integer> textFontSizeOfMenuItem = new HashMap<JMenuItem, Integer>();
     private final ObservableList<HelpPage> foundPages = ObservableCollections.observableList(new ArrayList<HelpPage>());
+    private volatile boolean isHighlight;
+    private final TextHighlighter textHighLighter;
 
     public HelpBrowser(HelpNode rootNode) {
         super(ComponentUtil.findFrameWithIcon());
@@ -84,10 +89,12 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         initComponents();
         postInitComponents();
         tree.setModel(new HelpContentsTreeModel(rootNode));
+        textHighLighter = new TextHighlighter(editorPanePage);
     }
 
     private void postInitComponents() {
         editorPanePage.addHyperlinkListener(this);
+        editorPanePage.addPropertyChangeListener(this);
         tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
         tree.addTreeSelectionListener(this);
         setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
@@ -184,6 +191,7 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
 
     private void setPage(URL url) {
         try {
+            textHighLighter.removeAllHighlights();
             editorPanePage.setPage(url);
         } catch (Exception ex) {
             Logger.getLogger(HelpBrowser.class.getName()).log(Level.SEVERE, null, ex);
@@ -391,7 +399,26 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         this.selectedFoundPage = selectedFoundPage;
         if (selectedFoundPage != null) {
             setDisplayUrl(selectedFoundPage.getUrl());
+            isHighlight = true;
             selectDisplayUrl();
+        }
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        if ("page".equals(evt.getPropertyName()) && isHighlight) {
+            isHighlight = false;
+            highLightSearchTerms();
+        }
+    }
+
+    private void highLightSearchTerms() {
+        String text = textFieldSearch.getText();
+        String[] searchTerms = text.split(" ");
+        List<String> searchTermsWithContent = StringUtil.getStringsWithContent(searchTerms);
+        if (!searchTermsWithContent.isEmpty()) {
+            textHighLighter.highlightWords(new HashSet<String>(searchTermsWithContent));
+            ComponentUtil.forceRepaint(editorPanePage);
         }
     }
 
