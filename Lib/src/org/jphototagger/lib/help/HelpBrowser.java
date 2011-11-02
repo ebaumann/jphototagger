@@ -518,7 +518,20 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
     }
 
     private void addSearchAction(){
-        buttonSearchInCurrentPage.setAction(new SearchInComponentAction(editorPanePage));
+        String name = Bundle.getString(HelpBrowser.class, "HelpBrowser.SearchInComponentAction.Name");
+        String tooltipText = Bundle.getString(HelpBrowser.class, "HelpBrowser.SearchInComponentAction.TooltipText");
+        SearchInComponentAction searchInComponentAction = new SearchInComponentAction(editorPanePage, name);
+        buttonSearchInCurrentPage.setAction(searchInComponentAction);
+        buttonSearchInCurrentPage.setToolTipText(tooltipText);
+        MnemonicUtil.setMnemonics(buttonSearchInCurrentPage);
+    }
+
+    private void printPage() {
+        try {
+            editorPanePage.print();
+        } catch (Throwable t) {
+            Logger.getLogger(HelpBrowser.class.getName()).log(Level.SEVERE, null, t);
+        }
     }
 
     /**
@@ -550,8 +563,9 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         panelPage = new javax.swing.JPanel();
         scrollPanePage = new javax.swing.JScrollPane();
         editorPanePage = new org.jdesktop.swingx.JXEditorPane();
+        panelButtons = new javax.swing.JPanel();
+        buttonPrint = new javax.swing.JButton();
         buttonSearchInCurrentPage = new javax.swing.JButton();
-        panelGotoButtons = new javax.swing.JPanel();
         buttonGotoPreviousUrl = new javax.swing.JButton();
         buttonGotoNextUrl = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -670,30 +684,36 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         gridBagConstraints.weighty = 1.0;
         panelPage.add(scrollPanePage, gridBagConstraints);
 
+        panelButtons.setName("panelButtons"); // NOI18N
+        panelButtons.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
+
+        buttonPrint.setText(bundle.getString("HelpBrowser.buttonPrint.text")); // NOI18N
+        buttonPrint.setToolTipText(bundle.getString("HelpBrowser.buttonPrint.toolTipText")); // NOI18N
+        buttonPrint.setName("buttonPrint"); // NOI18N
+        buttonPrint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonPrintActionPerformed(evt);
+            }
+        });
+        panelButtons.add(buttonPrint);
+
         buttonSearchInCurrentPage.setToolTipText(bundle.getString("HelpBrowser.buttonSearchInCurrentPage.toolTipText")); // NOI18N
         buttonSearchInCurrentPage.setName("buttonSearchInCurrentPage"); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.weightx = 0.5;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 0);
-        panelPage.add(buttonSearchInCurrentPage, gridBagConstraints);
-
-        panelGotoButtons.setName("panelGotoButtons"); // NOI18N
-        panelGotoButtons.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
+        panelButtons.add(buttonSearchInCurrentPage);
 
         buttonGotoPreviousUrl.setAction(goToPreviousUrlAction);
         buttonGotoPreviousUrl.setName("buttonGotoPreviousUrl"); // NOI18N
-        panelGotoButtons.add(buttonGotoPreviousUrl);
+        panelButtons.add(buttonGotoPreviousUrl);
 
         buttonGotoNextUrl.setAction(goToNextUrlAction);
         buttonGotoNextUrl.setName("buttonGotoNextUrl"); // NOI18N
-        panelGotoButtons.add(buttonGotoNextUrl);
+        panelButtons.add(buttonGotoNextUrl);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 15, 5, 5);
-        panelPage.add(panelGotoButtons, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        panelPage.add(panelButtons, gridBagConstraints);
 
         splitPane.setRightComponent(panelPage);
 
@@ -785,6 +805,10 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         setTextFontSizeOfMenuItem(menuItemTextFontSizeHuge);
     }//GEN-LAST:event_menuItemTextFontSizeHugeActionPerformed
 
+    private void buttonPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPrintActionPerformed
+        printPage();
+    }//GEN-LAST:event_buttonPrintActionPerformed
+
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
@@ -798,6 +822,7 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
     private javax.swing.JButton buttonGotoNextUrl;
     private javax.swing.JButton buttonGotoPreviousUrl;
     private javax.swing.ButtonGroup buttonGroupTextSize;
+    private javax.swing.JButton buttonPrint;
     private javax.swing.JButton buttonSearchInCurrentPage;
     private org.jdesktop.swingx.JXEditorPane editorPanePage;
     private javax.swing.JMenuBar jMenuBar1;
@@ -810,8 +835,8 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
     private javax.swing.JRadioButtonMenuItem menuItemTextFontSizeNormal;
     private javax.swing.JRadioButtonMenuItem menuItemTextFontSizeSmall;
     private javax.swing.JMenu menuView;
+    private javax.swing.JPanel panelButtons;
     private javax.swing.JPanel panelContents;
-    private javax.swing.JPanel panelGotoButtons;
     private javax.swing.JPanel panelPage;
     private javax.swing.JPanel panelSearch;
     private javax.swing.JPopupMenu popupMenuEditorPane;
