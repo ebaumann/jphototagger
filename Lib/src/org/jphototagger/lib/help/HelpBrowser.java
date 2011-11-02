@@ -8,8 +8,10 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -71,6 +73,7 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
     private String displayUrl;
     private boolean settingPath;
     private final HelpNode rootNode;
+    private final Collection<HelpPage> helpPages;
     private final HelpSearch helpSearch;
     private String titlePostfix = Bundle.getString(HelpBrowser.class, "HelpBrowser.TitlePostfix");
     private HelpPage selectedFoundPage;
@@ -86,6 +89,7 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         }
         this.rootNode = rootNode;
         this.helpSearch = new HelpSearch(rootNode);
+        this.helpPages = new LinkedHashSet<HelpPage>(HelpUtil.findHelpPagesRecursive(rootNode));
         initComponents();
         postInitComponents();
         tree.setModel(new HelpContentsTreeModel(rootNode));
@@ -231,7 +235,7 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
     public void hyperlinkUpdate(HyperlinkEvent evt) {
         if (evt.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
             URL url = evt.getURL();
-            String jptUrl = toJPhotoTaggerUrl(url);
+            String jptUrl = toPageUrl(url);
             Object[] path = rootNode.getPagePath(jptUrl);
             if (path == null) {
                 showUrl(url);
@@ -241,19 +245,26 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         }
     }
 
-    public static String toJPhotoTaggerUrl(URL url) {
+    public String toPageUrl(URL url) {
         if (url == null) {
             throw new NullPointerException("url == null");
         }
 
-        String path = url.getPath();
-        int index = path.indexOf("/org/jphototagger");
-
-        if (index >= 0 && index < path.length() - 1) {
-            return path.substring(index);
+        String urlPath = url.getPath();
+        if (!StringUtil.hasContent(urlPath)) {
+            return "";
         }
 
-        return path;
+        String foundPageUrl = null;
+        for (HelpPage page : helpPages) {
+            String pageUrl = page.getUrl();
+            if (pageUrl.equals(urlPath) || urlPath.endsWith(pageUrl)) {
+                foundPageUrl = pageUrl;
+                break;
+            }
+        }
+
+        return foundPageUrl == null ? urlPath : foundPageUrl;
     }
 
     @Override
@@ -339,7 +350,7 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
                 URL url = urlHistory.get(currentHistoryIndex);
                 setPage(url);
                 URL nextUrl = urlHistory.get(currentHistoryIndex);
-                String jPhotoTaggerNextUrl = toJPhotoTaggerUrl(nextUrl);
+                String jPhotoTaggerNextUrl = toPageUrl(nextUrl);
                 setSelectionPath(jPhotoTaggerNextUrl);
                 setGotActionsEnabled();
             }
@@ -361,7 +372,7 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
                 URL url = urlHistory.get(currentHistoryIndex);
                 setPage(url);
                 URL previousUrl = urlHistory.get(currentHistoryIndex);
-                String jPhotoTaggerPreviousUrl = toJPhotoTaggerUrl(previousUrl);
+                String jPhotoTaggerPreviousUrl = toPageUrl(previousUrl);
                 setSelectionPath(jPhotoTaggerPreviousUrl);
                 setGotActionsEnabled();
             }

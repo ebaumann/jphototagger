@@ -41,6 +41,8 @@ public final class HelpBrowserDisplayer implements HelpDisplayer, HelpContentPro
             synchronized (HelpBrowser.class) {
                 HELP_BROWSER.setDisplayUrl(helpPageUrl);
             }
+        } else {
+            restoreCurrentUrl();
         }
         ComponentUtil.show(HELP_BROWSER);
     }
@@ -80,7 +82,7 @@ public final class HelpBrowserDisplayer implements HelpDisplayer, HelpContentPro
         @Override
         public void actionPerformed(HelpBrowserEvent evt) {
             if (evt.getType().equals(HelpBrowserEvent.Type.URL_CHANGED)) {
-                String currentUrl = HelpBrowser.toJPhotoTaggerUrl(evt.getUrl());
+                String currentUrl = HELP_BROWSER.toPageUrl(evt.getUrl());
                 persistCurrentUrl(currentUrl);
             }
         }
