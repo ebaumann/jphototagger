@@ -49,11 +49,28 @@
             Negieren-Option.
         </p>
 
+        <h2>Beispiele für reguläre Ausdrücke</h2>
+
+        <dl>
+            <dt><strong>Zeige sowohl Nikon RAW-Dateien an als auch TIFF-Dateien:</strong>
+                Nikon-RAW-Dateien enden mit
+                <code>NEF</code>, TIFF-Dateien mit <code>TIF</code>. <strong>.*</strong> am Anfang,
+                bedeutet, dass etwas beliebiges vor der Endung stehen darf. Der Punkt hat eine
+                besondere Bedeutung in regulären Ausdrücken, der Punkt vor der Endung soll als Punkt im Dateienamen vorkommen
+                und ist deshalb mit dem Backslash <strong>\</strong> maskiert.
+                Damit Groß- und Kleinschreibung gefunden werden, sind Buchstabenmengen definiert,
+                z.B. <strong>[Tt]</strong> (ein großes oder kleines <strong>T</strong>).
+                Das Dollar-Zeichen bedeutet, dass die Endung auch wirklich am Ende steht.
+                Der ODER-Operator <strong>|</strong> sorgt dafür, dass entweder NEF- oder TIFF-Dateien
+                akzeptiert werden.
+            </dt>
+            <dd><code>.*\.[Nn][Ee][Ff]$|.*\.[Tt][Ii][Ff]$</code></dd>
+        </dl>
+
         <h2>Siehe auch</h2>
 
         <ul>
-            <li><a href="user_defined_file_filter.html">Benutzerdefinierte
-                Dateifilter</a>
+            <li><a href="user_defined_file_filter.html">Benutzerdefinierte Dateifilter</a>
             </li>
             <li><a href="filefilter.html">Filter: Folgende Bilder anzeigen</a>
             </li>
