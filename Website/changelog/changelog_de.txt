@@ -3,6 +3,15 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.14.2 2011-11-22
+-----------------
+
+* Bugfix: Wurde über dem Vorschaubildfenster ein Dateityp eingestellt,
+  für den es keine Bilder gibt und es wurden folglich keine Bilder
+  angezeigt, bewirkte der Wechsel auf einen Dateityp, für den es Bilder
+  gibt, zunächst nichts (es war erst F5 zu drücken oder der Ordners zu
+  wechseln oder auf eine andere Weise die Bildauswahl zu ändern)
+
 0.14.2 2011-11-01
 -----------------
 
