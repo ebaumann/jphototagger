@@ -1183,7 +1183,7 @@ public class ThumbnailsPanel extends JPanel
         if (filterChanged) {
             LOGGER.log(Level.FINEST, "Changing file filter to {0}", filter);
             fileFilter = filter;
-            if (originOfOfDisplayedThumbnails.isFilterable() && !isEmpty()) {
+            if (originOfOfDisplayedThumbnails.isFilterable()) {
                 refresh(); // Refresh and not setFiles() because a filter may display more files, e.g. prev. TIFF, now ALL types
             }
         }
