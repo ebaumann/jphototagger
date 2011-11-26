@@ -1,13 +1,19 @@
 package org.jphototagger.program.module.thumbnails;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.File;
 import java.io.FileFilter;
+import java.util.Collection;
 import java.util.Comparator;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 
@@ -16,7 +22,9 @@ import org.openide.util.Lookup;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.windows.WaitDisplayer;
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
+import org.jphototagger.domain.thumbnails.ThumbnailsPanelBottomComponentProvider;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.swing.ExpandCollapseComponentPanel;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 
 /**
@@ -28,6 +36,7 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel implements ItemListe
     private static final String KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION = "org.jphototagger.program.view.panels.controller.ViewportViewPosition";
     private final FileFiltersComboBoxModel fileFiltersComboBoxModel = new FileFiltersComboBoxModel();
     private final ThumbnailsSortComboBoxModel thumbnailsSortComboBoxModel = new ThumbnailsSortComboBoxModel();
+    private ExpandCollapseComponentPanel expandCollapseBottomPanel;
 
     public ThumbnailsAreaPanel() {
         initComponents();
@@ -35,6 +44,7 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel implements ItemListe
     }
 
     private void postInitComponents() {
+        addBottomComponentsPanel();
         thumbnailsPanelScrollPane.getVerticalScrollBar().setUnitIncrement(30);
         fileSortComboBox.addItemListener(this);
         fileFiltersComboBox.addItemListener(this);
@@ -160,6 +170,39 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel implements ItemListe
         thumbnailsPanelScrollPane.validate();
     }
 
+    private void addBottomComponentsPanel() {
+        lookupBottomComponents();
+        expandCollapseBottomPanel = new ExpandCollapseComponentPanel(panelBottomComponents);
+        expandCollapseBottomPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, new Color(95, 95, 95)));
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1.0;
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(0, 0, 5, 0);
+        add(expandCollapseBottomPanel, gbc);
+        expandCollapseBottomPanel.readExpandedState();
+    }
+
+    private void lookupBottomComponents() {
+        Collection<? extends ThumbnailsPanelBottomComponentProvider> providers = Lookup.getDefault().lookupAll(ThumbnailsPanelBottomComponentProvider.class);
+        for (ThumbnailsPanelBottomComponentProvider provider : providers) {
+            Component component = provider.getComponent();
+            GridBagConstraints constraints = createBottomComponentConstraints();
+            panelBottomComponents.add(component, constraints);
+        }
+    }
+
+    private GridBagConstraints createBottomComponentConstraints() {
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.weightx = 1.0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(5, 5, 0, 5);
+        return gbc;
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -169,6 +212,8 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel implements ItemListe
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
+        panelBottomComponents = new javax.swing.JPanel();
+        labelInfo = new javax.swing.JLabel();
         panelDisplayedThumbnailFilters = new javax.swing.JPanel();
         labelFileFilters = new javax.swing.JLabel();
         fileFiltersComboBox = new javax.swing.JComboBox();
@@ -177,13 +222,24 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel implements ItemListe
         thumbnailsPanelScrollPane = new javax.swing.JScrollPane();
         thumbnailsPanel = new org.jphototagger.program.module.thumbnails.ThumbnailsPanel();
 
+        panelBottomComponents.setName("panelBottomComponents"); // NOI18N
+        panelBottomComponents.setLayout(new java.awt.GridBagLayout());
+
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/thumbnails/Bundle"); // NOI18N
+        labelInfo.setText(bundle.getString("ThumbnailsAreaPanel.labelInfo.text")); // NOI18N
+        labelInfo.setName("labelInfo"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        panelBottomComponents.add(labelInfo, gridBagConstraints);
+
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
 
         panelDisplayedThumbnailFilters.setName("panelDisplayedThumbnailFilters"); // NOI18N
         panelDisplayedThumbnailFilters.setLayout(new java.awt.GridBagLayout());
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/thumbnails/Bundle"); // NOI18N
         labelFileFilters.setText(bundle.getString("ThumbnailsAreaPanel.labelFileFilters.text")); // NOI18N
         labelFileFilters.setName("labelFileFilters"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -253,6 +309,8 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel implements ItemListe
     private javax.swing.JComboBox fileSortComboBox;
     private javax.swing.JLabel labelFileFilters;
     private javax.swing.JLabel labelFileSort;
+    private javax.swing.JLabel labelInfo;
+    private javax.swing.JPanel panelBottomComponents;
     private javax.swing.JPanel panelDisplayedThumbnailFilters;
     private org.jphototagger.program.module.thumbnails.ThumbnailsPanel thumbnailsPanel;
     private javax.swing.JScrollPane thumbnailsPanelScrollPane;
