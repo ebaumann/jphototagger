@@ -24,6 +24,7 @@ import org.jphototagger.program.module.favorites.DeleteFilesystemFolderFromFavor
 import org.jphototagger.program.module.favorites.FavoriteSelectedController;
 import org.jphototagger.program.module.favorites.InsertFavoriteController;
 import org.jphototagger.program.module.favorites.MoveFavoriteController;
+import org.jphototagger.program.module.favorites.OpenFavoriteInDesktopController;
 import org.jphototagger.program.module.favorites.OpenFavoriteInDirectoriesTreeController;
 import org.jphototagger.program.module.favorites.RefreshFavoritesController;
 import org.jphototagger.program.module.favorites.RenameFilesystemFolderInFavoritesController;
@@ -223,6 +224,7 @@ public final class ControllerFactory {
         support.add(new InsertFavoriteController());
         support.add(new DeleteFavoriteController());
         support.add(new UpdateFavoriteController());
+        support.add(new OpenFavoriteInDesktopController());
         support.add(new OpenFavoriteInDirectoriesTreeController());
         support.add(new MoveFavoriteController());
         support.add(new RefreshFavoritesController());
