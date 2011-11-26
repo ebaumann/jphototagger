@@ -312,6 +312,28 @@ public final class StringUtil {
         return stringsWithContent;
     }
 
+    /**
+     * @param string
+     * @param nTimes
+     * @return Empty string if nTimes equals zero or string nTimes repeated
+     */
+    public static String getNTimesRepeated(String string, int nTimes) {
+        if (string == null) {
+            throw new NullPointerException("string == null");
+        }
+        if (nTimes < 0) {
+            throw new IllegalArgumentException("N Times less than zero: " + nTimes);
+        }
+        if (nTimes == 0 || string.isEmpty()) {
+            return "";
+        }
+        StringBuilder sb = new StringBuilder(string.length() * nTimes);
+        for (int i = 0; i < nTimes; i++) {
+            sb.append(string);
+        }
+        return sb.toString();
+    }
+
     private StringUtil() {
     }
 }
