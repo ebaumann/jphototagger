@@ -14,6 +14,7 @@ import org.jphototagger.program.module.actions.ActionsMenuUpdater;
 import org.jphototagger.program.module.directories.CreateDirectoryController;
 import org.jphototagger.program.module.directories.DeleteDirectoryController;
 import org.jphototagger.program.module.directories.DirectorySelectedController;
+import org.jphototagger.program.module.directories.OpenInFileDesktopController;
 import org.jphototagger.program.module.directories.PasteFilesIntoDirectoryController;
 import org.jphototagger.program.module.directories.RefreshDirectoryTreeController;
 import org.jphototagger.program.module.directories.RenameDirectoryController;
@@ -236,6 +237,7 @@ public final class ControllerFactory {
         support.add(new RenameDirectoryController());
         support.add(new DeleteDirectoryController());
         support.add(new RefreshDirectoryTreeController());
+        support.add(new OpenInFileDesktopController());
     }
 
     private void addKeywordsControllers() {
