@@ -60,7 +60,6 @@
     </Component>
     <Container class="javax.swing.JTabbedPane" name="tabbedPane">
       <Properties>
-        <Property name="tabLayoutPolicy" type="int" value="1"/>
         <Property name="name" type="java.lang.String" value="tabbedPane" noResource="true"/>
       </Properties>
 

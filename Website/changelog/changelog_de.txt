@@ -6,11 +6,15 @@ Changelog JPhotoTagger http://jphototagger.org/
 0.15.0 2011-11-26
 -----------------
 
-* Neuee Kontextmenü-Einträge im Ordner- und Favoriten-Kartenreiter:
+* Im Vorschaubildfenster gibt es unten eine Detailanzeige, die eingeklappt
+  werden kann
+* Neue Kontextmenü-Einträge im Ordner- und Favoriten-Kartenreiter:
   "Ordner öffnen". Öffnet den ausgewählten Ordner mit dem Programm, das
   im Betriebssystem (Desktop) bevorzugt zum Öffnen von Ordnern benutzt
   werden soll, unter Windows z.B. ist das in der Regel der Explorer
   (Dateimanager)
+* Der Einstellungen-Dialog zeigt alle Kartenreiter an anstelle einer
+  Scroll-Leiste
 
 0.14.3 2011-11-22
 -----------------
