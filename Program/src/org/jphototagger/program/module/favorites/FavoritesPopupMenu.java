@@ -35,6 +35,7 @@ public final class FavoritesPopupMenu extends JPopupMenu {
     private final JMenuItem itemDeleteFavorite = new JMenuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.DisplayName.Action.DeleteFavorite"), AppLookAndFeel.ICON_DELETE);
     private final JMenuItem itemCollapseAllSubitems = new JMenuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.ItemCollapse"));
     private final JMenuItem itemAddFilesystemFolder = new JMenuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.DisplayName.Action.AddFilesystemFolder"), AppLookAndFeel.getIcon("icon_folder_new.png"));
+    private final JMenuItem itemOpenInDesktop = new JMenuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.Action.OpenInDesktop"));
     private transient Favorite favoriteDirectory;
     private TreePath treePath;
 
@@ -90,6 +91,10 @@ public final class FavoritesPopupMenu extends JPopupMenu {
         return itemExpandAllSubitems;
     }
 
+    JMenuItem getItemOpenInDesktop() {
+        return itemOpenInDesktop;
+    }
+
     public TreePath getTreePath() {
         return treePath;
     }
@@ -118,6 +123,7 @@ public final class FavoritesPopupMenu extends JPopupMenu {
         add(itemMoveUp);
         add(itemMoveDown);
         add(new Separator());
+        add(itemOpenInDesktop);
         add(itemOpenInFolders);
         add(new Separator());
         add(itemAddFilesystemFolder);
