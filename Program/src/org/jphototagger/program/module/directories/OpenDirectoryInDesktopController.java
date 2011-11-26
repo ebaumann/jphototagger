@@ -9,9 +9,9 @@ import org.jphototagger.lib.awt.DesktopUtil;
 /**
  * @author Elmar Baumann
  */
-public final class OpenInFileDesktopController extends DirectoryController {
+public final class OpenDirectoryInDesktopController extends DirectoryController {
 
-    public OpenInFileDesktopController() {
+    public OpenDirectoryInDesktopController() {
         listenToActionsOf(DirectoriesPopupMenu.INSTANCE.getItemOpenInDesktop());
     }
 
