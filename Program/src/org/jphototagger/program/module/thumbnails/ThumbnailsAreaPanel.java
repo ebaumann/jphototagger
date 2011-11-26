@@ -179,7 +179,6 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel implements ItemListe
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.weightx = 1.0;
         gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(0, 0, 5, 0);
         add(expandCollapseBottomPanel, gbc);
         expandCollapseBottomPanel.readExpandedState();
     }
@@ -199,7 +198,7 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel implements ItemListe
         gbc.weightx = 1.0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(5, 5, 0, 5);
+        gbc.insets = new Insets(0, 5, 5, 5);
         return gbc;
     }
 
