@@ -75,4 +75,43 @@ public class FileUtilTest {
         assertTrue(gotFiles.contains(file3));
         assertFalse(gotFiles.contains(file4));
     }
+
+    @Test
+    public void testToStringWithMaximumLength() {
+        String filepath = "/home/elmar/bilder/2011/2011-06 Motorradtour Fränkische Schweiz/2011-06-12/2011-06-12-001.SRW";
+        File file = new File(filepath);
+
+        String string = FileUtil.toStringWithMaximumLength(file, 0);
+        assertEquals("", string);
+
+        string = FileUtil.toStringWithMaximumLength(file, 1);
+        assertEquals(".", string);
+
+        string = FileUtil.toStringWithMaximumLength(file, 2);
+        assertEquals("..", string);
+
+        string = FileUtil.toStringWithMaximumLength(file, 3);
+        assertEquals("...", string);
+
+        string = FileUtil.toStringWithMaximumLength(file, 4);
+        assertEquals("...W", string);
+
+        string = FileUtil.toStringWithMaximumLength(file, 18);
+        assertEquals("...1-06-12-001.SRW", string);
+
+        string = FileUtil.toStringWithMaximumLength(file, Integer.MAX_VALUE);
+        assertEquals(filepath, string);
+
+        string = FileUtil.toStringWithMaximumLength(file, 95);
+        assertEquals(filepath, string);
+
+        string = FileUtil.toStringWithMaximumLength(file, 94);
+        assertEquals(filepath, string);
+
+        string = FileUtil.toStringWithMaximumLength(file, 22);
+        assertEquals(".../2011-06-12-001.SRW", string);
+
+        string = FileUtil.toStringWithMaximumLength(file, 53);
+        assertEquals("/home/elmar/bilder/2011/2011-06.../2011-06-12-001.SRW", string);
+    }
 }
