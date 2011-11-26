@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 
 import org.jphototagger.api.concurrent.CancelRequest;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
+import org.jphototagger.lib.util.StringUtil;
 
 /**
  * Utilities for Files.
@@ -678,6 +679,38 @@ public final class FileUtil {
         }
 
         return hex.toString();
+    }
+
+    public static String toStringWithMaximumLength(File file, int maximumLength) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+        if (maximumLength < 0) {
+            throw new IllegalArgumentException("Negative maximum length: " + maximumLength);
+        }
+        if (maximumLength == 0) {
+            return "";
+        }
+        String filepath = file.getAbsolutePath();
+        if (filepath.length() <= maximumLength) {
+            return filepath;
+        }
+        String fill = "...";
+        if (maximumLength <= fill.length()) {
+            return StringUtil.getNTimesRepeated(".", maximumLength);
+        }
+        String filename = file.getName();
+        StringBuilder sb = new StringBuilder();
+        int filenameWithFillLength = fill.length() + File.separator.length() + filename.length();
+        if (maximumLength >= filenameWithFillLength) { // Min. ".../Filename"
+            String filepathRemainder = filepath.substring(0, maximumLength - filenameWithFillLength);
+            sb.append(filepathRemainder).append(fill).append(File.separator).append(filename);
+        } else {
+            String filenameRemainder = filename.substring(filename.length() - maximumLength + fill.length());
+            sb.append(fill).append(filenameRemainder);
+        }
+        return sb.toString();
+
     }
 
     private FileUtil() {
