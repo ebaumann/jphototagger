@@ -1,12 +1,13 @@
 package org.jphototagger.lib.util;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+import org.junit.AfterClass;
+import static org.junit.Assert.*;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 /**
  * @author Elmar Baumann
@@ -67,5 +68,32 @@ public class StringUtilTest {
                 "36Zeichen.");
         result = StringUtil.wrapWords(text, maxCharsPerLine);
         assertEquals(expResult, result);
+    }
+
+    @Test
+    public void testGetNTimesRepeated() {
+        String result = StringUtil.getNTimesRepeated("", 0);
+        assertEquals("", result);
+
+        result = StringUtil.getNTimesRepeated("", 100);
+        assertEquals("", result);
+
+        result = StringUtil.getNTimesRepeated(".", 0);
+        assertEquals("", result);
+
+        result = StringUtil.getNTimesRepeated(".", 1);
+        assertEquals(".", result);
+
+        result = StringUtil.getNTimesRepeated(".", 3);
+        assertEquals("...", result);
+
+        result = StringUtil.getNTimesRepeated("abc", 0);
+        assertEquals("", result);
+
+        result = StringUtil.getNTimesRepeated("abc", 1);
+        assertEquals("abc", result);
+
+        result = StringUtil.getNTimesRepeated("abc", 3);
+        assertEquals("abcabcabc", result);
     }
 }
