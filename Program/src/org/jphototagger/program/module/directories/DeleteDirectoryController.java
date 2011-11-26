@@ -29,28 +29,16 @@ public final class DeleteDirectoryController extends DirectoryController {
 
     @Override
     protected boolean myKey(KeyEvent evt) {
-        if (evt == null) {
-            throw new NullPointerException("evt == null");
-        }
-
         return evt.getKeyCode() == KeyEvent.VK_DELETE;
     }
 
     @Override
     protected boolean myAction(ActionEvent evt) {
-        if (evt == null) {
-            throw new NullPointerException("evt == null");
-        }
-
         return evt.getSource() == DirectoriesPopupMenu.INSTANCE.getItemDeleteDirectory();
     }
 
     @Override
     protected void action(final DefaultMutableTreeNode node) {
-        if (node == null) {
-            throw new NullPointerException("node == null");
-        }
-
         File dir = getDirOfNode(node);
 
         if (dir != null) {

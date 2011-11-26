@@ -28,8 +28,9 @@ public final class DirectoriesPopupMenu extends JPopupMenu {
     private final JMenuItem itemRenameDirectory = new JMenuItem(Bundle.getString(DirectoriesPopupMenu.class, "DirectoriesPopupMenu.DisplayName.Action.RenameDirectory"), AppLookAndFeel.ICON_RENAME);
     private final JMenuItem itemRefresh = new JMenuItem(Bundle.getString(DirectoriesPopupMenu.class, "DirectoriesPopupMenu.DisplayName.Action.Refresh"), AppLookAndFeel.ICON_REFRESH);
     private final JMenuItem itemDeleteDirectory = new JMenuItem(Bundle.getString(DirectoriesPopupMenu.class, "DirectoriesPopupMenu.DisplayName.Action.DeleteDirectory"), AppLookAndFeel.ICON_DELETE);
-    private final JMenuItem menuItemExpandAllSubitems = new JMenuItem(Bundle.getString(DirectoriesPopupMenu.class, "DirectoriesPopupMenu.ItemExpand"));
-    private final JMenuItem menuItemCollapseAllSubitems = new JMenuItem(Bundle.getString(DirectoriesPopupMenu.class, "DirectoriesPopupMenu.ItemCollapse"));
+    private final JMenuItem itemExpandAllSubitems = new JMenuItem(Bundle.getString(DirectoriesPopupMenu.class, "DirectoriesPopupMenu.ItemExpand"));
+    private final JMenuItem itemCollapseAllSubitems = new JMenuItem(Bundle.getString(DirectoriesPopupMenu.class, "DirectoriesPopupMenu.ItemCollapse"));
+    private final JMenuItem itemOpenInDesktop = new JMenuItem(Bundle.getString(DirectoriesPopupMenu.class, "DirectoriesPopupMenu.Action.OpenInDesktop"));
     private boolean treeSelected = false;
     private File directory;
     private TreePath path;
@@ -75,11 +76,15 @@ public final class DirectoriesPopupMenu extends JPopupMenu {
     }
 
     public JMenuItem getItemCollapseAllSubitems() {
-        return menuItemCollapseAllSubitems;
+        return itemCollapseAllSubitems;
     }
 
     public JMenuItem getItemExpandAllSubitems() {
-        return menuItemExpandAllSubitems;
+        return itemExpandAllSubitems;
+    }
+
+    public JMenuItem getItemOpenInDesktop() {
+        return itemOpenInDesktop;
     }
 
     private void init() {
@@ -97,18 +102,20 @@ public final class DirectoriesPopupMenu extends JPopupMenu {
 
     private void addItems() {
         add(itemAddToFavorites);
+        add(itemOpenInDesktop);
         add(new Separator());
         add(itemCreateDirectory);
         add(itemRenameDirectory);
         add(itemDeleteDirectory);
         add(new Separator());
-        add(menuItemExpandAllSubitems);
-        add(menuItemCollapseAllSubitems);
+        add(itemExpandAllSubitems);
+        add(itemCollapseAllSubitems);
         add(new Separator());
         add(itemRefresh);
     }
 
     private void setAccelerators() {
+        itemOpenInDesktop.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_O));
         itemCreateDirectory.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_N));
         itemDeleteDirectory.setAccelerator(KeyEventUtil.getKeyStroke(KeyEvent.VK_DELETE));
         itemRenameDirectory.setAccelerator(KeyEventUtil.getKeyStroke(KeyEvent.VK_F2));

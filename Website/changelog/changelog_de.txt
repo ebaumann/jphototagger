@@ -3,7 +3,16 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
-0.14.2 2011-11-22
+0.15.0 2011-11-26
+-----------------
+
+* Neuee Kontextmenü-Einträge im Ordner- und Favoriten-Kartenreiter:
+  "Ordner öffnen". Öffnet den ausgewählten Ordner mit dem Programm, das
+  im Betriebssystem (Desktop) bevorzugt zum Öffnen von Ordnern benutzt
+  werden soll, unter Windows z.B. ist das in der Regel der Explorer
+  (Dateimanager)
+
+0.14.3 2011-11-22
 -----------------
 
 * Bugfix: Wurde über dem Vorschaubildfenster ein Dateityp eingestellt,
