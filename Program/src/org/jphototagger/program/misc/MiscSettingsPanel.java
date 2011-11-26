@@ -198,7 +198,9 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
 
     private void restoreTabbedPaneSettings() {
         Preferences preferences = Lookup.getDefault().lookup(Preferences.class);
-        preferences.applyTabbedPaneSettings(PREFERENCES_KEY_TABBED_PANE, tabbedPane, null);
+        if (preferences != null) {
+            preferences.applyTabbedPaneSettings(PREFERENCES_KEY_TABBED_PANE, tabbedPane, null);
+        }
     }
 
     private boolean isCheckForUpdates() {

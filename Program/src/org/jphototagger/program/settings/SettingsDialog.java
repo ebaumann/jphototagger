@@ -204,7 +204,6 @@ public final class SettingsDialog extends Dialog {
 
         panelSearch.setName("panelSearch"); // NOI18N
 
-        tabbedPane.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
         tabbedPane.setName("tabbedPane"); // NOI18N
 
         panelPrograms.setName("panelPrograms"); // NOI18N
