@@ -3,6 +3,7 @@ package org.jphototagger.lib.swing.util;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Frame;
 import java.awt.Rectangle;
 import java.awt.Window;
@@ -143,6 +144,15 @@ public final class ComponentUtil {
         }
 
         window.toFront();
+    }
+
+    public static Font createBoldFont(Font font) {
+        if (font == null) {
+            throw new NullPointerException("font == null");
+        }
+        String fontName = font.getName();
+        int fontSize = font.getSize();
+        return new Font(fontName, Font.BOLD, fontSize);
     }
 
     private ComponentUtil() {
