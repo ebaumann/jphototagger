@@ -3,6 +3,13 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.1. 2011--
+-----------------
+
+* Detailanzeige im Vorschaubildfenster kann ausgeblendet werden über
+  "Bearbeiten > Einstellungen > Vorschaubildfenster: Details-Bereich
+  andocken im Vorschaubildfenster unten"
+
 0.15.0 2011-11-26
 -----------------
 

@@ -17,15 +17,21 @@ import javax.swing.BorderFactory;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
+
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.api.windows.WaitDisplayer;
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
 import org.jphototagger.domain.thumbnails.ThumbnailsPanelBottomComponentProvider;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.ExpandCollapseComponentPanel;
+import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.program.settings.AppPreferencesKeys;
 
 /**
  * @author Elmar Baumann
@@ -36,7 +42,8 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel implements ItemListe
     private static final String KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION = "org.jphototagger.program.view.panels.controller.ViewportViewPosition";
     private final FileFiltersComboBoxModel fileFiltersComboBoxModel = new FileFiltersComboBoxModel();
     private final ThumbnailsSortComboBoxModel thumbnailsSortComboBoxModel = new ThumbnailsSortComboBoxModel();
-    private ExpandCollapseComponentPanel expandCollapseBottomPanel;
+    private ExpandCollapseComponentPanel expandCollapseBottomComponentsPanel;
+    private boolean bottomComponentsPanelAdded;
 
     public ThumbnailsAreaPanel() {
         initComponents();
@@ -44,7 +51,7 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel implements ItemListe
     }
 
     private void postInitComponents() {
-        addBottomComponentsPanel();
+        createBottomPanel();
         thumbnailsPanelScrollPane.getVerticalScrollBar().setUnitIncrement(30);
         fileSortComboBox.addItemListener(this);
         fileFiltersComboBox.addItemListener(this);
@@ -53,6 +60,19 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel implements ItemListe
         MnemonicUtil.setMnemonics(this);
         fileFiltersComboBoxModel.selectPersistedItem();
         thumbnailsSortComboBoxModel.selectPersistedItem();
+        AnnotationProcessor.process(this);
+    }
+
+    private void createBottomPanel() {
+        lookupAndAddBottomComponents();
+        createExpandCollapseBottomComponentsPanel();
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        boolean isAdd = prefs == null || !prefs.containsKey(AppPreferencesKeys.KEY_UI_DISPLAY_THUMBNAILS_BOTTOM_PANEL)
+                || (prefs.containsKey(AppPreferencesKeys.KEY_UI_DISPLAY_THUMBNAILS_BOTTOM_PANEL)
+                && prefs.getBoolean(AppPreferencesKeys.KEY_UI_DISPLAY_THUMBNAILS_BOTTOM_PANEL));
+        if (isAdd) {
+            addBottomComponentsPanel();
+        }
     }
 
     @Override
@@ -170,26 +190,38 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel implements ItemListe
         thumbnailsPanelScrollPane.validate();
     }
 
-    private void addBottomComponentsPanel() {
-        lookupBottomComponents();
-        expandCollapseBottomPanel = new ExpandCollapseComponentPanel(panelBottomComponents);
-        expandCollapseBottomPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, new Color(95, 95, 95)));
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridwidth = GridBagConstraints.REMAINDER;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.weightx = 1.0;
-        gbc.anchor = GridBagConstraints.WEST;
-        add(expandCollapseBottomPanel, gbc);
-        expandCollapseBottomPanel.readExpandedState();
+    private void removeBottomComponentsPanel() {
+        if (bottomComponentsPanelAdded) {
+            remove(expandCollapseBottomComponentsPanel);
+            bottomComponentsPanelAdded = false;
+        }
     }
 
-    private void lookupBottomComponents() {
+    private void addBottomComponentsPanel() {
+        if (!bottomComponentsPanelAdded) {
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.gridwidth = GridBagConstraints.REMAINDER;
+            gbc.fill = GridBagConstraints.HORIZONTAL;
+            gbc.weightx = 1.0;
+            gbc.anchor = GridBagConstraints.WEST;
+            add(expandCollapseBottomComponentsPanel, gbc);
+            expandCollapseBottomComponentsPanel.readExpandedState();
+            bottomComponentsPanelAdded = true;
+        }
+    }
+
+    private void lookupAndAddBottomComponents() {
         Collection<? extends ThumbnailsPanelBottomComponentProvider> providers = Lookup.getDefault().lookupAll(ThumbnailsPanelBottomComponentProvider.class);
         for (ThumbnailsPanelBottomComponentProvider provider : providers) {
             Component component = provider.getComponent();
             GridBagConstraints constraints = createBottomComponentConstraints();
             panelBottomComponents.add(component, constraints);
         }
+    }
+
+    private void createExpandCollapseBottomComponentsPanel() {
+        expandCollapseBottomComponentsPanel = new ExpandCollapseComponentPanel(panelBottomComponents);
+        expandCollapseBottomComponentsPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, new Color(95, 95, 95)));
     }
 
     private GridBagConstraints createBottomComponentConstraints() {
@@ -200,6 +232,19 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel implements ItemListe
         gbc.anchor = GridBagConstraints.WEST;
         gbc.insets = new Insets(0, 5, 5, 5);
         return gbc;
+    }
+
+    @EventSubscriber(eventClass = PreferencesChangedEvent.class)
+    public void preferencesChanged(PreferencesChangedEvent evt) {
+        if (AppPreferencesKeys.KEY_UI_DISPLAY_THUMBNAILS_BOTTOM_PANEL.equals(evt.getKey())) {
+            Boolean display = (Boolean) evt.getNewValue();
+            if (display) {
+                addBottomComponentsPanel();
+            } else {
+                removeBottomComponentsPanel();
+            }
+            ComponentUtil.forceRepaint(this);
+        }
     }
 
     /** This method is called from within the constructor to
