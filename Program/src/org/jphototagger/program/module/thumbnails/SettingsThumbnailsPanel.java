@@ -59,6 +59,7 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
         panelSettingsThumbnailDimensions.restore();
         textFieldExternalThumbnailCreationCommand.setText(getExternalThumbnailCreationCommand());
         checkBoxDisplayThumbnailTooltip.setSelected(isDisplayThumbnailTooltip());
+        checkBoxDisplayThumbnailsBottomPanel.setSelected(isDisplayThumbnailsBottomPanel());
     }
 
     private boolean isDisplayThumbnailTooltip() {
@@ -66,6 +67,14 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
 
         return storage.containsKey(AppPreferencesKeys.KEY_UI_DISPLAY_THUMBNAIL_TOOLTIP)
                 ? storage.getBoolean(AppPreferencesKeys.KEY_UI_DISPLAY_THUMBNAIL_TOOLTIP)
+                : true;
+    }
+
+    private boolean isDisplayThumbnailsBottomPanel() {
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+
+        return prefs.containsKey(AppPreferencesKeys.KEY_UI_DISPLAY_THUMBNAILS_BOTTOM_PANEL)
+                ? prefs.getBoolean(AppPreferencesKeys.KEY_UI_DISPLAY_THUMBNAILS_BOTTOM_PANEL)
                 : true;
     }
 
@@ -162,6 +171,12 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
         setDisplayThumbnailTooltip(isDisplayThumbnailTooltip);
     }
 
+    private void setDisplayThumbnailsBottomPanel() {
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        boolean display = checkBoxDisplayThumbnailsBottomPanel.isSelected();
+        prefs.setBoolean(AppPreferencesKeys.KEY_UI_DISPLAY_THUMBNAILS_BOTTOM_PANEL, display);
+    }
+
     private void setDisplayThumbnailTooltip(boolean display) {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
 
@@ -212,6 +227,7 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
         labelIsCreateThumbnailsWithExternalApp = new javax.swing.JLabel();
         textFieldExternalThumbnailCreationCommand = new javax.swing.JTextField();
         checkBoxDisplayThumbnailTooltip = new javax.swing.JCheckBox();
+        checkBoxDisplayThumbnailsBottomPanel = new javax.swing.JCheckBox();
         panelPadding = new javax.swing.JPanel();
 
         setName("Form"); // NOI18N
@@ -369,8 +385,22 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 10);
         add(checkBoxDisplayThumbnailTooltip, gridBagConstraints);
+
+        checkBoxDisplayThumbnailsBottomPanel.setText(bundle.getString("SettingsThumbnailsPanel.checkBoxDisplayThumbnailsBottomPanel.text")); // NOI18N
+        checkBoxDisplayThumbnailsBottomPanel.setName("checkBoxDisplayThumbnailsBottomPanel"); // NOI18N
+        checkBoxDisplayThumbnailsBottomPanel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxDisplayThumbnailsBottomPanelActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        add(checkBoxDisplayThumbnailsBottomPanel, gridBagConstraints);
 
         panelPadding.setName("panelPadding"); // NOI18N
 
@@ -378,11 +408,11 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
         panelPadding.setLayout(panelPaddingLayout);
         panelPaddingLayout.setHorizontalGroup(
             panelPaddingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 751, Short.MAX_VALUE)
         );
         panelPaddingLayout.setVerticalGroup(
             panelPaddingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 20, Short.MAX_VALUE)
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -390,6 +420,7 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 0);
         add(panelPadding, gridBagConstraints);
     }//GEN-END:initComponents
 
@@ -420,10 +451,16 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
     private void checkBoxDisplayThumbnailTooltipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDisplayThumbnailTooltipActionPerformed
         setDisplayThumbnailTooltip();
     }//GEN-LAST:event_checkBoxDisplayThumbnailTooltipActionPerformed
+
+    private void checkBoxDisplayThumbnailsBottomPanelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDisplayThumbnailsBottomPanelActionPerformed
+        setDisplayThumbnailsBottomPanel();
+    }//GEN-LAST:event_checkBoxDisplayThumbnailsBottomPanelActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonChooseExternalThumbnailCreator;
     private javax.swing.ButtonGroup buttonGroupThumbnailCreator;
     private javax.swing.JCheckBox checkBoxDisplayThumbnailTooltip;
+    private javax.swing.JCheckBox checkBoxDisplayThumbnailsBottomPanel;
     private javax.swing.JLabel labelIsCreateThumbnailsWithExternalApp;
     private javax.swing.JPanel panelExternalThumbnailApp;
     private javax.swing.JPanel panelPadding;

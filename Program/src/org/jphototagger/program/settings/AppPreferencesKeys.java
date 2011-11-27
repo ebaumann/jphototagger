@@ -16,6 +16,7 @@ public final class AppPreferencesKeys {
     public static final String KEY_THUMBNAILS_ZOOM = "org.jphototagger.program.controller.thumbnail.ControllerSliderThumbnailSize." + "SliderValue";
     public static final String KEY_UI_DISPLAY_SEARCH_BUTTON = "UserSettings.DisplaySearchButton";
     public static final String KEY_UI_DISPLAY_THUMBNAIL_TOOLTIP = "UserSettings.DisplayThumbnailTooltip";
+    public static final String KEY_UI_DISPLAY_THUMBNAILS_BOTTOM_PANEL = "UserSettings.DisplayThumbnailsBottomPanel";
 
     private AppPreferencesKeys() {
     }
