@@ -1,6 +1,5 @@
 package org.jphototagger.program.module.imagecollections;
 
-import org.jphototagger.domain.imagecollections.ImageCollectionSortAscendingComparator;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
@@ -11,6 +10,7 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 import org.openide.util.Lookup;
 
 import org.jphototagger.domain.imagecollections.ImageCollection;
+import org.jphototagger.domain.imagecollections.ImageCollectionSortAscendingComparator;
 import org.jphototagger.domain.repository.ImageCollectionsRepository;
 import org.jphototagger.domain.repository.Repository;
 import org.jphototagger.domain.repository.event.imagecollections.ImageCollectionDeletedEvent;
@@ -82,7 +82,7 @@ public final class ImageCollectionsListModel extends DefaultListModel {
     }
 
     @EventSubscriber(eventClass = ImageCollectionDeletedEvent.class)
-    public void imageCollectionDelted(ImageCollectionDeletedEvent evt) {
+    public void imageCollectionDeleted(ImageCollectionDeletedEvent evt) {
         String collectionName = evt.getCollectionName();
 
         removeElement(collectionName);

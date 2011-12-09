@@ -7,15 +7,15 @@ import java.util.logging.Logger;
 
 import org.jdesktop.swingx.JXList;
 
-import org.jphototagger.domain.imagecollections.ImageCollection;
 import org.openide.util.Lookup;
 
+import org.jphototagger.domain.imagecollections.ImageCollection;
 import org.jphototagger.domain.repository.ImageCollectionsRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
+import org.jphototagger.program.resource.GUI;
 
 /**
  * @author Elmar Baumann
@@ -24,9 +24,6 @@ public final class ImageCollectionsUtil {
 
     private static final Logger LOGGER = Logger.getLogger(ImageCollectionsUtil.class.getName());
 
-    /**
-     * Deletes selected files from an image collection.
-     */
     public static void deleteSelectedFiles() {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
@@ -119,12 +116,6 @@ public final class ImageCollectionsUtil {
         return false;
     }
 
-    /**
-     * Entfernt eine Bildsammlung. Zeigt vorher einen Dialog zur Bestätigung.
-     *
-     * @param collectionName Name der Bildsammlung
-     * @return               true wenn gelöscht
-     */
     public static boolean deleteImageCollection(String collectionName) {
         if (collectionName == null) {
             throw new NullPointerException("collectionName == null");
@@ -145,13 +136,6 @@ public final class ImageCollectionsUtil {
         return deleted;
     }
 
-    /**
-     * Fügt einer Bildsammlung Bilder hinzu.
-     *
-     * @param collectionName Name der Bildsammlung
-     * @param imageFiles      Hinzuzufügende Bilddateien
-     * @return               true bei Erfolg
-     */
     public static boolean addImagesToCollection(String collectionName, List<File> imageFiles) {
         if (collectionName == null) {
             throw new NullPointerException("collectionName == null");
@@ -171,13 +155,6 @@ public final class ImageCollectionsUtil {
         return added;
     }
 
-    /**
-     * Benennt eine Bildsammlung um.
-     *
-     * @param fromName Alter Name, der neue wird durch eine Eingabe erfragt.
-     * @return        Neuer Name oder null, wenn die Sammlung nicht umbenannt
-     *                wurde
-     */
     public static String renameImageCollection(String fromName) {
         if (fromName == null) {
             throw new NullPointerException("fromName == null");
@@ -201,14 +178,6 @@ public final class ImageCollectionsUtil {
         return null;
     }
 
-    /**
-     * Returns wether a name is valid. This is true if the name is not equals
-     * to {@code ImageCollectionsListModel#PREVIOUS_IMPORT_NAME}
-     * ignoring the case.
-     *
-     * @param  name name
-     * @return true if allowed
-     */
     public static boolean isValidName(String name) {
         if (name == null) {
             throw new NullPointerException("name == null");
@@ -301,16 +270,6 @@ public final class ImageCollectionsUtil {
         return name;
     }
 
-    /**
-     * Checks whether an image collection isn't a special collection and when it
-     * is, displays a warning message with the name of the image collection as
-     * parameter.
-     *
-     * @param  collectionName
-     * @param  errorMessage
-     * @return                true if everything is ok: the image collection is
-     *                        <em>not</em> a special collection
-     */
     public static boolean checkIsNotSpecialCollection(String collectionName, String errorMessage) {
         if (collectionName == null) {
             throw new NullPointerException("collectionName == null");

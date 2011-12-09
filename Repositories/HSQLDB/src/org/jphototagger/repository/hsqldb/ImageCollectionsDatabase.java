@@ -15,6 +15,7 @@ import org.bushe.swing.event.EventBus;
 
 import org.jphototagger.domain.imagecollections.ImageCollection;
 import org.jphototagger.domain.repository.event.imagecollections.ImageCollectionDeletedEvent;
+import org.jphototagger.domain.repository.event.imagecollections.ImageCollectionImagesDeletedEvent;
 import org.jphototagger.domain.repository.event.imagecollections.ImageCollectionImagesInsertedEvent;
 import org.jphototagger.domain.repository.event.imagecollections.ImageCollectionInsertedEvent;
 import org.jphototagger.domain.repository.event.imagecollections.ImageCollectionRenamedEvent;
@@ -31,11 +32,6 @@ final class ImageCollectionsDatabase extends Database {
     private ImageCollectionsDatabase() {
     }
 
-    /**
-     * Returns the names of all image collections.
-     *
-     * @return names
-     */
     List<String> getAllImageCollectionNames() {
         List<String> names = new ArrayList<String>();
         Connection con = null;
@@ -615,7 +611,7 @@ final class ImageCollectionsDatabase extends Database {
     }
 
     private void notifyImagesDeleted(String collectionName, List<File> deletedImageFiles) {
-        EventBus.publish(new ImageCollectionDeletedEvent(this, collectionName, deletedImageFiles));
+        EventBus.publish(new ImageCollectionImagesDeletedEvent(this, collectionName, deletedImageFiles));
     }
 
     private void notifyCollectionInserted(String collectionName, List<File> insertedImageFiles) {

@@ -3,6 +3,13 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.15.2 2011-12-10
+-----------------
+
+* Bugfix: Aus einem Fotoalbum konnten nur einmalig Bilder gelöscht werden und
+  anschließend fehlte bis nach Neustart von JPhotoTagger das Fotoalbum in der
+  Albenliste
+
 0.15.1 2011-11-27
 -----------------
 
