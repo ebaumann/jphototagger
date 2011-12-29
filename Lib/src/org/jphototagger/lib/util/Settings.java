@@ -561,6 +561,7 @@ public final class Settings {
         List<String> strings = new ArrayList<String>();
         List<String> keys = getKeysMatching(getArrayKeyMatchPattern(key));
 
+        Collections.sort(keys);
         for (String stringKey : keys) {
             strings.add(properties.getProperty(stringKey));
         }
