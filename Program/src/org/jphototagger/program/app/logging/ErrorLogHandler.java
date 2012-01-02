@@ -3,6 +3,8 @@ package org.jphototagger.program.app.logging;
 import java.awt.Component;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
@@ -32,6 +34,11 @@ public final class ErrorLogHandler extends Handler implements MouseListener, Sta
     private static final String STATUSBAR_INFO_TEXT = Bundle.getString(ErrorLogHandler.class, "ErrorLogHandler.StatusbBar.InfoText");
     private static final int MIN_LOG_LEVEL_VALUE = Level.WARNING.intValue();
     private final JLabel errorLabel = new JLabel();
+    private static final Set<String> IGNORE_MESSAGES = new HashSet<String>();
+
+    static {
+        IGNORE_MESSAGES.add("java.lang.IllegalStateException: no splash screen available");
+    }
 
     public ErrorLogHandler() {
         listen();
@@ -44,12 +51,16 @@ public final class ErrorLogHandler extends Handler implements MouseListener, Sta
         Logger.getLogger("org.jphototagger").addHandler(this);
     }
 
+    private static boolean isIgnore(String message) {
+        return IGNORE_MESSAGES.contains(message);
+    }
+
     @Override
     public void publish(LogRecord record) {
         int recordLevelValue = record.getLevel().intValue();
         boolean isError = recordLevelValue >= MIN_LOG_LEVEL_VALUE;
 
-        if (isError) {
+        if (isError && !isIgnore(record.getMessage())) {
             EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
                 @Override
