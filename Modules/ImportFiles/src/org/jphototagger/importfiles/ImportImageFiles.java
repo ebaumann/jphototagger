@@ -24,6 +24,7 @@ import org.jphototagger.domain.imagecollections.ImageCollectionService;
 import org.jphototagger.domain.repository.ImageCollectionsRepository;
 import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.domain.repository.SaveToOrUpdateFilesInRepository;
+import org.jphototagger.domain.thumbnails.ThumbnailsDisplayer;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.SourceTargetFile;
 import org.jphototagger.lib.runtime.External;
@@ -224,9 +225,13 @@ public final class ImportImageFiles extends Thread implements FileImportService,
     }
 
     private void selectPrevImportCollection() {
-        ImageCollectionService service = Lookup.getDefault().lookup(ImageCollectionService.class);
-        if (service != null) {
-            service.selectPreviousImportedFiles();
+        ImageCollectionService imageCollectionService = Lookup.getDefault().lookup(ImageCollectionService.class);
+        if (imageCollectionService != null) {
+            imageCollectionService.selectPreviousImportedFiles();
+            ThumbnailsDisplayer thumbnailsDisplayer = Lookup.getDefault().lookup(ThumbnailsDisplayer.class);
+            if (thumbnailsDisplayer != null) {
+                thumbnailsDisplayer.refresh();
+            }
         }
     }
 
