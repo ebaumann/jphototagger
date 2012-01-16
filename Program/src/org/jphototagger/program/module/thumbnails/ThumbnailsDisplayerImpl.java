@@ -124,4 +124,9 @@ public final class ThumbnailsDisplayerImpl implements ThumbnailsDisplayer, MainW
     public Component getThumbnailsDisplayingComponent() {
         return THUMBNAILS_AREA_PANEL.getThumbnailsPanel();
     }
+
+    @Override
+    public void refresh() {
+        THUMBNAILS_AREA_PANEL.getThumbnailsPanel().refresh();
+    }
 }

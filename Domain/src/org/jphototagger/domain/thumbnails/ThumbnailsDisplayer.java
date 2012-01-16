@@ -24,4 +24,6 @@ public interface ThumbnailsDisplayer {
     List<File> getSelectedFiles();
 
     List<File> getDisplayedFiles();
+
+    void refresh();
 }

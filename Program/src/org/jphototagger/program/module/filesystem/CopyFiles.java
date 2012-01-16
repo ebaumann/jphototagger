@@ -82,6 +82,7 @@ public final class CopyFiles implements Runnable, FileCopyService {
                 try {
                     File sourceFile = sourceTargetFile.getSourceFile();
                     File targetFile = getTargetFile(sourceTargetFile);
+                    sourceTargetFile = new SourceTargetFile(sourceFile, targetFile); // targetFile may be modified if existing and renamed
 
                     EventBus.publish(new FileCopiedEvent(this, sourceFile, targetFile));
                     logCopyFile(sourceFile, targetFile);
