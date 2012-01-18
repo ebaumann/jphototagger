@@ -238,6 +238,7 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
         panelSettingsThumbnailDimensions.setName("panelSettingsThumbnailDimensions"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 10);
@@ -299,16 +300,17 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
                 .addContainerGap()
                 .addGroup(panelThumbnailCreatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelThumbnailCreatorLayout.createSequentialGroup()
-                        .addComponent(radioButtonCreateThumbnailsWithJavaImageIo)
-                        .addGap(146, 146, 146))
-                    .addGroup(panelThumbnailCreatorLayout.createSequentialGroup()
-                        .addComponent(radioButtonCreateThumbnailsWithImagero, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
+                        .addComponent(radioButtonCreateThumbnailsWithImagero, javax.swing.GroupLayout.DEFAULT_SIZE, 554, Short.MAX_VALUE)
                         .addGap(159, 159, 159))
-                    .addComponent(radioButtonUseEmbeddedThumbnails)
                     .addGroup(panelThumbnailCreatorLayout.createSequentialGroup()
-                        .addComponent(radioButtonCreateThumbnailsWithExternalApp)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonChooseExternalThumbnailCreator)))
+                        .addGroup(panelThumbnailCreatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(radioButtonCreateThumbnailsWithJavaImageIo)
+                            .addComponent(radioButtonUseEmbeddedThumbnails)
+                            .addGroup(panelThumbnailCreatorLayout.createSequentialGroup()
+                                .addComponent(radioButtonCreateThumbnailsWithExternalApp)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buttonChooseExternalThumbnailCreator)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addContainerGap())
         );
         panelThumbnailCreatorLayout.setVerticalGroup(
@@ -328,6 +330,7 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 10);
@@ -412,7 +415,7 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
         );
         panelPaddingLayout.setVerticalGroup(
             panelPaddingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 20, Short.MAX_VALUE)
+            .addGap(0, 37, Short.MAX_VALUE)
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
