@@ -18,16 +18,15 @@ import org.openide.util.Lookup;
 import org.jphototagger.api.file.event.FileRenamedEvent;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.program.module.thumbnails.ThumbnailsPopupMenu;
 import org.jphototagger.program.module.thumbnails.cache.RenderedThumbnailCache;
 import org.jphototagger.program.module.thumbnails.cache.ThumbnailCache;
 import org.jphototagger.program.module.thumbnails.cache.XmpCache;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.module.thumbnails.ThumbnailsPopupMenu;
 
 /**
  * Listens to key events of {@code ThumbnailsPanel} and when
- * <code>F2</code> was pressed shows the {@code RenameDialog} to renameFile the
- * selected files.
+ * <code>F2</code> was pressed shows the {@code RenameDialog} to renameFile the selected files.
  *
  * @author Elmar Baumann
  */
@@ -60,9 +59,13 @@ public final class RenameFilesController implements ActionListener, KeyListener 
         }
     }
 
-    private void renameFile(final File fromFile, final File toFile) {
+    private void renameImageFileWithinRepository(File fromFile, File toFile) {
         LOGGER.log(Level.INFO, "Rename in the repository file ''{0}'' to ''{1}''", new Object[]{fromFile, toFile});
         repo.updateRenameImageFile(fromFile, toFile);
+        updateCaches(fromFile, toFile);
+    }
+
+    private void updateCaches(final File fromFile, final File toFile) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
@@ -103,6 +106,8 @@ public final class RenameFilesController implements ActionListener, KeyListener 
         File fromFile = evt.getSourceFile();
         File toFile = evt.getTargetFile();
 
-        renameFile(fromFile, toFile);
+        if (fromFile.isFile() && toFile.isFile()) {
+            renameImageFileWithinRepository(fromFile, toFile);
+        }
     }
 }
