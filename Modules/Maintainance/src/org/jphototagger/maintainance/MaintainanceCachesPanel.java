@@ -5,6 +5,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.ResourceBundle;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 
 import javax.swing.JPanel;
@@ -37,6 +38,7 @@ public class MaintainanceCachesPanel extends javax.swing.JPanel {
     private void initComponents() {//GEN-BEGIN:initComponents
         GridBagConstraints gridBagConstraints;
 
+        panelInfo = new JPanel();
         labelInfo = new JXLabel();
         buttonClearExifCache = new JButton();
         buttonClearExifCache.setAction(ClearExifCacheAction.INSTANCE);
@@ -48,18 +50,26 @@ public class MaintainanceCachesPanel extends javax.swing.JPanel {
 
         setName("MaintainanceCachesPanel"); // NOI18N
         setLayout(new GridBagLayout());
-
-        labelInfo.setLineWrap(true);
         ResourceBundle bundle = ResourceBundle.getBundle("org/jphototagger/maintainance/Bundle"); // NOI18N
+        panelInfo.setBorder(BorderFactory.createTitledBorder(bundle.getString("MaintainanceCachesPanel.panelInfo.border.title")));         panelInfo.setName("panelInfo"); // NOI18N
+        panelInfo.setLayout(new GridBagLayout());
+
         labelInfo.setText(bundle.getString("MaintainanceCachesPanel.labelInfo.text")); // NOI18N
         labelInfo.setName("labelInfo"); // NOI18N
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new Insets(5, 5, 5, 5);
+        panelInfo.add(labelInfo, gridBagConstraints);
+
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new Insets(5, 5, 0, 5);
-        add(labelInfo, gridBagConstraints);
+        gridBagConstraints.insets = new Insets(5, 5, 5, 5);
+        add(panelInfo, gridBagConstraints);
 
         buttonClearExifCache.setText(bundle.getString("MaintainanceCachesPanel.buttonClearExifCache.text")); // NOI18N
         buttonClearExifCache.setName("buttonClearExifCache"); // NOI18N
@@ -73,10 +83,9 @@ public class MaintainanceCachesPanel extends javax.swing.JPanel {
         labelInfoClearExifCache.setName("labelInfoClearExifCache"); // NOI18N
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new Insets(10, 5, 0, 5);
+        gridBagConstraints.insets = new Insets(10, 10, 0, 5);
         add(labelInfoClearExifCache, gridBagConstraints);
 
         buttonClearIptcIgnoreCache.setText(bundle.getString("MaintainanceCachesPanel.buttonClearIptcIgnoreCache.text")); // NOI18N
@@ -87,15 +96,13 @@ public class MaintainanceCachesPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new Insets(10, 5, 0, 0);
         add(buttonClearIptcIgnoreCache, gridBagConstraints);
 
-        labelInfoClearIptcIgnoreCache.setLineWrap(true);
         labelInfoClearIptcIgnoreCache.setText(bundle.getString("MaintainanceCachesPanel.labelInfoClearIptcIgnoreCache.text")); // NOI18N
         labelInfoClearIptcIgnoreCache.setName("labelInfoClearIptcIgnoreCache"); // NOI18N
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new Insets(10, 5, 0, 5);
+        gridBagConstraints.insets = new Insets(10, 10, 0, 5);
         add(labelInfoClearIptcIgnoreCache, gridBagConstraints);
 
         panelPadding.setName("panelPadding"); // NOI18N
@@ -110,6 +117,7 @@ public class MaintainanceCachesPanel extends javax.swing.JPanel {
     private JXLabel labelInfo;
     private JXLabel labelInfoClearExifCache;
     private JXLabel labelInfoClearIptcIgnoreCache;
+    private JPanel panelInfo;
     private JPanel panelPadding;
     // End of variables declaration//GEN-END:variables
 }

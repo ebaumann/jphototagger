@@ -32,13 +32,13 @@ public class MaintainanceDialog extends Dialog {
      */
     @SuppressWarnings("unchecked")
     private void initComponents() {//GEN-BEGIN:initComponents
-        GridBagConstraints gridBagConstraints; // NOI18N
+        GridBagConstraints gridBagConstraints; 
 
         tabbedPane = new JTabbedPane();
         panelMaintainanceCaches = new MaintainanceCachesPanel();
 
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        ResourceBundle bundle = ResourceBundle.getBundle("org/jphototagger/maintainance/Bundle");
+        ResourceBundle bundle = ResourceBundle.getBundle("org/jphototagger/maintainance/Bundle"); // NOI18N
         setTitle(bundle.getString("MaintainanceDialog.title")); // NOI18N
         setIconImage(null);
         setName("MaintainanceDialog"); // NOI18N
