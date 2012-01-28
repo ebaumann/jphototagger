@@ -8,9 +8,9 @@ import java.awt.event.MouseListener;
 import javax.swing.JButton;
 
 import org.jphototagger.domain.templates.MetadataTemplate;
-import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.swing.MouseEventUtil;
+import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.program.misc.InputHelperDialog;
 
 /**

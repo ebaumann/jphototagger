@@ -22,14 +22,14 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
+import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpRatingMetaDataValue;
 import org.jphototagger.domain.thumbnails.ThumbnailFlag;
-import org.jphototagger.domain.metadata.xmp.Xmp;
+import org.jphototagger.program.datatransfer.Flavor;
 import org.jphototagger.program.module.thumbnails.cache.RenderedThumbnailCacheIndirection;
 import org.jphototagger.program.module.thumbnails.cache.ThumbnailRenderer;
 import org.jphototagger.program.module.thumbnails.cache.XmpCache;
-import org.jphototagger.program.datatransfer.Flavor;
 
 /**
  *

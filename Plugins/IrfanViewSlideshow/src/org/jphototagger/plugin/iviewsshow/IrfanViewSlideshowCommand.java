@@ -19,10 +19,10 @@ import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.programs.ProgramType;
 import org.jphototagger.domain.repository.ProgramsRepository;
-import org.jphototagger.lib.swing.MessageDisplayer;
+import org.jphototagger.lib.io.filefilter.AcceptExactFilenamesFileFilter;
 import org.jphototagger.lib.swing.FileChooserHelper;
 import org.jphototagger.lib.swing.FileChooserProperties;
-import org.jphototagger.lib.io.filefilter.AcceptExactFilenamesFileFilter;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 
 /**

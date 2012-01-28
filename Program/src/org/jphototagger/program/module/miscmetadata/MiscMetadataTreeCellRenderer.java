@@ -1,6 +1,5 @@
 package org.jphototagger.program.module.miscmetadata;
 
-import org.jphototagger.program.module.search.MetaDataValueIcons;
 import java.awt.Component;
 import java.text.DecimalFormat;
 import java.util.HashMap;
@@ -18,6 +17,7 @@ import org.jphototagger.domain.metadata.xmp.XmpRatingMetaDataValue;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.TreeCellRendererExt;
+import org.jphototagger.program.module.search.MetaDataValueIcons;
 
 /**
  * @author Elmar Baumann

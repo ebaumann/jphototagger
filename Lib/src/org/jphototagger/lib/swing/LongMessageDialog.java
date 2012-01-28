@@ -11,8 +11,8 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
-import org.jphototagger.lib.util.ClipboardUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.util.ClipboardUtil;
 import org.jphototagger.lib.util.SystemUtil;
 
 /**

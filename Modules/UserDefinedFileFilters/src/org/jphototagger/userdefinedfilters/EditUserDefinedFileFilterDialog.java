@@ -3,6 +3,7 @@ package org.jphototagger.userdefinedfilters;
 import java.awt.Container;
 
 import javax.swing.DefaultComboBoxModel;
+
 import org.openide.util.Lookup;
 
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;

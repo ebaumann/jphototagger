@@ -6,6 +6,7 @@ import javax.swing.DefaultListCellRenderer;
 import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JList;
+
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 
 

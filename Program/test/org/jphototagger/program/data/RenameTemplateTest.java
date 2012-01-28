@@ -1,10 +1,11 @@
 package org.jphototagger.program.data;
 
 import org.jphototagger.domain.templates.RenameTemplate;
+
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  * @author Elmar Baumann

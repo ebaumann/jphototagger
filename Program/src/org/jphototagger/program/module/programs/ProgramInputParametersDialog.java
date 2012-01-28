@@ -6,8 +6,8 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesHints;
-import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.program.resource.GUI;
 
 /**

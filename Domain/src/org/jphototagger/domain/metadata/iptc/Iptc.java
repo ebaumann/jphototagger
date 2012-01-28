@@ -5,9 +5,9 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.imagero.reader.iptc.IPTCEntryMeta;
-
 import org.jphototagger.domain.metadata.mapping.IptcRepeatableValues;
+
+import com.imagero.reader.iptc.IPTCEntryMeta;
 
 /**
  * IPTC metadata of an image file.

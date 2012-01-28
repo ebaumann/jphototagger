@@ -1,9 +1,10 @@
 package org.jphototagger.program.help;
 
-import org.jphototagger.api.preferences.Preferences;
+import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
 
+import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.lib.help.HelpBrowser;
 import org.jphototagger.lib.help.HelpBrowserEvent;
 import org.jphototagger.lib.help.HelpBrowserListener;
@@ -14,7 +15,6 @@ import org.jphototagger.lib.help.HelpUtil;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
-import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

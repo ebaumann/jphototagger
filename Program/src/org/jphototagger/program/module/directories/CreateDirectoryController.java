@@ -7,11 +7,11 @@ import java.io.File;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.swing.AllSystemDirectoriesTreeModel;
-import org.jphototagger.program.module.favorites.AddFilesystemFolderToFavoritesController;
+import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.factory.ModelFactory;
+import org.jphototagger.program.module.favorites.AddFilesystemFolderToFavoritesController;
 
 /**
  * Listens to {@code DirectoriesPopupMenu#getItemCreateDirectory()} and

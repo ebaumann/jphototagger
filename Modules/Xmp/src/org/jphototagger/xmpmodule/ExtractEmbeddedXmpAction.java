@@ -1,10 +1,10 @@
 package org.jphototagger.xmpmodule;
 
 import java.awt.event.ActionEvent;
-
 import java.awt.event.KeyEvent;
 
 import javax.swing.AbstractAction;
+
 import org.openide.util.Lookup;
 
 import org.jphototagger.domain.filefilter.AppFileFilterProvider;

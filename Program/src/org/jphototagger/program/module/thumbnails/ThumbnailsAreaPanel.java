@@ -10,9 +10,9 @@ import java.io.File;
 import java.io.FileFilter;
 import java.util.Collection;
 import java.util.Comparator;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.BorderFactory;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;

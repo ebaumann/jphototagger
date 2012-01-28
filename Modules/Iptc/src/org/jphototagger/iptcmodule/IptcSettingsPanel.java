@@ -11,13 +11,13 @@ import javax.swing.Icon;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-
 import javax.swing.LayoutStyle.ComponentPlacement;
-import org.openide.util.Lookup;
-import org.openide.util.lookup.ServiceProvider;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+
+import org.openide.util.Lookup;
+import org.openide.util.lookup.ServiceProvider;
 
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesChangedEvent;

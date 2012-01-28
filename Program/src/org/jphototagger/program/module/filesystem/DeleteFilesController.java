@@ -9,12 +9,12 @@ import java.util.List;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.domain.repository.ImageFilesRepository;
+import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPopupMenu;
+import org.jphototagger.program.resource.GUI;
 
 /**
  * Listens to key events of {@code ThumbnailsPanel} and when the

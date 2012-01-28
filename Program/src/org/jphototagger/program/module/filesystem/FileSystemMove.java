@@ -8,9 +8,9 @@ import org.bushe.swing.event.EventBus;
 
 import org.jphototagger.api.file.event.FileMovedEvent;
 import org.jphototagger.api.progress.ProgressEvent;
-import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.SourceTargetFile;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 
 /**

@@ -2,6 +2,7 @@ package org.jphototagger.domain.thumbnails;
 
 import java.util.Collection;
 import java.util.Collections;
+
 import org.jphototagger.api.windows.MenuItemProvider;
 
 /**

@@ -3,9 +3,9 @@ package org.jphototagger.program.module.metadatatemplates;
 import org.openide.util.Lookup;
 
 import org.jphototagger.domain.repository.MetadataTemplatesRepository;
-import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.InputDialog;
 import org.jphototagger.lib.swing.MessageDisplayer;
+import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.misc.InputHelperDialog;
 

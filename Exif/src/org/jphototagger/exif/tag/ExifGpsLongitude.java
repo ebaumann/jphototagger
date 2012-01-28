@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.jphototagger.lib.util.Bundle;
-
 import org.jphototagger.lib.util.ByteUtil;
 
 /**

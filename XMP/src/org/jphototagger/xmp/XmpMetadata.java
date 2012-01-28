@@ -20,7 +20,6 @@ import com.adobe.xmp.options.IteratorOptions;
 import com.adobe.xmp.options.PropertyOptions;
 import com.adobe.xmp.options.SerializeOptions;
 import com.adobe.xmp.properties.XMPPropertyInfo;
-import com.imagero.reader.iptc.IPTCEntryMeta;
 
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.mapping.IptcEntryXmpPathStartMapping;
@@ -28,11 +27,13 @@ import org.jphototagger.domain.metadata.mapping.XmpMetaDataValueXmpArrayNameMapp
 import org.jphototagger.domain.metadata.mapping.XmpMetaDataValueXmpValueTypeMapping;
 import org.jphototagger.domain.metadata.mapping.XmpMetaDataValueXmpValueTypeMapping.XmpValueType;
 import org.jphototagger.domain.metadata.mapping.XmpMetaDataValuesNamespaceUriMapping;
+import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.metadata.xmp.XmpLastModifiedMetaDataValue;
 import org.jphototagger.domain.repository.xmp.XmpToSaveInRepository;
-import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.lib.io.FileLock;
 import org.jphototagger.lib.io.FileUtil;
+
+import com.imagero.reader.iptc.IPTCEntryMeta;
 
 /**
  * Gets and sets XMP metadata from image files and XMP sidecar files and to

@@ -13,15 +13,15 @@ import org.openide.util.lookup.ServiceProvider;
 
 import org.jphototagger.domain.imagecollections.ImageCollection;
 import org.jphototagger.domain.repository.ImageCollectionsRepository;
-import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.domain.repository.RepositoryDataImporter;
+import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.util.ProgressBarUpdater;
 import org.jphototagger.lib.xml.bind.XmlObjectImporter;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.misc.SaveToOrUpdateFilesInRepositoryImpl;
 import org.jphototagger.program.module.exportimport.exporter.ImageCollectionsExporter;
 import org.jphototagger.program.module.exportimport.exporter.ImageCollectionsExporter.CollectionWrapper;
-import org.jphototagger.lib.util.ProgressBarUpdater;
 
 /**
  * @author Elmar Baumann

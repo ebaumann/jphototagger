@@ -17,9 +17,9 @@ import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.swing.util.TreeUtil;
 import org.jphototagger.lib.swingx.ListTextFilter;
-import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.swingx.SearchInJxListAction;
 import org.jphototagger.lib.swingx.SearchInJxTreeAction;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * @author Elmar Baumann

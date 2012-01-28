@@ -2,6 +2,7 @@ package org.jphototagger.lib.api;
 
 import java.util.Collection;
 import java.util.Collections;
+
 import org.jphototagger.api.windows.MainWindowMenuProvider;
 import org.jphototagger.api.windows.MenuItemProvider;
 

@@ -6,8 +6,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import org.jphototagger.lib.swing.KeyEventUtil;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPopupMenu;
+import org.jphototagger.program.resource.GUI;
 
 /**
  * @author Elmar Baumann

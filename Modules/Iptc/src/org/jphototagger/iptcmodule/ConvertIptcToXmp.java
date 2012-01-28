@@ -20,7 +20,6 @@ import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.domain.repository.SaveToOrUpdateFilesInRepository;
 import org.jphototagger.domain.repository.UserDefinedFileTypesRepository;
 import org.jphototagger.iptc.IptcMetadata;
-import org.jphototagger.iptc.IptcMetadata;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.xmp.XmpMetadata;
 

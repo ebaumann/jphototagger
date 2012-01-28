@@ -1,6 +1,5 @@
 package org.jphototagger.image.thumbnail;
 
-import org.jphototagger.image.thumbnail.ThumbnailCreationStrategy;
 import java.awt.Image;
 import java.io.File;
 import java.util.Set;

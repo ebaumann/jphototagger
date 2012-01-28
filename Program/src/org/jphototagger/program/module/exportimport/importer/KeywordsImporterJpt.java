@@ -16,6 +16,11 @@ import javax.swing.filechooser.FileFilter;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.openide.util.lookup.ServiceProvider;
+
+import org.jphototagger.domain.repository.RepositoryDataImporter;
+import org.jphototagger.program.module.exportimport.exporter.KeywordsExporterJpt;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -23,11 +28,6 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-
-import org.openide.util.lookup.ServiceProvider;
-
-import org.jphototagger.domain.repository.RepositoryDataImporter;
-import org.jphototagger.program.module.exportimport.exporter.KeywordsExporterJpt;
 
 /**
  * Imports Keywords exported by {@code KeywordsExporterJpt}.

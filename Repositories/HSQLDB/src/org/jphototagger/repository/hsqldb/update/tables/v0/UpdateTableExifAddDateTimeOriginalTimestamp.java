@@ -3,6 +3,7 @@ package org.jphototagger.repository.hsqldb.update.tables.v0;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Logger;
+
 import org.openide.util.lookup.ServiceProvider;
 
 import org.jphototagger.lib.util.Version;

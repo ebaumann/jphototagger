@@ -20,8 +20,8 @@ import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.misc.SaveToOrUpdateFilesInRepositoryImpl;
 import org.jphototagger.lib.util.ProgressBarUpdater;
+import org.jphototagger.program.misc.SaveToOrUpdateFilesInRepositoryImpl;
 import org.jphototagger.xmp.XmpMetadata;
 
 /**

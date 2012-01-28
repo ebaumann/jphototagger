@@ -9,8 +9,8 @@ import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
 import org.jphototagger.domain.favorites.Favorite;
-import org.jphototagger.lib.swing.util.TreeUtil;
 import org.jphototagger.lib.swing.MouseEventUtil;
+import org.jphototagger.lib.swing.util.TreeUtil;
 import org.jphototagger.program.event.listener.TreeMouseListener;
 
 /**

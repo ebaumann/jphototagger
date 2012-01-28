@@ -15,18 +15,11 @@ import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 
-import com.imagero.reader.IOParameterBlock;
-import com.imagero.reader.ImageProcOptions;
-import com.imagero.reader.ImageReader;
-import com.imagero.reader.Imagero;
-import com.imagero.reader.ReaderFactory;
-import com.imagero.reader.tiff.TiffReader;
-
 import org.openide.util.Lookup;
 
-import org.jphototagger.domain.metadata.exif.ExifInfo;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.filetypes.UserDefinedFileType;
+import org.jphototagger.domain.metadata.exif.ExifInfo;
 import org.jphototagger.domain.repository.UserDefinedFileTypesRepository;
 import org.jphototagger.image.ImagePreferencesKeys;
 import org.jphototagger.image.util.ImageTransform;
@@ -35,6 +28,13 @@ import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.runtime.External;
 import org.jphototagger.lib.runtime.ExternalOutput;
 import org.jphototagger.lib.swing.IconUtil;
+
+import com.imagero.reader.IOParameterBlock;
+import com.imagero.reader.ImageProcOptions;
+import com.imagero.reader.ImageReader;
+import com.imagero.reader.Imagero;
+import com.imagero.reader.ReaderFactory;
+import com.imagero.reader.tiff.TiffReader;
 
 /**
  * @author Elmar Baumann, Tobias Stening

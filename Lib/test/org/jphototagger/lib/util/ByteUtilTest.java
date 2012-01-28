@@ -1,9 +1,9 @@
 package org.jphototagger.lib.util;
 
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  * @author Elmar Baumann

@@ -6,8 +6,8 @@ import java.util.List;
 
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.module.keywords.KeywordsUtil;
 import org.jphototagger.program.misc.InputHelperDialog;
+import org.jphototagger.program.module.keywords.KeywordsUtil;
 
 /**
  * Deletes keywords of selected items whithin the keywords list.

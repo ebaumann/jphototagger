@@ -5,8 +5,8 @@ import java.awt.event.MouseEvent;
 
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.programs.ProgramType;
-import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
 

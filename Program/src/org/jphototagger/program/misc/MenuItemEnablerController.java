@@ -16,9 +16,9 @@ import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsChangedEvent;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPopupMenu;
+import org.jphototagger.program.resource.GUI;
 
 /**
  * @author Elmar Baumann

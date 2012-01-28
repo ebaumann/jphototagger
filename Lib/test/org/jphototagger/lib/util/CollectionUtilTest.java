@@ -1,13 +1,14 @@
 package org.jphototagger.lib.util;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+
+import static org.junit.Assert.*;
+import org.junit.Test;
 
 /**
  * @author Elmar Baumann
@@ -208,17 +209,17 @@ public class CollectionUtilTest {
         Collection<String> strings = Collections.emptyList();
         String string = "bla";
         boolean result = CollectionUtil.containsStringIgnoreCase(strings, string);
-        
+
         assertFalse(result);
-        
+
         strings = Arrays.asList("Bla");
         result = CollectionUtil.containsStringIgnoreCase(strings, string);
         assertTrue(result);
-        
+
         strings = Arrays.asList("1", "bla", "2");
         result = CollectionUtil.containsStringIgnoreCase(strings, string);
         assertTrue(result);
-        
+
         strings = Arrays.asList("1", "blubb", "2");
         result = CollectionUtil.containsStringIgnoreCase(strings, string);
         assertFalse(result);

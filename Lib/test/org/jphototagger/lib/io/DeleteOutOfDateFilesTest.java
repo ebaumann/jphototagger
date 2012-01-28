@@ -1,9 +1,10 @@
 package org.jphototagger.lib.io;
 
-import org.junit.Test;
 import java.io.File;
 import java.util.Arrays;
+
 import static org.junit.Assert.*;
+import org.junit.Test;
 
 /**
  * @author Elmar Baumann

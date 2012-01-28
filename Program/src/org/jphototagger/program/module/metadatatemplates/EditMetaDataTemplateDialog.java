@@ -4,15 +4,15 @@ import java.awt.Container;
 
 import org.openide.util.Lookup;
 
+import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.repository.MetadataTemplatesRepository;
 import org.jphototagger.domain.templates.MetadataTemplate;
-import org.jphototagger.domain.metadata.xmp.Xmp;
-import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.MessageDisplayer;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.view.ViewUtil;
 import org.jphototagger.program.misc.InputHelperDialog;
+import org.jphototagger.program.view.ViewUtil;
 
 /**
  * You <strong>have to call</strong>

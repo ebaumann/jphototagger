@@ -1,15 +1,16 @@
 package org.jphototagger.program.module.filesystem;
 
-import org.jphototagger.domain.filefilter.FileFilterUtil;
 import java.io.File;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.bushe.swing.event.EventBus;
-import org.jphototagger.api.file.event.FileRenamedEvent;
+
 import org.openide.util.Lookup;
 
+import org.jphototagger.api.file.event.FileRenamedEvent;
+import org.jphototagger.domain.filefilter.FileFilterUtil;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.TreeFileSystemDirectories;

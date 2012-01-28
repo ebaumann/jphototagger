@@ -11,8 +11,10 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.swing.JCheckBox;
+
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.DisplayMessageInFuturePreferencesKeys;

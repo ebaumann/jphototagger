@@ -5,11 +5,11 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jphototagger.domain.repository.FileRepositoryProvider;
 import org.openide.util.Lookup;
 
-import org.jphototagger.lib.swing.MessageDisplayer;
+import org.jphototagger.domain.repository.FileRepositoryProvider;
 import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 
 /**

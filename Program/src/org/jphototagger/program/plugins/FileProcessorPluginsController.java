@@ -14,8 +14,8 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.plugin.Plugin;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessedEvent;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessorPlugin;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPopupMenu;
+import org.jphototagger.program.resource.GUI;
 
 /**
  * Listens to items of {@code ThumbnailsPopupMenu#getMenuPlugins()} and sets

@@ -12,9 +12,9 @@ import org.openide.util.Lookup;
 import org.jphototagger.api.concurrent.SerialTaskExecutor;
 import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.util.ProgressBarUpdater;
 import org.jphototagger.program.misc.SaveToOrUpdateFilesInRepositoryImpl;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.lib.util.ProgressBarUpdater;
 
 /**
  * Kontrolliert die Aktion: Metadaten erzeugen für ausgewählte Bilder,

@@ -14,8 +14,8 @@ import org.jdesktop.swingx.JXList;
 
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
+import org.jphototagger.program.resource.GUI;
 
 /**
  * @author Elmar Baumann

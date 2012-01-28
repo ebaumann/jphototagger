@@ -5,8 +5,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-
 import java.util.Map;
+
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;

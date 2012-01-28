@@ -12,12 +12,12 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.domain.thumbnails.ThumbnailCreator;
 import org.jphototagger.domain.filetypes.UserDefinedFileType;
 import org.jphototagger.domain.repository.UserDefinedFileTypesRepository;
 import org.jphototagger.domain.repository.event.userdefinedfiletypes.UserDefinedFileTypeDeletedEvent;
 import org.jphototagger.domain.repository.event.userdefinedfiletypes.UserDefinedFileTypeInsertedEvent;
 import org.jphototagger.domain.repository.event.userdefinedfiletypes.UserDefinedFileTypeUpdatedEvent;
+import org.jphototagger.domain.thumbnails.ThumbnailCreator;
 import org.jphototagger.lib.io.filefilter.RegexFileFilter;
 import org.jphototagger.lib.util.Bundle;
 

@@ -14,10 +14,10 @@ import org.openide.util.lookup.ServiceProvider;
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
 import org.jphototagger.domain.repository.RepositoryDataImporter;
 import org.jphototagger.domain.repository.UserDefinedFileFiltersRepository;
-import org.jphototagger.lib.swing.IconUtil;
-import org.jphototagger.lib.xml.bind.XmlObjectImporter;
 import org.jphototagger.eximport.jpt.exporter.UserDefinedFileFilterExporter;
 import org.jphototagger.eximport.jpt.exporter.UserDefinedFileFilterExporter.CollectionWrapper;
+import org.jphototagger.lib.swing.IconUtil;
+import org.jphototagger.lib.xml.bind.XmlObjectImporter;
 
 /**
  * @author Elmar Baumann

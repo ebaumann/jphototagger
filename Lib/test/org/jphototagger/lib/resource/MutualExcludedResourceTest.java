@@ -1,8 +1,9 @@
 package org.jphototagger.lib.resource;
 
 import org.jphototagger.lib.util.MutualExcludedResource;
-import org.junit.Test;
+
 import static org.junit.Assert.*;
+import org.junit.Test;
 
 /**
  * @author Elmar Baumann

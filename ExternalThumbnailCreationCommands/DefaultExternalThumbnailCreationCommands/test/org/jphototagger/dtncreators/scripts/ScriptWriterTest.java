@@ -1,8 +1,9 @@
 package org.jphototagger.dtncreators.scripts;
 
 import org.jphototagger.tcc.def.scripts.ScriptWriter;
-import org.junit.Test;
+
 import static org.junit.Assert.*;
+import org.junit.Test;
 
 /**
  * @author Elmar Baumann

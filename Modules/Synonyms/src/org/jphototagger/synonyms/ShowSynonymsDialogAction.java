@@ -3,8 +3,8 @@ package org.jphototagger.synonyms;
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
-
 import javax.swing.KeyStroke;
+
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 

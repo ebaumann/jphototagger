@@ -13,11 +13,11 @@ import org.openide.util.lookup.ServiceProvider;
 
 import org.jphototagger.domain.repository.FileExcludePatternsRepository;
 import org.jphototagger.domain.repository.RepositoryDataImporter;
-import org.jphototagger.lib.swing.IconUtil;
-import org.jphototagger.lib.xml.bind.XmlObjectImporter;
 import org.jphototagger.eximport.jpt.exporter.FileExcludePatternsExporter;
 import org.jphototagger.eximport.jpt.exporter.FileExcludePatternsExporter.CollectionWrapper;
+import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.xml.bind.StringWrapper;
+import org.jphototagger.lib.xml.bind.XmlObjectImporter;
 
 /**
  * @author Elmar Baumann

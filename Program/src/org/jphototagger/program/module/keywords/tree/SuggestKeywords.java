@@ -7,11 +7,11 @@ import java.util.List;
 
 import org.openide.util.Lookup;
 
+import org.jphototagger.api.text.Suggest;
 import org.jphototagger.domain.metadata.keywords.Keyword;
 import org.jphototagger.domain.metadata.keywords.KeywordType;
 import org.jphototagger.domain.repository.KeywordsRepository;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.api.text.Suggest;
 
 /**
  * @author Elmar Baumann

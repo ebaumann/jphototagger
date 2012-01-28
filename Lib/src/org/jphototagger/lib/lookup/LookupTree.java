@@ -3,10 +3,10 @@ package org.jphototagger.lib.lookup;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+
 import javax.swing.Action;
 import javax.swing.JPopupMenu;
 import javax.swing.tree.TreePath;

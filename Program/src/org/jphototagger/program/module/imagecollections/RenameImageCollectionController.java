@@ -7,7 +7,6 @@ import java.awt.event.KeyListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 import org.jdesktop.swingx.JXList;
 
 import org.jphototagger.lib.awt.EventQueueUtil;

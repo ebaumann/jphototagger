@@ -1,6 +1,7 @@
 package org.jphototagger.program.help;
 
 import java.awt.event.ActionEvent;
+
 import javax.swing.AbstractAction;
 
 import org.jphototagger.lib.swing.IconUtil;

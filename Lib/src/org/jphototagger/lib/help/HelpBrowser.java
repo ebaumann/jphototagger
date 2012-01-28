@@ -43,6 +43,7 @@ import javax.swing.tree.TreeSelectionModel;
 
 import org.jdesktop.observablecollections.ObservableCollections;
 import org.jdesktop.observablecollections.ObservableList;
+
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;

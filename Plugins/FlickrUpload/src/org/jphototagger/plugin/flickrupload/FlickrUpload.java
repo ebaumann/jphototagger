@@ -17,6 +17,7 @@ import javax.swing.Icon;
 import javax.swing.JOptionPane;
 
 import com.adobe.xmp.properties.XMPPropertyInfo;
+
 import com.aetrion.flickr.uploader.UploadMetaData;
 import com.aetrion.flickr.uploader.Uploader;
 

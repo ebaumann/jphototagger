@@ -1,5 +1,8 @@
 package org.jphototagger.maintainance.update.v0;
 
+import org.openide.util.Lookup;
+import org.openide.util.lookup.ServiceProvider;
+
 import org.jphototagger.api.applifecycle.AppUpdater;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
@@ -8,8 +11,6 @@ import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.maintainance.RefreshExifOfKnownFilesInRepository;
-import org.openide.util.Lookup;
-import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann

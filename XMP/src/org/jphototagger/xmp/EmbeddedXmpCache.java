@@ -10,6 +10,7 @@ import com.adobe.xmp.properties.XMPPropertyInfo;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.storage.CacheDirectoryProvider;
@@ -218,7 +219,7 @@ public final class EmbeddedXmpCache {
 
     private File lookupCacheDirectory() {
         CacheDirectoryProvider provider = Lookup.getDefault().lookup(CacheDirectoryProvider.class);
-        
+
         return provider.getCacheDirectory("EmbeddedXmpCache");
     }
 

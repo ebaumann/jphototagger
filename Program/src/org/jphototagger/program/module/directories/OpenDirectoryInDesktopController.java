@@ -3,7 +3,9 @@ package org.jphototagger.program.module.directories;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
+
 import javax.swing.tree.DefaultMutableTreeNode;
+
 import org.jphototagger.lib.awt.DesktopUtil;
 
 /**

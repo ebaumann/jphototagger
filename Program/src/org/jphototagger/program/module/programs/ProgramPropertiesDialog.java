@@ -15,13 +15,13 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.programs.Program;
+import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.IconUtil;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.TabOrEnterLeavingTextArea;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.LookAndFeelUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
-import org.jphototagger.lib.swing.Dialog;
-import org.jphototagger.lib.swing.MessageDisplayer;
-import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.program.resource.GUI;

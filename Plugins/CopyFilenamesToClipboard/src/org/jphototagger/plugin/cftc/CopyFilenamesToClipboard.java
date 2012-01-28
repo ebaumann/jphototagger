@@ -20,9 +20,9 @@ import org.jphototagger.api.plugin.fileprocessor.FileProcessingStartedEvent;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessorPlugin;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.lib.help.HelpContentProvider;
+import org.jphototagger.lib.plugin.AbstractFileProcessorPlugin;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.lib.plugin.AbstractFileProcessorPlugin;
 
 /**
  * Copies into the system clipboard names of files.

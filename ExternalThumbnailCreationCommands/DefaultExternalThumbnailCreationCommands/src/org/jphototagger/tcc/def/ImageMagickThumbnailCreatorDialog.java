@@ -3,8 +3,8 @@ package org.jphototagger.tcc.def;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.branding.Branding;
-import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
 
 /**
  * @author Elmar Baumann

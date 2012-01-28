@@ -6,8 +6,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.jphototagger.domain.metadata.exif.Exif;
-import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.domain.metadata.xmp.Xmp;
+import org.jphototagger.domain.repository.SaveOrUpdate;
 
 /**
  * @author Elmar Baumann

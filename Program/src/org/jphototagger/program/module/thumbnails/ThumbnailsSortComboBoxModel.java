@@ -9,9 +9,9 @@ import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 
-import org.jphototagger.api.preferences.Preferences;
 import org.openide.util.Lookup;
 
+import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.thumbnails.FileSortComparator;
 import org.jphototagger.domain.thumbnails.FileSortComparators;
 import org.jphototagger.lib.api.LayerUtil;

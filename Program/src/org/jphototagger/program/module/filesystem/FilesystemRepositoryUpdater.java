@@ -1,6 +1,5 @@
 package org.jphototagger.program.module.filesystem;
 
-import org.jphototagger.domain.filefilter.FileFilterUtil;
 import java.io.File;
 import java.util.Arrays;
 
@@ -14,6 +13,7 @@ import org.jphototagger.api.file.event.FileCopiedEvent;
 import org.jphototagger.api.file.event.FileDeletedEvent;
 import org.jphototagger.api.file.event.FileMovedEvent;
 import org.jphototagger.api.file.event.FileRenamedEvent;
+import org.jphototagger.domain.filefilter.FileFilterUtil;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.program.misc.SaveToOrUpdateFilesInRepositoryImpl;

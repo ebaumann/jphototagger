@@ -1,24 +1,21 @@
 package org.jphototagger.program.module.filesystem;
 
-import org.jphototagger.api.file.CopyMoveFilesOptions;
-import org.jphototagger.domain.filefilter.FileFilterUtil;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.openide.util.Lookup;
 
+import org.jphototagger.api.file.CopyMoveFilesOptions;
+import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
-import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.domain.filefilter.FileFilterUtil;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.settings.AppPreferencesKeys;
-import org.jphototagger.program.module.filesystem.MoveFilesController;
 import org.jphototagger.program.factory.ControllerFactory;
-import org.jphototagger.program.module.filesystem.CopyFiles;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.module.filesystem.CopyToDirectoryDialog;
+import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.xmp.XmpMetadata;
 
 /**

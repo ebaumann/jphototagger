@@ -9,9 +9,9 @@ import java.util.List;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
-import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.plugin.flickrupload.FlickrImageInfoPanel.ImageInfo;
 
 /**

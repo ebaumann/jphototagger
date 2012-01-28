@@ -2,6 +2,7 @@ package org.jphototagger.lib.nodes;
 
 import java.util.Collection;
 import java.util.Collections;
+
 import javax.swing.Action;
 import javax.swing.Icon;
 

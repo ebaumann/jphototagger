@@ -7,10 +7,10 @@ import java.util.List;
 
 import org.jdesktop.swingx.JXList;
 
+import org.jphototagger.program.misc.InputHelperDialog;
 import org.jphototagger.program.module.Controller;
 import org.jphototagger.program.module.keywords.KeywordsUtil;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.program.misc.InputHelperDialog;
 
 /**
  * @author Elmar Baumann

@@ -18,6 +18,7 @@ import javax.swing.WindowConstants;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+
 import org.jdesktop.swingx.JXLabel;
 import org.jdesktop.swingx.JXList;
 
@@ -25,8 +26,8 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesChangedEvent;
-import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.program.settings.AppPreferencesKeys;
 
 /**

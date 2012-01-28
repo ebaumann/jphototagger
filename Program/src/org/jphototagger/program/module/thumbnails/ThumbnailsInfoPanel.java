@@ -2,7 +2,6 @@ package org.jphototagger.program.module.thumbnails;
 
 import java.awt.Component;
 
-
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 

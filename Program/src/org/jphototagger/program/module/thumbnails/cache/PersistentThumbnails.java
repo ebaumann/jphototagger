@@ -10,9 +10,9 @@ import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
 
-import org.jphototagger.domain.thumbnails.ThumbnailsDirectoryProvider;
 import org.openide.util.Lookup;
 
+import org.jphototagger.domain.thumbnails.ThumbnailsDirectoryProvider;
 import org.jphototagger.image.util.ImageUtil;
 import org.jphototagger.lib.io.FileLock;
 import org.jphototagger.lib.io.FileUtil;
