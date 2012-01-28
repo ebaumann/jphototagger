@@ -11,6 +11,7 @@ import org.jphototagger.domain.metadata.exif.ExifIsoSpeedRatingsMetaDataValue;
 import org.jphototagger.domain.metadata.exif.ExifLensMetaDataValue;
 import org.jphototagger.domain.metadata.exif.ExifRecordingEquipmentMetaDataValue;
 import org.jphototagger.domain.metadata.file.FilesFilenameMetaDataValue;
+import org.jphototagger.domain.metadata.thumbnails.ThumbnailsThumbnailMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpDcCreatorMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpDcDescriptionMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpDcRightsMetaDataValue;
@@ -47,6 +48,7 @@ public final class MetaDataValueIcons {
         ICON_OF_META_DATA_VALUE.put(XmpPhotoshopHeadlineMetaDataValue.INSTANCE, AppLookAndFeel.getIcon("icon_xmp_photoshop_headline.png"));
         ICON_OF_META_DATA_VALUE.put(XmpDcTitleMetaDataValue.INSTANCE, AppLookAndFeel.getIcon("icon_xmp_dc_title.png"));
         ICON_OF_META_DATA_VALUE.put(FilesFilenameMetaDataValue.INSTANCE, AppLookAndFeel.getIcon("icon_file.png"));
+        ICON_OF_META_DATA_VALUE.put(ThumbnailsThumbnailMetaDataValue.INSTANCE, AppLookAndFeel.getIcon("icon_image.png"));
     }
 
     /**

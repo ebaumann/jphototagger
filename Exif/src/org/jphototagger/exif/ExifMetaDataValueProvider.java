@@ -71,6 +71,6 @@ public final class ExifMetaDataValueProvider implements MetaDataValueProvider {
 
     @Override
     public int getPosition() {
-        return 10;
+        return 20;
     }
 }

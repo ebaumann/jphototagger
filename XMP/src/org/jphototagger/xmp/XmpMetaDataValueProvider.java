@@ -56,6 +56,6 @@ public final class XmpMetaDataValueProvider implements MetaDataValueProvider {
 
     @Override
     public int getPosition() {
-        return 0;
+        return 10;
     }
 }

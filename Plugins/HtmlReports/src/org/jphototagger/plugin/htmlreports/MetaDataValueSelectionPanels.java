@@ -42,8 +42,7 @@ public class MetaDataValueSelectionPanels extends javax.swing.JPanel implements 
         selectionPanel.enableRemove();
         selectionPanel.addPropertyChangeListener(this);
 
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc = new java.awt.GridBagConstraints();
+        GridBagConstraints gbc = new java.awt.GridBagConstraints();
         gbc.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gbc.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gbc.anchor = java.awt.GridBagConstraints.WEST;

@@ -11,6 +11,7 @@ import org.jphototagger.domain.metadata.exif.ExifLensMetaDataValue;
 import org.jphototagger.domain.metadata.exif.ExifRecordingEquipmentMetaDataValue;
 import org.jphototagger.domain.metadata.file.FilesFilenameMetaDataValue;
 import org.jphototagger.domain.metadata.file.FilesLastModifiedMetaDataValue;
+import org.jphototagger.domain.metadata.thumbnails.ThumbnailsThumbnailMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpDcCreatorMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpDcDescriptionMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpDcRightsMetaDataValue;
@@ -31,10 +32,6 @@ import org.jphototagger.domain.metadata.xmp.XmpPhotoshopTransmissionReferenceMet
 import org.jphototagger.domain.metadata.xmp.XmpRatingMetaDataValue;
 
 /**
- * IDs der Tabellenspalten, die für den Benutzer relevant sind. So kann in der
- * Datenbank eine ID abgespeichert werden, aus der eindeutig die Tabellenspalte
- * ermittelt werden kann.
- *
  * @author Elmar Baumann
  */
 public final class MetaDataValueIds {
@@ -53,12 +50,10 @@ public final class MetaDataValueIds {
         META_DATA_VALUE_OF_ID.put(3, ExifRecordingEquipmentMetaDataValue.INSTANCE);
         META_DATA_VALUE_OF_ID.put(4, FilesFilenameMetaDataValue.INSTANCE);
         META_DATA_VALUE_OF_ID.put(5, FilesLastModifiedMetaDataValue.INSTANCE);
-
         // Removed 6: FilesThumbnail
         META_DATA_VALUE_OF_ID.put(7, XmpDcDescriptionMetaDataValue.INSTANCE);
         META_DATA_VALUE_OF_ID.put(8, XmpDcRightsMetaDataValue.INSTANCE);
         META_DATA_VALUE_OF_ID.put(9, XmpDcTitleMetaDataValue.INSTANCE);
-
         // Removed 10: XmpIptc4xmpcoreCountrycode
         META_DATA_VALUE_OF_ID.put(11, XmpIptc4xmpcoreLocationMetaDataValue.INSTANCE);
         META_DATA_VALUE_OF_ID.put(12, XmpPhotoshopAuthorspositionMetaDataValue.INSTANCE);
@@ -73,14 +68,13 @@ public final class MetaDataValueIds {
         META_DATA_VALUE_OF_ID.put(22, XmpPhotoshopTransmissionReferenceMetaDataValue.INSTANCE);
         META_DATA_VALUE_OF_ID.put(23, XmpDcCreatorMetaDataValue.INSTANCE);
         META_DATA_VALUE_OF_ID.put(24, XmpDcSubjectsSubjectMetaDataValue.INSTANCE);
-
         // Removed 26: CollectionnamesName
         // Removed 27: SavedSearchesName
         META_DATA_VALUE_OF_ID.put(28, XmpRatingMetaDataValue.INSTANCE);
         META_DATA_VALUE_OF_ID.put(29, ExifLensMetaDataValue.INSTANCE);
         META_DATA_VALUE_OF_ID.put(30, XmpIptc4XmpCoreDateCreatedMetaDataValue.INSTANCE);
-
-        // Next ID: 31 - UPDATE ID after assigning! --
+        META_DATA_VALUE_OF_ID.put(31, ThumbnailsThumbnailMetaDataValue.INSTANCE);
+        // Next ID: 32 - UPDATE ID after assigning! --
         Set<Integer> keys = META_DATA_VALUE_OF_ID.keySet();
 
         for (Integer key : keys) {
@@ -88,30 +82,18 @@ public final class MetaDataValueIds {
         }
     }
 
-    private MetaDataValueIds() {
-    }
-
-    /**
-     * Liefert eine Spalte mit bestimmter ID.
-     *
-     * @param  id ID
-     * @return Spalte oder null bei ungültiger ID
-     */
     public static MetaDataValue getMetaDataValue(int id) {
         return META_DATA_VALUE_OF_ID.get(id);
     }
 
-    /**
-     * Liefert die ID einer Spalte.
-     *
-     * @param  value Spalte
-     * @return ID
-     */
     public static int getId(MetaDataValue value) {
         if (value == null) {
             throw new NullPointerException("value == null");
         }
 
         return ID_OF_META_DATA_VALUE.get(value);
+    }
+
+    private MetaDataValueIds() {
     }
 }
