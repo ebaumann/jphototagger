@@ -2,15 +2,17 @@ package org.jphototagger.maintainance;
 
 import java.awt.Component;
 import java.text.MessageFormat;
-
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
+
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
+
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.file.FilenameTokens;

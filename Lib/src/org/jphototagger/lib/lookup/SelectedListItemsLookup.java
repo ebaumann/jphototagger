@@ -1,9 +1,11 @@
 package org.jphototagger.lib.lookup;
 
 import java.util.Collection;
+
 import javax.swing.JList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+
 import org.openide.util.Lookup;
 
 /**

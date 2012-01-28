@@ -1,11 +1,11 @@
 package org.jphototagger.maintainance;
 
 import java.awt.event.ActionEvent;
-
 import java.awt.event.KeyEvent;
-import javax.swing.AbstractAction;
 
+import javax.swing.AbstractAction;
 import javax.swing.JMenuItem;
+
 import org.jphototagger.api.windows.MenuItemProvider;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.swing.KeyEventUtil;

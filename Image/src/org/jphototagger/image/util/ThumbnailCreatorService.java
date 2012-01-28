@@ -6,8 +6,8 @@ import java.util.Collection;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.domain.thumbnails.ThumbnailCreator;
 import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.domain.thumbnails.ThumbnailCreator;
 
 /**
  * @author Elmar Baumann

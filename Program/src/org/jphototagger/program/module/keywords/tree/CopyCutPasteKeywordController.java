@@ -15,13 +15,13 @@ import javax.swing.tree.TreePath;
 
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.datatransfer.TransferableObject;
-import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.KeyEventUtil;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.module.keywords.tree.KeywordTreeNodesClipboard.Action;
 import org.jphototagger.program.datatransfer.Flavor;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.module.keywords.KeywordsPanel;
+import org.jphototagger.program.module.keywords.tree.KeywordTreeNodesClipboard.Action;
 
 //The implementation can't paste the nodes to the system clipboard and let do
 //the work the panel's transfer handler, because the affected nodes when using

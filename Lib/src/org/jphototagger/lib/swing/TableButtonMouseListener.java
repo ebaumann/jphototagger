@@ -2,6 +2,7 @@ package org.jphototagger.lib.swing;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;

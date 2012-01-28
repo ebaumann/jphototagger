@@ -31,8 +31,8 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableColumnModel;
 import javax.swing.text.html.HTMLDocument;
 
-import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.util.Bundle;
 
 /**

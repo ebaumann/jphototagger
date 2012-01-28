@@ -15,9 +15,9 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.domain.metadata.keywords.Keyword;
 import org.jphototagger.domain.repository.KeywordsRepository;
-import org.jphototagger.lib.swing.util.TreeUtil;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.SortedChildrenTreeNode;
+import org.jphototagger.lib.swing.util.TreeUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.module.keywords.KeywordsUtil;
 

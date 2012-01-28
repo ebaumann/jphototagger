@@ -3,13 +3,13 @@ package org.jphototagger.tcc.def;
 import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
-import javax.swing.JFileChooser;
 
+import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 
+import org.jphototagger.lib.io.filefilter.AcceptExactFilenamesFileFilter;
 import org.jphototagger.lib.swing.FileChooserHelper;
 import org.jphototagger.lib.swing.FileChooserProperties;
-import org.jphototagger.lib.io.filefilter.AcceptExactFilenamesFileFilter;
 
 /**
  * @author Elmar Baumann

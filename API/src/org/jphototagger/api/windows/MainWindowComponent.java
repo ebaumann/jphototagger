@@ -3,6 +3,7 @@ package org.jphototagger.api.windows;
 import java.awt.Component;
 
 import javax.swing.KeyStroke;
+
 import org.jphototagger.api.collections.PositionProvider;
 import org.jphototagger.api.component.IconProvider;
 import org.jphototagger.api.component.TitleProvider;

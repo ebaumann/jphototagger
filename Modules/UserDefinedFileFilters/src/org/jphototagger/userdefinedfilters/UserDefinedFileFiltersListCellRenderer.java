@@ -1,10 +1,12 @@
 package org.jphototagger.userdefinedfilters;
 
 import java.awt.Component;
+
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JList;
+
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
 import org.jphototagger.lib.swing.IconUtil;
 

@@ -1,15 +1,14 @@
 package org.jphototagger.tcc.def;
 
 import java.io.File;
-
 import java.util.Arrays;
 import java.util.HashSet;
 
 import org.openide.util.lookup.ServiceProvider;
 
 import org.jphototagger.domain.thumbnails.ExternalThumbnailCreationCommand;
-import org.jphototagger.lib.util.SystemUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.util.SystemUtil;
 
 /**
  * @author Elmar Baumann

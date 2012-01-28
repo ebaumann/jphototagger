@@ -9,12 +9,8 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.domain.repository.UserDefinedFileTypesRepository;
 import org.jphototagger.iptc.IptcEntry;
-import org.jphototagger.iptc.IptcEntry;
-import org.jphototagger.iptc.IptcEntryComparator;
 import org.jphototagger.iptc.IptcEntryComparator;
 import org.jphototagger.iptc.IptcIgnoreCache;
-import org.jphototagger.iptc.IptcIgnoreCache;
-import org.jphototagger.iptc.IptcMetadata;
 import org.jphototagger.iptc.IptcMetadata;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.swing.TableModelExt;

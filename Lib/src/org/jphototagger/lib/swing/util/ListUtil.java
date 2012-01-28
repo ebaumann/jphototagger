@@ -11,8 +11,8 @@ import java.util.StringTokenizer;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.ListModel;
-
 import javax.swing.ListSelectionModel;
+
 import org.jdesktop.swingx.JXList;
 
 /**

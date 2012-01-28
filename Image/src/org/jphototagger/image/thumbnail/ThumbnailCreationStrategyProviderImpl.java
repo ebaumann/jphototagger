@@ -3,8 +3,6 @@ package org.jphototagger.image.thumbnail;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
-import org.jphototagger.image.thumbnail.ThumbnailCreationStrategy;
-import org.jphototagger.image.thumbnail.ThumbnailCreationStrategyProvider;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.image.ImagePreferencesKeys;
 

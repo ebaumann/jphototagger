@@ -32,6 +32,7 @@ import org.jdesktop.swingx.JXList;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.api.text.Suggest;
 import org.jphototagger.domain.DomainPreferencesKeys;
 import org.jphototagger.domain.event.listener.TextEntryListener;
 import org.jphototagger.domain.event.listener.TextEntryListenerSupport;
@@ -43,13 +44,12 @@ import org.jphototagger.domain.repository.event.dcsubjects.DcSubjectInsertedEven
 import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.domain.text.TextEntry;
+import org.jphototagger.lib.swing.KeyEventUtil;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.util.Autocomplete;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.ListUtil;
-import org.jphototagger.lib.swing.MessageDisplayer;
-import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.api.text.Suggest;
 import org.jphototagger.program.misc.AutocompleteUtil;
 
 /**

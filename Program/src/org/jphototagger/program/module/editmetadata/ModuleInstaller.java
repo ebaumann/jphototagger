@@ -11,9 +11,7 @@ import javax.swing.KeyStroke;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-import org.jphototagger.domain.metadata.MetaDataValue;
-import org.jphototagger.domain.metadata.xmp.Xmp;
-import org.jphototagger.domain.templates.MetadataTemplate;
+
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
 
@@ -22,7 +20,10 @@ import org.jphototagger.api.modules.ModuleDescription;
 import org.jphototagger.api.windows.MainWindowComponent;
 import org.jphototagger.api.windows.MainWindowComponentProvider;
 import org.jphototagger.api.windows.TabInEditWindowDisplayedEvent;
+import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.SelectedFilesMetaDataEditor;
+import org.jphototagger.domain.metadata.xmp.Xmp;
+import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.lib.api.MainWindowComponentProviderAdapter;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.swing.KeyEventUtil;

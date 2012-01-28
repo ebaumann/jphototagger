@@ -1,6 +1,7 @@
 package org.jphototagger.program.app.ui;
 
 import java.awt.Component;
+
 import org.openide.util.lookup.ServiceProvider;
 
 import org.jphototagger.api.messages.MessageType;

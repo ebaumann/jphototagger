@@ -24,18 +24,18 @@ import javax.swing.event.DocumentListener;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.api.storage.Persistence;
 import org.jphototagger.domain.DomainPreferencesKeys;
 import org.jphototagger.domain.event.listener.ListenerSupport;
 import org.jphototagger.domain.metadata.search.ParamStatement;
 import org.jphototagger.domain.metadata.search.SavedSearch;
 import org.jphototagger.domain.metadata.search.SavedSearchPanel;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.TabOrEnterLeavingTextArea;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
-import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.factory.ControllerFactory;
-import org.jphototagger.api.storage.Persistence;
 
 /**
  * @author Elmar Baumann

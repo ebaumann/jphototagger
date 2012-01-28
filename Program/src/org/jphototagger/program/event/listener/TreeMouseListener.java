@@ -9,8 +9,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JTree;
 import javax.swing.tree.TreePath;
 
-import org.jphototagger.lib.swing.util.TreeUtil;
 import org.jphototagger.lib.swing.MouseEventUtil;
+import org.jphototagger.lib.swing.util.TreeUtil;
 
 /**
  * Do not use this class as template for implemention! Instead extend

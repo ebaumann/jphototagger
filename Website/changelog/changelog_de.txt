@@ -3,6 +3,12 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.15.3 2012-01-28
+-----------------
+
+* Warnung, dass ein Vorschaubild nicht umbenannt werden konnte nach Umbenennen
+  eines Ordners sollte nicht mehr erscheinen
+
 0.15.2 2011-12-10
 -----------------
 

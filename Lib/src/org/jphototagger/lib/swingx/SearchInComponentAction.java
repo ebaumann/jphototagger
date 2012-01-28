@@ -5,8 +5,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ActionMap;
-
 import javax.swing.JComponent;
+
 import org.jphototagger.lib.util.Bundle;
 
 /**

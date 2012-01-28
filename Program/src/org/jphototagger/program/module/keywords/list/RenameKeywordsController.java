@@ -9,8 +9,8 @@ import javax.swing.JDialog;
 import org.jphototagger.lib.swing.InputDialog;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.module.keywords.KeywordsUtil;
 import org.jphototagger.program.misc.InputHelperDialog;
+import org.jphototagger.program.module.keywords.KeywordsUtil;
 
 /**
  * Renames keywords of selected items whithin the keywords list.

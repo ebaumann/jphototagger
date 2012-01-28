@@ -1,6 +1,7 @@
 package org.jphototagger.program.app;
 
 import org.jphototagger.program.app.ui.SplashScreen;
+
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;

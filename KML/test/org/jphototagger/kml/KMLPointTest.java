@@ -1,8 +1,7 @@
 package org.jphototagger.kml;
 
-import org.jphototagger.kml.KMLPoint;
-import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Test;
 
 /**
  * @author Elmar Baumann

@@ -14,10 +14,10 @@ import org.openide.util.lookup.ServiceProvider;
 import org.jphototagger.domain.metadata.search.SavedSearch;
 import org.jphototagger.domain.repository.RepositoryDataImporter;
 import org.jphototagger.domain.repository.SavedSearchesRepository;
-import org.jphototagger.lib.swing.IconUtil;
-import org.jphototagger.lib.xml.bind.XmlObjectImporter;
 import org.jphototagger.eximport.jpt.exporter.SavedSearchesExporter;
 import org.jphototagger.eximport.jpt.exporter.SavedSearchesExporter.CollectionWrapper;
+import org.jphototagger.lib.swing.IconUtil;
+import org.jphototagger.lib.xml.bind.XmlObjectImporter;
 
 /**
  * @author Elmar Baumann

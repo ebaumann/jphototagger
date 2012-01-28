@@ -1,6 +1,5 @@
 package org.jphototagger.eximport.jpt.exporter;
 
-import org.jphototagger.lib.xml.bind.StringWrapper;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -24,6 +23,7 @@ import org.jphototagger.domain.repository.RepositoryDataExporter;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.xml.bind.StringWrapper;
 import org.jphototagger.lib.xml.bind.XmlObjectExporter;
 
 /**

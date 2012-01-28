@@ -11,13 +11,13 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 import org.openide.util.Lookup;
 
 import org.jphototagger.domain.event.listener.ThumbnailUpdateListener;
+import org.jphototagger.domain.metadata.xmp.FileXmp;
+import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.repository.event.xmp.XmpDeletedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.domain.thumbnails.event.TypedThumbnailUpdateEvent;
-import org.jphototagger.domain.metadata.xmp.FileXmp;
-import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**

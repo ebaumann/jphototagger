@@ -19,10 +19,10 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.ExpandVetoException;
 import javax.swing.tree.TreePath;
 
-import org.jphototagger.lib.swing.util.TreeUtil;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.TreeFileSystemDirectories;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
+import org.jphototagger.lib.swing.util.TreeUtil;
 import org.jphototagger.lib.util.StringUtil;
 
 /**

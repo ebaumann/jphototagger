@@ -1,6 +1,5 @@
 package org.jphototagger.program.app;
 
-import org.jphototagger.program.app.ui.AppLookAndFeel;
 import java.awt.Image;
 import java.util.List;
 
@@ -8,6 +7,7 @@ import org.openide.util.lookup.ServiceProvider;
 
 import org.jphototagger.api.branding.Branding;
 import org.jphototagger.lib.swing.IconUtil;
+import org.jphototagger.program.app.ui.AppLookAndFeel;
 
 /**
  * @author Elmar Baumann

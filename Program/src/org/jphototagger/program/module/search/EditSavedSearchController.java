@@ -6,9 +6,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import org.jdesktop.swingx.JXList;
+
 import org.jphototagger.domain.metadata.search.SavedSearch;
-import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.KeyEventUtil;
+import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.program.resource.GUI;
 
 /**

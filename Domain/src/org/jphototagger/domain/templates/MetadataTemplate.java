@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Set;
 
 import org.jphototagger.domain.metadata.MetaDataValue;
-import org.jphototagger.domain.metadata.xmp.XmpMetaDataValues;
 import org.jphototagger.domain.metadata.xmp.Xmp;
+import org.jphototagger.domain.metadata.xmp.XmpMetaDataValues;
 
 /**
  * Holds the data of a metadata edit template.

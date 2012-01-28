@@ -14,6 +14,7 @@ import org.openide.util.Lookup;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.DomainPreferencesKeys;
 import org.jphototagger.domain.metadata.MetaDataValue;
+import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.metadata.xmp.XmpDcCreatorMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpDcDescriptionMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpDcRightsMetaDataValue;
@@ -31,7 +32,6 @@ import org.jphototagger.domain.metadata.xmp.XmpPhotoshopSourceMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpPhotoshopStateMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpPhotoshopTransmissionReferenceMetaDataValue;
 import org.jphototagger.domain.text.TextEntry;
-import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.program.module.editmetadata.EditRepeatableTextEntryPanel;
 
 /**

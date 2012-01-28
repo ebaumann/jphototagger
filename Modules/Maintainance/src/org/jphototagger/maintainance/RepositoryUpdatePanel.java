@@ -10,7 +10,6 @@ import javax.swing.AbstractButton;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
-
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.lib.awt.EventQueueUtil;

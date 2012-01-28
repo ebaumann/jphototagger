@@ -4,8 +4,6 @@ import java.awt.Toolkit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.imagero.reader.AbstractImageReader;
-
 import org.bushe.swing.event.EventBus;
 
 import org.openide.util.Lookup;
@@ -15,10 +13,10 @@ import org.jphototagger.domain.repository.Repository;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.LongMessageDialog;
 import org.jphototagger.lib.swing.MessageDisplayer;
-import org.jphototagger.lib.util.SystemUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.CommandLineParser;
 import org.jphototagger.lib.util.ExceptionUtil;
+import org.jphototagger.lib.util.SystemUtil;
 import org.jphototagger.lib.util.Version;
 import org.jphototagger.program.app.logging.AppLogUtil;
 import org.jphototagger.program.app.logging.AppLoggingSystem;
@@ -27,6 +25,8 @@ import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.app.ui.SplashScreen;
 import org.jphototagger.program.module.thumbnails.cache.CacheUtil;
 import org.jphototagger.program.resource.ImageProperties;
+
+import com.imagero.reader.AbstractImageReader;
 
 /**
  * @author Elmar Baumann

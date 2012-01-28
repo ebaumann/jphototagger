@@ -7,8 +7,8 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
-import org.jphototagger.lib.swing.util.TreeUtil;
 import org.jphototagger.lib.swing.MouseEventUtil;
+import org.jphototagger.lib.swing.util.TreeUtil;
 import org.jphototagger.program.event.listener.TreeMouseListener;
 
 /**

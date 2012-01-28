@@ -12,16 +12,16 @@ import org.jphototagger.domain.programs.ProgramExecutor;
 import org.jphototagger.domain.programs.ProgramType;
 import org.jphototagger.domain.repository.ActionsAfterRepoUpdatesRepository;
 import org.jphototagger.domain.repository.ProgramsRepository;
-import org.jphototagger.lib.swing.util.MnemonicUtil;
-import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.KeyEventUtil;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.MouseEventUtil;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.module.programs.ProgramExecutorImpl;
+import org.jphototagger.program.module.programs.ProgramPropertiesDialog;
+import org.jphototagger.program.module.programs.ProgramsListModel;
 import org.jphototagger.program.module.programs.ProgramsUtil;
 import org.jphototagger.program.module.programs.ProgramsUtil.ReorderListener;
-import org.jphototagger.program.module.programs.ProgramsListModel;
-import org.jphototagger.program.module.programs.ProgramPropertiesDialog;
 
 /**
  * @author Elmar Baumann

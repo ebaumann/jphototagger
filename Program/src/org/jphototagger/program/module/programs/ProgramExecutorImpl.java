@@ -2,8 +2,8 @@ package org.jphototagger.program.module.programs;
 
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.programs.ProgramExecutor;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
+import org.jphototagger.program.resource.GUI;
 
 /**
  * @author Elmar Baumann

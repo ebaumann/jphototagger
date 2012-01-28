@@ -8,7 +8,6 @@ import javax.swing.AbstractAction;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.component.Selectable;
-import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.thumbnails.ThumbnailsDisplayer;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;

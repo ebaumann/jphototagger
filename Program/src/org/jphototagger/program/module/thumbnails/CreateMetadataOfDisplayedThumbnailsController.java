@@ -14,8 +14,8 @@ import org.jphototagger.api.concurrent.ReplaceableTask;
 import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsChangedEvent;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.misc.SaveToOrUpdateFilesInRepositoryImpl;
 import org.jphototagger.lib.util.ProgressBarUpdater;
+import org.jphototagger.program.misc.SaveToOrUpdateFilesInRepositoryImpl;
 
 /**
  * Listens to the {@code ThumbnailsPanel} and when the displayed

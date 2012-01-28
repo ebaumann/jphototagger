@@ -11,6 +11,7 @@ import javax.swing.JComponent;
 import javax.swing.TransferHandler;
 
 import org.jdesktop.swingx.JXList;
+
 import org.jphototagger.domain.metadata.MetaDataValueData;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.lib.datatransfer.TransferUtil;

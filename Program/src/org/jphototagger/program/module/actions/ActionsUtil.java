@@ -15,10 +15,10 @@ import org.jphototagger.domain.programs.ProgramType;
 import org.jphototagger.domain.repository.ProgramsRepository;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.module.programs.StartPrograms;
 import org.jphototagger.program.module.programs.AddProgramAction;
-import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.module.programs.StartPrograms;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
+import org.jphototagger.program.resource.GUI;
 
 /**
  * @author Elmar Baumann

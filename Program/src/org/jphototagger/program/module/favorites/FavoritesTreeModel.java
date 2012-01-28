@@ -23,19 +23,19 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.applifecycle.AppWillExitEvent;
+import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.domain.repository.FavoritesRepository;
 import org.jphototagger.domain.repository.event.favorites.FavoriteDeletedEvent;
 import org.jphototagger.domain.repository.event.favorites.FavoriteInsertedEvent;
 import org.jphototagger.domain.repository.event.favorites.FavoriteUpdatedEvent;
-import org.jphototagger.lib.swing.util.TreeUtil;
-import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.TreeFileSystemDirectories;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.SortedChildrenTreeNode;
+import org.jphototagger.lib.swing.util.TreeUtil;
 import org.jphototagger.lib.util.Bundle;
 
 /**

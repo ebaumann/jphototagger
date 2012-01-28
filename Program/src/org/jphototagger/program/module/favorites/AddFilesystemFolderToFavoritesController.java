@@ -12,13 +12,13 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.swing.MessageDisplayer;
-import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.io.TreeFileSystemDirectories;
+import org.jphototagger.lib.swing.KeyEventUtil;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.module.filesystem.MoveFilesController;
 import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.factory.ModelFactory;
+import org.jphototagger.program.module.filesystem.MoveFilesController;
 import org.jphototagger.program.resource.GUI;
 
 /**

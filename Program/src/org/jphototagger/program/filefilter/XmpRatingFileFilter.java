@@ -9,8 +9,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.jphototagger.api.component.DisplayNameProvider;
-import org.jphototagger.domain.metadata.xmp.XmpRatingMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.Xmp;
+import org.jphototagger.domain.metadata.xmp.XmpRatingMetaDataValue;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.xmp.XmpMetadata;
 

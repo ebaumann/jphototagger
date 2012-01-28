@@ -7,13 +7,13 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.jphototagger.domain.metadata.iptc.Iptc;
+
 import com.imagero.reader.MetadataUtils;
 import com.imagero.reader.iptc.IPTCConstants;
 import com.imagero.reader.iptc.IPTCEntry;
 import com.imagero.reader.iptc.IPTCEntryCollection;
 import com.imagero.reader.iptc.IPTCEntryMeta;
-
-import org.jphototagger.domain.metadata.iptc.Iptc;
 
 /**
  * IPTC metadata of an image file.

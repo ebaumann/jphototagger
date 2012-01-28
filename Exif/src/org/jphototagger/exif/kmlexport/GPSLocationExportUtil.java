@@ -11,12 +11,13 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 
 import org.bushe.swing.event.EventBus;
+
+import org.openide.util.Lookup;
+
 import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.api.concurrent.SerialTaskExecutor;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessingFinishedEvent;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessingStartedEvent;
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.progress.MainWindowProgressBarProvider;
 import org.jphototagger.api.progress.ProgressEvent;
@@ -25,9 +26,9 @@ import org.jphototagger.exif.ExifPreferencesKeys;
 import org.jphototagger.exif.ExifTags;
 import org.jphototagger.exif.tag.ExifGpsMetadata;
 import org.jphototagger.exif.tag.ExifGpsUtil;
+import org.jphototagger.lib.io.IoUtil;
 import org.jphototagger.lib.swing.FileChooserExt;
 import org.jphototagger.lib.swing.MessageDisplayer;
-import org.jphototagger.lib.io.IoUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StorageUtil;
 

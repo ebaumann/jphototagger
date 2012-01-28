@@ -7,9 +7,9 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import org.openide.util.lookup.ServiceProvider;
 
 import org.jphototagger.domain.metadata.MetaDataValue;

@@ -3,6 +3,7 @@ package org.jphototagger.api.nodes;
 import java.util.Collection;
 
 import javax.swing.Action;
+
 import org.jphototagger.api.component.DisplayNameProvider;
 import org.jphototagger.api.component.IconProvider;
 

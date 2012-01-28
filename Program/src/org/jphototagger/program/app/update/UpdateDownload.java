@@ -8,7 +8,6 @@ import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.concurrent.CancelRequest;
@@ -18,16 +17,16 @@ import org.jphototagger.api.progress.MainWindowProgressBarProvider;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.storage.PreferencesDirectoryProvider;
 import org.jphototagger.domain.repository.ApplicationPropertiesRepository;
-import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.net.HttpUtil;
 import org.jphototagger.lib.net.NetVersion;
-import org.jphototagger.lib.util.SystemUtil;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.util.SystemUtil;
 import org.jphototagger.lib.util.Version;
 import org.jphototagger.program.app.AppInfo;
 import org.jphototagger.program.app.AppLifeCycle;
-import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.program.misc.FinalExecutable;
+import org.jphototagger.program.settings.AppPreferencesKeys;
 
 /**
  * Checks for newer versions of JPhotoTagger and downloads them depending.

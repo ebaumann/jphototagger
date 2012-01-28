@@ -13,8 +13,9 @@ import javax.swing.JList;
 import javax.swing.TransferHandler;
 
 import org.jdesktop.swingx.JXList;
-import org.jphototagger.program.datatransfer.Flavor;
+
 import org.jphototagger.domain.filefilter.FileFilterUtil;
+import org.jphototagger.program.datatransfer.Flavor;
 import org.jphototagger.program.resource.GUI;
 
 /**

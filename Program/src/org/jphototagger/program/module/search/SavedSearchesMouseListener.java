@@ -6,8 +6,8 @@ import java.awt.event.MouseEvent;
 import org.jdesktop.swingx.JXList;
 
 import org.jphototagger.domain.metadata.search.SavedSearch;
-import org.jphototagger.lib.swing.util.ListUtil;
 import org.jphototagger.lib.swing.MouseEventUtil;
+import org.jphototagger.lib.swing.util.ListUtil;
 
 /**
  * Do not use this class as a template for other implementations! Instead extend

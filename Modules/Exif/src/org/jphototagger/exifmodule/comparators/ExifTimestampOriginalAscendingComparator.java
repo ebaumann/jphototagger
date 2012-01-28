@@ -4,9 +4,9 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.Comparator;
 
-import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.openide.util.Lookup;
 
+import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.lib.util.ClassEquality;
 
 /**

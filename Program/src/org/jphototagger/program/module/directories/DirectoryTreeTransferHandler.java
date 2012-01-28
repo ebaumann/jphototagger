@@ -11,10 +11,10 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
 import org.jphototagger.domain.favorites.Favorite;
+import org.jphototagger.domain.filefilter.FileFilterUtil;
 import org.jphototagger.lib.datatransfer.TransferUtil;
 import org.jphototagger.lib.datatransfer.TransferUtil.FilenameDelimiter;
 import org.jphototagger.program.datatransfer.Flavor;
-import org.jphototagger.domain.filefilter.FileFilterUtil;
 import org.jphototagger.program.module.filesystem.FilesystemImageUtil;
 import org.jphototagger.program.module.filesystem.FilesystemImageUtil.ConfirmOverwrite;
 

@@ -1,18 +1,18 @@
 package org.jphototagger.ttc.def.scripts.unix;
 
 import java.io.File;
-
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.branding.Branding;
-import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.tcc.def.FileChooser;
 import org.jphototagger.tcc.def.SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction;

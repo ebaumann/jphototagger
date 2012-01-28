@@ -24,8 +24,8 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.concurrent.SerialExecutor;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
-import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.program.misc.SaveToOrUpdateFilesInRepositoryImpl;
+import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.program.settings.SettingsDialog;
 
 /**

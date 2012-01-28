@@ -3,11 +3,11 @@ package org.jphototagger.domain.repository;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.openide.util.Lookup;
+
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.BlockJUnit4ClassRunner;
 import org.junit.runners.model.InitializationError;
-
-import org.openide.util.Lookup;
 
 /**
  * Annotate unit test classes requiring the repository with {@code @RunWith(RepositoryConnectedTestClassRunner.class)}.

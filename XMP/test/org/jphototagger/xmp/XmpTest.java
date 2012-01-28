@@ -1,13 +1,15 @@
 package org.jphototagger.xmp;
 
-import com.adobe.xmp.properties.XMPPropertyInfo;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
+
+import com.adobe.xmp.properties.XMPPropertyInfo;
+
+import org.junit.AfterClass;
+import static org.junit.Assert.*;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 /**
  * @author Elmar Baumann

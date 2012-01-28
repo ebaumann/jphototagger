@@ -9,8 +9,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.jphototagger.domain.metadata.keywords.Keyword;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.KeyEventUtil;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.module.keywords.KeywordsPanel;

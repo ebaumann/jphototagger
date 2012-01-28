@@ -4,13 +4,13 @@ import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.imagero.reader.iptc.IPTCEntry;
-import com.imagero.reader.iptc.IPTCEntryMeta;
-
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.lib.util.StringUtil;
+
+import com.imagero.reader.iptc.IPTCEntry;
+import com.imagero.reader.iptc.IPTCEntryMeta;
 
 /**
  * IPTC-Eintrag in einer Bilddatei. Dekodiert die Daten (getData()) als

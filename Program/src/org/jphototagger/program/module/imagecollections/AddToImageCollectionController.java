@@ -3,8 +3,8 @@ package org.jphototagger.program.module.imagecollections;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPopupMenu;
+import org.jphototagger.program.resource.GUI;
 
 /**
  * Kontrolliert die Aktion: Füge Bilder einer Bildsammlung hinzu, ausgelöst von

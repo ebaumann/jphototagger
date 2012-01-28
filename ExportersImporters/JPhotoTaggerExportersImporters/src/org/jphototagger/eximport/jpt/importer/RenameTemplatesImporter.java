@@ -14,10 +14,10 @@ import org.openide.util.lookup.ServiceProvider;
 import org.jphototagger.domain.repository.RenameTemplatesRepository;
 import org.jphototagger.domain.repository.RepositoryDataImporter;
 import org.jphototagger.domain.templates.RenameTemplate;
-import org.jphototagger.lib.swing.IconUtil;
-import org.jphototagger.lib.xml.bind.XmlObjectImporter;
 import org.jphototagger.eximport.jpt.exporter.RenameTemplatesExporter;
 import org.jphototagger.eximport.jpt.exporter.RenameTemplatesExporter.CollectionWrapper;
+import org.jphototagger.lib.swing.IconUtil;
+import org.jphototagger.lib.xml.bind.XmlObjectImporter;
 
 /**
  * @author Elmar Baumann

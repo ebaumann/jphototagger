@@ -20,11 +20,11 @@ import org.jphototagger.api.plugin.fileprocessor.FileProcessingFinishedEvent;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessingStartedEvent;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessorPlugin;
 import org.jphototagger.lib.io.IoUtil;
+import org.jphototagger.lib.plugin.AbstractFileProcessorPlugin;
 import org.jphototagger.lib.swing.IconUtil;
-import org.jphototagger.lib.util.SystemUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.SystemProperties;
-import org.jphototagger.lib.plugin.AbstractFileProcessorPlugin;
+import org.jphototagger.lib.util.SystemUtil;
 
 /**
  * @author Elmar Baumann

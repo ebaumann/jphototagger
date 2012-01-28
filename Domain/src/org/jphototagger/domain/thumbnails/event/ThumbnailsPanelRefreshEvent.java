@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
 import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
+import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
 
 /**
  * @author Elmar Baumann

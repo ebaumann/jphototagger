@@ -9,6 +9,7 @@ import javax.swing.TransferHandler;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.jdesktop.swingx.JXList;
+
 import org.jphototagger.domain.metadata.MetaDataValueData;
 import org.jphototagger.program.module.keywords.KeywordsUtil;
 

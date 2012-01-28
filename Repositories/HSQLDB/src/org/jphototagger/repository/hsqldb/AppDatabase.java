@@ -8,10 +8,10 @@ import java.util.logging.Logger;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.branding.AppProperties;
-import org.jphototagger.domain.thumbnails.ThumbnailsDirectoryProvider;
 import org.jphototagger.domain.repository.ApplicationPropertiesRepository;
-import org.jphototagger.lib.swing.MessageDisplayer;
+import org.jphototagger.domain.thumbnails.ThumbnailsDirectoryProvider;
 import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.Version;
 import org.jphototagger.repository.hsqldb.update.tables.DatabaseUpdate;

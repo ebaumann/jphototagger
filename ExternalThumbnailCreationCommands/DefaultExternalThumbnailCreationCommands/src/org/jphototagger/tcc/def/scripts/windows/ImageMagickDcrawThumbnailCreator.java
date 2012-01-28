@@ -9,11 +9,11 @@ import javax.swing.JOptionPane;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
-import org.jphototagger.domain.thumbnails.ExternalThumbnailCreationCommand;
 import org.jphototagger.api.storage.PreferencesDirectoryProvider;
+import org.jphototagger.domain.thumbnails.ExternalThumbnailCreationCommand;
 import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.lib.util.SystemUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.util.SystemUtil;
 import org.jphototagger.tcc.def.scripts.ScriptWriter;
 
 /**

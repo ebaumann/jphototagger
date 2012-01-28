@@ -13,8 +13,8 @@ import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter;
-
 import javax.swing.text.JTextComponent;
+
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 
 /**
