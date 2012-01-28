@@ -7,7 +7,7 @@ Changelog JPhotoTagger http://jphototagger.org/
 -----------------
 
 * Warnung, dass ein Vorschaubild nicht umbenannt werden konnte nach Umbenennen
-  eines Ordners sollte nicht mehr erscheinen
+  eines Ordners, sollte nicht mehr erscheinen
 
 0.15.2 2011-12-10
 -----------------
