@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.util.ExceptionUtil;
 
 /**
  * @author Elmar Baumann
@@ -75,7 +76,7 @@ public final class MessageDisplayer {
     /**
      * Displays an information message.
      *
-     * @param parentComponent  maybe null
+     * @param parentComponent maybe null
      * @param message
      */
     public static void information(Component parentComponent, String message) {
@@ -84,6 +85,27 @@ public final class MessageDisplayer {
         }
 
         message(parentComponent, message, JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    /**
+     * Displays information of a Throwable within a detail area.
+     * @param message short message
+     * @param throwable
+     */
+    public static void thrown(String message, Throwable throwable) {
+        if (message == null) {
+            throw new NullPointerException("message == null");
+        }
+        if (throwable == null) {
+            throw new NullPointerException("throwable == null");
+        }
+        LongMessageDialog dlg = new LongMessageDialog(ComponentUtil.findFrameWithIcon(), true);
+        dlg.setTitle(Bundle.getString(MessageDisplayer.class, "MessageDisplayer.Title.Thrown"));
+        dlg.setErrorIcon();
+        dlg.setShortMessage(message);
+        String longMessage = throwable.getLocalizedMessage() + "\n" + ExceptionUtil.getStackTraceAsString(throwable);
+        dlg.setLongMessage(longMessage);
+        dlg.setVisible(true);
     }
 
     public enum ConfirmAction {
