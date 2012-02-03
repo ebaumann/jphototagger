@@ -11,10 +11,14 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
+
+import org.jphototagger.lib.io.IoUtil;
 
 /**
  * @author Elmar Baumann
@@ -22,11 +26,12 @@ import javax.imageio.ImageIO;
 public final class ImageUtil {
 
     /**
-     * Returns a <code>ByteArrayInputStream</code> of an image.
+     * Returns a
+     * <code>ByteArrayInputStream</code> of an image.
      *
-     * @param image      image
+     * @param image image
      * @param formatName a String containg the informal name of the format
-     * @return           stream oder null on errors
+     * @return stream oder null on errors
      */
     public static ByteArrayInputStream getByteArrayInputStream(Image image, String formatName) {
         if (image == null) {
@@ -64,9 +69,9 @@ public final class ImageUtil {
     /**
      * Returns the new dimensions of an image if the image shall be scaled.
      *
-     * @param img      image to scale
+     * @param img image to scale
      * @param maxWidth the new width of the longer image side
-     * @return         new dimensions or null if they couldn't be calculated
+     * @return new dimensions or null if they couldn't be calculated
      */
     public static Dimension getNewDimensions(BufferedImage img, int maxWidth) {
         if (img == null) {
@@ -108,12 +113,11 @@ public final class ImageUtil {
     }
 
     /**
-     * Returns a scaled instance of an image with a maximum length of the longer
-     * image dimension.
+     * Returns a scaled instance of an image with a maximum length of the longer image dimension.
      *
-     * @param image     image
+     * @param image image
      * @param maxLength maximum length of the maximum dimension
-     * @return          scaled instance
+     * @return scaled instance
      */
     public static Image getScaledInstance(Image image, int maxLength) {
         if (image == null) {
@@ -139,10 +143,9 @@ public final class ImageUtil {
     /**
      * Returns a thumbnail from an image file.
      *
-     * @param  imageFile image file readable through the Java Imaging I/O
-     * @param  maxLength length in pixel of the longer image dimension (width or
-     *                   height)
-     * @return           image or null
+     * @param imageFile image file readable through the Java Imaging I/O
+     * @param maxLength length in pixel of the longer image dimension (width or height)
+     * @return image or null
      */
     public static Image getThumbnail(File imageFile, int maxLength) {
         if (imageFile == null) {
@@ -230,6 +233,31 @@ public final class ImageUtil {
         }
 
         return image;
+    }
+
+    public static void writeJpegImage(Image jpegImage, File toFile) throws IOException {
+        if (jpegImage == null) {
+            throw new NullPointerException("jpegImage == null");
+        }
+
+        if (toFile == null) {
+            throw new NullPointerException("toFile == null");
+        }
+
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(toFile);
+            fos.getChannel().lock();
+            ByteArrayInputStream is = ImageUtil.getByteArrayInputStream(jpegImage, "jpeg");
+            if (is != null) {
+                int nextByte;
+                while ((nextByte = is.read()) != -1) {
+                    fos.write(nextByte);
+                }
+            }
+        } finally {
+            IoUtil.close(fos);
+        }
     }
 
     private ImageUtil() {
